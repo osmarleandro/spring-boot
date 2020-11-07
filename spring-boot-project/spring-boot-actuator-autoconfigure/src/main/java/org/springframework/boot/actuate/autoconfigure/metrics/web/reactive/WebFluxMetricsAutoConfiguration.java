@@ -29,6 +29,7 @@ import org.springframework.boot.actuate.autoconfigure.metrics.MetricsProperties.
 import org.springframework.boot.actuate.autoconfigure.metrics.OnlyOnceLoggingDenyMeterFilter;
 import org.springframework.boot.actuate.autoconfigure.metrics.export.simple.SimpleMetricsExportAutoConfiguration;
 import org.springframework.boot.actuate.metrics.web.reactive.server.DefaultWebFluxTagsProvider;
+import org.springframework.boot.actuate.metrics.web.reactive.server.IMetricsWebFilter;
 import org.springframework.boot.actuate.metrics.web.reactive.server.MetricsWebFilter;
 import org.springframework.boot.actuate.metrics.web.reactive.server.WebFluxTagsContributor;
 import org.springframework.boot.actuate.metrics.web.reactive.server.WebFluxTagsProvider;
@@ -70,7 +71,7 @@ public class WebFluxMetricsAutoConfiguration {
 	}
 
 	@Bean
-	public MetricsWebFilter webfluxMetrics(MeterRegistry registry, WebFluxTagsProvider tagConfigurer) {
+	public IMetricsWebFilter webfluxMetrics(MeterRegistry registry, WebFluxTagsProvider tagConfigurer) {
 		ServerRequest request = this.properties.getWeb().getServer().getRequest();
 		return new MetricsWebFilter(registry, tagConfigurer, request.getMetricName(), request.getAutotime());
 	}
