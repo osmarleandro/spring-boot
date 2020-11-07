@@ -21,7 +21,7 @@ package org.springframework.boot.actuate.endpoint.jmx;
  *
  * @author Stephane Nicoll
  */
-class TestJmxOperationResponseMapper implements JmxOperationResponseMapper {
+class TestJmxOperationResponseMapper implements JmxOperationResponseMapper, ITestJmxOperationResponseMapper {
 
 	@Override
 	public Object mapResponse(Object response) {
