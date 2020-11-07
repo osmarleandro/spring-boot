@@ -32,7 +32,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Meang Akira Tanaka
  * @author Andy Wilkinson
  */
-class InfoEndpointTests {
+class InfoEndpointTests implements IInfoEndpointTests {
 
 	@Test
 	void info() {
