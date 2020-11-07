@@ -72,7 +72,7 @@ class HealthEndpointTests
 	}
 
 	@Override
-	protected HealthContributorRegistry createRegistry() {
+	protected IHealthContributorRegistry createRegistry() {
 		return new DefaultHealthContributorRegistry();
 	}
 

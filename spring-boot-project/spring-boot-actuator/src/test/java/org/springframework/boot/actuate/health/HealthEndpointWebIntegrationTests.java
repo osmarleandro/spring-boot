@@ -168,7 +168,7 @@ class HealthEndpointWebIntegrationTests {
 	static class TestConfiguration {
 
 		@Bean
-		HealthContributorRegistry healthContributorRegistry(Map<String, HealthContributor> healthContributorBeans) {
+		IHealthContributorRegistry healthContributorRegistry(Map<String, HealthContributor> healthContributorBeans) {
 			return new DefaultHealthContributorRegistry(healthContributorBeans);
 		}
 
