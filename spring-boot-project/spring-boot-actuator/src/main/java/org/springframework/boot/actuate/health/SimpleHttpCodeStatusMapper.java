@@ -32,7 +32,7 @@ import org.springframework.util.CollectionUtils;
  * @author Phillip Webb
  * @since 2.2.0
  */
-public class SimpleHttpCodeStatusMapper implements HttpCodeStatusMapper {
+public class SimpleHttpCodeStatusMapper implements HttpCodeStatusMapper, ISimpleHttpCodeStatusMapper {
 
 	private static final Map<String, Integer> DEFAULT_MAPPINGS;
 	static {
