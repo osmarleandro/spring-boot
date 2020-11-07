@@ -28,7 +28,7 @@ import org.springframework.web.servlet.HandlerInterceptor;
  *
  * @author Phillip Webb
  */
-final class SkipPathExtensionContentNegotiation implements HandlerInterceptor {
+final class SkipPathExtensionContentNegotiation implements HandlerInterceptor, ISkipPathExtensionContentNegotiation {
 
 	@SuppressWarnings("deprecation")
 	private static final String SKIP_ATTRIBUTE = org.springframework.web.accept.PathExtensionContentNegotiationStrategy.class
