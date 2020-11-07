@@ -96,7 +96,7 @@ class ShutdownEndpointTests {
 		private volatile ClassLoader threadContextClassLoader;
 
 		@Bean
-		ShutdownEndpoint endpoint() {
+		IShutdownEndpoint endpoint() {
 			return new ShutdownEndpoint();
 		}
 

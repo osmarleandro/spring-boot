@@ -17,6 +17,7 @@
 package org.springframework.boot.actuate.autoconfigure.context;
 
 import org.springframework.boot.actuate.autoconfigure.endpoint.condition.ConditionalOnAvailableEndpoint;
+import org.springframework.boot.actuate.context.IShutdownEndpoint;
 import org.springframework.boot.actuate.context.ShutdownEndpoint;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -35,7 +36,7 @@ public class ShutdownEndpointAutoConfiguration {
 
 	@Bean(destroyMethod = "")
 	@ConditionalOnMissingBean
-	public ShutdownEndpoint shutdownEndpoint() {
+	public IShutdownEndpoint shutdownEndpoint() {
 		return new ShutdownEndpoint();
 	}
 

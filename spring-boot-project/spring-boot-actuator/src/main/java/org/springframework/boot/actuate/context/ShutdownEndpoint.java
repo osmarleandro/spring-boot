@@ -35,7 +35,7 @@ import org.springframework.context.ConfigurableApplicationContext;
  * @since 2.0.0
  */
 @Endpoint(id = "shutdown", enableByDefault = false)
-public class ShutdownEndpoint implements ApplicationContextAware {
+public class ShutdownEndpoint implements ApplicationContextAware, IShutdownEndpoint {
 
 	private static final Map<String, String> NO_CONTEXT_MESSAGE = Collections
 			.unmodifiableMap(Collections.singletonMap("message", "No context to shutdown."));
