@@ -28,7 +28,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Andy Wilkinson
  * @author Phillip Webb
  */
-class WebOperationRequestPredicateTests {
+class WebOperationRequestPredicateTests implements IWebOperationRequestPredicateTests {
 
 	@Test
 	void predicatesWithIdenticalPathsAreEqual() {
