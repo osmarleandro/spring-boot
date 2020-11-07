@@ -43,7 +43,7 @@ class SessionsEndpointTests {
 	@SuppressWarnings("unchecked")
 	private final FindByIndexNameSessionRepository<Session> repository = mock(FindByIndexNameSessionRepository.class);
 
-	private final SessionsEndpoint endpoint = new SessionsEndpoint(this.repository);
+	private final ISessionsEndpoint endpoint = new SessionsEndpoint(this.repository);
 
 	@Test
 	void sessionsForUsername() {

@@ -76,7 +76,7 @@ class SessionsEndpointWebIntegrationTests {
 	static class TestConfiguration {
 
 		@Bean
-		SessionsEndpoint sessionsEndpoint() {
+		ISessionsEndpoint sessionsEndpoint() {
 			return new SessionsEndpoint(repository);
 		}
 
