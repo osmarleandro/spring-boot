@@ -26,7 +26,7 @@ import org.springframework.boot.actuate.endpoint.OperationType;
  * @since 2.0.0
  */
 @FunctionalInterface
-public interface OperationInvokerAdvisor {
+public interface OperationInvokerAdvisor extends IOperationInvokerAdvisor {
 
 	/**
 	 * Apply additional functionality to the given invoker.
