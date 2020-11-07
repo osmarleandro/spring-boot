@@ -35,7 +35,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Dave Syer
  * @author Andy Wilkinson
  */
-class ConfigurationPropertiesReportEndpointMethodAnnotationsTests {
+class ConfigurationPropertiesReportEndpointMethodAnnotationsTests implements IConfigurationPropertiesReportEndpointMethodAnnotationsTests {
 
 	@Test
 	void testNaming() {
