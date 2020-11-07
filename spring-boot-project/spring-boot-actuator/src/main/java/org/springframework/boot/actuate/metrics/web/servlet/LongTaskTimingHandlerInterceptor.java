@@ -44,7 +44,7 @@ import org.springframework.web.servlet.HandlerInterceptor;
  * @author Andy Wilkinson
  * @since 2.0.7
  */
-public class LongTaskTimingHandlerInterceptor implements HandlerInterceptor {
+public class LongTaskTimingHandlerInterceptor implements HandlerInterceptor, ILongTaskTimingHandlerInterceptor {
 
 	private final MeterRegistry registry;
 
