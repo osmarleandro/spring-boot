@@ -30,7 +30,7 @@ import org.springframework.boot.actuate.trace.http.TraceableResponse;
  *
  * @author Andy Wilkinson
  */
-final class TraceableHttpServletResponse implements TraceableResponse {
+final class TraceableHttpServletResponse implements TraceableResponse, ITraceableHttpServletResponse {
 
 	private final HttpServletResponse delegate;
 
