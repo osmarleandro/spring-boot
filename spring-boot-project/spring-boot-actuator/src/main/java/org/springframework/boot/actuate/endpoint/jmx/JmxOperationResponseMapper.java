@@ -22,7 +22,7 @@ package org.springframework.boot.actuate.endpoint.jmx;
  * @author Stephane Nicoll
  * @since 2.0.0
  */
-public interface JmxOperationResponseMapper {
+public interface JmxOperationResponseMapper extends IJmxOperationResponseMapper {
 
 	/**
 	 * Map the response type to its JMX compliant counterpart.
