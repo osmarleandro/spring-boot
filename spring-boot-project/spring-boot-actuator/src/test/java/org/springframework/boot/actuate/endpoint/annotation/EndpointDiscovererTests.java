@@ -37,6 +37,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.actuate.endpoint.EndpointFilter;
 import org.springframework.boot.actuate.endpoint.EndpointId;
 import org.springframework.boot.actuate.endpoint.ExposableEndpoint;
+import org.springframework.boot.actuate.endpoint.IExposableEndpoint;
 import org.springframework.boot.actuate.endpoint.Operation;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvoker;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvokerAdvisor;
@@ -284,7 +285,7 @@ class EndpointDiscovererTests {
 		return ReflectionUtils.findMethod(TestEndpoint.class, name, paramTypes);
 	}
 
-	private <E extends ExposableEndpoint<?>> Map<EndpointId, E> mapEndpoints(Collection<E> endpoints) {
+	private <E extends IExposableEndpoint<?>> Map<EndpointId, E> mapEndpoints(Collection<E> endpoints) {
 		Map<EndpointId, E> byId = new LinkedHashMap<>();
 		endpoints.forEach((endpoint) -> {
 			E existing = byId.put(endpoint.getEndpointId(), endpoint);
