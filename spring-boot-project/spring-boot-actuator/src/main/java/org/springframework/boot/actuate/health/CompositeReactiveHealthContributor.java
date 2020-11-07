@@ -29,7 +29,7 @@ import java.util.function.Function;
  * @see CompositeHealthContributor
  */
 public interface CompositeReactiveHealthContributor
-		extends ReactiveHealthContributor, NamedContributors<ReactiveHealthContributor> {
+		extends ReactiveHealthContributor, NamedContributors<ReactiveHealthContributor>, ICompositeReactiveHealthContributor {
 
 	/**
 	 * Factory method that will create a {@link CompositeReactiveHealthContributor} from
@@ -49,7 +49,7 @@ public interface CompositeReactiveHealthContributor
 	 * @param valueAdapter function used to adapt the map value
 	 * @return a composite health contributor instance
 	 */
-	static <V> CompositeReactiveHealthContributor fromMap(Map<String, V> map,
+	static <V> ICompositeReactiveHealthContributor fromMap(Map<String, V> map,
 			Function<V, ? extends ReactiveHealthContributor> valueAdapter) {
 		return new CompositeReactiveHealthContributorMapAdapter<>(map, valueAdapter);
 	}
