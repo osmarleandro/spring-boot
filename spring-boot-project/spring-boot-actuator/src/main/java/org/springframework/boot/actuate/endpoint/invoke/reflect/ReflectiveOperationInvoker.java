@@ -40,7 +40,7 @@ import org.springframework.util.ReflectionUtils;
  * @author Phillip Webb
  * @since 2.0.0
  */
-public class ReflectiveOperationInvoker implements OperationInvoker {
+public class ReflectiveOperationInvoker implements OperationInvoker, IReflectiveOperationInvoker {
 
 	private final Object target;
 
