@@ -22,7 +22,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.springframework.boot.actuate.endpoint.SecurityContext;
-import org.springframework.boot.actuate.endpoint.http.ApiVersion;
+import org.springframework.boot.actuate.endpoint.http.IApiVersion;
 import org.springframework.util.Assert;
 
 /**
@@ -53,7 +53,7 @@ abstract class HealthEndpointSupport<C, T> {
 		this.groups = groups;
 	}
 
-	HealthResult<T> getHealth(ApiVersion apiVersion, SecurityContext securityContext, boolean showAll, String... path) {
+	HealthResult<T> getHealth(IApiVersion apiVersion, SecurityContext securityContext, boolean showAll, String... path) {
 		HealthEndpointGroup group = (path.length > 0) ? this.groups.get(path[0]) : null;
 		if (group != null) {
 			return getHealth(apiVersion, group, securityContext, showAll, path, 1);
@@ -61,7 +61,7 @@ abstract class HealthEndpointSupport<C, T> {
 		return getHealth(apiVersion, this.groups.getPrimary(), securityContext, showAll, path, 0);
 	}
 
-	private HealthResult<T> getHealth(ApiVersion apiVersion, HealthEndpointGroup group, SecurityContext securityContext,
+	private HealthResult<T> getHealth(IApiVersion apiVersion, HealthEndpointGroup group, SecurityContext securityContext,
 			boolean showAll, String[] path, int pathOffset) {
 		boolean showComponents = showAll || group.showComponents(securityContext);
 		boolean showDetails = showAll || group.showDetails(securityContext);
@@ -90,7 +90,7 @@ abstract class HealthEndpointSupport<C, T> {
 	}
 
 	@SuppressWarnings("unchecked")
-	private T getContribution(ApiVersion apiVersion, HealthEndpointGroup group, Object contributor,
+	private T getContribution(IApiVersion apiVersion, HealthEndpointGroup group, Object contributor,
 			boolean showComponents, boolean showDetails, Set<String> groupNames, boolean isNested) {
 		if (contributor instanceof NamedContributors) {
 			return getAggregateHealth(apiVersion, group, (NamedContributors<C>) contributor, showComponents,
@@ -99,7 +99,7 @@ abstract class HealthEndpointSupport<C, T> {
 		return (contributor != null) ? getHealth((C) contributor, showDetails) : null;
 	}
 
-	private T getAggregateHealth(ApiVersion apiVersion, HealthEndpointGroup group,
+	private T getAggregateHealth(IApiVersion apiVersion, HealthEndpointGroup group,
 			NamedContributors<C> namedContributors, boolean showComponents, boolean showDetails, Set<String> groupNames,
 			boolean isNested) {
 		Map<String, T> contributions = new LinkedHashMap<>();
@@ -123,10 +123,10 @@ abstract class HealthEndpointSupport<C, T> {
 
 	protected abstract T getHealth(C contributor, boolean includeDetails);
 
-	protected abstract T aggregateContributions(ApiVersion apiVersion, Map<String, T> contributions,
+	protected abstract T aggregateContributions(IApiVersion apiVersion, Map<String, T> contributions,
 			StatusAggregator statusAggregator, boolean showComponents, Set<String> groupNames);
 
-	protected final CompositeHealth getCompositeHealth(ApiVersion apiVersion, Map<String, HealthComponent> components,
+	protected final CompositeHealth getCompositeHealth(IApiVersion apiVersion, Map<String, HealthComponent> components,
 			StatusAggregator statusAggregator, boolean showComponents, Set<String> groupNames) {
 		Status status = statusAggregator
 				.getAggregateStatus(components.values().stream().map(this::getStatus).collect(Collectors.toSet()));
