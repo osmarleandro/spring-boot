@@ -45,7 +45,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
  * @author Madhura Bhave
  * @since 2.0.0
  */
-public class HttpTraceFilter extends OncePerRequestFilter implements Ordered {
+public class HttpTraceFilter extends OncePerRequestFilter implements Ordered, IHttpTraceFilter {
 
 	// Not LOWEST_PRECEDENCE, but near the end, so it has a good chance of catching all
 	// enriched headers, but users can add stuff after this if they want to
