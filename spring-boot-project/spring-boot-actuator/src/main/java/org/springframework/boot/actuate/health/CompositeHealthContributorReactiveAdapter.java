@@ -58,7 +58,7 @@ class CompositeHealthContributorReactiveAdapter implements CompositeReactiveHeal
 	}
 
 	@Override
-	public ReactiveHealthContributor getContributor(String name) {
+	public IReactiveHealthContributor getContributor(String name) {
 		HealthContributor contributor = this.delegate.getContributor(name);
 		return (contributor != null) ? ReactiveHealthContributor.adapt(contributor) : null;
 	}

@@ -34,6 +34,7 @@ import org.springframework.boot.actuate.health.HealthEndpointGroups;
 import org.springframework.boot.actuate.health.HealthEndpointGroupsPostProcessor;
 import org.springframework.boot.actuate.health.HealthIndicator;
 import org.springframework.boot.actuate.health.HttpCodeStatusMapper;
+import org.springframework.boot.actuate.health.IReactiveHealthContributor;
 import org.springframework.boot.actuate.health.NamedContributor;
 import org.springframework.boot.actuate.health.ReactiveHealthContributor;
 import org.springframework.boot.actuate.health.ReactiveHealthIndicator;
@@ -143,7 +144,7 @@ class HealthEndpointConfiguration {
 			this.adapted = Collections.unmodifiableMap(adapted);
 		}
 
-		private HealthContributor adapt(ReactiveHealthContributor contributor) {
+		private HealthContributor adapt(IReactiveHealthContributor contributor) {
 			if (contributor instanceof ReactiveHealthIndicator) {
 				return adapt((ReactiveHealthIndicator) contributor);
 			}

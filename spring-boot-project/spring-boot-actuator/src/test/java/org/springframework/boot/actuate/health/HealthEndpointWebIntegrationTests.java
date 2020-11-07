@@ -113,7 +113,7 @@ class HealthEndpointWebIntegrationTests {
 	}
 
 	private void withHealthContributor(ApplicationContext context, String name, HealthContributor healthContributor,
-			ReactiveHealthContributor reactiveHealthContributor, ThrowingCallable callable) {
+			IReactiveHealthContributor reactiveHealthContributor, ThrowingCallable callable) {
 		HealthContributorRegistry healthContributorRegistry = getContributorRegistry(context,
 				HealthContributorRegistry.class);
 		healthContributorRegistry.registerContributor(name, healthContributor);
@@ -149,7 +149,7 @@ class HealthEndpointWebIntegrationTests {
 		HealthContributor bravo = healthContributorRegistry.unregisterContributor(name);
 		ReactiveHealthContributorRegistry reactiveHealthContributorRegistry = getContributorRegistry(context,
 				ReactiveHealthContributorRegistry.class);
-		ReactiveHealthContributor reactiveBravo = (reactiveHealthContributorRegistry != null)
+		IReactiveHealthContributor reactiveBravo = (reactiveHealthContributorRegistry != null)
 				? reactiveHealthContributorRegistry.unregisterContributor(name) : null;
 		try {
 			client.get().uri("/actuator/health").accept(MediaType.APPLICATION_JSON).exchange().expectStatus().isOk()

@@ -24,7 +24,7 @@ import reactor.core.publisher.Flux;
 import org.springframework.boot.actuate.autoconfigure.health.CompositeHealthContributorConfiguration;
 import org.springframework.boot.actuate.autoconfigure.health.CompositeReactiveHealthContributorConfiguration;
 import org.springframework.boot.actuate.health.HealthContributor;
-import org.springframework.boot.actuate.health.ReactiveHealthContributor;
+import org.springframework.boot.actuate.health.IReactiveHealthContributor;
 import org.springframework.boot.actuate.neo4j.Neo4jHealthIndicator;
 import org.springframework.boot.actuate.neo4j.Neo4jReactiveHealthIndicator;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
@@ -58,7 +58,7 @@ class Neo4jHealthContributorConfigurations {
 
 		@Bean
 		@ConditionalOnMissingBean(name = { "neo4jHealthIndicator", "neo4jHealthContributor" })
-		ReactiveHealthContributor neo4jHealthContributor(Map<String, Driver> drivers) {
+		IReactiveHealthContributor neo4jHealthContributor(Map<String, Driver> drivers) {
 			return createContributor(drivers);
 		}
 

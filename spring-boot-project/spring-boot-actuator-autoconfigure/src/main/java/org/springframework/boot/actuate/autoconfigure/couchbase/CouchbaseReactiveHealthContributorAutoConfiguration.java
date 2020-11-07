@@ -23,7 +23,7 @@ import reactor.core.publisher.Flux;
 import org.springframework.boot.actuate.autoconfigure.health.CompositeReactiveHealthContributorConfiguration;
 import org.springframework.boot.actuate.autoconfigure.health.ConditionalOnEnabledHealthIndicator;
 import org.springframework.boot.actuate.couchbase.CouchbaseReactiveHealthIndicator;
-import org.springframework.boot.actuate.health.ReactiveHealthContributor;
+import org.springframework.boot.actuate.health.IReactiveHealthContributor;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
@@ -51,7 +51,7 @@ public class CouchbaseReactiveHealthContributorAutoConfiguration
 
 	@Bean
 	@ConditionalOnMissingBean(name = { "couchbaseHealthIndicator", "couchbaseHealthContributor" })
-	public ReactiveHealthContributor couchbaseHealthContributor(Map<String, Cluster> clusters) {
+	public IReactiveHealthContributor couchbaseHealthContributor(Map<String, Cluster> clusters) {
 		return createContributor(clusters);
 	}
 

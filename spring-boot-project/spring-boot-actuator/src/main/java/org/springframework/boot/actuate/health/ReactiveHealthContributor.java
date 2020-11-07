@@ -29,7 +29,7 @@ import org.springframework.util.Assert;
  * @see ReactiveHealthIndicator
  * @see CompositeReactiveHealthContributor
  */
-public interface ReactiveHealthContributor {
+public interface ReactiveHealthContributor extends IReactiveHealthContributor {
 
 	static ReactiveHealthContributor adapt(HealthContributor healthContributor) {
 		Assert.notNull(healthContributor, "HealthContributor must not be null");
