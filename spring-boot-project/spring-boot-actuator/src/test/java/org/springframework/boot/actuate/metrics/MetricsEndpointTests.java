@@ -40,7 +40,7 @@ import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
  * @author Andy Wilkinson
  * @author Jon Schneider
  */
-class MetricsEndpointTests {
+class MetricsEndpointTests implements IMetricsEndpointTests {
 
 	private final MeterRegistry registry = new SimpleMeterRegistry(SimpleConfig.DEFAULT, new MockClock());
 
