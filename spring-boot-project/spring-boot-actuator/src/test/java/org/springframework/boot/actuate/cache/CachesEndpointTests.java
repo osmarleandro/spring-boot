@@ -43,7 +43,7 @@ import static org.mockito.Mockito.verify;
  *
  * @author Stephane Nicoll
  */
-class CachesEndpointTests {
+class CachesEndpointTests implements ICachesEndpointTests {
 
 	@Test
 	void allCachesWithSingleCacheManager() {
