@@ -37,7 +37,7 @@ import org.springframework.util.Assert;
  * @author Tomasz Lelek
  * @since 2.4.0
  */
-public class CassandraDriverHealthIndicator extends AbstractHealthIndicator {
+public class CassandraDriverHealthIndicator extends AbstractHealthIndicator implements ICassandraDriverHealthIndicator {
 
 	private final CqlSession session;
 
