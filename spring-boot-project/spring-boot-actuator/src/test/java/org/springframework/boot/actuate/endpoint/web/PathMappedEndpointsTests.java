@@ -37,7 +37,7 @@ import static org.mockito.Mockito.mock;
  *
  * @author Phillip Webb
  */
-class PathMappedEndpointsTests {
+class PathMappedEndpointsTests implements IPathMappedEndpointsTests {
 
 	@Test
 	void createWhenSupplierIsNullShouldThrowException() {
