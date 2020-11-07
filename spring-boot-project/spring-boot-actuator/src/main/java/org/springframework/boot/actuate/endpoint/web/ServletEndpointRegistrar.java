@@ -37,7 +37,7 @@ import org.springframework.util.StringUtils;
  * @author Madhura Bhave
  * @since 2.0.0
  */
-public class ServletEndpointRegistrar implements ServletContextInitializer {
+public class ServletEndpointRegistrar implements ServletContextInitializer, IServletEndpointRegistrar {
 
 	private static final Log logger = LogFactory.getLog(ServletEndpointRegistrar.class);
 
