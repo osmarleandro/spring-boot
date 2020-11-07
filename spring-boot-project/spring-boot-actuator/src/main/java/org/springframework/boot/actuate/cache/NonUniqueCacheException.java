@@ -25,7 +25,7 @@ import java.util.Collections;
  * @author Stephane Nicoll
  * @since 2.1.0
  */
-public class NonUniqueCacheException extends RuntimeException {
+public class NonUniqueCacheException extends RuntimeException implements INonUniqueCacheException {
 
 	private final String cacheName;
 
