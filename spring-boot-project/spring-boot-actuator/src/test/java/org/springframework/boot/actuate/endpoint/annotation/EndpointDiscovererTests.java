@@ -66,7 +66,7 @@ import static org.mockito.Mockito.mock;
  * @author Stephane Nicoll
  * @author Phillip Webb
  */
-class EndpointDiscovererTests {
+class EndpointDiscovererTests implements IEndpointDiscovererTests {
 
 	@Test
 	void createWhenApplicationContextIsNullShouldThrowException() {
