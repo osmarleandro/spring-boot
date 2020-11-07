@@ -34,7 +34,7 @@ import org.springframework.util.Assert;
  * @author Scott Frederick
  * @since 2.0.0
  */
-public class RedisHealthIndicator extends AbstractHealthIndicator {
+public class RedisHealthIndicator extends AbstractHealthIndicator implements IRedisHealthIndicator {
 
 	private final RedisConnectionFactory redisConnectionFactory;
 
