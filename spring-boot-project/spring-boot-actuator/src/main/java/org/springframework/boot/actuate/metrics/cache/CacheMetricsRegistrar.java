@@ -35,7 +35,7 @@ import org.springframework.util.ClassUtils;
  * @author Stephane Nicoll
  * @since 2.0.0
  */
-public class CacheMetricsRegistrar {
+public class CacheMetricsRegistrar implements ICacheMetricsRegistrar {
 
 	private final MeterRegistry registry;
 

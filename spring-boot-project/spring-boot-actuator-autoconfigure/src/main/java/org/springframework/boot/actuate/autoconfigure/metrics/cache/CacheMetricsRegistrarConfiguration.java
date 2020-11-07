@@ -26,6 +26,7 @@ import io.micrometer.core.instrument.Tag;
 
 import org.springframework.boot.actuate.metrics.cache.CacheMeterBinderProvider;
 import org.springframework.boot.actuate.metrics.cache.CacheMetricsRegistrar;
+import org.springframework.boot.actuate.metrics.cache.ICacheMetricsRegistrar;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
@@ -47,7 +48,7 @@ class CacheMetricsRegistrarConfiguration {
 
 	private final MeterRegistry registry;
 
-	private final CacheMetricsRegistrar cacheMetricsRegistrar;
+	private final ICacheMetricsRegistrar cacheMetricsRegistrar;
 
 	private final Map<String, CacheManager> cacheManagers;
 
@@ -59,7 +60,7 @@ class CacheMetricsRegistrarConfiguration {
 	}
 
 	@Bean
-	CacheMetricsRegistrar cacheMetricsRegistrar() {
+	ICacheMetricsRegistrar cacheMetricsRegistrar() {
 		return this.cacheMetricsRegistrar;
 	}
 
