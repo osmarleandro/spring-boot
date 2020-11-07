@@ -24,7 +24,7 @@ import org.springframework.boot.actuate.autoconfigure.health.CompositeHealthCont
 import org.springframework.boot.actuate.autoconfigure.health.CompositeReactiveHealthContributorConfiguration;
 import org.springframework.boot.actuate.cassandra.CassandraDriverHealthIndicator;
 import org.springframework.boot.actuate.cassandra.CassandraDriverReactiveHealthIndicator;
-import org.springframework.boot.actuate.health.HealthContributor;
+import org.springframework.boot.actuate.health.IHealthContributor;
 import org.springframework.boot.actuate.health.ReactiveHealthContributor;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
@@ -48,7 +48,7 @@ class CassandraHealthContributorConfigurations {
 
 		@Bean
 		@ConditionalOnMissingBean(name = { "cassandraHealthIndicator", "cassandraHealthContributor" })
-		HealthContributor cassandraHealthContributor(Map<String, CqlSession> sessions) {
+		IHealthContributor cassandraHealthContributor(Map<String, CqlSession> sessions) {
 			return createContributor(sessions);
 		}
 
@@ -63,7 +63,7 @@ class CassandraHealthContributorConfigurations {
 
 		@Bean
 		@ConditionalOnMissingBean(name = { "cassandraHealthIndicator", "cassandraHealthContributor" })
-		HealthContributor cassandraHealthContributor(Map<String, CassandraOperations> cassandraOperations) {
+		IHealthContributor cassandraHealthContributor(Map<String, CassandraOperations> cassandraOperations) {
 			return createContributor(cassandraOperations);
 		}
 

@@ -112,7 +112,7 @@ class HealthEndpointWebIntegrationTests {
 						.isEqualTo("DOWN"));
 	}
 
-	private void withHealthContributor(ApplicationContext context, String name, HealthContributor healthContributor,
+	private void withHealthContributor(ApplicationContext context, String name, IHealthContributor healthContributor,
 			ReactiveHealthContributor reactiveHealthContributor, ThrowingCallable callable) {
 		HealthContributorRegistry healthContributorRegistry = getContributorRegistry(context,
 				HealthContributorRegistry.class);
@@ -146,7 +146,7 @@ class HealthEndpointWebIntegrationTests {
 		String name = "bravo";
 		HealthContributorRegistry healthContributorRegistry = getContributorRegistry(context,
 				HealthContributorRegistry.class);
-		HealthContributor bravo = healthContributorRegistry.unregisterContributor(name);
+		IHealthContributor bravo = healthContributorRegistry.unregisterContributor(name);
 		ReactiveHealthContributorRegistry reactiveHealthContributorRegistry = getContributorRegistry(context,
 				ReactiveHealthContributorRegistry.class);
 		ReactiveHealthContributor reactiveBravo = (reactiveHealthContributorRegistry != null)

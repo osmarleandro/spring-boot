@@ -90,12 +90,12 @@ class HealthEndpointWebExtensionTests
 	}
 
 	@Override
-	protected HealthContributor createContributor(Health health) {
+	protected IHealthContributor createContributor(Health health) {
 		return (HealthIndicator) () -> health;
 	}
 
 	@Override
-	protected HealthContributor createCompositeContributor(Map<String, HealthContributor> contributors) {
+	protected IHealthContributor createCompositeContributor(Map<String, HealthContributor> contributors) {
 		return CompositeHealthContributor.fromMap(contributors);
 	}
 

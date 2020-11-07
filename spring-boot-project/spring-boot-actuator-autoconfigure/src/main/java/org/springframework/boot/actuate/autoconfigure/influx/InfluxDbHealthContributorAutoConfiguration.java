@@ -22,7 +22,7 @@ import org.influxdb.InfluxDB;
 
 import org.springframework.boot.actuate.autoconfigure.health.CompositeHealthContributorConfiguration;
 import org.springframework.boot.actuate.autoconfigure.health.ConditionalOnEnabledHealthIndicator;
-import org.springframework.boot.actuate.health.HealthContributor;
+import org.springframework.boot.actuate.health.IHealthContributor;
 import org.springframework.boot.actuate.influx.InfluxDbHealthIndicator;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -49,7 +49,7 @@ public class InfluxDbHealthContributorAutoConfiguration
 
 	@Bean
 	@ConditionalOnMissingBean(name = { "influxDbHealthIndicator", "influxDbHealthContributor" })
-	public HealthContributor influxDbHealthContributor(Map<String, InfluxDB> influxDbs) {
+	public IHealthContributor influxDbHealthContributor(Map<String, InfluxDB> influxDbs) {
 		return createContributor(influxDbs);
 	}
 
