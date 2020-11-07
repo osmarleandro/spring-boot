@@ -50,7 +50,7 @@ import static org.mockito.Mockito.mock;
  *
  * @author Brian Clozel
  */
-class MetricsWebClientFilterFunctionTests {
+class MetricsWebClientFilterFunctionTests implements IMetricsWebClientFilterFunctionTests {
 
 	private static final String URI_TEMPLATE_ATTRIBUTE = WebClient.class.getName() + ".uriTemplate";
 
