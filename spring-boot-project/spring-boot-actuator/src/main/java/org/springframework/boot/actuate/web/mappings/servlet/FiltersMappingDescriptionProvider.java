@@ -34,7 +34,7 @@ import org.springframework.web.context.WebApplicationContext;
  * @author Andy Wilkinson
  * @since 2.0.0
  */
-public class FiltersMappingDescriptionProvider implements MappingDescriptionProvider {
+public class FiltersMappingDescriptionProvider implements MappingDescriptionProvider, IFiltersMappingDescriptionProvider {
 
 	@Override
 	public List<FilterRegistrationMappingDescription> describeMappings(ApplicationContext context) {

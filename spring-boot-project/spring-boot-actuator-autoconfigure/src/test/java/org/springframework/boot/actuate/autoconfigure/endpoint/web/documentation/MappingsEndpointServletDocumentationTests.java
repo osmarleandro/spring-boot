@@ -29,6 +29,7 @@ import org.springframework.boot.actuate.web.mappings.MappingDescriptionProvider;
 import org.springframework.boot.actuate.web.mappings.MappingsEndpoint;
 import org.springframework.boot.actuate.web.mappings.servlet.DispatcherServletsMappingDescriptionProvider;
 import org.springframework.boot.actuate.web.mappings.servlet.FiltersMappingDescriptionProvider;
+import org.springframework.boot.actuate.web.mappings.servlet.IFiltersMappingDescriptionProvider;
 import org.springframework.boot.actuate.web.mappings.servlet.ServletsMappingDescriptionProvider;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
@@ -167,7 +168,7 @@ class MappingsEndpointServletDocumentationTests extends AbstractEndpointDocument
 		}
 
 		@Bean
-		FiltersMappingDescriptionProvider filtersMappingDescriptionProvider() {
+		IFiltersMappingDescriptionProvider filtersMappingDescriptionProvider() {
 			return new FiltersMappingDescriptionProvider();
 		}
 
