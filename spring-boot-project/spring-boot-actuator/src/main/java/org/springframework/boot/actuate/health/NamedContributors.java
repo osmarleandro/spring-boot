@@ -28,7 +28,7 @@ import java.util.stream.StreamSupport;
  * @since 2.0.0
  * @see NamedContributor
  */
-public interface NamedContributors<C> extends Iterable<NamedContributor<C>> {
+public interface NamedContributors<C> extends Iterable<NamedContributor<C>>, INamedContributors<C> {
 
 	/**
 	 * Return the contributor with the given name.

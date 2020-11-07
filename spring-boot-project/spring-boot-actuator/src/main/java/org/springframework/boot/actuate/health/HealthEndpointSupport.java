@@ -93,14 +93,14 @@ abstract class HealthEndpointSupport<C, T> {
 	private T getContribution(ApiVersion apiVersion, HealthEndpointGroup group, Object contributor,
 			boolean showComponents, boolean showDetails, Set<String> groupNames, boolean isNested) {
 		if (contributor instanceof NamedContributors) {
-			return getAggregateHealth(apiVersion, group, (NamedContributors<C>) contributor, showComponents,
+			return getAggregateHealth(apiVersion, group, (INamedContributors<C>) contributor, showComponents,
 					showDetails, groupNames, isNested);
 		}
 		return (contributor != null) ? getHealth((C) contributor, showDetails) : null;
 	}
 
 	private T getAggregateHealth(ApiVersion apiVersion, HealthEndpointGroup group,
-			NamedContributors<C> namedContributors, boolean showComponents, boolean showDetails, Set<String> groupNames,
+			INamedContributors<C> namedContributors, boolean showComponents, boolean showDetails, Set<String> groupNames,
 			boolean isNested) {
 		Map<String, T> contributions = new LinkedHashMap<>();
 		for (NamedContributor<C> namedContributor : namedContributors) {
