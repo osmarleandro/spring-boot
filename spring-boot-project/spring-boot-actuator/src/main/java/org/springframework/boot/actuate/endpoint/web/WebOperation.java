@@ -25,7 +25,7 @@ import org.springframework.boot.actuate.endpoint.Operation;
  * @author Phillip Webb
  * @since 2.0.0
  */
-public interface WebOperation extends Operation {
+public interface WebOperation extends Operation, IWebOperation {
 
 	/**
 	 * Returns the ID of the operation that uniquely identifies it within its endpoint.

@@ -38,6 +38,7 @@ import org.springframework.boot.actuate.endpoint.invoke.OperationInvoker;
 import org.springframework.boot.actuate.endpoint.web.EndpointMapping;
 import org.springframework.boot.actuate.endpoint.web.EndpointMediaTypes;
 import org.springframework.boot.actuate.endpoint.web.ExposableWebEndpoint;
+import org.springframework.boot.actuate.endpoint.web.IWebOperation;
 import org.springframework.boot.actuate.endpoint.web.WebEndpointResponse;
 import org.springframework.boot.actuate.endpoint.web.WebOperation;
 import org.springframework.boot.actuate.endpoint.web.WebOperationRequestPredicate;
@@ -158,7 +159,7 @@ public abstract class AbstractWebFluxEndpointHandlerMapping extends RequestMappi
 	 * @param reactiveWebOperation the reactive web operation to wrap
 	 * @return a wrapped reactive web operation
 	 */
-	protected ReactiveWebOperation wrapReactiveWebOperation(ExposableWebEndpoint endpoint, WebOperation operation,
+	protected ReactiveWebOperation wrapReactiveWebOperation(ExposableWebEndpoint endpoint, IWebOperation operation,
 			ReactiveWebOperation reactiveWebOperation) {
 		return reactiveWebOperation;
 	}
