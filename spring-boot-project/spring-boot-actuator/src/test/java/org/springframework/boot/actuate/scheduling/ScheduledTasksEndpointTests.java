@@ -159,7 +159,7 @@ class ScheduledTasksEndpointTests {
 	static class BaseConfiguration {
 
 		@Bean
-		ScheduledTasksEndpoint endpoint(Collection<ScheduledTaskHolder> scheduledTaskHolders) {
+		IScheduledTasksEndpoint endpoint(Collection<ScheduledTaskHolder> scheduledTaskHolders) {
 			return new ScheduledTasksEndpoint(scheduledTaskHolders);
 		}
 
