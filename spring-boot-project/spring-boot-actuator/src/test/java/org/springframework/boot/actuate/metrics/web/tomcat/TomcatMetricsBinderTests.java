@@ -26,7 +26,7 @@ import static org.mockito.Mockito.mock;
  *
  * @author Andy Wilkinson
  */
-class TomcatMetricsBinderTests {
+class TomcatMetricsBinderTests implements ITomcatMetricsBinderTests {
 
 	private final MeterRegistry meterRegistry = mock(MeterRegistry.class);
 
