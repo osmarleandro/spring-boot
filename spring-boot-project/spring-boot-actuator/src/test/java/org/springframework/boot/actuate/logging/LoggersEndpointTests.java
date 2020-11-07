@@ -46,7 +46,7 @@ import static org.mockito.Mockito.verify;
  * @author HaiTao Zhang
  * @author Madhura Bhave
  */
-class LoggersEndpointTests {
+class LoggersEndpointTests implements ILoggersEndpointTests {
 
 	private final LoggingSystem loggingSystem = mock(LoggingSystem.class);
 
