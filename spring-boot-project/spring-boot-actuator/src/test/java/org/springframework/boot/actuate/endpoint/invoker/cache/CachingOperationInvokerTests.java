@@ -48,7 +48,7 @@ import static org.mockito.Mockito.verifyNoMoreInteractions;
  * @author Christoph Dreis
  * @author Phillip Webb
  */
-class CachingOperationInvokerTests {
+class CachingOperationInvokerTests implements ICachingOperationInvokerTests {
 
 	private static final long CACHE_TTL = Duration.ofHours(1).toMillis();
 
