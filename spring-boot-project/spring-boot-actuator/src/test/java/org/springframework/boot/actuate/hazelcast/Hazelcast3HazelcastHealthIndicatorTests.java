@@ -42,7 +42,7 @@ import static org.mockito.Mockito.mock;
  */
 @ClassPathExclusions("hazelcast*.jar")
 @ClassPathOverrides("com.hazelcast:hazelcast:3.12.8")
-class Hazelcast3HazelcastHealthIndicatorTests {
+class Hazelcast3HazelcastHealthIndicatorTests implements IHazelcast3HazelcastHealthIndicatorTests {
 
 	@Test
 	void hazelcastUp() throws IOException {
