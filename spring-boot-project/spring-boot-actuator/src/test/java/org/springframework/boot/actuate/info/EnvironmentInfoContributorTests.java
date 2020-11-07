@@ -48,7 +48,7 @@ class EnvironmentInfoContributorTests {
 	@Test
 	void extractNoEntry() {
 		TestPropertyValues.of("foo=bar").applyTo(this.environment);
-		Info actual = contributeFrom(this.environment);
+		IInfo actual = contributeFrom(this.environment);
 		assertThat(actual.getDetails()).isEmpty();
 	}
 
