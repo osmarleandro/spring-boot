@@ -79,7 +79,7 @@ import org.springframework.web.util.pattern.PathPatternParser;
  * @author Brian Clozel
  * @since 2.0.0
  */
-public abstract class AbstractWebFluxEndpointHandlerMapping extends RequestMappingInfoHandlerMapping {
+public abstract class AbstractWebFluxEndpointHandlerMapping extends RequestMappingInfoHandlerMapping implements IAbstractWebFluxEndpointHandlerMapping {
 
 	private static final PathPatternParser pathPatternParser = new PathPatternParser();
 
