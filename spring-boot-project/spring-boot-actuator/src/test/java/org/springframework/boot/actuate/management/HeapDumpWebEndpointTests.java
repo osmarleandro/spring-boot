@@ -33,7 +33,7 @@ class HeapDumpWebEndpointTests {
 	void parallelRequestProducesTooManyRequestsResponse() throws InterruptedException {
 		CountDownLatch dumpingLatch = new CountDownLatch(1);
 		CountDownLatch blockingLatch = new CountDownLatch(1);
-		HeapDumpWebEndpoint slowEndpoint = new HeapDumpWebEndpoint(2500) {
+		IHeapDumpWebEndpoint slowEndpoint = new HeapDumpWebEndpoint(2500) {
 
 			@Override
 			protected HeapDumper createHeapDumper() throws HeapDumperUnavailableException {

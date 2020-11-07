@@ -18,6 +18,7 @@ package org.springframework.boot.actuate.autoconfigure.management;
 
 import org.springframework.boot.actuate.autoconfigure.endpoint.condition.ConditionalOnAvailableEndpoint;
 import org.springframework.boot.actuate.management.HeapDumpWebEndpoint;
+import org.springframework.boot.actuate.management.IHeapDumpWebEndpoint;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
@@ -35,7 +36,7 @@ public class HeapDumpWebEndpointAutoConfiguration {
 
 	@Bean
 	@ConditionalOnMissingBean
-	public HeapDumpWebEndpoint heapDumpWebEndpoint() {
+	public IHeapDumpWebEndpoint heapDumpWebEndpoint() {
 		return new HeapDumpWebEndpoint();
 	}
 

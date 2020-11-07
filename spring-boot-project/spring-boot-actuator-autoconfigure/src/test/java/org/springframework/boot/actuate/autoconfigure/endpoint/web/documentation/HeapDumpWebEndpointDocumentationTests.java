@@ -22,6 +22,7 @@ import java.util.Map;
 import org.junit.jupiter.api.Test;
 
 import org.springframework.boot.actuate.management.HeapDumpWebEndpoint;
+import org.springframework.boot.actuate.management.IHeapDumpWebEndpoint;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
@@ -61,7 +62,7 @@ class HeapDumpWebEndpointDocumentationTests extends MockMvcEndpointDocumentation
 	static class TestConfiguration {
 
 		@Bean
-		HeapDumpWebEndpoint endpoint() {
+		IHeapDumpWebEndpoint endpoint() {
 			return new HeapDumpWebEndpoint() {
 
 				@Override

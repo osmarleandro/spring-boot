@@ -56,7 +56,7 @@ import org.springframework.util.ReflectionUtils;
  * @since 2.0.0
  */
 @WebEndpoint(id = "heapdump")
-public class HeapDumpWebEndpoint {
+public class HeapDumpWebEndpoint implements IHeapDumpWebEndpoint {
 
 	private final long timeout;
 
