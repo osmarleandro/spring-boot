@@ -130,7 +130,7 @@ class EnvironmentEndpointWebIntegrationTests {
 		}
 
 		@Bean
-		EnvironmentEndpointWebExtension environmentEndpointWebExtension(EnvironmentEndpoint endpoint) {
+		IEnvironmentEndpointWebExtension environmentEndpointWebExtension(EnvironmentEndpoint endpoint) {
 			return new EnvironmentEndpointWebExtension(endpoint);
 		}
 
