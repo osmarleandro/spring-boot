@@ -24,7 +24,7 @@ import org.springframework.boot.actuate.endpoint.annotation.DiscovererEndpointFi
  *
  * @author Phillip Webb
  */
-class JmxEndpointFilter extends DiscovererEndpointFilter {
+class JmxEndpointFilter extends DiscovererEndpointFilter implements IJmxEndpointFilter {
 
 	JmxEndpointFilter() {
 		super(JmxEndpointDiscoverer.class);
