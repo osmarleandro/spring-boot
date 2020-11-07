@@ -27,6 +27,7 @@ import reactor.core.publisher.Mono;
 
 import org.springframework.boot.actuate.endpoint.InvocationContext;
 import org.springframework.boot.actuate.endpoint.http.ApiVersion;
+import org.springframework.boot.actuate.endpoint.invoke.IOperationInvoker;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvoker;
 import org.springframework.util.Assert;
 import org.springframework.util.ClassUtils;
@@ -113,7 +114,7 @@ public class CachingOperationInvoker implements OperationInvoker {
 	 * @deprecated as of 2.3.0 to make it package-private in 2.4
 	 */
 	@Deprecated
-	public static OperationInvoker apply(OperationInvoker invoker, long timeToLive) {
+	public static IOperationInvoker apply(OperationInvoker invoker, long timeToLive) {
 		if (timeToLive > 0) {
 			return new CachingOperationInvoker(invoker, timeToLive);
 		}
