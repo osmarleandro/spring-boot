@@ -35,7 +35,7 @@ import static org.mockito.Mockito.verify;
  *
  * @author Eddú Meléndez
  */
-class LdapHealthIndicatorTests {
+class LdapHealthIndicatorTests implements ILdapHealthIndicatorTests {
 
 	@Test
 	@SuppressWarnings("unchecked")
