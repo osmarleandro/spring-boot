@@ -39,7 +39,7 @@ import static org.mockito.Mockito.mock;
  * @author Stephane Nicoll
  */
 @ExtendWith(MockitoExtension.class)
-class JCacheCacheMeterBinderProviderTests {
+class JCacheCacheMeterBinderProviderTests implements IJCacheCacheMeterBinderProviderTests {
 
 	@Mock
 	private javax.cache.Cache<Object, Object> nativeCache;
