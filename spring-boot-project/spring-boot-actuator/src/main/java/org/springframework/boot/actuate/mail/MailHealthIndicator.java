@@ -27,7 +27,7 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
  * @author Johannes Edmeier
  * @since 2.0.0
  */
-public class MailHealthIndicator extends AbstractHealthIndicator {
+public class MailHealthIndicator extends AbstractHealthIndicator implements IMailHealthIndicator {
 
 	private final JavaMailSenderImpl mailSender;
 
