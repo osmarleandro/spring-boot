@@ -35,9 +35,9 @@ import org.springframework.boot.actuate.endpoint.InvocationContext;
 import org.springframework.boot.actuate.endpoint.SecurityContext;
 import org.springframework.boot.actuate.endpoint.http.ApiVersion;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvoker;
-import org.springframework.boot.actuate.endpoint.web.EndpointMapping;
 import org.springframework.boot.actuate.endpoint.web.EndpointMediaTypes;
 import org.springframework.boot.actuate.endpoint.web.ExposableWebEndpoint;
+import org.springframework.boot.actuate.endpoint.web.IEndpointMapping;
 import org.springframework.boot.actuate.endpoint.web.WebEndpointResponse;
 import org.springframework.boot.actuate.endpoint.web.WebOperation;
 import org.springframework.boot.actuate.endpoint.web.WebOperationRequestPredicate;
@@ -76,7 +76,7 @@ import org.springframework.web.util.UrlPathHelper;
 public abstract class AbstractWebMvcEndpointHandlerMapping extends RequestMappingInfoHandlerMapping
 		implements InitializingBean, MatchableHandlerMapping {
 
-	private final EndpointMapping endpointMapping;
+	private final IEndpointMapping endpointMapping;
 
 	private final Collection<ExposableWebEndpoint> endpoints;
 
@@ -99,7 +99,7 @@ public abstract class AbstractWebMvcEndpointHandlerMapping extends RequestMappin
 	 * @param endpointMediaTypes media types consumed and produced by the endpoints
 	 * @param shouldRegisterLinksMapping whether the links endpoint should be registered
 	 */
-	public AbstractWebMvcEndpointHandlerMapping(EndpointMapping endpointMapping,
+	public AbstractWebMvcEndpointHandlerMapping(IEndpointMapping endpointMapping,
 			Collection<ExposableWebEndpoint> endpoints, EndpointMediaTypes endpointMediaTypes,
 			boolean shouldRegisterLinksMapping) {
 		this(endpointMapping, endpoints, endpointMediaTypes, null, shouldRegisterLinksMapping);
@@ -114,7 +114,7 @@ public abstract class AbstractWebMvcEndpointHandlerMapping extends RequestMappin
 	 * @param corsConfiguration the CORS configuration for the endpoints or {@code null}
 	 * @param shouldRegisterLinksMapping whether the links endpoint should be registered
 	 */
-	public AbstractWebMvcEndpointHandlerMapping(EndpointMapping endpointMapping,
+	public AbstractWebMvcEndpointHandlerMapping(IEndpointMapping endpointMapping,
 			Collection<ExposableWebEndpoint> endpoints, EndpointMediaTypes endpointMediaTypes,
 			CorsConfiguration corsConfiguration, boolean shouldRegisterLinksMapping) {
 		this.endpointMapping = endpointMapping;

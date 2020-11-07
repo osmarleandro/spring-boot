@@ -35,9 +35,9 @@ import org.springframework.boot.actuate.endpoint.OperationType;
 import org.springframework.boot.actuate.endpoint.SecurityContext;
 import org.springframework.boot.actuate.endpoint.http.ApiVersion;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvoker;
-import org.springframework.boot.actuate.endpoint.web.EndpointMapping;
 import org.springframework.boot.actuate.endpoint.web.EndpointMediaTypes;
 import org.springframework.boot.actuate.endpoint.web.ExposableWebEndpoint;
+import org.springframework.boot.actuate.endpoint.web.IEndpointMapping;
 import org.springframework.boot.actuate.endpoint.web.WebEndpointResponse;
 import org.springframework.boot.actuate.endpoint.web.WebOperation;
 import org.springframework.boot.actuate.endpoint.web.WebOperationRequestPredicate;
@@ -83,7 +83,7 @@ public abstract class AbstractWebFluxEndpointHandlerMapping extends RequestMappi
 
 	private static final PathPatternParser pathPatternParser = new PathPatternParser();
 
-	private final EndpointMapping endpointMapping;
+	private final IEndpointMapping endpointMapping;
 
 	private final Collection<ExposableWebEndpoint> endpoints;
 
@@ -108,7 +108,7 @@ public abstract class AbstractWebFluxEndpointHandlerMapping extends RequestMappi
 	 * @param corsConfiguration the CORS configuration for the endpoints
 	 * @param shouldRegisterLinksMapping whether the links endpoint should be registered
 	 */
-	public AbstractWebFluxEndpointHandlerMapping(EndpointMapping endpointMapping,
+	public AbstractWebFluxEndpointHandlerMapping(IEndpointMapping endpointMapping,
 			Collection<ExposableWebEndpoint> endpoints, EndpointMediaTypes endpointMediaTypes,
 			CorsConfiguration corsConfiguration, boolean shouldRegisterLinksMapping) {
 		this.endpointMapping = endpointMapping;

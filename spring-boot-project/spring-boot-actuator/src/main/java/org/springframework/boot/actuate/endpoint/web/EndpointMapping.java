@@ -24,7 +24,7 @@ import org.springframework.util.StringUtils;
  * @author Andy Wilkinson
  * @since 2.0.0
  */
-public class EndpointMapping {
+public class EndpointMapping implements IEndpointMapping {
 
 	private final String path;
 
