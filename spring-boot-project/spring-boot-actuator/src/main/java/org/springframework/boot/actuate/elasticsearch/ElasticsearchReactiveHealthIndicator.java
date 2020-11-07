@@ -38,7 +38,7 @@ import org.springframework.web.reactive.function.client.WebClient;
  * @author Scott Frederick
  * @since 2.3.2
  */
-public class ElasticsearchReactiveHealthIndicator extends AbstractReactiveHealthIndicator {
+public class ElasticsearchReactiveHealthIndicator extends AbstractReactiveHealthIndicator implements IElasticsearchReactiveHealthIndicator {
 
 	private static final ParameterizedTypeReference<Map<String, Object>> STRING_OBJECT_MAP = new ParameterizedTypeReference<Map<String, Object>>() {
 	};
