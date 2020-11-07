@@ -38,7 +38,7 @@ import org.springframework.web.client.RestTemplate;
  * @author Brian Clozel
  * @since 2.0.0
  */
-public final class RestTemplateExchangeTags {
+public final class RestTemplateExchangeTags implements IRestTemplateExchangeTags {
 
 	private static final Pattern STRIP_URI_PATTERN = Pattern.compile("^https?://[^/]+/");
 
