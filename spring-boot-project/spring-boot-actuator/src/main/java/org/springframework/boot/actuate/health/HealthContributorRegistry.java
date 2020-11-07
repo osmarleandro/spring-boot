@@ -22,6 +22,6 @@ package org.springframework.boot.actuate.health;
  * @author Phillip Webb
  * @since 2.2.0
  */
-public interface HealthContributorRegistry extends ContributorRegistry<HealthContributor> {
+public interface HealthContributorRegistry extends ContributorRegistry<HealthContributor>, IHealthContributorRegistry {
 
 }
