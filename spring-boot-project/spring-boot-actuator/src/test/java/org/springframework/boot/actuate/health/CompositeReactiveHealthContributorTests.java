@@ -29,7 +29,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Phillip Webb
  */
-class CompositeReactiveHealthContributorTests {
+class CompositeReactiveHealthContributorTests implements ICompositeReactiveHealthContributorTests {
 
 	@Test
 	void fromMapReturnsCompositeReactiveHealthContributorMapAdapter() {
