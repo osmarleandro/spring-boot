@@ -30,7 +30,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Andy Wilkinson
  */
-class ThreadDumpEndpointWebIntegrationTests {
+class ThreadDumpEndpointWebIntegrationTests implements IThreadDumpEndpointWebIntegrationTests {
 
 	@WebEndpointTest
 	void getRequestWithJsonAcceptHeaderShouldProduceJsonThreadDumpResponse(WebTestClient client) throws Exception {
