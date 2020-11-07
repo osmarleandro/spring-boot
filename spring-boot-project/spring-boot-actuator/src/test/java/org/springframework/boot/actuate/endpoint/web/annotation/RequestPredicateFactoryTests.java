@@ -37,7 +37,7 @@ import static org.assertj.core.api.Assertions.assertThatIllegalStateException;
  *
  * @author Phillip Webb
  */
-class RequestPredicateFactoryTests {
+class RequestPredicateFactoryTests implements IRequestPredicateFactoryTests {
 
 	private final RequestPredicateFactory factory = new RequestPredicateFactory(
 			new EndpointMediaTypes(Collections.emptyList(), Collections.emptyList()));
