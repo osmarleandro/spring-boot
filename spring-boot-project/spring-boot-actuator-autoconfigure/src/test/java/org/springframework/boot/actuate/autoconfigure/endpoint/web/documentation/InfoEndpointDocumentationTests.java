@@ -23,6 +23,7 @@ import org.junit.jupiter.api.Test;
 
 import org.springframework.boot.actuate.info.BuildInfoContributor;
 import org.springframework.boot.actuate.info.GitInfoContributor;
+import org.springframework.boot.actuate.info.IGitInfoContributor;
 import org.springframework.boot.actuate.info.InfoContributor;
 import org.springframework.boot.actuate.info.InfoEndpoint;
 import org.springframework.boot.info.BuildProperties;
@@ -78,7 +79,7 @@ class InfoEndpointDocumentationTests extends MockMvcEndpointDocumentationTests {
 		}
 
 		@Bean
-		GitInfoContributor gitInfoContributor() {
+		IGitInfoContributor gitInfoContributor() {
 			Properties properties = new Properties();
 			properties.put("branch", "master");
 			properties.put("commit.id", "df027cf1ec5aeba2d4fedd7b8c42b88dc5ce38e5");

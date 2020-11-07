@@ -19,6 +19,7 @@ package org.springframework.boot.actuate.autoconfigure.info;
 import org.springframework.boot.actuate.info.BuildInfoContributor;
 import org.springframework.boot.actuate.info.EnvironmentInfoContributor;
 import org.springframework.boot.actuate.info.GitInfoContributor;
+import org.springframework.boot.actuate.info.IGitInfoContributor;
 import org.springframework.boot.actuate.info.InfoContributor;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -64,7 +65,7 @@ public class InfoContributorAutoConfiguration {
 	@ConditionalOnSingleCandidate(GitProperties.class)
 	@ConditionalOnMissingBean
 	@Order(DEFAULT_ORDER)
-	public GitInfoContributor gitInfoContributor(GitProperties gitProperties,
+	public IGitInfoContributor gitInfoContributor(GitProperties gitProperties,
 			InfoContributorProperties infoContributorProperties) {
 		return new GitInfoContributor(gitProperties, infoContributorProperties.getGit().getMode());
 	}
