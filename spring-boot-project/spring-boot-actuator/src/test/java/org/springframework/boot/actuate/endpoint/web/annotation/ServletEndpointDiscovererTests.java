@@ -55,7 +55,7 @@ import static org.assertj.core.api.Assertions.assertThatIllegalStateException;
  * @author Phillip Webb
  * @author Stephane Nicoll
  */
-class ServletEndpointDiscovererTests {
+class ServletEndpointDiscovererTests implements IServletEndpointDiscovererTests {
 
 	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner();
 
