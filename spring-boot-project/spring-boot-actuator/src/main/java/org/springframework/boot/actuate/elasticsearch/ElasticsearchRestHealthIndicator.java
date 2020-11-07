@@ -42,7 +42,7 @@ import org.springframework.util.StreamUtils;
  * @author Filip Hrisafov
  * @since 2.1.1
  */
-public class ElasticsearchRestHealthIndicator extends AbstractHealthIndicator {
+public class ElasticsearchRestHealthIndicator extends AbstractHealthIndicator implements IElasticsearchRestHealthIndicator {
 
 	private static final String RED_STATUS = "red";
 
