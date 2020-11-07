@@ -56,7 +56,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @see WebFluxEndpointHandlerMapping
  */
 class WebFluxEndpointIntegrationTests
-		extends AbstractWebEndpointIntegrationTests<AnnotationConfigReactiveWebServerApplicationContext> {
+		extends AbstractWebEndpointIntegrationTests<AnnotationConfigReactiveWebServerApplicationContext> implements IWebFluxEndpointIntegrationTests {
 
 	WebFluxEndpointIntegrationTests() {
 		super(WebFluxEndpointIntegrationTests::createApplicationContext,
