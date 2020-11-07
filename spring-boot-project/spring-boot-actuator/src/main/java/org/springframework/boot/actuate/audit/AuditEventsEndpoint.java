@@ -32,7 +32,7 @@ import org.springframework.util.Assert;
  * @since 2.0.0
  */
 @Endpoint(id = "auditevents")
-public class AuditEventsEndpoint {
+public class AuditEventsEndpoint implements IAuditEventsEndpoint {
 
 	private final AuditEventRepository auditEventRepository;
 
