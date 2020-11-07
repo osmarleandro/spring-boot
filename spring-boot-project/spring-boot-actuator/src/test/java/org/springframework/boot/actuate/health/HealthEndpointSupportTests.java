@@ -223,7 +223,7 @@ abstract class HealthEndpointSupportTests<R extends ContributorRegistry<C>, C, T
 		assertThat(health.getComponents()).containsKey("test");
 	}
 
-	protected abstract HealthEndpointSupport<C, T> create(R registry, HealthEndpointGroups groups);
+	protected abstract IHealthEndpointSupport<C, T> create(R registry, HealthEndpointGroups groups);
 
 	protected abstract R createRegistry();
 

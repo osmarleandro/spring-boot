@@ -33,7 +33,7 @@ import org.springframework.util.Assert;
  * @author Phillip Webb
  * @author Scott Frederick
  */
-abstract class HealthEndpointSupport<C, T> {
+abstract class HealthEndpointSupport<C, T> implements IHealthEndpointSupport<C, T> {
 
 	static final Health DEFAULT_HEALTH = Health.up().build();
 
