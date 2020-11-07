@@ -33,7 +33,7 @@ import org.springframework.util.StringUtils;
  * @author Nikolay Rybak
  * @since 2.0.0
  */
-public abstract class AbstractReactiveHealthIndicator implements ReactiveHealthIndicator {
+public abstract class AbstractReactiveHealthIndicator implements ReactiveHealthIndicator, IAbstractReactiveHealthIndicator {
 
 	private static final String NO_MESSAGE = null;
 
