@@ -26,7 +26,7 @@ import java.util.function.Function;
  * @author Phillip Webb
  * @since 2.0.0
  */
-public class HealthContributorNameFactory implements Function<String, String> {
+public class HealthContributorNameFactory implements Function<String, String>, IHealthContributorNameFactory {
 
 	private static final String[] SUFFIXES = { "healthindicator", "healthcontributor" };
 
