@@ -30,7 +30,7 @@ import static org.mockito.Mockito.mock;
  *
  * @author Phillip Webb
  */
-class ReactiveHealthContributorTests {
+class ReactiveHealthContributorTests implements IReactiveHealthContributorTests {
 
 	@Test
 	void adaptWhenNullThrowsException() {
