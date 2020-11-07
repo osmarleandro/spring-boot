@@ -28,7 +28,7 @@ import java.util.function.Function;
  * @see CompositeHealth
  * @see CompositeReactiveHealthContributor
  */
-public interface CompositeHealthContributor extends HealthContributor, NamedContributors<HealthContributor> {
+public interface CompositeHealthContributor extends HealthContributor, NamedContributors<HealthContributor>, ICompositeHealthContributor {
 
 	/**
 	 * Factory method that will create a {@link CompositeHealthContributor} from the
@@ -48,7 +48,7 @@ public interface CompositeHealthContributor extends HealthContributor, NamedCont
 	 * @param valueAdapter function used to adapt the map value
 	 * @return a composite health contributor instance
 	 */
-	static <V> CompositeHealthContributor fromMap(Map<String, V> map,
+	static <V> ICompositeHealthContributor fromMap(Map<String, V> map,
 			Function<V, ? extends HealthContributor> valueAdapter) {
 		return new CompositeHealthContributorMapAdapter<>(map, valueAdapter);
 	}
