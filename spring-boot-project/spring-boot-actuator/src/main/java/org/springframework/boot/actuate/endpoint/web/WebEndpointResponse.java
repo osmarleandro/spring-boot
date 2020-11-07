@@ -29,7 +29,7 @@ import org.springframework.boot.actuate.endpoint.web.annotation.EndpointWebExten
  * @author Vedran Pavic
  * @since 2.0.0
  */
-public final class WebEndpointResponse<T> {
+public final class WebEndpointResponse<T> implements IWebEndpointResponse<T> {
 
 	/**
 	 * {@code 200 OK}.

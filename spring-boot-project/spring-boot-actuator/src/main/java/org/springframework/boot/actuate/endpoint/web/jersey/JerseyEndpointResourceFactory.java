@@ -48,6 +48,7 @@ import org.springframework.boot.actuate.endpoint.web.EndpointLinksResolver;
 import org.springframework.boot.actuate.endpoint.web.EndpointMapping;
 import org.springframework.boot.actuate.endpoint.web.EndpointMediaTypes;
 import org.springframework.boot.actuate.endpoint.web.ExposableWebEndpoint;
+import org.springframework.boot.actuate.endpoint.web.IWebEndpointResponse;
 import org.springframework.boot.actuate.endpoint.web.Link;
 import org.springframework.boot.actuate.endpoint.web.WebEndpointResponse;
 import org.springframework.boot.actuate.endpoint.web.WebOperation;
@@ -213,7 +214,7 @@ public class JerseyEndpointResourceFactory {
 				if (!(response instanceof WebEndpointResponse)) {
 					return Response.status(Status.OK).entity(convertIfNecessary(response)).build();
 				}
-				WebEndpointResponse<?> webEndpointResponse = (WebEndpointResponse<?>) response;
+				IWebEndpointResponse<?> webEndpointResponse = (IWebEndpointResponse<?>) response;
 				return Response.status(webEndpointResponse.getStatus())
 						.entity(convertIfNecessary(webEndpointResponse.getBody())).build();
 			}
