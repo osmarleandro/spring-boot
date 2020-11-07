@@ -24,7 +24,7 @@ import reactor.core.publisher.Mono;
 
 import org.springframework.boot.actuate.endpoint.SecurityContext;
 import org.springframework.boot.actuate.endpoint.http.ApiVersion;
-import org.springframework.boot.actuate.endpoint.web.WebEndpointResponse;
+import org.springframework.boot.actuate.endpoint.web.IWebEndpointResponse;
 import org.springframework.boot.actuate.health.HealthEndpointSupport.HealthResult;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -42,7 +42,7 @@ class ReactiveHealthEndpointWebExtensionTests extends
 	@Test
 	void healthReturnsSystemHealth() {
 		this.registry.registerContributor("test", createContributor(this.up));
-		WebEndpointResponse<? extends HealthComponent> response = create(this.registry, this.groups)
+		IWebEndpointResponse<? extends HealthComponent> response = create(this.registry, this.groups)
 				.health(ApiVersion.LATEST, SecurityContext.NONE).block();
 		HealthComponent health = response.getBody();
 		assertThat(health.getStatus()).isEqualTo(Status.UP);
@@ -53,7 +53,7 @@ class ReactiveHealthEndpointWebExtensionTests extends
 	@Test
 	void healthWithNoContributorReturnsUp() {
 		assertThat(this.registry).isEmpty();
-		WebEndpointResponse<? extends HealthComponent> response = create(this.registry,
+		IWebEndpointResponse<? extends HealthComponent> response = create(this.registry,
 				HealthEndpointGroups.of(mock(HealthEndpointGroup.class), Collections.emptyMap()))
 						.health(ApiVersion.LATEST, SecurityContext.NONE).block();
 		assertThat(response.getStatus()).isEqualTo(200);
@@ -65,7 +65,7 @@ class ReactiveHealthEndpointWebExtensionTests extends
 	@Test
 	void healthWhenPathDoesNotExistReturnsHttp404() {
 		this.registry.registerContributor("test", createContributor(this.up));
-		WebEndpointResponse<? extends HealthComponent> response = create(this.registry, this.groups)
+		IWebEndpointResponse<? extends HealthComponent> response = create(this.registry, this.groups)
 				.health(ApiVersion.LATEST, SecurityContext.NONE, "missing").block();
 		assertThat(response.getBody()).isNull();
 		assertThat(response.getStatus()).isEqualTo(404);
@@ -74,7 +74,7 @@ class ReactiveHealthEndpointWebExtensionTests extends
 	@Test
 	void healthWhenPathExistsReturnsHealth() {
 		this.registry.registerContributor("test", createContributor(this.up));
-		WebEndpointResponse<? extends HealthComponent> response = create(this.registry, this.groups)
+		IWebEndpointResponse<? extends HealthComponent> response = create(this.registry, this.groups)
 				.health(ApiVersion.LATEST, SecurityContext.NONE, "test").block();
 		assertThat(response.getBody()).isEqualTo(this.up);
 		assertThat(response.getStatus()).isEqualTo(200);

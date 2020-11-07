@@ -38,6 +38,7 @@ import org.springframework.boot.actuate.endpoint.invoke.OperationInvoker;
 import org.springframework.boot.actuate.endpoint.web.EndpointMapping;
 import org.springframework.boot.actuate.endpoint.web.EndpointMediaTypes;
 import org.springframework.boot.actuate.endpoint.web.ExposableWebEndpoint;
+import org.springframework.boot.actuate.endpoint.web.IWebEndpointResponse;
 import org.springframework.boot.actuate.endpoint.web.WebEndpointResponse;
 import org.springframework.boot.actuate.endpoint.web.WebOperation;
 import org.springframework.boot.actuate.endpoint.web.WebOperationRequestPredicate;
@@ -360,7 +361,7 @@ public abstract class AbstractWebFluxEndpointHandlerMapping extends RequestMappi
 			if (!(response instanceof WebEndpointResponse)) {
 				return new ResponseEntity<>(response, HttpStatus.OK);
 			}
-			WebEndpointResponse<?> webEndpointResponse = (WebEndpointResponse<?>) response;
+			IWebEndpointResponse<?> webEndpointResponse = (IWebEndpointResponse<?>) response;
 			return new ResponseEntity<>(webEndpointResponse.getBody(),
 					HttpStatus.valueOf(webEndpointResponse.getStatus()));
 		}
