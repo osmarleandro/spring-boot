@@ -17,6 +17,7 @@
 package org.springframework.boot.actuate.autoconfigure.startup;
 
 import org.springframework.boot.actuate.autoconfigure.endpoint.condition.ConditionalOnAvailableEndpoint;
+import org.springframework.boot.actuate.startup.IStartupEndpoint;
 import org.springframework.boot.actuate.startup.StartupEndpoint;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionMessage;
@@ -44,7 +45,7 @@ public class StartupEndpointAutoConfiguration {
 
 	@Bean
 	@ConditionalOnMissingBean
-	public StartupEndpoint startupEndpoint(BufferingApplicationStartup applicationStartup) {
+	public IStartupEndpoint startupEndpoint(BufferingApplicationStartup applicationStartup) {
 		return new StartupEndpoint(applicationStartup);
 	}
 
