@@ -251,7 +251,7 @@ class LoggersEndpointWebIntegrationTests {
 		}
 
 		@Bean
-		LoggersEndpoint endpoint(LoggingSystem loggingSystem,
+		ILoggersEndpoint endpoint(LoggingSystem loggingSystem,
 				ObjectProvider<LoggerGroups> loggingGroupsObjectProvider) {
 			return new LoggersEndpoint(loggingSystem, loggingGroupsObjectProvider.getIfAvailable());
 		}
