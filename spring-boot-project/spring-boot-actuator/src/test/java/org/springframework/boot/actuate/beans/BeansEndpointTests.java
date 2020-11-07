@@ -42,7 +42,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Phillip Webb
  * @author Andy Wilkinson
  */
-class BeansEndpointTests {
+class BeansEndpointTests implements IBeansEndpointTests {
 
 	@Test
 	void beansAreFound() {
