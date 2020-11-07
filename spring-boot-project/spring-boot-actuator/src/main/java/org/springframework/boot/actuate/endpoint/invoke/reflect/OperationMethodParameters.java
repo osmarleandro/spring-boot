@@ -34,7 +34,7 @@ import org.springframework.util.Assert;
  *
  * @author Phillip Webb
  */
-class OperationMethodParameters implements OperationParameters {
+class OperationMethodParameters implements OperationParameters, IOperationMethodParameters {
 
 	private final List<OperationParameter> operationParameters;
 
