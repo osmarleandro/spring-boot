@@ -30,7 +30,7 @@ import org.springframework.util.Assert;
  * @author Vedran Pavic
  * @since 1.0.0
  */
-public class InMemoryAuditEventRepository implements AuditEventRepository {
+public class InMemoryAuditEventRepository implements AuditEventRepository, IInMemoryAuditEventRepository {
 
 	private static final int DEFAULT_CAPACITY = 1000;
 
