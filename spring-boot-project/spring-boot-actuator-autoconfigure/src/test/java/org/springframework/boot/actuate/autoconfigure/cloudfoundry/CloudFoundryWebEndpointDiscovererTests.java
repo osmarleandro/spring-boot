@@ -32,6 +32,7 @@ import org.springframework.boot.actuate.endpoint.invoke.convert.ConversionServic
 import org.springframework.boot.actuate.endpoint.invoker.cache.CachingOperationInvokerAdvisor;
 import org.springframework.boot.actuate.endpoint.web.EndpointMediaTypes;
 import org.springframework.boot.actuate.endpoint.web.ExposableWebEndpoint;
+import org.springframework.boot.actuate.endpoint.web.IEndpointMediaTypes;
 import org.springframework.boot.actuate.endpoint.web.PathMapper;
 import org.springframework.boot.actuate.endpoint.web.WebOperation;
 import org.springframework.boot.actuate.endpoint.web.annotation.EndpointWebExtension;
@@ -87,7 +88,7 @@ class CloudFoundryWebEndpointDiscovererTests {
 		try (AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(configuration)) {
 			ConversionServiceParameterValueMapper parameterMapper = new ConversionServiceParameterValueMapper(
 					DefaultConversionService.getSharedInstance());
-			EndpointMediaTypes mediaTypes = new EndpointMediaTypes(Collections.singletonList("application/json"),
+			IEndpointMediaTypes mediaTypes = new EndpointMediaTypes(Collections.singletonList("application/json"),
 					Collections.singletonList("application/json"));
 			CloudFoundryWebEndpointDiscoverer discoverer = new CloudFoundryWebEndpointDiscoverer(context,
 					parameterMapper, mediaTypes, Collections.singletonList(endpointPathMapper),

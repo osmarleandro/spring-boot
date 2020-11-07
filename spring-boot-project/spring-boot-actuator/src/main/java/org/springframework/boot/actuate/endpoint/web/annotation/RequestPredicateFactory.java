@@ -27,7 +27,7 @@ import org.springframework.boot.actuate.endpoint.OperationType;
 import org.springframework.boot.actuate.endpoint.annotation.DiscoveredOperationMethod;
 import org.springframework.boot.actuate.endpoint.annotation.Selector;
 import org.springframework.boot.actuate.endpoint.annotation.Selector.Match;
-import org.springframework.boot.actuate.endpoint.web.EndpointMediaTypes;
+import org.springframework.boot.actuate.endpoint.web.IEndpointMediaTypes;
 import org.springframework.boot.actuate.endpoint.web.WebEndpointHttpMethod;
 import org.springframework.boot.actuate.endpoint.web.WebEndpointResponse;
 import org.springframework.boot.actuate.endpoint.web.WebOperationRequestPredicate;
@@ -44,9 +44,9 @@ import org.springframework.util.Assert;
  */
 class RequestPredicateFactory {
 
-	private final EndpointMediaTypes endpointMediaTypes;
+	private final IEndpointMediaTypes endpointMediaTypes;
 
-	RequestPredicateFactory(EndpointMediaTypes endpointMediaTypes) {
+	RequestPredicateFactory(IEndpointMediaTypes endpointMediaTypes) {
 		Assert.notNull(endpointMediaTypes, "EndpointMediaTypes must not be null");
 		this.endpointMediaTypes = endpointMediaTypes;
 	}

@@ -30,6 +30,7 @@ import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
 import org.springframework.boot.actuate.endpoint.http.ActuatorMediaType;
 import org.springframework.boot.actuate.endpoint.web.EndpointMediaTypes;
 import org.springframework.boot.actuate.endpoint.web.ExposableWebEndpoint;
+import org.springframework.boot.actuate.endpoint.web.IEndpointMediaTypes;
 import org.springframework.boot.actuate.endpoint.web.PathMappedEndpoint;
 import org.springframework.boot.actuate.endpoint.web.PathMapper;
 import org.springframework.boot.actuate.endpoint.web.annotation.ControllerEndpointDiscoverer;
@@ -60,7 +61,7 @@ class WebEndpointAutoConfigurationTests {
 	@Test
 	void webApplicationConfiguresEndpointMediaTypes() {
 		this.contextRunner.run((context) -> {
-			EndpointMediaTypes endpointMediaTypes = context.getBean(EndpointMediaTypes.class);
+			IEndpointMediaTypes endpointMediaTypes = context.getBean(EndpointMediaTypes.class);
 			assertThat(endpointMediaTypes.getConsumed()).containsExactly(ActuatorMediaType.V3_JSON,
 					ActuatorMediaType.V2_JSON, "application/json");
 		});

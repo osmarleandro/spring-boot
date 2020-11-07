@@ -35,8 +35,8 @@ import org.springframework.boot.actuate.endpoint.ExposableEndpoint;
 import org.springframework.boot.actuate.endpoint.invoke.ParameterValueMapper;
 import org.springframework.boot.actuate.endpoint.web.EndpointLinksResolver;
 import org.springframework.boot.actuate.endpoint.web.EndpointMapping;
-import org.springframework.boot.actuate.endpoint.web.EndpointMediaTypes;
 import org.springframework.boot.actuate.endpoint.web.ExposableWebEndpoint;
+import org.springframework.boot.actuate.endpoint.web.IEndpointMediaTypes;
 import org.springframework.boot.actuate.endpoint.web.annotation.ControllerEndpointsSupplier;
 import org.springframework.boot.actuate.health.HealthEndpoint;
 import org.springframework.boot.actuate.health.ReactiveHealthEndpointWebExtension;
@@ -106,7 +106,7 @@ public class ReactiveCloudFoundryActuatorAutoConfiguration {
 
 	@Bean
 	public CloudFoundryWebFluxEndpointHandlerMapping cloudFoundryWebFluxEndpointHandlerMapping(
-			ParameterValueMapper parameterMapper, EndpointMediaTypes endpointMediaTypes,
+			ParameterValueMapper parameterMapper, IEndpointMediaTypes endpointMediaTypes,
 			WebClient.Builder webClientBuilder, ControllerEndpointsSupplier controllerEndpointsSupplier,
 			ApplicationContext applicationContext) {
 		CloudFoundryWebEndpointDiscoverer endpointDiscoverer = new CloudFoundryWebEndpointDiscoverer(applicationContext,

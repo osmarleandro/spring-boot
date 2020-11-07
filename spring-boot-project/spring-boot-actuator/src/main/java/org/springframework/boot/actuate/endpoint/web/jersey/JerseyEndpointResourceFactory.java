@@ -46,8 +46,8 @@ import org.springframework.boot.actuate.endpoint.SecurityContext;
 import org.springframework.boot.actuate.endpoint.http.ApiVersion;
 import org.springframework.boot.actuate.endpoint.web.EndpointLinksResolver;
 import org.springframework.boot.actuate.endpoint.web.EndpointMapping;
-import org.springframework.boot.actuate.endpoint.web.EndpointMediaTypes;
 import org.springframework.boot.actuate.endpoint.web.ExposableWebEndpoint;
+import org.springframework.boot.actuate.endpoint.web.IEndpointMediaTypes;
 import org.springframework.boot.actuate.endpoint.web.Link;
 import org.springframework.boot.actuate.endpoint.web.WebEndpointResponse;
 import org.springframework.boot.actuate.endpoint.web.WebOperation;
@@ -78,7 +78,7 @@ public class JerseyEndpointResourceFactory {
 	 * @return the resources for the operations
 	 */
 	public Collection<Resource> createEndpointResources(EndpointMapping endpointMapping,
-			Collection<ExposableWebEndpoint> endpoints, EndpointMediaTypes endpointMediaTypes,
+			Collection<ExposableWebEndpoint> endpoints, IEndpointMediaTypes endpointMediaTypes,
 			EndpointLinksResolver linksResolver, boolean shouldRegisterLinks) {
 		List<Resource> resources = new ArrayList<>();
 		endpoints.stream().flatMap((endpoint) -> endpoint.getOperations().stream())
@@ -107,7 +107,7 @@ public class JerseyEndpointResourceFactory {
 		return resourceBuilder.build();
 	}
 
-	private Resource createEndpointLinksResource(String endpointPath, EndpointMediaTypes endpointMediaTypes,
+	private Resource createEndpointLinksResource(String endpointPath, IEndpointMediaTypes endpointMediaTypes,
 			EndpointLinksResolver linksResolver) {
 		Builder resourceBuilder = Resource.builder().path(endpointPath);
 		resourceBuilder.addMethod("GET").produces(StringUtils.toStringArray(endpointMediaTypes.getProduced()))

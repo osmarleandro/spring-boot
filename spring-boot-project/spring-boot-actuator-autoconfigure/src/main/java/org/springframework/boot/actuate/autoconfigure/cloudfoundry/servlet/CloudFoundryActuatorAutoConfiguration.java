@@ -33,8 +33,8 @@ import org.springframework.boot.actuate.endpoint.ExposableEndpoint;
 import org.springframework.boot.actuate.endpoint.invoke.ParameterValueMapper;
 import org.springframework.boot.actuate.endpoint.web.EndpointLinksResolver;
 import org.springframework.boot.actuate.endpoint.web.EndpointMapping;
-import org.springframework.boot.actuate.endpoint.web.EndpointMediaTypes;
 import org.springframework.boot.actuate.endpoint.web.ExposableWebEndpoint;
+import org.springframework.boot.actuate.endpoint.web.IEndpointMediaTypes;
 import org.springframework.boot.actuate.endpoint.web.annotation.ControllerEndpointsSupplier;
 import org.springframework.boot.actuate.endpoint.web.annotation.ServletEndpointsSupplier;
 import org.springframework.boot.actuate.health.HealthEndpoint;
@@ -109,7 +109,7 @@ public class CloudFoundryActuatorAutoConfiguration {
 
 	@Bean
 	public CloudFoundryWebEndpointServletHandlerMapping cloudFoundryWebEndpointServletHandlerMapping(
-			ParameterValueMapper parameterMapper, EndpointMediaTypes endpointMediaTypes,
+			ParameterValueMapper parameterMapper, IEndpointMediaTypes endpointMediaTypes,
 			RestTemplateBuilder restTemplateBuilder, ServletEndpointsSupplier servletEndpointsSupplier,
 			ControllerEndpointsSupplier controllerEndpointsSupplier, ApplicationContext applicationContext) {
 		CloudFoundryWebEndpointDiscoverer discoverer = new CloudFoundryWebEndpointDiscoverer(applicationContext,

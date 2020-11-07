@@ -23,8 +23,8 @@ import java.util.Map;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.boot.actuate.endpoint.web.EndpointLinksResolver;
 import org.springframework.boot.actuate.endpoint.web.EndpointMapping;
-import org.springframework.boot.actuate.endpoint.web.EndpointMediaTypes;
 import org.springframework.boot.actuate.endpoint.web.ExposableWebEndpoint;
+import org.springframework.boot.actuate.endpoint.web.IEndpointMediaTypes;
 import org.springframework.boot.actuate.endpoint.web.Link;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.cors.CorsConfiguration;
@@ -56,7 +56,7 @@ public class WebFluxEndpointHandlerMapping extends AbstractWebFluxEndpointHandle
 	 * @param shouldRegisterLinksMapping whether the links endpoint should be registered
 	 */
 	public WebFluxEndpointHandlerMapping(EndpointMapping endpointMapping, Collection<ExposableWebEndpoint> endpoints,
-			EndpointMediaTypes endpointMediaTypes, CorsConfiguration corsConfiguration,
+			IEndpointMediaTypes endpointMediaTypes, CorsConfiguration corsConfiguration,
 			EndpointLinksResolver linksResolver, boolean shouldRegisterLinksMapping) {
 		super(endpointMapping, endpoints, endpointMediaTypes, corsConfiguration, shouldRegisterLinksMapping);
 		this.linksResolver = linksResolver;

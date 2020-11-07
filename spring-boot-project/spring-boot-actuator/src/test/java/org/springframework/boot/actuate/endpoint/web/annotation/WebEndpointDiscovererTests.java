@@ -43,6 +43,7 @@ import org.springframework.boot.actuate.endpoint.invoker.cache.CachingOperationI
 import org.springframework.boot.actuate.endpoint.jmx.annotation.JmxEndpoint;
 import org.springframework.boot.actuate.endpoint.web.EndpointMediaTypes;
 import org.springframework.boot.actuate.endpoint.web.ExposableWebEndpoint;
+import org.springframework.boot.actuate.endpoint.web.IEndpointMediaTypes;
 import org.springframework.boot.actuate.endpoint.web.PathMapper;
 import org.springframework.boot.actuate.endpoint.web.WebEndpointHttpMethod;
 import org.springframework.boot.actuate.endpoint.web.WebOperation;
@@ -225,7 +226,7 @@ class WebEndpointDiscovererTests {
 		try (AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(configuration)) {
 			ConversionServiceParameterValueMapper parameterMapper = new ConversionServiceParameterValueMapper(
 					DefaultConversionService.getSharedInstance());
-			EndpointMediaTypes mediaTypes = new EndpointMediaTypes(Collections.singletonList("application/json"),
+			IEndpointMediaTypes mediaTypes = new EndpointMediaTypes(Collections.singletonList("application/json"),
 					Collections.singletonList("application/json"));
 			WebEndpointDiscoverer discoverer = new WebEndpointDiscoverer(context, parameterMapper, mediaTypes,
 					Collections.singletonList(endpointPathMapper),
