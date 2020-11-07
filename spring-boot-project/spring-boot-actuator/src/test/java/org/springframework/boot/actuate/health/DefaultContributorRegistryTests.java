@@ -35,7 +35,7 @@ import static org.mockito.Mockito.mock;
  * @author Vedran Pavic
  * @author Stephane Nicoll
  */
-abstract class DefaultContributorRegistryTests {
+abstract class DefaultContributorRegistryTests implements IDefaultContributorRegistryTests {
 
 	private final HealthIndicator one = mock(HealthIndicator.class);
 
