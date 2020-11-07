@@ -37,7 +37,7 @@ import static org.mockito.Mockito.mock;
  *
  * @author Phillip Webb
  */
-class DiscovererEndpointFilterTests {
+class DiscovererEndpointFilterTests implements IDiscovererEndpointFilterTests {
 
 	@Test
 	void createWhenDiscovererIsNullShouldThrowException() {
