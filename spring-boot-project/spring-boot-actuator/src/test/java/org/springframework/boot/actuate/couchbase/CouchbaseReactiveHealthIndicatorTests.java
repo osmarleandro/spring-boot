@@ -40,7 +40,7 @@ import static org.mockito.Mockito.verify;
 /**
  * Tests for {@link CouchbaseReactiveHealthIndicator}.
  */
-class CouchbaseReactiveHealthIndicatorTests {
+class CouchbaseReactiveHealthIndicatorTests implements ICouchbaseReactiveHealthIndicatorTests {
 
 	@Test
 	@SuppressWarnings("unchecked")
