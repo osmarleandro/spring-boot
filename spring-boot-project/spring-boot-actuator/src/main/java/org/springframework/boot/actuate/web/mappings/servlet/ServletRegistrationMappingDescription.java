@@ -26,7 +26,7 @@ import javax.servlet.ServletRegistration;
  * @author Andy Wilkinson
  * @since 2.0.0
  */
-public class ServletRegistrationMappingDescription extends RegistrationMappingDescription<ServletRegistration> {
+public class ServletRegistrationMappingDescription extends RegistrationMappingDescription<ServletRegistration> implements IServletRegistrationMappingDescription {
 
 	/**
 	 * Creates a new {@code ServletRegistrationMappingDescription} derived from the given
