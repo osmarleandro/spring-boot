@@ -29,7 +29,7 @@ import static org.mockito.Mockito.mock;
  *
  * @author Phillip Webb
  */
-class HealthEndpointGroupsTests {
+class HealthEndpointGroupsTests implements IHealthEndpointGroupsTests {
 
 	@Test
 	void ofWhenPrimaryIsNullThrowsException() {
