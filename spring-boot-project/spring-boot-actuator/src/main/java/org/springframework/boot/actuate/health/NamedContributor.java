@@ -27,7 +27,7 @@ import org.springframework.util.Assert;
  * @since 2.0.0
  * @see NamedContributors
  */
-public interface NamedContributor<C> {
+public interface NamedContributor<C> extends INamedContributor<C> {
 
 	/**
 	 * Returns the name of the contributor.
@@ -41,7 +41,7 @@ public interface NamedContributor<C> {
 	 */
 	C getContributor();
 
-	static <C> NamedContributor<C> of(String name, C contributor) {
+	static <C> INamedContributor<C> of(String name, C contributor) {
 		Assert.notNull(name, "Name must not be null");
 		Assert.notNull(contributor, "Contributor must not be null");
 		return new NamedContributor<C>() {
