@@ -34,7 +34,7 @@ import java.util.stream.Stream;
  *
  * @author Andy Wilkinson
  */
-class PlainTextThreadDumpFormatter {
+class PlainTextThreadDumpFormatter implements IPlainTextThreadDumpFormatter {
 
 	String format(ThreadInfo[] threads) {
 		StringWriter dump = new StringWriter();
