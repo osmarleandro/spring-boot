@@ -31,7 +31,7 @@ import static org.mockito.Mockito.mock;
  *
  * @author Andy Wilkinson
  */
-class AuditEventsEndpointTests {
+class AuditEventsEndpointTests implements IAuditEventsEndpointTests {
 
 	private final AuditEventRepository repository = mock(AuditEventRepository.class);
 
