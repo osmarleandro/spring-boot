@@ -92,12 +92,12 @@ class ReactiveHealthEndpointWebExtensionTests extends
 	}
 
 	@Override
-	protected ReactiveHealthContributor createContributor(Health health) {
+	protected IReactiveHealthContributor createContributor(Health health) {
 		return (ReactiveHealthIndicator) () -> Mono.just(health);
 	}
 
 	@Override
-	protected ReactiveHealthContributor createCompositeContributor(
+	protected IReactiveHealthContributor createCompositeContributor(
 			Map<String, ReactiveHealthContributor> contributors) {
 		return CompositeReactiveHealthContributor.fromMap(contributors);
 	}

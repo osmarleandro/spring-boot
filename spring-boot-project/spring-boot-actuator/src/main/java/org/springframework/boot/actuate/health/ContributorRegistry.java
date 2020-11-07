@@ -37,7 +37,7 @@ public interface ContributorRegistry<C> extends NamedContributors<C> {
 	 * @throws IllegalStateException if the contributor cannot be registered with the
 	 * given {@code name}.
 	 */
-	void registerContributor(String name, C contributor);
+	void registerContributor(String name, IReactiveHealthContributor contributor);
 
 	/**
 	 * Unregister a previously registered contributor.
