@@ -33,7 +33,7 @@ import org.springframework.boot.actuate.endpoint.invoke.OperationInvoker;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvokerAdvisor;
 import org.springframework.boot.actuate.endpoint.invoke.OperationParameters;
 import org.springframework.boot.actuate.endpoint.invoke.ParameterValueMapper;
-import org.springframework.boot.actuate.endpoint.invoke.reflect.OperationMethod;
+import org.springframework.boot.actuate.endpoint.invoke.reflect.IOperationMethod;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
@@ -96,7 +96,7 @@ class DiscoveredOperationsFactoryTests {
 	void createOperationsShouldProvideOperationMethod() {
 		TestOperation operation = getFirst(
 				this.factory.createOperations(EndpointId.of("test"), new ExampleWithParams()));
-		OperationMethod operationMethod = operation.getOperationMethod();
+		IOperationMethod operationMethod = operation.getOperationMethod();
 		assertThat(operationMethod.getMethod().getName()).isEqualTo("read");
 		assertThat(operationMethod.getParameters().hasParameters()).isTrue();
 	}

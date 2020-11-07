@@ -32,7 +32,7 @@ import org.springframework.boot.actuate.endpoint.annotation.DiscoveredOperationM
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvoker;
 import org.springframework.boot.actuate.endpoint.invoke.OperationParameter;
 import org.springframework.boot.actuate.endpoint.invoke.OperationParameters;
-import org.springframework.boot.actuate.endpoint.invoke.reflect.OperationMethod;
+import org.springframework.boot.actuate.endpoint.invoke.reflect.IOperationMethod;
 import org.springframework.boot.actuate.endpoint.jmx.JmxOperation;
 import org.springframework.boot.actuate.endpoint.jmx.JmxOperationParameter;
 import org.springframework.core.style.ToStringCreator;
@@ -77,7 +77,7 @@ class DiscoveredJmxOperation extends AbstractDiscoveredOperation implements JmxO
 		return fallback.get();
 	}
 
-	private List<JmxOperationParameter> getParameters(OperationMethod operationMethod) {
+	private List<JmxOperationParameter> getParameters(IOperationMethod operationMethod) {
 		if (!operationMethod.getParameters().hasParameters()) {
 			return Collections.emptyList();
 		}

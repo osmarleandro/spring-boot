@@ -20,7 +20,7 @@ import org.springframework.boot.actuate.endpoint.InvocationContext;
 import org.springframework.boot.actuate.endpoint.Operation;
 import org.springframework.boot.actuate.endpoint.OperationType;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvoker;
-import org.springframework.boot.actuate.endpoint.invoke.reflect.OperationMethod;
+import org.springframework.boot.actuate.endpoint.invoke.reflect.IOperationMethod;
 import org.springframework.core.style.ToStringCreator;
 
 /**
@@ -32,7 +32,7 @@ import org.springframework.core.style.ToStringCreator;
  */
 public abstract class AbstractDiscoveredOperation implements Operation {
 
-	private final OperationMethod operationMethod;
+	private final IOperationMethod operationMethod;
 
 	private final OperationInvoker invoker;
 
@@ -46,7 +46,7 @@ public abstract class AbstractDiscoveredOperation implements Operation {
 		this.invoker = invoker;
 	}
 
-	public OperationMethod getOperationMethod() {
+	public IOperationMethod getOperationMethod() {
 		return this.operationMethod;
 	}
 
