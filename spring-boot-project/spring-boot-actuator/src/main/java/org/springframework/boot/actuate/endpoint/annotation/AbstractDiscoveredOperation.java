@@ -30,7 +30,7 @@ import org.springframework.core.style.ToStringCreator;
  * @author Phillip Webb
  * @since 2.0.0
  */
-public abstract class AbstractDiscoveredOperation implements Operation {
+public abstract class AbstractDiscoveredOperation implements Operation, IAbstractDiscoveredOperation {
 
 	private final OperationMethod operationMethod;
 
