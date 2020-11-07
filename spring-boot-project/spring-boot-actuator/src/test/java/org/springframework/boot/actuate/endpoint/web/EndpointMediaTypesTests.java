@@ -56,7 +56,7 @@ class EndpointMediaTypesTests {
 
 	@Test
 	void createFromProducedAndConsumedUsesSameListForBoth() {
-		EndpointMediaTypes types = new EndpointMediaTypes("spring/framework", "spring/boot");
+		IEndpointMediaTypes types = new EndpointMediaTypes("spring/framework", "spring/boot");
 		assertThat(types.getProduced()).containsExactly("spring/framework", "spring/boot");
 		assertThat(types.getConsumed()).containsExactly("spring/framework", "spring/boot");
 	}
@@ -64,14 +64,14 @@ class EndpointMediaTypesTests {
 	@Test
 	void getProducedShouldReturnProduced() {
 		List<String> produced = Arrays.asList("a", "b", "c");
-		EndpointMediaTypes types = new EndpointMediaTypes(produced, Collections.emptyList());
+		IEndpointMediaTypes types = new EndpointMediaTypes(produced, Collections.emptyList());
 		assertThat(types.getProduced()).isEqualTo(produced);
 	}
 
 	@Test
 	void getConsumedShouldReturnConsumed() {
 		List<String> consumed = Arrays.asList("a", "b", "c");
-		EndpointMediaTypes types = new EndpointMediaTypes(Collections.emptyList(), consumed);
+		IEndpointMediaTypes types = new EndpointMediaTypes(Collections.emptyList(), consumed);
 		assertThat(types.getConsumed()).isEqualTo(consumed);
 	}
 

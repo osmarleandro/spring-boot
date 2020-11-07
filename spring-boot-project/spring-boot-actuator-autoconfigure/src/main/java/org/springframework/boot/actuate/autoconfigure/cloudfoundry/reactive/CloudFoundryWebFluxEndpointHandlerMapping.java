@@ -30,8 +30,8 @@ import org.springframework.boot.actuate.autoconfigure.cloudfoundry.SecurityRespo
 import org.springframework.boot.actuate.endpoint.EndpointId;
 import org.springframework.boot.actuate.endpoint.web.EndpointLinksResolver;
 import org.springframework.boot.actuate.endpoint.web.EndpointMapping;
-import org.springframework.boot.actuate.endpoint.web.EndpointMediaTypes;
 import org.springframework.boot.actuate.endpoint.web.ExposableWebEndpoint;
+import org.springframework.boot.actuate.endpoint.web.IEndpointMediaTypes;
 import org.springframework.boot.actuate.endpoint.web.Link;
 import org.springframework.boot.actuate.endpoint.web.WebOperation;
 import org.springframework.boot.actuate.endpoint.web.reactive.AbstractWebFluxEndpointHandlerMapping;
@@ -57,7 +57,7 @@ class CloudFoundryWebFluxEndpointHandlerMapping extends AbstractWebFluxEndpointH
 	private final EndpointLinksResolver linksResolver;
 
 	CloudFoundryWebFluxEndpointHandlerMapping(EndpointMapping endpointMapping,
-			Collection<ExposableWebEndpoint> endpoints, EndpointMediaTypes endpointMediaTypes,
+			Collection<ExposableWebEndpoint> endpoints, IEndpointMediaTypes endpointMediaTypes,
 			CorsConfiguration corsConfiguration, CloudFoundrySecurityInterceptor securityInterceptor,
 			EndpointLinksResolver linksResolver) {
 		super(endpointMapping, endpoints, endpointMediaTypes, corsConfiguration, true);

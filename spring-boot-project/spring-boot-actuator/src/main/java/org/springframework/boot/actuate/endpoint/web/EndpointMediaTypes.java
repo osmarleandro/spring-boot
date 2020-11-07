@@ -29,14 +29,14 @@ import org.springframework.util.Assert;
  * @author Andy Wilkinson
  * @since 2.0.0
  */
-public class EndpointMediaTypes {
+public class EndpointMediaTypes implements IEndpointMediaTypes {
 
 	private static final String JSON_MEDIA_TYPE = "application/json";
 
 	/**
 	 * Default {@link EndpointMediaTypes} for this version of Spring Boot.
 	 */
-	public static final EndpointMediaTypes DEFAULT = new EndpointMediaTypes(ActuatorMediaType.V3_JSON,
+	public static final IEndpointMediaTypes DEFAULT = new EndpointMediaTypes(ActuatorMediaType.V3_JSON,
 			ActuatorMediaType.V2_JSON, JSON_MEDIA_TYPE);
 
 	private final List<String> produced;

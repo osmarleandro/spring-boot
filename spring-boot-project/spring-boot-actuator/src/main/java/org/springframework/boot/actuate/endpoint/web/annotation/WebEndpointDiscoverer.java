@@ -26,8 +26,8 @@ import org.springframework.boot.actuate.endpoint.annotation.EndpointDiscoverer;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvoker;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvokerAdvisor;
 import org.springframework.boot.actuate.endpoint.invoke.ParameterValueMapper;
-import org.springframework.boot.actuate.endpoint.web.EndpointMediaTypes;
 import org.springframework.boot.actuate.endpoint.web.ExposableWebEndpoint;
+import org.springframework.boot.actuate.endpoint.web.IEndpointMediaTypes;
 import org.springframework.boot.actuate.endpoint.web.PathMapper;
 import org.springframework.boot.actuate.endpoint.web.WebEndpointsSupplier;
 import org.springframework.boot.actuate.endpoint.web.WebOperation;
@@ -57,7 +57,7 @@ public class WebEndpointDiscoverer extends EndpointDiscoverer<ExposableWebEndpoi
 	 * @param filters filters to apply
 	 */
 	public WebEndpointDiscoverer(ApplicationContext applicationContext, ParameterValueMapper parameterValueMapper,
-			EndpointMediaTypes endpointMediaTypes, List<PathMapper> endpointPathMappers,
+			IEndpointMediaTypes endpointMediaTypes, List<PathMapper> endpointPathMappers,
 			Collection<OperationInvokerAdvisor> invokerAdvisors,
 			Collection<EndpointFilter<ExposableWebEndpoint>> filters) {
 		super(applicationContext, parameterValueMapper, invokerAdvisors, filters);

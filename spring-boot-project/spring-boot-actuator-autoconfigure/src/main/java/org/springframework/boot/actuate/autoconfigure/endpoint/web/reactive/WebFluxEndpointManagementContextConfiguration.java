@@ -28,8 +28,8 @@ import org.springframework.boot.actuate.endpoint.ExposableEndpoint;
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
 import org.springframework.boot.actuate.endpoint.web.EndpointLinksResolver;
 import org.springframework.boot.actuate.endpoint.web.EndpointMapping;
-import org.springframework.boot.actuate.endpoint.web.EndpointMediaTypes;
 import org.springframework.boot.actuate.endpoint.web.ExposableWebEndpoint;
+import org.springframework.boot.actuate.endpoint.web.IEndpointMediaTypes;
 import org.springframework.boot.actuate.endpoint.web.WebEndpointsSupplier;
 import org.springframework.boot.actuate.endpoint.web.annotation.ControllerEndpointsSupplier;
 import org.springframework.boot.actuate.endpoint.web.reactive.ControllerEndpointHandlerMapping;
@@ -64,7 +64,7 @@ public class WebFluxEndpointManagementContextConfiguration {
 	@Bean
 	@ConditionalOnMissingBean
 	public WebFluxEndpointHandlerMapping webEndpointReactiveHandlerMapping(WebEndpointsSupplier webEndpointsSupplier,
-			ControllerEndpointsSupplier controllerEndpointsSupplier, EndpointMediaTypes endpointMediaTypes,
+			ControllerEndpointsSupplier controllerEndpointsSupplier, IEndpointMediaTypes endpointMediaTypes,
 			CorsEndpointProperties corsProperties, WebEndpointProperties webEndpointProperties,
 			Environment environment) {
 		String basePath = webEndpointProperties.getBasePath();

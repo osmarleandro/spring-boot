@@ -36,6 +36,7 @@ import org.springframework.boot.actuate.endpoint.invoke.convert.ConversionServic
 import org.springframework.boot.actuate.endpoint.web.EndpointLinksResolver;
 import org.springframework.boot.actuate.endpoint.web.EndpointMapping;
 import org.springframework.boot.actuate.endpoint.web.EndpointMediaTypes;
+import org.springframework.boot.actuate.endpoint.web.IEndpointMediaTypes;
 import org.springframework.boot.actuate.endpoint.web.annotation.WebEndpointDiscoverer;
 import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
 import org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext;
@@ -167,14 +168,14 @@ class CloudFoundryMvcWebEndpointIntegrationTests {
 		}
 
 		@Bean
-		EndpointMediaTypes EndpointMediaTypes() {
+		IEndpointMediaTypes EndpointMediaTypes() {
 			return new EndpointMediaTypes(Collections.singletonList("application/json"),
 					Collections.singletonList("application/json"));
 		}
 
 		@Bean
 		CloudFoundryWebEndpointServletHandlerMapping cloudFoundryWebEndpointServletHandlerMapping(
-				WebEndpointDiscoverer webEndpointDiscoverer, EndpointMediaTypes endpointMediaTypes,
+				WebEndpointDiscoverer webEndpointDiscoverer, IEndpointMediaTypes endpointMediaTypes,
 				CloudFoundrySecurityInterceptor interceptor) {
 			CorsConfiguration corsConfiguration = new CorsConfiguration();
 			corsConfiguration.setAllowedOrigins(Arrays.asList("https://example.com"));
@@ -186,7 +187,7 @@ class CloudFoundryMvcWebEndpointIntegrationTests {
 
 		@Bean
 		WebEndpointDiscoverer webEndpointDiscoverer(ApplicationContext applicationContext,
-				EndpointMediaTypes endpointMediaTypes) {
+				IEndpointMediaTypes endpointMediaTypes) {
 			ParameterValueMapper parameterMapper = new ConversionServiceParameterValueMapper(
 					DefaultConversionService.getSharedInstance());
 			return new WebEndpointDiscoverer(applicationContext, parameterMapper, endpointMediaTypes, null,
