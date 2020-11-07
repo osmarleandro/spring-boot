@@ -26,7 +26,7 @@ import java.util.function.Function;
  * @since 2.0.0
  */
 public class DefaultReactiveHealthContributorRegistry extends DefaultContributorRegistry<ReactiveHealthContributor>
-		implements ReactiveHealthContributorRegistry {
+		implements ReactiveHealthContributorRegistry, IDefaultReactiveHealthContributorRegistry {
 
 	public DefaultReactiveHealthContributorRegistry() {
 	}
