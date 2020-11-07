@@ -36,7 +36,7 @@ import org.springframework.util.StringUtils;
  * @author Christian Dupuis
  * @since 1.1.0
  */
-public abstract class AbstractHealthIndicator implements HealthIndicator {
+public abstract class AbstractHealthIndicator implements HealthIndicator, IAbstractHealthIndicator {
 
 	private static final String NO_MESSAGE = null;
 
