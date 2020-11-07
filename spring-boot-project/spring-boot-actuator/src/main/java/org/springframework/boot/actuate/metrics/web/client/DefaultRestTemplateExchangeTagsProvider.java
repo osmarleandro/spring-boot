@@ -31,7 +31,7 @@ import org.springframework.util.StringUtils;
  * @author Nishant Raut
  * @since 2.0.0
  */
-public class DefaultRestTemplateExchangeTagsProvider implements RestTemplateExchangeTagsProvider {
+public class DefaultRestTemplateExchangeTagsProvider implements RestTemplateExchangeTagsProvider, IDefaultRestTemplateExchangeTagsProvider {
 
 	@Override
 	public Iterable<Tag> getTags(String urlTemplate, HttpRequest request, ClientHttpResponse response) {
