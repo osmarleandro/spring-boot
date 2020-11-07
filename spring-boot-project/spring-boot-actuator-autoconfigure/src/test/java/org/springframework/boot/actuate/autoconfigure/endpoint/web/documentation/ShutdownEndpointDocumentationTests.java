@@ -17,7 +17,7 @@
 package org.springframework.boot.actuate.autoconfigure.endpoint.web.documentation;
 
 import org.junit.jupiter.api.Test;
-
+import org.springframework.boot.actuate.context.IShutdownEndpoint;
 import org.springframework.boot.actuate.context.ShutdownEndpoint;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.Bean;
@@ -50,7 +50,7 @@ class ShutdownEndpointDocumentationTests extends MockMvcEndpointDocumentationTes
 	static class TestConfiguration {
 
 		@Bean
-		ShutdownEndpoint endpoint(Environment environment) {
+		IShutdownEndpoint endpoint(Environment environment) {
 			ShutdownEndpoint endpoint = new ShutdownEndpoint();
 			endpoint.setApplicationContext(new AnnotationConfigApplicationContext());
 			return endpoint;
