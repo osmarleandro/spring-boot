@@ -26,7 +26,7 @@ import java.util.Collection;
  * @author Phillip Webb
  * @since 2.0.0
  */
-public interface ExposableEndpoint<O extends Operation> {
+public interface ExposableEndpoint<O extends IOperation> {
 
 	/**
 	 * Return the endpoint ID.

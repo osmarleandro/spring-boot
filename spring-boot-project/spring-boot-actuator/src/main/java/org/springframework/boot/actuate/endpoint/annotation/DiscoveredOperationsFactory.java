@@ -25,6 +25,7 @@ import java.util.Map;
 import java.util.Objects;
 
 import org.springframework.boot.actuate.endpoint.EndpointId;
+import org.springframework.boot.actuate.endpoint.IOperation;
 import org.springframework.boot.actuate.endpoint.Operation;
 import org.springframework.boot.actuate.endpoint.OperationType;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvoker;
@@ -46,7 +47,7 @@ import org.springframework.core.annotation.MergedAnnotations;
  * @author Stephane Nicoll
  * @author Phillip Webb
  */
-abstract class DiscoveredOperationsFactory<O extends Operation> {
+abstract class DiscoveredOperationsFactory<O extends IOperation> {
 
 	private static final Map<OperationType, Class<? extends Annotation>> OPERATION_TYPES;
 

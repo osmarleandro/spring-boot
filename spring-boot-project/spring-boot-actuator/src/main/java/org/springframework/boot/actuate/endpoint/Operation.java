@@ -23,7 +23,7 @@ package org.springframework.boot.actuate.endpoint;
  * @author Phillip Webb
  * @since 2.0.0
  */
-public interface Operation {
+public interface Operation extends IOperation {
 
 	/**
 	 * Returns the {@link OperationType type} of the operation.
