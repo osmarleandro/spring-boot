@@ -25,6 +25,7 @@ import java.util.stream.Stream;
 
 import org.springframework.boot.actuate.endpoint.OperationType;
 import org.springframework.boot.actuate.endpoint.annotation.DiscoveredOperationMethod;
+import org.springframework.boot.actuate.endpoint.annotation.IDiscoveredOperationMethod;
 import org.springframework.boot.actuate.endpoint.annotation.Selector;
 import org.springframework.boot.actuate.endpoint.annotation.Selector.Match;
 import org.springframework.boot.actuate.endpoint.web.EndpointMediaTypes;
@@ -104,7 +105,7 @@ class RequestPredicateFactory {
 		return Collections.emptyList();
 	}
 
-	private Collection<String> getProduces(DiscoveredOperationMethod operationMethod, Method method) {
+	private Collection<String> getProduces(IDiscoveredOperationMethod operationMethod, Method method) {
 		if (!operationMethod.getProducesMediaTypes().isEmpty()) {
 			return operationMethod.getProducesMediaTypes();
 		}

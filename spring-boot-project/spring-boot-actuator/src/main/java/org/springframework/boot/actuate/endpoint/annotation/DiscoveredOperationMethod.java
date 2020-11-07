@@ -32,7 +32,7 @@ import org.springframework.util.Assert;
  * @author Phillip Webb
  * @since 2.0.0
  */
-public class DiscoveredOperationMethod extends OperationMethod {
+public class DiscoveredOperationMethod extends OperationMethod implements IDiscoveredOperationMethod {
 
 	private final List<String> producesMediaTypes;
 
