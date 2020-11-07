@@ -29,7 +29,7 @@ import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException
  *
  * @author Phillip Webb
  */
-class CompositeHealthContributorReactiveAdapterTests {
+class CompositeHealthContributorReactiveAdapterTests implements ICompositeHealthContributorReactiveAdapterTests {
 
 	@Test
 	void createWhenDelegateIsNullThrowsException() {
