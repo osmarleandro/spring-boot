@@ -88,7 +88,7 @@ import org.springframework.util.StringUtils;
  * @since 2.0.0
  */
 @Endpoint(id = "configprops")
-public class ConfigurationPropertiesReportEndpoint implements ApplicationContextAware {
+public class ConfigurationPropertiesReportEndpoint implements ApplicationContextAware, IConfigurationPropertiesReportEndpoint {
 
 	private static final String CONFIGURATION_PROPERTIES_FILTER_ID = "configurationPropertiesFilter";
 

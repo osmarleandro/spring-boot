@@ -41,7 +41,7 @@ class ConfigurationPropertiesReportEndpointParentTests {
 		new ApplicationContextRunner().withUserConfiguration(Parent.class).run((parent) -> {
 			new ApplicationContextRunner().withUserConfiguration(ClassConfigurationProperties.class).withParent(parent)
 					.run((child) -> {
-						ConfigurationPropertiesReportEndpoint endpoint = child
+						IConfigurationPropertiesReportEndpoint endpoint = child
 								.getBean(ConfigurationPropertiesReportEndpoint.class);
 						ApplicationConfigurationProperties applicationProperties = endpoint.configurationProperties();
 						assertThat(applicationProperties.getContexts()).containsOnlyKeys(child.getId(), parent.getId());
@@ -58,7 +58,7 @@ class ConfigurationPropertiesReportEndpointParentTests {
 		new ApplicationContextRunner().withUserConfiguration(Parent.class).run((parent) -> {
 			new ApplicationContextRunner().withUserConfiguration(BeanMethodConfigurationProperties.class)
 					.withParent(parent).run((child) -> {
-						ConfigurationPropertiesReportEndpoint endpoint = child
+						IConfigurationPropertiesReportEndpoint endpoint = child
 								.getBean(ConfigurationPropertiesReportEndpoint.class);
 						ApplicationConfigurationProperties applicationProperties = endpoint.configurationProperties();
 						assertThat(applicationProperties.getContexts().get(child.getId()).getBeans().keySet())
@@ -85,7 +85,7 @@ class ConfigurationPropertiesReportEndpointParentTests {
 	static class ClassConfigurationProperties {
 
 		@Bean
-		ConfigurationPropertiesReportEndpoint endpoint() {
+		IConfigurationPropertiesReportEndpoint endpoint() {
 			return new ConfigurationPropertiesReportEndpoint();
 		}
 
@@ -101,7 +101,7 @@ class ConfigurationPropertiesReportEndpointParentTests {
 	static class BeanMethodConfigurationProperties {
 
 		@Bean
-		ConfigurationPropertiesReportEndpoint endpoint() {
+		IConfigurationPropertiesReportEndpoint endpoint() {
 			return new ConfigurationPropertiesReportEndpoint();
 		}
 

@@ -42,7 +42,7 @@ class ConfigurationPropertiesReportEndpointMethodAnnotationsTests {
 		ApplicationContextRunner contextRunner = new ApplicationContextRunner().withUserConfiguration(Config.class)
 				.withPropertyValues("other.name:foo", "first.name:bar");
 		contextRunner.run((context) -> {
-			ConfigurationPropertiesReportEndpoint endpoint = context
+			IConfigurationPropertiesReportEndpoint endpoint = context
 					.getBean(ConfigurationPropertiesReportEndpoint.class);
 			ApplicationConfigurationProperties applicationProperties = endpoint.configurationProperties();
 			assertThat(applicationProperties.getContexts()).containsOnlyKeys(context.getId());
@@ -60,7 +60,7 @@ class ConfigurationPropertiesReportEndpointMethodAnnotationsTests {
 		ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 				.withUserConfiguration(OverriddenPrefix.class).withPropertyValues("other.name:foo");
 		contextRunner.run((context) -> {
-			ConfigurationPropertiesReportEndpoint endpoint = context
+			IConfigurationPropertiesReportEndpoint endpoint = context
 					.getBean(ConfigurationPropertiesReportEndpoint.class);
 			ApplicationConfigurationProperties applicationProperties = endpoint.configurationProperties();
 			assertThat(applicationProperties.getContexts()).containsOnlyKeys(context.getId());
@@ -78,7 +78,7 @@ class ConfigurationPropertiesReportEndpointMethodAnnotationsTests {
 	static class Config {
 
 		@Bean
-		ConfigurationPropertiesReportEndpoint endpoint() {
+		IConfigurationPropertiesReportEndpoint endpoint() {
 			return new ConfigurationPropertiesReportEndpoint();
 		}
 
@@ -101,7 +101,7 @@ class ConfigurationPropertiesReportEndpointMethodAnnotationsTests {
 	static class OverriddenPrefix {
 
 		@Bean
-		ConfigurationPropertiesReportEndpoint endpoint() {
+		IConfigurationPropertiesReportEndpoint endpoint() {
 			return new ConfigurationPropertiesReportEndpoint();
 		}
 
