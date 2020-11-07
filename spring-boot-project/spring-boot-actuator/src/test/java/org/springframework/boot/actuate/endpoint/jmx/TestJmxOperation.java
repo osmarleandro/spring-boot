@@ -21,7 +21,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 
-import org.springframework.boot.actuate.endpoint.InvocationContext;
+import org.springframework.boot.actuate.endpoint.IInvocationContext;
 import org.springframework.boot.actuate.endpoint.OperationType;
 
 /**
@@ -67,7 +67,7 @@ public class TestJmxOperation implements JmxOperation {
 	}
 
 	@Override
-	public Object invoke(InvocationContext context) {
+	public Object invoke(IInvocationContext context) {
 		return (this.invoke != null) ? this.invoke.apply(context.getArguments()) : "result";
 	}
 

@@ -40,6 +40,7 @@ import org.glassfish.jersey.server.model.Resource;
 import org.glassfish.jersey.server.model.Resource.Builder;
 import reactor.core.publisher.Mono;
 
+import org.springframework.boot.actuate.endpoint.IInvocationContext;
 import org.springframework.boot.actuate.endpoint.InvalidEndpointRequestException;
 import org.springframework.boot.actuate.endpoint.InvocationContext;
 import org.springframework.boot.actuate.endpoint.SecurityContext;
@@ -153,7 +154,7 @@ public class JerseyEndpointResourceFactory {
 			try {
 				ApiVersion apiVersion = ApiVersion.fromHttpHeaders(data.getHeaders());
 				JerseySecurityContext securityContext = new JerseySecurityContext(data.getSecurityContext());
-				InvocationContext invocationContext = new InvocationContext(apiVersion, securityContext, arguments);
+				IInvocationContext invocationContext = new InvocationContext(apiVersion, securityContext, arguments);
 				Object response = this.operation.invoke(invocationContext);
 				return convertToJaxRsResponse(response, data.getRequest().getMethod());
 			}

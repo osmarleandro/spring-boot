@@ -27,6 +27,7 @@ import org.junit.jupiter.api.Test;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import org.springframework.boot.actuate.endpoint.IInvocationContext;
 import org.springframework.boot.actuate.endpoint.InvocationContext;
 import org.springframework.boot.actuate.endpoint.SecurityContext;
 import org.springframework.boot.actuate.endpoint.http.ApiVersion;
@@ -81,7 +82,7 @@ class CachingOperationInvokerTests {
 	void cacheInTtlWithMonoResponse() {
 		MonoOperationInvoker.invocations = new AtomicInteger();
 		MonoOperationInvoker target = new MonoOperationInvoker();
-		InvocationContext context = new InvocationContext(mock(SecurityContext.class), Collections.emptyMap());
+		IInvocationContext context = new InvocationContext(mock(SecurityContext.class), Collections.emptyMap());
 		CachingOperationInvoker invoker = new CachingOperationInvoker(target, CACHE_TTL);
 		Object response = ((Mono<?>) invoker.invoke(context)).block();
 		Object cachedResponse = ((Mono<?>) invoker.invoke(context)).block();
@@ -93,7 +94,7 @@ class CachingOperationInvokerTests {
 	void cacheInTtlWithFluxResponse() {
 		FluxOperationInvoker.invocations = new AtomicInteger();
 		FluxOperationInvoker target = new FluxOperationInvoker();
-		InvocationContext context = new InvocationContext(mock(SecurityContext.class), Collections.emptyMap());
+		IInvocationContext context = new InvocationContext(mock(SecurityContext.class), Collections.emptyMap());
 		CachingOperationInvoker invoker = new CachingOperationInvoker(target, CACHE_TTL);
 		Object response = ((Flux<?>) invoker.invoke(context)).blockLast();
 		Object cachedResponse = ((Flux<?>) invoker.invoke(context)).blockLast();
@@ -112,7 +113,7 @@ class CachingOperationInvokerTests {
 		if (principal != null) {
 			given(securityContext.getPrincipal()).willReturn(principal);
 		}
-		InvocationContext context = new InvocationContext(securityContext, parameters);
+		IInvocationContext context = new InvocationContext(securityContext, parameters);
 		given(target.invoke(context)).willReturn(expected);
 		CachingOperationInvoker invoker = new CachingOperationInvoker(target, CACHE_TTL);
 		Object response = invoker.invoke(context);
@@ -129,7 +130,7 @@ class CachingOperationInvokerTests {
 		Map<String, Object> parameters = new HashMap<>();
 		parameters.put("test", "value");
 		parameters.put("something", null);
-		InvocationContext context = new InvocationContext(mock(SecurityContext.class), parameters);
+		IInvocationContext context = new InvocationContext(mock(SecurityContext.class), parameters);
 		given(target.invoke(context)).willReturn(new Object());
 		CachingOperationInvoker invoker = new CachingOperationInvoker(target, CACHE_TTL);
 		invoker.invoke(context);
@@ -145,7 +146,7 @@ class CachingOperationInvokerTests {
 		SecurityContext securityContext = mock(SecurityContext.class);
 		given(securityContext.getPrincipal()).willReturn(mock(Principal.class), mock(Principal.class),
 				mock(Principal.class));
-		InvocationContext context = new InvocationContext(securityContext, parameters);
+		IInvocationContext context = new InvocationContext(securityContext, parameters);
 		Object result1 = new Object();
 		Object result2 = new Object();
 		Object result3 = new Object();
@@ -164,10 +165,10 @@ class CachingOperationInvokerTests {
 		SecurityContext anonymous = mock(SecurityContext.class);
 		SecurityContext authenticated = mock(SecurityContext.class);
 		given(authenticated.getPrincipal()).willReturn(mock(Principal.class));
-		InvocationContext anonymousContext = new InvocationContext(anonymous, parameters);
+		IInvocationContext anonymousContext = new InvocationContext(anonymous, parameters);
 		Object anonymousResult = new Object();
 		given(target.invoke(anonymousContext)).willReturn(anonymousResult);
-		InvocationContext authenticatedContext = new InvocationContext(authenticated, parameters);
+		IInvocationContext authenticatedContext = new InvocationContext(authenticated, parameters);
 		Object authenticatedResult = new Object();
 		given(target.invoke(authenticatedContext)).willReturn(authenticatedResult);
 		CachingOperationInvoker invoker = new CachingOperationInvoker(target, CACHE_TTL);
@@ -183,7 +184,7 @@ class CachingOperationInvokerTests {
 	void targetInvokedWhenCacheExpires() throws InterruptedException {
 		OperationInvoker target = mock(OperationInvoker.class);
 		Map<String, Object> parameters = new HashMap<>();
-		InvocationContext context = new InvocationContext(mock(SecurityContext.class), parameters);
+		IInvocationContext context = new InvocationContext(mock(SecurityContext.class), parameters);
 		given(target.invoke(context)).willReturn(new Object());
 		CachingOperationInvoker invoker = new CachingOperationInvoker(target, 50L);
 		invoker.invoke(context);
@@ -200,9 +201,9 @@ class CachingOperationInvokerTests {
 		OperationInvoker target = mock(OperationInvoker.class);
 		Object expectedV2 = new Object();
 		Object expectedV3 = new Object();
-		InvocationContext contextV2 = new InvocationContext(ApiVersion.V2, mock(SecurityContext.class),
+		IInvocationContext contextV2 = new InvocationContext(ApiVersion.V2, mock(SecurityContext.class),
 				Collections.emptyMap());
-		InvocationContext contextV3 = new InvocationContext(ApiVersion.V3, mock(SecurityContext.class),
+		IInvocationContext contextV3 = new InvocationContext(ApiVersion.V3, mock(SecurityContext.class),
 				Collections.emptyMap());
 		given(target.invoke(contextV2)).willReturn(expectedV2);
 		given(target.invoke(contextV3)).willReturn(expectedV3);
@@ -220,7 +221,7 @@ class CachingOperationInvokerTests {
 		static AtomicInteger invocations = new AtomicInteger();
 
 		@Override
-		public Mono<String> invoke(InvocationContext context) throws MissingParametersException {
+		public Mono<String> invoke(IInvocationContext context) throws MissingParametersException {
 			return Mono.fromCallable(() -> {
 				invocations.incrementAndGet();
 				return "test";
@@ -234,7 +235,7 @@ class CachingOperationInvokerTests {
 		static AtomicInteger invocations = new AtomicInteger();
 
 		@Override
-		public Flux<String> invoke(InvocationContext context) throws MissingParametersException {
+		public Flux<String> invoke(IInvocationContext context) throws MissingParametersException {
 			return Flux.just("spring", "boot").hide().doFirst(invocations::incrementAndGet);
 		}
 
