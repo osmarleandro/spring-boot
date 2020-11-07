@@ -38,7 +38,7 @@ import static org.mockito.Mockito.mock;
  * @author Dmytro Nosan
  * @author Stephane Nicoll
  */
-class HazelcastHealthIndicatorTests {
+class HazelcastHealthIndicatorTests implements IHazelcastHealthIndicatorTests {
 
 	@Test
 	void hazelcastUp() throws IOException {
