@@ -27,7 +27,7 @@ import org.springframework.boot.actuate.endpoint.ExposableEndpoint;
  * @see PathMapper
  */
 @FunctionalInterface
-public interface PathMappedEndpoint {
+public interface PathMappedEndpoint extends IPathMappedEndpoint {
 
 	/**
 	 * Return the root path of the endpoint, relative to the context that exposes it. For
