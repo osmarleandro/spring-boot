@@ -43,7 +43,7 @@ import static org.mockito.Mockito.mock;
  *
  * @author Andy Wilkinson
  */
-class HttpTraceWebFilterTests {
+class HttpTraceWebFilterTests implements IHttpTraceWebFilterTests {
 
 	private final InMemoryHttpTraceRepository repository = new InMemoryHttpTraceRepository();
 
