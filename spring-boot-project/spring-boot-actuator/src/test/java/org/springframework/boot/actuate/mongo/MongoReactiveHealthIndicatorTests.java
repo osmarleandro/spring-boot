@@ -35,7 +35,7 @@ import static org.mockito.Mockito.mock;
  *
  * @author Yulin Qin
  */
-class MongoReactiveHealthIndicatorTests {
+class MongoReactiveHealthIndicatorTests implements IMongoReactiveHealthIndicatorTests {
 
 	@Test
 	void testMongoIsUp() {
