@@ -37,7 +37,7 @@ import org.springframework.util.Assert;
  * @author Brian Clozel
  * @since 2.3.0
  */
-public class AvailabilityStateHealthIndicator extends AbstractHealthIndicator {
+public class AvailabilityStateHealthIndicator extends AbstractHealthIndicator implements IAvailabilityStateHealthIndicator {
 
 	private final ApplicationAvailability applicationAvailability;
 
