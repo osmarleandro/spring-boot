@@ -37,6 +37,7 @@ import org.springframework.boot.actuate.endpoint.EndpointFilter;
 import org.springframework.boot.actuate.endpoint.EndpointId;
 import org.springframework.boot.actuate.endpoint.EndpointsSupplier;
 import org.springframework.boot.actuate.endpoint.ExposableEndpoint;
+import org.springframework.boot.actuate.endpoint.IEndpointFilter;
 import org.springframework.boot.actuate.endpoint.Operation;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvoker;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvokerAdvisor;
@@ -288,7 +289,7 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 	}
 
 	private boolean isEndpointFiltered(EndpointBean endpointBean) {
-		for (EndpointFilter<E> filter : this.filters) {
+		for (IEndpointFilter<E> filter : this.filters) {
 			if (!isFilterMatch(filter, endpointBean)) {
 				return true;
 			}
@@ -307,18 +308,18 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 		E endpoint = getFilterEndpoint(endpointBean);
 		Class<?> generic = ResolvableType.forClass(EndpointFilter.class, filter).resolveGeneric(0);
 		if (generic == null || generic.isInstance(endpoint)) {
-			EndpointFilter<E> instance = (EndpointFilter<E>) BeanUtils.instantiateClass(filter);
+			IEndpointFilter<E> instance = (IEndpointFilter<E>) BeanUtils.instantiateClass(filter);
 			return isFilterMatch(instance, endpoint);
 		}
 		return false;
 	}
 
-	private boolean isFilterMatch(EndpointFilter<E> filter, EndpointBean endpointBean) {
+	private boolean isFilterMatch(IEndpointFilter<E> filter, EndpointBean endpointBean) {
 		return isFilterMatch(filter, getFilterEndpoint(endpointBean));
 	}
 
 	@SuppressWarnings("unchecked")
-	private boolean isFilterMatch(EndpointFilter<E> filter, E endpoint) {
+	private boolean isFilterMatch(IEndpointFilter<E> filter, E endpoint) {
 		return LambdaSafe.callback(EndpointFilter.class, filter, endpoint).withLogger(EndpointDiscoverer.class)
 				.invokeAnd((f) -> f.match(endpoint)).get();
 	}
