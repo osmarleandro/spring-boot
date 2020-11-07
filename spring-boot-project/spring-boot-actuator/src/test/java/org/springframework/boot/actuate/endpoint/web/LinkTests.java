@@ -26,7 +26,7 @@ import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException
  *
  * @author Phillip Webb
  */
-class LinkTests {
+class LinkTests implements ILinkTests {
 
 	@Test
 	void createWhenHrefIsNullShouldThrowException() {
