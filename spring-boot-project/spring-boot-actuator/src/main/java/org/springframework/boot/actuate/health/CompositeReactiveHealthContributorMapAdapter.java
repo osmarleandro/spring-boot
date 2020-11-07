@@ -27,7 +27,7 @@ import java.util.function.Function;
  * @author Phillip Webb
  */
 class CompositeReactiveHealthContributorMapAdapter<V> extends NamedContributorsMapAdapter<V, ReactiveHealthContributor>
-		implements CompositeReactiveHealthContributor {
+		implements CompositeReactiveHealthContributor, ICompositeReactiveHealthContributorMapAdapter<V> {
 
 	CompositeReactiveHealthContributorMapAdapter(Map<String, V> map,
 			Function<V, ? extends ReactiveHealthContributor> valueAdapter) {
