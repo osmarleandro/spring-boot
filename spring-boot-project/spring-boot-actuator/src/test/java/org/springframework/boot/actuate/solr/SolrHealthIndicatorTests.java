@@ -26,6 +26,7 @@ import org.apache.solr.common.util.NamedList;
 import org.junit.jupiter.api.Test;
 
 import org.springframework.boot.actuate.health.Health;
+import org.springframework.boot.actuate.health.IStatus;
 import org.springframework.boot.actuate.health.Status;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -121,7 +122,7 @@ class SolrHealthIndicatorTests {
 		verifyNoMoreInteractions(solrClient);
 	}
 
-	private void assertHealth(SolrHealthIndicator healthIndicator, Status expectedStatus, int expectedStatusCode,
+	private void assertHealth(SolrHealthIndicator healthIndicator, IStatus expectedStatus, int expectedStatusCode,
 			String expectedPathType) {
 		Health health = healthIndicator.health();
 		assertThat(health.getStatus()).isEqualTo(expectedStatus);

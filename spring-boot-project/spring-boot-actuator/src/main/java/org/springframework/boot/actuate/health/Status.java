@@ -35,7 +35,7 @@ import org.springframework.util.ObjectUtils;
  * @since 1.1.0
  */
 @JsonInclude(Include.NON_EMPTY)
-public final class Status {
+public final class Status implements IStatus {
 
 	/**
 	 * {@link Status} indicating that the component or subsystem is in an unknown state.
