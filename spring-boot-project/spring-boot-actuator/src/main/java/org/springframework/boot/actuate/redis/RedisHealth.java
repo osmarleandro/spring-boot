@@ -28,7 +28,7 @@ import org.springframework.data.redis.connection.ClusterInfo;
  *
  * @author Phillip Webb
  */
-final class RedisHealth {
+final class RedisHealth implements IRedisHealth {
 
 	private RedisHealth() {
 	}
