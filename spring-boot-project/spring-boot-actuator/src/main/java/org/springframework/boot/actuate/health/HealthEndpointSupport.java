@@ -150,9 +150,9 @@ abstract class HealthEndpointSupport<C, T> {
 
 		private final T health;
 
-		private final HealthEndpointGroup group;
+		private final IHealthEndpointGroup group;
 
-		HealthResult(T health, HealthEndpointGroup group) {
+		HealthResult(T health, IHealthEndpointGroup group) {
 			this.health = health;
 			this.group = group;
 		}
@@ -161,7 +161,7 @@ abstract class HealthEndpointSupport<C, T> {
 			return this.health;
 		}
 
-		HealthEndpointGroup getGroup() {
+		IHealthEndpointGroup getGroup() {
 			return this.group;
 		}
 
