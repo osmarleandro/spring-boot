@@ -43,6 +43,7 @@ import org.springframework.boot.actuate.endpoint.invoker.cache.CachingOperationI
 import org.springframework.boot.actuate.endpoint.jmx.annotation.JmxEndpoint;
 import org.springframework.boot.actuate.endpoint.web.EndpointMediaTypes;
 import org.springframework.boot.actuate.endpoint.web.ExposableWebEndpoint;
+import org.springframework.boot.actuate.endpoint.web.IWebEndpointHttpMethod;
 import org.springframework.boot.actuate.endpoint.web.PathMapper;
 import org.springframework.boot.actuate.endpoint.web.WebEndpointHttpMethod;
 import org.springframework.boot.actuate.endpoint.web.WebOperation;
@@ -607,7 +608,7 @@ class WebEndpointDiscovererTests {
 
 		private List<String> consumes;
 
-		private WebEndpointHttpMethod httpMethod;
+		private IWebEndpointHttpMethod httpMethod;
 
 		private RequestPredicateMatcher(String path) {
 			this.path = path;
@@ -623,7 +624,7 @@ class WebEndpointDiscovererTests {
 			return this;
 		}
 
-		private RequestPredicateMatcher httpMethod(WebEndpointHttpMethod httpMethod) {
+		private RequestPredicateMatcher httpMethod(IWebEndpointHttpMethod httpMethod) {
 			this.httpMethod = httpMethod;
 			return this;
 		}

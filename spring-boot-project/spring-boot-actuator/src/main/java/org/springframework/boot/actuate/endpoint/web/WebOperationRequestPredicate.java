@@ -42,7 +42,7 @@ public final class WebOperationRequestPredicate {
 
 	private final String canonicalPath;
 
-	private final WebEndpointHttpMethod httpMethod;
+	private final IWebEndpointHttpMethod httpMethod;
 
 	private final Collection<String> consumes;
 
@@ -55,7 +55,7 @@ public final class WebOperationRequestPredicate {
 	 * @param produces the media types that the operation produces
 	 * @param consumes the media types that the operation consumes
 	 */
-	public WebOperationRequestPredicate(String path, WebEndpointHttpMethod httpMethod, Collection<String> consumes,
+	public WebOperationRequestPredicate(String path, IWebEndpointHttpMethod httpMethod, Collection<String> consumes,
 			Collection<String> produces) {
 		this.path = path;
 		this.canonicalPath = extractCanonicalPath(path);
@@ -97,7 +97,7 @@ public final class WebOperationRequestPredicate {
 	 * Returns the HTTP method for the operation.
 	 * @return the HTTP method
 	 */
-	public WebEndpointHttpMethod getHttpMethod() {
+	public IWebEndpointHttpMethod getHttpMethod() {
 		return this.httpMethod;
 	}
 

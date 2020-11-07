@@ -22,7 +22,7 @@ package org.springframework.boot.actuate.endpoint.web;
  * @author Andy Wilkinson
  * @since 2.0.0
  */
-public enum WebEndpointHttpMethod {
+public enum WebEndpointHttpMethod implements IWebEndpointHttpMethod {
 
 	/**
 	 * An HTTP GET request.
