@@ -36,6 +36,7 @@ import org.springframework.boot.actuate.health.HealthEndpointGroupsPostProcessor
 import org.springframework.boot.actuate.health.HealthEndpointWebExtension;
 import org.springframework.boot.actuate.health.HealthIndicator;
 import org.springframework.boot.actuate.health.HttpCodeStatusMapper;
+import org.springframework.boot.actuate.health.IReactiveHealthEndpointWebExtension;
 import org.springframework.boot.actuate.health.NamedContributor;
 import org.springframework.boot.actuate.health.ReactiveHealthContributorRegistry;
 import org.springframework.boot.actuate.health.ReactiveHealthEndpointWebExtension;
@@ -229,7 +230,7 @@ class HealthEndpointAutoConfigurationTests {
 	@Test
 	void runCreatesReactiveHealthEndpointWebExtension() {
 		this.reactiveContextRunner.run((context) -> {
-			ReactiveHealthEndpointWebExtension webExtension = context.getBean(ReactiveHealthEndpointWebExtension.class);
+			IReactiveHealthEndpointWebExtension webExtension = context.getBean(ReactiveHealthEndpointWebExtension.class);
 			Mono<WebEndpointResponse<? extends HealthComponent>> response = webExtension.health(ApiVersion.V3,
 					SecurityContext.NONE, true, "simple");
 			Health health = (Health) (response.block().getBody());
@@ -241,7 +242,7 @@ class HealthEndpointAutoConfigurationTests {
 	void runWhenHasReactiveHealthEndpointWebExtensionBeanDoesNotCreateExtraReactiveHealthEndpointWebExtension() {
 		this.reactiveContextRunner.withUserConfiguration(ReactiveHealthEndpointWebExtensionConfiguration.class)
 				.run((context) -> {
-					ReactiveHealthEndpointWebExtension webExtension = context
+					IReactiveHealthEndpointWebExtension webExtension = context
 							.getBean(ReactiveHealthEndpointWebExtension.class);
 					Mono<WebEndpointResponse<? extends HealthComponent>> response = webExtension.health(ApiVersion.V3,
 							SecurityContext.NONE, true, "simple");
@@ -355,7 +356,7 @@ class HealthEndpointAutoConfigurationTests {
 	static class ReactiveHealthEndpointWebExtensionConfiguration {
 
 		@Bean
-		ReactiveHealthEndpointWebExtension reactiveHealthEndpointWebExtension() {
+		IReactiveHealthEndpointWebExtension reactiveHealthEndpointWebExtension() {
 			return mock(ReactiveHealthEndpointWebExtension.class);
 		}
 
