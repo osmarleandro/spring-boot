@@ -34,7 +34,7 @@ import static org.mockito.Mockito.verify;
  *
  * @author Christian Dupuis
  */
-class MongoHealthIndicatorTests {
+class MongoHealthIndicatorTests implements IMongoHealthIndicatorTests {
 
 	@Test
 	void mongoIsUp() {
