@@ -48,7 +48,7 @@ import static org.mockito.Mockito.verify;
  * @author Phillip Webb
  * @author Stephane Nicoll
  */
-class EndpointMBeanTests {
+class EndpointMBeanTests implements IEndpointMBeanTests {
 
 	private static final Object[] NO_PARAMS = {};
 
