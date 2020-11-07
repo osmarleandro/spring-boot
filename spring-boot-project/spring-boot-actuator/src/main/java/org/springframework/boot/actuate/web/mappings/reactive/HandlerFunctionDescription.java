@@ -24,7 +24,7 @@ import org.springframework.web.reactive.function.server.HandlerFunction;
  * @author Andy Wilkinson
  * @since 2.0.0
  */
-public class HandlerFunctionDescription {
+public class HandlerFunctionDescription implements IHandlerFunctionDescription {
 
 	private final String className;
 
