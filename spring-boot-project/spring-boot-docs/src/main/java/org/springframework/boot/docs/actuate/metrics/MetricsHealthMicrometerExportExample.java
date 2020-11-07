@@ -21,6 +21,7 @@ import io.micrometer.core.instrument.MeterRegistry;
 
 import org.springframework.boot.actuate.health.HealthEndpoint;
 import org.springframework.boot.actuate.health.HealthIndicator;
+import org.springframework.boot.actuate.health.IStatus;
 import org.springframework.boot.actuate.health.Status;
 import org.springframework.context.annotation.Configuration;
 
@@ -41,7 +42,7 @@ public class MetricsHealthMicrometerExportExample {
 		}
 
 		private int getStatusCode(HealthEndpoint health) {
-			Status status = health.health().getStatus();
+			IStatus status = health.health().getStatus();
 			if (Status.UP.equals(status)) {
 				return 3;
 			}

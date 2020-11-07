@@ -60,7 +60,7 @@ public class SimpleHttpCodeStatusMapper implements HttpCodeStatusMapper {
 	}
 
 	@Override
-	public int getStatusCode(Status status) {
+	public int getStatusCode(IStatus status) {
 		String code = getUniformCode(status.getCode());
 		return this.mappings.getOrDefault(code, WebEndpointResponse.STATUS_OK);
 	}

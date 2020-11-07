@@ -38,6 +38,6 @@ public interface HttpCodeStatusMapper {
 	 * @param status the health status to map
 	 * @return the corresponding HTTP status code
 	 */
-	int getStatusCode(Status status);
+	int getStatusCode(IStatus status);
 
 }

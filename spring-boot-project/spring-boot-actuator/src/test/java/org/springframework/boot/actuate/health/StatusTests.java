@@ -43,21 +43,21 @@ class StatusTests {
 
 	@Test
 	void getCodeReturnsCode() {
-		Status status = new Status("spring", "boot");
+		IStatus status = new Status("spring", "boot");
 		assertThat(status.getCode()).isEqualTo("spring");
 	}
 
 	@Test
 	void getDescriptionReturnsDescription() {
-		Status status = new Status("spring", "boot");
+		IStatus status = new Status("spring", "boot");
 		assertThat(status.getDescription()).isEqualTo("boot");
 	}
 
 	@Test
 	void equalsAndHashCode() {
 		Status one = new Status("spring", "boot");
-		Status two = new Status("spring", "framework");
-		Status three = new Status("spock", "framework");
+		IStatus two = new Status("spring", "framework");
+		IStatus three = new Status("spock", "framework");
 		assertThat(one).isEqualTo(one).isEqualTo(two).isNotEqualTo(three);
 		assertThat(one.hashCode()).isEqualTo(two.hashCode());
 	}
@@ -69,7 +69,7 @@ class StatusTests {
 
 	@Test
 	void serializeWithJacksonReturnsValidJson() throws Exception {
-		Status status = new Status("spring", "boot");
+		IStatus status = new Status("spring", "boot");
 		ObjectMapper mapper = new ObjectMapper();
 		String json = mapper.writeValueAsString(status);
 		assertThat(json).isEqualTo("{\"description\":\"boot\",\"status\":\"spring\"}");
