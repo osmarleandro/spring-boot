@@ -32,7 +32,7 @@ import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException
  * @author Dave Syer
  * @author Vedran Pavic
  */
-class AuditEventTests {
+class AuditEventTests implements IAuditEventTests {
 
 	@Test
 	void nowEvent() {
