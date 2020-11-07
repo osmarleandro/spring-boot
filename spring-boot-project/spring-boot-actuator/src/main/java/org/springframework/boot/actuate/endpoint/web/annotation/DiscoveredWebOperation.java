@@ -40,7 +40,7 @@ import org.springframework.util.ClassUtils;
  * @author Stephane Nicoll
  * @author Phillip Webb
  */
-class DiscoveredWebOperation extends AbstractDiscoveredOperation implements WebOperation {
+class DiscoveredWebOperation extends AbstractDiscoveredOperation implements WebOperation, IDiscoveredWebOperation {
 
 	private static final boolean REACTIVE_STREAMS_PRESENT = ClassUtils.isPresent("org.reactivestreams.Publisher",
 			DiscoveredWebOperation.class.getClassLoader());
