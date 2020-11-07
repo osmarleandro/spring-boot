@@ -27,7 +27,7 @@ import org.springframework.util.Assert;
  *
  * @author Stephane Nicoll
  */
-class HealthIndicatorReactiveAdapter implements ReactiveHealthIndicator {
+class HealthIndicatorReactiveAdapter implements ReactiveHealthIndicator, IHealthIndicatorReactiveAdapter {
 
 	private final HealthIndicator delegate;
 
