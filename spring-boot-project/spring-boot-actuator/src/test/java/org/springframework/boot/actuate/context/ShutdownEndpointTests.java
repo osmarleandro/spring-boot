@@ -42,7 +42,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Dave Syer
  * @author Andy Wilkinson
  */
-class ShutdownEndpointTests {
+class ShutdownEndpointTests implements IShutdownEndpointTests {
 
 	@Test
 	void shutdown() {
