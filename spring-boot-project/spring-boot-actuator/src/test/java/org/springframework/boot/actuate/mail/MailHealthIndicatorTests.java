@@ -29,8 +29,7 @@ import javax.mail.URLName;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import org.springframework.boot.actuate.health.Health;
+import org.springframework.boot.actuate.health.IHealth;
 import org.springframework.boot.actuate.health.Status;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 
@@ -65,7 +64,7 @@ class MailHealthIndicatorTests {
 	@Test
 	void smtpIsUp() {
 		given(this.mailSender.getProtocol()).willReturn("success");
-		Health health = this.indicator.health();
+		IHealth health = this.indicator.health();
 		assertThat(health.getStatus()).isEqualTo(Status.UP);
 		assertThat(health.getDetails().get("location")).isEqualTo("smtp.acme.org:25");
 	}
@@ -73,7 +72,7 @@ class MailHealthIndicatorTests {
 	@Test
 	void smtpIsDown() throws MessagingException {
 		willThrow(new MessagingException("A test exception")).given(this.mailSender).testConnection();
-		Health health = this.indicator.health();
+		IHealth health = this.indicator.health();
 		assertThat(health.getStatus()).isEqualTo(Status.DOWN);
 		assertThat(health.getDetails().get("location")).isEqualTo("smtp.acme.org:25");
 		Object errorMessage = health.getDetails().get("error");

@@ -33,7 +33,7 @@ public interface HealthIndicator extends HealthContributor {
 	 * @return the health
 	 * @since 2.2.0
 	 */
-	default Health getHealth(boolean includeDetails) {
+	default IHealth getHealth(boolean includeDetails) {
 		Health health = health();
 		return includeDetails ? health : health.withoutDetails();
 	}

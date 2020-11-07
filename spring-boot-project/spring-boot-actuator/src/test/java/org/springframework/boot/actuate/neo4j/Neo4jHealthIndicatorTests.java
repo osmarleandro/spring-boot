@@ -28,8 +28,7 @@ import org.neo4j.driver.Values;
 import org.neo4j.driver.exceptions.ServiceUnavailableException;
 import org.neo4j.driver.exceptions.SessionExpiredException;
 import org.neo4j.driver.summary.ResultSummary;
-
-import org.springframework.boot.actuate.health.Health;
+import org.springframework.boot.actuate.health.IHealth;
 import org.springframework.boot.actuate.health.Status;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -53,7 +52,7 @@ class Neo4jHealthIndicatorTests {
 	void neo4jIsUp() {
 		ResultSummary resultSummary = ResultSummaryMock.createResultSummary("4711", "My Home", "test");
 		Driver driver = mockDriver(resultSummary, "ultimate collectors edition");
-		Health health = new Neo4jHealthIndicator(driver).health();
+		IHealth health = new Neo4jHealthIndicator(driver).health();
 		assertThat(health.getStatus()).isEqualTo(Status.UP);
 		assertThat(health.getDetails()).containsEntry("server", "4711@My Home");
 		assertThat(health.getDetails()).containsEntry("database", "test");
@@ -64,7 +63,7 @@ class Neo4jHealthIndicatorTests {
 	void neo4jIsUpWithoutDatabaseName() {
 		ResultSummary resultSummary = ResultSummaryMock.createResultSummary("4711", "My Home", null);
 		Driver driver = mockDriver(resultSummary, "some edition");
-		Health health = new Neo4jHealthIndicator(driver).health();
+		IHealth health = new Neo4jHealthIndicator(driver).health();
 		assertThat(health.getStatus()).isEqualTo(Status.UP);
 		assertThat(health.getDetails()).containsEntry("server", "4711@My Home");
 		assertThat(health.getDetails()).doesNotContainKey("database");
@@ -75,7 +74,7 @@ class Neo4jHealthIndicatorTests {
 	void neo4jIsUpWithEmptyDatabaseName() {
 		ResultSummary resultSummary = ResultSummaryMock.createResultSummary("4711", "My Home", "");
 		Driver driver = mockDriver(resultSummary, "some edition");
-		Health health = new Neo4jHealthIndicator(driver).health();
+		IHealth health = new Neo4jHealthIndicator(driver).health();
 		assertThat(health.getStatus()).isEqualTo(Status.UP);
 		assertThat(health.getDetails()).containsEntry("server", "4711@My Home");
 		assertThat(health.getDetails()).doesNotContainKey("database");
@@ -97,7 +96,7 @@ class Neo4jHealthIndicatorTests {
 		Driver driver = mock(Driver.class);
 		given(driver.session(any(SessionConfig.class))).willReturn(session);
 		Neo4jHealthIndicator healthIndicator = new Neo4jHealthIndicator(driver);
-		Health health = healthIndicator.health();
+		IHealth health = healthIndicator.health();
 		assertThat(health.getStatus()).isEqualTo(Status.UP);
 		assertThat(health.getDetails()).containsEntry("server", "4711@My Home");
 		verify(session, times(2)).close();
@@ -107,7 +106,7 @@ class Neo4jHealthIndicatorTests {
 	void neo4jIsDown() {
 		Driver driver = mock(Driver.class);
 		given(driver.session(any(SessionConfig.class))).willThrow(ServiceUnavailableException.class);
-		Health health = new Neo4jHealthIndicator(driver).health();
+		IHealth health = new Neo4jHealthIndicator(driver).health();
 		assertThat(health.getStatus()).isEqualTo(Status.DOWN);
 		assertThat(health.getDetails()).containsKeys("error");
 	}

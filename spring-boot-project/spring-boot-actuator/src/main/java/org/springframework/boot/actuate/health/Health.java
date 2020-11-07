@@ -49,7 +49,7 @@ import org.springframework.util.Assert;
  * @since 1.1.0
  */
 @JsonInclude(Include.NON_EMPTY)
-public final class Health extends HealthComponent {
+public final class Health extends HealthComponent implements IHealth {
 
 	private final Status status;
 

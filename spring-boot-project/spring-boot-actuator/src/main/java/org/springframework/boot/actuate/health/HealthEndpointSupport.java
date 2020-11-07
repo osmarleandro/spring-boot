@@ -35,7 +35,7 @@ import org.springframework.util.Assert;
  */
 abstract class HealthEndpointSupport<C, T> {
 
-	static final Health DEFAULT_HEALTH = Health.up().build();
+	static final IHealth DEFAULT_HEALTH = Health.up().build();
 
 	private final ContributorRegistry<C> registry;
 

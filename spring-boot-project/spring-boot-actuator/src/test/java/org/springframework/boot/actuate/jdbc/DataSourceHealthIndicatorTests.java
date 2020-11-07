@@ -24,8 +24,7 @@ import javax.sql.DataSource;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import org.springframework.boot.actuate.health.Health;
+import org.springframework.boot.actuate.health.IHealth;
 import org.springframework.boot.actuate.health.Status;
 import org.springframework.boot.jdbc.EmbeddedDatabaseConnection;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -67,7 +66,7 @@ class DataSourceHealthIndicatorTests {
 	@Test
 	void healthIndicatorWithDefaultSettings() {
 		this.indicator.setDataSource(this.dataSource);
-		Health health = this.indicator.health();
+		IHealth health = this.indicator.health();
 		assertThat(health.getStatus()).isEqualTo(Status.UP);
 		assertThat(health.getDetails()).containsOnly(entry("database", "HSQL Database Engine"),
 				entry("validationQuery", "isValid()"));
@@ -79,7 +78,7 @@ class DataSourceHealthIndicatorTests {
 		new JdbcTemplate(this.dataSource).execute("CREATE TABLE FOO (id INTEGER IDENTITY PRIMARY KEY)");
 		this.indicator.setDataSource(this.dataSource);
 		this.indicator.setQuery(customValidationQuery);
-		Health health = this.indicator.health();
+		IHealth health = this.indicator.health();
 		assertThat(health.getStatus()).isEqualTo(Status.UP);
 		assertThat(health.getDetails()).containsOnly(entry("database", "HSQL Database Engine"), entry("result", 0L),
 				entry("validationQuery", customValidationQuery));
@@ -90,7 +89,7 @@ class DataSourceHealthIndicatorTests {
 		String invalidValidationQuery = "SELECT COUNT(*) from BAR";
 		this.indicator.setDataSource(this.dataSource);
 		this.indicator.setQuery(invalidValidationQuery);
-		Health health = this.indicator.health();
+		IHealth health = this.indicator.health();
 		assertThat(health.getStatus()).isEqualTo(Status.DOWN);
 		assertThat(health.getDetails()).contains(entry("database", "HSQL Database Engine"),
 				entry("validationQuery", invalidValidationQuery));
@@ -104,7 +103,7 @@ class DataSourceHealthIndicatorTests {
 		given(connection.getMetaData()).willReturn(this.dataSource.getConnection().getMetaData());
 		given(dataSource.getConnection()).willReturn(connection);
 		this.indicator.setDataSource(dataSource);
-		Health health = this.indicator.health();
+		IHealth health = this.indicator.health();
 		assertThat(health.getDetails().get("database")).isNotNull();
 		verify(connection, times(2)).close();
 	}
@@ -117,7 +116,7 @@ class DataSourceHealthIndicatorTests {
 		given(connection.getMetaData()).willReturn(this.dataSource.getConnection().getMetaData());
 		given(dataSource.getConnection()).willReturn(connection);
 		this.indicator.setDataSource(dataSource);
-		Health health = this.indicator.health();
+		IHealth health = this.indicator.health();
 		assertThat(health.getStatus()).isEqualTo(Status.DOWN);
 		assertThat(health.getDetails()).containsOnly(entry("database", "HSQL Database Engine"),
 				entry("validationQuery", "isValid()"));

@@ -34,6 +34,7 @@ import org.springframework.boot.actuate.health.HealthEndpointGroups;
 import org.springframework.boot.actuate.health.HealthEndpointGroupsPostProcessor;
 import org.springframework.boot.actuate.health.HealthIndicator;
 import org.springframework.boot.actuate.health.HttpCodeStatusMapper;
+import org.springframework.boot.actuate.health.IHealth;
 import org.springframework.boot.actuate.health.NamedContributor;
 import org.springframework.boot.actuate.health.ReactiveHealthContributor;
 import org.springframework.boot.actuate.health.ReactiveHealthIndicator;
@@ -157,7 +158,7 @@ class HealthEndpointConfiguration {
 			return new HealthIndicator() {
 
 				@Override
-				public Health getHealth(boolean includeDetails) {
+				public IHealth getHealth(boolean includeDetails) {
 					return indicator.getHealth(includeDetails).block();
 				}
 
