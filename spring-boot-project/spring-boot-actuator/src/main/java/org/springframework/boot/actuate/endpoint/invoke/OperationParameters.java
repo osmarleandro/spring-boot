@@ -24,7 +24,7 @@ import java.util.stream.Stream;
  * @author Phillip Webb
  * @since 2.0.0
  */
-public interface OperationParameters extends Iterable<OperationParameter> {
+public interface OperationParameters extends Iterable<OperationParameter>, IOperationParameters {
 
 	/**
 	 * Return {@code true} if there is at least one parameter.
