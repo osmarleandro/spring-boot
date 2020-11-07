@@ -24,7 +24,7 @@ package org.springframework.boot.actuate.endpoint;
  * @since 2.0.0
  */
 @FunctionalInterface
-public interface EndpointFilter<E extends ExposableEndpoint<?>> {
+public interface EndpointFilter<E extends ExposableEndpoint<?>> extends IEndpointFilter<E> {
 
 	/**
 	 * Return {@code true} if the filter matches.
