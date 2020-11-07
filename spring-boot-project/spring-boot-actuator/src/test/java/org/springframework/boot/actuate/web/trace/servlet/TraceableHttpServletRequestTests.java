@@ -27,7 +27,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Madhura Bhave
  */
-class TraceableHttpServletRequestTests {
+class TraceableHttpServletRequestTests implements ITraceableHttpServletRequestTests {
 
 	private MockHttpServletRequest request;
 
