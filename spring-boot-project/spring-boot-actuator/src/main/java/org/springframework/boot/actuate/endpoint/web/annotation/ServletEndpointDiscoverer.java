@@ -28,6 +28,7 @@ import org.springframework.boot.actuate.endpoint.annotation.EndpointDiscoverer;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvoker;
 import org.springframework.boot.actuate.endpoint.invoke.ParameterValueMapper;
 import org.springframework.boot.actuate.endpoint.web.ExposableServletEndpoint;
+import org.springframework.boot.actuate.endpoint.web.IExposableServletEndpoint;
 import org.springframework.boot.actuate.endpoint.web.PathMapper;
 import org.springframework.context.ApplicationContext;
 import org.springframework.core.annotation.MergedAnnotations;
@@ -62,7 +63,7 @@ public class ServletEndpointDiscoverer extends EndpointDiscoverer<ExposableServl
 	}
 
 	@Override
-	protected ExposableServletEndpoint createEndpoint(Object endpointBean, EndpointId id, boolean enabledByDefault,
+	protected IExposableServletEndpoint createEndpoint(Object endpointBean, EndpointId id, boolean enabledByDefault,
 			Collection<Operation> operations) {
 		String rootPath = PathMapper.getRootPath(this.endpointPathMappers, id);
 		return new DiscoveredServletEndpoint(this, endpointBean, id, rootPath, enabledByDefault);
