@@ -42,7 +42,7 @@ import org.springframework.web.servlet.HandlerMapping;
  *
  * @author Andy Wilkinson
  */
-final class DispatcherServletHandlerMappings {
+final class DispatcherServletHandlerMappings implements IDispatcherServletHandlerMappings {
 
 	private final String name;
 
