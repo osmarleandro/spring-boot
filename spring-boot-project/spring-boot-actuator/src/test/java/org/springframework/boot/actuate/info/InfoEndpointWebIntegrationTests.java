@@ -55,7 +55,7 @@ class InfoEndpointWebIntegrationTests {
 		}
 
 		@Bean
-		InfoContributor beanName1() {
+		IInfoContributor beanName1() {
 			return (builder) -> {
 				Map<String, Object> content = new LinkedHashMap<>();
 				content.put("key11", "value11");
@@ -65,7 +65,7 @@ class InfoEndpointWebIntegrationTests {
 		}
 
 		@Bean
-		InfoContributor beanName2() {
+		IInfoContributor beanName2() {
 			return (builder) -> {
 				Map<String, Object> content = new LinkedHashMap<>();
 				content.put("key21", "value21");
