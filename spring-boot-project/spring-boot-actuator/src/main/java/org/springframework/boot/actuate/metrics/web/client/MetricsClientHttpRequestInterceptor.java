@@ -41,7 +41,7 @@ import org.springframework.web.util.UriTemplateHandler;
  * @author Jon Schneider
  * @author Phillip Webb
  */
-class MetricsClientHttpRequestInterceptor implements ClientHttpRequestInterceptor {
+class MetricsClientHttpRequestInterceptor implements ClientHttpRequestInterceptor, IMetricsClientHttpRequestInterceptor {
 
 	private static final ThreadLocal<Deque<String>> urlTemplate = new UrlTemplateThreadLocal();
 
