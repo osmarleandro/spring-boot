@@ -26,6 +26,7 @@ import java.util.Map;
 import org.junit.jupiter.api.Test;
 
 import org.springframework.boot.actuate.endpoint.EndpointId;
+import org.springframework.boot.actuate.endpoint.IOperationType;
 import org.springframework.boot.actuate.endpoint.OperationType;
 import org.springframework.boot.actuate.endpoint.annotation.DiscoveredOperationMethod;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvoker;
@@ -135,7 +136,7 @@ class DiscoveredJmxOperationTests {
 
 	interface Example {
 
-		OperationType getEnum();
+		IOperationType getEnum();
 
 		Date getDate();
 
@@ -147,7 +148,7 @@ class DiscoveredJmxOperationTests {
 
 		ApplicationContext getApplicationContext();
 
-		Object params(OperationType enumParam, Date dateParam, Instant instantParam, Integer integerParam,
+		Object params(IOperationType enumParam, Date dateParam, Instant instantParam, Integer integerParam,
 				ApplicationContext applicationContextParam);
 
 		@ManagedOperation(description = "fromannotation")

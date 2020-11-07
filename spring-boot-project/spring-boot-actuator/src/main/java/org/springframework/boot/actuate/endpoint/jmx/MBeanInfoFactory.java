@@ -27,6 +27,7 @@ import javax.management.modelmbean.ModelMBeanInfoSupport;
 import javax.management.modelmbean.ModelMBeanNotificationInfo;
 import javax.management.modelmbean.ModelMBeanOperationInfo;
 
+import org.springframework.boot.actuate.endpoint.IOperationType;
 import org.springframework.boot.actuate.endpoint.OperationType;
 
 /**
@@ -82,7 +83,7 @@ class MBeanInfoFactory {
 		return new MBeanParameterInfo(parameter.getName(), parameter.getType().getName(), parameter.getDescription());
 	}
 
-	private int getImpact(OperationType operationType) {
+	private int getImpact(IOperationType operationType) {
 		if (operationType == OperationType.READ) {
 			return MBeanOperationInfo.INFO;
 		}
