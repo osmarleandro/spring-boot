@@ -24,7 +24,7 @@ package org.springframework.boot.actuate.health;
  * @since 2.2.0
  * @see Status#UP
  */
-public class PingHealthIndicator extends AbstractHealthIndicator {
+public class PingHealthIndicator extends AbstractHealthIndicator implements IPingHealthIndicator {
 
 	@Override
 	protected void doHealthCheck(Health.Builder builder) throws Exception {
