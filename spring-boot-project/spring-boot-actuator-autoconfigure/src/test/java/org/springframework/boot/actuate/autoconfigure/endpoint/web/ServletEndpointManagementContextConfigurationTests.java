@@ -22,7 +22,7 @@ import org.glassfish.jersey.server.ResourceConfig;
 import org.junit.jupiter.api.Test;
 
 import org.springframework.boot.actuate.endpoint.web.ServletEndpointRegistrar;
-import org.springframework.boot.actuate.endpoint.web.annotation.ServletEndpointsSupplier;
+import org.springframework.boot.actuate.endpoint.web.annotation.IServletEndpointsSupplier;
 import org.springframework.boot.autoconfigure.web.servlet.DispatcherServletPath;
 import org.springframework.boot.autoconfigure.web.servlet.JerseyApplicationPath;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -79,7 +79,7 @@ class ServletEndpointManagementContextConfigurationTests {
 	static class TestConfig {
 
 		@Bean
-		ServletEndpointsSupplier servletEndpointsSupplier() {
+		IServletEndpointsSupplier servletEndpointsSupplier() {
 			return Collections::emptyList;
 		}
 
