@@ -24,7 +24,7 @@ import org.springframework.web.servlet.DispatcherServlet;
  * @author Andy Wilkinson
  * @since 2.0.0
  */
-public class DispatcherHandlerMappingDescription {
+public class DispatcherHandlerMappingDescription implements IDispatcherHandlerMappingDescription {
 
 	private final String predicate;
 
