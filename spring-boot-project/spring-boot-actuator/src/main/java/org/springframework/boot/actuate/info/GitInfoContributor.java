@@ -30,7 +30,7 @@ import org.springframework.core.env.PropertySource;
  * @author Stephane Nicoll
  * @since 1.4.0
  */
-public class GitInfoContributor extends InfoPropertiesInfoContributor<GitProperties> {
+public class GitInfoContributor extends InfoPropertiesInfoContributor<GitProperties> implements IGitInfoContributor {
 
 	public GitInfoContributor(GitProperties properties) {
 		this(properties, Mode.SIMPLE);
