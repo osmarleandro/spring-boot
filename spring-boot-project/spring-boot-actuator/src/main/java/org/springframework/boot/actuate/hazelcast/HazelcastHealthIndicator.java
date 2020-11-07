@@ -33,7 +33,7 @@ import org.springframework.util.ReflectionUtils;
  * @author Stephane Nicoll
  * @since 2.2.0
  */
-public class HazelcastHealthIndicator extends AbstractHealthIndicator {
+public class HazelcastHealthIndicator extends AbstractHealthIndicator implements IHazelcastHealthIndicator {
 
 	private final HazelcastInstance hazelcast;
 
