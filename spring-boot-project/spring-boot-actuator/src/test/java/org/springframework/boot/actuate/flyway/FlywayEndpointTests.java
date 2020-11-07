@@ -36,7 +36,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Andy Wilkinson
  * @author Phillip Webb
  */
-class FlywayEndpointTests {
+class FlywayEndpointTests implements IFlywayEndpointTests {
 
 	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(FlywayAutoConfiguration.class))
