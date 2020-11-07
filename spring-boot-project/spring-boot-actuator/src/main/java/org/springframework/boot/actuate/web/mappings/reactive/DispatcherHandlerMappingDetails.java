@@ -29,7 +29,7 @@ public class DispatcherHandlerMappingDetails {
 
 	private HandlerMethodDescription handlerMethod;
 
-	private HandlerFunctionDescription handlerFunction;
+	private IHandlerFunctionDescription handlerFunction;
 
 	private RequestMappingConditionsDescription requestMappingConditions;
 
@@ -41,11 +41,11 @@ public class DispatcherHandlerMappingDetails {
 		this.handlerMethod = handlerMethod;
 	}
 
-	public HandlerFunctionDescription getHandlerFunction() {
+	public IHandlerFunctionDescription getHandlerFunction() {
 		return this.handlerFunction;
 	}
 
-	void setHandlerFunction(HandlerFunctionDescription handlerFunction) {
+	void setHandlerFunction(IHandlerFunctionDescription handlerFunction) {
 		this.handlerFunction = handlerFunction;
 	}
 
