@@ -31,7 +31,7 @@ import org.springframework.web.servlet.mvc.method.RequestMappingInfo;
  * @author Andy Wilkinson
  * @since 2.0.0
  */
-public class RequestMappingConditionsDescription {
+public class RequestMappingConditionsDescription implements IRequestMappingConditionsDescription {
 
 	private final List<MediaTypeExpressionDescription> consumes;
 
