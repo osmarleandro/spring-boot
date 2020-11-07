@@ -148,7 +148,7 @@ class MvcWebEndpointIntegrationTests
 		}
 
 		@Bean
-		WebMvcEndpointHandlerMapping webEndpointHandlerMapping(Environment environment,
+		IWebMvcEndpointHandlerMapping webEndpointHandlerMapping(Environment environment,
 				WebEndpointDiscoverer endpointDiscoverer, EndpointMediaTypes endpointMediaTypes) {
 			CorsConfiguration corsConfiguration = new CorsConfiguration();
 			corsConfiguration.setAllowedOrigins(Arrays.asList("https://example.com"));

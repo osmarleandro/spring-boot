@@ -40,7 +40,7 @@ import org.springframework.web.servlet.HandlerMapping;
  * @author Phillip Webb
  * @since 2.0.0
  */
-public class WebMvcEndpointHandlerMapping extends AbstractWebMvcEndpointHandlerMapping {
+public class WebMvcEndpointHandlerMapping extends AbstractWebMvcEndpointHandlerMapping implements IWebMvcEndpointHandlerMapping {
 
 	private final EndpointLinksResolver linksResolver;
 
