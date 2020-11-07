@@ -45,7 +45,7 @@ import static org.mockito.Mockito.mock;
  * @author Johannes Edmeier
  * @author Stephane Nicoll
  */
-class MailHealthIndicatorTests {
+class MailHealthIndicatorTests implements IMailHealthIndicatorTests {
 
 	private JavaMailSenderImpl mailSender;
 
