@@ -39,7 +39,7 @@ import static org.mockito.Mockito.verify;
 /**
  * Tests for {@link AuthorizationAuditListener}.
  */
-class AuthorizationAuditListenerTests {
+class AuthorizationAuditListenerTests implements IAuthorizationAuditListenerTests {
 
 	private final AuthorizationAuditListener listener = new AuthorizationAuditListener();
 
