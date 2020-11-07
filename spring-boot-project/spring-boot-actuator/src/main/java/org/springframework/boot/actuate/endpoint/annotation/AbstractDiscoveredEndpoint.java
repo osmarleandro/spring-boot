@@ -36,7 +36,7 @@ import org.springframework.util.Assert;
 public abstract class AbstractDiscoveredEndpoint<O extends Operation> extends AbstractExposableEndpoint<O>
 		implements DiscoveredEndpoint<O> {
 
-	private final EndpointDiscoverer<?, ?> discoverer;
+	private final IEndpointDiscoverer<?, ?> discoverer;
 
 	private final Object endpointBean;
 
@@ -48,7 +48,7 @@ public abstract class AbstractDiscoveredEndpoint<O extends Operation> extends Ab
 	 * @param enabledByDefault if the endpoint is enabled by default
 	 * @param operations the endpoint operations
 	 */
-	public AbstractDiscoveredEndpoint(EndpointDiscoverer<?, ?> discoverer, Object endpointBean, EndpointId id,
+	public AbstractDiscoveredEndpoint(IEndpointDiscoverer<?, ?> discoverer, Object endpointBean, EndpointId id,
 			boolean enabledByDefault, Collection<? extends O> operations) {
 		super(id, enabledByDefault, operations);
 		Assert.notNull(discoverer, "Discoverer must not be null");
