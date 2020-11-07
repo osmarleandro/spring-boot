@@ -37,7 +37,7 @@ import static org.assertj.core.api.Assertions.entry;
  * @author Phillip Webb
  * @author Stephane Nicoll
  */
-class EndpointServletTests {
+class EndpointServletTests implements IEndpointServletTests {
 
 	@Test
 	void createWhenServletClassIsNullShouldThrowException() {
