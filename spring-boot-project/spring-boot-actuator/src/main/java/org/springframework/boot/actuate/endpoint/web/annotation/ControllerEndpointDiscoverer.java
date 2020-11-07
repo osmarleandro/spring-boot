@@ -40,7 +40,7 @@ import org.springframework.core.annotation.MergedAnnotations.SearchStrategy;
  * @since 2.0.0
  */
 public class ControllerEndpointDiscoverer extends EndpointDiscoverer<ExposableControllerEndpoint, Operation>
-		implements ControllerEndpointsSupplier {
+		implements ControllerEndpointsSupplier, IControllerEndpointDiscoverer {
 
 	private final List<PathMapper> endpointPathMappers;
 
