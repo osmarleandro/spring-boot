@@ -25,7 +25,7 @@ import java.util.Map;
  * @author Dave Syer
  * @since 1.4.0
  */
-public class MapInfoContributor implements InfoContributor {
+public class MapInfoContributor implements InfoContributor, IMapInfoContributor {
 
 	private final Map<String, Object> info;
 
