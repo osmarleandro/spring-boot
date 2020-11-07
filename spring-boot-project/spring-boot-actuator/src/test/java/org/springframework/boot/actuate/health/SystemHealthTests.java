@@ -34,7 +34,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Phillip Webb
  */
-class SystemHealthTests {
+class SystemHealthTests implements ISystemHealthTests {
 
 	@Test
 	void serializeWithJacksonReturnsValidJson() throws Exception {
