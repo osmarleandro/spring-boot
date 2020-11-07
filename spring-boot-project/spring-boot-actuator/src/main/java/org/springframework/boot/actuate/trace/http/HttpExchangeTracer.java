@@ -83,17 +83,17 @@ public class HttpExchangeTracer {
 
 	}
 
-	private <T> T getIfIncluded(Include include, Supplier<T> valueSupplier) {
+	private <T> T getIfIncluded(IInclude include, Supplier<T> valueSupplier) {
 		return this.includes.contains(include) ? valueSupplier.get() : null;
 	}
 
-	private <T> void setIfIncluded(Include include, Supplier<T> supplier, Consumer<T> consumer) {
+	private <T> void setIfIncluded(IInclude include, Supplier<T> supplier, Consumer<T> consumer) {
 		if (this.includes.contains(include)) {
 			consumer.accept(supplier.get());
 		}
 	}
 
-	private Map<String, List<String>> getHeadersIfIncluded(Include include,
+	private Map<String, List<String>> getHeadersIfIncluded(IInclude include,
 			Supplier<Map<String, List<String>>> headersSupplier, Predicate<String> headerPredicate) {
 		if (!this.includes.contains(include)) {
 			return new LinkedHashMap<>();

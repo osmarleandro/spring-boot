@@ -28,7 +28,7 @@ import java.util.Set;
  * @author Joseph Beeton
  * @since 2.0.0
  */
-public enum Include {
+public enum Include implements IInclude {
 
 	/**
 	 * Include request headers.
