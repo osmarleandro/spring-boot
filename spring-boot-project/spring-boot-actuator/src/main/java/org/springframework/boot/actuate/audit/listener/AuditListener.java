@@ -31,7 +31,7 @@ import org.springframework.boot.actuate.audit.AuditEventRepository;
  * @author Vedran Pavic
  * @since 1.0.0
  */
-public class AuditListener extends AbstractAuditListener {
+public class AuditListener extends AbstractAuditListener implements IAuditListener {
 
 	private static final Log logger = LogFactory.getLog(AuditListener.class);
 
