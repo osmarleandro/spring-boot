@@ -46,7 +46,7 @@ import org.springframework.util.StringUtils;
  * @since 2.0.0
  */
 @Endpoint(id = "liquibase")
-public class LiquibaseEndpoint {
+public class LiquibaseEndpoint implements ILiquibaseEndpoint {
 
 	private final ApplicationContext context;
 

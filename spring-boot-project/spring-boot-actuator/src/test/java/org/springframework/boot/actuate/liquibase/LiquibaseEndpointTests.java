@@ -132,7 +132,7 @@ class LiquibaseEndpointTests {
 	static class Config {
 
 		@Bean
-		LiquibaseEndpoint endpoint(ApplicationContext context) {
+		ILiquibaseEndpoint endpoint(ApplicationContext context) {
 			return new LiquibaseEndpoint(context);
 		}
 
