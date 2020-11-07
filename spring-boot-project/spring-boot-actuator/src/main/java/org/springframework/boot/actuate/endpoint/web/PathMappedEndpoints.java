@@ -35,7 +35,7 @@ import org.springframework.util.Assert;
  * @author Phillip Webb
  * @since 2.0.0
  */
-public class PathMappedEndpoints implements Iterable<PathMappedEndpoint> {
+public class PathMappedEndpoints implements Iterable<PathMappedEndpoint>, IPathMappedEndpoints {
 
 	private final String basePath;
 

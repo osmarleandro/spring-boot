@@ -62,20 +62,20 @@ class PathMappedEndpointsTests {
 
 	@Test
 	void streamShouldReturnPathMappedEndpoints() {
-		PathMappedEndpoints mapped = createTestMapped(null);
+		IPathMappedEndpoints mapped = createTestMapped(null);
 		assertThat(mapped.stream()).hasSize(2);
 		assertThat(mapped.stream()).extracting("endpointId").containsExactly(EndpointId.of("e2"), EndpointId.of("e3"));
 	}
 
 	@Test
 	void getRootPathWhenContainsIdShouldReturnRootPath() {
-		PathMappedEndpoints mapped = createTestMapped(null);
+		IPathMappedEndpoints mapped = createTestMapped(null);
 		assertThat(mapped.getRootPath(EndpointId.of("e2"))).isEqualTo("p2");
 	}
 
 	@Test
 	void getRootPathWhenMissingIdShouldReturnNull() {
-		PathMappedEndpoints mapped = createTestMapped(null);
+		IPathMappedEndpoints mapped = createTestMapped(null);
 		assertThat(mapped.getRootPath(EndpointId.of("xx"))).isNull();
 	}
 
@@ -87,13 +87,13 @@ class PathMappedEndpointsTests {
 
 	@Test
 	void getPathWhenMissingIdShouldReturnNull() {
-		PathMappedEndpoints mapped = createTestMapped(null);
+		IPathMappedEndpoints mapped = createTestMapped(null);
 		assertThat(mapped.getPath(EndpointId.of("xx"))).isNull();
 	}
 
 	@Test
 	void getAllRootPathsShouldReturnAllPaths() {
-		PathMappedEndpoints mapped = createTestMapped(null);
+		IPathMappedEndpoints mapped = createTestMapped(null);
 		assertThat(mapped.getAllRootPaths()).containsExactly("p2", "p3");
 	}
 
@@ -105,13 +105,13 @@ class PathMappedEndpointsTests {
 
 	@Test
 	void getEndpointWhenContainsIdShouldReturnPathMappedEndpoint() {
-		PathMappedEndpoints mapped = createTestMapped(null);
+		IPathMappedEndpoints mapped = createTestMapped(null);
 		assertThat(mapped.getEndpoint(EndpointId.of("e2")).getRootPath()).isEqualTo("p2");
 	}
 
 	@Test
 	void getEndpointWhenMissingIdShouldReturnNull() {
-		PathMappedEndpoints mapped = createTestMapped(null);
+		IPathMappedEndpoints mapped = createTestMapped(null);
 		assertThat(mapped.getEndpoint(EndpointId.of("xx"))).isNull();
 	}
 
