@@ -36,6 +36,7 @@ import org.springframework.boot.actuate.autoconfigure.web.servlet.ServletManagem
 import org.springframework.boot.actuate.endpoint.web.EndpointServlet;
 import org.springframework.boot.actuate.endpoint.web.annotation.RestControllerEndpoint;
 import org.springframework.boot.actuate.endpoint.web.annotation.ServletEndpoint;
+import org.springframework.boot.actuate.trace.http.IInMemoryHttpTraceRepository;
 import org.springframework.boot.actuate.trace.http.InMemoryHttpTraceRepository;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
 import org.springframework.boot.autoconfigure.http.HttpMessageConvertersAutoConfiguration;
@@ -215,7 +216,7 @@ class WebMvcEndpointExposureIntegrationTests {
 	static class HttpTraceRepositoryConfiguration {
 
 		@Bean
-		InMemoryHttpTraceRepository httpTraceRepository() {
+		IInMemoryHttpTraceRepository httpTraceRepository() {
 			return new InMemoryHttpTraceRepository();
 		}
 
