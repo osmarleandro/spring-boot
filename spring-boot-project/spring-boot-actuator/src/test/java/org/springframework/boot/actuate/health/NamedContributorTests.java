@@ -26,7 +26,7 @@ import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException
  *
  * @author Phillip Webb
  */
-class NamedContributorTests {
+class NamedContributorTests implements INamedContributorTests {
 
 	@Test
 	void ofNameAndContributorCreatesContributor() {
