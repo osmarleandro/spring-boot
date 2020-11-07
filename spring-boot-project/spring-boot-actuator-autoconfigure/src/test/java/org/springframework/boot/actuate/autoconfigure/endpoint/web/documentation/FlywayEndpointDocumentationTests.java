@@ -26,6 +26,7 @@ import org.flywaydb.core.api.MigrationType;
 import org.junit.jupiter.api.Test;
 
 import org.springframework.boot.actuate.flyway.FlywayEndpoint;
+import org.springframework.boot.actuate.flyway.IFlywayEndpoint;
 import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
 import org.springframework.boot.autoconfigure.flyway.FlywayAutoConfiguration;
 import org.springframework.boot.jdbc.EmbeddedDatabaseConnection;
@@ -95,7 +96,7 @@ class FlywayEndpointDocumentationTests extends MockMvcEndpointDocumentationTests
 		}
 
 		@Bean
-		FlywayEndpoint endpoint(ApplicationContext context) {
+		IFlywayEndpoint endpoint(ApplicationContext context) {
 			return new FlywayEndpoint(context);
 		}
 
