@@ -47,7 +47,7 @@ class CachesEndpointTests {
 
 	@Test
 	void allCachesWithSingleCacheManager() {
-		CachesEndpoint endpoint = new CachesEndpoint(
+		ICachesEndpoint endpoint = new CachesEndpoint(
 				Collections.singletonMap("test", new ConcurrentMapCacheManager("a", "b")));
 		Map<String, CacheManagerDescriptor> allDescriptors = endpoint.caches().getCacheManagers();
 		assertThat(allDescriptors).containsOnlyKeys("test");
@@ -62,7 +62,7 @@ class CachesEndpointTests {
 		Map<String, CacheManager> cacheManagers = new LinkedHashMap<>();
 		cacheManagers.put("test", new ConcurrentMapCacheManager("a", "b"));
 		cacheManagers.put("another", new ConcurrentMapCacheManager("a", "c"));
-		CachesEndpoint endpoint = new CachesEndpoint(cacheManagers);
+		ICachesEndpoint endpoint = new CachesEndpoint(cacheManagers);
 		Map<String, CacheManagerDescriptor> allDescriptors = endpoint.caches().getCacheManagers();
 		assertThat(allDescriptors).containsOnlyKeys("test", "another");
 		assertThat(allDescriptors.get("test").getCaches()).containsOnlyKeys("a", "b");
@@ -71,7 +71,7 @@ class CachesEndpointTests {
 
 	@Test
 	void namedCacheWithSingleCacheManager() {
-		CachesEndpoint endpoint = new CachesEndpoint(
+		ICachesEndpoint endpoint = new CachesEndpoint(
 				Collections.singletonMap("test", new ConcurrentMapCacheManager("b", "a")));
 		CacheEntry entry = endpoint.cache("a", null);
 		assertThat(entry).isNotNull();
@@ -85,14 +85,14 @@ class CachesEndpointTests {
 		Map<String, CacheManager> cacheManagers = new LinkedHashMap<>();
 		cacheManagers.put("test", new ConcurrentMapCacheManager("b", "dupe-cache"));
 		cacheManagers.put("another", new ConcurrentMapCacheManager("c", "dupe-cache"));
-		CachesEndpoint endpoint = new CachesEndpoint(cacheManagers);
+		ICachesEndpoint endpoint = new CachesEndpoint(cacheManagers);
 		assertThatExceptionOfType(NonUniqueCacheException.class).isThrownBy(() -> endpoint.cache("dupe-cache", null))
 				.withMessageContaining("dupe-cache").withMessageContaining("test").withMessageContaining("another");
 	}
 
 	@Test
 	void namedCacheWithUnknownCache() {
-		CachesEndpoint endpoint = new CachesEndpoint(
+		ICachesEndpoint endpoint = new CachesEndpoint(
 				Collections.singletonMap("test", new ConcurrentMapCacheManager("b", "a")));
 		CacheEntry entry = endpoint.cache("unknown", null);
 		assertThat(entry).isNull();
@@ -103,7 +103,7 @@ class CachesEndpointTests {
 		Map<String, CacheManager> cacheManagers = new LinkedHashMap<>();
 		cacheManagers.put("test", new ConcurrentMapCacheManager("b", "a"));
 		cacheManagers.put("another", new ConcurrentMapCacheManager("c", "a"));
-		CachesEndpoint endpoint = new CachesEndpoint(cacheManagers);
+		ICachesEndpoint endpoint = new CachesEndpoint(cacheManagers);
 		CacheEntry entry = endpoint.cache("c", "test");
 		assertThat(entry).isNull();
 	}
@@ -113,7 +113,7 @@ class CachesEndpointTests {
 		Map<String, CacheManager> cacheManagers = new LinkedHashMap<>();
 		cacheManagers.put("test", new ConcurrentMapCacheManager("b", "a"));
 		cacheManagers.put("another", new ConcurrentMapCacheManager("c", "a"));
-		CachesEndpoint endpoint = new CachesEndpoint(cacheManagers);
+		ICachesEndpoint endpoint = new CachesEndpoint(cacheManagers);
 		CacheEntry entry = endpoint.cache("a", "test");
 		assertThat(entry).isNotNull();
 		assertThat(entry.getCacheManager()).isEqualTo("test");
@@ -124,7 +124,7 @@ class CachesEndpointTests {
 	void clearAllCaches() {
 		Cache a = mockCache("a");
 		Cache b = mockCache("b");
-		CachesEndpoint endpoint = new CachesEndpoint(Collections.singletonMap("test", cacheManager(a, b)));
+		ICachesEndpoint endpoint = new CachesEndpoint(Collections.singletonMap("test", cacheManager(a, b)));
 		endpoint.clearCaches();
 		verify(a).clear();
 		verify(b).clear();
@@ -134,7 +134,7 @@ class CachesEndpointTests {
 	void clearCache() {
 		Cache a = mockCache("a");
 		Cache b = mockCache("b");
-		CachesEndpoint endpoint = new CachesEndpoint(Collections.singletonMap("test", cacheManager(a, b)));
+		ICachesEndpoint endpoint = new CachesEndpoint(Collections.singletonMap("test", cacheManager(a, b)));
 		assertThat(endpoint.clearCache("a", null)).isTrue();
 		verify(a).clear();
 		verify(b, never()).clear();
@@ -145,7 +145,7 @@ class CachesEndpointTests {
 		Map<String, CacheManager> cacheManagers = new LinkedHashMap<>();
 		cacheManagers.put("test", cacheManager(mockCache("dupe-cache"), mockCache("b")));
 		cacheManagers.put("another", cacheManager(mockCache("dupe-cache")));
-		CachesEndpoint endpoint = new CachesEndpoint(cacheManagers);
+		ICachesEndpoint endpoint = new CachesEndpoint(cacheManagers);
 		assertThatExceptionOfType(NonUniqueCacheException.class)
 				.isThrownBy(() -> endpoint.clearCache("dupe-cache", null)).withMessageContaining("dupe-cache")
 				.withMessageContaining("test").withMessageContaining("another");
@@ -159,7 +159,7 @@ class CachesEndpointTests {
 		cacheManagers.put("test", cacheManager(a, b));
 		Cache anotherA = mockCache("a");
 		cacheManagers.put("another", cacheManager(anotherA));
-		CachesEndpoint endpoint = new CachesEndpoint(cacheManagers);
+		ICachesEndpoint endpoint = new CachesEndpoint(cacheManagers);
 		assertThat(endpoint.clearCache("a", "another")).isTrue();
 		verify(a, never()).clear();
 		verify(anotherA).clear();
@@ -169,7 +169,7 @@ class CachesEndpointTests {
 	@Test
 	void clearCacheWithUnknownCache() {
 		Cache a = mockCache("a");
-		CachesEndpoint endpoint = new CachesEndpoint(Collections.singletonMap("test", cacheManager(a)));
+		ICachesEndpoint endpoint = new CachesEndpoint(Collections.singletonMap("test", cacheManager(a)));
 		assertThat(endpoint.clearCache("unknown", null)).isFalse();
 		verify(a, never()).clear();
 	}
@@ -177,7 +177,7 @@ class CachesEndpointTests {
 	@Test
 	void clearCacheWithUnknownCacheManager() {
 		Cache a = mockCache("a");
-		CachesEndpoint endpoint = new CachesEndpoint(Collections.singletonMap("test", cacheManager(a)));
+		ICachesEndpoint endpoint = new CachesEndpoint(Collections.singletonMap("test", cacheManager(a)));
 		assertThat(endpoint.clearCache("a", "unknown")).isFalse();
 		verify(a, never()).clear();
 	}

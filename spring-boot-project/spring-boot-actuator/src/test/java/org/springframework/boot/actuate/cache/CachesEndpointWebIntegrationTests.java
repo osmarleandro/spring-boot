@@ -96,12 +96,12 @@ class CachesEndpointWebIntegrationTests {
 		}
 
 		@Bean
-		CachesEndpoint endpoint(Map<String, CacheManager> cacheManagers) {
+		ICachesEndpoint endpoint(Map<String, CacheManager> cacheManagers) {
 			return new CachesEndpoint(cacheManagers);
 		}
 
 		@Bean
-		CachesEndpointWebExtension cachesEndpointWebExtension(CachesEndpoint endpoint) {
+		CachesEndpointWebExtension cachesEndpointWebExtension(ICachesEndpoint endpoint) {
 			return new CachesEndpointWebExtension(endpoint);
 		}
 
