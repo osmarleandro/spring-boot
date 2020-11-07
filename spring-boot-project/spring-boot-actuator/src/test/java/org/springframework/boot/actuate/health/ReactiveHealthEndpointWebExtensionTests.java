@@ -37,7 +37,7 @@ import static org.mockito.Mockito.mock;
  * @author Scott Frederick
  */
 class ReactiveHealthEndpointWebExtensionTests extends
-		HealthEndpointSupportTests<ReactiveHealthContributorRegistry, ReactiveHealthContributor, Mono<? extends HealthComponent>> {
+		HealthEndpointSupportTests<ReactiveHealthContributorRegistry, ReactiveHealthContributor, Mono<? extends HealthComponent>> implements IReactiveHealthEndpointWebExtensionTests {
 
 	@Test
 	void healthReturnsSystemHealth() {
