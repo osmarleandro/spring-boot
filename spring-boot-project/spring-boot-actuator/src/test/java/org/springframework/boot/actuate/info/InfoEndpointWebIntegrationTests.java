@@ -36,7 +36,7 @@ import org.springframework.test.web.reactive.server.WebTestClient;
  * @author Andy Wilkinson
  */
 @TestPropertySource(properties = { "info.app.name=MyService" })
-class InfoEndpointWebIntegrationTests {
+class InfoEndpointWebIntegrationTests implements IInfoEndpointWebIntegrationTests {
 
 	@WebEndpointTest
 	void info(WebTestClient client) {
