@@ -26,6 +26,7 @@ import org.springframework.boot.actuate.endpoint.invoke.OperationInvoker;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvokerAdvisor;
 import org.springframework.boot.actuate.endpoint.invoke.ParameterValueMapper;
 import org.springframework.boot.actuate.endpoint.jmx.ExposableJmxEndpoint;
+import org.springframework.boot.actuate.endpoint.jmx.IExposableJmxEndpoint;
 import org.springframework.boot.actuate.endpoint.jmx.JmxEndpointsSupplier;
 import org.springframework.boot.actuate.endpoint.jmx.JmxOperation;
 import org.springframework.context.ApplicationContext;
@@ -53,7 +54,7 @@ public class JmxEndpointDiscoverer extends EndpointDiscoverer<ExposableJmxEndpoi
 	}
 
 	@Override
-	protected ExposableJmxEndpoint createEndpoint(Object endpointBean, EndpointId id, boolean enabledByDefault,
+	protected IExposableJmxEndpoint createEndpoint(Object endpointBean, EndpointId id, boolean enabledByDefault,
 			Collection<JmxOperation> operations) {
 		return new DiscoveredJmxEndpoint(this, endpointBean, id, enabledByDefault, operations);
 	}
