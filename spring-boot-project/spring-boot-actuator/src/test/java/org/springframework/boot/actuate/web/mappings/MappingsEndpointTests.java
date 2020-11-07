@@ -33,6 +33,7 @@ import org.springframework.boot.actuate.web.mappings.MappingsEndpoint.Applicatio
 import org.springframework.boot.actuate.web.mappings.MappingsEndpoint.ContextMappings;
 import org.springframework.boot.actuate.web.mappings.reactive.DispatcherHandlerMappingDescription;
 import org.springframework.boot.actuate.web.mappings.reactive.DispatcherHandlersMappingDescriptionProvider;
+import org.springframework.boot.actuate.web.mappings.reactive.IDispatcherHandlersMappingDescriptionProvider;
 import org.springframework.boot.actuate.web.mappings.servlet.DispatcherServletMappingDescription;
 import org.springframework.boot.actuate.web.mappings.servlet.DispatcherServletsMappingDescriptionProvider;
 import org.springframework.boot.actuate.web.mappings.servlet.FilterRegistrationMappingDescription;
@@ -171,7 +172,7 @@ class MappingsEndpointTests {
 	static class ReactiveWebConfiguration {
 
 		@Bean
-		DispatcherHandlersMappingDescriptionProvider dispatcherHandlersMappingDescriptionProvider() {
+		IDispatcherHandlersMappingDescriptionProvider dispatcherHandlersMappingDescriptionProvider() {
 			return new DispatcherHandlersMappingDescriptionProvider();
 		}
 

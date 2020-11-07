@@ -53,7 +53,7 @@ import org.springframework.web.util.pattern.PathPattern;
  * @author Andy Wilkinson
  * @since 2.0.0
  */
-public class DispatcherHandlersMappingDescriptionProvider implements MappingDescriptionProvider {
+public class DispatcherHandlersMappingDescriptionProvider implements MappingDescriptionProvider, IDispatcherHandlersMappingDescriptionProvider {
 
 	private static final List<HandlerMappingDescriptionProvider<? extends HandlerMapping>> descriptionProviders = Arrays
 			.asList(new RequestMappingInfoHandlerMappingDescriptionProvider(),
