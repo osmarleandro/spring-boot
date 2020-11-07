@@ -32,7 +32,7 @@ import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException
  *
  * @author Phillip Webb
  */
-class EndpointMediaTypesTests {
+class EndpointMediaTypesTests implements IEndpointMediaTypesTests {
 
 	@Test
 	void defaultReturnsExpectedProducedAndConsumedTypes() {
