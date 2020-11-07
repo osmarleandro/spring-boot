@@ -64,7 +64,7 @@ class StartupEndpointTests {
 	static class EndpointConfiguration {
 
 		@Bean
-		StartupEndpoint endpoint(BufferingApplicationStartup applicationStartup) {
+		IStartupEndpoint endpoint(BufferingApplicationStartup applicationStartup) {
 			return new StartupEndpoint(applicationStartup);
 		}
 

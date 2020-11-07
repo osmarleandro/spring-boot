@@ -20,6 +20,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.actuate.startup.IStartupEndpoint;
 import org.springframework.boot.actuate.startup.StartupEndpoint;
 import org.springframework.boot.context.metrics.buffering.BufferingApplicationStartup;
 import org.springframework.context.annotation.Bean;
@@ -84,7 +85,7 @@ class StartupEndpointDocumentationTests extends MockMvcEndpointDocumentationTest
 	static class TestConfiguration {
 
 		@Bean
-		StartupEndpoint startupEndpoint(BufferingApplicationStartup startup) {
+		IStartupEndpoint startupEndpoint(BufferingApplicationStartup startup) {
 			return new StartupEndpoint(startup);
 		}
 

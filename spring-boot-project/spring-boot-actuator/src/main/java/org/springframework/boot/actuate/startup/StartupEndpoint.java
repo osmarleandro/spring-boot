@@ -31,7 +31,7 @@ import org.springframework.boot.context.metrics.buffering.StartupTimeline;
  * @since 2.4.0
  */
 @Endpoint(id = "startup")
-public class StartupEndpoint {
+public class StartupEndpoint implements IStartupEndpoint {
 
 	private final BufferingApplicationStartup applicationStartup;
 
