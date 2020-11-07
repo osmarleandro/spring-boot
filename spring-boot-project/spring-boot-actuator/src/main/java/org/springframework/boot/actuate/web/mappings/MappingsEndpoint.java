@@ -31,7 +31,7 @@ import org.springframework.context.ApplicationContext;
  * @since 2.0.0
  */
 @Endpoint(id = "mappings")
-public class MappingsEndpoint {
+public class MappingsEndpoint implements IMappingsEndpoint {
 
 	private final Collection<MappingDescriptionProvider> descriptionProviders;
 
