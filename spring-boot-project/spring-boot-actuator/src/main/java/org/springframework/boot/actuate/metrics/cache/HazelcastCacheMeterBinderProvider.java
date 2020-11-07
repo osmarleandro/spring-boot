@@ -31,7 +31,7 @@ import org.springframework.util.ReflectionUtils;
  * @author Stephane Nicoll
  * @since 2.0.0
  */
-public class HazelcastCacheMeterBinderProvider implements CacheMeterBinderProvider<HazelcastCache> {
+public class HazelcastCacheMeterBinderProvider implements CacheMeterBinderProvider<HazelcastCache>, IHazelcastCacheMeterBinderProvider {
 
 	@Override
 	public MeterBinder getMeterBinder(HazelcastCache cache, Iterable<Tag> tags) {
