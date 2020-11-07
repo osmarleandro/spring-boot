@@ -25,7 +25,7 @@ import javax.servlet.Registration;
  * @author Andy Wilkinson
  * @since 2.0.0
  */
-public class RegistrationMappingDescription<T extends Registration> {
+public class RegistrationMappingDescription<T extends Registration> implements IRegistrationMappingDescription<T> {
 
 	private final T registration;
 
