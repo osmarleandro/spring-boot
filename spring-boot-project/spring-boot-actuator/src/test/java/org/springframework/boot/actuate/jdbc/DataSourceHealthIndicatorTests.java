@@ -44,7 +44,7 @@ import static org.mockito.Mockito.verify;
  * @author Dave Syer
  * @author Stephane Nicoll
  */
-class DataSourceHealthIndicatorTests {
+class DataSourceHealthIndicatorTests implements IDataSourceHealthIndicatorTests {
 
 	private final DataSourceHealthIndicator indicator = new DataSourceHealthIndicator();
 
