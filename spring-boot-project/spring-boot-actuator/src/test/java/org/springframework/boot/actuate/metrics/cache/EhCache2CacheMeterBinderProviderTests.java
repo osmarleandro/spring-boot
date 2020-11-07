@@ -35,7 +35,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Stephane Nicoll
  */
-class EhCache2CacheMeterBinderProviderTests {
+class EhCache2CacheMeterBinderProviderTests implements IEhCache2CacheMeterBinderProviderTests {
 
 	@Test
 	void ehCache2CacheProvider() {
