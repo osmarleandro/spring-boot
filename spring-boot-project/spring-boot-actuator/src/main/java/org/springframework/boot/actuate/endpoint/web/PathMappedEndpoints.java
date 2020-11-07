@@ -27,6 +27,7 @@ import java.util.stream.Stream;
 
 import org.springframework.boot.actuate.endpoint.EndpointId;
 import org.springframework.boot.actuate.endpoint.EndpointsSupplier;
+import org.springframework.boot.actuate.endpoint.IEndpointId;
 import org.springframework.util.Assert;
 
 /**
@@ -87,7 +88,7 @@ public class PathMappedEndpoints implements Iterable<PathMappedEndpoint> {
 	 * @param endpointId the endpoint ID
 	 * @return the root path or {@code null}
 	 */
-	public String getRootPath(EndpointId endpointId) {
+	public String getRootPath(IEndpointId endpointId) {
 		PathMappedEndpoint endpoint = getEndpoint(endpointId);
 		return (endpoint != null) ? endpoint.getRootPath() : null;
 	}
@@ -98,7 +99,7 @@ public class PathMappedEndpoints implements Iterable<PathMappedEndpoint> {
 	 * @param endpointId the endpoint ID
 	 * @return the full path or {@code null}
 	 */
-	public String getPath(EndpointId endpointId) {
+	public String getPath(IEndpointId endpointId) {
 		return getPath(getEndpoint(endpointId));
 	}
 
@@ -124,7 +125,7 @@ public class PathMappedEndpoints implements Iterable<PathMappedEndpoint> {
 	 * @param endpointId the endpoint ID
 	 * @return the path mapped endpoint or {@code null}
 	 */
-	public PathMappedEndpoint getEndpoint(EndpointId endpointId) {
+	public PathMappedEndpoint getEndpoint(IEndpointId endpointId) {
 		return this.endpoints.get(endpointId);
 	}
 

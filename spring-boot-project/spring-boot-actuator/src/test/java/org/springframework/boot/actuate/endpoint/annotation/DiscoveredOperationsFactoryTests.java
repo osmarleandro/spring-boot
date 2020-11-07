@@ -26,6 +26,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import org.springframework.boot.actuate.endpoint.EndpointId;
+import org.springframework.boot.actuate.endpoint.IEndpointId;
 import org.springframework.boot.actuate.endpoint.InvocationContext;
 import org.springframework.boot.actuate.endpoint.OperationType;
 import org.springframework.boot.actuate.endpoint.SecurityContext;
@@ -192,7 +193,7 @@ class DiscoveredOperationsFactoryTests {
 
 	static class TestOperation extends AbstractDiscoveredOperation {
 
-		TestOperation(EndpointId endpointId, DiscoveredOperationMethod operationMethod, OperationInvoker invoker) {
+		TestOperation(IEndpointId endpointId, DiscoveredOperationMethod operationMethod, OperationInvoker invoker) {
 			super(operationMethod, invoker);
 		}
 

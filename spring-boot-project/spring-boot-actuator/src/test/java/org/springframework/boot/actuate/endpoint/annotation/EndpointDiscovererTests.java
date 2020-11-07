@@ -37,6 +37,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.actuate.endpoint.EndpointFilter;
 import org.springframework.boot.actuate.endpoint.EndpointId;
 import org.springframework.boot.actuate.endpoint.ExposableEndpoint;
+import org.springframework.boot.actuate.endpoint.IEndpointId;
 import org.springframework.boot.actuate.endpoint.Operation;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvoker;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvokerAdvisor;
@@ -252,7 +253,7 @@ class EndpointDiscovererTests {
 	void getEndpointsShouldApplyFilters() {
 		load(SpecializedEndpointsConfiguration.class, (context) -> {
 			EndpointFilter<SpecializedExposableEndpoint> filter = (endpoint) -> {
-				EndpointId id = endpoint.getEndpointId();
+				IEndpointId id = endpoint.getEndpointId();
 				return !id.equals(EndpointId.of("specialized")) && !id.equals(EndpointId.of("specialized-superclass"));
 			};
 			SpecializedEndpointDiscoverer discoverer = new SpecializedEndpointDiscoverer(context,
@@ -595,7 +596,7 @@ class EndpointDiscovererTests {
 
 	static class TestExposableEndpoint extends AbstractDiscoveredEndpoint<TestOperation> {
 
-		TestExposableEndpoint(EndpointDiscoverer<?, ?> discoverer, Object endpointBean, EndpointId id,
+		TestExposableEndpoint(EndpointDiscoverer<?, ?> discoverer, Object endpointBean, IEndpointId id,
 				boolean enabledByDefault, Collection<? extends TestOperation> operations) {
 			super(discoverer, endpointBean, id, enabledByDefault, operations);
 		}
@@ -604,7 +605,7 @@ class EndpointDiscovererTests {
 
 	static class SpecializedExposableEndpoint extends AbstractDiscoveredEndpoint<SpecializedOperation> {
 
-		SpecializedExposableEndpoint(EndpointDiscoverer<?, ?> discoverer, Object endpointBean, EndpointId id,
+		SpecializedExposableEndpoint(EndpointDiscoverer<?, ?> discoverer, Object endpointBean, IEndpointId id,
 				boolean enabledByDefault, Collection<? extends SpecializedOperation> operations) {
 			super(discoverer, endpointBean, id, enabledByDefault, operations);
 		}

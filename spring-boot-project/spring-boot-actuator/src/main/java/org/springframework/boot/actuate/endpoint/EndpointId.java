@@ -35,7 +35,7 @@ import org.springframework.util.Assert;
  * @author Phillip Webb
  * @since 2.0.6
  */
-public final class EndpointId {
+public final class EndpointId implements IEndpointId {
 
 	private static final Log logger = LogFactory.getLog(EndpointId.class);
 
