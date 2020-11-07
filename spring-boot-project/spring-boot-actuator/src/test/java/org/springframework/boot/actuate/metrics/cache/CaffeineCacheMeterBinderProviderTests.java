@@ -32,7 +32,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Stephane Nicoll
  */
-class CaffeineCacheMeterBinderProviderTests {
+class CaffeineCacheMeterBinderProviderTests implements ICaffeineCacheMeterBinderProviderTests {
 
 	@Test
 	void caffeineCacheProvider() {
