@@ -26,7 +26,7 @@ import org.springframework.boot.actuate.endpoint.annotation.DiscoveredOperationM
 import org.springframework.boot.actuate.endpoint.annotation.Selector;
 import org.springframework.boot.actuate.endpoint.annotation.Selector.Match;
 import org.springframework.boot.actuate.endpoint.web.EndpointMediaTypes;
-import org.springframework.boot.actuate.endpoint.web.WebOperationRequestPredicate;
+import org.springframework.boot.actuate.endpoint.web.IWebOperationRequestPredicate;
 import org.springframework.core.annotation.AnnotationAttributes;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -63,7 +63,7 @@ class RequestPredicateFactoryTests {
 	@Test
 	void getRequestPredicateReturnsPredicateWithPath() {
 		DiscoveredOperationMethod operationMethod = getDiscoveredOperationMethod(ValidSelectors.class);
-		WebOperationRequestPredicate requestPredicate = this.factory.getRequestPredicate(this.rootPath,
+		IWebOperationRequestPredicate requestPredicate = this.factory.getRequestPredicate(this.rootPath,
 				operationMethod);
 		assertThat(requestPredicate.getPath()).isEqualTo("/root/{one}/{*two}");
 	}

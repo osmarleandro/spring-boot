@@ -38,9 +38,9 @@ import org.springframework.boot.actuate.endpoint.invoke.OperationInvoker;
 import org.springframework.boot.actuate.endpoint.web.EndpointMapping;
 import org.springframework.boot.actuate.endpoint.web.EndpointMediaTypes;
 import org.springframework.boot.actuate.endpoint.web.ExposableWebEndpoint;
+import org.springframework.boot.actuate.endpoint.web.IWebOperationRequestPredicate;
 import org.springframework.boot.actuate.endpoint.web.WebEndpointResponse;
 import org.springframework.boot.actuate.endpoint.web.WebOperation;
-import org.springframework.boot.actuate.endpoint.web.WebOperationRequestPredicate;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
@@ -165,7 +165,7 @@ public abstract class AbstractWebMvcEndpointHandlerMapping extends RequestMappin
 	}
 
 	private void registerMappingForOperation(ExposableWebEndpoint endpoint, WebOperation operation) {
-		WebOperationRequestPredicate predicate = operation.getRequestPredicate();
+		IWebOperationRequestPredicate predicate = operation.getRequestPredicate();
 		String path = predicate.getPath();
 		String matchAllRemainingPathSegmentsVariable = predicate.getMatchAllRemainingPathSegmentsVariable();
 		if (matchAllRemainingPathSegmentsVariable != null) {
@@ -190,7 +190,7 @@ public abstract class AbstractWebMvcEndpointHandlerMapping extends RequestMappin
 		return servletWebOperation;
 	}
 
-	private RequestMappingInfo createRequestMappingInfo(WebOperationRequestPredicate predicate, String path) {
+	private RequestMappingInfo createRequestMappingInfo(IWebOperationRequestPredicate predicate, String path) {
 		return RequestMappingInfo.paths(this.endpointMapping.createSubPath(path))
 				.methods(RequestMethod.valueOf(predicate.getHttpMethod().name()))
 				.consumes(predicate.getConsumes().toArray(new String[0]))

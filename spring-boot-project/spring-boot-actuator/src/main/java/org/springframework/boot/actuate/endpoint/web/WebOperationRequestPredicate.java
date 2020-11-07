@@ -30,7 +30,7 @@ import org.springframework.util.StringUtils;
  * @author Andy Wilkinson
  * @since 2.0.0
  */
-public final class WebOperationRequestPredicate {
+public final class WebOperationRequestPredicate implements IWebOperationRequestPredicate {
 
 	private static final Pattern PATH_VAR_PATTERN = Pattern.compile("(\\{\\*?).+?}");
 
