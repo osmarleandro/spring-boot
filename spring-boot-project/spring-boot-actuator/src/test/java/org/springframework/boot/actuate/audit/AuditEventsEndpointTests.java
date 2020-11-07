@@ -35,7 +35,7 @@ class AuditEventsEndpointTests {
 
 	private final AuditEventRepository repository = mock(AuditEventRepository.class);
 
-	private final AuditEventsEndpoint endpoint = new AuditEventsEndpoint(this.repository);
+	private final IAuditEventsEndpoint endpoint = new AuditEventsEndpoint(this.repository);
 
 	private final AuditEvent event = new AuditEvent("principal", "type", Collections.singletonMap("a", "alpha"));
 

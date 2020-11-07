@@ -78,7 +78,7 @@ class AuditEventsEndpointWebIntegrationTests {
 		}
 
 		@Bean
-		AuditEventsEndpoint auditEventsEndpoint(AuditEventRepository auditEventRepository) {
+		IAuditEventsEndpoint auditEventsEndpoint(AuditEventRepository auditEventRepository) {
 			return new AuditEventsEndpoint(auditEventRepository);
 		}
 
