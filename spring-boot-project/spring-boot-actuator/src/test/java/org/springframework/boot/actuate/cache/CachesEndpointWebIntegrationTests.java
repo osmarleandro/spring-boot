@@ -36,7 +36,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Stephane Nicoll
  */
-class CachesEndpointWebIntegrationTests {
+class CachesEndpointWebIntegrationTests implements ICachesEndpointWebIntegrationTests {
 
 	@WebEndpointTest
 	void allCaches(WebTestClient client) {
