@@ -20,6 +20,7 @@ import java.util.regex.Pattern;
 
 import io.micrometer.core.instrument.Tag;
 
+import org.springframework.boot.actuate.metrics.http.IOutcome;
 import org.springframework.boot.actuate.metrics.http.Outcome;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.server.reactive.ServerHttpResponse;
@@ -160,7 +161,7 @@ public final class WebFluxTags {
 	 */
 	public static Tag outcome(ServerWebExchange exchange) {
 		Integer statusCode = extractStatusCode(exchange);
-		Outcome outcome = (statusCode != null) ? Outcome.forStatus(statusCode) : Outcome.SUCCESS;
+		IOutcome outcome = (statusCode != null) ? Outcome.forStatus(statusCode) : Outcome.SUCCESS;
 		return outcome.asTag();
 	}
 

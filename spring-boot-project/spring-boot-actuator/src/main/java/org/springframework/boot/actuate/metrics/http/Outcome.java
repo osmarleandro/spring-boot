@@ -24,7 +24,7 @@ import io.micrometer.core.instrument.Tag;
  * @author Andy Wilkinson
  * @since 2.2.0
  */
-public enum Outcome {
+public enum Outcome implements IOutcome {
 
 	/**
 	 * Outcome of the request was informational.
