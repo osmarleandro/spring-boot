@@ -29,6 +29,7 @@ import org.springframework.boot.actuate.trace.http.HttpExchangeTracer;
 import org.springframework.boot.actuate.trace.http.HttpTrace;
 import org.springframework.boot.actuate.trace.http.HttpTraceEndpoint;
 import org.springframework.boot.actuate.trace.http.HttpTraceRepository;
+import org.springframework.boot.actuate.trace.http.IHttpTraceEndpoint;
 import org.springframework.boot.actuate.trace.http.Include;
 import org.springframework.boot.actuate.trace.http.TraceableRequest;
 import org.springframework.boot.actuate.trace.http.TraceableResponse;
@@ -106,7 +107,7 @@ class HttpTraceEndpointDocumentationTests extends MockMvcEndpointDocumentationTe
 	static class TestConfiguration {
 
 		@Bean
-		HttpTraceEndpoint httpTraceEndpoint(HttpTraceRepository repository) {
+		IHttpTraceEndpoint httpTraceEndpoint(HttpTraceRepository repository) {
 			return new HttpTraceEndpoint(repository);
 		}
 

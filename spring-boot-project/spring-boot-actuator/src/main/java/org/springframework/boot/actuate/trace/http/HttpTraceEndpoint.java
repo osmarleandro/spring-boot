@@ -30,7 +30,7 @@ import org.springframework.util.Assert;
  * @since 2.0.0
  */
 @Endpoint(id = "httptrace")
-public class HttpTraceEndpoint {
+public class HttpTraceEndpoint implements IHttpTraceEndpoint {
 
 	private final HttpTraceRepository repository;
 

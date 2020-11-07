@@ -19,6 +19,7 @@ package org.springframework.boot.actuate.autoconfigure.trace.http;
 import org.springframework.boot.actuate.autoconfigure.endpoint.condition.ConditionalOnAvailableEndpoint;
 import org.springframework.boot.actuate.trace.http.HttpTraceEndpoint;
 import org.springframework.boot.actuate.trace.http.HttpTraceRepository;
+import org.springframework.boot.actuate.trace.http.IHttpTraceEndpoint;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
@@ -40,7 +41,7 @@ public class HttpTraceEndpointAutoConfiguration {
 	@Bean
 	@ConditionalOnBean(HttpTraceRepository.class)
 	@ConditionalOnMissingBean
-	public HttpTraceEndpoint httpTraceEndpoint(HttpTraceRepository traceRepository) {
+	public IHttpTraceEndpoint httpTraceEndpoint(HttpTraceRepository traceRepository) {
 		return new HttpTraceEndpoint(traceRepository);
 	}
 
