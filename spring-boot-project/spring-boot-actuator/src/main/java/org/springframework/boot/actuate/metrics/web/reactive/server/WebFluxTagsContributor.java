@@ -28,7 +28,7 @@ import org.springframework.web.server.ServerWebExchange;
  * @since 2.3.0
  */
 @FunctionalInterface
-public interface WebFluxTagsContributor {
+public interface WebFluxTagsContributor extends IWebFluxTagsContributor {
 
 	/**
 	 * Provides tags to be associated with metrics for the given {@code exchange}.
