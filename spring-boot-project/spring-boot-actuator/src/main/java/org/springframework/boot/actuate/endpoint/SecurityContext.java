@@ -24,7 +24,7 @@ import java.security.Principal;
  * @author Andy Wilkinson
  * @since 2.0.0
  */
-public interface SecurityContext {
+public interface SecurityContext extends ISecurityContext {
 
 	/**
 	 * Empty security context.
