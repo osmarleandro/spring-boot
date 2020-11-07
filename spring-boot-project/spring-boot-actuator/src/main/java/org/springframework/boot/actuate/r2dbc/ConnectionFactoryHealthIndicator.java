@@ -39,7 +39,7 @@ import org.springframework.util.StringUtils;
  * @author Stephane Nicoll
  * @since 2.3.0
  */
-public class ConnectionFactoryHealthIndicator extends AbstractReactiveHealthIndicator {
+public class ConnectionFactoryHealthIndicator extends AbstractReactiveHealthIndicator implements IConnectionFactoryHealthIndicator {
 
 	private final ConnectionFactory connectionFactory;
 
