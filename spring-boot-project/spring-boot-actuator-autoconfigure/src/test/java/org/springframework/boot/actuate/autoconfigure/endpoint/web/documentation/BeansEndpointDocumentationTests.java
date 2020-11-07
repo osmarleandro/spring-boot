@@ -25,6 +25,7 @@ import java.util.Map.Entry;
 import org.junit.jupiter.api.Test;
 
 import org.springframework.boot.actuate.beans.BeansEndpoint;
+import org.springframework.boot.actuate.beans.IBeansEndpoint;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -75,7 +76,7 @@ class BeansEndpointDocumentationTests extends MockMvcEndpointDocumentationTests 
 	static class TestConfiguration {
 
 		@Bean
-		BeansEndpoint beansEndpoint(ConfigurableApplicationContext context) {
+		IBeansEndpoint beansEndpoint(ConfigurableApplicationContext context) {
 			return new BeansEndpoint(context);
 		}
 

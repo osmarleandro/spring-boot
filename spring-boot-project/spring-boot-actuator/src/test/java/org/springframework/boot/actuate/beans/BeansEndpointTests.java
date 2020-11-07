@@ -107,7 +107,7 @@ class BeansEndpointTests {
 	static class EndpointConfiguration {
 
 		@Bean
-		BeansEndpoint endpoint(ConfigurableApplicationContext context) {
+		IBeansEndpoint endpoint(ConfigurableApplicationContext context) {
 			return new BeansEndpoint(context);
 		}
 
