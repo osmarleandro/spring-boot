@@ -51,7 +51,7 @@ class IntegrationGraphEndpointWebIntegrationTests {
 	static class TestConfiguration {
 
 		@Bean
-		IntegrationGraphEndpoint endpoint(IntegrationGraphServer integrationGraphServer) {
+		IIntegrationGraphEndpoint endpoint(IntegrationGraphServer integrationGraphServer) {
 			return new IntegrationGraphEndpoint(integrationGraphServer);
 		}
 
