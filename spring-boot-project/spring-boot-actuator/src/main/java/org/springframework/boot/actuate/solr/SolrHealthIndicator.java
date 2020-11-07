@@ -35,7 +35,7 @@ import org.springframework.boot.actuate.health.Status;
  * @author Phillip Webb
  * @since 2.0.0
  */
-public class SolrHealthIndicator extends AbstractHealthIndicator {
+public class SolrHealthIndicator extends AbstractHealthIndicator implements ISolrHealthIndicator {
 
 	private static final int HTTP_NOT_FOUND_STATUS = 404;
 
