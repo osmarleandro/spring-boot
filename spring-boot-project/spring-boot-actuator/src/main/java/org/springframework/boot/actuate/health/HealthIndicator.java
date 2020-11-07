@@ -25,7 +25,7 @@ package org.springframework.boot.actuate.health;
  * @since 1.0.0
  */
 @FunctionalInterface
-public interface HealthIndicator extends HealthContributor {
+public interface HealthIndicator extends HealthContributor, IHealthIndicator {
 
 	/**
 	 * Return an indication of health.
