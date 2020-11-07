@@ -31,7 +31,7 @@ import org.springframework.util.Assert;
  * @author Christian Dupuis
  * @since 2.0.0
  */
-public class MongoHealthIndicator extends AbstractHealthIndicator {
+public class MongoHealthIndicator extends AbstractHealthIndicator implements IMongoHealthIndicator {
 
 	private final MongoTemplate mongoTemplate;
 
