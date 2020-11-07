@@ -32,7 +32,7 @@ import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException
  *
  * @author Phillip Webb
  */
-class OperationMethodTests {
+class OperationMethodTests implements IOperationMethodTests {
 
 	private Method exampleMethod = ReflectionUtils.findMethod(getClass(), "example", String.class);
 
