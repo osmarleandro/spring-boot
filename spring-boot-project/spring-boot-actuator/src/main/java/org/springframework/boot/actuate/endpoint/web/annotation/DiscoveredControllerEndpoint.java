@@ -29,7 +29,7 @@ import org.springframework.boot.actuate.endpoint.annotation.EndpointDiscoverer;
  * @author Phillip Webb
  */
 class DiscoveredControllerEndpoint extends AbstractDiscoveredEndpoint<Operation>
-		implements ExposableControllerEndpoint {
+		implements ExposableControllerEndpoint, IDiscoveredControllerEndpoint {
 
 	private final String rootPath;
 
