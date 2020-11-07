@@ -16,7 +16,7 @@
 
 package org.springframework.boot.actuate.endpoint.web.test;
 
-public class PortHolder {
+public class PortHolder implements IPortHolder {
 
 	private int port;
 
