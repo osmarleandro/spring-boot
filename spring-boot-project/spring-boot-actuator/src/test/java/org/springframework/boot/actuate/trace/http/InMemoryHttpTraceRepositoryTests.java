@@ -30,7 +30,7 @@ import static org.mockito.Mockito.mock;
  * @author Dave Syer
  * @author Andy Wilkinson
  */
-class InMemoryHttpTraceRepositoryTests {
+class InMemoryHttpTraceRepositoryTests implements IInMemoryHttpTraceRepositoryTests {
 
 	private final InMemoryHttpTraceRepository repository = new InMemoryHttpTraceRepository();
 
