@@ -42,7 +42,7 @@ import static org.mockito.Mockito.mock;
  *
  * @author Phillip Webb
  */
-class OperationMethodParametersTests {
+class OperationMethodParametersTests implements IOperationMethodParametersTests {
 
 	private Method exampleMethod = ReflectionUtils.findMethod(getClass(), "example", String.class);
 
