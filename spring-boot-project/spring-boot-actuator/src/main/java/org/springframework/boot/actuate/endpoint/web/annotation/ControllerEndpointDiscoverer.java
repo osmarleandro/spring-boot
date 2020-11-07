@@ -22,6 +22,7 @@ import java.util.List;
 
 import org.springframework.boot.actuate.endpoint.EndpointFilter;
 import org.springframework.boot.actuate.endpoint.EndpointId;
+import org.springframework.boot.actuate.endpoint.IOperation;
 import org.springframework.boot.actuate.endpoint.Operation;
 import org.springframework.boot.actuate.endpoint.annotation.DiscoveredOperationMethod;
 import org.springframework.boot.actuate.endpoint.annotation.EndpointDiscoverer;
@@ -70,7 +71,7 @@ public class ControllerEndpointDiscoverer extends EndpointDiscoverer<ExposableCo
 	}
 
 	@Override
-	protected Operation createOperation(EndpointId endpointId, DiscoveredOperationMethod operationMethod,
+	protected IOperation createOperation(EndpointId endpointId, DiscoveredOperationMethod operationMethod,
 			OperationInvoker invoker) {
 		throw new IllegalStateException("ControllerEndpoints must not declare operations");
 	}

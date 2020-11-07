@@ -17,7 +17,7 @@
 package org.springframework.boot.actuate.endpoint.annotation;
 
 import org.springframework.boot.actuate.endpoint.ExposableEndpoint;
-import org.springframework.boot.actuate.endpoint.Operation;
+import org.springframework.boot.actuate.endpoint.IOperation;
 
 /**
  * An {@link ExposableEndpoint endpoint} discovered by an {@link EndpointDiscoverer}.
@@ -26,7 +26,7 @@ import org.springframework.boot.actuate.endpoint.Operation;
  * @author Phillip Webb
  * @since 2.0.0
  */
-public interface DiscoveredEndpoint<O extends Operation> extends ExposableEndpoint<O> {
+public interface DiscoveredEndpoint<O extends IOperation> extends ExposableEndpoint<O> {
 
 	/**
 	 * Return {@code true} if the endpoint was discovered by the specified discoverer.
