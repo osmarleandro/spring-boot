@@ -31,7 +31,7 @@ import org.springframework.boot.actuate.endpoint.ExposableEndpoint;
  * @author Andy Wilkinson
  * @since 2.0.0
  */
-public class EndpointLinksResolver {
+public class EndpointLinksResolver implements IEndpointLinksResolver {
 
 	private static final Log logger = LogFactory.getLog(EndpointLinksResolver.class);
 
