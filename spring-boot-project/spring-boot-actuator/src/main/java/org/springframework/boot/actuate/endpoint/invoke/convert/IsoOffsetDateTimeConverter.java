@@ -31,7 +31,7 @@ import org.springframework.util.StringUtils;
  * @author Stephane Nicoll
  * @since 2.0.0
  */
-public class IsoOffsetDateTimeConverter implements Converter<String, OffsetDateTime> {
+public class IsoOffsetDateTimeConverter implements Converter<String, OffsetDateTime>, IIsoOffsetDateTimeConverter {
 
 	@Override
 	public OffsetDateTime convert(String source) {
