@@ -32,7 +32,7 @@ import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException
  *
  * @author Phillip Webb
  */
-class DiscoveredOperationMethodTests {
+class DiscoveredOperationMethodTests implements IDiscoveredOperationMethodTests {
 
 	@Test
 	void createWhenAnnotationAttributesIsNullShouldThrowException() {
