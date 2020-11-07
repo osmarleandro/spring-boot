@@ -29,7 +29,7 @@ import io.micrometer.core.instrument.Tag;
  * @author Andy Wilkinson
  * @since 2.3.0
  */
-public interface WebMvcTagsContributor {
+public interface WebMvcTagsContributor extends IWebMvcTagsContributor {
 
 	/**
 	 * Provides tags to be associated with metrics for the given {@code request} and
