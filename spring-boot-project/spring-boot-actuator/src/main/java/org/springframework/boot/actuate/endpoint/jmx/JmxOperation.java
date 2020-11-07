@@ -28,7 +28,7 @@ import org.springframework.boot.actuate.endpoint.Operation;
  * @author Phillip Webb
  * @since 2.0.0
  */
-public interface JmxOperation extends Operation {
+public interface JmxOperation extends Operation, IJmxOperation {
 
 	/**
 	 * Returns the name of the operation.
