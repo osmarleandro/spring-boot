@@ -35,7 +35,7 @@ import static org.assertj.core.api.Assertions.entry;
  * @author Stephane Nicoll
  * @author Phillip Webb
  */
-class HealthTests {
+class HealthTests implements IHealthTests {
 
 	@Test
 	void statusMustNotBeNull() {
