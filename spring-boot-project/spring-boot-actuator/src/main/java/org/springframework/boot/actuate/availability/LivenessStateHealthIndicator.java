@@ -28,7 +28,7 @@ import org.springframework.boot.availability.LivenessState;
  * @author Brian Clozel
  * @since 2.3.0
  */
-public class LivenessStateHealthIndicator extends AvailabilityStateHealthIndicator {
+public class LivenessStateHealthIndicator extends AvailabilityStateHealthIndicator implements ILivenessStateHealthIndicator {
 
 	public LivenessStateHealthIndicator(ApplicationAvailability availability) {
 		super(availability, LivenessState.class, (statusMappings) -> {
