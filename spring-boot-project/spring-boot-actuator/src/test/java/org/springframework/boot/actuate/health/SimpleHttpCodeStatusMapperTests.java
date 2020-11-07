@@ -30,7 +30,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Phillip Webb
  */
-class SimpleHttpCodeStatusMapperTests {
+class SimpleHttpCodeStatusMapperTests implements ISimpleHttpCodeStatusMapperTests {
 
 	@Test
 	void createWhenMappingsAreNullUsesDefaultMappings() {
