@@ -21,6 +21,7 @@ import org.glassfish.jersey.server.ResourceConfig;
 import org.springframework.boot.actuate.autoconfigure.endpoint.expose.IncludeExcludeEndpointFilter;
 import org.springframework.boot.actuate.autoconfigure.web.ManagementContextConfiguration;
 import org.springframework.boot.actuate.endpoint.web.ExposableServletEndpoint;
+import org.springframework.boot.actuate.endpoint.web.IServletEndpointRegistrar;
 import org.springframework.boot.actuate.endpoint.web.ServletEndpointRegistrar;
 import org.springframework.boot.actuate.endpoint.web.annotation.ServletEndpointsSupplier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
@@ -59,7 +60,7 @@ public class ServletEndpointManagementContextConfiguration {
 	public static class WebMvcServletEndpointManagementContextConfiguration {
 
 		@Bean
-		public ServletEndpointRegistrar servletEndpointRegistrar(WebEndpointProperties properties,
+		public IServletEndpointRegistrar servletEndpointRegistrar(WebEndpointProperties properties,
 				ServletEndpointsSupplier servletEndpointsSupplier, DispatcherServletPath dispatcherServletPath) {
 			return new ServletEndpointRegistrar(dispatcherServletPath.getRelativePath(properties.getBasePath()),
 					servletEndpointsSupplier.getEndpoints());
@@ -73,7 +74,7 @@ public class ServletEndpointManagementContextConfiguration {
 	public static class JerseyServletEndpointManagementContextConfiguration {
 
 		@Bean
-		public ServletEndpointRegistrar servletEndpointRegistrar(WebEndpointProperties properties,
+		public IServletEndpointRegistrar servletEndpointRegistrar(WebEndpointProperties properties,
 				ServletEndpointsSupplier servletEndpointsSupplier, JerseyApplicationPath jerseyApplicationPath) {
 			return new ServletEndpointRegistrar(jerseyApplicationPath.getRelativePath(properties.getBasePath()),
 					servletEndpointsSupplier.getEndpoints());
