@@ -31,7 +31,7 @@ import org.springframework.util.Assert;
  * @author Stephane Nicoll
  * @since 2.0.0
  */
-public class CouchbaseHealthIndicator extends AbstractHealthIndicator {
+public class CouchbaseHealthIndicator extends AbstractHealthIndicator implements ICouchbaseHealthIndicator {
 
 	private final Cluster cluster;
 
