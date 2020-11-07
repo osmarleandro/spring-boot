@@ -184,7 +184,7 @@ class HealthEndpointWebIntegrationTests {
 		}
 
 		@Bean
-		HealthEndpoint healthEndpoint(HealthContributorRegistry healthContributorRegistry,
+		IHealthEndpoint healthEndpoint(HealthContributorRegistry healthContributorRegistry,
 				HealthEndpointGroups healthEndpointGroups) {
 			return new HealthEndpoint(healthContributorRegistry, healthEndpointGroups);
 		}

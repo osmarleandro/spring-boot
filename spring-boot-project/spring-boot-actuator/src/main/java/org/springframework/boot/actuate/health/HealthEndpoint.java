@@ -37,7 +37,7 @@ import org.springframework.boot.actuate.endpoint.http.ApiVersion;
  * @since 2.0.0
  */
 @Endpoint(id = "health")
-public class HealthEndpoint extends HealthEndpointSupport<HealthContributor, HealthComponent> {
+public class HealthEndpoint extends HealthEndpointSupport<HealthContributor, HealthComponent> implements IHealthEndpoint {
 
 	private static final String[] EMPTY_PATH = {};
 
