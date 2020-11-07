@@ -60,7 +60,7 @@ import org.springframework.util.SystemPropertyUtils;
  * @since 2.0.0
  */
 @Endpoint(id = "env")
-public class EnvironmentEndpoint {
+public class EnvironmentEndpoint implements IEnvironmentEndpoint {
 
 	private final Sanitizer sanitizer = new Sanitizer();
 
