@@ -30,7 +30,7 @@ import org.springframework.util.Assert;
  * @author Phillip Webb
  * @since 2.0.0
  */
-public class ConversionServiceParameterValueMapper implements ParameterValueMapper {
+public class ConversionServiceParameterValueMapper implements ParameterValueMapper, IConversionServiceParameterValueMapper {
 
 	private final ConversionService conversionService;
 
