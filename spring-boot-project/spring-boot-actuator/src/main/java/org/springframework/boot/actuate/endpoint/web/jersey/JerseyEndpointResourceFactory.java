@@ -65,7 +65,7 @@ import org.springframework.util.StringUtils;
  * @author Phillip Webb
  * @since 2.0.0
  */
-public class JerseyEndpointResourceFactory {
+public class JerseyEndpointResourceFactory implements IJerseyEndpointResourceFactory {
 
 	/**
 	 * Creates {@link Resource Resources} for the operations of the given
