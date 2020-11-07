@@ -24,6 +24,6 @@ import org.springframework.boot.actuate.endpoint.ExposableEndpoint;
  * @author Phillip Webb
  * @since 2.0.0
  */
-public interface ExposableJmxEndpoint extends ExposableEndpoint<JmxOperation> {
+public interface ExposableJmxEndpoint extends ExposableEndpoint<JmxOperation>, IExposableJmxEndpoint {
 
 }
