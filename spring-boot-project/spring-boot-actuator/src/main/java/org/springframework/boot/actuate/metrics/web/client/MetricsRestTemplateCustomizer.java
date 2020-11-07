@@ -35,7 +35,7 @@ import org.springframework.web.util.UriTemplateHandler;
  * @author Phillip Webb
  * @since 2.0.0
  */
-public class MetricsRestTemplateCustomizer implements RestTemplateCustomizer {
+public class MetricsRestTemplateCustomizer implements RestTemplateCustomizer, IMetricsRestTemplateCustomizer {
 
 	private final MetricsClientHttpRequestInterceptor interceptor;
 
