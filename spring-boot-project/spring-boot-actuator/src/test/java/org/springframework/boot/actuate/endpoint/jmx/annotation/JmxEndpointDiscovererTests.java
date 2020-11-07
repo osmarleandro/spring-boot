@@ -34,6 +34,7 @@ import org.springframework.boot.actuate.endpoint.annotation.WriteOperation;
 import org.springframework.boot.actuate.endpoint.invoke.convert.ConversionServiceParameterValueMapper;
 import org.springframework.boot.actuate.endpoint.invoker.cache.CachingOperationInvoker;
 import org.springframework.boot.actuate.endpoint.invoker.cache.CachingOperationInvokerAdvisor;
+import org.springframework.boot.actuate.endpoint.invoker.cache.ICachingOperationInvoker;
 import org.springframework.boot.actuate.endpoint.jmx.ExposableJmxEndpoint;
 import org.springframework.boot.actuate.endpoint.jmx.JmxOperation;
 import org.springframework.boot.actuate.endpoint.jmx.JmxOperationParameter;
@@ -144,7 +145,7 @@ class JmxEndpointDiscovererTests {
 			assertThat(operationByName).containsOnlyKeys("getAll", "getSomething", "update", "deleteSomething");
 			JmxOperation getAll = operationByName.get("getAll");
 			assertThat(getInvoker(getAll)).isInstanceOf(CachingOperationInvoker.class);
-			assertThat(((CachingOperationInvoker) getInvoker(getAll)).getTimeToLive()).isEqualTo(500);
+			assertThat(((ICachingOperationInvoker) getInvoker(getAll)).getTimeToLive()).isEqualTo(500);
 		});
 	}
 
@@ -159,10 +160,10 @@ class JmxEndpointDiscovererTests {
 					"getAnother");
 			JmxOperation getAll = operationByName.get("getAll");
 			assertThat(getInvoker(getAll)).isInstanceOf(CachingOperationInvoker.class);
-			assertThat(((CachingOperationInvoker) getInvoker(getAll)).getTimeToLive()).isEqualTo(500);
+			assertThat(((ICachingOperationInvoker) getInvoker(getAll)).getTimeToLive()).isEqualTo(500);
 			JmxOperation getAnother = operationByName.get("getAnother");
 			assertThat(getInvoker(getAnother)).isInstanceOf(CachingOperationInvoker.class);
-			assertThat(((CachingOperationInvoker) getInvoker(getAnother)).getTimeToLive()).isEqualTo(500);
+			assertThat(((ICachingOperationInvoker) getInvoker(getAnother)).getTimeToLive()).isEqualTo(500);
 		});
 	}
 

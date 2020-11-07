@@ -41,7 +41,7 @@ import org.springframework.util.ObjectUtils;
  * @author Phillip Webb
  * @since 2.0.0
  */
-public class CachingOperationInvoker implements OperationInvoker {
+public class CachingOperationInvoker implements OperationInvoker, ICachingOperationInvoker {
 
 	private static final boolean IS_REACTOR_PRESENT = ClassUtils.isPresent("reactor.core.publisher.Mono", null);
 
