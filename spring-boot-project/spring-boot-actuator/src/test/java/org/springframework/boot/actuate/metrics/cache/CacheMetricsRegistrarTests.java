@@ -33,7 +33,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Stephane Nicoll
  */
-class CacheMetricsRegistrarTests {
+class CacheMetricsRegistrarTests implements ICacheMetricsRegistrarTests {
 
 	private final MeterRegistry meterRegistry = new SimpleMeterRegistry();
 
