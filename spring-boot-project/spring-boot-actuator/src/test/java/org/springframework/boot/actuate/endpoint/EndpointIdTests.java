@@ -32,7 +32,7 @@ import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException
  * @author Phillip Webb
  */
 @ExtendWith(OutputCaptureExtension.class)
-class EndpointIdTests {
+class EndpointIdTests implements IEndpointIdTests {
 
 	@Test
 	void ofWhenNullThrowsException() {
