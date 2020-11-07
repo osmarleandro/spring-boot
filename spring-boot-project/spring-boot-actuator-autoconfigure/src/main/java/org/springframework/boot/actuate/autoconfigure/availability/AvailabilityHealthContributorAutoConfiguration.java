@@ -17,6 +17,7 @@
 package org.springframework.boot.actuate.autoconfigure.availability;
 
 import org.springframework.boot.actuate.availability.AvailabilityStateHealthIndicator;
+import org.springframework.boot.actuate.availability.IReadinessStateHealthIndicator;
 import org.springframework.boot.actuate.availability.LivenessStateHealthIndicator;
 import org.springframework.boot.actuate.availability.ReadinessStateHealthIndicator;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
@@ -49,7 +50,7 @@ public class AvailabilityHealthContributorAutoConfiguration {
 	@Bean
 	@ConditionalOnMissingBean(name = "readinessStateHealthIndicator")
 	@ConditionalOnProperty(prefix = "management.health.readinessstate", name = "enabled", havingValue = "true")
-	public ReadinessStateHealthIndicator readinessStateHealthIndicator(
+	public IReadinessStateHealthIndicator readinessStateHealthIndicator(
 			ApplicationAvailability applicationAvailability) {
 		return new ReadinessStateHealthIndicator(applicationAvailability);
 	}

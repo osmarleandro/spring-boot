@@ -29,7 +29,7 @@ import org.springframework.boot.availability.ReadinessState;
  * @author Phillip Webb
  * @since 2.3.0
  */
-public class ReadinessStateHealthIndicator extends AvailabilityStateHealthIndicator {
+public class ReadinessStateHealthIndicator extends AvailabilityStateHealthIndicator implements IReadinessStateHealthIndicator {
 
 	public ReadinessStateHealthIndicator(ApplicationAvailability availability) {
 		super(availability, ReadinessState.class, (statusMappings) -> {
