@@ -39,7 +39,7 @@ import org.springframework.lang.Nullable;
  * @since 2.1.0
  */
 @Endpoint(id = "caches")
-public class CachesEndpoint {
+public class CachesEndpoint implements ICachesEndpoint {
 
 	private final Map<String, CacheManager> cacheManagers;
 

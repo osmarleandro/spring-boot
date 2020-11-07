@@ -26,6 +26,7 @@ import org.junit.jupiter.api.Test;
 
 import org.springframework.boot.actuate.cache.CachesEndpoint;
 import org.springframework.boot.actuate.cache.CachesEndpointWebExtension;
+import org.springframework.boot.actuate.cache.ICachesEndpoint;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.concurrent.ConcurrentMapCacheManager;
 import org.springframework.context.annotation.Bean;
@@ -95,7 +96,7 @@ class CachesEndpointDocumentationTests extends MockMvcEndpointDocumentationTests
 	static class TestConfiguration {
 
 		@Bean
-		CachesEndpoint endpoint() {
+		ICachesEndpoint endpoint() {
 			Map<String, CacheManager> cacheManagers = new HashMap<>();
 			cacheManagers.put("cacheManager", new ConcurrentMapCacheManager("countries", "cities"));
 			cacheManagers.put("anotherCacheManager", new ConcurrentMapCacheManager("countries"));
@@ -103,7 +104,7 @@ class CachesEndpointDocumentationTests extends MockMvcEndpointDocumentationTests
 		}
 
 		@Bean
-		CachesEndpointWebExtension endpointWebExtension(CachesEndpoint endpoint) {
+		CachesEndpointWebExtension endpointWebExtension(ICachesEndpoint endpoint) {
 			return new CachesEndpointWebExtension(endpoint);
 		}
 

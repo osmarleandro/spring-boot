@@ -33,9 +33,9 @@ import org.springframework.lang.Nullable;
 @EndpointWebExtension(endpoint = CachesEndpoint.class)
 public class CachesEndpointWebExtension {
 
-	private final CachesEndpoint delegate;
+	private final ICachesEndpoint delegate;
 
-	public CachesEndpointWebExtension(CachesEndpoint delegate) {
+	public CachesEndpointWebExtension(ICachesEndpoint delegate) {
 		this.delegate = delegate;
 	}
 
