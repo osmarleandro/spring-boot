@@ -26,7 +26,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Phillip Webb
  * @author Christian Dupuis
  */
-class SimpleStatusAggregatorTests {
+class SimpleStatusAggregatorTests implements ISimpleStatusAggregatorTests {
 
 	@Test
 	void getAggregateStatusWhenUsingDefaultInstance() {
