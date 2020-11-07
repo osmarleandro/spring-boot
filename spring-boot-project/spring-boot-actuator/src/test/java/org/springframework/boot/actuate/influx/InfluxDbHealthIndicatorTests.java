@@ -36,7 +36,7 @@ import static org.mockito.Mockito.verify;
  *
  * @author Eddú Meléndez
  */
-class InfluxDbHealthIndicatorTests {
+class InfluxDbHealthIndicatorTests implements IInfluxDbHealthIndicatorTests {
 
 	@Test
 	void influxDbIsUp() {
