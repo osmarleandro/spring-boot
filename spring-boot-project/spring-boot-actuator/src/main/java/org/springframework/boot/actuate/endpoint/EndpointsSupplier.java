@@ -28,7 +28,7 @@ import java.util.Collection;
  * @since 2.0.0
  */
 @FunctionalInterface
-public interface EndpointsSupplier<E extends ExposableEndpoint<?>> {
+public interface EndpointsSupplier<E extends ExposableEndpoint<?>> extends IEndpointsSupplier<E> {
 
 	/**
 	 * Return the provided endpoints.
