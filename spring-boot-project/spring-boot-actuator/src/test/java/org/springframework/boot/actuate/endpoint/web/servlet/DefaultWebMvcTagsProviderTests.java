@@ -39,7 +39,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Andy Wilkinson
  */
-public class DefaultWebMvcTagsProviderTests {
+public class DefaultWebMvcTagsProviderTests implements IDefaultWebMvcTagsProviderTests {
 
 	@Test
 	void whenTagsAreProvidedThenDefaultTagsArePresent() {
