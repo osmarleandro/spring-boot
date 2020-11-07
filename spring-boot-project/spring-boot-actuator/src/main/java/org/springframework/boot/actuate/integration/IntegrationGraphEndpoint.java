@@ -29,7 +29,7 @@ import org.springframework.integration.graph.IntegrationGraphServer;
  * @since 2.1.0
  */
 @Endpoint(id = "integrationgraph")
-public class IntegrationGraphEndpoint {
+public class IntegrationGraphEndpoint implements IIntegrationGraphEndpoint {
 
 	private final IntegrationGraphServer graphServer;
 

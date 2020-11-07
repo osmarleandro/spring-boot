@@ -35,7 +35,7 @@ class IntegrationGraphEndpointTests {
 
 	private final IntegrationGraphServer server = mock(IntegrationGraphServer.class);
 
-	private final IntegrationGraphEndpoint endpoint = new IntegrationGraphEndpoint(this.server);
+	private final IIntegrationGraphEndpoint endpoint = new IntegrationGraphEndpoint(this.server);
 
 	@Test
 	void readOperationShouldReturnGraph() {
