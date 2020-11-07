@@ -19,6 +19,7 @@ package org.springframework.boot.actuate.autoconfigure.env;
 import org.springframework.boot.actuate.autoconfigure.endpoint.condition.ConditionalOnAvailableEndpoint;
 import org.springframework.boot.actuate.env.EnvironmentEndpoint;
 import org.springframework.boot.actuate.env.EnvironmentEndpointWebExtension;
+import org.springframework.boot.actuate.env.IEnvironmentEndpointWebExtension;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -53,7 +54,7 @@ public class EnvironmentEndpointAutoConfiguration {
 	@Bean
 	@ConditionalOnMissingBean
 	@ConditionalOnBean(EnvironmentEndpoint.class)
-	public EnvironmentEndpointWebExtension environmentEndpointWebExtension(EnvironmentEndpoint environmentEndpoint) {
+	public IEnvironmentEndpointWebExtension environmentEndpointWebExtension(EnvironmentEndpoint environmentEndpoint) {
 		return new EnvironmentEndpointWebExtension(environmentEndpoint);
 	}
 
