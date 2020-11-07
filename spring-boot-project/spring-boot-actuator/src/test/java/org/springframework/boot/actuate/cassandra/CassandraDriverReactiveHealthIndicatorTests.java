@@ -46,7 +46,7 @@ import static org.mockito.Mockito.mock;
  * @author Alexandre Dutra
  * @author Stephane Nicoll
  */
-class CassandraDriverReactiveHealthIndicatorTests {
+class CassandraDriverReactiveHealthIndicatorTests implements ICassandraDriverReactiveHealthIndicatorTests {
 
 	@Test
 	void createWhenCqlSessionIsNullShouldThrowException() {
