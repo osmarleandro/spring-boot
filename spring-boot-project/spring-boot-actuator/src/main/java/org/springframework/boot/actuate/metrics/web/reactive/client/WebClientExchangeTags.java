@@ -35,7 +35,7 @@ import org.springframework.web.reactive.function.client.WebClient;
  * @author Nishant Raut
  * @since 2.1.0
  */
-public final class WebClientExchangeTags {
+public final class WebClientExchangeTags implements IWebClientExchangeTags {
 
 	private static final String URI_TEMPLATE_ATTRIBUTE = WebClient.class.getName() + ".uriTemplate";
 
