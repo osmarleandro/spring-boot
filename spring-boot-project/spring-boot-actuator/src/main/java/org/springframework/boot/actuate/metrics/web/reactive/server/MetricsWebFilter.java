@@ -39,7 +39,7 @@ import org.springframework.web.server.WebFilterChain;
  * @since 2.0.0
  */
 @Order(Ordered.HIGHEST_PRECEDENCE + 1)
-public class MetricsWebFilter implements WebFilter {
+public class MetricsWebFilter implements WebFilter, IMetricsWebFilter {
 
 	private final MeterRegistry registry;
 
