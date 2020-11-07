@@ -59,7 +59,7 @@ class PrometheusScrapeEndpointIntegrationTests {
 	static class TestConfiguration {
 
 		@Bean
-		PrometheusScrapeEndpoint prometheusScrapeEndpoint(CollectorRegistry collectorRegistry) {
+		IPrometheusScrapeEndpoint prometheusScrapeEndpoint(CollectorRegistry collectorRegistry) {
 			return new PrometheusScrapeEndpoint(collectorRegistry);
 		}
 

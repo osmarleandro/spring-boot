@@ -21,7 +21,7 @@ import io.micrometer.core.instrument.binder.jvm.JvmMemoryMetrics;
 import io.micrometer.prometheus.PrometheusMeterRegistry;
 import io.prometheus.client.CollectorRegistry;
 import org.junit.jupiter.api.Test;
-
+import org.springframework.boot.actuate.metrics.export.prometheus.IPrometheusScrapeEndpoint;
 import org.springframework.boot.actuate.metrics.export.prometheus.PrometheusScrapeEndpoint;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -61,7 +61,7 @@ class PrometheusScrapeEndpointDocumentationTests extends MockMvcEndpointDocument
 	static class TestConfiguration {
 
 		@Bean
-		PrometheusScrapeEndpoint endpoint() {
+		IPrometheusScrapeEndpoint endpoint() {
 			CollectorRegistry collectorRegistry = new CollectorRegistry(true);
 			PrometheusMeterRegistry meterRegistry = new PrometheusMeterRegistry((key) -> null, collectorRegistry,
 					Clock.SYSTEM);
