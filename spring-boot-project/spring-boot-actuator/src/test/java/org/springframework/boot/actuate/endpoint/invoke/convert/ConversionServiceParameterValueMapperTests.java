@@ -39,7 +39,7 @@ import static org.mockito.Mockito.verify;
  *
  * @author Phillip Webb
  */
-class ConversionServiceParameterValueMapperTests {
+class ConversionServiceParameterValueMapperTests implements IConversionServiceParameterValueMapperTests {
 
 	@Test
 	void mapParameterShouldDelegateToConversionService() {
