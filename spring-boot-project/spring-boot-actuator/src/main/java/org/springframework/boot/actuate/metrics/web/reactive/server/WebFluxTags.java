@@ -37,7 +37,7 @@ import org.springframework.web.util.pattern.PathPattern;
  * @author Michael McFadyen
  * @since 2.0.0
  */
-public final class WebFluxTags {
+public final class WebFluxTags implements IWebFluxTags {
 
 	private static final Tag URI_NOT_FOUND = Tag.of("uri", "NOT_FOUND");
 
