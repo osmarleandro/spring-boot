@@ -33,7 +33,7 @@ import org.springframework.util.Assert;
  * @author Stephane Nicoll
  * @since 2.0.0
  */
-public class LdapHealthIndicator extends AbstractHealthIndicator {
+public class LdapHealthIndicator extends AbstractHealthIndicator implements ILdapHealthIndicator {
 
 	private static final ContextExecutor<String> versionContextExecutor = new VersionContextExecutor();
 
