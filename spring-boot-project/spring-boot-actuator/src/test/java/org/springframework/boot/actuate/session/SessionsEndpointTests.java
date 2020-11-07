@@ -36,7 +36,7 @@ import static org.mockito.Mockito.verify;
  *
  * @author Vedran Pavic
  */
-class SessionsEndpointTests {
+class SessionsEndpointTests implements ISessionsEndpointTests {
 
 	private static final Session session = new MapSession();
 
