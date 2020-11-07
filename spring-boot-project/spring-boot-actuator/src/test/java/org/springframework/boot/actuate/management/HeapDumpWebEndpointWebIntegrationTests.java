@@ -42,7 +42,7 @@ import static org.hamcrest.Matchers.is;
  * @author Phillip Webb
  * @author Andy Wilkinson
  */
-class HeapDumpWebEndpointWebIntegrationTests {
+class HeapDumpWebEndpointWebIntegrationTests implements IHeapDumpWebEndpointWebIntegrationTests {
 
 	private TestHeapDumpWebEndpoint endpoint;
 
