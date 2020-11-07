@@ -21,7 +21,7 @@ import java.util.Date;
 import java.util.regex.Pattern;
 
 import org.junit.jupiter.api.Test;
-
+import org.springframework.boot.actuate.scheduling.IScheduledTasksEndpoint;
 import org.springframework.boot.actuate.scheduling.ScheduledTasksEndpoint;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -90,7 +90,7 @@ class ScheduledTasksEndpointDocumentationTests extends MockMvcEndpointDocumentat
 	static class TestConfiguration {
 
 		@Bean
-		ScheduledTasksEndpoint endpoint(Collection<ScheduledTaskHolder> holders) {
+		IScheduledTasksEndpoint endpoint(Collection<ScheduledTaskHolder> holders) {
 			return new ScheduledTasksEndpoint(holders);
 		}
 

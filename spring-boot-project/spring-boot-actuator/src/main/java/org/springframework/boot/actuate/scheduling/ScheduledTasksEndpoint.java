@@ -49,7 +49,7 @@ import org.springframework.scheduling.support.ScheduledMethodRunnable;
  * @since 2.0.0
  */
 @Endpoint(id = "scheduledtasks")
-public class ScheduledTasksEndpoint {
+public class ScheduledTasksEndpoint implements IScheduledTasksEndpoint {
 
 	private final Collection<ScheduledTaskHolder> scheduledTaskHolders;
 
