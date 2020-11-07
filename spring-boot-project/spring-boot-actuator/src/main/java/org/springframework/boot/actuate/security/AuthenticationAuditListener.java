@@ -33,7 +33,7 @@ import org.springframework.util.ClassUtils;
  * @author Vedran Pavic
  * @since 1.0.0
  */
-public class AuthenticationAuditListener extends AbstractAuthenticationAuditListener {
+public class AuthenticationAuditListener extends AbstractAuthenticationAuditListener implements IAuthenticationAuditListener {
 
 	/**
 	 * Authentication success event type.
