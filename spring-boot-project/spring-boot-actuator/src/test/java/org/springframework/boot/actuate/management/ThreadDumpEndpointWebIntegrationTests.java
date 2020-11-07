@@ -50,7 +50,7 @@ class ThreadDumpEndpointWebIntegrationTests {
 	public static class TestConfiguration {
 
 		@Bean
-		public ThreadDumpEndpoint endpoint() {
+		public IThreadDumpEndpoint endpoint() {
 			return new ThreadDumpEndpoint();
 		}
 

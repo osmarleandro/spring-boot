@@ -17,6 +17,7 @@
 package org.springframework.boot.actuate.autoconfigure.management;
 
 import org.springframework.boot.actuate.autoconfigure.endpoint.condition.ConditionalOnAvailableEndpoint;
+import org.springframework.boot.actuate.management.IThreadDumpEndpoint;
 import org.springframework.boot.actuate.management.ThreadDumpEndpoint;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -35,7 +36,7 @@ public class ThreadDumpEndpointAutoConfiguration {
 
 	@Bean
 	@ConditionalOnMissingBean
-	public ThreadDumpEndpoint dumpEndpoint() {
+	public IThreadDumpEndpoint dumpEndpoint() {
 		return new ThreadDumpEndpoint();
 	}
 
