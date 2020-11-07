@@ -174,7 +174,7 @@ class HealthEndpointWebIntegrationTests {
 
 		@Bean
 		@ConditionalOnWebApplication(type = Type.REACTIVE)
-		ReactiveHealthContributorRegistry reactiveHealthContributorRegistry(
+		IReactiveHealthContributorRegistry reactiveHealthContributorRegistry(
 				Map<String, HealthContributor> healthContributorBeans,
 				Map<String, ReactiveHealthContributor> reactiveHealthContributorBeans) {
 			Map<String, ReactiveHealthContributor> allIndicators = new LinkedHashMap<>(reactiveHealthContributorBeans);

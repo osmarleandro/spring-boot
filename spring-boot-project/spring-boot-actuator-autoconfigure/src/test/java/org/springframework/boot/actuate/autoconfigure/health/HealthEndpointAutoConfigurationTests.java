@@ -36,6 +36,7 @@ import org.springframework.boot.actuate.health.HealthEndpointGroupsPostProcessor
 import org.springframework.boot.actuate.health.HealthEndpointWebExtension;
 import org.springframework.boot.actuate.health.HealthIndicator;
 import org.springframework.boot.actuate.health.HttpCodeStatusMapper;
+import org.springframework.boot.actuate.health.IReactiveHealthContributorRegistry;
 import org.springframework.boot.actuate.health.NamedContributor;
 import org.springframework.boot.actuate.health.ReactiveHealthContributorRegistry;
 import org.springframework.boot.actuate.health.ReactiveHealthEndpointWebExtension;
@@ -335,7 +336,7 @@ class HealthEndpointAutoConfigurationTests {
 	static class ReactiveHealthContributorRegistryConfiguration {
 
 		@Bean
-		ReactiveHealthContributorRegistry reactiveHealthContributorRegistry() {
+		IReactiveHealthContributorRegistry reactiveHealthContributorRegistry() {
 			return new DefaultReactiveHealthContributorRegistry();
 		}
 
