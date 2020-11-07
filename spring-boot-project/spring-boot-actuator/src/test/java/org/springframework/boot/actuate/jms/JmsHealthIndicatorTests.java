@@ -41,7 +41,7 @@ import static org.mockito.Mockito.verify;
  *
  * @author Stephane Nicoll
  */
-class JmsHealthIndicatorTests {
+class JmsHealthIndicatorTests implements IJmsHealthIndicatorTests {
 
 	@Test
 	void jmsBrokerIsUp() throws JMSException {
