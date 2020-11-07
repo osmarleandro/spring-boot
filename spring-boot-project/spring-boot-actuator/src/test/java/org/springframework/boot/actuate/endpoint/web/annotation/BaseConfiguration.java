@@ -38,7 +38,7 @@ import static org.mockito.Mockito.mock;
  * @author Andy Wilkinson
  */
 @Configuration(proxyBeanMethods = false)
-class BaseConfiguration {
+class BaseConfiguration implements IBaseConfiguration {
 
 	@Bean
 	AbstractWebEndpointIntegrationTests.EndpointDelegate endpointDelegate() {
