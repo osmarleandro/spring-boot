@@ -27,7 +27,7 @@ import static org.assertj.core.api.Assertions.entry;
  *
  * @author Stephane Nicoll
  */
-class InfoTests {
+class InfoTests implements IInfoTests {
 
 	@Test
 	void infoIsImmutable() {
