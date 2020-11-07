@@ -33,7 +33,7 @@ import org.springframework.test.web.reactive.server.WebTestClient;
  * @author Vedran Pavic
  * @author Andy Wilkinson
  */
-class AuditEventsEndpointWebIntegrationTests {
+class AuditEventsEndpointWebIntegrationTests implements IAuditEventsEndpointWebIntegrationTests {
 
 	@WebEndpointTest
 	void allEvents(WebTestClient client) {
