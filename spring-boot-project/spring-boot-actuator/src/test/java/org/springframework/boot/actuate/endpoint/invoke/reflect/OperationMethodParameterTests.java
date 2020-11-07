@@ -30,7 +30,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Phillip Webb
  */
-class OperationMethodParameterTests {
+class OperationMethodParameterTests implements IOperationMethodParameterTests {
 
 	private Method method = ReflectionUtils.findMethod(getClass(), "example", String.class, String.class);
 
