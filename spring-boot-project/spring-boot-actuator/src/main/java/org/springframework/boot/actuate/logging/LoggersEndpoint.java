@@ -46,7 +46,7 @@ import org.springframework.util.Assert;
  * @since 2.0.0
  */
 @Endpoint(id = "loggers")
-public class LoggersEndpoint {
+public class LoggersEndpoint implements ILoggersEndpoint {
 
 	private final LoggingSystem loggingSystem;
 

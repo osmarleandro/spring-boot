@@ -18,6 +18,7 @@ package org.springframework.boot.actuate.autoconfigure.logging;
 
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.boot.actuate.autoconfigure.endpoint.condition.ConditionalOnAvailableEndpoint;
+import org.springframework.boot.actuate.logging.ILoggersEndpoint;
 import org.springframework.boot.actuate.logging.LoggersEndpoint;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionMessage;
@@ -47,7 +48,7 @@ public class LoggersEndpointAutoConfiguration {
 	@ConditionalOnBean(LoggingSystem.class)
 	@Conditional(OnEnabledLoggingSystemCondition.class)
 	@ConditionalOnMissingBean
-	public LoggersEndpoint loggersEndpoint(LoggingSystem loggingSystem,
+	public ILoggersEndpoint loggersEndpoint(LoggingSystem loggingSystem,
 			ObjectProvider<LoggerGroups> springBootLoggerGroups) {
 		return new LoggersEndpoint(loggingSystem, springBootLoggerGroups.getIfAvailable(LoggerGroups::new));
 	}

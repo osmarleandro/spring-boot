@@ -25,6 +25,7 @@ import java.util.Map;
 import org.junit.jupiter.api.Test;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.actuate.logging.ILoggersEndpoint;
 import org.springframework.boot.actuate.logging.LoggersEndpoint;
 import org.springframework.boot.logging.LogLevel;
 import org.springframework.boot.logging.LoggerConfiguration;
@@ -150,7 +151,7 @@ class LoggersEndpointDocumentationTests extends MockMvcEndpointDocumentationTest
 	static class TestConfiguration {
 
 		@Bean
-		LoggersEndpoint endpoint(LoggingSystem loggingSystem, LoggerGroups groups) {
+		ILoggersEndpoint endpoint(LoggingSystem loggingSystem, LoggerGroups groups) {
 			groups.putAll(getLoggerGroups());
 			groups.get("test").configureLogLevel(LogLevel.INFO, (member, level) -> {
 			});
