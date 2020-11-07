@@ -39,7 +39,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Brian Clozel
  * @author Madhura Bhave
  */
-class MetricsWebFilterTests {
+class MetricsWebFilterTests implements IMetricsWebFilterTests {
 
 	private static final String REQUEST_METRICS_NAME = "http.server.requests";
 
