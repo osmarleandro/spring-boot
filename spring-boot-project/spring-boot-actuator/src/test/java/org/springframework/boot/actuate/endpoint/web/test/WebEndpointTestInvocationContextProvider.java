@@ -81,7 +81,7 @@ import org.springframework.web.util.DefaultUriBuilderFactory.EncodingMode;
  *
  * @author Andy Wilkinson
  */
-class WebEndpointTestInvocationContextProvider implements TestTemplateInvocationContextProvider {
+class WebEndpointTestInvocationContextProvider implements TestTemplateInvocationContextProvider, IWebEndpointTestInvocationContextProvider {
 
 	@Override
 	public boolean supportsTestTemplate(ExtensionContext context) {
