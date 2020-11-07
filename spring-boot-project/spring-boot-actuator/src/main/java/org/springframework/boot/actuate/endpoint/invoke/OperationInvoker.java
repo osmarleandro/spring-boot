@@ -26,7 +26,7 @@ import org.springframework.boot.actuate.endpoint.InvocationContext;
  * @since 2.0.0
  */
 @FunctionalInterface
-public interface OperationInvoker {
+public interface OperationInvoker extends IOperationInvoker {
 
 	/**
 	 * Invoke the underlying operation using the given {@code context}.
