@@ -54,7 +54,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  */
 @ExtendWith(SpringExtension.class)
 @WebAppConfiguration
-class WebMvcMetricsFilterAutoTimedTests {
+class WebMvcMetricsFilterAutoTimedTests implements IWebMvcMetricsFilterAutoTimedTests {
 
 	@Autowired
 	private MeterRegistry registry;
