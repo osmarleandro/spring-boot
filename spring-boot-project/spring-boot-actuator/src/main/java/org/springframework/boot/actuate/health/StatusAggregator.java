@@ -30,7 +30,7 @@ import java.util.Set;
  * @since 2.2.0
  */
 @FunctionalInterface
-public interface StatusAggregator {
+public interface StatusAggregator extends IStatusAggregator {
 
 	/**
 	 * Return {@link StatusAggregator} instance using default ordering rules.

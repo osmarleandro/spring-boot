@@ -25,10 +25,10 @@ import org.springframework.boot.actuate.endpoint.SecurityContext;
 import org.springframework.boot.actuate.health.HealthEndpointGroup;
 import org.springframework.boot.actuate.health.HealthEndpointGroups;
 import org.springframework.boot.actuate.health.HttpCodeStatusMapper;
+import org.springframework.boot.actuate.health.IStatusAggregator;
 import org.springframework.boot.actuate.health.SimpleHttpCodeStatusMapper;
 import org.springframework.boot.actuate.health.SimpleStatusAggregator;
 import org.springframework.boot.actuate.health.Status;
-import org.springframework.boot.actuate.health.StatusAggregator;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.test.context.runner.ApplicationContextRunner;
@@ -336,7 +336,7 @@ class AutoConfiguredHealthEndpointGroupsTests {
 
 		@Bean
 		@Primary
-		StatusAggregator statusAggregator() {
+		IStatusAggregator statusAggregator() {
 			return new SimpleStatusAggregator(Status.UNKNOWN, Status.UP, Status.DOWN);
 		}
 
@@ -347,7 +347,7 @@ class AutoConfiguredHealthEndpointGroupsTests {
 
 		@Bean
 		@Qualifier("a")
-		StatusAggregator statusAggregator() {
+		IStatusAggregator statusAggregator() {
 			return new SimpleStatusAggregator(Status.UNKNOWN, Status.UP, Status.DOWN);
 		}
 
