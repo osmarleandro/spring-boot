@@ -40,6 +40,7 @@ import org.springframework.boot.actuate.endpoint.annotation.WriteOperation;
 import org.springframework.boot.actuate.endpoint.invoke.convert.ConversionServiceParameterValueMapper;
 import org.springframework.boot.actuate.endpoint.invoker.cache.CachingOperationInvoker;
 import org.springframework.boot.actuate.endpoint.invoker.cache.CachingOperationInvokerAdvisor;
+import org.springframework.boot.actuate.endpoint.invoker.cache.ICachingOperationInvoker;
 import org.springframework.boot.actuate.endpoint.jmx.annotation.JmxEndpoint;
 import org.springframework.boot.actuate.endpoint.web.EndpointMediaTypes;
 import org.springframework.boot.actuate.endpoint.web.ExposableWebEndpoint;
@@ -173,7 +174,7 @@ class WebEndpointDiscovererTests {
 			WebOperation operation = endpoint.getOperations().iterator().next();
 			Object invoker = ReflectionTestUtils.getField(operation, "invoker");
 			assertThat(invoker).isInstanceOf(CachingOperationInvoker.class);
-			assertThat(((CachingOperationInvoker) invoker).getTimeToLive()).isEqualTo(500);
+			assertThat(((ICachingOperationInvoker) invoker).getTimeToLive()).isEqualTo(500);
 		});
 	}
 

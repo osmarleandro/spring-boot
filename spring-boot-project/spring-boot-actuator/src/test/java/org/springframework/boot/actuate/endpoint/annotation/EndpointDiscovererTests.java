@@ -44,6 +44,7 @@ import org.springframework.boot.actuate.endpoint.invoke.ParameterValueMapper;
 import org.springframework.boot.actuate.endpoint.invoke.convert.ConversionServiceParameterValueMapper;
 import org.springframework.boot.actuate.endpoint.invoker.cache.CachingOperationInvoker;
 import org.springframework.boot.actuate.endpoint.invoker.cache.CachingOperationInvokerAdvisor;
+import org.springframework.boot.actuate.endpoint.invoker.cache.ICachingOperationInvoker;
 import org.springframework.cglib.proxy.Enhancer;
 import org.springframework.cglib.proxy.FixedValue;
 import org.springframework.context.ApplicationContext;
@@ -189,7 +190,7 @@ class EndpointDiscovererTests {
 			TestOperation getOne = operations.get(findTestEndpointMethod("getOne", String.class));
 			TestOperation update = operations
 					.get(ReflectionUtils.findMethod(TestEndpoint.class, "update", String.class, String.class));
-			assertThat(((CachingOperationInvoker) getAll.getInvoker()).getTimeToLive()).isEqualTo(500);
+			assertThat(((ICachingOperationInvoker) getAll.getInvoker()).getTimeToLive()).isEqualTo(500);
 			assertThat(getOne.getInvoker()).isNotInstanceOf(CachingOperationInvoker.class);
 			assertThat(update.getInvoker()).isNotInstanceOf(CachingOperationInvoker.class);
 		});
