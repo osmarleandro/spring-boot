@@ -30,7 +30,7 @@ import org.springframework.util.Assert;
  * @author Eddú Meléndez
  * @since 2.0.0
  */
-public class InfluxDbHealthIndicator extends AbstractHealthIndicator {
+public class InfluxDbHealthIndicator extends AbstractHealthIndicator implements IInfluxDbHealthIndicator {
 
 	private final InfluxDB influxDb;
 
