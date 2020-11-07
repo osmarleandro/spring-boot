@@ -24,7 +24,7 @@ import org.springframework.util.Assert;
  * @author Stephane Nicoll
  * @since 1.4.0
  */
-public class SimpleInfoContributor implements InfoContributor {
+public class SimpleInfoContributor implements InfoContributor, ISimpleInfoContributor {
 
 	private final String prefix;
 
