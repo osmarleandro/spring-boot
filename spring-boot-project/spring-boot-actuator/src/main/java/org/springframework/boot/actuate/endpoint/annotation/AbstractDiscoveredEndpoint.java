@@ -34,7 +34,7 @@ import org.springframework.util.Assert;
  * @since 2.0.0
  */
 public abstract class AbstractDiscoveredEndpoint<O extends Operation> extends AbstractExposableEndpoint<O>
-		implements DiscoveredEndpoint<O> {
+		implements DiscoveredEndpoint<O>, IAbstractDiscoveredEndpoint<O> {
 
 	private final EndpointDiscoverer<?, ?> discoverer;
 
