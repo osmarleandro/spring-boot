@@ -20,7 +20,7 @@ import java.util.Collection;
 
 import org.springframework.boot.actuate.autoconfigure.endpoint.expose.IncludeExcludeEndpointFilter;
 import org.springframework.boot.actuate.endpoint.EndpointFilter;
-import org.springframework.boot.actuate.endpoint.ExposableEndpoint;
+import org.springframework.boot.actuate.endpoint.IExposableEndpoint;
 import org.springframework.core.env.Environment;
 
 /**
@@ -33,7 +33,7 @@ import org.springframework.core.env.Environment;
  * @deprecated since 2.2.7 in favor of {@link IncludeExcludeEndpointFilter}
  */
 @Deprecated
-public class ExposeExcludePropertyEndpointFilter<E extends ExposableEndpoint<?>>
+public class ExposeExcludePropertyEndpointFilter<E extends IExposableEndpoint<?>>
 		extends IncludeExcludeEndpointFilter<E> {
 
 	public ExposeExcludePropertyEndpointFilter(Class<E> endpointType, Environment environment, String prefix,

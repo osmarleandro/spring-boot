@@ -26,7 +26,7 @@ import java.util.Set;
 
 import org.springframework.boot.actuate.endpoint.EndpointFilter;
 import org.springframework.boot.actuate.endpoint.EndpointId;
-import org.springframework.boot.actuate.endpoint.ExposableEndpoint;
+import org.springframework.boot.actuate.endpoint.IExposableEndpoint;
 import org.springframework.boot.context.properties.bind.Bindable;
 import org.springframework.boot.context.properties.bind.Binder;
 import org.springframework.core.env.Environment;
@@ -40,7 +40,7 @@ import org.springframework.util.Assert;
  * @author Phillip Webb
  * @since 2.2.7
  */
-public class IncludeExcludeEndpointFilter<E extends ExposableEndpoint<?>> implements EndpointFilter<E> {
+public class IncludeExcludeEndpointFilter<E extends IExposableEndpoint<?>> implements EndpointFilter<E> {
 
 	private final Class<E> endpointType;
 
