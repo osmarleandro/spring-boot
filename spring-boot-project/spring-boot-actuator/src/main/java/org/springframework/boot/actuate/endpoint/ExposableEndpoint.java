@@ -32,7 +32,7 @@ public interface ExposableEndpoint<O extends Operation> {
 	 * Return the endpoint ID.
 	 * @return the endpoint ID
 	 */
-	EndpointId getEndpointId();
+	IEndpointId getEndpointId();
 
 	/**
 	 * Returns if the endpoint is enabled by default.

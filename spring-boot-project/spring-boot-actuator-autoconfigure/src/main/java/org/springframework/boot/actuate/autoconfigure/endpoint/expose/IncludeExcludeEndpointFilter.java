@@ -27,6 +27,7 @@ import java.util.Set;
 import org.springframework.boot.actuate.endpoint.EndpointFilter;
 import org.springframework.boot.actuate.endpoint.EndpointId;
 import org.springframework.boot.actuate.endpoint.ExposableEndpoint;
+import org.springframework.boot.actuate.endpoint.IEndpointId;
 import org.springframework.boot.context.properties.bind.Bindable;
 import org.springframework.boot.context.properties.bind.Binder;
 import org.springframework.core.env.Environment;
@@ -147,18 +148,18 @@ public class IncludeExcludeEndpointFilter<E extends ExposableEndpoint<?>> implem
 	 * @param endpointId the endpoint ID to check
 	 * @return {@code true} if the filter matches
 	 */
-	protected final boolean match(EndpointId endpointId) {
+	protected final boolean match(IEndpointId endpointId) {
 		return isIncluded(endpointId) && !isExcluded(endpointId);
 	}
 
-	private boolean isIncluded(EndpointId endpointId) {
+	private boolean isIncluded(IEndpointId endpointId) {
 		if (this.include.isEmpty()) {
 			return this.defaultIncludes.matches(endpointId);
 		}
 		return this.include.matches(endpointId);
 	}
 
-	private boolean isExcluded(EndpointId endpointId) {
+	private boolean isExcluded(IEndpointId endpointId) {
 		if (this.exclude.isEmpty()) {
 			return false;
 		}
@@ -228,7 +229,7 @@ public class IncludeExcludeEndpointFilter<E extends ExposableEndpoint<?>> implem
 			return this.empty;
 		}
 
-		boolean matches(EndpointId endpointId) {
+		boolean matches(IEndpointId endpointId) {
 			return this.matchesAll || this.endpointIds.contains(endpointId);
 		}
 

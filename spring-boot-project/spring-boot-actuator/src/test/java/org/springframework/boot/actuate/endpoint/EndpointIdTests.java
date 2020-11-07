@@ -79,7 +79,7 @@ class EndpointIdTests {
 	void ofWhenContainsDotIsValid() {
 		// Ideally we wouldn't support this but there are existing endpoints using the
 		// pattern. See gh-14773
-		EndpointId endpointId = EndpointId.of("foo.bar");
+		IEndpointId endpointId = EndpointId.of("foo.bar");
 		assertThat(endpointId.toString()).isEqualTo("foo.bar");
 	}
 
@@ -87,7 +87,7 @@ class EndpointIdTests {
 	void ofWhenContainsDashIsValid() {
 		// Ideally we wouldn't support this but there are existing endpoints using the
 		// pattern. See gh-14773
-		EndpointId endpointId = EndpointId.of("foo-bar");
+		IEndpointId endpointId = EndpointId.of("foo-bar");
 		assertThat(endpointId.toString()).isEqualTo("foo-bar");
 	}
 
@@ -101,26 +101,26 @@ class EndpointIdTests {
 
 	@Test
 	void ofWhenMigratingLegacyNameRemovesDots(CapturedOutput output) {
-		EndpointId endpointId = migrateLegacyName("one.two.three");
+		IEndpointId endpointId = migrateLegacyName("one.two.three");
 		assertThat(endpointId.toString()).isEqualTo("onetwothree");
 		assertThat(output).doesNotContain("contains invalid characters");
 	}
 
 	@Test
 	void ofWhenMigratingLegacyNameRemovesHyphens(CapturedOutput output) {
-		EndpointId endpointId = migrateLegacyName("one-two-three");
+		IEndpointId endpointId = migrateLegacyName("one-two-three");
 		assertThat(endpointId.toString()).isEqualTo("onetwothree");
 		assertThat(output).doesNotContain("contains invalid characters");
 	}
 
 	@Test
 	void ofWhenMigratingLegacyNameRemovesMixOfDashAndDot(CapturedOutput output) {
-		EndpointId endpointId = migrateLegacyName("one.two-three");
+		IEndpointId endpointId = migrateLegacyName("one.two-three");
 		assertThat(endpointId.toString()).isEqualTo("onetwothree");
 		assertThat(output).doesNotContain("contains invalid characters");
 	}
 
-	private EndpointId migrateLegacyName(String name) {
+	private IEndpointId migrateLegacyName(String name) {
 		EndpointId.resetLoggedWarnings();
 		MockEnvironment environment = new MockEnvironment();
 		environment.setProperty("management.endpoints.migrate-legacy-ids", "true");
@@ -130,11 +130,11 @@ class EndpointIdTests {
 	@Test
 	void equalsAndHashCode() {
 		EndpointId one = EndpointId.of("foobar1");
-		EndpointId two = EndpointId.of("fooBar1");
-		EndpointId three = EndpointId.of("foo-bar1");
-		EndpointId four = EndpointId.of("foo.bar1");
-		EndpointId five = EndpointId.of("barfoo1");
-		EndpointId six = EndpointId.of("foobar2");
+		IEndpointId two = EndpointId.of("fooBar1");
+		IEndpointId three = EndpointId.of("foo-bar1");
+		IEndpointId four = EndpointId.of("foo.bar1");
+		IEndpointId five = EndpointId.of("barfoo1");
+		IEndpointId six = EndpointId.of("foobar2");
 		assertThat(one.hashCode()).isEqualTo(two.hashCode());
 		assertThat(one).isEqualTo(one).isEqualTo(two).isEqualTo(three).isEqualTo(four).isNotEqualTo(five)
 				.isNotEqualTo(six);

@@ -22,8 +22,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.reactivestreams.Publisher;
-
-import org.springframework.boot.actuate.endpoint.EndpointId;
+import org.springframework.boot.actuate.endpoint.IEndpointId;
 import org.springframework.boot.actuate.endpoint.annotation.AbstractDiscoveredOperation;
 import org.springframework.boot.actuate.endpoint.annotation.DiscoveredOperationMethod;
 import org.springframework.boot.actuate.endpoint.annotation.Selector;
@@ -51,7 +50,7 @@ class DiscoveredWebOperation extends AbstractDiscoveredOperation implements WebO
 
 	private final WebOperationRequestPredicate requestPredicate;
 
-	DiscoveredWebOperation(EndpointId endpointId, DiscoveredOperationMethod operationMethod, OperationInvoker invoker,
+	DiscoveredWebOperation(IEndpointId endpointId, DiscoveredOperationMethod operationMethod, OperationInvoker invoker,
 			WebOperationRequestPredicate requestPredicate) {
 		super(operationMethod, invoker);
 		Method method = operationMethod.getMethod();
@@ -60,7 +59,7 @@ class DiscoveredWebOperation extends AbstractDiscoveredOperation implements WebO
 		this.requestPredicate = requestPredicate;
 	}
 
-	private String getId(EndpointId endpointId, Method method) {
+	private String getId(IEndpointId endpointId, Method method) {
 		return endpointId + Stream.of(method.getParameters()).filter(this::hasSelector).map(this::dashName)
 				.collect(Collectors.joining());
 	}

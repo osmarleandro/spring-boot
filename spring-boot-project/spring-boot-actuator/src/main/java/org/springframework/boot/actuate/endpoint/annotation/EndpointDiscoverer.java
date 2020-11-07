@@ -37,6 +37,7 @@ import org.springframework.boot.actuate.endpoint.EndpointFilter;
 import org.springframework.boot.actuate.endpoint.EndpointId;
 import org.springframework.boot.actuate.endpoint.EndpointsSupplier;
 import org.springframework.boot.actuate.endpoint.ExposableEndpoint;
+import org.springframework.boot.actuate.endpoint.IEndpointId;
 import org.springframework.boot.actuate.endpoint.Operation;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvoker;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvokerAdvisor;
@@ -494,7 +495,7 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 
 		private final Supplier<Object> beanSupplier;
 
-		private final EndpointId endpointId;
+		private final IEndpointId endpointId;
 
 		private final Class<?> filter;
 
@@ -525,7 +526,7 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 			return this.beanSupplier.get();
 		}
 
-		EndpointId getEndpointId() {
+		IEndpointId getEndpointId() {
 			return this.endpointId;
 		}
 
