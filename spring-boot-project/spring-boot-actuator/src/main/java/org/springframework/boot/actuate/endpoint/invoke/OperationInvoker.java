@@ -16,7 +16,7 @@
 
 package org.springframework.boot.actuate.endpoint.invoke;
 
-import org.springframework.boot.actuate.endpoint.InvocationContext;
+import org.springframework.boot.actuate.endpoint.IInvocationContext;
 
 /**
  * Interface to perform an operation invocation.
@@ -34,6 +34,6 @@ public interface OperationInvoker {
 	 * @return the result of the operation, may be {@code null}
 	 * @throws MissingParametersException if parameters are missing
 	 */
-	Object invoke(InvocationContext context) throws MissingParametersException;
+	Object invoke(IInvocationContext context) throws MissingParametersException;
 
 }

@@ -29,6 +29,7 @@ import org.reactivestreams.Publisher;
 import reactor.core.publisher.Mono;
 import reactor.core.scheduler.Schedulers;
 
+import org.springframework.boot.actuate.endpoint.IInvocationContext;
 import org.springframework.boot.actuate.endpoint.InvalidEndpointRequestException;
 import org.springframework.boot.actuate.endpoint.InvocationContext;
 import org.springframework.boot.actuate.endpoint.OperationType;
@@ -236,7 +237,7 @@ public abstract class AbstractWebFluxEndpointHandlerMapping extends RequestMappi
 		}
 
 		@Override
-		public Object invoke(InvocationContext context) {
+		public Object invoke(IInvocationContext context) {
 			return Mono.fromCallable(() -> this.invoker.invoke(context)).subscribeOn(Schedulers.boundedElastic());
 		}
 

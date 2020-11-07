@@ -29,7 +29,7 @@ import org.springframework.util.Assert;
  * @author Phillip Webb
  * @since 2.0.0
  */
-public class InvocationContext {
+public class InvocationContext implements IInvocationContext {
 
 	private final SecurityContext securityContext;
 
