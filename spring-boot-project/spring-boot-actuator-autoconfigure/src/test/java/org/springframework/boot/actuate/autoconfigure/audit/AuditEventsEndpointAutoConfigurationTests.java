@@ -19,6 +19,7 @@ package org.springframework.boot.actuate.autoconfigure.audit;
 import org.junit.jupiter.api.Test;
 
 import org.springframework.boot.actuate.audit.AuditEventsEndpoint;
+import org.springframework.boot.actuate.audit.IInMemoryAuditEventRepository;
 import org.springframework.boot.actuate.audit.InMemoryAuditEventRepository;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
 import org.springframework.boot.test.context.runner.ApplicationContextRunner;
@@ -69,7 +70,7 @@ class AuditEventsEndpointAutoConfigurationTests {
 	static class CustomAuditEventRepositoryConfiguration {
 
 		@Bean
-		InMemoryAuditEventRepository testAuditEventRepository() {
+		IInMemoryAuditEventRepository testAuditEventRepository() {
 			return new InMemoryAuditEventRepository();
 		}
 
