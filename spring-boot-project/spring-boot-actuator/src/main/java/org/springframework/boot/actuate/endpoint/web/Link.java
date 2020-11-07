@@ -27,7 +27,7 @@ import org.springframework.util.Assert;
  * @author Andy Wilkinson
  * @since 2.0.0
  */
-public class Link {
+public class Link implements ILink {
 
 	private final String href;
 
