@@ -44,7 +44,7 @@ import static org.assertj.core.api.Assertions.entry;
  * @author Stephane Nicoll
  * @author Andy Wilkinson
  */
-class ConfigurationPropertiesReportEndpointSerializationTests {
+class ConfigurationPropertiesReportEndpointSerializationTests implements IConfigurationPropertiesReportEndpointSerializationTests {
 
 	@Test
 	void testNaming() {
