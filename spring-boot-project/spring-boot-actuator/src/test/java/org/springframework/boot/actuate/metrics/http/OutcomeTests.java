@@ -25,7 +25,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Andy Wilkinson
  */
-public class OutcomeTests {
+public class OutcomeTests implements IOutcomeTests {
 
 	@Test
 	void outcomeForInformationalStatusIsInformational() {
