@@ -24,7 +24,7 @@ package org.springframework.boot.actuate.health;
  * @since 2.2.0
  */
 @FunctionalInterface
-public interface HttpCodeStatusMapper {
+public interface HttpCodeStatusMapper extends IHttpCodeStatusMapper {
 
 	/**
 	 * A {@link HttpCodeStatusMapper} instance using default mappings.
