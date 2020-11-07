@@ -267,7 +267,7 @@ class WebEndpointTestInvocationContextProvider implements TestTemplateInvocation
 		}
 
 		@Bean
-		PortHolder portHolder() {
+		IPortHolder portHolder() {
 			return this.portHolder;
 		}
 
