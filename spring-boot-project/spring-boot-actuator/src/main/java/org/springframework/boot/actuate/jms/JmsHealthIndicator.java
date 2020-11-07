@@ -36,7 +36,7 @@ import org.springframework.boot.actuate.health.HealthIndicator;
  * @author Stephane Nicoll
  * @since 2.0.0
  */
-public class JmsHealthIndicator extends AbstractHealthIndicator {
+public class JmsHealthIndicator extends AbstractHealthIndicator implements IJmsHealthIndicator {
 
 	private final Log logger = LogFactory.getLog(JmsHealthIndicator.class);
 
