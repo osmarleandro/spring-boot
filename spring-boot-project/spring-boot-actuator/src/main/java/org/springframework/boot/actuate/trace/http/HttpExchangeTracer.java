@@ -36,7 +36,7 @@ import org.springframework.http.HttpHeaders;
  * @author Andy Wilkinson
  * @since 2.0.0
  */
-public class HttpExchangeTracer {
+public class HttpExchangeTracer implements IHttpExchangeTracer {
 
 	private final Set<Include> includes;
 
