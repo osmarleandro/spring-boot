@@ -25,6 +25,7 @@ import org.springframework.boot.actuate.autoconfigure.jdbc.DataSourceHealthContr
 import org.springframework.boot.actuate.health.CompositeHealthContributor;
 import org.springframework.boot.actuate.health.NamedContributor;
 import org.springframework.boot.actuate.jdbc.DataSourceHealthIndicator;
+import org.springframework.boot.actuate.jdbc.IDataSourceHealthIndicator;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.autoconfigure.jdbc.EmbeddedDataSourceConfiguration;
@@ -113,7 +114,7 @@ class DataSourceHealthContributorAutoConfigurationTests {
 				.withUserConfiguration(DataSourceConfig.class, DataSourcePoolMetadataProvidersConfiguration.class)
 				.withPropertyValues("spring.datasource.test.validation-query:SELECT from FOOBAR").run((context) -> {
 					assertThat(context).hasSingleBean(DataSourceHealthIndicator.class);
-					DataSourceHealthIndicator indicator = context.getBean(DataSourceHealthIndicator.class);
+					IDataSourceHealthIndicator indicator = context.getBean(DataSourceHealthIndicator.class);
 					assertThat(indicator.getQuery()).isEqualTo("SELECT from FOOBAR");
 				});
 	}

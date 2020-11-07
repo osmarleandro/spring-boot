@@ -49,7 +49,7 @@ import org.springframework.util.StringUtils;
  * @author Arthur Kalimullin
  * @since 2.0.0
  */
-public class DataSourceHealthIndicator extends AbstractHealthIndicator implements InitializingBean {
+public class DataSourceHealthIndicator extends AbstractHealthIndicator implements InitializingBean, IDataSourceHealthIndicator {
 
 	private DataSource dataSource;
 

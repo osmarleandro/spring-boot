@@ -42,6 +42,7 @@ import org.springframework.boot.actuate.health.SimpleHttpCodeStatusMapper;
 import org.springframework.boot.actuate.health.SimpleStatusAggregator;
 import org.springframework.boot.actuate.health.StatusAggregator;
 import org.springframework.boot.actuate.jdbc.DataSourceHealthIndicator;
+import org.springframework.boot.actuate.jdbc.IDataSourceHealthIndicator;
 import org.springframework.boot.actuate.system.DiskSpaceHealthIndicator;
 import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
@@ -119,7 +120,7 @@ class HealthEndpointDocumentationTests extends MockMvcEndpointDocumentationTests
 		}
 
 		@Bean
-		DataSourceHealthIndicator dbHealthIndicator(DataSource dataSource) {
+		IDataSourceHealthIndicator dbHealthIndicator(DataSource dataSource) {
 			return new DataSourceHealthIndicator(dataSource);
 		}
 
