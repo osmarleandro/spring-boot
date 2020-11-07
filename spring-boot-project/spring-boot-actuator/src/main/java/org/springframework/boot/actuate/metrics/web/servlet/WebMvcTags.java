@@ -39,7 +39,7 @@ import org.springframework.web.util.pattern.PathPattern;
  * @author Michael McFadyen
  * @since 2.0.0
  */
-public final class WebMvcTags {
+public final class WebMvcTags implements IWebMvcTags {
 
 	private static final String DATA_REST_PATH_PATTERN_ATTRIBUTE = "org.springframework.data.rest.webmvc.RepositoryRestHandlerMapping.EFFECTIVE_REPOSITORY_RESOURCE_LOOKUP_PATH";
 
