@@ -41,7 +41,7 @@ import org.springframework.util.ConcurrentReferenceHashMap;
  * @author Phillip Webb
  * @since 2.0.0
  */
-public class DataSourcePoolMetrics implements MeterBinder {
+public class DataSourcePoolMetrics implements MeterBinder, IDataSourcePoolMetrics {
 
 	private final DataSource dataSource;
 
