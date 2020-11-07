@@ -21,6 +21,7 @@ import io.micrometer.core.instrument.simple.SimpleMeterRegistry;
 import org.junit.jupiter.api.Test;
 
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.actuate.metrics.web.jetty.IJettyServerThreadPoolMetricsBinder;
 import org.springframework.boot.actuate.metrics.web.jetty.JettyServerThreadPoolMetricsBinder;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
 import org.springframework.boot.autoconfigure.web.reactive.ReactiveWebServerFactoryAutoConfiguration;
@@ -122,7 +123,7 @@ class JettyMetricsAutoConfigurationTests {
 	static class CustomJettyServerThreadPoolMetricsBinder {
 
 		@Bean
-		JettyServerThreadPoolMetricsBinder customJettyServerThreadPoolMetricsBinder(MeterRegistry meterRegistry) {
+		IJettyServerThreadPoolMetricsBinder customJettyServerThreadPoolMetricsBinder(MeterRegistry meterRegistry) {
 			return new JettyServerThreadPoolMetricsBinder(meterRegistry);
 		}
 

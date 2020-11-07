@@ -37,7 +37,7 @@ import org.springframework.context.ApplicationListener;
  * @author Andy Wilkinson
  * @since 2.1.0
  */
-public class JettyServerThreadPoolMetricsBinder implements ApplicationListener<ApplicationStartedEvent> {
+public class JettyServerThreadPoolMetricsBinder implements ApplicationListener<ApplicationStartedEvent>, IJettyServerThreadPoolMetricsBinder {
 
 	private final MeterRegistry meterRegistry;
 
