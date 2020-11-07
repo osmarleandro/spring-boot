@@ -40,7 +40,7 @@ import static org.mockito.Mockito.mock;
  *
  * @author Phillip Webb
  */
-class ReflectiveOperationInvokerTests {
+class ReflectiveOperationInvokerTests implements IReflectiveOperationInvokerTests {
 
 	private Example target;
 
