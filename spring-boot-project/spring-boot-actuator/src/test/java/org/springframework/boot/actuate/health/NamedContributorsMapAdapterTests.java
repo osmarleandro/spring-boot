@@ -32,7 +32,7 @@ import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException
  *
  * @author Phillip Webb
  */
-class NamedContributorsMapAdapterTests {
+class NamedContributorsMapAdapterTests implements INamedContributorsMapAdapterTests {
 
 	@Test
 	void createWhenMapIsNullThrowsException() {
