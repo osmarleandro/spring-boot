@@ -40,7 +40,7 @@ import static org.assertj.core.api.Assertions.contentOf;
  * @author Phillip Webb
  * @author Andy Wilkinson
  */
-class LogFileWebEndpointTests {
+class LogFileWebEndpointTests implements ILogFileWebEndpointTests {
 
 	private final MockEnvironment environment = new MockEnvironment();
 
