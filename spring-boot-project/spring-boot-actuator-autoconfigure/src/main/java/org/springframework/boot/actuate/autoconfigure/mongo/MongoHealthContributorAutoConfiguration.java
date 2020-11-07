@@ -20,7 +20,7 @@ import java.util.Map;
 
 import org.springframework.boot.actuate.autoconfigure.health.CompositeHealthContributorConfiguration;
 import org.springframework.boot.actuate.autoconfigure.health.ConditionalOnEnabledHealthIndicator;
-import org.springframework.boot.actuate.health.HealthContributor;
+import org.springframework.boot.actuate.health.IHealthContributor;
 import org.springframework.boot.actuate.mongo.MongoHealthIndicator;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -50,7 +50,7 @@ public class MongoHealthContributorAutoConfiguration
 
 	@Bean
 	@ConditionalOnMissingBean(name = { "mongoHealthIndicator", "mongoHealthContributor" })
-	public HealthContributor mongoHealthContributor(Map<String, MongoTemplate> mongoTemplates) {
+	public IHealthContributor mongoHealthContributor(Map<String, MongoTemplate> mongoTemplates) {
 		return createContributor(mongoTemplates);
 	}
 

@@ -26,6 +26,6 @@ package org.springframework.boot.actuate.health;
  * @see HealthIndicator
  * @see CompositeHealthContributor
  */
-public interface HealthContributor {
+public interface HealthContributor extends IHealthContributor {
 
 }

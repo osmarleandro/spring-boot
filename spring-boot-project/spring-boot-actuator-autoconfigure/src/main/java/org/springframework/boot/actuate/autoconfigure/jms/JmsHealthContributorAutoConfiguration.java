@@ -22,7 +22,7 @@ import javax.jms.ConnectionFactory;
 
 import org.springframework.boot.actuate.autoconfigure.health.CompositeHealthContributorConfiguration;
 import org.springframework.boot.actuate.autoconfigure.health.ConditionalOnEnabledHealthIndicator;
-import org.springframework.boot.actuate.health.HealthContributor;
+import org.springframework.boot.actuate.health.IHealthContributor;
 import org.springframework.boot.actuate.jms.JmsHealthIndicator;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -50,7 +50,7 @@ public class JmsHealthContributorAutoConfiguration
 
 	@Bean
 	@ConditionalOnMissingBean(name = { "jmsHealthIndicator", "jmsHealthContributor" })
-	public HealthContributor jmsHealthContributor(Map<String, ConnectionFactory> connectionFactories) {
+	public IHealthContributor jmsHealthContributor(Map<String, ConnectionFactory> connectionFactories) {
 		return createContributor(connectionFactories);
 	}
 

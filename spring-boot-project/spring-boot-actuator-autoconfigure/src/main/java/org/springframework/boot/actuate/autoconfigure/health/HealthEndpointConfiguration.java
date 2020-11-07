@@ -34,6 +34,7 @@ import org.springframework.boot.actuate.health.HealthEndpointGroups;
 import org.springframework.boot.actuate.health.HealthEndpointGroupsPostProcessor;
 import org.springframework.boot.actuate.health.HealthIndicator;
 import org.springframework.boot.actuate.health.HttpCodeStatusMapper;
+import org.springframework.boot.actuate.health.IHealthContributor;
 import org.springframework.boot.actuate.health.NamedContributor;
 import org.springframework.boot.actuate.health.ReactiveHealthContributor;
 import org.springframework.boot.actuate.health.ReactiveHealthIndicator;
@@ -192,7 +193,7 @@ class HealthEndpointConfiguration {
 				}
 
 				@Override
-				public HealthContributor getContributor(String name) {
+				public IHealthContributor getContributor(String name) {
 					return adapt(composite.getContributor(name));
 				}
 

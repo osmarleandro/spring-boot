@@ -21,6 +21,7 @@ import java.util.Map;
 import org.springframework.boot.actuate.health.CompositeHealthContributor;
 import org.springframework.boot.actuate.health.HealthContributor;
 import org.springframework.boot.actuate.health.HealthIndicator;
+import org.springframework.boot.actuate.health.IHealthContributor;
 
 /**
  * Base class for health contributor configurations that can combine source beans into a
@@ -36,7 +37,7 @@ public abstract class CompositeHealthContributorConfiguration<I extends HealthIn
 		extends AbstractCompositeHealthContributorConfiguration<HealthContributor, I, B> {
 
 	@Override
-	protected final HealthContributor createComposite(Map<String, B> beans) {
+	protected final IHealthContributor createComposite(Map<String, B> beans) {
 		return CompositeHealthContributor.fromMap(beans, this::createIndicator);
 	}
 

@@ -22,6 +22,7 @@ import java.util.Map;
 import org.springframework.boot.actuate.health.DefaultHealthContributorRegistry;
 import org.springframework.boot.actuate.health.HealthContributor;
 import org.springframework.boot.actuate.health.HealthContributorRegistry;
+import org.springframework.boot.actuate.health.IHealthContributor;
 import org.springframework.util.Assert;
 
 /**
@@ -42,7 +43,7 @@ class AutoConfiguredHealthContributorRegistry extends DefaultHealthContributorRe
 	}
 
 	@Override
-	public void registerContributor(String name, HealthContributor contributor) {
+	public void registerContributor(String name, IHealthContributor contributor) {
 		assertDoesNotClashWithGroup(name);
 		super.registerContributor(name, contributor);
 	}
