@@ -25,7 +25,7 @@ import org.springframework.web.reactive.DispatcherHandler;
  * @author Andy Wilkinson
  * @since 2.0.0
  */
-public class DispatcherHandlerMappingDetails {
+public class DispatcherHandlerMappingDetails implements IDispatcherHandlerMappingDetails {
 
 	private HandlerMethodDescription handlerMethod;
 
