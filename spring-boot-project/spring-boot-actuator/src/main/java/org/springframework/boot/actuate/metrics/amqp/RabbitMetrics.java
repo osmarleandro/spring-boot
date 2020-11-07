@@ -33,7 +33,7 @@ import org.springframework.util.Assert;
  * @author Stephane Nicoll
  * @since 2.0.0
  */
-public class RabbitMetrics implements MeterBinder {
+public class RabbitMetrics implements MeterBinder, IRabbitMetrics {
 
 	private final Iterable<Tag> tags;
 
