@@ -100,7 +100,7 @@ class HealthEndpointWebExtensionTests
 	}
 
 	@Override
-	protected HealthComponent getHealth(HealthResult<HealthComponent> result) {
+	protected IHealthComponent getHealth(HealthResult<HealthComponent> result) {
 		return result.getHealth();
 	}
 
