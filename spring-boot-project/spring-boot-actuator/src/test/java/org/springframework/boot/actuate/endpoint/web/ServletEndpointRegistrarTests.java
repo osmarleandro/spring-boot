@@ -50,7 +50,7 @@ import static org.mockito.Mockito.verify;
  * @author Stephane Nicoll
  */
 @ExtendWith(MockitoExtension.class)
-class ServletEndpointRegistrarTests {
+class ServletEndpointRegistrarTests implements IServletEndpointRegistrarTests {
 
 	@Mock
 	private ServletContext servletContext;
