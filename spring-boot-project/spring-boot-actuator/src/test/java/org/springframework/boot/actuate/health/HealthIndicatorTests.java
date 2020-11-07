@@ -25,7 +25,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Phillip Webb
  */
-class HealthIndicatorTests {
+class HealthIndicatorTests implements IHealthIndicatorTests {
 
 	private final HealthIndicator indicator = () -> Health.up().withDetail("spring", "boot").build();
 
