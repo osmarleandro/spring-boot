@@ -49,7 +49,7 @@ import org.springframework.web.servlet.mvc.method.RequestMappingInfoHandlerMappi
  * @author Stephane Nicoll
  * @since 2.0.0
  */
-public class DispatcherServletsMappingDescriptionProvider implements MappingDescriptionProvider {
+public class DispatcherServletsMappingDescriptionProvider implements MappingDescriptionProvider, IDispatcherServletsMappingDescriptionProvider {
 
 	private static final List<HandlerMappingDescriptionProvider<?>> descriptionProviders;
 
