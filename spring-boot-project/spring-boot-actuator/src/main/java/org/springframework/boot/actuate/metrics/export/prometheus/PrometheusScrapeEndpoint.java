@@ -40,7 +40,7 @@ import org.springframework.lang.Nullable;
  * @since 2.0.0
  */
 @WebEndpoint(id = "prometheus")
-public class PrometheusScrapeEndpoint {
+public class PrometheusScrapeEndpoint implements IPrometheusScrapeEndpoint {
 
 	private final CollectorRegistry collectorRegistry;
 
