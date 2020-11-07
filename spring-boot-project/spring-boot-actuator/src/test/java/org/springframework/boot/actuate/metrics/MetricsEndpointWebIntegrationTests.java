@@ -40,7 +40,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Jon Schneider
  * @author Andy Wilkinson
  */
-class MetricsEndpointWebIntegrationTests {
+class MetricsEndpointWebIntegrationTests implements IMetricsEndpointWebIntegrationTests {
 
 	private static MeterRegistry registry = new SimpleMeterRegistry(SimpleConfig.DEFAULT, new MockClock());
 
