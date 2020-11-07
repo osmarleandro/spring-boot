@@ -43,7 +43,7 @@ import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandl
  * @author Phillip Webb
  * @since 2.0.0
  */
-public class ControllerEndpointHandlerMapping extends RequestMappingHandlerMapping {
+public class ControllerEndpointHandlerMapping extends RequestMappingHandlerMapping implements IControllerEndpointHandlerMapping {
 
 	private final EndpointMapping endpointMapping;
 
