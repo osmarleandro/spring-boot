@@ -30,7 +30,7 @@ import org.springframework.boot.actuate.health.ReactiveHealthIndicator;
  * @author Stephane Nicoll
  * @since 2.1.0
  */
-public class CouchbaseReactiveHealthIndicator extends AbstractReactiveHealthIndicator {
+public class CouchbaseReactiveHealthIndicator extends AbstractReactiveHealthIndicator implements ICouchbaseReactiveHealthIndicator {
 
 	private final Cluster cluster;
 
