@@ -36,7 +36,7 @@ import org.springframework.session.Session;
  * @since 2.0.0
  */
 @Endpoint(id = "sessions")
-public class SessionsEndpoint {
+public class SessionsEndpoint implements ISessionsEndpoint {
 
 	private final FindByIndexNameSessionRepository<? extends Session> sessionRepository;
 
