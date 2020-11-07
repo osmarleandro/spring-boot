@@ -22,7 +22,7 @@ import java.util.function.Supplier;
 import org.springframework.boot.actuate.endpoint.EndpointId;
 import org.springframework.boot.actuate.endpoint.Operation;
 import org.springframework.boot.actuate.endpoint.annotation.AbstractDiscoveredEndpoint;
-import org.springframework.boot.actuate.endpoint.annotation.EndpointDiscoverer;
+import org.springframework.boot.actuate.endpoint.annotation.IEndpointDiscoverer;
 import org.springframework.boot.actuate.endpoint.web.EndpointServlet;
 import org.springframework.boot.actuate.endpoint.web.ExposableServletEndpoint;
 import org.springframework.util.Assert;
@@ -38,7 +38,7 @@ class DiscoveredServletEndpoint extends AbstractDiscoveredEndpoint<Operation> im
 
 	private final EndpointServlet endpointServlet;
 
-	DiscoveredServletEndpoint(EndpointDiscoverer<?, ?> discoverer, Object endpointBean, EndpointId id, String rootPath,
+	DiscoveredServletEndpoint(IEndpointDiscoverer<?, ?> discoverer, Object endpointBean, EndpointId id, String rootPath,
 			boolean enabledByDefault) {
 		super(discoverer, endpointBean, id, enabledByDefault, Collections.emptyList());
 		String beanType = endpointBean.getClass().getName();

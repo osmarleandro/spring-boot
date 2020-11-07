@@ -68,7 +68,7 @@ import org.springframework.util.StringUtils;
  * @since 2.0.0
  */
 public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O extends Operation>
-		implements EndpointsSupplier<E> {
+		implements EndpointsSupplier<E>, IEndpointDiscoverer<E, O> {
 
 	private final ApplicationContext applicationContext;
 
