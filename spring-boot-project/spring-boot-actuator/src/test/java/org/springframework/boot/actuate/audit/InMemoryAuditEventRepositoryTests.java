@@ -34,7 +34,7 @@ import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException
  * @author Phillip Webb
  * @author Vedran Pavic
  */
-class InMemoryAuditEventRepositoryTests {
+class InMemoryAuditEventRepositoryTests implements IInMemoryAuditEventRepositoryTests {
 
 	@Test
 	void lessThanCapacity() {
