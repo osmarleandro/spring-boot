@@ -27,7 +27,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Andy Wilkinson
  */
-class HeapDumpWebEndpointTests {
+class HeapDumpWebEndpointTests implements IHeapDumpWebEndpointTests {
 
 	@Test
 	void parallelRequestProducesTooManyRequestsResponse() throws InterruptedException {
