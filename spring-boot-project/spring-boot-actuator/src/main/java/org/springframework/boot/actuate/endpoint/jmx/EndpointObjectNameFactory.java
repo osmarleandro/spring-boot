@@ -26,7 +26,7 @@ import javax.management.ObjectName;
  * @since 2.0.0
  */
 @FunctionalInterface
-public interface EndpointObjectNameFactory {
+public interface EndpointObjectNameFactory extends IEndpointObjectNameFactory {
 
 	/**
 	 * Generate an {@link ObjectName} for the specified {@link ExposableJmxEndpoint
