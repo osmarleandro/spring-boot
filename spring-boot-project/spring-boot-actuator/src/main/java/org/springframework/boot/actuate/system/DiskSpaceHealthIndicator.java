@@ -37,7 +37,7 @@ import org.springframework.util.unit.DataSize;
  * @author Stephane Nicoll
  * @since 2.0.0
  */
-public class DiskSpaceHealthIndicator extends AbstractHealthIndicator {
+public class DiskSpaceHealthIndicator extends AbstractHealthIndicator implements IDiskSpaceHealthIndicator {
 
 	private static final Log logger = LogFactory.getLog(DiskSpaceHealthIndicator.class);
 
