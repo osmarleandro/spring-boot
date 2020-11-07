@@ -52,7 +52,7 @@ import static org.mockito.Mockito.verifyNoInteractions;
  * @author Phillip Webb
  */
 @ExtendWith(MockitoExtension.class)
-class PrometheusPushGatewayManagerTests {
+class PrometheusPushGatewayManagerTests implements IPrometheusPushGatewayManagerTests {
 
 	@Mock
 	private PushGateway pushGateway;
