@@ -30,7 +30,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  * @author Stephane Nicoll
  * @since 2.0.0
  */
-public class JacksonJmxOperationResponseMapper implements JmxOperationResponseMapper {
+public class JacksonJmxOperationResponseMapper implements JmxOperationResponseMapper, IJacksonJmxOperationResponseMapper {
 
 	private final ObjectMapper objectMapper;
 
