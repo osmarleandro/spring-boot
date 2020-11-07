@@ -59,7 +59,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ExtendWith(SpringExtension.class)
 @WebAppConfiguration
 @TestPropertySource(properties = "security.ignored=/**")
-class WebMvcMetricsIntegrationTests {
+class WebMvcMetricsIntegrationTests implements IWebMvcMetricsIntegrationTests {
 
 	@Autowired
 	private WebApplicationContext context;
