@@ -21,6 +21,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.actuate.autoconfigure.trace.http.HttpTraceAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.trace.http.HttpTraceEndpointAutoConfiguration;
 import org.springframework.boot.actuate.trace.http.HttpTraceEndpoint;
+import org.springframework.boot.actuate.trace.http.IInMemoryHttpTraceRepository;
 import org.springframework.boot.actuate.trace.http.InMemoryHttpTraceRepository;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
 import org.springframework.boot.test.context.runner.WebApplicationContextRunner;
@@ -71,7 +72,7 @@ class HttpTraceEndpointAutoConfigurationTests {
 	static class HttpTraceRepositoryConfiguration {
 
 		@Bean
-		InMemoryHttpTraceRepository customRepository() {
+		IInMemoryHttpTraceRepository customRepository() {
 			return new InMemoryHttpTraceRepository();
 		}
 

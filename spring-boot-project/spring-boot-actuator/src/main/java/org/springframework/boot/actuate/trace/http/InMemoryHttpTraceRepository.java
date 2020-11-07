@@ -28,7 +28,7 @@ import java.util.List;
  * @author Olivier Bourgain
  * @since 2.0.0
  */
-public class InMemoryHttpTraceRepository implements HttpTraceRepository {
+public class InMemoryHttpTraceRepository implements HttpTraceRepository, IInMemoryHttpTraceRepository {
 
 	private int capacity = 100;
 
