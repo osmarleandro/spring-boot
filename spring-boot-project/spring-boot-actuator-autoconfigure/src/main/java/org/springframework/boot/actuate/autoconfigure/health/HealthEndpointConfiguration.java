@@ -34,6 +34,7 @@ import org.springframework.boot.actuate.health.HealthEndpointGroups;
 import org.springframework.boot.actuate.health.HealthEndpointGroupsPostProcessor;
 import org.springframework.boot.actuate.health.HealthIndicator;
 import org.springframework.boot.actuate.health.HttpCodeStatusMapper;
+import org.springframework.boot.actuate.health.IHealthEndpointGroupsPostProcessor;
 import org.springframework.boot.actuate.health.NamedContributor;
 import org.springframework.boot.actuate.health.ReactiveHealthContributor;
 import org.springframework.boot.actuate.health.ReactiveHealthIndicator;
@@ -120,7 +121,7 @@ class HealthEndpointConfiguration {
 
 		private Object applyPostProcessors(HealthEndpointGroups bean) {
 			for (HealthEndpointGroupsPostProcessor postProcessor : this.postProcessors.orderedStream()
-					.toArray(HealthEndpointGroupsPostProcessor[]::new)) {
+					.toArray(IHealthEndpointGroupsPostProcessor[]::new)) {
 				bean = postProcessor.postProcessHealthEndpointGroups(bean);
 			}
 			return bean;
