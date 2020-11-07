@@ -25,7 +25,7 @@ import org.springframework.boot.actuate.endpoint.InvalidEndpointRequestException
  * @author Andy Wilkinson
  * @since 2.0.0
  */
-public final class ParameterMappingException extends InvalidEndpointRequestException {
+public final class ParameterMappingException extends InvalidEndpointRequestException implements IParameterMappingException {
 
 	private final OperationParameter parameter;
 
