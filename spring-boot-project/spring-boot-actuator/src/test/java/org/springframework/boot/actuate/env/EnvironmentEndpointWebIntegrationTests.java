@@ -125,12 +125,12 @@ class EnvironmentEndpointWebIntegrationTests {
 	static class TestConfiguration {
 
 		@Bean
-		EnvironmentEndpoint endpoint(Environment environment) {
+		IEnvironmentEndpoint endpoint(Environment environment) {
 			return new EnvironmentEndpoint(environment);
 		}
 
 		@Bean
-		EnvironmentEndpointWebExtension environmentEndpointWebExtension(EnvironmentEndpoint endpoint) {
+		EnvironmentEndpointWebExtension environmentEndpointWebExtension(IEnvironmentEndpoint endpoint) {
 			return new EnvironmentEndpointWebExtension(endpoint);
 		}
 

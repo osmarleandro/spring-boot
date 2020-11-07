@@ -28,6 +28,7 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import org.junit.jupiter.api.Test;
 
 import org.springframework.boot.actuate.env.EnvironmentEndpoint;
+import org.springframework.boot.actuate.env.IEnvironmentEndpoint;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
@@ -134,7 +135,7 @@ class EnvironmentEndpointDocumentationTests extends MockMvcEndpointDocumentation
 	static class TestConfiguration {
 
 		@Bean
-		EnvironmentEndpoint endpoint(ConfigurableEnvironment environment) {
+		IEnvironmentEndpoint endpoint(ConfigurableEnvironment environment) {
 			return new EnvironmentEndpoint(new AbstractEnvironment() {
 
 				@Override

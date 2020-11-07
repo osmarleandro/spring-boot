@@ -354,7 +354,7 @@ class EnvironmentEndpointTests {
 	static class Config {
 
 		@Bean
-		EnvironmentEndpoint environmentEndpoint(Environment environment) {
+		IEnvironmentEndpoint environmentEndpoint(Environment environment) {
 			return new EnvironmentEndpoint(environment);
 		}
 
