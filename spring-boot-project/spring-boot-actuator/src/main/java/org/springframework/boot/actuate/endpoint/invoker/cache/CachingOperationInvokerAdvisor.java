@@ -33,7 +33,7 @@ import org.springframework.boot.actuate.endpoint.invoke.OperationParameters;
  * @author Stephane Nicoll
  * @since 2.0.0
  */
-public class CachingOperationInvokerAdvisor implements OperationInvokerAdvisor {
+public class CachingOperationInvokerAdvisor implements OperationInvokerAdvisor, ICachingOperationInvokerAdvisor {
 
 	private final Function<EndpointId, Long> endpointIdTimeToLive;
 
