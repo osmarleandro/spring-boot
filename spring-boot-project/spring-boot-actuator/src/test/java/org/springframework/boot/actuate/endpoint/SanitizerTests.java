@@ -32,7 +32,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Chris Bono
  * @author David Good
  */
-class SanitizerTests {
+class SanitizerTests implements ISanitizerTests {
 
 	@Test
 	void defaultNonUriKeys() {
