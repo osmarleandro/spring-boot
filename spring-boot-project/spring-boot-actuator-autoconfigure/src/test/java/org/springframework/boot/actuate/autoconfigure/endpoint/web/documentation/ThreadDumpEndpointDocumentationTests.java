@@ -21,7 +21,7 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.locks.ReentrantLock;
 
 import org.junit.jupiter.api.Test;
-
+import org.springframework.boot.actuate.management.IThreadDumpEndpoint;
 import org.springframework.boot.actuate.management.ThreadDumpEndpoint;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -196,7 +196,7 @@ class ThreadDumpEndpointDocumentationTests extends MockMvcEndpointDocumentationT
 	static class TestConfiguration {
 
 		@Bean
-		ThreadDumpEndpoint endpoint() {
+		IThreadDumpEndpoint endpoint() {
 			return new ThreadDumpEndpoint();
 		}
 

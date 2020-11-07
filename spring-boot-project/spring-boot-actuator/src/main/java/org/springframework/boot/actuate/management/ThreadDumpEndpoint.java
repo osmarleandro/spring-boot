@@ -33,7 +33,7 @@ import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
  * @since 2.0.0
  */
 @Endpoint(id = "threaddump")
-public class ThreadDumpEndpoint {
+public class ThreadDumpEndpoint implements IThreadDumpEndpoint {
 
 	private final PlainTextThreadDumpFormatter plainTextFormatter = new PlainTextThreadDumpFormatter();
 
