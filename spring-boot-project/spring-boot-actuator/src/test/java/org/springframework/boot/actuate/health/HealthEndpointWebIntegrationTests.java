@@ -136,7 +136,7 @@ class HealthEndpointWebIntegrationTests {
 		}
 	}
 
-	private <R extends ContributorRegistry<?>> R getContributorRegistry(ApplicationContext context,
+	private <R extends IContributorRegistry<?>> R getContributorRegistry(ApplicationContext context,
 			Class<R> registryType) {
 		return context.getBeanProvider(registryType).getIfAvailable();
 	}

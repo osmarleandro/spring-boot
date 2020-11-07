@@ -37,7 +37,7 @@ abstract class HealthEndpointSupport<C, T> {
 
 	static final Health DEFAULT_HEALTH = Health.up().build();
 
-	private final ContributorRegistry<C> registry;
+	private final IContributorRegistry<C> registry;
 
 	private final HealthEndpointGroups groups;
 
@@ -46,7 +46,7 @@ abstract class HealthEndpointSupport<C, T> {
 	 * @param registry the health contributor registry
 	 * @param groups the health endpoint groups
 	 */
-	HealthEndpointSupport(ContributorRegistry<C> registry, HealthEndpointGroups groups) {
+	HealthEndpointSupport(IContributorRegistry<C> registry, HealthEndpointGroups groups) {
 		Assert.notNull(registry, "Registry must not be null");
 		Assert.notNull(groups, "Groups must not be null");
 		this.registry = registry;
