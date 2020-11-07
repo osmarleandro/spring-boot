@@ -18,6 +18,7 @@ package org.springframework.boot.actuate.autoconfigure.beans;
 
 import org.springframework.boot.actuate.autoconfigure.endpoint.condition.ConditionalOnAvailableEndpoint;
 import org.springframework.boot.actuate.beans.BeansEndpoint;
+import org.springframework.boot.actuate.beans.IBeansEndpoint;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -36,7 +37,7 @@ public class BeansEndpointAutoConfiguration {
 
 	@Bean
 	@ConditionalOnMissingBean
-	public BeansEndpoint beansEndpoint(ConfigurableApplicationContext applicationContext) {
+	public IBeansEndpoint beansEndpoint(ConfigurableApplicationContext applicationContext) {
 		return new BeansEndpoint(applicationContext);
 	}
 

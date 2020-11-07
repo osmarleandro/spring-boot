@@ -37,7 +37,7 @@ import org.springframework.util.StringUtils;
  * @since 2.0.0
  */
 @Endpoint(id = "beans")
-public class BeansEndpoint {
+public class BeansEndpoint implements IBeansEndpoint {
 
 	private final ConfigurableApplicationContext context;
 
