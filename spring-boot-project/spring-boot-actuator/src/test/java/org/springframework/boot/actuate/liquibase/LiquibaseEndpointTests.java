@@ -46,7 +46,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Stephane Nicoll
  * @author Leo Li
  */
-class LiquibaseEndpointTests {
+class LiquibaseEndpointTests implements ILiquibaseEndpointTests {
 
 	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.withConfiguration(
