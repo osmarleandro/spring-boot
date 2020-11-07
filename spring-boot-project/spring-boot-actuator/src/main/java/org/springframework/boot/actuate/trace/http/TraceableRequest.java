@@ -27,7 +27,7 @@ import java.util.Map;
  * @since 2.0.0
  * @see HttpExchangeTracer
  */
-public interface TraceableRequest {
+public interface TraceableRequest extends ITraceableRequest {
 
 	/**
 	 * Returns the method (GET, POST, etc) of the request.
