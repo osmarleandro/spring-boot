@@ -37,7 +37,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Jon Schneider
  * @author Johnny Lim
  */
-class PrometheusScrapeEndpointIntegrationTests {
+class PrometheusScrapeEndpointIntegrationTests implements IPrometheusScrapeEndpointIntegrationTests {
 
 	@WebEndpointTest
 	void scrapeHasContentTypeText004(WebTestClient client) {
