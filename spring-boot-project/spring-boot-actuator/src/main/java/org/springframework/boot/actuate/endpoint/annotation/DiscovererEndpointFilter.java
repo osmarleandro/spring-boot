@@ -26,7 +26,7 @@ import org.springframework.util.Assert;
  * @author Phillip Webb
  * @since 2.0.0
  */
-public abstract class DiscovererEndpointFilter implements EndpointFilter<DiscoveredEndpoint<?>> {
+public abstract class DiscovererEndpointFilter implements EndpointFilter<DiscoveredEndpoint<?>>, IDiscovererEndpointFilter {
 
 	private final Class<? extends EndpointDiscoverer<?, ?>> discoverer;
 
