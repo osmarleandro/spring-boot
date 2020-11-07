@@ -35,7 +35,7 @@ import org.springframework.util.Assert;
  * @author Phillip Webb
  * @since 2.2.0
  */
-public class CompositeHealth extends HealthComponent {
+public class CompositeHealth extends HealthComponent implements ICompositeHealth {
 
 	private final Status status;
 

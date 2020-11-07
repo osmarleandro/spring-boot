@@ -44,7 +44,7 @@ class CompositeHealthTests {
 
 	@Test
 	void getStatusReturnsStatus() {
-		CompositeHealth health = new CompositeHealth(ApiVersion.V3, Status.UP, Collections.emptyMap());
+		ICompositeHealth health = new CompositeHealth(ApiVersion.V3, Status.UP, Collections.emptyMap());
 		assertThat(health.getStatus()).isEqualTo(Status.UP);
 	}
 
@@ -52,7 +52,7 @@ class CompositeHealthTests {
 	void getComponentReturnsComponents() {
 		Map<String, HealthComponent> components = new LinkedHashMap<>();
 		components.put("a", Health.up().build());
-		CompositeHealth health = new CompositeHealth(ApiVersion.V3, Status.UP, components);
+		ICompositeHealth health = new CompositeHealth(ApiVersion.V3, Status.UP, components);
 		assertThat(health.getComponents()).isEqualTo(components);
 	}
 
@@ -61,7 +61,7 @@ class CompositeHealthTests {
 		Map<String, HealthComponent> components = new LinkedHashMap<>();
 		components.put("db1", Health.up().build());
 		components.put("db2", Health.down().withDetail("a", "b").build());
-		CompositeHealth health = new CompositeHealth(ApiVersion.V3, Status.UP, components);
+		ICompositeHealth health = new CompositeHealth(ApiVersion.V3, Status.UP, components);
 		ObjectMapper mapper = new ObjectMapper();
 		String json = mapper.writeValueAsString(health);
 		assertThat(json).isEqualTo("{\"status\":\"UP\",\"components\":{\"db1\":{\"status\":\"UP\"},"
@@ -73,7 +73,7 @@ class CompositeHealthTests {
 		Map<String, HealthComponent> components = new LinkedHashMap<>();
 		components.put("db1", Health.up().build());
 		components.put("db2", Health.down().withDetail("a", "b").build());
-		CompositeHealth health = new CompositeHealth(ApiVersion.V2, Status.UP, components);
+		ICompositeHealth health = new CompositeHealth(ApiVersion.V2, Status.UP, components);
 		ObjectMapper mapper = new ObjectMapper();
 		String json = mapper.writeValueAsString(health);
 		assertThat(json).isEqualTo("{\"status\":\"UP\",\"details\":{\"db1\":{\"status\":\"UP\"},"
