@@ -44,7 +44,7 @@ import static org.mockito.Mockito.verifyNoMoreInteractions;
  * @author Markus Schuch
  * @author Phillip Webb
  */
-class SolrHealthIndicatorTests {
+class SolrHealthIndicatorTests implements ISolrHealthIndicatorTests {
 
 	@Test
 	void healthWhenSolrStatusUpAndBaseUrlPointsToRootReturnsUp() throws Exception {
