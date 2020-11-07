@@ -46,7 +46,7 @@ import org.springframework.util.ClassUtils;
  * @author Phillip Webb
  * @since 2.0.0
  */
-public class EndpointMBean implements DynamicMBean {
+public class EndpointMBean implements DynamicMBean, IEndpointMBean {
 
 	private static final boolean REACTOR_PRESENT = ClassUtils.isPresent("reactor.core.publisher.Mono",
 			EndpointMBean.class.getClassLoader());
