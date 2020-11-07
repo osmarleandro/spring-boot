@@ -31,7 +31,7 @@ import org.springframework.util.StringUtils;
  * @since 2.0.0
  */
 @FunctionalInterface
-public interface PathMapper {
+public interface PathMapper extends IPathMapper {
 
 	/**
 	 * Resolve the root path for the specified {@code endpointId}.
