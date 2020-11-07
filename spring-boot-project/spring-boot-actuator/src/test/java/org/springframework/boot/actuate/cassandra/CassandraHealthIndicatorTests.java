@@ -39,7 +39,7 @@ import static org.mockito.Mockito.mock;
  * @author Stephane Nicoll
  */
 @Deprecated
-class CassandraHealthIndicatorTests {
+class CassandraHealthIndicatorTests implements ICassandraHealthIndicatorTests {
 
 	@Test
 	void createWhenCassandraOperationsIsNullShouldThrowException() {
