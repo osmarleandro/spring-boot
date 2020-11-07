@@ -38,7 +38,7 @@ import org.springframework.util.FileCopyUtils;
  *
  * @author Andy Wilkinson
  */
-class LogFileWebEndpointWebIntegrationTests {
+class LogFileWebEndpointWebIntegrationTests implements ILogFileWebEndpointWebIntegrationTests {
 
 	private WebTestClient client;
 
