@@ -33,7 +33,7 @@ import static org.mockito.Mockito.mock;
  * @author Scott Frederick
  */
 class HealthEndpointTests
-		extends HealthEndpointSupportTests<HealthContributorRegistry, HealthContributor, HealthComponent> {
+		extends HealthEndpointSupportTests<HealthContributorRegistry, HealthContributor, HealthComponent> implements IHealthEndpointTests {
 
 	@Test
 	void healthReturnsSystemHealth() {
