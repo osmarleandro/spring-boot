@@ -23,7 +23,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
 
-import org.springframework.boot.actuate.endpoint.web.EndpointMapping;
+import org.springframework.boot.actuate.endpoint.web.IEndpointMapping;
 import org.springframework.boot.actuate.endpoint.web.annotation.ControllerEndpoint;
 import org.springframework.boot.actuate.endpoint.web.annotation.ExposableControllerEndpoint;
 import org.springframework.boot.actuate.endpoint.web.annotation.RestControllerEndpoint;
@@ -45,7 +45,7 @@ import org.springframework.web.util.pattern.PathPattern;
  */
 public class ControllerEndpointHandlerMapping extends RequestMappingHandlerMapping {
 
-	private final EndpointMapping endpointMapping;
+	private final IEndpointMapping endpointMapping;
 
 	private final CorsConfiguration corsConfiguration;
 
@@ -58,7 +58,7 @@ public class ControllerEndpointHandlerMapping extends RequestMappingHandlerMappi
 	 * @param endpoints the web endpoints
 	 * @param corsConfiguration the CORS configuration for the endpoints or {@code null}
 	 */
-	public ControllerEndpointHandlerMapping(EndpointMapping endpointMapping,
+	public ControllerEndpointHandlerMapping(IEndpointMapping endpointMapping,
 			Collection<ExposableControllerEndpoint> endpoints, CorsConfiguration corsConfiguration) {
 		Assert.notNull(endpointMapping, "EndpointMapping must not be null");
 		Assert.notNull(endpoints, "Endpoints must not be null");

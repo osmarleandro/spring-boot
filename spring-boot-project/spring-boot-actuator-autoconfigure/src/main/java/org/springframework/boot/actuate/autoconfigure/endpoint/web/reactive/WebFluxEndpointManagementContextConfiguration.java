@@ -30,6 +30,7 @@ import org.springframework.boot.actuate.endpoint.web.EndpointLinksResolver;
 import org.springframework.boot.actuate.endpoint.web.EndpointMapping;
 import org.springframework.boot.actuate.endpoint.web.EndpointMediaTypes;
 import org.springframework.boot.actuate.endpoint.web.ExposableWebEndpoint;
+import org.springframework.boot.actuate.endpoint.web.IEndpointMapping;
 import org.springframework.boot.actuate.endpoint.web.WebEndpointsSupplier;
 import org.springframework.boot.actuate.endpoint.web.annotation.ControllerEndpointsSupplier;
 import org.springframework.boot.actuate.endpoint.web.reactive.ControllerEndpointHandlerMapping;
@@ -68,7 +69,7 @@ public class WebFluxEndpointManagementContextConfiguration {
 			CorsEndpointProperties corsProperties, WebEndpointProperties webEndpointProperties,
 			Environment environment) {
 		String basePath = webEndpointProperties.getBasePath();
-		EndpointMapping endpointMapping = new EndpointMapping(basePath);
+		IEndpointMapping endpointMapping = new EndpointMapping(basePath);
 		Collection<ExposableWebEndpoint> endpoints = webEndpointsSupplier.getEndpoints();
 		List<ExposableEndpoint<?>> allEndpoints = new ArrayList<>();
 		allEndpoints.addAll(endpoints);
@@ -88,7 +89,7 @@ public class WebFluxEndpointManagementContextConfiguration {
 	public ControllerEndpointHandlerMapping controllerEndpointHandlerMapping(
 			ControllerEndpointsSupplier controllerEndpointsSupplier, CorsEndpointProperties corsProperties,
 			WebEndpointProperties webEndpointProperties) {
-		EndpointMapping endpointMapping = new EndpointMapping(webEndpointProperties.getBasePath());
+		IEndpointMapping endpointMapping = new EndpointMapping(webEndpointProperties.getBasePath());
 		return new ControllerEndpointHandlerMapping(endpointMapping, controllerEndpointsSupplier.getEndpoints(),
 				corsProperties.toCorsConfiguration());
 	}

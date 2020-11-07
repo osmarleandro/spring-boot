@@ -37,6 +37,7 @@ import org.springframework.boot.actuate.endpoint.web.EndpointMapping;
 import org.springframework.boot.actuate.endpoint.web.EndpointMediaTypes;
 import org.springframework.boot.actuate.endpoint.web.ExposableServletEndpoint;
 import org.springframework.boot.actuate.endpoint.web.ExposableWebEndpoint;
+import org.springframework.boot.actuate.endpoint.web.IEndpointMapping;
 import org.springframework.boot.actuate.endpoint.web.WebEndpointsSupplier;
 import org.springframework.boot.actuate.endpoint.web.annotation.ServletEndpointsSupplier;
 import org.springframework.boot.actuate.endpoint.web.jersey.JerseyEndpointResourceFactory;
@@ -125,7 +126,7 @@ class JerseyWebEndpointManagementContextConfiguration {
 			Collection<ExposableWebEndpoint> webEndpoints = this.webEndpointsSupplier.getEndpoints();
 			Collection<ExposableServletEndpoint> servletEndpoints = this.servletEndpointsSupplier.getEndpoints();
 			EndpointLinksResolver linksResolver = getLinksResolver(webEndpoints, servletEndpoints);
-			EndpointMapping mapping = new EndpointMapping(this.basePath);
+			IEndpointMapping mapping = new EndpointMapping(this.basePath);
 			JerseyEndpointResourceFactory resourceFactory = new JerseyEndpointResourceFactory();
 			register(resourceFactory.createEndpointResources(mapping, webEndpoints, this.mediaTypes, linksResolver,
 					this.shouldRegisterLinks));

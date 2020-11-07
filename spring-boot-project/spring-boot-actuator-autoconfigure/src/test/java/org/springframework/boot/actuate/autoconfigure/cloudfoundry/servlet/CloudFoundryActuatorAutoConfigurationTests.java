@@ -31,8 +31,8 @@ import org.springframework.boot.actuate.endpoint.EndpointId;
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
 import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
 import org.springframework.boot.actuate.endpoint.http.ActuatorMediaType;
-import org.springframework.boot.actuate.endpoint.web.EndpointMapping;
 import org.springframework.boot.actuate.endpoint.web.ExposableWebEndpoint;
+import org.springframework.boot.actuate.endpoint.web.IEndpointMapping;
 import org.springframework.boot.actuate.endpoint.web.WebOperation;
 import org.springframework.boot.actuate.endpoint.web.WebOperationRequestPredicate;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
@@ -80,7 +80,7 @@ class CloudFoundryActuatorAutoConfigurationTests {
 		this.contextRunner.withPropertyValues("VCAP_APPLICATION:---", "vcap.application.application_id:my-app-id",
 				"vcap.application.cf_api:https://my-cloud-controller.com").run((context) -> {
 					CloudFoundryWebEndpointServletHandlerMapping handlerMapping = getHandlerMapping(context);
-					EndpointMapping endpointMapping = (EndpointMapping) ReflectionTestUtils.getField(handlerMapping,
+					IEndpointMapping endpointMapping = (IEndpointMapping) ReflectionTestUtils.getField(handlerMapping,
 							"endpointMapping");
 					assertThat(endpointMapping.getPath()).isEqualTo("/cloudfoundryapplication");
 					CorsConfiguration corsConfiguration = (CorsConfiguration) ReflectionTestUtils
