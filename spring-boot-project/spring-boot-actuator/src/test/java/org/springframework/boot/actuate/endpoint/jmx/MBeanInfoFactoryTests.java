@@ -37,7 +37,7 @@ import static org.mockito.Mockito.mock;
  * @author Stephane Nicoll
  * @author Phillip Webb
  */
-class MBeanInfoFactoryTests {
+class MBeanInfoFactoryTests implements IMBeanInfoFactoryTests {
 
 	private MBeanInfoFactory factory = new MBeanInfoFactory(new TestJmxOperationResponseMapper());
 
