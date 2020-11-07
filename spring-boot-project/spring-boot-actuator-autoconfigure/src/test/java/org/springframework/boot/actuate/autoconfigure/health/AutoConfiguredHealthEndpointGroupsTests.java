@@ -24,7 +24,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.actuate.endpoint.SecurityContext;
 import org.springframework.boot.actuate.health.HealthEndpointGroup;
 import org.springframework.boot.actuate.health.HealthEndpointGroups;
-import org.springframework.boot.actuate.health.HttpCodeStatusMapper;
+import org.springframework.boot.actuate.health.IHttpCodeStatusMapper;
 import org.springframework.boot.actuate.health.SimpleHttpCodeStatusMapper;
 import org.springframework.boot.actuate.health.SimpleStatusAggregator;
 import org.springframework.boot.actuate.health.Status;
@@ -358,7 +358,7 @@ class AutoConfiguredHealthEndpointGroupsTests {
 
 		@Bean
 		@Primary
-		HttpCodeStatusMapper httpCodeStatusMapper() {
+		IHttpCodeStatusMapper httpCodeStatusMapper() {
 			return new SimpleHttpCodeStatusMapper(Collections.singletonMap(Status.DOWN.getCode(), 200));
 		}
 
@@ -369,7 +369,7 @@ class AutoConfiguredHealthEndpointGroupsTests {
 
 		@Bean
 		@Qualifier("a")
-		HttpCodeStatusMapper httpCodeStatusMapper() {
+		IHttpCodeStatusMapper httpCodeStatusMapper() {
 			return new SimpleHttpCodeStatusMapper(Collections.singletonMap(Status.DOWN.getCode(), 200));
 		}
 

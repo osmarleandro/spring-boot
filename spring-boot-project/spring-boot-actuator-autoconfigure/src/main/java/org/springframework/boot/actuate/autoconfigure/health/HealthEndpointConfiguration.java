@@ -33,7 +33,7 @@ import org.springframework.boot.actuate.health.HealthEndpoint;
 import org.springframework.boot.actuate.health.HealthEndpointGroups;
 import org.springframework.boot.actuate.health.HealthEndpointGroupsPostProcessor;
 import org.springframework.boot.actuate.health.HealthIndicator;
-import org.springframework.boot.actuate.health.HttpCodeStatusMapper;
+import org.springframework.boot.actuate.health.IHttpCodeStatusMapper;
 import org.springframework.boot.actuate.health.NamedContributor;
 import org.springframework.boot.actuate.health.ReactiveHealthContributor;
 import org.springframework.boot.actuate.health.ReactiveHealthIndicator;
@@ -63,7 +63,7 @@ class HealthEndpointConfiguration {
 
 	@Bean
 	@ConditionalOnMissingBean
-	HttpCodeStatusMapper healthHttpCodeStatusMapper(HealthEndpointProperties properties) {
+	IHttpCodeStatusMapper healthHttpCodeStatusMapper(HealthEndpointProperties properties) {
 		return new SimpleHttpCodeStatusMapper(properties.getStatus().getHttpMapping());
 	}
 
