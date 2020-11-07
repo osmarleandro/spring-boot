@@ -32,7 +32,7 @@ import io.r2dbc.pool.PoolMetrics;
  * @author Stephane Nicoll
  * @since 2.3.0
  */
-public class ConnectionPoolMetrics implements MeterBinder {
+public class ConnectionPoolMetrics implements MeterBinder, IConnectionPoolMetrics {
 
 	private static final String CONNECTIONS = "connections";
 
