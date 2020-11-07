@@ -31,7 +31,7 @@ import io.micrometer.core.instrument.Tags;
  * @author Jon Schneider
  * @since 2.0.0
  */
-public class DefaultWebMvcTagsProvider implements WebMvcTagsProvider {
+public class DefaultWebMvcTagsProvider implements WebMvcTagsProvider, IDefaultWebMvcTagsProvider {
 
 	private final boolean ignoreTrailingSlash;
 
