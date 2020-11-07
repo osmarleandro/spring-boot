@@ -55,7 +55,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author HaiTao Zhang
  * @author Chris Bono
  */
-class EnvironmentEndpointTests {
+class EnvironmentEndpointTests implements IEnvironmentEndpointTests {
 
 	@AfterEach
 	void close() {
