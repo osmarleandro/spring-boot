@@ -26,7 +26,7 @@ import org.springframework.boot.actuate.endpoint.EndpointId;
  *
  * @author Phillip Webb
  */
-public class TestExposableJmxEndpoint implements ExposableJmxEndpoint {
+public class TestExposableJmxEndpoint implements ExposableJmxEndpoint, ITestExposableJmxEndpoint {
 
 	private final Collection<JmxOperation> operations;
 
