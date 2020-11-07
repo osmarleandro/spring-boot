@@ -32,7 +32,7 @@ import org.springframework.util.Assert;
  * @since 2.0.0
  */
 @Endpoint(id = "info")
-public class InfoEndpoint {
+public class InfoEndpoint implements IInfoEndpoint {
 
 	private final List<InfoContributor> infoContributors;
 
