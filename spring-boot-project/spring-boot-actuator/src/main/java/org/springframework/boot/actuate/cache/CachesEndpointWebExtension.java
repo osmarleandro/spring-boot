@@ -31,7 +31,7 @@ import org.springframework.lang.Nullable;
  * @since 2.1.0
  */
 @EndpointWebExtension(endpoint = CachesEndpoint.class)
-public class CachesEndpointWebExtension {
+public class CachesEndpointWebExtension implements ICachesEndpointWebExtension {
 
 	private final CachesEndpoint delegate;
 
