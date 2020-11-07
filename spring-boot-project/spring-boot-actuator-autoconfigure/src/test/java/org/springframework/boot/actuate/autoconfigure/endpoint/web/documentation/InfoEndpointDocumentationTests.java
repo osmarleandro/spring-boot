@@ -23,6 +23,7 @@ import org.junit.jupiter.api.Test;
 
 import org.springframework.boot.actuate.info.BuildInfoContributor;
 import org.springframework.boot.actuate.info.GitInfoContributor;
+import org.springframework.boot.actuate.info.IBuildInfoContributor;
 import org.springframework.boot.actuate.info.InfoContributor;
 import org.springframework.boot.actuate.info.InfoEndpoint;
 import org.springframework.boot.info.BuildProperties;
@@ -89,7 +90,7 @@ class InfoEndpointDocumentationTests extends MockMvcEndpointDocumentationTests {
 		}
 
 		@Bean
-		BuildInfoContributor buildInfoContributor() {
+		IBuildInfoContributor buildInfoContributor() {
 			Properties properties = new Properties();
 			properties.put("group", "com.example");
 			properties.put("artifact", "application");

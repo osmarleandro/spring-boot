@@ -29,7 +29,7 @@ import org.springframework.core.env.PropertySource;
  * @author Stephane Nicoll
  * @since 1.4.0
  */
-public class BuildInfoContributor extends InfoPropertiesInfoContributor<BuildProperties> {
+public class BuildInfoContributor extends InfoPropertiesInfoContributor<BuildProperties> implements IBuildInfoContributor {
 
 	public BuildInfoContributor(BuildProperties properties) {
 		super(properties, Mode.FULL);
