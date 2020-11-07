@@ -26,7 +26,7 @@ import java.util.Map;
  * @since 2.0.0
  * @see HttpExchangeTracer
  */
-public interface TraceableResponse {
+public interface TraceableResponse extends ITraceableResponse {
 
 	/**
 	 * The status of the response.
