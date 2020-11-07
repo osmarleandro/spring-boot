@@ -31,7 +31,7 @@ import org.springframework.util.Assert;
  * @author Yulin Qin
  * @since 2.0.0
  */
-public class MongoReactiveHealthIndicator extends AbstractReactiveHealthIndicator {
+public class MongoReactiveHealthIndicator extends AbstractReactiveHealthIndicator implements IMongoReactiveHealthIndicator {
 
 	private final ReactiveMongoTemplate reactiveMongoTemplate;
 
