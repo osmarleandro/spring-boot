@@ -31,7 +31,7 @@ import org.springframework.web.server.ServerWebExchange;
  * @author Andy Wilkinson
  * @since 2.0.0
  */
-public class DefaultWebFluxTagsProvider implements WebFluxTagsProvider {
+public class DefaultWebFluxTagsProvider implements WebFluxTagsProvider, IDefaultWebFluxTagsProvider {
 
 	private final boolean ignoreTrailingSlash;
 
