@@ -29,7 +29,7 @@ import org.springframework.http.server.reactive.ServerHttpResponse;
  *
  * @author Andy Wilkinson
  */
-class TraceableServerHttpResponse implements TraceableResponse {
+class TraceableServerHttpResponse implements TraceableResponse, ITraceableServerHttpResponse {
 
 	private final int status;
 
