@@ -22,7 +22,7 @@ package org.springframework.boot.actuate.endpoint.invoke;
  * @author Phillip Webb
  * @since 2.0.0
  */
-public interface OperationParameter {
+public interface OperationParameter extends IOperationParameter {
 
 	/**
 	 * Returns the parameter name.
