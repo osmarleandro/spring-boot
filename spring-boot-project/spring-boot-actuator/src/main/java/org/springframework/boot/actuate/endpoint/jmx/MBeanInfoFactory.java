@@ -35,7 +35,7 @@ import org.springframework.boot.actuate.endpoint.OperationType;
  * @author Stephane Nicoll
  * @author Phillip Webb
  */
-class MBeanInfoFactory {
+class MBeanInfoFactory implements IMBeanInfoFactory {
 
 	private static final ModelMBeanAttributeInfo[] NO_ATTRIBUTES = new ModelMBeanAttributeInfo[0];
 
