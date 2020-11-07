@@ -43,7 +43,7 @@ import static org.mockito.Mockito.verify;
  * @author Eddú Meléndez
  * @author Stephane Nicoll
  */
-class CouchbaseHealthIndicatorTests {
+class CouchbaseHealthIndicatorTests implements ICouchbaseHealthIndicatorTests {
 
 	@Test
 	@SuppressWarnings("unchecked")
