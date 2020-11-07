@@ -30,7 +30,7 @@ import org.springframework.web.reactive.function.client.ClientResponse;
  * @author Nishant Raut
  * @since 2.1.0
  */
-public class DefaultWebClientExchangeTagsProvider implements WebClientExchangeTagsProvider {
+public class DefaultWebClientExchangeTagsProvider implements WebClientExchangeTagsProvider, IDefaultWebClientExchangeTagsProvider {
 
 	@Override
 	public Iterable<Tag> tags(ClientRequest request, ClientResponse response, Throwable throwable) {
