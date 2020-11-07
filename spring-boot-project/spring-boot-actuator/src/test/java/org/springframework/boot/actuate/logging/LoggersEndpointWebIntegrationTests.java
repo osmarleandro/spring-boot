@@ -59,7 +59,7 @@ import static org.mockito.Mockito.verifyNoInteractions;
  * @author HaiTao Zhang
  * @author Madhura Bhave
  */
-class LoggersEndpointWebIntegrationTests {
+class LoggersEndpointWebIntegrationTests implements ILoggersEndpointWebIntegrationTests {
 
 	private WebTestClient client;
 
