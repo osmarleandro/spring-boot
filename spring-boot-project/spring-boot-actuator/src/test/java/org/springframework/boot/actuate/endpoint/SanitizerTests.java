@@ -36,7 +36,7 @@ class SanitizerTests {
 
 	@Test
 	void defaultNonUriKeys() {
-		Sanitizer sanitizer = new Sanitizer();
+		ISanitizer sanitizer = new Sanitizer();
 		assertThat(sanitizer.sanitize("password", "secret")).isEqualTo("******");
 		assertThat(sanitizer.sanitize("my-password", "secret")).isEqualTo("******");
 		assertThat(sanitizer.sanitize("my-OTHER.paSSword", "secret")).isEqualTo("******");
@@ -51,7 +51,7 @@ class SanitizerTests {
 	@ParameterizedTest(name = "key = {0}")
 	@MethodSource("matchingUriUserInfoKeys")
 	void uriWithSingleValueWithPasswordShouldBeSanitized(String key) {
-		Sanitizer sanitizer = new Sanitizer();
+		ISanitizer sanitizer = new Sanitizer();
 		assertThat(sanitizer.sanitize(key, "http://user:password@localhost:8080"))
 				.isEqualTo("http://user:******@localhost:8080");
 	}
@@ -59,7 +59,7 @@ class SanitizerTests {
 	@ParameterizedTest(name = "key = {0}")
 	@MethodSource("matchingUriUserInfoKeys")
 	void uriWithSingleValueWithNoPasswordShouldNotBeSanitized(String key) {
-		Sanitizer sanitizer = new Sanitizer();
+		ISanitizer sanitizer = new Sanitizer();
 		assertThat(sanitizer.sanitize(key, "http://localhost:8080")).isEqualTo("http://localhost:8080");
 		assertThat(sanitizer.sanitize(key, "http://user@localhost:8080")).isEqualTo("http://user@localhost:8080");
 	}
@@ -67,7 +67,7 @@ class SanitizerTests {
 	@ParameterizedTest(name = "key = {0}")
 	@MethodSource("matchingUriUserInfoKeys")
 	void uriWithSingleValueWithPasswordMatchingOtherPartsOfStringShouldBeSanitized(String key) {
-		Sanitizer sanitizer = new Sanitizer();
+		ISanitizer sanitizer = new Sanitizer();
 		assertThat(sanitizer.sanitize(key, "http://user://@localhost:8080"))
 				.isEqualTo("http://user:******@localhost:8080");
 	}
@@ -75,7 +75,7 @@ class SanitizerTests {
 	@ParameterizedTest(name = "key = {0}")
 	@MethodSource("matchingUriUserInfoKeys")
 	void uriWithMultipleValuesEachWithPasswordShouldHaveAllSanitized(String key) {
-		Sanitizer sanitizer = new Sanitizer();
+		ISanitizer sanitizer = new Sanitizer();
 		assertThat(
 				sanitizer.sanitize(key, "http://user1:password1@localhost:8080,http://user2:password2@localhost:8082"))
 						.isEqualTo("http://user1:******@localhost:8080,http://user2:******@localhost:8082");
@@ -84,7 +84,7 @@ class SanitizerTests {
 	@ParameterizedTest(name = "key = {0}")
 	@MethodSource("matchingUriUserInfoKeys")
 	void uriWithMultipleValuesNoneWithPasswordShouldHaveNoneSanitized(String key) {
-		Sanitizer sanitizer = new Sanitizer();
+		ISanitizer sanitizer = new Sanitizer();
 		assertThat(sanitizer.sanitize(key, "http://user@localhost:8080,http://localhost:8082"))
 				.isEqualTo("http://user@localhost:8080,http://localhost:8082");
 	}
@@ -92,7 +92,7 @@ class SanitizerTests {
 	@ParameterizedTest(name = "key = {0}")
 	@MethodSource("matchingUriUserInfoKeys")
 	void uriWithMultipleValuesSomeWithPasswordShouldHaveThoseSanitized(String key) {
-		Sanitizer sanitizer = new Sanitizer();
+		ISanitizer sanitizer = new Sanitizer();
 		assertThat(sanitizer.sanitize(key,
 				"http://user1:password1@localhost:8080,http://user2@localhost:8082,http://localhost:8083")).isEqualTo(
 						"http://user1:******@localhost:8080,http://user2@localhost:8082,http://localhost:8083");
@@ -101,7 +101,7 @@ class SanitizerTests {
 	@ParameterizedTest(name = "key = {0}")
 	@MethodSource("matchingUriUserInfoKeys")
 	void uriWithMultipleValuesWithPasswordMatchingOtherPartsOfStringShouldBeSanitized(String key) {
-		Sanitizer sanitizer = new Sanitizer();
+		ISanitizer sanitizer = new Sanitizer();
 		assertThat(sanitizer.sanitize(key, "http://user1://@localhost:8080,http://user2://@localhost:8082"))
 				.isEqualTo("http://user1:******@localhost:8080,http://user2:******@localhost:8082");
 	}
@@ -109,7 +109,7 @@ class SanitizerTests {
 	@ParameterizedTest(name = "key = {0}")
 	@MethodSource("matchingUriUserInfoKeys")
 	void uriKeyWithUserProvidedListLiteralShouldBeSanitized(String key) {
-		Sanitizer sanitizer = new Sanitizer();
+		ISanitizer sanitizer = new Sanitizer();
 		assertThat(sanitizer.sanitize(key, "[amqp://username:password@host/]"))
 				.isEqualTo("[amqp://username:******@host/]");
 		assertThat(sanitizer.sanitize(key,
@@ -129,7 +129,7 @@ class SanitizerTests {
 
 	@Test
 	void regex() {
-		Sanitizer sanitizer = new Sanitizer(".*lock.*");
+		ISanitizer sanitizer = new Sanitizer(".*lock.*");
 		assertThat(sanitizer.sanitize("verylOCkish", "secret")).isEqualTo("******");
 		assertThat(sanitizer.sanitize("veryokish", "secret")).isEqualTo("secret");
 	}
