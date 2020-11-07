@@ -45,14 +45,14 @@ class HealthTests {
 
 	@Test
 	void createWithStatus() {
-		Health health = Health.status(Status.UP).build();
+		IHealth health = Health.status(Status.UP).build();
 		assertThat(health.getStatus()).isEqualTo(Status.UP);
 		assertThat(health.getDetails()).isEmpty();
 	}
 
 	@Test
 	void createWithDetails() {
-		Health health = new Health.Builder(Status.UP, Collections.singletonMap("a", "b")).build();
+		IHealth health = new Health.Builder(Status.UP, Collections.singletonMap("a", "b")).build();
 		assertThat(health.getStatus()).isEqualTo(Status.UP);
 		assertThat(health.getDetails()).containsOnly(entry("a", "b"));
 	}
@@ -60,8 +60,8 @@ class HealthTests {
 	@Test
 	void equalsAndHashCode() {
 		Health h1 = new Health.Builder(Status.UP, Collections.singletonMap("a", "b")).build();
-		Health h2 = new Health.Builder(Status.UP, Collections.singletonMap("a", "b")).build();
-		Health h3 = new Health.Builder(Status.UP).build();
+		IHealth h2 = new Health.Builder(Status.UP, Collections.singletonMap("a", "b")).build();
+		IHealth h3 = new Health.Builder(Status.UP).build();
 		assertThat(h1).isEqualTo(h1);
 		assertThat(h1).isEqualTo(h2);
 		assertThat(h1).isNotEqualTo(h3);
@@ -73,14 +73,14 @@ class HealthTests {
 	@Test
 	void withException() {
 		RuntimeException ex = new RuntimeException("bang");
-		Health health = new Health.Builder(Status.UP, Collections.singletonMap("a", "b")).withException(ex).build();
+		IHealth health = new Health.Builder(Status.UP, Collections.singletonMap("a", "b")).withException(ex).build();
 		assertThat(health.getDetails()).containsOnly(entry("a", "b"),
 				entry("error", "java.lang.RuntimeException: bang"));
 	}
 
 	@Test
 	void withDetails() {
-		Health health = new Health.Builder(Status.UP, Collections.singletonMap("a", "b")).withDetail("c", "d").build();
+		IHealth health = new Health.Builder(Status.UP, Collections.singletonMap("a", "b")).withDetail("c", "d").build();
 		assertThat(health.getDetails()).containsOnly(entry("a", "b"), entry("c", "d"));
 	}
 
@@ -89,7 +89,7 @@ class HealthTests {
 		Map<String, Object> details = new LinkedHashMap<>();
 		details.put("a", "b");
 		details.put("c", "d");
-		Health health = Health.up().withDetails(details).build();
+		IHealth health = Health.up().withDetails(details).build();
 		assertThat(health.getDetails()).containsOnly(entry("a", "b"), entry("c", "d"));
 	}
 
@@ -98,7 +98,7 @@ class HealthTests {
 		Map<String, Object> details = new LinkedHashMap<>();
 		details.put("c", "d");
 		details.put("a", "e");
-		Health health = Health.up().withDetail("a", "b").withDetails(details).build();
+		IHealth health = Health.up().withDetail("a", "b").withDetails(details).build();
 		assertThat(health.getDetails()).containsOnly(entry("a", "e"), entry("c", "d"));
 	}
 
@@ -110,34 +110,34 @@ class HealthTests {
 		Map<String, Object> details2 = new LinkedHashMap<>();
 		details1.put("a", "e");
 		details1.put("1", "2");
-		Health health = Health.up().withDetails(details1).withDetails(details2).build();
+		IHealth health = Health.up().withDetails(details1).withDetails(details2).build();
 		assertThat(health.getDetails()).containsOnly(entry("a", "e"), entry("c", "d"), entry("1", "2"));
 	}
 
 	@Test
 	void unknownWithDetails() {
-		Health health = new Health.Builder().unknown().withDetail("a", "b").build();
+		IHealth health = new Health.Builder().unknown().withDetail("a", "b").build();
 		assertThat(health.getStatus()).isEqualTo(Status.UNKNOWN);
 		assertThat(health.getDetails()).containsOnly(entry("a", "b"));
 	}
 
 	@Test
 	void unknown() {
-		Health health = new Health.Builder().unknown().build();
+		IHealth health = new Health.Builder().unknown().build();
 		assertThat(health.getStatus()).isEqualTo(Status.UNKNOWN);
 		assertThat(health.getDetails()).isEmpty();
 	}
 
 	@Test
 	void upWithDetails() {
-		Health health = new Health.Builder().up().withDetail("a", "b").build();
+		IHealth health = new Health.Builder().up().withDetail("a", "b").build();
 		assertThat(health.getStatus()).isEqualTo(Status.UP);
 		assertThat(health.getDetails()).containsOnly(entry("a", "b"));
 	}
 
 	@Test
 	void up() {
-		Health health = new Health.Builder().up().build();
+		IHealth health = new Health.Builder().up().build();
 		assertThat(health.getStatus()).isEqualTo(Status.UP);
 		assertThat(health.getDetails()).isEmpty();
 	}
@@ -145,42 +145,42 @@ class HealthTests {
 	@Test
 	void downWithException() {
 		RuntimeException ex = new RuntimeException("bang");
-		Health health = Health.down(ex).build();
+		IHealth health = Health.down(ex).build();
 		assertThat(health.getStatus()).isEqualTo(Status.DOWN);
 		assertThat(health.getDetails()).containsOnly(entry("error", "java.lang.RuntimeException: bang"));
 	}
 
 	@Test
 	void down() {
-		Health health = Health.down().build();
+		IHealth health = Health.down().build();
 		assertThat(health.getStatus()).isEqualTo(Status.DOWN);
 		assertThat(health.getDetails()).isEmpty();
 	}
 
 	@Test
 	void outOfService() {
-		Health health = Health.outOfService().build();
+		IHealth health = Health.outOfService().build();
 		assertThat(health.getStatus()).isEqualTo(Status.OUT_OF_SERVICE);
 		assertThat(health.getDetails()).isEmpty();
 	}
 
 	@Test
 	void statusCode() {
-		Health health = Health.status("UP").build();
+		IHealth health = Health.status("UP").build();
 		assertThat(health.getStatus()).isEqualTo(Status.UP);
 		assertThat(health.getDetails()).isEmpty();
 	}
 
 	@Test
 	void status() {
-		Health health = Health.status(Status.UP).build();
+		IHealth health = Health.status(Status.UP).build();
 		assertThat(health.getStatus()).isEqualTo(Status.UP);
 		assertThat(health.getDetails()).isEmpty();
 	}
 
 	@Test
 	void serializeWithJacksonReturnsValidJson() throws Exception {
-		Health health = Health.down().withDetail("a", "b").build();
+		IHealth health = Health.down().withDetail("a", "b").build();
 		ObjectMapper mapper = new ObjectMapper();
 		String json = mapper.writeValueAsString(health);
 		assertThat(json).isEqualTo("{\"status\":\"DOWN\",\"details\":{\"a\":\"b\"}}");

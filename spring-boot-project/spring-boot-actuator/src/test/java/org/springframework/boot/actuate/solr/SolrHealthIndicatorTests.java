@@ -24,8 +24,7 @@ import org.apache.solr.client.solrj.request.CoreAdminRequest;
 import org.apache.solr.client.solrj.response.SolrPingResponse;
 import org.apache.solr.common.util.NamedList;
 import org.junit.jupiter.api.Test;
-
-import org.springframework.boot.actuate.health.Health;
+import org.springframework.boot.actuate.health.IHealth;
 import org.springframework.boot.actuate.health.Status;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -98,7 +97,7 @@ class SolrHealthIndicatorTests {
 		given(solrClient.request(any(CoreAdminRequest.class), isNull()))
 				.willThrow(new IOException("Connection failed"));
 		SolrHealthIndicator healthIndicator = new SolrHealthIndicator(solrClient);
-		Health health = healthIndicator.health();
+		IHealth health = healthIndicator.health();
 		assertThat(health.getStatus()).isEqualTo(Status.DOWN);
 		assertThat((String) health.getDetails().get("error")).contains("Connection failed");
 		verify(solrClient, times(1)).request(any(CoreAdminRequest.class), isNull());
@@ -123,7 +122,7 @@ class SolrHealthIndicatorTests {
 
 	private void assertHealth(SolrHealthIndicator healthIndicator, Status expectedStatus, int expectedStatusCode,
 			String expectedPathType) {
-		Health health = healthIndicator.health();
+		IHealth health = healthIndicator.health();
 		assertThat(health.getStatus()).isEqualTo(expectedStatus);
 		assertThat(health.getDetails().get("status")).isEqualTo(expectedStatusCode);
 		assertThat(health.getDetails().get("detectedPathType")).isEqualTo(expectedPathType);

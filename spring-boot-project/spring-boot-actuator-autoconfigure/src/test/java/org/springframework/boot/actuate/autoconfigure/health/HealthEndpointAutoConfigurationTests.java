@@ -36,6 +36,7 @@ import org.springframework.boot.actuate.health.HealthEndpointGroupsPostProcessor
 import org.springframework.boot.actuate.health.HealthEndpointWebExtension;
 import org.springframework.boot.actuate.health.HealthIndicator;
 import org.springframework.boot.actuate.health.HttpCodeStatusMapper;
+import org.springframework.boot.actuate.health.IHealth;
 import org.springframework.boot.actuate.health.NamedContributor;
 import org.springframework.boot.actuate.health.ReactiveHealthContributorRegistry;
 import org.springframework.boot.actuate.health.ReactiveHealthEndpointWebExtension;
@@ -171,7 +172,7 @@ class HealthEndpointAutoConfigurationTests {
 	void runCreatesHealthEndpoint() {
 		this.contextRunner.withPropertyValues("management.endpoint.health.show-details=always").run((context) -> {
 			HealthEndpoint endpoint = context.getBean(HealthEndpoint.class);
-			Health health = (Health) endpoint.healthForPath("simple");
+			IHealth health = (IHealth) endpoint.healthForPath("simple");
 			assertThat(health.getDetails()).containsEntry("counter", 42);
 		});
 	}
@@ -210,7 +211,7 @@ class HealthEndpointAutoConfigurationTests {
 			HealthEndpointWebExtension webExtension = context.getBean(HealthEndpointWebExtension.class);
 			WebEndpointResponse<HealthComponent> response = webExtension.health(ApiVersion.V3, SecurityContext.NONE,
 					true, "simple");
-			Health health = (Health) response.getBody();
+			IHealth health = (IHealth) response.getBody();
 			assertThat(response.getStatus()).isEqualTo(200);
 			assertThat(health.getDetails()).containsEntry("counter", 42);
 		});
@@ -232,7 +233,7 @@ class HealthEndpointAutoConfigurationTests {
 			ReactiveHealthEndpointWebExtension webExtension = context.getBean(ReactiveHealthEndpointWebExtension.class);
 			Mono<WebEndpointResponse<? extends HealthComponent>> response = webExtension.health(ApiVersion.V3,
 					SecurityContext.NONE, true, "simple");
-			Health health = (Health) (response.block().getBody());
+			IHealth health = (IHealth) (response.block().getBody());
 			assertThat(health.getDetails()).containsEntry("counter", 42);
 		});
 	}

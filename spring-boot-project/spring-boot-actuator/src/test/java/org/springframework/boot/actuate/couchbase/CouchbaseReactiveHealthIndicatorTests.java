@@ -28,8 +28,7 @@ import com.couchbase.client.core.endpoint.EndpointState;
 import com.couchbase.client.core.service.ServiceType;
 import com.couchbase.client.java.Cluster;
 import org.junit.jupiter.api.Test;
-
-import org.springframework.boot.actuate.health.Health;
+import org.springframework.boot.actuate.health.IHealth;
 import org.springframework.boot.actuate.health.Status;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -52,7 +51,7 @@ class CouchbaseReactiveHealthIndicatorTests {
 						"127.0.0.1", Optional.empty(), Optional.of(1234L), Optional.of("endpoint-1"))));
 		DiagnosticsResult diagnostics = new DiagnosticsResult(endpoints, "test-sdk", "test-id");
 		given(cluster.diagnostics()).willReturn(diagnostics);
-		Health health = healthIndicator.health().block(Duration.ofSeconds(30));
+		IHealth health = healthIndicator.health().block(Duration.ofSeconds(30));
 		assertThat(health.getStatus()).isEqualTo(Status.UP);
 		assertThat(health.getDetails()).containsEntry("sdk", "test-sdk");
 		assertThat(health.getDetails()).containsKey("endpoints");
@@ -73,7 +72,7 @@ class CouchbaseReactiveHealthIndicatorTests {
 								Optional.empty(), Optional.of(1234L), Optional.of("endpoint-2"))));
 		DiagnosticsResult diagnostics = new DiagnosticsResult(endpoints, "test-sdk", "test-id");
 		given(cluster.diagnostics()).willReturn(diagnostics);
-		Health health = healthIndicator.health().block(Duration.ofSeconds(30));
+		IHealth health = healthIndicator.health().block(Duration.ofSeconds(30));
 		assertThat(health.getStatus()).isEqualTo(Status.DOWN);
 		assertThat(health.getDetails()).containsEntry("sdk", "test-sdk");
 		assertThat(health.getDetails()).containsKey("endpoints");

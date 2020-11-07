@@ -21,8 +21,7 @@ import java.io.IOException;
 import com.hazelcast.core.HazelcastException;
 import com.hazelcast.core.HazelcastInstance;
 import org.junit.jupiter.api.Test;
-
-import org.springframework.boot.actuate.health.Health;
+import org.springframework.boot.actuate.health.IHealth;
 import org.springframework.boot.actuate.health.Status;
 import org.springframework.boot.autoconfigure.hazelcast.HazelcastInstanceFactory;
 import org.springframework.core.io.ClassPathResource;
@@ -45,7 +44,7 @@ class HazelcastHealthIndicatorTests {
 		HazelcastInstance hazelcast = new HazelcastInstanceFactory(new ClassPathResource("hazelcast.xml"))
 				.getHazelcastInstance();
 		try {
-			Health health = new HazelcastHealthIndicator(hazelcast).health();
+			IHealth health = new HazelcastHealthIndicator(hazelcast).health();
 			assertThat(health.getStatus()).isEqualTo(Status.UP);
 			assertThat(health.getDetails()).containsOnlyKeys("name", "uuid").containsEntry("name",
 					"actuator-hazelcast");
@@ -60,7 +59,7 @@ class HazelcastHealthIndicatorTests {
 	void hazelcastDown() {
 		HazelcastInstance hazelcast = mock(HazelcastInstance.class);
 		given(hazelcast.executeTransaction(any())).willThrow(new HazelcastException());
-		Health health = new HazelcastHealthIndicator(hazelcast).health();
+		IHealth health = new HazelcastHealthIndicator(hazelcast).health();
 		assertThat(health.getStatus()).isEqualTo(Status.DOWN);
 	}
 

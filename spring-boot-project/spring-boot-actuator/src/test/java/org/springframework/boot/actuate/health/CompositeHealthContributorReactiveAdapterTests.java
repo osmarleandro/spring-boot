@@ -48,7 +48,7 @@ class CompositeHealthContributorReactiveAdapterTests {
 		NamedContributor<ReactiveHealthContributor> adapted = iterator.next();
 		assertThat(adapted.getName()).isEqualTo("test");
 		assertThat(adapted.getContributor()).isInstanceOf(ReactiveHealthIndicator.class);
-		Health health = ((ReactiveHealthIndicator) adapted.getContributor()).getHealth(true).block();
+		IHealth health = ((ReactiveHealthIndicator) adapted.getContributor()).getHealth(true).block();
 		assertThat(health.getStatus()).isEqualTo(Status.UP);
 		assertThat(health.getDetails()).containsEntry("spring", "boot");
 	}
@@ -68,7 +68,7 @@ class CompositeHealthContributorReactiveAdapterTests {
 		assertThat(adapted.getContributor()).isInstanceOf(CompositeReactiveHealthContributor.class);
 		ReactiveHealthContributor nested = ((CompositeReactiveHealthContributor) adapted.getContributor())
 				.getContributor("test1");
-		Health health = ((ReactiveHealthIndicator) nested).getHealth(true).block();
+		IHealth health = ((ReactiveHealthIndicator) nested).getHealth(true).block();
 		assertThat(health.getStatus()).isEqualTo(Status.UP);
 		assertThat(health.getDetails()).containsEntry("spring", "boot");
 	}
@@ -80,7 +80,7 @@ class CompositeHealthContributorReactiveAdapterTests {
 				.fromMap(Collections.singletonMap("test", indicator));
 		CompositeHealthContributorReactiveAdapter adapter = new CompositeHealthContributorReactiveAdapter(delegate);
 		ReactiveHealthContributor adapted = adapter.getContributor("test");
-		Health health = ((ReactiveHealthIndicator) adapted).getHealth(true).block();
+		IHealth health = ((ReactiveHealthIndicator) adapted).getHealth(true).block();
 		assertThat(health.getStatus()).isEqualTo(Status.UP);
 		assertThat(health.getDetails()).containsEntry("spring", "boot");
 	}

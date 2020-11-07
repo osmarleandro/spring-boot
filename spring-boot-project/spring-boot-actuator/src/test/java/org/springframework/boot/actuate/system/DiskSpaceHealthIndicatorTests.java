@@ -23,9 +23,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-
-import org.springframework.boot.actuate.health.Health;
 import org.springframework.boot.actuate.health.HealthIndicator;
+import org.springframework.boot.actuate.health.IHealth;
 import org.springframework.boot.actuate.health.Status;
 import org.springframework.util.unit.DataSize;
 
@@ -61,7 +60,7 @@ class DiskSpaceHealthIndicatorTests {
 		long freeSpace = THRESHOLD.toBytes() + 10;
 		given(this.fileMock.getUsableSpace()).willReturn(freeSpace);
 		given(this.fileMock.getTotalSpace()).willReturn(TOTAL_SPACE.toBytes());
-		Health health = this.healthIndicator.health();
+		IHealth health = this.healthIndicator.health();
 		assertThat(health.getStatus()).isEqualTo(Status.UP);
 		assertThat(health.getDetails().get("threshold")).isEqualTo(THRESHOLD.toBytes());
 		assertThat(health.getDetails().get("free")).isEqualTo(freeSpace);
@@ -75,7 +74,7 @@ class DiskSpaceHealthIndicatorTests {
 		long freeSpace = THRESHOLD.toBytes() - 10;
 		given(this.fileMock.getUsableSpace()).willReturn(freeSpace);
 		given(this.fileMock.getTotalSpace()).willReturn(TOTAL_SPACE.toBytes());
-		Health health = this.healthIndicator.health();
+		IHealth health = this.healthIndicator.health();
 		assertThat(health.getStatus()).isEqualTo(Status.DOWN);
 		assertThat(health.getDetails().get("threshold")).isEqualTo(THRESHOLD.toBytes());
 		assertThat(health.getDetails().get("free")).isEqualTo(freeSpace);
@@ -85,7 +84,7 @@ class DiskSpaceHealthIndicatorTests {
 
 	@Test
 	void whenPathDoesNotExistDiskSpaceIsDown() {
-		Health health = new DiskSpaceHealthIndicator(new File("does/not/exist"), THRESHOLD).health();
+		IHealth health = new DiskSpaceHealthIndicator(new File("does/not/exist"), THRESHOLD).health();
 		assertThat(health.getStatus()).isEqualTo(Status.DOWN);
 		assertThat(health.getDetails().get("free")).isEqualTo(0L);
 		assertThat(health.getDetails().get("total")).isEqualTo(0L);

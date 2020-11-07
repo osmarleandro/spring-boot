@@ -23,6 +23,7 @@ import org.springframework.boot.actuate.autoconfigure.health.HealthContributorAu
 import org.springframework.boot.actuate.health.AbstractHealthIndicator;
 import org.springframework.boot.actuate.health.Health;
 import org.springframework.boot.actuate.health.HealthIndicator;
+import org.springframework.boot.actuate.health.IHealth;
 import org.springframework.boot.actuate.neo4j.Neo4jHealthIndicator;
 import org.springframework.boot.actuate.neo4j.Neo4jReactiveHealthIndicator;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
@@ -74,7 +75,7 @@ class Neo4jHealthContributorAutoConfigurationTests {
 		this.contextRunner.withUserConfiguration(Neo4jConfiguration.class, CustomIndicatorConfiguration.class)
 				.run((context) -> {
 					assertThat(context).hasBean("neo4jHealthIndicator");
-					Health health = context.getBean("neo4jHealthIndicator", HealthIndicator.class).health();
+					IHealth health = context.getBean("neo4jHealthIndicator", HealthIndicator.class).health();
 					assertThat(health.getDetails()).containsOnly(entry("test", true));
 				});
 	}
