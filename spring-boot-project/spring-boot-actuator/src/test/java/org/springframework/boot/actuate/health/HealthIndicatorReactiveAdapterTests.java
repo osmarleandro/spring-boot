@@ -29,7 +29,7 @@ import static org.mockito.Mockito.mock;
  *
  * @author Stephane Nicoll
  */
-class HealthIndicatorReactiveAdapterTests {
+class HealthIndicatorReactiveAdapterTests implements IHealthIndicatorReactiveAdapterTests {
 
 	@Test
 	void delegateReturnsHealth() {
