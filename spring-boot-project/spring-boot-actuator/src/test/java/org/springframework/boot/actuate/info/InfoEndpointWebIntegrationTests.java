@@ -50,7 +50,7 @@ class InfoEndpointWebIntegrationTests {
 	static class TestConfiguration {
 
 		@Bean
-		InfoEndpoint endpoint(ObjectProvider<InfoContributor> infoContributors) {
+		IInfoEndpoint endpoint(ObjectProvider<InfoContributor> infoContributors) {
 			return new InfoEndpoint(infoContributors.orderedStream().collect(Collectors.toList()));
 		}
 
