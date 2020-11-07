@@ -43,7 +43,7 @@ import org.springframework.util.ReflectionUtils;
  * @author Andy Wilkinson
  * @author Phillip Webb
  */
-class HealthEndpointWebIntegrationTests {
+class HealthEndpointWebIntegrationTests implements IHealthEndpointWebIntegrationTests {
 
 	@WebEndpointTest
 	void whenHealthIsUp200ResponseIsReturned(WebTestClient client) {
