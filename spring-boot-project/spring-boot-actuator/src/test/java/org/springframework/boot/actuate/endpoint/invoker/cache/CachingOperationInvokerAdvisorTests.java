@@ -47,7 +47,7 @@ import static org.mockito.Mockito.verify;
  * @author Stephane Nicoll
  */
 @ExtendWith(MockitoExtension.class)
-class CachingOperationInvokerAdvisorTests {
+class CachingOperationInvokerAdvisorTests implements ICachingOperationInvokerAdvisorTests {
 
 	@Mock
 	private OperationInvoker invoker;
