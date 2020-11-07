@@ -42,7 +42,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Mark Paluch
  * @author Stephane Nicoll
  */
-class ConnectionPoolMetricsTests {
+class ConnectionPoolMetricsTests implements IConnectionPoolMetricsTests {
 
 	private static final Tag testTag = Tag.of("test", "yes");
 
