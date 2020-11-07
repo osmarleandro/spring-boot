@@ -43,7 +43,7 @@ import org.springframework.context.ApplicationContext;
  * @since 2.0.0
  */
 @Endpoint(id = "flyway")
-public class FlywayEndpoint {
+public class FlywayEndpoint implements IFlywayEndpoint {
 
 	private final ApplicationContext context;
 
