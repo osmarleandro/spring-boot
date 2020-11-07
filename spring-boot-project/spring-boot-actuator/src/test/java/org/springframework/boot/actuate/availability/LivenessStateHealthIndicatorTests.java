@@ -32,7 +32,7 @@ import static org.mockito.Mockito.mock;
  *
  * @author Brian Clozel
  */
-class LivenessStateHealthIndicatorTests {
+class LivenessStateHealthIndicatorTests implements ILivenessStateHealthIndicatorTests {
 
 	private ApplicationAvailability availability;
 
