@@ -42,7 +42,7 @@ import static org.mockito.Mockito.mock;
  * @author Phillip Webb
  */
 @ExtendWith(MockitoExtension.class)
-class RabbitHealthIndicatorTests {
+class RabbitHealthIndicatorTests implements IRabbitHealthIndicatorTests {
 
 	@Mock
 	private RabbitTemplate rabbitTemplate;
