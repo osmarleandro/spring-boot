@@ -26,6 +26,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import reactor.core.publisher.Mono;
 
 import org.springframework.boot.actuate.autoconfigure.metrics.test.MetricsRun;
+import org.springframework.boot.actuate.metrics.web.reactive.client.IWebClientExchangeTagsProvider;
 import org.springframework.boot.actuate.metrics.web.reactive.client.WebClientExchangeTagsProvider;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
 import org.springframework.boot.autoconfigure.web.reactive.function.client.WebClientAutoConfiguration;
@@ -135,7 +136,7 @@ class WebClientMetricsConfigurationTests {
 	static class CustomTagsProviderConfig {
 
 		@Bean
-		WebClientExchangeTagsProvider customTagsProvider() {
+		IWebClientExchangeTagsProvider customTagsProvider() {
 			return mock(WebClientExchangeTagsProvider.class);
 		}
 
