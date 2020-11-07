@@ -23,7 +23,7 @@ package org.springframework.boot.actuate.endpoint.jmx;
  * @author Phillip Webb
  * @since 2.0.0
  */
-public interface JmxOperationParameter {
+public interface JmxOperationParameter extends IJmxOperationParameter {
 
 	/**
 	 * Return the name of the operation parameter.
