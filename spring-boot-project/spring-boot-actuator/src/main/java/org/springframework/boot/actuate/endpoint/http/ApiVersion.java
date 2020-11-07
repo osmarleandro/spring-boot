@@ -29,7 +29,7 @@ import org.springframework.util.MimeTypeUtils;
  * @author Phillip Webb
  * @since 2.2.0
  */
-public enum ApiVersion {
+public enum ApiVersion implements IApiVersion {
 
 	/**
 	 * Version 2 (supported by Spring Boot 2.0+).

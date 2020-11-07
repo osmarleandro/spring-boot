@@ -29,6 +29,7 @@ import org.springframework.boot.actuate.endpoint.EndpointId;
 import org.springframework.boot.actuate.endpoint.OperationType;
 import org.springframework.boot.actuate.endpoint.SecurityContext;
 import org.springframework.boot.actuate.endpoint.http.ApiVersion;
+import org.springframework.boot.actuate.endpoint.http.IApiVersion;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvoker;
 import org.springframework.boot.actuate.endpoint.invoke.OperationParameters;
 import org.springframework.boot.actuate.endpoint.invoke.reflect.OperationMethod;
@@ -161,7 +162,7 @@ class CachingOperationInvokerAdvisorTests {
 			return "";
 		}
 
-		String getWithApiVersion(ApiVersion apiVersion, @Nullable String bar) {
+		String getWithApiVersion(IApiVersion apiVersion, @Nullable String bar) {
 			return "";
 		}
 

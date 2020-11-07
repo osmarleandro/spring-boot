@@ -20,10 +20,10 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
+import org.springframework.boot.actuate.endpoint.http.IApiVersion;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
-
-import org.springframework.boot.actuate.endpoint.http.ApiVersion;
 
 /**
  * A {@link HealthComponent} that represents the overall system health and the available
@@ -36,7 +36,7 @@ public final class SystemHealth extends CompositeHealth {
 
 	private final Set<String> groups;
 
-	SystemHealth(ApiVersion apiVersion, Status status, Map<String, HealthComponent> instances, Set<String> groups) {
+	SystemHealth(IApiVersion apiVersion, Status status, Map<String, HealthComponent> instances, Set<String> groups) {
 		super(apiVersion, status, instances);
 		this.groups = (groups != null) ? new TreeSet<>(groups) : null;
 	}

@@ -26,7 +26,7 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import org.springframework.boot.actuate.endpoint.InvocationContext;
-import org.springframework.boot.actuate.endpoint.http.ApiVersion;
+import org.springframework.boot.actuate.endpoint.http.IApiVersion;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvoker;
 import org.springframework.util.Assert;
 import org.springframework.util.ClassUtils;
@@ -78,7 +78,7 @@ public class CachingOperationInvoker implements OperationInvoker {
 			return this.invoker.invoke(context);
 		}
 		long accessTime = System.currentTimeMillis();
-		ApiVersion contextApiVersion = context.getApiVersion();
+		IApiVersion contextApiVersion = context.getApiVersion();
 		CacheKey cacheKey = new CacheKey(contextApiVersion, context.getSecurityContext().getPrincipal());
 		CachedResponse cached = this.cachedResponses.get(cacheKey);
 		if (cached == null || cached.isStale(accessTime, this.timeToLive)) {
@@ -168,11 +168,11 @@ public class CachingOperationInvoker implements OperationInvoker {
 
 	private static final class CacheKey {
 
-		private final ApiVersion apiVersion;
+		private final IApiVersion apiVersion;
 
 		private final Principal principal;
 
-		private CacheKey(ApiVersion apiVersion, Principal principal) {
+		private CacheKey(IApiVersion apiVersion, Principal principal) {
 			this.principal = principal;
 			this.apiVersion = apiVersion;
 		}

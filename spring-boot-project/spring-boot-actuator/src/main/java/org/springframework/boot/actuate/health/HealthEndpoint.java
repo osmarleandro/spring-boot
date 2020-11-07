@@ -25,6 +25,7 @@ import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
 import org.springframework.boot.actuate.endpoint.annotation.Selector;
 import org.springframework.boot.actuate.endpoint.annotation.Selector.Match;
 import org.springframework.boot.actuate.endpoint.http.ApiVersion;
+import org.springframework.boot.actuate.endpoint.http.IApiVersion;
 
 /**
  * {@link Endpoint @Endpoint} to expose application health information.
@@ -61,7 +62,7 @@ public class HealthEndpoint extends HealthEndpointSupport<HealthContributor, Hea
 		return health(ApiVersion.V3, path);
 	}
 
-	private HealthComponent health(ApiVersion apiVersion, String... path) {
+	private HealthComponent health(IApiVersion apiVersion, String... path) {
 		HealthResult<HealthComponent> result = getHealth(apiVersion, SecurityContext.NONE, true, path);
 		return (result != null) ? result.getHealth() : null;
 	}
@@ -72,7 +73,7 @@ public class HealthEndpoint extends HealthEndpointSupport<HealthContributor, Hea
 	}
 
 	@Override
-	protected HealthComponent aggregateContributions(ApiVersion apiVersion, Map<String, HealthComponent> contributions,
+	protected HealthComponent aggregateContributions(IApiVersion apiVersion, Map<String, HealthComponent> contributions,
 			StatusAggregator statusAggregator, boolean showComponents, Set<String> groupNames) {
 		return getCompositeHealth(apiVersion, contributions, statusAggregator, showComponents, groupNames);
 	}

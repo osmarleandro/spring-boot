@@ -24,6 +24,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.boot.actuate.endpoint.http.ApiVersion;
+import org.springframework.boot.actuate.endpoint.http.IApiVersion;
 import org.springframework.util.Assert;
 
 /**
@@ -43,7 +44,7 @@ public class CompositeHealth extends HealthComponent {
 
 	private final Map<String, HealthComponent> details;
 
-	CompositeHealth(ApiVersion apiVersion, Status status, Map<String, HealthComponent> components) {
+	CompositeHealth(IApiVersion apiVersion, Status status, Map<String, HealthComponent> components) {
 		Assert.notNull(status, "Status must not be null");
 		this.status = status;
 		this.components = (apiVersion != ApiVersion.V3) ? null : sort(components);

@@ -34,7 +34,7 @@ class ApiVersionTests {
 
 	@Test
 	void latestIsLatestVersion() {
-		ApiVersion[] values = ApiVersion.values();
+		IApiVersion[] values = ApiVersion.values();
 		assertThat(ApiVersion.LATEST).isEqualTo(values[values.length - 1]);
 	}
 

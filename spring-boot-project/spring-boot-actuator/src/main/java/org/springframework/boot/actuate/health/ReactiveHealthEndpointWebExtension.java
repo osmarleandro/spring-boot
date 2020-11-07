@@ -27,7 +27,7 @@ import org.springframework.boot.actuate.endpoint.SecurityContext;
 import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
 import org.springframework.boot.actuate.endpoint.annotation.Selector;
 import org.springframework.boot.actuate.endpoint.annotation.Selector.Match;
-import org.springframework.boot.actuate.endpoint.http.ApiVersion;
+import org.springframework.boot.actuate.endpoint.http.IApiVersion;
 import org.springframework.boot.actuate.endpoint.web.WebEndpointResponse;
 import org.springframework.boot.actuate.endpoint.web.annotation.EndpointWebExtension;
 
@@ -56,18 +56,18 @@ public class ReactiveHealthEndpointWebExtension
 	}
 
 	@ReadOperation
-	public Mono<WebEndpointResponse<? extends HealthComponent>> health(ApiVersion apiVersion,
+	public Mono<WebEndpointResponse<? extends HealthComponent>> health(IApiVersion apiVersion,
 			SecurityContext securityContext) {
 		return health(apiVersion, securityContext, false, NO_PATH);
 	}
 
 	@ReadOperation
-	public Mono<WebEndpointResponse<? extends HealthComponent>> health(ApiVersion apiVersion,
+	public Mono<WebEndpointResponse<? extends HealthComponent>> health(IApiVersion apiVersion,
 			SecurityContext securityContext, @Selector(match = Match.ALL_REMAINING) String... path) {
 		return health(apiVersion, securityContext, false, path);
 	}
 
-	public Mono<WebEndpointResponse<? extends HealthComponent>> health(ApiVersion apiVersion,
+	public Mono<WebEndpointResponse<? extends HealthComponent>> health(IApiVersion apiVersion,
 			SecurityContext securityContext, boolean showAll, String... path) {
 		HealthResult<Mono<? extends HealthComponent>> result = getHealth(apiVersion, securityContext, showAll, path);
 		if (result == null) {
@@ -88,7 +88,7 @@ public class ReactiveHealthEndpointWebExtension
 	}
 
 	@Override
-	protected Mono<? extends HealthComponent> aggregateContributions(ApiVersion apiVersion,
+	protected Mono<? extends HealthComponent> aggregateContributions(IApiVersion apiVersion,
 			Map<String, Mono<? extends HealthComponent>> contributions, StatusAggregator statusAggregator,
 			boolean showComponents, Set<String> groupNames) {
 		return Flux.fromIterable(contributions.entrySet()).flatMap(NamedHealthComponent::create)
