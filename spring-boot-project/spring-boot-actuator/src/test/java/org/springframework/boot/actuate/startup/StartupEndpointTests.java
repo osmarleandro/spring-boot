@@ -31,7 +31,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Brian Clozel
  */
-class StartupEndpointTests {
+class StartupEndpointTests implements IStartupEndpointTests {
 
 	@Test
 	void startupEventsAreFound() {
