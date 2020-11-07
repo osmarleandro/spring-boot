@@ -40,7 +40,7 @@ import org.springframework.web.reactive.function.client.ExchangeFunction;
  * @author Tadaya Tsuyukubo
  * @since 2.1.0
  */
-public class MetricsWebClientFilterFunction implements ExchangeFilterFunction {
+public class MetricsWebClientFilterFunction implements ExchangeFilterFunction, IMetricsWebClientFilterFunction {
 
 	private static final String METRICS_WEBCLIENT_START_TIME = MetricsWebClientFilterFunction.class.getName()
 			+ ".START_TIME";
