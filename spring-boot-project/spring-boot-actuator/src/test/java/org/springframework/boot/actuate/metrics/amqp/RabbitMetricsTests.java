@@ -29,7 +29,7 @@ import static org.mockito.Mockito.mock;
  *
  * @author Stephane Nicoll
  */
-class RabbitMetricsTests {
+class RabbitMetricsTests implements IRabbitMetricsTests {
 
 	@Test
 	void connectionFactoryIsInstrumented() {
