@@ -43,7 +43,7 @@ import org.springframework.util.Assert;
  * @author Phillip Webb
  * @since 2.0.0
  */
-public class JmxEndpointExporter implements InitializingBean, DisposableBean, BeanClassLoaderAware {
+public class JmxEndpointExporter implements InitializingBean, DisposableBean, BeanClassLoaderAware, IJmxEndpointExporter {
 
 	private static final Log logger = LogFactory.getLog(JmxEndpointExporter.class);
 
