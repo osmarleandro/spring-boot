@@ -26,7 +26,7 @@ import com.fasterxml.jackson.annotation.JsonUnwrapped;
  * @see Health
  * @see CompositeHealth
  */
-public abstract class HealthComponent {
+public abstract class HealthComponent implements IHealthComponent {
 
 	HealthComponent() {
 	}

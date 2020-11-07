@@ -27,8 +27,8 @@ import org.springframework.boot.actuate.autoconfigure.web.servlet.ServletManagem
 import org.springframework.boot.actuate.endpoint.http.ApiVersion;
 import org.springframework.boot.actuate.health.CompositeHealth;
 import org.springframework.boot.actuate.health.Health;
-import org.springframework.boot.actuate.health.HealthComponent;
 import org.springframework.boot.actuate.health.HealthIndicator;
+import org.springframework.boot.actuate.health.IHealthComponent;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
 import org.springframework.boot.autoconfigure.context.PropertyPlaceholderAutoConfiguration;
 import org.springframework.boot.autoconfigure.http.HttpMessageConvertersAutoConfiguration;
@@ -64,8 +64,8 @@ class CloudFoundryHealthEndpointWebExtensionTests {
 		this.contextRunner.run((context) -> {
 			CloudFoundryHealthEndpointWebExtension extension = context
 					.getBean(CloudFoundryHealthEndpointWebExtension.class);
-			HealthComponent body = extension.health(ApiVersion.V3).getBody();
-			HealthComponent health = ((CompositeHealth) body).getComponents().entrySet().iterator().next().getValue();
+			IHealthComponent body = extension.health(ApiVersion.V3).getBody();
+			IHealthComponent health = ((CompositeHealth) body).getComponents().entrySet().iterator().next().getValue();
 			assertThat(((Health) health).getDetails()).containsEntry("spring", "boot");
 		});
 	}
