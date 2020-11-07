@@ -43,7 +43,7 @@ import static org.mockito.Mockito.mock;
  *
  * @author Phillip Webb
  */
-class DiscoveredOperationsFactoryTests {
+class DiscoveredOperationsFactoryTests implements IDiscoveredOperationsFactoryTests {
 
 	private TestDiscoveredOperationsFactory factory;
 
