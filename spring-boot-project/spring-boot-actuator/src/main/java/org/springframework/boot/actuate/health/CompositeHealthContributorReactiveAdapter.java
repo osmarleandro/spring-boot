@@ -28,7 +28,7 @@ import org.springframework.util.Assert;
  * @author Phillip Webb
  * @see ReactiveHealthContributor#adapt(HealthContributor)
  */
-class CompositeHealthContributorReactiveAdapter implements CompositeReactiveHealthContributor {
+class CompositeHealthContributorReactiveAdapter implements CompositeReactiveHealthContributor, ICompositeHealthContributorReactiveAdapter {
 
 	private final CompositeHealthContributor delegate;
 
