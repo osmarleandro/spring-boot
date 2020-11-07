@@ -30,7 +30,7 @@ import org.springframework.util.Assert;
  * @author Phillip Webb
  * @since 2.0.0
  */
-public abstract class AbstractExposableEndpoint<O extends Operation> implements ExposableEndpoint<O> {
+public abstract class AbstractExposableEndpoint<O extends Operation> implements ExposableEndpoint<O>, IAbstractExposableEndpoint<O> {
 
 	private final EndpointId id;
 
