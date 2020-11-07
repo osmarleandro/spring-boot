@@ -34,7 +34,7 @@ import org.springframework.util.ObjectUtils;
  * @author Phillip Webb
  * @since 2.2.0
  */
-public class SimpleStatusAggregator implements StatusAggregator {
+public class SimpleStatusAggregator implements StatusAggregator, ISimpleStatusAggregator {
 
 	private static final List<String> DEFAULT_ORDER;
 
