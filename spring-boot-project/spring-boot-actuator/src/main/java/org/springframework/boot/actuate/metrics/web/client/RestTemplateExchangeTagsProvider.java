@@ -30,7 +30,7 @@ import org.springframework.web.client.RestTemplate;
  * @since 2.0.0
  */
 @FunctionalInterface
-public interface RestTemplateExchangeTagsProvider {
+public interface RestTemplateExchangeTagsProvider extends IRestTemplateExchangeTagsProvider {
 
 	/**
 	 * Provides the tags to be associated with metrics that are recorded for the given
