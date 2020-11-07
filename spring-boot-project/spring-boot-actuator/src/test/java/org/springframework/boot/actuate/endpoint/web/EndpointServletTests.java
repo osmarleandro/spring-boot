@@ -66,25 +66,25 @@ class EndpointServletTests {
 
 	@Test
 	void withInitParameterNullName() {
-		EndpointServlet endpointServlet = new EndpointServlet(TestServlet.class);
+		IEndpointServlet endpointServlet = new EndpointServlet(TestServlet.class);
 		assertThatIllegalArgumentException().isThrownBy(() -> endpointServlet.withInitParameter(null, "value"));
 	}
 
 	@Test
 	void withInitParameterEmptyName() {
-		EndpointServlet endpointServlet = new EndpointServlet(TestServlet.class);
+		IEndpointServlet endpointServlet = new EndpointServlet(TestServlet.class);
 		assertThatIllegalArgumentException().isThrownBy(() -> endpointServlet.withInitParameter(" ", "value"));
 	}
 
 	@Test
 	void withInitParameterShouldReturnNewInstance() {
-		EndpointServlet endpointServlet = new EndpointServlet(TestServlet.class);
+		IEndpointServlet endpointServlet = new EndpointServlet(TestServlet.class);
 		assertThat(endpointServlet.withInitParameter("spring", "boot")).isNotSameAs(endpointServlet);
 	}
 
 	@Test
 	void withInitParameterWhenHasExistingShouldMergeParameters() {
-		EndpointServlet endpointServlet = new EndpointServlet(TestServlet.class).withInitParameter("a", "b")
+		IEndpointServlet endpointServlet = new EndpointServlet(TestServlet.class).withInitParameter("a", "b")
 				.withInitParameter("c", "d");
 		assertThat(endpointServlet.withInitParameter("a", "b1").withInitParameter("e", "f").getInitParameters())
 				.containsExactly(entry("a", "b1"), entry("c", "d"), entry("e", "f"));
@@ -92,28 +92,28 @@ class EndpointServletTests {
 
 	@Test
 	void withInitParametersNullName() {
-		EndpointServlet endpointServlet = new EndpointServlet(TestServlet.class);
+		IEndpointServlet endpointServlet = new EndpointServlet(TestServlet.class);
 		assertThatIllegalArgumentException()
 				.isThrownBy(() -> endpointServlet.withInitParameters(Collections.singletonMap(null, "value")));
 	}
 
 	@Test
 	void withInitParametersEmptyName() {
-		EndpointServlet endpointServlet = new EndpointServlet(TestServlet.class);
+		IEndpointServlet endpointServlet = new EndpointServlet(TestServlet.class);
 		assertThatIllegalArgumentException()
 				.isThrownBy(() -> endpointServlet.withInitParameters(Collections.singletonMap(" ", "value")));
 	}
 
 	@Test
 	void withInitParametersShouldCreateNewInstance() {
-		EndpointServlet endpointServlet = new EndpointServlet(TestServlet.class);
+		IEndpointServlet endpointServlet = new EndpointServlet(TestServlet.class);
 		assertThat(endpointServlet.withInitParameters(Collections.singletonMap("spring", "boot")))
 				.isNotSameAs(endpointServlet);
 	}
 
 	@Test
 	void withInitParametersWhenHasExistingShouldMergeParameters() {
-		EndpointServlet endpointServlet = new EndpointServlet(TestServlet.class).withInitParameter("a", "b")
+		IEndpointServlet endpointServlet = new EndpointServlet(TestServlet.class).withInitParameter("a", "b")
 				.withInitParameter("c", "d");
 		Map<String, String> extra = new LinkedHashMap<>();
 		extra.put("a", "b1");

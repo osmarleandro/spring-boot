@@ -34,7 +34,7 @@ import org.springframework.util.StringUtils;
  * @author Julio José Gómez Díaz
  * @since 2.0.0
  */
-public final class EndpointServlet {
+public final class EndpointServlet implements IEndpointServlet {
 
 	private final Servlet servlet;
 
