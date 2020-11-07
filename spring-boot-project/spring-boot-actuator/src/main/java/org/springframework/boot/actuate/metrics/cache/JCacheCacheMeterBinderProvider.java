@@ -28,7 +28,7 @@ import org.springframework.cache.jcache.JCacheCache;
  * @author Stephane Nicoll
  * @since 2.0.0
  */
-public class JCacheCacheMeterBinderProvider implements CacheMeterBinderProvider<JCacheCache> {
+public class JCacheCacheMeterBinderProvider implements CacheMeterBinderProvider<JCacheCache>, IJCacheCacheMeterBinderProvider {
 
 	@Override
 	public MeterBinder getMeterBinder(JCacheCache cache, Iterable<Tag> tags) {
