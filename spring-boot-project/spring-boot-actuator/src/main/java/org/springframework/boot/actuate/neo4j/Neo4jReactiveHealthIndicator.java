@@ -39,7 +39,7 @@ import org.springframework.boot.actuate.health.ReactiveHealthIndicator;
  * @author Stephane Nicoll
  * @since 2.4.0
  */
-public final class Neo4jReactiveHealthIndicator extends AbstractReactiveHealthIndicator {
+public final class Neo4jReactiveHealthIndicator extends AbstractReactiveHealthIndicator implements INeo4jReactiveHealthIndicator {
 
 	private static final Log logger = LogFactory.getLog(Neo4jReactiveHealthIndicator.class);
 
