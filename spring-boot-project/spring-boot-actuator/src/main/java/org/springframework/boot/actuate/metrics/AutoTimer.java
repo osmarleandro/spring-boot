@@ -32,7 +32,7 @@ import io.micrometer.core.instrument.Timer.Builder;
  * @since 2.2.0
  */
 @FunctionalInterface
-public interface AutoTimer {
+public interface AutoTimer extends IAutoTimer {
 
 	/**
 	 * An {@link AutoTimer} implementation that is enabled but applies no additional
