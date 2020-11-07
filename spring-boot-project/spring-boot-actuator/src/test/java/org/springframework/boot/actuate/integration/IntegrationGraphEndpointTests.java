@@ -31,7 +31,7 @@ import static org.mockito.Mockito.verify;
  *
  * @author Tim Ysewyn
  */
-class IntegrationGraphEndpointTests {
+class IntegrationGraphEndpointTests implements IIntegrationGraphEndpointTests {
 
 	private final IntegrationGraphServer server = mock(IntegrationGraphServer.class);
 
