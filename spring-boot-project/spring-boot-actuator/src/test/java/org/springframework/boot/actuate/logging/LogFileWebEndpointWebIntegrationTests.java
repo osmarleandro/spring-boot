@@ -70,7 +70,7 @@ class LogFileWebEndpointWebIntegrationTests {
 	static class TestConfiguration {
 
 		@Bean
-		LogFileWebEndpoint logFileEndpoint() throws IOException {
+		ILogFileWebEndpoint logFileEndpoint() throws IOException {
 			File logFile = new File(tempFile, "test.log");
 			FileCopyUtils.copy("--TEST--".getBytes(), logFile);
 			MockEnvironment environment = new MockEnvironment();

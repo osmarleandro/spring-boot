@@ -22,7 +22,7 @@ import java.nio.file.Path;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
-
+import org.springframework.boot.actuate.logging.ILogFileWebEndpoint;
 import org.springframework.boot.actuate.logging.LogFileWebEndpoint;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
 import org.springframework.boot.test.context.runner.WebApplicationContextRunner;
@@ -98,7 +98,7 @@ class LogFileWebEndpointAutoConfigurationTests {
 		this.contextRunner.withPropertyValues("management.endpoints.web.exposure.include=logfile",
 				"management.endpoint.logfile.external-file:" + file.getAbsolutePath()).run((context) -> {
 					assertThat(context).hasSingleBean(LogFileWebEndpoint.class);
-					LogFileWebEndpoint endpoint = context.getBean(LogFileWebEndpoint.class);
+					ILogFileWebEndpoint endpoint = context.getBean(LogFileWebEndpoint.class);
 					Resource resource = endpoint.logFile();
 					assertThat(resource).isNotNull();
 					assertThat(contentOf(resource.getFile())).isEqualTo("--TEST--");
