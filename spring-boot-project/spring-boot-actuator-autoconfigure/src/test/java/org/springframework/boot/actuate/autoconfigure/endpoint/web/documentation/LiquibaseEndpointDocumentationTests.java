@@ -21,7 +21,7 @@ import java.util.List;
 
 import liquibase.changelog.ChangeSet.ExecType;
 import org.junit.jupiter.api.Test;
-
+import org.springframework.boot.actuate.liquibase.ILiquibaseEndpoint;
 import org.springframework.boot.actuate.liquibase.LiquibaseEndpoint;
 import org.springframework.boot.autoconfigure.jdbc.EmbeddedDataSourceConfiguration;
 import org.springframework.boot.autoconfigure.liquibase.LiquibaseAutoConfiguration;
@@ -82,7 +82,7 @@ class LiquibaseEndpointDocumentationTests extends MockMvcEndpointDocumentationTe
 	static class TestConfiguration {
 
 		@Bean
-		LiquibaseEndpoint endpoint(ApplicationContext context) {
+		ILiquibaseEndpoint endpoint(ApplicationContext context) {
 			return new LiquibaseEndpoint(context);
 		}
 
