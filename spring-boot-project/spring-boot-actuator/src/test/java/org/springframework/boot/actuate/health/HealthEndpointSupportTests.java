@@ -38,7 +38,7 @@ import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException
  * @author Phillip Webb
  * @author Madhura Bhave
  */
-abstract class HealthEndpointSupportTests<R extends ContributorRegistry<C>, C, T> {
+abstract class HealthEndpointSupportTests<R extends ContributorRegistry<C>, C, T> implements IHealthEndpointSupportTests<R, C, T> {
 
 	final R registry;
 
