@@ -58,7 +58,7 @@ import static org.assertj.core.api.Assertions.entry;
  * @author Chris Bono
  */
 @SuppressWarnings("unchecked")
-class ConfigurationPropertiesReportEndpointTests {
+class ConfigurationPropertiesReportEndpointTests implements IConfigurationPropertiesReportEndpointTests {
 
 	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.withUserConfiguration(EndpointConfig.class);
