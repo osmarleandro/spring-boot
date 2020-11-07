@@ -36,7 +36,7 @@ import static org.mockito.BDDMockito.given;
  * @author Phillip Webb
  */
 @ExtendWith(MockitoExtension.class)
-class AvailabilityStateHealthIndicatorTests {
+class AvailabilityStateHealthIndicatorTests implements IAvailabilityStateHealthIndicatorTests {
 
 	@Mock
 	private ApplicationAvailability applicationAvailability;
