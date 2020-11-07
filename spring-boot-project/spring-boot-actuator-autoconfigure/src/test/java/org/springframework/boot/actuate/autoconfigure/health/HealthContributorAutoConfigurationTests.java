@@ -20,6 +20,7 @@ import org.junit.jupiter.api.Test;
 
 import org.springframework.boot.actuate.health.Health;
 import org.springframework.boot.actuate.health.HealthIndicator;
+import org.springframework.boot.actuate.health.IHealthIndicator;
 import org.springframework.boot.actuate.health.PingHealthIndicator;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
 import org.springframework.boot.test.context.runner.ApplicationContextRunner;
@@ -73,7 +74,7 @@ class HealthContributorAutoConfigurationTests {
 
 		@Bean
 		@ConditionalOnEnabledHealthIndicator("custom")
-		HealthIndicator customHealthIndicator() {
+		IHealthIndicator customHealthIndicator() {
 			return new CustomHealthIndicator();
 		}
 

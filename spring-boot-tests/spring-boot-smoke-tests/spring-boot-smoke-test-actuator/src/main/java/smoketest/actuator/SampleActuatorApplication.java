@@ -18,7 +18,7 @@ package smoketest.actuator;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.actuate.health.Health;
-import org.springframework.boot.actuate.health.HealthIndicator;
+import org.springframework.boot.actuate.health.IHealthIndicator;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
 import org.springframework.context.annotation.Bean;
@@ -32,7 +32,7 @@ public class SampleActuatorApplication {
 	}
 
 	@Bean
-	public HealthIndicator helloHealthIndicator() {
+	public IHealthIndicator helloHealthIndicator() {
 		return () -> Health.up().withDetail("hello", "world").build();
 	}
 

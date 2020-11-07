@@ -34,8 +34,8 @@ import org.springframework.boot.actuate.health.HealthEndpoint;
 import org.springframework.boot.actuate.health.HealthEndpointGroups;
 import org.springframework.boot.actuate.health.HealthEndpointGroupsPostProcessor;
 import org.springframework.boot.actuate.health.HealthEndpointWebExtension;
-import org.springframework.boot.actuate.health.HealthIndicator;
 import org.springframework.boot.actuate.health.HttpCodeStatusMapper;
+import org.springframework.boot.actuate.health.IHealthIndicator;
 import org.springframework.boot.actuate.health.NamedContributor;
 import org.springframework.boot.actuate.health.ReactiveHealthContributorRegistry;
 import org.springframework.boot.actuate.health.ReactiveHealthEndpointWebExtension;
@@ -263,12 +263,12 @@ class HealthEndpointAutoConfigurationTests {
 	static class HealthIndicatorsConfiguration {
 
 		@Bean
-		HealthIndicator simpleHealthIndicator() {
+		IHealthIndicator simpleHealthIndicator() {
 			return () -> Health.up().withDetail("counter", 42).build();
 		}
 
 		@Bean
-		HealthIndicator additionalHealthIndicator() {
+		IHealthIndicator additionalHealthIndicator() {
 			return () -> Health.up().build();
 		}
 

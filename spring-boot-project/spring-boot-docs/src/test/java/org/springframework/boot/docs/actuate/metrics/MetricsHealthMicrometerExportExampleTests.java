@@ -26,7 +26,7 @@ import org.springframework.boot.actuate.autoconfigure.health.HealthContributorAu
 import org.springframework.boot.actuate.autoconfigure.health.HealthEndpointAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.metrics.MetricsAutoConfiguration;
 import org.springframework.boot.actuate.health.Health;
-import org.springframework.boot.actuate.health.HealthIndicator;
+import org.springframework.boot.actuate.health.IHealthIndicator;
 import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Bean;
@@ -69,7 +69,7 @@ class MetricsHealthMicrometerExportExampleTests {
 		}
 
 		@Bean
-		HealthIndicator outOfService() {
+		IHealthIndicator outOfService() {
 			return () -> new Health.Builder().outOfService().build();
 		}
 

@@ -20,7 +20,7 @@ import java.util.Map;
 
 import org.springframework.boot.actuate.health.CompositeHealthContributor;
 import org.springframework.boot.actuate.health.HealthContributor;
-import org.springframework.boot.actuate.health.HealthIndicator;
+import org.springframework.boot.actuate.health.IHealthIndicator;
 
 /**
  * Base class for health contributor configurations that can combine source beans into a
@@ -32,7 +32,7 @@ import org.springframework.boot.actuate.health.HealthIndicator;
  * @author Phillip Webb
  * @since 2.2.0
  */
-public abstract class CompositeHealthContributorConfiguration<I extends HealthIndicator, B>
+public abstract class CompositeHealthContributorConfiguration<I extends IHealthIndicator, B>
 		extends AbstractCompositeHealthContributorConfiguration<HealthContributor, I, B> {
 
 	@Override
