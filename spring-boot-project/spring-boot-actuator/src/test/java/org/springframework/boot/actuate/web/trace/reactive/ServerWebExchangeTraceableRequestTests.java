@@ -36,7 +36,7 @@ import static org.mockito.Mockito.mock;
  *
  * @author Dmytro Nosan
  */
-class ServerWebExchangeTraceableRequestTests {
+class ServerWebExchangeTraceableRequestTests implements IServerWebExchangeTraceableRequestTests {
 
 	private ServerWebExchange exchange;
 
