@@ -28,7 +28,7 @@ import org.springframework.util.StringUtils;
  *
  * @author Stephane Nicoll
  */
-class Neo4jHealthDetailsHandler {
+class Neo4jHealthDetailsHandler implements INeo4jHealthDetailsHandler {
 
 	/**
 	 * Add health details for the specified {@link ResultSummary} and {@code edition}.
