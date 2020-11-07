@@ -23,7 +23,7 @@ package org.springframework.boot.actuate.endpoint.http;
  * @author Madhura Bhave
  * @since 2.0.0
  */
-public final class ActuatorMediaType {
+public final class ActuatorMediaType implements IActuatorMediaType {
 
 	/**
 	 * Constant for the Actuator {@link ApiVersion#V2 v2} media type.
