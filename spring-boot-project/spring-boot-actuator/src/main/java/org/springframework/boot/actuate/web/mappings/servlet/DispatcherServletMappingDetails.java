@@ -16,7 +16,7 @@
 
 package org.springframework.boot.actuate.web.mappings.servlet;
 
-import org.springframework.boot.actuate.web.mappings.HandlerMethodDescription;
+import org.springframework.boot.actuate.web.mappings.IHandlerMethodDescription;
 import org.springframework.web.servlet.DispatcherServlet;
 
 /**
@@ -27,15 +27,15 @@ import org.springframework.web.servlet.DispatcherServlet;
  */
 public class DispatcherServletMappingDetails {
 
-	private HandlerMethodDescription handlerMethod;
+	private IHandlerMethodDescription handlerMethod;
 
 	private RequestMappingConditionsDescription requestMappingConditions;
 
-	public HandlerMethodDescription getHandlerMethod() {
+	public IHandlerMethodDescription getHandlerMethod() {
 		return this.handlerMethod;
 	}
 
-	void setHandlerMethod(HandlerMethodDescription handlerMethod) {
+	void setHandlerMethod(IHandlerMethodDescription handlerMethod) {
 		this.handlerMethod = handlerMethod;
 	}
 

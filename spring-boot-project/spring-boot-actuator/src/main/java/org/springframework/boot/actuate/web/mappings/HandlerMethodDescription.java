@@ -25,7 +25,7 @@ import org.springframework.web.method.HandlerMethod;
  * @author Andy Wilkinson
  * @since 2.0.0
  */
-public class HandlerMethodDescription {
+public class HandlerMethodDescription implements IHandlerMethodDescription {
 
 	private final String className;
 
