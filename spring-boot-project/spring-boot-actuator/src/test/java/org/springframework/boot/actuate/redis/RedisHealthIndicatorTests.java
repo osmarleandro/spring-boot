@@ -44,7 +44,7 @@ import static org.mockito.Mockito.verify;
  * @author Richard Santana
  * @author Stephane Nicoll
  */
-class RedisHealthIndicatorTests {
+class RedisHealthIndicatorTests implements IRedisHealthIndicatorTests {
 
 	@Test
 	void redisIsUp() {
