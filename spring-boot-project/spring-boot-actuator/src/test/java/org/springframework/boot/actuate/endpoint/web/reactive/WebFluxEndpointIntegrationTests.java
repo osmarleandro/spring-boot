@@ -118,7 +118,7 @@ class WebFluxEndpointIntegrationTests
 		}
 
 		@Bean
-		WebFluxEndpointHandlerMapping webEndpointHandlerMapping(Environment environment,
+		IWebFluxEndpointHandlerMapping webEndpointHandlerMapping(Environment environment,
 				WebEndpointDiscoverer endpointDiscoverer, EndpointMediaTypes endpointMediaTypes) {
 			CorsConfiguration corsConfiguration = new CorsConfiguration();
 			corsConfiguration.setAllowedOrigins(Arrays.asList("https://example.com"));
