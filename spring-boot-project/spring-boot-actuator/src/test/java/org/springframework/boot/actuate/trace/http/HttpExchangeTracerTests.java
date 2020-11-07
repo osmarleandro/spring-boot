@@ -42,7 +42,7 @@ import static org.mockito.Mockito.mock;
  *
  * @author Andy Wilkinson
  */
-class HttpExchangeTracerTests {
+class HttpExchangeTracerTests implements IHttpExchangeTracerTests {
 
 	@Test
 	void methodIsIncluded() {
