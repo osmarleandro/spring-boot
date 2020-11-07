@@ -39,7 +39,7 @@ import org.springframework.context.ApplicationListener;
  * @author Andy Wilkinson
  * @since 2.1.0
  */
-public class TomcatMetricsBinder implements ApplicationListener<ApplicationStartedEvent>, DisposableBean {
+public class TomcatMetricsBinder implements ApplicationListener<ApplicationStartedEvent>, DisposableBean, ITomcatMetricsBinder {
 
 	private final MeterRegistry meterRegistry;
 

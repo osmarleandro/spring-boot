@@ -26,6 +26,7 @@ import org.apache.tomcat.util.modeler.Registry;
 import org.junit.jupiter.api.Test;
 
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.actuate.metrics.web.tomcat.ITomcatMetricsBinder;
 import org.springframework.boot.actuate.metrics.web.tomcat.TomcatMetricsBinder;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
 import org.springframework.boot.autoconfigure.web.reactive.ReactiveWebServerFactoryAutoConfiguration;
@@ -165,7 +166,7 @@ class TomcatMetricsAutoConfigurationTests {
 	static class CustomTomcatMetricsBinder {
 
 		@Bean
-		TomcatMetricsBinder customTomcatMetricsBinder(MeterRegistry meterRegistry) {
+		ITomcatMetricsBinder customTomcatMetricsBinder(MeterRegistry meterRegistry) {
 			return new TomcatMetricsBinder(meterRegistry);
 		}
 
