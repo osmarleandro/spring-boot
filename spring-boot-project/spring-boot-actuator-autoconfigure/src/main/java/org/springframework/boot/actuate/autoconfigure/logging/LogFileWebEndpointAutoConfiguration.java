@@ -18,6 +18,7 @@ package org.springframework.boot.actuate.autoconfigure.logging;
 
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.boot.actuate.autoconfigure.endpoint.condition.ConditionalOnAvailableEndpoint;
+import org.springframework.boot.actuate.logging.ILogFileWebEndpoint;
 import org.springframework.boot.actuate.logging.LogFileWebEndpoint;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionMessage;
@@ -49,7 +50,7 @@ public class LogFileWebEndpointAutoConfiguration {
 	@Bean
 	@ConditionalOnMissingBean
 	@Conditional(LogFileCondition.class)
-	public LogFileWebEndpoint logFileWebEndpoint(ObjectProvider<LogFile> logFile,
+	public ILogFileWebEndpoint logFileWebEndpoint(ObjectProvider<LogFile> logFile,
 			LogFileWebEndpointProperties properties) {
 		return new LogFileWebEndpoint(logFile.getIfAvailable(), properties.getExternalFile());
 	}

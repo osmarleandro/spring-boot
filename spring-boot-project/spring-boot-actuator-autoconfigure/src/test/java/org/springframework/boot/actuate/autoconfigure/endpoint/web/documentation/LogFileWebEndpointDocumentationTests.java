@@ -17,7 +17,7 @@
 package org.springframework.boot.actuate.autoconfigure.endpoint.web.documentation;
 
 import org.junit.jupiter.api.Test;
-
+import org.springframework.boot.actuate.logging.ILogFileWebEndpoint;
 import org.springframework.boot.actuate.logging.LogFileWebEndpoint;
 import org.springframework.boot.logging.LogFile;
 import org.springframework.context.annotation.Bean;
@@ -56,7 +56,7 @@ class LogFileWebEndpointDocumentationTests extends MockMvcEndpointDocumentationT
 	static class TestConfiguration {
 
 		@Bean
-		LogFileWebEndpoint endpoint(Environment environment) {
+		ILogFileWebEndpoint endpoint(Environment environment) {
 			return new LogFileWebEndpoint(LogFile.get(environment), null);
 		}
 

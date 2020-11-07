@@ -37,7 +37,7 @@ import org.springframework.core.io.Resource;
  * @since 2.0.0
  */
 @WebEndpoint(id = "logfile")
-public class LogFileWebEndpoint {
+public class LogFileWebEndpoint implements ILogFileWebEndpoint {
 
 	private static final Log logger = LogFactory.getLog(LogFileWebEndpoint.class);
 
