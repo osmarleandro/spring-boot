@@ -26,7 +26,7 @@ import javax.servlet.FilterRegistration;
  * @author Andy Wilkinson
  * @since 2.0.0
  */
-public class FilterRegistrationMappingDescription extends RegistrationMappingDescription<FilterRegistration> {
+public class FilterRegistrationMappingDescription extends RegistrationMappingDescription<FilterRegistration> implements IFilterRegistrationMappingDescription {
 
 	/**
 	 * Creates a new {@code FilterRegistrationMappingDescription} derived from the given
