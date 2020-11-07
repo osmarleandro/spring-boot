@@ -29,7 +29,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Phillip Webb
  */
-class IsoOffsetDateTimeConverterTests {
+class IsoOffsetDateTimeConverterTests implements IIsoOffsetDateTimeConverterTests {
 
 	@Test
 	void convertShouldConvertIsoDate() {
