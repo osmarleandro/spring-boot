@@ -22,7 +22,7 @@ package org.springframework.boot.actuate.endpoint;
  * @author Stephane Nicoll
  * @since 2.0.0
  */
-public class InvalidEndpointRequestException extends RuntimeException {
+public class InvalidEndpointRequestException extends RuntimeException implements IInvalidEndpointRequestException {
 
 	private final String reason;
 
