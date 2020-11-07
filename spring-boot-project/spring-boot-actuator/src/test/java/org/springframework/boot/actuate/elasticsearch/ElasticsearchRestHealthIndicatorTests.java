@@ -42,7 +42,7 @@ import static org.mockito.Mockito.mock;
  * @author Artsiom Yudovin
  * @author Filip Hrisafov
  */
-class ElasticsearchRestHealthIndicatorTests {
+class ElasticsearchRestHealthIndicatorTests implements IElasticsearchRestHealthIndicatorTests {
 
 	private final RestClient restClient = mock(RestClient.class);
 
