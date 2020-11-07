@@ -277,7 +277,7 @@ class HttpExchangeTracerTests {
 		requestHeaders.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
 		requestHeaders.set(HttpHeaders.COOKIE, "value");
 		requestHeaders.set(HttpHeaders.AUTHORIZATION, "secret");
-		HttpExchangeTracer tracer = new HttpExchangeTracer(Include.defaultIncludes());
+		IHttpExchangeTracer tracer = new HttpExchangeTracer(Include.defaultIncludes());
 		HttpTrace trace = tracer.receivedRequest(createRequest(requestHeaders));
 		HttpHeaders responseHeaders = new HttpHeaders();
 		responseHeaders.set(HttpHeaders.SET_COOKIE, "test=test");

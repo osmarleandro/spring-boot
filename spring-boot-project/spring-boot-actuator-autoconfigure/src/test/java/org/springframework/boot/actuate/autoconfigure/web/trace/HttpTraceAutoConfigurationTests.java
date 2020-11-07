@@ -26,6 +26,7 @@ import org.springframework.boot.actuate.autoconfigure.trace.http.HttpTraceProper
 import org.springframework.boot.actuate.trace.http.HttpExchangeTracer;
 import org.springframework.boot.actuate.trace.http.HttpTrace;
 import org.springframework.boot.actuate.trace.http.HttpTraceRepository;
+import org.springframework.boot.actuate.trace.http.IHttpExchangeTracer;
 import org.springframework.boot.actuate.trace.http.InMemoryHttpTraceRepository;
 import org.springframework.boot.actuate.trace.http.Include;
 import org.springframework.boot.actuate.web.trace.reactive.HttpTraceWebFilter;
@@ -151,7 +152,7 @@ class HttpTraceAutoConfigurationTests {
 
 	private static final class CustomHttpTraceWebFilter extends HttpTraceWebFilter {
 
-		private CustomHttpTraceWebFilter(HttpTraceRepository repository, HttpExchangeTracer tracer,
+		private CustomHttpTraceWebFilter(HttpTraceRepository repository, IHttpExchangeTracer tracer,
 				Set<Include> includes) {
 			super(repository, tracer, includes);
 		}
@@ -162,7 +163,7 @@ class HttpTraceAutoConfigurationTests {
 	static class CustomWebFilterConfiguration {
 
 		@Bean
-		CustomHttpTraceWebFilter customWebFilter(HttpTraceRepository repository, HttpExchangeTracer tracer,
+		CustomHttpTraceWebFilter customWebFilter(HttpTraceRepository repository, IHttpExchangeTracer tracer,
 				HttpTraceProperties properties) {
 			return new CustomHttpTraceWebFilter(repository, tracer, properties.getInclude());
 		}
@@ -171,7 +172,7 @@ class HttpTraceAutoConfigurationTests {
 
 	private static final class CustomHttpTraceFilter extends HttpTraceFilter {
 
-		private CustomHttpTraceFilter(HttpTraceRepository repository, HttpExchangeTracer tracer) {
+		private CustomHttpTraceFilter(HttpTraceRepository repository, IHttpExchangeTracer tracer) {
 			super(repository, tracer);
 		}
 
@@ -181,7 +182,7 @@ class HttpTraceAutoConfigurationTests {
 	static class CustomFilterConfiguration {
 
 		@Bean
-		CustomHttpTraceFilter customWebFilter(HttpTraceRepository repository, HttpExchangeTracer tracer) {
+		CustomHttpTraceFilter customWebFilter(HttpTraceRepository repository, IHttpExchangeTracer tracer) {
 			return new CustomHttpTraceFilter(repository, tracer);
 		}
 

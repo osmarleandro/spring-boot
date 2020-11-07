@@ -18,6 +18,7 @@ package org.springframework.boot.actuate.autoconfigure.trace.http;
 
 import org.springframework.boot.actuate.trace.http.HttpExchangeTracer;
 import org.springframework.boot.actuate.trace.http.HttpTraceRepository;
+import org.springframework.boot.actuate.trace.http.IHttpExchangeTracer;
 import org.springframework.boot.actuate.web.trace.reactive.HttpTraceWebFilter;
 import org.springframework.boot.actuate.web.trace.servlet.HttpTraceFilter;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -45,7 +46,7 @@ public class HttpTraceAutoConfiguration {
 
 	@Bean
 	@ConditionalOnMissingBean
-	public HttpExchangeTracer httpExchangeTracer(HttpTraceProperties traceProperties) {
+	public IHttpExchangeTracer httpExchangeTracer(HttpTraceProperties traceProperties) {
 		return new HttpExchangeTracer(traceProperties.getInclude());
 	}
 
@@ -55,7 +56,7 @@ public class HttpTraceAutoConfiguration {
 
 		@Bean
 		@ConditionalOnMissingBean
-		HttpTraceFilter httpTraceFilter(HttpTraceRepository repository, HttpExchangeTracer tracer) {
+		HttpTraceFilter httpTraceFilter(HttpTraceRepository repository, IHttpExchangeTracer tracer) {
 			return new HttpTraceFilter(repository, tracer);
 		}
 
@@ -67,7 +68,7 @@ public class HttpTraceAutoConfiguration {
 
 		@Bean
 		@ConditionalOnMissingBean
-		HttpTraceWebFilter httpTraceWebFilter(HttpTraceRepository repository, HttpExchangeTracer tracer,
+		HttpTraceWebFilter httpTraceWebFilter(HttpTraceRepository repository, IHttpExchangeTracer tracer,
 				HttpTraceProperties traceProperties) {
 			return new HttpTraceWebFilter(repository, tracer, traceProperties.getInclude());
 		}
