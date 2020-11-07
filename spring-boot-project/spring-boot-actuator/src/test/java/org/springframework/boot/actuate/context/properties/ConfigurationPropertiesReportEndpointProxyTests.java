@@ -50,7 +50,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Andy Wilkinson
  * @author Madhura Bhave
  */
-class ConfigurationPropertiesReportEndpointProxyTests {
+class ConfigurationPropertiesReportEndpointProxyTests implements IConfigurationPropertiesReportEndpointProxyTests {
 
 	@Test
 	void testWithProxyClass() {
