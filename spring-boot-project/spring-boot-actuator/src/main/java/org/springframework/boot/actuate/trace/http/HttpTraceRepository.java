@@ -25,7 +25,7 @@ import java.util.List;
  * @author Andy Wilkinson
  * @since 2.0.0
  */
-public interface HttpTraceRepository {
+public interface HttpTraceRepository extends IHttpTraceRepository {
 
 	/**
 	 * Find all {@link HttpTrace} objects contained in the repository.
