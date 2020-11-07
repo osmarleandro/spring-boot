@@ -51,7 +51,7 @@ import org.springframework.web.util.NestedServletException;
  * @author Chanhyeong LEE
  * @since 2.0.0
  */
-public class WebMvcMetricsFilter extends OncePerRequestFilter {
+public class WebMvcMetricsFilter extends OncePerRequestFilter implements IWebMvcMetricsFilter {
 
 	private final MeterRegistry registry;
 

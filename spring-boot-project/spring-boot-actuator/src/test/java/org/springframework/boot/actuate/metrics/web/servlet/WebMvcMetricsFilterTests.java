@@ -363,7 +363,7 @@ class WebMvcMetricsFilterTests {
 		}
 
 		@Bean
-		WebMvcMetricsFilter webMetricsFilter(MeterRegistry registry, WebApplicationContext ctx) {
+		IWebMvcMetricsFilter webMetricsFilter(MeterRegistry registry, WebApplicationContext ctx) {
 			return new WebMvcMetricsFilter(registry, new DefaultWebMvcTagsProvider(true), "http.server.requests",
 					AutoTimer.ENABLED);
 		}
