@@ -23,8 +23,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.actuate.endpoint.EndpointFilter;
 import org.springframework.boot.actuate.endpoint.ExposableEndpoint;
 import org.springframework.boot.actuate.endpoint.Operation;
+import org.springframework.boot.actuate.endpoint.invoke.IParameterValueMapper;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvokerAdvisor;
-import org.springframework.boot.actuate.endpoint.invoke.ParameterValueMapper;
 import org.springframework.context.ApplicationContext;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -76,7 +76,7 @@ class DiscovererEndpointFilterTests {
 
 	abstract static class TestDiscovererA extends EndpointDiscoverer<ExposableEndpoint<Operation>, Operation> {
 
-		TestDiscovererA(ApplicationContext applicationContext, ParameterValueMapper parameterValueMapper,
+		TestDiscovererA(ApplicationContext applicationContext, IParameterValueMapper parameterValueMapper,
 				Collection<OperationInvokerAdvisor> invokerAdvisors,
 				Collection<EndpointFilter<ExposableEndpoint<Operation>>> filters) {
 			super(applicationContext, parameterValueMapper, invokerAdvisors, filters);
@@ -86,7 +86,7 @@ class DiscovererEndpointFilterTests {
 
 	abstract static class TestDiscovererB extends EndpointDiscoverer<ExposableEndpoint<Operation>, Operation> {
 
-		TestDiscovererB(ApplicationContext applicationContext, ParameterValueMapper parameterValueMapper,
+		TestDiscovererB(ApplicationContext applicationContext, IParameterValueMapper parameterValueMapper,
 				Collection<OperationInvokerAdvisor> invokerAdvisors,
 				Collection<EndpointFilter<ExposableEndpoint<Operation>>> filters) {
 			super(applicationContext, parameterValueMapper, invokerAdvisors, filters);

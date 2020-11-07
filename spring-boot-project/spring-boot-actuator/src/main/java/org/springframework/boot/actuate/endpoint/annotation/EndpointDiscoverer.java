@@ -38,9 +38,9 @@ import org.springframework.boot.actuate.endpoint.EndpointId;
 import org.springframework.boot.actuate.endpoint.EndpointsSupplier;
 import org.springframework.boot.actuate.endpoint.ExposableEndpoint;
 import org.springframework.boot.actuate.endpoint.Operation;
+import org.springframework.boot.actuate.endpoint.invoke.IParameterValueMapper;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvoker;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvokerAdvisor;
-import org.springframework.boot.actuate.endpoint.invoke.ParameterValueMapper;
 import org.springframework.boot.util.LambdaSafe;
 import org.springframework.context.ApplicationContext;
 import org.springframework.core.ResolvableType;
@@ -87,7 +87,7 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 	 * @param invokerAdvisors invoker advisors to apply
 	 * @param filters filters to apply
 	 */
-	public EndpointDiscoverer(ApplicationContext applicationContext, ParameterValueMapper parameterValueMapper,
+	public EndpointDiscoverer(ApplicationContext applicationContext, IParameterValueMapper parameterValueMapper,
 			Collection<OperationInvokerAdvisor> invokerAdvisors, Collection<EndpointFilter<E>> filters) {
 		Assert.notNull(applicationContext, "ApplicationContext must not be null");
 		Assert.notNull(parameterValueMapper, "ParameterValueMapper must not be null");
@@ -98,7 +98,7 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 		this.operationsFactory = getOperationsFactory(parameterValueMapper, invokerAdvisors);
 	}
 
-	private DiscoveredOperationsFactory<O> getOperationsFactory(ParameterValueMapper parameterValueMapper,
+	private DiscoveredOperationsFactory<O> getOperationsFactory(IParameterValueMapper parameterValueMapper,
 			Collection<OperationInvokerAdvisor> invokerAdvisors) {
 		return new DiscoveredOperationsFactory<O>(parameterValueMapper, invokerAdvisors) {
 

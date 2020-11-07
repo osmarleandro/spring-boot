@@ -38,6 +38,7 @@ import org.springframework.boot.actuate.endpoint.EndpointFilter;
 import org.springframework.boot.actuate.endpoint.EndpointId;
 import org.springframework.boot.actuate.endpoint.ExposableEndpoint;
 import org.springframework.boot.actuate.endpoint.Operation;
+import org.springframework.boot.actuate.endpoint.invoke.IParameterValueMapper;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvoker;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvokerAdvisor;
 import org.springframework.boot.actuate.endpoint.invoke.ParameterValueMapper;
@@ -535,7 +536,7 @@ class EndpointDiscovererTests {
 					Collections.singleton(new CachingOperationInvokerAdvisor(timeToLive)), filters);
 		}
 
-		TestEndpointDiscoverer(ApplicationContext applicationContext, ParameterValueMapper parameterValueMapper,
+		TestEndpointDiscoverer(ApplicationContext applicationContext, IParameterValueMapper parameterValueMapper,
 				Collection<OperationInvokerAdvisor> invokerAdvisors,
 				Collection<EndpointFilter<TestExposableEndpoint>> filters) {
 			super(applicationContext, parameterValueMapper, invokerAdvisors, filters);

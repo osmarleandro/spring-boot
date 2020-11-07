@@ -23,12 +23,12 @@ package org.springframework.boot.actuate.endpoint.invoke;
  * @since 2.0.0
  */
 @FunctionalInterface
-public interface ParameterValueMapper {
+public interface ParameterValueMapper extends IParameterValueMapper {
 
 	/**
 	 * A {@link ParameterValueMapper} that does nothing.
 	 */
-	ParameterValueMapper NONE = (parameter, value) -> value;
+	IParameterValueMapper NONE = (parameter, value) -> value;
 
 	/**
 	 * Map the specified {@code input} parameter to the given {@code parameterType}.
