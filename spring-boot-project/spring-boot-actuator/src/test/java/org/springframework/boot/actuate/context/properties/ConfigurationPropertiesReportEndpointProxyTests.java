@@ -84,7 +84,7 @@ class ConfigurationPropertiesReportEndpointProxyTests {
 	static class Config {
 
 		@Bean
-		ConfigurationPropertiesReportEndpoint endpoint() {
+		IConfigurationPropertiesReportEndpoint endpoint() {
 			return new ConfigurationPropertiesReportEndpoint();
 		}
 

@@ -311,7 +311,7 @@ class ConfigurationPropertiesReportEndpointTests {
 	private ContextConsumer<AssertableApplicationContext> assertProperties(String prefix,
 			Consumer<Map<String, Object>> properties, Consumer<Map<String, Object>> inputs) {
 		return (context) -> {
-			ConfigurationPropertiesReportEndpoint endpoint = context
+			IConfigurationPropertiesReportEndpoint endpoint = context
 					.getBean(ConfigurationPropertiesReportEndpoint.class);
 			ContextConfigurationProperties allProperties = endpoint.configurationProperties().getContexts()
 					.get(context.getId());
@@ -367,8 +367,8 @@ class ConfigurationPropertiesReportEndpointTests {
 	static class EndpointConfig {
 
 		@Bean
-		ConfigurationPropertiesReportEndpoint endpoint(Environment environment) {
-			ConfigurationPropertiesReportEndpoint endpoint = new ConfigurationPropertiesReportEndpoint();
+		IConfigurationPropertiesReportEndpoint endpoint(Environment environment) {
+			IConfigurationPropertiesReportEndpoint endpoint = new ConfigurationPropertiesReportEndpoint();
 			String[] keys = environment.getProperty("test.keys-to-sanitize", String[].class);
 			if (keys != null) {
 				endpoint.setKeysToSanitize(keys);
