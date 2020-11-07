@@ -35,6 +35,7 @@ import org.springframework.boot.actuate.endpoint.invoke.convert.ConversionServic
 import org.springframework.boot.actuate.endpoint.invoker.cache.CachingOperationInvoker;
 import org.springframework.boot.actuate.endpoint.invoker.cache.CachingOperationInvokerAdvisor;
 import org.springframework.boot.actuate.endpoint.jmx.ExposableJmxEndpoint;
+import org.springframework.boot.actuate.endpoint.jmx.IJmxOperation;
 import org.springframework.boot.actuate.endpoint.jmx.JmxOperation;
 import org.springframework.boot.actuate.endpoint.jmx.JmxOperationParameter;
 import org.springframework.boot.actuate.endpoint.web.annotation.WebEndpoint;
@@ -201,7 +202,7 @@ class JmxEndpointDiscovererTests {
 						"Endpoint bean 'nonJmxEndpoint' cannot support the extension bean 'nonJmxJmxEndpointExtension'"));
 	}
 
-	private Object getInvoker(JmxOperation operation) {
+	private Object getInvoker(IJmxOperation operation) {
 		return ReflectionTestUtils.getField(operation, "invoker");
 	}
 
