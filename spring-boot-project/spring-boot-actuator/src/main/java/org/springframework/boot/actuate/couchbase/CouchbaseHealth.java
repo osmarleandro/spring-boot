@@ -32,7 +32,7 @@ import org.springframework.boot.actuate.health.Health.Builder;
  *
  * @author Andy Wilkinson
  */
-class CouchbaseHealth {
+class CouchbaseHealth implements ICouchbaseHealth {
 
 	private final DiagnosticsResult diagnostics;
 
