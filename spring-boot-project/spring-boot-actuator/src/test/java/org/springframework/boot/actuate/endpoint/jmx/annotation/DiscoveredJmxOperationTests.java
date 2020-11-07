@@ -45,7 +45,7 @@ import static org.mockito.Mockito.mock;
  *
  * @author Phillip Webb
  */
-class DiscoveredJmxOperationTests {
+class DiscoveredJmxOperationTests implements IDiscoveredJmxOperationTests {
 
 	@Test
 	void getNameShouldReturnMethodName() {
