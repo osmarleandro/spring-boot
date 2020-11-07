@@ -30,7 +30,7 @@ import org.springframework.test.web.reactive.server.WebTestClient;
  *
  * @author Tim Ysewyn
  */
-class IntegrationGraphEndpointWebIntegrationTests {
+class IntegrationGraphEndpointWebIntegrationTests implements IIntegrationGraphEndpointWebIntegrationTests {
 
 	@WebEndpointTest
 	void graph(WebTestClient client) {
