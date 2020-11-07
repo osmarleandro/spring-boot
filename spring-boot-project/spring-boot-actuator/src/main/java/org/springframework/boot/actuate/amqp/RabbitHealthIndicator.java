@@ -29,7 +29,7 @@ import org.springframework.util.Assert;
  * @author Christian Dupuis
  * @since 1.1.0
  */
-public class RabbitHealthIndicator extends AbstractHealthIndicator {
+public class RabbitHealthIndicator extends AbstractHealthIndicator implements IRabbitHealthIndicator {
 
 	private final RabbitTemplate rabbitTemplate;
 
