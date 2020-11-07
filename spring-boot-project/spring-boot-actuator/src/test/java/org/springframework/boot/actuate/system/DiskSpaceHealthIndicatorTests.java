@@ -39,7 +39,7 @@ import static org.mockito.BDDMockito.given;
  * @author Stephane Nicoll
  */
 @ExtendWith(MockitoExtension.class)
-class DiskSpaceHealthIndicatorTests {
+class DiskSpaceHealthIndicatorTests implements IDiskSpaceHealthIndicatorTests {
 
 	private static final DataSize THRESHOLD = DataSize.ofKilobytes(1);
 
