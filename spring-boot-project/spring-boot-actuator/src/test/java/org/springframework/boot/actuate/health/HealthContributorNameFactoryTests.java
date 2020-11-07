@@ -25,7 +25,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Phillip Webb
  */
-class HealthContributorNameFactoryTests {
+class HealthContributorNameFactoryTests implements IHealthContributorNameFactoryTests {
 
 	@Test
 	void applyWhenNameDoesNotEndWithSuffixReturnsName() {
