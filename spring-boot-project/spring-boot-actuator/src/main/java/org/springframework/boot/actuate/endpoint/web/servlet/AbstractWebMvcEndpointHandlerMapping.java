@@ -74,7 +74,7 @@ import org.springframework.web.util.UrlPathHelper;
  * @since 2.0.0
  */
 public abstract class AbstractWebMvcEndpointHandlerMapping extends RequestMappingInfoHandlerMapping
-		implements InitializingBean, MatchableHandlerMapping {
+		implements InitializingBean, MatchableHandlerMapping, IAbstractWebMvcEndpointHandlerMapping {
 
 	private final EndpointMapping endpointMapping;
 
