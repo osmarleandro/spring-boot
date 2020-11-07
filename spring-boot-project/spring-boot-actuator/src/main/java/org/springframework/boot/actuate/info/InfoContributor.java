@@ -23,7 +23,7 @@ package org.springframework.boot.actuate.info;
  * @since 1.4.0
  */
 @FunctionalInterface
-public interface InfoContributor {
+public interface InfoContributor extends IInfoContributor {
 
 	/**
 	 * Contributes additional details using the specified {@link Info.Builder Builder}.
