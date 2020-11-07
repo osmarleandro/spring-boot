@@ -191,7 +191,7 @@ class HealthEndpointWebIntegrationTests {
 
 		@Bean
 		@ConditionalOnWebApplication(type = Type.SERVLET)
-		HealthEndpointWebExtension healthWebEndpointExtension(HealthContributorRegistry healthContributorRegistry,
+		IHealthEndpointWebExtension healthWebEndpointExtension(HealthContributorRegistry healthContributorRegistry,
 				HealthEndpointGroups healthEndpointGroups) {
 			return new HealthEndpointWebExtension(healthContributorRegistry, healthEndpointGroups);
 		}
