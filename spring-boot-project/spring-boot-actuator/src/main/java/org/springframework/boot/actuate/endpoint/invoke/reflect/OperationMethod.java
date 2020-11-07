@@ -32,7 +32,7 @@ import org.springframework.util.Assert;
  * @since 2.0.0
  * @see ReflectiveOperationInvoker
  */
-public class OperationMethod {
+public class OperationMethod implements IOperationMethod {
 
 	private static final ParameterNameDiscoverer DEFAULT_PARAMETER_NAME_DISCOVERER = new DefaultParameterNameDiscoverer();
 

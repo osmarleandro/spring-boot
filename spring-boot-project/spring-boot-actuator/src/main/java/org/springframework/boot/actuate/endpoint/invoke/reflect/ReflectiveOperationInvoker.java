@@ -44,7 +44,7 @@ public class ReflectiveOperationInvoker implements OperationInvoker {
 
 	private final Object target;
 
-	private final OperationMethod operationMethod;
+	private final IOperationMethod operationMethod;
 
 	private final ParameterValueMapper parameterValueMapper;
 
@@ -57,7 +57,7 @@ public class ReflectiveOperationInvoker implements OperationInvoker {
 	 * @param operationMethod the method info
 	 * @param parameterValueMapper the parameter mapper
 	 */
-	public ReflectiveOperationInvoker(Object target, OperationMethod operationMethod,
+	public ReflectiveOperationInvoker(Object target, IOperationMethod operationMethod,
 			ParameterValueMapper parameterValueMapper) {
 		Assert.notNull(target, "Target must not be null");
 		Assert.notNull(operationMethod, "OperationMethod must not be null");

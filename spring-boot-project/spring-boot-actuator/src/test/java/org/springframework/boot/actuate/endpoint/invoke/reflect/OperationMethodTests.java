@@ -50,19 +50,19 @@ class OperationMethodTests {
 
 	@Test
 	void getMethodShouldReturnMethod() {
-		OperationMethod operationMethod = new OperationMethod(this.exampleMethod, OperationType.READ);
+		IOperationMethod operationMethod = new OperationMethod(this.exampleMethod, OperationType.READ);
 		assertThat(operationMethod.getMethod()).isEqualTo(this.exampleMethod);
 	}
 
 	@Test
 	void getOperationTypeShouldReturnOperationType() {
-		OperationMethod operationMethod = new OperationMethod(this.exampleMethod, OperationType.READ);
+		IOperationMethod operationMethod = new OperationMethod(this.exampleMethod, OperationType.READ);
 		assertThat(operationMethod.getOperationType()).isEqualTo(OperationType.READ);
 	}
 
 	@Test
 	void getParametersShouldReturnParameters() {
-		OperationMethod operationMethod = new OperationMethod(this.exampleMethod, OperationType.READ);
+		IOperationMethod operationMethod = new OperationMethod(this.exampleMethod, OperationType.READ);
 		OperationParameters parameters = operationMethod.getParameters();
 		assertThat(parameters.getParameterCount()).isEqualTo(1);
 		assertThat(parameters.iterator().next().getName()).isEqualTo("name");
