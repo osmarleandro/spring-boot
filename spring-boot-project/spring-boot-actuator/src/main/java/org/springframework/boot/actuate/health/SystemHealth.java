@@ -32,7 +32,7 @@ import org.springframework.boot.actuate.endpoint.http.ApiVersion;
  * @author Phillip Webb
  * @since 2.2.0
  */
-public final class SystemHealth extends CompositeHealth {
+public final class SystemHealth extends CompositeHealth implements ISystemHealth {
 
 	private final Set<String> groups;
 
