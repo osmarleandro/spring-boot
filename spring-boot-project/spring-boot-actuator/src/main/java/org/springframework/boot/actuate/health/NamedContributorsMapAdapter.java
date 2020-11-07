@@ -34,7 +34,7 @@ import org.springframework.util.Assert;
  * @see CompositeHealthContributorMapAdapter
  * @see CompositeReactiveHealthContributorMapAdapter
  */
-abstract class NamedContributorsMapAdapter<V, C> implements NamedContributors<C> {
+abstract class NamedContributorsMapAdapter<V, C> implements NamedContributors<C>, INamedContributorsMapAdapter<V, C> {
 
 	private final Map<String, V> map;
 
