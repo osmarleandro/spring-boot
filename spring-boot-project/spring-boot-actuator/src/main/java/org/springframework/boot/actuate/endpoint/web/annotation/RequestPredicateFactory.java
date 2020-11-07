@@ -42,7 +42,7 @@ import org.springframework.util.Assert;
  * @author Stephane Nicoll
  * @author Phillip Webb
  */
-class RequestPredicateFactory {
+class RequestPredicateFactory implements IRequestPredicateFactory {
 
 	private final EndpointMediaTypes endpointMediaTypes;
 
