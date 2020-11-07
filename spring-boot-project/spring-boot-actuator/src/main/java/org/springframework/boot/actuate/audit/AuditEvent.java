@@ -44,7 +44,7 @@ import org.springframework.util.Assert;
  * @see AuditEventRepository
  */
 @JsonInclude(Include.NON_EMPTY)
-public class AuditEvent implements Serializable {
+public class AuditEvent implements Serializable, IAuditEvent {
 
 	private final Instant timestamp;
 

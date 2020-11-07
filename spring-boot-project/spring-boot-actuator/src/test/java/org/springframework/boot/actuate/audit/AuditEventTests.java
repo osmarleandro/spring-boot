@@ -36,7 +36,7 @@ class AuditEventTests {
 
 	@Test
 	void nowEvent() {
-		AuditEvent event = new AuditEvent("phil", "UNKNOWN", Collections.singletonMap("a", "b"));
+		IAuditEvent event = new AuditEvent("phil", "UNKNOWN", Collections.singletonMap("a", "b"));
 		assertThat(event.getData().get("a")).isEqualTo("b");
 		assertThat(event.getType()).isEqualTo("UNKNOWN");
 		assertThat(event.getPrincipal()).isEqualTo("phil");
@@ -45,14 +45,14 @@ class AuditEventTests {
 
 	@Test
 	void convertStringsToData() {
-		AuditEvent event = new AuditEvent("phil", "UNKNOWN", "a=b", "c=d");
+		IAuditEvent event = new AuditEvent("phil", "UNKNOWN", "a=b", "c=d");
 		assertThat(event.getData().get("a")).isEqualTo("b");
 		assertThat(event.getData().get("c")).isEqualTo("d");
 	}
 
 	@Test
 	void nullPrincipalIsMappedToEmptyString() {
-		AuditEvent auditEvent = new AuditEvent(null, "UNKNOWN", Collections.singletonMap("a", "b"));
+		IAuditEvent auditEvent = new AuditEvent(null, "UNKNOWN", Collections.singletonMap("a", "b"));
 		assertThat(auditEvent.getPrincipal()).isEmpty();
 	}
 
@@ -72,7 +72,7 @@ class AuditEventTests {
 
 	@Test
 	void jsonFormat() throws Exception {
-		AuditEvent event = new AuditEvent("johannes", "UNKNOWN",
+		IAuditEvent event = new AuditEvent("johannes", "UNKNOWN",
 				Collections.singletonMap("type", (Object) "BadCredentials"));
 		String json = Jackson2ObjectMapperBuilder.json().build().writeValueAsString(event);
 		JSONObject jsonObject = new JSONObject(json);
