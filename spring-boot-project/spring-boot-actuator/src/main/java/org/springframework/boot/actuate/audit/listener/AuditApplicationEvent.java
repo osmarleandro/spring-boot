@@ -29,7 +29,7 @@ import org.springframework.util.Assert;
  * @author Dave Syer
  * @since 1.0.0
  */
-public class AuditApplicationEvent extends ApplicationEvent {
+public class AuditApplicationEvent extends ApplicationEvent implements IAuditApplicationEvent {
 
 	private final AuditEvent auditEvent;
 
