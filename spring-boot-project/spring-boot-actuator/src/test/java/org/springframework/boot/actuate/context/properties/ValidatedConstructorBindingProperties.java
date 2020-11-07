@@ -29,7 +29,7 @@ import org.springframework.validation.annotation.Validated;
 @Validated
 @ConstructorBinding
 @ConfigurationProperties(prefix = "validated")
-public class ValidatedConstructorBindingProperties {
+public class ValidatedConstructorBindingProperties implements IValidatedConstructorBindingProperties {
 
 	private final String name;
 
