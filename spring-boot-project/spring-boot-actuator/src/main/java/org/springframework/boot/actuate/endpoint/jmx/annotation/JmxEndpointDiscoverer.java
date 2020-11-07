@@ -37,7 +37,7 @@ import org.springframework.context.ApplicationContext;
  * @since 2.0.0
  */
 public class JmxEndpointDiscoverer extends EndpointDiscoverer<ExposableJmxEndpoint, JmxOperation>
-		implements JmxEndpointsSupplier {
+		implements JmxEndpointsSupplier, IJmxEndpointDiscoverer {
 
 	/**
 	 * Create a new {@link JmxEndpointDiscoverer} instance.
