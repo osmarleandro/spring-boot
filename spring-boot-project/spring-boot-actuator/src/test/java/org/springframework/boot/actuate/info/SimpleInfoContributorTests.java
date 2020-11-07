@@ -26,7 +26,7 @@ import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException
  *
  * @author Stephane Nicoll
  */
-class SimpleInfoContributorTests {
+class SimpleInfoContributorTests implements ISimpleInfoContributorTests {
 
 	@Test
 	void prefixIsMandatory() {
