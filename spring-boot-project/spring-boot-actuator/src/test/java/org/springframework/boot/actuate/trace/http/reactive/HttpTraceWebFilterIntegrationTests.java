@@ -49,7 +49,7 @@ import static org.springframework.web.reactive.function.server.RouterFunctions.r
  *
  * @author Andy Wilkinson
  */
-class HttpTraceWebFilterIntegrationTests {
+class HttpTraceWebFilterIntegrationTests implements IHttpTraceWebFilterIntegrationTests {
 
 	private final ReactiveWebApplicationContextRunner contextRunner = new ReactiveWebApplicationContextRunner()
 			.withUserConfiguration(Config.class);
