@@ -73,7 +73,7 @@ class HeapDumpWebEndpointWebIntegrationTests {
 	static class TestConfiguration {
 
 		@Bean
-		HeapDumpWebEndpoint endpoint() {
+		IHeapDumpWebEndpoint endpoint() {
 			return new TestHeapDumpWebEndpoint();
 		}
 
