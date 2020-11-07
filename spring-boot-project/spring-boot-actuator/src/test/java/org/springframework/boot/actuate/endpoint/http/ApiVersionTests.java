@@ -30,7 +30,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Phillip Webb
  */
-class ApiVersionTests {
+class ApiVersionTests implements IApiVersionTests {
 
 	@Test
 	void latestIsLatestVersion() {
