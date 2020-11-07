@@ -39,7 +39,7 @@ import static org.mockito.Mockito.mock;
  * @author Brian Clozel
  * @author Nishant Raut
  */
-class WebClientExchangeTagsTests {
+class WebClientExchangeTagsTests implements IWebClientExchangeTagsTests {
 
 	private static final String URI_TEMPLATE_ATTRIBUTE = WebClient.class.getName() + ".uriTemplate";
 
