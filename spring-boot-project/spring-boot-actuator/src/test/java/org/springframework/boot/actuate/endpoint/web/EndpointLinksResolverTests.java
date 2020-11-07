@@ -37,7 +37,7 @@ import static org.mockito.Mockito.mock;
  *
  * @author Andy Wilkinson
  */
-class EndpointLinksResolverTests {
+class EndpointLinksResolverTests implements IEndpointLinksResolverTests {
 
 	@Test
 	void linkResolutionWithTrailingSlashStripsSlashOnSelfLink() {
