@@ -34,6 +34,7 @@ import org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointPr
 import org.springframework.boot.actuate.autoconfigure.web.server.ManagementPortType;
 import org.springframework.boot.actuate.endpoint.EndpointId;
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
+import org.springframework.boot.actuate.endpoint.web.IPathMappedEndpoints;
 import org.springframework.boot.actuate.endpoint.web.PathMappedEndpoints;
 import org.springframework.boot.security.reactive.ApplicationContextServerWebExchangeMatcher;
 import org.springframework.context.ApplicationContext;
@@ -208,7 +209,7 @@ public final class EndpointRequest {
 			}
 		}
 
-		private ServerWebExchangeMatcher createDelegate(PathMappedEndpoints pathMappedEndpoints) {
+		private ServerWebExchangeMatcher createDelegate(IPathMappedEndpoints pathMappedEndpoints) {
 			Set<String> paths = new LinkedHashSet<>();
 			if (this.includes.isEmpty()) {
 				paths.addAll(pathMappedEndpoints.getAllPaths());
@@ -222,7 +223,7 @@ public final class EndpointRequest {
 			return new OrServerWebExchangeMatcher(delegateMatchers);
 		}
 
-		private Stream<String> streamPaths(List<Object> source, PathMappedEndpoints pathMappedEndpoints) {
+		private Stream<String> streamPaths(List<Object> source, IPathMappedEndpoints pathMappedEndpoints) {
 			return source.stream().filter(Objects::nonNull).map(this::getEndpointId).map(pathMappedEndpoints::getPath);
 		}
 
