@@ -63,7 +63,7 @@ import static org.mockito.Mockito.verify;
  * @author Andy Wilkinson
  * @author Scott Frederick
  */
-public abstract class AbstractWebEndpointIntegrationTests<T extends ConfigurableApplicationContext & AnnotationConfigRegistry> {
+public abstract class AbstractWebEndpointIntegrationTests<T extends ConfigurableApplicationContext & AnnotationConfigRegistry> implements IAbstractWebEndpointIntegrationTests<T> {
 
 	private static final Duration TIMEOUT = Duration.ofMinutes(6);
 
