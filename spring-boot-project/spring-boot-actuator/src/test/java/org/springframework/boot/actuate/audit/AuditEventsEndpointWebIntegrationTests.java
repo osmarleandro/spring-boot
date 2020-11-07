@@ -69,7 +69,7 @@ class AuditEventsEndpointWebIntegrationTests {
 	static class TestConfiguration {
 
 		@Bean
-		AuditEventRepository auditEventsRepository() {
+		IAuditEventRepository auditEventsRepository() {
 			AuditEventRepository repository = new InMemoryAuditEventRepository(3);
 			repository.add(createEvent("2016-11-01T11:00:00Z", "admin", "login"));
 			repository.add(createEvent("2016-11-01T12:00:00Z", "admin", "logout"));

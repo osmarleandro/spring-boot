@@ -26,7 +26,7 @@ import java.util.List;
  * @author Vedran Pavic
  * @since 1.0.0
  */
-public interface AuditEventRepository {
+public interface AuditEventRepository extends IAuditEventRepository {
 
 	/**
 	 * Log an event.
