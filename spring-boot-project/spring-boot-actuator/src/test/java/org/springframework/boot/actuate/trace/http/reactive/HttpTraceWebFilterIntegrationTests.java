@@ -27,6 +27,7 @@ import org.springframework.boot.actuate.trace.http.HttpTraceRepository;
 import org.springframework.boot.actuate.trace.http.InMemoryHttpTraceRepository;
 import org.springframework.boot.actuate.trace.http.Include;
 import org.springframework.boot.actuate.web.trace.reactive.HttpTraceWebFilter;
+import org.springframework.boot.actuate.web.trace.reactive.IHttpTraceWebFilter;
 import org.springframework.boot.test.context.runner.ReactiveWebApplicationContextRunner;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
@@ -92,7 +93,7 @@ class HttpTraceWebFilterIntegrationTests {
 	static class Config {
 
 		@Bean
-		HttpTraceWebFilter httpTraceWebFilter(HttpTraceRepository repository) {
+		IHttpTraceWebFilter httpTraceWebFilter(HttpTraceRepository repository) {
 			Set<Include> includes = EnumSet.allOf(Include.class);
 			return new HttpTraceWebFilter(repository, new HttpExchangeTracer(includes), includes);
 		}

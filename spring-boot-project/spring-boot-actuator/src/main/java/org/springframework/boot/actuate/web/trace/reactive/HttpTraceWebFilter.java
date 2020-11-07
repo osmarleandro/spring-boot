@@ -37,7 +37,7 @@ import org.springframework.web.server.WebSession;
  * @author Andy Wilkinson
  * @since 2.0.0
  */
-public class HttpTraceWebFilter implements WebFilter, Ordered {
+public class HttpTraceWebFilter implements WebFilter, Ordered, IHttpTraceWebFilter {
 
 	private static final Object NONE = new Object();
 
