@@ -47,7 +47,7 @@ import static org.mockito.Mockito.verify;
  * @author Stephane Nicoll
  * @author Michael Simons
  */
-class Neo4jHealthIndicatorTests {
+class Neo4jHealthIndicatorTests implements INeo4jHealthIndicatorTests {
 
 	@Test
 	void neo4jIsUp() {
