@@ -33,7 +33,7 @@ import org.springframework.util.Assert;
  * @see DefaultHealthContributorRegistry
  * @see DefaultReactiveHealthContributorRegistry
  */
-class DefaultContributorRegistry<C> implements ContributorRegistry<C> {
+class DefaultContributorRegistry<C> implements ContributorRegistry<C>, IDefaultContributorRegistry<C> {
 
 	private final Function<String, String> nameFactory;
 
