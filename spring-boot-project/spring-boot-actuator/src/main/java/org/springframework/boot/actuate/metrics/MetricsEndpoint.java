@@ -48,7 +48,7 @@ import org.springframework.lang.Nullable;
  * @since 2.0.0
  */
 @Endpoint(id = "metrics")
-public class MetricsEndpoint {
+public class MetricsEndpoint implements IMetricsEndpoint {
 
 	private final MeterRegistry registry;
 

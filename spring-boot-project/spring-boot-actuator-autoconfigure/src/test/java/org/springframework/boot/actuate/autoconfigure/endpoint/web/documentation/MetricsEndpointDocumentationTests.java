@@ -20,7 +20,7 @@ import io.micrometer.core.instrument.Statistic;
 import io.micrometer.core.instrument.binder.jvm.JvmMemoryMetrics;
 import io.micrometer.core.instrument.simple.SimpleMeterRegistry;
 import org.junit.jupiter.api.Test;
-
+import org.springframework.boot.actuate.metrics.IMetricsEndpoint;
 import org.springframework.boot.actuate.metrics.MetricsEndpoint;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -78,7 +78,7 @@ class MetricsEndpointDocumentationTests extends MockMvcEndpointDocumentationTest
 	static class TestConfiguration {
 
 		@Bean
-		MetricsEndpoint endpoint() {
+		IMetricsEndpoint endpoint() {
 			SimpleMeterRegistry registry = new SimpleMeterRegistry();
 			new JvmMemoryMetrics().bindTo(registry);
 			return new MetricsEndpoint(registry);

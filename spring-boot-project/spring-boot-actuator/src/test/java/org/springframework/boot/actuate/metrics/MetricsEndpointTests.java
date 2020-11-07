@@ -44,7 +44,7 @@ class MetricsEndpointTests {
 
 	private final MeterRegistry registry = new SimpleMeterRegistry(SimpleConfig.DEFAULT, new MockClock());
 
-	private final MetricsEndpoint endpoint = new MetricsEndpoint(this.registry);
+	private final IMetricsEndpoint endpoint = new MetricsEndpoint(this.registry);
 
 	@Test
 	void listNamesHandlesEmptyListOfMeters() {
@@ -75,7 +75,7 @@ class MetricsEndpointTests {
 		composite.add(reg2);
 		reg1.counter("counter1").increment();
 		reg2.counter("counter2").increment();
-		MetricsEndpoint endpoint = new MetricsEndpoint(composite);
+		IMetricsEndpoint endpoint = new MetricsEndpoint(composite);
 		assertThat(endpoint.listNames().getNames()).containsExactly("counter1", "counter2");
 	}
 
@@ -105,7 +105,7 @@ class MetricsEndpointTests {
 		secondLevel.counter("cache", "result", "hit", "host", "1").increment(2);
 		secondLevel.counter("cache", "result", "miss", "host", "1").increment(2);
 		secondLevel.counter("cache", "result", "hit", "host", "2").increment(2);
-		MetricsEndpoint endpoint = new MetricsEndpoint(composite);
+		IMetricsEndpoint endpoint = new MetricsEndpoint(composite);
 		MetricsEndpoint.MetricResponse response = endpoint.metric("cache", Collections.emptyList());
 		assertThat(response.getName()).isEqualTo("cache");
 		assertThat(availableTagKeys(response)).containsExactly("result", "host");
@@ -122,7 +122,7 @@ class MetricsEndpointTests {
 		SimpleMeterRegistry secondLevel = new SimpleMeterRegistry();
 		composite.add(firstLevel);
 		firstLevel.add(secondLevel);
-		MetricsEndpoint endpoint = new MetricsEndpoint(composite);
+		IMetricsEndpoint endpoint = new MetricsEndpoint(composite);
 		MetricsEndpoint.MetricResponse response = endpoint.metric("invalid.metric.name", Collections.emptyList());
 		assertThat(response).isNull();
 	}
@@ -161,7 +161,7 @@ class MetricsEndpointTests {
 		composite.add(reg2);
 		reg1.counter("counter1").increment();
 		reg2.counter("counter2").increment();
-		MetricsEndpoint endpoint = new MetricsEndpoint(composite);
+		IMetricsEndpoint endpoint = new MetricsEndpoint(composite);
 		assertThat(endpoint.metric("counter1", Collections.emptyList())).isNotNull();
 		assertThat(endpoint.metric("counter2", Collections.emptyList())).isNotNull();
 	}
@@ -190,7 +190,7 @@ class MetricsEndpointTests {
 
 	private void assertMetricHasStatisticEqualTo(MeterRegistry registry, String metricName, Statistic stat,
 			Double value) {
-		MetricsEndpoint endpoint = new MetricsEndpoint(registry);
+		IMetricsEndpoint endpoint = new MetricsEndpoint(registry);
 		assertThat(endpoint.metric(metricName, Collections.emptyList()).getMeasurements().stream()
 				.filter((sample) -> sample.getStatistic().equals(stat)).findAny())
 						.hasValueSatisfying((sample) -> assertThat(sample.getValue()).isEqualTo(value));
@@ -198,11 +198,11 @@ class MetricsEndpointTests {
 
 	private Optional<Double> getCount(MetricsEndpoint.MetricResponse response) {
 		return response.getMeasurements().stream().filter((sample) -> sample.getStatistic().equals(Statistic.COUNT))
-				.findAny().map(MetricsEndpoint.Sample::getValue);
+				.findAny().map(IMetricsEndpoint.Sample::getValue);
 	}
 
 	private Stream<String> availableTagKeys(MetricsEndpoint.MetricResponse response) {
-		return response.getAvailableTags().stream().map(MetricsEndpoint.AvailableTag::getTag);
+		return response.getAvailableTags().stream().map(IMetricsEndpoint.AvailableTag::getTag);
 	}
 
 }
