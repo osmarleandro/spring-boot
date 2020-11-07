@@ -98,7 +98,7 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 		this.operationsFactory = getOperationsFactory(parameterValueMapper, invokerAdvisors);
 	}
 
-	private DiscoveredOperationsFactory<O> getOperationsFactory(ParameterValueMapper parameterValueMapper,
+	private IDiscoveredOperationsFactory<O> getOperationsFactory(ParameterValueMapper parameterValueMapper,
 			Collection<OperationInvokerAdvisor> invokerAdvisors) {
 		return new DiscoveredOperationsFactory<O>(parameterValueMapper, invokerAdvisors) {
 
