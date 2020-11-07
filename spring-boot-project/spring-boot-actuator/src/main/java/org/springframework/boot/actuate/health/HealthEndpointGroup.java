@@ -25,7 +25,7 @@ import org.springframework.boot.actuate.endpoint.SecurityContext;
  * @author Phillip Webb
  * @since 2.2.0
  */
-public interface HealthEndpointGroup {
+public interface HealthEndpointGroup extends IHealthEndpointGroup {
 
 	/**
 	 * Returns {@code true} if the given contributor is a member of this group.
