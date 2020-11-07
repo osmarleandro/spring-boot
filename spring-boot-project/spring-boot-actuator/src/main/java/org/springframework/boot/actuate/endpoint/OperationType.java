@@ -23,7 +23,7 @@ package org.springframework.boot.actuate.endpoint;
  * @since 2.0.0
  * @see Operation
  */
-public enum OperationType {
+public enum OperationType implements IOperationType {
 
 	/**
 	 * A read operation.
