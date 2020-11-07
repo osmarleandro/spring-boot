@@ -53,7 +53,7 @@ import static org.mockito.Mockito.verify;
  * @author Phillip Webb
  */
 @ExtendWith(MockitoExtension.class)
-class JmxEndpointExporterTests {
+class JmxEndpointExporterTests implements IJmxEndpointExporterTests {
 
 	@Mock
 	private MBeanServer mBeanServer;
