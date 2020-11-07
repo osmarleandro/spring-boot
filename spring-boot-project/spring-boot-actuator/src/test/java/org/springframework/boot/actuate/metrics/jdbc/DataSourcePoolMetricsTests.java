@@ -38,7 +38,7 @@ import org.springframework.context.annotation.Configuration;
  * @author Jon Schneider
  * @author Andy Wilkinson
  */
-class DataSourcePoolMetricsTests {
+class DataSourcePoolMetricsTests implements IDataSourcePoolMetricsTests {
 
 	@Test
 	void dataSourceIsInstrumented() {
