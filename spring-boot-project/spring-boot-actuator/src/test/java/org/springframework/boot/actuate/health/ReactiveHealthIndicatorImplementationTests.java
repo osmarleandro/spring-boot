@@ -34,7 +34,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Stephane Nicoll
  */
 @ExtendWith(OutputCaptureExtension.class)
-class ReactiveHealthIndicatorImplementationTests {
+class ReactiveHealthIndicatorImplementationTests implements IReactiveHealthIndicatorImplementationTests {
 
 	@Test
 	void healthUp(CapturedOutput output) {
