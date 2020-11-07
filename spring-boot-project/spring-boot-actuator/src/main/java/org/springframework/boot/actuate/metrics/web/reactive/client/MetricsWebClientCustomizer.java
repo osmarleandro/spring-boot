@@ -29,7 +29,7 @@ import org.springframework.web.reactive.function.client.WebClient;
  * @author Brian Clozel
  * @since 2.1.0
  */
-public class MetricsWebClientCustomizer implements WebClientCustomizer {
+public class MetricsWebClientCustomizer implements WebClientCustomizer, IMetricsWebClientCustomizer {
 
 	private final MetricsWebClientFilterFunction filterFunction;
 
