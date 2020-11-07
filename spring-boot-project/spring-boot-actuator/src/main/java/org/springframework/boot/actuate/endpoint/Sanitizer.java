@@ -40,7 +40,7 @@ import org.springframework.util.StringUtils;
  * @author David Good
  * @since 2.0.0
  */
-public class Sanitizer {
+public class Sanitizer implements ISanitizer {
 
 	private static final String[] REGEX_PARTS = { "*", "$", "^", "+" };
 

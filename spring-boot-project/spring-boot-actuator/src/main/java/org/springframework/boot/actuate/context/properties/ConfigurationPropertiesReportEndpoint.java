@@ -51,6 +51,7 @@ import org.apache.commons.logging.LogFactory;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.BeansException;
+import org.springframework.boot.actuate.endpoint.ISanitizer;
 import org.springframework.boot.actuate.endpoint.Sanitizer;
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
 import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
@@ -92,7 +93,7 @@ public class ConfigurationPropertiesReportEndpoint implements ApplicationContext
 
 	private static final String CONFIGURATION_PROPERTIES_FILTER_ID = "configurationPropertiesFilter";
 
-	private final Sanitizer sanitizer = new Sanitizer();
+	private final ISanitizer sanitizer = new Sanitizer();
 
 	private ApplicationContext context;
 
