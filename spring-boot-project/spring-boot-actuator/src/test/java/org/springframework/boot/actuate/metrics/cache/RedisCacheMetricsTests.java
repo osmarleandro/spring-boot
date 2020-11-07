@@ -46,7 +46,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Stephane Nicoll
  */
 @Testcontainers(disabledWithoutDocker = true)
-class RedisCacheMetricsTests {
+class RedisCacheMetricsTests implements IRedisCacheMetricsTests {
 
 	@Container
 	static final RedisContainer redis = new RedisContainer();
