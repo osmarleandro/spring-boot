@@ -29,7 +29,7 @@ import org.springframework.boot.actuate.endpoint.OperationType;
  *
  * @author Phillip Webb
  */
-public class TestJmxOperation implements JmxOperation {
+public class TestJmxOperation implements JmxOperation, ITestJmxOperation {
 
 	private final OperationType operationType;
 
