@@ -38,7 +38,7 @@ import static org.mockito.Mockito.mock;
  * @author Artsiom Yudovin
  */
 @Deprecated
-class CassandraReactiveHealthIndicatorTests {
+class CassandraReactiveHealthIndicatorTests implements ICassandraReactiveHealthIndicatorTests {
 
 	@Test
 	void testCassandraIsUp() {
