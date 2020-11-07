@@ -36,6 +36,7 @@ import org.springframework.boot.actuate.health.HealthEndpointGroupsPostProcessor
 import org.springframework.boot.actuate.health.HealthEndpointWebExtension;
 import org.springframework.boot.actuate.health.HealthIndicator;
 import org.springframework.boot.actuate.health.HttpCodeStatusMapper;
+import org.springframework.boot.actuate.health.IHealthEndpoint;
 import org.springframework.boot.actuate.health.NamedContributor;
 import org.springframework.boot.actuate.health.ReactiveHealthContributorRegistry;
 import org.springframework.boot.actuate.health.ReactiveHealthEndpointWebExtension;
@@ -170,7 +171,7 @@ class HealthEndpointAutoConfigurationTests {
 	@Test
 	void runCreatesHealthEndpoint() {
 		this.contextRunner.withPropertyValues("management.endpoint.health.show-details=always").run((context) -> {
-			HealthEndpoint endpoint = context.getBean(HealthEndpoint.class);
+			IHealthEndpoint endpoint = context.getBean(HealthEndpoint.class);
 			Health health = (Health) endpoint.healthForPath("simple");
 			assertThat(health.getDetails()).containsEntry("counter", 42);
 		});
@@ -179,7 +180,7 @@ class HealthEndpointAutoConfigurationTests {
 	@Test
 	void runWhenHasHealthEndpointBeanDoesNotCreateAdditionalHealthEndpoint() {
 		this.contextRunner.withUserConfiguration(HealthEndpointConfiguration.class).run((context) -> {
-			HealthEndpoint endpoint = context.getBean(HealthEndpoint.class);
+			IHealthEndpoint endpoint = context.getBean(HealthEndpoint.class);
 			assertThat(endpoint.health()).isNull();
 		});
 	}
@@ -325,7 +326,7 @@ class HealthEndpointAutoConfigurationTests {
 	static class HealthEndpointConfiguration {
 
 		@Bean
-		HealthEndpoint healthEndpoint() {
+		IHealthEndpoint healthEndpoint() {
 			return mock(HealthEndpoint.class);
 		}
 

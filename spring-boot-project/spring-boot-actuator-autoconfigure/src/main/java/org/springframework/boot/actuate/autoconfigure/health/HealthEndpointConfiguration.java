@@ -34,6 +34,7 @@ import org.springframework.boot.actuate.health.HealthEndpointGroups;
 import org.springframework.boot.actuate.health.HealthEndpointGroupsPostProcessor;
 import org.springframework.boot.actuate.health.HealthIndicator;
 import org.springframework.boot.actuate.health.HttpCodeStatusMapper;
+import org.springframework.boot.actuate.health.IHealthEndpoint;
 import org.springframework.boot.actuate.health.NamedContributor;
 import org.springframework.boot.actuate.health.ReactiveHealthContributor;
 import org.springframework.boot.actuate.health.ReactiveHealthIndicator;
@@ -88,7 +89,7 @@ class HealthEndpointConfiguration {
 
 	@Bean
 	@ConditionalOnMissingBean
-	HealthEndpoint healthEndpoint(HealthContributorRegistry registry, HealthEndpointGroups groups) {
+	IHealthEndpoint healthEndpoint(HealthContributorRegistry registry, HealthEndpointGroups groups) {
 		return new HealthEndpoint(registry, groups);
 	}
 
