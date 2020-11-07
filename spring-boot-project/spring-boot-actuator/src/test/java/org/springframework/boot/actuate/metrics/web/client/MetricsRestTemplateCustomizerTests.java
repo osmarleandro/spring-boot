@@ -48,7 +48,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Jon Schneider
  * @author Brian Clozel
  */
-class MetricsRestTemplateCustomizerTests {
+class MetricsRestTemplateCustomizerTests implements IMetricsRestTemplateCustomizerTests {
 
 	private MeterRegistry registry;
 
