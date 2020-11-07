@@ -36,7 +36,7 @@ import org.springframework.util.StringUtils;
  * @author Madhura Bhave
  * @since 1.4.0
  */
-public abstract class InfoPropertiesInfoContributor<T extends InfoProperties> implements InfoContributor {
+public abstract class InfoPropertiesInfoContributor<T extends InfoProperties> implements InfoContributor, IInfoPropertiesInfoContributor<T> {
 
 	private static final Bindable<Map<String, Object>> STRING_OBJECT_MAP = Bindable.mapOf(String.class, Object.class);
 
