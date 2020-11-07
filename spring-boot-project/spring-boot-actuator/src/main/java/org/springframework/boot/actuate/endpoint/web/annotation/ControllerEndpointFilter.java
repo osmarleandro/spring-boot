@@ -25,7 +25,7 @@ import org.springframework.boot.actuate.endpoint.annotation.DiscovererEndpointFi
  *
  * @author Phillip Webb
  */
-class ControllerEndpointFilter extends DiscovererEndpointFilter {
+class ControllerEndpointFilter extends DiscovererEndpointFilter implements IControllerEndpointFilter {
 
 	ControllerEndpointFilter() {
 		super(ControllerEndpointDiscoverer.class);
