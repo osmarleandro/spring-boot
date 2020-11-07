@@ -33,7 +33,7 @@ import static org.mockito.Mockito.mock;
  *
  * @author Stephane Nicoll
  */
-class HazelcastCacheMeterBinderProviderTests {
+class HazelcastCacheMeterBinderProviderTests implements IHazelcastCacheMeterBinderProviderTests {
 
 	@SuppressWarnings("unchecked")
 	@Test
