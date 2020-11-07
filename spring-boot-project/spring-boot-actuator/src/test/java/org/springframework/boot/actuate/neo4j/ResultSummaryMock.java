@@ -28,7 +28,7 @@ import static org.mockito.Mockito.mock;
  *
  * @author Stephane Nicoll
  */
-final class ResultSummaryMock {
+final class ResultSummaryMock implements IResultSummaryMock {
 
 	private ResultSummaryMock() {
 	}
