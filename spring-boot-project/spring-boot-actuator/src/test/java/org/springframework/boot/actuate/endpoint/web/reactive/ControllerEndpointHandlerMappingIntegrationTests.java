@@ -122,7 +122,7 @@ class ControllerEndpointHandlerMappingIntegrationTests {
 		}
 
 		@Bean
-		ControllerEndpointHandlerMapping webEndpointHandlerMapping(ControllerEndpointsSupplier endpointsSupplier) {
+		IControllerEndpointHandlerMapping webEndpointHandlerMapping(ControllerEndpointsSupplier endpointsSupplier) {
 			return new ControllerEndpointHandlerMapping(new EndpointMapping("actuator"),
 					endpointsSupplier.getEndpoints(), null);
 		}
