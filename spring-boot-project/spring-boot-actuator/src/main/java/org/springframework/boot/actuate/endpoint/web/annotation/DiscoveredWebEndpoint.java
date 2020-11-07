@@ -29,7 +29,7 @@ import org.springframework.boot.actuate.endpoint.web.WebOperation;
  *
  * @author Phillip Webb
  */
-class DiscoveredWebEndpoint extends AbstractDiscoveredEndpoint<WebOperation> implements ExposableWebEndpoint {
+class DiscoveredWebEndpoint extends AbstractDiscoveredEndpoint<WebOperation> implements ExposableWebEndpoint, IDiscoveredWebEndpoint {
 
 	private final String rootPath;
 
