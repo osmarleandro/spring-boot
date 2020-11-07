@@ -30,7 +30,7 @@ import org.springframework.core.env.Environment;
 import org.springframework.core.env.MapPropertySource;
 import org.springframework.test.web.reactive.server.WebTestClient;
 
-class EnvironmentEndpointWebIntegrationTests {
+class EnvironmentEndpointWebIntegrationTests implements IEnvironmentEndpointWebIntegrationTests {
 
 	private ConfigurableApplicationContext context;
 
