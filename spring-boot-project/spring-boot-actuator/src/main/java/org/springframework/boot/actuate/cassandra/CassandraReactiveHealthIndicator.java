@@ -33,7 +33,7 @@ import org.springframework.util.Assert;
  * @deprecated since 2.4.0 in favor of {@link CassandraDriverHealthIndicator}
  */
 @Deprecated
-public class CassandraReactiveHealthIndicator extends AbstractReactiveHealthIndicator {
+public class CassandraReactiveHealthIndicator extends AbstractReactiveHealthIndicator implements ICassandraReactiveHealthIndicator {
 
 	private static final SimpleStatement SELECT = SimpleStatement
 			.newInstance("SELECT release_version FROM system.local").setConsistencyLevel(ConsistencyLevel.LOCAL_ONE);
