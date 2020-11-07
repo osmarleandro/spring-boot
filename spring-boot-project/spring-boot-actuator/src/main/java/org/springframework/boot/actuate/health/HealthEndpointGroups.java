@@ -27,7 +27,7 @@ import org.springframework.util.Assert;
  * @author Phillip Webb
  * @since 2.2.0
  */
-public interface HealthEndpointGroups {
+public interface HealthEndpointGroups extends IHealthEndpointGroups {
 
 	/**
 	 * Return the primary group used by the endpoint.

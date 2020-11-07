@@ -36,6 +36,7 @@ import org.springframework.boot.actuate.health.HealthEndpointGroupsPostProcessor
 import org.springframework.boot.actuate.health.HealthEndpointWebExtension;
 import org.springframework.boot.actuate.health.HealthIndicator;
 import org.springframework.boot.actuate.health.HttpCodeStatusMapper;
+import org.springframework.boot.actuate.health.IHealthEndpointGroups;
 import org.springframework.boot.actuate.health.NamedContributor;
 import org.springframework.boot.actuate.health.ReactiveHealthContributorRegistry;
 import org.springframework.boot.actuate.health.ReactiveHealthEndpointWebExtension;
@@ -303,7 +304,7 @@ class HealthEndpointAutoConfigurationTests {
 	static class HealthEndpointGroupsConfiguration {
 
 		@Bean
-		HealthEndpointGroups healthEndpointGroups() {
+		IHealthEndpointGroups healthEndpointGroups() {
 			HealthEndpointGroups groups = mock(HealthEndpointGroups.class);
 			given(groups.getNames()).willReturn(Collections.singleton("mock"));
 			return groups;
