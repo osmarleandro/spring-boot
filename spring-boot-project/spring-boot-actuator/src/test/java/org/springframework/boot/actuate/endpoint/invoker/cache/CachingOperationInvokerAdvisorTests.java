@@ -26,6 +26,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import org.springframework.boot.actuate.endpoint.EndpointId;
+import org.springframework.boot.actuate.endpoint.ISecurityContext;
 import org.springframework.boot.actuate.endpoint.OperationType;
 import org.springframework.boot.actuate.endpoint.SecurityContext;
 import org.springframework.boot.actuate.endpoint.http.ApiVersion;
@@ -157,7 +158,7 @@ class CachingOperationInvokerAdvisorTests {
 			return "";
 		}
 
-		String getWithSecurityContext(SecurityContext securityContext, @Nullable String bar) {
+		String getWithSecurityContext(ISecurityContext securityContext, @Nullable String bar) {
 			return "";
 		}
 
