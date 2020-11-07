@@ -27,7 +27,7 @@ import org.springframework.context.ApplicationContext;
  * @author Andy Wilkinson
  * @since 2.0.0
  */
-public interface MappingDescriptionProvider {
+public interface MappingDescriptionProvider extends IMappingDescriptionProvider {
 
 	/**
 	 * Returns the name of the mappings described by this provider.
