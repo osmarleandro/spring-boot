@@ -23,6 +23,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.actuate.autoconfigure.metrics.test.MetricsRun;
 import org.springframework.boot.actuate.autoconfigure.metrics.web.TestController;
 import org.springframework.boot.actuate.metrics.web.reactive.server.DefaultWebFluxTagsProvider;
+import org.springframework.boot.actuate.metrics.web.reactive.server.IWebFluxTagsContributor;
 import org.springframework.boot.actuate.metrics.web.reactive.server.MetricsWebFilter;
 import org.springframework.boot.actuate.metrics.web.reactive.server.WebFluxTagsContributor;
 import org.springframework.boot.actuate.metrics.web.reactive.server.WebFluxTagsProvider;
@@ -143,12 +144,12 @@ class WebFluxMetricsAutoConfigurationTests {
 	static class TagsContributorsConfiguration {
 
 		@Bean
-		WebFluxTagsContributor tagContributorOne() {
+		IWebFluxTagsContributor tagContributorOne() {
 			return mock(WebFluxTagsContributor.class);
 		}
 
 		@Bean
-		WebFluxTagsContributor tagContributorTwo() {
+		IWebFluxTagsContributor tagContributorTwo() {
 			return mock(WebFluxTagsContributor.class);
 		}
 
