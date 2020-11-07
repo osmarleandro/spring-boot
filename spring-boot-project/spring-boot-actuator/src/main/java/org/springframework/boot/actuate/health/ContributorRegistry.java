@@ -28,7 +28,7 @@ package org.springframework.boot.actuate.health;
  * @since 2.2.0
  * @see NamedContributors
  */
-public interface ContributorRegistry<C> extends NamedContributors<C> {
+public interface ContributorRegistry<C> extends NamedContributors<C>, IContributorRegistry<C> {
 
 	/**
 	 * Register a contributor with the given {@code name}.
