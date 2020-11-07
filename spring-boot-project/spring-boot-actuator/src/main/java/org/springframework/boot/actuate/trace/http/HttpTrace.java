@@ -32,7 +32,7 @@ import org.springframework.util.StringUtils;
  * @author Andy Wilkinson
  * @since 2.0.0
  */
-public final class HttpTrace {
+public final class HttpTrace implements IHttpTrace {
 
 	private final Instant timestamp;
 
