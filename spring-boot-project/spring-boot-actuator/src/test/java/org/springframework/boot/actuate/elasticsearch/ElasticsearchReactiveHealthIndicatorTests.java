@@ -42,7 +42,7 @@ import static org.assertj.core.api.Assertions.entry;
  * @author Brian Clozel
  * @author Scott Frederick
  */
-class ElasticsearchReactiveHealthIndicatorTests {
+class ElasticsearchReactiveHealthIndicatorTests implements IElasticsearchReactiveHealthIndicatorTests {
 
 	private MockWebServer server;
 
