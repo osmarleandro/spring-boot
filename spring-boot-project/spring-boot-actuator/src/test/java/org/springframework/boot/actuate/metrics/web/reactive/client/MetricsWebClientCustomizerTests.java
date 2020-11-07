@@ -31,7 +31,7 @@ import static org.mockito.Mockito.mock;
  *
  * @author Brian Clozel
  */
-class MetricsWebClientCustomizerTests {
+class MetricsWebClientCustomizerTests implements IMetricsWebClientCustomizerTests {
 
 	private MetricsWebClientCustomizer customizer;
 
