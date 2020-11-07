@@ -25,7 +25,7 @@ package org.springframework.boot.actuate.health;
  * @since 2.3.0
  */
 @FunctionalInterface
-public interface HealthEndpointGroupsPostProcessor {
+public interface HealthEndpointGroupsPostProcessor extends IHealthEndpointGroupsPostProcessor {
 
 	/**
 	 * Post-process the given {@link HealthEndpointGroups} instance.
