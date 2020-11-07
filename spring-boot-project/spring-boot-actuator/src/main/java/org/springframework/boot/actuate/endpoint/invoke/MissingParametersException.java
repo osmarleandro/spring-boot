@@ -30,7 +30,7 @@ import org.springframework.util.StringUtils;
  * @author Phillip Webb
  * @since 2.0.0
  */
-public final class MissingParametersException extends InvalidEndpointRequestException {
+public final class MissingParametersException extends InvalidEndpointRequestException implements IMissingParametersException {
 
 	private final Set<OperationParameter> missingParameters;
 
