@@ -43,7 +43,7 @@ import static org.mockito.Mockito.mock;
  * @author Phillip Webb
  * @author Stephane Nicoll
  */
-class ControllerEndpointHandlerMappingTests {
+class ControllerEndpointHandlerMappingTests implements IControllerEndpointHandlerMappingTests {
 
 	private final StaticApplicationContext context = new StaticApplicationContext();
 
