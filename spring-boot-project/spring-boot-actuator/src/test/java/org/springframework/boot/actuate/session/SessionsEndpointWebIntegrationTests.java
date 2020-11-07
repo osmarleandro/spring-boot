@@ -37,7 +37,7 @@ import static org.mockito.Mockito.mock;
  *
  * @author Vedran Pavic
  */
-class SessionsEndpointWebIntegrationTests {
+class SessionsEndpointWebIntegrationTests implements ISessionsEndpointWebIntegrationTests {
 
 	private static final Session session = new MapSession();
 
