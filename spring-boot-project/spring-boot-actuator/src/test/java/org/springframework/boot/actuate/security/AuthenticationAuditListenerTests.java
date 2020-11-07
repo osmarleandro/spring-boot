@@ -42,7 +42,7 @@ import static org.mockito.Mockito.verify;
 /**
  * Tests for {@link AuthenticationAuditListener}.
  */
-class AuthenticationAuditListenerTests {
+class AuthenticationAuditListenerTests implements IAuthenticationAuditListenerTests {
 
 	private final AuthenticationAuditListener listener = new AuthenticationAuditListener();
 
