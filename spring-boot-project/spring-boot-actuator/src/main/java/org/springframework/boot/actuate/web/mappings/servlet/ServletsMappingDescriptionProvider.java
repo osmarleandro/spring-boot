@@ -34,7 +34,7 @@ import org.springframework.web.context.WebApplicationContext;
  * @author Andy Wilkinson
  * @since 2.0.0
  */
-public class ServletsMappingDescriptionProvider implements MappingDescriptionProvider {
+public class ServletsMappingDescriptionProvider implements MappingDescriptionProvider, IServletsMappingDescriptionProvider {
 
 	@Override
 	public List<ServletRegistrationMappingDescription> describeMappings(ApplicationContext context) {
