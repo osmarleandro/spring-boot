@@ -76,7 +76,7 @@ class MetricsEndpointWebIntegrationTests {
 		}
 
 		@Bean
-		MetricsEndpoint metricsEndpoint(MeterRegistry meterRegistry) {
+		IMetricsEndpoint metricsEndpoint(MeterRegistry meterRegistry) {
 			return new MetricsEndpoint(meterRegistry);
 		}
 

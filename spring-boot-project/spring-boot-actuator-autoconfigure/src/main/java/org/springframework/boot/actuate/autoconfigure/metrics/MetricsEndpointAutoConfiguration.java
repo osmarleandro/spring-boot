@@ -20,6 +20,7 @@ import io.micrometer.core.annotation.Timed;
 import io.micrometer.core.instrument.MeterRegistry;
 
 import org.springframework.boot.actuate.autoconfigure.endpoint.condition.ConditionalOnAvailableEndpoint;
+import org.springframework.boot.actuate.metrics.IMetricsEndpoint;
 import org.springframework.boot.actuate.metrics.MetricsEndpoint;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -44,7 +45,7 @@ public class MetricsEndpointAutoConfiguration {
 	@Bean
 	@ConditionalOnBean(MeterRegistry.class)
 	@ConditionalOnMissingBean
-	public MetricsEndpoint metricsEndpoint(MeterRegistry registry) {
+	public IMetricsEndpoint metricsEndpoint(MeterRegistry registry) {
 		return new MetricsEndpoint(registry);
 	}
 
