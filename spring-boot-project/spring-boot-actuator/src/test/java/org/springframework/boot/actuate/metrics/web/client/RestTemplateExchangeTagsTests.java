@@ -35,7 +35,7 @@ import static org.mockito.Mockito.mock;
  * @author Nishant Raut
  * @author Brian Clozel
  */
-class RestTemplateExchangeTagsTests {
+class RestTemplateExchangeTagsTests implements IRestTemplateExchangeTagsTests {
 
 	@Test
 	void outcomeTagIsUnknownWhenResponseIsNull() {
