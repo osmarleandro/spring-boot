@@ -24,6 +24,7 @@ import org.junit.jupiter.api.Test;
 
 import org.springframework.boot.actuate.info.BuildInfoContributor;
 import org.springframework.boot.actuate.info.GitInfoContributor;
+import org.springframework.boot.actuate.info.IBuildInfoContributor;
 import org.springframework.boot.actuate.info.Info;
 import org.springframework.boot.actuate.info.InfoContributor;
 import org.springframework.boot.info.BuildProperties;
@@ -203,7 +204,7 @@ class InfoContributorAutoConfigurationTests {
 	static class CustomBuildInfoContributorConfiguration {
 
 		@Bean
-		BuildInfoContributor customBuildInfoContributor() {
+		IBuildInfoContributor customBuildInfoContributor() {
 			return new BuildInfoContributor(new BuildProperties(new Properties()));
 		}
 
