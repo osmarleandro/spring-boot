@@ -47,7 +47,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Andy Wilkinson
  */
-class ScheduledTasksEndpointTests {
+class ScheduledTasksEndpointTests implements IScheduledTasksEndpointTests {
 
 	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.withUserConfiguration(BaseConfiguration.class);
