@@ -25,7 +25,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Andy Wilkinson
  */
-class EndpointMappingTests {
+class EndpointMappingTests implements IEndpointMappingTests {
 
 	@Test
 	void normalizationTurnsASlashIntoAnEmptyString() {
