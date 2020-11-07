@@ -40,7 +40,7 @@ import static org.mockito.Mockito.verify;
  *
  * @author Phillip Webb
  */
-class JacksonJmxOperationResponseMapperTests {
+class JacksonJmxOperationResponseMapperTests implements IJacksonJmxOperationResponseMapperTests {
 
 	private JacksonJmxOperationResponseMapper mapper = new JacksonJmxOperationResponseMapper(null);
 
