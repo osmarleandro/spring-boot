@@ -32,7 +32,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Phillip Webb
  * @author Andy Wilkinson
  */
-class ThreadDumpEndpointTests {
+class ThreadDumpEndpointTests implements IThreadDumpEndpointTests {
 
 	@Test
 	void dumpThreads() {
