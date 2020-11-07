@@ -65,7 +65,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  */
 @ExtendWith(SpringExtension.class)
 @WebAppConfiguration
-class LongTaskTimingHandlerInterceptorTests {
+class LongTaskTimingHandlerInterceptorTests implements ILongTaskTimingHandlerInterceptorTests {
 
 	@Autowired
 	private SimpleMeterRegistry registry;
