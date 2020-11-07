@@ -41,7 +41,7 @@ import static org.mockito.Mockito.mock;
  * @author Madhura Bhave
  * @author Stephane Nicoll
  */
-class WebFluxTagsTests {
+class WebFluxTagsTests implements IWebFluxTagsTests {
 
 	private MockServerWebExchange exchange;
 
