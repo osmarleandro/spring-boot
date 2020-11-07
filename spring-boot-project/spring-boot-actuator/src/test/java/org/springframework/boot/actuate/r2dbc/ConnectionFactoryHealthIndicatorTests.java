@@ -45,7 +45,7 @@ import static org.mockito.Mockito.mock;
  * @author Mark Paluch
  * @author Stephane Nicoll
  */
-class ConnectionFactoryHealthIndicatorTests {
+class ConnectionFactoryHealthIndicatorTests implements IConnectionFactoryHealthIndicatorTests {
 
 	@Test
 	void healthIndicatorWhenDatabaseUpWithConnectionValidation() {
