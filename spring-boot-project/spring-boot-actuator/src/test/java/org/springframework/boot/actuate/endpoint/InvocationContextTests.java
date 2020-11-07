@@ -32,7 +32,7 @@ import static org.mockito.Mockito.mock;
  *
  * @author Phillip Webb
  */
-class InvocationContextTests {
+class InvocationContextTests implements IInvocationContextTests {
 
 	private final SecurityContext securityContext = mock(SecurityContext.class);
 
