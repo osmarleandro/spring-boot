@@ -38,7 +38,7 @@ import org.springframework.data.redis.connection.ReactiveRedisConnectionFactory;
  * @author Scott Frederick
  * @since 2.0.0
  */
-public class RedisReactiveHealthIndicator extends AbstractReactiveHealthIndicator {
+public class RedisReactiveHealthIndicator extends AbstractReactiveHealthIndicator implements IRedisReactiveHealthIndicator {
 
 	private final ReactiveRedisConnectionFactory connectionFactory;
 
