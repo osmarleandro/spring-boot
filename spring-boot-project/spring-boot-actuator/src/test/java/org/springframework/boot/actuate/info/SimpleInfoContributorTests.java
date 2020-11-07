@@ -36,11 +36,11 @@ class SimpleInfoContributorTests {
 	@Test
 	void mapSimpleObject() {
 		Object o = new Object();
-		Info info = contributeFrom("test", o);
+		IInfo info = contributeFrom("test", o);
 		assertThat(info.get("test")).isSameAs(o);
 	}
 
-	private static Info contributeFrom(String prefix, Object detail) {
+	private static IInfo contributeFrom(String prefix, Object detail) {
 		SimpleInfoContributor contributor = new SimpleInfoContributor(prefix, detail);
 		Info.Builder builder = new Info.Builder();
 		contributor.contribute(builder);

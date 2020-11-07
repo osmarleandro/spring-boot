@@ -51,7 +51,7 @@ public class InfoEndpoint {
 		for (InfoContributor contributor : this.infoContributors) {
 			contributor.contribute(builder);
 		}
-		Info build = builder.build();
+		IInfo build = builder.build();
 		return build.getDetails();
 	}
 

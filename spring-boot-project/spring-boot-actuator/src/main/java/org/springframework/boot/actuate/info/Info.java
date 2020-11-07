@@ -35,7 +35,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
  * @since 1.4.0
  */
 @JsonInclude(Include.NON_EMPTY)
-public final class Info {
+public final class Info implements IInfo {
 
 	private final Map<String, Object> details;
 

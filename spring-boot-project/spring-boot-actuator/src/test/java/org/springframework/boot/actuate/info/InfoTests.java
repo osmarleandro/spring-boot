@@ -31,7 +31,7 @@ class InfoTests {
 
 	@Test
 	void infoIsImmutable() {
-		Info info = new Info.Builder().withDetail("foo", "bar").build();
+		IInfo info = new Info.Builder().withDetail("foo", "bar").build();
 		assertThatExceptionOfType(UnsupportedOperationException.class).isThrownBy(info.getDetails()::clear);
 	}
 
@@ -39,7 +39,7 @@ class InfoTests {
 	void infoTakesCopyOfMap() {
 		Info.Builder builder = new Info.Builder();
 		builder.withDetail("foo", "bar");
-		Info build = builder.build();
+		IInfo build = builder.build();
 		builder.withDetail("biz", "bar");
 		assertThat(build.getDetails()).containsOnly(entry("foo", "bar"));
 	}
