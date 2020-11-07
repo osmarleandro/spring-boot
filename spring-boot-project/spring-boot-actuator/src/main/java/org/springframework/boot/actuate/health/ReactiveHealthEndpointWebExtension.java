@@ -42,7 +42,7 @@ import org.springframework.boot.actuate.endpoint.web.annotation.EndpointWebExten
  */
 @EndpointWebExtension(endpoint = HealthEndpoint.class)
 public class ReactiveHealthEndpointWebExtension
-		extends HealthEndpointSupport<ReactiveHealthContributor, Mono<? extends HealthComponent>> {
+		extends HealthEndpointSupport<ReactiveHealthContributor, Mono<? extends HealthComponent>> implements IReactiveHealthEndpointWebExtension {
 
 	private static final String[] NO_PATH = {};
 

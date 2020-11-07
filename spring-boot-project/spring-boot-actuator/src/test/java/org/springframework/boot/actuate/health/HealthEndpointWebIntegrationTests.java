@@ -198,7 +198,7 @@ class HealthEndpointWebIntegrationTests {
 
 		@Bean
 		@ConditionalOnWebApplication(type = Type.REACTIVE)
-		ReactiveHealthEndpointWebExtension reactiveHealthWebEndpointExtension(
+		IReactiveHealthEndpointWebExtension reactiveHealthWebEndpointExtension(
 				ReactiveHealthContributorRegistry reactiveHealthContributorRegistry,
 				HealthEndpointGroups healthEndpointGroups) {
 			return new ReactiveHealthEndpointWebExtension(reactiveHealthContributorRegistry, healthEndpointGroups);

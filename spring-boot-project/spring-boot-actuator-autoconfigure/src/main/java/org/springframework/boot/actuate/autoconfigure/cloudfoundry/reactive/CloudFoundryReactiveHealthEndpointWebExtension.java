@@ -28,7 +28,7 @@ import org.springframework.boot.actuate.endpoint.http.ApiVersion;
 import org.springframework.boot.actuate.endpoint.web.WebEndpointResponse;
 import org.springframework.boot.actuate.health.HealthComponent;
 import org.springframework.boot.actuate.health.HealthEndpoint;
-import org.springframework.boot.actuate.health.ReactiveHealthEndpointWebExtension;
+import org.springframework.boot.actuate.health.IReactiveHealthEndpointWebExtension;
 
 /**
  * Reactive {@link EndpointExtension @EndpointExtension} for the {@link HealthEndpoint}
@@ -40,9 +40,9 @@ import org.springframework.boot.actuate.health.ReactiveHealthEndpointWebExtensio
 @EndpointCloudFoundryExtension(endpoint = HealthEndpoint.class)
 public class CloudFoundryReactiveHealthEndpointWebExtension {
 
-	private final ReactiveHealthEndpointWebExtension delegate;
+	private final IReactiveHealthEndpointWebExtension delegate;
 
-	public CloudFoundryReactiveHealthEndpointWebExtension(ReactiveHealthEndpointWebExtension delegate) {
+	public CloudFoundryReactiveHealthEndpointWebExtension(IReactiveHealthEndpointWebExtension delegate) {
 		this.delegate = delegate;
 	}
 
