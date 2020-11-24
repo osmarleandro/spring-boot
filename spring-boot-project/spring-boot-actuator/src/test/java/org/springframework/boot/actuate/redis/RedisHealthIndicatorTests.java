@@ -58,16 +58,6 @@ class RedisHealthIndicatorTests {
 		assertThat(health.getDetails().get("version")).isEqualTo("2.8.9");
 	}
 
-	@Test
-	void redisIsDown() {
-		RedisConnection redisConnection = mock(RedisConnection.class);
-		given(redisConnection.info()).willThrow(new RedisConnectionFailureException("Connection failed"));
-		RedisHealthIndicator healthIndicator = createHealthIndicator(redisConnection);
-		Health health = healthIndicator.health();
-		assertThat(health.getStatus()).isEqualTo(Status.DOWN);
-		assertThat((String) health.getDetails().get("error")).contains("Connection failed");
-	}
-
 	private RedisHealthIndicator createHealthIndicator(RedisConnection redisConnection) {
 		RedisConnectionFactory redisConnectionFactory = mock(RedisConnectionFactory.class);
 		given(redisConnectionFactory.getConnection()).willReturn(redisConnection);
