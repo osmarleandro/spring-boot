@@ -41,7 +41,7 @@ class HealthEndpointWebExtensionTests
 	@Test
 	void healthReturnsSystemHealth() {
 		this.registry.registerContributor("test", createContributor(this.up));
-		WebEndpointResponse<HealthComponent> response = create(this.registry, this.groups).health(ApiVersion.LATEST,
+		WebEndpointResponse<HealthComponent> response = new HealthEndpointWebExtension(this.registry, this.groups).health(ApiVersion.LATEST,
 				SecurityContext.NONE);
 		HealthComponent health = response.getBody();
 		assertThat(health.getStatus()).isEqualTo(Status.UP);
@@ -52,8 +52,8 @@ class HealthEndpointWebExtensionTests
 	@Test
 	void healthWithNoContributorReturnsUp() {
 		assertThat(this.registry).isEmpty();
-		WebEndpointResponse<HealthComponent> response = create(this.registry,
-				HealthEndpointGroups.of(mock(HealthEndpointGroup.class), Collections.emptyMap()))
+		HealthEndpointGroups groups = HealthEndpointGroups.of(mock(HealthEndpointGroup.class), Collections.emptyMap());
+		WebEndpointResponse<HealthComponent> response = new HealthEndpointWebExtension(this.registry, groups)
 						.health(ApiVersion.LATEST, SecurityContext.NONE);
 		assertThat(response.getStatus()).isEqualTo(200);
 		HealthComponent health = response.getBody();
@@ -64,7 +64,7 @@ class HealthEndpointWebExtensionTests
 	@Test
 	void healthWhenPathDoesNotExistReturnsHttp404() {
 		this.registry.registerContributor("test", createContributor(this.up));
-		WebEndpointResponse<HealthComponent> response = create(this.registry, this.groups).health(ApiVersion.LATEST,
+		WebEndpointResponse<HealthComponent> response = new HealthEndpointWebExtension(this.registry, this.groups).health(ApiVersion.LATEST,
 				SecurityContext.NONE, "missing");
 		assertThat(response.getBody()).isNull();
 		assertThat(response.getStatus()).isEqualTo(404);
@@ -73,15 +73,10 @@ class HealthEndpointWebExtensionTests
 	@Test
 	void healthWhenPathExistsReturnsHealth() {
 		this.registry.registerContributor("test", createContributor(this.up));
-		WebEndpointResponse<HealthComponent> response = create(this.registry, this.groups).health(ApiVersion.LATEST,
+		WebEndpointResponse<HealthComponent> response = new HealthEndpointWebExtension(this.registry, this.groups).health(ApiVersion.LATEST,
 				SecurityContext.NONE, "test");
 		assertThat(response.getBody()).isEqualTo(this.up);
 		assertThat(response.getStatus()).isEqualTo(200);
-	}
-
-	@Override
-	protected HealthEndpointWebExtension create(HealthContributorRegistry registry, HealthEndpointGroups groups) {
-		return new HealthEndpointWebExtension(registry, groups);
 	}
 
 	@Override
