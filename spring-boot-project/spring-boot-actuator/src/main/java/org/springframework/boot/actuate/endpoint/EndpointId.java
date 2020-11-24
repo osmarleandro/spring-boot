@@ -115,20 +115,6 @@ public final class EndpointId {
 		return new EndpointId(value);
 	}
 
-	/**
-	 * Factory method to create a new {@link EndpointId} of the specified value. This
-	 * variant will respect the {@code management.endpoints.migrate-legacy-names} property
-	 * if it has been set in the {@link Environment}.
-	 * @param environment the Spring environment
-	 * @param value the endpoint ID value
-	 * @return an {@link EndpointId} instance
-	 * @since 2.2.0
-	 */
-	public static EndpointId of(Environment environment, String value) {
-		Assert.notNull(environment, "Environment must not be null");
-		return new EndpointId(migrateLegacyId(environment, value));
-	}
-
 	private static String migrateLegacyId(Environment environment, String value) {
 		if (environment.getProperty(MIGRATE_LEGACY_NAMES_PROPERTY, Boolean.class, false)) {
 			return value.replaceAll("[-.]+", "");
