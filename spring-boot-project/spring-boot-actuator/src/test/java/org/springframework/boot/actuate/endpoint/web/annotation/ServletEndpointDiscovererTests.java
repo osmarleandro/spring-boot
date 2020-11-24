@@ -60,12 +60,6 @@ class ServletEndpointDiscovererTests {
 	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner();
 
 	@Test
-	void getEndpointsWhenNoEndpointBeansShouldReturnEmptyCollection() {
-		this.contextRunner.withUserConfiguration(EmptyConfiguration.class)
-				.run(assertDiscoverer((discoverer) -> assertThat(discoverer.getEndpoints()).isEmpty()));
-	}
-
-	@Test
 	void getEndpointsShouldIncludeServletEndpoints() {
 		this.contextRunner.withUserConfiguration(TestServletEndpoint.class).run(assertDiscoverer((discoverer) -> {
 			Collection<ExposableServletEndpoint> endpoints = discoverer.getEndpoints();
