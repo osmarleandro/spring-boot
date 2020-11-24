@@ -69,7 +69,7 @@ public class HttpExchangeTracer {
 	 */
 	public final void sendingResponse(HttpTrace trace, TraceableResponse response, Supplier<Principal> principal,
 			Supplier<String> sessionId) {
-		setIfIncluded(Include.TIME_TAKEN, () -> calculateTimeTaken(trace), trace::setTimeTaken);
+		setIfIncluded(Include.TIME_TAKEN, () -> TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - trace.getStartNanoTime()), trace::setTimeTaken);
 		setIfIncluded(Include.SESSION_ID, sessionId, trace::setSessionId);
 		setIfIncluded(Include.PRINCIPAL, principal, trace::setPrincipal);
 		trace.setResponse(new HttpTrace.Response(new FilteredTraceableResponse(response)));
@@ -100,10 +100,6 @@ public class HttpExchangeTracer {
 		}
 		return headersSupplier.get().entrySet().stream().filter((entry) -> headerPredicate.test(entry.getKey()))
 				.collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
-	}
-
-	private long calculateTimeTaken(HttpTrace trace) {
-		return TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - trace.getStartNanoTime());
 	}
 
 	private final class FilteredTraceableRequest implements TraceableRequest {
