@@ -54,12 +54,4 @@ public class RegistrationMappingDescription<T extends Registration> {
 		return this.registration.getClassName();
 	}
 
-	/**
-	 * Returns the registration that is being described.
-	 * @return the registration
-	 */
-	protected final T getRegistration() {
-		return this.registration;
-	}
-
 }

@@ -42,7 +42,7 @@ public class ServletRegistrationMappingDescription extends RegistrationMappingDe
 	 * @return the mappings
 	 */
 	public Collection<String> getMappings() {
-		return getRegistration().getMappings();
+		return this.registration.getMappings();
 	}
 
 }
