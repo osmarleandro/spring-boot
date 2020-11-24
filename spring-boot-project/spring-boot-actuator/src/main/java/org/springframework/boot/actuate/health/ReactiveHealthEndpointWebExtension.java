@@ -83,11 +83,6 @@ public class ReactiveHealthEndpointWebExtension
 	}
 
 	@Override
-	protected Mono<? extends HealthComponent> getHealth(ReactiveHealthContributor contributor, boolean includeDetails) {
-		return ((ReactiveHealthIndicator) contributor).getHealth(includeDetails);
-	}
-
-	@Override
 	protected Mono<? extends HealthComponent> aggregateContributions(ApiVersion apiVersion,
 			Map<String, Mono<? extends HealthComponent>> contributions, StatusAggregator statusAggregator,
 			boolean showComponents, Set<String> groupNames) {
