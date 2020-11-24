@@ -48,13 +48,6 @@ class CachesEndpointWebIntegrationTests {
 	}
 
 	@WebEndpointTest
-	void namedCache(WebTestClient client) {
-		client.get().uri("/actuator/caches/b").exchange().expectStatus().isOk().expectBody().jsonPath("name")
-				.isEqualTo("b").jsonPath("cacheManager").isEqualTo("one").jsonPath("target")
-				.isEqualTo(ConcurrentHashMap.class.getName());
-	}
-
-	@WebEndpointTest
 	void namedCacheWithUnknownName(WebTestClient client) {
 		client.get().uri("/actuator/caches/does-not-exist").exchange().expectStatus().isNotFound();
 	}
