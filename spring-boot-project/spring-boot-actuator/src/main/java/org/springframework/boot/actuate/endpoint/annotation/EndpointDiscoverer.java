@@ -38,6 +38,7 @@ import org.springframework.boot.actuate.endpoint.EndpointId;
 import org.springframework.boot.actuate.endpoint.EndpointsSupplier;
 import org.springframework.boot.actuate.endpoint.ExposableEndpoint;
 import org.springframework.boot.actuate.endpoint.Operation;
+import org.springframework.boot.actuate.endpoint.annotation.EndpointDiscoverer.EndpointBean;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvoker;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvokerAdvisor;
 import org.springframework.boot.actuate.endpoint.invoke.ParameterValueMapper;
@@ -122,7 +123,13 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 	private Collection<E> discoverEndpoints() {
 		Collection<EndpointBean> endpointBeans = createEndpointBeans();
 		addExtensionBeans(endpointBeans);
-		return convertToEndpoints(endpointBeans);
+		Set<E> endpoints = new LinkedHashSet<>();
+		for (EndpointBean endpointBean : endpointBeans) {
+			if (isEndpointExposed(endpointBean)) {
+				endpoints.add(convertToEndpoint(endpointBean));
+			}
+		}
+		return Collections.unmodifiableSet(endpoints);
 	}
 
 	private Collection<EndpointBean> createEndpointBeans() {
@@ -173,16 +180,6 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 							+ extensionBean.getBeanName() + "'");
 			endpointBean.addExtension(extensionBean);
 		}
-	}
-
-	private Collection<E> convertToEndpoints(Collection<EndpointBean> endpointBeans) {
-		Set<E> endpoints = new LinkedHashSet<>();
-		for (EndpointBean endpointBean : endpointBeans) {
-			if (isEndpointExposed(endpointBean)) {
-				endpoints.add(convertToEndpoint(endpointBean));
-			}
-		}
-		return Collections.unmodifiableSet(endpoints);
 	}
 
 	private E convertToEndpoint(EndpointBean endpointBean) {
