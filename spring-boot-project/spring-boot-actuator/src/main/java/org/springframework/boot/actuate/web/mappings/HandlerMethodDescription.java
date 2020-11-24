@@ -39,10 +39,6 @@ public class HandlerMethodDescription {
 		this.descriptor = Type.getMethodDescriptor(handlerMethod.getMethod());
 	}
 
-	public String getName() {
-		return this.name;
-	}
-
 	public String getDescriptor() {
 		return this.descriptor;
 	}
