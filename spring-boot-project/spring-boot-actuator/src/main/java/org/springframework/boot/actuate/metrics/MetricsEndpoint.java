@@ -88,7 +88,9 @@ public class MetricsEndpoint {
 		tags.forEach((t) -> availableTags.remove(t.getKey()));
 		Meter.Id meterId = meters.iterator().next().getId();
 		return new MetricResponse(requiredMetricName, meterId.getDescription(), meterId.getBaseUnit(),
-				asList(samples, Sample::new), asList(availableTags, AvailableTag::new));
+				samples.entrySet().stream().map((entry) -> mapper.apply(entry.getKey(), entry.getValue()))
+				.collect(Collectors.toList()), availableTags.entrySet().stream().map((entry) -> mapper.apply(entry.getKey(), entry.getValue()))
+				.collect(Collectors.toList()));
 	}
 
 	private List<Tag> parseTags(List<String> tags) {
@@ -154,11 +156,6 @@ public class MetricsEndpoint {
 		result.addAll(set1);
 		result.addAll(set2);
 		return result;
-	}
-
-	private <K, V, T> List<T> asList(Map<K, V> map, BiFunction<K, V, T> mapper) {
-		return map.entrySet().stream().map((entry) -> mapper.apply(entry.getKey(), entry.getValue()))
-				.collect(Collectors.toList());
 	}
 
 	/**
