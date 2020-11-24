@@ -70,14 +70,10 @@ abstract class DiscoveredOperationsFactory<O extends Operation> {
 
 	Collection<O> createOperations(EndpointId id, Object target) {
 		return MethodIntrospector
-				.selectMethods(target.getClass(), (MetadataLookup<O>) (method) -> createOperation(id, target, method))
-				.values();
-	}
-
-	private O createOperation(EndpointId endpointId, Object target, Method method) {
-		return OPERATION_TYPES.entrySet().stream()
+				.selectMethods(target.getClass(), (MetadataLookup<O>) (method) -> OPERATION_TYPES.entrySet().stream()
 				.map((entry) -> createOperation(endpointId, target, method, entry.getKey(), entry.getValue()))
-				.filter(Objects::nonNull).findFirst().orElse(null);
+				.filter(Objects::nonNull).findFirst().orElse(null))
+				.values();
 	}
 
 	private O createOperation(EndpointId endpointId, Object target, Method method, OperationType operationType,
