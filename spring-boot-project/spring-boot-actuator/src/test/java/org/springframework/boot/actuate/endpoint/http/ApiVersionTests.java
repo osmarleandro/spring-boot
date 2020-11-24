@@ -39,12 +39,6 @@ class ApiVersionTests {
 	}
 
 	@Test
-	void fromHttpHeadersWhenEmptyReturnsLatest() {
-		ApiVersion version = ApiVersion.fromHttpHeaders(Collections.emptyMap());
-		assertThat(version).isEqualTo(ApiVersion.V3);
-	}
-
-	@Test
 	void fromHttpHeadersWhenHasSingleV2HeaderReturnsV2() {
 		ApiVersion version = ApiVersion.fromHttpHeaders(acceptHeader(ActuatorMediaType.V2_JSON));
 		assertThat(version).isEqualTo(ApiVersion.V2);
