@@ -151,13 +151,6 @@ class HealthTests {
 	}
 
 	@Test
-	void down() {
-		Health health = Health.down().build();
-		assertThat(health.getStatus()).isEqualTo(Status.DOWN);
-		assertThat(health.getDetails()).isEmpty();
-	}
-
-	@Test
 	void outOfService() {
 		Health health = Health.outOfService().build();
 		assertThat(health.getStatus()).isEqualTo(Status.OUT_OF_SERVICE);
