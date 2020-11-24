@@ -145,21 +145,6 @@ class CassandraDriverReactiveHealthIndicatorTests {
 		}).verifyComplete();
 	}
 
-	@Test
-	void healthWithCassandraDownShouldReturnDown() {
-		CqlSession session = mock(CqlSession.class);
-		given(session.getMetadata()).willThrow(new DriverTimeoutException("Test Exception"));
-		CassandraDriverReactiveHealthIndicator cassandraReactiveHealthIndicator = new CassandraDriverReactiveHealthIndicator(
-				session);
-		Mono<Health> health = cassandraReactiveHealthIndicator.health();
-		StepVerifier.create(health).consumeNextWith((h) -> {
-			assertThat(h.getStatus()).isEqualTo(Status.DOWN);
-			assertThat(h.getDetails()).containsOnlyKeys("error");
-			assertThat(h.getDetails().get("error"))
-					.isEqualTo(DriverTimeoutException.class.getName() + ": Test Exception");
-		}).verifyComplete();
-	}
-
 	private CqlSession mockCqlSessionWithNodeState(NodeState... nodeStates) {
 		CqlSession session = mock(CqlSession.class);
 		Metadata metadata = mock(Metadata.class);
