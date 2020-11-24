@@ -45,18 +45,6 @@ public class GitInfoContributor extends InfoPropertiesInfoContributor<GitPropert
 		builder.withDetail("git", generateContent());
 	}
 
-	@Override
-	protected PropertySource<?> toSimplePropertySource() {
-		Properties props = new Properties();
-		copyIfSet(props, "branch");
-		String commitId = getProperties().getShortCommitId();
-		if (commitId != null) {
-			props.put("commit.id", commitId);
-		}
-		copyIfSet(props, "commit.time");
-		return new PropertiesPropertySource("git", props);
-	}
-
 	/**
 	 * Post-process the content to expose. By default, well known keys representing dates
 	 * are converted to {@link Instant} instances.
