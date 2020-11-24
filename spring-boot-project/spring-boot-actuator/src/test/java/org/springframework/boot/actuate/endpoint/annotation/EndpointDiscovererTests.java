@@ -38,6 +38,7 @@ import org.springframework.boot.actuate.endpoint.EndpointFilter;
 import org.springframework.boot.actuate.endpoint.EndpointId;
 import org.springframework.boot.actuate.endpoint.ExposableEndpoint;
 import org.springframework.boot.actuate.endpoint.Operation;
+import org.springframework.boot.actuate.endpoint.annotation.EndpointDiscovererTests.TestEndpoint;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvoker;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvokerAdvisor;
 import org.springframework.boot.actuate.endpoint.invoke.ParameterValueMapper;
@@ -185,8 +186,10 @@ class EndpointDiscovererTests {
 			Map<EndpointId, TestExposableEndpoint> endpoints = mapEndpoints(discoverer.getEndpoints());
 			assertThat(endpoints).containsOnlyKeys(EndpointId.of("test"));
 			Map<Method, TestOperation> operations = mapOperations(endpoints.get(EndpointId.of("test")));
-			TestOperation getAll = operations.get(findTestEndpointMethod("getAll"));
-			TestOperation getOne = operations.get(findTestEndpointMethod("getOne", String.class));
+			Class<?>[] paramTypes = {};
+			TestOperation getAll = operations.get(ReflectionUtils.findMethod(TestEndpoint.class, "getAll", paramTypes));
+			Class<?>[] paramTypes1 = { String.class };
+			TestOperation getOne = operations.get(ReflectionUtils.findMethod(TestEndpoint.class, "getOne", paramTypes1));
 			TestOperation update = operations
 					.get(ReflectionUtils.findMethod(TestEndpoint.class, "update", String.class, String.class));
 			assertThat(((CachingOperationInvoker) getAll.getInvoker()).getTimeToLive()).isEqualTo(500);
@@ -273,15 +276,15 @@ class EndpointDiscovererTests {
 
 	private Method[] testEndpointMethods() {
 		List<Method> methods = new ArrayList<>();
-		methods.add(findTestEndpointMethod("getAll"));
-		methods.add(findTestEndpointMethod("getOne", String.class));
-		methods.add(findTestEndpointMethod("update", String.class, String.class));
-		methods.add(findTestEndpointMethod("deleteOne", String.class));
+		Class<?>[] paramTypes = {};
+		methods.add(ReflectionUtils.findMethod(TestEndpoint.class, "getAll", paramTypes));
+		Class<?>[] paramTypes1 = { String.class };
+		methods.add(ReflectionUtils.findMethod(TestEndpoint.class, "getOne", paramTypes1));
+		Class<?>[] paramTypes2 = { String.class, String.class };
+		methods.add(ReflectionUtils.findMethod(TestEndpoint.class, "update", paramTypes2));
+		Class<?>[] paramTypes3 = { String.class };
+		methods.add(ReflectionUtils.findMethod(TestEndpoint.class, "deleteOne", paramTypes3));
 		return methods.toArray(new Method[0]);
-	}
-
-	private Method findTestEndpointMethod(String name, Class<?>... paramTypes) {
-		return ReflectionUtils.findMethod(TestEndpoint.class, name, paramTypes);
 	}
 
 	private <E extends ExposableEndpoint<?>> Map<EndpointId, E> mapEndpoints(Collection<E> endpoints) {
