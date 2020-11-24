@@ -72,7 +72,7 @@ public class DefaultWebMvcTagsProvider implements WebMvcTagsProvider {
 	public Iterable<Tag> getTags(HttpServletRequest request, HttpServletResponse response, Object handler,
 			Throwable exception) {
 		Tags tags = Tags.of(WebMvcTags.method(request), WebMvcTags.uri(request, response, this.ignoreTrailingSlash),
-				WebMvcTags.exception(exception), WebMvcTags.status(response), WebMvcTags.outcome(response));
+				WebMvcTags.exception(exception), (response != null) ? Tag.of("status", Integer.toString(response.getStatus())) : WebMvcTags.STATUS_UNKNOWN, WebMvcTags.outcome(response));
 		for (WebMvcTagsContributor contributor : this.contributors) {
 			tags = tags.and(contributor.getTags(request, response, handler, exception));
 		}

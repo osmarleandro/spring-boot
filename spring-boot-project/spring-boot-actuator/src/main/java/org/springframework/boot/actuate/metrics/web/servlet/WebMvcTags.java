@@ -75,15 +75,6 @@ public final class WebMvcTags {
 	}
 
 	/**
-	 * Creates a {@code status} tag based on the status of the given {@code response}.
-	 * @param response the HTTP response
-	 * @return the status tag derived from the status of the response
-	 */
-	public static Tag status(HttpServletResponse response) {
-		return (response != null) ? Tag.of("status", Integer.toString(response.getStatus())) : STATUS_UNKNOWN;
-	}
-
-	/**
 	 * Creates a {@code uri} tag based on the URI of the given {@code request}. Uses the
 	 * {@link HandlerMapping#BEST_MATCHING_PATTERN_ATTRIBUTE} best matching pattern if
 	 * available. Falling back to {@code REDIRECTION} for 3xx responses, {@code NOT_FOUND}
