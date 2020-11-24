@@ -36,13 +36,6 @@ class EnvironmentEndpointWebIntegrationTests {
 
 	private WebTestClient client;
 
-	@BeforeEach
-	void prepareEnvironment(ConfigurableApplicationContext context, WebTestClient client) {
-		TestPropertyValues.of("foo:bar", "fool:baz").applyTo(context);
-		this.client = client;
-		this.context = context;
-	}
-
 	@WebEndpointTest
 	void home() {
 		this.client.get().uri("/actuator/env").exchange().expectStatus().isOk().expectBody()
