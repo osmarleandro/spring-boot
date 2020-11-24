@@ -260,32 +260,6 @@ class ConfigurationPropertiesReportEndpointTests {
 	}
 
 	@Test
-	void listsOfListsAreSanitized() {
-		this.contextRunner.withUserConfiguration(SensiblePropertiesConfiguration.class)
-				.withPropertyValues("sensible.listOfListItems[0][0].some-password=password")
-				.run(assertProperties("sensible", (properties) -> {
-					assertThat(properties.get("listOfListItems")).isInstanceOf(List.class);
-					List<List<Object>> listOfLists = (List<List<Object>>) properties.get("listOfListItems");
-					assertThat(listOfLists).hasSize(1);
-					List<Object> list = listOfLists.get(0);
-					assertThat(list).hasSize(1);
-					Map<String, Object> item = (Map<String, Object>) list.get(0);
-					assertThat(item.get("somePassword")).isEqualTo("******");
-				}, (inputs) -> {
-					assertThat(inputs.get("listOfListItems")).isInstanceOf(List.class);
-					List<List<Object>> listOfLists = (List<List<Object>>) inputs.get("listOfListItems");
-					assertThat(listOfLists).hasSize(1);
-					List<Object> list = listOfLists.get(0);
-					assertThat(list).hasSize(1);
-					Map<String, Object> item = (Map<String, Object>) list.get(0);
-					Map<String, Object> somePassword = (Map<String, Object>) item.get("somePassword");
-					assertThat(somePassword.get("value")).isEqualTo("******");
-					assertThat(somePassword.get("origin")).isEqualTo(
-							"\"sensible.listOfListItems[0][0].some-password\" from property source \"test\"");
-				}));
-	}
-
-	@Test
 	void originParents() {
 		this.contextRunner.withUserConfiguration(SensiblePropertiesConfiguration.class)
 				.withInitializer(this::initializeOriginParents).run(assertProperties("sensible", (properties) -> {
