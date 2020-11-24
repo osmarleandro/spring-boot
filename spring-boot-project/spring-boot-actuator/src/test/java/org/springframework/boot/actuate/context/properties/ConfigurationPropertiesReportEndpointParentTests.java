@@ -43,7 +43,7 @@ class ConfigurationPropertiesReportEndpointParentTests {
 					.run((child) -> {
 						ConfigurationPropertiesReportEndpoint endpoint = child
 								.getBean(ConfigurationPropertiesReportEndpoint.class);
-						ApplicationConfigurationProperties applicationProperties = endpoint.configurationProperties();
+						ApplicationConfigurationProperties applicationProperties = endpoint.extract(endpoint.context);
 						assertThat(applicationProperties.getContexts()).containsOnlyKeys(child.getId(), parent.getId());
 						assertThat(applicationProperties.getContexts().get(child.getId()).getBeans().keySet())
 								.containsExactly("someProperties");
@@ -60,7 +60,7 @@ class ConfigurationPropertiesReportEndpointParentTests {
 					.withParent(parent).run((child) -> {
 						ConfigurationPropertiesReportEndpoint endpoint = child
 								.getBean(ConfigurationPropertiesReportEndpoint.class);
-						ApplicationConfigurationProperties applicationProperties = endpoint.configurationProperties();
+						ApplicationConfigurationProperties applicationProperties = endpoint.extract(endpoint.context);
 						assertThat(applicationProperties.getContexts().get(child.getId()).getBeans().keySet())
 								.containsExactlyInAnyOrder("otherProperties");
 						assertThat((applicationProperties.getContexts().get(parent.getId()).getBeans().keySet()))

@@ -53,7 +53,7 @@ class ConfigurationPropertiesReportEndpointSerializationTests {
 		contextRunner.run((context) -> {
 			ConfigurationPropertiesReportEndpoint endpoint = context
 					.getBean(ConfigurationPropertiesReportEndpoint.class);
-			ApplicationConfigurationProperties applicationProperties = endpoint.configurationProperties();
+			ApplicationConfigurationProperties applicationProperties = endpoint.extract(endpoint.context);
 			ConfigurationPropertiesBeanDescriptor foo = applicationProperties.getContexts().get(context.getId())
 					.getBeans().get("foo");
 			assertThat(foo).isNotNull();
@@ -73,7 +73,7 @@ class ConfigurationPropertiesReportEndpointSerializationTests {
 		contextRunner.run((context) -> {
 			ConfigurationPropertiesReportEndpoint endpoint = context
 					.getBean(ConfigurationPropertiesReportEndpoint.class);
-			ApplicationConfigurationProperties applicationProperties = endpoint.configurationProperties();
+			ApplicationConfigurationProperties applicationProperties = endpoint.extract(endpoint.context);
 			ConfigurationPropertiesBeanDescriptor foo = applicationProperties.getContexts().get(context.getId())
 					.getBeans().get("foo");
 			assertThat(foo).isNotNull();
@@ -92,7 +92,7 @@ class ConfigurationPropertiesReportEndpointSerializationTests {
 		contextRunner.run((context) -> {
 			ConfigurationPropertiesReportEndpoint endpoint = context
 					.getBean(ConfigurationPropertiesReportEndpoint.class);
-			ApplicationConfigurationProperties applicationProperties = endpoint.configurationProperties();
+			ApplicationConfigurationProperties applicationProperties = endpoint.extract(endpoint.context);
 			ConfigurationPropertiesBeanDescriptor foo = applicationProperties.getContexts().get(context.getId())
 					.getBeans().get("foo");
 			assertThat(foo.getPrefix()).isEqualTo("foo");
@@ -113,7 +113,7 @@ class ConfigurationPropertiesReportEndpointSerializationTests {
 		contextRunner.run((context) -> {
 			ConfigurationPropertiesReportEndpoint endpoint = context
 					.getBean(ConfigurationPropertiesReportEndpoint.class);
-			ApplicationConfigurationProperties applicationProperties = endpoint.configurationProperties();
+			ApplicationConfigurationProperties applicationProperties = endpoint.extract(endpoint.context);
 			ConfigurationPropertiesBeanDescriptor cycle = applicationProperties.getContexts().get(context.getId())
 					.getBeans().get("cycle");
 			assertThat(cycle.getPrefix()).isEqualTo("cycle");
@@ -132,7 +132,7 @@ class ConfigurationPropertiesReportEndpointSerializationTests {
 		contextRunner.run((context) -> {
 			ConfigurationPropertiesReportEndpoint endpoint = context
 					.getBean(ConfigurationPropertiesReportEndpoint.class);
-			ApplicationConfigurationProperties applicationProperties = endpoint.configurationProperties();
+			ApplicationConfigurationProperties applicationProperties = endpoint.extract(endpoint.context);
 			ConfigurationPropertiesBeanDescriptor fooProperties = applicationProperties.getContexts()
 					.get(context.getId()).getBeans().get("foo");
 			assertThat(fooProperties).isNotNull();
@@ -150,7 +150,7 @@ class ConfigurationPropertiesReportEndpointSerializationTests {
 		contextRunner.run((context) -> {
 			ConfigurationPropertiesReportEndpoint endpoint = context
 					.getBean(ConfigurationPropertiesReportEndpoint.class);
-			ApplicationConfigurationProperties applicationProperties = endpoint.configurationProperties();
+			ApplicationConfigurationProperties applicationProperties = endpoint.extract(endpoint.context);
 			ConfigurationPropertiesBeanDescriptor foo = applicationProperties.getContexts().get(context.getId())
 					.getBeans().get("foo");
 			assertThat(foo).isNotNull();
@@ -170,7 +170,7 @@ class ConfigurationPropertiesReportEndpointSerializationTests {
 		contextRunner.run((context) -> {
 			ConfigurationPropertiesReportEndpoint endpoint = context
 					.getBean(ConfigurationPropertiesReportEndpoint.class);
-			ApplicationConfigurationProperties applicationProperties = endpoint.configurationProperties();
+			ApplicationConfigurationProperties applicationProperties = endpoint.extract(endpoint.context);
 			ConfigurationPropertiesBeanDescriptor foo = applicationProperties.getContexts().get(context.getId())
 					.getBeans().get("foo");
 			assertThat(foo).isNotNull();
@@ -189,7 +189,7 @@ class ConfigurationPropertiesReportEndpointSerializationTests {
 		contextRunner.run((context) -> {
 			ConfigurationPropertiesReportEndpoint endpoint = context
 					.getBean(ConfigurationPropertiesReportEndpoint.class);
-			ApplicationConfigurationProperties applicationProperties = endpoint.configurationProperties();
+			ApplicationConfigurationProperties applicationProperties = endpoint.extract(endpoint.context);
 			ConfigurationPropertiesBeanDescriptor foo = applicationProperties.getContexts().get(context.getId())
 					.getBeans().get("foo");
 			assertThat(foo).isNotNull();
@@ -210,7 +210,7 @@ class ConfigurationPropertiesReportEndpointSerializationTests {
 		contextRunner.run((context) -> {
 			ConfigurationPropertiesReportEndpoint endpoint = context
 					.getBean(ConfigurationPropertiesReportEndpoint.class);
-			ApplicationConfigurationProperties applicationProperties = endpoint.configurationProperties();
+			ApplicationConfigurationProperties applicationProperties = endpoint.extract(endpoint.context);
 			ConfigurationPropertiesBeanDescriptor foo = applicationProperties.getContexts().get(context.getId())
 					.getBeans().get("foo");
 			assertThat(foo.getPrefix()).isEqualTo("foo");
@@ -230,7 +230,7 @@ class ConfigurationPropertiesReportEndpointSerializationTests {
 		contextRunner.run((context) -> {
 			ConfigurationPropertiesReportEndpoint endpoint = context
 					.getBean(ConfigurationPropertiesReportEndpoint.class);
-			ApplicationConfigurationProperties applicationProperties = endpoint.configurationProperties();
+			ApplicationConfigurationProperties applicationProperties = endpoint.extract(endpoint.context);
 			ConfigurationPropertiesBeanDescriptor hikariDataSource = applicationProperties.getContexts()
 					.get(context.getId()).getBeans().get("hikariDataSource");
 			Map<String, Object> nestedProperties = hikariDataSource.getProperties();

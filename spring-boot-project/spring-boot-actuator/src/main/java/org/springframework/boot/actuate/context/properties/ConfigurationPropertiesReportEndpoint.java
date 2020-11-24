@@ -107,11 +107,6 @@ public class ConfigurationPropertiesReportEndpoint implements ApplicationContext
 		this.sanitizer.setKeysToSanitize(keysToSanitize);
 	}
 
-	@ReadOperation
-	public ApplicationConfigurationProperties configurationProperties() {
-		return extract(this.context);
-	}
-
 	private ApplicationConfigurationProperties extract(ApplicationContext context) {
 		ObjectMapper mapper = getObjectMapper();
 		Map<String, ContextConfigurationProperties> contexts = new HashMap<>();
