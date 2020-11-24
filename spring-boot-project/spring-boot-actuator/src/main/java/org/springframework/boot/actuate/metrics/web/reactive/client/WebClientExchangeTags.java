@@ -107,18 +107,6 @@ public final class WebClientExchangeTags {
 	}
 
 	/**
-	 * Creates a {@code status} {@code Tag} derived from the exception thrown by the
-	 * client.
-	 * @param throwable the exception
-	 * @return the status tag
-	 * @deprecated since 2.3.0 in favor of {@link #status(ClientResponse, Throwable)}
-	 */
-	@Deprecated
-	public static Tag status(Throwable throwable) {
-		return (throwable instanceof IOException) ? IO_ERROR : CLIENT_ERROR;
-	}
-
-	/**
 	 * Create a {@code clientName} {@code Tag} derived from the
 	 * {@link java.net.URI#getHost host} of the {@link ClientRequest#url() URL} of the
 	 * given {@code request}.
