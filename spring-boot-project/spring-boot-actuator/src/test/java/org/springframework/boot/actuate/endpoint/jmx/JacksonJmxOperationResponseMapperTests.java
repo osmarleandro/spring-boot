@@ -63,12 +63,6 @@ class JacksonJmxOperationResponseMapperTests {
 	}
 
 	@Test
-	void mapResponseTypeWhenCharSequenceShouldReturnString() {
-		assertThat(this.mapper.mapResponseType(String.class)).isEqualTo(String.class);
-		assertThat(this.mapper.mapResponseType(StringBuilder.class)).isEqualTo(String.class);
-	}
-
-	@Test
 	void mapResponseTypeWhenArrayShouldReturnList() {
 		assertThat(this.mapper.mapResponseType(String[].class)).isEqualTo(List.class);
 		assertThat(this.mapper.mapResponseType(Object[].class)).isEqualTo(List.class);
