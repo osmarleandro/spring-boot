@@ -63,14 +63,6 @@ class ElasticsearchReactiveHealthIndicatorTests {
 	}
 
 	@Test
-	void elasticsearchIsUp() {
-		setupMockResponse(200, "green");
-		Health health = this.healthIndicator.health().block();
-		assertThat(health.getStatus()).isEqualTo(Status.UP);
-		assertHealthDetailsWithStatus(health.getDetails(), "green");
-	}
-
-	@Test
 	void elasticsearchWithYellowStatusIsUp() {
 		setupMockResponse(200, "yellow");
 		Health health = this.healthIndicator.health().block();
