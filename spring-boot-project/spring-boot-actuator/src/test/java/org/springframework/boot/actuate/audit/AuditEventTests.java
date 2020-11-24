@@ -51,12 +51,6 @@ class AuditEventTests {
 	}
 
 	@Test
-	void nullPrincipalIsMappedToEmptyString() {
-		AuditEvent auditEvent = new AuditEvent(null, "UNKNOWN", Collections.singletonMap("a", "b"));
-		assertThat(auditEvent.getPrincipal()).isEmpty();
-	}
-
-	@Test
 	void nullTimestamp() {
 		assertThatIllegalArgumentException()
 				.isThrownBy(() -> new AuditEvent(null, "phil", "UNKNOWN", Collections.singletonMap("a", "b")))
