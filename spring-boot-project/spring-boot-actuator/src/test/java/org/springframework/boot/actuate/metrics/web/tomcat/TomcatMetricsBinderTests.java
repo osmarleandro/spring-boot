@@ -30,9 +30,4 @@ class TomcatMetricsBinderTests {
 
 	private final MeterRegistry meterRegistry = mock(MeterRegistry.class);
 
-	@Test
-	void destroySucceedsWhenCalledBeforeApplicationHasStarted() {
-		new TomcatMetricsBinder(this.meterRegistry).destroy();
-	}
-
 }
