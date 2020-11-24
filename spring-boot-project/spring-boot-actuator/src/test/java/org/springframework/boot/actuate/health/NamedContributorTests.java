@@ -41,11 +41,4 @@ class NamedContributorTests {
 				.withMessage("Name must not be null");
 	}
 
-	@Test
-	void ofWhenContributorIsNullThrowsException() {
-		assertThatIllegalArgumentException().isThrownBy(() -> NamedContributor.of("one", null))
-				.withMessage("Contributor must not be null");
-
-	}
-
 }
