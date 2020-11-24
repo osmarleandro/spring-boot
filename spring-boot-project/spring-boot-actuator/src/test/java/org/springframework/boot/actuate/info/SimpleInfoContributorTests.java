@@ -29,11 +29,6 @@ import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException
 class SimpleInfoContributorTests {
 
 	@Test
-	void prefixIsMandatory() {
-		assertThatIllegalArgumentException().isThrownBy(() -> new SimpleInfoContributor(null, new Object()));
-	}
-
-	@Test
 	void mapSimpleObject() {
 		Object o = new Object();
 		Info info = contributeFrom("test", o);
