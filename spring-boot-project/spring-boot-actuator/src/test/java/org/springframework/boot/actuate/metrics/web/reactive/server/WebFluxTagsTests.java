@@ -186,13 +186,6 @@ class WebFluxTagsTests {
 	}
 
 	@Test
-	void outcomeTagIsServerErrorWhenResponseIs5xx() {
-		this.exchange.getResponse().setStatusCode(HttpStatus.BAD_GATEWAY);
-		Tag tag = WebFluxTags.outcome(this.exchange);
-		assertThat(tag.getValue()).isEqualTo("SERVER_ERROR");
-	}
-
-	@Test
 	void outcomeTagIsClientErrorWhenResponseIsNonStandardInClientSeries() {
 		this.exchange.getResponse().setRawStatusCode(490);
 		Tag tag = WebFluxTags.outcome(this.exchange);
