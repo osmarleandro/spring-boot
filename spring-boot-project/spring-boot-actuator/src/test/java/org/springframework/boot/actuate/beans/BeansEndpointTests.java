@@ -78,18 +78,6 @@ class BeansEndpointTests {
 	}
 
 	@Test
-	void lazyBeansAreOmitted() {
-		ApplicationContextRunner contextRunner = new ApplicationContextRunner()
-				.withUserConfiguration(EndpointConfiguration.class, LazyBeanConfiguration.class);
-		contextRunner.run((context) -> {
-			ApplicationBeans result = context.getBean(BeansEndpoint.class).beans();
-			ContextBeans contextDescriptor = result.getContexts().get(context.getId());
-			assertThat(context).hasBean("lazyBean");
-			assertThat(contextDescriptor.getBeans()).doesNotContainKey("lazyBean");
-		});
-	}
-
-	@Test
 	void beansInParentContextAreFound() {
 		ApplicationContextRunner parentRunner = new ApplicationContextRunner()
 				.withUserConfiguration(BeanConfiguration.class);
