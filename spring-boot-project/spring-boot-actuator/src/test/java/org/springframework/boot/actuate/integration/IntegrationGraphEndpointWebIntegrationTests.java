@@ -40,12 +40,6 @@ class IntegrationGraphEndpointWebIntegrationTests {
 				.jsonPath("contentDescriptor.provider").isEqualTo("spring-integration");
 	}
 
-	@WebEndpointTest
-	void rebuild(WebTestClient client) {
-		client.post().uri("/actuator/integrationgraph").accept(MediaType.APPLICATION_JSON).exchange().expectStatus()
-				.isNoContent();
-	}
-
 	@Configuration(proxyBeanMethods = false)
 	@EnableIntegration
 	static class TestConfiguration {
