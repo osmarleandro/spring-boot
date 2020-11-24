@@ -78,11 +78,6 @@ class DiscoveredWebOperation extends AbstractDiscoveredOperation implements WebO
 	}
 
 	@Override
-	public String getId() {
-		return this.id;
-	}
-
-	@Override
 	public boolean isBlocking() {
 		return this.blocking;
 	}
