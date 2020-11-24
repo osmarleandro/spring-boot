@@ -148,14 +148,6 @@ class WebEndpointDiscovererTests {
 	}
 
 	@Test
-	void getEndpointsWhenExtensionIsNotCompatibleWithTheEndpointTypeShouldThrowException() {
-		load(InvalidWebExtensionConfiguration.class,
-				(discoverer) -> assertThatIllegalStateException().isThrownBy(discoverer::getEndpoints)
-						.withMessageContaining("Endpoint bean 'nonWebEndpoint' cannot support the "
-								+ "extension bean 'nonWebWebEndpointExtension'"));
-	}
-
-	@Test
 	void getEndpointsWhenWhenExtensionHasTwoOperationsWithTheSameNameShouldThrowException() {
 		load(ClashingSelectorsWebEndpointExtensionConfiguration.class,
 				(discoverer) -> assertThatIllegalStateException().isThrownBy(discoverer::getEndpoints)
