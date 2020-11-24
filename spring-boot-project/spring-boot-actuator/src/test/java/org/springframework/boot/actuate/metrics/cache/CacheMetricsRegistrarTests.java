@@ -38,14 +38,6 @@ class CacheMetricsRegistrarTests {
 	private final MeterRegistry meterRegistry = new SimpleMeterRegistry();
 
 	@Test
-	void bindToSupportedCache() {
-		CacheMetricsRegistrar registrar = new CacheMetricsRegistrar(this.meterRegistry,
-				Collections.singleton(new CaffeineCacheMeterBinderProvider()));
-		assertThat(registrar.bindCacheToRegistry(new CaffeineCache("test", Caffeine.newBuilder().build()))).isTrue();
-		assertThat(this.meterRegistry.get("cache.gets").tags("name", "test").meter()).isNotNull();
-	}
-
-	@Test
 	void bindToSupportedCacheWrappedInTransactionProxy() {
 		CacheMetricsRegistrar registrar = new CacheMetricsRegistrar(this.meterRegistry,
 				Collections.singleton(new CaffeineCacheMeterBinderProvider()));
