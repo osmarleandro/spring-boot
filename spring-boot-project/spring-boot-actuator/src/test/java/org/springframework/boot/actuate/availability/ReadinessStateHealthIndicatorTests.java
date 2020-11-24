@@ -50,10 +50,4 @@ class ReadinessStateHealthIndicatorTests {
 		assertThat(this.healthIndicator.health().getStatus()).isEqualTo(Status.UP);
 	}
 
-	@Test
-	void readinessIsUnready() {
-		given(this.availability.getReadinessState()).willReturn(ReadinessState.REFUSING_TRAFFIC);
-		assertThat(this.healthIndicator.health().getStatus()).isEqualTo(Status.OUT_OF_SERVICE);
-	}
-
 }
