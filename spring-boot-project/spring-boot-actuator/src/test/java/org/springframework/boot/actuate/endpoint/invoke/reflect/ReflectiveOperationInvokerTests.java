@@ -87,14 +87,6 @@ class ReflectiveOperationInvokerTests {
 	}
 
 	@Test
-	void invokeWhenMissingNonNullableArgumentShouldThrowException() {
-		ReflectiveOperationInvoker invoker = new ReflectiveOperationInvoker(this.target, this.operationMethod,
-				this.parameterValueMapper);
-		assertThatExceptionOfType(MissingParametersException.class).isThrownBy(() -> invoker
-				.invoke(new InvocationContext(mock(SecurityContext.class), Collections.singletonMap("name", null))));
-	}
-
-	@Test
 	void invokeWhenMissingNullableArgumentShouldInvoke() {
 		OperationMethod operationMethod = new OperationMethod(ReflectionUtils.findMethod(Example.class,
 				"reverseNullable", ApiVersion.class, SecurityContext.class, String.class), OperationType.READ);
