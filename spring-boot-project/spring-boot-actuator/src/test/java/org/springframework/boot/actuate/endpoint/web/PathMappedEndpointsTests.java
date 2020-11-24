@@ -99,8 +99,10 @@ class PathMappedEndpointsTests {
 
 	@Test
 	void getAllPathsShouldReturnAllPaths() {
-		assertThat(createTestMapped(null).getAllPaths()).containsExactly("/p2", "/p3");
-		assertThat(createTestMapped("/x").getAllPaths()).containsExactly("/x/p2", "/x/p3");
+		PathMappedEndpoints r = createTestMapped(null);
+		assertThat(r.asList(r.stream().map(this::getPath))).containsExactly("/p2", "/p3");
+		PathMappedEndpoints r1 = createTestMapped("/x");
+		assertThat(r1.asList(r1.stream().map(this::getPath))).containsExactly("/x/p2", "/x/p3");
 	}
 
 	@Test

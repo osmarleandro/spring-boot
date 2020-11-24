@@ -211,7 +211,7 @@ public final class EndpointRequest {
 		private ServerWebExchangeMatcher createDelegate(PathMappedEndpoints pathMappedEndpoints) {
 			Set<String> paths = new LinkedHashSet<>();
 			if (this.includes.isEmpty()) {
-				paths.addAll(pathMappedEndpoints.getAllPaths());
+				paths.addAll(pathMappedEndpoints.asList(pathMappedEndpoints.stream().map(this::getPath)));
 			}
 			streamPaths(this.includes, pathMappedEndpoints).forEach(paths::add);
 			streamPaths(this.excludes, pathMappedEndpoints).forEach(paths::remove);

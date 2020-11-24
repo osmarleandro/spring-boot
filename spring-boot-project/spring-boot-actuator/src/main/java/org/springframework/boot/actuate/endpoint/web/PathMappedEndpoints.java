@@ -111,14 +111,6 @@ public class PathMappedEndpoints implements Iterable<PathMappedEndpoint> {
 	}
 
 	/**
-	 * Return the full paths for each mapped endpoint.
-	 * @return all root paths
-	 */
-	public Collection<String> getAllPaths() {
-		return asList(stream().map(this::getPath));
-	}
-
-	/**
 	 * Return the {@link PathMappedEndpoint} with the given ID or {@code null} if the
 	 * endpoint cannot be found.
 	 * @param endpointId the endpoint ID
