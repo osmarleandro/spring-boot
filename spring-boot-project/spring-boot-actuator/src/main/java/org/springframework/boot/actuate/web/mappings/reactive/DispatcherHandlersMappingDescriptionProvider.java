@@ -173,7 +173,8 @@ public class DispatcherHandlersMappingDescriptionProvider implements MappingDesc
 		@Override
 		public void route(RequestPredicate predicate, HandlerFunction<?> handlerFunction) {
 			DispatcherHandlerMappingDetails details = new DispatcherHandlerMappingDetails();
-			details.setHandlerFunction(new HandlerFunctionDescription(handlerFunction));
+			HandlerFunctionDescription handlerFunction1 = new HandlerFunctionDescription(handlerFunction);
+			details.handlerFunction = handlerFunction1;
 			this.descriptions.add(
 					new DispatcherHandlerMappingDescription(predicate.toString(), handlerFunction.toString(), details));
 		}
