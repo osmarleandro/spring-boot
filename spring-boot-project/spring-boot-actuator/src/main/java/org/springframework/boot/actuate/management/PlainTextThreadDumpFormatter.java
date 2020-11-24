@@ -83,29 +83,25 @@ class PlainTextThreadDumpFormatter {
 		LockInfo lockInfo = info.getLockInfo();
 		if (firstElement && lockInfo != null) {
 			if (element.getClassName().equals(Object.class.getName()) && element.getMethodName().equals("wait")) {
-				writer.printf("\t- waiting on %s%n", format(lockInfo));
+				writer.printf("\t- waiting on %s%n", String.format("<%x> (a %s)", lockInfo.getIdentityHashCode(), lockInfo.getClassName()));
 			}
 			else {
 				String lockOwner = info.getLockOwnerName();
 				if (lockOwner != null) {
-					writer.printf("\t- waiting to lock %s owned by \"%s\" t@%d%n", format(lockInfo), lockOwner,
+					writer.printf("\t- waiting to lock %s owned by \"%s\" t@%d%n", String.format("<%x> (a %s)", lockInfo.getIdentityHashCode(), lockInfo.getClassName()), lockOwner,
 							info.getLockOwnerId());
 				}
 				else {
-					writer.printf("\t- parking to wait for %s%n", format(lockInfo));
+					writer.printf("\t- parking to wait for %s%n", String.format("<%x> (a %s)", lockInfo.getIdentityHashCode(), lockInfo.getClassName()));
 				}
 			}
 		}
 		writeMonitors(writer, lockedMonitors);
 	}
 
-	private String format(LockInfo lockInfo) {
-		return String.format("<%x> (a %s)", lockInfo.getIdentityHashCode(), lockInfo.getClassName());
-	}
-
 	private void writeMonitors(PrintWriter writer, List<MonitorInfo> lockedMonitorsAtCurrentDepth) {
 		for (MonitorInfo lockedMonitor : lockedMonitorsAtCurrentDepth) {
-			writer.printf("\t- locked %s%n", format(lockedMonitor));
+			writer.printf("\t- locked %s%n", String.format("<%x> (a %s)", lockedMonitor.getIdentityHashCode(), lockedMonitor.getClassName()));
 		}
 	}
 
@@ -117,7 +113,7 @@ class PlainTextThreadDumpFormatter {
 		}
 		else {
 			for (LockInfo lockedSynchronizer : lockedSynchronizers) {
-				writer.printf("\t- Locked %s%n", format(lockedSynchronizer));
+				writer.printf("\t- Locked %s%n", String.format("<%x> (a %s)", lockedSynchronizer.getIdentityHashCode(), lockedSynchronizer.getClassName()));
 			}
 		}
 	}
