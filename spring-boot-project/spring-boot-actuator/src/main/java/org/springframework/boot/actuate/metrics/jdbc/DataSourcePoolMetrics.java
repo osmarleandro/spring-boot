@@ -81,12 +81,8 @@ public class DataSourcePoolMetrics implements MeterBinder {
 
 	private <N extends Number> void bindPoolMetadata(MeterRegistry registry, String metricName, String description,
 			Function<DataSourcePoolMetadata, N> function) {
-		bindDataSource(registry, metricName, description, this.metadataProvider.getValueFunction(function));
-	}
-
-	private <N extends Number> void bindDataSource(MeterRegistry registry, String metricName, String description,
-			Function<DataSource, N> function) {
-		if (function.apply(this.dataSource) != null) {
+		Function<DataSource, N> function1 = this.metadataProvider.getValueFunction(function);
+		if (function1.apply(this.dataSource) != null) {
 			Gauge.builder("jdbc.connections." + metricName, this.dataSource, (m) -> function.apply(m).doubleValue())
 					.tags(this.tags).description(description).register(registry);
 		}
