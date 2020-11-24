@@ -61,14 +61,6 @@ class CassandraDriverHealthIndicatorTests {
 	}
 
 	@Test
-	void healthWithOneUnhealthyNodeShouldReturnDown() {
-		CqlSession session = mockCqlSessionWithNodeState(NodeState.DOWN);
-		CassandraDriverHealthIndicator healthIndicator = new CassandraDriverHealthIndicator(session);
-		Health health = healthIndicator.health();
-		assertThat(health.getStatus()).isEqualTo(Status.DOWN);
-	}
-
-	@Test
 	void healthWithOneUnknownNodeShouldReturnDown() {
 		CqlSession session = mockCqlSessionWithNodeState(NodeState.UNKNOWN);
 		CassandraDriverHealthIndicator healthIndicator = new CassandraDriverHealthIndicator(session);
