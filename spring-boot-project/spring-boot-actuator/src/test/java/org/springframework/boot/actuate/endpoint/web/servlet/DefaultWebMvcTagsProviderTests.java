@@ -43,36 +43,37 @@ public class DefaultWebMvcTagsProviderTests {
 
 	@Test
 	void whenTagsAreProvidedThenDefaultTagsArePresent() {
-		Map<String, Tag> tags = asMap(new DefaultWebMvcTagsProvider().getTags(null, null, null, null));
+		Iterable<Tag> tags1 = new DefaultWebMvcTagsProvider().getTags(null, null, null, null);
+		Map<String, Tag> tags = StreamSupport.stream(tags1.spliterator(), false)
+		.collect(Collectors.toMap(Tag::getKey, Function.identity()));
 		assertThat(tags).containsOnlyKeys("exception", "method", "outcome", "status", "uri");
 	}
 
 	@Test
 	void givenSomeContributorsWhenTagsAreProvidedThenDefaultTagsAndContributedTagsArePresent() {
-		Map<String, Tag> tags = asMap(
-				new DefaultWebMvcTagsProvider(Arrays.asList(new TestWebMvcTagsContributor("alpha"),
-						new TestWebMvcTagsContributor("bravo", "charlie"))).getTags(null, null, null, null));
+		Iterable<Tag> tags1 = new DefaultWebMvcTagsProvider(Arrays.asList(new TestWebMvcTagsContributor("alpha"),
+				new TestWebMvcTagsContributor("bravo", "charlie"))).getTags(null, null, null, null);
+		Map<String, Tag> tags = StreamSupport.stream(tags1.spliterator(), false)
+		.collect(Collectors.toMap(Tag::getKey, Function.identity()));
 		assertThat(tags).containsOnlyKeys("exception", "method", "outcome", "status", "uri", "alpha", "bravo",
 				"charlie");
 	}
 
 	@Test
 	void whenLongRequestTagsAreProvidedThenDefaultTagsArePresent() {
-		Map<String, Tag> tags = asMap(new DefaultWebMvcTagsProvider().getLongRequestTags(null, null));
+		Iterable<Tag> tags1 = new DefaultWebMvcTagsProvider().getLongRequestTags(null, null);
+		Map<String, Tag> tags = StreamSupport.stream(tags1.spliterator(), false)
+		.collect(Collectors.toMap(Tag::getKey, Function.identity()));
 		assertThat(tags).containsOnlyKeys("method", "uri");
 	}
 
 	@Test
 	void givenSomeContributorsWhenLongRequestTagsAreProvidedThenDefaultTagsAndContributedTagsArePresent() {
-		Map<String, Tag> tags = asMap(
-				new DefaultWebMvcTagsProvider(Arrays.asList(new TestWebMvcTagsContributor("alpha"),
-						new TestWebMvcTagsContributor("bravo", "charlie"))).getLongRequestTags(null, null));
+		Iterable<Tag> tags1 = new DefaultWebMvcTagsProvider(Arrays.asList(new TestWebMvcTagsContributor("alpha"),
+				new TestWebMvcTagsContributor("bravo", "charlie"))).getLongRequestTags(null, null);
+		Map<String, Tag> tags = StreamSupport.stream(tags1.spliterator(), false)
+		.collect(Collectors.toMap(Tag::getKey, Function.identity()));
 		assertThat(tags).containsOnlyKeys("method", "uri", "alpha", "bravo", "charlie");
-	}
-
-	private Map<String, Tag> asMap(Iterable<Tag> tags) {
-		return StreamSupport.stream(tags.spliterator(), false)
-				.collect(Collectors.toMap(Tag::getKey, Function.identity()));
 	}
 
 	private static final class TestWebMvcTagsContributor implements WebMvcTagsContributor {
