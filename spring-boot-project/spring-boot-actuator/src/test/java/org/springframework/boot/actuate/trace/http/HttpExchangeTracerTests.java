@@ -258,13 +258,6 @@ class HttpExchangeTracerTests {
 	}
 
 	@Test
-	void timeTakenIsNotIncludedByDefault() {
-		HttpTrace trace = new HttpTrace(createRequest());
-		new HttpExchangeTracer(EnumSet.noneOf(Include.class)).sendingResponse(trace, createResponse(), null, null);
-		assertThat(trace.getTimeTaken()).isNull();
-	}
-
-	@Test
 	void timeTakenCanBeIncluded() {
 		HttpTrace trace = new HttpTrace(createRequest());
 		new HttpExchangeTracer(EnumSet.of(Include.TIME_TAKEN)).sendingResponse(trace, createResponse(), null, null);
