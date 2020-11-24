@@ -43,14 +43,6 @@ class AuditEventsEndpointWebIntegrationTests {
 	}
 
 	@WebEndpointTest
-	void eventsAfter(WebTestClient client) {
-		client.get()
-				.uri((builder) -> builder.path("/actuator/auditevents")
-						.queryParam("after", "2016-11-01T13:00:00%2B00:00").build())
-				.exchange().expectStatus().isOk().expectBody().jsonPath("events").isEmpty();
-	}
-
-	@WebEndpointTest
 	void eventsWithPrincipal(WebTestClient client) {
 		client.get().uri((builder) -> builder.path("/actuator/auditevents").queryParam("principal", "user").build())
 				.exchange().expectStatus().isOk().expectBody().jsonPath("events.[*].principal")
