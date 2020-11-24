@@ -42,15 +42,6 @@ import static org.mockito.Mockito.verify;
 class ConversionServiceParameterValueMapperTests {
 
 	@Test
-	void mapParameterShouldDelegateToConversionService() {
-		DefaultFormattingConversionService conversionService = spy(new DefaultFormattingConversionService());
-		ConversionServiceParameterValueMapper mapper = new ConversionServiceParameterValueMapper(conversionService);
-		Object mapped = mapper.mapParameterValue(new TestOperationParameter(Integer.class), "123");
-		assertThat(mapped).isEqualTo(123);
-		verify(conversionService).convert("123", Integer.class);
-	}
-
-	@Test
 	void mapParameterWhenConversionServiceFailsShouldThrowParameterMappingException() {
 		ConversionService conversionService = mock(ConversionService.class);
 		RuntimeException error = new RuntimeException();
