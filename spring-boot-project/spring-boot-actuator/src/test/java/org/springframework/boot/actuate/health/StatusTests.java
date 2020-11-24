@@ -67,12 +67,4 @@ class StatusTests {
 		assertThat(Status.OUT_OF_SERVICE.getCode()).isEqualTo("OUT_OF_SERVICE");
 	}
 
-	@Test
-	void serializeWithJacksonReturnsValidJson() throws Exception {
-		Status status = new Status("spring", "boot");
-		ObjectMapper mapper = new ObjectMapper();
-		String json = mapper.writeValueAsString(status);
-		assertThat(json).isEqualTo("{\"description\":\"boot\",\"status\":\"spring\"}");
-	}
-
 }
