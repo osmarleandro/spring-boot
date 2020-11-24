@@ -85,15 +85,6 @@ class HealthTests {
 	}
 
 	@Test
-	void withDetailsMap() {
-		Map<String, Object> details = new LinkedHashMap<>();
-		details.put("a", "b");
-		details.put("c", "d");
-		Health health = Health.up().withDetails(details).build();
-		assertThat(health.getDetails()).containsOnly(entry("a", "b"), entry("c", "d"));
-	}
-
-	@Test
 	void withDetailsMapDuplicateKeys() {
 		Map<String, Object> details = new LinkedHashMap<>();
 		details.put("c", "d");
