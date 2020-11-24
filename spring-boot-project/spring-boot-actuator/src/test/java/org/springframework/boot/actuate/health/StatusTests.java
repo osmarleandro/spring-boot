@@ -54,15 +54,6 @@ class StatusTests {
 	}
 
 	@Test
-	void equalsAndHashCode() {
-		Status one = new Status("spring", "boot");
-		Status two = new Status("spring", "framework");
-		Status three = new Status("spock", "framework");
-		assertThat(one).isEqualTo(one).isEqualTo(two).isNotEqualTo(three);
-		assertThat(one.hashCode()).isEqualTo(two.hashCode());
-	}
-
-	@Test
 	void toStringReturnsCode() {
 		assertThat(Status.OUT_OF_SERVICE.getCode()).isEqualTo("OUT_OF_SERVICE");
 	}
