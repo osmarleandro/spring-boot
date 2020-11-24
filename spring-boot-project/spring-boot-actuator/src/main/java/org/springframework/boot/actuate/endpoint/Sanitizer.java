@@ -63,15 +63,6 @@ public class Sanitizer {
 	}
 
 	public Sanitizer(String... keysToSanitize) {
-		setKeysToSanitize(keysToSanitize);
-	}
-
-	/**
-	 * Keys that should be sanitized. Keys can be simple strings that the property ends
-	 * with or regular expressions.
-	 * @param keysToSanitize the keys to sanitize
-	 */
-	public void setKeysToSanitize(String... keysToSanitize) {
 		Assert.notNull(keysToSanitize, "KeysToSanitize must not be null");
 		this.keysToSanitize = new Pattern[keysToSanitize.length];
 		for (int i = 0; i < keysToSanitize.length; i++) {
