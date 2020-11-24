@@ -92,10 +92,4 @@ class DiscoveredWebOperation extends AbstractDiscoveredOperation implements WebO
 		return this.requestPredicate;
 	}
 
-	@Override
-	protected void appendFields(ToStringCreator creator) {
-		creator.append("id", this.id).append("blocking", this.blocking).append("requestPredicate",
-				this.requestPredicate);
-	}
-
 }
