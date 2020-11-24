@@ -216,27 +216,34 @@ class JmxEndpointDiscovererTests {
 		assertThat(getSomething.getDescription()).isEqualTo("Get something based on a timeUnit");
 		assertThat(getSomething.getOutputType()).isEqualTo(String.class);
 		assertThat(getSomething.getParameters()).hasSize(1);
-		hasDocumentedParameter(getSomething, 0, "unitMs", Long.class, "Number of milliseconds");
+		assertThat(0).isLessThan(getSomething.getParameters().size());
+		JmxOperationParameter parameter = getSomething.getParameters().get(0);
+		assertThat(parameter.getName()).isEqualTo("unitMs");
+		assertThat(parameter.getType()).isEqualTo(Long.class);
+		assertThat(parameter.getDescription()).isEqualTo("Number of milliseconds");
 		JmxOperation update = operationsByName.get("update");
 		assertThat(update.getDescription()).isEqualTo("Update something based on bar");
 		assertThat(update.getOutputType()).isEqualTo(Void.TYPE);
 		assertThat(update.getParameters()).hasSize(2);
-		hasDocumentedParameter(update, 0, "foo", String.class, "Foo identifier");
-		hasDocumentedParameter(update, 1, "bar", String.class, "Bar value");
+		assertThat(0).isLessThan(update.getParameters().size());
+		JmxOperationParameter parameter = update.getParameters().get(0);
+		assertThat(parameter.getName()).isEqualTo("foo");
+		assertThat(parameter.getType()).isEqualTo(String.class);
+		assertThat(parameter.getDescription()).isEqualTo("Foo identifier");
+		assertThat(1).isLessThan(update.getParameters().size());
+		JmxOperationParameter parameter = update.getParameters().get(1);
+		assertThat(parameter.getName()).isEqualTo("bar");
+		assertThat(parameter.getType()).isEqualTo(String.class);
+		assertThat(parameter.getDescription()).isEqualTo("Bar value");
 		JmxOperation deleteSomething = operationsByName.get("deleteSomething");
 		assertThat(deleteSomething.getDescription()).isEqualTo("Delete something based on a timeUnit");
 		assertThat(deleteSomething.getOutputType()).isEqualTo(Void.TYPE);
 		assertThat(deleteSomething.getParameters()).hasSize(1);
-		hasDocumentedParameter(deleteSomething, 0, "unitMs", Long.class, "Number of milliseconds");
-	}
-
-	private void hasDocumentedParameter(JmxOperation operation, int index, String name, Class<?> type,
-			String description) {
-		assertThat(index).isLessThan(operation.getParameters().size());
-		JmxOperationParameter parameter = operation.getParameters().get(index);
-		assertThat(parameter.getName()).isEqualTo(name);
-		assertThat(parameter.getType()).isEqualTo(type);
-		assertThat(parameter.getDescription()).isEqualTo(description);
+		assertThat(0).isLessThan(deleteSomething.getParameters().size());
+		JmxOperationParameter parameter = deleteSomething.getParameters().get(0);
+		assertThat(parameter.getName()).isEqualTo("unitMs");
+		assertThat(parameter.getType()).isEqualTo(Long.class);
+		assertThat(parameter.getDescription()).isEqualTo("Number of milliseconds");
 	}
 
 	private Map<EndpointId, ExposableJmxEndpoint> discover(JmxEndpointDiscoverer discoverer) {
