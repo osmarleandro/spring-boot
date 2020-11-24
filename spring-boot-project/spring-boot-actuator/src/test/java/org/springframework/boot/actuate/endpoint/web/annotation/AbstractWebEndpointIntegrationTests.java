@@ -331,15 +331,6 @@ public abstract class AbstractWebEndpointIntegrationTests<T extends Configurable
 	}
 
 	@Test
-	void operationWithAQueryNamedPrincipalCanBeAccessedWhenAuthenticated() {
-		load((context) -> {
-			this.authenticatedContextCustomizer.accept(context);
-			context.register(PrincipalQueryEndpointConfiguration.class);
-		}, (client) -> client.get().uri("/principalquery?principal=Zoe").accept(MediaType.APPLICATION_JSON).exchange()
-				.expectStatus().isOk().expectBody(String.class).isEqualTo("Zoe"));
-	}
-
-	@Test
 	void securityContextIsAvailableAndHasNullPrincipalWhenRequestHasNoPrincipal() {
 		load(SecurityContextEndpointConfiguration.class,
 				(client) -> client.get().uri("/securitycontext").accept(MediaType.APPLICATION_JSON).exchange()
