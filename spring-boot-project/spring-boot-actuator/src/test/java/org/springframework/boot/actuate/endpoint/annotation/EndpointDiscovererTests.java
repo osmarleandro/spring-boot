@@ -122,20 +122,6 @@ class EndpointDiscovererTests {
 	}
 
 	@Test
-	void getEndpointsWhenHasSubclassedEndpointShouldReturnEndpoint() {
-		load(TestEndpointSubclassConfiguration.class, (context) -> {
-			TestEndpointDiscoverer discoverer = new TestEndpointDiscoverer(context);
-			Map<EndpointId, TestExposableEndpoint> endpoints = mapEndpoints(discoverer.getEndpoints());
-			assertThat(endpoints).containsOnlyKeys(EndpointId.of("test"));
-			Map<Method, TestOperation> operations = mapOperations(endpoints.get(EndpointId.of("test")));
-			assertThat(operations).hasSize(5);
-			assertThat(operations).containsKeys(testEndpointMethods());
-			assertThat(operations).containsKeys(ReflectionUtils.findMethod(TestEndpointSubclass.class,
-					"updateWithMoreArguments", String.class, String.class, String.class));
-		});
-	}
-
-	@Test
 	void getEndpointsWhenTwoEndpointsHaveTheSameIdShouldThrowException() {
 		load(ClashingEndpointConfiguration.class,
 				(context) -> assertThatIllegalStateException()
