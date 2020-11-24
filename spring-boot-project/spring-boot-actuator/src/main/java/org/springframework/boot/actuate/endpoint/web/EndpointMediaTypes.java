@@ -87,12 +87,4 @@ public class EndpointMediaTypes {
 		return this.produced;
 	}
 
-	/**
-	 * Returns the media types consumed by an endpoint.
-	 * @return the consumed media types
-	 */
-	public List<String> getConsumed() {
-		return this.consumed;
-	}
-
 }
