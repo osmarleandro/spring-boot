@@ -35,16 +35,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 class InfoEndpointTests {
 
 	@Test
-	void info() {
-		InfoEndpoint endpoint = new InfoEndpoint(Arrays.asList((builder) -> builder.withDetail("key1", "value1"),
-				(builder) -> builder.withDetail("key2", "value2")));
-		Map<String, Object> info = endpoint.info();
-		assertThat(info).hasSize(2);
-		assertThat(info).containsEntry("key1", "value1");
-		assertThat(info).containsEntry("key2", "value2");
-	}
-
-	@Test
 	void infoWithNoContributorsProducesEmptyMap() {
 		InfoEndpoint endpoint = new InfoEndpoint(Collections.emptyList());
 		Map<String, Object> info = endpoint.info();
