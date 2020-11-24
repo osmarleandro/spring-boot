@@ -98,10 +98,6 @@ class NamedContributorsMapAdapterTests {
 		return adapter;
 	}
 
-	private String reverse(CharSequence charSequence) {
-		return new StringBuilder(charSequence).reverse().toString();
-	}
-
 	static class TestNamedContributorsMapAdapter<V> extends NamedContributorsMapAdapter<V, String> {
 
 		TestNamedContributorsMapAdapter(Map<String, V> map, Function<V, ? extends String> valueAdapter) {
