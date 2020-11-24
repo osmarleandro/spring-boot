@@ -32,15 +32,6 @@ import static org.mockito.Mockito.mock;
 class HealthIndicatorReactiveAdapterTests {
 
 	@Test
-	void delegateReturnsHealth() {
-		HealthIndicator delegate = mock(HealthIndicator.class);
-		HealthIndicatorReactiveAdapter adapter = new HealthIndicatorReactiveAdapter(delegate);
-		Health status = Health.up().build();
-		given(delegate.health()).willReturn(status);
-		StepVerifier.create(adapter.health()).expectNext(status).verifyComplete();
-	}
-
-	@Test
 	void delegateThrowError() {
 		HealthIndicator delegate = mock(HealthIndicator.class);
 		HealthIndicatorReactiveAdapter adapter = new HealthIndicatorReactiveAdapter(delegate);
