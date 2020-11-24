@@ -31,6 +31,8 @@ import org.springframework.boot.actuate.endpoint.Sanitizer;
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
 import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
 import org.springframework.boot.actuate.endpoint.annotation.Selector;
+import org.springframework.boot.actuate.env.EnvironmentEndpoint.EnvironmentDescriptor;
+import org.springframework.boot.actuate.env.EnvironmentEndpoint.PropertySourceDescriptor;
 import org.springframework.boot.context.properties.bind.PlaceholdersResolver;
 import org.springframework.boot.context.properties.bind.PropertySourcesPlaceholdersResolver;
 import org.springframework.boot.context.properties.source.ConfigurationPropertySources;
@@ -77,17 +79,16 @@ public class EnvironmentEndpoint {
 	@ReadOperation
 	public EnvironmentDescriptor environment(@Nullable String pattern) {
 		if (StringUtils.hasText(pattern)) {
-			return getEnvironmentDescriptor(Pattern.compile(pattern).asPredicate());
+			PlaceholdersResolver resolver = getResolver();
+			List<PropertySourceDescriptor> propertySources = new ArrayList<>();
+			getPropertySourcesAsMap().forEach((sourceName, source) -> {
+				if (source instanceof EnumerablePropertySource) {
+					propertySources.add(describeSource(sourceName, (EnumerablePropertySource<?>) source, resolver,
+							propertyNamePredicate));
+				}
+			});
+			return new EnvironmentDescriptor(Arrays.asList(this.environment.getActiveProfiles()), propertySources);
 		}
-		return getEnvironmentDescriptor((name) -> true);
-	}
-
-	@ReadOperation
-	public EnvironmentEntryDescriptor environmentEntry(@Selector String toMatch) {
-		return getEnvironmentEntryDescriptor(toMatch);
-	}
-
-	private EnvironmentDescriptor getEnvironmentDescriptor(Predicate<String> propertyNamePredicate) {
 		PlaceholdersResolver resolver = getResolver();
 		List<PropertySourceDescriptor> propertySources = new ArrayList<>();
 		getPropertySourcesAsMap().forEach((sourceName, source) -> {
@@ -97,6 +98,11 @@ public class EnvironmentEndpoint {
 			}
 		});
 		return new EnvironmentDescriptor(Arrays.asList(this.environment.getActiveProfiles()), propertySources);
+	}
+
+	@ReadOperation
+	public EnvironmentEntryDescriptor environmentEntry(@Selector String toMatch) {
+		return getEnvironmentEntryDescriptor(toMatch);
 	}
 
 	private EnvironmentEntryDescriptor getEnvironmentEntryDescriptor(String propertyName) {
