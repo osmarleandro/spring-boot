@@ -48,11 +48,4 @@ class WebEndpointResponseTests {
 		assertThat(response.getBody()).isEqualTo("body");
 	}
 
-	@Test
-	void createWithBodyAndStatusShouldReturnStatusAndBody() {
-		WebEndpointResponse<Object> response = new WebEndpointResponse<>("body", 500);
-		assertThat(response.getStatus()).isEqualTo(500);
-		assertThat(response.getBody()).isEqualTo("body");
-	}
-
 }
