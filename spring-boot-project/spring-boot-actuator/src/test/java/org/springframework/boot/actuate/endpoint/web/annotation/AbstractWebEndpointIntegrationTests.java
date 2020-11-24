@@ -264,12 +264,6 @@ public abstract class AbstractWebEndpointIntegrationTests<T extends Configurable
 	}
 
 	@Test
-	void readOperationWithMonoResponse() {
-		load(MonoResponseEndpointConfiguration.class, (client) -> client.get().uri("/mono").exchange().expectStatus()
-				.isOk().expectBody().jsonPath("a").isEqualTo("alpha"));
-	}
-
-	@Test
 	void readOperationWithCustomMediaType() {
 		load(CustomMediaTypesEndpointConfiguration.class, (client) -> client.get().uri("/custommediatypes").exchange()
 				.expectStatus().isOk().expectHeader().valueMatches("Content-Type", "text/plain(;charset=.*)?"));
