@@ -54,11 +54,4 @@ class AuditEventsEndpointTests {
 		assertThat(result).isEqualTo(Collections.singletonList(this.event));
 	}
 
-	@Test
-	void eventsWithPrincipal() {
-		given(this.repository.find("Joan", null, null)).willReturn(Collections.singletonList(this.event));
-		List<AuditEvent> result = this.endpoint.events("Joan", null, null).getEvents();
-		assertThat(result).isEqualTo(Collections.singletonList(this.event));
-	}
-
 }
