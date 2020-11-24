@@ -309,12 +309,6 @@ public abstract class AbstractWebEndpointIntegrationTests<T extends Configurable
 	}
 
 	@Test
-	void linksProducesSecondaryMediaTypeWhenRequested() {
-		load(TestEndpointConfiguration.class, (client) -> client.get().uri("").accept(MediaType.APPLICATION_JSON)
-				.exchange().expectStatus().isOk().expectHeader().valueMatches("Content-Type", JSON_MEDIA_TYPE_PATTERN));
-	}
-
-	@Test
 	void principalIsNullWhenRequestHasNoPrincipal() {
 		load(PrincipalEndpointConfiguration.class,
 				(client) -> client.get().uri("/principal").accept(MediaType.APPLICATION_JSON).exchange().expectStatus()
