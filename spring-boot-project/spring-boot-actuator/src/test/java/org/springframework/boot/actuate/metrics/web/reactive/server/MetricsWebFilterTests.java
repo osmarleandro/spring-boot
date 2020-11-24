@@ -56,15 +56,6 @@ class MetricsWebFilterTests {
 	}
 
 	@Test
-	void filterAddsTagsToRegistry() {
-		MockServerWebExchange exchange = createExchange("/projects/spring-boot", "/projects/{project}");
-		this.webFilter.filter(exchange, (serverWebExchange) -> exchange.getResponse().setComplete())
-				.block(Duration.ofSeconds(30));
-		assertMetricsContainsTag("uri", "/projects/{project}");
-		assertMetricsContainsTag("status", "200");
-	}
-
-	@Test
 	void filterAddsTagsToRegistryForExceptions() {
 		MockServerWebExchange exchange = createExchange("/projects/spring-boot", "/projects/{project}");
 		this.webFilter.filter(exchange, (serverWebExchange) -> Mono.error(new IllegalStateException("test error")))
