@@ -65,8 +65,10 @@ class ReactiveHealthEndpointWebExtensionTests extends
 	@Test
 	void healthWhenPathDoesNotExistReturnsHttp404() {
 		this.registry.registerContributor("test", createContributor(this.up));
-		WebEndpointResponse<? extends HealthComponent> response = create(this.registry, this.groups)
-				.health(ApiVersion.LATEST, SecurityContext.NONE, "missing").block();
+		ApiVersion apiVersion = ApiVersion.LATEST;
+		SecurityContext securityContext = SecurityContext.NONE;
+		String[] path = { "missing" };
+		WebEndpointResponse<? extends HealthComponent> response = create(this.registry, this.groups).health(apiVersion, securityContext, false, path).block();
 		assertThat(response.getBody()).isNull();
 		assertThat(response.getStatus()).isEqualTo(404);
 	}
@@ -74,8 +76,10 @@ class ReactiveHealthEndpointWebExtensionTests extends
 	@Test
 	void healthWhenPathExistsReturnsHealth() {
 		this.registry.registerContributor("test", createContributor(this.up));
-		WebEndpointResponse<? extends HealthComponent> response = create(this.registry, this.groups)
-				.health(ApiVersion.LATEST, SecurityContext.NONE, "test").block();
+		ApiVersion apiVersion = ApiVersion.LATEST;
+		SecurityContext securityContext = SecurityContext.NONE;
+		String[] path = { "test" };
+		WebEndpointResponse<? extends HealthComponent> response = create(this.registry, this.groups).health(apiVersion, securityContext, false, path).block();
 		assertThat(response.getBody()).isEqualTo(this.up);
 		assertThat(response.getStatus()).isEqualTo(200);
 	}
