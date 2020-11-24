@@ -66,20 +66,20 @@ class CloudFoundrySecurityInterceptorTests {
 		this.request.setMethod("OPTIONS");
 		this.request.addHeader(HttpHeaders.ORIGIN, "https://example.com");
 		this.request.addHeader(HttpHeaders.ACCESS_CONTROL_REQUEST_METHOD, "GET");
-		SecurityResponse response = this.interceptor.preHandle(this.request, EndpointId.of("test"));
+		SecurityResponse response = this.interceptor.preHandle(this.request, new EndpointId("test"));
 		assertThat(response.getStatus()).isEqualTo(HttpStatus.OK);
 	}
 
 	@Test
 	void preHandleWhenTokenIsMissingShouldReturnFalse() {
-		SecurityResponse response = this.interceptor.preHandle(this.request, EndpointId.of("test"));
+		SecurityResponse response = this.interceptor.preHandle(this.request, new EndpointId("test"));
 		assertThat(response.getStatus()).isEqualTo(Reason.MISSING_AUTHORIZATION.getStatus());
 	}
 
 	@Test
 	void preHandleWhenTokenIsNotBearerShouldReturnFalse() {
 		this.request.addHeader("Authorization", mockAccessToken());
-		SecurityResponse response = this.interceptor.preHandle(this.request, EndpointId.of("test"));
+		SecurityResponse response = this.interceptor.preHandle(this.request, new EndpointId("test"));
 		assertThat(response.getStatus()).isEqualTo(Reason.MISSING_AUTHORIZATION.getStatus());
 	}
 
@@ -87,7 +87,7 @@ class CloudFoundrySecurityInterceptorTests {
 	void preHandleWhenApplicationIdIsNullShouldReturnFalse() {
 		this.interceptor = new CloudFoundrySecurityInterceptor(this.tokenValidator, this.securityService, null);
 		this.request.addHeader("Authorization", "bearer " + mockAccessToken());
-		SecurityResponse response = this.interceptor.preHandle(this.request, EndpointId.of("test"));
+		SecurityResponse response = this.interceptor.preHandle(this.request, new EndpointId("test"));
 		assertThat(response.getStatus()).isEqualTo(Reason.SERVICE_UNAVAILABLE.getStatus());
 	}
 
@@ -95,7 +95,7 @@ class CloudFoundrySecurityInterceptorTests {
 	void preHandleWhenCloudFoundrySecurityServiceIsNullShouldReturnFalse() {
 		this.interceptor = new CloudFoundrySecurityInterceptor(this.tokenValidator, null, "my-app-id");
 		this.request.addHeader("Authorization", "bearer " + mockAccessToken());
-		SecurityResponse response = this.interceptor.preHandle(this.request, EndpointId.of("test"));
+		SecurityResponse response = this.interceptor.preHandle(this.request, new EndpointId("test"));
 		assertThat(response.getStatus()).isEqualTo(Reason.SERVICE_UNAVAILABLE.getStatus());
 	}
 
@@ -104,7 +104,7 @@ class CloudFoundrySecurityInterceptorTests {
 		String accessToken = mockAccessToken();
 		this.request.addHeader("Authorization", "bearer " + accessToken);
 		given(this.securityService.getAccessLevel(accessToken, "my-app-id")).willReturn(AccessLevel.RESTRICTED);
-		SecurityResponse response = this.interceptor.preHandle(this.request, EndpointId.of("test"));
+		SecurityResponse response = this.interceptor.preHandle(this.request, new EndpointId("test"));
 		assertThat(response.getStatus()).isEqualTo(Reason.ACCESS_DENIED.getStatus());
 	}
 
@@ -113,7 +113,7 @@ class CloudFoundrySecurityInterceptorTests {
 		String accessToken = mockAccessToken();
 		this.request.addHeader("Authorization", "Bearer " + accessToken);
 		given(this.securityService.getAccessLevel(accessToken, "my-app-id")).willReturn(AccessLevel.FULL);
-		SecurityResponse response = this.interceptor.preHandle(this.request, EndpointId.of("test"));
+		SecurityResponse response = this.interceptor.preHandle(this.request, new EndpointId("test"));
 		ArgumentCaptor<Token> tokenArgumentCaptor = ArgumentCaptor.forClass(Token.class);
 		verify(this.tokenValidator).validate(tokenArgumentCaptor.capture());
 		Token token = tokenArgumentCaptor.getValue();
@@ -127,7 +127,7 @@ class CloudFoundrySecurityInterceptorTests {
 		String accessToken = mockAccessToken();
 		this.request.addHeader("Authorization", "Bearer " + accessToken);
 		given(this.securityService.getAccessLevel(accessToken, "my-app-id")).willReturn(AccessLevel.RESTRICTED);
-		SecurityResponse response = this.interceptor.preHandle(this.request, EndpointId.of("info"));
+		SecurityResponse response = this.interceptor.preHandle(this.request, new EndpointId("info"));
 		ArgumentCaptor<Token> tokenArgumentCaptor = ArgumentCaptor.forClass(Token.class);
 		verify(this.tokenValidator).validate(tokenArgumentCaptor.capture());
 		Token token = tokenArgumentCaptor.getValue();

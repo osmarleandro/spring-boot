@@ -85,7 +85,7 @@ class WebEndpointDiscovererTests {
 	void getEndpointsWhenHasFilteredEndpointShouldOnlyDiscoverWebEndpoints() {
 		load(MultipleEndpointsConfiguration.class, (discoverer) -> {
 			Map<EndpointId, ExposableWebEndpoint> endpoints = mapEndpoints(discoverer.getEndpoints());
-			assertThat(endpoints).containsOnlyKeys(EndpointId.of("test"));
+			assertThat(endpoints).containsOnlyKeys(new EndpointId("test"));
 		});
 	}
 
@@ -93,8 +93,8 @@ class WebEndpointDiscovererTests {
 	void getEndpointsWhenHasWebExtensionShouldOverrideStandardEndpoint() {
 		load(OverriddenOperationWebEndpointExtensionConfiguration.class, (discoverer) -> {
 			Map<EndpointId, ExposableWebEndpoint> endpoints = mapEndpoints(discoverer.getEndpoints());
-			assertThat(endpoints).containsOnlyKeys(EndpointId.of("test"));
-			ExposableWebEndpoint endpoint = endpoints.get(EndpointId.of("test"));
+			assertThat(endpoints).containsOnlyKeys(new EndpointId("test"));
+			ExposableWebEndpoint endpoint = endpoints.get(new EndpointId("test"));
 			assertThat(requestPredicates(endpoint)).has(requestPredicates(
 					path("test").httpMethod(WebEndpointHttpMethod.GET).consumes().produces("application/json")));
 		});
@@ -104,8 +104,8 @@ class WebEndpointDiscovererTests {
 	void getEndpointsWhenExtensionAddsOperationShouldHaveBothOperations() {
 		load(AdditionalOperationWebEndpointConfiguration.class, (discoverer) -> {
 			Map<EndpointId, ExposableWebEndpoint> endpoints = mapEndpoints(discoverer.getEndpoints());
-			assertThat(endpoints).containsOnlyKeys(EndpointId.of("test"));
-			ExposableWebEndpoint endpoint = endpoints.get(EndpointId.of("test"));
+			assertThat(endpoints).containsOnlyKeys(new EndpointId("test"));
+			ExposableWebEndpoint endpoint = endpoints.get(new EndpointId("test"));
 			assertThat(requestPredicates(endpoint)).has(requestPredicates(
 					path("test").httpMethod(WebEndpointHttpMethod.GET).consumes().produces("application/json"),
 					path("test/{id}").httpMethod(WebEndpointHttpMethod.GET).consumes().produces("application/json")));
@@ -116,8 +116,8 @@ class WebEndpointDiscovererTests {
 	void getEndpointsWhenPredicateForWriteOperationThatReturnsVoidShouldHaveNoProducedMediaTypes() {
 		load(VoidWriteOperationEndpointConfiguration.class, (discoverer) -> {
 			Map<EndpointId, ExposableWebEndpoint> endpoints = mapEndpoints(discoverer.getEndpoints());
-			assertThat(endpoints).containsOnlyKeys(EndpointId.of("voidwrite"));
-			ExposableWebEndpoint endpoint = endpoints.get(EndpointId.of("voidwrite"));
+			assertThat(endpoints).containsOnlyKeys(new EndpointId("voidwrite"));
+			ExposableWebEndpoint endpoint = endpoints.get(new EndpointId("voidwrite"));
 			assertThat(requestPredicates(endpoint)).has(requestPredicates(
 					path("voidwrite").httpMethod(WebEndpointHttpMethod.POST).produces().consumes("application/json")));
 		});
@@ -167,8 +167,8 @@ class WebEndpointDiscovererTests {
 	void getEndpointsWhenHasCacheWithTtlShouldCacheReadOperationWithTtlValue() {
 		load((id) -> 500L, EndpointId::toString, TestEndpointConfiguration.class, (discoverer) -> {
 			Map<EndpointId, ExposableWebEndpoint> endpoints = mapEndpoints(discoverer.getEndpoints());
-			assertThat(endpoints).containsOnlyKeys(EndpointId.of("test"));
-			ExposableWebEndpoint endpoint = endpoints.get(EndpointId.of("test"));
+			assertThat(endpoints).containsOnlyKeys(new EndpointId("test"));
+			ExposableWebEndpoint endpoint = endpoints.get(new EndpointId("test"));
 			assertThat(endpoint.getOperations()).hasSize(1);
 			WebOperation operation = endpoint.getOperations().iterator().next();
 			Object invoker = ReflectionTestUtils.getField(operation, "invoker");
@@ -181,8 +181,8 @@ class WebEndpointDiscovererTests {
 	void getEndpointsWhenOperationReturnsResourceShouldProduceApplicationOctetStream() {
 		load(ResourceEndpointConfiguration.class, (discoverer) -> {
 			Map<EndpointId, ExposableWebEndpoint> endpoints = mapEndpoints(discoverer.getEndpoints());
-			assertThat(endpoints).containsOnlyKeys(EndpointId.of("resource"));
-			ExposableWebEndpoint endpoint = endpoints.get(EndpointId.of("resource"));
+			assertThat(endpoints).containsOnlyKeys(new EndpointId("resource"));
+			ExposableWebEndpoint endpoint = endpoints.get(new EndpointId("resource"));
 			assertThat(requestPredicates(endpoint)).has(requestPredicates(path("resource")
 					.httpMethod(WebEndpointHttpMethod.GET).consumes().produces("application/octet-stream")));
 		});
@@ -192,8 +192,8 @@ class WebEndpointDiscovererTests {
 	void getEndpointsWhenHasCustomMediaTypeShouldProduceCustomMediaType() {
 		load(CustomMediaTypesEndpointConfiguration.class, (discoverer) -> {
 			Map<EndpointId, ExposableWebEndpoint> endpoints = mapEndpoints(discoverer.getEndpoints());
-			assertThat(endpoints).containsOnlyKeys(EndpointId.of("custommediatypes"));
-			ExposableWebEndpoint endpoint = endpoints.get(EndpointId.of("custommediatypes"));
+			assertThat(endpoints).containsOnlyKeys(new EndpointId("custommediatypes"));
+			ExposableWebEndpoint endpoint = endpoints.get(new EndpointId("custommediatypes"));
 			assertThat(requestPredicates(endpoint)).has(requestPredicates(
 					path("custommediatypes").httpMethod(WebEndpointHttpMethod.GET).consumes().produces("text/plain"),
 					path("custommediatypes").httpMethod(WebEndpointHttpMethod.POST).consumes().produces("a/b", "c/d"),
@@ -206,8 +206,8 @@ class WebEndpointDiscovererTests {
 	void getEndpointsWhenHasCustomPathShouldReturnCustomPath() {
 		load((id) -> null, (id) -> "custom/" + id, AdditionalOperationWebEndpointConfiguration.class, (discoverer) -> {
 			Map<EndpointId, ExposableWebEndpoint> endpoints = mapEndpoints(discoverer.getEndpoints());
-			assertThat(endpoints).containsOnlyKeys(EndpointId.of("test"));
-			ExposableWebEndpoint endpoint = endpoints.get(EndpointId.of("test"));
+			assertThat(endpoints).containsOnlyKeys(new EndpointId("test"));
+			ExposableWebEndpoint endpoint = endpoints.get(new EndpointId("test"));
 			Condition<List<? extends WebOperationRequestPredicate>> expected = requestPredicates(
 					path("custom/test").httpMethod(WebEndpointHttpMethod.GET).consumes().produces("application/json"),
 					path("custom/test/{id}").httpMethod(WebEndpointHttpMethod.GET).consumes()
