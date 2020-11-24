@@ -31,6 +31,7 @@ import io.micrometer.core.instrument.LongTaskTimer;
 import io.micrometer.core.instrument.MeterRegistry;
 import io.micrometer.core.instrument.Tag;
 
+import org.springframework.boot.actuate.metrics.web.servlet.LongTaskTimingHandlerInterceptor.LongTaskTimingContext;
 import org.springframework.core.annotation.MergedAnnotationCollectors;
 import org.springframework.core.annotation.MergedAnnotations;
 import org.springframework.web.method.HandlerMethod;
@@ -67,7 +68,10 @@ public class LongTaskTimingHandlerInterceptor implements HandlerInterceptor {
 			throws Exception {
 		LongTaskTimingContext timingContext = LongTaskTimingContext.get(request);
 		if (timingContext == null) {
-			startAndAttachTimingContext(request, handler);
+			Set<Timed> annotations = getTimedAnnotations(handler);
+			Collection<LongTaskTimer.Sample> longTaskTimerSamples = getLongTaskTimerSamples(request, handler, annotations);
+			LongTaskTimingContext timingContext1 = new LongTaskTimingContext(longTaskTimerSamples);
+			timingContext1.attachTo(request);
 		}
 		return true;
 	}
@@ -78,13 +82,6 @@ public class LongTaskTimingHandlerInterceptor implements HandlerInterceptor {
 		if (!request.isAsyncStarted()) {
 			stopLongTaskTimers(LongTaskTimingContext.get(request));
 		}
-	}
-
-	private void startAndAttachTimingContext(HttpServletRequest request, Object handler) {
-		Set<Timed> annotations = getTimedAnnotations(handler);
-		Collection<LongTaskTimer.Sample> longTaskTimerSamples = getLongTaskTimerSamples(request, handler, annotations);
-		LongTaskTimingContext timingContext = new LongTaskTimingContext(longTaskTimerSamples);
-		timingContext.attachTo(request);
 	}
 
 	private Collection<LongTaskTimer.Sample> getLongTaskTimerSamples(HttpServletRequest request, Object handler,
