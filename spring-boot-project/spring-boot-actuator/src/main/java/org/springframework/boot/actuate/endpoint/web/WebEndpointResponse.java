@@ -113,12 +113,4 @@ public final class WebEndpointResponse<T> {
 		return this.body;
 	}
 
-	/**
-	 * Returns the status for the response.
-	 * @return the status
-	 */
-	public int getStatus() {
-		return this.status;
-	}
-
 }

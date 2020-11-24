@@ -211,7 +211,7 @@ class HealthEndpointAutoConfigurationTests {
 			WebEndpointResponse<HealthComponent> response = webExtension.health(ApiVersion.V3, SecurityContext.NONE,
 					true, "simple");
 			Health health = (Health) response.getBody();
-			assertThat(response.getStatus()).isEqualTo(200);
+			assertThat(response.status).isEqualTo(200);
 			assertThat(health.getDetails()).containsEntry("counter", 42);
 		});
 	}
