@@ -63,11 +63,6 @@ public class WebFluxEndpointHandlerMapping extends AbstractWebFluxEndpointHandle
 		setOrder(-100);
 	}
 
-	@Override
-	protected LinksHandler getLinksHandler() {
-		return new WebFluxLinksHandler();
-	}
-
 	/**
 	 * Handler for root endpoint providing links.
 	 */
