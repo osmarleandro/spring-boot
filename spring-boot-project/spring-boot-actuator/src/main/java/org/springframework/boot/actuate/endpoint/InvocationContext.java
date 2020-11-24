@@ -64,15 +64,6 @@ public class InvocationContext {
 	}
 
 	/**
-	 * Return the API version in use.
-	 * @return the apiVersion the API version
-	 * @since 2.2.0
-	 */
-	public ApiVersion getApiVersion() {
-		return this.apiVersion;
-	}
-
-	/**
 	 * Return the security context to use for the invocation.
 	 * @return the security context
 	 */
