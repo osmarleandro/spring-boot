@@ -130,12 +130,6 @@ class ConfigurationPropertiesReportEndpointTests {
 	}
 
 	@Test
-	void descriptorWithDurationProperty() {
-		this.contextRunner.withUserConfiguration(TestPropertiesConfiguration.class).run(assertProperties("test",
-				(properties) -> assertThat(properties.get("duration")).isEqualTo(Duration.ofSeconds(10).toString())));
-	}
-
-	@Test
 	void descriptorWithNonCamelCaseProperty() {
 		this.contextRunner.withUserConfiguration(MixedCasePropertiesConfiguration.class).run(assertProperties(
 				"mixedcase", (properties) -> assertThat(properties.get("myURL")).isEqualTo("https://example.com")));
