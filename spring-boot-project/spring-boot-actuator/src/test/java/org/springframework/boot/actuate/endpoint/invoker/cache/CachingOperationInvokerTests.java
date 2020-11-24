@@ -53,13 +53,6 @@ class CachingOperationInvokerTests {
 	private static final long CACHE_TTL = Duration.ofHours(1).toMillis();
 
 	@Test
-	void createInstanceWithTtlSetToZero() {
-		assertThatIllegalArgumentException()
-				.isThrownBy(() -> new CachingOperationInvoker(mock(OperationInvoker.class), 0))
-				.withMessageContaining("TimeToLive");
-	}
-
-	@Test
 	void cacheInTtlRangeWithNoParameter() {
 		assertCacheIsUsed(Collections.emptyMap());
 	}
