@@ -84,14 +84,6 @@ class EndpointIdTests {
 	}
 
 	@Test
-	void ofWhenContainsDashIsValid() {
-		// Ideally we wouldn't support this but there are existing endpoints using the
-		// pattern. See gh-14773
-		EndpointId endpointId = EndpointId.of("foo-bar");
-		assertThat(endpointId.toString()).isEqualTo("foo-bar");
-	}
-
-	@Test
 	void ofWhenContainsDeprecatedCharsLogsWarning(CapturedOutput output) {
 		EndpointId.resetLoggedWarnings();
 		EndpointId.of("foo-bar");
