@@ -61,7 +61,7 @@ class EnvironmentEndpointWebIntegrationTests {
 		map.put("food", null);
 		this.context.getEnvironment().getPropertySources().addFirst(new MapPropertySource("null-value", map));
 		this.client.get().uri("/actuator/env?pattern=foo.*").exchange().expectStatus().isOk().expectBody()
-				.jsonPath(forProperty("test", "foo")).isEqualTo("bar").jsonPath(forProperty("test", "fool"))
+				.jsonPath("propertySources[?(@.name=='" + "test" + "')].properties.['" + "foo" + "'].value").isEqualTo("bar").jsonPath("propertySources[?(@.name=='" + "test" + "')].properties.['" + "fool" + "'].value")
 				.isEqualTo("baz");
 	}
 
@@ -110,11 +110,7 @@ class EnvironmentEndpointWebIntegrationTests {
 		map.put("my.password", "hello");
 		this.context.getEnvironment().getPropertySources().addFirst(new MapPropertySource("placeholder", map));
 		this.client.get().uri("/actuator/env?pattern=my.*").exchange().expectStatus().isOk().expectBody()
-				.jsonPath(forProperty("placeholder", "my.foo")).isEqualTo("******");
-	}
-
-	private String forProperty(String source, String name) {
-		return "propertySources[?(@.name=='" + source + "')].properties.['" + name + "'].value";
+				.jsonPath("propertySources[?(@.name=='" + "placeholder" + "')].properties.['" + "my.foo" + "'].value").isEqualTo("******");
 	}
 
 	private String forPropertyEntry(String source) {
