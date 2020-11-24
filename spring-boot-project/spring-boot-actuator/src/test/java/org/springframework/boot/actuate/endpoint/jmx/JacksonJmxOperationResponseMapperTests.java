@@ -82,11 +82,6 @@ class JacksonJmxOperationResponseMapperTests {
 	}
 
 	@Test
-	void mapResponseTypeWhenOtherShouldReturnMap() {
-		assertThat(this.mapper.mapResponseType(ExampleBean.class)).isEqualTo(Map.class);
-	}
-
-	@Test
 	void mapResponseWhenNullShouldReturnNull() {
 		assertThat(this.mapper.mapResponse(null)).isNull();
 	}
