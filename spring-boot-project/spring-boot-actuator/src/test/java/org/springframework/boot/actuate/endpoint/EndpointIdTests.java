@@ -92,14 +92,6 @@ class EndpointIdTests {
 	}
 
 	@Test
-	void ofWhenContainsDeprecatedCharsLogsWarning(CapturedOutput output) {
-		EndpointId.resetLoggedWarnings();
-		EndpointId.of("foo-bar");
-		assertThat(output)
-				.contains("Endpoint ID 'foo-bar' contains invalid characters, please migrate to a valid format");
-	}
-
-	@Test
 	void ofWhenMigratingLegacyNameRemovesDots(CapturedOutput output) {
 		EndpointId endpointId = migrateLegacyName("one.two.three");
 		assertThat(endpointId.toString()).isEqualTo("onetwothree");
