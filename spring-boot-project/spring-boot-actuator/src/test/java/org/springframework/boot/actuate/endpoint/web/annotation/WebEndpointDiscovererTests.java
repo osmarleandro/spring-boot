@@ -189,20 +189,6 @@ class WebEndpointDiscovererTests {
 	}
 
 	@Test
-	void getEndpointsWhenHasCustomMediaTypeShouldProduceCustomMediaType() {
-		load(CustomMediaTypesEndpointConfiguration.class, (discoverer) -> {
-			Map<EndpointId, ExposableWebEndpoint> endpoints = mapEndpoints(discoverer.getEndpoints());
-			assertThat(endpoints).containsOnlyKeys(EndpointId.of("custommediatypes"));
-			ExposableWebEndpoint endpoint = endpoints.get(EndpointId.of("custommediatypes"));
-			assertThat(requestPredicates(endpoint)).has(requestPredicates(
-					path("custommediatypes").httpMethod(WebEndpointHttpMethod.GET).consumes().produces("text/plain"),
-					path("custommediatypes").httpMethod(WebEndpointHttpMethod.POST).consumes().produces("a/b", "c/d"),
-					path("custommediatypes").httpMethod(WebEndpointHttpMethod.DELETE).consumes()
-							.produces("text/plain")));
-		});
-	}
-
-	@Test
 	void getEndpointsWhenHasCustomPathShouldReturnCustomPath() {
 		load((id) -> null, (id) -> "custom/" + id, AdditionalOperationWebEndpointConfiguration.class, (discoverer) -> {
 			Map<EndpointId, ExposableWebEndpoint> endpoints = mapEndpoints(discoverer.getEndpoints());
