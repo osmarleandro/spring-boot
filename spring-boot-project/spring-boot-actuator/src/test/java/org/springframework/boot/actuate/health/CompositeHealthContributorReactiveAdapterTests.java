@@ -73,16 +73,4 @@ class CompositeHealthContributorReactiveAdapterTests {
 		assertThat(health.getDetails()).containsEntry("spring", "boot");
 	}
 
-	@Test
-	void getContributorAdaptsDelegate() {
-		HealthIndicator indicator = () -> Health.up().withDetail("spring", "boot").build();
-		CompositeHealthContributor delegate = CompositeHealthContributor
-				.fromMap(Collections.singletonMap("test", indicator));
-		CompositeHealthContributorReactiveAdapter adapter = new CompositeHealthContributorReactiveAdapter(delegate);
-		ReactiveHealthContributor adapted = adapter.getContributor("test");
-		Health health = ((ReactiveHealthIndicator) adapted).getHealth(true).block();
-		assertThat(health.getStatus()).isEqualTo(Status.UP);
-		assertThat(health.getDetails()).containsEntry("spring", "boot");
-	}
-
 }
