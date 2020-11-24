@@ -53,13 +53,6 @@ class HttpTraceWebFilterTests {
 			EnumSet.allOf(Include.class));
 
 	@Test
-	void filterTracesExchange() {
-		executeFilter(MockServerWebExchange.from(MockServerHttpRequest.get("https://api.example.com")),
-				(exchange) -> Mono.empty()).block(Duration.ofSeconds(30));
-		assertThat(this.repository.findAll()).hasSize(1);
-	}
-
-	@Test
 	void filterCapturesSessionIdWhenSessionIsUsed() {
 		executeFilter(MockServerWebExchange.from(MockServerHttpRequest.get("https://api.example.com")), (exchange) -> {
 			exchange.getSession().block(Duration.ofSeconds(30)).getAttributes().put("a", "alpha");
