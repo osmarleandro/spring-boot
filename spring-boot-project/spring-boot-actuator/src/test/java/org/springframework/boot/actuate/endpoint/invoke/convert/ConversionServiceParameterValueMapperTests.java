@@ -51,21 +51,6 @@ class ConversionServiceParameterValueMapperTests {
 	}
 
 	@Test
-	void mapParameterWhenConversionServiceFailsShouldThrowParameterMappingException() {
-		ConversionService conversionService = mock(ConversionService.class);
-		RuntimeException error = new RuntimeException();
-		given(conversionService.convert(any(), any())).willThrow(error);
-		ConversionServiceParameterValueMapper mapper = new ConversionServiceParameterValueMapper(conversionService);
-		assertThatExceptionOfType(ParameterMappingException.class)
-				.isThrownBy(() -> mapper.mapParameterValue(new TestOperationParameter(Integer.class), "123"))
-				.satisfies((ex) -> {
-					assertThat(ex.getValue()).isEqualTo("123");
-					assertThat(ex.getParameter().getType()).isEqualTo(Integer.class);
-					assertThat(ex.getCause()).isEqualTo(error);
-				});
-	}
-
-	@Test
 	void createShouldRegisterIsoOffsetDateTimeConverter() {
 		ConversionServiceParameterValueMapper mapper = new ConversionServiceParameterValueMapper();
 		Object mapped = mapper.mapParameterValue(new TestOperationParameter(OffsetDateTime.class),
