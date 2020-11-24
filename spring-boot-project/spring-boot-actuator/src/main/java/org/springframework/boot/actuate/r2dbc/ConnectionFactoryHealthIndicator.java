@@ -97,8 +97,4 @@ public class ConnectionFactoryHealthIndicator extends AbstractReactiveHealthIndi
 		return connectionValidation.map((valid) -> builder.status((valid) ? Status.UP : Status.DOWN).build());
 	}
 
-	private Object extractResult(Row row, RowMetadata metadata) {
-		return row.get(metadata.getColumnMetadatas().iterator().next().getName());
-	}
-
 }
