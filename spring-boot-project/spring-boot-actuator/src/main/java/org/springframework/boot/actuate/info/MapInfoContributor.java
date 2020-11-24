@@ -33,9 +33,4 @@ public class MapInfoContributor implements InfoContributor {
 		this.info = new LinkedHashMap<>(info);
 	}
 
-	@Override
-	public void contribute(Info.Builder builder) {
-		builder.withDetails(this.info);
-	}
-
 }
