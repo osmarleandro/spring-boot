@@ -91,14 +91,6 @@ class CachesEndpointTests {
 	}
 
 	@Test
-	void namedCacheWithUnknownCache() {
-		CachesEndpoint endpoint = new CachesEndpoint(
-				Collections.singletonMap("test", new ConcurrentMapCacheManager("b", "a")));
-		CacheEntry entry = endpoint.cache("unknown", null);
-		assertThat(entry).isNull();
-	}
-
-	@Test
 	void namedCacheWithWrongCacheManager() {
 		Map<String, CacheManager> cacheManagers = new LinkedHashMap<>();
 		cacheManagers.put("test", new ConcurrentMapCacheManager("b", "a"));
