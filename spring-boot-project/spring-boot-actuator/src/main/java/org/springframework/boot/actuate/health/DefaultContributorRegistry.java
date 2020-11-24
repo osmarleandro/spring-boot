@@ -73,21 +73,6 @@ class DefaultContributorRegistry<C> implements ContributorRegistry<C> {
 	}
 
 	@Override
-	public C unregisterContributor(String name) {
-		Assert.notNull(name, "Name must not be null");
-		String adaptedName = this.nameFactory.apply(name);
-		synchronized (this.monitor) {
-			C unregistered = this.contributors.get(adaptedName);
-			if (unregistered != null) {
-				Map<String, C> contributors = new LinkedHashMap<>(this.contributors);
-				contributors.remove(adaptedName);
-				this.contributors = Collections.unmodifiableMap(contributors);
-			}
-			return unregistered;
-		}
-	}
-
-	@Override
 	public C getContributor(String name) {
 		return this.contributors.get(name);
 	}
