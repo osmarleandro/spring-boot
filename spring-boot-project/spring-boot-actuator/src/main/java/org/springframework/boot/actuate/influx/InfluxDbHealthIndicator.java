@@ -40,10 +40,4 @@ public class InfluxDbHealthIndicator extends AbstractHealthIndicator {
 		this.influxDb = influxDb;
 	}
 
-	@Override
-	protected void doHealthCheck(Health.Builder builder) {
-		Pong pong = this.influxDb.ping();
-		builder.up().withDetail("version", pong.getVersion());
-	}
-
 }
