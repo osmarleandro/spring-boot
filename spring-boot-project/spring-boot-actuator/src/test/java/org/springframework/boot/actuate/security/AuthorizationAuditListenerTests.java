@@ -81,7 +81,13 @@ class AuthorizationAuditListenerTests {
 
 	private AuditApplicationEvent handleAuthorizationEvent(AbstractAuthorizationEvent event) {
 		ArgumentCaptor<AuditApplicationEvent> eventCaptor = ArgumentCaptor.forClass(AuditApplicationEvent.class);
-		this.listener.onApplicationEvent(event);
+		AuthorizationAuditListener r = this.listener;
+		if (event instanceof AuthenticationCredentialsNotFoundEvent) {
+			r.onAuthenticationCredentialsNotFoundEvent((AuthenticationCredentialsNotFoundEvent) event);
+		}
+		else if (event instanceof AuthorizationFailureEvent) {
+			r.onAuthorizationFailureEvent((AuthorizationFailureEvent) event);
+		}
 		verify(this.publisher).publishEvent(eventCaptor.capture());
 		return eventCaptor.getValue();
 	}
