@@ -48,14 +48,6 @@ class EndpointLinksResolverTests {
 	}
 
 	@Test
-	void linkResolutionWithoutTrailingSlash() {
-		Map<String, Link> links = new EndpointLinksResolver(Collections.emptyList())
-				.resolveLinks("https://api.example.com/actuator");
-		assertThat(links).hasSize(1);
-		assertThat(links).hasEntrySatisfying("self", linkWithHref("https://api.example.com/actuator"));
-	}
-
-	@Test
 	void resolvedLinksContainsALinkForEachWebEndpointOperation() {
 		List<WebOperation> operations = new ArrayList<>();
 		operations.add(operationWithPath("/alpha", "alpha"));
