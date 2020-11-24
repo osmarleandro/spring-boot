@@ -59,13 +59,6 @@ class MBeanInfoFactoryTests {
 	}
 
 	@Test
-	void getMBeanInfoWhenReadOperationShouldHaveInfoImpact() {
-		MBeanInfo info = this.factory
-				.getMBeanInfo(new TestExposableJmxEndpoint(new TestJmxOperation(OperationType.READ)));
-		assertThat(info.getOperations()[0].getImpact()).isEqualTo(MBeanOperationInfo.INFO);
-	}
-
-	@Test
 	void getMBeanInfoWhenWriteOperationShouldHaveActionImpact() {
 		MBeanInfo info = this.factory
 				.getMBeanInfo(new TestExposableJmxEndpoint(new TestJmxOperation(OperationType.WRITE)));
