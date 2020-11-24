@@ -69,10 +69,6 @@ class DiscoveredWebOperation extends AbstractDiscoveredOperation implements WebO
 		return parameter.getAnnotation(Selector.class) != null;
 	}
 
-	private String dashName(Parameter parameter) {
-		return "-" + parameter.getName();
-	}
-
 	private boolean getBlocking(Method method) {
 		return !REACTIVE_STREAMS_PRESENT || !Publisher.class.isAssignableFrom(method.getReturnType());
 	}
