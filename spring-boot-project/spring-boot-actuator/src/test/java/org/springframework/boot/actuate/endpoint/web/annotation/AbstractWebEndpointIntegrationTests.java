@@ -199,14 +199,6 @@ public abstract class AbstractWebEndpointIntegrationTests<T extends Configurable
 	}
 
 	@Test
-	void deleteOperationWithVoidResponse() {
-		load(VoidDeleteResponseEndpointConfiguration.class, (context, client) -> {
-			client.delete().uri("/voiddelete").exchange().expectStatus().isNoContent().expectBody().isEmpty();
-			verify(context.getBean(EndpointDelegate.class)).delete();
-		});
-	}
-
-	@Test
 	void nullIsPassedToTheOperationWhenArgumentIsNotFoundInPostRequestBody() {
 		load(TestEndpointConfiguration.class, (context, client) -> {
 			Map<String, Object> body = new HashMap<>();
