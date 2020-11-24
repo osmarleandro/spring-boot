@@ -123,13 +123,6 @@ class ServletEndpointDiscovererTests {
 						.isThrownBy(discoverer::getEndpoints).withMessageContaining("must supply an EndpointServlet")));
 	}
 
-	@Test
-	void getEndpointWhenEndpointSuppliesNullShouldThrowException() {
-		this.contextRunner.withUserConfiguration(TestServletEndpointSupplierOfNull.class)
-				.run(assertDiscoverer((discoverer) -> assertThatIllegalStateException()
-						.isThrownBy(discoverer::getEndpoints).withMessageContaining("must not supply null")));
-	}
-
 	private ContextConsumer<AssertableApplicationContext> assertDiscoverer(
 			Consumer<ServletEndpointDiscoverer> consumer) {
 		return (context) -> {
