@@ -23,6 +23,7 @@ import java.util.Properties;
 import org.springframework.boot.info.GitProperties;
 import org.springframework.core.env.PropertiesPropertySource;
 import org.springframework.core.env.PropertySource;
+import org.springframework.util.StringUtils;
 
 /**
  * An {@link InfoContributor} that exposes {@link GitProperties}.
@@ -48,12 +49,18 @@ public class GitInfoContributor extends InfoPropertiesInfoContributor<GitPropert
 	@Override
 	protected PropertySource<?> toSimplePropertySource() {
 		Properties props = new Properties();
-		copyIfSet(props, "branch");
+		String value = this.properties.get("branch");
+		if (StringUtils.hasText(value)) {
+			props.put("branch", value);
+		}
 		String commitId = getProperties().getShortCommitId();
 		if (commitId != null) {
 			props.put("commit.id", commitId);
 		}
-		copyIfSet(props, "commit.time");
+		String value = this.properties.get("commit.time");
+		if (StringUtils.hasText(value)) {
+			props.put("commit.time", value);
+		}
 		return new PropertiesPropertySource("git", props);
 	}
 
