@@ -99,9 +99,4 @@ class HealthEndpointWebExtensionTests
 		return CompositeHealthContributor.fromMap(contributors);
 	}
 
-	@Override
-	protected HealthComponent getHealth(HealthResult<HealthComponent> result) {
-		return result.getHealth();
-	}
-
 }
