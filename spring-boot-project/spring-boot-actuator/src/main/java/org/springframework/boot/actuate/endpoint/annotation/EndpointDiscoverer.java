@@ -38,6 +38,7 @@ import org.springframework.boot.actuate.endpoint.EndpointId;
 import org.springframework.boot.actuate.endpoint.EndpointsSupplier;
 import org.springframework.boot.actuate.endpoint.ExposableEndpoint;
 import org.springframework.boot.actuate.endpoint.Operation;
+import org.springframework.boot.actuate.endpoint.annotation.EndpointDiscoverer.EndpointBean;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvoker;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvokerAdvisor;
 import org.springframework.boot.actuate.endpoint.invoke.ParameterValueMapper;
@@ -120,12 +121,6 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 	}
 
 	private Collection<E> discoverEndpoints() {
-		Collection<EndpointBean> endpointBeans = createEndpointBeans();
-		addExtensionBeans(endpointBeans);
-		return convertToEndpoints(endpointBeans);
-	}
-
-	private Collection<EndpointBean> createEndpointBeans() {
 		Map<EndpointId, EndpointBean> byId = new LinkedHashMap<>();
 		String[] beanNames = BeanFactoryUtils.beanNamesForAnnotationIncludingAncestors(this.applicationContext,
 				Endpoint.class);
@@ -137,7 +132,9 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 						+ endpointBean.getBeanName() + "' and '" + previous.getBeanName() + "'");
 			}
 		}
-		return byId.values();
+		Collection<EndpointBean> endpointBeans = byId.values();
+		addExtensionBeans(endpointBeans);
+		return convertToEndpoints(endpointBeans);
 	}
 
 	private EndpointBean createEndpointBean(String beanName) {
