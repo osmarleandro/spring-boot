@@ -60,11 +60,6 @@ class CachingOperationInvokerTests {
 	}
 
 	@Test
-	void cacheInTtlRangeWithNoParameter() {
-		assertCacheIsUsed(Collections.emptyMap());
-	}
-
-	@Test
 	void cacheInTtlWithPrincipal() {
 		assertCacheIsUsed(Collections.emptyMap(), mock(Principal.class));
 	}
