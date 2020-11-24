@@ -55,11 +55,6 @@ class CachesEndpointWebIntegrationTests {
 	}
 
 	@WebEndpointTest
-	void namedCacheWithUnknownName(WebTestClient client) {
-		client.get().uri("/actuator/caches/does-not-exist").exchange().expectStatus().isNotFound();
-	}
-
-	@WebEndpointTest
 	void namedCacheWithNonUniqueName(WebTestClient client) {
 		client.get().uri("/actuator/caches/a").exchange().expectStatus().isBadRequest();
 	}
