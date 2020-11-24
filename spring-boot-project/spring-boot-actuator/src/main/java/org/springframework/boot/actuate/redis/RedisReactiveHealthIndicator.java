@@ -49,12 +49,8 @@ public class RedisReactiveHealthIndicator extends AbstractReactiveHealthIndicato
 
 	@Override
 	protected Mono<Health> doHealthCheck(Health.Builder builder) {
-		return getConnection().flatMap((connection) -> doHealthCheck(builder, connection));
-	}
-
-	private Mono<ReactiveRedisConnection> getConnection() {
 		return Mono.fromSupplier(this.connectionFactory::getReactiveConnection)
-				.subscribeOn(Schedulers.boundedElastic());
+		.subscribeOn(Schedulers.boundedElastic()).flatMap((connection) -> doHealthCheck(builder, connection));
 	}
 
 	private Mono<Health> doHealthCheck(Health.Builder builder, ReactiveRedisConnection connection) {
