@@ -173,14 +173,6 @@ class MetricsEndpointTests {
 	}
 
 	@Test
-	void maxAggregation() {
-		SimpleMeterRegistry reg = new SimpleMeterRegistry();
-		reg.timer("timer", "k", "v1").record(1, TimeUnit.SECONDS);
-		reg.timer("timer", "k", "v2").record(2, TimeUnit.SECONDS);
-		assertMetricHasStatisticEqualTo(reg, "timer", Statistic.MAX, 2.0);
-	}
-
-	@Test
 	void countAggregation() {
 		SimpleMeterRegistry reg = new SimpleMeterRegistry();
 		reg.counter("counter", "k", "v1").increment();
