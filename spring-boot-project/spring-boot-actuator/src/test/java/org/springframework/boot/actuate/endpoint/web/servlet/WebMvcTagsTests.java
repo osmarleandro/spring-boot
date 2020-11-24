@@ -41,16 +41,6 @@ class WebMvcTagsTests {
 	private final MockHttpServletResponse response = new MockHttpServletResponse();
 
 	@Test
-	void uriTagIsDataRestsEffectiveRepositoryLookupPathWhenAvailable() {
-		this.request.setAttribute(
-				"org.springframework.data.rest.webmvc.RepositoryRestHandlerMapping.EFFECTIVE_REPOSITORY_RESOURCE_LOOKUP_PATH",
-				new PathPatternParser().parse("/api/cities"));
-		this.request.setAttribute(HandlerMapping.BEST_MATCHING_PATTERN_ATTRIBUTE, "/api/{repository}");
-		Tag tag = WebMvcTags.uri(this.request, this.response);
-		assertThat(tag.getValue()).isEqualTo("/api/cities");
-	}
-
-	@Test
 	void uriTagValueIsBestMatchingPatternWhenAvailable() {
 		this.request.setAttribute(HandlerMapping.BEST_MATCHING_PATTERN_ATTRIBUTE, "/spring/");
 		this.response.setStatus(301);
