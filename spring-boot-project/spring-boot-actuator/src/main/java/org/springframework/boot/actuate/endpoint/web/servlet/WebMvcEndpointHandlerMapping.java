@@ -62,11 +62,6 @@ public class WebMvcEndpointHandlerMapping extends AbstractWebMvcEndpointHandlerM
 		setOrder(-100);
 	}
 
-	@Override
-	protected LinksHandler getLinksHandler() {
-		return new WebMvcLinksHandler();
-	}
-
 	/**
 	 * Handler for root endpoint providing links.
 	 */
