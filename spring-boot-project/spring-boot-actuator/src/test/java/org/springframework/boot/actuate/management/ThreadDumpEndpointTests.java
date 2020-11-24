@@ -86,12 +86,21 @@ class ThreadDumpEndpointTests {
 		while (writeLock.tryLock()) {
 			writeLock.unlock();
 		}
-		awaitState(waitOnMonitorThread, State.WAITING);
-		awaitState(awaitCountDownLatchThread, State.WAITING);
+		State state = State.WAITING;
+		while (waitOnMonitorThread.getState() != state) {
+			Thread.sleep(50);
+		}
+		State state1 = State.WAITING;
+		while (awaitCountDownLatchThread.getState() != state1) {
+			Thread.sleep(50);
+		}
 		String threadDump;
 		synchronized (contendedMonitor) {
 			contendedMonitorThread.start();
-			awaitState(contendedMonitorThread, State.BLOCKED);
+			State state2 = State.BLOCKED;
+			while (contendedMonitorThread.getState() != state2) {
+				Thread.sleep(50);
+			}
 			threadDump = new ThreadDumpEndpoint().textThreadDump();
 		}
 		latch.countDown();
@@ -113,12 +122,6 @@ class ThreadDumpEndpointTests {
 
 	private String hexIdentityHashCode(Object object) {
 		return Integer.toHexString(System.identityHashCode(object));
-	}
-
-	private void awaitState(Thread thread, State state) throws InterruptedException {
-		while (thread.getState() != state) {
-			Thread.sleep(50);
-		}
 	}
 
 }
