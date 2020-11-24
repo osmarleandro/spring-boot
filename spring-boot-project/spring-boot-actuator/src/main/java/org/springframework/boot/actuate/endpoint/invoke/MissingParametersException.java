@@ -42,12 +42,4 @@ public final class MissingParametersException extends InvalidEndpointRequestExce
 		this.missingParameters = missingParameters;
 	}
 
-	/**
-	 * Returns the parameters that were missing.
-	 * @return the parameters
-	 */
-	public Set<OperationParameter> getMissingParameters() {
-		return this.missingParameters;
-	}
-
 }
