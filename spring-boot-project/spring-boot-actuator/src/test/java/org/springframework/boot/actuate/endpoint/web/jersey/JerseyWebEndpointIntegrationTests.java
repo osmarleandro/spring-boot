@@ -80,11 +80,6 @@ public class JerseyWebEndpointIntegrationTests
 	}
 
 	@Override
-	protected int getPort(AnnotationConfigServletWebServerApplicationContext context) {
-		return context.getWebServer().getPort();
-	}
-
-	@Override
 	protected void validateErrorBody(WebTestClient.BodyContentSpec body, HttpStatus status, String path,
 			String message) {
 		// Jersey doesn't support the general error page handling
