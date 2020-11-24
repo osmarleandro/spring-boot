@@ -84,16 +84,6 @@ public final class WebOperationRequestPredicate {
 	}
 
 	/**
-	 * Returns the name of the variable used to catch all remaining path segments
-	 * {@code null}.
-	 * @return the variable name
-	 * @since 2.2.0
-	 */
-	public String getMatchAllRemainingPathSegmentsVariable() {
-		return this.matchAllRemainingPathSegmentsVariable;
-	}
-
-	/**
 	 * Returns the HTTP method for the operation.
 	 * @return the HTTP method
 	 */
