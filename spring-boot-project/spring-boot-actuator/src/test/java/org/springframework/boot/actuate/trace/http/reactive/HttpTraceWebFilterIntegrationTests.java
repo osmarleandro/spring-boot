@@ -66,17 +66,6 @@ class HttpTraceWebFilterIntegrationTests {
 	}
 
 	@Test
-	void traceForMonoErrorWithRuntimeExceptionHas500Status() {
-		this.contextRunner.run((context) -> {
-			WebTestClient.bindToApplicationContext(context).build().get().uri("/mono-error").exchange().expectStatus()
-					.isEqualTo(HttpStatus.INTERNAL_SERVER_ERROR);
-			HttpTraceRepository repository = context.getBean(HttpTraceRepository.class);
-			assertThat(repository.findAll()).hasSize(1);
-			assertThat(repository.findAll().get(0).getResponse().getStatus()).isEqualTo(500);
-		});
-	}
-
-	@Test
 	void traceForThrownRuntimeExceptionHas500Status() {
 		this.contextRunner.run((context) -> {
 			WebTestClient.bindToApplicationContext(context).build().get().uri("/thrown").exchange().expectStatus()
