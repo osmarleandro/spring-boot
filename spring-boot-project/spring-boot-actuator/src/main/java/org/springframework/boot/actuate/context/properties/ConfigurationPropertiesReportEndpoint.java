@@ -98,11 +98,6 @@ public class ConfigurationPropertiesReportEndpoint implements ApplicationContext
 
 	private ObjectMapper objectMapper;
 
-	@Override
-	public void setApplicationContext(ApplicationContext context) throws BeansException {
-		this.context = context;
-	}
-
 	public void setKeysToSanitize(String... keysToSanitize) {
 		this.sanitizer.setKeysToSanitize(keysToSanitize);
 	}
