@@ -65,14 +65,6 @@ class CachesEndpointWebIntegrationTests {
 	}
 
 	@WebEndpointTest
-	void clearNamedCache(WebTestClient client, ApplicationContext context) {
-		Cache b = context.getBean("one", CacheManager.class).getCache("b");
-		b.put("test", "value");
-		client.delete().uri("/actuator/caches/b").exchange().expectStatus().isNoContent();
-		assertThat(b.get("test")).isNull();
-	}
-
-	@WebEndpointTest
 	void cleanNamedCacheWithUnknownName(WebTestClient client) {
 		client.delete().uri("/actuator/caches/does-not-exist").exchange().expectStatus().isNotFound();
 	}
