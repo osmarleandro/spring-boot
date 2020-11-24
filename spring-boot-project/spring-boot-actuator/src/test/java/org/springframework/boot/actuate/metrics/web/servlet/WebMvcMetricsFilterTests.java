@@ -276,13 +276,6 @@ class WebMvcMetricsFilterTests {
 	}
 
 	@Test
-	void recordQuantiles() throws Exception {
-		this.mvc.perform(get("/api/c1/percentiles/10")).andExpect(status().isOk());
-		assertThat(this.prometheusRegistry.scrape()).contains("quantile=\"0.5\"");
-		assertThat(this.prometheusRegistry.scrape()).contains("quantile=\"0.95\"");
-	}
-
-	@Test
 	void recordHistogram() throws Exception {
 		this.mvc.perform(get("/api/c1/histogram/10")).andExpect(status().isOk());
 		assertThat(this.prometheusRegistry.scrape()).contains("le=\"0.001\"");
