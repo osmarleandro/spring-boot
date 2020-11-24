@@ -142,12 +142,6 @@ class ConfigurationPropertiesReportEndpointTests {
 	}
 
 	@Test
-	void descriptorWithMixedCaseProperty() {
-		this.contextRunner.withUserConfiguration(MixedCasePropertiesConfiguration.class).run(assertProperties(
-				"mixedcase", (properties) -> assertThat(properties.get("mIxedCase")).isEqualTo("mixed")));
-	}
-
-	@Test
 	void descriptorWithSingleLetterProperty() {
 		this.contextRunner.withUserConfiguration(MixedCasePropertiesConfiguration.class)
 				.run(assertProperties("mixedcase", (properties) -> assertThat(properties.get("z")).isEqualTo("zzz")));
