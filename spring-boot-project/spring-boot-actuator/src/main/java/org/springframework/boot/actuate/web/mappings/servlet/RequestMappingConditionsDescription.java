@@ -74,10 +74,6 @@ public class RequestMappingConditionsDescription {
 		return this.params;
 	}
 
-	public Set<String> getPatterns() {
-		return this.patterns;
-	}
-
 	public List<MediaTypeExpressionDescription> getProduces() {
 		return this.produces;
 	}
