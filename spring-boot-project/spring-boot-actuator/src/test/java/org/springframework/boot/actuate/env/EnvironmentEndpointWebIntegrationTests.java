@@ -44,12 +44,6 @@ class EnvironmentEndpointWebIntegrationTests {
 	}
 
 	@WebEndpointTest
-	void home() {
-		this.client.get().uri("/actuator/env").exchange().expectStatus().isOk().expectBody()
-				.jsonPath("propertySources[?(@.name=='systemProperties')]").exists();
-	}
-
-	@WebEndpointTest
 	void sub() {
 		this.client.get().uri("/actuator/env/foo").exchange().expectStatus().isOk().expectBody()
 				.jsonPath("property.source").isEqualTo("test").jsonPath("property.value").isEqualTo("bar");
