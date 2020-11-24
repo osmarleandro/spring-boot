@@ -77,11 +77,6 @@ class CachesEndpointWebIntegrationTests {
 		client.delete().uri("/actuator/caches/does-not-exist").exchange().expectStatus().isNotFound();
 	}
 
-	@WebEndpointTest
-	void clearNamedCacheWithNonUniqueName(WebTestClient client) {
-		client.get().uri("/actuator/caches/a").exchange().expectStatus().isBadRequest();
-	}
-
 	@Configuration(proxyBeanMethods = false)
 	static class TestConfiguration {
 
