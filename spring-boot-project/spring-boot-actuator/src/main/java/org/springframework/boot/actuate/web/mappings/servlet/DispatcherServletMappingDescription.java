@@ -46,8 +46,4 @@ public class DispatcherServletMappingDescription {
 		return this.predicate;
 	}
 
-	public DispatcherServletMappingDetails getDetails() {
-		return this.details;
-	}
-
 }
