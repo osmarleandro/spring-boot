@@ -62,14 +62,6 @@ class OperationMethodParametersTests {
 	}
 
 	@Test
-	void createWhenParameterNameDiscovererReturnsNullShouldThrowException() {
-		assertThatIllegalStateException()
-				.isThrownBy(
-						() -> new OperationMethodParameters(this.exampleMethod, mock(ParameterNameDiscoverer.class)))
-				.withMessageContaining("Failed to extract parameter names");
-	}
-
-	@Test
 	void hasParametersWhenHasParametersShouldReturnTrue() {
 		OperationMethodParameters parameters = new OperationMethodParameters(this.exampleMethod,
 				new DefaultParameterNameDiscoverer());
