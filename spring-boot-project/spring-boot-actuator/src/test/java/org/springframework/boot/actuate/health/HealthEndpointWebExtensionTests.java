@@ -43,7 +43,7 @@ class HealthEndpointWebExtensionTests
 		this.registry.registerContributor("test", createContributor(this.up));
 		WebEndpointResponse<HealthComponent> response = create(this.registry, this.groups).health(ApiVersion.LATEST,
 				SecurityContext.NONE);
-		HealthComponent health = response.getBody();
+		HealthComponent health = response.body;
 		assertThat(health.getStatus()).isEqualTo(Status.UP);
 		assertThat(health).isInstanceOf(SystemHealth.class);
 		assertThat(response.getStatus()).isEqualTo(200);
@@ -56,7 +56,7 @@ class HealthEndpointWebExtensionTests
 				HealthEndpointGroups.of(mock(HealthEndpointGroup.class), Collections.emptyMap()))
 						.health(ApiVersion.LATEST, SecurityContext.NONE);
 		assertThat(response.getStatus()).isEqualTo(200);
-		HealthComponent health = response.getBody();
+		HealthComponent health = response.body;
 		assertThat(health.getStatus()).isEqualTo(Status.UP);
 		assertThat(health).isInstanceOf(Health.class);
 	}
@@ -66,7 +66,7 @@ class HealthEndpointWebExtensionTests
 		this.registry.registerContributor("test", createContributor(this.up));
 		WebEndpointResponse<HealthComponent> response = create(this.registry, this.groups).health(ApiVersion.LATEST,
 				SecurityContext.NONE, "missing");
-		assertThat(response.getBody()).isNull();
+		assertThat(response.body).isNull();
 		assertThat(response.getStatus()).isEqualTo(404);
 	}
 
@@ -75,7 +75,7 @@ class HealthEndpointWebExtensionTests
 		this.registry.registerContributor("test", createContributor(this.up));
 		WebEndpointResponse<HealthComponent> response = create(this.registry, this.groups).health(ApiVersion.LATEST,
 				SecurityContext.NONE, "test");
-		assertThat(response.getBody()).isEqualTo(this.up);
+		assertThat(response.body).isEqualTo(this.up);
 		assertThat(response.getStatus()).isEqualTo(200);
 	}
 
