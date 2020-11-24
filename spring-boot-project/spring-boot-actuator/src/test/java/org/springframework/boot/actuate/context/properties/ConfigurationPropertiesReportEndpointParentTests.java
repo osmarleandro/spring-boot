@@ -37,23 +37,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 class ConfigurationPropertiesReportEndpointParentTests {
 
 	@Test
-	void configurationPropertiesClass() {
-		new ApplicationContextRunner().withUserConfiguration(Parent.class).run((parent) -> {
-			new ApplicationContextRunner().withUserConfiguration(ClassConfigurationProperties.class).withParent(parent)
-					.run((child) -> {
-						ConfigurationPropertiesReportEndpoint endpoint = child
-								.getBean(ConfigurationPropertiesReportEndpoint.class);
-						ApplicationConfigurationProperties applicationProperties = endpoint.configurationProperties();
-						assertThat(applicationProperties.getContexts()).containsOnlyKeys(child.getId(), parent.getId());
-						assertThat(applicationProperties.getContexts().get(child.getId()).getBeans().keySet())
-								.containsExactly("someProperties");
-						assertThat((applicationProperties.getContexts().get(parent.getId()).getBeans().keySet()))
-								.containsExactly("testProperties");
-					});
-		});
-	}
-
-	@Test
 	void configurationPropertiesBeanMethod() {
 		new ApplicationContextRunner().withUserConfiguration(Parent.class).run((parent) -> {
 			new ApplicationContextRunner().withUserConfiguration(BeanMethodConfigurationProperties.class)
