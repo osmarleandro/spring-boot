@@ -59,14 +59,6 @@ class AuthorizationAuditListenerTests {
 	}
 
 	@Test
-	void testAuthorizationFailure() {
-		AuditApplicationEvent event = handleAuthorizationEvent(new AuthorizationFailureEvent(this,
-				Collections.singletonList(new SecurityConfig("USER")),
-				new UsernamePasswordAuthenticationToken("user", "password"), new AccessDeniedException("Bad user")));
-		assertThat(event.getAuditEvent().getType()).isEqualTo(AuthorizationAuditListener.AUTHORIZATION_FAILURE);
-	}
-
-	@Test
 	void testDetailsAreIncludedInAuditEvent() {
 		Object details = new Object();
 		UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken("user",
