@@ -76,7 +76,10 @@ public class LongTaskTimingHandlerInterceptor implements HandlerInterceptor {
 	public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex)
 			throws Exception {
 		if (!request.isAsyncStarted()) {
-			stopLongTaskTimers(LongTaskTimingContext.get(request));
+			LongTaskTimingContext timingContext = LongTaskTimingContext.get(request);
+			for (LongTaskTimer.Sample sample : timingContext.getLongTaskTimerSamples()) {
+				sample.stop();
+			}
 		}
 	}
 
@@ -117,12 +120,6 @@ public class LongTaskTimingHandlerInterceptor implements HandlerInterceptor {
 	private Set<Timed> findTimedAnnotations(AnnotatedElement element) {
 		return MergedAnnotations.from(element).stream(Timed.class)
 				.collect(MergedAnnotationCollectors.toAnnotationSet());
-	}
-
-	private void stopLongTaskTimers(LongTaskTimingContext timingContext) {
-		for (LongTaskTimer.Sample sample : timingContext.getLongTaskTimerSamples()) {
-			sample.stop();
-		}
 	}
 
 	/**
