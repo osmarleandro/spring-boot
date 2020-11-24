@@ -85,13 +85,6 @@ class WebFluxTagsTests {
 	}
 
 	@Test
-	void uriTagValueIsRedirectionWhenResponseStatusIs3xx() {
-		this.exchange.getResponse().setStatusCode(HttpStatus.MOVED_PERMANENTLY);
-		Tag tag = WebFluxTags.uri(this.exchange);
-		assertThat(tag.getValue()).isEqualTo("REDIRECTION");
-	}
-
-	@Test
 	void uriTagValueIsNotFoundWhenResponseStatusIs404() {
 		this.exchange.getResponse().setStatusCode(HttpStatus.NOT_FOUND);
 		Tag tag = WebFluxTags.uri(this.exchange);
