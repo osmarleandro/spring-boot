@@ -22,7 +22,7 @@ import java.net.URI;
 import io.micrometer.core.instrument.Tag;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
+import org.springframework.boot.actuate.metrics.http.Outcome;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.reactive.function.client.ClientRequest;
@@ -121,56 +121,64 @@ class WebClientExchangeTagsTests {
 
 	@Test
 	void outcomeTagIsUnknownWhenResponseIsNull() {
-		Tag tag = WebClientExchangeTags.outcome(null);
+		Outcome outcome = (null != null) ? Outcome.forStatus(null.rawStatusCode()) : Outcome.UNKNOWN;
+		Tag tag = outcome.asTag();
 		assertThat(tag.getValue()).isEqualTo("UNKNOWN");
 	}
 
 	@Test
 	void outcomeTagIsInformationalWhenResponseIs1xx() {
 		given(this.response.rawStatusCode()).willReturn(HttpStatus.CONTINUE.value());
-		Tag tag = WebClientExchangeTags.outcome(this.response);
+		Outcome outcome = (this.response != null) ? Outcome.forStatus(this.response.rawStatusCode()) : Outcome.UNKNOWN;
+		Tag tag = outcome.asTag();
 		assertThat(tag.getValue()).isEqualTo("INFORMATIONAL");
 	}
 
 	@Test
 	void outcomeTagIsSuccessWhenResponseIs2xx() {
 		given(this.response.rawStatusCode()).willReturn(HttpStatus.OK.value());
-		Tag tag = WebClientExchangeTags.outcome(this.response);
+		Outcome outcome = (this.response != null) ? Outcome.forStatus(this.response.rawStatusCode()) : Outcome.UNKNOWN;
+		Tag tag = outcome.asTag();
 		assertThat(tag.getValue()).isEqualTo("SUCCESS");
 	}
 
 	@Test
 	void outcomeTagIsRedirectionWhenResponseIs3xx() {
 		given(this.response.rawStatusCode()).willReturn(HttpStatus.MOVED_PERMANENTLY.value());
-		Tag tag = WebClientExchangeTags.outcome(this.response);
+		Outcome outcome = (this.response != null) ? Outcome.forStatus(this.response.rawStatusCode()) : Outcome.UNKNOWN;
+		Tag tag = outcome.asTag();
 		assertThat(tag.getValue()).isEqualTo("REDIRECTION");
 	}
 
 	@Test
 	void outcomeTagIsClientErrorWhenResponseIs4xx() {
 		given(this.response.rawStatusCode()).willReturn(HttpStatus.BAD_REQUEST.value());
-		Tag tag = WebClientExchangeTags.outcome(this.response);
+		Outcome outcome = (this.response != null) ? Outcome.forStatus(this.response.rawStatusCode()) : Outcome.UNKNOWN;
+		Tag tag = outcome.asTag();
 		assertThat(tag.getValue()).isEqualTo("CLIENT_ERROR");
 	}
 
 	@Test
 	void outcomeTagIsServerErrorWhenResponseIs5xx() {
 		given(this.response.rawStatusCode()).willReturn(HttpStatus.BAD_GATEWAY.value());
-		Tag tag = WebClientExchangeTags.outcome(this.response);
+		Outcome outcome = (this.response != null) ? Outcome.forStatus(this.response.rawStatusCode()) : Outcome.UNKNOWN;
+		Tag tag = outcome.asTag();
 		assertThat(tag.getValue()).isEqualTo("SERVER_ERROR");
 	}
 
 	@Test
 	void outcomeTagIsClientErrorWhenResponseIsNonStandardInClientSeries() {
 		given(this.response.rawStatusCode()).willReturn(490);
-		Tag tag = WebClientExchangeTags.outcome(this.response);
+		Outcome outcome = (this.response != null) ? Outcome.forStatus(this.response.rawStatusCode()) : Outcome.UNKNOWN;
+		Tag tag = outcome.asTag();
 		assertThat(tag.getValue()).isEqualTo("CLIENT_ERROR");
 	}
 
 	@Test
 	void outcomeTagIsUnknownWhenResponseStatusIsInUnknownSeries() {
 		given(this.response.rawStatusCode()).willReturn(701);
-		Tag tag = WebClientExchangeTags.outcome(this.response);
+		Outcome outcome = (this.response != null) ? Outcome.forStatus(this.response.rawStatusCode()) : Outcome.UNKNOWN;
+		Tag tag = outcome.asTag();
 		assertThat(tag.getValue()).isEqualTo("UNKNOWN");
 	}
 

@@ -20,6 +20,7 @@ import java.util.Arrays;
 
 import io.micrometer.core.instrument.Tag;
 
+import org.springframework.boot.actuate.metrics.http.Outcome;
 import org.springframework.web.reactive.function.client.ClientRequest;
 import org.springframework.web.reactive.function.client.ClientResponse;
 
@@ -38,7 +39,8 @@ public class DefaultWebClientExchangeTagsProvider implements WebClientExchangeTa
 		Tag uri = WebClientExchangeTags.uri(request);
 		Tag clientName = WebClientExchangeTags.clientName(request);
 		Tag status = WebClientExchangeTags.status(response, throwable);
-		Tag outcome = WebClientExchangeTags.outcome(response);
+		Outcome outcome1 = (response != null) ? Outcome.forStatus(response.rawStatusCode()) : Outcome.UNKNOWN;
+		Tag outcome = outcome1.asTag();
 		return Arrays.asList(method, uri, clientName, status, outcome);
 	}
 
