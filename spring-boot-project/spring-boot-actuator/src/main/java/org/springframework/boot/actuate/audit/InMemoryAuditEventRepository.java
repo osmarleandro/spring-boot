@@ -75,7 +75,8 @@ public class InMemoryAuditEventRepository implements AuditEventRepository {
 		LinkedList<AuditEvent> events = new LinkedList<>();
 		synchronized (this.monitor) {
 			for (int i = 0; i < this.events.length; i++) {
-				AuditEvent event = resolveTailEvent(i);
+				int index = ((this.tail + this.events.length - i) % this.events.length);
+				AuditEvent event = this.events[index];
 				if (event != null && isMatch(principal, after, type, event)) {
 					events.addFirst(event);
 				}
@@ -90,11 +91,6 @@ public class InMemoryAuditEventRepository implements AuditEventRepository {
 		match = match && (after == null || event.getTimestamp().isAfter(after));
 		match = match && (type == null || event.getType().equals(type));
 		return match;
-	}
-
-	private AuditEvent resolveTailEvent(int offset) {
-		int index = ((this.tail + this.events.length - offset) % this.events.length);
-		return this.events[index];
 	}
 
 }
