@@ -64,12 +64,6 @@ class ConfigurationPropertiesReportEndpointTests {
 			.withUserConfiguration(EndpointConfig.class);
 
 	@Test
-	void descriptorWithJavaBeanBindMethodDetectsRelevantProperties() {
-		this.contextRunner.withUserConfiguration(TestPropertiesConfiguration.class).run(assertProperties("test",
-				(properties) -> assertThat(properties).containsOnlyKeys("dbPassword", "myTestProperty", "duration")));
-	}
-
-	@Test
 	void descriptorWithValueObjectBindMethodDetectsRelevantProperties() {
 		this.contextRunner.withUserConfiguration(ImmutablePropertiesConfiguration.class).run(assertProperties(
 				"immutable",
