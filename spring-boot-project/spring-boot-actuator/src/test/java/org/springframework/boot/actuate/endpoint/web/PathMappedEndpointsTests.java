@@ -74,12 +74,6 @@ class PathMappedEndpointsTests {
 	}
 
 	@Test
-	void getRootPathWhenMissingIdShouldReturnNull() {
-		PathMappedEndpoints mapped = createTestMapped(null);
-		assertThat(mapped.getRootPath(EndpointId.of("xx"))).isNull();
-	}
-
-	@Test
 	void getPathWhenContainsIdShouldReturnRootPath() {
 		assertThat(createTestMapped(null).getPath(EndpointId.of("e2"))).isEqualTo("/p2");
 		assertThat(createTestMapped("/x").getPath(EndpointId.of("e2"))).isEqualTo("/x/p2");
