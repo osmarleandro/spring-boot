@@ -38,10 +38,6 @@ public class DispatcherHandlerMappingDescription {
 		this.details = details;
 	}
 
-	public String getHandler() {
-		return this.handler;
-	}
-
 	public String getPredicate() {
 		return this.predicate;
 	}
