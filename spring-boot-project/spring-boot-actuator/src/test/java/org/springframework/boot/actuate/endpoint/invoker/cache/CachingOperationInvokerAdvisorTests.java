@@ -102,31 +102,39 @@ class CachingOperationInvokerAdvisorTests {
 	void applyShouldAddCacheAdvise() {
 		OperationParameters parameters = getParameters("get");
 		given(this.timeToLive.apply(any())).willReturn(100L);
-		assertAdviseIsApplied(parameters);
+		OperationInvoker advised = this.advisor.apply(EndpointId.of("foo"), OperationType.READ, parameters,
+				this.invoker);
+		assertThat(advised).isInstanceOf(CachingOperationInvoker.class);
+		assertThat(advised).hasFieldOrPropertyWithValue("invoker", this.invoker);
+		assertThat(advised).hasFieldOrPropertyWithValue("timeToLive", 100L);
 	}
 
 	@Test
 	void applyWithAllOptionalParametersShouldAddAdvise() {
 		OperationParameters parameters = getParameters("getWithAllOptionalParameters", String.class, String.class);
 		given(this.timeToLive.apply(any())).willReturn(100L);
-		assertAdviseIsApplied(parameters);
+		OperationInvoker advised = this.advisor.apply(EndpointId.of("foo"), OperationType.READ, parameters,
+				this.invoker);
+		assertThat(advised).isInstanceOf(CachingOperationInvoker.class);
+		assertThat(advised).hasFieldOrPropertyWithValue("invoker", this.invoker);
+		assertThat(advised).hasFieldOrPropertyWithValue("timeToLive", 100L);
 	}
 
 	@Test
 	void applyWithSecurityContextShouldAddAdvise() {
 		OperationParameters parameters = getParameters("getWithSecurityContext", SecurityContext.class, String.class);
 		given(this.timeToLive.apply(any())).willReturn(100L);
-		assertAdviseIsApplied(parameters);
+		OperationInvoker advised = this.advisor.apply(EndpointId.of("foo"), OperationType.READ, parameters,
+				this.invoker);
+		assertThat(advised).isInstanceOf(CachingOperationInvoker.class);
+		assertThat(advised).hasFieldOrPropertyWithValue("invoker", this.invoker);
+		assertThat(advised).hasFieldOrPropertyWithValue("timeToLive", 100L);
 	}
 
 	@Test
 	void applyWithApiVersionShouldAddAdvise() {
 		OperationParameters parameters = getParameters("getWithApiVersion", ApiVersion.class, String.class);
 		given(this.timeToLive.apply(any())).willReturn(100L);
-		assertAdviseIsApplied(parameters);
-	}
-
-	private void assertAdviseIsApplied(OperationParameters parameters) {
 		OperationInvoker advised = this.advisor.apply(EndpointId.of("foo"), OperationType.READ, parameters,
 				this.invoker);
 		assertThat(advised).isInstanceOf(CachingOperationInvoker.class);
