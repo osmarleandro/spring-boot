@@ -61,7 +61,8 @@ class CachingOperationInvokerTests {
 
 	@Test
 	void cacheInTtlRangeWithNoParameter() {
-		assertCacheIsUsed(Collections.emptyMap());
+		Map<String, Object> parameters = Collections.emptyMap();
+		assertCacheIsUsed(parameters, null);
 	}
 
 	@Test
@@ -74,7 +75,7 @@ class CachingOperationInvokerTests {
 		Map<String, Object> parameters = new HashMap<>();
 		parameters.put("first", null);
 		parameters.put("second", null);
-		assertCacheIsUsed(parameters);
+		assertCacheIsUsed(parameters, null);
 	}
 
 	@Test
@@ -99,10 +100,6 @@ class CachingOperationInvokerTests {
 		Object cachedResponse = ((Flux<?>) invoker.invoke(context)).blockLast();
 		assertThat(FluxOperationInvoker.invocations).hasValue(1);
 		assertThat(response).isSameAs(cachedResponse);
-	}
-
-	private void assertCacheIsUsed(Map<String, Object> parameters) {
-		assertCacheIsUsed(parameters, null);
 	}
 
 	private void assertCacheIsUsed(Map<String, Object> parameters, Principal principal) {
