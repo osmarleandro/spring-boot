@@ -50,17 +50,6 @@ import static org.mockito.Mockito.verify;
 class Neo4jHealthIndicatorTests {
 
 	@Test
-	void neo4jIsUp() {
-		ResultSummary resultSummary = ResultSummaryMock.createResultSummary("4711", "My Home", "test");
-		Driver driver = mockDriver(resultSummary, "ultimate collectors edition");
-		Health health = new Neo4jHealthIndicator(driver).health();
-		assertThat(health.getStatus()).isEqualTo(Status.UP);
-		assertThat(health.getDetails()).containsEntry("server", "4711@My Home");
-		assertThat(health.getDetails()).containsEntry("database", "test");
-		assertThat(health.getDetails()).containsEntry("edition", "ultimate collectors edition");
-	}
-
-	@Test
 	void neo4jIsUpWithoutDatabaseName() {
 		ResultSummary resultSummary = ResultSummaryMock.createResultSummary("4711", "My Home", null);
 		Driver driver = mockDriver(resultSummary, "some edition");
