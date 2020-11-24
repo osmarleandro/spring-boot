@@ -71,11 +71,6 @@ final class TraceableHttpServletRequest implements TraceableRequest {
 	}
 
 	@Override
-	public Map<String, List<String>> getHeaders() {
-		return extractHeaders();
-	}
-
-	@Override
 	public String getRemoteAddress() {
 		return this.request.getRemoteAddr();
 	}
