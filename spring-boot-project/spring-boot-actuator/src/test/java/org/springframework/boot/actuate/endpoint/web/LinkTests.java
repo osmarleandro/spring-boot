@@ -29,12 +29,6 @@ import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException
 class LinkTests {
 
 	@Test
-	void createWhenHrefIsNullShouldThrowException() {
-		assertThatIllegalArgumentException().isThrownBy(() -> new Link(null))
-				.withMessageContaining("HREF must not be null");
-	}
-
-	@Test
 	void getHrefShouldReturnHref() {
 		String href = "https://example.com";
 		Link link = new Link(href);
