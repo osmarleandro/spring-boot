@@ -92,7 +92,7 @@ class ThreadDumpEndpointTests {
 		synchronized (contendedMonitor) {
 			contendedMonitorThread.start();
 			awaitState(contendedMonitorThread, State.BLOCKED);
-			threadDump = new ThreadDumpEndpoint().textThreadDump();
+			threadDump = new ThreadDumpEndpoint().getFormattedThreadDump(this.plainTextFormatter::format);
 		}
 		latch.countDown();
 		synchronized (monitor) {
