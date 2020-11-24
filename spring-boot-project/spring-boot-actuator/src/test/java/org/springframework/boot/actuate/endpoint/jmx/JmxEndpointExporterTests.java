@@ -87,13 +87,6 @@ class JmxEndpointExporterTests {
 	}
 
 	@Test
-	void createWhenObjectNameFactoryIsNullShouldThrowException() {
-		assertThatIllegalArgumentException()
-				.isThrownBy(() -> new JmxEndpointExporter(this.mBeanServer, null, this.responseMapper, this.endpoints))
-				.withMessageContaining("ObjectNameFactory must not be null");
-	}
-
-	@Test
 	void createWhenResponseMapperIsNullShouldThrowException() {
 		assertThatIllegalArgumentException()
 				.isThrownBy(
