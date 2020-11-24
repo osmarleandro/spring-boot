@@ -139,25 +139,6 @@ class CachingOperationInvokerTests {
 	}
 
 	@Test
-	void targetAlwaysInvokedWithDifferentPrincipals() {
-		OperationInvoker target = mock(OperationInvoker.class);
-		Map<String, Object> parameters = new HashMap<>();
-		SecurityContext securityContext = mock(SecurityContext.class);
-		given(securityContext.getPrincipal()).willReturn(mock(Principal.class), mock(Principal.class),
-				mock(Principal.class));
-		InvocationContext context = new InvocationContext(securityContext, parameters);
-		Object result1 = new Object();
-		Object result2 = new Object();
-		Object result3 = new Object();
-		given(target.invoke(context)).willReturn(result1, result2, result3);
-		CachingOperationInvoker invoker = new CachingOperationInvoker(target, CACHE_TTL);
-		assertThat(invoker.invoke(context)).isEqualTo(result1);
-		assertThat(invoker.invoke(context)).isEqualTo(result2);
-		assertThat(invoker.invoke(context)).isEqualTo(result3);
-		verify(target, times(3)).invoke(context);
-	}
-
-	@Test
 	void targetInvokedWhenCalledWithAndWithoutPrincipal() {
 		OperationInvoker target = mock(OperationInvoker.class);
 		Map<String, Object> parameters = new HashMap<>();
