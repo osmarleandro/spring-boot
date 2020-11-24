@@ -53,11 +53,6 @@ class EndpointMappingTests {
 	}
 
 	@Test
-	void normalizationLeavesAPathWithALeadingSlashAndNoTrailingSlashAsIs() {
-		assertThat(new EndpointMapping("/test").getPath()).isEqualTo("/test");
-	}
-
-	@Test
 	void subPathForAnEmptyStringReturnsBasePath() {
 		assertThat(new EndpointMapping("/test").createSubPath("")).isEqualTo("/test");
 	}
