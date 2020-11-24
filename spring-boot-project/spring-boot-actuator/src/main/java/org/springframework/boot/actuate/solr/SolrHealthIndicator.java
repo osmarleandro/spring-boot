@@ -48,14 +48,6 @@ public class SolrHealthIndicator extends AbstractHealthIndicator {
 		this.solrClient = solrClient;
 	}
 
-	@Override
-	protected void doHealthCheck(Health.Builder builder) throws Exception {
-		int statusCode = initializeStatusCheck();
-		Status status = (statusCode != 0) ? Status.DOWN : Status.UP;
-		builder.status(status).withDetail("status", statusCode).withDetail("detectedPathType",
-				this.statusCheck.getPathType());
-	}
-
 	private int initializeStatusCheck() throws Exception {
 		StatusCheck statusCheck = this.statusCheck;
 		if (statusCheck != null) {
