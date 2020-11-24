@@ -51,12 +51,6 @@ abstract class DefaultContributorRegistryTests {
 	}
 
 	@Test
-	void createWhenContributorsIsNullThrowsException() {
-		assertThatIllegalArgumentException().isThrownBy(() -> new DefaultContributorRegistry<>(null))
-				.withMessage("Contributors must not be null");
-	}
-
-	@Test
 	void createWhenNameFactoryIsNullThrowsException() {
 		assertThatIllegalArgumentException()
 				.isThrownBy(() -> new DefaultContributorRegistry<>(Collections.emptyMap(), null))
