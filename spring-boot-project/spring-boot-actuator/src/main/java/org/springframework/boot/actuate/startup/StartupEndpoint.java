@@ -44,12 +44,6 @@ public class StartupEndpoint {
 		this.applicationStartup = applicationStartup;
 	}
 
-	@WriteOperation
-	public StartupResponse startup() {
-		StartupTimeline startupTimeline = this.applicationStartup.drainBufferedTimeline();
-		return new StartupResponse(startupTimeline);
-	}
-
 	/**
 	 * A description of an application startup, primarily intended for serialization to
 	 * JSON.

@@ -19,7 +19,9 @@ package org.springframework.boot.actuate.startup;
 import org.junit.jupiter.api.Test;
 
 import org.springframework.boot.SpringBootVersion;
+import org.springframework.boot.actuate.startup.StartupEndpoint.StartupResponse;
 import org.springframework.boot.context.metrics.buffering.BufferingApplicationStartup;
+import org.springframework.boot.context.metrics.buffering.StartupTimeline;
 import org.springframework.boot.test.context.runner.ApplicationContextRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -40,7 +42,8 @@ class StartupEndpointTests {
 				.withInitializer((context) -> context.setApplicationStartup(applicationStartup))
 				.withUserConfiguration(EndpointConfiguration.class);
 		contextRunner.run((context) -> {
-			StartupEndpoint.StartupResponse startup = context.getBean(StartupEndpoint.class).startup();
+			StartupTimeline startupTimeline = context.getBean(StartupEndpoint.class).applicationStartup.drainBufferedTimeline();
+			StartupEndpoint.StartupResponse startup = new StartupResponse(startupTimeline);
 			assertThat(startup.getSpringBootVersion()).isEqualTo(SpringBootVersion.getVersion());
 			assertThat(startup.getTimeline().getStartTime())
 					.isEqualTo(applicationStartup.getBufferedTimeline().getStartTime());
@@ -54,7 +57,8 @@ class StartupEndpointTests {
 				.withInitializer((context) -> context.setApplicationStartup(applicationStartup))
 				.withUserConfiguration(EndpointConfiguration.class);
 		contextRunner.run((context) -> {
-			StartupEndpoint.StartupResponse startup = context.getBean(StartupEndpoint.class).startup();
+			StartupTimeline startupTimeline = context.getBean(StartupEndpoint.class).applicationStartup.drainBufferedTimeline();
+			StartupEndpoint.StartupResponse startup = new StartupResponse(startupTimeline);
 			assertThat(startup.getTimeline().getEvents()).isNotEmpty();
 			assertThat(applicationStartup.getBufferedTimeline().getEvents()).isEmpty();
 		});
