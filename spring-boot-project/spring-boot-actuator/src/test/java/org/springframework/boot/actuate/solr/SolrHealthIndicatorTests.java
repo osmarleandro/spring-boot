@@ -67,19 +67,6 @@ class SolrHealthIndicatorTests {
 	}
 
 	@Test
-	void healthWhenSolrStatusUpAndBaseUrlPointsToParticularCoreReturnsUp() throws Exception {
-		SolrClient solrClient = mock(SolrClient.class);
-		given(solrClient.request(any(CoreAdminRequest.class), isNull()))
-				.willThrow(new RemoteSolrException("mock", 404, "", null));
-		given(solrClient.ping()).willReturn(mockPingResponse(0));
-		SolrHealthIndicator healthIndicator = new SolrHealthIndicator(solrClient);
-		assertHealth(healthIndicator, Status.UP, 0, "particular core");
-		verify(solrClient, times(1)).request(any(CoreAdminRequest.class), isNull());
-		verify(solrClient, times(1)).ping();
-		verifyNoMoreInteractions(solrClient);
-	}
-
-	@Test
 	void healthWhenSolrStatusDownAndBaseUrlPointsToParticularCoreReturnsDown() throws Exception {
 		SolrClient solrClient = mock(SolrClient.class);
 		given(solrClient.request(any(CoreAdminRequest.class), isNull()))
