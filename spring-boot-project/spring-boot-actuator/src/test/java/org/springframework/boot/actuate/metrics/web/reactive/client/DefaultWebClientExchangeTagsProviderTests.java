@@ -58,13 +58,6 @@ class DefaultWebClientExchangeTagsProviderTests {
 	}
 
 	@Test
-	void tagsShouldBePopulated() {
-		Iterable<Tag> tags = this.tagsProvider.tags(this.request, this.response, null);
-		assertThat(tags).containsExactlyInAnyOrder(Tag.of("method", "GET"), Tag.of("uri", "/projects/{project}"),
-				Tag.of("clientName", "example.org"), Tag.of("status", "200"), Tag.of("outcome", "SUCCESS"));
-	}
-
-	@Test
 	void tagsWhenNoUriTemplateShouldProvideUriPath() {
 		ClientRequest request = ClientRequest
 				.create(HttpMethod.GET, URI.create("https://example.org/projects/spring-boot")).build();
