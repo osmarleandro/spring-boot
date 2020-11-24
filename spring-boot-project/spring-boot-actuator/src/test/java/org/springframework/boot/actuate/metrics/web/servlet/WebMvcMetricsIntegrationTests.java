@@ -78,13 +78,6 @@ class WebMvcMetricsIntegrationTests {
 	}
 
 	@Test
-	void handledExceptionIsRecordedInMetricTag() throws Exception {
-		this.mvc.perform(get("/api/handledError")).andExpect(status().is5xxServerError());
-		assertThat(this.registry.get("http.server.requests").tags("exception", "Exception1", "status", "500").timer()
-				.count()).isEqualTo(1L);
-	}
-
-	@Test
 	void rethrownExceptionIsRecordedInMetricTag() throws Exception {
 		assertThatExceptionOfType(NestedServletException.class)
 				.isThrownBy(() -> this.mvc.perform(get("/api/rethrownError")).andReturn());
