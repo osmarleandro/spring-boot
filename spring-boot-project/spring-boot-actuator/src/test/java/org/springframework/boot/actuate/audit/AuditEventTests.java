@@ -70,14 +70,4 @@ class AuditEventTests {
 				.withMessageContaining("Type must not be null");
 	}
 
-	@Test
-	void jsonFormat() throws Exception {
-		AuditEvent event = new AuditEvent("johannes", "UNKNOWN",
-				Collections.singletonMap("type", (Object) "BadCredentials"));
-		String json = Jackson2ObjectMapperBuilder.json().build().writeValueAsString(event);
-		JSONObject jsonObject = new JSONObject(json);
-		assertThat(jsonObject.getString("type")).isEqualTo("UNKNOWN");
-		assertThat(jsonObject.getJSONObject("data").getString("type")).isEqualTo("BadCredentials");
-	}
-
 }
