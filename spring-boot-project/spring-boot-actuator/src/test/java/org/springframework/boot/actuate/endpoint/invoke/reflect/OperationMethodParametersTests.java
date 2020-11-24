@@ -73,14 +73,14 @@ class OperationMethodParametersTests {
 	void hasParametersWhenHasParametersShouldReturnTrue() {
 		OperationMethodParameters parameters = new OperationMethodParameters(this.exampleMethod,
 				new DefaultParameterNameDiscoverer());
-		assertThat(parameters.hasParameters()).isTrue();
+		assertThat(parameters.getParameterCount() > 0).isTrue();
 	}
 
 	@Test
 	void hasParametersWhenHasNoParametersShouldReturnFalse() {
 		OperationMethodParameters parameters = new OperationMethodParameters(this.exampleNoParamsMethod,
 				new DefaultParameterNameDiscoverer());
-		assertThat(parameters.hasParameters()).isFalse();
+		assertThat(parameters.getParameterCount() > 0).isFalse();
 	}
 
 	@Test

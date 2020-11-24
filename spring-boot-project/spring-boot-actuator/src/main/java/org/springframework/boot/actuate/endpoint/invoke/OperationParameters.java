@@ -27,14 +27,6 @@ import java.util.stream.Stream;
 public interface OperationParameters extends Iterable<OperationParameter> {
 
 	/**
-	 * Return {@code true} if there is at least one parameter.
-	 * @return if there are parameters
-	 */
-	default boolean hasParameters() {
-		return getParameterCount() > 0;
-	}
-
-	/**
 	 * Return the total number of parameters.
 	 * @return the total number of parameters
 	 */
