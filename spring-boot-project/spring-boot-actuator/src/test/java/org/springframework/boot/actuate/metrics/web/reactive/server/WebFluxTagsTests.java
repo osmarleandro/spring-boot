@@ -112,14 +112,6 @@ class WebFluxTagsTests {
 	}
 
 	@Test
-	void uriTagValueIsRootWhenRequestHasNoPatternAndSlashPathInfo() {
-		MockServerHttpRequest request = MockServerHttpRequest.get("/").build();
-		ServerWebExchange exchange = MockServerWebExchange.from(request);
-		Tag tag = WebFluxTags.uri(exchange);
-		assertThat(tag.getValue()).isEqualTo("root");
-	}
-
-	@Test
 	void uriTagValueIsUnknownWhenRequestHasNoPatternAndNonRootPathInfo() {
 		MockServerHttpRequest request = MockServerHttpRequest.get("/example").build();
 		ServerWebExchange exchange = MockServerWebExchange.from(request);
