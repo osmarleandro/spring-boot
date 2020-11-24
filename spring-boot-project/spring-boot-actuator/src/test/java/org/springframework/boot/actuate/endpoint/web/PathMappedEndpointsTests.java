@@ -47,13 +47,6 @@ class PathMappedEndpointsTests {
 	}
 
 	@Test
-	void createWhenSuppliersIsNullShouldThrowException() {
-		assertThatIllegalArgumentException()
-				.isThrownBy(() -> new PathMappedEndpoints(null, (Collection<EndpointsSupplier<?>>) null))
-				.withMessageContaining("Suppliers must not be null");
-	}
-
-	@Test
 	void iteratorShouldReturnPathMappedEndpoints() {
 		PathMappedEndpoints mapped = createTestMapped(null);
 		assertThat(mapped).hasSize(2);
