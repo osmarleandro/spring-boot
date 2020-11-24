@@ -81,11 +81,6 @@ class WebMvcTagsTests {
 	}
 
 	@Test
-	void uriTagValueIsRootWhenRequestHasNoPatternOrPathInfo() {
-		assertThat(WebMvcTags.uri(this.request, null).getValue()).isEqualTo("root");
-	}
-
-	@Test
 	void uriTagValueIsRootWhenRequestHasNoPatternAndSlashPathInfo() {
 		this.request.setPathInfo("/");
 		assertThat(WebMvcTags.uri(this.request, null).getValue()).isEqualTo("root");
