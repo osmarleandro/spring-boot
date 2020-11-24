@@ -77,14 +77,6 @@ class EndpointDiscovererTests {
 	}
 
 	@Test
-	void createWhenParameterValueMapperIsNullShouldThrowException() {
-		assertThatIllegalArgumentException()
-				.isThrownBy(() -> new TestEndpointDiscoverer(mock(ApplicationContext.class), null,
-						Collections.emptyList(), Collections.emptyList()))
-				.withMessageContaining("ParameterValueMapper must not be null");
-	}
-
-	@Test
 	void createWhenInvokerAdvisorsIsNullShouldThrowException() {
 		assertThatIllegalArgumentException()
 				.isThrownBy(() -> new TestEndpointDiscoverer(mock(ApplicationContext.class),
