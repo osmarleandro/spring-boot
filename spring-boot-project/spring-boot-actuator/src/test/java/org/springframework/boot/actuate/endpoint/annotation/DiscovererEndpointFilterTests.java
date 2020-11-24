@@ -40,12 +40,6 @@ import static org.mockito.Mockito.mock;
 class DiscovererEndpointFilterTests {
 
 	@Test
-	void createWhenDiscovererIsNullShouldThrowException() {
-		assertThatIllegalArgumentException().isThrownBy(() -> new TestDiscovererEndpointFilter(null))
-				.withMessageContaining("Discoverer must not be null");
-	}
-
-	@Test
 	void matchWhenDiscoveredByDiscovererShouldReturnTrue() {
 		DiscovererEndpointFilter filter = new TestDiscovererEndpointFilter(TestDiscovererA.class);
 		DiscoveredEndpoint<?> endpoint = mockDiscoveredEndpoint(TestDiscovererA.class);
