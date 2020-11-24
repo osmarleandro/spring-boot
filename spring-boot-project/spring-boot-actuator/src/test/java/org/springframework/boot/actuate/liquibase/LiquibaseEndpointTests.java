@@ -107,21 +107,6 @@ class LiquibaseEndpointTests {
 		});
 	}
 
-	@Test
-	void whenMultipleLiquibaseBeansArePresentChangeSetsAreCorrectlyReportedForEachBean() {
-		this.contextRunner.withUserConfiguration(Config.class, MultipleDataSourceLiquibaseConfiguration.class)
-				.run((context) -> {
-					Map<String, LiquibaseBean> liquibaseBeans = context.getBean(LiquibaseEndpoint.class)
-							.liquibaseBeans().getContexts().get(context.getId()).getLiquibaseBeans();
-					assertThat(liquibaseBeans.get("liquibase").getChangeSets()).hasSize(1);
-					assertThat(liquibaseBeans.get("liquibase").getChangeSets().get(0).getChangeLog())
-							.isEqualTo("classpath:/db/changelog/db.changelog-master.yaml");
-					assertThat(liquibaseBeans.get("liquibaseBackup").getChangeSets()).hasSize(1);
-					assertThat(liquibaseBeans.get("liquibaseBackup").getChangeSets().get(0).getChangeLog())
-							.isEqualTo("classpath:/db/changelog/db.changelog-master-backup.yaml");
-				});
-	}
-
 	private boolean getAutoCommit(DataSource dataSource) throws SQLException {
 		try (Connection connection = dataSource.getConnection()) {
 			return connection.getAutoCommit();
