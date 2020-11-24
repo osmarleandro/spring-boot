@@ -38,16 +38,6 @@ public class AuthorizationAuditListener extends AbstractAuthorizationAuditListen
 	 */
 	public static final String AUTHORIZATION_FAILURE = "AUTHORIZATION_FAILURE";
 
-	@Override
-	public void onApplicationEvent(AbstractAuthorizationEvent event) {
-		if (event instanceof AuthenticationCredentialsNotFoundEvent) {
-			onAuthenticationCredentialsNotFoundEvent((AuthenticationCredentialsNotFoundEvent) event);
-		}
-		else if (event instanceof AuthorizationFailureEvent) {
-			onAuthorizationFailureEvent((AuthorizationFailureEvent) event);
-		}
-	}
-
 	private void onAuthenticationCredentialsNotFoundEvent(AuthenticationCredentialsNotFoundEvent event) {
 		Map<String, Object> data = new HashMap<>();
 		data.put("type", event.getCredentialsNotFoundException().getClass().getName());
