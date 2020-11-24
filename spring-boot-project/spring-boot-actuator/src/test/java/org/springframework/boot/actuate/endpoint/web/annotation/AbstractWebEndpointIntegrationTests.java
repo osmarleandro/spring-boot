@@ -116,12 +116,6 @@ public abstract class AbstractWebEndpointIntegrationTests<T extends Configurable
 	}
 
 	@Test
-	void linksMappingIsDisabledWhenEndpointPathIsEmpty() {
-		load(TestEndpointConfiguration.class, "",
-				(client) -> client.get().uri("").exchange().expectStatus().isNotFound());
-	}
-
-	@Test
 	void operationWithTrailingSlashShouldMatch() {
 		load(TestEndpointConfiguration.class, (client) -> client.get().uri("/test/").exchange().expectStatus().isOk()
 				.expectBody().jsonPath("All").isEqualTo(true));
