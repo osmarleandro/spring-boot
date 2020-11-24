@@ -49,13 +49,6 @@ class OperationMethodParametersTests {
 	private Method exampleNoParamsMethod = ReflectionUtils.findMethod(getClass(), "exampleNoParams");
 
 	@Test
-	void createWhenMethodIsNullShouldThrowException() {
-		assertThatIllegalArgumentException()
-				.isThrownBy(() -> new OperationMethodParameters(null, mock(ParameterNameDiscoverer.class)))
-				.withMessageContaining("Method must not be null");
-	}
-
-	@Test
 	void createWhenParameterNameDiscovererIsNullShouldThrowException() {
 		assertThatIllegalArgumentException().isThrownBy(() -> new OperationMethodParameters(this.exampleMethod, null))
 				.withMessageContaining("ParameterNameDiscoverer must not be null");
