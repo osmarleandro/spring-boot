@@ -47,11 +47,6 @@ class WebFluxTagsTests {
 
 	private final PathPatternParser parser = new PathPatternParser();
 
-	@BeforeEach
-	void setup() {
-		this.exchange = MockServerWebExchange.from(MockServerHttpRequest.get(""));
-	}
-
 	@Test
 	void uriTagValueIsBestMatchingPatternWhenAvailable() {
 		this.exchange.getAttributes().put(HandlerMapping.BEST_MATCHING_PATTERN_ATTRIBUTE,
