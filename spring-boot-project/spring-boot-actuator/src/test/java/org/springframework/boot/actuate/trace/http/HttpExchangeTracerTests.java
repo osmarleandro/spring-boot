@@ -265,13 +265,6 @@ class HttpExchangeTracerTests {
 	}
 
 	@Test
-	void timeTakenCanBeIncluded() {
-		HttpTrace trace = new HttpTrace(createRequest());
-		new HttpExchangeTracer(EnumSet.of(Include.TIME_TAKEN)).sendingResponse(trace, createResponse(), null, null);
-		assertThat(trace.getTimeTaken()).isNotNull();
-	}
-
-	@Test
 	void defaultIncludes() {
 		HttpHeaders requestHeaders = new HttpHeaders();
 		requestHeaders.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
