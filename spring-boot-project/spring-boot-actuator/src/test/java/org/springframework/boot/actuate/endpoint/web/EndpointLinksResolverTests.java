@@ -44,7 +44,7 @@ class EndpointLinksResolverTests {
 		Map<String, Link> links = new EndpointLinksResolver(Collections.emptyList())
 				.resolveLinks("https://api.example.com/actuator/");
 		assertThat(links).hasSize(1);
-		assertThat(links).hasEntrySatisfying("self", linkWithHref("https://api.example.com/actuator"));
+		assertThat(links).hasEntrySatisfying("self", new Condition<>((link) -> href.equals(link.getHref()), "Link with href '%s'", "https://api.example.com/actuator"));
 	}
 
 	@Test
@@ -52,7 +52,7 @@ class EndpointLinksResolverTests {
 		Map<String, Link> links = new EndpointLinksResolver(Collections.emptyList())
 				.resolveLinks("https://api.example.com/actuator");
 		assertThat(links).hasSize(1);
-		assertThat(links).hasEntrySatisfying("self", linkWithHref("https://api.example.com/actuator"));
+		assertThat(links).hasEntrySatisfying("self", new Condition<>((link) -> href.equals(link.getHref()), "Link with href '%s'", "https://api.example.com/actuator"));
 	}
 
 	@Test
@@ -68,10 +68,10 @@ class EndpointLinksResolverTests {
 		Map<String, Link> links = new EndpointLinksResolver(Collections.singletonList(endpoint))
 				.resolveLinks(requestUrl);
 		assertThat(links).hasSize(3);
-		assertThat(links).hasEntrySatisfying("self", linkWithHref("https://api.example.com/actuator"));
-		assertThat(links).hasEntrySatisfying("alpha", linkWithHref("https://api.example.com/actuator/alpha"));
+		assertThat(links).hasEntrySatisfying("self", new Condition<>((link) -> href.equals(link.getHref()), "Link with href '%s'", "https://api.example.com/actuator"));
+		assertThat(links).hasEntrySatisfying("alpha", new Condition<>((link) -> href.equals(link.getHref()), "Link with href '%s'", "https://api.example.com/actuator/alpha"));
 		assertThat(links).hasEntrySatisfying("alpha-name",
-				linkWithHref("https://api.example.com/actuator/alpha/{name}"));
+				new Condition<>((link) -> href.equals(link.getHref()), "Link with href '%s'", "https://api.example.com/actuator/alpha/{name}"));
 	}
 
 	@Test
@@ -84,8 +84,8 @@ class EndpointLinksResolverTests {
 		Map<String, Link> links = new EndpointLinksResolver(Collections.singletonList(servletEndpoint))
 				.resolveLinks(requestUrl);
 		assertThat(links).hasSize(2);
-		assertThat(links).hasEntrySatisfying("self", linkWithHref("https://api.example.com/actuator"));
-		assertThat(links).hasEntrySatisfying("alpha", linkWithHref("https://api.example.com/actuator/alpha"));
+		assertThat(links).hasEntrySatisfying("self", new Condition<>((link) -> href.equals(link.getHref()), "Link with href '%s'", "https://api.example.com/actuator"));
+		assertThat(links).hasEntrySatisfying("alpha", new Condition<>((link) -> href.equals(link.getHref()), "Link with href '%s'", "https://api.example.com/actuator/alpha"));
 	}
 
 	@Test
@@ -98,8 +98,8 @@ class EndpointLinksResolverTests {
 		Map<String, Link> links = new EndpointLinksResolver(Collections.singletonList(controllerEndpoint))
 				.resolveLinks(requestUrl);
 		assertThat(links).hasSize(2);
-		assertThat(links).hasEntrySatisfying("self", linkWithHref("https://api.example.com/actuator"));
-		assertThat(links).hasEntrySatisfying("alpha", linkWithHref("https://api.example.com/actuator/alpha"));
+		assertThat(links).hasEntrySatisfying("self", new Condition<>((link) -> href.equals(link.getHref()), "Link with href '%s'", "https://api.example.com/actuator"));
+		assertThat(links).hasEntrySatisfying("alpha", new Condition<>((link) -> href.equals(link.getHref()), "Link with href '%s'", "https://api.example.com/actuator/alpha"));
 	}
 
 	private WebOperation operationWithPath(String path, String id) {
@@ -110,10 +110,6 @@ class EndpointLinksResolverTests {
 		given(operation.getType()).willReturn(OperationType.READ);
 		given(operation.getRequestPredicate()).willReturn(predicate);
 		return operation;
-	}
-
-	private Condition<Link> linkWithHref(String href) {
-		return new Condition<>((link) -> href.equals(link.getHref()), "Link with href '%s'", href);
 	}
 
 }
