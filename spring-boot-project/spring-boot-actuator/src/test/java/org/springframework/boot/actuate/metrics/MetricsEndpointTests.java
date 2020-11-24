@@ -128,15 +128,6 @@ class MetricsEndpointTests {
 	}
 
 	@Test
-	void metricTagValuesAreDeduplicated() {
-		this.registry.counter("cache", "host", "1", "region", "east", "result", "hit");
-		this.registry.counter("cache", "host", "1", "region", "east", "result", "miss");
-		MetricsEndpoint.MetricResponse response = this.endpoint.metric("cache", Collections.singletonList("host:1"));
-		assertThat(response.getAvailableTags().stream().filter((t) -> t.getTag().equals("region"))
-				.flatMap((t) -> t.getValues().stream())).containsExactly("east");
-	}
-
-	@Test
 	void metricWithSpaceInTagValue() {
 		this.registry.counter("counter", "key", "a space").increment(2);
 		MetricsEndpoint.MetricResponse response = this.endpoint.metric("counter",
