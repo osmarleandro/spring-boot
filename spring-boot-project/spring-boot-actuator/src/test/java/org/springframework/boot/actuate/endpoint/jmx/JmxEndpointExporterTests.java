@@ -94,14 +94,6 @@ class JmxEndpointExporterTests {
 	}
 
 	@Test
-	void createWhenResponseMapperIsNullShouldThrowException() {
-		assertThatIllegalArgumentException()
-				.isThrownBy(
-						() -> new JmxEndpointExporter(this.mBeanServer, this.objectNameFactory, null, this.endpoints))
-				.withMessageContaining("ResponseMapper must not be null");
-	}
-
-	@Test
 	void createWhenEndpointsIsNullShouldThrowException() {
 		assertThatIllegalArgumentException().isThrownBy(
 				() -> new JmxEndpointExporter(this.mBeanServer, this.objectNameFactory, this.responseMapper, null))
