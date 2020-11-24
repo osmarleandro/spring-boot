@@ -87,11 +87,6 @@ class ReactiveHealthEndpointWebExtensionTests extends
 	}
 
 	@Override
-	protected ReactiveHealthContributorRegistry createRegistry() {
-		return new DefaultReactiveHealthContributorRegistry();
-	}
-
-	@Override
 	protected ReactiveHealthContributor createContributor(Health health) {
 		return (ReactiveHealthIndicator) () -> Mono.just(health);
 	}
