@@ -41,12 +41,4 @@ public class AuditListener extends AbstractAuditListener {
 		this.auditEventRepository = auditEventRepository;
 	}
 
-	@Override
-	protected void onAuditEvent(AuditEvent event) {
-		if (logger.isDebugEnabled()) {
-			logger.debug(event);
-		}
-		this.auditEventRepository.add(event);
-	}
-
 }
