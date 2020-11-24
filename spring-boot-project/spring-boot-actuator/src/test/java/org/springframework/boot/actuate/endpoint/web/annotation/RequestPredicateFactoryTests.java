@@ -53,14 +53,6 @@ class RequestPredicateFactoryTests {
 	}
 
 	@Test
-	void getRequestPredicateWhenMatchAllIsNotLastParameterThrowsException() {
-		DiscoveredOperationMethod operationMethod = getDiscoveredOperationMethod(MatchAllIsNotLastParameter.class);
-		assertThatIllegalStateException()
-				.isThrownBy(() -> this.factory.getRequestPredicate(this.rootPath, operationMethod))
-				.withMessage("@Selector annotation with Match.ALL_REMAINING must be the last parameter");
-	}
-
-	@Test
 	void getRequestPredicateReturnsPredicateWithPath() {
 		DiscoveredOperationMethod operationMethod = getDiscoveredOperationMethod(ValidSelectors.class);
 		WebOperationRequestPredicate requestPredicate = this.factory.getRequestPredicate(this.rootPath,
