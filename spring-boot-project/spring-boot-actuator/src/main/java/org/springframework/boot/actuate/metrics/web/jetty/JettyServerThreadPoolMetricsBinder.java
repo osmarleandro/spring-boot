@@ -52,15 +52,6 @@ public class JettyServerThreadPoolMetricsBinder implements ApplicationListener<A
 		this.tags = tags;
 	}
 
-	@Override
-	public void onApplicationEvent(ApplicationStartedEvent event) {
-		ApplicationContext applicationContext = event.getApplicationContext();
-		ThreadPool threadPool = findThreadPool(applicationContext);
-		if (threadPool != null) {
-			new JettyServerThreadPoolMetrics(threadPool, this.tags).bindTo(this.meterRegistry);
-		}
-	}
-
 	private ThreadPool findThreadPool(ApplicationContext applicationContext) {
 		if (applicationContext instanceof WebServerApplicationContext) {
 			WebServer webServer = ((WebServerApplicationContext) applicationContext).getWebServer();
