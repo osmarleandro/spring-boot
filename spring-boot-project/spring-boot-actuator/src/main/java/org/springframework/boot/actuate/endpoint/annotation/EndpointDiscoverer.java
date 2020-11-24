@@ -43,6 +43,8 @@ import org.springframework.boot.actuate.endpoint.invoke.OperationInvokerAdvisor;
 import org.springframework.boot.actuate.endpoint.invoke.ParameterValueMapper;
 import org.springframework.boot.util.LambdaSafe;
 import org.springframework.context.ApplicationContext;
+import org.springframework.core.MethodIntrospector;
+import org.springframework.core.MethodIntrospector.MetadataLookup;
 import org.springframework.core.ResolvableType;
 import org.springframework.core.annotation.MergedAnnotation;
 import org.springframework.core.annotation.MergedAnnotations;
@@ -207,7 +209,10 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 	private void addOperations(MultiValueMap<OperationKey, O> indexed, EndpointId id, Object target,
 			boolean replaceLast) {
 		Set<OperationKey> replacedLast = new HashSet<>();
-		Collection<O> operations = this.operationsFactory.createOperations(id, target);
+		DiscoveredOperationsFactory<O> r = this.operationsFactory;
+		Collection<O> operations = MethodIntrospector
+		.selectMethods(target.getClass(), (MetadataLookup<O>) (method) -> createOperation(id, target, method))
+		.values();
 		for (O operation : operations) {
 			OperationKey key = createOperationKey(operation);
 			O last = getLast(indexed.get(key));
