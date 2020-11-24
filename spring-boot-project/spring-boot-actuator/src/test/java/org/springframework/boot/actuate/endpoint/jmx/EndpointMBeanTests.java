@@ -74,14 +74,14 @@ class EndpointMBeanTests {
 
 	@Test
 	void getMBeanInfoShouldReturnMBeanInfo() {
-		EndpointMBean bean = createEndpointMBean();
+		EndpointMBean bean = new EndpointMBean(this.responseMapper, null, this.endpoint);
 		MBeanInfo info = bean.getMBeanInfo();
 		assertThat(info.getDescription()).isEqualTo("MBean operations for endpoint test");
 	}
 
 	@Test
 	void invokeShouldInvokeJmxOperation() throws MBeanException, ReflectionException {
-		EndpointMBean bean = createEndpointMBean();
+		EndpointMBean bean = new EndpointMBean(this.responseMapper, null, this.endpoint);
 		Object result = bean.invoke("testOperation", NO_PARAMS, NO_SIGNATURE);
 		assertThat(result).isEqualTo("result");
 	}
@@ -111,7 +111,7 @@ class EndpointMBeanTests {
 
 	@Test
 	void invokeWhenActionNameIsNotAnOperationShouldThrowException() throws MBeanException, ReflectionException {
-		EndpointMBean bean = createEndpointMBean();
+		EndpointMBean bean = new EndpointMBean(this.responseMapper, null, this.endpoint);
 		assertThatExceptionOfType(ReflectionException.class)
 				.isThrownBy(() -> bean.invoke("missingOperation", NO_PARAMS, NO_SIGNATURE))
 				.withCauseInstanceOf(IllegalArgumentException.class)
@@ -167,7 +167,7 @@ class EndpointMBeanTests {
 
 	@Test
 	void getAttributeShouldThrowException() throws AttributeNotFoundException, MBeanException, ReflectionException {
-		EndpointMBean bean = createEndpointMBean();
+		EndpointMBean bean = new EndpointMBean(this.responseMapper, null, this.endpoint);
 		assertThatExceptionOfType(AttributeNotFoundException.class).isThrownBy(() -> bean.getAttribute("test"))
 				.withMessageContaining("EndpointMBeans do not support attributes");
 	}
@@ -175,7 +175,7 @@ class EndpointMBeanTests {
 	@Test
 	void setAttributeShouldThrowException()
 			throws AttributeNotFoundException, InvalidAttributeValueException, MBeanException, ReflectionException {
-		EndpointMBean bean = createEndpointMBean();
+		EndpointMBean bean = new EndpointMBean(this.responseMapper, null, this.endpoint);
 		assertThatExceptionOfType(AttributeNotFoundException.class)
 				.isThrownBy(() -> bean.setAttribute(new Attribute("test", "test")))
 				.withMessageContaining("EndpointMBeans do not support attributes");
@@ -183,22 +183,18 @@ class EndpointMBeanTests {
 
 	@Test
 	void getAttributesShouldReturnEmptyAttributeList() {
-		EndpointMBean bean = createEndpointMBean();
+		EndpointMBean bean = new EndpointMBean(this.responseMapper, null, this.endpoint);
 		AttributeList attributes = bean.getAttributes(new String[] { "test" });
 		assertThat(attributes).isEmpty();
 	}
 
 	@Test
 	void setAttributesShouldReturnEmptyAttributeList() {
-		EndpointMBean bean = createEndpointMBean();
+		EndpointMBean bean = new EndpointMBean(this.responseMapper, null, this.endpoint);
 		AttributeList sourceAttributes = new AttributeList();
 		sourceAttributes.add(new Attribute("test", "test"));
 		AttributeList attributes = bean.setAttributes(sourceAttributes);
 		assertThat(attributes).isEmpty();
-	}
-
-	private EndpointMBean createEndpointMBean() {
-		return new EndpointMBean(this.responseMapper, null, this.endpoint);
 	}
 
 }
