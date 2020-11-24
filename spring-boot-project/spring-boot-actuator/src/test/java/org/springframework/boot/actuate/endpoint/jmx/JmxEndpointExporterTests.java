@@ -152,14 +152,6 @@ class JmxEndpointExporterTests {
 	}
 
 	@Test
-	void unregisterWhenInstanceNotFoundShouldContinue() throws Exception {
-		this.endpoints.add(new TestExposableJmxEndpoint(new TestJmxOperation()));
-		this.exporter.afterPropertiesSet();
-		willThrow(InstanceNotFoundException.class).given(this.mBeanServer).unregisterMBean(any(ObjectName.class));
-		this.exporter.destroy();
-	}
-
-	@Test
 	void unregisterWhenUnregisterThrowsExceptionShouldThrowException() throws Exception {
 		this.endpoints.add(new TestExposableJmxEndpoint(new TestJmxOperation()));
 		this.exporter.afterPropertiesSet();
