@@ -102,7 +102,11 @@ class RedisCacheMetricsTests {
 	@Test
 	void cacheMetricsMatchCacheStatistics() {
 		this.contextRunner.run((context) -> {
-			RedisCache cache = getTestCache(context);
+			assertThat(context).hasSingleBean(RedisCacheManager.class);
+			RedisCacheManager cacheManager = context.getBean(RedisCacheManager.class);
+			RedisCache cache1 = (RedisCache) cacheManager.getCache("test");
+			assertThat(cache1).isNotNull();
+			RedisCache cache = cache1;
 			RedisCacheMetrics cacheMetrics = new RedisCacheMetrics(cache, TAGS);
 			assertThat(cacheMetrics.hitCount()).isEqualTo(cache.getStatistics().getHits());
 			assertThat(cacheMetrics.missCount()).isEqualTo(cache.getStatistics().getMisses());
@@ -115,19 +119,15 @@ class RedisCacheMetricsTests {
 	private ContextConsumer<AssertableApplicationContext> withCacheMetrics(
 			BiConsumer<RedisCache, MeterRegistry> stats) {
 		return (context) -> {
-			RedisCache cache = getTestCache(context);
+			assertThat(context).hasSingleBean(RedisCacheManager.class);
+			RedisCacheManager cacheManager = context.getBean(RedisCacheManager.class);
+			RedisCache cache1 = (RedisCache) cacheManager.getCache("test");
+			assertThat(cache1).isNotNull();
+			RedisCache cache = cache1;
 			SimpleMeterRegistry meterRegistry = new SimpleMeterRegistry();
 			new RedisCacheMetrics(cache, Tags.of("app", "test")).bindTo(meterRegistry);
 			stats.accept(cache, meterRegistry);
 		};
-	}
-
-	private RedisCache getTestCache(AssertableApplicationContext context) {
-		assertThat(context).hasSingleBean(RedisCacheManager.class);
-		RedisCacheManager cacheManager = context.getBean(RedisCacheManager.class);
-		RedisCache cache = (RedisCache) cacheManager.getCache("test");
-		assertThat(cache).isNotNull();
-		return cache;
 	}
 
 	@Configuration(proxyBeanMethods = false)
