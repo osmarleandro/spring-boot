@@ -125,12 +125,6 @@ class WebMvcTagsTests {
 	}
 
 	@Test
-	void outcomeTagIsUnknownWhenResponseIsNull() {
-		Tag tag = WebMvcTags.outcome(null);
-		assertThat(tag.getValue()).isEqualTo("UNKNOWN");
-	}
-
-	@Test
 	void outcomeTagIsInformationalWhenResponseIs1xx() {
 		this.response.setStatus(100);
 		Tag tag = WebMvcTags.outcome(this.response);
