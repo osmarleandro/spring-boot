@@ -137,16 +137,6 @@ class PrometheusPushGatewayManagerTests {
 	}
 
 	@Test
-	void shutdownWhenShutdownOperationIsPushPerformsPushOnShutdown() throws Exception {
-		givenScheduleAtFixedRateWithReturnFuture();
-		PrometheusPushGatewayManager manager = new PrometheusPushGatewayManager(this.pushGateway, this.registry,
-				this.scheduler, this.pushRate, "job", this.groupingKey, ShutdownOperation.PUSH);
-		manager.shutdown();
-		verify(this.future).cancel(false);
-		verify(this.pushGateway).pushAdd(this.registry, "job", this.groupingKey);
-	}
-
-	@Test
 	void shutdownWhenShutdownOperationIsDeletePerformsDeleteOnShutdown() throws Exception {
 		givenScheduleAtFixedRateWithReturnFuture();
 		PrometheusPushGatewayManager manager = new PrometheusPushGatewayManager(this.pushGateway, this.registry,
