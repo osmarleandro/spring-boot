@@ -62,10 +62,6 @@ public class RequestMappingConditionsDescription {
 		return this.consumes;
 	}
 
-	public List<NameValueExpressionDescription> getHeaders() {
-		return this.headers;
-	}
-
 	public Set<RequestMethod> getMethods() {
 		return this.methods;
 	}
