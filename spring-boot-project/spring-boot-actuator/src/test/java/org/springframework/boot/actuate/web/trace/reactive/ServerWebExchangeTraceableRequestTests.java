@@ -82,12 +82,4 @@ class ServerWebExchangeTraceableRequestTests {
 		assertThat(traceableRequest.getRemoteAddress()).isNull();
 	}
 
-	@Test
-	void getRemoteAddress() {
-		InetSocketAddress socketAddress = new InetSocketAddress(0);
-		given(this.request.getRemoteAddress()).willReturn(socketAddress);
-		ServerWebExchangeTraceableRequest traceableRequest = new ServerWebExchangeTraceableRequest(this.exchange);
-		assertThat(traceableRequest.getRemoteAddress()).isEqualTo(socketAddress.getAddress().toString());
-	}
-
 }
