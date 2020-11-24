@@ -48,12 +48,6 @@ class StatusTests {
 	}
 
 	@Test
-	void getDescriptionReturnsDescription() {
-		Status status = new Status("spring", "boot");
-		assertThat(status.getDescription()).isEqualTo("boot");
-	}
-
-	@Test
 	void equalsAndHashCode() {
 		Status one = new Status("spring", "boot");
 		Status two = new Status("spring", "framework");
