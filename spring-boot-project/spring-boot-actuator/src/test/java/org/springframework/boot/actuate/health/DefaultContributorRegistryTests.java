@@ -123,15 +123,6 @@ abstract class DefaultContributorRegistryTests {
 	}
 
 	@Test
-	void unregisterContributorWhenUnknownReturnsNull() {
-		this.registry.registerContributor("one", this.one);
-		assertThat(this.registry).hasSize(1);
-		HealthIndicator two = this.registry.unregisterContributor("two");
-		assertThat(two).isNull();
-		assertThat(this.registry).hasSize(1);
-	}
-
-	@Test
 	void unregisterContributorUsesNameFactory() {
 		this.registry.registerContributor("oneHealthIndicator", this.one);
 		assertThat(this.registry.getContributor("oneHealthIndicator")).isNull();
