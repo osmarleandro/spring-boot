@@ -18,6 +18,8 @@ package org.springframework.boot.actuate.metrics;
 
 import java.util.Collections;
 import java.util.Optional;
+import java.util.Set;
+import java.util.TreeSet;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Stream;
 
@@ -30,6 +32,7 @@ import io.micrometer.core.instrument.simple.SimpleMeterRegistry;
 import org.junit.jupiter.api.Test;
 
 import org.springframework.boot.actuate.endpoint.InvalidEndpointRequestException;
+import org.springframework.boot.actuate.metrics.MetricsEndpoint.ListNamesResponse;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
@@ -48,7 +51,10 @@ class MetricsEndpointTests {
 
 	@Test
 	void listNamesHandlesEmptyListOfMeters() {
-		MetricsEndpoint.ListNamesResponse result = this.endpoint.listNames();
+		MetricsEndpoint r = this.endpoint;
+		Set<String> names = new TreeSet<>();
+		r.collectNames(names, r.registry);
+		MetricsEndpoint.ListNamesResponse result = new ListNamesResponse(names);
 		assertThat(result.getNames()).isEmpty();
 	}
 
@@ -61,7 +67,10 @@ class MetricsEndpointTests {
 		this.registry.counter("com.example.delta");
 		this.registry.counter("com.example.echo");
 		this.registry.counter("com.example.bravo");
-		MetricsEndpoint.ListNamesResponse result = this.endpoint.listNames();
+		MetricsEndpoint r = this.endpoint;
+		Set<String> names = new TreeSet<>();
+		r.collectNames(names, r.registry);
+		MetricsEndpoint.ListNamesResponse result = new ListNamesResponse(names);
 		assertThat(result.getNames()).containsExactly("com.example.alpha", "com.example.bravo", "com.example.charlie",
 				"com.example.delta", "com.example.echo");
 	}
