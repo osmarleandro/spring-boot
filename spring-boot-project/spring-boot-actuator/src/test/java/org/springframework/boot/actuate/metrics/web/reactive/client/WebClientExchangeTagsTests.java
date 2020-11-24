@@ -126,13 +126,6 @@ class WebClientExchangeTagsTests {
 	}
 
 	@Test
-	void outcomeTagIsInformationalWhenResponseIs1xx() {
-		given(this.response.rawStatusCode()).willReturn(HttpStatus.CONTINUE.value());
-		Tag tag = WebClientExchangeTags.outcome(this.response);
-		assertThat(tag.getValue()).isEqualTo("INFORMATIONAL");
-	}
-
-	@Test
 	void outcomeTagIsSuccessWhenResponseIs2xx() {
 		given(this.response.rawStatusCode()).willReturn(HttpStatus.OK.value());
 		Tag tag = WebClientExchangeTags.outcome(this.response);
