@@ -31,6 +31,9 @@ import org.springframework.boot.actuate.endpoint.Sanitizer;
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
 import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
 import org.springframework.boot.actuate.endpoint.annotation.Selector;
+import org.springframework.boot.actuate.env.EnvironmentEndpoint.EnvironmentEntryDescriptor;
+import org.springframework.boot.actuate.env.EnvironmentEndpoint.PropertySummaryDescriptor;
+import org.springframework.boot.actuate.env.EnvironmentEndpoint.PropertyValueDescriptor;
 import org.springframework.boot.context.properties.bind.PlaceholdersResolver;
 import org.springframework.boot.context.properties.bind.PropertySourcesPlaceholdersResolver;
 import org.springframework.boot.context.properties.source.ConfigurationPropertySources;
@@ -84,7 +87,10 @@ public class EnvironmentEndpoint {
 
 	@ReadOperation
 	public EnvironmentEntryDescriptor environmentEntry(@Selector String toMatch) {
-		return getEnvironmentEntryDescriptor(toMatch);
+		Map<String, PropertyValueDescriptor> descriptors = getPropertySourceDescriptors(toMatch);
+		PropertySummaryDescriptor summary = getPropertySummaryDescriptor(descriptors);
+		return new EnvironmentEntryDescriptor(summary, Arrays.asList(this.environment.getActiveProfiles()),
+				toPropertySourceDescriptors(descriptors));
 	}
 
 	private EnvironmentDescriptor getEnvironmentDescriptor(Predicate<String> propertyNamePredicate) {
@@ -97,13 +103,6 @@ public class EnvironmentEndpoint {
 			}
 		});
 		return new EnvironmentDescriptor(Arrays.asList(this.environment.getActiveProfiles()), propertySources);
-	}
-
-	private EnvironmentEntryDescriptor getEnvironmentEntryDescriptor(String propertyName) {
-		Map<String, PropertyValueDescriptor> descriptors = getPropertySourceDescriptors(propertyName);
-		PropertySummaryDescriptor summary = getPropertySummaryDescriptor(descriptors);
-		return new EnvironmentEntryDescriptor(summary, Arrays.asList(this.environment.getActiveProfiles()),
-				toPropertySourceDescriptors(descriptors));
 	}
 
 	private List<PropertySourceEntryDescriptor> toPropertySourceDescriptors(
