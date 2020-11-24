@@ -60,13 +60,6 @@ class InMemoryAuditEventRepositoryTests {
 	}
 
 	@Test
-	void addNullAuditEvent() {
-		InMemoryAuditEventRepository repository = new InMemoryAuditEventRepository();
-		assertThatIllegalArgumentException().isThrownBy(() -> repository.add(null))
-				.withMessageContaining("AuditEvent must not be null");
-	}
-
-	@Test
 	void findByPrincipal() {
 		InMemoryAuditEventRepository repository = new InMemoryAuditEventRepository();
 		repository.add(new AuditEvent("dave", "a"));
