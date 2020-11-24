@@ -87,11 +87,4 @@ class DefaultWebClientExchangeTagsProviderTests {
 				Tag.of("clientName", "example.org"), Tag.of("status", "CLIENT_ERROR"), Tag.of("outcome", "UNKNOWN"));
 	}
 
-	@Test
-	void tagsWhenCancelledRequestShouldReturnClientErrorStatus() {
-		Iterable<Tag> tags = this.tagsProvider.tags(this.request, null, null);
-		assertThat(tags).containsExactlyInAnyOrder(Tag.of("method", "GET"), Tag.of("uri", "/projects/{project}"),
-				Tag.of("clientName", "example.org"), Tag.of("status", "CLIENT_ERROR"), Tag.of("outcome", "UNKNOWN"));
-	}
-
 }
