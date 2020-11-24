@@ -118,10 +118,6 @@ public final class HttpTrace {
 		return this.timeTaken;
 	}
 
-	void setTimeTaken(long timeTaken) {
-		this.timeTaken = timeTaken;
-	}
-
 	long getStartNanoTime() {
 		return this.startNanoTime;
 	}
