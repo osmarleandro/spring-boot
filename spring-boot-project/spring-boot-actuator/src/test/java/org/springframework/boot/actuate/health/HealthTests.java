@@ -103,18 +103,6 @@ class HealthTests {
 	}
 
 	@Test
-	void withDetailsMultipleMaps() {
-		Map<String, Object> details1 = new LinkedHashMap<>();
-		details1.put("a", "b");
-		details1.put("c", "d");
-		Map<String, Object> details2 = new LinkedHashMap<>();
-		details1.put("a", "e");
-		details1.put("1", "2");
-		Health health = Health.up().withDetails(details1).withDetails(details2).build();
-		assertThat(health.getDetails()).containsOnly(entry("a", "e"), entry("c", "d"), entry("1", "2"));
-	}
-
-	@Test
 	void unknownWithDetails() {
 		Health health = new Health.Builder().unknown().withDetail("a", "b").build();
 		assertThat(health.getStatus()).isEqualTo(Status.UNKNOWN);
