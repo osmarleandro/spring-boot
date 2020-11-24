@@ -29,6 +29,7 @@ import org.springframework.boot.actuate.health.AbstractHealthIndicator;
 import org.springframework.boot.actuate.health.Health;
 import org.springframework.boot.actuate.health.HealthIndicator;
 import org.springframework.boot.actuate.health.Status;
+import org.springframework.boot.actuate.jdbc.DataSourceHealthIndicator.SingleColumnRowMapper;
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.jdbc.IncorrectResultSetColumnCountException;
 import org.springframework.jdbc.core.ConnectionCallback;
@@ -97,24 +98,20 @@ public class DataSourceHealthIndicator extends AbstractHealthIndicator implement
 			builder.up().withDetail("database", "unknown");
 		}
 		else {
-			doDataSourceHealthCheck(builder);
-		}
-	}
-
-	private void doDataSourceHealthCheck(Health.Builder builder) throws Exception {
-		builder.up().withDetail("database", getProduct());
-		String validationQuery = this.query;
-		if (StringUtils.hasText(validationQuery)) {
-			builder.withDetail("validationQuery", validationQuery);
-			// Avoid calling getObject as it breaks MySQL on Java 7 and later
-			List<Object> results = this.jdbcTemplate.query(validationQuery, new SingleColumnRowMapper());
-			Object result = DataAccessUtils.requiredSingleResult(results);
-			builder.withDetail("result", result);
-		}
-		else {
-			builder.withDetail("validationQuery", "isValid()");
-			boolean valid = isConnectionValid();
-			builder.status((valid) ? Status.UP : Status.DOWN);
+			builder.up().withDetail("database", getProduct());
+			String validationQuery = this.query;
+			if (StringUtils.hasText(validationQuery)) {
+				builder.withDetail("validationQuery", validationQuery);
+				// Avoid calling getObject as it breaks MySQL on Java 7 and later
+				List<Object> results = this.jdbcTemplate.query(validationQuery, new SingleColumnRowMapper());
+				Object result = DataAccessUtils.requiredSingleResult(results);
+				builder.withDetail("result", result);
+			}
+			else {
+				builder.withDetail("validationQuery", "isValid()");
+				boolean valid = isConnectionValid();
+				builder.status((valid) ? Status.UP : Status.DOWN);
+			}
 		}
 	}
 
