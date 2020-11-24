@@ -63,18 +63,14 @@ public final class EndpointId {
 		}
 		this.value = value;
 		this.lowerCaseValue = value.toLowerCase(Locale.ENGLISH);
-		this.lowerCaseAlphaNumeric = getAlphaNumerics(this.lowerCaseValue);
-	}
-
-	private String getAlphaNumerics(String value) {
-		StringBuilder result = new StringBuilder(value.length());
-		for (int i = 0; i < value.length(); i++) {
-			char ch = value.charAt(i);
+		StringBuilder result = new StringBuilder(this.lowerCaseValue.length());
+		for (int i = 0; i < this.lowerCaseValue.length(); i++) {
+			char ch = this.lowerCaseValue.charAt(i);
 			if (ch >= 'a' && ch <= 'z' || ch >= '0' && ch <= '9') {
 				result.append(ch);
 			}
 		}
-		return result.toString();
+		this.lowerCaseAlphaNumeric = result.toString();
 	}
 
 	@Override
