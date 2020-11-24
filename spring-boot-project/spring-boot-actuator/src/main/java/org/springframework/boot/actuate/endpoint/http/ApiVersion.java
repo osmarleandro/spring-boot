@@ -48,25 +48,6 @@ public enum ApiVersion {
 	 */
 	public static final ApiVersion LATEST = ApiVersion.V3;
 
-	/**
-	 * Return the {@link ApiVersion} to use based on the HTTP request headers. The version
-	 * will be deduced based on the {@code Accept} header.
-	 * @param headers the HTTP headers
-	 * @return the API version to use
-	 */
-	public static ApiVersion fromHttpHeaders(Map<String, List<String>> headers) {
-		ApiVersion version = null;
-		List<String> accepts = headers.get("Accept");
-		if (!CollectionUtils.isEmpty(accepts)) {
-			for (String accept : accepts) {
-				for (String type : MimeTypeUtils.tokenize(accept)) {
-					version = mostRecent(version, forType(type));
-				}
-			}
-		}
-		return (version != null) ? version : LATEST;
-	}
-
 	private static ApiVersion forType(String type) {
 		if (type.startsWith(MEDIA_TYPE_PREFIX)) {
 			type = type.substring(MEDIA_TYPE_PREFIX.length());

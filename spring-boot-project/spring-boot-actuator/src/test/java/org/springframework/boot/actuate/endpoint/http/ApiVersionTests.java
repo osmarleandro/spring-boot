@@ -22,6 +22,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.junit.jupiter.api.Test;
+import org.springframework.util.CollectionUtils;
+import org.springframework.util.MimeTypeUtils;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -40,45 +42,113 @@ class ApiVersionTests {
 
 	@Test
 	void fromHttpHeadersWhenEmptyReturnsLatest() {
-		ApiVersion version = ApiVersion.fromHttpHeaders(Collections.emptyMap());
+		Map<String, List<String>> headers = Collections.emptyMap();
+		ApiVersion version1 = null;
+		List<String> accepts = headers.get("Accept");
+		if (!CollectionUtils.isEmpty(accepts)) {
+			for (String accept : accepts) {
+				for (String type : MimeTypeUtils.tokenize(accept)) {
+					version1 = ApiVersion.mostRecent(version1, ApiVersion.forType(type));
+				}
+			}
+		}
+		ApiVersion version = (version1 != null) ? version1 : ApiVersion.LATEST;
 		assertThat(version).isEqualTo(ApiVersion.V3);
 	}
 
 	@Test
 	void fromHttpHeadersWhenHasSingleV2HeaderReturnsV2() {
-		ApiVersion version = ApiVersion.fromHttpHeaders(acceptHeader(ActuatorMediaType.V2_JSON));
+		Map<String, List<String>> headers = acceptHeader(ActuatorMediaType.V2_JSON);
+		ApiVersion version1 = null;
+		List<String> accepts = headers.get("Accept");
+		if (!CollectionUtils.isEmpty(accepts)) {
+			for (String accept : accepts) {
+				for (String type : MimeTypeUtils.tokenize(accept)) {
+					version1 = ApiVersion.mostRecent(version1, ApiVersion.forType(type));
+				}
+			}
+		}
+		ApiVersion version = (version1 != null) ? version1 : ApiVersion.LATEST;
 		assertThat(version).isEqualTo(ApiVersion.V2);
 	}
 
 	@Test
 	void fromHttpHeadersWhenHasSingleV3HeaderReturnsV3() {
-		ApiVersion version = ApiVersion.fromHttpHeaders(acceptHeader(ActuatorMediaType.V3_JSON));
+		Map<String, List<String>> headers = acceptHeader(ActuatorMediaType.V3_JSON);
+		ApiVersion version1 = null;
+		List<String> accepts = headers.get("Accept");
+		if (!CollectionUtils.isEmpty(accepts)) {
+			for (String accept : accepts) {
+				for (String type : MimeTypeUtils.tokenize(accept)) {
+					version1 = ApiVersion.mostRecent(version1, ApiVersion.forType(type));
+				}
+			}
+		}
+		ApiVersion version = (version1 != null) ? version1 : ApiVersion.LATEST;
 		assertThat(version).isEqualTo(ApiVersion.V3);
 	}
 
 	@Test
 	void fromHttpHeadersWhenHasV2AndV3HeaderReturnsV3() {
-		ApiVersion version = ApiVersion
-				.fromHttpHeaders(acceptHeader(ActuatorMediaType.V2_JSON, ActuatorMediaType.V3_JSON));
+		Map<String, List<String>> headers = acceptHeader(ActuatorMediaType.V2_JSON, ActuatorMediaType.V3_JSON);
+		ApiVersion version1 = null;
+		List<String> accepts = headers.get("Accept");
+		if (!CollectionUtils.isEmpty(accepts)) {
+			for (String accept : accepts) {
+				for (String type : MimeTypeUtils.tokenize(accept)) {
+					version1 = ApiVersion.mostRecent(version1, ApiVersion.forType(type));
+				}
+			}
+		}
+		ApiVersion version = (version1 != null) ? version1 : ApiVersion.LATEST;
 		assertThat(version).isEqualTo(ApiVersion.V3);
 	}
 
 	@Test
 	void fromHttpHeadersWhenHasV2AndV3AsOneHeaderReturnsV3() {
-		ApiVersion version = ApiVersion
-				.fromHttpHeaders(acceptHeader(ActuatorMediaType.V2_JSON + "," + ActuatorMediaType.V3_JSON));
+		Map<String, List<String>> headers = acceptHeader(ActuatorMediaType.V2_JSON + "," + ActuatorMediaType.V3_JSON);
+		ApiVersion version1 = null;
+		List<String> accepts = headers.get("Accept");
+		if (!CollectionUtils.isEmpty(accepts)) {
+			for (String accept : accepts) {
+				for (String type : MimeTypeUtils.tokenize(accept)) {
+					version1 = ApiVersion.mostRecent(version1, ApiVersion.forType(type));
+				}
+			}
+		}
+		ApiVersion version = (version1 != null) ? version1 : ApiVersion.LATEST;
 		assertThat(version).isEqualTo(ApiVersion.V3);
 	}
 
 	@Test
 	void fromHttpHeadersWhenHasSingleHeaderWithoutJsonReturnsHeader() {
-		ApiVersion version = ApiVersion.fromHttpHeaders(acceptHeader("application/vnd.spring-boot.actuator.v2"));
+		Map<String, List<String>> headers = acceptHeader("application/vnd.spring-boot.actuator.v2");
+		ApiVersion version1 = null;
+		List<String> accepts = headers.get("Accept");
+		if (!CollectionUtils.isEmpty(accepts)) {
+			for (String accept : accepts) {
+				for (String type : MimeTypeUtils.tokenize(accept)) {
+					version1 = ApiVersion.mostRecent(version1, ApiVersion.forType(type));
+				}
+			}
+		}
+		ApiVersion version = (version1 != null) ? version1 : ApiVersion.LATEST;
 		assertThat(version).isEqualTo(ApiVersion.V2);
 	}
 
 	@Test
 	void fromHttpHeadersWhenHasUnknownVersionReturnsLatest() {
-		ApiVersion version = ApiVersion.fromHttpHeaders(acceptHeader("application/vnd.spring-boot.actuator.v200"));
+		Map<String, List<String>> headers = acceptHeader("application/vnd.spring-boot.actuator.v200");
+		ApiVersion version1 = null;
+		List<String> accepts = headers.get("Accept");
+		if (!CollectionUtils.isEmpty(accepts)) {
+			for (String accept : accepts) {
+				for (String type : MimeTypeUtils.tokenize(accept)) {
+					version1 = ApiVersion.mostRecent(version1, ApiVersion.forType(type));
+				}
+			}
+		}
+		ApiVersion version = (version1 != null) ? version1 : ApiVersion.LATEST;
 		assertThat(version).isEqualTo(ApiVersion.V3);
 	}
 

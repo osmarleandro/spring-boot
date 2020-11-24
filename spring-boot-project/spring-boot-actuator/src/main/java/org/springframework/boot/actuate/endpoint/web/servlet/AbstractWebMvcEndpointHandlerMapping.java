@@ -48,6 +48,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.http.server.ServletServerHttpRequest;
 import org.springframework.util.AntPathMatcher;
 import org.springframework.util.Assert;
+import org.springframework.util.CollectionUtils;
+import org.springframework.util.MimeTypeUtils;
 import org.springframework.util.ReflectionUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -284,7 +286,16 @@ public abstract class AbstractWebMvcEndpointHandlerMapping extends RequestMappin
 			HttpHeaders headers = new ServletServerHttpRequest(request).getHeaders();
 			Map<String, Object> arguments = getArguments(request, body);
 			try {
-				ApiVersion apiVersion = ApiVersion.fromHttpHeaders(headers);
+				ApiVersion version = null;
+				List<String> accepts = headers.get("Accept");
+				if (!CollectionUtils.isEmpty(accepts)) {
+					for (String accept : accepts) {
+						for (String type : MimeTypeUtils.tokenize(accept)) {
+							version = ApiVersion.mostRecent(version, ApiVersion.forType(type));
+						}
+					}
+				}
+				ApiVersion apiVersion = (version != null) ? version : ApiVersion.LATEST;
 				ServletSecurityContext securityContext = new ServletSecurityContext(request);
 				InvocationContext invocationContext = new InvocationContext(apiVersion, securityContext, arguments);
 				return handleResult(this.operation.invoke(invocationContext), HttpMethod.resolve(request.getMethod()));
