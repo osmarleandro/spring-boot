@@ -83,7 +83,9 @@ public class MetricsEndpoint {
 		if (meters.isEmpty()) {
 			return null;
 		}
-		Map<Statistic, Double> samples = getSamples(meters);
+		Map<Statistic, Double> samples1 = new LinkedHashMap<>();
+		meters.forEach((meter) -> mergeMeasurements(samples, meter));
+		Map<Statistic, Double> samples = samples1;
 		Map<String, Set<String>> availableTags = getAvailableTags(meters);
 		tags.forEach((t) -> availableTags.remove(t.getKey()));
 		Meter.Id meterId = meters.iterator().next().getId();
@@ -119,12 +121,6 @@ public class MetricsEndpoint {
 			Iterable<Tag> tags) {
 		return composite.getRegistries().stream().map((registry) -> findFirstMatchingMeters(registry, name, tags))
 				.filter((matching) -> !matching.isEmpty()).findFirst().orElse(Collections.emptyList());
-	}
-
-	private Map<Statistic, Double> getSamples(Collection<Meter> meters) {
-		Map<Statistic, Double> samples = new LinkedHashMap<>();
-		meters.forEach((meter) -> mergeMeasurements(samples, meter));
-		return samples;
 	}
 
 	private void mergeMeasurements(Map<Statistic, Double> samples, Meter meter) {
