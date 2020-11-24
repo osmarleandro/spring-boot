@@ -62,13 +62,6 @@ public class ServletEndpointDiscoverer extends EndpointDiscoverer<ExposableServl
 	}
 
 	@Override
-	protected ExposableServletEndpoint createEndpoint(Object endpointBean, EndpointId id, boolean enabledByDefault,
-			Collection<Operation> operations) {
-		String rootPath = PathMapper.getRootPath(this.endpointPathMappers, id);
-		return new DiscoveredServletEndpoint(this, endpointBean, id, rootPath, enabledByDefault);
-	}
-
-	@Override
 	protected Operation createOperation(EndpointId endpointId, DiscoveredOperationMethod operationMethod,
 			OperationInvoker invoker) {
 		throw new IllegalStateException("ServletEndpoints must not declare operations");
