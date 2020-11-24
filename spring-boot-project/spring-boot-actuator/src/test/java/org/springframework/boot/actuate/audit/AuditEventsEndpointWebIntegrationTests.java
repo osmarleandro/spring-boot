@@ -51,13 +51,6 @@ class AuditEventsEndpointWebIntegrationTests {
 	}
 
 	@WebEndpointTest
-	void eventsWithPrincipal(WebTestClient client) {
-		client.get().uri((builder) -> builder.path("/actuator/auditevents").queryParam("principal", "user").build())
-				.exchange().expectStatus().isOk().expectBody().jsonPath("events.[*].principal")
-				.isEqualTo(new JSONArray().appendElement("user"));
-	}
-
-	@WebEndpointTest
 	void eventsWithType(WebTestClient client) {
 		client.get().uri((builder) -> builder.path("/actuator/auditevents").queryParam("type", "logout").build())
 				.exchange().expectStatus().isOk().expectBody().jsonPath("events.[*].principal")
