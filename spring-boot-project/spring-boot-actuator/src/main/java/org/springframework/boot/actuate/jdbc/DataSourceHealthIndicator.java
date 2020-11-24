@@ -102,7 +102,7 @@ public class DataSourceHealthIndicator extends AbstractHealthIndicator implement
 	}
 
 	private void doDataSourceHealthCheck(Health.Builder builder) throws Exception {
-		builder.up().withDetail("database", getProduct());
+		builder.up().withDetail("database", this.jdbcTemplate.execute((ConnectionCallback<String>) this::getProduct));
 		String validationQuery = this.query;
 		if (StringUtils.hasText(validationQuery)) {
 			builder.withDetail("validationQuery", validationQuery);
@@ -116,10 +116,6 @@ public class DataSourceHealthIndicator extends AbstractHealthIndicator implement
 			boolean valid = isConnectionValid();
 			builder.status((valid) ? Status.UP : Status.DOWN);
 		}
-	}
-
-	private String getProduct() {
-		return this.jdbcTemplate.execute((ConnectionCallback<String>) this::getProduct);
 	}
 
 	private String getProduct(Connection connection) throws SQLException {
