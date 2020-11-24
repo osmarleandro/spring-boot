@@ -55,17 +55,6 @@ class HttpTraceWebFilterIntegrationTests {
 			.withUserConfiguration(Config.class);
 
 	@Test
-	void traceForNotFoundResponseHas404Status() {
-		this.contextRunner.run((context) -> {
-			WebTestClient.bindToApplicationContext(context).build().get().uri("/").exchange().expectStatus()
-					.isNotFound();
-			HttpTraceRepository repository = context.getBean(HttpTraceRepository.class);
-			assertThat(repository.findAll()).hasSize(1);
-			assertThat(repository.findAll().get(0).getResponse().getStatus()).isEqualTo(404);
-		});
-	}
-
-	@Test
 	void traceForMonoErrorWithRuntimeExceptionHas500Status() {
 		this.contextRunner.run((context) -> {
 			WebTestClient.bindToApplicationContext(context).build().get().uri("/mono-error").exchange().expectStatus()
