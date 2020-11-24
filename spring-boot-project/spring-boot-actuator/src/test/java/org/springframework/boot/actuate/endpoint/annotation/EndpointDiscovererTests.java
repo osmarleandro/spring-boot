@@ -85,14 +85,6 @@ class EndpointDiscovererTests {
 	}
 
 	@Test
-	void createWhenInvokerAdvisorsIsNullShouldThrowException() {
-		assertThatIllegalArgumentException()
-				.isThrownBy(() -> new TestEndpointDiscoverer(mock(ApplicationContext.class),
-						mock(ParameterValueMapper.class), null, Collections.emptyList()))
-				.withMessageContaining("InvokerAdvisors must not be null");
-	}
-
-	@Test
 	void createWhenFiltersIsNullShouldThrowException() {
 		assertThatIllegalArgumentException()
 				.isThrownBy(() -> new TestEndpointDiscoverer(mock(ApplicationContext.class),
