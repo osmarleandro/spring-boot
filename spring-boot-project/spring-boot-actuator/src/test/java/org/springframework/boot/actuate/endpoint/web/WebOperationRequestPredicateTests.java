@@ -46,11 +46,6 @@ class WebOperationRequestPredicateTests {
 	}
 
 	@Test
-	void predicatesWhereOneHasAPathAndTheOtherHasAVariableAreNotEqual() {
-		assertThat(predicateWithPath("/path/{foo}")).isNotEqualTo(predicateWithPath("/path/foo"));
-	}
-
-	@Test
 	void predicatesWithSinglePathVariablesInTheSamplePlaceAreEqual() {
 		assertThat(predicateWithPath("/path/{foo1}")).isEqualTo(predicateWithPath("/path/{foo2}"));
 	}
