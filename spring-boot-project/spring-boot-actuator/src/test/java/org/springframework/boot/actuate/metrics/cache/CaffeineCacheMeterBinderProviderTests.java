@@ -19,6 +19,8 @@ package org.springframework.boot.actuate.metrics.cache;
 import java.util.Collections;
 
 import com.github.benmanes.caffeine.cache.Caffeine;
+
+import io.micrometer.core.instrument.Tag;
 import io.micrometer.core.instrument.binder.MeterBinder;
 import io.micrometer.core.instrument.binder.cache.CaffeineCacheMetrics;
 import org.junit.jupiter.api.Test;
@@ -37,7 +39,9 @@ class CaffeineCacheMeterBinderProviderTests {
 	@Test
 	void caffeineCacheProvider() {
 		CaffeineCache cache = new CaffeineCache("test", Caffeine.newBuilder().build());
-		MeterBinder meterBinder = new CaffeineCacheMeterBinderProvider().getMeterBinder(cache, Collections.emptyList());
+		Iterable<Tag> tags = Collections.emptyList();
+		CaffeineCacheMeterBinderProvider r = new CaffeineCacheMeterBinderProvider();
+		MeterBinder meterBinder = new CaffeineCacheMetrics(cache.getNativeCache(), cache.getName(), tags);
 		assertThat(meterBinder).isInstanceOf(CaffeineCacheMetrics.class);
 	}
 
