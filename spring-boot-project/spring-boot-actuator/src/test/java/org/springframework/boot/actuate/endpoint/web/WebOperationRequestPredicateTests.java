@@ -36,11 +36,6 @@ class WebOperationRequestPredicateTests {
 	}
 
 	@Test
-	void predicatesWithDifferentPathsAreNotEqual() {
-		assertThat(predicateWithPath("/one")).isNotEqualTo(predicateWithPath("/two"));
-	}
-
-	@Test
 	void predicatesWithIdenticalPathsWithVariablesAreEqual() {
 		assertThat(predicateWithPath("/path/{foo}")).isEqualTo(predicateWithPath("/path/{foo}"));
 	}
