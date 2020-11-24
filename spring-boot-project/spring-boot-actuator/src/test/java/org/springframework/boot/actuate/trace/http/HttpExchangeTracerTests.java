@@ -168,21 +168,21 @@ class HttpExchangeTracerTests {
 	@Test
 	void statusIsIncluded() {
 		HttpTrace trace = new HttpTrace(createRequest());
-		new HttpExchangeTracer(EnumSet.noneOf(Include.class)).sendingResponse(trace, createResponse(), null, null);
+		new HttpExchangeTracer(EnumSet.noneOf(Include.class)).sendingResponse(trace, createResponse(Collections.singletonMap(HttpHeaders.CONTENT_TYPE, Arrays.asList("application/json"))), null, null);
 		assertThat(trace.getResponse().getStatus()).isEqualTo(204);
 	}
 
 	@Test
 	void responseHeadersAreNotIncludedByDefault() {
 		HttpTrace trace = new HttpTrace(createRequest());
-		new HttpExchangeTracer(EnumSet.noneOf(Include.class)).sendingResponse(trace, createResponse(), null, null);
+		new HttpExchangeTracer(EnumSet.noneOf(Include.class)).sendingResponse(trace, createResponse(Collections.singletonMap(HttpHeaders.CONTENT_TYPE, Arrays.asList("application/json"))), null, null);
 		assertThat(trace.getResponse().getHeaders()).isEmpty();
 	}
 
 	@Test
 	void responseHeadersCanBeIncluded() {
 		HttpTrace trace = new HttpTrace(createRequest());
-		new HttpExchangeTracer(EnumSet.of(Include.RESPONSE_HEADERS)).sendingResponse(trace, createResponse(), null,
+		new HttpExchangeTracer(EnumSet.of(Include.RESPONSE_HEADERS)).sendingResponse(trace, createResponse(Collections.singletonMap(HttpHeaders.CONTENT_TYPE, Arrays.asList("application/json"))), null,
 				null);
 		assertThat(trace.getResponse().getHeaders()).containsOnlyKeys(HttpHeaders.CONTENT_TYPE);
 	}
@@ -226,7 +226,7 @@ class HttpExchangeTracerTests {
 	@Test
 	void principalIsNotIncludedByDefault() {
 		HttpTrace trace = new HttpTrace(createRequest());
-		new HttpExchangeTracer(EnumSet.noneOf(Include.class)).sendingResponse(trace, createResponse(),
+		new HttpExchangeTracer(EnumSet.noneOf(Include.class)).sendingResponse(trace, createResponse(Collections.singletonMap(HttpHeaders.CONTENT_TYPE, Arrays.asList("application/json"))),
 				this::createPrincipal, null);
 		assertThat(trace.getPrincipal()).isNull();
 	}
@@ -234,7 +234,7 @@ class HttpExchangeTracerTests {
 	@Test
 	void principalCanBeIncluded() {
 		HttpTrace trace = new HttpTrace(createRequest());
-		new HttpExchangeTracer(EnumSet.of(Include.PRINCIPAL)).sendingResponse(trace, createResponse(),
+		new HttpExchangeTracer(EnumSet.of(Include.PRINCIPAL)).sendingResponse(trace, createResponse(Collections.singletonMap(HttpHeaders.CONTENT_TYPE, Arrays.asList("application/json"))),
 				this::createPrincipal, null);
 		assertThat(trace.getPrincipal()).isNotNull();
 		assertThat(trace.getPrincipal().getName()).isEqualTo("alice");
@@ -243,7 +243,7 @@ class HttpExchangeTracerTests {
 	@Test
 	void sessionIdIsNotIncludedByDefault() {
 		HttpTrace trace = new HttpTrace(createRequest());
-		new HttpExchangeTracer(EnumSet.noneOf(Include.class)).sendingResponse(trace, createResponse(), null,
+		new HttpExchangeTracer(EnumSet.noneOf(Include.class)).sendingResponse(trace, createResponse(Collections.singletonMap(HttpHeaders.CONTENT_TYPE, Arrays.asList("application/json"))), null,
 				() -> "sessionId");
 		assertThat(trace.getSession()).isNull();
 	}
@@ -251,7 +251,7 @@ class HttpExchangeTracerTests {
 	@Test
 	void sessionIdCanBeIncluded() {
 		HttpTrace trace = new HttpTrace(createRequest());
-		new HttpExchangeTracer(EnumSet.of(Include.SESSION_ID)).sendingResponse(trace, createResponse(), null,
+		new HttpExchangeTracer(EnumSet.of(Include.SESSION_ID)).sendingResponse(trace, createResponse(Collections.singletonMap(HttpHeaders.CONTENT_TYPE, Arrays.asList("application/json"))), null,
 				() -> "sessionId");
 		assertThat(trace.getSession()).isNotNull();
 		assertThat(trace.getSession().getId()).isEqualTo("sessionId");
@@ -260,14 +260,14 @@ class HttpExchangeTracerTests {
 	@Test
 	void timeTakenIsNotIncludedByDefault() {
 		HttpTrace trace = new HttpTrace(createRequest());
-		new HttpExchangeTracer(EnumSet.noneOf(Include.class)).sendingResponse(trace, createResponse(), null, null);
+		new HttpExchangeTracer(EnumSet.noneOf(Include.class)).sendingResponse(trace, createResponse(Collections.singletonMap(HttpHeaders.CONTENT_TYPE, Arrays.asList("application/json"))), null, null);
 		assertThat(trace.getTimeTaken()).isNull();
 	}
 
 	@Test
 	void timeTakenCanBeIncluded() {
 		HttpTrace trace = new HttpTrace(createRequest());
-		new HttpExchangeTracer(EnumSet.of(Include.TIME_TAKEN)).sendingResponse(trace, createResponse(), null, null);
+		new HttpExchangeTracer(EnumSet.of(Include.TIME_TAKEN)).sendingResponse(trace, createResponse(Collections.singletonMap(HttpHeaders.CONTENT_TYPE, Arrays.asList("application/json"))), null, null);
 		assertThat(trace.getTimeTaken()).isNotNull();
 	}
 
@@ -305,10 +305,6 @@ class HttpExchangeTracerTests {
 		given(request.getHeaders()).willReturn(new HashMap<>(headers));
 		given(request.getUri()).willReturn(URI.create("https://api.example.com"));
 		return request;
-	}
-
-	private TraceableResponse createResponse() {
-		return createResponse(Collections.singletonMap(HttpHeaders.CONTENT_TYPE, Arrays.asList("application/json")));
 	}
 
 	private TraceableResponse createResponse(Map<String, List<String>> headers) {
