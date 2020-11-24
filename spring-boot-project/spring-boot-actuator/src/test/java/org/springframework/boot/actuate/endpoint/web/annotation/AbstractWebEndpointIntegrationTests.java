@@ -322,15 +322,6 @@ public abstract class AbstractWebEndpointIntegrationTests<T extends Configurable
 	}
 
 	@Test
-	void principalIsAvailableWhenRequestHasAPrincipal() {
-		load((context) -> {
-			this.authenticatedContextCustomizer.accept(context);
-			context.register(PrincipalEndpointConfiguration.class);
-		}, (client) -> client.get().uri("/principal").accept(MediaType.APPLICATION_JSON).exchange().expectStatus()
-				.isOk().expectBody(String.class).isEqualTo("Alice"));
-	}
-
-	@Test
 	void operationWithAQueryNamedPrincipalCanBeAccessedWhenAuthenticated() {
 		load((context) -> {
 			this.authenticatedContextCustomizer.accept(context);
