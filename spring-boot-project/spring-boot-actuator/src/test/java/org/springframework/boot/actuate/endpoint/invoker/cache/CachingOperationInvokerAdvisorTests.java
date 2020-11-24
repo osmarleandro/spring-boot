@@ -71,14 +71,6 @@ class CachingOperationInvokerAdvisorTests {
 	}
 
 	@Test
-	void applyWhenHasAtLeaseOneMandatoryParameterShouldNotAddAdvise() {
-		OperationParameters parameters = getParameters("getWithParameters", String.class, String.class);
-		OperationInvoker advised = this.advisor.apply(EndpointId.of("foo"), OperationType.READ, parameters,
-				this.invoker);
-		assertThat(advised).isSameAs(this.invoker);
-	}
-
-	@Test
 	void applyWhenTimeToLiveReturnsNullShouldNotAddAdvise() {
 		OperationParameters parameters = getParameters("get");
 		given(this.timeToLive.apply(any())).willReturn(null);
