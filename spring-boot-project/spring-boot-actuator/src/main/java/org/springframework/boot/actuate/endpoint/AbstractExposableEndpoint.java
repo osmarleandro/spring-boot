@@ -62,9 +62,4 @@ public abstract class AbstractExposableEndpoint<O extends Operation> implements 
 		return this.enabledByDefault;
 	}
 
-	@Override
-	public Collection<O> getOperations() {
-		return this.operations;
-	}
-
 }
