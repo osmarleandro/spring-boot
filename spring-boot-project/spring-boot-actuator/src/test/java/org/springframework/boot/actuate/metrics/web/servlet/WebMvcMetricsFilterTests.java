@@ -184,15 +184,6 @@ class WebMvcMetricsFilterTests {
 	}
 
 	@Test
-	void streamingError() throws Exception {
-		MvcResult result = this.mvc.perform(get("/api/c1/streamingError")).andExpect(request().asyncStarted())
-				.andReturn();
-		assertThatIOException().isThrownBy(() -> this.mvc.perform(asyncDispatch(result)).andReturn());
-		assertThat(this.registry.get("http.server.requests").tags("exception", "IOException").timer().count())
-				.isEqualTo(1L);
-	}
-
-	@Test
 	void anonymousError() {
 		try {
 			this.mvc.perform(get("/api/c1/anonymousError/10"));
