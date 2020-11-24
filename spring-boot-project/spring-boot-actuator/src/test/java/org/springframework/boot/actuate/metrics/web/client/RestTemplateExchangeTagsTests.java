@@ -94,12 +94,4 @@ class RestTemplateExchangeTagsTests {
 		assertThat(tag.getValue()).isEqualTo("CLIENT_ERROR");
 	}
 
-	@Test
-	void outcomeTagIsUnknownWhenResponseStatusIsInUnknownSeries() throws IOException {
-		ClientHttpResponse response = mock(ClientHttpResponse.class);
-		given(response.getRawStatusCode()).willReturn(701);
-		Tag tag = RestTemplateExchangeTags.outcome(response);
-		assertThat(tag.getValue()).isEqualTo("UNKNOWN");
-	}
-
 }
