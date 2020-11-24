@@ -41,6 +41,9 @@ import org.springframework.boot.actuate.endpoint.web.ExposableWebEndpoint;
 import org.springframework.boot.actuate.endpoint.web.WebEndpointResponse;
 import org.springframework.boot.actuate.endpoint.web.WebOperation;
 import org.springframework.boot.actuate.endpoint.web.WebOperationRequestPredicate;
+import org.springframework.boot.actuate.endpoint.web.servlet.AbstractWebMvcEndpointHandlerMapping.OperationHandler;
+import org.springframework.boot.actuate.endpoint.web.servlet.AbstractWebMvcEndpointHandlerMapping.ServletWebOperation;
+import org.springframework.boot.actuate.endpoint.web.servlet.AbstractWebMvcEndpointHandlerMapping.ServletWebOperationAdapter;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
@@ -129,7 +132,16 @@ public abstract class AbstractWebMvcEndpointHandlerMapping extends RequestMappin
 	protected void initHandlerMethods() {
 		for (ExposableWebEndpoint endpoint : this.endpoints) {
 			for (WebOperation operation : endpoint.getOperations()) {
-				registerMappingForOperation(endpoint, operation);
+				WebOperationRequestPredicate predicate = operation.getRequestPredicate();
+				String path = predicate.getPath();
+				String matchAllRemainingPathSegmentsVariable = predicate.getMatchAllRemainingPathSegmentsVariable();
+				if (matchAllRemainingPathSegmentsVariable != null) {
+					path = path.replace("{*" + matchAllRemainingPathSegmentsVariable + "}", "**");
+				}
+				ServletWebOperation servletWebOperation = wrapServletWebOperation(endpoint, operation,
+						new ServletWebOperationAdapter(operation));
+				registerMapping(createRequestMappingInfo(predicate, path), new OperationHandler(servletWebOperation),
+						this.handleMethod);
 			}
 		}
 		if (this.shouldRegisterLinksMapping) {
@@ -162,19 +174,6 @@ public abstract class AbstractWebMvcEndpointHandlerMapping extends RequestMappin
 		config.setSuffixPatternMatch(false);
 		config.setTrailingSlashMatch(true);
 		return config;
-	}
-
-	private void registerMappingForOperation(ExposableWebEndpoint endpoint, WebOperation operation) {
-		WebOperationRequestPredicate predicate = operation.getRequestPredicate();
-		String path = predicate.getPath();
-		String matchAllRemainingPathSegmentsVariable = predicate.getMatchAllRemainingPathSegmentsVariable();
-		if (matchAllRemainingPathSegmentsVariable != null) {
-			path = path.replace("{*" + matchAllRemainingPathSegmentsVariable + "}", "**");
-		}
-		ServletWebOperation servletWebOperation = wrapServletWebOperation(endpoint, operation,
-				new ServletWebOperationAdapter(operation));
-		registerMapping(createRequestMappingInfo(predicate, path), new OperationHandler(servletWebOperation),
-				this.handleMethod);
 	}
 
 	/**
