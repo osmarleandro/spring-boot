@@ -130,14 +130,6 @@ public class AuditEvent implements Serializable {
 		return this.type;
 	}
 
-	/**
-	 * Returns the event data.
-	 * @return the event data
-	 */
-	public Map<String, Object> getData() {
-		return this.data;
-	}
-
 	@Override
 	public String toString() {
 		return "AuditEvent [timestamp=" + this.timestamp + ", principal=" + this.principal + ", type=" + this.type

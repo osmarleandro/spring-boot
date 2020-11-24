@@ -99,7 +99,7 @@ class AuthenticationAuditListenerTests {
 		AuditApplicationEvent event = handleAuthenticationEvent(
 				new AuthenticationFailureExpiredEvent(authentication, new BadCredentialsException("Bad user")));
 		assertThat(event.getAuditEvent().getType()).isEqualTo(AuthenticationAuditListener.AUTHENTICATION_FAILURE);
-		assertThat(event.getAuditEvent().getData()).containsEntry("details", details);
+		assertThat(event.getAuditEvent().data).containsEntry("details", details);
 	}
 
 	private AuditApplicationEvent handleAuthenticationEvent(AbstractAuthenticationEvent event) {
