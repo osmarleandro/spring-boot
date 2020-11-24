@@ -65,10 +65,6 @@ class DiscoveredWebOperation extends AbstractDiscoveredOperation implements WebO
 				.collect(Collectors.joining());
 	}
 
-	private boolean hasSelector(Parameter parameter) {
-		return parameter.getAnnotation(Selector.class) != null;
-	}
-
 	private String dashName(Parameter parameter) {
 		return "-" + parameter.getName();
 	}
