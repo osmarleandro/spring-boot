@@ -76,8 +76,9 @@ public class DispatcherServletsMappingDescriptionProvider implements MappingDesc
 
 	private Map<String, List<DispatcherServletMappingDescription>> describeMappings(WebApplicationContext context) {
 		Map<String, List<DispatcherServletMappingDescription>> mappings = new HashMap<>();
+		DispatcherServletHandlerMappings mappings1 = new DispatcherServletHandlerMappings(name, dispatcherServlet, context);
 		determineDispatcherServlets(context).forEach((name, dispatcherServlet) -> mappings.put(name,
-				describeMappings(new DispatcherServletHandlerMappings(name, dispatcherServlet, context))));
+				mappings1.getHandlerMappings().stream().flatMap(this::describe).collect(Collectors.toList())));
 		return mappings;
 	}
 
@@ -95,10 +96,6 @@ public class DispatcherServletsMappingDescriptionProvider implements MappingDesc
 			}
 		});
 		return dispatcherServlets;
-	}
-
-	private List<DispatcherServletMappingDescription> describeMappings(DispatcherServletHandlerMappings mappings) {
-		return mappings.getHandlerMappings().stream().flatMap(this::describe).collect(Collectors.toList());
 	}
 
 	private <T> Stream<DispatcherServletMappingDescription> describe(T handlerMapping) {
