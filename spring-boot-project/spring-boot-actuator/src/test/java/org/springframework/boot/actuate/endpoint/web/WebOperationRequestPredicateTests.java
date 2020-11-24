@@ -31,11 +31,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 class WebOperationRequestPredicateTests {
 
 	@Test
-	void predicatesWithIdenticalPathsAreEqual() {
-		assertThat(predicateWithPath("/path")).isEqualTo(predicateWithPath("/path"));
-	}
-
-	@Test
 	void predicatesWithDifferentPathsAreNotEqual() {
 		assertThat(predicateWithPath("/one")).isNotEqualTo(predicateWithPath("/two"));
 	}
