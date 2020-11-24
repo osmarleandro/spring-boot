@@ -80,13 +80,6 @@ class JmxEndpointExporterTests {
 	}
 
 	@Test
-	void createWhenMBeanServerIsNullShouldThrowException() {
-		assertThatIllegalArgumentException().isThrownBy(
-				() -> new JmxEndpointExporter(null, this.objectNameFactory, this.responseMapper, this.endpoints))
-				.withMessageContaining("MBeanServer must not be null");
-	}
-
-	@Test
 	void createWhenObjectNameFactoryIsNullShouldThrowException() {
 		assertThatIllegalArgumentException()
 				.isThrownBy(() -> new JmxEndpointExporter(this.mBeanServer, null, this.responseMapper, this.endpoints))
