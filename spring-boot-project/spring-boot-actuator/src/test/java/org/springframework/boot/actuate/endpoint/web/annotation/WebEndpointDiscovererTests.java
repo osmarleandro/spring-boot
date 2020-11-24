@@ -47,6 +47,7 @@ import org.springframework.boot.actuate.endpoint.web.PathMapper;
 import org.springframework.boot.actuate.endpoint.web.WebEndpointHttpMethod;
 import org.springframework.boot.actuate.endpoint.web.WebOperation;
 import org.springframework.boot.actuate.endpoint.web.WebOperationRequestPredicate;
+import org.springframework.boot.actuate.endpoint.web.annotation.WebEndpointDiscovererTests.RequestPredicateMatcher;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -96,7 +97,7 @@ class WebEndpointDiscovererTests {
 			assertThat(endpoints).containsOnlyKeys(EndpointId.of("test"));
 			ExposableWebEndpoint endpoint = endpoints.get(EndpointId.of("test"));
 			assertThat(requestPredicates(endpoint)).has(requestPredicates(
-					path("test").httpMethod(WebEndpointHttpMethod.GET).consumes().produces("application/json")));
+					new RequestPredicateMatcher("test").httpMethod(WebEndpointHttpMethod.GET).consumes().produces("application/json")));
 		});
 	}
 
@@ -107,8 +108,8 @@ class WebEndpointDiscovererTests {
 			assertThat(endpoints).containsOnlyKeys(EndpointId.of("test"));
 			ExposableWebEndpoint endpoint = endpoints.get(EndpointId.of("test"));
 			assertThat(requestPredicates(endpoint)).has(requestPredicates(
-					path("test").httpMethod(WebEndpointHttpMethod.GET).consumes().produces("application/json"),
-					path("test/{id}").httpMethod(WebEndpointHttpMethod.GET).consumes().produces("application/json")));
+					new RequestPredicateMatcher("test").httpMethod(WebEndpointHttpMethod.GET).consumes().produces("application/json"),
+					new RequestPredicateMatcher("test/{id}").httpMethod(WebEndpointHttpMethod.GET).consumes().produces("application/json")));
 		});
 	}
 
@@ -119,7 +120,7 @@ class WebEndpointDiscovererTests {
 			assertThat(endpoints).containsOnlyKeys(EndpointId.of("voidwrite"));
 			ExposableWebEndpoint endpoint = endpoints.get(EndpointId.of("voidwrite"));
 			assertThat(requestPredicates(endpoint)).has(requestPredicates(
-					path("voidwrite").httpMethod(WebEndpointHttpMethod.POST).produces().consumes("application/json")));
+					new RequestPredicateMatcher("voidwrite").httpMethod(WebEndpointHttpMethod.POST).produces().consumes("application/json")));
 		});
 	}
 
@@ -183,7 +184,7 @@ class WebEndpointDiscovererTests {
 			Map<EndpointId, ExposableWebEndpoint> endpoints = mapEndpoints(discoverer.getEndpoints());
 			assertThat(endpoints).containsOnlyKeys(EndpointId.of("resource"));
 			ExposableWebEndpoint endpoint = endpoints.get(EndpointId.of("resource"));
-			assertThat(requestPredicates(endpoint)).has(requestPredicates(path("resource")
+			assertThat(requestPredicates(endpoint)).has(requestPredicates(new RequestPredicateMatcher("resource")
 					.httpMethod(WebEndpointHttpMethod.GET).consumes().produces("application/octet-stream")));
 		});
 	}
@@ -195,9 +196,9 @@ class WebEndpointDiscovererTests {
 			assertThat(endpoints).containsOnlyKeys(EndpointId.of("custommediatypes"));
 			ExposableWebEndpoint endpoint = endpoints.get(EndpointId.of("custommediatypes"));
 			assertThat(requestPredicates(endpoint)).has(requestPredicates(
-					path("custommediatypes").httpMethod(WebEndpointHttpMethod.GET).consumes().produces("text/plain"),
-					path("custommediatypes").httpMethod(WebEndpointHttpMethod.POST).consumes().produces("a/b", "c/d"),
-					path("custommediatypes").httpMethod(WebEndpointHttpMethod.DELETE).consumes()
+					new RequestPredicateMatcher("custommediatypes").httpMethod(WebEndpointHttpMethod.GET).consumes().produces("text/plain"),
+					new RequestPredicateMatcher("custommediatypes").httpMethod(WebEndpointHttpMethod.POST).consumes().produces("a/b", "c/d"),
+					new RequestPredicateMatcher("custommediatypes").httpMethod(WebEndpointHttpMethod.DELETE).consumes()
 							.produces("text/plain")));
 		});
 	}
@@ -209,8 +210,8 @@ class WebEndpointDiscovererTests {
 			assertThat(endpoints).containsOnlyKeys(EndpointId.of("test"));
 			ExposableWebEndpoint endpoint = endpoints.get(EndpointId.of("test"));
 			Condition<List<? extends WebOperationRequestPredicate>> expected = requestPredicates(
-					path("custom/test").httpMethod(WebEndpointHttpMethod.GET).consumes().produces("application/json"),
-					path("custom/test/{id}").httpMethod(WebEndpointHttpMethod.GET).consumes()
+					new RequestPredicateMatcher("custom/test").httpMethod(WebEndpointHttpMethod.GET).consumes().produces("application/json"),
+					new RequestPredicateMatcher("custom/test/{id}").httpMethod(WebEndpointHttpMethod.GET).consumes()
 							.produces("application/json"));
 			assertThat(requestPredicates(endpoint)).has(expected);
 		});
@@ -256,10 +257,6 @@ class WebEndpointDiscovererTests {
 			}
 			return matchCounts.values().stream().noneMatch((count) -> count != 1);
 		}, Arrays.toString(matchers));
-	}
-
-	private RequestPredicateMatcher path(String path) {
-		return new RequestPredicateMatcher(path);
 	}
 
 	@Configuration(proxyBeanMethods = false)
