@@ -41,12 +41,8 @@ public class RabbitHealthIndicator extends AbstractHealthIndicator {
 
 	@Override
 	protected void doHealthCheck(Health.Builder builder) throws Exception {
-		builder.up().withDetail("version", getVersion());
-	}
-
-	private String getVersion() {
-		return this.rabbitTemplate
-				.execute((channel) -> channel.getConnection().getServerProperties().get("version").toString());
+		builder.up().withDetail("version", this.rabbitTemplate
+		.execute((channel) -> channel.getConnection().getServerProperties().get("version").toString()));
 	}
 
 }
