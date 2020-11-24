@@ -108,15 +108,6 @@ class PrometheusPushGatewayManagerTests {
 	}
 
 	@Test
-	void createShouldSchedulePushAsFixedRate() throws Exception {
-		new PrometheusPushGatewayManager(this.pushGateway, this.registry, this.scheduler, this.pushRate, "job",
-				this.groupingKey, null);
-		verify(this.scheduler).scheduleAtFixedRate(this.task.capture(), eq(this.pushRate));
-		this.task.getValue().run();
-		verify(this.pushGateway).pushAdd(this.registry, "job", this.groupingKey);
-	}
-
-	@Test
 	void shutdownWhenOwnsSchedulerDoesShutdownScheduler() {
 		PushGatewayTaskScheduler ownedScheduler = givenScheduleAtFixedRateWillReturnFuture(
 				mock(PushGatewayTaskScheduler.class));
