@@ -116,7 +116,11 @@ public class EndpointMBean implements DynamicMBean {
 		try {
 			String[] parameterNames = operation.getParameters().stream().map(JmxOperationParameter::getName)
 					.toArray(String[]::new);
-			Map<String, Object> arguments = getArguments(parameterNames, params);
+			Map<String, Object> arguments1 = new HashMap<>();
+			for (int i = 0; i < params.length; i++) {
+				arguments1.put(parameterNames[i], params[i]);
+			}
+			Map<String, Object> arguments = arguments1;
 			InvocationContext context = new InvocationContext(SecurityContext.NONE, arguments);
 			Object result = operation.invoke(context);
 			if (REACTOR_PRESENT) {
@@ -137,14 +141,6 @@ public class EndpointMBean implements DynamicMBean {
 			return exception;
 		}
 		return new IllegalStateException(exception.getMessage());
-	}
-
-	private Map<String, Object> getArguments(String[] parameterNames, Object[] params) {
-		Map<String, Object> arguments = new HashMap<>();
-		for (int i = 0; i < params.length; i++) {
-			arguments.put(parameterNames[i], params[i]);
-		}
-		return arguments;
 	}
 
 	@Override
