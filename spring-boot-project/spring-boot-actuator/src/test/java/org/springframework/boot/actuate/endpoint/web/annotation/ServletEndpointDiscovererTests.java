@@ -117,13 +117,6 @@ class ServletEndpointDiscovererTests {
 	}
 
 	@Test
-	void getEndpointWhenEndpointSuppliesWrongTypeShouldThrowException() {
-		this.contextRunner.withUserConfiguration(TestServletEndpointSupplierOfWrongType.class)
-				.run(assertDiscoverer((discoverer) -> assertThatIllegalStateException()
-						.isThrownBy(discoverer::getEndpoints).withMessageContaining("must supply an EndpointServlet")));
-	}
-
-	@Test
 	void getEndpointWhenEndpointSuppliesNullShouldThrowException() {
 		this.contextRunner.withUserConfiguration(TestServletEndpointSupplierOfNull.class)
 				.run(assertDiscoverer((discoverer) -> assertThatIllegalStateException()
