@@ -96,12 +96,6 @@ public final class HttpTrace {
 		return this.session;
 	}
 
-	void setSessionId(String sessionId) {
-		if (StringUtils.hasText(sessionId)) {
-			this.session = new Session(sessionId);
-		}
-	}
-
 	public Request getRequest() {
 		return this.request;
 	}
