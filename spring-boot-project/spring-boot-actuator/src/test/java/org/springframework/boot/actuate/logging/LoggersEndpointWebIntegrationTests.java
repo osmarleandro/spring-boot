@@ -203,15 +203,6 @@ class LoggersEndpointWebIntegrationTests {
 	}
 
 	@WebEndpointTest
-	void logLevelForLoggerWithNameThatCouldBeMistakenForAPathExtension() {
-		given(this.loggingSystem.getLoggerConfiguration("com.png"))
-				.willReturn(new LoggerConfiguration("com.png", null, LogLevel.DEBUG));
-		this.client.get().uri("/actuator/loggers/com.png").exchange().expectStatus().isOk().expectBody()
-				.jsonPath("$.length()").isEqualTo(2).jsonPath("configuredLevel").isEqualTo(null)
-				.jsonPath("effectiveLevel").isEqualTo("DEBUG");
-	}
-
-	@WebEndpointTest
 	void logLevelForLoggerGroupWithNameThatCouldBeMistakenForAPathExtension() {
 		setLogLevelToDebug("group.png");
 		this.client.get().uri("/actuator/loggers/group.png").exchange().expectStatus().isOk().expectBody()
