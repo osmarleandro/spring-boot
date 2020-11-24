@@ -84,15 +84,6 @@ class DiscoveredOperationsFactoryTests {
 	}
 
 	@Test
-	void createOperationsWhenMultipleShouldReturnMultiple() {
-		Collection<TestOperation> operations = this.factory.createOperations(EndpointId.of("test"),
-				new ExampleMultiple());
-		assertThat(operations).hasSize(2);
-		assertThat(operations.stream().map(TestOperation::getType)).containsOnly(OperationType.READ,
-				OperationType.WRITE);
-	}
-
-	@Test
 	void createOperationsShouldProvideOperationMethod() {
 		TestOperation operation = getFirst(
 				this.factory.createOperations(EndpointId.of("test"), new ExampleWithParams()));
