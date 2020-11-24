@@ -34,11 +34,4 @@ final class SkipPathExtensionContentNegotiation implements HandlerInterceptor {
 	private static final String SKIP_ATTRIBUTE = org.springframework.web.accept.PathExtensionContentNegotiationStrategy.class
 			.getName() + ".SKIP";
 
-	@Override
-	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
-			throws Exception {
-		request.setAttribute(SKIP_ATTRIBUTE, Boolean.TRUE);
-		return true;
-	}
-
 }
