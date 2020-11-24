@@ -164,7 +164,13 @@ public class HttpExchangeTracer {
 
 		@Override
 		public Map<String, List<String>> getHeaders() {
-			return getHeadersIfIncluded(Include.RESPONSE_HEADERS, this.delegate::getHeaders, this::includedHeader);
+			Include include = Include.RESPONSE_HEADERS;
+			Supplier<Map<String, List<String>>> headersSupplier = this.delegate::getHeaders;
+			if (!this.includes.contains(include)) {
+				return new LinkedHashMap<>();
+			}
+			return headersSupplier.get().entrySet().stream().filter((entry) -> headerPredicate.test(entry.getKey()))
+					.collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
 		}
 
 		private boolean includedHeader(String name) {
