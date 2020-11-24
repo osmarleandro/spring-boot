@@ -285,12 +285,6 @@ public abstract class AbstractWebEndpointIntegrationTests<T extends Configurable
 	}
 
 	@Test
-	void readOperationWithMissingNullableParametersIsOk() {
-		load(RequiredParameterEndpointConfiguration.class,
-				(client) -> client.get().uri("/requiredparameters?foo=hello").exchange().expectStatus().isOk());
-	}
-
-	@Test
 	void endpointsProducePrimaryMediaTypeByDefault() {
 		load(TestEndpointConfiguration.class, (client) -> client.get().uri("/test").exchange().expectStatus().isOk()
 				.expectHeader().valueMatches("Content-Type", ACTUATOR_MEDIA_TYPE_PATTERN));
