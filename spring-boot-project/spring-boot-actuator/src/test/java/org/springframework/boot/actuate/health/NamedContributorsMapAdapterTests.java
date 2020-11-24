@@ -57,14 +57,6 @@ class NamedContributorsMapAdapterTests {
 	}
 
 	@Test
-	void createWhenMapContainsNullKeyThrowsException() {
-		assertThatIllegalArgumentException()
-				.isThrownBy(() -> new TestNamedContributorsMapAdapter<>(Collections.singletonMap(null, "test"),
-						Function.identity()))
-				.withMessage("Map must not contain null keys");
-	}
-
-	@Test
 	void iterateReturnsAdaptedEntries() {
 		TestNamedContributorsMapAdapter<String> adapter = createAdapter();
 		Iterator<NamedContributor<String>> iterator = adapter.iterator();
