@@ -174,13 +174,6 @@ class JmxEndpointDiscovererTests {
 	}
 
 	@Test
-	void getEndpointsWhenTwoStandardEndpointsHaveTheSameIdShouldThrowException() {
-		load(ClashingStandardEndpointConfiguration.class,
-				(discoverer) -> assertThatIllegalStateException().isThrownBy(discoverer::getEndpoints)
-						.withMessageContaining("Found two endpoints with the id 'test': "));
-	}
-
-	@Test
 	void getEndpointsWhenWhenEndpointHasTwoOperationsWithTheSameNameShouldThrowException() {
 		load(ClashingOperationsEndpoint.class, (discoverer) -> assertThatIllegalStateException()
 				.isThrownBy(discoverer::getEndpoints).withMessageContaining(
