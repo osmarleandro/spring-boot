@@ -70,10 +70,6 @@ public class HttpTraceFilter extends OncePerRequestFilter implements Ordered {
 		return this.order;
 	}
 
-	public void setOrder(int order) {
-		this.order = order;
-	}
-
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
