@@ -119,22 +119,6 @@ class JmxEndpointDiscovererTests {
 	}
 
 	@Test
-	void getEndpointsWhenHasJmxExtensionWithNewOperationAddsExtraOperation() {
-		load(AdditionalOperationJmxEndpointConfiguration.class, (discoverer) -> {
-			Map<EndpointId, ExposableJmxEndpoint> endpoints = discover(discoverer);
-			assertThat(endpoints).containsOnlyKeys(EndpointId.of("test"));
-			Map<String, JmxOperation> operationByName = mapOperations(
-					endpoints.get(EndpointId.of("test")).getOperations());
-			assertThat(operationByName).containsOnlyKeys("getAll", "getSomething", "update", "deleteSomething",
-					"getAnother");
-			JmxOperation getAnother = operationByName.get("getAnother");
-			assertThat(getAnother.getDescription()).isEqualTo("Get another thing");
-			assertThat(getAnother.getOutputType()).isEqualTo(Object.class);
-			assertThat(getAnother.getParameters()).isEmpty();
-		});
-	}
-
-	@Test
 	void getEndpointsWhenHasCacheWithTtlShouldCacheReadOperationWithTtlValue() {
 		load(TestEndpoint.class, (id) -> 500L, (discoverer) -> {
 			Map<EndpointId, ExposableJmxEndpoint> endpoints = discover(discoverer);
