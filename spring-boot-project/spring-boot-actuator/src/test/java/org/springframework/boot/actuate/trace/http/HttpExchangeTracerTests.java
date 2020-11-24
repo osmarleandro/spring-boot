@@ -249,15 +249,6 @@ class HttpExchangeTracerTests {
 	}
 
 	@Test
-	void sessionIdCanBeIncluded() {
-		HttpTrace trace = new HttpTrace(createRequest());
-		new HttpExchangeTracer(EnumSet.of(Include.SESSION_ID)).sendingResponse(trace, createResponse(), null,
-				() -> "sessionId");
-		assertThat(trace.getSession()).isNotNull();
-		assertThat(trace.getSession().getId()).isEqualTo("sessionId");
-	}
-
-	@Test
 	void timeTakenIsNotIncludedByDefault() {
 		HttpTrace trace = new HttpTrace(createRequest());
 		new HttpExchangeTracer(EnumSet.noneOf(Include.class)).sendingResponse(trace, createResponse(), null, null);
