@@ -66,7 +66,9 @@ class JmxEndpointDiscovererTests {
 	@Test
 	void getEndpointsShouldDiscoverStandardEndpoints() {
 		load(TestEndpoint.class, (discoverer) -> {
-			Map<EndpointId, ExposableJmxEndpoint> endpoints = discover(discoverer);
+			Map<EndpointId, ExposableJmxEndpoint> byId = new HashMap<>();
+			discoverer.getEndpoints().forEach((endpoint) -> byId.put(endpoint.getEndpointId(), endpoint));
+			Map<EndpointId, ExposableJmxEndpoint> endpoints = byId;
 			assertThat(endpoints).containsOnlyKeys(EndpointId.of("test"));
 			Map<String, JmxOperation> operationByName = mapOperations(
 					endpoints.get(EndpointId.of("test")).getOperations());
@@ -97,7 +99,9 @@ class JmxEndpointDiscovererTests {
 	@Test
 	void getEndpointsWhenHasFilteredEndpointShouldOnlyDiscoverJmxEndpoints() {
 		load(MultipleEndpointsConfiguration.class, (discoverer) -> {
-			Map<EndpointId, ExposableJmxEndpoint> endpoints = discover(discoverer);
+			Map<EndpointId, ExposableJmxEndpoint> byId = new HashMap<>();
+			discoverer.getEndpoints().forEach((endpoint) -> byId.put(endpoint.getEndpointId(), endpoint));
+			Map<EndpointId, ExposableJmxEndpoint> endpoints = byId;
 			assertThat(endpoints).containsOnlyKeys(EndpointId.of("test"), EndpointId.of("jmx"));
 		});
 	}
@@ -112,7 +116,9 @@ class JmxEndpointDiscovererTests {
 	@Test
 	void getEndpointsWhenHasJmxExtensionShouldOverrideStandardEndpoint() {
 		load(OverriddenOperationJmxEndpointConfiguration.class, (discoverer) -> {
-			Map<EndpointId, ExposableJmxEndpoint> endpoints = discover(discoverer);
+			Map<EndpointId, ExposableJmxEndpoint> byId = new HashMap<>();
+			discoverer.getEndpoints().forEach((endpoint) -> byId.put(endpoint.getEndpointId(), endpoint));
+			Map<EndpointId, ExposableJmxEndpoint> endpoints = byId;
 			assertThat(endpoints).containsOnlyKeys(EndpointId.of("test"));
 			assertJmxTestEndpoint(endpoints.get(EndpointId.of("test")));
 		});
@@ -121,7 +127,9 @@ class JmxEndpointDiscovererTests {
 	@Test
 	void getEndpointsWhenHasJmxExtensionWithNewOperationAddsExtraOperation() {
 		load(AdditionalOperationJmxEndpointConfiguration.class, (discoverer) -> {
-			Map<EndpointId, ExposableJmxEndpoint> endpoints = discover(discoverer);
+			Map<EndpointId, ExposableJmxEndpoint> byId = new HashMap<>();
+			discoverer.getEndpoints().forEach((endpoint) -> byId.put(endpoint.getEndpointId(), endpoint));
+			Map<EndpointId, ExposableJmxEndpoint> endpoints = byId;
 			assertThat(endpoints).containsOnlyKeys(EndpointId.of("test"));
 			Map<String, JmxOperation> operationByName = mapOperations(
 					endpoints.get(EndpointId.of("test")).getOperations());
@@ -137,7 +145,9 @@ class JmxEndpointDiscovererTests {
 	@Test
 	void getEndpointsWhenHasCacheWithTtlShouldCacheReadOperationWithTtlValue() {
 		load(TestEndpoint.class, (id) -> 500L, (discoverer) -> {
-			Map<EndpointId, ExposableJmxEndpoint> endpoints = discover(discoverer);
+			Map<EndpointId, ExposableJmxEndpoint> byId = new HashMap<>();
+			discoverer.getEndpoints().forEach((endpoint) -> byId.put(endpoint.getEndpointId(), endpoint));
+			Map<EndpointId, ExposableJmxEndpoint> endpoints = byId;
 			assertThat(endpoints).containsOnlyKeys(EndpointId.of("test"));
 			Map<String, JmxOperation> operationByName = mapOperations(
 					endpoints.get(EndpointId.of("test")).getOperations());
@@ -151,7 +161,9 @@ class JmxEndpointDiscovererTests {
 	@Test
 	void getEndpointsShouldCacheReadOperations() {
 		load(AdditionalOperationJmxEndpointConfiguration.class, (id) -> 500L, (discoverer) -> {
-			Map<EndpointId, ExposableJmxEndpoint> endpoints = discover(discoverer);
+			Map<EndpointId, ExposableJmxEndpoint> byId = new HashMap<>();
+			discoverer.getEndpoints().forEach((endpoint) -> byId.put(endpoint.getEndpointId(), endpoint));
+			Map<EndpointId, ExposableJmxEndpoint> endpoints = byId;
 			assertThat(endpoints).containsOnlyKeys(EndpointId.of("test"));
 			Map<String, JmxOperation> operationByName = mapOperations(
 					endpoints.get(EndpointId.of("test")).getOperations());
@@ -237,12 +249,6 @@ class JmxEndpointDiscovererTests {
 		assertThat(parameter.getName()).isEqualTo(name);
 		assertThat(parameter.getType()).isEqualTo(type);
 		assertThat(parameter.getDescription()).isEqualTo(description);
-	}
-
-	private Map<EndpointId, ExposableJmxEndpoint> discover(JmxEndpointDiscoverer discoverer) {
-		Map<EndpointId, ExposableJmxEndpoint> byId = new HashMap<>();
-		discoverer.getEndpoints().forEach((endpoint) -> byId.put(endpoint.getEndpointId(), endpoint));
-		return byId;
 	}
 
 	private Map<String, JmxOperation> mapOperations(Collection<JmxOperation> operations) {
