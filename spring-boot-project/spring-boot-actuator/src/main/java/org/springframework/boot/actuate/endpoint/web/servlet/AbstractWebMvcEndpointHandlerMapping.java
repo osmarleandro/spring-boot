@@ -217,11 +217,6 @@ public abstract class AbstractWebMvcEndpointHandlerMapping extends RequestMappin
 	}
 
 	@Override
-	protected boolean isHandler(Class<?> beanType) {
-		return false;
-	}
-
-	@Override
 	protected RequestMappingInfo getMappingForMethod(Method method, Class<?> handlerType) {
 		return null;
 	}
