@@ -68,11 +68,6 @@ class ServletEndpointRegistrarTests {
 	}
 
 	@Test
-	void onStartupShouldRegisterServlets() throws ServletException {
-		assertBasePath(null, "/test/*");
-	}
-
-	@Test
 	void onStartupWhenHasBasePathShouldIncludeBasePath() throws ServletException {
 		assertBasePath("/actuator", "/actuator/test/*");
 	}
