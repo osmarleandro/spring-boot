@@ -44,15 +44,6 @@ class HealthEndpointTests
 	}
 
 	@Test
-	void healthWithNoContributorReturnsUp() {
-		assertThat(this.registry).isEmpty();
-		HealthComponent health = create(this.registry,
-				HealthEndpointGroups.of(mock(HealthEndpointGroup.class), Collections.emptyMap())).health();
-		assertThat(health.getStatus()).isEqualTo(Status.UP);
-		assertThat(health).isInstanceOf(Health.class);
-	}
-
-	@Test
 	void healthWhenPathDoesNotExistReturnsNull() {
 		this.registry.registerContributor("test", createContributor(this.up));
 		HealthComponent health = create(this.registry, this.groups).healthForPath("missing");
