@@ -78,10 +78,6 @@ class MBeanInfoFactory {
 		return parameters.stream().map(this::getMBeanParameter).toArray(MBeanParameterInfo[]::new);
 	}
 
-	private MBeanParameterInfo getMBeanParameter(JmxOperationParameter parameter) {
-		return new MBeanParameterInfo(parameter.getName(), parameter.getType().getName(), parameter.getDescription());
-	}
-
 	private int getImpact(OperationType operationType) {
 		if (operationType == OperationType.READ) {
 			return MBeanOperationInfo.INFO;
