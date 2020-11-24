@@ -131,12 +131,6 @@ public abstract class AbstractWebFluxEndpointHandlerMapping extends RequestMappi
 		}
 	}
 
-	@Override
-	protected HandlerMethod createHandlerMethod(Object handler, Method method) {
-		HandlerMethod handlerMethod = super.createHandlerMethod(handler, method);
-		return new WebFluxEndpointHandlerMethod(handlerMethod.getBean(), handlerMethod.getMethod());
-	}
-
 	private void registerMappingForOperation(ExposableWebEndpoint endpoint, WebOperation operation) {
 		ReactiveWebOperation reactiveWebOperation = wrapReactiveWebOperation(endpoint, operation,
 				new ReactiveWebOperationAdapter(operation));
