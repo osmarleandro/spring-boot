@@ -85,15 +85,6 @@ public final class Status {
 	}
 
 	/**
-	 * Return the code for this status.
-	 * @return the code
-	 */
-	@JsonProperty("status")
-	public String getCode() {
-		return this.code;
-	}
-
-	/**
 	 * Return the description of this status.
 	 * @return the description
 	 */
