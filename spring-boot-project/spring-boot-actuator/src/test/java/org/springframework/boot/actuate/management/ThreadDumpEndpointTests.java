@@ -101,18 +101,14 @@ class ThreadDumpEndpointTests {
 		assertThat(threadDump)
 				.containsPattern(String.format("\t- parking to wait for <[0-9a-z]+> \\(a %s\\$Sync\\)",
 						CountDownLatch.class.getName().replace(".", "\\.")))
-				.contains(String.format("\t- locked <%s> (a java.lang.Object)", hexIdentityHashCode(contendedMonitor)))
+				.contains(String.format("\t- locked <%s> (a java.lang.Object)", Integer.toHexString(System.identityHashCode(contendedMonitor))))
 				.contains(String.format("\t- waiting to lock <%s> (a java.lang.Object) owned by \"%s\" t@%d",
-						hexIdentityHashCode(contendedMonitor), Thread.currentThread().getName(),
+						Integer.toHexString(System.identityHashCode(contendedMonitor)), Thread.currentThread().getName(),
 						Thread.currentThread().getId()))
-				.contains(String.format("\t- waiting on <%s> (a java.lang.Object)", hexIdentityHashCode(monitor)))
+				.contains(String.format("\t- waiting on <%s> (a java.lang.Object)", Integer.toHexString(System.identityHashCode(monitor))))
 				.containsPattern(
 						String.format("Locked ownable synchronizers:%n\t- Locked <[0-9a-z]+> \\(a %s\\$NonfairSync\\)",
 								ReentrantReadWriteLock.class.getName().replace(".", "\\.")));
-	}
-
-	private String hexIdentityHashCode(Object object) {
-		return Integer.toHexString(System.identityHashCode(object));
 	}
 
 	private void awaitState(Thread thread, State state) throws InterruptedException {
