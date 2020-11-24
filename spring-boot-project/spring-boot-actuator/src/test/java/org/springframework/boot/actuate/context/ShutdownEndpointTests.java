@@ -45,28 +45,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 class ShutdownEndpointTests {
 
 	@Test
-	void shutdown() {
-		ApplicationContextRunner contextRunner = new ApplicationContextRunner()
-				.withUserConfiguration(EndpointConfig.class);
-		contextRunner.run((context) -> {
-			EndpointConfig config = context.getBean(EndpointConfig.class);
-			ClassLoader previousTccl = Thread.currentThread().getContextClassLoader();
-			Map<String, String> result;
-			Thread.currentThread().setContextClassLoader(new URLClassLoader(new URL[0], getClass().getClassLoader()));
-			try {
-				result = context.getBean(ShutdownEndpoint.class).shutdown();
-			}
-			finally {
-				Thread.currentThread().setContextClassLoader(previousTccl);
-			}
-			assertThat(result.get("message")).startsWith("Shutting down");
-			assertThat(((ConfigurableApplicationContext) context).isActive()).isTrue();
-			assertThat(config.latch.await(10, TimeUnit.SECONDS)).isTrue();
-			assertThat(config.threadContextClassLoader).isEqualTo(getClass().getClassLoader());
-		});
-	}
-
-	@Test
 	void shutdownChild() throws Exception {
 		ConfigurableApplicationContext context = new SpringApplicationBuilder(EmptyConfig.class)
 				.child(EndpointConfig.class).web(WebApplicationType.NONE).run();
