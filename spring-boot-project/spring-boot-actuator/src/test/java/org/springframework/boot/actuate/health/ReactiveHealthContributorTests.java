@@ -40,7 +40,7 @@ class ReactiveHealthContributorTests {
 
 	@Test
 	void adaptWhenHealthIndicatorReturnsHealthIndicatorReactiveAdapter() {
-		HealthIndicator indicator = () -> Health.outOfService().build();
+		HealthIndicator indicator = () -> Health.status(Status.OUT_OF_SERVICE).build();
 		ReactiveHealthContributor adapted = ReactiveHealthContributor.adapt(indicator);
 		assertThat(adapted).isInstanceOf(HealthIndicatorReactiveAdapter.class);
 		assertThat(((ReactiveHealthIndicator) adapted).health().block().getStatus()).isEqualTo(Status.OUT_OF_SERVICE);
@@ -48,7 +48,7 @@ class ReactiveHealthContributorTests {
 
 	@Test
 	void adaptWhenCompositeHealthContributorReturnsCompositeHealthContributorReactiveAdapter() {
-		HealthIndicator indicator = () -> Health.outOfService().build();
+		HealthIndicator indicator = () -> Health.status(Status.OUT_OF_SERVICE).build();
 		CompositeHealthContributor contributor = CompositeHealthContributor
 				.fromMap(Collections.singletonMap("a", indicator));
 		ReactiveHealthContributor adapted = ReactiveHealthContributor.adapt(contributor);
