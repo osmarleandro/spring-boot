@@ -64,16 +64,12 @@ public class ControllerEndpointHandlerMapping extends RequestMappingHandlerMappi
 		Assert.notNull(endpointMapping, "EndpointMapping must not be null");
 		Assert.notNull(endpoints, "Endpoints must not be null");
 		this.endpointMapping = endpointMapping;
-		this.handlers = getHandlers(endpoints);
+		Map<Object, ExposableControllerEndpoint> handlers1 = new LinkedHashMap<>();
+		endpoints.forEach((endpoint) -> handlers.put(endpoint.getController(), endpoint));
+		this.handlers = Collections.unmodifiableMap(handlers1);
 		this.corsConfiguration = corsConfiguration;
 		setOrder(-100);
 		setUseSuffixPatternMatch(false);
-	}
-
-	private Map<Object, ExposableControllerEndpoint> getHandlers(Collection<ExposableControllerEndpoint> endpoints) {
-		Map<Object, ExposableControllerEndpoint> handlers = new LinkedHashMap<>();
-		endpoints.forEach((endpoint) -> handlers.put(endpoint.getController(), endpoint));
-		return Collections.unmodifiableMap(handlers);
 	}
 
 	@Override
