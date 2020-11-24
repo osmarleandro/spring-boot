@@ -155,15 +155,6 @@ abstract class HealthEndpointSupportTests<R extends ContributorRegistry<C>, C, T
 	}
 
 	@Test
-	void getHealthWhenAlwaysShowIsTrueShowsDetails() {
-		this.primaryGroup.setShowDetails(false);
-		this.registry.registerContributor("test", createContributor(this.up));
-		HealthResult<T> result = create(this.registry, this.groups).getHealth(ApiVersion.V3, SecurityContext.NONE, true,
-				"test");
-		assertThat(((Health) getHealth(result)).getDetails()).containsEntry("spring", "boot");
-	}
-
-	@Test
 	void getHealthWhenCompositeReturnsAggregateResult() {
 		Map<String, C> contributors = new LinkedHashMap<>();
 		contributors.put("a", createContributor(this.up));
