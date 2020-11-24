@@ -128,12 +128,6 @@ class EndpointServletTests {
 		assertThat(endpointServlet.getLoadOnStartup()).isEqualTo(-1);
 	}
 
-	@Test
-	void withLoadOnStartupSetShouldReturnValue() {
-		EndpointServlet endpointServlet = new EndpointServlet(TestServlet.class).withLoadOnStartup(3);
-		assertThat(endpointServlet.getLoadOnStartup()).isEqualTo(3);
-	}
-
 	static class TestServlet extends GenericServlet {
 
 		@Override
