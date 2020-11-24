@@ -99,7 +99,8 @@ public class PathMappedEndpoints implements Iterable<PathMappedEndpoint> {
 	 * @return the full path or {@code null}
 	 */
 	public String getPath(EndpointId endpointId) {
-		return getPath(getEndpoint(endpointId));
+		PathMappedEndpoint endpoint = getEndpoint(endpointId);
+		return (endpoint != null) ? this.basePath + "/" + endpoint.getRootPath() : null;
 	}
 
 	/**
@@ -139,10 +140,6 @@ public class PathMappedEndpoints implements Iterable<PathMappedEndpoint> {
 	@Override
 	public Iterator<PathMappedEndpoint> iterator() {
 		return this.endpoints.values().iterator();
-	}
-
-	private String getPath(PathMappedEndpoint endpoint) {
-		return (endpoint != null) ? this.basePath + "/" + endpoint.getRootPath() : null;
 	}
 
 	private <T> List<T> asList(Stream<T> stream) {
