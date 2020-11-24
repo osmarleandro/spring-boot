@@ -67,7 +67,26 @@ class PlainTextThreadDumpFormatter {
 	private void writeStackTrace(PrintWriter writer, ThreadInfo info, MonitorInfo[] lockedMonitors) {
 		int depth = 0;
 		for (StackTraceElement element : info.getStackTrace()) {
-			writeStackTraceElement(writer, element, info, lockedMonitorsForDepth(lockedMonitors, depth), depth == 0);
+			List<MonitorInfo> lockedMonitors1 = lockedMonitorsForDepth(lockedMonitors, depth);
+			boolean firstElement = depth == 0;
+			writer.printf("\tat %s%n", element.toString());
+			LockInfo lockInfo = info.getLockInfo();
+			if (firstElement && lockInfo != null) {
+				if (element.getClassName().equals(Object.class.getName()) && element.getMethodName().equals("wait")) {
+					writer.printf("\t- waiting on %s%n", format(lockInfo));
+				}
+				else {
+					String lockOwner = info.getLockOwnerName();
+					if (lockOwner != null) {
+						writer.printf("\t- waiting to lock %s owned by \"%s\" t@%d%n", format(lockInfo), lockOwner,
+								info.getLockOwnerId());
+					}
+					else {
+						writer.printf("\t- parking to wait for %s%n", format(lockInfo));
+					}
+				}
+			}
+			writeMonitors(writer, lockedMonitors1);
 			depth++;
 		}
 	}
@@ -75,28 +94,6 @@ class PlainTextThreadDumpFormatter {
 	private List<MonitorInfo> lockedMonitorsForDepth(MonitorInfo[] lockedMonitors, int depth) {
 		return Stream.of(lockedMonitors).filter((lockedMonitor) -> lockedMonitor.getLockedStackDepth() == depth)
 				.collect(Collectors.toList());
-	}
-
-	private void writeStackTraceElement(PrintWriter writer, StackTraceElement element, ThreadInfo info,
-			List<MonitorInfo> lockedMonitors, boolean firstElement) {
-		writer.printf("\tat %s%n", element.toString());
-		LockInfo lockInfo = info.getLockInfo();
-		if (firstElement && lockInfo != null) {
-			if (element.getClassName().equals(Object.class.getName()) && element.getMethodName().equals("wait")) {
-				writer.printf("\t- waiting on %s%n", format(lockInfo));
-			}
-			else {
-				String lockOwner = info.getLockOwnerName();
-				if (lockOwner != null) {
-					writer.printf("\t- waiting to lock %s owned by \"%s\" t@%d%n", format(lockInfo), lockOwner,
-							info.getLockOwnerId());
-				}
-				else {
-					writer.printf("\t- parking to wait for %s%n", format(lockInfo));
-				}
-			}
-		}
-		writeMonitors(writer, lockedMonitors);
 	}
 
 	private String format(LockInfo lockInfo) {
