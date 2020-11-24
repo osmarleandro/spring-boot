@@ -112,13 +112,6 @@ class WebMvcTagsTests {
 	}
 
 	@Test
-	void uriTagToleratesCustomResponseStatus() {
-		this.response.setStatus(601);
-		Tag tag = WebMvcTags.uri(this.request, this.response);
-		assertThat(tag.getValue()).isEqualTo("root");
-	}
-
-	@Test
 	void uriTagIsUnknownWhenRequestIsNull() {
 		Tag tag = WebMvcTags.uri(null, null);
 		assertThat(tag.getValue()).isEqualTo("UNKNOWN");
