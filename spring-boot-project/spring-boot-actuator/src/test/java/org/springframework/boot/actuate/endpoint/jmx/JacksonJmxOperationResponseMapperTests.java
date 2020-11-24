@@ -92,11 +92,6 @@ class JacksonJmxOperationResponseMapperTests {
 	}
 
 	@Test
-	void mapResponseWhenCharSequenceShouldReturnString() {
-		assertThat(this.mapper.mapResponse(new StringBuilder("test"))).isEqualTo("test");
-	}
-
-	@Test
 	void mapResponseWhenArrayShouldReturnJsonArray() {
 		Object mapped = this.mapper.mapResponse(new int[] { 1, 2, 3 });
 		assertThat(this.json.from(mapped.toString())).isEqualToJson("[1,2,3]");
