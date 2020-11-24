@@ -49,11 +49,6 @@ class LogFileWebEndpointWebIntegrationTests {
 		this.client = client;
 	}
 
-	@BeforeAll
-	static void setup(@TempDir File temp) throws IOException {
-		tempFile = temp;
-	}
-
 	@WebEndpointTest
 	void getRequestProducesResponseWithLogFile() {
 		this.client.get().uri("/actuator/logfile").exchange().expectStatus().isOk().expectHeader()
