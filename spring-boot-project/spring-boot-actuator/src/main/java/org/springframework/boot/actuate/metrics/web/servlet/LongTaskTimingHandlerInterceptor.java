@@ -63,16 +63,6 @@ public class LongTaskTimingHandlerInterceptor implements HandlerInterceptor {
 	}
 
 	@Override
-	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
-			throws Exception {
-		LongTaskTimingContext timingContext = LongTaskTimingContext.get(request);
-		if (timingContext == null) {
-			startAndAttachTimingContext(request, handler);
-		}
-		return true;
-	}
-
-	@Override
 	public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex)
 			throws Exception {
 		if (!request.isAsyncStarted()) {
