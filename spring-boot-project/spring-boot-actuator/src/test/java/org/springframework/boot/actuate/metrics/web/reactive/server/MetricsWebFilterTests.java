@@ -93,17 +93,6 @@ class MetricsWebFilterTests {
 	}
 
 	@Test
-	void filterAddsTagsToRegistryForExceptionsAndCommittedResponse() {
-		MockServerWebExchange exchange = createExchange("/projects/spring-boot", "/projects/{project}");
-		this.webFilter.filter(exchange, (serverWebExchange) -> {
-			exchange.getResponse().setRawStatusCode(500);
-			return exchange.getResponse().setComplete().then(Mono.error(new IllegalStateException("test error")));
-		}).onErrorResume((t) -> Mono.empty()).block(Duration.ofSeconds(30));
-		assertMetricsContainsTag("uri", "/projects/{project}");
-		assertMetricsContainsTag("status", "500");
-	}
-
-	@Test
 	void trailingSlashShouldNotRecordDuplicateMetrics() {
 		MockServerWebExchange exchange1 = createExchange("/projects/spring-boot", "/projects/{project}");
 		MockServerWebExchange exchange2 = createExchange("/projects/spring-boot", "/projects/{project}/");
