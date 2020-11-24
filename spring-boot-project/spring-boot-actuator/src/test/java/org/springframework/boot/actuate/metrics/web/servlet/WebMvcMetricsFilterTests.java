@@ -160,14 +160,6 @@ class WebMvcMetricsFilterTests {
 	}
 
 	@Test
-	void redirectRequest() throws Exception {
-		this.mvc.perform(get("/api/redirect").header(RedirectAndNotFoundFilter.TEST_MISBEHAVE_HEADER, "302"))
-				.andExpect(status().is3xxRedirection());
-		assertThat(this.registry.get("http.server.requests").tags("uri", "REDIRECTION").tags("status", "302").timer())
-				.isNotNull();
-	}
-
-	@Test
 	void notFoundRequest() throws Exception {
 		this.mvc.perform(get("/api/not/found").header(RedirectAndNotFoundFilter.TEST_MISBEHAVE_HEADER, "404"))
 				.andExpect(status().is4xxClientError());
