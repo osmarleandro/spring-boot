@@ -46,13 +46,6 @@ class DiscovererEndpointFilterTests {
 	}
 
 	@Test
-	void matchWhenDiscoveredByDiscovererShouldReturnTrue() {
-		DiscovererEndpointFilter filter = new TestDiscovererEndpointFilter(TestDiscovererA.class);
-		DiscoveredEndpoint<?> endpoint = mockDiscoveredEndpoint(TestDiscovererA.class);
-		assertThat(filter.match(endpoint)).isTrue();
-	}
-
-	@Test
 	void matchWhenNotDiscoveredByDiscovererShouldReturnFalse() {
 		DiscovererEndpointFilter filter = new TestDiscovererEndpointFilter(TestDiscovererA.class);
 		DiscoveredEndpoint<?> endpoint = mockDiscoveredEndpoint(TestDiscovererB.class);
