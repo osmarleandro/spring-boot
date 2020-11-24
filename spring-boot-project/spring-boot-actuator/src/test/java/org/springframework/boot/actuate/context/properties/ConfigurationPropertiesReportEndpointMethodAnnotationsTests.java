@@ -38,24 +38,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 class ConfigurationPropertiesReportEndpointMethodAnnotationsTests {
 
 	@Test
-	void testNaming() {
-		ApplicationContextRunner contextRunner = new ApplicationContextRunner().withUserConfiguration(Config.class)
-				.withPropertyValues("other.name:foo", "first.name:bar");
-		contextRunner.run((context) -> {
-			ConfigurationPropertiesReportEndpoint endpoint = context
-					.getBean(ConfigurationPropertiesReportEndpoint.class);
-			ApplicationConfigurationProperties applicationProperties = endpoint.configurationProperties();
-			assertThat(applicationProperties.getContexts()).containsOnlyKeys(context.getId());
-			ContextConfigurationProperties contextProperties = applicationProperties.getContexts().get(context.getId());
-			ConfigurationPropertiesBeanDescriptor other = contextProperties.getBeans().get("other");
-			assertThat(other).isNotNull();
-			assertThat(other.getPrefix()).isEqualTo("other");
-			assertThat(other.getProperties()).isNotNull();
-			assertThat(other.getProperties()).isNotEmpty();
-		});
-	}
-
-	@Test
 	void prefixFromBeanMethodConfigurationPropertiesCanOverridePrefixOnClass() {
 		ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 				.withUserConfiguration(OverriddenPrefix.class).withPropertyValues("other.name:foo");
