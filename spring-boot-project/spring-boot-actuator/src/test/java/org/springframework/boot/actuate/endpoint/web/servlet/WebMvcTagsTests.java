@@ -74,13 +74,6 @@ class WebMvcTagsTests {
 	}
 
 	@Test
-	void uriTagValueWithBestMatchingPatternAndIgnoreTrailingSlashKeepSingleSlash() {
-		this.request.setAttribute(HandlerMapping.BEST_MATCHING_PATTERN_ATTRIBUTE, "/");
-		Tag tag = WebMvcTags.uri(this.request, this.response, true);
-		assertThat(tag.getValue()).isEqualTo("/");
-	}
-
-	@Test
 	void uriTagValueIsRootWhenRequestHasNoPatternOrPathInfo() {
 		assertThat(WebMvcTags.uri(this.request, null).getValue()).isEqualTo("root");
 	}
