@@ -61,11 +61,6 @@ public class AvailabilityStateHealthIndicator extends AbstractHealthIndicator {
 		this.applicationAvailability = applicationAvailability;
 		this.stateType = stateType;
 		statusMappings.accept(this.statusMappings::put);
-		assertAllEnumsMapped(stateType);
-	}
-
-	@SuppressWarnings({ "unchecked", "rawtypes" })
-	private <S extends AvailabilityState> void assertAllEnumsMapped(Class<S> stateType) {
 		if (!this.statusMappings.containsKey(null) && Enum.class.isAssignableFrom(stateType)) {
 			EnumSet elements = EnumSet.allOf((Class) stateType);
 			for (Object element : elements) {
