@@ -72,17 +72,6 @@ class HttpTraceWebFilterTests {
 	}
 
 	@Test
-	void filterDoesNotCaptureIdOfUnusedSession() {
-		executeFilter(MockServerWebExchange.from(MockServerHttpRequest.get("https://api.example.com")), (exchange) -> {
-			exchange.getSession().block(Duration.ofSeconds(30));
-			return Mono.empty();
-		}).block(Duration.ofSeconds(30));
-		assertThat(this.repository.findAll()).hasSize(1);
-		Session session = this.repository.findAll().get(0).getSession();
-		assertThat(session).isNull();
-	}
-
-	@Test
 	void filterCapturesPrincipal() {
 		Principal principal = mock(Principal.class);
 		given(principal.getName()).willReturn("alice");
