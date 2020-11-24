@@ -83,27 +83,6 @@ class Neo4jHealthIndicatorTests {
 	}
 
 	@Test
-	void neo4jIsUpWithOneSessionExpiredException() {
-		ResultSummary resultSummary = ResultSummaryMock.createResultSummary("4711", "My Home", "");
-		Session session = mock(Session.class);
-		Result statementResult = mockStatementResult(resultSummary, "some edition");
-		AtomicInteger count = new AtomicInteger();
-		given(session.run(anyString())).will((invocation) -> {
-			if (count.compareAndSet(0, 1)) {
-				throw new SessionExpiredException("Session expired");
-			}
-			return statementResult;
-		});
-		Driver driver = mock(Driver.class);
-		given(driver.session(any(SessionConfig.class))).willReturn(session);
-		Neo4jHealthIndicator healthIndicator = new Neo4jHealthIndicator(driver);
-		Health health = healthIndicator.health();
-		assertThat(health.getStatus()).isEqualTo(Status.UP);
-		assertThat(health.getDetails()).containsEntry("server", "4711@My Home");
-		verify(session, times(2)).close();
-	}
-
-	@Test
 	void neo4jIsDown() {
 		Driver driver = mock(Driver.class);
 		given(driver.session(any(SessionConfig.class))).willThrow(ServiceUnavailableException.class);
