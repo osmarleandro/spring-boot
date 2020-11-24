@@ -81,15 +81,14 @@ class MappingsEndpointTests {
 					assertThat(contextMappings.getParentId()).isNull();
 					assertThat(contextMappings.getMappings()).containsOnlyKeys("dispatcherServlets", "servletFilters",
 							"servlets");
-					Map<String, List<DispatcherServletMappingDescription>> dispatcherServlets = mappings(
-							contextMappings, "dispatcherServlets");
+					Map<String, List<DispatcherServletMappingDescription>> dispatcherServlets = (Map<String,List<DispatcherServletMappingDescription>>) contextMappings.getMappings().get("dispatcherServlets");
 					assertThat(dispatcherServlets).containsOnlyKeys("dispatcherServlet");
 					List<DispatcherServletMappingDescription> handlerMappings = dispatcherServlets
 							.get("dispatcherServlet");
 					assertThat(handlerMappings).hasSize(1);
-					List<ServletRegistrationMappingDescription> servlets = mappings(contextMappings, "servlets");
+					List<ServletRegistrationMappingDescription> servlets = (List<ServletRegistrationMappingDescription>) contextMappings.getMappings().get("servlets");
 					assertThat(servlets).hasSize(1);
-					List<FilterRegistrationMappingDescription> filters = mappings(contextMappings, "servletFilters");
+					List<FilterRegistrationMappingDescription> filters = (List<FilterRegistrationMappingDescription>) contextMappings.getMappings().get("servletFilters");
 					assertThat(filters).hasSize(1);
 				});
 	}
@@ -100,8 +99,7 @@ class MappingsEndpointTests {
 		new WebApplicationContextRunner(contextSupplier).withUserConfiguration(EndpointConfiguration.class,
 				ServletWebConfiguration.class, CustomDispatcherServletConfiguration.class).run((context) -> {
 					ContextMappings contextMappings = contextMappings(context);
-					Map<String, List<DispatcherServletMappingDescription>> dispatcherServlets = mappings(
-							contextMappings, "dispatcherServlets");
+					Map<String, List<DispatcherServletMappingDescription>> dispatcherServlets = (Map<String,List<DispatcherServletMappingDescription>>) contextMappings.getMappings().get("dispatcherServlets");
 					assertThat(dispatcherServlets).containsOnlyKeys("dispatcherServlet",
 							"customDispatcherServletRegistration", "anotherDispatcherServletRegistration");
 					assertThat(dispatcherServlets.get("dispatcherServlet")).hasSize(1);
@@ -135,8 +133,7 @@ class MappingsEndpointTests {
 					ContextMappings contextMappings = contextMappings(context);
 					assertThat(contextMappings.getParentId()).isNull();
 					assertThat(contextMappings.getMappings()).containsOnlyKeys("dispatcherHandlers");
-					Map<String, List<DispatcherHandlerMappingDescription>> dispatcherHandlers = mappings(
-							contextMappings, "dispatcherHandlers");
+					Map<String, List<DispatcherHandlerMappingDescription>> dispatcherHandlers = (Map<String,List<DispatcherHandlerMappingDescription>>) contextMappings.getMappings().get("dispatcherHandlers");
 					assertThat(dispatcherHandlers).containsOnlyKeys("webHandler");
 					List<DispatcherHandlerMappingDescription> handlerMappings = dispatcherHandlers.get("webHandler");
 					assertThat(handlerMappings).hasSize(3);
@@ -147,11 +144,6 @@ class MappingsEndpointTests {
 		ApplicationMappings applicationMappings = context.getBean(MappingsEndpoint.class).mappings();
 		assertThat(applicationMappings.getContexts()).containsOnlyKeys(context.getId());
 		return applicationMappings.getContexts().get(context.getId());
-	}
-
-	@SuppressWarnings("unchecked")
-	private <T> T mappings(ContextMappings contextMappings, String key) {
-		return (T) contextMappings.getMappings().get(key);
 	}
 
 	@Configuration(proxyBeanMethods = false)
