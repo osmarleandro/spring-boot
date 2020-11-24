@@ -78,10 +78,6 @@ public class RequestMappingConditionsDescription {
 		return this.patterns;
 	}
 
-	public List<MediaTypeExpressionDescription> getProduces() {
-		return this.produces;
-	}
-
 	/**
 	 * A description of a {@link MediaTypeExpression} in a request mapping condition.
 	 */
