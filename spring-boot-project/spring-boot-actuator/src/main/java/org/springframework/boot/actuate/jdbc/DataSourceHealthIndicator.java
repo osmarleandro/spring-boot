@@ -144,15 +144,6 @@ public class DataSourceHealthIndicator extends AbstractHealthIndicator implement
 	}
 
 	/**
-	 * Set a specific validation query to use to validate a connection. If none is set, a
-	 * validation based on {@link Connection#isValid(int)} is used.
-	 * @param query the validation query to use
-	 */
-	public void setQuery(String query) {
-		this.query = query;
-	}
-
-	/**
 	 * Return the validation query or {@code null}.
 	 * @return the query
 	 */
