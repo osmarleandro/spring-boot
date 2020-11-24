@@ -125,7 +125,16 @@ class EndpointDiscovererTests {
 	void getEndpointsWhenHasSubclassedEndpointShouldReturnEndpoint() {
 		load(TestEndpointSubclassConfiguration.class, (context) -> {
 			TestEndpointDiscoverer discoverer = new TestEndpointDiscoverer(context);
-			Map<EndpointId, TestExposableEndpoint> endpoints = mapEndpoints(discoverer.getEndpoints());
+			Collection<E> endpoints1 = discoverer.getEndpoints();
+			Map<EndpointId, TestExposableEndpoint> byId = new LinkedHashMap<>();
+			endpoints1.forEach((endpoint) -> {
+				E existing = byId.put(endpoint.getEndpointId(), endpoint);
+				if (existing != null) {
+					throw new AssertionError(
+							String.format("Found endpoints with duplicate id '%s'", endpoint.getEndpointId()));
+				}
+			});
+			Map<EndpointId, TestExposableEndpoint> endpoints = byId;
 			assertThat(endpoints).containsOnlyKeys(EndpointId.of("test"));
 			Map<Method, TestOperation> operations = mapOperations(endpoints.get(EndpointId.of("test")));
 			assertThat(operations).hasSize(5);
@@ -156,7 +165,16 @@ class EndpointDiscovererTests {
 	void getEndpointsWhenTtlSetToZeroShouldNotCacheInvokeCalls() {
 		load(TestEndpointConfiguration.class, (context) -> {
 			TestEndpointDiscoverer discoverer = new TestEndpointDiscoverer(context, (endpointId) -> 0L);
-			Map<EndpointId, TestExposableEndpoint> endpoints = mapEndpoints(discoverer.getEndpoints());
+			Collection<E> endpoints1 = discoverer.getEndpoints();
+			Map<EndpointId, TestExposableEndpoint> byId = new LinkedHashMap<>();
+			endpoints1.forEach((endpoint) -> {
+				E existing = byId.put(endpoint.getEndpointId(), endpoint);
+				if (existing != null) {
+					throw new AssertionError(
+							String.format("Found endpoints with duplicate id '%s'", endpoint.getEndpointId()));
+				}
+			});
+			Map<EndpointId, TestExposableEndpoint> endpoints = byId;
 			assertThat(endpoints).containsOnlyKeys(EndpointId.of("test"));
 			Map<Method, TestOperation> operations = mapOperations(endpoints.get(EndpointId.of("test")));
 			operations.values().forEach(
@@ -169,7 +187,16 @@ class EndpointDiscovererTests {
 		load(TestEndpointConfiguration.class, (context) -> {
 			TestEndpointDiscoverer discoverer = new TestEndpointDiscoverer(context,
 					(endpointId) -> (endpointId.equals(EndpointId.of("foo")) ? 500L : 0L));
-			Map<EndpointId, TestExposableEndpoint> endpoints = mapEndpoints(discoverer.getEndpoints());
+			Collection<E> endpoints1 = discoverer.getEndpoints();
+			Map<EndpointId, TestExposableEndpoint> byId = new LinkedHashMap<>();
+			endpoints1.forEach((endpoint) -> {
+				E existing = byId.put(endpoint.getEndpointId(), endpoint);
+				if (existing != null) {
+					throw new AssertionError(
+							String.format("Found endpoints with duplicate id '%s'", endpoint.getEndpointId()));
+				}
+			});
+			Map<EndpointId, TestExposableEndpoint> endpoints = byId;
 			assertThat(endpoints).containsOnlyKeys(EndpointId.of("test"));
 			Map<Method, TestOperation> operations = mapOperations(endpoints.get(EndpointId.of("test")));
 			operations.values().forEach(
@@ -182,7 +209,16 @@ class EndpointDiscovererTests {
 		load(TestEndpointConfiguration.class, (context) -> {
 			TestEndpointDiscoverer discoverer = new TestEndpointDiscoverer(context,
 					(endpointId) -> (endpointId.equals(EndpointId.of("test")) ? 500L : 0L));
-			Map<EndpointId, TestExposableEndpoint> endpoints = mapEndpoints(discoverer.getEndpoints());
+			Collection<E> endpoints1 = discoverer.getEndpoints();
+			Map<EndpointId, TestExposableEndpoint> byId = new LinkedHashMap<>();
+			endpoints1.forEach((endpoint) -> {
+				E existing = byId.put(endpoint.getEndpointId(), endpoint);
+				if (existing != null) {
+					throw new AssertionError(
+							String.format("Found endpoints with duplicate id '%s'", endpoint.getEndpointId()));
+				}
+			});
+			Map<EndpointId, TestExposableEndpoint> endpoints = byId;
 			assertThat(endpoints).containsOnlyKeys(EndpointId.of("test"));
 			Map<Method, TestOperation> operations = mapOperations(endpoints.get(EndpointId.of("test")));
 			TestOperation getAll = operations.get(findTestEndpointMethod("getAll"));
@@ -199,7 +235,16 @@ class EndpointDiscovererTests {
 	void getEndpointsWhenHasSpecializedFiltersInNonSpecializedDiscovererShouldFilterEndpoints() {
 		load(SpecializedEndpointsConfiguration.class, (context) -> {
 			TestEndpointDiscoverer discoverer = new TestEndpointDiscoverer(context);
-			Map<EndpointId, TestExposableEndpoint> endpoints = mapEndpoints(discoverer.getEndpoints());
+			Collection<E> endpoints1 = discoverer.getEndpoints();
+			Map<EndpointId, TestExposableEndpoint> byId = new LinkedHashMap<>();
+			endpoints1.forEach((endpoint) -> {
+				E existing = byId.put(endpoint.getEndpointId(), endpoint);
+				if (existing != null) {
+					throw new AssertionError(
+							String.format("Found endpoints with duplicate id '%s'", endpoint.getEndpointId()));
+				}
+			});
+			Map<EndpointId, TestExposableEndpoint> endpoints = byId;
 			assertThat(endpoints).containsOnlyKeys(EndpointId.of("test"));
 		});
 	}
@@ -208,7 +253,16 @@ class EndpointDiscovererTests {
 	void getEndpointsWhenHasSpecializedFiltersInSpecializedDiscovererShouldNotFilterEndpoints() {
 		load(SpecializedEndpointsConfiguration.class, (context) -> {
 			SpecializedEndpointDiscoverer discoverer = new SpecializedEndpointDiscoverer(context);
-			Map<EndpointId, SpecializedExposableEndpoint> endpoints = mapEndpoints(discoverer.getEndpoints());
+			Collection<E> endpoints1 = discoverer.getEndpoints();
+			Map<EndpointId, SpecializedExposableEndpoint> byId = new LinkedHashMap<>();
+			endpoints1.forEach((endpoint) -> {
+				E existing = byId.put(endpoint.getEndpointId(), endpoint);
+				if (existing != null) {
+					throw new AssertionError(
+							String.format("Found endpoints with duplicate id '%s'", endpoint.getEndpointId()));
+				}
+			});
+			Map<EndpointId, SpecializedExposableEndpoint> endpoints = byId;
 			assertThat(endpoints).containsOnlyKeys(EndpointId.of("test"), EndpointId.of("specialized"),
 					EndpointId.of("specialized-superclass"));
 		});
@@ -218,7 +272,16 @@ class EndpointDiscovererTests {
 	void getEndpointsShouldApplyExtensions() {
 		load(SpecializedEndpointsConfiguration.class, (context) -> {
 			SpecializedEndpointDiscoverer discoverer = new SpecializedEndpointDiscoverer(context);
-			Map<EndpointId, SpecializedExposableEndpoint> endpoints = mapEndpoints(discoverer.getEndpoints());
+			Collection<E> endpoints1 = discoverer.getEndpoints();
+			Map<EndpointId, SpecializedExposableEndpoint> byId = new LinkedHashMap<>();
+			endpoints1.forEach((endpoint) -> {
+				E existing = byId.put(endpoint.getEndpointId(), endpoint);
+				if (existing != null) {
+					throw new AssertionError(
+							String.format("Found endpoints with duplicate id '%s'", endpoint.getEndpointId()));
+				}
+			});
+			Map<EndpointId, SpecializedExposableEndpoint> endpoints = byId;
 			Map<Method, SpecializedOperation> operations = mapOperations(endpoints.get(EndpointId.of("specialized")));
 			assertThat(operations).containsKeys(ReflectionUtils.findMethod(SpecializedExtension.class, "getSpecial"));
 
@@ -229,7 +292,16 @@ class EndpointDiscovererTests {
 	void getEndpointShouldFindParentExtension() {
 		load(SubSpecializedEndpointsConfiguration.class, (context) -> {
 			SpecializedEndpointDiscoverer discoverer = new SpecializedEndpointDiscoverer(context);
-			Map<EndpointId, SpecializedExposableEndpoint> endpoints = mapEndpoints(discoverer.getEndpoints());
+			Collection<E> endpoints1 = discoverer.getEndpoints();
+			Map<EndpointId, SpecializedExposableEndpoint> byId = new LinkedHashMap<>();
+			endpoints1.forEach((endpoint) -> {
+				E existing = byId.put(endpoint.getEndpointId(), endpoint);
+				if (existing != null) {
+					throw new AssertionError(
+							String.format("Found endpoints with duplicate id '%s'", endpoint.getEndpointId()));
+				}
+			});
+			Map<EndpointId, SpecializedExposableEndpoint> endpoints = byId;
 			Map<Method, SpecializedOperation> operations = mapOperations(endpoints.get(EndpointId.of("specialized")));
 			assertThat(operations).containsKeys(ReflectionUtils.findMethod(SpecializedTestEndpoint.class, "getAll"));
 			assertThat(operations).containsKeys(
@@ -243,7 +315,16 @@ class EndpointDiscovererTests {
 	void getEndpointsWhenHasProxiedEndpointShouldReturnEndpoint() {
 		load(ProxiedSpecializedEndpointsConfiguration.class, (context) -> {
 			SpecializedEndpointDiscoverer discoverer = new SpecializedEndpointDiscoverer(context);
-			Map<EndpointId, SpecializedExposableEndpoint> endpoints = mapEndpoints(discoverer.getEndpoints());
+			Collection<E> endpoints1 = discoverer.getEndpoints();
+			Map<EndpointId, SpecializedExposableEndpoint> byId = new LinkedHashMap<>();
+			endpoints1.forEach((endpoint) -> {
+				E existing = byId.put(endpoint.getEndpointId(), endpoint);
+				if (existing != null) {
+					throw new AssertionError(
+							String.format("Found endpoints with duplicate id '%s'", endpoint.getEndpointId()));
+				}
+			});
+			Map<EndpointId, SpecializedExposableEndpoint> endpoints = byId;
 			assertThat(endpoints).containsOnlyKeys(EndpointId.of("test"), EndpointId.of("specialized"));
 		});
 	}
@@ -257,14 +338,32 @@ class EndpointDiscovererTests {
 			};
 			SpecializedEndpointDiscoverer discoverer = new SpecializedEndpointDiscoverer(context,
 					Collections.singleton(filter));
-			Map<EndpointId, SpecializedExposableEndpoint> endpoints = mapEndpoints(discoverer.getEndpoints());
+			Collection<E> endpoints1 = discoverer.getEndpoints();
+			Map<EndpointId, SpecializedExposableEndpoint> byId = new LinkedHashMap<>();
+			endpoints1.forEach((endpoint) -> {
+				E existing = byId.put(endpoint.getEndpointId(), endpoint);
+				if (existing != null) {
+					throw new AssertionError(
+							String.format("Found endpoints with duplicate id '%s'", endpoint.getEndpointId()));
+				}
+			});
+			Map<EndpointId, SpecializedExposableEndpoint> endpoints = byId;
 			assertThat(endpoints).containsOnlyKeys(EndpointId.of("test"));
 		});
 	}
 
 	private void hasTestEndpoint(AnnotationConfigApplicationContext context) {
 		TestEndpointDiscoverer discoverer = new TestEndpointDiscoverer(context);
-		Map<EndpointId, TestExposableEndpoint> endpoints = mapEndpoints(discoverer.getEndpoints());
+		Collection<E> endpoints1 = discoverer.getEndpoints();
+		Map<EndpointId, TestExposableEndpoint> byId = new LinkedHashMap<>();
+		endpoints1.forEach((endpoint) -> {
+			E existing = byId.put(endpoint.getEndpointId(), endpoint);
+			if (existing != null) {
+				throw new AssertionError(
+						String.format("Found endpoints with duplicate id '%s'", endpoint.getEndpointId()));
+			}
+		});
+		Map<EndpointId, TestExposableEndpoint> endpoints = byId;
 		assertThat(endpoints).containsOnlyKeys(EndpointId.of("test"));
 		Map<Method, TestOperation> operations = mapOperations(endpoints.get(EndpointId.of("test")));
 		assertThat(operations).hasSize(4);
@@ -282,18 +381,6 @@ class EndpointDiscovererTests {
 
 	private Method findTestEndpointMethod(String name, Class<?>... paramTypes) {
 		return ReflectionUtils.findMethod(TestEndpoint.class, name, paramTypes);
-	}
-
-	private <E extends ExposableEndpoint<?>> Map<EndpointId, E> mapEndpoints(Collection<E> endpoints) {
-		Map<EndpointId, E> byId = new LinkedHashMap<>();
-		endpoints.forEach((endpoint) -> {
-			E existing = byId.put(endpoint.getEndpointId(), endpoint);
-			if (existing != null) {
-				throw new AssertionError(
-						String.format("Found endpoints with duplicate id '%s'", endpoint.getEndpointId()));
-			}
-		});
-		return byId;
 	}
 
 	private <O extends Operation> Map<Method, O> mapOperations(ExposableEndpoint<O> endpoint) {
