@@ -38,12 +38,6 @@ import static org.mockito.Mockito.mock;
 class RestTemplateExchangeTagsTests {
 
 	@Test
-	void outcomeTagIsUnknownWhenResponseIsNull() {
-		Tag tag = RestTemplateExchangeTags.outcome(null);
-		assertThat(tag.getValue()).isEqualTo("UNKNOWN");
-	}
-
-	@Test
 	void outcomeTagIsInformationalWhenResponseIs1xx() {
 		ClientHttpResponse response = new MockClientHttpResponse("foo".getBytes(), HttpStatus.CONTINUE);
 		Tag tag = RestTemplateExchangeTags.outcome(response);
