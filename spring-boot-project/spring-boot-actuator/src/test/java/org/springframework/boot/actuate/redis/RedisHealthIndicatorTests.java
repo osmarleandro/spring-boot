@@ -47,18 +47,6 @@ import static org.mockito.Mockito.verify;
 class RedisHealthIndicatorTests {
 
 	@Test
-	void redisIsUp() {
-		Properties info = new Properties();
-		info.put("redis_version", "2.8.9");
-		RedisConnection redisConnection = mock(RedisConnection.class);
-		given(redisConnection.info()).willReturn(info);
-		RedisHealthIndicator healthIndicator = createHealthIndicator(redisConnection);
-		Health health = healthIndicator.health();
-		assertThat(health.getStatus()).isEqualTo(Status.UP);
-		assertThat(health.getDetails().get("version")).isEqualTo("2.8.9");
-	}
-
-	@Test
 	void redisIsDown() {
 		RedisConnection redisConnection = mock(RedisConnection.class);
 		given(redisConnection.info()).willThrow(new RedisConnectionFailureException("Connection failed"));
