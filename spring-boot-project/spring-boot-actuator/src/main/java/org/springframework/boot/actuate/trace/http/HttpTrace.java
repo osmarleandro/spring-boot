@@ -110,10 +110,6 @@ public final class HttpTrace {
 		return this.response;
 	}
 
-	void setResponse(Response response) {
-		this.response = response;
-	}
-
 	public Long getTimeTaken() {
 		return this.timeTaken;
 	}
