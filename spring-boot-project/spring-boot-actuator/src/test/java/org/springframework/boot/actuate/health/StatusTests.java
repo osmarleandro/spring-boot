@@ -42,12 +42,6 @@ class StatusTests {
 	}
 
 	@Test
-	void getCodeReturnsCode() {
-		Status status = new Status("spring", "boot");
-		assertThat(status.getCode()).isEqualTo("spring");
-	}
-
-	@Test
 	void getDescriptionReturnsDescription() {
 		Status status = new Status("spring", "boot");
 		assertThat(status.getDescription()).isEqualTo("boot");
