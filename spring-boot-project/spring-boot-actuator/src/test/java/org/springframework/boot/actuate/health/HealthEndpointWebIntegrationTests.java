@@ -70,14 +70,6 @@ class HealthEndpointWebIntegrationTests {
 	}
 
 	@WebEndpointTest
-	void whenHealthIsUpAndV2Request200ResponseIsReturnedInV2Format(WebTestClient client) {
-		client.get().uri("/actuator/health")
-				.headers((headers) -> headers.set(HttpHeaders.ACCEPT, ActuatorMediaType.V2_JSON)).exchange()
-				.expectStatus().isOk().expectBody().jsonPath("status").isEqualTo("UP").jsonPath("details.alpha.status")
-				.isEqualTo("UP").jsonPath("details.bravo.status").isEqualTo("UP");
-	}
-
-	@WebEndpointTest
 	void whenHealthIsDown503ResponseIsReturned(ApplicationContext context, WebTestClient client) {
 		HealthIndicator healthIndicator = () -> Health.down().build();
 		ReactiveHealthIndicator reactiveHealthIndicator = () -> Mono.just(Health.down().build());
