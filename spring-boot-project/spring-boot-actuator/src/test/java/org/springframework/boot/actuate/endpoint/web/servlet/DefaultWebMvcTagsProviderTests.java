@@ -57,12 +57,6 @@ public class DefaultWebMvcTagsProviderTests {
 	}
 
 	@Test
-	void whenLongRequestTagsAreProvidedThenDefaultTagsArePresent() {
-		Map<String, Tag> tags = asMap(new DefaultWebMvcTagsProvider().getLongRequestTags(null, null));
-		assertThat(tags).containsOnlyKeys("method", "uri");
-	}
-
-	@Test
 	void givenSomeContributorsWhenLongRequestTagsAreProvidedThenDefaultTagsAndContributedTagsArePresent() {
 		Map<String, Tag> tags = asMap(
 				new DefaultWebMvcTagsProvider(Arrays.asList(new TestWebMvcTagsContributor("alpha"),
