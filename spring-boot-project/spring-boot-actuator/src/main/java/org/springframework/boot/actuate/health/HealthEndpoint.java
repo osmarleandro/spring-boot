@@ -25,6 +25,7 @@ import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
 import org.springframework.boot.actuate.endpoint.annotation.Selector;
 import org.springframework.boot.actuate.endpoint.annotation.Selector.Match;
 import org.springframework.boot.actuate.endpoint.http.ApiVersion;
+import org.springframework.boot.actuate.health.HealthEndpointSupport.HealthResult;
 
 /**
  * {@link Endpoint @Endpoint} to expose application health information.
@@ -52,16 +53,15 @@ public class HealthEndpoint extends HealthEndpointSupport<HealthContributor, Hea
 
 	@ReadOperation
 	public HealthComponent health() {
-		HealthComponent health = health(ApiVersion.V3, EMPTY_PATH);
+		ApiVersion apiVersion = ApiVersion.V3;
+		HealthResult<HealthComponent> result = getHealth(apiVersion, SecurityContext.NONE, true, EMPTY_PATH);
+		HealthComponent health = (result != null) ? result.getHealth() : null;
 		return (health != null) ? health : DEFAULT_HEALTH;
 	}
 
 	@ReadOperation
 	public HealthComponent healthForPath(@Selector(match = Match.ALL_REMAINING) String... path) {
-		return health(ApiVersion.V3, path);
-	}
-
-	private HealthComponent health(ApiVersion apiVersion, String... path) {
+		ApiVersion apiVersion = ApiVersion.V3;
 		HealthResult<HealthComponent> result = getHealth(apiVersion, SecurityContext.NONE, true, path);
 		return (result != null) ? result.getHealth() : null;
 	}
