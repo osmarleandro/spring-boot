@@ -103,15 +103,6 @@ class Neo4jHealthIndicatorTests {
 		verify(session, times(2)).close();
 	}
 
-	@Test
-	void neo4jIsDown() {
-		Driver driver = mock(Driver.class);
-		given(driver.session(any(SessionConfig.class))).willThrow(ServiceUnavailableException.class);
-		Health health = new Neo4jHealthIndicator(driver).health();
-		assertThat(health.getStatus()).isEqualTo(Status.DOWN);
-		assertThat(health.getDetails()).containsKeys("error");
-	}
-
 	private Result mockStatementResult(ResultSummary resultSummary, String edition) {
 		Record record = mock(Record.class);
 		given(record.get("edition")).willReturn(Values.value(edition));
