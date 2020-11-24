@@ -49,14 +49,6 @@ class DefaultWebClientExchangeTagsProviderTests {
 
 	private ClientResponse response;
 
-	@BeforeEach
-	void setup() {
-		this.request = ClientRequest.create(HttpMethod.GET, URI.create("https://example.org/projects/spring-boot"))
-				.attribute(URI_TEMPLATE_ATTRIBUTE, "https://example.org/projects/{project}").build();
-		this.response = mock(ClientResponse.class);
-		given(this.response.rawStatusCode()).willReturn(HttpStatus.OK.value());
-	}
-
 	@Test
 	void tagsShouldBePopulated() {
 		Iterable<Tag> tags = this.tagsProvider.tags(this.request, this.response, null);
