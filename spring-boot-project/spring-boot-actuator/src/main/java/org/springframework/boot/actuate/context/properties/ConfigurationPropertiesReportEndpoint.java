@@ -25,6 +25,7 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
@@ -66,6 +67,7 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.core.KotlinDetector;
 import org.springframework.core.annotation.MergedAnnotations;
 import org.springframework.core.annotation.MergedAnnotations.SearchStrategy;
+import org.springframework.util.Assert;
 import org.springframework.util.ClassUtils;
 import org.springframework.util.StringUtils;
 
@@ -104,7 +106,12 @@ public class ConfigurationPropertiesReportEndpoint implements ApplicationContext
 	}
 
 	public void setKeysToSanitize(String... keysToSanitize) {
-		this.sanitizer.setKeysToSanitize(keysToSanitize);
+		Sanitizer r = this.sanitizer;
+		Assert.notNull(keysToSanitize, "KeysToSanitize must not be null");
+		r.keysToSanitize = new Pattern[keysToSanitize.length];
+		for (int i = 0; i < keysToSanitize.length; i++) {
+			r.keysToSanitize[i] = r.getPattern(keysToSanitize[i]);
+		}
 	}
 
 	@ReadOperation

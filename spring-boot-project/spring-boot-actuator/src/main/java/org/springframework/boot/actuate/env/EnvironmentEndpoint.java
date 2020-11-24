@@ -44,6 +44,7 @@ import org.springframework.core.env.MutablePropertySources;
 import org.springframework.core.env.PropertySource;
 import org.springframework.core.env.StandardEnvironment;
 import org.springframework.lang.Nullable;
+import org.springframework.util.Assert;
 import org.springframework.util.PropertyPlaceholderHelper;
 import org.springframework.util.StringUtils;
 import org.springframework.util.SystemPropertyUtils;
@@ -71,7 +72,12 @@ public class EnvironmentEndpoint {
 	}
 
 	public void setKeysToSanitize(String... keysToSanitize) {
-		this.sanitizer.setKeysToSanitize(keysToSanitize);
+		Sanitizer r = this.sanitizer;
+		Assert.notNull(keysToSanitize, "KeysToSanitize must not be null");
+		r.keysToSanitize = new Pattern[keysToSanitize.length];
+		for (int i = 0; i < keysToSanitize.length; i++) {
+			r.keysToSanitize[i] = r.getPattern(keysToSanitize[i]);
+		}
 	}
 
 	@ReadOperation
