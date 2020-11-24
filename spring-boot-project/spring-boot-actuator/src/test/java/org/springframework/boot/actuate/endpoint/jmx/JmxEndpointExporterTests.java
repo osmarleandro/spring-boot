@@ -134,15 +134,6 @@ class JmxEndpointExporterTests {
 	}
 
 	@Test
-	void registerWhenRegistrationFailsShouldThrowException() throws Exception {
-		given(this.mBeanServer.registerMBean(any(), any(ObjectName.class)))
-				.willThrow(new MBeanRegistrationException(new RuntimeException()));
-		this.endpoints.add(new TestExposableJmxEndpoint(new TestJmxOperation()));
-		assertThatExceptionOfType(MBeanExportException.class).isThrownBy(this.exporter::afterPropertiesSet)
-				.withMessageContaining("Failed to register MBean for endpoint 'test");
-	}
-
-	@Test
 	void destroyShouldUnregisterMBeans() throws Exception {
 		this.endpoints.add(new TestExposableJmxEndpoint(new TestJmxOperation()));
 		this.exporter.afterPropertiesSet();
