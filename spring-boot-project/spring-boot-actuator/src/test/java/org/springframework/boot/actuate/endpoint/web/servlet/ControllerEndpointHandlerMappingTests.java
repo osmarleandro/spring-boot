@@ -107,18 +107,28 @@ class ControllerEndpointHandlerMappingTests {
 	}
 
 	private ExposableControllerEndpoint firstEndpoint() {
-		return mockEndpoint(EndpointId.of("first"), new FirstTestMvcEndpoint());
+		EndpointId id = EndpointId.of("first");
+		Object controller = new FirstTestMvcEndpoint();
+		ExposableControllerEndpoint endpoint = mock(ExposableControllerEndpoint.class);
+		given(endpoint.getEndpointId()).willReturn(id);
+		given(endpoint.getController()).willReturn(controller);
+		given(endpoint.getRootPath()).willReturn(id.toString());
+		return endpoint;
 	}
 
 	private ExposableControllerEndpoint secondEndpoint() {
-		return mockEndpoint(EndpointId.of("second"), new SecondTestMvcEndpoint());
+		EndpointId id = EndpointId.of("second");
+		Object controller = new SecondTestMvcEndpoint();
+		ExposableControllerEndpoint endpoint = mock(ExposableControllerEndpoint.class);
+		given(endpoint.getEndpointId()).willReturn(id);
+		given(endpoint.getController()).willReturn(controller);
+		given(endpoint.getRootPath()).willReturn(id.toString());
+		return endpoint;
 	}
 
 	private ExposableControllerEndpoint pathlessEndpoint() {
-		return mockEndpoint(EndpointId.of("pathless"), new PathlessControllerEndpoint());
-	}
-
-	private ExposableControllerEndpoint mockEndpoint(EndpointId id, Object controller) {
+		EndpointId id = EndpointId.of("pathless");
+		Object controller = new PathlessControllerEndpoint();
 		ExposableControllerEndpoint endpoint = mock(ExposableControllerEndpoint.class);
 		given(endpoint.getEndpointId()).willReturn(id);
 		given(endpoint.getController()).willReturn(controller);
