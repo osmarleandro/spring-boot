@@ -62,7 +62,9 @@ abstract class AbstractEndpointCondition extends SpringBootCondition {
 			Class<? extends Annotation> annotationClass) {
 		Environment environment = context.getEnvironment();
 		AnnotationAttributes attributes = getEndpointAttributes(annotationClass, context, metadata);
-		EndpointId id = EndpointId.of(environment, attributes.getString("id"));
+		String value = attributes.getString("id");
+		Assert.notNull(environment, "Environment must not be null");
+		EndpointId id = new EndpointId(EndpointId.migrateLegacyId(environment, value));
 		String key = "management.endpoint." + id.toLowerCaseString() + ".enabled";
 		Boolean userDefinedEnabled = environment.getProperty(key, Boolean.class);
 		if (userDefinedEnabled != null) {

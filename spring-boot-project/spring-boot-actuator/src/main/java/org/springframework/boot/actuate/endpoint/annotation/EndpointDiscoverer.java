@@ -439,7 +439,8 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 			this.beanName = beanName;
 			this.beanType = beanType;
 			this.beanSupplier = beanSupplier;
-			this.id = EndpointId.of(environment, id);
+			Assert.notNull(environment, "Environment must not be null");
+			this.id = new EndpointId(EndpointId.migrateLegacyId(environment, id));
 			this.enabledByDefault = annotation.getBoolean("enableByDefault");
 			this.filter = getFilter(beanType);
 		}
@@ -509,7 +510,9 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 					.from(endpointType, SearchStrategy.TYPE_HIERARCHY).get(Endpoint.class);
 			Assert.state(endpointAnnotation.isPresent(),
 					() -> "Extension " + endpointType.getName() + " does not specify an endpoint");
-			this.endpointId = EndpointId.of(environment, endpointAnnotation.getString("id"));
+			String value = endpointAnnotation.getString("id");
+			Assert.notNull(environment, "Environment must not be null");
+			this.endpointId = new EndpointId(EndpointId.migrateLegacyId(environment, value));
 			this.filter = extensionAnnotation.getClass("filter");
 		}
 

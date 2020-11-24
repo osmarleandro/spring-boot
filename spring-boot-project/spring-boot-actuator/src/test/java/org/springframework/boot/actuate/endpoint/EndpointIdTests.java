@@ -22,6 +22,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.test.system.CapturedOutput;
 import org.springframework.boot.test.system.OutputCaptureExtension;
 import org.springframework.mock.env.MockEnvironment;
+import org.springframework.util.Assert;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
@@ -124,7 +125,8 @@ class EndpointIdTests {
 		EndpointId.resetLoggedWarnings();
 		MockEnvironment environment = new MockEnvironment();
 		environment.setProperty("management.endpoints.migrate-legacy-ids", "true");
-		return EndpointId.of(environment, name);
+		Assert.notNull(environment, "Environment must not be null");
+		return new EndpointId(EndpointId.migrateLegacyId(environment, name));
 	}
 
 	@Test

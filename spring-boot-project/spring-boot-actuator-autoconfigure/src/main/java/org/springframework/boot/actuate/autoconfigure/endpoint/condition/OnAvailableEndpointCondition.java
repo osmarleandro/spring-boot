@@ -30,6 +30,7 @@ import org.springframework.boot.cloud.CloudPlatform;
 import org.springframework.context.annotation.ConditionContext;
 import org.springframework.core.env.Environment;
 import org.springframework.core.type.AnnotatedTypeMetadata;
+import org.springframework.util.Assert;
 import org.springframework.util.ConcurrentReferenceHashMap;
 
 /**
@@ -59,8 +60,9 @@ class OnAvailableEndpointCondition extends AbstractEndpointCondition {
 			return new ConditionOutcome(true, message.andCondition(ConditionalOnAvailableEndpoint.class)
 					.because("application is running on Cloud Foundry"));
 		}
-		EndpointId id = EndpointId.of(environment,
-				getEndpointAttributes(ConditionalOnAvailableEndpoint.class, context, metadata).getString("id"));
+		String value = getEndpointAttributes(ConditionalOnAvailableEndpoint.class, context, metadata).getString("id");
+		Assert.notNull(environment, "Environment must not be null");
+		EndpointId id = new EndpointId(EndpointId.migrateLegacyId(environment, value));
 		Set<Exposure> exposures = getExposures(environment);
 		for (Exposure exposure : exposures) {
 			if (exposure.isExposed(id)) {
