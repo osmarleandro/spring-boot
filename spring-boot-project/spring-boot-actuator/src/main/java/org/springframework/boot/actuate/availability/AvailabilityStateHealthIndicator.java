@@ -75,17 +75,6 @@ public class AvailabilityStateHealthIndicator extends AbstractHealthIndicator {
 		}
 	}
 
-	@Override
-	protected void doHealthCheck(Builder builder) throws Exception {
-		AvailabilityState state = getState(this.applicationAvailability);
-		Status status = this.statusMappings.get(state);
-		if (status == null) {
-			status = this.statusMappings.get(null);
-		}
-		Assert.state(status != null, () -> "No mapping provided for " + state);
-		builder.status(status);
-	}
-
 	/**
 	 * Return the current availability state. Subclasses can override this method if a
 	 * different retrieval mechanism is needed.
