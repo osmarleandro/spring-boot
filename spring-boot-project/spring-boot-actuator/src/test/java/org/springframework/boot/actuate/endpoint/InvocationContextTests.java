@@ -57,12 +57,6 @@ class InvocationContextTests {
 	}
 
 	@Test
-	void getApiVersionReturnsApiVersion() {
-		InvocationContext context = new InvocationContext(ApiVersion.V2, this.securityContext, this.arguments);
-		assertThat(context.getApiVersion()).isEqualTo(ApiVersion.V2);
-	}
-
-	@Test
 	void getSecurityContextReturnsSecurityContext() {
 		InvocationContext context = new InvocationContext(this.securityContext, this.arguments);
 		assertThat(context.getSecurityContext()).isEqualTo(this.securityContext);
