@@ -108,15 +108,6 @@ class ServletEndpointRegistrarTests {
 	}
 
 	@Test
-	void onStartupWhenHasLoadOnStartupShouldRegisterLoadOnStartup() throws Exception {
-		given(this.servletContext.addServlet(any(String.class), any(Servlet.class))).willReturn(this.dynamic);
-		ExposableServletEndpoint endpoint = mockEndpoint(new EndpointServlet(TestServlet.class).withLoadOnStartup(7));
-		ServletEndpointRegistrar registrar = new ServletEndpointRegistrar("/actuator", Collections.singleton(endpoint));
-		registrar.onStartup(this.servletContext);
-		verify(this.dynamic).setLoadOnStartup(7);
-	}
-
-	@Test
 	void onStartupWhenHasNotLoadOnStartupShouldRegisterDefaultValue() throws Exception {
 		given(this.servletContext.addServlet(any(String.class), any(Servlet.class))).willReturn(this.dynamic);
 		ExposableServletEndpoint endpoint = mockEndpoint(new EndpointServlet(TestServlet.class));
