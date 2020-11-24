@@ -118,13 +118,6 @@ class JmxEndpointExporterTests {
 	}
 
 	@Test
-	void registerShouldUseObjectNameFactory() throws Exception {
-		this.endpoints.add(new TestExposableJmxEndpoint(new TestJmxOperation()));
-		this.exporter.afterPropertiesSet();
-		verify(this.objectNameFactory).getObjectName(any(ExposableJmxEndpoint.class));
-	}
-
-	@Test
 	void registerWhenObjectNameIsMalformedShouldThrowException() throws Exception {
 		given(this.objectNameFactory.getObjectName(any(ExposableJmxEndpoint.class)))
 				.willThrow(MalformedObjectNameException.class);
