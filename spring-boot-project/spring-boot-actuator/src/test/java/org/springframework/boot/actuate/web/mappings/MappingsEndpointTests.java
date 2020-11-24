@@ -94,22 +94,6 @@ class MappingsEndpointTests {
 				});
 	}
 
-	@Test
-	void servletWebMappingsWithAdditionalDispatcherServlets() {
-		Supplier<ConfigurableWebApplicationContext> contextSupplier = prepareContextSupplier();
-		new WebApplicationContextRunner(contextSupplier).withUserConfiguration(EndpointConfiguration.class,
-				ServletWebConfiguration.class, CustomDispatcherServletConfiguration.class).run((context) -> {
-					ContextMappings contextMappings = contextMappings(context);
-					Map<String, List<DispatcherServletMappingDescription>> dispatcherServlets = mappings(
-							contextMappings, "dispatcherServlets");
-					assertThat(dispatcherServlets).containsOnlyKeys("dispatcherServlet",
-							"customDispatcherServletRegistration", "anotherDispatcherServletRegistration");
-					assertThat(dispatcherServlets.get("dispatcherServlet")).hasSize(1);
-					assertThat(dispatcherServlets.get("customDispatcherServletRegistration")).hasSize(1);
-					assertThat(dispatcherServlets.get("anotherDispatcherServletRegistration")).hasSize(1);
-				});
-	}
-
 	@SuppressWarnings("unchecked")
 	private Supplier<ConfigurableWebApplicationContext> prepareContextSupplier() {
 		ServletContext servletContext = mock(ServletContext.class);
