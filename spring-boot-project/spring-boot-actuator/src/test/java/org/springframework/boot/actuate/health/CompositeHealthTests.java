@@ -36,13 +36,6 @@ import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException
 class CompositeHealthTests {
 
 	@Test
-	void createWhenStatusIsNullThrowsException() {
-		assertThatIllegalArgumentException()
-				.isThrownBy(() -> new CompositeHealth(ApiVersion.V3, null, Collections.emptyMap()))
-				.withMessage("Status must not be null");
-	}
-
-	@Test
 	void getStatusReturnsStatus() {
 		CompositeHealth health = new CompositeHealth(ApiVersion.V3, Status.UP, Collections.emptyMap());
 		assertThat(health.getStatus()).isEqualTo(Status.UP);
