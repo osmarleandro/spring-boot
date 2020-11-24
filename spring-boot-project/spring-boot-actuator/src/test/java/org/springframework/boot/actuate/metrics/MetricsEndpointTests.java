@@ -86,10 +86,10 @@ class MetricsEndpointTests {
 		this.registry.counter("cache", "result", "hit", "host", "2").increment(2);
 		MetricsEndpoint.MetricResponse response = this.endpoint.metric("cache", Collections.emptyList());
 		assertThat(response.getName()).isEqualTo("cache");
-		assertThat(availableTagKeys(response)).containsExactly("result", "host");
+		assertThat(response.getAvailableTags().stream().map(MetricsEndpoint.AvailableTag::getTag)).containsExactly("result", "host");
 		assertThat(getCount(response)).hasValue(6.0);
 		response = this.endpoint.metric("cache", Collections.singletonList("result:hit"));
-		assertThat(availableTagKeys(response)).containsExactly("host");
+		assertThat(response.getAvailableTags().stream().map(MetricsEndpoint.AvailableTag::getTag)).containsExactly("host");
 		assertThat(getCount(response)).hasValue(4.0);
 	}
 
@@ -108,10 +108,10 @@ class MetricsEndpointTests {
 		MetricsEndpoint endpoint = new MetricsEndpoint(composite);
 		MetricsEndpoint.MetricResponse response = endpoint.metric("cache", Collections.emptyList());
 		assertThat(response.getName()).isEqualTo("cache");
-		assertThat(availableTagKeys(response)).containsExactly("result", "host");
+		assertThat(response.getAvailableTags().stream().map(MetricsEndpoint.AvailableTag::getTag)).containsExactly("result", "host");
 		assertThat(getCount(response)).hasValue(6.0);
 		response = endpoint.metric("cache", Collections.singletonList("result:hit"));
-		assertThat(availableTagKeys(response)).containsExactly("host");
+		assertThat(response.getAvailableTags().stream().map(MetricsEndpoint.AvailableTag::getTag)).containsExactly("host");
 		assertThat(getCount(response)).hasValue(4.0);
 	}
 
@@ -142,7 +142,7 @@ class MetricsEndpointTests {
 		MetricsEndpoint.MetricResponse response = this.endpoint.metric("counter",
 				Collections.singletonList("key:a space"));
 		assertThat(response.getName()).isEqualTo("counter");
-		assertThat(availableTagKeys(response)).isEmpty();
+		assertThat(response.getAvailableTags().stream().map(MetricsEndpoint.AvailableTag::getTag)).isEmpty();
 		assertThat(getCount(response)).hasValue(2.0);
 	}
 
@@ -199,10 +199,6 @@ class MetricsEndpointTests {
 	private Optional<Double> getCount(MetricsEndpoint.MetricResponse response) {
 		return response.getMeasurements().stream().filter((sample) -> sample.getStatistic().equals(Statistic.COUNT))
 				.findAny().map(MetricsEndpoint.Sample::getValue);
-	}
-
-	private Stream<String> availableTagKeys(MetricsEndpoint.MetricResponse response) {
-		return response.getAvailableTags().stream().map(MetricsEndpoint.AvailableTag::getTag);
 	}
 
 }
