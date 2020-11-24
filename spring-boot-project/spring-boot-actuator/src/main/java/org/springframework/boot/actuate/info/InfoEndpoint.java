@@ -45,14 +45,4 @@ public class InfoEndpoint {
 		this.infoContributors = infoContributors;
 	}
 
-	@ReadOperation
-	public Map<String, Object> info() {
-		Info.Builder builder = new Info.Builder();
-		for (InfoContributor contributor : this.infoContributors) {
-			contributor.contribute(builder);
-		}
-		Info build = builder.build();
-		return build.getDetails();
-	}
-
 }
