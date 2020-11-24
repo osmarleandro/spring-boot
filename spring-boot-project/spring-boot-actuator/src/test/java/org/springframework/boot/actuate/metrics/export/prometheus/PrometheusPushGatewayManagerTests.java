@@ -157,16 +157,6 @@ class PrometheusPushGatewayManagerTests {
 	}
 
 	@Test
-	void shutdownWhenShutdownOperationIsNoneDoesNothing() {
-		givenScheduleAtFixedRateWithReturnFuture();
-		PrometheusPushGatewayManager manager = new PrometheusPushGatewayManager(this.pushGateway, this.registry,
-				this.scheduler, this.pushRate, "job", this.groupingKey, ShutdownOperation.NONE);
-		manager.shutdown();
-		verify(this.future).cancel(false);
-		verifyNoInteractions(this.pushGateway);
-	}
-
-	@Test
 	void pushWhenUnknownHostExceptionIsThrownDoesShutdown() throws Exception {
 		givenScheduleAtFixedRateWithReturnFuture();
 		new PrometheusPushGatewayManager(this.pushGateway, this.registry, this.scheduler, this.pushRate, "job",
