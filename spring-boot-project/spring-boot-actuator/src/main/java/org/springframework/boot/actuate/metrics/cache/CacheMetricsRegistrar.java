@@ -60,21 +60,18 @@ public class CacheMetricsRegistrar {
 	 * @return {@code true} if the {@code cache} is supported and was registered
 	 */
 	public boolean bindCacheToRegistry(Cache cache, Tag... tags) {
-		MeterBinder meterBinder = getMeterBinder(unwrapIfNecessary(cache), Tags.of(tags));
+		Cache cache1 = unwrapIfNecessary(cache);
+		Tags tags1 = Tags.of(tags);
+		Tags cacheTags = tags1.and(getAdditionalTags(cache1));
+		MeterBinder meterBinder = LambdaSafe.callbacks(CacheMeterBinderProvider.class, this.binderProviders, cache1)
+		.withLogger(CacheMetricsRegistrar.class)
+		.invokeAnd((binderProvider) -> binderProvider.getMeterBinder(cache, cacheTags)).filter(Objects::nonNull)
+		.findFirst().orElse(null);
 		if (meterBinder != null) {
 			meterBinder.bindTo(this.registry);
 			return true;
 		}
 		return false;
-	}
-
-	@SuppressWarnings({ "unchecked" })
-	private MeterBinder getMeterBinder(Cache cache, Tags tags) {
-		Tags cacheTags = tags.and(getAdditionalTags(cache));
-		return LambdaSafe.callbacks(CacheMeterBinderProvider.class, this.binderProviders, cache)
-				.withLogger(CacheMetricsRegistrar.class)
-				.invokeAnd((binderProvider) -> binderProvider.getMeterBinder(cache, cacheTags)).filter(Objects::nonNull)
-				.findFirst().orElse(null);
 	}
 
 	/**
