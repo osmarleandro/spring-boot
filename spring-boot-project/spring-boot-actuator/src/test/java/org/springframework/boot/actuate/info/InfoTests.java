@@ -30,12 +30,6 @@ import static org.assertj.core.api.Assertions.entry;
 class InfoTests {
 
 	@Test
-	void infoIsImmutable() {
-		Info info = new Info.Builder().withDetail("foo", "bar").build();
-		assertThatExceptionOfType(UnsupportedOperationException.class).isThrownBy(info.getDetails()::clear);
-	}
-
-	@Test
 	void infoTakesCopyOfMap() {
 		Info.Builder builder = new Info.Builder();
 		builder.withDetail("foo", "bar");
