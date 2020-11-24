@@ -60,7 +60,10 @@ public enum ApiVersion {
 		if (!CollectionUtils.isEmpty(accepts)) {
 			for (String accept : accepts) {
 				for (String type : MimeTypeUtils.tokenize(accept)) {
-					version = mostRecent(version, forType(type));
+					ApiVersion candidate = forType(type);
+					int existingOrdinal = (version != null) ? version.ordinal() : -1;
+					int candidateOrdinal = (candidate != null) ? candidate.ordinal() : -1;
+					version = (candidateOrdinal > existingOrdinal) ? candidate : version;
 				}
 			}
 		}
@@ -79,12 +82,6 @@ public enum ApiVersion {
 			}
 		}
 		return null;
-	}
-
-	private static ApiVersion mostRecent(ApiVersion existing, ApiVersion candidate) {
-		int existingOrdinal = (existing != null) ? existing.ordinal() : -1;
-		int candidateOrdinal = (candidate != null) ? candidate.ordinal() : -1;
-		return (candidateOrdinal > existingOrdinal) ? candidate : existing;
 	}
 
 }
