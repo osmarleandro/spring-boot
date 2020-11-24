@@ -118,23 +118,6 @@ public final class WebOperationRequestPredicate {
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
-			return true;
-		}
-		if (obj == null || getClass() != obj.getClass()) {
-			return false;
-		}
-		WebOperationRequestPredicate other = (WebOperationRequestPredicate) obj;
-		boolean result = true;
-		result = result && this.consumes.equals(other.consumes);
-		result = result && this.httpMethod == other.httpMethod;
-		result = result && this.canonicalPath.equals(other.canonicalPath);
-		result = result && this.produces.equals(other.produces);
-		return result;
-	}
-
-	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
