@@ -166,13 +166,6 @@ class WebMvcTagsTests {
 	}
 
 	@Test
-	void outcomeTagIsServerErrorWhenResponseIs5xx() {
-		this.response.setStatus(500);
-		Tag tag = WebMvcTags.outcome(this.response);
-		assertThat(tag.getValue()).isEqualTo("SERVER_ERROR");
-	}
-
-	@Test
 	void outcomeTagIsUnknownWhenResponseStatusIsInUnknownSeries() {
 		this.response.setStatus(701);
 		Tag tag = WebMvcTags.outcome(this.response);
