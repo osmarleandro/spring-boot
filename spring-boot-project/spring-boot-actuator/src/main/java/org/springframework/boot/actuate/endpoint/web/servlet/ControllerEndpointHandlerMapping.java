@@ -118,11 +118,6 @@ public class ControllerEndpointHandlerMapping extends RequestMappingHandlerMappi
 	}
 
 	@Override
-	protected CorsConfiguration initCorsConfiguration(Object handler, Method method, RequestMappingInfo mapping) {
-		return this.corsConfiguration;
-	}
-
-	@Override
 	protected void extendInterceptors(List<Object> interceptors) {
 		interceptors.add(new SkipPathExtensionContentNegotiation());
 	}
