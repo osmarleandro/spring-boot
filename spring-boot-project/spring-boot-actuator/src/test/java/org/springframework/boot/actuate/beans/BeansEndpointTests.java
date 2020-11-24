@@ -45,20 +45,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 class BeansEndpointTests {
 
 	@Test
-	void beansAreFound() {
-		ApplicationContextRunner contextRunner = new ApplicationContextRunner()
-				.withUserConfiguration(EndpointConfiguration.class);
-		contextRunner.run((context) -> {
-			ApplicationBeans result = context.getBean(BeansEndpoint.class).beans();
-			ContextBeans descriptor = result.getContexts().get(context.getId());
-			assertThat(descriptor.getParentId()).isNull();
-			Map<String, BeanDescriptor> beans = descriptor.getBeans();
-			assertThat(beans.size()).isLessThanOrEqualTo(context.getBeanDefinitionCount());
-			assertThat(beans).containsKey("endpoint");
-		});
-	}
-
-	@Test
 	void infrastructureBeansAreOmitted() {
 		ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 				.withUserConfiguration(EndpointConfiguration.class);
