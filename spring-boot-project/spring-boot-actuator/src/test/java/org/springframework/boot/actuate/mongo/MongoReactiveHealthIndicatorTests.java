@@ -38,22 +38,6 @@ import static org.mockito.Mockito.mock;
 class MongoReactiveHealthIndicatorTests {
 
 	@Test
-	void testMongoIsUp() {
-		Document buildInfo = mock(Document.class);
-		given(buildInfo.getString("version")).willReturn("2.6.4");
-		ReactiveMongoTemplate reactiveMongoTemplate = mock(ReactiveMongoTemplate.class);
-		given(reactiveMongoTemplate.executeCommand("{ buildInfo: 1 }")).willReturn(Mono.just(buildInfo));
-		MongoReactiveHealthIndicator mongoReactiveHealthIndicator = new MongoReactiveHealthIndicator(
-				reactiveMongoTemplate);
-		Mono<Health> health = mongoReactiveHealthIndicator.health();
-		StepVerifier.create(health).consumeNextWith((h) -> {
-			assertThat(h.getStatus()).isEqualTo(Status.UP);
-			assertThat(h.getDetails()).containsOnlyKeys("version");
-			assertThat(h.getDetails().get("version")).isEqualTo("2.6.4");
-		}).verifyComplete();
-	}
-
-	@Test
 	void testMongoIsDown() {
 		ReactiveMongoTemplate reactiveMongoTemplate = mock(ReactiveMongoTemplate.class);
 		given(reactiveMongoTemplate.executeCommand("{ buildInfo: 1 }"))
