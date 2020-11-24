@@ -128,21 +128,6 @@ class MappingsEndpointTests {
 		};
 	}
 
-	@Test
-	void reactiveWebMappings() {
-		new ReactiveWebApplicationContextRunner()
-				.withUserConfiguration(EndpointConfiguration.class, ReactiveWebConfiguration.class).run((context) -> {
-					ContextMappings contextMappings = contextMappings(context);
-					assertThat(contextMappings.getParentId()).isNull();
-					assertThat(contextMappings.getMappings()).containsOnlyKeys("dispatcherHandlers");
-					Map<String, List<DispatcherHandlerMappingDescription>> dispatcherHandlers = mappings(
-							contextMappings, "dispatcherHandlers");
-					assertThat(dispatcherHandlers).containsOnlyKeys("webHandler");
-					List<DispatcherHandlerMappingDescription> handlerMappings = dispatcherHandlers.get("webHandler");
-					assertThat(handlerMappings).hasSize(3);
-				});
-	}
-
 	private ContextMappings contextMappings(ApplicationContext context) {
 		ApplicationMappings applicationMappings = context.getBean(MappingsEndpoint.class).mappings();
 		assertThat(applicationMappings.getContexts()).containsOnlyKeys(context.getId());
