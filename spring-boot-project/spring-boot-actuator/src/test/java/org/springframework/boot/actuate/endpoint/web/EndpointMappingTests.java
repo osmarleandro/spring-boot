@@ -28,11 +28,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 class EndpointMappingTests {
 
 	@Test
-	void normalizationTurnsASlashIntoAnEmptyString() {
-		assertThat(new EndpointMapping("/").getPath()).isEqualTo("");
-	}
-
-	@Test
 	void normalizationLeavesAnEmptyStringAsIs() {
 		assertThat(new EndpointMapping("").getPath()).isEqualTo("");
 	}
