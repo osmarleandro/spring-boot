@@ -51,13 +51,6 @@ class RestTemplateExchangeTagsTests {
 	}
 
 	@Test
-	void outcomeTagIsSuccessWhenResponseIs2xx() {
-		ClientHttpResponse response = new MockClientHttpResponse("foo".getBytes(), HttpStatus.OK);
-		Tag tag = RestTemplateExchangeTags.outcome(response);
-		assertThat(tag.getValue()).isEqualTo("SUCCESS");
-	}
-
-	@Test
 	void outcomeTagIsRedirectionWhenResponseIs3xx() {
 		ClientHttpResponse response = new MockClientHttpResponse("foo".getBytes(), HttpStatus.MOVED_PERMANENTLY);
 		Tag tag = RestTemplateExchangeTags.outcome(response);
