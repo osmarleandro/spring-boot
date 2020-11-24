@@ -167,12 +167,6 @@ class MetricsEndpointTests {
 	}
 
 	@Test
-	void nonExistentMetric() {
-		MetricsEndpoint.MetricResponse response = this.endpoint.metric("does.not.exist", Collections.emptyList());
-		assertThat(response).isNull();
-	}
-
-	@Test
 	void maxAggregation() {
 		SimpleMeterRegistry reg = new SimpleMeterRegistry();
 		reg.timer("timer", "k", "v1").record(1, TimeUnit.SECONDS);
