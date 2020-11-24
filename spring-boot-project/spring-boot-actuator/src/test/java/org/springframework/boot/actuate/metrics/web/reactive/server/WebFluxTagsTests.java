@@ -99,13 +99,6 @@ class WebFluxTagsTests {
 	}
 
 	@Test
-	void uriTagToleratesCustomResponseStatus() {
-		this.exchange.getResponse().setRawStatusCode(601);
-		Tag tag = WebFluxTags.uri(this.exchange);
-		assertThat(tag.getValue()).isEqualTo("root");
-	}
-
-	@Test
 	void uriTagValueIsRootWhenRequestHasNoPatternOrPathInfo() {
 		Tag tag = WebFluxTags.uri(this.exchange);
 		assertThat(tag.getValue()).isEqualTo("root");
