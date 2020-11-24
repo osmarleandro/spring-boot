@@ -296,12 +296,6 @@ class ConfigurationPropertiesReportEndpointTests {
 				}));
 	}
 
-	private void initializeOriginParents(ConfigurableApplicationContext context) {
-		MockPropertySource propertySource = new OriginParentMockPropertySource();
-		propertySource.setProperty("sensible.string", "spring");
-		context.getEnvironment().getPropertySources().addFirst(propertySource);
-	}
-
 	private ContextConsumer<AssertableApplicationContext> assertProperties(String prefix,
 			Consumer<Map<String, Object>> properties) {
 		return assertProperties(prefix, properties, (inputs) -> {
