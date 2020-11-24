@@ -108,14 +108,6 @@ class JacksonJmxOperationResponseMapperTests {
 		assertThat(this.json.from(mapped.toString())).isEqualToJson("[a,b,c]");
 	}
 
-	@Test
-	void mapResponseWhenOtherShouldReturnMap() {
-		ExampleBean bean = new ExampleBean();
-		bean.setName("boot");
-		Object mapped = this.mapper.mapResponse(bean);
-		assertThat(this.json.from(mapped.toString())).isEqualToJson("{'name':'boot'}");
-	}
-
 	public static class ExampleBean {
 
 		private String name;
