@@ -67,9 +67,4 @@ public class OutcomeTests {
 		assertThat(Outcome.forStatus(99)).isEqualTo(Outcome.UNKNOWN);
 	}
 
-	@Test
-	void outcomeForStatusAboveHighestKnownSeriesIsUnknown() {
-		assertThat(Outcome.forStatus(600)).isEqualTo(Outcome.UNKNOWN);
-	}
-
 }
