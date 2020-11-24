@@ -79,7 +79,8 @@ class SessionsEndpointTests {
 
 	@Test
 	void deleteSession() {
-		this.endpoint.deleteSession(session.getId());
+		String sessionId = session.getId();
+		this.endpoint.sessionRepository.deleteById(sessionId);
 		verify(this.repository).deleteById(session.getId());
 	}
 
