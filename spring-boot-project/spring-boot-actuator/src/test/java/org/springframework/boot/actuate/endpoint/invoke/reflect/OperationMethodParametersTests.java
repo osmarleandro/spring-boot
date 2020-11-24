@@ -56,12 +56,6 @@ class OperationMethodParametersTests {
 	}
 
 	@Test
-	void createWhenParameterNameDiscovererIsNullShouldThrowException() {
-		assertThatIllegalArgumentException().isThrownBy(() -> new OperationMethodParameters(this.exampleMethod, null))
-				.withMessageContaining("ParameterNameDiscoverer must not be null");
-	}
-
-	@Test
 	void createWhenParameterNameDiscovererReturnsNullShouldThrowException() {
 		assertThatIllegalStateException()
 				.isThrownBy(
