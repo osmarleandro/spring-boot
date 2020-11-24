@@ -49,24 +49,6 @@ import static org.mockito.Mockito.verify;
 class RedisReactiveHealthIndicatorTests {
 
 	@Test
-	void redisIsUp() {
-		Properties info = new Properties();
-		info.put("redis_version", "2.8.9");
-		ReactiveRedisConnection redisConnection = mock(ReactiveRedisConnection.class);
-		given(redisConnection.closeLater()).willReturn(Mono.empty());
-		ReactiveServerCommands commands = mock(ReactiveServerCommands.class);
-		given(commands.info()).willReturn(Mono.just(info));
-		RedisReactiveHealthIndicator healthIndicator = createHealthIndicator(redisConnection, commands);
-		Mono<Health> health = healthIndicator.health();
-		StepVerifier.create(health).consumeNextWith((h) -> {
-			assertThat(h.getStatus()).isEqualTo(Status.UP);
-			assertThat(h.getDetails()).containsOnlyKeys("version");
-			assertThat(h.getDetails().get("version")).isEqualTo("2.8.9");
-		}).verifyComplete();
-		verify(redisConnection).closeLater();
-	}
-
-	@Test
 	void redisClusterIsUp() {
 		Properties clusterProperties = new Properties();
 		clusterProperties.setProperty("cluster_size", "4");
