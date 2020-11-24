@@ -215,14 +215,6 @@ public abstract class AbstractWebFluxEndpointHandlerMapping extends RequestMappi
 	protected abstract LinksHandler getLinksHandler();
 
 	/**
-	 * Return the web endpoints being mapped.
-	 * @return the endpoints
-	 */
-	public Collection<ExposableWebEndpoint> getEndpoints() {
-		return this.endpoints;
-	}
-
-	/**
 	 * An {@link OperationInvoker} that performs the invocation of a blocking operation on
 	 * a separate thread using Reactor's {@link Schedulers#boundedElastic() bounded
 	 * elastic scheduler}.

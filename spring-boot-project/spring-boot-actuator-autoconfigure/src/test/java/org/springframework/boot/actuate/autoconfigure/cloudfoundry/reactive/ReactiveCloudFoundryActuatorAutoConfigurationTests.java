@@ -206,7 +206,7 @@ class ReactiveCloudFoundryActuatorAutoConfigurationTests {
 				"vcap.application.application_id:my-app-id", "vcap.application.cf_api:https://my-cloud-controller.com")
 				.run((context) -> {
 					CloudFoundryWebFluxEndpointHandlerMapping handlerMapping = getHandlerMapping(context);
-					Collection<ExposableWebEndpoint> endpoints = handlerMapping.getEndpoints();
+					Collection<ExposableWebEndpoint> endpoints = handlerMapping.endpoints;
 					List<EndpointId> endpointIds = endpoints.stream().map(ExposableWebEndpoint::getEndpointId)
 							.collect(Collectors.toList());
 					assertThat(endpointIds).contains(EndpointId.of("test"));
@@ -219,7 +219,7 @@ class ReactiveCloudFoundryActuatorAutoConfigurationTests {
 				"vcap.application.application_id:my-app-id", "vcap.application.cf_api:https://my-cloud-controller.com")
 				.run((context) -> {
 					CloudFoundryWebFluxEndpointHandlerMapping handlerMapping = getHandlerMapping(context);
-					Collection<ExposableWebEndpoint> endpoints = handlerMapping.getEndpoints();
+					Collection<ExposableWebEndpoint> endpoints = handlerMapping.endpoints;
 					ExposableWebEndpoint endpoint = endpoints.stream()
 							.filter((candidate) -> EndpointId.of("test").equals(candidate.getEndpointId())).findFirst()
 							.get();
@@ -235,7 +235,7 @@ class ReactiveCloudFoundryActuatorAutoConfigurationTests {
 				.withPropertyValues("VCAP_APPLICATION:---", "vcap.application.application_id:my-app-id",
 						"vcap.application.cf_api:https://my-cloud-controller.com")
 				.run((context) -> {
-					Collection<ExposableWebEndpoint> endpoints = getHandlerMapping(context).getEndpoints();
+					Collection<ExposableWebEndpoint> endpoints = getHandlerMapping(context).endpoints;
 					ExposableWebEndpoint endpoint = endpoints.iterator().next();
 					assertThat(endpoint.getOperations()).hasSize(2);
 					WebOperation webOperation = findOperationWithRequestPath(endpoint, "health");
