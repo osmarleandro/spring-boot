@@ -207,16 +207,6 @@ public abstract class AbstractWebEndpointIntegrationTests<T extends Configurable
 	}
 
 	@Test
-	void nullIsPassedToTheOperationWhenArgumentIsNotFoundInPostRequestBody() {
-		load(TestEndpointConfiguration.class, (context, client) -> {
-			Map<String, Object> body = new HashMap<>();
-			body.put("foo", "one");
-			client.post().uri("/test").bodyValue(body).exchange().expectStatus().isNoContent().expectBody().isEmpty();
-			verify(context.getBean(EndpointDelegate.class)).write("one", null);
-		});
-	}
-
-	@Test
 	void nullsArePassedToTheOperationWhenPostRequestHasNoBody() {
 		load(TestEndpointConfiguration.class, (context, client) -> {
 			client.post().uri("/test").contentType(MediaType.APPLICATION_JSON).exchange().expectStatus().isNoContent()
