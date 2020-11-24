@@ -51,14 +51,6 @@ class WebMvcTagsTests {
 	}
 
 	@Test
-	void uriTagValueIsBestMatchingPatternWhenAvailable() {
-		this.request.setAttribute(HandlerMapping.BEST_MATCHING_PATTERN_ATTRIBUTE, "/spring/");
-		this.response.setStatus(301);
-		Tag tag = WebMvcTags.uri(this.request, this.response);
-		assertThat(tag.getValue()).isEqualTo("/spring/");
-	}
-
-	@Test
 	void uriTagValueIsRootWhenBestMatchingPatternIsEmpty() {
 		this.request.setAttribute(HandlerMapping.BEST_MATCHING_PATTERN_ATTRIBUTE, "");
 		this.response.setStatus(301);
