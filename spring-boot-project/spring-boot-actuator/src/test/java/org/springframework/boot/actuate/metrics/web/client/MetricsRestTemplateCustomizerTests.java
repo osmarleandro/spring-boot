@@ -58,16 +58,6 @@ class MetricsRestTemplateCustomizerTests {
 
 	private MetricsRestTemplateCustomizer customizer;
 
-	@BeforeEach
-	void setup() {
-		this.registry = new SimpleMeterRegistry(SimpleConfig.DEFAULT, new MockClock());
-		this.restTemplate = new RestTemplate();
-		this.mockServer = MockRestServiceServer.createServer(this.restTemplate);
-		this.customizer = new MetricsRestTemplateCustomizer(this.registry,
-				new DefaultRestTemplateExchangeTagsProvider(), "http.client.requests", AutoTimer.ENABLED);
-		this.customizer.customize(this.restTemplate);
-	}
-
 	@Test
 	void interceptRestTemplate() {
 		this.mockServer.expect(MockRestRequestMatchers.requestTo("/test/123"))
