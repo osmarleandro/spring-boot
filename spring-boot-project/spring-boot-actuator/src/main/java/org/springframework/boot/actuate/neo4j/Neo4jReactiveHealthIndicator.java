@@ -52,17 +52,6 @@ public final class Neo4jReactiveHealthIndicator extends AbstractReactiveHealthIn
 		this.healthDetailsHandler = new Neo4jHealthDetailsHandler();
 	}
 
-	@Override
-	protected Mono<Health> doHealthCheck(Health.Builder builder) {
-		return runHealthCheckQuery()
-				.doOnError(SessionExpiredException.class,
-						(e) -> logger.warn(Neo4jHealthIndicator.MESSAGE_SESSION_EXPIRED))
-				.retryWhen(Retry.max(1).filter(SessionExpiredException.class::isInstance)).map((result) -> {
-					this.healthDetailsHandler.addHealthDetails(builder, result.getT1(), result.getT2());
-					return builder.build();
-				});
-	}
-
 	Mono<Tuple2<String, ResultSummary>> runHealthCheckQuery() {
 		// We use WRITE here to make sure UP is returned for a server that supports
 		// all possible workloads
