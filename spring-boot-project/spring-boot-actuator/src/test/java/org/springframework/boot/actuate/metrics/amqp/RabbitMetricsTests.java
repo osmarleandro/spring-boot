@@ -32,14 +32,6 @@ import static org.mockito.Mockito.mock;
 class RabbitMetricsTests {
 
 	@Test
-	void connectionFactoryIsInstrumented() {
-		ConnectionFactory connectionFactory = mock(ConnectionFactory.class);
-		SimpleMeterRegistry registry = new SimpleMeterRegistry();
-		new RabbitMetrics(connectionFactory, null).bindTo(registry);
-		registry.get("rabbitmq.connections");
-	}
-
-	@Test
 	void connectionFactoryWithTagsIsInstrumented() {
 		ConnectionFactory connectionFactory = mock(ConnectionFactory.class);
 		SimpleMeterRegistry registry = new SimpleMeterRegistry();
