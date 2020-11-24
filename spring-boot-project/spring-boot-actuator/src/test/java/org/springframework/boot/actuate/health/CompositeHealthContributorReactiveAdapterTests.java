@@ -32,12 +32,6 @@ import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException
 class CompositeHealthContributorReactiveAdapterTests {
 
 	@Test
-	void createWhenDelegateIsNullThrowsException() {
-		assertThatIllegalArgumentException().isThrownBy(() -> new CompositeHealthContributorReactiveAdapter(null))
-				.withMessage("Delegate must not be null");
-	}
-
-	@Test
 	void iteratorWhenDelegateContainsHealthIndicatorAdaptsDelegate() {
 		HealthIndicator indicator = () -> Health.up().withDetail("spring", "boot").build();
 		CompositeHealthContributor delegate = CompositeHealthContributor
