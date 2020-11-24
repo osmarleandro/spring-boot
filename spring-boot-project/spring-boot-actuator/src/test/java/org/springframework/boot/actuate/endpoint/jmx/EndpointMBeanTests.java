@@ -99,17 +99,6 @@ class EndpointMBeanTests {
 	}
 
 	@Test
-	void invokeWhenOperationFailedWithJdkExceptionShouldReuseException() throws MBeanException, ReflectionException {
-		TestExposableJmxEndpoint endpoint = new TestExposableJmxEndpoint(new TestJmxOperation((arguments) -> {
-			throw new UnsupportedOperationException("test failure");
-		}));
-		EndpointMBean bean = new EndpointMBean(this.responseMapper, null, endpoint);
-		assertThatExceptionOfType(MBeanException.class)
-				.isThrownBy(() -> bean.invoke("testOperation", NO_PARAMS, NO_SIGNATURE))
-				.withCauseInstanceOf(UnsupportedOperationException.class).withMessageContaining("test failure");
-	}
-
-	@Test
 	void invokeWhenActionNameIsNotAnOperationShouldThrowException() throws MBeanException, ReflectionException {
 		EndpointMBean bean = createEndpointMBean();
 		assertThatExceptionOfType(ReflectionException.class)
