@@ -103,14 +103,6 @@ public class PathMappedEndpoints implements Iterable<PathMappedEndpoint> {
 	}
 
 	/**
-	 * Return the root paths for each mapped endpoint.
-	 * @return all root paths
-	 */
-	public Collection<String> getAllRootPaths() {
-		return asList(stream().map(PathMappedEndpoint::getRootPath));
-	}
-
-	/**
 	 * Return the full paths for each mapped endpoint.
 	 * @return all root paths
 	 */
