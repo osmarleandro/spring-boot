@@ -95,21 +95,22 @@ class OperationMethodParametersTests {
 		OperationMethodParameters parameters = new OperationMethodParameters(this.exampleMethod,
 				new DefaultParameterNameDiscoverer());
 		Iterator<OperationParameter> iterator = parameters.iterator();
-		assertParameters(
-				StreamSupport.stream(Spliterators.spliteratorUnknownSize(iterator, Spliterator.ORDERED), false));
+		Stream<OperationParameter> stream = StreamSupport.stream(Spliterators.spliteratorUnknownSize(iterator, Spliterator.ORDERED), false);
+		List<OperationParameter> parameters1 = stream.collect(Collectors.toList());
+		assertThat(parameters1).hasSize(1);
+		OperationParameter parameter = parameters1.get(0);
+		assertThat(parameter.getName()).isEqualTo("name");
+		assertThat(parameter.getType()).isEqualTo(String.class);
 	}
 
 	@Test
 	void streamShouldStreamOperationParameters() {
 		OperationMethodParameters parameters = new OperationMethodParameters(this.exampleMethod,
 				new DefaultParameterNameDiscoverer());
-		assertParameters(parameters.stream());
-	}
-
-	private void assertParameters(Stream<OperationParameter> stream) {
-		List<OperationParameter> parameters = stream.collect(Collectors.toList());
-		assertThat(parameters).hasSize(1);
-		OperationParameter parameter = parameters.get(0);
+		Stream<OperationParameter> stream = parameters.stream();
+		List<OperationParameter> parameters1 = stream.collect(Collectors.toList());
+		assertThat(parameters1).hasSize(1);
+		OperationParameter parameter = parameters1.get(0);
 		assertThat(parameter.getName()).isEqualTo("name");
 		assertThat(parameter.getType()).isEqualTo(String.class);
 	}
