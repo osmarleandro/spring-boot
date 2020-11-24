@@ -74,7 +74,20 @@ class MappingsEndpointTests {
 
 	@Test
 	void servletWebMappings() {
-		Supplier<ConfigurableWebApplicationContext> contextSupplier = prepareContextSupplier();
+		ServletContext servletContext = mock(ServletContext.class);
+		given(servletContext.getInitParameterNames()).willReturn(Collections.emptyEnumeration());
+		given(servletContext.getAttributeNames()).willReturn(Collections.emptyEnumeration());
+		FilterRegistration filterRegistration = mock(FilterRegistration.class);
+		given((Map<String, FilterRegistration>) servletContext.getFilterRegistrations())
+				.willReturn(Collections.singletonMap("testFilter", filterRegistration));
+		ServletRegistration servletRegistration = mock(ServletRegistration.class);
+		given((Map<String, ServletRegistration>) servletContext.getServletRegistrations())
+				.willReturn(Collections.singletonMap("testServlet", servletRegistration));
+		Supplier<ConfigurableWebApplicationContext> contextSupplier = () -> {
+			AnnotationConfigServletWebApplicationContext context = new AnnotationConfigServletWebApplicationContext();
+			context.setServletContext(servletContext);
+			return context;
+		};
 		new WebApplicationContextRunner(contextSupplier)
 				.withUserConfiguration(EndpointConfiguration.class, ServletWebConfiguration.class).run((context) -> {
 					ContextMappings contextMappings = contextMappings(context);
@@ -96,7 +109,20 @@ class MappingsEndpointTests {
 
 	@Test
 	void servletWebMappingsWithAdditionalDispatcherServlets() {
-		Supplier<ConfigurableWebApplicationContext> contextSupplier = prepareContextSupplier();
+		ServletContext servletContext = mock(ServletContext.class);
+		given(servletContext.getInitParameterNames()).willReturn(Collections.emptyEnumeration());
+		given(servletContext.getAttributeNames()).willReturn(Collections.emptyEnumeration());
+		FilterRegistration filterRegistration = mock(FilterRegistration.class);
+		given((Map<String, FilterRegistration>) servletContext.getFilterRegistrations())
+				.willReturn(Collections.singletonMap("testFilter", filterRegistration));
+		ServletRegistration servletRegistration = mock(ServletRegistration.class);
+		given((Map<String, ServletRegistration>) servletContext.getServletRegistrations())
+				.willReturn(Collections.singletonMap("testServlet", servletRegistration));
+		Supplier<ConfigurableWebApplicationContext> contextSupplier = () -> {
+			AnnotationConfigServletWebApplicationContext context = new AnnotationConfigServletWebApplicationContext();
+			context.setServletContext(servletContext);
+			return context;
+		};
 		new WebApplicationContextRunner(contextSupplier).withUserConfiguration(EndpointConfiguration.class,
 				ServletWebConfiguration.class, CustomDispatcherServletConfiguration.class).run((context) -> {
 					ContextMappings contextMappings = contextMappings(context);
@@ -108,24 +134,6 @@ class MappingsEndpointTests {
 					assertThat(dispatcherServlets.get("customDispatcherServletRegistration")).hasSize(1);
 					assertThat(dispatcherServlets.get("anotherDispatcherServletRegistration")).hasSize(1);
 				});
-	}
-
-	@SuppressWarnings("unchecked")
-	private Supplier<ConfigurableWebApplicationContext> prepareContextSupplier() {
-		ServletContext servletContext = mock(ServletContext.class);
-		given(servletContext.getInitParameterNames()).willReturn(Collections.emptyEnumeration());
-		given(servletContext.getAttributeNames()).willReturn(Collections.emptyEnumeration());
-		FilterRegistration filterRegistration = mock(FilterRegistration.class);
-		given((Map<String, FilterRegistration>) servletContext.getFilterRegistrations())
-				.willReturn(Collections.singletonMap("testFilter", filterRegistration));
-		ServletRegistration servletRegistration = mock(ServletRegistration.class);
-		given((Map<String, ServletRegistration>) servletContext.getServletRegistrations())
-				.willReturn(Collections.singletonMap("testServlet", servletRegistration));
-		return () -> {
-			AnnotationConfigServletWebApplicationContext context = new AnnotationConfigServletWebApplicationContext();
-			context.setServletContext(servletContext);
-			return context;
-		};
 	}
 
 	@Test
