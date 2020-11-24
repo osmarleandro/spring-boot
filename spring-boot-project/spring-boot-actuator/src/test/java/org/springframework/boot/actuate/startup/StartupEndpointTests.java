@@ -47,19 +47,6 @@ class StartupEndpointTests {
 		});
 	}
 
-	@Test
-	void bufferIsDrained() {
-		BufferingApplicationStartup applicationStartup = new BufferingApplicationStartup(256);
-		ApplicationContextRunner contextRunner = new ApplicationContextRunner()
-				.withInitializer((context) -> context.setApplicationStartup(applicationStartup))
-				.withUserConfiguration(EndpointConfiguration.class);
-		contextRunner.run((context) -> {
-			StartupEndpoint.StartupResponse startup = context.getBean(StartupEndpoint.class).startup();
-			assertThat(startup.getTimeline().getEvents()).isNotEmpty();
-			assertThat(applicationStartup.getBufferedTimeline().getEvents()).isEmpty();
-		});
-	}
-
 	@Configuration(proxyBeanMethods = false)
 	static class EndpointConfiguration {
 
