@@ -38,7 +38,7 @@ class HealthEndpointTests
 	@Test
 	void healthReturnsSystemHealth() {
 		this.registry.registerContributor("test", createContributor(this.up));
-		HealthComponent health = create(this.registry, this.groups).health();
+		HealthComponent health = new HealthEndpoint(this.registry, this.groups).health();
 		assertThat(health.getStatus()).isEqualTo(Status.UP);
 		assertThat(health).isInstanceOf(SystemHealth.class);
 	}
@@ -46,8 +46,8 @@ class HealthEndpointTests
 	@Test
 	void healthWithNoContributorReturnsUp() {
 		assertThat(this.registry).isEmpty();
-		HealthComponent health = create(this.registry,
-				HealthEndpointGroups.of(mock(HealthEndpointGroup.class), Collections.emptyMap())).health();
+		HealthEndpointGroups groups = HealthEndpointGroups.of(mock(HealthEndpointGroup.class), Collections.emptyMap());
+		HealthComponent health = new HealthEndpoint(this.registry, groups).health();
 		assertThat(health.getStatus()).isEqualTo(Status.UP);
 		assertThat(health).isInstanceOf(Health.class);
 	}
@@ -55,20 +55,15 @@ class HealthEndpointTests
 	@Test
 	void healthWhenPathDoesNotExistReturnsNull() {
 		this.registry.registerContributor("test", createContributor(this.up));
-		HealthComponent health = create(this.registry, this.groups).healthForPath("missing");
+		HealthComponent health = new HealthEndpoint(this.registry, this.groups).healthForPath("missing");
 		assertThat(health).isNull();
 	}
 
 	@Test
 	void healthWhenPathExistsReturnsHealth() {
 		this.registry.registerContributor("test", createContributor(this.up));
-		HealthComponent health = create(this.registry, this.groups).healthForPath("test");
+		HealthComponent health = new HealthEndpoint(this.registry, this.groups).healthForPath("test");
 		assertThat(health).isEqualTo(this.up);
-	}
-
-	@Override
-	protected HealthEndpoint create(HealthContributorRegistry registry, HealthEndpointGroups groups) {
-		return new HealthEndpoint(registry, groups);
 	}
 
 	@Override
