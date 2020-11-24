@@ -57,11 +57,6 @@ public class HttpTraceWebFilter implements WebFilter, Ordered {
 		this.includes = includes;
 	}
 
-	@Override
-	public int getOrder() {
-		return this.order;
-	}
-
 	public void setOrder(int order) {
 		this.order = order;
 	}
