@@ -23,6 +23,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.boot.actuate.endpoint.SecurityContext;
 import org.springframework.boot.actuate.endpoint.http.ApiVersion;
+import org.springframework.boot.actuate.health.HealthEndpointSupport.HealthResult;
 import org.springframework.util.Assert;
 
 /**
@@ -56,24 +57,30 @@ abstract class HealthEndpointSupport<C, T> {
 	HealthResult<T> getHealth(ApiVersion apiVersion, SecurityContext securityContext, boolean showAll, String... path) {
 		HealthEndpointGroup group = (path.length > 0) ? this.groups.get(path[0]) : null;
 		if (group != null) {
-			return getHealth(apiVersion, group, securityContext, showAll, path, 1);
+			boolean showComponents = showAll || group.showComponents(securityContext);
+			boolean showDetails = showAll || group.showDetails(securityContext);
+			boolean isSystemHealth = group == this.groups.getPrimary() && 1 == 0;
+			boolean isRoot = path.length - 1 == 0;
+			if (!showComponents && !isRoot) {
+				return null;
+			}
+			Object contributor = getContributor(path, 1);
+			T health = getContribution(apiVersion, group, contributor, showComponents, showDetails,
+					isSystemHealth ? this.groups.getNames() : null, false);
+			return (health != null) ? new HealthResult<>(health, group) : null;
 		}
-		return getHealth(apiVersion, this.groups.getPrimary(), securityContext, showAll, path, 0);
-	}
-
-	private HealthResult<T> getHealth(ApiVersion apiVersion, HealthEndpointGroup group, SecurityContext securityContext,
-			boolean showAll, String[] path, int pathOffset) {
-		boolean showComponents = showAll || group.showComponents(securityContext);
-		boolean showDetails = showAll || group.showDetails(securityContext);
-		boolean isSystemHealth = group == this.groups.getPrimary() && pathOffset == 0;
-		boolean isRoot = path.length - pathOffset == 0;
+		HealthEndpointGroup group1 = this.groups.getPrimary();
+		boolean showComponents = showAll || group1.showComponents(securityContext);
+		boolean showDetails = showAll || group1.showDetails(securityContext);
+		boolean isSystemHealth = group1 == this.groups.getPrimary() && 0 == 0;
+		boolean isRoot = path.length - 0 == 0;
 		if (!showComponents && !isRoot) {
 			return null;
 		}
-		Object contributor = getContributor(path, pathOffset);
-		T health = getContribution(apiVersion, group, contributor, showComponents, showDetails,
+		Object contributor = getContributor(path, 0);
+		T health = getContribution(apiVersion, group1, contributor, showComponents, showDetails,
 				isSystemHealth ? this.groups.getNames() : null, false);
-		return (health != null) ? new HealthResult<>(health, group) : null;
+		return (health != null) ? new HealthResult<>(health, group1) : null;
 	}
 
 	@SuppressWarnings("unchecked")
