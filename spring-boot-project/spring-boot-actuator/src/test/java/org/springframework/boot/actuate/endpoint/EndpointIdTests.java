@@ -58,12 +58,6 @@ class EndpointIdTests {
 	}
 
 	@Test
-	void ofWhenHasBadCharThrowsException() {
-		assertThatIllegalArgumentException().isThrownBy(() -> EndpointId.of("foo!bar"))
-				.withMessage("Value must only contain valid chars");
-	}
-
-	@Test
 	void ofWhenStartsWithNumberThrowsException() {
 		assertThatIllegalArgumentException().isThrownBy(() -> EndpointId.of("1foo"))
 				.withMessage("Value must not start with a number");
