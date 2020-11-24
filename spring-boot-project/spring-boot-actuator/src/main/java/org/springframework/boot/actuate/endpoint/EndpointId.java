@@ -146,10 +146,6 @@ public final class EndpointId {
 		return new EndpointId(value.replace("-", ""));
 	}
 
-	static void resetLoggedWarnings() {
-		loggedWarnings.clear();
-	}
-
 	private static void logWarning(String value) {
 		if (logger.isWarnEnabled() && loggedWarnings.add(value)) {
 			logger.warn("Endpoint ID '" + value + "' contains invalid characters, please migrate to a valid format.");

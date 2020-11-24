@@ -93,7 +93,7 @@ class EndpointIdTests {
 
 	@Test
 	void ofWhenContainsDeprecatedCharsLogsWarning(CapturedOutput output) {
-		EndpointId.resetLoggedWarnings();
+		EndpointId.loggedWarnings.clear();
 		EndpointId.of("foo-bar");
 		assertThat(output)
 				.contains("Endpoint ID 'foo-bar' contains invalid characters, please migrate to a valid format");
@@ -121,7 +121,7 @@ class EndpointIdTests {
 	}
 
 	private EndpointId migrateLegacyName(String name) {
-		EndpointId.resetLoggedWarnings();
+		EndpointId.loggedWarnings.clear();
 		MockEnvironment environment = new MockEnvironment();
 		environment.setProperty("management.endpoints.migrate-legacy-ids", "true");
 		return EndpointId.of(environment, name);
