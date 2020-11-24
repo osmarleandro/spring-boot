@@ -38,12 +38,6 @@ import static org.assertj.core.api.Assertions.entry;
 class HealthTests {
 
 	@Test
-	void statusMustNotBeNull() {
-		assertThatIllegalArgumentException().isThrownBy(() -> new Health.Builder(null, null))
-				.withMessageContaining("Status must not be null");
-	}
-
-	@Test
 	void createWithStatus() {
 		Health health = Health.status(Status.UP).build();
 		assertThat(health.getStatus()).isEqualTo(Status.UP);
