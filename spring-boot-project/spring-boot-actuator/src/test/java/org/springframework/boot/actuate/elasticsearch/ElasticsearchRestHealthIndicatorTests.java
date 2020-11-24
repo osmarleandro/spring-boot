@@ -101,21 +101,6 @@ class ElasticsearchRestHealthIndicatorTests {
 				entry("reasonPhrase", "Internal server error"));
 	}
 
-	@Test
-	void elasticsearchIsOutOfServiceByStatus() throws IOException {
-		BasicHttpEntity httpEntity = new BasicHttpEntity();
-		httpEntity.setContent(new ByteArrayInputStream(createJsonResult(200, "red").getBytes()));
-		Response response = mock(Response.class);
-		StatusLine statusLine = mock(StatusLine.class);
-		given(statusLine.getStatusCode()).willReturn(200);
-		given(response.getStatusLine()).willReturn(statusLine);
-		given(response.getEntity()).willReturn(httpEntity);
-		given(this.restClient.performRequest(any(Request.class))).willReturn(response);
-		Health health = this.elasticsearchRestHealthIndicator.health();
-		assertThat(health.getStatus()).isEqualTo(Status.OUT_OF_SERVICE);
-		assertHealthDetailsWithStatus(health.getDetails(), "red");
-	}
-
 	private void assertHealthDetailsWithStatus(Map<String, Object> details, String status) {
 		assertThat(details).contains(entry("cluster_name", "elasticsearch"), entry("status", status),
 				entry("timed_out", false), entry("number_of_nodes", 1), entry("number_of_data_nodes", 1),
