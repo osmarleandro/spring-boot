@@ -132,7 +132,7 @@ class InfoContributorAutoConfigurationTests {
 	private Map<String, Object> invokeContributor(InfoContributor contributor) {
 		Info.Builder builder = new Info.Builder();
 		contributor.contribute(builder);
-		return builder.build().getDetails();
+		return builder.build().details;
 	}
 
 	private void load(String... environment) {

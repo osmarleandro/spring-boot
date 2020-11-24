@@ -32,7 +32,7 @@ class InfoTests {
 	@Test
 	void infoIsImmutable() {
 		Info info = new Info.Builder().withDetail("foo", "bar").build();
-		assertThatExceptionOfType(UnsupportedOperationException.class).isThrownBy(info.getDetails()::clear);
+		assertThatExceptionOfType(UnsupportedOperationException.class).isThrownBy(info.details::clear);
 	}
 
 	@Test
@@ -41,7 +41,7 @@ class InfoTests {
 		builder.withDetail("foo", "bar");
 		Info build = builder.build();
 		builder.withDetail("biz", "bar");
-		assertThat(build.getDetails()).containsOnly(entry("foo", "bar"));
+		assertThat(build.details).containsOnly(entry("foo", "bar"));
 	}
 
 }
