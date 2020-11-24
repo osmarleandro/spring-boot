@@ -109,12 +109,6 @@ class PathMappedEndpointsTests {
 		assertThat(mapped.getEndpoint(EndpointId.of("e2")).getRootPath()).isEqualTo("p2");
 	}
 
-	@Test
-	void getEndpointWhenMissingIdShouldReturnNull() {
-		PathMappedEndpoints mapped = createTestMapped(null);
-		assertThat(mapped.getEndpoint(EndpointId.of("xx"))).isNull();
-	}
-
 	private PathMappedEndpoints createTestMapped(String basePath) {
 		List<ExposableEndpoint<?>> endpoints = new ArrayList<>();
 		endpoints.add(mockEndpoint(EndpointId.of("e1")));
