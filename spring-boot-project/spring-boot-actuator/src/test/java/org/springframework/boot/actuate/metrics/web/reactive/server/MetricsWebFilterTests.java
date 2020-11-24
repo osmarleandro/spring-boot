@@ -78,21 +78,6 @@ class MetricsWebFilterTests {
 	}
 
 	@Test
-	void filterAddsNonEmptyTagsToRegistryForAnonymousExceptions() {
-		final Exception anonymous = new Exception("test error") {
-		};
-
-		MockServerWebExchange exchange = createExchange("/projects/spring-boot", "/projects/{project}");
-		this.webFilter.filter(exchange, (serverWebExchange) -> Mono.error(anonymous)).onErrorResume((t) -> {
-			exchange.getResponse().setRawStatusCode(500);
-			return exchange.getResponse().setComplete();
-		}).block(Duration.ofSeconds(30));
-		assertMetricsContainsTag("uri", "/projects/{project}");
-		assertMetricsContainsTag("status", "500");
-		assertMetricsContainsTag("exception", anonymous.getClass().getName());
-	}
-
-	@Test
 	void filterAddsTagsToRegistryForExceptionsAndCommittedResponse() {
 		MockServerWebExchange exchange = createExchange("/projects/spring-boot", "/projects/{project}");
 		this.webFilter.filter(exchange, (serverWebExchange) -> {
