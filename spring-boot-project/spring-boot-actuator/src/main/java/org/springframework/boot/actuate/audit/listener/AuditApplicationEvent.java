@@ -81,12 +81,4 @@ public class AuditApplicationEvent extends ApplicationEvent {
 		this.auditEvent = auditEvent;
 	}
 
-	/**
-	 * Get the audit event.
-	 * @return the audit event
-	 */
-	public AuditEvent getAuditEvent() {
-		return this.auditEvent;
-	}
-
 }
