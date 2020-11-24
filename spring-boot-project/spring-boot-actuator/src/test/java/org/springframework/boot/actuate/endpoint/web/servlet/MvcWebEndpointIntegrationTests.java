@@ -32,6 +32,7 @@ import org.springframework.boot.actuate.endpoint.web.EndpointMapping;
 import org.springframework.boot.actuate.endpoint.web.EndpointMediaTypes;
 import org.springframework.boot.actuate.endpoint.web.annotation.AbstractWebEndpointIntegrationTests;
 import org.springframework.boot.actuate.endpoint.web.annotation.WebEndpointDiscoverer;
+import org.springframework.boot.actuate.endpoint.web.servlet.MvcWebEndpointIntegrationTests.WebMvcConfiguration;
 import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
 import org.springframework.boot.autoconfigure.http.HttpMessageConvertersAutoConfiguration;
 import org.springframework.boot.autoconfigure.jackson.JacksonAutoConfiguration;
@@ -73,12 +74,6 @@ class MvcWebEndpointIntegrationTests
 				MvcWebEndpointIntegrationTests::applyAuthenticatedConfiguration);
 	}
 
-	private static AnnotationConfigServletWebServerApplicationContext createApplicationContext() {
-		AnnotationConfigServletWebServerApplicationContext context = new AnnotationConfigServletWebServerApplicationContext();
-		context.register(WebMvcConfiguration.class);
-		return context;
-	}
-
 	private static void applyAuthenticatedConfiguration(AnnotationConfigServletWebServerApplicationContext context) {
 		context.register(AuthenticatedConfiguration.class);
 	}
@@ -117,7 +112,9 @@ class MvcWebEndpointIntegrationTests
 	private RequestMatchResult getMatchResult(String servletPath) {
 		MockHttpServletRequest request = new MockHttpServletRequest();
 		request.setServletPath(servletPath);
-		AnnotationConfigServletWebServerApplicationContext context = createApplicationContext();
+		AnnotationConfigServletWebServerApplicationContext context1 = new AnnotationConfigServletWebServerApplicationContext();
+		context1.register(WebMvcConfiguration.class);
+		AnnotationConfigServletWebServerApplicationContext context = context1;
 		context.register(TestEndpointConfiguration.class);
 		context.refresh();
 		WebMvcEndpointHandlerMapping bean = context.getBean(WebMvcEndpointHandlerMapping.class);
