@@ -61,17 +61,6 @@ class Neo4jHealthIndicatorTests {
 	}
 
 	@Test
-	void neo4jIsUpWithoutDatabaseName() {
-		ResultSummary resultSummary = ResultSummaryMock.createResultSummary("4711", "My Home", null);
-		Driver driver = mockDriver(resultSummary, "some edition");
-		Health health = new Neo4jHealthIndicator(driver).health();
-		assertThat(health.getStatus()).isEqualTo(Status.UP);
-		assertThat(health.getDetails()).containsEntry("server", "4711@My Home");
-		assertThat(health.getDetails()).doesNotContainKey("database");
-		assertThat(health.getDetails()).containsEntry("edition", "some edition");
-	}
-
-	@Test
 	void neo4jIsUpWithEmptyDatabaseName() {
 		ResultSummary resultSummary = ResultSummaryMock.createResultSummary("4711", "My Home", "");
 		Driver driver = mockDriver(resultSummary, "some edition");
