@@ -49,7 +49,8 @@ class ConnectionFactoryHealthIndicatorTests {
 
 	@Test
 	void healthIndicatorWhenDatabaseUpWithConnectionValidation() {
-		CloseableConnectionFactory connectionFactory = createTestDatabase();
+		CloseableConnectionFactory connectionFactory = H2ConnectionFactory.inMemory("db-" + UUID.randomUUID(), "sa", "",
+		Collections.singletonMap(H2ConnectionOption.DB_CLOSE_DELAY, "-1"));
 		try {
 			ConnectionFactoryHealthIndicator healthIndicator = new ConnectionFactoryHealthIndicator(connectionFactory);
 			healthIndicator.health().as(StepVerifier::create).assertNext((actual) -> {
@@ -95,7 +96,8 @@ class ConnectionFactoryHealthIndicatorTests {
 
 	@Test
 	void healthIndicatorWhenDatabaseUpWithSuccessValidationQuery() {
-		CloseableConnectionFactory connectionFactory = createTestDatabase();
+		CloseableConnectionFactory connectionFactory = H2ConnectionFactory.inMemory("db-" + UUID.randomUUID(), "sa", "",
+		Collections.singletonMap(H2ConnectionOption.DB_CLOSE_DELAY, "-1"));
 		try {
 			String customValidationQuery = "SELECT COUNT(*) from HEALTH_TEST";
 			Mono.from(connectionFactory.create()).flatMapMany((it) -> Flux
@@ -117,7 +119,8 @@ class ConnectionFactoryHealthIndicatorTests {
 
 	@Test
 	void healthIndicatorWhenDatabaseUpWithFailureValidationQuery() {
-		CloseableConnectionFactory connectionFactory = createTestDatabase();
+		CloseableConnectionFactory connectionFactory = H2ConnectionFactory.inMemory("db-" + UUID.randomUUID(), "sa", "",
+		Collections.singletonMap(H2ConnectionOption.DB_CLOSE_DELAY, "-1"));
 		try {
 			String invalidValidationQuery = "SELECT COUNT(*) from DOES_NOT_EXIST";
 			ReactiveHealthIndicator healthIndicator = new ConnectionFactoryHealthIndicator(connectionFactory,
@@ -132,11 +135,6 @@ class ConnectionFactoryHealthIndicatorTests {
 		finally {
 			connectionFactory.close();
 		}
-	}
-
-	private CloseableConnectionFactory createTestDatabase() {
-		return H2ConnectionFactory.inMemory("db-" + UUID.randomUUID(), "sa", "",
-				Collections.singletonMap(H2ConnectionOption.DB_CLOSE_DELAY, "-1"));
 	}
 
 }
