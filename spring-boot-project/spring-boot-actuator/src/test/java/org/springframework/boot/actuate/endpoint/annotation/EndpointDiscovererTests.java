@@ -101,15 +101,6 @@ class EndpointDiscovererTests {
 	}
 
 	@Test
-	void getEndpointsWhenNoEndpointBeansShouldReturnEmptyCollection() {
-		load(EmptyConfiguration.class, (context) -> {
-			TestEndpointDiscoverer discoverer = new TestEndpointDiscoverer(context);
-			Collection<TestExposableEndpoint> endpoints = discoverer.getEndpoints();
-			assertThat(endpoints).isEmpty();
-		});
-	}
-
-	@Test
 	void getEndpointsWhenHasEndpointShouldReturnEndpoint() {
 		load(TestEndpointConfiguration.class, this::hasTestEndpoint);
 	}
