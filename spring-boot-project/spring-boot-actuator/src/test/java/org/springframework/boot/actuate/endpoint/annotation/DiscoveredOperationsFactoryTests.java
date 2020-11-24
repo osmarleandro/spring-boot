@@ -102,15 +102,6 @@ class DiscoveredOperationsFactoryTests {
 	}
 
 	@Test
-	void createOperationsShouldProviderInvoker() {
-		TestOperation operation = getFirst(
-				this.factory.createOperations(EndpointId.of("test"), new ExampleWithParams()));
-		Map<String, Object> params = Collections.singletonMap("name", 123);
-		Object result = operation.invoke(new InvocationContext(mock(SecurityContext.class), params));
-		assertThat(result).isEqualTo("123");
-	}
-
-	@Test
 	void createOperationShouldApplyAdvisors() {
 		TestOperationInvokerAdvisor advisor = new TestOperationInvokerAdvisor();
 		this.invokerAdvisors.add(advisor);
