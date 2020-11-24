@@ -36,12 +36,4 @@ public class InvalidEndpointRequestException extends RuntimeException {
 		this.reason = reason;
 	}
 
-	/**
-	 * Return the reason explaining why the request is invalid, potentially {@code null}.
-	 * @return the reason for the failure
-	 */
-	public String getReason() {
-		return this.reason;
-	}
-
 }
