@@ -175,15 +175,6 @@ class ConfigurationPropertiesReportEndpointTests {
 	}
 
 	@Test
-	void sanitizeWithCustomKey() {
-		this.contextRunner.withUserConfiguration(TestPropertiesConfiguration.class)
-				.withPropertyValues("test.keys-to-sanitize=property").run(assertProperties("test", (properties) -> {
-					assertThat(properties.get("dbPassword")).isEqualTo("123456");
-					assertThat(properties.get("myTestProperty")).isEqualTo("******");
-				}));
-	}
-
-	@Test
 	void sanitizeWithCustomKeyPattern() {
 		this.contextRunner.withUserConfiguration(TestPropertiesConfiguration.class)
 				.withPropertyValues("test.keys-to-sanitize=.*pass.*").run(assertProperties("test", (properties) -> {
