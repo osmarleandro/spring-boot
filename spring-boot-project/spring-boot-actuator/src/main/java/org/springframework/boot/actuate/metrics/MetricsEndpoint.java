@@ -149,13 +149,6 @@ public class MetricsEndpoint {
 		});
 	}
 
-	private <T> Set<T> merge(Set<T> set1, Set<T> set2) {
-		Set<T> result = new HashSet<>(set1.size() + set2.size());
-		result.addAll(set1);
-		result.addAll(set2);
-		return result;
-	}
-
 	private <K, V, T> List<T> asList(Map<K, V> map, BiFunction<K, V, T> mapper) {
 		return map.entrySet().stream().map((entry) -> mapper.apply(entry.getKey(), entry.getValue()))
 				.collect(Collectors.toList());
