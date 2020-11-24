@@ -40,13 +40,6 @@ import static org.mockito.Mockito.mock;
 class PathMappedEndpointsTests {
 
 	@Test
-	void createWhenSupplierIsNullShouldThrowException() {
-		assertThatIllegalArgumentException()
-				.isThrownBy(() -> new PathMappedEndpoints(null, (WebEndpointsSupplier) null))
-				.withMessageContaining("Supplier must not be null");
-	}
-
-	@Test
 	void createWhenSuppliersIsNullShouldThrowException() {
 		assertThatIllegalArgumentException()
 				.isThrownBy(() -> new PathMappedEndpoints(null, (Collection<EndpointsSupplier<?>>) null))
