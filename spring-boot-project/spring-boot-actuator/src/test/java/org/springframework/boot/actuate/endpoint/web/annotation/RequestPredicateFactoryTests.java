@@ -60,14 +60,6 @@ class RequestPredicateFactoryTests {
 				.withMessage("@Selector annotation with Match.ALL_REMAINING must be the last parameter");
 	}
 
-	@Test
-	void getRequestPredicateReturnsPredicateWithPath() {
-		DiscoveredOperationMethod operationMethod = getDiscoveredOperationMethod(ValidSelectors.class);
-		WebOperationRequestPredicate requestPredicate = this.factory.getRequestPredicate(this.rootPath,
-				operationMethod);
-		assertThat(requestPredicate.getPath()).isEqualTo("/root/{one}/{*two}");
-	}
-
 	private DiscoveredOperationMethod getDiscoveredOperationMethod(Class<?> source) {
 		Method method = source.getDeclaredMethods()[0];
 		AnnotationAttributes attributes = new AnnotationAttributes();
