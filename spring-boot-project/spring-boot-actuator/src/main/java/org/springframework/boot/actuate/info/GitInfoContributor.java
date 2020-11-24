@@ -49,7 +49,7 @@ public class GitInfoContributor extends InfoPropertiesInfoContributor<GitPropert
 	protected PropertySource<?> toSimplePropertySource() {
 		Properties props = new Properties();
 		copyIfSet(props, "branch");
-		String commitId = getProperties().getShortCommitId();
+		String commitId = this.properties.getShortCommitId();
 		if (commitId != null) {
 			props.put("commit.id", commitId);
 		}
@@ -64,8 +64,8 @@ public class GitInfoContributor extends InfoPropertiesInfoContributor<GitPropert
 	 */
 	@Override
 	protected void postProcessContent(Map<String, Object> content) {
-		replaceValue(getNestedMap(content, "commit"), "time", getProperties().getCommitTime());
-		replaceValue(getNestedMap(content, "build"), "time", getProperties().getInstant("build.time"));
+		replaceValue(getNestedMap(content, "commit"), "time", this.properties.getCommitTime());
+		replaceValue(getNestedMap(content, "build"), "time", this.properties.getInstant("build.time"));
 	}
 
 }
