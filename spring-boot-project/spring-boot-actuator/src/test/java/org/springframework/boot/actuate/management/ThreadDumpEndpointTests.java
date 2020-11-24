@@ -35,11 +35,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 class ThreadDumpEndpointTests {
 
 	@Test
-	void dumpThreads() {
-		assertThat(new ThreadDumpEndpoint().threadDump().getThreads().size()).isGreaterThan(0);
-	}
-
-	@Test
 	void dumpThreadsAsText() throws InterruptedException {
 		Object contendedMonitor = new Object();
 		Object monitor = new Object();
