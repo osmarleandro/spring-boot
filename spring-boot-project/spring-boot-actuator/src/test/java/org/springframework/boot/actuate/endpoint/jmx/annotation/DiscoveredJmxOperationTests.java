@@ -54,16 +54,6 @@ class DiscoveredJmxOperationTests {
 	}
 
 	@Test
-	void getOutputTypeShouldReturnJmxType() {
-		assertThat(getOperation("getEnum").getOutputType()).isEqualTo(String.class);
-		assertThat(getOperation("getDate").getOutputType()).isEqualTo(String.class);
-		assertThat(getOperation("getInstant").getOutputType()).isEqualTo(String.class);
-		assertThat(getOperation("getInteger").getOutputType()).isEqualTo(Integer.class);
-		assertThat(getOperation("getVoid").getOutputType()).isEqualTo(void.class);
-		assertThat(getOperation("getApplicationContext").getOutputType()).isEqualTo(Object.class);
-	}
-
-	@Test
 	void getDescriptionWhenHasManagedOperationDescriptionShouldUseValueFromAnnotation() {
 		DiscoveredJmxOperation operation = getOperation("withManagedOperationDescription");
 		assertThat(operation.getDescription()).isEqualTo("fromannotation");
