@@ -80,20 +80,6 @@ class MetricsEndpointTests {
 	}
 
 	@Test
-	void metricValuesAreTheSumOfAllTimeSeriesMatchingTags() {
-		this.registry.counter("cache", "result", "hit", "host", "1").increment(2);
-		this.registry.counter("cache", "result", "miss", "host", "1").increment(2);
-		this.registry.counter("cache", "result", "hit", "host", "2").increment(2);
-		MetricsEndpoint.MetricResponse response = this.endpoint.metric("cache", Collections.emptyList());
-		assertThat(response.getName()).isEqualTo("cache");
-		assertThat(availableTagKeys(response)).containsExactly("result", "host");
-		assertThat(getCount(response)).hasValue(6.0);
-		response = this.endpoint.metric("cache", Collections.singletonList("result:hit"));
-		assertThat(availableTagKeys(response)).containsExactly("host");
-		assertThat(getCount(response)).hasValue(4.0);
-	}
-
-	@Test
 	void findFirstMatchingMetersFromNestedRegistries() {
 		CompositeMeterRegistry composite = new CompositeMeterRegistry();
 		SimpleMeterRegistry firstLevel0 = new SimpleMeterRegistry();
