@@ -115,11 +115,6 @@ class WebClientExchangeTagsTests {
 	}
 
 	@Test
-	void statusWhenCancelled() {
-		assertThat(WebClientExchangeTags.status(null, null)).isEqualTo(Tag.of("status", "CLIENT_ERROR"));
-	}
-
-	@Test
 	void outcomeTagIsUnknownWhenResponseIsNull() {
 		Tag tag = WebClientExchangeTags.outcome(null);
 		assertThat(tag.getValue()).isEqualTo("UNKNOWN");
