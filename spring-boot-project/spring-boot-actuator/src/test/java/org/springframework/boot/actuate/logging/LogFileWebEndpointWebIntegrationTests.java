@@ -60,12 +60,6 @@ class LogFileWebEndpointWebIntegrationTests {
 				.contentType("text/plain; charset=UTF-8").expectBody(String.class).isEqualTo("--TEST--");
 	}
 
-	@WebEndpointTest
-	void getRequestThatAcceptsTextPlainProducesResponseWithLogFile() {
-		this.client.get().uri("/actuator/logfile").accept(MediaType.TEXT_PLAIN).exchange().expectStatus().isOk()
-				.expectHeader().contentType("text/plain; charset=UTF-8").expectBody(String.class).isEqualTo("--TEST--");
-	}
-
 	@Configuration(proxyBeanMethods = false)
 	static class TestConfiguration {
 
