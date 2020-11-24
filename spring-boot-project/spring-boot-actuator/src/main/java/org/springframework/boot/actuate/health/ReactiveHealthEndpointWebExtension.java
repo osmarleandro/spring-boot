@@ -57,12 +57,6 @@ public class ReactiveHealthEndpointWebExtension
 
 	@ReadOperation
 	public Mono<WebEndpointResponse<? extends HealthComponent>> health(ApiVersion apiVersion,
-			SecurityContext securityContext) {
-		return health(apiVersion, securityContext, false, NO_PATH);
-	}
-
-	@ReadOperation
-	public Mono<WebEndpointResponse<? extends HealthComponent>> health(ApiVersion apiVersion,
 			SecurityContext securityContext, @Selector(match = Match.ALL_REMAINING) String... path) {
 		return health(apiVersion, securityContext, false, path);
 	}
