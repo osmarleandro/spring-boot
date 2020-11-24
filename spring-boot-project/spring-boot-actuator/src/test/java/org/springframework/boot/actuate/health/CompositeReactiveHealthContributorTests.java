@@ -34,7 +34,7 @@ class CompositeReactiveHealthContributorTests {
 	@Test
 	void fromMapReturnsCompositeReactiveHealthContributorMapAdapter() {
 		Map<String, ReactiveHealthContributor> map = new LinkedHashMap<>();
-		ReactiveHealthIndicator indicator = () -> Mono.just(Health.down().build());
+		ReactiveHealthIndicator indicator = () -> Mono.just(Health.status(Status.DOWN).build());
 		map.put("test", indicator);
 		CompositeReactiveHealthContributor composite = CompositeReactiveHealthContributor.fromMap(map);
 		assertThat(composite).isInstanceOf(CompositeReactiveHealthContributorMapAdapter.class);
@@ -46,7 +46,7 @@ class CompositeReactiveHealthContributorTests {
 	@Test
 	void fromMapWithAdapterReturnsCompositeReactiveHealthContributorMapAdapter() {
 		Map<String, ReactiveHealthContributor> map = new LinkedHashMap<>();
-		ReactiveHealthIndicator downIndicator = () -> Mono.just(Health.down().build());
+		ReactiveHealthIndicator downIndicator = () -> Mono.just(Health.status(Status.DOWN).build());
 		ReactiveHealthIndicator upIndicator = () -> Mono.just(Health.up().build());
 		map.put("test", downIndicator);
 		CompositeReactiveHealthContributor composite = CompositeReactiveHealthContributor.fromMap(map,

@@ -60,7 +60,7 @@ class CompositeHealthTests {
 	void serializeV3WithJacksonReturnsValidJson() throws Exception {
 		Map<String, HealthComponent> components = new LinkedHashMap<>();
 		components.put("db1", Health.up().build());
-		components.put("db2", Health.down().withDetail("a", "b").build());
+		components.put("db2", Health.status(Status.DOWN).withDetail("a", "b").build());
 		CompositeHealth health = new CompositeHealth(ApiVersion.V3, Status.UP, components);
 		ObjectMapper mapper = new ObjectMapper();
 		String json = mapper.writeValueAsString(health);
@@ -72,7 +72,7 @@ class CompositeHealthTests {
 	void serializeV2WithJacksonReturnsValidJson() throws Exception {
 		Map<String, HealthComponent> components = new LinkedHashMap<>();
 		components.put("db1", Health.up().build());
-		components.put("db2", Health.down().withDetail("a", "b").build());
+		components.put("db2", Health.status(Status.DOWN).withDetail("a", "b").build());
 		CompositeHealth health = new CompositeHealth(ApiVersion.V2, Status.UP, components);
 		ObjectMapper mapper = new ObjectMapper();
 		String json = mapper.writeValueAsString(health);

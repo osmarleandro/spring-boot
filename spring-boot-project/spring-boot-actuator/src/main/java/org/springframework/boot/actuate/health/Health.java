@@ -147,15 +147,7 @@ public final class Health extends HealthComponent {
 	 * @return a new {@link Builder} instance
 	 */
 	public static Builder down(Exception ex) {
-		return down().withException(ex);
-	}
-
-	/**
-	 * Create a new {@link Builder} instance with a {@link Status#DOWN} status.
-	 * @return a new {@link Builder} instance
-	 */
-	public static Builder down() {
-		return status(Status.DOWN);
+		return status(Status.DOWN).withException(ex);
 	}
 
 	/**
