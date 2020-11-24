@@ -50,14 +50,6 @@ public abstract class InfoPropertiesInfoContributor<T extends InfoProperties> im
 	}
 
 	/**
-	 * Return the properties that this instance manages.
-	 * @return the info properties
-	 */
-	protected final T getProperties() {
-		return this.properties;
-	}
-
-	/**
 	 * Return the mode that should be used to expose the content.
 	 * @return the mode
 	 */
