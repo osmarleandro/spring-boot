@@ -75,13 +75,6 @@ class JacksonJmxOperationResponseMapperTests {
 	}
 
 	@Test
-	void mapResponseTypeWhenCollectionShouldReturnList() {
-		assertThat(this.mapper.mapResponseType(Collection.class)).isEqualTo(List.class);
-		assertThat(this.mapper.mapResponseType(Set.class)).isEqualTo(List.class);
-		assertThat(this.mapper.mapResponseType(List.class)).isEqualTo(List.class);
-	}
-
-	@Test
 	void mapResponseTypeWhenOtherShouldReturnMap() {
 		assertThat(this.mapper.mapResponseType(ExampleBean.class)).isEqualTo(Map.class);
 	}
