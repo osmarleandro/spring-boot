@@ -42,7 +42,7 @@ abstract class HealthEndpointSupportTests<R extends ContributorRegistry<C>, C, T
 
 	final R registry;
 
-	final Health up = Health.up().withDetail("spring", "boot").build();
+	final Health up = Health.status(Status.UP).withDetail("spring", "boot").build();
 
 	final Health down = Health.down().build();
 

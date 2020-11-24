@@ -47,7 +47,7 @@ class CompositeReactiveHealthContributorTests {
 	void fromMapWithAdapterReturnsCompositeReactiveHealthContributorMapAdapter() {
 		Map<String, ReactiveHealthContributor> map = new LinkedHashMap<>();
 		ReactiveHealthIndicator downIndicator = () -> Mono.just(Health.down().build());
-		ReactiveHealthIndicator upIndicator = () -> Mono.just(Health.up().build());
+		ReactiveHealthIndicator upIndicator = () -> Mono.just(Health.status(Status.UP).build());
 		map.put("test", downIndicator);
 		CompositeReactiveHealthContributor composite = CompositeReactiveHealthContributor.fromMap(map,
 				(value) -> upIndicator);

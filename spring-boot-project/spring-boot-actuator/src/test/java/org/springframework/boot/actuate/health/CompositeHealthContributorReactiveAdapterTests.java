@@ -39,7 +39,7 @@ class CompositeHealthContributorReactiveAdapterTests {
 
 	@Test
 	void iteratorWhenDelegateContainsHealthIndicatorAdaptsDelegate() {
-		HealthIndicator indicator = () -> Health.up().withDetail("spring", "boot").build();
+		HealthIndicator indicator = () -> Health.status(Status.UP).withDetail("spring", "boot").build();
 		CompositeHealthContributor delegate = CompositeHealthContributor
 				.fromMap(Collections.singletonMap("test", indicator));
 		CompositeHealthContributorReactiveAdapter adapter = new CompositeHealthContributorReactiveAdapter(delegate);
@@ -55,7 +55,7 @@ class CompositeHealthContributorReactiveAdapterTests {
 
 	@Test
 	void iteratorWhenDelegateContainsCompositeHealthContributorAdaptsDelegate() {
-		HealthIndicator indicator = () -> Health.up().withDetail("spring", "boot").build();
+		HealthIndicator indicator = () -> Health.status(Status.UP).withDetail("spring", "boot").build();
 		CompositeHealthContributor composite = CompositeHealthContributor
 				.fromMap(Collections.singletonMap("test1", indicator));
 		CompositeHealthContributor delegate = CompositeHealthContributor
@@ -75,7 +75,7 @@ class CompositeHealthContributorReactiveAdapterTests {
 
 	@Test
 	void getContributorAdaptsDelegate() {
-		HealthIndicator indicator = () -> Health.up().withDetail("spring", "boot").build();
+		HealthIndicator indicator = () -> Health.status(Status.UP).withDetail("spring", "boot").build();
 		CompositeHealthContributor delegate = CompositeHealthContributor
 				.fromMap(Collections.singletonMap("test", indicator));
 		CompositeHealthContributorReactiveAdapter adapter = new CompositeHealthContributorReactiveAdapter(delegate);

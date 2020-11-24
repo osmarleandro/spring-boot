@@ -27,7 +27,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 class HealthIndicatorTests {
 
-	private final HealthIndicator indicator = () -> Health.up().withDetail("spring", "boot").build();
+	private final HealthIndicator indicator = () -> Health.status(Status.UP).withDetail("spring", "boot").build();
 
 	@Test
 	void getHealthWhenIncludeDetailsIsTrueReturnsHealthWithDetails() {

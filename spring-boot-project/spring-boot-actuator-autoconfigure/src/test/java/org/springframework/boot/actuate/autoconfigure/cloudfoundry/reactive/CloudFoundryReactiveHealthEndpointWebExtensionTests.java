@@ -30,6 +30,7 @@ import org.springframework.boot.actuate.health.CompositeHealth;
 import org.springframework.boot.actuate.health.Health;
 import org.springframework.boot.actuate.health.HealthComponent;
 import org.springframework.boot.actuate.health.HealthIndicator;
+import org.springframework.boot.actuate.health.Status;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
 import org.springframework.boot.autoconfigure.context.PropertyPlaceholderAutoConfiguration;
 import org.springframework.boot.autoconfigure.http.HttpMessageConvertersAutoConfiguration;
@@ -77,7 +78,7 @@ class CloudFoundryReactiveHealthEndpointWebExtensionTests {
 
 		@Override
 		public Health health() {
-			return Health.up().withDetail("spring", "boot").build();
+			return Health.status(Status.UP).withDetail("spring", "boot").build();
 		}
 
 	}

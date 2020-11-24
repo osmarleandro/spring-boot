@@ -89,7 +89,7 @@ class HealthTests {
 		Map<String, Object> details = new LinkedHashMap<>();
 		details.put("a", "b");
 		details.put("c", "d");
-		Health health = Health.up().withDetails(details).build();
+		Health health = Health.status(Status.UP).withDetails(details).build();
 		assertThat(health.getDetails()).containsOnly(entry("a", "b"), entry("c", "d"));
 	}
 
@@ -98,7 +98,7 @@ class HealthTests {
 		Map<String, Object> details = new LinkedHashMap<>();
 		details.put("c", "d");
 		details.put("a", "e");
-		Health health = Health.up().withDetail("a", "b").withDetails(details).build();
+		Health health = Health.status(Status.UP).withDetail("a", "b").withDetails(details).build();
 		assertThat(health.getDetails()).containsOnly(entry("a", "e"), entry("c", "d"));
 	}
 
@@ -110,7 +110,7 @@ class HealthTests {
 		Map<String, Object> details2 = new LinkedHashMap<>();
 		details1.put("a", "e");
 		details1.put("1", "2");
-		Health health = Health.up().withDetails(details1).withDetails(details2).build();
+		Health health = Health.status(Status.UP).withDetails(details1).withDetails(details2).build();
 		assertThat(health.getDetails()).containsOnly(entry("a", "e"), entry("c", "d"), entry("1", "2"));
 	}
 

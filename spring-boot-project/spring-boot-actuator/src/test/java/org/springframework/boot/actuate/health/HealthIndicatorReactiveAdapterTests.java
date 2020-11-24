@@ -35,7 +35,7 @@ class HealthIndicatorReactiveAdapterTests {
 	void delegateReturnsHealth() {
 		HealthIndicator delegate = mock(HealthIndicator.class);
 		HealthIndicatorReactiveAdapter adapter = new HealthIndicatorReactiveAdapter(delegate);
-		Health status = Health.up().build();
+		Health status = Health.status(Status.UP).build();
 		given(delegate.health()).willReturn(status);
 		StepVerifier.create(adapter.health()).expectNext(status).verifyComplete();
 	}

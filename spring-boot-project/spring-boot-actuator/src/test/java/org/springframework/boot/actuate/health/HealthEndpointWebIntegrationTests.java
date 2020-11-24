@@ -213,12 +213,12 @@ class HealthEndpointWebIntegrationTests {
 
 		@Bean
 		HealthIndicator alphaHealthIndicator() {
-			return () -> Health.up().build();
+			return () -> Health.status(Status.UP).build();
 		}
 
 		@Bean
 		HealthIndicator bravoHealthIndicator() {
-			return () -> Health.up().build();
+			return () -> Health.status(Status.UP).build();
 		}
 
 	}
