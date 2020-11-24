@@ -124,15 +124,6 @@ class CassandraDriverHealthIndicatorTests {
 	}
 
 	@Test
-	void healthWithoutNodeVersionShouldNotAddVersionDetail() {
-		CqlSession session = mockCqlSessionWithNodeState(NodeState.UP);
-		CassandraDriverHealthIndicator healthIndicator = new CassandraDriverHealthIndicator(session);
-		Health health = healthIndicator.health();
-		assertThat(health.getStatus()).isEqualTo(Status.UP);
-		assertThat(health.getDetails().get("version")).isNull();
-	}
-
-	@Test
 	void healthWithcassandraDownShouldReturnDown() {
 		CqlSession session = mock(CqlSession.class);
 		given(session.getMetadata()).willThrow(new DriverTimeoutException("Test Exception"));
