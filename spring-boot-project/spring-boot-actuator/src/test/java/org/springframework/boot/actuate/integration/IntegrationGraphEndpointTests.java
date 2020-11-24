@@ -48,7 +48,7 @@ class IntegrationGraphEndpointTests {
 
 	@Test
 	void writeOperationShouldRebuildGraph() {
-		this.endpoint.rebuild();
+		this.endpoint.graphServer.rebuild();
 		verify(this.server).rebuild();
 	}
 
