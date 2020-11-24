@@ -18,6 +18,7 @@ package org.springframework.boot.actuate.health;
 
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.springframework.boot.actuate.endpoint.SecurityContext;
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
@@ -74,7 +75,13 @@ public class HealthEndpoint extends HealthEndpointSupport<HealthContributor, Hea
 	@Override
 	protected HealthComponent aggregateContributions(ApiVersion apiVersion, Map<String, HealthComponent> contributions,
 			StatusAggregator statusAggregator, boolean showComponents, Set<String> groupNames) {
-		return getCompositeHealth(apiVersion, contributions, statusAggregator, showComponents, groupNames);
+		Status status = statusAggregator
+				.getAggregateStatus(contributions.values().stream().map(this::getStatus).collect(Collectors.toSet()));
+		Map<String, HealthComponent> instances = showComponents ? contributions : null;
+		if (groupNames != null) {
+			return new SystemHealth(apiVersion, status, instances, groupNames);
+		}
+		return new CompositeHealth(apiVersion, status, instances);
 	}
 
 }
