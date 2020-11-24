@@ -64,12 +64,6 @@ abstract class HealthEndpointSupportTests<R extends ContributorRegistry<C>, C, T
 	}
 
 	@Test
-	void createWhenGroupsIsNullThrowsException() {
-		assertThatIllegalArgumentException().isThrownBy(() -> create(this.registry, null))
-				.withMessage("Groups must not be null");
-	}
-
-	@Test
 	void getHealthWhenPathIsEmptyUsesPrimaryGroup() {
 		this.registry.registerContributor("test", createContributor(this.up));
 		HealthResult<T> result = create(this.registry, this.groups).getHealth(ApiVersion.V3, SecurityContext.NONE,
