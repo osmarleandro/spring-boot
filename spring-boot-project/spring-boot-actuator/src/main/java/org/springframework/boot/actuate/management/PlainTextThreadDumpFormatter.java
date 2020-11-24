@@ -67,14 +67,10 @@ class PlainTextThreadDumpFormatter {
 	private void writeStackTrace(PrintWriter writer, ThreadInfo info, MonitorInfo[] lockedMonitors) {
 		int depth = 0;
 		for (StackTraceElement element : info.getStackTrace()) {
-			writeStackTraceElement(writer, element, info, lockedMonitorsForDepth(lockedMonitors, depth), depth == 0);
+			writeStackTraceElement(writer, element, info, Stream.of(lockedMonitors).filter((lockedMonitor) -> lockedMonitor.getLockedStackDepth() == depth)
+			.collect(Collectors.toList()), depth == 0);
 			depth++;
 		}
-	}
-
-	private List<MonitorInfo> lockedMonitorsForDepth(MonitorInfo[] lockedMonitors, int depth) {
-		return Stream.of(lockedMonitors).filter((lockedMonitor) -> lockedMonitor.getLockedStackDepth() == depth)
-				.collect(Collectors.toList());
 	}
 
 	private void writeStackTraceElement(PrintWriter writer, StackTraceElement element, ThreadInfo info,
