@@ -67,11 +67,6 @@ class WebMvcMetricsFilterAutoTimedTests {
 	@Autowired
 	private WebMvcMetricsFilter filter;
 
-	@BeforeEach
-	void setupMockMvc() {
-		this.mvc = MockMvcBuilders.webAppContextSetup(this.context).addFilters(this.filter).build();
-	}
-
 	@Test
 	void metricsCanBeAutoTimed() throws Exception {
 		this.mvc.perform(get("/api/10")).andExpect(status().isOk());
