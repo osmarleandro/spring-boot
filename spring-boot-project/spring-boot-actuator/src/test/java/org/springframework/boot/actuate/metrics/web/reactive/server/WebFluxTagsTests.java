@@ -138,13 +138,6 @@ class WebFluxTagsTests {
 	}
 
 	@Test
-	void outcomeTagIsSuccessWhenResponseStatusIsNull() {
-		this.exchange.getResponse().setStatusCode(null);
-		Tag tag = WebFluxTags.outcome(this.exchange);
-		assertThat(tag.getValue()).isEqualTo("SUCCESS");
-	}
-
-	@Test
 	void outcomeTagIsSuccessWhenResponseStatusIsAvailableFromUnderlyingServer() {
 		ServerWebExchange exchange = mock(ServerWebExchange.class);
 		ServerHttpRequest request = mock(ServerHttpRequest.class);
