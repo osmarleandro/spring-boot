@@ -42,13 +42,6 @@ class AvailabilityStateHealthIndicatorTests {
 	private ApplicationAvailability applicationAvailability;
 
 	@Test
-	void createWhenApplicationAvailabilityIsNullThrowsException() {
-		assertThatIllegalArgumentException()
-				.isThrownBy(() -> new AvailabilityStateHealthIndicator(null, LivenessState.class, (statusMappings) -> {
-				})).withMessage("ApplicationAvailability must not be null");
-	}
-
-	@Test
 	void createWhenStateTypeIsNullThrowsException() {
 		assertThatIllegalArgumentException().isThrownBy(
 				() -> new AvailabilityStateHealthIndicator(this.applicationAvailability, null, (statusMappings) -> {
