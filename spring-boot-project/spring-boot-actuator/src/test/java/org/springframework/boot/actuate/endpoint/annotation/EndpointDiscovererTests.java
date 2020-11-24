@@ -136,14 +136,6 @@ class EndpointDiscovererTests {
 	}
 
 	@Test
-	void getEndpointsWhenTwoEndpointsHaveTheSameIdShouldThrowException() {
-		load(ClashingEndpointConfiguration.class,
-				(context) -> assertThatIllegalStateException()
-						.isThrownBy(new TestEndpointDiscoverer(context)::getEndpoints)
-						.withMessageContaining("Found two endpoints with the id 'test': "));
-	}
-
-	@Test
 	void getEndpointsWhenEndpointsArePrefixedWithScopedTargetShouldRegisterOnlyOneEndpoint() {
 		load(ScopedTargetEndpointConfiguration.class, (context) -> {
 			TestEndpoint expectedEndpoint = context.getBean("testEndpoint", TestEndpoint.class);
