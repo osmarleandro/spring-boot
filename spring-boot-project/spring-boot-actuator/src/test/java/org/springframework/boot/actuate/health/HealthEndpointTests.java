@@ -59,13 +59,6 @@ class HealthEndpointTests
 		assertThat(health).isNull();
 	}
 
-	@Test
-	void healthWhenPathExistsReturnsHealth() {
-		this.registry.registerContributor("test", createContributor(this.up));
-		HealthComponent health = create(this.registry, this.groups).healthForPath("test");
-		assertThat(health).isEqualTo(this.up);
-	}
-
 	@Override
 	protected HealthEndpoint create(HealthContributorRegistry registry, HealthEndpointGroups groups) {
 		return new HealthEndpoint(registry, groups);
