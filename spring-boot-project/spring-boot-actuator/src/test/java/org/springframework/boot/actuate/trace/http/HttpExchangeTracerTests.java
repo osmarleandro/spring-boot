@@ -80,13 +80,6 @@ class HttpExchangeTracerTests {
 	}
 
 	@Test
-	void requestHeadersCanBeIncluded() {
-		HttpTrace trace = new HttpExchangeTracer(EnumSet.of(Include.REQUEST_HEADERS)).receivedRequest(createRequest());
-		Request request = trace.getRequest();
-		assertThat(request.getHeaders()).containsOnlyKeys(HttpHeaders.ACCEPT);
-	}
-
-	@Test
 	void requestHeadersCanBeCustomized() {
 		MultiValueMap<String, String> headers = new LinkedMultiValueMap<>();
 		headers.add("to-remove", "test");
