@@ -43,11 +43,6 @@ public class HttpTraceEndpoint {
 		this.repository = repository;
 	}
 
-	@ReadOperation
-	public HttpTraceDescriptor traces() {
-		return new HttpTraceDescriptor(this.repository.findAll());
-	}
-
 	/**
 	 * A description of an application's {@link HttpTrace} entries. Primarily intended for
 	 * serialization to JSON.
