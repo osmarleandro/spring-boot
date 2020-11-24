@@ -53,20 +53,6 @@ class MetricsEndpointTests {
 	}
 
 	@Test
-	void listNamesProducesListOfUniqueMeterNames() {
-		this.registry.counter("com.example.alpha");
-		this.registry.counter("com.example.charlie");
-		this.registry.counter("com.example.bravo");
-		this.registry.counter("com.example.delta");
-		this.registry.counter("com.example.delta");
-		this.registry.counter("com.example.echo");
-		this.registry.counter("com.example.bravo");
-		MetricsEndpoint.ListNamesResponse result = this.endpoint.listNames();
-		assertThat(result.getNames()).containsExactly("com.example.alpha", "com.example.bravo", "com.example.charlie",
-				"com.example.delta", "com.example.echo");
-	}
-
-	@Test
 	void listNamesRecursesOverCompositeRegistries() {
 		CompositeMeterRegistry composite = new CompositeMeterRegistry();
 		SimpleMeterRegistry reg1 = new SimpleMeterRegistry();
