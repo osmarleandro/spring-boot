@@ -99,19 +99,6 @@ class RedisCacheMetricsTests {
 		}));
 	}
 
-	@Test
-	void cacheMetricsMatchCacheStatistics() {
-		this.contextRunner.run((context) -> {
-			RedisCache cache = getTestCache(context);
-			RedisCacheMetrics cacheMetrics = new RedisCacheMetrics(cache, TAGS);
-			assertThat(cacheMetrics.hitCount()).isEqualTo(cache.getStatistics().getHits());
-			assertThat(cacheMetrics.missCount()).isEqualTo(cache.getStatistics().getMisses());
-			assertThat(cacheMetrics.putCount()).isEqualTo(cache.getStatistics().getPuts());
-			assertThat(cacheMetrics.size()).isNull();
-			assertThat(cacheMetrics.evictionCount()).isNull();
-		});
-	}
-
 	private ContextConsumer<AssertableApplicationContext> withCacheMetrics(
 			BiConsumer<RedisCache, MeterRegistry> stats) {
 		return (context) -> {
