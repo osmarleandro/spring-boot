@@ -144,17 +144,6 @@ abstract class HealthEndpointSupportTests<R extends ContributorRegistry<C>, C, T
 	}
 
 	@Test
-	void getHealthWhenAlwaysShowIsFalseAndGroupIsFalseShowsNoDetails() {
-		this.primaryGroup.setShowDetails(false);
-		this.registry.registerContributor("test", createContributor(this.up));
-		HealthEndpointSupport<C, T> endpoint = create(this.registry, this.groups);
-		HealthResult<T> rootResult = endpoint.getHealth(ApiVersion.V3, SecurityContext.NONE, false);
-		HealthResult<T> componentResult = endpoint.getHealth(ApiVersion.V3, SecurityContext.NONE, false, "test");
-		assertThat(((CompositeHealth) getHealth(rootResult)).getStatus()).isEqualTo(Status.UP);
-		assertThat(componentResult).isNull();
-	}
-
-	@Test
 	void getHealthWhenAlwaysShowIsTrueShowsDetails() {
 		this.primaryGroup.setShowDetails(false);
 		this.registry.registerContributor("test", createContributor(this.up));
