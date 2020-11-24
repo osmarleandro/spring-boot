@@ -178,12 +178,4 @@ class HealthTests {
 		assertThat(health.getDetails()).isEmpty();
 	}
 
-	@Test
-	void serializeWithJacksonReturnsValidJson() throws Exception {
-		Health health = Health.down().withDetail("a", "b").build();
-		ObjectMapper mapper = new ObjectMapper();
-		String json = mapper.writeValueAsString(health);
-		assertThat(json).isEqualTo("{\"status\":\"DOWN\",\"details\":{\"a\":\"b\"}}");
-	}
-
 }
