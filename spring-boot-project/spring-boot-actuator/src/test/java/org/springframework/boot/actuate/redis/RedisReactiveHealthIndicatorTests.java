@@ -56,7 +56,10 @@ class RedisReactiveHealthIndicatorTests {
 		given(redisConnection.closeLater()).willReturn(Mono.empty());
 		ReactiveServerCommands commands = mock(ReactiveServerCommands.class);
 		given(commands.info()).willReturn(Mono.just(info));
-		RedisReactiveHealthIndicator healthIndicator = createHealthIndicator(redisConnection, commands);
+		ReactiveRedisConnectionFactory redisConnectionFactory = mock(ReactiveRedisConnectionFactory.class);
+		given(redisConnectionFactory.getReactiveConnection()).willReturn(redisConnection);
+		given(redisConnection.serverCommands()).willReturn(commands);
+		RedisReactiveHealthIndicator healthIndicator = new RedisReactiveHealthIndicator(redisConnectionFactory);
 		Mono<Health> health = healthIndicator.health();
 		StepVerifier.create(health).consumeNextWith((h) -> {
 			assertThat(h.getStatus()).isEqualTo(Status.UP);
@@ -94,7 +97,10 @@ class RedisReactiveHealthIndicatorTests {
 		given(commands.info()).willReturn(Mono.error(new RedisConnectionFailureException("Connection failed")));
 		ReactiveRedisConnection redisConnection = mock(ReactiveRedisConnection.class);
 		given(redisConnection.closeLater()).willReturn(Mono.empty());
-		RedisReactiveHealthIndicator healthIndicator = createHealthIndicator(redisConnection, commands);
+		ReactiveRedisConnectionFactory redisConnectionFactory = mock(ReactiveRedisConnectionFactory.class);
+		given(redisConnectionFactory.getReactiveConnection()).willReturn(redisConnection);
+		given(redisConnection.serverCommands()).willReturn(commands);
+		RedisReactiveHealthIndicator healthIndicator = new RedisReactiveHealthIndicator(redisConnectionFactory);
 		Mono<Health> health = healthIndicator.health();
 		StepVerifier.create(health).consumeNextWith((h) -> assertThat(h.getStatus()).isEqualTo(Status.DOWN))
 				.verifyComplete();
@@ -110,15 +116,6 @@ class RedisReactiveHealthIndicatorTests {
 		Mono<Health> health = healthIndicator.health();
 		StepVerifier.create(health).consumeNextWith((h) -> assertThat(h.getStatus()).isEqualTo(Status.DOWN))
 				.verifyComplete();
-	}
-
-	private RedisReactiveHealthIndicator createHealthIndicator(ReactiveRedisConnection redisConnection,
-			ReactiveServerCommands serverCommands) {
-
-		ReactiveRedisConnectionFactory redisConnectionFactory = mock(ReactiveRedisConnectionFactory.class);
-		given(redisConnectionFactory.getReactiveConnection()).willReturn(redisConnection);
-		given(redisConnection.serverCommands()).willReturn(serverCommands);
-		return new RedisReactiveHealthIndicator(redisConnectionFactory);
 	}
 
 }
