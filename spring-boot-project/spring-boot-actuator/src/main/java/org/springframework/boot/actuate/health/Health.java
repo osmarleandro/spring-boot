@@ -125,14 +125,6 @@ public final class Health extends HealthComponent {
 	}
 
 	/**
-	 * Create a new {@link Builder} instance with an {@link Status#UNKNOWN} status.
-	 * @return a new {@link Builder} instance
-	 */
-	public static Builder unknown() {
-		return status(Status.UNKNOWN);
-	}
-
-	/**
 	 * Create a new {@link Builder} instance with an {@link Status#UP} status.
 	 * @return a new {@link Builder} instance
 	 */
