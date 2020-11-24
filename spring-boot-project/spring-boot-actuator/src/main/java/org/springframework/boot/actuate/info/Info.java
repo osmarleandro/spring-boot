@@ -44,15 +44,6 @@ public final class Info {
 		this.details = Collections.unmodifiableMap(content);
 	}
 
-	/**
-	 * Return the content.
-	 * @return the details of the info or an empty map.
-	 */
-	@JsonAnyGetter
-	public Map<String, Object> getDetails() {
-		return this.details;
-	}
-
 	public Object get(String id) {
 		return this.details.get(id);
 	}
@@ -85,7 +76,7 @@ public final class Info {
 
 	@Override
 	public String toString() {
-		return getDetails().toString();
+		return this.details.toString();
 	}
 
 	/**

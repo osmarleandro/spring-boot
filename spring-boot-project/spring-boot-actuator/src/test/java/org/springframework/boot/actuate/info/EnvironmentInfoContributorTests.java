@@ -42,14 +42,14 @@ class EnvironmentInfoContributorTests {
 		Info actual = contributeFrom(this.environment);
 		assertThat(actual.get("app", String.class)).isEqualTo("my app");
 		assertThat(actual.get("version", String.class)).isEqualTo("1.0.0");
-		assertThat(actual.getDetails().size()).isEqualTo(2);
+		assertThat(actual.details.size()).isEqualTo(2);
 	}
 
 	@Test
 	void extractNoEntry() {
 		TestPropertyValues.of("foo=bar").applyTo(this.environment);
 		Info actual = contributeFrom(this.environment);
-		assertThat(actual.getDetails()).isEmpty();
+		assertThat(actual.details).isEmpty();
 	}
 
 	@Test

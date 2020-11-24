@@ -52,7 +52,7 @@ public class InfoEndpoint {
 			contributor.contribute(builder);
 		}
 		Info build = builder.build();
-		return build.getDetails();
+		return build.details;
 	}
 
 }
