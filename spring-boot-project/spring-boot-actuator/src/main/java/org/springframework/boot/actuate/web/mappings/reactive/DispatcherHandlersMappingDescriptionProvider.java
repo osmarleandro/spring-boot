@@ -60,11 +60,6 @@ public class DispatcherHandlersMappingDescriptionProvider implements MappingDesc
 					new UrlHandlerMappingDescriptionProvider(), new RouterFunctionMappingDescriptionProvider());
 
 	@Override
-	public String getMappingName() {
-		return "dispatcherHandlers";
-	}
-
-	@Override
 	public Map<String, List<DispatcherHandlerMappingDescription>> describeMappings(ApplicationContext context) {
 		Map<String, List<DispatcherHandlerMappingDescription>> mappings = new HashMap<>();
 		context.getBeansOfType(DispatcherHandler.class)
