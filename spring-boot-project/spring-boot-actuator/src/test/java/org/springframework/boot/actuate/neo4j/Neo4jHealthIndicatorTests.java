@@ -86,7 +86,12 @@ class Neo4jHealthIndicatorTests {
 	void neo4jIsUpWithOneSessionExpiredException() {
 		ResultSummary resultSummary = ResultSummaryMock.createResultSummary("4711", "My Home", "");
 		Session session = mock(Session.class);
-		Result statementResult = mockStatementResult(resultSummary, "some edition");
+		Record record = mock(Record.class);
+		given(record.get("edition")).willReturn(Values.value("some edition"));
+		Result statementResult1 = mock(Result.class);
+		given(statementResult1.single()).willReturn(record);
+		given(statementResult1.consume()).willReturn(resultSummary);
+		Result statementResult = statementResult1;
 		AtomicInteger count = new AtomicInteger();
 		given(session.run(anyString())).will((invocation) -> {
 			if (count.compareAndSet(0, 1)) {
@@ -112,17 +117,13 @@ class Neo4jHealthIndicatorTests {
 		assertThat(health.getDetails()).containsKeys("error");
 	}
 
-	private Result mockStatementResult(ResultSummary resultSummary, String edition) {
+	private Driver mockDriver(ResultSummary resultSummary, String edition) {
 		Record record = mock(Record.class);
 		given(record.get("edition")).willReturn(Values.value(edition));
-		Result statementResult = mock(Result.class);
-		given(statementResult.single()).willReturn(record);
-		given(statementResult.consume()).willReturn(resultSummary);
-		return statementResult;
-	}
-
-	private Driver mockDriver(ResultSummary resultSummary, String edition) {
-		Result statementResult = mockStatementResult(resultSummary, edition);
+		Result statementResult1 = mock(Result.class);
+		given(statementResult1.single()).willReturn(record);
+		given(statementResult1.consume()).willReturn(resultSummary);
+		Result statementResult = statementResult1;
 		Session session = mock(Session.class);
 		given(session.run(anyString())).willReturn(statementResult);
 		Driver driver = mock(Driver.class);
