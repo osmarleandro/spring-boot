@@ -64,13 +64,6 @@ class AuditEventTests {
 	}
 
 	@Test
-	void nullType() {
-		assertThatIllegalArgumentException()
-				.isThrownBy(() -> new AuditEvent("phil", null, Collections.singletonMap("a", "b")))
-				.withMessageContaining("Type must not be null");
-	}
-
-	@Test
 	void jsonFormat() throws Exception {
 		AuditEvent event = new AuditEvent("johannes", "UNKNOWN",
 				Collections.singletonMap("type", (Object) "BadCredentials"));
