@@ -46,7 +46,7 @@ class WebMvcTagsTests {
 				"org.springframework.data.rest.webmvc.RepositoryRestHandlerMapping.EFFECTIVE_REPOSITORY_RESOURCE_LOOKUP_PATH",
 				new PathPatternParser().parse("/api/cities"));
 		this.request.setAttribute(HandlerMapping.BEST_MATCHING_PATTERN_ATTRIBUTE, "/api/{repository}");
-		Tag tag = WebMvcTags.uri(this.request, this.response);
+		Tag tag = WebMvcTags.uri(this.request, this.response, false);
 		assertThat(tag.getValue()).isEqualTo("/api/cities");
 	}
 
@@ -54,7 +54,7 @@ class WebMvcTagsTests {
 	void uriTagValueIsBestMatchingPatternWhenAvailable() {
 		this.request.setAttribute(HandlerMapping.BEST_MATCHING_PATTERN_ATTRIBUTE, "/spring/");
 		this.response.setStatus(301);
-		Tag tag = WebMvcTags.uri(this.request, this.response);
+		Tag tag = WebMvcTags.uri(this.request, this.response, false);
 		assertThat(tag.getValue()).isEqualTo("/spring/");
 	}
 
@@ -62,7 +62,7 @@ class WebMvcTagsTests {
 	void uriTagValueIsRootWhenBestMatchingPatternIsEmpty() {
 		this.request.setAttribute(HandlerMapping.BEST_MATCHING_PATTERN_ATTRIBUTE, "");
 		this.response.setStatus(301);
-		Tag tag = WebMvcTags.uri(this.request, this.response);
+		Tag tag = WebMvcTags.uri(this.request, this.response, false);
 		assertThat(tag.getValue()).isEqualTo("root");
 	}
 
@@ -82,45 +82,45 @@ class WebMvcTagsTests {
 
 	@Test
 	void uriTagValueIsRootWhenRequestHasNoPatternOrPathInfo() {
-		assertThat(WebMvcTags.uri(this.request, null).getValue()).isEqualTo("root");
+		assertThat(WebMvcTags.uri(this.request, null, false).getValue()).isEqualTo("root");
 	}
 
 	@Test
 	void uriTagValueIsRootWhenRequestHasNoPatternAndSlashPathInfo() {
 		this.request.setPathInfo("/");
-		assertThat(WebMvcTags.uri(this.request, null).getValue()).isEqualTo("root");
+		assertThat(WebMvcTags.uri(this.request, null, false).getValue()).isEqualTo("root");
 	}
 
 	@Test
 	void uriTagValueIsUnknownWhenRequestHasNoPatternAndNonRootPathInfo() {
 		this.request.setPathInfo("/example");
-		assertThat(WebMvcTags.uri(this.request, null).getValue()).isEqualTo("UNKNOWN");
+		assertThat(WebMvcTags.uri(this.request, null, false).getValue()).isEqualTo("UNKNOWN");
 	}
 
 	@Test
 	void uriTagValueIsRedirectionWhenResponseStatusIs3xx() {
 		this.response.setStatus(301);
-		Tag tag = WebMvcTags.uri(this.request, this.response);
+		Tag tag = WebMvcTags.uri(this.request, this.response, false);
 		assertThat(tag.getValue()).isEqualTo("REDIRECTION");
 	}
 
 	@Test
 	void uriTagValueIsNotFoundWhenResponseStatusIs404() {
 		this.response.setStatus(404);
-		Tag tag = WebMvcTags.uri(this.request, this.response);
+		Tag tag = WebMvcTags.uri(this.request, this.response, false);
 		assertThat(tag.getValue()).isEqualTo("NOT_FOUND");
 	}
 
 	@Test
 	void uriTagToleratesCustomResponseStatus() {
 		this.response.setStatus(601);
-		Tag tag = WebMvcTags.uri(this.request, this.response);
+		Tag tag = WebMvcTags.uri(this.request, this.response, false);
 		assertThat(tag.getValue()).isEqualTo("root");
 	}
 
 	@Test
 	void uriTagIsUnknownWhenRequestIsNull() {
-		Tag tag = WebMvcTags.uri(null, null);
+		Tag tag = WebMvcTags.uri(null, null, false);
 		assertThat(tag.getValue()).isEqualTo("UNKNOWN");
 	}
 
