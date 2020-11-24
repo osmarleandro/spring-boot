@@ -69,20 +69,6 @@ class ControllerEndpointDiscovererTests {
 	}
 
 	@Test
-	void getEndpointsShouldDiscoverProxyControllerEndpoints() {
-		this.contextRunner.withUserConfiguration(TestProxyControllerEndpoint.class)
-				.withConfiguration(AutoConfigurations.of(ValidationAutoConfiguration.class))
-				.run(assertDiscoverer((discoverer) -> {
-					Collection<ExposableControllerEndpoint> endpoints = discoverer.getEndpoints();
-					assertThat(endpoints).hasSize(1);
-					ExposableControllerEndpoint endpoint = endpoints.iterator().next();
-					assertThat(endpoint.getEndpointId()).isEqualTo(EndpointId.of("testcontroller"));
-					assertThat(endpoint.getController()).isInstanceOf(TestProxyControllerEndpoint.class);
-					assertThat(endpoint).isInstanceOf(DiscoveredEndpoint.class);
-				}));
-	}
-
-	@Test
 	void getEndpointsShouldIncludeRestControllerEndpoints() {
 		this.contextRunner.withUserConfiguration(TestRestControllerEndpoint.class)
 				.run(assertDiscoverer((discoverer) -> {
