@@ -60,10 +60,6 @@ public class RequestMappingConditionsDescription {
 				.map(MediaTypeExpressionDescription::new).collect(Collectors.toList());
 	}
 
-	public List<MediaTypeExpressionDescription> getConsumes() {
-		return this.consumes;
-	}
-
 	public List<NameValueExpressionDescription> getHeaders() {
 		return this.headers;
 	}
