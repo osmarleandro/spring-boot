@@ -38,8 +38,4 @@ public class HandlerFunctionDescription {
 		return (canonicalName != null) ? canonicalName : functionClass.getName();
 	}
 
-	public String getClassName() {
-		return this.className;
-	}
-
 }
