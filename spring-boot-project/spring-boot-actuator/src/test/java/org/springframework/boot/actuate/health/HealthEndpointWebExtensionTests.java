@@ -85,11 +85,6 @@ class HealthEndpointWebExtensionTests
 	}
 
 	@Override
-	protected HealthContributorRegistry createRegistry() {
-		return new DefaultHealthContributorRegistry();
-	}
-
-	@Override
 	protected HealthContributor createContributor(Health health) {
 		return (HealthIndicator) () -> health;
 	}
