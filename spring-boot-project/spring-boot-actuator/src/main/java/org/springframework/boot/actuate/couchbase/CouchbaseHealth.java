@@ -51,15 +51,4 @@ class CouchbaseHealth {
 		return diagnostics.state() == ClusterState.ONLINE;
 	}
 
-	private Map<String, Object> describe(EndpointDiagnostics endpointHealth) {
-		Map<String, Object> map = new HashMap<>();
-		map.put("id", endpointHealth.id());
-		map.put("lastActivity", endpointHealth.lastActivity());
-		map.put("local", endpointHealth.local());
-		map.put("remote", endpointHealth.remote());
-		map.put("state", endpointHealth.state());
-		map.put("type", endpointHealth.type());
-		return map;
-	}
-
 }
