@@ -217,15 +217,6 @@ public abstract class AbstractWebEndpointIntegrationTests<T extends Configurable
 	}
 
 	@Test
-	void nullsArePassedToTheOperationWhenPostRequestHasNoBody() {
-		load(TestEndpointConfiguration.class, (context, client) -> {
-			client.post().uri("/test").contentType(MediaType.APPLICATION_JSON).exchange().expectStatus().isNoContent()
-					.expectBody().isEmpty();
-			verify(context.getBean(EndpointDelegate.class)).write(null, null);
-		});
-	}
-
-	@Test
 	void nullResponseFromReadOperationResultsInNotFoundResponseStatus() {
 		load(NullReadResponseEndpointConfiguration.class,
 				(context, client) -> client.get().uri("/nullread").exchange().expectStatus().isNotFound());
