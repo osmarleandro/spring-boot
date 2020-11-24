@@ -128,16 +128,6 @@ class WebFluxTagsTests {
 	}
 
 	@Test
-	void methodTagToleratesNonStandardHttpMethods() {
-		ServerWebExchange exchange = mock(ServerWebExchange.class);
-		ServerHttpRequest request = mock(ServerHttpRequest.class);
-		given(exchange.getRequest()).willReturn(request);
-		given(request.getMethodValue()).willReturn("CUSTOM");
-		Tag tag = WebFluxTags.method(exchange);
-		assertThat(tag.getValue()).isEqualTo("CUSTOM");
-	}
-
-	@Test
 	void outcomeTagIsSuccessWhenResponseStatusIsNull() {
 		this.exchange.getResponse().setStatusCode(null);
 		Tag tag = WebFluxTags.outcome(this.exchange);
