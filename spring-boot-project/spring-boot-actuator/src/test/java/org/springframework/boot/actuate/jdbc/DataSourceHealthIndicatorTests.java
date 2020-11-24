@@ -50,13 +50,6 @@ class DataSourceHealthIndicatorTests {
 
 	private SingleConnectionDataSource dataSource;
 
-	@BeforeEach
-	void init() {
-		EmbeddedDatabaseConnection db = EmbeddedDatabaseConnection.HSQLDB;
-		this.dataSource = new SingleConnectionDataSource(db.getUrl("testdb") + ";shutdown=true", "sa", "", false);
-		this.dataSource.setDriverClassName(db.getDriverClassName());
-	}
-
 	@AfterEach
 	void close() {
 		if (this.dataSource != null) {
