@@ -18,6 +18,7 @@ package org.springframework.boot.actuate.web.mappings;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Supplier;
@@ -144,7 +145,14 @@ class MappingsEndpointTests {
 	}
 
 	private ContextMappings contextMappings(ApplicationContext context) {
-		ApplicationMappings applicationMappings = context.getBean(MappingsEndpoint.class).mappings();
+		MappingsEndpoint r = context.getBean(MappingsEndpoint.class);
+		ApplicationContext target = r.context;
+		Map<String, ContextMappings> contextMappings1 = new HashMap<>();
+		while (target != null) {
+			contextMappings1.put(target.getId(), r.mappingsForContext(target));
+			target = target.getParent();
+		}
+		ApplicationMappings applicationMappings = new ApplicationMappings(contextMappings1);
 		assertThat(applicationMappings.getContexts()).containsOnlyKeys(context.getId());
 		return applicationMappings.getContexts().get(context.getId());
 	}

@@ -42,17 +42,6 @@ public class MappingsEndpoint {
 		this.context = context;
 	}
 
-	@ReadOperation
-	public ApplicationMappings mappings() {
-		ApplicationContext target = this.context;
-		Map<String, ContextMappings> contextMappings = new HashMap<>();
-		while (target != null) {
-			contextMappings.put(target.getId(), mappingsForContext(target));
-			target = target.getParent();
-		}
-		return new ApplicationMappings(contextMappings);
-	}
-
 	private ContextMappings mappingsForContext(ApplicationContext applicationContext) {
 		Map<String, Object> mappings = new HashMap<>();
 		this.descriptionProviders.forEach(
