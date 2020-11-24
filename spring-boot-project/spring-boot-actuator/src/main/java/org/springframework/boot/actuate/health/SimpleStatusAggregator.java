@@ -76,10 +76,6 @@ public class SimpleStatusAggregator implements StatusAggregator {
 		return statuses.stream().filter(this::contains).min(this.comparator).orElse(Status.UNKNOWN);
 	}
 
-	private boolean contains(Status status) {
-		return this.order.contains(getUniformCode(status.getCode()));
-	}
-
 	private static List<String> getUniformCodes(Stream<String> codes) {
 		return codes.map(SimpleStatusAggregator::getUniformCode).collect(Collectors.toList());
 	}
