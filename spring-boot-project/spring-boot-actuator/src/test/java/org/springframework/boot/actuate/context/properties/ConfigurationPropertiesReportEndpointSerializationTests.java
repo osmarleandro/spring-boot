@@ -85,28 +85,6 @@ class ConfigurationPropertiesReportEndpointSerializationTests {
 	}
 
 	@Test
-	@SuppressWarnings("unchecked")
-	void testSelfReferentialProperty() {
-		ApplicationContextRunner contextRunner = new ApplicationContextRunner()
-				.withUserConfiguration(SelfReferentialConfig.class).withPropertyValues("foo.name:foo");
-		contextRunner.run((context) -> {
-			ConfigurationPropertiesReportEndpoint endpoint = context
-					.getBean(ConfigurationPropertiesReportEndpoint.class);
-			ApplicationConfigurationProperties applicationProperties = endpoint.configurationProperties();
-			ConfigurationPropertiesBeanDescriptor foo = applicationProperties.getContexts().get(context.getId())
-					.getBeans().get("foo");
-			assertThat(foo.getPrefix()).isEqualTo("foo");
-			Map<String, Object> map = foo.getProperties();
-			assertThat(map).isNotNull();
-			assertThat(map).containsOnlyKeys("bar", "name");
-			assertThat(map).containsEntry("name", "foo");
-			Map<String, Object> bar = (Map<String, Object>) map.get("bar");
-			assertThat(bar).containsOnlyKeys("name");
-			assertThat(bar).containsEntry("name", "123456");
-		});
-	}
-
-	@Test
 	void testCycle() {
 		ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 				.withUserConfiguration(CycleConfig.class);
