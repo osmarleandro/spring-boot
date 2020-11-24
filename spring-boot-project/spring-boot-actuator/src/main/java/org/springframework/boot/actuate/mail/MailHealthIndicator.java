@@ -36,11 +36,4 @@ public class MailHealthIndicator extends AbstractHealthIndicator {
 		this.mailSender = mailSender;
 	}
 
-	@Override
-	protected void doHealthCheck(Builder builder) throws Exception {
-		builder.withDetail("location", this.mailSender.getHost() + ":" + this.mailSender.getPort());
-		this.mailSender.testConnection();
-		builder.up();
-	}
-
 }
