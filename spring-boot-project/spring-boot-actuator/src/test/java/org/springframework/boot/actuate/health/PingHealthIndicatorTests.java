@@ -27,10 +27,4 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 class PingHealthIndicatorTests {
 
-	@Test
-	void indicatesUp() {
-		PingHealthIndicator healthIndicator = new PingHealthIndicator();
-		assertThat(healthIndicator.health().getStatus()).isEqualTo(Status.UP);
-	}
-
 }
