@@ -79,16 +79,12 @@ public abstract class AbstractReactiveHealthIndicator implements ReactiveHealthI
 			return doHealthCheck(new Health.Builder()).onErrorResume(this::handleFailure);
 		}
 		catch (Exception ex) {
-			return handleFailure(ex);
+			if (this.logger.isWarnEnabled()) {
+				String message = this.healthCheckFailedMessage.apply(ex);
+				this.logger.warn(StringUtils.hasText(message) ? message : DEFAULT_MESSAGE, ex);
+			}
+			return Mono.just(new Health.Builder().down(ex).build());
 		}
-	}
-
-	private Mono<Health> handleFailure(Throwable ex) {
-		if (this.logger.isWarnEnabled()) {
-			String message = this.healthCheckFailedMessage.apply(ex);
-			this.logger.warn(StringUtils.hasText(message) ? message : DEFAULT_MESSAGE, ex);
-		}
-		return Mono.just(new Health.Builder().down(ex).build());
 	}
 
 	/**
