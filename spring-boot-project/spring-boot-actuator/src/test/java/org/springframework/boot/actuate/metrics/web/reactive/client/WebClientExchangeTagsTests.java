@@ -147,13 +147,6 @@ class WebClientExchangeTagsTests {
 	}
 
 	@Test
-	void outcomeTagIsClientErrorWhenResponseIs4xx() {
-		given(this.response.rawStatusCode()).willReturn(HttpStatus.BAD_REQUEST.value());
-		Tag tag = WebClientExchangeTags.outcome(this.response);
-		assertThat(tag.getValue()).isEqualTo("CLIENT_ERROR");
-	}
-
-	@Test
 	void outcomeTagIsServerErrorWhenResponseIs5xx() {
 		given(this.response.rawStatusCode()).willReturn(HttpStatus.BAD_GATEWAY.value());
 		Tag tag = WebClientExchangeTags.outcome(this.response);
