@@ -66,15 +66,6 @@ class ServerWebExchangeTraceableRequestTests {
 	}
 
 	@Test
-	void getHeaders() {
-		HttpHeaders httpHeaders = new HttpHeaders();
-		httpHeaders.add("name", "value");
-		given(this.request.getHeaders()).willReturn(httpHeaders);
-		ServerWebExchangeTraceableRequest traceableRequest = new ServerWebExchangeTraceableRequest(this.exchange);
-		assertThat(traceableRequest.getHeaders()).containsOnly(entry("name", Collections.singletonList("value")));
-	}
-
-	@Test
 	void getUnresolvedRemoteAddress() {
 		InetSocketAddress socketAddress = InetSocketAddress.createUnresolved("unresolved.example.com", 8080);
 		given(this.request.getRemoteAddress()).willReturn(socketAddress);
