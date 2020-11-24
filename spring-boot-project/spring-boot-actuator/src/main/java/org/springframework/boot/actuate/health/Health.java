@@ -167,15 +167,6 @@ public final class Health extends HealthComponent {
 	}
 
 	/**
-	 * Create a new {@link Builder} instance with a specific status code.
-	 * @param statusCode the status code
-	 * @return a new {@link Builder} instance
-	 */
-	public static Builder status(String statusCode) {
-		return status(new Status(statusCode));
-	}
-
-	/**
 	 * Create a new {@link Builder} instance with a specific {@link Status}.
 	 * @param status the status
 	 * @return a new {@link Builder} instance
