@@ -188,15 +188,6 @@ class EndpointMBeanTests {
 		assertThat(attributes).isEmpty();
 	}
 
-	@Test
-	void setAttributesShouldReturnEmptyAttributeList() {
-		EndpointMBean bean = createEndpointMBean();
-		AttributeList sourceAttributes = new AttributeList();
-		sourceAttributes.add(new Attribute("test", "test"));
-		AttributeList attributes = bean.setAttributes(sourceAttributes);
-		assertThat(attributes).isEmpty();
-	}
-
 	private EndpointMBean createEndpointMBean() {
 		return new EndpointMBean(this.responseMapper, null, this.endpoint);
 	}
