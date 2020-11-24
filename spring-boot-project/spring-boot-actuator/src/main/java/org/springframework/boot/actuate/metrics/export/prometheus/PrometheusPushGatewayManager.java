@@ -27,7 +27,7 @@ import io.prometheus.client.CollectorRegistry;
 import io.prometheus.client.exporter.PushGateway;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
+import org.springframework.boot.actuate.metrics.export.prometheus.PrometheusPushGatewayManager.PushGatewayTaskScheduler;
 import org.springframework.scheduling.TaskScheduler;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 import org.springframework.util.Assert;
@@ -113,7 +113,19 @@ public class PrometheusPushGatewayManager {
 					+ (StringUtils.hasLength(host) ? " '" + host + "'" : "")
 					+ ". No longer attempting metrics publication to this host";
 			logger.error(message, ex);
-			shutdown(ShutdownOperation.NONE);
+			ShutdownOperation shutdownOperation = ShutdownOperation.NONE;
+			if (this.scheduler instanceof PushGatewayTaskScheduler) {
+				((PushGatewayTaskScheduler) this.scheduler).shutdown();
+			}
+			this.scheduled.cancel(false);
+			switch (shutdownOperation) {
+			case PUSH:
+				push();
+				break;
+			case DELETE:
+				delete();
+				break;
+			}
 		}
 		catch (Throwable ex) {
 			logger.error("Unable to push metrics to Prometheus Pushgateway", ex);
@@ -133,15 +145,11 @@ public class PrometheusPushGatewayManager {
 	 * Shutdown the manager, running any {@link ShutdownOperation}.
 	 */
 	public void shutdown() {
-		shutdown(this.shutdownOperation);
-	}
-
-	private void shutdown(ShutdownOperation shutdownOperation) {
 		if (this.scheduler instanceof PushGatewayTaskScheduler) {
 			((PushGatewayTaskScheduler) this.scheduler).shutdown();
 		}
 		this.scheduled.cancel(false);
-		switch (shutdownOperation) {
+		switch (this.shutdownOperation) {
 		case PUSH:
 			push();
 			break;
