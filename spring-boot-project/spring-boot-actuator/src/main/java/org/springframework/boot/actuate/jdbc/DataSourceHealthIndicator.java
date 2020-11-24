@@ -87,11 +87,6 @@ public class DataSourceHealthIndicator extends AbstractHealthIndicator implement
 	}
 
 	@Override
-	public void afterPropertiesSet() throws Exception {
-		Assert.state(this.dataSource != null, "DataSource for DataSourceHealthIndicator must be specified");
-	}
-
-	@Override
 	protected void doHealthCheck(Health.Builder builder) throws Exception {
 		if (this.dataSource == null) {
 			builder.up().withDetail("database", "unknown");
