@@ -58,19 +58,6 @@ class HealthTests {
 	}
 
 	@Test
-	void equalsAndHashCode() {
-		Health h1 = new Health.Builder(Status.UP, Collections.singletonMap("a", "b")).build();
-		Health h2 = new Health.Builder(Status.UP, Collections.singletonMap("a", "b")).build();
-		Health h3 = new Health.Builder(Status.UP).build();
-		assertThat(h1).isEqualTo(h1);
-		assertThat(h1).isEqualTo(h2);
-		assertThat(h1).isNotEqualTo(h3);
-		assertThat(h1.hashCode()).isEqualTo(h1.hashCode());
-		assertThat(h1.hashCode()).isEqualTo(h2.hashCode());
-		assertThat(h1.hashCode()).isNotEqualTo(h3.hashCode());
-	}
-
-	@Test
 	void withException() {
 		RuntimeException ex = new RuntimeException("bang");
 		Health health = new Health.Builder(Status.UP, Collections.singletonMap("a", "b")).withException(ex).build();
