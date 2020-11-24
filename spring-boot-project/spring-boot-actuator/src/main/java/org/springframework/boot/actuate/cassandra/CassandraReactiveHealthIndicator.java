@@ -50,10 +50,4 @@ public class CassandraReactiveHealthIndicator extends AbstractReactiveHealthIndi
 		this.reactiveCassandraOperations = reactiveCassandraOperations;
 	}
 
-	@Override
-	protected Mono<Health> doHealthCheck(Health.Builder builder) {
-		return this.reactiveCassandraOperations.getReactiveCqlOperations().queryForObject(SELECT, String.class)
-				.map((version) -> builder.up().withDetail("version", version).build()).single();
-	}
-
 }
