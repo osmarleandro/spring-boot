@@ -289,7 +289,7 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 
 	private boolean isEndpointFiltered(EndpointBean endpointBean) {
 		for (EndpointFilter<E> filter : this.filters) {
-			if (!isFilterMatch(filter, endpointBean)) {
+			if (!isFilterMatch(filter, getFilterEndpoint(endpointBean))) {
 				return true;
 			}
 		}
@@ -311,10 +311,6 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 			return isFilterMatch(instance, endpoint);
 		}
 		return false;
-	}
-
-	private boolean isFilterMatch(EndpointFilter<E> filter, EndpointBean endpointBean) {
-		return isFilterMatch(filter, getFilterEndpoint(endpointBean));
 	}
 
 	@SuppressWarnings("unchecked")
