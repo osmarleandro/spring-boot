@@ -55,6 +55,7 @@ import org.springframework.boot.actuate.endpoint.web.WebOperationRequestPredicat
 import org.springframework.util.AntPathMatcher;
 import org.springframework.util.ClassUtils;
 import org.springframework.util.CollectionUtils;
+import org.springframework.util.MimeTypeUtils;
 import org.springframework.util.StringUtils;
 
 /**
@@ -151,7 +152,17 @@ public class JerseyEndpointResourceFactory {
 			arguments.putAll(extractPathParameters(data));
 			arguments.putAll(extractQueryParameters(data));
 			try {
-				ApiVersion apiVersion = ApiVersion.fromHttpHeaders(data.getHeaders());
+				Map<String, List<String>> headers = data.getHeaders();
+				ApiVersion version = null;
+				List<String> accepts = headers.get("Accept");
+				if (!CollectionUtils.isEmpty(accepts)) {
+					for (String accept : accepts) {
+						for (String type : MimeTypeUtils.tokenize(accept)) {
+							version = ApiVersion.mostRecent(version, ApiVersion.forType(type));
+						}
+					}
+				}
+				ApiVersion apiVersion = (version != null) ? version : ApiVersion.LATEST;
 				JerseySecurityContext securityContext = new JerseySecurityContext(data.getSecurityContext());
 				InvocationContext invocationContext = new InvocationContext(apiVersion, securityContext, arguments);
 				Object response = this.operation.invoke(invocationContext);

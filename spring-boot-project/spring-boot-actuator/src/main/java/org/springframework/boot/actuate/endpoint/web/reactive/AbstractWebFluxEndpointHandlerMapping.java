@@ -22,6 +22,7 @@ import java.security.Principal;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.function.Supplier;
 
@@ -51,6 +52,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.ReactiveSecurityContextHolder;
 import org.springframework.util.AntPathMatcher;
 import org.springframework.util.ClassUtils;
+import org.springframework.util.CollectionUtils;
+import org.springframework.util.MimeTypeUtils;
 import org.springframework.util.ReflectionUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -310,7 +313,17 @@ public abstract class AbstractWebFluxEndpointHandlerMapping extends RequestMappi
 
 		@Override
 		public Mono<ResponseEntity<Object>> handle(ServerWebExchange exchange, Map<String, String> body) {
-			ApiVersion apiVersion = ApiVersion.fromHttpHeaders(exchange.getRequest().getHeaders());
+			Map<String, List<String>> headers = exchange.getRequest().getHeaders();
+			ApiVersion version = null;
+			List<String> accepts = headers.get("Accept");
+			if (!CollectionUtils.isEmpty(accepts)) {
+				for (String accept : accepts) {
+					for (String type : MimeTypeUtils.tokenize(accept)) {
+						version = ApiVersion.mostRecent(version, ApiVersion.forType(type));
+					}
+				}
+			}
+			ApiVersion apiVersion = (version != null) ? version : ApiVersion.LATEST;
 			Map<String, Object> arguments = getArguments(exchange, body);
 			String matchAllRemainingPathSegmentsVariable = this.operation.getRequestPredicate()
 					.getMatchAllRemainingPathSegmentsVariable();
