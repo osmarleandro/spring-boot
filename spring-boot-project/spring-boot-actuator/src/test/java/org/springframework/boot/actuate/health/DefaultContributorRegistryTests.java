@@ -84,12 +84,6 @@ abstract class DefaultContributorRegistryTests {
 	}
 
 	@Test
-	void registerContributorWhenContributorIsNullThrowsException() {
-		assertThatIllegalArgumentException().isThrownBy(() -> this.registry.registerContributor("one", null))
-				.withMessage("Contributor must not be null");
-	}
-
-	@Test
 	void registerContributorRegistersContributors() {
 		this.registry.registerContributor("one", this.one);
 		this.registry.registerContributor("two", this.two);
