@@ -106,14 +106,6 @@ public class AuditEvent implements Serializable {
 	}
 
 	/**
-	 * Returns the date/time that the event was logged.
-	 * @return the timestamp
-	 */
-	public Instant getTimestamp() {
-		return this.timestamp;
-	}
-
-	/**
 	 * Returns the user principal responsible for the event or an empty String if the
 	 * principal is not available.
 	 * @return the principal
