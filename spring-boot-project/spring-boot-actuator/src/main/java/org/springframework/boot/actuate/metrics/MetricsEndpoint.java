@@ -98,16 +98,6 @@ public class MetricsEndpoint {
 		return tags.stream().map(this::parseTag).collect(Collectors.toList());
 	}
 
-	private Tag parseTag(String tag) {
-		String[] parts = tag.split(":", 2);
-		if (parts.length != 2) {
-			throw new InvalidEndpointRequestException(
-					"Each tag parameter must be in the form 'key:value' but was: " + tag,
-					"Each tag parameter must be in the form 'key:value'");
-		}
-		return Tag.of(parts[0], parts[1]);
-	}
-
 	private Collection<Meter> findFirstMatchingMeters(MeterRegistry registry, String name, Iterable<Tag> tags) {
 		if (registry instanceof CompositeMeterRegistry) {
 			return findFirstMatchingMeters((CompositeMeterRegistry) registry, name, tags);
