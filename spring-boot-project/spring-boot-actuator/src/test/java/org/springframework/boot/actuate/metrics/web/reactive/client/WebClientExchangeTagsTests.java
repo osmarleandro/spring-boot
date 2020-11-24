@@ -92,12 +92,6 @@ class WebClientExchangeTagsTests {
 	}
 
 	@Test
-	void status() {
-		given(this.response.rawStatusCode()).willReturn(HttpStatus.OK.value());
-		assertThat(WebClientExchangeTags.status(this.response, null)).isEqualTo(Tag.of("status", "200"));
-	}
-
-	@Test
 	void statusWhenIOException() {
 		assertThat(WebClientExchangeTags.status(null, new IOException())).isEqualTo(Tag.of("status", "IO_ERROR"));
 	}
