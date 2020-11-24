@@ -82,11 +82,6 @@ class HealthEndpointTests
 	}
 
 	@Override
-	protected HealthContributor createCompositeContributor(Map<String, HealthContributor> contributors) {
-		return CompositeHealthContributor.fromMap(contributors);
-	}
-
-	@Override
 	protected HealthComponent getHealth(HealthResult<HealthComponent> result) {
 		return result.getHealth();
 	}
