@@ -88,7 +88,7 @@ public class InMemoryAuditEventRepository implements AuditEventRepository {
 		boolean match = true;
 		match = match && (principal == null || event.getPrincipal().equals(principal));
 		match = match && (after == null || event.getTimestamp().isAfter(after));
-		match = match && (type == null || event.getType().equals(type));
+		match = match && (type == null || event.type.equals(type));
 		return match;
 	}
 
