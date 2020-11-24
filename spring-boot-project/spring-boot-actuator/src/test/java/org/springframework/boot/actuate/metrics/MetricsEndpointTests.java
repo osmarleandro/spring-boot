@@ -67,19 +67,6 @@ class MetricsEndpointTests {
 	}
 
 	@Test
-	void listNamesRecursesOverCompositeRegistries() {
-		CompositeMeterRegistry composite = new CompositeMeterRegistry();
-		SimpleMeterRegistry reg1 = new SimpleMeterRegistry();
-		SimpleMeterRegistry reg2 = new SimpleMeterRegistry();
-		composite.add(reg1);
-		composite.add(reg2);
-		reg1.counter("counter1").increment();
-		reg2.counter("counter2").increment();
-		MetricsEndpoint endpoint = new MetricsEndpoint(composite);
-		assertThat(endpoint.listNames().getNames()).containsExactly("counter1", "counter2");
-	}
-
-	@Test
 	void metricValuesAreTheSumOfAllTimeSeriesMatchingTags() {
 		this.registry.counter("cache", "result", "hit", "host", "1").increment(2);
 		this.registry.counter("cache", "result", "miss", "host", "1").increment(2);
