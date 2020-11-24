@@ -171,7 +171,8 @@ class HealthEndpointAutoConfigurationTests {
 	void runCreatesHealthEndpoint() {
 		this.contextRunner.withPropertyValues("management.endpoint.health.show-details=always").run((context) -> {
 			HealthEndpoint endpoint = context.getBean(HealthEndpoint.class);
-			Health health = (Health) endpoint.healthForPath("simple");
+			String[] path = { "simple" };
+			Health health = (Health) endpoint.health(ApiVersion.V3, path);
 			assertThat(health.getDetails()).containsEntry("counter", 42);
 		});
 	}

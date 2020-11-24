@@ -20,7 +20,7 @@ import java.util.Collections;
 import java.util.Map;
 
 import org.junit.jupiter.api.Test;
-
+import org.springframework.boot.actuate.endpoint.http.ApiVersion;
 import org.springframework.boot.actuate.health.HealthEndpointSupport.HealthResult;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -55,14 +55,16 @@ class HealthEndpointTests
 	@Test
 	void healthWhenPathDoesNotExistReturnsNull() {
 		this.registry.registerContributor("test", createContributor(this.up));
-		HealthComponent health = create(this.registry, this.groups).healthForPath("missing");
+		String[] path = { "missing" };
+		HealthComponent health = create(this.registry, this.groups).health(ApiVersion.V3, path);
 		assertThat(health).isNull();
 	}
 
 	@Test
 	void healthWhenPathExistsReturnsHealth() {
 		this.registry.registerContributor("test", createContributor(this.up));
-		HealthComponent health = create(this.registry, this.groups).healthForPath("test");
+		String[] path = { "test" };
+		HealthComponent health = create(this.registry, this.groups).health(ApiVersion.V3, path);
 		assertThat(health).isEqualTo(this.up);
 	}
 
