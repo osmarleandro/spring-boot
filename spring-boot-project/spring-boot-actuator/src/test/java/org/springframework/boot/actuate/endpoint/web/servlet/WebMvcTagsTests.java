@@ -92,12 +92,6 @@ class WebMvcTagsTests {
 	}
 
 	@Test
-	void uriTagValueIsUnknownWhenRequestHasNoPatternAndNonRootPathInfo() {
-		this.request.setPathInfo("/example");
-		assertThat(WebMvcTags.uri(this.request, null).getValue()).isEqualTo("UNKNOWN");
-	}
-
-	@Test
 	void uriTagValueIsRedirectionWhenResponseStatusIs3xx() {
 		this.response.setStatus(301);
 		Tag tag = WebMvcTags.uri(this.request, this.response);
