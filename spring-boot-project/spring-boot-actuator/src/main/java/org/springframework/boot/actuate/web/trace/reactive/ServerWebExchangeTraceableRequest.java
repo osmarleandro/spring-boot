@@ -47,13 +47,9 @@ class ServerWebExchangeTraceableRequest implements TraceableRequest {
 		this.method = request.getMethodValue();
 		this.headers = request.getHeaders();
 		this.uri = request.getURI();
-		this.remoteAddress = getRemoteAddress(request);
-	}
-
-	private static String getRemoteAddress(ServerHttpRequest request) {
-		InetSocketAddress remoteAddress = request.getRemoteAddress();
-		InetAddress address = (remoteAddress != null) ? remoteAddress.getAddress() : null;
-		return (address != null) ? address.toString() : null;
+		InetSocketAddress remoteAddress1 = request.getRemoteAddress();
+		InetAddress address = (remoteAddress1 != null) ? remoteAddress1.getAddress() : null;
+		this.remoteAddress = (address != null) ? address.toString() : null;
 	}
 
 	@Override
