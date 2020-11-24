@@ -38,14 +38,6 @@ public class FilterRegistrationMappingDescription extends RegistrationMappingDes
 	}
 
 	/**
-	 * Returns the servlet name mappings for the registered filter.
-	 * @return the mappings
-	 */
-	public Collection<String> getServletNameMappings() {
-		return getRegistration().getServletNameMappings();
-	}
-
-	/**
 	 * Returns the URL pattern mappings for the registered filter.
 	 * @return the mappings
 	 */
