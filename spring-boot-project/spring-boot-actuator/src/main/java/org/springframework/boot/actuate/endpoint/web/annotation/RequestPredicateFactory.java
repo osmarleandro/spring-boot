@@ -105,8 +105,8 @@ class RequestPredicateFactory {
 	}
 
 	private Collection<String> getProduces(DiscoveredOperationMethod operationMethod, Method method) {
-		if (!operationMethod.getProducesMediaTypes().isEmpty()) {
-			return operationMethod.getProducesMediaTypes();
+		if (!operationMethod.producesMediaTypes.isEmpty()) {
+			return operationMethod.producesMediaTypes;
 		}
 		if (Void.class.equals(method.getReturnType()) || void.class.equals(method.getReturnType())) {
 			return Collections.emptyList();

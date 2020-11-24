@@ -50,7 +50,7 @@ class DiscoveredOperationMethodTests {
 		annotationAttributes.put("produces", produces);
 		DiscoveredOperationMethod discovered = new DiscoveredOperationMethod(method, OperationType.READ,
 				annotationAttributes);
-		assertThat(discovered.getProducesMediaTypes()).containsExactly("application/json");
+		assertThat(discovered.producesMediaTypes).containsExactly("application/json");
 	}
 
 	void example() {

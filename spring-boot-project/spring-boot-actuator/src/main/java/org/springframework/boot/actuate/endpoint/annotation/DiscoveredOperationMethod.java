@@ -44,8 +44,4 @@ public class DiscoveredOperationMethod extends OperationMethod {
 		this.producesMediaTypes = Collections.unmodifiableList(Arrays.asList(produces));
 	}
 
-	public List<String> getProducesMediaTypes() {
-		return this.producesMediaTypes;
-	}
-
 }
