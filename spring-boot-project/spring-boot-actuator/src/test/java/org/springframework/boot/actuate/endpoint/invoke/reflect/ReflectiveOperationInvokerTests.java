@@ -71,13 +71,6 @@ class ReflectiveOperationInvokerTests {
 	}
 
 	@Test
-	void createWhenParameterValueMapperIsNullShouldThrowException() {
-		assertThatIllegalArgumentException()
-				.isThrownBy(() -> new ReflectiveOperationInvoker(this.target, this.operationMethod, null))
-				.withMessageContaining("ParameterValueMapper must not be null");
-	}
-
-	@Test
 	void invokeShouldInvokeMethod() {
 		ReflectiveOperationInvoker invoker = new ReflectiveOperationInvoker(this.target, this.operationMethod,
 				this.parameterValueMapper);
