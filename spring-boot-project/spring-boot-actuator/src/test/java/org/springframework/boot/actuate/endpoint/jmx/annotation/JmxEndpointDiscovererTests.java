@@ -110,15 +110,6 @@ class JmxEndpointDiscovererTests {
 	}
 
 	@Test
-	void getEndpointsWhenHasJmxExtensionShouldOverrideStandardEndpoint() {
-		load(OverriddenOperationJmxEndpointConfiguration.class, (discoverer) -> {
-			Map<EndpointId, ExposableJmxEndpoint> endpoints = discover(discoverer);
-			assertThat(endpoints).containsOnlyKeys(EndpointId.of("test"));
-			assertJmxTestEndpoint(endpoints.get(EndpointId.of("test")));
-		});
-	}
-
-	@Test
 	void getEndpointsWhenHasJmxExtensionWithNewOperationAddsExtraOperation() {
 		load(AdditionalOperationJmxEndpointConfiguration.class, (discoverer) -> {
 			Map<EndpointId, ExposableJmxEndpoint> endpoints = discover(discoverer);
