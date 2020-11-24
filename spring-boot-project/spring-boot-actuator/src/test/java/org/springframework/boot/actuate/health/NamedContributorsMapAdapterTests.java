@@ -35,13 +35,6 @@ import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException
 class NamedContributorsMapAdapterTests {
 
 	@Test
-	void createWhenMapIsNullThrowsException() {
-		assertThatIllegalArgumentException()
-				.isThrownBy(() -> new TestNamedContributorsMapAdapter<>(null, Function.identity()))
-				.withMessage("Map must not be null");
-	}
-
-	@Test
 	void createWhenValueAdapterIsNullThrowsException() {
 		assertThatIllegalArgumentException()
 				.isThrownBy(() -> new TestNamedContributorsMapAdapter<>(Collections.emptyMap(), null))
