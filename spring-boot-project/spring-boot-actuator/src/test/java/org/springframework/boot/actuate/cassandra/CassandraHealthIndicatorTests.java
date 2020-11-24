@@ -55,7 +55,7 @@ class CassandraHealthIndicatorTests {
 		given(cqlOperations.queryForObject(any(SimpleStatement.class), eq(String.class))).willReturn("1.0.0");
 		Health health = healthIndicator.health();
 		assertThat(health.getStatus()).isEqualTo(Status.UP);
-		assertThat(health.getDetails().get("version")).isEqualTo("1.0.0");
+		assertThat(health.details.get("version")).isEqualTo("1.0.0");
 	}
 
 	@Test
@@ -65,7 +65,7 @@ class CassandraHealthIndicatorTests {
 		CassandraHealthIndicator healthIndicator = new CassandraHealthIndicator(cassandraOperations);
 		Health health = healthIndicator.health();
 		assertThat(health.getStatus()).isEqualTo(Status.DOWN);
-		assertThat(health.getDetails().get("error"))
+		assertThat(health.details.get("error"))
 				.isEqualTo(CassandraInternalException.class.getName() + ": Connection failed");
 	}
 

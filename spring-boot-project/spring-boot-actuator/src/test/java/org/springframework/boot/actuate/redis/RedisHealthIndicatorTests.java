@@ -55,7 +55,7 @@ class RedisHealthIndicatorTests {
 		RedisHealthIndicator healthIndicator = createHealthIndicator(redisConnection);
 		Health health = healthIndicator.health();
 		assertThat(health.getStatus()).isEqualTo(Status.UP);
-		assertThat(health.getDetails().get("version")).isEqualTo("2.8.9");
+		assertThat(health.details.get("version")).isEqualTo("2.8.9");
 	}
 
 	@Test
@@ -65,7 +65,7 @@ class RedisHealthIndicatorTests {
 		RedisHealthIndicator healthIndicator = createHealthIndicator(redisConnection);
 		Health health = healthIndicator.health();
 		assertThat(health.getStatus()).isEqualTo(Status.DOWN);
-		assertThat((String) health.getDetails().get("error")).contains("Connection failed");
+		assertThat((String) health.details.get("error")).contains("Connection failed");
 	}
 
 	private RedisHealthIndicator createHealthIndicator(RedisConnection redisConnection) {
@@ -90,9 +90,9 @@ class RedisHealthIndicatorTests {
 		RedisHealthIndicator healthIndicator = new RedisHealthIndicator(redisConnectionFactory);
 		Health health = healthIndicator.health();
 		assertThat(health.getStatus()).isEqualTo(Status.UP);
-		assertThat(health.getDetails().get("cluster_size")).isEqualTo(4L);
-		assertThat(health.getDetails().get("slots_up")).isEqualTo(4L);
-		assertThat(health.getDetails().get("slots_fail")).isEqualTo(0L);
+		assertThat(health.details.get("cluster_size")).isEqualTo(4L);
+		assertThat(health.details.get("slots_up")).isEqualTo(4L);
+		assertThat(health.details.get("slots_fail")).isEqualTo(0L);
 		verify(redisConnectionFactory, atLeastOnce()).getConnection();
 	}
 

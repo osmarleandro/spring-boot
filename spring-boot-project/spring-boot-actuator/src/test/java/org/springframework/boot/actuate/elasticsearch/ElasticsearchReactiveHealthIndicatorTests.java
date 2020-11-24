@@ -67,7 +67,7 @@ class ElasticsearchReactiveHealthIndicatorTests {
 		setupMockResponse(200, "green");
 		Health health = this.healthIndicator.health().block();
 		assertThat(health.getStatus()).isEqualTo(Status.UP);
-		assertHealthDetailsWithStatus(health.getDetails(), "green");
+		assertHealthDetailsWithStatus(health.details, "green");
 	}
 
 	@Test
@@ -75,7 +75,7 @@ class ElasticsearchReactiveHealthIndicatorTests {
 		setupMockResponse(200, "yellow");
 		Health health = this.healthIndicator.health().block();
 		assertThat(health.getStatus()).isEqualTo(Status.UP);
-		assertHealthDetailsWithStatus(health.getDetails(), "yellow");
+		assertHealthDetailsWithStatus(health.details, "yellow");
 	}
 
 	@Test
@@ -83,7 +83,7 @@ class ElasticsearchReactiveHealthIndicatorTests {
 		this.server.shutdown();
 		Health health = this.healthIndicator.health().block();
 		assertThat(health.getStatus()).isEqualTo(Status.DOWN);
-		assertThat(health.getDetails().get("error")).asString()
+		assertThat(health.details.get("error")).asString()
 				.contains("org.springframework.data.elasticsearch.client.NoReachableHostException");
 	}
 
@@ -95,8 +95,8 @@ class ElasticsearchReactiveHealthIndicatorTests {
 		this.server.enqueue(new MockResponse().setResponseCode(HttpStatus.INTERNAL_SERVER_ERROR.value()));
 		Health health = this.healthIndicator.health().block();
 		assertThat(health.getStatus()).isEqualTo(Status.DOWN);
-		assertThat(health.getDetails().get("statusCode")).asString().isEqualTo("500");
-		assertThat(health.getDetails().get("reasonPhrase")).asString().isEqualTo("Internal Server Error");
+		assertThat(health.details.get("statusCode")).asString().isEqualTo("500");
+		assertThat(health.details.get("reasonPhrase")).asString().isEqualTo("Internal Server Error");
 	}
 
 	@Test
@@ -104,7 +104,7 @@ class ElasticsearchReactiveHealthIndicatorTests {
 		setupMockResponse(200, "red");
 		Health health = this.healthIndicator.health().block();
 		assertThat(health.getStatus()).isEqualTo(Status.OUT_OF_SERVICE);
-		assertHealthDetailsWithStatus(health.getDetails(), "red");
+		assertHealthDetailsWithStatus(health.details, "red");
 	}
 
 	private void assertHealthDetailsWithStatus(Map<String, Object> details, String status) {

@@ -63,10 +63,10 @@ class DiskSpaceHealthIndicatorTests {
 		given(this.fileMock.getTotalSpace()).willReturn(TOTAL_SPACE.toBytes());
 		Health health = this.healthIndicator.health();
 		assertThat(health.getStatus()).isEqualTo(Status.UP);
-		assertThat(health.getDetails().get("threshold")).isEqualTo(THRESHOLD.toBytes());
-		assertThat(health.getDetails().get("free")).isEqualTo(freeSpace);
-		assertThat(health.getDetails().get("total")).isEqualTo(TOTAL_SPACE.toBytes());
-		assertThat(health.getDetails().get("exists")).isEqualTo(true);
+		assertThat(health.details.get("threshold")).isEqualTo(THRESHOLD.toBytes());
+		assertThat(health.details.get("free")).isEqualTo(freeSpace);
+		assertThat(health.details.get("total")).isEqualTo(TOTAL_SPACE.toBytes());
+		assertThat(health.details.get("exists")).isEqualTo(true);
 	}
 
 	@Test
@@ -77,19 +77,19 @@ class DiskSpaceHealthIndicatorTests {
 		given(this.fileMock.getTotalSpace()).willReturn(TOTAL_SPACE.toBytes());
 		Health health = this.healthIndicator.health();
 		assertThat(health.getStatus()).isEqualTo(Status.DOWN);
-		assertThat(health.getDetails().get("threshold")).isEqualTo(THRESHOLD.toBytes());
-		assertThat(health.getDetails().get("free")).isEqualTo(freeSpace);
-		assertThat(health.getDetails().get("total")).isEqualTo(TOTAL_SPACE.toBytes());
-		assertThat(health.getDetails().get("exists")).isEqualTo(true);
+		assertThat(health.details.get("threshold")).isEqualTo(THRESHOLD.toBytes());
+		assertThat(health.details.get("free")).isEqualTo(freeSpace);
+		assertThat(health.details.get("total")).isEqualTo(TOTAL_SPACE.toBytes());
+		assertThat(health.details.get("exists")).isEqualTo(true);
 	}
 
 	@Test
 	void whenPathDoesNotExistDiskSpaceIsDown() {
 		Health health = new DiskSpaceHealthIndicator(new File("does/not/exist"), THRESHOLD).health();
 		assertThat(health.getStatus()).isEqualTo(Status.DOWN);
-		assertThat(health.getDetails().get("free")).isEqualTo(0L);
-		assertThat(health.getDetails().get("total")).isEqualTo(0L);
-		assertThat(health.getDetails().get("exists")).isEqualTo(false);
+		assertThat(health.details.get("free")).isEqualTo(0L);
+		assertThat(health.details.get("total")).isEqualTo(0L);
+		assertThat(health.details.get("exists")).isEqualTo(false);
 	}
 
 }

@@ -58,9 +58,9 @@ class CouchbaseHealthIndicatorTests {
 		given(cluster.diagnostics()).willReturn(diagnostics);
 		Health health = healthIndicator.health();
 		assertThat(health.getStatus()).isEqualTo(Status.UP);
-		assertThat(health.getDetails()).containsEntry("sdk", "test-sdk");
-		assertThat(health.getDetails()).containsKey("endpoints");
-		assertThat((List<Map<String, Object>>) health.getDetails().get("endpoints")).hasSize(1);
+		assertThat(health.details).containsEntry("sdk", "test-sdk");
+		assertThat(health.details).containsKey("endpoints");
+		assertThat((List<Map<String, Object>>) health.details.get("endpoints")).hasSize(1);
 		verify(cluster).diagnostics();
 	}
 
@@ -79,9 +79,9 @@ class CouchbaseHealthIndicatorTests {
 		given(cluster.diagnostics()).willReturn(diagnostics);
 		Health health = healthIndicator.health();
 		assertThat(health.getStatus()).isEqualTo(Status.DOWN);
-		assertThat(health.getDetails()).containsEntry("sdk", "test-sdk");
-		assertThat(health.getDetails()).containsKey("endpoints");
-		assertThat((List<Map<String, Object>>) health.getDetails().get("endpoints")).hasSize(2);
+		assertThat(health.details).containsEntry("sdk", "test-sdk");
+		assertThat(health.details).containsKey("endpoints");
+		assertThat((List<Map<String, Object>>) health.details.get("endpoints")).hasSize(2);
 		verify(cluster).diagnostics();
 	}
 

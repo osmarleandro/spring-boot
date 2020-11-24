@@ -80,15 +80,6 @@ public final class Health extends HealthComponent {
 	}
 
 	/**
-	 * Return the details of the health.
-	 * @return the details (or an empty map)
-	 */
-	@JsonInclude(Include.NON_EMPTY)
-	public Map<String, Object> getDetails() {
-		return this.details;
-	}
-
-	/**
 	 * Return a new instance of this {@link Health} with all {@link #getDetails() details}
 	 * removed.
 	 * @return a new instance without details
@@ -121,7 +112,7 @@ public final class Health extends HealthComponent {
 
 	@Override
 	public String toString() {
-		return getStatus() + " " + getDetails();
+		return getStatus() + " " + this.details;
 	}
 
 	/**
