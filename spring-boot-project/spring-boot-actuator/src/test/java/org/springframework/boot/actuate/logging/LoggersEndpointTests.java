@@ -130,12 +130,6 @@ class LoggersEndpointTests {
 	}
 
 	@Test
-	void configureLogLevelInLoggerGroupShouldSetLevelOnLoggingSystem() {
-		new LoggersEndpoint(this.loggingSystem, this.loggerGroups).configureLogLevel("test", LogLevel.DEBUG);
-		verify(this.loggingSystem).setLogLevel("test.member", LogLevel.DEBUG);
-	}
-
-	@Test
 	void configureLogLevelWithNullInLoggerGroupShouldSetLevelOnLoggingSystem() {
 		new LoggersEndpoint(this.loggingSystem, this.loggerGroups).configureLogLevel("test", null);
 		verify(this.loggingSystem).setLogLevel("test.member", null);
