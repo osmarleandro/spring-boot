@@ -70,10 +70,6 @@ class WebFluxEndpointIntegrationTests
 		return context;
 	}
 
-	private static void applyAuthenticatedConfiguration(AnnotationConfigReactiveWebServerApplicationContext context) {
-		context.register(AuthenticatedConfiguration.class);
-	}
-
 	@Test
 	void responseToOptionsRequestIncludesCorsHeaders() {
 		load(TestEndpointConfiguration.class,
