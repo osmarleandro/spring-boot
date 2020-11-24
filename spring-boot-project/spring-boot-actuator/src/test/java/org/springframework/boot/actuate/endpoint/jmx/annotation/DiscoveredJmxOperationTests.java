@@ -76,12 +76,6 @@ class DiscoveredJmxOperationTests {
 	}
 
 	@Test
-	void getParametersWhenHasNoParametersShouldReturnEmptyList() {
-		DiscoveredJmxOperation operation = getOperation("getEnum");
-		assertThat(operation.getParameters()).isEmpty();
-	}
-
-	@Test
 	void getParametersShouldReturnJmxTypes() {
 		DiscoveredJmxOperation operation = getOperation("params");
 		List<JmxOperationParameter> parameters = operation.getParameters();
