@@ -124,21 +124,6 @@ class CachingOperationInvokerTests {
 	}
 
 	@Test
-	void targetAlwaysInvokedWithParameters() {
-		OperationInvoker target = mock(OperationInvoker.class);
-		Map<String, Object> parameters = new HashMap<>();
-		parameters.put("test", "value");
-		parameters.put("something", null);
-		InvocationContext context = new InvocationContext(mock(SecurityContext.class), parameters);
-		given(target.invoke(context)).willReturn(new Object());
-		CachingOperationInvoker invoker = new CachingOperationInvoker(target, CACHE_TTL);
-		invoker.invoke(context);
-		invoker.invoke(context);
-		invoker.invoke(context);
-		verify(target, times(3)).invoke(context);
-	}
-
-	@Test
 	void targetAlwaysInvokedWithDifferentPrincipals() {
 		OperationInvoker target = mock(OperationInvoker.class);
 		Map<String, Object> parameters = new HashMap<>();
