@@ -209,20 +209,6 @@ abstract class HealthEndpointSupportTests<R extends ContributorRegistry<C>, C, T
 		assertThat(result).isNull();
 	}
 
-	@Test
-	void getHealthWhenGroupContainsCompositeContributorReturnsHealth() {
-		C contributor = createContributor(this.up);
-		C compositeContributor = createCompositeContributor(Collections.singletonMap("spring", contributor));
-		this.registry.registerContributor("test", compositeContributor);
-		TestHealthEndpointGroup testGroup = new TestHealthEndpointGroup((name) -> name.startsWith("test"));
-		HealthEndpointGroups groups = HealthEndpointGroups.of(this.primaryGroup,
-				Collections.singletonMap("testGroup", testGroup));
-		HealthResult<T> result = create(this.registry, groups).getHealth(ApiVersion.V3, SecurityContext.NONE, false,
-				"testGroup");
-		CompositeHealth health = (CompositeHealth) getHealth(result);
-		assertThat(health.getComponents()).containsKey("test");
-	}
-
 	protected abstract HealthEndpointSupport<C, T> create(R registry, HealthEndpointGroups groups);
 
 	protected abstract R createRegistry();
