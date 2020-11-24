@@ -88,18 +88,6 @@ class ElasticsearchReactiveHealthIndicatorTests {
 	}
 
 	@Test
-	void elasticsearchIsDownByResponseCode() {
-		// first enqueue an OK response since the HostChecker first sends a HEAD request
-		// to "/"
-		this.server.enqueue(new MockResponse().setResponseCode(HttpStatus.OK.value()));
-		this.server.enqueue(new MockResponse().setResponseCode(HttpStatus.INTERNAL_SERVER_ERROR.value()));
-		Health health = this.healthIndicator.health().block();
-		assertThat(health.getStatus()).isEqualTo(Status.DOWN);
-		assertThat(health.getDetails().get("statusCode")).asString().isEqualTo("500");
-		assertThat(health.getDetails().get("reasonPhrase")).asString().isEqualTo("Internal Server Error");
-	}
-
-	@Test
 	void elasticsearchIsOutOfServiceByStatus() {
 		setupMockResponse(200, "red");
 		Health health = this.healthIndicator.health().block();
