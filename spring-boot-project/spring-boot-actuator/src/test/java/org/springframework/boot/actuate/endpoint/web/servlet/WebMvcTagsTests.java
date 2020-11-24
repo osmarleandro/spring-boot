@@ -119,12 +119,6 @@ class WebMvcTagsTests {
 	}
 
 	@Test
-	void uriTagIsUnknownWhenRequestIsNull() {
-		Tag tag = WebMvcTags.uri(null, null);
-		assertThat(tag.getValue()).isEqualTo("UNKNOWN");
-	}
-
-	@Test
 	void outcomeTagIsUnknownWhenResponseIsNull() {
 		Tag tag = WebMvcTags.outcome(null);
 		assertThat(tag.getValue()).isEqualTo("UNKNOWN");
