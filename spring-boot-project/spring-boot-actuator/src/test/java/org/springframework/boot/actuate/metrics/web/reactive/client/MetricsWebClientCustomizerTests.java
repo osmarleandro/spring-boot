@@ -45,14 +45,6 @@ class MetricsWebClientCustomizerTests {
 	}
 
 	@Test
-	void customizeShouldAddFilterFunction() {
-		this.clientBuilder.filter(mock(ExchangeFilterFunction.class));
-		this.customizer.customize(this.clientBuilder);
-		this.clientBuilder.filters(
-				(filters) -> assertThat(filters).hasSize(2).first().isInstanceOf(MetricsWebClientFilterFunction.class));
-	}
-
-	@Test
 	void customizeShouldNotAddDuplicateFilterFunction() {
 		this.customizer.customize(this.clientBuilder);
 		this.clientBuilder.filters((filters) -> assertThat(filters).hasSize(1));
