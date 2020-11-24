@@ -82,11 +82,6 @@ public class EnvironmentEndpoint {
 		return getEnvironmentDescriptor((name) -> true);
 	}
 
-	@ReadOperation
-	public EnvironmentEntryDescriptor environmentEntry(@Selector String toMatch) {
-		return getEnvironmentEntryDescriptor(toMatch);
-	}
-
 	private EnvironmentDescriptor getEnvironmentDescriptor(Predicate<String> propertyNamePredicate) {
 		PlaceholdersResolver resolver = getResolver();
 		List<PropertySourceDescriptor> propertySources = new ArrayList<>();
