@@ -226,20 +226,6 @@ class EndpointDiscovererTests {
 	}
 
 	@Test
-	void getEndpointShouldFindParentExtension() {
-		load(SubSpecializedEndpointsConfiguration.class, (context) -> {
-			SpecializedEndpointDiscoverer discoverer = new SpecializedEndpointDiscoverer(context);
-			Map<EndpointId, SpecializedExposableEndpoint> endpoints = mapEndpoints(discoverer.getEndpoints());
-			Map<Method, SpecializedOperation> operations = mapOperations(endpoints.get(EndpointId.of("specialized")));
-			assertThat(operations).containsKeys(ReflectionUtils.findMethod(SpecializedTestEndpoint.class, "getAll"));
-			assertThat(operations).containsKeys(
-					ReflectionUtils.findMethod(SubSpecializedTestEndpoint.class, "getSpecialOne", String.class));
-			assertThat(operations).containsKeys(ReflectionUtils.findMethod(SpecializedExtension.class, "getSpecial"));
-			assertThat(operations).hasSize(3);
-		});
-	}
-
-	@Test
 	void getEndpointsWhenHasProxiedEndpointShouldReturnEndpoint() {
 		load(ProxiedSpecializedEndpointsConfiguration.class, (context) -> {
 			SpecializedEndpointDiscoverer discoverer = new SpecializedEndpointDiscoverer(context);
