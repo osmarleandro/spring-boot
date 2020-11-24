@@ -52,14 +52,6 @@ class LoggersEndpointTests {
 
 	private LoggerGroups loggerGroups;
 
-	@BeforeEach
-	void setup() {
-		Map<String, List<String>> groups = Collections.singletonMap("test", Collections.singletonList("test.member"));
-		this.loggerGroups = new LoggerGroups(groups);
-		this.loggerGroups.get("test").configureLogLevel(LogLevel.DEBUG, (a, b) -> {
-		});
-	}
-
 	@Test
 	@SuppressWarnings("unchecked")
 	void loggersShouldReturnLoggerConfigurationsWithNoLoggerGroups() {
