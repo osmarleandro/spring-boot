@@ -129,13 +129,4 @@ public class Sanitizer {
 		return Arrays.stream(value.split(",")).map(this::sanitizeUri).collect(Collectors.joining(","));
 	}
 
-	private String sanitizeUri(String value) {
-		Matcher matcher = URI_USERINFO_PATTERN.matcher(value);
-		String password = matcher.matches() ? matcher.group(1) : null;
-		if (password != null) {
-			return StringUtils.replace(value, ":" + password + "@", ":******@");
-		}
-		return value;
-	}
-
 }
