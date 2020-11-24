@@ -51,12 +51,6 @@ class ControllerEndpointDiscovererTests {
 	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner();
 
 	@Test
-	void getEndpointsWhenNoEndpointBeansShouldReturnEmptyCollection() {
-		this.contextRunner.withUserConfiguration(EmptyConfiguration.class)
-				.run(assertDiscoverer((discoverer) -> assertThat(discoverer.getEndpoints()).isEmpty()));
-	}
-
-	@Test
 	void getEndpointsShouldIncludeControllerEndpoints() {
 		this.contextRunner.withUserConfiguration(TestControllerEndpoint.class).run(assertDiscoverer((discoverer) -> {
 			Collection<ExposableControllerEndpoint> endpoints = discoverer.getEndpoints();
