@@ -109,18 +109,6 @@ class CachesEndpointTests {
 	}
 
 	@Test
-	void namedCacheWithSeveralCacheManagersWithCacheManagerFilter() {
-		Map<String, CacheManager> cacheManagers = new LinkedHashMap<>();
-		cacheManagers.put("test", new ConcurrentMapCacheManager("b", "a"));
-		cacheManagers.put("another", new ConcurrentMapCacheManager("c", "a"));
-		CachesEndpoint endpoint = new CachesEndpoint(cacheManagers);
-		CacheEntry entry = endpoint.cache("a", "test");
-		assertThat(entry).isNotNull();
-		assertThat(entry.getCacheManager()).isEqualTo("test");
-		assertThat(entry.getName()).isEqualTo("a");
-	}
-
-	@Test
 	void clearAllCaches() {
 		Cache a = mockCache("a");
 		Cache b = mockCache("b");
