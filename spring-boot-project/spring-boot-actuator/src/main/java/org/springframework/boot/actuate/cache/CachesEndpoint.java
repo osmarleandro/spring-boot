@@ -80,7 +80,12 @@ public class CachesEndpoint {
 	 */
 	@ReadOperation
 	public CacheEntry cache(@Selector String cache, @Nullable String cacheManager) {
-		return extractUniqueCacheEntry(cache, getCacheEntries((name) -> name.equals(cache), isNameMatch(cacheManager)));
+		List<CacheEntry> entries = getCacheEntries((name) -> name.equals(cache), isNameMatch(cacheManager));
+		if (entries.size() > 1) {
+			throw new NonUniqueCacheException(cache,
+					entries.stream().map(CacheEntry::getCacheManager).distinct().collect(Collectors.toList()));
+		}
+		return (!entries.isEmpty() ? entries.get(0) : null);
 	}
 
 	/**
@@ -102,8 +107,12 @@ public class CachesEndpoint {
 	 */
 	@DeleteOperation
 	public boolean clearCache(@Selector String cache, @Nullable String cacheManager) {
-		CacheEntry entry = extractUniqueCacheEntry(cache,
-				getCacheEntries((name) -> name.equals(cache), isNameMatch(cacheManager)));
+		List<CacheEntry> entries = getCacheEntries((name) -> name.equals(cache), isNameMatch(cacheManager));
+		if (entries.size() > 1) {
+			throw new NonUniqueCacheException(cache,
+					entries.stream().map(CacheEntry::getCacheManager).distinct().collect(Collectors.toList()));
+		}
+		CacheEntry entry = (!entries.isEmpty() ? entries.get(0) : null);
 		return (entry != null && clearCache(entry));
 	}
 
@@ -119,14 +128,6 @@ public class CachesEndpoint {
 		return cacheManager.getCacheNames().stream().filter(cacheNamePredicate).map(cacheManager::getCache)
 				.filter(Objects::nonNull).map((cache) -> new CacheEntry(cache, cacheManagerName))
 				.collect(Collectors.toList());
-	}
-
-	private CacheEntry extractUniqueCacheEntry(String cache, List<CacheEntry> entries) {
-		if (entries.size() > 1) {
-			throw new NonUniqueCacheException(cache,
-					entries.stream().map(CacheEntry::getCacheManager).distinct().collect(Collectors.toList()));
-		}
-		return (!entries.isEmpty() ? entries.get(0) : null);
 	}
 
 	private boolean clearCache(CacheEntry entry) {
