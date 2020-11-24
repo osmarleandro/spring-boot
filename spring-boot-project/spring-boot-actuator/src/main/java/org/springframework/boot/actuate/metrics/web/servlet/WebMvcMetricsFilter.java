@@ -145,15 +145,12 @@ public class WebMvcMetricsFilter extends OncePerRequestFilter {
 		if (!(handler instanceof HandlerMethod)) {
 			return Collections.emptySet();
 		}
-		return getTimedAnnotations((HandlerMethod) handler);
-	}
-
-	private Set<Timed> getTimedAnnotations(HandlerMethod handler) {
-		Set<Timed> methodAnnotations = findTimedAnnotations(handler.getMethod());
+		HandlerMethod handler1 = (HandlerMethod) handler;
+		Set<Timed> methodAnnotations = findTimedAnnotations(handler1.getMethod());
 		if (!methodAnnotations.isEmpty()) {
 			return methodAnnotations;
 		}
-		return findTimedAnnotations(handler.getBeanType());
+		return findTimedAnnotations(handler1.getBeanType());
 	}
 
 	private Set<Timed> findTimedAnnotations(AnnotatedElement element) {
