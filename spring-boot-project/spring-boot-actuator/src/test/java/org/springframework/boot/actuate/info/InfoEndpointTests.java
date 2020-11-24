@@ -44,11 +44,4 @@ class InfoEndpointTests {
 		assertThat(info).containsEntry("key2", "value2");
 	}
 
-	@Test
-	void infoWithNoContributorsProducesEmptyMap() {
-		InfoEndpoint endpoint = new InfoEndpoint(Collections.emptyList());
-		Map<String, Object> info = endpoint.info();
-		assertThat(info).isEmpty();
-	}
-
 }
