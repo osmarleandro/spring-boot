@@ -83,8 +83,8 @@ public abstract class AbstractWebEndpointIntegrationTests<T extends Configurable
 
 	@Test
 	void readOperation() {
-		load(TestEndpointConfiguration.class, (client) -> client.get().uri("/test").exchange().expectStatus().isOk()
-				.expectBody().jsonPath("All").isEqualTo(true));
+		load((context) -> context.register(configuration), "/endpoints",
+		(context, client) -> clientConsumer.accept(client));
 	}
 
 	@Test
@@ -95,24 +95,20 @@ public abstract class AbstractWebEndpointIntegrationTests<T extends Configurable
 
 	@Test
 	void readOperationWithSelector() {
-		load(TestEndpointConfiguration.class, (client) -> client.get().uri("/test/one").exchange().expectStatus().isOk()
-				.expectBody().jsonPath("part").isEqualTo("one"));
+		load((context) -> context.register(configuration), "/endpoints",
+		(context, client) -> clientConsumer.accept(client));
 	}
 
 	@Test
 	void readOperationWithSelectorContainingADot() {
-		load(TestEndpointConfiguration.class, (client) -> client.get().uri("/test/foo.bar").exchange().expectStatus()
-				.isOk().expectBody().jsonPath("part").isEqualTo("foo.bar"));
+		load((context) -> context.register(configuration), "/endpoints",
+		(context, client) -> clientConsumer.accept(client));
 	}
 
 	@Test
 	void linksToOtherEndpointsAreProvided() {
-		load(TestEndpointConfiguration.class,
-				(client) -> client.get().uri("").exchange().expectStatus().isOk().expectBody()
-						.jsonPath("_links.length()").isEqualTo(3).jsonPath("_links.self.href").isNotEmpty()
-						.jsonPath("_links.self.templated").isEqualTo(false).jsonPath("_links.test.href").isNotEmpty()
-						.jsonPath("_links.test.templated").isEqualTo(false).jsonPath("_links.test-part.href")
-						.isNotEmpty().jsonPath("_links.test-part.templated").isEqualTo(true));
+		load((context) -> context.register(configuration), "/endpoints",
+		(context, client) -> clientConsumer.accept(client));
 	}
 
 	@Test
@@ -123,65 +119,56 @@ public abstract class AbstractWebEndpointIntegrationTests<T extends Configurable
 
 	@Test
 	void operationWithTrailingSlashShouldMatch() {
-		load(TestEndpointConfiguration.class, (client) -> client.get().uri("/test/").exchange().expectStatus().isOk()
-				.expectBody().jsonPath("All").isEqualTo(true));
+		load((context) -> context.register(configuration), "/endpoints",
+		(context, client) -> clientConsumer.accept(client));
 	}
 
 	@Test
 	void matchAllRemainingPathsSelectorShouldMatchFullPath() {
-		load(MatchAllRemainingEndpointConfiguration.class,
-				(client) -> client.get().uri("/matchallremaining/one/two/three").exchange().expectStatus().isOk()
-						.expectBody().jsonPath("selection").isEqualTo("one|two|three"));
+		load((context) -> context.register(configuration), "/endpoints",
+		(context, client) -> clientConsumer.accept(client));
 	}
 
 	@Test
 	void matchAllRemainingPathsSelectorShouldDecodePath() {
-		load(MatchAllRemainingEndpointConfiguration.class,
-				(client) -> client.get().uri("/matchallremaining/one/two%20three/").exchange().expectStatus().isOk()
-						.expectBody().jsonPath("selection").isEqualTo("one|two three"));
+		load((context) -> context.register(configuration), "/endpoints",
+		(context, client) -> clientConsumer.accept(client));
 	}
 
 	@Test
 	void readOperationWithSingleQueryParameters() {
-		load(QueryEndpointConfiguration.class, (client) -> client.get().uri("/query?one=1&two=2").exchange()
-				.expectStatus().isOk().expectBody().jsonPath("query").isEqualTo("1 2"));
+		load((context) -> context.register(configuration), "/endpoints",
+		(context, client) -> clientConsumer.accept(client));
 	}
 
 	@Test
 	void readOperationWithSingleQueryParametersAndMultipleValues() {
-		load(QueryEndpointConfiguration.class, (client) -> client.get().uri("/query?one=1&one=1&two=2").exchange()
-				.expectStatus().isOk().expectBody().jsonPath("query").isEqualTo("1,1 2"));
+		load((context) -> context.register(configuration), "/endpoints",
+		(context, client) -> clientConsumer.accept(client));
 	}
 
 	@Test
 	void readOperationWithListQueryParameterAndSingleValue() {
-		load(QueryWithListEndpointConfiguration.class, (client) -> client.get().uri("/query?one=1&two=2").exchange()
-				.expectStatus().isOk().expectBody().jsonPath("query").isEqualTo("1 [2]"));
+		load((context) -> context.register(configuration), "/endpoints",
+		(context, client) -> clientConsumer.accept(client));
 	}
 
 	@Test
 	void readOperationWithListQueryParameterAndMultipleValues() {
-		load(QueryWithListEndpointConfiguration.class, (client) -> client.get().uri("/query?one=1&two=2&two=2")
-				.exchange().expectStatus().isOk().expectBody().jsonPath("query").isEqualTo("1 [2, 2]"));
+		load((context) -> context.register(configuration), "/endpoints",
+		(context, client) -> clientConsumer.accept(client));
 	}
 
 	@Test
 	void readOperationWithMappingFailureProducesBadRequestResponse() {
-		load(QueryEndpointConfiguration.class, (client) -> {
-			WebTestClient.BodyContentSpec body = client.get().uri("/query?two=two").accept(MediaType.APPLICATION_JSON)
-					.exchange().expectStatus().isBadRequest().expectBody();
-			validateErrorBody(body, HttpStatus.BAD_REQUEST, "/endpoints/query", "Missing parameters: one");
-		});
+		load((context) -> context.register(configuration), "/endpoints",
+		(context, client) -> clientConsumer.accept(client));
 	}
 
 	@Test
 	void writeOperation() {
-		load(TestEndpointConfiguration.class, (client) -> {
-			Map<String, Object> body = new HashMap<>();
-			body.put("foo", "one");
-			body.put("bar", "two");
-			client.post().uri("/test").bodyValue(body).exchange().expectStatus().isNoContent().expectBody().isEmpty();
-		});
+		load((context) -> context.register(configuration), "/endpoints",
+		(context, client) -> clientConsumer.accept(client));
 	}
 
 	@Test
@@ -194,8 +181,8 @@ public abstract class AbstractWebEndpointIntegrationTests<T extends Configurable
 
 	@Test
 	void deleteOperation() {
-		load(TestEndpointConfiguration.class, (client) -> client.delete().uri("/test/one").exchange().expectStatus()
-				.isOk().expectBody().jsonPath("part").isEqualTo("one"));
+		load((context) -> context.register(configuration), "/endpoints",
+		(context, client) -> clientConsumer.accept(client));
 	}
 
 	@Test
@@ -265,60 +252,56 @@ public abstract class AbstractWebEndpointIntegrationTests<T extends Configurable
 
 	@Test
 	void readOperationWithMonoResponse() {
-		load(MonoResponseEndpointConfiguration.class, (client) -> client.get().uri("/mono").exchange().expectStatus()
-				.isOk().expectBody().jsonPath("a").isEqualTo("alpha"));
+		load((context) -> context.register(configuration), "/endpoints",
+		(context, client) -> clientConsumer.accept(client));
 	}
 
 	@Test
 	void readOperationWithCustomMediaType() {
-		load(CustomMediaTypesEndpointConfiguration.class, (client) -> client.get().uri("/custommediatypes").exchange()
-				.expectStatus().isOk().expectHeader().valueMatches("Content-Type", "text/plain(;charset=.*)?"));
+		load((context) -> context.register(configuration), "/endpoints",
+		(context, client) -> clientConsumer.accept(client));
 	}
 
 	@Test
 	void readOperationWithMissingRequiredParametersReturnsBadRequestResponse() {
-		load(RequiredParameterEndpointConfiguration.class, (client) -> {
-			WebTestClient.BodyContentSpec body = client.get().uri("/requiredparameters")
-					.accept(MediaType.APPLICATION_JSON).exchange().expectStatus().isBadRequest().expectBody();
-			validateErrorBody(body, HttpStatus.BAD_REQUEST, "/endpoints/requiredparameters", "Missing parameters: foo");
-		});
+		load((context) -> context.register(configuration), "/endpoints",
+		(context, client) -> clientConsumer.accept(client));
 	}
 
 	@Test
 	void readOperationWithMissingNullableParametersIsOk() {
-		load(RequiredParameterEndpointConfiguration.class,
-				(client) -> client.get().uri("/requiredparameters?foo=hello").exchange().expectStatus().isOk());
+		load((context) -> context.register(configuration), "/endpoints",
+		(context, client) -> clientConsumer.accept(client));
 	}
 
 	@Test
 	void endpointsProducePrimaryMediaTypeByDefault() {
-		load(TestEndpointConfiguration.class, (client) -> client.get().uri("/test").exchange().expectStatus().isOk()
-				.expectHeader().valueMatches("Content-Type", ACTUATOR_MEDIA_TYPE_PATTERN));
+		load((context) -> context.register(configuration), "/endpoints",
+		(context, client) -> clientConsumer.accept(client));
 	}
 
 	@Test
 	void endpointsProduceSecondaryMediaTypeWhenRequested() {
-		load(TestEndpointConfiguration.class, (client) -> client.get().uri("/test").accept(MediaType.APPLICATION_JSON)
-				.exchange().expectStatus().isOk().expectHeader().valueMatches("Content-Type", JSON_MEDIA_TYPE_PATTERN));
+		load((context) -> context.register(configuration), "/endpoints",
+		(context, client) -> clientConsumer.accept(client));
 	}
 
 	@Test
 	void linksProducesPrimaryMediaTypeByDefault() {
-		load(TestEndpointConfiguration.class, (client) -> client.get().uri("").exchange().expectStatus().isOk()
-				.expectHeader().valueMatches("Content-Type", ACTUATOR_MEDIA_TYPE_PATTERN));
+		load((context) -> context.register(configuration), "/endpoints",
+		(context, client) -> clientConsumer.accept(client));
 	}
 
 	@Test
 	void linksProducesSecondaryMediaTypeWhenRequested() {
-		load(TestEndpointConfiguration.class, (client) -> client.get().uri("").accept(MediaType.APPLICATION_JSON)
-				.exchange().expectStatus().isOk().expectHeader().valueMatches("Content-Type", JSON_MEDIA_TYPE_PATTERN));
+		load((context) -> context.register(configuration), "/endpoints",
+		(context, client) -> clientConsumer.accept(client));
 	}
 
 	@Test
 	void principalIsNullWhenRequestHasNoPrincipal() {
-		load(PrincipalEndpointConfiguration.class,
-				(client) -> client.get().uri("/principal").accept(MediaType.APPLICATION_JSON).exchange().expectStatus()
-						.isOk().expectBody(String.class).isEqualTo("None"));
+		load((context) -> context.register(configuration), "/endpoints",
+		(context, client) -> clientConsumer.accept(client));
 	}
 
 	@Test
@@ -341,9 +324,8 @@ public abstract class AbstractWebEndpointIntegrationTests<T extends Configurable
 
 	@Test
 	void securityContextIsAvailableAndHasNullPrincipalWhenRequestHasNoPrincipal() {
-		load(SecurityContextEndpointConfiguration.class,
-				(client) -> client.get().uri("/securitycontext").accept(MediaType.APPLICATION_JSON).exchange()
-						.expectStatus().isOk().expectBody(String.class).isEqualTo("None"));
+		load((context) -> context.register(configuration), "/endpoints",
+		(context, client) -> clientConsumer.accept(client));
 	}
 
 	@Test
@@ -357,9 +339,8 @@ public abstract class AbstractWebEndpointIntegrationTests<T extends Configurable
 
 	@Test
 	void userInRoleReturnsFalseWhenRequestHasNoPrincipal() {
-		load(UserInRoleEndpointConfiguration.class,
-				(client) -> client.get().uri("/userinrole?role=ADMIN").accept(MediaType.APPLICATION_JSON).exchange()
-						.expectStatus().isOk().expectBody(String.class).isEqualTo("ADMIN: false"));
+		load((context) -> context.register(configuration), "/endpoints",
+		(context, client) -> clientConsumer.accept(client));
 	}
 
 	@Test
@@ -390,11 +371,6 @@ public abstract class AbstractWebEndpointIntegrationTests<T extends Configurable
 
 	private void load(Class<?> configuration, BiConsumer<ApplicationContext, WebTestClient> consumer) {
 		load((context) -> context.register(configuration), "/endpoints", consumer);
-	}
-
-	protected void load(Class<?> configuration, Consumer<WebTestClient> clientConsumer) {
-		load((context) -> context.register(configuration), "/endpoints",
-				(context, client) -> clientConsumer.accept(client));
 	}
 
 	protected void load(Consumer<T> contextCustomizer, Consumer<WebTestClient> clientConsumer) {
