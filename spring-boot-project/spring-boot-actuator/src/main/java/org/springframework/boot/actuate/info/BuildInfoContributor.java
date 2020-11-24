@@ -22,6 +22,7 @@ import java.util.Properties;
 import org.springframework.boot.info.BuildProperties;
 import org.springframework.core.env.PropertiesPropertySource;
 import org.springframework.core.env.PropertySource;
+import org.springframework.util.StringUtils;
 
 /**
  * An {@link InfoContributor} that exposes {@link BuildProperties}.
@@ -43,11 +44,26 @@ public class BuildInfoContributor extends InfoPropertiesInfoContributor<BuildPro
 	@Override
 	protected PropertySource<?> toSimplePropertySource() {
 		Properties props = new Properties();
-		copyIfSet(props, "group");
-		copyIfSet(props, "artifact");
-		copyIfSet(props, "name");
-		copyIfSet(props, "version");
-		copyIfSet(props, "time");
+		String value = this.properties.get("group");
+		if (StringUtils.hasText(value)) {
+			props.put("group", value);
+		}
+		String value = this.properties.get("artifact");
+		if (StringUtils.hasText(value)) {
+			props.put("artifact", value);
+		}
+		String value = this.properties.get("name");
+		if (StringUtils.hasText(value)) {
+			props.put("name", value);
+		}
+		String value = this.properties.get("version");
+		if (StringUtils.hasText(value)) {
+			props.put("version", value);
+		}
+		String value = this.properties.get("time");
+		if (StringUtils.hasText(value)) {
+			props.put("time", value);
+		}
 		return new PropertiesPropertySource("build", props);
 	}
 
