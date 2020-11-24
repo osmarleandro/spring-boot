@@ -57,13 +57,6 @@ class ReflectiveOperationInvokerTests {
 	}
 
 	@Test
-	void createWhenTargetIsNullShouldThrowException() {
-		assertThatIllegalArgumentException()
-				.isThrownBy(() -> new ReflectiveOperationInvoker(null, this.operationMethod, this.parameterValueMapper))
-				.withMessageContaining("Target must not be null");
-	}
-
-	@Test
 	void createWhenOperationMethodIsNullShouldThrowException() {
 		assertThatIllegalArgumentException()
 				.isThrownBy(() -> new ReflectiveOperationInvoker(this.target, null, this.parameterValueMapper))
