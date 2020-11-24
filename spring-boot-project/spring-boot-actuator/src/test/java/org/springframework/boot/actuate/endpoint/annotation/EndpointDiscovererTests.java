@@ -69,14 +69,6 @@ import static org.mockito.Mockito.mock;
 class EndpointDiscovererTests {
 
 	@Test
-	void createWhenApplicationContextIsNullShouldThrowException() {
-		assertThatIllegalArgumentException()
-				.isThrownBy(() -> new TestEndpointDiscoverer(null, mock(ParameterValueMapper.class),
-						Collections.emptyList(), Collections.emptyList()))
-				.withMessageContaining("ApplicationContext must not be null");
-	}
-
-	@Test
 	void createWhenParameterValueMapperIsNullShouldThrowException() {
 		assertThatIllegalArgumentException()
 				.isThrownBy(() -> new TestEndpointDiscoverer(mock(ApplicationContext.class), null,
