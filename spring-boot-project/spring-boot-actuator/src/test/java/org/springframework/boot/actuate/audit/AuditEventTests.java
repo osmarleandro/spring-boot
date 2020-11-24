@@ -44,13 +44,6 @@ class AuditEventTests {
 	}
 
 	@Test
-	void convertStringsToData() {
-		AuditEvent event = new AuditEvent("phil", "UNKNOWN", "a=b", "c=d");
-		assertThat(event.getData().get("a")).isEqualTo("b");
-		assertThat(event.getData().get("c")).isEqualTo("d");
-	}
-
-	@Test
 	void nullPrincipalIsMappedToEmptyString() {
 		AuditEvent auditEvent = new AuditEvent(null, "UNKNOWN", Collections.singletonMap("a", "b"));
 		assertThat(auditEvent.getPrincipal()).isEmpty();
