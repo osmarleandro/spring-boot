@@ -261,14 +261,14 @@ class HttpExchangeTracerTests {
 	void timeTakenIsNotIncludedByDefault() {
 		HttpTrace trace = new HttpTrace(createRequest());
 		new HttpExchangeTracer(EnumSet.noneOf(Include.class)).sendingResponse(trace, createResponse(), null, null);
-		assertThat(trace.getTimeTaken()).isNull();
+		assertThat(trace.timeTaken).isNull();
 	}
 
 	@Test
 	void timeTakenCanBeIncluded() {
 		HttpTrace trace = new HttpTrace(createRequest());
 		new HttpExchangeTracer(EnumSet.of(Include.TIME_TAKEN)).sendingResponse(trace, createResponse(), null, null);
-		assertThat(trace.getTimeTaken()).isNotNull();
+		assertThat(trace.timeTaken).isNotNull();
 	}
 
 	@Test
@@ -283,7 +283,7 @@ class HttpExchangeTracerTests {
 		responseHeaders.set(HttpHeaders.SET_COOKIE, "test=test");
 		responseHeaders.setContentLength(0);
 		tracer.sendingResponse(trace, createResponse(responseHeaders), this::createPrincipal, () -> "sessionId");
-		assertThat(trace.getTimeTaken()).isNotNull();
+		assertThat(trace.timeTaken).isNotNull();
 		assertThat(trace.getPrincipal()).isNull();
 		assertThat(trace.getSession()).isNull();
 		assertThat(trace.getTimestamp()).isNotNull();
