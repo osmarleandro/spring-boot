@@ -62,12 +62,6 @@ class ServletEndpointRegistrarTests {
 	private ArgumentCaptor<Servlet> servlet;
 
 	@Test
-	void createWhenServletEndpointsIsNullShouldThrowException() {
-		assertThatIllegalArgumentException().isThrownBy(() -> new ServletEndpointRegistrar(null, null))
-				.withMessageContaining("ServletEndpoints must not be null");
-	}
-
-	@Test
 	void onStartupShouldRegisterServlets() throws ServletException {
 		assertBasePath(null, "/test/*");
 	}
