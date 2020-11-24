@@ -55,15 +55,6 @@ class RequestPredicateFactory {
 		Method method = operationMethod.getMethod();
 		Parameter[] selectorParameters = Arrays.stream(method.getParameters()).filter(this::hasSelector)
 				.toArray(Parameter[]::new);
-		Parameter allRemainingPathSegmentsParameter = getAllRemainingPathSegmentsParameter(selectorParameters);
-		String path = getPath(rootPath, selectorParameters, allRemainingPathSegmentsParameter != null);
-		WebEndpointHttpMethod httpMethod = determineHttpMethod(operationMethod.getOperationType());
-		Collection<String> consumes = getConsumes(httpMethod, method);
-		Collection<String> produces = getProduces(operationMethod, method);
-		return new WebOperationRequestPredicate(path, httpMethod, consumes, produces);
-	}
-
-	private Parameter getAllRemainingPathSegmentsParameter(Parameter[] selectorParameters) {
 		Parameter trailingPathsParameter = null;
 		for (Parameter selectorParameter : selectorParameters) {
 			Selector selector = selectorParameter.getAnnotation(Selector.class);
@@ -77,7 +68,12 @@ class RequestPredicateFactory {
 			Assert.state(trailingPathsParameter == selectorParameters[selectorParameters.length - 1],
 					"@Selector annotation with Match.ALL_REMAINING must be the last parameter");
 		}
-		return trailingPathsParameter;
+		Parameter allRemainingPathSegmentsParameter = trailingPathsParameter;
+		String path = getPath(rootPath, selectorParameters, allRemainingPathSegmentsParameter != null);
+		WebEndpointHttpMethod httpMethod = determineHttpMethod(operationMethod.getOperationType());
+		Collection<String> consumes = getConsumes(httpMethod, method);
+		Collection<String> produces = getProduces(operationMethod, method);
+		return new WebOperationRequestPredicate(path, httpMethod, consumes, produces);
 	}
 
 	private String getPath(String rootPath, Parameter[] selectorParameters, boolean matchRemainingPathSegments) {
