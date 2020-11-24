@@ -33,12 +33,6 @@ class HealthContributorNameFactoryTests {
 	}
 
 	@Test
-	void applyWhenNameEndsWithSuffixReturnsNewName() {
-		assertThat(HealthContributorNameFactory.INSTANCE.apply("testHealthIndicator")).isEqualTo("test");
-		assertThat(HealthContributorNameFactory.INSTANCE.apply("testHealthContributor")).isEqualTo("test");
-	}
-
-	@Test
 	void applyWhenNameEndsWithSuffixInDifferentReturnsNewName() {
 		assertThat(HealthContributorNameFactory.INSTANCE.apply("testHEALTHindicator")).isEqualTo("test");
 		assertThat(HealthContributorNameFactory.INSTANCE.apply("testHEALTHcontributor")).isEqualTo("test");
