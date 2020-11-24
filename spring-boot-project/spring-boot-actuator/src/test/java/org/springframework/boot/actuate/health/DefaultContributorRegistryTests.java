@@ -132,13 +132,6 @@ abstract class DefaultContributorRegistryTests {
 	}
 
 	@Test
-	void unregisterContributorUsesNameFactory() {
-		this.registry.registerContributor("oneHealthIndicator", this.one);
-		assertThat(this.registry.getContributor("oneHealthIndicator")).isNull();
-		assertThat(this.registry.getContributor("one")).isNotNull();
-	}
-
-	@Test
 	void getContributorReturnsContributor() {
 		this.registry.registerContributor("one", this.one);
 		assertThat(this.registry.getContributor("one")).isEqualTo(this.one);
