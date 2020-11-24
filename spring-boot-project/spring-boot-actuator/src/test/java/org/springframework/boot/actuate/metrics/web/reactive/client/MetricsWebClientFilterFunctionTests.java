@@ -117,21 +117,6 @@ class MetricsWebClientFilterFunctionTests {
 	}
 
 	@Test
-	void filterWhenCancelThrownShouldRecordTimer() {
-		ClientRequest request = ClientRequest
-				.create(HttpMethod.GET, URI.create("https://example.com/projects/spring-boot")).build();
-		given(this.response.rawStatusCode()).willReturn(HttpStatus.OK.value());
-		Mono<ClientResponse> filter = this.filterFunction.filter(request, this.exchange);
-		StepVerifier.create(filter).thenCancel().verify(Duration.ofSeconds(5));
-		assertThat(this.registry.get("http.client.requests")
-				.tags("method", "GET", "uri", "/projects/spring-boot", "status", "CLIENT_ERROR").timer().count())
-						.isEqualTo(1);
-		assertThatThrownBy(() -> this.registry.get("http.client.requests")
-				.tags("method", "GET", "uri", "/projects/spring-boot", "status", "200").timer())
-						.isInstanceOf(MeterNotFoundException.class);
-	}
-
-	@Test
 	void filterWhenCancelAfterResponseThrownShouldNotRecordTimer() {
 		ClientRequest request = ClientRequest
 				.create(HttpMethod.GET, URI.create("https://example.com/projects/spring-boot")).build();
