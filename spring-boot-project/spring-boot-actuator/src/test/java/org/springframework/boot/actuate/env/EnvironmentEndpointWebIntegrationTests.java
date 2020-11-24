@@ -56,16 +56,6 @@ class EnvironmentEndpointWebIntegrationTests {
 	}
 
 	@WebEndpointTest
-	void regex() {
-		Map<String, Object> map = new HashMap<>();
-		map.put("food", null);
-		this.context.getEnvironment().getPropertySources().addFirst(new MapPropertySource("null-value", map));
-		this.client.get().uri("/actuator/env?pattern=foo.*").exchange().expectStatus().isOk().expectBody()
-				.jsonPath(forProperty("test", "foo")).isEqualTo("bar").jsonPath(forProperty("test", "fool"))
-				.isEqualTo("baz");
-	}
-
-	@WebEndpointTest
 	void nestedPathWhenPlaceholderCannotBeResolvedShouldReturnUnresolvedProperty() {
 		Map<String, Object> map = new HashMap<>();
 		map.put("my.foo", "${my.bar}");
