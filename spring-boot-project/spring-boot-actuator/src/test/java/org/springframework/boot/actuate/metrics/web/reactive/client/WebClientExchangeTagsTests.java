@@ -161,13 +161,6 @@ class WebClientExchangeTagsTests {
 	}
 
 	@Test
-	void outcomeTagIsClientErrorWhenResponseIsNonStandardInClientSeries() {
-		given(this.response.rawStatusCode()).willReturn(490);
-		Tag tag = WebClientExchangeTags.outcome(this.response);
-		assertThat(tag.getValue()).isEqualTo("CLIENT_ERROR");
-	}
-
-	@Test
 	void outcomeTagIsUnknownWhenResponseStatusIsInUnknownSeries() {
 		given(this.response.rawStatusCode()).willReturn(701);
 		Tag tag = WebClientExchangeTags.outcome(this.response);
