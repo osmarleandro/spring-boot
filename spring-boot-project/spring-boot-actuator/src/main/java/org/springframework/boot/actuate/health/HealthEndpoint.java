@@ -56,11 +56,6 @@ public class HealthEndpoint extends HealthEndpointSupport<HealthContributor, Hea
 		return (health != null) ? health : DEFAULT_HEALTH;
 	}
 
-	@ReadOperation
-	public HealthComponent healthForPath(@Selector(match = Match.ALL_REMAINING) String... path) {
-		return health(ApiVersion.V3, path);
-	}
-
 	private HealthComponent health(ApiVersion apiVersion, String... path) {
 		HealthResult<HealthComponent> result = getHealth(apiVersion, SecurityContext.NONE, true, path);
 		return (result != null) ? result.getHealth() : null;
