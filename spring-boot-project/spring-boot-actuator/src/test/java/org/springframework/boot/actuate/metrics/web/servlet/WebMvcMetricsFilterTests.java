@@ -283,13 +283,6 @@ class WebMvcMetricsFilterTests {
 	}
 
 	@Test
-	void recordHistogram() throws Exception {
-		this.mvc.perform(get("/api/c1/histogram/10")).andExpect(status().isOk());
-		assertThat(this.prometheusRegistry.scrape()).contains("le=\"0.001\"");
-		assertThat(this.prometheusRegistry.scrape()).contains("le=\"30.0\"");
-	}
-
-	@Test
 	void trailingSlashShouldNotRecordDuplicateMetrics() throws Exception {
 		this.mvc.perform(get("/api/c1/simple/10")).andExpect(status().isOk());
 		this.mvc.perform(get("/api/c1/simple/10/")).andExpect(status().isOk());
