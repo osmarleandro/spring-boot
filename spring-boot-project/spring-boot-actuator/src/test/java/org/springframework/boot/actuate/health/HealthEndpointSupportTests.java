@@ -190,7 +190,7 @@ abstract class HealthEndpointSupportTests<R extends ContributorRegistry<C>, C, T
 		this.registry.registerContributor("test", createContributor(this.up));
 		HealthResult<T> result = create(this.registry, this.groups).getHealth(ApiVersion.V3, SecurityContext.NONE,
 				false);
-		assertThat(((SystemHealth) getHealth(result)).getGroups()).containsOnly("alltheas");
+		assertThat(((SystemHealth) getHealth(result)).groups).containsOnly("alltheas");
 	}
 
 	@Test
