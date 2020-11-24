@@ -104,26 +104,6 @@ class ConfigurationPropertiesReportEndpointTests {
 	}
 
 	@Test
-	void descriptorWithSimpleList() {
-		this.contextRunner.withUserConfiguration(SensiblePropertiesConfiguration.class)
-				.withPropertyValues("sensible.simpleList=a,b").run(assertProperties("sensible", (properties) -> {
-					assertThat(properties.get("simpleList")).isInstanceOf(List.class);
-					List<String> list = (List<String>) properties.get("simpleList");
-					assertThat(list).hasSize(2);
-					assertThat(list.get(0)).isEqualTo("a");
-					assertThat(list.get(1)).isEqualTo("b");
-				}, (inputs) -> {
-					List<Object> list = (List<Object>) inputs.get("simpleList");
-					assertThat(list).hasSize(2);
-					Map<String, String> item = (Map<String, String>) list.get(0);
-					String origin = item.get("origin");
-					String value = item.get("value");
-					assertThat(value).isEqualTo("a,b");
-					assertThat(origin).isEqualTo("\"sensible.simpleList\" from property source \"test\"");
-				}));
-	}
-
-	@Test
 	void descriptorDoesNotIncludePropertyWithNullValue() {
 		this.contextRunner.withUserConfiguration(TestPropertiesConfiguration.class)
 				.run(assertProperties("test", (properties) -> assertThat(properties).doesNotContainKey("nullValue")));
