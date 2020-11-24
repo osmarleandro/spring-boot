@@ -49,14 +49,6 @@ class CompositeHealthTests {
 	}
 
 	@Test
-	void getComponentReturnsComponents() {
-		Map<String, HealthComponent> components = new LinkedHashMap<>();
-		components.put("a", Health.up().build());
-		CompositeHealth health = new CompositeHealth(ApiVersion.V3, Status.UP, components);
-		assertThat(health.getComponents()).isEqualTo(components);
-	}
-
-	@Test
 	void serializeV3WithJacksonReturnsValidJson() throws Exception {
 		Map<String, HealthComponent> components = new LinkedHashMap<>();
 		components.put("db1", Health.up().build());
