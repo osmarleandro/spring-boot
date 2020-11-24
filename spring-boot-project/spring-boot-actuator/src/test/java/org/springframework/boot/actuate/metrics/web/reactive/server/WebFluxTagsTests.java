@@ -158,13 +158,6 @@ class WebFluxTagsTests {
 	}
 
 	@Test
-	void outcomeTagIsInformationalWhenResponseIs1xx() {
-		this.exchange.getResponse().setStatusCode(HttpStatus.CONTINUE);
-		Tag tag = WebFluxTags.outcome(this.exchange);
-		assertThat(tag.getValue()).isEqualTo("INFORMATIONAL");
-	}
-
-	@Test
 	void outcomeTagIsSuccessWhenResponseIs2xx() {
 		this.exchange.getResponse().setStatusCode(HttpStatus.OK);
 		Tag tag = WebFluxTags.outcome(this.exchange);
