@@ -139,12 +139,6 @@ abstract class DefaultContributorRegistryTests {
 	}
 
 	@Test
-	void getContributorReturnsContributor() {
-		this.registry.registerContributor("one", this.one);
-		assertThat(this.registry.getContributor("one")).isEqualTo(this.one);
-	}
-
-	@Test
 	void iteratorIteratesContributors() {
 		this.registry.registerContributor("one", this.one);
 		this.registry.registerContributor("two", this.two);
