@@ -71,12 +71,6 @@ class EndpointServletTests {
 	}
 
 	@Test
-	void withInitParameterEmptyName() {
-		EndpointServlet endpointServlet = new EndpointServlet(TestServlet.class);
-		assertThatIllegalArgumentException().isThrownBy(() -> endpointServlet.withInitParameter(" ", "value"));
-	}
-
-	@Test
 	void withInitParameterShouldReturnNewInstance() {
 		EndpointServlet endpointServlet = new EndpointServlet(TestServlet.class);
 		assertThat(endpointServlet.withInitParameter("spring", "boot")).isNotSameAs(endpointServlet);
