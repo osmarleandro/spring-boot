@@ -62,10 +62,6 @@ public class HttpTraceWebFilter implements WebFilter, Ordered {
 		return this.order;
 	}
 
-	public void setOrder(int order) {
-		this.order = order;
-	}
-
 	@Override
 	public Mono<Void> filter(ServerWebExchange exchange, WebFilterChain chain) {
 		Mono<?> principal = (this.includes.contains(Include.PRINCIPAL)
