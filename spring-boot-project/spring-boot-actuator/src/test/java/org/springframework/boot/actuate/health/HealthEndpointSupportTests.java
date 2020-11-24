@@ -179,13 +179,6 @@ abstract class HealthEndpointSupportTests<R extends ContributorRegistry<C>, C, T
 	}
 
 	@Test
-	void getHealthWhenPathDoesNotExistReturnsNull() {
-		HealthResult<T> result = create(this.registry, this.groups).getHealth(ApiVersion.V3, SecurityContext.NONE,
-				false, "missing");
-		assertThat(result).isNull();
-	}
-
-	@Test
 	void getHealthWhenPathIsEmptyIncludesGroups() {
 		this.registry.registerContributor("test", createContributor(this.up));
 		HealthResult<T> result = create(this.registry, this.groups).getHealth(ApiVersion.V3, SecurityContext.NONE,
