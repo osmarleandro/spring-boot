@@ -51,12 +51,6 @@ class InvocationContextTests {
 	}
 
 	@Test
-	void createWhenArgumentsIsNullThrowsException() {
-		assertThatIllegalArgumentException().isThrownBy(() -> new InvocationContext(this.securityContext, null))
-				.withMessage("Arguments must not be null");
-	}
-
-	@Test
 	void getApiVersionReturnsApiVersion() {
 		InvocationContext context = new InvocationContext(ApiVersion.V2, this.securityContext, this.arguments);
 		assertThat(context.getApiVersion()).isEqualTo(ApiVersion.V2);
