@@ -37,12 +37,4 @@ public class ServletRegistrationMappingDescription extends RegistrationMappingDe
 		super(servletRegistration);
 	}
 
-	/**
-	 * Returns the mappings for the registered servlet.
-	 * @return the mappings
-	 */
-	public Collection<String> getMappings() {
-		return getRegistration().getMappings();
-	}
-
 }
