@@ -62,14 +62,6 @@ class HealthEndpointWebIntegrationTests {
 	}
 
 	@WebEndpointTest
-	void whenHealthIsUpAndAcceptsAllRequest200ResponseIsReturned(WebTestClient client) {
-		client.get().uri("/actuator/health").headers((headers) -> headers.set(HttpHeaders.ACCEPT, "*/*")).exchange()
-				.expectStatus().isOk().expectBody().jsonPath("status").isEqualTo("UP")
-				.jsonPath("components.alpha.status").isEqualTo("UP").jsonPath("components.bravo.status")
-				.isEqualTo("UP");
-	}
-
-	@WebEndpointTest
 	void whenHealthIsUpAndV2Request200ResponseIsReturnedInV2Format(WebTestClient client) {
 		client.get().uri("/actuator/health")
 				.headers((headers) -> headers.set(HttpHeaders.ACCEPT, ActuatorMediaType.V2_JSON)).exchange()
