@@ -52,12 +52,6 @@ class EndpointServletTests {
 	}
 
 	@Test
-	void createWithServletClassShouldCreateServletInstance() {
-		EndpointServlet endpointServlet = new EndpointServlet(TestServlet.class);
-		assertThat(endpointServlet.getServlet()).isInstanceOf(TestServlet.class);
-	}
-
-	@Test
 	void getServletShouldGetServlet() {
 		TestServlet servlet = new TestServlet();
 		EndpointServlet endpointServlet = new EndpointServlet(servlet);
