@@ -22,6 +22,7 @@ import java.util.Map;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.actuate.health.Health.Builder;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
@@ -45,7 +46,8 @@ class HealthTests {
 
 	@Test
 	void createWithStatus() {
-		Health health = Health.status(Status.UP).build();
+		Status status = Status.UP;
+		Health health = new Builder(status).build();
 		assertThat(health.getStatus()).isEqualTo(Status.UP);
 		assertThat(health.getDetails()).isEmpty();
 	}
@@ -173,7 +175,8 @@ class HealthTests {
 
 	@Test
 	void status() {
-		Health health = Health.status(Status.UP).build();
+		Status status1 = Status.UP;
+		Health health = new Builder(status1).build();
 		assertThat(health.getStatus()).isEqualTo(Status.UP);
 		assertThat(health.getDetails()).isEmpty();
 	}

@@ -23,6 +23,7 @@ import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
+import org.springframework.boot.actuate.health.Health.Builder;
 import org.springframework.util.Assert;
 
 /**
@@ -98,7 +99,8 @@ public final class Health extends HealthComponent {
 		if (this.details.isEmpty()) {
 			return this;
 		}
-		return status(getStatus()).build();
+		Status status = getStatus();
+		return new Builder(status).build();
 	}
 
 	@Override
@@ -129,7 +131,8 @@ public final class Health extends HealthComponent {
 	 * @return a new {@link Builder} instance
 	 */
 	public static Builder unknown() {
-		return status(Status.UNKNOWN);
+		Status status = Status.UNKNOWN;
+		return new Builder(status);
 	}
 
 	/**
@@ -137,7 +140,8 @@ public final class Health extends HealthComponent {
 	 * @return a new {@link Builder} instance
 	 */
 	public static Builder up() {
-		return status(Status.UP);
+		Status status = Status.UP;
+		return new Builder(status);
 	}
 
 	/**
@@ -155,7 +159,8 @@ public final class Health extends HealthComponent {
 	 * @return a new {@link Builder} instance
 	 */
 	public static Builder down() {
-		return status(Status.DOWN);
+		Status status = Status.DOWN;
+		return new Builder(status);
 	}
 
 	/**
@@ -163,7 +168,8 @@ public final class Health extends HealthComponent {
 	 * @return a new {@link Builder} instance
 	 */
 	public static Builder outOfService() {
-		return status(Status.OUT_OF_SERVICE);
+		Status status = Status.OUT_OF_SERVICE;
+		return new Builder(status);
 	}
 
 	/**
@@ -172,16 +178,8 @@ public final class Health extends HealthComponent {
 	 * @return a new {@link Builder} instance
 	 */
 	public static Builder status(String statusCode) {
-		return status(new Status(statusCode));
-	}
-
-	/**
-	 * Create a new {@link Builder} instance with a specific {@link Status}.
-	 * @param status the status
-	 * @return a new {@link Builder} instance
-	 */
-	public static Builder status(Status status) {
-		return new Builder(status);
+		Status status1 = new Status(statusCode);
+		return new Builder(status1);
 	}
 
 	/**
