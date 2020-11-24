@@ -44,11 +44,6 @@ class LogFileWebEndpointWebIntegrationTests {
 
 	private static File tempFile;
 
-	@BeforeEach
-	void setUp(WebTestClient client) {
-		this.client = client;
-	}
-
 	@BeforeAll
 	static void setup(@TempDir File temp) throws IOException {
 		tempFile = temp;
