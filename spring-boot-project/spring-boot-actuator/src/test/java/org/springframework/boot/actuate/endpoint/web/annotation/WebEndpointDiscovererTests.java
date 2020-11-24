@@ -74,14 +74,6 @@ class WebEndpointDiscovererTests {
 	}
 
 	@Test
-	void getEndpointsWhenWebExtensionIsMissingEndpointShouldThrowException() {
-		load(TestWebEndpointExtensionConfiguration.class,
-				(discoverer) -> assertThatIllegalStateException().isThrownBy(discoverer::getEndpoints)
-						.withMessageContaining(
-								"Invalid extension 'endpointExtension': no endpoint found with id 'test'"));
-	}
-
-	@Test
 	void getEndpointsWhenHasFilteredEndpointShouldOnlyDiscoverWebEndpoints() {
 		load(MultipleEndpointsConfiguration.class, (discoverer) -> {
 			Map<EndpointId, ExposableWebEndpoint> endpoints = mapEndpoints(discoverer.getEndpoints());
