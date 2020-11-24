@@ -124,15 +124,6 @@ class LoggersEndpointWebIntegrationTests {
 	}
 
 	@WebEndpointTest
-	void setLoggerUsingActuatorV2JsonShouldSetLogLevel() {
-		this.client.post().uri("/actuator/loggers/ROOT")
-				.contentType(MediaType.parseMediaType(ActuatorMediaType.V2_JSON))
-				.bodyValue(Collections.singletonMap("configuredLevel", "debug")).exchange().expectStatus()
-				.isNoContent();
-		verify(this.loggingSystem).setLogLevel("ROOT", LogLevel.DEBUG);
-	}
-
-	@WebEndpointTest
 	void setLoggerUsingActuatorV3JsonShouldSetLogLevel() {
 		this.client.post().uri("/actuator/loggers/ROOT")
 				.contentType(MediaType.parseMediaType(ActuatorMediaType.V3_JSON))
