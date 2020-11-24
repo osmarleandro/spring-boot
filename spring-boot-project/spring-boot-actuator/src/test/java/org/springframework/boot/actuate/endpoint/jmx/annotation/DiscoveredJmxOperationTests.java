@@ -30,6 +30,7 @@ import org.springframework.boot.actuate.endpoint.OperationType;
 import org.springframework.boot.actuate.endpoint.annotation.DiscoveredOperationMethod;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvoker;
 import org.springframework.boot.actuate.endpoint.jmx.JmxOperationParameter;
+import org.springframework.boot.actuate.endpoint.jmx.annotation.DiscoveredJmxOperationTests.Example;
 import org.springframework.context.ApplicationContext;
 import org.springframework.core.annotation.AnnotationAttributes;
 import org.springframework.jmx.export.annotation.ManagedOperation;
@@ -119,18 +120,14 @@ class DiscoveredJmxOperationTests {
 	}
 
 	private DiscoveredJmxOperation getOperation(String methodName) {
-		Method method = findMethod(methodName);
+		Map<String, Method> methods = new HashMap<>();
+		ReflectionUtils.doWithMethods(Example.class, (method) -> methods.put(method.getName(), method));
+		Method method = methods.get(methodName);
 		AnnotationAttributes annotationAttributes = new AnnotationAttributes();
 		annotationAttributes.put("produces", "application/xml");
 		DiscoveredOperationMethod operationMethod = new DiscoveredOperationMethod(method, OperationType.READ,
 				annotationAttributes);
 		return new DiscoveredJmxOperation(EndpointId.of("test"), operationMethod, mock(OperationInvoker.class));
-	}
-
-	private Method findMethod(String methodName) {
-		Map<String, Method> methods = new HashMap<>();
-		ReflectionUtils.doWithMethods(Example.class, (method) -> methods.put(method.getName(), method));
-		return methods.get(methodName);
 	}
 
 	interface Example {
