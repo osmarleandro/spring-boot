@@ -73,14 +73,6 @@ class ControllerEndpointHandlerMappingTests {
 	}
 
 	@Test
-	void mappingNarrowedToMethod() throws Exception {
-		ExposableControllerEndpoint first = firstEndpoint();
-		ControllerEndpointHandlerMapping mapping = createMapping("actuator", first);
-		assertThatExceptionOfType(HttpRequestMethodNotSupportedException.class)
-				.isThrownBy(() -> mapping.getHandler(request("POST", "/actuator/first")));
-	}
-
-	@Test
 	void mappingWithNoPath() throws Exception {
 		ExposableControllerEndpoint pathless = pathlessEndpoint();
 		ControllerEndpointHandlerMapping mapping = createMapping("actuator", pathless);
