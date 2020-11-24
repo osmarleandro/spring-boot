@@ -138,7 +138,7 @@ class PrometheusPushGatewayManagerTests {
 
 	@Test
 	void shutdownWhenShutdownOperationIsPushPerformsPushOnShutdown() throws Exception {
-		givenScheduleAtFixedRateWithReturnFuture();
+		givenScheduleAtFixedRateWillReturnFuture(this.scheduler);
 		PrometheusPushGatewayManager manager = new PrometheusPushGatewayManager(this.pushGateway, this.registry,
 				this.scheduler, this.pushRate, "job", this.groupingKey, ShutdownOperation.PUSH);
 		manager.shutdown();
@@ -148,7 +148,7 @@ class PrometheusPushGatewayManagerTests {
 
 	@Test
 	void shutdownWhenShutdownOperationIsDeletePerformsDeleteOnShutdown() throws Exception {
-		givenScheduleAtFixedRateWithReturnFuture();
+		givenScheduleAtFixedRateWillReturnFuture(this.scheduler);
 		PrometheusPushGatewayManager manager = new PrometheusPushGatewayManager(this.pushGateway, this.registry,
 				this.scheduler, this.pushRate, "job", this.groupingKey, ShutdownOperation.DELETE);
 		manager.shutdown();
@@ -158,7 +158,7 @@ class PrometheusPushGatewayManagerTests {
 
 	@Test
 	void shutdownWhenShutdownOperationIsNoneDoesNothing() {
-		givenScheduleAtFixedRateWithReturnFuture();
+		givenScheduleAtFixedRateWillReturnFuture(this.scheduler);
 		PrometheusPushGatewayManager manager = new PrometheusPushGatewayManager(this.pushGateway, this.registry,
 				this.scheduler, this.pushRate, "job", this.groupingKey, ShutdownOperation.NONE);
 		manager.shutdown();
@@ -168,7 +168,7 @@ class PrometheusPushGatewayManagerTests {
 
 	@Test
 	void pushWhenUnknownHostExceptionIsThrownDoesShutdown() throws Exception {
-		givenScheduleAtFixedRateWithReturnFuture();
+		givenScheduleAtFixedRateWillReturnFuture(this.scheduler);
 		new PrometheusPushGatewayManager(this.pushGateway, this.registry, this.scheduler, this.pushRate, "job",
 				this.groupingKey, null);
 		verify(this.scheduler).scheduleAtFixedRate(this.task.capture(), eq(this.pushRate));
@@ -185,10 +185,6 @@ class PrometheusPushGatewayManagerTests {
 		verify(this.scheduler).scheduleAtFixedRate(this.task.capture(), eq(this.pushRate));
 		willThrow(RuntimeException.class).given(this.pushGateway).pushAdd(this.registry, "job", this.groupingKey);
 		this.task.getValue().run();
-	}
-
-	private void givenScheduleAtFixedRateWithReturnFuture() {
-		givenScheduleAtFixedRateWillReturnFuture(this.scheduler);
 	}
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
