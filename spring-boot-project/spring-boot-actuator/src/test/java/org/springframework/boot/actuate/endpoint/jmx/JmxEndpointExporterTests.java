@@ -125,15 +125,6 @@ class JmxEndpointExporterTests {
 	}
 
 	@Test
-	void registerWhenObjectNameIsMalformedShouldThrowException() throws Exception {
-		given(this.objectNameFactory.getObjectName(any(ExposableJmxEndpoint.class)))
-				.willThrow(MalformedObjectNameException.class);
-		this.endpoints.add(new TestExposableJmxEndpoint(new TestJmxOperation()));
-		assertThatIllegalStateException().isThrownBy(this.exporter::afterPropertiesSet)
-				.withMessageContaining("Invalid ObjectName for endpoint 'test'");
-	}
-
-	@Test
 	void registerWhenRegistrationFailsShouldThrowException() throws Exception {
 		given(this.mBeanServer.registerMBean(any(), any(ObjectName.class)))
 				.willThrow(new MBeanRegistrationException(new RuntimeException()));
