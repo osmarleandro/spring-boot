@@ -66,13 +66,6 @@ class HttpExchangeTracerTests {
 	}
 
 	@Test
-	void remoteAddressCanBeIncluded() {
-		HttpTrace trace = new HttpExchangeTracer(EnumSet.of(Include.REMOTE_ADDRESS)).receivedRequest(createRequest());
-		Request request = trace.getRequest();
-		assertThat(request.getRemoteAddress()).isEqualTo("127.0.0.1");
-	}
-
-	@Test
 	void requestHeadersAreNotIncludedByDefault() {
 		HttpTrace trace = new HttpExchangeTracer(EnumSet.noneOf(Include.class)).receivedRequest(createRequest());
 		Request request = trace.getRequest();
