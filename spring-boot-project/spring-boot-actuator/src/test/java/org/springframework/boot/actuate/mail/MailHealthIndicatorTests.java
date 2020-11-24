@@ -51,17 +51,6 @@ class MailHealthIndicatorTests {
 
 	private MailHealthIndicator indicator;
 
-	@BeforeEach
-	void setup() {
-		Session session = Session.getDefaultInstance(new Properties());
-		session.addProvider(new Provider(Type.TRANSPORT, "success", SuccessTransport.class.getName(), "Test", "1.0.0"));
-		this.mailSender = mock(JavaMailSenderImpl.class);
-		given(this.mailSender.getHost()).willReturn("smtp.acme.org");
-		given(this.mailSender.getPort()).willReturn(25);
-		given(this.mailSender.getSession()).willReturn(session);
-		this.indicator = new MailHealthIndicator(this.mailSender);
-	}
-
 	@Test
 	void smtpIsUp() {
 		given(this.mailSender.getProtocol()).willReturn("success");
