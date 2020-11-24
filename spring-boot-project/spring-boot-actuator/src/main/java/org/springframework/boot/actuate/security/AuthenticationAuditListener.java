@@ -20,6 +20,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.boot.actuate.audit.AuditEvent;
+import org.springframework.boot.actuate.audit.listener.AuditApplicationEvent;
 import org.springframework.security.authentication.event.AbstractAuthenticationEvent;
 import org.springframework.security.authentication.event.AbstractAuthenticationFailureEvent;
 import org.springframework.security.authentication.event.AuthenticationSuccessEvent;
@@ -81,7 +82,10 @@ public class AuthenticationAuditListener extends AbstractAuthenticationAuditList
 		if (event.getAuthentication().getDetails() != null) {
 			data.put("details", event.getAuthentication().getDetails());
 		}
-		publish(new AuditEvent(event.getAuthentication().getName(), AUTHENTICATION_FAILURE, data));
+		AuditEvent event1 = new AuditEvent(event.getAuthentication().getName(), AUTHENTICATION_FAILURE, data);
+		if (getPublisher() != null) {
+			getPublisher().publishEvent(new AuditApplicationEvent(event1));
+		}
 	}
 
 	private void onAuthenticationSuccessEvent(AuthenticationSuccessEvent event) {
@@ -89,7 +93,10 @@ public class AuthenticationAuditListener extends AbstractAuthenticationAuditList
 		if (event.getAuthentication().getDetails() != null) {
 			data.put("details", event.getAuthentication().getDetails());
 		}
-		publish(new AuditEvent(event.getAuthentication().getName(), AUTHENTICATION_SUCCESS, data));
+		AuditEvent event1 = new AuditEvent(event.getAuthentication().getName(), AUTHENTICATION_SUCCESS, data);
+		if (getPublisher() != null) {
+			getPublisher().publishEvent(new AuditApplicationEvent(event1));
+		}
 	}
 
 	private static class WebAuditListener {
@@ -104,7 +111,10 @@ public class AuthenticationAuditListener extends AbstractAuthenticationAuditList
 				if (event.getTargetUser() != null) {
 					data.put("target", event.getTargetUser().getUsername());
 				}
-				listener.publish(new AuditEvent(event.getAuthentication().getName(), AUTHENTICATION_SWITCH, data));
+				AuditEvent event1 = new AuditEvent(event.getAuthentication().getName(), AUTHENTICATION_SWITCH, data);
+				if (listener.getPublisher() != null) {
+					listener.getPublisher().publishEvent(new AuditApplicationEvent(event1));
+				}
 			}
 
 		}

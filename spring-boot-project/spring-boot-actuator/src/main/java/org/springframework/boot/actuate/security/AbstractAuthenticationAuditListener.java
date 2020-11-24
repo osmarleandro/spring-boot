@@ -45,10 +45,4 @@ public abstract class AbstractAuthenticationAuditListener
 		return this.publisher;
 	}
 
-	protected void publish(AuditEvent event) {
-		if (getPublisher() != null) {
-			getPublisher().publishEvent(new AuditApplicationEvent(event));
-		}
-	}
-
 }
