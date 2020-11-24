@@ -206,7 +206,7 @@ class WebEndpointTestInvocationContextProvider implements TestTemplateInvocation
 			if (this.context instanceof AnnotationConfigServletWebServerApplicationContext) {
 				return ((AnnotationConfigServletWebServerApplicationContext) this.context).getWebServer().getPort();
 			}
-			return this.context.getBean(PortHolder.class).getPort();
+			return this.context.getBean(PortHolder.class).port;
 		}
 
 	}
