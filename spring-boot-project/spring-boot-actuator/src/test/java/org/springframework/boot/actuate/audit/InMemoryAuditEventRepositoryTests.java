@@ -48,18 +48,6 @@ class InMemoryAuditEventRepositoryTests {
 	}
 
 	@Test
-	void capacity() {
-		InMemoryAuditEventRepository repository = new InMemoryAuditEventRepository(2);
-		repository.add(new AuditEvent("dave", "a"));
-		repository.add(new AuditEvent("dave", "b"));
-		repository.add(new AuditEvent("dave", "c"));
-		List<AuditEvent> events = repository.find("dave", null, null);
-		assertThat(events.size()).isEqualTo(2);
-		assertThat(events.get(0).getType()).isEqualTo("b");
-		assertThat(events.get(1).getType()).isEqualTo("c");
-	}
-
-	@Test
 	void addNullAuditEvent() {
 		InMemoryAuditEventRepository repository = new InMemoryAuditEventRepository();
 		assertThatIllegalArgumentException().isThrownBy(() -> repository.add(null))
