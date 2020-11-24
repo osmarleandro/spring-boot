@@ -60,8 +60,8 @@ class MetricsWebFilterTests {
 		MockServerWebExchange exchange = createExchange("/projects/spring-boot", "/projects/{project}");
 		this.webFilter.filter(exchange, (serverWebExchange) -> exchange.getResponse().setComplete())
 				.block(Duration.ofSeconds(30));
-		assertMetricsContainsTag("uri", "/projects/{project}");
-		assertMetricsContainsTag("status", "200");
+		assertThat(this.registry.get(REQUEST_METRICS_NAME).tag("uri", "/projects/{project}").timer().count()).isEqualTo(1);
+		assertThat(this.registry.get(REQUEST_METRICS_NAME).tag("status", "200").timer().count()).isEqualTo(1);
 	}
 
 	@Test
@@ -72,9 +72,9 @@ class MetricsWebFilterTests {
 					exchange.getResponse().setRawStatusCode(500);
 					return exchange.getResponse().setComplete();
 				}).block(Duration.ofSeconds(30));
-		assertMetricsContainsTag("uri", "/projects/{project}");
-		assertMetricsContainsTag("status", "500");
-		assertMetricsContainsTag("exception", "IllegalStateException");
+		assertThat(this.registry.get(REQUEST_METRICS_NAME).tag("uri", "/projects/{project}").timer().count()).isEqualTo(1);
+		assertThat(this.registry.get(REQUEST_METRICS_NAME).tag("status", "500").timer().count()).isEqualTo(1);
+		assertThat(this.registry.get(REQUEST_METRICS_NAME).tag("exception", "IllegalStateException").timer().count()).isEqualTo(1);
 	}
 
 	@Test
@@ -87,9 +87,10 @@ class MetricsWebFilterTests {
 			exchange.getResponse().setRawStatusCode(500);
 			return exchange.getResponse().setComplete();
 		}).block(Duration.ofSeconds(30));
-		assertMetricsContainsTag("uri", "/projects/{project}");
-		assertMetricsContainsTag("status", "500");
-		assertMetricsContainsTag("exception", anonymous.getClass().getName());
+		assertThat(this.registry.get(REQUEST_METRICS_NAME).tag("uri", "/projects/{project}").timer().count()).isEqualTo(1);
+		assertThat(this.registry.get(REQUEST_METRICS_NAME).tag("status", "500").timer().count()).isEqualTo(1);
+		String tagValue = anonymous.getClass().getName();
+		assertThat(this.registry.get(REQUEST_METRICS_NAME).tag("exception", tagValue).timer().count()).isEqualTo(1);
 	}
 
 	@Test
@@ -99,8 +100,8 @@ class MetricsWebFilterTests {
 			exchange.getResponse().setRawStatusCode(500);
 			return exchange.getResponse().setComplete().then(Mono.error(new IllegalStateException("test error")));
 		}).onErrorResume((t) -> Mono.empty()).block(Duration.ofSeconds(30));
-		assertMetricsContainsTag("uri", "/projects/{project}");
-		assertMetricsContainsTag("status", "500");
+		assertThat(this.registry.get(REQUEST_METRICS_NAME).tag("uri", "/projects/{project}").timer().count()).isEqualTo(1);
+		assertThat(this.registry.get(REQUEST_METRICS_NAME).tag("status", "500").timer().count()).isEqualTo(1);
 	}
 
 	@Test
@@ -121,10 +122,6 @@ class MetricsWebFilterTests {
 		MockServerWebExchange exchange = MockServerWebExchange.from(MockServerHttpRequest.get(path).build());
 		exchange.getAttributes().put(HandlerMapping.BEST_MATCHING_PATTERN_ATTRIBUTE, parser.parse(pathPattern));
 		return exchange;
-	}
-
-	private void assertMetricsContainsTag(String tagKey, String tagValue) {
-		assertThat(this.registry.get(REQUEST_METRICS_NAME).tag(tagKey, tagValue).timer().count()).isEqualTo(1);
 	}
 
 }
