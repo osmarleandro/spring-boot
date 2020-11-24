@@ -36,16 +36,6 @@ import java.util.stream.Stream;
  */
 class PlainTextThreadDumpFormatter {
 
-	String format(ThreadInfo[] threads) {
-		StringWriter dump = new StringWriter();
-		PrintWriter writer = new PrintWriter(dump);
-		writePreamble(writer);
-		for (ThreadInfo info : threads) {
-			writeThread(writer, info);
-		}
-		return dump.toString();
-	}
-
 	private void writePreamble(PrintWriter writer) {
 		DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 		writer.println(dateFormat.format(LocalDateTime.now()));
