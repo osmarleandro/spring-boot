@@ -38,6 +38,7 @@ import org.springframework.boot.actuate.endpoint.EndpointId;
 import org.springframework.boot.actuate.endpoint.EndpointsSupplier;
 import org.springframework.boot.actuate.endpoint.ExposableEndpoint;
 import org.springframework.boot.actuate.endpoint.Operation;
+import org.springframework.boot.actuate.endpoint.annotation.EndpointDiscoverer.ExtensionBean;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvoker;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvokerAdvisor;
 import org.springframework.boot.actuate.endpoint.invoke.ParameterValueMapper;
@@ -152,18 +153,14 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 		String[] beanNames = BeanFactoryUtils.beanNamesForAnnotationIncludingAncestors(this.applicationContext,
 				EndpointExtension.class);
 		for (String beanName : beanNames) {
-			ExtensionBean extensionBean = createExtensionBean(beanName);
+			Class<?> beanType = ClassUtils.getUserClass(this.applicationContext.getType(beanName));
+			Supplier<Object> beanSupplier = () -> this.applicationContext.getBean(beanName);
+			ExtensionBean extensionBean = new ExtensionBean(this.applicationContext.getEnvironment(), beanName, beanType, beanSupplier);
 			EndpointBean endpointBean = byId.get(extensionBean.getEndpointId());
 			Assert.state(endpointBean != null, () -> ("Invalid extension '" + extensionBean.getBeanName()
 					+ "': no endpoint found with id '" + extensionBean.getEndpointId() + "'"));
 			addExtensionBean(endpointBean, extensionBean);
 		}
-	}
-
-	private ExtensionBean createExtensionBean(String beanName) {
-		Class<?> beanType = ClassUtils.getUserClass(this.applicationContext.getType(beanName));
-		Supplier<Object> beanSupplier = () -> this.applicationContext.getBean(beanName);
-		return new ExtensionBean(this.applicationContext.getEnvironment(), beanName, beanType, beanSupplier);
 	}
 
 	private void addExtensionBean(EndpointBean endpointBean, ExtensionBean extensionBean) {
