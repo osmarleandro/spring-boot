@@ -269,18 +269,6 @@ class EnvironmentEndpointTests {
 		assertThat(descriptor.getProperty().getValue()).isEqualTo("http://user:******@localhost:8080");
 	}
 
-	@Test
-	void addressesPropertyWithMultipleEntriesEachWithSensitiveInfo() {
-		ConfigurableEnvironment environment = new StandardEnvironment();
-		TestPropertyValues
-				.of("sensitive.addresses=http://user:password@localhost:8080,http://user2:password2@localhost:8082")
-				.applyTo(environment);
-		EnvironmentEntryDescriptor descriptor = new EnvironmentEndpoint(environment)
-				.environmentEntry("sensitive.addresses");
-		assertThat(descriptor.getProperty().getValue())
-				.isEqualTo("http://user:******@localhost:8080,http://user2:******@localhost:8082");
-	}
-
 	private static ConfigurableEnvironment emptyEnvironment() {
 		StandardEnvironment environment = new StandardEnvironment();
 		environment.getPropertySources().remove(StandardEnvironment.SYSTEM_ENVIRONMENT_PROPERTY_SOURCE_NAME);
