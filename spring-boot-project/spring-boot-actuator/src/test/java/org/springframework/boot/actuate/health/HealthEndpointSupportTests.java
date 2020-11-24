@@ -80,16 +80,6 @@ abstract class HealthEndpointSupportTests<R extends ContributorRegistry<C>, C, T
 	}
 
 	@Test
-	void getHealthWhenPathIsNotGroupReturnsResultFromPrimaryGroup() {
-		this.registry.registerContributor("test", createContributor(this.up));
-		HealthResult<T> result = create(this.registry, this.groups).getHealth(ApiVersion.V3, SecurityContext.NONE,
-				false, "test");
-		assertThat(result.getGroup()).isEqualTo(this.primaryGroup);
-		assertThat(getHealth(result)).isEqualTo(this.up);
-
-	}
-
-	@Test
 	void getHealthWhenPathIsGroupReturnsResultFromGroup() {
 		this.registry.registerContributor("atest", createContributor(this.up));
 		HealthResult<T> result = create(this.registry, this.groups).getHealth(ApiVersion.V3, SecurityContext.NONE,
