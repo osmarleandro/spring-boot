@@ -66,7 +66,23 @@ class CachingOperationInvokerTests {
 
 	@Test
 	void cacheInTtlWithPrincipal() {
-		assertCacheIsUsed(Collections.emptyMap(), mock(Principal.class));
+		Map<String, Object> parameters = Collections.emptyMap();
+		Principal principal = mock(Principal.class);
+		OperationInvoker target = mock(OperationInvoker.class);
+		Object expected = new Object();
+		SecurityContext securityContext = mock(SecurityContext.class);
+		if (principal != null) {
+			given(securityContext.getPrincipal()).willReturn(principal);
+		}
+		InvocationContext context = new InvocationContext(securityContext, parameters);
+		given(target.invoke(context)).willReturn(expected);
+		CachingOperationInvoker invoker = new CachingOperationInvoker(target, CACHE_TTL);
+		Object response = invoker.invoke(context);
+		assertThat(response).isSameAs(expected);
+		verify(target, times(1)).invoke(context);
+		Object cachedResponse = invoker.invoke(context);
+		assertThat(cachedResponse).isSameAs(response);
+		verifyNoMoreInteractions(target);
 	}
 
 	@Test
@@ -102,15 +118,11 @@ class CachingOperationInvokerTests {
 	}
 
 	private void assertCacheIsUsed(Map<String, Object> parameters) {
-		assertCacheIsUsed(parameters, null);
-	}
-
-	private void assertCacheIsUsed(Map<String, Object> parameters, Principal principal) {
 		OperationInvoker target = mock(OperationInvoker.class);
 		Object expected = new Object();
 		SecurityContext securityContext = mock(SecurityContext.class);
-		if (principal != null) {
-			given(securityContext.getPrincipal()).willReturn(principal);
+		if (null != null) {
+			given(securityContext.getPrincipal()).willReturn(null);
 		}
 		InvocationContext context = new InvocationContext(securityContext, parameters);
 		given(target.invoke(context)).willReturn(expected);
