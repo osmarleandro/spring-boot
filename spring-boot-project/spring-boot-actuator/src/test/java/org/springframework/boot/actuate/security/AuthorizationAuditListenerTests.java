@@ -51,14 +51,6 @@ class AuthorizationAuditListenerTests {
 	}
 
 	@Test
-	void testAuthenticationCredentialsNotFound() {
-		AuditApplicationEvent event = handleAuthorizationEvent(
-				new AuthenticationCredentialsNotFoundEvent(this, Collections.singletonList(new SecurityConfig("USER")),
-						new AuthenticationCredentialsNotFoundException("Bad user")));
-		assertThat(event.getAuditEvent().getType()).isEqualTo(AuthenticationAuditListener.AUTHENTICATION_FAILURE);
-	}
-
-	@Test
 	void testAuthorizationFailure() {
 		AuditApplicationEvent event = handleAuthorizationEvent(new AuthorizationFailureEvent(this,
 				Collections.singletonList(new SecurityConfig("USER")),
