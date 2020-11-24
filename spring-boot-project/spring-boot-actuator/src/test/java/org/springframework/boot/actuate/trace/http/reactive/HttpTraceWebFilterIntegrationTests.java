@@ -61,7 +61,7 @@ class HttpTraceWebFilterIntegrationTests {
 					.isNotFound();
 			HttpTraceRepository repository = context.getBean(HttpTraceRepository.class);
 			assertThat(repository.findAll()).hasSize(1);
-			assertThat(repository.findAll().get(0).getResponse().getStatus()).isEqualTo(404);
+			assertThat(repository.findAll().get(0).response.getStatus()).isEqualTo(404);
 		});
 	}
 
@@ -72,7 +72,7 @@ class HttpTraceWebFilterIntegrationTests {
 					.isEqualTo(HttpStatus.INTERNAL_SERVER_ERROR);
 			HttpTraceRepository repository = context.getBean(HttpTraceRepository.class);
 			assertThat(repository.findAll()).hasSize(1);
-			assertThat(repository.findAll().get(0).getResponse().getStatus()).isEqualTo(500);
+			assertThat(repository.findAll().get(0).response.getStatus()).isEqualTo(500);
 		});
 	}
 
@@ -83,7 +83,7 @@ class HttpTraceWebFilterIntegrationTests {
 					.isEqualTo(HttpStatus.INTERNAL_SERVER_ERROR);
 			HttpTraceRepository repository = context.getBean(HttpTraceRepository.class);
 			assertThat(repository.findAll()).hasSize(1);
-			assertThat(repository.findAll().get(0).getResponse().getStatus()).isEqualTo(500);
+			assertThat(repository.findAll().get(0).response.getStatus()).isEqualTo(500);
 		});
 	}
 
