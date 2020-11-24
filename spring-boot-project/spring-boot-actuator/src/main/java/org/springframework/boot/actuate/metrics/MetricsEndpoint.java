@@ -59,7 +59,12 @@ public class MetricsEndpoint {
 	@ReadOperation
 	public ListNamesResponse listNames() {
 		Set<String> names = new TreeSet<>();
-		collectNames(names, this.registry);
+		if (this.registry instanceof CompositeMeterRegistry) {
+			((CompositeMeterRegistry) this.registry).getRegistries().forEach((member) -> collectNames(names, member));
+		}
+		else {
+			this.registry.getMeters().stream().map(this::getName).forEach(names::add);
+		}
 		return new ListNamesResponse(names);
 	}
 
