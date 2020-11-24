@@ -99,23 +99,6 @@ class HttpTraceFilterTests {
 	}
 
 	@Test
-	void statusIsAssumedToBe500WhenChainFails() throws ServletException, IOException {
-		assertThatIOException().isThrownBy(() -> this.filter.doFilter(new MockHttpServletRequest(),
-				new MockHttpServletResponse(), new MockFilterChain(new HttpServlet() {
-
-					@Override
-					protected void service(HttpServletRequest req, HttpServletResponse resp)
-							throws ServletException, IOException {
-						throw new IOException();
-					}
-
-				}))).satisfies((ex) -> {
-					assertThat(this.repository.findAll()).hasSize(1);
-					assertThat(this.repository.findAll().get(0).getResponse().getStatus()).isEqualTo(500);
-				});
-	}
-
-	@Test
 	void filterRejectsInvalidRequests() throws ServletException, IOException {
 		MockHttpServletRequest request = new MockHttpServletRequest();
 		request.setServerName("<script>alert(document.domain)</script>");
