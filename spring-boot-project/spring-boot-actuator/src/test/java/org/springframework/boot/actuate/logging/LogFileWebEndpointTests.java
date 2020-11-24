@@ -59,13 +59,6 @@ class LogFileWebEndpointTests {
 	}
 
 	@Test
-	void nullResponseWithMissingLogFile() {
-		this.environment.setProperty("logging.file.name", "no_test.log");
-		LogFileWebEndpoint endpoint = new LogFileWebEndpoint(LogFile.get(this.environment), null);
-		assertThat(endpoint.logFile()).isNull();
-	}
-
-	@Test
 	void resourceResponseWithLogFile() throws Exception {
 		this.environment.setProperty("logging.file.name", this.logFile.getAbsolutePath());
 		LogFileWebEndpoint endpoint = new LogFileWebEndpoint(LogFile.get(this.environment), null);
