@@ -69,7 +69,8 @@ class MBeanInfoFactory {
 		String name = operation.getName();
 		String description = operation.getDescription();
 		MBeanParameterInfo[] signature = getSignature(operation.getParameters());
-		String type = getType(operation.getOutputType());
+		Class<?> outputType = operation.getOutputType();
+		String type = this.responseMapper.mapResponseType(outputType).getName();
 		int impact = getImpact(operation.getType());
 		return new ModelMBeanOperationInfo(name, description, signature, type, impact);
 	}
@@ -90,10 +91,6 @@ class MBeanInfoFactory {
 			return MBeanOperationInfo.ACTION;
 		}
 		return MBeanOperationInfo.UNKNOWN;
-	}
-
-	private String getType(Class<?> outputType) {
-		return this.responseMapper.mapResponseType(outputType).getName();
 	}
 
 }
