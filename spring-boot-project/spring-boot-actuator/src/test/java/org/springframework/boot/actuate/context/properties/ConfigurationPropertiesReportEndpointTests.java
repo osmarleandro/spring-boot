@@ -206,19 +206,6 @@ class ConfigurationPropertiesReportEndpointTests {
 	}
 
 	@Test
-	void sanitizeUriWithSensitiveInfo() {
-		this.contextRunner.withUserConfiguration(SensiblePropertiesConfiguration.class)
-				.withPropertyValues("sensible.sensitiveUri=http://user:password@localhost:8080")
-				.run(assertProperties("sensible", (properties) -> assertThat(properties.get("sensitiveUri"))
-						.isEqualTo("http://user:******@localhost:8080"), (inputs) -> {
-							Map<String, Object> sensitiveUri = (Map<String, Object>) inputs.get("sensitiveUri");
-							assertThat(sensitiveUri.get("value")).isEqualTo("http://user:******@localhost:8080");
-							assertThat(sensitiveUri.get("origin"))
-									.isEqualTo("\"sensible.sensitiveUri\" from property source \"test\"");
-						}));
-	}
-
-	@Test
 	void sanitizeUriWithNoPassword() {
 		this.contextRunner.withUserConfiguration(SensiblePropertiesConfiguration.class)
 				.withPropertyValues("sensible.noPasswordUri=http://user:@localhost:8080")
