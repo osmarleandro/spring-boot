@@ -43,8 +43,8 @@ class InMemoryAuditEventRepositoryTests {
 		repository.add(new AuditEvent("dave", "b"));
 		List<AuditEvent> events = repository.find("dave", null, null);
 		assertThat(events.size()).isEqualTo(2);
-		assertThat(events.get(0).getType()).isEqualTo("a");
-		assertThat(events.get(1).getType()).isEqualTo("b");
+		assertThat(events.get(0).type).isEqualTo("a");
+		assertThat(events.get(1).type).isEqualTo("b");
 	}
 
 	@Test
@@ -55,8 +55,8 @@ class InMemoryAuditEventRepositoryTests {
 		repository.add(new AuditEvent("dave", "c"));
 		List<AuditEvent> events = repository.find("dave", null, null);
 		assertThat(events.size()).isEqualTo(2);
-		assertThat(events.get(0).getType()).isEqualTo("b");
-		assertThat(events.get(1).getType()).isEqualTo("c");
+		assertThat(events.get(0).type).isEqualTo("b");
+		assertThat(events.get(1).type).isEqualTo("c");
 	}
 
 	@Test
@@ -75,8 +75,8 @@ class InMemoryAuditEventRepositoryTests {
 		repository.add(new AuditEvent("phil", "d"));
 		List<AuditEvent> events = repository.find("dave", null, null);
 		assertThat(events.size()).isEqualTo(2);
-		assertThat(events.get(0).getType()).isEqualTo("a");
-		assertThat(events.get(1).getType()).isEqualTo("c");
+		assertThat(events.get(0).type).isEqualTo("a");
+		assertThat(events.get(1).type).isEqualTo("c");
 	}
 
 	@Test
@@ -89,7 +89,7 @@ class InMemoryAuditEventRepositoryTests {
 		List<AuditEvent> events = repository.find("dave", null, "a");
 		assertThat(events.size()).isEqualTo(1);
 		assertThat(events.get(0).getPrincipal()).isEqualTo("dave");
-		assertThat(events.get(0).getType()).isEqualTo("a");
+		assertThat(events.get(0).type).isEqualTo("a");
 	}
 
 	@Test
@@ -104,11 +104,11 @@ class InMemoryAuditEventRepositoryTests {
 		Instant after = instant.plus(1, ChronoUnit.DAYS);
 		List<AuditEvent> events = repository.find(null, after, null);
 		assertThat(events.size()).isEqualTo(2);
-		assertThat(events.get(0).getType()).isEqualTo("c");
-		assertThat(events.get(1).getType()).isEqualTo("d");
+		assertThat(events.get(0).type).isEqualTo("c");
+		assertThat(events.get(1).type).isEqualTo("d");
 		events = repository.find("dave", after, null);
 		assertThat(events.size()).isEqualTo(1);
-		assertThat(events.get(0).getType()).isEqualTo("c");
+		assertThat(events.get(0).type).isEqualTo("c");
 	}
 
 }

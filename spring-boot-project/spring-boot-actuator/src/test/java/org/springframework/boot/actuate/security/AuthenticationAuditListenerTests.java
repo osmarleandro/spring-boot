@@ -57,7 +57,7 @@ class AuthenticationAuditListenerTests {
 	void testAuthenticationSuccess() {
 		AuditApplicationEvent event = handleAuthenticationEvent(
 				new AuthenticationSuccessEvent(new UsernamePasswordAuthenticationToken("user", "password")));
-		assertThat(event.getAuditEvent().getType()).isEqualTo(AuthenticationAuditListener.AUTHENTICATION_SUCCESS);
+		assertThat(event.getAuditEvent().type).isEqualTo(AuthenticationAuditListener.AUTHENTICATION_SUCCESS);
 	}
 
 	@Test
@@ -72,7 +72,7 @@ class AuthenticationAuditListenerTests {
 	void testAuthenticationFailed() {
 		AuditApplicationEvent event = handleAuthenticationEvent(new AuthenticationFailureExpiredEvent(
 				new UsernamePasswordAuthenticationToken("user", "password"), new BadCredentialsException("Bad user")));
-		assertThat(event.getAuditEvent().getType()).isEqualTo(AuthenticationAuditListener.AUTHENTICATION_FAILURE);
+		assertThat(event.getAuditEvent().type).isEqualTo(AuthenticationAuditListener.AUTHENTICATION_FAILURE);
 	}
 
 	@Test
@@ -80,14 +80,14 @@ class AuthenticationAuditListenerTests {
 		AuditApplicationEvent event = handleAuthenticationEvent(
 				new AuthenticationSwitchUserEvent(new UsernamePasswordAuthenticationToken("user", "password"),
 						new User("user", "password", AuthorityUtils.commaSeparatedStringToAuthorityList("USER"))));
-		assertThat(event.getAuditEvent().getType()).isEqualTo(AuthenticationAuditListener.AUTHENTICATION_SWITCH);
+		assertThat(event.getAuditEvent().type).isEqualTo(AuthenticationAuditListener.AUTHENTICATION_SWITCH);
 	}
 
 	@Test
 	void testAuthenticationSwitchBackToAnonymous() {
 		AuditApplicationEvent event = handleAuthenticationEvent(
 				new AuthenticationSwitchUserEvent(new UsernamePasswordAuthenticationToken("user", "password"), null));
-		assertThat(event.getAuditEvent().getType()).isEqualTo(AuthenticationAuditListener.AUTHENTICATION_SWITCH);
+		assertThat(event.getAuditEvent().type).isEqualTo(AuthenticationAuditListener.AUTHENTICATION_SWITCH);
 	}
 
 	@Test
@@ -98,7 +98,7 @@ class AuthenticationAuditListenerTests {
 		authentication.setDetails(details);
 		AuditApplicationEvent event = handleAuthenticationEvent(
 				new AuthenticationFailureExpiredEvent(authentication, new BadCredentialsException("Bad user")));
-		assertThat(event.getAuditEvent().getType()).isEqualTo(AuthenticationAuditListener.AUTHENTICATION_FAILURE);
+		assertThat(event.getAuditEvent().type).isEqualTo(AuthenticationAuditListener.AUTHENTICATION_FAILURE);
 		assertThat(event.getAuditEvent().getData()).containsEntry("details", details);
 	}
 

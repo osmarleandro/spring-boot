@@ -123,14 +123,6 @@ public class AuditEvent implements Serializable {
 	}
 
 	/**
-	 * Returns the type of event.
-	 * @return the event type
-	 */
-	public String getType() {
-		return this.type;
-	}
-
-	/**
 	 * Returns the event data.
 	 * @return the event data
 	 */
