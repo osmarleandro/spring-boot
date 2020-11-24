@@ -51,13 +51,6 @@ class HealthTests {
 	}
 
 	@Test
-	void createWithDetails() {
-		Health health = new Health.Builder(Status.UP, Collections.singletonMap("a", "b")).build();
-		assertThat(health.getStatus()).isEqualTo(Status.UP);
-		assertThat(health.getDetails()).containsOnly(entry("a", "b"));
-	}
-
-	@Test
 	void equalsAndHashCode() {
 		Health h1 = new Health.Builder(Status.UP, Collections.singletonMap("a", "b")).build();
 		Health h2 = new Health.Builder(Status.UP, Collections.singletonMap("a", "b")).build();
