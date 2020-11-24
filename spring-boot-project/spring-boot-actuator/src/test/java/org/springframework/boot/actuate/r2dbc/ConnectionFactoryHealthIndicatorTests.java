@@ -64,20 +64,6 @@ class ConnectionFactoryHealthIndicatorTests {
 	}
 
 	@Test
-	void healthIndicatorWhenDatabaseDownWithConnectionValidation() {
-		ConnectionFactory connectionFactory = mock(ConnectionFactory.class);
-		given(connectionFactory.getMetadata()).willReturn(() -> "mock");
-		RuntimeException exception = new RuntimeException("test");
-		given(connectionFactory.create()).willReturn(Mono.error(exception));
-		ConnectionFactoryHealthIndicator healthIndicator = new ConnectionFactoryHealthIndicator(connectionFactory);
-		healthIndicator.health().as(StepVerifier::create).assertNext((actual) -> {
-			assertThat(actual.getStatus()).isEqualTo(Status.DOWN);
-			assertThat(actual.getDetails()).containsOnly(entry("database", "mock"),
-					entry("validationQuery", "validate(REMOTE)"), entry("error", "java.lang.RuntimeException: test"));
-		}).verifyComplete();
-	}
-
-	@Test
 	void healthIndicatorWhenConnectionValidationFails() {
 		ConnectionFactory connectionFactory = mock(ConnectionFactory.class);
 		given(connectionFactory.getMetadata()).willReturn(() -> "mock");
