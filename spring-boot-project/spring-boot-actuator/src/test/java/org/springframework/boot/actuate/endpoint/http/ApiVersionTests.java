@@ -33,12 +33,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 class ApiVersionTests {
 
 	@Test
-	void latestIsLatestVersion() {
-		ApiVersion[] values = ApiVersion.values();
-		assertThat(ApiVersion.LATEST).isEqualTo(values[values.length - 1]);
-	}
-
-	@Test
 	void fromHttpHeadersWhenEmptyReturnsLatest() {
 		ApiVersion version = ApiVersion.fromHttpHeaders(Collections.emptyMap());
 		assertThat(version).isEqualTo(ApiVersion.V3);
