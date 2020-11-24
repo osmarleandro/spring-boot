@@ -51,6 +51,7 @@ import org.apache.commons.logging.LogFactory;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.BeansException;
+import org.springframework.boot.actuate.context.properties.ConfigurationPropertiesReportEndpoint.GenericSerializerModifier;
 import org.springframework.boot.actuate.endpoint.Sanitizer;
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
 import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
@@ -144,7 +145,9 @@ public class ConfigurationPropertiesReportEndpoint implements ApplicationContext
 		mapper.configure(MapperFeature.USE_STD_BEAN_NAMING, true);
 		mapper.setSerializationInclusion(Include.NON_NULL);
 		applyConfigurationPropertiesFilter(mapper);
-		applySerializationModifier(mapper);
+		SerializerFactory factory = BeanSerializerFactory.instance
+				.withSerializerModifier(new GenericSerializerModifier());
+		mapper.setSerializerFactory(factory);
 		mapper.registerModule(new JavaTimeModule());
 	}
 
@@ -152,16 +155,6 @@ public class ConfigurationPropertiesReportEndpoint implements ApplicationContext
 		mapper.setAnnotationIntrospector(new ConfigurationPropertiesAnnotationIntrospector());
 		mapper.setFilterProvider(
 				new SimpleFilterProvider().setDefaultFilter(new ConfigurationPropertiesPropertyFilter()));
-	}
-
-	/**
-	 * Ensure only bindable and non-cyclic bean properties are reported.
-	 * @param mapper the object mapper
-	 */
-	private void applySerializationModifier(ObjectMapper mapper) {
-		SerializerFactory factory = BeanSerializerFactory.instance
-				.withSerializerModifier(new GenericSerializerModifier());
-		mapper.setSerializerFactory(factory);
 	}
 
 	private ContextConfigurationProperties describeBeans(ObjectMapper mapper, ApplicationContext context) {
