@@ -24,6 +24,7 @@ import org.springframework.boot.actuate.endpoint.EndpointId;
 import org.springframework.boot.actuate.endpoint.web.EndpointMapping;
 import org.springframework.boot.actuate.endpoint.web.annotation.ControllerEndpoint;
 import org.springframework.boot.actuate.endpoint.web.annotation.ExposableControllerEndpoint;
+import org.springframework.boot.actuate.endpoint.web.servlet.ControllerEndpointHandlerMappingTests.SecondTestMvcEndpoint;
 import org.springframework.context.support.StaticApplicationContext;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.util.ReflectionUtils;
@@ -50,7 +51,7 @@ class ControllerEndpointHandlerMappingTests {
 	@Test
 	void mappingWithNoPrefix() throws Exception {
 		ExposableControllerEndpoint first = firstEndpoint();
-		ExposableControllerEndpoint second = secondEndpoint();
+		ExposableControllerEndpoint second = mockEndpoint(EndpointId.of("second"), new SecondTestMvcEndpoint());
 		ControllerEndpointHandlerMapping mapping = createMapping("", first, second);
 		assertThat(mapping.getHandler(request("GET", "/first")).getHandler())
 				.isEqualTo(handlerOf(first.getController(), "get"));
@@ -62,7 +63,7 @@ class ControllerEndpointHandlerMappingTests {
 	@Test
 	void mappingWithPrefix() throws Exception {
 		ExposableControllerEndpoint first = firstEndpoint();
-		ExposableControllerEndpoint second = secondEndpoint();
+		ExposableControllerEndpoint second = mockEndpoint(EndpointId.of("second"), new SecondTestMvcEndpoint());
 		ControllerEndpointHandlerMapping mapping = createMapping("actuator", first, second);
 		assertThat(mapping.getHandler(request("GET", "/actuator/first")).getHandler())
 				.isEqualTo(handlerOf(first.getController(), "get"));
@@ -108,10 +109,6 @@ class ControllerEndpointHandlerMappingTests {
 
 	private ExposableControllerEndpoint firstEndpoint() {
 		return mockEndpoint(EndpointId.of("first"), new FirstTestMvcEndpoint());
-	}
-
-	private ExposableControllerEndpoint secondEndpoint() {
-		return mockEndpoint(EndpointId.of("second"), new SecondTestMvcEndpoint());
 	}
 
 	private ExposableControllerEndpoint pathlessEndpoint() {
