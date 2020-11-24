@@ -55,10 +55,13 @@ class ControllerEndpointHandlerMappingTests {
 		ExposableControllerEndpoint first = firstEndpoint();
 		ExposableControllerEndpoint second = secondEndpoint();
 		ControllerEndpointHandlerMapping mapping = createMapping("", first, second);
-		assertThat(getHandler(mapping, HttpMethod.GET, "/first")).isEqualTo(handlerOf(first.getController(), "get"));
-		assertThat(getHandler(mapping, HttpMethod.POST, "/second"))
+		HttpMethod method = HttpMethod.GET;
+		assertThat(mapping.getHandler(exchange(method, "/first")).block(Duration.ofSeconds(30))).isEqualTo(handlerOf(first.getController(), "get"));
+		HttpMethod method1 = HttpMethod.POST;
+		assertThat(mapping.getHandler(exchange(method1, "/second")).block(Duration.ofSeconds(30)))
 				.isEqualTo(handlerOf(second.getController(), "save"));
-		assertThat(getHandler(mapping, HttpMethod.GET, "/third")).isNull();
+		HttpMethod method2 = HttpMethod.GET;
+		assertThat(mapping.getHandler(exchange(method2, "/third")).block(Duration.ofSeconds(30))).isNull();
 	}
 
 	@Test
@@ -66,34 +69,38 @@ class ControllerEndpointHandlerMappingTests {
 		ExposableControllerEndpoint first = firstEndpoint();
 		ExposableControllerEndpoint second = secondEndpoint();
 		ControllerEndpointHandlerMapping mapping = createMapping("actuator", first, second);
-		assertThat(getHandler(mapping, HttpMethod.GET, "/actuator/first"))
+		HttpMethod method = HttpMethod.GET;
+		assertThat(mapping.getHandler(exchange(method, "/actuator/first")).block(Duration.ofSeconds(30)))
 				.isEqualTo(handlerOf(first.getController(), "get"));
-		assertThat(getHandler(mapping, HttpMethod.POST, "/actuator/second"))
+		HttpMethod method1 = HttpMethod.POST;
+		assertThat(mapping.getHandler(exchange(method1, "/actuator/second")).block(Duration.ofSeconds(30)))
 				.isEqualTo(handlerOf(second.getController(), "save"));
-		assertThat(getHandler(mapping, HttpMethod.GET, "/first")).isNull();
-		assertThat(getHandler(mapping, HttpMethod.GET, "/second")).isNull();
+		HttpMethod method2 = HttpMethod.GET;
+		assertThat(mapping.getHandler(exchange(method2, "/first")).block(Duration.ofSeconds(30))).isNull();
+		HttpMethod method3 = HttpMethod.GET;
+		assertThat(mapping.getHandler(exchange(method3, "/second")).block(Duration.ofSeconds(30))).isNull();
 	}
 
 	@Test
 	void mappingWithNoPath() throws Exception {
 		ExposableControllerEndpoint pathless = pathlessEndpoint();
 		ControllerEndpointHandlerMapping mapping = createMapping("actuator", pathless);
-		assertThat(getHandler(mapping, HttpMethod.GET, "/actuator/pathless"))
+		HttpMethod method = HttpMethod.GET;
+		assertThat(mapping.getHandler(exchange(method, "/actuator/pathless")).block(Duration.ofSeconds(30)))
 				.isEqualTo(handlerOf(pathless.getController(), "get"));
-		assertThat(getHandler(mapping, HttpMethod.GET, "/pathless")).isNull();
-		assertThat(getHandler(mapping, HttpMethod.GET, "/")).isNull();
+		HttpMethod method1 = HttpMethod.GET;
+		assertThat(mapping.getHandler(exchange(method1, "/pathless")).block(Duration.ofSeconds(30))).isNull();
+		HttpMethod method2 = HttpMethod.GET;
+		assertThat(mapping.getHandler(exchange(method2, "/")).block(Duration.ofSeconds(30))).isNull();
 	}
 
 	@Test
 	void mappingNarrowedToMethod() throws Exception {
 		ExposableControllerEndpoint first = firstEndpoint();
 		ControllerEndpointHandlerMapping mapping = createMapping("actuator", first);
+		HttpMethod method = HttpMethod.POST;
 		assertThatExceptionOfType(MethodNotAllowedException.class)
-				.isThrownBy(() -> getHandler(mapping, HttpMethod.POST, "/actuator/first"));
-	}
-
-	private Object getHandler(ControllerEndpointHandlerMapping mapping, HttpMethod method, String requestURI) {
-		return mapping.getHandler(exchange(method, requestURI)).block(Duration.ofSeconds(30));
+				.isThrownBy(() -> mapping.getHandler(exchange(method, "/actuator/first")).block(Duration.ofSeconds(30)));
 	}
 
 	private ControllerEndpointHandlerMapping createMapping(String prefix, ExposableControllerEndpoint... endpoints) {
