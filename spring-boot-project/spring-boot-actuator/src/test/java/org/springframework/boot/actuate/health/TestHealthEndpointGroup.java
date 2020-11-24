@@ -59,11 +59,6 @@ class TestHealthEndpointGroup implements HealthEndpointGroup {
 		this.showComponents = showComponents;
 	}
 
-	@Override
-	public boolean showDetails(SecurityContext securityContext) {
-		return this.showDetails;
-	}
-
 	void setShowDetails(boolean includeDetails) {
 		this.showDetails = includeDetails;
 	}
