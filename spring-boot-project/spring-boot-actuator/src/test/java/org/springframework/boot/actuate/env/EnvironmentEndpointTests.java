@@ -216,7 +216,9 @@ class EnvironmentEndpointTests {
 			assertThat(descriptor.getProperty()).isNotNull();
 			assertThat(descriptor.getProperty().getSource()).isEqualTo("test");
 			assertThat(descriptor.getProperty().getValue()).isEqualTo("bar");
-			Map<String, PropertySourceEntryDescriptor> sources = propertySources(descriptor);
+			Map<String, PropertySourceEntryDescriptor> sources1 = new LinkedHashMap<>();
+			descriptor.getPropertySources().forEach((d) -> sources.put(d.getName(), d));
+			Map<String, PropertySourceEntryDescriptor> sources = sources1;
 			assertThat(sources.keySet()).containsExactly("test", "systemProperties", "systemEnvironment");
 			assertPropertySourceEntryDescriptor(sources.get("test"), "bar", null);
 			assertPropertySourceEntryDescriptor(sources.get("systemProperties"), "another", null);
@@ -244,7 +246,9 @@ class EnvironmentEndpointTests {
 		EnvironmentEntryDescriptor descriptor = new EnvironmentEndpoint(environment).environmentEntry("does.not.exist");
 		assertThat(descriptor).isNotNull();
 		assertThat(descriptor.getProperty()).isNull();
-		Map<String, PropertySourceEntryDescriptor> sources = propertySources(descriptor);
+		Map<String, PropertySourceEntryDescriptor> sources1 = new LinkedHashMap<>();
+		descriptor.getPropertySources().forEach((d) -> sources.put(d.getName(), d));
+		Map<String, PropertySourceEntryDescriptor> sources = sources1;
 		assertThat(sources.keySet()).containsExactly("test");
 		assertPropertySourceEntryDescriptor(sources.get("test"), null, null);
 	}
