@@ -54,13 +54,6 @@ class AuthenticationAuditListenerTests {
 	}
 
 	@Test
-	void testAuthenticationSuccess() {
-		AuditApplicationEvent event = handleAuthenticationEvent(
-				new AuthenticationSuccessEvent(new UsernamePasswordAuthenticationToken("user", "password")));
-		assertThat(event.getAuditEvent().getType()).isEqualTo(AuthenticationAuditListener.AUTHENTICATION_SUCCESS);
-	}
-
-	@Test
 	void testOtherAuthenticationSuccess() {
 		this.listener.onApplicationEvent(new InteractiveAuthenticationSuccessEvent(
 				new UsernamePasswordAuthenticationToken("user", "password"), getClass()));
