@@ -46,10 +46,4 @@ class IntegrationGraphEndpointTests {
 		assertThat(graph).isEqualTo(mockedGraph);
 	}
 
-	@Test
-	void writeOperationShouldRebuildGraph() {
-		this.endpoint.rebuild();
-		verify(this.server).rebuild();
-	}
-
 }
