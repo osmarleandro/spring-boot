@@ -35,6 +35,7 @@ import org.springframework.boot.actuate.endpoint.invoke.OperationParameters;
 import org.springframework.boot.actuate.endpoint.invoke.reflect.OperationMethod;
 import org.springframework.boot.actuate.endpoint.jmx.JmxOperation;
 import org.springframework.boot.actuate.endpoint.jmx.JmxOperationParameter;
+import org.springframework.boot.actuate.endpoint.jmx.annotation.DiscoveredJmxOperation.DiscoveredJmxOperationParameter;
 import org.springframework.core.style.ToStringCreator;
 import org.springframework.jmx.export.annotation.AnnotationJmxAttributeSource;
 import org.springframework.jmx.export.metadata.JmxAttributeSource;
@@ -86,14 +87,10 @@ class DiscoveredJmxOperation extends AbstractDiscoveredOperation implements JmxO
 		if (managed.length == 0) {
 			return asList(operationMethod.getParameters().stream().map(DiscoveredJmxOperationParameter::new));
 		}
-		return mergeParameters(operationMethod.getParameters(), managed);
-	}
-
-	private List<JmxOperationParameter> mergeParameters(OperationParameters operationParameters,
-			ManagedOperationParameter[] managedParameters) {
-		List<JmxOperationParameter> merged = new ArrayList<>(managedParameters.length);
-		for (int i = 0; i < managedParameters.length; i++) {
-			merged.add(new DiscoveredJmxOperationParameter(managedParameters[i], operationParameters.get(i)));
+		OperationParameters operationParameters = operationMethod.getParameters();
+		List<JmxOperationParameter> merged = new ArrayList<>(managed.length);
+		for (int i = 0; i < managed.length; i++) {
+			merged.add(new DiscoveredJmxOperationParameter(managed[i], operationParameters.get(i)));
 		}
 		return Collections.unmodifiableList(merged);
 	}
