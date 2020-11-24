@@ -38,12 +38,6 @@ class LivenessStateHealthIndicatorTests {
 
 	private LivenessStateHealthIndicator healthIndicator;
 
-	@BeforeEach
-	void setUp() {
-		this.availability = mock(ApplicationAvailability.class);
-		this.healthIndicator = new LivenessStateHealthIndicator(this.availability);
-	}
-
 	@Test
 	void livenessIsLive() {
 		given(this.availability.getLivenessState()).willReturn(LivenessState.CORRECT);
