@@ -38,9 +38,4 @@ public class ReadinessStateHealthIndicator extends AvailabilityStateHealthIndica
 		});
 	}
 
-	@Override
-	protected AvailabilityState getState(ApplicationAvailability applicationAvailability) {
-		return applicationAvailability.getReadinessState();
-	}
-
 }
