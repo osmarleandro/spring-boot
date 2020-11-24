@@ -57,13 +57,6 @@ class DataSourceHealthIndicatorTests {
 		this.dataSource.setDriverClassName(db.getDriverClassName());
 	}
 
-	@AfterEach
-	void close() {
-		if (this.dataSource != null) {
-			this.dataSource.destroy();
-		}
-	}
-
 	@Test
 	void healthIndicatorWithDefaultSettings() {
 		this.indicator.setDataSource(this.dataSource);
