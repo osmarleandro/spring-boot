@@ -46,12 +46,6 @@ class HeapDumpWebEndpointWebIntegrationTests {
 
 	private TestHeapDumpWebEndpoint endpoint;
 
-	@BeforeEach
-	void configureEndpoint(ApplicationContext context) {
-		this.endpoint = context.getBean(TestHeapDumpWebEndpoint.class);
-		this.endpoint.setAvailable(true);
-	}
-
 	@WebEndpointTest
 	void invokeWhenNotAvailableShouldReturnServiceUnavailableStatus(WebTestClient client) {
 		this.endpoint.setAvailable(false);
