@@ -140,13 +140,6 @@ class WebClientExchangeTagsTests {
 	}
 
 	@Test
-	void outcomeTagIsRedirectionWhenResponseIs3xx() {
-		given(this.response.rawStatusCode()).willReturn(HttpStatus.MOVED_PERMANENTLY.value());
-		Tag tag = WebClientExchangeTags.outcome(this.response);
-		assertThat(tag.getValue()).isEqualTo("REDIRECTION");
-	}
-
-	@Test
 	void outcomeTagIsClientErrorWhenResponseIs4xx() {
 		given(this.response.rawStatusCode()).willReturn(HttpStatus.BAD_REQUEST.value());
 		Tag tag = WebClientExchangeTags.outcome(this.response);
