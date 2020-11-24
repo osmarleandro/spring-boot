@@ -96,17 +96,13 @@ class PlainTextThreadDumpFormatter {
 				}
 			}
 		}
-		writeMonitors(writer, lockedMonitors);
+		for (MonitorInfo lockedMonitor : lockedMonitors) {
+			writer.printf("\t- locked %s%n", format(lockedMonitor));
+		}
 	}
 
 	private String format(LockInfo lockInfo) {
 		return String.format("<%x> (a %s)", lockInfo.getIdentityHashCode(), lockInfo.getClassName());
-	}
-
-	private void writeMonitors(PrintWriter writer, List<MonitorInfo> lockedMonitorsAtCurrentDepth) {
-		for (MonitorInfo lockedMonitor : lockedMonitorsAtCurrentDepth) {
-			writer.printf("\t- locked %s%n", format(lockedMonitor));
-		}
 	}
 
 	private void writeLockedOwnableSynchronizers(PrintWriter writer, ThreadInfo info) {
