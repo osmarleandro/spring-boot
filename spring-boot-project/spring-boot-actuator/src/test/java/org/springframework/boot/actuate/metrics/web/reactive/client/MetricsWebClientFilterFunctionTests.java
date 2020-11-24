@@ -82,17 +82,6 @@ class MetricsWebClientFilterFunctionTests {
 	}
 
 	@Test
-	void filterWhenUriTemplatePresentShouldRecordTimer() {
-		ClientRequest request = ClientRequest
-				.create(HttpMethod.GET, URI.create("https://example.com/projects/spring-boot"))
-				.attribute(URI_TEMPLATE_ATTRIBUTE, "/projects/{project}").build();
-		given(this.response.rawStatusCode()).willReturn(HttpStatus.OK.value());
-		this.filterFunction.filter(request, this.exchange).block(Duration.ofSeconds(5));
-		assertThat(this.registry.get("http.client.requests")
-				.tags("method", "GET", "uri", "/projects/{project}", "status", "200").timer().count()).isEqualTo(1);
-	}
-
-	@Test
 	void filterWhenIoExceptionThrownShouldRecordTimer() {
 		ClientRequest request = ClientRequest
 				.create(HttpMethod.GET, URI.create("https://example.com/projects/spring-boot")).build();
