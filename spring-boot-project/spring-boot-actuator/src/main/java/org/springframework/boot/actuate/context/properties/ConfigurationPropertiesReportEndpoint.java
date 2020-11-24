@@ -126,26 +126,16 @@ public class ConfigurationPropertiesReportEndpoint implements ApplicationContext
 	private ObjectMapper getObjectMapper() {
 		if (this.objectMapper == null) {
 			this.objectMapper = new ObjectMapper();
-			configureObjectMapper(this.objectMapper);
+			this.objectMapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
+			this.objectMapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
+			this.objectMapper.configure(SerializationFeature.WRITE_DURATIONS_AS_TIMESTAMPS, false);
+			this.objectMapper.configure(MapperFeature.USE_STD_BEAN_NAMING, true);
+			this.objectMapper.setSerializationInclusion(Include.NON_NULL);
+			applyConfigurationPropertiesFilter(this.objectMapper);
+			applySerializationModifier(this.objectMapper);
+			this.objectMapper.registerModule(new JavaTimeModule());
 		}
 		return this.objectMapper;
-	}
-
-	/**
-	 * Configure Jackson's {@link ObjectMapper} to be used to serialize the
-	 * {@link ConfigurationProperties @ConfigurationProperties} objects into a {@link Map}
-	 * structure.
-	 * @param mapper the object mapper
-	 */
-	protected void configureObjectMapper(ObjectMapper mapper) {
-		mapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
-		mapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
-		mapper.configure(SerializationFeature.WRITE_DURATIONS_AS_TIMESTAMPS, false);
-		mapper.configure(MapperFeature.USE_STD_BEAN_NAMING, true);
-		mapper.setSerializationInclusion(Include.NON_NULL);
-		applyConfigurationPropertiesFilter(mapper);
-		applySerializationModifier(mapper);
-		mapper.registerModule(new JavaTimeModule());
 	}
 
 	private void applyConfigurationPropertiesFilter(ObjectMapper mapper) {
