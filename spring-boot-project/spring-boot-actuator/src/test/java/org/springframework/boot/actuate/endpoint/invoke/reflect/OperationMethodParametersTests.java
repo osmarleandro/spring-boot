@@ -118,8 +118,4 @@ class OperationMethodParametersTests {
 		return name;
 	}
 
-	String exampleNoParams() {
-		return "example";
-	}
-
 }
