@@ -54,15 +54,6 @@ class LiquibaseEndpointTests {
 			.withPropertyValues("spring.datasource.generate-unique-name=true");
 
 	@Test
-	void liquibaseReportIsReturned() {
-		this.contextRunner.withUserConfiguration(Config.class).run((context) -> {
-			Map<String, LiquibaseBean> liquibaseBeans = context.getBean(LiquibaseEndpoint.class).liquibaseBeans()
-					.getContexts().get(context.getId()).getLiquibaseBeans();
-			assertThat(liquibaseBeans.get("liquibase").getChangeSets()).hasSize(1);
-		});
-	}
-
-	@Test
 	void liquibaseReportIsReturnedForContextHierarchy() {
 		this.contextRunner.withUserConfiguration().run((parent) -> {
 			this.contextRunner.withUserConfiguration(Config.class).withParent(parent).run((context) -> {
