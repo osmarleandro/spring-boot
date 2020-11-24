@@ -144,20 +144,6 @@ abstract class DefaultContributorRegistryTests {
 		assertThat(this.registry.getContributor("one")).isEqualTo(this.one);
 	}
 
-	@Test
-	void iteratorIteratesContributors() {
-		this.registry.registerContributor("one", this.one);
-		this.registry.registerContributor("two", this.two);
-		Iterator<NamedContributor<HealthIndicator>> iterator = this.registry.iterator();
-		NamedContributor<HealthIndicator> first = iterator.next();
-		NamedContributor<HealthIndicator> second = iterator.next();
-		assertThat(iterator.hasNext()).isFalse();
-		assertThat(first.getName()).isEqualTo("one");
-		assertThat(first.getContributor()).isEqualTo(this.one);
-		assertThat(second.getName()).isEqualTo("two");
-		assertThat(second.getContributor()).isEqualTo(this.two);
-	}
-
 	private String reverse(String name) {
 		return new StringBuilder(name).reverse().toString();
 	}
