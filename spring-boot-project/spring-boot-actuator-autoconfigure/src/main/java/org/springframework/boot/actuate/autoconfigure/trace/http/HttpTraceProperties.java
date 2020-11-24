@@ -39,7 +39,7 @@ public class HttpTraceProperties {
 	 * Items to be included in the trace. Defaults to request headers (excluding
 	 * Authorization and Cookie), response headers (excluding Set-Cookie), and time taken.
 	 */
-	private Set<Include> include = new HashSet<>(Include.defaultIncludes());
+	private Set<Include> include = new HashSet<>(Include.DEFAULT_INCLUDES);
 
 	public Set<Include> getInclude() {
 		return this.include;
