@@ -24,8 +24,4 @@ public class PortHolder {
 		return this.port;
 	}
 
-	void setPort(int port) {
-		this.port = port;
-	}
-
 }
