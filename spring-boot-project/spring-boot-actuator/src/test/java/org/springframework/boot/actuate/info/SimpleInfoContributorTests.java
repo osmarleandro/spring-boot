@@ -37,7 +37,7 @@ class SimpleInfoContributorTests {
 	void mapSimpleObject() {
 		Object o = new Object();
 		Info info = contributeFrom("test", o);
-		assertThat(info.get("test")).isSameAs(o);
+		assertThat(info.details.get("test")).isSameAs(o);
 	}
 
 	private static Info contributeFrom(String prefix, Object detail) {
