@@ -56,11 +56,6 @@ public class HealthEndpointWebExtension extends HealthEndpointSupport<HealthCont
 	}
 
 	@ReadOperation
-	public WebEndpointResponse<HealthComponent> health(ApiVersion apiVersion, SecurityContext securityContext) {
-		return health(apiVersion, securityContext, false, NO_PATH);
-	}
-
-	@ReadOperation
 	public WebEndpointResponse<HealthComponent> health(ApiVersion apiVersion, SecurityContext securityContext,
 			@Selector(match = Match.ALL_REMAINING) String... path) {
 		return health(apiVersion, securityContext, false, path);
