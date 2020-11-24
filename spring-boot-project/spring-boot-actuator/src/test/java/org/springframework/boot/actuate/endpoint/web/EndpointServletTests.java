@@ -105,13 +105,6 @@ class EndpointServletTests {
 	}
 
 	@Test
-	void withInitParametersShouldCreateNewInstance() {
-		EndpointServlet endpointServlet = new EndpointServlet(TestServlet.class);
-		assertThat(endpointServlet.withInitParameters(Collections.singletonMap("spring", "boot")))
-				.isNotSameAs(endpointServlet);
-	}
-
-	@Test
 	void withInitParametersWhenHasExistingShouldMergeParameters() {
 		EndpointServlet endpointServlet = new EndpointServlet(TestServlet.class).withInitParameter("a", "b")
 				.withInitParameter("c", "d");
