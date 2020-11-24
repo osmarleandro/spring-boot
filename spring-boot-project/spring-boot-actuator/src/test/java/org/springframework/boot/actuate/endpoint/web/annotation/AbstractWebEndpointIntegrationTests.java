@@ -89,8 +89,8 @@ public abstract class AbstractWebEndpointIntegrationTests<T extends Configurable
 
 	@Test
 	void readOperationWithEndpointsMappedToTheRoot() {
-		load(TestEndpointConfiguration.class, "", (client) -> client.get().uri("/test").exchange().expectStatus().isOk()
-				.expectBody().jsonPath("All").isEqualTo(true));
+		load((context) -> context.register(configuration), "",
+		(context, client) -> clientConsumer.accept(client));
 	}
 
 	@Test
@@ -117,8 +117,8 @@ public abstract class AbstractWebEndpointIntegrationTests<T extends Configurable
 
 	@Test
 	void linksMappingIsDisabledWhenEndpointPathIsEmpty() {
-		load(TestEndpointConfiguration.class, "",
-				(client) -> client.get().uri("").exchange().expectStatus().isNotFound());
+		load((context) -> context.register(configuration), "",
+		(context, client) -> clientConsumer.accept(client));
 	}
 
 	@Test
@@ -399,11 +399,6 @@ public abstract class AbstractWebEndpointIntegrationTests<T extends Configurable
 
 	protected void load(Consumer<T> contextCustomizer, Consumer<WebTestClient> clientConsumer) {
 		load(contextCustomizer, "/endpoints", (context, client) -> clientConsumer.accept(client));
-	}
-
-	protected void load(Class<?> configuration, String endpointPath, Consumer<WebTestClient> clientConsumer) {
-		load((context) -> context.register(configuration), endpointPath,
-				(context, client) -> clientConsumer.accept(client));
 	}
 
 	private void load(Consumer<T> contextCustomizer, String endpointPath,
