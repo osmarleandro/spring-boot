@@ -54,7 +54,12 @@ class ControllerEndpointHandlerMappingTests {
 	void mappingWithNoPrefix() throws Exception {
 		ExposableControllerEndpoint first = firstEndpoint();
 		ExposableControllerEndpoint second = secondEndpoint();
-		ControllerEndpointHandlerMapping mapping = createMapping("", first, second);
+		ExposableControllerEndpoint[] endpoints = { first, second };
+		ControllerEndpointHandlerMapping mapping1 = new ControllerEndpointHandlerMapping(new EndpointMapping(""),
+				Arrays.asList(endpoints), null);
+		mapping1.setApplicationContext(this.context);
+		mapping1.afterPropertiesSet();
+		ControllerEndpointHandlerMapping mapping = mapping1;
 		assertThat(getHandler(mapping, HttpMethod.GET, "/first")).isEqualTo(handlerOf(first.getController(), "get"));
 		assertThat(getHandler(mapping, HttpMethod.POST, "/second"))
 				.isEqualTo(handlerOf(second.getController(), "save"));
@@ -65,7 +70,12 @@ class ControllerEndpointHandlerMappingTests {
 	void mappingWithPrefix() throws Exception {
 		ExposableControllerEndpoint first = firstEndpoint();
 		ExposableControllerEndpoint second = secondEndpoint();
-		ControllerEndpointHandlerMapping mapping = createMapping("actuator", first, second);
+		ExposableControllerEndpoint[] endpoints = { first, second };
+		ControllerEndpointHandlerMapping mapping1 = new ControllerEndpointHandlerMapping(new EndpointMapping("actuator"),
+				Arrays.asList(endpoints), null);
+		mapping1.setApplicationContext(this.context);
+		mapping1.afterPropertiesSet();
+		ControllerEndpointHandlerMapping mapping = mapping1;
 		assertThat(getHandler(mapping, HttpMethod.GET, "/actuator/first"))
 				.isEqualTo(handlerOf(first.getController(), "get"));
 		assertThat(getHandler(mapping, HttpMethod.POST, "/actuator/second"))
@@ -77,7 +87,12 @@ class ControllerEndpointHandlerMappingTests {
 	@Test
 	void mappingWithNoPath() throws Exception {
 		ExposableControllerEndpoint pathless = pathlessEndpoint();
-		ControllerEndpointHandlerMapping mapping = createMapping("actuator", pathless);
+		ExposableControllerEndpoint[] endpoints = { pathless };
+		ControllerEndpointHandlerMapping mapping1 = new ControllerEndpointHandlerMapping(new EndpointMapping("actuator"),
+				Arrays.asList(endpoints), null);
+		mapping1.setApplicationContext(this.context);
+		mapping1.afterPropertiesSet();
+		ControllerEndpointHandlerMapping mapping = mapping1;
 		assertThat(getHandler(mapping, HttpMethod.GET, "/actuator/pathless"))
 				.isEqualTo(handlerOf(pathless.getController(), "get"));
 		assertThat(getHandler(mapping, HttpMethod.GET, "/pathless")).isNull();
@@ -87,21 +102,18 @@ class ControllerEndpointHandlerMappingTests {
 	@Test
 	void mappingNarrowedToMethod() throws Exception {
 		ExposableControllerEndpoint first = firstEndpoint();
-		ControllerEndpointHandlerMapping mapping = createMapping("actuator", first);
+		ExposableControllerEndpoint[] endpoints = { first };
+		ControllerEndpointHandlerMapping mapping1 = new ControllerEndpointHandlerMapping(new EndpointMapping("actuator"),
+				Arrays.asList(endpoints), null);
+		mapping1.setApplicationContext(this.context);
+		mapping1.afterPropertiesSet();
+		ControllerEndpointHandlerMapping mapping = mapping1;
 		assertThatExceptionOfType(MethodNotAllowedException.class)
 				.isThrownBy(() -> getHandler(mapping, HttpMethod.POST, "/actuator/first"));
 	}
 
 	private Object getHandler(ControllerEndpointHandlerMapping mapping, HttpMethod method, String requestURI) {
 		return mapping.getHandler(exchange(method, requestURI)).block(Duration.ofSeconds(30));
-	}
-
-	private ControllerEndpointHandlerMapping createMapping(String prefix, ExposableControllerEndpoint... endpoints) {
-		ControllerEndpointHandlerMapping mapping = new ControllerEndpointHandlerMapping(new EndpointMapping(prefix),
-				Arrays.asList(endpoints), null);
-		mapping.setApplicationContext(this.context);
-		mapping.afterPropertiesSet();
-		return mapping;
 	}
 
 	private HandlerMethod handlerOf(Object source, String methodName) {
