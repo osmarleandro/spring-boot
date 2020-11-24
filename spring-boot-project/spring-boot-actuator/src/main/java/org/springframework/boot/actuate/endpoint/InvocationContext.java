@@ -80,12 +80,4 @@ public class InvocationContext {
 		return this.securityContext;
 	}
 
-	/**
-	 * Return the invocation arguments.
-	 * @return the arguments
-	 */
-	public Map<String, Object> getArguments() {
-		return this.arguments;
-	}
-
 }

@@ -90,7 +90,7 @@ public class CachingOperationInvoker implements OperationInvoker {
 	}
 
 	private boolean hasInput(InvocationContext context) {
-		Map<String, Object> arguments = context.getArguments();
+		Map<String, Object> arguments = context.arguments;
 		if (!ObjectUtils.isEmpty(arguments)) {
 			return arguments.values().stream().anyMatch(Objects::nonNull);
 		}
