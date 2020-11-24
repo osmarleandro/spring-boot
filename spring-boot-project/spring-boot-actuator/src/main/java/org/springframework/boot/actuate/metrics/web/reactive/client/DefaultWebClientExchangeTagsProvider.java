@@ -32,14 +32,4 @@ import org.springframework.web.reactive.function.client.ClientResponse;
  */
 public class DefaultWebClientExchangeTagsProvider implements WebClientExchangeTagsProvider {
 
-	@Override
-	public Iterable<Tag> tags(ClientRequest request, ClientResponse response, Throwable throwable) {
-		Tag method = WebClientExchangeTags.method(request);
-		Tag uri = WebClientExchangeTags.uri(request);
-		Tag clientName = WebClientExchangeTags.clientName(request);
-		Tag status = WebClientExchangeTags.status(response, throwable);
-		Tag outcome = WebClientExchangeTags.outcome(response);
-		return Arrays.asList(method, uri, clientName, status, outcome);
-	}
-
 }
