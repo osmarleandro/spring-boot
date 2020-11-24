@@ -51,17 +51,6 @@ class ControllerEndpointHandlerMappingTests {
 	private final StaticApplicationContext context = new StaticApplicationContext();
 
 	@Test
-	void mappingWithNoPrefix() throws Exception {
-		ExposableControllerEndpoint first = firstEndpoint();
-		ExposableControllerEndpoint second = secondEndpoint();
-		ControllerEndpointHandlerMapping mapping = createMapping("", first, second);
-		assertThat(getHandler(mapping, HttpMethod.GET, "/first")).isEqualTo(handlerOf(first.getController(), "get"));
-		assertThat(getHandler(mapping, HttpMethod.POST, "/second"))
-				.isEqualTo(handlerOf(second.getController(), "save"));
-		assertThat(getHandler(mapping, HttpMethod.GET, "/third")).isNull();
-	}
-
-	@Test
 	void mappingWithPrefix() throws Exception {
 		ExposableControllerEndpoint first = firstEndpoint();
 		ExposableControllerEndpoint second = secondEndpoint();
