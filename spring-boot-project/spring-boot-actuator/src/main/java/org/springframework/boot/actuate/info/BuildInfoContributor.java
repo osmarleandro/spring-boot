@@ -41,17 +41,6 @@ public class BuildInfoContributor extends InfoPropertiesInfoContributor<BuildPro
 	}
 
 	@Override
-	protected PropertySource<?> toSimplePropertySource() {
-		Properties props = new Properties();
-		copyIfSet(props, "group");
-		copyIfSet(props, "artifact");
-		copyIfSet(props, "name");
-		copyIfSet(props, "version");
-		copyIfSet(props, "time");
-		return new PropertiesPropertySource("build", props);
-	}
-
-	@Override
 	protected void postProcessContent(Map<String, Object> content) {
 		replaceValue(content, "time", getProperties().getTime());
 	}
