@@ -55,9 +55,11 @@ class ControllerEndpointHandlerMappingTests {
 		ExposableControllerEndpoint first = firstEndpoint();
 		ExposableControllerEndpoint second = secondEndpoint();
 		ControllerEndpointHandlerMapping mapping = createMapping("", first, second);
-		assertThat(getHandler(mapping, HttpMethod.GET, "/first")).isEqualTo(handlerOf(first.getController(), "get"));
+		Object source = first.getController();
+		assertThat(getHandler(mapping, HttpMethod.GET, "/first")).isEqualTo(new HandlerMethod(source, ReflectionUtils.findMethod(source.getClass(), "get")));
+		Object source1 = second.getController();
 		assertThat(getHandler(mapping, HttpMethod.POST, "/second"))
-				.isEqualTo(handlerOf(second.getController(), "save"));
+				.isEqualTo(new HandlerMethod(source1, ReflectionUtils.findMethod(source1.getClass(), "save")));
 		assertThat(getHandler(mapping, HttpMethod.GET, "/third")).isNull();
 	}
 
@@ -66,10 +68,12 @@ class ControllerEndpointHandlerMappingTests {
 		ExposableControllerEndpoint first = firstEndpoint();
 		ExposableControllerEndpoint second = secondEndpoint();
 		ControllerEndpointHandlerMapping mapping = createMapping("actuator", first, second);
+		Object source = first.getController();
 		assertThat(getHandler(mapping, HttpMethod.GET, "/actuator/first"))
-				.isEqualTo(handlerOf(first.getController(), "get"));
+				.isEqualTo(new HandlerMethod(source, ReflectionUtils.findMethod(source.getClass(), "get")));
+		Object source1 = second.getController();
 		assertThat(getHandler(mapping, HttpMethod.POST, "/actuator/second"))
-				.isEqualTo(handlerOf(second.getController(), "save"));
+				.isEqualTo(new HandlerMethod(source1, ReflectionUtils.findMethod(source1.getClass(), "save")));
 		assertThat(getHandler(mapping, HttpMethod.GET, "/first")).isNull();
 		assertThat(getHandler(mapping, HttpMethod.GET, "/second")).isNull();
 	}
@@ -78,8 +82,9 @@ class ControllerEndpointHandlerMappingTests {
 	void mappingWithNoPath() throws Exception {
 		ExposableControllerEndpoint pathless = pathlessEndpoint();
 		ControllerEndpointHandlerMapping mapping = createMapping("actuator", pathless);
+		Object source = pathless.getController();
 		assertThat(getHandler(mapping, HttpMethod.GET, "/actuator/pathless"))
-				.isEqualTo(handlerOf(pathless.getController(), "get"));
+				.isEqualTo(new HandlerMethod(source, ReflectionUtils.findMethod(source.getClass(), "get")));
 		assertThat(getHandler(mapping, HttpMethod.GET, "/pathless")).isNull();
 		assertThat(getHandler(mapping, HttpMethod.GET, "/")).isNull();
 	}
@@ -102,10 +107,6 @@ class ControllerEndpointHandlerMappingTests {
 		mapping.setApplicationContext(this.context);
 		mapping.afterPropertiesSet();
 		return mapping;
-	}
-
-	private HandlerMethod handlerOf(Object source, String methodName) {
-		return new HandlerMethod(source, ReflectionUtils.findMethod(source.getClass(), methodName));
 	}
 
 	private MockServerWebExchange exchange(HttpMethod method, String requestURI) {
