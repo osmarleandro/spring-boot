@@ -60,11 +60,6 @@ class CachesEndpointWebIntegrationTests {
 	}
 
 	@WebEndpointTest
-	void namedCacheWithNonUniqueName(WebTestClient client) {
-		client.get().uri("/actuator/caches/a").exchange().expectStatus().isBadRequest();
-	}
-
-	@WebEndpointTest
 	void clearNamedCache(WebTestClient client, ApplicationContext context) {
 		Cache b = context.getBean("one", CacheManager.class).getCache("b");
 		b.put("test", "value");
