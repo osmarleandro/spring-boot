@@ -28,7 +28,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 class ReactiveHealthIndicatorTests {
 
-	private final ReactiveHealthIndicator indicator = () -> Mono.just(Health.up().withDetail("spring", "boot").build());
+	private final ReactiveHealthIndicator indicator = () -> Mono.just(Health.status(Status.UP).withDetail("spring", "boot").build());
 
 	@Test
 	void getHealthWhenIncludeDetailsIsTrueReturnsHealthWithDetails() {

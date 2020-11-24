@@ -39,7 +39,7 @@ class ReactiveHealthIndicatorImplementationTests {
 	@Test
 	void healthUp(CapturedOutput output) {
 		StepVerifier.create(new SimpleReactiveHealthIndicator().health())
-				.consumeNextWith((health) -> assertThat(health).isEqualTo(Health.up().build())).verifyComplete();
+				.consumeNextWith((health) -> assertThat(health).isEqualTo(Health.status(Status.UP).build())).verifyComplete();
 		assertThat(output).doesNotContain("Health check failed for simple");
 	}
 

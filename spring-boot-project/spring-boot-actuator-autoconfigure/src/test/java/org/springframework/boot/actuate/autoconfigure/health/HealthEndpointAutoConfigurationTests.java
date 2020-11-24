@@ -264,17 +264,17 @@ class HealthEndpointAutoConfigurationTests {
 
 		@Bean
 		HealthIndicator simpleHealthIndicator() {
-			return () -> Health.up().withDetail("counter", 42).build();
+			return () -> Health.status(Status.UP).withDetail("counter", 42).build();
 		}
 
 		@Bean
 		HealthIndicator additionalHealthIndicator() {
-			return () -> Health.up().build();
+			return () -> Health.status(Status.UP).build();
 		}
 
 		@Bean
 		ReactiveHealthIndicator reactiveHealthIndicator() {
-			return () -> Mono.just(Health.up().build());
+			return () -> Mono.just(Health.status(Status.UP).build());
 		}
 
 	}
