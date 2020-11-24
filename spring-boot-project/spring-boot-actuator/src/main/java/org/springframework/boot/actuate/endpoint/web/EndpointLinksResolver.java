@@ -75,7 +75,7 @@ public class EndpointLinksResolver {
 			}
 			else if (endpoint instanceof PathMappedEndpoint) {
 				String rootPath = ((PathMappedEndpoint) endpoint).getRootPath();
-				Link link = createLink(normalizedUrl, rootPath);
+				Link link = new Link(normalizedUrl + (rootPath.startsWith("/") ? rootPath : "/" + rootPath));
 				links.put(endpoint.getEndpointId().toLowerCaseString(), link);
 			}
 		}
@@ -96,10 +96,7 @@ public class EndpointLinksResolver {
 	}
 
 	private Link createLink(String requestUrl, WebOperation operation) {
-		return createLink(requestUrl, operation.getRequestPredicate().getPath());
-	}
-
-	private Link createLink(String requestUrl, String path) {
+		String path = operation.getRequestPredicate().getPath();
 		return new Link(requestUrl + (path.startsWith("/") ? path : "/" + path));
 	}
 
