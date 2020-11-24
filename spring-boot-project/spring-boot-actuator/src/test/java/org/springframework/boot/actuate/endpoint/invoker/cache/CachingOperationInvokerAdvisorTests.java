@@ -113,13 +113,6 @@ class CachingOperationInvokerAdvisorTests {
 	}
 
 	@Test
-	void applyWithSecurityContextShouldAddAdvise() {
-		OperationParameters parameters = getParameters("getWithSecurityContext", SecurityContext.class, String.class);
-		given(this.timeToLive.apply(any())).willReturn(100L);
-		assertAdviseIsApplied(parameters);
-	}
-
-	@Test
 	void applyWithApiVersionShouldAddAdvise() {
 		OperationParameters parameters = getParameters("getWithApiVersion", ApiVersion.class, String.class);
 		given(this.timeToLive.apply(any())).willReturn(100L);
