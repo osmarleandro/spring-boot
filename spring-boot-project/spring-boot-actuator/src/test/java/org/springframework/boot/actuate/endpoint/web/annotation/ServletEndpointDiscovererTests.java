@@ -103,13 +103,6 @@ class ServletEndpointDiscovererTests {
 	}
 
 	@Test
-	void getEndpointWhenEndpointHasOperationsShouldThrowException() {
-		this.contextRunner.withUserConfiguration(TestServletEndpointWithOperation.class).run(
-				assertDiscoverer((discoverer) -> assertThatIllegalStateException().isThrownBy(discoverer::getEndpoints)
-						.withMessageContaining("ServletEndpoints must not declare operations")));
-	}
-
-	@Test
 	void getEndpointWhenEndpointNotASupplierShouldThrowException() {
 		this.contextRunner.withUserConfiguration(TestServletEndpointNotASupplier.class)
 				.run(assertDiscoverer((discoverer) -> assertThatIllegalStateException()
