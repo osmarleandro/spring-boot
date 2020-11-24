@@ -65,11 +65,6 @@ public class HttpTraceFilter extends OncePerRequestFilter implements Ordered {
 		this.tracer = tracer;
 	}
 
-	@Override
-	public int getOrder() {
-		return this.order;
-	}
-
 	public void setOrder(int order) {
 		this.order = order;
 	}
