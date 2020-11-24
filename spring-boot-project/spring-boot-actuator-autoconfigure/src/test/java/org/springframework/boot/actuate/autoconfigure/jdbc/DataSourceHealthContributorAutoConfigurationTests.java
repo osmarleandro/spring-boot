@@ -40,6 +40,8 @@ import org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 
+import java.util.stream.StreamSupport;
+
 /**
  * Tests for {@link DataSourceHealthContributorAutoConfiguration}.
  *
@@ -67,7 +69,7 @@ class DataSourceHealthContributorAutoConfigurationTests {
 				.run((context) -> {
 					assertThat(context).hasSingleBean(CompositeHealthContributor.class);
 					CompositeHealthContributor contributor = context.getBean(CompositeHealthContributor.class);
-					String[] names = contributor.stream().map(NamedContributor::getName).toArray(String[]::new);
+					String[] names = StreamSupport.stream(contributor.spliterator(), false).map(NamedContributor::getName).toArray(String[]::new);
 					assertThat(names).containsExactlyInAnyOrder("dataSource", "testDataSource");
 				});
 	}

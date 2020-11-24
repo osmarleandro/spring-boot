@@ -37,12 +37,4 @@ public interface NamedContributors<C> extends Iterable<NamedContributor<C>> {
 	 */
 	C getContributor(String name);
 
-	/**
-	 * Return a stream of the {@link NamedContributor named contributors}.
-	 * @return the stream of named contributors
-	 */
-	default Stream<NamedContributor<C>> stream() {
-		return StreamSupport.stream(spliterator(), false);
-	}
-
 }
