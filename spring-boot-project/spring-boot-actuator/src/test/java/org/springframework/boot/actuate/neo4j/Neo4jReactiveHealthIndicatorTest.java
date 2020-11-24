@@ -52,7 +52,12 @@ class Neo4jReactiveHealthIndicatorTest {
 	@Test
 	void neo4jIsUp() {
 		ResultSummary resultSummary = ResultSummaryMock.createResultSummary("4711", "My Home", "test");
-		Driver driver = mockDriver(resultSummary, "ultimate collectors edition");
+		RxResult statementResult = mockStatementResult(resultSummary, "ultimate collectors edition");
+		RxSession session = mock(RxSession.class);
+		given(session.run(anyString())).willReturn(statementResult);
+		Driver driver1 = mock(Driver.class);
+		given(driver1.rxSession(any(SessionConfig.class))).willReturn(session);
+		Driver driver = driver1;
 		Neo4jReactiveHealthIndicator healthIndicator = new Neo4jReactiveHealthIndicator(driver);
 		healthIndicator.health().as(StepVerifier::create).consumeNextWith((health) -> {
 			assertThat(health.getStatus()).isEqualTo(Status.UP);
@@ -102,15 +107,6 @@ class Neo4jReactiveHealthIndicatorTest {
 		given(statementResult.records()).willReturn(Mono.just(record));
 		given(statementResult.consume()).willReturn(Mono.just(resultSummary));
 		return statementResult;
-	}
-
-	private Driver mockDriver(ResultSummary resultSummary, String edition) {
-		RxResult statementResult = mockStatementResult(resultSummary, edition);
-		RxSession session = mock(RxSession.class);
-		given(session.run(anyString())).willReturn(statementResult);
-		Driver driver = mock(Driver.class);
-		given(driver.rxSession(any(SessionConfig.class))).willReturn(session);
-		return driver;
 	}
 
 }
