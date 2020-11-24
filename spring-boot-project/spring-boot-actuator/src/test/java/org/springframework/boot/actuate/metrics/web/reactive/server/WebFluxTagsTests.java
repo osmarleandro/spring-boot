@@ -165,13 +165,6 @@ class WebFluxTagsTests {
 	}
 
 	@Test
-	void outcomeTagIsSuccessWhenResponseIs2xx() {
-		this.exchange.getResponse().setStatusCode(HttpStatus.OK);
-		Tag tag = WebFluxTags.outcome(this.exchange);
-		assertThat(tag.getValue()).isEqualTo("SUCCESS");
-	}
-
-	@Test
 	void outcomeTagIsRedirectionWhenResponseIs3xx() {
 		this.exchange.getResponse().setStatusCode(HttpStatus.MOVED_PERMANENTLY);
 		Tag tag = WebFluxTags.outcome(this.exchange);
