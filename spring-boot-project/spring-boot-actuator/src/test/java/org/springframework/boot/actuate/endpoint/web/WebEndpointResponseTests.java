@@ -35,13 +35,6 @@ class WebEndpointResponseTests {
 	}
 
 	@Test
-	void createWithStatusShouldReturnStatus() {
-		WebEndpointResponse<Object> response = new WebEndpointResponse<>(404);
-		assertThat(response.getStatus()).isEqualTo(404);
-		assertThat(response.getBody()).isNull();
-	}
-
-	@Test
 	void createWithBodyShouldReturnBody() {
 		WebEndpointResponse<Object> response = new WebEndpointResponse<>("body");
 		assertThat(response.getStatus()).isEqualTo(200);
