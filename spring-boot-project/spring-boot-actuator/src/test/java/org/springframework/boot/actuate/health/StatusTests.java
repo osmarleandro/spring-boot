@@ -30,12 +30,6 @@ import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException
 class StatusTests {
 
 	@Test
-	void createWhenCodeIsNullThrowsException() {
-		assertThatIllegalArgumentException().isThrownBy(() -> new Status(null, ""))
-				.withMessage("Code must not be null");
-	}
-
-	@Test
 	void createWhenDescriptionIsNullThrowsException() {
 		assertThatIllegalArgumentException().isThrownBy(() -> new Status("code", null))
 				.withMessage("Description must not be null");
