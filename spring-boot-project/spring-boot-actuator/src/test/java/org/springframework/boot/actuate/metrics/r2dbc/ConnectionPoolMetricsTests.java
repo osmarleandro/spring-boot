@@ -56,13 +56,6 @@ class ConnectionPoolMetricsTests {
 				Collections.singletonMap(H2ConnectionOption.DB_CLOSE_DELAY, "-1"));
 	}
 
-	@AfterEach
-	void close() {
-		if (this.connectionFactory != null) {
-			this.connectionFactory.close();
-		}
-	}
-
 	@Test
 	void connectionFactoryIsInstrumented() {
 		SimpleMeterRegistry registry = new SimpleMeterRegistry();
