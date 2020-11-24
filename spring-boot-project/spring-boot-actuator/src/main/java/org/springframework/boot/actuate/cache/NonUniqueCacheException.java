@@ -38,10 +38,6 @@ public class NonUniqueCacheException extends RuntimeException {
 		this.cacheManagerNames = Collections.unmodifiableCollection(cacheManagerNames);
 	}
 
-	public String getCacheName() {
-		return this.cacheName;
-	}
-
 	public Collection<String> getCacheManagerNames() {
 		return this.cacheManagerNames;
 	}
