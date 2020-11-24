@@ -27,7 +27,10 @@ import org.neo4j.driver.exceptions.ServiceUnavailableException;
 import org.neo4j.driver.exceptions.SessionExpiredException;
 import org.neo4j.driver.reactive.RxResult;
 import org.neo4j.driver.reactive.RxSession;
+import org.neo4j.driver.summary.DatabaseInfo;
 import org.neo4j.driver.summary.ResultSummary;
+import org.neo4j.driver.summary.ServerInfo;
+
 import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
 
@@ -51,7 +54,15 @@ class Neo4jReactiveHealthIndicatorTest {
 
 	@Test
 	void neo4jIsUp() {
-		ResultSummary resultSummary = ResultSummaryMock.createResultSummary("4711", "My Home", "test");
+		ServerInfo serverInfo = mock(ServerInfo.class);
+		given(serverInfo.version()).willReturn("4711");
+		given(serverInfo.address()).willReturn("My Home");
+		DatabaseInfo databaseInfo = mock(DatabaseInfo.class);
+		given(databaseInfo.name()).willReturn("test");
+		ResultSummary resultSummary1 = mock(ResultSummary.class);
+		given(resultSummary1.server()).willReturn(serverInfo);
+		given(resultSummary1.database()).willReturn(databaseInfo);
+		ResultSummary resultSummary = resultSummary1;
 		Driver driver = mockDriver(resultSummary, "ultimate collectors edition");
 		Neo4jReactiveHealthIndicator healthIndicator = new Neo4jReactiveHealthIndicator(driver);
 		healthIndicator.health().as(StepVerifier::create).consumeNextWith((health) -> {
@@ -63,7 +74,15 @@ class Neo4jReactiveHealthIndicatorTest {
 
 	@Test
 	void neo4jIsUpWithOneSessionExpiredException() {
-		ResultSummary resultSummary = ResultSummaryMock.createResultSummary("4711", "My Home", "");
+		ServerInfo serverInfo = mock(ServerInfo.class);
+		given(serverInfo.version()).willReturn("4711");
+		given(serverInfo.address()).willReturn("My Home");
+		DatabaseInfo databaseInfo = mock(DatabaseInfo.class);
+		given(databaseInfo.name()).willReturn("");
+		ResultSummary resultSummary1 = mock(ResultSummary.class);
+		given(resultSummary1.server()).willReturn(serverInfo);
+		given(resultSummary1.database()).willReturn(databaseInfo);
+		ResultSummary resultSummary = resultSummary1;
 		RxSession session = mock(RxSession.class);
 		RxResult statementResult = mockStatementResult(resultSummary, "some edition");
 		AtomicInteger count = new AtomicInteger();

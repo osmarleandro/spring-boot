@@ -27,8 +27,9 @@ import org.neo4j.driver.SessionConfig;
 import org.neo4j.driver.Values;
 import org.neo4j.driver.exceptions.ServiceUnavailableException;
 import org.neo4j.driver.exceptions.SessionExpiredException;
+import org.neo4j.driver.summary.DatabaseInfo;
 import org.neo4j.driver.summary.ResultSummary;
-
+import org.neo4j.driver.summary.ServerInfo;
 import org.springframework.boot.actuate.health.Health;
 import org.springframework.boot.actuate.health.Status;
 
@@ -51,7 +52,15 @@ class Neo4jHealthIndicatorTests {
 
 	@Test
 	void neo4jIsUp() {
-		ResultSummary resultSummary = ResultSummaryMock.createResultSummary("4711", "My Home", "test");
+		ServerInfo serverInfo = mock(ServerInfo.class);
+		given(serverInfo.version()).willReturn("4711");
+		given(serverInfo.address()).willReturn("My Home");
+		DatabaseInfo databaseInfo = mock(DatabaseInfo.class);
+		given(databaseInfo.name()).willReturn("test");
+		ResultSummary resultSummary1 = mock(ResultSummary.class);
+		given(resultSummary1.server()).willReturn(serverInfo);
+		given(resultSummary1.database()).willReturn(databaseInfo);
+		ResultSummary resultSummary = resultSummary1;
 		Driver driver = mockDriver(resultSummary, "ultimate collectors edition");
 		Health health = new Neo4jHealthIndicator(driver).health();
 		assertThat(health.getStatus()).isEqualTo(Status.UP);
@@ -62,7 +71,15 @@ class Neo4jHealthIndicatorTests {
 
 	@Test
 	void neo4jIsUpWithoutDatabaseName() {
-		ResultSummary resultSummary = ResultSummaryMock.createResultSummary("4711", "My Home", null);
+		ServerInfo serverInfo = mock(ServerInfo.class);
+		given(serverInfo.version()).willReturn("4711");
+		given(serverInfo.address()).willReturn("My Home");
+		DatabaseInfo databaseInfo = mock(DatabaseInfo.class);
+		given(databaseInfo.name()).willReturn(null);
+		ResultSummary resultSummary1 = mock(ResultSummary.class);
+		given(resultSummary1.server()).willReturn(serverInfo);
+		given(resultSummary1.database()).willReturn(databaseInfo);
+		ResultSummary resultSummary = resultSummary1;
 		Driver driver = mockDriver(resultSummary, "some edition");
 		Health health = new Neo4jHealthIndicator(driver).health();
 		assertThat(health.getStatus()).isEqualTo(Status.UP);
@@ -73,7 +90,15 @@ class Neo4jHealthIndicatorTests {
 
 	@Test
 	void neo4jIsUpWithEmptyDatabaseName() {
-		ResultSummary resultSummary = ResultSummaryMock.createResultSummary("4711", "My Home", "");
+		ServerInfo serverInfo = mock(ServerInfo.class);
+		given(serverInfo.version()).willReturn("4711");
+		given(serverInfo.address()).willReturn("My Home");
+		DatabaseInfo databaseInfo = mock(DatabaseInfo.class);
+		given(databaseInfo.name()).willReturn("");
+		ResultSummary resultSummary1 = mock(ResultSummary.class);
+		given(resultSummary1.server()).willReturn(serverInfo);
+		given(resultSummary1.database()).willReturn(databaseInfo);
+		ResultSummary resultSummary = resultSummary1;
 		Driver driver = mockDriver(resultSummary, "some edition");
 		Health health = new Neo4jHealthIndicator(driver).health();
 		assertThat(health.getStatus()).isEqualTo(Status.UP);
@@ -84,7 +109,15 @@ class Neo4jHealthIndicatorTests {
 
 	@Test
 	void neo4jIsUpWithOneSessionExpiredException() {
-		ResultSummary resultSummary = ResultSummaryMock.createResultSummary("4711", "My Home", "");
+		ServerInfo serverInfo = mock(ServerInfo.class);
+		given(serverInfo.version()).willReturn("4711");
+		given(serverInfo.address()).willReturn("My Home");
+		DatabaseInfo databaseInfo = mock(DatabaseInfo.class);
+		given(databaseInfo.name()).willReturn("");
+		ResultSummary resultSummary1 = mock(ResultSummary.class);
+		given(resultSummary1.server()).willReturn(serverInfo);
+		given(resultSummary1.database()).willReturn(databaseInfo);
+		ResultSummary resultSummary = resultSummary1;
 		Session session = mock(Session.class);
 		Result statementResult = mockStatementResult(resultSummary, "some edition");
 		AtomicInteger count = new AtomicInteger();

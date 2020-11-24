@@ -33,16 +33,4 @@ final class ResultSummaryMock {
 	private ResultSummaryMock() {
 	}
 
-	static ResultSummary createResultSummary(String serverVersion, String serverAddress, String databaseName) {
-		ServerInfo serverInfo = mock(ServerInfo.class);
-		given(serverInfo.version()).willReturn(serverVersion);
-		given(serverInfo.address()).willReturn(serverAddress);
-		DatabaseInfo databaseInfo = mock(DatabaseInfo.class);
-		given(databaseInfo.name()).willReturn(databaseName);
-		ResultSummary resultSummary = mock(ResultSummary.class);
-		given(resultSummary.server()).willReturn(serverInfo);
-		given(resultSummary.database()).willReturn(databaseInfo);
-		return resultSummary;
-	}
-
 }
