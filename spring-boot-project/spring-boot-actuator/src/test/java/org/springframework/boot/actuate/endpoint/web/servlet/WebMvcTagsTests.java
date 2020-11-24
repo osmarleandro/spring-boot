@@ -131,13 +131,6 @@ class WebMvcTagsTests {
 	}
 
 	@Test
-	void outcomeTagIsInformationalWhenResponseIs1xx() {
-		this.response.setStatus(100);
-		Tag tag = WebMvcTags.outcome(this.response);
-		assertThat(tag.getValue()).isEqualTo("INFORMATIONAL");
-	}
-
-	@Test
 	void outcomeTagIsSuccessWhenResponseIs2xx() {
 		this.response.setStatus(200);
 		Tag tag = WebMvcTags.outcome(this.response);
