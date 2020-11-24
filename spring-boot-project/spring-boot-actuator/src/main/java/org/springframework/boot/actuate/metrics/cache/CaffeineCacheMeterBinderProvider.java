@@ -30,9 +30,4 @@ import org.springframework.cache.caffeine.CaffeineCache;
  */
 public class CaffeineCacheMeterBinderProvider implements CacheMeterBinderProvider<CaffeineCache> {
 
-	@Override
-	public MeterBinder getMeterBinder(CaffeineCache cache, Iterable<Tag> tags) {
-		return new CaffeineCacheMetrics(cache.getNativeCache(), cache.getName(), tags);
-	}
-
 }
