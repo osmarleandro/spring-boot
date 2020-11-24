@@ -40,14 +40,6 @@ import static org.mockito.Mockito.mock;
 class EndpointLinksResolverTests {
 
 	@Test
-	void linkResolutionWithTrailingSlashStripsSlashOnSelfLink() {
-		Map<String, Link> links = new EndpointLinksResolver(Collections.emptyList())
-				.resolveLinks("https://api.example.com/actuator/");
-		assertThat(links).hasSize(1);
-		assertThat(links).hasEntrySatisfying("self", linkWithHref("https://api.example.com/actuator"));
-	}
-
-	@Test
 	void linkResolutionWithoutTrailingSlash() {
 		Map<String, Link> links = new EndpointLinksResolver(Collections.emptyList())
 				.resolveLinks("https://api.example.com/actuator");
