@@ -42,12 +42,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class DefaultWebMvcTagsProviderTests {
 
 	@Test
-	void whenTagsAreProvidedThenDefaultTagsArePresent() {
-		Map<String, Tag> tags = asMap(new DefaultWebMvcTagsProvider().getTags(null, null, null, null));
-		assertThat(tags).containsOnlyKeys("exception", "method", "outcome", "status", "uri");
-	}
-
-	@Test
 	void givenSomeContributorsWhenTagsAreProvidedThenDefaultTagsAndContributedTagsArePresent() {
 		Map<String, Tag> tags = asMap(
 				new DefaultWebMvcTagsProvider(Arrays.asList(new TestWebMvcTagsContributor("alpha"),
