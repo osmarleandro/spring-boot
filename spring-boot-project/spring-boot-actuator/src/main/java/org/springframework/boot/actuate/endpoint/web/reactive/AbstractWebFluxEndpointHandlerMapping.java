@@ -170,7 +170,7 @@ public abstract class AbstractWebFluxEndpointHandlerMapping extends RequestMappi
 		RequestMethodsRequestCondition methods = new RequestMethodsRequestCondition(
 				RequestMethod.valueOf(predicate.getHttpMethod().name()));
 		ConsumesRequestCondition consumes = new ConsumesRequestCondition(
-				StringUtils.toStringArray(predicate.getConsumes()));
+				StringUtils.toStringArray(Collections.unmodifiableCollection(predicate.consumes)));
 		ProducesRequestCondition produces = new ProducesRequestCondition(
 				StringUtils.toStringArray(predicate.getProduces()));
 		return new RequestMappingInfo(null, patterns, methods, null, null, consumes, produces, null);

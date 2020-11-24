@@ -102,14 +102,6 @@ public final class WebOperationRequestPredicate {
 	}
 
 	/**
-	 * Returns the media types that the operation consumes.
-	 * @return the consumed media types
-	 */
-	public Collection<String> getConsumes() {
-		return Collections.unmodifiableCollection(this.consumes);
-	}
-
-	/**
 	 * Returns the media types that the operation produces.
 	 * @return the produced media types
 	 */
