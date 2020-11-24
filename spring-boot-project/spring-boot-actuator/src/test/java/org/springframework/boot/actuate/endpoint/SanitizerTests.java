@@ -91,15 +91,6 @@ class SanitizerTests {
 
 	@ParameterizedTest(name = "key = {0}")
 	@MethodSource("matchingUriUserInfoKeys")
-	void uriWithMultipleValuesSomeWithPasswordShouldHaveThoseSanitized(String key) {
-		Sanitizer sanitizer = new Sanitizer();
-		assertThat(sanitizer.sanitize(key,
-				"http://user1:password1@localhost:8080,http://user2@localhost:8082,http://localhost:8083")).isEqualTo(
-						"http://user1:******@localhost:8080,http://user2@localhost:8082,http://localhost:8083");
-	}
-
-	@ParameterizedTest(name = "key = {0}")
-	@MethodSource("matchingUriUserInfoKeys")
 	void uriWithMultipleValuesWithPasswordMatchingOtherPartsOfStringShouldBeSanitized(String key) {
 		Sanitizer sanitizer = new Sanitizer();
 		assertThat(sanitizer.sanitize(key, "http://user1://@localhost:8080,http://user2://@localhost:8082"))
