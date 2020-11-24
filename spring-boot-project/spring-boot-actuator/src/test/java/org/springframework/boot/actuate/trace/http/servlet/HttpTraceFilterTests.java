@@ -85,20 +85,6 @@ class HttpTraceFilterTests {
 	}
 
 	@Test
-	void filterCapturesPrincipal() throws ServletException, IOException {
-		MockHttpServletRequest request = new MockHttpServletRequest();
-		Principal principal = mock(Principal.class);
-		given(principal.getName()).willReturn("alice");
-		request.setUserPrincipal(principal);
-		this.filter.doFilter(request, new MockHttpServletResponse(), new MockFilterChain());
-		assertThat(this.repository.findAll()).hasSize(1);
-		org.springframework.boot.actuate.trace.http.HttpTrace.Principal tracedPrincipal = this.repository.findAll()
-				.get(0).getPrincipal();
-		assertThat(tracedPrincipal).isNotNull();
-		assertThat(tracedPrincipal.getName()).isEqualTo("alice");
-	}
-
-	@Test
 	void statusIsAssumedToBe500WhenChainFails() throws ServletException, IOException {
 		assertThatIOException().isThrownBy(() -> this.filter.doFilter(new MockHttpServletRequest(),
 				new MockHttpServletResponse(), new MockFilterChain(new HttpServlet() {
