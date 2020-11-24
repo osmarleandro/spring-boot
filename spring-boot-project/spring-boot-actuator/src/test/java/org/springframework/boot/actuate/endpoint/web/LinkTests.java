@@ -38,7 +38,7 @@ class LinkTests {
 	void getHrefShouldReturnHref() {
 		String href = "https://example.com";
 		Link link = new Link(href);
-		assertThat(link.getHref()).isEqualTo(href);
+		assertThat(link.href).isEqualTo(href);
 	}
 
 	@Test
