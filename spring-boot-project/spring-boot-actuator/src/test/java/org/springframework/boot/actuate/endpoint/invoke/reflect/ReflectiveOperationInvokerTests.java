@@ -105,15 +105,6 @@ class ReflectiveOperationInvokerTests {
 		assertThat(result).isEqualTo("llun");
 	}
 
-	@Test
-	void invokeShouldResolveParameters() {
-		ReflectiveOperationInvoker invoker = new ReflectiveOperationInvoker(this.target, this.operationMethod,
-				this.parameterValueMapper);
-		Object result = invoker
-				.invoke(new InvocationContext(mock(SecurityContext.class), Collections.singletonMap("name", 1234)));
-		assertThat(result).isEqualTo("4321");
-	}
-
 	static class Example {
 
 		String reverse(ApiVersion apiVersion, SecurityContext securityContext, String name) {
