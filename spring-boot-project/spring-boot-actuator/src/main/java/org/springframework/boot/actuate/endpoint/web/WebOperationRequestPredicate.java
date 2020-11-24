@@ -94,14 +94,6 @@ public final class WebOperationRequestPredicate {
 	}
 
 	/**
-	 * Returns the HTTP method for the operation.
-	 * @return the HTTP method
-	 */
-	public WebEndpointHttpMethod getHttpMethod() {
-		return this.httpMethod;
-	}
-
-	/**
 	 * Returns the media types that the operation consumes.
 	 * @return the consumed media types
 	 */
