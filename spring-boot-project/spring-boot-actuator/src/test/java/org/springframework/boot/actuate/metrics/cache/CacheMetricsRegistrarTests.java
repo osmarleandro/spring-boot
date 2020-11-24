@@ -54,11 +54,4 @@ class CacheMetricsRegistrarTests {
 		assertThat(this.meterRegistry.get("cache.gets").tags("name", "test").meter()).isNotNull();
 	}
 
-	@Test
-	void bindToUnsupportedCache() {
-		CacheMetricsRegistrar registrar = new CacheMetricsRegistrar(this.meterRegistry, Collections.emptyList());
-		assertThat(registrar.bindCacheToRegistry(new CaffeineCache("test", Caffeine.newBuilder().build()))).isFalse();
-		assertThat(this.meterRegistry.find("cache.gets").tags("name", "test").meter()).isNull();
-	}
-
 }
