@@ -33,12 +33,6 @@ import static org.mockito.Mockito.mock;
 class ReactiveHealthContributorTests {
 
 	@Test
-	void adaptWhenNullThrowsException() {
-		assertThatIllegalArgumentException().isThrownBy(() -> ReactiveHealthContributor.adapt(null))
-				.withMessage("HealthContributor must not be null");
-	}
-
-	@Test
 	void adaptWhenHealthIndicatorReturnsHealthIndicatorReactiveAdapter() {
 		HealthIndicator indicator = () -> Health.outOfService().build();
 		ReactiveHealthContributor adapted = ReactiveHealthContributor.adapt(indicator);
