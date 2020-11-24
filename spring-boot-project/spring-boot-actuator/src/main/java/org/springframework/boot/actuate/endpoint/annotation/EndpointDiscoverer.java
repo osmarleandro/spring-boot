@@ -38,6 +38,8 @@ import org.springframework.boot.actuate.endpoint.EndpointId;
 import org.springframework.boot.actuate.endpoint.EndpointsSupplier;
 import org.springframework.boot.actuate.endpoint.ExposableEndpoint;
 import org.springframework.boot.actuate.endpoint.Operation;
+import org.springframework.boot.actuate.endpoint.annotation.EndpointDiscoverer.ExtensionBean;
+import org.springframework.boot.actuate.endpoint.annotation.EndpointDiscoverer.OperationKey;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvoker;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvokerAdvisor;
 import org.springframework.boot.actuate.endpoint.invoke.ParameterValueMapper;
@@ -198,7 +200,16 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 		for (ExtensionBean extensionBean : endpointBean.getExtensions()) {
 			addOperations(indexed, id, extensionBean.getBean(), true);
 		}
-		assertNoDuplicateOperations(endpointBean, indexed);
+		List<OperationKey> duplicates = indexed.entrySet().stream().filter((entry) -> entry.getValue().size() > 1)
+				.map(Map.Entry::getKey).collect(Collectors.toList());
+		if (!duplicates.isEmpty()) {
+			Set<ExtensionBean> extensions = endpointBean.getExtensions();
+			String extensionBeanNames = extensions.stream().map(ExtensionBean::getBeanName)
+					.collect(Collectors.joining(", "));
+			throw new IllegalStateException("Unable to map duplicate endpoint operations: " + duplicates.toString()
+					+ " to " + endpointBean.getBeanName()
+					+ (extensions.isEmpty() ? "" : " (" + extensionBeanNames + ")"));
+		}
 		List<O> operations = indexed.values().stream().map(this::getLast).filter(Objects::nonNull)
 				.collect(Collectors.collectingAndThen(Collectors.toList(), Collections::unmodifiableList));
 		return createEndpoint(endpointBean.getBean(), id, endpointBean.isEnabledByDefault(), operations);
@@ -220,19 +231,6 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 
 	private <T> T getLast(List<T> list) {
 		return CollectionUtils.isEmpty(list) ? null : list.get(list.size() - 1);
-	}
-
-	private void assertNoDuplicateOperations(EndpointBean endpointBean, MultiValueMap<OperationKey, O> indexed) {
-		List<OperationKey> duplicates = indexed.entrySet().stream().filter((entry) -> entry.getValue().size() > 1)
-				.map(Map.Entry::getKey).collect(Collectors.toList());
-		if (!duplicates.isEmpty()) {
-			Set<ExtensionBean> extensions = endpointBean.getExtensions();
-			String extensionBeanNames = extensions.stream().map(ExtensionBean::getBeanName)
-					.collect(Collectors.joining(", "));
-			throw new IllegalStateException("Unable to map duplicate endpoint operations: " + duplicates.toString()
-					+ " to " + endpointBean.getBeanName()
-					+ (extensions.isEmpty() ? "" : " (" + extensionBeanNames + ")"));
-		}
 	}
 
 	private boolean isExtensionExposed(EndpointBean endpointBean, ExtensionBean extensionBean) {
