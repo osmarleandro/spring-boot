@@ -17,6 +17,7 @@
 package org.springframework.boot.actuate.autoconfigure.health;
 
 import java.util.Collections;
+import java.util.stream.StreamSupport;
 
 import org.junit.jupiter.api.Test;
 import reactor.core.publisher.Flux;
@@ -143,7 +144,7 @@ class HealthEndpointAutoConfigurationTests {
 	void runCreatesHealthContributorRegistryContainingHealthBeans() {
 		this.contextRunner.run((context) -> {
 			HealthContributorRegistry registry = context.getBean(HealthContributorRegistry.class);
-			Object[] names = registry.stream().map(NamedContributor::getName).toArray();
+			Object[] names = StreamSupport.stream(registry.spliterator(), false).map(NamedContributor::getName).toArray();
 			assertThat(names).containsExactlyInAnyOrder("simple", "additional", "ping", "reactive");
 		});
 	}
@@ -153,7 +154,7 @@ class HealthEndpointAutoConfigurationTests {
 		ClassLoader classLoader = new FilteredClassLoader(Mono.class, Flux.class);
 		this.contextRunner.withClassLoader(classLoader).run((context) -> {
 			HealthContributorRegistry registry = context.getBean(HealthContributorRegistry.class);
-			Object[] names = registry.stream().map(NamedContributor::getName).toArray();
+			Object[] names = StreamSupport.stream(registry.spliterator(), false).map(NamedContributor::getName).toArray();
 			assertThat(names).containsExactlyInAnyOrder("simple", "additional", "ping");
 		});
 	}
@@ -162,7 +163,7 @@ class HealthEndpointAutoConfigurationTests {
 	void runWhenHasHealthContributorRegistryBeanDoesNotCreateAdditionalRegistry() {
 		this.contextRunner.withUserConfiguration(HealthContributorRegistryConfiguration.class).run((context) -> {
 			HealthContributorRegistry registry = context.getBean(HealthContributorRegistry.class);
-			Object[] names = registry.stream().map(NamedContributor::getName).toArray();
+			Object[] names = StreamSupport.stream(registry.spliterator(), false).map(NamedContributor::getName).toArray();
 			assertThat(names).isEmpty();
 		});
 	}
@@ -188,7 +189,7 @@ class HealthEndpointAutoConfigurationTests {
 	void runCreatesReactiveHealthContributorRegistryContainingAdaptedBeans() {
 		this.reactiveContextRunner.run((context) -> {
 			ReactiveHealthContributorRegistry registry = context.getBean(ReactiveHealthContributorRegistry.class);
-			Object[] names = registry.stream().map(NamedContributor::getName).toArray();
+			Object[] names = StreamSupport.stream(registry.spliterator(), false).map(NamedContributor::getName).toArray();
 			assertThat(names).containsExactlyInAnyOrder("simple", "additional", "reactive", "ping");
 		});
 	}
@@ -199,7 +200,7 @@ class HealthEndpointAutoConfigurationTests {
 				.run((context) -> {
 					ReactiveHealthContributorRegistry registry = context
 							.getBean(ReactiveHealthContributorRegistry.class);
-					Object[] names = registry.stream().map(NamedContributor::getName).toArray();
+					Object[] names = StreamSupport.stream(registry.spliterator(), false).map(NamedContributor::getName).toArray();
 					assertThat(names).isEmpty();
 				});
 	}
