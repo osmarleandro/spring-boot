@@ -156,7 +156,12 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 			EndpointBean endpointBean = byId.get(extensionBean.getEndpointId());
 			Assert.state(endpointBean != null, () -> ("Invalid extension '" + extensionBean.getBeanName()
 					+ "': no endpoint found with id '" + extensionBean.getEndpointId() + "'"));
-			addExtensionBean(endpointBean, extensionBean);
+			if (isExtensionExposed(endpointBean, extensionBean)) {
+				Assert.state(isEndpointExposed(endpointBean) || isEndpointFiltered(endpointBean),
+						() -> "Endpoint bean '" + endpointBean.getBeanName() + "' cannot support the extension bean '"
+								+ extensionBean.getBeanName() + "'");
+				endpointBean.addExtension(extensionBean);
+			}
 		}
 	}
 
@@ -164,15 +169,6 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 		Class<?> beanType = ClassUtils.getUserClass(this.applicationContext.getType(beanName));
 		Supplier<Object> beanSupplier = () -> this.applicationContext.getBean(beanName);
 		return new ExtensionBean(this.applicationContext.getEnvironment(), beanName, beanType, beanSupplier);
-	}
-
-	private void addExtensionBean(EndpointBean endpointBean, ExtensionBean extensionBean) {
-		if (isExtensionExposed(endpointBean, extensionBean)) {
-			Assert.state(isEndpointExposed(endpointBean) || isEndpointFiltered(endpointBean),
-					() -> "Endpoint bean '" + endpointBean.getBeanName() + "' cannot support the extension bean '"
-							+ extensionBean.getBeanName() + "'");
-			endpointBean.addExtension(extensionBean);
-		}
 	}
 
 	private Collection<E> convertToEndpoints(Collection<EndpointBean> endpointBeans) {
