@@ -44,21 +44,6 @@ import static org.mockito.Mockito.verify;
 class JmsHealthIndicatorTests {
 
 	@Test
-	void jmsBrokerIsUp() throws JMSException {
-		ConnectionMetaData connectionMetaData = mock(ConnectionMetaData.class);
-		given(connectionMetaData.getJMSProviderName()).willReturn("JMS test provider");
-		Connection connection = mock(Connection.class);
-		given(connection.getMetaData()).willReturn(connectionMetaData);
-		ConnectionFactory connectionFactory = mock(ConnectionFactory.class);
-		given(connectionFactory.createConnection()).willReturn(connection);
-		JmsHealthIndicator indicator = new JmsHealthIndicator(connectionFactory);
-		Health health = indicator.health();
-		assertThat(health.getStatus()).isEqualTo(Status.UP);
-		assertThat(health.getDetails().get("provider")).isEqualTo("JMS test provider");
-		verify(connection, times(1)).close();
-	}
-
-	@Test
 	void jmsBrokerIsDown() throws JMSException {
 		ConnectionFactory connectionFactory = mock(ConnectionFactory.class);
 		given(connectionFactory.createConnection()).willThrow(new JMSException("test", "123"));
