@@ -36,11 +36,4 @@ class HealthIndicatorTests {
 		assertThat(health.getDetails()).containsEntry("spring", "boot");
 	}
 
-	@Test
-	void getHealthWhenIncludeDetailsIsFalseReturnsHealthWithoutDetails() {
-		Health health = this.indicator.getHealth(false);
-		assertThat(health.getStatus()).isEqualTo(Status.UP);
-		assertThat(health.getDetails()).isEmpty();
-	}
-
 }
