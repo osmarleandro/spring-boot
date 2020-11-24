@@ -178,7 +178,7 @@ public abstract class AbstractWebFluxEndpointHandlerMapping extends RequestMappi
 
 	private void registerLinksMapping() {
 		PatternsRequestCondition patterns = new PatternsRequestCondition(
-				pathPatternParser.parse(this.endpointMapping.getPath()));
+				pathPatternParser.parse(this.endpointMapping.path));
 		RequestMethodsRequestCondition methods = new RequestMethodsRequestCondition(RequestMethod.GET);
 		ProducesRequestCondition produces = new ProducesRequestCondition(
 				StringUtils.toStringArray(this.endpointMediaTypes.getProduced()));

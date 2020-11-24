@@ -29,32 +29,32 @@ class EndpointMappingTests {
 
 	@Test
 	void normalizationTurnsASlashIntoAnEmptyString() {
-		assertThat(new EndpointMapping("/").getPath()).isEqualTo("");
+		assertThat(new EndpointMapping("/").path).isEqualTo("");
 	}
 
 	@Test
 	void normalizationLeavesAnEmptyStringAsIs() {
-		assertThat(new EndpointMapping("").getPath()).isEqualTo("");
+		assertThat(new EndpointMapping("").path).isEqualTo("");
 	}
 
 	@Test
 	void normalizationRemovesATrailingSlash() {
-		assertThat(new EndpointMapping("/test/").getPath()).isEqualTo("/test");
+		assertThat(new EndpointMapping("/test/").path).isEqualTo("/test");
 	}
 
 	@Test
 	void normalizationAddsALeadingSlash() {
-		assertThat(new EndpointMapping("test").getPath()).isEqualTo("/test");
+		assertThat(new EndpointMapping("test").path).isEqualTo("/test");
 	}
 
 	@Test
 	void normalizationAddsALeadingSlashAndRemovesATrailingSlash() {
-		assertThat(new EndpointMapping("test/").getPath()).isEqualTo("/test");
+		assertThat(new EndpointMapping("test/").path).isEqualTo("/test");
 	}
 
 	@Test
 	void normalizationLeavesAPathWithALeadingSlashAndNoTrailingSlashAsIs() {
-		assertThat(new EndpointMapping("/test").getPath()).isEqualTo("/test");
+		assertThat(new EndpointMapping("/test").path).isEqualTo("/test");
 	}
 
 	@Test

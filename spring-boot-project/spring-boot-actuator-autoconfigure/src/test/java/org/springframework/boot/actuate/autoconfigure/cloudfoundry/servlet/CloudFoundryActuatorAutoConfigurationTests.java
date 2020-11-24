@@ -82,7 +82,7 @@ class CloudFoundryActuatorAutoConfigurationTests {
 					CloudFoundryWebEndpointServletHandlerMapping handlerMapping = getHandlerMapping(context);
 					EndpointMapping endpointMapping = (EndpointMapping) ReflectionTestUtils.getField(handlerMapping,
 							"endpointMapping");
-					assertThat(endpointMapping.getPath()).isEqualTo("/cloudfoundryapplication");
+					assertThat(endpointMapping.path).isEqualTo("/cloudfoundryapplication");
 					CorsConfiguration corsConfiguration = (CorsConfiguration) ReflectionTestUtils
 							.getField(handlerMapping, "corsConfiguration");
 					assertThat(corsConfiguration.getAllowedOrigins()).contains("*");

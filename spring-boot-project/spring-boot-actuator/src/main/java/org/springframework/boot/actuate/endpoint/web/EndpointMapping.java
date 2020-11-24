@@ -36,14 +36,6 @@ public class EndpointMapping {
 		this.path = normalizePath(path);
 	}
 
-	/**
-	 * Returns the path to which endpoints should be mapped.
-	 * @return the path
-	 */
-	public String getPath() {
-		return this.path;
-	}
-
 	public String createSubPath(String path) {
 		return this.path + normalizePath(path);
 	}
