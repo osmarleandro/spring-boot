@@ -110,17 +110,6 @@ class DiscoveredOperationsFactoryTests {
 		assertThat(result).isEqualTo("123");
 	}
 
-	@Test
-	void createOperationShouldApplyAdvisors() {
-		TestOperationInvokerAdvisor advisor = new TestOperationInvokerAdvisor();
-		this.invokerAdvisors.add(advisor);
-		TestOperation operation = getFirst(this.factory.createOperations(EndpointId.of("test"), new ExampleRead()));
-		operation.invoke(new InvocationContext(mock(SecurityContext.class), Collections.emptyMap()));
-		assertThat(advisor.getEndpointId()).isEqualTo(EndpointId.of("test"));
-		assertThat(advisor.getOperationType()).isEqualTo(OperationType.READ);
-		assertThat(advisor.getParameters()).isEmpty();
-	}
-
 	private <T> T getFirst(Iterable<T> iterable) {
 		return iterable.iterator().next();
 	}
