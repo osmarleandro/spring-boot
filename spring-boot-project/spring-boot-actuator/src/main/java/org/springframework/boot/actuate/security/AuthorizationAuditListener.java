@@ -44,7 +44,14 @@ public class AuthorizationAuditListener extends AbstractAuthorizationAuditListen
 			onAuthenticationCredentialsNotFoundEvent((AuthenticationCredentialsNotFoundEvent) event);
 		}
 		else if (event instanceof AuthorizationFailureEvent) {
-			onAuthorizationFailureEvent((AuthorizationFailureEvent) event);
+			AuthorizationFailureEvent event1 = (AuthorizationFailureEvent) event;
+			Map<String, Object> data = new HashMap<>();
+			data.put("type", event1.getAccessDeniedException().getClass().getName());
+			data.put("message", event1.getAccessDeniedException().getMessage());
+			if (event1.getAuthentication().getDetails() != null) {
+				data.put("details", event1.getAuthentication().getDetails());
+			}
+			publish(new AuditEvent(event1.getAuthentication().getName(), AUTHORIZATION_FAILURE, data));
 		}
 	}
 
@@ -53,16 +60,6 @@ public class AuthorizationAuditListener extends AbstractAuthorizationAuditListen
 		data.put("type", event.getCredentialsNotFoundException().getClass().getName());
 		data.put("message", event.getCredentialsNotFoundException().getMessage());
 		publish(new AuditEvent("<unknown>", AuthenticationAuditListener.AUTHENTICATION_FAILURE, data));
-	}
-
-	private void onAuthorizationFailureEvent(AuthorizationFailureEvent event) {
-		Map<String, Object> data = new HashMap<>();
-		data.put("type", event.getAccessDeniedException().getClass().getName());
-		data.put("message", event.getAccessDeniedException().getMessage());
-		if (event.getAuthentication().getDetails() != null) {
-			data.put("details", event.getAuthentication().getDetails());
-		}
-		publish(new AuditEvent(event.getAuthentication().getName(), AUTHORIZATION_FAILURE, data));
 	}
 
 }
