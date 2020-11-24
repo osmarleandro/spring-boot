@@ -48,11 +48,6 @@ class AuthenticationAuditListenerTests {
 
 	private final ApplicationEventPublisher publisher = mock(ApplicationEventPublisher.class);
 
-	@BeforeEach
-	void init() {
-		this.listener.setApplicationEventPublisher(this.publisher);
-	}
-
 	@Test
 	void testAuthenticationSuccess() {
 		AuditApplicationEvent event = handleAuthenticationEvent(
