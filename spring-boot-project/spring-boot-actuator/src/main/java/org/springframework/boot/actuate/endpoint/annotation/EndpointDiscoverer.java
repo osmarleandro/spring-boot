@@ -304,7 +304,13 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 		if (filter == null) {
 			return true;
 		}
-		E endpoint = getFilterEndpoint(endpointBean);
+		E endpoint1 = this.filterEndpoints.get(endpointBean);
+		if (endpoint1 == null) {
+			endpoint1 = createEndpoint(endpointBean.getBean(), endpointBean.getId(), endpointBean.isEnabledByDefault(),
+					Collections.emptySet());
+			this.filterEndpoints.put(endpointBean, endpoint1);
+		}
+		E endpoint = endpoint1;
 		Class<?> generic = ResolvableType.forClass(EndpointFilter.class, filter).resolveGeneric(0);
 		if (generic == null || generic.isInstance(endpoint)) {
 			EndpointFilter<E> instance = (EndpointFilter<E>) BeanUtils.instantiateClass(filter);
