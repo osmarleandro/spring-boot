@@ -41,7 +41,12 @@ class PlainTextThreadDumpFormatter {
 		PrintWriter writer = new PrintWriter(dump);
 		writePreamble(writer);
 		for (ThreadInfo info : threads) {
-			writeThread(writer, info);
+			writer.printf("\"%s\" - Thread t@%d%n", info.getThreadName(), info.getThreadId());
+			writer.printf("   %s: %s%n", Thread.State.class.getCanonicalName(), info.getThreadState());
+			writeStackTrace(writer, info, info.getLockedMonitors());
+			writer.println();
+			writeLockedOwnableSynchronizers(writer, info);
+			writer.println();
 		}
 		return dump.toString();
 	}
@@ -52,15 +57,6 @@ class PlainTextThreadDumpFormatter {
 		RuntimeMXBean runtime = ManagementFactory.getRuntimeMXBean();
 		writer.printf("Full thread dump %s (%s %s):%n", runtime.getVmName(), runtime.getVmVersion(),
 				System.getProperty("java.vm.info"));
-		writer.println();
-	}
-
-	private void writeThread(PrintWriter writer, ThreadInfo info) {
-		writer.printf("\"%s\" - Thread t@%d%n", info.getThreadName(), info.getThreadId());
-		writer.printf("   %s: %s%n", Thread.State.class.getCanonicalName(), info.getThreadState());
-		writeStackTrace(writer, info, info.getLockedMonitors());
-		writer.println();
-		writeLockedOwnableSynchronizers(writer, info);
 		writer.println();
 	}
 
