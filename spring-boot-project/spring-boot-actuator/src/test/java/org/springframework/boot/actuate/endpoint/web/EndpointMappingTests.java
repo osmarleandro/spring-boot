@@ -43,11 +43,6 @@ class EndpointMappingTests {
 	}
 
 	@Test
-	void normalizationAddsALeadingSlash() {
-		assertThat(new EndpointMapping("test").getPath()).isEqualTo("/test");
-	}
-
-	@Test
 	void normalizationAddsALeadingSlashAndRemovesATrailingSlash() {
 		assertThat(new EndpointMapping("test/").getPath()).isEqualTo("/test");
 	}
