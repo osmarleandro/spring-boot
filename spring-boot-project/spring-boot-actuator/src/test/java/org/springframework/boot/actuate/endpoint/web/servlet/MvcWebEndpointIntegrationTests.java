@@ -79,10 +79,6 @@ class MvcWebEndpointIntegrationTests
 		return context;
 	}
 
-	private static void applyAuthenticatedConfiguration(AnnotationConfigServletWebServerApplicationContext context) {
-		context.register(AuthenticatedConfiguration.class);
-	}
-
 	@Test
 	void responseToOptionsRequestIncludesCorsHeaders() {
 		load(TestEndpointConfiguration.class,
