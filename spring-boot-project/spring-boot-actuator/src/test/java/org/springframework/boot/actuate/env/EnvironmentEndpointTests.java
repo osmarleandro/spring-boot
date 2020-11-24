@@ -185,15 +185,6 @@ class EnvironmentEndpointTests {
 	}
 
 	@Test
-	void propertyWithSensitivePlaceholderNotResolved() {
-		ConfigurableEnvironment environment = emptyEnvironment();
-		TestPropertyValues.of("my.foo: http://${bar.password}://hello").applyTo(environment);
-		EnvironmentDescriptor descriptor = new EnvironmentEndpoint(environment).environment(null);
-		assertThat(propertySources(descriptor).get("test").getProperties().get("my.foo").getValue())
-				.isEqualTo("http://${bar.password}://hello");
-	}
-
-	@Test
 	@SuppressWarnings("unchecked")
 	void propertyWithTypeOtherThanStringShouldNotFail() {
 		ConfigurableEnvironment environment = emptyEnvironment();
