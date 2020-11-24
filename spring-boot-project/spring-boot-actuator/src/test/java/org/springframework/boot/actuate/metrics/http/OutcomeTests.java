@@ -49,13 +49,6 @@ public class OutcomeTests {
 	}
 
 	@Test
-	void outcomeForClientErrorStatusIsClientError() {
-		for (int status = 400; status < 500; status++) {
-			assertThat(Outcome.forStatus(status)).isEqualTo(Outcome.CLIENT_ERROR);
-		}
-	}
-
-	@Test
 	void outcomeForServerErrorStatusIsServerError() {
 		for (int status = 500; status < 600; status++) {
 			assertThat(Outcome.forStatus(status)).isEqualTo(Outcome.SERVER_ERROR);
