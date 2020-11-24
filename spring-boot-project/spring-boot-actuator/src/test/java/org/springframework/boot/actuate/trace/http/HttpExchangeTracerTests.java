@@ -188,15 +188,6 @@ class HttpExchangeTracerTests {
 	}
 
 	@Test
-	void setCookieHeaderIsNotIncludedByDefault() {
-		HttpTrace trace = new HttpTrace(createRequest());
-		new HttpExchangeTracer(EnumSet.of(Include.RESPONSE_HEADERS)).sendingResponse(trace,
-				createResponse(Collections.singletonMap(HttpHeaders.SET_COOKIE, Arrays.asList("test=test"))), null,
-				null);
-		assertThat(trace.getResponse().getHeaders()).isEmpty();
-	}
-
-	@Test
 	void mixedCaseSetCookieHeaderIsNotIncludedByDefault() {
 		HttpTrace trace = new HttpTrace(createRequest());
 		new HttpExchangeTracer(EnumSet.of(Include.RESPONSE_HEADERS)).sendingResponse(trace,
