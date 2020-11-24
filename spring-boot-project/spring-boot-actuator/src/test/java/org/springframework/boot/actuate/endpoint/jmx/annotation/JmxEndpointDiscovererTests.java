@@ -64,37 +64,6 @@ class JmxEndpointDiscovererTests {
 	}
 
 	@Test
-	void getEndpointsShouldDiscoverStandardEndpoints() {
-		load(TestEndpoint.class, (discoverer) -> {
-			Map<EndpointId, ExposableJmxEndpoint> endpoints = discover(discoverer);
-			assertThat(endpoints).containsOnlyKeys(EndpointId.of("test"));
-			Map<String, JmxOperation> operationByName = mapOperations(
-					endpoints.get(EndpointId.of("test")).getOperations());
-			assertThat(operationByName).containsOnlyKeys("getAll", "getSomething", "update", "deleteSomething");
-			JmxOperation getAll = operationByName.get("getAll");
-			assertThat(getAll.getDescription()).isEqualTo("Invoke getAll for endpoint test");
-			assertThat(getAll.getOutputType()).isEqualTo(Object.class);
-			assertThat(getAll.getParameters()).isEmpty();
-			JmxOperation getSomething = operationByName.get("getSomething");
-			assertThat(getSomething.getDescription()).isEqualTo("Invoke getSomething for endpoint test");
-			assertThat(getSomething.getOutputType()).isEqualTo(String.class);
-			assertThat(getSomething.getParameters()).hasSize(1);
-			assertThat(getSomething.getParameters().get(0).getType()).isEqualTo(String.class);
-			JmxOperation update = operationByName.get("update");
-			assertThat(update.getDescription()).isEqualTo("Invoke update for endpoint test");
-			assertThat(update.getOutputType()).isEqualTo(Void.TYPE);
-			assertThat(update.getParameters()).hasSize(2);
-			assertThat(update.getParameters().get(0).getType()).isEqualTo(String.class);
-			assertThat(update.getParameters().get(1).getType()).isEqualTo(String.class);
-			JmxOperation deleteSomething = operationByName.get("deleteSomething");
-			assertThat(deleteSomething.getDescription()).isEqualTo("Invoke deleteSomething for endpoint test");
-			assertThat(deleteSomething.getOutputType()).isEqualTo(Void.TYPE);
-			assertThat(deleteSomething.getParameters()).hasSize(1);
-			assertThat(deleteSomething.getParameters().get(0).getType()).isEqualTo(String.class);
-		});
-	}
-
-	@Test
 	void getEndpointsWhenHasFilteredEndpointShouldOnlyDiscoverJmxEndpoints() {
 		load(MultipleEndpointsConfiguration.class, (discoverer) -> {
 			Map<EndpointId, ExposableJmxEndpoint> endpoints = discover(discoverer);
