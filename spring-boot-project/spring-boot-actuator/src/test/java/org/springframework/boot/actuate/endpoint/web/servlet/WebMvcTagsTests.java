@@ -152,13 +152,6 @@ class WebMvcTagsTests {
 	}
 
 	@Test
-	void outcomeTagIsClientErrorWhenResponseIs4xx() {
-		this.response.setStatus(400);
-		Tag tag = WebMvcTags.outcome(this.response);
-		assertThat(tag.getValue()).isEqualTo("CLIENT_ERROR");
-	}
-
-	@Test
 	void outcomeTagIsClientErrorWhenResponseIsNonStandardInClientSeries() {
 		this.response.setStatus(490);
 		Tag tag = WebMvcTags.outcome(this.response);
