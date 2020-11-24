@@ -87,13 +87,6 @@ class PrometheusPushGatewayManagerTests {
 	}
 
 	@Test
-	void createWhenSchedulerIsNullThrowsException() {
-		assertThatIllegalArgumentException().isThrownBy(() -> new PrometheusPushGatewayManager(this.pushGateway,
-				this.registry, null, this.pushRate, "job", this.groupingKey, null))
-				.withMessage("Scheduler must not be null");
-	}
-
-	@Test
 	void createWhenPushRateIsNullThrowsException() {
 		assertThatIllegalArgumentException().isThrownBy(() -> new PrometheusPushGatewayManager(this.pushGateway,
 				this.registry, this.scheduler, null, "job", this.groupingKey, null))
