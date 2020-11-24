@@ -70,7 +70,12 @@ public class AuthenticationAuditListener extends AbstractAuthenticationAuditList
 			this.webListener.process(this, event);
 		}
 		else if (event instanceof AuthenticationSuccessEvent) {
-			onAuthenticationSuccessEvent((AuthenticationSuccessEvent) event);
+			AuthenticationSuccessEvent event1 = (AuthenticationSuccessEvent) event;
+			Map<String, Object> data = new HashMap<>();
+			if (event1.getAuthentication().getDetails() != null) {
+				data.put("details", event1.getAuthentication().getDetails());
+			}
+			publish(new AuditEvent(event1.getAuthentication().getName(), AUTHENTICATION_SUCCESS, data));
 		}
 	}
 
@@ -82,14 +87,6 @@ public class AuthenticationAuditListener extends AbstractAuthenticationAuditList
 			data.put("details", event.getAuthentication().getDetails());
 		}
 		publish(new AuditEvent(event.getAuthentication().getName(), AUTHENTICATION_FAILURE, data));
-	}
-
-	private void onAuthenticationSuccessEvent(AuthenticationSuccessEvent event) {
-		Map<String, Object> data = new HashMap<>();
-		if (event.getAuthentication().getDetails() != null) {
-			data.put("details", event.getAuthentication().getDetails());
-		}
-		publish(new AuditEvent(event.getAuthentication().getName(), AUTHENTICATION_SUCCESS, data));
 	}
 
 	private static class WebAuditListener {
