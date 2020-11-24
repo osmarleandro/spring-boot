@@ -111,7 +111,7 @@ abstract class HealthEndpointSupportTests<R extends ContributorRegistry<C>, C, T
 
 	@Test
 	void getHealthWhenAlwaysShowIsFalseAndGroupIsFalseCannotAccessComponent() {
-		this.primaryGroup.setShowComponents(false);
+		this.primaryGroup.showComponents = false;
 		C contributor = createContributor(this.up);
 		C compositeContributor = createCompositeContributor(Collections.singletonMap("spring", contributor));
 		this.registry.registerContributor("test", compositeContributor);
@@ -124,7 +124,7 @@ abstract class HealthEndpointSupportTests<R extends ContributorRegistry<C>, C, T
 
 	@Test
 	void getHealthWhenAlwaysShowIsTrueShowsComponents() {
-		this.primaryGroup.setShowComponents(true);
+		this.primaryGroup.showComponents = true;
 		C contributor = createContributor(this.up);
 		C compositeContributor = createCompositeContributor(Collections.singletonMap("spring", contributor));
 		this.registry.registerContributor("test", compositeContributor);
