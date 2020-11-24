@@ -60,14 +60,6 @@ class OperationMethodTests {
 		assertThat(operationMethod.getOperationType()).isEqualTo(OperationType.READ);
 	}
 
-	@Test
-	void getParametersShouldReturnParameters() {
-		OperationMethod operationMethod = new OperationMethod(this.exampleMethod, OperationType.READ);
-		OperationParameters parameters = operationMethod.getParameters();
-		assertThat(parameters.getParameterCount()).isEqualTo(1);
-		assertThat(parameters.iterator().next().getName()).isEqualTo("name");
-	}
-
 	String example(String name) {
 		return name;
 	}
