@@ -154,12 +154,6 @@ class ConfigurationPropertiesReportEndpointTests {
 	}
 
 	@Test
-	void descriptorWithSimpleBooleanProperty() {
-		this.contextRunner.withUserConfiguration(BooleanPropertiesConfiguration.class).run(assertProperties("boolean",
-				(properties) -> assertThat(properties.get("simpleBoolean")).isEqualTo(true)));
-	}
-
-	@Test
 	void descriptorWithMixedBooleanProperty() {
 		this.contextRunner.withUserConfiguration(BooleanPropertiesConfiguration.class).run(assertProperties("boolean",
 				(properties) -> assertThat(properties.get("mixedBoolean")).isEqualTo(true)));
