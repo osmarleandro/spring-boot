@@ -79,10 +79,6 @@ final class DispatcherServletHandlerMappings {
 		}
 	}
 
-	String getName() {
-		return this.name;
-	}
-
 	private static final class TomcatServletInitializer {
 
 		private final TomcatWebServer webServer;
