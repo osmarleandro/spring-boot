@@ -136,16 +136,6 @@ public final class EndpointId {
 		return value;
 	}
 
-	/**
-	 * Factory method to create a new {@link EndpointId} from a property value. More
-	 * lenient than {@link #of(String)} to allow for common "relaxed" property variants.
-	 * @param value the property value to convert
-	 * @return an {@link EndpointId} instance
-	 */
-	public static EndpointId fromPropertyValue(String value) {
-		return new EndpointId(value.replace("-", ""));
-	}
-
 	static void resetLoggedWarnings() {
 		loggedWarnings.clear();
 	}
