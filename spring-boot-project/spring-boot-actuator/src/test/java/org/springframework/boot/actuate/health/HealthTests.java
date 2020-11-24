@@ -136,13 +136,6 @@ class HealthTests {
 	}
 
 	@Test
-	void up() {
-		Health health = new Health.Builder().up().build();
-		assertThat(health.getStatus()).isEqualTo(Status.UP);
-		assertThat(health.getDetails()).isEmpty();
-	}
-
-	@Test
 	void downWithException() {
 		RuntimeException ex = new RuntimeException("bang");
 		Health health = Health.down(ex).build();
