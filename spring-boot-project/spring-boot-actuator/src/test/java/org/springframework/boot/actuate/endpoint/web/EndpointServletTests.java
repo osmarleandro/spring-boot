@@ -91,13 +91,6 @@ class EndpointServletTests {
 	}
 
 	@Test
-	void withInitParametersNullName() {
-		EndpointServlet endpointServlet = new EndpointServlet(TestServlet.class);
-		assertThatIllegalArgumentException()
-				.isThrownBy(() -> endpointServlet.withInitParameters(Collections.singletonMap(null, "value")));
-	}
-
-	@Test
 	void withInitParametersEmptyName() {
 		EndpointServlet endpointServlet = new EndpointServlet(TestServlet.class);
 		assertThatIllegalArgumentException()
