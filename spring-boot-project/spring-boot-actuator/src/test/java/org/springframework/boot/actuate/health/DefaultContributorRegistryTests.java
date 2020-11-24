@@ -71,13 +71,6 @@ abstract class DefaultContributorRegistryTests {
 	}
 
 	@Test
-	void createWithCustomNameFactoryAppliesFunctionToName() {
-		this.registry = new DefaultContributorRegistry<>(Collections.singletonMap("one", this.one), this::reverse);
-		assertThat(this.registry.getContributor("one")).isNull();
-		assertThat(this.registry.getContributor("eno")).isNotNull();
-	}
-
-	@Test
 	void registerContributorWhenNameIsNullThrowsException() {
 		assertThatIllegalArgumentException().isThrownBy(() -> this.registry.registerContributor(null, this.one))
 				.withMessage("Name must not be null");
