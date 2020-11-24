@@ -56,14 +56,6 @@ public class TomcatMetricsBinder implements ApplicationListener<ApplicationStart
 		this.tags = tags;
 	}
 
-	@Override
-	public void onApplicationEvent(ApplicationStartedEvent event) {
-		ApplicationContext applicationContext = event.getApplicationContext();
-		Manager manager = findManager(applicationContext);
-		this.tomcatMetrics = new TomcatMetrics(manager, this.tags);
-		this.tomcatMetrics.bindTo(this.meterRegistry);
-	}
-
 	private Manager findManager(ApplicationContext applicationContext) {
 		if (applicationContext instanceof WebServerApplicationContext) {
 			WebServer webServer = ((WebServerApplicationContext) applicationContext).getWebServer();
