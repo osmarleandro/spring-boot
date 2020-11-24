@@ -61,7 +61,13 @@ class ElasticsearchRestHealthIndicatorTests {
 		given(this.restClient.performRequest(any(Request.class))).willReturn(response);
 		Health health = this.elasticsearchRestHealthIndicator.health();
 		assertThat(health.getStatus()).isEqualTo(Status.UP);
-		assertHealthDetailsWithStatus(health.getDetails(), "green");
+		Map<String, Object> details = health.getDetails();
+		assertThat(details).contains(entry("cluster_name", "elasticsearch"), entry("status", "green"),
+		entry("timed_out", false), entry("number_of_nodes", 1), entry("number_of_data_nodes", 1),
+		entry("active_primary_shards", 0), entry("active_shards", 0), entry("relocating_shards", 0),
+		entry("initializing_shards", 0), entry("unassigned_shards", 0), entry("delayed_unassigned_shards", 0),
+		entry("number_of_pending_tasks", 0), entry("number_of_in_flight_fetch", 0),
+		entry("task_max_waiting_in_queue_millis", 0), entry("active_shards_percent_as_number", 100.0));
 	}
 
 	@Test
@@ -76,7 +82,13 @@ class ElasticsearchRestHealthIndicatorTests {
 		given(this.restClient.performRequest(any(Request.class))).willReturn(response);
 		Health health = this.elasticsearchRestHealthIndicator.health();
 		assertThat(health.getStatus()).isEqualTo(Status.UP);
-		assertHealthDetailsWithStatus(health.getDetails(), "yellow");
+		Map<String, Object> details = health.getDetails();
+		assertThat(details).contains(entry("cluster_name", "elasticsearch"), entry("status", "yellow"),
+		entry("timed_out", false), entry("number_of_nodes", 1), entry("number_of_data_nodes", 1),
+		entry("active_primary_shards", 0), entry("active_shards", 0), entry("relocating_shards", 0),
+		entry("initializing_shards", 0), entry("unassigned_shards", 0), entry("delayed_unassigned_shards", 0),
+		entry("number_of_pending_tasks", 0), entry("number_of_in_flight_fetch", 0),
+		entry("task_max_waiting_in_queue_millis", 0), entry("active_shards_percent_as_number", 100.0));
 	}
 
 	@Test
@@ -113,16 +125,13 @@ class ElasticsearchRestHealthIndicatorTests {
 		given(this.restClient.performRequest(any(Request.class))).willReturn(response);
 		Health health = this.elasticsearchRestHealthIndicator.health();
 		assertThat(health.getStatus()).isEqualTo(Status.OUT_OF_SERVICE);
-		assertHealthDetailsWithStatus(health.getDetails(), "red");
-	}
-
-	private void assertHealthDetailsWithStatus(Map<String, Object> details, String status) {
-		assertThat(details).contains(entry("cluster_name", "elasticsearch"), entry("status", status),
-				entry("timed_out", false), entry("number_of_nodes", 1), entry("number_of_data_nodes", 1),
-				entry("active_primary_shards", 0), entry("active_shards", 0), entry("relocating_shards", 0),
-				entry("initializing_shards", 0), entry("unassigned_shards", 0), entry("delayed_unassigned_shards", 0),
-				entry("number_of_pending_tasks", 0), entry("number_of_in_flight_fetch", 0),
-				entry("task_max_waiting_in_queue_millis", 0), entry("active_shards_percent_as_number", 100.0));
+		Map<String, Object> details = health.getDetails();
+		assertThat(details).contains(entry("cluster_name", "elasticsearch"), entry("status", "red"),
+		entry("timed_out", false), entry("number_of_nodes", 1), entry("number_of_data_nodes", 1),
+		entry("active_primary_shards", 0), entry("active_shards", 0), entry("relocating_shards", 0),
+		entry("initializing_shards", 0), entry("unassigned_shards", 0), entry("delayed_unassigned_shards", 0),
+		entry("number_of_pending_tasks", 0), entry("number_of_in_flight_fetch", 0),
+		entry("task_max_waiting_in_queue_millis", 0), entry("active_shards_percent_as_number", 100.0));
 	}
 
 	private String createJsonResult(int responseCode, String status) {
