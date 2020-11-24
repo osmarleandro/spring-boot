@@ -107,16 +107,15 @@ public class LongTaskTimingHandlerInterceptor implements HandlerInterceptor {
 	}
 
 	private Set<Timed> getTimedAnnotations(HandlerMethod handler) {
-		Set<Timed> timed = findTimedAnnotations(handler.getMethod());
+		AnnotatedElement element = handler.getMethod();
+		Set<Timed> timed = MergedAnnotations.from(element).stream(Timed.class)
+		.collect(MergedAnnotationCollectors.toAnnotationSet());
 		if (timed.isEmpty()) {
-			return findTimedAnnotations(handler.getBeanType());
+			AnnotatedElement element1 = handler.getBeanType();
+			return MergedAnnotations.from(element1).stream(Timed.class)
+			.collect(MergedAnnotationCollectors.toAnnotationSet());
 		}
 		return timed;
-	}
-
-	private Set<Timed> findTimedAnnotations(AnnotatedElement element) {
-		return MergedAnnotations.from(element).stream(Timed.class)
-				.collect(MergedAnnotationCollectors.toAnnotationSet());
 	}
 
 	private void stopLongTaskTimers(LongTaskTimingContext timingContext) {
