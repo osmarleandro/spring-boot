@@ -58,14 +58,6 @@ class ServerWebExchangeTraceableRequestTests {
 	}
 
 	@Test
-	void getUri() {
-		URI uri = URI.create("http://localhost:8080/");
-		given(this.request.getURI()).willReturn(uri);
-		ServerWebExchangeTraceableRequest traceableRequest = new ServerWebExchangeTraceableRequest(this.exchange);
-		assertThat(traceableRequest.getUri()).isSameAs(uri);
-	}
-
-	@Test
 	void getHeaders() {
 		HttpHeaders httpHeaders = new HttpHeaders();
 		httpHeaders.add("name", "value");
