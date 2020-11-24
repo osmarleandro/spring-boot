@@ -630,7 +630,7 @@ class WebEndpointDiscovererTests {
 
 		private boolean matches(WebOperationRequestPredicate predicate) {
 			return (this.path == null || this.path.equals(predicate.getPath()))
-					&& (this.httpMethod == null || this.httpMethod == predicate.getHttpMethod())
+					&& (this.httpMethod == null || this.httpMethod == predicate.httpMethod)
 					&& (this.produces == null || this.produces.equals(new ArrayList<>(predicate.getProduces())))
 					&& (this.consumes == null || this.consumes.equals(new ArrayList<>(predicate.getConsumes())));
 		}
