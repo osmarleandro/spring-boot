@@ -75,16 +75,6 @@ class ControllerEndpointHandlerMappingTests {
 	}
 
 	@Test
-	void mappingWithNoPath() throws Exception {
-		ExposableControllerEndpoint pathless = pathlessEndpoint();
-		ControllerEndpointHandlerMapping mapping = createMapping("actuator", pathless);
-		assertThat(getHandler(mapping, HttpMethod.GET, "/actuator/pathless"))
-				.isEqualTo(handlerOf(pathless.getController(), "get"));
-		assertThat(getHandler(mapping, HttpMethod.GET, "/pathless")).isNull();
-		assertThat(getHandler(mapping, HttpMethod.GET, "/")).isNull();
-	}
-
-	@Test
 	void mappingNarrowedToMethod() throws Exception {
 		ExposableControllerEndpoint first = firstEndpoint();
 		ControllerEndpointHandlerMapping mapping = createMapping("actuator", first);
