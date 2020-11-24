@@ -36,13 +36,6 @@ import org.springframework.test.web.reactive.server.WebTestClient;
 class AuditEventsEndpointWebIntegrationTests {
 
 	@WebEndpointTest
-	void allEvents(WebTestClient client) {
-		client.get().uri((builder) -> builder.path("/actuator/auditevents").build()).exchange().expectStatus().isOk()
-				.expectBody().jsonPath("events.[*].principal")
-				.isEqualTo(new JSONArray().appendElement("admin").appendElement("admin").appendElement("user"));
-	}
-
-	@WebEndpointTest
 	void eventsAfter(WebTestClient client) {
 		client.get()
 				.uri((builder) -> builder.path("/actuator/auditevents")
