@@ -47,12 +47,6 @@ class MetricsEndpointTests {
 	private final MetricsEndpoint endpoint = new MetricsEndpoint(this.registry);
 
 	@Test
-	void listNamesHandlesEmptyListOfMeters() {
-		MetricsEndpoint.ListNamesResponse result = this.endpoint.listNames();
-		assertThat(result.getNames()).isEmpty();
-	}
-
-	@Test
 	void listNamesProducesListOfUniqueMeterNames() {
 		this.registry.counter("com.example.alpha");
 		this.registry.counter("com.example.charlie");
