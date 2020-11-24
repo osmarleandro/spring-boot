@@ -65,15 +65,6 @@ class MBeanInfoFactory {
 		return endpoint.getOperations().stream().map(this::getMBeanOperation).toArray(ModelMBeanOperationInfo[]::new);
 	}
 
-	private ModelMBeanOperationInfo getMBeanOperation(JmxOperation operation) {
-		String name = operation.getName();
-		String description = operation.getDescription();
-		MBeanParameterInfo[] signature = getSignature(operation.getParameters());
-		String type = getType(operation.getOutputType());
-		int impact = getImpact(operation.getType());
-		return new ModelMBeanOperationInfo(name, description, signature, type, impact);
-	}
-
 	private MBeanParameterInfo[] getSignature(List<JmxOperationParameter> parameters) {
 		return parameters.stream().map(this::getMBeanParameter).toArray(MBeanParameterInfo[]::new);
 	}
