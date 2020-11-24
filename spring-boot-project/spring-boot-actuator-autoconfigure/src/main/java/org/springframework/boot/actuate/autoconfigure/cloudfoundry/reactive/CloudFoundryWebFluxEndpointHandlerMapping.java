@@ -131,7 +131,7 @@ class CloudFoundryWebFluxEndpointHandlerMapping extends AbstractWebFluxEndpointH
 
 		@Override
 		public Mono<ResponseEntity<Object>> handle(ServerWebExchange exchange, Map<String, String> body) {
-			return this.securityInterceptor.preHandle(exchange, this.endpointId.toLowerCaseString())
+			return this.securityInterceptor.preHandle(exchange, this.endpointId.lowerCaseValue)
 					.flatMap((securityResponse) -> flatMapResponse(exchange, body, securityResponse));
 		}
 
