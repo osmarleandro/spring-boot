@@ -95,18 +95,6 @@ public final class WebClientExchangeTags {
 	}
 
 	/**
-	 * Creates a {@code status} {@code Tag} derived from the
-	 * {@link ClientResponse#statusCode()} of the given {@code response}.
-	 * @param response the response
-	 * @return the status tag
-	 * @deprecated since 2.3.0 in favor of {@link #status(ClientResponse, Throwable)}
-	 */
-	@Deprecated
-	public static Tag status(ClientResponse response) {
-		return Tag.of("status", String.valueOf(response.rawStatusCode()));
-	}
-
-	/**
 	 * Creates a {@code status} {@code Tag} derived from the exception thrown by the
 	 * client.
 	 * @param throwable the exception
