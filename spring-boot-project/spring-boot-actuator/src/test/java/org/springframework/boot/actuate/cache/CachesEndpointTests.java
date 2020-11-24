@@ -81,16 +81,6 @@ class CachesEndpointTests {
 	}
 
 	@Test
-	void namedCacheWithSeveralCacheManagers() {
-		Map<String, CacheManager> cacheManagers = new LinkedHashMap<>();
-		cacheManagers.put("test", new ConcurrentMapCacheManager("b", "dupe-cache"));
-		cacheManagers.put("another", new ConcurrentMapCacheManager("c", "dupe-cache"));
-		CachesEndpoint endpoint = new CachesEndpoint(cacheManagers);
-		assertThatExceptionOfType(NonUniqueCacheException.class).isThrownBy(() -> endpoint.cache("dupe-cache", null))
-				.withMessageContaining("dupe-cache").withMessageContaining("test").withMessageContaining("another");
-	}
-
-	@Test
 	void namedCacheWithUnknownCache() {
 		CachesEndpoint endpoint = new CachesEndpoint(
 				Collections.singletonMap("test", new ConcurrentMapCacheManager("b", "a")));
