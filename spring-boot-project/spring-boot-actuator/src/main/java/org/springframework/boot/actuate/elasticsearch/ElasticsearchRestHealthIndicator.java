@@ -71,20 +71,17 @@ public class ElasticsearchRestHealthIndicator extends AbstractHealthIndicator {
 			return;
 		}
 		try (InputStream inputStream = response.getEntity().getContent()) {
-			doHealthCheck(builder, StreamUtils.copyToString(inputStream, StandardCharsets.UTF_8));
+			String json = StreamUtils.copyToString(inputStream, StandardCharsets.UTF_8);
+			Map<String, Object> response1 = this.jsonParser.parseMap(json);
+			String status = (String) response1.get("status");
+			if (RED_STATUS.equals(status)) {
+				builder.outOfService();
+			}
+			else {
+				builder.up();
+			}
+			builder.withDetails(response1);
 		}
-	}
-
-	private void doHealthCheck(Health.Builder builder, String json) {
-		Map<String, Object> response = this.jsonParser.parseMap(json);
-		String status = (String) response.get("status");
-		if (RED_STATUS.equals(status)) {
-			builder.outOfService();
-		}
-		else {
-			builder.up();
-		}
-		builder.withDetails(response);
 	}
 
 }
