@@ -113,13 +113,6 @@ class EndpointIdTests {
 		assertThat(output).doesNotContain("contains invalid characters");
 	}
 
-	@Test
-	void ofWhenMigratingLegacyNameRemovesMixOfDashAndDot(CapturedOutput output) {
-		EndpointId endpointId = migrateLegacyName("one.two-three");
-		assertThat(endpointId.toString()).isEqualTo("onetwothree");
-		assertThat(output).doesNotContain("contains invalid characters");
-	}
-
 	private EndpointId migrateLegacyName(String name) {
 		EndpointId.resetLoggedWarnings();
 		MockEnvironment environment = new MockEnvironment();
