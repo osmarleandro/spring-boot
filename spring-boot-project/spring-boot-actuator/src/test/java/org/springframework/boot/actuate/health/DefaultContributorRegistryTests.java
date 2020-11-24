@@ -43,13 +43,6 @@ abstract class DefaultContributorRegistryTests {
 
 	private ContributorRegistry<HealthIndicator> registry;
 
-	@BeforeEach
-	void setUp() {
-		given(this.one.health()).willReturn(new Health.Builder().unknown().withDetail("1", "1").build());
-		given(this.two.health()).willReturn(new Health.Builder().unknown().withDetail("2", "2").build());
-		this.registry = new DefaultContributorRegistry<>();
-	}
-
 	@Test
 	void createWhenContributorsIsNullThrowsException() {
 		assertThatIllegalArgumentException().isThrownBy(() -> new DefaultContributorRegistry<>(null))
