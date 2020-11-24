@@ -347,15 +347,6 @@ public abstract class AbstractWebEndpointIntegrationTests<T extends Configurable
 	}
 
 	@Test
-	void securityContextIsAvailableAndHasPrincipalWhenRequestHasPrincipal() {
-		load((context) -> {
-			this.authenticatedContextCustomizer.accept(context);
-			context.register(SecurityContextEndpointConfiguration.class);
-		}, (client) -> client.get().uri("/securitycontext").accept(MediaType.APPLICATION_JSON).exchange().expectStatus()
-				.isOk().expectBody(String.class).isEqualTo("Alice"));
-	}
-
-	@Test
 	void userInRoleReturnsFalseWhenRequestHasNoPrincipal() {
 		load(UserInRoleEndpointConfiguration.class,
 				(client) -> client.get().uri("/userinrole?role=ADMIN").accept(MediaType.APPLICATION_JSON).exchange()
