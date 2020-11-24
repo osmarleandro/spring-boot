@@ -57,15 +57,4 @@ public class GitInfoContributor extends InfoPropertiesInfoContributor<GitPropert
 		return new PropertiesPropertySource("git", props);
 	}
 
-	/**
-	 * Post-process the content to expose. By default, well known keys representing dates
-	 * are converted to {@link Instant} instances.
-	 * @param content the content to expose
-	 */
-	@Override
-	protected void postProcessContent(Map<String, Object> content) {
-		replaceValue(getNestedMap(content, "commit"), "time", getProperties().getCommitTime());
-		replaceValue(getNestedMap(content, "build"), "time", getProperties().getInstant("build.time"));
-	}
-
 }
