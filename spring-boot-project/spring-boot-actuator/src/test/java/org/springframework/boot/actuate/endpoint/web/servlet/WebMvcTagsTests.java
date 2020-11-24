@@ -18,7 +18,7 @@ package org.springframework.boot.actuate.endpoint.web.servlet;
 
 import io.micrometer.core.instrument.Tag;
 import org.junit.jupiter.api.Test;
-
+import org.springframework.boot.actuate.metrics.http.Outcome;
 import org.springframework.boot.actuate.metrics.web.servlet.WebMvcTags;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
@@ -126,56 +126,64 @@ class WebMvcTagsTests {
 
 	@Test
 	void outcomeTagIsUnknownWhenResponseIsNull() {
-		Tag tag = WebMvcTags.outcome(null);
+		Outcome outcome = (null != null) ? Outcome.forStatus(null.getStatus()) : Outcome.UNKNOWN;
+		Tag tag = outcome.asTag();
 		assertThat(tag.getValue()).isEqualTo("UNKNOWN");
 	}
 
 	@Test
 	void outcomeTagIsInformationalWhenResponseIs1xx() {
 		this.response.setStatus(100);
-		Tag tag = WebMvcTags.outcome(this.response);
+		Outcome outcome = (this.response != null) ? Outcome.forStatus(this.response.getStatus()) : Outcome.UNKNOWN;
+		Tag tag = outcome.asTag();
 		assertThat(tag.getValue()).isEqualTo("INFORMATIONAL");
 	}
 
 	@Test
 	void outcomeTagIsSuccessWhenResponseIs2xx() {
 		this.response.setStatus(200);
-		Tag tag = WebMvcTags.outcome(this.response);
+		Outcome outcome = (this.response != null) ? Outcome.forStatus(this.response.getStatus()) : Outcome.UNKNOWN;
+		Tag tag = outcome.asTag();
 		assertThat(tag.getValue()).isEqualTo("SUCCESS");
 	}
 
 	@Test
 	void outcomeTagIsRedirectionWhenResponseIs3xx() {
 		this.response.setStatus(301);
-		Tag tag = WebMvcTags.outcome(this.response);
+		Outcome outcome = (this.response != null) ? Outcome.forStatus(this.response.getStatus()) : Outcome.UNKNOWN;
+		Tag tag = outcome.asTag();
 		assertThat(tag.getValue()).isEqualTo("REDIRECTION");
 	}
 
 	@Test
 	void outcomeTagIsClientErrorWhenResponseIs4xx() {
 		this.response.setStatus(400);
-		Tag tag = WebMvcTags.outcome(this.response);
+		Outcome outcome = (this.response != null) ? Outcome.forStatus(this.response.getStatus()) : Outcome.UNKNOWN;
+		Tag tag = outcome.asTag();
 		assertThat(tag.getValue()).isEqualTo("CLIENT_ERROR");
 	}
 
 	@Test
 	void outcomeTagIsClientErrorWhenResponseIsNonStandardInClientSeries() {
 		this.response.setStatus(490);
-		Tag tag = WebMvcTags.outcome(this.response);
+		Outcome outcome = (this.response != null) ? Outcome.forStatus(this.response.getStatus()) : Outcome.UNKNOWN;
+		Tag tag = outcome.asTag();
 		assertThat(tag.getValue()).isEqualTo("CLIENT_ERROR");
 	}
 
 	@Test
 	void outcomeTagIsServerErrorWhenResponseIs5xx() {
 		this.response.setStatus(500);
-		Tag tag = WebMvcTags.outcome(this.response);
+		Outcome outcome = (this.response != null) ? Outcome.forStatus(this.response.getStatus()) : Outcome.UNKNOWN;
+		Tag tag = outcome.asTag();
 		assertThat(tag.getValue()).isEqualTo("SERVER_ERROR");
 	}
 
 	@Test
 	void outcomeTagIsUnknownWhenResponseStatusIsInUnknownSeries() {
 		this.response.setStatus(701);
-		Tag tag = WebMvcTags.outcome(this.response);
+		Outcome outcome = (this.response != null) ? Outcome.forStatus(this.response.getStatus()) : Outcome.UNKNOWN;
+		Tag tag = outcome.asTag();
 		assertThat(tag.getValue()).isEqualTo("UNKNOWN");
 	}
 
