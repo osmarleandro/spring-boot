@@ -318,12 +318,6 @@ class HttpExchangeTracerTests {
 		return response;
 	}
 
-	private Principal createPrincipal() {
-		Principal principal = mock(Principal.class);
-		given(principal.getName()).willReturn("alice");
-		return principal;
-	}
-
 	private String mixedCase(String input) {
 		StringBuilder output = new StringBuilder();
 		for (int i = 0; i < input.length(); i++) {
