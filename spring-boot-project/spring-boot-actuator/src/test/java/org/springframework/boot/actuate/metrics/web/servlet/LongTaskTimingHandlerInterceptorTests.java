@@ -78,11 +78,6 @@ class LongTaskTimingHandlerInterceptorTests {
 
 	private MockMvc mvc;
 
-	@BeforeEach
-	void setUpMockMvc() {
-		this.mvc = MockMvcBuilders.webAppContextSetup(this.context).build();
-	}
-
 	@Test
 	void asyncRequestThatThrowsUncheckedException() throws Exception {
 		MvcResult result = this.mvc.perform(get("/api/c1/completableFutureException"))
