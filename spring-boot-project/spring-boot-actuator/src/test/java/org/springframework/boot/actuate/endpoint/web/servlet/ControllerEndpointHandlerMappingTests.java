@@ -60,19 +60,6 @@ class ControllerEndpointHandlerMappingTests {
 	}
 
 	@Test
-	void mappingWithPrefix() throws Exception {
-		ExposableControllerEndpoint first = firstEndpoint();
-		ExposableControllerEndpoint second = secondEndpoint();
-		ControllerEndpointHandlerMapping mapping = createMapping("actuator", first, second);
-		assertThat(mapping.getHandler(request("GET", "/actuator/first")).getHandler())
-				.isEqualTo(handlerOf(first.getController(), "get"));
-		assertThat(mapping.getHandler(request("POST", "/actuator/second")).getHandler())
-				.isEqualTo(handlerOf(second.getController(), "save"));
-		assertThat(mapping.getHandler(request("GET", "/first"))).isNull();
-		assertThat(mapping.getHandler(request("GET", "/second"))).isNull();
-	}
-
-	@Test
 	void mappingNarrowedToMethod() throws Exception {
 		ExposableControllerEndpoint first = firstEndpoint();
 		ControllerEndpointHandlerMapping mapping = createMapping("actuator", first);
