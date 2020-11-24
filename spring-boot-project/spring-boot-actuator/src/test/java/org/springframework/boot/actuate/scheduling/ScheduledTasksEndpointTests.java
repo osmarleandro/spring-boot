@@ -53,19 +53,6 @@ class ScheduledTasksEndpointTests {
 			.withUserConfiguration(BaseConfiguration.class);
 
 	@Test
-	void cronScheduledMethodIsReported() {
-		run(CronScheduledMethod.class, (tasks) -> {
-			assertThat(tasks.getFixedDelay()).isEmpty();
-			assertThat(tasks.getFixedRate()).isEmpty();
-			assertThat(tasks.getCustom()).isEmpty();
-			assertThat(tasks.getCron()).hasSize(1);
-			CronTaskDescription description = (CronTaskDescription) tasks.getCron().get(0);
-			assertThat(description.getExpression()).isEqualTo("0 0 0/3 1/1 * ?");
-			assertThat(description.getRunnable().getTarget()).isEqualTo(CronScheduledMethod.class.getName() + ".cron");
-		});
-	}
-
-	@Test
 	void cronTriggerIsReported() {
 		run(CronTriggerTask.class, (tasks) -> {
 			assertThat(tasks.getFixedRate()).isEmpty();
