@@ -103,12 +103,6 @@ class JacksonJmxOperationResponseMapperTests {
 	}
 
 	@Test
-	void mapResponseWhenCollectionShouldReturnJsonArray() {
-		Object mapped = this.mapper.mapResponse(Arrays.asList("a", "b", "c"));
-		assertThat(this.json.from(mapped.toString())).isEqualToJson("[a,b,c]");
-	}
-
-	@Test
 	void mapResponseWhenOtherShouldReturnMap() {
 		ExampleBean bean = new ExampleBean();
 		bean.setName("boot");
