@@ -127,7 +127,17 @@ class EndpointDiscovererTests {
 			TestEndpointDiscoverer discoverer = new TestEndpointDiscoverer(context);
 			Map<EndpointId, TestExposableEndpoint> endpoints = mapEndpoints(discoverer.getEndpoints());
 			assertThat(endpoints).containsOnlyKeys(EndpointId.of("test"));
-			Map<Method, TestOperation> operations = mapOperations(endpoints.get(EndpointId.of("test")));
+			ExposableEndpoint<O> endpoint = endpoints.get(EndpointId.of("test"));
+			Map<Method, TestOperation> byMethod = new HashMap<>();
+			endpoint.getOperations().forEach((operation) -> {
+				AbstractDiscoveredOperation discoveredOperation = (AbstractDiscoveredOperation) operation;
+				Method method = discoveredOperation.getOperationMethod().getMethod();
+				O existing = byMethod.put(method, operation);
+				if (existing != null) {
+					throw new AssertionError(String.format("Found endpoint with duplicate operation method '%s'", method));
+				}
+			});
+			Map<Method, TestOperation> operations = byMethod;
 			assertThat(operations).hasSize(5);
 			assertThat(operations).containsKeys(testEndpointMethods());
 			assertThat(operations).containsKeys(ReflectionUtils.findMethod(TestEndpointSubclass.class,
@@ -158,7 +168,17 @@ class EndpointDiscovererTests {
 			TestEndpointDiscoverer discoverer = new TestEndpointDiscoverer(context, (endpointId) -> 0L);
 			Map<EndpointId, TestExposableEndpoint> endpoints = mapEndpoints(discoverer.getEndpoints());
 			assertThat(endpoints).containsOnlyKeys(EndpointId.of("test"));
-			Map<Method, TestOperation> operations = mapOperations(endpoints.get(EndpointId.of("test")));
+			ExposableEndpoint<O> endpoint = endpoints.get(EndpointId.of("test"));
+			Map<Method, TestOperation> byMethod = new HashMap<>();
+			endpoint.getOperations().forEach((operation) -> {
+				AbstractDiscoveredOperation discoveredOperation = (AbstractDiscoveredOperation) operation;
+				Method method = discoveredOperation.getOperationMethod().getMethod();
+				O existing = byMethod.put(method, operation);
+				if (existing != null) {
+					throw new AssertionError(String.format("Found endpoint with duplicate operation method '%s'", method));
+				}
+			});
+			Map<Method, TestOperation> operations = byMethod;
 			operations.values().forEach(
 					(operation) -> assertThat(operation.getInvoker()).isNotInstanceOf(CachingOperationInvoker.class));
 		});
@@ -171,7 +191,17 @@ class EndpointDiscovererTests {
 					(endpointId) -> (endpointId.equals(EndpointId.of("foo")) ? 500L : 0L));
 			Map<EndpointId, TestExposableEndpoint> endpoints = mapEndpoints(discoverer.getEndpoints());
 			assertThat(endpoints).containsOnlyKeys(EndpointId.of("test"));
-			Map<Method, TestOperation> operations = mapOperations(endpoints.get(EndpointId.of("test")));
+			ExposableEndpoint<O> endpoint = endpoints.get(EndpointId.of("test"));
+			Map<Method, TestOperation> byMethod = new HashMap<>();
+			endpoint.getOperations().forEach((operation) -> {
+				AbstractDiscoveredOperation discoveredOperation = (AbstractDiscoveredOperation) operation;
+				Method method = discoveredOperation.getOperationMethod().getMethod();
+				O existing = byMethod.put(method, operation);
+				if (existing != null) {
+					throw new AssertionError(String.format("Found endpoint with duplicate operation method '%s'", method));
+				}
+			});
+			Map<Method, TestOperation> operations = byMethod;
 			operations.values().forEach(
 					(operation) -> assertThat(operation.getInvoker()).isNotInstanceOf(CachingOperationInvoker.class));
 		});
@@ -184,7 +214,17 @@ class EndpointDiscovererTests {
 					(endpointId) -> (endpointId.equals(EndpointId.of("test")) ? 500L : 0L));
 			Map<EndpointId, TestExposableEndpoint> endpoints = mapEndpoints(discoverer.getEndpoints());
 			assertThat(endpoints).containsOnlyKeys(EndpointId.of("test"));
-			Map<Method, TestOperation> operations = mapOperations(endpoints.get(EndpointId.of("test")));
+			ExposableEndpoint<O> endpoint = endpoints.get(EndpointId.of("test"));
+			Map<Method, TestOperation> byMethod = new HashMap<>();
+			endpoint.getOperations().forEach((operation) -> {
+				AbstractDiscoveredOperation discoveredOperation = (AbstractDiscoveredOperation) operation;
+				Method method = discoveredOperation.getOperationMethod().getMethod();
+				O existing = byMethod.put(method, operation);
+				if (existing != null) {
+					throw new AssertionError(String.format("Found endpoint with duplicate operation method '%s'", method));
+				}
+			});
+			Map<Method, TestOperation> operations = byMethod;
 			TestOperation getAll = operations.get(findTestEndpointMethod("getAll"));
 			TestOperation getOne = operations.get(findTestEndpointMethod("getOne", String.class));
 			TestOperation update = operations
@@ -219,7 +259,17 @@ class EndpointDiscovererTests {
 		load(SpecializedEndpointsConfiguration.class, (context) -> {
 			SpecializedEndpointDiscoverer discoverer = new SpecializedEndpointDiscoverer(context);
 			Map<EndpointId, SpecializedExposableEndpoint> endpoints = mapEndpoints(discoverer.getEndpoints());
-			Map<Method, SpecializedOperation> operations = mapOperations(endpoints.get(EndpointId.of("specialized")));
+			ExposableEndpoint<O> endpoint = endpoints.get(EndpointId.of("specialized"));
+			Map<Method, SpecializedOperation> byMethod = new HashMap<>();
+			endpoint.getOperations().forEach((operation) -> {
+				AbstractDiscoveredOperation discoveredOperation = (AbstractDiscoveredOperation) operation;
+				Method method = discoveredOperation.getOperationMethod().getMethod();
+				O existing = byMethod.put(method, operation);
+				if (existing != null) {
+					throw new AssertionError(String.format("Found endpoint with duplicate operation method '%s'", method));
+				}
+			});
+			Map<Method, SpecializedOperation> operations = byMethod;
 			assertThat(operations).containsKeys(ReflectionUtils.findMethod(SpecializedExtension.class, "getSpecial"));
 
 		});
@@ -230,7 +280,17 @@ class EndpointDiscovererTests {
 		load(SubSpecializedEndpointsConfiguration.class, (context) -> {
 			SpecializedEndpointDiscoverer discoverer = new SpecializedEndpointDiscoverer(context);
 			Map<EndpointId, SpecializedExposableEndpoint> endpoints = mapEndpoints(discoverer.getEndpoints());
-			Map<Method, SpecializedOperation> operations = mapOperations(endpoints.get(EndpointId.of("specialized")));
+			ExposableEndpoint<O> endpoint = endpoints.get(EndpointId.of("specialized"));
+			Map<Method, SpecializedOperation> byMethod = new HashMap<>();
+			endpoint.getOperations().forEach((operation) -> {
+				AbstractDiscoveredOperation discoveredOperation = (AbstractDiscoveredOperation) operation;
+				Method method = discoveredOperation.getOperationMethod().getMethod();
+				O existing = byMethod.put(method, operation);
+				if (existing != null) {
+					throw new AssertionError(String.format("Found endpoint with duplicate operation method '%s'", method));
+				}
+			});
+			Map<Method, SpecializedOperation> operations = byMethod;
 			assertThat(operations).containsKeys(ReflectionUtils.findMethod(SpecializedTestEndpoint.class, "getAll"));
 			assertThat(operations).containsKeys(
 					ReflectionUtils.findMethod(SubSpecializedTestEndpoint.class, "getSpecialOne", String.class));
@@ -266,7 +326,17 @@ class EndpointDiscovererTests {
 		TestEndpointDiscoverer discoverer = new TestEndpointDiscoverer(context);
 		Map<EndpointId, TestExposableEndpoint> endpoints = mapEndpoints(discoverer.getEndpoints());
 		assertThat(endpoints).containsOnlyKeys(EndpointId.of("test"));
-		Map<Method, TestOperation> operations = mapOperations(endpoints.get(EndpointId.of("test")));
+		ExposableEndpoint<O> endpoint = endpoints.get(EndpointId.of("test"));
+		Map<Method, TestOperation> byMethod = new HashMap<>();
+		endpoint.getOperations().forEach((operation) -> {
+			AbstractDiscoveredOperation discoveredOperation = (AbstractDiscoveredOperation) operation;
+			Method method = discoveredOperation.getOperationMethod().getMethod();
+			O existing = byMethod.put(method, operation);
+			if (existing != null) {
+				throw new AssertionError(String.format("Found endpoint with duplicate operation method '%s'", method));
+			}
+		});
+		Map<Method, TestOperation> operations = byMethod;
 		assertThat(operations).hasSize(4);
 		assertThat(operations).containsKeys();
 	}
@@ -294,19 +364,6 @@ class EndpointDiscovererTests {
 			}
 		});
 		return byId;
-	}
-
-	private <O extends Operation> Map<Method, O> mapOperations(ExposableEndpoint<O> endpoint) {
-		Map<Method, O> byMethod = new HashMap<>();
-		endpoint.getOperations().forEach((operation) -> {
-			AbstractDiscoveredOperation discoveredOperation = (AbstractDiscoveredOperation) operation;
-			Method method = discoveredOperation.getOperationMethod().getMethod();
-			O existing = byMethod.put(method, operation);
-			if (existing != null) {
-				throw new AssertionError(String.format("Found endpoint with duplicate operation method '%s'", method));
-			}
-		});
-		return byMethod;
 	}
 
 	private void load(Class<?> configuration, Consumer<AnnotationConfigApplicationContext> consumer) {
