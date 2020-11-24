@@ -78,16 +78,12 @@ public class JmxEndpointExporter implements InitializingBean, DisposableBean, Be
 
 	@Override
 	public void afterPropertiesSet() {
-		this.registered = register();
+		this.registered = this.endpoints.stream().map(this::register).collect(Collectors.toList());
 	}
 
 	@Override
 	public void destroy() throws Exception {
 		unregister(this.registered);
-	}
-
-	private Collection<ObjectName> register() {
-		return this.endpoints.stream().map(this::register).collect(Collectors.toList());
 	}
 
 	private ObjectName register(ExposableJmxEndpoint endpoint) {
