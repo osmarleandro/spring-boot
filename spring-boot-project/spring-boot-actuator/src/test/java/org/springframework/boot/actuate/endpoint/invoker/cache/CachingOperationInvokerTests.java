@@ -65,11 +65,6 @@ class CachingOperationInvokerTests {
 	}
 
 	@Test
-	void cacheInTtlWithPrincipal() {
-		assertCacheIsUsed(Collections.emptyMap(), mock(Principal.class));
-	}
-
-	@Test
 	void cacheInTtlWithNullParameters() {
 		Map<String, Object> parameters = new HashMap<>();
 		parameters.put("first", null);
