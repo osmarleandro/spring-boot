@@ -71,14 +71,6 @@ public class OperationMethod {
 		return this.operationType;
 	}
 
-	/**
-	 * Return the operation parameters.
-	 * @return the operation parameters
-	 */
-	public OperationParameters getParameters() {
-		return this.operationParameters;
-	}
-
 	@Override
 	public String toString() {
 		return "Operation " + this.operationType.name().toLowerCase(Locale.ENGLISH) + " method " + this.method;
