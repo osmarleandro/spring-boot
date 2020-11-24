@@ -33,13 +33,6 @@ class SimpleInfoContributorTests {
 		assertThatIllegalArgumentException().isThrownBy(() -> new SimpleInfoContributor(null, new Object()));
 	}
 
-	@Test
-	void mapSimpleObject() {
-		Object o = new Object();
-		Info info = contributeFrom("test", o);
-		assertThat(info.get("test")).isSameAs(o);
-	}
-
 	private static Info contributeFrom(String prefix, Object detail) {
 		SimpleInfoContributor contributor = new SimpleInfoContributor(prefix, detail);
 		Info.Builder builder = new Info.Builder();
