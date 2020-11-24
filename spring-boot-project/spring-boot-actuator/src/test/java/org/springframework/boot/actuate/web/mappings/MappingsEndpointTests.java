@@ -73,28 +73,6 @@ import static org.springframework.web.reactive.function.server.RouterFunctions.r
 class MappingsEndpointTests {
 
 	@Test
-	void servletWebMappings() {
-		Supplier<ConfigurableWebApplicationContext> contextSupplier = prepareContextSupplier();
-		new WebApplicationContextRunner(contextSupplier)
-				.withUserConfiguration(EndpointConfiguration.class, ServletWebConfiguration.class).run((context) -> {
-					ContextMappings contextMappings = contextMappings(context);
-					assertThat(contextMappings.getParentId()).isNull();
-					assertThat(contextMappings.getMappings()).containsOnlyKeys("dispatcherServlets", "servletFilters",
-							"servlets");
-					Map<String, List<DispatcherServletMappingDescription>> dispatcherServlets = mappings(
-							contextMappings, "dispatcherServlets");
-					assertThat(dispatcherServlets).containsOnlyKeys("dispatcherServlet");
-					List<DispatcherServletMappingDescription> handlerMappings = dispatcherServlets
-							.get("dispatcherServlet");
-					assertThat(handlerMappings).hasSize(1);
-					List<ServletRegistrationMappingDescription> servlets = mappings(contextMappings, "servlets");
-					assertThat(servlets).hasSize(1);
-					List<FilterRegistrationMappingDescription> filters = mappings(contextMappings, "servletFilters");
-					assertThat(filters).hasSize(1);
-				});
-	}
-
-	@Test
 	void servletWebMappingsWithAdditionalDispatcherServlets() {
 		Supplier<ConfigurableWebApplicationContext> contextSupplier = prepareContextSupplier();
 		new WebApplicationContextRunner(contextSupplier).withUserConfiguration(EndpointConfiguration.class,
