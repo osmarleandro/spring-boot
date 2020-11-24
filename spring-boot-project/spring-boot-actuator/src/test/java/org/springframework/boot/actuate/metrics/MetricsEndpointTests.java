@@ -137,16 +137,6 @@ class MetricsEndpointTests {
 	}
 
 	@Test
-	void metricWithSpaceInTagValue() {
-		this.registry.counter("counter", "key", "a space").increment(2);
-		MetricsEndpoint.MetricResponse response = this.endpoint.metric("counter",
-				Collections.singletonList("key:a space"));
-		assertThat(response.getName()).isEqualTo("counter");
-		assertThat(availableTagKeys(response)).isEmpty();
-		assertThat(getCount(response)).hasValue(2.0);
-	}
-
-	@Test
 	void metricWithInvalidTag() {
 		assertThatExceptionOfType(InvalidEndpointRequestException.class)
 				.isThrownBy(() -> this.endpoint.metric("counter", Collections.singletonList("key")));
