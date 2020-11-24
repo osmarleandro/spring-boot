@@ -46,7 +46,10 @@ class RequestPredicateFactoryTests {
 
 	@Test
 	void getRequestPredicateWhenHasMoreThanOneMatchAllThrowsException() {
-		DiscoveredOperationMethod operationMethod = getDiscoveredOperationMethod(MoreThanOneMatchAll.class);
+		Method method = MoreThanOneMatchAll.class.getDeclaredMethods()[0];
+		AnnotationAttributes attributes = new AnnotationAttributes();
+		attributes.put("produces", "application/json");
+		DiscoveredOperationMethod operationMethod = new DiscoveredOperationMethod(method, OperationType.READ, attributes);
 		assertThatIllegalStateException()
 				.isThrownBy(() -> this.factory.getRequestPredicate(this.rootPath, operationMethod))
 				.withMessage("@Selector annotation with Match.ALL_REMAINING must be unique");
@@ -54,7 +57,10 @@ class RequestPredicateFactoryTests {
 
 	@Test
 	void getRequestPredicateWhenMatchAllIsNotLastParameterThrowsException() {
-		DiscoveredOperationMethod operationMethod = getDiscoveredOperationMethod(MatchAllIsNotLastParameter.class);
+		Method method = MatchAllIsNotLastParameter.class.getDeclaredMethods()[0];
+		AnnotationAttributes attributes = new AnnotationAttributes();
+		attributes.put("produces", "application/json");
+		DiscoveredOperationMethod operationMethod = new DiscoveredOperationMethod(method, OperationType.READ, attributes);
 		assertThatIllegalStateException()
 				.isThrownBy(() -> this.factory.getRequestPredicate(this.rootPath, operationMethod))
 				.withMessage("@Selector annotation with Match.ALL_REMAINING must be the last parameter");
@@ -62,17 +68,13 @@ class RequestPredicateFactoryTests {
 
 	@Test
 	void getRequestPredicateReturnsPredicateWithPath() {
-		DiscoveredOperationMethod operationMethod = getDiscoveredOperationMethod(ValidSelectors.class);
+		Method method = ValidSelectors.class.getDeclaredMethods()[0];
+		AnnotationAttributes attributes = new AnnotationAttributes();
+		attributes.put("produces", "application/json");
+		DiscoveredOperationMethod operationMethod = new DiscoveredOperationMethod(method, OperationType.READ, attributes);
 		WebOperationRequestPredicate requestPredicate = this.factory.getRequestPredicate(this.rootPath,
 				operationMethod);
 		assertThat(requestPredicate.getPath()).isEqualTo("/root/{one}/{*two}");
-	}
-
-	private DiscoveredOperationMethod getDiscoveredOperationMethod(Class<?> source) {
-		Method method = source.getDeclaredMethods()[0];
-		AnnotationAttributes attributes = new AnnotationAttributes();
-		attributes.put("produces", "application/json");
-		return new DiscoveredOperationMethod(method, OperationType.READ, attributes);
 	}
 
 	static class MoreThanOneMatchAll {
