@@ -89,19 +89,6 @@ class RedisReactiveHealthIndicatorTests {
 	}
 
 	@Test
-	void redisCommandIsDown() {
-		ReactiveServerCommands commands = mock(ReactiveServerCommands.class);
-		given(commands.info()).willReturn(Mono.error(new RedisConnectionFailureException("Connection failed")));
-		ReactiveRedisConnection redisConnection = mock(ReactiveRedisConnection.class);
-		given(redisConnection.closeLater()).willReturn(Mono.empty());
-		RedisReactiveHealthIndicator healthIndicator = createHealthIndicator(redisConnection, commands);
-		Mono<Health> health = healthIndicator.health();
-		StepVerifier.create(health).consumeNextWith((h) -> assertThat(h.getStatus()).isEqualTo(Status.DOWN))
-				.verifyComplete();
-		verify(redisConnection).closeLater();
-	}
-
-	@Test
 	void redisConnectionIsDown() {
 		ReactiveRedisConnectionFactory redisConnectionFactory = mock(ReactiveRedisConnectionFactory.class);
 		given(redisConnectionFactory.getReactiveConnection())
