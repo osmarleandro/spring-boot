@@ -65,8 +65,8 @@ class EnvironmentEndpointTests {
 	@Test
 	void basicResponse() {
 		ConfigurableEnvironment environment = emptyEnvironment();
-		environment.getPropertySources().addLast(singleKeyPropertySource("one", "my.key", "first"));
-		environment.getPropertySources().addLast(singleKeyPropertySource("two", "my.key", "second"));
+		environment.getPropertySources().addLast(new MapPropertySource("one", Collections.singletonMap("my.key", "first")));
+		environment.getPropertySources().addLast(new MapPropertySource("two", Collections.singletonMap("my.key", "second")));
 		EnvironmentDescriptor descriptor = new EnvironmentEndpoint(environment).environment(null);
 		assertThat(descriptor.getActiveProfiles()).isEmpty();
 		Map<String, PropertySourceDescriptor> sources = propertySources(descriptor);
@@ -197,8 +197,9 @@ class EnvironmentEndpointTests {
 	@SuppressWarnings("unchecked")
 	void propertyWithTypeOtherThanStringShouldNotFail() {
 		ConfigurableEnvironment environment = emptyEnvironment();
+		Object value = Collections.singletonMap("bar", "baz");
 		environment.getPropertySources()
-				.addFirst(singleKeyPropertySource("test", "foo", Collections.singletonMap("bar", "baz")));
+				.addFirst(new MapPropertySource("test", Collections.singletonMap("foo", value)));
 		EnvironmentDescriptor descriptor = new EnvironmentEndpoint(environment).environment(null);
 		Map<String, String> foo = (Map<String, String>) propertySources(descriptor).get("test").getProperties()
 				.get("foo").getValue();
@@ -240,7 +241,7 @@ class EnvironmentEndpointTests {
 	@Test
 	void propertyEntryNotFound() {
 		ConfigurableEnvironment environment = emptyEnvironment();
-		environment.getPropertySources().addFirst(singleKeyPropertySource("test", "foo", "bar"));
+		environment.getPropertySources().addFirst(new MapPropertySource("test", Collections.singletonMap("foo", "bar")));
 		EnvironmentEntryDescriptor descriptor = new EnvironmentEndpoint(environment).environmentEntry("does.not.exist");
 		assertThat(descriptor).isNotNull();
 		assertThat(descriptor.getProperty()).isNull();
@@ -252,8 +253,8 @@ class EnvironmentEndpointTests {
 	@Test
 	void multipleSourcesWithSameProperty() {
 		ConfigurableEnvironment environment = emptyEnvironment();
-		environment.getPropertySources().addFirst(singleKeyPropertySource("one", "a", "alpha"));
-		environment.getPropertySources().addFirst(singleKeyPropertySource("two", "a", "apple"));
+		environment.getPropertySources().addFirst(new MapPropertySource("one", Collections.singletonMap("a", "alpha")));
+		environment.getPropertySources().addFirst(new MapPropertySource("two", Collections.singletonMap("a", "apple")));
 		EnvironmentDescriptor descriptor = new EnvironmentEndpoint(environment).environment(null);
 		Map<String, PropertySourceDescriptor> sources = propertySources(descriptor);
 		assertThat(sources.keySet()).containsExactly("two", "one");
@@ -286,10 +287,6 @@ class EnvironmentEndpointTests {
 		environment.getPropertySources().remove(StandardEnvironment.SYSTEM_ENVIRONMENT_PROPERTY_SOURCE_NAME);
 		environment.getPropertySources().remove(StandardEnvironment.SYSTEM_PROPERTIES_PROPERTY_SOURCE_NAME);
 		return environment;
-	}
-
-	private MapPropertySource singleKeyPropertySource(String name, String key, Object value) {
-		return new MapPropertySource(name, Collections.singletonMap(key, value));
 	}
 
 	private Map<String, PropertySourceDescriptor> propertySources(EnvironmentDescriptor descriptor) {
