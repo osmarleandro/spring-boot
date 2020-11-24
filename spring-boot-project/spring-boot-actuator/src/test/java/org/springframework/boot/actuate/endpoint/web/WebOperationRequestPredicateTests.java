@@ -77,11 +77,6 @@ class WebOperationRequestPredicateTests {
 	}
 
 	@Test
-	void predicateWithRegularPathVariableDoesNotReturnMatchAllRemainingPathSegmentsVariable() {
-		assertThat(predicateWithPath("/path/{foo1}").getMatchAllRemainingPathSegmentsVariable()).isNull();
-	}
-
-	@Test
 	void predicateWithNoPathVariableDoesNotReturnMatchAllRemainingPathSegmentsVariable() {
 		assertThat(predicateWithPath("/path/foo1").getMatchAllRemainingPathSegmentsVariable()).isNull();
 	}
