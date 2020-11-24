@@ -124,17 +124,13 @@ public final class WebFluxTags {
 				return URI_NOT_FOUND;
 			}
 		}
-		String path = getPathInfo(exchange);
+		String path1 = exchange.getRequest().getPath().value();
+		String uri1 = StringUtils.hasText(path1) ? path1 : "/";
+		String path = uri1.replaceAll("//+", "/").replaceAll("/$", "");
 		if (path.isEmpty()) {
 			return URI_ROOT;
 		}
 		return URI_UNKNOWN;
-	}
-
-	private static String getPathInfo(ServerWebExchange exchange) {
-		String path = exchange.getRequest().getPath().value();
-		String uri = StringUtils.hasText(path) ? path : "/";
-		return uri.replaceAll("//+", "/").replaceAll("/$", "");
 	}
 
 	/**
