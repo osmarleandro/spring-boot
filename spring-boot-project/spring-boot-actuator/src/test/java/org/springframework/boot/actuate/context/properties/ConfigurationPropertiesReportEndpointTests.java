@@ -124,12 +124,6 @@ class ConfigurationPropertiesReportEndpointTests {
 	}
 
 	@Test
-	void descriptorDoesNotIncludePropertyWithNullValue() {
-		this.contextRunner.withUserConfiguration(TestPropertiesConfiguration.class)
-				.run(assertProperties("test", (properties) -> assertThat(properties).doesNotContainKey("nullValue")));
-	}
-
-	@Test
 	void descriptorWithDurationProperty() {
 		this.contextRunner.withUserConfiguration(TestPropertiesConfiguration.class).run(assertProperties("test",
 				(properties) -> assertThat(properties.get("duration")).isEqualTo(Duration.ofSeconds(10).toString())));
