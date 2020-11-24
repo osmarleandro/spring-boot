@@ -36,14 +36,6 @@ class HealthEndpointTests
 		extends HealthEndpointSupportTests<HealthContributorRegistry, HealthContributor, HealthComponent> {
 
 	@Test
-	void healthReturnsSystemHealth() {
-		this.registry.registerContributor("test", createContributor(this.up));
-		HealthComponent health = create(this.registry, this.groups).health();
-		assertThat(health.getStatus()).isEqualTo(Status.UP);
-		assertThat(health).isInstanceOf(SystemHealth.class);
-	}
-
-	@Test
 	void healthWithNoContributorReturnsUp() {
 		assertThat(this.registry).isEmpty();
 		HealthComponent health = create(this.registry,
