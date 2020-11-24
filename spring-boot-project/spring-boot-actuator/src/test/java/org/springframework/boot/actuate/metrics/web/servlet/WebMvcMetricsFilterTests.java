@@ -176,14 +176,6 @@ class WebMvcMetricsFilterTests {
 	}
 
 	@Test
-	void unhandledError() {
-		assertThatCode(() -> this.mvc.perform(get("/api/c1/unhandledError/10")).andExpect(status().isOk()))
-				.hasRootCauseInstanceOf(RuntimeException.class);
-		assertThat(this.registry.get("http.server.requests").tags("exception", "RuntimeException").timer().count())
-				.isEqualTo(1L);
-	}
-
-	@Test
 	void streamingError() throws Exception {
 		MvcResult result = this.mvc.perform(get("/api/c1/streamingError")).andExpect(request().asyncStarted())
 				.andReturn();
