@@ -80,16 +80,6 @@ class ControllerEndpointHandlerMappingTests {
 				.isThrownBy(() -> mapping.getHandler(request("POST", "/actuator/first")));
 	}
 
-	@Test
-	void mappingWithNoPath() throws Exception {
-		ExposableControllerEndpoint pathless = pathlessEndpoint();
-		ControllerEndpointHandlerMapping mapping = createMapping("actuator", pathless);
-		assertThat(mapping.getHandler(request("GET", "/actuator/pathless")).getHandler())
-				.isEqualTo(handlerOf(pathless.getController(), "get"));
-		assertThat(mapping.getHandler(request("GET", "/pathless"))).isNull();
-		assertThat(mapping.getHandler(request("GET", "/"))).isNull();
-	}
-
 	private ControllerEndpointHandlerMapping createMapping(String prefix, ExposableControllerEndpoint... endpoints) {
 		ControllerEndpointHandlerMapping mapping = new ControllerEndpointHandlerMapping(new EndpointMapping(prefix),
 				Arrays.asList(endpoints), null);
