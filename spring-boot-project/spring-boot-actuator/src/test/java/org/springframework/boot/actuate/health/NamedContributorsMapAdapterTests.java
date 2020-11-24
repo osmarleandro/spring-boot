@@ -23,6 +23,7 @@ import java.util.Map;
 import java.util.function.Function;
 
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.actuate.health.NamedContributorsMapAdapterTests.TestNamedContributorsMapAdapter;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
@@ -66,7 +67,11 @@ class NamedContributorsMapAdapterTests {
 
 	@Test
 	void iterateReturnsAdaptedEntries() {
-		TestNamedContributorsMapAdapter<String> adapter = createAdapter();
+		Map<String, String> map = new LinkedHashMap<>();
+		map.put("one", "one");
+		map.put("two", "two");
+		TestNamedContributorsMapAdapter<String> adapter1 = new TestNamedContributorsMapAdapter<>(map, this::reverse);
+		TestNamedContributorsMapAdapter<String> adapter = adapter1;
 		Iterator<NamedContributor<String>> iterator = adapter.iterator();
 		NamedContributor<String> one = iterator.next();
 		NamedContributor<String> two = iterator.next();
@@ -79,23 +84,23 @@ class NamedContributorsMapAdapterTests {
 
 	@Test
 	void getContributorReturnsAdaptedEntry() {
-		TestNamedContributorsMapAdapter<String> adapter = createAdapter();
+		Map<String, String> map = new LinkedHashMap<>();
+		map.put("one", "one");
+		map.put("two", "two");
+		TestNamedContributorsMapAdapter<String> adapter1 = new TestNamedContributorsMapAdapter<>(map, this::reverse);
+		TestNamedContributorsMapAdapter<String> adapter = adapter1;
 		assertThat(adapter.getContributor("one")).isEqualTo("eno");
 		assertThat(adapter.getContributor("two")).isEqualTo("owt");
 	}
 
 	@Test
 	void getContributorWhenNotInMapReturnsNull() {
-		TestNamedContributorsMapAdapter<String> adapter = createAdapter();
-		assertThat(adapter.getContributor("missing")).isNull();
-	}
-
-	private TestNamedContributorsMapAdapter<String> createAdapter() {
 		Map<String, String> map = new LinkedHashMap<>();
 		map.put("one", "one");
 		map.put("two", "two");
-		TestNamedContributorsMapAdapter<String> adapter = new TestNamedContributorsMapAdapter<>(map, this::reverse);
-		return adapter;
+		TestNamedContributorsMapAdapter<String> adapter1 = new TestNamedContributorsMapAdapter<>(map, this::reverse);
+		TestNamedContributorsMapAdapter<String> adapter = adapter1;
+		assertThat(adapter.getContributor("missing")).isNull();
 	}
 
 	private String reverse(CharSequence charSequence) {
