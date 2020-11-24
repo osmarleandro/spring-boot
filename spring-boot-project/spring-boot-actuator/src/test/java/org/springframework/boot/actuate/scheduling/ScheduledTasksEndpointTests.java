@@ -123,20 +123,6 @@ class ScheduledTasksEndpointTests {
 	}
 
 	@Test
-	void fixedRateTriggerIsReported() {
-		run(FixedRateTriggerTask.class, (tasks) -> {
-			assertThat(tasks.getCron()).isEmpty();
-			assertThat(tasks.getFixedDelay()).isEmpty();
-			assertThat(tasks.getCustom()).isEmpty();
-			assertThat(tasks.getFixedRate()).hasSize(1);
-			FixedRateTaskDescription description = (FixedRateTaskDescription) tasks.getFixedRate().get(0);
-			assertThat(description.getInitialDelay()).isEqualTo(3000);
-			assertThat(description.getInterval()).isEqualTo(2000);
-			assertThat(description.getRunnable().getTarget()).isEqualTo(FixedRateTriggerRunnable.class.getName());
-		});
-	}
-
-	@Test
 	void taskWithCustomTriggerIsReported() {
 		run(CustomTriggerTask.class, (tasks) -> {
 			assertThat(tasks.getCron()).isEmpty();
