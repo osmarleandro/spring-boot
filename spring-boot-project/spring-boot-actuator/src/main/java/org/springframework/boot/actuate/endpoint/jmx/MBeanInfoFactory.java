@@ -52,17 +52,13 @@ class MBeanInfoFactory {
 	MBeanInfo getMBeanInfo(ExposableJmxEndpoint endpoint) {
 		String className = EndpointMBean.class.getName();
 		String description = getDescription(endpoint);
-		ModelMBeanOperationInfo[] operations = getMBeanOperations(endpoint);
+		ModelMBeanOperationInfo[] operations = endpoint.getOperations().stream().map(this::getMBeanOperation).toArray(ModelMBeanOperationInfo[]::new);
 		return new ModelMBeanInfoSupport(className, description, NO_ATTRIBUTES, NO_CONSTRUCTORS, operations,
 				NO_NOTIFICATIONS);
 	}
 
 	private String getDescription(ExposableJmxEndpoint endpoint) {
 		return "MBean operations for endpoint " + endpoint.getEndpointId();
-	}
-
-	private ModelMBeanOperationInfo[] getMBeanOperations(ExposableJmxEndpoint endpoint) {
-		return endpoint.getOperations().stream().map(this::getMBeanOperation).toArray(ModelMBeanOperationInfo[]::new);
 	}
 
 	private ModelMBeanOperationInfo getMBeanOperation(JmxOperation operation) {
