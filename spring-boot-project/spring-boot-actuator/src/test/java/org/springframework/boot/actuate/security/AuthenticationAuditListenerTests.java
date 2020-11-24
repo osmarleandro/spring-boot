@@ -26,6 +26,7 @@ import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.authentication.event.AbstractAuthenticationEvent;
+import org.springframework.security.authentication.event.AbstractAuthenticationFailureEvent;
 import org.springframework.security.authentication.event.AuthenticationFailureExpiredEvent;
 import org.springframework.security.authentication.event.AuthenticationSuccessEvent;
 import org.springframework.security.authentication.event.InteractiveAuthenticationSuccessEvent;
@@ -62,8 +63,18 @@ class AuthenticationAuditListenerTests {
 
 	@Test
 	void testOtherAuthenticationSuccess() {
-		this.listener.onApplicationEvent(new InteractiveAuthenticationSuccessEvent(
-				new UsernamePasswordAuthenticationToken("user", "password"), getClass()));
+		AbstractAuthenticationEvent event = new InteractiveAuthenticationSuccessEvent(
+				new UsernamePasswordAuthenticationToken("user", "password"), getClass());
+		AuthenticationAuditListener r = this.listener;
+		if (event instanceof AbstractAuthenticationFailureEvent) {
+			r.onAuthenticationFailureEvent((AbstractAuthenticationFailureEvent) event);
+		}
+		else if (r.webListener != null && r.webListener.accepts(event)) {
+			r.webListener.process(r, event);
+		}
+		else if (event instanceof AuthenticationSuccessEvent) {
+			r.onAuthenticationSuccessEvent((AuthenticationSuccessEvent) event);
+		}
 		// No need to audit this one (it shadows a regular AuthenticationSuccessEvent)
 		verify(this.publisher, never()).publishEvent(any(ApplicationEvent.class));
 	}
@@ -104,7 +115,16 @@ class AuthenticationAuditListenerTests {
 
 	private AuditApplicationEvent handleAuthenticationEvent(AbstractAuthenticationEvent event) {
 		ArgumentCaptor<AuditApplicationEvent> eventCaptor = ArgumentCaptor.forClass(AuditApplicationEvent.class);
-		this.listener.onApplicationEvent(event);
+		AuthenticationAuditListener r = this.listener;
+		if (event instanceof AbstractAuthenticationFailureEvent) {
+			r.onAuthenticationFailureEvent((AbstractAuthenticationFailureEvent) event);
+		}
+		else if (r.webListener != null && r.webListener.accepts(event)) {
+			r.webListener.process(r, event);
+		}
+		else if (event instanceof AuthenticationSuccessEvent) {
+			r.onAuthenticationSuccessEvent((AuthenticationSuccessEvent) event);
+		}
 		verify(this.publisher).publishEvent(eventCaptor.capture());
 		return eventCaptor.getValue();
 	}

@@ -61,19 +61,6 @@ public class AuthenticationAuditListener extends AbstractAuthenticationAuditList
 		return null;
 	}
 
-	@Override
-	public void onApplicationEvent(AbstractAuthenticationEvent event) {
-		if (event instanceof AbstractAuthenticationFailureEvent) {
-			onAuthenticationFailureEvent((AbstractAuthenticationFailureEvent) event);
-		}
-		else if (this.webListener != null && this.webListener.accepts(event)) {
-			this.webListener.process(this, event);
-		}
-		else if (event instanceof AuthenticationSuccessEvent) {
-			onAuthenticationSuccessEvent((AuthenticationSuccessEvent) event);
-		}
-	}
-
 	private void onAuthenticationFailureEvent(AbstractAuthenticationFailureEvent event) {
 		Map<String, Object> data = new HashMap<>();
 		data.put("type", event.getException().getClass().getName());
