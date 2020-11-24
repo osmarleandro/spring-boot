@@ -103,12 +103,6 @@ class WebClientExchangeTagsTests {
 	}
 
 	@Test
-	void statusWhenClientException() {
-		assertThat(WebClientExchangeTags.status(null, new IllegalArgumentException()))
-				.isEqualTo(Tag.of("status", "CLIENT_ERROR"));
-	}
-
-	@Test
 	void statusWhenNonStandard() {
 		given(this.response.rawStatusCode()).willReturn(490);
 		assertThat(WebClientExchangeTags.status(this.response, null)).isEqualTo(Tag.of("status", "490"));
