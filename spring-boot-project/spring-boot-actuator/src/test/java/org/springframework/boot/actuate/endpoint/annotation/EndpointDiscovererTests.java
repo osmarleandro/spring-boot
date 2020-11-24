@@ -205,16 +205,6 @@ class EndpointDiscovererTests {
 	}
 
 	@Test
-	void getEndpointsWhenHasSpecializedFiltersInSpecializedDiscovererShouldNotFilterEndpoints() {
-		load(SpecializedEndpointsConfiguration.class, (context) -> {
-			SpecializedEndpointDiscoverer discoverer = new SpecializedEndpointDiscoverer(context);
-			Map<EndpointId, SpecializedExposableEndpoint> endpoints = mapEndpoints(discoverer.getEndpoints());
-			assertThat(endpoints).containsOnlyKeys(EndpointId.of("test"), EndpointId.of("specialized"),
-					EndpointId.of("specialized-superclass"));
-		});
-	}
-
-	@Test
 	void getEndpointsShouldApplyExtensions() {
 		load(SpecializedEndpointsConfiguration.class, (context) -> {
 			SpecializedEndpointDiscoverer discoverer = new SpecializedEndpointDiscoverer(context);
