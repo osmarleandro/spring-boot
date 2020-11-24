@@ -58,18 +58,15 @@ class PlainTextThreadDumpFormatter {
 	private void writeThread(PrintWriter writer, ThreadInfo info) {
 		writer.printf("\"%s\" - Thread t@%d%n", info.getThreadName(), info.getThreadId());
 		writer.printf("   %s: %s%n", Thread.State.class.getCanonicalName(), info.getThreadState());
-		writeStackTrace(writer, info, info.getLockedMonitors());
-		writer.println();
-		writeLockedOwnableSynchronizers(writer, info);
-		writer.println();
-	}
-
-	private void writeStackTrace(PrintWriter writer, ThreadInfo info, MonitorInfo[] lockedMonitors) {
+		MonitorInfo[] lockedMonitors = info.getLockedMonitors();
 		int depth = 0;
 		for (StackTraceElement element : info.getStackTrace()) {
 			writeStackTraceElement(writer, element, info, lockedMonitorsForDepth(lockedMonitors, depth), depth == 0);
 			depth++;
 		}
+		writer.println();
+		writeLockedOwnableSynchronizers(writer, info);
+		writer.println();
 	}
 
 	private List<MonitorInfo> lockedMonitorsForDepth(MonitorInfo[] lockedMonitors, int depth) {
