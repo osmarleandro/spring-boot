@@ -44,13 +44,6 @@ class HealthTests {
 	}
 
 	@Test
-	void createWithStatus() {
-		Health health = Health.status(Status.UP).build();
-		assertThat(health.getStatus()).isEqualTo(Status.UP);
-		assertThat(health.getDetails()).isEmpty();
-	}
-
-	@Test
 	void createWithDetails() {
 		Health health = new Health.Builder(Status.UP, Collections.singletonMap("a", "b")).build();
 		assertThat(health.getStatus()).isEqualTo(Status.UP);
