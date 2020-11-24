@@ -113,17 +113,6 @@ class WebEndpointDiscovererTests {
 	}
 
 	@Test
-	void getEndpointsWhenPredicateForWriteOperationThatReturnsVoidShouldHaveNoProducedMediaTypes() {
-		load(VoidWriteOperationEndpointConfiguration.class, (discoverer) -> {
-			Map<EndpointId, ExposableWebEndpoint> endpoints = mapEndpoints(discoverer.getEndpoints());
-			assertThat(endpoints).containsOnlyKeys(EndpointId.of("voidwrite"));
-			ExposableWebEndpoint endpoint = endpoints.get(EndpointId.of("voidwrite"));
-			assertThat(requestPredicates(endpoint)).has(requestPredicates(
-					path("voidwrite").httpMethod(WebEndpointHttpMethod.POST).produces().consumes("application/json")));
-		});
-	}
-
-	@Test
 	void getEndpointsWhenTwoExtensionsHaveTheSameEndpointTypeShouldThrowException() {
 		load(ClashingWebEndpointConfiguration.class,
 				(discoverer) -> assertThatIllegalStateException().isThrownBy(discoverer::getEndpoints)
