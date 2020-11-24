@@ -74,18 +74,6 @@ class LiquibaseEndpointTests {
 	}
 
 	@Test
-	void invokeWithCustomSchema() {
-		this.contextRunner.withUserConfiguration(Config.class)
-				.withPropertyValues("spring.liquibase.default-schema=CUSTOMSCHEMA",
-						"spring.datasource.schema=classpath:/db/create-custom-schema.sql")
-				.run((context) -> {
-					Map<String, LiquibaseBean> liquibaseBeans = context.getBean(LiquibaseEndpoint.class)
-							.liquibaseBeans().getContexts().get(context.getId()).getLiquibaseBeans();
-					assertThat(liquibaseBeans.get("liquibase").getChangeSets()).hasSize(1);
-				});
-	}
-
-	@Test
 	void invokeWithCustomTables() {
 		this.contextRunner.withUserConfiguration(Config.class)
 				.withPropertyValues("spring.liquibase.database-change-log-lock-table=liquibase_database_changelog_lock",
