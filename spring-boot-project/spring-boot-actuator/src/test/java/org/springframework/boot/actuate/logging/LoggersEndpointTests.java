@@ -79,27 +79,6 @@ class LoggersEndpointTests {
 	}
 
 	@Test
-	@SuppressWarnings("unchecked")
-	void loggersShouldReturnLoggerConfigurationsWithLoggerGroups() {
-		given(this.loggingSystem.getLoggerConfigurations())
-				.willReturn(Collections.singletonList(new LoggerConfiguration("ROOT", null, LogLevel.DEBUG)));
-		given(this.loggingSystem.getSupportedLogLevels()).willReturn(EnumSet.allOf(LogLevel.class));
-		Map<String, Object> result = new LoggersEndpoint(this.loggingSystem, this.loggerGroups).loggers();
-		Map<String, GroupLoggerLevels> loggerGroups = (Map<String, GroupLoggerLevels>) result.get("groups");
-		GroupLoggerLevels groupLevel = loggerGroups.get("test");
-		Map<String, LoggerLevels> loggers = (Map<String, LoggerLevels>) result.get("loggers");
-		Set<LogLevel> levels = (Set<LogLevel>) result.get("levels");
-		SingleLoggerLevels rootLevels = (SingleLoggerLevels) loggers.get("ROOT");
-		assertThat(rootLevels.getConfiguredLevel()).isNull();
-		assertThat(rootLevels.getEffectiveLevel()).isEqualTo("DEBUG");
-		assertThat(levels).containsExactly(LogLevel.OFF, LogLevel.FATAL, LogLevel.ERROR, LogLevel.WARN, LogLevel.INFO,
-				LogLevel.DEBUG, LogLevel.TRACE);
-		assertThat(loggerGroups).isNotNull();
-		assertThat(groupLevel.getConfiguredLevel()).isEqualTo("DEBUG");
-		assertThat(groupLevel.getMembers()).containsExactly("test.member");
-	}
-
-	@Test
 	void loggerLevelsWhenNameSpecifiedShouldReturnLevels() {
 		given(this.loggingSystem.getLoggerConfiguration("ROOT"))
 				.willReturn(new LoggerConfiguration("ROOT", null, LogLevel.DEBUG));
