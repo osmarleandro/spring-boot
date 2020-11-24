@@ -232,15 +232,6 @@ class HttpExchangeTracerTests {
 	}
 
 	@Test
-	void principalCanBeIncluded() {
-		HttpTrace trace = new HttpTrace(createRequest());
-		new HttpExchangeTracer(EnumSet.of(Include.PRINCIPAL)).sendingResponse(trace, createResponse(),
-				this::createPrincipal, null);
-		assertThat(trace.getPrincipal()).isNotNull();
-		assertThat(trace.getPrincipal().getName()).isEqualTo("alice");
-	}
-
-	@Test
 	void sessionIdIsNotIncludedByDefault() {
 		HttpTrace trace = new HttpTrace(createRequest());
 		new HttpExchangeTracer(EnumSet.noneOf(Include.class)).sendingResponse(trace, createResponse(), null,
