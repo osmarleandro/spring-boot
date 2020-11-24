@@ -34,16 +34,6 @@ public interface CompositeReactiveHealthContributor
 	/**
 	 * Factory method that will create a {@link CompositeReactiveHealthContributor} from
 	 * the specified map.
-	 * @param map the source map
-	 * @return a composite health contributor instance
-	 */
-	static CompositeReactiveHealthContributor fromMap(Map<String, ? extends ReactiveHealthContributor> map) {
-		return fromMap(map, Function.identity());
-	}
-
-	/**
-	 * Factory method that will create a {@link CompositeReactiveHealthContributor} from
-	 * the specified map.
 	 * @param <V> the value type
 	 * @param map the source map
 	 * @param valueAdapter function used to adapt the map value

@@ -18,6 +18,7 @@ package org.springframework.boot.actuate.health;
 
 import java.util.Collections;
 import java.util.Map;
+import java.util.function.Function;
 
 import org.junit.jupiter.api.Test;
 import reactor.core.publisher.Mono;
@@ -99,7 +100,7 @@ class ReactiveHealthEndpointWebExtensionTests extends
 	@Override
 	protected ReactiveHealthContributor createCompositeContributor(
 			Map<String, ReactiveHealthContributor> contributors) {
-		return CompositeReactiveHealthContributor.fromMap(contributors);
+		return CompositeReactiveHealthContributor.fromMap(contributors, Function.identity());
 	}
 
 	@Override

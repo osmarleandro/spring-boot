@@ -18,6 +18,7 @@ package org.springframework.boot.actuate.health;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.function.Function;
 
 import org.junit.jupiter.api.Test;
 import reactor.core.publisher.Mono;
@@ -36,7 +37,7 @@ class CompositeReactiveHealthContributorTests {
 		Map<String, ReactiveHealthContributor> map = new LinkedHashMap<>();
 		ReactiveHealthIndicator indicator = () -> Mono.just(Health.down().build());
 		map.put("test", indicator);
-		CompositeReactiveHealthContributor composite = CompositeReactiveHealthContributor.fromMap(map);
+		CompositeReactiveHealthContributor composite = CompositeReactiveHealthContributor.fromMap(map, Function.identity());
 		assertThat(composite).isInstanceOf(CompositeReactiveHealthContributorMapAdapter.class);
 		NamedContributor<ReactiveHealthContributor> namedContributor = composite.iterator().next();
 		assertThat(namedContributor.getName()).isEqualTo("test");
