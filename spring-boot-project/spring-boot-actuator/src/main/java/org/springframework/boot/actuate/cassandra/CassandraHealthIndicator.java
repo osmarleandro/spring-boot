@@ -56,10 +56,4 @@ public class CassandraHealthIndicator extends AbstractHealthIndicator {
 		this.cassandraOperations = cassandraOperations;
 	}
 
-	@Override
-	protected void doHealthCheck(Health.Builder builder) throws Exception {
-		String version = this.cassandraOperations.getCqlOperations().queryForObject(SELECT, String.class);
-		builder.up().withDetail("version", version);
-	}
-
 }
