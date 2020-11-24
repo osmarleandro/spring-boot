@@ -46,7 +46,8 @@ public class SimpleStatusAggregator implements StatusAggregator {
 		defaultOrder.add(Status.OUT_OF_SERVICE.getCode());
 		defaultOrder.add(Status.UP.getCode());
 		defaultOrder.add(Status.UNKNOWN.getCode());
-		DEFAULT_ORDER = Collections.unmodifiableList(getUniformCodes(defaultOrder.stream()));
+		Stream<String> codes = defaultOrder.stream();
+		DEFAULT_ORDER = Collections.unmodifiableList(codes.map(SimpleStatusAggregator::getUniformCode).collect(Collectors.toList()));
 		INSTANCE = new SimpleStatusAggregator();
 	}
 
@@ -59,16 +60,19 @@ public class SimpleStatusAggregator implements StatusAggregator {
 	}
 
 	public SimpleStatusAggregator(Status... order) {
+		Stream<String> codes = Arrays.stream(order).map(Status::getCode);
 		this.order = ObjectUtils.isEmpty(order) ? DEFAULT_ORDER
-				: getUniformCodes(Arrays.stream(order).map(Status::getCode));
+				: codes.map(SimpleStatusAggregator::getUniformCode).collect(Collectors.toList());
 	}
 
 	public SimpleStatusAggregator(String... order) {
-		this.order = ObjectUtils.isEmpty(order) ? DEFAULT_ORDER : getUniformCodes(Arrays.stream(order));
+		Stream<String> codes = Arrays.stream(order);
+		this.order = ObjectUtils.isEmpty(order) ? DEFAULT_ORDER : codes.map(SimpleStatusAggregator::getUniformCode).collect(Collectors.toList());
 	}
 
 	public SimpleStatusAggregator(List<String> order) {
-		this.order = CollectionUtils.isEmpty(order) ? DEFAULT_ORDER : getUniformCodes(order.stream());
+		Stream<String> codes = order.stream();
+		this.order = CollectionUtils.isEmpty(order) ? DEFAULT_ORDER : codes.map(SimpleStatusAggregator::getUniformCode).collect(Collectors.toList());
 	}
 
 	@Override
@@ -78,10 +82,6 @@ public class SimpleStatusAggregator implements StatusAggregator {
 
 	private boolean contains(Status status) {
 		return this.order.contains(getUniformCode(status.getCode()));
-	}
-
-	private static List<String> getUniformCodes(Stream<String> codes) {
-		return codes.map(SimpleStatusAggregator::getUniformCode).collect(Collectors.toList());
 	}
 
 	private static String getUniformCode(String code) {
