@@ -67,11 +67,7 @@ public class RedisReactiveHealthIndicator extends AbstractReactiveHealthIndicato
 			return ((ReactiveRedisClusterConnection) connection).clusterGetClusterInfo()
 					.map((info) -> up(builder, info));
 		}
-		return connection.serverCommands().info().map((info) -> up(builder, info));
-	}
-
-	private Health up(Health.Builder builder, Properties info) {
-		return RedisHealth.up(builder, info).build();
+		return connection.serverCommands().info().map((info) -> RedisHealth.up(builder, info).build());
 	}
 
 	private Health up(Health.Builder builder, ClusterInfo clusterInfo) {
