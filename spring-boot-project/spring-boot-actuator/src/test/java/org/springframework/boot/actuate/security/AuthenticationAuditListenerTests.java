@@ -84,13 +84,6 @@ class AuthenticationAuditListenerTests {
 	}
 
 	@Test
-	void testAuthenticationSwitchBackToAnonymous() {
-		AuditApplicationEvent event = handleAuthenticationEvent(
-				new AuthenticationSwitchUserEvent(new UsernamePasswordAuthenticationToken("user", "password"), null));
-		assertThat(event.getAuditEvent().getType()).isEqualTo(AuthenticationAuditListener.AUTHENTICATION_SWITCH);
-	}
-
-	@Test
 	void testDetailsAreIncludedInAuditEvent() {
 		Object details = new Object();
 		UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken("user",
