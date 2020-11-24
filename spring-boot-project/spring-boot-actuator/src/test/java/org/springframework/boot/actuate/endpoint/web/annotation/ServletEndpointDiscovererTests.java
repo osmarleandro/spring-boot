@@ -66,18 +66,6 @@ class ServletEndpointDiscovererTests {
 	}
 
 	@Test
-	void getEndpointsShouldIncludeServletEndpoints() {
-		this.contextRunner.withUserConfiguration(TestServletEndpoint.class).run(assertDiscoverer((discoverer) -> {
-			Collection<ExposableServletEndpoint> endpoints = discoverer.getEndpoints();
-			assertThat(endpoints).hasSize(1);
-			ExposableServletEndpoint endpoint = endpoints.iterator().next();
-			assertThat(endpoint.getEndpointId()).isEqualTo(EndpointId.of("testservlet"));
-			assertThat(endpoint.getEndpointServlet()).isNotNull();
-			assertThat(endpoint).isInstanceOf(DiscoveredEndpoint.class);
-		}));
-	}
-
-	@Test
 	void getEndpointsShouldDiscoverProxyServletEndpoints() {
 		this.contextRunner.withUserConfiguration(TestProxyServletEndpoint.class)
 				.withConfiguration(AutoConfigurations.of(ValidationAutoConfiguration.class))
