@@ -45,12 +45,6 @@ public class LdapHealthIndicator extends AbstractHealthIndicator {
 		this.ldapOperations = ldapOperations;
 	}
 
-	@Override
-	protected void doHealthCheck(Health.Builder builder) throws Exception {
-		String version = this.ldapOperations.executeReadOnly(versionContextExecutor);
-		builder.up().withDetail("version", version);
-	}
-
 	private static class VersionContextExecutor implements ContextExecutor<String> {
 
 		@Override
