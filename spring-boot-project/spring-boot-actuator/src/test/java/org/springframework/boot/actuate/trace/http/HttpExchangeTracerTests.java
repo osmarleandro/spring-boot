@@ -107,14 +107,6 @@ class HttpExchangeTracerTests {
 	}
 
 	@Test
-	void mixedCaseAuthorizationHeaderIsNotIncludedByDefault() {
-		HttpTrace trace = new HttpExchangeTracer(EnumSet.of(Include.REQUEST_HEADERS)).receivedRequest(
-				createRequest(Collections.singletonMap(mixedCase(HttpHeaders.AUTHORIZATION), Arrays.asList("secret"))));
-		Request request = trace.getRequest();
-		assertThat(request.getHeaders()).isEmpty();
-	}
-
-	@Test
 	void authorizationHeaderCanBeIncluded() {
 		HttpTrace trace = new HttpExchangeTracer(EnumSet.of(Include.REQUEST_HEADERS, Include.AUTHORIZATION_HEADER))
 				.receivedRequest(
