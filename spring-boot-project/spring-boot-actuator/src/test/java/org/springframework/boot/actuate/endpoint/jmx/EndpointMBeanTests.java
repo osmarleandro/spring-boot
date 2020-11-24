@@ -110,15 +110,6 @@ class EndpointMBeanTests {
 	}
 
 	@Test
-	void invokeWhenActionNameIsNotAnOperationShouldThrowException() throws MBeanException, ReflectionException {
-		EndpointMBean bean = createEndpointMBean();
-		assertThatExceptionOfType(ReflectionException.class)
-				.isThrownBy(() -> bean.invoke("missingOperation", NO_PARAMS, NO_SIGNATURE))
-				.withCauseInstanceOf(IllegalArgumentException.class)
-				.withMessageContaining("no operation named missingOperation");
-	}
-
-	@Test
 	void invokeShouldInvokeJmxOperationWithBeanClassLoader() throws ReflectionException, MBeanException {
 		ClassLoader originalClassLoader = Thread.currentThread().getContextClassLoader();
 		TestExposableJmxEndpoint endpoint = new TestExposableJmxEndpoint(
