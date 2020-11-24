@@ -50,12 +50,6 @@ class EnvironmentEndpointWebIntegrationTests {
 	}
 
 	@WebEndpointTest
-	void sub() {
-		this.client.get().uri("/actuator/env/foo").exchange().expectStatus().isOk().expectBody()
-				.jsonPath("property.source").isEqualTo("test").jsonPath("property.value").isEqualTo("bar");
-	}
-
-	@WebEndpointTest
 	void regex() {
 		Map<String, Object> map = new HashMap<>();
 		map.put("food", null);
