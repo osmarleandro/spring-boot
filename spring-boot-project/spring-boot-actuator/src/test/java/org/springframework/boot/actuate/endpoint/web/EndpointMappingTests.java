@@ -33,11 +33,6 @@ class EndpointMappingTests {
 	}
 
 	@Test
-	void normalizationLeavesAnEmptyStringAsIs() {
-		assertThat(new EndpointMapping("").getPath()).isEqualTo("");
-	}
-
-	@Test
 	void normalizationRemovesATrailingSlash() {
 		assertThat(new EndpointMapping("/test/").getPath()).isEqualTo("/test");
 	}
