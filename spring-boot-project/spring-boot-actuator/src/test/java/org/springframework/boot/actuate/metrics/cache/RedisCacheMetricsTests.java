@@ -75,19 +75,6 @@ class RedisCacheMetricsTests {
 	}
 
 	@Test
-	void cacheHitsAreExposed() {
-		this.contextRunner.run(withCacheMetrics((cache, meterRegistry) -> {
-			String key = UUID.randomUUID().toString();
-			cache.put(key, "test");
-
-			cache.get(key);
-			cache.get(key);
-			assertThat(meterRegistry.get("cache.gets").tags(TAGS.and("result", "hit")).functionCounter().count())
-					.isEqualTo(2.0d);
-		}));
-	}
-
-	@Test
 	void cacheMissesAreExposed() {
 		this.contextRunner.run(withCacheMetrics((cache, meterRegistry) -> {
 			String key = UUID.randomUUID().toString();
