@@ -80,26 +80,26 @@ public class MetricsWebFilter implements WebFilter {
 	}
 
 	private void onSuccess(ServerWebExchange exchange, long start) {
-		record(exchange, start, null);
+		Iterable<Tag> tags = this.tagsProvider.httpRequestTags(exchange, null);
+		this.autoTimer.builder(this.metricName).tags(tags).register(this.registry).record(System.nanoTime() - start,
+				TimeUnit.NANOSECONDS);
 	}
 
 	private void onError(ServerWebExchange exchange, long start, Throwable cause) {
 		ServerHttpResponse response = exchange.getResponse();
 		if (response.isCommitted()) {
-			record(exchange, start, cause);
+			Iterable<Tag> tags = this.tagsProvider.httpRequestTags(exchange, cause);
+			this.autoTimer.builder(this.metricName).tags(tags).register(this.registry).record(System.nanoTime() - start,
+					TimeUnit.NANOSECONDS);
 		}
 		else {
 			response.beforeCommit(() -> {
-				record(exchange, start, cause);
+				Iterable<Tag> tags = this.tagsProvider.httpRequestTags(exchange, cause);
+				this.autoTimer.builder(this.metricName).tags(tags).register(this.registry).record(System.nanoTime() - start,
+						TimeUnit.NANOSECONDS);
 				return Mono.empty();
 			});
 		}
-	}
-
-	private void record(ServerWebExchange exchange, long start, Throwable cause) {
-		Iterable<Tag> tags = this.tagsProvider.httpRequestTags(exchange, cause);
-		this.autoTimer.builder(this.metricName).tags(tags).register(this.registry).record(System.nanoTime() - start,
-				TimeUnit.NANOSECONDS);
 	}
 
 }
