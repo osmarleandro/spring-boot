@@ -179,7 +179,19 @@ public class EnvironmentEndpoint {
 	}
 
 	public Object sanitize(String name, Object object) {
-		return this.sanitizer.sanitize(name, object);
+		Sanitizer r = this.sanitizer;
+		if (object == null) {
+			return null;
+		}
+		for (Pattern pattern : r.keysToSanitize) {
+			if (pattern.matcher(name).matches()) {
+				if (r.keyIsUriWithUserInfo(pattern)) {
+					return r.sanitizeUris(object.toString());
+				}
+				return "******";
+			}
+		}
+		return object;
 	}
 
 	/**
