@@ -88,10 +88,6 @@ public final class HttpTrace {
 		}
 	}
 
-	public Principal getPrincipal() {
-		return this.principal;
-	}
-
 	public Session getSession() {
 		return this.session;
 	}
