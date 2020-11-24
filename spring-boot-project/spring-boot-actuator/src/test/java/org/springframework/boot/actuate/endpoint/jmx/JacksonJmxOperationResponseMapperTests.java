@@ -87,11 +87,6 @@ class JacksonJmxOperationResponseMapperTests {
 	}
 
 	@Test
-	void mapResponseWhenNullShouldReturnNull() {
-		assertThat(this.mapper.mapResponse(null)).isNull();
-	}
-
-	@Test
 	void mapResponseWhenCharSequenceShouldReturnString() {
 		assertThat(this.mapper.mapResponse(new StringBuilder("test"))).isEqualTo("test");
 	}
