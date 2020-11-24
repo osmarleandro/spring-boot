@@ -43,8 +43,4 @@ public class DispatcherServletMappingDetails {
 		return this.requestMappingConditions;
 	}
 
-	void setRequestMappingConditions(RequestMappingConditionsDescription requestMappingConditions) {
-		this.requestMappingConditions = requestMappingConditions;
-	}
-
 }
