@@ -164,21 +164,6 @@ abstract class HealthEndpointSupportTests<R extends ContributorRegistry<C>, C, T
 	}
 
 	@Test
-	void getHealthWhenCompositeReturnsAggregateResult() {
-		Map<String, C> contributors = new LinkedHashMap<>();
-		contributors.put("a", createContributor(this.up));
-		contributors.put("b", createContributor(this.down));
-		this.registry.registerContributor("test", createCompositeContributor(contributors));
-		HealthResult<T> result = create(this.registry, this.groups).getHealth(ApiVersion.V3, SecurityContext.NONE,
-				false);
-		CompositeHealth root = (CompositeHealth) getHealth(result);
-		CompositeHealth component = (CompositeHealth) root.getComponents().get("test");
-		assertThat(root.getStatus()).isEqualTo(Status.DOWN);
-		assertThat(component.getStatus()).isEqualTo(Status.DOWN);
-		assertThat(component.getComponents()).containsOnlyKeys("a", "b");
-	}
-
-	@Test
 	void getHealthWhenPathDoesNotExistReturnsNull() {
 		HealthResult<T> result = create(this.registry, this.groups).getHealth(ApiVersion.V3, SecurityContext.NONE,
 				false, "missing");
