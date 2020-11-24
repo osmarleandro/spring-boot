@@ -180,22 +180,6 @@ class CachingOperationInvokerTests {
 	}
 
 	@Test
-	void targetInvokedWhenCacheExpires() throws InterruptedException {
-		OperationInvoker target = mock(OperationInvoker.class);
-		Map<String, Object> parameters = new HashMap<>();
-		InvocationContext context = new InvocationContext(mock(SecurityContext.class), parameters);
-		given(target.invoke(context)).willReturn(new Object());
-		CachingOperationInvoker invoker = new CachingOperationInvoker(target, 50L);
-		invoker.invoke(context);
-		long expired = System.currentTimeMillis() + 50;
-		while (System.currentTimeMillis() < expired) {
-			Thread.sleep(10);
-		}
-		invoker.invoke(context);
-		verify(target, times(2)).invoke(context);
-	}
-
-	@Test
 	void targetInvokedWithDifferentApiVersion() {
 		OperationInvoker target = mock(OperationInvoker.class);
 		Object expectedV2 = new Object();
