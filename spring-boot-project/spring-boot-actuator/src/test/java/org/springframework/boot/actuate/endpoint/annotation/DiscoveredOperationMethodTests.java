@@ -53,7 +53,4 @@ class DiscoveredOperationMethodTests {
 		assertThat(discovered.getProducesMediaTypes()).containsExactly("application/json");
 	}
 
-	void example() {
-	}
-
 }
