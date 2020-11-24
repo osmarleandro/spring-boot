@@ -28,13 +28,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 class WebEndpointResponseTests {
 
 	@Test
-	void createWithNoParamsShouldReturn200() {
-		WebEndpointResponse<Object> response = new WebEndpointResponse<>();
-		assertThat(response.getStatus()).isEqualTo(200);
-		assertThat(response.getBody()).isNull();
-	}
-
-	@Test
 	void createWithStatusShouldReturnStatus() {
 		WebEndpointResponse<Object> response = new WebEndpointResponse<>(404);
 		assertThat(response.getStatus()).isEqualTo(404);
