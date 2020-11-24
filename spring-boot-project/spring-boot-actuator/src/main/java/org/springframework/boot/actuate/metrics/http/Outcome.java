@@ -63,14 +63,6 @@ public enum Outcome {
 	}
 
 	/**
-	 * Returns the {@code Outcome} as a {@link Tag} named {@code outcome}.
-	 * @return the {@code outcome} {@code Tag}
-	 */
-	public Tag asTag() {
-		return this.tag;
-	}
-
-	/**
 	 * Return the {@code Outcome} for the given HTTP {@code status} code.
 	 * @param status the HTTP status code
 	 * @return the matching Outcome

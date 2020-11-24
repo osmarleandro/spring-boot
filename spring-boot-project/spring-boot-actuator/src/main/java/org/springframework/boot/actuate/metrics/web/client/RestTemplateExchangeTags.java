@@ -128,13 +128,13 @@ public final class RestTemplateExchangeTags {
 	public static Tag outcome(ClientHttpResponse response) {
 		try {
 			if (response != null) {
-				return Outcome.forStatus(response.getRawStatusCode()).asTag();
+				return Outcome.forStatus(response.getRawStatusCode()).tag;
 			}
 		}
 		catch (IOException ex) {
 			// Continue
 		}
-		return Outcome.UNKNOWN.asTag();
+		return Outcome.UNKNOWN.tag;
 	}
 
 }
