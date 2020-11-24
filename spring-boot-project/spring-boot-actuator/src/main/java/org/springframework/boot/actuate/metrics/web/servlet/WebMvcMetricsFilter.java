@@ -33,6 +33,7 @@ import io.micrometer.core.instrument.Timer.Builder;
 import io.micrometer.core.instrument.Timer.Sample;
 
 import org.springframework.boot.actuate.metrics.AutoTimer;
+import org.springframework.boot.actuate.metrics.web.servlet.WebMvcMetricsFilter.TimingContext;
 import org.springframework.core.annotation.MergedAnnotationCollectors;
 import org.springframework.core.annotation.MergedAnnotations;
 import org.springframework.http.HttpStatus;
@@ -87,7 +88,10 @@ public class WebMvcMetricsFilter extends OncePerRequestFilter {
 			throws ServletException, IOException {
 		TimingContext timingContext = TimingContext.get(request);
 		if (timingContext == null) {
-			timingContext = startAndAttachTimingContext(request);
+			Timer.Sample timerSample = Timer.start(this.registry);
+			TimingContext timingContext1 = new TimingContext(timerSample);
+			timingContext1.attachTo(request);
+			timingContext = timingContext1;
 		}
 		try {
 			filterChain.doFilter(request, response);
@@ -109,13 +113,6 @@ public class WebMvcMetricsFilter extends OncePerRequestFilter {
 			record(timingContext, request, response, ex);
 			throw ex;
 		}
-	}
-
-	private TimingContext startAndAttachTimingContext(HttpServletRequest request) {
-		Timer.Sample timerSample = Timer.start(this.registry);
-		TimingContext timingContext = new TimingContext(timerSample);
-		timingContext.attachTo(request);
-		return timingContext;
 	}
 
 	private void record(TimingContext timingContext, HttpServletRequest request, HttpServletResponse response,
