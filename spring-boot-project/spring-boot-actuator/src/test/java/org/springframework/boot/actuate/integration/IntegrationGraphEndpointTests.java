@@ -41,7 +41,7 @@ class IntegrationGraphEndpointTests {
 	void readOperationShouldReturnGraph() {
 		Graph mockedGraph = mock(Graph.class);
 		given(this.server.getGraph()).willReturn(mockedGraph);
-		Graph graph = this.endpoint.graph();
+		Graph graph = this.endpoint.graphServer.getGraph();
 		verify(this.server).getGraph();
 		assertThat(graph).isEqualTo(mockedGraph);
 	}
