@@ -78,17 +78,6 @@ class HealthEndpointWebIntegrationTests {
 	}
 
 	@WebEndpointTest
-	void whenHealthIsDown503ResponseIsReturned(ApplicationContext context, WebTestClient client) {
-		HealthIndicator healthIndicator = () -> Health.down().build();
-		ReactiveHealthIndicator reactiveHealthIndicator = () -> Mono.just(Health.down().build());
-		withHealthContributor(context, "charlie", healthIndicator, reactiveHealthIndicator,
-				() -> client.get().uri("/actuator/health").accept(MediaType.APPLICATION_JSON).exchange().expectStatus()
-						.isEqualTo(HttpStatus.SERVICE_UNAVAILABLE).expectBody().jsonPath("status").isEqualTo("DOWN")
-						.jsonPath("components.alpha.status").isEqualTo("UP").jsonPath("components.bravo.status")
-						.isEqualTo("UP").jsonPath("components.charlie.status").isEqualTo("DOWN"));
-	}
-
-	@WebEndpointTest
 	void whenComponentHealthIsDown503ResponseIsReturned(ApplicationContext context, WebTestClient client) {
 		HealthIndicator healthIndicator = () -> Health.down().build();
 		ReactiveHealthIndicator reactiveHealthIndicator = () -> Mono.just(Health.down().build());
