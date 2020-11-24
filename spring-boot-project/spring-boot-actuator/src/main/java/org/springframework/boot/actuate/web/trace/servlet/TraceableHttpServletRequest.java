@@ -72,15 +72,6 @@ final class TraceableHttpServletRequest implements TraceableRequest {
 
 	@Override
 	public Map<String, List<String>> getHeaders() {
-		return extractHeaders();
-	}
-
-	@Override
-	public String getRemoteAddress() {
-		return this.request.getRemoteAddr();
-	}
-
-	private Map<String, List<String>> extractHeaders() {
 		Map<String, List<String>> headers = new LinkedHashMap<>();
 		Enumeration<String> names = this.request.getHeaderNames();
 		while (names.hasMoreElements()) {
@@ -88,6 +79,11 @@ final class TraceableHttpServletRequest implements TraceableRequest {
 			headers.put(name, Collections.list(this.request.getHeaders(name)));
 		}
 		return headers;
+	}
+
+	@Override
+	public String getRemoteAddress() {
+		return this.request.getRemoteAddr();
 	}
 
 }
