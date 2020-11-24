@@ -118,8 +118,10 @@ class PrometheusPushGatewayManagerTests {
 
 	@Test
 	void shutdownWhenOwnsSchedulerDoesShutdownScheduler() {
-		PushGatewayTaskScheduler ownedScheduler = givenScheduleAtFixedRateWillReturnFuture(
-				mock(PushGatewayTaskScheduler.class));
+		T scheduler = mock(PushGatewayTaskScheduler.class);
+		given(scheduler.scheduleAtFixedRate(isA(Runnable.class), isA(Duration.class)))
+		.willReturn((ScheduledFuture) this.future);
+		PushGatewayTaskScheduler ownedScheduler = scheduler;
 		PrometheusPushGatewayManager manager = new PrometheusPushGatewayManager(this.pushGateway, this.registry,
 				ownedScheduler, this.pushRate, "job", this.groupingKey, null);
 		manager.shutdown();
@@ -128,8 +130,10 @@ class PrometheusPushGatewayManagerTests {
 
 	@Test
 	void shutdownWhenDoesNotOwnSchedulerDoesNotShutdownScheduler() {
-		ThreadPoolTaskScheduler otherScheduler = givenScheduleAtFixedRateWillReturnFuture(
-				mock(ThreadPoolTaskScheduler.class));
+		T scheduler = mock(ThreadPoolTaskScheduler.class);
+		given(scheduler.scheduleAtFixedRate(isA(Runnable.class), isA(Duration.class)))
+		.willReturn((ScheduledFuture) this.future);
+		ThreadPoolTaskScheduler otherScheduler = scheduler;
 		PrometheusPushGatewayManager manager = new PrometheusPushGatewayManager(this.pushGateway, this.registry,
 				otherScheduler, this.pushRate, "job", this.groupingKey, null);
 		manager.shutdown();
@@ -188,14 +192,8 @@ class PrometheusPushGatewayManagerTests {
 	}
 
 	private void givenScheduleAtFixedRateWithReturnFuture() {
-		givenScheduleAtFixedRateWillReturnFuture(this.scheduler);
-	}
-
-	@SuppressWarnings({ "unchecked", "rawtypes" })
-	private <T extends TaskScheduler> T givenScheduleAtFixedRateWillReturnFuture(T scheduler) {
-		given(scheduler.scheduleAtFixedRate(isA(Runnable.class), isA(Duration.class)))
-				.willReturn((ScheduledFuture) this.future);
-		return scheduler;
+		given(this.scheduler.scheduleAtFixedRate(isA(Runnable.class), isA(Duration.class)))
+		.willReturn((ScheduledFuture) this.future);
 	}
 
 }
