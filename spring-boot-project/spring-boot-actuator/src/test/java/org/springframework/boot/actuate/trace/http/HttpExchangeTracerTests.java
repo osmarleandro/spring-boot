@@ -52,13 +52,6 @@ class HttpExchangeTracerTests {
 	}
 
 	@Test
-	void uriIsIncluded() {
-		HttpTrace trace = new HttpExchangeTracer(EnumSet.noneOf(Include.class)).receivedRequest(createRequest());
-		Request request = trace.getRequest();
-		assertThat(request.getUri()).isEqualTo(URI.create("https://api.example.com"));
-	}
-
-	@Test
 	void remoteAddressIsNotIncludedByDefault() {
 		HttpTrace trace = new HttpExchangeTracer(EnumSet.noneOf(Include.class)).receivedRequest(createRequest());
 		Request request = trace.getRequest();
