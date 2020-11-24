@@ -143,8 +143,8 @@ class JmxEndpointDiscovererTests {
 					endpoints.get(EndpointId.of("test")).getOperations());
 			assertThat(operationByName).containsOnlyKeys("getAll", "getSomething", "update", "deleteSomething");
 			JmxOperation getAll = operationByName.get("getAll");
-			assertThat(getInvoker(getAll)).isInstanceOf(CachingOperationInvoker.class);
-			assertThat(((CachingOperationInvoker) getInvoker(getAll)).getTimeToLive()).isEqualTo(500);
+			assertThat(ReflectionTestUtils.getField(getAll, "invoker")).isInstanceOf(CachingOperationInvoker.class);
+			assertThat(((CachingOperationInvoker) ReflectionTestUtils.getField(getAll, "invoker")).getTimeToLive()).isEqualTo(500);
 		});
 	}
 
@@ -158,11 +158,11 @@ class JmxEndpointDiscovererTests {
 			assertThat(operationByName).containsOnlyKeys("getAll", "getSomething", "update", "deleteSomething",
 					"getAnother");
 			JmxOperation getAll = operationByName.get("getAll");
-			assertThat(getInvoker(getAll)).isInstanceOf(CachingOperationInvoker.class);
-			assertThat(((CachingOperationInvoker) getInvoker(getAll)).getTimeToLive()).isEqualTo(500);
+			assertThat(ReflectionTestUtils.getField(getAll, "invoker")).isInstanceOf(CachingOperationInvoker.class);
+			assertThat(((CachingOperationInvoker) ReflectionTestUtils.getField(getAll, "invoker")).getTimeToLive()).isEqualTo(500);
 			JmxOperation getAnother = operationByName.get("getAnother");
-			assertThat(getInvoker(getAnother)).isInstanceOf(CachingOperationInvoker.class);
-			assertThat(((CachingOperationInvoker) getInvoker(getAnother)).getTimeToLive()).isEqualTo(500);
+			assertThat(ReflectionTestUtils.getField(getAnother, "invoker")).isInstanceOf(CachingOperationInvoker.class);
+			assertThat(((CachingOperationInvoker) ReflectionTestUtils.getField(getAnother, "invoker")).getTimeToLive()).isEqualTo(500);
 		});
 	}
 
@@ -199,10 +199,6 @@ class JmxEndpointDiscovererTests {
 		load(InvalidJmxExtensionConfiguration.class, (discoverer) -> assertThatIllegalStateException()
 				.isThrownBy(discoverer::getEndpoints).withMessageContaining(
 						"Endpoint bean 'nonJmxEndpoint' cannot support the extension bean 'nonJmxJmxEndpointExtension'"));
-	}
-
-	private Object getInvoker(JmxOperation operation) {
-		return ReflectionTestUtils.getField(operation, "invoker");
 	}
 
 	private void assertJmxTestEndpoint(ExposableJmxEndpoint endpoint) {
