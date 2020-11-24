@@ -64,9 +64,4 @@ public class JmxEndpointDiscoverer extends EndpointDiscoverer<ExposableJmxEndpoi
 		return new DiscoveredJmxOperation(endpointId, operationMethod, invoker);
 	}
 
-	@Override
-	protected OperationKey createOperationKey(JmxOperation operation) {
-		return new OperationKey(operation.getName(), () -> "MBean call '" + operation.getName() + "'");
-	}
-
 }
