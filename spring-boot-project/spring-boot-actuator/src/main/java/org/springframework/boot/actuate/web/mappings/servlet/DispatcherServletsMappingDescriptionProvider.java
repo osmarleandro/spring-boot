@@ -62,11 +62,6 @@ public class DispatcherServletsMappingDescriptionProvider implements MappingDesc
 	}
 
 	@Override
-	public String getMappingName() {
-		return "dispatcherServlets";
-	}
-
-	@Override
 	public Map<String, List<DispatcherServletMappingDescription>> describeMappings(ApplicationContext context) {
 		if (context instanceof WebApplicationContext) {
 			return describeMappings((WebApplicationContext) context);
