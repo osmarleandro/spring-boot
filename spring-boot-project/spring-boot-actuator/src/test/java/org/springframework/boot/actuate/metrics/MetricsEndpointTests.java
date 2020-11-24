@@ -87,10 +87,12 @@ class MetricsEndpointTests {
 		MetricsEndpoint.MetricResponse response = this.endpoint.metric("cache", Collections.emptyList());
 		assertThat(response.getName()).isEqualTo("cache");
 		assertThat(availableTagKeys(response)).containsExactly("result", "host");
-		assertThat(getCount(response)).hasValue(6.0);
+		assertThat(response.getMeasurements().stream().filter((sample) -> sample.getStatistic().equals(Statistic.COUNT))
+		.findAny().map(MetricsEndpoint.Sample::getValue)).hasValue(6.0);
 		response = this.endpoint.metric("cache", Collections.singletonList("result:hit"));
 		assertThat(availableTagKeys(response)).containsExactly("host");
-		assertThat(getCount(response)).hasValue(4.0);
+		assertThat(response.getMeasurements().stream().filter((sample) -> sample.getStatistic().equals(Statistic.COUNT))
+		.findAny().map(MetricsEndpoint.Sample::getValue)).hasValue(4.0);
 	}
 
 	@Test
@@ -109,10 +111,12 @@ class MetricsEndpointTests {
 		MetricsEndpoint.MetricResponse response = endpoint.metric("cache", Collections.emptyList());
 		assertThat(response.getName()).isEqualTo("cache");
 		assertThat(availableTagKeys(response)).containsExactly("result", "host");
-		assertThat(getCount(response)).hasValue(6.0);
+		assertThat(response.getMeasurements().stream().filter((sample) -> sample.getStatistic().equals(Statistic.COUNT))
+		.findAny().map(MetricsEndpoint.Sample::getValue)).hasValue(6.0);
 		response = endpoint.metric("cache", Collections.singletonList("result:hit"));
 		assertThat(availableTagKeys(response)).containsExactly("host");
-		assertThat(getCount(response)).hasValue(4.0);
+		assertThat(response.getMeasurements().stream().filter((sample) -> sample.getStatistic().equals(Statistic.COUNT))
+		.findAny().map(MetricsEndpoint.Sample::getValue)).hasValue(4.0);
 	}
 
 	@Test
@@ -143,7 +147,8 @@ class MetricsEndpointTests {
 				Collections.singletonList("key:a space"));
 		assertThat(response.getName()).isEqualTo("counter");
 		assertThat(availableTagKeys(response)).isEmpty();
-		assertThat(getCount(response)).hasValue(2.0);
+		assertThat(response.getMeasurements().stream().filter((sample) -> sample.getStatistic().equals(Statistic.COUNT))
+		.findAny().map(MetricsEndpoint.Sample::getValue)).hasValue(2.0);
 	}
 
 	@Test
@@ -194,11 +199,6 @@ class MetricsEndpointTests {
 		assertThat(endpoint.metric(metricName, Collections.emptyList()).getMeasurements().stream()
 				.filter((sample) -> sample.getStatistic().equals(stat)).findAny())
 						.hasValueSatisfying((sample) -> assertThat(sample.getValue()).isEqualTo(value));
-	}
-
-	private Optional<Double> getCount(MetricsEndpoint.MetricResponse response) {
-		return response.getMeasurements().stream().filter((sample) -> sample.getStatistic().equals(Statistic.COUNT))
-				.findAny().map(MetricsEndpoint.Sample::getValue);
 	}
 
 	private Stream<String> availableTagKeys(MetricsEndpoint.MetricResponse response) {
