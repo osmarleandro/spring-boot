@@ -112,30 +112,6 @@ class MetricsRestTemplateCustomizerTests {
 		this.mockServer.verify();
 	}
 
-	@Test
-	void interceptNestedRequest() {
-		this.mockServer.expect(MockRestRequestMatchers.requestTo("/test/123"))
-				.andExpect(MockRestRequestMatchers.method(HttpMethod.GET))
-				.andRespond(MockRestResponseCreators.withSuccess("OK", MediaType.APPLICATION_JSON));
-
-		RestTemplate nestedRestTemplate = new RestTemplate();
-		MockRestServiceServer nestedMockServer = MockRestServiceServer.createServer(nestedRestTemplate);
-		nestedMockServer.expect(MockRestRequestMatchers.requestTo("/nestedTest/124"))
-				.andExpect(MockRestRequestMatchers.method(HttpMethod.GET))
-				.andRespond(MockRestResponseCreators.withSuccess("OK", MediaType.APPLICATION_JSON));
-		this.customizer.customize(nestedRestTemplate);
-
-		TestInterceptor testInterceptor = new TestInterceptor(nestedRestTemplate);
-		this.restTemplate.getInterceptors().add(testInterceptor);
-
-		this.restTemplate.getForObject("/test/{id}", String.class, 123);
-		this.registry.get("http.client.requests").tags("uri", "/test/{id}").timer();
-		this.registry.get("http.client.requests").tags("uri", "/nestedTest/{nestedId}").timer();
-
-		this.mockServer.verify();
-		nestedMockServer.verify();
-	}
-
 	private static final class TestInterceptor implements ClientHttpRequestInterceptor {
 
 		private final RestTemplate restTemplate;
