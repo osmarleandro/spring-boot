@@ -42,17 +42,6 @@ class DiscoveredOperationMethodTests {
 				.withMessageContaining("AnnotationAttributes must not be null");
 	}
 
-	@Test
-	void getProducesMediaTypesShouldReturnMediaTypes() {
-		Method method = ReflectionUtils.findMethod(getClass(), "example");
-		AnnotationAttributes annotationAttributes = new AnnotationAttributes();
-		String[] produces = new String[] { "application/json" };
-		annotationAttributes.put("produces", produces);
-		DiscoveredOperationMethod discovered = new DiscoveredOperationMethod(method, OperationType.READ,
-				annotationAttributes);
-		assertThat(discovered.getProducesMediaTypes()).containsExactly("application/json");
-	}
-
 	void example() {
 	}
 
