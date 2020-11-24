@@ -46,11 +46,6 @@ class TestHealthEndpointGroup implements HealthEndpointGroup {
 	}
 
 	@Override
-	public boolean isMember(String name) {
-		return this.memberPredicate.test(name);
-	}
-
-	@Override
 	public boolean showComponents(SecurityContext securityContext) {
 		return (this.showComponents != null) ? this.showComponents : this.showDetails;
 	}
