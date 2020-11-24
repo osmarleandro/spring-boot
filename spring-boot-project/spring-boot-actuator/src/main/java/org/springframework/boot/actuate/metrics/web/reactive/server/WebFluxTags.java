@@ -87,19 +87,6 @@ public final class WebFluxTags {
 	 * for 404 responses, {@code root} for requests with no path info, and {@code UNKNOWN}
 	 * for all other requests.
 	 * @param exchange the exchange
-	 * @return the uri tag derived from the exchange
-	 */
-	public static Tag uri(ServerWebExchange exchange) {
-		return uri(exchange, false);
-	}
-
-	/**
-	 * Creates a {@code uri} tag based on the URI of the given {@code exchange}. Uses the
-	 * {@link HandlerMapping#BEST_MATCHING_PATTERN_ATTRIBUTE} best matching pattern if
-	 * available. Falling back to {@code REDIRECTION} for 3xx responses, {@code NOT_FOUND}
-	 * for 404 responses, {@code root} for requests with no path info, and {@code UNKNOWN}
-	 * for all other requests.
-	 * @param exchange the exchange
 	 * @param ignoreTrailingSlash whether to ignore the trailing slash
 	 * @return the uri tag derived from the exchange
 	 */
