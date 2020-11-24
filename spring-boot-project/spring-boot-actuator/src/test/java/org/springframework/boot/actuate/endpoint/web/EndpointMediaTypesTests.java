@@ -68,11 +68,4 @@ class EndpointMediaTypesTests {
 		assertThat(types.getProduced()).isEqualTo(produced);
 	}
 
-	@Test
-	void getConsumedShouldReturnConsumed() {
-		List<String> consumed = Arrays.asList("a", "b", "c");
-		EndpointMediaTypes types = new EndpointMediaTypes(Collections.emptyList(), consumed);
-		assertThat(types.getConsumed()).isEqualTo(consumed);
-	}
-
 }
