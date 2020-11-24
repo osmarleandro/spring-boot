@@ -202,14 +202,6 @@ abstract class HealthEndpointSupportTests<R extends ContributorRegistry<C>, C, T
 	}
 
 	@Test
-	void getHealthWithEmptyCompositeReturnsNullResult() { // gh-18687
-		this.registry.registerContributor("test", createCompositeContributor(Collections.emptyMap()));
-		HealthResult<T> result = create(this.registry, this.groups).getHealth(ApiVersion.V3, SecurityContext.NONE,
-				false);
-		assertThat(result).isNull();
-	}
-
-	@Test
 	void getHealthWhenGroupContainsCompositeContributorReturnsHealth() {
 		C contributor = createContributor(this.up);
 		C compositeContributor = createCompositeContributor(Collections.singletonMap("spring", contributor));
