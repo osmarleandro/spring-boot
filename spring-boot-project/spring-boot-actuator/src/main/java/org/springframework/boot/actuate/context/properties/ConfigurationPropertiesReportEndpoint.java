@@ -113,7 +113,11 @@ public class ConfigurationPropertiesReportEndpoint implements ApplicationContext
 	}
 
 	private ApplicationConfigurationProperties extract(ApplicationContext context) {
-		ObjectMapper mapper = getObjectMapper();
+		if (this.objectMapper == null) {
+			this.objectMapper = new ObjectMapper();
+			configureObjectMapper(this.objectMapper);
+		}
+		ObjectMapper mapper = this.objectMapper;
 		Map<String, ContextConfigurationProperties> contexts = new HashMap<>();
 		ApplicationContext target = context;
 		while (target != null) {
@@ -121,14 +125,6 @@ public class ConfigurationPropertiesReportEndpoint implements ApplicationContext
 			target = target.getParent();
 		}
 		return new ApplicationConfigurationProperties(contexts);
-	}
-
-	private ObjectMapper getObjectMapper() {
-		if (this.objectMapper == null) {
-			this.objectMapper = new ObjectMapper();
-			configureObjectMapper(this.objectMapper);
-		}
-		return this.objectMapper;
 	}
 
 	/**
