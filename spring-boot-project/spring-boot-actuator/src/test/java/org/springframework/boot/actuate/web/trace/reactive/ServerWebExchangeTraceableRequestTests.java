@@ -50,14 +50,6 @@ class ServerWebExchangeTraceableRequestTests {
 	}
 
 	@Test
-	void getMethod() {
-		String method = "POST";
-		given(this.request.getMethodValue()).willReturn(method);
-		ServerWebExchangeTraceableRequest traceableRequest = new ServerWebExchangeTraceableRequest(this.exchange);
-		assertThat(traceableRequest.getMethod()).isSameAs(method);
-	}
-
-	@Test
 	void getUri() {
 		URI uri = URI.create("http://localhost:8080/");
 		given(this.request.getURI()).willReturn(uri);
