@@ -79,21 +79,6 @@ class ScheduledTasksEndpointTests {
 	}
 
 	@Test
-	void fixedDelayScheduledMethodIsReported() {
-		run(FixedDelayScheduledMethod.class, (tasks) -> {
-			assertThat(tasks.getCron()).isEmpty();
-			assertThat(tasks.getFixedRate()).isEmpty();
-			assertThat(tasks.getCustom()).isEmpty();
-			assertThat(tasks.getFixedDelay()).hasSize(1);
-			FixedDelayTaskDescription description = (FixedDelayTaskDescription) tasks.getFixedDelay().get(0);
-			assertThat(description.getInitialDelay()).isEqualTo(2);
-			assertThat(description.getInterval()).isEqualTo(1);
-			assertThat(description.getRunnable().getTarget())
-					.isEqualTo(FixedDelayScheduledMethod.class.getName() + ".fixedDelay");
-		});
-	}
-
-	@Test
 	void fixedDelayTriggerIsReported() {
 		run(FixedDelayTriggerTask.class, (tasks) -> {
 			assertThat(tasks.getCron()).isEmpty();
