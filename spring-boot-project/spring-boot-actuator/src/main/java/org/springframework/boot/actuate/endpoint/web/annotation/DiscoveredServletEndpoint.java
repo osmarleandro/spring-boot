@@ -57,9 +57,4 @@ class DiscoveredServletEndpoint extends AbstractDiscoveredEndpoint<Operation> im
 		return this.rootPath;
 	}
 
-	@Override
-	public EndpointServlet getEndpointServlet() {
-		return this.endpointServlet;
-	}
-
 }
