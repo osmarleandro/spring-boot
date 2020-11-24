@@ -51,12 +51,6 @@ class RabbitHealthIndicatorTests {
 	private Channel channel;
 
 	@Test
-	void createWhenRabbitTemplateIsNullShouldThrowException() {
-		assertThatIllegalArgumentException().isThrownBy(() -> new RabbitHealthIndicator(null))
-				.withMessageContaining("RabbitTemplate must not be null");
-	}
-
-	@Test
 	void healthWhenConnectionSucceedsShouldReturnUpWithVersion() {
 		givenTemplateExecutionWillInvokeCallback();
 		Connection connection = mock(Connection.class);
