@@ -86,18 +86,6 @@ class DataSourceHealthIndicatorTests {
 	}
 
 	@Test
-	void healthIndicatorWithInvalidValidationQuery() {
-		String invalidValidationQuery = "SELECT COUNT(*) from BAR";
-		this.indicator.setDataSource(this.dataSource);
-		this.indicator.setQuery(invalidValidationQuery);
-		Health health = this.indicator.health();
-		assertThat(health.getStatus()).isEqualTo(Status.DOWN);
-		assertThat(health.getDetails()).contains(entry("database", "HSQL Database Engine"),
-				entry("validationQuery", invalidValidationQuery));
-		assertThat(health.getDetails()).containsOnlyKeys("database", "error", "validationQuery");
-	}
-
-	@Test
 	void healthIndicatorCloseConnection() throws Exception {
 		DataSource dataSource = mock(DataSource.class);
 		Connection connection = mock(Connection.class);
