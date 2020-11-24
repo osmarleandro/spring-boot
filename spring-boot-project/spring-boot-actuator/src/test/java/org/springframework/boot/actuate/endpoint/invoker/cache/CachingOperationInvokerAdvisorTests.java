@@ -57,11 +57,6 @@ class CachingOperationInvokerAdvisorTests {
 
 	private CachingOperationInvokerAdvisor advisor;
 
-	@BeforeEach
-	void setup() {
-		this.advisor = new CachingOperationInvokerAdvisor(this.timeToLive);
-	}
-
 	@Test
 	void applyWhenOperationIsNotReadShouldNotAddAdvise() {
 		OperationParameters parameters = getParameters("get");
