@@ -55,18 +55,6 @@ public final class WebFluxTags {
 	}
 
 	/**
-	 * Creates a {@code method} tag based on the
-	 * {@link org.springframework.http.server.reactive.ServerHttpRequest#getMethod()
-	 * method} of the {@link ServerWebExchange#getRequest()} request of the given
-	 * {@code exchange}.
-	 * @param exchange the exchange
-	 * @return the method tag whose value is a capitalized method (e.g. GET).
-	 */
-	public static Tag method(ServerWebExchange exchange) {
-		return Tag.of("method", exchange.getRequest().getMethodValue());
-	}
-
-	/**
 	 * Creates a {@code status} tag based on the response status of the given
 	 * {@code exchange}.
 	 * @param exchange the exchange
