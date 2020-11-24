@@ -46,13 +46,6 @@ import org.springframework.util.ReflectionUtils;
 class HealthEndpointWebIntegrationTests {
 
 	@WebEndpointTest
-	void whenHealthIsUp200ResponseIsReturned(WebTestClient client) {
-		client.get().uri("/actuator/health").accept(MediaType.APPLICATION_JSON).exchange().expectStatus().isOk()
-				.expectBody().jsonPath("status").isEqualTo("UP").jsonPath("components.alpha.status").isEqualTo("UP")
-				.jsonPath("components.bravo.status").isEqualTo("UP");
-	}
-
-	@WebEndpointTest
 	void whenHealthIsUpAndAcceptsV3Request200ResponseIsReturned(WebTestClient client) {
 		client.get().uri("/actuator/health")
 				.headers((headers) -> headers.set(HttpHeaders.ACCEPT, ActuatorMediaType.V3_JSON)).exchange()
