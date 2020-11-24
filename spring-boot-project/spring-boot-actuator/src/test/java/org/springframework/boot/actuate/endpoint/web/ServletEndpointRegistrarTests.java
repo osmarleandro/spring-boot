@@ -78,11 +78,6 @@ class ServletEndpointRegistrarTests {
 	}
 
 	@Test
-	void onStartupWhenHasEmptyBasePathShouldPrefixWithSlash() throws ServletException {
-		assertBasePath("", "/test/*");
-	}
-
-	@Test
 	void onStartupWhenHasRootBasePathShouldNotAddDuplicateSlash() throws ServletException {
 		assertBasePath("/", "/test/*");
 	}
