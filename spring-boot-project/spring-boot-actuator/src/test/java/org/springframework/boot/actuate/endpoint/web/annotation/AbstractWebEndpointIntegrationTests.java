@@ -232,12 +232,6 @@ public abstract class AbstractWebEndpointIntegrationTests<T extends Configurable
 	}
 
 	@Test
-	void nullResponseFromDeleteOperationResultsInNoContentResponseStatus() {
-		load(NullDeleteResponseEndpointConfiguration.class,
-				(context, client) -> client.delete().uri("/nulldelete").exchange().expectStatus().isNoContent());
-	}
-
-	@Test
 	void nullResponseFromWriteOperationResultsInNoContentResponseStatus() {
 		load(NullWriteResponseEndpointConfiguration.class,
 				(context, client) -> client.post().uri("/nullwrite").exchange().expectStatus().isNoContent());
