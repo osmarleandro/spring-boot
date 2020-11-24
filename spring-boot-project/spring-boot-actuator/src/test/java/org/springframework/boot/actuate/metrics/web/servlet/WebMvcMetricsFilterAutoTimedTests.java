@@ -72,17 +72,6 @@ class WebMvcMetricsFilterAutoTimedTests {
 		this.mvc = MockMvcBuilders.webAppContextSetup(this.context).addFilters(this.filter).build();
 	}
 
-	@Test
-	void metricsCanBeAutoTimed() throws Exception {
-		this.mvc.perform(get("/api/10")).andExpect(status().isOk());
-		Timer timer = this.registry.get("http.server.requests").tags("status", "200").timer();
-		assertThat(timer.count()).isEqualTo(1L);
-		HistogramSnapshot snapshot = timer.takeSnapshot();
-		assertThat(snapshot.percentileValues()).hasSize(2);
-		assertThat(snapshot.percentileValues()[0].percentile()).isEqualTo(0.5);
-		assertThat(snapshot.percentileValues()[1].percentile()).isEqualTo(0.95);
-	}
-
 	@Configuration(proxyBeanMethods = false)
 	@EnableWebMvc
 	@Import({ Controller.class })
