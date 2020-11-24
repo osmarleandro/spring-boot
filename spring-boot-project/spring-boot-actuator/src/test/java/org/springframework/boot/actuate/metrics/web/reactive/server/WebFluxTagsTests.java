@@ -133,7 +133,7 @@ class WebFluxTagsTests {
 		ServerHttpRequest request = mock(ServerHttpRequest.class);
 		given(exchange.getRequest()).willReturn(request);
 		given(request.getMethodValue()).willReturn("CUSTOM");
-		Tag tag = WebFluxTags.method(exchange);
+		Tag tag = Tag.of("method", exchange.getRequest().getMethodValue());
 		assertThat(tag.getValue()).isEqualTo("CUSTOM");
 	}
 
