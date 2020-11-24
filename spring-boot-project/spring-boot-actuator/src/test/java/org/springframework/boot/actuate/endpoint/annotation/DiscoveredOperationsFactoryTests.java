@@ -93,15 +93,6 @@ class DiscoveredOperationsFactoryTests {
 	}
 
 	@Test
-	void createOperationsShouldProvideOperationMethod() {
-		TestOperation operation = getFirst(
-				this.factory.createOperations(EndpointId.of("test"), new ExampleWithParams()));
-		OperationMethod operationMethod = operation.getOperationMethod();
-		assertThat(operationMethod.getMethod().getName()).isEqualTo("read");
-		assertThat(operationMethod.getParameters().hasParameters()).isTrue();
-	}
-
-	@Test
 	void createOperationsShouldProviderInvoker() {
 		TestOperation operation = getFirst(
 				this.factory.createOperations(EndpointId.of("test"), new ExampleWithParams()));
