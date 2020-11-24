@@ -130,7 +130,8 @@ class EndpointServletTests {
 
 	@Test
 	void withLoadOnStartupSetShouldReturnValue() {
-		EndpointServlet endpointServlet = new EndpointServlet(TestServlet.class).withLoadOnStartup(3);
+		EndpointServlet r = new EndpointServlet(TestServlet.class);
+		EndpointServlet endpointServlet = new EndpointServlet(r.servlet, r.initParameters, 3);
 		assertThat(endpointServlet.getLoadOnStartup()).isEqualTo(3);
 	}
 
