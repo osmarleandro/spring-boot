@@ -73,14 +73,6 @@ class ConversionServiceParameterValueMapperTests {
 		assertThat(mapped).isNotNull();
 	}
 
-	@Test
-	void createWithConversionServiceShouldNotRegisterIsoOffsetDateTimeConverter() {
-		ConversionService conversionService = new DefaultConversionService();
-		ConversionServiceParameterValueMapper mapper = new ConversionServiceParameterValueMapper(conversionService);
-		assertThatExceptionOfType(ParameterMappingException.class).isThrownBy(() -> mapper
-				.mapParameterValue(new TestOperationParameter(OffsetDateTime.class), "2011-12-03T10:15:30+01:00"));
-	}
-
 	static class TestOperationParameter implements OperationParameter {
 
 		private final Class<?> type;
