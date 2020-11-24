@@ -64,10 +64,6 @@ class TestHealthEndpointGroup implements HealthEndpointGroup {
 		return this.showDetails;
 	}
 
-	void setShowDetails(boolean includeDetails) {
-		this.showDetails = includeDetails;
-	}
-
 	@Override
 	public StatusAggregator getStatusAggregator() {
 		return this.statusAggregator;
