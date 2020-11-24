@@ -153,20 +153,6 @@ class MetricsEndpointTests {
 	}
 
 	@Test
-	void metricPresentInOneRegistryOfACompositeAndNotAnother() {
-		CompositeMeterRegistry composite = new CompositeMeterRegistry();
-		SimpleMeterRegistry reg1 = new SimpleMeterRegistry();
-		SimpleMeterRegistry reg2 = new SimpleMeterRegistry();
-		composite.add(reg1);
-		composite.add(reg2);
-		reg1.counter("counter1").increment();
-		reg2.counter("counter2").increment();
-		MetricsEndpoint endpoint = new MetricsEndpoint(composite);
-		assertThat(endpoint.metric("counter1", Collections.emptyList())).isNotNull();
-		assertThat(endpoint.metric("counter2", Collections.emptyList())).isNotNull();
-	}
-
-	@Test
 	void nonExistentMetric() {
 		MetricsEndpoint.MetricResponse response = this.endpoint.metric("does.not.exist", Collections.emptyList());
 		assertThat(response).isNull();
