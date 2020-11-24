@@ -65,15 +65,6 @@ class DataSourceHealthIndicatorTests {
 	}
 
 	@Test
-	void healthIndicatorWithDefaultSettings() {
-		this.indicator.setDataSource(this.dataSource);
-		Health health = this.indicator.health();
-		assertThat(health.getStatus()).isEqualTo(Status.UP);
-		assertThat(health.getDetails()).containsOnly(entry("database", "HSQL Database Engine"),
-				entry("validationQuery", "isValid()"));
-	}
-
-	@Test
 	void healthIndicatorWithCustomValidationQuery() {
 		String customValidationQuery = "SELECT COUNT(*) from FOO";
 		new JdbcTemplate(this.dataSource).execute("CREATE TABLE FOO (id INTEGER IDENTITY PRIMARY KEY)");
