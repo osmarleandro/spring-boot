@@ -38,6 +38,7 @@ import org.springframework.boot.actuate.endpoint.EndpointId;
 import org.springframework.boot.actuate.endpoint.EndpointsSupplier;
 import org.springframework.boot.actuate.endpoint.ExposableEndpoint;
 import org.springframework.boot.actuate.endpoint.Operation;
+import org.springframework.boot.actuate.endpoint.annotation.EndpointDiscoverer.EndpointBean;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvoker;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvokerAdvisor;
 import org.springframework.boot.actuate.endpoint.invoke.ParameterValueMapper;
@@ -114,15 +115,11 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 	@Override
 	public final Collection<E> getEndpoints() {
 		if (this.endpoints == null) {
-			this.endpoints = discoverEndpoints();
+			Collection<EndpointBean> endpointBeans = createEndpointBeans();
+			addExtensionBeans(endpointBeans);
+			this.endpoints = convertToEndpoints(endpointBeans);
 		}
 		return this.endpoints;
-	}
-
-	private Collection<E> discoverEndpoints() {
-		Collection<EndpointBean> endpointBeans = createEndpointBeans();
-		addExtensionBeans(endpointBeans);
-		return convertToEndpoints(endpointBeans);
 	}
 
 	private Collection<EndpointBean> createEndpointBeans() {
