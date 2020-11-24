@@ -56,12 +56,6 @@ class MetricsEndpointWebIntegrationTests {
 	}
 
 	@WebEndpointTest
-	void selectByName(WebTestClient client) {
-		client.get().uri("/actuator/metrics/jvm.memory.used").exchange().expectStatus().isOk().expectBody()
-				.jsonPath("$.name").isEqualTo("jvm.memory.used");
-	}
-
-	@WebEndpointTest
 	void selectByTag(WebTestClient client) {
 		client.get().uri("/actuator/metrics/jvm.memory.used?tag=id:Compressed%20Class%20Space").exchange()
 				.expectStatus().isOk().expectBody().jsonPath("$.name").isEqualTo("jvm.memory.used");
