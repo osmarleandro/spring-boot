@@ -88,11 +88,6 @@ class DefaultContributorRegistry<C> implements ContributorRegistry<C> {
 	}
 
 	@Override
-	public C getContributor(String name) {
-		return this.contributors.get(name);
-	}
-
-	@Override
 	public Iterator<NamedContributor<C>> iterator() {
 		Iterator<Map.Entry<String, C>> iterator = this.contributors.entrySet().iterator();
 		return new Iterator<NamedContributor<C>>() {
