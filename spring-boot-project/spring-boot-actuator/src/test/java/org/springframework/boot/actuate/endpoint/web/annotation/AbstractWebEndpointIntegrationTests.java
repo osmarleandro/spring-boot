@@ -148,12 +148,6 @@ public abstract class AbstractWebEndpointIntegrationTests<T extends Configurable
 	}
 
 	@Test
-	void readOperationWithSingleQueryParametersAndMultipleValues() {
-		load(QueryEndpointConfiguration.class, (client) -> client.get().uri("/query?one=1&one=1&two=2").exchange()
-				.expectStatus().isOk().expectBody().jsonPath("query").isEqualTo("1,1 2"));
-	}
-
-	@Test
 	void readOperationWithListQueryParameterAndSingleValue() {
 		load(QueryWithListEndpointConfiguration.class, (client) -> client.get().uri("/query?one=1&two=2").exchange()
 				.expectStatus().isOk().expectBody().jsonPath("query").isEqualTo("1 [2]"));
