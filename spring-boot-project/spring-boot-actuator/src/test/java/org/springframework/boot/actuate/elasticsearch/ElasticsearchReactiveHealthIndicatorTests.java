@@ -79,15 +79,6 @@ class ElasticsearchReactiveHealthIndicatorTests {
 	}
 
 	@Test
-	void elasticsearchIsDown() throws Exception {
-		this.server.shutdown();
-		Health health = this.healthIndicator.health().block();
-		assertThat(health.getStatus()).isEqualTo(Status.DOWN);
-		assertThat(health.getDetails().get("error")).asString()
-				.contains("org.springframework.data.elasticsearch.client.NoReachableHostException");
-	}
-
-	@Test
 	void elasticsearchIsDownByResponseCode() {
 		// first enqueue an OK response since the HostChecker first sends a HEAD request
 		// to "/"
