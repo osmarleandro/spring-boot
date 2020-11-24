@@ -84,7 +84,10 @@ class WebEndpointDiscovererTests {
 	@Test
 	void getEndpointsWhenHasFilteredEndpointShouldOnlyDiscoverWebEndpoints() {
 		load(MultipleEndpointsConfiguration.class, (discoverer) -> {
-			Map<EndpointId, ExposableWebEndpoint> endpoints = mapEndpoints(discoverer.getEndpoints());
+			Collection<ExposableWebEndpoint> endpoints1 = discoverer.getEndpoints();
+			Map<EndpointId, ExposableWebEndpoint> endpointById = new HashMap<>();
+			endpoints1.forEach((endpoint) -> endpointById.put(endpoint.getEndpointId(), endpoint));
+			Map<EndpointId, ExposableWebEndpoint> endpoints = endpointById;
 			assertThat(endpoints).containsOnlyKeys(EndpointId.of("test"));
 		});
 	}
@@ -92,7 +95,10 @@ class WebEndpointDiscovererTests {
 	@Test
 	void getEndpointsWhenHasWebExtensionShouldOverrideStandardEndpoint() {
 		load(OverriddenOperationWebEndpointExtensionConfiguration.class, (discoverer) -> {
-			Map<EndpointId, ExposableWebEndpoint> endpoints = mapEndpoints(discoverer.getEndpoints());
+			Collection<ExposableWebEndpoint> endpoints1 = discoverer.getEndpoints();
+			Map<EndpointId, ExposableWebEndpoint> endpointById = new HashMap<>();
+			endpoints1.forEach((endpoint) -> endpointById.put(endpoint.getEndpointId(), endpoint));
+			Map<EndpointId, ExposableWebEndpoint> endpoints = endpointById;
 			assertThat(endpoints).containsOnlyKeys(EndpointId.of("test"));
 			ExposableWebEndpoint endpoint = endpoints.get(EndpointId.of("test"));
 			assertThat(requestPredicates(endpoint)).has(requestPredicates(
@@ -103,7 +109,10 @@ class WebEndpointDiscovererTests {
 	@Test
 	void getEndpointsWhenExtensionAddsOperationShouldHaveBothOperations() {
 		load(AdditionalOperationWebEndpointConfiguration.class, (discoverer) -> {
-			Map<EndpointId, ExposableWebEndpoint> endpoints = mapEndpoints(discoverer.getEndpoints());
+			Collection<ExposableWebEndpoint> endpoints1 = discoverer.getEndpoints();
+			Map<EndpointId, ExposableWebEndpoint> endpointById = new HashMap<>();
+			endpoints1.forEach((endpoint) -> endpointById.put(endpoint.getEndpointId(), endpoint));
+			Map<EndpointId, ExposableWebEndpoint> endpoints = endpointById;
 			assertThat(endpoints).containsOnlyKeys(EndpointId.of("test"));
 			ExposableWebEndpoint endpoint = endpoints.get(EndpointId.of("test"));
 			assertThat(requestPredicates(endpoint)).has(requestPredicates(
@@ -115,7 +124,10 @@ class WebEndpointDiscovererTests {
 	@Test
 	void getEndpointsWhenPredicateForWriteOperationThatReturnsVoidShouldHaveNoProducedMediaTypes() {
 		load(VoidWriteOperationEndpointConfiguration.class, (discoverer) -> {
-			Map<EndpointId, ExposableWebEndpoint> endpoints = mapEndpoints(discoverer.getEndpoints());
+			Collection<ExposableWebEndpoint> endpoints1 = discoverer.getEndpoints();
+			Map<EndpointId, ExposableWebEndpoint> endpointById = new HashMap<>();
+			endpoints1.forEach((endpoint) -> endpointById.put(endpoint.getEndpointId(), endpoint));
+			Map<EndpointId, ExposableWebEndpoint> endpoints = endpointById;
 			assertThat(endpoints).containsOnlyKeys(EndpointId.of("voidwrite"));
 			ExposableWebEndpoint endpoint = endpoints.get(EndpointId.of("voidwrite"));
 			assertThat(requestPredicates(endpoint)).has(requestPredicates(
@@ -166,7 +178,10 @@ class WebEndpointDiscovererTests {
 	@Test
 	void getEndpointsWhenHasCacheWithTtlShouldCacheReadOperationWithTtlValue() {
 		load((id) -> 500L, EndpointId::toString, TestEndpointConfiguration.class, (discoverer) -> {
-			Map<EndpointId, ExposableWebEndpoint> endpoints = mapEndpoints(discoverer.getEndpoints());
+			Collection<ExposableWebEndpoint> endpoints1 = discoverer.getEndpoints();
+			Map<EndpointId, ExposableWebEndpoint> endpointById = new HashMap<>();
+			endpoints1.forEach((endpoint) -> endpointById.put(endpoint.getEndpointId(), endpoint));
+			Map<EndpointId, ExposableWebEndpoint> endpoints = endpointById;
 			assertThat(endpoints).containsOnlyKeys(EndpointId.of("test"));
 			ExposableWebEndpoint endpoint = endpoints.get(EndpointId.of("test"));
 			assertThat(endpoint.getOperations()).hasSize(1);
@@ -180,7 +195,10 @@ class WebEndpointDiscovererTests {
 	@Test
 	void getEndpointsWhenOperationReturnsResourceShouldProduceApplicationOctetStream() {
 		load(ResourceEndpointConfiguration.class, (discoverer) -> {
-			Map<EndpointId, ExposableWebEndpoint> endpoints = mapEndpoints(discoverer.getEndpoints());
+			Collection<ExposableWebEndpoint> endpoints1 = discoverer.getEndpoints();
+			Map<EndpointId, ExposableWebEndpoint> endpointById = new HashMap<>();
+			endpoints1.forEach((endpoint) -> endpointById.put(endpoint.getEndpointId(), endpoint));
+			Map<EndpointId, ExposableWebEndpoint> endpoints = endpointById;
 			assertThat(endpoints).containsOnlyKeys(EndpointId.of("resource"));
 			ExposableWebEndpoint endpoint = endpoints.get(EndpointId.of("resource"));
 			assertThat(requestPredicates(endpoint)).has(requestPredicates(path("resource")
@@ -191,7 +209,10 @@ class WebEndpointDiscovererTests {
 	@Test
 	void getEndpointsWhenHasCustomMediaTypeShouldProduceCustomMediaType() {
 		load(CustomMediaTypesEndpointConfiguration.class, (discoverer) -> {
-			Map<EndpointId, ExposableWebEndpoint> endpoints = mapEndpoints(discoverer.getEndpoints());
+			Collection<ExposableWebEndpoint> endpoints1 = discoverer.getEndpoints();
+			Map<EndpointId, ExposableWebEndpoint> endpointById = new HashMap<>();
+			endpoints1.forEach((endpoint) -> endpointById.put(endpoint.getEndpointId(), endpoint));
+			Map<EndpointId, ExposableWebEndpoint> endpoints = endpointById;
 			assertThat(endpoints).containsOnlyKeys(EndpointId.of("custommediatypes"));
 			ExposableWebEndpoint endpoint = endpoints.get(EndpointId.of("custommediatypes"));
 			assertThat(requestPredicates(endpoint)).has(requestPredicates(
@@ -205,7 +226,10 @@ class WebEndpointDiscovererTests {
 	@Test
 	void getEndpointsWhenHasCustomPathShouldReturnCustomPath() {
 		load((id) -> null, (id) -> "custom/" + id, AdditionalOperationWebEndpointConfiguration.class, (discoverer) -> {
-			Map<EndpointId, ExposableWebEndpoint> endpoints = mapEndpoints(discoverer.getEndpoints());
+			Collection<ExposableWebEndpoint> endpoints1 = discoverer.getEndpoints();
+			Map<EndpointId, ExposableWebEndpoint> endpointById = new HashMap<>();
+			endpoints1.forEach((endpoint) -> endpointById.put(endpoint.getEndpointId(), endpoint));
+			Map<EndpointId, ExposableWebEndpoint> endpoints = endpointById;
 			assertThat(endpoints).containsOnlyKeys(EndpointId.of("test"));
 			ExposableWebEndpoint endpoint = endpoints.get(EndpointId.of("test"));
 			Condition<List<? extends WebOperationRequestPredicate>> expected = requestPredicates(
@@ -232,12 +256,6 @@ class WebEndpointDiscovererTests {
 					Collections.singleton(new CachingOperationInvokerAdvisor(timeToLive)), Collections.emptyList());
 			consumer.accept(discoverer);
 		}
-	}
-
-	private Map<EndpointId, ExposableWebEndpoint> mapEndpoints(Collection<ExposableWebEndpoint> endpoints) {
-		Map<EndpointId, ExposableWebEndpoint> endpointById = new HashMap<>();
-		endpoints.forEach((endpoint) -> endpointById.put(endpoint.getEndpointId(), endpoint));
-		return endpointById;
 	}
 
 	private List<WebOperationRequestPredicate> requestPredicates(ExposableWebEndpoint endpoint) {
