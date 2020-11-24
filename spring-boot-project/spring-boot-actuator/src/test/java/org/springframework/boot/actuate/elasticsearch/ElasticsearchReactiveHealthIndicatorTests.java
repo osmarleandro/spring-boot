@@ -48,15 +48,6 @@ class ElasticsearchReactiveHealthIndicatorTests {
 
 	private ElasticsearchReactiveHealthIndicator healthIndicator;
 
-	@BeforeEach
-	void setup() throws Exception {
-		this.server = new MockWebServer();
-		this.server.start();
-		ReactiveElasticsearchClient client = DefaultReactiveElasticsearchClient
-				.create(ClientConfiguration.create(this.server.getHostName() + ":" + this.server.getPort()));
-		this.healthIndicator = new ElasticsearchReactiveHealthIndicator(client);
-	}
-
 	@AfterEach
 	void shutdown() throws Exception {
 		this.server.shutdown();
