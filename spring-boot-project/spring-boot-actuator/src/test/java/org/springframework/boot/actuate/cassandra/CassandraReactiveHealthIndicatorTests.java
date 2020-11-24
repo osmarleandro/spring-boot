@@ -58,21 +58,4 @@ class CassandraReactiveHealthIndicatorTests {
 		}).verifyComplete();
 	}
 
-	@Test
-	void testCassandraIsDown() {
-		ReactiveCassandraOperations reactiveCassandraOperations = mock(ReactiveCassandraOperations.class);
-		given(reactiveCassandraOperations.getReactiveCqlOperations())
-				.willThrow(new CassandraInternalException("Connection failed"));
-
-		CassandraReactiveHealthIndicator cassandraReactiveHealthIndicator = new CassandraReactiveHealthIndicator(
-				reactiveCassandraOperations);
-		Mono<Health> health = cassandraReactiveHealthIndicator.health();
-		StepVerifier.create(health).consumeNextWith((h) -> {
-			assertThat(h.getStatus()).isEqualTo(Status.DOWN);
-			assertThat(h.getDetails()).containsOnlyKeys("error");
-			assertThat(h.getDetails().get("error"))
-					.isEqualTo(CassandraInternalException.class.getName() + ": Connection failed");
-		}).verifyComplete();
-	}
-
 }
