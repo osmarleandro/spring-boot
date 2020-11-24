@@ -95,7 +95,7 @@ class WebEndpointDiscovererTests {
 			Map<EndpointId, ExposableWebEndpoint> endpoints = mapEndpoints(discoverer.getEndpoints());
 			assertThat(endpoints).containsOnlyKeys(EndpointId.of("test"));
 			ExposableWebEndpoint endpoint = endpoints.get(EndpointId.of("test"));
-			assertThat(requestPredicates(endpoint)).has(requestPredicates(
+			assertThat(endpoint.getOperations().stream().map(WebOperation::getRequestPredicate).collect(Collectors.toList())).has(requestPredicates(
 					path("test").httpMethod(WebEndpointHttpMethod.GET).consumes().produces("application/json")));
 		});
 	}
@@ -106,7 +106,7 @@ class WebEndpointDiscovererTests {
 			Map<EndpointId, ExposableWebEndpoint> endpoints = mapEndpoints(discoverer.getEndpoints());
 			assertThat(endpoints).containsOnlyKeys(EndpointId.of("test"));
 			ExposableWebEndpoint endpoint = endpoints.get(EndpointId.of("test"));
-			assertThat(requestPredicates(endpoint)).has(requestPredicates(
+			assertThat(endpoint.getOperations().stream().map(WebOperation::getRequestPredicate).collect(Collectors.toList())).has(requestPredicates(
 					path("test").httpMethod(WebEndpointHttpMethod.GET).consumes().produces("application/json"),
 					path("test/{id}").httpMethod(WebEndpointHttpMethod.GET).consumes().produces("application/json")));
 		});
@@ -118,7 +118,7 @@ class WebEndpointDiscovererTests {
 			Map<EndpointId, ExposableWebEndpoint> endpoints = mapEndpoints(discoverer.getEndpoints());
 			assertThat(endpoints).containsOnlyKeys(EndpointId.of("voidwrite"));
 			ExposableWebEndpoint endpoint = endpoints.get(EndpointId.of("voidwrite"));
-			assertThat(requestPredicates(endpoint)).has(requestPredicates(
+			assertThat(endpoint.getOperations().stream().map(WebOperation::getRequestPredicate).collect(Collectors.toList())).has(requestPredicates(
 					path("voidwrite").httpMethod(WebEndpointHttpMethod.POST).produces().consumes("application/json")));
 		});
 	}
@@ -183,7 +183,7 @@ class WebEndpointDiscovererTests {
 			Map<EndpointId, ExposableWebEndpoint> endpoints = mapEndpoints(discoverer.getEndpoints());
 			assertThat(endpoints).containsOnlyKeys(EndpointId.of("resource"));
 			ExposableWebEndpoint endpoint = endpoints.get(EndpointId.of("resource"));
-			assertThat(requestPredicates(endpoint)).has(requestPredicates(path("resource")
+			assertThat(endpoint.getOperations().stream().map(WebOperation::getRequestPredicate).collect(Collectors.toList())).has(requestPredicates(path("resource")
 					.httpMethod(WebEndpointHttpMethod.GET).consumes().produces("application/octet-stream")));
 		});
 	}
@@ -194,7 +194,7 @@ class WebEndpointDiscovererTests {
 			Map<EndpointId, ExposableWebEndpoint> endpoints = mapEndpoints(discoverer.getEndpoints());
 			assertThat(endpoints).containsOnlyKeys(EndpointId.of("custommediatypes"));
 			ExposableWebEndpoint endpoint = endpoints.get(EndpointId.of("custommediatypes"));
-			assertThat(requestPredicates(endpoint)).has(requestPredicates(
+			assertThat(endpoint.getOperations().stream().map(WebOperation::getRequestPredicate).collect(Collectors.toList())).has(requestPredicates(
 					path("custommediatypes").httpMethod(WebEndpointHttpMethod.GET).consumes().produces("text/plain"),
 					path("custommediatypes").httpMethod(WebEndpointHttpMethod.POST).consumes().produces("a/b", "c/d"),
 					path("custommediatypes").httpMethod(WebEndpointHttpMethod.DELETE).consumes()
@@ -212,7 +212,7 @@ class WebEndpointDiscovererTests {
 					path("custom/test").httpMethod(WebEndpointHttpMethod.GET).consumes().produces("application/json"),
 					path("custom/test/{id}").httpMethod(WebEndpointHttpMethod.GET).consumes()
 							.produces("application/json"));
-			assertThat(requestPredicates(endpoint)).has(expected);
+			assertThat(endpoint.getOperations().stream().map(WebOperation::getRequestPredicate).collect(Collectors.toList())).has(expected);
 		});
 	}
 
@@ -238,10 +238,6 @@ class WebEndpointDiscovererTests {
 		Map<EndpointId, ExposableWebEndpoint> endpointById = new HashMap<>();
 		endpoints.forEach((endpoint) -> endpointById.put(endpoint.getEndpointId(), endpoint));
 		return endpointById;
-	}
-
-	private List<WebOperationRequestPredicate> requestPredicates(ExposableWebEndpoint endpoint) {
-		return endpoint.getOperations().stream().map(WebOperation::getRequestPredicate).collect(Collectors.toList());
 	}
 
 	private Condition<List<? extends WebOperationRequestPredicate>> requestPredicates(
