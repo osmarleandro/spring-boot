@@ -95,7 +95,7 @@ public class MetricsWebClientFilterFunction implements ExchangeFilterFunction {
 	}
 
 	private void recordTimer(Iterable<Tag> tags, Long startTime) {
-		this.autoTimer.builder(this.metricName).tags(tags).description("Timer of WebClient operation")
+		this.autoTimer.builder(() -> Timer.builder(name)).tags(tags).description("Timer of WebClient operation")
 				.register(this.meterRegistry).record(System.nanoTime() - startTime, TimeUnit.NANOSECONDS);
 	}
 

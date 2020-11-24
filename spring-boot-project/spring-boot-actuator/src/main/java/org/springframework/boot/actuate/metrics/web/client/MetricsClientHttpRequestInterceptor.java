@@ -109,7 +109,7 @@ class MetricsClientHttpRequestInterceptor implements ClientHttpRequestIntercepto
 	}
 
 	private Timer.Builder getTimeBuilder(HttpRequest request, ClientHttpResponse response) {
-		return this.autoTimer.builder(this.metricName)
+		return this.autoTimer.builder(() -> Timer.builder(name))
 				.tags(this.tagProvider.getTags(urlTemplate.get().poll(), request, response))
 				.description("Timer of RestTemplate operation");
 	}
