@@ -109,12 +109,6 @@ class WebClientExchangeTagsTests {
 	}
 
 	@Test
-	void statusWhenNonStandard() {
-		given(this.response.rawStatusCode()).willReturn(490);
-		assertThat(WebClientExchangeTags.status(this.response, null)).isEqualTo(Tag.of("status", "490"));
-	}
-
-	@Test
 	void statusWhenCancelled() {
 		assertThat(WebClientExchangeTags.status(null, null)).isEqualTo(Tag.of("status", "CLIENT_ERROR"));
 	}
