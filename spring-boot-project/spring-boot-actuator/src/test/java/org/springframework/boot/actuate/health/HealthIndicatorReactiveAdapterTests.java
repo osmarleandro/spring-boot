@@ -41,14 +41,6 @@ class HealthIndicatorReactiveAdapterTests {
 	}
 
 	@Test
-	void delegateThrowError() {
-		HealthIndicator delegate = mock(HealthIndicator.class);
-		HealthIndicatorReactiveAdapter adapter = new HealthIndicatorReactiveAdapter(delegate);
-		given(delegate.health()).willThrow(new IllegalStateException("Expected"));
-		StepVerifier.create(adapter.health()).expectError(IllegalStateException.class).verify(Duration.ofSeconds(10));
-	}
-
-	@Test
 	void delegateRunsOnTheElasticScheduler() {
 		String currentThread = Thread.currentThread().getName();
 		HealthIndicator delegate = () -> Health
