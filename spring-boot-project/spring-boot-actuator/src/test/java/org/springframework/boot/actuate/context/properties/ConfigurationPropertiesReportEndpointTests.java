@@ -232,13 +232,6 @@ class ConfigurationPropertiesReportEndpointTests {
 	}
 
 	@Test
-	void sanitizeAddressesFieldContainingMultipleRawSensitiveUris() {
-		this.contextRunner.withUserConfiguration(SensiblePropertiesConfiguration.class)
-				.run(assertProperties("sensible", (properties) -> assertThat(properties.get("rawSensitiveAddresses"))
-						.isEqualTo("http://user:******@localhost:8080,http://user2:******@localhost:8082")));
-	}
-
-	@Test
 	void sanitizeLists() {
 		this.contextRunner.withUserConfiguration(SensiblePropertiesConfiguration.class)
 				.withPropertyValues("sensible.listItems[0].some-password=password")
