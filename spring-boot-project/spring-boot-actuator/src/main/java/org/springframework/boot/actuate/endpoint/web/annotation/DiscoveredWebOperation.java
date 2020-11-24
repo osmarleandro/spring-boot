@@ -56,7 +56,7 @@ class DiscoveredWebOperation extends AbstractDiscoveredOperation implements WebO
 		super(operationMethod, invoker);
 		Method method = operationMethod.getMethod();
 		this.id = getId(endpointId, method);
-		this.blocking = getBlocking(method);
+		this.blocking = !REACTIVE_STREAMS_PRESENT || !Publisher.class.isAssignableFrom(method.getReturnType());
 		this.requestPredicate = requestPredicate;
 	}
 
@@ -71,10 +71,6 @@ class DiscoveredWebOperation extends AbstractDiscoveredOperation implements WebO
 
 	private String dashName(Parameter parameter) {
 		return "-" + parameter.getName();
-	}
-
-	private boolean getBlocking(Method method) {
-		return !REACTIVE_STREAMS_PRESENT || !Publisher.class.isAssignableFrom(method.getReturnType());
 	}
 
 	@Override
