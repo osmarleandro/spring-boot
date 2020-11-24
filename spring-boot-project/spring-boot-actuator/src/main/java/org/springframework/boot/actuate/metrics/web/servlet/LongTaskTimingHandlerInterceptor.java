@@ -72,14 +72,6 @@ public class LongTaskTimingHandlerInterceptor implements HandlerInterceptor {
 		return true;
 	}
 
-	@Override
-	public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex)
-			throws Exception {
-		if (!request.isAsyncStarted()) {
-			stopLongTaskTimers(LongTaskTimingContext.get(request));
-		}
-	}
-
 	private void startAndAttachTimingContext(HttpServletRequest request, Object handler) {
 		Set<Timed> annotations = getTimedAnnotations(handler);
 		Collection<LongTaskTimer.Sample> longTaskTimerSamples = getLongTaskTimerSamples(request, handler, annotations);
