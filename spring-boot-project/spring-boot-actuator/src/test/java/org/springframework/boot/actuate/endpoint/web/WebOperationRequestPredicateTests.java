@@ -32,63 +32,77 @@ class WebOperationRequestPredicateTests {
 
 	@Test
 	void predicatesWithIdenticalPathsAreEqual() {
-		assertThat(predicateWithPath("/path")).isEqualTo(predicateWithPath("/path"));
+		assertThat(new WebOperationRequestPredicate("/path", WebEndpointHttpMethod.GET, Collections.emptyList(),
+		Collections.emptyList())).isEqualTo(new WebOperationRequestPredicate("/path", WebEndpointHttpMethod.GET, Collections.emptyList(),
+		Collections.emptyList()));
 	}
 
 	@Test
 	void predicatesWithDifferentPathsAreNotEqual() {
-		assertThat(predicateWithPath("/one")).isNotEqualTo(predicateWithPath("/two"));
+		assertThat(new WebOperationRequestPredicate("/one", WebEndpointHttpMethod.GET, Collections.emptyList(),
+		Collections.emptyList())).isNotEqualTo(new WebOperationRequestPredicate("/two", WebEndpointHttpMethod.GET, Collections.emptyList(),
+		Collections.emptyList()));
 	}
 
 	@Test
 	void predicatesWithIdenticalPathsWithVariablesAreEqual() {
-		assertThat(predicateWithPath("/path/{foo}")).isEqualTo(predicateWithPath("/path/{foo}"));
+		assertThat(new WebOperationRequestPredicate("/path/{foo}", WebEndpointHttpMethod.GET, Collections.emptyList(),
+		Collections.emptyList())).isEqualTo(new WebOperationRequestPredicate("/path/{foo}", WebEndpointHttpMethod.GET, Collections.emptyList(),
+		Collections.emptyList()));
 	}
 
 	@Test
 	void predicatesWhereOneHasAPathAndTheOtherHasAVariableAreNotEqual() {
-		assertThat(predicateWithPath("/path/{foo}")).isNotEqualTo(predicateWithPath("/path/foo"));
+		assertThat(new WebOperationRequestPredicate("/path/{foo}", WebEndpointHttpMethod.GET, Collections.emptyList(),
+		Collections.emptyList())).isNotEqualTo(new WebOperationRequestPredicate("/path/foo", WebEndpointHttpMethod.GET, Collections.emptyList(),
+		Collections.emptyList()));
 	}
 
 	@Test
 	void predicatesWithSinglePathVariablesInTheSamplePlaceAreEqual() {
-		assertThat(predicateWithPath("/path/{foo1}")).isEqualTo(predicateWithPath("/path/{foo2}"));
+		assertThat(new WebOperationRequestPredicate("/path/{foo1}", WebEndpointHttpMethod.GET, Collections.emptyList(),
+		Collections.emptyList())).isEqualTo(new WebOperationRequestPredicate("/path/{foo2}", WebEndpointHttpMethod.GET, Collections.emptyList(),
+		Collections.emptyList()));
 	}
 
 	@Test
 	void predicatesWithSingleWildcardPathVariablesInTheSamplePlaceAreEqual() {
-		assertThat(predicateWithPath("/path/{*foo1}")).isEqualTo(predicateWithPath("/path/{*foo2}"));
+		assertThat(new WebOperationRequestPredicate("/path/{*foo1}", WebEndpointHttpMethod.GET, Collections.emptyList(),
+		Collections.emptyList())).isEqualTo(new WebOperationRequestPredicate("/path/{*foo2}", WebEndpointHttpMethod.GET, Collections.emptyList(),
+		Collections.emptyList()));
 	}
 
 	@Test
 	void predicatesWithSingleWildcardPathVariableAndRegularVariableInTheSamplePlaceAreNotEqual() {
-		assertThat(predicateWithPath("/path/{*foo1}")).isNotEqualTo(predicateWithPath("/path/{foo2}"));
+		assertThat(new WebOperationRequestPredicate("/path/{*foo1}", WebEndpointHttpMethod.GET, Collections.emptyList(),
+		Collections.emptyList())).isNotEqualTo(new WebOperationRequestPredicate("/path/{foo2}", WebEndpointHttpMethod.GET, Collections.emptyList(),
+		Collections.emptyList()));
 	}
 
 	@Test
 	void predicatesWithMultiplePathVariablesInTheSamplePlaceAreEqual() {
-		assertThat(predicateWithPath("/path/{foo1}/more/{bar1}"))
-				.isEqualTo(predicateWithPath("/path/{foo2}/more/{bar2}"));
+		assertThat(new WebOperationRequestPredicate("/path/{foo1}/more/{bar1}", WebEndpointHttpMethod.GET, Collections.emptyList(),
+		Collections.emptyList()))
+				.isEqualTo(new WebOperationRequestPredicate("/path/{foo2}/more/{bar2}", WebEndpointHttpMethod.GET, Collections.emptyList(),
+				Collections.emptyList()));
 	}
 
 	@Test
 	void predicateWithWildcardPathVariableReturnsMatchAllRemainingPathSegmentsVariable() {
-		assertThat(predicateWithPath("/path/{*foo1}").getMatchAllRemainingPathSegmentsVariable()).isEqualTo("foo1");
+		assertThat(new WebOperationRequestPredicate("/path/{*foo1}", WebEndpointHttpMethod.GET, Collections.emptyList(),
+		Collections.emptyList()).getMatchAllRemainingPathSegmentsVariable()).isEqualTo("foo1");
 	}
 
 	@Test
 	void predicateWithRegularPathVariableDoesNotReturnMatchAllRemainingPathSegmentsVariable() {
-		assertThat(predicateWithPath("/path/{foo1}").getMatchAllRemainingPathSegmentsVariable()).isNull();
+		assertThat(new WebOperationRequestPredicate("/path/{foo1}", WebEndpointHttpMethod.GET, Collections.emptyList(),
+		Collections.emptyList()).getMatchAllRemainingPathSegmentsVariable()).isNull();
 	}
 
 	@Test
 	void predicateWithNoPathVariableDoesNotReturnMatchAllRemainingPathSegmentsVariable() {
-		assertThat(predicateWithPath("/path/foo1").getMatchAllRemainingPathSegmentsVariable()).isNull();
-	}
-
-	private WebOperationRequestPredicate predicateWithPath(String path) {
-		return new WebOperationRequestPredicate(path, WebEndpointHttpMethod.GET, Collections.emptyList(),
-				Collections.emptyList());
+		assertThat(new WebOperationRequestPredicate("/path/foo1", WebEndpointHttpMethod.GET, Collections.emptyList(),
+		Collections.emptyList()).getMatchAllRemainingPathSegmentsVariable()).isNull();
 	}
 
 }
