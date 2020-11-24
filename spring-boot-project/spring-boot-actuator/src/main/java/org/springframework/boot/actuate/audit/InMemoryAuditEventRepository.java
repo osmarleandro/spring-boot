@@ -51,16 +51,6 @@ public class InMemoryAuditEventRepository implements AuditEventRepository {
 		this.events = new AuditEvent[capacity];
 	}
 
-	/**
-	 * Set the capacity of this event repository.
-	 * @param capacity the capacity
-	 */
-	public void setCapacity(int capacity) {
-		synchronized (this.monitor) {
-			this.events = new AuditEvent[capacity];
-		}
-	}
-
 	@Override
 	public void add(AuditEvent event) {
 		Assert.notNull(event, "AuditEvent must not be null");
