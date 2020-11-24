@@ -47,14 +47,6 @@ class PrometheusScrapeEndpointIntegrationTests {
 						.contains("counter3_total"));
 	}
 
-	@WebEndpointTest
-	void scrapeWithIncludedNames(WebTestClient client) {
-		client.get().uri("/actuator/prometheus?includedNames=counter1_total,counter2_total").exchange().expectStatus()
-				.isOk().expectHeader().contentType(MediaType.parseMediaType(TextFormat.CONTENT_TYPE_004))
-				.expectBody(String.class).value((body) -> assertThat(body).contains("counter1_total")
-						.contains("counter2_total").doesNotContain("counter3_total"));
-	}
-
 	@Configuration(proxyBeanMethods = false)
 	static class TestConfiguration {
 
