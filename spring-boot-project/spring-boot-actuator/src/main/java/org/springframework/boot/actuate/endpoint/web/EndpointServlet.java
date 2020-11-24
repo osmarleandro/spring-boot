@@ -89,10 +89,6 @@ public final class EndpointServlet {
 		return new EndpointServlet(this.servlet, this.initParameters, loadOnStartup);
 	}
 
-	Servlet getServlet() {
-		return this.servlet;
-	}
-
 	Map<String, String> getInitParameters() {
 		return this.initParameters;
 	}
