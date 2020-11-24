@@ -99,13 +99,6 @@ class OperationMethodParametersTests {
 				StreamSupport.stream(Spliterators.spliteratorUnknownSize(iterator, Spliterator.ORDERED), false));
 	}
 
-	@Test
-	void streamShouldStreamOperationParameters() {
-		OperationMethodParameters parameters = new OperationMethodParameters(this.exampleMethod,
-				new DefaultParameterNameDiscoverer());
-		assertParameters(parameters.stream());
-	}
-
 	private void assertParameters(Stream<OperationParameter> stream) {
 		List<OperationParameter> parameters = stream.collect(Collectors.toList());
 		assertThat(parameters).hasSize(1);
