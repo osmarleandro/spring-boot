@@ -77,12 +77,6 @@ class ConfigurationPropertiesReportEndpointTests {
 	}
 
 	@Test
-	void descriptorWithValueObjectBindMethodUseDedicatedConstructor() {
-		this.contextRunner.withUserConfiguration(MultiConstructorPropertiesConfiguration.class).run(assertProperties(
-				"multiconstructor", (properties) -> assertThat(properties).containsOnly(entry("name", "test"))));
-	}
-
-	@Test
 	void descriptorWithValueObjectBindMethodHandleNestedType() {
 		this.contextRunner.withPropertyValues("immutablenested.nested.name=nested", "immutablenested.nested.counter=42")
 				.withUserConfiguration(ImmutableNestedPropertiesConfiguration.class)
