@@ -39,12 +39,6 @@ class InvocationContextTests {
 	private final Map<String, Object> arguments = Collections.singletonMap("test", "value");
 
 	@Test
-	void createWhenApiVersionIsNullUsesLatestVersion() {
-		InvocationContext context = new InvocationContext(null, this.securityContext, this.arguments);
-		assertThat(context.getApiVersion()).isEqualTo(ApiVersion.LATEST);
-	}
-
-	@Test
 	void createWhenSecurityContextIsNullThrowsException() {
 		assertThatIllegalArgumentException().isThrownBy(() -> new InvocationContext(null, this.arguments))
 				.withMessage("SecurityContext must not be null");
