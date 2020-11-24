@@ -106,14 +106,6 @@ public final class WebEndpointResponse<T> {
 	}
 
 	/**
-	 * Returns the body for the response.
-	 * @return the body
-	 */
-	public T getBody() {
-		return this.body;
-	}
-
-	/**
 	 * Returns the status for the response.
 	 * @return the status
 	 */
