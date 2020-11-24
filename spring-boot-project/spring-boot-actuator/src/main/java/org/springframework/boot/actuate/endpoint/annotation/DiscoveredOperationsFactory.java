@@ -97,7 +97,7 @@ abstract class DiscoveredOperationsFactory<O extends Operation> {
 			OperationInvoker invoker) {
 		if (this.invokerAdvisors != null) {
 			for (OperationInvokerAdvisor advisor : this.invokerAdvisors) {
-				invoker = advisor.apply(endpointId, operationMethod.getOperationType(), operationMethod.getParameters(),
+				invoker = advisor.apply(endpointId, operationMethod.operationType, operationMethod.getParameters(),
 						invoker);
 			}
 		}

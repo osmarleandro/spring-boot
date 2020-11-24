@@ -57,7 +57,7 @@ class OperationMethodTests {
 	@Test
 	void getOperationTypeShouldReturnOperationType() {
 		OperationMethod operationMethod = new OperationMethod(this.exampleMethod, OperationType.READ);
-		assertThat(operationMethod.getOperationType()).isEqualTo(OperationType.READ);
+		assertThat(operationMethod.operationType).isEqualTo(OperationType.READ);
 	}
 
 	@Test

@@ -52,7 +52,7 @@ public abstract class AbstractDiscoveredOperation implements Operation {
 
 	@Override
 	public OperationType getType() {
-		return this.operationMethod.getOperationType();
+		return this.operationMethod.operationType;
 	}
 
 	@Override
