@@ -31,6 +31,7 @@ import org.springframework.boot.actuate.endpoint.Sanitizer;
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
 import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
 import org.springframework.boot.actuate.endpoint.annotation.Selector;
+import org.springframework.boot.actuate.env.EnvironmentEndpoint.PropertyValueDescriptor;
 import org.springframework.boot.context.properties.bind.PlaceholdersResolver;
 import org.springframework.boot.context.properties.bind.PropertySourcesPlaceholdersResolver;
 import org.springframework.boot.context.properties.source.ConfigurationPropertySources;
@@ -100,7 +101,11 @@ public class EnvironmentEndpoint {
 	}
 
 	private EnvironmentEntryDescriptor getEnvironmentEntryDescriptor(String propertyName) {
-		Map<String, PropertyValueDescriptor> descriptors = getPropertySourceDescriptors(propertyName);
+		Map<String, PropertyValueDescriptor> propertySources = new LinkedHashMap<>();
+		PlaceholdersResolver resolver = getResolver();
+		getPropertySourcesAsMap().forEach((sourceName, source) -> propertySources.put(sourceName,
+				source.containsProperty(propertyName) ? describeValueOf(propertyName, source, resolver) : null));
+		Map<String, PropertyValueDescriptor> descriptors = propertySources;
 		PropertySummaryDescriptor summary = getPropertySummaryDescriptor(descriptors);
 		return new EnvironmentEntryDescriptor(summary, Arrays.asList(this.environment.getActiveProfiles()),
 				toPropertySourceDescriptors(descriptors));
@@ -120,14 +125,6 @@ public class EnvironmentEndpoint {
 			}
 		}
 		return null;
-	}
-
-	private Map<String, PropertyValueDescriptor> getPropertySourceDescriptors(String propertyName) {
-		Map<String, PropertyValueDescriptor> propertySources = new LinkedHashMap<>();
-		PlaceholdersResolver resolver = getResolver();
-		getPropertySourcesAsMap().forEach((sourceName, source) -> propertySources.put(sourceName,
-				source.containsProperty(propertyName) ? describeValueOf(propertyName, source, resolver) : null));
-		return propertySources;
 	}
 
 	private PropertySourceDescriptor describeSource(String sourceName, EnumerablePropertySource<?> source,
