@@ -49,11 +49,6 @@ import static org.mockito.Mockito.mock;
 class CassandraDriverReactiveHealthIndicatorTests {
 
 	@Test
-	void createWhenCqlSessionIsNullShouldThrowException() {
-		assertThatIllegalArgumentException().isThrownBy(() -> new CassandraDriverReactiveHealthIndicator(null));
-	}
-
-	@Test
 	void healthWithOneHealthyNodeShouldReturnUp() {
 		CqlSession session = mockCqlSessionWithNodeState(NodeState.UP);
 		CassandraDriverReactiveHealthIndicator healthIndicator = new CassandraDriverReactiveHealthIndicator(session);
