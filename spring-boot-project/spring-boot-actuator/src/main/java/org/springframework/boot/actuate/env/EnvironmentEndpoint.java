@@ -31,6 +31,7 @@ import org.springframework.boot.actuate.endpoint.Sanitizer;
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
 import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
 import org.springframework.boot.actuate.endpoint.annotation.Selector;
+import org.springframework.boot.actuate.env.EnvironmentEndpoint.PropertySourcesPlaceholdersSanitizingResolver;
 import org.springframework.boot.context.properties.bind.PlaceholdersResolver;
 import org.springframework.boot.context.properties.bind.PropertySourcesPlaceholdersResolver;
 import org.springframework.boot.context.properties.source.ConfigurationPropertySources;
@@ -88,7 +89,7 @@ public class EnvironmentEndpoint {
 	}
 
 	private EnvironmentDescriptor getEnvironmentDescriptor(Predicate<String> propertyNamePredicate) {
-		PlaceholdersResolver resolver = getResolver();
+		PlaceholdersResolver resolver = new PropertySourcesPlaceholdersSanitizingResolver(getPropertySources(), this.sanitizer);
 		List<PropertySourceDescriptor> propertySources = new ArrayList<>();
 		getPropertySourcesAsMap().forEach((sourceName, source) -> {
 			if (source instanceof EnumerablePropertySource) {
@@ -124,7 +125,7 @@ public class EnvironmentEndpoint {
 
 	private Map<String, PropertyValueDescriptor> getPropertySourceDescriptors(String propertyName) {
 		Map<String, PropertyValueDescriptor> propertySources = new LinkedHashMap<>();
-		PlaceholdersResolver resolver = getResolver();
+		PlaceholdersResolver resolver = new PropertySourcesPlaceholdersSanitizingResolver(getPropertySources(), this.sanitizer);
 		getPropertySourcesAsMap().forEach((sourceName, source) -> propertySources.put(sourceName,
 				source.containsProperty(propertyName) ? describeValueOf(propertyName, source, resolver) : null));
 		return propertySources;
@@ -144,10 +145,6 @@ public class EnvironmentEndpoint {
 		Object resolved = resolver.resolvePlaceholders(source.getProperty(name));
 		Origin origin = ((source instanceof OriginLookup) ? ((OriginLookup<Object>) source).getOrigin(name) : null);
 		return new PropertyValueDescriptor(sanitize(name, resolved), origin);
-	}
-
-	private PlaceholdersResolver getResolver() {
-		return new PropertySourcesPlaceholdersSanitizingResolver(getPropertySources(), this.sanitizer);
 	}
 
 	private Map<String, PropertySource<?>> getPropertySourcesAsMap() {
