@@ -43,14 +43,6 @@ public class HazelcastHealthIndicator extends AbstractHealthIndicator {
 		this.hazelcast = hazelcast;
 	}
 
-	@Override
-	protected void doHealthCheck(Health.Builder builder) {
-		this.hazelcast.executeTransaction((context) -> {
-			builder.up().withDetail("name", this.hazelcast.getName()).withDetail("uuid", extractUuid());
-			return null;
-		});
-	}
-
 	private String extractUuid() {
 		try {
 			return this.hazelcast.getLocalEndpoint().getUuid().toString();
