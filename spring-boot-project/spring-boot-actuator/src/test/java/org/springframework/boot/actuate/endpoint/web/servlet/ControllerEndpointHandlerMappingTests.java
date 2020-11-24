@@ -52,11 +52,11 @@ class ControllerEndpointHandlerMappingTests {
 		ExposableControllerEndpoint first = firstEndpoint();
 		ExposableControllerEndpoint second = secondEndpoint();
 		ControllerEndpointHandlerMapping mapping = createMapping("", first, second);
-		assertThat(mapping.getHandler(request("GET", "/first")).getHandler())
+		assertThat(mapping.getHandler(new MockHttpServletRequest("GET", "/first")).getHandler())
 				.isEqualTo(handlerOf(first.getController(), "get"));
-		assertThat(mapping.getHandler(request("POST", "/second")).getHandler())
+		assertThat(mapping.getHandler(new MockHttpServletRequest("POST", "/second")).getHandler())
 				.isEqualTo(handlerOf(second.getController(), "save"));
-		assertThat(mapping.getHandler(request("GET", "/third"))).isNull();
+		assertThat(mapping.getHandler(new MockHttpServletRequest("GET", "/third"))).isNull();
 	}
 
 	@Test
@@ -64,12 +64,12 @@ class ControllerEndpointHandlerMappingTests {
 		ExposableControllerEndpoint first = firstEndpoint();
 		ExposableControllerEndpoint second = secondEndpoint();
 		ControllerEndpointHandlerMapping mapping = createMapping("actuator", first, second);
-		assertThat(mapping.getHandler(request("GET", "/actuator/first")).getHandler())
+		assertThat(mapping.getHandler(new MockHttpServletRequest("GET", "/actuator/first")).getHandler())
 				.isEqualTo(handlerOf(first.getController(), "get"));
-		assertThat(mapping.getHandler(request("POST", "/actuator/second")).getHandler())
+		assertThat(mapping.getHandler(new MockHttpServletRequest("POST", "/actuator/second")).getHandler())
 				.isEqualTo(handlerOf(second.getController(), "save"));
-		assertThat(mapping.getHandler(request("GET", "/first"))).isNull();
-		assertThat(mapping.getHandler(request("GET", "/second"))).isNull();
+		assertThat(mapping.getHandler(new MockHttpServletRequest("GET", "/first"))).isNull();
+		assertThat(mapping.getHandler(new MockHttpServletRequest("GET", "/second"))).isNull();
 	}
 
 	@Test
@@ -77,17 +77,17 @@ class ControllerEndpointHandlerMappingTests {
 		ExposableControllerEndpoint first = firstEndpoint();
 		ControllerEndpointHandlerMapping mapping = createMapping("actuator", first);
 		assertThatExceptionOfType(HttpRequestMethodNotSupportedException.class)
-				.isThrownBy(() -> mapping.getHandler(request("POST", "/actuator/first")));
+				.isThrownBy(() -> mapping.getHandler(new MockHttpServletRequest("POST", "/actuator/first")));
 	}
 
 	@Test
 	void mappingWithNoPath() throws Exception {
 		ExposableControllerEndpoint pathless = pathlessEndpoint();
 		ControllerEndpointHandlerMapping mapping = createMapping("actuator", pathless);
-		assertThat(mapping.getHandler(request("GET", "/actuator/pathless")).getHandler())
+		assertThat(mapping.getHandler(new MockHttpServletRequest("GET", "/actuator/pathless")).getHandler())
 				.isEqualTo(handlerOf(pathless.getController(), "get"));
-		assertThat(mapping.getHandler(request("GET", "/pathless"))).isNull();
-		assertThat(mapping.getHandler(request("GET", "/"))).isNull();
+		assertThat(mapping.getHandler(new MockHttpServletRequest("GET", "/pathless"))).isNull();
+		assertThat(mapping.getHandler(new MockHttpServletRequest("GET", "/"))).isNull();
 	}
 
 	private ControllerEndpointHandlerMapping createMapping(String prefix, ExposableControllerEndpoint... endpoints) {
@@ -100,10 +100,6 @@ class ControllerEndpointHandlerMappingTests {
 
 	private HandlerMethod handlerOf(Object source, String methodName) {
 		return new HandlerMethod(source, ReflectionUtils.findMethod(source.getClass(), methodName));
-	}
-
-	private MockHttpServletRequest request(String method, String requestURI) {
-		return new MockHttpServletRequest(method, requestURI);
 	}
 
 	private ExposableControllerEndpoint firstEndpoint() {
