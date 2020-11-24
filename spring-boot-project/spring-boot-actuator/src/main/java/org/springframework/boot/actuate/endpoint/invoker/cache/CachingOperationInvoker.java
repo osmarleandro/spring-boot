@@ -64,14 +64,6 @@ public class CachingOperationInvoker implements OperationInvoker {
 		this.cachedResponses = new ConcurrentHashMap<>();
 	}
 
-	/**
-	 * Return the maximum time in milliseconds that a response can be cached.
-	 * @return the time to live of a response
-	 */
-	public long getTimeToLive() {
-		return this.timeToLive;
-	}
-
 	@Override
 	public Object invoke(InvocationContext context) {
 		if (hasInput(context)) {
