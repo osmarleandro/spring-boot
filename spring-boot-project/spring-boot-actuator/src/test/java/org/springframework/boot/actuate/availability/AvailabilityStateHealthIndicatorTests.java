@@ -82,17 +82,6 @@ class AvailabilityStateHealthIndicatorTests {
 	}
 
 	@Test
-	void healthReturnsDefaultStatus() {
-		AvailabilityStateHealthIndicator indicator = new AvailabilityStateHealthIndicator(this.applicationAvailability,
-				LivenessState.class, (statusMappings) -> {
-					statusMappings.add(LivenessState.CORRECT, Status.UP);
-					statusMappings.addDefaultStatus(Status.UNKNOWN);
-				});
-		given(this.applicationAvailability.getState(LivenessState.class)).willReturn(LivenessState.BROKEN);
-		assertThat(indicator.getHealth(false).getStatus()).isEqualTo(Status.UNKNOWN);
-	}
-
-	@Test
 	void healthWhenNotEnumReturnsMappedStatus() {
 		AvailabilityStateHealthIndicator indicator = new AvailabilityStateHealthIndicator(this.applicationAvailability,
 				TestAvailabilityState.class, (statusMappings) -> {
