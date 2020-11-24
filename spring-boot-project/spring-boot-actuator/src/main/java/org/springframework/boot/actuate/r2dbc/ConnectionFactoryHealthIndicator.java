@@ -68,12 +68,6 @@ public class ConnectionFactoryHealthIndicator extends AbstractReactiveHealthIndi
 		this.validationQuery = validationQuery;
 	}
 
-	@Override
-	protected final Mono<Health> doHealthCheck(Builder builder) {
-		return validate(builder).defaultIfEmpty(builder.build()).onErrorResume(Exception.class,
-				(ex) -> Mono.just(builder.down(ex).build()));
-	}
-
 	private Mono<Health> validate(Builder builder) {
 		builder.withDetail("database", this.connectionFactory.getMetadata().getName());
 		return (StringUtils.hasText(this.validationQuery)) ? validateWithQuery(builder)
