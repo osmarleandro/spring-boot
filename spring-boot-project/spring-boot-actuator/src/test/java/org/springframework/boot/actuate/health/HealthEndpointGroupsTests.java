@@ -44,15 +44,4 @@ class HealthEndpointGroupsTests {
 				.withMessage("Additional must not be null");
 	}
 
-	@Test
-	void ofReturnsHealthEndpointGroupsInstance() {
-		HealthEndpointGroup primary = mock(HealthEndpointGroup.class);
-		HealthEndpointGroup group = mock(HealthEndpointGroup.class);
-		HealthEndpointGroups groups = HealthEndpointGroups.of(primary, Collections.singletonMap("group", group));
-		assertThat(groups.getPrimary()).isSameAs(primary);
-		assertThat(groups.getNames()).containsExactly("group");
-		assertThat(groups.get("group")).isSameAs(group);
-		assertThat(groups.get("missing")).isNull();
-	}
-
 }
