@@ -46,10 +46,6 @@ public abstract class AbstractDiscoveredOperation implements Operation {
 		this.invoker = invoker;
 	}
 
-	public OperationMethod getOperationMethod() {
-		return this.operationMethod;
-	}
-
 	@Override
 	public OperationType getType() {
 		return this.operationMethod.getOperationType();
