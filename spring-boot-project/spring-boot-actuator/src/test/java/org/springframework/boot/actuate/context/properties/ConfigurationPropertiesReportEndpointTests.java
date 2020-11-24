@@ -70,13 +70,6 @@ class ConfigurationPropertiesReportEndpointTests {
 	}
 
 	@Test
-	void descriptorWithValueObjectBindMethodDetectsRelevantProperties() {
-		this.contextRunner.withUserConfiguration(ImmutablePropertiesConfiguration.class).run(assertProperties(
-				"immutable",
-				(properties) -> assertThat(properties).containsOnlyKeys("dbPassword", "myTestProperty", "duration")));
-	}
-
-	@Test
 	void descriptorWithValueObjectBindMethodUseDedicatedConstructor() {
 		this.contextRunner.withUserConfiguration(MultiConstructorPropertiesConfiguration.class).run(assertProperties(
 				"multiconstructor", (properties) -> assertThat(properties).containsOnly(entry("name", "test"))));
