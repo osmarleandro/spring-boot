@@ -20,6 +20,7 @@ import org.junit.jupiter.api.Test;
 
 import org.springframework.boot.actuate.endpoint.SecurityContext;
 import org.springframework.boot.actuate.health.HttpCodeStatusMapper;
+import org.springframework.boot.actuate.health.SimpleStatusAggregator;
 import org.springframework.boot.actuate.health.StatusAggregator;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -57,7 +58,7 @@ class AvailabilityProbesHealthEndpointGroupTests {
 
 	@Test
 	void getStatusAggregatorReturnsDefaultStatusAggregator() {
-		assertThat(this.group.getStatusAggregator()).isEqualTo(StatusAggregator.getDefault());
+		assertThat(this.group.getStatusAggregator()).isEqualTo(SimpleStatusAggregator.INSTANCE);
 	}
 
 	@Test
