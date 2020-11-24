@@ -76,12 +76,6 @@ class ApiVersionTests {
 		assertThat(version).isEqualTo(ApiVersion.V2);
 	}
 
-	@Test
-	void fromHttpHeadersWhenHasUnknownVersionReturnsLatest() {
-		ApiVersion version = ApiVersion.fromHttpHeaders(acceptHeader("application/vnd.spring-boot.actuator.v200"));
-		assertThat(version).isEqualTo(ApiVersion.V3);
-	}
-
 	private Map<String, List<String>> acceptHeader(String... types) {
 		List<String> value = Arrays.asList(types);
 		return value.isEmpty() ? Collections.emptyMap() : Collections.singletonMap("Accept", value);
