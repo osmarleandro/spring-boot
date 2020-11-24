@@ -97,12 +97,6 @@ class JacksonJmxOperationResponseMapperTests {
 	}
 
 	@Test
-	void mapResponseWhenArrayShouldReturnJsonArray() {
-		Object mapped = this.mapper.mapResponse(new int[] { 1, 2, 3 });
-		assertThat(this.json.from(mapped.toString())).isEqualToJson("[1,2,3]");
-	}
-
-	@Test
 	void mapResponseWhenCollectionShouldReturnJsonArray() {
 		Object mapped = this.mapper.mapResponse(Arrays.asList("a", "b", "c"));
 		assertThat(this.json.from(mapped.toString())).isEqualToJson("[a,b,c]");
