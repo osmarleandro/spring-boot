@@ -29,13 +29,6 @@ import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException
 class NamedContributorTests {
 
 	@Test
-	void ofNameAndContributorCreatesContributor() {
-		NamedContributor<String> contributor = NamedContributor.of("one", "two");
-		assertThat(contributor.getName()).isEqualTo("one");
-		assertThat(contributor.getContributor()).isEqualTo("two");
-	}
-
-	@Test
 	void ofWhenNameIsNullThrowsException() {
 		assertThatIllegalArgumentException().isThrownBy(() -> NamedContributor.of(null, "two"))
 				.withMessage("Name must not be null");
