@@ -92,13 +92,6 @@ class WebFluxTagsTests {
 	}
 
 	@Test
-	void uriTagValueIsNotFoundWhenResponseStatusIs404() {
-		this.exchange.getResponse().setStatusCode(HttpStatus.NOT_FOUND);
-		Tag tag = WebFluxTags.uri(this.exchange);
-		assertThat(tag.getValue()).isEqualTo("NOT_FOUND");
-	}
-
-	@Test
 	void uriTagToleratesCustomResponseStatus() {
 		this.exchange.getResponse().setRawStatusCode(601);
 		Tag tag = WebFluxTags.uri(this.exchange);
