@@ -41,6 +41,10 @@ import org.springframework.boot.actuate.endpoint.web.ExposableWebEndpoint;
 import org.springframework.boot.actuate.endpoint.web.WebEndpointResponse;
 import org.springframework.boot.actuate.endpoint.web.WebOperation;
 import org.springframework.boot.actuate.endpoint.web.WebOperationRequestPredicate;
+import org.springframework.boot.actuate.endpoint.web.reactive.AbstractWebFluxEndpointHandlerMapping.ReactiveWebOperation;
+import org.springframework.boot.actuate.endpoint.web.reactive.AbstractWebFluxEndpointHandlerMapping.ReactiveWebOperationAdapter;
+import org.springframework.boot.actuate.endpoint.web.reactive.AbstractWebFluxEndpointHandlerMapping.ReadOperationHandler;
+import org.springframework.boot.actuate.endpoint.web.reactive.AbstractWebFluxEndpointHandlerMapping.WriteOperationHandler;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -123,7 +127,16 @@ public abstract class AbstractWebFluxEndpointHandlerMapping extends RequestMappi
 	protected void initHandlerMethods() {
 		for (ExposableWebEndpoint endpoint : this.endpoints) {
 			for (WebOperation operation : endpoint.getOperations()) {
-				registerMappingForOperation(endpoint, operation);
+				ReactiveWebOperation reactiveWebOperation = wrapReactiveWebOperation(endpoint, operation,
+						new ReactiveWebOperationAdapter(operation));
+				if (operation.getType() == OperationType.WRITE) {
+					registerMapping(createRequestMappingInfo(operation), new WriteOperationHandler((reactiveWebOperation)),
+							this.handleWriteMethod);
+				}
+				else {
+					registerMapping(createRequestMappingInfo(operation), new ReadOperationHandler((reactiveWebOperation)),
+							this.handleReadMethod);
+				}
 			}
 		}
 		if (this.shouldRegisterLinksMapping) {
@@ -135,19 +148,6 @@ public abstract class AbstractWebFluxEndpointHandlerMapping extends RequestMappi
 	protected HandlerMethod createHandlerMethod(Object handler, Method method) {
 		HandlerMethod handlerMethod = super.createHandlerMethod(handler, method);
 		return new WebFluxEndpointHandlerMethod(handlerMethod.getBean(), handlerMethod.getMethod());
-	}
-
-	private void registerMappingForOperation(ExposableWebEndpoint endpoint, WebOperation operation) {
-		ReactiveWebOperation reactiveWebOperation = wrapReactiveWebOperation(endpoint, operation,
-				new ReactiveWebOperationAdapter(operation));
-		if (operation.getType() == OperationType.WRITE) {
-			registerMapping(createRequestMappingInfo(operation), new WriteOperationHandler((reactiveWebOperation)),
-					this.handleWriteMethod);
-		}
-		else {
-			registerMapping(createRequestMappingInfo(operation), new ReadOperationHandler((reactiveWebOperation)),
-					this.handleReadMethod);
-		}
 	}
 
 	/**
