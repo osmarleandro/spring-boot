@@ -16,7 +16,9 @@
 
 package org.springframework.boot.actuate.autoconfigure.health;
 
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.LinkedHashSet;
 
 import org.junit.jupiter.api.Test;
 import reactor.core.publisher.Flux;
@@ -90,7 +92,8 @@ class HealthEndpointAutoConfigurationTests {
 	void runCreatesStatusAggregatorFromProperties() {
 		this.contextRunner.withPropertyValues("management.endpoint.health.status.order=up,down").run((context) -> {
 			StatusAggregator aggregator = context.getBean(StatusAggregator.class);
-			assertThat(aggregator.getAggregateStatus(Status.UP, Status.DOWN)).isEqualTo(Status.UP);
+			Status[] statuses = { Status.UP, Status.DOWN };
+			assertThat(aggregator.getAggregateStatus(new LinkedHashSet<>(Arrays.asList(statuses)))).isEqualTo(Status.UP);
 		});
 	}
 
@@ -99,7 +102,8 @@ class HealthEndpointAutoConfigurationTests {
 		this.contextRunner.withUserConfiguration(StatusAggregatorConfiguration.class)
 				.withPropertyValues("management.endpoint.health.status.order=up,down").run((context) -> {
 					StatusAggregator aggregator = context.getBean(StatusAggregator.class);
-					assertThat(aggregator.getAggregateStatus(Status.UP, Status.DOWN)).isEqualTo(Status.UNKNOWN);
+					Status[] statuses = { Status.UP, Status.DOWN };
+					assertThat(aggregator.getAggregateStatus(new LinkedHashSet<>(Arrays.asList(statuses)))).isEqualTo(Status.UNKNOWN);
 				});
 	}
 
