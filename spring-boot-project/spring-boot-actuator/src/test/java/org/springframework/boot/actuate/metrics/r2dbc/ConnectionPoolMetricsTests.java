@@ -63,25 +63,6 @@ class ConnectionPoolMetricsTests {
 		}
 	}
 
-	@Test
-	void connectionFactoryIsInstrumented() {
-		SimpleMeterRegistry registry = new SimpleMeterRegistry();
-		ConnectionPool connectionPool = new ConnectionPool(
-				ConnectionPoolConfiguration.builder(this.connectionFactory).initialSize(3).maxSize(7).build());
-		ConnectionPoolMetrics metrics = new ConnectionPoolMetrics(connectionPool, "test-pool",
-				Tags.of(testTag, regionTag));
-		metrics.bindTo(registry);
-		// acquire two connections
-		connectionPool.create().as(StepVerifier::create).expectNextCount(1).verifyComplete();
-		connectionPool.create().as(StepVerifier::create).expectNextCount(1).verifyComplete();
-		assertGauge(registry, "r2dbc.pool.acquired", 2);
-		assertGauge(registry, "r2dbc.pool.allocated", 3);
-		assertGauge(registry, "r2dbc.pool.idle", 1);
-		assertGauge(registry, "r2dbc.pool.pending", 0);
-		assertGauge(registry, "r2dbc.pool.max.allocated", 7);
-		assertGauge(registry, "r2dbc.pool.max.pending", Integer.MAX_VALUE);
-	}
-
 	private void assertGauge(SimpleMeterRegistry registry, String metric, int expectedValue) {
 		Gauge gauge = registry.get(metric).gauge();
 		assertThat(gauge.value()).isEqualTo(expectedValue);
