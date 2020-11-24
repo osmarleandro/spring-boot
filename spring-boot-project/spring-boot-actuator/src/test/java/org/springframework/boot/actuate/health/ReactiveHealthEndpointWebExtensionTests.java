@@ -42,7 +42,7 @@ class ReactiveHealthEndpointWebExtensionTests extends
 	@Test
 	void healthReturnsSystemHealth() {
 		this.registry.registerContributor("test", createContributor(this.up));
-		WebEndpointResponse<? extends HealthComponent> response = create(this.registry, this.groups)
+		WebEndpointResponse<? extends HealthComponent> response = new ReactiveHealthEndpointWebExtension(this.registry, this.groups)
 				.health(ApiVersion.LATEST, SecurityContext.NONE).block();
 		HealthComponent health = response.getBody();
 		assertThat(health.getStatus()).isEqualTo(Status.UP);
@@ -53,8 +53,8 @@ class ReactiveHealthEndpointWebExtensionTests extends
 	@Test
 	void healthWithNoContributorReturnsUp() {
 		assertThat(this.registry).isEmpty();
-		WebEndpointResponse<? extends HealthComponent> response = create(this.registry,
-				HealthEndpointGroups.of(mock(HealthEndpointGroup.class), Collections.emptyMap()))
+		HealthEndpointGroups groups = HealthEndpointGroups.of(mock(HealthEndpointGroup.class), Collections.emptyMap());
+		WebEndpointResponse<? extends HealthComponent> response = new ReactiveHealthEndpointWebExtension(this.registry, groups)
 						.health(ApiVersion.LATEST, SecurityContext.NONE).block();
 		assertThat(response.getStatus()).isEqualTo(200);
 		HealthComponent health = response.getBody();
@@ -65,7 +65,7 @@ class ReactiveHealthEndpointWebExtensionTests extends
 	@Test
 	void healthWhenPathDoesNotExistReturnsHttp404() {
 		this.registry.registerContributor("test", createContributor(this.up));
-		WebEndpointResponse<? extends HealthComponent> response = create(this.registry, this.groups)
+		WebEndpointResponse<? extends HealthComponent> response = new ReactiveHealthEndpointWebExtension(this.registry, this.groups)
 				.health(ApiVersion.LATEST, SecurityContext.NONE, "missing").block();
 		assertThat(response.getBody()).isNull();
 		assertThat(response.getStatus()).isEqualTo(404);
@@ -74,16 +74,10 @@ class ReactiveHealthEndpointWebExtensionTests extends
 	@Test
 	void healthWhenPathExistsReturnsHealth() {
 		this.registry.registerContributor("test", createContributor(this.up));
-		WebEndpointResponse<? extends HealthComponent> response = create(this.registry, this.groups)
+		WebEndpointResponse<? extends HealthComponent> response = new ReactiveHealthEndpointWebExtension(this.registry, this.groups)
 				.health(ApiVersion.LATEST, SecurityContext.NONE, "test").block();
 		assertThat(response.getBody()).isEqualTo(this.up);
 		assertThat(response.getStatus()).isEqualTo(200);
-	}
-
-	@Override
-	protected ReactiveHealthEndpointWebExtension create(ReactiveHealthContributorRegistry registry,
-			HealthEndpointGroups groups) {
-		return new ReactiveHealthEndpointWebExtension(registry, groups);
 	}
 
 	@Override
