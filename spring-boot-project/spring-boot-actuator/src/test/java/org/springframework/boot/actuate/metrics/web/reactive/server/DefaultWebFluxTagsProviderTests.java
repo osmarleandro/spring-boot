@@ -42,23 +42,21 @@ public class DefaultWebFluxTagsProviderTests {
 	@Test
 	void whenTagsAreProvidedThenDefaultTagsArePresent() {
 		ServerWebExchange exchange = MockServerWebExchange.from(MockServerHttpRequest.get("/test"));
-		Map<String, Tag> tags = asMap(new DefaultWebFluxTagsProvider().httpRequestTags(exchange, null));
+		Iterable<Tag> tags1 = new DefaultWebFluxTagsProvider().httpRequestTags(exchange, null);
+		Map<String, Tag> tags = StreamSupport.stream(tags1.spliterator(), false)
+		.collect(Collectors.toMap(Tag::getKey, Function.identity()));
 		assertThat(tags).containsOnlyKeys("exception", "method", "outcome", "status", "uri");
 	}
 
 	@Test
 	void givenSomeContributorsWhenTagsAreProvidedThenDefaultTagsAndContributedTagsArePresent() {
 		ServerWebExchange exchange = MockServerWebExchange.from(MockServerHttpRequest.get("/test"));
-		Map<String, Tag> tags = asMap(
-				new DefaultWebFluxTagsProvider(Arrays.asList(new TestWebFluxTagsContributor("alpha"),
-						new TestWebFluxTagsContributor("bravo", "charlie"))).httpRequestTags(exchange, null));
+		Iterable<Tag> tags1 = new DefaultWebFluxTagsProvider(Arrays.asList(new TestWebFluxTagsContributor("alpha"),
+				new TestWebFluxTagsContributor("bravo", "charlie"))).httpRequestTags(exchange, null);
+		Map<String, Tag> tags = StreamSupport.stream(tags1.spliterator(), false)
+		.collect(Collectors.toMap(Tag::getKey, Function.identity()));
 		assertThat(tags).containsOnlyKeys("exception", "method", "outcome", "status", "uri", "alpha", "bravo",
 				"charlie");
-	}
-
-	private Map<String, Tag> asMap(Iterable<Tag> tags) {
-		return StreamSupport.stream(tags.spliterator(), false)
-				.collect(Collectors.toMap(Tag::getKey, Function.identity()));
 	}
 
 	private static final class TestWebFluxTagsContributor implements WebFluxTagsContributor {
