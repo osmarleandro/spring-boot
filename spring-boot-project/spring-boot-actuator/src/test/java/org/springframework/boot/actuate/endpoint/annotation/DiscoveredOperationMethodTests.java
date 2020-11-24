@@ -35,14 +35,6 @@ import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException
 class DiscoveredOperationMethodTests {
 
 	@Test
-	void createWhenAnnotationAttributesIsNullShouldThrowException() {
-		Method method = ReflectionUtils.findMethod(getClass(), "example");
-		assertThatIllegalArgumentException()
-				.isThrownBy(() -> new DiscoveredOperationMethod(method, OperationType.READ, null))
-				.withMessageContaining("AnnotationAttributes must not be null");
-	}
-
-	@Test
 	void getProducesMediaTypesShouldReturnMediaTypes() {
 		Method method = ReflectionUtils.findMethod(getClass(), "example");
 		AnnotationAttributes annotationAttributes = new AnnotationAttributes();
