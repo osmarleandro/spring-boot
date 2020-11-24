@@ -84,17 +84,6 @@ class Neo4jReactiveHealthIndicatorTest {
 		verify(session, times(2)).close();
 	}
 
-	@Test
-	void neo4jIsDown() {
-		Driver driver = mock(Driver.class);
-		given(driver.rxSession(any(SessionConfig.class))).willThrow(ServiceUnavailableException.class);
-		Neo4jReactiveHealthIndicator healthIndicator = new Neo4jReactiveHealthIndicator(driver);
-		healthIndicator.health().as(StepVerifier::create).consumeNextWith((health) -> {
-			assertThat(health.getStatus()).isEqualTo(Status.DOWN);
-			assertThat(health.getDetails()).containsKeys("error");
-		}).verifyComplete();
-	}
-
 	private RxResult mockStatementResult(ResultSummary resultSummary, String edition) {
 		Record record = mock(Record.class);
 		given(record.get("edition")).willReturn(Values.value(edition));
