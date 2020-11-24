@@ -64,7 +64,10 @@ class EnvironmentEndpointTests {
 
 	@Test
 	void basicResponse() {
-		ConfigurableEnvironment environment = emptyEnvironment();
+		StandardEnvironment environment1 = new StandardEnvironment();
+		environment1.getPropertySources().remove(StandardEnvironment.SYSTEM_ENVIRONMENT_PROPERTY_SOURCE_NAME);
+		environment1.getPropertySources().remove(StandardEnvironment.SYSTEM_PROPERTIES_PROPERTY_SOURCE_NAME);
+		ConfigurableEnvironment environment = environment1;
 		environment.getPropertySources().addLast(singleKeyPropertySource("one", "my.key", "first"));
 		environment.getPropertySources().addLast(singleKeyPropertySource("two", "my.key", "second"));
 		EnvironmentDescriptor descriptor = new EnvironmentEndpoint(environment).environment(null);
@@ -77,7 +80,10 @@ class EnvironmentEndpointTests {
 
 	@Test
 	void compositeSourceIsHandledCorrectly() {
-		ConfigurableEnvironment environment = emptyEnvironment();
+		StandardEnvironment environment1 = new StandardEnvironment();
+		environment1.getPropertySources().remove(StandardEnvironment.SYSTEM_ENVIRONMENT_PROPERTY_SOURCE_NAME);
+		environment1.getPropertySources().remove(StandardEnvironment.SYSTEM_PROPERTIES_PROPERTY_SOURCE_NAME);
+		ConfigurableEnvironment environment = environment1;
 		CompositePropertySource source = new CompositePropertySource("composite");
 		source.addPropertySource(new MapPropertySource("one", Collections.singletonMap("foo", "bar")));
 		source.addPropertySource(new MapPropertySource("two", Collections.singletonMap("foo", "spam")));
@@ -160,7 +166,10 @@ class EnvironmentEndpointTests {
 
 	@Test
 	void propertyWithPlaceholderResolved() {
-		ConfigurableEnvironment environment = emptyEnvironment();
+		StandardEnvironment environment1 = new StandardEnvironment();
+		environment1.getPropertySources().remove(StandardEnvironment.SYSTEM_ENVIRONMENT_PROPERTY_SOURCE_NAME);
+		environment1.getPropertySources().remove(StandardEnvironment.SYSTEM_PROPERTIES_PROPERTY_SOURCE_NAME);
+		ConfigurableEnvironment environment = environment1;
 		TestPropertyValues.of("my.foo: ${bar.blah}", "bar.blah: hello").applyTo(environment);
 		EnvironmentDescriptor descriptor = new EnvironmentEndpoint(environment).environment(null);
 		assertThat(propertySources(descriptor).get("test").getProperties().get("my.foo").getValue()).isEqualTo("hello");
@@ -168,7 +177,10 @@ class EnvironmentEndpointTests {
 
 	@Test
 	void propertyWithPlaceholderNotResolved() {
-		ConfigurableEnvironment environment = emptyEnvironment();
+		StandardEnvironment environment1 = new StandardEnvironment();
+		environment1.getPropertySources().remove(StandardEnvironment.SYSTEM_ENVIRONMENT_PROPERTY_SOURCE_NAME);
+		environment1.getPropertySources().remove(StandardEnvironment.SYSTEM_PROPERTIES_PROPERTY_SOURCE_NAME);
+		ConfigurableEnvironment environment = environment1;
 		TestPropertyValues.of("my.foo: ${bar.blah}").applyTo(environment);
 		EnvironmentDescriptor descriptor = new EnvironmentEndpoint(environment).environment(null);
 		assertThat(propertySources(descriptor).get("test").getProperties().get("my.foo").getValue())
@@ -177,7 +189,10 @@ class EnvironmentEndpointTests {
 
 	@Test
 	void propertyWithSensitivePlaceholderResolved() {
-		ConfigurableEnvironment environment = emptyEnvironment();
+		StandardEnvironment environment1 = new StandardEnvironment();
+		environment1.getPropertySources().remove(StandardEnvironment.SYSTEM_ENVIRONMENT_PROPERTY_SOURCE_NAME);
+		environment1.getPropertySources().remove(StandardEnvironment.SYSTEM_PROPERTIES_PROPERTY_SOURCE_NAME);
+		ConfigurableEnvironment environment = environment1;
 		TestPropertyValues.of("my.foo: http://${bar.password}://hello", "bar.password: hello").applyTo(environment);
 		EnvironmentDescriptor descriptor = new EnvironmentEndpoint(environment).environment(null);
 		assertThat(propertySources(descriptor).get("test").getProperties().get("my.foo").getValue())
@@ -186,7 +201,10 @@ class EnvironmentEndpointTests {
 
 	@Test
 	void propertyWithSensitivePlaceholderNotResolved() {
-		ConfigurableEnvironment environment = emptyEnvironment();
+		StandardEnvironment environment1 = new StandardEnvironment();
+		environment1.getPropertySources().remove(StandardEnvironment.SYSTEM_ENVIRONMENT_PROPERTY_SOURCE_NAME);
+		environment1.getPropertySources().remove(StandardEnvironment.SYSTEM_PROPERTIES_PROPERTY_SOURCE_NAME);
+		ConfigurableEnvironment environment = environment1;
 		TestPropertyValues.of("my.foo: http://${bar.password}://hello").applyTo(environment);
 		EnvironmentDescriptor descriptor = new EnvironmentEndpoint(environment).environment(null);
 		assertThat(propertySources(descriptor).get("test").getProperties().get("my.foo").getValue())
@@ -196,7 +214,10 @@ class EnvironmentEndpointTests {
 	@Test
 	@SuppressWarnings("unchecked")
 	void propertyWithTypeOtherThanStringShouldNotFail() {
-		ConfigurableEnvironment environment = emptyEnvironment();
+		StandardEnvironment environment1 = new StandardEnvironment();
+		environment1.getPropertySources().remove(StandardEnvironment.SYSTEM_ENVIRONMENT_PROPERTY_SOURCE_NAME);
+		environment1.getPropertySources().remove(StandardEnvironment.SYSTEM_PROPERTIES_PROPERTY_SOURCE_NAME);
+		ConfigurableEnvironment environment = environment1;
 		environment.getPropertySources()
 				.addFirst(singleKeyPropertySource("test", "foo", Collections.singletonMap("bar", "baz")));
 		EnvironmentDescriptor descriptor = new EnvironmentEndpoint(environment).environment(null);
@@ -239,7 +260,10 @@ class EnvironmentEndpointTests {
 
 	@Test
 	void propertyEntryNotFound() {
-		ConfigurableEnvironment environment = emptyEnvironment();
+		StandardEnvironment environment1 = new StandardEnvironment();
+		environment1.getPropertySources().remove(StandardEnvironment.SYSTEM_ENVIRONMENT_PROPERTY_SOURCE_NAME);
+		environment1.getPropertySources().remove(StandardEnvironment.SYSTEM_PROPERTIES_PROPERTY_SOURCE_NAME);
+		ConfigurableEnvironment environment = environment1;
 		environment.getPropertySources().addFirst(singleKeyPropertySource("test", "foo", "bar"));
 		EnvironmentEntryDescriptor descriptor = new EnvironmentEndpoint(environment).environmentEntry("does.not.exist");
 		assertThat(descriptor).isNotNull();
@@ -251,7 +275,10 @@ class EnvironmentEndpointTests {
 
 	@Test
 	void multipleSourcesWithSameProperty() {
-		ConfigurableEnvironment environment = emptyEnvironment();
+		StandardEnvironment environment1 = new StandardEnvironment();
+		environment1.getPropertySources().remove(StandardEnvironment.SYSTEM_ENVIRONMENT_PROPERTY_SOURCE_NAME);
+		environment1.getPropertySources().remove(StandardEnvironment.SYSTEM_PROPERTIES_PROPERTY_SOURCE_NAME);
+		ConfigurableEnvironment environment = environment1;
 		environment.getPropertySources().addFirst(singleKeyPropertySource("one", "a", "alpha"));
 		environment.getPropertySources().addFirst(singleKeyPropertySource("two", "a", "apple"));
 		EnvironmentDescriptor descriptor = new EnvironmentEndpoint(environment).environment(null);
@@ -279,13 +306,6 @@ class EnvironmentEndpointTests {
 				.environmentEntry("sensitive.addresses");
 		assertThat(descriptor.getProperty().getValue())
 				.isEqualTo("http://user:******@localhost:8080,http://user2:******@localhost:8082");
-	}
-
-	private static ConfigurableEnvironment emptyEnvironment() {
-		StandardEnvironment environment = new StandardEnvironment();
-		environment.getPropertySources().remove(StandardEnvironment.SYSTEM_ENVIRONMENT_PROPERTY_SOURCE_NAME);
-		environment.getPropertySources().remove(StandardEnvironment.SYSTEM_PROPERTIES_PROPERTY_SOURCE_NAME);
-		return environment;
 	}
 
 	private MapPropertySource singleKeyPropertySource(String name, String key, Object value) {
