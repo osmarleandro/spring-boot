@@ -37,16 +37,6 @@ public class InMemoryHttpTraceRepository implements HttpTraceRepository {
 	private final List<HttpTrace> traces = new LinkedList<>();
 
 	/**
-	 * Flag to say that the repository lists traces in reverse order.
-	 * @param reverse flag value (default true)
-	 */
-	public void setReverse(boolean reverse) {
-		synchronized (this.traces) {
-			this.reverse = reverse;
-		}
-	}
-
-	/**
 	 * Set the capacity of the in-memory repository.
 	 * @param capacity the capacity
 	 */

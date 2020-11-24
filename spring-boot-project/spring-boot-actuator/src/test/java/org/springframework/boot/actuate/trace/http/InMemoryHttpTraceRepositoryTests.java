@@ -48,7 +48,10 @@ class InMemoryHttpTraceRepositoryTests {
 
 	@Test
 	void reverseFalse() {
-		this.repository.setReverse(false);
+		InMemoryHttpTraceRepository r = this.repository;
+		synchronized (r.traces) {
+			r.reverse = false;
+		}
 		this.repository.setCapacity(2);
 		this.repository.add(new HttpTrace(createRequest("GET")));
 		this.repository.add(new HttpTrace(createRequest("POST")));
