@@ -70,10 +70,6 @@ public class RequestMappingConditionsDescription {
 		return this.methods;
 	}
 
-	public List<NameValueExpressionDescription> getParams() {
-		return this.params;
-	}
-
 	public Set<String> getPatterns() {
 		return this.patterns;
 	}
