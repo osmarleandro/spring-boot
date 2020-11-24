@@ -33,12 +33,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 class ThreadDumpEndpointWebIntegrationTests {
 
 	@WebEndpointTest
-	void getRequestWithJsonAcceptHeaderShouldProduceJsonThreadDumpResponse(WebTestClient client) throws Exception {
-		client.get().uri("/actuator/threaddump").accept(MediaType.APPLICATION_JSON).exchange().expectStatus().isOk()
-				.expectHeader().contentType(MediaType.APPLICATION_JSON);
-	}
-
-	@WebEndpointTest
 	void getRequestWithTextPlainAcceptHeaderShouldProduceTextPlainResponse(WebTestClient client) throws Exception {
 		String response = client.get().uri("/actuator/threaddump").accept(MediaType.TEXT_PLAIN).exchange()
 				.expectStatus().isOk().expectHeader().contentType("text/plain;charset=UTF-8").expectBody(String.class)
