@@ -37,14 +37,14 @@ class CloudFoundryEndpointFilterTests {
 	void matchIfDiscovererCloudFoundryShouldReturnFalse() {
 		DiscoveredEndpoint<?> endpoint = mock(DiscoveredEndpoint.class);
 		given(endpoint.wasDiscoveredBy(CloudFoundryWebEndpointDiscoverer.class)).willReturn(true);
-		assertThat(this.filter.match(endpoint)).isTrue();
+		assertThat(endpoint.wasDiscoveredBy(this.filter.discoverer)).isTrue();
 	}
 
 	@Test
 	void matchIfDiscovererNotCloudFoundryShouldReturnFalse() {
 		DiscoveredEndpoint<?> endpoint = mock(DiscoveredEndpoint.class);
 		given(endpoint.wasDiscoveredBy(CloudFoundryWebEndpointDiscoverer.class)).willReturn(false);
-		assertThat(this.filter.match(endpoint)).isFalse();
+		assertThat(endpoint.wasDiscoveredBy(this.filter.discoverer)).isFalse();
 	}
 
 }
