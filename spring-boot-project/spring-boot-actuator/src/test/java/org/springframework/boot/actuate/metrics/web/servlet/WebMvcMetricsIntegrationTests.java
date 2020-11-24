@@ -72,11 +72,6 @@ class WebMvcMetricsIntegrationTests {
 
 	private MockMvc mvc;
 
-	@BeforeEach
-	void setupMockMvc() {
-		this.mvc = MockMvcBuilders.webAppContextSetup(this.context).addFilters(this.filter).build();
-	}
-
 	@Test
 	void handledExceptionIsRecordedInMetricTag() throws Exception {
 		this.mvc.perform(get("/api/handledError")).andExpect(status().is5xxServerError());
