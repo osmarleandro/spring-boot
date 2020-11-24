@@ -37,8 +37,8 @@ public class SimpleHttpCodeStatusMapper implements HttpCodeStatusMapper {
 	private static final Map<String, Integer> DEFAULT_MAPPINGS;
 	static {
 		Map<String, Integer> defaultMappings = new HashMap<>();
-		defaultMappings.put(Status.DOWN.getCode(), WebEndpointResponse.STATUS_SERVICE_UNAVAILABLE);
-		defaultMappings.put(Status.OUT_OF_SERVICE.getCode(), WebEndpointResponse.STATUS_SERVICE_UNAVAILABLE);
+		defaultMappings.put(Status.DOWN.code, WebEndpointResponse.STATUS_SERVICE_UNAVAILABLE);
+		defaultMappings.put(Status.OUT_OF_SERVICE.code, WebEndpointResponse.STATUS_SERVICE_UNAVAILABLE);
 		DEFAULT_MAPPINGS = getUniformMappings(defaultMappings);
 	}
 
@@ -61,7 +61,7 @@ public class SimpleHttpCodeStatusMapper implements HttpCodeStatusMapper {
 
 	@Override
 	public int getStatusCode(Status status) {
-		String code = getUniformCode(status.getCode());
+		String code = getUniformCode(status.code);
 		return this.mappings.getOrDefault(code, WebEndpointResponse.STATUS_OK);
 	}
 
