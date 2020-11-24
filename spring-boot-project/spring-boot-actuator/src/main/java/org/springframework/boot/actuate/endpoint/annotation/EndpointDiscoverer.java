@@ -38,6 +38,7 @@ import org.springframework.boot.actuate.endpoint.EndpointId;
 import org.springframework.boot.actuate.endpoint.EndpointsSupplier;
 import org.springframework.boot.actuate.endpoint.ExposableEndpoint;
 import org.springframework.boot.actuate.endpoint.Operation;
+import org.springframework.boot.actuate.endpoint.annotation.EndpointDiscoverer.EndpointBean;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvoker;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvokerAdvisor;
 import org.springframework.boot.actuate.endpoint.invoke.ParameterValueMapper;
@@ -131,19 +132,15 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 				Endpoint.class);
 		for (String beanName : beanNames) {
 			if (!ScopedProxyUtils.isScopedTarget(beanName)) {
-				EndpointBean endpointBean = createEndpointBean(beanName);
+				Class<?> beanType = ClassUtils.getUserClass(this.applicationContext.getType(beanName, false));
+				Supplier<Object> beanSupplier = () -> this.applicationContext.getBean(beanName);
+				EndpointBean endpointBean = new EndpointBean(this.applicationContext.getEnvironment(), beanName, beanType, beanSupplier);
 				EndpointBean previous = byId.putIfAbsent(endpointBean.getId(), endpointBean);
 				Assert.state(previous == null, () -> "Found two endpoints with the id '" + endpointBean.getId() + "': '"
 						+ endpointBean.getBeanName() + "' and '" + previous.getBeanName() + "'");
 			}
 		}
 		return byId.values();
-	}
-
-	private EndpointBean createEndpointBean(String beanName) {
-		Class<?> beanType = ClassUtils.getUserClass(this.applicationContext.getType(beanName, false));
-		Supplier<Object> beanSupplier = () -> this.applicationContext.getBean(beanName);
-		return new EndpointBean(this.applicationContext.getEnvironment(), beanName, beanType, beanSupplier);
 	}
 
 	private void addExtensionBeans(Collection<EndpointBean> endpointBeans) {
