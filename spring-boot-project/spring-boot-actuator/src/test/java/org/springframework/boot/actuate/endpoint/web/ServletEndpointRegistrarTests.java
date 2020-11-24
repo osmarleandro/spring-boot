@@ -82,11 +82,6 @@ class ServletEndpointRegistrarTests {
 		assertBasePath("", "/test/*");
 	}
 
-	@Test
-	void onStartupWhenHasRootBasePathShouldNotAddDuplicateSlash() throws ServletException {
-		assertBasePath("/", "/test/*");
-	}
-
 	private void assertBasePath(String basePath, String expectedMapping) throws ServletException {
 		given(this.servletContext.addServlet(any(String.class), any(Servlet.class))).willReturn(this.dynamic);
 		ExposableServletEndpoint endpoint = mockEndpoint(new EndpointServlet(TestServlet.class));
