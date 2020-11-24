@@ -98,7 +98,8 @@ class RequestPredicateFactory {
 	}
 
 	private Collection<String> getConsumes(WebEndpointHttpMethod httpMethod, Method method) {
-		if (WebEndpointHttpMethod.POST == httpMethod && consumesRequestBody(method)) {
+		if (WebEndpointHttpMethod.POST == httpMethod && Stream.of(method.getParameters())
+		.anyMatch((parameter) -> parameter.getAnnotation(Selector.class) == null)) {
 			return this.endpointMediaTypes.getConsumed();
 		}
 		return Collections.emptyList();
@@ -126,11 +127,6 @@ class RequestPredicateFactory {
 			return ResolvableType.forClass(Resource.class).isAssignableFrom(returnType.getGeneric(0));
 		}
 		return false;
-	}
-
-	private boolean consumesRequestBody(Method method) {
-		return Stream.of(method.getParameters())
-				.anyMatch((parameter) -> parameter.getAnnotation(Selector.class) == null);
 	}
 
 	private WebEndpointHttpMethod determineHttpMethod(OperationType operationType) {
