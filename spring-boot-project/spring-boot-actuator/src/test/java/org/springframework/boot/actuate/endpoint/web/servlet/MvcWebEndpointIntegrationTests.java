@@ -109,11 +109,6 @@ class MvcWebEndpointIntegrationTests
 		assertThat(getMatchResult("/spring/")).isNotNull();
 	}
 
-	@Test
-	void matchWhenRequestHasSuffixShouldBeNull() {
-		assertThat(getMatchResult("/spring.do")).isNull();
-	}
-
 	private RequestMatchResult getMatchResult(String servletPath) {
 		MockHttpServletRequest request = new MockHttpServletRequest();
 		request.setServletPath(servletPath);
