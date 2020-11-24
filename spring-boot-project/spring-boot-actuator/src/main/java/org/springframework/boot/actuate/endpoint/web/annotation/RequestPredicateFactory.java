@@ -56,7 +56,17 @@ class RequestPredicateFactory {
 		Parameter[] selectorParameters = Arrays.stream(method.getParameters()).filter(this::hasSelector)
 				.toArray(Parameter[]::new);
 		Parameter allRemainingPathSegmentsParameter = getAllRemainingPathSegmentsParameter(selectorParameters);
-		String path = getPath(rootPath, selectorParameters, allRemainingPathSegmentsParameter != null);
+		boolean matchRemainingPathSegments = allRemainingPathSegmentsParameter != null;
+		StringBuilder path1 = new StringBuilder(rootPath);
+		for (int i = 0; i < selectorParameters.length; i++) {
+			path1.append("/{");
+			if (i == selectorParameters.length - 1 && matchRemainingPathSegments) {
+				path1.append("*");
+			}
+			path1.append(selectorParameters[i].getName());
+			path1.append("}");
+		}
+		String path = path1.toString();
 		WebEndpointHttpMethod httpMethod = determineHttpMethod(operationMethod.getOperationType());
 		Collection<String> consumes = getConsumes(httpMethod, method);
 		Collection<String> produces = getProduces(operationMethod, method);
@@ -78,19 +88,6 @@ class RequestPredicateFactory {
 					"@Selector annotation with Match.ALL_REMAINING must be the last parameter");
 		}
 		return trailingPathsParameter;
-	}
-
-	private String getPath(String rootPath, Parameter[] selectorParameters, boolean matchRemainingPathSegments) {
-		StringBuilder path = new StringBuilder(rootPath);
-		for (int i = 0; i < selectorParameters.length; i++) {
-			path.append("/{");
-			if (i == selectorParameters.length - 1 && matchRemainingPathSegments) {
-				path.append("*");
-			}
-			path.append(selectorParameters[i].getName());
-			path.append("}");
-		}
-		return path.toString();
 	}
 
 	private boolean hasSelector(Parameter parameter) {
