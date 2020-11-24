@@ -79,11 +79,6 @@ public final class Info {
 	}
 
 	@Override
-	public int hashCode() {
-		return this.details.hashCode();
-	}
-
-	@Override
 	public String toString() {
 		return getDetails().toString();
 	}
