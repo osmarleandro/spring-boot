@@ -98,13 +98,6 @@ class EndpointServletTests {
 	}
 
 	@Test
-	void withInitParametersEmptyName() {
-		EndpointServlet endpointServlet = new EndpointServlet(TestServlet.class);
-		assertThatIllegalArgumentException()
-				.isThrownBy(() -> endpointServlet.withInitParameters(Collections.singletonMap(" ", "value")));
-	}
-
-	@Test
 	void withInitParametersShouldCreateNewInstance() {
 		EndpointServlet endpointServlet = new EndpointServlet(TestServlet.class);
 		assertThat(endpointServlet.withInitParameters(Collections.singletonMap("spring", "boot")))
