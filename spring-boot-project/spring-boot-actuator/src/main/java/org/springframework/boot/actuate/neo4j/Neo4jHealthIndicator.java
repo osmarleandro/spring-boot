@@ -24,11 +24,13 @@ import org.neo4j.driver.Result;
 import org.neo4j.driver.Session;
 import org.neo4j.driver.SessionConfig;
 import org.neo4j.driver.exceptions.SessionExpiredException;
+import org.neo4j.driver.summary.DatabaseInfo;
 import org.neo4j.driver.summary.ResultSummary;
-
+import org.neo4j.driver.summary.ServerInfo;
 import org.springframework.boot.actuate.health.AbstractHealthIndicator;
 import org.springframework.boot.actuate.health.Health;
 import org.springframework.boot.actuate.health.HealthIndicator;
+import org.springframework.util.StringUtils;
 
 /**
  * {@link HealthIndicator} that tests the status of a Neo4j by executing a Cypher
@@ -93,7 +95,14 @@ public class Neo4jHealthIndicator extends AbstractHealthIndicator {
 			Result result = session.run(CYPHER);
 			String edition = result.single().get("edition").asString();
 			ResultSummary resultSummary = result.consume();
-			this.healthDetailsHandler.addHealthDetails(builder, edition, resultSummary);
+			Neo4jHealthDetailsHandler r = this.healthDetailsHandler;
+			ServerInfo serverInfo = resultSummary.server();
+			builder.up().withDetail("server", serverInfo.version() + "@" + serverInfo.address()).withDetail("edition",
+					edition);
+			DatabaseInfo databaseInfo = resultSummary.database();
+			if (StringUtils.hasText(databaseInfo.name())) {
+				builder.withDetail("database", databaseInfo.name());
+			}
 		}
 	}
 
