@@ -127,11 +127,4 @@ class SanitizerTests {
 				"addresses", "my.addresses", "myaddresses");
 	}
 
-	@Test
-	void regex() {
-		Sanitizer sanitizer = new Sanitizer(".*lock.*");
-		assertThat(sanitizer.sanitize("verylOCkish", "secret")).isEqualTo("******");
-		assertThat(sanitizer.sanitize("veryokish", "secret")).isEqualTo("secret");
-	}
-
 }
