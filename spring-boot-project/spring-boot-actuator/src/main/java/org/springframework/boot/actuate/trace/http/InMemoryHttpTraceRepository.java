@@ -46,16 +46,6 @@ public class InMemoryHttpTraceRepository implements HttpTraceRepository {
 		}
 	}
 
-	/**
-	 * Set the capacity of the in-memory repository.
-	 * @param capacity the capacity
-	 */
-	public void setCapacity(int capacity) {
-		synchronized (this.traces) {
-			this.capacity = capacity;
-		}
-	}
-
 	@Override
 	public List<HttpTrace> findAll() {
 		synchronized (this.traces) {
