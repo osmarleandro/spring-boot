@@ -93,18 +93,6 @@ class MetricsWebClientFilterFunctionTests {
 	}
 
 	@Test
-	void filterWhenIoExceptionThrownShouldRecordTimer() {
-		ClientRequest request = ClientRequest
-				.create(HttpMethod.GET, URI.create("https://example.com/projects/spring-boot")).build();
-		ExchangeFunction errorExchange = (r) -> Mono.error(new IOException());
-		this.filterFunction.filter(request, errorExchange).onErrorResume(IOException.class, (t) -> Mono.empty())
-				.block(Duration.ofSeconds(5));
-		assertThat(this.registry.get("http.client.requests")
-				.tags("method", "GET", "uri", "/projects/spring-boot", "status", "IO_ERROR").timer().count())
-						.isEqualTo(1);
-	}
-
-	@Test
 	void filterWhenExceptionThrownShouldRecordTimer() {
 		ClientRequest request = ClientRequest
 				.create(HttpMethod.GET, URI.create("https://example.com/projects/spring-boot")).build();
