@@ -34,7 +34,7 @@ public class DefaultWebClientExchangeTagsProvider implements WebClientExchangeTa
 
 	@Override
 	public Iterable<Tag> tags(ClientRequest request, ClientResponse response, Throwable throwable) {
-		Tag method = WebClientExchangeTags.method(request);
+		Tag method = Tag.of("method", request.method().name());
 		Tag uri = WebClientExchangeTags.uri(request);
 		Tag clientName = WebClientExchangeTags.clientName(request);
 		Tag status = WebClientExchangeTags.status(response, throwable);

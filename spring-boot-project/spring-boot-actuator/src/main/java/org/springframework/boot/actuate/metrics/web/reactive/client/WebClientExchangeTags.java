@@ -51,16 +51,6 @@ public final class WebClientExchangeTags {
 	}
 
 	/**
-	 * Creates a {@code method} {@code Tag} for the {@link ClientHttpRequest#getMethod()
-	 * method} of the given {@code request}.
-	 * @param request the request
-	 * @return the method tag
-	 */
-	public static Tag method(ClientRequest request) {
-		return Tag.of("method", request.method().name());
-	}
-
-	/**
 	 * Creates a {@code uri} {@code Tag} for the URI path of the given {@code request}.
 	 * @param request the request
 	 * @return the uri tag

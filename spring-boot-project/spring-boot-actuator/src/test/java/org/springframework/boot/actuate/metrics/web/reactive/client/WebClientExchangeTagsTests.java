@@ -56,7 +56,7 @@ class WebClientExchangeTagsTests {
 
 	@Test
 	void method() {
-		assertThat(WebClientExchangeTags.method(this.request)).isEqualTo(Tag.of("method", "GET"));
+		assertThat(Tag.of("method", this.request.method().name())).isEqualTo(Tag.of("method", "GET"));
 	}
 
 	@Test
