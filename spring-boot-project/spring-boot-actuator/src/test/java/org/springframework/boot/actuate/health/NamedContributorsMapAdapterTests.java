@@ -84,12 +84,6 @@ class NamedContributorsMapAdapterTests {
 		assertThat(adapter.getContributor("two")).isEqualTo("owt");
 	}
 
-	@Test
-	void getContributorWhenNotInMapReturnsNull() {
-		TestNamedContributorsMapAdapter<String> adapter = createAdapter();
-		assertThat(adapter.getContributor("missing")).isNull();
-	}
-
 	private TestNamedContributorsMapAdapter<String> createAdapter() {
 		Map<String, String> map = new LinkedHashMap<>();
 		map.put("one", "one");
