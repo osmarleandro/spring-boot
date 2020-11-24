@@ -122,11 +122,6 @@ class SanitizerTests {
 				.isEqualTo("[http://user1@localhost:8080,http://user2@localhost:8082]");
 	}
 
-	private static Stream<String> matchingUriUserInfoKeys() {
-		return Stream.of("uri", "my.uri", "myuri", "uris", "my.uris", "myuris", "address", "my.address", "myaddress",
-				"addresses", "my.addresses", "myaddresses");
-	}
-
 	@Test
 	void regex() {
 		Sanitizer sanitizer = new Sanitizer(".*lock.*");
