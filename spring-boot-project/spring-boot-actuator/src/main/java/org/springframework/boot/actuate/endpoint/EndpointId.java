@@ -59,7 +59,9 @@ public final class EndpointId {
 		Assert.isTrue(!Character.isDigit(value.charAt(0)), "Value must not start with a number");
 		Assert.isTrue(!Character.isUpperCase(value.charAt(0)), "Value must not start with an uppercase letter");
 		if (WARNING_PATTERN.matcher(value).find()) {
-			logWarning(value);
+			if (logger.isWarnEnabled() && loggedWarnings.add(value)) {
+				logger.warn("Endpoint ID '" + value + "' contains invalid characters, please migrate to a valid format.");
+			}
 		}
 		this.value = value;
 		this.lowerCaseValue = value.toLowerCase(Locale.ENGLISH);
@@ -148,12 +150,6 @@ public final class EndpointId {
 
 	static void resetLoggedWarnings() {
 		loggedWarnings.clear();
-	}
-
-	private static void logWarning(String value) {
-		if (logger.isWarnEnabled() && loggedWarnings.add(value)) {
-			logger.warn("Endpoint ID '" + value + "' contains invalid characters, please migrate to a valid format.");
-		}
 	}
 
 }
