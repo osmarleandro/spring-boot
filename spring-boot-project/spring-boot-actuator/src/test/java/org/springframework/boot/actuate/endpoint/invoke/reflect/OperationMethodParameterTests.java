@@ -58,8 +58,4 @@ class OperationMethodParameterTests {
 		assertThat(parameter.isMandatory()).isFalse();
 	}
 
-	void example(String one, @Nullable String two) {
-
-	}
-
 }
