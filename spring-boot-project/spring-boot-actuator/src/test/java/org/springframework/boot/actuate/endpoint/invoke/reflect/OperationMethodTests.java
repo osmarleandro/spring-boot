@@ -43,12 +43,6 @@ class OperationMethodTests {
 	}
 
 	@Test
-	void createWhenOperationTypeIsNullShouldThrowException() {
-		assertThatIllegalArgumentException().isThrownBy(() -> new OperationMethod(this.exampleMethod, null))
-				.withMessageContaining("OperationType must not be null");
-	}
-
-	@Test
 	void getMethodShouldReturnMethod() {
 		OperationMethod operationMethod = new OperationMethod(this.exampleMethod, OperationType.READ);
 		assertThat(operationMethod.getMethod()).isEqualTo(this.exampleMethod);
