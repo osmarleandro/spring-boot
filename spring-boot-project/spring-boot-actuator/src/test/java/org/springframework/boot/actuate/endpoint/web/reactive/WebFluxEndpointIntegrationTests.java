@@ -95,11 +95,6 @@ class WebFluxEndpointIntegrationTests
 		});
 	}
 
-	@Override
-	protected int getPort(AnnotationConfigReactiveWebServerApplicationContext context) {
-		return context.getBean(ReactiveConfiguration.class).port;
-	}
-
 	@Configuration(proxyBeanMethods = false)
 	@EnableWebFlux
 	@ImportAutoConfiguration(ErrorWebFluxAutoConfiguration.class)
