@@ -147,12 +147,6 @@ class MetricsEndpointTests {
 	}
 
 	@Test
-	void metricWithInvalidTag() {
-		assertThatExceptionOfType(InvalidEndpointRequestException.class)
-				.isThrownBy(() -> this.endpoint.metric("counter", Collections.singletonList("key")));
-	}
-
-	@Test
 	void metricPresentInOneRegistryOfACompositeAndNotAnother() {
 		CompositeMeterRegistry composite = new CompositeMeterRegistry();
 		SimpleMeterRegistry reg1 = new SimpleMeterRegistry();
