@@ -71,14 +71,6 @@ class HealthTests {
 	}
 
 	@Test
-	void withException() {
-		RuntimeException ex = new RuntimeException("bang");
-		Health health = new Health.Builder(Status.UP, Collections.singletonMap("a", "b")).withException(ex).build();
-		assertThat(health.getDetails()).containsOnly(entry("a", "b"),
-				entry("error", "java.lang.RuntimeException: bang"));
-	}
-
-	@Test
 	void withDetails() {
 		Health health = new Health.Builder(Status.UP, Collections.singletonMap("a", "b")).withDetail("c", "d").build();
 		assertThat(health.getDetails()).containsOnly(entry("a", "b"), entry("c", "d"));
