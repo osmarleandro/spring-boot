@@ -93,15 +93,6 @@ public final class Status {
 		return this.code;
 	}
 
-	/**
-	 * Return the description of this status.
-	 * @return the description
-	 */
-	@JsonInclude(Include.NON_EMPTY)
-	public String getDescription() {
-		return this.description;
-	}
-
 	@Override
 	public boolean equals(Object obj) {
 		if (obj == this) {

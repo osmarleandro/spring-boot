@@ -50,7 +50,7 @@ class StatusTests {
 	@Test
 	void getDescriptionReturnsDescription() {
 		Status status = new Status("spring", "boot");
-		assertThat(status.getDescription()).isEqualTo("boot");
+		assertThat(status.description).isEqualTo("boot");
 	}
 
 	@Test
