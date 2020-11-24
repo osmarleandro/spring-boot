@@ -77,7 +77,9 @@ class MappingsEndpointTests {
 		Supplier<ConfigurableWebApplicationContext> contextSupplier = prepareContextSupplier();
 		new WebApplicationContextRunner(contextSupplier)
 				.withUserConfiguration(EndpointConfiguration.class, ServletWebConfiguration.class).run((context) -> {
-					ContextMappings contextMappings = contextMappings(context);
+					ApplicationMappings applicationMappings = context.getBean(MappingsEndpoint.class).mappings();
+					assertThat(applicationMappings.getContexts()).containsOnlyKeys(context.getId());
+					ContextMappings contextMappings = applicationMappings.getContexts().get(context.getId());
 					assertThat(contextMappings.getParentId()).isNull();
 					assertThat(contextMappings.getMappings()).containsOnlyKeys("dispatcherServlets", "servletFilters",
 							"servlets");
@@ -99,7 +101,9 @@ class MappingsEndpointTests {
 		Supplier<ConfigurableWebApplicationContext> contextSupplier = prepareContextSupplier();
 		new WebApplicationContextRunner(contextSupplier).withUserConfiguration(EndpointConfiguration.class,
 				ServletWebConfiguration.class, CustomDispatcherServletConfiguration.class).run((context) -> {
-					ContextMappings contextMappings = contextMappings(context);
+					ApplicationMappings applicationMappings = context.getBean(MappingsEndpoint.class).mappings();
+					assertThat(applicationMappings.getContexts()).containsOnlyKeys(context.getId());
+					ContextMappings contextMappings = applicationMappings.getContexts().get(context.getId());
 					Map<String, List<DispatcherServletMappingDescription>> dispatcherServlets = mappings(
 							contextMappings, "dispatcherServlets");
 					assertThat(dispatcherServlets).containsOnlyKeys("dispatcherServlet",
@@ -132,7 +136,9 @@ class MappingsEndpointTests {
 	void reactiveWebMappings() {
 		new ReactiveWebApplicationContextRunner()
 				.withUserConfiguration(EndpointConfiguration.class, ReactiveWebConfiguration.class).run((context) -> {
-					ContextMappings contextMappings = contextMappings(context);
+					ApplicationMappings applicationMappings = context.getBean(MappingsEndpoint.class).mappings();
+					assertThat(applicationMappings.getContexts()).containsOnlyKeys(context.getId());
+					ContextMappings contextMappings = applicationMappings.getContexts().get(context.getId());
 					assertThat(contextMappings.getParentId()).isNull();
 					assertThat(contextMappings.getMappings()).containsOnlyKeys("dispatcherHandlers");
 					Map<String, List<DispatcherHandlerMappingDescription>> dispatcherHandlers = mappings(
@@ -141,12 +147,6 @@ class MappingsEndpointTests {
 					List<DispatcherHandlerMappingDescription> handlerMappings = dispatcherHandlers.get("webHandler");
 					assertThat(handlerMappings).hasSize(3);
 				});
-	}
-
-	private ContextMappings contextMappings(ApplicationContext context) {
-		ApplicationMappings applicationMappings = context.getBean(MappingsEndpoint.class).mappings();
-		assertThat(applicationMappings.getContexts()).containsOnlyKeys(context.getId());
-		return applicationMappings.getContexts().get(context.getId());
 	}
 
 	@SuppressWarnings("unchecked")
