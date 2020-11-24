@@ -99,13 +99,6 @@ class CachingOperationInvokerAdvisorTests {
 	}
 
 	@Test
-	void applyShouldAddCacheAdvise() {
-		OperationParameters parameters = getParameters("get");
-		given(this.timeToLive.apply(any())).willReturn(100L);
-		assertAdviseIsApplied(parameters);
-	}
-
-	@Test
 	void applyWithAllOptionalParametersShouldAddAdvise() {
 		OperationParameters parameters = getParameters("getWithAllOptionalParameters", String.class, String.class);
 		given(this.timeToLive.apply(any())).willReturn(100L);
