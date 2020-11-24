@@ -65,13 +65,6 @@ class ControllerEndpointHandlerMappingIntegrationTests {
 					ExampleWebFluxEndpoint.class);
 
 	@Test
-	void get() {
-		this.contextRunner.run(withWebTestClient((webTestClient) -> webTestClient.get().uri("/actuator/example/one")
-				.accept(MediaType.TEXT_PLAIN).exchange().expectStatus().isOk().expectHeader()
-				.contentTypeCompatibleWith(MediaType.TEXT_PLAIN).expectBody(String.class).isEqualTo("One")));
-	}
-
-	@Test
 	void getWithUnacceptableContentType() {
 		this.contextRunner.run(withWebTestClient((webTestClient) -> webTestClient.get().uri("/actuator/example/one")
 				.accept(MediaType.APPLICATION_JSON).exchange().expectStatus().isEqualTo(HttpStatus.NOT_ACCEPTABLE)));
