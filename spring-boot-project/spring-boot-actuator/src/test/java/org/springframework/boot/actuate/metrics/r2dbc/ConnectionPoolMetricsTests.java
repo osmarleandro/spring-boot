@@ -50,12 +50,6 @@ class ConnectionPoolMetricsTests {
 
 	private CloseableConnectionFactory connectionFactory;
 
-	@BeforeEach
-	void init() {
-		this.connectionFactory = H2ConnectionFactory.inMemory("db-" + UUID.randomUUID(), "sa", "",
-				Collections.singletonMap(H2ConnectionOption.DB_CLOSE_DELAY, "-1"));
-	}
-
 	@AfterEach
 	void close() {
 		if (this.connectionFactory != null) {
