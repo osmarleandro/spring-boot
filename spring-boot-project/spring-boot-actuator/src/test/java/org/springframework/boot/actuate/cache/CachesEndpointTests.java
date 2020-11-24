@@ -131,16 +131,6 @@ class CachesEndpointTests {
 	}
 
 	@Test
-	void clearCache() {
-		Cache a = mockCache("a");
-		Cache b = mockCache("b");
-		CachesEndpoint endpoint = new CachesEndpoint(Collections.singletonMap("test", cacheManager(a, b)));
-		assertThat(endpoint.clearCache("a", null)).isTrue();
-		verify(a).clear();
-		verify(b, never()).clear();
-	}
-
-	@Test
 	void clearCacheWithSeveralCacheManagers() {
 		Map<String, CacheManager> cacheManagers = new LinkedHashMap<>();
 		cacheManagers.put("test", cacheManager(mockCache("dupe-cache"), mockCache("b")));
