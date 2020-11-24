@@ -245,7 +245,7 @@ class HttpExchangeTracerTests {
 		HttpTrace trace = new HttpTrace(createRequest());
 		new HttpExchangeTracer(EnumSet.noneOf(Include.class)).sendingResponse(trace, createResponse(), null,
 				() -> "sessionId");
-		assertThat(trace.getSession()).isNull();
+		assertThat(trace.session).isNull();
 	}
 
 	@Test
@@ -253,8 +253,8 @@ class HttpExchangeTracerTests {
 		HttpTrace trace = new HttpTrace(createRequest());
 		new HttpExchangeTracer(EnumSet.of(Include.SESSION_ID)).sendingResponse(trace, createResponse(), null,
 				() -> "sessionId");
-		assertThat(trace.getSession()).isNotNull();
-		assertThat(trace.getSession().getId()).isEqualTo("sessionId");
+		assertThat(trace.session).isNotNull();
+		assertThat(trace.session.getId()).isEqualTo("sessionId");
 	}
 
 	@Test
@@ -285,7 +285,7 @@ class HttpExchangeTracerTests {
 		tracer.sendingResponse(trace, createResponse(responseHeaders), this::createPrincipal, () -> "sessionId");
 		assertThat(trace.getTimeTaken()).isNotNull();
 		assertThat(trace.getPrincipal()).isNull();
-		assertThat(trace.getSession()).isNull();
+		assertThat(trace.session).isNull();
 		assertThat(trace.getTimestamp()).isNotNull();
 		assertThat(trace.getRequest().getMethod()).isEqualTo("GET");
 		assertThat(trace.getRequest().getRemoteAddress()).isNull();
