@@ -99,7 +99,7 @@ class RequestPredicateFactory {
 
 	private Collection<String> getConsumes(WebEndpointHttpMethod httpMethod, Method method) {
 		if (WebEndpointHttpMethod.POST == httpMethod && consumesRequestBody(method)) {
-			return this.endpointMediaTypes.getConsumed();
+			return this.endpointMediaTypes.consumed;
 		}
 		return Collections.emptyList();
 	}
