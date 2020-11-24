@@ -90,15 +90,6 @@ abstract class DefaultContributorRegistryTests {
 	}
 
 	@Test
-	void registerContributorRegistersContributors() {
-		this.registry.registerContributor("one", this.one);
-		this.registry.registerContributor("two", this.two);
-		assertThat(this.registry).hasSize(2);
-		assertThat(this.registry.getContributor("one")).isSameAs(this.one);
-		assertThat(this.registry.getContributor("two")).isSameAs(this.two);
-	}
-
-	@Test
 	void registerContributorWhenNameAlreadyUsedThrowsException() {
 		this.registry.registerContributor("one", this.one);
 		assertThatIllegalStateException().isThrownBy(() -> this.registry.registerContributor("one", this.two))
