@@ -68,8 +68,10 @@ class JmxEndpointDiscovererTests {
 		load(TestEndpoint.class, (discoverer) -> {
 			Map<EndpointId, ExposableJmxEndpoint> endpoints = discover(discoverer);
 			assertThat(endpoints).containsOnlyKeys(EndpointId.of("test"));
-			Map<String, JmxOperation> operationByName = mapOperations(
-					endpoints.get(EndpointId.of("test")).getOperations());
+			Collection<JmxOperation> operations = endpoints.get(EndpointId.of("test")).getOperations();
+			Map<String, JmxOperation> byName = new HashMap<>();
+			operations.forEach((operation) -> byName.put(operation.getName(), operation));
+			Map<String, JmxOperation> operationByName = byName;
 			assertThat(operationByName).containsOnlyKeys("getAll", "getSomething", "update", "deleteSomething");
 			JmxOperation getAll = operationByName.get("getAll");
 			assertThat(getAll.getDescription()).isEqualTo("Invoke getAll for endpoint test");
@@ -123,8 +125,10 @@ class JmxEndpointDiscovererTests {
 		load(AdditionalOperationJmxEndpointConfiguration.class, (discoverer) -> {
 			Map<EndpointId, ExposableJmxEndpoint> endpoints = discover(discoverer);
 			assertThat(endpoints).containsOnlyKeys(EndpointId.of("test"));
-			Map<String, JmxOperation> operationByName = mapOperations(
-					endpoints.get(EndpointId.of("test")).getOperations());
+			Collection<JmxOperation> operations = endpoints.get(EndpointId.of("test")).getOperations();
+			Map<String, JmxOperation> byName = new HashMap<>();
+			operations.forEach((operation) -> byName.put(operation.getName(), operation));
+			Map<String, JmxOperation> operationByName = byName;
 			assertThat(operationByName).containsOnlyKeys("getAll", "getSomething", "update", "deleteSomething",
 					"getAnother");
 			JmxOperation getAnother = operationByName.get("getAnother");
@@ -139,8 +143,10 @@ class JmxEndpointDiscovererTests {
 		load(TestEndpoint.class, (id) -> 500L, (discoverer) -> {
 			Map<EndpointId, ExposableJmxEndpoint> endpoints = discover(discoverer);
 			assertThat(endpoints).containsOnlyKeys(EndpointId.of("test"));
-			Map<String, JmxOperation> operationByName = mapOperations(
-					endpoints.get(EndpointId.of("test")).getOperations());
+			Collection<JmxOperation> operations = endpoints.get(EndpointId.of("test")).getOperations();
+			Map<String, JmxOperation> byName = new HashMap<>();
+			operations.forEach((operation) -> byName.put(operation.getName(), operation));
+			Map<String, JmxOperation> operationByName = byName;
 			assertThat(operationByName).containsOnlyKeys("getAll", "getSomething", "update", "deleteSomething");
 			JmxOperation getAll = operationByName.get("getAll");
 			assertThat(getInvoker(getAll)).isInstanceOf(CachingOperationInvoker.class);
@@ -153,8 +159,10 @@ class JmxEndpointDiscovererTests {
 		load(AdditionalOperationJmxEndpointConfiguration.class, (id) -> 500L, (discoverer) -> {
 			Map<EndpointId, ExposableJmxEndpoint> endpoints = discover(discoverer);
 			assertThat(endpoints).containsOnlyKeys(EndpointId.of("test"));
-			Map<String, JmxOperation> operationByName = mapOperations(
-					endpoints.get(EndpointId.of("test")).getOperations());
+			Collection<JmxOperation> operations = endpoints.get(EndpointId.of("test")).getOperations();
+			Map<String, JmxOperation> byName = new HashMap<>();
+			operations.forEach((operation) -> byName.put(operation.getName(), operation));
+			Map<String, JmxOperation> operationByName = byName;
 			assertThat(operationByName).containsOnlyKeys("getAll", "getSomething", "update", "deleteSomething",
 					"getAnother");
 			JmxOperation getAll = operationByName.get("getAll");
@@ -206,7 +214,10 @@ class JmxEndpointDiscovererTests {
 	}
 
 	private void assertJmxTestEndpoint(ExposableJmxEndpoint endpoint) {
-		Map<String, JmxOperation> operationsByName = mapOperations(endpoint.getOperations());
+		Collection<JmxOperation> operations = endpoint.getOperations();
+		Map<String, JmxOperation> byName = new HashMap<>();
+		operations.forEach((operation) -> byName.put(operation.getName(), operation));
+		Map<String, JmxOperation> operationsByName = byName;
 		assertThat(operationsByName).containsOnlyKeys("getAll", "getSomething", "update", "deleteSomething");
 		JmxOperation getAll = operationsByName.get("getAll");
 		assertThat(getAll.getDescription()).isEqualTo("Get all the things");
@@ -243,12 +254,6 @@ class JmxEndpointDiscovererTests {
 		Map<EndpointId, ExposableJmxEndpoint> byId = new HashMap<>();
 		discoverer.getEndpoints().forEach((endpoint) -> byId.put(endpoint.getEndpointId(), endpoint));
 		return byId;
-	}
-
-	private Map<String, JmxOperation> mapOperations(Collection<JmxOperation> operations) {
-		Map<String, JmxOperation> byName = new HashMap<>();
-		operations.forEach((operation) -> byName.put(operation.getName(), operation));
-		return byName;
 	}
 
 	private void load(Class<?> configuration, Consumer<JmxEndpointDiscoverer> consumer) {
