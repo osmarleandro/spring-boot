@@ -41,10 +41,4 @@ public class MongoHealthIndicator extends AbstractHealthIndicator {
 		this.mongoTemplate = mongoTemplate;
 	}
 
-	@Override
-	protected void doHealthCheck(Health.Builder builder) throws Exception {
-		Document result = this.mongoTemplate.executeCommand("{ buildInfo: 1 }");
-		builder.up().withDetail("version", result.getString("version"));
-	}
-
 }
