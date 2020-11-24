@@ -114,7 +114,7 @@ class DataSourceHealthContributorAutoConfigurationTests {
 				.withPropertyValues("spring.datasource.test.validation-query:SELECT from FOOBAR").run((context) -> {
 					assertThat(context).hasSingleBean(DataSourceHealthIndicator.class);
 					DataSourceHealthIndicator indicator = context.getBean(DataSourceHealthIndicator.class);
-					assertThat(indicator.getQuery()).isEqualTo("SELECT from FOOBAR");
+					assertThat(indicator.query).isEqualTo("SELECT from FOOBAR");
 				});
 	}
 

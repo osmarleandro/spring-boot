@@ -153,14 +153,6 @@ public class DataSourceHealthIndicator extends AbstractHealthIndicator implement
 	}
 
 	/**
-	 * Return the validation query or {@code null}.
-	 * @return the query
-	 */
-	public String getQuery() {
-		return this.query;
-	}
-
-	/**
 	 * {@link RowMapper} that expects and returns results from a single column.
 	 */
 	private static class SingleColumnRowMapper implements RowMapper<Object> {
