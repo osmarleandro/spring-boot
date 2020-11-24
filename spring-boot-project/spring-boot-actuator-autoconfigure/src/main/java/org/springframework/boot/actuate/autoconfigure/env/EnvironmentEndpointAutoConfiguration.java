@@ -45,7 +45,7 @@ public class EnvironmentEndpointAutoConfiguration {
 		EnvironmentEndpoint endpoint = new EnvironmentEndpoint(environment);
 		String[] keysToSanitize = properties.getKeysToSanitize();
 		if (keysToSanitize != null) {
-			endpoint.setKeysToSanitize(keysToSanitize);
+			endpoint.sanitizer.setKeysToSanitize(keysToSanitize);
 		}
 		return endpoint;
 	}
