@@ -122,8 +122,14 @@ class CachesEndpointTests {
 
 	@Test
 	void clearAllCaches() {
-		Cache a = mockCache("a");
-		Cache b = mockCache("b");
+		Cache cache = mock(Cache.class);
+		given(cache.getName()).willReturn("a");
+		given(cache.getNativeCache()).willReturn(new Object());
+		Cache a = cache;
+		Cache cache = mock(Cache.class);
+		given(cache.getName()).willReturn("b");
+		given(cache.getNativeCache()).willReturn(new Object());
+		Cache b = cache;
 		CachesEndpoint endpoint = new CachesEndpoint(Collections.singletonMap("test", cacheManager(a, b)));
 		endpoint.clearCaches();
 		verify(a).clear();
@@ -132,8 +138,14 @@ class CachesEndpointTests {
 
 	@Test
 	void clearCache() {
-		Cache a = mockCache("a");
-		Cache b = mockCache("b");
+		Cache cache = mock(Cache.class);
+		given(cache.getName()).willReturn("a");
+		given(cache.getNativeCache()).willReturn(new Object());
+		Cache a = cache;
+		Cache cache = mock(Cache.class);
+		given(cache.getName()).willReturn("b");
+		given(cache.getNativeCache()).willReturn(new Object());
+		Cache b = cache;
 		CachesEndpoint endpoint = new CachesEndpoint(Collections.singletonMap("test", cacheManager(a, b)));
 		assertThat(endpoint.clearCache("a", null)).isTrue();
 		verify(a).clear();
@@ -154,10 +166,19 @@ class CachesEndpointTests {
 	@Test
 	void clearCacheWithSeveralCacheManagersWithCacheManagerFilter() {
 		Map<String, CacheManager> cacheManagers = new LinkedHashMap<>();
-		Cache a = mockCache("a");
-		Cache b = mockCache("b");
+		Cache cache = mock(Cache.class);
+		given(cache.getName()).willReturn("a");
+		given(cache.getNativeCache()).willReturn(new Object());
+		Cache a = cache;
+		Cache cache = mock(Cache.class);
+		given(cache.getName()).willReturn("b");
+		given(cache.getNativeCache()).willReturn(new Object());
+		Cache b = cache;
 		cacheManagers.put("test", cacheManager(a, b));
-		Cache anotherA = mockCache("a");
+		Cache cache = mock(Cache.class);
+		given(cache.getName()).willReturn("a");
+		given(cache.getNativeCache()).willReturn(new Object());
+		Cache anotherA = cache;
 		cacheManagers.put("another", cacheManager(anotherA));
 		CachesEndpoint endpoint = new CachesEndpoint(cacheManagers);
 		assertThat(endpoint.clearCache("a", "another")).isTrue();
@@ -168,7 +189,10 @@ class CachesEndpointTests {
 
 	@Test
 	void clearCacheWithUnknownCache() {
-		Cache a = mockCache("a");
+		Cache cache = mock(Cache.class);
+		given(cache.getName()).willReturn("a");
+		given(cache.getNativeCache()).willReturn(new Object());
+		Cache a = cache;
 		CachesEndpoint endpoint = new CachesEndpoint(Collections.singletonMap("test", cacheManager(a)));
 		assertThat(endpoint.clearCache("unknown", null)).isFalse();
 		verify(a, never()).clear();
@@ -176,7 +200,10 @@ class CachesEndpointTests {
 
 	@Test
 	void clearCacheWithUnknownCacheManager() {
-		Cache a = mockCache("a");
+		Cache cache = mock(Cache.class);
+		given(cache.getName()).willReturn("a");
+		given(cache.getNativeCache()).willReturn(new Object());
+		Cache a = cache;
 		CachesEndpoint endpoint = new CachesEndpoint(Collections.singletonMap("test", cacheManager(a)));
 		assertThat(endpoint.clearCache("a", "unknown")).isFalse();
 		verify(a, never()).clear();
