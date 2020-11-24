@@ -40,17 +40,6 @@ class ReactiveHealthEndpointWebExtensionTests extends
 		HealthEndpointSupportTests<ReactiveHealthContributorRegistry, ReactiveHealthContributor, Mono<? extends HealthComponent>> {
 
 	@Test
-	void healthReturnsSystemHealth() {
-		this.registry.registerContributor("test", createContributor(this.up));
-		WebEndpointResponse<? extends HealthComponent> response = create(this.registry, this.groups)
-				.health(ApiVersion.LATEST, SecurityContext.NONE).block();
-		HealthComponent health = response.getBody();
-		assertThat(health.getStatus()).isEqualTo(Status.UP);
-		assertThat(health).isInstanceOf(SystemHealth.class);
-		assertThat(response.getStatus()).isEqualTo(200);
-	}
-
-	@Test
 	void healthWithNoContributorReturnsUp() {
 		assertThat(this.registry).isEmpty();
 		WebEndpointResponse<? extends HealthComponent> response = create(this.registry,
