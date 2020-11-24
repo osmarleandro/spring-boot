@@ -51,9 +51,4 @@ public class BuildInfoContributor extends InfoPropertiesInfoContributor<BuildPro
 		return new PropertiesPropertySource("build", props);
 	}
 
-	@Override
-	protected void postProcessContent(Map<String, Object> content) {
-		replaceValue(content, "time", getProperties().getTime());
-	}
-
 }
