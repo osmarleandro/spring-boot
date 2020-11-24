@@ -84,7 +84,7 @@ public class JerseyEndpointResourceFactory {
 		endpoints.stream().flatMap((endpoint) -> endpoint.getOperations().stream())
 				.map((operation) -> createResource(endpointMapping, operation)).forEach(resources::add);
 		if (shouldRegisterLinks) {
-			Resource resource = createEndpointLinksResource(endpointMapping.getPath(), endpointMediaTypes,
+			Resource resource = createEndpointLinksResource(endpointMapping.path, endpointMediaTypes,
 					linksResolver);
 			resources.add(resource);
 		}
