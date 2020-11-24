@@ -47,14 +47,6 @@ class AuditEventsEndpointTests {
 	}
 
 	@Test
-	void eventsCreatedAfter() {
-		OffsetDateTime now = OffsetDateTime.now();
-		given(this.repository.find(null, now.toInstant(), null)).willReturn(Collections.singletonList(this.event));
-		List<AuditEvent> result = this.endpoint.events(null, now, null).getEvents();
-		assertThat(result).isEqualTo(Collections.singletonList(this.event));
-	}
-
-	@Test
 	void eventsWithPrincipal() {
 		given(this.repository.find("Joan", null, null)).willReturn(Collections.singletonList(this.event));
 		List<AuditEvent> result = this.endpoint.events("Joan", null, null).getEvents();
