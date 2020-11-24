@@ -82,12 +82,6 @@ public final class HttpTrace {
 		return this.timestamp;
 	}
 
-	void setPrincipal(java.security.Principal principal) {
-		if (principal != null) {
-			this.principal = new Principal(principal.getName());
-		}
-	}
-
 	public Principal getPrincipal() {
 		return this.principal;
 	}
