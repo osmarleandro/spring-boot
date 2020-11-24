@@ -238,12 +238,6 @@ public abstract class AbstractWebEndpointIntegrationTests<T extends Configurable
 	}
 
 	@Test
-	void nullResponseFromWriteOperationResultsInNoContentResponseStatus() {
-		load(NullWriteResponseEndpointConfiguration.class,
-				(context, client) -> client.post().uri("/nullwrite").exchange().expectStatus().isNoContent());
-	}
-
-	@Test
 	void readOperationWithResourceResponse() {
 		load(ResourceEndpointConfiguration.class, (context, client) -> {
 			byte[] responseBody = client.get().uri("/resource").exchange().expectStatus().isOk().expectHeader()
