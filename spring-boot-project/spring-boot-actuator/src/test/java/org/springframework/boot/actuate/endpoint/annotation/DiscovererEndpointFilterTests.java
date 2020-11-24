@@ -49,14 +49,14 @@ class DiscovererEndpointFilterTests {
 	void matchWhenDiscoveredByDiscovererShouldReturnTrue() {
 		DiscovererEndpointFilter filter = new TestDiscovererEndpointFilter(TestDiscovererA.class);
 		DiscoveredEndpoint<?> endpoint = mockDiscoveredEndpoint(TestDiscovererA.class);
-		assertThat(filter.match(endpoint)).isTrue();
+		assertThat(endpoint.wasDiscoveredBy(filter.discoverer)).isTrue();
 	}
 
 	@Test
 	void matchWhenNotDiscoveredByDiscovererShouldReturnFalse() {
 		DiscovererEndpointFilter filter = new TestDiscovererEndpointFilter(TestDiscovererA.class);
 		DiscoveredEndpoint<?> endpoint = mockDiscoveredEndpoint(TestDiscovererB.class);
-		assertThat(filter.match(endpoint)).isFalse();
+		assertThat(endpoint.wasDiscoveredBy(filter.discoverer)).isFalse();
 	}
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
