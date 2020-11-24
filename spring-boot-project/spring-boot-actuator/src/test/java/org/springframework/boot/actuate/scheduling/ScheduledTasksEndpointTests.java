@@ -136,19 +136,6 @@ class ScheduledTasksEndpointTests {
 		});
 	}
 
-	@Test
-	void taskWithCustomTriggerIsReported() {
-		run(CustomTriggerTask.class, (tasks) -> {
-			assertThat(tasks.getCron()).isEmpty();
-			assertThat(tasks.getFixedDelay()).isEmpty();
-			assertThat(tasks.getFixedRate()).isEmpty();
-			assertThat(tasks.getCustom()).hasSize(1);
-			CustomTriggerTaskDescription description = (CustomTriggerTaskDescription) tasks.getCustom().get(0);
-			assertThat(description.getRunnable().getTarget()).isEqualTo(CustomTriggerRunnable.class.getName());
-			assertThat(description.getTrigger()).isEqualTo(CustomTriggerTask.trigger.toString());
-		});
-	}
-
 	private void run(Class<?> configuration, Consumer<ScheduledTasksReport> consumer) {
 		this.contextRunner.withUserConfiguration(configuration)
 				.run((context) -> consumer.accept(context.getBean(ScheduledTasksEndpoint.class).scheduledTasks()));
