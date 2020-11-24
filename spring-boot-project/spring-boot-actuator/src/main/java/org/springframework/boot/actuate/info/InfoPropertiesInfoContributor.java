@@ -79,19 +79,11 @@ public abstract class InfoPropertiesInfoContributor<T extends InfoProperties> im
 	 * @see #postProcessContent(Map)
 	 */
 	protected Map<String, Object> generateContent() {
-		Map<String, Object> content = extractContent(toPropertySource());
+		PropertySource<?> propertySource = toPropertySource();
+		Map<String, Object> content = new Binder(ConfigurationPropertySources.from(propertySource)).bind("", STRING_OBJECT_MAP)
+		.orElseGet(LinkedHashMap::new);
 		postProcessContent(content);
 		return content;
-	}
-
-	/**
-	 * Extract the raw content based on the specified {@link PropertySource}.
-	 * @param propertySource the property source to use
-	 * @return the raw content
-	 */
-	protected Map<String, Object> extractContent(PropertySource<?> propertySource) {
-		return new Binder(ConfigurationPropertySources.from(propertySource)).bind("", STRING_OBJECT_MAP)
-				.orElseGet(LinkedHashMap::new);
 	}
 
 	/**
