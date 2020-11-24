@@ -93,10 +93,6 @@ class RequestPredicateFactory {
 		return path.toString();
 	}
 
-	private boolean hasSelector(Parameter parameter) {
-		return parameter.getAnnotation(Selector.class) != null;
-	}
-
 	private Collection<String> getConsumes(WebEndpointHttpMethod httpMethod, Method method) {
 		if (WebEndpointHttpMethod.POST == httpMethod && consumesRequestBody(method)) {
 			return this.endpointMediaTypes.getConsumed();
