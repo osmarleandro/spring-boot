@@ -211,14 +211,6 @@ class LoggersEndpointWebIntegrationTests {
 				.jsonPath("effectiveLevel").isEqualTo("DEBUG");
 	}
 
-	@WebEndpointTest
-	void logLevelForLoggerGroupWithNameThatCouldBeMistakenForAPathExtension() {
-		setLogLevelToDebug("group.png");
-		this.client.get().uri("/actuator/loggers/group.png").exchange().expectStatus().isOk().expectBody()
-				.jsonPath("$.length()").isEqualTo(2).jsonPath("configuredLevel").isEqualTo("DEBUG").jsonPath("members")
-				.value(IsIterableContainingInAnyOrder.containsInAnyOrder("png.member1", "png.member2"));
-	}
-
 	private void setLogLevelToDebug(String name) {
 		this.loggerGroups.get(name).configureLogLevel(LogLevel.DEBUG, (a, b) -> {
 		});
