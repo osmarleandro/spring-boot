@@ -57,11 +57,6 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 class EnvironmentEndpointTests {
 
-	@AfterEach
-	void close() {
-		System.clearProperty("VCAP_SERVICES");
-	}
-
 	@Test
 	void basicResponse() {
 		ConfigurableEnvironment environment = emptyEnvironment();
