@@ -38,13 +38,6 @@ class HealthEndpointGroupsTests {
 	}
 
 	@Test
-	void ofWhenAdditionalIsNullThrowsException() {
-		assertThatIllegalArgumentException()
-				.isThrownBy(() -> HealthEndpointGroups.of(mock(HealthEndpointGroup.class), null))
-				.withMessage("Additional must not be null");
-	}
-
-	@Test
 	void ofReturnsHealthEndpointGroupsInstance() {
 		HealthEndpointGroup primary = mock(HealthEndpointGroup.class);
 		HealthEndpointGroup group = mock(HealthEndpointGroup.class);
