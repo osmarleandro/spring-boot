@@ -110,7 +110,7 @@ public class JerseyEndpointResourceFactory {
 	private Resource createEndpointLinksResource(String endpointPath, EndpointMediaTypes endpointMediaTypes,
 			EndpointLinksResolver linksResolver) {
 		Builder resourceBuilder = Resource.builder().path(endpointPath);
-		resourceBuilder.addMethod("GET").produces(StringUtils.toStringArray(endpointMediaTypes.getProduced()))
+		resourceBuilder.addMethod("GET").produces(StringUtils.toStringArray(endpointMediaTypes.produced))
 				.handledBy(new EndpointLinksInflector(linksResolver));
 		return resourceBuilder.build();
 	}
