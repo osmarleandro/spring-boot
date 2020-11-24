@@ -70,14 +70,6 @@ class CachingOperationInvokerTests {
 	}
 
 	@Test
-	void cacheInTtlWithNullParameters() {
-		Map<String, Object> parameters = new HashMap<>();
-		parameters.put("first", null);
-		parameters.put("second", null);
-		assertCacheIsUsed(parameters);
-	}
-
-	@Test
 	void cacheInTtlWithMonoResponse() {
 		MonoOperationInvoker.invocations = new AtomicInteger();
 		MonoOperationInvoker target = new MonoOperationInvoker();
