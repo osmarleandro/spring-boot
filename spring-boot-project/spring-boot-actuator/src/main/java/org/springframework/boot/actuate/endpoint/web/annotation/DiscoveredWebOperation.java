@@ -83,11 +83,6 @@ class DiscoveredWebOperation extends AbstractDiscoveredOperation implements WebO
 	}
 
 	@Override
-	public boolean isBlocking() {
-		return this.blocking;
-	}
-
-	@Override
 	public WebOperationRequestPredicate getRequestPredicate() {
 		return this.requestPredicate;
 	}
