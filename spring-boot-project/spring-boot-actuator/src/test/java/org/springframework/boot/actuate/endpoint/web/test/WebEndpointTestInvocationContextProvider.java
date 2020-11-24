@@ -108,14 +108,6 @@ class WebEndpointTestInvocationContextProvider implements TestTemplateInvocation
 		return context;
 	}
 
-	private static ConfigurableApplicationContext createWebMvcContext(List<Class<?>> classes) {
-		AnnotationConfigServletWebServerApplicationContext context = new AnnotationConfigServletWebServerApplicationContext();
-		classes.add(WebMvcEndpointConfiguration.class);
-		context.register(ClassUtils.toClassArray(classes));
-		context.refresh();
-		return context;
-	}
-
 	private static ConfigurableApplicationContext createWebFluxContext(List<Class<?>> classes) {
 		AnnotationConfigReactiveWebServerApplicationContext context = new AnnotationConfigReactiveWebServerApplicationContext();
 		classes.add(WebFluxEndpointConfiguration.class);
