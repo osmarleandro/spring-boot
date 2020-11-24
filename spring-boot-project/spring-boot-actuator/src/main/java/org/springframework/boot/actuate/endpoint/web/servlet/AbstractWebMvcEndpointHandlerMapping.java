@@ -173,7 +173,10 @@ public abstract class AbstractWebMvcEndpointHandlerMapping extends RequestMappin
 		}
 		ServletWebOperation servletWebOperation = wrapServletWebOperation(endpoint, operation,
 				new ServletWebOperationAdapter(operation));
-		registerMapping(createRequestMappingInfo(predicate, path), new OperationHandler(servletWebOperation),
+		registerMapping(RequestMappingInfo.paths(this.endpointMapping.createSubPath(path))
+		.methods(RequestMethod.valueOf(predicate.getHttpMethod().name()))
+		.consumes(predicate.getConsumes().toArray(new String[0]))
+		.produces(predicate.getProduces().toArray(new String[0])).build(), new OperationHandler(servletWebOperation),
 				this.handleMethod);
 	}
 
@@ -188,13 +191,6 @@ public abstract class AbstractWebMvcEndpointHandlerMapping extends RequestMappin
 	protected ServletWebOperation wrapServletWebOperation(ExposableWebEndpoint endpoint, WebOperation operation,
 			ServletWebOperation servletWebOperation) {
 		return servletWebOperation;
-	}
-
-	private RequestMappingInfo createRequestMappingInfo(WebOperationRequestPredicate predicate, String path) {
-		return RequestMappingInfo.paths(this.endpointMapping.createSubPath(path))
-				.methods(RequestMethod.valueOf(predicate.getHttpMethod().name()))
-				.consumes(predicate.getConsumes().toArray(new String[0]))
-				.produces(predicate.getProduces().toArray(new String[0])).build();
 	}
 
 	private void registerLinksMapping() {
