@@ -93,7 +93,7 @@ public class JerseyEndpointResourceFactory {
 
 	private Resource createResource(EndpointMapping endpointMapping, WebOperation operation) {
 		WebOperationRequestPredicate requestPredicate = operation.getRequestPredicate();
-		String path = requestPredicate.getPath();
+		String path = requestPredicate.path;
 		String matchAllRemainingPathSegmentsVariable = requestPredicate.getMatchAllRemainingPathSegmentsVariable();
 		if (matchAllRemainingPathSegmentsVariable != null) {
 			path = path.replace("{*" + matchAllRemainingPathSegmentsVariable + "}",

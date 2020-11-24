@@ -96,7 +96,7 @@ public class EndpointLinksResolver {
 	}
 
 	private Link createLink(String requestUrl, WebOperation operation) {
-		return createLink(requestUrl, operation.getRequestPredicate().getPath());
+		return createLink(requestUrl, operation.getRequestPredicate().path);
 	}
 
 	private Link createLink(String requestUrl, String path) {
