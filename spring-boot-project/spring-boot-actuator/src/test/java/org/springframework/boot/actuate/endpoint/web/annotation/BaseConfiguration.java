@@ -69,9 +69,4 @@ class BaseConfiguration {
 				Collections.emptyList(), Collections.emptyList());
 	}
 
-	@Bean
-	PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
-		return new PropertySourcesPlaceholderConfigurer();
-	}
-
 }
