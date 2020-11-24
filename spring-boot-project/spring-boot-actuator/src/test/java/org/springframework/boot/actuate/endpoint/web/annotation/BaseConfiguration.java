@@ -55,12 +55,6 @@ class BaseConfiguration {
 	}
 
 	@Bean
-	EndpointMediaTypes endpointMediaTypes() {
-		List<String> mediaTypes = Arrays.asList("application/vnd.test+json", "application/json");
-		return new EndpointMediaTypes(mediaTypes, mediaTypes);
-	}
-
-	@Bean
 	WebEndpointDiscoverer webEndpointDiscoverer(EndpointMediaTypes endpointMediaTypes,
 			ApplicationContext applicationContext) {
 		ParameterValueMapper parameterMapper = new ConversionServiceParameterValueMapper(
