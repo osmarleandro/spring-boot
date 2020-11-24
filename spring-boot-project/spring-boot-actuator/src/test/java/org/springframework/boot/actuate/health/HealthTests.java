@@ -166,7 +166,7 @@ class HealthTests {
 
 	@Test
 	void statusCode() {
-		Health health = Health.status("UP").build();
+		Health health = Health.status(new Status("UP")).build();
 		assertThat(health.getStatus()).isEqualTo(Status.UP);
 		assertThat(health.getDetails()).isEmpty();
 	}
