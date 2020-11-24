@@ -50,11 +50,6 @@ class TestHealthEndpointGroup implements HealthEndpointGroup {
 		return this.memberPredicate.test(name);
 	}
 
-	@Override
-	public boolean showComponents(SecurityContext securityContext) {
-		return (this.showComponents != null) ? this.showComponents : this.showDetails;
-	}
-
 	void setShowComponents(Boolean showComponents) {
 		this.showComponents = showComponents;
 	}
