@@ -276,15 +276,6 @@ public abstract class AbstractWebEndpointIntegrationTests<T extends Configurable
 	}
 
 	@Test
-	void readOperationWithMissingRequiredParametersReturnsBadRequestResponse() {
-		load(RequiredParameterEndpointConfiguration.class, (client) -> {
-			WebTestClient.BodyContentSpec body = client.get().uri("/requiredparameters")
-					.accept(MediaType.APPLICATION_JSON).exchange().expectStatus().isBadRequest().expectBody();
-			validateErrorBody(body, HttpStatus.BAD_REQUEST, "/endpoints/requiredparameters", "Missing parameters: foo");
-		});
-	}
-
-	@Test
 	void readOperationWithMissingNullableParametersIsOk() {
 		load(RequiredParameterEndpointConfiguration.class,
 				(client) -> client.get().uri("/requiredparameters?foo=hello").exchange().expectStatus().isOk());
