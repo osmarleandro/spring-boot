@@ -19,6 +19,8 @@ package org.springframework.boot.actuate.couchbase;
 import com.couchbase.client.core.diagnostics.DiagnosticsResult;
 import com.couchbase.client.java.Cluster;
 
+import java.util.stream.Collectors;
+
 import org.springframework.boot.actuate.health.AbstractHealthIndicator;
 import org.springframework.boot.actuate.health.Health;
 import org.springframework.boot.actuate.health.HealthIndicator;
@@ -49,7 +51,11 @@ public class CouchbaseHealthIndicator extends AbstractHealthIndicator {
 	@Override
 	protected void doHealthCheck(Health.Builder builder) throws Exception {
 		DiagnosticsResult diagnostics = this.cluster.diagnostics();
-		new CouchbaseHealth(diagnostics).applyTo(builder);
+		CouchbaseHealth r = new CouchbaseHealth(diagnostics);
+		builder = r.isCouchbaseUp(r.diagnostics) ? builder.up() : builder.down();
+		builder.withDetail("sdk", r.diagnostics.sdk());
+		builder.withDetail("endpoints", r.diagnostics.endpoints().values().stream().flatMap(Collection::stream)
+				.map(this::describe).collect(Collectors.toList()));
 	}
 
 }

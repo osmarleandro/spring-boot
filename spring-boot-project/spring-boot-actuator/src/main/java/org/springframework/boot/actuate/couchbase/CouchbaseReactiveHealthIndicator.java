@@ -19,8 +19,11 @@ import com.couchbase.client.core.diagnostics.DiagnosticsResult;
 import com.couchbase.client.java.Cluster;
 import reactor.core.publisher.Mono;
 
+import java.util.stream.Collectors;
+
 import org.springframework.boot.actuate.health.AbstractReactiveHealthIndicator;
 import org.springframework.boot.actuate.health.Health;
+import org.springframework.boot.actuate.health.Health.Builder;
 import org.springframework.boot.actuate.health.ReactiveHealthIndicator;
 
 /**
@@ -46,7 +49,12 @@ public class CouchbaseReactiveHealthIndicator extends AbstractReactiveHealthIndi
 	@Override
 	protected Mono<Health> doHealthCheck(Health.Builder builder) {
 		DiagnosticsResult diagnostics = this.cluster.diagnostics();
-		new CouchbaseHealth(diagnostics).applyTo(builder);
+		Builder builder1 = builder;
+		CouchbaseHealth r = new CouchbaseHealth(diagnostics);
+		builder1 = r.isCouchbaseUp(r.diagnostics) ? builder1.up() : builder1.down();
+		builder1.withDetail("sdk", r.diagnostics.sdk());
+		builder1.withDetail("endpoints", r.diagnostics.endpoints().values().stream().flatMap(Collection::stream)
+				.map(this::describe).collect(Collectors.toList()));
 		return Mono.just(builder.build());
 	}
 
