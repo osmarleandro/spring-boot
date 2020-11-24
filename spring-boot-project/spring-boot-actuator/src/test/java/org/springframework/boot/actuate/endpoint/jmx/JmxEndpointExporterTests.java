@@ -73,12 +73,6 @@ class JmxEndpointExporterTests {
 
 	private JmxEndpointExporter exporter;
 
-	@BeforeEach
-	void setup() {
-		this.exporter = new JmxEndpointExporter(this.mBeanServer, this.objectNameFactory, this.responseMapper,
-				this.endpoints);
-	}
-
 	@Test
 	void createWhenMBeanServerIsNullShouldThrowException() {
 		assertThatIllegalArgumentException().isThrownBy(
