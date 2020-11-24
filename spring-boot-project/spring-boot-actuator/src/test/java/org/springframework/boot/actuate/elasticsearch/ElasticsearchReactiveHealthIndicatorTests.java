@@ -64,7 +64,13 @@ class ElasticsearchReactiveHealthIndicatorTests {
 
 	@Test
 	void elasticsearchIsUp() {
-		setupMockResponse(200, "green");
+		// first enqueue an OK response since the HostChecker first sends a HEAD request
+		// to "/"
+		this.server.enqueue(new MockResponse());
+		MockResponse mockResponse = new MockResponse().setResponseCode(HttpStatus.valueOf(200).value())
+				.setBody(createJsonResult(200, "green"))
+				.setHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
+		this.server.enqueue(mockResponse);
 		Health health = this.healthIndicator.health().block();
 		assertThat(health.getStatus()).isEqualTo(Status.UP);
 		assertHealthDetailsWithStatus(health.getDetails(), "green");
@@ -72,7 +78,13 @@ class ElasticsearchReactiveHealthIndicatorTests {
 
 	@Test
 	void elasticsearchWithYellowStatusIsUp() {
-		setupMockResponse(200, "yellow");
+		// first enqueue an OK response since the HostChecker first sends a HEAD request
+		// to "/"
+		this.server.enqueue(new MockResponse());
+		MockResponse mockResponse = new MockResponse().setResponseCode(HttpStatus.valueOf(200).value())
+				.setBody(createJsonResult(200, "yellow"))
+				.setHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
+		this.server.enqueue(mockResponse);
 		Health health = this.healthIndicator.health().block();
 		assertThat(health.getStatus()).isEqualTo(Status.UP);
 		assertHealthDetailsWithStatus(health.getDetails(), "yellow");
@@ -101,7 +113,13 @@ class ElasticsearchReactiveHealthIndicatorTests {
 
 	@Test
 	void elasticsearchIsOutOfServiceByStatus() {
-		setupMockResponse(200, "red");
+		// first enqueue an OK response since the HostChecker first sends a HEAD request
+		// to "/"
+		this.server.enqueue(new MockResponse());
+		MockResponse mockResponse = new MockResponse().setResponseCode(HttpStatus.valueOf(200).value())
+				.setBody(createJsonResult(200, "red"))
+				.setHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
+		this.server.enqueue(mockResponse);
 		Health health = this.healthIndicator.health().block();
 		assertThat(health.getStatus()).isEqualTo(Status.OUT_OF_SERVICE);
 		assertHealthDetailsWithStatus(health.getDetails(), "red");
@@ -114,16 +132,6 @@ class ElasticsearchReactiveHealthIndicatorTests {
 				entry("initializing_shards", 0), entry("unassigned_shards", 0), entry("delayed_unassigned_shards", 0),
 				entry("number_of_pending_tasks", 0), entry("number_of_in_flight_fetch", 0),
 				entry("task_max_waiting_in_queue_millis", 0), entry("active_shards_percent_as_number", 100.0));
-	}
-
-	private void setupMockResponse(int responseCode, String status) {
-		// first enqueue an OK response since the HostChecker first sends a HEAD request
-		// to "/"
-		this.server.enqueue(new MockResponse());
-		MockResponse mockResponse = new MockResponse().setResponseCode(HttpStatus.valueOf(responseCode).value())
-				.setBody(createJsonResult(responseCode, status))
-				.setHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
-		this.server.enqueue(mockResponse);
 	}
 
 	private String createJsonResult(int responseCode, String status) {
