@@ -149,14 +149,6 @@ class HttpExchangeTracerTests {
 	}
 
 	@Test
-	void cookieHeaderCanBeIncluded() {
-		HttpTrace trace = new HttpExchangeTracer(EnumSet.of(Include.REQUEST_HEADERS, Include.COOKIE_HEADERS))
-				.receivedRequest(createRequest(Collections.singletonMap(HttpHeaders.COOKIE, Arrays.asList("value"))));
-		Request request = trace.getRequest();
-		assertThat(request.getHeaders()).containsOnlyKeys(HttpHeaders.COOKIE);
-	}
-
-	@Test
 	void mixedCaseCookieHeaderCanBeIncluded() {
 		HttpTrace trace = new HttpExchangeTracer(EnumSet.of(Include.REQUEST_HEADERS, Include.COOKIE_HEADERS))
 				.receivedRequest(
