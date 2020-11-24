@@ -53,13 +53,6 @@ class HealthEndpointTests
 	}
 
 	@Test
-	void healthWhenPathDoesNotExistReturnsNull() {
-		this.registry.registerContributor("test", createContributor(this.up));
-		HealthComponent health = create(this.registry, this.groups).healthForPath("missing");
-		assertThat(health).isNull();
-	}
-
-	@Test
 	void healthWhenPathExistsReturnsHealth() {
 		this.registry.registerContributor("test", createContributor(this.up));
 		HealthComponent health = create(this.registry, this.groups).healthForPath("test");
