@@ -19,6 +19,7 @@ package org.springframework.boot.actuate.health;
 import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.function.Function;
 
 import org.assertj.core.api.ThrowableAssert.ThrowingCallable;
 import reactor.core.publisher.Mono;
@@ -104,8 +105,8 @@ class HealthEndpointWebIntegrationTests {
 		CompositeHealthContributor composite = CompositeHealthContributor
 				.fromMap(Collections.singletonMap("one", healthIndicator));
 		ReactiveHealthIndicator reactiveHealthIndicator = () -> Mono.just(Health.down().build());
-		CompositeReactiveHealthContributor reactiveComposite = CompositeReactiveHealthContributor
-				.fromMap(Collections.singletonMap("one", reactiveHealthIndicator));
+		Map<String, ? extends ReactiveHealthContributor> map = Collections.singletonMap("one", reactiveHealthIndicator);
+		CompositeReactiveHealthContributor reactiveComposite = CompositeReactiveHealthContributor.fromMap(map, Function.identity());
 		withHealthContributor(context, "charlie", composite, reactiveComposite,
 				() -> client.get().uri("/actuator/health/charlie/one").accept(MediaType.APPLICATION_JSON).exchange()
 						.expectStatus().isEqualTo(HttpStatus.SERVICE_UNAVAILABLE).expectBody().jsonPath("status")
