@@ -42,13 +42,6 @@ class NamedContributorsMapAdapterTests {
 	}
 
 	@Test
-	void createWhenValueAdapterIsNullThrowsException() {
-		assertThatIllegalArgumentException()
-				.isThrownBy(() -> new TestNamedContributorsMapAdapter<>(Collections.emptyMap(), null))
-				.withMessage("ValueAdapter must not be null");
-	}
-
-	@Test
 	void createWhenMapContainsNullValueThrowsException() {
 		assertThatIllegalArgumentException()
 				.isThrownBy(() -> new TestNamedContributorsMapAdapter<>(Collections.singletonMap("test", null),
