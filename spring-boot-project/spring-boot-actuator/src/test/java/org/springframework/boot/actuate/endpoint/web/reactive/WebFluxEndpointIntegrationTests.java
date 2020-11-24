@@ -64,12 +64,6 @@ class WebFluxEndpointIntegrationTests
 
 	}
 
-	private static AnnotationConfigReactiveWebServerApplicationContext createApplicationContext() {
-		AnnotationConfigReactiveWebServerApplicationContext context = new AnnotationConfigReactiveWebServerApplicationContext();
-		context.register(ReactiveConfiguration.class);
-		return context;
-	}
-
 	private static void applyAuthenticatedConfiguration(AnnotationConfigReactiveWebServerApplicationContext context) {
 		context.register(AuthenticatedConfiguration.class);
 	}
