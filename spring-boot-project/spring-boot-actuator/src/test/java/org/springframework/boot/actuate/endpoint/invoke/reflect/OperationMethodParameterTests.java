@@ -35,12 +35,6 @@ class OperationMethodParameterTests {
 	private Method method = ReflectionUtils.findMethod(getClass(), "example", String.class, String.class);
 
 	@Test
-	void getNameShouldReturnName() {
-		OperationMethodParameter parameter = new OperationMethodParameter("name", this.method.getParameters()[0]);
-		assertThat(parameter.getName()).isEqualTo("name");
-	}
-
-	@Test
 	void getTypeShouldReturnType() {
 		OperationMethodParameter parameter = new OperationMethodParameter("name", this.method.getParameters()[0]);
 		assertThat(parameter.getType()).isEqualTo(String.class);
