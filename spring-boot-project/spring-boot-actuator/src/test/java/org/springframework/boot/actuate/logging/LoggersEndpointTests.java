@@ -118,12 +118,6 @@ class LoggersEndpointTests {
 	}
 
 	@Test
-	void configureLogLevelShouldSetLevelOnLoggingSystem() {
-		new LoggersEndpoint(this.loggingSystem, this.loggerGroups).configureLogLevel("ROOT", LogLevel.DEBUG);
-		verify(this.loggingSystem).setLogLevel("ROOT", LogLevel.DEBUG);
-	}
-
-	@Test
 	void configureLogLevelWithNullSetsLevelOnLoggingSystemToNull() {
 		new LoggersEndpoint(this.loggingSystem, this.loggerGroups).configureLogLevel("ROOT", null);
 		verify(this.loggingSystem).setLogLevel("ROOT", null);
