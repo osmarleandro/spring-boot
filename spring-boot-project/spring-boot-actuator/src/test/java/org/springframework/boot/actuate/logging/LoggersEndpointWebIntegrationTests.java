@@ -169,14 +169,6 @@ class LoggersEndpointWebIntegrationTests {
 	}
 
 	@WebEndpointTest
-	void setLoggerWithNullLogLevel() {
-		this.client.post().uri("/actuator/loggers/ROOT")
-				.contentType(MediaType.parseMediaType(ActuatorMediaType.V3_JSON))
-				.bodyValue(Collections.singletonMap("configuredLevel", null)).exchange().expectStatus().isNoContent();
-		verify(this.loggingSystem).setLogLevel("ROOT", null);
-	}
-
-	@WebEndpointTest
 	void setLoggerWithNoLogLevel() {
 		this.client.post().uri("/actuator/loggers/ROOT")
 				.contentType(MediaType.parseMediaType(ActuatorMediaType.V3_JSON)).bodyValue(Collections.emptyMap())
