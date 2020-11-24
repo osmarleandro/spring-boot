@@ -218,9 +218,33 @@ class EnvironmentEndpointTests {
 			assertThat(descriptor.getProperty().getValue()).isEqualTo("bar");
 			Map<String, PropertySourceEntryDescriptor> sources = propertySources(descriptor);
 			assertThat(sources.keySet()).containsExactly("test", "systemProperties", "systemEnvironment");
-			assertPropertySourceEntryDescriptor(sources.get("test"), "bar", null);
-			assertPropertySourceEntryDescriptor(sources.get("systemProperties"), "another", null);
-			assertPropertySourceEntryDescriptor(sources.get("systemEnvironment"), null, null);
+			PropertySourceEntryDescriptor actual = sources.get("test");
+			assertThat(actual).isNotNull();
+			if ("bar" != null) {
+				assertThat(actual.getProperty().getValue()).isEqualTo("bar");
+				assertThat(actual.getProperty().getOrigin()).isEqualTo(null);
+			}
+			else {
+				assertThat(actual.getProperty()).isNull();
+			}
+			PropertySourceEntryDescriptor actual1 = sources.get("systemProperties");
+			assertThat(actual1).isNotNull();
+			if ("another" != null) {
+				assertThat(actual1.getProperty().getValue()).isEqualTo("another");
+				assertThat(actual1.getProperty().getOrigin()).isEqualTo(null);
+			}
+			else {
+				assertThat(actual1.getProperty()).isNull();
+			}
+			PropertySourceEntryDescriptor actual2 = sources.get("systemEnvironment");
+			assertThat(actual2).isNotNull();
+			if (null != null) {
+				assertThat(actual2.getProperty().getValue()).isEqualTo(null);
+				assertThat(actual2.getProperty().getOrigin()).isEqualTo(null);
+			}
+			else {
+				assertThat(actual2.getProperty()).isNull();
+			}
 			return null;
 		});
 	}
@@ -246,7 +270,15 @@ class EnvironmentEndpointTests {
 		assertThat(descriptor.getProperty()).isNull();
 		Map<String, PropertySourceEntryDescriptor> sources = propertySources(descriptor);
 		assertThat(sources.keySet()).containsExactly("test");
-		assertPropertySourceEntryDescriptor(sources.get("test"), null, null);
+		PropertySourceEntryDescriptor actual = sources.get("test");
+		assertThat(actual).isNotNull();
+		if (null != null) {
+			assertThat(actual.getProperty().getValue()).isEqualTo(null);
+			assertThat(actual.getProperty().getOrigin()).isEqualTo(null);
+		}
+		else {
+			assertThat(actual.getProperty()).isNull();
+		}
 	}
 
 	@Test
@@ -302,19 +334,6 @@ class EnvironmentEndpointTests {
 		Map<String, PropertySourceEntryDescriptor> sources = new LinkedHashMap<>();
 		descriptor.getPropertySources().forEach((d) -> sources.put(d.getName(), d));
 		return sources;
-	}
-
-	private void assertPropertySourceEntryDescriptor(PropertySourceEntryDescriptor actual, Object value,
-			String origin) {
-		assertThat(actual).isNotNull();
-		if (value != null) {
-			assertThat(actual.getProperty().getValue()).isEqualTo(value);
-			assertThat(actual.getProperty().getOrigin()).isEqualTo(origin);
-		}
-		else {
-			assertThat(actual.getProperty()).isNull();
-		}
-
 	}
 
 	static class OriginParentMockPropertySource extends MockPropertySource implements OriginLookup<String> {
