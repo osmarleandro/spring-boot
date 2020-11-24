@@ -87,18 +87,6 @@ class HttpExchangeTracerTests {
 	}
 
 	@Test
-	void requestHeadersCanBeCustomized() {
-		MultiValueMap<String, String> headers = new LinkedMultiValueMap<>();
-		headers.add("to-remove", "test");
-		headers.add("test", "value");
-		HttpTrace trace = new RequestHeadersFilterHttpExchangeTracer().receivedRequest(createRequest(headers));
-		Request request = trace.getRequest();
-		assertThat(request.getHeaders()).containsOnlyKeys("test", "to-add");
-		assertThat(request.getHeaders().get("test")).containsExactly("value");
-		assertThat(request.getHeaders().get("to-add")).containsExactly("42");
-	}
-
-	@Test
 	void authorizationHeaderIsNotIncludedByDefault() {
 		HttpTrace trace = new HttpExchangeTracer(EnumSet.of(Include.REQUEST_HEADERS)).receivedRequest(
 				createRequest(Collections.singletonMap(HttpHeaders.AUTHORIZATION, Arrays.asList("secret"))));
