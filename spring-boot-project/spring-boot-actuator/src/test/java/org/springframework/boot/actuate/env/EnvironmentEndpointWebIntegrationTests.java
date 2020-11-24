@@ -103,16 +103,6 @@ class EnvironmentEndpointWebIntegrationTests {
 				.isEqualTo("${my.bar}");
 	}
 
-	@WebEndpointTest
-	void nestedPathMatchedByRegexWithSensitivePlaceholderShouldSanitize() {
-		Map<String, Object> map = new HashMap<>();
-		map.put("my.foo", "${my.password}");
-		map.put("my.password", "hello");
-		this.context.getEnvironment().getPropertySources().addFirst(new MapPropertySource("placeholder", map));
-		this.client.get().uri("/actuator/env?pattern=my.*").exchange().expectStatus().isOk().expectBody()
-				.jsonPath(forProperty("placeholder", "my.foo")).isEqualTo("******");
-	}
-
 	private String forProperty(String source, String name) {
 		return "propertySources[?(@.name=='" + source + "')].properties.['" + name + "'].value";
 	}
