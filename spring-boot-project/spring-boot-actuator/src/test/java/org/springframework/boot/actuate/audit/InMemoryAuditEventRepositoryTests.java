@@ -37,17 +37,6 @@ import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException
 class InMemoryAuditEventRepositoryTests {
 
 	@Test
-	void lessThanCapacity() {
-		InMemoryAuditEventRepository repository = new InMemoryAuditEventRepository();
-		repository.add(new AuditEvent("dave", "a"));
-		repository.add(new AuditEvent("dave", "b"));
-		List<AuditEvent> events = repository.find("dave", null, null);
-		assertThat(events.size()).isEqualTo(2);
-		assertThat(events.get(0).getType()).isEqualTo("a");
-		assertThat(events.get(1).getType()).isEqualTo("b");
-	}
-
-	@Test
 	void capacity() {
 		InMemoryAuditEventRepository repository = new InMemoryAuditEventRepository(2);
 		repository.add(new AuditEvent("dave", "a"));
