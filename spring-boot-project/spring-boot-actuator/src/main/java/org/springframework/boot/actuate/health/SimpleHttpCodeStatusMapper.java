@@ -39,7 +39,14 @@ public class SimpleHttpCodeStatusMapper implements HttpCodeStatusMapper {
 		Map<String, Integer> defaultMappings = new HashMap<>();
 		defaultMappings.put(Status.DOWN.getCode(), WebEndpointResponse.STATUS_SERVICE_UNAVAILABLE);
 		defaultMappings.put(Status.OUT_OF_SERVICE.getCode(), WebEndpointResponse.STATUS_SERVICE_UNAVAILABLE);
-		DEFAULT_MAPPINGS = getUniformMappings(defaultMappings);
+		Map<String, Integer> result = new LinkedHashMap<>();
+		for (Map.Entry<String, Integer> entry : defaultMappings.entrySet()) {
+			String code = getUniformCode(entry.getKey());
+			if (code != null) {
+				result.putIfAbsent(code, entry.getValue());
+			}
+		}
+		DEFAULT_MAPPINGS = Collections.unmodifiableMap(result);
 	}
 
 	private final Map<String, Integer> mappings;
