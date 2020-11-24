@@ -53,12 +53,4 @@ public final class ParameterMappingException extends InvalidEndpointRequestExcep
 		return this.parameter;
 	}
 
-	/**
-	 * Return the value being mapped.
-	 * @return the value
-	 */
-	public Object getValue() {
-		return this.value;
-	}
-
 }
