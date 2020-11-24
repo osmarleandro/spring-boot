@@ -41,11 +41,6 @@ class TraceableServerHttpResponse implements TraceableResponse {
 	}
 
 	@Override
-	public int getStatus() {
-		return this.status;
-	}
-
-	@Override
 	public Map<String, List<String>> getHeaders() {
 		return this.headers;
 	}
