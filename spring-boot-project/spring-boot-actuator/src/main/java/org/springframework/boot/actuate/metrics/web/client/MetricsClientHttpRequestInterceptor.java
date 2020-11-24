@@ -82,7 +82,9 @@ class MetricsClientHttpRequestInterceptor implements ClientHttpRequestIntercepto
 			return response;
 		}
 		finally {
-			getTimeBuilder(request, response).register(this.meterRegistry).record(System.nanoTime() - startTime,
+			this.autoTimer.builder(this.metricName)
+			.tags(this.tagProvider.getTags(urlTemplate.get().poll(), request, response))
+			.description("Timer of RestTemplate operation").register(this.meterRegistry).record(System.nanoTime() - startTime,
 					TimeUnit.NANOSECONDS);
 			if (urlTemplate.get().isEmpty()) {
 				urlTemplate.remove();
@@ -106,12 +108,6 @@ class MetricsClientHttpRequestInterceptor implements ClientHttpRequestIntercepto
 			}
 
 		};
-	}
-
-	private Timer.Builder getTimeBuilder(HttpRequest request, ClientHttpResponse response) {
-		return this.autoTimer.builder(this.metricName)
-				.tags(this.tagProvider.getTags(urlTemplate.get().poll(), request, response))
-				.description("Timer of RestTemplate operation");
 	}
 
 	private static final class UrlTemplateThreadLocal extends NamedThreadLocal<Deque<String>> {
