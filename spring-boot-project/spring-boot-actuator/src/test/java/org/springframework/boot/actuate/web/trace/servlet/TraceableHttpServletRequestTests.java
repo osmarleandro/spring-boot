@@ -42,12 +42,6 @@ class TraceableHttpServletRequestTests {
 	}
 
 	@Test
-	void getUriShouldReturnUriWithQueryString() {
-		this.request.setQueryString("a=b");
-		validate("http://localhost/script?a=b");
-	}
-
-	@Test
 	void getUriWithSpecialCharactersInQueryStringShouldEncode() {
 		this.request.setQueryString("a=${b}");
 		validate("http://localhost/script?a=$%7Bb%7D");
