@@ -63,11 +63,6 @@ public abstract class AbstractDiscoveredEndpoint<O extends Operation> extends Ab
 	}
 
 	@Override
-	public boolean wasDiscoveredBy(Class<? extends EndpointDiscoverer<?, ?>> discoverer) {
-		return discoverer.isInstance(this.discoverer);
-	}
-
-	@Override
 	public String toString() {
 		ToStringCreator creator = new ToStringCreator(this).append("discoverer", this.discoverer.getClass().getName())
 				.append("endpointBean", this.endpointBean.getClass().getName());
