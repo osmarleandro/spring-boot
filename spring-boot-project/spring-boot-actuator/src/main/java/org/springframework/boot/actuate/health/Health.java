@@ -102,18 +102,6 @@ public final class Health extends HealthComponent {
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		if (obj == this) {
-			return true;
-		}
-		if (obj instanceof Health) {
-			Health other = (Health) obj;
-			return this.status.equals(other.status) && this.details.equals(other.details);
-		}
-		return false;
-	}
-
-	@Override
 	public int hashCode() {
 		int hashCode = this.status.hashCode();
 		return 13 * hashCode + this.details.hashCode();
