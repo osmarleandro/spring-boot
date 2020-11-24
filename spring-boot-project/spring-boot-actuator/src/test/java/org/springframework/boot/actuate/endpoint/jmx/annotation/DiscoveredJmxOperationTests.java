@@ -48,12 +48,6 @@ import static org.mockito.Mockito.mock;
 class DiscoveredJmxOperationTests {
 
 	@Test
-	void getNameShouldReturnMethodName() {
-		DiscoveredJmxOperation operation = getOperation("getEnum");
-		assertThat(operation.getName()).isEqualTo("getEnum");
-	}
-
-	@Test
 	void getOutputTypeShouldReturnJmxType() {
 		assertThat(getOperation("getEnum").getOutputType()).isEqualTo(String.class);
 		assertThat(getOperation("getDate").getOutputType()).isEqualTo(String.class);
