@@ -70,10 +70,6 @@ public class EnvironmentEndpoint {
 		this.environment = environment;
 	}
 
-	public void setKeysToSanitize(String... keysToSanitize) {
-		this.sanitizer.setKeysToSanitize(keysToSanitize);
-	}
-
 	@ReadOperation
 	public EnvironmentDescriptor environment(@Nullable String pattern) {
 		if (StringUtils.hasText(pattern)) {
