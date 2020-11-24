@@ -145,7 +145,7 @@ class HealthTests {
 	@Test
 	void downWithException() {
 		RuntimeException ex = new RuntimeException("bang");
-		Health health = Health.down(ex).build();
+		Health health = Health.down().withException(ex).build();
 		assertThat(health.getStatus()).isEqualTo(Status.DOWN);
 		assertThat(health.getDetails()).containsOnly(entry("error", "java.lang.RuntimeException: bang"));
 	}

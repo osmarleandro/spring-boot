@@ -45,16 +45,18 @@ class ReactiveHealthIndicatorImplementationTests {
 
 	@Test
 	void healthDownWithCustomErrorMessage(CapturedOutput output) {
+		Exception ex = new UnsupportedOperationException();
 		StepVerifier.create(new CustomErrorMessageReactiveHealthIndicator().health()).consumeNextWith(
-				(health) -> assertThat(health).isEqualTo(Health.down(new UnsupportedOperationException()).build()))
+				(health) -> assertThat(health).isEqualTo(Health.down().withException(ex).build()))
 				.verifyComplete();
 		assertThat(output).contains("Health check failed for custom");
 	}
 
 	@Test
 	void healthDownWithCustomErrorMessageFunction(CapturedOutput output) {
+		Exception ex = new RuntimeException();
 		StepVerifier.create(new CustomErrorMessageFunctionReactiveHealthIndicator().health())
-				.consumeNextWith((health) -> assertThat(health).isEqualTo(Health.down(new RuntimeException()).build()))
+				.consumeNextWith((health) -> assertThat(health).isEqualTo(Health.down().withException(ex).build()))
 				.verifyComplete();
 		assertThat(output).contains("Health check failed with RuntimeException");
 	}
