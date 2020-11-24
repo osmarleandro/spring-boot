@@ -16,6 +16,9 @@
 
 package org.springframework.boot.actuate.endpoint.web.annotation;
 
+import java.lang.reflect.Method;
+import java.lang.reflect.Parameter;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
@@ -29,6 +32,7 @@ import org.springframework.boot.actuate.endpoint.invoke.ParameterValueMapper;
 import org.springframework.boot.actuate.endpoint.web.EndpointMediaTypes;
 import org.springframework.boot.actuate.endpoint.web.ExposableWebEndpoint;
 import org.springframework.boot.actuate.endpoint.web.PathMapper;
+import org.springframework.boot.actuate.endpoint.web.WebEndpointHttpMethod;
 import org.springframework.boot.actuate.endpoint.web.WebEndpointsSupplier;
 import org.springframework.boot.actuate.endpoint.web.WebOperation;
 import org.springframework.boot.actuate.endpoint.web.WebOperationRequestPredicate;
@@ -76,8 +80,16 @@ public class WebEndpointDiscoverer extends EndpointDiscoverer<ExposableWebEndpoi
 	protected WebOperation createOperation(EndpointId endpointId, DiscoveredOperationMethod operationMethod,
 			OperationInvoker invoker) {
 		String rootPath = PathMapper.getRootPath(this.endpointPathMappers, endpointId);
-		WebOperationRequestPredicate requestPredicate = this.requestPredicateFactory.getRequestPredicate(rootPath,
-				operationMethod);
+		RequestPredicateFactory r = this.requestPredicateFactory;
+		Method method = operationMethod.getMethod();
+		Parameter[] selectorParameters = Arrays.stream(method.getParameters()).filter(this::hasSelector)
+				.toArray(Parameter[]::new);
+		Parameter allRemainingPathSegmentsParameter = r.getAllRemainingPathSegmentsParameter(selectorParameters);
+		String path = r.getPath(rootPath, selectorParameters, allRemainingPathSegmentsParameter != null);
+		WebEndpointHttpMethod httpMethod = r.determineHttpMethod(operationMethod.getOperationType());
+		Collection<String> consumes = r.getConsumes(httpMethod, method);
+		Collection<String> produces = r.getProduces(operationMethod, method);
+		WebOperationRequestPredicate requestPredicate = new WebOperationRequestPredicate(path, httpMethod, consumes, produces);
 		return new DiscoveredWebOperation(endpointId, operationMethod, invoker, requestPredicate);
 	}
 
