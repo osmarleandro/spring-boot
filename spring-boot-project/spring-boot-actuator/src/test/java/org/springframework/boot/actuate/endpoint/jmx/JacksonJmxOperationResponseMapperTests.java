@@ -54,15 +54,6 @@ class JacksonJmxOperationResponseMapperTests {
 	}
 
 	@Test
-	void createWhenObjectMapperIsSpecifiedShouldUseObjectMapper() {
-		ObjectMapper objectMapper = spy(ObjectMapper.class);
-		JacksonJmxOperationResponseMapper mapper = new JacksonJmxOperationResponseMapper(objectMapper);
-		Set<String> response = Collections.singleton("test");
-		mapper.mapResponse(response);
-		verify(objectMapper).convertValue(eq(response), any(JavaType.class));
-	}
-
-	@Test
 	void mapResponseTypeWhenCharSequenceShouldReturnString() {
 		assertThat(this.mapper.mapResponseType(String.class)).isEqualTo(String.class);
 		assertThat(this.mapper.mapResponseType(StringBuilder.class)).isEqualTo(String.class);
