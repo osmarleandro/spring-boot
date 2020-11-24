@@ -22,6 +22,8 @@ import java.util.List;
 import javax.management.MBeanInfo;
 import javax.management.MBeanOperationInfo;
 import javax.management.MBeanParameterInfo;
+import javax.management.modelmbean.ModelMBeanInfoSupport;
+import javax.management.modelmbean.ModelMBeanOperationInfo;
 
 import org.junit.jupiter.api.Test;
 
@@ -43,7 +45,13 @@ class MBeanInfoFactoryTests {
 
 	@Test
 	void getMBeanInfoShouldReturnMBeanInfo() {
-		MBeanInfo info = this.factory.getMBeanInfo(new TestExposableJmxEndpoint(new TestJmxOperation()));
+		ExposableJmxEndpoint endpoint = new TestExposableJmxEndpoint(new TestJmxOperation());
+		MBeanInfoFactory r = this.factory;
+		String className = EndpointMBean.class.getName();
+		String description = r.getDescription(endpoint);
+		ModelMBeanOperationInfo[] operations = r.getMBeanOperations(endpoint);
+		MBeanInfo info = new ModelMBeanInfoSupport(className, description, MBeanInfoFactory.NO_ATTRIBUTES, MBeanInfoFactory.NO_CONSTRUCTORS, operations,
+		MBeanInfoFactory.NO_NOTIFICATIONS);
 		assertThat(info).isNotNull();
 		assertThat(info.getClassName()).isEqualTo(EndpointMBean.class.getName());
 		assertThat(info.getDescription()).isEqualTo("MBean operations for endpoint test");
@@ -60,22 +68,37 @@ class MBeanInfoFactoryTests {
 
 	@Test
 	void getMBeanInfoWhenReadOperationShouldHaveInfoImpact() {
-		MBeanInfo info = this.factory
-				.getMBeanInfo(new TestExposableJmxEndpoint(new TestJmxOperation(OperationType.READ)));
+		ExposableJmxEndpoint endpoint = new TestExposableJmxEndpoint(new TestJmxOperation(OperationType.READ));
+		MBeanInfoFactory r = this.factory;
+		String className = EndpointMBean.class.getName();
+		String description = r.getDescription(endpoint);
+		ModelMBeanOperationInfo[] operations = r.getMBeanOperations(endpoint);
+		MBeanInfo info = new ModelMBeanInfoSupport(className, description, MBeanInfoFactory.NO_ATTRIBUTES, MBeanInfoFactory.NO_CONSTRUCTORS, operations,
+		MBeanInfoFactory.NO_NOTIFICATIONS);
 		assertThat(info.getOperations()[0].getImpact()).isEqualTo(MBeanOperationInfo.INFO);
 	}
 
 	@Test
 	void getMBeanInfoWhenWriteOperationShouldHaveActionImpact() {
-		MBeanInfo info = this.factory
-				.getMBeanInfo(new TestExposableJmxEndpoint(new TestJmxOperation(OperationType.WRITE)));
+		ExposableJmxEndpoint endpoint = new TestExposableJmxEndpoint(new TestJmxOperation(OperationType.WRITE));
+		MBeanInfoFactory r = this.factory;
+		String className = EndpointMBean.class.getName();
+		String description = r.getDescription(endpoint);
+		ModelMBeanOperationInfo[] operations = r.getMBeanOperations(endpoint);
+		MBeanInfo info = new ModelMBeanInfoSupport(className, description, MBeanInfoFactory.NO_ATTRIBUTES, MBeanInfoFactory.NO_CONSTRUCTORS, operations,
+		MBeanInfoFactory.NO_NOTIFICATIONS);
 		assertThat(info.getOperations()[0].getImpact()).isEqualTo(MBeanOperationInfo.ACTION);
 	}
 
 	@Test
 	void getMBeanInfoWhenDeleteOperationShouldHaveActionImpact() {
-		MBeanInfo info = this.factory
-				.getMBeanInfo(new TestExposableJmxEndpoint(new TestJmxOperation(OperationType.DELETE)));
+		ExposableJmxEndpoint endpoint = new TestExposableJmxEndpoint(new TestJmxOperation(OperationType.DELETE));
+		MBeanInfoFactory r = this.factory;
+		String className = EndpointMBean.class.getName();
+		String description = r.getDescription(endpoint);
+		ModelMBeanOperationInfo[] operations = r.getMBeanOperations(endpoint);
+		MBeanInfo info = new ModelMBeanInfoSupport(className, description, MBeanInfoFactory.NO_ATTRIBUTES, MBeanInfoFactory.NO_CONSTRUCTORS, operations,
+		MBeanInfoFactory.NO_NOTIFICATIONS);
 		assertThat(info.getOperations()[0].getImpact()).isEqualTo(MBeanOperationInfo.ACTION);
 	}
 
@@ -85,7 +108,12 @@ class MBeanInfoFactoryTests {
 		JmxOperationResponseMapper mapper = mock(JmxOperationResponseMapper.class);
 		given(mapper.mapResponseType(String.class)).willReturn((Class) Integer.class);
 		MBeanInfoFactory factory = new MBeanInfoFactory(mapper);
-		MBeanInfo info = factory.getMBeanInfo(new TestExposableJmxEndpoint(new TestJmxOperation()));
+		ExposableJmxEndpoint endpoint = new TestExposableJmxEndpoint(new TestJmxOperation());
+		String className = EndpointMBean.class.getName();
+		String description = factory.getDescription(endpoint);
+		ModelMBeanOperationInfo[] operations = factory.getMBeanOperations(endpoint);
+		MBeanInfo info = new ModelMBeanInfoSupport(className, description, MBeanInfoFactory.NO_ATTRIBUTES, MBeanInfoFactory.NO_CONSTRUCTORS, operations,
+		MBeanInfoFactory.NO_NOTIFICATIONS);
 		MBeanOperationInfo operationInfo = info.getOperations()[0];
 		assertThat(operationInfo.getReturnType()).isEqualTo(Integer.class.getName());
 	}
@@ -96,7 +124,13 @@ class MBeanInfoFactoryTests {
 		parameters.add(mockParameter("one", String.class, "myone"));
 		parameters.add(mockParameter("two", Object.class, null));
 		TestJmxOperation operation = new TestJmxOperation(parameters);
-		MBeanInfo info = this.factory.getMBeanInfo(new TestExposableJmxEndpoint(operation));
+		ExposableJmxEndpoint endpoint = new TestExposableJmxEndpoint(operation);
+		MBeanInfoFactory r = this.factory;
+		String className = EndpointMBean.class.getName();
+		String description = r.getDescription(endpoint);
+		ModelMBeanOperationInfo[] operations = r.getMBeanOperations(endpoint);
+		MBeanInfo info = new ModelMBeanInfoSupport(className, description, MBeanInfoFactory.NO_ATTRIBUTES, MBeanInfoFactory.NO_CONSTRUCTORS, operations,
+		MBeanInfoFactory.NO_NOTIFICATIONS);
 		MBeanOperationInfo operationInfo = info.getOperations()[0];
 		MBeanParameterInfo[] signature = operationInfo.getSignature();
 		assertThat(signature).hasSize(2);
