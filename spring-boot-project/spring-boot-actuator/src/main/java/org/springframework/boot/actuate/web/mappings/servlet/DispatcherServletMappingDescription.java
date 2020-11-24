@@ -42,10 +42,6 @@ public class DispatcherServletMappingDescription {
 		return this.handler;
 	}
 
-	public String getPredicate() {
-		return this.predicate;
-	}
-
 	public DispatcherServletMappingDetails getDetails() {
 		return this.details;
 	}
