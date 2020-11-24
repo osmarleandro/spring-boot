@@ -38,12 +38,6 @@ class ReadinessStateHealthIndicatorTests {
 
 	private ReadinessStateHealthIndicator healthIndicator;
 
-	@BeforeEach
-	void setUp() {
-		this.availability = mock(ApplicationAvailability.class);
-		this.healthIndicator = new ReadinessStateHealthIndicator(this.availability);
-	}
-
 	@Test
 	void readinessIsReady() {
 		given(this.availability.getReadinessState()).willReturn(ReadinessState.ACCEPTING_TRAFFIC);
