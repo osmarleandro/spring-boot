@@ -115,13 +115,6 @@ class HealthTests {
 	}
 
 	@Test
-	void unknownWithDetails() {
-		Health health = new Health.Builder().unknown().withDetail("a", "b").build();
-		assertThat(health.getStatus()).isEqualTo(Status.UNKNOWN);
-		assertThat(health.getDetails()).containsOnly(entry("a", "b"));
-	}
-
-	@Test
 	void unknown() {
 		Health health = new Health.Builder().unknown().build();
 		assertThat(health.getStatus()).isEqualTo(Status.UNKNOWN);
