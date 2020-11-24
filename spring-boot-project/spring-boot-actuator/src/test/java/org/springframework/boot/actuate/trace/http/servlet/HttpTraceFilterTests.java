@@ -61,12 +61,6 @@ class HttpTraceFilterTests {
 	private final HttpTraceFilter filter = new HttpTraceFilter(this.repository, this.tracer);
 
 	@Test
-	void filterTracesExchange() throws ServletException, IOException {
-		this.filter.doFilter(new MockHttpServletRequest(), new MockHttpServletResponse(), new MockFilterChain());
-		assertThat(this.repository.findAll()).hasSize(1);
-	}
-
-	@Test
 	void filterCapturesSessionId() throws ServletException, IOException {
 		this.filter.doFilter(new MockHttpServletRequest(), new MockHttpServletResponse(),
 				new MockFilterChain(new HttpServlet() {
