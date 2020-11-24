@@ -73,13 +73,6 @@ class MBeanInfoFactoryTests {
 	}
 
 	@Test
-	void getMBeanInfoWhenDeleteOperationShouldHaveActionImpact() {
-		MBeanInfo info = this.factory
-				.getMBeanInfo(new TestExposableJmxEndpoint(new TestJmxOperation(OperationType.DELETE)));
-		assertThat(info.getOperations()[0].getImpact()).isEqualTo(MBeanOperationInfo.ACTION);
-	}
-
-	@Test
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	void getMBeanInfoShouldUseJmxOperationResponseMapper() {
 		JmxOperationResponseMapper mapper = mock(JmxOperationResponseMapper.class);
