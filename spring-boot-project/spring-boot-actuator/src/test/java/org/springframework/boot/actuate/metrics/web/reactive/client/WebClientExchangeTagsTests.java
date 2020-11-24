@@ -60,11 +60,6 @@ class WebClientExchangeTagsTests {
 	}
 
 	@Test
-	void uriWhenAbsoluteTemplateIsAvailableShouldReturnTemplate() {
-		assertThat(WebClientExchangeTags.uri(this.request)).isEqualTo(Tag.of("uri", "/projects/{project}"));
-	}
-
-	@Test
 	void uriWhenRelativeTemplateIsAvailableShouldReturnTemplate() {
 		this.request = ClientRequest.create(HttpMethod.GET, URI.create("https://example.org/projects/spring-boot"))
 				.attribute(URI_TEMPLATE_ATTRIBUTE, "/projects/{project}").build();
