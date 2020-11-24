@@ -113,7 +113,7 @@ public class DataSourceHealthIndicator extends AbstractHealthIndicator implement
 		}
 		else {
 			builder.withDetail("validationQuery", "isValid()");
-			boolean valid = isConnectionValid();
+			boolean valid = this.jdbcTemplate.execute((ConnectionCallback<Boolean>) this::isConnectionValid);
 			builder.status((valid) ? Status.UP : Status.DOWN);
 		}
 	}
@@ -124,10 +124,6 @@ public class DataSourceHealthIndicator extends AbstractHealthIndicator implement
 
 	private String getProduct(Connection connection) throws SQLException {
 		return connection.getMetaData().getDatabaseProductName();
-	}
-
-	private Boolean isConnectionValid() {
-		return this.jdbcTemplate.execute((ConnectionCallback<Boolean>) this::isConnectionValid);
 	}
 
 	private Boolean isConnectionValid(Connection connection) throws SQLException {
