@@ -136,12 +136,6 @@ class ConfigurationPropertiesReportEndpointTests {
 	}
 
 	@Test
-	void descriptorWithNonCamelCaseProperty() {
-		this.contextRunner.withUserConfiguration(MixedCasePropertiesConfiguration.class).run(assertProperties(
-				"mixedcase", (properties) -> assertThat(properties.get("myURL")).isEqualTo("https://example.com")));
-	}
-
-	@Test
 	void descriptorWithMixedCaseProperty() {
 		this.contextRunner.withUserConfiguration(MixedCasePropertiesConfiguration.class).run(assertProperties(
 				"mixedcase", (properties) -> assertThat(properties.get("mIxedCase")).isEqualTo("mixed")));
