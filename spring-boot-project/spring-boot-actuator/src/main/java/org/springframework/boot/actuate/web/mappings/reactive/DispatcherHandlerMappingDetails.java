@@ -37,10 +37,6 @@ public class DispatcherHandlerMappingDetails {
 		return this.handlerMethod;
 	}
 
-	void setHandlerMethod(HandlerMethodDescription handlerMethod) {
-		this.handlerMethod = handlerMethod;
-	}
-
 	public HandlerFunctionDescription getHandlerFunction() {
 		return this.handlerFunction;
 	}
