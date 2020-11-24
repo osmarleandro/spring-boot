@@ -92,16 +92,6 @@ class LoggersEndpointWebIntegrationTests {
 	}
 
 	@WebEndpointTest
-	void getLoggerShouldReturnLogLevels() {
-		setLogLevelToDebug("test");
-		given(this.loggingSystem.getLoggerConfiguration("ROOT"))
-				.willReturn(new LoggerConfiguration("ROOT", null, LogLevel.DEBUG));
-		this.client.get().uri("/actuator/loggers/ROOT").exchange().expectStatus().isOk().expectBody()
-				.jsonPath("$.length()").isEqualTo(2).jsonPath("configuredLevel").isEqualTo(null)
-				.jsonPath("effectiveLevel").isEqualTo("DEBUG");
-	}
-
-	@WebEndpointTest
 	void getLoggersWhenLoggerAndLoggerGroupNotFoundShouldReturnNotFound() {
 		this.client.get().uri("/actuator/loggers/com.does.not.exist").exchange().expectStatus().isNotFound();
 	}
