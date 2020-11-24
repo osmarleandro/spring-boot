@@ -49,21 +49,21 @@ public class ConnectionPoolMetrics implements MeterBinder {
 	public void bindTo(MeterRegistry registry) {
 		this.pool.getMetrics().ifPresent((poolMetrics) -> {
 			bindConnectionPoolMetric(registry,
-					Gauge.builder(metricKey("acquired"), poolMetrics, PoolMetrics::acquiredSize)
+					Gauge.builder("r2dbc.pool." + "acquired", poolMetrics, PoolMetrics::acquiredSize)
 							.description("Size of successfully acquired connections which are in active use."));
 			bindConnectionPoolMetric(registry,
-					Gauge.builder(metricKey("allocated"), poolMetrics, PoolMetrics::allocatedSize)
+					Gauge.builder("r2dbc.pool." + "allocated", poolMetrics, PoolMetrics::allocatedSize)
 							.description("Size of allocated connections in the pool which are in active use or idle."));
-			bindConnectionPoolMetric(registry, Gauge.builder(metricKey("idle"), poolMetrics, PoolMetrics::idleSize)
+			bindConnectionPoolMetric(registry, Gauge.builder("r2dbc.pool." + "idle", poolMetrics, PoolMetrics::idleSize)
 					.description("Size of idle connections in the pool."));
 			bindConnectionPoolMetric(registry,
-					Gauge.builder(metricKey("pending"), poolMetrics, PoolMetrics::pendingAcquireSize).description(
+					Gauge.builder("r2dbc.pool." + "pending", poolMetrics, PoolMetrics::pendingAcquireSize).description(
 							"Size of pending to acquire connections from the underlying connection factory."));
 			bindConnectionPoolMetric(registry,
-					Gauge.builder(metricKey("max.allocated"), poolMetrics, PoolMetrics::getMaxAllocatedSize)
+					Gauge.builder("r2dbc.pool." + "max.allocated", poolMetrics, PoolMetrics::getMaxAllocatedSize)
 							.description("Maximum size of allocated connections that this pool allows."));
 			bindConnectionPoolMetric(registry,
-					Gauge.builder(metricKey("max.pending"), poolMetrics, PoolMetrics::getMaxPendingAcquireSize)
+					Gauge.builder("r2dbc.pool." + "max.pending", poolMetrics, PoolMetrics::getMaxPendingAcquireSize)
 							.description(
 									"Maximum size of pending state to acquire connections that this pool allows."));
 		});
@@ -71,10 +71,6 @@ public class ConnectionPoolMetrics implements MeterBinder {
 
 	private void bindConnectionPoolMetric(MeterRegistry registry, Builder<?> builder) {
 		builder.tags(this.tags).baseUnit(CONNECTIONS).register(registry);
-	}
-
-	private static String metricKey(String name) {
-		return "r2dbc.pool." + name;
 	}
 
 }
