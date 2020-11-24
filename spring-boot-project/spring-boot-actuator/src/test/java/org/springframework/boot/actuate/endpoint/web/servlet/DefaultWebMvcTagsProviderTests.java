@@ -62,14 +62,6 @@ public class DefaultWebMvcTagsProviderTests {
 		assertThat(tags).containsOnlyKeys("method", "uri");
 	}
 
-	@Test
-	void givenSomeContributorsWhenLongRequestTagsAreProvidedThenDefaultTagsAndContributedTagsArePresent() {
-		Map<String, Tag> tags = asMap(
-				new DefaultWebMvcTagsProvider(Arrays.asList(new TestWebMvcTagsContributor("alpha"),
-						new TestWebMvcTagsContributor("bravo", "charlie"))).getLongRequestTags(null, null));
-		assertThat(tags).containsOnlyKeys("method", "uri", "alpha", "bravo", "charlie");
-	}
-
 	private Map<String, Tag> asMap(Iterable<Tag> tags) {
 		return StreamSupport.stream(tags.spliterator(), false)
 				.collect(Collectors.toMap(Tag::getKey, Function.identity()));
