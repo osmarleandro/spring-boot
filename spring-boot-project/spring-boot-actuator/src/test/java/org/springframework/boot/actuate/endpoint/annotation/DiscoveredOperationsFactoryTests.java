@@ -51,13 +51,6 @@ class DiscoveredOperationsFactoryTests {
 
 	private List<OperationInvokerAdvisor> invokerAdvisors;
 
-	@BeforeEach
-	void setup() {
-		this.parameterValueMapper = (parameter, value) -> value.toString();
-		this.invokerAdvisors = new ArrayList<>();
-		this.factory = new TestDiscoveredOperationsFactory(this.parameterValueMapper, this.invokerAdvisors);
-	}
-
 	@Test
 	void createOperationsWhenHasReadMethodShouldCreateOperation() {
 		Collection<TestOperation> operations = this.factory.createOperations(EndpointId.of("test"), new ExampleRead());
