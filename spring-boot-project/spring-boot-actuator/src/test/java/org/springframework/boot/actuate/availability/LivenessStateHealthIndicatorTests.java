@@ -50,10 +50,4 @@ class LivenessStateHealthIndicatorTests {
 		assertThat(this.healthIndicator.health().getStatus()).isEqualTo(Status.UP);
 	}
 
-	@Test
-	void livenessIsBroken() {
-		given(this.availability.getLivenessState()).willReturn(LivenessState.BROKEN);
-		assertThat(this.healthIndicator.health().getStatus()).isEqualTo(Status.DOWN);
-	}
-
 }
