@@ -98,16 +98,6 @@ class LiquibaseEndpointTests {
 	}
 
 	@Test
-	void connectionAutoCommitPropertyIsReset() {
-		this.contextRunner.withUserConfiguration(Config.class).run((context) -> {
-			DataSource dataSource = context.getBean(DataSource.class);
-			assertThat(getAutoCommit(dataSource)).isTrue();
-			context.getBean(LiquibaseEndpoint.class).liquibaseBeans();
-			assertThat(getAutoCommit(dataSource)).isTrue();
-		});
-	}
-
-	@Test
 	void whenMultipleLiquibaseBeansArePresentChangeSetsAreCorrectlyReportedForEachBean() {
 		this.contextRunner.withUserConfiguration(Config.class, MultipleDataSourceLiquibaseConfiguration.class)
 				.run((context) -> {
