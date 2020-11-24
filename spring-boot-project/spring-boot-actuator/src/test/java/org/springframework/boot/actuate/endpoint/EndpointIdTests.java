@@ -100,13 +100,6 @@ class EndpointIdTests {
 	}
 
 	@Test
-	void ofWhenMigratingLegacyNameRemovesDots(CapturedOutput output) {
-		EndpointId endpointId = migrateLegacyName("one.two.three");
-		assertThat(endpointId.toString()).isEqualTo("onetwothree");
-		assertThat(output).doesNotContain("contains invalid characters");
-	}
-
-	@Test
 	void ofWhenMigratingLegacyNameRemovesHyphens(CapturedOutput output) {
 		EndpointId endpointId = migrateLegacyName("one-two-three");
 		assertThat(endpointId.toString()).isEqualTo("onetwothree");
