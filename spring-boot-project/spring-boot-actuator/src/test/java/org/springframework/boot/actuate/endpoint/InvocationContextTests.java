@@ -71,7 +71,7 @@ class InvocationContextTests {
 	@Test
 	void getArgumentsReturnsArguments() {
 		InvocationContext context = new InvocationContext(this.securityContext, this.arguments);
-		assertThat(context.getArguments()).isEqualTo(this.arguments);
+		assertThat(context.arguments).isEqualTo(this.arguments);
 	}
 
 }
