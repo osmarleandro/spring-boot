@@ -27,6 +27,7 @@ import org.springframework.boot.actuate.endpoint.annotation.Selector.Match;
 import org.springframework.boot.actuate.endpoint.http.ApiVersion;
 import org.springframework.boot.actuate.endpoint.web.WebEndpointResponse;
 import org.springframework.boot.actuate.endpoint.web.annotation.EndpointWebExtension;
+import org.springframework.boot.actuate.health.HealthEndpointSupport.HealthResult;
 
 /**
  * {@link EndpointWebExtension @EndpointWebExtension} for the {@link HealthEndpoint}.
@@ -57,13 +58,31 @@ public class HealthEndpointWebExtension extends HealthEndpointSupport<HealthCont
 
 	@ReadOperation
 	public WebEndpointResponse<HealthComponent> health(ApiVersion apiVersion, SecurityContext securityContext) {
-		return health(apiVersion, securityContext, false, NO_PATH);
+		HealthResult<HealthComponent> result = getHealth(apiVersion, securityContext, false, NO_PATH);
+		if (result == null) {
+			return (Arrays.equals(NO_PATH, NO_PATH))
+					? new WebEndpointResponse<>(DEFAULT_HEALTH, WebEndpointResponse.STATUS_OK)
+					: new WebEndpointResponse<>(WebEndpointResponse.STATUS_NOT_FOUND);
+		}
+		HealthComponent health1 = result.getHealth();
+		HealthEndpointGroup group = result.getGroup();
+		int statusCode = group.getHttpCodeStatusMapper().getStatusCode(health1.getStatus());
+		return new WebEndpointResponse<>(health1, statusCode);
 	}
 
 	@ReadOperation
 	public WebEndpointResponse<HealthComponent> health(ApiVersion apiVersion, SecurityContext securityContext,
 			@Selector(match = Match.ALL_REMAINING) String... path) {
-		return health(apiVersion, securityContext, false, path);
+		HealthResult<HealthComponent> result = getHealth(apiVersion, securityContext, false, path);
+		if (result == null) {
+			return (Arrays.equals(path, NO_PATH))
+					? new WebEndpointResponse<>(DEFAULT_HEALTH, WebEndpointResponse.STATUS_OK)
+					: new WebEndpointResponse<>(WebEndpointResponse.STATUS_NOT_FOUND);
+		}
+		HealthComponent health1 = result.getHealth();
+		HealthEndpointGroup group = result.getGroup();
+		int statusCode = group.getHttpCodeStatusMapper().getStatusCode(health1.getStatus());
+		return new WebEndpointResponse<>(health1, statusCode);
 	}
 
 	public WebEndpointResponse<HealthComponent> health(ApiVersion apiVersion, SecurityContext securityContext,
