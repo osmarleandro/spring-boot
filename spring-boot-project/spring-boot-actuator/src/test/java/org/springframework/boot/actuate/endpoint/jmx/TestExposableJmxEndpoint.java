@@ -44,11 +44,6 @@ public class TestExposableJmxEndpoint implements ExposableJmxEndpoint {
 	}
 
 	@Override
-	public boolean isEnableByDefault() {
-		return true;
-	}
-
-	@Override
 	public Collection<JmxOperation> getOperations() {
 		return this.operations;
 	}
