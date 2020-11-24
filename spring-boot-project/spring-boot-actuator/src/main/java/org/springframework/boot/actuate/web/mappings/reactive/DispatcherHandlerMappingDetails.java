@@ -33,10 +33,6 @@ public class DispatcherHandlerMappingDetails {
 
 	private RequestMappingConditionsDescription requestMappingConditions;
 
-	public HandlerMethodDescription getHandlerMethod() {
-		return this.handlerMethod;
-	}
-
 	void setHandlerMethod(HandlerMethodDescription handlerMethod) {
 		this.handlerMethod = handlerMethod;
 	}
