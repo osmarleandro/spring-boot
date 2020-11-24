@@ -49,15 +49,11 @@ class OperationMethodParameters implements OperationParameters {
 		String[] parameterNames = parameterNameDiscoverer.getParameterNames(method);
 		Parameter[] parameters = method.getParameters();
 		Assert.state(parameterNames != null, () -> "Failed to extract parameter names for " + method);
-		this.operationParameters = getOperationParameters(parameters, parameterNames);
-	}
-
-	private List<OperationParameter> getOperationParameters(Parameter[] parameters, String[] names) {
-		List<OperationParameter> operationParameters = new ArrayList<>(parameters.length);
-		for (int i = 0; i < names.length; i++) {
-			operationParameters.add(new OperationMethodParameter(names[i], parameters[i]));
+		List<OperationParameter> operationParameters1 = new ArrayList<>(parameters.length);
+		for (int i = 0; i < parameterNames.length; i++) {
+			operationParameters1.add(new OperationMethodParameter(parameterNames[i], parameters[i]));
 		}
-		return Collections.unmodifiableList(operationParameters);
+		this.operationParameters = Collections.unmodifiableList(operationParameters1);
 	}
 
 	@Override
