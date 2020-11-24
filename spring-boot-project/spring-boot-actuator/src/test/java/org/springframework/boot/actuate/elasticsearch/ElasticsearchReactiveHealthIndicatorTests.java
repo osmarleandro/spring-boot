@@ -57,11 +57,6 @@ class ElasticsearchReactiveHealthIndicatorTests {
 		this.healthIndicator = new ElasticsearchReactiveHealthIndicator(client);
 	}
 
-	@AfterEach
-	void shutdown() throws Exception {
-		this.server.shutdown();
-	}
-
 	@Test
 	void elasticsearchIsUp() {
 		setupMockResponse(200, "green");
