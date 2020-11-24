@@ -50,16 +50,6 @@ public class HttpExchangeTracer {
 	}
 
 	/**
-	 * Begins the tracing of the exchange that was initiated by the given {@code request}
-	 * being received.
-	 * @param request the received request
-	 * @return the HTTP trace for the
-	 */
-	public final HttpTrace receivedRequest(TraceableRequest request) {
-		return new HttpTrace(new FilteredTraceableRequest(request));
-	}
-
-	/**
 	 * Ends the tracing of the exchange that is being concluded by sending the given
 	 * {@code response}.
 	 * @param trace the trace for the exchange
