@@ -77,7 +77,12 @@ class DiscoveredJmxOperationTests {
 
 	@Test
 	void getParametersWhenHasNoParametersShouldReturnEmptyList() {
-		DiscoveredJmxOperation operation = getOperation("getEnum");
+		Method method = findMethod("getEnum");
+		AnnotationAttributes annotationAttributes = new AnnotationAttributes();
+		annotationAttributes.put("produces", "application/xml");
+		DiscoveredOperationMethod operationMethod = new DiscoveredOperationMethod(method, OperationType.READ,
+				annotationAttributes);
+		DiscoveredJmxOperation operation = new DiscoveredJmxOperation(EndpointId.of("test"), operationMethod, mock(OperationInvoker.class));
 		assertThat(operation.getParameters()).isEmpty();
 	}
 
@@ -94,7 +99,12 @@ class DiscoveredJmxOperationTests {
 
 	@Test
 	void getParametersWhenHasManagedOperationParameterShouldUseValuesFromAnnotation() {
-		DiscoveredJmxOperation operation = getOperation("withManagedOperationParameters");
+		Method method = findMethod("withManagedOperationParameters");
+		AnnotationAttributes annotationAttributes = new AnnotationAttributes();
+		annotationAttributes.put("produces", "application/xml");
+		DiscoveredOperationMethod operationMethod = new DiscoveredOperationMethod(method, OperationType.READ,
+				annotationAttributes);
+		DiscoveredJmxOperation operation = new DiscoveredJmxOperation(EndpointId.of("test"), operationMethod, mock(OperationInvoker.class));
 		List<JmxOperationParameter> parameters = operation.getParameters();
 		assertThat(parameters.get(0).getName()).isEqualTo("a1");
 		assertThat(parameters.get(1).getName()).isEqualTo("a2");
@@ -104,7 +114,12 @@ class DiscoveredJmxOperationTests {
 
 	@Test
 	void getParametersWhenHasNoManagedOperationParameterShouldDeducedValuesName() {
-		DiscoveredJmxOperation operation = getOperation("params");
+		Method method = findMethod("params");
+		AnnotationAttributes annotationAttributes = new AnnotationAttributes();
+		annotationAttributes.put("produces", "application/xml");
+		DiscoveredOperationMethod operationMethod = new DiscoveredOperationMethod(method, OperationType.READ,
+				annotationAttributes);
+		DiscoveredJmxOperation operation = new DiscoveredJmxOperation(EndpointId.of("test"), operationMethod, mock(OperationInvoker.class));
 		List<JmxOperationParameter> parameters = operation.getParameters();
 		assertThat(parameters.get(0).getName()).isEqualTo("enumParam");
 		assertThat(parameters.get(1).getName()).isEqualTo("dateParam");
