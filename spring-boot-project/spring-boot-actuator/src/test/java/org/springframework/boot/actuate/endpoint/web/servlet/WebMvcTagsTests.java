@@ -138,13 +138,6 @@ class WebMvcTagsTests {
 	}
 
 	@Test
-	void outcomeTagIsSuccessWhenResponseIs2xx() {
-		this.response.setStatus(200);
-		Tag tag = WebMvcTags.outcome(this.response);
-		assertThat(tag.getValue()).isEqualTo("SUCCESS");
-	}
-
-	@Test
 	void outcomeTagIsRedirectionWhenResponseIs3xx() {
 		this.response.setStatus(301);
 		Tag tag = WebMvcTags.outcome(this.response);
