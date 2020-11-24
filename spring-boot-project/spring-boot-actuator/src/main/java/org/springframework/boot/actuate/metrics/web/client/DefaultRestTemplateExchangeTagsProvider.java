@@ -38,7 +38,7 @@ public class DefaultRestTemplateExchangeTagsProvider implements RestTemplateExch
 		Tag uriTag = (StringUtils.hasText(urlTemplate) ? RestTemplateExchangeTags.uri(urlTemplate)
 				: RestTemplateExchangeTags.uri(request));
 		return Arrays.asList(RestTemplateExchangeTags.method(request), uriTag,
-				RestTemplateExchangeTags.status(response), RestTemplateExchangeTags.clientName(request),
+				Tag.of("status", RestTemplateExchangeTags.getStatusMessage(response)), RestTemplateExchangeTags.clientName(request),
 				RestTemplateExchangeTags.outcome(response));
 	}
 

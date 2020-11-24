@@ -82,16 +82,6 @@ public final class RestTemplateExchangeTags {
 		return (url == null || url.startsWith("/")) ? url : "/" + url;
 	}
 
-	/**
-	 * Creates a {@code status} {@code Tag} derived from the
-	 * {@link ClientHttpResponse#getRawStatusCode() status} of the given {@code response}.
-	 * @param response the response
-	 * @return the status tag
-	 */
-	public static Tag status(ClientHttpResponse response) {
-		return Tag.of("status", getStatusMessage(response));
-	}
-
 	private static String getStatusMessage(ClientHttpResponse response) {
 		try {
 			if (response == null) {
