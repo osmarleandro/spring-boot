@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
@@ -40,6 +41,7 @@ import org.glassfish.jersey.server.model.Resource;
 import org.glassfish.jersey.server.model.Resource.Builder;
 import reactor.core.publisher.Mono;
 
+import org.springframework.boot.actuate.endpoint.ExposableEndpoint;
 import org.springframework.boot.actuate.endpoint.InvalidEndpointRequestException;
 import org.springframework.boot.actuate.endpoint.InvocationContext;
 import org.springframework.boot.actuate.endpoint.SecurityContext;
@@ -49,6 +51,7 @@ import org.springframework.boot.actuate.endpoint.web.EndpointMapping;
 import org.springframework.boot.actuate.endpoint.web.EndpointMediaTypes;
 import org.springframework.boot.actuate.endpoint.web.ExposableWebEndpoint;
 import org.springframework.boot.actuate.endpoint.web.Link;
+import org.springframework.boot.actuate.endpoint.web.PathMappedEndpoint;
 import org.springframework.boot.actuate.endpoint.web.WebEndpointResponse;
 import org.springframework.boot.actuate.endpoint.web.WebOperation;
 import org.springframework.boot.actuate.endpoint.web.WebOperationRequestPredicate;
@@ -280,8 +283,22 @@ public class JerseyEndpointResourceFactory {
 
 		@Override
 		public Response apply(ContainerRequestContext request) {
-			Map<String, Link> links = this.linksResolver
-					.resolveLinks(request.getUriInfo().getAbsolutePath().toString());
+			String requestUrl = request.getUriInfo().getAbsolutePath().toString();
+			EndpointLinksResolver r = this.linksResolver;
+			String normalizedUrl = r.normalizeRequestUrl(requestUrl);
+			Map<String, Link> links1 = new LinkedHashMap<>();
+			links1.put("self", new Link(normalizedUrl));
+			for (ExposableEndpoint<?> endpoint : r.endpoints) {
+				if (endpoint instanceof ExposableWebEndpoint) {
+					r.collectLinks(links1, (ExposableWebEndpoint) endpoint, normalizedUrl);
+				}
+				else if (endpoint instanceof PathMappedEndpoint) {
+					String rootPath = ((PathMappedEndpoint) endpoint).getRootPath();
+					Link link = r.createLink(normalizedUrl, rootPath);
+					links1.put(endpoint.getEndpointId().toLowerCaseString(), link);
+				}
+			}
+			Map<String, Link> links = links1;
 			return Response.ok(Collections.singletonMap("_links", links)).build();
 		}
 
