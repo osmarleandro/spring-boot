@@ -84,17 +84,6 @@ class WebFluxEndpointIntegrationTests
 						.valueEquals("Access-Control-Allow-Methods", "GET,POST"));
 	}
 
-	@Test
-	void readOperationsThatReturnAResourceSupportRangeRequests() {
-		load(ResourceEndpointConfiguration.class, (client) -> {
-			byte[] responseBody = client.get().uri("/resource").header("Range", "bytes=0-3").exchange().expectStatus()
-					.isEqualTo(HttpStatus.PARTIAL_CONTENT).expectHeader()
-					.contentType(MediaType.APPLICATION_OCTET_STREAM).returnResult(byte[].class)
-					.getResponseBodyContent();
-			assertThat(responseBody).containsExactly(0, 1, 2, 3);
-		});
-	}
-
 	@Override
 	protected int getPort(AnnotationConfigReactiveWebServerApplicationContext context) {
 		return context.getBean(ReactiveConfiguration.class).port;
