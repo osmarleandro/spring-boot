@@ -39,7 +39,7 @@ class AuditEventTests {
 		AuditEvent event = new AuditEvent("phil", "UNKNOWN", Collections.singletonMap("a", "b"));
 		assertThat(event.getData().get("a")).isEqualTo("b");
 		assertThat(event.getType()).isEqualTo("UNKNOWN");
-		assertThat(event.getPrincipal()).isEqualTo("phil");
+		assertThat(event.principal).isEqualTo("phil");
 		assertThat(event.getTimestamp()).isNotNull();
 	}
 
@@ -53,7 +53,7 @@ class AuditEventTests {
 	@Test
 	void nullPrincipalIsMappedToEmptyString() {
 		AuditEvent auditEvent = new AuditEvent(null, "UNKNOWN", Collections.singletonMap("a", "b"));
-		assertThat(auditEvent.getPrincipal()).isEmpty();
+		assertThat(auditEvent.principal).isEmpty();
 	}
 
 	@Test
