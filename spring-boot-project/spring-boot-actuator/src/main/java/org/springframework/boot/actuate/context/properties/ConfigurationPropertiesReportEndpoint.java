@@ -51,6 +51,8 @@ import org.apache.commons.logging.LogFactory;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.BeansException;
+import org.springframework.boot.actuate.context.properties.ConfigurationPropertiesReportEndpoint.ConfigurationPropertiesAnnotationIntrospector;
+import org.springframework.boot.actuate.context.properties.ConfigurationPropertiesReportEndpoint.ConfigurationPropertiesPropertyFilter;
 import org.springframework.boot.actuate.endpoint.Sanitizer;
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
 import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
@@ -143,15 +145,11 @@ public class ConfigurationPropertiesReportEndpoint implements ApplicationContext
 		mapper.configure(SerializationFeature.WRITE_DURATIONS_AS_TIMESTAMPS, false);
 		mapper.configure(MapperFeature.USE_STD_BEAN_NAMING, true);
 		mapper.setSerializationInclusion(Include.NON_NULL);
-		applyConfigurationPropertiesFilter(mapper);
-		applySerializationModifier(mapper);
-		mapper.registerModule(new JavaTimeModule());
-	}
-
-	private void applyConfigurationPropertiesFilter(ObjectMapper mapper) {
 		mapper.setAnnotationIntrospector(new ConfigurationPropertiesAnnotationIntrospector());
 		mapper.setFilterProvider(
 				new SimpleFilterProvider().setDefaultFilter(new ConfigurationPropertiesPropertyFilter()));
+		applySerializationModifier(mapper);
+		mapper.registerModule(new JavaTimeModule());
 	}
 
 	/**
