@@ -71,11 +71,6 @@ public class SimpleStatusAggregator implements StatusAggregator {
 		this.order = CollectionUtils.isEmpty(order) ? DEFAULT_ORDER : getUniformCodes(order.stream());
 	}
 
-	@Override
-	public Status getAggregateStatus(Set<Status> statuses) {
-		return statuses.stream().filter(this::contains).min(this.comparator).orElse(Status.UNKNOWN);
-	}
-
 	private boolean contains(Status status) {
 		return this.order.contains(getUniformCode(status.getCode()));
 	}
