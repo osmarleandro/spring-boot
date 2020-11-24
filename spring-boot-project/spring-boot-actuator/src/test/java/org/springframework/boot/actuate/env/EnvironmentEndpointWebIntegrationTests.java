@@ -93,17 +93,6 @@ class EnvironmentEndpointWebIntegrationTests {
 	}
 
 	@WebEndpointTest
-	void nestedPathMatchedByRegexWhenPlaceholderCannotBeResolvedShouldReturnUnresolvedProperty() {
-		Map<String, Object> map = new HashMap<>();
-		map.put("my.foo", "${my.bar}");
-		this.context.getEnvironment().getPropertySources()
-				.addFirst(new MapPropertySource("unresolved-placeholder", map));
-		this.client.get().uri("/actuator/env?pattern=my.*").exchange().expectStatus().isOk().expectBody()
-				.jsonPath("propertySources[?(@.name=='unresolved-placeholder')].properties.['my.foo'].value")
-				.isEqualTo("${my.bar}");
-	}
-
-	@WebEndpointTest
 	void nestedPathMatchedByRegexWithSensitivePlaceholderShouldSanitize() {
 		Map<String, Object> map = new HashMap<>();
 		map.put("my.foo", "${my.password}");
