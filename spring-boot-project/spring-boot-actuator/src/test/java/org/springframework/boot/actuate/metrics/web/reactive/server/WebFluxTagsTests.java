@@ -70,14 +70,6 @@ class WebFluxTagsTests {
 	}
 
 	@Test
-	void uriTagValueWithBestMatchingPatternAndIgnoreTrailingSlashRemoveTrailingSlash() {
-		this.exchange.getAttributes().put(HandlerMapping.BEST_MATCHING_PATTERN_ATTRIBUTE,
-				this.parser.parse("/spring/"));
-		Tag tag = WebFluxTags.uri(this.exchange, true);
-		assertThat(tag.getValue()).isEqualTo("/spring");
-	}
-
-	@Test
 	void uriTagValueWithBestMatchingPatternAndIgnoreTrailingSlashKeepSingleSlash() {
 		this.exchange.getAttributes().put(HandlerMapping.BEST_MATCHING_PATTERN_ATTRIBUTE, this.parser.parse("/"));
 		Tag tag = WebFluxTags.uri(this.exchange, true);
