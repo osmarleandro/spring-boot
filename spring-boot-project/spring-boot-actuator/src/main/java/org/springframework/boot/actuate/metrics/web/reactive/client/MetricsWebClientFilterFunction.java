@@ -103,8 +103,4 @@ public class MetricsWebClientFilterFunction implements ExchangeFilterFunction {
 		return context.get(METRICS_WEBCLIENT_START_TIME);
 	}
 
-	private Context putStartTime(Context context) {
-		return context.put(METRICS_WEBCLIENT_START_TIME, System.nanoTime());
-	}
-
 }
