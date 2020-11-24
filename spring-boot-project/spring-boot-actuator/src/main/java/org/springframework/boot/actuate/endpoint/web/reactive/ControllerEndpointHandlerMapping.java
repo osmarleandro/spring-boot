@@ -94,18 +94,14 @@ public class ControllerEndpointHandlerMapping extends RequestMappingHandlerMappi
 		}
 		PathPattern[] endpointMappedPatterns = patterns.stream()
 				.map((pattern) -> getEndpointMappedPattern(endpoint, pattern)).toArray(PathPattern[]::new);
-		return withNewPatterns(mapping, endpointMappedPatterns);
+		PatternsRequestCondition patternsCondition = new PatternsRequestCondition(endpointMappedPatterns);
+		return new RequestMappingInfo(patternsCondition, mapping.getMethodsCondition(), mapping.getParamsCondition(),
+				mapping.getHeadersCondition(), mapping.getConsumesCondition(), mapping.getProducesCondition(),
+				mapping.getCustomCondition());
 	}
 
 	private PathPattern getEndpointMappedPattern(ExposableControllerEndpoint endpoint, PathPattern pattern) {
 		return getPathPatternParser().parse(this.endpointMapping.createSubPath(endpoint.getRootPath() + pattern));
-	}
-
-	private RequestMappingInfo withNewPatterns(RequestMappingInfo mapping, PathPattern[] patterns) {
-		PatternsRequestCondition patternsCondition = new PatternsRequestCondition(patterns);
-		return new RequestMappingInfo(patternsCondition, mapping.getMethodsCondition(), mapping.getParamsCondition(),
-				mapping.getHeadersCondition(), mapping.getConsumesCondition(), mapping.getProducesCondition(),
-				mapping.getCustomCondition());
 	}
 
 	@Override
