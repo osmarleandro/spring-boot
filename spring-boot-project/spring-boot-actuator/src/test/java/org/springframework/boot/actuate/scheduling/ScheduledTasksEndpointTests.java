@@ -54,104 +54,44 @@ class ScheduledTasksEndpointTests {
 
 	@Test
 	void cronScheduledMethodIsReported() {
-		run(CronScheduledMethod.class, (tasks) -> {
-			assertThat(tasks.getFixedDelay()).isEmpty();
-			assertThat(tasks.getFixedRate()).isEmpty();
-			assertThat(tasks.getCustom()).isEmpty();
-			assertThat(tasks.getCron()).hasSize(1);
-			CronTaskDescription description = (CronTaskDescription) tasks.getCron().get(0);
-			assertThat(description.getExpression()).isEqualTo("0 0 0/3 1/1 * ?");
-			assertThat(description.getRunnable().getTarget()).isEqualTo(CronScheduledMethod.class.getName() + ".cron");
-		});
+		this.contextRunner.withUserConfiguration(CronScheduledMethod.class)
+		.run((context) -> consumer.accept(context.getBean(ScheduledTasksEndpoint.class).scheduledTasks()));
 	}
 
 	@Test
 	void cronTriggerIsReported() {
-		run(CronTriggerTask.class, (tasks) -> {
-			assertThat(tasks.getFixedRate()).isEmpty();
-			assertThat(tasks.getFixedDelay()).isEmpty();
-			assertThat(tasks.getCustom()).isEmpty();
-			assertThat(tasks.getCron()).hasSize(1);
-			CronTaskDescription description = (CronTaskDescription) tasks.getCron().get(0);
-			assertThat(description.getExpression()).isEqualTo("0 0 0/6 1/1 * ?");
-			assertThat(description.getRunnable().getTarget()).isEqualTo(CronTriggerRunnable.class.getName());
-		});
+		this.contextRunner.withUserConfiguration(CronTriggerTask.class)
+		.run((context) -> consumer.accept(context.getBean(ScheduledTasksEndpoint.class).scheduledTasks()));
 	}
 
 	@Test
 	void fixedDelayScheduledMethodIsReported() {
-		run(FixedDelayScheduledMethod.class, (tasks) -> {
-			assertThat(tasks.getCron()).isEmpty();
-			assertThat(tasks.getFixedRate()).isEmpty();
-			assertThat(tasks.getCustom()).isEmpty();
-			assertThat(tasks.getFixedDelay()).hasSize(1);
-			FixedDelayTaskDescription description = (FixedDelayTaskDescription) tasks.getFixedDelay().get(0);
-			assertThat(description.getInitialDelay()).isEqualTo(2);
-			assertThat(description.getInterval()).isEqualTo(1);
-			assertThat(description.getRunnable().getTarget())
-					.isEqualTo(FixedDelayScheduledMethod.class.getName() + ".fixedDelay");
-		});
+		this.contextRunner.withUserConfiguration(FixedDelayScheduledMethod.class)
+		.run((context) -> consumer.accept(context.getBean(ScheduledTasksEndpoint.class).scheduledTasks()));
 	}
 
 	@Test
 	void fixedDelayTriggerIsReported() {
-		run(FixedDelayTriggerTask.class, (tasks) -> {
-			assertThat(tasks.getCron()).isEmpty();
-			assertThat(tasks.getFixedRate()).isEmpty();
-			assertThat(tasks.getCustom()).isEmpty();
-			assertThat(tasks.getFixedDelay()).hasSize(1);
-			FixedDelayTaskDescription description = (FixedDelayTaskDescription) tasks.getFixedDelay().get(0);
-			assertThat(description.getInitialDelay()).isEqualTo(2000);
-			assertThat(description.getInterval()).isEqualTo(1000);
-			assertThat(description.getRunnable().getTarget()).isEqualTo(FixedDelayTriggerRunnable.class.getName());
-		});
+		this.contextRunner.withUserConfiguration(FixedDelayTriggerTask.class)
+		.run((context) -> consumer.accept(context.getBean(ScheduledTasksEndpoint.class).scheduledTasks()));
 	}
 
 	@Test
 	void fixedRateScheduledMethodIsReported() {
-		run(FixedRateScheduledMethod.class, (tasks) -> {
-			assertThat(tasks.getCron()).isEmpty();
-			assertThat(tasks.getFixedDelay()).isEmpty();
-			assertThat(tasks.getCustom()).isEmpty();
-			assertThat(tasks.getFixedRate()).hasSize(1);
-			FixedRateTaskDescription description = (FixedRateTaskDescription) tasks.getFixedRate().get(0);
-			assertThat(description.getInitialDelay()).isEqualTo(4);
-			assertThat(description.getInterval()).isEqualTo(3);
-			assertThat(description.getRunnable().getTarget())
-					.isEqualTo(FixedRateScheduledMethod.class.getName() + ".fixedRate");
-		});
+		this.contextRunner.withUserConfiguration(FixedRateScheduledMethod.class)
+		.run((context) -> consumer.accept(context.getBean(ScheduledTasksEndpoint.class).scheduledTasks()));
 	}
 
 	@Test
 	void fixedRateTriggerIsReported() {
-		run(FixedRateTriggerTask.class, (tasks) -> {
-			assertThat(tasks.getCron()).isEmpty();
-			assertThat(tasks.getFixedDelay()).isEmpty();
-			assertThat(tasks.getCustom()).isEmpty();
-			assertThat(tasks.getFixedRate()).hasSize(1);
-			FixedRateTaskDescription description = (FixedRateTaskDescription) tasks.getFixedRate().get(0);
-			assertThat(description.getInitialDelay()).isEqualTo(3000);
-			assertThat(description.getInterval()).isEqualTo(2000);
-			assertThat(description.getRunnable().getTarget()).isEqualTo(FixedRateTriggerRunnable.class.getName());
-		});
+		this.contextRunner.withUserConfiguration(FixedRateTriggerTask.class)
+		.run((context) -> consumer.accept(context.getBean(ScheduledTasksEndpoint.class).scheduledTasks()));
 	}
 
 	@Test
 	void taskWithCustomTriggerIsReported() {
-		run(CustomTriggerTask.class, (tasks) -> {
-			assertThat(tasks.getCron()).isEmpty();
-			assertThat(tasks.getFixedDelay()).isEmpty();
-			assertThat(tasks.getFixedRate()).isEmpty();
-			assertThat(tasks.getCustom()).hasSize(1);
-			CustomTriggerTaskDescription description = (CustomTriggerTaskDescription) tasks.getCustom().get(0);
-			assertThat(description.getRunnable().getTarget()).isEqualTo(CustomTriggerRunnable.class.getName());
-			assertThat(description.getTrigger()).isEqualTo(CustomTriggerTask.trigger.toString());
-		});
-	}
-
-	private void run(Class<?> configuration, Consumer<ScheduledTasksReport> consumer) {
-		this.contextRunner.withUserConfiguration(configuration)
-				.run((context) -> consumer.accept(context.getBean(ScheduledTasksEndpoint.class).scheduledTasks()));
+		this.contextRunner.withUserConfiguration(CustomTriggerTask.class)
+		.run((context) -> consumer.accept(context.getBean(ScheduledTasksEndpoint.class).scheduledTasks()));
 	}
 
 	@Configuration(proxyBeanMethods = false)
