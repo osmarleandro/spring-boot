@@ -93,14 +93,6 @@ class EndpointDiscovererTests {
 	}
 
 	@Test
-	void createWhenFiltersIsNullShouldThrowException() {
-		assertThatIllegalArgumentException()
-				.isThrownBy(() -> new TestEndpointDiscoverer(mock(ApplicationContext.class),
-						mock(ParameterValueMapper.class), Collections.emptyList(), null))
-				.withMessageContaining("Filters must not be null");
-	}
-
-	@Test
 	void getEndpointsWhenNoEndpointBeansShouldReturnEmptyCollection() {
 		load(EmptyConfiguration.class, (context) -> {
 			TestEndpointDiscoverer discoverer = new TestEndpointDiscoverer(context);
