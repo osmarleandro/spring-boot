@@ -52,6 +52,7 @@ import org.springframework.boot.actuate.endpoint.web.Link;
 import org.springframework.boot.actuate.endpoint.web.WebEndpointResponse;
 import org.springframework.boot.actuate.endpoint.web.WebOperation;
 import org.springframework.boot.actuate.endpoint.web.WebOperationRequestPredicate;
+import org.springframework.boot.actuate.endpoint.web.jersey.JerseyEndpointResourceFactory.EndpointLinksInflector;
 import org.springframework.util.AntPathMatcher;
 import org.springframework.util.ClassUtils;
 import org.springframework.util.CollectionUtils;
@@ -84,8 +85,11 @@ public class JerseyEndpointResourceFactory {
 		endpoints.stream().flatMap((endpoint) -> endpoint.getOperations().stream())
 				.map((operation) -> createResource(endpointMapping, operation)).forEach(resources::add);
 		if (shouldRegisterLinks) {
-			Resource resource = createEndpointLinksResource(endpointMapping.getPath(), endpointMediaTypes,
-					linksResolver);
+			String endpointPath = endpointMapping.getPath();
+			Builder resourceBuilder = Resource.builder().path(endpointPath);
+			resourceBuilder.addMethod("GET").produces(StringUtils.toStringArray(endpointMediaTypes.getProduced()))
+					.handledBy(new EndpointLinksInflector(linksResolver));
+			Resource resource = resourceBuilder.build();
 			resources.add(resource);
 		}
 		return resources;
@@ -104,14 +108,6 @@ public class JerseyEndpointResourceFactory {
 				.consumes(StringUtils.toStringArray(requestPredicate.getConsumes()))
 				.produces(StringUtils.toStringArray(requestPredicate.getProduces()))
 				.handledBy(new OperationInflector(operation, !requestPredicate.getConsumes().isEmpty()));
-		return resourceBuilder.build();
-	}
-
-	private Resource createEndpointLinksResource(String endpointPath, EndpointMediaTypes endpointMediaTypes,
-			EndpointLinksResolver linksResolver) {
-		Builder resourceBuilder = Resource.builder().path(endpointPath);
-		resourceBuilder.addMethod("GET").produces(StringUtils.toStringArray(endpointMediaTypes.getProduced()))
-				.handledBy(new EndpointLinksInflector(linksResolver));
 		return resourceBuilder.build();
 	}
 
