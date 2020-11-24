@@ -122,13 +122,6 @@ class HealthTests {
 	}
 
 	@Test
-	void unknown() {
-		Health health = new Health.Builder().unknown().build();
-		assertThat(health.getStatus()).isEqualTo(Status.UNKNOWN);
-		assertThat(health.getDetails()).isEmpty();
-	}
-
-	@Test
 	void upWithDetails() {
 		Health health = new Health.Builder().up().withDetail("a", "b").build();
 		assertThat(health.getStatus()).isEqualTo(Status.UP);
