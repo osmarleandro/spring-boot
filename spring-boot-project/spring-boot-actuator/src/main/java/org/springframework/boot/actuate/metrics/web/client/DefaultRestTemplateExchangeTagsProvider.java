@@ -33,13 +33,4 @@ import org.springframework.util.StringUtils;
  */
 public class DefaultRestTemplateExchangeTagsProvider implements RestTemplateExchangeTagsProvider {
 
-	@Override
-	public Iterable<Tag> getTags(String urlTemplate, HttpRequest request, ClientHttpResponse response) {
-		Tag uriTag = (StringUtils.hasText(urlTemplate) ? RestTemplateExchangeTags.uri(urlTemplate)
-				: RestTemplateExchangeTags.uri(request));
-		return Arrays.asList(RestTemplateExchangeTags.method(request), uriTag,
-				RestTemplateExchangeTags.status(response), RestTemplateExchangeTags.clientName(request),
-				RestTemplateExchangeTags.outcome(response));
-	}
-
 }
