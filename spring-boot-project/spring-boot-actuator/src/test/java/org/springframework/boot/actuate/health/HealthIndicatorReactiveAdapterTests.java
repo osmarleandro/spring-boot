@@ -48,13 +48,4 @@ class HealthIndicatorReactiveAdapterTests {
 		StepVerifier.create(adapter.health()).expectError(IllegalStateException.class).verify(Duration.ofSeconds(10));
 	}
 
-	@Test
-	void delegateRunsOnTheElasticScheduler() {
-		String currentThread = Thread.currentThread().getName();
-		HealthIndicator delegate = () -> Health
-				.status(Thread.currentThread().getName().equals(currentThread) ? Status.DOWN : Status.UP).build();
-		HealthIndicatorReactiveAdapter adapter = new HealthIndicatorReactiveAdapter(delegate);
-		StepVerifier.create(adapter.health()).expectNext(Health.status(Status.UP).build()).verifyComplete();
-	}
-
 }
