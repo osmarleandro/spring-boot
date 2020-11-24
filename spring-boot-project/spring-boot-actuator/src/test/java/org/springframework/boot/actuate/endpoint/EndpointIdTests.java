@@ -146,11 +146,6 @@ class EndpointIdTests {
 	}
 
 	@Test
-	void toStringReturnsString() {
-		assertThat(EndpointId.of("fooBar").toString()).isEqualTo("fooBar");
-	}
-
-	@Test
 	void fromPropertyValueStripsDashes() {
 		EndpointId fromPropertyValue = EndpointId.fromPropertyValue("foo-bar");
 		assertThat(fromPropertyValue).isEqualTo(EndpointId.of("fooBar"));
