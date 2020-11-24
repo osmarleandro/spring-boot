@@ -114,10 +114,6 @@ class OperationMethodParametersTests {
 		assertThat(parameter.getType()).isEqualTo(String.class);
 	}
 
-	String example(String name) {
-		return name;
-	}
-
 	String exampleNoParams() {
 		return "example";
 	}
