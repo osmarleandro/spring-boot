@@ -72,7 +72,8 @@ public class ReflectiveOperationInvoker implements OperationInvoker {
 	public Object invoke(InvocationContext context) {
 		validateRequiredParameters(context);
 		Method method = this.operationMethod.getMethod();
-		Object[] resolvedArguments = resolveArguments(context);
+		Object[] resolvedArguments = this.operationMethod.getParameters().stream().map((parameter) -> resolveArgument(parameter, context))
+		.toArray();
 		ReflectionUtils.makeAccessible(method);
 		return ReflectionUtils.invokeMethod(method, this.target, resolvedArguments);
 	}
@@ -99,11 +100,6 @@ public class ReflectiveOperationInvoker implements OperationInvoker {
 			return false;
 		}
 		return context.getArguments().get(parameter.getName()) == null;
-	}
-
-	private Object[] resolveArguments(InvocationContext context) {
-		return this.operationMethod.getParameters().stream().map((parameter) -> resolveArgument(parameter, context))
-				.toArray();
 	}
 
 	private Object resolveArgument(OperationParameter parameter, InvocationContext context) {
