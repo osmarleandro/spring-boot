@@ -38,30 +38,29 @@ class TraceableHttpServletRequestTests {
 
 	@Test
 	void getUriWithoutQueryStringShouldReturnUri() {
-		validate("http://localhost/script");
+		TraceableHttpServletRequest trace = new TraceableHttpServletRequest(this.request);
+		assertThat(trace.getUri().toString()).isEqualTo("http://localhost/script");
 	}
 
 	@Test
 	void getUriShouldReturnUriWithQueryString() {
 		this.request.setQueryString("a=b");
-		validate("http://localhost/script?a=b");
+		TraceableHttpServletRequest trace = new TraceableHttpServletRequest(this.request);
+		assertThat(trace.getUri().toString()).isEqualTo("http://localhost/script?a=b");
 	}
 
 	@Test
 	void getUriWithSpecialCharactersInQueryStringShouldEncode() {
 		this.request.setQueryString("a=${b}");
-		validate("http://localhost/script?a=$%7Bb%7D");
+		TraceableHttpServletRequest trace = new TraceableHttpServletRequest(this.request);
+		assertThat(trace.getUri().toString()).isEqualTo("http://localhost/script?a=$%7Bb%7D");
 	}
 
 	@Test
 	void getUriWithSpecialCharactersEncodedShouldNotDoubleEncode() {
 		this.request.setQueryString("a=$%7Bb%7D");
-		validate("http://localhost/script?a=$%7Bb%7D");
-	}
-
-	private void validate(String expectedUri) {
 		TraceableHttpServletRequest trace = new TraceableHttpServletRequest(this.request);
-		assertThat(trace.getUri().toString()).isEqualTo(expectedUri);
+		assertThat(trace.getUri().toString()).isEqualTo("http://localhost/script?a=$%7Bb%7D");
 	}
 
 }
