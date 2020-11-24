@@ -184,15 +184,6 @@ class ConfigurationPropertiesReportEndpointTests {
 	}
 
 	@Test
-	void sanitizeWithCustomKeyPattern() {
-		this.contextRunner.withUserConfiguration(TestPropertiesConfiguration.class)
-				.withPropertyValues("test.keys-to-sanitize=.*pass.*").run(assertProperties("test", (properties) -> {
-					assertThat(properties.get("dbPassword")).isEqualTo("******");
-					assertThat(properties.get("myTestProperty")).isEqualTo("654321");
-				}));
-	}
-
-	@Test
 	void sanitizeWithCustomPatternUsingCompositeKeys() {
 		this.contextRunner.withUserConfiguration(Gh4415PropertiesConfiguration.class)
 				.withPropertyValues("test.keys-to-sanitize=.*\\.secrets\\..*,.*\\.hidden\\..*")
