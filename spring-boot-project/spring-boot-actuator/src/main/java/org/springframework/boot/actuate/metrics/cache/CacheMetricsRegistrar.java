@@ -70,20 +70,11 @@ public class CacheMetricsRegistrar {
 
 	@SuppressWarnings({ "unchecked" })
 	private MeterBinder getMeterBinder(Cache cache, Tags tags) {
-		Tags cacheTags = tags.and(getAdditionalTags(cache));
+		Tags cacheTags = tags.and(Tags.of("name", cache.getName()));
 		return LambdaSafe.callbacks(CacheMeterBinderProvider.class, this.binderProviders, cache)
 				.withLogger(CacheMetricsRegistrar.class)
 				.invokeAnd((binderProvider) -> binderProvider.getMeterBinder(cache, cacheTags)).filter(Objects::nonNull)
 				.findFirst().orElse(null);
-	}
-
-	/**
-	 * Return additional {@link Tag tags} to be associated with the given {@link Cache}.
-	 * @param cache the cache
-	 * @return a list of additional tags to associate to that {@code cache}.
-	 */
-	protected Iterable<Tag> getAdditionalTags(Cache cache) {
-		return Tags.of("name", cache.getName());
 	}
 
 	private Cache unwrapIfNecessary(Cache cache) {
