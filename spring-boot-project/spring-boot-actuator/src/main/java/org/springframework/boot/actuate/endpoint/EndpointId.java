@@ -93,14 +93,6 @@ public final class EndpointId {
 		return this.lowerCaseAlphaNumeric.hashCode();
 	}
 
-	/**
-	 * Return a lower-case version of the endpoint ID.
-	 * @return the lower-case endpoint ID
-	 */
-	public String toLowerCaseString() {
-		return this.lowerCaseValue;
-	}
-
 	@Override
 	public String toString() {
 		return this.value;
