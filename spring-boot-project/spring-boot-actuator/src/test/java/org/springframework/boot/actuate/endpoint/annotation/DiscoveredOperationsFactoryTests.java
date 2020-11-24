@@ -62,7 +62,7 @@ class DiscoveredOperationsFactoryTests {
 	void createOperationsWhenHasReadMethodShouldCreateOperation() {
 		Collection<TestOperation> operations = this.factory.createOperations(EndpointId.of("test"), new ExampleRead());
 		assertThat(operations).hasSize(1);
-		TestOperation operation = getFirst(operations);
+		TestOperation operation = operations.iterator().next();
 		assertThat(operation.getType()).isEqualTo(OperationType.READ);
 	}
 
@@ -70,7 +70,7 @@ class DiscoveredOperationsFactoryTests {
 	void createOperationsWhenHasWriteMethodShouldCreateOperation() {
 		Collection<TestOperation> operations = this.factory.createOperations(EndpointId.of("test"), new ExampleWrite());
 		assertThat(operations).hasSize(1);
-		TestOperation operation = getFirst(operations);
+		TestOperation operation = operations.iterator().next();
 		assertThat(operation.getType()).isEqualTo(OperationType.WRITE);
 	}
 
@@ -79,7 +79,7 @@ class DiscoveredOperationsFactoryTests {
 		Collection<TestOperation> operations = this.factory.createOperations(EndpointId.of("test"),
 				new ExampleDelete());
 		assertThat(operations).hasSize(1);
-		TestOperation operation = getFirst(operations);
+		TestOperation operation = operations.iterator().next();
 		assertThat(operation.getType()).isEqualTo(OperationType.DELETE);
 	}
 
@@ -94,8 +94,8 @@ class DiscoveredOperationsFactoryTests {
 
 	@Test
 	void createOperationsShouldProvideOperationMethod() {
-		TestOperation operation = getFirst(
-				this.factory.createOperations(EndpointId.of("test"), new ExampleWithParams()));
+		Iterable<T> iterable = this.factory.createOperations(EndpointId.of("test"), new ExampleWithParams());
+		TestOperation operation = iterable.iterator().next();
 		OperationMethod operationMethod = operation.getOperationMethod();
 		assertThat(operationMethod.getMethod().getName()).isEqualTo("read");
 		assertThat(operationMethod.getParameters().hasParameters()).isTrue();
@@ -103,8 +103,8 @@ class DiscoveredOperationsFactoryTests {
 
 	@Test
 	void createOperationsShouldProviderInvoker() {
-		TestOperation operation = getFirst(
-				this.factory.createOperations(EndpointId.of("test"), new ExampleWithParams()));
+		Iterable<T> iterable = this.factory.createOperations(EndpointId.of("test"), new ExampleWithParams());
+		TestOperation operation = iterable.iterator().next();
 		Map<String, Object> params = Collections.singletonMap("name", 123);
 		Object result = operation.invoke(new InvocationContext(mock(SecurityContext.class), params));
 		assertThat(result).isEqualTo("123");
@@ -114,15 +114,12 @@ class DiscoveredOperationsFactoryTests {
 	void createOperationShouldApplyAdvisors() {
 		TestOperationInvokerAdvisor advisor = new TestOperationInvokerAdvisor();
 		this.invokerAdvisors.add(advisor);
-		TestOperation operation = getFirst(this.factory.createOperations(EndpointId.of("test"), new ExampleRead()));
+		Iterable<T> iterable = this.factory.createOperations(EndpointId.of("test"), new ExampleRead());
+		TestOperation operation = iterable.iterator().next();
 		operation.invoke(new InvocationContext(mock(SecurityContext.class), Collections.emptyMap()));
 		assertThat(advisor.getEndpointId()).isEqualTo(EndpointId.of("test"));
 		assertThat(advisor.getOperationType()).isEqualTo(OperationType.READ);
 		assertThat(advisor.getParameters()).isEmpty();
-	}
-
-	private <T> T getFirst(Iterable<T> iterable) {
-		return iterable.iterator().next();
 	}
 
 	static class ExampleRead {
