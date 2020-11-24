@@ -63,11 +63,6 @@ public class SessionsEndpoint {
 		return new SessionDescriptor(session);
 	}
 
-	@DeleteOperation
-	public void deleteSession(@Selector String sessionId) {
-		this.sessionRepository.deleteById(sessionId);
-	}
-
 	/**
 	 * A report of user's {@link Session sessions}. Primarily intended for serialization
 	 * to JSON.
