@@ -38,7 +38,12 @@ class InfoEndpointTests {
 	void info() {
 		InfoEndpoint endpoint = new InfoEndpoint(Arrays.asList((builder) -> builder.withDetail("key1", "value1"),
 				(builder) -> builder.withDetail("key2", "value2")));
-		Map<String, Object> info = endpoint.info();
+		Info.Builder builder1 = new Info.Builder();
+		for (InfoContributor contributor : endpoint.infoContributors) {
+			contributor.contribute(builder1);
+		}
+		Info build = builder1.build();
+		Map<String, Object> info = build.getDetails();
 		assertThat(info).hasSize(2);
 		assertThat(info).containsEntry("key1", "value1");
 		assertThat(info).containsEntry("key2", "value2");
@@ -47,7 +52,12 @@ class InfoEndpointTests {
 	@Test
 	void infoWithNoContributorsProducesEmptyMap() {
 		InfoEndpoint endpoint = new InfoEndpoint(Collections.emptyList());
-		Map<String, Object> info = endpoint.info();
+		Info.Builder builder = new Info.Builder();
+		for (InfoContributor contributor : endpoint.infoContributors) {
+			contributor.contribute(builder);
+		}
+		Info build = builder.build();
+		Map<String, Object> info = build.getDetails();
 		assertThat(info).isEmpty();
 	}
 

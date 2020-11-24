@@ -20,6 +20,8 @@ import java.util.Map;
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.EndpointCloudFoundryExtension;
 import org.springframework.boot.actuate.endpoint.annotation.EndpointExtension;
 import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
+import org.springframework.boot.actuate.info.Info;
+import org.springframework.boot.actuate.info.InfoContributor;
 import org.springframework.boot.actuate.info.InfoEndpoint;
 
 /**
@@ -40,7 +42,12 @@ public class CloudFoundryInfoEndpointWebExtension {
 
 	@ReadOperation
 	public Map<String, Object> info() {
-		return this.delegate.info();
+		Info.Builder builder = new Info.Builder();
+		for (InfoContributor contributor : this.delegate.infoContributors) {
+			contributor.contribute(builder);
+		}
+		Info build = builder.build();
+		return build.getDetails();
 	}
 
 }
