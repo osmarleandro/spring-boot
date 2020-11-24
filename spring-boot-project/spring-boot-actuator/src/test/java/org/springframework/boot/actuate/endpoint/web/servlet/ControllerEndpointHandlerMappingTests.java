@@ -24,6 +24,7 @@ import org.springframework.boot.actuate.endpoint.EndpointId;
 import org.springframework.boot.actuate.endpoint.web.EndpointMapping;
 import org.springframework.boot.actuate.endpoint.web.annotation.ControllerEndpoint;
 import org.springframework.boot.actuate.endpoint.web.annotation.ExposableControllerEndpoint;
+import org.springframework.boot.actuate.endpoint.web.servlet.ControllerEndpointHandlerMappingTests.PathlessControllerEndpoint;
 import org.springframework.context.support.StaticApplicationContext;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.util.ReflectionUtils;
@@ -82,7 +83,7 @@ class ControllerEndpointHandlerMappingTests {
 
 	@Test
 	void mappingWithNoPath() throws Exception {
-		ExposableControllerEndpoint pathless = pathlessEndpoint();
+		ExposableControllerEndpoint pathless = mockEndpoint(EndpointId.of("pathless"), new PathlessControllerEndpoint());
 		ControllerEndpointHandlerMapping mapping = createMapping("actuator", pathless);
 		assertThat(mapping.getHandler(request("GET", "/actuator/pathless")).getHandler())
 				.isEqualTo(handlerOf(pathless.getController(), "get"));
@@ -112,10 +113,6 @@ class ControllerEndpointHandlerMappingTests {
 
 	private ExposableControllerEndpoint secondEndpoint() {
 		return mockEndpoint(EndpointId.of("second"), new SecondTestMvcEndpoint());
-	}
-
-	private ExposableControllerEndpoint pathlessEndpoint() {
-		return mockEndpoint(EndpointId.of("pathless"), new PathlessControllerEndpoint());
 	}
 
 	private ExposableControllerEndpoint mockEndpoint(EndpointId id, Object controller) {
