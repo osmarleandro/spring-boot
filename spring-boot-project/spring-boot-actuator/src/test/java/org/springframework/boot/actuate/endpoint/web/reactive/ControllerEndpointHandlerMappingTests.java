@@ -84,14 +84,6 @@ class ControllerEndpointHandlerMappingTests {
 		assertThat(getHandler(mapping, HttpMethod.GET, "/")).isNull();
 	}
 
-	@Test
-	void mappingNarrowedToMethod() throws Exception {
-		ExposableControllerEndpoint first = firstEndpoint();
-		ControllerEndpointHandlerMapping mapping = createMapping("actuator", first);
-		assertThatExceptionOfType(MethodNotAllowedException.class)
-				.isThrownBy(() -> getHandler(mapping, HttpMethod.POST, "/actuator/first"));
-	}
-
 	private Object getHandler(ControllerEndpointHandlerMapping mapping, HttpMethod method, String requestURI) {
 		return mapping.getHandler(exchange(method, requestURI)).block(Duration.ofSeconds(30));
 	}
