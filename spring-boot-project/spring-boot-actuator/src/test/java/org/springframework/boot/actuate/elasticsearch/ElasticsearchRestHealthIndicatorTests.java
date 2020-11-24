@@ -80,14 +80,6 @@ class ElasticsearchRestHealthIndicatorTests {
 	}
 
 	@Test
-	void elasticsearchIsDown() throws IOException {
-		given(this.restClient.performRequest(any(Request.class))).willThrow(new IOException("Couldn't connect"));
-		Health health = this.elasticsearchRestHealthIndicator.health();
-		assertThat(health.getStatus()).isEqualTo(Status.DOWN);
-		assertThat(health.getDetails()).contains(entry("error", "java.io.IOException: Couldn't connect"));
-	}
-
-	@Test
 	void elasticsearchIsDownByResponseCode() throws IOException {
 		Response response = mock(Response.class);
 		StatusLine statusLine = mock(StatusLine.class);
