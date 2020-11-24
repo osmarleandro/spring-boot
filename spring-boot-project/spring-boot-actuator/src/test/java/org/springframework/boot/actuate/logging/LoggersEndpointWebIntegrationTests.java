@@ -79,7 +79,8 @@ class LoggersEndpointWebIntegrationTests {
 
 	@WebEndpointTest
 	void getLoggerShouldReturnAllLoggerConfigurationsWithLoggerGroups() {
-		setLogLevelToDebug("test");
+		this.loggerGroups.get("test").configureLogLevel(LogLevel.DEBUG, (a, b) -> {
+		});
 		given(this.loggingSystem.getLoggerConfigurations())
 				.willReturn(Collections.singletonList(new LoggerConfiguration("ROOT", null, LogLevel.DEBUG)));
 		this.client.get().uri("/actuator/loggers").exchange().expectStatus().isOk().expectBody().jsonPath("$.length()")
@@ -93,7 +94,8 @@ class LoggersEndpointWebIntegrationTests {
 
 	@WebEndpointTest
 	void getLoggerShouldReturnLogLevels() {
-		setLogLevelToDebug("test");
+		this.loggerGroups.get("test").configureLogLevel(LogLevel.DEBUG, (a, b) -> {
+		});
 		given(this.loggingSystem.getLoggerConfiguration("ROOT"))
 				.willReturn(new LoggerConfiguration("ROOT", null, LogLevel.DEBUG));
 		this.client.get().uri("/actuator/loggers/ROOT").exchange().expectStatus().isOk().expectBody()
@@ -108,7 +110,8 @@ class LoggersEndpointWebIntegrationTests {
 
 	@WebEndpointTest
 	void getLoggerGroupShouldReturnConfiguredLogLevelAndMembers() {
-		setLogLevelToDebug("test");
+		this.loggerGroups.get("test").configureLogLevel(LogLevel.DEBUG, (a, b) -> {
+		});
 		this.client.get().uri("actuator/loggers/test").exchange().expectStatus().isOk().expectBody()
 				.jsonPath("$.length()").isEqualTo(2).jsonPath("members")
 				.value(IsIterableContainingInAnyOrder.containsInAnyOrder("test.member1", "test.member2"))
@@ -213,15 +216,11 @@ class LoggersEndpointWebIntegrationTests {
 
 	@WebEndpointTest
 	void logLevelForLoggerGroupWithNameThatCouldBeMistakenForAPathExtension() {
-		setLogLevelToDebug("group.png");
+		this.loggerGroups.get("group.png").configureLogLevel(LogLevel.DEBUG, (a, b) -> {
+		});
 		this.client.get().uri("/actuator/loggers/group.png").exchange().expectStatus().isOk().expectBody()
 				.jsonPath("$.length()").isEqualTo(2).jsonPath("configuredLevel").isEqualTo("DEBUG").jsonPath("members")
 				.value(IsIterableContainingInAnyOrder.containsInAnyOrder("png.member1", "png.member2"));
-	}
-
-	private void setLogLevelToDebug(String name) {
-		this.loggerGroups.get(name).configureLogLevel(LogLevel.DEBUG, (a, b) -> {
-		});
 	}
 
 	private JSONArray jsonArrayOf(Object... entries) {
