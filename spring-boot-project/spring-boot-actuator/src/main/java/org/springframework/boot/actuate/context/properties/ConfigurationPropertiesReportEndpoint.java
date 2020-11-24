@@ -175,7 +175,21 @@ public class ConfigurationPropertiesReportEndpoint implements ApplicationContext
 	private ConfigurationPropertiesBeanDescriptor describeBean(ObjectMapper mapper, ConfigurationPropertiesBean bean) {
 		String prefix = bean.getAnnotation().prefix();
 		Map<String, Object> serialized = safeSerialize(mapper, bean.getInstance(), prefix);
-		Map<String, Object> properties = sanitize(prefix, serialized);
+		serialized.forEach((key, value) -> {
+			String qualifiedKey = getQualifiedKey(prefix, key);
+			if (value instanceof Map) {
+				map.put(key, sanitize(qualifiedKey, (Map<String, Object>) value));
+			}
+			else if (value instanceof List) {
+				map.put(key, sanitize(qualifiedKey, (List<Object>) value));
+			}
+			else {
+				value = this.sanitizer.sanitize(key, value);
+				value = this.sanitizer.sanitize(qualifiedKey, value);
+				map.put(key, value);
+			}
+		});
+		Map<String, Object> properties = serialized;
 		Map<String, Object> inputs = getInputs(prefix, serialized);
 		return new ConfigurationPropertiesBeanDescriptor(prefix, properties, inputs);
 	}
