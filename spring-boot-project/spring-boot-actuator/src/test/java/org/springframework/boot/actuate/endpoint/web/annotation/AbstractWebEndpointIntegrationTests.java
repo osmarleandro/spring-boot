@@ -185,14 +185,6 @@ public abstract class AbstractWebEndpointIntegrationTests<T extends Configurable
 	}
 
 	@Test
-	void writeOperationWithVoidResponse() {
-		load(VoidWriteResponseEndpointConfiguration.class, (context, client) -> {
-			client.post().uri("/voidwrite").exchange().expectStatus().isNoContent().expectBody().isEmpty();
-			verify(context.getBean(EndpointDelegate.class)).write();
-		});
-	}
-
-	@Test
 	void deleteOperation() {
 		load(TestEndpointConfiguration.class, (client) -> client.delete().uri("/test/one").exchange().expectStatus()
 				.isOk().expectBody().jsonPath("part").isEqualTo("one"));
