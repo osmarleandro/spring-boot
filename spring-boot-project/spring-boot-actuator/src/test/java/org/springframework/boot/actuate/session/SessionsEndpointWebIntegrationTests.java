@@ -52,13 +52,6 @@ class SessionsEndpointWebIntegrationTests {
 	}
 
 	@WebEndpointTest
-	void sessionsForUsernameNoResults(WebTestClient client) {
-		given(repository.findByPrincipalName("user")).willReturn(Collections.emptyMap());
-		client.get().uri((builder) -> builder.path("/actuator/sessions").queryParam("username", "user").build())
-				.exchange().expectStatus().isOk().expectBody().jsonPath("sessions").isEmpty();
-	}
-
-	@WebEndpointTest
 	void sessionsForUsernameFound(WebTestClient client) {
 		given(repository.findByPrincipalName("user")).willReturn(Collections.singletonMap(session.getId(), session));
 		client.get().uri((builder) -> builder.path("/actuator/sessions").queryParam("username", "user").build())
