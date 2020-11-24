@@ -103,13 +103,6 @@ class JmxEndpointDiscovererTests {
 	}
 
 	@Test
-	void getEndpointsWhenJmxExtensionIsMissingEndpointShouldThrowException() {
-		load(TestJmxEndpointExtension.class, (discoverer) -> assertThatIllegalStateException()
-				.isThrownBy(discoverer::getEndpoints).withMessageContaining(
-						"Invalid extension 'jmxEndpointDiscovererTests.TestJmxEndpointExtension': no endpoint found with id 'test'"));
-	}
-
-	@Test
 	void getEndpointsWhenHasJmxExtensionShouldOverrideStandardEndpoint() {
 		load(OverriddenOperationJmxEndpointConfiguration.class, (discoverer) -> {
 			Map<EndpointId, ExposableJmxEndpoint> endpoints = discover(discoverer);
