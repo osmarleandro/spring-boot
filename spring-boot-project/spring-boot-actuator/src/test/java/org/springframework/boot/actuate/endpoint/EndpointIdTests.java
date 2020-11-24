@@ -52,12 +52,6 @@ class EndpointIdTests {
 	}
 
 	@Test
-	void ofWhenContainsBackslashThrowsException() {
-		assertThatIllegalArgumentException().isThrownBy(() -> EndpointId.of("foo\\bar"))
-				.withMessage("Value must only contain valid chars");
-	}
-
-	@Test
 	void ofWhenHasBadCharThrowsException() {
 		assertThatIllegalArgumentException().isThrownBy(() -> EndpointId.of("foo!bar"))
 				.withMessage("Value must only contain valid chars");
