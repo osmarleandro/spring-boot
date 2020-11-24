@@ -76,16 +76,6 @@ public class DispatcherHandlersMappingDescriptionProvider implements MappingDesc
 		return dispatcherHandler.getHandlerMappings().stream().flatMap(this::describe).collect(Collectors.toList());
 	}
 
-	@SuppressWarnings("unchecked")
-	private <T extends HandlerMapping> Stream<DispatcherHandlerMappingDescription> describe(T handlerMapping) {
-		for (HandlerMappingDescriptionProvider<?> descriptionProvider : descriptionProviders) {
-			if (descriptionProvider.getMappingClass().isInstance(handlerMapping)) {
-				return ((HandlerMappingDescriptionProvider<T>) descriptionProvider).describe(handlerMapping).stream();
-			}
-		}
-		return Stream.empty();
-	}
-
 	private interface HandlerMappingDescriptionProvider<T extends HandlerMapping> {
 
 		Class<T> getMappingClass();
