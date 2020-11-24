@@ -50,18 +50,6 @@ import static org.mockito.Mockito.verify;
 class Neo4jReactiveHealthIndicatorTest {
 
 	@Test
-	void neo4jIsUp() {
-		ResultSummary resultSummary = ResultSummaryMock.createResultSummary("4711", "My Home", "test");
-		Driver driver = mockDriver(resultSummary, "ultimate collectors edition");
-		Neo4jReactiveHealthIndicator healthIndicator = new Neo4jReactiveHealthIndicator(driver);
-		healthIndicator.health().as(StepVerifier::create).consumeNextWith((health) -> {
-			assertThat(health.getStatus()).isEqualTo(Status.UP);
-			assertThat(health.getDetails()).containsEntry("server", "4711@My Home");
-			assertThat(health.getDetails()).containsEntry("edition", "ultimate collectors edition");
-		}).verifyComplete();
-	}
-
-	@Test
 	void neo4jIsUpWithOneSessionExpiredException() {
 		ResultSummary resultSummary = ResultSummaryMock.createResultSummary("4711", "My Home", "");
 		RxSession session = mock(RxSession.class);
