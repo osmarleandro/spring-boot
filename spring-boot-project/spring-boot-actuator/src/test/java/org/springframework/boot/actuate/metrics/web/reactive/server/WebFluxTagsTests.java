@@ -78,13 +78,6 @@ class WebFluxTagsTests {
 	}
 
 	@Test
-	void uriTagValueWithBestMatchingPatternAndIgnoreTrailingSlashKeepSingleSlash() {
-		this.exchange.getAttributes().put(HandlerMapping.BEST_MATCHING_PATTERN_ATTRIBUTE, this.parser.parse("/"));
-		Tag tag = WebFluxTags.uri(this.exchange, true);
-		assertThat(tag.getValue()).isEqualTo("/");
-	}
-
-	@Test
 	void uriTagValueIsRedirectionWhenResponseStatusIs3xx() {
 		this.exchange.getResponse().setStatusCode(HttpStatus.MOVED_PERMANENTLY);
 		Tag tag = WebFluxTags.uri(this.exchange);
