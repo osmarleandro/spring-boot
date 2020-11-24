@@ -53,13 +53,9 @@ public final class Info {
 		return this.details;
 	}
 
-	public Object get(String id) {
-		return this.details.get(id);
-	}
-
 	@SuppressWarnings("unchecked")
 	public <T> T get(String id, Class<T> type) {
-		Object value = get(id);
+		Object value = this.details.get(id);
 		if (value != null && type != null && !type.isInstance(value)) {
 			throw new IllegalStateException("Info entry is not of required type [" + type.getName() + "]: " + value);
 		}
