@@ -41,14 +41,10 @@ class CouchbaseHealth {
 	}
 
 	void applyTo(Builder builder) {
-		builder = isCouchbaseUp(this.diagnostics) ? builder.up() : builder.down();
+		builder = this.diagnostics.state() == ClusterState.ONLINE ? builder.up() : builder.down();
 		builder.withDetail("sdk", this.diagnostics.sdk());
 		builder.withDetail("endpoints", this.diagnostics.endpoints().values().stream().flatMap(Collection::stream)
 				.map(this::describe).collect(Collectors.toList()));
-	}
-
-	private boolean isCouchbaseUp(DiagnosticsResult diagnostics) {
-		return diagnostics.state() == ClusterState.ONLINE;
 	}
 
 	private Map<String, Object> describe(EndpointDiagnostics endpointHealth) {
