@@ -54,13 +54,6 @@ class PathMappedEndpointsTests {
 	}
 
 	@Test
-	void iteratorShouldReturnPathMappedEndpoints() {
-		PathMappedEndpoints mapped = createTestMapped(null);
-		assertThat(mapped).hasSize(2);
-		assertThat(mapped).extracting("endpointId").containsExactly(EndpointId.of("e2"), EndpointId.of("e3"));
-	}
-
-	@Test
 	void streamShouldReturnPathMappedEndpoints() {
 		PathMappedEndpoints mapped = createTestMapped(null);
 		assertThat(mapped.stream()).hasSize(2);
