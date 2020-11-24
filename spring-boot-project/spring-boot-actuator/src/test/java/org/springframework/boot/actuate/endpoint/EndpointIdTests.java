@@ -64,12 +64,6 @@ class EndpointIdTests {
 	}
 
 	@Test
-	void ofWhenStartsWithNumberThrowsException() {
-		assertThatIllegalArgumentException().isThrownBy(() -> EndpointId.of("1foo"))
-				.withMessage("Value must not start with a number");
-	}
-
-	@Test
 	void ofWhenStartsWithUppercaseLetterThrowsException() {
 		assertThatIllegalArgumentException().isThrownBy(() -> EndpointId.of("Foo"))
 				.withMessage("Value must not start with an uppercase letter");
