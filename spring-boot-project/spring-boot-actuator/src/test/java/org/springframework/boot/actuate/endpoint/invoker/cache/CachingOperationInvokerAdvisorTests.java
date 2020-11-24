@@ -89,16 +89,6 @@ class CachingOperationInvokerAdvisorTests {
 	}
 
 	@Test
-	void applyWhenTimeToLiveIsZeroShouldNotAddAdvise() {
-		OperationParameters parameters = getParameters("get");
-		given(this.timeToLive.apply(any())).willReturn(0L);
-		OperationInvoker advised = this.advisor.apply(EndpointId.of("foo"), OperationType.READ, parameters,
-				this.invoker);
-		assertThat(advised).isSameAs(this.invoker);
-		verify(this.timeToLive).apply(EndpointId.of("foo"));
-	}
-
-	@Test
 	void applyShouldAddCacheAdvise() {
 		OperationParameters parameters = getParameters("get");
 		given(this.timeToLive.apply(any())).willReturn(100L);
