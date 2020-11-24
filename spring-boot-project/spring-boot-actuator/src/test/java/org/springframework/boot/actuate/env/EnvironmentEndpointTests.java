@@ -111,26 +111,6 @@ class EnvironmentEndpointTests {
 	}
 
 	@Test
-	void sensitiveKeysMatchingCredentialsPatternHaveTheirValuesSanitized() {
-		TestPropertyValues
-				.of("my.services.amqp-free.credentials.uri=123456", "credentials.http_api_uri=123456",
-						"my.services.cleardb-free.credentials=123456", "foo.mycredentials.uri=123456")
-				.applyToSystemProperties(() -> {
-					EnvironmentDescriptor descriptor = new EnvironmentEndpoint(new StandardEnvironment())
-							.environment(null);
-					Map<String, PropertyValueDescriptor> systemProperties = propertySources(descriptor)
-							.get("systemProperties").getProperties();
-					assertThat(systemProperties.get("my.services.amqp-free.credentials.uri").getValue())
-							.isEqualTo("******");
-					assertThat(systemProperties.get("credentials.http_api_uri").getValue()).isEqualTo("******");
-					assertThat(systemProperties.get("my.services.cleardb-free.credentials").getValue())
-							.isEqualTo("******");
-					assertThat(systemProperties.get("foo.mycredentials.uri").getValue()).isEqualTo("******");
-					return null;
-				});
-	}
-
-	@Test
 	void sensitiveKeysMatchingCustomNameHaveTheirValuesSanitized() {
 		TestPropertyValues.of("dbPassword=123456", "apiKey=123456").applyToSystemProperties(() -> {
 			EnvironmentEndpoint endpoint = new EnvironmentEndpoint(new StandardEnvironment());
