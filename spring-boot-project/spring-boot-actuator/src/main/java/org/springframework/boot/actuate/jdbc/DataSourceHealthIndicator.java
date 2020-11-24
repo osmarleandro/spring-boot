@@ -130,10 +130,6 @@ public class DataSourceHealthIndicator extends AbstractHealthIndicator implement
 		return this.jdbcTemplate.execute((ConnectionCallback<Boolean>) this::isConnectionValid);
 	}
 
-	private Boolean isConnectionValid(Connection connection) throws SQLException {
-		return connection.isValid(0);
-	}
-
 	/**
 	 * Set the {@link DataSource} to use.
 	 * @param dataSource the data source
