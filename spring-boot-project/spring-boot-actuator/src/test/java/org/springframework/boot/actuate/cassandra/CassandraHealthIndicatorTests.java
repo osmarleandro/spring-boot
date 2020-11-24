@@ -42,11 +42,6 @@ import static org.mockito.Mockito.mock;
 class CassandraHealthIndicatorTests {
 
 	@Test
-	void createWhenCassandraOperationsIsNullShouldThrowException() {
-		assertThatIllegalArgumentException().isThrownBy(() -> new CassandraHealthIndicator(null));
-	}
-
-	@Test
 	void healthWithCassandraUp() {
 		CassandraOperations cassandraOperations = mock(CassandraOperations.class);
 		CqlOperations cqlOperations = mock(CqlOperations.class);
