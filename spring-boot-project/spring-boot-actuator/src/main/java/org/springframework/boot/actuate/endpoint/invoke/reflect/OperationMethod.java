@@ -56,14 +56,6 @@ public class OperationMethod {
 	}
 
 	/**
-	 * Return the source Java method.
-	 * @return the method
-	 */
-	public Method getMethod() {
-		return this.method;
-	}
-
-	/**
 	 * Return the operation type.
 	 * @return the operation type
 	 */

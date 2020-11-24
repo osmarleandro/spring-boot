@@ -300,7 +300,7 @@ class EndpointDiscovererTests {
 		Map<Method, O> byMethod = new HashMap<>();
 		endpoint.getOperations().forEach((operation) -> {
 			AbstractDiscoveredOperation discoveredOperation = (AbstractDiscoveredOperation) operation;
-			Method method = discoveredOperation.getOperationMethod().getMethod();
+			Method method = discoveredOperation.getOperationMethod().method;
 			O existing = byMethod.put(method, operation);
 			if (existing != null) {
 				throw new AssertionError(String.format("Found endpoint with duplicate operation method '%s'", method));
