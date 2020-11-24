@@ -49,7 +49,14 @@ public class PathMappedEndpoints implements Iterable<PathMappedEndpoint> {
 	public PathMappedEndpoints(String basePath, EndpointsSupplier<?> supplier) {
 		Assert.notNull(supplier, "Supplier must not be null");
 		this.basePath = (basePath != null) ? basePath : "";
-		this.endpoints = getEndpoints(Collections.singleton(supplier));
+		Collection<EndpointsSupplier<?>> suppliers = Collections.singleton(supplier);
+		Map<EndpointId, PathMappedEndpoint> endpoints1 = new LinkedHashMap<>();
+		suppliers.forEach((supplier) -> supplier.getEndpoints().forEach((endpoint) -> {
+			if (endpoint instanceof PathMappedEndpoint) {
+				endpoints.put(endpoint.getEndpointId(), (PathMappedEndpoint) endpoint);
+			}
+		}));
+		this.endpoints = Collections.unmodifiableMap(endpoints1);
 	}
 
 	/**
@@ -60,17 +67,13 @@ public class PathMappedEndpoints implements Iterable<PathMappedEndpoint> {
 	public PathMappedEndpoints(String basePath, Collection<EndpointsSupplier<?>> suppliers) {
 		Assert.notNull(suppliers, "Suppliers must not be null");
 		this.basePath = (basePath != null) ? basePath : "";
-		this.endpoints = getEndpoints(suppliers);
-	}
-
-	private Map<EndpointId, PathMappedEndpoint> getEndpoints(Collection<EndpointsSupplier<?>> suppliers) {
-		Map<EndpointId, PathMappedEndpoint> endpoints = new LinkedHashMap<>();
+		Map<EndpointId, PathMappedEndpoint> endpoints1 = new LinkedHashMap<>();
 		suppliers.forEach((supplier) -> supplier.getEndpoints().forEach((endpoint) -> {
 			if (endpoint instanceof PathMappedEndpoint) {
 				endpoints.put(endpoint.getEndpointId(), (PathMappedEndpoint) endpoint);
 			}
 		}));
-		return Collections.unmodifiableMap(endpoints);
+		this.endpoints = Collections.unmodifiableMap(endpoints1);
 	}
 
 	/**
