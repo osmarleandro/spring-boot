@@ -78,22 +78,6 @@ class ConnectionFactoryHealthIndicatorTests {
 	}
 
 	@Test
-	void healthIndicatorWhenConnectionValidationFails() {
-		ConnectionFactory connectionFactory = mock(ConnectionFactory.class);
-		given(connectionFactory.getMetadata()).willReturn(() -> "mock");
-		Connection connection = mock(Connection.class);
-		given(connection.validate(ValidationDepth.REMOTE)).willReturn(Mono.just(false));
-		given(connection.close()).willReturn(Mono.empty());
-		given(connectionFactory.create()).willAnswer((invocation) -> Mono.just(connection));
-		ConnectionFactoryHealthIndicator healthIndicator = new ConnectionFactoryHealthIndicator(connectionFactory);
-		healthIndicator.health().as(StepVerifier::create).assertNext((actual) -> {
-			assertThat(actual.getStatus()).isEqualTo(Status.DOWN);
-			assertThat(actual.getDetails()).containsOnly(entry("database", "mock"),
-					entry("validationQuery", "validate(REMOTE)"));
-		}).verifyComplete();
-	}
-
-	@Test
 	void healthIndicatorWhenDatabaseUpWithSuccessValidationQuery() {
 		CloseableConnectionFactory connectionFactory = createTestDatabase();
 		try {
