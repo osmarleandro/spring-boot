@@ -47,13 +47,6 @@ class WebClientExchangeTagsTests {
 
 	private ClientResponse response;
 
-	@BeforeEach
-	void setup() {
-		this.request = ClientRequest.create(HttpMethod.GET, URI.create("https://example.org/projects/spring-boot"))
-				.attribute(URI_TEMPLATE_ATTRIBUTE, "https://example.org/projects/{project}").build();
-		this.response = mock(ClientResponse.class);
-	}
-
 	@Test
 	void method() {
 		assertThat(WebClientExchangeTags.method(this.request)).isEqualTo(Tag.of("method", "GET"));
