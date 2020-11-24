@@ -28,6 +28,8 @@ import javax.management.InvalidAttributeValueException;
 import javax.management.MBeanException;
 import javax.management.MBeanInfo;
 import javax.management.ReflectionException;
+import javax.management.modelmbean.ModelMBeanInfoSupport;
+import javax.management.modelmbean.ModelMBeanOperationInfo;
 
 import reactor.core.publisher.Mono;
 
@@ -67,7 +69,12 @@ public class EndpointMBean implements DynamicMBean {
 		this.responseMapper = responseMapper;
 		this.classLoader = classLoader;
 		this.endpoint = endpoint;
-		this.info = new MBeanInfoFactory(responseMapper).getMBeanInfo(endpoint);
+		MBeanInfoFactory r = new MBeanInfoFactory(responseMapper);
+		String className = EndpointMBean.class.getName();
+		String description = r.getDescription(endpoint);
+		ModelMBeanOperationInfo[] operations1 = r.getMBeanOperations(endpoint);
+		this.info = new ModelMBeanInfoSupport(className, description, MBeanInfoFactory.NO_ATTRIBUTES, MBeanInfoFactory.NO_CONSTRUCTORS, operations1,
+		MBeanInfoFactory.NO_NOTIFICATIONS);
 		this.operations = getOperations(endpoint);
 	}
 
