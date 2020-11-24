@@ -40,13 +40,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class DefaultWebFluxTagsProviderTests {
 
 	@Test
-	void whenTagsAreProvidedThenDefaultTagsArePresent() {
-		ServerWebExchange exchange = MockServerWebExchange.from(MockServerHttpRequest.get("/test"));
-		Map<String, Tag> tags = asMap(new DefaultWebFluxTagsProvider().httpRequestTags(exchange, null));
-		assertThat(tags).containsOnlyKeys("exception", "method", "outcome", "status", "uri");
-	}
-
-	@Test
 	void givenSomeContributorsWhenTagsAreProvidedThenDefaultTagsAndContributedTagsArePresent() {
 		ServerWebExchange exchange = MockServerWebExchange.from(MockServerHttpRequest.get("/test"));
 		Map<String, Tag> tags = asMap(
