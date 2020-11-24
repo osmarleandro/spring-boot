@@ -56,15 +56,6 @@ public final class RestTemplateExchangeTags {
 	}
 
 	/**
-	 * Creates a {@code uri} {@code Tag} for the URI of the given {@code request}.
-	 * @param request the request
-	 * @return the uri tag
-	 */
-	public static Tag uri(HttpRequest request) {
-		return Tag.of("uri", ensureLeadingSlash(stripUri(request.getURI().toString())));
-	}
-
-	/**
 	 * Creates a {@code uri} {@code Tag} from the given {@code uriTemplate}.
 	 * @param uriTemplate the template
 	 * @return the uri tag
