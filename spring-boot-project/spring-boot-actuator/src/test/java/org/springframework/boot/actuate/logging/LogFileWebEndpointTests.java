@@ -74,12 +74,4 @@ class LogFileWebEndpointTests {
 		assertThat(contentOf(resource.getFile())).isEqualTo("--TEST--");
 	}
 
-	@Test
-	void resourceResponseWithExternalLogFile() throws Exception {
-		LogFileWebEndpoint endpoint = new LogFileWebEndpoint(null, this.logFile);
-		Resource resource = endpoint.logFile();
-		assertThat(resource).isNotNull();
-		assertThat(contentOf(resource.getFile())).isEqualTo("--TEST--");
-	}
-
 }
