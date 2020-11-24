@@ -93,7 +93,7 @@ class ControllerEndpointHandlerMappingTests {
 	}
 
 	private Object getHandler(ControllerEndpointHandlerMapping mapping, HttpMethod method, String requestURI) {
-		return mapping.getHandler(exchange(method, requestURI)).block(Duration.ofSeconds(30));
+		return mapping.getHandler(MockServerWebExchange.from(MockServerHttpRequest.method(method, requestURI).build())).block(Duration.ofSeconds(30));
 	}
 
 	private ControllerEndpointHandlerMapping createMapping(String prefix, ExposableControllerEndpoint... endpoints) {
@@ -106,10 +106,6 @@ class ControllerEndpointHandlerMappingTests {
 
 	private HandlerMethod handlerOf(Object source, String methodName) {
 		return new HandlerMethod(source, ReflectionUtils.findMethod(source.getClass(), methodName));
-	}
-
-	private MockServerWebExchange exchange(HttpMethod method, String requestURI) {
-		return MockServerWebExchange.from(MockServerHttpRequest.method(method, requestURI).build());
 	}
 
 	private ExposableControllerEndpoint firstEndpoint() {
