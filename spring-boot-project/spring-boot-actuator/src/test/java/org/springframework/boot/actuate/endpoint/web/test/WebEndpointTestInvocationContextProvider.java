@@ -273,7 +273,8 @@ class WebEndpointTestInvocationContextProvider implements TestTemplateInvocation
 
 		@Override
 		public void onApplicationEvent(WebServerInitializedEvent event) {
-			this.portHolder.setPort(event.getWebServer().getPort());
+			int port = event.getWebServer().getPort();
+			this.portHolder.port = port;
 		}
 
 		@Bean
