@@ -181,13 +181,6 @@ class JmxEndpointDiscovererTests {
 	}
 
 	@Test
-	void getEndpointsWhenWhenEndpointHasTwoOperationsWithTheSameNameShouldThrowException() {
-		load(ClashingOperationsEndpoint.class, (discoverer) -> assertThatIllegalStateException()
-				.isThrownBy(discoverer::getEndpoints).withMessageContaining(
-						"Unable to map duplicate endpoint operations: [MBean call 'getAll'] to jmxEndpointDiscovererTests.ClashingOperationsEndpoint"));
-	}
-
-	@Test
 	void getEndpointsWhenWhenExtensionHasTwoOperationsWithTheSameNameShouldThrowException() {
 		load(AdditionalClashingOperationsConfiguration.class, (discoverer) -> assertThatIllegalStateException()
 				.isThrownBy(discoverer::getEndpoints).withMessageContaining(
