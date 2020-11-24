@@ -126,13 +126,13 @@ public class WebMvcMetricsFilter extends OncePerRequestFilter {
 		if (annotations.isEmpty()) {
 			if (this.autoTimer.isEnabled()) {
 				Builder builder = this.autoTimer.builder(this.metricName);
-				timerSample.stop(getTimer(builder, handler, request, response, exception));
+				timerSample.stop(builder.tags(this.tagsProvider.getTags(request, response, handler, exception)).register(this.registry));
 			}
 		}
 		else {
 			for (Timed annotation : annotations) {
 				Builder builder = Timer.builder(annotation, this.metricName);
-				timerSample.stop(getTimer(builder, handler, request, response, exception));
+				timerSample.stop(builder.tags(this.tagsProvider.getTags(request, response, handler, exception)).register(this.registry));
 			}
 		}
 	}
@@ -162,11 +162,6 @@ public class WebMvcMetricsFilter extends OncePerRequestFilter {
 			return Collections.emptySet();
 		}
 		return annotations.stream(Timed.class).collect(MergedAnnotationCollectors.toAnnotationSet());
-	}
-
-	private Timer getTimer(Builder builder, Object handler, HttpServletRequest request, HttpServletResponse response,
-			Throwable exception) {
-		return builder.tags(this.tagsProvider.getTags(request, response, handler, exception)).register(this.registry);
 	}
 
 	/**
