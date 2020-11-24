@@ -101,17 +101,6 @@ class RedisReactiveHealthIndicatorTests {
 		verify(redisConnection).closeLater();
 	}
 
-	@Test
-	void redisConnectionIsDown() {
-		ReactiveRedisConnectionFactory redisConnectionFactory = mock(ReactiveRedisConnectionFactory.class);
-		given(redisConnectionFactory.getReactiveConnection())
-				.willThrow(new RedisConnectionException("Unable to connect to localhost:6379"));
-		RedisReactiveHealthIndicator healthIndicator = new RedisReactiveHealthIndicator(redisConnectionFactory);
-		Mono<Health> health = healthIndicator.health();
-		StepVerifier.create(health).consumeNextWith((h) -> assertThat(h.getStatus()).isEqualTo(Status.DOWN))
-				.verifyComplete();
-	}
-
 	private RedisReactiveHealthIndicator createHealthIndicator(ReactiveRedisConnection redisConnection,
 			ReactiveServerCommands serverCommands) {
 
