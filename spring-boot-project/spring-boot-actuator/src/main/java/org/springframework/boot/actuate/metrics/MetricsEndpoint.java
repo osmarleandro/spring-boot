@@ -72,10 +72,6 @@ public class MetricsEndpoint {
 		}
 	}
 
-	private String getName(Meter meter) {
-		return meter.getId().getName();
-	}
-
 	@ReadOperation
 	public MetricResponse metric(@Selector String requiredMetricName, @Nullable List<String> tag) {
 		List<Tag> tags = parseTags(tag);
