@@ -51,14 +51,6 @@ class SimpleStatusAggregatorTests {
 	}
 
 	@Test
-	void getAggregateStatusWhenHasCustomStatusAndUsingDefaultOrder() {
-		SimpleStatusAggregator aggregator = new SimpleStatusAggregator();
-		Status status = aggregator.getAggregateStatus(Status.DOWN, Status.UP, Status.UNKNOWN, Status.OUT_OF_SERVICE,
-				new Status("CUSTOM"));
-		assertThat(status).isEqualTo(Status.DOWN);
-	}
-
-	@Test
 	void getAggregateStatusWhenHasCustomStatusAndUsingCustomOrder() {
 		SimpleStatusAggregator aggregator = new SimpleStatusAggregator("DOWN", "OUT_OF_SERVICE", "UP", "UNKNOWN",
 				"CUSTOM");
