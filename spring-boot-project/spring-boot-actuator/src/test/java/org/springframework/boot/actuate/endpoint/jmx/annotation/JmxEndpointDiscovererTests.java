@@ -194,13 +194,6 @@ class JmxEndpointDiscovererTests {
 						"Unable to map duplicate endpoint operations: [MBean call 'getAll'] to testEndpoint (clashingOperationsJmxEndpointExtension)"));
 	}
 
-	@Test
-	void getEndpointsWhenExtensionIsNotCompatibleWithTheEndpointTypeShouldThrowException() {
-		load(InvalidJmxExtensionConfiguration.class, (discoverer) -> assertThatIllegalStateException()
-				.isThrownBy(discoverer::getEndpoints).withMessageContaining(
-						"Endpoint bean 'nonJmxEndpoint' cannot support the extension bean 'nonJmxJmxEndpointExtension'"));
-	}
-
 	private Object getInvoker(JmxOperation operation) {
 		return ReflectionTestUtils.getField(operation, "invoker");
 	}
