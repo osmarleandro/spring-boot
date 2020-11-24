@@ -18,6 +18,7 @@ package org.springframework.boot.actuate.metrics.cache;
 
 import java.util.Collections;
 
+import io.micrometer.core.instrument.Tag;
 import io.micrometer.core.instrument.binder.MeterBinder;
 import io.micrometer.core.instrument.binder.cache.EhCache2Metrics;
 import net.sf.ehcache.Cache;
@@ -45,8 +46,9 @@ class EhCache2CacheMeterBinderProviderTests {
 			Cache nativeCache = new Cache(new CacheConfiguration("test", 100));
 			cacheManager.addCache(nativeCache);
 			EhCacheCache cache = new EhCacheCache(nativeCache);
-			MeterBinder meterBinder = new EhCache2CacheMeterBinderProvider().getMeterBinder(cache,
-					Collections.emptyList());
+			Iterable<Tag> tags = Collections.emptyList();
+			EhCache2CacheMeterBinderProvider r = new EhCache2CacheMeterBinderProvider();
+			MeterBinder meterBinder = new EhCache2Metrics(cache.getNativeCache(), tags);
 			assertThat(meterBinder).isInstanceOf(EhCache2Metrics.class);
 		}
 		finally {
