@@ -73,13 +73,6 @@ class EndpointMBeanTests {
 	}
 
 	@Test
-	void getMBeanInfoShouldReturnMBeanInfo() {
-		EndpointMBean bean = createEndpointMBean();
-		MBeanInfo info = bean.getMBeanInfo();
-		assertThat(info.getDescription()).isEqualTo("MBean operations for endpoint test");
-	}
-
-	@Test
 	void invokeShouldInvokeJmxOperation() throws MBeanException, ReflectionException {
 		EndpointMBean bean = createEndpointMBean();
 		Object result = bean.invoke("testOperation", NO_PARAMS, NO_SIGNATURE);
