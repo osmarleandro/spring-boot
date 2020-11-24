@@ -93,10 +93,6 @@ public final class EndpointServlet {
 		return this.servlet;
 	}
 
-	Map<String, String> getInitParameters() {
-		return this.initParameters;
-	}
-
 	int getLoadOnStartup() {
 		return this.loadOnStartup;
 	}
