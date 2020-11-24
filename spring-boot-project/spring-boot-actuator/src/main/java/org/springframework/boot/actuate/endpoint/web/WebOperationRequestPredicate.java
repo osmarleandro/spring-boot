@@ -76,14 +76,6 @@ public final class WebOperationRequestPredicate {
 	}
 
 	/**
-	 * Returns the path for the operation.
-	 * @return the path
-	 */
-	public String getPath() {
-		return this.path;
-	}
-
-	/**
 	 * Returns the name of the variable used to catch all remaining path segments
 	 * {@code null}.
 	 * @return the variable name

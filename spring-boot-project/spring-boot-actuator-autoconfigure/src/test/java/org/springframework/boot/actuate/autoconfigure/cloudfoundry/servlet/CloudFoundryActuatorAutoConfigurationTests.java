@@ -212,7 +212,7 @@ class CloudFoundryActuatorAutoConfigurationTests {
 							.get();
 					Collection<WebOperation> operations = endpoint.getOperations();
 					assertThat(operations).hasSize(1);
-					assertThat(operations.iterator().next().getRequestPredicate().getPath()).isEqualTo("test");
+					assertThat(operations.iterator().next().getRequestPredicate().path).isEqualTo("test");
 				});
 	}
 
@@ -244,7 +244,7 @@ class CloudFoundryActuatorAutoConfigurationTests {
 	private WebOperation findOperationWithRequestPath(ExposableWebEndpoint endpoint, String requestPath) {
 		for (WebOperation operation : endpoint.getOperations()) {
 			WebOperationRequestPredicate predicate = operation.getRequestPredicate();
-			if (predicate.getPath().equals(requestPath)
+			if (predicate.path.equals(requestPath)
 					&& predicate.getProduces().contains(ActuatorMediaType.V3_JSON)) {
 				return operation;
 			}
