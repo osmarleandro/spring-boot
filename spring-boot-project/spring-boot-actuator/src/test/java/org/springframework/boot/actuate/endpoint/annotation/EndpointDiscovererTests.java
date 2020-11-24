@@ -115,13 +115,6 @@ class EndpointDiscovererTests {
 	}
 
 	@Test
-	void getEndpointsWhenHasEndpointInParentContextShouldReturnEndpoint() {
-		AnnotationConfigApplicationContext parent = new AnnotationConfigApplicationContext(
-				TestEndpointConfiguration.class);
-		loadWithParent(parent, EmptyConfiguration.class, this::hasTestEndpoint);
-	}
-
-	@Test
 	void getEndpointsWhenHasSubclassedEndpointShouldReturnEndpoint() {
 		load(TestEndpointSubclassConfiguration.class, (context) -> {
 			TestEndpointDiscoverer discoverer = new TestEndpointDiscoverer(context);
