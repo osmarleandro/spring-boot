@@ -73,14 +73,6 @@ public class InvocationContext {
 	}
 
 	/**
-	 * Return the security context to use for the invocation.
-	 * @return the security context
-	 */
-	public SecurityContext getSecurityContext() {
-		return this.securityContext;
-	}
-
-	/**
 	 * Return the invocation arguments.
 	 * @return the arguments
 	 */
