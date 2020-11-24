@@ -46,12 +46,6 @@ class EndpointServletTests {
 	}
 
 	@Test
-	void createWhenServletIsNullShouldThrowException() {
-		assertThatIllegalArgumentException().isThrownBy(() -> new EndpointServlet((Servlet) null))
-				.withMessageContaining("Servlet must not be null");
-	}
-
-	@Test
 	void createWithServletClassShouldCreateServletInstance() {
 		EndpointServlet endpointServlet = new EndpointServlet(TestServlet.class);
 		assertThat(endpointServlet.getServlet()).isInstanceOf(TestServlet.class);
