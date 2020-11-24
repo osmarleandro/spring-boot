@@ -107,15 +107,6 @@ class LoggersEndpointWebIntegrationTests {
 	}
 
 	@WebEndpointTest
-	void getLoggerGroupShouldReturnConfiguredLogLevelAndMembers() {
-		setLogLevelToDebug("test");
-		this.client.get().uri("actuator/loggers/test").exchange().expectStatus().isOk().expectBody()
-				.jsonPath("$.length()").isEqualTo(2).jsonPath("members")
-				.value(IsIterableContainingInAnyOrder.containsInAnyOrder("test.member1", "test.member2"))
-				.jsonPath("configuredLevel").isEqualTo("DEBUG");
-	}
-
-	@WebEndpointTest
 	void setLoggerUsingApplicationJsonShouldSetLogLevel() {
 		this.client.post().uri("/actuator/loggers/ROOT").contentType(MediaType.APPLICATION_JSON)
 				.bodyValue(Collections.singletonMap("configuredLevel", "debug")).exchange().expectStatus()
