@@ -84,19 +84,14 @@ public class ControllerEndpointHandlerMapping extends RequestMappingHandlerMappi
 	@Override
 	protected void registerHandlerMethod(Object handler, Method method, RequestMappingInfo mapping) {
 		ExposableControllerEndpoint endpoint = this.handlers.get(handler);
-		mapping = withEndpointMappedPatterns(endpoint, mapping);
-		super.registerHandlerMethod(handler, method, mapping);
-	}
-
-	private RequestMappingInfo withEndpointMappedPatterns(ExposableControllerEndpoint endpoint,
-			RequestMappingInfo mapping) {
 		Set<String> patterns = mapping.getPatternsCondition().getPatterns();
 		if (patterns.isEmpty()) {
 			patterns = Collections.singleton("");
 		}
 		String[] endpointMappedPatterns = patterns.stream()
 				.map((pattern) -> getEndpointMappedPattern(endpoint, pattern)).toArray(String[]::new);
-		return withNewPatterns(mapping, endpointMappedPatterns);
+		mapping = withNewPatterns(mapping, endpointMappedPatterns);
+		super.registerHandlerMethod(handler, method, mapping);
 	}
 
 	private String getEndpointMappedPattern(ExposableControllerEndpoint endpoint, String pattern) {
