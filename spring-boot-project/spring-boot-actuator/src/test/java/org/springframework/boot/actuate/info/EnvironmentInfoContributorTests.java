@@ -52,14 +52,6 @@ class EnvironmentInfoContributorTests {
 		assertThat(actual.getDetails()).isEmpty();
 	}
 
-	@Test
-	@SuppressWarnings("unchecked")
-	void propertiesFromEnvironmentShouldBindCorrectly() {
-		TestPropertyValues.of("INFO_ENVIRONMENT_FOO=green").applyTo(this.environment, Type.SYSTEM_ENVIRONMENT);
-		Info actual = contributeFrom(this.environment);
-		assertThat(actual.get("environment", Map.class)).containsEntry("foo", "green");
-	}
-
 	private static Info contributeFrom(ConfigurableEnvironment environment) {
 		EnvironmentInfoContributor contributor = new EnvironmentInfoContributor(environment);
 		Info.Builder builder = new Info.Builder();
