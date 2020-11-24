@@ -105,22 +105,6 @@ class SolrHealthIndicatorTests {
 		verifyNoMoreInteractions(solrClient);
 	}
 
-	@Test
-	void healthWhenMakingMultipleCallsRemembersStatusStrategy() throws Exception {
-		SolrClient solrClient = mock(SolrClient.class);
-		given(solrClient.request(any(CoreAdminRequest.class), isNull()))
-				.willThrow(new RemoteSolrException("mock", 404, "", null));
-		given(solrClient.ping()).willReturn(mockPingResponse(0));
-		SolrHealthIndicator healthIndicator = new SolrHealthIndicator(solrClient);
-		healthIndicator.health();
-		verify(solrClient, times(1)).request(any(CoreAdminRequest.class), isNull());
-		verify(solrClient, times(1)).ping();
-		verifyNoMoreInteractions(solrClient);
-		healthIndicator.health();
-		verify(solrClient, times(2)).ping();
-		verifyNoMoreInteractions(solrClient);
-	}
-
 	private void assertHealth(SolrHealthIndicator healthIndicator, Status expectedStatus, int expectedStatusCode,
 			String expectedPathType) {
 		Health health = healthIndicator.health();
