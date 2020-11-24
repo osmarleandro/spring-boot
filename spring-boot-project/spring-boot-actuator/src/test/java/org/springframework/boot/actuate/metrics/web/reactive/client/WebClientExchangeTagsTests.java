@@ -133,13 +133,6 @@ class WebClientExchangeTagsTests {
 	}
 
 	@Test
-	void outcomeTagIsSuccessWhenResponseIs2xx() {
-		given(this.response.rawStatusCode()).willReturn(HttpStatus.OK.value());
-		Tag tag = WebClientExchangeTags.outcome(this.response);
-		assertThat(tag.getValue()).isEqualTo("SUCCESS");
-	}
-
-	@Test
 	void outcomeTagIsRedirectionWhenResponseIs3xx() {
 		given(this.response.rawStatusCode()).willReturn(HttpStatus.MOVED_PERMANENTLY.value());
 		Tag tag = WebClientExchangeTags.outcome(this.response);
