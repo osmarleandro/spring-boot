@@ -58,7 +58,10 @@ public class CachesEndpoint {
 	@ReadOperation
 	public CachesReport caches() {
 		Map<String, Map<String, CacheDescriptor>> descriptors = new LinkedHashMap<>();
-		getCacheEntries(matchAll(), matchAll()).forEach((entry) -> {
+		Predicate<String> cacheManagerNamePredicate = matchAll();
+		this.cacheManagers.keySet().stream().filter(cacheManagerNamePredicate)
+		.flatMap((cacheManagerName) -> getCacheEntries(cacheManagerName, cacheNamePredicate).stream())
+		.collect(Collectors.toList()).forEach((entry) -> {
 			String cacheName = entry.getName();
 			String cacheManager = entry.getCacheManager();
 			Map<String, CacheDescriptor> cacheManagerDescriptors = descriptors.computeIfAbsent(cacheManager,
@@ -80,7 +83,10 @@ public class CachesEndpoint {
 	 */
 	@ReadOperation
 	public CacheEntry cache(@Selector String cache, @Nullable String cacheManager) {
-		return extractUniqueCacheEntry(cache, getCacheEntries((name) -> name.equals(cache), isNameMatch(cacheManager)));
+		Predicate<String> cacheManagerNamePredicate = isNameMatch(cacheManager);
+		return extractUniqueCacheEntry(cache, this.cacheManagers.keySet().stream().filter(cacheManagerNamePredicate)
+		.flatMap((cacheManagerName) -> getCacheEntries(cacheManagerName, cacheNamePredicate).stream())
+		.collect(Collectors.toList()));
 	}
 
 	/**
@@ -88,7 +94,10 @@ public class CachesEndpoint {
 	 */
 	@DeleteOperation
 	public void clearCaches() {
-		getCacheEntries(matchAll(), matchAll()).forEach(this::clearCache);
+		Predicate<String> cacheManagerNamePredicate = matchAll();
+		this.cacheManagers.keySet().stream().filter(cacheManagerNamePredicate)
+		.flatMap((cacheManagerName) -> getCacheEntries(cacheManagerName, cacheNamePredicate).stream())
+		.collect(Collectors.toList()).forEach(this::clearCache);
 	}
 
 	/**
@@ -102,16 +111,12 @@ public class CachesEndpoint {
 	 */
 	@DeleteOperation
 	public boolean clearCache(@Selector String cache, @Nullable String cacheManager) {
+		Predicate<String> cacheManagerNamePredicate = isNameMatch(cacheManager);
 		CacheEntry entry = extractUniqueCacheEntry(cache,
-				getCacheEntries((name) -> name.equals(cache), isNameMatch(cacheManager)));
-		return (entry != null && clearCache(entry));
-	}
-
-	private List<CacheEntry> getCacheEntries(Predicate<String> cacheNamePredicate,
-			Predicate<String> cacheManagerNamePredicate) {
-		return this.cacheManagers.keySet().stream().filter(cacheManagerNamePredicate)
+				this.cacheManagers.keySet().stream().filter(cacheManagerNamePredicate)
 				.flatMap((cacheManagerName) -> getCacheEntries(cacheManagerName, cacheNamePredicate).stream())
-				.collect(Collectors.toList());
+				.collect(Collectors.toList()));
+		return (entry != null && clearCache(entry));
 	}
 
 	private List<CacheEntry> getCacheEntries(String cacheManagerName, Predicate<String> cacheNamePredicate) {
