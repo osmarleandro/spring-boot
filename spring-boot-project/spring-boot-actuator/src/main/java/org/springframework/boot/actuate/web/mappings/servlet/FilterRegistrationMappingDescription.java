@@ -45,12 +45,4 @@ public class FilterRegistrationMappingDescription extends RegistrationMappingDes
 		return getRegistration().getServletNameMappings();
 	}
 
-	/**
-	 * Returns the URL pattern mappings for the registered filter.
-	 * @return the mappings
-	 */
-	public Collection<String> getUrlPatternMappings() {
-		return getRegistration().getUrlPatternMappings();
-	}
-
 }
