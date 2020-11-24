@@ -63,15 +63,6 @@ class CassandraDriverReactiveHealthIndicatorTests {
 	}
 
 	@Test
-	void healthWithOneUnhealthyNodeShouldReturnDown() {
-		CqlSession session = mockCqlSessionWithNodeState(NodeState.DOWN);
-		CassandraDriverReactiveHealthIndicator healthIndicator = new CassandraDriverReactiveHealthIndicator(session);
-		Mono<Health> health = healthIndicator.health();
-		StepVerifier.create(health).consumeNextWith((h) -> assertThat(h.getStatus()).isEqualTo(Status.DOWN))
-				.verifyComplete();
-	}
-
-	@Test
 	void healthWithOneUnknownNodeShouldReturnDown() {
 		CqlSession session = mockCqlSessionWithNodeState(NodeState.UNKNOWN);
 		CassandraDriverReactiveHealthIndicator healthIndicator = new CassandraDriverReactiveHealthIndicator(session);
