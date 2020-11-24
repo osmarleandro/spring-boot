@@ -72,7 +72,7 @@ class EnvironmentEndpointWebIntegrationTests {
 		this.context.getEnvironment().getPropertySources()
 				.addFirst(new MapPropertySource("unresolved-placeholder", map));
 		this.client.get().uri("/actuator/env/my.foo").exchange().expectStatus().isOk().expectBody()
-				.jsonPath("property.value").isEqualTo("${my.bar}").jsonPath(forPropertyEntry("unresolved-placeholder"))
+				.jsonPath("property.value").isEqualTo("${my.bar}").jsonPath("propertySources[?(@.name=='" + "unresolved-placeholder" + "')].property.value")
 				.isEqualTo("${my.bar}");
 	}
 
@@ -83,7 +83,7 @@ class EnvironmentEndpointWebIntegrationTests {
 		map.put("my.password", "hello");
 		this.context.getEnvironment().getPropertySources().addFirst(new MapPropertySource("placeholder", map));
 		this.client.get().uri("/actuator/env/my.foo").exchange().expectStatus().isOk().expectBody()
-				.jsonPath("property.value").isEqualTo("******").jsonPath(forPropertyEntry("placeholder"))
+				.jsonPath("property.value").isEqualTo("******").jsonPath("propertySources[?(@.name=='" + "placeholder" + "')].property.value")
 				.isEqualTo("******");
 	}
 
@@ -115,10 +115,6 @@ class EnvironmentEndpointWebIntegrationTests {
 
 	private String forProperty(String source, String name) {
 		return "propertySources[?(@.name=='" + source + "')].properties.['" + name + "'].value";
-	}
-
-	private String forPropertyEntry(String source) {
-		return "propertySources[?(@.name=='" + source + "')].property.value";
 	}
 
 	@Configuration(proxyBeanMethods = false)
