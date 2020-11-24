@@ -79,7 +79,7 @@ class HttpTraceFilterTests {
 
 				}));
 		assertThat(this.repository.findAll()).hasSize(1);
-		Session session = this.repository.findAll().get(0).getSession();
+		Session session = this.repository.findAll().get(0).session;
 		assertThat(session).isNotNull();
 		assertThat(session.getId()).isNotNull();
 	}
