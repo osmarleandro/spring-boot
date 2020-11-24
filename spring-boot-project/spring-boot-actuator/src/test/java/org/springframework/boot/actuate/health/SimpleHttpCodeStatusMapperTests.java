@@ -53,12 +53,4 @@ class SimpleHttpCodeStatusMapperTests {
 		assertThat(mapper.getStatusCode(Status.OUT_OF_SERVICE)).isEqualTo(200);
 	}
 
-	@Test
-	void getStatusCodeWhenMappingsAreNotUniformReturnsMappedStatus() {
-		Map<String, Integer> map = new LinkedHashMap<>();
-		map.put("out-of-service", 123);
-		SimpleHttpCodeStatusMapper mapper = new SimpleHttpCodeStatusMapper(map);
-		assertThat(mapper.getStatusCode(Status.OUT_OF_SERVICE)).isEqualTo(123);
-	}
-
 }
