@@ -97,12 +97,6 @@ class ReactiveHealthEndpointWebExtensionTests extends
 	}
 
 	@Override
-	protected ReactiveHealthContributor createCompositeContributor(
-			Map<String, ReactiveHealthContributor> contributors) {
-		return CompositeReactiveHealthContributor.fromMap(contributors);
-	}
-
-	@Override
 	protected HealthComponent getHealth(HealthResult<Mono<? extends HealthComponent>> result) {
 		return result.getHealth().block();
 	}
