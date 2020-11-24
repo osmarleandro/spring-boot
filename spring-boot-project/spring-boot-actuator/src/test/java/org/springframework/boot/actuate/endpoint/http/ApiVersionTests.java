@@ -57,13 +57,6 @@ class ApiVersionTests {
 	}
 
 	@Test
-	void fromHttpHeadersWhenHasV2AndV3HeaderReturnsV3() {
-		ApiVersion version = ApiVersion
-				.fromHttpHeaders(acceptHeader(ActuatorMediaType.V2_JSON, ActuatorMediaType.V3_JSON));
-		assertThat(version).isEqualTo(ApiVersion.V3);
-	}
-
-	@Test
 	void fromHttpHeadersWhenHasV2AndV3AsOneHeaderReturnsV3() {
 		ApiVersion version = ApiVersion
 				.fromHttpHeaders(acceptHeader(ActuatorMediaType.V2_JSON + "," + ActuatorMediaType.V3_JSON));
