@@ -47,6 +47,7 @@ import org.springframework.boot.actuate.endpoint.web.PathMapper;
 import org.springframework.boot.actuate.endpoint.web.WebEndpointHttpMethod;
 import org.springframework.boot.actuate.endpoint.web.WebOperation;
 import org.springframework.boot.actuate.endpoint.web.WebOperationRequestPredicate;
+import org.springframework.boot.actuate.endpoint.web.annotation.WebEndpointDiscovererTests.RequestPredicateMatcher;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -95,8 +96,17 @@ class WebEndpointDiscovererTests {
 			Map<EndpointId, ExposableWebEndpoint> endpoints = mapEndpoints(discoverer.getEndpoints());
 			assertThat(endpoints).containsOnlyKeys(EndpointId.of("test"));
 			ExposableWebEndpoint endpoint = endpoints.get(EndpointId.of("test"));
-			assertThat(requestPredicates(endpoint)).has(requestPredicates(
-					path("test").httpMethod(WebEndpointHttpMethod.GET).consumes().produces("application/json")));
+			RequestPredicateMatcher[] matchers = { path("test").httpMethod(WebEndpointHttpMethod.GET).consumes().produces("application/json") };
+			assertThat(requestPredicates(endpoint)).has(new Condition<>((predicates) -> {
+				if (predicates.size() != matchers.length) {
+					return false;
+				}
+				Map<WebOperationRequestPredicate, Long> matchCounts = new HashMap<>();
+				for (WebOperationRequestPredicate predicate : predicates) {
+					matchCounts.put(predicate, Stream.of(matchers).filter((matcher) -> matcher.matches(predicate)).count());
+				}
+				return matchCounts.values().stream().noneMatch((count) -> count != 1);
+			}, Arrays.toString(matchers)));
 		});
 	}
 
@@ -106,9 +116,17 @@ class WebEndpointDiscovererTests {
 			Map<EndpointId, ExposableWebEndpoint> endpoints = mapEndpoints(discoverer.getEndpoints());
 			assertThat(endpoints).containsOnlyKeys(EndpointId.of("test"));
 			ExposableWebEndpoint endpoint = endpoints.get(EndpointId.of("test"));
-			assertThat(requestPredicates(endpoint)).has(requestPredicates(
-					path("test").httpMethod(WebEndpointHttpMethod.GET).consumes().produces("application/json"),
-					path("test/{id}").httpMethod(WebEndpointHttpMethod.GET).consumes().produces("application/json")));
+			RequestPredicateMatcher[] matchers = { path("test").httpMethod(WebEndpointHttpMethod.GET).consumes().produces("application/json"), path("test/{id}").httpMethod(WebEndpointHttpMethod.GET).consumes().produces("application/json") };
+			assertThat(requestPredicates(endpoint)).has(new Condition<>((predicates) -> {
+				if (predicates.size() != matchers.length) {
+					return false;
+				}
+				Map<WebOperationRequestPredicate, Long> matchCounts = new HashMap<>();
+				for (WebOperationRequestPredicate predicate : predicates) {
+					matchCounts.put(predicate, Stream.of(matchers).filter((matcher) -> matcher.matches(predicate)).count());
+				}
+				return matchCounts.values().stream().noneMatch((count) -> count != 1);
+			}, Arrays.toString(matchers)));
 		});
 	}
 
@@ -118,8 +136,17 @@ class WebEndpointDiscovererTests {
 			Map<EndpointId, ExposableWebEndpoint> endpoints = mapEndpoints(discoverer.getEndpoints());
 			assertThat(endpoints).containsOnlyKeys(EndpointId.of("voidwrite"));
 			ExposableWebEndpoint endpoint = endpoints.get(EndpointId.of("voidwrite"));
-			assertThat(requestPredicates(endpoint)).has(requestPredicates(
-					path("voidwrite").httpMethod(WebEndpointHttpMethod.POST).produces().consumes("application/json")));
+			RequestPredicateMatcher[] matchers = { path("voidwrite").httpMethod(WebEndpointHttpMethod.POST).produces().consumes("application/json") };
+			assertThat(requestPredicates(endpoint)).has(new Condition<>((predicates) -> {
+				if (predicates.size() != matchers.length) {
+					return false;
+				}
+				Map<WebOperationRequestPredicate, Long> matchCounts = new HashMap<>();
+				for (WebOperationRequestPredicate predicate : predicates) {
+					matchCounts.put(predicate, Stream.of(matchers).filter((matcher) -> matcher.matches(predicate)).count());
+				}
+				return matchCounts.values().stream().noneMatch((count) -> count != 1);
+			}, Arrays.toString(matchers)));
 		});
 	}
 
@@ -183,8 +210,18 @@ class WebEndpointDiscovererTests {
 			Map<EndpointId, ExposableWebEndpoint> endpoints = mapEndpoints(discoverer.getEndpoints());
 			assertThat(endpoints).containsOnlyKeys(EndpointId.of("resource"));
 			ExposableWebEndpoint endpoint = endpoints.get(EndpointId.of("resource"));
-			assertThat(requestPredicates(endpoint)).has(requestPredicates(path("resource")
-					.httpMethod(WebEndpointHttpMethod.GET).consumes().produces("application/octet-stream")));
+			RequestPredicateMatcher[] matchers = { path("resource")
+					.httpMethod(WebEndpointHttpMethod.GET).consumes().produces("application/octet-stream") };
+			assertThat(requestPredicates(endpoint)).has(new Condition<>((predicates) -> {
+				if (predicates.size() != matchers.length) {
+					return false;
+				}
+				Map<WebOperationRequestPredicate, Long> matchCounts = new HashMap<>();
+				for (WebOperationRequestPredicate predicate : predicates) {
+					matchCounts.put(predicate, Stream.of(matchers).filter((matcher) -> matcher.matches(predicate)).count());
+				}
+				return matchCounts.values().stream().noneMatch((count) -> count != 1);
+			}, Arrays.toString(matchers)));
 		});
 	}
 
@@ -194,11 +231,18 @@ class WebEndpointDiscovererTests {
 			Map<EndpointId, ExposableWebEndpoint> endpoints = mapEndpoints(discoverer.getEndpoints());
 			assertThat(endpoints).containsOnlyKeys(EndpointId.of("custommediatypes"));
 			ExposableWebEndpoint endpoint = endpoints.get(EndpointId.of("custommediatypes"));
-			assertThat(requestPredicates(endpoint)).has(requestPredicates(
-					path("custommediatypes").httpMethod(WebEndpointHttpMethod.GET).consumes().produces("text/plain"),
-					path("custommediatypes").httpMethod(WebEndpointHttpMethod.POST).consumes().produces("a/b", "c/d"),
-					path("custommediatypes").httpMethod(WebEndpointHttpMethod.DELETE).consumes()
-							.produces("text/plain")));
+			RequestPredicateMatcher[] matchers = { path("custommediatypes").httpMethod(WebEndpointHttpMethod.GET).consumes().produces("text/plain"), path("custommediatypes").httpMethod(WebEndpointHttpMethod.POST).consumes().produces("a/b", "c/d"), path("custommediatypes").httpMethod(WebEndpointHttpMethod.DELETE).consumes()
+					.produces("text/plain") };
+			assertThat(requestPredicates(endpoint)).has(new Condition<>((predicates) -> {
+				if (predicates.size() != matchers.length) {
+					return false;
+				}
+				Map<WebOperationRequestPredicate, Long> matchCounts = new HashMap<>();
+				for (WebOperationRequestPredicate predicate : predicates) {
+					matchCounts.put(predicate, Stream.of(matchers).filter((matcher) -> matcher.matches(predicate)).count());
+				}
+				return matchCounts.values().stream().noneMatch((count) -> count != 1);
+			}, Arrays.toString(matchers)));
 		});
 	}
 
@@ -208,10 +252,18 @@ class WebEndpointDiscovererTests {
 			Map<EndpointId, ExposableWebEndpoint> endpoints = mapEndpoints(discoverer.getEndpoints());
 			assertThat(endpoints).containsOnlyKeys(EndpointId.of("test"));
 			ExposableWebEndpoint endpoint = endpoints.get(EndpointId.of("test"));
-			Condition<List<? extends WebOperationRequestPredicate>> expected = requestPredicates(
-					path("custom/test").httpMethod(WebEndpointHttpMethod.GET).consumes().produces("application/json"),
-					path("custom/test/{id}").httpMethod(WebEndpointHttpMethod.GET).consumes()
-							.produces("application/json"));
+			RequestPredicateMatcher[] matchers = { path("custom/test").httpMethod(WebEndpointHttpMethod.GET).consumes().produces("application/json"), path("custom/test/{id}").httpMethod(WebEndpointHttpMethod.GET).consumes()
+					.produces("application/json") };
+			Condition<List<? extends WebOperationRequestPredicate>> expected = new Condition<>((predicates) -> {
+				if (predicates.size() != matchers.length) {
+					return false;
+				}
+				Map<WebOperationRequestPredicate, Long> matchCounts = new HashMap<>();
+				for (WebOperationRequestPredicate predicate : predicates) {
+					matchCounts.put(predicate, Stream.of(matchers).filter((matcher) -> matcher.matches(predicate)).count());
+				}
+				return matchCounts.values().stream().noneMatch((count) -> count != 1);
+			}, Arrays.toString(matchers));
 			assertThat(requestPredicates(endpoint)).has(expected);
 		});
 	}
@@ -242,20 +294,6 @@ class WebEndpointDiscovererTests {
 
 	private List<WebOperationRequestPredicate> requestPredicates(ExposableWebEndpoint endpoint) {
 		return endpoint.getOperations().stream().map(WebOperation::getRequestPredicate).collect(Collectors.toList());
-	}
-
-	private Condition<List<? extends WebOperationRequestPredicate>> requestPredicates(
-			RequestPredicateMatcher... matchers) {
-		return new Condition<>((predicates) -> {
-			if (predicates.size() != matchers.length) {
-				return false;
-			}
-			Map<WebOperationRequestPredicate, Long> matchCounts = new HashMap<>();
-			for (WebOperationRequestPredicate predicate : predicates) {
-				matchCounts.put(predicate, Stream.of(matchers).filter((matcher) -> matcher.matches(predicate)).count());
-			}
-			return matchCounts.values().stream().noneMatch((count) -> count != 1);
-		}, Arrays.toString(matchers));
 	}
 
 	private RequestPredicateMatcher path(String path) {
