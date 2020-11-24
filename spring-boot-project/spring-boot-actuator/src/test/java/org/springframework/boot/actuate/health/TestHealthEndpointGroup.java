@@ -73,9 +73,4 @@ class TestHealthEndpointGroup implements HealthEndpointGroup {
 		return this.statusAggregator;
 	}
 
-	@Override
-	public HttpCodeStatusMapper getHttpCodeStatusMapper() {
-		return this.httpCodeStatusMapper;
-	}
-
 }
