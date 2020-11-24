@@ -73,11 +73,6 @@ class CachesEndpointWebIntegrationTests {
 	}
 
 	@WebEndpointTest
-	void cleanNamedCacheWithUnknownName(WebTestClient client) {
-		client.delete().uri("/actuator/caches/does-not-exist").exchange().expectStatus().isNotFound();
-	}
-
-	@WebEndpointTest
 	void clearNamedCacheWithNonUniqueName(WebTestClient client) {
 		client.get().uri("/actuator/caches/a").exchange().expectStatus().isBadRequest();
 	}
