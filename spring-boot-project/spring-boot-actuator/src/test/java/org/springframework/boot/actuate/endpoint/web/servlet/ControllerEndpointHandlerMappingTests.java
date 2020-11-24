@@ -24,6 +24,7 @@ import org.springframework.boot.actuate.endpoint.EndpointId;
 import org.springframework.boot.actuate.endpoint.web.EndpointMapping;
 import org.springframework.boot.actuate.endpoint.web.annotation.ControllerEndpoint;
 import org.springframework.boot.actuate.endpoint.web.annotation.ExposableControllerEndpoint;
+import org.springframework.boot.actuate.endpoint.web.servlet.ControllerEndpointHandlerMappingTests.FirstTestMvcEndpoint;
 import org.springframework.context.support.StaticApplicationContext;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.util.ReflectionUtils;
@@ -49,7 +50,7 @@ class ControllerEndpointHandlerMappingTests {
 
 	@Test
 	void mappingWithNoPrefix() throws Exception {
-		ExposableControllerEndpoint first = firstEndpoint();
+		ExposableControllerEndpoint first = mockEndpoint(EndpointId.of("first"), new FirstTestMvcEndpoint());
 		ExposableControllerEndpoint second = secondEndpoint();
 		ControllerEndpointHandlerMapping mapping = createMapping("", first, second);
 		assertThat(mapping.getHandler(request("GET", "/first")).getHandler())
@@ -61,7 +62,7 @@ class ControllerEndpointHandlerMappingTests {
 
 	@Test
 	void mappingWithPrefix() throws Exception {
-		ExposableControllerEndpoint first = firstEndpoint();
+		ExposableControllerEndpoint first = mockEndpoint(EndpointId.of("first"), new FirstTestMvcEndpoint());
 		ExposableControllerEndpoint second = secondEndpoint();
 		ControllerEndpointHandlerMapping mapping = createMapping("actuator", first, second);
 		assertThat(mapping.getHandler(request("GET", "/actuator/first")).getHandler())
@@ -74,7 +75,7 @@ class ControllerEndpointHandlerMappingTests {
 
 	@Test
 	void mappingNarrowedToMethod() throws Exception {
-		ExposableControllerEndpoint first = firstEndpoint();
+		ExposableControllerEndpoint first = mockEndpoint(EndpointId.of("first"), new FirstTestMvcEndpoint());
 		ControllerEndpointHandlerMapping mapping = createMapping("actuator", first);
 		assertThatExceptionOfType(HttpRequestMethodNotSupportedException.class)
 				.isThrownBy(() -> mapping.getHandler(request("POST", "/actuator/first")));
@@ -104,10 +105,6 @@ class ControllerEndpointHandlerMappingTests {
 
 	private MockHttpServletRequest request(String method, String requestURI) {
 		return new MockHttpServletRequest(method, requestURI);
-	}
-
-	private ExposableControllerEndpoint firstEndpoint() {
-		return mockEndpoint(EndpointId.of("first"), new FirstTestMvcEndpoint());
 	}
 
 	private ExposableControllerEndpoint secondEndpoint() {
