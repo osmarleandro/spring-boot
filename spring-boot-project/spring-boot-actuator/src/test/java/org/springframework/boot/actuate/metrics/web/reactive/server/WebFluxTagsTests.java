@@ -57,7 +57,7 @@ class WebFluxTagsTests {
 		this.exchange.getAttributes().put(HandlerMapping.BEST_MATCHING_PATTERN_ATTRIBUTE,
 				this.parser.parse("/spring/"));
 		this.exchange.getResponse().setStatusCode(HttpStatus.MOVED_PERMANENTLY);
-		Tag tag = WebFluxTags.uri(this.exchange);
+		Tag tag = WebFluxTags.uri(this.exchange, false);
 		assertThat(tag.getValue()).isEqualTo("/spring/");
 	}
 
@@ -65,7 +65,7 @@ class WebFluxTagsTests {
 	void uriTagValueIsRootWhenBestMatchingPatternIsEmpty() {
 		this.exchange.getAttributes().put(HandlerMapping.BEST_MATCHING_PATTERN_ATTRIBUTE, this.parser.parse(""));
 		this.exchange.getResponse().setStatusCode(HttpStatus.MOVED_PERMANENTLY);
-		Tag tag = WebFluxTags.uri(this.exchange);
+		Tag tag = WebFluxTags.uri(this.exchange, false);
 		assertThat(tag.getValue()).isEqualTo("root");
 	}
 
@@ -87,27 +87,27 @@ class WebFluxTagsTests {
 	@Test
 	void uriTagValueIsRedirectionWhenResponseStatusIs3xx() {
 		this.exchange.getResponse().setStatusCode(HttpStatus.MOVED_PERMANENTLY);
-		Tag tag = WebFluxTags.uri(this.exchange);
+		Tag tag = WebFluxTags.uri(this.exchange, false);
 		assertThat(tag.getValue()).isEqualTo("REDIRECTION");
 	}
 
 	@Test
 	void uriTagValueIsNotFoundWhenResponseStatusIs404() {
 		this.exchange.getResponse().setStatusCode(HttpStatus.NOT_FOUND);
-		Tag tag = WebFluxTags.uri(this.exchange);
+		Tag tag = WebFluxTags.uri(this.exchange, false);
 		assertThat(tag.getValue()).isEqualTo("NOT_FOUND");
 	}
 
 	@Test
 	void uriTagToleratesCustomResponseStatus() {
 		this.exchange.getResponse().setRawStatusCode(601);
-		Tag tag = WebFluxTags.uri(this.exchange);
+		Tag tag = WebFluxTags.uri(this.exchange, false);
 		assertThat(tag.getValue()).isEqualTo("root");
 	}
 
 	@Test
 	void uriTagValueIsRootWhenRequestHasNoPatternOrPathInfo() {
-		Tag tag = WebFluxTags.uri(this.exchange);
+		Tag tag = WebFluxTags.uri(this.exchange, false);
 		assertThat(tag.getValue()).isEqualTo("root");
 	}
 
@@ -115,7 +115,7 @@ class WebFluxTagsTests {
 	void uriTagValueIsRootWhenRequestHasNoPatternAndSlashPathInfo() {
 		MockServerHttpRequest request = MockServerHttpRequest.get("/").build();
 		ServerWebExchange exchange = MockServerWebExchange.from(request);
-		Tag tag = WebFluxTags.uri(exchange);
+		Tag tag = WebFluxTags.uri(exchange, false);
 		assertThat(tag.getValue()).isEqualTo("root");
 	}
 
@@ -123,7 +123,7 @@ class WebFluxTagsTests {
 	void uriTagValueIsUnknownWhenRequestHasNoPatternAndNonRootPathInfo() {
 		MockServerHttpRequest request = MockServerHttpRequest.get("/example").build();
 		ServerWebExchange exchange = MockServerWebExchange.from(request);
-		Tag tag = WebFluxTags.uri(exchange);
+		Tag tag = WebFluxTags.uri(exchange, false);
 		assertThat(tag.getValue()).isEqualTo("UNKNOWN");
 	}
 
