@@ -103,7 +103,7 @@ public class HttpExchangeTracer {
 	}
 
 	private long calculateTimeTaken(HttpTrace trace) {
-		return TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - trace.getStartNanoTime());
+		return TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - trace.startNanoTime);
 	}
 
 	private final class FilteredTraceableRequest implements TraceableRequest {

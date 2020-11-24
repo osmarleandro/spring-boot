@@ -122,10 +122,6 @@ public final class HttpTrace {
 		this.timeTaken = timeTaken;
 	}
 
-	long getStartNanoTime() {
-		return this.startNanoTime;
-	}
-
 	/**
 	 * Trace of an HTTP request.
 	 */
