@@ -53,12 +53,6 @@ public class JmxEndpointDiscoverer extends EndpointDiscoverer<ExposableJmxEndpoi
 	}
 
 	@Override
-	protected ExposableJmxEndpoint createEndpoint(Object endpointBean, EndpointId id, boolean enabledByDefault,
-			Collection<JmxOperation> operations) {
-		return new DiscoveredJmxEndpoint(this, endpointBean, id, enabledByDefault, operations);
-	}
-
-	@Override
 	protected JmxOperation createOperation(EndpointId endpointId, DiscoveredOperationMethod operationMethod,
 			OperationInvoker invoker) {
 		return new DiscoveredJmxOperation(endpointId, operationMethod, invoker);
