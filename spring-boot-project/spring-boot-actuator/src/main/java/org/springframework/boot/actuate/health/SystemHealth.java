@@ -41,9 +41,4 @@ public final class SystemHealth extends CompositeHealth {
 		this.groups = (groups != null) ? new TreeSet<>(groups) : null;
 	}
 
-	@JsonInclude(Include.NON_EMPTY)
-	public Set<String> getGroups() {
-		return this.groups;
-	}
-
 }
