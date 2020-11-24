@@ -135,20 +135,6 @@ class JmxEndpointDiscovererTests {
 	}
 
 	@Test
-	void getEndpointsWhenHasCacheWithTtlShouldCacheReadOperationWithTtlValue() {
-		load(TestEndpoint.class, (id) -> 500L, (discoverer) -> {
-			Map<EndpointId, ExposableJmxEndpoint> endpoints = discover(discoverer);
-			assertThat(endpoints).containsOnlyKeys(EndpointId.of("test"));
-			Map<String, JmxOperation> operationByName = mapOperations(
-					endpoints.get(EndpointId.of("test")).getOperations());
-			assertThat(operationByName).containsOnlyKeys("getAll", "getSomething", "update", "deleteSomething");
-			JmxOperation getAll = operationByName.get("getAll");
-			assertThat(getInvoker(getAll)).isInstanceOf(CachingOperationInvoker.class);
-			assertThat(((CachingOperationInvoker) getInvoker(getAll)).getTimeToLive()).isEqualTo(500);
-		});
-	}
-
-	@Test
 	void getEndpointsShouldCacheReadOperations() {
 		load(AdditionalOperationJmxEndpointConfiguration.class, (id) -> 500L, (discoverer) -> {
 			Map<EndpointId, ExposableJmxEndpoint> endpoints = discover(discoverer);
