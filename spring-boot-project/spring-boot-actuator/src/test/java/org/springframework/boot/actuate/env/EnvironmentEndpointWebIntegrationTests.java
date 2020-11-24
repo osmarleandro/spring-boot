@@ -77,17 +77,6 @@ class EnvironmentEndpointWebIntegrationTests {
 	}
 
 	@WebEndpointTest
-	void nestedPathWithSensitivePlaceholderShouldSanitize() {
-		Map<String, Object> map = new HashMap<>();
-		map.put("my.foo", "${my.password}");
-		map.put("my.password", "hello");
-		this.context.getEnvironment().getPropertySources().addFirst(new MapPropertySource("placeholder", map));
-		this.client.get().uri("/actuator/env/my.foo").exchange().expectStatus().isOk().expectBody()
-				.jsonPath("property.value").isEqualTo("******").jsonPath(forPropertyEntry("placeholder"))
-				.isEqualTo("******");
-	}
-
-	@WebEndpointTest
 	void nestedPathForUnknownKeyShouldReturn404() {
 		this.client.get().uri("/actuator/env/this.does.not.exist").exchange().expectStatus().isNotFound();
 	}
