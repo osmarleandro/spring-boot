@@ -41,11 +41,6 @@ public class GitInfoContributor extends InfoPropertiesInfoContributor<GitPropert
 	}
 
 	@Override
-	public void contribute(Info.Builder builder) {
-		builder.withDetail("git", generateContent());
-	}
-
-	@Override
 	protected PropertySource<?> toSimplePropertySource() {
 		Properties props = new Properties();
 		copyIfSet(props, "branch");
