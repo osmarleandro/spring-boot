@@ -35,13 +35,4 @@ class InfoTests {
 		assertThatExceptionOfType(UnsupportedOperationException.class).isThrownBy(info.getDetails()::clear);
 	}
 
-	@Test
-	void infoTakesCopyOfMap() {
-		Info.Builder builder = new Info.Builder();
-		builder.withDetail("foo", "bar");
-		Info build = builder.build();
-		builder.withDetail("biz", "bar");
-		assertThat(build.getDetails()).containsOnly(entry("foo", "bar"));
-	}
-
 }
