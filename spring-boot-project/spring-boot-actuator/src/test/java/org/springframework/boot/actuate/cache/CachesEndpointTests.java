@@ -121,16 +121,6 @@ class CachesEndpointTests {
 	}
 
 	@Test
-	void clearAllCaches() {
-		Cache a = mockCache("a");
-		Cache b = mockCache("b");
-		CachesEndpoint endpoint = new CachesEndpoint(Collections.singletonMap("test", cacheManager(a, b)));
-		endpoint.clearCaches();
-		verify(a).clear();
-		verify(b).clear();
-	}
-
-	@Test
 	void clearCache() {
 		Cache a = mockCache("a");
 		Cache b = mockCache("b");
