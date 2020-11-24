@@ -44,10 +44,6 @@ public class EndpointMapping {
 		return this.path;
 	}
 
-	public String createSubPath(String path) {
-		return this.path + normalizePath(path);
-	}
-
 	private static String normalizePath(String path) {
 		if (!StringUtils.hasText(path)) {
 			return path;

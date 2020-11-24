@@ -59,22 +59,26 @@ class EndpointMappingTests {
 
 	@Test
 	void subPathForAnEmptyStringReturnsBasePath() {
-		assertThat(new EndpointMapping("/test").createSubPath("")).isEqualTo("/test");
+		EndpointMapping r = new EndpointMapping("/test");
+		assertThat(r.path + EndpointMapping.normalizePath("")).isEqualTo("/test");
 	}
 
 	@Test
 	void subPathWithALeadingSlashIsSeparatedFromBasePathBySingleSlash() {
-		assertThat(new EndpointMapping("/test").createSubPath("/one")).isEqualTo("/test/one");
+		EndpointMapping r = new EndpointMapping("/test");
+		assertThat(r.path + EndpointMapping.normalizePath("/one")).isEqualTo("/test/one");
 	}
 
 	@Test
 	void subPathWithoutALeadingSlashIsSeparatedFromBasePathBySingleSlash() {
-		assertThat(new EndpointMapping("/test").createSubPath("one")).isEqualTo("/test/one");
+		EndpointMapping r = new EndpointMapping("/test");
+		assertThat(r.path + EndpointMapping.normalizePath("one")).isEqualTo("/test/one");
 	}
 
 	@Test
 	void trailingSlashIsRemovedFromASubPath() {
-		assertThat(new EndpointMapping("/test").createSubPath("one/")).isEqualTo("/test/one");
+		EndpointMapping r = new EndpointMapping("/test");
+		assertThat(r.path + EndpointMapping.normalizePath("one/")).isEqualTo("/test/one");
 	}
 
 }
