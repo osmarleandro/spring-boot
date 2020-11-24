@@ -106,10 +106,6 @@ public final class HttpTrace {
 		return this.request;
 	}
 
-	public Response getResponse() {
-		return this.response;
-	}
-
 	void setResponse(Response response) {
 		this.response = response;
 	}

@@ -169,14 +169,14 @@ class HttpExchangeTracerTests {
 	void statusIsIncluded() {
 		HttpTrace trace = new HttpTrace(createRequest());
 		new HttpExchangeTracer(EnumSet.noneOf(Include.class)).sendingResponse(trace, createResponse(), null, null);
-		assertThat(trace.getResponse().getStatus()).isEqualTo(204);
+		assertThat(trace.response.getStatus()).isEqualTo(204);
 	}
 
 	@Test
 	void responseHeadersAreNotIncludedByDefault() {
 		HttpTrace trace = new HttpTrace(createRequest());
 		new HttpExchangeTracer(EnumSet.noneOf(Include.class)).sendingResponse(trace, createResponse(), null, null);
-		assertThat(trace.getResponse().getHeaders()).isEmpty();
+		assertThat(trace.response.getHeaders()).isEmpty();
 	}
 
 	@Test
@@ -184,7 +184,7 @@ class HttpExchangeTracerTests {
 		HttpTrace trace = new HttpTrace(createRequest());
 		new HttpExchangeTracer(EnumSet.of(Include.RESPONSE_HEADERS)).sendingResponse(trace, createResponse(), null,
 				null);
-		assertThat(trace.getResponse().getHeaders()).containsOnlyKeys(HttpHeaders.CONTENT_TYPE);
+		assertThat(trace.response.getHeaders()).containsOnlyKeys(HttpHeaders.CONTENT_TYPE);
 	}
 
 	@Test
@@ -193,7 +193,7 @@ class HttpExchangeTracerTests {
 		new HttpExchangeTracer(EnumSet.of(Include.RESPONSE_HEADERS)).sendingResponse(trace,
 				createResponse(Collections.singletonMap(HttpHeaders.SET_COOKIE, Arrays.asList("test=test"))), null,
 				null);
-		assertThat(trace.getResponse().getHeaders()).isEmpty();
+		assertThat(trace.response.getHeaders()).isEmpty();
 	}
 
 	@Test
@@ -202,7 +202,7 @@ class HttpExchangeTracerTests {
 		new HttpExchangeTracer(EnumSet.of(Include.RESPONSE_HEADERS)).sendingResponse(trace,
 				createResponse(Collections.singletonMap(mixedCase(HttpHeaders.SET_COOKIE), Arrays.asList("test=test"))),
 				null, null);
-		assertThat(trace.getResponse().getHeaders()).isEmpty();
+		assertThat(trace.response.getHeaders()).isEmpty();
 	}
 
 	@Test
@@ -211,7 +211,7 @@ class HttpExchangeTracerTests {
 		new HttpExchangeTracer(EnumSet.of(Include.RESPONSE_HEADERS, Include.COOKIE_HEADERS)).sendingResponse(trace,
 				createResponse(Collections.singletonMap(HttpHeaders.SET_COOKIE, Arrays.asList("test=test"))), null,
 				null);
-		assertThat(trace.getResponse().getHeaders()).containsOnlyKeys(HttpHeaders.SET_COOKIE);
+		assertThat(trace.response.getHeaders()).containsOnlyKeys(HttpHeaders.SET_COOKIE);
 	}
 
 	@Test
@@ -220,7 +220,7 @@ class HttpExchangeTracerTests {
 		new HttpExchangeTracer(EnumSet.of(Include.RESPONSE_HEADERS, Include.COOKIE_HEADERS)).sendingResponse(trace,
 				createResponse(Collections.singletonMap(mixedCase(HttpHeaders.SET_COOKIE), Arrays.asList("test=test"))),
 				null, null);
-		assertThat(trace.getResponse().getHeaders()).containsOnlyKeys(mixedCase(HttpHeaders.SET_COOKIE));
+		assertThat(trace.response.getHeaders()).containsOnlyKeys(mixedCase(HttpHeaders.SET_COOKIE));
 	}
 
 	@Test
@@ -289,9 +289,9 @@ class HttpExchangeTracerTests {
 		assertThat(trace.getTimestamp()).isNotNull();
 		assertThat(trace.getRequest().getMethod()).isEqualTo("GET");
 		assertThat(trace.getRequest().getRemoteAddress()).isNull();
-		assertThat(trace.getResponse().getStatus()).isEqualTo(204);
+		assertThat(trace.response.getStatus()).isEqualTo(204);
 		assertThat(trace.getRequest().getHeaders()).containsOnlyKeys(HttpHeaders.ACCEPT);
-		assertThat(trace.getResponse().getHeaders()).containsOnlyKeys(HttpHeaders.CONTENT_LENGTH);
+		assertThat(trace.response.getHeaders()).containsOnlyKeys(HttpHeaders.CONTENT_LENGTH);
 	}
 
 	private TraceableRequest createRequest() {
