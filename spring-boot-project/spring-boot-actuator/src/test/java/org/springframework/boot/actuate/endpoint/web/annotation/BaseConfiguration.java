@@ -61,15 +61,6 @@ class BaseConfiguration {
 	}
 
 	@Bean
-	WebEndpointDiscoverer webEndpointDiscoverer(EndpointMediaTypes endpointMediaTypes,
-			ApplicationContext applicationContext) {
-		ParameterValueMapper parameterMapper = new ConversionServiceParameterValueMapper(
-				DefaultConversionService.getSharedInstance());
-		return new WebEndpointDiscoverer(applicationContext, parameterMapper, endpointMediaTypes, null,
-				Collections.emptyList(), Collections.emptyList());
-	}
-
-	@Bean
 	PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
 		return new PropertySourcesPlaceholderConfigurer();
 	}
