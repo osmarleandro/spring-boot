@@ -110,11 +110,6 @@ class EndpointDiscovererTests {
 	}
 
 	@Test
-	void getEndpointsWhenHasEndpointShouldReturnEndpoint() {
-		load(TestEndpointConfiguration.class, this::hasTestEndpoint);
-	}
-
-	@Test
 	void getEndpointsWhenHasEndpointInParentContextShouldReturnEndpoint() {
 		AnnotationConfigApplicationContext parent = new AnnotationConfigApplicationContext(
 				TestEndpointConfiguration.class);
