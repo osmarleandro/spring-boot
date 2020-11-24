@@ -79,12 +79,6 @@ class HealthTests {
 	}
 
 	@Test
-	void withDetails() {
-		Health health = new Health.Builder(Status.UP, Collections.singletonMap("a", "b")).withDetail("c", "d").build();
-		assertThat(health.getDetails()).containsOnly(entry("a", "b"), entry("c", "d"));
-	}
-
-	@Test
 	void withDetailsMap() {
 		Map<String, Object> details = new LinkedHashMap<>();
 		details.put("a", "b");
