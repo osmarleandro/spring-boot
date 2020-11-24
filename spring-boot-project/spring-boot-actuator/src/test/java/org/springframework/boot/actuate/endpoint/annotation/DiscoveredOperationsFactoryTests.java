@@ -67,14 +67,6 @@ class DiscoveredOperationsFactoryTests {
 	}
 
 	@Test
-	void createOperationsWhenHasWriteMethodShouldCreateOperation() {
-		Collection<TestOperation> operations = this.factory.createOperations(EndpointId.of("test"), new ExampleWrite());
-		assertThat(operations).hasSize(1);
-		TestOperation operation = getFirst(operations);
-		assertThat(operation.getType()).isEqualTo(OperationType.WRITE);
-	}
-
-	@Test
 	void createOperationsWhenHasDeleteMethodShouldCreateOperation() {
 		Collection<TestOperation> operations = this.factory.createOperations(EndpointId.of("test"),
 				new ExampleDelete());
