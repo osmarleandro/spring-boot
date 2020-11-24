@@ -39,7 +39,7 @@ class HttpTraceEndpointTests {
 		List<HttpTrace> traces = new HttpTraceEndpoint(repository).traces().getTraces();
 		assertThat(traces).hasSize(1);
 		HttpTrace trace = traces.get(0);
-		assertThat(trace.getRequest().getMethod()).isEqualTo("GET");
+		assertThat(trace.request.getMethod()).isEqualTo("GET");
 	}
 
 	private TraceableRequest createRequest(String method) {

@@ -47,42 +47,42 @@ class HttpExchangeTracerTests {
 	@Test
 	void methodIsIncluded() {
 		HttpTrace trace = new HttpExchangeTracer(EnumSet.noneOf(Include.class)).receivedRequest(createRequest());
-		Request request = trace.getRequest();
+		Request request = trace.request;
 		assertThat(request.getMethod()).isEqualTo("GET");
 	}
 
 	@Test
 	void uriIsIncluded() {
 		HttpTrace trace = new HttpExchangeTracer(EnumSet.noneOf(Include.class)).receivedRequest(createRequest());
-		Request request = trace.getRequest();
+		Request request = trace.request;
 		assertThat(request.getUri()).isEqualTo(URI.create("https://api.example.com"));
 	}
 
 	@Test
 	void remoteAddressIsNotIncludedByDefault() {
 		HttpTrace trace = new HttpExchangeTracer(EnumSet.noneOf(Include.class)).receivedRequest(createRequest());
-		Request request = trace.getRequest();
+		Request request = trace.request;
 		assertThat(request.getRemoteAddress()).isNull();
 	}
 
 	@Test
 	void remoteAddressCanBeIncluded() {
 		HttpTrace trace = new HttpExchangeTracer(EnumSet.of(Include.REMOTE_ADDRESS)).receivedRequest(createRequest());
-		Request request = trace.getRequest();
+		Request request = trace.request;
 		assertThat(request.getRemoteAddress()).isEqualTo("127.0.0.1");
 	}
 
 	@Test
 	void requestHeadersAreNotIncludedByDefault() {
 		HttpTrace trace = new HttpExchangeTracer(EnumSet.noneOf(Include.class)).receivedRequest(createRequest());
-		Request request = trace.getRequest();
+		Request request = trace.request;
 		assertThat(request.getHeaders()).isEmpty();
 	}
 
 	@Test
 	void requestHeadersCanBeIncluded() {
 		HttpTrace trace = new HttpExchangeTracer(EnumSet.of(Include.REQUEST_HEADERS)).receivedRequest(createRequest());
-		Request request = trace.getRequest();
+		Request request = trace.request;
 		assertThat(request.getHeaders()).containsOnlyKeys(HttpHeaders.ACCEPT);
 	}
 
@@ -92,7 +92,7 @@ class HttpExchangeTracerTests {
 		headers.add("to-remove", "test");
 		headers.add("test", "value");
 		HttpTrace trace = new RequestHeadersFilterHttpExchangeTracer().receivedRequest(createRequest(headers));
-		Request request = trace.getRequest();
+		Request request = trace.request;
 		assertThat(request.getHeaders()).containsOnlyKeys("test", "to-add");
 		assertThat(request.getHeaders().get("test")).containsExactly("value");
 		assertThat(request.getHeaders().get("to-add")).containsExactly("42");
@@ -102,7 +102,7 @@ class HttpExchangeTracerTests {
 	void authorizationHeaderIsNotIncludedByDefault() {
 		HttpTrace trace = new HttpExchangeTracer(EnumSet.of(Include.REQUEST_HEADERS)).receivedRequest(
 				createRequest(Collections.singletonMap(HttpHeaders.AUTHORIZATION, Arrays.asList("secret"))));
-		Request request = trace.getRequest();
+		Request request = trace.request;
 		assertThat(request.getHeaders()).isEmpty();
 	}
 
@@ -110,7 +110,7 @@ class HttpExchangeTracerTests {
 	void mixedCaseAuthorizationHeaderIsNotIncludedByDefault() {
 		HttpTrace trace = new HttpExchangeTracer(EnumSet.of(Include.REQUEST_HEADERS)).receivedRequest(
 				createRequest(Collections.singletonMap(mixedCase(HttpHeaders.AUTHORIZATION), Arrays.asList("secret"))));
-		Request request = trace.getRequest();
+		Request request = trace.request;
 		assertThat(request.getHeaders()).isEmpty();
 	}
 
@@ -119,7 +119,7 @@ class HttpExchangeTracerTests {
 		HttpTrace trace = new HttpExchangeTracer(EnumSet.of(Include.REQUEST_HEADERS, Include.AUTHORIZATION_HEADER))
 				.receivedRequest(
 						createRequest(Collections.singletonMap(HttpHeaders.AUTHORIZATION, Arrays.asList("secret"))));
-		Request request = trace.getRequest();
+		Request request = trace.request;
 		assertThat(request.getHeaders()).containsOnlyKeys(HttpHeaders.AUTHORIZATION);
 	}
 
@@ -128,7 +128,7 @@ class HttpExchangeTracerTests {
 		HttpTrace trace = new HttpExchangeTracer(EnumSet.of(Include.REQUEST_HEADERS, Include.AUTHORIZATION_HEADER))
 				.receivedRequest(createRequest(
 						Collections.singletonMap(mixedCase(HttpHeaders.AUTHORIZATION), Arrays.asList("secret"))));
-		Request request = trace.getRequest();
+		Request request = trace.request;
 		assertThat(request.getHeaders()).containsOnlyKeys(mixedCase(HttpHeaders.AUTHORIZATION));
 	}
 
@@ -136,7 +136,7 @@ class HttpExchangeTracerTests {
 	void cookieHeaderIsNotIncludedByDefault() {
 		HttpTrace trace = new HttpExchangeTracer(EnumSet.of(Include.REQUEST_HEADERS)).receivedRequest(
 				createRequest(Collections.singletonMap(HttpHeaders.COOKIE, Arrays.asList("test=test"))));
-		Request request = trace.getRequest();
+		Request request = trace.request;
 		assertThat(request.getHeaders()).isEmpty();
 	}
 
@@ -144,7 +144,7 @@ class HttpExchangeTracerTests {
 	void mixedCaseCookieHeaderIsNotIncludedByDefault() {
 		HttpTrace trace = new HttpExchangeTracer(EnumSet.of(Include.REQUEST_HEADERS)).receivedRequest(
 				createRequest(Collections.singletonMap(mixedCase(HttpHeaders.COOKIE), Arrays.asList("value"))));
-		Request request = trace.getRequest();
+		Request request = trace.request;
 		assertThat(request.getHeaders()).isEmpty();
 	}
 
@@ -152,7 +152,7 @@ class HttpExchangeTracerTests {
 	void cookieHeaderCanBeIncluded() {
 		HttpTrace trace = new HttpExchangeTracer(EnumSet.of(Include.REQUEST_HEADERS, Include.COOKIE_HEADERS))
 				.receivedRequest(createRequest(Collections.singletonMap(HttpHeaders.COOKIE, Arrays.asList("value"))));
-		Request request = trace.getRequest();
+		Request request = trace.request;
 		assertThat(request.getHeaders()).containsOnlyKeys(HttpHeaders.COOKIE);
 	}
 
@@ -161,7 +161,7 @@ class HttpExchangeTracerTests {
 		HttpTrace trace = new HttpExchangeTracer(EnumSet.of(Include.REQUEST_HEADERS, Include.COOKIE_HEADERS))
 				.receivedRequest(
 						createRequest(Collections.singletonMap(mixedCase(HttpHeaders.COOKIE), Arrays.asList("value"))));
-		Request request = trace.getRequest();
+		Request request = trace.request;
 		assertThat(request.getHeaders()).containsOnlyKeys(mixedCase(HttpHeaders.COOKIE));
 	}
 
@@ -287,10 +287,10 @@ class HttpExchangeTracerTests {
 		assertThat(trace.getPrincipal()).isNull();
 		assertThat(trace.getSession()).isNull();
 		assertThat(trace.getTimestamp()).isNotNull();
-		assertThat(trace.getRequest().getMethod()).isEqualTo("GET");
-		assertThat(trace.getRequest().getRemoteAddress()).isNull();
+		assertThat(trace.request.getMethod()).isEqualTo("GET");
+		assertThat(trace.request.getRemoteAddress()).isNull();
 		assertThat(trace.getResponse().getStatus()).isEqualTo(204);
-		assertThat(trace.getRequest().getHeaders()).containsOnlyKeys(HttpHeaders.ACCEPT);
+		assertThat(trace.request.getHeaders()).containsOnlyKeys(HttpHeaders.ACCEPT);
 		assertThat(trace.getResponse().getHeaders()).containsOnlyKeys(HttpHeaders.CONTENT_LENGTH);
 	}
 
