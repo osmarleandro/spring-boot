@@ -77,12 +77,6 @@ class EndpointServletTests {
 	}
 
 	@Test
-	void withInitParameterShouldReturnNewInstance() {
-		EndpointServlet endpointServlet = new EndpointServlet(TestServlet.class);
-		assertThat(endpointServlet.withInitParameter("spring", "boot")).isNotSameAs(endpointServlet);
-	}
-
-	@Test
 	void withInitParameterWhenHasExistingShouldMergeParameters() {
 		EndpointServlet endpointServlet = new EndpointServlet(TestServlet.class).withInitParameter("a", "b")
 				.withInitParameter("c", "d");
