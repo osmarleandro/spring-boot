@@ -114,11 +114,9 @@ class HealthEndpointWebIntegrationTests {
 
 	private void withHealthContributor(ApplicationContext context, String name, HealthContributor healthContributor,
 			ReactiveHealthContributor reactiveHealthContributor, ThrowingCallable callable) {
-		HealthContributorRegistry healthContributorRegistry = getContributorRegistry(context,
-				HealthContributorRegistry.class);
+		HealthContributorRegistry healthContributorRegistry = context.getBeanProvider(HealthContributorRegistry.class).getIfAvailable();
 		healthContributorRegistry.registerContributor(name, healthContributor);
-		ReactiveHealthContributorRegistry reactiveHealthContributorRegistry = getContributorRegistry(context,
-				ReactiveHealthContributorRegistry.class);
+		ReactiveHealthContributorRegistry reactiveHealthContributorRegistry = context.getBeanProvider(ReactiveHealthContributorRegistry.class).getIfAvailable();
 		if (reactiveHealthContributorRegistry != null) {
 			reactiveHealthContributorRegistry.registerContributor(name, reactiveHealthContributor);
 		}
@@ -136,19 +134,12 @@ class HealthEndpointWebIntegrationTests {
 		}
 	}
 
-	private <R extends ContributorRegistry<?>> R getContributorRegistry(ApplicationContext context,
-			Class<R> registryType) {
-		return context.getBeanProvider(registryType).getIfAvailable();
-	}
-
 	@WebEndpointTest
 	void whenHealthIndicatorIsRemovedResponseIsAltered(WebTestClient client, ApplicationContext context) {
 		String name = "bravo";
-		HealthContributorRegistry healthContributorRegistry = getContributorRegistry(context,
-				HealthContributorRegistry.class);
+		HealthContributorRegistry healthContributorRegistry = context.getBeanProvider(HealthContributorRegistry.class).getIfAvailable();
 		HealthContributor bravo = healthContributorRegistry.unregisterContributor(name);
-		ReactiveHealthContributorRegistry reactiveHealthContributorRegistry = getContributorRegistry(context,
-				ReactiveHealthContributorRegistry.class);
+		ReactiveHealthContributorRegistry reactiveHealthContributorRegistry = context.getBeanProvider(ReactiveHealthContributorRegistry.class).getIfAvailable();
 		ReactiveHealthContributor reactiveBravo = (reactiveHealthContributorRegistry != null)
 				? reactiveHealthContributorRegistry.unregisterContributor(name) : null;
 		try {
