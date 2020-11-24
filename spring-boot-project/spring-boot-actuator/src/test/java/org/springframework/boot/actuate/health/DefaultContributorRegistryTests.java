@@ -158,8 +158,4 @@ abstract class DefaultContributorRegistryTests {
 		assertThat(second.getContributor()).isEqualTo(this.two);
 	}
 
-	private String reverse(String name) {
-		return new StringBuilder(name).reverse().toString();
-	}
-
 }
