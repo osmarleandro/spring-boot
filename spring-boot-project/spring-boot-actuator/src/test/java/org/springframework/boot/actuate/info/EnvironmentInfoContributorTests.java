@@ -46,13 +46,6 @@ class EnvironmentInfoContributorTests {
 	}
 
 	@Test
-	void extractNoEntry() {
-		TestPropertyValues.of("foo=bar").applyTo(this.environment);
-		Info actual = contributeFrom(this.environment);
-		assertThat(actual.getDetails()).isEmpty();
-	}
-
-	@Test
 	@SuppressWarnings("unchecked")
 	void propertiesFromEnvironmentShouldBindCorrectly() {
 		TestPropertyValues.of("INFO_ENVIRONMENT_FOO=green").applyTo(this.environment, Type.SYSTEM_ENVIRONMENT);
