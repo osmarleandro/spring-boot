@@ -70,12 +70,6 @@ class EndpointIdTests {
 	}
 
 	@Test
-	void ofWhenStartsWithUppercaseLetterThrowsException() {
-		assertThatIllegalArgumentException().isThrownBy(() -> EndpointId.of("Foo"))
-				.withMessage("Value must not start with an uppercase letter");
-	}
-
-	@Test
 	void ofWhenContainsDotIsValid() {
 		// Ideally we wouldn't support this but there are existing endpoints using the
 		// pattern. See gh-14773
