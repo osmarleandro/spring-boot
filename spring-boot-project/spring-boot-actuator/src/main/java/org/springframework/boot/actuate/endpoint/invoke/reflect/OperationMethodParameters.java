@@ -66,11 +66,6 @@ class OperationMethodParameters implements OperationParameters {
 	}
 
 	@Override
-	public OperationParameter get(int index) {
-		return this.operationParameters.get(index);
-	}
-
-	@Override
 	public Iterator<OperationParameter> iterator() {
 		return this.operationParameters.iterator();
 	}
