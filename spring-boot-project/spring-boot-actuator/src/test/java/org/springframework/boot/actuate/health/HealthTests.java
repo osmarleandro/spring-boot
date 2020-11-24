@@ -143,14 +143,6 @@ class HealthTests {
 	}
 
 	@Test
-	void downWithException() {
-		RuntimeException ex = new RuntimeException("bang");
-		Health health = Health.down(ex).build();
-		assertThat(health.getStatus()).isEqualTo(Status.DOWN);
-		assertThat(health.getDetails()).containsOnly(entry("error", "java.lang.RuntimeException: bang"));
-	}
-
-	@Test
 	void down() {
 		Health health = Health.down().build();
 		assertThat(health.getStatus()).isEqualTo(Status.DOWN);
