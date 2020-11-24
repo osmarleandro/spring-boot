@@ -143,15 +143,6 @@ class JmxEndpointExporterTests {
 	}
 
 	@Test
-	void destroyShouldUnregisterMBeans() throws Exception {
-		this.endpoints.add(new TestExposableJmxEndpoint(new TestJmxOperation()));
-		this.exporter.afterPropertiesSet();
-		this.exporter.destroy();
-		verify(this.mBeanServer).unregisterMBean(this.objectNameCaptor.capture());
-		assertThat(this.objectNameCaptor.getValue().getKeyProperty("name")).isEqualTo("test");
-	}
-
-	@Test
 	void unregisterWhenInstanceNotFoundShouldContinue() throws Exception {
 		this.endpoints.add(new TestExposableJmxEndpoint(new TestJmxOperation()));
 		this.exporter.afterPropertiesSet();
