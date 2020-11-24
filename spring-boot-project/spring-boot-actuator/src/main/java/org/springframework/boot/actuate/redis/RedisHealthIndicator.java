@@ -48,19 +48,15 @@ public class RedisHealthIndicator extends AbstractHealthIndicator {
 	protected void doHealthCheck(Health.Builder builder) throws Exception {
 		RedisConnection connection = RedisConnectionUtils.getConnection(this.redisConnectionFactory);
 		try {
-			doHealthCheck(builder, connection);
+			if (connection instanceof RedisClusterConnection) {
+				RedisHealth.up(builder, ((RedisClusterConnection) connection).clusterGetClusterInfo());
+			}
+			else {
+				RedisHealth.up(builder, connection.info());
+			}
 		}
 		finally {
 			RedisConnectionUtils.releaseConnection(connection, this.redisConnectionFactory, false);
-		}
-	}
-
-	private void doHealthCheck(Health.Builder builder, RedisConnection connection) {
-		if (connection instanceof RedisClusterConnection) {
-			RedisHealth.up(builder, ((RedisClusterConnection) connection).clusterGetClusterInfo());
-		}
-		else {
-			RedisHealth.up(builder, connection.info());
 		}
 	}
 
