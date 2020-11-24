@@ -210,16 +210,13 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 		Collection<O> operations = this.operationsFactory.createOperations(id, target);
 		for (O operation : operations) {
 			OperationKey key = createOperationKey(operation);
-			O last = getLast(indexed.get(key));
+			List<T> list = indexed.get(key);
+			O last = CollectionUtils.isEmpty(list) ? null : list.get(list.size() - 1);
 			if (replaceLast && replacedLast.add(key) && last != null) {
 				indexed.get(key).remove(last);
 			}
 			indexed.add(key, operation);
 		}
-	}
-
-	private <T> T getLast(List<T> list) {
-		return CollectionUtils.isEmpty(list) ? null : list.get(list.size() - 1);
 	}
 
 	private void assertNoDuplicateOperations(EndpointBean endpointBean, MultiValueMap<OperationKey, O> indexed) {
