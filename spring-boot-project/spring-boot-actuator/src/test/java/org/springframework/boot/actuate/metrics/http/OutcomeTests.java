@@ -42,13 +42,6 @@ public class OutcomeTests {
 	}
 
 	@Test
-	void outcomeForRedirectionStatusIsRedirection() {
-		for (int status = 300; status < 400; status++) {
-			assertThat(Outcome.forStatus(status)).isEqualTo(Outcome.REDIRECTION);
-		}
-	}
-
-	@Test
 	void outcomeForClientErrorStatusIsClientError() {
 		for (int status = 400; status < 500; status++) {
 			assertThat(Outcome.forStatus(status)).isEqualTo(Outcome.CLIENT_ERROR);
