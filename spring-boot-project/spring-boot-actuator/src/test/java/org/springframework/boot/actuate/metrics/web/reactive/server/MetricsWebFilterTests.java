@@ -57,7 +57,10 @@ class MetricsWebFilterTests {
 
 	@Test
 	void filterAddsTagsToRegistry() {
-		MockServerWebExchange exchange = createExchange("/projects/spring-boot", "/projects/{project}");
+		PathPatternParser parser = new PathPatternParser();
+		MockServerWebExchange exchange1 = MockServerWebExchange.from(MockServerHttpRequest.get("/projects/spring-boot").build());
+		exchange1.getAttributes().put(HandlerMapping.BEST_MATCHING_PATTERN_ATTRIBUTE, parser.parse("/projects/{project}"));
+		MockServerWebExchange exchange = exchange1;
 		this.webFilter.filter(exchange, (serverWebExchange) -> exchange.getResponse().setComplete())
 				.block(Duration.ofSeconds(30));
 		assertMetricsContainsTag("uri", "/projects/{project}");
@@ -66,7 +69,10 @@ class MetricsWebFilterTests {
 
 	@Test
 	void filterAddsTagsToRegistryForExceptions() {
-		MockServerWebExchange exchange = createExchange("/projects/spring-boot", "/projects/{project}");
+		PathPatternParser parser = new PathPatternParser();
+		MockServerWebExchange exchange1 = MockServerWebExchange.from(MockServerHttpRequest.get("/projects/spring-boot").build());
+		exchange1.getAttributes().put(HandlerMapping.BEST_MATCHING_PATTERN_ATTRIBUTE, parser.parse("/projects/{project}"));
+		MockServerWebExchange exchange = exchange1;
 		this.webFilter.filter(exchange, (serverWebExchange) -> Mono.error(new IllegalStateException("test error")))
 				.onErrorResume((t) -> {
 					exchange.getResponse().setRawStatusCode(500);
@@ -81,8 +87,11 @@ class MetricsWebFilterTests {
 	void filterAddsNonEmptyTagsToRegistryForAnonymousExceptions() {
 		final Exception anonymous = new Exception("test error") {
 		};
+		PathPatternParser parser = new PathPatternParser();
+		MockServerWebExchange exchange1 = MockServerWebExchange.from(MockServerHttpRequest.get("/projects/spring-boot").build());
+		exchange1.getAttributes().put(HandlerMapping.BEST_MATCHING_PATTERN_ATTRIBUTE, parser.parse("/projects/{project}"));
 
-		MockServerWebExchange exchange = createExchange("/projects/spring-boot", "/projects/{project}");
+		MockServerWebExchange exchange = exchange1;
 		this.webFilter.filter(exchange, (serverWebExchange) -> Mono.error(anonymous)).onErrorResume((t) -> {
 			exchange.getResponse().setRawStatusCode(500);
 			return exchange.getResponse().setComplete();
@@ -94,7 +103,10 @@ class MetricsWebFilterTests {
 
 	@Test
 	void filterAddsTagsToRegistryForExceptionsAndCommittedResponse() {
-		MockServerWebExchange exchange = createExchange("/projects/spring-boot", "/projects/{project}");
+		PathPatternParser parser = new PathPatternParser();
+		MockServerWebExchange exchange1 = MockServerWebExchange.from(MockServerHttpRequest.get("/projects/spring-boot").build());
+		exchange1.getAttributes().put(HandlerMapping.BEST_MATCHING_PATTERN_ATTRIBUTE, parser.parse("/projects/{project}"));
+		MockServerWebExchange exchange = exchange1;
 		this.webFilter.filter(exchange, (serverWebExchange) -> {
 			exchange.getResponse().setRawStatusCode(500);
 			return exchange.getResponse().setComplete().then(Mono.error(new IllegalStateException("test error")));
@@ -105,8 +117,14 @@ class MetricsWebFilterTests {
 
 	@Test
 	void trailingSlashShouldNotRecordDuplicateMetrics() {
-		MockServerWebExchange exchange1 = createExchange("/projects/spring-boot", "/projects/{project}");
-		MockServerWebExchange exchange2 = createExchange("/projects/spring-boot", "/projects/{project}/");
+		PathPatternParser parser = new PathPatternParser();
+		MockServerWebExchange exchange = MockServerWebExchange.from(MockServerHttpRequest.get("/projects/spring-boot").build());
+		exchange.getAttributes().put(HandlerMapping.BEST_MATCHING_PATTERN_ATTRIBUTE, parser.parse("/projects/{project}"));
+		MockServerWebExchange exchange1 = exchange;
+		PathPatternParser parser = new PathPatternParser();
+		MockServerWebExchange exchange = MockServerWebExchange.from(MockServerHttpRequest.get("/projects/spring-boot").build());
+		exchange.getAttributes().put(HandlerMapping.BEST_MATCHING_PATTERN_ATTRIBUTE, parser.parse("/projects/{project}/"));
+		MockServerWebExchange exchange2 = exchange;
 		this.webFilter.filter(exchange1, (serverWebExchange) -> exchange1.getResponse().setComplete())
 				.block(Duration.ofSeconds(30));
 		this.webFilter.filter(exchange2, (serverWebExchange) -> exchange2.getResponse().setComplete())
@@ -114,13 +132,6 @@ class MetricsWebFilterTests {
 		assertThat(this.registry.get(REQUEST_METRICS_NAME).tag("uri", "/projects/{project}").timer().count())
 				.isEqualTo(2);
 		assertThat(this.registry.get(REQUEST_METRICS_NAME).tag("status", "200").timer().count()).isEqualTo(2);
-	}
-
-	private MockServerWebExchange createExchange(String path, String pathPattern) {
-		PathPatternParser parser = new PathPatternParser();
-		MockServerWebExchange exchange = MockServerWebExchange.from(MockServerHttpRequest.get(path).build());
-		exchange.getAttributes().put(HandlerMapping.BEST_MATCHING_PATTERN_ATTRIBUTE, parser.parse(pathPattern));
-		return exchange;
 	}
 
 	private void assertMetricsContainsTag(String tagKey, String tagValue) {
