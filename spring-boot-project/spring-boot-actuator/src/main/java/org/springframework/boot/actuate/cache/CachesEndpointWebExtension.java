@@ -54,7 +54,10 @@ public class CachesEndpointWebExtension {
 	@DeleteOperation
 	public WebEndpointResponse<Void> clearCache(@Selector String cache, @Nullable String cacheManager) {
 		try {
-			boolean cleared = this.delegate.clearCache(cache, cacheManager);
+			CachesEndpoint r = this.delegate;
+			CacheEntry entry = r.extractUniqueCacheEntry(cache,
+			r.getCacheEntries((name) -> name.equals(cache), r.isNameMatch(cacheManager)));
+			boolean cleared = (entry != null && r.clearCache(entry));
 			int status = (cleared ? WebEndpointResponse.STATUS_NO_CONTENT : WebEndpointResponse.STATUS_NOT_FOUND);
 			return new WebEndpointResponse<>(status);
 		}
