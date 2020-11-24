@@ -214,7 +214,7 @@ public class JerseyEndpointResourceFactory {
 					return Response.status(Status.OK).entity(convertIfNecessary(response)).build();
 				}
 				WebEndpointResponse<?> webEndpointResponse = (WebEndpointResponse<?>) response;
-				return Response.status(webEndpointResponse.getStatus())
+				return Response.status(webEndpointResponse.status)
 						.entity(convertIfNecessary(webEndpointResponse.getBody())).build();
 			}
 			catch (IOException ex) {

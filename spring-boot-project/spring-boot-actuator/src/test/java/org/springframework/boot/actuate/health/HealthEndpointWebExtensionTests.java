@@ -46,7 +46,7 @@ class HealthEndpointWebExtensionTests
 		HealthComponent health = response.getBody();
 		assertThat(health.getStatus()).isEqualTo(Status.UP);
 		assertThat(health).isInstanceOf(SystemHealth.class);
-		assertThat(response.getStatus()).isEqualTo(200);
+		assertThat(response.status).isEqualTo(200);
 	}
 
 	@Test
@@ -55,7 +55,7 @@ class HealthEndpointWebExtensionTests
 		WebEndpointResponse<HealthComponent> response = create(this.registry,
 				HealthEndpointGroups.of(mock(HealthEndpointGroup.class), Collections.emptyMap()))
 						.health(ApiVersion.LATEST, SecurityContext.NONE);
-		assertThat(response.getStatus()).isEqualTo(200);
+		assertThat(response.status).isEqualTo(200);
 		HealthComponent health = response.getBody();
 		assertThat(health.getStatus()).isEqualTo(Status.UP);
 		assertThat(health).isInstanceOf(Health.class);
@@ -67,7 +67,7 @@ class HealthEndpointWebExtensionTests
 		WebEndpointResponse<HealthComponent> response = create(this.registry, this.groups).health(ApiVersion.LATEST,
 				SecurityContext.NONE, "missing");
 		assertThat(response.getBody()).isNull();
-		assertThat(response.getStatus()).isEqualTo(404);
+		assertThat(response.status).isEqualTo(404);
 	}
 
 	@Test
@@ -76,7 +76,7 @@ class HealthEndpointWebExtensionTests
 		WebEndpointResponse<HealthComponent> response = create(this.registry, this.groups).health(ApiVersion.LATEST,
 				SecurityContext.NONE, "test");
 		assertThat(response.getBody()).isEqualTo(this.up);
-		assertThat(response.getStatus()).isEqualTo(200);
+		assertThat(response.status).isEqualTo(200);
 	}
 
 	@Override

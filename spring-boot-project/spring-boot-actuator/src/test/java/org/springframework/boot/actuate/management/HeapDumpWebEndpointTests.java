@@ -47,7 +47,7 @@ class HeapDumpWebEndpointTests {
 		Thread thread = new Thread(() -> slowEndpoint.heapDump(true));
 		thread.start();
 		dumpingLatch.await();
-		assertThat(slowEndpoint.heapDump(true).getStatus()).isEqualTo(429);
+		assertThat(slowEndpoint.heapDump(true).status).isEqualTo(429);
 		blockingLatch.countDown();
 		thread.join();
 	}
