@@ -32,13 +32,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 class IsoOffsetDateTimeConverterTests {
 
 	@Test
-	void convertShouldConvertIsoDate() {
-		IsoOffsetDateTimeConverter converter = new IsoOffsetDateTimeConverter();
-		OffsetDateTime time = converter.convert("2011-12-03T10:15:30+01:00");
-		assertThat(time).isNotNull();
-	}
-
-	@Test
 	void registerConverterShouldRegister() {
 		DefaultConversionService service = new DefaultConversionService();
 		IsoOffsetDateTimeConverter.registerConverter(service);
