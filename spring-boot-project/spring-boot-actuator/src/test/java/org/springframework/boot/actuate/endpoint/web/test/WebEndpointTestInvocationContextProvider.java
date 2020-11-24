@@ -88,18 +88,6 @@ class WebEndpointTestInvocationContextProvider implements TestTemplateInvocation
 		return true;
 	}
 
-	@Override
-	public Stream<TestTemplateInvocationContext> provideTestTemplateInvocationContexts(
-			ExtensionContext extensionContext) {
-		return Stream.of(
-				new WebEndpointsInvocationContext("Jersey",
-						WebEndpointTestInvocationContextProvider::createJerseyContext),
-				new WebEndpointsInvocationContext("WebMvc",
-						WebEndpointTestInvocationContextProvider::createWebMvcContext),
-				new WebEndpointsInvocationContext("WebFlux",
-						WebEndpointTestInvocationContextProvider::createWebFluxContext));
-	}
-
 	private static ConfigurableApplicationContext createJerseyContext(List<Class<?>> classes) {
 		AnnotationConfigServletWebServerApplicationContext context = new AnnotationConfigServletWebServerApplicationContext();
 		classes.add(JerseyEndpointConfiguration.class);
