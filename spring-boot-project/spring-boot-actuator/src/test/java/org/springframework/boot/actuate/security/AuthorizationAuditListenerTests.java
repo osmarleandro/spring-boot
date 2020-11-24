@@ -66,19 +66,6 @@ class AuthorizationAuditListenerTests {
 		assertThat(event.getAuditEvent().getType()).isEqualTo(AuthorizationAuditListener.AUTHORIZATION_FAILURE);
 	}
 
-	@Test
-	void testDetailsAreIncludedInAuditEvent() {
-		Object details = new Object();
-		UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken("user",
-				"password");
-		authentication.setDetails(details);
-		AuditApplicationEvent event = handleAuthorizationEvent(
-				new AuthorizationFailureEvent(this, Collections.singletonList(new SecurityConfig("USER")),
-						authentication, new AccessDeniedException("Bad user")));
-		assertThat(event.getAuditEvent().getType()).isEqualTo(AuthorizationAuditListener.AUTHORIZATION_FAILURE);
-		assertThat(event.getAuditEvent().getData()).containsEntry("details", details);
-	}
-
 	private AuditApplicationEvent handleAuthorizationEvent(AbstractAuthorizationEvent event) {
 		ArgumentCaptor<AuditApplicationEvent> eventCaptor = ArgumentCaptor.forClass(AuditApplicationEvent.class);
 		this.listener.onApplicationEvent(event);
