@@ -161,14 +161,6 @@ class LoggersEndpointWebIntegrationTests {
 	}
 
 	@WebEndpointTest
-	void setLoggerOrLoggerGroupWithWrongLogLevelResultInBadRequestResponse() {
-		this.client.post().uri("/actuator/loggers/ROOT").contentType(MediaType.APPLICATION_JSON)
-				.bodyValue(Collections.singletonMap("configuredLevel", "other")).exchange().expectStatus()
-				.isBadRequest();
-		verifyNoInteractions(this.loggingSystem);
-	}
-
-	@WebEndpointTest
 	void setLoggerWithNullLogLevel() {
 		this.client.post().uri("/actuator/loggers/ROOT")
 				.contentType(MediaType.parseMediaType(ActuatorMediaType.V3_JSON))
