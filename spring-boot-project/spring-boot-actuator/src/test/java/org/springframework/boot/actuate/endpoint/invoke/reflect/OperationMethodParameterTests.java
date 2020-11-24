@@ -41,12 +41,6 @@ class OperationMethodParameterTests {
 	}
 
 	@Test
-	void getTypeShouldReturnType() {
-		OperationMethodParameter parameter = new OperationMethodParameter("name", this.method.getParameters()[0]);
-		assertThat(parameter.getType()).isEqualTo(String.class);
-	}
-
-	@Test
 	void isMandatoryWhenNoAnnotationShouldReturnTrue() {
 		OperationMethodParameter parameter = new OperationMethodParameter("name", this.method.getParameters()[0]);
 		assertThat(parameter.isMandatory()).isTrue();
