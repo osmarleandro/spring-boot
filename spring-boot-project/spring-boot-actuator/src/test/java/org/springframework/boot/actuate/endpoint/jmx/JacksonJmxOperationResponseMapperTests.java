@@ -47,13 +47,6 @@ class JacksonJmxOperationResponseMapperTests {
 	private final BasicJsonTester json = new BasicJsonTester(getClass());
 
 	@Test
-	void createWhenObjectMapperIsNullShouldUseDefaultObjectMapper() {
-		JacksonJmxOperationResponseMapper mapper = new JacksonJmxOperationResponseMapper(null);
-		Object mapped = mapper.mapResponse(Collections.singleton("test"));
-		assertThat(this.json.from(mapped.toString())).isEqualToJson("[test]");
-	}
-
-	@Test
 	void createWhenObjectMapperIsSpecifiedShouldUseObjectMapper() {
 		ObjectMapper objectMapper = spy(ObjectMapper.class);
 		JacksonJmxOperationResponseMapper mapper = new JacksonJmxOperationResponseMapper(objectMapper);
