@@ -64,14 +64,6 @@ public class OperationMethod {
 	}
 
 	/**
-	 * Return the operation type.
-	 * @return the operation type
-	 */
-	public OperationType getOperationType() {
-		return this.operationType;
-	}
-
-	/**
 	 * Return the operation parameters.
 	 * @return the operation parameters
 	 */
