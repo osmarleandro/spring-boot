@@ -88,12 +88,6 @@ public abstract class AbstractWebEndpointIntegrationTests<T extends Configurable
 	}
 
 	@Test
-	void readOperationWithEndpointsMappedToTheRoot() {
-		load(TestEndpointConfiguration.class, "", (client) -> client.get().uri("/test").exchange().expectStatus().isOk()
-				.expectBody().jsonPath("All").isEqualTo(true));
-	}
-
-	@Test
 	void readOperationWithSelector() {
 		load(TestEndpointConfiguration.class, (client) -> client.get().uri("/test/one").exchange().expectStatus().isOk()
 				.expectBody().jsonPath("part").isEqualTo("one"));
