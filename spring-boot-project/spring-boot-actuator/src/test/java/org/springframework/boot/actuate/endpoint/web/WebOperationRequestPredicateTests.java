@@ -66,12 +66,6 @@ class WebOperationRequestPredicateTests {
 	}
 
 	@Test
-	void predicatesWithMultiplePathVariablesInTheSamplePlaceAreEqual() {
-		assertThat(predicateWithPath("/path/{foo1}/more/{bar1}"))
-				.isEqualTo(predicateWithPath("/path/{foo2}/more/{bar2}"));
-	}
-
-	@Test
 	void predicateWithWildcardPathVariableReturnsMatchAllRemainingPathSegmentsVariable() {
 		assertThat(predicateWithPath("/path/{*foo1}").getMatchAllRemainingPathSegmentsVariable()).isEqualTo("foo1");
 	}
