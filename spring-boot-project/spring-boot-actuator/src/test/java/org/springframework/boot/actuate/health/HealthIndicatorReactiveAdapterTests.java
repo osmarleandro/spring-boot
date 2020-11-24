@@ -19,6 +19,8 @@ package org.springframework.boot.actuate.health;
 import java.time.Duration;
 
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.actuate.health.Health.Builder;
+
 import reactor.test.StepVerifier;
 
 import static org.mockito.BDDMockito.given;
@@ -51,10 +53,11 @@ class HealthIndicatorReactiveAdapterTests {
 	@Test
 	void delegateRunsOnTheElasticScheduler() {
 		String currentThread = Thread.currentThread().getName();
-		HealthIndicator delegate = () -> Health
-				.status(Thread.currentThread().getName().equals(currentThread) ? Status.DOWN : Status.UP).build();
+		Status status = Thread.currentThread().getName().equals(currentThread) ? Status.DOWN : Status.UP;
+		HealthIndicator delegate = () -> new Builder(status).build();
 		HealthIndicatorReactiveAdapter adapter = new HealthIndicatorReactiveAdapter(delegate);
-		StepVerifier.create(adapter.health()).expectNext(Health.status(Status.UP).build()).verifyComplete();
+		Status status1 = Status.UP;
+		StepVerifier.create(adapter.health()).expectNext(new Builder(status1).build()).verifyComplete();
 	}
 
 }
