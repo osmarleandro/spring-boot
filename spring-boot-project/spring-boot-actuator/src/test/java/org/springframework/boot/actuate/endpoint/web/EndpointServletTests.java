@@ -65,12 +65,6 @@ class EndpointServletTests {
 	}
 
 	@Test
-	void withInitParameterNullName() {
-		EndpointServlet endpointServlet = new EndpointServlet(TestServlet.class);
-		assertThatIllegalArgumentException().isThrownBy(() -> endpointServlet.withInitParameter(null, "value"));
-	}
-
-	@Test
 	void withInitParameterEmptyName() {
 		EndpointServlet endpointServlet = new EndpointServlet(TestServlet.class);
 		assertThatIllegalArgumentException().isThrownBy(() -> endpointServlet.withInitParameter(" ", "value"));
