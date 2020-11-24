@@ -75,11 +75,6 @@ public class ControllerEndpointHandlerMapping extends RequestMappingHandlerMappi
 	}
 
 	@Override
-	protected void initHandlerMethods() {
-		this.handlers.keySet().forEach(this::detectHandlerMethods);
-	}
-
-	@Override
 	protected void registerHandlerMethod(Object handler, Method method, RequestMappingInfo mapping) {
 		ExposableControllerEndpoint endpoint = this.handlers.get(handler);
 		mapping = withEndpointMappedPatterns(endpoint, mapping);
