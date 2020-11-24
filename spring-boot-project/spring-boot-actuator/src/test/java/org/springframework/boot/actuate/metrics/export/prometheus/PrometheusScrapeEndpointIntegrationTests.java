@@ -40,14 +40,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 class PrometheusScrapeEndpointIntegrationTests {
 
 	@WebEndpointTest
-	void scrapeHasContentTypeText004(WebTestClient client) {
-		client.get().uri("/actuator/prometheus").exchange().expectStatus().isOk().expectHeader()
-				.contentType(MediaType.parseMediaType(TextFormat.CONTENT_TYPE_004)).expectBody(String.class)
-				.value((body) -> assertThat(body).contains("counter1_total").contains("counter2_total")
-						.contains("counter3_total"));
-	}
-
-	@WebEndpointTest
 	void scrapeWithIncludedNames(WebTestClient client) {
 		client.get().uri("/actuator/prometheus?includedNames=counter1_total,counter2_total").exchange().expectStatus()
 				.isOk().expectHeader().contentType(MediaType.parseMediaType(TextFormat.CONTENT_TYPE_004))
