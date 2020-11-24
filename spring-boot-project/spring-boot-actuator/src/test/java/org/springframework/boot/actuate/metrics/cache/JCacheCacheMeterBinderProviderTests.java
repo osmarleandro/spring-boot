@@ -20,6 +20,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Collections;
 
+import io.micrometer.core.instrument.Tag;
 import io.micrometer.core.instrument.binder.MeterBinder;
 import io.micrometer.core.instrument.binder.cache.JCacheMetrics;
 import org.junit.jupiter.api.Test;
@@ -51,7 +52,9 @@ class JCacheCacheMeterBinderProviderTests {
 		given(this.nativeCache.getCacheManager()).willReturn(cacheManager);
 		given(this.nativeCache.getName()).willReturn("test");
 		JCacheCache cache = new JCacheCache(this.nativeCache);
-		MeterBinder meterBinder = new JCacheCacheMeterBinderProvider().getMeterBinder(cache, Collections.emptyList());
+		Iterable<Tag> tags = Collections.emptyList();
+		JCacheCacheMeterBinderProvider r = new JCacheCacheMeterBinderProvider();
+		MeterBinder meterBinder = new JCacheMetrics(cache.getNativeCache(), tags);
 		assertThat(meterBinder).isInstanceOf(JCacheMetrics.class);
 	}
 
