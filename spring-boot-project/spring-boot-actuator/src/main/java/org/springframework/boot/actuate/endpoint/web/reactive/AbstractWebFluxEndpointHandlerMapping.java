@@ -41,6 +41,7 @@ import org.springframework.boot.actuate.endpoint.web.ExposableWebEndpoint;
 import org.springframework.boot.actuate.endpoint.web.WebEndpointResponse;
 import org.springframework.boot.actuate.endpoint.web.WebOperation;
 import org.springframework.boot.actuate.endpoint.web.WebOperationRequestPredicate;
+import org.springframework.boot.actuate.endpoint.web.reactive.AbstractWebFluxEndpointHandlerMapping.LinksHandler;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -127,7 +128,15 @@ public abstract class AbstractWebFluxEndpointHandlerMapping extends RequestMappi
 			}
 		}
 		if (this.shouldRegisterLinksMapping) {
-			registerLinksMapping();
+			PatternsRequestCondition patterns = new PatternsRequestCondition(
+					pathPatternParser.parse(this.endpointMapping.getPath()));
+			RequestMethodsRequestCondition methods = new RequestMethodsRequestCondition(RequestMethod.GET);
+			ProducesRequestCondition produces = new ProducesRequestCondition(
+					StringUtils.toStringArray(this.endpointMediaTypes.getProduced()));
+			RequestMappingInfo mapping = new RequestMappingInfo(patterns, methods, null, null, null, produces, null);
+			LinksHandler linksHandler = getLinksHandler();
+			registerMapping(mapping, linksHandler,
+					ReflectionUtils.findMethod(linksHandler.getClass(), "links", ServerWebExchange.class));
 		}
 	}
 
@@ -174,18 +183,6 @@ public abstract class AbstractWebFluxEndpointHandlerMapping extends RequestMappi
 		ProducesRequestCondition produces = new ProducesRequestCondition(
 				StringUtils.toStringArray(predicate.getProduces()));
 		return new RequestMappingInfo(null, patterns, methods, null, null, consumes, produces, null);
-	}
-
-	private void registerLinksMapping() {
-		PatternsRequestCondition patterns = new PatternsRequestCondition(
-				pathPatternParser.parse(this.endpointMapping.getPath()));
-		RequestMethodsRequestCondition methods = new RequestMethodsRequestCondition(RequestMethod.GET);
-		ProducesRequestCondition produces = new ProducesRequestCondition(
-				StringUtils.toStringArray(this.endpointMediaTypes.getProduced()));
-		RequestMappingInfo mapping = new RequestMappingInfo(patterns, methods, null, null, null, produces, null);
-		LinksHandler linksHandler = getLinksHandler();
-		registerMapping(mapping, linksHandler,
-				ReflectionUtils.findMethod(linksHandler.getClass(), "links", ServerWebExchange.class));
 	}
 
 	@Override
