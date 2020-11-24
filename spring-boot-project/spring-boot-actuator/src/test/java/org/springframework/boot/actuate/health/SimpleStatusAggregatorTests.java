@@ -67,11 +67,4 @@ class SimpleStatusAggregatorTests {
 		assertThat(status).isEqualTo(Status.DOWN);
 	}
 
-	@Test
-	void createWithNonUniformCodes() {
-		SimpleStatusAggregator aggregator = new SimpleStatusAggregator("out-of-service", "up");
-		Status status = aggregator.getAggregateStatus(Status.UP, Status.OUT_OF_SERVICE);
-		assertThat(status).isEqualTo(Status.OUT_OF_SERVICE);
-	}
-
 }
