@@ -83,7 +83,7 @@ public class JmxEndpointExporter implements InitializingBean, DisposableBean, Be
 
 	@Override
 	public void destroy() throws Exception {
-		unregister(this.registered);
+		this.registered.forEach(this::unregister);
 	}
 
 	private Collection<ObjectName> register() {
@@ -104,10 +104,6 @@ public class JmxEndpointExporter implements InitializingBean, DisposableBean, Be
 		catch (Exception ex) {
 			throw new MBeanExportException("Failed to register MBean for " + getEndpointDescription(endpoint), ex);
 		}
-	}
-
-	private void unregister(Collection<ObjectName> objectNames) {
-		objectNames.forEach(this::unregister);
 	}
 
 	private void unregister(ObjectName objectName) {
