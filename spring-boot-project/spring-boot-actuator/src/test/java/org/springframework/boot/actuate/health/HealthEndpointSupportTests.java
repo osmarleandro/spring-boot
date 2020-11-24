@@ -58,12 +58,6 @@ abstract class HealthEndpointSupportTests<R extends ContributorRegistry<C>, C, T
 	}
 
 	@Test
-	void createWhenRegistryIsNullThrowsException() {
-		assertThatIllegalArgumentException().isThrownBy(() -> create(null, this.groups))
-				.withMessage("Registry must not be null");
-	}
-
-	@Test
 	void createWhenGroupsIsNullThrowsException() {
 		assertThatIllegalArgumentException().isThrownBy(() -> create(this.registry, null))
 				.withMessage("Groups must not be null");
