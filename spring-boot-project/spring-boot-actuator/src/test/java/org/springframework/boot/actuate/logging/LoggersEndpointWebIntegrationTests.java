@@ -194,15 +194,6 @@ class LoggersEndpointWebIntegrationTests {
 	}
 
 	@WebEndpointTest
-	void setLoggerGroupWithNoLogLevel() {
-		this.client.post().uri("/actuator/loggers/test")
-				.contentType(MediaType.parseMediaType(ActuatorMediaType.V3_JSON)).bodyValue(Collections.emptyMap())
-				.exchange().expectStatus().isNoContent();
-		verify(this.loggingSystem).setLogLevel("test.member1", null);
-		verify(this.loggingSystem).setLogLevel("test.member2", null);
-	}
-
-	@WebEndpointTest
 	void logLevelForLoggerWithNameThatCouldBeMistakenForAPathExtension() {
 		given(this.loggingSystem.getLoggerConfiguration("com.png"))
 				.willReturn(new LoggerConfiguration("com.png", null, LogLevel.DEBUG));
