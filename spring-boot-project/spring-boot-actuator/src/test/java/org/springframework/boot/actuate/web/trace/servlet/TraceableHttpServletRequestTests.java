@@ -53,12 +53,6 @@ class TraceableHttpServletRequestTests {
 		validate("http://localhost/script?a=$%7Bb%7D");
 	}
 
-	@Test
-	void getUriWithSpecialCharactersEncodedShouldNotDoubleEncode() {
-		this.request.setQueryString("a=$%7Bb%7D");
-		validate("http://localhost/script?a=$%7Bb%7D");
-	}
-
 	private void validate(String expectedUri) {
 		TraceableHttpServletRequest trace = new TraceableHttpServletRequest(this.request);
 		assertThat(trace.getUri().toString()).isEqualTo(expectedUri);
