@@ -178,15 +178,6 @@ class PrometheusPushGatewayManagerTests {
 		verify(this.future).cancel(false);
 	}
 
-	@Test
-	void pushDoesNotThrowException() throws Exception {
-		new PrometheusPushGatewayManager(this.pushGateway, this.registry, this.scheduler, this.pushRate, "job",
-				this.groupingKey, null);
-		verify(this.scheduler).scheduleAtFixedRate(this.task.capture(), eq(this.pushRate));
-		willThrow(RuntimeException.class).given(this.pushGateway).pushAdd(this.registry, "job", this.groupingKey);
-		this.task.getValue().run();
-	}
-
 	private void givenScheduleAtFixedRateWithReturnFuture() {
 		givenScheduleAtFixedRateWillReturnFuture(this.scheduler);
 	}
