@@ -47,8 +47,4 @@ public class HandlerMethodDescription {
 		return this.descriptor;
 	}
 
-	public String getClassName() {
-		return this.className;
-	}
-
 }
