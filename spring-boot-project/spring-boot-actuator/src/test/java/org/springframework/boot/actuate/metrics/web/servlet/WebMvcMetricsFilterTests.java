@@ -168,14 +168,6 @@ class WebMvcMetricsFilterTests {
 	}
 
 	@Test
-	void notFoundRequest() throws Exception {
-		this.mvc.perform(get("/api/not/found").header(RedirectAndNotFoundFilter.TEST_MISBEHAVE_HEADER, "404"))
-				.andExpect(status().is4xxClientError());
-		assertThat(this.registry.get("http.server.requests").tags("uri", "NOT_FOUND").tags("status", "404").timer())
-				.isNotNull();
-	}
-
-	@Test
 	void unhandledError() {
 		assertThatCode(() -> this.mvc.perform(get("/api/c1/unhandledError/10")).andExpect(status().isOk()))
 				.hasRootCauseInstanceOf(RuntimeException.class);
