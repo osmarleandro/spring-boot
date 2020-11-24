@@ -109,17 +109,6 @@ class ControllerEndpointDiscovererTests {
 	}
 
 	@Test
-	void getEndpointsShouldNotDiscoverRegularEndpoints() {
-		this.contextRunner.withUserConfiguration(WithRegularEndpointConfiguration.class)
-				.run(assertDiscoverer((discoverer) -> {
-					Collection<ExposableControllerEndpoint> endpoints = discoverer.getEndpoints();
-					List<EndpointId> ids = endpoints.stream().map(ExposableControllerEndpoint::getEndpointId)
-							.collect(Collectors.toList());
-					assertThat(ids).containsOnly(EndpointId.of("testcontroller"), EndpointId.of("testrestcontroller"));
-				}));
-	}
-
-	@Test
 	void getEndpointWhenEndpointHasOperationsShouldThrowException() {
 		this.contextRunner.withUserConfiguration(TestControllerWithOperation.class).run(
 				assertDiscoverer((discoverer) -> assertThatIllegalStateException().isThrownBy(discoverer::getEndpoints)
