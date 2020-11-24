@@ -68,8 +68,4 @@ class OperationMethodTests {
 		assertThat(parameters.iterator().next().getName()).isEqualTo("name");
 	}
 
-	String example(String name) {
-		return name;
-	}
-
 }
