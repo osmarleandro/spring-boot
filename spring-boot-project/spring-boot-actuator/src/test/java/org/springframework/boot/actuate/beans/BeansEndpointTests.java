@@ -16,6 +16,7 @@
 
 package org.springframework.boot.actuate.beans;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -49,7 +50,14 @@ class BeansEndpointTests {
 		ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 				.withUserConfiguration(EndpointConfiguration.class);
 		contextRunner.run((context) -> {
-			ApplicationBeans result = context.getBean(BeansEndpoint.class).beans();
+			BeansEndpoint r = context.getBean(BeansEndpoint.class);
+			Map<String, ContextBeans> contexts = new HashMap<>();
+			ConfigurableApplicationContext context1 = r.context;
+			while (context1 != null) {
+				contexts.put(context1.getId(), ContextBeans.describing(context1));
+				context1 = BeansEndpoint.getConfigurableParent(context1);
+			}
+			ApplicationBeans result = new ApplicationBeans(contexts);
 			ContextBeans descriptor = result.getContexts().get(context.getId());
 			assertThat(descriptor.getParentId()).isNull();
 			Map<String, BeanDescriptor> beans = descriptor.getBeans();
@@ -68,7 +76,14 @@ class BeansEndpointTests {
 			List<String> infrastructureBeans = Stream.of(context.getBeanDefinitionNames())
 					.filter((name) -> BeanDefinition.ROLE_INFRASTRUCTURE == factory.getBeanDefinition(name).getRole())
 					.collect(Collectors.toList());
-			ApplicationBeans result = context.getBean(BeansEndpoint.class).beans();
+			BeansEndpoint r = context.getBean(BeansEndpoint.class);
+			Map<String, ContextBeans> contexts = new HashMap<>();
+			ConfigurableApplicationContext context1 = r.context;
+			while (context1 != null) {
+				contexts.put(context1.getId(), ContextBeans.describing(context1));
+				context1 = BeansEndpoint.getConfigurableParent(context1);
+			}
+			ApplicationBeans result = new ApplicationBeans(contexts);
 			ContextBeans contextDescriptor = result.getContexts().get(context.getId());
 			Map<String, BeanDescriptor> beans = contextDescriptor.getBeans();
 			for (String infrastructureBean : infrastructureBeans) {
@@ -82,7 +97,14 @@ class BeansEndpointTests {
 		ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 				.withUserConfiguration(EndpointConfiguration.class, LazyBeanConfiguration.class);
 		contextRunner.run((context) -> {
-			ApplicationBeans result = context.getBean(BeansEndpoint.class).beans();
+			BeansEndpoint r = context.getBean(BeansEndpoint.class);
+			Map<String, ContextBeans> contexts = new HashMap<>();
+			ConfigurableApplicationContext context1 = r.context;
+			while (context1 != null) {
+				contexts.put(context1.getId(), ContextBeans.describing(context1));
+				context1 = BeansEndpoint.getConfigurableParent(context1);
+			}
+			ApplicationBeans result = new ApplicationBeans(contexts);
 			ContextBeans contextDescriptor = result.getContexts().get(context.getId());
 			assertThat(context).hasBean("lazyBean");
 			assertThat(contextDescriptor.getBeans()).doesNotContainKey("lazyBean");
@@ -96,7 +118,14 @@ class BeansEndpointTests {
 		parentRunner.run((parent) -> {
 			new ApplicationContextRunner().withUserConfiguration(EndpointConfiguration.class).withParent(parent)
 					.run((child) -> {
-						ApplicationBeans result = child.getBean(BeansEndpoint.class).beans();
+						BeansEndpoint r = child.getBean(BeansEndpoint.class);
+						Map<String, ContextBeans> contexts = new HashMap<>();
+						ConfigurableApplicationContext context = r.context;
+						while (context != null) {
+							contexts.put(context.getId(), ContextBeans.describing(context));
+							context = BeansEndpoint.getConfigurableParent(context);
+						}
+						ApplicationBeans result = new ApplicationBeans(contexts);
 						assertThat(result.getContexts().get(parent.getId()).getBeans()).containsKey("bean");
 						assertThat(result.getContexts().get(child.getId()).getBeans()).containsKey("endpoint");
 					});

@@ -51,17 +51,6 @@ public class BeansEndpoint {
 		this.context = context;
 	}
 
-	@ReadOperation
-	public ApplicationBeans beans() {
-		Map<String, ContextBeans> contexts = new HashMap<>();
-		ConfigurableApplicationContext context = this.context;
-		while (context != null) {
-			contexts.put(context.getId(), ContextBeans.describing(context));
-			context = getConfigurableParent(context);
-		}
-		return new ApplicationBeans(contexts);
-	}
-
 	private static ConfigurableApplicationContext getConfigurableParent(ConfigurableApplicationContext context) {
 		ApplicationContext parent = context.getParent();
 		if (parent instanceof ConfigurableApplicationContext) {
