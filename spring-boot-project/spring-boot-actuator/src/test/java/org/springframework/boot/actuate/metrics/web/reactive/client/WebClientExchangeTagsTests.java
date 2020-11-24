@@ -120,12 +120,6 @@ class WebClientExchangeTagsTests {
 	}
 
 	@Test
-	void outcomeTagIsUnknownWhenResponseIsNull() {
-		Tag tag = WebClientExchangeTags.outcome(null);
-		assertThat(tag.getValue()).isEqualTo("UNKNOWN");
-	}
-
-	@Test
 	void outcomeTagIsInformationalWhenResponseIs1xx() {
 		given(this.response.rawStatusCode()).willReturn(HttpStatus.CONTINUE.value());
 		Tag tag = WebClientExchangeTags.outcome(this.response);
