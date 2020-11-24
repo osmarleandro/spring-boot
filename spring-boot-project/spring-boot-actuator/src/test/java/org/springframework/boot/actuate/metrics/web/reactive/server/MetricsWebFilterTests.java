@@ -47,14 +47,6 @@ class MetricsWebFilterTests {
 
 	private MetricsWebFilter webFilter;
 
-	@BeforeEach
-	void setup() {
-		MockClock clock = new MockClock();
-		this.registry = new SimpleMeterRegistry(SimpleConfig.DEFAULT, clock);
-		this.webFilter = new MetricsWebFilter(this.registry, new DefaultWebFluxTagsProvider(true), REQUEST_METRICS_NAME,
-				AutoTimer.ENABLED);
-	}
-
 	@Test
 	void filterAddsTagsToRegistry() {
 		MockServerWebExchange exchange = createExchange("/projects/spring-boot", "/projects/{project}");
