@@ -57,11 +57,4 @@ class ReactiveHealthContributorTests {
 		assertThat(((ReactiveHealthIndicator) contained).health().block().getStatus()).isEqualTo(Status.OUT_OF_SERVICE);
 	}
 
-	@Test
-	void adaptWhenUnknownThrowsException() {
-		assertThatIllegalStateException()
-				.isThrownBy(() -> ReactiveHealthContributor.adapt(mock(HealthContributor.class)))
-				.withMessage("Unknown HealthContributor type");
-	}
-
 }
