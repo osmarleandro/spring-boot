@@ -142,12 +142,6 @@ class WebMvcMetricsFilterTests {
 	}
 
 	@Test
-	void untimedMethod() throws Exception {
-		this.mvc.perform(get("/api/c1/untimed/10")).andExpect(status().isOk());
-		assertThat(this.registry.find("http.server.requests").tags("uri", "/api/c1/untimed/10").timer()).isNull();
-	}
-
-	@Test
 	void timedControllerClass() throws Exception {
 		this.mvc.perform(get("/api/c2/10")).andExpect(status().isOk());
 		assertThat(this.registry.get("http.server.requests").tags("status", "200").timer().count()).isEqualTo(1L);
