@@ -135,15 +135,6 @@ public class DataSourceHealthIndicator extends AbstractHealthIndicator implement
 	}
 
 	/**
-	 * Set the {@link DataSource} to use.
-	 * @param dataSource the data source
-	 */
-	public void setDataSource(DataSource dataSource) {
-		this.dataSource = dataSource;
-		this.jdbcTemplate = new JdbcTemplate(dataSource);
-	}
-
-	/**
 	 * Set a specific validation query to use to validate a connection. If none is set, a
 	 * validation based on {@link Connection#isValid(int)} is used.
 	 * @param query the validation query to use
