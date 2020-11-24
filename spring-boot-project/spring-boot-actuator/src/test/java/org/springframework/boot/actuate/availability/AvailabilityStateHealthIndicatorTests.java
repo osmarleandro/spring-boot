@@ -63,14 +63,6 @@ class AvailabilityStateHealthIndicatorTests {
 	}
 
 	@Test
-	void createWhenStatusMappingDoesNotCoverAllEnumsThrowsException() {
-		assertThatIllegalArgumentException()
-				.isThrownBy(() -> new AvailabilityStateHealthIndicator(this.applicationAvailability,
-						LivenessState.class, (statusMappings) -> statusMappings.add(LivenessState.CORRECT, Status.UP)))
-				.withMessage("StatusMappings does not include BROKEN");
-	}
-
-	@Test
 	void healthReturnsMappedStatus() {
 		AvailabilityStateHealthIndicator indicator = new AvailabilityStateHealthIndicator(this.applicationAvailability,
 				LivenessState.class, (statusMappings) -> {
