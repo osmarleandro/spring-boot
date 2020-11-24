@@ -103,19 +103,6 @@ class MetricsWebFilterTests {
 		assertMetricsContainsTag("status", "500");
 	}
 
-	@Test
-	void trailingSlashShouldNotRecordDuplicateMetrics() {
-		MockServerWebExchange exchange1 = createExchange("/projects/spring-boot", "/projects/{project}");
-		MockServerWebExchange exchange2 = createExchange("/projects/spring-boot", "/projects/{project}/");
-		this.webFilter.filter(exchange1, (serverWebExchange) -> exchange1.getResponse().setComplete())
-				.block(Duration.ofSeconds(30));
-		this.webFilter.filter(exchange2, (serverWebExchange) -> exchange2.getResponse().setComplete())
-				.block(Duration.ofSeconds(30));
-		assertThat(this.registry.get(REQUEST_METRICS_NAME).tag("uri", "/projects/{project}").timer().count())
-				.isEqualTo(2);
-		assertThat(this.registry.get(REQUEST_METRICS_NAME).tag("status", "200").timer().count()).isEqualTo(2);
-	}
-
 	private MockServerWebExchange createExchange(String path, String pathPattern) {
 		PathPatternParser parser = new PathPatternParser();
 		MockServerWebExchange exchange = MockServerWebExchange.from(MockServerHttpRequest.get(path).build());
