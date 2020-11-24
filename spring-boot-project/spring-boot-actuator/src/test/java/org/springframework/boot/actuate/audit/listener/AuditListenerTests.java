@@ -33,13 +33,4 @@ import static org.mockito.Mockito.verify;
  */
 class AuditListenerTests {
 
-	@Test
-	void testStoredEvents() {
-		AuditEventRepository repository = mock(AuditEventRepository.class);
-		AuditEvent event = new AuditEvent("principal", "type", Collections.emptyMap());
-		AuditListener listener = new AuditListener(repository);
-		listener.onApplicationEvent(new AuditApplicationEvent(event));
-		verify(repository).add(event);
-	}
-
 }
