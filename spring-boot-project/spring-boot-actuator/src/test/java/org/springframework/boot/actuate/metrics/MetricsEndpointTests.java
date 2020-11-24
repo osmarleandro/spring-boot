@@ -180,14 +180,6 @@ class MetricsEndpointTests {
 		assertMetricHasStatisticEqualTo(reg, "timer", Statistic.MAX, 2.0);
 	}
 
-	@Test
-	void countAggregation() {
-		SimpleMeterRegistry reg = new SimpleMeterRegistry();
-		reg.counter("counter", "k", "v1").increment();
-		reg.counter("counter", "k", "v2").increment();
-		assertMetricHasStatisticEqualTo(reg, "counter", Statistic.COUNT, 2.0);
-	}
-
 	private void assertMetricHasStatisticEqualTo(MeterRegistry registry, String metricName, Statistic stat,
 			Double value) {
 		MetricsEndpoint endpoint = new MetricsEndpoint(registry);
