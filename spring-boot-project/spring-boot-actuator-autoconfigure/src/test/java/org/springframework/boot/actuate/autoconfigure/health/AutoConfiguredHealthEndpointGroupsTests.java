@@ -16,7 +16,9 @@
 
 package org.springframework.boot.actuate.autoconfigure.health;
 
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.LinkedHashSet;
 
 import org.junit.jupiter.api.Test;
 
@@ -97,7 +99,8 @@ class AutoConfiguredHealthEndpointGroupsTests {
 					HealthEndpointGroup primary = groups.getPrimary();
 					assertThat(primary.showComponents(SecurityContext.NONE)).isTrue();
 					assertThat(primary.showDetails(SecurityContext.NONE)).isFalse();
-					assertThat(primary.getStatusAggregator().getAggregateStatus(Status.UP, Status.DOWN))
+					Status[] statuses = { Status.UP, Status.DOWN };
+					assertThat(primary.getStatusAggregator().getAggregateStatus(new LinkedHashSet<>(Arrays.asList(statuses))))
 							.isEqualTo(Status.UP);
 					assertThat(primary.getHttpCodeStatusMapper().getStatusCode(Status.DOWN)).isEqualTo(200);
 				});
@@ -112,9 +115,11 @@ class AutoConfiguredHealthEndpointGroupsTests {
 					HealthEndpointGroups groups = context.getBean(HealthEndpointGroups.class);
 					HealthEndpointGroup primary = groups.getPrimary();
 					HealthEndpointGroup groupA = groups.get("a");
-					assertThat(primary.getStatusAggregator().getAggregateStatus(Status.UP, Status.DOWN, Status.UNKNOWN))
+					Status[] statuses = { Status.UP, Status.DOWN, Status.UNKNOWN };
+					assertThat(primary.getStatusAggregator().getAggregateStatus(new LinkedHashSet<>(Arrays.asList(statuses))))
 							.isEqualTo(Status.UNKNOWN);
-					assertThat(groupA.getStatusAggregator().getAggregateStatus(Status.UP, Status.DOWN, Status.UNKNOWN))
+					Status[] statuses1 = { Status.UP, Status.DOWN, Status.UNKNOWN };
+					assertThat(groupA.getStatusAggregator().getAggregateStatus(new LinkedHashSet<>(Arrays.asList(statuses1))))
 							.isEqualTo(Status.UNKNOWN);
 				});
 	}
@@ -130,11 +135,14 @@ class AutoConfiguredHealthEndpointGroupsTests {
 					HealthEndpointGroup primary = groups.getPrimary();
 					HealthEndpointGroup groupA = groups.get("a");
 					HealthEndpointGroup groupB = groups.get("b");
-					assertThat(primary.getStatusAggregator().getAggregateStatus(Status.UP, Status.DOWN, Status.UNKNOWN))
+					Status[] statuses = { Status.UP, Status.DOWN, Status.UNKNOWN };
+					assertThat(primary.getStatusAggregator().getAggregateStatus(new LinkedHashSet<>(Arrays.asList(statuses))))
 							.isEqualTo(Status.UNKNOWN);
-					assertThat(groupA.getStatusAggregator().getAggregateStatus(Status.UP, Status.DOWN, Status.UNKNOWN))
+					Status[] statuses1 = { Status.UP, Status.DOWN, Status.UNKNOWN };
+					assertThat(groupA.getStatusAggregator().getAggregateStatus(new LinkedHashSet<>(Arrays.asList(statuses1))))
 							.isEqualTo(Status.UP);
-					assertThat(groupB.getStatusAggregator().getAggregateStatus(Status.UP, Status.DOWN, Status.UNKNOWN))
+					Status[] statuses2 = { Status.UP, Status.DOWN, Status.UNKNOWN };
+					assertThat(groupB.getStatusAggregator().getAggregateStatus(new LinkedHashSet<>(Arrays.asList(statuses2))))
 							.isEqualTo(Status.UNKNOWN);
 				});
 	}
@@ -146,9 +154,11 @@ class AutoConfiguredHealthEndpointGroupsTests {
 					HealthEndpointGroups groups = context.getBean(HealthEndpointGroups.class);
 					HealthEndpointGroup primary = groups.getPrimary();
 					HealthEndpointGroup groupA = groups.get("a");
-					assertThat(primary.getStatusAggregator().getAggregateStatus(Status.UP, Status.DOWN))
+					Status[] statuses = { Status.UP, Status.DOWN };
+					assertThat(primary.getStatusAggregator().getAggregateStatus(new LinkedHashSet<>(Arrays.asList(statuses))))
 							.isEqualTo(Status.UP);
-					assertThat(groupA.getStatusAggregator().getAggregateStatus(Status.UP, Status.DOWN))
+					Status[] statuses1 = { Status.UP, Status.DOWN };
+					assertThat(groupA.getStatusAggregator().getAggregateStatus(new LinkedHashSet<>(Arrays.asList(statuses1))))
 							.isEqualTo(Status.UP);
 				});
 	}
@@ -163,11 +173,14 @@ class AutoConfiguredHealthEndpointGroupsTests {
 					HealthEndpointGroup primary = groups.getPrimary();
 					HealthEndpointGroup groupA = groups.get("a");
 					HealthEndpointGroup groupB = groups.get("b");
-					assertThat(primary.getStatusAggregator().getAggregateStatus(Status.UP, Status.DOWN, Status.UNKNOWN))
+					Status[] statuses = { Status.UP, Status.DOWN, Status.UNKNOWN };
+					assertThat(primary.getStatusAggregator().getAggregateStatus(new LinkedHashSet<>(Arrays.asList(statuses))))
 							.isEqualTo(Status.UP);
-					assertThat(groupA.getStatusAggregator().getAggregateStatus(Status.UP, Status.DOWN, Status.UNKNOWN))
+					Status[] statuses1 = { Status.UP, Status.DOWN, Status.UNKNOWN };
+					assertThat(groupA.getStatusAggregator().getAggregateStatus(new LinkedHashSet<>(Arrays.asList(statuses1))))
 							.isEqualTo(Status.UNKNOWN);
-					assertThat(groupB.getStatusAggregator().getAggregateStatus(Status.UP, Status.DOWN, Status.UNKNOWN))
+					Status[] statuses2 = { Status.UP, Status.DOWN, Status.UNKNOWN };
+					assertThat(groupB.getStatusAggregator().getAggregateStatus(new LinkedHashSet<>(Arrays.asList(statuses2))))
 							.isEqualTo(Status.UP);
 				});
 	}
@@ -184,11 +197,14 @@ class AutoConfiguredHealthEndpointGroupsTests {
 					HealthEndpointGroup primary = groups.getPrimary();
 					HealthEndpointGroup groupA = groups.get("a");
 					HealthEndpointGroup groupB = groups.get("b");
-					assertThat(primary.getStatusAggregator().getAggregateStatus(Status.UP, Status.DOWN, Status.UNKNOWN))
+					Status[] statuses = { Status.UP, Status.DOWN, Status.UNKNOWN };
+					assertThat(primary.getStatusAggregator().getAggregateStatus(new LinkedHashSet<>(Arrays.asList(statuses))))
 							.isEqualTo(Status.UP);
-					assertThat(groupA.getStatusAggregator().getAggregateStatus(Status.UP, Status.DOWN, Status.UNKNOWN))
+					Status[] statuses1 = { Status.UP, Status.DOWN, Status.UNKNOWN };
+					assertThat(groupA.getStatusAggregator().getAggregateStatus(new LinkedHashSet<>(Arrays.asList(statuses1))))
 							.isEqualTo(Status.UNKNOWN);
-					assertThat(groupB.getStatusAggregator().getAggregateStatus(Status.UP, Status.DOWN, Status.UNKNOWN))
+					Status[] statuses2 = { Status.UP, Status.DOWN, Status.UNKNOWN };
+					assertThat(groupB.getStatusAggregator().getAggregateStatus(new LinkedHashSet<>(Arrays.asList(statuses2))))
 							.isEqualTo(Status.UP);
 				});
 	}
@@ -205,11 +221,14 @@ class AutoConfiguredHealthEndpointGroupsTests {
 					HealthEndpointGroup primary = groups.getPrimary();
 					HealthEndpointGroup groupA = groups.get("a");
 					HealthEndpointGroup groupB = groups.get("b");
-					assertThat(primary.getStatusAggregator().getAggregateStatus(Status.UP, Status.DOWN, Status.UNKNOWN))
+					Status[] statuses = { Status.UP, Status.DOWN, Status.UNKNOWN };
+					assertThat(primary.getStatusAggregator().getAggregateStatus(new LinkedHashSet<>(Arrays.asList(statuses))))
 							.isEqualTo(Status.DOWN);
-					assertThat(groupA.getStatusAggregator().getAggregateStatus(Status.UP, Status.DOWN, Status.UNKNOWN))
+					Status[] statuses1 = { Status.UP, Status.DOWN, Status.UNKNOWN };
+					assertThat(groupA.getStatusAggregator().getAggregateStatus(new LinkedHashSet<>(Arrays.asList(statuses1))))
 							.isEqualTo(Status.UNKNOWN);
-					assertThat(groupB.getStatusAggregator().getAggregateStatus(Status.UP, Status.DOWN, Status.UNKNOWN))
+					Status[] statuses2 = { Status.UP, Status.DOWN, Status.UNKNOWN };
+					assertThat(groupB.getStatusAggregator().getAggregateStatus(new LinkedHashSet<>(Arrays.asList(statuses2))))
 							.isEqualTo(Status.UP);
 				});
 	}

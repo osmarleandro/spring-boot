@@ -46,15 +46,6 @@ public interface StatusAggregator {
 	 * @param statuses the statuses to aggregate
 	 * @return the aggregate status
 	 */
-	default Status getAggregateStatus(Status... statuses) {
-		return getAggregateStatus(new LinkedHashSet<>(Arrays.asList(statuses)));
-	}
-
-	/**
-	 * Return the aggregate status for the given set of statuses.
-	 * @param statuses the statuses to aggregate
-	 * @return the aggregate status
-	 */
 	Status getAggregateStatus(Set<Status> statuses);
 
 }
