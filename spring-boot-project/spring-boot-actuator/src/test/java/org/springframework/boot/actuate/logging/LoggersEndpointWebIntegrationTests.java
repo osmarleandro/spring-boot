@@ -102,11 +102,6 @@ class LoggersEndpointWebIntegrationTests {
 	}
 
 	@WebEndpointTest
-	void getLoggersWhenLoggerAndLoggerGroupNotFoundShouldReturnNotFound() {
-		this.client.get().uri("/actuator/loggers/com.does.not.exist").exchange().expectStatus().isNotFound();
-	}
-
-	@WebEndpointTest
 	void getLoggerGroupShouldReturnConfiguredLogLevelAndMembers() {
 		setLogLevelToDebug("test");
 		this.client.get().uri("actuator/loggers/test").exchange().expectStatus().isOk().expectBody()
