@@ -36,12 +36,6 @@ class StatusTests {
 	}
 
 	@Test
-	void createWhenDescriptionIsNullThrowsException() {
-		assertThatIllegalArgumentException().isThrownBy(() -> new Status("code", null))
-				.withMessage("Description must not be null");
-	}
-
-	@Test
 	void getCodeReturnsCode() {
 		Status status = new Status("spring", "boot");
 		assertThat(status.getCode()).isEqualTo("spring");
