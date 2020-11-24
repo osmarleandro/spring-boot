@@ -131,7 +131,10 @@ public final class WebMvcTags {
 					}
 				}
 			}
-			String pathInfo = getPathInfo(request);
+			String pathInfo1 = request.getPathInfo();
+			String uri1 = StringUtils.hasText(pathInfo1) ? pathInfo1 : "/";
+			uri1 = MULTIPLE_SLASH_PATTERN.matcher(uri1).replaceAll("/");
+			String pathInfo = TRAILING_SLASH_PATTERN.matcher(uri1).replaceAll("");
 			if (pathInfo.isEmpty()) {
 				return URI_ROOT;
 			}
@@ -154,13 +157,6 @@ public final class WebMvcTags {
 			return dataRestPathPattern.getPatternString();
 		}
 		return (String) request.getAttribute(HandlerMapping.BEST_MATCHING_PATTERN_ATTRIBUTE);
-	}
-
-	private static String getPathInfo(HttpServletRequest request) {
-		String pathInfo = request.getPathInfo();
-		String uri = StringUtils.hasText(pathInfo) ? pathInfo : "/";
-		uri = MULTIPLE_SLASH_PATTERN.matcher(uri).replaceAll("/");
-		return TRAILING_SLASH_PATTERN.matcher(uri).replaceAll("");
 	}
 
 	/**
