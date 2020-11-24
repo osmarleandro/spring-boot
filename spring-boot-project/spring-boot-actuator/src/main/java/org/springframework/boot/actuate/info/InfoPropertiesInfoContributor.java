@@ -58,14 +58,6 @@ public abstract class InfoPropertiesInfoContributor<T extends InfoProperties> im
 	}
 
 	/**
-	 * Return the mode that should be used to expose the content.
-	 * @return the mode
-	 */
-	protected final Mode getMode() {
-		return this.mode;
-	}
-
-	/**
 	 * Return a {@link PropertySource} for the {@link Mode#SIMPLE SIMPLE} mode.
 	 * @return the property source for the simple model
 	 * @see #toPropertySource()
