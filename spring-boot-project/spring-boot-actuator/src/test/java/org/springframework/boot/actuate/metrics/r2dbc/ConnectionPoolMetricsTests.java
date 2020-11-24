@@ -74,16 +74,23 @@ class ConnectionPoolMetricsTests {
 		// acquire two connections
 		connectionPool.create().as(StepVerifier::create).expectNextCount(1).verifyComplete();
 		connectionPool.create().as(StepVerifier::create).expectNextCount(1).verifyComplete();
-		assertGauge(registry, "r2dbc.pool.acquired", 2);
-		assertGauge(registry, "r2dbc.pool.allocated", 3);
-		assertGauge(registry, "r2dbc.pool.idle", 1);
-		assertGauge(registry, "r2dbc.pool.pending", 0);
-		assertGauge(registry, "r2dbc.pool.max.allocated", 7);
-		assertGauge(registry, "r2dbc.pool.max.pending", Integer.MAX_VALUE);
-	}
-
-	private void assertGauge(SimpleMeterRegistry registry, String metric, int expectedValue) {
-		Gauge gauge = registry.get(metric).gauge();
+		Gauge gauge = registry.get("r2dbc.pool.acquired").gauge();
+		assertThat(gauge.value()).isEqualTo(2);
+		assertThat(gauge.getId().getTags()).containsExactlyInAnyOrder(Tag.of("name", "test-pool"), testTag, regionTag);
+		Gauge gauge = registry.get("r2dbc.pool.allocated").gauge();
+		assertThat(gauge.value()).isEqualTo(3);
+		assertThat(gauge.getId().getTags()).containsExactlyInAnyOrder(Tag.of("name", "test-pool"), testTag, regionTag);
+		Gauge gauge = registry.get("r2dbc.pool.idle").gauge();
+		assertThat(gauge.value()).isEqualTo(1);
+		assertThat(gauge.getId().getTags()).containsExactlyInAnyOrder(Tag.of("name", "test-pool"), testTag, regionTag);
+		Gauge gauge = registry.get("r2dbc.pool.pending").gauge();
+		assertThat(gauge.value()).isEqualTo(0);
+		assertThat(gauge.getId().getTags()).containsExactlyInAnyOrder(Tag.of("name", "test-pool"), testTag, regionTag);
+		Gauge gauge = registry.get("r2dbc.pool.max.allocated").gauge();
+		assertThat(gauge.value()).isEqualTo(7);
+		assertThat(gauge.getId().getTags()).containsExactlyInAnyOrder(Tag.of("name", "test-pool"), testTag, regionTag);
+		int expectedValue = Integer.MAX_VALUE;
+		Gauge gauge = registry.get("r2dbc.pool.max.pending").gauge();
 		assertThat(gauge.value()).isEqualTo(expectedValue);
 		assertThat(gauge.getId().getTags()).containsExactlyInAnyOrder(Tag.of("name", "test-pool"), testTag, regionTag);
 	}
