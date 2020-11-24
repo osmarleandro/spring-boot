@@ -31,11 +31,6 @@ class TraceableHttpServletRequestTests {
 
 	private MockHttpServletRequest request;
 
-	@BeforeEach
-	void setup() {
-		this.request = new MockHttpServletRequest("GET", "/script");
-	}
-
 	@Test
 	void getUriWithoutQueryStringShouldReturnUri() {
 		validate("http://localhost/script");
