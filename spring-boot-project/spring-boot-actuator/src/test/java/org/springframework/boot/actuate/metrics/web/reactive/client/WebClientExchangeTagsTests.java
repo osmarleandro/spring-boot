@@ -87,11 +87,6 @@ class WebClientExchangeTagsTests {
 	}
 
 	@Test
-	void clientName() {
-		assertThat(WebClientExchangeTags.clientName(this.request)).isEqualTo(Tag.of("clientName", "example.org"));
-	}
-
-	@Test
 	void status() {
 		given(this.response.rawStatusCode()).willReturn(HttpStatus.OK.value());
 		assertThat(WebClientExchangeTags.status(this.response, null)).isEqualTo(Tag.of("status", "200"));
