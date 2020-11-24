@@ -90,15 +90,6 @@ abstract class HealthEndpointSupportTests<R extends ContributorRegistry<C>, C, T
 	}
 
 	@Test
-	void getHealthWhenPathIsGroupReturnsResultFromGroup() {
-		this.registry.registerContributor("atest", createContributor(this.up));
-		HealthResult<T> result = create(this.registry, this.groups).getHealth(ApiVersion.V3, SecurityContext.NONE,
-				false, "alltheas", "atest");
-		assertThat(result.getGroup()).isEqualTo(this.allTheAs);
-		assertThat(getHealth(result)).isEqualTo(this.up);
-	}
-
-	@Test
 	void getHealthWhenAlwaysShowIsFalseAndGroupIsTrueShowsComponents() {
 		C contributor = createContributor(this.up);
 		C compositeContributor = createCompositeContributor(Collections.singletonMap("spring", contributor));
