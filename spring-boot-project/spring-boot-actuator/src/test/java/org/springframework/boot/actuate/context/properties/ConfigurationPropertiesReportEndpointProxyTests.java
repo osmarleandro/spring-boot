@@ -65,19 +65,6 @@ class ConfigurationPropertiesReportEndpointProxyTests {
 		});
 	}
 
-	@Test
-	void proxiedConstructorBoundPropertiesShouldBeAvailableInReport() {
-		ApplicationContextRunner contextRunner = new ApplicationContextRunner()
-				.withUserConfiguration(ValidatedConfiguration.class).withPropertyValues("validated.name=baz");
-		contextRunner.run((context) -> {
-			ApplicationConfigurationProperties applicationProperties = context
-					.getBean(ConfigurationPropertiesReportEndpoint.class).configurationProperties();
-			Map<String, Object> properties = applicationProperties.getContexts().get(context.getId()).getBeans()
-					.values().stream().map(ConfigurationPropertiesBeanDescriptor::getProperties).findFirst().get();
-			assertThat(properties.get("name")).isEqualTo("baz");
-		});
-	}
-
 	@Configuration(proxyBeanMethods = false)
 	@EnableTransactionManagement(proxyTargetClass = false)
 	@EnableConfigurationProperties
