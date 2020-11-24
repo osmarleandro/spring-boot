@@ -79,8 +79,8 @@ class HealthEndpointWebIntegrationTests {
 
 	@WebEndpointTest
 	void whenHealthIsDown503ResponseIsReturned(ApplicationContext context, WebTestClient client) {
-		HealthIndicator healthIndicator = () -> Health.down().build();
-		ReactiveHealthIndicator reactiveHealthIndicator = () -> Mono.just(Health.down().build());
+		HealthIndicator healthIndicator = () -> Health.status(Status.DOWN).build();
+		ReactiveHealthIndicator reactiveHealthIndicator = () -> Mono.just(Health.status(Status.DOWN).build());
 		withHealthContributor(context, "charlie", healthIndicator, reactiveHealthIndicator,
 				() -> client.get().uri("/actuator/health").accept(MediaType.APPLICATION_JSON).exchange().expectStatus()
 						.isEqualTo(HttpStatus.SERVICE_UNAVAILABLE).expectBody().jsonPath("status").isEqualTo("DOWN")
@@ -90,8 +90,8 @@ class HealthEndpointWebIntegrationTests {
 
 	@WebEndpointTest
 	void whenComponentHealthIsDown503ResponseIsReturned(ApplicationContext context, WebTestClient client) {
-		HealthIndicator healthIndicator = () -> Health.down().build();
-		ReactiveHealthIndicator reactiveHealthIndicator = () -> Mono.just(Health.down().build());
+		HealthIndicator healthIndicator = () -> Health.status(Status.DOWN).build();
+		ReactiveHealthIndicator reactiveHealthIndicator = () -> Mono.just(Health.status(Status.DOWN).build());
 		withHealthContributor(context, "charlie", healthIndicator, reactiveHealthIndicator,
 				() -> client.get().uri("/actuator/health/charlie").accept(MediaType.APPLICATION_JSON).exchange()
 						.expectStatus().isEqualTo(HttpStatus.SERVICE_UNAVAILABLE).expectBody().jsonPath("status")
@@ -100,10 +100,10 @@ class HealthEndpointWebIntegrationTests {
 
 	@WebEndpointTest
 	void whenComponentInstanceHealthIsDown503ResponseIsReturned(ApplicationContext context, WebTestClient client) {
-		HealthIndicator healthIndicator = () -> Health.down().build();
+		HealthIndicator healthIndicator = () -> Health.status(Status.DOWN).build();
 		CompositeHealthContributor composite = CompositeHealthContributor
 				.fromMap(Collections.singletonMap("one", healthIndicator));
-		ReactiveHealthIndicator reactiveHealthIndicator = () -> Mono.just(Health.down().build());
+		ReactiveHealthIndicator reactiveHealthIndicator = () -> Mono.just(Health.status(Status.DOWN).build());
 		CompositeReactiveHealthContributor reactiveComposite = CompositeReactiveHealthContributor
 				.fromMap(Collections.singletonMap("one", reactiveHealthIndicator));
 		withHealthContributor(context, "charlie", composite, reactiveComposite,

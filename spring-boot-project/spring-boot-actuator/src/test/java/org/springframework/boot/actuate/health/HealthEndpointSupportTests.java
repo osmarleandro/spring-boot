@@ -44,7 +44,7 @@ abstract class HealthEndpointSupportTests<R extends ContributorRegistry<C>, C, T
 
 	final Health up = Health.up().withDetail("spring", "boot").build();
 
-	final Health down = Health.down().build();
+	final Health down = Health.status(Status.DOWN).build();
 
 	final TestHealthEndpointGroup primaryGroup = new TestHealthEndpointGroup();
 

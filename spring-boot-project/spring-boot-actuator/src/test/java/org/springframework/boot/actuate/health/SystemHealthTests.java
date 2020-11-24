@@ -40,7 +40,7 @@ class SystemHealthTests {
 	void serializeWithJacksonReturnsValidJson() throws Exception {
 		Map<String, HealthComponent> components = new LinkedHashMap<>();
 		components.put("db1", Health.up().build());
-		components.put("db2", Health.down().withDetail("a", "b").build());
+		components.put("db2", Health.status(Status.DOWN).withDetail("a", "b").build());
 		Set<String> groups = new LinkedHashSet<>(Arrays.asList("liveness", "readiness"));
 		CompositeHealth health = new SystemHealth(ApiVersion.V3, Status.UP, components, groups);
 		ObjectMapper mapper = new ObjectMapper();

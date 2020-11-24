@@ -152,7 +152,7 @@ class HealthTests {
 
 	@Test
 	void down() {
-		Health health = Health.down().build();
+		Health health = Health.status(Status.DOWN).build();
 		assertThat(health.getStatus()).isEqualTo(Status.DOWN);
 		assertThat(health.getDetails()).isEmpty();
 	}
@@ -180,7 +180,7 @@ class HealthTests {
 
 	@Test
 	void serializeWithJacksonReturnsValidJson() throws Exception {
-		Health health = Health.down().withDetail("a", "b").build();
+		Health health = Health.status(Status.DOWN).withDetail("a", "b").build();
 		ObjectMapper mapper = new ObjectMapper();
 		String json = mapper.writeValueAsString(health);
 		assertThat(json).isEqualTo("{\"status\":\"DOWN\",\"details\":{\"a\":\"b\"}}");
