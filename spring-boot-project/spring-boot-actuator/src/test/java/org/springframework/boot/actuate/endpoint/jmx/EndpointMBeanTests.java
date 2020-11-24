@@ -59,13 +59,6 @@ class EndpointMBeanTests {
 	private TestJmxOperationResponseMapper responseMapper = new TestJmxOperationResponseMapper();
 
 	@Test
-	void createWhenResponseMapperIsNullShouldThrowException() {
-		assertThatIllegalArgumentException()
-				.isThrownBy(() -> new EndpointMBean(null, null, mock(ExposableJmxEndpoint.class)))
-				.withMessageContaining("ResponseMapper must not be null");
-	}
-
-	@Test
 	void createWhenEndpointIsNullShouldThrowException() {
 		assertThatIllegalArgumentException()
 				.isThrownBy(() -> new EndpointMBean(mock(JmxOperationResponseMapper.class), null, null))
