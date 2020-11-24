@@ -87,16 +87,12 @@ class ControllerEndpointHandlerMappingIntegrationTests {
 		return (context) -> {
 			int port = ((AnnotationConfigServletWebServerApplicationContext) context.getSourceApplicationContext())
 					.getWebServer().getPort();
-			WebTestClient webTestClient = createWebTestClient(port);
+			DefaultUriBuilderFactory uriBuilderFactory = new DefaultUriBuilderFactory("http://localhost:" + port);
+			uriBuilderFactory.setEncodingMode(DefaultUriBuilderFactory.EncodingMode.NONE);
+			WebTestClient webTestClient = WebTestClient.bindToServer().uriBuilderFactory(uriBuilderFactory).responseTimeout(Duration.ofMinutes(2))
+			.build();
 			webClient.accept(webTestClient);
 		};
-	}
-
-	private WebTestClient createWebTestClient(int port) {
-		DefaultUriBuilderFactory uriBuilderFactory = new DefaultUriBuilderFactory("http://localhost:" + port);
-		uriBuilderFactory.setEncodingMode(DefaultUriBuilderFactory.EncodingMode.NONE);
-		return WebTestClient.bindToServer().uriBuilderFactory(uriBuilderFactory).responseTimeout(Duration.ofMinutes(2))
-				.build();
 	}
 
 	@Configuration(proxyBeanMethods = false)
