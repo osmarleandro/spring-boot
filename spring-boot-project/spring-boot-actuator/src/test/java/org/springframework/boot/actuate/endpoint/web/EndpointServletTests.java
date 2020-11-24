@@ -112,17 +112,6 @@ class EndpointServletTests {
 	}
 
 	@Test
-	void withInitParametersWhenHasExistingShouldMergeParameters() {
-		EndpointServlet endpointServlet = new EndpointServlet(TestServlet.class).withInitParameter("a", "b")
-				.withInitParameter("c", "d");
-		Map<String, String> extra = new LinkedHashMap<>();
-		extra.put("a", "b1");
-		extra.put("e", "f");
-		assertThat(endpointServlet.withInitParameters(extra).getInitParameters()).containsExactly(entry("a", "b1"),
-				entry("c", "d"), entry("e", "f"));
-	}
-
-	@Test
 	void withLoadOnStartupNotSetShouldReturnDefaultValue() {
 		EndpointServlet endpointServlet = new EndpointServlet(TestServlet.class);
 		assertThat(endpointServlet.getLoadOnStartup()).isEqualTo(-1);
