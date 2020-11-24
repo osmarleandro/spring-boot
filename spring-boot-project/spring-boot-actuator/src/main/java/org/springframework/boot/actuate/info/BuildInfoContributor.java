@@ -53,7 +53,10 @@ public class BuildInfoContributor extends InfoPropertiesInfoContributor<BuildPro
 
 	@Override
 	protected void postProcessContent(Map<String, Object> content) {
-		replaceValue(content, "time", getProperties().getTime());
+		Object value = getProperties().getTime();
+		if (content.containsKey("time") && value != null) {
+			content.put("time", value);
+		}
 	}
 
 }
