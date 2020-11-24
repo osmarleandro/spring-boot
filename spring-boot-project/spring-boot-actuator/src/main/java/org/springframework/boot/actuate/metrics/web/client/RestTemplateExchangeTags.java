@@ -61,7 +61,8 @@ public final class RestTemplateExchangeTags {
 	 * @return the uri tag
 	 */
 	public static Tag uri(HttpRequest request) {
-		return Tag.of("uri", ensureLeadingSlash(stripUri(request.getURI().toString())));
+		String url = stripUri(request.getURI().toString());
+		return Tag.of("uri", (url == null || url.startsWith("/")) ? url : "/" + url);
 	}
 
 	/**
@@ -71,15 +72,12 @@ public final class RestTemplateExchangeTags {
 	 */
 	public static Tag uri(String uriTemplate) {
 		String uri = (StringUtils.hasText(uriTemplate) ? uriTemplate : "none");
-		return Tag.of("uri", ensureLeadingSlash(stripUri(uri)));
+		String url = stripUri(uri);
+		return Tag.of("uri", (url == null || url.startsWith("/")) ? url : "/" + url);
 	}
 
 	private static String stripUri(String uri) {
 		return STRIP_URI_PATTERN.matcher(uri).replaceAll("");
-	}
-
-	private static String ensureLeadingSlash(String url) {
-		return (url == null || url.startsWith("/")) ? url : "/" + url;
 	}
 
 	/**
