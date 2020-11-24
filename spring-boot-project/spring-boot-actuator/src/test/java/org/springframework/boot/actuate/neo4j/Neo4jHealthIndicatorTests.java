@@ -52,7 +52,12 @@ class Neo4jHealthIndicatorTests {
 	@Test
 	void neo4jIsUp() {
 		ResultSummary resultSummary = ResultSummaryMock.createResultSummary("4711", "My Home", "test");
-		Driver driver = mockDriver(resultSummary, "ultimate collectors edition");
+		Result statementResult = mockStatementResult(resultSummary, "ultimate collectors edition");
+		Session session = mock(Session.class);
+		given(session.run(anyString())).willReturn(statementResult);
+		Driver driver1 = mock(Driver.class);
+		given(driver1.session(any(SessionConfig.class))).willReturn(session);
+		Driver driver = driver1;
 		Health health = new Neo4jHealthIndicator(driver).health();
 		assertThat(health.getStatus()).isEqualTo(Status.UP);
 		assertThat(health.getDetails()).containsEntry("server", "4711@My Home");
@@ -63,7 +68,12 @@ class Neo4jHealthIndicatorTests {
 	@Test
 	void neo4jIsUpWithoutDatabaseName() {
 		ResultSummary resultSummary = ResultSummaryMock.createResultSummary("4711", "My Home", null);
-		Driver driver = mockDriver(resultSummary, "some edition");
+		Result statementResult = mockStatementResult(resultSummary, "some edition");
+		Session session = mock(Session.class);
+		given(session.run(anyString())).willReturn(statementResult);
+		Driver driver1 = mock(Driver.class);
+		given(driver1.session(any(SessionConfig.class))).willReturn(session);
+		Driver driver = driver1;
 		Health health = new Neo4jHealthIndicator(driver).health();
 		assertThat(health.getStatus()).isEqualTo(Status.UP);
 		assertThat(health.getDetails()).containsEntry("server", "4711@My Home");
@@ -74,7 +84,12 @@ class Neo4jHealthIndicatorTests {
 	@Test
 	void neo4jIsUpWithEmptyDatabaseName() {
 		ResultSummary resultSummary = ResultSummaryMock.createResultSummary("4711", "My Home", "");
-		Driver driver = mockDriver(resultSummary, "some edition");
+		Result statementResult = mockStatementResult(resultSummary, "some edition");
+		Session session = mock(Session.class);
+		given(session.run(anyString())).willReturn(statementResult);
+		Driver driver1 = mock(Driver.class);
+		given(driver1.session(any(SessionConfig.class))).willReturn(session);
+		Driver driver = driver1;
 		Health health = new Neo4jHealthIndicator(driver).health();
 		assertThat(health.getStatus()).isEqualTo(Status.UP);
 		assertThat(health.getDetails()).containsEntry("server", "4711@My Home");
@@ -119,15 +134,6 @@ class Neo4jHealthIndicatorTests {
 		given(statementResult.single()).willReturn(record);
 		given(statementResult.consume()).willReturn(resultSummary);
 		return statementResult;
-	}
-
-	private Driver mockDriver(ResultSummary resultSummary, String edition) {
-		Result statementResult = mockStatementResult(resultSummary, edition);
-		Session session = mock(Session.class);
-		given(session.run(anyString())).willReturn(statementResult);
-		Driver driver = mock(Driver.class);
-		given(driver.session(any(SessionConfig.class))).willReturn(session);
-		return driver;
 	}
 
 }
