@@ -98,11 +98,6 @@ class WebClientExchangeTagsTests {
 	}
 
 	@Test
-	void statusWhenIOException() {
-		assertThat(WebClientExchangeTags.status(null, new IOException())).isEqualTo(Tag.of("status", "IO_ERROR"));
-	}
-
-	@Test
 	void statusWhenClientException() {
 		assertThat(WebClientExchangeTags.status(null, new IllegalArgumentException()))
 				.isEqualTo(Tag.of("status", "CLIENT_ERROR"));
