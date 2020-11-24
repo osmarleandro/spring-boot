@@ -52,12 +52,6 @@ class OperationMethodParameterTests {
 		assertThat(parameter.isMandatory()).isTrue();
 	}
 
-	@Test
-	void isMandatoryWhenNullableAnnotationShouldReturnFalse() {
-		OperationMethodParameter parameter = new OperationMethodParameter("name", this.method.getParameters()[1]);
-		assertThat(parameter.isMandatory()).isFalse();
-	}
-
 	void example(String one, @Nullable String two) {
 
 	}
