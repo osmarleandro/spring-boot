@@ -28,13 +28,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class OutcomeTests {
 
 	@Test
-	void outcomeForInformationalStatusIsInformational() {
-		for (int status = 100; status < 200; status++) {
-			assertThat(Outcome.forStatus(status)).isEqualTo(Outcome.INFORMATIONAL);
-		}
-	}
-
-	@Test
 	void outcomeForSuccessStatusIsSuccess() {
 		for (int status = 200; status < 300; status++) {
 			assertThat(Outcome.forStatus(status)).isEqualTo(Outcome.SUCCESS);
