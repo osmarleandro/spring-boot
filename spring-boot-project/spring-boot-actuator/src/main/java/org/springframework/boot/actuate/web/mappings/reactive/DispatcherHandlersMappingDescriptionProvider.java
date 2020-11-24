@@ -64,14 +64,6 @@ public class DispatcherHandlersMappingDescriptionProvider implements MappingDesc
 		return "dispatcherHandlers";
 	}
 
-	@Override
-	public Map<String, List<DispatcherHandlerMappingDescription>> describeMappings(ApplicationContext context) {
-		Map<String, List<DispatcherHandlerMappingDescription>> mappings = new HashMap<>();
-		context.getBeansOfType(DispatcherHandler.class)
-				.forEach((name, handler) -> mappings.put(name, describeMappings(handler)));
-		return mappings;
-	}
-
 	private List<DispatcherHandlerMappingDescription> describeMappings(DispatcherHandler dispatcherHandler) {
 		return dispatcherHandler.getHandlerMappings().stream().flatMap(this::describe).collect(Collectors.toList());
 	}
