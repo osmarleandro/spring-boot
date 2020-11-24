@@ -57,13 +57,6 @@ abstract class DefaultContributorRegistryTests {
 	}
 
 	@Test
-	void createWhenNameFactoryIsNullThrowsException() {
-		assertThatIllegalArgumentException()
-				.isThrownBy(() -> new DefaultContributorRegistry<>(Collections.emptyMap(), null))
-				.withMessage("NameFactory must not be null");
-	}
-
-	@Test
 	void createUsesHealthIndicatorNameFactoryByDefault() {
 		this.registry = new DefaultContributorRegistry<>(Collections.singletonMap("oneHealthIndicator", this.one));
 		assertThat(this.registry.getContributor("oneHealthIndicator")).isNull();
