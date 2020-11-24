@@ -60,11 +60,6 @@ public class CompositeHealth extends HealthComponent {
 	}
 
 	@JsonInclude(Include.NON_EMPTY)
-	public Map<String, HealthComponent> getComponents() {
-		return this.components;
-	}
-
-	@JsonInclude(Include.NON_EMPTY)
 	@JsonProperty
 	Map<String, HealthComponent> getDetails() {
 		return this.details;
