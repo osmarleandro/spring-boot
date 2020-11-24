@@ -78,7 +78,7 @@ class DataSourceHealthIndicatorTests {
 		String customValidationQuery = "SELECT COUNT(*) from FOO";
 		new JdbcTemplate(this.dataSource).execute("CREATE TABLE FOO (id INTEGER IDENTITY PRIMARY KEY)");
 		this.indicator.setDataSource(this.dataSource);
-		this.indicator.setQuery(customValidationQuery);
+		this.indicator.query = customValidationQuery;
 		Health health = this.indicator.health();
 		assertThat(health.getStatus()).isEqualTo(Status.UP);
 		assertThat(health.getDetails()).containsOnly(entry("database", "HSQL Database Engine"), entry("result", 0L),
@@ -89,7 +89,7 @@ class DataSourceHealthIndicatorTests {
 	void healthIndicatorWithInvalidValidationQuery() {
 		String invalidValidationQuery = "SELECT COUNT(*) from BAR";
 		this.indicator.setDataSource(this.dataSource);
-		this.indicator.setQuery(invalidValidationQuery);
+		this.indicator.query = invalidValidationQuery;
 		Health health = this.indicator.health();
 		assertThat(health.getStatus()).isEqualTo(Status.DOWN);
 		assertThat(health.getDetails()).contains(entry("database", "HSQL Database Engine"),
