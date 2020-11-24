@@ -22,7 +22,10 @@ import org.neo4j.driver.Driver;
 import org.neo4j.driver.exceptions.SessionExpiredException;
 import org.neo4j.driver.reactive.RxResult;
 import org.neo4j.driver.reactive.RxSession;
+import org.neo4j.driver.summary.DatabaseInfo;
 import org.neo4j.driver.summary.ResultSummary;
+import org.neo4j.driver.summary.ServerInfo;
+
 import reactor.core.publisher.Mono;
 import reactor.util.function.Tuple2;
 import reactor.util.retry.Retry;
@@ -30,6 +33,7 @@ import reactor.util.retry.Retry;
 import org.springframework.boot.actuate.health.AbstractReactiveHealthIndicator;
 import org.springframework.boot.actuate.health.Health;
 import org.springframework.boot.actuate.health.ReactiveHealthIndicator;
+import org.springframework.util.StringUtils;
 
 /**
  * {@link ReactiveHealthIndicator} that tests the status of a Neo4j by executing a Cypher
@@ -58,7 +62,16 @@ public final class Neo4jReactiveHealthIndicator extends AbstractReactiveHealthIn
 				.doOnError(SessionExpiredException.class,
 						(e) -> logger.warn(Neo4jHealthIndicator.MESSAGE_SESSION_EXPIRED))
 				.retryWhen(Retry.max(1).filter(SessionExpiredException.class::isInstance)).map((result) -> {
-					this.healthDetailsHandler.addHealthDetails(builder, result.getT1(), result.getT2());
+					String edition = result.getT1();
+					ResultSummary resultSummary = result.getT2();
+					Neo4jHealthDetailsHandler r = this.healthDetailsHandler;
+					ServerInfo serverInfo = resultSummary.server();
+					builder.up().withDetail("server", serverInfo.version() + "@" + serverInfo.address()).withDetail("edition",
+							edition);
+					DatabaseInfo databaseInfo = resultSummary.database();
+					if (StringUtils.hasText(databaseInfo.name())) {
+						builder.withDetail("database", databaseInfo.name());
+					}
 					return builder.build();
 				});
 	}

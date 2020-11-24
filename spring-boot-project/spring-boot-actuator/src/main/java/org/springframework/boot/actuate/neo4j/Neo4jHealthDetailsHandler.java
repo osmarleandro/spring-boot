@@ -30,20 +30,4 @@ import org.springframework.util.StringUtils;
  */
 class Neo4jHealthDetailsHandler {
 
-	/**
-	 * Add health details for the specified {@link ResultSummary} and {@code edition}.
-	 * @param builder the {@link Builder} to use
-	 * @param edition the edition of the server
-	 * @param resultSummary server information
-	 */
-	void addHealthDetails(Builder builder, String edition, ResultSummary resultSummary) {
-		ServerInfo serverInfo = resultSummary.server();
-		builder.up().withDetail("server", serverInfo.version() + "@" + serverInfo.address()).withDetail("edition",
-				edition);
-		DatabaseInfo databaseInfo = resultSummary.database();
-		if (StringUtils.hasText(databaseInfo.name())) {
-			builder.withDetail("database", databaseInfo.name());
-		}
-	}
-
 }
