@@ -43,11 +43,6 @@ public class IntegrationGraphEndpoint {
 		this.graphServer = graphServer;
 	}
 
-	@ReadOperation
-	public Graph graph() {
-		return this.graphServer.getGraph();
-	}
-
 	@WriteOperation
 	public void rebuild() {
 		this.graphServer.rebuild();
