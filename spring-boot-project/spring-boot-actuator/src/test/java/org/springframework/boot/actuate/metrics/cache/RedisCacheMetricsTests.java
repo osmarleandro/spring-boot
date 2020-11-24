@@ -60,21 +60,6 @@ class RedisCacheMetricsTests {
 					"spring.cache.type=redis", "spring.cache.redis.enable-statistics=true");
 
 	@Test
-	void cacheStatisticsAreExposed() {
-		this.contextRunner.run(withCacheMetrics((cache, meterRegistry) -> {
-			assertThat(meterRegistry.find("cache.size").tags(TAGS).functionCounter()).isNull();
-			assertThat(meterRegistry.find("cache.gets").tags(TAGS.and("result", "hit")).functionCounter()).isNotNull();
-			assertThat(meterRegistry.find("cache.gets").tags(TAGS.and("result", "miss")).functionCounter()).isNotNull();
-			assertThat(meterRegistry.find("cache.gets").tags(TAGS.and("result", "pending")).functionCounter())
-					.isNotNull();
-			assertThat(meterRegistry.find("cache.evictions").tags(TAGS).functionCounter()).isNull();
-			assertThat(meterRegistry.find("cache.puts").tags(TAGS).functionCounter()).isNotNull();
-			assertThat(meterRegistry.find("cache.removals").tags(TAGS).functionCounter()).isNotNull();
-			assertThat(meterRegistry.find("cache.lock.duration").tags(TAGS).timeGauge()).isNotNull();
-		}));
-	}
-
-	@Test
 	void cacheHitsAreExposed() {
 		this.contextRunner.run(withCacheMetrics((cache, meterRegistry) -> {
 			String key = UUID.randomUUID().toString();
