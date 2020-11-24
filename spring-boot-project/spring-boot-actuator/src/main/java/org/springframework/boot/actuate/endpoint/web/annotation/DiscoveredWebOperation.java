@@ -55,14 +55,10 @@ class DiscoveredWebOperation extends AbstractDiscoveredOperation implements WebO
 			WebOperationRequestPredicate requestPredicate) {
 		super(operationMethod, invoker);
 		Method method = operationMethod.getMethod();
-		this.id = getId(endpointId, method);
+		this.id = endpointId + Stream.of(method.getParameters()).filter(this::hasSelector).map(this::dashName)
+		.collect(Collectors.joining());
 		this.blocking = getBlocking(method);
 		this.requestPredicate = requestPredicate;
-	}
-
-	private String getId(EndpointId endpointId, Method method) {
-		return endpointId + Stream.of(method.getParameters()).filter(this::hasSelector).map(this::dashName)
-				.collect(Collectors.joining());
 	}
 
 	private boolean hasSelector(Parameter parameter) {
