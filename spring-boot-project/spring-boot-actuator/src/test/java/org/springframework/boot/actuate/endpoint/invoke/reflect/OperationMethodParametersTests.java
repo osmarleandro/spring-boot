@@ -91,15 +91,6 @@ class OperationMethodParametersTests {
 	}
 
 	@Test
-	void iteratorShouldIterateOperationParameters() {
-		OperationMethodParameters parameters = new OperationMethodParameters(this.exampleMethod,
-				new DefaultParameterNameDiscoverer());
-		Iterator<OperationParameter> iterator = parameters.iterator();
-		assertParameters(
-				StreamSupport.stream(Spliterators.spliteratorUnknownSize(iterator, Spliterator.ORDERED), false));
-	}
-
-	@Test
 	void streamShouldStreamOperationParameters() {
 		OperationMethodParameters parameters = new OperationMethodParameters(this.exampleMethod,
 				new DefaultParameterNameDiscoverer());
