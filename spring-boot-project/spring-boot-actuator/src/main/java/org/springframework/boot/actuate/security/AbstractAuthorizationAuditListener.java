@@ -41,13 +41,9 @@ public abstract class AbstractAuthorizationAuditListener
 		this.publisher = publisher;
 	}
 
-	protected ApplicationEventPublisher getPublisher() {
-		return this.publisher;
-	}
-
 	protected void publish(AuditEvent event) {
-		if (getPublisher() != null) {
-			getPublisher().publishEvent(new AuditApplicationEvent(event));
+		if (this.publisher != null) {
+			this.publisher.publishEvent(new AuditApplicationEvent(event));
 		}
 	}
 
