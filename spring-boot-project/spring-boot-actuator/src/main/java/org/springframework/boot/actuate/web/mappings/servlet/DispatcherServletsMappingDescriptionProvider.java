@@ -101,10 +101,6 @@ public class DispatcherServletsMappingDescriptionProvider implements MappingDesc
 		return mappings.getHandlerMappings().stream().flatMap(this::describe).collect(Collectors.toList());
 	}
 
-	private <T> Stream<DispatcherServletMappingDescription> describe(T handlerMapping) {
-		return describe(handlerMapping, descriptionProviders).stream();
-	}
-
 	@SuppressWarnings("unchecked")
 	private static <T> List<DispatcherServletMappingDescription> describe(T handlerMapping,
 			List<HandlerMappingDescriptionProvider<?>> descriptionProviders) {
