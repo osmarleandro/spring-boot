@@ -116,18 +116,6 @@ class MetricsEndpointTests {
 	}
 
 	@Test
-	void matchingMeterNotFoundInNestedRegistries() {
-		CompositeMeterRegistry composite = new CompositeMeterRegistry();
-		CompositeMeterRegistry firstLevel = new CompositeMeterRegistry();
-		SimpleMeterRegistry secondLevel = new SimpleMeterRegistry();
-		composite.add(firstLevel);
-		firstLevel.add(secondLevel);
-		MetricsEndpoint endpoint = new MetricsEndpoint(composite);
-		MetricsEndpoint.MetricResponse response = endpoint.metric("invalid.metric.name", Collections.emptyList());
-		assertThat(response).isNull();
-	}
-
-	@Test
 	void metricTagValuesAreDeduplicated() {
 		this.registry.counter("cache", "host", "1", "region", "east", "result", "hit");
 		this.registry.counter("cache", "host", "1", "region", "east", "result", "miss");
