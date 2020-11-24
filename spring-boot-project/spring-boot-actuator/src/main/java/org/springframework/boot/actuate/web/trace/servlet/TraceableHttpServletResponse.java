@@ -39,11 +39,6 @@ final class TraceableHttpServletResponse implements TraceableResponse {
 	}
 
 	@Override
-	public int getStatus() {
-		return this.delegate.getStatus();
-	}
-
-	@Override
 	public Map<String, List<String>> getHeaders() {
 		return extractHeaders();
 	}
