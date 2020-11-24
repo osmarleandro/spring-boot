@@ -127,16 +127,6 @@ class PrometheusPushGatewayManagerTests {
 	}
 
 	@Test
-	void shutdownWhenDoesNotOwnSchedulerDoesNotShutdownScheduler() {
-		ThreadPoolTaskScheduler otherScheduler = givenScheduleAtFixedRateWillReturnFuture(
-				mock(ThreadPoolTaskScheduler.class));
-		PrometheusPushGatewayManager manager = new PrometheusPushGatewayManager(this.pushGateway, this.registry,
-				otherScheduler, this.pushRate, "job", this.groupingKey, null);
-		manager.shutdown();
-		verify(otherScheduler, never()).shutdown();
-	}
-
-	@Test
 	void shutdownWhenShutdownOperationIsPushPerformsPushOnShutdown() throws Exception {
 		givenScheduleAtFixedRateWithReturnFuture();
 		PrometheusPushGatewayManager manager = new PrometheusPushGatewayManager(this.pushGateway, this.registry,
