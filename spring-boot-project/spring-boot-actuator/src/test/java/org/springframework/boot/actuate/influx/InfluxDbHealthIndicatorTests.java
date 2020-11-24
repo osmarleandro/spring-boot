@@ -51,15 +51,4 @@ class InfluxDbHealthIndicatorTests {
 		verify(influxDB).ping();
 	}
 
-	@Test
-	void influxDbIsDown() {
-		InfluxDB influxDB = mock(InfluxDB.class);
-		given(influxDB.ping()).willThrow(new InfluxDBException(new IOException("Connection failed")));
-		InfluxDbHealthIndicator healthIndicator = new InfluxDbHealthIndicator(influxDB);
-		Health health = healthIndicator.health();
-		assertThat(health.getStatus()).isEqualTo(Status.DOWN);
-		assertThat((String) health.getDetails().get("error")).contains("Connection failed");
-		verify(influxDB).ping();
-	}
-
 }
