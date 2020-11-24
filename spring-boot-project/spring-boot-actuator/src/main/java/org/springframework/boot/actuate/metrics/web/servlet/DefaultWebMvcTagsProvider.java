@@ -71,7 +71,7 @@ public class DefaultWebMvcTagsProvider implements WebMvcTagsProvider {
 	@Override
 	public Iterable<Tag> getTags(HttpServletRequest request, HttpServletResponse response, Object handler,
 			Throwable exception) {
-		Tags tags = Tags.of(WebMvcTags.method(request), WebMvcTags.uri(request, response, this.ignoreTrailingSlash),
+		Tags tags = Tags.of((request != null) ? Tag.of("method", request.getMethod()) : WebMvcTags.METHOD_UNKNOWN, WebMvcTags.uri(request, response, this.ignoreTrailingSlash),
 				WebMvcTags.exception(exception), WebMvcTags.status(response), WebMvcTags.outcome(response));
 		for (WebMvcTagsContributor contributor : this.contributors) {
 			tags = tags.and(contributor.getTags(request, response, handler, exception));
@@ -81,7 +81,7 @@ public class DefaultWebMvcTagsProvider implements WebMvcTagsProvider {
 
 	@Override
 	public Iterable<Tag> getLongRequestTags(HttpServletRequest request, Object handler) {
-		Tags tags = Tags.of(WebMvcTags.method(request), WebMvcTags.uri(request, null, this.ignoreTrailingSlash));
+		Tags tags = Tags.of((request != null) ? Tag.of("method", request.getMethod()) : WebMvcTags.METHOD_UNKNOWN, WebMvcTags.uri(request, null, this.ignoreTrailingSlash));
 		for (WebMvcTagsContributor contributor : this.contributors) {
 			tags = tags.and(contributor.getLongRequestTags(request, handler));
 		}

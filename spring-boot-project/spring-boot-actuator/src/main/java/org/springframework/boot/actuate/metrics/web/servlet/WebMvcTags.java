@@ -65,16 +65,6 @@ public final class WebMvcTags {
 	}
 
 	/**
-	 * Creates a {@code method} tag based on the {@link HttpServletRequest#getMethod()
-	 * method} of the given {@code request}.
-	 * @param request the request
-	 * @return the method tag whose value is a capitalized method (e.g. GET).
-	 */
-	public static Tag method(HttpServletRequest request) {
-		return (request != null) ? Tag.of("method", request.getMethod()) : METHOD_UNKNOWN;
-	}
-
-	/**
 	 * Creates a {@code status} tag based on the status of the given {@code response}.
 	 * @param response the HTTP response
 	 * @return the status tag derived from the status of the response
