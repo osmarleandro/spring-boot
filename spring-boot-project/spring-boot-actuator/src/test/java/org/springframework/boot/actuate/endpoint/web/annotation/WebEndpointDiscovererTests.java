@@ -90,17 +90,6 @@ class WebEndpointDiscovererTests {
 	}
 
 	@Test
-	void getEndpointsWhenHasWebExtensionShouldOverrideStandardEndpoint() {
-		load(OverriddenOperationWebEndpointExtensionConfiguration.class, (discoverer) -> {
-			Map<EndpointId, ExposableWebEndpoint> endpoints = mapEndpoints(discoverer.getEndpoints());
-			assertThat(endpoints).containsOnlyKeys(EndpointId.of("test"));
-			ExposableWebEndpoint endpoint = endpoints.get(EndpointId.of("test"));
-			assertThat(requestPredicates(endpoint)).has(requestPredicates(
-					path("test").httpMethod(WebEndpointHttpMethod.GET).consumes().produces("application/json")));
-		});
-	}
-
-	@Test
 	void getEndpointsWhenExtensionAddsOperationShouldHaveBothOperations() {
 		load(AdditionalOperationWebEndpointConfiguration.class, (discoverer) -> {
 			Map<EndpointId, ExposableWebEndpoint> endpoints = mapEndpoints(discoverer.getEndpoints());
