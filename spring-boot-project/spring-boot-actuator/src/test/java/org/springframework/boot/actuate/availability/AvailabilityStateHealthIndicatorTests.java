@@ -56,13 +56,6 @@ class AvailabilityStateHealthIndicatorTests {
 	}
 
 	@Test
-	void createWhenStatusMappingIsNullThrowsException() {
-		assertThatIllegalArgumentException().isThrownBy(
-				() -> new AvailabilityStateHealthIndicator(this.applicationAvailability, LivenessState.class, null))
-				.withMessage("StatusMappings must not be null");
-	}
-
-	@Test
 	void createWhenStatusMappingDoesNotCoverAllEnumsThrowsException() {
 		assertThatIllegalArgumentException()
 				.isThrownBy(() -> new AvailabilityStateHealthIndicator(this.applicationAvailability,
