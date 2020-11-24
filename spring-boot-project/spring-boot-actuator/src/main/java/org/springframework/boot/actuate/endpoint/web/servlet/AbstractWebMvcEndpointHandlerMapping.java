@@ -126,18 +126,6 @@ public abstract class AbstractWebMvcEndpointHandlerMapping extends RequestMappin
 	}
 
 	@Override
-	protected void initHandlerMethods() {
-		for (ExposableWebEndpoint endpoint : this.endpoints) {
-			for (WebOperation operation : endpoint.getOperations()) {
-				registerMappingForOperation(endpoint, operation);
-			}
-		}
-		if (this.shouldRegisterLinksMapping) {
-			registerLinksMapping();
-		}
-	}
-
-	@Override
 	protected HandlerMethod createHandlerMethod(Object handler, Method method) {
 		HandlerMethod handlerMethod = super.createHandlerMethod(handler, method);
 		return new WebMvcEndpointHandlerMethod(handlerMethod.getBean(), handlerMethod.getMethod());
