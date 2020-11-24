@@ -78,15 +78,6 @@ class ReflectiveOperationInvokerTests {
 	}
 
 	@Test
-	void invokeShouldInvokeMethod() {
-		ReflectiveOperationInvoker invoker = new ReflectiveOperationInvoker(this.target, this.operationMethod,
-				this.parameterValueMapper);
-		Object result = invoker
-				.invoke(new InvocationContext(mock(SecurityContext.class), Collections.singletonMap("name", "boot")));
-		assertThat(result).isEqualTo("toob");
-	}
-
-	@Test
 	void invokeWhenMissingNonNullableArgumentShouldThrowException() {
 		ReflectiveOperationInvoker invoker = new ReflectiveOperationInvoker(this.target, this.operationMethod,
 				this.parameterValueMapper);
