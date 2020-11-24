@@ -98,13 +98,6 @@ class WebMvcTagsTests {
 	}
 
 	@Test
-	void uriTagValueIsRedirectionWhenResponseStatusIs3xx() {
-		this.response.setStatus(301);
-		Tag tag = WebMvcTags.uri(this.request, this.response);
-		assertThat(tag.getValue()).isEqualTo("REDIRECTION");
-	}
-
-	@Test
 	void uriTagValueIsNotFoundWhenResponseStatusIs404() {
 		this.response.setStatus(404);
 		Tag tag = WebMvcTags.uri(this.request, this.response);
