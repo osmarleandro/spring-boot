@@ -45,13 +45,6 @@ import static org.mockito.Mockito.mock;
 class HttpExchangeTracerTests {
 
 	@Test
-	void methodIsIncluded() {
-		HttpTrace trace = new HttpExchangeTracer(EnumSet.noneOf(Include.class)).receivedRequest(createRequest());
-		Request request = trace.getRequest();
-		assertThat(request.getMethod()).isEqualTo("GET");
-	}
-
-	@Test
 	void uriIsIncluded() {
 		HttpTrace trace = new HttpExchangeTracer(EnumSet.noneOf(Include.class)).receivedRequest(createRequest());
 		Request request = trace.getRequest();
