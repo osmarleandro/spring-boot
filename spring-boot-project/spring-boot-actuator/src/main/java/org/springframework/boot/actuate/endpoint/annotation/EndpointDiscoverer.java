@@ -38,6 +38,7 @@ import org.springframework.boot.actuate.endpoint.EndpointId;
 import org.springframework.boot.actuate.endpoint.EndpointsSupplier;
 import org.springframework.boot.actuate.endpoint.ExposableEndpoint;
 import org.springframework.boot.actuate.endpoint.Operation;
+import org.springframework.boot.actuate.endpoint.annotation.EndpointDiscoverer.OperationKey;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvoker;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvokerAdvisor;
 import org.springframework.boot.actuate.endpoint.invoke.ParameterValueMapper;
@@ -188,7 +189,17 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 	private E convertToEndpoint(EndpointBean endpointBean) {
 		MultiValueMap<OperationKey, O> indexed = new LinkedMultiValueMap<>();
 		EndpointId id = endpointBean.getId();
-		addOperations(indexed, id, endpointBean.getBean(), false);
+		Object target = endpointBean.getBean();
+		Set<OperationKey> replacedLast = new HashSet<>();
+		Collection<O> operations1 = this.operationsFactory.createOperations(id, target);
+		for (O operation : operations1) {
+			OperationKey key = createOperationKey(operation);
+			O last = getLast(indexed.get(key));
+			if (false && replacedLast.add(key) && last != null) {
+				indexed.get(key).remove(last);
+			}
+			indexed.add(key, operation);
+		}
 		if (endpointBean.getExtensions().size() > 1) {
 			String extensionBeans = endpointBean.getExtensions().stream().map(ExtensionBean::getBeanName)
 					.collect(Collectors.joining(", "));
@@ -196,26 +207,22 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 					+ endpointBean.getBeanName() + " (" + extensionBeans + ")");
 		}
 		for (ExtensionBean extensionBean : endpointBean.getExtensions()) {
-			addOperations(indexed, id, extensionBean.getBean(), true);
+			Object target1 = extensionBean.getBean();
+			Set<OperationKey> replacedLast = new HashSet<>();
+			Collection<O> operations2 = this.operationsFactory.createOperations(id, target1);
+			for (O operation : operations2) {
+				OperationKey key = createOperationKey(operation);
+				O last = getLast(indexed.get(key));
+				if (true && replacedLast.add(key) && last != null) {
+					indexed.get(key).remove(last);
+				}
+				indexed.add(key, operation);
+			}
 		}
 		assertNoDuplicateOperations(endpointBean, indexed);
 		List<O> operations = indexed.values().stream().map(this::getLast).filter(Objects::nonNull)
 				.collect(Collectors.collectingAndThen(Collectors.toList(), Collections::unmodifiableList));
 		return createEndpoint(endpointBean.getBean(), id, endpointBean.isEnabledByDefault(), operations);
-	}
-
-	private void addOperations(MultiValueMap<OperationKey, O> indexed, EndpointId id, Object target,
-			boolean replaceLast) {
-		Set<OperationKey> replacedLast = new HashSet<>();
-		Collection<O> operations = this.operationsFactory.createOperations(id, target);
-		for (O operation : operations) {
-			OperationKey key = createOperationKey(operation);
-			O last = getLast(indexed.get(key));
-			if (replaceLast && replacedLast.add(key) && last != null) {
-				indexed.get(key).remove(last);
-			}
-			indexed.add(key, operation);
-		}
 	}
 
 	private <T> T getLast(List<T> list) {
