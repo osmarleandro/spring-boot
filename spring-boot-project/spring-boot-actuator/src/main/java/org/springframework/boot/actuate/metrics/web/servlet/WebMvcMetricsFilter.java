@@ -97,16 +97,59 @@ public class WebMvcMetricsFilter extends OncePerRequestFilter {
 				// until the second filter invocation (but we'll be using the
 				// TimingContext that was attached to the first)
 				Throwable exception = (Throwable) request.getAttribute(DispatcherServlet.EXCEPTION_ATTRIBUTE);
-				record(timingContext, request, response, exception);
+				Object handler = getHandler(request);
+				Set<Timed> annotations = getTimedAnnotations(handler);
+				Timer.Sample timerSample = timingContext.getTimerSample();
+				if (annotations.isEmpty()) {
+					if (this.autoTimer.isEnabled()) {
+						Builder builder = this.autoTimer.builder(this.metricName);
+						timerSample.stop(getTimer(builder, handler, request, response, exception));
+					}
+				}
+				else {
+					for (Timed annotation : annotations) {
+						Builder builder = Timer.builder(annotation, this.metricName);
+						timerSample.stop(getTimer(builder, handler, request, response, exception));
+					}
+				}
 			}
 		}
 		catch (NestedServletException ex) {
 			response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
-			record(timingContext, request, response, ex.getCause());
+			Throwable exception = ex.getCause();
+			Object handler = getHandler(request);
+			Set<Timed> annotations = getTimedAnnotations(handler);
+			Timer.Sample timerSample = timingContext.getTimerSample();
+			if (annotations.isEmpty()) {
+				if (this.autoTimer.isEnabled()) {
+					Builder builder = this.autoTimer.builder(this.metricName);
+					timerSample.stop(getTimer(builder, handler, request, response, exception));
+				}
+			}
+			else {
+				for (Timed annotation : annotations) {
+					Builder builder = Timer.builder(annotation, this.metricName);
+					timerSample.stop(getTimer(builder, handler, request, response, exception));
+				}
+			}
 			throw ex;
 		}
 		catch (ServletException | IOException | RuntimeException ex) {
-			record(timingContext, request, response, ex);
+			Object handler = getHandler(request);
+			Set<Timed> annotations = getTimedAnnotations(handler);
+			Timer.Sample timerSample = timingContext.getTimerSample();
+			if (annotations.isEmpty()) {
+				if (this.autoTimer.isEnabled()) {
+					Builder builder = this.autoTimer.builder(this.metricName);
+					timerSample.stop(getTimer(builder, handler, request, response, ex));
+				}
+			}
+			else {
+				for (Timed annotation : annotations) {
+					Builder builder = Timer.builder(annotation, this.metricName);
+					timerSample.stop(getTimer(builder, handler, request, response, ex));
+				}
+			}
 			throw ex;
 		}
 	}
@@ -116,25 +159,6 @@ public class WebMvcMetricsFilter extends OncePerRequestFilter {
 		TimingContext timingContext = new TimingContext(timerSample);
 		timingContext.attachTo(request);
 		return timingContext;
-	}
-
-	private void record(TimingContext timingContext, HttpServletRequest request, HttpServletResponse response,
-			Throwable exception) {
-		Object handler = getHandler(request);
-		Set<Timed> annotations = getTimedAnnotations(handler);
-		Timer.Sample timerSample = timingContext.getTimerSample();
-		if (annotations.isEmpty()) {
-			if (this.autoTimer.isEnabled()) {
-				Builder builder = this.autoTimer.builder(this.metricName);
-				timerSample.stop(getTimer(builder, handler, request, response, exception));
-			}
-		}
-		else {
-			for (Timed annotation : annotations) {
-				Builder builder = Timer.builder(annotation, this.metricName);
-				timerSample.stop(getTimer(builder, handler, request, response, exception));
-			}
-		}
 	}
 
 	private Object getHandler(HttpServletRequest request) {
