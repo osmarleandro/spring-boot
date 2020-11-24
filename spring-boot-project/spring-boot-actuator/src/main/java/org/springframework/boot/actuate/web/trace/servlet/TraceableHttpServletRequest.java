@@ -45,11 +45,6 @@ final class TraceableHttpServletRequest implements TraceableRequest {
 	}
 
 	@Override
-	public String getMethod() {
-		return this.request.getMethod();
-	}
-
-	@Override
 	public URI getUri() {
 		String queryString = this.request.getQueryString();
 		if (!StringUtils.hasText(queryString)) {
