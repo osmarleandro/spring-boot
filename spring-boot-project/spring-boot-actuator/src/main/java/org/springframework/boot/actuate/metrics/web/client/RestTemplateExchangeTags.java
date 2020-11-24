@@ -46,16 +46,6 @@ public final class RestTemplateExchangeTags {
 	}
 
 	/**
-	 * Creates a {@code method} {@code Tag} for the {@link HttpRequest#getMethod() method}
-	 * of the given {@code request}.
-	 * @param request the request
-	 * @return the method tag
-	 */
-	public static Tag method(HttpRequest request) {
-		return Tag.of("method", request.getMethod().name());
-	}
-
-	/**
 	 * Creates a {@code uri} {@code Tag} for the URI of the given {@code request}.
 	 * @param request the request
 	 * @return the uri tag
