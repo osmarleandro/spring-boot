@@ -105,18 +105,6 @@ class MetricsWebClientFilterFunctionTests {
 	}
 
 	@Test
-	void filterWhenExceptionThrownShouldRecordTimer() {
-		ClientRequest request = ClientRequest
-				.create(HttpMethod.GET, URI.create("https://example.com/projects/spring-boot")).build();
-		ExchangeFunction exchange = (r) -> Mono.error(new IllegalArgumentException());
-		this.filterFunction.filter(request, exchange).onErrorResume(IllegalArgumentException.class, (t) -> Mono.empty())
-				.block(Duration.ofSeconds(5));
-		assertThat(this.registry.get("http.client.requests")
-				.tags("method", "GET", "uri", "/projects/spring-boot", "status", "CLIENT_ERROR").timer().count())
-						.isEqualTo(1);
-	}
-
-	@Test
 	void filterWhenCancelThrownShouldRecordTimer() {
 		ClientRequest request = ClientRequest
 				.create(HttpMethod.GET, URI.create("https://example.com/projects/spring-boot")).build();
