@@ -38,7 +38,7 @@ class MappingWebEndpointPathMapper implements PathMapper {
 
 	MappingWebEndpointPathMapper(Map<String, String> pathMapping) {
 		this.pathMapping = new HashMap<>();
-		pathMapping.forEach((id, path) -> this.pathMapping.put(EndpointId.fromPropertyValue(id), path));
+		pathMapping.forEach((id, path) -> this.pathMapping.put(new EndpointId(id.replace("-", "")), path));
 	}
 
 	@Override
