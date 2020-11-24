@@ -37,11 +37,6 @@ class TraceableHttpServletRequestTests {
 	}
 
 	@Test
-	void getUriWithoutQueryStringShouldReturnUri() {
-		validate("http://localhost/script");
-	}
-
-	@Test
 	void getUriShouldReturnUriWithQueryString() {
 		this.request.setQueryString("a=b");
 		validate("http://localhost/script?a=b");
