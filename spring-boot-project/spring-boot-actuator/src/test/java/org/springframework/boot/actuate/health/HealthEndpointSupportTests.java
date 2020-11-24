@@ -194,14 +194,6 @@ abstract class HealthEndpointSupportTests<R extends ContributorRegistry<C>, C, T
 	}
 
 	@Test
-	void getHealthWhenPathIsGroupDoesNotIncludesGroups() {
-		this.registry.registerContributor("atest", createContributor(this.up));
-		HealthResult<T> result = create(this.registry, this.groups).getHealth(ApiVersion.V3, SecurityContext.NONE,
-				false, "alltheas");
-		assertThat(getHealth(result)).isNotInstanceOf(SystemHealth.class);
-	}
-
-	@Test
 	void getHealthWithEmptyCompositeReturnsNullResult() { // gh-18687
 		this.registry.registerContributor("test", createCompositeContributor(Collections.emptyMap()));
 		HealthResult<T> result = create(this.registry, this.groups).getHealth(ApiVersion.V3, SecurityContext.NONE,
