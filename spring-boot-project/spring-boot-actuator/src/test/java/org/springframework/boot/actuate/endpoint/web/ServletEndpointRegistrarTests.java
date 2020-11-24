@@ -34,6 +34,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import org.springframework.boot.actuate.endpoint.EndpointId;
+import org.springframework.boot.actuate.endpoint.web.ServletEndpointRegistrarTests.TestServlet;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
@@ -69,32 +70,46 @@ class ServletEndpointRegistrarTests {
 
 	@Test
 	void onStartupShouldRegisterServlets() throws ServletException {
-		assertBasePath(null, "/test/*");
+		given(this.servletContext.addServlet(any(String.class), any(Servlet.class))).willReturn(this.dynamic);
+		ExposableServletEndpoint endpoint = mockEndpoint(new EndpointServlet(TestServlet.class));
+		ServletEndpointRegistrar registrar = new ServletEndpointRegistrar(null, Collections.singleton(endpoint));
+		registrar.onStartup(this.servletContext);
+		verify(this.servletContext).addServlet(eq("test-actuator-endpoint"), this.servlet.capture());
+		assertThat(this.servlet.getValue()).isInstanceOf(TestServlet.class);
+		verify(this.dynamic).addMapping("/test/*");
 	}
 
 	@Test
 	void onStartupWhenHasBasePathShouldIncludeBasePath() throws ServletException {
-		assertBasePath("/actuator", "/actuator/test/*");
+		given(this.servletContext.addServlet(any(String.class), any(Servlet.class))).willReturn(this.dynamic);
+		ExposableServletEndpoint endpoint = mockEndpoint(new EndpointServlet(TestServlet.class));
+		ServletEndpointRegistrar registrar = new ServletEndpointRegistrar("/actuator", Collections.singleton(endpoint));
+		registrar.onStartup(this.servletContext);
+		verify(this.servletContext).addServlet(eq("test-actuator-endpoint"), this.servlet.capture());
+		assertThat(this.servlet.getValue()).isInstanceOf(TestServlet.class);
+		verify(this.dynamic).addMapping("/actuator/test/*");
 	}
 
 	@Test
 	void onStartupWhenHasEmptyBasePathShouldPrefixWithSlash() throws ServletException {
-		assertBasePath("", "/test/*");
+		given(this.servletContext.addServlet(any(String.class), any(Servlet.class))).willReturn(this.dynamic);
+		ExposableServletEndpoint endpoint = mockEndpoint(new EndpointServlet(TestServlet.class));
+		ServletEndpointRegistrar registrar = new ServletEndpointRegistrar("", Collections.singleton(endpoint));
+		registrar.onStartup(this.servletContext);
+		verify(this.servletContext).addServlet(eq("test-actuator-endpoint"), this.servlet.capture());
+		assertThat(this.servlet.getValue()).isInstanceOf(TestServlet.class);
+		verify(this.dynamic).addMapping("/test/*");
 	}
 
 	@Test
 	void onStartupWhenHasRootBasePathShouldNotAddDuplicateSlash() throws ServletException {
-		assertBasePath("/", "/test/*");
-	}
-
-	private void assertBasePath(String basePath, String expectedMapping) throws ServletException {
 		given(this.servletContext.addServlet(any(String.class), any(Servlet.class))).willReturn(this.dynamic);
 		ExposableServletEndpoint endpoint = mockEndpoint(new EndpointServlet(TestServlet.class));
-		ServletEndpointRegistrar registrar = new ServletEndpointRegistrar(basePath, Collections.singleton(endpoint));
+		ServletEndpointRegistrar registrar = new ServletEndpointRegistrar("/", Collections.singleton(endpoint));
 		registrar.onStartup(this.servletContext);
 		verify(this.servletContext).addServlet(eq("test-actuator-endpoint"), this.servlet.capture());
 		assertThat(this.servlet.getValue()).isInstanceOf(TestServlet.class);
-		verify(this.dynamic).addMapping(expectedMapping);
+		verify(this.dynamic).addMapping("/test/*");
 	}
 
 	@Test
