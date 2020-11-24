@@ -71,19 +71,6 @@ public class CachesEndpoint {
 	}
 
 	/**
-	 * Return a {@link CacheDescriptor} for the specified cache.
-	 * @param cache the name of the cache
-	 * @param cacheManager the name of the cacheManager (can be {@code null}
-	 * @return the descriptor of the cache or {@code null} if no such cache exists
-	 * @throws NonUniqueCacheException if more than one cache with that name exists and no
-	 * {@code cacheManager} was provided to identify a unique candidate
-	 */
-	@ReadOperation
-	public CacheEntry cache(@Selector String cache, @Nullable String cacheManager) {
-		return extractUniqueCacheEntry(cache, getCacheEntries((name) -> name.equals(cache), isNameMatch(cacheManager)));
-	}
-
-	/**
 	 * Clear all the available {@link Cache caches}.
 	 */
 	@DeleteOperation
