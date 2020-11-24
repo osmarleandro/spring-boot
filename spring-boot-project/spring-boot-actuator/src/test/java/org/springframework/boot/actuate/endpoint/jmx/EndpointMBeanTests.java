@@ -80,13 +80,6 @@ class EndpointMBeanTests {
 	}
 
 	@Test
-	void invokeShouldInvokeJmxOperation() throws MBeanException, ReflectionException {
-		EndpointMBean bean = createEndpointMBean();
-		Object result = bean.invoke("testOperation", NO_PARAMS, NO_SIGNATURE);
-		assertThat(result).isEqualTo("result");
-	}
-
-	@Test
 	void invokeWhenOperationFailedShouldTranslateException() throws MBeanException, ReflectionException {
 		TestExposableJmxEndpoint endpoint = new TestExposableJmxEndpoint(new TestJmxOperation((arguments) -> {
 			throw new FatalBeanException("test failure");
