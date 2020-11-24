@@ -78,20 +78,6 @@ class LoggersEndpointWebIntegrationTests {
 	}
 
 	@WebEndpointTest
-	void getLoggerShouldReturnAllLoggerConfigurationsWithLoggerGroups() {
-		setLogLevelToDebug("test");
-		given(this.loggingSystem.getLoggerConfigurations())
-				.willReturn(Collections.singletonList(new LoggerConfiguration("ROOT", null, LogLevel.DEBUG)));
-		this.client.get().uri("/actuator/loggers").exchange().expectStatus().isOk().expectBody().jsonPath("$.length()")
-				.isEqualTo(3).jsonPath("levels")
-				.isEqualTo(jsonArrayOf("OFF", "FATAL", "ERROR", "WARN", "INFO", "DEBUG", "TRACE"))
-				.jsonPath("loggers.length()").isEqualTo(1).jsonPath("loggers.ROOT.length()").isEqualTo(2)
-				.jsonPath("loggers.ROOT.configuredLevel").isEqualTo(null).jsonPath("loggers.ROOT.effectiveLevel")
-				.isEqualTo("DEBUG").jsonPath("groups.length()").isEqualTo(2).jsonPath("groups.test.configuredLevel")
-				.isEqualTo("DEBUG");
-	}
-
-	@WebEndpointTest
 	void getLoggerShouldReturnLogLevels() {
 		setLogLevelToDebug("test");
 		given(this.loggingSystem.getLoggerConfiguration("ROOT"))
