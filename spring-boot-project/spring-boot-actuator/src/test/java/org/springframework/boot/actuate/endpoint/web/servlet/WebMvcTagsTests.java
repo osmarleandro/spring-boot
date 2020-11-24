@@ -105,13 +105,6 @@ class WebMvcTagsTests {
 	}
 
 	@Test
-	void uriTagValueIsNotFoundWhenResponseStatusIs404() {
-		this.response.setStatus(404);
-		Tag tag = WebMvcTags.uri(this.request, this.response);
-		assertThat(tag.getValue()).isEqualTo("NOT_FOUND");
-	}
-
-	@Test
 	void uriTagToleratesCustomResponseStatus() {
 		this.response.setStatus(601);
 		Tag tag = WebMvcTags.uri(this.request, this.response);
