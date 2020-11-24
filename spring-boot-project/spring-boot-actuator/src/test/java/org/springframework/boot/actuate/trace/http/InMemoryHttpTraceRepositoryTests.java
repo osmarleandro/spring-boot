@@ -36,7 +36,10 @@ class InMemoryHttpTraceRepositoryTests {
 
 	@Test
 	void capacityLimited() {
-		this.repository.setCapacity(2);
+		InMemoryHttpTraceRepository r = this.repository;
+		synchronized (r.traces) {
+			r.capacity = 2;
+		}
 		this.repository.add(new HttpTrace(createRequest("GET")));
 		this.repository.add(new HttpTrace(createRequest("POST")));
 		this.repository.add(new HttpTrace(createRequest("DELETE")));
@@ -49,7 +52,10 @@ class InMemoryHttpTraceRepositoryTests {
 	@Test
 	void reverseFalse() {
 		this.repository.setReverse(false);
-		this.repository.setCapacity(2);
+		InMemoryHttpTraceRepository r = this.repository;
+		synchronized (r.traces) {
+			r.capacity = 2;
+		}
 		this.repository.add(new HttpTrace(createRequest("GET")));
 		this.repository.add(new HttpTrace(createRequest("POST")));
 		this.repository.add(new HttpTrace(createRequest("DELETE")));
