@@ -49,12 +49,6 @@ class EndpointMediaTypesTests {
 	}
 
 	@Test
-	void createWhenConsumedIsNullShouldThrowException() {
-		assertThatIllegalArgumentException().isThrownBy(() -> new EndpointMediaTypes(Collections.emptyList(), null))
-				.withMessageContaining("Consumed must not be null");
-	}
-
-	@Test
 	void createFromProducedAndConsumedUsesSameListForBoth() {
 		EndpointMediaTypes types = new EndpointMediaTypes("spring/framework", "spring/boot");
 		assertThat(types.getProduced()).containsExactly("spring/framework", "spring/boot");
