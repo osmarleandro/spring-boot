@@ -105,11 +105,6 @@ class MvcWebEndpointIntegrationTests
 	}
 
 	@Test
-	void matchWhenRequestHasTrailingSlashShouldNotBeNull() {
-		assertThat(getMatchResult("/spring/")).isNotNull();
-	}
-
-	@Test
 	void matchWhenRequestHasSuffixShouldBeNull() {
 		assertThat(getMatchResult("/spring.do")).isNull();
 	}
