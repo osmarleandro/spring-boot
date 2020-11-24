@@ -41,11 +41,6 @@ class EndpointIdTests {
 	}
 
 	@Test
-	void ofWhenEmptyThrowsException() {
-		assertThatIllegalArgumentException().isThrownBy(() -> EndpointId.of("")).withMessage("Value must not be empty");
-	}
-
-	@Test
 	void ofWhenContainsSlashThrowsException() {
 		assertThatIllegalArgumentException().isThrownBy(() -> EndpointId.of("foo/bar"))
 				.withMessage("Value must only contain valid chars");
