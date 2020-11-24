@@ -86,18 +86,6 @@ class LiquibaseEndpointTests {
 	}
 
 	@Test
-	void invokeWithCustomTables() {
-		this.contextRunner.withUserConfiguration(Config.class)
-				.withPropertyValues("spring.liquibase.database-change-log-lock-table=liquibase_database_changelog_lock",
-						"spring.liquibase.database-change-log-table=liquibase_database_changelog")
-				.run((context) -> {
-					Map<String, LiquibaseBean> liquibaseBeans = context.getBean(LiquibaseEndpoint.class)
-							.liquibaseBeans().getContexts().get(context.getId()).getLiquibaseBeans();
-					assertThat(liquibaseBeans.get("liquibase").getChangeSets()).hasSize(1);
-				});
-	}
-
-	@Test
 	void connectionAutoCommitPropertyIsReset() {
 		this.contextRunner.withUserConfiguration(Config.class).run((context) -> {
 			DataSource dataSource = context.getBean(DataSource.class);
