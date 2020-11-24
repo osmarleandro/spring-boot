@@ -47,14 +47,6 @@ public class RegistrationMappingDescription<T extends Registration> {
 	}
 
 	/**
-	 * Returns the class name of the registered Filter or Servlet.
-	 * @return the class name
-	 */
-	public String getClassName() {
-		return this.registration.getClassName();
-	}
-
-	/**
 	 * Returns the registration that is being described.
 	 * @return the registration
 	 */
