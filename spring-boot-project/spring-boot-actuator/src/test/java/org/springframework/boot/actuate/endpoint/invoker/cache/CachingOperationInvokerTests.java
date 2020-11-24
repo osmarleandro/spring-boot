@@ -158,28 +158,6 @@ class CachingOperationInvokerTests {
 	}
 
 	@Test
-	void targetInvokedWhenCalledWithAndWithoutPrincipal() {
-		OperationInvoker target = mock(OperationInvoker.class);
-		Map<String, Object> parameters = new HashMap<>();
-		SecurityContext anonymous = mock(SecurityContext.class);
-		SecurityContext authenticated = mock(SecurityContext.class);
-		given(authenticated.getPrincipal()).willReturn(mock(Principal.class));
-		InvocationContext anonymousContext = new InvocationContext(anonymous, parameters);
-		Object anonymousResult = new Object();
-		given(target.invoke(anonymousContext)).willReturn(anonymousResult);
-		InvocationContext authenticatedContext = new InvocationContext(authenticated, parameters);
-		Object authenticatedResult = new Object();
-		given(target.invoke(authenticatedContext)).willReturn(authenticatedResult);
-		CachingOperationInvoker invoker = new CachingOperationInvoker(target, CACHE_TTL);
-		assertThat(invoker.invoke(anonymousContext)).isEqualTo(anonymousResult);
-		assertThat(invoker.invoke(authenticatedContext)).isEqualTo(authenticatedResult);
-		assertThat(invoker.invoke(anonymousContext)).isEqualTo(anonymousResult);
-		assertThat(invoker.invoke(authenticatedContext)).isEqualTo(authenticatedResult);
-		verify(target, times(1)).invoke(anonymousContext);
-		verify(target, times(1)).invoke(authenticatedContext);
-	}
-
-	@Test
 	void targetInvokedWhenCacheExpires() throws InterruptedException {
 		OperationInvoker target = mock(OperationInvoker.class);
 		Map<String, Object> parameters = new HashMap<>();
