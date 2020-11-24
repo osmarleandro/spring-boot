@@ -57,13 +57,6 @@ class AuditEventTests {
 	}
 
 	@Test
-	void nullTimestamp() {
-		assertThatIllegalArgumentException()
-				.isThrownBy(() -> new AuditEvent(null, "phil", "UNKNOWN", Collections.singletonMap("a", "b")))
-				.withMessageContaining("Timestamp must not be null");
-	}
-
-	@Test
 	void nullType() {
 		assertThatIllegalArgumentException()
 				.isThrownBy(() -> new AuditEvent("phil", null, Collections.singletonMap("a", "b")))
