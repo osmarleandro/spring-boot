@@ -209,7 +209,7 @@ class ReactiveCloudFoundryActuatorAutoConfigurationTests {
 					Collection<ExposableWebEndpoint> endpoints = handlerMapping.getEndpoints();
 					List<EndpointId> endpointIds = endpoints.stream().map(ExposableWebEndpoint::getEndpointId)
 							.collect(Collectors.toList());
-					assertThat(endpointIds).contains(EndpointId.of("test"));
+					assertThat(endpointIds).contains(new EndpointId("test"));
 				});
 	}
 
@@ -221,7 +221,7 @@ class ReactiveCloudFoundryActuatorAutoConfigurationTests {
 					CloudFoundryWebFluxEndpointHandlerMapping handlerMapping = getHandlerMapping(context);
 					Collection<ExposableWebEndpoint> endpoints = handlerMapping.getEndpoints();
 					ExposableWebEndpoint endpoint = endpoints.stream()
-							.filter((candidate) -> EndpointId.of("test").equals(candidate.getEndpointId())).findFirst()
+							.filter((candidate) -> new EndpointId("test").equals(candidate.getEndpointId())).findFirst()
 							.get();
 					assertThat(endpoint.getOperations()).hasSize(1);
 					WebOperation operation = endpoint.getOperations().iterator().next();

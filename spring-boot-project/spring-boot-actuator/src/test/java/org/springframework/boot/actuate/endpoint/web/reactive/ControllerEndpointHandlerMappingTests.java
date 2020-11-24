@@ -113,15 +113,15 @@ class ControllerEndpointHandlerMappingTests {
 	}
 
 	private ExposableControllerEndpoint firstEndpoint() {
-		return mockEndpoint(EndpointId.of("first"), new FirstTestMvcEndpoint());
+		return mockEndpoint(new EndpointId("first"), new FirstTestMvcEndpoint());
 	}
 
 	private ExposableControllerEndpoint secondEndpoint() {
-		return mockEndpoint(EndpointId.of("second"), new SecondTestMvcEndpoint());
+		return mockEndpoint(new EndpointId("second"), new SecondTestMvcEndpoint());
 	}
 
 	private ExposableControllerEndpoint pathlessEndpoint() {
-		return mockEndpoint(EndpointId.of("pathless"), new PathlessControllerEndpoint());
+		return mockEndpoint(new EndpointId("pathless"), new PathlessControllerEndpoint());
 	}
 
 	private ExposableControllerEndpoint mockEndpoint(EndpointId id, Object controller) {

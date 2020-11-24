@@ -70,43 +70,43 @@ class ExposeExcludePropertyEndpointFilterTests {
 	@Test
 	void matchWhenExposeIsEmptyAndExcludeIsEmptyAndInDefaultShouldMatch() {
 		setupFilter("", "");
-		assertThat(match(EndpointId.of("def"))).isTrue();
+		assertThat(match(new EndpointId("def"))).isTrue();
 	}
 
 	@Test
 	void matchWhenExposeIsEmptyAndExcludeIsEmptyAndNotInDefaultShouldNotMatch() {
 		setupFilter("", "");
-		assertThat(match(EndpointId.of("bar"))).isFalse();
+		assertThat(match(new EndpointId("bar"))).isFalse();
 	}
 
 	@Test
 	void matchWhenExposeMatchesAndExcludeIsEmptyShouldMatch() {
 		setupFilter("bar", "");
-		assertThat(match(EndpointId.of("bar"))).isTrue();
+		assertThat(match(new EndpointId("bar"))).isTrue();
 	}
 
 	@Test
 	void matchWhenExposeDoesNotMatchAndExcludeIsEmptyShouldNotMatch() {
 		setupFilter("bar", "");
-		assertThat(match(EndpointId.of("baz"))).isFalse();
+		assertThat(match(new EndpointId("baz"))).isFalse();
 	}
 
 	@Test
 	void matchWhenExposeMatchesAndExcludeMatchesShouldNotMatch() {
 		setupFilter("bar,baz", "baz");
-		assertThat(match(EndpointId.of("baz"))).isFalse();
+		assertThat(match(new EndpointId("baz"))).isFalse();
 	}
 
 	@Test
 	void matchWhenExposeMatchesAndExcludeDoesNotMatchShouldMatch() {
 		setupFilter("bar,baz", "buz");
-		assertThat(match(EndpointId.of("baz"))).isTrue();
+		assertThat(match(new EndpointId("baz"))).isTrue();
 	}
 
 	@Test
 	void matchWhenExposeMatchesWithDifferentCaseShouldMatch() {
 		setupFilter("bar", "");
-		assertThat(match(EndpointId.of("bAr"))).isTrue();
+		assertThat(match(new EndpointId("bAr"))).isTrue();
 	}
 
 	@Test
@@ -116,35 +116,35 @@ class ExposeExcludePropertyEndpointFilterTests {
 		environment.setProperty("foo.exclude", "");
 		this.filter = new ExposeExcludePropertyEndpointFilter<>(DifferentTestExposableWebEndpoint.class, environment,
 				"foo");
-		assertThat(match(EndpointId.of("baz"))).isTrue();
+		assertThat(match(new EndpointId("baz"))).isTrue();
 	}
 
 	@Test
 	void matchWhenIncludeIsAsteriskShouldMatchAll() {
 		setupFilter("*", "buz");
-		assertThat(match(EndpointId.of("bar"))).isTrue();
-		assertThat(match(EndpointId.of("baz"))).isTrue();
-		assertThat(match(EndpointId.of("buz"))).isFalse();
+		assertThat(match(new EndpointId("bar"))).isTrue();
+		assertThat(match(new EndpointId("baz"))).isTrue();
+		assertThat(match(new EndpointId("buz"))).isFalse();
 	}
 
 	@Test
 	void matchWhenExcludeIsAsteriskShouldMatchNone() {
 		setupFilter("bar,baz,buz", "*");
-		assertThat(match(EndpointId.of("bar"))).isFalse();
-		assertThat(match(EndpointId.of("baz"))).isFalse();
-		assertThat(match(EndpointId.of("buz"))).isFalse();
+		assertThat(match(new EndpointId("bar"))).isFalse();
+		assertThat(match(new EndpointId("baz"))).isFalse();
+		assertThat(match(new EndpointId("buz"))).isFalse();
 	}
 
 	@Test
 	void matchWhenMixedCaseShouldMatch() {
 		setupFilter("foo-bar", "");
-		assertThat(match(EndpointId.of("fooBar"))).isTrue();
+		assertThat(match(new EndpointId("fooBar"))).isTrue();
 	}
 
 	@Test // gh-20997
 	void matchWhenDashInName() throws Exception {
 		setupFilter("bus-refresh", "");
-		assertThat(match(EndpointId.of("bus-refresh"))).isTrue();
+		assertThat(match(new EndpointId("bus-refresh"))).isTrue();
 	}
 
 	private void setupFilter(String include, String exclude) {

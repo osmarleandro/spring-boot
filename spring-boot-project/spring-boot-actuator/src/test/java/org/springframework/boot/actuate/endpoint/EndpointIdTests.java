@@ -36,42 +36,42 @@ class EndpointIdTests {
 
 	@Test
 	void ofWhenNullThrowsException() {
-		assertThatIllegalArgumentException().isThrownBy(() -> EndpointId.of(null))
+		assertThatIllegalArgumentException().isThrownBy(() -> new EndpointId(null))
 				.withMessage("Value must not be empty");
 	}
 
 	@Test
 	void ofWhenEmptyThrowsException() {
-		assertThatIllegalArgumentException().isThrownBy(() -> EndpointId.of("")).withMessage("Value must not be empty");
+		assertThatIllegalArgumentException().isThrownBy(() -> new EndpointId("")).withMessage("Value must not be empty");
 	}
 
 	@Test
 	void ofWhenContainsSlashThrowsException() {
-		assertThatIllegalArgumentException().isThrownBy(() -> EndpointId.of("foo/bar"))
+		assertThatIllegalArgumentException().isThrownBy(() -> new EndpointId("foo/bar"))
 				.withMessage("Value must only contain valid chars");
 	}
 
 	@Test
 	void ofWhenContainsBackslashThrowsException() {
-		assertThatIllegalArgumentException().isThrownBy(() -> EndpointId.of("foo\\bar"))
+		assertThatIllegalArgumentException().isThrownBy(() -> new EndpointId("foo\\bar"))
 				.withMessage("Value must only contain valid chars");
 	}
 
 	@Test
 	void ofWhenHasBadCharThrowsException() {
-		assertThatIllegalArgumentException().isThrownBy(() -> EndpointId.of("foo!bar"))
+		assertThatIllegalArgumentException().isThrownBy(() -> new EndpointId("foo!bar"))
 				.withMessage("Value must only contain valid chars");
 	}
 
 	@Test
 	void ofWhenStartsWithNumberThrowsException() {
-		assertThatIllegalArgumentException().isThrownBy(() -> EndpointId.of("1foo"))
+		assertThatIllegalArgumentException().isThrownBy(() -> new EndpointId("1foo"))
 				.withMessage("Value must not start with a number");
 	}
 
 	@Test
 	void ofWhenStartsWithUppercaseLetterThrowsException() {
-		assertThatIllegalArgumentException().isThrownBy(() -> EndpointId.of("Foo"))
+		assertThatIllegalArgumentException().isThrownBy(() -> new EndpointId("Foo"))
 				.withMessage("Value must not start with an uppercase letter");
 	}
 
@@ -79,7 +79,7 @@ class EndpointIdTests {
 	void ofWhenContainsDotIsValid() {
 		// Ideally we wouldn't support this but there are existing endpoints using the
 		// pattern. See gh-14773
-		EndpointId endpointId = EndpointId.of("foo.bar");
+		EndpointId endpointId = new EndpointId("foo.bar");
 		assertThat(endpointId.toString()).isEqualTo("foo.bar");
 	}
 
@@ -87,14 +87,14 @@ class EndpointIdTests {
 	void ofWhenContainsDashIsValid() {
 		// Ideally we wouldn't support this but there are existing endpoints using the
 		// pattern. See gh-14773
-		EndpointId endpointId = EndpointId.of("foo-bar");
+		EndpointId endpointId = new EndpointId("foo-bar");
 		assertThat(endpointId.toString()).isEqualTo("foo-bar");
 	}
 
 	@Test
 	void ofWhenContainsDeprecatedCharsLogsWarning(CapturedOutput output) {
 		EndpointId.resetLoggedWarnings();
-		EndpointId.of("foo-bar");
+		new EndpointId("foo-bar");
 		assertThat(output)
 				.contains("Endpoint ID 'foo-bar' contains invalid characters, please migrate to a valid format");
 	}
@@ -129,12 +129,12 @@ class EndpointIdTests {
 
 	@Test
 	void equalsAndHashCode() {
-		EndpointId one = EndpointId.of("foobar1");
-		EndpointId two = EndpointId.of("fooBar1");
-		EndpointId three = EndpointId.of("foo-bar1");
-		EndpointId four = EndpointId.of("foo.bar1");
-		EndpointId five = EndpointId.of("barfoo1");
-		EndpointId six = EndpointId.of("foobar2");
+		EndpointId one = new EndpointId("foobar1");
+		EndpointId two = new EndpointId("fooBar1");
+		EndpointId three = new EndpointId("foo-bar1");
+		EndpointId four = new EndpointId("foo.bar1");
+		EndpointId five = new EndpointId("barfoo1");
+		EndpointId six = new EndpointId("foobar2");
 		assertThat(one.hashCode()).isEqualTo(two.hashCode());
 		assertThat(one).isEqualTo(one).isEqualTo(two).isEqualTo(three).isEqualTo(four).isNotEqualTo(five)
 				.isNotEqualTo(six);
@@ -142,18 +142,18 @@ class EndpointIdTests {
 
 	@Test
 	void toLowerCaseStringReturnsLowercase() {
-		assertThat(EndpointId.of("fooBar").toLowerCaseString()).isEqualTo("foobar");
+		assertThat(new EndpointId("fooBar").toLowerCaseString()).isEqualTo("foobar");
 	}
 
 	@Test
 	void toStringReturnsString() {
-		assertThat(EndpointId.of("fooBar").toString()).isEqualTo("fooBar");
+		assertThat(new EndpointId("fooBar").toString()).isEqualTo("fooBar");
 	}
 
 	@Test
 	void fromPropertyValueStripsDashes() {
 		EndpointId fromPropertyValue = EndpointId.fromPropertyValue("foo-bar");
-		assertThat(fromPropertyValue).isEqualTo(EndpointId.of("fooBar"));
+		assertThat(fromPropertyValue).isEqualTo(new EndpointId("fooBar"));
 	}
 
 }

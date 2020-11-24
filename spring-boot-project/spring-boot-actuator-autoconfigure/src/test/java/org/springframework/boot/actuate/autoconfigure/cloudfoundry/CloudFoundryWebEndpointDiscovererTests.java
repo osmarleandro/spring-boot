@@ -59,7 +59,7 @@ class CloudFoundryWebEndpointDiscovererTests {
 			Collection<ExposableWebEndpoint> endpoints = discoverer.getEndpoints();
 			assertThat(endpoints.size()).isEqualTo(2);
 			for (ExposableWebEndpoint endpoint : endpoints) {
-				if (endpoint.getEndpointId().equals(EndpointId.of("health"))) {
+				if (endpoint.getEndpointId().equals(new EndpointId("health"))) {
 					WebOperation operation = findMainReadOperation(endpoint);
 					assertThat(operation
 							.invoke(new InvocationContext(mock(SecurityContext.class), Collections.emptyMap())))

@@ -107,15 +107,6 @@ public final class EndpointId {
 	}
 
 	/**
-	 * Factory method to create a new {@link EndpointId} of the specified value.
-	 * @param value the endpoint ID value
-	 * @return an {@link EndpointId} instance
-	 */
-	public static EndpointId of(String value) {
-		return new EndpointId(value);
-	}
-
-	/**
 	 * Factory method to create a new {@link EndpointId} of the specified value. This
 	 * variant will respect the {@code management.endpoints.migrate-legacy-names} property
 	 * if it has been set in the {@link Environment}.

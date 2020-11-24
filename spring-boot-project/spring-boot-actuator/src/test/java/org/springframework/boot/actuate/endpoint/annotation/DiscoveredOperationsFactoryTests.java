@@ -60,7 +60,7 @@ class DiscoveredOperationsFactoryTests {
 
 	@Test
 	void createOperationsWhenHasReadMethodShouldCreateOperation() {
-		Collection<TestOperation> operations = this.factory.createOperations(EndpointId.of("test"), new ExampleRead());
+		Collection<TestOperation> operations = this.factory.createOperations(new EndpointId("test"), new ExampleRead());
 		assertThat(operations).hasSize(1);
 		TestOperation operation = getFirst(operations);
 		assertThat(operation.getType()).isEqualTo(OperationType.READ);
@@ -68,7 +68,7 @@ class DiscoveredOperationsFactoryTests {
 
 	@Test
 	void createOperationsWhenHasWriteMethodShouldCreateOperation() {
-		Collection<TestOperation> operations = this.factory.createOperations(EndpointId.of("test"), new ExampleWrite());
+		Collection<TestOperation> operations = this.factory.createOperations(new EndpointId("test"), new ExampleWrite());
 		assertThat(operations).hasSize(1);
 		TestOperation operation = getFirst(operations);
 		assertThat(operation.getType()).isEqualTo(OperationType.WRITE);
@@ -76,7 +76,7 @@ class DiscoveredOperationsFactoryTests {
 
 	@Test
 	void createOperationsWhenHasDeleteMethodShouldCreateOperation() {
-		Collection<TestOperation> operations = this.factory.createOperations(EndpointId.of("test"),
+		Collection<TestOperation> operations = this.factory.createOperations(new EndpointId("test"),
 				new ExampleDelete());
 		assertThat(operations).hasSize(1);
 		TestOperation operation = getFirst(operations);
@@ -85,7 +85,7 @@ class DiscoveredOperationsFactoryTests {
 
 	@Test
 	void createOperationsWhenMultipleShouldReturnMultiple() {
-		Collection<TestOperation> operations = this.factory.createOperations(EndpointId.of("test"),
+		Collection<TestOperation> operations = this.factory.createOperations(new EndpointId("test"),
 				new ExampleMultiple());
 		assertThat(operations).hasSize(2);
 		assertThat(operations.stream().map(TestOperation::getType)).containsOnly(OperationType.READ,
@@ -95,7 +95,7 @@ class DiscoveredOperationsFactoryTests {
 	@Test
 	void createOperationsShouldProvideOperationMethod() {
 		TestOperation operation = getFirst(
-				this.factory.createOperations(EndpointId.of("test"), new ExampleWithParams()));
+				this.factory.createOperations(new EndpointId("test"), new ExampleWithParams()));
 		OperationMethod operationMethod = operation.getOperationMethod();
 		assertThat(operationMethod.getMethod().getName()).isEqualTo("read");
 		assertThat(operationMethod.getParameters().hasParameters()).isTrue();
@@ -104,7 +104,7 @@ class DiscoveredOperationsFactoryTests {
 	@Test
 	void createOperationsShouldProviderInvoker() {
 		TestOperation operation = getFirst(
-				this.factory.createOperations(EndpointId.of("test"), new ExampleWithParams()));
+				this.factory.createOperations(new EndpointId("test"), new ExampleWithParams()));
 		Map<String, Object> params = Collections.singletonMap("name", 123);
 		Object result = operation.invoke(new InvocationContext(mock(SecurityContext.class), params));
 		assertThat(result).isEqualTo("123");
@@ -114,9 +114,9 @@ class DiscoveredOperationsFactoryTests {
 	void createOperationShouldApplyAdvisors() {
 		TestOperationInvokerAdvisor advisor = new TestOperationInvokerAdvisor();
 		this.invokerAdvisors.add(advisor);
-		TestOperation operation = getFirst(this.factory.createOperations(EndpointId.of("test"), new ExampleRead()));
+		TestOperation operation = getFirst(this.factory.createOperations(new EndpointId("test"), new ExampleRead()));
 		operation.invoke(new InvocationContext(mock(SecurityContext.class), Collections.emptyMap()));
-		assertThat(advisor.getEndpointId()).isEqualTo(EndpointId.of("test"));
+		assertThat(advisor.getEndpointId()).isEqualTo(new EndpointId("test"));
 		assertThat(advisor.getOperationType()).isEqualTo(OperationType.READ);
 		assertThat(advisor.getParameters()).isEmpty();
 	}
