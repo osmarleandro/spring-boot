@@ -56,13 +56,6 @@ public class OutcomeTests {
 	}
 
 	@Test
-	void outcomeForServerErrorStatusIsServerError() {
-		for (int status = 500; status < 600; status++) {
-			assertThat(Outcome.forStatus(status)).isEqualTo(Outcome.SERVER_ERROR);
-		}
-	}
-
-	@Test
 	void outcomeForStatusBelowLowestKnownSeriesIsUnknown() {
 		assertThat(Outcome.forStatus(99)).isEqualTo(Outcome.UNKNOWN);
 	}
