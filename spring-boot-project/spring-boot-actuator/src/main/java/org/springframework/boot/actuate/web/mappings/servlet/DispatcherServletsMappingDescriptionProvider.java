@@ -69,16 +69,13 @@ public class DispatcherServletsMappingDescriptionProvider implements MappingDesc
 	@Override
 	public Map<String, List<DispatcherServletMappingDescription>> describeMappings(ApplicationContext context) {
 		if (context instanceof WebApplicationContext) {
-			return describeMappings((WebApplicationContext) context);
+			WebApplicationContext context1 = (WebApplicationContext) context;
+			Map<String, List<DispatcherServletMappingDescription>> mappings = new HashMap<>();
+			determineDispatcherServlets(context1).forEach((name, dispatcherServlet) -> mappings.put(name,
+					describeMappings(new DispatcherServletHandlerMappings(name, dispatcherServlet, context))));
+			return mappings;
 		}
 		return Collections.emptyMap();
-	}
-
-	private Map<String, List<DispatcherServletMappingDescription>> describeMappings(WebApplicationContext context) {
-		Map<String, List<DispatcherServletMappingDescription>> mappings = new HashMap<>();
-		determineDispatcherServlets(context).forEach((name, dispatcherServlet) -> mappings.put(name,
-				describeMappings(new DispatcherServletHandlerMappings(name, dispatcherServlet, context))));
-		return mappings;
 	}
 
 	private Map<String, DispatcherServlet> determineDispatcherServlets(WebApplicationContext context) {
