@@ -238,18 +238,6 @@ class EnvironmentEndpointTests {
 	}
 
 	@Test
-	void propertyEntryNotFound() {
-		ConfigurableEnvironment environment = emptyEnvironment();
-		environment.getPropertySources().addFirst(singleKeyPropertySource("test", "foo", "bar"));
-		EnvironmentEntryDescriptor descriptor = new EnvironmentEndpoint(environment).environmentEntry("does.not.exist");
-		assertThat(descriptor).isNotNull();
-		assertThat(descriptor.getProperty()).isNull();
-		Map<String, PropertySourceEntryDescriptor> sources = propertySources(descriptor);
-		assertThat(sources.keySet()).containsExactly("test");
-		assertPropertySourceEntryDescriptor(sources.get("test"), null, null);
-	}
-
-	@Test
 	void multipleSourcesWithSameProperty() {
 		ConfigurableEnvironment environment = emptyEnvironment();
 		environment.getPropertySources().addFirst(singleKeyPropertySource("one", "a", "alpha"));
