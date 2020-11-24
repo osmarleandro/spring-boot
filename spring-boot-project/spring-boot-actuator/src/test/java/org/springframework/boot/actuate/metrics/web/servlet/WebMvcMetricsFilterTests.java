@@ -121,12 +121,6 @@ class WebMvcMetricsFilterTests {
 	@Qualifier("completableFutureBarrier")
 	private CyclicBarrier completableFutureBarrier;
 
-	@BeforeEach
-	void setupMockMvc() {
-		this.mvc = MockMvcBuilders.webAppContextSetup(this.context)
-				.addFilters(this.filter, new RedirectAndNotFoundFilter()).build();
-	}
-
 	@Test
 	void timedMethod() throws Exception {
 		this.mvc.perform(get("/api/c1/10")).andExpect(status().isOk());
