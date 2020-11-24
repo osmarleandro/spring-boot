@@ -159,14 +159,6 @@ public final class Health extends HealthComponent {
 	}
 
 	/**
-	 * Create a new {@link Builder} instance with an {@link Status#OUT_OF_SERVICE} status.
-	 * @return a new {@link Builder} instance
-	 */
-	public static Builder outOfService() {
-		return status(Status.OUT_OF_SERVICE);
-	}
-
-	/**
 	 * Create a new {@link Builder} instance with a specific status code.
 	 * @param statusCode the status code
 	 * @return a new {@link Builder} instance
