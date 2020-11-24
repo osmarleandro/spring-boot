@@ -172,7 +172,7 @@ public abstract class AbstractWebFluxEndpointHandlerMapping extends RequestMappi
 		ConsumesRequestCondition consumes = new ConsumesRequestCondition(
 				StringUtils.toStringArray(predicate.getConsumes()));
 		ProducesRequestCondition produces = new ProducesRequestCondition(
-				StringUtils.toStringArray(predicate.getProduces()));
+				StringUtils.toStringArray(Collections.unmodifiableCollection(predicate.produces)));
 		return new RequestMappingInfo(null, patterns, methods, null, null, consumes, produces, null);
 	}
 

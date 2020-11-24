@@ -109,14 +109,6 @@ public final class WebOperationRequestPredicate {
 		return Collections.unmodifiableCollection(this.consumes);
 	}
 
-	/**
-	 * Returns the media types that the operation produces.
-	 * @return the produced media types
-	 */
-	public Collection<String> getProduces() {
-		return Collections.unmodifiableCollection(this.produces);
-	}
-
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj) {
