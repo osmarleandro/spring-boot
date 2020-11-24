@@ -75,10 +75,6 @@ public class JerseyWebEndpointIntegrationTests
 		return context;
 	}
 
-	private static void applyAuthenticatedConfiguration(AnnotationConfigServletWebServerApplicationContext context) {
-		context.register(AuthenticatedConfiguration.class);
-	}
-
 	@Override
 	protected int getPort(AnnotationConfigServletWebServerApplicationContext context) {
 		return context.getWebServer().getPort();
