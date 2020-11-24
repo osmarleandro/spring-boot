@@ -88,11 +88,6 @@ class EnvironmentEndpointWebIntegrationTests {
 	}
 
 	@WebEndpointTest
-	void nestedPathForUnknownKeyShouldReturn404() {
-		this.client.get().uri("/actuator/env/this.does.not.exist").exchange().expectStatus().isNotFound();
-	}
-
-	@WebEndpointTest
 	void nestedPathMatchedByRegexWhenPlaceholderCannotBeResolvedShouldReturnUnresolvedProperty() {
 		Map<String, Object> map = new HashMap<>();
 		map.put("my.foo", "${my.bar}");
