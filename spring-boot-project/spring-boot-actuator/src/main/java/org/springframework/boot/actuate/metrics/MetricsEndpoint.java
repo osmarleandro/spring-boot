@@ -128,12 +128,9 @@ public class MetricsEndpoint {
 	}
 
 	private void mergeMeasurements(Map<Statistic, Double> samples, Meter meter) {
+		Statistic statistic = measurement.getStatistic();
 		meter.measure().forEach((measurement) -> samples.merge(measurement.getStatistic(), measurement.getValue(),
-				mergeFunction(measurement.getStatistic())));
-	}
-
-	private BiFunction<Double, Double, Double> mergeFunction(Statistic statistic) {
-		return Statistic.MAX.equals(statistic) ? Double::max : Double::sum;
+				Statistic.MAX.equals(statistic) ? Double::max : Double::sum));
 	}
 
 	private Map<String, Set<String>> getAvailableTags(Collection<Meter> meters) {
