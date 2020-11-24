@@ -48,9 +48,4 @@ public class TestExposableJmxEndpoint implements ExposableJmxEndpoint {
 		return true;
 	}
 
-	@Override
-	public Collection<JmxOperation> getOperations() {
-		return this.operations;
-	}
-
 }
