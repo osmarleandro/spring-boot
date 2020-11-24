@@ -99,13 +99,6 @@ abstract class DefaultContributorRegistryTests {
 	}
 
 	@Test
-	void registerContributorWhenNameAlreadyUsedThrowsException() {
-		this.registry.registerContributor("one", this.one);
-		assertThatIllegalStateException().isThrownBy(() -> this.registry.registerContributor("one", this.two))
-				.withMessageContaining("A contributor named \"one\" has already been registered");
-	}
-
-	@Test
 	void registerContributorUsesNameFactory() {
 		this.registry.registerContributor("oneHealthIndicator", this.one);
 		assertThat(this.registry.getContributor("oneHealthIndicator")).isNull();
