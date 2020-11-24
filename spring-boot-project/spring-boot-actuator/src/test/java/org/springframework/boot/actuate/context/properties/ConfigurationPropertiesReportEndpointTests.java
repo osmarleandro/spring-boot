@@ -160,12 +160,6 @@ class ConfigurationPropertiesReportEndpointTests {
 	}
 
 	@Test
-	void descriptorWithMixedBooleanProperty() {
-		this.contextRunner.withUserConfiguration(BooleanPropertiesConfiguration.class).run(assertProperties("boolean",
-				(properties) -> assertThat(properties.get("mixedBoolean")).isEqualTo(true)));
-	}
-
-	@Test
 	void sanitizeWithDefaultSettings() {
 		this.contextRunner.withUserConfiguration(TestPropertiesConfiguration.class)
 				.run(assertProperties("test", (properties) -> {
