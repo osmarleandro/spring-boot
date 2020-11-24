@@ -34,12 +34,4 @@ import static org.mockito.Mockito.mock;
  */
 class RedisCacheMeterBinderProviderTests {
 
-	@Test
-	void redisCacheProvider() {
-		RedisCache cache = mock(RedisCache.class);
-		given(cache.getName()).willReturn("test");
-		MeterBinder meterBinder = new RedisCacheMeterBinderProvider().getMeterBinder(cache, Collections.emptyList());
-		assertThat(meterBinder).isInstanceOf(RedisCacheMetrics.class);
-	}
-
 }
