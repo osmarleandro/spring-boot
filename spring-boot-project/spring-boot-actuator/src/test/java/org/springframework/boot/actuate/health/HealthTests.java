@@ -129,13 +129,6 @@ class HealthTests {
 	}
 
 	@Test
-	void upWithDetails() {
-		Health health = new Health.Builder().up().withDetail("a", "b").build();
-		assertThat(health.getStatus()).isEqualTo(Status.UP);
-		assertThat(health.getDetails()).containsOnly(entry("a", "b"));
-	}
-
-	@Test
 	void up() {
 		Health health = new Health.Builder().up().build();
 		assertThat(health.getStatus()).isEqualTo(Status.UP);
