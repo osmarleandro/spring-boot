@@ -45,9 +45,4 @@ public class FiltersMappingDescriptionProvider implements MappingDescriptionProv
 				.map(FilterRegistrationMappingDescription::new).collect(Collectors.toList());
 	}
 
-	@Override
-	public String getMappingName() {
-		return "servletFilters";
-	}
-
 }
