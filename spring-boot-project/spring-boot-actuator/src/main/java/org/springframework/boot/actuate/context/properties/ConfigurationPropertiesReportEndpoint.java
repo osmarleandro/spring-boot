@@ -51,6 +51,8 @@ import org.apache.commons.logging.LogFactory;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.BeansException;
+import org.springframework.boot.actuate.context.properties.ConfigurationPropertiesReportEndpoint.ApplicationConfigurationProperties;
+import org.springframework.boot.actuate.context.properties.ConfigurationPropertiesReportEndpoint.ContextConfigurationProperties;
 import org.springframework.boot.actuate.endpoint.Sanitizer;
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
 import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
@@ -109,13 +111,9 @@ public class ConfigurationPropertiesReportEndpoint implements ApplicationContext
 
 	@ReadOperation
 	public ApplicationConfigurationProperties configurationProperties() {
-		return extract(this.context);
-	}
-
-	private ApplicationConfigurationProperties extract(ApplicationContext context) {
 		ObjectMapper mapper = getObjectMapper();
 		Map<String, ContextConfigurationProperties> contexts = new HashMap<>();
-		ApplicationContext target = context;
+		ApplicationContext target = this.context;
 		while (target != null) {
 			contexts.put(target.getId(), describeBeans(mapper, target));
 			target = target.getParent();
