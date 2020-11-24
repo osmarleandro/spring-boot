@@ -65,7 +65,12 @@ class Neo4jReactiveHealthIndicatorTest {
 	void neo4jIsUpWithOneSessionExpiredException() {
 		ResultSummary resultSummary = ResultSummaryMock.createResultSummary("4711", "My Home", "");
 		RxSession session = mock(RxSession.class);
-		RxResult statementResult = mockStatementResult(resultSummary, "some edition");
+		Record record = mock(Record.class);
+		given(record.get("edition")).willReturn(Values.value("some edition"));
+		RxResult statementResult1 = mock(RxResult.class);
+		given(statementResult1.records()).willReturn(Mono.just(record));
+		given(statementResult1.consume()).willReturn(Mono.just(resultSummary));
+		RxResult statementResult = statementResult1;
 		AtomicInteger count = new AtomicInteger();
 		given(session.run(anyString())).will((invocation) -> {
 			if (count.compareAndSet(0, 1)) {
@@ -95,17 +100,13 @@ class Neo4jReactiveHealthIndicatorTest {
 		}).verifyComplete();
 	}
 
-	private RxResult mockStatementResult(ResultSummary resultSummary, String edition) {
+	private Driver mockDriver(ResultSummary resultSummary, String edition) {
 		Record record = mock(Record.class);
 		given(record.get("edition")).willReturn(Values.value(edition));
-		RxResult statementResult = mock(RxResult.class);
-		given(statementResult.records()).willReturn(Mono.just(record));
-		given(statementResult.consume()).willReturn(Mono.just(resultSummary));
-		return statementResult;
-	}
-
-	private Driver mockDriver(ResultSummary resultSummary, String edition) {
-		RxResult statementResult = mockStatementResult(resultSummary, edition);
+		RxResult statementResult1 = mock(RxResult.class);
+		given(statementResult1.records()).willReturn(Mono.just(record));
+		given(statementResult1.consume()).willReturn(Mono.just(resultSummary));
+		RxResult statementResult = statementResult1;
 		RxSession session = mock(RxSession.class);
 		given(session.run(anyString())).willReturn(statementResult);
 		Driver driver = mock(Driver.class);
