@@ -66,14 +66,6 @@ class ConversionServiceParameterValueMapperTests {
 	}
 
 	@Test
-	void createShouldRegisterIsoOffsetDateTimeConverter() {
-		ConversionServiceParameterValueMapper mapper = new ConversionServiceParameterValueMapper();
-		Object mapped = mapper.mapParameterValue(new TestOperationParameter(OffsetDateTime.class),
-				"2011-12-03T10:15:30+01:00");
-		assertThat(mapped).isNotNull();
-	}
-
-	@Test
 	void createWithConversionServiceShouldNotRegisterIsoOffsetDateTimeConverter() {
 		ConversionService conversionService = new DefaultConversionService();
 		ConversionServiceParameterValueMapper mapper = new ConversionServiceParameterValueMapper(conversionService);
