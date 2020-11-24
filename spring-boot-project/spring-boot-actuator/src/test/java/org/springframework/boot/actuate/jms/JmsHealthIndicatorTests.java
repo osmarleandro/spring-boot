@@ -98,25 +98,6 @@ class JmsHealthIndicatorTests {
 		assertThat(health.getDetails().get("provider")).isNull();
 	}
 
-	@Test
-	void whenConnectionStartIsUnresponsiveStatusIsDown() throws JMSException {
-		ConnectionMetaData connectionMetaData = mock(ConnectionMetaData.class);
-		given(connectionMetaData.getJMSProviderName()).willReturn("JMS test provider");
-		Connection connection = mock(Connection.class);
-		UnresponsiveStartAnswer unresponsiveStartAnswer = new UnresponsiveStartAnswer();
-		willAnswer(unresponsiveStartAnswer).given(connection).start();
-		willAnswer((invocation) -> {
-			unresponsiveStartAnswer.connectionClosed();
-			return null;
-		}).given(connection).close();
-		ConnectionFactory connectionFactory = mock(ConnectionFactory.class);
-		given(connectionFactory.createConnection()).willReturn(connection);
-		JmsHealthIndicator indicator = new JmsHealthIndicator(connectionFactory);
-		Health health = indicator.health();
-		assertThat(health.getStatus()).isEqualTo(Status.DOWN);
-		assertThat((String) health.getDetails().get("error")).contains("Connection closed");
-	}
-
 	private static final class UnresponsiveStartAnswer implements Answer<Void> {
 
 		private boolean connectionClosed = false;
