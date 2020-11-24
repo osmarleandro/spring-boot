@@ -125,26 +125,6 @@ class ConfigurationPropertiesReportEndpointSerializationTests {
 	}
 
 	@Test
-	@SuppressWarnings("unchecked")
-	void testMap() {
-		ApplicationContextRunner contextRunner = new ApplicationContextRunner().withUserConfiguration(MapConfig.class)
-				.withPropertyValues("foo.map.name:foo");
-		contextRunner.run((context) -> {
-			ConfigurationPropertiesReportEndpoint endpoint = context
-					.getBean(ConfigurationPropertiesReportEndpoint.class);
-			ApplicationConfigurationProperties applicationProperties = endpoint.configurationProperties();
-			ConfigurationPropertiesBeanDescriptor fooProperties = applicationProperties.getContexts()
-					.get(context.getId()).getBeans().get("foo");
-			assertThat(fooProperties).isNotNull();
-			assertThat(fooProperties.getPrefix()).isEqualTo("foo");
-			Map<String, Object> map = fooProperties.getProperties();
-			assertThat(map).isNotNull();
-			assertThat(map).hasSize(3);
-			assertThat(((Map<String, Object>) map.get("map")).get("name")).isEqualTo("foo");
-		});
-	}
-
-	@Test
 	void testEmptyMapIsNotAdded() {
 		ApplicationContextRunner contextRunner = new ApplicationContextRunner().withUserConfiguration(MapConfig.class);
 		contextRunner.run((context) -> {
