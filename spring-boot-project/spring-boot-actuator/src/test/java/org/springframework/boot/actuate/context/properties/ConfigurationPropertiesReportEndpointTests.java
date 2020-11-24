@@ -285,17 +285,6 @@ class ConfigurationPropertiesReportEndpointTests {
 				}));
 	}
 
-	@Test
-	void originParents() {
-		this.contextRunner.withUserConfiguration(SensiblePropertiesConfiguration.class)
-				.withInitializer(this::initializeOriginParents).run(assertProperties("sensible", (properties) -> {
-				}, (inputs) -> {
-					Map<String, Object> stringInputs = (Map<String, Object>) inputs.get("string");
-					String[] originParents = (String[]) stringInputs.get("originParents");
-					assertThat(originParents).containsExactly("spring", "boot");
-				}));
-	}
-
 	private void initializeOriginParents(ConfigurableApplicationContext context) {
 		MockPropertySource propertySource = new OriginParentMockPropertySource();
 		propertySource.setProperty("sensible.string", "spring");
