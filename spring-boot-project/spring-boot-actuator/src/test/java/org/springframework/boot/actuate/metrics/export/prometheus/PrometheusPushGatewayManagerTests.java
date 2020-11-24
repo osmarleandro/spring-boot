@@ -122,7 +122,7 @@ class PrometheusPushGatewayManagerTests {
 				mock(PushGatewayTaskScheduler.class));
 		PrometheusPushGatewayManager manager = new PrometheusPushGatewayManager(this.pushGateway, this.registry,
 				ownedScheduler, this.pushRate, "job", this.groupingKey, null);
-		manager.shutdown();
+		manager.shutdown(manager.shutdownOperation);
 		verify(ownedScheduler).shutdown();
 	}
 
@@ -132,7 +132,7 @@ class PrometheusPushGatewayManagerTests {
 				mock(ThreadPoolTaskScheduler.class));
 		PrometheusPushGatewayManager manager = new PrometheusPushGatewayManager(this.pushGateway, this.registry,
 				otherScheduler, this.pushRate, "job", this.groupingKey, null);
-		manager.shutdown();
+		manager.shutdown(manager.shutdownOperation);
 		verify(otherScheduler, never()).shutdown();
 	}
 
@@ -141,7 +141,7 @@ class PrometheusPushGatewayManagerTests {
 		givenScheduleAtFixedRateWithReturnFuture();
 		PrometheusPushGatewayManager manager = new PrometheusPushGatewayManager(this.pushGateway, this.registry,
 				this.scheduler, this.pushRate, "job", this.groupingKey, ShutdownOperation.PUSH);
-		manager.shutdown();
+		manager.shutdown(manager.shutdownOperation);
 		verify(this.future).cancel(false);
 		verify(this.pushGateway).pushAdd(this.registry, "job", this.groupingKey);
 	}
@@ -151,7 +151,7 @@ class PrometheusPushGatewayManagerTests {
 		givenScheduleAtFixedRateWithReturnFuture();
 		PrometheusPushGatewayManager manager = new PrometheusPushGatewayManager(this.pushGateway, this.registry,
 				this.scheduler, this.pushRate, "job", this.groupingKey, ShutdownOperation.DELETE);
-		manager.shutdown();
+		manager.shutdown(manager.shutdownOperation);
 		verify(this.future).cancel(false);
 		verify(this.pushGateway).delete("job", this.groupingKey);
 	}
@@ -161,7 +161,7 @@ class PrometheusPushGatewayManagerTests {
 		givenScheduleAtFixedRateWithReturnFuture();
 		PrometheusPushGatewayManager manager = new PrometheusPushGatewayManager(this.pushGateway, this.registry,
 				this.scheduler, this.pushRate, "job", this.groupingKey, ShutdownOperation.NONE);
-		manager.shutdown();
+		manager.shutdown(manager.shutdownOperation);
 		verify(this.future).cancel(false);
 		verifyNoInteractions(this.pushGateway);
 	}

@@ -129,13 +129,6 @@ public class PrometheusPushGatewayManager {
 		}
 	}
 
-	/**
-	 * Shutdown the manager, running any {@link ShutdownOperation}.
-	 */
-	public void shutdown() {
-		shutdown(this.shutdownOperation);
-	}
-
 	private void shutdown(ShutdownOperation shutdownOperation) {
 		if (this.scheduler instanceof PushGatewayTaskScheduler) {
 			((PushGatewayTaskScheduler) this.scheduler).shutdown();
