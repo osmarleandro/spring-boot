@@ -166,15 +166,6 @@ public abstract class AbstractWebEndpointIntegrationTests<T extends Configurable
 	}
 
 	@Test
-	void readOperationWithMappingFailureProducesBadRequestResponse() {
-		load(QueryEndpointConfiguration.class, (client) -> {
-			WebTestClient.BodyContentSpec body = client.get().uri("/query?two=two").accept(MediaType.APPLICATION_JSON)
-					.exchange().expectStatus().isBadRequest().expectBody();
-			validateErrorBody(body, HttpStatus.BAD_REQUEST, "/endpoints/query", "Missing parameters: one");
-		});
-	}
-
-	@Test
 	void writeOperation() {
 		load(TestEndpointConfiguration.class, (client) -> {
 			Map<String, Object> body = new HashMap<>();
