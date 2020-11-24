@@ -65,13 +65,6 @@ class RestTemplateExchangeTagsTests {
 	}
 
 	@Test
-	void outcomeTagIsClientErrorWhenResponseIs4xx() {
-		ClientHttpResponse response = new MockClientHttpResponse("foo".getBytes(), HttpStatus.BAD_REQUEST);
-		Tag tag = RestTemplateExchangeTags.outcome(response);
-		assertThat(tag.getValue()).isEqualTo("CLIENT_ERROR");
-	}
-
-	@Test
 	void outcomeTagIsServerErrorWhenResponseIs5xx() {
 		ClientHttpResponse response = new MockClientHttpResponse("foo".getBytes(), HttpStatus.BAD_GATEWAY);
 		Tag tag = RestTemplateExchangeTags.outcome(response);
