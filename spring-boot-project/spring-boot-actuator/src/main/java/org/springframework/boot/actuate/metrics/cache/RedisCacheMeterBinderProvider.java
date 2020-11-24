@@ -29,9 +29,4 @@ import org.springframework.data.redis.cache.RedisCache;
  */
 public class RedisCacheMeterBinderProvider implements CacheMeterBinderProvider<RedisCache> {
 
-	@Override
-	public MeterBinder getMeterBinder(RedisCache cache, Iterable<Tag> tags) {
-		return new RedisCacheMetrics(cache, tags);
-	}
-
 }

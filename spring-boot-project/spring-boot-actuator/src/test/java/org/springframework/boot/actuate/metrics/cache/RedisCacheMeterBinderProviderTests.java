@@ -18,6 +18,7 @@ package org.springframework.boot.actuate.metrics.cache;
 
 import java.util.Collections;
 
+import io.micrometer.core.instrument.Tag;
 import io.micrometer.core.instrument.binder.MeterBinder;
 import org.junit.jupiter.api.Test;
 
@@ -38,7 +39,9 @@ class RedisCacheMeterBinderProviderTests {
 	void redisCacheProvider() {
 		RedisCache cache = mock(RedisCache.class);
 		given(cache.getName()).willReturn("test");
-		MeterBinder meterBinder = new RedisCacheMeterBinderProvider().getMeterBinder(cache, Collections.emptyList());
+		Iterable<Tag> tags = Collections.emptyList();
+		RedisCacheMeterBinderProvider r = new RedisCacheMeterBinderProvider();
+		MeterBinder meterBinder = new RedisCacheMetrics(cache, tags);
 		assertThat(meterBinder).isInstanceOf(RedisCacheMetrics.class);
 	}
 
