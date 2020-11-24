@@ -101,13 +101,6 @@ class PrometheusPushGatewayManagerTests {
 	}
 
 	@Test
-	void createWhenJobIsEmptyThrowsException() {
-		assertThatIllegalArgumentException().isThrownBy(() -> new PrometheusPushGatewayManager(this.pushGateway,
-				this.registry, this.scheduler, this.pushRate, "", this.groupingKey, null))
-				.withMessage("Job must not be empty");
-	}
-
-	@Test
 	void createShouldSchedulePushAsFixedRate() throws Exception {
 		new PrometheusPushGatewayManager(this.pushGateway, this.registry, this.scheduler, this.pushRate, "job",
 				this.groupingKey, null);
