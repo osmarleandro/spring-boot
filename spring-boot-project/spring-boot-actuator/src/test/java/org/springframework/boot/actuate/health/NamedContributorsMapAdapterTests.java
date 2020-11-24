@@ -78,13 +78,6 @@ class NamedContributorsMapAdapterTests {
 	}
 
 	@Test
-	void getContributorReturnsAdaptedEntry() {
-		TestNamedContributorsMapAdapter<String> adapter = createAdapter();
-		assertThat(adapter.getContributor("one")).isEqualTo("eno");
-		assertThat(adapter.getContributor("two")).isEqualTo("owt");
-	}
-
-	@Test
 	void getContributorWhenNotInMapReturnsNull() {
 		TestNamedContributorsMapAdapter<String> adapter = createAdapter();
 		assertThat(adapter.getContributor("missing")).isNull();
