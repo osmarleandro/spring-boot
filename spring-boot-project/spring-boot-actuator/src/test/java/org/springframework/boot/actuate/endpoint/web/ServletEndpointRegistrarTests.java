@@ -89,7 +89,12 @@ class ServletEndpointRegistrarTests {
 
 	private void assertBasePath(String basePath, String expectedMapping) throws ServletException {
 		given(this.servletContext.addServlet(any(String.class), any(Servlet.class))).willReturn(this.dynamic);
-		ExposableServletEndpoint endpoint = mockEndpoint(new EndpointServlet(TestServlet.class));
+		EndpointServlet endpointServlet = new EndpointServlet(TestServlet.class);
+		ExposableServletEndpoint endpoint1 = mock(ExposableServletEndpoint.class);
+		given(endpoint1.getEndpointId()).willReturn(EndpointId.of("test"));
+		given(endpoint1.getEndpointServlet()).willReturn(endpointServlet);
+		given(endpoint1.getRootPath()).willReturn("test");
+		ExposableServletEndpoint endpoint = endpoint1;
 		ServletEndpointRegistrar registrar = new ServletEndpointRegistrar(basePath, Collections.singleton(endpoint));
 		registrar.onStartup(this.servletContext);
 		verify(this.servletContext).addServlet(eq("test-actuator-endpoint"), this.servlet.capture());
@@ -100,8 +105,12 @@ class ServletEndpointRegistrarTests {
 	@Test
 	void onStartupWhenHasInitParametersShouldRegisterInitParameters() throws Exception {
 		given(this.servletContext.addServlet(any(String.class), any(Servlet.class))).willReturn(this.dynamic);
-		ExposableServletEndpoint endpoint = mockEndpoint(
-				new EndpointServlet(TestServlet.class).withInitParameter("a", "b"));
+		EndpointServlet endpointServlet = new EndpointServlet(TestServlet.class).withInitParameter("a", "b");
+		ExposableServletEndpoint endpoint1 = mock(ExposableServletEndpoint.class);
+		given(endpoint1.getEndpointId()).willReturn(EndpointId.of("test"));
+		given(endpoint1.getEndpointServlet()).willReturn(endpointServlet);
+		given(endpoint1.getRootPath()).willReturn("test");
+		ExposableServletEndpoint endpoint = endpoint1;
 		ServletEndpointRegistrar registrar = new ServletEndpointRegistrar("/actuator", Collections.singleton(endpoint));
 		registrar.onStartup(this.servletContext);
 		verify(this.dynamic).setInitParameters(Collections.singletonMap("a", "b"));
@@ -110,7 +119,12 @@ class ServletEndpointRegistrarTests {
 	@Test
 	void onStartupWhenHasLoadOnStartupShouldRegisterLoadOnStartup() throws Exception {
 		given(this.servletContext.addServlet(any(String.class), any(Servlet.class))).willReturn(this.dynamic);
-		ExposableServletEndpoint endpoint = mockEndpoint(new EndpointServlet(TestServlet.class).withLoadOnStartup(7));
+		EndpointServlet endpointServlet = new EndpointServlet(TestServlet.class).withLoadOnStartup(7);
+		ExposableServletEndpoint endpoint1 = mock(ExposableServletEndpoint.class);
+		given(endpoint1.getEndpointId()).willReturn(EndpointId.of("test"));
+		given(endpoint1.getEndpointServlet()).willReturn(endpointServlet);
+		given(endpoint1.getRootPath()).willReturn("test");
+		ExposableServletEndpoint endpoint = endpoint1;
 		ServletEndpointRegistrar registrar = new ServletEndpointRegistrar("/actuator", Collections.singleton(endpoint));
 		registrar.onStartup(this.servletContext);
 		verify(this.dynamic).setLoadOnStartup(7);
@@ -119,18 +133,15 @@ class ServletEndpointRegistrarTests {
 	@Test
 	void onStartupWhenHasNotLoadOnStartupShouldRegisterDefaultValue() throws Exception {
 		given(this.servletContext.addServlet(any(String.class), any(Servlet.class))).willReturn(this.dynamic);
-		ExposableServletEndpoint endpoint = mockEndpoint(new EndpointServlet(TestServlet.class));
+		EndpointServlet endpointServlet = new EndpointServlet(TestServlet.class);
+		ExposableServletEndpoint endpoint1 = mock(ExposableServletEndpoint.class);
+		given(endpoint1.getEndpointId()).willReturn(EndpointId.of("test"));
+		given(endpoint1.getEndpointServlet()).willReturn(endpointServlet);
+		given(endpoint1.getRootPath()).willReturn("test");
+		ExposableServletEndpoint endpoint = endpoint1;
 		ServletEndpointRegistrar registrar = new ServletEndpointRegistrar("/actuator", Collections.singleton(endpoint));
 		registrar.onStartup(this.servletContext);
 		verify(this.dynamic).setLoadOnStartup(-1);
-	}
-
-	private ExposableServletEndpoint mockEndpoint(EndpointServlet endpointServlet) {
-		ExposableServletEndpoint endpoint = mock(ExposableServletEndpoint.class);
-		given(endpoint.getEndpointId()).willReturn(EndpointId.of("test"));
-		given(endpoint.getEndpointServlet()).willReturn(endpointServlet);
-		given(endpoint.getRootPath()).willReturn("test");
-		return endpoint;
 	}
 
 	static class TestServlet extends GenericServlet {
