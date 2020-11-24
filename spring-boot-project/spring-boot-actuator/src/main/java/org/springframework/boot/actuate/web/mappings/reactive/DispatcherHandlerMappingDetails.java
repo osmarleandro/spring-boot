@@ -45,10 +45,6 @@ public class DispatcherHandlerMappingDetails {
 		return this.handlerFunction;
 	}
 
-	void setHandlerFunction(HandlerFunctionDescription handlerFunction) {
-		this.handlerFunction = handlerFunction;
-	}
-
 	public RequestMappingConditionsDescription getRequestMappingConditions() {
 		return this.requestMappingConditions;
 	}
