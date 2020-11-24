@@ -48,9 +48,4 @@ public class IntegrationGraphEndpoint {
 		return this.graphServer.getGraph();
 	}
 
-	@WriteOperation
-	public void rebuild() {
-		this.graphServer.rebuild();
-	}
-
 }
