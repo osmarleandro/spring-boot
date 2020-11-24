@@ -67,16 +67,6 @@ class ShutdownEndpointTests {
 	}
 
 	@Test
-	void shutdownChild() throws Exception {
-		ConfigurableApplicationContext context = new SpringApplicationBuilder(EmptyConfig.class)
-				.child(EndpointConfig.class).web(WebApplicationType.NONE).run();
-		CountDownLatch latch = context.getBean(EndpointConfig.class).latch;
-		assertThat(context.getBean(ShutdownEndpoint.class).shutdown().get("message")).startsWith("Shutting down");
-		assertThat(context.isActive()).isTrue();
-		assertThat(latch.await(10, TimeUnit.SECONDS)).isTrue();
-	}
-
-	@Test
 	void shutdownParent() throws Exception {
 		ConfigurableApplicationContext context = new SpringApplicationBuilder(EndpointConfig.class)
 				.child(EmptyConfig.class).web(WebApplicationType.NONE).run();
