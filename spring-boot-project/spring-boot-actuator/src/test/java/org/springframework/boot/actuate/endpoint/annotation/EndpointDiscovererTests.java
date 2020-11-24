@@ -178,24 +178,6 @@ class EndpointDiscovererTests {
 	}
 
 	@Test
-	void getEndpointsWhenTtlSetByIdAndIdMatchesShouldCacheInvokeCalls() {
-		load(TestEndpointConfiguration.class, (context) -> {
-			TestEndpointDiscoverer discoverer = new TestEndpointDiscoverer(context,
-					(endpointId) -> (endpointId.equals(EndpointId.of("test")) ? 500L : 0L));
-			Map<EndpointId, TestExposableEndpoint> endpoints = mapEndpoints(discoverer.getEndpoints());
-			assertThat(endpoints).containsOnlyKeys(EndpointId.of("test"));
-			Map<Method, TestOperation> operations = mapOperations(endpoints.get(EndpointId.of("test")));
-			TestOperation getAll = operations.get(findTestEndpointMethod("getAll"));
-			TestOperation getOne = operations.get(findTestEndpointMethod("getOne", String.class));
-			TestOperation update = operations
-					.get(ReflectionUtils.findMethod(TestEndpoint.class, "update", String.class, String.class));
-			assertThat(((CachingOperationInvoker) getAll.getInvoker()).getTimeToLive()).isEqualTo(500);
-			assertThat(getOne.getInvoker()).isNotInstanceOf(CachingOperationInvoker.class);
-			assertThat(update.getInvoker()).isNotInstanceOf(CachingOperationInvoker.class);
-		});
-	}
-
-	@Test
 	void getEndpointsWhenHasSpecializedFiltersInNonSpecializedDiscovererShouldFilterEndpoints() {
 		load(SpecializedEndpointsConfiguration.class, (context) -> {
 			TestEndpointDiscoverer discoverer = new TestEndpointDiscoverer(context);
