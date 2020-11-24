@@ -67,16 +67,6 @@ class LoggersEndpointWebIntegrationTests {
 
 	private LoggerGroups loggerGroups;
 
-	@BeforeEach
-	@AfterEach
-	void resetMocks(ConfigurableApplicationContext context, WebTestClient client) {
-		this.client = client;
-		this.loggingSystem = context.getBean(LoggingSystem.class);
-		this.loggerGroups = context.getBean(LoggerGroups.class);
-		Mockito.reset(this.loggingSystem);
-		given(this.loggingSystem.getSupportedLogLevels()).willReturn(EnumSet.allOf(LogLevel.class));
-	}
-
 	@WebEndpointTest
 	void getLoggerShouldReturnAllLoggerConfigurationsWithLoggerGroups() {
 		setLogLevelToDebug("test");
