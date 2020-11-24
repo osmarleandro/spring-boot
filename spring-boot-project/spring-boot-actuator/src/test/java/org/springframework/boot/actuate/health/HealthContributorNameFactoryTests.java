@@ -28,11 +28,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 class HealthContributorNameFactoryTests {
 
 	@Test
-	void applyWhenNameDoesNotEndWithSuffixReturnsName() {
-		assertThat(HealthContributorNameFactory.INSTANCE.apply("test")).isEqualTo("test");
-	}
-
-	@Test
 	void applyWhenNameEndsWithSuffixReturnsNewName() {
 		assertThat(HealthContributorNameFactory.INSTANCE.apply("testHealthIndicator")).isEqualTo("test");
 		assertThat(HealthContributorNameFactory.INSTANCE.apply("testHealthContributor")).isEqualTo("test");
