@@ -58,13 +58,6 @@ class EndpointServletTests {
 	}
 
 	@Test
-	void getServletShouldGetServlet() {
-		TestServlet servlet = new TestServlet();
-		EndpointServlet endpointServlet = new EndpointServlet(servlet);
-		assertThat(endpointServlet.getServlet()).isEqualTo(servlet);
-	}
-
-	@Test
 	void withInitParameterNullName() {
 		EndpointServlet endpointServlet = new EndpointServlet(TestServlet.class);
 		assertThatIllegalArgumentException().isThrownBy(() -> endpointServlet.withInitParameter(null, "value"));
