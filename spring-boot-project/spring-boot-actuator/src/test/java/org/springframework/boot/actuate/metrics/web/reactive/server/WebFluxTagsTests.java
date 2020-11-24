@@ -120,14 +120,6 @@ class WebFluxTagsTests {
 	}
 
 	@Test
-	void uriTagValueIsUnknownWhenRequestHasNoPatternAndNonRootPathInfo() {
-		MockServerHttpRequest request = MockServerHttpRequest.get("/example").build();
-		ServerWebExchange exchange = MockServerWebExchange.from(request);
-		Tag tag = WebFluxTags.uri(exchange);
-		assertThat(tag.getValue()).isEqualTo("UNKNOWN");
-	}
-
-	@Test
 	void methodTagToleratesNonStandardHttpMethods() {
 		ServerWebExchange exchange = mock(ServerWebExchange.class);
 		ServerHttpRequest request = mock(ServerHttpRequest.class);
