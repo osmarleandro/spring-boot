@@ -65,15 +65,6 @@ class DefaultWebClientExchangeTagsProviderTests {
 	}
 
 	@Test
-	void tagsWhenNoUriTemplateShouldProvideUriPath() {
-		ClientRequest request = ClientRequest
-				.create(HttpMethod.GET, URI.create("https://example.org/projects/spring-boot")).build();
-		Iterable<Tag> tags = this.tagsProvider.tags(request, this.response, null);
-		assertThat(tags).containsExactlyInAnyOrder(Tag.of("method", "GET"), Tag.of("uri", "/projects/spring-boot"),
-				Tag.of("clientName", "example.org"), Tag.of("status", "200"), Tag.of("outcome", "SUCCESS"));
-	}
-
-	@Test
 	void tagsWhenIoExceptionShouldReturnIoErrorStatus() {
 		Iterable<Tag> tags = this.tagsProvider.tags(this.request, null, new IOException());
 		assertThat(tags).containsExactlyInAnyOrder(Tag.of("method", "GET"), Tag.of("uri", "/projects/{project}"),
