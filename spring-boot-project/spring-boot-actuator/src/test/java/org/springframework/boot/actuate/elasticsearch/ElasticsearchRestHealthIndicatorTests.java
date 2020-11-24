@@ -88,20 +88,6 @@ class ElasticsearchRestHealthIndicatorTests {
 	}
 
 	@Test
-	void elasticsearchIsDownByResponseCode() throws IOException {
-		Response response = mock(Response.class);
-		StatusLine statusLine = mock(StatusLine.class);
-		given(statusLine.getStatusCode()).willReturn(500);
-		given(statusLine.getReasonPhrase()).willReturn("Internal server error");
-		given(response.getStatusLine()).willReturn(statusLine);
-		given(this.restClient.performRequest(any(Request.class))).willReturn(response);
-		Health health = this.elasticsearchRestHealthIndicator.health();
-		assertThat(health.getStatus()).isEqualTo(Status.DOWN);
-		assertThat(health.getDetails()).contains(entry("statusCode", 500),
-				entry("reasonPhrase", "Internal server error"));
-	}
-
-	@Test
 	void elasticsearchIsOutOfServiceByStatus() throws IOException {
 		BasicHttpEntity httpEntity = new BasicHttpEntity();
 		httpEntity.setContent(new ByteArrayInputStream(createJsonResult(200, "red").getBytes()));
