@@ -57,14 +57,6 @@ class AuditEventsEndpointWebIntegrationTests {
 				.isEqualTo(new JSONArray().appendElement("user"));
 	}
 
-	@WebEndpointTest
-	void eventsWithType(WebTestClient client) {
-		client.get().uri((builder) -> builder.path("/actuator/auditevents").queryParam("type", "logout").build())
-				.exchange().expectStatus().isOk().expectBody().jsonPath("events.[*].principal")
-				.isEqualTo(new JSONArray().appendElement("admin")).jsonPath("events.[*].type")
-				.isEqualTo(new JSONArray().appendElement("logout"));
-	}
-
 	@Configuration(proxyBeanMethods = false)
 	static class TestConfiguration {
 
