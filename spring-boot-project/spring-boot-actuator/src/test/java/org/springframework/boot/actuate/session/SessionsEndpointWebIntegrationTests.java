@@ -59,14 +59,6 @@ class SessionsEndpointWebIntegrationTests {
 	}
 
 	@WebEndpointTest
-	void sessionsForUsernameFound(WebTestClient client) {
-		given(repository.findByPrincipalName("user")).willReturn(Collections.singletonMap(session.getId(), session));
-		client.get().uri((builder) -> builder.path("/actuator/sessions").queryParam("username", "user").build())
-				.exchange().expectStatus().isOk().expectBody().jsonPath("sessions.[*].id")
-				.isEqualTo(new JSONArray().appendElement(session.getId()));
-	}
-
-	@WebEndpointTest
 	void sessionForIdNotFound(WebTestClient client) {
 		client.get().uri((builder) -> builder.path("/actuator/sessions/session-id-not-found").build()).exchange()
 				.expectStatus().isNotFound();
