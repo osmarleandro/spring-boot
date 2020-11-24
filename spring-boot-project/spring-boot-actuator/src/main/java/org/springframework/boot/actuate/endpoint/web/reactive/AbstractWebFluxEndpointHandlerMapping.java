@@ -203,11 +203,6 @@ public abstract class AbstractWebFluxEndpointHandlerMapping extends RequestMappi
 		return false;
 	}
 
-	@Override
-	protected RequestMappingInfo getMappingForMethod(Method method, Class<?> handlerType) {
-		return null;
-	}
-
 	/**
 	 * Return the Handler providing actuator links at the root endpoint.
 	 * @return the links handler
