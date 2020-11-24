@@ -42,23 +42,6 @@ class MBeanInfoFactoryTests {
 	private MBeanInfoFactory factory = new MBeanInfoFactory(new TestJmxOperationResponseMapper());
 
 	@Test
-	void getMBeanInfoShouldReturnMBeanInfo() {
-		MBeanInfo info = this.factory.getMBeanInfo(new TestExposableJmxEndpoint(new TestJmxOperation()));
-		assertThat(info).isNotNull();
-		assertThat(info.getClassName()).isEqualTo(EndpointMBean.class.getName());
-		assertThat(info.getDescription()).isEqualTo("MBean operations for endpoint test");
-		assertThat(info.getAttributes()).isEmpty();
-		assertThat(info.getNotifications()).isEmpty();
-		assertThat(info.getConstructors()).isEmpty();
-		assertThat(info.getOperations()).hasSize(1);
-		MBeanOperationInfo operationInfo = info.getOperations()[0];
-		assertThat(operationInfo.getName()).isEqualTo("testOperation");
-		assertThat(operationInfo.getReturnType()).isEqualTo(String.class.getName());
-		assertThat(operationInfo.getImpact()).isEqualTo(MBeanOperationInfo.INFO);
-		assertThat(operationInfo.getSignature()).hasSize(0);
-	}
-
-	@Test
 	void getMBeanInfoWhenReadOperationShouldHaveInfoImpact() {
 		MBeanInfo info = this.factory
 				.getMBeanInfo(new TestExposableJmxEndpoint(new TestJmxOperation(OperationType.READ)));
