@@ -73,13 +73,6 @@ class HttpExchangeTracerTests {
 	}
 
 	@Test
-	void requestHeadersAreNotIncludedByDefault() {
-		HttpTrace trace = new HttpExchangeTracer(EnumSet.noneOf(Include.class)).receivedRequest(createRequest());
-		Request request = trace.getRequest();
-		assertThat(request.getHeaders()).isEmpty();
-	}
-
-	@Test
 	void requestHeadersCanBeIncluded() {
 		HttpTrace trace = new HttpExchangeTracer(EnumSet.of(Include.REQUEST_HEADERS)).receivedRequest(createRequest());
 		Request request = trace.getRequest();
