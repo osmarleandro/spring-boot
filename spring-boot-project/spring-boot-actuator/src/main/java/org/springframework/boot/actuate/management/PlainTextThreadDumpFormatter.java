@@ -60,7 +60,16 @@ class PlainTextThreadDumpFormatter {
 		writer.printf("   %s: %s%n", Thread.State.class.getCanonicalName(), info.getThreadState());
 		writeStackTrace(writer, info, info.getLockedMonitors());
 		writer.println();
-		writeLockedOwnableSynchronizers(writer, info);
+		writer.println("   Locked ownable synchronizers:");
+		LockInfo[] lockedSynchronizers = info.getLockedSynchronizers();
+		if (lockedSynchronizers == null || lockedSynchronizers.length == 0) {
+			writer.println("\t- None");
+		}
+		else {
+			for (LockInfo lockedSynchronizer : lockedSynchronizers) {
+				writer.printf("\t- Locked %s%n", format(lockedSynchronizer));
+			}
+		}
 		writer.println();
 	}
 
@@ -106,19 +115,6 @@ class PlainTextThreadDumpFormatter {
 	private void writeMonitors(PrintWriter writer, List<MonitorInfo> lockedMonitorsAtCurrentDepth) {
 		for (MonitorInfo lockedMonitor : lockedMonitorsAtCurrentDepth) {
 			writer.printf("\t- locked %s%n", format(lockedMonitor));
-		}
-	}
-
-	private void writeLockedOwnableSynchronizers(PrintWriter writer, ThreadInfo info) {
-		writer.println("   Locked ownable synchronizers:");
-		LockInfo[] lockedSynchronizers = info.getLockedSynchronizers();
-		if (lockedSynchronizers == null || lockedSynchronizers.length == 0) {
-			writer.println("\t- None");
-		}
-		else {
-			for (LockInfo lockedSynchronizer : lockedSynchronizers) {
-				writer.printf("\t- Locked %s%n", format(lockedSynchronizer));
-			}
 		}
 	}
 
