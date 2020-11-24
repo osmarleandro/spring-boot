@@ -45,9 +45,4 @@ public class ServletsMappingDescriptionProvider implements MappingDescriptionPro
 				.map(ServletRegistrationMappingDescription::new).collect(Collectors.toList());
 	}
 
-	@Override
-	public String getMappingName() {
-		return "servlets";
-	}
-
 }
