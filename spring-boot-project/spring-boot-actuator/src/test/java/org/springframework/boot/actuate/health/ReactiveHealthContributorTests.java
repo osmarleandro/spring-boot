@@ -17,6 +17,8 @@
 package org.springframework.boot.actuate.health;
 
 import java.util.Collections;
+import java.util.Map;
+import java.util.function.Function;
 
 import org.junit.jupiter.api.Test;
 
@@ -49,8 +51,8 @@ class ReactiveHealthContributorTests {
 	@Test
 	void adaptWhenCompositeHealthContributorReturnsCompositeHealthContributorReactiveAdapter() {
 		HealthIndicator indicator = () -> Health.outOfService().build();
-		CompositeHealthContributor contributor = CompositeHealthContributor
-				.fromMap(Collections.singletonMap("a", indicator));
+		Map<String, ? extends HealthContributor> map = Collections.singletonMap("a", indicator);
+		CompositeHealthContributor contributor = CompositeHealthContributor.fromMap(map, Function.identity());
 		ReactiveHealthContributor adapted = ReactiveHealthContributor.adapt(contributor);
 		assertThat(adapted).isInstanceOf(CompositeHealthContributorReactiveAdapter.class);
 		ReactiveHealthContributor contained = ((CompositeReactiveHealthContributor) adapted).getContributor("a");

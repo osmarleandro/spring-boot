@@ -18,6 +18,7 @@ package org.springframework.boot.actuate.health;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.function.Function;
 
 import org.junit.jupiter.api.Test;
 
@@ -35,7 +36,7 @@ class CompositeHealthContributorTests {
 		Map<String, HealthContributor> map = new LinkedHashMap<>();
 		HealthIndicator indicator = () -> Health.down().build();
 		map.put("test", indicator);
-		CompositeHealthContributor composite = CompositeHealthContributor.fromMap(map);
+		CompositeHealthContributor composite = CompositeHealthContributor.fromMap(map, Function.identity());
 		assertThat(composite).isInstanceOf(CompositeHealthContributorMapAdapter.class);
 		NamedContributor<HealthContributor> namedContributor = composite.iterator().next();
 		assertThat(namedContributor.getName()).isEqualTo("test");

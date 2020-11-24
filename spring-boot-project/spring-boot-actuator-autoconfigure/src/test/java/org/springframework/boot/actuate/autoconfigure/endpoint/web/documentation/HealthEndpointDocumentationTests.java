@@ -22,6 +22,7 @@ import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
 
 import javax.sql.DataSource;
 
@@ -128,7 +129,7 @@ class HealthEndpointDocumentationTests extends MockMvcEndpointDocumentationTests
 			Map<String, HealthIndicator> indicators = new LinkedHashMap<>();
 			indicators.put("us1", () -> Health.up().withDetail("version", "1.0.2").build());
 			indicators.put("us2", () -> Health.up().withDetail("version", "1.0.4").build());
-			return CompositeHealthContributor.fromMap(indicators);
+			return CompositeHealthContributor.fromMap(indicators, Function.identity());
 		}
 
 	}

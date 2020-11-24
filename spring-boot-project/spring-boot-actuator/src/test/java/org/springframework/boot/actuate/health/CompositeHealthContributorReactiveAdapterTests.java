@@ -18,6 +18,8 @@ package org.springframework.boot.actuate.health;
 
 import java.util.Collections;
 import java.util.Iterator;
+import java.util.Map;
+import java.util.function.Function;
 
 import org.junit.jupiter.api.Test;
 
@@ -40,8 +42,8 @@ class CompositeHealthContributorReactiveAdapterTests {
 	@Test
 	void iteratorWhenDelegateContainsHealthIndicatorAdaptsDelegate() {
 		HealthIndicator indicator = () -> Health.up().withDetail("spring", "boot").build();
-		CompositeHealthContributor delegate = CompositeHealthContributor
-				.fromMap(Collections.singletonMap("test", indicator));
+		Map<String, ? extends HealthContributor> map = Collections.singletonMap("test", indicator);
+		CompositeHealthContributor delegate = CompositeHealthContributor.fromMap(map, Function.identity());
 		CompositeHealthContributorReactiveAdapter adapter = new CompositeHealthContributorReactiveAdapter(delegate);
 		Iterator<NamedContributor<ReactiveHealthContributor>> iterator = adapter.iterator();
 		assertThat(iterator.hasNext()).isTrue();
@@ -56,10 +58,10 @@ class CompositeHealthContributorReactiveAdapterTests {
 	@Test
 	void iteratorWhenDelegateContainsCompositeHealthContributorAdaptsDelegate() {
 		HealthIndicator indicator = () -> Health.up().withDetail("spring", "boot").build();
-		CompositeHealthContributor composite = CompositeHealthContributor
-				.fromMap(Collections.singletonMap("test1", indicator));
-		CompositeHealthContributor delegate = CompositeHealthContributor
-				.fromMap(Collections.singletonMap("test2", composite));
+		Map<String, ? extends HealthContributor> map = Collections.singletonMap("test1", indicator);
+		CompositeHealthContributor composite = CompositeHealthContributor.fromMap(map, Function.identity());
+		Map<String, ? extends HealthContributor> map1 = Collections.singletonMap("test2", composite);
+		CompositeHealthContributor delegate = CompositeHealthContributor.fromMap(map1, Function.identity());
 		CompositeHealthContributorReactiveAdapter adapter = new CompositeHealthContributorReactiveAdapter(delegate);
 		Iterator<NamedContributor<ReactiveHealthContributor>> iterator = adapter.iterator();
 		assertThat(iterator.hasNext()).isTrue();
@@ -76,8 +78,8 @@ class CompositeHealthContributorReactiveAdapterTests {
 	@Test
 	void getContributorAdaptsDelegate() {
 		HealthIndicator indicator = () -> Health.up().withDetail("spring", "boot").build();
-		CompositeHealthContributor delegate = CompositeHealthContributor
-				.fromMap(Collections.singletonMap("test", indicator));
+		Map<String, ? extends HealthContributor> map = Collections.singletonMap("test", indicator);
+		CompositeHealthContributor delegate = CompositeHealthContributor.fromMap(map, Function.identity());
 		CompositeHealthContributorReactiveAdapter adapter = new CompositeHealthContributorReactiveAdapter(delegate);
 		ReactiveHealthContributor adapted = adapter.getContributor("test");
 		Health health = ((ReactiveHealthIndicator) adapted).getHealth(true).block();

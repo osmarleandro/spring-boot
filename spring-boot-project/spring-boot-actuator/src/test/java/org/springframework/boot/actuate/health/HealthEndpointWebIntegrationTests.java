@@ -19,6 +19,7 @@ package org.springframework.boot.actuate.health;
 import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.function.Function;
 
 import org.assertj.core.api.ThrowableAssert.ThrowingCallable;
 import reactor.core.publisher.Mono;
@@ -101,8 +102,8 @@ class HealthEndpointWebIntegrationTests {
 	@WebEndpointTest
 	void whenComponentInstanceHealthIsDown503ResponseIsReturned(ApplicationContext context, WebTestClient client) {
 		HealthIndicator healthIndicator = () -> Health.down().build();
-		CompositeHealthContributor composite = CompositeHealthContributor
-				.fromMap(Collections.singletonMap("one", healthIndicator));
+		Map<String, ? extends HealthContributor> map = Collections.singletonMap("one", healthIndicator);
+		CompositeHealthContributor composite = CompositeHealthContributor.fromMap(map, Function.identity());
 		ReactiveHealthIndicator reactiveHealthIndicator = () -> Mono.just(Health.down().build());
 		CompositeReactiveHealthContributor reactiveComposite = CompositeReactiveHealthContributor
 				.fromMap(Collections.singletonMap("one", reactiveHealthIndicator));
