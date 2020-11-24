@@ -67,18 +67,6 @@ public final class Info {
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		if (obj == this) {
-			return true;
-		}
-		if (obj instanceof Info) {
-			Info other = (Info) obj;
-			return this.details.equals(other.details);
-		}
-		return false;
-	}
-
-	@Override
 	public int hashCode() {
 		return this.details.hashCode();
 	}
