@@ -69,12 +69,6 @@ public class JerseyWebEndpointIntegrationTests
 				JerseyWebEndpointIntegrationTests::applyAuthenticatedConfiguration);
 	}
 
-	private static AnnotationConfigServletWebServerApplicationContext createApplicationContext() {
-		AnnotationConfigServletWebServerApplicationContext context = new AnnotationConfigServletWebServerApplicationContext();
-		context.register(JerseyConfiguration.class);
-		return context;
-	}
-
 	private static void applyAuthenticatedConfiguration(AnnotationConfigServletWebServerApplicationContext context) {
 		context.register(AuthenticatedConfiguration.class);
 	}
