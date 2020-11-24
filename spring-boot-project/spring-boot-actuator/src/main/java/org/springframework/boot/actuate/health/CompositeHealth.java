@@ -46,12 +46,8 @@ public class CompositeHealth extends HealthComponent {
 	CompositeHealth(ApiVersion apiVersion, Status status, Map<String, HealthComponent> components) {
 		Assert.notNull(status, "Status must not be null");
 		this.status = status;
-		this.components = (apiVersion != ApiVersion.V3) ? null : sort(components);
-		this.details = (apiVersion != ApiVersion.V2) ? null : sort(components);
-	}
-
-	private Map<String, HealthComponent> sort(Map<String, HealthComponent> components) {
-		return (components != null) ? new TreeMap<>(components) : components;
+		this.components = (apiVersion != ApiVersion.V3) ? null : (components != null) ? new TreeMap<>(components) : components;
+		this.details = (apiVersion != ApiVersion.V2) ? null : (components != null) ? new TreeMap<>(components) : components;
 	}
 
 	@Override
