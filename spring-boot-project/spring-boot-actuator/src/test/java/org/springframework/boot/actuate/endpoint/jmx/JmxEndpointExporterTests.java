@@ -102,13 +102,6 @@ class JmxEndpointExporterTests {
 	}
 
 	@Test
-	void createWhenEndpointsIsNullShouldThrowException() {
-		assertThatIllegalArgumentException().isThrownBy(
-				() -> new JmxEndpointExporter(this.mBeanServer, this.objectNameFactory, this.responseMapper, null))
-				.withMessageContaining("Endpoints must not be null");
-	}
-
-	@Test
 	void afterPropertiesSetShouldRegisterMBeans() throws Exception {
 		this.endpoints.add(new TestExposableJmxEndpoint(new TestJmxOperation()));
 		this.exporter.afterPropertiesSet();
