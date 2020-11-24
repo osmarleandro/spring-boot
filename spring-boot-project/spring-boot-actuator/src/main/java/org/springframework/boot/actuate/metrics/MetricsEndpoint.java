@@ -84,7 +84,9 @@ public class MetricsEndpoint {
 			return null;
 		}
 		Map<Statistic, Double> samples = getSamples(meters);
-		Map<String, Set<String>> availableTags = getAvailableTags(meters);
+		Map<String, Set<String>> availableTags1 = new HashMap<>();
+		meters.forEach((meter) -> mergeAvailableTags(availableTags, meter));
+		Map<String, Set<String>> availableTags = availableTags1;
 		tags.forEach((t) -> availableTags.remove(t.getKey()));
 		Meter.Id meterId = meters.iterator().next().getId();
 		return new MetricResponse(requiredMetricName, meterId.getDescription(), meterId.getBaseUnit(),
@@ -134,12 +136,6 @@ public class MetricsEndpoint {
 
 	private BiFunction<Double, Double, Double> mergeFunction(Statistic statistic) {
 		return Statistic.MAX.equals(statistic) ? Double::max : Double::sum;
-	}
-
-	private Map<String, Set<String>> getAvailableTags(Collection<Meter> meters) {
-		Map<String, Set<String>> availableTags = new HashMap<>();
-		meters.forEach((meter) -> mergeAvailableTags(availableTags, meter));
-		return availableTags;
 	}
 
 	private void mergeAvailableTags(Map<String, Set<String>> availableTags, Meter meter) {
