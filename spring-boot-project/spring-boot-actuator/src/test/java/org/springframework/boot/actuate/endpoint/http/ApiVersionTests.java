@@ -64,13 +64,6 @@ class ApiVersionTests {
 	}
 
 	@Test
-	void fromHttpHeadersWhenHasV2AndV3AsOneHeaderReturnsV3() {
-		ApiVersion version = ApiVersion
-				.fromHttpHeaders(acceptHeader(ActuatorMediaType.V2_JSON + "," + ActuatorMediaType.V3_JSON));
-		assertThat(version).isEqualTo(ApiVersion.V3);
-	}
-
-	@Test
 	void fromHttpHeadersWhenHasSingleHeaderWithoutJsonReturnsHeader() {
 		ApiVersion version = ApiVersion.fromHttpHeaders(acceptHeader("application/vnd.spring-boot.actuator.v2"));
 		assertThat(version).isEqualTo(ApiVersion.V2);
