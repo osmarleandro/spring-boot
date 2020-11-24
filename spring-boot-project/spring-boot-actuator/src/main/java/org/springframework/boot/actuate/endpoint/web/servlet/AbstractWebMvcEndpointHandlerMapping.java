@@ -41,6 +41,7 @@ import org.springframework.boot.actuate.endpoint.web.ExposableWebEndpoint;
 import org.springframework.boot.actuate.endpoint.web.WebEndpointResponse;
 import org.springframework.boot.actuate.endpoint.web.WebOperation;
 import org.springframework.boot.actuate.endpoint.web.WebOperationRequestPredicate;
+import org.springframework.boot.actuate.endpoint.web.servlet.AbstractWebMvcEndpointHandlerMapping.LinksHandler;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
@@ -133,7 +134,12 @@ public abstract class AbstractWebMvcEndpointHandlerMapping extends RequestMappin
 			}
 		}
 		if (this.shouldRegisterLinksMapping) {
-			registerLinksMapping();
+			RequestMappingInfo mapping = RequestMappingInfo.paths(this.endpointMapping.createSubPath(""))
+					.methods(RequestMethod.GET).produces(this.endpointMediaTypes.getProduced().toArray(new String[0]))
+					.options(builderConfig).build();
+			LinksHandler linksHandler = getLinksHandler();
+			registerMapping(mapping, linksHandler, ReflectionUtils.findMethod(linksHandler.getClass(), "links",
+					HttpServletRequest.class, HttpServletResponse.class));
 		}
 	}
 
@@ -195,15 +201,6 @@ public abstract class AbstractWebMvcEndpointHandlerMapping extends RequestMappin
 				.methods(RequestMethod.valueOf(predicate.getHttpMethod().name()))
 				.consumes(predicate.getConsumes().toArray(new String[0]))
 				.produces(predicate.getProduces().toArray(new String[0])).build();
-	}
-
-	private void registerLinksMapping() {
-		RequestMappingInfo mapping = RequestMappingInfo.paths(this.endpointMapping.createSubPath(""))
-				.methods(RequestMethod.GET).produces(this.endpointMediaTypes.getProduced().toArray(new String[0]))
-				.options(builderConfig).build();
-		LinksHandler linksHandler = getLinksHandler();
-		registerMapping(mapping, linksHandler, ReflectionUtils.findMethod(linksHandler.getClass(), "links",
-				HttpServletRequest.class, HttpServletResponse.class));
 	}
 
 	@Override
