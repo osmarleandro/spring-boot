@@ -55,11 +55,6 @@ class WebClientExchangeTagsTests {
 	}
 
 	@Test
-	void method() {
-		assertThat(WebClientExchangeTags.method(this.request)).isEqualTo(Tag.of("method", "GET"));
-	}
-
-	@Test
 	void uriWhenAbsoluteTemplateIsAvailableShouldReturnTemplate() {
 		assertThat(WebClientExchangeTags.uri(this.request)).isEqualTo(Tag.of("uri", "/projects/{project}"));
 	}
