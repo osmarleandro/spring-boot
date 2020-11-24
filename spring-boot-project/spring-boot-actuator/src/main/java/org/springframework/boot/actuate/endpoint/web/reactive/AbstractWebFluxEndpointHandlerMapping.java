@@ -194,11 +194,6 @@ public abstract class AbstractWebFluxEndpointHandlerMapping extends RequestMappi
 	}
 
 	@Override
-	protected CorsConfiguration initCorsConfiguration(Object handler, Method method, RequestMappingInfo mapping) {
-		return this.corsConfiguration;
-	}
-
-	@Override
 	protected boolean isHandler(Class<?> beanType) {
 		return false;
 	}
