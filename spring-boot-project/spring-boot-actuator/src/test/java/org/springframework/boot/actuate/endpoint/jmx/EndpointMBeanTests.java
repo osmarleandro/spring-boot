@@ -157,15 +157,6 @@ class EndpointMBeanTests {
 	}
 
 	@Test
-	void invokeShouldCallResponseMapper() throws MBeanException, ReflectionException {
-		TestJmxOperationResponseMapper responseMapper = spy(this.responseMapper);
-		EndpointMBean bean = new EndpointMBean(responseMapper, null, this.endpoint);
-		bean.invoke("testOperation", NO_PARAMS, NO_SIGNATURE);
-		verify(responseMapper).mapResponseType(String.class);
-		verify(responseMapper).mapResponse("result");
-	}
-
-	@Test
 	void getAttributeShouldThrowException() throws AttributeNotFoundException, MBeanException, ReflectionException {
 		EndpointMBean bean = createEndpointMBean();
 		assertThatExceptionOfType(AttributeNotFoundException.class).isThrownBy(() -> bean.getAttribute("test"))
