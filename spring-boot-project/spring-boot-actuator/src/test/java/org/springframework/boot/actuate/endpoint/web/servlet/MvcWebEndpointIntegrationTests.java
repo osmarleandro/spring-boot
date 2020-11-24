@@ -131,11 +131,6 @@ class MvcWebEndpointIntegrationTests
 		return bean.match(request, "/spring");
 	}
 
-	@Override
-	protected int getPort(AnnotationConfigServletWebServerApplicationContext context) {
-		return context.getWebServer().getPort();
-	}
-
 	@Configuration(proxyBeanMethods = false)
 	@ImportAutoConfiguration({ JacksonAutoConfiguration.class, HttpMessageConvertersAutoConfiguration.class,
 			ServletWebServerFactoryAutoConfiguration.class, WebMvcAutoConfiguration.class,
