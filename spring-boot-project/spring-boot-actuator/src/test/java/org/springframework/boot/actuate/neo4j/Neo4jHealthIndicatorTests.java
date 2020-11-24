@@ -55,9 +55,9 @@ class Neo4jHealthIndicatorTests {
 		Driver driver = mockDriver(resultSummary, "ultimate collectors edition");
 		Health health = new Neo4jHealthIndicator(driver).health();
 		assertThat(health.getStatus()).isEqualTo(Status.UP);
-		assertThat(health.getDetails()).containsEntry("server", "4711@My Home");
-		assertThat(health.getDetails()).containsEntry("database", "test");
-		assertThat(health.getDetails()).containsEntry("edition", "ultimate collectors edition");
+		assertThat(health.details).containsEntry("server", "4711@My Home");
+		assertThat(health.details).containsEntry("database", "test");
+		assertThat(health.details).containsEntry("edition", "ultimate collectors edition");
 	}
 
 	@Test
@@ -66,9 +66,9 @@ class Neo4jHealthIndicatorTests {
 		Driver driver = mockDriver(resultSummary, "some edition");
 		Health health = new Neo4jHealthIndicator(driver).health();
 		assertThat(health.getStatus()).isEqualTo(Status.UP);
-		assertThat(health.getDetails()).containsEntry("server", "4711@My Home");
-		assertThat(health.getDetails()).doesNotContainKey("database");
-		assertThat(health.getDetails()).containsEntry("edition", "some edition");
+		assertThat(health.details).containsEntry("server", "4711@My Home");
+		assertThat(health.details).doesNotContainKey("database");
+		assertThat(health.details).containsEntry("edition", "some edition");
 	}
 
 	@Test
@@ -77,9 +77,9 @@ class Neo4jHealthIndicatorTests {
 		Driver driver = mockDriver(resultSummary, "some edition");
 		Health health = new Neo4jHealthIndicator(driver).health();
 		assertThat(health.getStatus()).isEqualTo(Status.UP);
-		assertThat(health.getDetails()).containsEntry("server", "4711@My Home");
-		assertThat(health.getDetails()).doesNotContainKey("database");
-		assertThat(health.getDetails()).containsEntry("edition", "some edition");
+		assertThat(health.details).containsEntry("server", "4711@My Home");
+		assertThat(health.details).doesNotContainKey("database");
+		assertThat(health.details).containsEntry("edition", "some edition");
 	}
 
 	@Test
@@ -99,7 +99,7 @@ class Neo4jHealthIndicatorTests {
 		Neo4jHealthIndicator healthIndicator = new Neo4jHealthIndicator(driver);
 		Health health = healthIndicator.health();
 		assertThat(health.getStatus()).isEqualTo(Status.UP);
-		assertThat(health.getDetails()).containsEntry("server", "4711@My Home");
+		assertThat(health.details).containsEntry("server", "4711@My Home");
 		verify(session, times(2)).close();
 	}
 
@@ -109,7 +109,7 @@ class Neo4jHealthIndicatorTests {
 		given(driver.session(any(SessionConfig.class))).willThrow(ServiceUnavailableException.class);
 		Health health = new Neo4jHealthIndicator(driver).health();
 		assertThat(health.getStatus()).isEqualTo(Status.DOWN);
-		assertThat(health.getDetails()).containsKeys("error");
+		assertThat(health.details).containsKeys("error");
 	}
 
 	private Result mockStatementResult(ResultSummary resultSummary, String edition) {

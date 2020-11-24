@@ -53,8 +53,8 @@ class CassandraReactiveHealthIndicatorTests {
 		Mono<Health> health = cassandraReactiveHealthIndicator.health();
 		StepVerifier.create(health).consumeNextWith((h) -> {
 			assertThat(h.getStatus()).isEqualTo(Status.UP);
-			assertThat(h.getDetails()).containsOnlyKeys("version");
-			assertThat(h.getDetails().get("version")).isEqualTo("6.0.0");
+			assertThat(h.details).containsOnlyKeys("version");
+			assertThat(h.details.get("version")).isEqualTo("6.0.0");
 		}).verifyComplete();
 	}
 
@@ -69,8 +69,8 @@ class CassandraReactiveHealthIndicatorTests {
 		Mono<Health> health = cassandraReactiveHealthIndicator.health();
 		StepVerifier.create(health).consumeNextWith((h) -> {
 			assertThat(h.getStatus()).isEqualTo(Status.DOWN);
-			assertThat(h.getDetails()).containsOnlyKeys("error");
-			assertThat(h.getDetails().get("error"))
+			assertThat(h.details).containsOnlyKeys("error");
+			assertThat(h.details.get("error"))
 					.isEqualTo(CassandraInternalException.class.getName() + ": Connection failed");
 		}).verifyComplete();
 	}

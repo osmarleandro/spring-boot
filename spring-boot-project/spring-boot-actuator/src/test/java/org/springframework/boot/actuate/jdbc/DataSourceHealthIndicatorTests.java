@@ -69,7 +69,7 @@ class DataSourceHealthIndicatorTests {
 		this.indicator.setDataSource(this.dataSource);
 		Health health = this.indicator.health();
 		assertThat(health.getStatus()).isEqualTo(Status.UP);
-		assertThat(health.getDetails()).containsOnly(entry("database", "HSQL Database Engine"),
+		assertThat(health.details).containsOnly(entry("database", "HSQL Database Engine"),
 				entry("validationQuery", "isValid()"));
 	}
 
@@ -81,7 +81,7 @@ class DataSourceHealthIndicatorTests {
 		this.indicator.setQuery(customValidationQuery);
 		Health health = this.indicator.health();
 		assertThat(health.getStatus()).isEqualTo(Status.UP);
-		assertThat(health.getDetails()).containsOnly(entry("database", "HSQL Database Engine"), entry("result", 0L),
+		assertThat(health.details).containsOnly(entry("database", "HSQL Database Engine"), entry("result", 0L),
 				entry("validationQuery", customValidationQuery));
 	}
 
@@ -92,9 +92,9 @@ class DataSourceHealthIndicatorTests {
 		this.indicator.setQuery(invalidValidationQuery);
 		Health health = this.indicator.health();
 		assertThat(health.getStatus()).isEqualTo(Status.DOWN);
-		assertThat(health.getDetails()).contains(entry("database", "HSQL Database Engine"),
+		assertThat(health.details).contains(entry("database", "HSQL Database Engine"),
 				entry("validationQuery", invalidValidationQuery));
-		assertThat(health.getDetails()).containsOnlyKeys("database", "error", "validationQuery");
+		assertThat(health.details).containsOnlyKeys("database", "error", "validationQuery");
 	}
 
 	@Test
@@ -105,7 +105,7 @@ class DataSourceHealthIndicatorTests {
 		given(dataSource.getConnection()).willReturn(connection);
 		this.indicator.setDataSource(dataSource);
 		Health health = this.indicator.health();
-		assertThat(health.getDetails().get("database")).isNotNull();
+		assertThat(health.details.get("database")).isNotNull();
 		verify(connection, times(2)).close();
 	}
 
@@ -119,7 +119,7 @@ class DataSourceHealthIndicatorTests {
 		this.indicator.setDataSource(dataSource);
 		Health health = this.indicator.health();
 		assertThat(health.getStatus()).isEqualTo(Status.DOWN);
-		assertThat(health.getDetails()).containsOnly(entry("database", "HSQL Database Engine"),
+		assertThat(health.details).containsOnly(entry("database", "HSQL Database Engine"),
 				entry("validationQuery", "isValid()"));
 	}
 

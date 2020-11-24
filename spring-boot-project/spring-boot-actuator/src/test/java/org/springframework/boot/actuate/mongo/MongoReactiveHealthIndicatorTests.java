@@ -48,8 +48,8 @@ class MongoReactiveHealthIndicatorTests {
 		Mono<Health> health = mongoReactiveHealthIndicator.health();
 		StepVerifier.create(health).consumeNextWith((h) -> {
 			assertThat(h.getStatus()).isEqualTo(Status.UP);
-			assertThat(h.getDetails()).containsOnlyKeys("version");
-			assertThat(h.getDetails().get("version")).isEqualTo("2.6.4");
+			assertThat(h.details).containsOnlyKeys("version");
+			assertThat(h.details.get("version")).isEqualTo("2.6.4");
 		}).verifyComplete();
 	}
 
@@ -63,8 +63,8 @@ class MongoReactiveHealthIndicatorTests {
 		Mono<Health> health = mongoReactiveHealthIndicator.health();
 		StepVerifier.create(health).consumeNextWith((h) -> {
 			assertThat(h.getStatus()).isEqualTo(Status.DOWN);
-			assertThat(h.getDetails()).containsOnlyKeys("error");
-			assertThat(h.getDetails().get("error")).isEqualTo(MongoException.class.getName() + ": Connection failed");
+			assertThat(h.details).containsOnlyKeys("error");
+			assertThat(h.details.get("error")).isEqualTo(MongoException.class.getName() + ": Connection failed");
 		}).verifyComplete();
 	}
 

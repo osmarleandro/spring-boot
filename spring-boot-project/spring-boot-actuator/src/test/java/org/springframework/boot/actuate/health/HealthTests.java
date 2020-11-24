@@ -47,14 +47,14 @@ class HealthTests {
 	void createWithStatus() {
 		Health health = Health.status(Status.UP).build();
 		assertThat(health.getStatus()).isEqualTo(Status.UP);
-		assertThat(health.getDetails()).isEmpty();
+		assertThat(health.details).isEmpty();
 	}
 
 	@Test
 	void createWithDetails() {
 		Health health = new Health.Builder(Status.UP, Collections.singletonMap("a", "b")).build();
 		assertThat(health.getStatus()).isEqualTo(Status.UP);
-		assertThat(health.getDetails()).containsOnly(entry("a", "b"));
+		assertThat(health.details).containsOnly(entry("a", "b"));
 	}
 
 	@Test
@@ -74,14 +74,14 @@ class HealthTests {
 	void withException() {
 		RuntimeException ex = new RuntimeException("bang");
 		Health health = new Health.Builder(Status.UP, Collections.singletonMap("a", "b")).withException(ex).build();
-		assertThat(health.getDetails()).containsOnly(entry("a", "b"),
+		assertThat(health.details).containsOnly(entry("a", "b"),
 				entry("error", "java.lang.RuntimeException: bang"));
 	}
 
 	@Test
 	void withDetails() {
 		Health health = new Health.Builder(Status.UP, Collections.singletonMap("a", "b")).withDetail("c", "d").build();
-		assertThat(health.getDetails()).containsOnly(entry("a", "b"), entry("c", "d"));
+		assertThat(health.details).containsOnly(entry("a", "b"), entry("c", "d"));
 	}
 
 	@Test
@@ -90,7 +90,7 @@ class HealthTests {
 		details.put("a", "b");
 		details.put("c", "d");
 		Health health = Health.up().withDetails(details).build();
-		assertThat(health.getDetails()).containsOnly(entry("a", "b"), entry("c", "d"));
+		assertThat(health.details).containsOnly(entry("a", "b"), entry("c", "d"));
 	}
 
 	@Test
@@ -99,7 +99,7 @@ class HealthTests {
 		details.put("c", "d");
 		details.put("a", "e");
 		Health health = Health.up().withDetail("a", "b").withDetails(details).build();
-		assertThat(health.getDetails()).containsOnly(entry("a", "e"), entry("c", "d"));
+		assertThat(health.details).containsOnly(entry("a", "e"), entry("c", "d"));
 	}
 
 	@Test
@@ -111,35 +111,35 @@ class HealthTests {
 		details1.put("a", "e");
 		details1.put("1", "2");
 		Health health = Health.up().withDetails(details1).withDetails(details2).build();
-		assertThat(health.getDetails()).containsOnly(entry("a", "e"), entry("c", "d"), entry("1", "2"));
+		assertThat(health.details).containsOnly(entry("a", "e"), entry("c", "d"), entry("1", "2"));
 	}
 
 	@Test
 	void unknownWithDetails() {
 		Health health = new Health.Builder().unknown().withDetail("a", "b").build();
 		assertThat(health.getStatus()).isEqualTo(Status.UNKNOWN);
-		assertThat(health.getDetails()).containsOnly(entry("a", "b"));
+		assertThat(health.details).containsOnly(entry("a", "b"));
 	}
 
 	@Test
 	void unknown() {
 		Health health = new Health.Builder().unknown().build();
 		assertThat(health.getStatus()).isEqualTo(Status.UNKNOWN);
-		assertThat(health.getDetails()).isEmpty();
+		assertThat(health.details).isEmpty();
 	}
 
 	@Test
 	void upWithDetails() {
 		Health health = new Health.Builder().up().withDetail("a", "b").build();
 		assertThat(health.getStatus()).isEqualTo(Status.UP);
-		assertThat(health.getDetails()).containsOnly(entry("a", "b"));
+		assertThat(health.details).containsOnly(entry("a", "b"));
 	}
 
 	@Test
 	void up() {
 		Health health = new Health.Builder().up().build();
 		assertThat(health.getStatus()).isEqualTo(Status.UP);
-		assertThat(health.getDetails()).isEmpty();
+		assertThat(health.details).isEmpty();
 	}
 
 	@Test
@@ -147,35 +147,35 @@ class HealthTests {
 		RuntimeException ex = new RuntimeException("bang");
 		Health health = Health.down(ex).build();
 		assertThat(health.getStatus()).isEqualTo(Status.DOWN);
-		assertThat(health.getDetails()).containsOnly(entry("error", "java.lang.RuntimeException: bang"));
+		assertThat(health.details).containsOnly(entry("error", "java.lang.RuntimeException: bang"));
 	}
 
 	@Test
 	void down() {
 		Health health = Health.down().build();
 		assertThat(health.getStatus()).isEqualTo(Status.DOWN);
-		assertThat(health.getDetails()).isEmpty();
+		assertThat(health.details).isEmpty();
 	}
 
 	@Test
 	void outOfService() {
 		Health health = Health.outOfService().build();
 		assertThat(health.getStatus()).isEqualTo(Status.OUT_OF_SERVICE);
-		assertThat(health.getDetails()).isEmpty();
+		assertThat(health.details).isEmpty();
 	}
 
 	@Test
 	void statusCode() {
 		Health health = Health.status("UP").build();
 		assertThat(health.getStatus()).isEqualTo(Status.UP);
-		assertThat(health.getDetails()).isEmpty();
+		assertThat(health.details).isEmpty();
 	}
 
 	@Test
 	void status() {
 		Health health = Health.status(Status.UP).build();
 		assertThat(health.getStatus()).isEqualTo(Status.UP);
-		assertThat(health.getDetails()).isEmpty();
+		assertThat(health.details).isEmpty();
 	}
 
 	@Test
