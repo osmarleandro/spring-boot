@@ -143,7 +143,7 @@ public class EnvironmentEndpoint {
 			PlaceholdersResolver resolver) {
 		Object resolved = resolver.resolvePlaceholders(source.getProperty(name));
 		Origin origin = ((source instanceof OriginLookup) ? ((OriginLookup<Object>) source).getOrigin(name) : null);
-		return new PropertyValueDescriptor(sanitize(name, resolved), origin);
+		return new PropertyValueDescriptor(this.sanitizer.sanitize(name, resolved), origin);
 	}
 
 	private PlaceholdersResolver getResolver() {
@@ -176,10 +176,6 @@ public class EnvironmentEndpoint {
 		else {
 			map.put(root + source.getName(), source);
 		}
-	}
-
-	public Object sanitize(String name, Object object) {
-		return this.sanitizer.sanitize(name, object);
 	}
 
 	/**
