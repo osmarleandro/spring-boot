@@ -185,7 +185,7 @@ public final class WebMvcTags {
 	 */
 	public static Tag outcome(HttpServletResponse response) {
 		Outcome outcome = (response != null) ? Outcome.forStatus(response.getStatus()) : Outcome.UNKNOWN;
-		return outcome.asTag();
+		return outcome.tag;
 	}
 
 }

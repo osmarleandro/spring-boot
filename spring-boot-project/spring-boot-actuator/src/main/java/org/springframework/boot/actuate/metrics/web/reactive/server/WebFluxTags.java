@@ -161,7 +161,7 @@ public final class WebFluxTags {
 	public static Tag outcome(ServerWebExchange exchange) {
 		Integer statusCode = extractStatusCode(exchange);
 		Outcome outcome = (statusCode != null) ? Outcome.forStatus(statusCode) : Outcome.SUCCESS;
-		return outcome.asTag();
+		return outcome.tag;
 	}
 
 	private static Integer extractStatusCode(ServerWebExchange exchange) {

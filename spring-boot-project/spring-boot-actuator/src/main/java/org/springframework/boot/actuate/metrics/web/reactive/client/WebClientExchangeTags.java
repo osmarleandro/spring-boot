@@ -142,7 +142,7 @@ public final class WebClientExchangeTags {
 	 */
 	public static Tag outcome(ClientResponse response) {
 		Outcome outcome = (response != null) ? Outcome.forStatus(response.rawStatusCode()) : Outcome.UNKNOWN;
-		return outcome.asTag();
+		return outcome.tag;
 	}
 
 }
