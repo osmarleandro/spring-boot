@@ -56,11 +56,6 @@ class WebOperationRequestPredicateTests {
 	}
 
 	@Test
-	void predicatesWithSingleWildcardPathVariablesInTheSamplePlaceAreEqual() {
-		assertThat(predicateWithPath("/path/{*foo1}")).isEqualTo(predicateWithPath("/path/{*foo2}"));
-	}
-
-	@Test
 	void predicatesWithSingleWildcardPathVariableAndRegularVariableInTheSamplePlaceAreNotEqual() {
 		assertThat(predicateWithPath("/path/{*foo1}")).isNotEqualTo(predicateWithPath("/path/{foo2}"));
 	}
