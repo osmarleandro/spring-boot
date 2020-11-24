@@ -229,17 +229,6 @@ class WebMvcMetricsFilterTests {
 	}
 
 	@Test
-	void asyncRequestThatThrowsUncheckedException() throws Exception {
-		MvcResult result = this.mvc.perform(get("/api/c1/completableFutureException"))
-				.andExpect(request().asyncStarted()).andReturn();
-		assertThatExceptionOfType(NestedServletException.class)
-				.isThrownBy(() -> this.mvc.perform(asyncDispatch(result)))
-				.withRootCauseInstanceOf(RuntimeException.class);
-		assertThat(this.registry.get("http.server.requests").tags("uri", "/api/c1/completableFutureException").timer()
-				.count()).isEqualTo(1);
-	}
-
-	@Test
 	void asyncCompletableFutureRequest() throws Exception {
 		AtomicReference<MvcResult> result = new AtomicReference<>();
 		Thread backgroundRequest = new Thread(() -> {
