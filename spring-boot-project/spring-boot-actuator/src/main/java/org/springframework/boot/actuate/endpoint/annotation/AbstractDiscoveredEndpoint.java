@@ -71,11 +71,7 @@ public abstract class AbstractDiscoveredEndpoint<O extends Operation> extends Ab
 	public String toString() {
 		ToStringCreator creator = new ToStringCreator(this).append("discoverer", this.discoverer.getClass().getName())
 				.append("endpointBean", this.endpointBean.getClass().getName());
-		appendFields(creator);
 		return creator.toString();
-	}
-
-	protected void appendFields(ToStringCreator creator) {
 	}
 
 }
