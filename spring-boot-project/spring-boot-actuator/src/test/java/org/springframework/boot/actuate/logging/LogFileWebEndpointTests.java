@@ -66,15 +66,6 @@ class LogFileWebEndpointTests {
 	}
 
 	@Test
-	void resourceResponseWithLogFile() throws Exception {
-		this.environment.setProperty("logging.file.name", this.logFile.getAbsolutePath());
-		LogFileWebEndpoint endpoint = new LogFileWebEndpoint(LogFile.get(this.environment), null);
-		Resource resource = endpoint.logFile();
-		assertThat(resource).isNotNull();
-		assertThat(contentOf(resource.getFile())).isEqualTo("--TEST--");
-	}
-
-	@Test
 	void resourceResponseWithExternalLogFile() throws Exception {
 		LogFileWebEndpoint endpoint = new LogFileWebEndpoint(null, this.logFile);
 		Resource resource = endpoint.logFile();
