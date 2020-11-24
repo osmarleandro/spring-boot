@@ -66,18 +66,4 @@ public class RedisCacheMetrics extends CacheMeterBinder {
 		return this.cache.getStatistics().getPuts();
 	}
 
-	@Override
-	protected void bindImplementationSpecificMetrics(MeterRegistry registry) {
-		FunctionCounter.builder("cache.removals", this.cache, (cache) -> cache.getStatistics().getDeletes())
-				.tags(getTagsWithCacheName()).description("Cache removals").register(registry);
-		FunctionCounter.builder("cache.gets", this.cache, (cache) -> cache.getStatistics().getPending())
-				.tags(getTagsWithCacheName()).tag("result", "pending").description("The number of pending requests")
-				.register(registry);
-		TimeGauge
-				.builder("cache.lock.duration", this.cache, TimeUnit.NANOSECONDS,
-						(cache) -> cache.getStatistics().getLockWaitDuration(TimeUnit.NANOSECONDS))
-				.tags(getTagsWithCacheName()).description("The time the cache has spent waiting on a lock")
-				.register(registry);
-	}
-
 }
