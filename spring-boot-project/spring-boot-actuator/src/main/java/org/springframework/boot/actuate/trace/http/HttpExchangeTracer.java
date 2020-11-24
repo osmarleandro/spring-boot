@@ -28,6 +28,7 @@ import java.util.function.Predicate;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
+import org.springframework.boot.actuate.trace.http.HttpTrace.Response;
 import org.springframework.http.HttpHeaders;
 
 /**
@@ -72,7 +73,8 @@ public class HttpExchangeTracer {
 		setIfIncluded(Include.TIME_TAKEN, () -> calculateTimeTaken(trace), trace::setTimeTaken);
 		setIfIncluded(Include.SESSION_ID, sessionId, trace::setSessionId);
 		setIfIncluded(Include.PRINCIPAL, principal, trace::setPrincipal);
-		trace.setResponse(new HttpTrace.Response(new FilteredTraceableResponse(response)));
+		Response response1 = new HttpTrace.Response(new FilteredTraceableResponse(response));
+		trace.response = response1;
 	}
 
 	/**
