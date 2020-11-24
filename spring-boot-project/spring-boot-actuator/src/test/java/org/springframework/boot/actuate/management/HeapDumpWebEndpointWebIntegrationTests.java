@@ -53,12 +53,6 @@ class HeapDumpWebEndpointWebIntegrationTests {
 	}
 
 	@WebEndpointTest
-	void invokeWhenNotAvailableShouldReturnServiceUnavailableStatus(WebTestClient client) {
-		this.endpoint.setAvailable(false);
-		client.get().uri("/actuator/heapdump").exchange().expectStatus().isEqualTo(HttpStatus.SERVICE_UNAVAILABLE);
-	}
-
-	@WebEndpointTest
 	void getRequestShouldReturnHeapDumpInResponseBody(WebTestClient client) throws Exception {
 		client.get().uri("/actuator/heapdump").exchange().expectStatus().isOk().expectHeader()
 				.contentType(MediaType.APPLICATION_OCTET_STREAM).expectBody(String.class).isEqualTo("HEAPDUMP");
