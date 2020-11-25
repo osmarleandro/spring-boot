@@ -83,13 +83,4 @@ class DiskSpaceHealthIndicatorTests {
 		assertThat(health.getDetails().get("exists")).isEqualTo(true);
 	}
 
-	@Test
-	void whenPathDoesNotExistDiskSpaceIsDown() {
-		Health health = new DiskSpaceHealthIndicator(new File("does/not/exist"), THRESHOLD).health();
-		assertThat(health.getStatus()).isEqualTo(Status.DOWN);
-		assertThat(health.getDetails().get("free")).isEqualTo(0L);
-		assertThat(health.getDetails().get("total")).isEqualTo(0L);
-		assertThat(health.getDetails().get("exists")).isEqualTo(false);
-	}
-
 }
