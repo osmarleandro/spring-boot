@@ -51,7 +51,11 @@ class SolrHealthIndicatorTests {
 		SolrClient solrClient = mock(SolrClient.class);
 		given(solrClient.request(any(CoreAdminRequest.class), isNull())).willReturn(mockResponse(0));
 		SolrHealthIndicator healthIndicator = new SolrHealthIndicator(solrClient);
-		assertHealth(healthIndicator, Status.UP, 0, "root");
+		Status expectedStatus = Status.UP;
+		Health health = healthIndicator.health();
+		assertThat(health.getStatus()).isEqualTo(expectedStatus);
+		assertThat(health.getDetails().get("status")).isEqualTo(0);
+		assertThat(health.getDetails().get("detectedPathType")).isEqualTo("root");
 		verify(solrClient, times(1)).request(any(CoreAdminRequest.class), isNull());
 		verifyNoMoreInteractions(solrClient);
 	}
@@ -61,7 +65,11 @@ class SolrHealthIndicatorTests {
 		SolrClient solrClient = mock(SolrClient.class);
 		given(solrClient.request(any(CoreAdminRequest.class), isNull())).willReturn(mockResponse(400));
 		SolrHealthIndicator healthIndicator = new SolrHealthIndicator(solrClient);
-		assertHealth(healthIndicator, Status.DOWN, 400, "root");
+		Status expectedStatus = Status.DOWN;
+		Health health = healthIndicator.health();
+		assertThat(health.getStatus()).isEqualTo(expectedStatus);
+		assertThat(health.getDetails().get("status")).isEqualTo(400);
+		assertThat(health.getDetails().get("detectedPathType")).isEqualTo("root");
 		verify(solrClient, times(1)).request(any(CoreAdminRequest.class), isNull());
 		verifyNoMoreInteractions(solrClient);
 	}
@@ -73,7 +81,11 @@ class SolrHealthIndicatorTests {
 				.willThrow(new RemoteSolrException("mock", 404, "", null));
 		given(solrClient.ping()).willReturn(mockPingResponse(0));
 		SolrHealthIndicator healthIndicator = new SolrHealthIndicator(solrClient);
-		assertHealth(healthIndicator, Status.UP, 0, "particular core");
+		Status expectedStatus = Status.UP;
+		Health health = healthIndicator.health();
+		assertThat(health.getStatus()).isEqualTo(expectedStatus);
+		assertThat(health.getDetails().get("status")).isEqualTo(0);
+		assertThat(health.getDetails().get("detectedPathType")).isEqualTo("particular core");
 		verify(solrClient, times(1)).request(any(CoreAdminRequest.class), isNull());
 		verify(solrClient, times(1)).ping();
 		verifyNoMoreInteractions(solrClient);
@@ -86,7 +98,11 @@ class SolrHealthIndicatorTests {
 				.willThrow(new RemoteSolrException("mock", 404, "", null));
 		given(solrClient.ping()).willReturn(mockPingResponse(400));
 		SolrHealthIndicator healthIndicator = new SolrHealthIndicator(solrClient);
-		assertHealth(healthIndicator, Status.DOWN, 400, "particular core");
+		Status expectedStatus = Status.DOWN;
+		Health health = healthIndicator.health();
+		assertThat(health.getStatus()).isEqualTo(expectedStatus);
+		assertThat(health.getDetails().get("status")).isEqualTo(400);
+		assertThat(health.getDetails().get("detectedPathType")).isEqualTo("particular core");
 		verify(solrClient, times(1)).request(any(CoreAdminRequest.class), isNull());
 		verify(solrClient, times(1)).ping();
 		verifyNoMoreInteractions(solrClient);
@@ -119,14 +135,6 @@ class SolrHealthIndicatorTests {
 		healthIndicator.health();
 		verify(solrClient, times(2)).ping();
 		verifyNoMoreInteractions(solrClient);
-	}
-
-	private void assertHealth(SolrHealthIndicator healthIndicator, Status expectedStatus, int expectedStatusCode,
-			String expectedPathType) {
-		Health health = healthIndicator.health();
-		assertThat(health.getStatus()).isEqualTo(expectedStatus);
-		assertThat(health.getDetails().get("status")).isEqualTo(expectedStatusCode);
-		assertThat(health.getDetails().get("detectedPathType")).isEqualTo(expectedPathType);
 	}
 
 	private NamedList<Object> mockResponse(int status) {
