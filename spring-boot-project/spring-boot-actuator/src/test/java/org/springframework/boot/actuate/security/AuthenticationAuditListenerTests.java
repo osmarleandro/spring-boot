@@ -69,13 +69,6 @@ class AuthenticationAuditListenerTests {
 	}
 
 	@Test
-	void testAuthenticationFailed() {
-		AuditApplicationEvent event = handleAuthenticationEvent(new AuthenticationFailureExpiredEvent(
-				new UsernamePasswordAuthenticationToken("user", "password"), new BadCredentialsException("Bad user")));
-		assertThat(event.getAuditEvent().getType()).isEqualTo(AuthenticationAuditListener.AUTHENTICATION_FAILURE);
-	}
-
-	@Test
 	void testAuthenticationSwitch() {
 		AuditApplicationEvent event = handleAuthenticationEvent(
 				new AuthenticationSwitchUserEvent(new UsernamePasswordAuthenticationToken("user", "password"),
