@@ -50,11 +50,6 @@ class DiskSpaceHealthIndicatorTests {
 
 	private HealthIndicator healthIndicator;
 
-	@BeforeEach
-	void setUp() {
-		this.healthIndicator = new DiskSpaceHealthIndicator(this.fileMock, THRESHOLD);
-	}
-
 	@Test
 	void diskSpaceIsUp() {
 		given(this.fileMock.exists()).willReturn(true);
