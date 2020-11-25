@@ -56,20 +56,6 @@ class DiskSpaceHealthIndicatorTests {
 	}
 
 	@Test
-	void diskSpaceIsUp() {
-		given(this.fileMock.exists()).willReturn(true);
-		long freeSpace = THRESHOLD.toBytes() + 10;
-		given(this.fileMock.getUsableSpace()).willReturn(freeSpace);
-		given(this.fileMock.getTotalSpace()).willReturn(TOTAL_SPACE.toBytes());
-		Health health = this.healthIndicator.health();
-		assertThat(health.getStatus()).isEqualTo(Status.UP);
-		assertThat(health.getDetails().get("threshold")).isEqualTo(THRESHOLD.toBytes());
-		assertThat(health.getDetails().get("free")).isEqualTo(freeSpace);
-		assertThat(health.getDetails().get("total")).isEqualTo(TOTAL_SPACE.toBytes());
-		assertThat(health.getDetails().get("exists")).isEqualTo(true);
-	}
-
-	@Test
 	void diskSpaceIsDown() {
 		given(this.fileMock.exists()).willReturn(true);
 		long freeSpace = THRESHOLD.toBytes() - 10;
