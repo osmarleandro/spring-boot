@@ -46,12 +46,6 @@ class SessionsEndpointWebIntegrationTests {
 			FindByIndexNameSessionRepository.class);
 
 	@WebEndpointTest
-	void sessionsForUsernameWithoutUsernameParam(WebTestClient client) {
-		client.get().uri((builder) -> builder.path("/actuator/sessions").build()).exchange().expectStatus()
-				.isBadRequest();
-	}
-
-	@WebEndpointTest
 	void sessionsForUsernameNoResults(WebTestClient client) {
 		given(repository.findByPrincipalName("user")).willReturn(Collections.emptyMap());
 		client.get().uri((builder) -> builder.path("/actuator/sessions").queryParam("username", "user").build())
