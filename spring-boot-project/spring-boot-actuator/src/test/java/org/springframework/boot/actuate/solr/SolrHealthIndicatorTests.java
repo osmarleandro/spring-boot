@@ -93,19 +93,6 @@ class SolrHealthIndicatorTests {
 	}
 
 	@Test
-	void healthWhenSolrConnectionFailsReturnsDown() throws Exception {
-		SolrClient solrClient = mock(SolrClient.class);
-		given(solrClient.request(any(CoreAdminRequest.class), isNull()))
-				.willThrow(new IOException("Connection failed"));
-		SolrHealthIndicator healthIndicator = new SolrHealthIndicator(solrClient);
-		Health health = healthIndicator.health();
-		assertThat(health.getStatus()).isEqualTo(Status.DOWN);
-		assertThat((String) health.getDetails().get("error")).contains("Connection failed");
-		verify(solrClient, times(1)).request(any(CoreAdminRequest.class), isNull());
-		verifyNoMoreInteractions(solrClient);
-	}
-
-	@Test
 	void healthWhenMakingMultipleCallsRemembersStatusStrategy() throws Exception {
 		SolrClient solrClient = mock(SolrClient.class);
 		given(solrClient.request(any(CoreAdminRequest.class), isNull()))
