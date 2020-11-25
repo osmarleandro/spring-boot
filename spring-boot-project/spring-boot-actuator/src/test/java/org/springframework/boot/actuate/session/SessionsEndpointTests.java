@@ -77,10 +77,4 @@ class SessionsEndpointTests {
 		assertThat(this.endpoint.getSession("not-found")).isNull();
 	}
 
-	@Test
-	void deleteSession() {
-		this.endpoint.deleteSession(session.getId());
-		verify(this.repository).deleteById(session.getId());
-	}
-
 }
