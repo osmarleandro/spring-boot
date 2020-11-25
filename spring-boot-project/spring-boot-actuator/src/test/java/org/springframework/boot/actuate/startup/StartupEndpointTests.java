@@ -34,20 +34,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 class StartupEndpointTests {
 
 	@Test
-	void startupEventsAreFound() {
-		BufferingApplicationStartup applicationStartup = new BufferingApplicationStartup(256);
-		ApplicationContextRunner contextRunner = new ApplicationContextRunner()
-				.withInitializer((context) -> context.setApplicationStartup(applicationStartup))
-				.withUserConfiguration(EndpointConfiguration.class);
-		contextRunner.run((context) -> {
-			StartupEndpoint.StartupResponse startup = context.getBean(StartupEndpoint.class).startup();
-			assertThat(startup.getSpringBootVersion()).isEqualTo(SpringBootVersion.getVersion());
-			assertThat(startup.getTimeline().getStartTime())
-					.isEqualTo(applicationStartup.getBufferedTimeline().getStartTime());
-		});
-	}
-
-	@Test
 	void bufferIsDrained() {
 		BufferingApplicationStartup applicationStartup = new BufferingApplicationStartup(256);
 		ApplicationContextRunner contextRunner = new ApplicationContextRunner()
