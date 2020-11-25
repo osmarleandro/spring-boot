@@ -66,12 +66,6 @@ class SessionsEndpointWebIntegrationTests {
 				.isEqualTo(new JSONArray().appendElement(session.getId()));
 	}
 
-	@WebEndpointTest
-	void sessionForIdNotFound(WebTestClient client) {
-		client.get().uri((builder) -> builder.path("/actuator/sessions/session-id-not-found").build()).exchange()
-				.expectStatus().isNotFound();
-	}
-
 	@Configuration(proxyBeanMethods = false)
 	static class TestConfiguration {
 
