@@ -61,14 +61,6 @@ class AuthenticationAuditListenerTests {
 	}
 
 	@Test
-	void testOtherAuthenticationSuccess() {
-		this.listener.onApplicationEvent(new InteractiveAuthenticationSuccessEvent(
-				new UsernamePasswordAuthenticationToken("user", "password"), getClass()));
-		// No need to audit this one (it shadows a regular AuthenticationSuccessEvent)
-		verify(this.publisher, never()).publishEvent(any(ApplicationEvent.class));
-	}
-
-	@Test
 	void testAuthenticationFailed() {
 		AuditApplicationEvent event = handleAuthenticationEvent(new AuthenticationFailureExpiredEvent(
 				new UsernamePasswordAuthenticationToken("user", "password"), new BadCredentialsException("Bad user")));
