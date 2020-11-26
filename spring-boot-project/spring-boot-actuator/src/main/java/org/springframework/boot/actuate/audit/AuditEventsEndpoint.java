@@ -44,7 +44,7 @@ public class AuditEventsEndpoint {
 	@ReadOperation
 	public AuditEventsDescriptor events(@Nullable String principal, @Nullable OffsetDateTime after,
 			@Nullable String type) {
-		List<AuditEvent> events = this.auditEventRepository.find(principal, getInstant(after), type);
+		List<AuditEvent> events = this.auditEventRepository.find_RENAMED(principal, getInstant(after), type);
 		return new AuditEventsDescriptor(events);
 	}
 
