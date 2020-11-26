@@ -123,7 +123,7 @@ class DiscoveredJmxOperation extends AbstractDiscoveredOperation implements JmxO
 	}
 
 	@Override
-	protected void appendFields(ToStringCreator creator) {
+	protected void appendFields_RENAMED(ToStringCreator creator) {
 		creator.append("name", this.name).append("outputType", this.outputType).append("description", this.description)
 				.append("parameters", this.parameters);
 	}
