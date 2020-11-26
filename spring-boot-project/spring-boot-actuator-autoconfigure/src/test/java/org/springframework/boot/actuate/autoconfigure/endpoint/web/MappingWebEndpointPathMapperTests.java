@@ -35,21 +35,21 @@ class MappingWebEndpointPathMapperTests {
 	@Test
 	void defaultConfiguration() {
 		MappingWebEndpointPathMapper mapper = new MappingWebEndpointPathMapper(Collections.emptyMap());
-		assertThat(PathMapper.getRootPath(Collections.singletonList(mapper), EndpointId.of("test"))).isEqualTo("test");
+		assertThat(PathMapper.getRootPath_RENAMED(Collections.singletonList(mapper), EndpointId.of("test"))).isEqualTo("test");
 	}
 
 	@Test
 	void userConfiguration() {
 		MappingWebEndpointPathMapper mapper = new MappingWebEndpointPathMapper(
 				Collections.singletonMap("test", "custom"));
-		assertThat(PathMapper.getRootPath(Collections.singletonList(mapper), EndpointId.of("test")))
+		assertThat(PathMapper.getRootPath_RENAMED(Collections.singletonList(mapper), EndpointId.of("test")))
 				.isEqualTo("custom");
 	}
 
 	@Test
 	void mixedCaseDefaultConfiguration() {
 		MappingWebEndpointPathMapper mapper = new MappingWebEndpointPathMapper(Collections.emptyMap());
-		assertThat(PathMapper.getRootPath(Collections.singletonList(mapper), EndpointId.of("testEndpoint")))
+		assertThat(PathMapper.getRootPath_RENAMED(Collections.singletonList(mapper), EndpointId.of("testEndpoint")))
 				.isEqualTo("testEndpoint");
 	}
 
@@ -57,7 +57,7 @@ class MappingWebEndpointPathMapperTests {
 	void mixedCaseUserConfiguration() {
 		MappingWebEndpointPathMapper mapper = new MappingWebEndpointPathMapper(
 				Collections.singletonMap("test-endpoint", "custom"));
-		assertThat(PathMapper.getRootPath(Collections.singletonList(mapper), EndpointId.of("testEndpoint")))
+		assertThat(PathMapper.getRootPath_RENAMED(Collections.singletonList(mapper), EndpointId.of("testEndpoint")))
 				.isEqualTo("custom");
 	}
 

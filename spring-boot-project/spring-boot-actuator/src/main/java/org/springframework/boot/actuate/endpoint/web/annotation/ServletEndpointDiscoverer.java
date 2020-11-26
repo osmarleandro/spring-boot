@@ -64,7 +64,7 @@ public class ServletEndpointDiscoverer extends EndpointDiscoverer<ExposableServl
 	@Override
 	protected ExposableServletEndpoint createEndpoint(Object endpointBean, EndpointId id, boolean enabledByDefault,
 			Collection<Operation> operations) {
-		String rootPath = PathMapper.getRootPath(this.endpointPathMappers, id);
+		String rootPath = PathMapper.getRootPath_RENAMED(this.endpointPathMappers, id);
 		return new DiscoveredServletEndpoint(this, endpointBean, id, rootPath, enabledByDefault);
 	}
 

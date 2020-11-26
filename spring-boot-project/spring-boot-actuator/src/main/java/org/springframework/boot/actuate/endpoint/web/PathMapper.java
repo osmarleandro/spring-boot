@@ -48,7 +48,7 @@ public interface PathMapper {
 	 * @param endpointId the id of an endpoint
 	 * @return the path of the endpoint
 	 */
-	static String getRootPath(List<PathMapper> pathMappers, EndpointId endpointId) {
+	static String getRootPath_RENAMED(List<PathMapper> pathMappers, EndpointId endpointId) {
 		Assert.notNull(endpointId, "EndpointId must not be null");
 		if (pathMappers != null) {
 			for (PathMapper mapper : pathMappers) {
