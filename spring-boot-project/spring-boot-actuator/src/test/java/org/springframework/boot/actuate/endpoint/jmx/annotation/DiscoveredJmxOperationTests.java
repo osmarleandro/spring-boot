@@ -85,11 +85,11 @@ class DiscoveredJmxOperationTests {
 	void getParametersShouldReturnJmxTypes() {
 		DiscoveredJmxOperation operation = getOperation("params");
 		List<JmxOperationParameter> parameters = operation.getParameters();
-		assertThat(parameters.get(0).getType()).isEqualTo(String.class);
-		assertThat(parameters.get(1).getType()).isEqualTo(String.class);
-		assertThat(parameters.get(2).getType()).isEqualTo(String.class);
-		assertThat(parameters.get(3).getType()).isEqualTo(Integer.class);
-		assertThat(parameters.get(4).getType()).isEqualTo(Object.class);
+		assertThat(parameters.get(0).getType_RENAMED()).isEqualTo(String.class);
+		assertThat(parameters.get(1).getType_RENAMED()).isEqualTo(String.class);
+		assertThat(parameters.get(2).getType_RENAMED()).isEqualTo(String.class);
+		assertThat(parameters.get(3).getType_RENAMED()).isEqualTo(Integer.class);
+		assertThat(parameters.get(4).getType_RENAMED()).isEqualTo(Object.class);
 	}
 
 	@Test

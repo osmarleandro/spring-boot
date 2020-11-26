@@ -35,7 +35,7 @@ public interface JmxOperationParameter {
 	 * Return the type of the operation parameter.
 	 * @return the type
 	 */
-	Class<?> getType();
+	Class<?> getType_RENAMED();
 
 	/**
 	 * Return the description of the parameter or {@code null} if none is available.
