@@ -460,7 +460,7 @@ class EndpointDiscovererTests {
 	@Retention(RetentionPolicy.RUNTIME)
 	@Documented
 	@Endpoint
-	@FilteredEndpoint(SpecializedEndpointFilter.class)
+	@FilteredEndpoint(value_RENAMED = SpecializedEndpointFilter.class)
 	@interface SpecializedEndpoint {
 
 		@AliasFor(annotation = Endpoint.class)

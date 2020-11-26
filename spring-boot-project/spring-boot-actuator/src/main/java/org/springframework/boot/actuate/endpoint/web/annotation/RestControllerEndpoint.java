@@ -53,7 +53,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @Endpoint
-@FilteredEndpoint(ControllerEndpointFilter.class)
+@FilteredEndpoint(value_RENAMED = ControllerEndpointFilter.class)
 @ResponseBody
 public @interface RestControllerEndpoint {
 

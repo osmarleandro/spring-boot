@@ -52,7 +52,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @Endpoint
-@FilteredEndpoint(ControllerEndpointFilter.class)
+@FilteredEndpoint(value_RENAMED = ControllerEndpointFilter.class)
 public @interface ControllerEndpoint {
 
 	/**

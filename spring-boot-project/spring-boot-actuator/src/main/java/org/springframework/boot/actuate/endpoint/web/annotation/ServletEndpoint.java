@@ -45,7 +45,7 @@ import org.springframework.core.annotation.AliasFor;
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @Endpoint
-@FilteredEndpoint(ServletEndpointFilter.class)
+@FilteredEndpoint(value_RENAMED = ServletEndpointFilter.class)
 public @interface ServletEndpoint {
 
 	/**

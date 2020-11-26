@@ -52,6 +52,6 @@ public @interface FilteredEndpoint {
 	 * The filter class to use.
 	 * @return the filter class
 	 */
-	Class<? extends EndpointFilter<?>> value();
+	Class<? extends EndpointFilter<?>> value_RENAMED();
 
 }
