@@ -31,6 +31,6 @@ public interface EndpointFilter<E extends ExposableEndpoint<?>> {
 	 * @param endpoint the endpoint to check
 	 * @return {@code true} if the filter matches
 	 */
-	boolean match(E endpoint);
+	boolean match_RENAMED(E endpoint);
 
 }
