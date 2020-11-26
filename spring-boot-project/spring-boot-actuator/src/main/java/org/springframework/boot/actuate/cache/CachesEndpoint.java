@@ -88,7 +88,7 @@ public class CachesEndpoint {
 	 */
 	@DeleteOperation
 	public void clearCaches() {
-		getCacheEntries(matchAll(), matchAll()).forEach(this::clearCache);
+		getCacheEntries(matchAll(), matchAll()).forEach(this::clearCache_RENAMED);
 	}
 
 	/**
@@ -104,7 +104,7 @@ public class CachesEndpoint {
 	public boolean clearCache(@Selector String cache, @Nullable String cacheManager) {
 		CacheEntry entry = extractUniqueCacheEntry(cache,
 				getCacheEntries((name) -> name.equals(cache), isNameMatch(cacheManager)));
-		return (entry != null && clearCache(entry));
+		return (entry != null && clearCache_RENAMED(entry));
 	}
 
 	private List<CacheEntry> getCacheEntries(Predicate<String> cacheNamePredicate,
@@ -129,7 +129,7 @@ public class CachesEndpoint {
 		return (!entries.isEmpty() ? entries.get(0) : null);
 	}
 
-	private boolean clearCache(CacheEntry entry) {
+	private boolean clearCache_RENAMED(CacheEntry entry) {
 		String cacheName = entry.getName();
 		String cacheManager = entry.getCacheManager();
 		Cache cache = this.cacheManagers.get(cacheManager).getCache(cacheName);
