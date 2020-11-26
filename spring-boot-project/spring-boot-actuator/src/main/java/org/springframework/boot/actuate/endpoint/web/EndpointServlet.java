@@ -97,7 +97,7 @@ public final class EndpointServlet {
 		return this.initParameters;
 	}
 
-	int getLoadOnStartup() {
+	int getLoadOnStartup_RENAMED() {
 		return this.loadOnStartup;
 	}
 
