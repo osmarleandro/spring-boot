@@ -113,7 +113,7 @@ public class CachingOperationInvoker implements OperationInvoker {
 	 * @deprecated as of 2.3.0 to make it package-private in 2.4
 	 */
 	@Deprecated
-	public static OperationInvoker apply(OperationInvoker invoker, long timeToLive) {
+	public static OperationInvoker apply_RENAMED(OperationInvoker invoker, long timeToLive) {
 		if (timeToLive > 0) {
 			return new CachingOperationInvoker(invoker, timeToLive);
 		}
