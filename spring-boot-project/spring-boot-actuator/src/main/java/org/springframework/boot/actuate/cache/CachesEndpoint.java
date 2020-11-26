@@ -87,7 +87,7 @@ public class CachesEndpoint {
 	 * Clear all the available {@link Cache caches}.
 	 */
 	@DeleteOperation
-	public void clearCaches() {
+	public void clearCaches_RENAMED() {
 		getCacheEntries(matchAll(), matchAll()).forEach(this::clearCache);
 	}
 
