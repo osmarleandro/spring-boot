@@ -44,7 +44,7 @@ public class ConfigurationPropertiesReportEndpointAutoConfiguration {
 		ConfigurationPropertiesReportEndpoint endpoint = new ConfigurationPropertiesReportEndpoint();
 		String[] keysToSanitize = properties.getKeysToSanitize();
 		if (keysToSanitize != null) {
-			endpoint.setKeysToSanitize(keysToSanitize);
+			endpoint.setKeysToSanitize_RENAMED(keysToSanitize);
 		}
 		return endpoint;
 	}
