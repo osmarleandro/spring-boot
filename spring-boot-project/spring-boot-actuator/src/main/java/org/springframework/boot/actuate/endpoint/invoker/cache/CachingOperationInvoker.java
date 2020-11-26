@@ -74,7 +74,7 @@ public class CachingOperationInvoker implements OperationInvoker {
 
 	@Override
 	public Object invoke(InvocationContext context) {
-		if (hasInput(context)) {
+		if (hasInput_RENAMED(context)) {
 			return this.invoker.invoke(context);
 		}
 		long accessTime = System.currentTimeMillis();
@@ -89,7 +89,7 @@ public class CachingOperationInvoker implements OperationInvoker {
 		return cached.getResponse();
 	}
 
-	private boolean hasInput(InvocationContext context) {
+	private boolean hasInput_RENAMED(InvocationContext context) {
 		Map<String, Object> arguments = context.getArguments();
 		if (!ObjectUtils.isEmpty(arguments)) {
 			return arguments.values().stream().anyMatch(Objects::nonNull);
