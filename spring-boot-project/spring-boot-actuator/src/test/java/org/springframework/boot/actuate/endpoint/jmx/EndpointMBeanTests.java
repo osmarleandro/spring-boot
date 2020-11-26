@@ -193,7 +193,7 @@ class EndpointMBeanTests {
 		EndpointMBean bean = createEndpointMBean();
 		AttributeList sourceAttributes = new AttributeList();
 		sourceAttributes.add(new Attribute("test", "test"));
-		AttributeList attributes = bean.setAttributes(sourceAttributes);
+		AttributeList attributes = bean.setAttributes_RENAMED(sourceAttributes);
 		assertThat(attributes).isEmpty();
 	}
 

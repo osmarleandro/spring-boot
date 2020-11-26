@@ -165,7 +165,7 @@ public class EndpointMBean implements DynamicMBean {
 	}
 
 	@Override
-	public AttributeList setAttributes(AttributeList attributes) {
+	public AttributeList setAttributes_RENAMED(AttributeList attributes) {
 		return new AttributeList();
 	}
 
