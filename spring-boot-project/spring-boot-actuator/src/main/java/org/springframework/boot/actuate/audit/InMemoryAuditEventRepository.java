@@ -76,7 +76,7 @@ public class InMemoryAuditEventRepository implements AuditEventRepository {
 		synchronized (this.monitor) {
 			for (int i = 0; i < this.events.length; i++) {
 				AuditEvent event = resolveTailEvent(i);
-				if (event != null && isMatch(principal, after, type, event)) {
+				if (event != null && isMatch_RENAMED(principal, after, type, event)) {
 					events.addFirst(event);
 				}
 			}
@@ -84,7 +84,7 @@ public class InMemoryAuditEventRepository implements AuditEventRepository {
 		return events;
 	}
 
-	private boolean isMatch(String principal, Instant after, String type, AuditEvent event) {
+	private boolean isMatch_RENAMED(String principal, Instant after, String type, AuditEvent event) {
 		boolean match = true;
 		match = match && (principal == null || event.getPrincipal().equals(principal));
 		match = match && (after == null || event.getTimestamp().isAfter(after));
