@@ -91,16 +91,16 @@ public class EndpointMBean implements DynamicMBean {
 					+ actionName;
 			throw new ReflectionException(new IllegalArgumentException(message), message);
 		}
-		ClassLoader previousClassLoader = overrideThreadContextClassLoader(this.classLoader);
+		ClassLoader previousClassLoader = overrideThreadContextClassLoader_RENAMED(this.classLoader);
 		try {
 			return invoke(operation, params);
 		}
 		finally {
-			overrideThreadContextClassLoader(previousClassLoader);
+			overrideThreadContextClassLoader_RENAMED(previousClassLoader);
 		}
 	}
 
-	private ClassLoader overrideThreadContextClassLoader(ClassLoader classLoader) {
+	private ClassLoader overrideThreadContextClassLoader_RENAMED(ClassLoader classLoader) {
 		if (classLoader != null) {
 			try {
 				return ClassUtils.overrideThreadContextClassLoader(classLoader);
