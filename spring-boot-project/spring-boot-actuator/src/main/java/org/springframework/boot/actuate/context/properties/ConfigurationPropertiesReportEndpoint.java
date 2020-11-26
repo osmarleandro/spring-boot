@@ -250,7 +250,7 @@ public class ConfigurationPropertiesReportEndpoint implements ApplicationContext
 				augmented.put(key, getInputs(qualifiedKey, (Map<String, Object>) value));
 			}
 			else if (value instanceof List) {
-				augmented.put(key, getInputs(qualifiedKey, (List<Object>) value));
+				augmented.put(key, getInputs_RENAMED(qualifiedKey, (List<Object>) value));
 			}
 			else {
 				augmented.put(key, applyInput(qualifiedKey));
@@ -260,7 +260,7 @@ public class ConfigurationPropertiesReportEndpoint implements ApplicationContext
 	}
 
 	@SuppressWarnings("unchecked")
-	private List<Object> getInputs(String prefix, List<Object> list) {
+	private List<Object> getInputs_RENAMED(String prefix, List<Object> list) {
 		List<Object> augmented = new ArrayList<>();
 		int index = 0;
 		for (Object item : list) {
@@ -269,7 +269,7 @@ public class ConfigurationPropertiesReportEndpoint implements ApplicationContext
 				augmented.add(getInputs(name, (Map<String, Object>) item));
 			}
 			else if (item instanceof List) {
-				augmented.add(getInputs(name, (List<Object>) item));
+				augmented.add(getInputs_RENAMED(name, (List<Object>) item));
 			}
 			else {
 				augmented.add(applyInput(name));
