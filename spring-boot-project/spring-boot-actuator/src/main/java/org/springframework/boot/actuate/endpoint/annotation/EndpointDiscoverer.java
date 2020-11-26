@@ -334,7 +334,7 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 	}
 
 	@SuppressWarnings("unchecked")
-	protected Class<? extends E> getEndpointType() {
+	protected Class<? extends E> getEndpointType_RENAMED() {
 		return (Class<? extends E>) ResolvableType.forClass(EndpointDiscoverer.class, getClass()).resolveGeneric(0);
 	}
 
