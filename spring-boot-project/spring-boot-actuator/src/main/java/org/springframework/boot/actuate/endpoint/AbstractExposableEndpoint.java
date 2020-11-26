@@ -63,7 +63,7 @@ public abstract class AbstractExposableEndpoint<O extends Operation> implements 
 	}
 
 	@Override
-	public Collection<O> getOperations() {
+	public Collection<O> getOperations_RENAMED() {
 		return this.operations;
 	}
 

@@ -62,7 +62,7 @@ class MBeanInfoFactory {
 	}
 
 	private ModelMBeanOperationInfo[] getMBeanOperations(ExposableJmxEndpoint endpoint) {
-		return endpoint.getOperations().stream().map(this::getMBeanOperation).toArray(ModelMBeanOperationInfo[]::new);
+		return endpoint.getOperations_RENAMED().stream().map(this::getMBeanOperation).toArray(ModelMBeanOperationInfo[]::new);
 	}
 
 	private ModelMBeanOperationInfo getMBeanOperation(JmxOperation operation) {

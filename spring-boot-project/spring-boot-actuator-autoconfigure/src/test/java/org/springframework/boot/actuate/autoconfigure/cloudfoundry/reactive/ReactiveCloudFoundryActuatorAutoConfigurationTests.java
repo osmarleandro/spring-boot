@@ -223,8 +223,8 @@ class ReactiveCloudFoundryActuatorAutoConfigurationTests {
 					ExposableWebEndpoint endpoint = endpoints.stream()
 							.filter((candidate) -> EndpointId.of("test").equals(candidate.getEndpointId())).findFirst()
 							.get();
-					assertThat(endpoint.getOperations()).hasSize(1);
-					WebOperation operation = endpoint.getOperations().iterator().next();
+					assertThat(endpoint.getOperations_RENAMED()).hasSize(1);
+					WebOperation operation = endpoint.getOperations_RENAMED().iterator().next();
 					assertThat(operation.getRequestPredicate().getPath()).isEqualTo("test");
 				});
 	}
@@ -237,7 +237,7 @@ class ReactiveCloudFoundryActuatorAutoConfigurationTests {
 				.run((context) -> {
 					Collection<ExposableWebEndpoint> endpoints = getHandlerMapping(context).getEndpoints();
 					ExposableWebEndpoint endpoint = endpoints.iterator().next();
-					assertThat(endpoint.getOperations()).hasSize(2);
+					assertThat(endpoint.getOperations_RENAMED()).hasSize(2);
 					WebOperation webOperation = findOperationWithRequestPath(endpoint, "health");
 					assertThat(webOperation).extracting("invoker").extracting("target")
 							.isInstanceOf(CloudFoundryReactiveHealthEndpointWebExtension.class);
@@ -299,7 +299,7 @@ class ReactiveCloudFoundryActuatorAutoConfigurationTests {
 	}
 
 	private WebOperation findOperationWithRequestPath(ExposableWebEndpoint endpoint, String requestPath) {
-		for (WebOperation operation : endpoint.getOperations()) {
+		for (WebOperation operation : endpoint.getOperations_RENAMED()) {
 			WebOperationRequestPredicate predicate = operation.getRequestPredicate();
 			if (predicate.getPath().equals(requestPath)
 					&& predicate.getProduces().contains(ActuatorMediaType.V3_JSON)) {
@@ -307,7 +307,7 @@ class ReactiveCloudFoundryActuatorAutoConfigurationTests {
 			}
 		}
 		throw new IllegalStateException(
-				"No operation found with request path " + requestPath + " from " + endpoint.getOperations());
+				"No operation found with request path " + requestPath + " from " + endpoint.getOperations_RENAMED());
 	}
 
 	@Endpoint(id = "test")

@@ -63,7 +63,7 @@ class EndpointLinksResolverTests {
 		ExposableWebEndpoint endpoint = mock(ExposableWebEndpoint.class);
 		given(endpoint.getEndpointId()).willReturn(EndpointId.of("alpha"));
 		given(endpoint.isEnableByDefault()).willReturn(true);
-		given(endpoint.getOperations()).willReturn(operations);
+		given(endpoint.getOperations_RENAMED()).willReturn(operations);
 		String requestUrl = "https://api.example.com/actuator";
 		Map<String, Link> links = new EndpointLinksResolver(Collections.singletonList(endpoint))
 				.resolveLinks(requestUrl);

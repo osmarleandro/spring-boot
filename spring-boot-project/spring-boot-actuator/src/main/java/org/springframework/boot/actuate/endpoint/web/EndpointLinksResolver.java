@@ -90,7 +90,7 @@ public class EndpointLinksResolver {
 	}
 
 	private void collectLinks(Map<String, Link> links, ExposableWebEndpoint endpoint, String normalizedUrl) {
-		for (WebOperation operation : endpoint.getOperations()) {
+		for (WebOperation operation : endpoint.getOperations_RENAMED()) {
 			links.put(operation.getId(), createLink(normalizedUrl, operation));
 		}
 	}
