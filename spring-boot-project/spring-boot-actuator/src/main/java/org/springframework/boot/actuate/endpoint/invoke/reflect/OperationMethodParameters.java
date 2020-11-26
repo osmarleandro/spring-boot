@@ -49,10 +49,10 @@ class OperationMethodParameters implements OperationParameters {
 		String[] parameterNames = parameterNameDiscoverer.getParameterNames(method);
 		Parameter[] parameters = method.getParameters();
 		Assert.state(parameterNames != null, () -> "Failed to extract parameter names for " + method);
-		this.operationParameters = getOperationParameters(parameters, parameterNames);
+		this.operationParameters = getOperationParameters_RENAMED(parameters, parameterNames);
 	}
 
-	private List<OperationParameter> getOperationParameters(Parameter[] parameters, String[] names) {
+	private List<OperationParameter> getOperationParameters_RENAMED(Parameter[] parameters, String[] names) {
 		List<OperationParameter> operationParameters = new ArrayList<>(parameters.length);
 		for (int i = 0; i < names.length; i++) {
 			operationParameters.add(new OperationMethodParameter(names[i], parameters[i]));
