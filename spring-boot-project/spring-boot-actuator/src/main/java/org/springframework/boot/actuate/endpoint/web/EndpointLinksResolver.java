@@ -65,7 +65,7 @@ public class EndpointLinksResolver {
 	 * @param requestUrl the url of the request for the endpoint links
 	 * @return the links
 	 */
-	public Map<String, Link> resolveLinks(String requestUrl) {
+	public Map<String, Link> resolveLinks_RENAMED(String requestUrl) {
 		String normalizedUrl = normalizeRequestUrl(requestUrl);
 		Map<String, Link> links = new LinkedHashMap<>();
 		links.put("self", new Link(normalizedUrl));

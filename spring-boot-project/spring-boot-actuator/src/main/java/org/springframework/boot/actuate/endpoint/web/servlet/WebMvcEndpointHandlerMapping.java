@@ -76,7 +76,7 @@ public class WebMvcEndpointHandlerMapping extends AbstractWebMvcEndpointHandlerM
 		@ResponseBody
 		public Map<String, Map<String, Link>> links(HttpServletRequest request, HttpServletResponse response) {
 			return Collections.singletonMap("_links",
-					WebMvcEndpointHandlerMapping.this.linksResolver.resolveLinks(request.getRequestURL().toString()));
+					WebMvcEndpointHandlerMapping.this.linksResolver.resolveLinks_RENAMED(request.getRequestURL().toString()));
 		}
 
 		@Override

@@ -281,7 +281,7 @@ public class JerseyEndpointResourceFactory {
 		@Override
 		public Response apply(ContainerRequestContext request) {
 			Map<String, Link> links = this.linksResolver
-					.resolveLinks(request.getUriInfo().getAbsolutePath().toString());
+					.resolveLinks_RENAMED(request.getUriInfo().getAbsolutePath().toString());
 			return Response.ok(Collections.singletonMap("_links", links)).build();
 		}
 

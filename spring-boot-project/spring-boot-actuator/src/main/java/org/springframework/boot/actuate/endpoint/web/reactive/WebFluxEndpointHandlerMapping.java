@@ -79,7 +79,7 @@ public class WebFluxEndpointHandlerMapping extends AbstractWebFluxEndpointHandle
 			String requestUri = UriComponentsBuilder.fromUri(exchange.getRequest().getURI()).replaceQuery(null)
 					.toUriString();
 			return Collections.singletonMap("_links",
-					WebFluxEndpointHandlerMapping.this.linksResolver.resolveLinks(requestUri));
+					WebFluxEndpointHandlerMapping.this.linksResolver.resolveLinks_RENAMED(requestUri));
 		}
 
 		@Override

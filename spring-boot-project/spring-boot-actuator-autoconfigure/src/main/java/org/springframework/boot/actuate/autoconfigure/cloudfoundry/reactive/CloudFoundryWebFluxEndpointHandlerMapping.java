@@ -88,7 +88,7 @@ class CloudFoundryWebFluxEndpointHandlerMapping extends AbstractWebFluxEndpointH
 						}
 						AccessLevel accessLevel = exchange.getAttribute(AccessLevel.REQUEST_ATTRIBUTE);
 						Map<String, Link> links = CloudFoundryWebFluxEndpointHandlerMapping.this.linksResolver
-								.resolveLinks(request.getURI().toString());
+								.resolveLinks_RENAMED(request.getURI().toString());
 						return new ResponseEntity<>(
 								Collections.singletonMap("_links", getAccessibleLinks(accessLevel, links)),
 								HttpStatus.OK);
