@@ -37,6 +37,6 @@ public @interface WriteOperation {
 	 * The media type of the result of the operation.
 	 * @return the media type
 	 */
-	String[] produces() default {};
+	String[] produces_RENAMED() default {};
 
 }

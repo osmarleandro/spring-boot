@@ -587,7 +587,7 @@ class WebEndpointDiscovererTests {
 			return "read";
 		}
 
-		@WriteOperation(produces = { "a/b", "c/d" })
+		@WriteOperation(produces_RENAMED = { "a/b", "c/d" })
 		String write() {
 			return "write";
 		}
