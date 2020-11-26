@@ -94,20 +94,20 @@ class EndpointServletTests {
 	void withInitParametersNullName() {
 		EndpointServlet endpointServlet = new EndpointServlet(TestServlet.class);
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> endpointServlet.withInitParameters(Collections.singletonMap(null, "value")));
+				.isThrownBy(() -> endpointServlet.withInitParameters_RENAMED(Collections.singletonMap(null, "value")));
 	}
 
 	@Test
 	void withInitParametersEmptyName() {
 		EndpointServlet endpointServlet = new EndpointServlet(TestServlet.class);
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> endpointServlet.withInitParameters(Collections.singletonMap(" ", "value")));
+				.isThrownBy(() -> endpointServlet.withInitParameters_RENAMED(Collections.singletonMap(" ", "value")));
 	}
 
 	@Test
 	void withInitParametersShouldCreateNewInstance() {
 		EndpointServlet endpointServlet = new EndpointServlet(TestServlet.class);
-		assertThat(endpointServlet.withInitParameters(Collections.singletonMap("spring", "boot")))
+		assertThat(endpointServlet.withInitParameters_RENAMED(Collections.singletonMap("spring", "boot")))
 				.isNotSameAs(endpointServlet);
 	}
 
@@ -118,7 +118,7 @@ class EndpointServletTests {
 		Map<String, String> extra = new LinkedHashMap<>();
 		extra.put("a", "b1");
 		extra.put("e", "f");
-		assertThat(endpointServlet.withInitParameters(extra).getInitParameters()).containsExactly(entry("a", "b1"),
+		assertThat(endpointServlet.withInitParameters_RENAMED(extra).getInitParameters()).containsExactly(entry("a", "b1"),
 				entry("c", "d"), entry("e", "f"));
 	}
 

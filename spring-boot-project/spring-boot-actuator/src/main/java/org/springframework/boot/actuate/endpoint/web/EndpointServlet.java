@@ -64,10 +64,10 @@ public final class EndpointServlet {
 
 	public EndpointServlet withInitParameter(String name, String value) {
 		Assert.hasText(name, "Name must not be empty");
-		return withInitParameters(Collections.singletonMap(name, value));
+		return withInitParameters_RENAMED(Collections.singletonMap(name, value));
 	}
 
-	public EndpointServlet withInitParameters(Map<String, String> initParameters) {
+	public EndpointServlet withInitParameters_RENAMED(Map<String, String> initParameters) {
 		Assert.notNull(initParameters, "InitParameters must not be null");
 		boolean hasEmptyName = initParameters.keySet().stream().anyMatch((name) -> !StringUtils.hasText(name));
 		Assert.isTrue(!hasEmptyName, "InitParameters must not contain empty names");
