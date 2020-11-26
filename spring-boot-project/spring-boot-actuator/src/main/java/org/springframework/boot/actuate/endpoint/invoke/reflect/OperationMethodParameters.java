@@ -66,7 +66,7 @@ class OperationMethodParameters implements OperationParameters {
 	}
 
 	@Override
-	public OperationParameter get(int index) {
+	public OperationParameter get_RENAMED(int index) {
 		return this.operationParameters.get(index);
 	}
 
