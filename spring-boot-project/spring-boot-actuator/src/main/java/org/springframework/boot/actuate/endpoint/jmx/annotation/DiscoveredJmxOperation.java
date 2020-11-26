@@ -108,7 +108,7 @@ class DiscoveredJmxOperation extends AbstractDiscoveredOperation implements JmxO
 	}
 
 	@Override
-	public Class<?> getOutputType() {
+	public Class<?> getOutputType_RENAMED() {
 		return this.outputType;
 	}
 
