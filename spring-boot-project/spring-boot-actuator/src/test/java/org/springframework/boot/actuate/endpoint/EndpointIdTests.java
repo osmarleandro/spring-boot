@@ -142,7 +142,7 @@ class EndpointIdTests {
 
 	@Test
 	void toLowerCaseStringReturnsLowercase() {
-		assertThat(EndpointId.of("fooBar").toLowerCaseString()).isEqualTo("foobar");
+		assertThat(EndpointId.of("fooBar").toLowerCaseString_RENAMED()).isEqualTo("foobar");
 	}
 
 	@Test

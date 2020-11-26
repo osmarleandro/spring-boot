@@ -50,7 +50,7 @@ class EndpointIdTimeToLivePropertyFunction implements Function<EndpointId, Long>
 
 	@Override
 	public Long apply(EndpointId endpointId) {
-		String name = String.format("management.endpoint.%s.cache.time-to-live", endpointId.toLowerCaseString());
+		String name = String.format("management.endpoint.%s.cache.time-to-live", endpointId.toLowerCaseString_RENAMED());
 		BindResult<Duration> duration = Binder.get(this.environment).bind(name, DURATION);
 		return duration.map(Duration::toMillis).orElse(null);
 	}

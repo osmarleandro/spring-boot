@@ -97,7 +97,7 @@ public final class EndpointId {
 	 * Return a lower-case version of the endpoint ID.
 	 * @return the lower-case endpoint ID
 	 */
-	public String toLowerCaseString() {
+	public String toLowerCaseString_RENAMED() {
 		return this.lowerCaseValue;
 	}
 

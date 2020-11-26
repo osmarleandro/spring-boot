@@ -92,7 +92,7 @@ class CloudFoundrySecurityInterceptor {
 		Token token = getToken(request);
 		this.tokenValidator.validate(token);
 		AccessLevel accessLevel = this.cloudFoundrySecurityService.getAccessLevel(token.toString(), this.applicationId);
-		if (!accessLevel.isAccessAllowed((endpointId != null) ? endpointId.toLowerCaseString() : "")) {
+		if (!accessLevel.isAccessAllowed((endpointId != null) ? endpointId.toLowerCaseString_RENAMED() : "")) {
 			throw new CloudFoundryAuthorizationException(Reason.ACCESS_DENIED, "Access denied");
 		}
 		request.setAttribute(AccessLevel.REQUEST_ATTRIBUTE, accessLevel);
