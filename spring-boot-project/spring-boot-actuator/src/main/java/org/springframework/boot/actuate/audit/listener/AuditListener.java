@@ -42,7 +42,7 @@ public class AuditListener extends AbstractAuditListener {
 	}
 
 	@Override
-	protected void onAuditEvent(AuditEvent event) {
+	protected void onAuditEvent_RENAMED(AuditEvent event) {
 		if (logger.isDebugEnabled()) {
 			logger.debug(event);
 		}
