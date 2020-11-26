@@ -304,7 +304,7 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 		if (filter == null) {
 			return true;
 		}
-		E endpoint = getFilterEndpoint(endpointBean);
+		E endpoint = getFilterEndpoint_RENAMED(endpointBean);
 		Class<?> generic = ResolvableType.forClass(EndpointFilter.class, filter).resolveGeneric(0);
 		if (generic == null || generic.isInstance(endpoint)) {
 			EndpointFilter<E> instance = (EndpointFilter<E>) BeanUtils.instantiateClass(filter);
@@ -314,7 +314,7 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 	}
 
 	private boolean isFilterMatch(EndpointFilter<E> filter, EndpointBean endpointBean) {
-		return isFilterMatch(filter, getFilterEndpoint(endpointBean));
+		return isFilterMatch(filter, getFilterEndpoint_RENAMED(endpointBean));
 	}
 
 	@SuppressWarnings("unchecked")
@@ -323,7 +323,7 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 				.invokeAnd((f) -> f.match(endpoint)).get();
 	}
 
-	private E getFilterEndpoint(EndpointBean endpointBean) {
+	private E getFilterEndpoint_RENAMED(EndpointBean endpointBean) {
 		E endpoint = this.filterEndpoints.get(endpointBean);
 		if (endpoint == null) {
 			endpoint = createEndpoint(endpointBean.getBean(), endpointBean.getId(), endpointBean.isEnabledByDefault(),
