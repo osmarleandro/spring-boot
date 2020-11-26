@@ -76,7 +76,7 @@ class OperationMethodParameters implements OperationParameters {
 	}
 
 	@Override
-	public Stream<OperationParameter> stream() {
+	public Stream<OperationParameter> stream_RENAMED() {
 		return this.operationParameters.stream();
 	}
 

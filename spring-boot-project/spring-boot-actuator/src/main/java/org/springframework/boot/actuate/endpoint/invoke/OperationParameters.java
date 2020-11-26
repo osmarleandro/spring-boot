@@ -46,7 +46,7 @@ public interface OperationParameters extends Iterable<OperationParameter> {
 	 * @return if any parameters are mandatory
 	 */
 	default boolean hasMandatoryParameter() {
-		return stream().anyMatch(OperationParameter::isMandatory);
+		return stream_RENAMED().anyMatch(OperationParameter::isMandatory);
 	}
 
 	/**
