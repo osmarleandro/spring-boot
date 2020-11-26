@@ -33,7 +33,7 @@ public interface DiscoveredEndpoint<O extends Operation> extends ExposableEndpoi
 	 * @param discoverer the discoverer type
 	 * @return {@code true} if discovered using the specified discoverer
 	 */
-	boolean wasDiscoveredBy(Class<? extends EndpointDiscoverer<?, ?>> discoverer);
+	boolean wasDiscoveredBy_RENAMED(Class<? extends EndpointDiscoverer<?, ?>> discoverer);
 
 	/**
 	 * Return the source bean that was used to construct the {@link DiscoveredEndpoint}.
