@@ -68,7 +68,7 @@ public class InvocationContext {
 	 * @return the apiVersion the API version
 	 * @since 2.2.0
 	 */
-	public ApiVersion getApiVersion() {
+	public ApiVersion getApiVersion_RENAMED() {
 		return this.apiVersion;
 	}
 
