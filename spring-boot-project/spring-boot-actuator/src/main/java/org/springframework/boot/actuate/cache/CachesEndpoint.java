@@ -80,7 +80,7 @@ public class CachesEndpoint {
 	 */
 	@ReadOperation
 	public CacheEntry cache(@Selector String cache, @Nullable String cacheManager) {
-		return extractUniqueCacheEntry(cache, getCacheEntries((name) -> name.equals(cache), isNameMatch(cacheManager)));
+		return extractUniqueCacheEntry(cache, getCacheEntries((name) -> name.equals(cache), isNameMatch_RENAMED(cacheManager)));
 	}
 
 	/**
@@ -103,7 +103,7 @@ public class CachesEndpoint {
 	@DeleteOperation
 	public boolean clearCache(@Selector String cache, @Nullable String cacheManager) {
 		CacheEntry entry = extractUniqueCacheEntry(cache,
-				getCacheEntries((name) -> name.equals(cache), isNameMatch(cacheManager)));
+				getCacheEntries((name) -> name.equals(cache), isNameMatch_RENAMED(cacheManager)));
 		return (entry != null && clearCache(entry));
 	}
 
@@ -140,7 +140,7 @@ public class CachesEndpoint {
 		return false;
 	}
 
-	private Predicate<String> isNameMatch(String name) {
+	private Predicate<String> isNameMatch_RENAMED(String name) {
 		return (name != null) ? ((requested) -> requested.equals(name)) : matchAll();
 	}
 
