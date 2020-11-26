@@ -60,10 +60,10 @@ public class ServletEndpointRegistrar implements ServletContextInitializer {
 
 	@Override
 	public void onStartup(ServletContext servletContext) throws ServletException {
-		this.servletEndpoints.forEach((servletEndpoint) -> register(servletContext, servletEndpoint));
+		this.servletEndpoints.forEach((servletEndpoint) -> register_RENAMED(servletContext, servletEndpoint));
 	}
 
-	private void register(ServletContext servletContext, ExposableServletEndpoint endpoint) {
+	private void register_RENAMED(ServletContext servletContext, ExposableServletEndpoint endpoint) {
 		String name = endpoint.getEndpointId().toLowerCaseString() + "-actuator-endpoint";
 		String path = this.basePath + "/" + endpoint.getRootPath();
 		String urlMapping = path.endsWith("/") ? path + "*" : path + "/*";
