@@ -146,7 +146,7 @@ public final class EndpointId {
 		return new EndpointId(value.replace("-", ""));
 	}
 
-	static void resetLoggedWarnings() {
+	static void resetLoggedWarnings_RENAMED() {
 		loggedWarnings.clear();
 	}
 
