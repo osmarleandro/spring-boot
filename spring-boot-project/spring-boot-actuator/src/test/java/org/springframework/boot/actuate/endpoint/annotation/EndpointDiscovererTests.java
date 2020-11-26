@@ -298,7 +298,7 @@ class EndpointDiscovererTests {
 
 	private <O extends Operation> Map<Method, O> mapOperations(ExposableEndpoint<O> endpoint) {
 		Map<Method, O> byMethod = new HashMap<>();
-		endpoint.getOperations().forEach((operation) -> {
+		endpoint.getOperations_RENAMED().forEach((operation) -> {
 			AbstractDiscoveredOperation discoveredOperation = (AbstractDiscoveredOperation) operation;
 			Method method = discoveredOperation.getOperationMethod().getMethod();
 			O existing = byMethod.put(method, operation);

@@ -69,7 +69,7 @@ class JmxEndpointDiscovererTests {
 			Map<EndpointId, ExposableJmxEndpoint> endpoints = discover(discoverer);
 			assertThat(endpoints).containsOnlyKeys(EndpointId.of("test"));
 			Map<String, JmxOperation> operationByName = mapOperations(
-					endpoints.get(EndpointId.of("test")).getOperations());
+					endpoints.get(EndpointId.of("test")).getOperations_RENAMED());
 			assertThat(operationByName).containsOnlyKeys("getAll", "getSomething", "update", "deleteSomething");
 			JmxOperation getAll = operationByName.get("getAll");
 			assertThat(getAll.getDescription()).isEqualTo("Invoke getAll for endpoint test");
@@ -124,7 +124,7 @@ class JmxEndpointDiscovererTests {
 			Map<EndpointId, ExposableJmxEndpoint> endpoints = discover(discoverer);
 			assertThat(endpoints).containsOnlyKeys(EndpointId.of("test"));
 			Map<String, JmxOperation> operationByName = mapOperations(
-					endpoints.get(EndpointId.of("test")).getOperations());
+					endpoints.get(EndpointId.of("test")).getOperations_RENAMED());
 			assertThat(operationByName).containsOnlyKeys("getAll", "getSomething", "update", "deleteSomething",
 					"getAnother");
 			JmxOperation getAnother = operationByName.get("getAnother");
@@ -140,7 +140,7 @@ class JmxEndpointDiscovererTests {
 			Map<EndpointId, ExposableJmxEndpoint> endpoints = discover(discoverer);
 			assertThat(endpoints).containsOnlyKeys(EndpointId.of("test"));
 			Map<String, JmxOperation> operationByName = mapOperations(
-					endpoints.get(EndpointId.of("test")).getOperations());
+					endpoints.get(EndpointId.of("test")).getOperations_RENAMED());
 			assertThat(operationByName).containsOnlyKeys("getAll", "getSomething", "update", "deleteSomething");
 			JmxOperation getAll = operationByName.get("getAll");
 			assertThat(getInvoker(getAll)).isInstanceOf(CachingOperationInvoker.class);
@@ -154,7 +154,7 @@ class JmxEndpointDiscovererTests {
 			Map<EndpointId, ExposableJmxEndpoint> endpoints = discover(discoverer);
 			assertThat(endpoints).containsOnlyKeys(EndpointId.of("test"));
 			Map<String, JmxOperation> operationByName = mapOperations(
-					endpoints.get(EndpointId.of("test")).getOperations());
+					endpoints.get(EndpointId.of("test")).getOperations_RENAMED());
 			assertThat(operationByName).containsOnlyKeys("getAll", "getSomething", "update", "deleteSomething",
 					"getAnother");
 			JmxOperation getAll = operationByName.get("getAll");
@@ -206,7 +206,7 @@ class JmxEndpointDiscovererTests {
 	}
 
 	private void assertJmxTestEndpoint(ExposableJmxEndpoint endpoint) {
-		Map<String, JmxOperation> operationsByName = mapOperations(endpoint.getOperations());
+		Map<String, JmxOperation> operationsByName = mapOperations(endpoint.getOperations_RENAMED());
 		assertThat(operationsByName).containsOnlyKeys("getAll", "getSomething", "update", "deleteSomething");
 		JmxOperation getAll = operationsByName.get("getAll");
 		assertThat(getAll.getDescription()).isEqualTo("Get all the things");

@@ -128,7 +128,7 @@ public abstract class AbstractWebMvcEndpointHandlerMapping extends RequestMappin
 	@Override
 	protected void initHandlerMethods() {
 		for (ExposableWebEndpoint endpoint : this.endpoints) {
-			for (WebOperation operation : endpoint.getOperations()) {
+			for (WebOperation operation : endpoint.getOperations_RENAMED()) {
 				registerMappingForOperation(endpoint, operation);
 			}
 		}

@@ -70,12 +70,12 @@ class CloudFoundryWebEndpointDiscovererTests {
 	}
 
 	private WebOperation findMainReadOperation(ExposableWebEndpoint endpoint) {
-		for (WebOperation operation : endpoint.getOperations()) {
+		for (WebOperation operation : endpoint.getOperations_RENAMED()) {
 			if (operation.getRequestPredicate().getPath().equals("health")) {
 				return operation;
 			}
 		}
-		throw new IllegalStateException("No main read operation found from " + endpoint.getOperations());
+		throw new IllegalStateException("No main read operation found from " + endpoint.getOperations_RENAMED());
 	}
 
 	private void load(Class<?> configuration, Consumer<CloudFoundryWebEndpointDiscoverer> consumer) {

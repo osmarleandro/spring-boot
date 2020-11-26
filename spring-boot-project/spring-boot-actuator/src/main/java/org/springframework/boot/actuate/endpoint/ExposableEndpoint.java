@@ -44,6 +44,6 @@ public interface ExposableEndpoint<O extends Operation> {
 	 * Returns the operations of the endpoint.
 	 * @return the operations
 	 */
-	Collection<O> getOperations();
+	Collection<O> getOperations_RENAMED();
 
 }

@@ -210,7 +210,7 @@ class CloudFoundryActuatorAutoConfigurationTests {
 					ExposableWebEndpoint endpoint = endpoints.stream()
 							.filter((candidate) -> EndpointId.of("test").equals(candidate.getEndpointId())).findFirst()
 							.get();
-					Collection<WebOperation> operations = endpoint.getOperations();
+					Collection<WebOperation> operations = endpoint.getOperations_RENAMED();
 					assertThat(operations).hasSize(1);
 					assertThat(operations.iterator().next().getRequestPredicate().getPath()).isEqualTo("test");
 				});
@@ -229,7 +229,7 @@ class CloudFoundryActuatorAutoConfigurationTests {
 									CloudFoundryWebEndpointServletHandlerMapping.class)
 							.getEndpoints();
 					ExposableWebEndpoint endpoint = endpoints.iterator().next();
-					assertThat(endpoint.getOperations()).hasSize(2);
+					assertThat(endpoint.getOperations_RENAMED()).hasSize(2);
 					WebOperation webOperation = findOperationWithRequestPath(endpoint, "health");
 					assertThat(webOperation).extracting("invoker").extracting("target")
 							.isInstanceOf(CloudFoundryHealthEndpointWebExtension.class);
@@ -242,7 +242,7 @@ class CloudFoundryActuatorAutoConfigurationTests {
 	}
 
 	private WebOperation findOperationWithRequestPath(ExposableWebEndpoint endpoint, String requestPath) {
-		for (WebOperation operation : endpoint.getOperations()) {
+		for (WebOperation operation : endpoint.getOperations_RENAMED()) {
 			WebOperationRequestPredicate predicate = operation.getRequestPredicate();
 			if (predicate.getPath().equals(requestPath)
 					&& predicate.getProduces().contains(ActuatorMediaType.V3_JSON)) {
@@ -250,7 +250,7 @@ class CloudFoundryActuatorAutoConfigurationTests {
 			}
 		}
 		throw new IllegalStateException(
-				"No operation found with request path " + requestPath + " from " + endpoint.getOperations());
+				"No operation found with request path " + requestPath + " from " + endpoint.getOperations_RENAMED());
 	}
 
 	@Endpoint(id = "test")
