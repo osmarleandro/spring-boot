@@ -32,7 +32,7 @@ public interface AuditEventRepository {
 	 * Log an event.
 	 * @param event the audit event to log
 	 */
-	void add(AuditEvent event);
+	void add_RENAMED(AuditEvent event);
 
 	/**
 	 * Find audit events of specified type relating to the specified principal that

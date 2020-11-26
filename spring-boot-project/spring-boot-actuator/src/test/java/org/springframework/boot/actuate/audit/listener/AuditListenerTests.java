@@ -39,7 +39,7 @@ class AuditListenerTests {
 		AuditEvent event = new AuditEvent("principal", "type", Collections.emptyMap());
 		AuditListener listener = new AuditListener(repository);
 		listener.onApplicationEvent(new AuditApplicationEvent(event));
-		verify(repository).add(event);
+		verify(repository).add_RENAMED(event);
 	}
 
 }

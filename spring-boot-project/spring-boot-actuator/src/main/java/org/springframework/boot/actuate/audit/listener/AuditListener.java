@@ -46,7 +46,7 @@ public class AuditListener extends AbstractAuditListener {
 		if (logger.isDebugEnabled()) {
 			logger.debug(event);
 		}
-		this.auditEventRepository.add(event);
+		this.auditEventRepository.add_RENAMED(event);
 	}
 
 }
