@@ -57,7 +57,7 @@ public class JacksonJmxOperationResponseMapper implements JmxOperationResponseMa
 	}
 
 	@Override
-	public Object mapResponse(Object response) {
+	public Object mapResponse_RENAMED(Object response) {
 		if (response == null) {
 			return null;
 		}

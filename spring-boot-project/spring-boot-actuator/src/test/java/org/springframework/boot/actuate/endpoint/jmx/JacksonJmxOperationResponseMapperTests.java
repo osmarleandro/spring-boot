@@ -49,7 +49,7 @@ class JacksonJmxOperationResponseMapperTests {
 	@Test
 	void createWhenObjectMapperIsNullShouldUseDefaultObjectMapper() {
 		JacksonJmxOperationResponseMapper mapper = new JacksonJmxOperationResponseMapper(null);
-		Object mapped = mapper.mapResponse(Collections.singleton("test"));
+		Object mapped = mapper.mapResponse_RENAMED(Collections.singleton("test"));
 		assertThat(this.json.from(mapped.toString())).isEqualToJson("[test]");
 	}
 
@@ -58,7 +58,7 @@ class JacksonJmxOperationResponseMapperTests {
 		ObjectMapper objectMapper = spy(ObjectMapper.class);
 		JacksonJmxOperationResponseMapper mapper = new JacksonJmxOperationResponseMapper(objectMapper);
 		Set<String> response = Collections.singleton("test");
-		mapper.mapResponse(response);
+		mapper.mapResponse_RENAMED(response);
 		verify(objectMapper).convertValue(eq(response), any(JavaType.class));
 	}
 
@@ -88,23 +88,23 @@ class JacksonJmxOperationResponseMapperTests {
 
 	@Test
 	void mapResponseWhenNullShouldReturnNull() {
-		assertThat(this.mapper.mapResponse(null)).isNull();
+		assertThat(this.mapper.mapResponse_RENAMED(null)).isNull();
 	}
 
 	@Test
 	void mapResponseWhenCharSequenceShouldReturnString() {
-		assertThat(this.mapper.mapResponse(new StringBuilder("test"))).isEqualTo("test");
+		assertThat(this.mapper.mapResponse_RENAMED(new StringBuilder("test"))).isEqualTo("test");
 	}
 
 	@Test
 	void mapResponseWhenArrayShouldReturnJsonArray() {
-		Object mapped = this.mapper.mapResponse(new int[] { 1, 2, 3 });
+		Object mapped = this.mapper.mapResponse_RENAMED(new int[] { 1, 2, 3 });
 		assertThat(this.json.from(mapped.toString())).isEqualToJson("[1,2,3]");
 	}
 
 	@Test
 	void mapResponseWhenCollectionShouldReturnJsonArray() {
-		Object mapped = this.mapper.mapResponse(Arrays.asList("a", "b", "c"));
+		Object mapped = this.mapper.mapResponse_RENAMED(Arrays.asList("a", "b", "c"));
 		assertThat(this.json.from(mapped.toString())).isEqualToJson("[a,b,c]");
 	}
 
@@ -112,7 +112,7 @@ class JacksonJmxOperationResponseMapperTests {
 	void mapResponseWhenOtherShouldReturnMap() {
 		ExampleBean bean = new ExampleBean();
 		bean.setName("boot");
-		Object mapped = this.mapper.mapResponse(bean);
+		Object mapped = this.mapper.mapResponse_RENAMED(bean);
 		assertThat(this.json.from(mapped.toString())).isEqualToJson("{'name':'boot'}");
 	}
 
