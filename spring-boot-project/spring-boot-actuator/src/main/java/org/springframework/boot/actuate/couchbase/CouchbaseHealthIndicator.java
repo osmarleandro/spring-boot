@@ -47,7 +47,7 @@ public class CouchbaseHealthIndicator extends AbstractHealthIndicator {
 	}
 
 	@Override
-	protected void doHealthCheck(Health.Builder builder) throws Exception {
+	protected void doHealthCheck_RENAMED(Health.Builder builder) throws Exception {
 		DiagnosticsResult diagnostics = this.cluster.diagnostics();
 		new CouchbaseHealth(diagnostics).applyTo(builder);
 	}
