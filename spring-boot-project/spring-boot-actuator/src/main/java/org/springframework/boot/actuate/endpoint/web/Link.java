@@ -47,12 +47,12 @@ public class Link {
 	 * Returns the href of the link.
 	 * @return the href
 	 */
-	public String getHref() {
+	public String getHref_RENAMED() {
 		return this.href;
 	}
 
 	/**
-	 * Returns whether or not the {@link #getHref() href} is templated.
+	 * Returns whether or not the {@link #getHref_RENAMED() href} is templated.
 	 * @return {@code true} if the href is templated, otherwise {@code false}
 	 */
 	public boolean isTemplated() {

@@ -113,7 +113,7 @@ class EndpointLinksResolverTests {
 	}
 
 	private Condition<Link> linkWithHref(String href) {
-		return new Condition<>((link) -> href.equals(link.getHref()), "Link with href '%s'", href);
+		return new Condition<>((link) -> href.equals(link.getHref_RENAMED()), "Link with href '%s'", href);
 	}
 
 }
