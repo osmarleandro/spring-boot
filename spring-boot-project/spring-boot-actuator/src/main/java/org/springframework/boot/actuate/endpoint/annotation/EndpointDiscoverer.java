@@ -120,12 +120,12 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 	}
 
 	private Collection<E> discoverEndpoints() {
-		Collection<EndpointBean> endpointBeans = createEndpointBeans();
+		Collection<EndpointBean> endpointBeans = createEndpointBeans_RENAMED();
 		addExtensionBeans(endpointBeans);
 		return convertToEndpoints(endpointBeans);
 	}
 
-	private Collection<EndpointBean> createEndpointBeans() {
+	private Collection<EndpointBean> createEndpointBeans_RENAMED() {
 		Map<EndpointId, EndpointBean> byId = new LinkedHashMap<>();
 		String[] beanNames = BeanFactoryUtils.beanNamesForAnnotationIncludingAncestors(this.applicationContext,
 				Endpoint.class);
