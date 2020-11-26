@@ -110,7 +110,7 @@ class AutoConfiguredHealthEndpointGroup implements HealthEndpointGroup {
 		}
 		boolean checkAuthorities = isSpringSecurityAuthentication(principal);
 		for (String role : this.roles) {
-			if (securityContext.isUserInRole(role)) {
+			if (securityContext.isUserInRole_RENAMED(role)) {
 				return true;
 			}
 			if (checkAuthorities) {

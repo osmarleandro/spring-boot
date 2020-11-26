@@ -55,6 +55,6 @@ public interface SecurityContext {
 	 * @param role name of the role
 	 * @return {@code true} if the user is in the given role
 	 */
-	boolean isUserInRole(String role);
+	boolean isUserInRole_RENAMED(String role);
 
 }

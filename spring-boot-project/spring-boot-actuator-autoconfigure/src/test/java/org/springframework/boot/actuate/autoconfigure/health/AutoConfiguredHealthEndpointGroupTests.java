@@ -108,8 +108,8 @@ class AutoConfiguredHealthEndpointGroupTests {
 				this.statusAggregator, this.httpCodeStatusMapper, null, Show.WHEN_AUTHORIZED,
 				Arrays.asList("admin", "root", "bossmode"));
 		given(this.securityContext.getPrincipal()).willReturn(this.principal);
-		given(this.securityContext.isUserInRole("admin")).willReturn(false);
-		given(this.securityContext.isUserInRole("root")).willReturn(true);
+		given(this.securityContext.isUserInRole_RENAMED("admin")).willReturn(false);
+		given(this.securityContext.isUserInRole_RENAMED("root")).willReturn(true);
 		assertThat(group.showDetails(this.securityContext)).isTrue();
 	}
 
@@ -194,8 +194,8 @@ class AutoConfiguredHealthEndpointGroupTests {
 				this.statusAggregator, this.httpCodeStatusMapper, Show.WHEN_AUTHORIZED, Show.NEVER,
 				Arrays.asList("admin", "root", "bossmode"));
 		given(this.securityContext.getPrincipal()).willReturn(this.principal);
-		given(this.securityContext.isUserInRole("admin")).willReturn(false);
-		given(this.securityContext.isUserInRole("root")).willReturn(true);
+		given(this.securityContext.isUserInRole_RENAMED("admin")).willReturn(false);
+		given(this.securityContext.isUserInRole_RENAMED("root")).willReturn(true);
 		assertThat(group.showComponents(this.securityContext)).isTrue();
 	}
 

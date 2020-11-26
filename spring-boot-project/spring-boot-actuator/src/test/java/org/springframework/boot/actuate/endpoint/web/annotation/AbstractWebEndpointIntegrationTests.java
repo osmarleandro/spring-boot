@@ -845,7 +845,7 @@ public abstract class AbstractWebEndpointIntegrationTests<T extends Configurable
 
 		@ReadOperation
 		String read(SecurityContext securityContext, String role) {
-			return role + ": " + securityContext.isUserInRole(role);
+			return role + ": " + securityContext.isUserInRole_RENAMED(role);
 		}
 
 	}
