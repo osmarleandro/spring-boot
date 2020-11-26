@@ -68,10 +68,10 @@ public class WebMvcEndpointManagementContextConfiguration {
 			EndpointMediaTypes endpointMediaTypes, CorsEndpointProperties corsProperties,
 			WebEndpointProperties webEndpointProperties, Environment environment) {
 		List<ExposableEndpoint<?>> allEndpoints = new ArrayList<>();
-		Collection<ExposableWebEndpoint> webEndpoints = webEndpointsSupplier.getEndpoints();
+		Collection<ExposableWebEndpoint> webEndpoints = webEndpointsSupplier.getEndpoints_RENAMED();
 		allEndpoints.addAll(webEndpoints);
-		allEndpoints.addAll(servletEndpointsSupplier.getEndpoints());
-		allEndpoints.addAll(controllerEndpointsSupplier.getEndpoints());
+		allEndpoints.addAll(servletEndpointsSupplier.getEndpoints_RENAMED());
+		allEndpoints.addAll(controllerEndpointsSupplier.getEndpoints_RENAMED());
 		String basePath = webEndpointProperties.getBasePath();
 		EndpointMapping endpointMapping = new EndpointMapping(basePath);
 		boolean shouldRegisterLinksMapping = StringUtils.hasText(basePath)
@@ -87,7 +87,7 @@ public class WebMvcEndpointManagementContextConfiguration {
 			ControllerEndpointsSupplier controllerEndpointsSupplier, CorsEndpointProperties corsProperties,
 			WebEndpointProperties webEndpointProperties) {
 		EndpointMapping endpointMapping = new EndpointMapping(webEndpointProperties.getBasePath());
-		return new ControllerEndpointHandlerMapping(endpointMapping, controllerEndpointsSupplier.getEndpoints(),
+		return new ControllerEndpointHandlerMapping(endpointMapping, controllerEndpointsSupplier.getEndpoints_RENAMED(),
 				corsProperties.toCorsConfiguration());
 	}
 

@@ -34,6 +34,6 @@ public interface EndpointsSupplier<E extends ExposableEndpoint<?>> {
 	 * Return the provided endpoints.
 	 * @return the endpoints
 	 */
-	Collection<E> getEndpoints();
+	Collection<E> getEndpoints_RENAMED();
 
 }

@@ -113,10 +113,10 @@ public class ReactiveCloudFoundryActuatorAutoConfiguration {
 				parameterMapper, endpointMediaTypes, null, Collections.emptyList(), Collections.emptyList());
 		CloudFoundrySecurityInterceptor securityInterceptor = getSecurityInterceptor(webClientBuilder,
 				applicationContext.getEnvironment());
-		Collection<ExposableWebEndpoint> webEndpoints = endpointDiscoverer.getEndpoints();
+		Collection<ExposableWebEndpoint> webEndpoints = endpointDiscoverer.getEndpoints_RENAMED();
 		List<ExposableEndpoint<?>> allEndpoints = new ArrayList<>();
 		allEndpoints.addAll(webEndpoints);
-		allEndpoints.addAll(controllerEndpointsSupplier.getEndpoints());
+		allEndpoints.addAll(controllerEndpointsSupplier.getEndpoints_RENAMED());
 		return new CloudFoundryWebFluxEndpointHandlerMapping(new EndpointMapping("/cloudfoundryapplication"),
 				webEndpoints, endpointMediaTypes, getCorsConfiguration(), securityInterceptor,
 				new EndpointLinksResolver(allEndpoints));

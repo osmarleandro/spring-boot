@@ -116,11 +116,11 @@ public class CloudFoundryActuatorAutoConfiguration {
 				parameterMapper, endpointMediaTypes, null, Collections.emptyList(), Collections.emptyList());
 		CloudFoundrySecurityInterceptor securityInterceptor = getSecurityInterceptor(restTemplateBuilder,
 				applicationContext.getEnvironment());
-		Collection<ExposableWebEndpoint> webEndpoints = discoverer.getEndpoints();
+		Collection<ExposableWebEndpoint> webEndpoints = discoverer.getEndpoints_RENAMED();
 		List<ExposableEndpoint<?>> allEndpoints = new ArrayList<>();
 		allEndpoints.addAll(webEndpoints);
-		allEndpoints.addAll(servletEndpointsSupplier.getEndpoints());
-		allEndpoints.addAll(controllerEndpointsSupplier.getEndpoints());
+		allEndpoints.addAll(servletEndpointsSupplier.getEndpoints_RENAMED());
+		allEndpoints.addAll(controllerEndpointsSupplier.getEndpoints_RENAMED());
 		return new CloudFoundryWebEndpointServletHandlerMapping(new EndpointMapping("/cloudfoundryapplication"),
 				webEndpoints, endpointMediaTypes, getCorsConfiguration(), securityInterceptor,
 				new EndpointLinksResolver(allEndpoints));

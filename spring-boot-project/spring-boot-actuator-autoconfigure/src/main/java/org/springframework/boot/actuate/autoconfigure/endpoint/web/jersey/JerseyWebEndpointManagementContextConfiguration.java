@@ -122,8 +122,8 @@ class JerseyWebEndpointManagementContextConfiguration {
 			if (this.resourceConfig == null) {
 				return;
 			}
-			Collection<ExposableWebEndpoint> webEndpoints = this.webEndpointsSupplier.getEndpoints();
-			Collection<ExposableServletEndpoint> servletEndpoints = this.servletEndpointsSupplier.getEndpoints();
+			Collection<ExposableWebEndpoint> webEndpoints = this.webEndpointsSupplier.getEndpoints_RENAMED();
+			Collection<ExposableServletEndpoint> servletEndpoints = this.servletEndpointsSupplier.getEndpoints_RENAMED();
 			EndpointLinksResolver linksResolver = getLinksResolver(webEndpoints, servletEndpoints);
 			EndpointMapping mapping = new EndpointMapping(this.basePath);
 			JerseyEndpointResourceFactory resourceFactory = new JerseyEndpointResourceFactory();

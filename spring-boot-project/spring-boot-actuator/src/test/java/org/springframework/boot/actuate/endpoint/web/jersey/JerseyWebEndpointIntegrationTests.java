@@ -109,8 +109,8 @@ public class JerseyWebEndpointIntegrationTests
 			ResourceConfig resourceConfig = new ResourceConfig();
 			String endpointPath = environment.getProperty("endpointPath");
 			Collection<Resource> resources = new JerseyEndpointResourceFactory().createEndpointResources(
-					new EndpointMapping(endpointPath), endpointDiscoverer.getEndpoints(), endpointMediaTypes,
-					new EndpointLinksResolver(endpointDiscoverer.getEndpoints()), StringUtils.hasText(endpointPath));
+					new EndpointMapping(endpointPath), endpointDiscoverer.getEndpoints_RENAMED(), endpointMediaTypes,
+					new EndpointLinksResolver(endpointDiscoverer.getEndpoints_RENAMED()), StringUtils.hasText(endpointPath));
 			resourceConfig.registerResources(new HashSet<>(resources));
 			resourceConfig.register(JacksonFeature.class);
 			resourceConfig.register(new ObjectMapperContextResolver(new ObjectMapper()), ContextResolver.class);

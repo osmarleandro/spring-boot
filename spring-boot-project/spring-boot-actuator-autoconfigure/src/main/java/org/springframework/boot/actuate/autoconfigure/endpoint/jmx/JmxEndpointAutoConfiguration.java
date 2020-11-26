@@ -92,7 +92,7 @@ public class JmxEndpointAutoConfiguration {
 		JmxOperationResponseMapper responseMapper = new JacksonJmxOperationResponseMapper(
 				objectMapper.getIfAvailable());
 		return new JmxEndpointExporter(mBeanServer, objectNameFactory, responseMapper,
-				jmxEndpointsSupplier.getEndpoints());
+				jmxEndpointsSupplier.getEndpoints_RENAMED());
 
 	}
 

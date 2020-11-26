@@ -85,7 +85,7 @@ class WebEndpointAutoConfigurationTests {
 						TestTwoEndpoint.class)
 				.run((context) -> {
 					WebEndpointDiscoverer discoverer = context.getBean(WebEndpointDiscoverer.class);
-					Collection<ExposableWebEndpoint> endpoints = discoverer.getEndpoints();
+					Collection<ExposableWebEndpoint> endpoints = discoverer.getEndpoints_RENAMED();
 					ExposableWebEndpoint[] webEndpoints = endpoints.toArray(new ExposableWebEndpoint[0]);
 					List<String> paths = Arrays.stream(webEndpoints).map(PathMappedEndpoint::getRootPath)
 							.collect(Collectors.toList());

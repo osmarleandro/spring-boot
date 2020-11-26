@@ -155,8 +155,8 @@ class MvcWebEndpointIntegrationTests
 			corsConfiguration.setAllowedMethods(Arrays.asList("GET", "POST"));
 			String endpointPath = environment.getProperty("endpointPath");
 			return new WebMvcEndpointHandlerMapping(new EndpointMapping(endpointPath),
-					endpointDiscoverer.getEndpoints(), endpointMediaTypes, corsConfiguration,
-					new EndpointLinksResolver(endpointDiscoverer.getEndpoints()), StringUtils.hasText(endpointPath));
+					endpointDiscoverer.getEndpoints_RENAMED(), endpointMediaTypes, corsConfiguration,
+					new EndpointLinksResolver(endpointDiscoverer.getEndpoints_RENAMED()), StringUtils.hasText(endpointPath));
 		}
 
 	}
