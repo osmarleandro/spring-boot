@@ -66,7 +66,7 @@ public class EndpointLinksResolver {
 	 * @return the links
 	 */
 	public Map<String, Link> resolveLinks(String requestUrl) {
-		String normalizedUrl = normalizeRequestUrl(requestUrl);
+		String normalizedUrl = normalizeRequestUrl_RENAMED(requestUrl);
 		Map<String, Link> links = new LinkedHashMap<>();
 		links.put("self", new Link(normalizedUrl));
 		for (ExposableEndpoint<?> endpoint : this.endpoints) {
@@ -82,7 +82,7 @@ public class EndpointLinksResolver {
 		return links;
 	}
 
-	private String normalizeRequestUrl(String requestUrl) {
+	private String normalizeRequestUrl_RENAMED(String requestUrl) {
 		if (requestUrl.endsWith("/")) {
 			return requestUrl.substring(0, requestUrl.length() - 1);
 		}
