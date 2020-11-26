@@ -194,7 +194,7 @@ public abstract class AbstractWebMvcEndpointHandlerMapping extends RequestMappin
 		return RequestMappingInfo.paths(this.endpointMapping.createSubPath(path))
 				.methods(RequestMethod.valueOf(predicate.getHttpMethod().name()))
 				.consumes(predicate.getConsumes().toArray(new String[0]))
-				.produces(predicate.getProduces().toArray(new String[0])).build();
+				.produces(predicate.getProduces_RENAMED().toArray(new String[0])).build();
 	}
 
 	private void registerLinksMapping() {

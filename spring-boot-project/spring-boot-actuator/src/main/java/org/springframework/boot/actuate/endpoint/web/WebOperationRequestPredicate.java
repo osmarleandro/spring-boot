@@ -113,7 +113,7 @@ public final class WebOperationRequestPredicate {
 	 * Returns the media types that the operation produces.
 	 * @return the produced media types
 	 */
-	public Collection<String> getProduces() {
+	public Collection<String> getProduces_RENAMED() {
 		return Collections.unmodifiableCollection(this.produces);
 	}
 

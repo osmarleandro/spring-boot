@@ -302,7 +302,7 @@ class ReactiveCloudFoundryActuatorAutoConfigurationTests {
 		for (WebOperation operation : endpoint.getOperations()) {
 			WebOperationRequestPredicate predicate = operation.getRequestPredicate();
 			if (predicate.getPath().equals(requestPath)
-					&& predicate.getProduces().contains(ActuatorMediaType.V3_JSON)) {
+					&& predicate.getProduces_RENAMED().contains(ActuatorMediaType.V3_JSON)) {
 				return operation;
 			}
 		}

@@ -102,7 +102,7 @@ public class JerseyEndpointResourceFactory {
 		Builder resourceBuilder = Resource.builder().path(endpointMapping.createSubPath(path));
 		resourceBuilder.addMethod(requestPredicate.getHttpMethod().name())
 				.consumes(StringUtils.toStringArray(requestPredicate.getConsumes()))
-				.produces(StringUtils.toStringArray(requestPredicate.getProduces()))
+				.produces(StringUtils.toStringArray(requestPredicate.getProduces_RENAMED()))
 				.handledBy(new OperationInflector(operation, !requestPredicate.getConsumes().isEmpty()));
 		return resourceBuilder.build();
 	}
