@@ -118,7 +118,7 @@ public class EndpointMBean implements DynamicMBean {
 					.toArray(String[]::new);
 			Map<String, Object> arguments = getArguments(parameterNames, params);
 			InvocationContext context = new InvocationContext(SecurityContext.NONE, arguments);
-			Object result = operation.invoke(context);
+			Object result = operation.invoke_RENAMED(context);
 			if (REACTOR_PRESENT) {
 				result = ReactiveHandler.handle(result);
 			}

@@ -283,7 +283,7 @@ public abstract class AbstractWebFluxEndpointHandlerMapping extends RequestMappi
 		}
 
 		private OperationInvoker getInvoker(WebOperation operation) {
-			OperationInvoker invoker = operation::invoke;
+			OperationInvoker invoker = operation::invoke_RENAMED;
 			if (operation.isBlocking()) {
 				invoker = new ElasticSchedulerInvoker(invoker);
 			}

@@ -36,6 +36,6 @@ public interface Operation {
 	 * @param context the context in to use when invoking the operation
 	 * @return the result of the operation, may be {@code null}
 	 */
-	Object invoke(InvocationContext context);
+	Object invoke_RENAMED(InvocationContext context);
 
 }

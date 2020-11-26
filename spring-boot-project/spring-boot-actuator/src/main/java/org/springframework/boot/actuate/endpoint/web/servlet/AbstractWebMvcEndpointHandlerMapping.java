@@ -287,7 +287,7 @@ public abstract class AbstractWebMvcEndpointHandlerMapping extends RequestMappin
 				ApiVersion apiVersion = ApiVersion.fromHttpHeaders(headers);
 				ServletSecurityContext securityContext = new ServletSecurityContext(request);
 				InvocationContext invocationContext = new InvocationContext(apiVersion, securityContext, arguments);
-				return handleResult(this.operation.invoke(invocationContext), HttpMethod.resolve(request.getMethod()));
+				return handleResult(this.operation.invoke_RENAMED(invocationContext), HttpMethod.resolve(request.getMethod()));
 			}
 			catch (InvalidEndpointRequestException ex) {
 				throw new BadOperationRequestException(ex.getReason());
