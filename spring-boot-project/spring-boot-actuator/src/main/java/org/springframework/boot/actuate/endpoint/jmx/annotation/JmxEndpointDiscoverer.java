@@ -59,7 +59,7 @@ public class JmxEndpointDiscoverer extends EndpointDiscoverer<ExposableJmxEndpoi
 	}
 
 	@Override
-	protected JmxOperation createOperation(EndpointId endpointId, DiscoveredOperationMethod operationMethod,
+	protected JmxOperation createOperation_RENAMED(EndpointId endpointId, DiscoveredOperationMethod operationMethod,
 			OperationInvoker invoker) {
 		return new DiscoveredJmxOperation(endpointId, operationMethod, invoker);
 	}
