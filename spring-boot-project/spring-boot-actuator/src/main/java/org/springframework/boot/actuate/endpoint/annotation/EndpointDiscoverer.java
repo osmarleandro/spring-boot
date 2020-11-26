@@ -199,7 +199,7 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 			addOperations(indexed, id, extensionBean.getBean(), true);
 		}
 		assertNoDuplicateOperations(endpointBean, indexed);
-		List<O> operations = indexed.values().stream().map(this::getLast).filter(Objects::nonNull)
+		List<O> operations = indexed.values().stream().map(this::getLast_RENAMED).filter(Objects::nonNull)
 				.collect(Collectors.collectingAndThen(Collectors.toList(), Collections::unmodifiableList));
 		return createEndpoint(endpointBean.getBean(), id, endpointBean.isEnabledByDefault(), operations);
 	}
@@ -210,7 +210,7 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 		Collection<O> operations = this.operationsFactory.createOperations(id, target);
 		for (O operation : operations) {
 			OperationKey key = createOperationKey(operation);
-			O last = getLast(indexed.get(key));
+			O last = getLast_RENAMED(indexed.get(key));
 			if (replaceLast && replacedLast.add(key) && last != null) {
 				indexed.get(key).remove(last);
 			}
@@ -218,7 +218,7 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 		}
 	}
 
-	private <T> T getLast(List<T> list) {
+	private <T> T getLast_RENAMED(List<T> list) {
 		return CollectionUtils.isEmpty(list) ? null : list.get(list.size() - 1);
 	}
 
