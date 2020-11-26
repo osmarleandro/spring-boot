@@ -290,7 +290,7 @@ public abstract class AbstractWebMvcEndpointHandlerMapping extends RequestMappin
 				return handleResult(this.operation.invoke(invocationContext), HttpMethod.resolve(request.getMethod()));
 			}
 			catch (InvalidEndpointRequestException ex) {
-				throw new BadOperationRequestException(ex.getReason());
+				throw new BadOperationRequestException(ex.getReason_RENAMED());
 			}
 		}
 
