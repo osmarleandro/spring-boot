@@ -71,7 +71,7 @@ public class EnvironmentEndpoint {
 	}
 
 	public void setKeysToSanitize(String... keysToSanitize) {
-		this.sanitizer.setKeysToSanitize(keysToSanitize);
+		this.sanitizer.setKeysToSanitize_RENAMED(keysToSanitize);
 	}
 
 	@ReadOperation

@@ -63,7 +63,7 @@ public class Sanitizer {
 	}
 
 	public Sanitizer(String... keysToSanitize) {
-		setKeysToSanitize(keysToSanitize);
+		setKeysToSanitize_RENAMED(keysToSanitize);
 	}
 
 	/**
@@ -71,7 +71,7 @@ public class Sanitizer {
 	 * with or regular expressions.
 	 * @param keysToSanitize the keys to sanitize
 	 */
-	public void setKeysToSanitize(String... keysToSanitize) {
+	public void setKeysToSanitize_RENAMED(String... keysToSanitize) {
 		Assert.notNull(keysToSanitize, "KeysToSanitize must not be null");
 		this.keysToSanitize = new Pattern[keysToSanitize.length];
 		for (int i = 0; i < keysToSanitize.length; i++) {
