@@ -71,7 +71,7 @@ class CloudFoundryWebEndpointDiscovererTests {
 
 	private WebOperation findMainReadOperation(ExposableWebEndpoint endpoint) {
 		for (WebOperation operation : endpoint.getOperations()) {
-			if (operation.getRequestPredicate().getPath().equals("health")) {
+			if (operation.getRequestPredicate().getPath_RENAMED().equals("health")) {
 				return operation;
 			}
 		}

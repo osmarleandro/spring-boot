@@ -79,7 +79,7 @@ public final class WebOperationRequestPredicate {
 	 * Returns the path for the operation.
 	 * @return the path
 	 */
-	public String getPath() {
+	public String getPath_RENAMED() {
 		return this.path;
 	}
 

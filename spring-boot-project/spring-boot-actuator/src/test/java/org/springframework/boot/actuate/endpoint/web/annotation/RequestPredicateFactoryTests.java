@@ -65,7 +65,7 @@ class RequestPredicateFactoryTests {
 		DiscoveredOperationMethod operationMethod = getDiscoveredOperationMethod(ValidSelectors.class);
 		WebOperationRequestPredicate requestPredicate = this.factory.getRequestPredicate(this.rootPath,
 				operationMethod);
-		assertThat(requestPredicate.getPath()).isEqualTo("/root/{one}/{*two}");
+		assertThat(requestPredicate.getPath_RENAMED()).isEqualTo("/root/{one}/{*two}");
 	}
 
 	private DiscoveredOperationMethod getDiscoveredOperationMethod(Class<?> source) {
