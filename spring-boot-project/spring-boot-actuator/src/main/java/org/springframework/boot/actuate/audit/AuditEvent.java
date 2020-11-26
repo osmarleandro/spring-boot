@@ -109,7 +109,7 @@ public class AuditEvent implements Serializable {
 	 * Returns the date/time that the event was logged.
 	 * @return the timestamp
 	 */
-	public Instant getTimestamp() {
+	public Instant getTimestamp_RENAMED() {
 		return this.timestamp;
 	}
 

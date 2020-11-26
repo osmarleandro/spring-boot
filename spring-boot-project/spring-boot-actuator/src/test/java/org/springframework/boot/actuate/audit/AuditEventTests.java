@@ -40,7 +40,7 @@ class AuditEventTests {
 		assertThat(event.getData().get("a")).isEqualTo("b");
 		assertThat(event.getType()).isEqualTo("UNKNOWN");
 		assertThat(event.getPrincipal()).isEqualTo("phil");
-		assertThat(event.getTimestamp()).isNotNull();
+		assertThat(event.getTimestamp_RENAMED()).isNotNull();
 	}
 
 	@Test
