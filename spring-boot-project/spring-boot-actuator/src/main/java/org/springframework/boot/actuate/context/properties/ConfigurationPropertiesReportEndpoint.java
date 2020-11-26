@@ -126,7 +126,7 @@ public class ConfigurationPropertiesReportEndpoint implements ApplicationContext
 	private ObjectMapper getObjectMapper() {
 		if (this.objectMapper == null) {
 			this.objectMapper = new ObjectMapper();
-			configureObjectMapper(this.objectMapper);
+			configureObjectMapper_RENAMED(this.objectMapper);
 		}
 		return this.objectMapper;
 	}
@@ -137,7 +137,7 @@ public class ConfigurationPropertiesReportEndpoint implements ApplicationContext
 	 * structure.
 	 * @param mapper the object mapper
 	 */
-	protected void configureObjectMapper(ObjectMapper mapper) {
+	protected void configureObjectMapper_RENAMED(ObjectMapper mapper) {
 		mapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
 		mapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
 		mapper.configure(SerializationFeature.WRITE_DURATIONS_AS_TIMESTAMPS, false);
