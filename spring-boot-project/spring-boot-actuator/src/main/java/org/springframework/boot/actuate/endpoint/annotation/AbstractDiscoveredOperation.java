@@ -46,7 +46,7 @@ public abstract class AbstractDiscoveredOperation implements Operation {
 		this.invoker = invoker;
 	}
 
-	public OperationMethod getOperationMethod() {
+	public OperationMethod getOperationMethod_RENAMED() {
 		return this.operationMethod;
 	}
 

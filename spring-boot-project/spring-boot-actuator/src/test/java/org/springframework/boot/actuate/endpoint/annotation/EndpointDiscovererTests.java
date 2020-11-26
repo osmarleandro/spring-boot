@@ -300,7 +300,7 @@ class EndpointDiscovererTests {
 		Map<Method, O> byMethod = new HashMap<>();
 		endpoint.getOperations().forEach((operation) -> {
 			AbstractDiscoveredOperation discoveredOperation = (AbstractDiscoveredOperation) operation;
-			Method method = discoveredOperation.getOperationMethod().getMethod();
+			Method method = discoveredOperation.getOperationMethod_RENAMED().getMethod();
 			O existing = byMethod.put(method, operation);
 			if (existing != null) {
 				throw new AssertionError(String.format("Found endpoint with duplicate operation method '%s'", method));
@@ -555,8 +555,8 @@ class EndpointDiscovererTests {
 
 		@Override
 		protected OperationKey createOperationKey(TestOperation operation) {
-			return new OperationKey(operation.getOperationMethod(),
-					() -> "TestOperation " + operation.getOperationMethod());
+			return new OperationKey(operation.getOperationMethod_RENAMED(),
+					() -> "TestOperation " + operation.getOperationMethod_RENAMED());
 		}
 
 	}
@@ -587,8 +587,8 @@ class EndpointDiscovererTests {
 
 		@Override
 		protected OperationKey createOperationKey(SpecializedOperation operation) {
-			return new OperationKey(operation.getOperationMethod(),
-					() -> "TestOperation " + operation.getOperationMethod());
+			return new OperationKey(operation.getOperationMethod_RENAMED(),
+					() -> "TestOperation " + operation.getOperationMethod_RENAMED());
 		}
 
 	}

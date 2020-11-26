@@ -96,7 +96,7 @@ class DiscoveredOperationsFactoryTests {
 	void createOperationsShouldProvideOperationMethod() {
 		TestOperation operation = getFirst(
 				this.factory.createOperations(EndpointId.of("test"), new ExampleWithParams()));
-		OperationMethod operationMethod = operation.getOperationMethod();
+		OperationMethod operationMethod = operation.getOperationMethod_RENAMED();
 		assertThat(operationMethod.getMethod().getName()).isEqualTo("read");
 		assertThat(operationMethod.getParameters().hasParameters()).isTrue();
 	}
