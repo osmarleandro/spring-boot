@@ -103,7 +103,7 @@ class OperationMethodParametersTests {
 	void streamShouldStreamOperationParameters() {
 		OperationMethodParameters parameters = new OperationMethodParameters(this.exampleMethod,
 				new DefaultParameterNameDiscoverer());
-		assertParameters(parameters.stream());
+		assertParameters(parameters.stream_RENAMED());
 	}
 
 	private void assertParameters(Stream<OperationParameter> stream) {
