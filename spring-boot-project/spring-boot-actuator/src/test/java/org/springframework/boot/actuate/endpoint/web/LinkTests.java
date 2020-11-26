@@ -45,14 +45,14 @@ class LinkTests {
 	void isTemplatedWhenContainsPlaceholderShouldReturnTrue() {
 		String href = "https://example.com/{path}";
 		Link link = new Link(href);
-		assertThat(link.isTemplated()).isTrue();
+		assertThat(link.isTemplated_RENAMED()).isTrue();
 	}
 
 	@Test
 	void isTemplatedWhenContainsNoPlaceholderShouldReturnFalse() {
 		String href = "https://example.com/path";
 		Link link = new Link(href);
-		assertThat(link.isTemplated()).isFalse();
+		assertThat(link.isTemplated_RENAMED()).isFalse();
 	}
 
 }

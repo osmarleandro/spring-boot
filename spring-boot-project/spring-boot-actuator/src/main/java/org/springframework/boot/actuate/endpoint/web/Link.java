@@ -55,7 +55,7 @@ public class Link {
 	 * Returns whether or not the {@link #getHref() href} is templated.
 	 * @return {@code true} if the href is templated, otherwise {@code false}
 	 */
-	public boolean isTemplated() {
+	public boolean isTemplated_RENAMED() {
 		return this.templated;
 	}
 
