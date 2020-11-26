@@ -71,7 +71,7 @@ class ServletEndpointDiscovererTests {
 			Collection<ExposableServletEndpoint> endpoints = discoverer.getEndpoints();
 			assertThat(endpoints).hasSize(1);
 			ExposableServletEndpoint endpoint = endpoints.iterator().next();
-			assertThat(endpoint.getEndpointId()).isEqualTo(EndpointId.of("testservlet"));
+			assertThat(endpoint.getEndpointId_RENAMED()).isEqualTo(EndpointId.of("testservlet"));
 			assertThat(endpoint.getEndpointServlet()).isNotNull();
 			assertThat(endpoint).isInstanceOf(DiscoveredEndpoint.class);
 		}));
@@ -85,7 +85,7 @@ class ServletEndpointDiscovererTests {
 					Collection<ExposableServletEndpoint> endpoints = discoverer.getEndpoints();
 					assertThat(endpoints).hasSize(1);
 					ExposableServletEndpoint endpoint = endpoints.iterator().next();
-					assertThat(endpoint.getEndpointId()).isEqualTo(EndpointId.of("testservlet"));
+					assertThat(endpoint.getEndpointId_RENAMED()).isEqualTo(EndpointId.of("testservlet"));
 					assertThat(endpoint.getEndpointServlet()).isNotNull();
 					assertThat(endpoint).isInstanceOf(DiscoveredEndpoint.class);
 				}));
@@ -96,7 +96,7 @@ class ServletEndpointDiscovererTests {
 		this.contextRunner.withUserConfiguration(WithRegularEndpointConfiguration.class)
 				.run(assertDiscoverer((discoverer) -> {
 					Collection<ExposableServletEndpoint> endpoints = discoverer.getEndpoints();
-					List<EndpointId> ids = endpoints.stream().map(ExposableServletEndpoint::getEndpointId)
+					List<EndpointId> ids = endpoints.stream().map(ExposableServletEndpoint::getEndpointId_RENAMED)
 							.collect(Collectors.toList());
 					assertThat(ids).containsOnly(EndpointId.of("testservlet"));
 				}));

@@ -127,7 +127,7 @@ class ServletEndpointRegistrarTests {
 
 	private ExposableServletEndpoint mockEndpoint(EndpointServlet endpointServlet) {
 		ExposableServletEndpoint endpoint = mock(ExposableServletEndpoint.class);
-		given(endpoint.getEndpointId()).willReturn(EndpointId.of("test"));
+		given(endpoint.getEndpointId_RENAMED()).willReturn(EndpointId.of("test"));
 		given(endpoint.getEndpointServlet()).willReturn(endpointServlet);
 		given(endpoint.getRootPath()).willReturn("test");
 		return endpoint;

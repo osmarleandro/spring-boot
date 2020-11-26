@@ -113,7 +113,7 @@ class DefaultEndpointObjectNameFactoryTests {
 
 	private ExposableJmxEndpoint endpoint(EndpointId id) {
 		ExposableJmxEndpoint endpoint = mock(ExposableJmxEndpoint.class);
-		given(endpoint.getEndpointId()).willReturn(id);
+		given(endpoint.getEndpointId_RENAMED()).willReturn(id);
 		return endpoint;
 	}
 

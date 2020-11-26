@@ -205,7 +205,7 @@ class EndpointRequestTests {
 
 	private TestEndpoint mockEndpoint(EndpointId id, String rootPath) {
 		TestEndpoint endpoint = mock(TestEndpoint.class);
-		given(endpoint.getEndpointId()).willReturn(id);
+		given(endpoint.getEndpointId_RENAMED()).willReturn(id);
 		given(endpoint.getRootPath()).willReturn(rootPath);
 		return endpoint;
 	}

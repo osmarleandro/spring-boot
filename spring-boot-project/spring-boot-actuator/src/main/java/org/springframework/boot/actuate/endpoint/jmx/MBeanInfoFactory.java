@@ -58,7 +58,7 @@ class MBeanInfoFactory {
 	}
 
 	private String getDescription(ExposableJmxEndpoint endpoint) {
-		return "MBean operations for endpoint " + endpoint.getEndpointId();
+		return "MBean operations for endpoint " + endpoint.getEndpointId_RENAMED();
 	}
 
 	private ModelMBeanOperationInfo[] getMBeanOperations(ExposableJmxEndpoint endpoint) {

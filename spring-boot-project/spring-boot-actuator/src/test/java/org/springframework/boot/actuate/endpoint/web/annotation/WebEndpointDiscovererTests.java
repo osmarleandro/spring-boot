@@ -236,7 +236,7 @@ class WebEndpointDiscovererTests {
 
 	private Map<EndpointId, ExposableWebEndpoint> mapEndpoints(Collection<ExposableWebEndpoint> endpoints) {
 		Map<EndpointId, ExposableWebEndpoint> endpointById = new HashMap<>();
-		endpoints.forEach((endpoint) -> endpointById.put(endpoint.getEndpointId(), endpoint));
+		endpoints.forEach((endpoint) -> endpointById.put(endpoint.getEndpointId_RENAMED(), endpoint));
 		return endpointById;
 	}
 

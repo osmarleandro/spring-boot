@@ -241,7 +241,7 @@ class JmxEndpointDiscovererTests {
 
 	private Map<EndpointId, ExposableJmxEndpoint> discover(JmxEndpointDiscoverer discoverer) {
 		Map<EndpointId, ExposableJmxEndpoint> byId = new HashMap<>();
-		discoverer.getEndpoints().forEach((endpoint) -> byId.put(endpoint.getEndpointId(), endpoint));
+		discoverer.getEndpoints().forEach((endpoint) -> byId.put(endpoint.getEndpointId_RENAMED(), endpoint));
 		return byId;
 	}
 

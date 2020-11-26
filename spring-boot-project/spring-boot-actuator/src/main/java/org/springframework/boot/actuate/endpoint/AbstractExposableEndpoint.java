@@ -53,7 +53,7 @@ public abstract class AbstractExposableEndpoint<O extends Operation> implements 
 	}
 
 	@Override
-	public EndpointId getEndpointId() {
+	public EndpointId getEndpointId_RENAMED() {
 		return this.id;
 	}
 

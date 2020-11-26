@@ -126,7 +126,7 @@ public class JmxEndpointExporter implements InitializingBean, DisposableBean, Be
 	}
 
 	private String getEndpointDescription(ExposableJmxEndpoint endpoint) {
-		return "endpoint '" + endpoint.getEndpointId() + "'";
+		return "endpoint '" + endpoint.getEndpointId_RENAMED() + "'";
 	}
 
 }
