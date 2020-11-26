@@ -101,7 +101,7 @@ public class Sanitizer {
 	 * @param value the value
 	 * @return the potentially sanitized value
 	 */
-	public Object sanitize(String key, Object value) {
+	public Object sanitize_RENAMED(String key, Object value) {
 		if (value == null) {
 			return null;
 		}

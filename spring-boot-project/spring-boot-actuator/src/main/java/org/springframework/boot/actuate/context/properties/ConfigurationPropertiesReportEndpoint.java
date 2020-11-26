@@ -216,8 +216,8 @@ public class ConfigurationPropertiesReportEndpoint implements ApplicationContext
 				map.put(key, sanitize(qualifiedKey, (List<Object>) value));
 			}
 			else {
-				value = this.sanitizer.sanitize(key, value);
-				value = this.sanitizer.sanitize(qualifiedKey, value);
+				value = this.sanitizer.sanitize_RENAMED(key, value);
+				value = this.sanitizer.sanitize_RENAMED(qualifiedKey, value);
 				map.put(key, value);
 			}
 		});
@@ -235,7 +235,7 @@ public class ConfigurationPropertiesReportEndpoint implements ApplicationContext
 				sanitized.add(sanitize(prefix, (List<Object>) item));
 			}
 			else {
-				sanitized.add(this.sanitizer.sanitize(prefix, item));
+				sanitized.add(this.sanitizer.sanitize_RENAMED(prefix, item));
 			}
 		}
 		return sanitized;
@@ -296,7 +296,7 @@ public class ConfigurationPropertiesReportEndpoint implements ApplicationContext
 		Object value = candidate.getValue();
 		Origin origin = Origin.from(candidate);
 		List<Origin> originParents = Origin.parentsFrom(candidate);
-		input.put("value", this.sanitizer.sanitize(property, value));
+		input.put("value", this.sanitizer.sanitize_RENAMED(property, value));
 		input.put("origin", (origin != null) ? origin.toString() : "none");
 		if (!originParents.isEmpty()) {
 			input.put("originParents", originParents.stream().map(Object::toString).toArray(String[]::new));

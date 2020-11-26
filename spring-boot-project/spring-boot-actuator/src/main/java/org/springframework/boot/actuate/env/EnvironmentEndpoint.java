@@ -179,7 +179,7 @@ public class EnvironmentEndpoint {
 	}
 
 	public Object sanitize(String name, Object object) {
-		return this.sanitizer.sanitize(name, object);
+		return this.sanitizer.sanitize_RENAMED(name, object);
 	}
 
 	/**
@@ -202,7 +202,7 @@ public class EnvironmentEndpoint {
 			if (value == null) {
 				return null;
 			}
-			return (String) this.sanitizer.sanitize(placeholder, value);
+			return (String) this.sanitizer.sanitize_RENAMED(placeholder, value);
 		}
 
 	}
