@@ -76,11 +76,11 @@ abstract class DiscoveredOperationsFactory<O extends Operation> {
 
 	private O createOperation(EndpointId endpointId, Object target, Method method) {
 		return OPERATION_TYPES.entrySet().stream()
-				.map((entry) -> createOperation(endpointId, target, method, entry.getKey(), entry.getValue()))
+				.map((entry) -> createOperation_RENAMED(endpointId, target, method, entry.getKey(), entry.getValue()))
 				.filter(Objects::nonNull).findFirst().orElse(null);
 	}
 
-	private O createOperation(EndpointId endpointId, Object target, Method method, OperationType operationType,
+	private O createOperation_RENAMED(EndpointId endpointId, Object target, Method method, OperationType operationType,
 			Class<? extends Annotation> annotationType) {
 		MergedAnnotation<?> annotation = MergedAnnotations.from(method).get(annotationType);
 		if (!annotation.isPresent()) {
