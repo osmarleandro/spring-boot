@@ -283,7 +283,7 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 	 * @param beanType the endpoint bean type
 	 * @return {@code true} if the endpoint is exposed
 	 */
-	protected boolean isEndpointTypeExposed(Class<?> beanType) {
+	protected boolean isEndpointTypeExposed_RENAMED(Class<?> beanType) {
 		return true;
 	}
 
@@ -298,7 +298,7 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 
 	@SuppressWarnings("unchecked")
 	private boolean isFilterMatch(Class<?> filter, EndpointBean endpointBean) {
-		if (!isEndpointTypeExposed(endpointBean.getBeanType())) {
+		if (!isEndpointTypeExposed_RENAMED(endpointBean.getBeanType())) {
 			return false;
 		}
 		if (filter == null) {
