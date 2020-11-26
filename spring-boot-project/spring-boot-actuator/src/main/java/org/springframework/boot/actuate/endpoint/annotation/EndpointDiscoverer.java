@@ -156,7 +156,7 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 			EndpointBean endpointBean = byId.get(extensionBean.getEndpointId());
 			Assert.state(endpointBean != null, () -> ("Invalid extension '" + extensionBean.getBeanName()
 					+ "': no endpoint found with id '" + extensionBean.getEndpointId() + "'"));
-			addExtensionBean(endpointBean, extensionBean);
+			addExtensionBean_RENAMED(endpointBean, extensionBean);
 		}
 	}
 
@@ -166,7 +166,7 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 		return new ExtensionBean(this.applicationContext.getEnvironment(), beanName, beanType, beanSupplier);
 	}
 
-	private void addExtensionBean(EndpointBean endpointBean, ExtensionBean extensionBean) {
+	private void addExtensionBean_RENAMED(EndpointBean endpointBean, ExtensionBean extensionBean) {
 		if (isExtensionExposed(endpointBean, extensionBean)) {
 			Assert.state(isEndpointExposed(endpointBean) || isEndpointFiltered(endpointBean),
 					() -> "Endpoint bean '" + endpointBean.getBeanName() + "' cannot support the extension bean '"
