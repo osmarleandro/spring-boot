@@ -209,7 +209,7 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 		Set<OperationKey> replacedLast = new HashSet<>();
 		Collection<O> operations = this.operationsFactory.createOperations(id, target);
 		for (O operation : operations) {
-			OperationKey key = createOperationKey(operation);
+			OperationKey key = createOperationKey_RENAMED(operation);
 			O last = getLast(indexed.get(key));
 			if (replaceLast && replacedLast.add(key) && last != null) {
 				indexed.get(key).remove(last);
