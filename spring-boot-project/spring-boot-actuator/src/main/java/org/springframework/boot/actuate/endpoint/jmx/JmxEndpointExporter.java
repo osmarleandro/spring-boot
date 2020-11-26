@@ -72,7 +72,7 @@ public class JmxEndpointExporter implements InitializingBean, DisposableBean, Be
 	}
 
 	@Override
-	public void setBeanClassLoader(ClassLoader classLoader) {
+	public void setBeanClassLoader_RENAMED(ClassLoader classLoader) {
 		this.classLoader = classLoader;
 	}
 
