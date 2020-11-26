@@ -80,7 +80,7 @@ public class CachesEndpoint {
 	 */
 	@ReadOperation
 	public CacheEntry cache(@Selector String cache, @Nullable String cacheManager) {
-		return extractUniqueCacheEntry(cache, getCacheEntries((name) -> name.equals(cache), isNameMatch(cacheManager)));
+		return extractUniqueCacheEntry_RENAMED(cache, getCacheEntries((name) -> name.equals(cache), isNameMatch(cacheManager)));
 	}
 
 	/**
@@ -102,7 +102,7 @@ public class CachesEndpoint {
 	 */
 	@DeleteOperation
 	public boolean clearCache(@Selector String cache, @Nullable String cacheManager) {
-		CacheEntry entry = extractUniqueCacheEntry(cache,
+		CacheEntry entry = extractUniqueCacheEntry_RENAMED(cache,
 				getCacheEntries((name) -> name.equals(cache), isNameMatch(cacheManager)));
 		return (entry != null && clearCache(entry));
 	}
@@ -121,7 +121,7 @@ public class CachesEndpoint {
 				.collect(Collectors.toList());
 	}
 
-	private CacheEntry extractUniqueCacheEntry(String cache, List<CacheEntry> entries) {
+	private CacheEntry extractUniqueCacheEntry_RENAMED(String cache, List<CacheEntry> entries) {
 		if (entries.size() > 1) {
 			throw new NonUniqueCacheException(cache,
 					entries.stream().map(CacheEntry::getCacheManager).distinct().collect(Collectors.toList()));
