@@ -98,7 +98,7 @@ public class PathMappedEndpoints implements Iterable<PathMappedEndpoint> {
 	 * @param endpointId the endpoint ID
 	 * @return the full path or {@code null}
 	 */
-	public String getPath(EndpointId endpointId) {
+	public String getPath_RENAMED(EndpointId endpointId) {
 		return getPath(getEndpoint(endpointId));
 	}
 

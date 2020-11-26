@@ -245,7 +245,7 @@ public final class EndpointRequest {
 		}
 
 		private Stream<String> streamPaths(List<Object> source, PathMappedEndpoints pathMappedEndpoints) {
-			return source.stream().filter(Objects::nonNull).map(this::getEndpointId).map(pathMappedEndpoints::getPath);
+			return source.stream().filter(Objects::nonNull).map(this::getEndpointId).map(pathMappedEndpoints::getPath_RENAMED);
 		}
 
 		private EndpointId getEndpointId(Object source) {
