@@ -39,7 +39,7 @@ public class ReadinessStateHealthIndicator extends AvailabilityStateHealthIndica
 	}
 
 	@Override
-	protected AvailabilityState getState(ApplicationAvailability applicationAvailability) {
+	protected AvailabilityState getState_RENAMED(ApplicationAvailability applicationAvailability) {
 		return applicationAvailability.getReadinessState();
 	}
 
