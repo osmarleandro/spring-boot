@@ -52,7 +52,7 @@ class EndpointAutoConfigurationTests {
 	void mapShouldUseConfigurationConverter() {
 		this.contextRunner.withUserConfiguration(ConverterConfiguration.class).run((context) -> {
 			ParameterValueMapper parameterValueMapper = context.getBean(ParameterValueMapper.class);
-			Object paramValue = parameterValueMapper.mapParameterValue(new TestOperationParameter(Person.class),
+			Object paramValue = parameterValueMapper.mapParameterValue_RENAMED(new TestOperationParameter(Person.class),
 					"John Smith");
 			assertThat(paramValue).isInstanceOf(Person.class);
 			Person person = (Person) paramValue;
@@ -66,7 +66,7 @@ class EndpointAutoConfigurationTests {
 		assertThatExceptionOfType(ParameterMappingException.class).isThrownBy(() -> {
 			this.contextRunner.withUserConfiguration(NonQualifiedConverterConfiguration.class).run((context) -> {
 				ParameterValueMapper parameterValueMapper = context.getBean(ParameterValueMapper.class);
-				parameterValueMapper.mapParameterValue(new TestOperationParameter(Person.class), "John Smith");
+				parameterValueMapper.mapParameterValue_RENAMED(new TestOperationParameter(Person.class), "John Smith");
 			});
 
 		}).withCauseInstanceOf(ConverterNotFoundException.class);
@@ -76,7 +76,7 @@ class EndpointAutoConfigurationTests {
 	void mapShouldUseGenericConfigurationConverter() {
 		this.contextRunner.withUserConfiguration(GenericConverterConfiguration.class).run((context) -> {
 			ParameterValueMapper parameterValueMapper = context.getBean(ParameterValueMapper.class);
-			Object paramValue = parameterValueMapper.mapParameterValue(new TestOperationParameter(Person.class),
+			Object paramValue = parameterValueMapper.mapParameterValue_RENAMED(new TestOperationParameter(Person.class),
 					"John Smith");
 			assertThat(paramValue).isInstanceOf(Person.class);
 			Person person = (Person) paramValue;
@@ -90,7 +90,7 @@ class EndpointAutoConfigurationTests {
 		assertThatExceptionOfType(ParameterMappingException.class).isThrownBy(() -> {
 			this.contextRunner.withUserConfiguration(NonQualifiedGenericConverterConfiguration.class).run((context) -> {
 				ParameterValueMapper parameterValueMapper = context.getBean(ParameterValueMapper.class);
-				parameterValueMapper.mapParameterValue(new TestOperationParameter(Person.class), "John Smith");
+				parameterValueMapper.mapParameterValue_RENAMED(new TestOperationParameter(Person.class), "John Smith");
 			});
 
 		}).withCauseInstanceOf(ConverterNotFoundException.class);
