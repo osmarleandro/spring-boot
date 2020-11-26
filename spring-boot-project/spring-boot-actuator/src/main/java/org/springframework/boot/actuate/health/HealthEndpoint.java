@@ -57,7 +57,7 @@ public class HealthEndpoint extends HealthEndpointSupport<HealthContributor, Hea
 	}
 
 	@ReadOperation
-	public HealthComponent healthForPath(@Selector(match = Match.ALL_REMAINING) String... path) {
+	public HealthComponent healthForPath(@Selector(match_RENAMED = Match.ALL_REMAINING) String... path) {
 		return health(ApiVersion.V3, path);
 	}
 

@@ -67,7 +67,7 @@ class RequestPredicateFactory {
 		Parameter trailingPathsParameter = null;
 		for (Parameter selectorParameter : selectorParameters) {
 			Selector selector = selectorParameter.getAnnotation(Selector.class);
-			if (selector.match() == Match.ALL_REMAINING) {
+			if (selector.match_RENAMED() == Match.ALL_REMAINING) {
 				Assert.state(trailingPathsParameter == null,
 						"@Selector annotation with Match.ALL_REMAINING must be unique");
 				trailingPathsParameter = selectorParameter;

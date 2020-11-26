@@ -51,7 +51,7 @@ public class CloudFoundryHealthEndpointWebExtension {
 
 	@ReadOperation
 	public WebEndpointResponse<HealthComponent> health(ApiVersion apiVersion,
-			@Selector(match = Match.ALL_REMAINING) String... path) {
+			@Selector(match_RENAMED = Match.ALL_REMAINING) String... path) {
 		return this.delegate.health(apiVersion, SecurityContext.NONE, true, path);
 	}
 

@@ -77,22 +77,22 @@ class RequestPredicateFactoryTests {
 
 	static class MoreThanOneMatchAll {
 
-		void test(@Selector(match = Match.ALL_REMAINING) String[] one,
-				@Selector(match = Match.ALL_REMAINING) String[] two) {
+		void test(@Selector(match_RENAMED = Match.ALL_REMAINING) String[] one,
+				@Selector(match_RENAMED = Match.ALL_REMAINING) String[] two) {
 		}
 
 	}
 
 	static class MatchAllIsNotLastParameter {
 
-		void test(@Selector(match = Match.ALL_REMAINING) String[] one, @Selector String[] two) {
+		void test(@Selector(match_RENAMED = Match.ALL_REMAINING) String[] one, @Selector String[] two) {
 		}
 
 	}
 
 	static class ValidSelectors {
 
-		void test(@Selector String[] one, @Selector(match = Match.ALL_REMAINING) String[] two) {
+		void test(@Selector String[] one, @Selector(match_RENAMED = Match.ALL_REMAINING) String[] two) {
 		}
 
 	}

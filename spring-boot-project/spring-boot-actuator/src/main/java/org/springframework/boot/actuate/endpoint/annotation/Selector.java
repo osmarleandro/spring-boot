@@ -42,7 +42,7 @@ public @interface Selector {
 	 * @return the match type
 	 * @since 2.2.0
 	 */
-	Match match() default Match.SINGLE;
+	Match match_RENAMED() default Match.SINGLE;
 
 	/**
 	 * Match types that can be used with the {@code @Selector}.

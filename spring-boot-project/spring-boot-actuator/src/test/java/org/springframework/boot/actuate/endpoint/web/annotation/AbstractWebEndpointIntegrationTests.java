@@ -659,7 +659,7 @@ public abstract class AbstractWebEndpointIntegrationTests<T extends Configurable
 	static class MatchAllRemainingEndpoint {
 
 		@ReadOperation
-		Map<String, String> select(@Selector(match = Match.ALL_REMAINING) String... selection) {
+		Map<String, String> select(@Selector(match_RENAMED = Match.ALL_REMAINING) String... selection) {
 			return Collections.singletonMap("selection", StringUtils.arrayToDelimitedString(selection, "|"));
 		}
 
