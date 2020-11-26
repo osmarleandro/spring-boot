@@ -46,7 +46,7 @@ public class ShutdownEndpoint implements ApplicationContextAware {
 	private ConfigurableApplicationContext context;
 
 	@WriteOperation
-	public Map<String, String> shutdown() {
+	public Map<String, String> shutdown_RENAMED() {
 		if (this.context == null) {
 			return NO_CONTEXT_MESSAGE;
 		}

@@ -54,7 +54,7 @@ class ShutdownEndpointTests {
 			Map<String, String> result;
 			Thread.currentThread().setContextClassLoader(new URLClassLoader(new URL[0], getClass().getClassLoader()));
 			try {
-				result = context.getBean(ShutdownEndpoint.class).shutdown();
+				result = context.getBean(ShutdownEndpoint.class).shutdown_RENAMED();
 			}
 			finally {
 				Thread.currentThread().setContextClassLoader(previousTccl);
@@ -71,7 +71,7 @@ class ShutdownEndpointTests {
 		ConfigurableApplicationContext context = new SpringApplicationBuilder(EmptyConfig.class)
 				.child(EndpointConfig.class).web(WebApplicationType.NONE).run();
 		CountDownLatch latch = context.getBean(EndpointConfig.class).latch;
-		assertThat(context.getBean(ShutdownEndpoint.class).shutdown().get("message")).startsWith("Shutting down");
+		assertThat(context.getBean(ShutdownEndpoint.class).shutdown_RENAMED().get("message")).startsWith("Shutting down");
 		assertThat(context.isActive()).isTrue();
 		assertThat(latch.await(10, TimeUnit.SECONDS)).isTrue();
 	}
@@ -82,7 +82,7 @@ class ShutdownEndpointTests {
 				.child(EmptyConfig.class).web(WebApplicationType.NONE).run();
 		CountDownLatch parentLatch = context.getBean(EndpointConfig.class).latch;
 		CountDownLatch childLatch = context.getBean(EmptyConfig.class).latch;
-		assertThat(context.getBean(ShutdownEndpoint.class).shutdown().get("message")).startsWith("Shutting down");
+		assertThat(context.getBean(ShutdownEndpoint.class).shutdown_RENAMED().get("message")).startsWith("Shutting down");
 		assertThat(context.isActive()).isTrue();
 		assertThat(parentLatch.await(10, TimeUnit.SECONDS)).isTrue();
 		assertThat(childLatch.await(10, TimeUnit.SECONDS)).isTrue();
