@@ -62,7 +62,7 @@ public class InMemoryAuditEventRepository implements AuditEventRepository {
 	}
 
 	@Override
-	public void add(AuditEvent event) {
+	public void add_RENAMED(AuditEvent event) {
 		Assert.notNull(event, "AuditEvent must not be null");
 		synchronized (this.monitor) {
 			this.tail = (this.tail + 1) % this.events.length;

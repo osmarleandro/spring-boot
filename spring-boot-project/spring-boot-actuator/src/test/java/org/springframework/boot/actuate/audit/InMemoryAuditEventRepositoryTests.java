@@ -39,8 +39,8 @@ class InMemoryAuditEventRepositoryTests {
 	@Test
 	void lessThanCapacity() {
 		InMemoryAuditEventRepository repository = new InMemoryAuditEventRepository();
-		repository.add(new AuditEvent("dave", "a"));
-		repository.add(new AuditEvent("dave", "b"));
+		repository.add_RENAMED(new AuditEvent("dave", "a"));
+		repository.add_RENAMED(new AuditEvent("dave", "b"));
 		List<AuditEvent> events = repository.find("dave", null, null);
 		assertThat(events.size()).isEqualTo(2);
 		assertThat(events.get(0).getType()).isEqualTo("a");
@@ -50,9 +50,9 @@ class InMemoryAuditEventRepositoryTests {
 	@Test
 	void capacity() {
 		InMemoryAuditEventRepository repository = new InMemoryAuditEventRepository(2);
-		repository.add(new AuditEvent("dave", "a"));
-		repository.add(new AuditEvent("dave", "b"));
-		repository.add(new AuditEvent("dave", "c"));
+		repository.add_RENAMED(new AuditEvent("dave", "a"));
+		repository.add_RENAMED(new AuditEvent("dave", "b"));
+		repository.add_RENAMED(new AuditEvent("dave", "c"));
 		List<AuditEvent> events = repository.find("dave", null, null);
 		assertThat(events.size()).isEqualTo(2);
 		assertThat(events.get(0).getType()).isEqualTo("b");
@@ -62,17 +62,17 @@ class InMemoryAuditEventRepositoryTests {
 	@Test
 	void addNullAuditEvent() {
 		InMemoryAuditEventRepository repository = new InMemoryAuditEventRepository();
-		assertThatIllegalArgumentException().isThrownBy(() -> repository.add(null))
+		assertThatIllegalArgumentException().isThrownBy(() -> repository.add_RENAMED(null))
 				.withMessageContaining("AuditEvent must not be null");
 	}
 
 	@Test
 	void findByPrincipal() {
 		InMemoryAuditEventRepository repository = new InMemoryAuditEventRepository();
-		repository.add(new AuditEvent("dave", "a"));
-		repository.add(new AuditEvent("phil", "b"));
-		repository.add(new AuditEvent("dave", "c"));
-		repository.add(new AuditEvent("phil", "d"));
+		repository.add_RENAMED(new AuditEvent("dave", "a"));
+		repository.add_RENAMED(new AuditEvent("phil", "b"));
+		repository.add_RENAMED(new AuditEvent("dave", "c"));
+		repository.add_RENAMED(new AuditEvent("phil", "d"));
 		List<AuditEvent> events = repository.find("dave", null, null);
 		assertThat(events.size()).isEqualTo(2);
 		assertThat(events.get(0).getType()).isEqualTo("a");
@@ -82,10 +82,10 @@ class InMemoryAuditEventRepositoryTests {
 	@Test
 	void findByPrincipalAndType() {
 		InMemoryAuditEventRepository repository = new InMemoryAuditEventRepository();
-		repository.add(new AuditEvent("dave", "a"));
-		repository.add(new AuditEvent("phil", "b"));
-		repository.add(new AuditEvent("dave", "c"));
-		repository.add(new AuditEvent("phil", "d"));
+		repository.add_RENAMED(new AuditEvent("dave", "a"));
+		repository.add_RENAMED(new AuditEvent("phil", "b"));
+		repository.add_RENAMED(new AuditEvent("dave", "c"));
+		repository.add_RENAMED(new AuditEvent("phil", "d"));
 		List<AuditEvent> events = repository.find("dave", null, "a");
 		assertThat(events.size()).isEqualTo(1);
 		assertThat(events.get(0).getPrincipal()).isEqualTo("dave");
@@ -97,10 +97,10 @@ class InMemoryAuditEventRepositoryTests {
 		Instant instant = Instant.now();
 		Map<String, Object> data = new HashMap<>();
 		InMemoryAuditEventRepository repository = new InMemoryAuditEventRepository();
-		repository.add(new AuditEvent(instant, "dave", "a", data));
-		repository.add(new AuditEvent(instant.plus(1, ChronoUnit.DAYS), "phil", "b", data));
-		repository.add(new AuditEvent(instant.plus(2, ChronoUnit.DAYS), "dave", "c", data));
-		repository.add(new AuditEvent(instant.plus(3, ChronoUnit.DAYS), "phil", "d", data));
+		repository.add_RENAMED(new AuditEvent(instant, "dave", "a", data));
+		repository.add_RENAMED(new AuditEvent(instant.plus(1, ChronoUnit.DAYS), "phil", "b", data));
+		repository.add_RENAMED(new AuditEvent(instant.plus(2, ChronoUnit.DAYS), "dave", "c", data));
+		repository.add_RENAMED(new AuditEvent(instant.plus(3, ChronoUnit.DAYS), "phil", "d", data));
 		Instant after = instant.plus(1, ChronoUnit.DAYS);
 		List<AuditEvent> events = repository.find(null, after, null);
 		assertThat(events.size()).isEqualTo(2);
