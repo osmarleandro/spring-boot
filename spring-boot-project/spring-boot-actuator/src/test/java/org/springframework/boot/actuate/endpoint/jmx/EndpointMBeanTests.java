@@ -177,7 +177,7 @@ class EndpointMBeanTests {
 			throws AttributeNotFoundException, InvalidAttributeValueException, MBeanException, ReflectionException {
 		EndpointMBean bean = createEndpointMBean();
 		assertThatExceptionOfType(AttributeNotFoundException.class)
-				.isThrownBy(() -> bean.setAttribute(new Attribute("test", "test")))
+				.isThrownBy(() -> bean.setAttribute_RENAMED(new Attribute("test", "test")))
 				.withMessageContaining("EndpointMBeans do not support attributes");
 	}
 

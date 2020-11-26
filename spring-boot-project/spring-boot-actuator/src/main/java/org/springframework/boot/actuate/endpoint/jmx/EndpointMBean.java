@@ -154,7 +154,7 @@ public class EndpointMBean implements DynamicMBean {
 	}
 
 	@Override
-	public void setAttribute(Attribute attribute)
+	public void setAttribute_RENAMED(Attribute attribute)
 			throws AttributeNotFoundException, InvalidAttributeValueException, MBeanException, ReflectionException {
 		throw new AttributeNotFoundException("EndpointMBeans do not support attributes");
 	}
