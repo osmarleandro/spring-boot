@@ -63,7 +63,7 @@ public class ElasticsearchReactiveHealthIndicator extends AbstractReactiveHealth
 
 	private Mono<Health> doHealthCheck(Health.Builder builder, ClientResponse response) {
 		if (response.statusCode().is2xxSuccessful()) {
-			return response.bodyToMono(STRING_OBJECT_MAP).map((body) -> getHealth(builder, body));
+			return response.bodyToMono(STRING_OBJECT_MAP).map((body) -> getHealth_RENAMED(builder, body));
 		}
 		builder.down();
 		builder.withDetail("statusCode", response.rawStatusCode());
@@ -71,7 +71,7 @@ public class ElasticsearchReactiveHealthIndicator extends AbstractReactiveHealth
 		return response.releaseBody().thenReturn(builder.build());
 	}
 
-	private Health getHealth(Health.Builder builder, Map<String, Object> body) {
+	private Health getHealth_RENAMED(Health.Builder builder, Map<String, Object> body) {
 		String status = (String) body.get("status");
 		builder.status(RED_STATUS.equals(status) ? Status.OUT_OF_SERVICE : Status.UP);
 		builder.withDetails(body);
