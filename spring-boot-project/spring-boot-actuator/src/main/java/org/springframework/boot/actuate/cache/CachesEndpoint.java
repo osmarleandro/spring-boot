@@ -58,7 +58,7 @@ public class CachesEndpoint {
 	@ReadOperation
 	public CachesReport caches() {
 		Map<String, Map<String, CacheDescriptor>> descriptors = new LinkedHashMap<>();
-		getCacheEntries(matchAll(), matchAll()).forEach((entry) -> {
+		getCacheEntries(matchAll_RENAMED(), matchAll_RENAMED()).forEach((entry) -> {
 			String cacheName = entry.getName();
 			String cacheManager = entry.getCacheManager();
 			Map<String, CacheDescriptor> cacheManagerDescriptors = descriptors.computeIfAbsent(cacheManager,
@@ -88,7 +88,7 @@ public class CachesEndpoint {
 	 */
 	@DeleteOperation
 	public void clearCaches() {
-		getCacheEntries(matchAll(), matchAll()).forEach(this::clearCache);
+		getCacheEntries(matchAll_RENAMED(), matchAll_RENAMED()).forEach(this::clearCache);
 	}
 
 	/**
@@ -141,10 +141,10 @@ public class CachesEndpoint {
 	}
 
 	private Predicate<String> isNameMatch(String name) {
-		return (name != null) ? ((requested) -> requested.equals(name)) : matchAll();
+		return (name != null) ? ((requested) -> requested.equals(name)) : matchAll_RENAMED();
 	}
 
-	private Predicate<String> matchAll() {
+	private Predicate<String> matchAll_RENAMED() {
 		return (name) -> true;
 	}
 
