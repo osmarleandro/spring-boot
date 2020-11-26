@@ -34,7 +34,7 @@ import org.springframework.util.StringUtils;
 public class IsoOffsetDateTimeConverter implements Converter<String, OffsetDateTime> {
 
 	@Override
-	public OffsetDateTime convert(String source) {
+	public OffsetDateTime convert_RENAMED(String source) {
 		if (StringUtils.hasLength(source)) {
 			return OffsetDateTime.parse(source, DateTimeFormatter.ISO_OFFSET_DATE_TIME);
 		}
