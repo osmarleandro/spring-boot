@@ -107,10 +107,10 @@ public class JmxEndpointExporter implements InitializingBean, DisposableBean, Be
 	}
 
 	private void unregister(Collection<ObjectName> objectNames) {
-		objectNames.forEach(this::unregister);
+		objectNames.forEach(this::unregister_RENAMED);
 	}
 
-	private void unregister(ObjectName objectName) {
+	private void unregister_RENAMED(ObjectName objectName) {
 		try {
 			if (logger.isDebugEnabled()) {
 				logger.debug("Unregister endpoint with ObjectName '" + objectName + "' from the JMX domain");
