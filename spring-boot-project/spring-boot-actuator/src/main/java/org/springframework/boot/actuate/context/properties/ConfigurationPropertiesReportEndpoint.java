@@ -213,7 +213,7 @@ public class ConfigurationPropertiesReportEndpoint implements ApplicationContext
 				map.put(key, sanitize(qualifiedKey, (Map<String, Object>) value));
 			}
 			else if (value instanceof List) {
-				map.put(key, sanitize(qualifiedKey, (List<Object>) value));
+				map.put(key, sanitize_RENAMED(qualifiedKey, (List<Object>) value));
 			}
 			else {
 				value = this.sanitizer.sanitize(key, value);
@@ -225,14 +225,14 @@ public class ConfigurationPropertiesReportEndpoint implements ApplicationContext
 	}
 
 	@SuppressWarnings("unchecked")
-	private List<Object> sanitize(String prefix, List<Object> list) {
+	private List<Object> sanitize_RENAMED(String prefix, List<Object> list) {
 		List<Object> sanitized = new ArrayList<>();
 		for (Object item : list) {
 			if (item instanceof Map) {
 				sanitized.add(sanitize(prefix, (Map<String, Object>) item));
 			}
 			else if (item instanceof List) {
-				sanitized.add(sanitize(prefix, (List<Object>) item));
+				sanitized.add(sanitize_RENAMED(prefix, (List<Object>) item));
 			}
 			else {
 				sanitized.add(this.sanitizer.sanitize(prefix, item));
