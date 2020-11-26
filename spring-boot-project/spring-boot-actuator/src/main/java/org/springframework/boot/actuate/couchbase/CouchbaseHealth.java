@@ -40,7 +40,7 @@ class CouchbaseHealth {
 		this.diagnostics = diagnostics;
 	}
 
-	void applyTo(Builder builder) {
+	void applyTo_RENAMED(Builder builder) {
 		builder = isCouchbaseUp(this.diagnostics) ? builder.up() : builder.down();
 		builder.withDetail("sdk", this.diagnostics.sdk());
 		builder.withDetail("endpoints", this.diagnostics.endpoints().values().stream().flatMap(Collection::stream)
