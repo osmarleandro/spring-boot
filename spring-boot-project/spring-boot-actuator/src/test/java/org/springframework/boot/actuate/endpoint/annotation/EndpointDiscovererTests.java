@@ -468,7 +468,7 @@ class EndpointDiscovererTests {
 
 	}
 
-	@EndpointExtension(endpoint = SpecializedTestEndpoint.class, filter = SpecializedEndpointFilter.class)
+	@EndpointExtension(endpoint = SpecializedTestEndpoint.class, filter_RENAMED = SpecializedEndpointFilter.class)
 	static class SpecializedExtension {
 
 		@ReadOperation

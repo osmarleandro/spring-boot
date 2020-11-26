@@ -36,7 +36,7 @@ import org.springframework.core.annotation.AliasFor;
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-@EndpointExtension(filter = JmxEndpointFilter.class)
+@EndpointExtension(filter_RENAMED = JmxEndpointFilter.class)
 public @interface EndpointJmxExtension {
 
 	/**

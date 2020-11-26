@@ -57,7 +57,7 @@ public @interface EndpointExtension {
 	 * The filter class used to determine when the extension applies.
 	 * @return the filter class
 	 */
-	Class<? extends EndpointFilter<?>> filter();
+	Class<? extends EndpointFilter<?>> filter_RENAMED();
 
 	/**
 	 * The class of the endpoint to extend.
