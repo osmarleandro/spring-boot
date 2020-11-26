@@ -41,7 +41,7 @@ public class IsoOffsetDateTimeConverter implements Converter<String, OffsetDateT
 		return null;
 	}
 
-	public static void registerConverter(ConverterRegistry registry) {
+	public static void registerConverter_RENAMED(ConverterRegistry registry) {
 		registry.addConverter(new IsoOffsetDateTimeConverter());
 	}
 
