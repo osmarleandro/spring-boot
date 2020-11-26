@@ -71,7 +71,7 @@ public class EndpointLinksResolver {
 		links.put("self", new Link(normalizedUrl));
 		for (ExposableEndpoint<?> endpoint : this.endpoints) {
 			if (endpoint instanceof ExposableWebEndpoint) {
-				collectLinks(links, (ExposableWebEndpoint) endpoint, normalizedUrl);
+				collectLinks_RENAMED(links, (ExposableWebEndpoint) endpoint, normalizedUrl);
 			}
 			else if (endpoint instanceof PathMappedEndpoint) {
 				String rootPath = ((PathMappedEndpoint) endpoint).getRootPath();
@@ -89,7 +89,7 @@ public class EndpointLinksResolver {
 		return requestUrl;
 	}
 
-	private void collectLinks(Map<String, Link> links, ExposableWebEndpoint endpoint, String normalizedUrl) {
+	private void collectLinks_RENAMED(Map<String, Link> links, ExposableWebEndpoint endpoint, String normalizedUrl) {
 		for (WebOperation operation : endpoint.getOperations()) {
 			links.put(operation.getId(), createLink(normalizedUrl, operation));
 		}
