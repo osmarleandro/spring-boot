@@ -42,7 +42,7 @@ public class CachingOperationInvokerAdvisor implements OperationInvokerAdvisor {
 	}
 
 	@Override
-	public OperationInvoker apply(EndpointId endpointId, OperationType operationType, OperationParameters parameters,
+	public OperationInvoker apply_RENAMED(EndpointId endpointId, OperationType operationType, OperationParameters parameters,
 			OperationInvoker invoker) {
 		if (operationType == OperationType.READ && !hasMandatoryParameter(parameters)) {
 			Long timeToLive = this.endpointIdTimeToLive.apply(endpointId);
