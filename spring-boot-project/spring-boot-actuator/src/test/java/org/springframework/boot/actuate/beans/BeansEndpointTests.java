@@ -49,7 +49,7 @@ class BeansEndpointTests {
 		ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 				.withUserConfiguration(EndpointConfiguration.class);
 		contextRunner.run((context) -> {
-			ApplicationBeans result = context.getBean(BeansEndpoint.class).beans();
+			ApplicationBeans result = context.getBean(BeansEndpoint.class).beans_RENAMED();
 			ContextBeans descriptor = result.getContexts().get(context.getId());
 			assertThat(descriptor.getParentId()).isNull();
 			Map<String, BeanDescriptor> beans = descriptor.getBeans();
@@ -68,7 +68,7 @@ class BeansEndpointTests {
 			List<String> infrastructureBeans = Stream.of(context.getBeanDefinitionNames())
 					.filter((name) -> BeanDefinition.ROLE_INFRASTRUCTURE == factory.getBeanDefinition(name).getRole())
 					.collect(Collectors.toList());
-			ApplicationBeans result = context.getBean(BeansEndpoint.class).beans();
+			ApplicationBeans result = context.getBean(BeansEndpoint.class).beans_RENAMED();
 			ContextBeans contextDescriptor = result.getContexts().get(context.getId());
 			Map<String, BeanDescriptor> beans = contextDescriptor.getBeans();
 			for (String infrastructureBean : infrastructureBeans) {
@@ -82,7 +82,7 @@ class BeansEndpointTests {
 		ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 				.withUserConfiguration(EndpointConfiguration.class, LazyBeanConfiguration.class);
 		contextRunner.run((context) -> {
-			ApplicationBeans result = context.getBean(BeansEndpoint.class).beans();
+			ApplicationBeans result = context.getBean(BeansEndpoint.class).beans_RENAMED();
 			ContextBeans contextDescriptor = result.getContexts().get(context.getId());
 			assertThat(context).hasBean("lazyBean");
 			assertThat(contextDescriptor.getBeans()).doesNotContainKey("lazyBean");
@@ -96,7 +96,7 @@ class BeansEndpointTests {
 		parentRunner.run((parent) -> {
 			new ApplicationContextRunner().withUserConfiguration(EndpointConfiguration.class).withParent(parent)
 					.run((child) -> {
-						ApplicationBeans result = child.getBean(BeansEndpoint.class).beans();
+						ApplicationBeans result = child.getBean(BeansEndpoint.class).beans_RENAMED();
 						assertThat(result.getContexts().get(parent.getId()).getBeans()).containsKey("bean");
 						assertThat(result.getContexts().get(child.getId()).getBeans()).containsKey("endpoint");
 					});

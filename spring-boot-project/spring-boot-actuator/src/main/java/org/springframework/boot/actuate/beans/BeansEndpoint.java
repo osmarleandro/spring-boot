@@ -52,7 +52,7 @@ public class BeansEndpoint {
 	}
 
 	@ReadOperation
-	public ApplicationBeans beans() {
+	public ApplicationBeans beans_RENAMED() {
 		Map<String, ContextBeans> contexts = new HashMap<>();
 		ConfigurableApplicationContext context = this.context;
 		while (context != null) {
