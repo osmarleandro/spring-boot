@@ -96,8 +96,8 @@ class DiscoveredJmxOperationTests {
 	void getParametersWhenHasManagedOperationParameterShouldUseValuesFromAnnotation() {
 		DiscoveredJmxOperation operation = getOperation("withManagedOperationParameters");
 		List<JmxOperationParameter> parameters = operation.getParameters();
-		assertThat(parameters.get(0).getName()).isEqualTo("a1");
-		assertThat(parameters.get(1).getName()).isEqualTo("a2");
+		assertThat(parameters.get(0).getName_RENAMED()).isEqualTo("a1");
+		assertThat(parameters.get(1).getName_RENAMED()).isEqualTo("a2");
 		assertThat(parameters.get(0).getDescription()).isEqualTo("d1");
 		assertThat(parameters.get(1).getDescription()).isEqualTo("d2");
 	}
@@ -106,11 +106,11 @@ class DiscoveredJmxOperationTests {
 	void getParametersWhenHasNoManagedOperationParameterShouldDeducedValuesName() {
 		DiscoveredJmxOperation operation = getOperation("params");
 		List<JmxOperationParameter> parameters = operation.getParameters();
-		assertThat(parameters.get(0).getName()).isEqualTo("enumParam");
-		assertThat(parameters.get(1).getName()).isEqualTo("dateParam");
-		assertThat(parameters.get(2).getName()).isEqualTo("instantParam");
-		assertThat(parameters.get(3).getName()).isEqualTo("integerParam");
-		assertThat(parameters.get(4).getName()).isEqualTo("applicationContextParam");
+		assertThat(parameters.get(0).getName_RENAMED()).isEqualTo("enumParam");
+		assertThat(parameters.get(1).getName_RENAMED()).isEqualTo("dateParam");
+		assertThat(parameters.get(2).getName_RENAMED()).isEqualTo("instantParam");
+		assertThat(parameters.get(3).getName_RENAMED()).isEqualTo("integerParam");
+		assertThat(parameters.get(4).getName_RENAMED()).isEqualTo("applicationContextParam");
 		assertThat(parameters.get(0).getDescription()).isNull();
 		assertThat(parameters.get(1).getDescription()).isNull();
 		assertThat(parameters.get(2).getDescription()).isNull();

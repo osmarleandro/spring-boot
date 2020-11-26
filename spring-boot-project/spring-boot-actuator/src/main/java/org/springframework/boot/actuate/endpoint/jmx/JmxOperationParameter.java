@@ -29,7 +29,7 @@ public interface JmxOperationParameter {
 	 * Return the name of the operation parameter.
 	 * @return the name of the parameter
 	 */
-	String getName();
+	String getName_RENAMED();
 
 	/**
 	 * Return the type of the operation parameter.

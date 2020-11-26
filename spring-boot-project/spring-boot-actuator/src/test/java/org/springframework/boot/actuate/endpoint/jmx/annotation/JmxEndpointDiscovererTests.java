@@ -234,7 +234,7 @@ class JmxEndpointDiscovererTests {
 			String description) {
 		assertThat(index).isLessThan(operation.getParameters().size());
 		JmxOperationParameter parameter = operation.getParameters().get(index);
-		assertThat(parameter.getName()).isEqualTo(name);
+		assertThat(parameter.getName_RENAMED()).isEqualTo(name);
 		assertThat(parameter.getType()).isEqualTo(type);
 		assertThat(parameter.getDescription()).isEqualTo(description);
 	}
