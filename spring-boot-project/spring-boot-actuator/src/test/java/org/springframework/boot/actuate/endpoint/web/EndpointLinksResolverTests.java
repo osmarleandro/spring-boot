@@ -79,7 +79,7 @@ class EndpointLinksResolverTests {
 		ExposableServletEndpoint servletEndpoint = mock(ExposableServletEndpoint.class);
 		given(servletEndpoint.getEndpointId()).willReturn(EndpointId.of("alpha"));
 		given(servletEndpoint.isEnableByDefault()).willReturn(true);
-		given(servletEndpoint.getRootPath()).willReturn("alpha");
+		given(servletEndpoint.getRootPath_RENAMED()).willReturn("alpha");
 		String requestUrl = "https://api.example.com/actuator";
 		Map<String, Link> links = new EndpointLinksResolver(Collections.singletonList(servletEndpoint))
 				.resolveLinks(requestUrl);
@@ -93,7 +93,7 @@ class EndpointLinksResolverTests {
 		ExposableControllerEndpoint controllerEndpoint = mock(ExposableControllerEndpoint.class);
 		given(controllerEndpoint.getEndpointId()).willReturn(EndpointId.of("alpha"));
 		given(controllerEndpoint.isEnableByDefault()).willReturn(true);
-		given(controllerEndpoint.getRootPath()).willReturn("alpha");
+		given(controllerEndpoint.getRootPath_RENAMED()).willReturn("alpha");
 		String requestUrl = "https://api.example.com/actuator";
 		Map<String, Link> links = new EndpointLinksResolver(Collections.singletonList(controllerEndpoint))
 				.resolveLinks(requestUrl);

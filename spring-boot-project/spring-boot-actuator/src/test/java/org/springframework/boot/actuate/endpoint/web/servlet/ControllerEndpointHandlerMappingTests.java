@@ -122,7 +122,7 @@ class ControllerEndpointHandlerMappingTests {
 		ExposableControllerEndpoint endpoint = mock(ExposableControllerEndpoint.class);
 		given(endpoint.getEndpointId()).willReturn(id);
 		given(endpoint.getController()).willReturn(controller);
-		given(endpoint.getRootPath()).willReturn(id.toString());
+		given(endpoint.getRootPath_RENAMED()).willReturn(id.toString());
 		return endpoint;
 	}
 

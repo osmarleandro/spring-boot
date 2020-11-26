@@ -35,6 +35,6 @@ public interface PathMappedEndpoint {
 	 * "/{actuator-context}/example".
 	 * @return the root path for the endpoint
 	 */
-	String getRootPath();
+	String getRootPath_RENAMED();
 
 }

@@ -89,7 +89,7 @@ public class PathMappedEndpoints implements Iterable<PathMappedEndpoint> {
 	 */
 	public String getRootPath(EndpointId endpointId) {
 		PathMappedEndpoint endpoint = getEndpoint(endpointId);
-		return (endpoint != null) ? endpoint.getRootPath() : null;
+		return (endpoint != null) ? endpoint.getRootPath_RENAMED() : null;
 	}
 
 	/**
@@ -107,7 +107,7 @@ public class PathMappedEndpoints implements Iterable<PathMappedEndpoint> {
 	 * @return all root paths
 	 */
 	public Collection<String> getAllRootPaths() {
-		return asList(stream().map(PathMappedEndpoint::getRootPath));
+		return asList(stream().map(PathMappedEndpoint::getRootPath_RENAMED));
 	}
 
 	/**
@@ -142,7 +142,7 @@ public class PathMappedEndpoints implements Iterable<PathMappedEndpoint> {
 	}
 
 	private String getPath(PathMappedEndpoint endpoint) {
-		return (endpoint != null) ? this.basePath + "/" + endpoint.getRootPath() : null;
+		return (endpoint != null) ? this.basePath + "/" + endpoint.getRootPath_RENAMED() : null;
 	}
 
 	private <T> List<T> asList(Stream<T> stream) {

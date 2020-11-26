@@ -87,7 +87,7 @@ class WebEndpointAutoConfigurationTests {
 					WebEndpointDiscoverer discoverer = context.getBean(WebEndpointDiscoverer.class);
 					Collection<ExposableWebEndpoint> endpoints = discoverer.getEndpoints();
 					ExposableWebEndpoint[] webEndpoints = endpoints.toArray(new ExposableWebEndpoint[0]);
-					List<String> paths = Arrays.stream(webEndpoints).map(PathMappedEndpoint::getRootPath)
+					List<String> paths = Arrays.stream(webEndpoints).map(PathMappedEndpoint::getRootPath_RENAMED)
 							.collect(Collectors.toList());
 					assertThat(paths).containsOnly("1/testone", "foo", "testtwo");
 				});

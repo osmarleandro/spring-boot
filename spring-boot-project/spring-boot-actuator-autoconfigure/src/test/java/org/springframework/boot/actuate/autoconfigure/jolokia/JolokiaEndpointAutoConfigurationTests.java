@@ -58,7 +58,7 @@ class JolokiaEndpointAutoConfigurationTests {
 	void jolokiaServletShouldBeEnabledByDefault() {
 		this.contextRunner.withPropertyValues("management.endpoints.web.exposure.include=jolokia").run((context) -> {
 			ExposableServletEndpoint endpoint = getEndpoint(context);
-			assertThat(endpoint.getRootPath()).isEqualTo("jolokia");
+			assertThat(endpoint.getRootPath_RENAMED()).isEqualTo("jolokia");
 			Object servlet = ReflectionTestUtils.getField(endpoint.getEndpointServlet(), "servlet");
 			assertThat(servlet).isInstanceOf(AgentServlet.class);
 		});

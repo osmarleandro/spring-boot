@@ -74,7 +74,7 @@ public class EndpointLinksResolver {
 				collectLinks(links, (ExposableWebEndpoint) endpoint, normalizedUrl);
 			}
 			else if (endpoint instanceof PathMappedEndpoint) {
-				String rootPath = ((PathMappedEndpoint) endpoint).getRootPath();
+				String rootPath = ((PathMappedEndpoint) endpoint).getRootPath_RENAMED();
 				Link link = createLink(normalizedUrl, rootPath);
 				links.put(endpoint.getEndpointId().toLowerCaseString(), link);
 			}
