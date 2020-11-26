@@ -64,6 +64,6 @@ public @interface Endpoint {
 	 * If the endpoint should be enabled or disabled by default.
 	 * @return {@code true} if the endpoint is enabled by default
 	 */
-	boolean enableByDefault() default true;
+	boolean enableByDefault_RENAMED() default true;
 
 }

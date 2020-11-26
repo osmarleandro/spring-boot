@@ -32,7 +32,7 @@ import org.springframework.core.env.Environment;
  * endpoint is considered available if it is both enabled and exposed. Matches enablement
  * according to the endpoints specific {@link Environment} property, falling back to
  * {@code management.endpoints.enabled-by-default} or failing that
- * {@link Endpoint#enableByDefault()}. Matches exposure according to any of the
+ * {@link Endpoint#enableByDefault_RENAMED()}. Matches exposure according to any of the
  * {@code management.endpoints.web.exposure.<id>} or
  * {@code management.endpoints.jmx.exposure.<id>} specific properties or failing that to
  * whether the application runs on

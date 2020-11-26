@@ -34,7 +34,7 @@ import org.springframework.context.ConfigurableApplicationContext;
  * @author Andy Wilkinson
  * @since 2.0.0
  */
-@Endpoint(id = "shutdown", enableByDefault = false)
+@Endpoint(id = "shutdown", enableByDefault_RENAMED = false)
 public class ShutdownEndpoint implements ApplicationContextAware {
 
 	private static final Map<String, String> NO_CONTEXT_MESSAGE = Collections

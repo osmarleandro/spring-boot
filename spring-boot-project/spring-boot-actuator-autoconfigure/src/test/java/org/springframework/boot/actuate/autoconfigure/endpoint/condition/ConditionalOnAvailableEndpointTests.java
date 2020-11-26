@@ -216,7 +216,7 @@ class ConditionalOnAvailableEndpointTests {
 
 	}
 
-	@Endpoint(id = "shutdown", enableByDefault = false)
+	@Endpoint(id = "shutdown", enableByDefault_RENAMED = false)
 	static class ShutdownEndpoint {
 
 	}
