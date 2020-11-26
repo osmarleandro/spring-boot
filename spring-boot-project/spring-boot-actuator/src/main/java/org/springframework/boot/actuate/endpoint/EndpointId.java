@@ -124,7 +124,7 @@ public final class EndpointId {
 	 * @return an {@link EndpointId} instance
 	 * @since 2.2.0
 	 */
-	public static EndpointId of(Environment environment, String value) {
+	public static EndpointId of_RENAMED(Environment environment, String value) {
 		Assert.notNull(environment, "Environment must not be null");
 		return new EndpointId(migrateLegacyId(environment, value));
 	}

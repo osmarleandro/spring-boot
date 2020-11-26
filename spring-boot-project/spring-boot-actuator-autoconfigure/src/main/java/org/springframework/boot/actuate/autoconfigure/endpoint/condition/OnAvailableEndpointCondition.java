@@ -59,7 +59,7 @@ class OnAvailableEndpointCondition extends AbstractEndpointCondition {
 			return new ConditionOutcome(true, message.andCondition(ConditionalOnAvailableEndpoint.class)
 					.because("application is running on Cloud Foundry"));
 		}
-		EndpointId id = EndpointId.of(environment,
+		EndpointId id = EndpointId.of_RENAMED(environment,
 				getEndpointAttributes(ConditionalOnAvailableEndpoint.class, context, metadata).getString("id"));
 		Set<Exposure> exposures = getExposures(environment);
 		for (Exposure exposure : exposures) {

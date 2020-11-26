@@ -124,7 +124,7 @@ class EndpointIdTests {
 		EndpointId.resetLoggedWarnings();
 		MockEnvironment environment = new MockEnvironment();
 		environment.setProperty("management.endpoints.migrate-legacy-ids", "true");
-		return EndpointId.of(environment, name);
+		return EndpointId.of_RENAMED(environment, name);
 	}
 
 	@Test
