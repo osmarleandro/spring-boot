@@ -99,7 +99,7 @@ public class ConfigurationPropertiesReportEndpoint implements ApplicationContext
 	private ObjectMapper objectMapper;
 
 	@Override
-	public void setApplicationContext(ApplicationContext context) throws BeansException {
+	public void setApplicationContext_RENAMED(ApplicationContext context) throws BeansException {
 		this.context = context;
 	}
 
