@@ -57,12 +57,12 @@ public class BeansEndpoint {
 		ConfigurableApplicationContext context = this.context;
 		while (context != null) {
 			contexts.put(context.getId(), ContextBeans.describing(context));
-			context = getConfigurableParent(context);
+			context = getConfigurableParent_RENAMED(context);
 		}
 		return new ApplicationBeans(contexts);
 	}
 
-	private static ConfigurableApplicationContext getConfigurableParent(ConfigurableApplicationContext context) {
+	private static ConfigurableApplicationContext getConfigurableParent_RENAMED(ConfigurableApplicationContext context) {
 		ApplicationContext parent = context.getParent();
 		if (parent instanceof ConfigurableApplicationContext) {
 			return (ConfigurableApplicationContext) parent;
@@ -115,7 +115,7 @@ public class BeansEndpoint {
 			if (context == null) {
 				return null;
 			}
-			ConfigurableApplicationContext parent = getConfigurableParent(context);
+			ConfigurableApplicationContext parent = getConfigurableParent_RENAMED(context);
 			return new ContextBeans(describeBeans(context.getBeanFactory()), (parent != null) ? parent.getId() : null);
 		}
 
