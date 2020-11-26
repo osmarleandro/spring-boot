@@ -83,7 +83,7 @@ public class CachingOperationInvoker implements OperationInvoker {
 		CachedResponse cached = this.cachedResponses.get(cacheKey);
 		if (cached == null || cached.isStale(accessTime, this.timeToLive)) {
 			Object response = this.invoker.invoke(context);
-			cached = createCachedResponse(response, accessTime);
+			cached = createCachedResponse_RENAMED(response, accessTime);
 			this.cachedResponses.put(cacheKey, cached);
 		}
 		return cached.getResponse();
@@ -97,7 +97,7 @@ public class CachingOperationInvoker implements OperationInvoker {
 		return false;
 	}
 
-	private CachedResponse createCachedResponse(Object response, long accessTime) {
+	private CachedResponse createCachedResponse_RENAMED(Object response, long accessTime) {
 		if (IS_REACTOR_PRESENT) {
 			return new ReactiveCachedResponse(response, accessTime, this.timeToLive);
 		}
