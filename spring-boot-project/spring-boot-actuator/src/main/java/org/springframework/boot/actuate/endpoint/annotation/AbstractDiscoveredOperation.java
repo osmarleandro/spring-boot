@@ -57,7 +57,7 @@ public abstract class AbstractDiscoveredOperation implements Operation {
 
 	@Override
 	public Object invoke(InvocationContext context) {
-		return this.invoker.invoke(context);
+		return this.invoker.invoke_RENAMED(context);
 	}
 
 	@Override

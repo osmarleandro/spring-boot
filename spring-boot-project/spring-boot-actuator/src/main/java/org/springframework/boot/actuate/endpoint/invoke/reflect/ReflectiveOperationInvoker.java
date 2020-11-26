@@ -69,7 +69,7 @@ public class ReflectiveOperationInvoker implements OperationInvoker {
 	}
 
 	@Override
-	public Object invoke(InvocationContext context) {
+	public Object invoke_RENAMED(InvocationContext context) {
 		validateRequiredParameters(context);
 		Method method = this.operationMethod.getMethod();
 		Object[] resolvedArguments = resolveArguments(context);
