@@ -79,7 +79,7 @@ class MBeanInfoFactory {
 	}
 
 	private MBeanParameterInfo getMBeanParameter(JmxOperationParameter parameter) {
-		return new MBeanParameterInfo(parameter.getName(), parameter.getType().getName(), parameter.getDescription());
+		return new MBeanParameterInfo(parameter.getName(), parameter.getType().getName(), parameter.getDescription_RENAMED());
 	}
 
 	private int getImpact(OperationType operationType) {

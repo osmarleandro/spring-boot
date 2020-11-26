@@ -98,8 +98,8 @@ class DiscoveredJmxOperationTests {
 		List<JmxOperationParameter> parameters = operation.getParameters();
 		assertThat(parameters.get(0).getName()).isEqualTo("a1");
 		assertThat(parameters.get(1).getName()).isEqualTo("a2");
-		assertThat(parameters.get(0).getDescription()).isEqualTo("d1");
-		assertThat(parameters.get(1).getDescription()).isEqualTo("d2");
+		assertThat(parameters.get(0).getDescription_RENAMED()).isEqualTo("d1");
+		assertThat(parameters.get(1).getDescription_RENAMED()).isEqualTo("d2");
 	}
 
 	@Test
@@ -111,11 +111,11 @@ class DiscoveredJmxOperationTests {
 		assertThat(parameters.get(2).getName()).isEqualTo("instantParam");
 		assertThat(parameters.get(3).getName()).isEqualTo("integerParam");
 		assertThat(parameters.get(4).getName()).isEqualTo("applicationContextParam");
-		assertThat(parameters.get(0).getDescription()).isNull();
-		assertThat(parameters.get(1).getDescription()).isNull();
-		assertThat(parameters.get(2).getDescription()).isNull();
-		assertThat(parameters.get(3).getDescription()).isNull();
-		assertThat(parameters.get(4).getDescription()).isNull();
+		assertThat(parameters.get(0).getDescription_RENAMED()).isNull();
+		assertThat(parameters.get(1).getDescription_RENAMED()).isNull();
+		assertThat(parameters.get(2).getDescription_RENAMED()).isNull();
+		assertThat(parameters.get(3).getDescription_RENAMED()).isNull();
+		assertThat(parameters.get(4).getDescription_RENAMED()).isNull();
 	}
 
 	private DiscoveredJmxOperation getOperation(String methodName) {

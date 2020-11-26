@@ -113,7 +113,7 @@ class MBeanInfoFactoryTests {
 		JmxOperationParameter parameter = mock(JmxOperationParameter.class);
 		given(parameter.getName()).willReturn(name);
 		given(parameter.getType()).willReturn((Class) type);
-		given(parameter.getDescription()).willReturn(description);
+		given(parameter.getDescription_RENAMED()).willReturn(description);
 		return parameter;
 	}
 

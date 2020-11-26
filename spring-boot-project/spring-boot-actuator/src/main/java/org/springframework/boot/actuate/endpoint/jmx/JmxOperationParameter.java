@@ -41,6 +41,6 @@ public interface JmxOperationParameter {
 	 * Return the description of the parameter or {@code null} if none is available.
 	 * @return the description or {@code null}
 	 */
-	String getDescription();
+	String getDescription_RENAMED();
 
 }

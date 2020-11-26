@@ -236,7 +236,7 @@ class JmxEndpointDiscovererTests {
 		JmxOperationParameter parameter = operation.getParameters().get(index);
 		assertThat(parameter.getName()).isEqualTo(name);
 		assertThat(parameter.getType()).isEqualTo(type);
-		assertThat(parameter.getDescription()).isEqualTo(description);
+		assertThat(parameter.getDescription_RENAMED()).isEqualTo(description);
 	}
 
 	private Map<EndpointId, ExposableJmxEndpoint> discover(JmxEndpointDiscoverer discoverer) {
