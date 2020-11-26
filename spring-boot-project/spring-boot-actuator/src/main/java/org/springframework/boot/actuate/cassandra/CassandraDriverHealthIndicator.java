@@ -52,7 +52,7 @@ public class CassandraDriverHealthIndicator extends AbstractHealthIndicator {
 	}
 
 	@Override
-	protected void doHealthCheck(Health.Builder builder) throws Exception {
+	protected void doHealthCheck_RENAMED(Health.Builder builder) throws Exception {
 		Collection<Node> nodes = this.session.getMetadata().getNodes().values();
 		Optional<Node> nodeUp = nodes.stream().filter((node) -> node.getState() == NodeState.UP).findAny();
 		builder.status(nodeUp.isPresent() ? Status.UP : Status.DOWN);

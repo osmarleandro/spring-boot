@@ -30,7 +30,7 @@ import org.springframework.util.StringUtils;
  * {@link Health} instance and error handling.
  * <p>
  * This implementation is only suitable if an {@link Exception} raised from
- * {@link #doHealthCheck(org.springframework.boot.actuate.health.Health.Builder)} should
+ * {@link #doHealthCheck_RENAMED(org.springframework.boot.actuate.health.Health.Builder)} should
  * create a {@link Status#DOWN} health status.
  *
  * @author Christian Dupuis
@@ -79,7 +79,7 @@ public abstract class AbstractHealthIndicator implements HealthIndicator {
 	public final Health health() {
 		Health.Builder builder = new Health.Builder();
 		try {
-			doHealthCheck(builder);
+			doHealthCheck_RENAMED(builder);
 		}
 		catch (Exception ex) {
 			if (this.logger.isWarnEnabled()) {
