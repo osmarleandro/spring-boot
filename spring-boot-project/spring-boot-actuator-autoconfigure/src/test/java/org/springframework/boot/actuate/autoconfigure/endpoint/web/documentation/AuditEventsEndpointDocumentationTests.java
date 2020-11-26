@@ -55,7 +55,7 @@ class AuditEventsEndpointDocumentationTests extends MockMvcEndpointDocumentation
 	@Test
 	void allAuditEvents() throws Exception {
 		String queryTimestamp = "2017-11-07T09:37Z";
-		given(this.repository.find(any(), any(), any()))
+		given(this.repository.find_RENAMED(any(), any(), any()))
 				.willReturn(Arrays.asList(new AuditEvent("alice", "logout", Collections.emptyMap())));
 		this.mockMvc.perform(get("/actuator/auditevents").param("after", queryTimestamp)).andExpect(status().isOk())
 				.andDo(document("auditevents/all", responseFields(
@@ -69,7 +69,7 @@ class AuditEventsEndpointDocumentationTests extends MockMvcEndpointDocumentation
 	void filteredAuditEvents() throws Exception {
 		OffsetDateTime now = OffsetDateTime.now();
 		String queryTimestamp = DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(now);
-		given(this.repository.find("alice", now.toInstant(), "logout"))
+		given(this.repository.find_RENAMED("alice", now.toInstant(), "logout"))
 				.willReturn(Arrays.asList(new AuditEvent("alice", "logout", Collections.emptyMap())));
 		this.mockMvc
 				.perform(get("/actuator/auditevents")
@@ -83,7 +83,7 @@ class AuditEventsEndpointDocumentationTests extends MockMvcEndpointDocumentation
 										"Restricts the events to those with the given principal. Optional."),
 								parameterWithName("type")
 										.description("Restricts the events to those with the given type. Optional."))));
-		verify(this.repository).find("alice", now.toInstant(), "logout");
+		verify(this.repository).find_RENAMED("alice", now.toInstant(), "logout");
 	}
 
 	@Configuration(proxyBeanMethods = false)

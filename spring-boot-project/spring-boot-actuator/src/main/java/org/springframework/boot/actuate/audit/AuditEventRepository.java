@@ -44,6 +44,6 @@ public interface AuditEventRepository {
 	 * @return audit events of specified type relating to the principal
 	 * @since 1.4.0
 	 */
-	List<AuditEvent> find(String principal, Instant after, String type);
+	List<AuditEvent> find_RENAMED(String principal, Instant after, String type);
 
 }
