@@ -78,7 +78,7 @@ public class JmxEndpointExporter implements InitializingBean, DisposableBean, Be
 
 	@Override
 	public void afterPropertiesSet() {
-		this.registered = register();
+		this.registered = register_RENAMED();
 	}
 
 	@Override
@@ -86,7 +86,7 @@ public class JmxEndpointExporter implements InitializingBean, DisposableBean, Be
 		unregister(this.registered);
 	}
 
-	private Collection<ObjectName> register() {
+	private Collection<ObjectName> register_RENAMED() {
 		return this.endpoints.stream().map(this::register).collect(Collectors.toList());
 	}
 
