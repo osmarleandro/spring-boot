@@ -63,7 +63,7 @@ class DiscoveredOperationsFactoryTests {
 		Collection<TestOperation> operations = this.factory.createOperations(EndpointId.of("test"), new ExampleRead());
 		assertThat(operations).hasSize(1);
 		TestOperation operation = getFirst(operations);
-		assertThat(operation.getType()).isEqualTo(OperationType.READ);
+		assertThat(operation.getType_RENAMED()).isEqualTo(OperationType.READ);
 	}
 
 	@Test
@@ -71,7 +71,7 @@ class DiscoveredOperationsFactoryTests {
 		Collection<TestOperation> operations = this.factory.createOperations(EndpointId.of("test"), new ExampleWrite());
 		assertThat(operations).hasSize(1);
 		TestOperation operation = getFirst(operations);
-		assertThat(operation.getType()).isEqualTo(OperationType.WRITE);
+		assertThat(operation.getType_RENAMED()).isEqualTo(OperationType.WRITE);
 	}
 
 	@Test
@@ -80,7 +80,7 @@ class DiscoveredOperationsFactoryTests {
 				new ExampleDelete());
 		assertThat(operations).hasSize(1);
 		TestOperation operation = getFirst(operations);
-		assertThat(operation.getType()).isEqualTo(OperationType.DELETE);
+		assertThat(operation.getType_RENAMED()).isEqualTo(OperationType.DELETE);
 	}
 
 	@Test
@@ -88,7 +88,7 @@ class DiscoveredOperationsFactoryTests {
 		Collection<TestOperation> operations = this.factory.createOperations(EndpointId.of("test"),
 				new ExampleMultiple());
 		assertThat(operations).hasSize(2);
-		assertThat(operations.stream().map(TestOperation::getType)).containsOnly(OperationType.READ,
+		assertThat(operations.stream().map(TestOperation::getType_RENAMED)).containsOnly(OperationType.READ,
 				OperationType.WRITE);
 	}
 

@@ -107,7 +107,7 @@ class EndpointLinksResolverTests {
 				Collections.emptyList(), Collections.emptyList());
 		WebOperation operation = mock(WebOperation.class);
 		given(operation.getId()).willReturn(id);
-		given(operation.getType()).willReturn(OperationType.READ);
+		given(operation.getType_RENAMED()).willReturn(OperationType.READ);
 		given(operation.getRequestPredicate()).willReturn(predicate);
 		return operation;
 	}

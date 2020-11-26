@@ -51,7 +51,7 @@ public abstract class AbstractDiscoveredOperation implements Operation {
 	}
 
 	@Override
-	public OperationType getType() {
+	public OperationType getType_RENAMED() {
 		return this.operationMethod.getOperationType();
 	}
 
