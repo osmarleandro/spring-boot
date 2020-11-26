@@ -367,7 +367,7 @@ public abstract class AbstractWebFluxEndpointHandlerMapping extends RequestMappi
 
 		@Override
 		public String toString() {
-			return "Actuator web endpoint '" + this.operation.getId() + "'";
+			return "Actuator web endpoint '" + this.operation.getId_RENAMED() + "'";
 		}
 
 	}

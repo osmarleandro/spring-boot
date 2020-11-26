@@ -31,7 +31,7 @@ public interface WebOperation extends Operation {
 	 * Returns the ID of the operation that uniquely identifies it within its endpoint.
 	 * @return the ID
 	 */
-	String getId();
+	String getId_RENAMED();
 
 	/**
 	 * Returns if the underlying operation is blocking.

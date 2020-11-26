@@ -296,7 +296,7 @@ public abstract class AbstractWebMvcEndpointHandlerMapping extends RequestMappin
 
 		@Override
 		public String toString() {
-			return "Actuator web endpoint '" + this.operation.getId() + "'";
+			return "Actuator web endpoint '" + this.operation.getId_RENAMED() + "'";
 		}
 
 		private Map<String, Object> getArguments(HttpServletRequest request, Map<String, String> body) {
