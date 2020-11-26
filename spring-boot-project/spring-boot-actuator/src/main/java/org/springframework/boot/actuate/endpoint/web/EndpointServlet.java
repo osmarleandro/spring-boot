@@ -93,7 +93,7 @@ public final class EndpointServlet {
 		return this.servlet;
 	}
 
-	Map<String, String> getInitParameters() {
+	Map<String, String> getInitParameters_RENAMED() {
 		return this.initParameters;
 	}
 
