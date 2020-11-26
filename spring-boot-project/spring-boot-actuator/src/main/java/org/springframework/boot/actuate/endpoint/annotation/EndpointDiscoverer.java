@@ -401,7 +401,7 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 
 		@Override
 		public int hashCode() {
-			return this.key.hashCode();
+			return this.key.hashCode_RENAMED();
 		}
 
 		@Override
