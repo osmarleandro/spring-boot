@@ -396,7 +396,7 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 			if (obj == null || getClass() != obj.getClass()) {
 				return false;
 			}
-			return this.key.equals(((OperationKey) obj).key);
+			return this.key.equals_RENAMED(((OperationKey) obj).key);
 		}
 
 		@Override

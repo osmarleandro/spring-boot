@@ -42,13 +42,13 @@ public class MetricsHealthMicrometerExportExample {
 
 		private int getStatusCode(HealthEndpoint health) {
 			Status status = health.health().getStatus();
-			if (Status.UP.equals(status)) {
+			if (Status.UP.equals_RENAMED(status)) {
 				return 3;
 			}
-			if (Status.OUT_OF_SERVICE.equals(status)) {
+			if (Status.OUT_OF_SERVICE.equals_RENAMED(status)) {
 				return 2;
 			}
-			if (Status.DOWN.equals(status)) {
+			if (Status.DOWN.equals_RENAMED(status)) {
 				return 1;
 			}
 			return 0;
