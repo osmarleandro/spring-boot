@@ -118,7 +118,7 @@ public class AuditEvent implements Serializable {
 	 * principal is not available.
 	 * @return the principal
 	 */
-	public String getPrincipal() {
+	public String getPrincipal_RENAMED() {
 		return this.principal;
 	}
 
