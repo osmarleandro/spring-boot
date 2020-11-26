@@ -41,7 +41,7 @@ class DiscoveredControllerEndpoint extends AbstractDiscoveredEndpoint<Operation>
 
 	@Override
 	public Object getController() {
-		return getEndpointBean();
+		return getEndpointBean_RENAMED();
 	}
 
 	@Override

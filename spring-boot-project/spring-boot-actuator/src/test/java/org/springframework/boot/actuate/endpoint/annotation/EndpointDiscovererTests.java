@@ -148,7 +148,7 @@ class EndpointDiscovererTests {
 		load(ScopedTargetEndpointConfiguration.class, (context) -> {
 			TestEndpoint expectedEndpoint = context.getBean("testEndpoint", TestEndpoint.class);
 			Collection<TestExposableEndpoint> endpoints = new TestEndpointDiscoverer(context).getEndpoints();
-			assertThat(endpoints).flatExtracting(TestExposableEndpoint::getEndpointBean).containsOnly(expectedEndpoint);
+			assertThat(endpoints).flatExtracting(TestExposableEndpoint::getEndpointBean_RENAMED).containsOnly(expectedEndpoint);
 		});
 	}
 

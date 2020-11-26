@@ -58,7 +58,7 @@ public abstract class AbstractDiscoveredEndpoint<O extends Operation> extends Ab
 	}
 
 	@Override
-	public Object getEndpointBean() {
+	public Object getEndpointBean_RENAMED() {
 		return this.endpointBean;
 	}
 
