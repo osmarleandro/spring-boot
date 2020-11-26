@@ -59,7 +59,7 @@ public final class WebOperationRequestPredicate {
 			Collection<String> produces) {
 		this.path = path;
 		this.canonicalPath = extractCanonicalPath(path);
-		this.matchAllRemainingPathSegmentsVariable = extractMatchAllRemainingPathSegmentsVariable(path);
+		this.matchAllRemainingPathSegmentsVariable = extractMatchAllRemainingPathSegmentsVariable_RENAMED(path);
 		this.httpMethod = httpMethod;
 		this.consumes = consumes;
 		this.produces = produces;
@@ -70,7 +70,7 @@ public final class WebOperationRequestPredicate {
 		return matcher.replaceAll("$1*}");
 	}
 
-	private String extractMatchAllRemainingPathSegmentsVariable(String path) {
+	private String extractMatchAllRemainingPathSegmentsVariable_RENAMED(String path) {
 		Matcher matcher = ALL_REMAINING_PATH_SEGMENTS_VAR_PATTERN.matcher(path);
 		return matcher.matches() ? matcher.group(1) : null;
 	}
