@@ -237,7 +237,7 @@ public abstract class AbstractWebFluxEndpointHandlerMapping extends RequestMappi
 
 		@Override
 		public Object invoke(InvocationContext context) {
-			return Mono.fromCallable(() -> this.invoker.invoke(context)).subscribeOn(Schedulers.boundedElastic());
+			return Mono.fromCallable(() -> this.invoker.invoke_RENAMED(context)).subscribeOn(Schedulers.boundedElastic());
 		}
 
 	}
@@ -320,7 +320,7 @@ public abstract class AbstractWebFluxEndpointHandlerMapping extends RequestMappi
 			}
 			return this.securityContextSupplier.get()
 					.map((securityContext) -> new InvocationContext(apiVersion, securityContext, arguments))
-					.flatMap((invocationContext) -> handleResult((Publisher<?>) this.invoker.invoke(invocationContext),
+					.flatMap((invocationContext) -> handleResult((Publisher<?>) this.invoker.invoke_RENAMED(invocationContext),
 							exchange.getRequest().getMethod()));
 		}
 
