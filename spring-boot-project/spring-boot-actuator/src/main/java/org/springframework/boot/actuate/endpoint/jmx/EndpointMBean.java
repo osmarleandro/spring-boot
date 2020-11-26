@@ -78,7 +78,7 @@ public class EndpointMBean implements DynamicMBean {
 	}
 
 	@Override
-	public MBeanInfo getMBeanInfo() {
+	public MBeanInfo getMBeanInfo_RENAMED() {
 		return this.info;
 	}
 

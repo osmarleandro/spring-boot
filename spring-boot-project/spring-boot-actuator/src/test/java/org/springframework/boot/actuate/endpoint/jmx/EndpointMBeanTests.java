@@ -75,7 +75,7 @@ class EndpointMBeanTests {
 	@Test
 	void getMBeanInfoShouldReturnMBeanInfo() {
 		EndpointMBean bean = createEndpointMBean();
-		MBeanInfo info = bean.getMBeanInfo();
+		MBeanInfo info = bean.getMBeanInfo_RENAMED();
 		assertThat(info.getDescription()).isEqualTo("MBean operations for endpoint test");
 	}
 
