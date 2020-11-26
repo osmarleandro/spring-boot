@@ -42,7 +42,7 @@ public class ThreadDumpEndpoint {
 		return getFormattedThreadDump(ThreadDumpDescriptor::new);
 	}
 
-	@ReadOperation(produces = "text/plain;charset=UTF-8")
+	@ReadOperation(produces_RENAMED = "text/plain;charset=UTF-8")
 	public String textThreadDump() {
 		return getFormattedThreadDump(this.plainTextFormatter::format);
 	}

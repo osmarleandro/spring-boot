@@ -792,7 +792,7 @@ public abstract class AbstractWebEndpointIntegrationTests<T extends Configurable
 	@Endpoint(id = "custommediatypes")
 	static class CustomMediaTypesEndpoint {
 
-		@ReadOperation(produces = "text/plain")
+		@ReadOperation(produces_RENAMED = "text/plain")
 		String read() {
 			return "read";
 		}

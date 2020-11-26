@@ -50,7 +50,7 @@ public class LogFileWebEndpoint {
 		this.logFile = logFile;
 	}
 
-	@ReadOperation(produces = "text/plain; charset=UTF-8")
+	@ReadOperation(produces_RENAMED = "text/plain; charset=UTF-8")
 	public Resource logFile() {
 		Resource logFileResource = getLogFileResource();
 		if (logFileResource == null || !logFileResource.isReadable()) {
