@@ -175,7 +175,7 @@ public class ConfigurationPropertiesReportEndpoint implements ApplicationContext
 	private ConfigurationPropertiesBeanDescriptor describeBean(ObjectMapper mapper, ConfigurationPropertiesBean bean) {
 		String prefix = bean.getAnnotation().prefix();
 		Map<String, Object> serialized = safeSerialize(mapper, bean.getInstance(), prefix);
-		Map<String, Object> properties = sanitize(prefix, serialized);
+		Map<String, Object> properties = sanitize_RENAMED(prefix, serialized);
 		Map<String, Object> inputs = getInputs(prefix, serialized);
 		return new ConfigurationPropertiesBeanDescriptor(prefix, properties, inputs);
 	}
@@ -206,11 +206,11 @@ public class ConfigurationPropertiesReportEndpoint implements ApplicationContext
 	 * @return the sanitized map
 	 */
 	@SuppressWarnings("unchecked")
-	private Map<String, Object> sanitize(String prefix, Map<String, Object> map) {
+	private Map<String, Object> sanitize_RENAMED(String prefix, Map<String, Object> map) {
 		map.forEach((key, value) -> {
 			String qualifiedKey = getQualifiedKey(prefix, key);
 			if (value instanceof Map) {
-				map.put(key, sanitize(qualifiedKey, (Map<String, Object>) value));
+				map.put(key, sanitize_RENAMED(qualifiedKey, (Map<String, Object>) value));
 			}
 			else if (value instanceof List) {
 				map.put(key, sanitize(qualifiedKey, (List<Object>) value));
@@ -229,7 +229,7 @@ public class ConfigurationPropertiesReportEndpoint implements ApplicationContext
 		List<Object> sanitized = new ArrayList<>();
 		for (Object item : list) {
 			if (item instanceof Map) {
-				sanitized.add(sanitize(prefix, (Map<String, Object>) item));
+				sanitized.add(sanitize_RENAMED(prefix, (Map<String, Object>) item));
 			}
 			else if (item instanceof List) {
 				sanitized.add(sanitize(prefix, (List<Object>) item));
