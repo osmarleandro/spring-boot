@@ -93,7 +93,7 @@ public class EndpointMBean implements DynamicMBean {
 		}
 		ClassLoader previousClassLoader = overrideThreadContextClassLoader(this.classLoader);
 		try {
-			return invoke(operation, params);
+			return invoke_RENAMED(operation, params);
 		}
 		finally {
 			overrideThreadContextClassLoader(previousClassLoader);
@@ -112,7 +112,7 @@ public class EndpointMBean implements DynamicMBean {
 		return null;
 	}
 
-	private Object invoke(JmxOperation operation, Object[] params) throws MBeanException, ReflectionException {
+	private Object invoke_RENAMED(JmxOperation operation, Object[] params) throws MBeanException, ReflectionException {
 		try {
 			String[] parameterNames = operation.getParameters().stream().map(JmxOperationParameter::getName)
 					.toArray(String[]::new);
