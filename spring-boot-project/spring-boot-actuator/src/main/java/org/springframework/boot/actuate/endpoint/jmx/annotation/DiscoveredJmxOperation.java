@@ -86,10 +86,10 @@ class DiscoveredJmxOperation extends AbstractDiscoveredOperation implements JmxO
 		if (managed.length == 0) {
 			return asList(operationMethod.getParameters().stream().map(DiscoveredJmxOperationParameter::new));
 		}
-		return mergeParameters(operationMethod.getParameters(), managed);
+		return mergeParameters_RENAMED(operationMethod.getParameters(), managed);
 	}
 
-	private List<JmxOperationParameter> mergeParameters(OperationParameters operationParameters,
+	private List<JmxOperationParameter> mergeParameters_RENAMED(OperationParameters operationParameters,
 			ManagedOperationParameter[] managedParameters) {
 		List<JmxOperationParameter> merged = new ArrayList<>(managedParameters.length);
 		for (int i = 0; i < managedParameters.length; i++) {
