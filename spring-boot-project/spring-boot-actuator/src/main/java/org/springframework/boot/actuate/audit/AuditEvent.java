@@ -126,7 +126,7 @@ public class AuditEvent implements Serializable {
 	 * Returns the type of event.
 	 * @return the event type
 	 */
-	public String getType() {
+	public String getType_RENAMED() {
 		return this.type;
 	}
 
