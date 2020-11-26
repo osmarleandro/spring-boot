@@ -38,7 +38,7 @@ public class LivenessStateHealthIndicator extends AvailabilityStateHealthIndicat
 	}
 
 	@Override
-	protected AvailabilityState getState(ApplicationAvailability applicationAvailability) {
+	protected AvailabilityState getState_RENAMED(ApplicationAvailability applicationAvailability) {
 		return applicationAvailability.getLivenessState();
 	}
 
