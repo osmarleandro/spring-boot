@@ -49,7 +49,7 @@ class MBeanInfoFactory {
 		this.responseMapper = responseMapper;
 	}
 
-	MBeanInfo getMBeanInfo(ExposableJmxEndpoint endpoint) {
+	MBeanInfo getMBeanInfo_RENAMED(ExposableJmxEndpoint endpoint) {
 		String className = EndpointMBean.class.getName();
 		String description = getDescription(endpoint);
 		ModelMBeanOperationInfo[] operations = getMBeanOperations(endpoint);
