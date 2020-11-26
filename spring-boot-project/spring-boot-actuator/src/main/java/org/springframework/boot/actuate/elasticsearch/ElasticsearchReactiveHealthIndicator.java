@@ -58,10 +58,10 @@ public class ElasticsearchReactiveHealthIndicator extends AbstractReactiveHealth
 	}
 
 	private Mono<Health> getHealth(Health.Builder builder, WebClient webClient) {
-		return webClient.get().uri("/_cluster/health/").exchangeToMono((response) -> doHealthCheck(builder, response));
+		return webClient.get().uri("/_cluster/health/").exchangeToMono((response) -> doHealthCheck_RENAMED(builder, response));
 	}
 
-	private Mono<Health> doHealthCheck(Health.Builder builder, ClientResponse response) {
+	private Mono<Health> doHealthCheck_RENAMED(Health.Builder builder, ClientResponse response) {
 		if (response.statusCode().is2xxSuccessful()) {
 			return response.bodyToMono(STRING_OBJECT_MAP).map((body) -> getHealth(builder, body));
 		}
