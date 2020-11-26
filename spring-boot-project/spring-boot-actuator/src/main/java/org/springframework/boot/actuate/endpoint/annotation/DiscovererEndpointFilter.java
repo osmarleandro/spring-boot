@@ -40,7 +40,7 @@ public abstract class DiscovererEndpointFilter implements EndpointFilter<Discove
 	}
 
 	@Override
-	public boolean match(DiscoveredEndpoint<?> endpoint) {
+	public boolean match_RENAMED(DiscoveredEndpoint<?> endpoint) {
 		return endpoint.wasDiscoveredBy(this.discoverer);
 	}
 

@@ -159,7 +159,7 @@ class ExposeExcludePropertyEndpointFilterTests {
 	private boolean match(EndpointId id) {
 		ExposableEndpoint<?> endpoint = mock(TestExposableWebEndpoint.class);
 		given(endpoint.getEndpointId()).willReturn(id);
-		return ((EndpointFilter) this.filter).match(endpoint);
+		return ((EndpointFilter) this.filter).match_RENAMED(endpoint);
 	}
 
 	abstract static class TestExposableWebEndpoint implements ExposableWebEndpoint {

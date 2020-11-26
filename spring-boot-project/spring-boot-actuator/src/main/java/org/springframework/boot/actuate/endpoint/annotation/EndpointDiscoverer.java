@@ -320,7 +320,7 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 	@SuppressWarnings("unchecked")
 	private boolean isFilterMatch(EndpointFilter<E> filter, E endpoint) {
 		return LambdaSafe.callback(EndpointFilter.class, filter, endpoint).withLogger(EndpointDiscoverer.class)
-				.invokeAnd((f) -> f.match(endpoint)).get();
+				.invokeAnd((f) -> f.match_RENAMED(endpoint)).get();
 	}
 
 	private E getFilterEndpoint(EndpointBean endpointBean) {
