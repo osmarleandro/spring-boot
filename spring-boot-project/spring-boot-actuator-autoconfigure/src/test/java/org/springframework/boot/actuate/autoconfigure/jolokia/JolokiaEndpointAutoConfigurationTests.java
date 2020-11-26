@@ -59,7 +59,7 @@ class JolokiaEndpointAutoConfigurationTests {
 		this.contextRunner.withPropertyValues("management.endpoints.web.exposure.include=jolokia").run((context) -> {
 			ExposableServletEndpoint endpoint = getEndpoint(context);
 			assertThat(endpoint.getRootPath()).isEqualTo("jolokia");
-			Object servlet = ReflectionTestUtils.getField(endpoint.getEndpointServlet(), "servlet");
+			Object servlet = ReflectionTestUtils.getField(endpoint.getEndpointServlet_RENAMED(), "servlet");
 			assertThat(servlet).isInstanceOf(AgentServlet.class);
 		});
 	}
@@ -88,7 +88,7 @@ class JolokiaEndpointAutoConfigurationTests {
 		this.contextRunner.withPropertyValues("management.endpoint.jolokia.config.debug=true")
 				.withPropertyValues("management.endpoints.web.exposure.include=jolokia").run((context) -> {
 					ExposableServletEndpoint endpoint = getEndpoint(context);
-					assertThat(endpoint.getEndpointServlet()).extracting("initParameters")
+					assertThat(endpoint.getEndpointServlet_RENAMED()).extracting("initParameters")
 							.isEqualTo(Collections.singletonMap("debug", "true"));
 				});
 	}

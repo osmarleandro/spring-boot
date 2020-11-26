@@ -72,7 +72,7 @@ class ServletEndpointDiscovererTests {
 			assertThat(endpoints).hasSize(1);
 			ExposableServletEndpoint endpoint = endpoints.iterator().next();
 			assertThat(endpoint.getEndpointId()).isEqualTo(EndpointId.of("testservlet"));
-			assertThat(endpoint.getEndpointServlet()).isNotNull();
+			assertThat(endpoint.getEndpointServlet_RENAMED()).isNotNull();
 			assertThat(endpoint).isInstanceOf(DiscoveredEndpoint.class);
 		}));
 	}
@@ -86,7 +86,7 @@ class ServletEndpointDiscovererTests {
 					assertThat(endpoints).hasSize(1);
 					ExposableServletEndpoint endpoint = endpoints.iterator().next();
 					assertThat(endpoint.getEndpointId()).isEqualTo(EndpointId.of("testservlet"));
-					assertThat(endpoint.getEndpointServlet()).isNotNull();
+					assertThat(endpoint.getEndpointServlet_RENAMED()).isNotNull();
 					assertThat(endpoint).isInstanceOf(DiscoveredEndpoint.class);
 				}));
 	}

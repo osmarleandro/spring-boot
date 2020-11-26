@@ -67,7 +67,7 @@ public class ServletEndpointRegistrar implements ServletContextInitializer {
 		String name = endpoint.getEndpointId().toLowerCaseString() + "-actuator-endpoint";
 		String path = this.basePath + "/" + endpoint.getRootPath();
 		String urlMapping = path.endsWith("/") ? path + "*" : path + "/*";
-		EndpointServlet endpointServlet = endpoint.getEndpointServlet();
+		EndpointServlet endpointServlet = endpoint.getEndpointServlet_RENAMED();
 		Dynamic registration = servletContext.addServlet(name, endpointServlet.getServlet());
 		registration.addMapping(urlMapping);
 		registration.setInitParameters(endpointServlet.getInitParameters());
