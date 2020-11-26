@@ -86,7 +86,7 @@ public class ReflectiveOperationInvoker implements OperationInvoker {
 	}
 
 	private boolean isMissing(InvocationContext context, OperationParameter parameter) {
-		if (!parameter.isMandatory()) {
+		if (!parameter.isMandatory_RENAMED()) {
 			return false;
 		}
 		if (ApiVersion.class.equals(parameter.getType())) {

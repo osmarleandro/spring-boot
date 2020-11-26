@@ -42,11 +42,11 @@ public interface OperationParameters extends Iterable<OperationParameter> {
 
 	/**
 	 * Return if any of the contained parameters are
-	 * {@link OperationParameter#isMandatory() mandatory}.
+	 * {@link OperationParameter#isMandatory_RENAMED() mandatory}.
 	 * @return if any parameters are mandatory
 	 */
 	default boolean hasMandatoryParameter() {
-		return stream().anyMatch(OperationParameter::isMandatory);
+		return stream().anyMatch(OperationParameter::isMandatory_RENAMED);
 	}
 
 	/**

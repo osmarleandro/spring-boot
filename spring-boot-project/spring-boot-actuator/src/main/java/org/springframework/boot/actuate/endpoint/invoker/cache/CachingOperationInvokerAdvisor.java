@@ -55,7 +55,7 @@ public class CachingOperationInvokerAdvisor implements OperationInvokerAdvisor {
 
 	private boolean hasMandatoryParameter(OperationParameters parameters) {
 		for (OperationParameter parameter : parameters) {
-			if (parameter.isMandatory() && !ApiVersion.class.isAssignableFrom(parameter.getType())
+			if (parameter.isMandatory_RENAMED() && !ApiVersion.class.isAssignableFrom(parameter.getType())
 					&& !SecurityContext.class.isAssignableFrom(parameter.getType())) {
 				return true;
 			}
