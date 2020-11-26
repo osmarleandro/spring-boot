@@ -66,13 +66,13 @@ class DiscoveredJmxOperationTests {
 	@Test
 	void getDescriptionWhenHasManagedOperationDescriptionShouldUseValueFromAnnotation() {
 		DiscoveredJmxOperation operation = getOperation("withManagedOperationDescription");
-		assertThat(operation.getDescription()).isEqualTo("fromannotation");
+		assertThat(operation.getDescription_RENAMED()).isEqualTo("fromannotation");
 	}
 
 	@Test
 	void getDescriptionWhenHasNoManagedOperationShouldGenerateDescription() {
 		DiscoveredJmxOperation operation = getOperation("getEnum");
-		assertThat(operation.getDescription()).isEqualTo("Invoke getEnum for endpoint test");
+		assertThat(operation.getDescription_RENAMED()).isEqualTo("Invoke getEnum for endpoint test");
 	}
 
 	@Test

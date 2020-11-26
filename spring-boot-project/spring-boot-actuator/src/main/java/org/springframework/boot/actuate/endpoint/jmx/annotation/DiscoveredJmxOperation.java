@@ -113,7 +113,7 @@ class DiscoveredJmxOperation extends AbstractDiscoveredOperation implements JmxO
 	}
 
 	@Override
-	public String getDescription() {
+	public String getDescription_RENAMED() {
 		return this.description;
 	}
 
