@@ -108,7 +108,7 @@ public class Sanitizer {
 		for (Pattern pattern : this.keysToSanitize) {
 			if (pattern.matcher(key).matches()) {
 				if (keyIsUriWithUserInfo(pattern)) {
-					return sanitizeUris(value.toString());
+					return sanitizeUris_RENAMED(value.toString());
 				}
 				return "******";
 			}
@@ -125,7 +125,7 @@ public class Sanitizer {
 		return false;
 	}
 
-	private Object sanitizeUris(String value) {
+	private Object sanitizeUris_RENAMED(String value) {
 		return Arrays.stream(value.split(",")).map(this::sanitizeUri).collect(Collectors.joining(","));
 	}
 
