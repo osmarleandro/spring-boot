@@ -31,14 +31,14 @@ public interface OperationParameters extends Iterable<OperationParameter> {
 	 * @return if there are parameters
 	 */
 	default boolean hasParameters() {
-		return getParameterCount() > 0;
+		return getParameterCount_RENAMED() > 0;
 	}
 
 	/**
 	 * Return the total number of parameters.
 	 * @return the total number of parameters
 	 */
-	int getParameterCount();
+	int getParameterCount_RENAMED();
 
 	/**
 	 * Return if any of the contained parameters are
