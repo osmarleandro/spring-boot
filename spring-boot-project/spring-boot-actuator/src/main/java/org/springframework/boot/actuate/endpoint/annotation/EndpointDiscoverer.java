@@ -122,7 +122,7 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 	private Collection<E> discoverEndpoints() {
 		Collection<EndpointBean> endpointBeans = createEndpointBeans();
 		addExtensionBeans(endpointBeans);
-		return convertToEndpoints(endpointBeans);
+		return convertToEndpoints_RENAMED(endpointBeans);
 	}
 
 	private Collection<EndpointBean> createEndpointBeans() {
@@ -175,7 +175,7 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 		}
 	}
 
-	private Collection<E> convertToEndpoints(Collection<EndpointBean> endpointBeans) {
+	private Collection<E> convertToEndpoints_RENAMED(Collection<EndpointBean> endpointBeans) {
 		Set<E> endpoints = new LinkedHashSet<>();
 		for (EndpointBean endpointBean : endpointBeans) {
 			if (isEndpointExposed(endpointBean)) {
