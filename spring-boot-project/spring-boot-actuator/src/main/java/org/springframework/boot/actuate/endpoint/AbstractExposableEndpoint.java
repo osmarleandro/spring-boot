@@ -58,7 +58,7 @@ public abstract class AbstractExposableEndpoint<O extends Operation> implements 
 	}
 
 	@Override
-	public boolean isEnableByDefault() {
+	public boolean isEnableByDefault_RENAMED() {
 		return this.enabledByDefault;
 	}
 
