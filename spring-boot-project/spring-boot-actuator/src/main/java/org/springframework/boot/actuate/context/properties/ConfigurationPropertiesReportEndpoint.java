@@ -109,10 +109,10 @@ public class ConfigurationPropertiesReportEndpoint implements ApplicationContext
 
 	@ReadOperation
 	public ApplicationConfigurationProperties configurationProperties() {
-		return extract(this.context);
+		return extract_RENAMED(this.context);
 	}
 
-	private ApplicationConfigurationProperties extract(ApplicationContext context) {
+	private ApplicationConfigurationProperties extract_RENAMED(ApplicationContext context) {
 		ObjectMapper mapper = getObjectMapper();
 		Map<String, ContextConfigurationProperties> contexts = new HashMap<>();
 		ApplicationContext target = context;
