@@ -253,7 +253,7 @@ public class ConfigurationPropertiesReportEndpoint implements ApplicationContext
 				augmented.put(key, getInputs(qualifiedKey, (List<Object>) value));
 			}
 			else {
-				augmented.put(key, applyInput(qualifiedKey));
+				augmented.put(key, applyInput_RENAMED(qualifiedKey));
 			}
 		});
 		return augmented;
@@ -272,13 +272,13 @@ public class ConfigurationPropertiesReportEndpoint implements ApplicationContext
 				augmented.add(getInputs(name, (List<Object>) item));
 			}
 			else {
-				augmented.add(applyInput(name));
+				augmented.add(applyInput_RENAMED(name));
 			}
 		}
 		return augmented;
 	}
 
-	private Map<String, Object> applyInput(String qualifiedKey) {
+	private Map<String, Object> applyInput_RENAMED(String qualifiedKey) {
 		BoundConfigurationProperties bound = BoundConfigurationProperties.get(this.context);
 		if (bound == null) {
 			return Collections.emptyMap();
