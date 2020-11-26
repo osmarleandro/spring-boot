@@ -38,7 +38,7 @@ public interface ExposableEndpoint<O extends Operation> {
 	 * Returns if the endpoint is enabled by default.
 	 * @return if the endpoint is enabled by default
 	 */
-	boolean isEnableByDefault();
+	boolean isEnableByDefault_RENAMED();
 
 	/**
 	 * Returns the operations of the endpoint.
