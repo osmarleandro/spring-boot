@@ -40,6 +40,6 @@ public interface OperationParameter {
 	 * Return if the parameter is mandatory (does not accept null values).
 	 * @return if the parameter is mandatory
 	 */
-	boolean isMandatory();
+	boolean isMandatory_RENAMED();
 
 }
