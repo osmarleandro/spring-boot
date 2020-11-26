@@ -76,7 +76,7 @@ public class InvocationContext {
 	 * Return the security context to use for the invocation.
 	 * @return the security context
 	 */
-	public SecurityContext getSecurityContext() {
+	public SecurityContext getSecurityContext_RENAMED() {
 		return this.securityContext;
 	}
 
