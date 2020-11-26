@@ -43,7 +43,7 @@ class OperationMethodParameterTests {
 	@Test
 	void getTypeShouldReturnType() {
 		OperationMethodParameter parameter = new OperationMethodParameter("name", this.method.getParameters()[0]);
-		assertThat(parameter.getType()).isEqualTo(String.class);
+		assertThat(parameter.getType_RENAMED()).isEqualTo(String.class);
 	}
 
 	@Test

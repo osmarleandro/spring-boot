@@ -89,13 +89,13 @@ public class ReflectiveOperationInvoker implements OperationInvoker {
 		if (!parameter.isMandatory()) {
 			return false;
 		}
-		if (ApiVersion.class.equals(parameter.getType())) {
+		if (ApiVersion.class.equals(parameter.getType_RENAMED())) {
 			return false;
 		}
-		if (Principal.class.equals(parameter.getType())) {
+		if (Principal.class.equals(parameter.getType_RENAMED())) {
 			return context.getSecurityContext().getPrincipal() == null;
 		}
-		if (SecurityContext.class.equals(parameter.getType())) {
+		if (SecurityContext.class.equals(parameter.getType_RENAMED())) {
 			return false;
 		}
 		return context.getArguments().get(parameter.getName()) == null;
@@ -107,13 +107,13 @@ public class ReflectiveOperationInvoker implements OperationInvoker {
 	}
 
 	private Object resolveArgument(OperationParameter parameter, InvocationContext context) {
-		if (ApiVersion.class.equals(parameter.getType())) {
+		if (ApiVersion.class.equals(parameter.getType_RENAMED())) {
 			return context.getApiVersion();
 		}
-		if (Principal.class.equals(parameter.getType())) {
+		if (Principal.class.equals(parameter.getType_RENAMED())) {
 			return context.getSecurityContext().getPrincipal();
 		}
-		if (SecurityContext.class.equals(parameter.getType())) {
+		if (SecurityContext.class.equals(parameter.getType_RENAMED())) {
 			return context.getSecurityContext();
 		}
 		Object value = context.getArguments().get(parameter.getName());

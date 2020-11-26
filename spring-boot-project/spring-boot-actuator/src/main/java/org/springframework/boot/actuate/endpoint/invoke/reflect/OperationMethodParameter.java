@@ -49,7 +49,7 @@ class OperationMethodParameter implements OperationParameter {
 	}
 
 	@Override
-	public Class<?> getType() {
+	public Class<?> getType_RENAMED() {
 		return this.parameter.getType();
 	}
 

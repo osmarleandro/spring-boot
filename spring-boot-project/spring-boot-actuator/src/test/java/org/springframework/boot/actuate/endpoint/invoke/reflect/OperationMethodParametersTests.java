@@ -111,7 +111,7 @@ class OperationMethodParametersTests {
 		assertThat(parameters).hasSize(1);
 		OperationParameter parameter = parameters.get(0);
 		assertThat(parameter.getName()).isEqualTo("name");
-		assertThat(parameter.getType()).isEqualTo(String.class);
+		assertThat(parameter.getType_RENAMED()).isEqualTo(String.class);
 	}
 
 	String example(String name) {
