@@ -160,7 +160,7 @@ public class EndpointMBean implements DynamicMBean {
 	}
 
 	@Override
-	public AttributeList getAttributes(String[] attributes) {
+	public AttributeList getAttributes_RENAMED(String[] attributes) {
 		return new AttributeList();
 	}
 

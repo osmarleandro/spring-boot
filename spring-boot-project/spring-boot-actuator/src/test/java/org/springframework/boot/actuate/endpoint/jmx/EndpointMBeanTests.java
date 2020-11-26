@@ -184,7 +184,7 @@ class EndpointMBeanTests {
 	@Test
 	void getAttributesShouldReturnEmptyAttributeList() {
 		EndpointMBean bean = createEndpointMBean();
-		AttributeList attributes = bean.getAttributes(new String[] { "test" });
+		AttributeList attributes = bean.getAttributes_RENAMED(new String[] { "test" });
 		assertThat(attributes).isEmpty();
 	}
 
