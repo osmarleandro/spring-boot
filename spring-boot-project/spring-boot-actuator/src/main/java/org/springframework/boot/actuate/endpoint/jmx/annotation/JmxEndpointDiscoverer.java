@@ -53,7 +53,7 @@ public class JmxEndpointDiscoverer extends EndpointDiscoverer<ExposableJmxEndpoi
 	}
 
 	@Override
-	protected ExposableJmxEndpoint createEndpoint(Object endpointBean, EndpointId id, boolean enabledByDefault,
+	protected ExposableJmxEndpoint createEndpoint_RENAMED(Object endpointBean, EndpointId id, boolean enabledByDefault,
 			Collection<JmxOperation> operations) {
 		return new DiscoveredJmxEndpoint(this, endpointBean, id, enabledByDefault, operations);
 	}

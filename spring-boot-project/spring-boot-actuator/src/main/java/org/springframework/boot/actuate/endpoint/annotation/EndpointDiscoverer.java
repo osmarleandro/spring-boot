@@ -201,7 +201,7 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 		assertNoDuplicateOperations(endpointBean, indexed);
 		List<O> operations = indexed.values().stream().map(this::getLast).filter(Objects::nonNull)
 				.collect(Collectors.collectingAndThen(Collectors.toList(), Collections::unmodifiableList));
-		return createEndpoint(endpointBean.getBean(), id, endpointBean.isEnabledByDefault(), operations);
+		return createEndpoint_RENAMED(endpointBean.getBean(), id, endpointBean.isEnabledByDefault(), operations);
 	}
 
 	private void addOperations(MultiValueMap<OperationKey, O> indexed, EndpointId id, Object target,
@@ -326,7 +326,7 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 	private E getFilterEndpoint(EndpointBean endpointBean) {
 		E endpoint = this.filterEndpoints.get(endpointBean);
 		if (endpoint == null) {
-			endpoint = createEndpoint(endpointBean.getBean(), endpointBean.getId(), endpointBean.isEnabledByDefault(),
+			endpoint = createEndpoint_RENAMED(endpointBean.getBean(), endpointBean.getId(), endpointBean.isEnabledByDefault(),
 					Collections.emptySet());
 			this.filterEndpoints.put(endpointBean, endpoint);
 		}
