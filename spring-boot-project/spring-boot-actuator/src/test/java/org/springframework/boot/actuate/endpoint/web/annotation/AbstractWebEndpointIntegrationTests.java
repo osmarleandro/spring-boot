@@ -834,7 +834,7 @@ public abstract class AbstractWebEndpointIntegrationTests<T extends Configurable
 
 		@ReadOperation
 		String read(SecurityContext securityContext) {
-			Principal principal = securityContext.getPrincipal();
+			Principal principal = securityContext.getPrincipal_RENAMED();
 			return (principal != null) ? principal.getName() : "None";
 		}
 

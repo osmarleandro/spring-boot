@@ -47,7 +47,7 @@ public interface SecurityContext {
 	 * Return the currently authenticated {@link Principal} or {@code null}.
 	 * @return the principal or {@code null}
 	 */
-	Principal getPrincipal();
+	Principal getPrincipal_RENAMED();
 
 	/**
 	 * Returns {@code true} if the currently authenticated user is in the given

@@ -101,7 +101,7 @@ class AutoConfiguredHealthEndpointGroup implements HealthEndpointGroup {
 	}
 
 	private boolean isAuthorized(SecurityContext securityContext) {
-		Principal principal = securityContext.getPrincipal();
+		Principal principal = securityContext.getPrincipal_RENAMED();
 		if (principal == null) {
 			return false;
 		}

@@ -110,7 +110,7 @@ class CachingOperationInvokerTests {
 		Object expected = new Object();
 		SecurityContext securityContext = mock(SecurityContext.class);
 		if (principal != null) {
-			given(securityContext.getPrincipal()).willReturn(principal);
+			given(securityContext.getPrincipal_RENAMED()).willReturn(principal);
 		}
 		InvocationContext context = new InvocationContext(securityContext, parameters);
 		given(target.invoke(context)).willReturn(expected);
@@ -143,7 +143,7 @@ class CachingOperationInvokerTests {
 		OperationInvoker target = mock(OperationInvoker.class);
 		Map<String, Object> parameters = new HashMap<>();
 		SecurityContext securityContext = mock(SecurityContext.class);
-		given(securityContext.getPrincipal()).willReturn(mock(Principal.class), mock(Principal.class),
+		given(securityContext.getPrincipal_RENAMED()).willReturn(mock(Principal.class), mock(Principal.class),
 				mock(Principal.class));
 		InvocationContext context = new InvocationContext(securityContext, parameters);
 		Object result1 = new Object();
@@ -163,7 +163,7 @@ class CachingOperationInvokerTests {
 		Map<String, Object> parameters = new HashMap<>();
 		SecurityContext anonymous = mock(SecurityContext.class);
 		SecurityContext authenticated = mock(SecurityContext.class);
-		given(authenticated.getPrincipal()).willReturn(mock(Principal.class));
+		given(authenticated.getPrincipal_RENAMED()).willReturn(mock(Principal.class));
 		InvocationContext anonymousContext = new InvocationContext(anonymous, parameters);
 		Object anonymousResult = new Object();
 		given(target.invoke(anonymousContext)).willReturn(anonymousResult);

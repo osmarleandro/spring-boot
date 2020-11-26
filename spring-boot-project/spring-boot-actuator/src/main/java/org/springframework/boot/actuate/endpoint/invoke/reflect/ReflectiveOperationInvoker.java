@@ -93,7 +93,7 @@ public class ReflectiveOperationInvoker implements OperationInvoker {
 			return false;
 		}
 		if (Principal.class.equals(parameter.getType())) {
-			return context.getSecurityContext().getPrincipal() == null;
+			return context.getSecurityContext().getPrincipal_RENAMED() == null;
 		}
 		if (SecurityContext.class.equals(parameter.getType())) {
 			return false;
@@ -111,7 +111,7 @@ public class ReflectiveOperationInvoker implements OperationInvoker {
 			return context.getApiVersion();
 		}
 		if (Principal.class.equals(parameter.getType())) {
-			return context.getSecurityContext().getPrincipal();
+			return context.getSecurityContext().getPrincipal_RENAMED();
 		}
 		if (SecurityContext.class.equals(parameter.getType())) {
 			return context.getSecurityContext();

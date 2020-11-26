@@ -90,7 +90,7 @@ class AutoConfiguredHealthEndpointGroupTests {
 	void showDetailsWhenShowDetailsIsWhenAuthorizedAndPrincipalIsNullReturnsFalse() {
 		AutoConfiguredHealthEndpointGroup group = new AutoConfiguredHealthEndpointGroup((name) -> true,
 				this.statusAggregator, this.httpCodeStatusMapper, null, Show.WHEN_AUTHORIZED, Collections.emptySet());
-		given(this.securityContext.getPrincipal()).willReturn(null);
+		given(this.securityContext.getPrincipal_RENAMED()).willReturn(null);
 		assertThat(group.showDetails(this.securityContext)).isFalse();
 	}
 
@@ -98,7 +98,7 @@ class AutoConfiguredHealthEndpointGroupTests {
 	void showDetailsWhenShowDetailsIsWhenAuthorizedAndRolesAreEmptyReturnsTrue() {
 		AutoConfiguredHealthEndpointGroup group = new AutoConfiguredHealthEndpointGroup((name) -> true,
 				this.statusAggregator, this.httpCodeStatusMapper, null, Show.WHEN_AUTHORIZED, Collections.emptySet());
-		given(this.securityContext.getPrincipal()).willReturn(this.principal);
+		given(this.securityContext.getPrincipal_RENAMED()).willReturn(this.principal);
 		assertThat(group.showDetails(this.securityContext)).isTrue();
 	}
 
@@ -107,7 +107,7 @@ class AutoConfiguredHealthEndpointGroupTests {
 		AutoConfiguredHealthEndpointGroup group = new AutoConfiguredHealthEndpointGroup((name) -> true,
 				this.statusAggregator, this.httpCodeStatusMapper, null, Show.WHEN_AUTHORIZED,
 				Arrays.asList("admin", "root", "bossmode"));
-		given(this.securityContext.getPrincipal()).willReturn(this.principal);
+		given(this.securityContext.getPrincipal_RENAMED()).willReturn(this.principal);
 		given(this.securityContext.isUserInRole("admin")).willReturn(false);
 		given(this.securityContext.isUserInRole("root")).willReturn(true);
 		assertThat(group.showDetails(this.securityContext)).isTrue();
@@ -118,7 +118,7 @@ class AutoConfiguredHealthEndpointGroupTests {
 		AutoConfiguredHealthEndpointGroup group = new AutoConfiguredHealthEndpointGroup((name) -> true,
 				this.statusAggregator, this.httpCodeStatusMapper, null, Show.WHEN_AUTHORIZED,
 				Arrays.asList("admin", "root", "bossmode"));
-		given(this.securityContext.getPrincipal()).willReturn(this.principal);
+		given(this.securityContext.getPrincipal_RENAMED()).willReturn(this.principal);
 		assertThat(group.showDetails(this.securityContext)).isFalse();
 	}
 
@@ -130,7 +130,7 @@ class AutoConfiguredHealthEndpointGroupTests {
 		Authentication principal = mock(Authentication.class);
 		given(principal.getAuthorities())
 				.willAnswer((invocation) -> Collections.singleton(new SimpleGrantedAuthority("admin")));
-		given(this.securityContext.getPrincipal()).willReturn(principal);
+		given(this.securityContext.getPrincipal_RENAMED()).willReturn(principal);
 		assertThat(group.showDetails(this.securityContext)).isTrue();
 	}
 
@@ -142,7 +142,7 @@ class AutoConfiguredHealthEndpointGroupTests {
 		Authentication principal = mock(Authentication.class);
 		given(principal.getAuthorities())
 				.willAnswer((invocation) -> Collections.singleton(new SimpleGrantedAuthority("other")));
-		given(this.securityContext.getPrincipal()).willReturn(principal);
+		given(this.securityContext.getPrincipal_RENAMED()).willReturn(principal);
 		assertThat(group.showDetails(this.securityContext)).isFalse();
 	}
 
@@ -175,7 +175,7 @@ class AutoConfiguredHealthEndpointGroupTests {
 		AutoConfiguredHealthEndpointGroup group = new AutoConfiguredHealthEndpointGroup((name) -> true,
 				this.statusAggregator, this.httpCodeStatusMapper, Show.WHEN_AUTHORIZED, Show.NEVER,
 				Collections.emptySet());
-		given(this.securityContext.getPrincipal()).willReturn(null);
+		given(this.securityContext.getPrincipal_RENAMED()).willReturn(null);
 		assertThat(group.showComponents(this.securityContext)).isFalse();
 	}
 
@@ -184,7 +184,7 @@ class AutoConfiguredHealthEndpointGroupTests {
 		AutoConfiguredHealthEndpointGroup group = new AutoConfiguredHealthEndpointGroup((name) -> true,
 				this.statusAggregator, this.httpCodeStatusMapper, Show.WHEN_AUTHORIZED, Show.NEVER,
 				Collections.emptySet());
-		given(this.securityContext.getPrincipal()).willReturn(this.principal);
+		given(this.securityContext.getPrincipal_RENAMED()).willReturn(this.principal);
 		assertThat(group.showComponents(this.securityContext)).isTrue();
 	}
 
@@ -193,7 +193,7 @@ class AutoConfiguredHealthEndpointGroupTests {
 		AutoConfiguredHealthEndpointGroup group = new AutoConfiguredHealthEndpointGroup((name) -> true,
 				this.statusAggregator, this.httpCodeStatusMapper, Show.WHEN_AUTHORIZED, Show.NEVER,
 				Arrays.asList("admin", "root", "bossmode"));
-		given(this.securityContext.getPrincipal()).willReturn(this.principal);
+		given(this.securityContext.getPrincipal_RENAMED()).willReturn(this.principal);
 		given(this.securityContext.isUserInRole("admin")).willReturn(false);
 		given(this.securityContext.isUserInRole("root")).willReturn(true);
 		assertThat(group.showComponents(this.securityContext)).isTrue();
@@ -204,7 +204,7 @@ class AutoConfiguredHealthEndpointGroupTests {
 		AutoConfiguredHealthEndpointGroup group = new AutoConfiguredHealthEndpointGroup((name) -> true,
 				this.statusAggregator, this.httpCodeStatusMapper, Show.WHEN_AUTHORIZED, Show.NEVER,
 				Arrays.asList("admin", "rot", "bossmode"));
-		given(this.securityContext.getPrincipal()).willReturn(this.principal);
+		given(this.securityContext.getPrincipal_RENAMED()).willReturn(this.principal);
 		assertThat(group.showComponents(this.securityContext)).isFalse();
 	}
 
@@ -216,7 +216,7 @@ class AutoConfiguredHealthEndpointGroupTests {
 		Authentication principal = mock(Authentication.class);
 		given(principal.getAuthorities())
 				.willAnswer((invocation) -> Collections.singleton(new SimpleGrantedAuthority("admin")));
-		given(this.securityContext.getPrincipal()).willReturn(principal);
+		given(this.securityContext.getPrincipal_RENAMED()).willReturn(principal);
 		assertThat(group.showComponents(this.securityContext)).isTrue();
 	}
 
@@ -228,7 +228,7 @@ class AutoConfiguredHealthEndpointGroupTests {
 		Authentication principal = mock(Authentication.class);
 		given(principal.getAuthorities())
 				.willAnswer((invocation) -> Collections.singleton(new SimpleGrantedAuthority("other")));
-		given(this.securityContext.getPrincipal()).willReturn(principal);
+		given(this.securityContext.getPrincipal_RENAMED()).willReturn(principal);
 		assertThat(group.showComponents(this.securityContext)).isFalse();
 	}
 
