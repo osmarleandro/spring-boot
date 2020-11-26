@@ -39,7 +39,7 @@ public interface PathMapper {
 	 * @return the path of the endpoint or {@code null} if this mapper doesn't support the
 	 * given endpoint ID
 	 */
-	String getRootPath(EndpointId endpointId);
+	String getRootPath_RENAMED(EndpointId endpointId);
 
 	/**
 	 * Resolve the root path for the specified {@code endpointId} from the given path
@@ -52,7 +52,7 @@ public interface PathMapper {
 		Assert.notNull(endpointId, "EndpointId must not be null");
 		if (pathMappers != null) {
 			for (PathMapper mapper : pathMappers) {
-				String path = mapper.getRootPath(endpointId);
+				String path = mapper.getRootPath_RENAMED(endpointId);
 				if (StringUtils.hasText(path)) {
 					return path;
 				}
