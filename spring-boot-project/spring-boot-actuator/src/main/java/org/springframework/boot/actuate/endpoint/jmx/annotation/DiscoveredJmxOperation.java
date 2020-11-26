@@ -118,7 +118,7 @@ class DiscoveredJmxOperation extends AbstractDiscoveredOperation implements JmxO
 	}
 
 	@Override
-	public List<JmxOperationParameter> getParameters() {
+	public List<JmxOperationParameter> getParameters_RENAMED() {
 		return this.parameters;
 	}
 
