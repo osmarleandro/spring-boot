@@ -93,7 +93,7 @@ public class JmxEndpointExporter implements InitializingBean, DisposableBean, Be
 	private ObjectName register(ExposableJmxEndpoint endpoint) {
 		Assert.notNull(endpoint, "Endpoint must not be null");
 		try {
-			ObjectName name = this.objectNameFactory.getObjectName(endpoint);
+			ObjectName name = this.objectNameFactory.getObjectName_RENAMED(endpoint);
 			EndpointMBean mbean = new EndpointMBean(this.responseMapper, this.classLoader, endpoint);
 			this.mBeanServer.registerMBean(mbean, name);
 			return name;
