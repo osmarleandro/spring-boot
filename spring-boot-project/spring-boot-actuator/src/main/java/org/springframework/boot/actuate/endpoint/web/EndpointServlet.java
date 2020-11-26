@@ -85,7 +85,7 @@ public final class EndpointServlet {
 	 * @since 2.2.0
 	 * @see Dynamic#setLoadOnStartup(int)
 	 */
-	public EndpointServlet withLoadOnStartup(int loadOnStartup) {
+	public EndpointServlet withLoadOnStartup_RENAMED(int loadOnStartup) {
 		return new EndpointServlet(this.servlet, this.initParameters, loadOnStartup);
 	}
 
