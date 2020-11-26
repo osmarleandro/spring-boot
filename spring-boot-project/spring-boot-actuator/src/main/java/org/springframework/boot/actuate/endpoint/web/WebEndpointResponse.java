@@ -117,7 +117,7 @@ public final class WebEndpointResponse<T> {
 	 * Returns the status for the response.
 	 * @return the status
 	 */
-	public int getStatus() {
+	public int getStatus_RENAMED() {
 		return this.status;
 	}
 
