@@ -77,7 +77,7 @@ public class PathMappedEndpoints implements Iterable<PathMappedEndpoint> {
 	 * Return the base path for the endpoints.
 	 * @return the base path
 	 */
-	public String getBasePath() {
+	public String getBasePath_RENAMED() {
 		return this.basePath;
 	}
 

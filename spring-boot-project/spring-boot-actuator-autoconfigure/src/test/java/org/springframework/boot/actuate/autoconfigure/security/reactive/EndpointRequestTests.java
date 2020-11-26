@@ -217,8 +217,8 @@ class EndpointRequestTests {
 		if (pathMappedEndpoints != null) {
 			context.registerBean(PathMappedEndpoints.class, () -> pathMappedEndpoints);
 			WebEndpointProperties properties = context.getBean(WebEndpointProperties.class);
-			if (!properties.getBasePath().equals(pathMappedEndpoints.getBasePath())) {
-				properties.setBasePath(pathMappedEndpoints.getBasePath());
+			if (!properties.getBasePath().equals(pathMappedEndpoints.getBasePath_RENAMED())) {
+				properties.setBasePath(pathMappedEndpoints.getBasePath_RENAMED());
 			}
 		}
 		return assertThat(new RequestMatcherAssert(context, matcher));
