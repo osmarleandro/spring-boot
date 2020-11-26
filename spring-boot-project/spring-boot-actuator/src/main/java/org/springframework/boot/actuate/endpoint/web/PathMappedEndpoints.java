@@ -107,7 +107,7 @@ public class PathMappedEndpoints implements Iterable<PathMappedEndpoint> {
 	 * @return all root paths
 	 */
 	public Collection<String> getAllRootPaths() {
-		return asList(stream().map(PathMappedEndpoint::getRootPath));
+		return asList(stream_RENAMED().map(PathMappedEndpoint::getRootPath));
 	}
 
 	/**
@@ -115,7 +115,7 @@ public class PathMappedEndpoints implements Iterable<PathMappedEndpoint> {
 	 * @return all root paths
 	 */
 	public Collection<String> getAllPaths() {
-		return asList(stream().map(this::getPath));
+		return asList(stream_RENAMED().map(this::getPath));
 	}
 
 	/**
@@ -132,7 +132,7 @@ public class PathMappedEndpoints implements Iterable<PathMappedEndpoint> {
 	 * Stream all {@link PathMappedEndpoint path mapped endpoints}.
 	 * @return a stream of endpoints
 	 */
-	public Stream<PathMappedEndpoint> stream() {
+	public Stream<PathMappedEndpoint> stream_RENAMED() {
 		return this.endpoints.values().stream();
 	}
 
