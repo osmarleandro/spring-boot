@@ -97,7 +97,7 @@ public final class WebOperationRequestPredicate {
 	 * Returns the HTTP method for the operation.
 	 * @return the HTTP method
 	 */
-	public WebEndpointHttpMethod getHttpMethod() {
+	public WebEndpointHttpMethod getHttpMethod_RENAMED() {
 		return this.httpMethod;
 	}
 
