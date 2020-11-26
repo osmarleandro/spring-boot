@@ -210,7 +210,7 @@ class HealthEndpointAutoConfigurationTests {
 			HealthEndpointWebExtension webExtension = context.getBean(HealthEndpointWebExtension.class);
 			WebEndpointResponse<HealthComponent> response = webExtension.health(ApiVersion.V3, SecurityContext.NONE,
 					true, "simple");
-			Health health = (Health) response.getBody();
+			Health health = (Health) response.getBody_RENAMED();
 			assertThat(response.getStatus()).isEqualTo(200);
 			assertThat(health.getDetails()).containsEntry("counter", 42);
 		});
@@ -232,7 +232,7 @@ class HealthEndpointAutoConfigurationTests {
 			ReactiveHealthEndpointWebExtension webExtension = context.getBean(ReactiveHealthEndpointWebExtension.class);
 			Mono<WebEndpointResponse<? extends HealthComponent>> response = webExtension.health(ApiVersion.V3,
 					SecurityContext.NONE, true, "simple");
-			Health health = (Health) (response.block().getBody());
+			Health health = (Health) (response.block().getBody_RENAMED());
 			assertThat(health.getDetails()).containsEntry("counter", 42);
 		});
 	}

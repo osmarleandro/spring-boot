@@ -109,7 +109,7 @@ public final class WebEndpointResponse<T> {
 	 * Returns the body for the response.
 	 * @return the body
 	 */
-	public T getBody() {
+	public T getBody_RENAMED() {
 		return this.body;
 	}
 

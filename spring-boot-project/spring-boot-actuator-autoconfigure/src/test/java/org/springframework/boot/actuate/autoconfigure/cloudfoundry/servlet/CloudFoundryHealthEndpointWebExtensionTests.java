@@ -64,7 +64,7 @@ class CloudFoundryHealthEndpointWebExtensionTests {
 		this.contextRunner.run((context) -> {
 			CloudFoundryHealthEndpointWebExtension extension = context
 					.getBean(CloudFoundryHealthEndpointWebExtension.class);
-			HealthComponent body = extension.health(ApiVersion.V3).getBody();
+			HealthComponent body = extension.health(ApiVersion.V3).getBody_RENAMED();
 			HealthComponent health = ((CompositeHealth) body).getComponents().entrySet().iterator().next().getValue();
 			assertThat(((Health) health).getDetails()).containsEntry("spring", "boot");
 		});

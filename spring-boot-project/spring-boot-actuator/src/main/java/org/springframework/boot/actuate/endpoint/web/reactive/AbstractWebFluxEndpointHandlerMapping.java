@@ -361,7 +361,7 @@ public abstract class AbstractWebFluxEndpointHandlerMapping extends RequestMappi
 				return new ResponseEntity<>(response, HttpStatus.OK);
 			}
 			WebEndpointResponse<?> webEndpointResponse = (WebEndpointResponse<?>) response;
-			return new ResponseEntity<>(webEndpointResponse.getBody(),
+			return new ResponseEntity<>(webEndpointResponse.getBody_RENAMED(),
 					HttpStatus.valueOf(webEndpointResponse.getStatus()));
 		}
 
