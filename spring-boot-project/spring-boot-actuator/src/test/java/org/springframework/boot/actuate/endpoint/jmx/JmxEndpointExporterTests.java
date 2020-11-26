@@ -146,7 +146,7 @@ class JmxEndpointExporterTests {
 	void destroyShouldUnregisterMBeans() throws Exception {
 		this.endpoints.add(new TestExposableJmxEndpoint(new TestJmxOperation()));
 		this.exporter.afterPropertiesSet();
-		this.exporter.destroy();
+		this.exporter.destroy_RENAMED();
 		verify(this.mBeanServer).unregisterMBean(this.objectNameCaptor.capture());
 		assertThat(this.objectNameCaptor.getValue().getKeyProperty("name")).isEqualTo("test");
 	}
@@ -156,7 +156,7 @@ class JmxEndpointExporterTests {
 		this.endpoints.add(new TestExposableJmxEndpoint(new TestJmxOperation()));
 		this.exporter.afterPropertiesSet();
 		willThrow(InstanceNotFoundException.class).given(this.mBeanServer).unregisterMBean(any(ObjectName.class));
-		this.exporter.destroy();
+		this.exporter.destroy_RENAMED();
 	}
 
 	@Test
@@ -165,7 +165,7 @@ class JmxEndpointExporterTests {
 		this.exporter.afterPropertiesSet();
 		willThrow(new MBeanRegistrationException(new RuntimeException())).given(this.mBeanServer)
 				.unregisterMBean(any(ObjectName.class));
-		assertThatExceptionOfType(JmxException.class).isThrownBy(() -> this.exporter.destroy())
+		assertThatExceptionOfType(JmxException.class).isThrownBy(() -> this.exporter.destroy_RENAMED())
 				.withMessageContaining("Failed to unregister MBean with ObjectName 'boot");
 	}
 

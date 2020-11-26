@@ -32,7 +32,7 @@ class TomcatMetricsBinderTests {
 
 	@Test
 	void destroySucceedsWhenCalledBeforeApplicationHasStarted() {
-		new TomcatMetricsBinder(this.meterRegistry).destroy();
+		new TomcatMetricsBinder(this.meterRegistry).destroy_RENAMED();
 	}
 
 }

@@ -82,7 +82,7 @@ public class JmxEndpointExporter implements InitializingBean, DisposableBean, Be
 	}
 
 	@Override
-	public void destroy() throws Exception {
+	public void destroy_RENAMED() throws Exception {
 		unregister(this.registered);
 	}
 
