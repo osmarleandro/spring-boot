@@ -71,11 +71,11 @@ public class ElasticsearchRestHealthIndicator extends AbstractHealthIndicator {
 			return;
 		}
 		try (InputStream inputStream = response.getEntity().getContent()) {
-			doHealthCheck(builder, StreamUtils.copyToString(inputStream, StandardCharsets.UTF_8));
+			doHealthCheck_RENAMED(builder, StreamUtils.copyToString(inputStream, StandardCharsets.UTF_8));
 		}
 	}
 
-	private void doHealthCheck(Health.Builder builder, String json) {
+	private void doHealthCheck_RENAMED(Health.Builder builder, String json) {
 		Map<String, Object> response = this.jsonParser.parseMap(json);
 		String status = (String) response.get("status");
 		if (RED_STATUS.equals(status)) {
