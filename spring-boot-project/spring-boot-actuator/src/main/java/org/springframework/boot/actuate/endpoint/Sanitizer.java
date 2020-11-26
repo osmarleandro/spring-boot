@@ -126,10 +126,10 @@ public class Sanitizer {
 	}
 
 	private Object sanitizeUris(String value) {
-		return Arrays.stream(value.split(",")).map(this::sanitizeUri).collect(Collectors.joining(","));
+		return Arrays.stream(value.split(",")).map(this::sanitizeUri_RENAMED).collect(Collectors.joining(","));
 	}
 
-	private String sanitizeUri(String value) {
+	private String sanitizeUri_RENAMED(String value) {
 		Matcher matcher = URI_USERINFO_PATTERN.matcher(value);
 		String password = matcher.matches() ? matcher.group(1) : null;
 		if (password != null) {
