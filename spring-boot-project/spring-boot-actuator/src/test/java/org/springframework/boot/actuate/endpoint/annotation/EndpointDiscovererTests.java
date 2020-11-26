@@ -189,7 +189,7 @@ class EndpointDiscovererTests {
 			TestOperation getOne = operations.get(findTestEndpointMethod("getOne", String.class));
 			TestOperation update = operations
 					.get(ReflectionUtils.findMethod(TestEndpoint.class, "update", String.class, String.class));
-			assertThat(((CachingOperationInvoker) getAll.getInvoker()).getTimeToLive()).isEqualTo(500);
+			assertThat(((CachingOperationInvoker) getAll.getInvoker()).getTimeToLive_RENAMED()).isEqualTo(500);
 			assertThat(getOne.getInvoker()).isNotInstanceOf(CachingOperationInvoker.class);
 			assertThat(update.getInvoker()).isNotInstanceOf(CachingOperationInvoker.class);
 		});

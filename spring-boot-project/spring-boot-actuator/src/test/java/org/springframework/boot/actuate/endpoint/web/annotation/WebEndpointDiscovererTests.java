@@ -173,7 +173,7 @@ class WebEndpointDiscovererTests {
 			WebOperation operation = endpoint.getOperations().iterator().next();
 			Object invoker = ReflectionTestUtils.getField(operation, "invoker");
 			assertThat(invoker).isInstanceOf(CachingOperationInvoker.class);
-			assertThat(((CachingOperationInvoker) invoker).getTimeToLive()).isEqualTo(500);
+			assertThat(((CachingOperationInvoker) invoker).getTimeToLive_RENAMED()).isEqualTo(500);
 		});
 	}
 

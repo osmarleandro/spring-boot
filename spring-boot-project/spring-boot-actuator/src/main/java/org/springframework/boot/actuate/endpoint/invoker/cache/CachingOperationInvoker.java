@@ -68,7 +68,7 @@ public class CachingOperationInvoker implements OperationInvoker {
 	 * Return the maximum time in milliseconds that a response can be cached.
 	 * @return the time to live of a response
 	 */
-	public long getTimeToLive() {
+	public long getTimeToLive_RENAMED() {
 		return this.timeToLive;
 	}
 
