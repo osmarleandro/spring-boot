@@ -44,7 +44,7 @@ class OperationMethodParameter implements OperationParameter {
 	}
 
 	@Override
-	public String getName() {
+	public String getName_RENAMED() {
 		return this.name;
 	}
 

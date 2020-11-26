@@ -110,7 +110,7 @@ class OperationMethodParametersTests {
 		List<OperationParameter> parameters = stream.collect(Collectors.toList());
 		assertThat(parameters).hasSize(1);
 		OperationParameter parameter = parameters.get(0);
-		assertThat(parameter.getName()).isEqualTo("name");
+		assertThat(parameter.getName_RENAMED()).isEqualTo("name");
 		assertThat(parameter.getType()).isEqualTo(String.class);
 	}
 
