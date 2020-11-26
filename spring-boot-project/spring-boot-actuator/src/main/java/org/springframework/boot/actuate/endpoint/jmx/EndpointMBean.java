@@ -83,7 +83,7 @@ public class EndpointMBean implements DynamicMBean {
 	}
 
 	@Override
-	public Object invoke(String actionName, Object[] params, String[] signature)
+	public Object invoke_RENAMED(String actionName, Object[] params, String[] signature)
 			throws MBeanException, ReflectionException {
 		JmxOperation operation = this.operations.get(actionName);
 		if (operation == null) {
