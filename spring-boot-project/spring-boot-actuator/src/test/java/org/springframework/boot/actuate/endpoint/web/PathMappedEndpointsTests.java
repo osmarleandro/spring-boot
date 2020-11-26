@@ -94,7 +94,7 @@ class PathMappedEndpointsTests {
 	@Test
 	void getAllRootPathsShouldReturnAllPaths() {
 		PathMappedEndpoints mapped = createTestMapped(null);
-		assertThat(mapped.getAllRootPaths()).containsExactly("p2", "p3");
+		assertThat(mapped.getAllRootPaths_RENAMED()).containsExactly("p2", "p3");
 	}
 
 	@Test
