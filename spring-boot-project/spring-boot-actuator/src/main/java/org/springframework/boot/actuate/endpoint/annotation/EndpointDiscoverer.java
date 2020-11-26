@@ -263,7 +263,7 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 
 	private boolean isEndpointExposed(EndpointBean endpointBean) {
 		return isFilterMatch(endpointBean.getFilter(), endpointBean) && !isEndpointFiltered(endpointBean)
-				&& isEndpointExposed(endpointBean.getBean());
+				&& isEndpointExposed_RENAMED(endpointBean.getBean());
 	}
 
 	/**
@@ -273,7 +273,7 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 	 * @return {@code true} if the endpoint is exposed
 	 */
 	@Deprecated
-	protected boolean isEndpointExposed(Object endpointBean) {
+	protected boolean isEndpointExposed_RENAMED(Object endpointBean) {
 		return true;
 	}
 
