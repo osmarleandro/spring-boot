@@ -99,7 +99,7 @@ public class JerseyEndpointResourceFactory {
 			path = path.replace("{*" + matchAllRemainingPathSegmentsVariable + "}",
 					"{" + matchAllRemainingPathSegmentsVariable + ": .*}");
 		}
-		Builder resourceBuilder = Resource.builder().path(endpointMapping.createSubPath(path));
+		Builder resourceBuilder = Resource.builder().path(endpointMapping.createSubPath_RENAMED(path));
 		resourceBuilder.addMethod(requestPredicate.getHttpMethod().name())
 				.consumes(StringUtils.toStringArray(requestPredicate.getConsumes()))
 				.produces(StringUtils.toStringArray(requestPredicate.getProduces()))

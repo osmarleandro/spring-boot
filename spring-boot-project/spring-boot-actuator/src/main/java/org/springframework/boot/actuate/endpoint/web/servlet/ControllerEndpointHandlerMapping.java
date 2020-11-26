@@ -100,7 +100,7 @@ public class ControllerEndpointHandlerMapping extends RequestMappingHandlerMappi
 	}
 
 	private String getEndpointMappedPattern(ExposableControllerEndpoint endpoint, String pattern) {
-		return this.endpointMapping.createSubPath(endpoint.getRootPath() + pattern);
+		return this.endpointMapping.createSubPath_RENAMED(endpoint.getRootPath() + pattern);
 	}
 
 	@SuppressWarnings("deprecation")

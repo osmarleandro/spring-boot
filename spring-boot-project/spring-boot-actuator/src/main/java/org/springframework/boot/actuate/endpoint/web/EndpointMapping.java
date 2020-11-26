@@ -44,7 +44,7 @@ public class EndpointMapping {
 		return this.path;
 	}
 
-	public String createSubPath(String path) {
+	public String createSubPath_RENAMED(String path) {
 		return this.path + normalizePath(path);
 	}
 

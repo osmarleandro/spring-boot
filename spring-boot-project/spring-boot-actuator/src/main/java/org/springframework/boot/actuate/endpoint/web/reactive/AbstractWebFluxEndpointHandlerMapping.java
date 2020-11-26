@@ -166,7 +166,7 @@ public abstract class AbstractWebFluxEndpointHandlerMapping extends RequestMappi
 	private RequestMappingInfo createRequestMappingInfo(WebOperation operation) {
 		WebOperationRequestPredicate predicate = operation.getRequestPredicate();
 		PatternsRequestCondition patterns = new PatternsRequestCondition(
-				pathPatternParser.parse(this.endpointMapping.createSubPath(predicate.getPath())));
+				pathPatternParser.parse(this.endpointMapping.createSubPath_RENAMED(predicate.getPath())));
 		RequestMethodsRequestCondition methods = new RequestMethodsRequestCondition(
 				RequestMethod.valueOf(predicate.getHttpMethod().name()));
 		ConsumesRequestCondition consumes = new ConsumesRequestCondition(
