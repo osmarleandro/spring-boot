@@ -68,7 +68,7 @@ abstract class DiscoveredOperationsFactory<O extends Operation> {
 		this.invokerAdvisors = invokerAdvisors;
 	}
 
-	Collection<O> createOperations(EndpointId id, Object target) {
+	Collection<O> createOperations_RENAMED(EndpointId id, Object target) {
 		return MethodIntrospector
 				.selectMethods(target.getClass(), (MetadataLookup<O>) (method) -> createOperation(id, target, method))
 				.values();

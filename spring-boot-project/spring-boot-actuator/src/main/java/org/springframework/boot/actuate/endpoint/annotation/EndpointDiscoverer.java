@@ -207,7 +207,7 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 	private void addOperations(MultiValueMap<OperationKey, O> indexed, EndpointId id, Object target,
 			boolean replaceLast) {
 		Set<OperationKey> replacedLast = new HashSet<>();
-		Collection<O> operations = this.operationsFactory.createOperations(id, target);
+		Collection<O> operations = this.operationsFactory.createOperations_RENAMED(id, target);
 		for (O operation : operations) {
 			OperationKey key = createOperationKey(operation);
 			O last = getLast(indexed.get(key));
