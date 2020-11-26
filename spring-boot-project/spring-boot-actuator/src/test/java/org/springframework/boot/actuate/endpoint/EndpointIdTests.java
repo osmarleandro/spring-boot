@@ -152,7 +152,7 @@ class EndpointIdTests {
 
 	@Test
 	void fromPropertyValueStripsDashes() {
-		EndpointId fromPropertyValue = EndpointId.fromPropertyValue("foo-bar");
+		EndpointId fromPropertyValue = EndpointId.fromPropertyValue_RENAMED("foo-bar");
 		assertThat(fromPropertyValue).isEqualTo(EndpointId.of("fooBar"));
 	}
 

@@ -142,7 +142,7 @@ public final class EndpointId {
 	 * @param value the property value to convert
 	 * @return an {@link EndpointId} instance
 	 */
-	public static EndpointId fromPropertyValue(String value) {
+	public static EndpointId fromPropertyValue_RENAMED(String value) {
 		return new EndpointId(value.replace("-", ""));
 	}
 

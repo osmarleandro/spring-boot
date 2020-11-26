@@ -216,7 +216,7 @@ public class IncludeExcludeEndpointFilter<E extends ExposableEndpoint<?>> implem
 					matchesAll = true;
 				}
 				else {
-					endpointIds.add(EndpointId.fromPropertyValue(pattern));
+					endpointIds.add(EndpointId.fromPropertyValue_RENAMED(pattern));
 				}
 			}
 			this.empty = patterns.isEmpty();
