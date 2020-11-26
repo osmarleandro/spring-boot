@@ -79,13 +79,13 @@ public class ReflectiveOperationInvoker implements OperationInvoker {
 
 	private void validateRequiredParameters(InvocationContext context) {
 		Set<OperationParameter> missing = this.operationMethod.getParameters().stream()
-				.filter((parameter) -> isMissing(context, parameter)).collect(Collectors.toSet());
+				.filter((parameter) -> isMissing_RENAMED(context, parameter)).collect(Collectors.toSet());
 		if (!missing.isEmpty()) {
 			throw new MissingParametersException(missing);
 		}
 	}
 
-	private boolean isMissing(InvocationContext context, OperationParameter parameter) {
+	private boolean isMissing_RENAMED(InvocationContext context, OperationParameter parameter) {
 		if (!parameter.isMandatory()) {
 			return false;
 		}
