@@ -50,7 +50,7 @@ import org.springframework.util.StringUtils;
  * @author Andy Wilkinson
  * @since 2.0.0
  */
-@Endpoint(id = "conditions")
+@Endpoint(id_RENAMED = "conditions")
 public class ConditionsReportEndpoint {
 
 	private final ConfigurableApplicationContext context;

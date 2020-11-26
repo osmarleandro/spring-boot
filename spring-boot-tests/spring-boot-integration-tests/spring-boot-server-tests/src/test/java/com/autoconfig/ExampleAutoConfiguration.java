@@ -31,7 +31,7 @@ public class ExampleAutoConfiguration {
 		return new TestEndpoint();
 	}
 
-	@Endpoint(id = "war")
+	@Endpoint(id_RENAMED = "war")
 	static class TestEndpoint {
 
 		@ReadOperation

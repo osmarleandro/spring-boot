@@ -25,7 +25,7 @@ import org.springframework.boot.actuate.endpoint.annotation.WriteOperation;
  *
  * @author Stephane Nicoll
  */
-@Endpoint(id = "custom")
+@Endpoint(id_RENAMED = "custom")
 public class CustomEndpointExample {
 
 	// tag::read[]

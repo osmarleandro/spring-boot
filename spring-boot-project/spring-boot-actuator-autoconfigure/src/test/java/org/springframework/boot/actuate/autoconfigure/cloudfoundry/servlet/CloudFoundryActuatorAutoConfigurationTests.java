@@ -253,7 +253,7 @@ class CloudFoundryActuatorAutoConfigurationTests {
 				"No operation found with request path " + requestPath + " from " + endpoint.getOperations());
 	}
 
-	@Endpoint(id = "test")
+	@Endpoint(id_RENAMED = "test")
 	static class TestEndpoint {
 
 		@ReadOperation

@@ -121,7 +121,7 @@ abstract class AbstractEndpointRequestIntegrationTests {
 
 	}
 
-	@Endpoint(id = "e1")
+	@Endpoint(id_RENAMED = "e1")
 	static class TestEndpoint1 {
 
 		@ReadOperation
@@ -131,7 +131,7 @@ abstract class AbstractEndpointRequestIntegrationTests {
 
 	}
 
-	@Endpoint(id = "e2")
+	@Endpoint(id_RENAMED = "e2")
 	static class TestEndpoint2 {
 
 		@ReadOperation
@@ -141,7 +141,7 @@ abstract class AbstractEndpointRequestIntegrationTests {
 
 	}
 
-	@Endpoint(id = "e3")
+	@Endpoint(id_RENAMED = "e3")
 	static class TestEndpoint3 {
 
 		@ReadOperation

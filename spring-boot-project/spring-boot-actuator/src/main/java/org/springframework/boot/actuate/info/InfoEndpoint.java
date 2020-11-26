@@ -31,7 +31,7 @@ import org.springframework.util.Assert;
  * @author Stephane Nicoll
  * @since 2.0.0
  */
-@Endpoint(id = "info")
+@Endpoint(id_RENAMED = "info")
 public class InfoEndpoint {
 
 	private final List<InfoContributor> infoContributors;

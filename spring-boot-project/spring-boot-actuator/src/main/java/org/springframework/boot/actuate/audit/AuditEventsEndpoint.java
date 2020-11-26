@@ -31,7 +31,7 @@ import org.springframework.util.Assert;
  * @author Andy Wilkinson
  * @since 2.0.0
  */
-@Endpoint(id = "auditevents")
+@Endpoint(id_RENAMED = "auditevents")
 public class AuditEventsEndpoint {
 
 	private final AuditEventRepository auditEventRepository;

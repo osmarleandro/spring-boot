@@ -36,7 +36,7 @@ import org.springframework.util.StringUtils;
  * @author Andy Wilkinson
  * @since 2.0.0
  */
-@Endpoint(id = "beans")
+@Endpoint(id_RENAMED = "beans")
 public class BeansEndpoint {
 
 	private final ConfigurableApplicationContext context;

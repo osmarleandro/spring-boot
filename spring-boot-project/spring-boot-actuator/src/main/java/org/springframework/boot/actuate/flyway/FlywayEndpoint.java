@@ -42,7 +42,7 @@ import org.springframework.context.ApplicationContext;
  * @author Artsiom Yudovin
  * @since 2.0.0
  */
-@Endpoint(id = "flyway")
+@Endpoint(id_RENAMED = "flyway")
 public class FlywayEndpoint {
 
 	private final ApplicationContext context;

@@ -45,7 +45,7 @@ import org.springframework.util.Assert;
  * @author HaiTao Zhang
  * @since 2.0.0
  */
-@Endpoint(id = "loggers")
+@Endpoint(id_RENAMED = "loggers")
 public class LoggersEndpoint {
 
 	private final LoggingSystem loggingSystem;

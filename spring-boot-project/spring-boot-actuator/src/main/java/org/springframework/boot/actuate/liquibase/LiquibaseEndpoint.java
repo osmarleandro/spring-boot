@@ -45,7 +45,7 @@ import org.springframework.util.StringUtils;
  * @author Eddú Meléndez
  * @since 2.0.0
  */
-@Endpoint(id = "liquibase")
+@Endpoint(id_RENAMED = "liquibase")
 public class LiquibaseEndpoint {
 
 	private final ApplicationContext context;

@@ -465,7 +465,7 @@ class WebEndpointDiscovererTests {
 
 	}
 
-	@Endpoint(id = "test")
+	@Endpoint(id_RENAMED = "test")
 	static class TestEndpoint {
 
 		@ReadOperation
@@ -495,7 +495,7 @@ class WebEndpointDiscovererTests {
 
 	}
 
-	@Endpoint(id = "test")
+	@Endpoint(id_RENAMED = "test")
 	static class ClashingOperationsEndpoint {
 
 		@ReadOperation
@@ -560,7 +560,7 @@ class WebEndpointDiscovererTests {
 
 	}
 
-	@Endpoint(id = "voidwrite")
+	@Endpoint(id_RENAMED = "voidwrite")
 	static class VoidWriteOperationEndpoint {
 
 		@WriteOperation
@@ -569,7 +569,7 @@ class WebEndpointDiscovererTests {
 
 	}
 
-	@Endpoint(id = "resource")
+	@Endpoint(id_RENAMED = "resource")
 	static class ResourceEndpoint {
 
 		@ReadOperation
@@ -579,7 +579,7 @@ class WebEndpointDiscovererTests {
 
 	}
 
-	@Endpoint(id = "custommediatypes")
+	@Endpoint(id_RENAMED = "custommediatypes")
 	static class CustomMediaTypesEndpoint {
 
 		@ReadOperation(produces = "text/plain")

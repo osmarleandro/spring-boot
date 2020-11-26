@@ -138,7 +138,7 @@ class WebMvcEndpointChildContextConfigurationIntegrationTests {
 		}));
 	}
 
-	@Endpoint(id = "fail")
+	@Endpoint(id_RENAMED = "fail")
 	static class FailingEndpoint {
 
 		@ReadOperation

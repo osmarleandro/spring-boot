@@ -196,32 +196,32 @@ class ConditionalOnAvailableEndpointTests {
 				.run((context) -> assertThat(context).hasSingleBean(DashedEndpoint.class));
 	}
 
-	@Endpoint(id = "health")
+	@Endpoint(id_RENAMED = "health")
 	static class HealthEndpoint {
 
 	}
 
-	@Endpoint(id = "info")
+	@Endpoint(id_RENAMED = "info")
 	static class InfoEndpoint {
 
 	}
 
-	@Endpoint(id = "spring")
+	@Endpoint(id_RENAMED = "spring")
 	static class SpringEndpoint {
 
 	}
 
-	@Endpoint(id = "test")
+	@Endpoint(id_RENAMED = "test")
 	static class TestEndpoint {
 
 	}
 
-	@Endpoint(id = "shutdown", enableByDefault = false)
+	@Endpoint(id_RENAMED = "shutdown", enableByDefault = false)
 	static class ShutdownEndpoint {
 
 	}
 
-	@Endpoint(id = "test-dashed")
+	@Endpoint(id_RENAMED = "test-dashed")
 	static class DashedEndpoint {
 
 	}

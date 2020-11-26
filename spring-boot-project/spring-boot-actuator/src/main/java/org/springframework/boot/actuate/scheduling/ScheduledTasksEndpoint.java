@@ -48,7 +48,7 @@ import org.springframework.scheduling.support.ScheduledMethodRunnable;
  * @author Andy Wilkinson
  * @since 2.0.0
  */
-@Endpoint(id = "scheduledtasks")
+@Endpoint(id_RENAMED = "scheduledtasks")
 public class ScheduledTasksEndpoint {
 
 	private final Collection<ScheduledTaskHolder> scheduledTaskHolders;

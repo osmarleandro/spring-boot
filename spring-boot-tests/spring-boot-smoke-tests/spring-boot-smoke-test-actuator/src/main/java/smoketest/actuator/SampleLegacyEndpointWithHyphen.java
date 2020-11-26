@@ -24,7 +24,7 @@ import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
 import org.springframework.stereotype.Component;
 
 @Component
-@Endpoint(id = "another-legacy")
+@Endpoint(id_RENAMED = "another-legacy")
 public class SampleLegacyEndpointWithHyphen {
 
 	@ReadOperation

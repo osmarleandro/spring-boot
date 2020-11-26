@@ -38,7 +38,7 @@ import org.springframework.lang.Nullable;
  * @author Stephane Nicoll
  * @since 2.1.0
  */
-@Endpoint(id = "caches")
+@Endpoint(id_RENAMED = "caches")
 public class CachesEndpoint {
 
 	private final Map<String, CacheManager> cacheManagers;

@@ -133,19 +133,19 @@ class WebEndpointAutoConfigurationTests {
 	}
 
 	@Component
-	@Endpoint(id = "testone")
+	@Endpoint(id_RENAMED = "testone")
 	static class TestOneEndpoint {
 
 	}
 
 	@Component
-	@Endpoint(id = "testanotherone")
+	@Endpoint(id_RENAMED = "testanotherone")
 	static class TestAnotherOneEndpoint {
 
 	}
 
 	@Component
-	@Endpoint(id = "testtwo")
+	@Endpoint(id_RENAMED = "testtwo")
 	static class TestTwoEndpoint {
 
 	}

@@ -59,7 +59,7 @@ import org.springframework.util.SystemPropertyUtils;
  * @author Stephane Nicoll
  * @since 2.0.0
  */
-@Endpoint(id = "env")
+@Endpoint(id_RENAMED = "env")
 public class EnvironmentEndpoint {
 
 	private final Sanitizer sanitizer = new Sanitizer();

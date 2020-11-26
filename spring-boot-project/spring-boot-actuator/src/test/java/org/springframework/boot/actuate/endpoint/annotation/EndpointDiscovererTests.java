@@ -418,7 +418,7 @@ class EndpointDiscovererTests {
 
 	}
 
-	@Endpoint(id = "test")
+	@Endpoint(id_RENAMED = "test")
 	static class TestEndpoint {
 
 		@ReadOperation

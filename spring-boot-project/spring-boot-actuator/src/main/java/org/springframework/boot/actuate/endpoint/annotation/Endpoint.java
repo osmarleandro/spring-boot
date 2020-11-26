@@ -58,7 +58,7 @@ public @interface Endpoint {
 	 * @return the id
 	 * @see EndpointId
 	 */
-	String id() default "";
+	String id_RENAMED() default "";
 
 	/**
 	 * If the endpoint should be enabled or disabled by default.

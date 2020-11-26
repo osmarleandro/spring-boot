@@ -282,7 +282,7 @@ class EndpointRequestTests {
 
 	}
 
-	@Endpoint(id = "foo")
+	@Endpoint(id_RENAMED = "foo")
 	static class FooEndpoint {
 
 	}

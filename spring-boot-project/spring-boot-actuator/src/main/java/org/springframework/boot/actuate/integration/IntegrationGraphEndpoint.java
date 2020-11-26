@@ -28,7 +28,7 @@ import org.springframework.integration.graph.IntegrationGraphServer;
  * @author Tim Ysewyn
  * @since 2.1.0
  */
-@Endpoint(id = "integrationgraph")
+@Endpoint(id_RENAMED = "integrationgraph")
 public class IntegrationGraphEndpoint {
 
 	private final IntegrationGraphServer graphServer;

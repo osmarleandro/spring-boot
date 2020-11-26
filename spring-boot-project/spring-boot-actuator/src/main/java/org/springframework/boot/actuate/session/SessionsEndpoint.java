@@ -35,7 +35,7 @@ import org.springframework.session.Session;
  * @author Vedran Pavic
  * @since 2.0.0
  */
-@Endpoint(id = "sessions")
+@Endpoint(id_RENAMED = "sessions")
 public class SessionsEndpoint {
 
 	private final FindByIndexNameSessionRepository<? extends Session> sessionRepository;

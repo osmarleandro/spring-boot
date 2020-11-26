@@ -30,7 +30,7 @@ import org.springframework.boot.context.metrics.buffering.StartupTimeline;
  * @author Brian Clozel
  * @since 2.4.0
  */
-@Endpoint(id = "startup")
+@Endpoint(id_RENAMED = "startup")
 public class StartupEndpoint {
 
 	private final BufferingApplicationStartup applicationStartup;

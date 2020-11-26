@@ -30,7 +30,7 @@ import org.springframework.context.ApplicationContext;
  * @author Andy Wilkinson
  * @since 2.0.0
  */
-@Endpoint(id = "mappings")
+@Endpoint(id_RENAMED = "mappings")
 public class MappingsEndpoint {
 
 	private final Collection<MappingDescriptionProvider> descriptionProviders;

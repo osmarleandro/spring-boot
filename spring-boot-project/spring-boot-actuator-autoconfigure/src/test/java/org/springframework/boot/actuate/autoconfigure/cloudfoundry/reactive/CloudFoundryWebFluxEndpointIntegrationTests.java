@@ -203,7 +203,7 @@ class CloudFoundryWebFluxEndpointIntegrationTests {
 
 	}
 
-	@Endpoint(id = "test")
+	@Endpoint(id_RENAMED = "test")
 	static class TestEndpoint {
 
 		private final EndpointDelegate endpointDelegate;
@@ -229,7 +229,7 @@ class CloudFoundryWebFluxEndpointIntegrationTests {
 
 	}
 
-	@Endpoint(id = "env")
+	@Endpoint(id_RENAMED = "env")
 	static class TestEnvEndpoint {
 
 		@ReadOperation
@@ -239,7 +239,7 @@ class CloudFoundryWebFluxEndpointIntegrationTests {
 
 	}
 
-	@Endpoint(id = "info")
+	@Endpoint(id_RENAMED = "info")
 	static class TestInfoEndpoint {
 
 		@ReadOperation

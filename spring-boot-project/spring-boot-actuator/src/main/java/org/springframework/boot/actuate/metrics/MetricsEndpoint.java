@@ -47,7 +47,7 @@ import org.springframework.lang.Nullable;
  * @author Phillip Webb
  * @since 2.0.0
  */
-@Endpoint(id = "metrics")
+@Endpoint(id_RENAMED = "metrics")
 public class MetricsEndpoint {
 
 	private final MeterRegistry registry;

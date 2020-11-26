@@ -24,7 +24,7 @@ import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
 import org.springframework.stereotype.Component;
 
 @Component
-@Endpoint(id = "lega.cy")
+@Endpoint(id_RENAMED = "lega.cy")
 public class SampleLegacyEndpointWithDot {
 
 	@ReadOperation
