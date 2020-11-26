@@ -46,7 +46,7 @@ public interface JmxOperation extends Operation {
 	 * Returns the description of the operation.
 	 * @return the operation description
 	 */
-	String getDescription();
+	String getDescription_RENAMED();
 
 	/**
 	 * Returns the parameters the operation expects in the order that they should be
