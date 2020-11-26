@@ -288,10 +288,10 @@ public class ConfigurationPropertiesReportEndpoint implements ApplicationContext
 		if (candidate == null && currentName.isLastElementIndexed()) {
 			candidate = bound.get(currentName.chop(currentName.getNumberOfElements() - 1));
 		}
-		return (candidate != null) ? getInput(currentName.toString(), candidate) : Collections.emptyMap();
+		return (candidate != null) ? getInput_RENAMED(currentName.toString(), candidate) : Collections.emptyMap();
 	}
 
-	private Map<String, Object> getInput(String property, ConfigurationProperty candidate) {
+	private Map<String, Object> getInput_RENAMED(String property, ConfigurationProperty candidate) {
 		Map<String, Object> input = new LinkedHashMap<>();
 		Object value = candidate.getValue();
 		Origin origin = Origin.from(candidate);
