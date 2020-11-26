@@ -78,13 +78,13 @@ class DiscoveredJmxOperationTests {
 	@Test
 	void getParametersWhenHasNoParametersShouldReturnEmptyList() {
 		DiscoveredJmxOperation operation = getOperation("getEnum");
-		assertThat(operation.getParameters()).isEmpty();
+		assertThat(operation.getParameters_RENAMED()).isEmpty();
 	}
 
 	@Test
 	void getParametersShouldReturnJmxTypes() {
 		DiscoveredJmxOperation operation = getOperation("params");
-		List<JmxOperationParameter> parameters = operation.getParameters();
+		List<JmxOperationParameter> parameters = operation.getParameters_RENAMED();
 		assertThat(parameters.get(0).getType()).isEqualTo(String.class);
 		assertThat(parameters.get(1).getType()).isEqualTo(String.class);
 		assertThat(parameters.get(2).getType()).isEqualTo(String.class);
@@ -95,7 +95,7 @@ class DiscoveredJmxOperationTests {
 	@Test
 	void getParametersWhenHasManagedOperationParameterShouldUseValuesFromAnnotation() {
 		DiscoveredJmxOperation operation = getOperation("withManagedOperationParameters");
-		List<JmxOperationParameter> parameters = operation.getParameters();
+		List<JmxOperationParameter> parameters = operation.getParameters_RENAMED();
 		assertThat(parameters.get(0).getName()).isEqualTo("a1");
 		assertThat(parameters.get(1).getName()).isEqualTo("a2");
 		assertThat(parameters.get(0).getDescription()).isEqualTo("d1");
@@ -105,7 +105,7 @@ class DiscoveredJmxOperationTests {
 	@Test
 	void getParametersWhenHasNoManagedOperationParameterShouldDeducedValuesName() {
 		DiscoveredJmxOperation operation = getOperation("params");
-		List<JmxOperationParameter> parameters = operation.getParameters();
+		List<JmxOperationParameter> parameters = operation.getParameters_RENAMED();
 		assertThat(parameters.get(0).getName()).isEqualTo("enumParam");
 		assertThat(parameters.get(1).getName()).isEqualTo("dateParam");
 		assertThat(parameters.get(2).getName()).isEqualTo("instantParam");

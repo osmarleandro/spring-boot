@@ -53,6 +53,6 @@ public interface JmxOperation extends Operation {
 	 * provided.
 	 * @return the operation parameter names
 	 */
-	List<JmxOperationParameter> getParameters();
+	List<JmxOperationParameter> getParameters_RENAMED();
 
 }
