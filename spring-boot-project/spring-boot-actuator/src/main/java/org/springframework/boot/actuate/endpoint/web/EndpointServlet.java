@@ -43,10 +43,10 @@ public final class EndpointServlet {
 	private final int loadOnStartup;
 
 	public EndpointServlet(Class<? extends Servlet> servlet) {
-		this(instantiateClass(servlet));
+		this(instantiateClass_RENAMED(servlet));
 	}
 
-	private static Servlet instantiateClass(Class<? extends Servlet> servlet) {
+	private static Servlet instantiateClass_RENAMED(Class<? extends Servlet> servlet) {
 		Assert.notNull(servlet, "Servlet must not be null");
 		return BeanUtils.instantiateClass(servlet);
 	}
