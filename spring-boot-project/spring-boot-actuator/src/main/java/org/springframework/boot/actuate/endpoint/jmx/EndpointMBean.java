@@ -122,7 +122,7 @@ public class EndpointMBean implements DynamicMBean {
 			if (REACTOR_PRESENT) {
 				result = ReactiveHandler.handle(result);
 			}
-			return this.responseMapper.mapResponse(result);
+			return this.responseMapper.mapResponse_RENAMED(result);
 		}
 		catch (InvalidEndpointRequestException ex) {
 			throw new ReflectionException(new IllegalArgumentException(ex.getMessage()), ex.getMessage());

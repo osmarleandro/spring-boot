@@ -162,7 +162,7 @@ class EndpointMBeanTests {
 		EndpointMBean bean = new EndpointMBean(responseMapper, null, this.endpoint);
 		bean.invoke("testOperation", NO_PARAMS, NO_SIGNATURE);
 		verify(responseMapper).mapResponseType(String.class);
-		verify(responseMapper).mapResponse("result");
+		verify(responseMapper).mapResponse_RENAMED("result");
 	}
 
 	@Test

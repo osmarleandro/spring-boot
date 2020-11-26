@@ -36,6 +36,6 @@ public interface JmxOperationResponseMapper {
 	 * @param response the operation's response
 	 * @return the {@code response}, in a JMX compliant format
 	 */
-	Object mapResponse(Object response);
+	Object mapResponse_RENAMED(Object response);
 
 }
