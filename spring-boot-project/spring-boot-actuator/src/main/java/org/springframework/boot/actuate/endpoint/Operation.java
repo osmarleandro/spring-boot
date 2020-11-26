@@ -29,7 +29,7 @@ public interface Operation {
 	 * Returns the {@link OperationType type} of the operation.
 	 * @return the type
 	 */
-	OperationType getType();
+	OperationType getType_RENAMED();
 
 	/**
 	 * Invoke the underlying operation using the given {@code context}.

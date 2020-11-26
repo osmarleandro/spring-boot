@@ -140,7 +140,7 @@ public abstract class AbstractWebFluxEndpointHandlerMapping extends RequestMappi
 	private void registerMappingForOperation(ExposableWebEndpoint endpoint, WebOperation operation) {
 		ReactiveWebOperation reactiveWebOperation = wrapReactiveWebOperation(endpoint, operation,
 				new ReactiveWebOperationAdapter(operation));
-		if (operation.getType() == OperationType.WRITE) {
+		if (operation.getType_RENAMED() == OperationType.WRITE) {
 			registerMapping(createRequestMappingInfo(operation), new WriteOperationHandler((reactiveWebOperation)),
 					this.handleWriteMethod);
 		}
