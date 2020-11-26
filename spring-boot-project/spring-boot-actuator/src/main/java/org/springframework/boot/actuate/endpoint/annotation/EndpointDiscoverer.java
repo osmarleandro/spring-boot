@@ -121,7 +121,7 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 
 	private Collection<E> discoverEndpoints() {
 		Collection<EndpointBean> endpointBeans = createEndpointBeans();
-		addExtensionBeans(endpointBeans);
+		addExtensionBeans_RENAMED(endpointBeans);
 		return convertToEndpoints(endpointBeans);
 	}
 
@@ -146,7 +146,7 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 		return new EndpointBean(this.applicationContext.getEnvironment(), beanName, beanType, beanSupplier);
 	}
 
-	private void addExtensionBeans(Collection<EndpointBean> endpointBeans) {
+	private void addExtensionBeans_RENAMED(Collection<EndpointBean> endpointBeans) {
 		Map<EndpointId, EndpointBean> byId = endpointBeans.stream()
 				.collect(Collectors.toMap(EndpointBean::getId, Function.identity()));
 		String[] beanNames = BeanFactoryUtils.beanNamesForAnnotationIncludingAncestors(this.applicationContext,
