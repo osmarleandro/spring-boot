@@ -68,10 +68,10 @@ public class EndpointMBean implements DynamicMBean {
 		this.classLoader = classLoader;
 		this.endpoint = endpoint;
 		this.info = new MBeanInfoFactory(responseMapper).getMBeanInfo(endpoint);
-		this.operations = getOperations(endpoint);
+		this.operations = getOperations_RENAMED(endpoint);
 	}
 
-	private Map<String, JmxOperation> getOperations(ExposableJmxEndpoint endpoint) {
+	private Map<String, JmxOperation> getOperations_RENAMED(ExposableJmxEndpoint endpoint) {
 		Map<String, JmxOperation> operations = new HashMap<>();
 		endpoint.getOperations().forEach((operation) -> operations.put(operation.getName(), operation));
 		return Collections.unmodifiableMap(operations);
