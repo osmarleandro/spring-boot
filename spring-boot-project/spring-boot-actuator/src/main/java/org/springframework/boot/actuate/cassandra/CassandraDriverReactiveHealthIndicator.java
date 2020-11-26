@@ -52,7 +52,7 @@ public class CassandraDriverReactiveHealthIndicator extends AbstractReactiveHeal
 	}
 
 	@Override
-	protected Mono<Health> doHealthCheck(Health.Builder builder) {
+	protected Mono<Health> doHealthCheck_RENAMED(Health.Builder builder) {
 		return Mono.fromSupplier(() -> {
 			Collection<Node> nodes = this.session.getMetadata().getNodes().values();
 			Optional<Node> nodeUp = nodes.stream().filter((node) -> node.getState() == NodeState.UP).findAny();
