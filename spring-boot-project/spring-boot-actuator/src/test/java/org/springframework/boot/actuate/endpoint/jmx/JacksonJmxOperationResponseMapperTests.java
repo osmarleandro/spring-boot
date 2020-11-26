@@ -64,26 +64,26 @@ class JacksonJmxOperationResponseMapperTests {
 
 	@Test
 	void mapResponseTypeWhenCharSequenceShouldReturnString() {
-		assertThat(this.mapper.mapResponseType(String.class)).isEqualTo(String.class);
-		assertThat(this.mapper.mapResponseType(StringBuilder.class)).isEqualTo(String.class);
+		assertThat(this.mapper.mapResponseType_RENAMED(String.class)).isEqualTo(String.class);
+		assertThat(this.mapper.mapResponseType_RENAMED(StringBuilder.class)).isEqualTo(String.class);
 	}
 
 	@Test
 	void mapResponseTypeWhenArrayShouldReturnList() {
-		assertThat(this.mapper.mapResponseType(String[].class)).isEqualTo(List.class);
-		assertThat(this.mapper.mapResponseType(Object[].class)).isEqualTo(List.class);
+		assertThat(this.mapper.mapResponseType_RENAMED(String[].class)).isEqualTo(List.class);
+		assertThat(this.mapper.mapResponseType_RENAMED(Object[].class)).isEqualTo(List.class);
 	}
 
 	@Test
 	void mapResponseTypeWhenCollectionShouldReturnList() {
-		assertThat(this.mapper.mapResponseType(Collection.class)).isEqualTo(List.class);
-		assertThat(this.mapper.mapResponseType(Set.class)).isEqualTo(List.class);
-		assertThat(this.mapper.mapResponseType(List.class)).isEqualTo(List.class);
+		assertThat(this.mapper.mapResponseType_RENAMED(Collection.class)).isEqualTo(List.class);
+		assertThat(this.mapper.mapResponseType_RENAMED(Set.class)).isEqualTo(List.class);
+		assertThat(this.mapper.mapResponseType_RENAMED(List.class)).isEqualTo(List.class);
 	}
 
 	@Test
 	void mapResponseTypeWhenOtherShouldReturnMap() {
-		assertThat(this.mapper.mapResponseType(ExampleBean.class)).isEqualTo(Map.class);
+		assertThat(this.mapper.mapResponseType_RENAMED(ExampleBean.class)).isEqualTo(Map.class);
 	}
 
 	@Test

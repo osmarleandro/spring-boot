@@ -93,7 +93,7 @@ class MBeanInfoFactory {
 	}
 
 	private String getType(Class<?> outputType) {
-		return this.responseMapper.mapResponseType(outputType).getName();
+		return this.responseMapper.mapResponseType_RENAMED(outputType).getName();
 	}
 
 }

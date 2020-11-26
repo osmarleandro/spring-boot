@@ -46,7 +46,7 @@ public class JacksonJmxOperationResponseMapper implements JmxOperationResponseMa
 	}
 
 	@Override
-	public Class<?> mapResponseType(Class<?> responseType) {
+	public Class<?> mapResponseType_RENAMED(Class<?> responseType) {
 		if (CharSequence.class.isAssignableFrom(responseType)) {
 			return String.class;
 		}
