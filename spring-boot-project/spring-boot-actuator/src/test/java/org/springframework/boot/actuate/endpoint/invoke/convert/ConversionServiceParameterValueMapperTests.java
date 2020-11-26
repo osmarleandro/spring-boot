@@ -45,7 +45,7 @@ class ConversionServiceParameterValueMapperTests {
 	void mapParameterShouldDelegateToConversionService() {
 		DefaultFormattingConversionService conversionService = spy(new DefaultFormattingConversionService());
 		ConversionServiceParameterValueMapper mapper = new ConversionServiceParameterValueMapper(conversionService);
-		Object mapped = mapper.mapParameterValue(new TestOperationParameter(Integer.class), "123");
+		Object mapped = mapper.mapParameterValue_RENAMED(new TestOperationParameter(Integer.class), "123");
 		assertThat(mapped).isEqualTo(123);
 		verify(conversionService).convert("123", Integer.class);
 	}
@@ -57,7 +57,7 @@ class ConversionServiceParameterValueMapperTests {
 		given(conversionService.convert(any(), any())).willThrow(error);
 		ConversionServiceParameterValueMapper mapper = new ConversionServiceParameterValueMapper(conversionService);
 		assertThatExceptionOfType(ParameterMappingException.class)
-				.isThrownBy(() -> mapper.mapParameterValue(new TestOperationParameter(Integer.class), "123"))
+				.isThrownBy(() -> mapper.mapParameterValue_RENAMED(new TestOperationParameter(Integer.class), "123"))
 				.satisfies((ex) -> {
 					assertThat(ex.getValue()).isEqualTo("123");
 					assertThat(ex.getParameter().getType()).isEqualTo(Integer.class);
@@ -68,7 +68,7 @@ class ConversionServiceParameterValueMapperTests {
 	@Test
 	void createShouldRegisterIsoOffsetDateTimeConverter() {
 		ConversionServiceParameterValueMapper mapper = new ConversionServiceParameterValueMapper();
-		Object mapped = mapper.mapParameterValue(new TestOperationParameter(OffsetDateTime.class),
+		Object mapped = mapper.mapParameterValue_RENAMED(new TestOperationParameter(OffsetDateTime.class),
 				"2011-12-03T10:15:30+01:00");
 		assertThat(mapped).isNotNull();
 	}
@@ -78,7 +78,7 @@ class ConversionServiceParameterValueMapperTests {
 		ConversionService conversionService = new DefaultConversionService();
 		ConversionServiceParameterValueMapper mapper = new ConversionServiceParameterValueMapper(conversionService);
 		assertThatExceptionOfType(ParameterMappingException.class).isThrownBy(() -> mapper
-				.mapParameterValue(new TestOperationParameter(OffsetDateTime.class), "2011-12-03T10:15:30+01:00"));
+				.mapParameterValue_RENAMED(new TestOperationParameter(OffsetDateTime.class), "2011-12-03T10:15:30+01:00"));
 	}
 
 	static class TestOperationParameter implements OperationParameter {

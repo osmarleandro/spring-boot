@@ -117,7 +117,7 @@ public class ReflectiveOperationInvoker implements OperationInvoker {
 			return context.getSecurityContext();
 		}
 		Object value = context.getArguments().get(parameter.getName());
-		return this.parameterValueMapper.mapParameterValue(parameter, value);
+		return this.parameterValueMapper.mapParameterValue_RENAMED(parameter, value);
 	}
 
 	@Override
