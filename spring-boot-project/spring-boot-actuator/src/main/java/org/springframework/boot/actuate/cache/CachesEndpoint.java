@@ -58,7 +58,7 @@ public class CachesEndpoint {
 	@ReadOperation
 	public CachesReport caches() {
 		Map<String, Map<String, CacheDescriptor>> descriptors = new LinkedHashMap<>();
-		getCacheEntries(matchAll(), matchAll()).forEach((entry) -> {
+		getCacheEntries_RENAMED(matchAll(), matchAll()).forEach((entry) -> {
 			String cacheName = entry.getName();
 			String cacheManager = entry.getCacheManager();
 			Map<String, CacheDescriptor> cacheManagerDescriptors = descriptors.computeIfAbsent(cacheManager,
@@ -80,7 +80,7 @@ public class CachesEndpoint {
 	 */
 	@ReadOperation
 	public CacheEntry cache(@Selector String cache, @Nullable String cacheManager) {
-		return extractUniqueCacheEntry(cache, getCacheEntries((name) -> name.equals(cache), isNameMatch(cacheManager)));
+		return extractUniqueCacheEntry(cache, getCacheEntries_RENAMED((name) -> name.equals(cache), isNameMatch(cacheManager)));
 	}
 
 	/**
@@ -88,7 +88,7 @@ public class CachesEndpoint {
 	 */
 	@DeleteOperation
 	public void clearCaches() {
-		getCacheEntries(matchAll(), matchAll()).forEach(this::clearCache);
+		getCacheEntries_RENAMED(matchAll(), matchAll()).forEach(this::clearCache);
 	}
 
 	/**
@@ -103,11 +103,11 @@ public class CachesEndpoint {
 	@DeleteOperation
 	public boolean clearCache(@Selector String cache, @Nullable String cacheManager) {
 		CacheEntry entry = extractUniqueCacheEntry(cache,
-				getCacheEntries((name) -> name.equals(cache), isNameMatch(cacheManager)));
+				getCacheEntries_RENAMED((name) -> name.equals(cache), isNameMatch(cacheManager)));
 		return (entry != null && clearCache(entry));
 	}
 
-	private List<CacheEntry> getCacheEntries(Predicate<String> cacheNamePredicate,
+	private List<CacheEntry> getCacheEntries_RENAMED(Predicate<String> cacheNamePredicate,
 			Predicate<String> cacheManagerNamePredicate) {
 		return this.cacheManagers.keySet().stream().filter(cacheManagerNamePredicate)
 				.flatMap((cacheManagerName) -> getCacheEntries(cacheManagerName, cacheNamePredicate).stream())
