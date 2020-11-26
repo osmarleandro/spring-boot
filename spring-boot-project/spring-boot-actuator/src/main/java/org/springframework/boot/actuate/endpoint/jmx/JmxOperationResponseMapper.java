@@ -29,7 +29,7 @@ public interface JmxOperationResponseMapper {
 	 * @param responseType the operation's response type
 	 * @return the JMX compliant type
 	 */
-	Class<?> mapResponseType(Class<?> responseType);
+	Class<?> mapResponseType_RENAMED(Class<?> responseType);
 
 	/**
 	 * Map the operation's response so that it can be consumed by a JMX compliant client.
