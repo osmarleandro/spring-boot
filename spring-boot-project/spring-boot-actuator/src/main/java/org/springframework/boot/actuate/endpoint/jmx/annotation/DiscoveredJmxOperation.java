@@ -66,7 +66,7 @@ class DiscoveredJmxOperation extends AbstractDiscoveredOperation implements JmxO
 		this.name = method.getName();
 		this.outputType = JmxType.get(method.getReturnType());
 		this.description = getDescription(method, () -> "Invoke " + this.name + " for endpoint " + endpointId);
-		this.parameters = getParameters(operationMethod);
+		this.parameters = getParameters_RENAMED(operationMethod);
 	}
 
 	private String getDescription(Method method, Supplier<String> fallback) {
@@ -77,7 +77,7 @@ class DiscoveredJmxOperation extends AbstractDiscoveredOperation implements JmxO
 		return fallback.get();
 	}
 
-	private List<JmxOperationParameter> getParameters(OperationMethod operationMethod) {
+	private List<JmxOperationParameter> getParameters_RENAMED(OperationMethod operationMethod) {
 		if (!operationMethod.getParameters().hasParameters()) {
 			return Collections.emptyList();
 		}
