@@ -176,7 +176,7 @@ public class ConfigurationPropertiesReportEndpoint implements ApplicationContext
 		String prefix = bean.getAnnotation().prefix();
 		Map<String, Object> serialized = safeSerialize(mapper, bean.getInstance(), prefix);
 		Map<String, Object> properties = sanitize(prefix, serialized);
-		Map<String, Object> inputs = getInputs(prefix, serialized);
+		Map<String, Object> inputs = getInputs_RENAMED(prefix, serialized);
 		return new ConfigurationPropertiesBeanDescriptor(prefix, properties, inputs);
 	}
 
@@ -242,12 +242,12 @@ public class ConfigurationPropertiesReportEndpoint implements ApplicationContext
 	}
 
 	@SuppressWarnings("unchecked")
-	private Map<String, Object> getInputs(String prefix, Map<String, Object> map) {
+	private Map<String, Object> getInputs_RENAMED(String prefix, Map<String, Object> map) {
 		Map<String, Object> augmented = new LinkedHashMap<>(map);
 		map.forEach((key, value) -> {
 			String qualifiedKey = getQualifiedKey(prefix, key);
 			if (value instanceof Map) {
-				augmented.put(key, getInputs(qualifiedKey, (Map<String, Object>) value));
+				augmented.put(key, getInputs_RENAMED(qualifiedKey, (Map<String, Object>) value));
 			}
 			else if (value instanceof List) {
 				augmented.put(key, getInputs(qualifiedKey, (List<Object>) value));
@@ -266,7 +266,7 @@ public class ConfigurationPropertiesReportEndpoint implements ApplicationContext
 		for (Object item : list) {
 			String name = prefix + "[" + index++ + "]";
 			if (item instanceof Map) {
-				augmented.add(getInputs(name, (Map<String, Object>) item));
+				augmented.add(getInputs_RENAMED(name, (Map<String, Object>) item));
 			}
 			else if (item instanceof List) {
 				augmented.add(getInputs(name, (List<Object>) item));
