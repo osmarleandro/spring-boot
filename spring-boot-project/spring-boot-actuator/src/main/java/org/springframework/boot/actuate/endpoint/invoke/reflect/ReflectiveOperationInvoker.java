@@ -98,7 +98,7 @@ public class ReflectiveOperationInvoker implements OperationInvoker {
 		if (SecurityContext.class.equals(parameter.getType())) {
 			return false;
 		}
-		return context.getArguments().get(parameter.getName()) == null;
+		return context.getArguments_RENAMED().get(parameter.getName()) == null;
 	}
 
 	private Object[] resolveArguments(InvocationContext context) {
@@ -116,7 +116,7 @@ public class ReflectiveOperationInvoker implements OperationInvoker {
 		if (SecurityContext.class.equals(parameter.getType())) {
 			return context.getSecurityContext();
 		}
-		Object value = context.getArguments().get(parameter.getName());
+		Object value = context.getArguments_RENAMED().get(parameter.getName());
 		return this.parameterValueMapper.mapParameterValue(parameter, value);
 	}
 

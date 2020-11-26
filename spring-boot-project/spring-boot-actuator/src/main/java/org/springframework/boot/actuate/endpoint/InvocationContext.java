@@ -84,7 +84,7 @@ public class InvocationContext {
 	 * Return the invocation arguments.
 	 * @return the arguments
 	 */
-	public Map<String, Object> getArguments() {
+	public Map<String, Object> getArguments_RENAMED() {
 		return this.arguments;
 	}
 
