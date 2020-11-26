@@ -107,7 +107,7 @@ public class Sanitizer {
 		}
 		for (Pattern pattern : this.keysToSanitize) {
 			if (pattern.matcher(key).matches()) {
-				if (keyIsUriWithUserInfo(pattern)) {
+				if (keyIsUriWithUserInfo_RENAMED(pattern)) {
 					return sanitizeUris(value.toString());
 				}
 				return "******";
@@ -116,7 +116,7 @@ public class Sanitizer {
 		return value;
 	}
 
-	private boolean keyIsUriWithUserInfo(Pattern pattern) {
+	private boolean keyIsUriWithUserInfo_RENAMED(Pattern pattern) {
 		for (String uriKey : URI_USERINFO_KEYS) {
 			if (pattern.matcher(uriKey).matches()) {
 				return true;
