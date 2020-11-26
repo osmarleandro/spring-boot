@@ -40,7 +40,7 @@ public interface JmxOperation extends Operation {
 	 * Returns the type of the output of the operation.
 	 * @return the output type
 	 */
-	Class<?> getOutputType();
+	Class<?> getOutputType_RENAMED();
 
 	/**
 	 * Returns the description of the operation.

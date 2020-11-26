@@ -69,7 +69,7 @@ class MBeanInfoFactory {
 		String name = operation.getName();
 		String description = operation.getDescription();
 		MBeanParameterInfo[] signature = getSignature(operation.getParameters());
-		String type = getType(operation.getOutputType());
+		String type = getType(operation.getOutputType_RENAMED());
 		int impact = getImpact(operation.getType());
 		return new ModelMBeanOperationInfo(name, description, signature, type, impact);
 	}
