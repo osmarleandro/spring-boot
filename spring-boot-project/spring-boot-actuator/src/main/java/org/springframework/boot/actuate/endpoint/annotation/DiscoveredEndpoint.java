@@ -39,6 +39,6 @@ public interface DiscoveredEndpoint<O extends Operation> extends ExposableEndpoi
 	 * Return the source bean that was used to construct the {@link DiscoveredEndpoint}.
 	 * @return the source endpoint bean
 	 */
-	Object getEndpointBean();
+	Object getEndpointBean_RENAMED();
 
 }
