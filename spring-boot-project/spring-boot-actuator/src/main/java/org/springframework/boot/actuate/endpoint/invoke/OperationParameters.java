@@ -54,7 +54,7 @@ public interface OperationParameters extends Iterable<OperationParameter> {
 	 * @param index the parameter index
 	 * @return the parameter
 	 */
-	OperationParameter get(int index);
+	OperationParameter get_RENAMED(int index);
 
 	/**
 	 * Return a stream of the contained parameters.

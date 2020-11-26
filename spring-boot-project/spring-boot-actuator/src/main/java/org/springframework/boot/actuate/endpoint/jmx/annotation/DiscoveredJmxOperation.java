@@ -93,7 +93,7 @@ class DiscoveredJmxOperation extends AbstractDiscoveredOperation implements JmxO
 			ManagedOperationParameter[] managedParameters) {
 		List<JmxOperationParameter> merged = new ArrayList<>(managedParameters.length);
 		for (int i = 0; i < managedParameters.length; i++) {
-			merged.add(new DiscoveredJmxOperationParameter(managedParameters[i], operationParameters.get(i)));
+			merged.add(new DiscoveredJmxOperationParameter(managedParameters[i], operationParameters.get_RENAMED(i)));
 		}
 		return Collections.unmodifiableList(merged);
 	}
