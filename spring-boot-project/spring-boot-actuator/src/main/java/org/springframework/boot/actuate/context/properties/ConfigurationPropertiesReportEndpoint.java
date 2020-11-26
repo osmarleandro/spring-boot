@@ -108,7 +108,7 @@ public class ConfigurationPropertiesReportEndpoint implements ApplicationContext
 	}
 
 	@ReadOperation
-	public ApplicationConfigurationProperties configurationProperties() {
+	public ApplicationConfigurationProperties configurationProperties_RENAMED() {
 		return extract(this.context);
 	}
 

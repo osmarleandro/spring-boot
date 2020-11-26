@@ -58,7 +58,7 @@ class ConfigurationPropertiesReportEndpointProxyTests {
 				SqlExecutor.class);
 		contextRunner.run((context) -> {
 			ApplicationConfigurationProperties applicationProperties = context
-					.getBean(ConfigurationPropertiesReportEndpoint.class).configurationProperties();
+					.getBean(ConfigurationPropertiesReportEndpoint.class).configurationProperties_RENAMED();
 			assertThat(applicationProperties.getContexts().get(context.getId()).getBeans().values().stream()
 					.map(ConfigurationPropertiesBeanDescriptor::getPrefix).filter("executor.sql"::equals).findFirst())
 							.isNotEmpty();
@@ -71,7 +71,7 @@ class ConfigurationPropertiesReportEndpointProxyTests {
 				.withUserConfiguration(ValidatedConfiguration.class).withPropertyValues("validated.name=baz");
 		contextRunner.run((context) -> {
 			ApplicationConfigurationProperties applicationProperties = context
-					.getBean(ConfigurationPropertiesReportEndpoint.class).configurationProperties();
+					.getBean(ConfigurationPropertiesReportEndpoint.class).configurationProperties_RENAMED();
 			Map<String, Object> properties = applicationProperties.getContexts().get(context.getId()).getBeans()
 					.values().stream().map(ConfigurationPropertiesBeanDescriptor::getProperties).findFirst().get();
 			assertThat(properties.get("name")).isEqualTo("baz");

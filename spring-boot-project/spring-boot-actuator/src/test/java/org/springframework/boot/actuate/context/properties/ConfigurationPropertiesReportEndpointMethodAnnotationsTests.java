@@ -44,7 +44,7 @@ class ConfigurationPropertiesReportEndpointMethodAnnotationsTests {
 		contextRunner.run((context) -> {
 			ConfigurationPropertiesReportEndpoint endpoint = context
 					.getBean(ConfigurationPropertiesReportEndpoint.class);
-			ApplicationConfigurationProperties applicationProperties = endpoint.configurationProperties();
+			ApplicationConfigurationProperties applicationProperties = endpoint.configurationProperties_RENAMED();
 			assertThat(applicationProperties.getContexts()).containsOnlyKeys(context.getId());
 			ContextConfigurationProperties contextProperties = applicationProperties.getContexts().get(context.getId());
 			ConfigurationPropertiesBeanDescriptor other = contextProperties.getBeans().get("other");
@@ -62,7 +62,7 @@ class ConfigurationPropertiesReportEndpointMethodAnnotationsTests {
 		contextRunner.run((context) -> {
 			ConfigurationPropertiesReportEndpoint endpoint = context
 					.getBean(ConfigurationPropertiesReportEndpoint.class);
-			ApplicationConfigurationProperties applicationProperties = endpoint.configurationProperties();
+			ApplicationConfigurationProperties applicationProperties = endpoint.configurationProperties_RENAMED();
 			assertThat(applicationProperties.getContexts()).containsOnlyKeys(context.getId());
 			ContextConfigurationProperties contextProperties = applicationProperties.getContexts().get(context.getId());
 			ConfigurationPropertiesBeanDescriptor bar = contextProperties.getBeans().get("bar");
