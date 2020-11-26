@@ -592,7 +592,7 @@ class WebEndpointDiscovererTests {
 			return "write";
 		}
 
-		@DeleteOperation(produces = "text/plain")
+		@DeleteOperation(produces_RENAMED = "text/plain")
 		String delete() {
 			return "delete";
 		}
