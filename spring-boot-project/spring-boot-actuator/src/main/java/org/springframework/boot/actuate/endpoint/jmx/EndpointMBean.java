@@ -128,11 +128,11 @@ public class EndpointMBean implements DynamicMBean {
 			throw new ReflectionException(new IllegalArgumentException(ex.getMessage()), ex.getMessage());
 		}
 		catch (Exception ex) {
-			throw new MBeanException(translateIfNecessary(ex), ex.getMessage());
+			throw new MBeanException(translateIfNecessary_RENAMED(ex), ex.getMessage());
 		}
 	}
 
-	private Exception translateIfNecessary(Exception exception) {
+	private Exception translateIfNecessary_RENAMED(Exception exception) {
 		if (exception.getClass().getName().startsWith("java.")) {
 			return exception;
 		}
