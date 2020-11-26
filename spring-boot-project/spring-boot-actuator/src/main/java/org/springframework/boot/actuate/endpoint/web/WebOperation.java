@@ -43,6 +43,6 @@ public interface WebOperation extends Operation {
 	 * Returns the predicate for requests that can be handled by this operation.
 	 * @return the predicate
 	 */
-	WebOperationRequestPredicate getRequestPredicate();
+	WebOperationRequestPredicate getRequestPredicate_RENAMED();
 
 }

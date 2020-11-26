@@ -83,8 +83,8 @@ public class WebEndpointDiscoverer extends EndpointDiscoverer<ExposableWebEndpoi
 
 	@Override
 	protected OperationKey createOperationKey(WebOperation operation) {
-		return new OperationKey(operation.getRequestPredicate(),
-				() -> "web request predicate " + operation.getRequestPredicate());
+		return new OperationKey(operation.getRequestPredicate_RENAMED(),
+				() -> "web request predicate " + operation.getRequestPredicate_RENAMED());
 	}
 
 }

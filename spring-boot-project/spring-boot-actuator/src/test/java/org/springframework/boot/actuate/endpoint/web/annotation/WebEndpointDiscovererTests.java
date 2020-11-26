@@ -241,7 +241,7 @@ class WebEndpointDiscovererTests {
 	}
 
 	private List<WebOperationRequestPredicate> requestPredicates(ExposableWebEndpoint endpoint) {
-		return endpoint.getOperations().stream().map(WebOperation::getRequestPredicate).collect(Collectors.toList());
+		return endpoint.getOperations().stream().map(WebOperation::getRequestPredicate_RENAMED).collect(Collectors.toList());
 	}
 
 	private Condition<List<? extends WebOperationRequestPredicate>> requestPredicates(

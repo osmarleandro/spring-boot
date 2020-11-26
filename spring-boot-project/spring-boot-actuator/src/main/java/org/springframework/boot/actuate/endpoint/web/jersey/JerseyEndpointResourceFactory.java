@@ -92,7 +92,7 @@ public class JerseyEndpointResourceFactory {
 	}
 
 	private Resource createResource(EndpointMapping endpointMapping, WebOperation operation) {
-		WebOperationRequestPredicate requestPredicate = operation.getRequestPredicate();
+		WebOperationRequestPredicate requestPredicate = operation.getRequestPredicate_RENAMED();
 		String path = requestPredicate.getPath();
 		String matchAllRemainingPathSegmentsVariable = requestPredicate.getMatchAllRemainingPathSegmentsVariable();
 		if (matchAllRemainingPathSegmentsVariable != null) {
@@ -170,7 +170,7 @@ public class JerseyEndpointResourceFactory {
 
 		private Map<String, Object> extractPathParameters(ContainerRequestContext requestContext) {
 			Map<String, Object> pathParameters = extract(requestContext.getUriInfo().getPathParameters());
-			String matchAllRemainingPathSegmentsVariable = this.operation.getRequestPredicate()
+			String matchAllRemainingPathSegmentsVariable = this.operation.getRequestPredicate_RENAMED()
 					.getMatchAllRemainingPathSegmentsVariable();
 			if (matchAllRemainingPathSegmentsVariable != null) {
 				String remainingPathSegments = (String) pathParameters.get(matchAllRemainingPathSegmentsVariable);

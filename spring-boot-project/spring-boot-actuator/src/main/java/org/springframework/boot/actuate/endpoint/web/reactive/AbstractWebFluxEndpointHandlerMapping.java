@@ -164,7 +164,7 @@ public abstract class AbstractWebFluxEndpointHandlerMapping extends RequestMappi
 	}
 
 	private RequestMappingInfo createRequestMappingInfo(WebOperation operation) {
-		WebOperationRequestPredicate predicate = operation.getRequestPredicate();
+		WebOperationRequestPredicate predicate = operation.getRequestPredicate_RENAMED();
 		PatternsRequestCondition patterns = new PatternsRequestCondition(
 				pathPatternParser.parse(this.endpointMapping.createSubPath(predicate.getPath())));
 		RequestMethodsRequestCondition methods = new RequestMethodsRequestCondition(
@@ -312,7 +312,7 @@ public abstract class AbstractWebFluxEndpointHandlerMapping extends RequestMappi
 		public Mono<ResponseEntity<Object>> handle(ServerWebExchange exchange, Map<String, String> body) {
 			ApiVersion apiVersion = ApiVersion.fromHttpHeaders(exchange.getRequest().getHeaders());
 			Map<String, Object> arguments = getArguments(exchange, body);
-			String matchAllRemainingPathSegmentsVariable = this.operation.getRequestPredicate()
+			String matchAllRemainingPathSegmentsVariable = this.operation.getRequestPredicate_RENAMED()
 					.getMatchAllRemainingPathSegmentsVariable();
 			if (matchAllRemainingPathSegmentsVariable != null) {
 				arguments.put(matchAllRemainingPathSegmentsVariable,
