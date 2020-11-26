@@ -101,7 +101,7 @@ public class CachesEndpoint {
 	 * {@code cacheManager} was provided to identify a unique candidate
 	 */
 	@DeleteOperation
-	public boolean clearCache(@Selector String cache, @Nullable String cacheManager) {
+	public boolean clearCache_RENAMED(@Selector String cache, @Nullable String cacheManager) {
 		CacheEntry entry = extractUniqueCacheEntry(cache,
 				getCacheEntries((name) -> name.equals(cache), isNameMatch(cacheManager)));
 		return (entry != null && clearCache(entry));

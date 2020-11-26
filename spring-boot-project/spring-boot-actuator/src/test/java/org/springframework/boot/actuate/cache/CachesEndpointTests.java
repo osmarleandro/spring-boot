@@ -135,7 +135,7 @@ class CachesEndpointTests {
 		Cache a = mockCache("a");
 		Cache b = mockCache("b");
 		CachesEndpoint endpoint = new CachesEndpoint(Collections.singletonMap("test", cacheManager(a, b)));
-		assertThat(endpoint.clearCache("a", null)).isTrue();
+		assertThat(endpoint.clearCache_RENAMED("a", null)).isTrue();
 		verify(a).clear();
 		verify(b, never()).clear();
 	}
@@ -147,7 +147,7 @@ class CachesEndpointTests {
 		cacheManagers.put("another", cacheManager(mockCache("dupe-cache")));
 		CachesEndpoint endpoint = new CachesEndpoint(cacheManagers);
 		assertThatExceptionOfType(NonUniqueCacheException.class)
-				.isThrownBy(() -> endpoint.clearCache("dupe-cache", null)).withMessageContaining("dupe-cache")
+				.isThrownBy(() -> endpoint.clearCache_RENAMED("dupe-cache", null)).withMessageContaining("dupe-cache")
 				.withMessageContaining("test").withMessageContaining("another");
 	}
 
@@ -160,7 +160,7 @@ class CachesEndpointTests {
 		Cache anotherA = mockCache("a");
 		cacheManagers.put("another", cacheManager(anotherA));
 		CachesEndpoint endpoint = new CachesEndpoint(cacheManagers);
-		assertThat(endpoint.clearCache("a", "another")).isTrue();
+		assertThat(endpoint.clearCache_RENAMED("a", "another")).isTrue();
 		verify(a, never()).clear();
 		verify(anotherA).clear();
 		verify(b, never()).clear();
@@ -170,7 +170,7 @@ class CachesEndpointTests {
 	void clearCacheWithUnknownCache() {
 		Cache a = mockCache("a");
 		CachesEndpoint endpoint = new CachesEndpoint(Collections.singletonMap("test", cacheManager(a)));
-		assertThat(endpoint.clearCache("unknown", null)).isFalse();
+		assertThat(endpoint.clearCache_RENAMED("unknown", null)).isFalse();
 		verify(a, never()).clear();
 	}
 
@@ -178,7 +178,7 @@ class CachesEndpointTests {
 	void clearCacheWithUnknownCacheManager() {
 		Cache a = mockCache("a");
 		CachesEndpoint endpoint = new CachesEndpoint(Collections.singletonMap("test", cacheManager(a)));
-		assertThat(endpoint.clearCache("a", "unknown")).isFalse();
+		assertThat(endpoint.clearCache_RENAMED("a", "unknown")).isFalse();
 		verify(a, never()).clear();
 	}
 
