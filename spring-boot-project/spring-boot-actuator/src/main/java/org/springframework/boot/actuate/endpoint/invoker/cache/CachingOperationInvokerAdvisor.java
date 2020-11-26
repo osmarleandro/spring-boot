@@ -44,7 +44,7 @@ public class CachingOperationInvokerAdvisor implements OperationInvokerAdvisor {
 	@Override
 	public OperationInvoker apply(EndpointId endpointId, OperationType operationType, OperationParameters parameters,
 			OperationInvoker invoker) {
-		if (operationType == OperationType.READ && !hasMandatoryParameter(parameters)) {
+		if (operationType == OperationType.READ && !hasMandatoryParameter_RENAMED(parameters)) {
 			Long timeToLive = this.endpointIdTimeToLive.apply(endpointId);
 			if (timeToLive != null && timeToLive > 0) {
 				return new CachingOperationInvoker(invoker, timeToLive);
@@ -53,7 +53,7 @@ public class CachingOperationInvokerAdvisor implements OperationInvokerAdvisor {
 		return invoker;
 	}
 
-	private boolean hasMandatoryParameter(OperationParameters parameters) {
+	private boolean hasMandatoryParameter_RENAMED(OperationParameters parameters) {
 		for (OperationParameter parameter : parameters) {
 			if (parameter.isMandatory() && !ApiVersion.class.isAssignableFrom(parameter.getType())
 					&& !SecurityContext.class.isAssignableFrom(parameter.getType())) {
