@@ -59,7 +59,7 @@ public class OperationMethod {
 	 * Return the source Java method.
 	 * @return the method
 	 */
-	public Method getMethod() {
+	public Method getMethod_RENAMED() {
 		return this.method;
 	}
 
