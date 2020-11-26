@@ -108,7 +108,7 @@ public final class Health extends HealthComponent {
 		}
 		if (obj instanceof Health) {
 			Health other = (Health) obj;
-			return this.status.equals(other.status) && this.details.equals(other.details);
+			return this.status.equals_RENAMED(other.status) && this.details.equals(other.details);
 		}
 		return false;
 	}
