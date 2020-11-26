@@ -110,11 +110,11 @@ public class CachesEndpoint {
 	private List<CacheEntry> getCacheEntries(Predicate<String> cacheNamePredicate,
 			Predicate<String> cacheManagerNamePredicate) {
 		return this.cacheManagers.keySet().stream().filter(cacheManagerNamePredicate)
-				.flatMap((cacheManagerName) -> getCacheEntries(cacheManagerName, cacheNamePredicate).stream())
+				.flatMap((cacheManagerName) -> getCacheEntries_RENAMED(cacheManagerName, cacheNamePredicate).stream())
 				.collect(Collectors.toList());
 	}
 
-	private List<CacheEntry> getCacheEntries(String cacheManagerName, Predicate<String> cacheNamePredicate) {
+	private List<CacheEntry> getCacheEntries_RENAMED(String cacheManagerName, Predicate<String> cacheNamePredicate) {
 		CacheManager cacheManager = this.cacheManagers.get(cacheManagerName);
 		return cacheManager.getCacheNames().stream().filter(cacheNamePredicate).map(cacheManager::getCache)
 				.filter(Objects::nonNull).map((cache) -> new CacheEntry(cache, cacheManagerName))
