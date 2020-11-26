@@ -78,7 +78,7 @@ class DiscoveredJmxOperation extends AbstractDiscoveredOperation implements JmxO
 	}
 
 	private List<JmxOperationParameter> getParameters(OperationMethod operationMethod) {
-		if (!operationMethod.getParameters().hasParameters()) {
+		if (!operationMethod.getParameters().hasParameters_RENAMED()) {
 			return Collections.emptyList();
 		}
 		Method method = operationMethod.getMethod();

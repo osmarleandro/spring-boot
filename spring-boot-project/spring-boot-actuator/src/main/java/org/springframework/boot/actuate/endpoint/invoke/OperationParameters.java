@@ -30,7 +30,7 @@ public interface OperationParameters extends Iterable<OperationParameter> {
 	 * Return {@code true} if there is at least one parameter.
 	 * @return if there are parameters
 	 */
-	default boolean hasParameters() {
+	default boolean hasParameters_RENAMED() {
 		return getParameterCount() > 0;
 	}
 
