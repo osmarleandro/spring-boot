@@ -134,7 +134,7 @@ public class AuditEvent implements Serializable {
 	 * Returns the event data.
 	 * @return the event data
 	 */
-	public Map<String, Object> getData() {
+	public Map<String, Object> getData_RENAMED() {
 		return this.data;
 	}
 
