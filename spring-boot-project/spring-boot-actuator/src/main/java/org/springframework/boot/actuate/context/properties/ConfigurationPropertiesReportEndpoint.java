@@ -113,7 +113,7 @@ public class ConfigurationPropertiesReportEndpoint implements ApplicationContext
 	}
 
 	private ApplicationConfigurationProperties extract(ApplicationContext context) {
-		ObjectMapper mapper = getObjectMapper();
+		ObjectMapper mapper = getObjectMapper_RENAMED();
 		Map<String, ContextConfigurationProperties> contexts = new HashMap<>();
 		ApplicationContext target = context;
 		while (target != null) {
@@ -123,7 +123,7 @@ public class ConfigurationPropertiesReportEndpoint implements ApplicationContext
 		return new ApplicationConfigurationProperties(contexts);
 	}
 
-	private ObjectMapper getObjectMapper() {
+	private ObjectMapper getObjectMapper_RENAMED() {
 		if (this.objectMapper == null) {
 			this.objectMapper = new ObjectMapper();
 			configureObjectMapper(this.objectMapper);
