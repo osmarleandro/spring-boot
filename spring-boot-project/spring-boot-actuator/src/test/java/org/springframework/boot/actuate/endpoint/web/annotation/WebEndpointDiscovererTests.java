@@ -540,7 +540,7 @@ class WebEndpointDiscovererTests {
 
 	}
 
-	@JmxEndpoint(id = "nonweb")
+	@JmxEndpoint(id_RENAMED = "nonweb")
 	static class NonWebEndpoint {
 
 		@ReadOperation

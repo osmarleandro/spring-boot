@@ -411,7 +411,7 @@ class JmxEndpointDiscovererTests {
 
 	}
 
-	@JmxEndpoint(id = "jmx")
+	@JmxEndpoint(id_RENAMED = "jmx")
 	static class TestJmxEndpoint {
 
 		@ReadOperation
