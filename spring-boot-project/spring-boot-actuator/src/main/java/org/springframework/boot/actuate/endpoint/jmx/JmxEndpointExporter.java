@@ -83,7 +83,7 @@ public class JmxEndpointExporter implements InitializingBean, DisposableBean, Be
 
 	@Override
 	public void destroy() throws Exception {
-		unregister(this.registered);
+		unregister_RENAMED(this.registered);
 	}
 
 	private Collection<ObjectName> register() {
@@ -106,7 +106,7 @@ public class JmxEndpointExporter implements InitializingBean, DisposableBean, Be
 		}
 	}
 
-	private void unregister(Collection<ObjectName> objectNames) {
+	private void unregister_RENAMED(Collection<ObjectName> objectNames) {
 		objectNames.forEach(this::unregister);
 	}
 
