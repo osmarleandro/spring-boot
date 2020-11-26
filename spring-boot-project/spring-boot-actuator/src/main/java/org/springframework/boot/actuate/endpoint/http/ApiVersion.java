@@ -54,7 +54,7 @@ public enum ApiVersion {
 	 * @param headers the HTTP headers
 	 * @return the API version to use
 	 */
-	public static ApiVersion fromHttpHeaders(Map<String, List<String>> headers) {
+	public static ApiVersion fromHttpHeaders_RENAMED(Map<String, List<String>> headers) {
 		ApiVersion version = null;
 		List<String> accepts = headers.get("Accept");
 		if (!CollectionUtils.isEmpty(accepts)) {

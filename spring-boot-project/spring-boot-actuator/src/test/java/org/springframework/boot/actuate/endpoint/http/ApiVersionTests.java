@@ -40,45 +40,45 @@ class ApiVersionTests {
 
 	@Test
 	void fromHttpHeadersWhenEmptyReturnsLatest() {
-		ApiVersion version = ApiVersion.fromHttpHeaders(Collections.emptyMap());
+		ApiVersion version = ApiVersion.fromHttpHeaders_RENAMED(Collections.emptyMap());
 		assertThat(version).isEqualTo(ApiVersion.V3);
 	}
 
 	@Test
 	void fromHttpHeadersWhenHasSingleV2HeaderReturnsV2() {
-		ApiVersion version = ApiVersion.fromHttpHeaders(acceptHeader(ActuatorMediaType.V2_JSON));
+		ApiVersion version = ApiVersion.fromHttpHeaders_RENAMED(acceptHeader(ActuatorMediaType.V2_JSON));
 		assertThat(version).isEqualTo(ApiVersion.V2);
 	}
 
 	@Test
 	void fromHttpHeadersWhenHasSingleV3HeaderReturnsV3() {
-		ApiVersion version = ApiVersion.fromHttpHeaders(acceptHeader(ActuatorMediaType.V3_JSON));
+		ApiVersion version = ApiVersion.fromHttpHeaders_RENAMED(acceptHeader(ActuatorMediaType.V3_JSON));
 		assertThat(version).isEqualTo(ApiVersion.V3);
 	}
 
 	@Test
 	void fromHttpHeadersWhenHasV2AndV3HeaderReturnsV3() {
 		ApiVersion version = ApiVersion
-				.fromHttpHeaders(acceptHeader(ActuatorMediaType.V2_JSON, ActuatorMediaType.V3_JSON));
+				.fromHttpHeaders_RENAMED(acceptHeader(ActuatorMediaType.V2_JSON, ActuatorMediaType.V3_JSON));
 		assertThat(version).isEqualTo(ApiVersion.V3);
 	}
 
 	@Test
 	void fromHttpHeadersWhenHasV2AndV3AsOneHeaderReturnsV3() {
 		ApiVersion version = ApiVersion
-				.fromHttpHeaders(acceptHeader(ActuatorMediaType.V2_JSON + "," + ActuatorMediaType.V3_JSON));
+				.fromHttpHeaders_RENAMED(acceptHeader(ActuatorMediaType.V2_JSON + "," + ActuatorMediaType.V3_JSON));
 		assertThat(version).isEqualTo(ApiVersion.V3);
 	}
 
 	@Test
 	void fromHttpHeadersWhenHasSingleHeaderWithoutJsonReturnsHeader() {
-		ApiVersion version = ApiVersion.fromHttpHeaders(acceptHeader("application/vnd.spring-boot.actuator.v2"));
+		ApiVersion version = ApiVersion.fromHttpHeaders_RENAMED(acceptHeader("application/vnd.spring-boot.actuator.v2"));
 		assertThat(version).isEqualTo(ApiVersion.V2);
 	}
 
 	@Test
 	void fromHttpHeadersWhenHasUnknownVersionReturnsLatest() {
-		ApiVersion version = ApiVersion.fromHttpHeaders(acceptHeader("application/vnd.spring-boot.actuator.v200"));
+		ApiVersion version = ApiVersion.fromHttpHeaders_RENAMED(acceptHeader("application/vnd.spring-boot.actuator.v200"));
 		assertThat(version).isEqualTo(ApiVersion.V3);
 	}
 

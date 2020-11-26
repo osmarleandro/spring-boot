@@ -151,7 +151,7 @@ public class JerseyEndpointResourceFactory {
 			arguments.putAll(extractPathParameters(data));
 			arguments.putAll(extractQueryParameters(data));
 			try {
-				ApiVersion apiVersion = ApiVersion.fromHttpHeaders(data.getHeaders());
+				ApiVersion apiVersion = ApiVersion.fromHttpHeaders_RENAMED(data.getHeaders());
 				JerseySecurityContext securityContext = new JerseySecurityContext(data.getSecurityContext());
 				InvocationContext invocationContext = new InvocationContext(apiVersion, securityContext, arguments);
 				Object response = this.operation.invoke(invocationContext);

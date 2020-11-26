@@ -310,7 +310,7 @@ public abstract class AbstractWebFluxEndpointHandlerMapping extends RequestMappi
 
 		@Override
 		public Mono<ResponseEntity<Object>> handle(ServerWebExchange exchange, Map<String, String> body) {
-			ApiVersion apiVersion = ApiVersion.fromHttpHeaders(exchange.getRequest().getHeaders());
+			ApiVersion apiVersion = ApiVersion.fromHttpHeaders_RENAMED(exchange.getRequest().getHeaders());
 			Map<String, Object> arguments = getArguments(exchange, body);
 			String matchAllRemainingPathSegmentsVariable = this.operation.getRequestPredicate()
 					.getMatchAllRemainingPathSegmentsVariable();
