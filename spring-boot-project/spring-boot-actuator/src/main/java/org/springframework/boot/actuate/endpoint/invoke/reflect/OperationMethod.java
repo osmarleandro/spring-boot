@@ -75,7 +75,7 @@ public class OperationMethod {
 	 * Return the operation parameters.
 	 * @return the operation parameters
 	 */
-	public OperationParameters getParameters() {
+	public OperationParameters getParameters_RENAMED() {
 		return this.operationParameters;
 	}
 

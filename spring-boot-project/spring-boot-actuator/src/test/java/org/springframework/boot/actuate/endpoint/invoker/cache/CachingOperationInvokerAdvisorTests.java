@@ -135,7 +135,7 @@ class CachingOperationInvokerAdvisorTests {
 	}
 
 	private OperationParameters getParameters(String methodName, Class<?>... parameterTypes) {
-		return getOperationMethod(methodName, parameterTypes).getParameters();
+		return getOperationMethod(methodName, parameterTypes).getParameters_RENAMED();
 	}
 
 	private OperationMethod getOperationMethod(String methodName, Class<?>... parameterTypes) {
