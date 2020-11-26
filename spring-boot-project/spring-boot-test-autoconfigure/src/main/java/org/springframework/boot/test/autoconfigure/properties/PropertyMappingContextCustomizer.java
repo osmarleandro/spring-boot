@@ -63,7 +63,7 @@ class PropertyMappingContextCustomizer implements ContextCustomizer {
 
 	@Override
 	public int hashCode() {
-		return this.propertySource.hashCode();
+		return this.propertySource.hashCode_RENAMED();
 	}
 
 	/**

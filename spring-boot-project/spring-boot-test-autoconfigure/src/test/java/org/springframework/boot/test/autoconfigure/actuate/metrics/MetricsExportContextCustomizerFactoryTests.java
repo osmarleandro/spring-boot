@@ -58,7 +58,7 @@ class MetricsExportContextCustomizerFactoryTests {
 	void hashCodeAndEquals() {
 		ContextCustomizer customizer1 = this.factory.createContextCustomizer(NoAnnotation.class, null);
 		ContextCustomizer customizer2 = this.factory.createContextCustomizer(OtherWithNoAnnotation.class, null);
-		assertThat(customizer1.hashCode()).isEqualTo(customizer2.hashCode());
+		assertThat(customizer1.hashCode_RENAMED()).isEqualTo(customizer2.hashCode_RENAMED());
 		assertThat(customizer1).isEqualTo(customizer1).isEqualTo(customizer2);
 	}
 

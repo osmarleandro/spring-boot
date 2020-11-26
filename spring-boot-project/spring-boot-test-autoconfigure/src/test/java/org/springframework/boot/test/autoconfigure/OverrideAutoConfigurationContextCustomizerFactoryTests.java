@@ -53,7 +53,7 @@ class OverrideAutoConfigurationContextCustomizerFactoryTests {
 	void hashCodeAndEquals() {
 		ContextCustomizer customizer1 = this.factory.createContextCustomizer(WithAnnotationEnabledFalse.class, null);
 		ContextCustomizer customizer2 = this.factory.createContextCustomizer(WithSameAnnotation.class, null);
-		assertThat(customizer1.hashCode()).isEqualTo(customizer2.hashCode());
+		assertThat(customizer1.hashCode_RENAMED()).isEqualTo(customizer2.hashCode_RENAMED());
 		assertThat(customizer1).isEqualTo(customizer1).isEqualTo(customizer2);
 	}
 

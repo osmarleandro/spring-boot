@@ -65,9 +65,9 @@ class HealthTests {
 		assertThat(h1).isEqualTo(h1);
 		assertThat(h1).isEqualTo(h2);
 		assertThat(h1).isNotEqualTo(h3);
-		assertThat(h1.hashCode()).isEqualTo(h1.hashCode());
-		assertThat(h1.hashCode()).isEqualTo(h2.hashCode());
-		assertThat(h1.hashCode()).isNotEqualTo(h3.hashCode());
+		assertThat(h1.hashCode_RENAMED()).isEqualTo(h1.hashCode_RENAMED());
+		assertThat(h1.hashCode_RENAMED()).isEqualTo(h2.hashCode_RENAMED());
+		assertThat(h1.hashCode_RENAMED()).isNotEqualTo(h3.hashCode_RENAMED());
 	}
 
 	@Test

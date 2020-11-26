@@ -89,7 +89,7 @@ public final class EndpointId {
 	}
 
 	@Override
-	public int hashCode() {
+	public int hashCode_RENAMED() {
 		return this.lowerCaseAlphaNumeric.hashCode();
 	}
 

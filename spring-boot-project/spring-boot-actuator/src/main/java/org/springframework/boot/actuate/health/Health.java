@@ -115,7 +115,7 @@ public final class Health extends HealthComponent {
 
 	@Override
 	public int hashCode() {
-		int hashCode = this.status.hashCode();
+		int hashCode = this.status.hashCode_RENAMED();
 		return 13 * hashCode + this.details.hashCode();
 	}
 

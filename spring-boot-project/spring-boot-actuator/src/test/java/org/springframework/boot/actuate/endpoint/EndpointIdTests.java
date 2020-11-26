@@ -135,7 +135,7 @@ class EndpointIdTests {
 		EndpointId four = EndpointId.of("foo.bar1");
 		EndpointId five = EndpointId.of("barfoo1");
 		EndpointId six = EndpointId.of("foobar2");
-		assertThat(one.hashCode()).isEqualTo(two.hashCode());
+		assertThat(one.hashCode_RENAMED()).isEqualTo(two.hashCode_RENAMED());
 		assertThat(one).isEqualTo(one).isEqualTo(two).isEqualTo(three).isEqualTo(four).isNotEqualTo(five)
 				.isNotEqualTo(six);
 	}
