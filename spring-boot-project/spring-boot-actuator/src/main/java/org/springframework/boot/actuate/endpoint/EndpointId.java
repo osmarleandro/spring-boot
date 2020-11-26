@@ -126,10 +126,10 @@ public final class EndpointId {
 	 */
 	public static EndpointId of(Environment environment, String value) {
 		Assert.notNull(environment, "Environment must not be null");
-		return new EndpointId(migrateLegacyId(environment, value));
+		return new EndpointId(migrateLegacyId_RENAMED(environment, value));
 	}
 
-	private static String migrateLegacyId(Environment environment, String value) {
+	private static String migrateLegacyId_RENAMED(Environment environment, String value) {
 		if (environment.getProperty(MIGRATE_LEGACY_NAMES_PROPERTY, Boolean.class, false)) {
 			return value.replaceAll("[-.]+", "");
 		}
