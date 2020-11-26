@@ -168,7 +168,7 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 
 	private void addExtensionBean(EndpointBean endpointBean, ExtensionBean extensionBean) {
 		if (isExtensionExposed(endpointBean, extensionBean)) {
-			Assert.state(isEndpointExposed(endpointBean) || isEndpointFiltered(endpointBean),
+			Assert.state(isEndpointExposed(endpointBean) || isEndpointFiltered_RENAMED(endpointBean),
 					() -> "Endpoint bean '" + endpointBean.getBeanName() + "' cannot support the extension bean '"
 							+ extensionBean.getBeanName() + "'");
 			endpointBean.addExtension(extensionBean);
@@ -262,7 +262,7 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 	}
 
 	private boolean isEndpointExposed(EndpointBean endpointBean) {
-		return isFilterMatch(endpointBean.getFilter(), endpointBean) && !isEndpointFiltered(endpointBean)
+		return isFilterMatch(endpointBean.getFilter(), endpointBean) && !isEndpointFiltered_RENAMED(endpointBean)
 				&& isEndpointExposed(endpointBean.getBean());
 	}
 
@@ -287,7 +287,7 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 		return true;
 	}
 
-	private boolean isEndpointFiltered(EndpointBean endpointBean) {
+	private boolean isEndpointFiltered_RENAMED(EndpointBean endpointBean) {
 		for (EndpointFilter<E> filter : this.filters) {
 			if (!isFilterMatch(filter, endpointBean)) {
 				return true;
