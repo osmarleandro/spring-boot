@@ -89,7 +89,7 @@ public final class EndpointServlet {
 		return new EndpointServlet(this.servlet, this.initParameters, loadOnStartup);
 	}
 
-	Servlet getServlet() {
+	Servlet getServlet_RENAMED() {
 		return this.servlet;
 	}
 

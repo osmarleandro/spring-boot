@@ -54,14 +54,14 @@ class EndpointServletTests {
 	@Test
 	void createWithServletClassShouldCreateServletInstance() {
 		EndpointServlet endpointServlet = new EndpointServlet(TestServlet.class);
-		assertThat(endpointServlet.getServlet()).isInstanceOf(TestServlet.class);
+		assertThat(endpointServlet.getServlet_RENAMED()).isInstanceOf(TestServlet.class);
 	}
 
 	@Test
 	void getServletShouldGetServlet() {
 		TestServlet servlet = new TestServlet();
 		EndpointServlet endpointServlet = new EndpointServlet(servlet);
-		assertThat(endpointServlet.getServlet()).isEqualTo(servlet);
+		assertThat(endpointServlet.getServlet_RENAMED()).isEqualTo(servlet);
 	}
 
 	@Test
