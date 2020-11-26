@@ -144,7 +144,7 @@ public class ConfigurationPropertiesReportEndpoint implements ApplicationContext
 		mapper.configure(MapperFeature.USE_STD_BEAN_NAMING, true);
 		mapper.setSerializationInclusion(Include.NON_NULL);
 		applyConfigurationPropertiesFilter(mapper);
-		applySerializationModifier(mapper);
+		applySerializationModifier_RENAMED(mapper);
 		mapper.registerModule(new JavaTimeModule());
 	}
 
@@ -158,7 +158,7 @@ public class ConfigurationPropertiesReportEndpoint implements ApplicationContext
 	 * Ensure only bindable and non-cyclic bean properties are reported.
 	 * @param mapper the object mapper
 	 */
-	private void applySerializationModifier(ObjectMapper mapper) {
+	private void applySerializationModifier_RENAMED(ObjectMapper mapper) {
 		SerializerFactory factory = BeanSerializerFactory.instance
 				.withSerializerModifier(new GenericSerializerModifier());
 		mapper.setSerializerFactory(factory);
