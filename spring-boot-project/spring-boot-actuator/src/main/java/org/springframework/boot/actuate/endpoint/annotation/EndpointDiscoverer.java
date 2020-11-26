@@ -237,7 +237,7 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 
 	private boolean isExtensionExposed(EndpointBean endpointBean, ExtensionBean extensionBean) {
 		return isFilterMatch(extensionBean.getFilter(), endpointBean)
-				&& isExtensionTypeExposed(extensionBean.getBeanType());
+				&& isExtensionTypeExposed_RENAMED(extensionBean.getBeanType());
 	}
 
 	/**
@@ -257,7 +257,7 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 	 * @param extensionBeanType the extension bean type
 	 * @return {@code true} if the extension is exposed
 	 */
-	protected boolean isExtensionTypeExposed(Class<?> extensionBeanType) {
+	protected boolean isExtensionTypeExposed_RENAMED(Class<?> extensionBeanType) {
 		return true;
 	}
 
