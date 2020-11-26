@@ -117,7 +117,7 @@ public class ConfigurationPropertiesReportEndpoint implements ApplicationContext
 		Map<String, ContextConfigurationProperties> contexts = new HashMap<>();
 		ApplicationContext target = context;
 		while (target != null) {
-			contexts.put(target.getId(), describeBeans(mapper, target));
+			contexts.put(target.getId(), describeBeans_RENAMED(mapper, target));
 			target = target.getParent();
 		}
 		return new ApplicationConfigurationProperties(contexts);
@@ -164,7 +164,7 @@ public class ConfigurationPropertiesReportEndpoint implements ApplicationContext
 		mapper.setSerializerFactory(factory);
 	}
 
-	private ContextConfigurationProperties describeBeans(ObjectMapper mapper, ApplicationContext context) {
+	private ContextConfigurationProperties describeBeans_RENAMED(ObjectMapper mapper, ApplicationContext context) {
 		Map<String, ConfigurationPropertiesBean> beans = ConfigurationPropertiesBean.getAll(context);
 		Map<String, ConfigurationPropertiesBeanDescriptor> descriptors = new HashMap<>();
 		beans.forEach((beanName, bean) -> descriptors.put(beanName, describeBean(mapper, bean)));
