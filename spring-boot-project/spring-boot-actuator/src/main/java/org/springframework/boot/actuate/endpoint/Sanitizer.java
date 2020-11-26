@@ -75,11 +75,11 @@ public class Sanitizer {
 		Assert.notNull(keysToSanitize, "KeysToSanitize must not be null");
 		this.keysToSanitize = new Pattern[keysToSanitize.length];
 		for (int i = 0; i < keysToSanitize.length; i++) {
-			this.keysToSanitize[i] = getPattern(keysToSanitize[i]);
+			this.keysToSanitize[i] = getPattern_RENAMED(keysToSanitize[i]);
 		}
 	}
 
-	private Pattern getPattern(String value) {
+	private Pattern getPattern_RENAMED(String value) {
 		if (isRegex(value)) {
 			return Pattern.compile(value, Pattern.CASE_INSENSITIVE);
 		}
