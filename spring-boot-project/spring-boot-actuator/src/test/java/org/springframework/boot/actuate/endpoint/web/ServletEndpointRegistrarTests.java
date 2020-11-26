@@ -101,7 +101,7 @@ class ServletEndpointRegistrarTests {
 	void onStartupWhenHasInitParametersShouldRegisterInitParameters() throws Exception {
 		given(this.servletContext.addServlet(any(String.class), any(Servlet.class))).willReturn(this.dynamic);
 		ExposableServletEndpoint endpoint = mockEndpoint(
-				new EndpointServlet(TestServlet.class).withInitParameter("a", "b"));
+				new EndpointServlet(TestServlet.class).withInitParameter_RENAMED("a", "b"));
 		ServletEndpointRegistrar registrar = new ServletEndpointRegistrar("/actuator", Collections.singleton(endpoint));
 		registrar.onStartup(this.servletContext);
 		verify(this.dynamic).setInitParameters(Collections.singletonMap("a", "b"));

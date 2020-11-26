@@ -67,26 +67,26 @@ class EndpointServletTests {
 	@Test
 	void withInitParameterNullName() {
 		EndpointServlet endpointServlet = new EndpointServlet(TestServlet.class);
-		assertThatIllegalArgumentException().isThrownBy(() -> endpointServlet.withInitParameter(null, "value"));
+		assertThatIllegalArgumentException().isThrownBy(() -> endpointServlet.withInitParameter_RENAMED(null, "value"));
 	}
 
 	@Test
 	void withInitParameterEmptyName() {
 		EndpointServlet endpointServlet = new EndpointServlet(TestServlet.class);
-		assertThatIllegalArgumentException().isThrownBy(() -> endpointServlet.withInitParameter(" ", "value"));
+		assertThatIllegalArgumentException().isThrownBy(() -> endpointServlet.withInitParameter_RENAMED(" ", "value"));
 	}
 
 	@Test
 	void withInitParameterShouldReturnNewInstance() {
 		EndpointServlet endpointServlet = new EndpointServlet(TestServlet.class);
-		assertThat(endpointServlet.withInitParameter("spring", "boot")).isNotSameAs(endpointServlet);
+		assertThat(endpointServlet.withInitParameter_RENAMED("spring", "boot")).isNotSameAs(endpointServlet);
 	}
 
 	@Test
 	void withInitParameterWhenHasExistingShouldMergeParameters() {
-		EndpointServlet endpointServlet = new EndpointServlet(TestServlet.class).withInitParameter("a", "b")
-				.withInitParameter("c", "d");
-		assertThat(endpointServlet.withInitParameter("a", "b1").withInitParameter("e", "f").getInitParameters())
+		EndpointServlet endpointServlet = new EndpointServlet(TestServlet.class).withInitParameter_RENAMED("a", "b")
+				.withInitParameter_RENAMED("c", "d");
+		assertThat(endpointServlet.withInitParameter_RENAMED("a", "b1").withInitParameter_RENAMED("e", "f").getInitParameters())
 				.containsExactly(entry("a", "b1"), entry("c", "d"), entry("e", "f"));
 	}
 
@@ -113,8 +113,8 @@ class EndpointServletTests {
 
 	@Test
 	void withInitParametersWhenHasExistingShouldMergeParameters() {
-		EndpointServlet endpointServlet = new EndpointServlet(TestServlet.class).withInitParameter("a", "b")
-				.withInitParameter("c", "d");
+		EndpointServlet endpointServlet = new EndpointServlet(TestServlet.class).withInitParameter_RENAMED("a", "b")
+				.withInitParameter_RENAMED("c", "d");
 		Map<String, String> extra = new LinkedHashMap<>();
 		extra.put("a", "b1");
 		extra.put("e", "f");

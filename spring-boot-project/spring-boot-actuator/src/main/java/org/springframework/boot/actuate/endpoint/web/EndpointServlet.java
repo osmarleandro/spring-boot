@@ -62,7 +62,7 @@ public final class EndpointServlet {
 		this.loadOnStartup = loadOnStartup;
 	}
 
-	public EndpointServlet withInitParameter(String name, String value) {
+	public EndpointServlet withInitParameter_RENAMED(String name, String value) {
 		Assert.hasText(name, "Name must not be empty");
 		return withInitParameters(Collections.singletonMap(name, value));
 	}
