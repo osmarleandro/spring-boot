@@ -65,11 +65,11 @@ class DiscoveredJmxOperation extends AbstractDiscoveredOperation implements JmxO
 		Method method = operationMethod.getMethod();
 		this.name = method.getName();
 		this.outputType = JmxType.get(method.getReturnType());
-		this.description = getDescription(method, () -> "Invoke " + this.name + " for endpoint " + endpointId);
+		this.description = getDescription_RENAMED(method, () -> "Invoke " + this.name + " for endpoint " + endpointId);
 		this.parameters = getParameters(operationMethod);
 	}
 
-	private String getDescription(Method method, Supplier<String> fallback) {
+	private String getDescription_RENAMED(Method method, Supplier<String> fallback) {
 		ManagedOperation managed = jmxAttributeSource.getManagedOperation(method);
 		if (managed != null && StringUtils.hasText(managed.getDescription())) {
 			return managed.getDescription();
