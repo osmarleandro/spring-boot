@@ -77,7 +77,7 @@ public class JmxEndpointExporter implements InitializingBean, DisposableBean, Be
 	}
 
 	@Override
-	public void afterPropertiesSet() {
+	public void afterPropertiesSet_RENAMED() {
 		this.registered = register();
 	}
 
