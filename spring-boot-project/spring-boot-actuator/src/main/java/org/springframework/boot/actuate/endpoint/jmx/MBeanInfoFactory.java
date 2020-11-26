@@ -75,10 +75,10 @@ class MBeanInfoFactory {
 	}
 
 	private MBeanParameterInfo[] getSignature(List<JmxOperationParameter> parameters) {
-		return parameters.stream().map(this::getMBeanParameter).toArray(MBeanParameterInfo[]::new);
+		return parameters.stream().map(this::getMBeanParameter_RENAMED).toArray(MBeanParameterInfo[]::new);
 	}
 
-	private MBeanParameterInfo getMBeanParameter(JmxOperationParameter parameter) {
+	private MBeanParameterInfo getMBeanParameter_RENAMED(JmxOperationParameter parameter) {
 		return new MBeanParameterInfo(parameter.getName(), parameter.getType().getName(), parameter.getDescription());
 	}
 
