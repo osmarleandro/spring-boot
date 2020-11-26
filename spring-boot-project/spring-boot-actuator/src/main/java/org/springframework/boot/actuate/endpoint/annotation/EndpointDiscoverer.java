@@ -105,7 +105,7 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 			@Override
 			protected O createOperation(EndpointId endpointId, DiscoveredOperationMethod operationMethod,
 					OperationInvoker invoker) {
-				return EndpointDiscoverer.this.createOperation(endpointId, operationMethod, invoker);
+				return EndpointDiscoverer.this.createOperation_RENAMED(endpointId, operationMethod, invoker);
 			}
 
 		};
@@ -356,7 +356,7 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 	 * @param invoker the invoker to use
 	 * @return a created operation
 	 */
-	protected abstract O createOperation(EndpointId endpointId, DiscoveredOperationMethod operationMethod,
+	protected abstract O createOperation_RENAMED(EndpointId endpointId, DiscoveredOperationMethod operationMethod,
 			OperationInvoker invoker);
 
 	/**
