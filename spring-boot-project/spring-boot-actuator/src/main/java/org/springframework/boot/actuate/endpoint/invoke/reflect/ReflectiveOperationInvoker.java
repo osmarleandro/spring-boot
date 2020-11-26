@@ -102,11 +102,11 @@ public class ReflectiveOperationInvoker implements OperationInvoker {
 	}
 
 	private Object[] resolveArguments(InvocationContext context) {
-		return this.operationMethod.getParameters().stream().map((parameter) -> resolveArgument(parameter, context))
+		return this.operationMethod.getParameters().stream().map((parameter) -> resolveArgument_RENAMED(parameter, context))
 				.toArray();
 	}
 
-	private Object resolveArgument(OperationParameter parameter, InvocationContext context) {
+	private Object resolveArgument_RENAMED(OperationParameter parameter, InvocationContext context) {
 		if (ApiVersion.class.equals(parameter.getType())) {
 			return context.getApiVersion();
 		}
