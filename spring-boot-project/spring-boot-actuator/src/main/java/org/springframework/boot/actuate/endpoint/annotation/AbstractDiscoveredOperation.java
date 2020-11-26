@@ -64,11 +64,11 @@ public abstract class AbstractDiscoveredOperation implements Operation {
 	public String toString() {
 		ToStringCreator creator = new ToStringCreator(this).append("operationMethod", this.operationMethod)
 				.append("invoker", this.invoker);
-		appendFields(creator);
+		appendFields_RENAMED(creator);
 		return creator.toString();
 	}
 
-	protected void appendFields(ToStringCreator creator) {
+	protected void appendFields_RENAMED(ToStringCreator creator) {
 	}
 
 }
