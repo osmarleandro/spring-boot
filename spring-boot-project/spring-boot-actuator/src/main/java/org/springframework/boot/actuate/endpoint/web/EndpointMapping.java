@@ -33,7 +33,7 @@ public class EndpointMapping {
 	 * @param path the path
 	 */
 	public EndpointMapping(String path) {
-		this.path = normalizePath(path);
+		this.path = normalizePath_RENAMED(path);
 	}
 
 	/**
@@ -45,10 +45,10 @@ public class EndpointMapping {
 	}
 
 	public String createSubPath(String path) {
-		return this.path + normalizePath(path);
+		return this.path + normalizePath_RENAMED(path);
 	}
 
-	private static String normalizePath(String path) {
+	private static String normalizePath_RENAMED(String path) {
 		if (!StringUtils.hasText(path)) {
 			return path;
 		}
