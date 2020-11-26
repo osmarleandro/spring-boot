@@ -49,7 +49,7 @@ public final class ParameterMappingException extends InvalidEndpointRequestExcep
 	 * Return the parameter being mapped.
 	 * @return the parameter
 	 */
-	public OperationParameter getParameter() {
+	public OperationParameter getParameter_RENAMED() {
 		return this.parameter;
 	}
 
