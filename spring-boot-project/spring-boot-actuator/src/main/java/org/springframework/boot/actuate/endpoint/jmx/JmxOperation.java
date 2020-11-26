@@ -34,7 +34,7 @@ public interface JmxOperation extends Operation {
 	 * Returns the name of the operation.
 	 * @return the operation name
 	 */
-	String getName();
+	String getName_RENAMED();
 
 	/**
 	 * Returns the type of the output of the operation.

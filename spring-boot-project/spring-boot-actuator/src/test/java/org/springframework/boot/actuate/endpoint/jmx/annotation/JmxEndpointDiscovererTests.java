@@ -247,7 +247,7 @@ class JmxEndpointDiscovererTests {
 
 	private Map<String, JmxOperation> mapOperations(Collection<JmxOperation> operations) {
 		Map<String, JmxOperation> byName = new HashMap<>();
-		operations.forEach((operation) -> byName.put(operation.getName(), operation));
+		operations.forEach((operation) -> byName.put(operation.getName_RENAMED(), operation));
 		return byName;
 	}
 

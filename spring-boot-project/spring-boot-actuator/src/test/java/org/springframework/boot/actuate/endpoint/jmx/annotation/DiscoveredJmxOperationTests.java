@@ -50,7 +50,7 @@ class DiscoveredJmxOperationTests {
 	@Test
 	void getNameShouldReturnMethodName() {
 		DiscoveredJmxOperation operation = getOperation("getEnum");
-		assertThat(operation.getName()).isEqualTo("getEnum");
+		assertThat(operation.getName_RENAMED()).isEqualTo("getEnum");
 	}
 
 	@Test
