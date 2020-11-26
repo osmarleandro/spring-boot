@@ -80,13 +80,13 @@ public class Sanitizer {
 	}
 
 	private Pattern getPattern(String value) {
-		if (isRegex(value)) {
+		if (isRegex_RENAMED(value)) {
 			return Pattern.compile(value, Pattern.CASE_INSENSITIVE);
 		}
 		return Pattern.compile(".*" + value + "$", Pattern.CASE_INSENSITIVE);
 	}
 
-	private boolean isRegex(String value) {
+	private boolean isRegex_RENAMED(String value) {
 		for (String part : REGEX_PARTS) {
 			if (value.contains(part)) {
 				return true;
