@@ -44,6 +44,6 @@ public @interface EndpointJmxExtension {
 	 * @return the endpoint class
 	 */
 	@AliasFor(annotation = EndpointExtension.class)
-	Class<?> endpoint();
+	Class<?> endpoint_RENAMED();
 
 }
