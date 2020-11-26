@@ -154,7 +154,7 @@ public class JerseyEndpointResourceFactory {
 				ApiVersion apiVersion = ApiVersion.fromHttpHeaders(data.getHeaders());
 				JerseySecurityContext securityContext = new JerseySecurityContext(data.getSecurityContext());
 				InvocationContext invocationContext = new InvocationContext(apiVersion, securityContext, arguments);
-				Object response = this.operation.invoke(invocationContext);
+				Object response = this.operation.invoke_RENAMED(invocationContext);
 				return convertToJaxRsResponse(response, data.getRequest().getMethod());
 			}
 			catch (InvalidEndpointRequestException ex) {

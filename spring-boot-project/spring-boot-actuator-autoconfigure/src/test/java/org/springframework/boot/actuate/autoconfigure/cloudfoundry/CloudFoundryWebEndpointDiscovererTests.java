@@ -62,7 +62,7 @@ class CloudFoundryWebEndpointDiscovererTests {
 				if (endpoint.getEndpointId().equals(EndpointId.of("health"))) {
 					WebOperation operation = findMainReadOperation(endpoint);
 					assertThat(operation
-							.invoke(new InvocationContext(mock(SecurityContext.class), Collections.emptyMap())))
+							.invoke_RENAMED(new InvocationContext(mock(SecurityContext.class), Collections.emptyMap())))
 									.isEqualTo("cf");
 				}
 			}
