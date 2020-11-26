@@ -174,7 +174,7 @@ public class ConfigurationPropertiesReportEndpoint implements ApplicationContext
 
 	private ConfigurationPropertiesBeanDescriptor describeBean(ObjectMapper mapper, ConfigurationPropertiesBean bean) {
 		String prefix = bean.getAnnotation().prefix();
-		Map<String, Object> serialized = safeSerialize(mapper, bean.getInstance(), prefix);
+		Map<String, Object> serialized = safeSerialize_RENAMED(mapper, bean.getInstance(), prefix);
 		Map<String, Object> properties = sanitize(prefix, serialized);
 		Map<String, Object> inputs = getInputs(prefix, serialized);
 		return new ConfigurationPropertiesBeanDescriptor(prefix, properties, inputs);
@@ -189,7 +189,7 @@ public class ConfigurationPropertiesReportEndpoint implements ApplicationContext
 	 * @return the serialized instance
 	 */
 	@SuppressWarnings({ "unchecked" })
-	private Map<String, Object> safeSerialize(ObjectMapper mapper, Object bean, String prefix) {
+	private Map<String, Object> safeSerialize_RENAMED(ObjectMapper mapper, Object bean, String prefix) {
 		try {
 			return new HashMap<>(mapper.convertValue(bean, Map.class));
 		}
