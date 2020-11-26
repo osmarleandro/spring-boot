@@ -40,7 +40,7 @@ public class EndpointMapping {
 	 * Returns the path to which endpoints should be mapped.
 	 * @return the path
 	 */
-	public String getPath() {
+	public String getPath_RENAMED() {
 		return this.path;
 	}
 

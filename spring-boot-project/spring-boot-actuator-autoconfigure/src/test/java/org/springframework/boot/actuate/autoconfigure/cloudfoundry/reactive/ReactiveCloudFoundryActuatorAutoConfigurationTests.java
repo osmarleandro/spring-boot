@@ -103,7 +103,7 @@ class ReactiveCloudFoundryActuatorAutoConfigurationTests {
 					CloudFoundryWebFluxEndpointHandlerMapping handlerMapping = getHandlerMapping(context);
 					EndpointMapping endpointMapping = (EndpointMapping) ReflectionTestUtils.getField(handlerMapping,
 							"endpointMapping");
-					assertThat(endpointMapping.getPath()).isEqualTo("/cloudfoundryapplication");
+					assertThat(endpointMapping.getPath_RENAMED()).isEqualTo("/cloudfoundryapplication");
 					CorsConfiguration corsConfiguration = (CorsConfiguration) ReflectionTestUtils
 							.getField(handlerMapping, "corsConfiguration");
 					assertThat(corsConfiguration.getAllowedOrigins()).contains("*");
