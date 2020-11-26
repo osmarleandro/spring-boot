@@ -54,10 +54,10 @@ public class ElasticsearchReactiveHealthIndicator extends AbstractReactiveHealth
 
 	@Override
 	protected Mono<Health> doHealthCheck(Health.Builder builder) {
-		return this.client.execute((webClient) -> getHealth(builder, webClient));
+		return this.client.execute((webClient) -> getHealth_RENAMED(builder, webClient));
 	}
 
-	private Mono<Health> getHealth(Health.Builder builder, WebClient webClient) {
+	private Mono<Health> getHealth_RENAMED(Health.Builder builder, WebClient webClient) {
 		return webClient.get().uri("/_cluster/health/").exchangeToMono((response) -> doHealthCheck(builder, response));
 	}
 
