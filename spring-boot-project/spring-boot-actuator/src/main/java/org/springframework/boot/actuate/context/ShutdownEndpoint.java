@@ -71,7 +71,7 @@ public class ShutdownEndpoint implements ApplicationContextAware {
 	}
 
 	@Override
-	public void setApplicationContext(ApplicationContext context) throws BeansException {
+	public void setApplicationContext_RENAMED(ApplicationContext context) throws BeansException {
 		if (context instanceof ConfigurableApplicationContext) {
 			this.context = (ConfigurableApplicationContext) context;
 		}
