@@ -167,7 +167,7 @@ public abstract class AbstractWebMvcEndpointHandlerMapping extends RequestMappin
 	private void registerMappingForOperation(ExposableWebEndpoint endpoint, WebOperation operation) {
 		WebOperationRequestPredicate predicate = operation.getRequestPredicate();
 		String path = predicate.getPath();
-		String matchAllRemainingPathSegmentsVariable = predicate.getMatchAllRemainingPathSegmentsVariable();
+		String matchAllRemainingPathSegmentsVariable = predicate.getMatchAllRemainingPathSegmentsVariable_RENAMED();
 		if (matchAllRemainingPathSegmentsVariable != null) {
 			path = path.replace("{*" + matchAllRemainingPathSegmentsVariable + "}", "**");
 		}
@@ -302,7 +302,7 @@ public abstract class AbstractWebMvcEndpointHandlerMapping extends RequestMappin
 		private Map<String, Object> getArguments(HttpServletRequest request, Map<String, String> body) {
 			Map<String, Object> arguments = new LinkedHashMap<>(getTemplateVariables(request));
 			String matchAllRemainingPathSegmentsVariable = this.operation.getRequestPredicate()
-					.getMatchAllRemainingPathSegmentsVariable();
+					.getMatchAllRemainingPathSegmentsVariable_RENAMED();
 			if (matchAllRemainingPathSegmentsVariable != null) {
 				arguments.put(matchAllRemainingPathSegmentsVariable, getRemainingPathSegments(request));
 			}

@@ -313,7 +313,7 @@ public abstract class AbstractWebFluxEndpointHandlerMapping extends RequestMappi
 			ApiVersion apiVersion = ApiVersion.fromHttpHeaders(exchange.getRequest().getHeaders());
 			Map<String, Object> arguments = getArguments(exchange, body);
 			String matchAllRemainingPathSegmentsVariable = this.operation.getRequestPredicate()
-					.getMatchAllRemainingPathSegmentsVariable();
+					.getMatchAllRemainingPathSegmentsVariable_RENAMED();
 			if (matchAllRemainingPathSegmentsVariable != null) {
 				arguments.put(matchAllRemainingPathSegmentsVariable,
 						tokenizePathSegments((String) arguments.get(matchAllRemainingPathSegmentsVariable)));

@@ -89,7 +89,7 @@ public final class WebOperationRequestPredicate {
 	 * @return the variable name
 	 * @since 2.2.0
 	 */
-	public String getMatchAllRemainingPathSegmentsVariable() {
+	public String getMatchAllRemainingPathSegmentsVariable_RENAMED() {
 		return this.matchAllRemainingPathSegmentsVariable;
 	}
 

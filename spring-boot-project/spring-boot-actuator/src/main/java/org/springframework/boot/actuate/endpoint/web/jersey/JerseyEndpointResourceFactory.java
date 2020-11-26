@@ -94,7 +94,7 @@ public class JerseyEndpointResourceFactory {
 	private Resource createResource(EndpointMapping endpointMapping, WebOperation operation) {
 		WebOperationRequestPredicate requestPredicate = operation.getRequestPredicate();
 		String path = requestPredicate.getPath();
-		String matchAllRemainingPathSegmentsVariable = requestPredicate.getMatchAllRemainingPathSegmentsVariable();
+		String matchAllRemainingPathSegmentsVariable = requestPredicate.getMatchAllRemainingPathSegmentsVariable_RENAMED();
 		if (matchAllRemainingPathSegmentsVariable != null) {
 			path = path.replace("{*" + matchAllRemainingPathSegmentsVariable + "}",
 					"{" + matchAllRemainingPathSegmentsVariable + ": .*}");
@@ -171,7 +171,7 @@ public class JerseyEndpointResourceFactory {
 		private Map<String, Object> extractPathParameters(ContainerRequestContext requestContext) {
 			Map<String, Object> pathParameters = extract(requestContext.getUriInfo().getPathParameters());
 			String matchAllRemainingPathSegmentsVariable = this.operation.getRequestPredicate()
-					.getMatchAllRemainingPathSegmentsVariable();
+					.getMatchAllRemainingPathSegmentsVariable_RENAMED();
 			if (matchAllRemainingPathSegmentsVariable != null) {
 				String remainingPathSegments = (String) pathParameters.get(matchAllRemainingPathSegmentsVariable);
 				pathParameters.put(matchAllRemainingPathSegmentsVariable, tokenizePathSegments(remainingPathSegments));

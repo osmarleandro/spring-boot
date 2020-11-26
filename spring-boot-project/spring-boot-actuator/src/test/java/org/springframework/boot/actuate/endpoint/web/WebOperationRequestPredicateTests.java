@@ -73,17 +73,17 @@ class WebOperationRequestPredicateTests {
 
 	@Test
 	void predicateWithWildcardPathVariableReturnsMatchAllRemainingPathSegmentsVariable() {
-		assertThat(predicateWithPath("/path/{*foo1}").getMatchAllRemainingPathSegmentsVariable()).isEqualTo("foo1");
+		assertThat(predicateWithPath("/path/{*foo1}").getMatchAllRemainingPathSegmentsVariable_RENAMED()).isEqualTo("foo1");
 	}
 
 	@Test
 	void predicateWithRegularPathVariableDoesNotReturnMatchAllRemainingPathSegmentsVariable() {
-		assertThat(predicateWithPath("/path/{foo1}").getMatchAllRemainingPathSegmentsVariable()).isNull();
+		assertThat(predicateWithPath("/path/{foo1}").getMatchAllRemainingPathSegmentsVariable_RENAMED()).isNull();
 	}
 
 	@Test
 	void predicateWithNoPathVariableDoesNotReturnMatchAllRemainingPathSegmentsVariable() {
-		assertThat(predicateWithPath("/path/foo1").getMatchAllRemainingPathSegmentsVariable()).isNull();
+		assertThat(predicateWithPath("/path/foo1").getMatchAllRemainingPathSegmentsVariable_RENAMED()).isNull();
 	}
 
 	private WebOperationRequestPredicate predicateWithPath(String path) {
