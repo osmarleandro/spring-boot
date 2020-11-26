@@ -72,7 +72,7 @@ public class AuditEvent implements Serializable {
 	 * @param data the event data in the form 'key=value' or simply 'key'
 	 */
 	public AuditEvent(String principal, String type, String... data) {
-		this(Instant.now(), principal, type, convert(data));
+		this(Instant.now(), principal, type, convert_RENAMED(data));
 	}
 
 	/**
@@ -91,7 +91,7 @@ public class AuditEvent implements Serializable {
 		this.data = Collections.unmodifiableMap(data);
 	}
 
-	private static Map<String, Object> convert(String[] data) {
+	private static Map<String, Object> convert_RENAMED(String[] data) {
 		Map<String, Object> result = new HashMap<>();
 		for (String entry : data) {
 			int index = entry.indexOf('=');
