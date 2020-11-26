@@ -56,7 +56,7 @@ public class CachesEndpoint {
 	 * @return a caches reports
 	 */
 	@ReadOperation
-	public CachesReport caches() {
+	public CachesReport caches_RENAMED() {
 		Map<String, Map<String, CacheDescriptor>> descriptors = new LinkedHashMap<>();
 		getCacheEntries(matchAll(), matchAll()).forEach((entry) -> {
 			String cacheName = entry.getName();

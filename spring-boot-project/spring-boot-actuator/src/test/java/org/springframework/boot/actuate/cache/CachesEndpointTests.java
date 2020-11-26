@@ -49,7 +49,7 @@ class CachesEndpointTests {
 	void allCachesWithSingleCacheManager() {
 		CachesEndpoint endpoint = new CachesEndpoint(
 				Collections.singletonMap("test", new ConcurrentMapCacheManager("a", "b")));
-		Map<String, CacheManagerDescriptor> allDescriptors = endpoint.caches().getCacheManagers();
+		Map<String, CacheManagerDescriptor> allDescriptors = endpoint.caches_RENAMED().getCacheManagers();
 		assertThat(allDescriptors).containsOnlyKeys("test");
 		CacheManagerDescriptor descriptors = allDescriptors.get("test");
 		assertThat(descriptors.getCaches()).containsOnlyKeys("a", "b");
@@ -63,7 +63,7 @@ class CachesEndpointTests {
 		cacheManagers.put("test", new ConcurrentMapCacheManager("a", "b"));
 		cacheManagers.put("another", new ConcurrentMapCacheManager("a", "c"));
 		CachesEndpoint endpoint = new CachesEndpoint(cacheManagers);
-		Map<String, CacheManagerDescriptor> allDescriptors = endpoint.caches().getCacheManagers();
+		Map<String, CacheManagerDescriptor> allDescriptors = endpoint.caches_RENAMED().getCacheManagers();
 		assertThat(allDescriptors).containsOnlyKeys("test", "another");
 		assertThat(allDescriptors.get("test").getCaches()).containsOnlyKeys("a", "b");
 		assertThat(allDescriptors.get("another").getCaches()).containsOnlyKeys("a", "c");
