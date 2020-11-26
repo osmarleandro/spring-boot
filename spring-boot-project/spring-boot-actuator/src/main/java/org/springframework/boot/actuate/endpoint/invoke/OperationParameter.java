@@ -34,7 +34,7 @@ public interface OperationParameter {
 	 * Returns the parameter type.
 	 * @return the type
 	 */
-	Class<?> getType();
+	Class<?> getType_RENAMED();
 
 	/**
 	 * Return if the parameter is mandatory (does not accept null values).

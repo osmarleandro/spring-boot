@@ -141,14 +141,14 @@ class DiscoveredJmxOperation extends AbstractDiscoveredOperation implements JmxO
 
 		DiscoveredJmxOperationParameter(OperationParameter operationParameter) {
 			this.name = operationParameter.getName();
-			this.type = JmxType.get(operationParameter.getType());
+			this.type = JmxType.get(operationParameter.getType_RENAMED());
 			this.description = null;
 		}
 
 		DiscoveredJmxOperationParameter(ManagedOperationParameter managedParameter,
 				OperationParameter operationParameter) {
 			this.name = managedParameter.getName();
-			this.type = JmxType.get(operationParameter.getType());
+			this.type = JmxType.get(operationParameter.getType_RENAMED());
 			this.description = managedParameter.getDescription();
 		}
 
