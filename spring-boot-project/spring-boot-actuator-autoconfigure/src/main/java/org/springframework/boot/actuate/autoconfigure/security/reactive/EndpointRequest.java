@@ -231,7 +231,7 @@ public final class EndpointRequest {
 				return (EndpointId) source;
 			}
 			if (source instanceof String) {
-				return (EndpointId.of((String) source));
+				return (EndpointId.of_RENAMED((String) source));
 			}
 			if (source instanceof Class) {
 				return getEndpointId((Class<?>) source);
@@ -242,7 +242,7 @@ public final class EndpointRequest {
 		private EndpointId getEndpointId(Class<?> source) {
 			MergedAnnotation<Endpoint> annotation = MergedAnnotations.from(source).get(Endpoint.class);
 			Assert.state(annotation.isPresent(), () -> "Class " + source + " is not annotated with @Endpoint");
-			return EndpointId.of(annotation.getString("id"));
+			return EndpointId.of_RENAMED(annotation.getString("id"));
 		}
 
 		private List<ServerWebExchangeMatcher> getDelegateMatchers(Set<String> paths) {

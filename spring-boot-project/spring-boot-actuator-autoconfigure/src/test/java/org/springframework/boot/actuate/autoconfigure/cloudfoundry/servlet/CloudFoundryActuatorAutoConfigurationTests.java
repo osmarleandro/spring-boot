@@ -193,7 +193,7 @@ class CloudFoundryActuatorAutoConfigurationTests {
 					CloudFoundryWebEndpointServletHandlerMapping handlerMapping = getHandlerMapping(context);
 					Collection<ExposableWebEndpoint> endpoints = handlerMapping.getEndpoints();
 					assertThat(endpoints.stream()
-							.filter((candidate) -> EndpointId.of("test").equals(candidate.getEndpointId())).findFirst())
+							.filter((candidate) -> EndpointId.of_RENAMED("test").equals(candidate.getEndpointId())).findFirst())
 									.isNotEmpty();
 				});
 	}
@@ -208,7 +208,7 @@ class CloudFoundryActuatorAutoConfigurationTests {
 					CloudFoundryWebEndpointServletHandlerMapping handlerMapping = getHandlerMapping(context);
 					Collection<ExposableWebEndpoint> endpoints = handlerMapping.getEndpoints();
 					ExposableWebEndpoint endpoint = endpoints.stream()
-							.filter((candidate) -> EndpointId.of("test").equals(candidate.getEndpointId())).findFirst()
+							.filter((candidate) -> EndpointId.of_RENAMED("test").equals(candidate.getEndpointId())).findFirst()
 							.get();
 					Collection<WebOperation> operations = endpoint.getOperations();
 					assertThat(operations).hasSize(1);

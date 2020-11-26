@@ -50,20 +50,20 @@ class DefaultEndpointObjectNameFactoryTests {
 
 	@Test
 	void generateObjectName() {
-		ObjectName objectName = generateObjectName(endpoint(EndpointId.of("test")));
+		ObjectName objectName = generateObjectName(endpoint(EndpointId.of_RENAMED("test")));
 		assertThat(objectName.toString()).isEqualTo("org.springframework.boot:type=Endpoint,name=Test");
 	}
 
 	@Test
 	void generateObjectNameWithCapitalizedId() {
-		ObjectName objectName = generateObjectName(endpoint(EndpointId.of("testEndpoint")));
+		ObjectName objectName = generateObjectName(endpoint(EndpointId.of_RENAMED("testEndpoint")));
 		assertThat(objectName.toString()).isEqualTo("org.springframework.boot:type=Endpoint,name=TestEndpoint");
 	}
 
 	@Test
 	void generateObjectNameWithCustomDomain() {
 		this.properties.setDomain("com.example.acme");
-		ObjectName objectName = generateObjectName(endpoint(EndpointId.of("test")));
+		ObjectName objectName = generateObjectName(endpoint(EndpointId.of_RENAMED("test")));
 		assertThat(objectName.toString()).isEqualTo("com.example.acme:type=Endpoint,name=Test");
 	}
 
@@ -74,7 +74,7 @@ class DefaultEndpointObjectNameFactoryTests {
 	}
 
 	private void assertUniqueObjectName() {
-		ExposableJmxEndpoint endpoint = endpoint(EndpointId.of("test"));
+		ExposableJmxEndpoint endpoint = endpoint(EndpointId.of_RENAMED("test"));
 		String id = ObjectUtils.getIdentityHexString(endpoint);
 		ObjectName objectName = generateObjectName(endpoint);
 		assertThat(objectName.toString()).isEqualTo("org.springframework.boot:type=Endpoint,name=Test,identity=" + id);
@@ -84,7 +84,7 @@ class DefaultEndpointObjectNameFactoryTests {
 	void generateObjectNameWithStaticNames() {
 		this.properties.getStaticNames().setProperty("counter", "42");
 		this.properties.getStaticNames().setProperty("foo", "bar");
-		ObjectName objectName = generateObjectName(endpoint(EndpointId.of("test")));
+		ObjectName objectName = generateObjectName(endpoint(EndpointId.of_RENAMED("test")));
 		assertThat(objectName.getKeyProperty("counter")).isEqualTo("42");
 		assertThat(objectName.getKeyProperty("foo")).isEqualTo("bar");
 		assertThat(objectName.toString()).startsWith("org.springframework.boot:type=Endpoint,name=Test,");
@@ -95,7 +95,7 @@ class DefaultEndpointObjectNameFactoryTests {
 		this.contextId = "testContext";
 		given(this.mBeanServer.queryNames(new ObjectName("org.springframework.boot:type=Endpoint,name=Test,*"), null))
 				.willReturn(Collections.singleton(new ObjectName("org.springframework.boot:type=Endpoint,name=Test")));
-		ObjectName objectName = generateObjectName(endpoint(EndpointId.of("test")));
+		ObjectName objectName = generateObjectName(endpoint(EndpointId.of_RENAMED("test")));
 		assertThat(objectName.toString())
 				.isEqualTo("org.springframework.boot:type=Endpoint,name=Test,context=testContext");
 

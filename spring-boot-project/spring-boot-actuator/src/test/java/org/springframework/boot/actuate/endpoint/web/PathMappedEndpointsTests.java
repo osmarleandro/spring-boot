@@ -57,38 +57,38 @@ class PathMappedEndpointsTests {
 	void iteratorShouldReturnPathMappedEndpoints() {
 		PathMappedEndpoints mapped = createTestMapped(null);
 		assertThat(mapped).hasSize(2);
-		assertThat(mapped).extracting("endpointId").containsExactly(EndpointId.of("e2"), EndpointId.of("e3"));
+		assertThat(mapped).extracting("endpointId").containsExactly(EndpointId.of_RENAMED("e2"), EndpointId.of_RENAMED("e3"));
 	}
 
 	@Test
 	void streamShouldReturnPathMappedEndpoints() {
 		PathMappedEndpoints mapped = createTestMapped(null);
 		assertThat(mapped.stream()).hasSize(2);
-		assertThat(mapped.stream()).extracting("endpointId").containsExactly(EndpointId.of("e2"), EndpointId.of("e3"));
+		assertThat(mapped.stream()).extracting("endpointId").containsExactly(EndpointId.of_RENAMED("e2"), EndpointId.of_RENAMED("e3"));
 	}
 
 	@Test
 	void getRootPathWhenContainsIdShouldReturnRootPath() {
 		PathMappedEndpoints mapped = createTestMapped(null);
-		assertThat(mapped.getRootPath(EndpointId.of("e2"))).isEqualTo("p2");
+		assertThat(mapped.getRootPath(EndpointId.of_RENAMED("e2"))).isEqualTo("p2");
 	}
 
 	@Test
 	void getRootPathWhenMissingIdShouldReturnNull() {
 		PathMappedEndpoints mapped = createTestMapped(null);
-		assertThat(mapped.getRootPath(EndpointId.of("xx"))).isNull();
+		assertThat(mapped.getRootPath(EndpointId.of_RENAMED("xx"))).isNull();
 	}
 
 	@Test
 	void getPathWhenContainsIdShouldReturnRootPath() {
-		assertThat(createTestMapped(null).getPath(EndpointId.of("e2"))).isEqualTo("/p2");
-		assertThat(createTestMapped("/x").getPath(EndpointId.of("e2"))).isEqualTo("/x/p2");
+		assertThat(createTestMapped(null).getPath(EndpointId.of_RENAMED("e2"))).isEqualTo("/p2");
+		assertThat(createTestMapped("/x").getPath(EndpointId.of_RENAMED("e2"))).isEqualTo("/x/p2");
 	}
 
 	@Test
 	void getPathWhenMissingIdShouldReturnNull() {
 		PathMappedEndpoints mapped = createTestMapped(null);
-		assertThat(mapped.getPath(EndpointId.of("xx"))).isNull();
+		assertThat(mapped.getPath(EndpointId.of_RENAMED("xx"))).isNull();
 	}
 
 	@Test
@@ -106,21 +106,21 @@ class PathMappedEndpointsTests {
 	@Test
 	void getEndpointWhenContainsIdShouldReturnPathMappedEndpoint() {
 		PathMappedEndpoints mapped = createTestMapped(null);
-		assertThat(mapped.getEndpoint(EndpointId.of("e2")).getRootPath()).isEqualTo("p2");
+		assertThat(mapped.getEndpoint(EndpointId.of_RENAMED("e2")).getRootPath()).isEqualTo("p2");
 	}
 
 	@Test
 	void getEndpointWhenMissingIdShouldReturnNull() {
 		PathMappedEndpoints mapped = createTestMapped(null);
-		assertThat(mapped.getEndpoint(EndpointId.of("xx"))).isNull();
+		assertThat(mapped.getEndpoint(EndpointId.of_RENAMED("xx"))).isNull();
 	}
 
 	private PathMappedEndpoints createTestMapped(String basePath) {
 		List<ExposableEndpoint<?>> endpoints = new ArrayList<>();
-		endpoints.add(mockEndpoint(EndpointId.of("e1")));
-		endpoints.add(mockEndpoint(EndpointId.of("e2"), "p2"));
-		endpoints.add(mockEndpoint(EndpointId.of("e3"), "p3"));
-		endpoints.add(mockEndpoint(EndpointId.of("e4")));
+		endpoints.add(mockEndpoint(EndpointId.of_RENAMED("e1")));
+		endpoints.add(mockEndpoint(EndpointId.of_RENAMED("e2"), "p2"));
+		endpoints.add(mockEndpoint(EndpointId.of_RENAMED("e3"), "p3"));
+		endpoints.add(mockEndpoint(EndpointId.of_RENAMED("e4")));
 		return new PathMappedEndpoints(basePath, () -> endpoints);
 	}
 

@@ -141,9 +141,9 @@ class EndpointRequestTests {
 	void excludeByClassShouldNotMatchExcluded() {
 		RequestMatcher matcher = EndpointRequest.toAnyEndpoint().excluding(FooEndpoint.class, BazServletEndpoint.class);
 		List<ExposableEndpoint<?>> endpoints = new ArrayList<>();
-		endpoints.add(mockEndpoint(EndpointId.of("foo"), "foo"));
-		endpoints.add(mockEndpoint(EndpointId.of("bar"), "bar"));
-		endpoints.add(mockEndpoint(EndpointId.of("baz"), "baz"));
+		endpoints.add(mockEndpoint(EndpointId.of_RENAMED("foo"), "foo"));
+		endpoints.add(mockEndpoint(EndpointId.of_RENAMED("bar"), "bar"));
+		endpoints.add(mockEndpoint(EndpointId.of_RENAMED("baz"), "baz"));
 		PathMappedEndpoints pathMappedEndpoints = new PathMappedEndpoints("/actuator", () -> endpoints);
 		assertMatcher(matcher, pathMappedEndpoints).doesNotMatch("/actuator/foo");
 		assertMatcher(matcher, pathMappedEndpoints).doesNotMatch("/actuator/baz");
@@ -226,8 +226,8 @@ class EndpointRequestTests {
 
 	private PathMappedEndpoints mockPathMappedEndpoints(String basePath) {
 		List<ExposableEndpoint<?>> endpoints = new ArrayList<>();
-		endpoints.add(mockEndpoint(EndpointId.of("foo"), "foo"));
-		endpoints.add(mockEndpoint(EndpointId.of("bar"), "bar"));
+		endpoints.add(mockEndpoint(EndpointId.of_RENAMED("foo"), "foo"));
+		endpoints.add(mockEndpoint(EndpointId.of_RENAMED("bar"), "bar"));
 		return new PathMappedEndpoints(basePath, () -> endpoints);
 	}
 

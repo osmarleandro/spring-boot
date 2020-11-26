@@ -126,8 +126,8 @@ class EndpointDiscovererTests {
 		load(TestEndpointSubclassConfiguration.class, (context) -> {
 			TestEndpointDiscoverer discoverer = new TestEndpointDiscoverer(context);
 			Map<EndpointId, TestExposableEndpoint> endpoints = mapEndpoints(discoverer.getEndpoints());
-			assertThat(endpoints).containsOnlyKeys(EndpointId.of("test"));
-			Map<Method, TestOperation> operations = mapOperations(endpoints.get(EndpointId.of("test")));
+			assertThat(endpoints).containsOnlyKeys(EndpointId.of_RENAMED("test"));
+			Map<Method, TestOperation> operations = mapOperations(endpoints.get(EndpointId.of_RENAMED("test")));
 			assertThat(operations).hasSize(5);
 			assertThat(operations).containsKeys(testEndpointMethods());
 			assertThat(operations).containsKeys(ReflectionUtils.findMethod(TestEndpointSubclass.class,
@@ -157,8 +157,8 @@ class EndpointDiscovererTests {
 		load(TestEndpointConfiguration.class, (context) -> {
 			TestEndpointDiscoverer discoverer = new TestEndpointDiscoverer(context, (endpointId) -> 0L);
 			Map<EndpointId, TestExposableEndpoint> endpoints = mapEndpoints(discoverer.getEndpoints());
-			assertThat(endpoints).containsOnlyKeys(EndpointId.of("test"));
-			Map<Method, TestOperation> operations = mapOperations(endpoints.get(EndpointId.of("test")));
+			assertThat(endpoints).containsOnlyKeys(EndpointId.of_RENAMED("test"));
+			Map<Method, TestOperation> operations = mapOperations(endpoints.get(EndpointId.of_RENAMED("test")));
 			operations.values().forEach(
 					(operation) -> assertThat(operation.getInvoker()).isNotInstanceOf(CachingOperationInvoker.class));
 		});
@@ -168,10 +168,10 @@ class EndpointDiscovererTests {
 	void getEndpointsWhenTtlSetByIdAndIdDoesNotMatchShouldNotCacheInvokeCalls() {
 		load(TestEndpointConfiguration.class, (context) -> {
 			TestEndpointDiscoverer discoverer = new TestEndpointDiscoverer(context,
-					(endpointId) -> (endpointId.equals(EndpointId.of("foo")) ? 500L : 0L));
+					(endpointId) -> (endpointId.equals(EndpointId.of_RENAMED("foo")) ? 500L : 0L));
 			Map<EndpointId, TestExposableEndpoint> endpoints = mapEndpoints(discoverer.getEndpoints());
-			assertThat(endpoints).containsOnlyKeys(EndpointId.of("test"));
-			Map<Method, TestOperation> operations = mapOperations(endpoints.get(EndpointId.of("test")));
+			assertThat(endpoints).containsOnlyKeys(EndpointId.of_RENAMED("test"));
+			Map<Method, TestOperation> operations = mapOperations(endpoints.get(EndpointId.of_RENAMED("test")));
 			operations.values().forEach(
 					(operation) -> assertThat(operation.getInvoker()).isNotInstanceOf(CachingOperationInvoker.class));
 		});
@@ -181,10 +181,10 @@ class EndpointDiscovererTests {
 	void getEndpointsWhenTtlSetByIdAndIdMatchesShouldCacheInvokeCalls() {
 		load(TestEndpointConfiguration.class, (context) -> {
 			TestEndpointDiscoverer discoverer = new TestEndpointDiscoverer(context,
-					(endpointId) -> (endpointId.equals(EndpointId.of("test")) ? 500L : 0L));
+					(endpointId) -> (endpointId.equals(EndpointId.of_RENAMED("test")) ? 500L : 0L));
 			Map<EndpointId, TestExposableEndpoint> endpoints = mapEndpoints(discoverer.getEndpoints());
-			assertThat(endpoints).containsOnlyKeys(EndpointId.of("test"));
-			Map<Method, TestOperation> operations = mapOperations(endpoints.get(EndpointId.of("test")));
+			assertThat(endpoints).containsOnlyKeys(EndpointId.of_RENAMED("test"));
+			Map<Method, TestOperation> operations = mapOperations(endpoints.get(EndpointId.of_RENAMED("test")));
 			TestOperation getAll = operations.get(findTestEndpointMethod("getAll"));
 			TestOperation getOne = operations.get(findTestEndpointMethod("getOne", String.class));
 			TestOperation update = operations
@@ -200,7 +200,7 @@ class EndpointDiscovererTests {
 		load(SpecializedEndpointsConfiguration.class, (context) -> {
 			TestEndpointDiscoverer discoverer = new TestEndpointDiscoverer(context);
 			Map<EndpointId, TestExposableEndpoint> endpoints = mapEndpoints(discoverer.getEndpoints());
-			assertThat(endpoints).containsOnlyKeys(EndpointId.of("test"));
+			assertThat(endpoints).containsOnlyKeys(EndpointId.of_RENAMED("test"));
 		});
 	}
 
@@ -209,8 +209,8 @@ class EndpointDiscovererTests {
 		load(SpecializedEndpointsConfiguration.class, (context) -> {
 			SpecializedEndpointDiscoverer discoverer = new SpecializedEndpointDiscoverer(context);
 			Map<EndpointId, SpecializedExposableEndpoint> endpoints = mapEndpoints(discoverer.getEndpoints());
-			assertThat(endpoints).containsOnlyKeys(EndpointId.of("test"), EndpointId.of("specialized"),
-					EndpointId.of("specialized-superclass"));
+			assertThat(endpoints).containsOnlyKeys(EndpointId.of_RENAMED("test"), EndpointId.of_RENAMED("specialized"),
+					EndpointId.of_RENAMED("specialized-superclass"));
 		});
 	}
 
@@ -219,7 +219,7 @@ class EndpointDiscovererTests {
 		load(SpecializedEndpointsConfiguration.class, (context) -> {
 			SpecializedEndpointDiscoverer discoverer = new SpecializedEndpointDiscoverer(context);
 			Map<EndpointId, SpecializedExposableEndpoint> endpoints = mapEndpoints(discoverer.getEndpoints());
-			Map<Method, SpecializedOperation> operations = mapOperations(endpoints.get(EndpointId.of("specialized")));
+			Map<Method, SpecializedOperation> operations = mapOperations(endpoints.get(EndpointId.of_RENAMED("specialized")));
 			assertThat(operations).containsKeys(ReflectionUtils.findMethod(SpecializedExtension.class, "getSpecial"));
 
 		});
@@ -230,7 +230,7 @@ class EndpointDiscovererTests {
 		load(SubSpecializedEndpointsConfiguration.class, (context) -> {
 			SpecializedEndpointDiscoverer discoverer = new SpecializedEndpointDiscoverer(context);
 			Map<EndpointId, SpecializedExposableEndpoint> endpoints = mapEndpoints(discoverer.getEndpoints());
-			Map<Method, SpecializedOperation> operations = mapOperations(endpoints.get(EndpointId.of("specialized")));
+			Map<Method, SpecializedOperation> operations = mapOperations(endpoints.get(EndpointId.of_RENAMED("specialized")));
 			assertThat(operations).containsKeys(ReflectionUtils.findMethod(SpecializedTestEndpoint.class, "getAll"));
 			assertThat(operations).containsKeys(
 					ReflectionUtils.findMethod(SubSpecializedTestEndpoint.class, "getSpecialOne", String.class));
@@ -244,7 +244,7 @@ class EndpointDiscovererTests {
 		load(ProxiedSpecializedEndpointsConfiguration.class, (context) -> {
 			SpecializedEndpointDiscoverer discoverer = new SpecializedEndpointDiscoverer(context);
 			Map<EndpointId, SpecializedExposableEndpoint> endpoints = mapEndpoints(discoverer.getEndpoints());
-			assertThat(endpoints).containsOnlyKeys(EndpointId.of("test"), EndpointId.of("specialized"));
+			assertThat(endpoints).containsOnlyKeys(EndpointId.of_RENAMED("test"), EndpointId.of_RENAMED("specialized"));
 		});
 	}
 
@@ -253,20 +253,20 @@ class EndpointDiscovererTests {
 		load(SpecializedEndpointsConfiguration.class, (context) -> {
 			EndpointFilter<SpecializedExposableEndpoint> filter = (endpoint) -> {
 				EndpointId id = endpoint.getEndpointId();
-				return !id.equals(EndpointId.of("specialized")) && !id.equals(EndpointId.of("specialized-superclass"));
+				return !id.equals(EndpointId.of_RENAMED("specialized")) && !id.equals(EndpointId.of_RENAMED("specialized-superclass"));
 			};
 			SpecializedEndpointDiscoverer discoverer = new SpecializedEndpointDiscoverer(context,
 					Collections.singleton(filter));
 			Map<EndpointId, SpecializedExposableEndpoint> endpoints = mapEndpoints(discoverer.getEndpoints());
-			assertThat(endpoints).containsOnlyKeys(EndpointId.of("test"));
+			assertThat(endpoints).containsOnlyKeys(EndpointId.of_RENAMED("test"));
 		});
 	}
 
 	private void hasTestEndpoint(AnnotationConfigApplicationContext context) {
 		TestEndpointDiscoverer discoverer = new TestEndpointDiscoverer(context);
 		Map<EndpointId, TestExposableEndpoint> endpoints = mapEndpoints(discoverer.getEndpoints());
-		assertThat(endpoints).containsOnlyKeys(EndpointId.of("test"));
-		Map<Method, TestOperation> operations = mapOperations(endpoints.get(EndpointId.of("test")));
+		assertThat(endpoints).containsOnlyKeys(EndpointId.of_RENAMED("test"));
+		Map<Method, TestOperation> operations = mapOperations(endpoints.get(EndpointId.of_RENAMED("test")));
 		assertThat(operations).hasSize(4);
 		assertThat(operations).containsKeys();
 	}

@@ -67,9 +67,9 @@ class JmxEndpointDiscovererTests {
 	void getEndpointsShouldDiscoverStandardEndpoints() {
 		load(TestEndpoint.class, (discoverer) -> {
 			Map<EndpointId, ExposableJmxEndpoint> endpoints = discover(discoverer);
-			assertThat(endpoints).containsOnlyKeys(EndpointId.of("test"));
+			assertThat(endpoints).containsOnlyKeys(EndpointId.of_RENAMED("test"));
 			Map<String, JmxOperation> operationByName = mapOperations(
-					endpoints.get(EndpointId.of("test")).getOperations());
+					endpoints.get(EndpointId.of_RENAMED("test")).getOperations());
 			assertThat(operationByName).containsOnlyKeys("getAll", "getSomething", "update", "deleteSomething");
 			JmxOperation getAll = operationByName.get("getAll");
 			assertThat(getAll.getDescription()).isEqualTo("Invoke getAll for endpoint test");
@@ -98,7 +98,7 @@ class JmxEndpointDiscovererTests {
 	void getEndpointsWhenHasFilteredEndpointShouldOnlyDiscoverJmxEndpoints() {
 		load(MultipleEndpointsConfiguration.class, (discoverer) -> {
 			Map<EndpointId, ExposableJmxEndpoint> endpoints = discover(discoverer);
-			assertThat(endpoints).containsOnlyKeys(EndpointId.of("test"), EndpointId.of("jmx"));
+			assertThat(endpoints).containsOnlyKeys(EndpointId.of_RENAMED("test"), EndpointId.of_RENAMED("jmx"));
 		});
 	}
 
@@ -113,8 +113,8 @@ class JmxEndpointDiscovererTests {
 	void getEndpointsWhenHasJmxExtensionShouldOverrideStandardEndpoint() {
 		load(OverriddenOperationJmxEndpointConfiguration.class, (discoverer) -> {
 			Map<EndpointId, ExposableJmxEndpoint> endpoints = discover(discoverer);
-			assertThat(endpoints).containsOnlyKeys(EndpointId.of("test"));
-			assertJmxTestEndpoint(endpoints.get(EndpointId.of("test")));
+			assertThat(endpoints).containsOnlyKeys(EndpointId.of_RENAMED("test"));
+			assertJmxTestEndpoint(endpoints.get(EndpointId.of_RENAMED("test")));
 		});
 	}
 
@@ -122,9 +122,9 @@ class JmxEndpointDiscovererTests {
 	void getEndpointsWhenHasJmxExtensionWithNewOperationAddsExtraOperation() {
 		load(AdditionalOperationJmxEndpointConfiguration.class, (discoverer) -> {
 			Map<EndpointId, ExposableJmxEndpoint> endpoints = discover(discoverer);
-			assertThat(endpoints).containsOnlyKeys(EndpointId.of("test"));
+			assertThat(endpoints).containsOnlyKeys(EndpointId.of_RENAMED("test"));
 			Map<String, JmxOperation> operationByName = mapOperations(
-					endpoints.get(EndpointId.of("test")).getOperations());
+					endpoints.get(EndpointId.of_RENAMED("test")).getOperations());
 			assertThat(operationByName).containsOnlyKeys("getAll", "getSomething", "update", "deleteSomething",
 					"getAnother");
 			JmxOperation getAnother = operationByName.get("getAnother");
@@ -138,9 +138,9 @@ class JmxEndpointDiscovererTests {
 	void getEndpointsWhenHasCacheWithTtlShouldCacheReadOperationWithTtlValue() {
 		load(TestEndpoint.class, (id) -> 500L, (discoverer) -> {
 			Map<EndpointId, ExposableJmxEndpoint> endpoints = discover(discoverer);
-			assertThat(endpoints).containsOnlyKeys(EndpointId.of("test"));
+			assertThat(endpoints).containsOnlyKeys(EndpointId.of_RENAMED("test"));
 			Map<String, JmxOperation> operationByName = mapOperations(
-					endpoints.get(EndpointId.of("test")).getOperations());
+					endpoints.get(EndpointId.of_RENAMED("test")).getOperations());
 			assertThat(operationByName).containsOnlyKeys("getAll", "getSomething", "update", "deleteSomething");
 			JmxOperation getAll = operationByName.get("getAll");
 			assertThat(getInvoker(getAll)).isInstanceOf(CachingOperationInvoker.class);
@@ -152,9 +152,9 @@ class JmxEndpointDiscovererTests {
 	void getEndpointsShouldCacheReadOperations() {
 		load(AdditionalOperationJmxEndpointConfiguration.class, (id) -> 500L, (discoverer) -> {
 			Map<EndpointId, ExposableJmxEndpoint> endpoints = discover(discoverer);
-			assertThat(endpoints).containsOnlyKeys(EndpointId.of("test"));
+			assertThat(endpoints).containsOnlyKeys(EndpointId.of_RENAMED("test"));
 			Map<String, JmxOperation> operationByName = mapOperations(
-					endpoints.get(EndpointId.of("test")).getOperations());
+					endpoints.get(EndpointId.of_RENAMED("test")).getOperations());
 			assertThat(operationByName).containsOnlyKeys("getAll", "getSomething", "update", "deleteSomething",
 					"getAnother");
 			JmxOperation getAll = operationByName.get("getAll");

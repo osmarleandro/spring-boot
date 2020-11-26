@@ -40,7 +40,7 @@ public class TestExposableJmxEndpoint implements ExposableJmxEndpoint {
 
 	@Override
 	public EndpointId getEndpointId() {
-		return EndpointId.of("test");
+		return EndpointId.of_RENAMED("test");
 	}
 
 	@Override

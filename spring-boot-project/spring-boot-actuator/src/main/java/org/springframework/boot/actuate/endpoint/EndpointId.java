@@ -111,7 +111,7 @@ public final class EndpointId {
 	 * @param value the endpoint ID value
 	 * @return an {@link EndpointId} instance
 	 */
-	public static EndpointId of(String value) {
+	public static EndpointId of_RENAMED(String value) {
 		return new EndpointId(value);
 	}
 
@@ -138,7 +138,7 @@ public final class EndpointId {
 
 	/**
 	 * Factory method to create a new {@link EndpointId} from a property value. More
-	 * lenient than {@link #of(String)} to allow for common "relaxed" property variants.
+	 * lenient than {@link #of_RENAMED(String)} to allow for common "relaxed" property variants.
 	 * @param value the property value to convert
 	 * @return an {@link EndpointId} instance
 	 */
