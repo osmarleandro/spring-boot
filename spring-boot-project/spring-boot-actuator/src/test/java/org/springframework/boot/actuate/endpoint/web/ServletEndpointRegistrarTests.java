@@ -91,7 +91,7 @@ class ServletEndpointRegistrarTests {
 		given(this.servletContext.addServlet(any(String.class), any(Servlet.class))).willReturn(this.dynamic);
 		ExposableServletEndpoint endpoint = mockEndpoint(new EndpointServlet(TestServlet.class));
 		ServletEndpointRegistrar registrar = new ServletEndpointRegistrar(basePath, Collections.singleton(endpoint));
-		registrar.onStartup(this.servletContext);
+		registrar.onStartup_RENAMED(this.servletContext);
 		verify(this.servletContext).addServlet(eq("test-actuator-endpoint"), this.servlet.capture());
 		assertThat(this.servlet.getValue()).isInstanceOf(TestServlet.class);
 		verify(this.dynamic).addMapping(expectedMapping);
@@ -103,7 +103,7 @@ class ServletEndpointRegistrarTests {
 		ExposableServletEndpoint endpoint = mockEndpoint(
 				new EndpointServlet(TestServlet.class).withInitParameter("a", "b"));
 		ServletEndpointRegistrar registrar = new ServletEndpointRegistrar("/actuator", Collections.singleton(endpoint));
-		registrar.onStartup(this.servletContext);
+		registrar.onStartup_RENAMED(this.servletContext);
 		verify(this.dynamic).setInitParameters(Collections.singletonMap("a", "b"));
 	}
 
@@ -112,7 +112,7 @@ class ServletEndpointRegistrarTests {
 		given(this.servletContext.addServlet(any(String.class), any(Servlet.class))).willReturn(this.dynamic);
 		ExposableServletEndpoint endpoint = mockEndpoint(new EndpointServlet(TestServlet.class).withLoadOnStartup(7));
 		ServletEndpointRegistrar registrar = new ServletEndpointRegistrar("/actuator", Collections.singleton(endpoint));
-		registrar.onStartup(this.servletContext);
+		registrar.onStartup_RENAMED(this.servletContext);
 		verify(this.dynamic).setLoadOnStartup(7);
 	}
 
@@ -121,7 +121,7 @@ class ServletEndpointRegistrarTests {
 		given(this.servletContext.addServlet(any(String.class), any(Servlet.class))).willReturn(this.dynamic);
 		ExposableServletEndpoint endpoint = mockEndpoint(new EndpointServlet(TestServlet.class));
 		ServletEndpointRegistrar registrar = new ServletEndpointRegistrar("/actuator", Collections.singleton(endpoint));
-		registrar.onStartup(this.servletContext);
+		registrar.onStartup_RENAMED(this.servletContext);
 		verify(this.dynamic).setLoadOnStartup(-1);
 	}
 

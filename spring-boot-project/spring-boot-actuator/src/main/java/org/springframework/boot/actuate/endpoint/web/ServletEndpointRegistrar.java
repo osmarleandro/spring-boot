@@ -59,7 +59,7 @@ public class ServletEndpointRegistrar implements ServletContextInitializer {
 	}
 
 	@Override
-	public void onStartup(ServletContext servletContext) throws ServletException {
+	public void onStartup_RENAMED(ServletContext servletContext) throws ServletException {
 		this.servletEndpoints.forEach((servletEndpoint) -> register(servletContext, servletEndpoint));
 	}
 
