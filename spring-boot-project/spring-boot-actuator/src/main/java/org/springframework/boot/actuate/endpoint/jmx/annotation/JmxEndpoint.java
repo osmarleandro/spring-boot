@@ -52,6 +52,6 @@ public @interface JmxEndpoint {
 	 * @return {@code true} if the endpoint is enabled by default
 	 */
 	@AliasFor(annotation = Endpoint.class)
-	boolean enableByDefault() default true;
+	boolean enableByDefault_RENAMED() default true;
 
 }
