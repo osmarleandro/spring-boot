@@ -67,7 +67,7 @@ class CloudFoundryWebEndpointServletHandlerMapping extends AbstractWebMvcEndpoin
 	@Override
 	protected ServletWebOperation wrapServletWebOperation(ExposableWebEndpoint endpoint, WebOperation operation,
 			ServletWebOperation servletWebOperation) {
-		return new SecureServletWebOperation(servletWebOperation, this.securityInterceptor, endpoint.getEndpointId());
+		return new SecureServletWebOperation(servletWebOperation, this.securityInterceptor, endpoint.getEndpointId_RENAMED());
 	}
 
 	@Override

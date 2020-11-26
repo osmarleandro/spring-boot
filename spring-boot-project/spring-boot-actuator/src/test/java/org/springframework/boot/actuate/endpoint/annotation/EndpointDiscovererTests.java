@@ -252,7 +252,7 @@ class EndpointDiscovererTests {
 	void getEndpointsShouldApplyFilters() {
 		load(SpecializedEndpointsConfiguration.class, (context) -> {
 			EndpointFilter<SpecializedExposableEndpoint> filter = (endpoint) -> {
-				EndpointId id = endpoint.getEndpointId();
+				EndpointId id = endpoint.getEndpointId_RENAMED();
 				return !id.equals(EndpointId.of("specialized")) && !id.equals(EndpointId.of("specialized-superclass"));
 			};
 			SpecializedEndpointDiscoverer discoverer = new SpecializedEndpointDiscoverer(context,
@@ -287,10 +287,10 @@ class EndpointDiscovererTests {
 	private <E extends ExposableEndpoint<?>> Map<EndpointId, E> mapEndpoints(Collection<E> endpoints) {
 		Map<EndpointId, E> byId = new LinkedHashMap<>();
 		endpoints.forEach((endpoint) -> {
-			E existing = byId.put(endpoint.getEndpointId(), endpoint);
+			E existing = byId.put(endpoint.getEndpointId_RENAMED(), endpoint);
 			if (existing != null) {
 				throw new AssertionError(
-						String.format("Found endpoints with duplicate id '%s'", endpoint.getEndpointId()));
+						String.format("Found endpoints with duplicate id '%s'", endpoint.getEndpointId_RENAMED()));
 			}
 		});
 		return byId;

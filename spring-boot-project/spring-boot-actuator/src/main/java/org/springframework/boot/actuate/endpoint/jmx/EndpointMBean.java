@@ -87,7 +87,7 @@ public class EndpointMBean implements DynamicMBean {
 			throws MBeanException, ReflectionException {
 		JmxOperation operation = this.operations.get(actionName);
 		if (operation == null) {
-			String message = "Endpoint with id '" + this.endpoint.getEndpointId() + "' has no operation named "
+			String message = "Endpoint with id '" + this.endpoint.getEndpointId_RENAMED() + "' has no operation named "
 					+ actionName;
 			throw new ReflectionException(new IllegalArgumentException(message), message);
 		}

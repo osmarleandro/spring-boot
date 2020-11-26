@@ -158,7 +158,7 @@ class ExposeExcludePropertyEndpointFilterTests {
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	private boolean match(EndpointId id) {
 		ExposableEndpoint<?> endpoint = mock(TestExposableWebEndpoint.class);
-		given(endpoint.getEndpointId()).willReturn(id);
+		given(endpoint.getEndpointId_RENAMED()).willReturn(id);
 		return ((EndpointFilter) this.filter).match(endpoint);
 	}
 

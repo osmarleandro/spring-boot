@@ -126,14 +126,14 @@ class PathMappedEndpointsTests {
 
 	private TestPathMappedEndpoint mockEndpoint(EndpointId id, String rootPath) {
 		TestPathMappedEndpoint endpoint = mock(TestPathMappedEndpoint.class);
-		given(endpoint.getEndpointId()).willReturn(id);
+		given(endpoint.getEndpointId_RENAMED()).willReturn(id);
 		given(endpoint.getRootPath()).willReturn(rootPath);
 		return endpoint;
 	}
 
 	private TestEndpoint mockEndpoint(EndpointId id) {
 		TestEndpoint endpoint = mock(TestEndpoint.class);
-		given(endpoint.getEndpointId()).willReturn(id);
+		given(endpoint.getEndpointId_RENAMED()).willReturn(id);
 		return endpoint;
 	}
 

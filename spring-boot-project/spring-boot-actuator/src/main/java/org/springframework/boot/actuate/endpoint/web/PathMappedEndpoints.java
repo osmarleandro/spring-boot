@@ -67,7 +67,7 @@ public class PathMappedEndpoints implements Iterable<PathMappedEndpoint> {
 		Map<EndpointId, PathMappedEndpoint> endpoints = new LinkedHashMap<>();
 		suppliers.forEach((supplier) -> supplier.getEndpoints().forEach((endpoint) -> {
 			if (endpoint instanceof PathMappedEndpoint) {
-				endpoints.put(endpoint.getEndpointId(), (PathMappedEndpoint) endpoint);
+				endpoints.put(endpoint.getEndpointId_RENAMED(), (PathMappedEndpoint) endpoint);
 			}
 		}));
 		return Collections.unmodifiableMap(endpoints);

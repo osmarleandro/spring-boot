@@ -139,7 +139,7 @@ public class IncludeExcludeEndpointFilter<E extends ExposableEndpoint<?>> implem
 			// Leave non-matching types for other filters
 			return true;
 		}
-		return match(endpoint.getEndpointId());
+		return match(endpoint.getEndpointId_RENAMED());
 	}
 
 	/**

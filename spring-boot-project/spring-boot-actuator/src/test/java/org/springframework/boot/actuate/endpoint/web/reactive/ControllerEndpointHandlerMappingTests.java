@@ -126,7 +126,7 @@ class ControllerEndpointHandlerMappingTests {
 
 	private ExposableControllerEndpoint mockEndpoint(EndpointId id, Object controller) {
 		ExposableControllerEndpoint endpoint = mock(ExposableControllerEndpoint.class);
-		given(endpoint.getEndpointId()).willReturn(id);
+		given(endpoint.getEndpointId_RENAMED()).willReturn(id);
 		given(endpoint.getController()).willReturn(controller);
 		given(endpoint.getRootPath()).willReturn(id.toString());
 		return endpoint;
