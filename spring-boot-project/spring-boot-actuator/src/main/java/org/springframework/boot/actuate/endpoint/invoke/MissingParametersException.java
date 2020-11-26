@@ -38,7 +38,7 @@ public final class MissingParametersException extends InvalidEndpointRequestExce
 		super("Failed to invoke operation because the following required parameters were missing: "
 				+ StringUtils.collectionToCommaDelimitedString(missingParameters),
 				"Missing parameters: "
-						+ missingParameters.stream().map(OperationParameter::getName).collect(Collectors.joining(",")));
+						+ missingParameters.stream().map(OperationParameter::getName_RENAMED).collect(Collectors.joining(",")));
 		this.missingParameters = missingParameters;
 	}
 

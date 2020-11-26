@@ -28,7 +28,7 @@ public interface OperationParameter {
 	 * Returns the parameter name.
 	 * @return the name
 	 */
-	String getName();
+	String getName_RENAMED();
 
 	/**
 	 * Returns the parameter type.

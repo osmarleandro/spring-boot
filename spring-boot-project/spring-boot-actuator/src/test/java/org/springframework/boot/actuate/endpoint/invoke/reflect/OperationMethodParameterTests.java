@@ -37,7 +37,7 @@ class OperationMethodParameterTests {
 	@Test
 	void getNameShouldReturnName() {
 		OperationMethodParameter parameter = new OperationMethodParameter("name", this.method.getParameters()[0]);
-		assertThat(parameter.getName()).isEqualTo("name");
+		assertThat(parameter.getName_RENAMED()).isEqualTo("name");
 	}
 
 	@Test

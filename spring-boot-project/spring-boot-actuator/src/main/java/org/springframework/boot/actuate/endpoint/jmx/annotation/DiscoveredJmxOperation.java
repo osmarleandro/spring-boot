@@ -140,7 +140,7 @@ class DiscoveredJmxOperation extends AbstractDiscoveredOperation implements JmxO
 		private final String description;
 
 		DiscoveredJmxOperationParameter(OperationParameter operationParameter) {
-			this.name = operationParameter.getName();
+			this.name = operationParameter.getName_RENAMED();
 			this.type = JmxType.get(operationParameter.getType());
 			this.description = null;
 		}

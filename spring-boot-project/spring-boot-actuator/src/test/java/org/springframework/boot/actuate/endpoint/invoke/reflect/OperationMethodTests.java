@@ -65,7 +65,7 @@ class OperationMethodTests {
 		OperationMethod operationMethod = new OperationMethod(this.exampleMethod, OperationType.READ);
 		OperationParameters parameters = operationMethod.getParameters();
 		assertThat(parameters.getParameterCount()).isEqualTo(1);
-		assertThat(parameters.iterator().next().getName()).isEqualTo("name");
+		assertThat(parameters.iterator().next().getName_RENAMED()).isEqualTo("name");
 	}
 
 	String example(String name) {
