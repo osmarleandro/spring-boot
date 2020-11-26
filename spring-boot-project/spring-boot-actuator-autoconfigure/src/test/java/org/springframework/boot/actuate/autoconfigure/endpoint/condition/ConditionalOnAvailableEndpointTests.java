@@ -226,7 +226,7 @@ class ConditionalOnAvailableEndpointTests {
 
 	}
 
-	@EndpointExtension(endpoint = SpringEndpoint.class, filter = TestFilter.class)
+	@EndpointExtension(endpoint_RENAMED = SpringEndpoint.class, filter = TestFilter.class)
 	static class SpringEndpointExtension {
 
 	}

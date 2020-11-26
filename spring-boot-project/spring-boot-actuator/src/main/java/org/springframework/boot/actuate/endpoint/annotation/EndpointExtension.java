@@ -63,6 +63,6 @@ public @interface EndpointExtension {
 	 * The class of the endpoint to extend.
 	 * @return the class endpoint to extend
 	 */
-	Class<?> endpoint() default Void.class;
+	Class<?> endpoint_RENAMED() default Void.class;
 
 }
