@@ -90,7 +90,7 @@ abstract class DiscoveredOperationsFactory<O extends Operation> {
 				annotation.asAnnotationAttributes());
 		OperationInvoker invoker = new ReflectiveOperationInvoker(target, operationMethod, this.parameterValueMapper);
 		invoker = applyAdvisors(endpointId, operationMethod, invoker);
-		return createOperation(endpointId, operationMethod, invoker);
+		return createOperation_RENAMED(endpointId, operationMethod, invoker);
 	}
 
 	private OperationInvoker applyAdvisors(EndpointId endpointId, OperationMethod operationMethod,
@@ -104,7 +104,7 @@ abstract class DiscoveredOperationsFactory<O extends Operation> {
 		return invoker;
 	}
 
-	protected abstract O createOperation(EndpointId endpointId, DiscoveredOperationMethod operationMethod,
+	protected abstract O createOperation_RENAMED(EndpointId endpointId, DiscoveredOperationMethod operationMethod,
 			OperationInvoker invoker);
 
 }
