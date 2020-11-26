@@ -87,10 +87,10 @@ public class JmxEndpointExporter implements InitializingBean, DisposableBean, Be
 	}
 
 	private Collection<ObjectName> register() {
-		return this.endpoints.stream().map(this::register).collect(Collectors.toList());
+		return this.endpoints.stream().map(this::register_RENAMED).collect(Collectors.toList());
 	}
 
-	private ObjectName register(ExposableJmxEndpoint endpoint) {
+	private ObjectName register_RENAMED(ExposableJmxEndpoint endpoint) {
 		Assert.notNull(endpoint, "Endpoint must not be null");
 		try {
 			ObjectName name = this.objectNameFactory.getObjectName(endpoint);
