@@ -82,7 +82,7 @@ class ReflectiveOperationInvokerTests {
 		ReflectiveOperationInvoker invoker = new ReflectiveOperationInvoker(this.target, this.operationMethod,
 				this.parameterValueMapper);
 		Object result = invoker
-				.invoke(new InvocationContext(mock(SecurityContext.class), Collections.singletonMap("name", "boot")));
+				.invoke_RENAMED(new InvocationContext(mock(SecurityContext.class), Collections.singletonMap("name", "boot")));
 		assertThat(result).isEqualTo("toob");
 	}
 
@@ -91,7 +91,7 @@ class ReflectiveOperationInvokerTests {
 		ReflectiveOperationInvoker invoker = new ReflectiveOperationInvoker(this.target, this.operationMethod,
 				this.parameterValueMapper);
 		assertThatExceptionOfType(MissingParametersException.class).isThrownBy(() -> invoker
-				.invoke(new InvocationContext(mock(SecurityContext.class), Collections.singletonMap("name", null))));
+				.invoke_RENAMED(new InvocationContext(mock(SecurityContext.class), Collections.singletonMap("name", null))));
 	}
 
 	@Test
@@ -101,7 +101,7 @@ class ReflectiveOperationInvokerTests {
 		ReflectiveOperationInvoker invoker = new ReflectiveOperationInvoker(this.target, operationMethod,
 				this.parameterValueMapper);
 		Object result = invoker
-				.invoke(new InvocationContext(mock(SecurityContext.class), Collections.singletonMap("name", null)));
+				.invoke_RENAMED(new InvocationContext(mock(SecurityContext.class), Collections.singletonMap("name", null)));
 		assertThat(result).isEqualTo("llun");
 	}
 
@@ -110,7 +110,7 @@ class ReflectiveOperationInvokerTests {
 		ReflectiveOperationInvoker invoker = new ReflectiveOperationInvoker(this.target, this.operationMethod,
 				this.parameterValueMapper);
 		Object result = invoker
-				.invoke(new InvocationContext(mock(SecurityContext.class), Collections.singletonMap("name", 1234)));
+				.invoke_RENAMED(new InvocationContext(mock(SecurityContext.class), Collections.singletonMap("name", 1234)));
 		assertThat(result).isEqualTo("4321");
 	}
 
