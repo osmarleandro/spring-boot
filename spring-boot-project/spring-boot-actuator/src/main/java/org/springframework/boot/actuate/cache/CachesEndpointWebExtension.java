@@ -52,7 +52,7 @@ public class CachesEndpointWebExtension {
 	}
 
 	@DeleteOperation
-	public WebEndpointResponse<Void> clearCache(@Selector String cache, @Nullable String cacheManager) {
+	public WebEndpointResponse<Void> clearCache_RENAMED(@Selector String cache, @Nullable String cacheManager) {
 		try {
 			boolean cleared = this.delegate.clearCache(cache, cacheManager);
 			int status = (cleared ? WebEndpointResponse.STATUS_NO_CONTENT : WebEndpointResponse.STATUS_NOT_FOUND);
