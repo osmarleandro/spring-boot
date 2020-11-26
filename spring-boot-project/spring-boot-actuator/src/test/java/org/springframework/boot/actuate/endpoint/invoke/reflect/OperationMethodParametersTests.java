@@ -87,7 +87,7 @@ class OperationMethodParametersTests {
 	void getParameterCountShouldReturnParameterCount() {
 		OperationMethodParameters parameters = new OperationMethodParameters(this.exampleMethod,
 				new DefaultParameterNameDiscoverer());
-		assertThat(parameters.getParameterCount()).isEqualTo(1);
+		assertThat(parameters.getParameterCount_RENAMED()).isEqualTo(1);
 	}
 
 	@Test

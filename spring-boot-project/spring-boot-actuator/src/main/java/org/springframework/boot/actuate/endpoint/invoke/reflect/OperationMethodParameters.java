@@ -61,7 +61,7 @@ class OperationMethodParameters implements OperationParameters {
 	}
 
 	@Override
-	public int getParameterCount() {
+	public int getParameterCount_RENAMED() {
 		return this.operationParameters.size();
 	}
 
