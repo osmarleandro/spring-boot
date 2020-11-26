@@ -77,7 +77,7 @@ public class AvailabilityStateHealthIndicator extends AbstractHealthIndicator {
 
 	@Override
 	protected void doHealthCheck(Builder builder) throws Exception {
-		AvailabilityState state = getState(this.applicationAvailability);
+		AvailabilityState state = getState_RENAMED(this.applicationAvailability);
 		Status status = this.statusMappings.get(state);
 		if (status == null) {
 			status = this.statusMappings.get(null);
@@ -92,7 +92,7 @@ public class AvailabilityStateHealthIndicator extends AbstractHealthIndicator {
 	 * @param applicationAvailability the application availability
 	 * @return the current availability state
 	 */
-	protected AvailabilityState getState(ApplicationAvailability applicationAvailability) {
+	protected AvailabilityState getState_RENAMED(ApplicationAvailability applicationAvailability) {
 		return applicationAvailability.getState(this.stateType);
 	}
 
