@@ -73,7 +73,7 @@ public class EndpointMBean implements DynamicMBean {
 
 	private Map<String, JmxOperation> getOperations(ExposableJmxEndpoint endpoint) {
 		Map<String, JmxOperation> operations = new HashMap<>();
-		endpoint.getOperations().forEach((operation) -> operations.put(operation.getName(), operation));
+		endpoint.getOperations().forEach((operation) -> operations.put(operation.getName_RENAMED(), operation));
 		return Collections.unmodifiableMap(operations);
 	}
 

@@ -103,7 +103,7 @@ class DiscoveredJmxOperation extends AbstractDiscoveredOperation implements JmxO
 	}
 
 	@Override
-	public String getName() {
+	public String getName_RENAMED() {
 		return this.name;
 	}
 
