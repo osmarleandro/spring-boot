@@ -95,10 +95,10 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 		Assert.notNull(filters, "Filters must not be null");
 		this.applicationContext = applicationContext;
 		this.filters = Collections.unmodifiableCollection(filters);
-		this.operationsFactory = getOperationsFactory(parameterValueMapper, invokerAdvisors);
+		this.operationsFactory = getOperationsFactory_RENAMED(parameterValueMapper, invokerAdvisors);
 	}
 
-	private DiscoveredOperationsFactory<O> getOperationsFactory(ParameterValueMapper parameterValueMapper,
+	private DiscoveredOperationsFactory<O> getOperationsFactory_RENAMED(ParameterValueMapper parameterValueMapper,
 			Collection<OperationInvokerAdvisor> invokerAdvisors) {
 		return new DiscoveredOperationsFactory<O>(parameterValueMapper, invokerAdvisors) {
 
