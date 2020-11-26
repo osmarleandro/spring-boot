@@ -112,7 +112,7 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 	}
 
 	@Override
-	public final Collection<E> getEndpoints() {
+	public final Collection<E> getEndpoints_RENAMED() {
 		if (this.endpoints == null) {
 			this.endpoints = discoverEndpoints();
 		}

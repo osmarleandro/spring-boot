@@ -68,7 +68,7 @@ class JolokiaEndpointAutoConfigurationTests {
 	void jolokiaServletWhenEndpointNotExposedShouldNotBeDiscovered() {
 		this.contextRunner.run((context) -> {
 			Collection<ExposableServletEndpoint> endpoints = context.getBean(ServletEndpointsSupplier.class)
-					.getEndpoints();
+					.getEndpoints_RENAMED();
 			assertThat(endpoints).isEmpty();
 		});
 	}
@@ -78,7 +78,7 @@ class JolokiaEndpointAutoConfigurationTests {
 		this.contextRunner.withPropertyValues("management.endpoint.jolokia.enabled=false")
 				.withPropertyValues("management.endpoints.web.exposure.include=jolokia").run((context) -> {
 					Collection<ExposableServletEndpoint> endpoints = context.getBean(ServletEndpointsSupplier.class)
-							.getEndpoints();
+							.getEndpoints_RENAMED();
 					assertThat(endpoints).isEmpty();
 				});
 	}
@@ -94,7 +94,7 @@ class JolokiaEndpointAutoConfigurationTests {
 	}
 
 	private ExposableServletEndpoint getEndpoint(AssertableWebApplicationContext context) {
-		Collection<ExposableServletEndpoint> endpoints = context.getBean(ServletEndpointsSupplier.class).getEndpoints();
+		Collection<ExposableServletEndpoint> endpoints = context.getBean(ServletEndpointsSupplier.class).getEndpoints_RENAMED();
 		return endpoints.iterator().next();
 	}
 

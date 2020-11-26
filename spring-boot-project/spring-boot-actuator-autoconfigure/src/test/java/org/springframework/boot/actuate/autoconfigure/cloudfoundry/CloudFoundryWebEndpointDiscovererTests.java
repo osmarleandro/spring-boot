@@ -56,7 +56,7 @@ class CloudFoundryWebEndpointDiscovererTests {
 	@Test
 	void getEndpointsShouldAddCloudFoundryHealthExtension() {
 		load(TestConfiguration.class, (discoverer) -> {
-			Collection<ExposableWebEndpoint> endpoints = discoverer.getEndpoints();
+			Collection<ExposableWebEndpoint> endpoints = discoverer.getEndpoints_RENAMED();
 			assertThat(endpoints.size()).isEqualTo(2);
 			for (ExposableWebEndpoint endpoint : endpoints) {
 				if (endpoint.getEndpointId().equals(EndpointId.of("health"))) {

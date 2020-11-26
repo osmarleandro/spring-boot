@@ -62,7 +62,7 @@ public class ServletEndpointManagementContextConfiguration {
 		public ServletEndpointRegistrar servletEndpointRegistrar(WebEndpointProperties properties,
 				ServletEndpointsSupplier servletEndpointsSupplier, DispatcherServletPath dispatcherServletPath) {
 			return new ServletEndpointRegistrar(dispatcherServletPath.getRelativePath(properties.getBasePath()),
-					servletEndpointsSupplier.getEndpoints());
+					servletEndpointsSupplier.getEndpoints_RENAMED());
 		}
 
 	}
@@ -76,7 +76,7 @@ public class ServletEndpointManagementContextConfiguration {
 		public ServletEndpointRegistrar servletEndpointRegistrar(WebEndpointProperties properties,
 				ServletEndpointsSupplier servletEndpointsSupplier, JerseyApplicationPath jerseyApplicationPath) {
 			return new ServletEndpointRegistrar(jerseyApplicationPath.getRelativePath(properties.getBasePath()),
-					servletEndpointsSupplier.getEndpoints());
+					servletEndpointsSupplier.getEndpoints_RENAMED());
 		}
 
 	}

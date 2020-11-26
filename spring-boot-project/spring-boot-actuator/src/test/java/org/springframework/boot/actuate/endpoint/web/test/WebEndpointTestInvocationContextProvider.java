@@ -242,8 +242,8 @@ class WebEndpointTestInvocationContextProvider implements TestTemplateInvocation
 					new ConversionServiceParameterValueMapper(), endpointMediaTypes, null, Collections.emptyList(),
 					Collections.emptyList());
 			Collection<Resource> resources = new JerseyEndpointResourceFactory().createEndpointResources(
-					new EndpointMapping("/actuator"), discoverer.getEndpoints(), endpointMediaTypes,
-					new EndpointLinksResolver(discoverer.getEndpoints()), true);
+					new EndpointMapping("/actuator"), discoverer.getEndpoints_RENAMED(), endpointMediaTypes,
+					new EndpointLinksResolver(discoverer.getEndpoints_RENAMED()), true);
 			config.registerResources(new HashSet<>(resources));
 		}
 
@@ -287,8 +287,8 @@ class WebEndpointTestInvocationContextProvider implements TestTemplateInvocation
 			WebEndpointDiscoverer discoverer = new WebEndpointDiscoverer(this.applicationContext,
 					new ConversionServiceParameterValueMapper(), endpointMediaTypes, null, Collections.emptyList(),
 					Collections.emptyList());
-			return new WebFluxEndpointHandlerMapping(new EndpointMapping("/actuator"), discoverer.getEndpoints(),
-					endpointMediaTypes, new CorsConfiguration(), new EndpointLinksResolver(discoverer.getEndpoints()),
+			return new WebFluxEndpointHandlerMapping(new EndpointMapping("/actuator"), discoverer.getEndpoints_RENAMED(),
+					endpointMediaTypes, new CorsConfiguration(), new EndpointLinksResolver(discoverer.getEndpoints_RENAMED()),
 					true);
 		}
 
@@ -316,8 +316,8 @@ class WebEndpointTestInvocationContextProvider implements TestTemplateInvocation
 			WebEndpointDiscoverer discoverer = new WebEndpointDiscoverer(this.applicationContext,
 					new ConversionServiceParameterValueMapper(), endpointMediaTypes, null, Collections.emptyList(),
 					Collections.emptyList());
-			return new WebMvcEndpointHandlerMapping(new EndpointMapping("/actuator"), discoverer.getEndpoints(),
-					endpointMediaTypes, new CorsConfiguration(), new EndpointLinksResolver(discoverer.getEndpoints()),
+			return new WebMvcEndpointHandlerMapping(new EndpointMapping("/actuator"), discoverer.getEndpoints_RENAMED(),
+					endpointMediaTypes, new CorsConfiguration(), new EndpointLinksResolver(discoverer.getEndpoints_RENAMED()),
 					true);
 		}
 
