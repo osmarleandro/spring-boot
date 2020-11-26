@@ -114,7 +114,7 @@ class RequestPredicateFactory {
 		if (producesResource(method)) {
 			return Collections.singletonList("application/octet-stream");
 		}
-		return this.endpointMediaTypes.getProduced();
+		return this.endpointMediaTypes.getProduced_RENAMED();
 	}
 
 	private boolean producesResource(Method method) {

@@ -83,7 +83,7 @@ public class EndpointMediaTypes {
 	 * Returns the media types produced by an endpoint.
 	 * @return the produced media types
 	 */
-	public List<String> getProduced() {
+	public List<String> getProduced_RENAMED() {
 		return this.produced;
 	}
 
