@@ -62,7 +62,7 @@ class DiscovererEndpointFilterTests {
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	private DiscoveredEndpoint<?> mockDiscoveredEndpoint(Class<?> discoverer) {
 		DiscoveredEndpoint endpoint = mock(DiscoveredEndpoint.class);
-		given(endpoint.wasDiscoveredBy(discoverer)).willReturn(true);
+		given(endpoint.wasDiscoveredBy_RENAMED(discoverer)).willReturn(true);
 		return endpoint;
 	}
 

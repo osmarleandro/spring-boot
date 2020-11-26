@@ -63,7 +63,7 @@ public abstract class AbstractDiscoveredEndpoint<O extends Operation> extends Ab
 	}
 
 	@Override
-	public boolean wasDiscoveredBy(Class<? extends EndpointDiscoverer<?, ?>> discoverer) {
+	public boolean wasDiscoveredBy_RENAMED(Class<? extends EndpointDiscoverer<?, ?>> discoverer) {
 		return discoverer.isInstance(this.discoverer);
 	}
 
