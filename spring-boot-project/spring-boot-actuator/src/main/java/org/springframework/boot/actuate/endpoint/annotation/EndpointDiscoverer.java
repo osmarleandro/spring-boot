@@ -179,13 +179,13 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 		Set<E> endpoints = new LinkedHashSet<>();
 		for (EndpointBean endpointBean : endpointBeans) {
 			if (isEndpointExposed(endpointBean)) {
-				endpoints.add(convertToEndpoint(endpointBean));
+				endpoints.add(convertToEndpoint_RENAMED(endpointBean));
 			}
 		}
 		return Collections.unmodifiableSet(endpoints);
 	}
 
-	private E convertToEndpoint(EndpointBean endpointBean) {
+	private E convertToEndpoint_RENAMED(EndpointBean endpointBean) {
 		MultiValueMap<OperationKey, O> indexed = new LinkedMultiValueMap<>();
 		EndpointId id = endpointBean.getId();
 		addOperations(indexed, id, endpointBean.getBean(), false);
