@@ -60,14 +60,14 @@ public enum ApiVersion {
 		if (!CollectionUtils.isEmpty(accepts)) {
 			for (String accept : accepts) {
 				for (String type : MimeTypeUtils.tokenize(accept)) {
-					version = mostRecent(version, forType(type));
+					version = mostRecent(version, forType_RENAMED(type));
 				}
 			}
 		}
 		return (version != null) ? version : LATEST;
 	}
 
-	private static ApiVersion forType(String type) {
+	private static ApiVersion forType_RENAMED(String type) {
 		if (type.startsWith(MEDIA_TYPE_PREFIX)) {
 			type = type.substring(MEDIA_TYPE_PREFIX.length());
 			int suffixIndex = type.indexOf('+');
