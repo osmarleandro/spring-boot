@@ -42,7 +42,7 @@ public class CachesEndpointWebExtension {
 	@ReadOperation
 	public WebEndpointResponse<CacheEntry> cache(@Selector String cache, @Nullable String cacheManager) {
 		try {
-			CacheEntry entry = this.delegate.cache(cache, cacheManager);
+			CacheEntry entry = this.delegate.cache_RENAMED(cache, cacheManager);
 			int status = (entry != null) ? WebEndpointResponse.STATUS_OK : WebEndpointResponse.STATUS_NOT_FOUND;
 			return new WebEndpointResponse<>(entry, status);
 		}

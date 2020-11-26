@@ -73,7 +73,7 @@ class CachesEndpointTests {
 	void namedCacheWithSingleCacheManager() {
 		CachesEndpoint endpoint = new CachesEndpoint(
 				Collections.singletonMap("test", new ConcurrentMapCacheManager("b", "a")));
-		CacheEntry entry = endpoint.cache("a", null);
+		CacheEntry entry = endpoint.cache_RENAMED("a", null);
 		assertThat(entry).isNotNull();
 		assertThat(entry.getCacheManager()).isEqualTo("test");
 		assertThat(entry.getName()).isEqualTo("a");
@@ -86,7 +86,7 @@ class CachesEndpointTests {
 		cacheManagers.put("test", new ConcurrentMapCacheManager("b", "dupe-cache"));
 		cacheManagers.put("another", new ConcurrentMapCacheManager("c", "dupe-cache"));
 		CachesEndpoint endpoint = new CachesEndpoint(cacheManagers);
-		assertThatExceptionOfType(NonUniqueCacheException.class).isThrownBy(() -> endpoint.cache("dupe-cache", null))
+		assertThatExceptionOfType(NonUniqueCacheException.class).isThrownBy(() -> endpoint.cache_RENAMED("dupe-cache", null))
 				.withMessageContaining("dupe-cache").withMessageContaining("test").withMessageContaining("another");
 	}
 
@@ -94,7 +94,7 @@ class CachesEndpointTests {
 	void namedCacheWithUnknownCache() {
 		CachesEndpoint endpoint = new CachesEndpoint(
 				Collections.singletonMap("test", new ConcurrentMapCacheManager("b", "a")));
-		CacheEntry entry = endpoint.cache("unknown", null);
+		CacheEntry entry = endpoint.cache_RENAMED("unknown", null);
 		assertThat(entry).isNull();
 	}
 
@@ -104,7 +104,7 @@ class CachesEndpointTests {
 		cacheManagers.put("test", new ConcurrentMapCacheManager("b", "a"));
 		cacheManagers.put("another", new ConcurrentMapCacheManager("c", "a"));
 		CachesEndpoint endpoint = new CachesEndpoint(cacheManagers);
-		CacheEntry entry = endpoint.cache("c", "test");
+		CacheEntry entry = endpoint.cache_RENAMED("c", "test");
 		assertThat(entry).isNull();
 	}
 
@@ -114,7 +114,7 @@ class CachesEndpointTests {
 		cacheManagers.put("test", new ConcurrentMapCacheManager("b", "a"));
 		cacheManagers.put("another", new ConcurrentMapCacheManager("c", "a"));
 		CachesEndpoint endpoint = new CachesEndpoint(cacheManagers);
-		CacheEntry entry = endpoint.cache("a", "test");
+		CacheEntry entry = endpoint.cache_RENAMED("a", "test");
 		assertThat(entry).isNotNull();
 		assertThat(entry.getCacheManager()).isEqualTo("test");
 		assertThat(entry.getName()).isEqualTo("a");

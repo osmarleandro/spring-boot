@@ -79,7 +79,7 @@ public class CachesEndpoint {
 	 * {@code cacheManager} was provided to identify a unique candidate
 	 */
 	@ReadOperation
-	public CacheEntry cache(@Selector String cache, @Nullable String cacheManager) {
+	public CacheEntry cache_RENAMED(@Selector String cache, @Nullable String cacheManager) {
 		return extractUniqueCacheEntry(cache, getCacheEntries((name) -> name.equals(cache), isNameMatch(cacheManager)));
 	}
 
