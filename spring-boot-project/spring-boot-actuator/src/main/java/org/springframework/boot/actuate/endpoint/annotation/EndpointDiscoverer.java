@@ -114,12 +114,12 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 	@Override
 	public final Collection<E> getEndpoints() {
 		if (this.endpoints == null) {
-			this.endpoints = discoverEndpoints();
+			this.endpoints = discoverEndpoints_RENAMED();
 		}
 		return this.endpoints;
 	}
 
-	private Collection<E> discoverEndpoints() {
+	private Collection<E> discoverEndpoints_RENAMED() {
 		Collection<EndpointBean> endpointBeans = createEndpointBeans();
 		addExtensionBeans(endpointBeans);
 		return convertToEndpoints(endpointBeans);
