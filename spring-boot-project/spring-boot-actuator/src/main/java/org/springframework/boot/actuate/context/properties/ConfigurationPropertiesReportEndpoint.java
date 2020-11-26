@@ -143,12 +143,12 @@ public class ConfigurationPropertiesReportEndpoint implements ApplicationContext
 		mapper.configure(SerializationFeature.WRITE_DURATIONS_AS_TIMESTAMPS, false);
 		mapper.configure(MapperFeature.USE_STD_BEAN_NAMING, true);
 		mapper.setSerializationInclusion(Include.NON_NULL);
-		applyConfigurationPropertiesFilter(mapper);
+		applyConfigurationPropertiesFilter_RENAMED(mapper);
 		applySerializationModifier(mapper);
 		mapper.registerModule(new JavaTimeModule());
 	}
 
-	private void applyConfigurationPropertiesFilter(ObjectMapper mapper) {
+	private void applyConfigurationPropertiesFilter_RENAMED(ObjectMapper mapper) {
 		mapper.setAnnotationIntrospector(new ConfigurationPropertiesAnnotationIntrospector());
 		mapper.setFilterProvider(
 				new SimpleFilterProvider().setDefaultFilter(new ConfigurationPropertiesPropertyFilter()));
