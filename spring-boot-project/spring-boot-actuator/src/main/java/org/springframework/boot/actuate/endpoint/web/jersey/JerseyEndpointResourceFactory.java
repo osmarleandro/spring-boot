@@ -101,9 +101,9 @@ public class JerseyEndpointResourceFactory {
 		}
 		Builder resourceBuilder = Resource.builder().path(endpointMapping.createSubPath(path));
 		resourceBuilder.addMethod(requestPredicate.getHttpMethod().name())
-				.consumes(StringUtils.toStringArray(requestPredicate.getConsumes()))
+				.consumes(StringUtils.toStringArray(requestPredicate.getConsumes_RENAMED()))
 				.produces(StringUtils.toStringArray(requestPredicate.getProduces()))
-				.handledBy(new OperationInflector(operation, !requestPredicate.getConsumes().isEmpty()));
+				.handledBy(new OperationInflector(operation, !requestPredicate.getConsumes_RENAMED().isEmpty()));
 		return resourceBuilder.build();
 	}
 
