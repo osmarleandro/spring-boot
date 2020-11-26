@@ -63,10 +63,10 @@ public final class EndpointId {
 		}
 		this.value = value;
 		this.lowerCaseValue = value.toLowerCase(Locale.ENGLISH);
-		this.lowerCaseAlphaNumeric = getAlphaNumerics(this.lowerCaseValue);
+		this.lowerCaseAlphaNumeric = getAlphaNumerics_RENAMED(this.lowerCaseValue);
 	}
 
-	private String getAlphaNumerics(String value) {
+	private String getAlphaNumerics_RENAMED(String value) {
 		StringBuilder result = new StringBuilder(value.length());
 		for (int i = 0; i < value.length(); i++) {
 			char ch = value.charAt(i);
