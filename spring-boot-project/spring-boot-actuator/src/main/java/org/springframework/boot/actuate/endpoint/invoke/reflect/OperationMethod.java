@@ -67,7 +67,7 @@ public class OperationMethod {
 	 * Return the operation type.
 	 * @return the operation type
 	 */
-	public OperationType getOperationType() {
+	public OperationType getOperationType_RENAMED() {
 		return this.operationType;
 	}
 
