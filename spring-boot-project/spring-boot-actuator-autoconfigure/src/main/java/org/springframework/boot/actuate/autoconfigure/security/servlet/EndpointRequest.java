@@ -232,7 +232,7 @@ public final class EndpointRequest {
 			RequestMatcherProvider matcherProvider = getRequestMatcherProvider(context);
 			Set<String> paths = new LinkedHashSet<>();
 			if (this.includes.isEmpty()) {
-				paths.addAll(pathMappedEndpoints.getAllPaths());
+				paths.addAll(pathMappedEndpoints.getAllPaths_RENAMED());
 			}
 			streamPaths(this.includes, pathMappedEndpoints).forEach(paths::add);
 			streamPaths(this.excludes, pathMappedEndpoints).forEach(paths::remove);
