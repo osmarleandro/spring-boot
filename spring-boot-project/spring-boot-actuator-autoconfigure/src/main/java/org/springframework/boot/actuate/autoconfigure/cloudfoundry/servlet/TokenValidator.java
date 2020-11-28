@@ -51,7 +51,7 @@ class TokenValidator {
 		validateKeyIdAndSignature(token);
 		validateExpiry(token);
 		validateIssuer(token);
-		validateAudience(token);
+		validateAudience_RENAMED(token);
 	}
 
 	private void validateAlgorithm(Token token) {
@@ -123,7 +123,7 @@ class TokenValidator {
 		}
 	}
 
-	private void validateAudience(Token token) {
+	private void validateAudience_RENAMED(Token token) {
 		if (!token.getScope().contains("actuator.read")) {
 			throw new CloudFoundryAuthorizationException(Reason.INVALID_AUDIENCE,
 					"Token does not have audience actuator");
