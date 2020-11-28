@@ -71,7 +71,7 @@ public class EndpointAutoConfiguration {
 
 	@Bean
 	@ConditionalOnMissingBean
-	public CachingOperationInvokerAdvisor endpointCachingOperationInvokerAdvisor(Environment environment) {
+	public CachingOperationInvokerAdvisor endpointCachingOperationInvokerAdvisor_RENAMED(Environment environment) {
 		return new CachingOperationInvokerAdvisor(new EndpointIdTimeToLivePropertyFunction(environment));
 	}
 
