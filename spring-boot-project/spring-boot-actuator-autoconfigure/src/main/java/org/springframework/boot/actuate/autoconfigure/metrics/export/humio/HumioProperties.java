@@ -74,7 +74,7 @@ public class HumioProperties extends StepRegistryProperties {
 		this.connectTimeout = connectTimeout;
 	}
 
-	public Map<String, String> getTags() {
+	public Map<String, String> getTags_RENAMED() {
 		return this.tags;
 	}
 

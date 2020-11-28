@@ -50,7 +50,7 @@ class HumioPropertiesConfigAdapter extends StepRegistryPropertiesConfigAdapter<H
 
 	@Override
 	public Map<String, String> tags() {
-		return get(HumioProperties::getTags, HumioConfig.super::tags);
+		return get(HumioProperties::getTags_RENAMED, HumioConfig.super::tags);
 	}
 
 	@Override
