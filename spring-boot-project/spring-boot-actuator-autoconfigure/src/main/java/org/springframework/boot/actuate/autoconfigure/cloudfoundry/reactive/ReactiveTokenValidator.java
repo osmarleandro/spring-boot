@@ -51,7 +51,7 @@ class ReactiveTokenValidator {
 	}
 
 	Mono<Void> validate(Token token) {
-		return validateAlgorithm(token).then(validateKeyIdAndSignature(token)).then(validateExpiry(token))
+		return validateAlgorithm(token).then(validateKeyIdAndSignature(token)).then(validateExpiry_RENAMED(token))
 				.then(validateIssuer(token)).then(validateAudience(token));
 	}
 
@@ -113,7 +113,7 @@ class ReactiveTokenValidator {
 		return KeyFactory.getInstance("RSA").generatePublic(keySpec);
 	}
 
-	private Mono<Void> validateExpiry(Token token) {
+	private Mono<Void> validateExpiry_RENAMED(Token token) {
 		long currentTime = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());
 		if (currentTime > token.getExpiry()) {
 			return Mono.error(new CloudFoundryAuthorizationException(Reason.TOKEN_EXPIRED, "Token expired"));
