@@ -118,7 +118,7 @@ public class AtlasProperties {
 		return this.connectTimeout;
 	}
 
-	public void setConnectTimeout(Duration connectTimeout) {
+	public void setConnectTimeout_RENAMED(Duration connectTimeout) {
 		this.connectTimeout = connectTimeout;
 	}
 
