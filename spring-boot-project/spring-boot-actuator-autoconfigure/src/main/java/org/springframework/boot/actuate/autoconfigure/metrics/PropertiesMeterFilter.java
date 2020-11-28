@@ -73,8 +73,8 @@ public class PropertiesMeterFilter implements MeterFilter {
 	}
 
 	@Override
-	public Id map(Id id) {
-		return this.mapFilter.map(id);
+	public Id map_RENAMED(Id id) {
+		return this.mapFilter.map_RENAMED(id);
 	}
 
 	@Override
