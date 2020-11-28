@@ -39,7 +39,7 @@ public class ConfigurationPropertiesReportEndpointAutoConfiguration {
 
 	@Bean
 	@ConditionalOnMissingBean
-	public ConfigurationPropertiesReportEndpoint configurationPropertiesReportEndpoint(
+	public ConfigurationPropertiesReportEndpoint configurationPropertiesReportEndpoint_RENAMED(
 			ConfigurationPropertiesReportEndpointProperties properties) {
 		ConfigurationPropertiesReportEndpoint endpoint = new ConfigurationPropertiesReportEndpoint();
 		String[] keysToSanitize = properties.getKeysToSanitize();
