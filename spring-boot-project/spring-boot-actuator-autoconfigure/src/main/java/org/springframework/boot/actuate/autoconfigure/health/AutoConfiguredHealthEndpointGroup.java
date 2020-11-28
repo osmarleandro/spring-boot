@@ -76,7 +76,7 @@ class AutoConfiguredHealthEndpointGroup implements HealthEndpointGroup {
 	}
 
 	@Override
-	public boolean showComponents(SecurityContext securityContext) {
+	public boolean showComponents_RENAMED(SecurityContext securityContext) {
 		if (this.showComponents == null) {
 			return showDetails(securityContext);
 		}
