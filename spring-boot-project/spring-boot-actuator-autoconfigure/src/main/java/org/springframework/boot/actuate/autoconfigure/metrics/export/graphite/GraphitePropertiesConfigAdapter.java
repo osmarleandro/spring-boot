@@ -82,7 +82,7 @@ class GraphitePropertiesConfigAdapter extends PropertiesConfigAdapter<GraphitePr
 	}
 
 	@Override
-	public boolean graphiteTagsEnabled() {
+	public boolean graphiteTagsEnabled_RENAMED() {
 		return get(GraphiteProperties::getGraphiteTagsEnabled, GraphiteConfig.super::graphiteTagsEnabled);
 	}
 
