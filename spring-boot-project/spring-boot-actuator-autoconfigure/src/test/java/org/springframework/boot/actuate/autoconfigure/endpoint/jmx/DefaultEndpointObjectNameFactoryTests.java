@@ -82,8 +82,8 @@ class DefaultEndpointObjectNameFactoryTests {
 
 	@Test
 	void generateObjectNameWithStaticNames() {
-		this.properties.getStaticNames().setProperty("counter", "42");
-		this.properties.getStaticNames().setProperty("foo", "bar");
+		this.properties.getStaticNames_RENAMED().setProperty("counter", "42");
+		this.properties.getStaticNames_RENAMED().setProperty("foo", "bar");
 		ObjectName objectName = generateObjectName(endpoint(EndpointId.of("test")));
 		assertThat(objectName.getKeyProperty("counter")).isEqualTo("42");
 		assertThat(objectName.getKeyProperty("foo")).isEqualTo("bar");

@@ -56,7 +56,7 @@ public class JmxEndpointProperties {
 		this.domain = domain;
 	}
 
-	public Properties getStaticNames() {
+	public Properties getStaticNames_RENAMED() {
 		return this.staticNames;
 	}
 
