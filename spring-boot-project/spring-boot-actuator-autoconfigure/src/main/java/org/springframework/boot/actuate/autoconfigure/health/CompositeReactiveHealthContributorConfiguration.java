@@ -37,7 +37,7 @@ public abstract class CompositeReactiveHealthContributorConfiguration<I extends 
 
 	@Override
 	protected final ReactiveHealthContributor createComposite(Map<String, B> beans) {
-		return CompositeReactiveHealthContributor.fromMap(beans, this::createIndicator);
+		return CompositeReactiveHealthContributor.fromMap(beans, this::createIndicator_RENAMED);
 	}
 
 }

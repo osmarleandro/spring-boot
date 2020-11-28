@@ -51,7 +51,7 @@ public abstract class AbstractCompositeHealthContributorConfiguration<C, I exten
 	protected final C createContributor(Map<String, B> beans) {
 		Assert.notEmpty(beans, "Beans must not be empty");
 		if (beans.size() == 1) {
-			return createIndicator(beans.values().iterator().next());
+			return createIndicator_RENAMED(beans.values().iterator().next());
 		}
 		return createComposite(beans);
 	}
@@ -59,7 +59,7 @@ public abstract class AbstractCompositeHealthContributorConfiguration<C, I exten
 	protected abstract C createComposite(Map<String, B> beans);
 
 	@SuppressWarnings("unchecked")
-	protected I createIndicator(B bean) {
+	protected I createIndicator_RENAMED(B bean) {
 		try {
 			Constructor<I> constructor = (Constructor<I>) this.indicatorType.getDeclaredConstructor(this.beanType);
 			return BeanUtils.instantiateClass(constructor, bean);
