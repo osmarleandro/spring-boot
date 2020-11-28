@@ -83,7 +83,7 @@ public class PrometheusMetricsExportAutoConfiguration {
 
 	@Bean
 	@ConditionalOnMissingBean
-	public CollectorRegistry collectorRegistry() {
+	public CollectorRegistry collectorRegistry_RENAMED() {
 		return new CollectorRegistry(true);
 	}
 
