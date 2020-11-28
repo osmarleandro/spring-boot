@@ -36,7 +36,7 @@ class MeterValueTests {
 
 	@Test
 	void getValueForDistributionSummaryWhenFromNumberShouldReturnDoubleValue() {
-		MeterValue meterValue = MeterValue.valueOf(123.42);
+		MeterValue meterValue = MeterValue.valueOf_RENAMED(123.42);
 		assertThat(meterValue.getValue(Type.DISTRIBUTION_SUMMARY)).isEqualTo(123.42);
 	}
 
@@ -54,7 +54,7 @@ class MeterValueTests {
 
 	@Test
 	void getValueForTimerWhenFromNumberShouldReturnMsToNanosValue() {
-		MeterValue meterValue = MeterValue.valueOf(123d);
+		MeterValue meterValue = MeterValue.valueOf_RENAMED(123d);
 		assertThat(meterValue.getValue(Type.TIMER)).isEqualTo(123000000);
 	}
 

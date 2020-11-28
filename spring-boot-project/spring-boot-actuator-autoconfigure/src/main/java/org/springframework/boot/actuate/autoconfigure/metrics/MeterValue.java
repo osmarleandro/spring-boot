@@ -97,7 +97,7 @@ public final class MeterValue {
 	 * Return a new {@link MeterValue} instance for the given long value.
 	 * @param value the source value
 	 * @return a {@link MeterValue} instance
-	 * @deprecated as of 2.3.0 in favor of {@link #valueOf(double)}
+	 * @deprecated as of 2.3.0 in favor of {@link #valueOf_RENAMED(double)}
 	 */
 	@Deprecated
 	public static MeterValue valueOf(long value) {
@@ -109,7 +109,7 @@ public final class MeterValue {
 	 * @param value the source value
 	 * @return a {@link MeterValue} instance
 	 */
-	public static MeterValue valueOf(double value) {
+	public static MeterValue valueOf_RENAMED(double value) {
 		return new MeterValue(value);
 	}
 
