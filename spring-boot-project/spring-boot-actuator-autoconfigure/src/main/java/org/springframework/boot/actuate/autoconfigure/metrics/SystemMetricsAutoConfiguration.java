@@ -55,7 +55,7 @@ public class SystemMetricsAutoConfiguration {
 
 	@Bean
 	@ConditionalOnMissingBean
-	public FileDescriptorMetrics fileDescriptorMetrics() {
+	public FileDescriptorMetrics fileDescriptorMetrics_RENAMED() {
 		return new FileDescriptorMetrics();
 	}
 
