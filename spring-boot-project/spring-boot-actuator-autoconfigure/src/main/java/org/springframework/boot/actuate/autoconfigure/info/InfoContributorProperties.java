@@ -30,7 +30,7 @@ public class InfoContributorProperties {
 
 	private final Git git = new Git();
 
-	public Git getGit() {
+	public Git getGit_RENAMED() {
 		return this.git;
 	}
 
