@@ -49,7 +49,7 @@ public class InfluxDbHealthContributorAutoConfiguration
 
 	@Bean
 	@ConditionalOnMissingBean(name = { "influxDbHealthIndicator", "influxDbHealthContributor" })
-	public HealthContributor influxDbHealthContributor(Map<String, InfluxDB> influxDbs) {
+	public HealthContributor influxDbHealthContributor_RENAMED(Map<String, InfluxDB> influxDbs) {
 		return createContributor(influxDbs);
 	}
 
