@@ -86,7 +86,7 @@ class AtlasPropertiesConfigAdapter extends PropertiesConfigAdapter<AtlasProperti
 
 	@Override
 	public Duration configRefreshFrequency() {
-		return get(AtlasProperties::getConfigRefreshFrequency, AtlasConfig.super::configRefreshFrequency);
+		return get(AtlasProperties::getConfigRefreshFrequency_RENAMED, AtlasConfig.super::configRefreshFrequency);
 	}
 
 	@Override

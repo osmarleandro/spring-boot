@@ -170,7 +170,7 @@ public class AtlasProperties {
 		this.lwcEnabled = lwcEnabled;
 	}
 
-	public Duration getConfigRefreshFrequency() {
+	public Duration getConfigRefreshFrequency_RENAMED() {
 		return this.configRefreshFrequency;
 	}
 
