@@ -123,7 +123,7 @@ public class GangliaProperties {
 	}
 
 	@Deprecated
-	public void setProtocolVersion(String protocolVersion) {
+	public void setProtocolVersion_RENAMED(String protocolVersion) {
 		this.protocolVersion = protocolVersion;
 	}
 
