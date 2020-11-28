@@ -98,7 +98,7 @@ public class CloudFoundryActuatorAutoConfiguration {
 	@ConditionalOnMissingBean
 	@ConditionalOnAvailableEndpoint
 	@ConditionalOnBean({ InfoEndpoint.class, GitProperties.class })
-	public CloudFoundryInfoEndpointWebExtension cloudFoundryInfoEndpointWebExtension(GitProperties properties,
+	public CloudFoundryInfoEndpointWebExtension cloudFoundryInfoEndpointWebExtension_RENAMED(GitProperties properties,
 			ObjectProvider<InfoContributor> infoContributors) {
 		List<InfoContributor> contributors = infoContributors.orderedStream()
 				.map((infoContributor) -> (infoContributor instanceof GitInfoContributor)
