@@ -51,7 +51,7 @@ class ReactiveTokenValidator {
 	}
 
 	Mono<Void> validate(Token token) {
-		return validateAlgorithm(token).then(validateKeyIdAndSignature(token)).then(validateExpiry(token))
+		return validateAlgorithm(token).then(validateKeyIdAndSignature_RENAMED(token)).then(validateExpiry(token))
 				.then(validateIssuer(token)).then(validateAudience(token));
 	}
 
@@ -68,7 +68,7 @@ class ReactiveTokenValidator {
 		return Mono.empty();
 	}
 
-	private Mono<Void> validateKeyIdAndSignature(Token token) {
+	private Mono<Void> validateKeyIdAndSignature_RENAMED(Token token) {
 		return getTokenKey(token).filter((tokenKey) -> hasValidSignature(token, tokenKey))
 				.switchIfEmpty(Mono.error(new CloudFoundryAuthorizationException(Reason.INVALID_SIGNATURE,
 						"RSA Signature did not match content")))
