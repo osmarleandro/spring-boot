@@ -64,7 +64,7 @@ public class InfoContributorAutoConfiguration {
 	@ConditionalOnSingleCandidate(GitProperties.class)
 	@ConditionalOnMissingBean
 	@Order(DEFAULT_ORDER)
-	public GitInfoContributor gitInfoContributor(GitProperties gitProperties,
+	public GitInfoContributor gitInfoContributor_RENAMED(GitProperties gitProperties,
 			InfoContributorProperties infoContributorProperties) {
 		return new GitInfoContributor(gitProperties, infoContributorProperties.getGit().getMode());
 	}
