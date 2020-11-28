@@ -72,7 +72,7 @@ class CloudFoundryWebFluxEndpointHandlerMapping extends AbstractWebFluxEndpointH
 	}
 
 	@Override
-	protected LinksHandler getLinksHandler() {
+	protected LinksHandler getLinksHandler_RENAMED() {
 		return new CloudFoundryLinksHandler();
 	}
 
