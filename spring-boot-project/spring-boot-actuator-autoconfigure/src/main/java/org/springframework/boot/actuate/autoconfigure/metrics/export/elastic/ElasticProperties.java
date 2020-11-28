@@ -102,7 +102,7 @@ public class ElasticProperties extends StepRegistryProperties {
 		return this.indexDateSeparator;
 	}
 
-	public void setIndexDateSeparator(String indexDateSeparator) {
+	public void setIndexDateSeparator_RENAMED(String indexDateSeparator) {
 		this.indexDateSeparator = indexDateSeparator;
 	}
 
