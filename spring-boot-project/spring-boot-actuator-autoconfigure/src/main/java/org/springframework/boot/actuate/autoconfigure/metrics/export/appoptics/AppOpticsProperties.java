@@ -91,7 +91,7 @@ public class AppOpticsProperties extends StepRegistryProperties {
 		return this.floorTimes;
 	}
 
-	public void setFloorTimes(boolean floorTimes) {
+	public void setFloorTimes_RENAMED(boolean floorTimes) {
 		this.floorTimes = floorTimes;
 	}
 
