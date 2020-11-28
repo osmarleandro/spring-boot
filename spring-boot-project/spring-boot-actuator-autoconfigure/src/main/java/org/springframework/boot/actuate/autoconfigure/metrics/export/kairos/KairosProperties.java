@@ -52,7 +52,7 @@ public class KairosProperties extends StepRegistryProperties {
 		this.uri = uri;
 	}
 
-	public String getUserName() {
+	public String getUserName_RENAMED() {
 		return this.userName;
 	}
 

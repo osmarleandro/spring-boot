@@ -44,7 +44,7 @@ class KairosPropertiesConfigAdapter extends StepRegistryPropertiesConfigAdapter<
 
 	@Override
 	public String userName() {
-		return get(KairosProperties::getUserName, KairosConfig.super::userName);
+		return get(KairosProperties::getUserName_RENAMED, KairosConfig.super::userName);
 	}
 
 	@Override
