@@ -57,7 +57,7 @@ public class GangliaMetricsExportAutoConfiguration {
 
 	@Bean
 	@ConditionalOnMissingBean
-	public GangliaMeterRegistry gangliaMeterRegistry(GangliaConfig gangliaConfig, Clock clock) {
+	public GangliaMeterRegistry gangliaMeterRegistry_RENAMED(GangliaConfig gangliaConfig, Clock clock) {
 		return new GangliaMeterRegistry(gangliaConfig, clock);
 	}
 
