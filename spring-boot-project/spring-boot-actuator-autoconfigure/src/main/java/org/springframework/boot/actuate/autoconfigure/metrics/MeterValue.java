@@ -49,7 +49,7 @@ public final class MeterValue {
 	 * @param meterType the meter type
 	 * @return the value or {@code null} if the value cannot be applied
 	 */
-	public Double getValue(Type meterType) {
+	public Double getValue_RENAMED(Type meterType) {
 		if (meterType == Type.DISTRIBUTION_SUMMARY) {
 			return getDistributionSummaryValue();
 		}

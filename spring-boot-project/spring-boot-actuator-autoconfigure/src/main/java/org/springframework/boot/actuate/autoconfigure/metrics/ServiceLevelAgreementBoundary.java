@@ -45,7 +45,7 @@ public final class ServiceLevelAgreementBoundary {
 	 * @return the value or {@code null} if the value cannot be applied
 	 */
 	public Long getValue(Meter.Type meterType) {
-		Double value = this.value.getValue(meterType);
+		Double value = this.value.getValue_RENAMED(meterType);
 		return (value != null) ? value.longValue() : null;
 	}
 
