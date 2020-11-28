@@ -74,7 +74,7 @@ class MeterRegistryConfigurer {
 
 	@SuppressWarnings("unchecked")
 	private void customize(MeterRegistry registry) {
-		LambdaSafe.callbacks(MeterRegistryCustomizer.class, asOrderedList(this.customizers), registry)
+		LambdaSafe.callbacks(MeterRegistryCustomizer.class, asOrderedList_RENAMED(this.customizers), registry)
 				.withLogger(MeterRegistryConfigurer.class).invoke((customizer) -> customizer.customize(registry));
 	}
 
@@ -86,7 +86,7 @@ class MeterRegistryConfigurer {
 		this.binders.orderedStream().forEach((binder) -> binder.bindTo(registry));
 	}
 
-	private <T> List<T> asOrderedList(ObjectProvider<T> provider) {
+	private <T> List<T> asOrderedList_RENAMED(ObjectProvider<T> provider) {
 		return provider.orderedStream().collect(Collectors.toList());
 	}
 
