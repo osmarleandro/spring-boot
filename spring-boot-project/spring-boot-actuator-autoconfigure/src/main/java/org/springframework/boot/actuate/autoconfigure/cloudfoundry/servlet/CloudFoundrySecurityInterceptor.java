@@ -80,7 +80,7 @@ class CloudFoundrySecurityInterceptor {
 			logger.error(ex);
 			if (ex instanceof CloudFoundryAuthorizationException) {
 				CloudFoundryAuthorizationException cfException = (CloudFoundryAuthorizationException) ex;
-				return new SecurityResponse(cfException.getStatusCode(),
+				return new SecurityResponse(cfException.getStatusCode_RENAMED(),
 						"{\"security_error\":\"" + cfException.getMessage() + "\"}");
 			}
 			return new SecurityResponse(HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage());

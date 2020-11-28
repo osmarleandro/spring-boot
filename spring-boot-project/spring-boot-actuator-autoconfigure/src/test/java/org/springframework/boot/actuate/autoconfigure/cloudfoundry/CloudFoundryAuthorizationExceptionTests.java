@@ -32,48 +32,48 @@ class CloudFoundryAuthorizationExceptionTests {
 
 	@Test
 	void statusCodeForInvalidTokenReasonShouldBe401() {
-		assertThat(createException(Reason.INVALID_TOKEN).getStatusCode()).isEqualTo(HttpStatus.UNAUTHORIZED);
+		assertThat(createException(Reason.INVALID_TOKEN).getStatusCode_RENAMED()).isEqualTo(HttpStatus.UNAUTHORIZED);
 	}
 
 	@Test
 	void statusCodeForInvalidIssuerReasonShouldBe401() {
-		assertThat(createException(Reason.INVALID_ISSUER).getStatusCode()).isEqualTo(HttpStatus.UNAUTHORIZED);
+		assertThat(createException(Reason.INVALID_ISSUER).getStatusCode_RENAMED()).isEqualTo(HttpStatus.UNAUTHORIZED);
 	}
 
 	@Test
 	void statusCodeForInvalidAudienceReasonShouldBe401() {
-		assertThat(createException(Reason.INVALID_AUDIENCE).getStatusCode()).isEqualTo(HttpStatus.UNAUTHORIZED);
+		assertThat(createException(Reason.INVALID_AUDIENCE).getStatusCode_RENAMED()).isEqualTo(HttpStatus.UNAUTHORIZED);
 	}
 
 	@Test
 	void statusCodeForInvalidSignatureReasonShouldBe401() {
-		assertThat(createException(Reason.INVALID_SIGNATURE).getStatusCode()).isEqualTo(HttpStatus.UNAUTHORIZED);
+		assertThat(createException(Reason.INVALID_SIGNATURE).getStatusCode_RENAMED()).isEqualTo(HttpStatus.UNAUTHORIZED);
 	}
 
 	@Test
 	void statusCodeForMissingAuthorizationReasonShouldBe401() {
-		assertThat(createException(Reason.MISSING_AUTHORIZATION).getStatusCode()).isEqualTo(HttpStatus.UNAUTHORIZED);
+		assertThat(createException(Reason.MISSING_AUTHORIZATION).getStatusCode_RENAMED()).isEqualTo(HttpStatus.UNAUTHORIZED);
 	}
 
 	@Test
 	void statusCodeForUnsupportedSignatureAlgorithmReasonShouldBe401() {
-		assertThat(createException(Reason.UNSUPPORTED_TOKEN_SIGNING_ALGORITHM).getStatusCode())
+		assertThat(createException(Reason.UNSUPPORTED_TOKEN_SIGNING_ALGORITHM).getStatusCode_RENAMED())
 				.isEqualTo(HttpStatus.UNAUTHORIZED);
 	}
 
 	@Test
 	void statusCodeForTokenExpiredReasonShouldBe401() {
-		assertThat(createException(Reason.TOKEN_EXPIRED).getStatusCode()).isEqualTo(HttpStatus.UNAUTHORIZED);
+		assertThat(createException(Reason.TOKEN_EXPIRED).getStatusCode_RENAMED()).isEqualTo(HttpStatus.UNAUTHORIZED);
 	}
 
 	@Test
 	void statusCodeForAccessDeniedReasonShouldBe403() {
-		assertThat(createException(Reason.ACCESS_DENIED).getStatusCode()).isEqualTo(HttpStatus.FORBIDDEN);
+		assertThat(createException(Reason.ACCESS_DENIED).getStatusCode_RENAMED()).isEqualTo(HttpStatus.FORBIDDEN);
 	}
 
 	@Test
 	void statusCodeForServiceUnavailableReasonShouldBe503() {
-		assertThat(createException(Reason.SERVICE_UNAVAILABLE).getStatusCode())
+		assertThat(createException(Reason.SERVICE_UNAVAILABLE).getStatusCode_RENAMED())
 				.isEqualTo(HttpStatus.SERVICE_UNAVAILABLE);
 	}
 
