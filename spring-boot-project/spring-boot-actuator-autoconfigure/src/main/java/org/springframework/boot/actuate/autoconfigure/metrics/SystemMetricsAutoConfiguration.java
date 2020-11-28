@@ -49,7 +49,7 @@ public class SystemMetricsAutoConfiguration {
 
 	@Bean
 	@ConditionalOnMissingBean
-	public ProcessorMetrics processorMetrics() {
+	public ProcessorMetrics processorMetrics_RENAMED() {
 		return new ProcessorMetrics();
 	}
 
