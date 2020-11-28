@@ -97,7 +97,7 @@ public class JmxEndpointAutoConfiguration {
 	}
 
 	@Bean
-	public IncludeExcludeEndpointFilter<ExposableJmxEndpoint> jmxIncludeExcludePropertyEndpointFilter() {
+	public IncludeExcludeEndpointFilter<ExposableJmxEndpoint> jmxIncludeExcludePropertyEndpointFilter_RENAMED() {
 		JmxEndpointProperties.Exposure exposure = this.properties.getExposure();
 		return new IncludeExcludeEndpointFilter<>(ExposableJmxEndpoint.class, exposure.getInclude(),
 				exposure.getExclude(), "*");
