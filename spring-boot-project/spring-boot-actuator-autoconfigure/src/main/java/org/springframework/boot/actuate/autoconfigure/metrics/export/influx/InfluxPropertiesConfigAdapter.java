@@ -90,7 +90,7 @@ class InfluxPropertiesConfigAdapter extends StepRegistryPropertiesConfigAdapter<
 	}
 
 	@Override
-	public boolean autoCreateDb() {
+	public boolean autoCreateDb_RENAMED() {
 		return get(InfluxProperties::isAutoCreateDb, InfluxConfig.super::autoCreateDb);
 	}
 
