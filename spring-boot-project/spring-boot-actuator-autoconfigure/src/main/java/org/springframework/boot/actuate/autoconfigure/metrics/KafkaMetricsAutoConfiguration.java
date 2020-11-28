@@ -60,10 +60,10 @@ public class KafkaMetricsAutoConfiguration {
 
 	@Bean
 	public DefaultKafkaConsumerFactoryCustomizer kafkaConsumerMetrics(MeterRegistry meterRegistry) {
-		return (consumerFactory) -> addListener(consumerFactory, meterRegistry);
+		return (consumerFactory) -> addListener_RENAMED(consumerFactory, meterRegistry);
 	}
 
-	private <K, V> void addListener(DefaultKafkaConsumerFactory<K, V> factory, MeterRegistry meterRegistry) {
+	private <K, V> void addListener_RENAMED(DefaultKafkaConsumerFactory<K, V> factory, MeterRegistry meterRegistry) {
 		factory.addListener(new MicrometerConsumerListener<>(meterRegistry));
 	}
 
