@@ -135,7 +135,7 @@ public class GangliaProperties {
 		this.addressingMode = addressingMode;
 	}
 
-	public Integer getTimeToLive() {
+	public Integer getTimeToLive_RENAMED() {
 		return this.timeToLive;
 	}
 

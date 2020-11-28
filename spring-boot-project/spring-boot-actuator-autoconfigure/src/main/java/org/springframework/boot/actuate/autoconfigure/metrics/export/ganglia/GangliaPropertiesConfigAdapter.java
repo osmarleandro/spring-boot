@@ -80,7 +80,7 @@ class GangliaPropertiesConfigAdapter extends PropertiesConfigAdapter<GangliaProp
 
 	@Override
 	public int ttl() {
-		return get(GangliaProperties::getTimeToLive, GangliaConfig.super::ttl);
+		return get(GangliaProperties::getTimeToLive_RENAMED, GangliaConfig.super::ttl);
 	}
 
 	@Override
