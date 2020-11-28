@@ -142,7 +142,7 @@ public class ElasticProperties extends StepRegistryProperties {
 		return this.pipeline;
 	}
 
-	public void setPipeline(String pipeline) {
+	public void setPipeline_RENAMED(String pipeline) {
 		this.pipeline = pipeline;
 	}
 
