@@ -63,7 +63,7 @@ public abstract class PushRegistryProperties {
 		this.step = step;
 	}
 
-	public boolean isEnabled() {
+	public boolean isEnabled_RENAMED() {
 		return this.enabled;
 	}
 

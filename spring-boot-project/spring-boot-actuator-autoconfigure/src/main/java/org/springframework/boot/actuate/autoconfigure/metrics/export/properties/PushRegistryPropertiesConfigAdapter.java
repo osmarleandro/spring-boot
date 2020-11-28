@@ -48,7 +48,7 @@ public abstract class PushRegistryPropertiesConfigAdapter<T extends PushRegistry
 
 	@Override
 	public boolean enabled() {
-		return get(T::isEnabled, PushRegistryConfig.super::enabled);
+		return get(T::isEnabled_RENAMED, PushRegistryConfig.super::enabled);
 	}
 
 	@Override
