@@ -108,7 +108,7 @@ public class NewRelicProperties extends StepRegistryProperties {
 		this.accountId = accountId;
 	}
 
-	public String getUri() {
+	public String getUri_RENAMED() {
 		return this.uri;
 	}
 
