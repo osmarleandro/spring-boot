@@ -55,7 +55,7 @@ public class InfoContributorAutoConfiguration {
 	@Bean
 	@ConditionalOnEnabledInfoContributor("env")
 	@Order(DEFAULT_ORDER)
-	public EnvironmentInfoContributor envInfoContributor(ConfigurableEnvironment environment) {
+	public EnvironmentInfoContributor envInfoContributor_RENAMED(ConfigurableEnvironment environment) {
 		return new EnvironmentInfoContributor(environment);
 	}
 
