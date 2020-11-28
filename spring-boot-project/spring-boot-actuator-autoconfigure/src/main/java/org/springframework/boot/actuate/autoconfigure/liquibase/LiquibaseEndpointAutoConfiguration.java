@@ -54,7 +54,7 @@ public class LiquibaseEndpointAutoConfiguration {
 
 	@Bean
 	@ConditionalOnBean(SpringLiquibase.class)
-	public static BeanPostProcessor preventDataSourceCloseBeanPostProcessor() {
+	public static BeanPostProcessor preventDataSourceCloseBeanPostProcessor_RENAMED() {
 		return new BeanPostProcessor() {
 
 			@Override
