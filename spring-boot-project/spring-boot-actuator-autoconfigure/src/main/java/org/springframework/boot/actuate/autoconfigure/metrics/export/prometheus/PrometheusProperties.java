@@ -78,7 +78,7 @@ public class PrometheusProperties {
 		return this.step;
 	}
 
-	public void setStep(Duration step) {
+	public void setStep_RENAMED(Duration step) {
 		this.step = step;
 	}
 
