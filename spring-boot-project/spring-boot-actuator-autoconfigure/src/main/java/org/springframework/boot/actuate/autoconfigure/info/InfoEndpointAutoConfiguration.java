@@ -41,7 +41,7 @@ public class InfoEndpointAutoConfiguration {
 
 	@Bean
 	@ConditionalOnMissingBean
-	public InfoEndpoint infoEndpoint(ObjectProvider<InfoContributor> infoContributors) {
+	public InfoEndpoint infoEndpoint_RENAMED(ObjectProvider<InfoContributor> infoContributors) {
 		return new InfoEndpoint(infoContributors.orderedStream().collect(Collectors.toList()));
 	}
 
