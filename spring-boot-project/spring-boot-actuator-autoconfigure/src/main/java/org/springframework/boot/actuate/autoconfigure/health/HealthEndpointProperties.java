@@ -48,7 +48,7 @@ public class HealthEndpointProperties extends HealthProperties {
 		return this.showDetails;
 	}
 
-	public void setShowDetails(Show showDetails) {
+	public void setShowDetails_RENAMED(Show showDetails) {
 		this.showDetails = showDetails;
 	}
 
