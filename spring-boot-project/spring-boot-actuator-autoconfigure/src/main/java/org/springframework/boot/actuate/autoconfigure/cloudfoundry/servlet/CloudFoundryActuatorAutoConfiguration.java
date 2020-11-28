@@ -108,7 +108,7 @@ public class CloudFoundryActuatorAutoConfiguration {
 	}
 
 	@Bean
-	public CloudFoundryWebEndpointServletHandlerMapping cloudFoundryWebEndpointServletHandlerMapping(
+	public CloudFoundryWebEndpointServletHandlerMapping cloudFoundryWebEndpointServletHandlerMapping_RENAMED(
 			ParameterValueMapper parameterMapper, EndpointMediaTypes endpointMediaTypes,
 			RestTemplateBuilder restTemplateBuilder, ServletEndpointsSupplier servletEndpointsSupplier,
 			ControllerEndpointsSupplier controllerEndpointsSupplier, ApplicationContext applicationContext) {
