@@ -69,7 +69,7 @@ class CloudFoundrySecurityInterceptor {
 			return Mono.error(new CloudFoundryAuthorizationException(Reason.SERVICE_UNAVAILABLE,
 					"Cloud controller URL is not available"));
 		}
-		return check(exchange, id).then(SUCCESS).doOnError(this::logError).onErrorResume(this::getErrorResponse);
+		return check(exchange, id).then(SUCCESS).doOnError(this::logError).onErrorResume(this::getErrorResponse_RENAMED);
 	}
 
 	private void logError(Throwable ex) {
@@ -92,7 +92,7 @@ class CloudFoundrySecurityInterceptor {
 		}
 	}
 
-	private Mono<SecurityResponse> getErrorResponse(Throwable throwable) {
+	private Mono<SecurityResponse> getErrorResponse_RENAMED(Throwable throwable) {
 		if (throwable instanceof CloudFoundryAuthorizationException) {
 			CloudFoundryAuthorizationException cfException = (CloudFoundryAuthorizationException) throwable;
 			return Mono.just(new SecurityResponse(cfException.getStatusCode(),
