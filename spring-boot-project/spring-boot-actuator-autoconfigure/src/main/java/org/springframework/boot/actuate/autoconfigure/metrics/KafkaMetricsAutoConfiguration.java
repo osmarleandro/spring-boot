@@ -55,7 +55,7 @@ public class KafkaMetricsAutoConfiguration {
 
 	@Bean
 	public DefaultKafkaProducerFactoryCustomizer kafkaProducerMetrics(MeterRegistry meterRegistry) {
-		return (producerFactory) -> addListener(producerFactory, meterRegistry);
+		return (producerFactory) -> addListener_RENAMED(producerFactory, meterRegistry);
 	}
 
 	@Bean
@@ -67,7 +67,7 @@ public class KafkaMetricsAutoConfiguration {
 		factory.addListener(new MicrometerConsumerListener<>(meterRegistry));
 	}
 
-	private <K, V> void addListener(DefaultKafkaProducerFactory<K, V> factory, MeterRegistry meterRegistry) {
+	private <K, V> void addListener_RENAMED(DefaultKafkaProducerFactory<K, V> factory, MeterRegistry meterRegistry) {
 		factory.addListener(new MicrometerProducerListener<>(meterRegistry));
 	}
 
