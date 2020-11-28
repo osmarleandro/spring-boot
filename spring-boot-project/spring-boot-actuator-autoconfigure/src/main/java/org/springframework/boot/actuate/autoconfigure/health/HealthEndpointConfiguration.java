@@ -57,7 +57,7 @@ class HealthEndpointConfiguration {
 
 	@Bean
 	@ConditionalOnMissingBean
-	StatusAggregator healthStatusAggregator(HealthEndpointProperties properties) {
+	StatusAggregator healthStatusAggregator_RENAMED(HealthEndpointProperties properties) {
 		return new SimpleStatusAggregator(properties.getStatus().getOrder());
 	}
 
