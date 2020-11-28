@@ -78,7 +78,7 @@ class CloudFoundrySecurityInterceptor {
 
 	private Mono<Void> check(ServerWebExchange exchange, String id) {
 		try {
-			Token token = getToken(exchange.getRequest());
+			Token token = getToken_RENAMED(exchange.getRequest());
 			return this.tokenValidator.validate(token)
 					.then(this.cloudFoundrySecurityService.getAccessLevel(token.toString(), this.applicationId))
 					.filter((accessLevel) -> accessLevel.isAccessAllowed(id))
@@ -101,7 +101,7 @@ class CloudFoundrySecurityInterceptor {
 		return Mono.just(new SecurityResponse(HttpStatus.INTERNAL_SERVER_ERROR, throwable.getMessage()));
 	}
 
-	private Token getToken(ServerHttpRequest request) {
+	private Token getToken_RENAMED(ServerHttpRequest request) {
 		String authorization = request.getHeaders().getFirst("Authorization");
 		String bearerPrefix = "bearer ";
 		if (authorization == null || !authorization.toLowerCase(Locale.ENGLISH).startsWith(bearerPrefix)) {
