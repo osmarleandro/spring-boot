@@ -64,7 +64,7 @@ public class NewRelicMetricsExportAutoConfiguration {
 
 	@Bean
 	@ConditionalOnMissingBean
-	public NewRelicConfig newRelicConfig() {
+	public NewRelicConfig newRelicConfig_RENAMED() {
 		return new NewRelicPropertiesConfigAdapter(this.properties);
 	}
 
