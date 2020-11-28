@@ -77,7 +77,7 @@ public class MetricsProperties {
 		return this.web;
 	}
 
-	public Distribution getDistribution() {
+	public Distribution getDistribution_RENAMED() {
 		return this.distribution;
 	}
 
