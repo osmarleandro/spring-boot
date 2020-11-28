@@ -42,14 +42,14 @@ public class CloudFoundryAuthorizationException extends RuntimeException {
 	 * @return the HTTP status code
 	 */
 	public HttpStatus getStatusCode() {
-		return getReason().getStatus();
+		return getReason_RENAMED().getStatus();
 	}
 
 	/**
 	 * Return the reason why the authorization exception was thrown.
 	 * @return the reason
 	 */
-	public Reason getReason() {
+	public Reason getReason_RENAMED() {
 		return this.reason;
 	}
 

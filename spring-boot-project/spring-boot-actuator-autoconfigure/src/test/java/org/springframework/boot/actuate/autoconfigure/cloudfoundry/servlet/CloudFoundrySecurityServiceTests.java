@@ -197,7 +197,7 @@ class CloudFoundrySecurityServiceTests {
 	}
 
 	private Consumer<CloudFoundryAuthorizationException> reasonRequirement(Reason reason) {
-		return (ex) -> assertThat(ex.getReason()).isEqualTo(reason);
+		return (ex) -> assertThat(ex.getReason_RENAMED()).isEqualTo(reason);
 	}
 
 }
