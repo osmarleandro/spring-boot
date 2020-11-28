@@ -48,7 +48,7 @@ public class KairosProperties extends StepRegistryProperties {
 		return this.uri;
 	}
 
-	public void setUri(String uri) {
+	public void setUri_RENAMED(String uri) {
 		this.uri = uri;
 	}
 
