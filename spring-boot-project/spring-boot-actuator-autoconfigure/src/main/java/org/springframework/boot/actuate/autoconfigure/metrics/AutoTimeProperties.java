@@ -51,7 +51,7 @@ public final class AutoTimeProperties implements AutoTimer {
 		this.enabled = enabled;
 	}
 
-	public boolean isPercentilesHistogram() {
+	public boolean isPercentilesHistogram_RENAMED() {
 		return this.percentilesHistogram;
 	}
 
