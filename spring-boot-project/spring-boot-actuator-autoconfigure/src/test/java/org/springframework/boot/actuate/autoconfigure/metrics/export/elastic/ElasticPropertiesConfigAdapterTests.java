@@ -73,7 +73,7 @@ class ElasticPropertiesConfigAdapterTests {
 	void whenPropertiesUserNameIsSetAdapterUserNameReturnsIt() {
 		ElasticProperties properties = new ElasticProperties();
 		properties.setUserName("alice");
-		assertThat(new ElasticPropertiesConfigAdapter(properties).userName()).isEqualTo("alice");
+		assertThat(new ElasticPropertiesConfigAdapter(properties).userName_RENAMED()).isEqualTo("alice");
 	}
 
 	@Test
