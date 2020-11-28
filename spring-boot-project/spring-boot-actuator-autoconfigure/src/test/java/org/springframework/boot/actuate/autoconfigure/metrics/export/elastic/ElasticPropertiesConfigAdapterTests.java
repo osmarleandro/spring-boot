@@ -65,7 +65,7 @@ class ElasticPropertiesConfigAdapterTests {
 	@Test
 	void whenPropertiesAutoCreateIndexIsSetAdapterAutoCreateIndexReturnsIt() {
 		ElasticProperties properties = new ElasticProperties();
-		properties.setAutoCreateIndex(false);
+		properties.setAutoCreateIndex_RENAMED(false);
 		assertThat(new ElasticPropertiesConfigAdapter(properties).autoCreateIndex()).isFalse();
 	}
 

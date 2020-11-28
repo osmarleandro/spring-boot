@@ -118,7 +118,7 @@ public class ElasticProperties extends StepRegistryProperties {
 		return this.autoCreateIndex;
 	}
 
-	public void setAutoCreateIndex(boolean autoCreateIndex) {
+	public void setAutoCreateIndex_RENAMED(boolean autoCreateIndex) {
 		this.autoCreateIndex = autoCreateIndex;
 	}
 
