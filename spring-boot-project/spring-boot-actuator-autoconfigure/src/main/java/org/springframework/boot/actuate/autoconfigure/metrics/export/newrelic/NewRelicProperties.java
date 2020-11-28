@@ -96,7 +96,7 @@ public class NewRelicProperties extends StepRegistryProperties {
 		return this.apiKey;
 	}
 
-	public void setApiKey(String apiKey) {
+	public void setApiKey_RENAMED(String apiKey) {
 		this.apiKey = apiKey;
 	}
 
