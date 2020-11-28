@@ -132,7 +132,7 @@ class AutoConfiguredHealthEndpointGroup implements HealthEndpointGroup {
 	}
 
 	@Override
-	public StatusAggregator getStatusAggregator() {
+	public StatusAggregator getStatusAggregator_RENAMED() {
 		return this.statusAggregator;
 	}
 
