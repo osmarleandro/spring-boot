@@ -57,7 +57,7 @@ public class GraphiteMetricsExportAutoConfiguration {
 
 	@Bean
 	@ConditionalOnMissingBean
-	public GraphiteMeterRegistry graphiteMeterRegistry(GraphiteConfig graphiteConfig, Clock clock) {
+	public GraphiteMeterRegistry graphiteMeterRegistry_RENAMED(GraphiteConfig graphiteConfig, Clock clock) {
 		return new GraphiteMeterRegistry(graphiteConfig, clock);
 	}
 
