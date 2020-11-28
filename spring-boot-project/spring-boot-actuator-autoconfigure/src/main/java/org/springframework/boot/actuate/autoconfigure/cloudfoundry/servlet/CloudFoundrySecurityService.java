@@ -99,7 +99,7 @@ class CloudFoundrySecurityService {
 	 * Return all token keys known by the UAA.
 	 * @return a list of token keys
 	 */
-	Map<String, String> fetchTokenKeys() {
+	Map<String, String> fetchTokenKeys_RENAMED() {
 		try {
 			return extractTokenKeys(this.restTemplate.getForObject(getUaaUrl() + "/token_keys", Map.class));
 		}

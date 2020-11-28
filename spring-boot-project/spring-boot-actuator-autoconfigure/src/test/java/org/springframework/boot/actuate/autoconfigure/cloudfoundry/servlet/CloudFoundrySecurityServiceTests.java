@@ -149,7 +149,7 @@ class CloudFoundrySecurityServiceTests {
 				+ "\"} ]}";
 		this.server.expect(requestTo(UAA_URL + "/token_keys"))
 				.andRespond(withSuccess(responseBody, MediaType.APPLICATION_JSON));
-		Map<String, String> tokenKeys = this.securityService.fetchTokenKeys();
+		Map<String, String> tokenKeys = this.securityService.fetchTokenKeys_RENAMED();
 		this.server.verify();
 		assertThat(tokenKeys.get("test-key")).isEqualTo(tokenKeyValue);
 	}
@@ -161,7 +161,7 @@ class CloudFoundrySecurityServiceTests {
 		String responseBody = "{\"keys\": []}";
 		this.server.expect(requestTo(UAA_URL + "/token_keys"))
 				.andRespond(withSuccess(responseBody, MediaType.APPLICATION_JSON));
-		Map<String, String> tokenKeys = this.securityService.fetchTokenKeys();
+		Map<String, String> tokenKeys = this.securityService.fetchTokenKeys_RENAMED();
 		this.server.verify();
 		assertThat(tokenKeys).hasSize(0);
 	}
@@ -172,7 +172,7 @@ class CloudFoundrySecurityServiceTests {
 				.andRespond(withSuccess("{\"token_endpoint\":\"" + UAA_URL + "\"}", MediaType.APPLICATION_JSON));
 		this.server.expect(requestTo(UAA_URL + "/token_keys")).andRespond(withServerError());
 		assertThatExceptionOfType(CloudFoundryAuthorizationException.class)
-				.isThrownBy(() -> this.securityService.fetchTokenKeys())
+				.isThrownBy(() -> this.securityService.fetchTokenKeys_RENAMED())
 				.satisfies(reasonRequirement(Reason.SERVICE_UNAVAILABLE));
 	}
 
