@@ -35,7 +35,7 @@ class InfluxPropertiesTests extends StepRegistryPropertiesTests {
 		InfluxProperties properties = new InfluxProperties();
 		InfluxConfig config = InfluxConfig.DEFAULT;
 		assertStepRegistryDefaultValues(properties, config);
-		assertThat(properties.getDb()).isEqualTo(config.db());
+		assertThat(properties.getDb()).isEqualTo(config.db_RENAMED());
 		assertThat(properties.getConsistency()).isEqualTo(config.consistency());
 		assertThat(properties.getUserName()).isEqualTo(config.userName());
 		assertThat(properties.getPassword()).isEqualTo(config.password());
