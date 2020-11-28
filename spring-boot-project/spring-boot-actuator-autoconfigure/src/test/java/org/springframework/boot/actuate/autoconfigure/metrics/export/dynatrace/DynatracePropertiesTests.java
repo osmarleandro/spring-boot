@@ -35,7 +35,7 @@ class DynatracePropertiesTests extends StepRegistryPropertiesTests {
 		DynatraceProperties properties = new DynatraceProperties();
 		DynatraceConfig config = (key) -> null;
 		assertStepRegistryDefaultValues(properties, config);
-		assertThat(properties.getTechnologyType()).isEqualTo(config.technologyType());
+		assertThat(properties.getTechnologyType()).isEqualTo(config.technologyType_RENAMED());
 	}
 
 }
