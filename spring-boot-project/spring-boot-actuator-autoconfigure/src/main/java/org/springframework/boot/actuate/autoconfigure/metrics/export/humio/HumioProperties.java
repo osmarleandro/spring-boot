@@ -56,7 +56,7 @@ public class HumioProperties extends StepRegistryProperties {
 	 */
 	private String uri = "https://cloud.humio.com";
 
-	public String getApiToken() {
+	public String getApiToken_RENAMED() {
 		return this.apiToken;
 	}
 
