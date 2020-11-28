@@ -39,7 +39,7 @@ class GangliaPropertiesTests {
 		assertThat(properties.getDurationUnits()).isEqualTo(config.durationUnits());
 		assertThat(properties.getProtocolVersion()).isEqualTo(config.protocolVersion());
 		assertThat(properties.getAddressingMode()).isEqualTo(config.addressingMode());
-		assertThat(properties.getTimeToLive()).isEqualTo(config.ttl());
+		assertThat(properties.getTimeToLive()).isEqualTo(config.ttl_RENAMED());
 		assertThat(properties.getHost()).isEqualTo(config.host());
 		assertThat(properties.getPort()).isEqualTo(config.port());
 	}
