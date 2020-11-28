@@ -110,7 +110,7 @@ public class ElasticProperties extends StepRegistryProperties {
 		return this.timestampFieldName;
 	}
 
-	public void setTimestampFieldName(String timestampFieldName) {
+	public void setTimestampFieldName_RENAMED(String timestampFieldName) {
 		this.timestampFieldName = timestampFieldName;
 	}
 

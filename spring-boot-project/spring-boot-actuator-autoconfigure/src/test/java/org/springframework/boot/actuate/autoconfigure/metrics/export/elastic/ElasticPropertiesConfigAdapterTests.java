@@ -58,7 +58,7 @@ class ElasticPropertiesConfigAdapterTests {
 	@Test
 	void whenPropertiesTimestampFieldNameIsSetAdapterTimestampFieldNameReturnsIt() {
 		ElasticProperties properties = new ElasticProperties();
-		properties.setTimestampFieldName("@test");
+		properties.setTimestampFieldName_RENAMED("@test");
 		assertThat(new ElasticPropertiesConfigAdapter(properties).timestampFieldName()).isEqualTo("@test");
 	}
 
