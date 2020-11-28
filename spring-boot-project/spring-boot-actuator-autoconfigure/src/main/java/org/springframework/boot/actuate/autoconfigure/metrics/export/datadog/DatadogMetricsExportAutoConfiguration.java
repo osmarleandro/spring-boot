@@ -59,7 +59,7 @@ public class DatadogMetricsExportAutoConfiguration {
 
 	@Bean
 	@ConditionalOnMissingBean
-	public DatadogConfig datadogConfig() {
+	public DatadogConfig datadogConfig_RENAMED() {
 		return new DatadogPropertiesConfigAdapter(this.properties);
 	}
 
