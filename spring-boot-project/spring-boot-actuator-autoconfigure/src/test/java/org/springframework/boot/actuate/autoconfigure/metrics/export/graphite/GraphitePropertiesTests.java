@@ -53,7 +53,7 @@ class GraphitePropertiesTests {
 	@Test
 	void graphiteTagsCanBeEnabledEvenIfTagsAsPrefixIsSet() {
 		GraphiteProperties properties = new GraphiteProperties();
-		properties.setGraphiteTagsEnabled(true);
+		properties.setGraphiteTagsEnabled_RENAMED(true);
 		properties.setTagsAsPrefix(new String[] { "app" });
 		assertThat(properties.getGraphiteTagsEnabled()).isTrue();
 	}

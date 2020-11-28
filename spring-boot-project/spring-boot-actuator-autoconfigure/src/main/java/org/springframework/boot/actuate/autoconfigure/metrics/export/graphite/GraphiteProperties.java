@@ -142,7 +142,7 @@ public class GraphiteProperties {
 		return (this.graphiteTagsEnabled != null) ? this.graphiteTagsEnabled : ObjectUtils.isEmpty(this.tagsAsPrefix);
 	}
 
-	public void setGraphiteTagsEnabled(Boolean graphiteTagsEnabled) {
+	public void setGraphiteTagsEnabled_RENAMED(Boolean graphiteTagsEnabled) {
 		this.graphiteTagsEnabled = graphiteTagsEnabled;
 	}
 
