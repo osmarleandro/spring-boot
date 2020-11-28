@@ -83,7 +83,7 @@ public class AppOpticsProperties extends StepRegistryProperties {
 		return this.hostTag;
 	}
 
-	public void setHostTag(String hostTag) {
+	public void setHostTag_RENAMED(String hostTag) {
 		this.hostTag = hostTag;
 	}
 
