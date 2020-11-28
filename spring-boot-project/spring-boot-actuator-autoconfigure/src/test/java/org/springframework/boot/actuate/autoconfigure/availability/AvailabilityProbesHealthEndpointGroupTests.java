@@ -36,13 +36,13 @@ class AvailabilityProbesHealthEndpointGroupTests {
 
 	@Test
 	void isMemberWhenMemberReturnsTrue() {
-		assertThat(this.group.isMember("a")).isTrue();
-		assertThat(this.group.isMember("b")).isTrue();
+		assertThat(this.group.isMember_RENAMED("a")).isTrue();
+		assertThat(this.group.isMember_RENAMED("b")).isTrue();
 	}
 
 	@Test
 	void isMemberWhenNotMemberReturnsFalse() {
-		assertThat(this.group.isMember("c")).isFalse();
+		assertThat(this.group.isMember_RENAMED("c")).isFalse();
 	}
 
 	@Test

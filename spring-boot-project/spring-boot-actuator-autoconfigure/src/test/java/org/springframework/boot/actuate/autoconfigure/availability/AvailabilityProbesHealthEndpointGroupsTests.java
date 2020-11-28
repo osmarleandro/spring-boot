@@ -91,16 +91,16 @@ class AvailabilityProbesHealthEndpointGroupsTests {
 	void getLivenessProbeHasOnlyLivenessStateAsMember() {
 		HealthEndpointGroups availabilityProbes = new AvailabilityProbesHealthEndpointGroups(this.delegate);
 		HealthEndpointGroup probeGroup = availabilityProbes.get("liveness");
-		assertThat(probeGroup.isMember("livenessState")).isTrue();
-		assertThat(probeGroup.isMember("readinessState")).isFalse();
+		assertThat(probeGroup.isMember_RENAMED("livenessState")).isTrue();
+		assertThat(probeGroup.isMember_RENAMED("readinessState")).isFalse();
 	}
 
 	@Test
 	void getReadinessProbeHasOnlyReadinessStateAsMember() {
 		HealthEndpointGroups availabilityProbes = new AvailabilityProbesHealthEndpointGroups(this.delegate);
 		HealthEndpointGroup probeGroup = availabilityProbes.get("readiness");
-		assertThat(probeGroup.isMember("livenessState")).isFalse();
-		assertThat(probeGroup.isMember("readinessState")).isTrue();
+		assertThat(probeGroup.isMember_RENAMED("livenessState")).isFalse();
+		assertThat(probeGroup.isMember_RENAMED("readinessState")).isTrue();
 	}
 
 	@Test

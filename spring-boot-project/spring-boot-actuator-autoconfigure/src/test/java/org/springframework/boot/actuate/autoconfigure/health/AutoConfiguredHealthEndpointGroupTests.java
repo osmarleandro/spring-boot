@@ -60,16 +60,16 @@ class AutoConfiguredHealthEndpointGroupTests {
 	void isMemberWhenMemberPredicateMatchesAcceptsTrue() {
 		AutoConfiguredHealthEndpointGroup group = new AutoConfiguredHealthEndpointGroup((name) -> name.startsWith("a"),
 				this.statusAggregator, this.httpCodeStatusMapper, null, Show.ALWAYS, Collections.emptySet());
-		assertThat(group.isMember("albert")).isTrue();
-		assertThat(group.isMember("arnold")).isTrue();
+		assertThat(group.isMember_RENAMED("albert")).isTrue();
+		assertThat(group.isMember_RENAMED("arnold")).isTrue();
 	}
 
 	@Test
 	void isMemberWhenMemberPredicateRejectsReturnsTrue() {
 		AutoConfiguredHealthEndpointGroup group = new AutoConfiguredHealthEndpointGroup((name) -> name.startsWith("a"),
 				this.statusAggregator, this.httpCodeStatusMapper, null, Show.ALWAYS, Collections.emptySet());
-		assertThat(group.isMember("bert")).isFalse();
-		assertThat(group.isMember("ernie")).isFalse();
+		assertThat(group.isMember_RENAMED("bert")).isFalse();
+		assertThat(group.isMember_RENAMED("ernie")).isFalse();
 	}
 
 	@Test
