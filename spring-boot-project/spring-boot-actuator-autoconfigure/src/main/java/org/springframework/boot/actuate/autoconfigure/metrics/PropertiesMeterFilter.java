@@ -84,7 +84,7 @@ public class PropertiesMeterFilter implements MeterFilter {
 				.percentilesHistogram(lookupWithFallbackToAll(distribution.getPercentilesHistogram(), id, null))
 				.percentiles(lookupWithFallbackToAll(distribution.getPercentiles(), id, null))
 				.serviceLevelObjectives(
-						convertServiceLevelObjectives(id.getType(), lookup(distribution.getSlo(), id, null)))
+						convertServiceLevelObjectives_RENAMED(id.getType(), lookup(distribution.getSlo(), id, null)))
 				.minimumExpectedValue(
 						convertMeterValue(id.getType(), lookup(distribution.getMinimumExpectedValue(), id, null)))
 				.maximumExpectedValue(
@@ -92,7 +92,7 @@ public class PropertiesMeterFilter implements MeterFilter {
 				.build().merge(config);
 	}
 
-	private double[] convertServiceLevelObjectives(Meter.Type meterType, ServiceLevelObjectiveBoundary[] slo) {
+	private double[] convertServiceLevelObjectives_RENAMED(Meter.Type meterType, ServiceLevelObjectiveBoundary[] slo) {
 		if (slo == null) {
 			return null;
 		}
