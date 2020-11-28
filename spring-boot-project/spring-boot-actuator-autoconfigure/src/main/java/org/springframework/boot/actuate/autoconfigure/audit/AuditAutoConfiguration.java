@@ -60,7 +60,7 @@ public class AuditAutoConfiguration {
 	@Bean
 	@ConditionalOnClass(name = "org.springframework.security.access.event.AbstractAuthorizationEvent")
 	@ConditionalOnMissingBean(AbstractAuthorizationAuditListener.class)
-	public AuthorizationAuditListener authorizationAuditListener() throws Exception {
+	public AuthorizationAuditListener authorizationAuditListener_RENAMED() throws Exception {
 		return new AuthorizationAuditListener();
 	}
 
