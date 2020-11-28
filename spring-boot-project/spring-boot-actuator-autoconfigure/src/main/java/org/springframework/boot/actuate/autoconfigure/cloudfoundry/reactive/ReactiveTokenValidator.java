@@ -56,7 +56,7 @@ class ReactiveTokenValidator {
 	}
 
 	private Mono<Void> validateAlgorithm(Token token) {
-		String algorithm = token.getSignatureAlgorithm();
+		String algorithm = token.getSignatureAlgorithm_RENAMED();
 		if (algorithm == null) {
 			return Mono.error(new CloudFoundryAuthorizationException(Reason.INVALID_SIGNATURE,
 					"Signing algorithm cannot be null"));

@@ -76,7 +76,7 @@ public class Token {
 		return Base64Utils.decodeFromUrlSafeString(this.signature);
 	}
 
-	public String getSignatureAlgorithm() {
+	public String getSignatureAlgorithm_RENAMED() {
 		return getRequired(this.header, "alg", String.class);
 	}
 
