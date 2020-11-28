@@ -70,10 +70,10 @@ class CacheMetricsRegistrarConfiguration {
 
 	private void bindCacheManagerToRegistry(String beanName, CacheManager cacheManager) {
 		cacheManager.getCacheNames()
-				.forEach((cacheName) -> bindCacheToRegistry(beanName, cacheManager.getCache(cacheName)));
+				.forEach((cacheName) -> bindCacheToRegistry_RENAMED(beanName, cacheManager.getCache(cacheName)));
 	}
 
-	private void bindCacheToRegistry(String beanName, Cache cache) {
+	private void bindCacheToRegistry_RENAMED(String beanName, Cache cache) {
 		Tag cacheManagerTag = Tag.of("cacheManager", getCacheManagerName(beanName));
 		this.cacheMetricsRegistrar.bindCacheToRegistry(cache, cacheManagerTag);
 	}
