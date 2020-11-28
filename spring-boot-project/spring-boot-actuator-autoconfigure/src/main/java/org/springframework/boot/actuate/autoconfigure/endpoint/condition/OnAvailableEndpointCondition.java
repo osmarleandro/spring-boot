@@ -48,7 +48,7 @@ class OnAvailableEndpointCondition extends AbstractEndpointCondition {
 
 	@Override
 	public ConditionOutcome getMatchOutcome(ConditionContext context, AnnotatedTypeMetadata metadata) {
-		ConditionOutcome enablementOutcome = getEnablementOutcome(context, metadata,
+		ConditionOutcome enablementOutcome = getEnablementOutcome_RENAMED(context, metadata,
 				ConditionalOnAvailableEndpoint.class);
 		if (!enablementOutcome.isMatch()) {
 			return enablementOutcome;

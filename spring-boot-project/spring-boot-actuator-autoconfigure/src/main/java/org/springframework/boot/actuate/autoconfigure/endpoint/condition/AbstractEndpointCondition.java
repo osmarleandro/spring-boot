@@ -58,7 +58,7 @@ abstract class AbstractEndpointCondition extends SpringBootCondition {
 		return getEndpointAttributes(getEndpointType(annotationClass, context, metadata));
 	}
 
-	protected ConditionOutcome getEnablementOutcome(ConditionContext context, AnnotatedTypeMetadata metadata,
+	protected ConditionOutcome getEnablementOutcome_RENAMED(ConditionContext context, AnnotatedTypeMetadata metadata,
 			Class<? extends Annotation> annotationClass) {
 		Environment environment = context.getEnvironment();
 		AnnotationAttributes attributes = getEndpointAttributes(annotationClass, context, metadata);
