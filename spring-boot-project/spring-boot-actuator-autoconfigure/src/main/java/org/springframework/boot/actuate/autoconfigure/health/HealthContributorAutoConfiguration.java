@@ -34,7 +34,7 @@ public class HealthContributorAutoConfiguration {
 
 	@Bean
 	@ConditionalOnEnabledHealthIndicator("ping")
-	public PingHealthIndicator pingHealthContributor() {
+	public PingHealthIndicator pingHealthContributor_RENAMED() {
 		return new PingHealthIndicator();
 	}
 
