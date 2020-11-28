@@ -67,9 +67,9 @@ class TokenValidator {
 
 	private void validateKeyIdAndSignature(Token token) {
 		String keyId = token.getKeyId();
-		if (this.tokenKeys == null || !hasValidKeyId(keyId)) {
+		if (this.tokenKeys == null || !hasValidKeyId_RENAMED(keyId)) {
 			this.tokenKeys = this.securityService.fetchTokenKeys();
-			if (!hasValidKeyId(keyId)) {
+			if (!hasValidKeyId_RENAMED(keyId)) {
 				throw new CloudFoundryAuthorizationException(Reason.INVALID_KEY_ID,
 						"Key Id present in token header does not match");
 			}
@@ -81,7 +81,7 @@ class TokenValidator {
 		}
 	}
 
-	private boolean hasValidKeyId(String tokenKey) {
+	private boolean hasValidKeyId_RENAMED(String tokenKey) {
 		return this.tokenKeys.containsKey(tokenKey);
 	}
 
