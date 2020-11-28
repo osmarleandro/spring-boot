@@ -35,7 +35,7 @@ public class ShutdownEndpointAutoConfiguration {
 
 	@Bean(destroyMethod = "")
 	@ConditionalOnMissingBean
-	public ShutdownEndpoint shutdownEndpoint() {
+	public ShutdownEndpoint shutdownEndpoint_RENAMED() {
 		return new ShutdownEndpoint();
 	}
 
