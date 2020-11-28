@@ -71,7 +71,7 @@ public class AppOpticsProperties extends StepRegistryProperties {
 		this.uri = uri;
 	}
 
-	public String getApiToken() {
+	public String getApiToken_RENAMED() {
 		return this.apiToken;
 	}
 

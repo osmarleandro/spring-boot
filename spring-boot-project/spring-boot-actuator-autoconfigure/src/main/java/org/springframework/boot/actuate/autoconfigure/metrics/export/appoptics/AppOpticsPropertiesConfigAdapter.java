@@ -44,7 +44,7 @@ class AppOpticsPropertiesConfigAdapter extends StepRegistryPropertiesConfigAdapt
 
 	@Override
 	public String apiToken() {
-		return get(AppOpticsProperties::getApiToken, AppOpticsConfig.super::apiToken);
+		return get(AppOpticsProperties::getApiToken_RENAMED, AppOpticsConfig.super::apiToken);
 	}
 
 	@Override
