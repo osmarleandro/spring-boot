@@ -72,7 +72,7 @@ class GraphitePropertiesConfigAdapter extends PropertiesConfigAdapter<GraphitePr
 	}
 
 	@Override
-	public int port() {
+	public int port_RENAMED() {
 		return get(GraphiteProperties::getPort, GraphiteConfig.super::port);
 	}
 
