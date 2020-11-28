@@ -81,7 +81,7 @@ public class DynatraceProperties extends StepRegistryProperties {
 		this.technologyType = technologyType;
 	}
 
-	public String getUri() {
+	public String getUri_RENAMED() {
 		return this.uri;
 	}
 
