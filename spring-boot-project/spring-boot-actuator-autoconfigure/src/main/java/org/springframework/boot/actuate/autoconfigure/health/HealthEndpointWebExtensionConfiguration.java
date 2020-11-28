@@ -41,7 +41,7 @@ class HealthEndpointWebExtensionConfiguration {
 	@Bean
 	@ConditionalOnBean(HealthEndpoint.class)
 	@ConditionalOnMissingBean
-	HealthEndpointWebExtension healthEndpointWebExtension(HealthContributorRegistry healthContributorRegistry,
+	HealthEndpointWebExtension healthEndpointWebExtension_RENAMED(HealthContributorRegistry healthContributorRegistry,
 			HealthEndpointGroups groups) {
 		return new HealthEndpointWebExtension(healthContributorRegistry, groups);
 	}
