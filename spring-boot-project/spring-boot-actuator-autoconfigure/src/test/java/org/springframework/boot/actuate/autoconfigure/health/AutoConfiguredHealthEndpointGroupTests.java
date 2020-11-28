@@ -243,7 +243,7 @@ class AutoConfiguredHealthEndpointGroupTests {
 	void getHttpCodeStatusMapperReturnsHttpCodeStatusMapper() {
 		AutoConfiguredHealthEndpointGroup group = new AutoConfiguredHealthEndpointGroup((name) -> true,
 				this.statusAggregator, this.httpCodeStatusMapper, null, Show.ALWAYS, Collections.emptySet());
-		assertThat(group.getHttpCodeStatusMapper()).isSameAs(this.httpCodeStatusMapper);
+		assertThat(group.getHttpCodeStatusMapper_RENAMED()).isSameAs(this.httpCodeStatusMapper);
 	}
 
 }
