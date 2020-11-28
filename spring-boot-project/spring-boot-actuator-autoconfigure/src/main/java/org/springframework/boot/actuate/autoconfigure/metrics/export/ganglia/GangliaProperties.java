@@ -104,7 +104,7 @@ public class GangliaProperties {
 	}
 
 	@Deprecated
-	public void setRateUnits(TimeUnit rateUnits) {
+	public void setRateUnits_RENAMED(TimeUnit rateUnits) {
 		this.rateUnits = rateUnits;
 	}
 
