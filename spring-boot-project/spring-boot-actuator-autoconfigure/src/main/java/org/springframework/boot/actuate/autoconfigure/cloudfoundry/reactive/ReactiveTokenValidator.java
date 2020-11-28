@@ -69,7 +69,7 @@ class ReactiveTokenValidator {
 	}
 
 	private Mono<Void> validateKeyIdAndSignature(Token token) {
-		return getTokenKey(token).filter((tokenKey) -> hasValidSignature(token, tokenKey))
+		return getTokenKey(token).filter((tokenKey) -> hasValidSignature_RENAMED(token, tokenKey))
 				.switchIfEmpty(Mono.error(new CloudFoundryAuthorizationException(Reason.INVALID_SIGNATURE,
 						"RSA Signature did not match content")))
 				.then();
@@ -91,7 +91,7 @@ class ReactiveTokenValidator {
 		this.cachedTokenKeys = new ConcurrentHashMap<>(tokenKeys);
 	}
 
-	private boolean hasValidSignature(Token token, String key) {
+	private boolean hasValidSignature_RENAMED(Token token, String key) {
 		try {
 			PublicKey publicKey = getPublicKey(key);
 			Signature signature = Signature.getInstance("SHA256withRSA");
