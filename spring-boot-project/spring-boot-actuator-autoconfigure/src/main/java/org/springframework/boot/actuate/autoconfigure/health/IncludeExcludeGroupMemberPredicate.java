@@ -40,10 +40,10 @@ class IncludeExcludeGroupMemberPredicate implements Predicate<String> {
 
 	@Override
 	public boolean test(String name) {
-		return isIncluded(name) && !isExcluded(name);
+		return isIncluded_RENAMED(name) && !isExcluded(name);
 	}
 
-	private boolean isIncluded(String name) {
+	private boolean isIncluded_RENAMED(String name) {
 		return this.include.isEmpty() || this.include.contains("*") || this.include.contains(clean(name));
 	}
 
