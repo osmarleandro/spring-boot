@@ -29,7 +29,7 @@ import org.springframework.boot.actuate.info.InfoEndpoint;
  * @author Madhura Bhave
  * @since 2.2.0
  */
-@EndpointCloudFoundryExtension(endpoint = InfoEndpoint.class)
+@EndpointCloudFoundryExtension(endpoint_RENAMED = InfoEndpoint.class)
 public class CloudFoundryInfoEndpointWebExtension {
 
 	private final InfoEndpoint delegate;

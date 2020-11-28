@@ -158,7 +158,7 @@ class CloudFoundryWebEndpointDiscovererTests {
 
 	}
 
-	@EndpointCloudFoundryExtension(endpoint = HealthEndpoint.class)
+	@EndpointCloudFoundryExtension(endpoint_RENAMED = HealthEndpoint.class)
 	static class TestHealthEndpointCloudFoundryExtension {
 
 		@ReadOperation

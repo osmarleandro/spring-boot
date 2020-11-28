@@ -35,7 +35,7 @@ import org.springframework.boot.actuate.health.HealthEndpointWebExtension;
  * @author Madhura Bhave
  * @since 2.0.0
  */
-@EndpointCloudFoundryExtension(endpoint = HealthEndpoint.class)
+@EndpointCloudFoundryExtension(endpoint_RENAMED = HealthEndpoint.class)
 public class CloudFoundryHealthEndpointWebExtension {
 
 	private final HealthEndpointWebExtension delegate;
