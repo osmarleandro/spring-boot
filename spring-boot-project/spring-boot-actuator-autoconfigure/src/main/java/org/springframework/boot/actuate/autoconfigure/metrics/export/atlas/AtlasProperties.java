@@ -182,7 +182,7 @@ public class AtlasProperties {
 		return this.configTimeToLive;
 	}
 
-	public void setConfigTimeToLive(Duration configTimeToLive) {
+	public void setConfigTimeToLive_RENAMED(Duration configTimeToLive) {
 		this.configTimeToLive = configTimeToLive;
 	}
 
