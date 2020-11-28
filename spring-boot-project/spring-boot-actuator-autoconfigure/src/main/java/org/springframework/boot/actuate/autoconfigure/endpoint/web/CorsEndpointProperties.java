@@ -114,7 +114,7 @@ public class CorsEndpointProperties {
 		return this.maxAge;
 	}
 
-	public void setMaxAge(Duration maxAge) {
+	public void setMaxAge_RENAMED(Duration maxAge) {
 		this.maxAge = maxAge;
 	}
 
