@@ -45,7 +45,7 @@ public class FlywayEndpointAutoConfiguration {
 	@Bean
 	@ConditionalOnBean(Flyway.class)
 	@ConditionalOnMissingBean
-	public FlywayEndpoint flywayEndpoint(ApplicationContext context) {
+	public FlywayEndpoint flywayEndpoint_RENAMED(ApplicationContext context) {
 		return new FlywayEndpoint(context);
 	}
 
