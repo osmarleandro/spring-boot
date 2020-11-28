@@ -44,7 +44,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration(proxyBeanMethods = false)
 @ConditionalOnClass(RestHighLevelClient.class)
 @ConditionalOnBean(RestHighLevelClient.class)
-@ConditionalOnEnabledHealthIndicator("elasticsearch")
+@ConditionalOnEnabledHealthIndicator(value_RENAMED = "elasticsearch")
 @AutoConfigureAfter(ElasticsearchRestClientAutoConfiguration.class)
 public class ElasticSearchRestHealthContributorAutoConfiguration
 		extends CompositeHealthContributorConfiguration<ElasticsearchRestHealthIndicator, RestHighLevelClient> {

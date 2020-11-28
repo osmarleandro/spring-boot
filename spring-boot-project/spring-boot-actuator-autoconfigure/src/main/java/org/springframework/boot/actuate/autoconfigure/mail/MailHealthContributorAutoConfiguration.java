@@ -41,7 +41,7 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
 @Configuration(proxyBeanMethods = false)
 @ConditionalOnClass(JavaMailSenderImpl.class)
 @ConditionalOnBean(JavaMailSenderImpl.class)
-@ConditionalOnEnabledHealthIndicator("mail")
+@ConditionalOnEnabledHealthIndicator(value_RENAMED = "mail")
 @AutoConfigureAfter(MailSenderAutoConfiguration.class)
 public class MailHealthContributorAutoConfiguration
 		extends CompositeHealthContributorConfiguration<MailHealthIndicator, JavaMailSenderImpl> {

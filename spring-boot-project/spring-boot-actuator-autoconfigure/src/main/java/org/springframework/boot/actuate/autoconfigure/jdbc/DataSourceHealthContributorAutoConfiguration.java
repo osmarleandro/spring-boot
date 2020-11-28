@@ -61,7 +61,7 @@ import org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource;
 @Configuration(proxyBeanMethods = false)
 @ConditionalOnClass({ JdbcTemplate.class, AbstractRoutingDataSource.class })
 @ConditionalOnBean(DataSource.class)
-@ConditionalOnEnabledHealthIndicator("db")
+@ConditionalOnEnabledHealthIndicator(value_RENAMED = "db")
 @AutoConfigureAfter(DataSourceAutoConfiguration.class)
 @EnableConfigurationProperties(DataSourceHealthIndicatorProperties.class)
 public class DataSourceHealthContributorAutoConfiguration extends

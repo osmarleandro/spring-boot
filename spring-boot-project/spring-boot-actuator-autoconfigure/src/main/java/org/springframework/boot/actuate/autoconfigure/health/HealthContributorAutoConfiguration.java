@@ -33,7 +33,7 @@ import org.springframework.context.annotation.Configuration;
 public class HealthContributorAutoConfiguration {
 
 	@Bean
-	@ConditionalOnEnabledHealthIndicator("ping")
+	@ConditionalOnEnabledHealthIndicator(value_RENAMED = "ping")
 	public PingHealthIndicator pingHealthContributor() {
 		return new PingHealthIndicator();
 	}

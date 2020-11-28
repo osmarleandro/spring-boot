@@ -43,7 +43,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration(proxyBeanMethods = false)
 @ConditionalOnClass(ConnectionFactory.class)
 @ConditionalOnBean(ConnectionFactory.class)
-@ConditionalOnEnabledHealthIndicator("r2dbc")
+@ConditionalOnEnabledHealthIndicator(value_RENAMED = "r2dbc")
 @AutoConfigureAfter(R2dbcAutoConfiguration.class)
 public class ConnectionFactoryHealthContributorAutoConfiguration
 		extends CompositeReactiveHealthContributorConfiguration<ConnectionFactoryHealthIndicator, ConnectionFactory> {

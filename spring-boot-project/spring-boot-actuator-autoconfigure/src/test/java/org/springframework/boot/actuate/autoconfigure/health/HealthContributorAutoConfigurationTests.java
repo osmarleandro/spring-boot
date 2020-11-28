@@ -72,7 +72,7 @@ class HealthContributorAutoConfigurationTests {
 	static class CustomHealthIndicatorConfiguration {
 
 		@Bean
-		@ConditionalOnEnabledHealthIndicator("custom")
+		@ConditionalOnEnabledHealthIndicator(value_RENAMED = "custom")
 		HealthIndicator customHealthIndicator() {
 			return new CustomHealthIndicator();
 		}

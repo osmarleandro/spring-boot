@@ -38,7 +38,7 @@ import org.springframework.context.annotation.Import;
  */
 @Configuration(proxyBeanMethods = false)
 @ConditionalOnClass({ CqlSession.class, Flux.class })
-@ConditionalOnEnabledHealthIndicator("cassandra")
+@ConditionalOnEnabledHealthIndicator(value_RENAMED = "cassandra")
 @AutoConfigureAfter(CassandraReactiveDataAutoConfiguration.class)
 @Import({ CassandraReactiveDriverConfiguration.class,
 		CassandraHealthContributorConfigurations.CassandraReactiveOperationsConfiguration.class })

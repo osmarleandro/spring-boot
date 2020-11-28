@@ -44,7 +44,7 @@ import org.springframework.data.redis.connection.RedisConnectionFactory;
 @Configuration(proxyBeanMethods = false)
 @ConditionalOnClass(RedisConnectionFactory.class)
 @ConditionalOnBean(RedisConnectionFactory.class)
-@ConditionalOnEnabledHealthIndicator("redis")
+@ConditionalOnEnabledHealthIndicator(value_RENAMED = "redis")
 @AutoConfigureAfter({ RedisAutoConfiguration.class, RedisReactiveHealthContributorAutoConfiguration.class })
 public class RedisHealthContributorAutoConfiguration
 		extends CompositeHealthContributorConfiguration<RedisHealthIndicator, RedisConnectionFactory> {

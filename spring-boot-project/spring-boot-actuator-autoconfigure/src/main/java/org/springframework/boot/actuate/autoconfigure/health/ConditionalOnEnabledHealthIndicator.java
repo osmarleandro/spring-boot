@@ -44,6 +44,6 @@ public @interface ConditionalOnEnabledHealthIndicator {
 	 * The name of the health indicator.
 	 * @return the name of the health indicator
 	 */
-	String value();
+	String value_RENAMED();
 
 }

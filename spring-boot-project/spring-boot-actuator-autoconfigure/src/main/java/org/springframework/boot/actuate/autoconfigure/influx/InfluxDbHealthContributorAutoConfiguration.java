@@ -42,7 +42,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration(proxyBeanMethods = false)
 @ConditionalOnClass(InfluxDB.class)
 @ConditionalOnBean(InfluxDB.class)
-@ConditionalOnEnabledHealthIndicator("influxdb")
+@ConditionalOnEnabledHealthIndicator(value_RENAMED = "influxdb")
 @AutoConfigureAfter(InfluxDbAutoConfiguration.class)
 public class InfluxDbHealthContributorAutoConfiguration
 		extends CompositeHealthContributorConfiguration<InfluxDbHealthIndicator, InfluxDB> {

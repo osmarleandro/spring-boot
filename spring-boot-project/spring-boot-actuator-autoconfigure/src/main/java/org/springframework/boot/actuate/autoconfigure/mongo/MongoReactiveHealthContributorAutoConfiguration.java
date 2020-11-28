@@ -44,7 +44,7 @@ import org.springframework.data.mongodb.core.ReactiveMongoTemplate;
 @Configuration(proxyBeanMethods = false)
 @ConditionalOnClass({ ReactiveMongoTemplate.class, Flux.class })
 @ConditionalOnBean(ReactiveMongoTemplate.class)
-@ConditionalOnEnabledHealthIndicator("mongo")
+@ConditionalOnEnabledHealthIndicator(value_RENAMED = "mongo")
 @AutoConfigureAfter(MongoReactiveDataAutoConfiguration.class)
 public class MongoReactiveHealthContributorAutoConfiguration
 		extends CompositeReactiveHealthContributorConfiguration<MongoReactiveHealthIndicator, ReactiveMongoTemplate> {

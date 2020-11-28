@@ -35,7 +35,7 @@ import org.springframework.context.annotation.Configuration;
  * @since 2.0.0
  */
 @Configuration(proxyBeanMethods = false)
-@ConditionalOnEnabledHealthIndicator("diskspace")
+@ConditionalOnEnabledHealthIndicator(value_RENAMED = "diskspace")
 @AutoConfigureBefore(HealthContributorAutoConfiguration.class)
 @EnableConfigurationProperties(DiskSpaceHealthIndicatorProperties.class)
 public class DiskSpaceHealthContributorAutoConfiguration {

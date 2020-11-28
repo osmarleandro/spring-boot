@@ -43,7 +43,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration(proxyBeanMethods = false)
 @ConditionalOnClass(HazelcastInstance.class)
 @ConditionalOnBean(HazelcastInstance.class)
-@ConditionalOnEnabledHealthIndicator("hazelcast")
+@ConditionalOnEnabledHealthIndicator(value_RENAMED = "hazelcast")
 @AutoConfigureAfter(HazelcastAutoConfiguration.class)
 public class HazelcastHealthContributorAutoConfiguration
 		extends CompositeHealthContributorConfiguration<HazelcastHealthIndicator, HazelcastInstance> {
