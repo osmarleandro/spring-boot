@@ -53,7 +53,7 @@ public abstract class AbstractCompositeHealthContributorConfiguration<C, I exten
 		if (beans.size() == 1) {
 			return createIndicator(beans.values().iterator().next());
 		}
-		return createComposite(beans);
+		return createComposite_RENAMED(beans);
 	}
 
 	protected abstract C createComposite(Map<String, B> beans);
