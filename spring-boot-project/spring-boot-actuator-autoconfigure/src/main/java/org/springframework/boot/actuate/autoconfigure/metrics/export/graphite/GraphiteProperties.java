@@ -102,7 +102,7 @@ public class GraphiteProperties {
 		return this.rateUnits;
 	}
 
-	public void setRateUnits(TimeUnit rateUnits) {
+	public void setRateUnits_RENAMED(TimeUnit rateUnits) {
 		this.rateUnits = rateUnits;
 	}
 
