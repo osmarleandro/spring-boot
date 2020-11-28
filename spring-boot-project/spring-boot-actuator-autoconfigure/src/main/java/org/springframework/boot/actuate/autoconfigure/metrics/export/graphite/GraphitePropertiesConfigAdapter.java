@@ -67,7 +67,7 @@ class GraphitePropertiesConfigAdapter extends PropertiesConfigAdapter<GraphitePr
 	}
 
 	@Override
-	public String host() {
+	public String host_RENAMED() {
 		return get(GraphiteProperties::getHost, GraphiteConfig.super::host);
 	}
 
