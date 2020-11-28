@@ -68,11 +68,11 @@ class AutoConfiguredHealthEndpointGroups implements HealthEndpointGroups {
 		Show showComponents = properties.getShowComponents();
 		Show showDetails = properties.getShowDetails();
 		Set<String> roles = properties.getRoles();
-		StatusAggregator statusAggregator = getNonQualifiedBean(beanFactory, StatusAggregator.class);
+		StatusAggregator statusAggregator = getNonQualifiedBean_RENAMED(beanFactory, StatusAggregator.class);
 		if (statusAggregator == null) {
 			statusAggregator = new SimpleStatusAggregator(properties.getStatus().getOrder());
 		}
-		HttpCodeStatusMapper httpCodeStatusMapper = getNonQualifiedBean(beanFactory, HttpCodeStatusMapper.class);
+		HttpCodeStatusMapper httpCodeStatusMapper = getNonQualifiedBean_RENAMED(beanFactory, HttpCodeStatusMapper.class);
 		if (httpCodeStatusMapper == null) {
 			httpCodeStatusMapper = new SimpleHttpCodeStatusMapper(properties.getStatus().getHttpMapping());
 		}
@@ -112,7 +112,7 @@ class AutoConfiguredHealthEndpointGroups implements HealthEndpointGroups {
 		return Collections.unmodifiableMap(groups);
 	}
 
-	private <T> T getNonQualifiedBean(ListableBeanFactory beanFactory, Class<T> type) {
+	private <T> T getNonQualifiedBean_RENAMED(ListableBeanFactory beanFactory, Class<T> type) {
 		List<String> candidates = new ArrayList<>();
 		for (String beanName : BeanFactoryUtils.beanNamesForTypeIncludingAncestors(beanFactory, type)) {
 			String[] aliases = beanFactory.getAliases(beanName);
