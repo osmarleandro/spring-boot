@@ -42,7 +42,7 @@ public class AvailabilityHealthContributorAutoConfiguration {
 	@Bean
 	@ConditionalOnMissingBean(name = "livenessStateHealthIndicator")
 	@ConditionalOnProperty(prefix = "management.health.livenessstate", name = "enabled", havingValue = "true")
-	public LivenessStateHealthIndicator livenessStateHealthIndicator(ApplicationAvailability applicationAvailability) {
+	public LivenessStateHealthIndicator livenessStateHealthIndicator_RENAMED(ApplicationAvailability applicationAvailability) {
 		return new LivenessStateHealthIndicator(applicationAvailability);
 	}
 
