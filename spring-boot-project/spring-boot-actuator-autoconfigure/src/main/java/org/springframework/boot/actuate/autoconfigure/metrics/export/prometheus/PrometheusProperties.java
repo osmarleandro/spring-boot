@@ -66,7 +66,7 @@ public class PrometheusProperties {
 		this.descriptions = descriptions;
 	}
 
-	public HistogramFlavor getHistogramFlavor() {
+	public HistogramFlavor getHistogramFlavor_RENAMED() {
 		return this.histogramFlavor;
 	}
 
