@@ -80,7 +80,7 @@ class AtlasPropertiesConfigAdapter extends PropertiesConfigAdapter<AtlasProperti
 	}
 
 	@Override
-	public boolean lwcEnabled() {
+	public boolean lwcEnabled_RENAMED() {
 		return get(AtlasProperties::isLwcEnabled, AtlasConfig.super::lwcEnabled);
 	}
 

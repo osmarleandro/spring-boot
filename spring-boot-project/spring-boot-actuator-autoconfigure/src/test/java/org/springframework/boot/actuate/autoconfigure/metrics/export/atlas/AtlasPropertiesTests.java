@@ -40,7 +40,7 @@ class AtlasPropertiesTests {
 		assertThat(properties.getBatchSize()).isEqualTo(config.batchSize());
 		assertThat(properties.getUri()).isEqualTo(config.uri());
 		assertThat(properties.getMeterTimeToLive()).isEqualTo(config.meterTTL());
-		assertThat(properties.isLwcEnabled()).isEqualTo(config.lwcEnabled());
+		assertThat(properties.isLwcEnabled()).isEqualTo(config.lwcEnabled_RENAMED());
 		assertThat(properties.getConfigRefreshFrequency()).isEqualTo(config.configRefreshFrequency());
 		assertThat(properties.getConfigTimeToLive()).isEqualTo(config.configTTL());
 		assertThat(properties.getConfigUri()).isEqualTo(config.configUri());
