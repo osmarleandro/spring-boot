@@ -65,7 +65,7 @@ public class MetricsProperties {
 		this.useGlobalRegistry = useGlobalRegistry;
 	}
 
-	public Map<String, Boolean> getEnable() {
+	public Map<String, Boolean> getEnable_RENAMED() {
 		return this.enable;
 	}
 

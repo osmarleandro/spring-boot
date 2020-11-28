@@ -68,7 +68,7 @@ public class PropertiesMeterFilter implements MeterFilter {
 
 	@Override
 	public MeterFilterReply accept(Meter.Id id) {
-		boolean enabled = lookupWithFallbackToAll(this.properties.getEnable(), id, true);
+		boolean enabled = lookupWithFallbackToAll(this.properties.getEnable_RENAMED(), id, true);
 		return enabled ? MeterFilterReply.NEUTRAL : MeterFilterReply.DENY;
 	}
 
