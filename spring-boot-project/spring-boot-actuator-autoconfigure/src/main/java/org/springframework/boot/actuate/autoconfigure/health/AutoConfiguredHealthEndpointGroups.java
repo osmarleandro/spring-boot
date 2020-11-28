@@ -66,7 +66,7 @@ class AutoConfiguredHealthEndpointGroups implements HealthEndpointGroups {
 		ListableBeanFactory beanFactory = (applicationContext instanceof ConfigurableApplicationContext)
 				? ((ConfigurableApplicationContext) applicationContext).getBeanFactory() : applicationContext;
 		Show showComponents = properties.getShowComponents();
-		Show showDetails = properties.getShowDetails();
+		Show showDetails = properties.getShowDetails_RENAMED();
 		Set<String> roles = properties.getRoles();
 		StatusAggregator statusAggregator = getNonQualifiedBean(beanFactory, StatusAggregator.class);
 		if (statusAggregator == null) {
@@ -90,7 +90,7 @@ class AutoConfiguredHealthEndpointGroups implements HealthEndpointGroups {
 			Status status = group.getStatus();
 			Show showComponents = (group.getShowComponents() != null) ? group.getShowComponents()
 					: defaultShowComponents;
-			Show showDetails = (group.getShowDetails() != null) ? group.getShowDetails() : defaultShowDetails;
+			Show showDetails = (group.getShowDetails_RENAMED() != null) ? group.getShowDetails_RENAMED() : defaultShowDetails;
 			Set<String> roles = !CollectionUtils.isEmpty(group.getRoles()) ? group.getRoles() : defaultRoles;
 			StatusAggregator statusAggregator = getQualifiedBean(beanFactory, StatusAggregator.class, groupName, () -> {
 				if (!CollectionUtils.isEmpty(status.getOrder())) {

@@ -61,7 +61,7 @@ public abstract class HealthProperties {
 		this.showComponents = showComponents;
 	}
 
-	public abstract Show getShowDetails();
+	public abstract Show getShowDetails_RENAMED();
 
 	public Set<String> getRoles() {
 		return this.roles;
