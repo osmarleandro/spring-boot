@@ -89,7 +89,7 @@ public class GangliaProperties {
 		this.enabled = enabled;
 	}
 
-	public Duration getStep() {
+	public Duration getStep_RENAMED() {
 		return this.step;
 	}
 
