@@ -45,7 +45,7 @@ class DynatracePropertiesConfigAdapterTests {
 	void whenPropertiesDeviceIdIsSetAdapterDeviceIdReturnsIt() {
 		DynatraceProperties properties = new DynatraceProperties();
 		properties.setDeviceId("dev-1");
-		assertThat(new DynatracePropertiesConfigAdapter(properties).deviceId()).isEqualTo("dev-1");
+		assertThat(new DynatracePropertiesConfigAdapter(properties).deviceId_RENAMED()).isEqualTo("dev-1");
 	}
 
 	@Test

@@ -43,7 +43,7 @@ class DynatracePropertiesConfigAdapter extends StepRegistryPropertiesConfigAdapt
 	}
 
 	@Override
-	public String deviceId() {
+	public String deviceId_RENAMED() {
 		return get(DynatraceProperties::getDeviceId, DynatraceConfig.super::deviceId);
 	}
 
