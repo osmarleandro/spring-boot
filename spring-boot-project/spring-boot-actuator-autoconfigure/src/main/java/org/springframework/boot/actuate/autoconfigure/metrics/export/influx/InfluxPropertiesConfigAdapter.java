@@ -85,7 +85,7 @@ class InfluxPropertiesConfigAdapter extends StepRegistryPropertiesConfigAdapter<
 	}
 
 	@Override
-	public boolean compressed() {
+	public boolean compressed_RENAMED() {
 		return get(InfluxProperties::isCompressed, InfluxConfig.super::compressed);
 	}
 

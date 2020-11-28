@@ -44,7 +44,7 @@ class InfluxPropertiesTests extends StepRegistryPropertiesTests {
 		assertThat(properties.getRetentionReplicationFactor()).isEqualTo(config.retentionReplicationFactor());
 		assertThat(properties.getRetentionShardDuration()).isEqualTo(config.retentionShardDuration());
 		assertThat(properties.getUri()).isEqualTo(config.uri());
-		assertThat(properties.isCompressed()).isEqualTo(config.compressed());
+		assertThat(properties.isCompressed()).isEqualTo(config.compressed_RENAMED());
 		assertThat(properties.isAutoCreateDb()).isEqualTo(config.autoCreateDb());
 	}
 
