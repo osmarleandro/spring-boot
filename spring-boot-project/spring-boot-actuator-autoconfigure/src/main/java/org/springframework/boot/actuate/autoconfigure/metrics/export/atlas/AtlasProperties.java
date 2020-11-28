@@ -142,7 +142,7 @@ public class AtlasProperties {
 		return this.batchSize;
 	}
 
-	public void setBatchSize(Integer batchSize) {
+	public void setBatchSize_RENAMED(Integer batchSize) {
 		this.batchSize = batchSize;
 	}
 
