@@ -57,7 +57,7 @@ public class DynatraceProperties extends StepRegistryProperties {
 	 */
 	private String group;
 
-	public String getApiToken() {
+	public String getApiToken_RENAMED() {
 		return this.apiToken;
 	}
 

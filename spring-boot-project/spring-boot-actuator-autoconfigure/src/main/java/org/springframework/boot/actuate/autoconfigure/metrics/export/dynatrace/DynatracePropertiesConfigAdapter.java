@@ -39,7 +39,7 @@ class DynatracePropertiesConfigAdapter extends StepRegistryPropertiesConfigAdapt
 
 	@Override
 	public String apiToken() {
-		return get(DynatraceProperties::getApiToken, DynatraceConfig.super::apiToken);
+		return get(DynatraceProperties::getApiToken_RENAMED, DynatraceConfig.super::apiToken);
 	}
 
 	@Override
