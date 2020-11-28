@@ -106,7 +106,7 @@ public class ElasticProperties extends StepRegistryProperties {
 		this.indexDateSeparator = indexDateSeparator;
 	}
 
-	public String getTimestampFieldName() {
+	public String getTimestampFieldName_RENAMED() {
 		return this.timestampFieldName;
 	}
 
