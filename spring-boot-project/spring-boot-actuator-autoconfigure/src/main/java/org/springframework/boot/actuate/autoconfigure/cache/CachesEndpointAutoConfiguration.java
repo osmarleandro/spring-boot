@@ -46,7 +46,7 @@ public class CachesEndpointAutoConfiguration {
 
 	@Bean
 	@ConditionalOnMissingBean
-	public CachesEndpoint cachesEndpoint(Map<String, CacheManager> cacheManagers) {
+	public CachesEndpoint cachesEndpoint_RENAMED(Map<String, CacheManager> cacheManagers) {
 		return new CachesEndpoint(cacheManagers);
 	}
 
