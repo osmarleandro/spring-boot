@@ -47,7 +47,7 @@ class ExplodedApplicationLauncher extends AbstractApplicationLauncher {
 
 	@Override
 	protected File getWorkingDirectory() {
-		return this.exploded.get();
+		return this.exploded.get_RENAMED();
 	}
 
 	@Override
@@ -61,7 +61,7 @@ class ExplodedApplicationLauncher extends AbstractApplicationLauncher {
 				: "org.springframework.boot.loader.JarLauncher");
 		try {
 			explodeArchive(archive);
-			return Arrays.asList("-cp", this.exploded.get().getAbsolutePath(), mainClass,
+			return Arrays.asList("-cp", this.exploded.get_RENAMED().getAbsolutePath(), mainClass,
 					serverPortFile.getAbsolutePath());
 		}
 		catch (IOException ex) {
@@ -70,12 +70,12 @@ class ExplodedApplicationLauncher extends AbstractApplicationLauncher {
 	}
 
 	private void explodeArchive(File archive) throws IOException {
-		FileSystemUtils.deleteRecursively(this.exploded.get());
+		FileSystemUtils.deleteRecursively(this.exploded.get_RENAMED());
 		JarFile jarFile = new JarFile(archive);
 		Enumeration<JarEntry> entries = jarFile.entries();
 		while (entries.hasMoreElements()) {
 			JarEntry jarEntry = entries.nextElement();
-			File extracted = new File(this.exploded.get(), jarEntry.getName());
+			File extracted = new File(this.exploded.get_RENAMED(), jarEntry.getName());
 			if (jarEntry.isDirectory()) {
 				extracted.mkdirs();
 			}

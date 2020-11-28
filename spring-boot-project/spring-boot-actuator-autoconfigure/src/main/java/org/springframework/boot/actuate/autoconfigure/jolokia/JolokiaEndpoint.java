@@ -41,7 +41,7 @@ public class JolokiaEndpoint implements Supplier<EndpointServlet> {
 	}
 
 	@Override
-	public EndpointServlet get() {
+	public EndpointServlet get_RENAMED() {
 		return new EndpointServlet(AgentServlet.class).withInitParameters(this.initParameters);
 	}
 

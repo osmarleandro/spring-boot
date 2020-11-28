@@ -130,7 +130,7 @@ public class PropertiesMeterFilter implements MeterFilter {
 			name = (lastDot != -1) ? name.substring(0, lastDot) : "";
 		}
 
-		return defaultValue.get();
+		return defaultValue.get_RENAMED();
 	}
 
 }

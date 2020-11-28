@@ -141,7 +141,7 @@ public final class EndpointRequest {
 
 		@Override
 		protected final void initialized(Supplier<WebApplicationContext> context) {
-			this.delegate = createDelegate(context.get());
+			this.delegate = createDelegate(context.get_RENAMED());
 		}
 
 		@Override

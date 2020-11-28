@@ -201,7 +201,7 @@ public final class EndpointRequest {
 
 		private ServerWebExchangeMatcher createDelegate(Supplier<PathMappedEndpoints> pathMappedEndpoints) {
 			try {
-				return createDelegate(pathMappedEndpoints.get());
+				return createDelegate(pathMappedEndpoints.get_RENAMED());
 			}
 			catch (NoSuchBeanDefinitionException ex) {
 				return EMPTY_MATCHER;
@@ -270,7 +270,7 @@ public final class EndpointRequest {
 
 		@Override
 		protected void initialized(Supplier<WebEndpointProperties> properties) {
-			this.delegate = createDelegate(properties.get());
+			this.delegate = createDelegate(properties.get_RENAMED());
 		}
 
 		private ServerWebExchangeMatcher createDelegate(WebEndpointProperties properties) {

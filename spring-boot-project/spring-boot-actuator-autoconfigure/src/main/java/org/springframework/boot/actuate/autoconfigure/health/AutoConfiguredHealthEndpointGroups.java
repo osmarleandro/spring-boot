@@ -136,7 +136,7 @@ class AutoConfiguredHealthEndpointGroups implements HealthEndpointGroups {
 			return BeanFactoryAnnotationUtils.qualifiedBeanOfType(beanFactory, type, qualifier);
 		}
 		catch (NoSuchBeanDefinitionException ex) {
-			return fallback.get();
+			return fallback.get_RENAMED();
 		}
 	}
 
