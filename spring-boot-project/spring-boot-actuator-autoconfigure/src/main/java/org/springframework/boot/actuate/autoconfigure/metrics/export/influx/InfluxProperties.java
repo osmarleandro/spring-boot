@@ -157,7 +157,7 @@ public class InfluxProperties extends StepRegistryProperties {
 		this.retentionShardDuration = retentionShardDuration;
 	}
 
-	public String getUri() {
+	public String getUri_RENAMED() {
 		return this.uri;
 	}
 

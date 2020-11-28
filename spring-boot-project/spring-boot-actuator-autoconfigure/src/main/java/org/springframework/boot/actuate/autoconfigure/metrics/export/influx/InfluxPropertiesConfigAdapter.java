@@ -81,7 +81,7 @@ class InfluxPropertiesConfigAdapter extends StepRegistryPropertiesConfigAdapter<
 
 	@Override
 	public String uri() {
-		return get(InfluxProperties::getUri, InfluxConfig.super::uri);
+		return get(InfluxProperties::getUri_RENAMED, InfluxConfig.super::uri);
 	}
 
 	@Override
