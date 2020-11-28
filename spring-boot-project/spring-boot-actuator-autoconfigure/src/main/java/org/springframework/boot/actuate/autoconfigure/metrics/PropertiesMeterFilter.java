@@ -68,7 +68,7 @@ public class PropertiesMeterFilter implements MeterFilter {
 
 	@Override
 	public MeterFilterReply accept(Meter.Id id) {
-		boolean enabled = lookupWithFallbackToAll(this.properties.getEnable(), id, true);
+		boolean enabled = lookupWithFallbackToAll_RENAMED(this.properties.getEnable(), id, true);
 		return enabled ? MeterFilterReply.NEUTRAL : MeterFilterReply.DENY;
 	}
 
@@ -81,8 +81,8 @@ public class PropertiesMeterFilter implements MeterFilter {
 	public DistributionStatisticConfig configure(Meter.Id id, DistributionStatisticConfig config) {
 		Distribution distribution = this.properties.getDistribution();
 		return DistributionStatisticConfig.builder()
-				.percentilesHistogram(lookupWithFallbackToAll(distribution.getPercentilesHistogram(), id, null))
-				.percentiles(lookupWithFallbackToAll(distribution.getPercentiles(), id, null))
+				.percentilesHistogram(lookupWithFallbackToAll_RENAMED(distribution.getPercentilesHistogram(), id, null))
+				.percentiles(lookupWithFallbackToAll_RENAMED(distribution.getPercentiles(), id, null))
 				.serviceLevelObjectives(
 						convertServiceLevelObjectives(id.getType(), lookup(distribution.getSlo(), id, null)))
 				.minimumExpectedValue(
@@ -112,7 +112,7 @@ public class PropertiesMeterFilter implements MeterFilter {
 		return doLookup(values, id, () -> defaultValue);
 	}
 
-	private <T> T lookupWithFallbackToAll(Map<String, T> values, Id id, T defaultValue) {
+	private <T> T lookupWithFallbackToAll_RENAMED(Map<String, T> values, Id id, T defaultValue) {
 		if (values.isEmpty()) {
 			return defaultValue;
 		}
