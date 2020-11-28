@@ -82,7 +82,7 @@ public class PrometheusProperties {
 		this.step = step;
 	}
 
-	public Pushgateway getPushgateway() {
+	public Pushgateway getPushgateway_RENAMED() {
 		return this.pushgateway;
 	}
 
