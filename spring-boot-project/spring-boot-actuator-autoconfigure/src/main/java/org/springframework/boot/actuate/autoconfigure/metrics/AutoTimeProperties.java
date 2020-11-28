@@ -59,7 +59,7 @@ public final class AutoTimeProperties implements AutoTimer {
 		this.percentilesHistogram = percentilesHistogram;
 	}
 
-	public double[] getPercentiles() {
+	public double[] getPercentiles_RENAMED() {
 		return this.percentiles;
 	}
 
