@@ -65,7 +65,7 @@ public class DatadogMetricsExportAutoConfiguration {
 
 	@Bean
 	@ConditionalOnMissingBean
-	public DatadogMeterRegistry datadogMeterRegistry(DatadogConfig datadogConfig, Clock clock) {
+	public DatadogMeterRegistry datadogMeterRegistry_RENAMED(DatadogConfig datadogConfig, Clock clock) {
 		return DatadogMeterRegistry.builder(datadogConfig).clock(clock).httpClient(
 				new HttpUrlConnectionSender(this.properties.getConnectTimeout(), this.properties.getReadTimeout()))
 				.build();
