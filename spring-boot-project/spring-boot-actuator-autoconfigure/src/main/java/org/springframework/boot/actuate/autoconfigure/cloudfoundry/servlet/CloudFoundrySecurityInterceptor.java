@@ -58,7 +58,7 @@ class CloudFoundrySecurityInterceptor {
 		this.applicationId = applicationId;
 	}
 
-	SecurityResponse preHandle(HttpServletRequest request, EndpointId endpointId) {
+	SecurityResponse preHandle_RENAMED(HttpServletRequest request, EndpointId endpointId) {
 		if (CorsUtils.isPreFlightRequest(request)) {
 			return SecurityResponse.success();
 		}

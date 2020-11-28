@@ -81,7 +81,7 @@ class CloudFoundryWebEndpointServletHandlerMapping extends AbstractWebMvcEndpoin
 		@ResponseBody
 		public Map<String, Map<String, Link>> links(HttpServletRequest request, HttpServletResponse response) {
 			SecurityResponse securityResponse = CloudFoundryWebEndpointServletHandlerMapping.this.securityInterceptor
-					.preHandle(request, null);
+					.preHandle_RENAMED(request, null);
 			if (!securityResponse.getStatus().equals(HttpStatus.OK)) {
 				sendFailureResponse(response, securityResponse);
 			}
@@ -134,7 +134,7 @@ class CloudFoundryWebEndpointServletHandlerMapping extends AbstractWebMvcEndpoin
 
 		@Override
 		public Object handle(HttpServletRequest request, Map<String, String> body) {
-			SecurityResponse securityResponse = this.securityInterceptor.preHandle(request, this.endpointId);
+			SecurityResponse securityResponse = this.securityInterceptor.preHandle_RENAMED(request, this.endpointId);
 			if (!securityResponse.getStatus().equals(HttpStatus.OK)) {
 				return new ResponseEntity<Object>(securityResponse.getMessage(), securityResponse.getStatus());
 			}
