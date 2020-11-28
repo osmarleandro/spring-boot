@@ -77,7 +77,7 @@ public class DataSourceHealthContributorAutoConfiguration extends
 	}
 
 	@Override
-	public void afterPropertiesSet() throws Exception {
+	public void afterPropertiesSet_RENAMED() throws Exception {
 		this.poolMetadataProvider = new CompositeDataSourcePoolMetadataProvider(this.metadataProviders);
 	}
 
