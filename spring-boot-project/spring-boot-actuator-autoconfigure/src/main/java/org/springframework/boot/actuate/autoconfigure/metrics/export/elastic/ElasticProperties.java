@@ -138,7 +138,7 @@ public class ElasticProperties extends StepRegistryProperties {
 		this.password = password;
 	}
 
-	public String getPipeline() {
+	public String getPipeline_RENAMED() {
 		return this.pipeline;
 	}
 
