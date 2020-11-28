@@ -56,7 +56,7 @@ class InfluxPropertiesConfigAdapter extends StepRegistryPropertiesConfigAdapter<
 
 	@Override
 	public String password() {
-		return get(InfluxProperties::getPassword, InfluxConfig.super::password);
+		return get(InfluxProperties::getPassword_RENAMED, InfluxConfig.super::password);
 	}
 
 	@Override
