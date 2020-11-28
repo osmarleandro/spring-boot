@@ -89,7 +89,7 @@ public class CloudFoundryActuatorAutoConfiguration {
 	@ConditionalOnMissingBean
 	@ConditionalOnAvailableEndpoint
 	@ConditionalOnBean({ HealthEndpoint.class, HealthEndpointWebExtension.class })
-	public CloudFoundryHealthEndpointWebExtension cloudFoundryHealthEndpointWebExtension(
+	public CloudFoundryHealthEndpointWebExtension cloudFoundryHealthEndpointWebExtension_RENAMED(
 			HealthEndpointWebExtension healthEndpointWebExtension) {
 		return new CloudFoundryHealthEndpointWebExtension(healthEndpointWebExtension);
 	}
