@@ -39,7 +39,7 @@ public class CloudFoundryInfoEndpointWebExtension {
 	}
 
 	@ReadOperation
-	public Map<String, Object> info() {
+	public Map<String, Object> info_RENAMED() {
 		return this.delegate.info();
 	}
 
