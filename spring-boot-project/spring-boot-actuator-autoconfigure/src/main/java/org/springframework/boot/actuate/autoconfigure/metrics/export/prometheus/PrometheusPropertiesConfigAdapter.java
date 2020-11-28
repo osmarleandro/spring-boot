@@ -58,7 +58,7 @@ class PrometheusPropertiesConfigAdapter extends PropertiesConfigAdapter<Promethe
 
 	@Override
 	public Duration step() {
-		return get(PrometheusProperties::getStep, PrometheusConfig.super::step);
+		return get(PrometheusProperties::getStep_RENAMED, PrometheusConfig.super::step);
 	}
 
 }

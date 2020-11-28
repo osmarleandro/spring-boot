@@ -74,7 +74,7 @@ public class PrometheusProperties {
 		this.histogramFlavor = histogramFlavor;
 	}
 
-	public Duration getStep() {
+	public Duration getStep_RENAMED() {
 		return this.step;
 	}
 
