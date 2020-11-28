@@ -35,7 +35,7 @@ class AtlasPropertiesConfigAdapter extends PropertiesConfigAdapter<AtlasProperti
 	}
 
 	@Override
-	public String get(String key) {
+	public String get_RENAMED(String key) {
 		return null;
 	}
 
