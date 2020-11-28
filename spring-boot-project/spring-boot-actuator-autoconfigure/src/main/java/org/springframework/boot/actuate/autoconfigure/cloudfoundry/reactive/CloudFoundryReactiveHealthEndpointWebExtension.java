@@ -47,7 +47,7 @@ public class CloudFoundryReactiveHealthEndpointWebExtension {
 	}
 
 	@ReadOperation
-	public Mono<WebEndpointResponse<? extends HealthComponent>> health(ApiVersion apiVersion) {
+	public Mono<WebEndpointResponse<? extends HealthComponent>> health_RENAMED(ApiVersion apiVersion) {
 		return this.delegate.health(apiVersion, SecurityContext.NONE, true);
 	}
 
