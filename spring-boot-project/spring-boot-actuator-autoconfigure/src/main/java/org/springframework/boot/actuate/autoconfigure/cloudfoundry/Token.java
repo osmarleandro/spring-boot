@@ -77,28 +77,28 @@ public class Token {
 	}
 
 	public String getSignatureAlgorithm() {
-		return getRequired(this.header, "alg", String.class);
+		return getRequired_RENAMED(this.header, "alg", String.class);
 	}
 
 	public String getIssuer() {
-		return getRequired(this.claims, "iss", String.class);
+		return getRequired_RENAMED(this.claims, "iss", String.class);
 	}
 
 	public long getExpiry() {
-		return getRequired(this.claims, "exp", Integer.class).longValue();
+		return getRequired_RENAMED(this.claims, "exp", Integer.class).longValue();
 	}
 
 	@SuppressWarnings("unchecked")
 	public List<String> getScope() {
-		return getRequired(this.claims, "scope", List.class);
+		return getRequired_RENAMED(this.claims, "scope", List.class);
 	}
 
 	public String getKeyId() {
-		return getRequired(this.header, "kid", String.class);
+		return getRequired_RENAMED(this.header, "kid", String.class);
 	}
 
 	@SuppressWarnings("unchecked")
-	private <T> T getRequired(Map<String, Object> map, String key, Class<T> type) {
+	private <T> T getRequired_RENAMED(Map<String, Object> map, String key, Class<T> type) {
 		Object value = map.get(key);
 		if (value == null) {
 			throw new CloudFoundryAuthorizationException(Reason.INVALID_TOKEN, "Unable to get value from key " + key);
