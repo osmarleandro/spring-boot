@@ -39,7 +39,7 @@ public class SecurityResponse {
 		this.message = message;
 	}
 
-	public HttpStatus getStatus() {
+	public HttpStatus getStatus_RENAMED() {
 		return this.status;
 	}
 
