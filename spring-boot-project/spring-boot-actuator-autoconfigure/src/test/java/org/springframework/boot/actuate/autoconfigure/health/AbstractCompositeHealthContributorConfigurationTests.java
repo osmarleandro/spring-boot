@@ -48,14 +48,14 @@ abstract class AbstractCompositeHealthContributorConfigurationTests<C, I extends
 	@Test
 	void createContributorWhenBeansIsEmptyThrowsException() {
 		Map<String, TestBean> beans = Collections.emptyMap();
-		assertThatIllegalArgumentException().isThrownBy(() -> newComposite().createContributor(beans))
+		assertThatIllegalArgumentException().isThrownBy(() -> newComposite().createContributor_RENAMED(beans))
 				.withMessage("Beans must not be empty");
 	}
 
 	@Test
 	void createContributorWhenBeansHasSingleElementCreatesIndicator() {
 		Map<String, TestBean> beans = Collections.singletonMap("test", new TestBean());
-		C contributor = newComposite().createContributor(beans);
+		C contributor = newComposite().createContributor_RENAMED(beans);
 		assertThat(contributor).isInstanceOf(this.indicatorType);
 	}
 
@@ -64,7 +64,7 @@ abstract class AbstractCompositeHealthContributorConfigurationTests<C, I extends
 		Map<String, TestBean> beans = new LinkedHashMap<>();
 		beans.put("test1", new TestBean());
 		beans.put("test2", new TestBean());
-		C contributor = newComposite().createContributor(beans);
+		C contributor = newComposite().createContributor_RENAMED(beans);
 		assertThat(contributor).isNotInstanceOf(this.indicatorType);
 		assertThat(ClassUtils.getShortName(contributor.getClass())).startsWith("Composite");
 	}

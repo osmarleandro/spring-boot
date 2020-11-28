@@ -51,7 +51,7 @@ public class MongoHealthContributorAutoConfiguration
 	@Bean
 	@ConditionalOnMissingBean(name = { "mongoHealthIndicator", "mongoHealthContributor" })
 	public HealthContributor mongoHealthContributor(Map<String, MongoTemplate> mongoTemplates) {
-		return createContributor(mongoTemplates);
+		return createContributor_RENAMED(mongoTemplates);
 	}
 
 }

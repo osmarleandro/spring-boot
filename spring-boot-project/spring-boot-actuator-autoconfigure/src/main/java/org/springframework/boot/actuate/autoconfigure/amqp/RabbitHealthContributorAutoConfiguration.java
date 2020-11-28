@@ -49,7 +49,7 @@ public class RabbitHealthContributorAutoConfiguration
 	@Bean
 	@ConditionalOnMissingBean(name = { "rabbitHealthIndicator", "rabbitHealthContributor" })
 	public HealthContributor rabbitHealthContributor(Map<String, RabbitTemplate> rabbitTemplates) {
-		return createContributor(rabbitTemplates);
+		return createContributor_RENAMED(rabbitTemplates);
 	}
 
 }

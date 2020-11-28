@@ -53,7 +53,7 @@ public class ElasticSearchReactiveHealthContributorAutoConfiguration extends
 	@Bean
 	@ConditionalOnMissingBean(name = { "elasticsearchHealthIndicator", "elasticsearchHealthContributor" })
 	public ReactiveHealthContributor elasticsearchHealthContributor(Map<String, ReactiveElasticsearchClient> clients) {
-		return createContributor(clients);
+		return createContributor_RENAMED(clients);
 	}
 
 }

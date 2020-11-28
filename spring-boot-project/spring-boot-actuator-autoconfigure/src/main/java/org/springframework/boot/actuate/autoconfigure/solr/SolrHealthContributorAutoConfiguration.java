@@ -51,7 +51,7 @@ public class SolrHealthContributorAutoConfiguration
 	@Bean
 	@ConditionalOnMissingBean(name = { "solrHealthIndicator", "solrHealthContributor" })
 	public HealthContributor solrHealthContributor(Map<String, SolrClient> solrClients) {
-		return createContributor(solrClients);
+		return createContributor_RENAMED(solrClients);
 	}
 
 }

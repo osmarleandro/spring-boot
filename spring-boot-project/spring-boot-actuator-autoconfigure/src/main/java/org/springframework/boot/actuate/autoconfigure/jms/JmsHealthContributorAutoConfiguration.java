@@ -51,7 +51,7 @@ public class JmsHealthContributorAutoConfiguration
 	@Bean
 	@ConditionalOnMissingBean(name = { "jmsHealthIndicator", "jmsHealthContributor" })
 	public HealthContributor jmsHealthContributor(Map<String, ConnectionFactory> connectionFactories) {
-		return createContributor(connectionFactories);
+		return createContributor_RENAMED(connectionFactories);
 	}
 
 }

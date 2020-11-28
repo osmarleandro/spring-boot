@@ -52,7 +52,7 @@ public class CouchbaseReactiveHealthContributorAutoConfiguration
 	@Bean
 	@ConditionalOnMissingBean(name = { "couchbaseHealthIndicator", "couchbaseHealthContributor" })
 	public ReactiveHealthContributor couchbaseHealthContributor(Map<String, Cluster> clusters) {
-		return createContributor(clusters);
+		return createContributor_RENAMED(clusters);
 	}
 
 }

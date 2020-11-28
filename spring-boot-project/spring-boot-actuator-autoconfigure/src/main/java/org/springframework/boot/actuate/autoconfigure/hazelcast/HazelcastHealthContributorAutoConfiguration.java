@@ -51,7 +51,7 @@ public class HazelcastHealthContributorAutoConfiguration
 	@Bean
 	@ConditionalOnMissingBean(name = { "hazelcastHealthIndicator", "hazelcastHealthContributor" })
 	public HealthContributor hazelcastHealthContributor(Map<String, HazelcastInstance> hazelcastInstances) {
-		return createContributor(hazelcastInstances);
+		return createContributor_RENAMED(hazelcastInstances);
 	}
 
 }

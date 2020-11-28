@@ -52,7 +52,7 @@ public class RedisHealthContributorAutoConfiguration
 	@Bean
 	@ConditionalOnMissingBean(name = { "redisHealthIndicator", "redisHealthContributor" })
 	public HealthContributor redisHealthContributor(Map<String, RedisConnectionFactory> redisConnectionFactories) {
-		return createContributor(redisConnectionFactories);
+		return createContributor_RENAMED(redisConnectionFactories);
 	}
 
 }

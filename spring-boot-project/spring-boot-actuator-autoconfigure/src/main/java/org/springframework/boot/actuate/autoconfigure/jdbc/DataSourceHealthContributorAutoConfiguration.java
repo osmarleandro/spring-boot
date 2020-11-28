@@ -89,9 +89,9 @@ public class DataSourceHealthContributorAutoConfiguration extends
 			Map<String, DataSource> filteredDatasources = dataSources.entrySet().stream()
 					.filter((e) -> !(e.getValue() instanceof AbstractRoutingDataSource))
 					.collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
-			return createContributor(filteredDatasources);
+			return createContributor_RENAMED(filteredDatasources);
 		}
-		return createContributor(dataSources);
+		return createContributor_RENAMED(dataSources);
 	}
 
 	@Override

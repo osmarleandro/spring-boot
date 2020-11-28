@@ -62,7 +62,7 @@ public class RedisReactiveHealthContributorAutoConfiguration extends
 	@Bean
 	@ConditionalOnMissingBean(name = { "redisHealthIndicator", "redisHealthContributor" })
 	public ReactiveHealthContributor redisHealthContributor() {
-		return createContributor(this.redisConnectionFactories);
+		return createContributor_RENAMED(this.redisConnectionFactories);
 	}
 
 }

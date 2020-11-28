@@ -49,7 +49,7 @@ class CassandraHealthContributorConfigurations {
 		@Bean
 		@ConditionalOnMissingBean(name = { "cassandraHealthIndicator", "cassandraHealthContributor" })
 		HealthContributor cassandraHealthContributor(Map<String, CqlSession> sessions) {
-			return createContributor(sessions);
+			return createContributor_RENAMED(sessions);
 		}
 
 	}
@@ -64,7 +64,7 @@ class CassandraHealthContributorConfigurations {
 		@Bean
 		@ConditionalOnMissingBean(name = { "cassandraHealthIndicator", "cassandraHealthContributor" })
 		HealthContributor cassandraHealthContributor(Map<String, CassandraOperations> cassandraOperations) {
-			return createContributor(cassandraOperations);
+			return createContributor_RENAMED(cassandraOperations);
 		}
 
 	}
@@ -77,7 +77,7 @@ class CassandraHealthContributorConfigurations {
 		@Bean
 		@ConditionalOnMissingBean(name = { "cassandraHealthIndicator", "cassandraHealthContributor" })
 		ReactiveHealthContributor cassandraHealthContributor(Map<String, CqlSession> sessions) {
-			return createContributor(sessions);
+			return createContributor_RENAMED(sessions);
 		}
 
 	}
@@ -93,7 +93,7 @@ class CassandraHealthContributorConfigurations {
 		@ConditionalOnMissingBean(name = { "cassandraHealthIndicator", "cassandraHealthContributor" })
 		ReactiveHealthContributor cassandraHealthContributor(
 				Map<String, ReactiveCassandraOperations> reactiveCassandraOperations) {
-			return createContributor(reactiveCassandraOperations);
+			return createContributor_RENAMED(reactiveCassandraOperations);
 		}
 
 	}
