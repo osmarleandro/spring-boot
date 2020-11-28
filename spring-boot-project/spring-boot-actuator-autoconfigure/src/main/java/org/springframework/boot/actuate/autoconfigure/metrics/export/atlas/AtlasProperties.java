@@ -158,7 +158,7 @@ public class AtlasProperties {
 		return this.meterTimeToLive;
 	}
 
-	public void setMeterTimeToLive(Duration meterTimeToLive) {
+	public void setMeterTimeToLive_RENAMED(Duration meterTimeToLive) {
 		this.meterTimeToLive = meterTimeToLive;
 	}
 
