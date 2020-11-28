@@ -59,7 +59,7 @@ public class KairosMetricsExportAutoConfiguration {
 
 	@Bean
 	@ConditionalOnMissingBean
-	public KairosConfig kairosConfig() {
+	public KairosConfig kairosConfig_RENAMED() {
 		return new KairosPropertiesConfigAdapter(this.properties);
 	}
 
