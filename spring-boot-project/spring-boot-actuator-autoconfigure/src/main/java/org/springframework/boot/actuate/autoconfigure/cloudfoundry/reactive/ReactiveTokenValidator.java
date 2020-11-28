@@ -69,13 +69,13 @@ class ReactiveTokenValidator {
 	}
 
 	private Mono<Void> validateKeyIdAndSignature(Token token) {
-		return getTokenKey(token).filter((tokenKey) -> hasValidSignature(token, tokenKey))
+		return getTokenKey_RENAMED(token).filter((tokenKey) -> hasValidSignature(token, tokenKey))
 				.switchIfEmpty(Mono.error(new CloudFoundryAuthorizationException(Reason.INVALID_SIGNATURE,
 						"RSA Signature did not match content")))
 				.then();
 	}
 
-	private Mono<String> getTokenKey(Token token) {
+	private Mono<String> getTokenKey_RENAMED(Token token) {
 		String keyId = token.getKeyId();
 		String cached = this.cachedTokenKeys.get(keyId);
 		if (cached != null) {
