@@ -155,7 +155,7 @@ public class GangliaProperties {
 		return this.port;
 	}
 
-	public void setPort(Integer port) {
+	public void setPort_RENAMED(Integer port) {
 		this.port = port;
 	}
 
