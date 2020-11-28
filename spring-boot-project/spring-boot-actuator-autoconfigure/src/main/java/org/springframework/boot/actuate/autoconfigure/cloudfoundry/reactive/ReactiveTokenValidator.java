@@ -51,11 +51,11 @@ class ReactiveTokenValidator {
 	}
 
 	Mono<Void> validate(Token token) {
-		return validateAlgorithm(token).then(validateKeyIdAndSignature(token)).then(validateExpiry(token))
+		return validateAlgorithm_RENAMED(token).then(validateKeyIdAndSignature(token)).then(validateExpiry(token))
 				.then(validateIssuer(token)).then(validateAudience(token));
 	}
 
-	private Mono<Void> validateAlgorithm(Token token) {
+	private Mono<Void> validateAlgorithm_RENAMED(Token token) {
 		String algorithm = token.getSignatureAlgorithm();
 		if (algorithm == null) {
 			return Mono.error(new CloudFoundryAuthorizationException(Reason.INVALID_SIGNATURE,
