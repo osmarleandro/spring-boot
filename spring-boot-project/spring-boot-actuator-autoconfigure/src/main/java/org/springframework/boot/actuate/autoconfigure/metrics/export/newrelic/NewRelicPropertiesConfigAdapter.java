@@ -66,7 +66,7 @@ public class NewRelicPropertiesConfigAdapter extends StepRegistryPropertiesConfi
 	}
 
 	@Override
-	public String uri() {
+	public String uri_RENAMED() {
 		return get(NewRelicProperties::getUri, NewRelicConfig.super::uri);
 	}
 
