@@ -49,7 +49,7 @@ public abstract class HealthProperties {
 	 */
 	private Set<String> roles = new HashSet<>();
 
-	public Status getStatus() {
+	public Status getStatus_RENAMED() {
 		return this.status;
 	}
 

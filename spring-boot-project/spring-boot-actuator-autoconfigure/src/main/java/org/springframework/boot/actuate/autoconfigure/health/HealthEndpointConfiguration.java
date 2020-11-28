@@ -58,13 +58,13 @@ class HealthEndpointConfiguration {
 	@Bean
 	@ConditionalOnMissingBean
 	StatusAggregator healthStatusAggregator(HealthEndpointProperties properties) {
-		return new SimpleStatusAggregator(properties.getStatus().getOrder());
+		return new SimpleStatusAggregator(properties.getStatus_RENAMED().getOrder());
 	}
 
 	@Bean
 	@ConditionalOnMissingBean
 	HttpCodeStatusMapper healthHttpCodeStatusMapper(HealthEndpointProperties properties) {
-		return new SimpleHttpCodeStatusMapper(properties.getStatus().getHttpMapping());
+		return new SimpleHttpCodeStatusMapper(properties.getStatus_RENAMED().getHttpMapping());
 	}
 
 	@Bean
