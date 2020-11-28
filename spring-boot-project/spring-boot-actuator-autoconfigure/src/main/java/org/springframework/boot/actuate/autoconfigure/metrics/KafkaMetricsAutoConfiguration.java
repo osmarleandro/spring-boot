@@ -54,7 +54,7 @@ import org.springframework.kafka.streams.KafkaStreamsMicrometerListener;
 public class KafkaMetricsAutoConfiguration {
 
 	@Bean
-	public DefaultKafkaProducerFactoryCustomizer kafkaProducerMetrics(MeterRegistry meterRegistry) {
+	public DefaultKafkaProducerFactoryCustomizer kafkaProducerMetrics_RENAMED(MeterRegistry meterRegistry) {
 		return (producerFactory) -> addListener(producerFactory, meterRegistry);
 	}
 
