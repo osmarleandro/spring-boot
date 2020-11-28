@@ -53,7 +53,7 @@ public final class ServiceLevelObjectiveBoundary {
 	 * @param value the source value
 	 * @return a {@link ServiceLevelObjectiveBoundary} instance
 	 */
-	public static ServiceLevelObjectiveBoundary valueOf(double value) {
+	public static ServiceLevelObjectiveBoundary valueOf_RENAMED(double value) {
 		return new ServiceLevelObjectiveBoundary(MeterValue.valueOf(value));
 	}
 

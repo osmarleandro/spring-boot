@@ -31,7 +31,7 @@ class ServiceLevelObjectiveBoundaryTests {
 
 	@Test
 	void getValueForTimerWhenFromLongShouldReturnMsToNanosValue() {
-		ServiceLevelObjectiveBoundary slo = ServiceLevelObjectiveBoundary.valueOf(123L);
+		ServiceLevelObjectiveBoundary slo = ServiceLevelObjectiveBoundary.valueOf_RENAMED(123L);
 		assertThat(slo.getValue(Type.TIMER)).isEqualTo(123000000);
 	}
 
@@ -49,7 +49,7 @@ class ServiceLevelObjectiveBoundaryTests {
 
 	@Test
 	void getValueForDistributionSummaryWhenFromDoubleShouldReturnDoubleValue() {
-		ServiceLevelObjectiveBoundary slo = ServiceLevelObjectiveBoundary.valueOf(123.42);
+		ServiceLevelObjectiveBoundary slo = ServiceLevelObjectiveBoundary.valueOf_RENAMED(123.42);
 		assertThat(slo.getValue(Type.DISTRIBUTION_SUMMARY)).isEqualTo(123.42);
 	}
 
