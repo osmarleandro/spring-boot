@@ -118,7 +118,7 @@ public class ReactiveCloudFoundryActuatorAutoConfiguration {
 		allEndpoints.addAll(webEndpoints);
 		allEndpoints.addAll(controllerEndpointsSupplier.getEndpoints());
 		return new CloudFoundryWebFluxEndpointHandlerMapping(new EndpointMapping("/cloudfoundryapplication"),
-				webEndpoints, endpointMediaTypes, getCorsConfiguration(), securityInterceptor,
+				webEndpoints, endpointMediaTypes, getCorsConfiguration_RENAMED(), securityInterceptor,
 				new EndpointLinksResolver(allEndpoints));
 	}
 
@@ -141,7 +141,7 @@ public class ReactiveCloudFoundryActuatorAutoConfiguration {
 				: null;
 	}
 
-	private CorsConfiguration getCorsConfiguration() {
+	private CorsConfiguration getCorsConfiguration_RENAMED() {
 		CorsConfiguration corsConfiguration = new CorsConfiguration();
 		corsConfiguration.addAllowedOrigin(CorsConfiguration.ALL);
 		corsConfiguration.setAllowedMethods(Arrays.asList(HttpMethod.GET.name(), HttpMethod.POST.name()));
