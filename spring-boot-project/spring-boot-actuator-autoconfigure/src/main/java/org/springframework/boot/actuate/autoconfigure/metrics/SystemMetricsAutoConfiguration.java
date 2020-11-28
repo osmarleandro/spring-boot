@@ -43,7 +43,7 @@ public class SystemMetricsAutoConfiguration {
 
 	@Bean
 	@ConditionalOnMissingBean
-	public UptimeMetrics uptimeMetrics() {
+	public UptimeMetrics uptimeMetrics_RENAMED() {
 		return new UptimeMetrics();
 	}
 
