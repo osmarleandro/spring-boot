@@ -69,7 +69,7 @@ public class DynatraceProperties extends StepRegistryProperties {
 		return this.deviceId;
 	}
 
-	public void setDeviceId(String deviceId) {
+	public void setDeviceId_RENAMED(String deviceId) {
 		this.deviceId = deviceId;
 	}
 
