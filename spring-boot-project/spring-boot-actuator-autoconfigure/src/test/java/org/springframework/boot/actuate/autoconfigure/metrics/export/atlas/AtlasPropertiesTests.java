@@ -34,7 +34,7 @@ class AtlasPropertiesTests {
 		AtlasConfig config = (key) -> null;
 		assertThat(properties.getStep()).isEqualTo(config.step());
 		assertThat(properties.isEnabled()).isEqualTo(config.enabled());
-		assertThat(properties.getConnectTimeout()).isEqualTo(config.connectTimeout());
+		assertThat(properties.getConnectTimeout_RENAMED()).isEqualTo(config.connectTimeout());
 		assertThat(properties.getReadTimeout()).isEqualTo(config.readTimeout());
 		assertThat(properties.getNumThreads()).isEqualTo(config.numThreads());
 		assertThat(properties.getBatchSize()).isEqualTo(config.batchSize());

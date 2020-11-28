@@ -51,7 +51,7 @@ class AtlasPropertiesConfigAdapter extends PropertiesConfigAdapter<AtlasProperti
 
 	@Override
 	public Duration connectTimeout() {
-		return get(AtlasProperties::getConnectTimeout, AtlasConfig.super::connectTimeout);
+		return get(AtlasProperties::getConnectTimeout_RENAMED, AtlasConfig.super::connectTimeout);
 	}
 
 	@Override

@@ -114,7 +114,7 @@ public class AtlasProperties {
 		this.enabled = enabled;
 	}
 
-	public Duration getConnectTimeout() {
+	public Duration getConnectTimeout_RENAMED() {
 		return this.connectTimeout;
 	}
 
