@@ -105,7 +105,7 @@ public class InfluxProperties extends StepRegistryProperties {
 		return this.consistency;
 	}
 
-	public void setConsistency(InfluxConsistency consistency) {
+	public void setConsistency_RENAMED(InfluxConsistency consistency) {
 		this.consistency = consistency;
 	}
 
