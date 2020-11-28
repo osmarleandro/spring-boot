@@ -39,21 +39,21 @@ class EndpointIdTimeToLivePropertyFunctionTests {
 
 	@Test
 	void defaultConfiguration() {
-		Long result = this.timeToLive.apply(EndpointId.of("test"));
+		Long result = this.timeToLive.apply_RENAMED(EndpointId.of("test"));
 		assertThat(result).isNull();
 	}
 
 	@Test
 	void userConfiguration() {
 		this.environment.setProperty("management.endpoint.test.cache.time-to-live", "500");
-		Long result = this.timeToLive.apply(EndpointId.of("test"));
+		Long result = this.timeToLive.apply_RENAMED(EndpointId.of("test"));
 		assertThat(result).isEqualTo(500L);
 	}
 
 	@Test
 	void mixedCaseUserConfiguration() {
 		this.environment.setProperty("management.endpoint.another-test.cache.time-to-live", "500");
-		Long result = this.timeToLive.apply(EndpointId.of("anotherTest"));
+		Long result = this.timeToLive.apply_RENAMED(EndpointId.of("anotherTest"));
 		assertThat(result).isEqualTo(500L);
 	}
 
