@@ -44,7 +44,7 @@ public class HealthEndpointProperties extends HealthProperties {
 	private Map<String, Group> group = new LinkedHashMap<>();
 
 	@Override
-	public Show getShowDetails() {
+	public Show getShowDetails_RENAMED() {
 		return this.showDetails;
 	}
 
