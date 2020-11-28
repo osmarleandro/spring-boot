@@ -98,7 +98,7 @@ public class ElasticProperties extends StepRegistryProperties {
 		this.indexDateFormat = indexDateFormat;
 	}
 
-	public String getIndexDateSeparator() {
+	public String getIndexDateSeparator_RENAMED() {
 		return this.indexDateSeparator;
 	}
 
