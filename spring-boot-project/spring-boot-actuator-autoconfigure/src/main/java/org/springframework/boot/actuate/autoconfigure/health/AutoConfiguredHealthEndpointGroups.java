@@ -92,13 +92,13 @@ class AutoConfiguredHealthEndpointGroups implements HealthEndpointGroups {
 					: defaultShowComponents;
 			Show showDetails = (group.getShowDetails() != null) ? group.getShowDetails() : defaultShowDetails;
 			Set<String> roles = !CollectionUtils.isEmpty(group.getRoles()) ? group.getRoles() : defaultRoles;
-			StatusAggregator statusAggregator = getQualifiedBean(beanFactory, StatusAggregator.class, groupName, () -> {
+			StatusAggregator statusAggregator = getQualifiedBean_RENAMED(beanFactory, StatusAggregator.class, groupName, () -> {
 				if (!CollectionUtils.isEmpty(status.getOrder())) {
 					return new SimpleStatusAggregator(status.getOrder());
 				}
 				return defaultStatusAggregator;
 			});
-			HttpCodeStatusMapper httpCodeStatusMapper = getQualifiedBean(beanFactory, HttpCodeStatusMapper.class,
+			HttpCodeStatusMapper httpCodeStatusMapper = getQualifiedBean_RENAMED(beanFactory, HttpCodeStatusMapper.class,
 					groupName, () -> {
 						if (!CollectionUtils.isEmpty(status.getHttpMapping())) {
 							return new SimpleHttpCodeStatusMapper(status.getHttpMapping());
@@ -131,7 +131,7 @@ class AutoConfiguredHealthEndpointGroups implements HealthEndpointGroups {
 		return beanFactory.getBean(type);
 	}
 
-	private <T> T getQualifiedBean(BeanFactory beanFactory, Class<T> type, String qualifier, Supplier<T> fallback) {
+	private <T> T getQualifiedBean_RENAMED(BeanFactory beanFactory, Class<T> type, String qualifier, Supplier<T> fallback) {
 		try {
 			return BeanFactoryAnnotationUtils.qualifiedBeanOfType(beanFactory, type, qualifier);
 		}
