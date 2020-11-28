@@ -59,7 +59,7 @@ class GangliaPropertiesConfigAdapter extends PropertiesConfigAdapter<GangliaProp
 	@Override
 	@Deprecated
 	public TimeUnit rateUnits() {
-		return get(GangliaProperties::getRateUnits, GangliaConfig.super::rateUnits);
+		return get(GangliaProperties::getRateUnits_RENAMED, GangliaConfig.super::rateUnits);
 	}
 
 	@Override

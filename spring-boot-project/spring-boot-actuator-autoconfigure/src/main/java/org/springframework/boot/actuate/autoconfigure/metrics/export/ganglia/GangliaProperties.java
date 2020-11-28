@@ -99,7 +99,7 @@ public class GangliaProperties {
 
 	@Deprecated
 	@DeprecatedConfigurationProperty(reason = "No longer used by Micrometer.")
-	public TimeUnit getRateUnits() {
+	public TimeUnit getRateUnits_RENAMED() {
 		return this.rateUnits;
 	}
 
