@@ -52,7 +52,7 @@ public class LogbackMetricsAutoConfiguration {
 
 	@Bean
 	@ConditionalOnMissingBean
-	public LogbackMetrics logbackMetrics() {
+	public LogbackMetrics logbackMetrics_RENAMED() {
 		return new LogbackMetrics();
 	}
 
