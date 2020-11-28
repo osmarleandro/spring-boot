@@ -62,7 +62,7 @@ class AvailabilityProbesHealthEndpointGroupTests {
 
 	@Test
 	void getHttpCodeStatusMapperReturnsDefaultHttpCodeStatusMapper() {
-		assertThat(this.group.getHttpCodeStatusMapper()).isEqualTo(HttpCodeStatusMapper.DEFAULT);
+		assertThat(this.group.getHttpCodeStatusMapper_RENAMED()).isEqualTo(HttpCodeStatusMapper.DEFAULT);
 	}
 
 }

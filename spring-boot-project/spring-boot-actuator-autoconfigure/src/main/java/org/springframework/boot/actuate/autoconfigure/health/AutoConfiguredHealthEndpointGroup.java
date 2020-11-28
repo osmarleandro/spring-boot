@@ -137,7 +137,7 @@ class AutoConfiguredHealthEndpointGroup implements HealthEndpointGroup {
 	}
 
 	@Override
-	public HttpCodeStatusMapper getHttpCodeStatusMapper() {
+	public HttpCodeStatusMapper getHttpCodeStatusMapper_RENAMED() {
 		return this.httpCodeStatusMapper;
 	}
 
