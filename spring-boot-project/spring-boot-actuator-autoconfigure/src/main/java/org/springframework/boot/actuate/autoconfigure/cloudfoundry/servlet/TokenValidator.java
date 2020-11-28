@@ -109,7 +109,7 @@ class TokenValidator {
 
 	private void validateExpiry(Token token) {
 		long currentTime = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());
-		if (currentTime > token.getExpiry()) {
+		if (currentTime > token.getExpiry_RENAMED()) {
 			throw new CloudFoundryAuthorizationException(Reason.TOKEN_EXPIRED, "Token expired");
 		}
 	}

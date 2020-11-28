@@ -75,7 +75,7 @@ class TokenTests {
 				+ Base64Utils.encodeToString(claims.getBytes());
 		String signature = Base64Utils.encodeToString("signature".getBytes());
 		Token token = new Token(content + "." + signature);
-		assertThat(token.getExpiry()).isEqualTo(2147483647);
+		assertThat(token.getExpiry_RENAMED()).isEqualTo(2147483647);
 		assertThat(token.getIssuer()).isEqualTo("http://localhost:8080/uaa/oauth/token");
 		assertThat(token.getSignatureAlgorithm()).isEqualTo("RS256");
 		assertThat(token.getKeyId()).isEqualTo("key-id");
@@ -115,7 +115,7 @@ class TokenTests {
 		String header = "{\"alg\": \"RS256\",  \"kid\": \"key-id\", \"typ\": \"JWT\"}";
 		String claims = "{\"iss\": \"http://localhost:8080/uaa/oauth/token\"}";
 		Token token = createToken(header, claims);
-		assertThatExceptionOfType(CloudFoundryAuthorizationException.class).isThrownBy(token::getExpiry)
+		assertThatExceptionOfType(CloudFoundryAuthorizationException.class).isThrownBy(token::getExpiry_RENAMED)
 				.satisfies(reasonRequirement(Reason.INVALID_TOKEN));
 	}
 

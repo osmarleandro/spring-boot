@@ -115,7 +115,7 @@ class ReactiveTokenValidator {
 
 	private Mono<Void> validateExpiry(Token token) {
 		long currentTime = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());
-		if (currentTime > token.getExpiry()) {
+		if (currentTime > token.getExpiry_RENAMED()) {
 			return Mono.error(new CloudFoundryAuthorizationException(Reason.TOKEN_EXPIRED, "Token expired"));
 		}
 		return Mono.empty();

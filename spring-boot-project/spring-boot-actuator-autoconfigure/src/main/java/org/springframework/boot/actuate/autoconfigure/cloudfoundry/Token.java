@@ -84,7 +84,7 @@ public class Token {
 		return getRequired(this.claims, "iss", String.class);
 	}
 
-	public long getExpiry() {
+	public long getExpiry_RENAMED() {
 		return getRequired(this.claims, "exp", Integer.class).longValue();
 	}
 
