@@ -122,7 +122,7 @@ public class CloudFoundryActuatorAutoConfiguration {
 		allEndpoints.addAll(servletEndpointsSupplier.getEndpoints());
 		allEndpoints.addAll(controllerEndpointsSupplier.getEndpoints());
 		return new CloudFoundryWebEndpointServletHandlerMapping(new EndpointMapping("/cloudfoundryapplication"),
-				webEndpoints, endpointMediaTypes, getCorsConfiguration(), securityInterceptor,
+				webEndpoints, endpointMediaTypes, getCorsConfiguration_RENAMED(), securityInterceptor,
 				new EndpointLinksResolver(allEndpoints));
 	}
 
@@ -144,7 +144,7 @@ public class CloudFoundryActuatorAutoConfiguration {
 				? new CloudFoundrySecurityService(restTemplateBuilder, cloudControllerUrl, skipSslValidation) : null;
 	}
 
-	private CorsConfiguration getCorsConfiguration() {
+	private CorsConfiguration getCorsConfiguration_RENAMED() {
 		CorsConfiguration corsConfiguration = new CorsConfiguration();
 		corsConfiguration.addAllowedOrigin(CorsConfiguration.ALL);
 		corsConfiguration.setAllowedMethods(Arrays.asList(HttpMethod.GET.name(), HttpMethod.POST.name()));
