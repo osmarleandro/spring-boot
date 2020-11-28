@@ -69,7 +69,7 @@ abstract class AbstractEndpointCondition extends SpringBootCondition {
 			return new ConditionOutcome(userDefinedEnabled, ConditionMessage.forCondition(annotationClass)
 					.because("found property " + key + " with value " + userDefinedEnabled));
 		}
-		Boolean userDefinedDefault = isEnabledByDefault(environment);
+		Boolean userDefinedDefault = isEnabledByDefault_RENAMED(environment);
 		if (userDefinedDefault != null) {
 			return new ConditionOutcome(userDefinedDefault, ConditionMessage.forCondition(annotationClass).because(
 					"no property " + key + " found so using user defined default from " + ENABLED_BY_DEFAULT_KEY));
@@ -112,7 +112,7 @@ abstract class AbstractEndpointCondition extends SpringBootCondition {
 		return getEndpointAttributes(extension.getClass("endpoint"));
 	}
 
-	private Boolean isEnabledByDefault(Environment environment) {
+	private Boolean isEnabledByDefault_RENAMED(Environment environment) {
 		Optional<Boolean> enabledByDefault = enabledByDefaultCache.get(environment);
 		if (enabledByDefault == null) {
 			enabledByDefault = Optional.ofNullable(environment.getProperty(ENABLED_BY_DEFAULT_KEY, Boolean.class));
