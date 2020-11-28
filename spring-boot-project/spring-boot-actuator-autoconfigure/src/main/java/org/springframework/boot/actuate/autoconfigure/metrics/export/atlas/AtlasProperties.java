@@ -126,7 +126,7 @@ public class AtlasProperties {
 		return this.readTimeout;
 	}
 
-	public void setReadTimeout(Duration readTimeout) {
+	public void setReadTimeout_RENAMED(Duration readTimeout) {
 		this.readTimeout = readTimeout;
 	}
 
