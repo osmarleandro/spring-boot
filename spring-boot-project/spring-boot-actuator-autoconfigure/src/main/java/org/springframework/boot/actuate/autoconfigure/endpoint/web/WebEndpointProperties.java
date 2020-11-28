@@ -68,7 +68,7 @@ public class WebEndpointProperties {
 		return basePath;
 	}
 
-	public Map<String, String> getPathMapping() {
+	public Map<String, String> getPathMapping_RENAMED() {
 		return this.pathMapping;
 	}
 
