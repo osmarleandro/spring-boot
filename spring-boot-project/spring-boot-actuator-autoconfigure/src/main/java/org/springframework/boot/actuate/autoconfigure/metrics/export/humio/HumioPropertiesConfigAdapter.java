@@ -54,7 +54,7 @@ class HumioPropertiesConfigAdapter extends StepRegistryPropertiesConfigAdapter<H
 	}
 
 	@Override
-	public String apiToken() {
+	public String apiToken_RENAMED() {
 		return get(HumioProperties::getApiToken, HumioConfig.super::apiToken);
 	}
 
