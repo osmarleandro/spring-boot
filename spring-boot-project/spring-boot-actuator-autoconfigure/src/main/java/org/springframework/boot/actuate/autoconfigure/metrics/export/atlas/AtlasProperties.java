@@ -162,7 +162,7 @@ public class AtlasProperties {
 		this.meterTimeToLive = meterTimeToLive;
 	}
 
-	public boolean isLwcEnabled() {
+	public boolean isLwcEnabled_RENAMED() {
 		return this.lwcEnabled;
 	}
 
