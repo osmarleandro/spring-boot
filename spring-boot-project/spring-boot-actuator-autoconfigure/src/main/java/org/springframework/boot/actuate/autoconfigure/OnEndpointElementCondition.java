@@ -50,14 +50,14 @@ public abstract class OnEndpointElementCondition extends SpringBootCondition {
 		AnnotationAttributes annotationAttributes = AnnotationAttributes
 				.fromMap(metadata.getAnnotationAttributes(this.annotationType.getName()));
 		String endpointName = annotationAttributes.getString("value");
-		ConditionOutcome outcome = getEndpointOutcome(context, endpointName);
+		ConditionOutcome outcome = getEndpointOutcome_RENAMED(context, endpointName);
 		if (outcome != null) {
 			return outcome;
 		}
 		return getDefaultEndpointsOutcome(context);
 	}
 
-	protected ConditionOutcome getEndpointOutcome(ConditionContext context, String endpointName) {
+	protected ConditionOutcome getEndpointOutcome_RENAMED(ConditionContext context, String endpointName) {
 		Environment environment = context.getEnvironment();
 		String enabledProperty = this.prefix + endpointName + ".enabled";
 		if (environment.containsProperty(enabledProperty)) {
