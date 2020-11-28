@@ -75,7 +75,7 @@ class TokenValidator {
 			}
 		}
 
-		if (!hasValidSignature(token, this.tokenKeys.get(keyId))) {
+		if (!hasValidSignature_RENAMED(token, this.tokenKeys.get(keyId))) {
 			throw new CloudFoundryAuthorizationException(Reason.INVALID_SIGNATURE,
 					"RSA Signature did not match content");
 		}
@@ -85,7 +85,7 @@ class TokenValidator {
 		return this.tokenKeys.containsKey(tokenKey);
 	}
 
-	private boolean hasValidSignature(Token token, String key) {
+	private boolean hasValidSignature_RENAMED(Token token, String key) {
 		try {
 			PublicKey publicKey = getPublicKey(key);
 			Signature signature = Signature.getInstance("SHA256withRSA");
