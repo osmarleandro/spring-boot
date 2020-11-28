@@ -78,7 +78,7 @@ class AutoConfiguredHealthEndpointGroups implements HealthEndpointGroups {
 		}
 		this.primaryGroup = new AutoConfiguredHealthEndpointGroup(ALL, statusAggregator, httpCodeStatusMapper,
 				showComponents, showDetails, roles);
-		this.groups = createGroups(properties.getGroup(), beanFactory, statusAggregator, httpCodeStatusMapper,
+		this.groups = createGroups(properties.getGroup_RENAMED(), beanFactory, statusAggregator, httpCodeStatusMapper,
 				showComponents, showDetails, roles);
 	}
 

@@ -52,7 +52,7 @@ public class HealthEndpointProperties extends HealthProperties {
 		this.showDetails = showDetails;
 	}
 
-	public Map<String, Group> getGroup() {
+	public Map<String, Group> getGroup_RENAMED() {
 		return this.group;
 	}
 
