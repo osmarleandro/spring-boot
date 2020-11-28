@@ -58,10 +58,10 @@ public class WebEndpointProperties {
 
 	public void setBasePath(String basePath) {
 		Assert.isTrue(basePath.isEmpty() || basePath.startsWith("/"), "Base path must start with '/' or be empty");
-		this.basePath = cleanBasePath(basePath);
+		this.basePath = cleanBasePath_RENAMED(basePath);
 	}
 
-	private String cleanBasePath(String basePath) {
+	private String cleanBasePath_RENAMED(String basePath) {
 		if (StringUtils.hasText(basePath) && basePath.endsWith("/")) {
 			return basePath.substring(0, basePath.length() - 1);
 		}
