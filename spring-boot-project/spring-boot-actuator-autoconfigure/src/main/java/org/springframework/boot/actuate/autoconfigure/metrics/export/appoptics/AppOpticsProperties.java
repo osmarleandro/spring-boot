@@ -79,7 +79,7 @@ public class AppOpticsProperties extends StepRegistryProperties {
 		this.apiToken = apiToken;
 	}
 
-	public String getHostTag() {
+	public String getHostTag_RENAMED() {
 		return this.hostTag;
 	}
 
