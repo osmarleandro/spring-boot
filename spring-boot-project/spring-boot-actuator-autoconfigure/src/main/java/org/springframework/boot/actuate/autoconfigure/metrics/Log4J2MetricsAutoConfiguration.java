@@ -50,7 +50,7 @@ public class Log4J2MetricsAutoConfiguration {
 
 	@Bean
 	@ConditionalOnMissingBean
-	public Log4j2Metrics log4j2Metrics() {
+	public Log4j2Metrics log4j2Metrics_RENAMED() {
 		return new Log4j2Metrics();
 	}
 
