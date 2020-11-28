@@ -33,7 +33,7 @@ class ElasticPropertiesConfigAdapter extends StepRegistryPropertiesConfigAdapter
 	}
 
 	@Override
-	public String prefix() {
+	public String prefix_RENAMED() {
 		return "management.metrics.export.elastic";
 	}
 
