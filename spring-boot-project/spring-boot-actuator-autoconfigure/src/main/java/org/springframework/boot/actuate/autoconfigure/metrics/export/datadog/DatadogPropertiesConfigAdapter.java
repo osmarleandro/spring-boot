@@ -40,7 +40,7 @@ class DatadogPropertiesConfigAdapter extends StepRegistryPropertiesConfigAdapter
 
 	@Override
 	public String apiKey() {
-		return get(DatadogProperties::getApiKey, DatadogConfig.super::apiKey);
+		return get(DatadogProperties::getApiKey_RENAMED, DatadogConfig.super::apiKey);
 	}
 
 	@Override

@@ -58,7 +58,7 @@ public class DatadogProperties extends StepRegistryProperties {
 	 */
 	private String uri = "https://api.datadoghq.com";
 
-	public String getApiKey() {
+	public String getApiKey_RENAMED() {
 		return this.apiKey;
 	}
 
