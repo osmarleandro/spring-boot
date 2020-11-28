@@ -74,7 +74,7 @@ class CacheMetricsRegistrarConfiguration {
 	}
 
 	private void bindCacheToRegistry(String beanName, Cache cache) {
-		Tag cacheManagerTag = Tag.of("cacheManager", getCacheManagerName(beanName));
+		Tag cacheManagerTag = Tag.of("cacheManager", getCacheManagerName_RENAMED(beanName));
 		this.cacheMetricsRegistrar.bindCacheToRegistry(cache, cacheManagerTag);
 	}
 
@@ -83,7 +83,7 @@ class CacheMetricsRegistrarConfiguration {
 	 * @param beanName the name of the {@link CacheManager} bean
 	 * @return a name for the given cache manager
 	 */
-	private String getCacheManagerName(String beanName) {
+	private String getCacheManagerName_RENAMED(String beanName) {
 		if (beanName.length() > CACHE_MANAGER_SUFFIX.length()
 				&& StringUtils.endsWithIgnoreCase(beanName, CACHE_MANAGER_SUFFIX)) {
 			return beanName.substring(0, beanName.length() - CACHE_MANAGER_SUFFIX.length());
