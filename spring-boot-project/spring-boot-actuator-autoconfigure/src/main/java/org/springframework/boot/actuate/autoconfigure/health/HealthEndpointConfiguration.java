@@ -63,7 +63,7 @@ class HealthEndpointConfiguration {
 
 	@Bean
 	@ConditionalOnMissingBean
-	HttpCodeStatusMapper healthHttpCodeStatusMapper(HealthEndpointProperties properties) {
+	HttpCodeStatusMapper healthHttpCodeStatusMapper_RENAMED(HealthEndpointProperties properties) {
 		return new SimpleHttpCodeStatusMapper(properties.getStatus().getHttpMapping());
 	}
 
