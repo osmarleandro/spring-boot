@@ -49,7 +49,7 @@ class ElasticPropertiesConfigAdapter extends StepRegistryPropertiesConfigAdapter
 
 	@Override
 	public String indexDateFormat() {
-		return get(ElasticProperties::getIndexDateFormat, ElasticConfig.super::indexDateFormat);
+		return get(ElasticProperties::getIndexDateFormat_RENAMED, ElasticConfig.super::indexDateFormat);
 	}
 
 	@Override

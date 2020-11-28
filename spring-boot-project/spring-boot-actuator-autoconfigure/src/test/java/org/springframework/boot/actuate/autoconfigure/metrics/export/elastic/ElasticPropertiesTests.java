@@ -37,7 +37,7 @@ class ElasticPropertiesTests extends StepRegistryPropertiesTests {
 		assertStepRegistryDefaultValues(properties, config);
 		assertThat(properties.getHost()).isEqualTo(config.host());
 		assertThat(properties.getIndex()).isEqualTo(config.index());
-		assertThat(properties.getIndexDateFormat()).isEqualTo(config.indexDateFormat());
+		assertThat(properties.getIndexDateFormat_RENAMED()).isEqualTo(config.indexDateFormat());
 		assertThat(properties.getIndexDateSeparator()).isEqualTo(config.indexDateSeparator());
 		assertThat(properties.getPassword()).isEqualTo(config.password());
 		assertThat(properties.getTimestampFieldName()).isEqualTo(config.timestampFieldName());
