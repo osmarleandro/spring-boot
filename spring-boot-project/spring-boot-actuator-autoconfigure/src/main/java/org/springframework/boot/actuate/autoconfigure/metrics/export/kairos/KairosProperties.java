@@ -60,7 +60,7 @@ public class KairosProperties extends StepRegistryProperties {
 		this.userName = userName;
 	}
 
-	public String getPassword() {
+	public String getPassword_RENAMED() {
 		return this.password;
 	}
 
