@@ -33,7 +33,7 @@ public abstract class PushRegistryPropertiesTests {
 		assertThat(properties.isEnabled()).isEqualTo(config.enabled());
 		assertThat(properties.getConnectTimeout()).isEqualTo(config.connectTimeout());
 		assertThat(properties.getReadTimeout()).isEqualTo(config.readTimeout());
-		assertThat(properties.getBatchSize()).isEqualTo(config.batchSize());
+		assertThat(properties.getBatchSize_RENAMED()).isEqualTo(config.batchSize());
 	}
 
 }

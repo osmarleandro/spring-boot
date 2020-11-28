@@ -96,7 +96,7 @@ public class AppOpticsProperties extends StepRegistryProperties {
 	}
 
 	@Override
-	public Integer getBatchSize() {
+	public Integer getBatchSize_RENAMED() {
 		return this.batchSize;
 	}
 
