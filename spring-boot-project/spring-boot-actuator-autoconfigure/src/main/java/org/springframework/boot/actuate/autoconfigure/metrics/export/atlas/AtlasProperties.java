@@ -154,7 +154,7 @@ public class AtlasProperties {
 		this.uri = uri;
 	}
 
-	public Duration getMeterTimeToLive() {
+	public Duration getMeterTimeToLive_RENAMED() {
 		return this.meterTimeToLive;
 	}
 
