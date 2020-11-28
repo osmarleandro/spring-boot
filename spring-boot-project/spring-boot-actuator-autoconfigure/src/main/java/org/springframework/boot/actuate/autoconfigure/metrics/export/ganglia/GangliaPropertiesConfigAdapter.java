@@ -75,7 +75,7 @@ class GangliaPropertiesConfigAdapter extends PropertiesConfigAdapter<GangliaProp
 
 	@Override
 	public GMetric.UDPAddressingMode addressingMode() {
-		return get(GangliaProperties::getAddressingMode, GangliaConfig.super::addressingMode);
+		return get(GangliaProperties::getAddressingMode_RENAMED, GangliaConfig.super::addressingMode);
 	}
 
 	@Override

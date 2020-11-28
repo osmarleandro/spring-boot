@@ -127,7 +127,7 @@ public class GangliaProperties {
 		this.protocolVersion = protocolVersion;
 	}
 
-	public GMetric.UDPAddressingMode getAddressingMode() {
+	public GMetric.UDPAddressingMode getAddressingMode_RENAMED() {
 		return this.addressingMode;
 	}
 
