@@ -37,7 +37,7 @@ import org.springframework.context.annotation.Configuration;
 class NoOpMeterRegistryConfiguration {
 
 	@Bean
-	CompositeMeterRegistry noOpMeterRegistry(Clock clock) {
+	CompositeMeterRegistry noOpMeterRegistry_RENAMED(Clock clock) {
 		return new CompositeMeterRegistry(clock);
 	}
 
