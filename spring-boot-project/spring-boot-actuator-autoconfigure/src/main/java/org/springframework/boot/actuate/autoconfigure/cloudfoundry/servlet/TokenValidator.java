@@ -48,7 +48,7 @@ class TokenValidator {
 
 	void validate(Token token) {
 		validateAlgorithm(token);
-		validateKeyIdAndSignature(token);
+		validateKeyIdAndSignature_RENAMED(token);
 		validateExpiry(token);
 		validateIssuer(token);
 		validateAudience(token);
@@ -65,7 +65,7 @@ class TokenValidator {
 		}
 	}
 
-	private void validateKeyIdAndSignature(Token token) {
+	private void validateKeyIdAndSignature_RENAMED(Token token) {
 		String keyId = token.getKeyId();
 		if (this.tokenKeys == null || !hasValidKeyId(keyId)) {
 			this.tokenKeys = this.securityService.fetchTokenKeys();
