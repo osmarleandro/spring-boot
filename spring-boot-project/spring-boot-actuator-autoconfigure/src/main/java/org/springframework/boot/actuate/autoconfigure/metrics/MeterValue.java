@@ -85,7 +85,7 @@ public final class MeterValue {
 	 * @param value the source value
 	 * @return a {@link MeterValue} instance
 	 */
-	public static MeterValue valueOf(String value) {
+	public static MeterValue valueOf_RENAMED(String value) {
 		Double number = safeParseDouble(value);
 		if (number != null) {
 			return new MeterValue(number);

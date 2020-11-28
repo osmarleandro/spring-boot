@@ -42,13 +42,13 @@ class MeterValueTests {
 
 	@Test
 	void getValueForDistributionSummaryWhenFromNumberStringShouldReturnDoubleValue() {
-		MeterValue meterValue = MeterValue.valueOf("123");
+		MeterValue meterValue = MeterValue.valueOf_RENAMED("123");
 		assertThat(meterValue.getValue(Type.DISTRIBUTION_SUMMARY)).isEqualTo(123);
 	}
 
 	@Test
 	void getValueForDistributionSummaryWhenFromDurationStringShouldReturnNull() {
-		MeterValue meterValue = MeterValue.valueOf("123ms");
+		MeterValue meterValue = MeterValue.valueOf_RENAMED("123ms");
 		assertThat(meterValue.getValue(Type.DISTRIBUTION_SUMMARY)).isNull();
 	}
 
@@ -60,19 +60,19 @@ class MeterValueTests {
 
 	@Test
 	void getValueForTimerWhenFromNumberStringShouldMsToNanosValue() {
-		MeterValue meterValue = MeterValue.valueOf("123");
+		MeterValue meterValue = MeterValue.valueOf_RENAMED("123");
 		assertThat(meterValue.getValue(Type.TIMER)).isEqualTo(123000000);
 	}
 
 	@Test
 	void getValueForTimerWhenFromDurationStringShouldReturnDurationNanos() {
-		MeterValue meterValue = MeterValue.valueOf("123ms");
+		MeterValue meterValue = MeterValue.valueOf_RENAMED("123ms");
 		assertThat(meterValue.getValue(Type.TIMER)).isEqualTo(123000000);
 	}
 
 	@Test
 	void getValueForOthersShouldReturnNull() {
-		MeterValue meterValue = MeterValue.valueOf("123");
+		MeterValue meterValue = MeterValue.valueOf_RENAMED("123");
 		assertThat(meterValue.getValue(Type.COUNTER)).isNull();
 		assertThat(meterValue.getValue(Type.GAUGE)).isNull();
 		assertThat(meterValue.getValue(Type.LONG_TASK_TIMER)).isNull();

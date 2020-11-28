@@ -102,7 +102,7 @@ public class PropertiesMeterFilter implements MeterFilter {
 	}
 
 	private Double convertMeterValue(Meter.Type meterType, String value) {
-		return (value != null) ? MeterValue.valueOf(value).getValue(meterType) : null;
+		return (value != null) ? MeterValue.valueOf_RENAMED(value).getValue(meterType) : null;
 	}
 
 	private <T> T lookup(Map<String, T> values, Id id, T defaultValue) {

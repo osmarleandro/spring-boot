@@ -66,7 +66,7 @@ public final class ServiceLevelAgreementBoundary {
 	 * @return a {@link ServiceLevelAgreementBoundary} instance
 	 */
 	public static ServiceLevelAgreementBoundary valueOf(String value) {
-		return new ServiceLevelAgreementBoundary(MeterValue.valueOf(value));
+		return new ServiceLevelAgreementBoundary(MeterValue.valueOf_RENAMED(value));
 	}
 
 }
