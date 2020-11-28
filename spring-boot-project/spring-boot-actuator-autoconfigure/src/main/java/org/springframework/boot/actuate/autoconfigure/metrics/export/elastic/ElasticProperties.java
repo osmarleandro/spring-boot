@@ -94,7 +94,7 @@ public class ElasticProperties extends StepRegistryProperties {
 		return this.indexDateFormat;
 	}
 
-	public void setIndexDateFormat(String indexDateFormat) {
+	public void setIndexDateFormat_RENAMED(String indexDateFormat) {
 		this.indexDateFormat = indexDateFormat;
 	}
 
