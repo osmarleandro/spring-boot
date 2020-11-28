@@ -78,7 +78,7 @@ public class DatadogProperties extends StepRegistryProperties {
 		return this.descriptions;
 	}
 
-	public void setDescriptions(boolean descriptions) {
+	public void setDescriptions_RENAMED(boolean descriptions) {
 		this.descriptions = descriptions;
 	}
 
