@@ -82,7 +82,7 @@ public class CorsEndpointProperties {
 		return this.allowedMethods;
 	}
 
-	public void setAllowedMethods(List<String> allowedMethods) {
+	public void setAllowedMethods_RENAMED(List<String> allowedMethods) {
 		this.allowedMethods = allowedMethods;
 	}
 
