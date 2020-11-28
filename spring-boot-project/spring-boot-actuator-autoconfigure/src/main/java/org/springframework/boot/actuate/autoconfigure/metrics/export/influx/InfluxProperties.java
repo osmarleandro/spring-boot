@@ -129,7 +129,7 @@ public class InfluxProperties extends StepRegistryProperties {
 		return this.retentionPolicy;
 	}
 
-	public void setRetentionPolicy(String retentionPolicy) {
+	public void setRetentionPolicy_RENAMED(String retentionPolicy) {
 		this.retentionPolicy = retentionPolicy;
 	}
 
