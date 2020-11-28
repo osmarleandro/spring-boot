@@ -60,7 +60,7 @@ public class ConditionsReportEndpoint {
 	}
 
 	@ReadOperation
-	public ApplicationConditionEvaluation applicationConditionEvaluation() {
+	public ApplicationConditionEvaluation applicationConditionEvaluation_RENAMED() {
 		Map<String, ContextConditionEvaluation> contextConditionEvaluations = new HashMap<>();
 		ConfigurableApplicationContext target = this.context;
 		while (target != null) {
