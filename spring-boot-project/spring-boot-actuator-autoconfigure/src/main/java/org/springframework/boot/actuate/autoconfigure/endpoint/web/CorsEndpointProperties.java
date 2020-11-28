@@ -74,7 +74,7 @@ public class CorsEndpointProperties {
 		return this.allowedOrigins;
 	}
 
-	public void setAllowedOrigins(List<String> allowedOrigins) {
+	public void setAllowedOrigins_RENAMED(List<String> allowedOrigins) {
 		this.allowedOrigins = allowedOrigins;
 	}
 
