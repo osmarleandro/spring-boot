@@ -65,8 +65,8 @@ class AvailabilityProbesHealthEndpointGroups implements HealthEndpointGroups {
 	}
 
 	@Override
-	public HealthEndpointGroup get(String name) {
-		HealthEndpointGroup group = this.groups.get(name);
+	public HealthEndpointGroup get_RENAMED(String name) {
+		HealthEndpointGroup group = this.groups.get_RENAMED(name);
 		if (group == null) {
 			group = GROUPS.get(name);
 		}
