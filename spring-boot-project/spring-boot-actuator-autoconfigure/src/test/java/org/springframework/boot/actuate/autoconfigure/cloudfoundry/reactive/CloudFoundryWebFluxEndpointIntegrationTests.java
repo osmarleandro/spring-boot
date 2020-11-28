@@ -83,7 +83,7 @@ class CloudFoundryWebFluxEndpointIntegrationTests {
 
 	@Test
 	void operationWithSecurityInterceptorForbidden() {
-		given(tokenValidator.validate(any())).willReturn(Mono.empty());
+		given(tokenValidator.validate_RENAMED(any())).willReturn(Mono.empty());
 		given(securityService.getAccessLevel(any(), eq("app-id"))).willReturn(Mono.just(AccessLevel.RESTRICTED));
 		this.contextRunner.run(withWebTestClient((client) -> client.get().uri("/cfApplication/test")
 				.accept(MediaType.APPLICATION_JSON).header("Authorization", "bearer " + mockAccessToken()).exchange()
@@ -92,7 +92,7 @@ class CloudFoundryWebFluxEndpointIntegrationTests {
 
 	@Test
 	void operationWithSecurityInterceptorSuccess() {
-		given(tokenValidator.validate(any())).willReturn(Mono.empty());
+		given(tokenValidator.validate_RENAMED(any())).willReturn(Mono.empty());
 		given(securityService.getAccessLevel(any(), eq("app-id"))).willReturn(Mono.just(AccessLevel.FULL));
 		this.contextRunner.run(withWebTestClient((client) -> client.get().uri("/cfApplication/test")
 				.accept(MediaType.APPLICATION_JSON).header("Authorization", "bearer " + mockAccessToken()).exchange()
@@ -110,7 +110,7 @@ class CloudFoundryWebFluxEndpointIntegrationTests {
 
 	@Test
 	void linksToOtherEndpointsWithFullAccess() {
-		given(tokenValidator.validate(any())).willReturn(Mono.empty());
+		given(tokenValidator.validate_RENAMED(any())).willReturn(Mono.empty());
 		given(securityService.getAccessLevel(any(), eq("app-id"))).willReturn(Mono.just(AccessLevel.FULL));
 		this.contextRunner
 				.run(withWebTestClient((client) -> client.get().uri("/cfApplication").accept(MediaType.APPLICATION_JSON)
@@ -127,7 +127,7 @@ class CloudFoundryWebFluxEndpointIntegrationTests {
 	void linksToOtherEndpointsForbidden() {
 		CloudFoundryAuthorizationException exception = new CloudFoundryAuthorizationException(Reason.INVALID_TOKEN,
 				"invalid-token");
-		willThrow(exception).given(tokenValidator).validate(any());
+		willThrow(exception).given(tokenValidator).validate_RENAMED(any());
 		this.contextRunner.run(withWebTestClient((client) -> client.get().uri("/cfApplication")
 				.accept(MediaType.APPLICATION_JSON).header("Authorization", "bearer " + mockAccessToken()).exchange()
 				.expectStatus().isUnauthorized()));
@@ -135,7 +135,7 @@ class CloudFoundryWebFluxEndpointIntegrationTests {
 
 	@Test
 	void linksToOtherEndpointsWithRestrictedAccess() {
-		given(tokenValidator.validate(any())).willReturn(Mono.empty());
+		given(tokenValidator.validate_RENAMED(any())).willReturn(Mono.empty());
 		given(securityService.getAccessLevel(any(), eq("app-id"))).willReturn(Mono.just(AccessLevel.RESTRICTED));
 		this.contextRunner
 				.run(withWebTestClient((client) -> client.get().uri("/cfApplication").accept(MediaType.APPLICATION_JSON)
