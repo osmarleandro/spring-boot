@@ -45,7 +45,7 @@ class ElasticPropertiesConfigAdapterTests {
 	void whenPropertiesIndexDateFormatIsSetAdapterIndexDateFormatReturnsIt() {
 		ElasticProperties properties = new ElasticProperties();
 		properties.setIndexDateFormat("yyyy");
-		assertThat(new ElasticPropertiesConfigAdapter(properties).indexDateFormat()).isEqualTo("yyyy");
+		assertThat(new ElasticPropertiesConfigAdapter(properties).indexDateFormat_RENAMED()).isEqualTo("yyyy");
 	}
 
 	@Test
