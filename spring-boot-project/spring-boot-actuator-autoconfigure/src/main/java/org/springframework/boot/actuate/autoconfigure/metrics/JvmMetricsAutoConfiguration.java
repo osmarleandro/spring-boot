@@ -62,7 +62,7 @@ public class JvmMetricsAutoConfiguration {
 
 	@Bean
 	@ConditionalOnMissingBean
-	public ClassLoaderMetrics classLoaderMetrics() {
+	public ClassLoaderMetrics classLoaderMetrics_RENAMED() {
 		return new ClassLoaderMetrics();
 	}
 
