@@ -60,7 +60,7 @@ class DatadogPropertiesConfigAdapter extends StepRegistryPropertiesConfigAdapter
 
 	@Override
 	public boolean descriptions() {
-		return get(DatadogProperties::isDescriptions, DatadogConfig.super::descriptions);
+		return get(DatadogProperties::isDescriptions_RENAMED, DatadogConfig.super::descriptions);
 	}
 
 }

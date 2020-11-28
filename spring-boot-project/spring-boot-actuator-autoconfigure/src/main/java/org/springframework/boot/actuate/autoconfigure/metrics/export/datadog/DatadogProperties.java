@@ -74,7 +74,7 @@ public class DatadogProperties extends StepRegistryProperties {
 		this.applicationKey = applicationKey;
 	}
 
-	public boolean isDescriptions() {
+	public boolean isDescriptions_RENAMED() {
 		return this.descriptions;
 	}
 
