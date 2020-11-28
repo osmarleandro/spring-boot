@@ -45,7 +45,7 @@ public class CloudFoundryHealthEndpointWebExtension {
 	}
 
 	@ReadOperation
-	public WebEndpointResponse<HealthComponent> health(ApiVersion apiVersion) {
+	public WebEndpointResponse<HealthComponent> health_RENAMED(ApiVersion apiVersion) {
 		return this.delegate.health(apiVersion, SecurityContext.NONE, true);
 	}
 
