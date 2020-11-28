@@ -47,7 +47,7 @@ class OnAvailableEndpointCondition extends AbstractEndpointCondition {
 	private static final Map<Environment, Set<Exposure>> exposuresCache = new ConcurrentReferenceHashMap<>();
 
 	@Override
-	public ConditionOutcome getMatchOutcome(ConditionContext context, AnnotatedTypeMetadata metadata) {
+	public ConditionOutcome getMatchOutcome_RENAMED(ConditionContext context, AnnotatedTypeMetadata metadata) {
 		ConditionOutcome enablementOutcome = getEnablementOutcome(context, metadata,
 				ConditionalOnAvailableEndpoint.class);
 		if (!enablementOutcome.isMatch()) {
