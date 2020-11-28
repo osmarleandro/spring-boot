@@ -77,7 +77,7 @@ class MeterRegistryConfigurerTests {
 				createObjectProvider(this.filters), createObjectProvider(this.binders), false, false);
 		CompositeMeterRegistry composite = new CompositeMeterRegistry();
 		configurer.configure(composite);
-		verify(this.mockCustomizer).customize(composite);
+		verify(this.mockCustomizer).customize_RENAMED(composite);
 	}
 
 	@Test
@@ -87,7 +87,7 @@ class MeterRegistryConfigurerTests {
 		MeterRegistryConfigurer configurer = new MeterRegistryConfigurer(createObjectProvider(this.customizers),
 				createObjectProvider(this.filters), createObjectProvider(this.binders), false, false);
 		configurer.configure(this.mockRegistry);
-		verify(this.mockCustomizer).customize(this.mockRegistry);
+		verify(this.mockCustomizer).customize_RENAMED(this.mockRegistry);
 	}
 
 	@Test
@@ -139,7 +139,7 @@ class MeterRegistryConfigurerTests {
 				createObjectProvider(this.filters), createObjectProvider(this.binders), false, false);
 		configurer.configure(this.mockRegistry);
 		InOrder ordered = inOrder(this.mockBinder, this.mockConfig, this.mockCustomizer);
-		ordered.verify(this.mockCustomizer).customize(this.mockRegistry);
+		ordered.verify(this.mockCustomizer).customize_RENAMED(this.mockRegistry);
 		ordered.verify(this.mockConfig).meterFilter(this.mockFilter);
 		ordered.verify(this.mockBinder).bindTo(this.mockRegistry);
 	}

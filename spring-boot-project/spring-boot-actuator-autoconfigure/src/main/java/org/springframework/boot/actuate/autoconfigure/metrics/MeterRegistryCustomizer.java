@@ -37,6 +37,6 @@ public interface MeterRegistryCustomizer<T extends MeterRegistry> {
 	 * Customize the given {@code registry}.
 	 * @param registry the registry to customize
 	 */
-	void customize(T registry);
+	void customize_RENAMED(T registry);
 
 }

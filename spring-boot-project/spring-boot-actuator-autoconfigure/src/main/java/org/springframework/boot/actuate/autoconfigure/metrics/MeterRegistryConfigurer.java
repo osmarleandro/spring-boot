@@ -75,7 +75,7 @@ class MeterRegistryConfigurer {
 	@SuppressWarnings("unchecked")
 	private void customize(MeterRegistry registry) {
 		LambdaSafe.callbacks(MeterRegistryCustomizer.class, asOrderedList(this.customizers), registry)
-				.withLogger(MeterRegistryConfigurer.class).invoke((customizer) -> customizer.customize(registry));
+				.withLogger(MeterRegistryConfigurer.class).invoke((customizer) -> customizer.customize_RENAMED(registry));
 	}
 
 	private void addFilters(MeterRegistry registry) {
