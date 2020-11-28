@@ -59,7 +59,7 @@ public class AppOpticsMetricsExportAutoConfiguration {
 
 	@Bean
 	@ConditionalOnMissingBean
-	public AppOpticsConfig appOpticsConfig() {
+	public AppOpticsConfig appOpticsConfig_RENAMED() {
 		return new AppOpticsPropertiesConfigAdapter(this.properties);
 	}
 
