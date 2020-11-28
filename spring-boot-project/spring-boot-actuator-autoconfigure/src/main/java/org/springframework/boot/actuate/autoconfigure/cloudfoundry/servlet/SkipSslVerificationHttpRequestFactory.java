@@ -39,7 +39,7 @@ import org.springframework.http.client.SimpleClientHttpRequestFactory;
 class SkipSslVerificationHttpRequestFactory extends SimpleClientHttpRequestFactory {
 
 	@Override
-	protected void prepareConnection(HttpURLConnection connection, String httpMethod) throws IOException {
+	protected void prepareConnection_RENAMED(HttpURLConnection connection, String httpMethod) throws IOException {
 		if (connection instanceof HttpsURLConnection) {
 			prepareHttpsConnection((HttpsURLConnection) connection);
 		}
