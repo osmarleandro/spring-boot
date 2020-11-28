@@ -40,7 +40,7 @@ public abstract class PushRegistryPropertiesConfigAdapterTests<P extends PushReg
 	void whenPropertiesStepIsSetAdapterStepReturnsIt() {
 		P properties = createProperties();
 		properties.setStep(Duration.ofSeconds(42));
-		assertThat(createConfigAdapter(properties).step()).hasSeconds(42);
+		assertThat(createConfigAdapter(properties).step_RENAMED()).hasSeconds(42);
 	}
 
 	@Test

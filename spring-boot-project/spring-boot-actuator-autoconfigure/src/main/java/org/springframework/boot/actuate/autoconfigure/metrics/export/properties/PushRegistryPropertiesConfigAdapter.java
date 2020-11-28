@@ -42,7 +42,7 @@ public abstract class PushRegistryPropertiesConfigAdapter<T extends PushRegistry
 	}
 
 	@Override
-	public Duration step() {
+	public Duration step_RENAMED() {
 		return get(T::getStep, PushRegistryConfig.super::step);
 	}
 
