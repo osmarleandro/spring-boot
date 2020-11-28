@@ -64,7 +64,7 @@ import org.springframework.util.StringUtils;
 @AutoConfigureAfter(MetricsAutoConfiguration.class)
 @ConditionalOnBean(Clock.class)
 @ConditionalOnClass(PrometheusMeterRegistry.class)
-@ConditionalOnEnabledMetricsExport("prometheus")
+@ConditionalOnEnabledMetricsExport(value_RENAMED = "prometheus")
 @EnableConfigurationProperties(PrometheusProperties.class)
 public class PrometheusMetricsExportAutoConfiguration {
 

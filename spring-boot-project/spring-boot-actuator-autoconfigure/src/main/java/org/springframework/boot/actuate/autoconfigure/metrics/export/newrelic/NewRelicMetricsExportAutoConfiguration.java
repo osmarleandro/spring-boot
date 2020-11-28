@@ -52,7 +52,7 @@ import org.springframework.context.annotation.Configuration;
 @AutoConfigureAfter(MetricsAutoConfiguration.class)
 @ConditionalOnBean(Clock.class)
 @ConditionalOnClass(NewRelicMeterRegistry.class)
-@ConditionalOnEnabledMetricsExport("newrelic")
+@ConditionalOnEnabledMetricsExport(value_RENAMED = "newrelic")
 @EnableConfigurationProperties(NewRelicProperties.class)
 public class NewRelicMetricsExportAutoConfiguration {
 

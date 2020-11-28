@@ -54,7 +54,7 @@ import org.springframework.util.unit.DataSize;
 @AutoConfigureAfter(MetricsAutoConfiguration.class)
 @ConditionalOnBean(Clock.class)
 @ConditionalOnClass({ WavefrontMeterRegistry.class, WavefrontSender.class })
-@ConditionalOnEnabledMetricsExport("wavefront")
+@ConditionalOnEnabledMetricsExport(value_RENAMED = "wavefront")
 @EnableConfigurationProperties(WavefrontProperties.class)
 public class WavefrontMetricsExportAutoConfiguration {
 

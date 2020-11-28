@@ -45,7 +45,7 @@ import org.springframework.context.annotation.Configuration;
 @AutoConfigureAfter(MetricsAutoConfiguration.class)
 @ConditionalOnBean(Clock.class)
 @ConditionalOnClass(JmxMeterRegistry.class)
-@ConditionalOnEnabledMetricsExport("jmx")
+@ConditionalOnEnabledMetricsExport(value_RENAMED = "jmx")
 @EnableConfigurationProperties(JmxProperties.class)
 public class JmxMetricsExportAutoConfiguration {
 

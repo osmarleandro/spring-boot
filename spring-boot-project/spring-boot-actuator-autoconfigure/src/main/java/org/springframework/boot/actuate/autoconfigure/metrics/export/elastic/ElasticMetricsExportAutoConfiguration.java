@@ -47,7 +47,7 @@ import org.springframework.context.annotation.Configuration;
 @AutoConfigureAfter(MetricsAutoConfiguration.class)
 @ConditionalOnBean(Clock.class)
 @ConditionalOnClass(ElasticMeterRegistry.class)
-@ConditionalOnEnabledMetricsExport("elastic")
+@ConditionalOnEnabledMetricsExport(value_RENAMED = "elastic")
 @EnableConfigurationProperties(ElasticProperties.class)
 public class ElasticMetricsExportAutoConfiguration {
 

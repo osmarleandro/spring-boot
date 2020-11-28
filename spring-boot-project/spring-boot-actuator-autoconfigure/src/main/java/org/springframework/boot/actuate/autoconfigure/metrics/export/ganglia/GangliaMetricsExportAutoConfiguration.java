@@ -45,7 +45,7 @@ import org.springframework.context.annotation.Configuration;
 @AutoConfigureAfter(MetricsAutoConfiguration.class)
 @ConditionalOnBean(Clock.class)
 @ConditionalOnClass(GangliaMeterRegistry.class)
-@ConditionalOnEnabledMetricsExport("ganglia")
+@ConditionalOnEnabledMetricsExport(value_RENAMED = "ganglia")
 @EnableConfigurationProperties(GangliaProperties.class)
 public class GangliaMetricsExportAutoConfiguration {
 

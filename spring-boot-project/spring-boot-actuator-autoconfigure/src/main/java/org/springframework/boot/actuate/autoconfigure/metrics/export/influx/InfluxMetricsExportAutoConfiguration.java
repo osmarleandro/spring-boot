@@ -47,7 +47,7 @@ import org.springframework.context.annotation.Configuration;
 @AutoConfigureAfter(MetricsAutoConfiguration.class)
 @ConditionalOnBean(Clock.class)
 @ConditionalOnClass(InfluxMeterRegistry.class)
-@ConditionalOnEnabledMetricsExport("influx")
+@ConditionalOnEnabledMetricsExport(value_RENAMED = "influx")
 @EnableConfigurationProperties(InfluxProperties.class)
 public class InfluxMetricsExportAutoConfiguration {
 

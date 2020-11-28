@@ -44,6 +44,6 @@ public @interface ConditionalOnEnabledMetricsExport {
 	 * The name of the metrics exporter.
 	 * @return the name of the metrics exporter
 	 */
-	String value();
+	String value_RENAMED();
 
 }

@@ -47,7 +47,7 @@ import org.springframework.context.annotation.Configuration;
 @AutoConfigureAfter(MetricsAutoConfiguration.class)
 @ConditionalOnBean(Clock.class)
 @ConditionalOnClass(StackdriverMeterRegistry.class)
-@ConditionalOnEnabledMetricsExport("stackdriver")
+@ConditionalOnEnabledMetricsExport(value_RENAMED = "stackdriver")
 @EnableConfigurationProperties(StackdriverProperties.class)
 public class StackdriverMetricsExportAutoConfiguration {
 

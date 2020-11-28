@@ -45,7 +45,7 @@ import org.springframework.context.annotation.Configuration;
 @AutoConfigureAfter(MetricsAutoConfiguration.class)
 @ConditionalOnBean(Clock.class)
 @ConditionalOnClass(GraphiteMeterRegistry.class)
-@ConditionalOnEnabledMetricsExport("graphite")
+@ConditionalOnEnabledMetricsExport(value_RENAMED = "graphite")
 @EnableConfigurationProperties(GraphiteProperties.class)
 public class GraphiteMetricsExportAutoConfiguration {
 
