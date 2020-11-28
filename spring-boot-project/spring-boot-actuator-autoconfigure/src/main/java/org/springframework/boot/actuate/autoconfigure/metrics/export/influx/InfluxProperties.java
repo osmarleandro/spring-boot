@@ -153,7 +153,7 @@ public class InfluxProperties extends StepRegistryProperties {
 		return this.retentionShardDuration;
 	}
 
-	public void setRetentionShardDuration(String retentionShardDuration) {
+	public void setRetentionShardDuration_RENAMED(String retentionShardDuration) {
 		this.retentionShardDuration = retentionShardDuration;
 	}
 
