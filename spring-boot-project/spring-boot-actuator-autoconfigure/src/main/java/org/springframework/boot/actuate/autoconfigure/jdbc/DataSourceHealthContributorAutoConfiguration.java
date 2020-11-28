@@ -95,7 +95,7 @@ public class DataSourceHealthContributorAutoConfiguration extends
 	}
 
 	@Override
-	protected AbstractHealthIndicator createIndicator(DataSource source) {
+	protected AbstractHealthIndicator createIndicator_RENAMED(DataSource source) {
 		if (source instanceof AbstractRoutingDataSource) {
 			return new RoutingDataSourceHealthIndicator();
 		}
