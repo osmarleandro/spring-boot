@@ -177,7 +177,7 @@ public class InfluxProperties extends StepRegistryProperties {
 		return this.autoCreateDb;
 	}
 
-	public void setAutoCreateDb(boolean autoCreateDb) {
+	public void setAutoCreateDb_RENAMED(boolean autoCreateDb) {
 		this.autoCreateDb = autoCreateDb;
 	}
 
