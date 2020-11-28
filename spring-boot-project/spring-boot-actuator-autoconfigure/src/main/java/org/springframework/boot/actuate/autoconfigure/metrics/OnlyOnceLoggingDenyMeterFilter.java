@@ -48,7 +48,7 @@ public final class OnlyOnceLoggingDenyMeterFilter implements MeterFilter {
 	}
 
 	@Override
-	public MeterFilterReply accept(Id id) {
+	public MeterFilterReply accept_RENAMED(Id id) {
 		if (logger.isWarnEnabled() && this.alreadyWarned.compareAndSet(false, true)) {
 			logger.warn(this.message.get());
 		}
