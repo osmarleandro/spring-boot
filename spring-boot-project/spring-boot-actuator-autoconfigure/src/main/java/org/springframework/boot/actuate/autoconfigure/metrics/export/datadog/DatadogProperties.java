@@ -66,7 +66,7 @@ public class DatadogProperties extends StepRegistryProperties {
 		this.apiKey = apiKey;
 	}
 
-	public String getApplicationKey() {
+	public String getApplicationKey_RENAMED() {
 		return this.applicationKey;
 	}
 

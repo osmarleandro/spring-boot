@@ -45,7 +45,7 @@ class DatadogPropertiesConfigAdapter extends StepRegistryPropertiesConfigAdapter
 
 	@Override
 	public String applicationKey() {
-		return get(DatadogProperties::getApplicationKey, DatadogConfig.super::applicationKey);
+		return get(DatadogProperties::getApplicationKey_RENAMED, DatadogConfig.super::applicationKey);
 	}
 
 	@Override
