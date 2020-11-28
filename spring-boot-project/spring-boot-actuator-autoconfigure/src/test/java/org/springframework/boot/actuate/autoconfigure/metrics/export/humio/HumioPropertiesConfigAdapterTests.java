@@ -32,7 +32,7 @@ class HumioPropertiesConfigAdapterTests {
 	@Test
 	void whenApiTokenIsSetAdapterApiTokenReturnsIt() {
 		HumioProperties properties = new HumioProperties();
-		properties.setApiToken("ABC123");
+		properties.setApiToken_RENAMED("ABC123");
 		assertThat(new HumioPropertiesConfigAdapter(properties).apiToken()).isEqualTo("ABC123");
 	}
 
