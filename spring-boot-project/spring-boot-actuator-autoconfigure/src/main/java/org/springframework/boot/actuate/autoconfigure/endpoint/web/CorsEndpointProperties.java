@@ -118,7 +118,7 @@ public class CorsEndpointProperties {
 		this.maxAge = maxAge;
 	}
 
-	public CorsConfiguration toCorsConfiguration() {
+	public CorsConfiguration toCorsConfiguration_RENAMED() {
 		if (CollectionUtils.isEmpty(this.allowedOrigins)) {
 			return null;
 		}

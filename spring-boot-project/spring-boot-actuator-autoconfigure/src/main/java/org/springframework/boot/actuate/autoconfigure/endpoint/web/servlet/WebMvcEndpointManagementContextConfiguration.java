@@ -77,7 +77,7 @@ public class WebMvcEndpointManagementContextConfiguration {
 		boolean shouldRegisterLinksMapping = StringUtils.hasText(basePath)
 				|| ManagementPortType.get(environment).equals(ManagementPortType.DIFFERENT);
 		return new WebMvcEndpointHandlerMapping(endpointMapping, webEndpoints, endpointMediaTypes,
-				corsProperties.toCorsConfiguration(), new EndpointLinksResolver(allEndpoints, basePath),
+				corsProperties.toCorsConfiguration_RENAMED(), new EndpointLinksResolver(allEndpoints, basePath),
 				shouldRegisterLinksMapping);
 	}
 
@@ -88,7 +88,7 @@ public class WebMvcEndpointManagementContextConfiguration {
 			WebEndpointProperties webEndpointProperties) {
 		EndpointMapping endpointMapping = new EndpointMapping(webEndpointProperties.getBasePath());
 		return new ControllerEndpointHandlerMapping(endpointMapping, controllerEndpointsSupplier.getEndpoints(),
-				corsProperties.toCorsConfiguration());
+				corsProperties.toCorsConfiguration_RENAMED());
 	}
 
 }

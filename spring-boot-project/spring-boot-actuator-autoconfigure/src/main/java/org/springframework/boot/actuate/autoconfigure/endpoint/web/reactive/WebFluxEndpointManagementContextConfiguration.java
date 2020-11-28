@@ -74,7 +74,7 @@ public class WebFluxEndpointManagementContextConfiguration {
 		allEndpoints.addAll(endpoints);
 		allEndpoints.addAll(controllerEndpointsSupplier.getEndpoints());
 		return new WebFluxEndpointHandlerMapping(endpointMapping, endpoints, endpointMediaTypes,
-				corsProperties.toCorsConfiguration(), new EndpointLinksResolver(allEndpoints, basePath),
+				corsProperties.toCorsConfiguration_RENAMED(), new EndpointLinksResolver(allEndpoints, basePath),
 				shouldRegisterLinksMapping(environment, basePath));
 	}
 
@@ -90,7 +90,7 @@ public class WebFluxEndpointManagementContextConfiguration {
 			WebEndpointProperties webEndpointProperties) {
 		EndpointMapping endpointMapping = new EndpointMapping(webEndpointProperties.getBasePath());
 		return new ControllerEndpointHandlerMapping(endpointMapping, controllerEndpointsSupplier.getEndpoints(),
-				corsProperties.toCorsConfiguration());
+				corsProperties.toCorsConfiguration_RENAMED());
 	}
 
 }
