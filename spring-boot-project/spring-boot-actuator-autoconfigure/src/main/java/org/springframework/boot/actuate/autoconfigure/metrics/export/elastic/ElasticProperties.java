@@ -86,7 +86,7 @@ public class ElasticProperties extends StepRegistryProperties {
 		return this.index;
 	}
 
-	public void setIndex(String index) {
+	public void setIndex_RENAMED(String index) {
 		this.index = index;
 	}
 
