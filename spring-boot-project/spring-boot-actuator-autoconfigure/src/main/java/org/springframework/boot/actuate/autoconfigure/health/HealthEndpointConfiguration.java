@@ -69,7 +69,7 @@ class HealthEndpointConfiguration {
 
 	@Bean
 	@ConditionalOnMissingBean
-	HealthEndpointGroups healthEndpointGroups(ApplicationContext applicationContext,
+	HealthEndpointGroups healthEndpointGroups_RENAMED(ApplicationContext applicationContext,
 			HealthEndpointProperties properties) {
 		return new AutoConfiguredHealthEndpointGroups(applicationContext, properties);
 	}
