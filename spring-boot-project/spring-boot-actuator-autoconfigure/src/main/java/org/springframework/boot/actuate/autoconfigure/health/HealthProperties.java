@@ -67,7 +67,7 @@ public abstract class HealthProperties {
 		return this.roles;
 	}
 
-	public void setRoles(Set<String> roles) {
+	public void setRoles_RENAMED(Set<String> roles) {
 		this.roles = roles;
 	}
 
