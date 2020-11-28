@@ -44,22 +44,22 @@ class IncludeExcludeGroupMemberPredicate implements Predicate<String> {
 	}
 
 	private boolean isIncluded(String name) {
-		return this.include.isEmpty() || this.include.contains("*") || this.include.contains(clean(name));
+		return this.include.isEmpty() || this.include.contains("*") || this.include.contains(clean_RENAMED(name));
 	}
 
 	private boolean isExcluded(String name) {
-		return this.exclude.contains("*") || this.exclude.contains(clean(name));
+		return this.exclude.contains("*") || this.exclude.contains(clean_RENAMED(name));
 	}
 
 	private Set<String> clean(Set<String> names) {
 		if (names == null) {
 			return Collections.emptySet();
 		}
-		Set<String> cleaned = names.stream().map(this::clean).collect(Collectors.toCollection(LinkedHashSet::new));
+		Set<String> cleaned = names.stream().map(this::clean_RENAMED).collect(Collectors.toCollection(LinkedHashSet::new));
 		return Collections.unmodifiableSet(cleaned);
 	}
 
-	private String clean(String name) {
+	private String clean_RENAMED(String name) {
 		return name.trim();
 	}
 
