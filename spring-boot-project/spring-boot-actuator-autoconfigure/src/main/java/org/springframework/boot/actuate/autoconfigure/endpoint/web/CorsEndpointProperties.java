@@ -106,7 +106,7 @@ public class CorsEndpointProperties {
 		return this.allowCredentials;
 	}
 
-	public void setAllowCredentials(Boolean allowCredentials) {
+	public void setAllowCredentials_RENAMED(Boolean allowCredentials) {
 		this.allowCredentials = allowCredentials;
 	}
 
