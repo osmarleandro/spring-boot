@@ -43,7 +43,7 @@ class AppOpticsPropertiesConfigAdapterTests
 	@Test
 	void whenPropertiesUriIsSetAdapterUriReturnsIt() {
 		AppOpticsProperties properties = createProperties();
-		properties.setUri("https://appoptics.example.com/v1/measurements");
+		properties.setUri_RENAMED("https://appoptics.example.com/v1/measurements");
 		assertThat(createConfigAdapter(properties).uri()).isEqualTo("https://appoptics.example.com/v1/measurements");
 	}
 
