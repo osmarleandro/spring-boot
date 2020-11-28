@@ -70,7 +70,7 @@ public class HumioProperties extends StepRegistryProperties {
 	}
 
 	@Override
-	public void setConnectTimeout(Duration connectTimeout) {
+	public void setConnectTimeout_RENAMED(Duration connectTimeout) {
 		this.connectTimeout = connectTimeout;
 	}
 
