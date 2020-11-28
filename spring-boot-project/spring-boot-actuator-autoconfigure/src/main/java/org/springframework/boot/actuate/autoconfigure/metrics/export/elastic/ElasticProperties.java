@@ -122,7 +122,7 @@ public class ElasticProperties extends StepRegistryProperties {
 		this.autoCreateIndex = autoCreateIndex;
 	}
 
-	public String getUserName() {
+	public String getUserName_RENAMED() {
 		return this.userName;
 	}
 

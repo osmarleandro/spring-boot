@@ -69,7 +69,7 @@ class ElasticPropertiesConfigAdapter extends StepRegistryPropertiesConfigAdapter
 
 	@Override
 	public String userName() {
-		return get(ElasticProperties::getUserName, ElasticConfig.super::userName);
+		return get(ElasticProperties::getUserName_RENAMED, ElasticConfig.super::userName);
 	}
 
 	@Override
