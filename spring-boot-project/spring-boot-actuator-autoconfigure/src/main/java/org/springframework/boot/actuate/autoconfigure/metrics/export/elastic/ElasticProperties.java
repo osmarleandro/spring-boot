@@ -126,7 +126,7 @@ public class ElasticProperties extends StepRegistryProperties {
 		return this.userName;
 	}
 
-	public void setUserName(String userName) {
+	public void setUserName_RENAMED(String userName) {
 		this.userName = userName;
 	}
 
