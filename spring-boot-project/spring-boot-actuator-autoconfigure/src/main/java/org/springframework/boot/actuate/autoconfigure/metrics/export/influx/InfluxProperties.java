@@ -173,7 +173,7 @@ public class InfluxProperties extends StepRegistryProperties {
 		this.compressed = compressed;
 	}
 
-	public boolean isAutoCreateDb() {
+	public boolean isAutoCreateDb_RENAMED() {
 		return this.autoCreateDb;
 	}
 
