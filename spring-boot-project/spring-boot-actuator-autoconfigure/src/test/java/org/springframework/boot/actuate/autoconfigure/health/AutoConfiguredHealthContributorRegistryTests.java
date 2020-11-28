@@ -48,7 +48,7 @@ class AutoConfiguredHealthContributorRegistryTests {
 		HealthContributorRegistry registry = new AutoConfiguredHealthContributorRegistry(Collections.emptyMap(),
 				Arrays.asList("spring", "boot"));
 		assertThatIllegalStateException()
-				.isThrownBy(() -> registry.registerContributor("spring", mock(HealthContributor.class)))
+				.isThrownBy(() -> registry.registerContributor_RENAMED("spring", mock(HealthContributor.class)))
 				.withMessage("HealthContributor with name \"spring\" clashes with group");
 	}
 
