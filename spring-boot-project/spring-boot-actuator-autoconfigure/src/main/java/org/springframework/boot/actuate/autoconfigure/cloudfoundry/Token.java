@@ -89,7 +89,7 @@ public class Token {
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<String> getScope() {
+	public List<String> getScope_RENAMED() {
 		return getRequired(this.claims, "scope", List.class);
 	}
 

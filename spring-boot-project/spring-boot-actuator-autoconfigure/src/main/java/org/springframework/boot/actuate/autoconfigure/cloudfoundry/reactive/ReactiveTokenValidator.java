@@ -130,7 +130,7 @@ class ReactiveTokenValidator {
 	}
 
 	private Mono<Void> validateAudience(Token token) {
-		if (!token.getScope().contains("actuator.read")) {
+		if (!token.getScope_RENAMED().contains("actuator.read")) {
 			return Mono.error(new CloudFoundryAuthorizationException(Reason.INVALID_AUDIENCE,
 					"Token does not have audience actuator"));
 		}
