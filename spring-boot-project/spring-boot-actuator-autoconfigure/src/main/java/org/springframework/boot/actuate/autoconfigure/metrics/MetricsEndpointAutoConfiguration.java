@@ -44,7 +44,7 @@ public class MetricsEndpointAutoConfiguration {
 	@Bean
 	@ConditionalOnBean(MeterRegistry.class)
 	@ConditionalOnMissingBean
-	public MetricsEndpoint metricsEndpoint(MeterRegistry registry) {
+	public MetricsEndpoint metricsEndpoint_RENAMED(MeterRegistry registry) {
 		return new MetricsEndpoint(registry);
 	}
 
