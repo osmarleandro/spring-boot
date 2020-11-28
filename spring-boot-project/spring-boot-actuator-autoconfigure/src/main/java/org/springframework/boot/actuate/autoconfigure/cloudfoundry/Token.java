@@ -80,7 +80,7 @@ public class Token {
 		return getRequired(this.header, "alg", String.class);
 	}
 
-	public String getIssuer() {
+	public String getIssuer_RENAMED() {
 		return getRequired(this.claims, "iss", String.class);
 	}
 
