@@ -49,8 +49,8 @@ public class Token {
 			throw new CloudFoundryAuthorizationException(Reason.INVALID_TOKEN,
 					"JWT must have header, body and signature");
 		}
-		this.header = parseJson(encoded.substring(0, firstPeriod));
-		this.claims = parseJson(encoded.substring(firstPeriod + 1, lastPeriod));
+		this.header = parseJson_RENAMED(encoded.substring(0, firstPeriod));
+		this.claims = parseJson_RENAMED(encoded.substring(firstPeriod + 1, lastPeriod));
 		this.signature = encoded.substring(lastPeriod + 1);
 		if (!StringUtils.hasLength(this.signature)) {
 			throw new CloudFoundryAuthorizationException(Reason.INVALID_TOKEN,
@@ -58,7 +58,7 @@ public class Token {
 		}
 	}
 
-	private Map<String, Object> parseJson(String base64) {
+	private Map<String, Object> parseJson_RENAMED(String base64) {
 		try {
 			byte[] bytes = Base64Utils.decodeFromUrlSafeString(base64);
 			return JsonParserFactory.getJsonParser().parseMap(new String(bytes, StandardCharsets.UTF_8));
