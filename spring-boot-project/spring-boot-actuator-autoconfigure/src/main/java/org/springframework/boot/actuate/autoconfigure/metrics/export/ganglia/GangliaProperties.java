@@ -108,7 +108,7 @@ public class GangliaProperties {
 		this.rateUnits = rateUnits;
 	}
 
-	public TimeUnit getDurationUnits() {
+	public TimeUnit getDurationUnits_RENAMED() {
 		return this.durationUnits;
 	}
 

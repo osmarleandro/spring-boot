@@ -64,7 +64,7 @@ class GangliaPropertiesConfigAdapter extends PropertiesConfigAdapter<GangliaProp
 
 	@Override
 	public TimeUnit durationUnits() {
-		return get(GangliaProperties::getDurationUnits, GangliaConfig.super::durationUnits);
+		return get(GangliaProperties::getDurationUnits_RENAMED, GangliaConfig.super::durationUnits);
 	}
 
 	@Override
