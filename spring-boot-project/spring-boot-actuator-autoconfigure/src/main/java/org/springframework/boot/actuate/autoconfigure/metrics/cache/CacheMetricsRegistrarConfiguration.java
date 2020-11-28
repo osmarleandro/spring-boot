@@ -64,7 +64,7 @@ class CacheMetricsRegistrarConfiguration {
 	}
 
 	@PostConstruct
-	void bindCachesToRegistry() {
+	void bindCachesToRegistry_RENAMED() {
 		this.cacheManagers.forEach(this::bindCacheManagerToRegistry);
 	}
 
