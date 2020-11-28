@@ -87,7 +87,7 @@ public class AppOpticsProperties extends StepRegistryProperties {
 		this.hostTag = hostTag;
 	}
 
-	public boolean isFloorTimes() {
+	public boolean isFloorTimes_RENAMED() {
 		return this.floorTimes;
 	}
 
