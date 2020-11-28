@@ -49,7 +49,7 @@ public class LdapHealthContributorAutoConfiguration
 
 	@Bean
 	@ConditionalOnMissingBean(name = { "ldapHealthIndicator", "ldapHealthContributor" })
-	public HealthContributor ldapHealthContributor(Map<String, LdapOperations> ldapOperations) {
+	public HealthContributor ldapHealthContributor_RENAMED(Map<String, LdapOperations> ldapOperations) {
 		return createContributor(ldapOperations);
 	}
 
