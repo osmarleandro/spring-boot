@@ -65,7 +65,7 @@ public class DynatraceProperties extends StepRegistryProperties {
 		this.apiToken = apiToken;
 	}
 
-	public String getDeviceId() {
+	public String getDeviceId_RENAMED() {
 		return this.deviceId;
 	}
 
