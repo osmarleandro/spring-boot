@@ -174,7 +174,7 @@ public class AtlasProperties {
 		return this.configRefreshFrequency;
 	}
 
-	public void setConfigRefreshFrequency(Duration configRefreshFrequency) {
+	public void setConfigRefreshFrequency_RENAMED(Duration configRefreshFrequency) {
 		this.configRefreshFrequency = configRefreshFrequency;
 	}
 
