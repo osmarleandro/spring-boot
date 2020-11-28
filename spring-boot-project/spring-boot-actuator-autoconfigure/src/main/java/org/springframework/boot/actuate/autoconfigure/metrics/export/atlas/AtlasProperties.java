@@ -166,7 +166,7 @@ public class AtlasProperties {
 		return this.lwcEnabled;
 	}
 
-	public void setLwcEnabled(boolean lwcEnabled) {
+	public void setLwcEnabled_RENAMED(boolean lwcEnabled) {
 		this.lwcEnabled = lwcEnabled;
 	}
 
