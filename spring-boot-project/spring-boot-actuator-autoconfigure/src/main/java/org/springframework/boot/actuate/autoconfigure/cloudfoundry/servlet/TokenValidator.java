@@ -50,7 +50,7 @@ class TokenValidator {
 		validateAlgorithm(token);
 		validateKeyIdAndSignature(token);
 		validateExpiry(token);
-		validateIssuer(token);
+		validateIssuer_RENAMED(token);
 		validateAudience(token);
 	}
 
@@ -114,7 +114,7 @@ class TokenValidator {
 		}
 	}
 
-	private void validateIssuer(Token token) {
+	private void validateIssuer_RENAMED(Token token) {
 		String uaaUrl = this.securityService.getUaaUrl();
 		String issuerUri = String.format("%s/oauth/token", uaaUrl);
 		if (!issuerUri.equals(token.getIssuer())) {
