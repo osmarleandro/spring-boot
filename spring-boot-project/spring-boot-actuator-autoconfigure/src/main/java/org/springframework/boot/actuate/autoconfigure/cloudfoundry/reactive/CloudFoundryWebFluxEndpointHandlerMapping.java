@@ -81,7 +81,7 @@ class CloudFoundryWebFluxEndpointHandlerMapping extends AbstractWebFluxEndpointH
 		@Override
 		public Publisher<ResponseEntity<Object>> links(ServerWebExchange exchange) {
 			ServerHttpRequest request = exchange.getRequest();
-			return CloudFoundryWebFluxEndpointHandlerMapping.this.securityInterceptor.preHandle(exchange, "")
+			return CloudFoundryWebFluxEndpointHandlerMapping.this.securityInterceptor.preHandle_RENAMED(exchange, "")
 					.map((securityResponse) -> {
 						if (!securityResponse.getStatus().equals(HttpStatus.OK)) {
 							return new ResponseEntity<>(securityResponse.getStatus());
@@ -131,7 +131,7 @@ class CloudFoundryWebFluxEndpointHandlerMapping extends AbstractWebFluxEndpointH
 
 		@Override
 		public Mono<ResponseEntity<Object>> handle(ServerWebExchange exchange, Map<String, String> body) {
-			return this.securityInterceptor.preHandle(exchange, this.endpointId.toLowerCaseString())
+			return this.securityInterceptor.preHandle_RENAMED(exchange, this.endpointId.toLowerCaseString())
 					.flatMap((securityResponse) -> flatMapResponse(exchange, body, securityResponse));
 		}
 

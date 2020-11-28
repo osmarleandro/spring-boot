@@ -56,7 +56,7 @@ class CloudFoundrySecurityInterceptor {
 		this.applicationId = applicationId;
 	}
 
-	Mono<SecurityResponse> preHandle(ServerWebExchange exchange, String id) {
+	Mono<SecurityResponse> preHandle_RENAMED(ServerWebExchange exchange, String id) {
 		ServerHttpRequest request = exchange.getRequest();
 		if (CorsUtils.isPreFlightRequest(request)) {
 			return SUCCESS;
