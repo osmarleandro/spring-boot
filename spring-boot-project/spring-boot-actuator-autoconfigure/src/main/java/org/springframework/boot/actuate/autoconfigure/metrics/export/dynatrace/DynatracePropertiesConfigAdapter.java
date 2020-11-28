@@ -58,7 +58,7 @@ class DynatracePropertiesConfigAdapter extends StepRegistryPropertiesConfigAdapt
 	}
 
 	@Override
-	public String group() {
+	public String group_RENAMED() {
 		return get(DynatraceProperties::getGroup, DynatraceConfig.super::group);
 	}
 

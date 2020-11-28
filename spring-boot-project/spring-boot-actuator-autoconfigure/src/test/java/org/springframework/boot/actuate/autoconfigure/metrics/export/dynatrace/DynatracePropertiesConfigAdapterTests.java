@@ -59,7 +59,7 @@ class DynatracePropertiesConfigAdapterTests {
 	void whenPropertiesGroupIsSetAdapterGroupReturnsIt() {
 		DynatraceProperties properties = new DynatraceProperties();
 		properties.setGroup("group-1");
-		assertThat(new DynatracePropertiesConfigAdapter(properties).group()).isEqualTo("group-1");
+		assertThat(new DynatracePropertiesConfigAdapter(properties).group_RENAMED()).isEqualTo("group-1");
 	}
 
 }
