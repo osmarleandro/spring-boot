@@ -77,7 +77,7 @@ public class DynatraceProperties extends StepRegistryProperties {
 		return this.technologyType;
 	}
 
-	public void setTechnologyType(String technologyType) {
+	public void setTechnologyType_RENAMED(String technologyType) {
 		this.technologyType = technologyType;
 	}
 

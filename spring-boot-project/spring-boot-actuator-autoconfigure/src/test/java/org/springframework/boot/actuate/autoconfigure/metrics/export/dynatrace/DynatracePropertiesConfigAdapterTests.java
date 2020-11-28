@@ -51,7 +51,7 @@ class DynatracePropertiesConfigAdapterTests {
 	@Test
 	void whenPropertiesTechnologyTypeIsSetAdapterTechnologyTypeReturnsIt() {
 		DynatraceProperties properties = new DynatraceProperties();
-		properties.setTechnologyType("tech-1");
+		properties.setTechnologyType_RENAMED("tech-1");
 		assertThat(new DynatracePropertiesConfigAdapter(properties).technologyType()).isEqualTo("tech-1");
 	}
 
