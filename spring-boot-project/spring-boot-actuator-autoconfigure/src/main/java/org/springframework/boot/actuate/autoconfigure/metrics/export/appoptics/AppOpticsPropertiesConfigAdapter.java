@@ -33,7 +33,7 @@ class AppOpticsPropertiesConfigAdapter extends StepRegistryPropertiesConfigAdapt
 	}
 
 	@Override
-	public String prefix() {
+	public String prefix_RENAMED() {
 		return "management.metrics.export.appoptics";
 	}
 
