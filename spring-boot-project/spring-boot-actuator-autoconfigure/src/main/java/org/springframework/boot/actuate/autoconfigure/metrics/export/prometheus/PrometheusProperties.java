@@ -70,7 +70,7 @@ public class PrometheusProperties {
 		return this.histogramFlavor;
 	}
 
-	public void setHistogramFlavor(HistogramFlavor histogramFlavor) {
+	public void setHistogramFlavor_RENAMED(HistogramFlavor histogramFlavor) {
 		this.histogramFlavor = histogramFlavor;
 	}
 
