@@ -35,7 +35,7 @@ class AppOpticsPropertiesTests extends StepRegistryPropertiesTests {
 		AppOpticsProperties properties = new AppOpticsProperties();
 		AppOpticsConfig config = (key) -> null;
 		assertStepRegistryDefaultValues(properties, config);
-		assertThat(properties.getUri()).isEqualToIgnoringWhitespace(config.uri());
+		assertThat(properties.getUri()).isEqualToIgnoringWhitespace(config.uri_RENAMED());
 		assertThat(properties.getHostTag()).isEqualToIgnoringWhitespace(config.hostTag());
 		assertThat(properties.isFloorTimes()).isEqualTo(config.floorTimes());
 	}
