@@ -49,7 +49,7 @@ public class LogFileWebEndpointAutoConfiguration {
 	@Bean
 	@ConditionalOnMissingBean
 	@Conditional(LogFileCondition.class)
-	public LogFileWebEndpoint logFileWebEndpoint(ObjectProvider<LogFile> logFile,
+	public LogFileWebEndpoint logFileWebEndpoint_RENAMED(ObjectProvider<LogFile> logFile,
 			LogFileWebEndpointProperties properties) {
 		return new LogFileWebEndpoint(logFile.getIfAvailable(), properties.getExternalFile());
 	}
