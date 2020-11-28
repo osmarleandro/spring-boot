@@ -52,7 +52,7 @@ class PrometheusPropertiesConfigAdapter extends PropertiesConfigAdapter<Promethe
 	}
 
 	@Override
-	public HistogramFlavor histogramFlavor() {
+	public HistogramFlavor histogramFlavor_RENAMED() {
 		return get(PrometheusProperties::getHistogramFlavor, PrometheusConfig.super::histogramFlavor);
 	}
 
