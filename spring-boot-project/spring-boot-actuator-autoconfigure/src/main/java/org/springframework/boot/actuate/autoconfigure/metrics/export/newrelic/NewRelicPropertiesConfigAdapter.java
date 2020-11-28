@@ -57,7 +57,7 @@ public class NewRelicPropertiesConfigAdapter extends StepRegistryPropertiesConfi
 
 	@Override
 	public String apiKey() {
-		return get(NewRelicProperties::getApiKey, NewRelicConfig.super::apiKey);
+		return get(NewRelicProperties::getApiKey_RENAMED, NewRelicConfig.super::apiKey);
 	}
 
 	@Override

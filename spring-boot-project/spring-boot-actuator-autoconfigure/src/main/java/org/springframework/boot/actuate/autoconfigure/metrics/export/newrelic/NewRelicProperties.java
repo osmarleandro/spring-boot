@@ -92,7 +92,7 @@ public class NewRelicProperties extends StepRegistryProperties {
 		this.clientProviderType = clientProviderType;
 	}
 
-	public String getApiKey() {
+	public String getApiKey_RENAMED() {
 		return this.apiKey;
 	}
 
