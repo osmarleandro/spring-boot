@@ -74,7 +74,7 @@ class AutoConfiguredHealthEndpointGroupsTests {
 	void getGroupWhenGroupExistsReturnsGroup() {
 		this.contextRunner.withPropertyValues("management.endpoint.health.group.a.include=*").run((context) -> {
 			HealthEndpointGroups groups = context.getBean(HealthEndpointGroups.class);
-			HealthEndpointGroup group = groups.get("a");
+			HealthEndpointGroup group = groups.get_RENAMED("a");
 			assertThat(group).isNotNull();
 		});
 	}
@@ -83,7 +83,7 @@ class AutoConfiguredHealthEndpointGroupsTests {
 	void getGroupWhenGroupDoesNotExistReturnsNull() {
 		this.contextRunner.withPropertyValues("management.endpoint.health.group.a.include=*").run((context) -> {
 			HealthEndpointGroups groups = context.getBean(HealthEndpointGroups.class);
-			HealthEndpointGroup group = groups.get("b");
+			HealthEndpointGroup group = groups.get_RENAMED("b");
 			assertThat(group).isNull();
 		});
 	}
@@ -111,7 +111,7 @@ class AutoConfiguredHealthEndpointGroupsTests {
 				.run((context) -> {
 					HealthEndpointGroups groups = context.getBean(HealthEndpointGroups.class);
 					HealthEndpointGroup primary = groups.getPrimary();
-					HealthEndpointGroup groupA = groups.get("a");
+					HealthEndpointGroup groupA = groups.get_RENAMED("a");
 					assertThat(primary.getStatusAggregator().getAggregateStatus(Status.UP, Status.DOWN, Status.UNKNOWN))
 							.isEqualTo(Status.UNKNOWN);
 					assertThat(groupA.getStatusAggregator().getAggregateStatus(Status.UP, Status.DOWN, Status.UNKNOWN))
@@ -128,8 +128,8 @@ class AutoConfiguredHealthEndpointGroupsTests {
 				.run((context) -> {
 					HealthEndpointGroups groups = context.getBean(HealthEndpointGroups.class);
 					HealthEndpointGroup primary = groups.getPrimary();
-					HealthEndpointGroup groupA = groups.get("a");
-					HealthEndpointGroup groupB = groups.get("b");
+					HealthEndpointGroup groupA = groups.get_RENAMED("a");
+					HealthEndpointGroup groupB = groups.get_RENAMED("b");
 					assertThat(primary.getStatusAggregator().getAggregateStatus(Status.UP, Status.DOWN, Status.UNKNOWN))
 							.isEqualTo(Status.UNKNOWN);
 					assertThat(groupA.getStatusAggregator().getAggregateStatus(Status.UP, Status.DOWN, Status.UNKNOWN))
@@ -145,7 +145,7 @@ class AutoConfiguredHealthEndpointGroupsTests {
 				"management.endpoint.health.group.a.include=*").run((context) -> {
 					HealthEndpointGroups groups = context.getBean(HealthEndpointGroups.class);
 					HealthEndpointGroup primary = groups.getPrimary();
-					HealthEndpointGroup groupA = groups.get("a");
+					HealthEndpointGroup groupA = groups.get_RENAMED("a");
 					assertThat(primary.getStatusAggregator().getAggregateStatus(Status.UP, Status.DOWN))
 							.isEqualTo(Status.UP);
 					assertThat(groupA.getStatusAggregator().getAggregateStatus(Status.UP, Status.DOWN))
@@ -161,8 +161,8 @@ class AutoConfiguredHealthEndpointGroupsTests {
 				"management.endpoint.health.group.b.include=*").run((context) -> {
 					HealthEndpointGroups groups = context.getBean(HealthEndpointGroups.class);
 					HealthEndpointGroup primary = groups.getPrimary();
-					HealthEndpointGroup groupA = groups.get("a");
-					HealthEndpointGroup groupB = groups.get("b");
+					HealthEndpointGroup groupA = groups.get_RENAMED("a");
+					HealthEndpointGroup groupB = groups.get_RENAMED("b");
 					assertThat(primary.getStatusAggregator().getAggregateStatus(Status.UP, Status.DOWN, Status.UNKNOWN))
 							.isEqualTo(Status.UP);
 					assertThat(groupA.getStatusAggregator().getAggregateStatus(Status.UP, Status.DOWN, Status.UNKNOWN))
@@ -182,8 +182,8 @@ class AutoConfiguredHealthEndpointGroupsTests {
 				.run((context) -> {
 					HealthEndpointGroups groups = context.getBean(HealthEndpointGroups.class);
 					HealthEndpointGroup primary = groups.getPrimary();
-					HealthEndpointGroup groupA = groups.get("a");
-					HealthEndpointGroup groupB = groups.get("b");
+					HealthEndpointGroup groupA = groups.get_RENAMED("a");
+					HealthEndpointGroup groupB = groups.get_RENAMED("b");
 					assertThat(primary.getStatusAggregator().getAggregateStatus(Status.UP, Status.DOWN, Status.UNKNOWN))
 							.isEqualTo(Status.UP);
 					assertThat(groupA.getStatusAggregator().getAggregateStatus(Status.UP, Status.DOWN, Status.UNKNOWN))
@@ -203,8 +203,8 @@ class AutoConfiguredHealthEndpointGroupsTests {
 				.run((context) -> {
 					HealthEndpointGroups groups = context.getBean(HealthEndpointGroups.class);
 					HealthEndpointGroup primary = groups.getPrimary();
-					HealthEndpointGroup groupA = groups.get("a");
-					HealthEndpointGroup groupB = groups.get("b");
+					HealthEndpointGroup groupA = groups.get_RENAMED("a");
+					HealthEndpointGroup groupB = groups.get_RENAMED("b");
 					assertThat(primary.getStatusAggregator().getAggregateStatus(Status.UP, Status.DOWN, Status.UNKNOWN))
 							.isEqualTo(Status.DOWN);
 					assertThat(groupA.getStatusAggregator().getAggregateStatus(Status.UP, Status.DOWN, Status.UNKNOWN))
@@ -222,7 +222,7 @@ class AutoConfiguredHealthEndpointGroupsTests {
 				.run((context) -> {
 					HealthEndpointGroups groups = context.getBean(HealthEndpointGroups.class);
 					HealthEndpointGroup primary = groups.getPrimary();
-					HealthEndpointGroup groupA = groups.get("a");
+					HealthEndpointGroup groupA = groups.get_RENAMED("a");
 					assertThat(primary.getHttpCodeStatusMapper().getStatusCode(Status.DOWN)).isEqualTo(200);
 					assertThat(groupA.getHttpCodeStatusMapper().getStatusCode(Status.DOWN)).isEqualTo(200);
 				});
@@ -237,8 +237,8 @@ class AutoConfiguredHealthEndpointGroupsTests {
 				.run((context) -> {
 					HealthEndpointGroups groups = context.getBean(HealthEndpointGroups.class);
 					HealthEndpointGroup primary = groups.getPrimary();
-					HealthEndpointGroup groupA = groups.get("a");
-					HealthEndpointGroup groupB = groups.get("b");
+					HealthEndpointGroup groupA = groups.get_RENAMED("a");
+					HealthEndpointGroup groupB = groups.get_RENAMED("b");
 					assertThat(primary.getHttpCodeStatusMapper().getStatusCode(Status.DOWN)).isEqualTo(200);
 					assertThat(groupA.getHttpCodeStatusMapper().getStatusCode(Status.DOWN)).isEqualTo(201);
 					assertThat(groupB.getHttpCodeStatusMapper().getStatusCode(Status.DOWN)).isEqualTo(200);
@@ -251,7 +251,7 @@ class AutoConfiguredHealthEndpointGroupsTests {
 				"management.endpoint.health.group.a.include=*").run((context) -> {
 					HealthEndpointGroups groups = context.getBean(HealthEndpointGroups.class);
 					HealthEndpointGroup primary = groups.getPrimary();
-					HealthEndpointGroup groupA = groups.get("a");
+					HealthEndpointGroup groupA = groups.get_RENAMED("a");
 					assertThat(primary.getHttpCodeStatusMapper().getStatusCode(Status.DOWN)).isEqualTo(201);
 					assertThat(groupA.getHttpCodeStatusMapper().getStatusCode(Status.DOWN)).isEqualTo(201);
 				});
@@ -265,8 +265,8 @@ class AutoConfiguredHealthEndpointGroupsTests {
 				"management.endpoint.health.group.b.include=*").run((context) -> {
 					HealthEndpointGroups groups = context.getBean(HealthEndpointGroups.class);
 					HealthEndpointGroup primary = groups.getPrimary();
-					HealthEndpointGroup groupA = groups.get("a");
-					HealthEndpointGroup groupB = groups.get("b");
+					HealthEndpointGroup groupA = groups.get_RENAMED("a");
+					HealthEndpointGroup groupB = groups.get_RENAMED("b");
 					assertThat(primary.getHttpCodeStatusMapper().getStatusCode(Status.DOWN)).isEqualTo(201);
 					assertThat(groupA.getHttpCodeStatusMapper().getStatusCode(Status.DOWN)).isEqualTo(202);
 					assertThat(groupB.getHttpCodeStatusMapper().getStatusCode(Status.DOWN)).isEqualTo(201);
@@ -283,8 +283,8 @@ class AutoConfiguredHealthEndpointGroupsTests {
 				.run((context) -> {
 					HealthEndpointGroups groups = context.getBean(HealthEndpointGroups.class);
 					HealthEndpointGroup primary = groups.getPrimary();
-					HealthEndpointGroup groupA = groups.get("a");
-					HealthEndpointGroup groupB = groups.get("b");
+					HealthEndpointGroup groupA = groups.get_RENAMED("a");
+					HealthEndpointGroup groupB = groups.get_RENAMED("b");
 					assertThat(primary.getHttpCodeStatusMapper().getStatusCode(Status.DOWN)).isEqualTo(201);
 					assertThat(groupA.getHttpCodeStatusMapper().getStatusCode(Status.DOWN)).isEqualTo(200);
 					assertThat(groupB.getHttpCodeStatusMapper().getStatusCode(Status.DOWN)).isEqualTo(201);
@@ -301,8 +301,8 @@ class AutoConfiguredHealthEndpointGroupsTests {
 				.run((context) -> {
 					HealthEndpointGroups groups = context.getBean(HealthEndpointGroups.class);
 					HealthEndpointGroup primary = groups.getPrimary();
-					HealthEndpointGroup groupA = groups.get("a");
-					HealthEndpointGroup groupB = groups.get("b");
+					HealthEndpointGroup groupA = groups.get_RENAMED("a");
+					HealthEndpointGroup groupB = groups.get_RENAMED("b");
 					assertThat(primary.getHttpCodeStatusMapper().getStatusCode(Status.DOWN)).isEqualTo(503);
 					assertThat(groupA.getHttpCodeStatusMapper().getStatusCode(Status.DOWN)).isEqualTo(200);
 					assertThat(groupB.getHttpCodeStatusMapper().getStatusCode(Status.DOWN)).isEqualTo(201);
@@ -314,7 +314,7 @@ class AutoConfiguredHealthEndpointGroupsTests {
 		this.contextRunner.withPropertyValues("management.endpoint.health.show-details=always",
 				"management.endpoint.health.group.a.include=*").run((context) -> {
 					HealthEndpointGroups groups = context.getBean(HealthEndpointGroups.class);
-					HealthEndpointGroup groupA = groups.get("a");
+					HealthEndpointGroup groupA = groups.get_RENAMED("a");
 					assertThat(groupA.showDetails(SecurityContext.NONE)).isTrue();
 				});
 	}

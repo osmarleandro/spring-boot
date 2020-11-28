@@ -254,7 +254,7 @@ class HealthEndpointAutoConfigurationTests {
 		this.contextRunner.withPropertyValues("management.endpoint.health.group.ready.include=*").withUserConfiguration(
 				HealthEndpointGroupsConfiguration.class, TestHealthEndpointGroupsPostProcessor.class).run((context) -> {
 					HealthEndpointGroups groups = context.getBean(HealthEndpointGroups.class);
-					assertThatExceptionOfType(RuntimeException.class).isThrownBy(() -> groups.get("test"))
+					assertThatExceptionOfType(RuntimeException.class).isThrownBy(() -> groups.get_RENAMED("test"))
 							.withMessage("postprocessed");
 				});
 	}
@@ -365,7 +365,7 @@ class HealthEndpointAutoConfigurationTests {
 
 		@Override
 		public HealthEndpointGroups postProcessHealthEndpointGroups(HealthEndpointGroups groups) {
-			given(groups.get("test")).willThrow(new RuntimeException("postprocessed"));
+			given(groups.get_RENAMED("test")).willThrow(new RuntimeException("postprocessed"));
 			return groups;
 		}
 

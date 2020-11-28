@@ -70,27 +70,27 @@ class AvailabilityProbesHealthEndpointGroupsTests {
 
 	@Test
 	void getWhenProbeInDelegateReturnsGroupFromDelegate() {
-		given(this.delegate.get("liveness")).willReturn(this.group);
+		given(this.delegate.get_RENAMED("liveness")).willReturn(this.group);
 		HealthEndpointGroups availabilityProbes = new AvailabilityProbesHealthEndpointGroups(this.delegate);
-		assertThat(availabilityProbes.get("liveness")).isEqualTo(this.group);
+		assertThat(availabilityProbes.get_RENAMED("liveness")).isEqualTo(this.group);
 	}
 
 	@Test
 	void getWhenProbeNotInDelegateReturnsProbeGroup() {
 		HealthEndpointGroups availabilityProbes = new AvailabilityProbesHealthEndpointGroups(this.delegate);
-		assertThat(availabilityProbes.get("liveness")).isInstanceOf(AvailabilityProbesHealthEndpointGroup.class);
+		assertThat(availabilityProbes.get_RENAMED("liveness")).isInstanceOf(AvailabilityProbesHealthEndpointGroup.class);
 	}
 
 	@Test
 	void getWhenNotProbeAndNotInDelegateReturnsNull() {
 		HealthEndpointGroups availabilityProbes = new AvailabilityProbesHealthEndpointGroups(this.delegate);
-		assertThat(availabilityProbes.get("mygroup")).isNull();
+		assertThat(availabilityProbes.get_RENAMED("mygroup")).isNull();
 	}
 
 	@Test
 	void getLivenessProbeHasOnlyLivenessStateAsMember() {
 		HealthEndpointGroups availabilityProbes = new AvailabilityProbesHealthEndpointGroups(this.delegate);
-		HealthEndpointGroup probeGroup = availabilityProbes.get("liveness");
+		HealthEndpointGroup probeGroup = availabilityProbes.get_RENAMED("liveness");
 		assertThat(probeGroup.isMember("livenessState")).isTrue();
 		assertThat(probeGroup.isMember("readinessState")).isFalse();
 	}
@@ -98,7 +98,7 @@ class AvailabilityProbesHealthEndpointGroupsTests {
 	@Test
 	void getReadinessProbeHasOnlyReadinessStateAsMember() {
 		HealthEndpointGroups availabilityProbes = new AvailabilityProbesHealthEndpointGroups(this.delegate);
-		HealthEndpointGroup probeGroup = availabilityProbes.get("readiness");
+		HealthEndpointGroup probeGroup = availabilityProbes.get_RENAMED("readiness");
 		assertThat(probeGroup.isMember("livenessState")).isFalse();
 		assertThat(probeGroup.isMember("readinessState")).isTrue();
 	}
