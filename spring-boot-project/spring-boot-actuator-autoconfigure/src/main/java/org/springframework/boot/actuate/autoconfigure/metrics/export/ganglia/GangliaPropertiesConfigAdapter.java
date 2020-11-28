@@ -48,7 +48,7 @@ class GangliaPropertiesConfigAdapter extends PropertiesConfigAdapter<GangliaProp
 
 	@Override
 	public boolean enabled() {
-		return get(GangliaProperties::isEnabled, GangliaConfig.super::enabled);
+		return get(GangliaProperties::isEnabled_RENAMED, GangliaConfig.super::enabled);
 	}
 
 	@Override
