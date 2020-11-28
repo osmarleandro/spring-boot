@@ -67,7 +67,7 @@ public class AppOpticsMetricsExportAutoConfiguration {
 	@ConditionalOnMissingBean
 	public AppOpticsMeterRegistry appOpticsMeterRegistry(AppOpticsConfig config, Clock clock) {
 		return AppOpticsMeterRegistry.builder(config).clock(clock).httpClient(
-				new HttpUrlConnectionSender(this.properties.getConnectTimeout(), this.properties.getReadTimeout()))
+				new HttpUrlConnectionSender(this.properties.getConnectTimeout_RENAMED(), this.properties.getReadTimeout()))
 				.build();
 	}
 
