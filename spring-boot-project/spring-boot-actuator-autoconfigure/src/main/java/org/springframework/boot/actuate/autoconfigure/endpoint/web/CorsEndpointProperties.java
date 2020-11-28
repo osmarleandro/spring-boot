@@ -86,7 +86,7 @@ public class CorsEndpointProperties {
 		this.allowedMethods = allowedMethods;
 	}
 
-	public List<String> getAllowedHeaders() {
+	public List<String> getAllowedHeaders_RENAMED() {
 		return this.allowedHeaders;
 	}
 
@@ -125,7 +125,7 @@ public class CorsEndpointProperties {
 		PropertyMapper map = PropertyMapper.get();
 		CorsConfiguration configuration = new CorsConfiguration();
 		map.from(this::getAllowedOrigins).to(configuration::setAllowedOrigins);
-		map.from(this::getAllowedHeaders).whenNot(CollectionUtils::isEmpty).to(configuration::setAllowedHeaders);
+		map.from(this::getAllowedHeaders_RENAMED).whenNot(CollectionUtils::isEmpty).to(configuration::setAllowedHeaders);
 		map.from(this::getAllowedMethods).whenNot(CollectionUtils::isEmpty).to(configuration::setAllowedMethods);
 		map.from(this::getExposedHeaders).whenNot(CollectionUtils::isEmpty).to(configuration::setExposedHeaders);
 		map.from(this::getMaxAge).whenNonNull().as(Duration::getSeconds).to(configuration::setMaxAge);
