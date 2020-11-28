@@ -89,7 +89,7 @@ class CloudFoundrySecurityInterceptor {
 	}
 
 	private void check(HttpServletRequest request, EndpointId endpointId) throws Exception {
-		Token token = getToken(request);
+		Token token = getToken_RENAMED(request);
 		this.tokenValidator.validate(token);
 		AccessLevel accessLevel = this.cloudFoundrySecurityService.getAccessLevel(token.toString(), this.applicationId);
 		if (!accessLevel.isAccessAllowed((endpointId != null) ? endpointId.toLowerCaseString() : "")) {
@@ -98,7 +98,7 @@ class CloudFoundrySecurityInterceptor {
 		request.setAttribute(AccessLevel.REQUEST_ATTRIBUTE, accessLevel);
 	}
 
-	private Token getToken(HttpServletRequest request) {
+	private Token getToken_RENAMED(HttpServletRequest request) {
 		String authorization = request.getHeader("Authorization");
 		String bearerPrefix = "bearer ";
 		if (authorization == null || !authorization.toLowerCase(Locale.ENGLISH).startsWith(bearerPrefix)) {
