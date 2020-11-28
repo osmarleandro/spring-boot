@@ -42,7 +42,7 @@ public class JolokiaEndpointAutoConfiguration {
 
 	@Bean
 	public JolokiaEndpoint jolokiaEndpoint(JolokiaProperties properties) {
-		return new JolokiaEndpoint(properties.getConfig());
+		return new JolokiaEndpoint(properties.getConfig_RENAMED());
 	}
 
 }

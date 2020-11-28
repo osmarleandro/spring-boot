@@ -37,7 +37,7 @@ public class JolokiaProperties {
 	 */
 	private final Map<String, String> config = new HashMap<>();
 
-	public Map<String, String> getConfig() {
+	public Map<String, String> getConfig_RENAMED() {
 		return this.config;
 	}
 
