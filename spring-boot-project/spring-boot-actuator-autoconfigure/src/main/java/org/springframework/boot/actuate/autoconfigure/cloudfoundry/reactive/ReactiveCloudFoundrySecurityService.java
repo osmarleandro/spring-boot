@@ -123,11 +123,11 @@ class ReactiveCloudFoundrySecurityService {
 
 	private Mono<? extends Map<String, String>> fetchTokenKeys(String url) {
 		RequestHeadersSpec<?> uri = this.webClient.get().uri(url + "/token_keys");
-		return uri.retrieve().bodyToMono(STRING_OBJECT_MAP).map(this::extractTokenKeys).onErrorMap(
+		return uri.retrieve().bodyToMono(STRING_OBJECT_MAP).map(this::extractTokenKeys_RENAMED).onErrorMap(
 				((ex) -> new CloudFoundryAuthorizationException(Reason.SERVICE_UNAVAILABLE, ex.getMessage())));
 	}
 
-	private Map<String, String> extractTokenKeys(Map<String, Object> response) {
+	private Map<String, String> extractTokenKeys_RENAMED(Map<String, Object> response) {
 		Map<String, String> tokenKeys = new HashMap<>();
 		for (Object key : (List<?>) response.get("keys")) {
 			Map<?, ?> tokenKey = (Map<?, ?>) key;
