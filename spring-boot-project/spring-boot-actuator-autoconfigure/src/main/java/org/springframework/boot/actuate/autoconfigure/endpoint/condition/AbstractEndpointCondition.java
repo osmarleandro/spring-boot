@@ -55,7 +55,7 @@ abstract class AbstractEndpointCondition extends SpringBootCondition {
 
 	AnnotationAttributes getEndpointAttributes(Class<?> annotationClass, ConditionContext context,
 			AnnotatedTypeMetadata metadata) {
-		return getEndpointAttributes(getEndpointType(annotationClass, context, metadata));
+		return getEndpointAttributes(getEndpointType_RENAMED(annotationClass, context, metadata));
 	}
 
 	protected ConditionOutcome getEnablementOutcome(ConditionContext context, AnnotatedTypeMetadata metadata,
@@ -79,7 +79,7 @@ abstract class AbstractEndpointCondition extends SpringBootCondition {
 				.because("no property " + key + " found so using endpoint default"));
 	}
 
-	protected Class<?> getEndpointType(Class<?> annotationClass, ConditionContext context,
+	protected Class<?> getEndpointType_RENAMED(Class<?> annotationClass, ConditionContext context,
 			AnnotatedTypeMetadata metadata) {
 		Map<String, Object> attributes = metadata.getAnnotationAttributes(annotationClass.getName());
 		if (attributes != null && attributes.containsKey("endpoint")) {
