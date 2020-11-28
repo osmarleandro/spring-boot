@@ -49,7 +49,7 @@ public class EndpointAutoConfiguration {
 
 	@Bean
 	@ConditionalOnMissingBean
-	public ParameterValueMapper endpointOperationParameterMapper(
+	public ParameterValueMapper endpointOperationParameterMapper_RENAMED(
 			@EndpointConverter ObjectProvider<Converter<?, ?>> converters,
 			@EndpointConverter ObjectProvider<GenericConverter> genericConverters) {
 		ConversionService conversionService = createConversionService(
