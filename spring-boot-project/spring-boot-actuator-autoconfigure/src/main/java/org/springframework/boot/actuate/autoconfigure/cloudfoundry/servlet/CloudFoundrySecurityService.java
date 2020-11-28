@@ -101,14 +101,14 @@ class CloudFoundrySecurityService {
 	 */
 	Map<String, String> fetchTokenKeys() {
 		try {
-			return extractTokenKeys(this.restTemplate.getForObject(getUaaUrl() + "/token_keys", Map.class));
+			return extractTokenKeys_RENAMED(this.restTemplate.getForObject(getUaaUrl() + "/token_keys", Map.class));
 		}
 		catch (HttpStatusCodeException ex) {
 			throw new CloudFoundryAuthorizationException(Reason.SERVICE_UNAVAILABLE, "UAA not reachable");
 		}
 	}
 
-	private Map<String, String> extractTokenKeys(Map<?, ?> response) {
+	private Map<String, String> extractTokenKeys_RENAMED(Map<?, ?> response) {
 		Map<String, String> tokenKeys = new HashMap<>();
 		for (Object key : (List<?>) response.get("keys")) {
 			Map<?, ?> tokenKey = (Map<?, ?>) key;
