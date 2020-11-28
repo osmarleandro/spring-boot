@@ -34,8 +34,8 @@ class IncludeExcludeGroupMemberPredicate implements Predicate<String> {
 	private final Set<String> exclude;
 
 	IncludeExcludeGroupMemberPredicate(Set<String> include, Set<String> exclude) {
-		this.include = clean(include);
-		this.exclude = clean(exclude);
+		this.include = clean_RENAMED(include);
+		this.exclude = clean_RENAMED(exclude);
 	}
 
 	@Override
@@ -51,7 +51,7 @@ class IncludeExcludeGroupMemberPredicate implements Predicate<String> {
 		return this.exclude.contains("*") || this.exclude.contains(clean(name));
 	}
 
-	private Set<String> clean(Set<String> names) {
+	private Set<String> clean_RENAMED(Set<String> names) {
 		if (names == null) {
 			return Collections.emptySet();
 		}
