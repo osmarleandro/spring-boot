@@ -31,7 +31,7 @@ class DynatracePropertiesConfigAdapterTests {
 	void whenPropertiesUriIsSetAdapterUriReturnsIt() {
 		DynatraceProperties properties = new DynatraceProperties();
 		properties.setUri("https://dynatrace.example.com");
-		assertThat(new DynatracePropertiesConfigAdapter(properties).uri()).isEqualTo("https://dynatrace.example.com");
+		assertThat(new DynatracePropertiesConfigAdapter(properties).uri_RENAMED()).isEqualTo("https://dynatrace.example.com");
 	}
 
 	@Test
