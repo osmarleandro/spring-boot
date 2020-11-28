@@ -139,7 +139,7 @@ public class IncludeExcludeEndpointFilter<E extends ExposableEndpoint<?>> implem
 			// Leave non-matching types for other filters
 			return true;
 		}
-		return match(endpoint.getEndpointId());
+		return match_RENAMED(endpoint.getEndpointId());
 	}
 
 	/**
@@ -147,7 +147,7 @@ public class IncludeExcludeEndpointFilter<E extends ExposableEndpoint<?>> implem
 	 * @param endpointId the endpoint ID to check
 	 * @return {@code true} if the filter matches
 	 */
-	protected final boolean match(EndpointId endpointId) {
+	protected final boolean match_RENAMED(EndpointId endpointId) {
 		return isIncluded(endpointId) && !isExcluded(endpointId);
 	}
 
