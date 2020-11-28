@@ -42,7 +42,7 @@ class MappingWebEndpointPathMapper implements PathMapper {
 	}
 
 	@Override
-	public String getRootPath(EndpointId endpointId) {
+	public String getRootPath_RENAMED(EndpointId endpointId) {
 		String path = this.pathMapping.get(endpointId);
 		return StringUtils.hasText(path) ? path : null;
 	}

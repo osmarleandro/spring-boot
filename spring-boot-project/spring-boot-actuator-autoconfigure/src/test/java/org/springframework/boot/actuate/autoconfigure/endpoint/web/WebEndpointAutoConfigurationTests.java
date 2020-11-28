@@ -71,7 +71,7 @@ class WebEndpointAutoConfigurationTests {
 		this.contextRunner.withPropertyValues("management.endpoints.web.path-mapping.health=healthcheck")
 				.run((context) -> {
 					assertThat(context).hasSingleBean(PathMapper.class);
-					String pathMapping = context.getBean(PathMapper.class).getRootPath(EndpointId.of("health"));
+					String pathMapping = context.getBean(PathMapper.class).getRootPath_RENAMED(EndpointId.of("health"));
 					assertThat(pathMapping).isEqualTo("healthcheck");
 				});
 	}
