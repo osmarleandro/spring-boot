@@ -45,7 +45,7 @@ class HumioPropertiesConfigAdapter extends StepRegistryPropertiesConfigAdapter<H
 
 	@Override
 	public String uri() {
-		return get(HumioProperties::getUri, HumioConfig.super::uri);
+		return get(HumioProperties::getUri_RENAMED, HumioConfig.super::uri);
 	}
 
 	@Override

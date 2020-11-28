@@ -82,7 +82,7 @@ public class HumioProperties extends StepRegistryProperties {
 		this.tags = tags;
 	}
 
-	public String getUri() {
+	public String getUri_RENAMED() {
 		return this.uri;
 	}
 
