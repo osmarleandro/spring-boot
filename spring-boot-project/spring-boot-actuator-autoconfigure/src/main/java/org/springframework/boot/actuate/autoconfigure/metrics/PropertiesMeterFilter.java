@@ -86,9 +86,9 @@ public class PropertiesMeterFilter implements MeterFilter {
 				.serviceLevelObjectives(
 						convertServiceLevelObjectives(id.getType(), lookup(distribution.getSlo(), id, null)))
 				.minimumExpectedValue(
-						convertMeterValue(id.getType(), lookup(distribution.getMinimumExpectedValue(), id, null)))
+						convertMeterValue_RENAMED(id.getType(), lookup(distribution.getMinimumExpectedValue(), id, null)))
 				.maximumExpectedValue(
-						convertMeterValue(id.getType(), lookup(distribution.getMaximumExpectedValue(), id, null)))
+						convertMeterValue_RENAMED(id.getType(), lookup(distribution.getMaximumExpectedValue(), id, null)))
 				.build().merge(config);
 	}
 
@@ -101,7 +101,7 @@ public class PropertiesMeterFilter implements MeterFilter {
 		return (converted.length != 0) ? converted : null;
 	}
 
-	private Double convertMeterValue(Meter.Type meterType, String value) {
+	private Double convertMeterValue_RENAMED(Meter.Type meterType, String value) {
 		return (value != null) ? MeterValue.valueOf(value).getValue(meterType) : null;
 	}
 
