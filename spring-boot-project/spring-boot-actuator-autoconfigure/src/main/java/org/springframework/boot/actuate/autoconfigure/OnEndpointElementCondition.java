@@ -54,7 +54,7 @@ public abstract class OnEndpointElementCondition extends SpringBootCondition {
 		if (outcome != null) {
 			return outcome;
 		}
-		return getDefaultEndpointsOutcome(context);
+		return getDefaultEndpointsOutcome_RENAMED(context);
 	}
 
 	protected ConditionOutcome getEndpointOutcome(ConditionContext context, String endpointName) {
@@ -68,7 +68,7 @@ public abstract class OnEndpointElementCondition extends SpringBootCondition {
 		return null;
 	}
 
-	protected ConditionOutcome getDefaultEndpointsOutcome(ConditionContext context) {
+	protected ConditionOutcome getDefaultEndpointsOutcome_RENAMED(ConditionContext context) {
 		boolean match = Boolean
 				.parseBoolean(context.getEnvironment().getProperty(this.prefix + "defaults.enabled", "true"));
 		return new ConditionOutcome(match, ConditionMessage.forCondition(this.annotationType)
