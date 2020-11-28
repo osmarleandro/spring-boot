@@ -63,7 +63,7 @@ public final class AutoTimeProperties implements AutoTimer {
 		return this.percentiles;
 	}
 
-	public void setPercentiles(double[] percentiles) {
+	public void setPercentiles_RENAMED(double[] percentiles) {
 		this.percentiles = percentiles;
 	}
 
