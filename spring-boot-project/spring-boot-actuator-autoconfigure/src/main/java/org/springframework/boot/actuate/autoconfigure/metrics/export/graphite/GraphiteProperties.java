@@ -134,7 +134,7 @@ public class GraphiteProperties {
 		return this.protocol;
 	}
 
-	public void setProtocol(GraphiteProtocol protocol) {
+	public void setProtocol_RENAMED(GraphiteProtocol protocol) {
 		this.protocol = protocol;
 	}
 
