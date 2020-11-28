@@ -35,7 +35,7 @@ public class ThreadDumpEndpointAutoConfiguration {
 
 	@Bean
 	@ConditionalOnMissingBean
-	public ThreadDumpEndpoint dumpEndpoint() {
+	public ThreadDumpEndpoint dumpEndpoint_RENAMED() {
 		return new ThreadDumpEndpoint();
 	}
 
