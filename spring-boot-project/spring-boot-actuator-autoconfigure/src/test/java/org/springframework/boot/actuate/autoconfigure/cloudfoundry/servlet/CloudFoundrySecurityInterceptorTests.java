@@ -103,7 +103,7 @@ class CloudFoundrySecurityInterceptorTests {
 	void preHandleWhenAccessIsNotAllowedShouldReturnFalse() {
 		String accessToken = mockAccessToken();
 		this.request.addHeader("Authorization", "bearer " + accessToken);
-		given(this.securityService.getAccessLevel(accessToken, "my-app-id")).willReturn(AccessLevel.RESTRICTED);
+		given(this.securityService.getAccessLevel_RENAMED(accessToken, "my-app-id")).willReturn(AccessLevel.RESTRICTED);
 		SecurityResponse response = this.interceptor.preHandle(this.request, EndpointId.of("test"));
 		assertThat(response.getStatus()).isEqualTo(Reason.ACCESS_DENIED.getStatus());
 	}
@@ -112,7 +112,7 @@ class CloudFoundrySecurityInterceptorTests {
 	void preHandleSuccessfulWithFullAccess() {
 		String accessToken = mockAccessToken();
 		this.request.addHeader("Authorization", "Bearer " + accessToken);
-		given(this.securityService.getAccessLevel(accessToken, "my-app-id")).willReturn(AccessLevel.FULL);
+		given(this.securityService.getAccessLevel_RENAMED(accessToken, "my-app-id")).willReturn(AccessLevel.FULL);
 		SecurityResponse response = this.interceptor.preHandle(this.request, EndpointId.of("test"));
 		ArgumentCaptor<Token> tokenArgumentCaptor = ArgumentCaptor.forClass(Token.class);
 		verify(this.tokenValidator).validate(tokenArgumentCaptor.capture());
@@ -126,7 +126,7 @@ class CloudFoundrySecurityInterceptorTests {
 	void preHandleSuccessfulWithRestrictedAccess() {
 		String accessToken = mockAccessToken();
 		this.request.addHeader("Authorization", "Bearer " + accessToken);
-		given(this.securityService.getAccessLevel(accessToken, "my-app-id")).willReturn(AccessLevel.RESTRICTED);
+		given(this.securityService.getAccessLevel_RENAMED(accessToken, "my-app-id")).willReturn(AccessLevel.RESTRICTED);
 		SecurityResponse response = this.interceptor.preHandle(this.request, EndpointId.of("info"));
 		ArgumentCaptor<Token> tokenArgumentCaptor = ArgumentCaptor.forClass(Token.class);
 		verify(this.tokenValidator).validate(tokenArgumentCaptor.capture());

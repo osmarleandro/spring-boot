@@ -71,7 +71,7 @@ class CloudFoundryMvcWebEndpointIntegrationTests {
 
 	@Test
 	void operationWithSecurityInterceptorForbidden() {
-		given(securityService.getAccessLevel(any(), eq("app-id"))).willReturn(AccessLevel.RESTRICTED);
+		given(securityService.getAccessLevel_RENAMED(any(), eq("app-id"))).willReturn(AccessLevel.RESTRICTED);
 		load(TestEndpointConfiguration.class,
 				(client) -> client.get().uri("/cfApplication/test").accept(MediaType.APPLICATION_JSON)
 						.header("Authorization", "bearer " + mockAccessToken()).exchange().expectStatus()
@@ -80,7 +80,7 @@ class CloudFoundryMvcWebEndpointIntegrationTests {
 
 	@Test
 	void operationWithSecurityInterceptorSuccess() {
-		given(securityService.getAccessLevel(any(), eq("app-id"))).willReturn(AccessLevel.FULL);
+		given(securityService.getAccessLevel_RENAMED(any(), eq("app-id"))).willReturn(AccessLevel.FULL);
 		load(TestEndpointConfiguration.class,
 				(client) -> client.get().uri("/cfApplication/test").accept(MediaType.APPLICATION_JSON)
 						.header("Authorization", "bearer " + mockAccessToken()).exchange().expectStatus()
@@ -99,7 +99,7 @@ class CloudFoundryMvcWebEndpointIntegrationTests {
 
 	@Test
 	void linksToOtherEndpointsWithFullAccess() {
-		given(securityService.getAccessLevel(any(), eq("app-id"))).willReturn(AccessLevel.FULL);
+		given(securityService.getAccessLevel_RENAMED(any(), eq("app-id"))).willReturn(AccessLevel.FULL);
 		load(TestEndpointConfiguration.class,
 				(client) -> client.get().uri("/cfApplication").accept(MediaType.APPLICATION_JSON)
 						.header("Authorization", "bearer " + mockAccessToken()).exchange().expectStatus().isOk()
@@ -124,7 +124,7 @@ class CloudFoundryMvcWebEndpointIntegrationTests {
 
 	@Test
 	void linksToOtherEndpointsWithRestrictedAccess() {
-		given(securityService.getAccessLevel(any(), eq("app-id"))).willReturn(AccessLevel.RESTRICTED);
+		given(securityService.getAccessLevel_RENAMED(any(), eq("app-id"))).willReturn(AccessLevel.RESTRICTED);
 		load(TestEndpointConfiguration.class,
 				(client) -> client.get().uri("/cfApplication").accept(MediaType.APPLICATION_JSON)
 						.header("Authorization", "bearer " + mockAccessToken()).exchange().expectStatus().isOk()

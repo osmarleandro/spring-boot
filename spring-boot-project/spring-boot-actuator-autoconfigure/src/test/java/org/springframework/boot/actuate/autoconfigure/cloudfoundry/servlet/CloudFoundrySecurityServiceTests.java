@@ -89,7 +89,7 @@ class CloudFoundrySecurityServiceTests {
 		this.server.expect(requestTo(CLOUD_CONTROLLER_PERMISSIONS))
 				.andExpect(header("Authorization", "bearer my-access-token"))
 				.andRespond(withSuccess(responseBody, MediaType.APPLICATION_JSON));
-		AccessLevel accessLevel = this.securityService.getAccessLevel("my-access-token", "my-app-id");
+		AccessLevel accessLevel = this.securityService.getAccessLevel_RENAMED("my-access-token", "my-app-id");
 		this.server.verify();
 		assertThat(accessLevel).isEqualTo(AccessLevel.FULL);
 	}
@@ -100,7 +100,7 @@ class CloudFoundrySecurityServiceTests {
 		this.server.expect(requestTo(CLOUD_CONTROLLER_PERMISSIONS))
 				.andExpect(header("Authorization", "bearer my-access-token"))
 				.andRespond(withSuccess(responseBody, MediaType.APPLICATION_JSON));
-		AccessLevel accessLevel = this.securityService.getAccessLevel("my-access-token", "my-app-id");
+		AccessLevel accessLevel = this.securityService.getAccessLevel_RENAMED("my-access-token", "my-app-id");
 		this.server.verify();
 		assertThat(accessLevel).isEqualTo(AccessLevel.RESTRICTED);
 	}
@@ -110,7 +110,7 @@ class CloudFoundrySecurityServiceTests {
 		this.server.expect(requestTo(CLOUD_CONTROLLER_PERMISSIONS))
 				.andExpect(header("Authorization", "bearer my-access-token")).andRespond(withUnauthorizedRequest());
 		assertThatExceptionOfType(CloudFoundryAuthorizationException.class)
-				.isThrownBy(() -> this.securityService.getAccessLevel("my-access-token", "my-app-id"))
+				.isThrownBy(() -> this.securityService.getAccessLevel_RENAMED("my-access-token", "my-app-id"))
 				.satisfies(reasonRequirement(Reason.INVALID_TOKEN));
 	}
 
@@ -120,7 +120,7 @@ class CloudFoundrySecurityServiceTests {
 				.andExpect(header("Authorization", "bearer my-access-token"))
 				.andRespond(withStatus(HttpStatus.FORBIDDEN));
 		assertThatExceptionOfType(CloudFoundryAuthorizationException.class)
-				.isThrownBy(() -> this.securityService.getAccessLevel("my-access-token", "my-app-id"))
+				.isThrownBy(() -> this.securityService.getAccessLevel_RENAMED("my-access-token", "my-app-id"))
 				.satisfies(reasonRequirement(Reason.ACCESS_DENIED));
 	}
 
@@ -129,7 +129,7 @@ class CloudFoundrySecurityServiceTests {
 		this.server.expect(requestTo(CLOUD_CONTROLLER_PERMISSIONS))
 				.andExpect(header("Authorization", "bearer my-access-token")).andRespond(withServerError());
 		assertThatExceptionOfType(CloudFoundryAuthorizationException.class)
-				.isThrownBy(() -> this.securityService.getAccessLevel("my-access-token", "my-app-id"))
+				.isThrownBy(() -> this.securityService.getAccessLevel_RENAMED("my-access-token", "my-app-id"))
 				.satisfies(reasonRequirement(Reason.SERVICE_UNAVAILABLE));
 	}
 
