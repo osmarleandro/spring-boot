@@ -70,7 +70,7 @@ public class CorsEndpointProperties {
 	@DurationUnit(ChronoUnit.SECONDS)
 	private Duration maxAge = Duration.ofSeconds(1800);
 
-	public List<String> getAllowedOrigins() {
+	public List<String> getAllowedOrigins_RENAMED() {
 		return this.allowedOrigins;
 	}
 
@@ -124,7 +124,7 @@ public class CorsEndpointProperties {
 		}
 		PropertyMapper map = PropertyMapper.get();
 		CorsConfiguration configuration = new CorsConfiguration();
-		map.from(this::getAllowedOrigins).to(configuration::setAllowedOrigins);
+		map.from(this::getAllowedOrigins_RENAMED).to(configuration::setAllowedOrigins);
 		map.from(this::getAllowedHeaders).whenNot(CollectionUtils::isEmpty).to(configuration::setAllowedHeaders);
 		map.from(this::getAllowedMethods).whenNot(CollectionUtils::isEmpty).to(configuration::setAllowedMethods);
 		map.from(this::getExposedHeaders).whenNot(CollectionUtils::isEmpty).to(configuration::setExposedHeaders);
