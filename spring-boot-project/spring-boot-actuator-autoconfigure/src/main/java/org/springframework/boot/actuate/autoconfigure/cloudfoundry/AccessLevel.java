@@ -51,7 +51,7 @@ public enum AccessLevel {
 	 * @param id the ID to check
 	 * @return {@code true} if access is allowed
 	 */
-	public boolean isAccessAllowed(String id) {
+	public boolean isAccessAllowed_RENAMED(String id) {
 		return this.ids.isEmpty() || this.ids.contains(id);
 	}
 

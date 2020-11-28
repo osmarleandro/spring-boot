@@ -29,26 +29,26 @@ class AccessLevelTests {
 
 	@Test
 	void accessToHealthEndpointShouldNotBeRestricted() {
-		assertThat(AccessLevel.RESTRICTED.isAccessAllowed("health")).isTrue();
-		assertThat(AccessLevel.FULL.isAccessAllowed("health")).isTrue();
+		assertThat(AccessLevel.RESTRICTED.isAccessAllowed_RENAMED("health")).isTrue();
+		assertThat(AccessLevel.FULL.isAccessAllowed_RENAMED("health")).isTrue();
 	}
 
 	@Test
 	void accessToInfoEndpointShouldNotBeRestricted() {
-		assertThat(AccessLevel.RESTRICTED.isAccessAllowed("info")).isTrue();
-		assertThat(AccessLevel.FULL.isAccessAllowed("info")).isTrue();
+		assertThat(AccessLevel.RESTRICTED.isAccessAllowed_RENAMED("info")).isTrue();
+		assertThat(AccessLevel.FULL.isAccessAllowed_RENAMED("info")).isTrue();
 	}
 
 	@Test
 	void accessToDiscoveryEndpointShouldNotBeRestricted() {
-		assertThat(AccessLevel.RESTRICTED.isAccessAllowed("")).isTrue();
-		assertThat(AccessLevel.FULL.isAccessAllowed("")).isTrue();
+		assertThat(AccessLevel.RESTRICTED.isAccessAllowed_RENAMED("")).isTrue();
+		assertThat(AccessLevel.FULL.isAccessAllowed_RENAMED("")).isTrue();
 	}
 
 	@Test
 	void accessToAnyOtherEndpointShouldBeRestricted() {
-		assertThat(AccessLevel.RESTRICTED.isAccessAllowed("env")).isFalse();
-		assertThat(AccessLevel.FULL.isAccessAllowed("")).isTrue();
+		assertThat(AccessLevel.RESTRICTED.isAccessAllowed_RENAMED("env")).isFalse();
+		assertThat(AccessLevel.FULL.isAccessAllowed_RENAMED("")).isTrue();
 	}
 
 }

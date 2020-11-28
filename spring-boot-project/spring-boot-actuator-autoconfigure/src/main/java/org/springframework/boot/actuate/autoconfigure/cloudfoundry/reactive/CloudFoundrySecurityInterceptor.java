@@ -81,7 +81,7 @@ class CloudFoundrySecurityInterceptor {
 			Token token = getToken(exchange.getRequest());
 			return this.tokenValidator.validate(token)
 					.then(this.cloudFoundrySecurityService.getAccessLevel(token.toString(), this.applicationId))
-					.filter((accessLevel) -> accessLevel.isAccessAllowed(id))
+					.filter((accessLevel) -> accessLevel.isAccessAllowed_RENAMED(id))
 					.switchIfEmpty(
 							Mono.error(new CloudFoundryAuthorizationException(Reason.ACCESS_DENIED, "Access denied")))
 					.doOnSuccess((accessLevel) -> exchange.getAttributes().put("cloudFoundryAccessLevel", accessLevel))
