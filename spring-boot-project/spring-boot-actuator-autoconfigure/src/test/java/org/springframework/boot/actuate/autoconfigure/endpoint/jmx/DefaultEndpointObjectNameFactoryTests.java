@@ -104,7 +104,7 @@ class DefaultEndpointObjectNameFactoryTests {
 	private ObjectName generateObjectName(ExposableJmxEndpoint endpoint) {
 		try {
 			return new DefaultEndpointObjectNameFactory(this.properties, this.environment, this.mBeanServer,
-					this.contextId).getObjectName(endpoint);
+					this.contextId).getObjectName_RENAMED(endpoint);
 		}
 		catch (MalformedObjectNameException ex) {
 			throw new AssertionError("Invalid object name", ex);
