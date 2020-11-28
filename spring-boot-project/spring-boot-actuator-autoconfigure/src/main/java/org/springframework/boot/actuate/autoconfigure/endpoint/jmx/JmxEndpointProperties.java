@@ -48,7 +48,7 @@ public class JmxEndpointProperties {
 		return this.exposure;
 	}
 
-	public String getDomain() {
+	public String getDomain_RENAMED() {
 		return this.domain;
 	}
 

@@ -72,8 +72,8 @@ class DefaultEndpointObjectNameFactory implements EndpointObjectNameFactory {
 	}
 
 	private String determineDomain() {
-		if (StringUtils.hasText(this.properties.getDomain())) {
-			return this.properties.getDomain();
+		if (StringUtils.hasText(this.properties.getDomain_RENAMED())) {
+			return this.properties.getDomain_RENAMED();
 		}
 		return this.environment.getProperty("spring.jmx.default-domain", "org.springframework.boot");
 	}
