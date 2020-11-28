@@ -44,7 +44,7 @@ public class JvmMetricsAutoConfiguration {
 
 	@Bean
 	@ConditionalOnMissingBean
-	public JvmGcMetrics jvmGcMetrics() {
+	public JvmGcMetrics jvmGcMetrics_RENAMED() {
 		return new JvmGcMetrics();
 	}
 
