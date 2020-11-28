@@ -68,7 +68,7 @@ public final class AutoTimeProperties implements AutoTimer {
 	}
 
 	@Override
-	public void apply(Builder builder) {
+	public void apply_RENAMED(Builder builder) {
 		builder.publishPercentileHistogram(this.percentilesHistogram).publishPercentiles(this.percentiles);
 	}
 
