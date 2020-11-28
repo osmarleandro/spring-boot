@@ -46,7 +46,7 @@ class TokenValidator {
 		this.securityService = cloudFoundrySecurityService;
 	}
 
-	void validate(Token token) {
+	void validate_RENAMED(Token token) {
 		validateAlgorithm(token);
 		validateKeyIdAndSignature(token);
 		validateExpiry(token);
