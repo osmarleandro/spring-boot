@@ -156,7 +156,7 @@ class ReactiveCloudFoundrySecurityServiceTests {
 			response.setBody(responseBody);
 			response.setHeader("Content-Type", "application/json");
 		});
-		StepVerifier.create(this.securityService.fetchTokenKeys())
+		StepVerifier.create(this.securityService.fetchTokenKeys_RENAMED())
 				.consumeNextWith((tokenKeys) -> assertThat(tokenKeys.get("test-key")).isEqualTo(tokenKeyValue))
 				.expectComplete().verify();
 		expectRequest((request) -> assertThat(request.getPath()).isEqualTo("/my-cloud-controller.com/info"));
@@ -174,7 +174,7 @@ class ReactiveCloudFoundrySecurityServiceTests {
 			response.setBody(responseBody);
 			response.setHeader("Content-Type", "application/json");
 		});
-		StepVerifier.create(this.securityService.fetchTokenKeys())
+		StepVerifier.create(this.securityService.fetchTokenKeys_RENAMED())
 				.consumeNextWith((tokenKeys) -> assertThat(tokenKeys).hasSize(0)).expectComplete().verify();
 		expectRequest((request) -> assertThat(request.getPath()).isEqualTo("/my-cloud-controller.com/info"));
 		expectRequest((request) -> assertThat(request.getPath()).isEqualTo("/my-uaa.com/token_keys"));
@@ -187,7 +187,7 @@ class ReactiveCloudFoundrySecurityServiceTests {
 			response.setHeader("Content-Type", "application/json");
 		});
 		prepareResponse((response) -> response.setResponseCode(500));
-		StepVerifier.create(this.securityService.fetchTokenKeys())
+		StepVerifier.create(this.securityService.fetchTokenKeys_RENAMED())
 				.consumeErrorWith(
 						(throwable) -> assertThat(((CloudFoundryAuthorizationException) throwable).getReason())
 								.isEqualTo(Reason.SERVICE_UNAVAILABLE))

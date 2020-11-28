@@ -117,7 +117,7 @@ class ReactiveCloudFoundrySecurityService {
 	 * Return a Mono of all token keys known by the UAA.
 	 * @return a Mono of token keys
 	 */
-	Mono<Map<String, String>> fetchTokenKeys() {
+	Mono<Map<String, String>> fetchTokenKeys_RENAMED() {
 		return getUaaUrl().flatMap(this::fetchTokenKeys);
 	}
 
