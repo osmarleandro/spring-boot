@@ -71,7 +71,7 @@ public class NewRelicMetricsExportAutoConfiguration {
 	@Bean
 	@ConditionalOnMissingBean
 	public NewRelicClientProvider newRelicClientProvider(NewRelicConfig newRelicConfig) {
-		if (newRelicConfig.clientProviderType() == ClientProviderType.INSIGHTS_AGENT) {
+		if (newRelicConfig.clientProviderType_RENAMED() == ClientProviderType.INSIGHTS_AGENT) {
 			return new NewRelicInsightsAgentClientProvider(newRelicConfig);
 		}
 		return new NewRelicInsightsApiClientProvider(newRelicConfig,

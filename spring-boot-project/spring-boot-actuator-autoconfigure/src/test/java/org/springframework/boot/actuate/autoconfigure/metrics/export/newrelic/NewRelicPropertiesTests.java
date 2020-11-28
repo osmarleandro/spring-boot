@@ -35,7 +35,7 @@ class NewRelicPropertiesTests extends StepRegistryPropertiesTests {
 		NewRelicProperties properties = new NewRelicProperties();
 		NewRelicConfig config = (key) -> null;
 		assertStepRegistryDefaultValues(properties, config);
-		assertThat(properties.getClientProviderType()).isEqualTo(config.clientProviderType());
+		assertThat(properties.getClientProviderType()).isEqualTo(config.clientProviderType_RENAMED());
 		// apiKey and account are mandatory
 		assertThat(properties.getUri()).isEqualTo(config.uri());
 		assertThat(properties.isMeterNameEventTypeEnabled()).isEqualTo(config.meterNameEventTypeEnabled());
