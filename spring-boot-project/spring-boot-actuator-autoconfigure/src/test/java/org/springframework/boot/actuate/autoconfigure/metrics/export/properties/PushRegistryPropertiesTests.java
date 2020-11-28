@@ -29,7 +29,7 @@ public abstract class PushRegistryPropertiesTests {
 
 	@SuppressWarnings("deprecation")
 	protected void assertStepRegistryDefaultValues(PushRegistryProperties properties, PushRegistryConfig config) {
-		assertThat(properties.getStep()).isEqualTo(config.step());
+		assertThat(properties.getStep()).isEqualTo(config.step_RENAMED());
 		assertThat(properties.isEnabled()).isEqualTo(config.enabled());
 		assertThat(properties.getConnectTimeout()).isEqualTo(config.connectTimeout());
 		assertThat(properties.getReadTimeout()).isEqualTo(config.readTimeout());

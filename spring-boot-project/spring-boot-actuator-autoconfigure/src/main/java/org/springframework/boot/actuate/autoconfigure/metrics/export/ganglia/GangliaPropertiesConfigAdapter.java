@@ -52,7 +52,7 @@ class GangliaPropertiesConfigAdapter extends PropertiesConfigAdapter<GangliaProp
 	}
 
 	@Override
-	public Duration step() {
+	public Duration step_RENAMED() {
 		return get(GangliaProperties::getStep, GangliaConfig.super::step);
 	}
 
