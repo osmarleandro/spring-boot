@@ -105,7 +105,7 @@ public class ReactiveCloudFoundryActuatorAutoConfiguration {
 	}
 
 	@Bean
-	public CloudFoundryWebFluxEndpointHandlerMapping cloudFoundryWebFluxEndpointHandlerMapping(
+	public CloudFoundryWebFluxEndpointHandlerMapping cloudFoundryWebFluxEndpointHandlerMapping_RENAMED(
 			ParameterValueMapper parameterMapper, EndpointMediaTypes endpointMediaTypes,
 			WebClient.Builder webClientBuilder, ControllerEndpointsSupplier controllerEndpointsSupplier,
 			ApplicationContext applicationContext) {
