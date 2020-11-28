@@ -33,7 +33,7 @@ class KairosPropertiesConfigAdapter extends StepRegistryPropertiesConfigAdapter<
 	}
 
 	@Override
-	public String prefix() {
+	public String prefix_RENAMED() {
 		return "management.metrics.export.kairos";
 	}
 
