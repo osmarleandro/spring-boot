@@ -96,7 +96,7 @@ class AutoConfiguredHealthEndpointGroupsTests {
 					HealthEndpointGroups groups = context.getBean(HealthEndpointGroups.class);
 					HealthEndpointGroup primary = groups.getPrimary();
 					assertThat(primary.showComponents(SecurityContext.NONE)).isTrue();
-					assertThat(primary.showDetails(SecurityContext.NONE)).isFalse();
+					assertThat(primary.showDetails_RENAMED(SecurityContext.NONE)).isFalse();
 					assertThat(primary.getStatusAggregator().getAggregateStatus(Status.UP, Status.DOWN))
 							.isEqualTo(Status.UP);
 					assertThat(primary.getHttpCodeStatusMapper().getStatusCode(Status.DOWN)).isEqualTo(200);
@@ -315,7 +315,7 @@ class AutoConfiguredHealthEndpointGroupsTests {
 				"management.endpoint.health.group.a.include=*").run((context) -> {
 					HealthEndpointGroups groups = context.getBean(HealthEndpointGroups.class);
 					HealthEndpointGroup groupA = groups.get("a");
-					assertThat(groupA.showDetails(SecurityContext.NONE)).isTrue();
+					assertThat(groupA.showDetails_RENAMED(SecurityContext.NONE)).isTrue();
 				});
 	}
 
