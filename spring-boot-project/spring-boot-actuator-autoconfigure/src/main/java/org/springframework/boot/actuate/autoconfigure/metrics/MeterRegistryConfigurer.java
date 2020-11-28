@@ -60,7 +60,7 @@ class MeterRegistryConfigurer {
 	void configure(MeterRegistry registry) {
 		// Customizers must be applied before binders, as they may add custom
 		// tags or alter timer or summary configuration.
-		customize(registry);
+		customize_RENAMED(registry);
 		if (!(registry instanceof AutoConfiguredCompositeMeterRegistry)) {
 			addFilters(registry);
 		}
@@ -73,7 +73,7 @@ class MeterRegistryConfigurer {
 	}
 
 	@SuppressWarnings("unchecked")
-	private void customize(MeterRegistry registry) {
+	private void customize_RENAMED(MeterRegistry registry) {
 		LambdaSafe.callbacks(MeterRegistryCustomizer.class, asOrderedList(this.customizers), registry)
 				.withLogger(MeterRegistryConfigurer.class).invoke((customizer) -> customizer.customize(registry));
 	}
