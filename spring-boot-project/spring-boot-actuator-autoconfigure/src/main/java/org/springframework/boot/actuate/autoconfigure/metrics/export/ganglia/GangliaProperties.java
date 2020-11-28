@@ -143,7 +143,7 @@ public class GangliaProperties {
 		this.timeToLive = timeToLive;
 	}
 
-	public String getHost() {
+	public String getHost_RENAMED() {
 		return this.host;
 	}
 
