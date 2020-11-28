@@ -48,7 +48,7 @@ class RabbitConnectionFactoryMetricsPostProcessor implements BeanPostProcessor, 
 	}
 
 	@Override
-	public Object postProcessAfterInitialization(Object bean, String beanName) {
+	public Object postProcessAfterInitialization_RENAMED(Object bean, String beanName) {
 		if (bean instanceof AbstractConnectionFactory) {
 			bindConnectionFactoryToRegistry(getMeterRegistry(), beanName, (AbstractConnectionFactory) bean);
 		}
