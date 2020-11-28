@@ -81,13 +81,13 @@ class ReactiveTokenValidator {
 		if (cached != null) {
 			return Mono.just(cached);
 		}
-		return this.securityService.fetchTokenKeys().doOnSuccess(this::cacheTokenKeys)
+		return this.securityService.fetchTokenKeys().doOnSuccess(this::cacheTokenKeys_RENAMED)
 				.filter((tokenKeys) -> tokenKeys.containsKey(keyId)).map((tokenKeys) -> tokenKeys.get(keyId))
 				.switchIfEmpty(Mono.error(new CloudFoundryAuthorizationException(Reason.INVALID_KEY_ID,
 						"Key Id present in token header does not match")));
 	}
 
-	private void cacheTokenKeys(Map<String, String> tokenKeys) {
+	private void cacheTokenKeys_RENAMED(Map<String, String> tokenKeys) {
 		this.cachedTokenKeys = new ConcurrentHashMap<>(tokenKeys);
 	}
 
