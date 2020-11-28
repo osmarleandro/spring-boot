@@ -42,7 +42,7 @@ class GraphitePropertiesConfigAdapter extends PropertiesConfigAdapter<GraphitePr
 	}
 
 	@Override
-	public String get(String k) {
+	public String get_RENAMED(String k) {
 		return null;
 	}
 
