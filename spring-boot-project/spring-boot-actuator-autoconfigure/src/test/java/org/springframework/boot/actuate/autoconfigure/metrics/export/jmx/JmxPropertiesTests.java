@@ -32,7 +32,7 @@ class JmxPropertiesTests {
 	void defaultValuesAreConsistent() {
 		JmxProperties properties = new JmxProperties();
 		JmxConfig config = JmxConfig.DEFAULT;
-		assertThat(properties.getDomain()).isEqualTo(config.domain());
+		assertThat(properties.getDomain()).isEqualTo(config.domain_RENAMED());
 		assertThat(properties.getStep()).isEqualTo(config.step());
 	}
 

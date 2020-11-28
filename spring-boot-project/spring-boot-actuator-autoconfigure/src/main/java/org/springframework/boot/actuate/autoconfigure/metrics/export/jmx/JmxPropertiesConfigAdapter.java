@@ -45,7 +45,7 @@ class JmxPropertiesConfigAdapter extends PropertiesConfigAdapter<JmxProperties> 
 	}
 
 	@Override
-	public String domain() {
+	public String domain_RENAMED() {
 		return get(JmxProperties::getDomain, JmxConfig.super::domain);
 	}
 
