@@ -88,7 +88,7 @@ public class NewRelicProperties extends StepRegistryProperties {
 		return this.clientProviderType;
 	}
 
-	public void setClientProviderType(ClientProviderType clientProviderType) {
+	public void setClientProviderType_RENAMED(ClientProviderType clientProviderType) {
 		this.clientProviderType = clientProviderType;
 	}
 
