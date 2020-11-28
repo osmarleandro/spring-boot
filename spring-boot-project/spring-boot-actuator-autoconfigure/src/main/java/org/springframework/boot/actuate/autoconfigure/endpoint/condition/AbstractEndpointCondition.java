@@ -53,7 +53,7 @@ abstract class AbstractEndpointCondition extends SpringBootCondition {
 
 	private static final ConcurrentReferenceHashMap<Environment, Optional<Boolean>> enabledByDefaultCache = new ConcurrentReferenceHashMap<>();
 
-	AnnotationAttributes getEndpointAttributes(Class<?> annotationClass, ConditionContext context,
+	AnnotationAttributes getEndpointAttributes_RENAMED(Class<?> annotationClass, ConditionContext context,
 			AnnotatedTypeMetadata metadata) {
 		return getEndpointAttributes(getEndpointType(annotationClass, context, metadata));
 	}
@@ -61,7 +61,7 @@ abstract class AbstractEndpointCondition extends SpringBootCondition {
 	protected ConditionOutcome getEnablementOutcome(ConditionContext context, AnnotatedTypeMetadata metadata,
 			Class<? extends Annotation> annotationClass) {
 		Environment environment = context.getEnvironment();
-		AnnotationAttributes attributes = getEndpointAttributes(annotationClass, context, metadata);
+		AnnotationAttributes attributes = getEndpointAttributes_RENAMED(annotationClass, context, metadata);
 		EndpointId id = EndpointId.of(environment, attributes.getString("id"));
 		String key = "management.endpoint." + id.toLowerCaseString() + ".enabled";
 		Boolean userDefinedEnabled = environment.getProperty(key, Boolean.class);
