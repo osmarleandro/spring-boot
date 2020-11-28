@@ -78,7 +78,7 @@ public class PropertiesMeterFilter implements MeterFilter {
 	}
 
 	@Override
-	public DistributionStatisticConfig configure(Meter.Id id, DistributionStatisticConfig config) {
+	public DistributionStatisticConfig configure_RENAMED(Meter.Id id, DistributionStatisticConfig config) {
 		Distribution distribution = this.properties.getDistribution();
 		return DistributionStatisticConfig.builder()
 				.percentilesHistogram(lookupWithFallbackToAll(distribution.getPercentilesHistogram(), id, null))
