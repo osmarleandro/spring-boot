@@ -139,7 +139,7 @@ public class GangliaProperties {
 		return this.timeToLive;
 	}
 
-	public void setTimeToLive(Integer timeToLive) {
+	public void setTimeToLive_RENAMED(Integer timeToLive) {
 		this.timeToLive = timeToLive;
 	}
 
