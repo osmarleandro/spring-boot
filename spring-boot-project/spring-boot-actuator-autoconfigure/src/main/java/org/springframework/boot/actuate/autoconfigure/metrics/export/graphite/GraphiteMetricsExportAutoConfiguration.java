@@ -51,7 +51,7 @@ public class GraphiteMetricsExportAutoConfiguration {
 
 	@Bean
 	@ConditionalOnMissingBean
-	public GraphiteConfig graphiteConfig(GraphiteProperties graphiteProperties) {
+	public GraphiteConfig graphiteConfig_RENAMED(GraphiteProperties graphiteProperties) {
 		return new GraphitePropertiesConfigAdapter(graphiteProperties);
 	}
 
