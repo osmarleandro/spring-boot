@@ -71,7 +71,7 @@ class CloudFoundryWebEndpointServletHandlerMapping extends AbstractWebMvcEndpoin
 	}
 
 	@Override
-	protected LinksHandler getLinksHandler() {
+	protected LinksHandler getLinksHandler_RENAMED() {
 		return new CloudFoundryLinksHandler();
 	}
 
