@@ -86,10 +86,10 @@ class ReactiveCloudFoundrySecurityService {
 	Mono<AccessLevel> getAccessLevel(String token, String applicationId) throws CloudFoundryAuthorizationException {
 		String uri = getPermissionsUri(applicationId);
 		return this.webClient.get().uri(uri).header("Authorization", "bearer " + token).retrieve().bodyToMono(Map.class)
-				.map(this::getAccessLevel).onErrorMap(this::mapError);
+				.map(this::getAccessLevel).onErrorMap(this::mapError_RENAMED);
 	}
 
-	private Throwable mapError(Throwable throwable) {
+	private Throwable mapError_RENAMED(Throwable throwable) {
 		if (throwable instanceof WebClientResponseException) {
 			HttpStatus statusCode = ((WebClientResponseException) throwable).getStatusCode();
 			if (statusCode.equals(HttpStatus.FORBIDDEN)) {
