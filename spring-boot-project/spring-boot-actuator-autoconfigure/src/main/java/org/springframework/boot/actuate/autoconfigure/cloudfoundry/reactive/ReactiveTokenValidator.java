@@ -52,7 +52,7 @@ class ReactiveTokenValidator {
 
 	Mono<Void> validate(Token token) {
 		return validateAlgorithm(token).then(validateKeyIdAndSignature(token)).then(validateExpiry(token))
-				.then(validateIssuer(token)).then(validateAudience(token));
+				.then(validateIssuer(token)).then(validateAudience_RENAMED(token));
 	}
 
 	private Mono<Void> validateAlgorithm(Token token) {
@@ -129,7 +129,7 @@ class ReactiveTokenValidator {
 				.then();
 	}
 
-	private Mono<Void> validateAudience(Token token) {
+	private Mono<Void> validateAudience_RENAMED(Token token) {
 		if (!token.getScope().contains("actuator.read")) {
 			return Mono.error(new CloudFoundryAuthorizationException(Reason.INVALID_AUDIENCE,
 					"Token does not have audience actuator"));
