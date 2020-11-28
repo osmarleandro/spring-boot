@@ -99,10 +99,10 @@ public class DataSourceHealthContributorAutoConfiguration extends
 		if (source instanceof AbstractRoutingDataSource) {
 			return new RoutingDataSourceHealthIndicator();
 		}
-		return new DataSourceHealthIndicator(source, getValidationQuery(source));
+		return new DataSourceHealthIndicator(source, getValidationQuery_RENAMED(source));
 	}
 
-	private String getValidationQuery(DataSource source) {
+	private String getValidationQuery_RENAMED(DataSource source) {
 		DataSourcePoolMetadata poolMetadata = this.poolMetadataProvider.getDataSourcePoolMetadata(source);
 		return (poolMetadata != null) ? poolMetadata.getValidationQuery() : null;
 	}
