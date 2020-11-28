@@ -131,7 +131,7 @@ public class GangliaProperties {
 		return this.addressingMode;
 	}
 
-	public void setAddressingMode(GMetric.UDPAddressingMode addressingMode) {
+	public void setAddressingMode_RENAMED(GMetric.UDPAddressingMode addressingMode) {
 		this.addressingMode = addressingMode;
 	}
 
