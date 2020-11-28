@@ -39,7 +39,7 @@ class GraphitePropertiesTests {
 		assertThat(properties.getHost()).isEqualTo(config.host());
 		assertThat(properties.getPort()).isEqualTo(config.port());
 		assertThat(properties.getProtocol()).isEqualTo(config.protocol());
-		assertThat(properties.getGraphiteTagsEnabled()).isEqualTo(config.graphiteTagsEnabled());
+		assertThat(properties.getGraphiteTagsEnabled_RENAMED()).isEqualTo(config.graphiteTagsEnabled());
 		assertThat(properties.getTagsAsPrefix()).isEqualTo(config.tagsAsPrefix());
 	}
 
@@ -47,7 +47,7 @@ class GraphitePropertiesTests {
 	void graphiteTagsAreDisabledIfTagsAsPrefixIsSet() {
 		GraphiteProperties properties = new GraphiteProperties();
 		properties.setTagsAsPrefix(new String[] { "app" });
-		assertThat(properties.getGraphiteTagsEnabled()).isFalse();
+		assertThat(properties.getGraphiteTagsEnabled_RENAMED()).isFalse();
 	}
 
 	@Test
@@ -55,7 +55,7 @@ class GraphitePropertiesTests {
 		GraphiteProperties properties = new GraphiteProperties();
 		properties.setGraphiteTagsEnabled(true);
 		properties.setTagsAsPrefix(new String[] { "app" });
-		assertThat(properties.getGraphiteTagsEnabled()).isTrue();
+		assertThat(properties.getGraphiteTagsEnabled_RENAMED()).isTrue();
 	}
 
 }

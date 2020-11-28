@@ -138,7 +138,7 @@ public class GraphiteProperties {
 		this.protocol = protocol;
 	}
 
-	public Boolean getGraphiteTagsEnabled() {
+	public Boolean getGraphiteTagsEnabled_RENAMED() {
 		return (this.graphiteTagsEnabled != null) ? this.graphiteTagsEnabled : ObjectUtils.isEmpty(this.tagsAsPrefix);
 	}
 
