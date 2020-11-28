@@ -70,7 +70,7 @@ class InfluxPropertiesConfigAdapter extends StepRegistryPropertiesConfigAdapter<
 	}
 
 	@Override
-	public String retentionDuration() {
+	public String retentionDuration_RENAMED() {
 		return get(InfluxProperties::getRetentionDuration, InfluxConfig.super::retentionDuration);
 	}
 
