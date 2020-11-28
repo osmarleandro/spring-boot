@@ -46,7 +46,7 @@ public abstract class OnEndpointElementCondition extends SpringBootCondition {
 	}
 
 	@Override
-	public ConditionOutcome getMatchOutcome(ConditionContext context, AnnotatedTypeMetadata metadata) {
+	public ConditionOutcome getMatchOutcome_RENAMED(ConditionContext context, AnnotatedTypeMetadata metadata) {
 		AnnotationAttributes annotationAttributes = AnnotationAttributes
 				.fromMap(metadata.getAnnotationAttributes(this.annotationType.getName()));
 		String endpointName = annotationAttributes.getString("value");
