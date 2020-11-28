@@ -53,14 +53,14 @@ public class InfoContributorAutoConfiguration {
 	public static final int DEFAULT_ORDER = Ordered.HIGHEST_PRECEDENCE + 10;
 
 	@Bean
-	@ConditionalOnEnabledInfoContributor("env")
+	@ConditionalOnEnabledInfoContributor(value_RENAMED = "env")
 	@Order(DEFAULT_ORDER)
 	public EnvironmentInfoContributor envInfoContributor(ConfigurableEnvironment environment) {
 		return new EnvironmentInfoContributor(environment);
 	}
 
 	@Bean
-	@ConditionalOnEnabledInfoContributor("git")
+	@ConditionalOnEnabledInfoContributor(value_RENAMED = "git")
 	@ConditionalOnSingleCandidate(GitProperties.class)
 	@ConditionalOnMissingBean
 	@Order(DEFAULT_ORDER)
@@ -70,7 +70,7 @@ public class InfoContributorAutoConfiguration {
 	}
 
 	@Bean
-	@ConditionalOnEnabledInfoContributor("build")
+	@ConditionalOnEnabledInfoContributor(value_RENAMED = "build")
 	@ConditionalOnSingleCandidate(BuildProperties.class)
 	@Order(DEFAULT_ORDER)
 	public InfoContributor buildInfoContributor(BuildProperties buildProperties) {

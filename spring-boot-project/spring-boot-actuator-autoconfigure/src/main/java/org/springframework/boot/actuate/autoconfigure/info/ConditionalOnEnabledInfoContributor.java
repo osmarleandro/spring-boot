@@ -44,6 +44,6 @@ public @interface ConditionalOnEnabledInfoContributor {
 	 * The name of the info contributor.
 	 * @return the name of the info contributor
 	 */
-	String value();
+	String value_RENAMED();
 
 }
