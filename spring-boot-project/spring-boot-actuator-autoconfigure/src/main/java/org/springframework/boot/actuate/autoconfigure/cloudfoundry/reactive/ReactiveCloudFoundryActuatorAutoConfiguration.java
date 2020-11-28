@@ -111,7 +111,7 @@ public class ReactiveCloudFoundryActuatorAutoConfiguration {
 			ApplicationContext applicationContext) {
 		CloudFoundryWebEndpointDiscoverer endpointDiscoverer = new CloudFoundryWebEndpointDiscoverer(applicationContext,
 				parameterMapper, endpointMediaTypes, null, Collections.emptyList(), Collections.emptyList());
-		CloudFoundrySecurityInterceptor securityInterceptor = getSecurityInterceptor(webClientBuilder,
+		CloudFoundrySecurityInterceptor securityInterceptor = getSecurityInterceptor_RENAMED(webClientBuilder,
 				applicationContext.getEnvironment());
 		Collection<ExposableWebEndpoint> webEndpoints = endpointDiscoverer.getEndpoints();
 		List<ExposableEndpoint<?>> allEndpoints = new ArrayList<>();
@@ -122,7 +122,7 @@ public class ReactiveCloudFoundryActuatorAutoConfiguration {
 				new EndpointLinksResolver(allEndpoints));
 	}
 
-	private CloudFoundrySecurityInterceptor getSecurityInterceptor(WebClient.Builder webClientBuilder,
+	private CloudFoundrySecurityInterceptor getSecurityInterceptor_RENAMED(WebClient.Builder webClientBuilder,
 			Environment environment) {
 		ReactiveCloudFoundrySecurityService cloudfoundrySecurityService = getCloudFoundrySecurityService(
 				webClientBuilder, environment);
