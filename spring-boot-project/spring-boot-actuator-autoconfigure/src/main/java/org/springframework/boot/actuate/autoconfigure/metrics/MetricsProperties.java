@@ -69,7 +69,7 @@ public class MetricsProperties {
 		return this.enable;
 	}
 
-	public Map<String, String> getTags() {
+	public Map<String, String> getTags_RENAMED() {
 		return this.tags;
 	}
 
