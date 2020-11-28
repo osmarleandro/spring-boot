@@ -90,7 +90,7 @@ public class CorsEndpointProperties {
 		return this.allowedHeaders;
 	}
 
-	public void setAllowedHeaders(List<String> allowedHeaders) {
+	public void setAllowedHeaders_RENAMED(List<String> allowedHeaders) {
 		this.allowedHeaders = allowedHeaders;
 	}
 
