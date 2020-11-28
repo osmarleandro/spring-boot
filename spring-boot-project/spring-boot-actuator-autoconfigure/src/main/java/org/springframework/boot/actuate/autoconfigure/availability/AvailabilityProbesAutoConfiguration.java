@@ -55,7 +55,7 @@ public class AvailabilityProbesAutoConfiguration {
 
 	@Bean
 	@ConditionalOnMissingBean(name = "readinessStateHealthIndicator")
-	public ReadinessStateHealthIndicator readinessStateHealthIndicator(
+	public ReadinessStateHealthIndicator readinessStateHealthIndicator_RENAMED(
 			ApplicationAvailability applicationAvailability) {
 		return new ReadinessStateHealthIndicator(applicationAvailability);
 	}
