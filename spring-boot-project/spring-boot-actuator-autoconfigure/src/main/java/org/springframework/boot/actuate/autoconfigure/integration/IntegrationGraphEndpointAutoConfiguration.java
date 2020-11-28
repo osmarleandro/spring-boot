@@ -52,7 +52,7 @@ public class IntegrationGraphEndpointAutoConfiguration {
 
 	@Bean
 	@ConditionalOnMissingBean
-	public IntegrationGraphServer integrationGraphServer() {
+	public IntegrationGraphServer integrationGraphServer_RENAMED() {
 		return new IntegrationGraphServer();
 	}
 
