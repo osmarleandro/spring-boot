@@ -53,64 +53,64 @@ class PropertiesMeterFilterTests {
 	@Test
 	void acceptWhenHasNoEnabledPropertiesShouldReturnNeutral() {
 		PropertiesMeterFilter filter = new PropertiesMeterFilter(createProperties());
-		assertThat(filter.accept(createMeterId("spring.boot"))).isEqualTo(MeterFilterReply.NEUTRAL);
+		assertThat(filter.accept_RENAMED(createMeterId("spring.boot"))).isEqualTo(MeterFilterReply.NEUTRAL);
 	}
 
 	@Test
 	void acceptWhenHasNoMatchingEnabledPropertyShouldReturnNeutral() {
 		PropertiesMeterFilter filter = new PropertiesMeterFilter(createProperties("enable.something.else=false"));
-		assertThat(filter.accept(createMeterId("spring.boot"))).isEqualTo(MeterFilterReply.NEUTRAL);
+		assertThat(filter.accept_RENAMED(createMeterId("spring.boot"))).isEqualTo(MeterFilterReply.NEUTRAL);
 	}
 
 	@Test
 	void acceptWhenHasEnableFalseShouldReturnDeny() {
 		PropertiesMeterFilter filter = new PropertiesMeterFilter(createProperties("enable.spring.boot=false"));
-		assertThat(filter.accept(createMeterId("spring.boot"))).isEqualTo(MeterFilterReply.DENY);
+		assertThat(filter.accept_RENAMED(createMeterId("spring.boot"))).isEqualTo(MeterFilterReply.DENY);
 	}
 
 	@Test
 	void acceptWhenHasEnableTrueShouldReturnNeutral() {
 		PropertiesMeterFilter filter = new PropertiesMeterFilter(createProperties("enable.spring.boot=true"));
-		assertThat(filter.accept(createMeterId("spring.boot"))).isEqualTo(MeterFilterReply.NEUTRAL);
+		assertThat(filter.accept_RENAMED(createMeterId("spring.boot"))).isEqualTo(MeterFilterReply.NEUTRAL);
 	}
 
 	@Test
 	void acceptWhenHasHigherEnableFalseShouldReturnDeny() {
 		PropertiesMeterFilter filter = new PropertiesMeterFilter(createProperties("enable.spring=false"));
-		assertThat(filter.accept(createMeterId("spring.boot"))).isEqualTo(MeterFilterReply.DENY);
+		assertThat(filter.accept_RENAMED(createMeterId("spring.boot"))).isEqualTo(MeterFilterReply.DENY);
 	}
 
 	@Test
 	void acceptWhenHasHigherEnableTrueShouldReturnNeutral() {
 		PropertiesMeterFilter filter = new PropertiesMeterFilter(createProperties("enable.spring=true"));
-		assertThat(filter.accept(createMeterId("spring.boot"))).isEqualTo(MeterFilterReply.NEUTRAL);
+		assertThat(filter.accept_RENAMED(createMeterId("spring.boot"))).isEqualTo(MeterFilterReply.NEUTRAL);
 	}
 
 	@Test
 	void acceptWhenHasHigherEnableFalseExactEnableTrueShouldReturnNeutral() {
 		PropertiesMeterFilter filter = new PropertiesMeterFilter(
 				createProperties("enable.spring=false", "enable.spring.boot=true"));
-		assertThat(filter.accept(createMeterId("spring.boot"))).isEqualTo(MeterFilterReply.NEUTRAL);
+		assertThat(filter.accept_RENAMED(createMeterId("spring.boot"))).isEqualTo(MeterFilterReply.NEUTRAL);
 	}
 
 	@Test
 	void acceptWhenHasHigherEnableTrueExactEnableFalseShouldReturnDeny() {
 		PropertiesMeterFilter filter = new PropertiesMeterFilter(
 				createProperties("enable.spring=true", "enable.spring.boot=false"));
-		assertThat(filter.accept(createMeterId("spring.boot"))).isEqualTo(MeterFilterReply.DENY);
+		assertThat(filter.accept_RENAMED(createMeterId("spring.boot"))).isEqualTo(MeterFilterReply.DENY);
 	}
 
 	@Test
 	void acceptWhenHasAllEnableFalseShouldReturnDeny() {
 		PropertiesMeterFilter filter = new PropertiesMeterFilter(createProperties("enable.all=false"));
-		assertThat(filter.accept(createMeterId("spring.boot"))).isEqualTo(MeterFilterReply.DENY);
+		assertThat(filter.accept_RENAMED(createMeterId("spring.boot"))).isEqualTo(MeterFilterReply.DENY);
 	}
 
 	@Test
 	void acceptWhenHasAllEnableFalseButHigherEnableTrueShouldReturnNeutral() {
 		PropertiesMeterFilter filter = new PropertiesMeterFilter(
 				createProperties("enable.all=false", "enable.spring=true"));
-		assertThat(filter.accept(createMeterId("spring.boot"))).isEqualTo(MeterFilterReply.NEUTRAL);
+		assertThat(filter.accept_RENAMED(createMeterId("spring.boot"))).isEqualTo(MeterFilterReply.NEUTRAL);
 	}
 
 	@Test
