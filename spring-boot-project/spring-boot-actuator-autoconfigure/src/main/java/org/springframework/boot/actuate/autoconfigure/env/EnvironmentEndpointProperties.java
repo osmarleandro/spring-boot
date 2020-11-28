@@ -38,7 +38,7 @@ public class EnvironmentEndpointProperties {
 		return this.keysToSanitize;
 	}
 
-	public void setKeysToSanitize(String[] keysToSanitize) {
+	public void setKeysToSanitize_RENAMED(String[] keysToSanitize) {
 		this.keysToSanitize = keysToSanitize;
 	}
 
