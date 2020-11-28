@@ -39,7 +39,7 @@ class AtlasPropertiesTests {
 		assertThat(properties.getNumThreads()).isEqualTo(config.numThreads());
 		assertThat(properties.getBatchSize()).isEqualTo(config.batchSize());
 		assertThat(properties.getUri()).isEqualTo(config.uri());
-		assertThat(properties.getMeterTimeToLive()).isEqualTo(config.meterTTL());
+		assertThat(properties.getMeterTimeToLive()).isEqualTo(config.meterTTL_RENAMED());
 		assertThat(properties.isLwcEnabled()).isEqualTo(config.lwcEnabled());
 		assertThat(properties.getConfigRefreshFrequency()).isEqualTo(config.configRefreshFrequency());
 		assertThat(properties.getConfigTimeToLive()).isEqualTo(config.configTTL());

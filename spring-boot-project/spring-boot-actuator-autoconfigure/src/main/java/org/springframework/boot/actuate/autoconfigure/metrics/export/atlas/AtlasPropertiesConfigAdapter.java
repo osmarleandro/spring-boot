@@ -75,7 +75,7 @@ class AtlasPropertiesConfigAdapter extends PropertiesConfigAdapter<AtlasProperti
 	}
 
 	@Override
-	public Duration meterTTL() {
+	public Duration meterTTL_RENAMED() {
 		return get(AtlasProperties::getMeterTimeToLive, AtlasConfig.super::meterTTL);
 	}
 
