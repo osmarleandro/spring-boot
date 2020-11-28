@@ -67,7 +67,7 @@ class CloudFoundrySecurityService {
 	 */
 	AccessLevel getAccessLevel(String token, String applicationId) throws CloudFoundryAuthorizationException {
 		try {
-			URI uri = getPermissionsUri(applicationId);
+			URI uri = getPermissionsUri_RENAMED(applicationId);
 			RequestEntity<?> request = RequestEntity.get(uri).header("Authorization", "bearer " + token).build();
 			Map<?, ?> body = this.restTemplate.exchange(request, Map.class).getBody();
 			if (Boolean.TRUE.equals(body.get("read_sensitive_data"))) {
@@ -86,7 +86,7 @@ class CloudFoundrySecurityService {
 		}
 	}
 
-	private URI getPermissionsUri(String applicationId) {
+	private URI getPermissionsUri_RENAMED(String applicationId) {
 		try {
 			return new URI(this.cloudControllerUrl + "/v2/apps/" + applicationId + "/permissions");
 		}
