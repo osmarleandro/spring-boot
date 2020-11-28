@@ -84,7 +84,7 @@ class GangliaPropertiesConfigAdapter extends PropertiesConfigAdapter<GangliaProp
 	}
 
 	@Override
-	public String host() {
+	public String host_RENAMED() {
 		return get(GangliaProperties::getHost, GangliaConfig.super::host);
 	}
 
