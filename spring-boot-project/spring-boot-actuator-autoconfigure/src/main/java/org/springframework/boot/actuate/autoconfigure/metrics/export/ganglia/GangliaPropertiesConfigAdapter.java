@@ -69,7 +69,7 @@ class GangliaPropertiesConfigAdapter extends PropertiesConfigAdapter<GangliaProp
 
 	@Override
 	@Deprecated
-	public String protocolVersion() {
+	public String protocolVersion_RENAMED() {
 		return get(GangliaProperties::getProtocolVersion, GangliaConfig.super::protocolVersion);
 	}
 
