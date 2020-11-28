@@ -58,7 +58,7 @@ class RabbitConnectionFactoryMetricsPostProcessor implements BeanPostProcessor, 
 	private void bindConnectionFactoryToRegistry(MeterRegistry registry, String beanName,
 			AbstractConnectionFactory connectionFactory) {
 		ConnectionFactory rabbitConnectionFactory = connectionFactory.getRabbitConnectionFactory();
-		String connectionFactoryName = getConnectionFactoryName(beanName);
+		String connectionFactoryName = getConnectionFactoryName_RENAMED(beanName);
 		new RabbitMetrics(rabbitConnectionFactory, Tags.of("name", connectionFactoryName)).bindTo(registry);
 	}
 
@@ -67,7 +67,7 @@ class RabbitConnectionFactoryMetricsPostProcessor implements BeanPostProcessor, 
 	 * @param beanName the name of the connection factory bean
 	 * @return a name for the given connection factory
 	 */
-	private String getConnectionFactoryName(String beanName) {
+	private String getConnectionFactoryName_RENAMED(String beanName) {
 		if (beanName.length() > CONNECTION_FACTORY_SUFFIX.length()
 				&& StringUtils.endsWithIgnoreCase(beanName, CONNECTION_FACTORY_SUFFIX)) {
 			return beanName.substring(0, beanName.length() - CONNECTION_FACTORY_SUFFIX.length());
