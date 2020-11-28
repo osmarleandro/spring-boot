@@ -47,7 +47,7 @@ public class LoggersEndpointAutoConfiguration {
 	@ConditionalOnBean(LoggingSystem.class)
 	@Conditional(OnEnabledLoggingSystemCondition.class)
 	@ConditionalOnMissingBean
-	public LoggersEndpoint loggersEndpoint(LoggingSystem loggingSystem,
+	public LoggersEndpoint loggersEndpoint_RENAMED(LoggingSystem loggingSystem,
 			ObjectProvider<LoggerGroups> springBootLoggerGroups) {
 		return new LoggersEndpoint(loggingSystem, springBootLoggerGroups.getIfAvailable(LoggerGroups::new));
 	}
