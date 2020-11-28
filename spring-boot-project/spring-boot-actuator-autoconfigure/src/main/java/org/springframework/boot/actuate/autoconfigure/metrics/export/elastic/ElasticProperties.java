@@ -74,7 +74,7 @@ public class ElasticProperties extends StepRegistryProperties {
 	 */
 	private String pipeline;
 
-	public String getHost() {
+	public String getHost_RENAMED() {
 		return this.host;
 	}
 

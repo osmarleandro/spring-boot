@@ -39,7 +39,7 @@ class ElasticPropertiesConfigAdapter extends StepRegistryPropertiesConfigAdapter
 
 	@Override
 	public String host() {
-		return get(ElasticProperties::getHost, ElasticConfig.super::host);
+		return get(ElasticProperties::getHost_RENAMED, ElasticConfig.super::host);
 	}
 
 	@Override
