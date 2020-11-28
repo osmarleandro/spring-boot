@@ -46,7 +46,7 @@ class GraphitePropertiesTests {
 	@Test
 	void graphiteTagsAreDisabledIfTagsAsPrefixIsSet() {
 		GraphiteProperties properties = new GraphiteProperties();
-		properties.setTagsAsPrefix(new String[] { "app" });
+		properties.setTagsAsPrefix_RENAMED(new String[] { "app" });
 		assertThat(properties.getGraphiteTagsEnabled()).isFalse();
 	}
 
@@ -54,7 +54,7 @@ class GraphitePropertiesTests {
 	void graphiteTagsCanBeEnabledEvenIfTagsAsPrefixIsSet() {
 		GraphiteProperties properties = new GraphiteProperties();
 		properties.setGraphiteTagsEnabled(true);
-		properties.setTagsAsPrefix(new String[] { "app" });
+		properties.setTagsAsPrefix_RENAMED(new String[] { "app" });
 		assertThat(properties.getGraphiteTagsEnabled()).isTrue();
 	}
 

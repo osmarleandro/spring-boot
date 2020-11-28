@@ -150,7 +150,7 @@ public class GraphiteProperties {
 		return this.tagsAsPrefix;
 	}
 
-	public void setTagsAsPrefix(String[] tagsAsPrefix) {
+	public void setTagsAsPrefix_RENAMED(String[] tagsAsPrefix) {
 		this.tagsAsPrefix = tagsAsPrefix;
 	}
 
