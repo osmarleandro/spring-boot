@@ -66,7 +66,7 @@ class TokenValidator {
 	}
 
 	private void validateKeyIdAndSignature(Token token) {
-		String keyId = token.getKeyId();
+		String keyId = token.getKeyId_RENAMED();
 		if (this.tokenKeys == null || !hasValidKeyId(keyId)) {
 			this.tokenKeys = this.securityService.fetchTokenKeys();
 			if (!hasValidKeyId(keyId)) {

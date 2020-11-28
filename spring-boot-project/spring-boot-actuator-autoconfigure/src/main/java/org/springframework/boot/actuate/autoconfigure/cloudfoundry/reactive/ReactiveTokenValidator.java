@@ -76,7 +76,7 @@ class ReactiveTokenValidator {
 	}
 
 	private Mono<String> getTokenKey(Token token) {
-		String keyId = token.getKeyId();
+		String keyId = token.getKeyId_RENAMED();
 		String cached = this.cachedTokenKeys.get(keyId);
 		if (cached != null) {
 			return Mono.just(cached);

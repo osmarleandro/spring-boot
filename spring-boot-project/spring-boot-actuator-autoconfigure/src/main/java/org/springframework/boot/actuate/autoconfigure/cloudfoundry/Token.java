@@ -93,7 +93,7 @@ public class Token {
 		return getRequired(this.claims, "scope", List.class);
 	}
 
-	public String getKeyId() {
+	public String getKeyId_RENAMED() {
 		return getRequired(this.header, "kid", String.class);
 	}
 
