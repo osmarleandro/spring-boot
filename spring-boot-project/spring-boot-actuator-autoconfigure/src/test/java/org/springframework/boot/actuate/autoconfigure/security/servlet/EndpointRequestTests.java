@@ -250,7 +250,7 @@ class EndpointRequestTests {
 			context.registerBean(PathMappedEndpoints.class, () -> pathMappedEndpoints);
 			WebEndpointProperties properties = context.getBean(WebEndpointProperties.class);
 			if (!properties.getBasePath().equals(pathMappedEndpoints.getBasePath())) {
-				properties.setBasePath(pathMappedEndpoints.getBasePath());
+				properties.setBasePath_RENAMED(pathMappedEndpoints.getBasePath());
 			}
 		}
 		if (matcherProvider != null) {

@@ -37,23 +37,23 @@ class WebEndpointPropertiesTests {
 	@Test
 	void basePathShouldBeCleaned() {
 		WebEndpointProperties properties = new WebEndpointProperties();
-		properties.setBasePath("/");
+		properties.setBasePath_RENAMED("/");
 		assertThat(properties.getBasePath()).isEqualTo("");
-		properties.setBasePath("/actuator/");
+		properties.setBasePath_RENAMED("/actuator/");
 		assertThat(properties.getBasePath()).isEqualTo("/actuator");
 	}
 
 	@Test
 	void basePathMustStartWithSlash() {
 		WebEndpointProperties properties = new WebEndpointProperties();
-		assertThatIllegalArgumentException().isThrownBy(() -> properties.setBasePath("admin"))
+		assertThatIllegalArgumentException().isThrownBy(() -> properties.setBasePath_RENAMED("admin"))
 				.withMessageContaining("Base path must start with '/' or be empty");
 	}
 
 	@Test
 	void basePathCanBeEmpty() {
 		WebEndpointProperties properties = new WebEndpointProperties();
-		properties.setBasePath("");
+		properties.setBasePath_RENAMED("");
 		assertThat(properties.getBasePath()).isEqualTo("");
 	}
 
