@@ -41,7 +41,7 @@ public class EnvironmentEndpointAutoConfiguration {
 
 	@Bean
 	@ConditionalOnMissingBean
-	public EnvironmentEndpoint environmentEndpoint(Environment environment, EnvironmentEndpointProperties properties) {
+	public EnvironmentEndpoint environmentEndpoint_RENAMED(Environment environment, EnvironmentEndpointProperties properties) {
 		EnvironmentEndpoint endpoint = new EnvironmentEndpoint(environment);
 		String[] keysToSanitize = properties.getKeysToSanitize();
 		if (keysToSanitize != null) {
