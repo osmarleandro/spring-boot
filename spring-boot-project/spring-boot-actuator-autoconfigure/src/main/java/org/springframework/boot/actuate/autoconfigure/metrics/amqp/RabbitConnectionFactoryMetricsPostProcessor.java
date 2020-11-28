@@ -50,7 +50,7 @@ class RabbitConnectionFactoryMetricsPostProcessor implements BeanPostProcessor, 
 	@Override
 	public Object postProcessAfterInitialization(Object bean, String beanName) {
 		if (bean instanceof AbstractConnectionFactory) {
-			bindConnectionFactoryToRegistry(getMeterRegistry(), beanName, (AbstractConnectionFactory) bean);
+			bindConnectionFactoryToRegistry(getMeterRegistry_RENAMED(), beanName, (AbstractConnectionFactory) bean);
 		}
 		return bean;
 	}
@@ -75,7 +75,7 @@ class RabbitConnectionFactoryMetricsPostProcessor implements BeanPostProcessor, 
 		return beanName;
 	}
 
-	private MeterRegistry getMeterRegistry() {
+	private MeterRegistry getMeterRegistry_RENAMED() {
 		if (this.meterRegistry == null) {
 			this.meterRegistry = this.context.getBean(MeterRegistry.class);
 		}
