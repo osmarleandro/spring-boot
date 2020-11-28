@@ -52,7 +52,7 @@ class ElasticPropertiesConfigAdapterTests {
 	void whenPropertiesIndexDateSeparatorIsSetAdapterIndexDateSeparatorReturnsIt() {
 		ElasticProperties properties = new ElasticProperties();
 		properties.setIndexDateSeparator("*");
-		assertThat(new ElasticPropertiesConfigAdapter(properties).indexDateSeparator()).isEqualTo("*");
+		assertThat(new ElasticPropertiesConfigAdapter(properties).indexDateSeparator_RENAMED()).isEqualTo("*");
 	}
 
 	@Test

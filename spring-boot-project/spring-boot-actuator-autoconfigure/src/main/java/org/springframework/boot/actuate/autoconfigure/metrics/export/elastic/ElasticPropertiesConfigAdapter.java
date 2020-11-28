@@ -53,7 +53,7 @@ class ElasticPropertiesConfigAdapter extends StepRegistryPropertiesConfigAdapter
 	}
 
 	@Override
-	public String indexDateSeparator() {
+	public String indexDateSeparator_RENAMED() {
 		return get(ElasticProperties::getIndexDateSeparator, ElasticConfig.super::indexDateSeparator);
 	}
 
