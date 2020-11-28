@@ -59,7 +59,7 @@ public class KafkaMetricsAutoConfiguration {
 	}
 
 	@Bean
-	public DefaultKafkaConsumerFactoryCustomizer kafkaConsumerMetrics(MeterRegistry meterRegistry) {
+	public DefaultKafkaConsumerFactoryCustomizer kafkaConsumerMetrics_RENAMED(MeterRegistry meterRegistry) {
 		return (consumerFactory) -> addListener(consumerFactory, meterRegistry);
 	}
 
