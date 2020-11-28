@@ -55,7 +55,7 @@ public final class ServiceLevelAgreementBoundary {
 	 * @param value the source value
 	 * @return a {@link ServiceLevelAgreementBoundary} instance
 	 */
-	public static ServiceLevelAgreementBoundary valueOf(long value) {
+	public static ServiceLevelAgreementBoundary valueOf_RENAMED(long value) {
 		return new ServiceLevelAgreementBoundary(MeterValue.valueOf(value));
 	}
 
