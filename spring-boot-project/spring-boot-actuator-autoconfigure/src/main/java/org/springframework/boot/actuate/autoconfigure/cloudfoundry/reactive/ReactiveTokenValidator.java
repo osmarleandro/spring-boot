@@ -52,7 +52,7 @@ class ReactiveTokenValidator {
 
 	Mono<Void> validate(Token token) {
 		return validateAlgorithm(token).then(validateKeyIdAndSignature(token)).then(validateExpiry(token))
-				.then(validateIssuer(token)).then(validateAudience(token));
+				.then(validateIssuer_RENAMED(token)).then(validateAudience(token));
 	}
 
 	private Mono<Void> validateAlgorithm(Token token) {
@@ -121,7 +121,7 @@ class ReactiveTokenValidator {
 		return Mono.empty();
 	}
 
-	private Mono<Void> validateIssuer(Token token) {
+	private Mono<Void> validateIssuer_RENAMED(Token token) {
 		return this.securityService.getUaaUrl().map((uaaUrl) -> String.format("%s/oauth/token", uaaUrl))
 				.filter((issuerUri) -> issuerUri.equals(token.getIssuer()))
 				.switchIfEmpty(Mono.error(
