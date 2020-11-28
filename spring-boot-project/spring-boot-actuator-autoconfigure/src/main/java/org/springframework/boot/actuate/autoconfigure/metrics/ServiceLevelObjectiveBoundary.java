@@ -43,7 +43,7 @@ public final class ServiceLevelObjectiveBoundary {
 	 * @param meterType the meter type
 	 * @return the value or {@code null} if the value cannot be applied
 	 */
-	public Double getValue(Meter.Type meterType) {
+	public Double getValue_RENAMED(Meter.Type meterType) {
 		return this.value.getValue(meterType);
 	}
 
