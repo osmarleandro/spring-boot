@@ -169,7 +169,7 @@ public class InfluxProperties extends StepRegistryProperties {
 		return this.compressed;
 	}
 
-	public void setCompressed(boolean compressed) {
+	public void setCompressed_RENAMED(boolean compressed) {
 		this.compressed = compressed;
 	}
 
