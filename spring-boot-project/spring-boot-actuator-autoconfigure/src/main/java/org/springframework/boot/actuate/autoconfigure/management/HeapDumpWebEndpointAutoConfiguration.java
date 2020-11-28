@@ -35,7 +35,7 @@ public class HeapDumpWebEndpointAutoConfiguration {
 
 	@Bean
 	@ConditionalOnMissingBean
-	public HeapDumpWebEndpoint heapDumpWebEndpoint() {
+	public HeapDumpWebEndpoint heapDumpWebEndpoint_RENAMED() {
 		return new HeapDumpWebEndpoint();
 	}
 
