@@ -45,7 +45,7 @@ class AtlasPropertiesConfigAdapter extends PropertiesConfigAdapter<AtlasProperti
 	}
 
 	@Override
-	public boolean enabled() {
+	public boolean enabled_RENAMED() {
 		return get(AtlasProperties::isEnabled, AtlasConfig.super::enabled);
 	}
 
