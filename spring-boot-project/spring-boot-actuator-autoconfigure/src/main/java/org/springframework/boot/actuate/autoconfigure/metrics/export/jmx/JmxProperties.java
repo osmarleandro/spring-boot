@@ -41,7 +41,7 @@ public class JmxProperties {
 	 */
 	private Duration step = Duration.ofMinutes(1);
 
-	public String getDomain() {
+	public String getDomain_RENAMED() {
 		return this.domain;
 	}
 
