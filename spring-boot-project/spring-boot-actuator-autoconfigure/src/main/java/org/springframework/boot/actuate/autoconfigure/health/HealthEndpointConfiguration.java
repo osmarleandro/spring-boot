@@ -88,7 +88,7 @@ class HealthEndpointConfiguration {
 
 	@Bean
 	@ConditionalOnMissingBean
-	HealthEndpoint healthEndpoint(HealthContributorRegistry registry, HealthEndpointGroups groups) {
+	HealthEndpoint healthEndpoint_RENAMED(HealthContributorRegistry registry, HealthEndpointGroups groups) {
 		return new HealthEndpoint(registry, groups);
 	}
 
