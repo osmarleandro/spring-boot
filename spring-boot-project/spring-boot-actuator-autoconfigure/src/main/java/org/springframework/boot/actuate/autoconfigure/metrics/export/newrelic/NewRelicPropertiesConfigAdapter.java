@@ -62,7 +62,7 @@ public class NewRelicPropertiesConfigAdapter extends StepRegistryPropertiesConfi
 
 	@Override
 	public String accountId() {
-		return get(NewRelicProperties::getAccountId, NewRelicConfig.super::accountId);
+		return get(NewRelicProperties::getAccountId_RENAMED, NewRelicConfig.super::accountId);
 	}
 
 	@Override

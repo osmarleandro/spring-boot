@@ -100,7 +100,7 @@ public class NewRelicProperties extends StepRegistryProperties {
 		this.apiKey = apiKey;
 	}
 
-	public String getAccountId() {
+	public String getAccountId_RENAMED() {
 		return this.accountId;
 	}
 
