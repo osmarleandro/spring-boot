@@ -57,7 +57,7 @@ public abstract class HealthProperties {
 		return this.showComponents;
 	}
 
-	public void setShowComponents(Show showComponents) {
+	public void setShowComponents_RENAMED(Show showComponents) {
 		this.showComponents = showComponents;
 	}
 
