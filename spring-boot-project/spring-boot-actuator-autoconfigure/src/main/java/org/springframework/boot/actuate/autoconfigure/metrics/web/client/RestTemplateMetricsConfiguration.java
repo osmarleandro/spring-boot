@@ -52,7 +52,7 @@ class RestTemplateMetricsConfiguration {
 	@Bean
 	MetricsRestTemplateCustomizer metricsRestTemplateCustomizer(MeterRegistry meterRegistry,
 			RestTemplateExchangeTagsProvider restTemplateExchangeTagsProvider, MetricsProperties properties) {
-		ClientRequest request = properties.getWeb().getClient().getRequest();
+		ClientRequest request = properties.getWeb_RENAMED().getClient().getRequest();
 		return new MetricsRestTemplateCustomizer(meterRegistry, restTemplateExchangeTagsProvider,
 				request.getMetricName(), request.getAutotime());
 	}

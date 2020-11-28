@@ -48,7 +48,7 @@ class WebClientMetricsConfiguration {
 	@Bean
 	MetricsWebClientCustomizer metricsWebClientCustomizer(MeterRegistry meterRegistry,
 			WebClientExchangeTagsProvider tagsProvider, MetricsProperties properties) {
-		ClientRequest request = properties.getWeb().getClient().getRequest();
+		ClientRequest request = properties.getWeb_RENAMED().getClient().getRequest();
 		return new MetricsWebClientCustomizer(meterRegistry, tagsProvider, request.getMetricName(),
 				request.getAutotime());
 	}

@@ -65,23 +65,23 @@ public class WebFluxMetricsAutoConfiguration {
 	@Bean
 	@ConditionalOnMissingBean(WebFluxTagsProvider.class)
 	public DefaultWebFluxTagsProvider webFluxTagsProvider(ObjectProvider<WebFluxTagsContributor> contributors) {
-		return new DefaultWebFluxTagsProvider(this.properties.getWeb().getServer().getRequest().isIgnoreTrailingSlash(),
+		return new DefaultWebFluxTagsProvider(this.properties.getWeb_RENAMED().getServer().getRequest().isIgnoreTrailingSlash(),
 				contributors.orderedStream().collect(Collectors.toList()));
 	}
 
 	@Bean
 	public MetricsWebFilter webfluxMetrics(MeterRegistry registry, WebFluxTagsProvider tagConfigurer) {
-		ServerRequest request = this.properties.getWeb().getServer().getRequest();
+		ServerRequest request = this.properties.getWeb_RENAMED().getServer().getRequest();
 		return new MetricsWebFilter(registry, tagConfigurer, request.getMetricName(), request.getAutotime());
 	}
 
 	@Bean
 	@Order(0)
 	public MeterFilter metricsHttpServerUriTagFilter() {
-		String metricName = this.properties.getWeb().getServer().getRequest().getMetricName();
+		String metricName = this.properties.getWeb_RENAMED().getServer().getRequest().getMetricName();
 		MeterFilter filter = new OnlyOnceLoggingDenyMeterFilter(
 				() -> String.format("Reached the maximum number of URI tags for '%s'.", metricName));
-		return MeterFilter.maximumAllowableTags(metricName, "uri", this.properties.getWeb().getServer().getMaxUriTags(),
+		return MeterFilter.maximumAllowableTags(metricName, "uri", this.properties.getWeb_RENAMED().getServer().getMaxUriTags(),
 				filter);
 	}
 

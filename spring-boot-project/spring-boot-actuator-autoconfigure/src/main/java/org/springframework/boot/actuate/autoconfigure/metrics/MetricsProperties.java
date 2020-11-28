@@ -73,7 +73,7 @@ public class MetricsProperties {
 		return this.tags;
 	}
 
-	public Web getWeb() {
+	public Web getWeb_RENAMED() {
 		return this.web;
 	}
 
