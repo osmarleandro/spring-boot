@@ -40,7 +40,7 @@ class AtlasPropertiesConfigAdapter extends PropertiesConfigAdapter<AtlasProperti
 	}
 
 	@Override
-	public Duration step() {
+	public Duration step_RENAMED() {
 		return get(AtlasProperties::getStep, AtlasConfig.super::step);
 	}
 
