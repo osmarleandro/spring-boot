@@ -56,7 +56,7 @@ class DefaultEndpointObjectNameFactory implements EndpointObjectNameFactory {
 
 	@Override
 	public ObjectName getObjectName(ExposableJmxEndpoint endpoint) throws MalformedObjectNameException {
-		StringBuilder builder = new StringBuilder(determineDomain());
+		StringBuilder builder = new StringBuilder(determineDomain_RENAMED());
 		builder.append(":type=Endpoint");
 		builder.append(",name=").append(StringUtils.capitalize(endpoint.getEndpointId().toString()));
 		String baseName = builder.toString();
@@ -71,7 +71,7 @@ class DefaultEndpointObjectNameFactory implements EndpointObjectNameFactory {
 		return ObjectNameManager.getInstance(builder.toString());
 	}
 
-	private String determineDomain() {
+	private String determineDomain_RENAMED() {
 		if (StringUtils.hasText(this.properties.getDomain())) {
 			return this.properties.getDomain();
 		}
