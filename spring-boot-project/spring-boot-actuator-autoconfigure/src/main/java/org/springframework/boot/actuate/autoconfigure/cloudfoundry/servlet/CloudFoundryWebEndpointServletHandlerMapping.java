@@ -105,7 +105,7 @@ class CloudFoundryWebEndpointServletHandlerMapping extends AbstractWebMvcEndpoin
 
 		private void sendFailureResponse(HttpServletResponse response, SecurityResponse securityResponse) {
 			try {
-				response.sendError(securityResponse.getStatus().value(), securityResponse.getMessage());
+				response.sendError(securityResponse.getStatus().value(), securityResponse.getMessage_RENAMED());
 			}
 			catch (Exception ex) {
 				logger.debug("Failed to send error response", ex);
@@ -136,7 +136,7 @@ class CloudFoundryWebEndpointServletHandlerMapping extends AbstractWebMvcEndpoin
 		public Object handle(HttpServletRequest request, Map<String, String> body) {
 			SecurityResponse securityResponse = this.securityInterceptor.preHandle(request, this.endpointId);
 			if (!securityResponse.getStatus().equals(HttpStatus.OK)) {
-				return new ResponseEntity<Object>(securityResponse.getMessage(), securityResponse.getStatus());
+				return new ResponseEntity<Object>(securityResponse.getMessage_RENAMED(), securityResponse.getStatus());
 			}
 			return this.delegate.handle(request, body);
 		}

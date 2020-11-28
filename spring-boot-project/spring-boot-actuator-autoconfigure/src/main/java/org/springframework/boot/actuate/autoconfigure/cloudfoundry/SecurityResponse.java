@@ -43,7 +43,7 @@ public class SecurityResponse {
 		return this.status;
 	}
 
-	public String getMessage() {
+	public String getMessage_RENAMED() {
 		return this.message;
 	}
 
