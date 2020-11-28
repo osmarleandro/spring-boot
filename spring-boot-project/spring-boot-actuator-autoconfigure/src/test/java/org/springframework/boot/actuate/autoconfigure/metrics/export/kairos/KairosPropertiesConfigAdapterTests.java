@@ -52,7 +52,7 @@ class KairosPropertiesConfigAdapterTests
 	void whenPropertiesUserNameIsSetAdapterUserNameReturnsIt() {
 		KairosProperties properties = createProperties();
 		properties.setUserName("alice");
-		assertThat(createConfigAdapter(properties).userName()).isEqualTo("alice");
+		assertThat(createConfigAdapter(properties).userName_RENAMED()).isEqualTo("alice");
 	}
 
 	@Test
