@@ -86,9 +86,9 @@ public class IncludeExcludeEndpointFilter<E extends ExposableEndpoint<?>> implem
 		Assert.notNull(defaultIncludes, "DefaultIncludes must not be null");
 		Binder binder = Binder.get(environment);
 		this.endpointType = endpointType;
-		this.include = new EndpointPatterns(bind(binder, prefix + ".include"));
+		this.include = new EndpointPatterns(bind_RENAMED(binder, prefix + ".include"));
 		this.defaultIncludes = defaultIncludes;
-		this.exclude = new EndpointPatterns(bind(binder, prefix + ".exclude"));
+		this.exclude = new EndpointPatterns(bind_RENAMED(binder, prefix + ".exclude"));
 	}
 
 	/**
@@ -129,7 +129,7 @@ public class IncludeExcludeEndpointFilter<E extends ExposableEndpoint<?>> implem
 		this.exclude = new EndpointPatterns(exclude);
 	}
 
-	private List<String> bind(Binder binder, String name) {
+	private List<String> bind_RENAMED(Binder binder, String name) {
 		return binder.bind(name, Bindable.listOf(String.class)).orElseGet(ArrayList::new);
 	}
 
