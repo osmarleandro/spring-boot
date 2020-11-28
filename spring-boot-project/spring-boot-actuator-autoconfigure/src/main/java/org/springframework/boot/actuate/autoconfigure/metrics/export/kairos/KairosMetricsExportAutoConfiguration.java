@@ -65,7 +65,7 @@ public class KairosMetricsExportAutoConfiguration {
 
 	@Bean
 	@ConditionalOnMissingBean
-	public KairosMeterRegistry kairosMeterRegistry(KairosConfig kairosConfig, Clock clock) {
+	public KairosMeterRegistry kairosMeterRegistry_RENAMED(KairosConfig kairosConfig, Clock clock) {
 		return KairosMeterRegistry.builder(kairosConfig).clock(clock).httpClient(
 				new HttpUrlConnectionSender(this.properties.getConnectTimeout(), this.properties.getReadTimeout()))
 				.build();
