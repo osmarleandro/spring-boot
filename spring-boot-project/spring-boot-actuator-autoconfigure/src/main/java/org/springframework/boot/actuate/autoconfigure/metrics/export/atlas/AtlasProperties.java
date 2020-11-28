@@ -190,7 +190,7 @@ public class AtlasProperties {
 		return this.configUri;
 	}
 
-	public void setConfigUri(String configUri) {
+	public void setConfigUri_RENAMED(String configUri) {
 		this.configUri = configUri;
 	}
 
