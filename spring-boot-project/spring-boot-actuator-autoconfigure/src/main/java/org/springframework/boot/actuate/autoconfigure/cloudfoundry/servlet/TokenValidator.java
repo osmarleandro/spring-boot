@@ -47,14 +47,14 @@ class TokenValidator {
 	}
 
 	void validate(Token token) {
-		validateAlgorithm(token);
+		validateAlgorithm_RENAMED(token);
 		validateKeyIdAndSignature(token);
 		validateExpiry(token);
 		validateIssuer(token);
 		validateAudience(token);
 	}
 
-	private void validateAlgorithm(Token token) {
+	private void validateAlgorithm_RENAMED(Token token) {
 		String algorithm = token.getSignatureAlgorithm();
 		if (algorithm == null) {
 			throw new CloudFoundryAuthorizationException(Reason.INVALID_SIGNATURE, "Signing algorithm cannot be null");
