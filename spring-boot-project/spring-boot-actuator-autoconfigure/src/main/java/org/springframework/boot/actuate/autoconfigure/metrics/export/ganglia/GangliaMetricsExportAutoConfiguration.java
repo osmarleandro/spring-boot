@@ -51,7 +51,7 @@ public class GangliaMetricsExportAutoConfiguration {
 
 	@Bean
 	@ConditionalOnMissingBean
-	public GangliaConfig gangliaConfig(GangliaProperties gangliaProperties) {
+	public GangliaConfig gangliaConfig_RENAMED(GangliaProperties gangliaProperties) {
 		return new GangliaPropertiesConfigAdapter(gangliaProperties);
 	}
 
