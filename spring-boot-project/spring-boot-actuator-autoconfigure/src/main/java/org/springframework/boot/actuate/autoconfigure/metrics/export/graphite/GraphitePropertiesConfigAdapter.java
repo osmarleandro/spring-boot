@@ -88,7 +88,7 @@ class GraphitePropertiesConfigAdapter extends PropertiesConfigAdapter<GraphitePr
 
 	@Override
 	public String[] tagsAsPrefix() {
-		return get(GraphiteProperties::getTagsAsPrefix, GraphiteConfig.super::tagsAsPrefix);
+		return get(GraphiteProperties::getTagsAsPrefix_RENAMED, GraphiteConfig.super::tagsAsPrefix);
 	}
 
 }

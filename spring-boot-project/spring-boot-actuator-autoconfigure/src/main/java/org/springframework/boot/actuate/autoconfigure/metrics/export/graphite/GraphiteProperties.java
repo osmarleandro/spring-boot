@@ -146,7 +146,7 @@ public class GraphiteProperties {
 		this.graphiteTagsEnabled = graphiteTagsEnabled;
 	}
 
-	public String[] getTagsAsPrefix() {
+	public String[] getTagsAsPrefix_RENAMED() {
 		return this.tagsAsPrefix;
 	}
 
