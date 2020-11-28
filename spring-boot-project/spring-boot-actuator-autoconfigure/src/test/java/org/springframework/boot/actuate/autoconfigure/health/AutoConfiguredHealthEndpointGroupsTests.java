@@ -66,7 +66,7 @@ class AutoConfiguredHealthEndpointGroupsTests {
 		this.contextRunner.withPropertyValues("management.endpoint.health.group.a.include=*",
 				"management.endpoint.health.group.b.include=*").run((context) -> {
 					HealthEndpointGroups groups = context.getBean(HealthEndpointGroups.class);
-					assertThat(groups.getNames()).containsExactlyInAnyOrder("a", "b");
+					assertThat(groups.getNames_RENAMED()).containsExactlyInAnyOrder("a", "b");
 				});
 	}
 

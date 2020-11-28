@@ -126,7 +126,7 @@ class HealthEndpointAutoConfigurationTests {
 		this.contextRunner.withPropertyValues("management.endpoint.health.group.ready.include=*").run((context) -> {
 			HealthEndpointGroups groups = context.getBean(HealthEndpointGroups.class);
 			assertThat(groups).isInstanceOf(AutoConfiguredHealthEndpointGroups.class);
-			assertThat(groups.getNames()).containsOnly("ready");
+			assertThat(groups.getNames_RENAMED()).containsOnly("ready");
 		});
 	}
 
@@ -135,7 +135,7 @@ class HealthEndpointAutoConfigurationTests {
 		this.contextRunner.withUserConfiguration(HealthEndpointGroupsConfiguration.class)
 				.withPropertyValues("management.endpoint.health.group.ready.include=*").run((context) -> {
 					HealthEndpointGroups groups = context.getBean(HealthEndpointGroups.class);
-					assertThat(groups.getNames()).containsOnly("mock");
+					assertThat(groups.getNames_RENAMED()).containsOnly("mock");
 				});
 	}
 
@@ -305,7 +305,7 @@ class HealthEndpointAutoConfigurationTests {
 		@Bean
 		HealthEndpointGroups healthEndpointGroups() {
 			HealthEndpointGroups groups = mock(HealthEndpointGroups.class);
-			given(groups.getNames()).willReturn(Collections.singleton("mock"));
+			given(groups.getNames_RENAMED()).willReturn(Collections.singleton("mock"));
 			return groups;
 		}
 

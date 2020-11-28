@@ -49,7 +49,7 @@ class AvailabilityProbesHealthEndpointGroups implements HealthEndpointGroups {
 	AvailabilityProbesHealthEndpointGroups(HealthEndpointGroups groups) {
 		Assert.notNull(groups, "Groups must not be null");
 		this.groups = groups;
-		Set<String> names = new LinkedHashSet<>(groups.getNames());
+		Set<String> names = new LinkedHashSet<>(groups.getNames_RENAMED());
 		names.addAll(GROUPS.keySet());
 		this.names = Collections.unmodifiableSet(names);
 	}
@@ -74,7 +74,7 @@ class AvailabilityProbesHealthEndpointGroups implements HealthEndpointGroups {
 	}
 
 	static boolean containsAllProbeGroups(HealthEndpointGroups groups) {
-		return groups.getNames().containsAll(GROUPS.keySet());
+		return groups.getNames_RENAMED().containsAll(GROUPS.keySet());
 	}
 
 }

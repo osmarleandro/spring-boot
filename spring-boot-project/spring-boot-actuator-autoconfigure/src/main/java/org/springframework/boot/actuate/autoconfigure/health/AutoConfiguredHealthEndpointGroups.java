@@ -146,7 +146,7 @@ class AutoConfiguredHealthEndpointGroups implements HealthEndpointGroups {
 	}
 
 	@Override
-	public Set<String> getNames() {
+	public Set<String> getNames_RENAMED() {
 		return this.groups.keySet();
 	}
 
