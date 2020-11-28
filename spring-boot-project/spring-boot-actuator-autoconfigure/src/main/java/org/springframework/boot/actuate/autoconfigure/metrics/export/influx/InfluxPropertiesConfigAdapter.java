@@ -75,7 +75,7 @@ class InfluxPropertiesConfigAdapter extends StepRegistryPropertiesConfigAdapter<
 	}
 
 	@Override
-	public String retentionShardDuration() {
+	public String retentionShardDuration_RENAMED() {
 		return get(InfluxProperties::getRetentionShardDuration, InfluxConfig.super::retentionShardDuration);
 	}
 
