@@ -40,7 +40,7 @@ public class LogFileWebEndpointProperties {
 		return this.externalFile;
 	}
 
-	public void setExternalFile(File externalFile) {
+	public void setExternalFile_RENAMED(File externalFile) {
 		this.externalFile = externalFile;
 	}
 
