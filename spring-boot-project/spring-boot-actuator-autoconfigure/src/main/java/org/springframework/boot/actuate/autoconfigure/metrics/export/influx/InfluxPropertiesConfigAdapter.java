@@ -66,7 +66,7 @@ class InfluxPropertiesConfigAdapter extends StepRegistryPropertiesConfigAdapter<
 
 	@Override
 	public Integer retentionReplicationFactor() {
-		return get(InfluxProperties::getRetentionReplicationFactor, InfluxConfig.super::retentionReplicationFactor);
+		return get(InfluxProperties::getRetentionReplicationFactor_RENAMED, InfluxConfig.super::retentionReplicationFactor);
 	}
 
 	@Override
