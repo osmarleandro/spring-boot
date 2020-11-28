@@ -48,7 +48,7 @@ public class LiquibaseEndpointAutoConfiguration {
 	@Bean
 	@ConditionalOnBean(SpringLiquibase.class)
 	@ConditionalOnMissingBean
-	public LiquibaseEndpoint liquibaseEndpoint(ApplicationContext context) {
+	public LiquibaseEndpoint liquibaseEndpoint_RENAMED(ApplicationContext context) {
 		return new LiquibaseEndpoint(context);
 	}
 
