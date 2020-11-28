@@ -59,7 +59,7 @@ public class ElasticMetricsExportAutoConfiguration {
 
 	@Bean
 	@ConditionalOnMissingBean
-	public ElasticConfig elasticConfig() {
+	public ElasticConfig elasticConfig_RENAMED() {
 		return new ElasticPropertiesConfigAdapter(this.properties);
 	}
 
