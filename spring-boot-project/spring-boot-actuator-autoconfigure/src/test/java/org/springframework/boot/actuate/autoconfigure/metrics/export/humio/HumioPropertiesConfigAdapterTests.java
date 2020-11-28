@@ -48,7 +48,7 @@ class HumioPropertiesConfigAdapterTests {
 	void whenPropertiesUriIsSetAdapterUriReturnsIt() {
 		HumioProperties properties = new HumioProperties();
 		properties.setUri("https://humio.example.com");
-		assertThat(new HumioPropertiesConfigAdapter(properties).uri()).isEqualTo("https://humio.example.com");
+		assertThat(new HumioPropertiesConfigAdapter(properties).uri_RENAMED()).isEqualTo("https://humio.example.com");
 	}
 
 }
