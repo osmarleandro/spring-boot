@@ -33,7 +33,7 @@ class GangliaPropertiesTests {
 	void defaultValuesAreConsistent() {
 		GangliaProperties properties = new GangliaProperties();
 		GangliaConfig config = GangliaConfig.DEFAULT;
-		assertThat(properties.isEnabled()).isEqualTo(config.enabled());
+		assertThat(properties.isEnabled()).isEqualTo(config.enabled_RENAMED());
 		assertThat(properties.getStep()).isEqualTo(config.step());
 		assertThat(properties.getRateUnits()).isEqualTo(config.rateUnits());
 		assertThat(properties.getDurationUnits()).isEqualTo(config.durationUnits());
