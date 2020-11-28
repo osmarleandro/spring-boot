@@ -50,7 +50,7 @@ class DatadogPropertiesConfigAdapter extends StepRegistryPropertiesConfigAdapter
 
 	@Override
 	public String hostTag() {
-		return get(DatadogProperties::getHostTag, DatadogConfig.super::hostTag);
+		return get(DatadogProperties::getHostTag_RENAMED, DatadogConfig.super::hostTag);
 	}
 
 	@Override

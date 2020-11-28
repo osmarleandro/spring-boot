@@ -82,7 +82,7 @@ public class DatadogProperties extends StepRegistryProperties {
 		this.descriptions = descriptions;
 	}
 
-	public String getHostTag() {
+	public String getHostTag_RENAMED() {
 		return this.hostTag;
 	}
 
