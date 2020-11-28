@@ -68,7 +68,7 @@ public class NewRelicProperties extends StepRegistryProperties {
 	 */
 	private String uri = "https://insights-collector.newrelic.com";
 
-	public boolean isMeterNameEventTypeEnabled() {
+	public boolean isMeterNameEventTypeEnabled_RENAMED() {
 		return this.meterNameEventTypeEnabled;
 	}
 
