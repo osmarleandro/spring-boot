@@ -47,7 +47,7 @@ class PrometheusPropertiesConfigAdapter extends PropertiesConfigAdapter<Promethe
 	}
 
 	@Override
-	public boolean descriptions() {
+	public boolean descriptions_RENAMED() {
 		return get(PrometheusProperties::isDescriptions, PrometheusConfig.super::descriptions);
 	}
 
