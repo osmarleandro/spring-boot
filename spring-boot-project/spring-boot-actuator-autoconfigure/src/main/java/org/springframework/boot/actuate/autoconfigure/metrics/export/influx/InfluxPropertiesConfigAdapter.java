@@ -51,7 +51,7 @@ class InfluxPropertiesConfigAdapter extends StepRegistryPropertiesConfigAdapter<
 
 	@Override
 	public String userName() {
-		return get(InfluxProperties::getUserName, InfluxConfig.super::userName);
+		return get(InfluxProperties::getUserName_RENAMED, InfluxConfig.super::userName);
 	}
 
 	@Override

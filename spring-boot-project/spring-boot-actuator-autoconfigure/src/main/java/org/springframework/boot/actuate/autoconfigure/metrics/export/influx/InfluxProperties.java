@@ -109,7 +109,7 @@ public class InfluxProperties extends StepRegistryProperties {
 		this.consistency = consistency;
 	}
 
-	public String getUserName() {
+	public String getUserName_RENAMED() {
 		return this.userName;
 	}
 
