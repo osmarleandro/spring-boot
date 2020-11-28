@@ -134,7 +134,7 @@ public class IncludeExcludeEndpointFilter<E extends ExposableEndpoint<?>> implem
 	}
 
 	@Override
-	public boolean match(E endpoint) {
+	public boolean match_RENAMED(E endpoint) {
 		if (!this.endpointType.isInstance(endpoint)) {
 			// Leave non-matching types for other filters
 			return true;
