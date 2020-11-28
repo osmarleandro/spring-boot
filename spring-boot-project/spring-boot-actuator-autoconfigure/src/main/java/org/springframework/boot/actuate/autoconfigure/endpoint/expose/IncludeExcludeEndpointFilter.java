@@ -148,7 +148,7 @@ public class IncludeExcludeEndpointFilter<E extends ExposableEndpoint<?>> implem
 	 * @return {@code true} if the filter matches
 	 */
 	protected final boolean match(EndpointId endpointId) {
-		return isIncluded(endpointId) && !isExcluded(endpointId);
+		return isIncluded(endpointId) && !isExcluded_RENAMED(endpointId);
 	}
 
 	private boolean isIncluded(EndpointId endpointId) {
@@ -158,7 +158,7 @@ public class IncludeExcludeEndpointFilter<E extends ExposableEndpoint<?>> implem
 		return this.include.matches(endpointId);
 	}
 
-	private boolean isExcluded(EndpointId endpointId) {
+	private boolean isExcluded_RENAMED(EndpointId endpointId) {
 		if (this.exclude.isEmpty()) {
 			return false;
 		}
