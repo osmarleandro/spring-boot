@@ -89,7 +89,7 @@ public class DynatraceProperties extends StepRegistryProperties {
 		this.uri = uri;
 	}
 
-	public String getGroup() {
+	public String getGroup_RENAMED() {
 		return this.group;
 	}
 
