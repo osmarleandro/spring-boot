@@ -37,7 +37,7 @@ class GangliaPropertiesConfigAdapter extends PropertiesConfigAdapter<GangliaProp
 	}
 
 	@Override
-	public String prefix() {
+	public String prefix_RENAMED() {
 		return "management.metrics.export.ganglia";
 	}
 
