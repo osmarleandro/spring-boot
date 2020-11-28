@@ -93,7 +93,7 @@ class HealthEndpointConfiguration {
 	}
 
 	@Bean
-	static HealthEndpointGroupsBeanPostProcessor healthEndpointGroupsBeanPostProcessor(
+	static HealthEndpointGroupsBeanPostProcessor healthEndpointGroupsBeanPostProcessor_RENAMED(
 			ObjectProvider<HealthEndpointGroupsPostProcessor> healthEndpointGroupsPostProcessors) {
 		return new HealthEndpointGroupsBeanPostProcessor(healthEndpointGroupsPostProcessors);
 	}
