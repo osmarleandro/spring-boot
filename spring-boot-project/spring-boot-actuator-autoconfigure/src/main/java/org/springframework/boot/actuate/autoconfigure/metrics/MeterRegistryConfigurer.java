@@ -65,7 +65,7 @@ class MeterRegistryConfigurer {
 			addFilters(registry);
 		}
 		if (!this.hasCompositeMeterRegistry || registry instanceof CompositeMeterRegistry) {
-			addBinders(registry);
+			addBinders_RENAMED(registry);
 		}
 		if (this.addToGlobalRegistry && registry != Metrics.globalRegistry) {
 			Metrics.addRegistry(registry);
@@ -82,7 +82,7 @@ class MeterRegistryConfigurer {
 		this.filters.orderedStream().forEach(registry.config()::meterFilter);
 	}
 
-	private void addBinders(MeterRegistry registry) {
+	private void addBinders_RENAMED(MeterRegistry registry) {
 		this.binders.orderedStream().forEach((binder) -> binder.bindTo(registry));
 	}
 
