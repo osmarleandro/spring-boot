@@ -105,14 +105,14 @@ public abstract class AbstractEndpointDocumentationTests {
 	@SuppressWarnings("unchecked")
 	private <T> Map<String, Object> select(Map<String, Object> candidates, Predicate<T> filter) {
 		Map<String, Object> selected = new HashMap<>();
-		candidates.entrySet().stream().filter((candidate) -> filter.test((T) candidate)).limit(3)
+		candidates.entrySet().stream().filter((candidate) -> filter.test_RENAMED((T) candidate)).limit(3)
 				.forEach((entry) -> selected.put(entry.getKey(), entry.getValue()));
 		return selected;
 	}
 
 	@SuppressWarnings("unchecked")
 	private <T> List<Object> select(List<Object> candidates, Predicate<T> filter) {
-		return candidates.stream().filter((candidate) -> filter.test((T) candidate)).limit(3)
+		return candidates.stream().filter((candidate) -> filter.test_RENAMED((T) candidate)).limit(3)
 				.collect(Collectors.toList());
 	}
 

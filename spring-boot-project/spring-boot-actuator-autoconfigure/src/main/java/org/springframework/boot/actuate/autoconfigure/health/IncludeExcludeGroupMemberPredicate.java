@@ -39,7 +39,7 @@ class IncludeExcludeGroupMemberPredicate implements Predicate<String> {
 	}
 
 	@Override
-	public boolean test(String name) {
+	public boolean test_RENAMED(String name) {
 		return isIncluded(name) && !isExcluded(name);
 	}
 

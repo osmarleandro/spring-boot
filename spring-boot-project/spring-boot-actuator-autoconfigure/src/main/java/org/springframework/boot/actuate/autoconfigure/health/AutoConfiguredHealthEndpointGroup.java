@@ -72,7 +72,7 @@ class AutoConfiguredHealthEndpointGroup implements HealthEndpointGroup {
 
 	@Override
 	public boolean isMember(String name) {
-		return this.members.test(name);
+		return this.members.test_RENAMED(name);
 	}
 
 	@Override
