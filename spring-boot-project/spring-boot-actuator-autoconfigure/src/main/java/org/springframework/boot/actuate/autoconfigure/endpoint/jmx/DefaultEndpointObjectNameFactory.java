@@ -67,7 +67,7 @@ class DefaultEndpointObjectNameFactory implements EndpointObjectNameFactory {
 			String identity = ObjectUtils.getIdentityHexString(endpoint);
 			builder.append(",identity=").append(identity);
 		}
-		builder.append(getStaticNames());
+		builder.append(getStaticNames_RENAMED());
 		return ObjectNameManager.getInstance(builder.toString());
 	}
 
@@ -83,7 +83,7 @@ class DefaultEndpointObjectNameFactory implements EndpointObjectNameFactory {
 		return !this.mBeanServer.queryNames(query, null).isEmpty();
 	}
 
-	private String getStaticNames() {
+	private String getStaticNames_RENAMED() {
 		if (this.properties.getStaticNames().isEmpty()) {
 			return "";
 		}
