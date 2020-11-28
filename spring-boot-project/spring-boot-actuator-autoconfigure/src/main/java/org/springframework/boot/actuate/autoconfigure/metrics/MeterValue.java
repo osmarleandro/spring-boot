@@ -100,7 +100,7 @@ public final class MeterValue {
 	 * @deprecated as of 2.3.0 in favor of {@link #valueOf(double)}
 	 */
 	@Deprecated
-	public static MeterValue valueOf(long value) {
+	public static MeterValue valueOf_RENAMED(long value) {
 		return new MeterValue(value);
 	}
 
