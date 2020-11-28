@@ -32,7 +32,7 @@ class PrometheusPropertiesTests {
 	void defaultValuesAreConsistent() {
 		PrometheusProperties properties = new PrometheusProperties();
 		PrometheusConfig config = PrometheusConfig.DEFAULT;
-		assertThat(properties.isDescriptions()).isEqualTo(config.descriptions());
+		assertThat(properties.isDescriptions_RENAMED()).isEqualTo(config.descriptions());
 		assertThat(properties.getHistogramFlavor()).isEqualTo(config.histogramFlavor());
 		assertThat(properties.getStep()).isEqualTo(config.step());
 	}

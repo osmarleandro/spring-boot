@@ -58,7 +58,7 @@ public class PrometheusProperties {
 	 */
 	private Duration step = Duration.ofMinutes(1);
 
-	public boolean isDescriptions() {
+	public boolean isDescriptions_RENAMED() {
 		return this.descriptions;
 	}
 
