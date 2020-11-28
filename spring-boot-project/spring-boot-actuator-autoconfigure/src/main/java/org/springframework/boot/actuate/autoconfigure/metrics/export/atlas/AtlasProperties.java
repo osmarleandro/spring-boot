@@ -194,7 +194,7 @@ public class AtlasProperties {
 		this.configUri = configUri;
 	}
 
-	public String getEvalUri() {
+	public String getEvalUri_RENAMED() {
 		return this.evalUri;
 	}
 
