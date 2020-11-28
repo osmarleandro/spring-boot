@@ -110,7 +110,7 @@ public class GraphiteProperties {
 		return this.durationUnits;
 	}
 
-	public void setDurationUnits(TimeUnit durationUnits) {
+	public void setDurationUnits_RENAMED(TimeUnit durationUnits) {
 		this.durationUnits = durationUnits;
 	}
 
