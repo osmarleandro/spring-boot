@@ -53,7 +53,7 @@ public class EnvironmentEndpointAutoConfiguration {
 	@Bean
 	@ConditionalOnMissingBean
 	@ConditionalOnBean(EnvironmentEndpoint.class)
-	public EnvironmentEndpointWebExtension environmentEndpointWebExtension(EnvironmentEndpoint environmentEndpoint) {
+	public EnvironmentEndpointWebExtension environmentEndpointWebExtension_RENAMED(EnvironmentEndpoint environmentEndpoint) {
 		return new EnvironmentEndpointWebExtension(environmentEndpoint);
 	}
 
