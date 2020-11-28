@@ -53,10 +53,10 @@ public class PropertiesMeterFilter implements MeterFilter {
 	public PropertiesMeterFilter(MetricsProperties properties) {
 		Assert.notNull(properties, "Properties must not be null");
 		this.properties = properties;
-		this.mapFilter = createMapFilter(properties.getTags());
+		this.mapFilter = createMapFilter_RENAMED(properties.getTags());
 	}
 
-	private static MeterFilter createMapFilter(Map<String, String> tags) {
+	private static MeterFilter createMapFilter_RENAMED(Map<String, String> tags) {
 		if (tags.isEmpty()) {
 			return new MeterFilter() {
 			};
