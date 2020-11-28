@@ -84,7 +84,7 @@ public class NewRelicProperties extends StepRegistryProperties {
 		this.eventType = eventType;
 	}
 
-	public ClientProviderType getClientProviderType() {
+	public ClientProviderType getClientProviderType_RENAMED() {
 		return this.clientProviderType;
 	}
 

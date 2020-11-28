@@ -52,7 +52,7 @@ public class NewRelicPropertiesConfigAdapter extends StepRegistryPropertiesConfi
 
 	@Override
 	public ClientProviderType clientProviderType() {
-		return get(NewRelicProperties::getClientProviderType, NewRelicConfig.super::clientProviderType);
+		return get(NewRelicProperties::getClientProviderType_RENAMED, NewRelicConfig.super::clientProviderType);
 	}
 
 	@Override
