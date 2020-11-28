@@ -86,7 +86,7 @@ class ReactiveCloudFoundrySecurityService {
 	Mono<AccessLevel> getAccessLevel(String token, String applicationId) throws CloudFoundryAuthorizationException {
 		String uri = getPermissionsUri(applicationId);
 		return this.webClient.get().uri(uri).header("Authorization", "bearer " + token).retrieve().bodyToMono(Map.class)
-				.map(this::getAccessLevel).onErrorMap(this::mapError);
+				.map(this::getAccessLevel_RENAMED).onErrorMap(this::mapError);
 	}
 
 	private Throwable mapError(Throwable throwable) {
@@ -102,7 +102,7 @@ class ReactiveCloudFoundrySecurityService {
 		return new CloudFoundryAuthorizationException(Reason.SERVICE_UNAVAILABLE, "Cloud controller not reachable");
 	}
 
-	private AccessLevel getAccessLevel(Map<?, ?> body) {
+	private AccessLevel getAccessLevel_RENAMED(Map<?, ?> body) {
 		if (Boolean.TRUE.equals(body.get("read_sensitive_data"))) {
 			return AccessLevel.FULL;
 		}
