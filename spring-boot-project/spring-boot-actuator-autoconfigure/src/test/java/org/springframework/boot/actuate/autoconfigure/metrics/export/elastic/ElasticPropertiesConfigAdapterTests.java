@@ -38,7 +38,7 @@ class ElasticPropertiesConfigAdapterTests {
 	void whenPropertiesIndexIsSetAdapterIndexReturnsIt() {
 		ElasticProperties properties = new ElasticProperties();
 		properties.setIndex("test-metrics");
-		assertThat(new ElasticPropertiesConfigAdapter(properties).index()).isEqualTo("test-metrics");
+		assertThat(new ElasticPropertiesConfigAdapter(properties).index_RENAMED()).isEqualTo("test-metrics");
 	}
 
 	@Test
