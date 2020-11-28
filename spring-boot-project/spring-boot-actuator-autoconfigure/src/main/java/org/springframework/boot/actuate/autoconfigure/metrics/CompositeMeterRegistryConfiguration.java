@@ -42,7 +42,7 @@ class CompositeMeterRegistryConfiguration {
 
 	@Bean
 	@Primary
-	AutoConfiguredCompositeMeterRegistry compositeMeterRegistry(Clock clock, List<MeterRegistry> registries) {
+	AutoConfiguredCompositeMeterRegistry compositeMeterRegistry_RENAMED(Clock clock, List<MeterRegistry> registries) {
 		return new AutoConfiguredCompositeMeterRegistry(clock, registries);
 	}
 
