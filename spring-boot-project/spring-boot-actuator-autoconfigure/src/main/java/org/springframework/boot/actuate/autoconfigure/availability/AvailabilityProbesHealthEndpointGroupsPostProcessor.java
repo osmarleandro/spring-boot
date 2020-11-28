@@ -31,7 +31,7 @@ import org.springframework.core.annotation.Order;
 class AvailabilityProbesHealthEndpointGroupsPostProcessor implements HealthEndpointGroupsPostProcessor {
 
 	@Override
-	public HealthEndpointGroups postProcessHealthEndpointGroups(HealthEndpointGroups groups) {
+	public HealthEndpointGroups postProcessHealthEndpointGroups_RENAMED(HealthEndpointGroups groups) {
 		if (AvailabilityProbesHealthEndpointGroups.containsAllProbeGroups(groups)) {
 			return groups;
 		}

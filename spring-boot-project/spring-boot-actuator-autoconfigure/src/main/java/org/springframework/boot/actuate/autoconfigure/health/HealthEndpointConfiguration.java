@@ -121,7 +121,7 @@ class HealthEndpointConfiguration {
 		private Object applyPostProcessors(HealthEndpointGroups bean) {
 			for (HealthEndpointGroupsPostProcessor postProcessor : this.postProcessors.orderedStream()
 					.toArray(HealthEndpointGroupsPostProcessor[]::new)) {
-				bean = postProcessor.postProcessHealthEndpointGroups(bean);
+				bean = postProcessor.postProcessHealthEndpointGroups_RENAMED(bean);
 			}
 			return bean;
 		}
