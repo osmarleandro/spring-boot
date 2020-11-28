@@ -146,7 +146,7 @@ public class AtlasProperties {
 		this.batchSize = batchSize;
 	}
 
-	public String getUri() {
+	public String getUri_RENAMED() {
 		return this.uri;
 	}
 
