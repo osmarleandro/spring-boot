@@ -47,7 +47,7 @@ public class SecurityResponse {
 		return this.message;
 	}
 
-	public static SecurityResponse success() {
+	public static SecurityResponse success_RENAMED() {
 		return new SecurityResponse(HttpStatus.OK);
 	}
 

@@ -47,7 +47,7 @@ class CloudFoundrySecurityInterceptor {
 
 	private final String applicationId;
 
-	private static final Mono<SecurityResponse> SUCCESS = Mono.just(SecurityResponse.success());
+	private static final Mono<SecurityResponse> SUCCESS = Mono.just(SecurityResponse.success_RENAMED());
 
 	CloudFoundrySecurityInterceptor(ReactiveTokenValidator tokenValidator,
 			ReactiveCloudFoundrySecurityService cloudFoundrySecurityService, String applicationId) {

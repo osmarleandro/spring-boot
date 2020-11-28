@@ -49,7 +49,7 @@ class CloudFoundrySecurityInterceptor {
 
 	private final String applicationId;
 
-	private static final SecurityResponse SUCCESS = SecurityResponse.success();
+	private static final SecurityResponse SUCCESS = SecurityResponse.success_RENAMED();
 
 	CloudFoundrySecurityInterceptor(TokenValidator tokenValidator,
 			CloudFoundrySecurityService cloudFoundrySecurityService, String applicationId) {
@@ -60,7 +60,7 @@ class CloudFoundrySecurityInterceptor {
 
 	SecurityResponse preHandle(HttpServletRequest request, EndpointId endpointId) {
 		if (CorsUtils.isPreFlightRequest(request)) {
-			return SecurityResponse.success();
+			return SecurityResponse.success_RENAMED();
 		}
 		try {
 			if (!StringUtils.hasText(this.applicationId)) {
@@ -85,7 +85,7 @@ class CloudFoundrySecurityInterceptor {
 			}
 			return new SecurityResponse(HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage());
 		}
-		return SecurityResponse.success();
+		return SecurityResponse.success_RENAMED();
 	}
 
 	private void check(HttpServletRequest request, EndpointId endpointId) throws Exception {
