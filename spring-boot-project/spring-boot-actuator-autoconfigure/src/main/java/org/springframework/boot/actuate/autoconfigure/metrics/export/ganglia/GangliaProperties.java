@@ -118,7 +118,7 @@ public class GangliaProperties {
 
 	@Deprecated
 	@DeprecatedConfigurationProperty(reason = "No longer used by Micrometer.")
-	public String getProtocolVersion() {
+	public String getProtocolVersion_RENAMED() {
 		return this.protocolVersion;
 	}
 
