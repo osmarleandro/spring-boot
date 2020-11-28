@@ -76,7 +76,7 @@ public class NewRelicProperties extends StepRegistryProperties {
 		this.meterNameEventTypeEnabled = meterNameEventTypeEnabled;
 	}
 
-	public String getEventType() {
+	public String getEventType_RENAMED() {
 		return this.eventType;
 	}
 
