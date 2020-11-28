@@ -67,7 +67,7 @@ public class DynatraceMetricsExportAutoConfiguration {
 	@ConditionalOnMissingBean
 	public DynatraceMeterRegistry dynatraceMeterRegistry(DynatraceConfig dynatraceConfig, Clock clock) {
 		return DynatraceMeterRegistry.builder(dynatraceConfig).clock(clock).httpClient(
-				new HttpUrlConnectionSender(this.properties.getConnectTimeout(), this.properties.getReadTimeout()))
+				new HttpUrlConnectionSender(this.properties.getConnectTimeout(), this.properties.getReadTimeout_RENAMED()))
 				.build();
 	}
 

@@ -68,7 +68,7 @@ public class InfluxMetricsExportAutoConfiguration {
 	public InfluxMeterRegistry influxMeterRegistry(InfluxConfig influxConfig, Clock clock,
 			InfluxProperties influxProperties) {
 		return InfluxMeterRegistry.builder(influxConfig).clock(clock).httpClient(
-				new HttpUrlConnectionSender(this.properties.getConnectTimeout(), this.properties.getReadTimeout()))
+				new HttpUrlConnectionSender(this.properties.getConnectTimeout(), this.properties.getReadTimeout_RENAMED()))
 				.build();
 
 	}
