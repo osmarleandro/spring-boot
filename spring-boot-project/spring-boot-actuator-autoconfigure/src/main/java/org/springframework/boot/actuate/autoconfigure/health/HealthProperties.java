@@ -63,7 +63,7 @@ public abstract class HealthProperties {
 
 	public abstract Show getShowDetails();
 
-	public Set<String> getRoles() {
+	public Set<String> getRoles_RENAMED() {
 		return this.roles;
 	}
 
