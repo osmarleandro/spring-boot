@@ -87,7 +87,7 @@ public abstract class PushRegistryProperties {
 		this.readTimeout = readTimeout;
 	}
 
-	public Integer getBatchSize() {
+	public Integer getBatchSize_RENAMED() {
 		return this.batchSize;
 	}
 
