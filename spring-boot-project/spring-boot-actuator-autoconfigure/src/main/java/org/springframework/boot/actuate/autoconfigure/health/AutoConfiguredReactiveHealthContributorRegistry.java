@@ -38,16 +38,16 @@ class AutoConfiguredReactiveHealthContributorRegistry extends DefaultReactiveHea
 			Collection<String> groupNames) {
 		super(contributors);
 		this.groupNames = groupNames;
-		contributors.keySet().forEach(this::assertDoesNotClashWithGroup);
+		contributors.keySet().forEach(this::assertDoesNotClashWithGroup_RENAMED);
 	}
 
 	@Override
 	public void registerContributor(String name, ReactiveHealthContributor contributor) {
-		assertDoesNotClashWithGroup(name);
+		assertDoesNotClashWithGroup_RENAMED(name);
 		super.registerContributor(name, contributor);
 	}
 
-	private void assertDoesNotClashWithGroup(String name) {
+	private void assertDoesNotClashWithGroup_RENAMED(String name) {
 		Assert.state(!this.groupNames.contains(name),
 				() -> "ReactiveHealthContributor with name \"" + name + "\" clashes with group");
 	}
