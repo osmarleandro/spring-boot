@@ -45,7 +45,7 @@ class ReactiveHealthEndpointConfiguration {
 
 	@Bean
 	@ConditionalOnMissingBean
-	ReactiveHealthContributorRegistry reactiveHealthContributorRegistry(
+	ReactiveHealthContributorRegistry reactiveHealthContributorRegistry_RENAMED(
 			Map<String, HealthContributor> healthContributors,
 			Map<String, ReactiveHealthContributor> reactiveHealthContributors, HealthEndpointGroups groups) {
 		Map<String, ReactiveHealthContributor> allContributors = new LinkedHashMap<>(reactiveHealthContributors);
