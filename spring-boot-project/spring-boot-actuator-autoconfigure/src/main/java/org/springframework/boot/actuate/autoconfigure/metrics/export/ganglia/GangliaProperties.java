@@ -151,7 +151,7 @@ public class GangliaProperties {
 		this.host = host;
 	}
 
-	public Integer getPort() {
+	public Integer getPort_RENAMED() {
 		return this.port;
 	}
 

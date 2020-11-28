@@ -90,7 +90,7 @@ class GangliaPropertiesConfigAdapter extends PropertiesConfigAdapter<GangliaProp
 
 	@Override
 	public int port() {
-		return get(GangliaProperties::getPort, GangliaConfig.super::port);
+		return get(GangliaProperties::getPort_RENAMED, GangliaConfig.super::port);
 	}
 
 }
