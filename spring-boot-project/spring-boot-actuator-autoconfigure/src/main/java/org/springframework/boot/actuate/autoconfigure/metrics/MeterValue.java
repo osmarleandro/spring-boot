@@ -51,7 +51,7 @@ public final class MeterValue {
 	 */
 	public Double getValue(Type meterType) {
 		if (meterType == Type.DISTRIBUTION_SUMMARY) {
-			return getDistributionSummaryValue();
+			return getDistributionSummaryValue_RENAMED();
 		}
 		if (meterType == Type.TIMER) {
 			Long timerValue = getTimerValue();
@@ -62,7 +62,7 @@ public final class MeterValue {
 		return null;
 	}
 
-	private Double getDistributionSummaryValue() {
+	private Double getDistributionSummaryValue_RENAMED() {
 		if (this.value instanceof Double) {
 			return (Double) this.value;
 		}
