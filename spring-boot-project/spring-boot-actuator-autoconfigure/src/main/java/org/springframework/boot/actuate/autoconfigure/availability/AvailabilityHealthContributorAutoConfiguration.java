@@ -49,7 +49,7 @@ public class AvailabilityHealthContributorAutoConfiguration {
 	@Bean
 	@ConditionalOnMissingBean(name = "readinessStateHealthIndicator")
 	@ConditionalOnProperty(prefix = "management.health.readinessstate", name = "enabled", havingValue = "true")
-	public ReadinessStateHealthIndicator readinessStateHealthIndicator(
+	public ReadinessStateHealthIndicator readinessStateHealthIndicator_RENAMED(
 			ApplicationAvailability applicationAvailability) {
 		return new ReadinessStateHealthIndicator(applicationAvailability);
 	}
