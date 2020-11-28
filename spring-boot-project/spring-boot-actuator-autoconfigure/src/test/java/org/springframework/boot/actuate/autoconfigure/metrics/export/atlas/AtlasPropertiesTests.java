@@ -35,7 +35,7 @@ class AtlasPropertiesTests {
 		assertThat(properties.getStep()).isEqualTo(config.step());
 		assertThat(properties.isEnabled()).isEqualTo(config.enabled());
 		assertThat(properties.getConnectTimeout()).isEqualTo(config.connectTimeout());
-		assertThat(properties.getReadTimeout()).isEqualTo(config.readTimeout());
+		assertThat(properties.getReadTimeout_RENAMED()).isEqualTo(config.readTimeout());
 		assertThat(properties.getNumThreads()).isEqualTo(config.numThreads());
 		assertThat(properties.getBatchSize()).isEqualTo(config.batchSize());
 		assertThat(properties.getUri()).isEqualTo(config.uri());

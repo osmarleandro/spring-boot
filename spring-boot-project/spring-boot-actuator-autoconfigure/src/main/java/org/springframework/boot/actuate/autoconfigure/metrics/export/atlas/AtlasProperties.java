@@ -122,7 +122,7 @@ public class AtlasProperties {
 		this.connectTimeout = connectTimeout;
 	}
 
-	public Duration getReadTimeout() {
+	public Duration getReadTimeout_RENAMED() {
 		return this.readTimeout;
 	}
 
