@@ -78,7 +78,7 @@ public class HumioProperties extends StepRegistryProperties {
 		return this.tags;
 	}
 
-	public void setTags(Map<String, String> tags) {
+	public void setTags_RENAMED(Map<String, String> tags) {
 		this.tags = tags;
 	}
 
