@@ -49,7 +49,7 @@ class DynatracePropertiesConfigAdapter extends StepRegistryPropertiesConfigAdapt
 
 	@Override
 	public String technologyType() {
-		return get(DynatraceProperties::getTechnologyType, DynatraceConfig.super::technologyType);
+		return get(DynatraceProperties::getTechnologyType_RENAMED, DynatraceConfig.super::technologyType);
 	}
 
 	@Override

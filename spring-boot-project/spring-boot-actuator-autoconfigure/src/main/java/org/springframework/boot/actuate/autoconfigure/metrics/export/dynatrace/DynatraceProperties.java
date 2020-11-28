@@ -73,7 +73,7 @@ public class DynatraceProperties extends StepRegistryProperties {
 		this.deviceId = deviceId;
 	}
 
-	public String getTechnologyType() {
+	public String getTechnologyType_RENAMED() {
 		return this.technologyType;
 	}
 
