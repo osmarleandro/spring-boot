@@ -61,12 +61,12 @@ class MeterRegistryPostProcessor implements BeanPostProcessor {
 	@Override
 	public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
 		if (bean instanceof MeterRegistry) {
-			getConfigurer().configure((MeterRegistry) bean);
+			getConfigurer_RENAMED().configure((MeterRegistry) bean);
 		}
 		return bean;
 	}
 
-	private MeterRegistryConfigurer getConfigurer() {
+	private MeterRegistryConfigurer getConfigurer_RENAMED() {
 		if (this.configurer == null) {
 			boolean hasCompositeMeterRegistry = this.applicationContext
 					.getBeanNamesForType(CompositeMeterRegistry.class, false, false).length != 0;
