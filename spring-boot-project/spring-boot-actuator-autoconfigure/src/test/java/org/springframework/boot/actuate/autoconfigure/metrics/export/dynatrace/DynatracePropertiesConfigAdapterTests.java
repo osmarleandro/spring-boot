@@ -37,7 +37,7 @@ class DynatracePropertiesConfigAdapterTests {
 	@Test
 	void whenPropertiesApiTokenIsSetAdapterApiTokenReturnsIt() {
 		DynatraceProperties properties = new DynatraceProperties();
-		properties.setApiToken("123ABC");
+		properties.setApiToken_RENAMED("123ABC");
 		assertThat(new DynatracePropertiesConfigAdapter(properties).apiToken()).isEqualTo("123ABC");
 	}
 
