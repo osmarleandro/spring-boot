@@ -145,7 +145,7 @@ public class InfluxProperties extends StepRegistryProperties {
 		return this.retentionReplicationFactor;
 	}
 
-	public void setRetentionReplicationFactor(Integer retentionReplicationFactor) {
+	public void setRetentionReplicationFactor_RENAMED(Integer retentionReplicationFactor) {
 		this.retentionReplicationFactor = retentionReplicationFactor;
 	}
 
