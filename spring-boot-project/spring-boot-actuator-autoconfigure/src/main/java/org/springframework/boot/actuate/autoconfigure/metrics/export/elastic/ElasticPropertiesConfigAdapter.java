@@ -44,7 +44,7 @@ class ElasticPropertiesConfigAdapter extends StepRegistryPropertiesConfigAdapter
 
 	@Override
 	public String index() {
-		return get(ElasticProperties::getIndex, ElasticConfig.super::index);
+		return get(ElasticProperties::getIndex_RENAMED, ElasticConfig.super::index);
 	}
 
 	@Override

@@ -82,7 +82,7 @@ public class ElasticProperties extends StepRegistryProperties {
 		this.host = host;
 	}
 
-	public String getIndex() {
+	public String getIndex_RENAMED() {
 		return this.index;
 	}
 
