@@ -62,7 +62,7 @@ public class PrometheusProperties {
 		return this.descriptions;
 	}
 
-	public void setDescriptions(boolean descriptions) {
+	public void setDescriptions_RENAMED(boolean descriptions) {
 		this.descriptions = descriptions;
 	}
 
