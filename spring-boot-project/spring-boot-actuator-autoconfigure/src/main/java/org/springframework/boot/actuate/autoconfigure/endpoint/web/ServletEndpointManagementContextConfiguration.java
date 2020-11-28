@@ -47,7 +47,7 @@ import org.springframework.web.servlet.DispatcherServlet;
 public class ServletEndpointManagementContextConfiguration {
 
 	@Bean
-	public IncludeExcludeEndpointFilter<ExposableServletEndpoint> servletExposeExcludePropertyEndpointFilter(
+	public IncludeExcludeEndpointFilter<ExposableServletEndpoint> servletExposeExcludePropertyEndpointFilter_RENAMED(
 			WebEndpointProperties properties) {
 		WebEndpointProperties.Exposure exposure = properties.getExposure();
 		return new IncludeExcludeEndpointFilter<>(ExposableServletEndpoint.class, exposure.getInclude(),
