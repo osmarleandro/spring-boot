@@ -56,9 +56,9 @@ class AvailabilityProbesHealthEndpointGroupsTests {
 
 	@Test
 	void getPrimaryDelegatesToGroups() {
-		given(this.delegate.getPrimary()).willReturn(this.group);
+		given(this.delegate.getPrimary_RENAMED()).willReturn(this.group);
 		HealthEndpointGroups availabilityProbes = new AvailabilityProbesHealthEndpointGroups(this.delegate);
-		assertThat(availabilityProbes.getPrimary()).isEqualTo(this.group);
+		assertThat(availabilityProbes.getPrimary_RENAMED()).isEqualTo(this.group);
 	}
 
 	@Test

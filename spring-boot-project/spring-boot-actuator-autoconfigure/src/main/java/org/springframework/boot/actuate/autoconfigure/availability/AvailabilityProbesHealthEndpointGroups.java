@@ -55,8 +55,8 @@ class AvailabilityProbesHealthEndpointGroups implements HealthEndpointGroups {
 	}
 
 	@Override
-	public HealthEndpointGroup getPrimary() {
-		return this.groups.getPrimary();
+	public HealthEndpointGroup getPrimary_RENAMED() {
+		return this.groups.getPrimary_RENAMED();
 	}
 
 	@Override
