@@ -52,7 +52,7 @@ public class WebEndpointProperties {
 		return this.exposure;
 	}
 
-	public String getBasePath() {
+	public String getBasePath_RENAMED() {
 		return this.basePath;
 	}
 

@@ -67,7 +67,7 @@ public class WebFluxEndpointManagementContextConfiguration {
 			ControllerEndpointsSupplier controllerEndpointsSupplier, EndpointMediaTypes endpointMediaTypes,
 			CorsEndpointProperties corsProperties, WebEndpointProperties webEndpointProperties,
 			Environment environment) {
-		String basePath = webEndpointProperties.getBasePath();
+		String basePath = webEndpointProperties.getBasePath_RENAMED();
 		EndpointMapping endpointMapping = new EndpointMapping(basePath);
 		Collection<ExposableWebEndpoint> endpoints = webEndpointsSupplier.getEndpoints();
 		List<ExposableEndpoint<?>> allEndpoints = new ArrayList<>();
@@ -88,7 +88,7 @@ public class WebFluxEndpointManagementContextConfiguration {
 	public ControllerEndpointHandlerMapping controllerEndpointHandlerMapping(
 			ControllerEndpointsSupplier controllerEndpointsSupplier, CorsEndpointProperties corsProperties,
 			WebEndpointProperties webEndpointProperties) {
-		EndpointMapping endpointMapping = new EndpointMapping(webEndpointProperties.getBasePath());
+		EndpointMapping endpointMapping = new EndpointMapping(webEndpointProperties.getBasePath_RENAMED());
 		return new ControllerEndpointHandlerMapping(endpointMapping, controllerEndpointsSupplier.getEndpoints(),
 				corsProperties.toCorsConfiguration());
 	}

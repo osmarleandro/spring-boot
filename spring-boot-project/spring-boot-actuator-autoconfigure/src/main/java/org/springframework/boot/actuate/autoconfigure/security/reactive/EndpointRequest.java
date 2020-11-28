@@ -274,8 +274,8 @@ public final class EndpointRequest {
 		}
 
 		private ServerWebExchangeMatcher createDelegate(WebEndpointProperties properties) {
-			if (StringUtils.hasText(properties.getBasePath())) {
-				return new PathPatternParserServerWebExchangeMatcher(properties.getBasePath());
+			if (StringUtils.hasText(properties.getBasePath_RENAMED())) {
+				return new PathPatternParserServerWebExchangeMatcher(properties.getBasePath_RENAMED());
 			}
 			return EMPTY_MATCHER;
 		}
