@@ -55,7 +55,7 @@ class AtlasPropertiesConfigAdapter extends PropertiesConfigAdapter<AtlasProperti
 	}
 
 	@Override
-	public Duration readTimeout() {
+	public Duration readTimeout_RENAMED() {
 		return get(AtlasProperties::getReadTimeout, AtlasConfig.super::readTimeout);
 	}
 
