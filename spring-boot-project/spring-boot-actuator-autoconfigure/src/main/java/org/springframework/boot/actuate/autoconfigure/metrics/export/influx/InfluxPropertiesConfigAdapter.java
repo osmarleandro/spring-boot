@@ -45,7 +45,7 @@ class InfluxPropertiesConfigAdapter extends StepRegistryPropertiesConfigAdapter<
 	}
 
 	@Override
-	public InfluxConsistency consistency() {
+	public InfluxConsistency consistency_RENAMED() {
 		return get(InfluxProperties::getConsistency, InfluxConfig.super::consistency);
 	}
 
