@@ -59,13 +59,13 @@ class ReactiveCloudFoundrySecurityService {
 		Assert.notNull(webClientBuilder, "Webclient must not be null");
 		Assert.notNull(cloudControllerUrl, "CloudControllerUrl must not be null");
 		if (skipSslValidation) {
-			webClientBuilder.clientConnector(buildTrustAllSslConnector());
+			webClientBuilder.clientConnector(buildTrustAllSslConnector_RENAMED());
 		}
 		this.webClient = webClientBuilder.build();
 		this.cloudControllerUrl = cloudControllerUrl;
 	}
 
-	protected ReactorClientHttpConnector buildTrustAllSslConnector() {
+	protected ReactorClientHttpConnector buildTrustAllSslConnector_RENAMED() {
 		HttpClient client = HttpClient.create()
 				.secure((sslContextSpec) -> sslContextSpec.sslContext(createSslContext()));
 		return new ReactorClientHttpConnector(client);
