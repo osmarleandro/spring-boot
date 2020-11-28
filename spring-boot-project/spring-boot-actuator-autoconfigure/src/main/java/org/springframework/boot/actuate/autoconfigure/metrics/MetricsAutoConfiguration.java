@@ -47,7 +47,7 @@ public class MetricsAutoConfiguration {
 
 	@Bean
 	@ConditionalOnMissingBean
-	public Clock micrometerClock() {
+	public Clock micrometerClock_RENAMED() {
 		return Clock.SYSTEM;
 	}
 
