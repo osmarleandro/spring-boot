@@ -80,7 +80,7 @@ public class NewRelicProperties extends StepRegistryProperties {
 		return this.eventType;
 	}
 
-	public void setEventType(String eventType) {
+	public void setEventType_RENAMED(String eventType) {
 		this.eventType = eventType;
 	}
 
