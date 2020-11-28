@@ -104,7 +104,7 @@ public class NewRelicProperties extends StepRegistryProperties {
 		return this.accountId;
 	}
 
-	public void setAccountId(String accountId) {
+	public void setAccountId_RENAMED(String accountId) {
 		this.accountId = accountId;
 	}
 
