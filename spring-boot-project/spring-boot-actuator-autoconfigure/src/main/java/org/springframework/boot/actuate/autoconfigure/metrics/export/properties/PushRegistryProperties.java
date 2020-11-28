@@ -75,7 +75,7 @@ public abstract class PushRegistryProperties {
 		return this.connectTimeout;
 	}
 
-	public void setConnectTimeout(Duration connectTimeout) {
+	public void setConnectTimeout_RENAMED(Duration connectTimeout) {
 		this.connectTimeout = connectTimeout;
 	}
 
