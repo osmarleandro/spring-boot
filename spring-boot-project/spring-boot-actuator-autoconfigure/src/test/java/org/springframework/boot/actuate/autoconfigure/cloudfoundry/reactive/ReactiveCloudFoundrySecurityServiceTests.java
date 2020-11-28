@@ -69,7 +69,7 @@ class ReactiveCloudFoundrySecurityServiceTests {
 	void getAccessLevelWhenSpaceDeveloperShouldReturnFull() throws Exception {
 		String responseBody = "{\"read_sensitive_data\": true,\"read_basic_data\": true}";
 		prepareResponse((response) -> response.setBody(responseBody).setHeader("Content-Type", "application/json"));
-		StepVerifier.create(this.securityService.getAccessLevel("my-access-token", "my-app-id"))
+		StepVerifier.create(this.securityService.getAccessLevel_RENAMED("my-access-token", "my-app-id"))
 				.consumeNextWith((accessLevel) -> assertThat(accessLevel).isEqualTo(AccessLevel.FULL)).expectComplete()
 				.verify();
 		expectRequest((request) -> {
@@ -82,7 +82,7 @@ class ReactiveCloudFoundrySecurityServiceTests {
 	void getAccessLevelWhenNotSpaceDeveloperShouldReturnRestricted() throws Exception {
 		String responseBody = "{\"read_sensitive_data\": false,\"read_basic_data\": true}";
 		prepareResponse((response) -> response.setBody(responseBody).setHeader("Content-Type", "application/json"));
-		StepVerifier.create(this.securityService.getAccessLevel("my-access-token", "my-app-id"))
+		StepVerifier.create(this.securityService.getAccessLevel_RENAMED("my-access-token", "my-app-id"))
 				.consumeNextWith((accessLevel) -> assertThat(accessLevel).isEqualTo(AccessLevel.RESTRICTED))
 				.expectComplete().verify();
 		expectRequest((request) -> {
@@ -94,7 +94,7 @@ class ReactiveCloudFoundrySecurityServiceTests {
 	@Test
 	void getAccessLevelWhenTokenIsNotValidShouldThrowException() throws Exception {
 		prepareResponse((response) -> response.setResponseCode(401));
-		StepVerifier.create(this.securityService.getAccessLevel("my-access-token", "my-app-id"))
+		StepVerifier.create(this.securityService.getAccessLevel_RENAMED("my-access-token", "my-app-id"))
 				.consumeErrorWith((throwable) -> {
 					assertThat(throwable).isInstanceOf(CloudFoundryAuthorizationException.class);
 					assertThat(((CloudFoundryAuthorizationException) throwable).getReason())
@@ -109,7 +109,7 @@ class ReactiveCloudFoundrySecurityServiceTests {
 	@Test
 	void getAccessLevelWhenForbiddenShouldThrowException() throws Exception {
 		prepareResponse((response) -> response.setResponseCode(403));
-		StepVerifier.create(this.securityService.getAccessLevel("my-access-token", "my-app-id"))
+		StepVerifier.create(this.securityService.getAccessLevel_RENAMED("my-access-token", "my-app-id"))
 				.consumeErrorWith((throwable) -> {
 					assertThat(throwable).isInstanceOf(CloudFoundryAuthorizationException.class);
 					assertThat(((CloudFoundryAuthorizationException) throwable).getReason())
@@ -124,7 +124,7 @@ class ReactiveCloudFoundrySecurityServiceTests {
 	@Test
 	void getAccessLevelWhenCloudControllerIsNotReachableThrowsException() throws Exception {
 		prepareResponse((response) -> response.setResponseCode(500));
-		StepVerifier.create(this.securityService.getAccessLevel("my-access-token", "my-app-id"))
+		StepVerifier.create(this.securityService.getAccessLevel_RENAMED("my-access-token", "my-app-id"))
 				.consumeErrorWith((throwable) -> {
 					assertThat(throwable).isInstanceOf(CloudFoundryAuthorizationException.class);
 					assertThat(((CloudFoundryAuthorizationException) throwable).getReason())

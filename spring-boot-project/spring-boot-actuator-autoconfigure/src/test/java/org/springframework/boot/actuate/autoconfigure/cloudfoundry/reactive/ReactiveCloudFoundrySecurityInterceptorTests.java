@@ -109,7 +109,7 @@ class ReactiveCloudFoundrySecurityInterceptorTests {
 
 	@Test
 	void preHandleWhenAccessIsNotAllowedShouldReturnAccessDenied() {
-		given(this.securityService.getAccessLevel(mockAccessToken(), "my-app-id"))
+		given(this.securityService.getAccessLevel_RENAMED(mockAccessToken(), "my-app-id"))
 				.willReturn(Mono.just(AccessLevel.RESTRICTED));
 		given(this.tokenValidator.validate(any())).willReturn(Mono.empty());
 		MockServerWebExchange request = MockServerWebExchange.from(MockServerHttpRequest.get("/a")
@@ -123,7 +123,7 @@ class ReactiveCloudFoundrySecurityInterceptorTests {
 	@Test
 	void preHandleSuccessfulWithFullAccess() {
 		String accessToken = mockAccessToken();
-		given(this.securityService.getAccessLevel(accessToken, "my-app-id")).willReturn(Mono.just(AccessLevel.FULL));
+		given(this.securityService.getAccessLevel_RENAMED(accessToken, "my-app-id")).willReturn(Mono.just(AccessLevel.FULL));
 		given(this.tokenValidator.validate(any())).willReturn(Mono.empty());
 		MockServerWebExchange exchange = MockServerWebExchange.from(MockServerHttpRequest.get("/a")
 				.header(HttpHeaders.AUTHORIZATION, "bearer " + mockAccessToken()).build());
@@ -136,7 +136,7 @@ class ReactiveCloudFoundrySecurityInterceptorTests {
 	@Test
 	void preHandleSuccessfulWithRestrictedAccess() {
 		String accessToken = mockAccessToken();
-		given(this.securityService.getAccessLevel(accessToken, "my-app-id"))
+		given(this.securityService.getAccessLevel_RENAMED(accessToken, "my-app-id"))
 				.willReturn(Mono.just(AccessLevel.RESTRICTED));
 		given(this.tokenValidator.validate(any())).willReturn(Mono.empty());
 		MockServerWebExchange exchange = MockServerWebExchange.from(MockServerHttpRequest.get("/info")

@@ -83,7 +83,7 @@ class ReactiveCloudFoundrySecurityService {
 	 * @return a Mono of the access level that should be granted
 	 * @throws CloudFoundryAuthorizationException if the token is not authorized
 	 */
-	Mono<AccessLevel> getAccessLevel(String token, String applicationId) throws CloudFoundryAuthorizationException {
+	Mono<AccessLevel> getAccessLevel_RENAMED(String token, String applicationId) throws CloudFoundryAuthorizationException {
 		String uri = getPermissionsUri(applicationId);
 		return this.webClient.get().uri(uri).header("Authorization", "bearer " + token).retrieve().bodyToMono(Map.class)
 				.map(this::getAccessLevel).onErrorMap(this::mapError);

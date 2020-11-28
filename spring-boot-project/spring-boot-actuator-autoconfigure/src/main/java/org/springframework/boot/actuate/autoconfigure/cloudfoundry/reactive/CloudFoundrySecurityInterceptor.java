@@ -80,7 +80,7 @@ class CloudFoundrySecurityInterceptor {
 		try {
 			Token token = getToken(exchange.getRequest());
 			return this.tokenValidator.validate(token)
-					.then(this.cloudFoundrySecurityService.getAccessLevel(token.toString(), this.applicationId))
+					.then(this.cloudFoundrySecurityService.getAccessLevel_RENAMED(token.toString(), this.applicationId))
 					.filter((accessLevel) -> accessLevel.isAccessAllowed(id))
 					.switchIfEmpty(
 							Mono.error(new CloudFoundryAuthorizationException(Reason.ACCESS_DENIED, "Access denied")))
