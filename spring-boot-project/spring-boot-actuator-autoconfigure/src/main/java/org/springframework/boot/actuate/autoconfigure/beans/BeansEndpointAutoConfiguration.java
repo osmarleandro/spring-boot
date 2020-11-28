@@ -31,7 +31,7 @@ import org.springframework.context.annotation.Configuration;
  * @since 2.0.0
  */
 @Configuration(proxyBeanMethods = false)
-@ConditionalOnAvailableEndpoint(endpoint = BeansEndpoint.class)
+@ConditionalOnAvailableEndpoint(endpoint_RENAMED = BeansEndpoint.class)
 public class BeansEndpointAutoConfiguration {
 
 	@Bean

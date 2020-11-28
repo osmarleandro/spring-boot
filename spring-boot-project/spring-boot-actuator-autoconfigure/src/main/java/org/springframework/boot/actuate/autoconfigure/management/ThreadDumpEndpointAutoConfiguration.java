@@ -30,7 +30,7 @@ import org.springframework.context.annotation.Configuration;
  * @since 2.0.0
  */
 @Configuration(proxyBeanMethods = false)
-@ConditionalOnAvailableEndpoint(endpoint = ThreadDumpEndpoint.class)
+@ConditionalOnAvailableEndpoint(endpoint_RENAMED = ThreadDumpEndpoint.class)
 public class ThreadDumpEndpointAutoConfiguration {
 
 	@Bean

@@ -33,7 +33,7 @@ import org.springframework.context.annotation.Configuration;
  * @since 2.0.0
  */
 @Configuration(proxyBeanMethods = false)
-@ConditionalOnAvailableEndpoint(endpoint = HttpTraceEndpoint.class)
+@ConditionalOnAvailableEndpoint(endpoint_RENAMED = HttpTraceEndpoint.class)
 @AutoConfigureAfter(HttpTraceAutoConfiguration.class)
 public class HttpTraceEndpointAutoConfiguration {
 

@@ -38,7 +38,7 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration(proxyBeanMethods = false)
 @ConditionalOnClass(Flyway.class)
-@ConditionalOnAvailableEndpoint(endpoint = FlywayEndpoint.class)
+@ConditionalOnAvailableEndpoint(endpoint_RENAMED = FlywayEndpoint.class)
 @AutoConfigureAfter(FlywayAutoConfiguration.class)
 public class FlywayEndpointAutoConfiguration {
 

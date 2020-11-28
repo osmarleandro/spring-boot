@@ -279,7 +279,7 @@ class ConditionalOnAvailableEndpointTests {
 	static class ComponentEnabledIfEndpointIsExposedConfiguration {
 
 		@Bean
-		@ConditionalOnAvailableEndpoint(endpoint = SpringEndpoint.class)
+		@ConditionalOnAvailableEndpoint(endpoint_RENAMED = SpringEndpoint.class)
 		String springComponent() {
 			return "springComponent";
 		}

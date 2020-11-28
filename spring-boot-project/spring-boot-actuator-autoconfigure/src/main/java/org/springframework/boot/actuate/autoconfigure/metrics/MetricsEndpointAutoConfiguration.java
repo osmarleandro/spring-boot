@@ -37,7 +37,7 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration(proxyBeanMethods = false)
 @ConditionalOnClass(Timed.class)
-@ConditionalOnAvailableEndpoint(endpoint = MetricsEndpoint.class)
+@ConditionalOnAvailableEndpoint(endpoint_RENAMED = MetricsEndpoint.class)
 @AutoConfigureAfter({ MetricsAutoConfiguration.class, CompositeMeterRegistryAutoConfiguration.class })
 public class MetricsEndpointAutoConfiguration {
 

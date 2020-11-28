@@ -33,7 +33,7 @@ import org.springframework.context.annotation.Import;
  * @since 2.0.0
  */
 @Configuration(proxyBeanMethods = false)
-@ConditionalOnAvailableEndpoint(endpoint = HealthEndpoint.class)
+@ConditionalOnAvailableEndpoint(endpoint_RENAMED = HealthEndpoint.class)
 @EnableConfigurationProperties(HealthEndpointProperties.class)
 @Import({ HealthEndpointConfiguration.class, ReactiveHealthEndpointConfiguration.class,
 		HealthEndpointWebExtensionConfiguration.class, HealthEndpointReactiveWebExtensionConfiguration.class })

@@ -110,6 +110,6 @@ public @interface ConditionalOnAvailableEndpoint {
 	 * {@link EndpointExtension @EndpointExtension}.
 	 * @return the endpoint type to check
 	 */
-	Class<?> endpoint() default Void.class;
+	Class<?> endpoint_RENAMED() default Void.class;
 
 }

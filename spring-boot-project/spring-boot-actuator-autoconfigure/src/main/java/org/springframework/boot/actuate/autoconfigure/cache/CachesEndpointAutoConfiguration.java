@@ -40,7 +40,7 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration(proxyBeanMethods = false)
 @ConditionalOnClass(CacheManager.class)
-@ConditionalOnAvailableEndpoint(endpoint = CachesEndpoint.class)
+@ConditionalOnAvailableEndpoint(endpoint_RENAMED = CachesEndpoint.class)
 @AutoConfigureAfter(CacheAutoConfiguration.class)
 public class CachesEndpointAutoConfiguration {
 

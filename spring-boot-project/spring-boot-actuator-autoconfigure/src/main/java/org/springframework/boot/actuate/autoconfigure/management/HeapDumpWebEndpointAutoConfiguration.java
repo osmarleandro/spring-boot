@@ -30,7 +30,7 @@ import org.springframework.context.annotation.Configuration;
  * @since 2.0.0
  */
 @Configuration(proxyBeanMethods = false)
-@ConditionalOnAvailableEndpoint(endpoint = HeapDumpWebEndpoint.class)
+@ConditionalOnAvailableEndpoint(endpoint_RENAMED = HeapDumpWebEndpoint.class)
 public class HeapDumpWebEndpointAutoConfiguration {
 
 	@Bean

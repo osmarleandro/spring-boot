@@ -30,7 +30,7 @@ import org.springframework.context.annotation.Configuration;
  * @since 2.0.0
  */
 @Configuration(proxyBeanMethods = false)
-@ConditionalOnAvailableEndpoint(endpoint = ShutdownEndpoint.class)
+@ConditionalOnAvailableEndpoint(endpoint_RENAMED = ShutdownEndpoint.class)
 public class ShutdownEndpointAutoConfiguration {
 
 	@Bean(destroyMethod = "")

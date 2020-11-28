@@ -38,7 +38,7 @@ import org.springframework.core.type.AnnotatedTypeMetadata;
  * @since 2.4.0
  */
 @Configuration(proxyBeanMethods = false)
-@ConditionalOnAvailableEndpoint(endpoint = StartupEndpoint.class)
+@ConditionalOnAvailableEndpoint(endpoint_RENAMED = StartupEndpoint.class)
 @Conditional(StartupEndpointAutoConfiguration.ApplicationStartupCondition.class)
 public class StartupEndpointAutoConfiguration {
 

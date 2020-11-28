@@ -37,7 +37,7 @@ import org.springframework.session.Session;
  */
 @Configuration(proxyBeanMethods = false)
 @ConditionalOnClass(FindByIndexNameSessionRepository.class)
-@ConditionalOnAvailableEndpoint(endpoint = SessionsEndpoint.class)
+@ConditionalOnAvailableEndpoint(endpoint_RENAMED = SessionsEndpoint.class)
 @AutoConfigureAfter(SessionAutoConfiguration.class)
 public class SessionsEndpointAutoConfiguration {
 
