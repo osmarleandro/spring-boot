@@ -58,7 +58,7 @@ class AppOpticsPropertiesConfigAdapterTests
 	void whenPropertiesHostTagIsSetAdapterHostTagReturnsIt() {
 		AppOpticsProperties properties = createProperties();
 		properties.setHostTag("node");
-		assertThat(createConfigAdapter(properties).hostTag()).isEqualTo("node");
+		assertThat(createConfigAdapter(properties).hostTag_RENAMED()).isEqualTo("node");
 	}
 
 	@Test

@@ -48,7 +48,7 @@ class AppOpticsPropertiesConfigAdapter extends StepRegistryPropertiesConfigAdapt
 	}
 
 	@Override
-	public String hostTag() {
+	public String hostTag_RENAMED() {
 		return get(AppOpticsProperties::getHostTag, AppOpticsConfig.super::hostTag);
 	}
 
