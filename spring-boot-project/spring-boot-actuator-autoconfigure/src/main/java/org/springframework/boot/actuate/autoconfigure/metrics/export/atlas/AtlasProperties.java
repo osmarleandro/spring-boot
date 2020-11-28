@@ -186,7 +186,7 @@ public class AtlasProperties {
 		this.configTimeToLive = configTimeToLive;
 	}
 
-	public String getConfigUri() {
+	public String getConfigUri_RENAMED() {
 		return this.configUri;
 	}
 

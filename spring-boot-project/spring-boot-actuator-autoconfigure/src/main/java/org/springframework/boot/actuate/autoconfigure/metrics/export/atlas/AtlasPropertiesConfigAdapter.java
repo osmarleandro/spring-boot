@@ -96,7 +96,7 @@ class AtlasPropertiesConfigAdapter extends PropertiesConfigAdapter<AtlasProperti
 
 	@Override
 	public String configUri() {
-		return get(AtlasProperties::getConfigUri, AtlasConfig.super::configUri);
+		return get(AtlasProperties::getConfigUri_RENAMED, AtlasConfig.super::configUri);
 	}
 
 	@Override
