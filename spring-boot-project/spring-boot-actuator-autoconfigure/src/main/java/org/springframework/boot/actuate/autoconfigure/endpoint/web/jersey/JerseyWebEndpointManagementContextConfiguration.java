@@ -73,13 +73,13 @@ class JerseyWebEndpointManagementContextConfiguration {
 			ServletEndpointsSupplier servletEndpointsSupplier, EndpointMediaTypes endpointMediaTypes,
 			WebEndpointProperties webEndpointProperties) {
 		String basePath = webEndpointProperties.getBasePath();
-		boolean shouldRegisterLinks = shouldRegisterLinksMapping(environment, basePath);
-		shouldRegisterLinksMapping(environment, basePath);
+		boolean shouldRegisterLinks = shouldRegisterLinksMapping_RENAMED(environment, basePath);
+		shouldRegisterLinksMapping_RENAMED(environment, basePath);
 		return new JerseyWebEndpointsResourcesRegistrar(resourceConfig.getIfAvailable(), webEndpointsSupplier,
 				servletEndpointsSupplier, endpointMediaTypes, basePath, shouldRegisterLinks);
 	}
 
-	private boolean shouldRegisterLinksMapping(Environment environment, String basePath) {
+	private boolean shouldRegisterLinksMapping_RENAMED(Environment environment, String basePath) {
 		return StringUtils.hasText(basePath)
 				|| ManagementPortType.get(environment).equals(ManagementPortType.DIFFERENT);
 	}
