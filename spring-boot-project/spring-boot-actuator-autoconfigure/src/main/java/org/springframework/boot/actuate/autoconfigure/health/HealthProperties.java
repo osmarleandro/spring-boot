@@ -53,7 +53,7 @@ public abstract class HealthProperties {
 		return this.status;
 	}
 
-	public Show getShowComponents() {
+	public Show getShowComponents_RENAMED() {
 		return this.showComponents;
 	}
 
