@@ -180,11 +180,11 @@ class CloudFoundrySecurityServiceTests {
 	void getUaaUrlShouldCallCloudControllerInfoOnlyOnce() {
 		this.server.expect(requestTo(CLOUD_CONTROLLER + "/info"))
 				.andRespond(withSuccess("{\"token_endpoint\":\"" + UAA_URL + "\"}", MediaType.APPLICATION_JSON));
-		String uaaUrl = this.securityService.getUaaUrl();
+		String uaaUrl = this.securityService.getUaaUrl_RENAMED();
 		this.server.verify();
 		assertThat(uaaUrl).isEqualTo(UAA_URL);
 		// Second call should not need to hit server
-		uaaUrl = this.securityService.getUaaUrl();
+		uaaUrl = this.securityService.getUaaUrl_RENAMED();
 		assertThat(uaaUrl).isEqualTo(UAA_URL);
 	}
 
@@ -192,7 +192,7 @@ class CloudFoundrySecurityServiceTests {
 	void getUaaUrlWhenCloudControllerUrlIsNotReachableShouldThrowException() {
 		this.server.expect(requestTo(CLOUD_CONTROLLER + "/info")).andRespond(withServerError());
 		assertThatExceptionOfType(CloudFoundryAuthorizationException.class)
-				.isThrownBy(() -> this.securityService.getUaaUrl())
+				.isThrownBy(() -> this.securityService.getUaaUrl_RENAMED())
 				.satisfies(reasonRequirement(Reason.SERVICE_UNAVAILABLE));
 	}
 

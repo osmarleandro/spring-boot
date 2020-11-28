@@ -105,7 +105,7 @@ class TokenValidatorTests {
 	void validateTokenWhenKidValidationSucceedsInTheSecondAttempt() throws Exception {
 		ReflectionTestUtils.setField(this.tokenValidator, "tokenKeys", INVALID_KEYS);
 		given(this.securityService.fetchTokenKeys()).willReturn(VALID_KEYS);
-		given(this.securityService.getUaaUrl()).willReturn("http://localhost:8080/uaa");
+		given(this.securityService.getUaaUrl_RENAMED()).willReturn("http://localhost:8080/uaa");
 		String header = "{ \"alg\": \"RS256\",  \"kid\": \"valid-key\",\"typ\": \"JWT\"}";
 		String claims = "{ \"exp\": 2147483647, \"iss\": \"http://localhost:8080/uaa/oauth/token\", \"scope\": [\"actuator.read\"]}";
 		this.tokenValidator.validate(new Token(getSignedToken(header.getBytes(), claims.getBytes())));
@@ -115,7 +115,7 @@ class TokenValidatorTests {
 	@Test
 	void validateTokenShouldFetchTokenKeysIfNull() throws Exception {
 		given(this.securityService.fetchTokenKeys()).willReturn(VALID_KEYS);
-		given(this.securityService.getUaaUrl()).willReturn("http://localhost:8080/uaa");
+		given(this.securityService.getUaaUrl_RENAMED()).willReturn("http://localhost:8080/uaa");
 		String header = "{ \"alg\": \"RS256\",  \"kid\": \"valid-key\",\"typ\": \"JWT\"}";
 		String claims = "{ \"exp\": 2147483647, \"iss\": \"http://localhost:8080/uaa/oauth/token\", \"scope\": [\"actuator.read\"]}";
 		this.tokenValidator.validate(new Token(getSignedToken(header.getBytes(), claims.getBytes())));
@@ -125,7 +125,7 @@ class TokenValidatorTests {
 	@Test
 	void validateTokenWhenValidShouldNotFetchTokenKeys() throws Exception {
 		ReflectionTestUtils.setField(this.tokenValidator, "tokenKeys", VALID_KEYS);
-		given(this.securityService.getUaaUrl()).willReturn("http://localhost:8080/uaa");
+		given(this.securityService.getUaaUrl_RENAMED()).willReturn("http://localhost:8080/uaa");
 		String header = "{ \"alg\": \"RS256\",  \"kid\": \"valid-key\",\"typ\": \"JWT\"}";
 		String claims = "{ \"exp\": 2147483647, \"iss\": \"http://localhost:8080/uaa/oauth/token\", \"scope\": [\"actuator.read\"]}";
 		this.tokenValidator.validate(new Token(getSignedToken(header.getBytes(), claims.getBytes())));
@@ -166,7 +166,7 @@ class TokenValidatorTests {
 	@Test
 	void validateTokenWhenIssuerIsNotValidShouldThrowException() throws Exception {
 		given(this.securityService.fetchTokenKeys()).willReturn(VALID_KEYS);
-		given(this.securityService.getUaaUrl()).willReturn("https://other-uaa.com");
+		given(this.securityService.getUaaUrl_RENAMED()).willReturn("https://other-uaa.com");
 		String header = "{ \"alg\": \"RS256\",  \"kid\": \"valid-key\", \"typ\": \"JWT\", \"scope\": [\"actuator.read\"]}";
 		String claims = "{ \"exp\": 2147483647, \"iss\": \"http://localhost:8080/uaa/oauth/token\"}";
 		assertThatExceptionOfType(CloudFoundryAuthorizationException.class).isThrownBy(
@@ -177,7 +177,7 @@ class TokenValidatorTests {
 	@Test
 	void validateTokenWhenAudienceIsNotValidShouldThrowException() throws Exception {
 		given(this.securityService.fetchTokenKeys()).willReturn(VALID_KEYS);
-		given(this.securityService.getUaaUrl()).willReturn("http://localhost:8080/uaa");
+		given(this.securityService.getUaaUrl_RENAMED()).willReturn("http://localhost:8080/uaa");
 		String header = "{ \"alg\": \"RS256\",  \"kid\": \"valid-key\", \"typ\": \"JWT\"}";
 		String claims = "{ \"exp\": 2147483647, \"iss\": \"http://localhost:8080/uaa/oauth/token\", \"scope\": [\"foo.bar\"]}";
 		assertThatExceptionOfType(CloudFoundryAuthorizationException.class).isThrownBy(

@@ -115,7 +115,7 @@ class TokenValidator {
 	}
 
 	private void validateIssuer(Token token) {
-		String uaaUrl = this.securityService.getUaaUrl();
+		String uaaUrl = this.securityService.getUaaUrl_RENAMED();
 		String issuerUri = String.format("%s/oauth/token", uaaUrl);
 		if (!issuerUri.equals(token.getIssuer())) {
 			throw new CloudFoundryAuthorizationException(Reason.INVALID_ISSUER,
