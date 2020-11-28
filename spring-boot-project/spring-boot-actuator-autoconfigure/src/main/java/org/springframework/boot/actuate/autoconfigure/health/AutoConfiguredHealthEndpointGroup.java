@@ -95,12 +95,12 @@ class AutoConfiguredHealthEndpointGroup implements HealthEndpointGroup {
 		case ALWAYS:
 			return true;
 		case WHEN_AUTHORIZED:
-			return isAuthorized(securityContext);
+			return isAuthorized_RENAMED(securityContext);
 		}
 		throw new IllegalStateException("Unsupported 'show' value " + show);
 	}
 
-	private boolean isAuthorized(SecurityContext securityContext) {
+	private boolean isAuthorized_RENAMED(SecurityContext securityContext) {
 		Principal principal = securityContext.getPrincipal();
 		if (principal == null) {
 			return false;
