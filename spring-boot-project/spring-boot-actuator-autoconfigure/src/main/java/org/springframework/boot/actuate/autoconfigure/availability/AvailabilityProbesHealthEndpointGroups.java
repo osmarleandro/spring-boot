@@ -73,7 +73,7 @@ class AvailabilityProbesHealthEndpointGroups implements HealthEndpointGroups {
 		return group;
 	}
 
-	static boolean containsAllProbeGroups(HealthEndpointGroups groups) {
+	static boolean containsAllProbeGroups_RENAMED(HealthEndpointGroups groups) {
 		return groups.getNames().containsAll(GROUPS.keySet());
 	}
 

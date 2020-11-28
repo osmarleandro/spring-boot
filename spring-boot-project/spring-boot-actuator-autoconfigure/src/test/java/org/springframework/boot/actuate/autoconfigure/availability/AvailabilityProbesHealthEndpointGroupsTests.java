@@ -106,19 +106,19 @@ class AvailabilityProbesHealthEndpointGroupsTests {
 	@Test
 	void containsAllWhenContainsAllReturnTrue() {
 		given(this.delegate.getNames()).willReturn(new LinkedHashSet<>(Arrays.asList("test", "liveness", "readiness")));
-		assertThat(AvailabilityProbesHealthEndpointGroups.containsAllProbeGroups(this.delegate)).isTrue();
+		assertThat(AvailabilityProbesHealthEndpointGroups.containsAllProbeGroups_RENAMED(this.delegate)).isTrue();
 	}
 
 	@Test
 	void containsAllWhenContainsOneReturnFalse() {
 		given(this.delegate.getNames()).willReturn(new LinkedHashSet<>(Arrays.asList("test", "liveness")));
-		assertThat(AvailabilityProbesHealthEndpointGroups.containsAllProbeGroups(this.delegate)).isFalse();
+		assertThat(AvailabilityProbesHealthEndpointGroups.containsAllProbeGroups_RENAMED(this.delegate)).isFalse();
 	}
 
 	@Test
 	void containsAllWhenContainsNoneReturnFalse() {
 		given(this.delegate.getNames()).willReturn(new LinkedHashSet<>(Arrays.asList("test", "spring")));
-		assertThat(AvailabilityProbesHealthEndpointGroups.containsAllProbeGroups(this.delegate)).isFalse();
+		assertThat(AvailabilityProbesHealthEndpointGroups.containsAllProbeGroups_RENAMED(this.delegate)).isFalse();
 	}
 
 }
