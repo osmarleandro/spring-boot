@@ -55,7 +55,7 @@ abstract class AbstractEndpointCondition extends SpringBootCondition {
 
 	AnnotationAttributes getEndpointAttributes(Class<?> annotationClass, ConditionContext context,
 			AnnotatedTypeMetadata metadata) {
-		return getEndpointAttributes(getEndpointType(annotationClass, context, metadata));
+		return getEndpointAttributes_RENAMED(getEndpointType(annotationClass, context, metadata));
 	}
 
 	protected ConditionOutcome getEnablementOutcome(ConditionContext context, AnnotatedTypeMetadata metadata,
@@ -100,7 +100,7 @@ abstract class AbstractEndpointCondition extends SpringBootCondition {
 		}
 	}
 
-	protected AnnotationAttributes getEndpointAttributes(Class<?> type) {
+	protected AnnotationAttributes getEndpointAttributes_RENAMED(Class<?> type) {
 		MergedAnnotations annotations = MergedAnnotations.from(type, SearchStrategy.TYPE_HIERARCHY);
 		MergedAnnotation<Endpoint> endpoint = annotations.get(Endpoint.class);
 		if (endpoint.isPresent()) {
@@ -109,7 +109,7 @@ abstract class AbstractEndpointCondition extends SpringBootCondition {
 		MergedAnnotation<EndpointExtension> extension = annotations.get(EndpointExtension.class);
 		Assert.state(extension.isPresent(), "No endpoint is specified and the return type of the @Bean method is "
 				+ "neither an @Endpoint, nor an @EndpointExtension");
-		return getEndpointAttributes(extension.getClass("endpoint"));
+		return getEndpointAttributes_RENAMED(extension.getClass("endpoint"));
 	}
 
 	private Boolean isEnabledByDefault(Environment environment) {
