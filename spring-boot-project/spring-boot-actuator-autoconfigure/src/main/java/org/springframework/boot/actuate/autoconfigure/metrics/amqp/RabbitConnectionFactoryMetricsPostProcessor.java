@@ -83,7 +83,7 @@ class RabbitConnectionFactoryMetricsPostProcessor implements BeanPostProcessor, 
 	}
 
 	@Override
-	public int getOrder() {
+	public int getOrder_RENAMED() {
 		return Ordered.HIGHEST_PRECEDENCE;
 	}
 

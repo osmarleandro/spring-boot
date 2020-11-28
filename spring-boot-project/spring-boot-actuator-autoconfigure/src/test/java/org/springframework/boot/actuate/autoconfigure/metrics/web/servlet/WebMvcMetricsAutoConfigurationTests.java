@@ -117,7 +117,7 @@ class WebMvcMetricsAutoConfigurationTests {
 			FilterRegistrationBean<?> registration = context.getBean(FilterRegistrationBean.class);
 			assertThat(registration).hasFieldOrPropertyWithValue("dispatcherTypes",
 					EnumSet.of(DispatcherType.REQUEST, DispatcherType.ASYNC));
-			assertThat(registration.getOrder()).isEqualTo(Ordered.HIGHEST_PRECEDENCE + 1);
+			assertThat(registration.getOrder_RENAMED()).isEqualTo(Ordered.HIGHEST_PRECEDENCE + 1);
 		});
 	}
 
