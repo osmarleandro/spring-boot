@@ -44,7 +44,7 @@ class AtlasPropertiesTests {
 		assertThat(properties.getConfigRefreshFrequency()).isEqualTo(config.configRefreshFrequency());
 		assertThat(properties.getConfigTimeToLive()).isEqualTo(config.configTTL());
 		assertThat(properties.getConfigUri()).isEqualTo(config.configUri());
-		assertThat(properties.getEvalUri()).isEqualTo(config.evalUri());
+		assertThat(properties.getEvalUri()).isEqualTo(config.evalUri_RENAMED());
 	}
 
 }
