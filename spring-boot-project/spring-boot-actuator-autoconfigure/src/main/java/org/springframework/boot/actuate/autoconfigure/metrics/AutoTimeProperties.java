@@ -55,7 +55,7 @@ public final class AutoTimeProperties implements AutoTimer {
 		return this.percentilesHistogram;
 	}
 
-	public void setPercentilesHistogram(boolean percentilesHistogram) {
+	public void setPercentilesHistogram_RENAMED(boolean percentilesHistogram) {
 		this.percentilesHistogram = percentilesHistogram;
 	}
 
