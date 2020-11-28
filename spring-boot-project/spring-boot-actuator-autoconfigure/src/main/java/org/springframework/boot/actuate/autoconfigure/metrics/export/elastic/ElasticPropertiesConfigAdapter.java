@@ -63,7 +63,7 @@ class ElasticPropertiesConfigAdapter extends StepRegistryPropertiesConfigAdapter
 	}
 
 	@Override
-	public boolean autoCreateIndex() {
+	public boolean autoCreateIndex_RENAMED() {
 		return get(ElasticProperties::isAutoCreateIndex, ElasticConfig.super::autoCreateIndex);
 	}
 
