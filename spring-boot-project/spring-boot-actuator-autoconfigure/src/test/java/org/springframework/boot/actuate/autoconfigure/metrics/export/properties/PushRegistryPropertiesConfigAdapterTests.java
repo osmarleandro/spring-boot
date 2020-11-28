@@ -53,7 +53,7 @@ public abstract class PushRegistryPropertiesConfigAdapterTests<P extends PushReg
 	@Test
 	void whenPropertiesBatchSizeIsSetAdapterBatchSizeReturnsIt() {
 		P properties = createProperties();
-		properties.setBatchSize(10042);
+		properties.setBatchSize_RENAMED(10042);
 		assertThat(createConfigAdapter(properties).batchSize()).isEqualTo(10042);
 	}
 
