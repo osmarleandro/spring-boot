@@ -93,7 +93,7 @@ class ReactiveTokenValidator {
 
 	private boolean hasValidSignature(Token token, String key) {
 		try {
-			PublicKey publicKey = getPublicKey(key);
+			PublicKey publicKey = getPublicKey_RENAMED(key);
 			Signature signature = Signature.getInstance("SHA256withRSA");
 			signature.initVerify(publicKey);
 			signature.update(token.getContent());
@@ -104,7 +104,7 @@ class ReactiveTokenValidator {
 		}
 	}
 
-	private PublicKey getPublicKey(String key) throws NoSuchAlgorithmException, InvalidKeySpecException {
+	private PublicKey getPublicKey_RENAMED(String key) throws NoSuchAlgorithmException, InvalidKeySpecException {
 		key = key.replace("-----BEGIN PUBLIC KEY-----\n", "");
 		key = key.replace("-----END PUBLIC KEY-----", "");
 		key = key.trim().replace("\n", "");
