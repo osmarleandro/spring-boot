@@ -55,7 +55,7 @@ public abstract class PushRegistryProperties {
 	 */
 	private Integer batchSize = 10000;
 
-	public Duration getStep() {
+	public Duration getStep_RENAMED() {
 		return this.step;
 	}
 
