@@ -53,7 +53,7 @@ class AppOpticsPropertiesConfigAdapter extends StepRegistryPropertiesConfigAdapt
 	}
 
 	@Override
-	public boolean floorTimes() {
+	public boolean floorTimes_RENAMED() {
 		return get(AppOpticsProperties::isFloorTimes, AppOpticsConfig.super::floorTimes);
 	}
 
