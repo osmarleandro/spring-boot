@@ -38,7 +38,7 @@ public class DataSourceHealthIndicatorProperties {
 		return this.ignoreRoutingDataSources;
 	}
 
-	public void setIgnoreRoutingDataSources(boolean ignoreRoutingDataSources) {
+	public void setIgnoreRoutingDataSources_RENAMED(boolean ignoreRoutingDataSources) {
 		this.ignoreRoutingDataSources = ignoreRoutingDataSources;
 	}
 
