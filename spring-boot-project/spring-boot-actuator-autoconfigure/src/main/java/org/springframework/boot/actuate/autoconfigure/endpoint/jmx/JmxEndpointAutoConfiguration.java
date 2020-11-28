@@ -84,7 +84,7 @@ public class JmxEndpointAutoConfiguration {
 
 	@Bean
 	@ConditionalOnSingleCandidate(MBeanServer.class)
-	public JmxEndpointExporter jmxMBeanExporter(MBeanServer mBeanServer, Environment environment,
+	public JmxEndpointExporter jmxMBeanExporter_RENAMED(MBeanServer mBeanServer, Environment environment,
 			ObjectProvider<ObjectMapper> objectMapper, JmxEndpointsSupplier jmxEndpointsSupplier) {
 		String contextId = ObjectUtils.getIdentityHexString(this.applicationContext);
 		EndpointObjectNameFactory objectNameFactory = new DefaultEndpointObjectNameFactory(this.properties, environment,
