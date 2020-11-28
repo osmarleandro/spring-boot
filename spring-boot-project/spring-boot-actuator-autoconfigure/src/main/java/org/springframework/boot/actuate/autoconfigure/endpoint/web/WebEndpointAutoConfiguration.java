@@ -108,7 +108,7 @@ public class WebEndpointAutoConfiguration {
 
 	@Bean
 	@ConditionalOnMissingBean
-	public PathMappedEndpoints pathMappedEndpoints(Collection<EndpointsSupplier<?>> endpointSuppliers) {
+	public PathMappedEndpoints pathMappedEndpoints_RENAMED(Collection<EndpointsSupplier<?>> endpointSuppliers) {
 		return new PathMappedEndpoints(this.properties.getBasePath(), endpointSuppliers);
 	}
 
