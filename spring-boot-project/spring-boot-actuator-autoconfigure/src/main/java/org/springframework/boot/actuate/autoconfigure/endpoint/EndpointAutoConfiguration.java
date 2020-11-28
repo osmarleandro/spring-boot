@@ -52,13 +52,13 @@ public class EndpointAutoConfiguration {
 	public ParameterValueMapper endpointOperationParameterMapper(
 			@EndpointConverter ObjectProvider<Converter<?, ?>> converters,
 			@EndpointConverter ObjectProvider<GenericConverter> genericConverters) {
-		ConversionService conversionService = createConversionService(
+		ConversionService conversionService = createConversionService_RENAMED(
 				converters.orderedStream().collect(Collectors.toList()),
 				genericConverters.orderedStream().collect(Collectors.toList()));
 		return new ConversionServiceParameterValueMapper(conversionService);
 	}
 
-	private ConversionService createConversionService(List<Converter<?, ?>> converters,
+	private ConversionService createConversionService_RENAMED(List<Converter<?, ?>> converters,
 			List<GenericConverter> genericConverters) {
 		if (genericConverters.isEmpty() && converters.isEmpty()) {
 			return ApplicationConversionService.getSharedInstance();
