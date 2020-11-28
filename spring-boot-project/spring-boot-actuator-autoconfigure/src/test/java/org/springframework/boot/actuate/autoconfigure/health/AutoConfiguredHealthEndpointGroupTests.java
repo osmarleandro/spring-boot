@@ -150,24 +150,24 @@ class AutoConfiguredHealthEndpointGroupTests {
 	void showComponentsWhenShowComponentsIsNullDelegatesToShowDetails() {
 		AutoConfiguredHealthEndpointGroup alwaysGroup = new AutoConfiguredHealthEndpointGroup((name) -> true,
 				this.statusAggregator, this.httpCodeStatusMapper, null, Show.ALWAYS, Collections.emptySet());
-		assertThat(alwaysGroup.showComponents(SecurityContext.NONE)).isTrue();
+		assertThat(alwaysGroup.showComponents_RENAMED(SecurityContext.NONE)).isTrue();
 		AutoConfiguredHealthEndpointGroup neverGroup = new AutoConfiguredHealthEndpointGroup((name) -> true,
 				this.statusAggregator, this.httpCodeStatusMapper, null, Show.NEVER, Collections.emptySet());
-		assertThat(neverGroup.showComponents(SecurityContext.NONE)).isFalse();
+		assertThat(neverGroup.showComponents_RENAMED(SecurityContext.NONE)).isFalse();
 	}
 
 	@Test
 	void showComponentsWhenShowComponentsIsNeverReturnsFalse() {
 		AutoConfiguredHealthEndpointGroup group = new AutoConfiguredHealthEndpointGroup((name) -> true,
 				this.statusAggregator, this.httpCodeStatusMapper, Show.NEVER, Show.ALWAYS, Collections.emptySet());
-		assertThat(group.showComponents(SecurityContext.NONE)).isFalse();
+		assertThat(group.showComponents_RENAMED(SecurityContext.NONE)).isFalse();
 	}
 
 	@Test
 	void showComponentsWhenShowComponentsIsAlwaysReturnsTrue() {
 		AutoConfiguredHealthEndpointGroup group = new AutoConfiguredHealthEndpointGroup((name) -> true,
 				this.statusAggregator, this.httpCodeStatusMapper, Show.ALWAYS, Show.NEVER, Collections.emptySet());
-		assertThat(group.showComponents(SecurityContext.NONE)).isTrue();
+		assertThat(group.showComponents_RENAMED(SecurityContext.NONE)).isTrue();
 	}
 
 	@Test
@@ -176,7 +176,7 @@ class AutoConfiguredHealthEndpointGroupTests {
 				this.statusAggregator, this.httpCodeStatusMapper, Show.WHEN_AUTHORIZED, Show.NEVER,
 				Collections.emptySet());
 		given(this.securityContext.getPrincipal()).willReturn(null);
-		assertThat(group.showComponents(this.securityContext)).isFalse();
+		assertThat(group.showComponents_RENAMED(this.securityContext)).isFalse();
 	}
 
 	@Test
@@ -185,7 +185,7 @@ class AutoConfiguredHealthEndpointGroupTests {
 				this.statusAggregator, this.httpCodeStatusMapper, Show.WHEN_AUTHORIZED, Show.NEVER,
 				Collections.emptySet());
 		given(this.securityContext.getPrincipal()).willReturn(this.principal);
-		assertThat(group.showComponents(this.securityContext)).isTrue();
+		assertThat(group.showComponents_RENAMED(this.securityContext)).isTrue();
 	}
 
 	@Test
@@ -196,7 +196,7 @@ class AutoConfiguredHealthEndpointGroupTests {
 		given(this.securityContext.getPrincipal()).willReturn(this.principal);
 		given(this.securityContext.isUserInRole("admin")).willReturn(false);
 		given(this.securityContext.isUserInRole("root")).willReturn(true);
-		assertThat(group.showComponents(this.securityContext)).isTrue();
+		assertThat(group.showComponents_RENAMED(this.securityContext)).isTrue();
 	}
 
 	@Test
@@ -205,7 +205,7 @@ class AutoConfiguredHealthEndpointGroupTests {
 				this.statusAggregator, this.httpCodeStatusMapper, Show.WHEN_AUTHORIZED, Show.NEVER,
 				Arrays.asList("admin", "rot", "bossmode"));
 		given(this.securityContext.getPrincipal()).willReturn(this.principal);
-		assertThat(group.showComponents(this.securityContext)).isFalse();
+		assertThat(group.showComponents_RENAMED(this.securityContext)).isFalse();
 	}
 
 	@Test
@@ -217,7 +217,7 @@ class AutoConfiguredHealthEndpointGroupTests {
 		given(principal.getAuthorities())
 				.willAnswer((invocation) -> Collections.singleton(new SimpleGrantedAuthority("admin")));
 		given(this.securityContext.getPrincipal()).willReturn(principal);
-		assertThat(group.showComponents(this.securityContext)).isTrue();
+		assertThat(group.showComponents_RENAMED(this.securityContext)).isTrue();
 	}
 
 	@Test
@@ -229,7 +229,7 @@ class AutoConfiguredHealthEndpointGroupTests {
 		given(principal.getAuthorities())
 				.willAnswer((invocation) -> Collections.singleton(new SimpleGrantedAuthority("other")));
 		given(this.securityContext.getPrincipal()).willReturn(principal);
-		assertThat(group.showComponents(this.securityContext)).isFalse();
+		assertThat(group.showComponents_RENAMED(this.securityContext)).isFalse();
 	}
 
 	@Test

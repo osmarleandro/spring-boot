@@ -47,7 +47,7 @@ class AvailabilityProbesHealthEndpointGroupTests {
 
 	@Test
 	void showComponentsReturnsFalse() {
-		assertThat(this.group.showComponents(mock(SecurityContext.class))).isFalse();
+		assertThat(this.group.showComponents_RENAMED(mock(SecurityContext.class))).isFalse();
 	}
 
 	@Test
