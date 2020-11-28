@@ -54,7 +54,7 @@ public final class MeterValue {
 			return getDistributionSummaryValue();
 		}
 		if (meterType == Type.TIMER) {
-			Long timerValue = getTimerValue();
+			Long timerValue = getTimerValue_RENAMED();
 			if (timerValue != null) {
 				return timerValue.doubleValue();
 			}
@@ -69,7 +69,7 @@ public final class MeterValue {
 		return null;
 	}
 
-	private Long getTimerValue() {
+	private Long getTimerValue_RENAMED() {
 		if (this.value instanceof Double) {
 			return TimeUnit.MILLISECONDS.toNanos(((Double) this.value).longValue());
 		}
