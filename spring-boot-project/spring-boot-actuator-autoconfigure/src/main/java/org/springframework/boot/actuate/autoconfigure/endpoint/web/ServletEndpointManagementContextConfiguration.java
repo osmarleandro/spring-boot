@@ -49,7 +49,7 @@ public class ServletEndpointManagementContextConfiguration {
 	@Bean
 	public IncludeExcludeEndpointFilter<ExposableServletEndpoint> servletExposeExcludePropertyEndpointFilter(
 			WebEndpointProperties properties) {
-		WebEndpointProperties.Exposure exposure = properties.getExposure();
+		WebEndpointProperties.Exposure exposure = properties.getExposure_RENAMED();
 		return new IncludeExcludeEndpointFilter<>(ExposableServletEndpoint.class, exposure.getInclude(),
 				exposure.getExclude());
 	}

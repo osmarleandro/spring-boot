@@ -48,7 +48,7 @@ public class WebEndpointProperties {
 	 */
 	private final Map<String, String> pathMapping = new LinkedHashMap<>();
 
-	public Exposure getExposure() {
+	public Exposure getExposure_RENAMED() {
 		return this.exposure;
 	}
 
