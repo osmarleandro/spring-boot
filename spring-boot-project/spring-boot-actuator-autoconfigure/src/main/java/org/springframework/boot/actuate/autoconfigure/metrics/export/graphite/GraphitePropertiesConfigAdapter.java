@@ -57,7 +57,7 @@ class GraphitePropertiesConfigAdapter extends PropertiesConfigAdapter<GraphitePr
 	}
 
 	@Override
-	public TimeUnit rateUnits() {
+	public TimeUnit rateUnits_RENAMED() {
 		return get(GraphiteProperties::getRateUnits, GraphiteConfig.super::rateUnits);
 	}
 
