@@ -38,7 +38,7 @@ class GraphitePropertiesTests {
 		assertThat(properties.getDurationUnits()).isEqualTo(config.durationUnits());
 		assertThat(properties.getHost()).isEqualTo(config.host());
 		assertThat(properties.getPort()).isEqualTo(config.port());
-		assertThat(properties.getProtocol()).isEqualTo(config.protocol());
+		assertThat(properties.getProtocol_RENAMED()).isEqualTo(config.protocol());
 		assertThat(properties.getGraphiteTagsEnabled()).isEqualTo(config.graphiteTagsEnabled());
 		assertThat(properties.getTagsAsPrefix()).isEqualTo(config.tagsAsPrefix());
 	}

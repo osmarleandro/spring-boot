@@ -78,7 +78,7 @@ class GraphitePropertiesConfigAdapter extends PropertiesConfigAdapter<GraphitePr
 
 	@Override
 	public GraphiteProtocol protocol() {
-		return get(GraphiteProperties::getProtocol, GraphiteConfig.super::protocol);
+		return get(GraphiteProperties::getProtocol_RENAMED, GraphiteConfig.super::protocol);
 	}
 
 	@Override

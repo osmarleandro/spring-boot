@@ -130,7 +130,7 @@ public class GraphiteProperties {
 		this.port = port;
 	}
 
-	public GraphiteProtocol getProtocol() {
+	public GraphiteProtocol getProtocol_RENAMED() {
 		return this.protocol;
 	}
 
