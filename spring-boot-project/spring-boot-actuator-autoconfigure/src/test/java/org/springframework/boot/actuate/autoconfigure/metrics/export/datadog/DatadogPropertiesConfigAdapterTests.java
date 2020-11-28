@@ -30,7 +30,7 @@ class DatadogPropertiesConfigAdapterTests {
 	@Test
 	void uriCanBeSet() {
 		DatadogProperties properties = new DatadogProperties();
-		properties.setUri("https://app.example.com/api/v1/series");
+		properties.setUri_RENAMED("https://app.example.com/api/v1/series");
 		properties.setApiKey("my-key");
 		assertThat(new DatadogPropertiesConfigAdapter(properties).uri())
 				.isEqualTo("https://app.example.com/api/v1/series");
