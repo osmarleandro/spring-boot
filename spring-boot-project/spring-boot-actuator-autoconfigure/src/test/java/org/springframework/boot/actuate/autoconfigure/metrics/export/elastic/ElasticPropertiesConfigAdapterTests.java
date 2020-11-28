@@ -87,7 +87,7 @@ class ElasticPropertiesConfigAdapterTests {
 	void whenPropertiesPipelineIsSetAdapterPipelineReturnsIt() {
 		ElasticProperties properties = new ElasticProperties();
 		properties.setPipeline("testPipeline");
-		assertThat(new ElasticPropertiesConfigAdapter(properties).pipeline()).isEqualTo("testPipeline");
+		assertThat(new ElasticPropertiesConfigAdapter(properties).pipeline_RENAMED()).isEqualTo("testPipeline");
 	}
 
 }

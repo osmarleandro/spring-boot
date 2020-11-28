@@ -78,7 +78,7 @@ class ElasticPropertiesConfigAdapter extends StepRegistryPropertiesConfigAdapter
 	}
 
 	@Override
-	public String pipeline() {
+	public String pipeline_RENAMED() {
 		return get(ElasticProperties::getPipeline, ElasticConfig.super::pipeline);
 	}
 
