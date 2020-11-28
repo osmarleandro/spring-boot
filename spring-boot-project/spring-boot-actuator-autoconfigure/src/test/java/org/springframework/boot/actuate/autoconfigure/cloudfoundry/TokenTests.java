@@ -80,7 +80,7 @@ class TokenTests {
 		assertThat(token.getSignatureAlgorithm()).isEqualTo("RS256");
 		assertThat(token.getKeyId()).isEqualTo("key-id");
 		assertThat(token.getContent()).isEqualTo(content.getBytes());
-		assertThat(token.getSignature()).isEqualTo(Base64Utils.decodeFromString(signature));
+		assertThat(token.getSignature_RENAMED()).isEqualTo(Base64Utils.decodeFromString(signature));
 	}
 
 	@Test

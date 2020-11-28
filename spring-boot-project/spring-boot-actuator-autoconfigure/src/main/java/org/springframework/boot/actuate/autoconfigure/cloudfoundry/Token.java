@@ -72,7 +72,7 @@ public class Token {
 		return this.encoded.substring(0, this.encoded.lastIndexOf('.')).getBytes();
 	}
 
-	public byte[] getSignature() {
+	public byte[] getSignature_RENAMED() {
 		return Base64Utils.decodeFromUrlSafeString(this.signature);
 	}
 

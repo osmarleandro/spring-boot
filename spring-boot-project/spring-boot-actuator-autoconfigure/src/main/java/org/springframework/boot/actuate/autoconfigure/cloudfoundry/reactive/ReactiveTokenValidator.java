@@ -97,7 +97,7 @@ class ReactiveTokenValidator {
 			Signature signature = Signature.getInstance("SHA256withRSA");
 			signature.initVerify(publicKey);
 			signature.update(token.getContent());
-			return signature.verify(token.getSignature());
+			return signature.verify(token.getSignature_RENAMED());
 		}
 		catch (GeneralSecurityException ex) {
 			return false;
