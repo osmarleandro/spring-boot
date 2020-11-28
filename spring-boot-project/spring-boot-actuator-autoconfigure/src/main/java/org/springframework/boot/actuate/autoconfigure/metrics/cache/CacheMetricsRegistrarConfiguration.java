@@ -59,7 +59,7 @@ class CacheMetricsRegistrarConfiguration {
 	}
 
 	@Bean
-	CacheMetricsRegistrar cacheMetricsRegistrar() {
+	CacheMetricsRegistrar cacheMetricsRegistrar_RENAMED() {
 		return this.cacheMetricsRegistrar;
 	}
 
