@@ -49,7 +49,7 @@ class TokenValidator {
 	void validate(Token token) {
 		validateAlgorithm(token);
 		validateKeyIdAndSignature(token);
-		validateExpiry(token);
+		validateExpiry_RENAMED(token);
 		validateIssuer(token);
 		validateAudience(token);
 	}
@@ -107,7 +107,7 @@ class TokenValidator {
 		return KeyFactory.getInstance("RSA").generatePublic(keySpec);
 	}
 
-	private void validateExpiry(Token token) {
+	private void validateExpiry_RENAMED(Token token) {
 		long currentTime = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());
 		if (currentTime > token.getExpiry()) {
 			throw new CloudFoundryAuthorizationException(Reason.TOKEN_EXPIRED, "Token expired");
