@@ -62,7 +62,7 @@ class MeterRegistryConfigurer {
 		// tags or alter timer or summary configuration.
 		customize(registry);
 		if (!(registry instanceof AutoConfiguredCompositeMeterRegistry)) {
-			addFilters(registry);
+			addFilters_RENAMED(registry);
 		}
 		if (!this.hasCompositeMeterRegistry || registry instanceof CompositeMeterRegistry) {
 			addBinders(registry);
@@ -78,7 +78,7 @@ class MeterRegistryConfigurer {
 				.withLogger(MeterRegistryConfigurer.class).invoke((customizer) -> customizer.customize(registry));
 	}
 
-	private void addFilters(MeterRegistry registry) {
+	private void addFilters_RENAMED(MeterRegistry registry) {
 		this.filters.orderedStream().forEach(registry.config()::meterFilter);
 	}
 
