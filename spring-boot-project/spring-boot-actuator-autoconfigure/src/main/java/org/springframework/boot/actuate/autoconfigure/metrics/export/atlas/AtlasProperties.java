@@ -134,7 +134,7 @@ public class AtlasProperties {
 		return this.numThreads;
 	}
 
-	public void setNumThreads(Integer numThreads) {
+	public void setNumThreads_RENAMED(Integer numThreads) {
 		this.numThreads = numThreads;
 	}
 
