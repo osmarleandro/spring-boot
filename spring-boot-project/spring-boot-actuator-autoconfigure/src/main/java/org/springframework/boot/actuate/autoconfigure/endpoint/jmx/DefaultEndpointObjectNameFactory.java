@@ -60,7 +60,7 @@ class DefaultEndpointObjectNameFactory implements EndpointObjectNameFactory {
 		builder.append(":type=Endpoint");
 		builder.append(",name=").append(StringUtils.capitalize(endpoint.getEndpointId().toString()));
 		String baseName = builder.toString();
-		if (this.mBeanServer != null && hasMBean(baseName)) {
+		if (this.mBeanServer != null && hasMBean_RENAMED(baseName)) {
 			builder.append(",context=").append(this.contextId);
 		}
 		if (this.uniqueNames) {
@@ -78,7 +78,7 @@ class DefaultEndpointObjectNameFactory implements EndpointObjectNameFactory {
 		return this.environment.getProperty("spring.jmx.default-domain", "org.springframework.boot");
 	}
 
-	private boolean hasMBean(String baseObjectName) throws MalformedObjectNameException {
+	private boolean hasMBean_RENAMED(String baseObjectName) throws MalformedObjectNameException {
 		ObjectName query = new ObjectName(baseObjectName + ",*");
 		return !this.mBeanServer.queryNames(query, null).isEmpty();
 	}
