@@ -141,7 +141,7 @@ class AutoConfiguredHealthEndpointGroups implements HealthEndpointGroups {
 	}
 
 	@Override
-	public HealthEndpointGroup getPrimary() {
+	public HealthEndpointGroup getPrimary_RENAMED() {
 		return this.primaryGroup;
 	}
 
