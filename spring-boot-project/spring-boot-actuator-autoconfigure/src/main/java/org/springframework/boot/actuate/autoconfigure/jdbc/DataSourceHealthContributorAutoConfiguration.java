@@ -85,7 +85,7 @@ public class DataSourceHealthContributorAutoConfiguration extends
 	@ConditionalOnMissingBean(name = { "dbHealthIndicator", "dbHealthContributor" })
 	public HealthContributor dbHealthContributor(Map<String, DataSource> dataSources,
 			DataSourceHealthIndicatorProperties dataSourceHealthIndicatorProperties) {
-		if (dataSourceHealthIndicatorProperties.isIgnoreRoutingDataSources()) {
+		if (dataSourceHealthIndicatorProperties.isIgnoreRoutingDataSources_RENAMED()) {
 			Map<String, DataSource> filteredDatasources = dataSources.entrySet().stream()
 					.filter((e) -> !(e.getValue() instanceof AbstractRoutingDataSource))
 					.collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
