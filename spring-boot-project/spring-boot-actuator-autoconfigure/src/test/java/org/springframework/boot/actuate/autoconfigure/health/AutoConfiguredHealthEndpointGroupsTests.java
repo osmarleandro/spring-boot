@@ -55,9 +55,9 @@ class AutoConfiguredHealthEndpointGroupsTests {
 		this.contextRunner.run((context) -> {
 			HealthEndpointGroups groups = context.getBean(HealthEndpointGroups.class);
 			HealthEndpointGroup primary = groups.getPrimary();
-			assertThat(primary.isMember("a")).isTrue();
-			assertThat(primary.isMember("b")).isTrue();
-			assertThat(primary.isMember("C")).isTrue();
+			assertThat(primary.isMember_RENAMED("a")).isTrue();
+			assertThat(primary.isMember_RENAMED("b")).isTrue();
+			assertThat(primary.isMember_RENAMED("C")).isTrue();
 		});
 	}
 
