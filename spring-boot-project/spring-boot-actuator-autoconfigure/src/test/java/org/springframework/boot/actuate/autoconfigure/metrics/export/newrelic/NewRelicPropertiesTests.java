@@ -45,9 +45,9 @@ class NewRelicPropertiesTests extends StepRegistryPropertiesTests {
 	void eventTypeDefaultValueIsOverridden() {
 		NewRelicProperties properties = new NewRelicProperties();
 		NewRelicConfig config = (key) -> null;
-		assertThat(properties.getEventType()).isNotEqualTo(config.eventType());
+		assertThat(properties.getEventType()).isNotEqualTo(config.eventType_RENAMED());
 		assertThat(properties.getEventType()).isEqualTo("SpringBootSample");
-		assertThat(config.eventType()).isEqualTo("MicrometerSample");
+		assertThat(config.eventType_RENAMED()).isEqualTo("MicrometerSample");
 	}
 
 }

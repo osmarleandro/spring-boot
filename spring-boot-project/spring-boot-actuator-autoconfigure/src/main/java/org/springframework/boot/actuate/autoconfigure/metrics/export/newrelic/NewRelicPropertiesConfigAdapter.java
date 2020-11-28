@@ -46,7 +46,7 @@ public class NewRelicPropertiesConfigAdapter extends StepRegistryPropertiesConfi
 	}
 
 	@Override
-	public String eventType() {
+	public String eventType_RENAMED() {
 		return get(NewRelicProperties::getEventType, NewRelicConfig.super::eventType);
 	}
 
