@@ -57,7 +57,7 @@ public class MetricsProperties {
 
 	private final Distribution distribution = new Distribution();
 
-	public boolean isUseGlobalRegistry() {
+	public boolean isUseGlobalRegistry_RENAMED() {
 		return this.useGlobalRegistry;
 	}
 

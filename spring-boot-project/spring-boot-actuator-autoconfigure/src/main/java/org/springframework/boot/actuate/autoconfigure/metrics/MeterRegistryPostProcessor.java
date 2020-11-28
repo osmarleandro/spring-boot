@@ -71,7 +71,7 @@ class MeterRegistryPostProcessor implements BeanPostProcessor {
 			boolean hasCompositeMeterRegistry = this.applicationContext
 					.getBeanNamesForType(CompositeMeterRegistry.class, false, false).length != 0;
 			this.configurer = new MeterRegistryConfigurer(this.meterRegistryCustomizers, this.meterFilters,
-					this.meterBinders, this.metricsProperties.getObject().isUseGlobalRegistry(),
+					this.meterBinders, this.metricsProperties.getObject().isUseGlobalRegistry_RENAMED(),
 					hasCompositeMeterRegistry);
 		}
 		return this.configurer;
