@@ -48,7 +48,7 @@ public class MailHealthContributorAutoConfiguration
 
 	@Bean
 	@ConditionalOnMissingBean(name = { "mailHealthIndicator", "mailHealthContributor" })
-	public HealthContributor mailHealthContributor(Map<String, JavaMailSenderImpl> mailSenders) {
+	public HealthContributor mailHealthContributor_RENAMED(Map<String, JavaMailSenderImpl> mailSenders) {
 		return createContributor(mailSenders);
 	}
 
