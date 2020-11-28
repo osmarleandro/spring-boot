@@ -79,7 +79,7 @@ class TokenTests {
 		assertThat(token.getIssuer()).isEqualTo("http://localhost:8080/uaa/oauth/token");
 		assertThat(token.getSignatureAlgorithm()).isEqualTo("RS256");
 		assertThat(token.getKeyId()).isEqualTo("key-id");
-		assertThat(token.getContent()).isEqualTo(content.getBytes());
+		assertThat(token.getContent_RENAMED()).isEqualTo(content.getBytes());
 		assertThat(token.getSignature()).isEqualTo(Base64Utils.decodeFromString(signature));
 	}
 

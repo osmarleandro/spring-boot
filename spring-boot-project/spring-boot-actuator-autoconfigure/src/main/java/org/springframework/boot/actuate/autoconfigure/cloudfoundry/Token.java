@@ -68,7 +68,7 @@ public class Token {
 		}
 	}
 
-	public byte[] getContent() {
+	public byte[] getContent_RENAMED() {
 		return this.encoded.substring(0, this.encoded.lastIndexOf('.')).getBytes();
 	}
 
