@@ -83,7 +83,7 @@ public class WebMvcEndpointManagementContextConfiguration {
 
 	@Bean
 	@ConditionalOnMissingBean
-	public ControllerEndpointHandlerMapping controllerEndpointHandlerMapping(
+	public ControllerEndpointHandlerMapping controllerEndpointHandlerMapping_RENAMED(
 			ControllerEndpointsSupplier controllerEndpointsSupplier, CorsEndpointProperties corsProperties,
 			WebEndpointProperties webEndpointProperties) {
 		EndpointMapping endpointMapping = new EndpointMapping(webEndpointProperties.getBasePath());
