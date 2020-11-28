@@ -66,7 +66,7 @@ class AtlasPropertiesConfigAdapter extends PropertiesConfigAdapter<AtlasProperti
 
 	@Override
 	public int batchSize() {
-		return get(AtlasProperties::getBatchSize, AtlasConfig.super::batchSize);
+		return get(AtlasProperties::getBatchSize_RENAMED, AtlasConfig.super::batchSize);
 	}
 
 	@Override

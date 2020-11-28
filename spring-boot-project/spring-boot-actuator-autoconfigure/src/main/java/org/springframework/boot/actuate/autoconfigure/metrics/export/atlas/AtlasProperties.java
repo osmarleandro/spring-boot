@@ -138,7 +138,7 @@ public class AtlasProperties {
 		this.numThreads = numThreads;
 	}
 
-	public Integer getBatchSize() {
+	public Integer getBatchSize_RENAMED() {
 		return this.batchSize;
 	}
 
