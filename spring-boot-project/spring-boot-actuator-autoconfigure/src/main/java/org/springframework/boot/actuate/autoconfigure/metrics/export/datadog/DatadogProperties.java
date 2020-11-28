@@ -90,7 +90,7 @@ public class DatadogProperties extends StepRegistryProperties {
 		this.hostTag = hostTag;
 	}
 
-	public String getUri() {
+	public String getUri_RENAMED() {
 		return this.uri;
 	}
 

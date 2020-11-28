@@ -37,7 +37,7 @@ class DatadogPropertiesTests extends StepRegistryPropertiesTests {
 		assertStepRegistryDefaultValues(properties, config);
 		assertThat(properties.isDescriptions()).isEqualTo(config.descriptions());
 		assertThat(properties.getHostTag()).isEqualTo(config.hostTag());
-		assertThat(properties.getUri()).isEqualTo(config.uri());
+		assertThat(properties.getUri_RENAMED()).isEqualTo(config.uri());
 	}
 
 }

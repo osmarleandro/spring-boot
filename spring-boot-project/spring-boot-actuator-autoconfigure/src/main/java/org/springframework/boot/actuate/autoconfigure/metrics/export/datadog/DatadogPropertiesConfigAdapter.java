@@ -55,7 +55,7 @@ class DatadogPropertiesConfigAdapter extends StepRegistryPropertiesConfigAdapter
 
 	@Override
 	public String uri() {
-		return get(DatadogProperties::getUri, DatadogConfig.super::uri);
+		return get(DatadogProperties::getUri_RENAMED, DatadogConfig.super::uri);
 	}
 
 	@Override
