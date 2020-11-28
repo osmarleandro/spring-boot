@@ -61,7 +61,7 @@ class AtlasPropertiesConfigAdapter extends PropertiesConfigAdapter<AtlasProperti
 
 	@Override
 	public int numThreads() {
-		return get(AtlasProperties::getNumThreads, AtlasConfig.super::numThreads);
+		return get(AtlasProperties::getNumThreads_RENAMED, AtlasConfig.super::numThreads);
 	}
 
 	@Override

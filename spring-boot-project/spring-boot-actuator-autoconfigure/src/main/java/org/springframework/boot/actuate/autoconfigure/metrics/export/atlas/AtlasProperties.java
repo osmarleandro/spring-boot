@@ -130,7 +130,7 @@ public class AtlasProperties {
 		this.readTimeout = readTimeout;
 	}
 
-	public Integer getNumThreads() {
+	public Integer getNumThreads_RENAMED() {
 		return this.numThreads;
 	}
 
