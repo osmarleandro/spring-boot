@@ -78,7 +78,7 @@ public class ElasticProperties extends StepRegistryProperties {
 		return this.host;
 	}
 
-	public void setHost(String host) {
+	public void setHost_RENAMED(String host) {
 		this.host = host;
 	}
 

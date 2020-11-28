@@ -30,7 +30,7 @@ class ElasticPropertiesConfigAdapterTests {
 	@Test
 	void whenPropertiesHostsIsSetAdapterHostsReturnsIt() {
 		ElasticProperties properties = new ElasticProperties();
-		properties.setHost("https://elastic.example.com");
+		properties.setHost_RENAMED("https://elastic.example.com");
 		assertThat(new ElasticPropertiesConfigAdapter(properties).host()).isEqualTo("https://elastic.example.com");
 	}
 
