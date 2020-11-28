@@ -48,7 +48,7 @@ class KairosPropertiesConfigAdapter extends StepRegistryPropertiesConfigAdapter<
 	}
 
 	@Override
-	public String password() {
+	public String password_RENAMED() {
 		return get(KairosProperties::getPassword, KairosConfig.super::password);
 	}
 

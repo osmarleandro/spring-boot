@@ -59,7 +59,7 @@ class KairosPropertiesConfigAdapterTests
 	void whenPropertiesPasswordIsSetAdapterPasswordReturnsIt() {
 		KairosProperties properties = createProperties();
 		properties.setPassword("secret");
-		assertThat(createConfigAdapter(properties).password()).isEqualTo("secret");
+		assertThat(createConfigAdapter(properties).password_RENAMED()).isEqualTo("secret");
 	}
 
 }
