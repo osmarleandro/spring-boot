@@ -114,7 +114,7 @@ public class GraphiteProperties {
 		this.durationUnits = durationUnits;
 	}
 
-	public String getHost() {
+	public String getHost_RENAMED() {
 		return this.host;
 	}
 
