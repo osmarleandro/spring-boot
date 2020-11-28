@@ -50,7 +50,7 @@ public class JvmMetricsAutoConfiguration {
 
 	@Bean
 	@ConditionalOnMissingBean
-	public JvmMemoryMetrics jvmMemoryMetrics() {
+	public JvmMemoryMetrics jvmMemoryMetrics_RENAMED() {
 		return new JvmMemoryMetrics();
 	}
 
