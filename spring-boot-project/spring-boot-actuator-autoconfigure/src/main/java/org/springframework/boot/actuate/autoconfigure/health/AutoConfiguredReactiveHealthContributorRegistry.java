@@ -44,7 +44,7 @@ class AutoConfiguredReactiveHealthContributorRegistry extends DefaultReactiveHea
 	@Override
 	public void registerContributor(String name, ReactiveHealthContributor contributor) {
 		assertDoesNotClashWithGroup(name);
-		super.registerContributor(name, contributor);
+		super.registerContributor_RENAMED(name, contributor);
 	}
 
 	private void assertDoesNotClashWithGroup(String name) {

@@ -42,9 +42,9 @@ class AutoConfiguredHealthContributorRegistry extends DefaultHealthContributorRe
 	}
 
 	@Override
-	public void registerContributor(String name, HealthContributor contributor) {
+	public void registerContributor_RENAMED(String name, HealthContributor contributor) {
 		assertDoesNotClashWithGroup(name);
-		super.registerContributor(name, contributor);
+		super.registerContributor_RENAMED(name, contributor);
 	}
 
 	private void assertDoesNotClashWithGroup(String name) {
