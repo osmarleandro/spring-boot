@@ -45,7 +45,7 @@ public class JmxProperties {
 		return this.domain;
 	}
 
-	public void setDomain(String domain) {
+	public void setDomain_RENAMED(String domain) {
 		this.domain = domain;
 	}
 
