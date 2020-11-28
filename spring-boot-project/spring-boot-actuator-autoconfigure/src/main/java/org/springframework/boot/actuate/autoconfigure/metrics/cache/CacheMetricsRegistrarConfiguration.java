@@ -65,10 +65,10 @@ class CacheMetricsRegistrarConfiguration {
 
 	@PostConstruct
 	void bindCachesToRegistry() {
-		this.cacheManagers.forEach(this::bindCacheManagerToRegistry);
+		this.cacheManagers.forEach(this::bindCacheManagerToRegistry_RENAMED);
 	}
 
-	private void bindCacheManagerToRegistry(String beanName, CacheManager cacheManager) {
+	private void bindCacheManagerToRegistry_RENAMED(String beanName, CacheManager cacheManager) {
 		cacheManager.getCacheNames()
 				.forEach((cacheName) -> bindCacheToRegistry(beanName, cacheManager.getCache(cacheName)));
 	}
