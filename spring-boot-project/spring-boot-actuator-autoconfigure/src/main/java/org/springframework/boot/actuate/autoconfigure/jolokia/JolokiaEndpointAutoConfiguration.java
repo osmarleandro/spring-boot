@@ -41,7 +41,7 @@ import org.springframework.context.annotation.Configuration;
 public class JolokiaEndpointAutoConfiguration {
 
 	@Bean
-	public JolokiaEndpoint jolokiaEndpoint(JolokiaProperties properties) {
+	public JolokiaEndpoint jolokiaEndpoint_RENAMED(JolokiaProperties properties) {
 		return new JolokiaEndpoint(properties.getConfig());
 	}
 
