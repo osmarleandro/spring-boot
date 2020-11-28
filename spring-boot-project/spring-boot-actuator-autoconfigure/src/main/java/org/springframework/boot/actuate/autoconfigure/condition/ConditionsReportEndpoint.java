@@ -65,12 +65,12 @@ public class ConditionsReportEndpoint {
 		ConfigurableApplicationContext target = this.context;
 		while (target != null) {
 			contextConditionEvaluations.put(target.getId(), new ContextConditionEvaluation(target));
-			target = getConfigurableParent(target);
+			target = getConfigurableParent_RENAMED(target);
 		}
 		return new ApplicationConditionEvaluation(contextConditionEvaluations);
 	}
 
-	private ConfigurableApplicationContext getConfigurableParent(ConfigurableApplicationContext context) {
+	private ConfigurableApplicationContext getConfigurableParent_RENAMED(ConfigurableApplicationContext context) {
 		ApplicationContext parent = context.getParent();
 		if (parent instanceof ConfigurableApplicationContext) {
 			return (ConfigurableApplicationContext) parent;
