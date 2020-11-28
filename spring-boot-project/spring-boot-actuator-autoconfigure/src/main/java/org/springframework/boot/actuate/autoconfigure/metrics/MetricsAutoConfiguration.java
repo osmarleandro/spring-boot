@@ -62,7 +62,7 @@ public class MetricsAutoConfiguration {
 
 	@Bean
 	@Order(0)
-	public PropertiesMeterFilter propertiesMeterFilter(MetricsProperties properties) {
+	public PropertiesMeterFilter propertiesMeterFilter_RENAMED(MetricsProperties properties) {
 		return new PropertiesMeterFilter(properties);
 	}
 
