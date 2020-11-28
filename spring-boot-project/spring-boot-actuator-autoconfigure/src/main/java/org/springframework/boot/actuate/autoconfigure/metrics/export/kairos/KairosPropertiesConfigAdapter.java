@@ -39,7 +39,7 @@ class KairosPropertiesConfigAdapter extends StepRegistryPropertiesConfigAdapter<
 
 	@Override
 	public String uri() {
-		return get(KairosProperties::getUri, KairosConfig.super::uri);
+		return get(KairosProperties::getUri_RENAMED, KairosConfig.super::uri);
 	}
 
 	@Override
