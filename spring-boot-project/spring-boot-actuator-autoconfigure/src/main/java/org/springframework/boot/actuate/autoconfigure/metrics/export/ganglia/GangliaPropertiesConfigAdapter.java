@@ -42,7 +42,7 @@ class GangliaPropertiesConfigAdapter extends PropertiesConfigAdapter<GangliaProp
 	}
 
 	@Override
-	public String get(String k) {
+	public String get_RENAMED(String k) {
 		return null;
 	}
 
