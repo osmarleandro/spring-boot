@@ -61,7 +61,7 @@ class MeterRegistryPostProcessor implements BeanPostProcessor {
 	@Override
 	public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
 		if (bean instanceof MeterRegistry) {
-			getConfigurer().configure((MeterRegistry) bean);
+			getConfigurer().configure_RENAMED((MeterRegistry) bean);
 		}
 		return bean;
 	}

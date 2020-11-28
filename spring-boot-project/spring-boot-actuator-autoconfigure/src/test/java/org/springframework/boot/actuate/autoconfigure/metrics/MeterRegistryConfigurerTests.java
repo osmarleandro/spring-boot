@@ -76,7 +76,7 @@ class MeterRegistryConfigurerTests {
 		MeterRegistryConfigurer configurer = new MeterRegistryConfigurer(createObjectProvider(this.customizers),
 				createObjectProvider(this.filters), createObjectProvider(this.binders), false, false);
 		CompositeMeterRegistry composite = new CompositeMeterRegistry();
-		configurer.configure(composite);
+		configurer.configure_RENAMED(composite);
 		verify(this.mockCustomizer).customize(composite);
 	}
 
@@ -86,7 +86,7 @@ class MeterRegistryConfigurerTests {
 		this.customizers.add(this.mockCustomizer);
 		MeterRegistryConfigurer configurer = new MeterRegistryConfigurer(createObjectProvider(this.customizers),
 				createObjectProvider(this.filters), createObjectProvider(this.binders), false, false);
-		configurer.configure(this.mockRegistry);
+		configurer.configure_RENAMED(this.mockRegistry);
 		verify(this.mockCustomizer).customize(this.mockRegistry);
 	}
 
@@ -96,7 +96,7 @@ class MeterRegistryConfigurerTests {
 		this.filters.add(this.mockFilter);
 		MeterRegistryConfigurer configurer = new MeterRegistryConfigurer(createObjectProvider(this.customizers),
 				createObjectProvider(this.filters), createObjectProvider(this.binders), false, false);
-		configurer.configure(this.mockRegistry);
+		configurer.configure_RENAMED(this.mockRegistry);
 		verify(this.mockConfig).meterFilter(this.mockFilter);
 	}
 
@@ -106,7 +106,7 @@ class MeterRegistryConfigurerTests {
 		this.binders.add(this.mockBinder);
 		MeterRegistryConfigurer configurer = new MeterRegistryConfigurer(createObjectProvider(this.customizers),
 				createObjectProvider(this.filters), createObjectProvider(this.binders), false, false);
-		configurer.configure(this.mockRegistry);
+		configurer.configure_RENAMED(this.mockRegistry);
 		verify(this.mockBinder).bindTo(this.mockRegistry);
 	}
 
@@ -116,7 +116,7 @@ class MeterRegistryConfigurerTests {
 		MeterRegistryConfigurer configurer = new MeterRegistryConfigurer(createObjectProvider(this.customizers),
 				createObjectProvider(this.filters), createObjectProvider(this.binders), false, true);
 		CompositeMeterRegistry composite = new CompositeMeterRegistry();
-		configurer.configure(composite);
+		configurer.configure_RENAMED(composite);
 		verify(this.mockBinder).bindTo(composite);
 	}
 
@@ -125,7 +125,7 @@ class MeterRegistryConfigurerTests {
 		given(this.mockRegistry.config()).willReturn(this.mockConfig);
 		MeterRegistryConfigurer configurer = new MeterRegistryConfigurer(createObjectProvider(this.customizers),
 				createObjectProvider(this.filters), null, false, true);
-		configurer.configure(this.mockRegistry);
+		configurer.configure_RENAMED(this.mockRegistry);
 		verifyNoInteractions(this.mockBinder);
 	}
 
@@ -137,7 +137,7 @@ class MeterRegistryConfigurerTests {
 		this.binders.add(this.mockBinder);
 		MeterRegistryConfigurer configurer = new MeterRegistryConfigurer(createObjectProvider(this.customizers),
 				createObjectProvider(this.filters), createObjectProvider(this.binders), false, false);
-		configurer.configure(this.mockRegistry);
+		configurer.configure_RENAMED(this.mockRegistry);
 		InOrder ordered = inOrder(this.mockBinder, this.mockConfig, this.mockCustomizer);
 		ordered.verify(this.mockCustomizer).customize(this.mockRegistry);
 		ordered.verify(this.mockConfig).meterFilter(this.mockFilter);
@@ -150,7 +150,7 @@ class MeterRegistryConfigurerTests {
 		MeterRegistryConfigurer configurer = new MeterRegistryConfigurer(createObjectProvider(this.customizers),
 				createObjectProvider(this.filters), createObjectProvider(this.binders), true, false);
 		try {
-			configurer.configure(this.mockRegistry);
+			configurer.configure_RENAMED(this.mockRegistry);
 			assertThat(Metrics.globalRegistry.getRegistries()).contains(this.mockRegistry);
 		}
 		finally {
@@ -163,7 +163,7 @@ class MeterRegistryConfigurerTests {
 		given(this.mockRegistry.config()).willReturn(this.mockConfig);
 		MeterRegistryConfigurer configurer = new MeterRegistryConfigurer(createObjectProvider(this.customizers),
 				createObjectProvider(this.filters), createObjectProvider(this.binders), false, false);
-		configurer.configure(this.mockRegistry);
+		configurer.configure_RENAMED(this.mockRegistry);
 		assertThat(Metrics.globalRegistry.getRegistries()).doesNotContain(this.mockRegistry);
 	}
 

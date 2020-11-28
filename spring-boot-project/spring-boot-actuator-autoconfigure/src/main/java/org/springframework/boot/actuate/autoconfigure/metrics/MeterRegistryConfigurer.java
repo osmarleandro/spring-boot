@@ -57,7 +57,7 @@ class MeterRegistryConfigurer {
 		this.hasCompositeMeterRegistry = hasCompositeMeterRegistry;
 	}
 
-	void configure(MeterRegistry registry) {
+	void configure_RENAMED(MeterRegistry registry) {
 		// Customizers must be applied before binders, as they may add custom
 		// tags or alter timer or summary configuration.
 		customize(registry);
