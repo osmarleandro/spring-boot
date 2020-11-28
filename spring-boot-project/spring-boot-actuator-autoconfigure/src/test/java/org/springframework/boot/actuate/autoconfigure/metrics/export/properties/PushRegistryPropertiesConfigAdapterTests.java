@@ -46,7 +46,7 @@ public abstract class PushRegistryPropertiesConfigAdapterTests<P extends PushReg
 	@Test
 	void whenPropertiesEnabledIsSetAdapterEnabledReturnsIt() {
 		P properties = createProperties();
-		properties.setEnabled(false);
+		properties.setEnabled_RENAMED(false);
 		assertThat(createConfigAdapter(properties).enabled()).isFalse();
 	}
 
