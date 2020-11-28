@@ -76,14 +76,14 @@ class AutoConfiguredHealthEndpointGroupTests {
 	void showDetailsWhenShowDetailsIsNeverReturnsFalse() {
 		AutoConfiguredHealthEndpointGroup group = new AutoConfiguredHealthEndpointGroup((name) -> true,
 				this.statusAggregator, this.httpCodeStatusMapper, null, Show.NEVER, Collections.emptySet());
-		assertThat(group.showDetails(SecurityContext.NONE)).isFalse();
+		assertThat(group.showDetails_RENAMED(SecurityContext.NONE)).isFalse();
 	}
 
 	@Test
 	void showDetailsWhenShowDetailsIsAlwaysReturnsTrue() {
 		AutoConfiguredHealthEndpointGroup group = new AutoConfiguredHealthEndpointGroup((name) -> true,
 				this.statusAggregator, this.httpCodeStatusMapper, null, Show.ALWAYS, Collections.emptySet());
-		assertThat(group.showDetails(SecurityContext.NONE)).isTrue();
+		assertThat(group.showDetails_RENAMED(SecurityContext.NONE)).isTrue();
 	}
 
 	@Test
@@ -91,7 +91,7 @@ class AutoConfiguredHealthEndpointGroupTests {
 		AutoConfiguredHealthEndpointGroup group = new AutoConfiguredHealthEndpointGroup((name) -> true,
 				this.statusAggregator, this.httpCodeStatusMapper, null, Show.WHEN_AUTHORIZED, Collections.emptySet());
 		given(this.securityContext.getPrincipal()).willReturn(null);
-		assertThat(group.showDetails(this.securityContext)).isFalse();
+		assertThat(group.showDetails_RENAMED(this.securityContext)).isFalse();
 	}
 
 	@Test
@@ -99,7 +99,7 @@ class AutoConfiguredHealthEndpointGroupTests {
 		AutoConfiguredHealthEndpointGroup group = new AutoConfiguredHealthEndpointGroup((name) -> true,
 				this.statusAggregator, this.httpCodeStatusMapper, null, Show.WHEN_AUTHORIZED, Collections.emptySet());
 		given(this.securityContext.getPrincipal()).willReturn(this.principal);
-		assertThat(group.showDetails(this.securityContext)).isTrue();
+		assertThat(group.showDetails_RENAMED(this.securityContext)).isTrue();
 	}
 
 	@Test
@@ -110,7 +110,7 @@ class AutoConfiguredHealthEndpointGroupTests {
 		given(this.securityContext.getPrincipal()).willReturn(this.principal);
 		given(this.securityContext.isUserInRole("admin")).willReturn(false);
 		given(this.securityContext.isUserInRole("root")).willReturn(true);
-		assertThat(group.showDetails(this.securityContext)).isTrue();
+		assertThat(group.showDetails_RENAMED(this.securityContext)).isTrue();
 	}
 
 	@Test
@@ -119,7 +119,7 @@ class AutoConfiguredHealthEndpointGroupTests {
 				this.statusAggregator, this.httpCodeStatusMapper, null, Show.WHEN_AUTHORIZED,
 				Arrays.asList("admin", "root", "bossmode"));
 		given(this.securityContext.getPrincipal()).willReturn(this.principal);
-		assertThat(group.showDetails(this.securityContext)).isFalse();
+		assertThat(group.showDetails_RENAMED(this.securityContext)).isFalse();
 	}
 
 	@Test
@@ -131,7 +131,7 @@ class AutoConfiguredHealthEndpointGroupTests {
 		given(principal.getAuthorities())
 				.willAnswer((invocation) -> Collections.singleton(new SimpleGrantedAuthority("admin")));
 		given(this.securityContext.getPrincipal()).willReturn(principal);
-		assertThat(group.showDetails(this.securityContext)).isTrue();
+		assertThat(group.showDetails_RENAMED(this.securityContext)).isTrue();
 	}
 
 	@Test
@@ -143,7 +143,7 @@ class AutoConfiguredHealthEndpointGroupTests {
 		given(principal.getAuthorities())
 				.willAnswer((invocation) -> Collections.singleton(new SimpleGrantedAuthority("other")));
 		given(this.securityContext.getPrincipal()).willReturn(principal);
-		assertThat(group.showDetails(this.securityContext)).isFalse();
+		assertThat(group.showDetails_RENAMED(this.securityContext)).isFalse();
 	}
 
 	@Test

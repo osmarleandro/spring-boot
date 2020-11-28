@@ -52,7 +52,7 @@ class AvailabilityProbesHealthEndpointGroupTests {
 
 	@Test
 	void showDetailsReturnsFalse() {
-		assertThat(this.group.showDetails(mock(SecurityContext.class))).isFalse();
+		assertThat(this.group.showDetails_RENAMED(mock(SecurityContext.class))).isFalse();
 	}
 
 	@Test
