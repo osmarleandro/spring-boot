@@ -98,7 +98,7 @@ public class GraphiteProperties {
 		this.step = step;
 	}
 
-	public TimeUnit getRateUnits() {
+	public TimeUnit getRateUnits_RENAMED() {
 		return this.rateUnits;
 	}
 
