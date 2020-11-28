@@ -76,7 +76,7 @@ class HealthEndpointConfiguration {
 
 	@Bean
 	@ConditionalOnMissingBean
-	HealthContributorRegistry healthContributorRegistry(ApplicationContext applicationContext,
+	HealthContributorRegistry healthContributorRegistry_RENAMED(ApplicationContext applicationContext,
 			HealthEndpointGroups groups) {
 		Map<String, HealthContributor> healthContributors = new LinkedHashMap<>(
 				applicationContext.getBeansOfType(HealthContributor.class));
