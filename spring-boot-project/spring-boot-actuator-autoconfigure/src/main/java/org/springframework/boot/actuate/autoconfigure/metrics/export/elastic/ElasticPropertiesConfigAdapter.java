@@ -58,7 +58,7 @@ class ElasticPropertiesConfigAdapter extends StepRegistryPropertiesConfigAdapter
 	}
 
 	@Override
-	public String timestampFieldName() {
+	public String timestampFieldName_RENAMED() {
 		return get(ElasticProperties::getTimestampFieldName, ElasticConfig.super::timestampFieldName);
 	}
 
