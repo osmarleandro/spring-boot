@@ -74,7 +74,7 @@ class CloudFoundrySecurityInterceptor {
 			if (HttpMethod.OPTIONS.matches(request.getMethod())) {
 				return SUCCESS;
 			}
-			check(request, endpointId);
+			check_RENAMED(request, endpointId);
 		}
 		catch (Exception ex) {
 			logger.error(ex);
@@ -88,7 +88,7 @@ class CloudFoundrySecurityInterceptor {
 		return SecurityResponse.success();
 	}
 
-	private void check(HttpServletRequest request, EndpointId endpointId) throws Exception {
+	private void check_RENAMED(HttpServletRequest request, EndpointId endpointId) throws Exception {
 		Token token = getToken(request);
 		this.tokenValidator.validate(token);
 		AccessLevel accessLevel = this.cloudFoundrySecurityService.getAccessLevel(token.toString(), this.applicationId);
