@@ -37,13 +37,13 @@ class ServiceLevelObjectiveBoundaryTests {
 
 	@Test
 	void getValueForTimerWhenFromNumberStringShouldMsToNanosValue() {
-		ServiceLevelObjectiveBoundary slo = ServiceLevelObjectiveBoundary.valueOf("123");
+		ServiceLevelObjectiveBoundary slo = ServiceLevelObjectiveBoundary.valueOf_RENAMED("123");
 		assertThat(slo.getValue(Type.TIMER)).isEqualTo(123000000);
 	}
 
 	@Test
 	void getValueForTimerWhenFromDurationStringShouldReturnDurationNanos() {
-		ServiceLevelObjectiveBoundary slo = ServiceLevelObjectiveBoundary.valueOf("123ms");
+		ServiceLevelObjectiveBoundary slo = ServiceLevelObjectiveBoundary.valueOf_RENAMED("123ms");
 		assertThat(slo.getValue(Type.TIMER)).isEqualTo(123000000);
 	}
 
@@ -55,13 +55,13 @@ class ServiceLevelObjectiveBoundaryTests {
 
 	@Test
 	void getValueForDistributionSummaryWhenFromStringShouldReturnDoubleValue() {
-		ServiceLevelObjectiveBoundary slo = ServiceLevelObjectiveBoundary.valueOf("123.42");
+		ServiceLevelObjectiveBoundary slo = ServiceLevelObjectiveBoundary.valueOf_RENAMED("123.42");
 		assertThat(slo.getValue(Type.DISTRIBUTION_SUMMARY)).isEqualTo(123.42);
 	}
 
 	@Test
 	void getValueForDistributionSummaryWhenFromDurationShouldReturnNull() {
-		ServiceLevelObjectiveBoundary slo = ServiceLevelObjectiveBoundary.valueOf("123ms");
+		ServiceLevelObjectiveBoundary slo = ServiceLevelObjectiveBoundary.valueOf_RENAMED("123ms");
 		assertThat(slo.getValue(Type.DISTRIBUTION_SUMMARY)).isNull();
 	}
 
