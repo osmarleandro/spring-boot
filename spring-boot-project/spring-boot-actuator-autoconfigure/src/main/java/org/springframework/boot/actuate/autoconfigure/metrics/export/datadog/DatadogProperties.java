@@ -70,7 +70,7 @@ public class DatadogProperties extends StepRegistryProperties {
 		return this.applicationKey;
 	}
 
-	public void setApplicationKey(String applicationKey) {
+	public void setApplicationKey_RENAMED(String applicationKey) {
 		this.applicationKey = applicationKey;
 	}
 
