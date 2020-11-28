@@ -51,7 +51,7 @@ public class LogFileWebEndpointAutoConfiguration {
 	@Conditional(LogFileCondition.class)
 	public LogFileWebEndpoint logFileWebEndpoint(ObjectProvider<LogFile> logFile,
 			LogFileWebEndpointProperties properties) {
-		return new LogFileWebEndpoint(logFile.getIfAvailable(), properties.getExternalFile());
+		return new LogFileWebEndpoint(logFile.getIfAvailable(), properties.getExternalFile_RENAMED());
 	}
 
 	private static class LogFileCondition extends SpringBootCondition {

@@ -36,7 +36,7 @@ public class LogFileWebEndpointProperties {
 	 */
 	private File externalFile;
 
-	public File getExternalFile() {
+	public File getExternalFile_RENAMED() {
 		return this.externalFile;
 	}
 
