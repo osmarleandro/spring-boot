@@ -118,10 +118,10 @@ class ReactiveCloudFoundrySecurityService {
 	 * @return a Mono of token keys
 	 */
 	Mono<Map<String, String>> fetchTokenKeys() {
-		return getUaaUrl().flatMap(this::fetchTokenKeys);
+		return getUaaUrl().flatMap(this::fetchTokenKeys_RENAMED);
 	}
 
-	private Mono<? extends Map<String, String>> fetchTokenKeys(String url) {
+	private Mono<? extends Map<String, String>> fetchTokenKeys_RENAMED(String url) {
 		RequestHeadersSpec<?> uri = this.webClient.get().uri(url + "/token_keys");
 		return uri.retrieve().bodyToMono(STRING_OBJECT_MAP).map(this::extractTokenKeys).onErrorMap(
 				((ex) -> new CloudFoundryAuthorizationException(Reason.SERVICE_UNAVAILABLE, ex.getMessage())));
