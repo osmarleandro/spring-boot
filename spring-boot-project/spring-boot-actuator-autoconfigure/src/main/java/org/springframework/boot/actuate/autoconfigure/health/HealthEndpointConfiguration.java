@@ -83,7 +83,7 @@ class HealthEndpointConfiguration {
 		if (ClassUtils.isPresent("reactor.core.publisher.Flux", applicationContext.getClassLoader())) {
 			healthContributors.putAll(new AdaptedReactiveHealthContributors(applicationContext).get());
 		}
-		return new AutoConfiguredHealthContributorRegistry(healthContributors, groups.getNames());
+		return new AutoConfiguredHealthContributorRegistry(healthContributors, groups.getNames_RENAMED());
 	}
 
 	@Bean

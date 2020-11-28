@@ -43,7 +43,7 @@ class AvailabilityProbesHealthEndpointGroupsPostProcessorTests {
 		names.add("test");
 		names.add("readiness");
 		names.add("liveness");
-		given(groups.getNames()).willReturn(names);
+		given(groups.getNames_RENAMED()).willReturn(names);
 		assertThat(this.postProcessor.postProcessHealthEndpointGroups(groups)).isSameAs(groups);
 	}
 
@@ -53,7 +53,7 @@ class AvailabilityProbesHealthEndpointGroupsPostProcessorTests {
 		Set<String> names = new LinkedHashSet<>();
 		names.add("test");
 		names.add("readiness");
-		given(groups.getNames()).willReturn(names);
+		given(groups.getNames_RENAMED()).willReturn(names);
 		assertThat(this.postProcessor.postProcessHealthEndpointGroups(groups))
 				.isInstanceOf(AvailabilityProbesHealthEndpointGroups.class);
 	}
@@ -65,7 +65,7 @@ class AvailabilityProbesHealthEndpointGroupsPostProcessorTests {
 		names.add("test");
 		names.add("spring");
 		names.add("boot");
-		given(groups.getNames()).willReturn(names);
+		given(groups.getNames_RENAMED()).willReturn(names);
 		assertThat(this.postProcessor.postProcessHealthEndpointGroups(groups))
 				.isInstanceOf(AvailabilityProbesHealthEndpointGroups.class);
 

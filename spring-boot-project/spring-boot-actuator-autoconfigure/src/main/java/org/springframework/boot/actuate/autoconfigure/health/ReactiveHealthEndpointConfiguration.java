@@ -51,7 +51,7 @@ class ReactiveHealthEndpointConfiguration {
 		Map<String, ReactiveHealthContributor> allContributors = new LinkedHashMap<>(reactiveHealthContributors);
 		healthContributors.forEach((name, contributor) -> allContributors.computeIfAbsent(name,
 				(key) -> ReactiveHealthContributor.adapt(contributor)));
-		return new AutoConfiguredReactiveHealthContributorRegistry(allContributors, groups.getNames());
+		return new AutoConfiguredReactiveHealthContributorRegistry(allContributors, groups.getNames_RENAMED());
 	}
 
 }
