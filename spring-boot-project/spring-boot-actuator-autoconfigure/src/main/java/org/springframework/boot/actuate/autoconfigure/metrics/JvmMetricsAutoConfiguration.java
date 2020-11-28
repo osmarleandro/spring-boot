@@ -56,7 +56,7 @@ public class JvmMetricsAutoConfiguration {
 
 	@Bean
 	@ConditionalOnMissingBean
-	public JvmThreadMetrics jvmThreadMetrics() {
+	public JvmThreadMetrics jvmThreadMetrics_RENAMED() {
 		return new JvmThreadMetrics();
 	}
 
