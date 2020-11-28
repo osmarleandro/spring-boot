@@ -79,7 +79,7 @@ class ElasticPropertiesConfigAdapterTests {
 	@Test
 	void whenPropertiesPasswordIsSetAdapterPasswordReturnsIt() {
 		ElasticProperties properties = new ElasticProperties();
-		properties.setPassword("secret");
+		properties.setPassword_RENAMED("secret");
 		assertThat(new ElasticPropertiesConfigAdapter(properties).password()).isEqualTo("secret");
 	}
 

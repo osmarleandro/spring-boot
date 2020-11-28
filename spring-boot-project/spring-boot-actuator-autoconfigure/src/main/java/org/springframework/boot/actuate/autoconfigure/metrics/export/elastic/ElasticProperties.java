@@ -134,7 +134,7 @@ public class ElasticProperties extends StepRegistryProperties {
 		return this.password;
 	}
 
-	public void setPassword(String password) {
+	public void setPassword_RENAMED(String password) {
 		this.password = password;
 	}
 
