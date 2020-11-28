@@ -108,7 +108,7 @@ class AutoConfiguredHealthEndpointGroup implements HealthEndpointGroup {
 		if (CollectionUtils.isEmpty(this.roles)) {
 			return true;
 		}
-		boolean checkAuthorities = isSpringSecurityAuthentication(principal);
+		boolean checkAuthorities = isSpringSecurityAuthentication_RENAMED(principal);
 		for (String role : this.roles) {
 			if (securityContext.isUserInRole(role)) {
 				return true;
@@ -126,7 +126,7 @@ class AutoConfiguredHealthEndpointGroup implements HealthEndpointGroup {
 		return false;
 	}
 
-	private boolean isSpringSecurityAuthentication(Principal principal) {
+	private boolean isSpringSecurityAuthentication_RENAMED(Principal principal) {
 		return ClassUtils.isPresent("org.springframework.security.core.Authentication", null)
 				&& (principal instanceof Authentication);
 	}
