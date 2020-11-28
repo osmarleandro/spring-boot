@@ -63,7 +63,7 @@ public class WebMvcEndpointManagementContextConfiguration {
 
 	@Bean
 	@ConditionalOnMissingBean
-	public WebMvcEndpointHandlerMapping webEndpointServletHandlerMapping(WebEndpointsSupplier webEndpointsSupplier,
+	public WebMvcEndpointHandlerMapping webEndpointServletHandlerMapping_RENAMED(WebEndpointsSupplier webEndpointsSupplier,
 			ServletEndpointsSupplier servletEndpointsSupplier, ControllerEndpointsSupplier controllerEndpointsSupplier,
 			EndpointMediaTypes endpointMediaTypes, CorsEndpointProperties corsProperties,
 			WebEndpointProperties webEndpointProperties, Environment environment) {
