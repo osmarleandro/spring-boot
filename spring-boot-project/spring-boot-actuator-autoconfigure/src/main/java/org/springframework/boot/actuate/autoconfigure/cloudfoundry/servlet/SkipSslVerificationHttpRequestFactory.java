@@ -41,12 +41,12 @@ class SkipSslVerificationHttpRequestFactory extends SimpleClientHttpRequestFacto
 	@Override
 	protected void prepareConnection(HttpURLConnection connection, String httpMethod) throws IOException {
 		if (connection instanceof HttpsURLConnection) {
-			prepareHttpsConnection((HttpsURLConnection) connection);
+			prepareHttpsConnection_RENAMED((HttpsURLConnection) connection);
 		}
 		super.prepareConnection(connection, httpMethod);
 	}
 
-	private void prepareHttpsConnection(HttpsURLConnection connection) {
+	private void prepareHttpsConnection_RENAMED(HttpsURLConnection connection) {
 		connection.setHostnameVerifier(new SkipHostnameVerifier());
 		try {
 			connection.setSSLSocketFactory(createSslSocketFactory());
