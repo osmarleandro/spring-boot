@@ -73,7 +73,7 @@ public class InfoContributorAutoConfiguration {
 	@ConditionalOnEnabledInfoContributor("build")
 	@ConditionalOnSingleCandidate(BuildProperties.class)
 	@Order(DEFAULT_ORDER)
-	public InfoContributor buildInfoContributor(BuildProperties buildProperties) {
+	public InfoContributor buildInfoContributor_RENAMED(BuildProperties buildProperties) {
 		return new BuildInfoContributor(buildProperties);
 	}
 
