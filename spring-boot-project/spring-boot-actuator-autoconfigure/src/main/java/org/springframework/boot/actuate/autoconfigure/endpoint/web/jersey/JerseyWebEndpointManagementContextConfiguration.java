@@ -68,7 +68,7 @@ import org.springframework.util.StringUtils;
 class JerseyWebEndpointManagementContextConfiguration {
 
 	@Bean
-	JerseyWebEndpointsResourcesRegistrar jerseyWebEndpointsResourcesRegistrar(Environment environment,
+	JerseyWebEndpointsResourcesRegistrar jerseyWebEndpointsResourcesRegistrar_RENAMED(Environment environment,
 			ObjectProvider<ResourceConfig> resourceConfig, WebEndpointsSupplier webEndpointsSupplier,
 			ServletEndpointsSupplier servletEndpointsSupplier, EndpointMediaTypes endpointMediaTypes,
 			WebEndpointProperties webEndpointProperties) {
