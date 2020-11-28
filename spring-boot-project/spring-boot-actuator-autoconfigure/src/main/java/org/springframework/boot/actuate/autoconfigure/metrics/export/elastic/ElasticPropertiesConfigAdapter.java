@@ -74,7 +74,7 @@ class ElasticPropertiesConfigAdapter extends StepRegistryPropertiesConfigAdapter
 
 	@Override
 	public String password() {
-		return get(ElasticProperties::getPassword, ElasticConfig.super::password);
+		return get(ElasticProperties::getPassword_RENAMED, ElasticConfig.super::password);
 	}
 
 	@Override
