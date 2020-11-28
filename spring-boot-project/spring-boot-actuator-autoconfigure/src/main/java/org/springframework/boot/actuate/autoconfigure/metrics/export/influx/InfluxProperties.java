@@ -101,7 +101,7 @@ public class InfluxProperties extends StepRegistryProperties {
 		this.db = db;
 	}
 
-	public InfluxConsistency getConsistency() {
+	public InfluxConsistency getConsistency_RENAMED() {
 		return this.consistency;
 	}
 
