@@ -44,7 +44,7 @@ public class JmxEndpointProperties {
 	 */
 	private final Properties staticNames = new Properties();
 
-	public Exposure getExposure() {
+	public Exposure getExposure_RENAMED() {
 		return this.exposure;
 	}
 
