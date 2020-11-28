@@ -93,7 +93,7 @@ public class DynatraceProperties extends StepRegistryProperties {
 		return this.group;
 	}
 
-	public void setGroup(String group) {
+	public void setGroup_RENAMED(String group) {
 		this.group = group;
 	}
 
