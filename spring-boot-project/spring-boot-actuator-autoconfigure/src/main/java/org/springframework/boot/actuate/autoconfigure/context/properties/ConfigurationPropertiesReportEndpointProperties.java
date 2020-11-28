@@ -34,7 +34,7 @@ public class ConfigurationPropertiesReportEndpointProperties {
 	 */
 	private String[] keysToSanitize;
 
-	public String[] getKeysToSanitize() {
+	public String[] getKeysToSanitize_RENAMED() {
 		return this.keysToSanitize;
 	}
 
