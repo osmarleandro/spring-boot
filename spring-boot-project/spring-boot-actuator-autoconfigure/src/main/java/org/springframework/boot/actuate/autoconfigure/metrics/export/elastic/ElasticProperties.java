@@ -114,7 +114,7 @@ public class ElasticProperties extends StepRegistryProperties {
 		this.timestampFieldName = timestampFieldName;
 	}
 
-	public boolean isAutoCreateIndex() {
+	public boolean isAutoCreateIndex_RENAMED() {
 		return this.autoCreateIndex;
 	}
 
