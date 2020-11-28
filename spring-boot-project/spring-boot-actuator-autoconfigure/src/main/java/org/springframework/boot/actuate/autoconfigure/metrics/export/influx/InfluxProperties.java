@@ -165,7 +165,7 @@ public class InfluxProperties extends StepRegistryProperties {
 		this.uri = uri;
 	}
 
-	public boolean isCompressed() {
+	public boolean isCompressed_RENAMED() {
 		return this.compressed;
 	}
 
