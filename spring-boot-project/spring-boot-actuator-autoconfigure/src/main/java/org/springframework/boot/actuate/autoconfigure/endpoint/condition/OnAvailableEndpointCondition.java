@@ -61,7 +61,7 @@ class OnAvailableEndpointCondition extends AbstractEndpointCondition {
 		}
 		EndpointId id = EndpointId.of(environment,
 				getEndpointAttributes(ConditionalOnAvailableEndpoint.class, context, metadata).getString("id"));
-		Set<Exposure> exposures = getExposures(environment);
+		Set<Exposure> exposures = getExposures_RENAMED(environment);
 		for (Exposure exposure : exposures) {
 			if (exposure.isExposed(id)) {
 				return new ConditionOutcome(true,
@@ -74,7 +74,7 @@ class OnAvailableEndpointCondition extends AbstractEndpointCondition {
 				.because("no 'management.endpoints' property marked it as exposed"));
 	}
 
-	private Set<Exposure> getExposures(Environment environment) {
+	private Set<Exposure> getExposures_RENAMED(Environment environment) {
 		Set<Exposure> exposures = exposuresCache.get(environment);
 		if (exposures == null) {
 			exposures = new HashSet<>(2);
