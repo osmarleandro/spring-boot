@@ -51,7 +51,7 @@ class JmxPropertiesConfigAdapter extends PropertiesConfigAdapter<JmxProperties> 
 
 	@Override
 	public Duration step() {
-		return get(JmxProperties::getStep, JmxConfig.super::step);
+		return get(JmxProperties::getStep_RENAMED, JmxConfig.super::step);
 	}
 
 }

@@ -49,7 +49,7 @@ public class JmxProperties {
 		this.domain = domain;
 	}
 
-	public Duration getStep() {
+	public Duration getStep_RENAMED() {
 		return this.step;
 	}
 
