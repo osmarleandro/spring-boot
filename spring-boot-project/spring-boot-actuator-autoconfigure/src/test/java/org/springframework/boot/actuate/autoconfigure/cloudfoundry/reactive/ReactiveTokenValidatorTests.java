@@ -97,7 +97,7 @@ class ReactiveTokenValidatorTests {
 		PublisherProbe<Map<String, String>> fetchTokenKeys = PublisherProbe.of(Mono.just(VALID_KEYS));
 		ReflectionTestUtils.setField(this.tokenValidator, "cachedTokenKeys", VALID_KEYS);
 		given(this.securityService.fetchTokenKeys()).willReturn(fetchTokenKeys.mono());
-		given(this.securityService.getUaaUrl()).willReturn(Mono.just("http://localhost:8080/uaa"));
+		given(this.securityService.getUaaUrl_RENAMED()).willReturn(Mono.just("http://localhost:8080/uaa"));
 		String header = "{\"alg\": \"RS256\",  \"kid\": \"invalid-key\",\"typ\": \"JWT\"}";
 		String claims = "{\"exp\": 2147483647, \"iss\": \"http://localhost:8080/uaa/oauth/token\", \"scope\": [\"actuator.read\"]}";
 		StepVerifier
@@ -115,7 +115,7 @@ class ReactiveTokenValidatorTests {
 		PublisherProbe<Map<String, String>> fetchTokenKeys = PublisherProbe.of(Mono.just(VALID_KEYS));
 		ReflectionTestUtils.setField(this.tokenValidator, "cachedTokenKeys", INVALID_KEYS);
 		given(this.securityService.fetchTokenKeys()).willReturn(fetchTokenKeys.mono());
-		given(this.securityService.getUaaUrl()).willReturn(Mono.just("http://localhost:8080/uaa"));
+		given(this.securityService.getUaaUrl_RENAMED()).willReturn(Mono.just("http://localhost:8080/uaa"));
 		String header = "{\"alg\": \"RS256\",  \"kid\": \"valid-key\",\"typ\": \"JWT\"}";
 		String claims = "{\"exp\": 2147483647, \"iss\": \"http://localhost:8080/uaa/oauth/token\", \"scope\": [\"actuator.read\"]}";
 		StepVerifier
@@ -129,7 +129,7 @@ class ReactiveTokenValidatorTests {
 	void validateTokenWhenCacheIsEmptyShouldFetchTokenKeys() throws Exception {
 		PublisherProbe<Map<String, String>> fetchTokenKeys = PublisherProbe.of(Mono.just(VALID_KEYS));
 		given(this.securityService.fetchTokenKeys()).willReturn(fetchTokenKeys.mono());
-		given(this.securityService.getUaaUrl()).willReturn(Mono.just("http://localhost:8080/uaa"));
+		given(this.securityService.getUaaUrl_RENAMED()).willReturn(Mono.just("http://localhost:8080/uaa"));
 		String header = "{\"alg\": \"RS256\",  \"kid\": \"valid-key\",\"typ\": \"JWT\"}";
 		String claims = "{\"exp\": 2147483647, \"iss\": \"http://localhost:8080/uaa/oauth/token\", \"scope\": [\"actuator.read\"]}";
 		StepVerifier
@@ -143,7 +143,7 @@ class ReactiveTokenValidatorTests {
 	void validateTokenWhenCacheEmptyAndInvalidKeyShouldThrowException() throws Exception {
 		PublisherProbe<Map<String, String>> fetchTokenKeys = PublisherProbe.of(Mono.just(VALID_KEYS));
 		given(this.securityService.fetchTokenKeys()).willReturn(fetchTokenKeys.mono());
-		given(this.securityService.getUaaUrl()).willReturn(Mono.just("http://localhost:8080/uaa"));
+		given(this.securityService.getUaaUrl_RENAMED()).willReturn(Mono.just("http://localhost:8080/uaa"));
 		String header = "{\"alg\": \"RS256\",  \"kid\": \"invalid-key\",\"typ\": \"JWT\"}";
 		String claims = "{\"exp\": 2147483647, \"iss\": \"http://localhost:8080/uaa/oauth/token\", \"scope\": [\"actuator.read\"]}";
 		StepVerifier
@@ -160,7 +160,7 @@ class ReactiveTokenValidatorTests {
 	void validateTokenWhenCacheValidShouldNotFetchTokenKeys() throws Exception {
 		PublisherProbe<Map<String, String>> fetchTokenKeys = PublisherProbe.empty();
 		ReflectionTestUtils.setField(this.tokenValidator, "cachedTokenKeys", VALID_KEYS);
-		given(this.securityService.getUaaUrl()).willReturn(Mono.just("http://localhost:8080/uaa"));
+		given(this.securityService.getUaaUrl_RENAMED()).willReturn(Mono.just("http://localhost:8080/uaa"));
 		String header = "{\"alg\": \"RS256\",  \"kid\": \"valid-key\",\"typ\": \"JWT\"}";
 		String claims = "{\"exp\": 2147483647, \"iss\": \"http://localhost:8080/uaa/oauth/token\", \"scope\": [\"actuator.read\"]}";
 		StepVerifier
@@ -173,7 +173,7 @@ class ReactiveTokenValidatorTests {
 	void validateTokenWhenSignatureInvalidShouldThrowException() throws Exception {
 		Map<String, String> KEYS = Collections.singletonMap("valid-key", INVALID_KEY);
 		given(this.securityService.fetchTokenKeys()).willReturn(Mono.just(KEYS));
-		given(this.securityService.getUaaUrl()).willReturn(Mono.just("http://localhost:8080/uaa"));
+		given(this.securityService.getUaaUrl_RENAMED()).willReturn(Mono.just("http://localhost:8080/uaa"));
 		String header = "{ \"alg\": \"RS256\",  \"kid\": \"valid-key\",\"typ\": \"JWT\"}";
 		String claims = "{ \"exp\": 2147483647, \"iss\": \"http://localhost:8080/uaa/oauth/token\", \"scope\": [\"actuator.read\"]}";
 		StepVerifier
@@ -188,7 +188,7 @@ class ReactiveTokenValidatorTests {
 	@Test
 	void validateTokenWhenTokenAlgorithmIsNotRS256ShouldThrowException() throws Exception {
 		given(this.securityService.fetchTokenKeys()).willReturn(Mono.just(VALID_KEYS));
-		given(this.securityService.getUaaUrl()).willReturn(Mono.just("http://localhost:8080/uaa"));
+		given(this.securityService.getUaaUrl_RENAMED()).willReturn(Mono.just("http://localhost:8080/uaa"));
 		String header = "{ \"alg\": \"HS256\",  \"kid\": \"valid-key\", \"typ\": \"JWT\"}";
 		String claims = "{ \"exp\": 2147483647, \"iss\": \"http://localhost:8080/uaa/oauth/token\", \"scope\": [\"actuator.read\"]}";
 		StepVerifier
@@ -203,7 +203,7 @@ class ReactiveTokenValidatorTests {
 	@Test
 	void validateTokenWhenExpiredShouldThrowException() throws Exception {
 		given(this.securityService.fetchTokenKeys()).willReturn(Mono.just(VALID_KEYS));
-		given(this.securityService.getUaaUrl()).willReturn(Mono.just("http://localhost:8080/uaa"));
+		given(this.securityService.getUaaUrl_RENAMED()).willReturn(Mono.just("http://localhost:8080/uaa"));
 		String header = "{ \"alg\": \"RS256\",  \"kid\": \"valid-key\", \"typ\": \"JWT\"}";
 		String claims = "{ \"jti\": \"0236399c350c47f3ae77e67a75e75e7d\", \"exp\": 1477509977, \"scope\": [\"actuator.read\"]}";
 		StepVerifier
@@ -217,7 +217,7 @@ class ReactiveTokenValidatorTests {
 	@Test
 	void validateTokenWhenIssuerIsNotValidShouldThrowException() throws Exception {
 		given(this.securityService.fetchTokenKeys()).willReturn(Mono.just(VALID_KEYS));
-		given(this.securityService.getUaaUrl()).willReturn(Mono.just("https://other-uaa.com"));
+		given(this.securityService.getUaaUrl_RENAMED()).willReturn(Mono.just("https://other-uaa.com"));
 		String header = "{ \"alg\": \"RS256\",  \"kid\": \"valid-key\", \"typ\": \"JWT\", \"scope\": [\"actuator.read\"]}";
 		String claims = "{ \"exp\": 2147483647, \"iss\": \"http://localhost:8080/uaa/oauth/token\", \"scope\": [\"foo.bar\"]}";
 		StepVerifier
@@ -231,7 +231,7 @@ class ReactiveTokenValidatorTests {
 	@Test
 	void validateTokenWhenAudienceIsNotValidShouldThrowException() throws Exception {
 		given(this.securityService.fetchTokenKeys()).willReturn(Mono.just(VALID_KEYS));
-		given(this.securityService.getUaaUrl()).willReturn(Mono.just("http://localhost:8080/uaa"));
+		given(this.securityService.getUaaUrl_RENAMED()).willReturn(Mono.just("http://localhost:8080/uaa"));
 		String header = "{ \"alg\": \"RS256\",  \"kid\": \"valid-key\", \"typ\": \"JWT\"}";
 		String claims = "{ \"exp\": 2147483647, \"iss\": \"http://localhost:8080/uaa/oauth/token\", \"scope\": [\"foo.bar\"]}";
 		StepVerifier

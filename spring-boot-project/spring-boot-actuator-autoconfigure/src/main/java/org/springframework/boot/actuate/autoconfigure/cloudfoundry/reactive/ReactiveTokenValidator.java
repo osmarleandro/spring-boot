@@ -122,7 +122,7 @@ class ReactiveTokenValidator {
 	}
 
 	private Mono<Void> validateIssuer(Token token) {
-		return this.securityService.getUaaUrl().map((uaaUrl) -> String.format("%s/oauth/token", uaaUrl))
+		return this.securityService.getUaaUrl_RENAMED().map((uaaUrl) -> String.format("%s/oauth/token", uaaUrl))
 				.filter((issuerUri) -> issuerUri.equals(token.getIssuer()))
 				.switchIfEmpty(Mono.error(
 						new CloudFoundryAuthorizationException(Reason.INVALID_ISSUER, "Token issuer does not match")))

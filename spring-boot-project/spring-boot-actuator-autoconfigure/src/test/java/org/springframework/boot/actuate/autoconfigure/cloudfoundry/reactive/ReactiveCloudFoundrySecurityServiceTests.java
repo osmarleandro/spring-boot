@@ -202,7 +202,7 @@ class ReactiveCloudFoundrySecurityServiceTests {
 			response.setBody("{\"token_endpoint\":\"" + UAA_URL + "\"}");
 			response.setHeader("Content-Type", "application/json");
 		});
-		StepVerifier.create(this.securityService.getUaaUrl())
+		StepVerifier.create(this.securityService.getUaaUrl_RENAMED())
 				.consumeNextWith((uaaUrl) -> assertThat(uaaUrl).isEqualTo(UAA_URL)).expectComplete().verify();
 		expectRequest((request) -> assertThat(request.getPath()).isEqualTo(CLOUD_CONTROLLER + "/info"));
 		expectRequestCount(1);
@@ -211,7 +211,7 @@ class ReactiveCloudFoundrySecurityServiceTests {
 	@Test
 	void getUaaUrlWhenCloudControllerUrlIsNotReachableShouldThrowException() throws Exception {
 		prepareResponse((response) -> response.setResponseCode(500));
-		StepVerifier.create(this.securityService.getUaaUrl()).consumeErrorWith((throwable) -> {
+		StepVerifier.create(this.securityService.getUaaUrl_RENAMED()).consumeErrorWith((throwable) -> {
 			assertThat(throwable).isInstanceOf(CloudFoundryAuthorizationException.class);
 			assertThat(((CloudFoundryAuthorizationException) throwable).getReason())
 					.isEqualTo(Reason.SERVICE_UNAVAILABLE);
