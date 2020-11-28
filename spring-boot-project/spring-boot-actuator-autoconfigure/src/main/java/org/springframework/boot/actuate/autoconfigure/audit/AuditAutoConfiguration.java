@@ -46,7 +46,7 @@ public class AuditAutoConfiguration {
 
 	@Bean
 	@ConditionalOnMissingBean(AbstractAuditListener.class)
-	public AuditListener auditListener(AuditEventRepository auditEventRepository) {
+	public AuditListener auditListener_RENAMED(AuditEventRepository auditEventRepository) {
 		return new AuditListener(auditEventRepository);
 	}
 
