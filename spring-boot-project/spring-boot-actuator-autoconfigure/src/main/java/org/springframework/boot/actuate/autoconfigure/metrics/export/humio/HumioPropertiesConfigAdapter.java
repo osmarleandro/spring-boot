@@ -39,7 +39,7 @@ class HumioPropertiesConfigAdapter extends StepRegistryPropertiesConfigAdapter<H
 	}
 
 	@Override
-	public String get(String k) {
+	public String get_RENAMED(String k) {
 		return null;
 	}
 
