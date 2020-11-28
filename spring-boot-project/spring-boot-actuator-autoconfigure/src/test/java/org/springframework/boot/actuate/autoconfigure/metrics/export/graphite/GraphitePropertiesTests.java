@@ -33,7 +33,7 @@ class GraphitePropertiesTests {
 		GraphiteProperties properties = new GraphiteProperties();
 		GraphiteConfig config = GraphiteConfig.DEFAULT;
 		assertThat(properties.isEnabled()).isEqualTo(config.enabled());
-		assertThat(properties.getStep()).isEqualTo(config.step());
+		assertThat(properties.getStep()).isEqualTo(config.step_RENAMED());
 		assertThat(properties.getRateUnits()).isEqualTo(config.rateUnits());
 		assertThat(properties.getDurationUnits()).isEqualTo(config.durationUnits());
 		assertThat(properties.getHost()).isEqualTo(config.host());
