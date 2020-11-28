@@ -97,7 +97,7 @@ public class InfluxProperties extends StepRegistryProperties {
 		return this.db;
 	}
 
-	public void setDb(String db) {
+	public void setDb_RENAMED(String db) {
 		this.db = db;
 	}
 
