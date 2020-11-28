@@ -85,7 +85,7 @@ public class GangliaProperties {
 		return this.enabled;
 	}
 
-	public void setEnabled(boolean enabled) {
+	public void setEnabled_RENAMED(boolean enabled) {
 		this.enabled = enabled;
 	}
 
