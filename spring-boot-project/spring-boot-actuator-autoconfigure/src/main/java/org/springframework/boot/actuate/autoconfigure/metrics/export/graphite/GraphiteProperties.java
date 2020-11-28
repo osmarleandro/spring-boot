@@ -90,7 +90,7 @@ public class GraphiteProperties {
 		this.enabled = enabled;
 	}
 
-	public Duration getStep() {
+	public Duration getStep_RENAMED() {
 		return this.step;
 	}
 

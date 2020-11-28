@@ -53,7 +53,7 @@ class GraphitePropertiesConfigAdapter extends PropertiesConfigAdapter<GraphitePr
 
 	@Override
 	public Duration step() {
-		return get(GraphiteProperties::getStep, GraphiteConfig.super::step);
+		return get(GraphiteProperties::getStep_RENAMED, GraphiteConfig.super::step);
 	}
 
 	@Override
