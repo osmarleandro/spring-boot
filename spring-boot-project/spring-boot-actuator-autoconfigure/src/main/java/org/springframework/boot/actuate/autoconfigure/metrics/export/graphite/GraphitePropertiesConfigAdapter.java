@@ -47,7 +47,7 @@ class GraphitePropertiesConfigAdapter extends PropertiesConfigAdapter<GraphitePr
 	}
 
 	@Override
-	public boolean enabled() {
+	public boolean enabled_RENAMED() {
 		return get(GraphiteProperties::isEnabled, GraphiteConfig.super::enabled);
 	}
 
