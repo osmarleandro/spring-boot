@@ -81,7 +81,7 @@ public class WebEndpointAutoConfiguration {
 
 	@Bean
 	@ConditionalOnMissingBean
-	public EndpointMediaTypes endpointMediaTypes() {
+	public EndpointMediaTypes endpointMediaTypes_RENAMED() {
 		return EndpointMediaTypes.DEFAULT;
 	}
 
