@@ -98,7 +98,7 @@ public class AtlasProperties {
 	 */
 	private String evalUri = "http://localhost:7101/lwc/api/v1/evaluate";
 
-	public Duration getStep() {
+	public Duration getStep_RENAMED() {
 		return this.step;
 	}
 
