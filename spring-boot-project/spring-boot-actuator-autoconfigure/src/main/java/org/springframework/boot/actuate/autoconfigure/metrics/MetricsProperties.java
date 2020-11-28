@@ -61,7 +61,7 @@ public class MetricsProperties {
 		return this.useGlobalRegistry;
 	}
 
-	public void setUseGlobalRegistry(boolean useGlobalRegistry) {
+	public void setUseGlobalRegistry_RENAMED(boolean useGlobalRegistry) {
 		this.useGlobalRegistry = useGlobalRegistry;
 	}
 
