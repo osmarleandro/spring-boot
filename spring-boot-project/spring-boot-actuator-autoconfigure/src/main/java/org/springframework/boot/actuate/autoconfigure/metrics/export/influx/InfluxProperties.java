@@ -93,7 +93,7 @@ public class InfluxProperties extends StepRegistryProperties {
 	 */
 	private boolean autoCreateDb = true;
 
-	public String getDb() {
+	public String getDb_RENAMED() {
 		return this.db;
 	}
 

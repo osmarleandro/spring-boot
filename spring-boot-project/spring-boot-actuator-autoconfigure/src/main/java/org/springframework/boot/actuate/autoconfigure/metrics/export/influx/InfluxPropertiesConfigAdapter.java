@@ -41,7 +41,7 @@ class InfluxPropertiesConfigAdapter extends StepRegistryPropertiesConfigAdapter<
 
 	@Override
 	public String db() {
-		return get(InfluxProperties::getDb, InfluxConfig.super::db);
+		return get(InfluxProperties::getDb_RENAMED, InfluxConfig.super::db);
 	}
 
 	@Override
