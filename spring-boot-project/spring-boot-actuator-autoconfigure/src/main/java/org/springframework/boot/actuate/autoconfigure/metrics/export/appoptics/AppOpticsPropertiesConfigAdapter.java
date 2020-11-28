@@ -39,7 +39,7 @@ class AppOpticsPropertiesConfigAdapter extends StepRegistryPropertiesConfigAdapt
 
 	@Override
 	public String uri() {
-		return get(AppOpticsProperties::getUri, AppOpticsConfig.super::uri);
+		return get(AppOpticsProperties::getUri_RENAMED, AppOpticsConfig.super::uri);
 	}
 
 	@Override

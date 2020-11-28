@@ -63,7 +63,7 @@ public class AppOpticsProperties extends StepRegistryProperties {
 	 */
 	private Duration connectTimeout = Duration.ofSeconds(5);
 
-	public String getUri() {
+	public String getUri_RENAMED() {
 		return this.uri;
 	}
 
