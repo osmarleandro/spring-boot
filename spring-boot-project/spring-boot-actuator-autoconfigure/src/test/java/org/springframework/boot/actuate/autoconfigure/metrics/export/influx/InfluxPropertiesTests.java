@@ -39,7 +39,7 @@ class InfluxPropertiesTests extends StepRegistryPropertiesTests {
 		assertThat(properties.getConsistency()).isEqualTo(config.consistency());
 		assertThat(properties.getUserName()).isEqualTo(config.userName());
 		assertThat(properties.getPassword()).isEqualTo(config.password());
-		assertThat(properties.getRetentionPolicy()).isEqualTo(config.retentionPolicy());
+		assertThat(properties.getRetentionPolicy_RENAMED()).isEqualTo(config.retentionPolicy());
 		assertThat(properties.getRetentionDuration()).isEqualTo(config.retentionDuration());
 		assertThat(properties.getRetentionReplicationFactor()).isEqualTo(config.retentionReplicationFactor());
 		assertThat(properties.getRetentionShardDuration()).isEqualTo(config.retentionShardDuration());

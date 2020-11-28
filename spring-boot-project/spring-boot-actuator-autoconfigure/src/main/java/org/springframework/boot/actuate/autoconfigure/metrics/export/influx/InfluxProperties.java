@@ -125,7 +125,7 @@ public class InfluxProperties extends StepRegistryProperties {
 		this.password = password;
 	}
 
-	public String getRetentionPolicy() {
+	public String getRetentionPolicy_RENAMED() {
 		return this.retentionPolicy;
 	}
 

@@ -61,7 +61,7 @@ class InfluxPropertiesConfigAdapter extends StepRegistryPropertiesConfigAdapter<
 
 	@Override
 	public String retentionPolicy() {
-		return get(InfluxProperties::getRetentionPolicy, InfluxConfig.super::retentionPolicy);
+		return get(InfluxProperties::getRetentionPolicy_RENAMED, InfluxConfig.super::retentionPolicy);
 	}
 
 	@Override
