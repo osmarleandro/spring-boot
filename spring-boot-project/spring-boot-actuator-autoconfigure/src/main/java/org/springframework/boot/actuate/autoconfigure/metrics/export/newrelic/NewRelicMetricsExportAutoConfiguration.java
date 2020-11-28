@@ -75,7 +75,7 @@ public class NewRelicMetricsExportAutoConfiguration {
 			return new NewRelicInsightsAgentClientProvider(newRelicConfig);
 		}
 		return new NewRelicInsightsApiClientProvider(newRelicConfig,
-				new HttpUrlConnectionSender(this.properties.getConnectTimeout(), this.properties.getReadTimeout()));
+				new HttpUrlConnectionSender(this.properties.getConnectTimeout_RENAMED(), this.properties.getReadTimeout()));
 
 	}
 
