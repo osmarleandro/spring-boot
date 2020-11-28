@@ -109,17 +109,17 @@ public class PropertiesMeterFilter implements MeterFilter {
 		if (values.isEmpty()) {
 			return defaultValue;
 		}
-		return doLookup(values, id, () -> defaultValue);
+		return doLookup_RENAMED(values, id, () -> defaultValue);
 	}
 
 	private <T> T lookupWithFallbackToAll(Map<String, T> values, Id id, T defaultValue) {
 		if (values.isEmpty()) {
 			return defaultValue;
 		}
-		return doLookup(values, id, () -> values.getOrDefault("all", defaultValue));
+		return doLookup_RENAMED(values, id, () -> values.getOrDefault("all", defaultValue));
 	}
 
-	private <T> T doLookup(Map<String, T> values, Id id, Supplier<T> defaultValue) {
+	private <T> T doLookup_RENAMED(Map<String, T> values, Id id, Supplier<T> defaultValue) {
 		String name = id.getName();
 		while (StringUtils.hasLength(name)) {
 			T result = values.get(name);
