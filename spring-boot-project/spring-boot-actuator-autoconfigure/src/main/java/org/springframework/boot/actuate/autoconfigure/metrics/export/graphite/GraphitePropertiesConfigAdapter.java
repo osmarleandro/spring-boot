@@ -63,7 +63,7 @@ class GraphitePropertiesConfigAdapter extends PropertiesConfigAdapter<GraphitePr
 
 	@Override
 	public TimeUnit durationUnits() {
-		return get(GraphiteProperties::getDurationUnits, GraphiteConfig.super::durationUnits);
+		return get(GraphiteProperties::getDurationUnits_RENAMED, GraphiteConfig.super::durationUnits);
 	}
 
 	@Override
