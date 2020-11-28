@@ -98,7 +98,7 @@ public class CorsEndpointProperties {
 		return this.exposedHeaders;
 	}
 
-	public void setExposedHeaders(List<String> exposedHeaders) {
+	public void setExposedHeaders_RENAMED(List<String> exposedHeaders) {
 		this.exposedHeaders = exposedHeaders;
 	}
 
