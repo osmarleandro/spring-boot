@@ -21,7 +21,7 @@ import java.util.Collections;
 import io.micrometer.core.instrument.MeterRegistry;
 import io.micrometer.core.instrument.Tag;
 import io.micrometer.core.instrument.binder.tomcat.TomcatMetrics;
-import org.apache.catalina.Container;
+
 import org.apache.catalina.Context;
 import org.apache.catalina.Manager;
 
@@ -68,17 +68,8 @@ public class TomcatMetricsBinder implements ApplicationListener<ApplicationStart
 		if (applicationContext instanceof WebServerApplicationContext) {
 			WebServer webServer = ((WebServerApplicationContext) applicationContext).getWebServer();
 			if (webServer instanceof TomcatWebServer) {
-				Context context = findContext((TomcatWebServer) webServer);
+				Context context = (TomcatWebServer) webServer.findContext();
 				return context.getManager();
-			}
-		}
-		return null;
-	}
-
-	private Context findContext(TomcatWebServer tomcatWebServer) {
-		for (Container container : tomcatWebServer.getTomcat().getHost().findChildren()) {
-			if (container instanceof Context) {
-				return (Context) container;
 			}
 		}
 		return null;

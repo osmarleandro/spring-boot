@@ -390,4 +390,13 @@ public class TomcatWebServer implements WebServer {
 		this.gracefulShutdown.shutDownGracefully(callback);
 	}
 
+	public Context findContext() {
+		for (Container container : getTomcat().getHost().findChildren()) {
+			if (container instanceof Context) {
+				return (Context) container;
+			}
+		}
+		return null;
+	}
+
 }
