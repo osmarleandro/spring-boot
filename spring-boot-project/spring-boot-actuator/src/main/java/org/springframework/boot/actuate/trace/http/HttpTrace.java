@@ -88,10 +88,6 @@ public final class HttpTrace {
 		}
 	}
 
-	public Principal getPrincipal() {
-		return this.principal;
-	}
-
 	public Session getSession() {
 		return this.session;
 	}
@@ -254,6 +250,10 @@ public final class HttpTrace {
 
 		public String getName() {
 			return this.name;
+		}
+
+		public Principal getPrincipal(HttpTrace httpTrace) {
+			return this;
 		}
 
 	}

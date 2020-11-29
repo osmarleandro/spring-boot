@@ -228,7 +228,7 @@ class HttpExchangeTracerTests {
 		HttpTrace trace = new HttpTrace(createRequest());
 		new HttpExchangeTracer(EnumSet.noneOf(Include.class)).sendingResponse(trace, createResponse(),
 				this::createPrincipal, null);
-		assertThat(trace.getPrincipal()).isNull();
+		assertThat(trace.getPrincipal().getPrincipal(this)).isNull();
 	}
 
 	@Test
@@ -236,8 +236,8 @@ class HttpExchangeTracerTests {
 		HttpTrace trace = new HttpTrace(createRequest());
 		new HttpExchangeTracer(EnumSet.of(Include.PRINCIPAL)).sendingResponse(trace, createResponse(),
 				this::createPrincipal, null);
-		assertThat(trace.getPrincipal()).isNotNull();
-		assertThat(trace.getPrincipal().getName()).isEqualTo("alice");
+		assertThat(trace.getPrincipal().getPrincipal(this)).isNotNull();
+		assertThat(trace.getPrincipal().getPrincipal(this).getName()).isEqualTo("alice");
 	}
 
 	@Test
@@ -284,7 +284,7 @@ class HttpExchangeTracerTests {
 		responseHeaders.setContentLength(0);
 		tracer.sendingResponse(trace, createResponse(responseHeaders), this::createPrincipal, () -> "sessionId");
 		assertThat(trace.getTimeTaken()).isNotNull();
-		assertThat(trace.getPrincipal()).isNull();
+		assertThat(trace.getPrincipal().getPrincipal(this)).isNull();
 		assertThat(trace.getSession()).isNull();
 		assertThat(trace.getTimestamp()).isNotNull();
 		assertThat(trace.getRequest().getMethod()).isEqualTo("GET");
