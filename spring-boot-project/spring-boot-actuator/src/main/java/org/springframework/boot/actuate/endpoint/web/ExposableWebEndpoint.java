@@ -16,6 +16,8 @@
 
 package org.springframework.boot.actuate.endpoint.web;
 
+import java.util.Map;
+
 import org.springframework.boot.actuate.endpoint.ExposableEndpoint;
 
 /**
@@ -25,5 +27,11 @@ import org.springframework.boot.actuate.endpoint.ExposableEndpoint;
  * @since 2.0.0
  */
 public interface ExposableWebEndpoint extends ExposableEndpoint<WebOperation>, PathMappedEndpoint {
+
+	default void collectLinks(Map<String, Link> links, EndpointLinksResolver endpointLinksResolver, String normalizedUrl) {
+		for (WebOperation operation : getOperations()) {
+			links.put(operation.getId(), endpointLinksResolver.createLink(normalizedUrl, operation));
+		}
+	}
 
 }
