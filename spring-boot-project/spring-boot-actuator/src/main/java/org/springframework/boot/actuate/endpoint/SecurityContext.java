@@ -18,6 +18,11 @@ package org.springframework.boot.actuate.endpoint;
 
 import java.security.Principal;
 
+import org.springframework.boot.actuate.autoconfigure.health.AutoConfiguredHealthEndpointGroup;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.util.CollectionUtils;
+
 /**
  * Security context in which an endpoint is being invoked.
  *
@@ -56,5 +61,31 @@ public interface SecurityContext {
 	 * @return {@code true} if the user is in the given role
 	 */
 	boolean isUserInRole(String role);
+
+	public default boolean isAuthorized(AutoConfiguredHealthEndpointGroup autoConfiguredHealthEndpointGroup) {
+		Principal principal = getPrincipal();
+		if (principal == null) {
+			return false;
+		}
+		if (CollectionUtils.isEmpty(autoConfiguredHealthEndpointGroup.roles)) {
+			return true;
+		}
+		boolean checkAuthorities = autoConfiguredHealthEndpointGroup.isSpringSecurityAuthentication(principal);
+		for (String role : autoConfiguredHealthEndpointGroup.roles) {
+			if (isUserInRole(role)) {
+				return true;
+			}
+			if (checkAuthorities) {
+				Authentication authentication = (Authentication) principal;
+				for (GrantedAuthority authority : authentication.getAuthorities()) {
+					String name = authority.getAuthority();
+					if (role.equals(name)) {
+						return true;
+					}
+				}
+			}
+		}
+		return false;
+	}
 
 }

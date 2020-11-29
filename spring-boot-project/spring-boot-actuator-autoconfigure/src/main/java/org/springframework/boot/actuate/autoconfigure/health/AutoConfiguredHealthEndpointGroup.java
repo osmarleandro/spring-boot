@@ -26,9 +26,7 @@ import org.springframework.boot.actuate.health.HealthEndpointGroup;
 import org.springframework.boot.actuate.health.HttpCodeStatusMapper;
 import org.springframework.boot.actuate.health.StatusAggregator;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.util.ClassUtils;
-import org.springframework.util.CollectionUtils;
 
 /**
  * Auto-configured {@link HealthEndpointGroup} backed by {@link HealthProperties}.
@@ -36,7 +34,7 @@ import org.springframework.util.CollectionUtils;
  * @author Phillip Webb
  * @author Andy Wilkinson
  */
-class AutoConfiguredHealthEndpointGroup implements HealthEndpointGroup {
+public class AutoConfiguredHealthEndpointGroup implements HealthEndpointGroup {
 
 	private final Predicate<String> members;
 
@@ -48,7 +46,7 @@ class AutoConfiguredHealthEndpointGroup implements HealthEndpointGroup {
 
 	private final Show showDetails;
 
-	private final Collection<String> roles;
+	public final Collection<String> roles;
 
 	/**
 	 * Create a new {@link AutoConfiguredHealthEndpointGroup} instance.
@@ -95,38 +93,12 @@ class AutoConfiguredHealthEndpointGroup implements HealthEndpointGroup {
 		case ALWAYS:
 			return true;
 		case WHEN_AUTHORIZED:
-			return isAuthorized(securityContext);
+			return securityContext.isAuthorized(this);
 		}
 		throw new IllegalStateException("Unsupported 'show' value " + show);
 	}
 
-	private boolean isAuthorized(SecurityContext securityContext) {
-		Principal principal = securityContext.getPrincipal();
-		if (principal == null) {
-			return false;
-		}
-		if (CollectionUtils.isEmpty(this.roles)) {
-			return true;
-		}
-		boolean checkAuthorities = isSpringSecurityAuthentication(principal);
-		for (String role : this.roles) {
-			if (securityContext.isUserInRole(role)) {
-				return true;
-			}
-			if (checkAuthorities) {
-				Authentication authentication = (Authentication) principal;
-				for (GrantedAuthority authority : authentication.getAuthorities()) {
-					String name = authority.getAuthority();
-					if (role.equals(name)) {
-						return true;
-					}
-				}
-			}
-		}
-		return false;
-	}
-
-	private boolean isSpringSecurityAuthentication(Principal principal) {
+	public boolean isSpringSecurityAuthentication(Principal principal) {
 		return ClassUtils.isPresent("org.springframework.security.core.Authentication", null)
 				&& (principal instanceof Authentication);
 	}
