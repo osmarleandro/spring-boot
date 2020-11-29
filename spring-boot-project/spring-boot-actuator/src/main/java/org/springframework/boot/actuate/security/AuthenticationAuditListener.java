@@ -81,7 +81,7 @@ public class AuthenticationAuditListener extends AbstractAuthenticationAuditList
 		if (event.getAuthentication().getDetails() != null) {
 			data.put("details", event.getAuthentication().getDetails());
 		}
-		publish(new AuditEvent(event.getAuthentication().getName(), AUTHENTICATION_FAILURE, data));
+		new AuditEvent(event.getAuthentication().getName(), AUTHENTICATION_FAILURE, data).publish(this);
 	}
 
 	private void onAuthenticationSuccessEvent(AuthenticationSuccessEvent event) {
@@ -89,7 +89,7 @@ public class AuthenticationAuditListener extends AbstractAuthenticationAuditList
 		if (event.getAuthentication().getDetails() != null) {
 			data.put("details", event.getAuthentication().getDetails());
 		}
-		publish(new AuditEvent(event.getAuthentication().getName(), AUTHENTICATION_SUCCESS, data));
+		new AuditEvent(event.getAuthentication().getName(), AUTHENTICATION_SUCCESS, data).publish(this);
 	}
 
 	private static class WebAuditListener {
@@ -104,7 +104,7 @@ public class AuthenticationAuditListener extends AbstractAuthenticationAuditList
 				if (event.getTargetUser() != null) {
 					data.put("target", event.getTargetUser().getUsername());
 				}
-				listener.publish(new AuditEvent(event.getAuthentication().getName(), AUTHENTICATION_SWITCH, data));
+				new AuditEvent(event.getAuthentication().getName(), AUTHENTICATION_SWITCH, data).publish(listener);
 			}
 
 		}

@@ -17,7 +17,6 @@
 package org.springframework.boot.actuate.security;
 
 import org.springframework.boot.actuate.audit.AuditEvent;
-import org.springframework.boot.actuate.audit.listener.AuditApplicationEvent;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.ApplicationEventPublisherAware;
 import org.springframework.context.ApplicationListener;
@@ -41,14 +40,8 @@ public abstract class AbstractAuthenticationAuditListener
 		this.publisher = publisher;
 	}
 
-	protected ApplicationEventPublisher getPublisher() {
+	public ApplicationEventPublisher getPublisher() {
 		return this.publisher;
-	}
-
-	protected void publish(AuditEvent event) {
-		if (getPublisher() != null) {
-			getPublisher().publishEvent(new AuditApplicationEvent(event));
-		}
 	}
 
 }
