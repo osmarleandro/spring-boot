@@ -15,7 +15,10 @@
  */
 package org.springframework.boot.autoconfigure.web.servlet;
 
+import org.glassfish.jersey.server.ResourceConfig;
+import org.glassfish.jersey.servlet.ServletContainer;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
+import org.springframework.context.annotation.Bean;
 
 /**
  * Interface that can be used by auto-configurations that need path details Jersey's
@@ -84,6 +87,13 @@ public interface JerseyApplicationPath {
 			return path + "*";
 		}
 		return path + "/*";
+	}
+
+	@Bean
+	default
+	ServletRegistrationBean<ServletContainer> jerseyServletRegistration(ResourceConfig resourceConfig) {
+		return new ServletRegistrationBean<>(new ServletContainer(resourceConfig),
+				getUrlMapping());
 	}
 
 }
