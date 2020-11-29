@@ -16,6 +16,7 @@
 
 package org.springframework.boot.actuate.endpoint.web;
 
+import org.springframework.boot.actuate.endpoint.web.reactive.ControllerEndpointHandlerMapping;
 import org.springframework.util.StringUtils;
 
 /**
@@ -46,6 +47,10 @@ public class EndpointMapping {
 
 	public String createSubPath(String path) {
 		return this.path + normalizePath(path);
+	}
+
+	public boolean hasCorsConfigurationSource(ControllerEndpointHandlerMapping controllerEndpointHandlerMapping, Object handler) {
+		return controllerEndpointHandlerMapping.corsConfiguration != null;
 	}
 
 	private static String normalizePath(String path) {
