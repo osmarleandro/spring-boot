@@ -135,4 +135,8 @@ class CloudFoundrySecurityService {
 		return this.uaaUrl;
 	}
 
+	boolean hasValidKeyId(TokenValidator tokenValidator, String tokenKey) {
+		return tokenValidator.tokenKeys.containsKey(tokenKey);
+	}
+
 }

@@ -40,7 +40,7 @@ class TokenValidator {
 
 	private final CloudFoundrySecurityService securityService;
 
-	private Map<String, String> tokenKeys;
+	Map<String, String> tokenKeys;
 
 	TokenValidator(CloudFoundrySecurityService cloudFoundrySecurityService) {
 		this.securityService = cloudFoundrySecurityService;
@@ -67,9 +67,9 @@ class TokenValidator {
 
 	private void validateKeyIdAndSignature(Token token) {
 		String keyId = token.getKeyId();
-		if (this.tokenKeys == null || !hasValidKeyId(keyId)) {
+		if (this.tokenKeys == null || !securityService.hasValidKeyId(this, keyId)) {
 			this.tokenKeys = this.securityService.fetchTokenKeys();
-			if (!hasValidKeyId(keyId)) {
+			if (!securityService.hasValidKeyId(this, keyId)) {
 				throw new CloudFoundryAuthorizationException(Reason.INVALID_KEY_ID,
 						"Key Id present in token header does not match");
 			}
@@ -79,10 +79,6 @@ class TokenValidator {
 			throw new CloudFoundryAuthorizationException(Reason.INVALID_SIGNATURE,
 					"RSA Signature did not match content");
 		}
-	}
-
-	private boolean hasValidKeyId(String tokenKey) {
-		return this.tokenKeys.containsKey(tokenKey);
 	}
 
 	private boolean hasValidSignature(Token token, String key) {
