@@ -51,16 +51,10 @@ import org.springframework.context.annotation.Configuration;
 @EnableConfigurationProperties(AppOpticsProperties.class)
 public class AppOpticsMetricsExportAutoConfiguration {
 
-	private final AppOpticsProperties properties;
+	final AppOpticsProperties properties;
 
 	public AppOpticsMetricsExportAutoConfiguration(AppOpticsProperties properties) {
 		this.properties = properties;
-	}
-
-	@Bean
-	@ConditionalOnMissingBean
-	public AppOpticsConfig appOpticsConfig() {
-		return new AppOpticsPropertiesConfigAdapter(this.properties);
 	}
 
 	@Bean
