@@ -18,7 +18,6 @@ package org.springframework.boot.actuate.startup;
 
 import org.springframework.boot.SpringBootVersion;
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
-import org.springframework.boot.actuate.endpoint.annotation.WriteOperation;
 import org.springframework.boot.context.metrics.buffering.BufferingApplicationStartup;
 import org.springframework.boot.context.metrics.buffering.StartupTimeline;
 
@@ -33,7 +32,7 @@ import org.springframework.boot.context.metrics.buffering.StartupTimeline;
 @Endpoint(id = "startup")
 public class StartupEndpoint {
 
-	private final BufferingApplicationStartup applicationStartup;
+	public final BufferingApplicationStartup applicationStartup;
 
 	/**
 	 * Creates a new {@code StartupEndpoint} that will describe the timeline of buffered
@@ -42,12 +41,6 @@ public class StartupEndpoint {
 	 */
 	public StartupEndpoint(BufferingApplicationStartup applicationStartup) {
 		this.applicationStartup = applicationStartup;
-	}
-
-	@WriteOperation
-	public StartupResponse startup() {
-		StartupTimeline startupTimeline = this.applicationStartup.drainBufferedTimeline();
-		return new StartupResponse(startupTimeline);
 	}
 
 	/**

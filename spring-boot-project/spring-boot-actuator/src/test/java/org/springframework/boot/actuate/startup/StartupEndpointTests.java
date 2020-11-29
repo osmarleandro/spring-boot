@@ -40,7 +40,7 @@ class StartupEndpointTests {
 				.withInitializer((context) -> context.setApplicationStartup(applicationStartup))
 				.withUserConfiguration(EndpointConfiguration.class);
 		contextRunner.run((context) -> {
-			StartupEndpoint.StartupResponse startup = context.getBean(StartupEndpoint.class).startup();
+			StartupEndpoint.StartupResponse startup = context.getBean(StartupEndpoint.class).applicationStartup.startup(context.getBean(StartupEndpoint.class));
 			assertThat(startup.getSpringBootVersion()).isEqualTo(SpringBootVersion.getVersion());
 			assertThat(startup.getTimeline().getStartTime())
 					.isEqualTo(applicationStartup.getBufferedTimeline().getStartTime());
@@ -54,7 +54,7 @@ class StartupEndpointTests {
 				.withInitializer((context) -> context.setApplicationStartup(applicationStartup))
 				.withUserConfiguration(EndpointConfiguration.class);
 		contextRunner.run((context) -> {
-			StartupEndpoint.StartupResponse startup = context.getBean(StartupEndpoint.class).startup();
+			StartupEndpoint.StartupResponse startup = context.getBean(StartupEndpoint.class).applicationStartup.startup(context.getBean(StartupEndpoint.class));
 			assertThat(startup.getTimeline().getEvents()).isNotEmpty();
 			assertThat(applicationStartup.getBufferedTimeline().getEvents()).isEmpty();
 		});

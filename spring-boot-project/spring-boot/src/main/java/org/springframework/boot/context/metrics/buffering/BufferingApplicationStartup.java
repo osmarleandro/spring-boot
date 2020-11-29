@@ -25,6 +25,9 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.function.Predicate;
 
+import org.springframework.boot.actuate.endpoint.annotation.WriteOperation;
+import org.springframework.boot.actuate.startup.StartupEndpoint;
+import org.springframework.boot.actuate.startup.StartupEndpoint.StartupResponse;
 import org.springframework.core.metrics.ApplicationStartup;
 import org.springframework.core.metrics.StartupStep;
 import org.springframework.util.Assert;
@@ -140,6 +143,12 @@ public class BufferingApplicationStartup implements ApplicationStartup {
 
 	private long getCurrentTime() {
 		return System.nanoTime();
+	}
+
+	@WriteOperation
+	public StartupResponse startup(StartupEndpoint startupEndpoint) {
+		StartupTimeline startupTimeline = drainBufferedTimeline();
+		return new StartupResponse(startupTimeline);
 	}
 
 }
