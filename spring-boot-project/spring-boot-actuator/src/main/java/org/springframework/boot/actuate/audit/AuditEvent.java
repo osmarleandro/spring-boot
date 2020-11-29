@@ -25,6 +25,8 @@ import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
+import org.springframework.boot.actuate.audit.listener.AuditApplicationEvent;
+import org.springframework.boot.actuate.security.AbstractAuthorizationAuditListener;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.ApplicationEventPublisherAware;
 import org.springframework.util.Assert;
@@ -142,6 +144,12 @@ public class AuditEvent implements Serializable {
 	public String toString() {
 		return "AuditEvent [timestamp=" + this.timestamp + ", principal=" + this.principal + ", type=" + this.type
 				+ ", data=" + this.data + "]";
+	}
+
+	public void publish(AbstractAuthorizationAuditListener abstractAuthorizationAuditListener) {
+		if (abstractAuthorizationAuditListener.getPublisher() != null) {
+			abstractAuthorizationAuditListener.getPublisher().publishEvent(new AuditApplicationEvent(this));
+		}
 	}
 
 }
