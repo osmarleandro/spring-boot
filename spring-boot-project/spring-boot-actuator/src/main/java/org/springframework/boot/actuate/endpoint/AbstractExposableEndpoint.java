@@ -32,7 +32,7 @@ import org.springframework.util.Assert;
  */
 public abstract class AbstractExposableEndpoint<O extends Operation> implements ExposableEndpoint<O> {
 
-	private final EndpointId id;
+	final EndpointId id;
 
 	private boolean enabledByDefault;
 
@@ -54,7 +54,7 @@ public abstract class AbstractExposableEndpoint<O extends Operation> implements 
 
 	@Override
 	public EndpointId getEndpointId() {
-		return this.id;
+		return id.getEndpointId(this);
 	}
 
 	@Override

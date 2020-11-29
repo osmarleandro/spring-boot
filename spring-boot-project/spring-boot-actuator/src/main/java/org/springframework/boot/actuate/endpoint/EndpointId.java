@@ -106,6 +106,10 @@ public final class EndpointId {
 		return this.value;
 	}
 
+	public EndpointId getEndpointId(AbstractExposableEndpoint abstractExposableEndpoint) {
+		return abstractExposableEndpoint.id;
+	}
+
 	/**
 	 * Factory method to create a new {@link EndpointId} of the specified value.
 	 * @param value the endpoint ID value
