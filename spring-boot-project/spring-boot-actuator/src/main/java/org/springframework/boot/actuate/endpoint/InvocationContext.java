@@ -20,6 +20,9 @@ import java.util.Map;
 
 import org.springframework.boot.actuate.endpoint.http.ApiVersion;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvoker;
+import org.springframework.boot.actuate.endpoint.invoker.cache.CachingOperationInvoker;
+import org.springframework.boot.actuate.endpoint.invoker.cache.CachingOperationInvoker.CacheKey;
+import org.springframework.boot.actuate.endpoint.invoker.cache.CachingOperationInvoker.CachedResponse;
 import org.springframework.util.Assert;
 
 /**
@@ -86,6 +89,22 @@ public class InvocationContext {
 	 */
 	public Map<String, Object> getArguments() {
 		return this.arguments;
+	}
+
+	public Object invoke(CachingOperationInvoker cachingOperationInvoker) {
+		if (cachingOperationInvoker.hasInput(this)) {
+			return cachingOperationInvoker.invoker.invoke(this);
+		}
+		long accessTime = System.currentTimeMillis();
+		ApiVersion contextApiVersion = getApiVersion();
+		CacheKey cacheKey = new CacheKey(contextApiVersion, getSecurityContext().getPrincipal());
+		CachedResponse cached = cachingOperationInvoker.cachedResponses.get(cacheKey);
+		if (cached == null || cached.isStale(accessTime, cachingOperationInvoker.timeToLive)) {
+			Object response = cachingOperationInvoker.invoker.invoke(this);
+			cached = cachingOperationInvoker.createCachedResponse(response, accessTime);
+			cachingOperationInvoker.cachedResponses.put(cacheKey, cached);
+		}
+		return cached.getResponse();
 	}
 
 }

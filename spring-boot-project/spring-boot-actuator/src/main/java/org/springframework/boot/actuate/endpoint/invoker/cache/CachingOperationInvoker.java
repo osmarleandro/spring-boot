@@ -45,11 +45,11 @@ public class CachingOperationInvoker implements OperationInvoker {
 
 	private static final boolean IS_REACTOR_PRESENT = ClassUtils.isPresent("reactor.core.publisher.Mono", null);
 
-	private final OperationInvoker invoker;
+	public final OperationInvoker invoker;
 
-	private final long timeToLive;
+	public final long timeToLive;
 
-	private final Map<CacheKey, CachedResponse> cachedResponses;
+	public final Map<CacheKey, CachedResponse> cachedResponses;
 
 	/**
 	 * Create a new instance with the target {@link OperationInvoker} to use to compute
@@ -74,22 +74,10 @@ public class CachingOperationInvoker implements OperationInvoker {
 
 	@Override
 	public Object invoke(InvocationContext context) {
-		if (hasInput(context)) {
-			return this.invoker.invoke(context);
-		}
-		long accessTime = System.currentTimeMillis();
-		ApiVersion contextApiVersion = context.getApiVersion();
-		CacheKey cacheKey = new CacheKey(contextApiVersion, context.getSecurityContext().getPrincipal());
-		CachedResponse cached = this.cachedResponses.get(cacheKey);
-		if (cached == null || cached.isStale(accessTime, this.timeToLive)) {
-			Object response = this.invoker.invoke(context);
-			cached = createCachedResponse(response, accessTime);
-			this.cachedResponses.put(cacheKey, cached);
-		}
-		return cached.getResponse();
+		return context.invoke(this);
 	}
 
-	private boolean hasInput(InvocationContext context) {
+	public boolean hasInput(InvocationContext context) {
 		Map<String, Object> arguments = context.getArguments();
 		if (!ObjectUtils.isEmpty(arguments)) {
 			return arguments.values().stream().anyMatch(Objects::nonNull);
@@ -97,7 +85,7 @@ public class CachingOperationInvoker implements OperationInvoker {
 		return false;
 	}
 
-	private CachedResponse createCachedResponse(Object response, long accessTime) {
+	public CachedResponse createCachedResponse(Object response, long accessTime) {
 		if (IS_REACTOR_PRESENT) {
 			return new ReactiveCachedResponse(response, accessTime, this.timeToLive);
 		}
@@ -124,7 +112,7 @@ public class CachingOperationInvoker implements OperationInvoker {
 	 * A cached response that encapsulates the response itself and the time at which it
 	 * was created.
 	 */
-	static class CachedResponse {
+	public static class CachedResponse {
 
 		private final Object response;
 
@@ -135,11 +123,11 @@ public class CachingOperationInvoker implements OperationInvoker {
 			this.creationTime = creationTime;
 		}
 
-		boolean isStale(long accessTime, long timeToLive) {
+		public boolean isStale(long accessTime, long timeToLive) {
 			return (accessTime - this.creationTime) >= timeToLive;
 		}
 
-		Object getResponse() {
+		public Object getResponse() {
 			return this.response;
 		}
 
@@ -166,7 +154,7 @@ public class CachingOperationInvoker implements OperationInvoker {
 
 	}
 
-	private static final class CacheKey {
+	public static final class CacheKey {
 
 		private final ApiVersion apiVersion;
 
