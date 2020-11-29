@@ -79,26 +79,10 @@ public class ReflectiveOperationInvoker implements OperationInvoker {
 
 	private void validateRequiredParameters(InvocationContext context) {
 		Set<OperationParameter> missing = this.operationMethod.getParameters().stream()
-				.filter((parameter) -> isMissing(context, parameter)).collect(Collectors.toSet());
+				.filter((parameter) -> context.isMissing(parameter)).collect(Collectors.toSet());
 		if (!missing.isEmpty()) {
 			throw new MissingParametersException(missing);
 		}
-	}
-
-	private boolean isMissing(InvocationContext context, OperationParameter parameter) {
-		if (!parameter.isMandatory()) {
-			return false;
-		}
-		if (ApiVersion.class.equals(parameter.getType())) {
-			return false;
-		}
-		if (Principal.class.equals(parameter.getType())) {
-			return context.getSecurityContext().getPrincipal() == null;
-		}
-		if (SecurityContext.class.equals(parameter.getType())) {
-			return false;
-		}
-		return context.getArguments().get(parameter.getName()) == null;
 	}
 
 	private Object[] resolveArguments(InvocationContext context) {

@@ -16,10 +16,12 @@
 
 package org.springframework.boot.actuate.endpoint;
 
+import java.security.Principal;
 import java.util.Map;
 
 import org.springframework.boot.actuate.endpoint.http.ApiVersion;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvoker;
+import org.springframework.boot.actuate.endpoint.invoke.OperationParameter;
 import org.springframework.util.Assert;
 
 /**
@@ -86,6 +88,22 @@ public class InvocationContext {
 	 */
 	public Map<String, Object> getArguments() {
 		return this.arguments;
+	}
+
+	public boolean isMissing(OperationParameter parameter) {
+		if (!parameter.isMandatory()) {
+			return false;
+		}
+		if (ApiVersion.class.equals(parameter.getType())) {
+			return false;
+		}
+		if (Principal.class.equals(parameter.getType())) {
+			return getSecurityContext().getPrincipal() == null;
+		}
+		if (SecurityContext.class.equals(parameter.getType())) {
+			return false;
+		}
+		return getArguments().get(parameter.getName()) == null;
 	}
 
 }
