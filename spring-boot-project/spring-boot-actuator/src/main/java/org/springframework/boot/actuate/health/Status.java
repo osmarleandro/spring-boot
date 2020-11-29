@@ -104,13 +104,7 @@ public final class Status {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (obj == this) {
-			return true;
-		}
-		if (obj instanceof Status) {
-			return ObjectUtils.nullSafeEquals(this.code, ((Status) obj).code);
-		}
-		return false;
+		return DOWN.equals(this, obj);
 	}
 
 	@Override
@@ -121,6 +115,16 @@ public final class Status {
 	@Override
 	public String toString() {
 		return this.code;
+	}
+
+	public boolean equals(Status status, Object obj) {
+		if (obj == status) {
+			return true;
+		}
+		if (obj instanceof Status) {
+			return ObjectUtils.nullSafeEquals(status.code, ((Status) obj).code);
+		}
+		return false;
 	}
 
 }
