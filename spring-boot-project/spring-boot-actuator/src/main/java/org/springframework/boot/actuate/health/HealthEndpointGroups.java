@@ -19,6 +19,7 @@ package org.springframework.boot.actuate.health;
 import java.util.Map;
 import java.util.Set;
 
+import org.springframework.boot.actuate.autoconfigure.availability.AvailabilityProbesHealthEndpointGroups;
 import org.springframework.util.Assert;
 
 /**
@@ -47,6 +48,14 @@ public interface HealthEndpointGroups {
 	 * @return the {@link HealthEndpointGroup} or {@code null}
 	 */
 	HealthEndpointGroup get(String name);
+
+	default HealthEndpointGroup get(AvailabilityProbesHealthEndpointGroups availabilityProbesHealthEndpointGroups, String name) {
+		HealthEndpointGroup group = get(name);
+		if (group == null) {
+			group = AvailabilityProbesHealthEndpointGroups.GROUPS.get(name);
+		}
+		return group;
+	}
 
 	/**
 	 * Factory method to create a {@link HealthEndpointGroups} instance.
