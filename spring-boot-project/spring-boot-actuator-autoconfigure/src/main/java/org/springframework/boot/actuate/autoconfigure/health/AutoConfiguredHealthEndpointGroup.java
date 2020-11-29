@@ -36,11 +36,11 @@ import org.springframework.util.CollectionUtils;
  * @author Phillip Webb
  * @author Andy Wilkinson
  */
-class AutoConfiguredHealthEndpointGroup implements HealthEndpointGroup {
+public class AutoConfiguredHealthEndpointGroup implements HealthEndpointGroup {
 
 	private final Predicate<String> members;
 
-	private final StatusAggregator statusAggregator;
+	public final StatusAggregator statusAggregator;
 
 	private final HttpCodeStatusMapper httpCodeStatusMapper;
 
@@ -133,7 +133,7 @@ class AutoConfiguredHealthEndpointGroup implements HealthEndpointGroup {
 
 	@Override
 	public StatusAggregator getStatusAggregator() {
-		return this.statusAggregator;
+		return httpCodeStatusMapper.getStatusAggregator(this);
 	}
 
 	@Override

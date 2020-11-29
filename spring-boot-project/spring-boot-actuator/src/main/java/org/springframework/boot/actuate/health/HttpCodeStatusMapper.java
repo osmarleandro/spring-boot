@@ -16,6 +16,8 @@
 
 package org.springframework.boot.actuate.health;
 
+import org.springframework.boot.actuate.autoconfigure.health.AutoConfiguredHealthEndpointGroup;
+
 /**
  * Strategy used to map a {@link Status health status} to an HTTP status code.
  *
@@ -39,5 +41,9 @@ public interface HttpCodeStatusMapper {
 	 * @return the corresponding HTTP status code
 	 */
 	int getStatusCode(Status status);
+
+	default StatusAggregator getStatusAggregator(AutoConfiguredHealthEndpointGroup autoConfiguredHealthEndpointGroup) {
+		return autoConfiguredHealthEndpointGroup.statusAggregator;
+	}
 
 }
