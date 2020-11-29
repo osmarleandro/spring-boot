@@ -29,27 +29,23 @@ import org.springframework.boot.actuate.autoconfigure.cloudfoundry.CloudFoundryA
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.SecurityResponse;
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.Token;
 import org.springframework.boot.actuate.endpoint.EndpointId;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.HttpStatus;
-import org.springframework.util.StringUtils;
-import org.springframework.web.cors.CorsUtils;
 
 /**
  * Security interceptor to validate the cloud foundry token.
  *
  * @author Madhura Bhave
  */
-class CloudFoundrySecurityInterceptor {
+public class CloudFoundrySecurityInterceptor {
 
-	private static final Log logger = LogFactory.getLog(CloudFoundrySecurityInterceptor.class);
+	public static final Log logger = LogFactory.getLog(CloudFoundrySecurityInterceptor.class);
 
 	private final TokenValidator tokenValidator;
 
-	private final CloudFoundrySecurityService cloudFoundrySecurityService;
+	public final CloudFoundrySecurityService cloudFoundrySecurityService;
 
-	private final String applicationId;
+	public final String applicationId;
 
-	private static final SecurityResponse SUCCESS = SecurityResponse.success();
+	public static final SecurityResponse SUCCESS = SecurityResponse.success();
 
 	CloudFoundrySecurityInterceptor(TokenValidator tokenValidator,
 			CloudFoundrySecurityService cloudFoundrySecurityService, String applicationId) {
@@ -59,36 +55,10 @@ class CloudFoundrySecurityInterceptor {
 	}
 
 	SecurityResponse preHandle(HttpServletRequest request, EndpointId endpointId) {
-		if (CorsUtils.isPreFlightRequest(request)) {
-			return SecurityResponse.success();
-		}
-		try {
-			if (!StringUtils.hasText(this.applicationId)) {
-				throw new CloudFoundryAuthorizationException(Reason.SERVICE_UNAVAILABLE,
-						"Application id is not available");
-			}
-			if (this.cloudFoundrySecurityService == null) {
-				throw new CloudFoundryAuthorizationException(Reason.SERVICE_UNAVAILABLE,
-						"Cloud controller URL is not available");
-			}
-			if (HttpMethod.OPTIONS.matches(request.getMethod())) {
-				return SUCCESS;
-			}
-			check(request, endpointId);
-		}
-		catch (Exception ex) {
-			logger.error(ex);
-			if (ex instanceof CloudFoundryAuthorizationException) {
-				CloudFoundryAuthorizationException cfException = (CloudFoundryAuthorizationException) ex;
-				return new SecurityResponse(cfException.getStatusCode(),
-						"{\"security_error\":\"" + cfException.getMessage() + "\"}");
-			}
-			return new SecurityResponse(HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage());
-		}
-		return SecurityResponse.success();
+		return endpointId.preHandle(request, this);
 	}
 
-	private void check(HttpServletRequest request, EndpointId endpointId) throws Exception {
+	public void check(HttpServletRequest request, EndpointId endpointId) throws Exception {
 		Token token = getToken(request);
 		this.tokenValidator.validate(token);
 		AccessLevel accessLevel = this.cloudFoundrySecurityService.getAccessLevel(token.toString(), this.applicationId);

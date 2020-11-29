@@ -21,11 +21,20 @@ import java.util.Locale;
 import java.util.Set;
 import java.util.regex.Pattern;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
+import org.springframework.boot.actuate.autoconfigure.cloudfoundry.CloudFoundryAuthorizationException;
+import org.springframework.boot.actuate.autoconfigure.cloudfoundry.CloudFoundryAuthorizationException.Reason;
+import org.springframework.boot.actuate.autoconfigure.cloudfoundry.SecurityResponse;
+import org.springframework.boot.actuate.autoconfigure.cloudfoundry.servlet.CloudFoundrySecurityInterceptor;
 import org.springframework.core.env.Environment;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
 import org.springframework.util.Assert;
+import org.springframework.util.StringUtils;
+import org.springframework.web.cors.CorsUtils;
 
 /**
  * An identifier for an actuator endpoint. Endpoint IDs may contain only letters and
@@ -104,6 +113,36 @@ public final class EndpointId {
 	@Override
 	public String toString() {
 		return this.value;
+	}
+
+	public SecurityResponse preHandle(HttpServletRequest request, CloudFoundrySecurityInterceptor cloudFoundrySecurityInterceptor) {
+		if (CorsUtils.isPreFlightRequest(request)) {
+			return SecurityResponse.success();
+		}
+		try {
+			if (!StringUtils.hasText(cloudFoundrySecurityInterceptor.applicationId)) {
+				throw new CloudFoundryAuthorizationException(Reason.SERVICE_UNAVAILABLE,
+						"Application id is not available");
+			}
+			if (cloudFoundrySecurityInterceptor.cloudFoundrySecurityService == null) {
+				throw new CloudFoundryAuthorizationException(Reason.SERVICE_UNAVAILABLE,
+						"Cloud controller URL is not available");
+			}
+			if (HttpMethod.OPTIONS.matches(request.getMethod())) {
+				return CloudFoundrySecurityInterceptor.SUCCESS;
+			}
+			cloudFoundrySecurityInterceptor.check(request, this);
+		}
+		catch (Exception ex) {
+			CloudFoundrySecurityInterceptor.logger.error(ex);
+			if (ex instanceof CloudFoundryAuthorizationException) {
+				CloudFoundryAuthorizationException cfException = (CloudFoundryAuthorizationException) ex;
+				return new SecurityResponse(cfException.getStatusCode(),
+						"{\"security_error\":\"" + cfException.getMessage() + "\"}");
+			}
+			return new SecurityResponse(HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage());
+		}
+		return SecurityResponse.success();
 	}
 
 	/**
