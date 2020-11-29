@@ -38,7 +38,7 @@ public abstract class AbstractDiscoveredEndpoint<O extends Operation> extends Ab
 
 	private final EndpointDiscoverer<?, ?> discoverer;
 
-	private final Object endpointBean;
+	final Object endpointBean;
 
 	/**
 	 * Create a new {@link AbstractDiscoveredEndpoint} instance.
@@ -59,7 +59,7 @@ public abstract class AbstractDiscoveredEndpoint<O extends Operation> extends Ab
 
 	@Override
 	public Object getEndpointBean() {
-		return this.endpointBean;
+		return discoverer.getEndpointBean(this);
 	}
 
 	@Override

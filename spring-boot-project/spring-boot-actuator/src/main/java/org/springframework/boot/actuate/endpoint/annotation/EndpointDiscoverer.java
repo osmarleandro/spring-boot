@@ -366,6 +366,10 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 	 */
 	protected abstract OperationKey createOperationKey(O operation);
 
+	public Object getEndpointBean(AbstractDiscoveredEndpoint abstractDiscoveredEndpoint) {
+		return abstractDiscoveredEndpoint.endpointBean;
+	}
+
 	/**
 	 * A key generated for an {@link Operation} based on specific criteria from the actual
 	 * operation implementation.
