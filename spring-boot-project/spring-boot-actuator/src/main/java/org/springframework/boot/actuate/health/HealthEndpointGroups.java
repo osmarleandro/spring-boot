@@ -16,9 +16,16 @@
 
 package org.springframework.boot.actuate.health;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.BDDMockito.given;
+
+import java.util.Collections;
 import java.util.Map;
 import java.util.Set;
 
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.actuate.autoconfigure.availability.AvailabilityProbesHealthEndpointGroups;
+import org.springframework.boot.actuate.autoconfigure.availability.AvailabilityProbesHealthEndpointGroupsTests;
 import org.springframework.util.Assert;
 
 /**
@@ -47,6 +54,14 @@ public interface HealthEndpointGroups {
 	 * @return the {@link HealthEndpointGroup} or {@code null}
 	 */
 	HealthEndpointGroup get(String name);
+
+	@Test
+	default
+	void getNamesIncludesAvailabilityProbeGroups(AvailabilityProbesHealthEndpointGroupsTests availabilityProbesHealthEndpointGroupsTests) {
+		given(getNames()).willReturn(Collections.singleton("test"));
+		HealthEndpointGroups availabilityProbes = new AvailabilityProbesHealthEndpointGroups(this);
+		assertThat(availabilityProbes.getNames()).containsExactly("test", "liveness", "readiness");
+	}
 
 	/**
 	 * Factory method to create a {@link HealthEndpointGroups} instance.

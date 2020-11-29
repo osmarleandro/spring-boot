@@ -17,7 +17,6 @@
 package org.springframework.boot.actuate.autoconfigure.availability;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.LinkedHashSet;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -36,9 +35,9 @@ import static org.mockito.Mockito.mock;
  *
  * @author Phillip Webb
  */
-class AvailabilityProbesHealthEndpointGroupsTests {
+public class AvailabilityProbesHealthEndpointGroupsTests {
 
-	private HealthEndpointGroups delegate;
+	public HealthEndpointGroups delegate;
 
 	private HealthEndpointGroup group;
 
@@ -59,13 +58,6 @@ class AvailabilityProbesHealthEndpointGroupsTests {
 		given(this.delegate.getPrimary()).willReturn(this.group);
 		HealthEndpointGroups availabilityProbes = new AvailabilityProbesHealthEndpointGroups(this.delegate);
 		assertThat(availabilityProbes.getPrimary()).isEqualTo(this.group);
-	}
-
-	@Test
-	void getNamesIncludesAvailabilityProbeGroups() {
-		given(this.delegate.getNames()).willReturn(Collections.singleton("test"));
-		HealthEndpointGroups availabilityProbes = new AvailabilityProbesHealthEndpointGroups(this.delegate);
-		assertThat(availabilityProbes.getNames()).containsExactly("test", "liveness", "readiness");
 	}
 
 	@Test
