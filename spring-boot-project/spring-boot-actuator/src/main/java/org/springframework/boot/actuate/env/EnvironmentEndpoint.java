@@ -31,11 +31,14 @@ import org.springframework.boot.actuate.endpoint.Sanitizer;
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
 import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
 import org.springframework.boot.actuate.endpoint.annotation.Selector;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.bind.PlaceholdersResolver;
 import org.springframework.boot.context.properties.bind.PropertySourcesPlaceholdersResolver;
 import org.springframework.boot.context.properties.source.ConfigurationPropertySources;
 import org.springframework.boot.origin.Origin;
 import org.springframework.boot.origin.OriginLookup;
+import org.springframework.context.annotation.Bean;
 import org.springframework.core.env.CompositePropertySource;
 import org.springframework.core.env.ConfigurableEnvironment;
 import org.springframework.core.env.EnumerablePropertySource;
@@ -180,6 +183,13 @@ public class EnvironmentEndpoint {
 
 	public Object sanitize(String name, Object object) {
 		return this.sanitizer.sanitize(name, object);
+	}
+
+	@Bean
+	@ConditionalOnMissingBean
+	@ConditionalOnBean(EnvironmentEndpoint.class)
+	public EnvironmentEndpointWebExtension environmentEndpointWebExtension() {
+		return new EnvironmentEndpointWebExtension(this);
 	}
 
 	/**

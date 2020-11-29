@@ -18,9 +18,7 @@ package org.springframework.boot.actuate.autoconfigure.env;
 
 import org.springframework.boot.actuate.autoconfigure.endpoint.condition.ConditionalOnAvailableEndpoint;
 import org.springframework.boot.actuate.env.EnvironmentEndpoint;
-import org.springframework.boot.actuate.env.EnvironmentEndpointWebExtension;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -48,13 +46,6 @@ public class EnvironmentEndpointAutoConfiguration {
 			endpoint.setKeysToSanitize(keysToSanitize);
 		}
 		return endpoint;
-	}
-
-	@Bean
-	@ConditionalOnMissingBean
-	@ConditionalOnBean(EnvironmentEndpoint.class)
-	public EnvironmentEndpointWebExtension environmentEndpointWebExtension(EnvironmentEndpoint environmentEndpoint) {
-		return new EnvironmentEndpointWebExtension(environmentEndpoint);
 	}
 
 }
