@@ -106,7 +106,7 @@ public abstract class ManagementWebServerFactoryCustomizer<T extends Configurabl
 			factory.setSsl(ssl);
 		}
 		factory.setServerHeader(serverProperties.getServerHeader());
-		factory.setAddress(managementServerProperties.getAddress());
+		factory.setAddress(managementServerProperties.getServlet().getAddress(this));
 	}
 
 }

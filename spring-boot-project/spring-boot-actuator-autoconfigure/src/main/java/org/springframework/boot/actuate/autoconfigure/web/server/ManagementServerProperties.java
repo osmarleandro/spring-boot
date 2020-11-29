@@ -74,10 +74,6 @@ public class ManagementServerProperties {
 		this.port = port;
 	}
 
-	public InetAddress getAddress() {
-		return this.address;
-	}
-
 	public void setAddress(InetAddress address) {
 		this.address = address;
 	}
@@ -124,6 +120,10 @@ public class ManagementServerProperties {
 				return contextPath.substring(0, contextPath.length() - 1);
 			}
 			return contextPath;
+		}
+
+		public InetAddress getAddress(ManagementServerProperties managementServerProperties) {
+			return managementServerProperties.address;
 		}
 
 	}
