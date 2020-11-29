@@ -94,15 +94,7 @@ public class DataSourceHealthContributorAutoConfiguration extends
 		return createContributor(dataSources);
 	}
 
-	@Override
-	protected AbstractHealthIndicator createIndicator(DataSource source) {
-		if (source instanceof AbstractRoutingDataSource) {
-			return new RoutingDataSourceHealthIndicator();
-		}
-		return new DataSourceHealthIndicator(source, getValidationQuery(source));
-	}
-
-	private String getValidationQuery(DataSource source) {
+	public String getValidationQuery(DataSource source) {
 		DataSourcePoolMetadata poolMetadata = this.poolMetadataProvider.getDataSourcePoolMetadata(source);
 		return (poolMetadata != null) ? poolMetadata.getValidationQuery() : null;
 	}
@@ -111,7 +103,7 @@ public class DataSourceHealthContributorAutoConfiguration extends
 	 * {@link HealthIndicator} used for {@link AbstractRoutingDataSource} beans where we
 	 * can't actually query for the status.
 	 */
-	static class RoutingDataSourceHealthIndicator extends AbstractHealthIndicator {
+	public static class RoutingDataSourceHealthIndicator extends AbstractHealthIndicator {
 
 		@Override
 		protected void doHealthCheck(Builder builder) throws Exception {

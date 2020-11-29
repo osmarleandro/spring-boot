@@ -18,6 +18,12 @@ package org.springframework.boot.jdbc.metadata;
 
 import javax.sql.DataSource;
 
+import org.springframework.boot.actuate.autoconfigure.jdbc.DataSourceHealthContributorAutoConfiguration;
+import org.springframework.boot.actuate.autoconfigure.jdbc.DataSourceHealthContributorAutoConfiguration.RoutingDataSourceHealthIndicator;
+import org.springframework.boot.actuate.health.AbstractHealthIndicator;
+import org.springframework.boot.actuate.jdbc.DataSourceHealthIndicator;
+import org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource;
+
 /**
  * Provide a {@link DataSourcePoolMetadata} based on a {@link DataSource}.
  *
@@ -34,5 +40,12 @@ public interface DataSourcePoolMetadataProvider {
 	 * @return the data source pool metadata
 	 */
 	DataSourcePoolMetadata getDataSourcePoolMetadata(DataSource dataSource);
+
+	public default AbstractHealthIndicator createIndicator(DataSourceHealthContributorAutoConfiguration dataSourceHealthContributorAutoConfiguration, DataSource source) {
+		if (source instanceof AbstractRoutingDataSource) {
+			return new RoutingDataSourceHealthIndicator();
+		}
+		return new DataSourceHealthIndicator(source, dataSourceHealthContributorAutoConfiguration.getValidationQuery(source));
+	}
 
 }
