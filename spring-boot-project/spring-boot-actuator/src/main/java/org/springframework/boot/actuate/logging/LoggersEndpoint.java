@@ -17,7 +17,6 @@
 package org.springframework.boot.actuate.logging;
 
 import java.util.Collection;
-import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -48,9 +47,9 @@ import org.springframework.util.Assert;
 @Endpoint(id = "loggers")
 public class LoggersEndpoint {
 
-	private final LoggingSystem loggingSystem;
+	public final LoggingSystem loggingSystem;
 
-	private final LoggerGroups loggerGroups;
+	public final LoggerGroups loggerGroups;
 
 	/**
 	 * Create a new {@link LoggersEndpoint} instance.
@@ -64,20 +63,7 @@ public class LoggersEndpoint {
 		this.loggerGroups = loggerGroups;
 	}
 
-	@ReadOperation
-	public Map<String, Object> loggers() {
-		Collection<LoggerConfiguration> configurations = this.loggingSystem.getLoggerConfigurations();
-		if (configurations == null) {
-			return Collections.emptyMap();
-		}
-		Map<String, Object> result = new LinkedHashMap<>();
-		result.put("levels", getLevels());
-		result.put("loggers", getLoggers(configurations));
-		result.put("groups", getGroups());
-		return result;
-	}
-
-	private Map<String, LoggerLevels> getGroups() {
+	public Map<String, LoggerLevels> getGroups() {
 		Map<String, LoggerLevels> groups = new LinkedHashMap<>();
 		this.loggerGroups.forEach((group) -> groups.put(group.getName(),
 				new GroupLoggerLevels(group.getConfiguredLevel(), group.getMembers())));
@@ -106,12 +92,12 @@ public class LoggersEndpoint {
 		this.loggingSystem.setLogLevel(name, configuredLevel);
 	}
 
-	private NavigableSet<LogLevel> getLevels() {
+	public NavigableSet<LogLevel> getLevels() {
 		Set<LogLevel> levels = this.loggingSystem.getSupportedLogLevels();
 		return new TreeSet<>(levels).descendingSet();
 	}
 
-	private Map<String, LoggerLevels> getLoggers(Collection<LoggerConfiguration> configurations) {
+	public Map<String, LoggerLevels> getLoggers(Collection<LoggerConfiguration> configurations) {
 		Map<String, LoggerLevels> loggers = new LinkedHashMap<>(configurations.size());
 		for (LoggerConfiguration configuration : configurations) {
 			loggers.put(configuration.getName(), new SingleLoggerLevels(configuration));

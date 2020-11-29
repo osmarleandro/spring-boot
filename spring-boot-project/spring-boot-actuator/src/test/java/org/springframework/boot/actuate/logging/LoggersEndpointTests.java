@@ -66,7 +66,7 @@ class LoggersEndpointTests {
 		given(this.loggingSystem.getLoggerConfigurations())
 				.willReturn(Collections.singletonList(new LoggerConfiguration("ROOT", null, LogLevel.DEBUG)));
 		given(this.loggingSystem.getSupportedLogLevels()).willReturn(EnumSet.allOf(LogLevel.class));
-		Map<String, Object> result = new LoggersEndpoint(this.loggingSystem, new LoggerGroups()).loggers();
+		Map<String, Object> result = new LoggersEndpoint(this.loggingSystem, new LoggerGroups()).loggerGroups.loggers(new LoggersEndpoint(this.loggingSystem, new LoggerGroups()));
 		Map<String, LoggerLevels> loggers = (Map<String, LoggerLevels>) result.get("loggers");
 		Set<LogLevel> levels = (Set<LogLevel>) result.get("levels");
 		SingleLoggerLevels rootLevels = (SingleLoggerLevels) loggers.get("ROOT");
@@ -84,7 +84,7 @@ class LoggersEndpointTests {
 		given(this.loggingSystem.getLoggerConfigurations())
 				.willReturn(Collections.singletonList(new LoggerConfiguration("ROOT", null, LogLevel.DEBUG)));
 		given(this.loggingSystem.getSupportedLogLevels()).willReturn(EnumSet.allOf(LogLevel.class));
-		Map<String, Object> result = new LoggersEndpoint(this.loggingSystem, this.loggerGroups).loggers();
+		Map<String, Object> result = new LoggersEndpoint(this.loggingSystem, this.loggerGroups).loggerGroups.loggers(new LoggersEndpoint(this.loggingSystem, this.loggerGroups));
 		Map<String, GroupLoggerLevels> loggerGroups = (Map<String, GroupLoggerLevels>) result.get("groups");
 		GroupLoggerLevels groupLevel = loggerGroups.get("test");
 		Map<String, LoggerLevels> loggers = (Map<String, LoggerLevels>) result.get("loggers");
