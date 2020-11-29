@@ -67,16 +67,11 @@ public class WebEndpointAutoConfiguration {
 
 	private final ApplicationContext applicationContext;
 
-	private final WebEndpointProperties properties;
+	final WebEndpointProperties properties;
 
 	public WebEndpointAutoConfiguration(ApplicationContext applicationContext, WebEndpointProperties properties) {
 		this.applicationContext = applicationContext;
 		this.properties = properties;
-	}
-
-	@Bean
-	public PathMapper webEndpointPathMapper() {
-		return new MappingWebEndpointPathMapper(this.properties.getPathMapping());
 	}
 
 	@Bean

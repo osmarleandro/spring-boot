@@ -21,7 +21,9 @@ import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
 
+import org.springframework.boot.actuate.endpoint.web.PathMapper;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.Bean;
 import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
 
@@ -70,6 +72,11 @@ public class WebEndpointProperties {
 
 	public Map<String, String> getPathMapping() {
 		return this.pathMapping;
+	}
+
+	@Bean
+	public PathMapper webEndpointPathMapper(WebEndpointAutoConfiguration webEndpointAutoConfiguration) {
+		return new MappingWebEndpointPathMapper(getPathMapping());
 	}
 
 	public static class Exposure {
