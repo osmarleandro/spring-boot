@@ -32,7 +32,7 @@ import org.springframework.util.Assert;
  * @author Phillip Webb
  * @author Brian Clozel
  */
-class AvailabilityProbesHealthEndpointGroups implements HealthEndpointGroups {
+public class AvailabilityProbesHealthEndpointGroups implements HealthEndpointGroups {
 
 	private static final Map<String, AvailabilityProbesHealthEndpointGroup> GROUPS;
 	static {
@@ -44,7 +44,7 @@ class AvailabilityProbesHealthEndpointGroups implements HealthEndpointGroups {
 
 	private final HealthEndpointGroups groups;
 
-	private final Set<String> names;
+	public final Set<String> names;
 
 	AvailabilityProbesHealthEndpointGroups(HealthEndpointGroups groups) {
 		Assert.notNull(groups, "Groups must not be null");
@@ -61,7 +61,7 @@ class AvailabilityProbesHealthEndpointGroups implements HealthEndpointGroups {
 
 	@Override
 	public Set<String> getNames() {
-		return this.names;
+		return groups.getNames(this);
 	}
 
 	@Override
