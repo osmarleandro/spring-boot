@@ -23,8 +23,11 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
+import org.springframework.boot.actuate.context.properties.ConfigurationPropertiesReportEndpoint;
 import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
  * Strategy that should be used by endpoint implementations to sanitize potentially
@@ -136,6 +139,14 @@ public class Sanitizer {
 			return StringUtils.replace(value, ":" + password + "@", ":******@");
 		}
 		return value;
+	}
+
+	public ObjectMapper getObjectMapper(ConfigurationPropertiesReportEndpoint configurationPropertiesReportEndpoint) {
+		if (configurationPropertiesReportEndpoint.objectMapper == null) {
+			configurationPropertiesReportEndpoint.objectMapper = new ObjectMapper();
+			configurationPropertiesReportEndpoint.configureObjectMapper(configurationPropertiesReportEndpoint.objectMapper);
+		}
+		return configurationPropertiesReportEndpoint.objectMapper;
 	}
 
 }

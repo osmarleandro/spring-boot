@@ -96,7 +96,7 @@ public class ConfigurationPropertiesReportEndpoint implements ApplicationContext
 
 	private ApplicationContext context;
 
-	private ObjectMapper objectMapper;
+	public ObjectMapper objectMapper;
 
 	@Override
 	public void setApplicationContext(ApplicationContext context) throws BeansException {
@@ -113,7 +113,7 @@ public class ConfigurationPropertiesReportEndpoint implements ApplicationContext
 	}
 
 	private ApplicationConfigurationProperties extract(ApplicationContext context) {
-		ObjectMapper mapper = getObjectMapper();
+		ObjectMapper mapper = sanitizer.getObjectMapper(this);
 		Map<String, ContextConfigurationProperties> contexts = new HashMap<>();
 		ApplicationContext target = context;
 		while (target != null) {
@@ -123,21 +123,13 @@ public class ConfigurationPropertiesReportEndpoint implements ApplicationContext
 		return new ApplicationConfigurationProperties(contexts);
 	}
 
-	private ObjectMapper getObjectMapper() {
-		if (this.objectMapper == null) {
-			this.objectMapper = new ObjectMapper();
-			configureObjectMapper(this.objectMapper);
-		}
-		return this.objectMapper;
-	}
-
 	/**
 	 * Configure Jackson's {@link ObjectMapper} to be used to serialize the
 	 * {@link ConfigurationProperties @ConfigurationProperties} objects into a {@link Map}
 	 * structure.
 	 * @param mapper the object mapper
 	 */
-	protected void configureObjectMapper(ObjectMapper mapper) {
+	public void configureObjectMapper(ObjectMapper mapper) {
 		mapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
 		mapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
 		mapper.configure(SerializationFeature.WRITE_DURATIONS_AS_TIMESTAMPS, false);
