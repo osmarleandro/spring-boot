@@ -36,9 +36,9 @@ import org.springframework.util.CollectionUtils;
  * @author Phillip Webb
  * @author Andy Wilkinson
  */
-class AutoConfiguredHealthEndpointGroup implements HealthEndpointGroup {
+public class AutoConfiguredHealthEndpointGroup implements HealthEndpointGroup {
 
-	private final Predicate<String> members;
+	public final Predicate<String> members;
 
 	private final StatusAggregator statusAggregator;
 
@@ -72,7 +72,7 @@ class AutoConfiguredHealthEndpointGroup implements HealthEndpointGroup {
 
 	@Override
 	public boolean isMember(String name) {
-		return this.members.test(name);
+		return httpCodeStatusMapper.isMember(this, name);
 	}
 
 	@Override
