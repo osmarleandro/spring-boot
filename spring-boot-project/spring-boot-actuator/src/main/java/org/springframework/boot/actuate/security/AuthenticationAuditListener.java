@@ -64,7 +64,7 @@ public class AuthenticationAuditListener extends AbstractAuthenticationAuditList
 	@Override
 	public void onApplicationEvent(AbstractAuthenticationEvent event) {
 		if (event instanceof AbstractAuthenticationFailureEvent) {
-			onAuthenticationFailureEvent((AbstractAuthenticationFailureEvent) event);
+			webListener.onAuthenticationFailureEvent(this, (AbstractAuthenticationFailureEvent) event);
 		}
 		else if (this.webListener != null && this.webListener.accepts(event)) {
 			this.webListener.process(this, event);
@@ -72,16 +72,6 @@ public class AuthenticationAuditListener extends AbstractAuthenticationAuditList
 		else if (event instanceof AuthenticationSuccessEvent) {
 			onAuthenticationSuccessEvent((AuthenticationSuccessEvent) event);
 		}
-	}
-
-	private void onAuthenticationFailureEvent(AbstractAuthenticationFailureEvent event) {
-		Map<String, Object> data = new HashMap<>();
-		data.put("type", event.getException().getClass().getName());
-		data.put("message", event.getException().getMessage());
-		if (event.getAuthentication().getDetails() != null) {
-			data.put("details", event.getAuthentication().getDetails());
-		}
-		publish(new AuditEvent(event.getAuthentication().getName(), AUTHENTICATION_FAILURE, data));
 	}
 
 	private void onAuthenticationSuccessEvent(AuthenticationSuccessEvent event) {
@@ -111,6 +101,16 @@ public class AuthenticationAuditListener extends AbstractAuthenticationAuditList
 
 		boolean accepts(AbstractAuthenticationEvent event) {
 			return event instanceof AuthenticationSwitchUserEvent;
+		}
+
+		void onAuthenticationFailureEvent(AuthenticationAuditListener authenticationAuditListener, AbstractAuthenticationFailureEvent event) {
+			Map<String, Object> data = new HashMap<>();
+			data.put("type", event.getException().getClass().getName());
+			data.put("message", event.getException().getMessage());
+			if (event.getAuthentication().getDetails() != null) {
+				data.put("details", event.getAuthentication().getDetails());
+			}
+			authenticationAuditListener.publish(new AuditEvent(event.getAuthentication().getName(), AuthenticationAuditListener.AUTHENTICATION_FAILURE, data));
 		}
 
 	}
