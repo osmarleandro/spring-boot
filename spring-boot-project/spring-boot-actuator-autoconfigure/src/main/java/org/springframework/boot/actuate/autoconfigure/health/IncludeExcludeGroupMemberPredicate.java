@@ -27,7 +27,7 @@ import java.util.stream.Collectors;
  *
  * @author Phillip Webb
  */
-class IncludeExcludeGroupMemberPredicate implements Predicate<String> {
+public class IncludeExcludeGroupMemberPredicate implements Predicate<String> {
 
 	private final Set<String> include;
 

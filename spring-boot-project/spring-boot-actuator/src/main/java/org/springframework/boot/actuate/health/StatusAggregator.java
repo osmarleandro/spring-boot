@@ -17,8 +17,21 @@
 package org.springframework.boot.actuate.health;
 
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
+import java.util.Map;
 import java.util.Set;
+import java.util.function.Predicate;
+
+import org.springframework.beans.factory.BeanFactory;
+import org.springframework.boot.actuate.autoconfigure.health.AutoConfiguredHealthEndpointGroup;
+import org.springframework.boot.actuate.autoconfigure.health.AutoConfiguredHealthEndpointGroups;
+import org.springframework.boot.actuate.autoconfigure.health.HealthEndpointProperties.Group;
+import org.springframework.boot.actuate.autoconfigure.health.HealthProperties.Show;
+import org.springframework.boot.actuate.autoconfigure.health.HealthProperties.Status;
+import org.springframework.boot.actuate.autoconfigure.health.IncludeExcludeGroupMemberPredicate;
+import org.springframework.util.CollectionUtils;
 
 /**
  * Strategy used to aggregate {@link Status} instances.
@@ -56,5 +69,33 @@ public interface StatusAggregator {
 	 * @return the aggregate status
 	 */
 	Status getAggregateStatus(Set<Status> statuses);
+
+	public default Map<String, HealthEndpointGroup> createGroups(Map<String, Group> groupProperties, BeanFactory beanFactory, AutoConfiguredHealthEndpointGroups autoConfiguredHealthEndpointGroups, HttpCodeStatusMapper defaultHttpCodeStatusMapper, Show defaultShowComponents, Show defaultShowDetails, Set<String> defaultRoles) {
+		Map<String, HealthEndpointGroup> groups = new LinkedHashMap<>();
+		groupProperties.forEach((groupName, group) -> {
+			Status status = group.getStatus();
+			Show showComponents = (group.getShowComponents() != null) ? group.getShowComponents()
+					: defaultShowComponents;
+			Show showDetails = (group.getShowDetails() != null) ? group.getShowDetails() : defaultShowDetails;
+			Set<String> roles = !CollectionUtils.isEmpty(group.getRoles()) ? group.getRoles() : defaultRoles;
+			StatusAggregator statusAggregator = autoConfiguredHealthEndpointGroups.getQualifiedBean(beanFactory, StatusAggregator.class, groupName, () -> {
+				if (!CollectionUtils.isEmpty(status.getOrder())) {
+					return new SimpleStatusAggregator(status.getOrder());
+				}
+				return this;
+			});
+			HttpCodeStatusMapper httpCodeStatusMapper = autoConfiguredHealthEndpointGroups.getQualifiedBean(beanFactory, HttpCodeStatusMapper.class,
+					groupName, () -> {
+						if (!CollectionUtils.isEmpty(status.getHttpMapping())) {
+							return new SimpleHttpCodeStatusMapper(status.getHttpMapping());
+						}
+						return defaultHttpCodeStatusMapper;
+					});
+			Predicate<String> members = new IncludeExcludeGroupMemberPredicate(group.getInclude(), group.getExclude());
+			groups.put(groupName, new AutoConfiguredHealthEndpointGroup(members, statusAggregator, httpCodeStatusMapper,
+					showComponents, showDetails, roles));
+		});
+		return Collections.unmodifiableMap(groups);
+	}
 
 }

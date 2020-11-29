@@ -17,8 +17,6 @@
 package org.springframework.boot.actuate.autoconfigure.health;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -30,9 +28,7 @@ import org.springframework.beans.factory.BeanFactoryUtils;
 import org.springframework.beans.factory.ListableBeanFactory;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.beans.factory.annotation.BeanFactoryAnnotationUtils;
-import org.springframework.boot.actuate.autoconfigure.health.HealthEndpointProperties.Group;
 import org.springframework.boot.actuate.autoconfigure.health.HealthProperties.Show;
-import org.springframework.boot.actuate.autoconfigure.health.HealthProperties.Status;
 import org.springframework.boot.actuate.health.HealthEndpointGroup;
 import org.springframework.boot.actuate.health.HealthEndpointGroups;
 import org.springframework.boot.actuate.health.HttpCodeStatusMapper;
@@ -41,7 +37,6 @@ import org.springframework.boot.actuate.health.SimpleStatusAggregator;
 import org.springframework.boot.actuate.health.StatusAggregator;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.util.CollectionUtils;
 import org.springframework.util.ObjectUtils;
 
 /**
@@ -49,7 +44,7 @@ import org.springframework.util.ObjectUtils;
  *
  * @author Phillip Webb
  */
-class AutoConfiguredHealthEndpointGroups implements HealthEndpointGroups {
+public class AutoConfiguredHealthEndpointGroups implements HealthEndpointGroups {
 
 	private static final Predicate<String> ALL = (name) -> true;
 
@@ -78,38 +73,8 @@ class AutoConfiguredHealthEndpointGroups implements HealthEndpointGroups {
 		}
 		this.primaryGroup = new AutoConfiguredHealthEndpointGroup(ALL, statusAggregator, httpCodeStatusMapper,
 				showComponents, showDetails, roles);
-		this.groups = createGroups(properties.getGroup(), beanFactory, statusAggregator, httpCodeStatusMapper,
+		this.groups = statusAggregator.createGroups(properties.getGroup(), beanFactory, this, httpCodeStatusMapper,
 				showComponents, showDetails, roles);
-	}
-
-	private Map<String, HealthEndpointGroup> createGroups(Map<String, Group> groupProperties, BeanFactory beanFactory,
-			StatusAggregator defaultStatusAggregator, HttpCodeStatusMapper defaultHttpCodeStatusMapper,
-			Show defaultShowComponents, Show defaultShowDetails, Set<String> defaultRoles) {
-		Map<String, HealthEndpointGroup> groups = new LinkedHashMap<>();
-		groupProperties.forEach((groupName, group) -> {
-			Status status = group.getStatus();
-			Show showComponents = (group.getShowComponents() != null) ? group.getShowComponents()
-					: defaultShowComponents;
-			Show showDetails = (group.getShowDetails() != null) ? group.getShowDetails() : defaultShowDetails;
-			Set<String> roles = !CollectionUtils.isEmpty(group.getRoles()) ? group.getRoles() : defaultRoles;
-			StatusAggregator statusAggregator = getQualifiedBean(beanFactory, StatusAggregator.class, groupName, () -> {
-				if (!CollectionUtils.isEmpty(status.getOrder())) {
-					return new SimpleStatusAggregator(status.getOrder());
-				}
-				return defaultStatusAggregator;
-			});
-			HttpCodeStatusMapper httpCodeStatusMapper = getQualifiedBean(beanFactory, HttpCodeStatusMapper.class,
-					groupName, () -> {
-						if (!CollectionUtils.isEmpty(status.getHttpMapping())) {
-							return new SimpleHttpCodeStatusMapper(status.getHttpMapping());
-						}
-						return defaultHttpCodeStatusMapper;
-					});
-			Predicate<String> members = new IncludeExcludeGroupMemberPredicate(group.getInclude(), group.getExclude());
-			groups.put(groupName, new AutoConfiguredHealthEndpointGroup(members, statusAggregator, httpCodeStatusMapper,
-					showComponents, showDetails, roles));
-		});
-		return Collections.unmodifiableMap(groups);
 	}
 
 	private <T> T getNonQualifiedBean(ListableBeanFactory beanFactory, Class<T> type) {
@@ -131,7 +96,7 @@ class AutoConfiguredHealthEndpointGroups implements HealthEndpointGroups {
 		return beanFactory.getBean(type);
 	}
 
-	private <T> T getQualifiedBean(BeanFactory beanFactory, Class<T> type, String qualifier, Supplier<T> fallback) {
+	public <T> T getQualifiedBean(BeanFactory beanFactory, Class<T> type, String qualifier, Supplier<T> fallback) {
 		try {
 			return BeanFactoryAnnotationUtils.qualifiedBeanOfType(beanFactory, type, qualifier);
 		}
