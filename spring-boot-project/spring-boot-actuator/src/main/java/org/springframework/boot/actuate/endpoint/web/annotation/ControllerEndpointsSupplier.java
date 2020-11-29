@@ -16,7 +16,13 @@
 
 package org.springframework.boot.actuate.endpoint.web.annotation;
 
+import org.springframework.boot.actuate.autoconfigure.endpoint.web.CorsEndpointProperties;
+import org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointProperties;
 import org.springframework.boot.actuate.endpoint.EndpointsSupplier;
+import org.springframework.boot.actuate.endpoint.web.EndpointMapping;
+import org.springframework.boot.actuate.endpoint.web.reactive.ControllerEndpointHandlerMapping;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.context.annotation.Bean;
 
 /**
  * {@link EndpointsSupplier} for {@link ExposableControllerEndpoint controller endpoints}.
@@ -26,5 +32,14 @@ import org.springframework.boot.actuate.endpoint.EndpointsSupplier;
  */
 @FunctionalInterface
 public interface ControllerEndpointsSupplier extends EndpointsSupplier<ExposableControllerEndpoint> {
+
+	@Bean
+	@ConditionalOnMissingBean
+	default ControllerEndpointHandlerMapping controllerEndpointHandlerMapping(
+			CorsEndpointProperties corsProperties, WebEndpointProperties webEndpointProperties) {
+		EndpointMapping endpointMapping = new EndpointMapping(webEndpointProperties.getBasePath());
+		return new ControllerEndpointHandlerMapping(endpointMapping, getEndpoints(),
+				corsProperties.toCorsConfiguration());
+	}
 
 }
