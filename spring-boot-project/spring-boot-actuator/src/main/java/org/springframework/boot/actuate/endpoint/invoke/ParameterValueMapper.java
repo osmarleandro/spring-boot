@@ -16,6 +16,26 @@
 
 package org.springframework.boot.actuate.endpoint.invoke;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+
+import org.springframework.boot.actuate.autoconfigure.cloudfoundry.CloudFoundryWebEndpointDiscoverer;
+import org.springframework.boot.actuate.autoconfigure.cloudfoundry.servlet.CloudFoundryActuatorAutoConfiguration;
+import org.springframework.boot.actuate.autoconfigure.cloudfoundry.servlet.CloudFoundrySecurityInterceptor;
+import org.springframework.boot.actuate.autoconfigure.cloudfoundry.servlet.CloudFoundryWebEndpointServletHandlerMapping;
+import org.springframework.boot.actuate.endpoint.ExposableEndpoint;
+import org.springframework.boot.actuate.endpoint.web.EndpointLinksResolver;
+import org.springframework.boot.actuate.endpoint.web.EndpointMapping;
+import org.springframework.boot.actuate.endpoint.web.EndpointMediaTypes;
+import org.springframework.boot.actuate.endpoint.web.ExposableWebEndpoint;
+import org.springframework.boot.actuate.endpoint.web.annotation.ControllerEndpointsSupplier;
+import org.springframework.boot.actuate.endpoint.web.annotation.ServletEndpointsSupplier;
+import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.Bean;
+
 /**
  * Maps parameter values to the required type when invoking an endpoint.
  *
@@ -38,5 +58,22 @@ public interface ParameterValueMapper {
 	 * @throws ParameterMappingException when a mapping failure occurs
 	 */
 	Object mapParameterValue(OperationParameter parameter, Object value) throws ParameterMappingException;
+
+	@Bean
+	default CloudFoundryWebEndpointServletHandlerMapping cloudFoundryWebEndpointServletHandlerMapping(
+			CloudFoundryActuatorAutoConfiguration cloudFoundryActuatorAutoConfiguration, EndpointMediaTypes endpointMediaTypes, RestTemplateBuilder restTemplateBuilder, ServletEndpointsSupplier servletEndpointsSupplier, ControllerEndpointsSupplier controllerEndpointsSupplier, ApplicationContext applicationContext) {
+		CloudFoundryWebEndpointDiscoverer discoverer = new CloudFoundryWebEndpointDiscoverer(applicationContext,
+				this, endpointMediaTypes, null, Collections.emptyList(), Collections.emptyList());
+		CloudFoundrySecurityInterceptor securityInterceptor = cloudFoundryActuatorAutoConfiguration.getSecurityInterceptor(restTemplateBuilder,
+				applicationContext.getEnvironment());
+		Collection<ExposableWebEndpoint> webEndpoints = discoverer.getEndpoints();
+		List<ExposableEndpoint<?>> allEndpoints = new ArrayList<>();
+		allEndpoints.addAll(webEndpoints);
+		allEndpoints.addAll(servletEndpointsSupplier.getEndpoints());
+		allEndpoints.addAll(controllerEndpointsSupplier.getEndpoints());
+		return new CloudFoundryWebEndpointServletHandlerMapping(new EndpointMapping("/cloudfoundryapplication"),
+				webEndpoints, endpointMediaTypes, cloudFoundryActuatorAutoConfiguration.getCorsConfiguration(), securityInterceptor,
+				new EndpointLinksResolver(allEndpoints));
+	}
 
 }
