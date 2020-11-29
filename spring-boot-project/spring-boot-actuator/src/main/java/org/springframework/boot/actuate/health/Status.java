@@ -20,6 +20,9 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.util.Map;
+import java.util.TreeMap;
+
 import org.springframework.util.Assert;
 import org.springframework.util.ObjectUtils;
 
@@ -121,6 +124,10 @@ public final class Status {
 	@Override
 	public String toString() {
 		return this.code;
+	}
+
+	Map<String, HealthComponent> sort(Map<String, HealthComponent> components) {
+		return (components != null) ? new TreeMap<>(components) : components;
 	}
 
 }
