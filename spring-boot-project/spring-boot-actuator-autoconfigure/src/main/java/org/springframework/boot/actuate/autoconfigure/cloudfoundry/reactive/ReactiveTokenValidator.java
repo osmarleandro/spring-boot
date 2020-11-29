@@ -40,7 +40,7 @@ import org.springframework.util.Base64Utils;
  *
  * @author Madhura Bhave
  */
-class ReactiveTokenValidator {
+public class ReactiveTokenValidator {
 
 	private final ReactiveCloudFoundrySecurityService securityService;
 
@@ -51,7 +51,7 @@ class ReactiveTokenValidator {
 	}
 
 	Mono<Void> validate(Token token) {
-		return validateAlgorithm(token).then(validateKeyIdAndSignature(token)).then(validateExpiry(token))
+		return validateAlgorithm(token).then(token.validateKeyIdAndSignature(this)).then(validateExpiry(token))
 				.then(validateIssuer(token)).then(validateAudience(token));
 	}
 
@@ -68,14 +68,7 @@ class ReactiveTokenValidator {
 		return Mono.empty();
 	}
 
-	private Mono<Void> validateKeyIdAndSignature(Token token) {
-		return getTokenKey(token).filter((tokenKey) -> hasValidSignature(token, tokenKey))
-				.switchIfEmpty(Mono.error(new CloudFoundryAuthorizationException(Reason.INVALID_SIGNATURE,
-						"RSA Signature did not match content")))
-				.then();
-	}
-
-	private Mono<String> getTokenKey(Token token) {
+	public Mono<String> getTokenKey(Token token) {
 		String keyId = token.getKeyId();
 		String cached = this.cachedTokenKeys.get(keyId);
 		if (cached != null) {
@@ -91,7 +84,7 @@ class ReactiveTokenValidator {
 		this.cachedTokenKeys = new ConcurrentHashMap<>(tokenKeys);
 	}
 
-	private boolean hasValidSignature(Token token, String key) {
+	public boolean hasValidSignature(Token token, String key) {
 		try {
 			PublicKey publicKey = getPublicKey(key);
 			Signature signature = Signature.getInstance("SHA256withRSA");
