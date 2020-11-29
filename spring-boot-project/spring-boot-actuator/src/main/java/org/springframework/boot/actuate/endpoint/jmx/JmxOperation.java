@@ -18,6 +18,9 @@ package org.springframework.boot.actuate.endpoint.jmx;
 
 import java.util.List;
 
+import javax.management.MBeanParameterInfo;
+import javax.management.modelmbean.ModelMBeanOperationInfo;
+
 import org.springframework.boot.actuate.endpoint.Operation;
 
 /**
@@ -54,5 +57,14 @@ public interface JmxOperation extends Operation {
 	 * @return the operation parameter names
 	 */
 	List<JmxOperationParameter> getParameters();
+
+	default ModelMBeanOperationInfo getMBeanOperation(MBeanInfoFactory mBeanInfoFactory) {
+		String name = getName();
+		String description = getDescription();
+		MBeanParameterInfo[] signature = mBeanInfoFactory.getSignature(getParameters());
+		String type = mBeanInfoFactory.getType(getOutputType());
+		int impact = mBeanInfoFactory.getImpact(getType());
+		return new ModelMBeanOperationInfo(name, description, signature, type, impact);
+	}
 
 }
