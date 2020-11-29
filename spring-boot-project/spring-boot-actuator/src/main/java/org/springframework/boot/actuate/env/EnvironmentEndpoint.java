@@ -33,7 +33,6 @@ import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
 import org.springframework.boot.actuate.endpoint.annotation.Selector;
 import org.springframework.boot.context.properties.bind.PlaceholdersResolver;
 import org.springframework.boot.context.properties.bind.PropertySourcesPlaceholdersResolver;
-import org.springframework.boot.context.properties.source.ConfigurationPropertySources;
 import org.springframework.boot.origin.Origin;
 import org.springframework.boot.origin.OriginLookup;
 import org.springframework.core.env.CompositePropertySource;
@@ -90,7 +89,7 @@ public class EnvironmentEndpoint {
 	private EnvironmentDescriptor getEnvironmentDescriptor(Predicate<String> propertyNamePredicate) {
 		PlaceholdersResolver resolver = getResolver();
 		List<PropertySourceDescriptor> propertySources = new ArrayList<>();
-		getPropertySourcesAsMap().forEach((sourceName, source) -> {
+		sanitizer.getPropertySourcesAsMap(this).forEach((sourceName, source) -> {
 			if (source instanceof EnumerablePropertySource) {
 				propertySources.add(describeSource(sourceName, (EnumerablePropertySource<?>) source, resolver,
 						propertyNamePredicate));
@@ -125,7 +124,7 @@ public class EnvironmentEndpoint {
 	private Map<String, PropertyValueDescriptor> getPropertySourceDescriptors(String propertyName) {
 		Map<String, PropertyValueDescriptor> propertySources = new LinkedHashMap<>();
 		PlaceholdersResolver resolver = getResolver();
-		getPropertySourcesAsMap().forEach((sourceName, source) -> propertySources.put(sourceName,
+		sanitizer.getPropertySourcesAsMap(this).forEach((sourceName, source) -> propertySources.put(sourceName,
 				source.containsProperty(propertyName) ? describeValueOf(propertyName, source, resolver) : null));
 		return propertySources;
 	}
@@ -150,24 +149,14 @@ public class EnvironmentEndpoint {
 		return new PropertySourcesPlaceholdersSanitizingResolver(getPropertySources(), this.sanitizer);
 	}
 
-	private Map<String, PropertySource<?>> getPropertySourcesAsMap() {
-		Map<String, PropertySource<?>> map = new LinkedHashMap<>();
-		for (PropertySource<?> source : getPropertySources()) {
-			if (!ConfigurationPropertySources.isAttachedConfigurationPropertySource(source)) {
-				extract("", map, source);
-			}
-		}
-		return map;
-	}
-
-	private MutablePropertySources getPropertySources() {
+	public MutablePropertySources getPropertySources() {
 		if (this.environment instanceof ConfigurableEnvironment) {
 			return ((ConfigurableEnvironment) this.environment).getPropertySources();
 		}
 		return new StandardEnvironment().getPropertySources();
 	}
 
-	private void extract(String root, Map<String, PropertySource<?>> map, PropertySource<?> source) {
+	public void extract(String root, Map<String, PropertySource<?>> map, PropertySource<?> source) {
 		if (source instanceof CompositePropertySource) {
 			for (PropertySource<?> nest : ((CompositePropertySource) source).getPropertySources()) {
 				extract(source.getName() + ":", map, nest);

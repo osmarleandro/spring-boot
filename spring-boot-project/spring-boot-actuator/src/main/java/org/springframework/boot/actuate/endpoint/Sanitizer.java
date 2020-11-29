@@ -17,12 +17,17 @@
 package org.springframework.boot.actuate.endpoint;
 
 import java.util.Arrays;
+import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
+import java.util.Map;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
+import org.springframework.boot.actuate.env.EnvironmentEndpoint;
+import org.springframework.boot.context.properties.source.ConfigurationPropertySources;
+import org.springframework.core.env.PropertySource;
 import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
 
@@ -136,6 +141,16 @@ public class Sanitizer {
 			return StringUtils.replace(value, ":" + password + "@", ":******@");
 		}
 		return value;
+	}
+
+	public Map<String, PropertySource<?>> getPropertySourcesAsMap(EnvironmentEndpoint environmentEndpoint) {
+		Map<String, PropertySource<?>> map = new LinkedHashMap<>();
+		for (PropertySource<?> source : environmentEndpoint.getPropertySources()) {
+			if (!ConfigurationPropertySources.isAttachedConfigurationPropertySource(source)) {
+				environmentEndpoint.extract("", map, source);
+			}
+		}
+		return map;
 	}
 
 }
