@@ -17,6 +17,9 @@
 package org.springframework.boot.actuate.endpoint.invoke;
 
 import org.springframework.boot.actuate.endpoint.InvocationContext;
+import org.springframework.boot.actuate.endpoint.invoker.cache.CachingOperationInvoker;
+import org.springframework.boot.actuate.endpoint.invoker.cache.CachingOperationInvoker.CachedResponse;
+import org.springframework.boot.actuate.endpoint.invoker.cache.CachingOperationInvoker.ReactiveCachedResponse;
 
 /**
  * Interface to perform an operation invocation.
@@ -35,5 +38,12 @@ public interface OperationInvoker {
 	 * @throws MissingParametersException if parameters are missing
 	 */
 	Object invoke(InvocationContext context) throws MissingParametersException;
+
+	public default CachedResponse createCachedResponse(CachingOperationInvoker cachingOperationInvoker, Object response, long accessTime) {
+		if (CachingOperationInvoker.IS_REACTOR_PRESENT) {
+			return new ReactiveCachedResponse(response, accessTime, cachingOperationInvoker.timeToLive);
+		}
+		return new CachedResponse(response, accessTime);
+	}
 
 }
