@@ -51,16 +51,10 @@ import org.springframework.context.annotation.Configuration;
 @EnableConfigurationProperties(KairosProperties.class)
 public class KairosMetricsExportAutoConfiguration {
 
-	private final KairosProperties properties;
+	final KairosProperties properties;
 
 	public KairosMetricsExportAutoConfiguration(KairosProperties properties) {
 		this.properties = properties;
-	}
-
-	@Bean
-	@ConditionalOnMissingBean
-	public KairosConfig kairosConfig() {
-		return new KairosPropertiesConfigAdapter(this.properties);
 	}
 
 	@Bean

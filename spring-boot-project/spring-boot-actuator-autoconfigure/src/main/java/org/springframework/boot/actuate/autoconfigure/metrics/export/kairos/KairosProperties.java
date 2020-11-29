@@ -17,7 +17,11 @@
 package org.springframework.boot.actuate.autoconfigure.metrics.export.kairos;
 
 import org.springframework.boot.actuate.autoconfigure.metrics.export.properties.StepRegistryProperties;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.Bean;
+
+import io.micrometer.kairos.KairosConfig;
 
 /**
  * {@link ConfigurationProperties @ConfigurationProperties} for configuring KairosDB
@@ -66,6 +70,12 @@ public class KairosProperties extends StepRegistryProperties {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	@Bean
+	@ConditionalOnMissingBean
+	public KairosConfig kairosConfig(KairosMetricsExportAutoConfiguration kairosMetricsExportAutoConfiguration) {
+		return new KairosPropertiesConfigAdapter(this);
 	}
 
 }
