@@ -16,13 +16,20 @@
 
 package org.springframework.boot.actuate.health;
 
+import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Optional;
 
+import com.datastax.oss.driver.api.core.metadata.Node;
+import com.datastax.oss.driver.api.core.metadata.NodeState;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
+import reactor.core.publisher.Mono;
+
+import org.springframework.boot.actuate.cassandra.CassandraDriverReactiveHealthIndicator;
 import org.springframework.util.Assert;
 
 /**
@@ -327,6 +334,16 @@ public final class Health extends HealthComponent {
 		 */
 		public Health build() {
 			return new Health(this);
+		}
+
+		public Mono<Health> doHealthCheck(CassandraDriverReactiveHealthIndicator cassandraDriverReactiveHealthIndicator) {
+			return Mono.fromSupplier(() -> {
+				Collection<Node> nodes = cassandraDriverReactiveHealthIndicator.session.getMetadata().getNodes().values();
+				Optional<Node> nodeUp = nodes.stream().filter((node) -> node.getState() == NodeState.UP).findAny();
+				status(nodeUp.isPresent() ? Status.UP : Status.DOWN);
+				nodeUp.map(Node::getCassandraVersion).ifPresent((version) -> withDetail("version", version));
+				return build();
+			});
 		}
 
 	}
