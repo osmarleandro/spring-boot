@@ -40,14 +40,14 @@ import org.springframework.util.ClassUtils;
  * @author Stephane Nicoll
  * @author Phillip Webb
  */
-class DiscoveredWebOperation extends AbstractDiscoveredOperation implements WebOperation {
+public class DiscoveredWebOperation extends AbstractDiscoveredOperation implements WebOperation {
 
 	private static final boolean REACTIVE_STREAMS_PRESENT = ClassUtils.isPresent("org.reactivestreams.Publisher",
 			DiscoveredWebOperation.class.getClassLoader());
 
 	private final String id;
 
-	private final boolean blocking;
+	public final boolean blocking;
 
 	private final WebOperationRequestPredicate requestPredicate;
 
@@ -84,7 +84,7 @@ class DiscoveredWebOperation extends AbstractDiscoveredOperation implements WebO
 
 	@Override
 	public boolean isBlocking() {
-		return this.blocking;
+		return requestPredicate.isBlocking(this);
 	}
 
 	@Override
