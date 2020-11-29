@@ -27,7 +27,6 @@ import org.springframework.boot.actuate.health.HealthEndpointGroup;
 import org.springframework.boot.actuate.health.HealthEndpointGroups;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
 
@@ -46,12 +45,6 @@ class AvailabilityProbesHealthEndpointGroupsTests {
 	void setup() {
 		this.delegate = mock(HealthEndpointGroups.class);
 		this.group = mock(HealthEndpointGroup.class);
-	}
-
-	@Test
-	void createWhenGroupsIsNullThrowsException() {
-		assertThatIllegalArgumentException().isThrownBy(() -> new AvailabilityProbesHealthEndpointGroups(null))
-				.withMessage("Groups must not be null");
 	}
 
 	@Test

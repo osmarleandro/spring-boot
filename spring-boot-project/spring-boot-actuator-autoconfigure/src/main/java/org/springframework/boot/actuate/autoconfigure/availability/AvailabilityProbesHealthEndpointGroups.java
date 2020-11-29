@@ -32,7 +32,7 @@ import org.springframework.util.Assert;
  * @author Phillip Webb
  * @author Brian Clozel
  */
-class AvailabilityProbesHealthEndpointGroups implements HealthEndpointGroups {
+public class AvailabilityProbesHealthEndpointGroups implements HealthEndpointGroups {
 
 	private static final Map<String, AvailabilityProbesHealthEndpointGroup> GROUPS;
 	static {
