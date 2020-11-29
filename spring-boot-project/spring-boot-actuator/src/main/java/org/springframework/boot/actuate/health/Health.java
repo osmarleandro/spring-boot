@@ -23,6 +23,7 @@ import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
+import org.springframework.boot.actuate.amqp.RabbitHealthIndicator;
 import org.springframework.util.Assert;
 
 /**
@@ -327,6 +328,10 @@ public final class Health extends HealthComponent {
 		 */
 		public Health build() {
 			return new Health(this);
+		}
+
+		public void doHealthCheck(RabbitHealthIndicator rabbitHealthIndicator) throws Exception {
+			up().withDetail("version", rabbitHealthIndicator.getVersion());
 		}
 
 	}
