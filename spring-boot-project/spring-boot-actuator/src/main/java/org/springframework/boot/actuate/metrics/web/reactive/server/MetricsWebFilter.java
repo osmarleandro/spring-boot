@@ -47,7 +47,7 @@ public class MetricsWebFilter implements WebFilter {
 
 	private final String metricName;
 
-	private final AutoTimer autoTimer;
+	public final AutoTimer autoTimer;
 
 	/**
 	 * Create a new {@code MetricsWebFilter}.
@@ -67,13 +67,10 @@ public class MetricsWebFilter implements WebFilter {
 
 	@Override
 	public Mono<Void> filter(ServerWebExchange exchange, WebFilterChain chain) {
-		if (!this.autoTimer.isEnabled()) {
-			return chain.filter(exchange);
-		}
-		return chain.filter(exchange).transformDeferred((call) -> filter(exchange, call));
+		return autoTimer.filter(this, exchange, chain);
 	}
 
-	private Publisher<Void> filter(ServerWebExchange exchange, Mono<Void> call) {
+	public Publisher<Void> filter(ServerWebExchange exchange, Mono<Void> call) {
 		long start = System.nanoTime();
 		return call.doOnSuccess((done) -> onSuccess(exchange, start))
 				.doOnError((cause) -> onError(exchange, start, cause));
