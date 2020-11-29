@@ -53,7 +53,7 @@ import org.springframework.web.util.NestedServletException;
  */
 public class WebMvcMetricsFilter extends OncePerRequestFilter {
 
-	private final MeterRegistry registry;
+	public final MeterRegistry registry;
 
 	private final WebMvcTagsProvider tagsProvider;
 
@@ -87,7 +87,7 @@ public class WebMvcMetricsFilter extends OncePerRequestFilter {
 			throws ServletException, IOException {
 		TimingContext timingContext = TimingContext.get(request);
 		if (timingContext == null) {
-			timingContext = startAndAttachTimingContext(request);
+			timingContext = autoTimer.startAndAttachTimingContext(this, request);
 		}
 		try {
 			filterChain.doFilter(request, response);
@@ -109,13 +109,6 @@ public class WebMvcMetricsFilter extends OncePerRequestFilter {
 			record(timingContext, request, response, ex);
 			throw ex;
 		}
-	}
-
-	private TimingContext startAndAttachTimingContext(HttpServletRequest request) {
-		Timer.Sample timerSample = Timer.start(this.registry);
-		TimingContext timingContext = new TimingContext(timerSample);
-		timingContext.attachTo(request);
-		return timingContext;
 	}
 
 	private void record(TimingContext timingContext, HttpServletRequest request, HttpServletResponse response,
@@ -173,7 +166,7 @@ public class WebMvcMetricsFilter extends OncePerRequestFilter {
 	 * Context object attached to a request to retain information across the multiple
 	 * filter calls that happen with async requests.
 	 */
-	private static class TimingContext {
+	public static class TimingContext {
 
 		private static final String ATTRIBUTE = TimingContext.class.getName();
 
@@ -187,7 +180,7 @@ public class WebMvcMetricsFilter extends OncePerRequestFilter {
 			return this.timerSample;
 		}
 
-		void attachTo(HttpServletRequest request) {
+		public void attachTo(HttpServletRequest request) {
 			request.setAttribute(ATTRIBUTE, this);
 		}
 

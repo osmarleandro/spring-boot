@@ -18,9 +18,15 @@ package org.springframework.boot.actuate.metrics;
 
 import java.util.function.Supplier;
 
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.boot.actuate.metrics.web.servlet.WebMvcMetricsFilter;
+import org.springframework.boot.actuate.metrics.web.servlet.WebMvcMetricsFilter.TimingContext;
+
 import io.micrometer.core.annotation.Timed;
 import io.micrometer.core.instrument.Timer;
 import io.micrometer.core.instrument.Timer.Builder;
+import io.micrometer.core.instrument.Timer.Sample;
 
 /**
  * Strategy that can be used to apply {@link Timer Timers} automatically instead of using
@@ -93,5 +99,12 @@ public interface AutoTimer {
 	 * @param builder the builder to apply settings to
 	 */
 	void apply(Timer.Builder builder);
+
+	public default TimingContext startAndAttachTimingContext(WebMvcMetricsFilter webMvcMetricsFilter, HttpServletRequest request) {
+		Sample timerSample = Timer.start(webMvcMetricsFilter.registry);
+		TimingContext timingContext = new TimingContext(timerSample);
+		timingContext.attachTo(request);
+		return timingContext;
+	}
 
 }
