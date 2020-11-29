@@ -41,11 +41,11 @@ class CloudFoundrySecurityInterceptor {
 
 	private static final Log logger = LogFactory.getLog(CloudFoundrySecurityInterceptor.class);
 
-	private final ReactiveTokenValidator tokenValidator;
+	final ReactiveTokenValidator tokenValidator;
 
 	private final ReactiveCloudFoundrySecurityService cloudFoundrySecurityService;
 
-	private final String applicationId;
+	final String applicationId;
 
 	private static final Mono<SecurityResponse> SUCCESS = Mono.just(SecurityResponse.success());
 
@@ -69,27 +69,11 @@ class CloudFoundrySecurityInterceptor {
 			return Mono.error(new CloudFoundryAuthorizationException(Reason.SERVICE_UNAVAILABLE,
 					"Cloud controller URL is not available"));
 		}
-		return check(exchange, id).then(SUCCESS).doOnError(this::logError).onErrorResume(this::getErrorResponse);
+		return cloudFoundrySecurityService.check(this, exchange, id).then(SUCCESS).doOnError(this::logError).onErrorResume(this::getErrorResponse);
 	}
 
 	private void logError(Throwable ex) {
 		logger.error(ex.getMessage(), ex);
-	}
-
-	private Mono<Void> check(ServerWebExchange exchange, String id) {
-		try {
-			Token token = getToken(exchange.getRequest());
-			return this.tokenValidator.validate(token)
-					.then(this.cloudFoundrySecurityService.getAccessLevel(token.toString(), this.applicationId))
-					.filter((accessLevel) -> accessLevel.isAccessAllowed(id))
-					.switchIfEmpty(
-							Mono.error(new CloudFoundryAuthorizationException(Reason.ACCESS_DENIED, "Access denied")))
-					.doOnSuccess((accessLevel) -> exchange.getAttributes().put("cloudFoundryAccessLevel", accessLevel))
-					.then();
-		}
-		catch (CloudFoundryAuthorizationException ex) {
-			return Mono.error(ex);
-		}
 	}
 
 	private Mono<SecurityResponse> getErrorResponse(Throwable throwable) {
@@ -101,7 +85,7 @@ class CloudFoundrySecurityInterceptor {
 		return Mono.just(new SecurityResponse(HttpStatus.INTERNAL_SERVER_ERROR, throwable.getMessage()));
 	}
 
-	private Token getToken(ServerHttpRequest request) {
+	Token getToken(ServerHttpRequest request) {
 		String authorization = request.getHeaders().getFirst("Authorization");
 		String bearerPrefix = "bearer ";
 		if (authorization == null || !authorization.toLowerCase(Locale.ENGLISH).startsWith(bearerPrefix)) {

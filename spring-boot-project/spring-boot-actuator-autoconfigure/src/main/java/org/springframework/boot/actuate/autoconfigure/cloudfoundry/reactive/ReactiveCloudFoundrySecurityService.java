@@ -29,6 +29,7 @@ import reactor.netty.http.client.HttpClient;
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.AccessLevel;
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.CloudFoundryAuthorizationException;
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.CloudFoundryAuthorizationException.Reason;
+import org.springframework.boot.actuate.autoconfigure.cloudfoundry.Token;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.client.reactive.ReactorClientHttpConnector;
@@ -36,6 +37,7 @@ import org.springframework.util.Assert;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.reactive.function.client.WebClient.RequestHeadersSpec;
 import org.springframework.web.reactive.function.client.WebClientResponseException;
+import org.springframework.web.server.ServerWebExchange;
 
 /**
  * Reactive Cloud Foundry security service to handle REST calls to the cloud controller
@@ -146,6 +148,22 @@ class ReactiveCloudFoundrySecurityService {
 				.onErrorMap((ex) -> new CloudFoundryAuthorizationException(Reason.SERVICE_UNAVAILABLE,
 						"Unable to fetch token keys from UAA."));
 		return this.uaaUrl;
+	}
+
+	Mono<Void> check(CloudFoundrySecurityInterceptor cloudFoundrySecurityInterceptor, ServerWebExchange exchange, String id) {
+		try {
+			Token token = cloudFoundrySecurityInterceptor.getToken(exchange.getRequest());
+			return cloudFoundrySecurityInterceptor.tokenValidator.validate(token)
+					.then(getAccessLevel(token.toString(), cloudFoundrySecurityInterceptor.applicationId))
+					.filter((accessLevel) -> accessLevel.isAccessAllowed(id))
+					.switchIfEmpty(
+							Mono.error(new CloudFoundryAuthorizationException(Reason.ACCESS_DENIED, "Access denied")))
+					.doOnSuccess((accessLevel) -> exchange.getAttributes().put("cloudFoundryAccessLevel", accessLevel))
+					.then();
+		}
+		catch (CloudFoundryAuthorizationException ex) {
+			return Mono.error(ex);
+		}
 	}
 
 }
