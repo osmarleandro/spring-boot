@@ -21,7 +21,11 @@ import java.util.Map;
 import java.util.Set;
 
 import org.springframework.boot.actuate.health.HealthEndpoint;
+import org.springframework.boot.actuate.health.HealthEndpointGroups;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.Bean;
 
 /**
  * Configuration properties for {@link HealthEndpoint}.
@@ -54,6 +58,12 @@ public class HealthEndpointProperties extends HealthProperties {
 
 	public Map<String, Group> getGroup() {
 		return this.group;
+	}
+
+	@Bean
+	@ConditionalOnMissingBean
+	HealthEndpointGroups healthEndpointGroups(ApplicationContext applicationContext) {
+		return new AutoConfiguredHealthEndpointGroups(applicationContext, this);
 	}
 
 	/**

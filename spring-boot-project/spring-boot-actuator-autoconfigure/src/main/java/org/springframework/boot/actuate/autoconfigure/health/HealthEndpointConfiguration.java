@@ -69,13 +69,6 @@ class HealthEndpointConfiguration {
 
 	@Bean
 	@ConditionalOnMissingBean
-	HealthEndpointGroups healthEndpointGroups(ApplicationContext applicationContext,
-			HealthEndpointProperties properties) {
-		return new AutoConfiguredHealthEndpointGroups(applicationContext, properties);
-	}
-
-	@Bean
-	@ConditionalOnMissingBean
 	HealthContributorRegistry healthContributorRegistry(ApplicationContext applicationContext,
 			HealthEndpointGroups groups) {
 		Map<String, HealthContributor> healthContributors = new LinkedHashMap<>(
