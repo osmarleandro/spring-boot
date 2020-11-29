@@ -101,7 +101,7 @@ public class EnvironmentEndpoint {
 
 	private EnvironmentEntryDescriptor getEnvironmentEntryDescriptor(String propertyName) {
 		Map<String, PropertyValueDescriptor> descriptors = getPropertySourceDescriptors(propertyName);
-		PropertySummaryDescriptor summary = getPropertySummaryDescriptor(descriptors);
+		PropertySummaryDescriptor summary = sanitizer.getPropertySummaryDescriptor(descriptors);
 		return new EnvironmentEntryDescriptor(summary, Arrays.asList(this.environment.getActiveProfiles()),
 				toPropertySourceDescriptors(descriptors));
 	}
@@ -111,15 +111,6 @@ public class EnvironmentEndpoint {
 		List<PropertySourceEntryDescriptor> result = new ArrayList<>();
 		descriptors.forEach((name, property) -> result.add(new PropertySourceEntryDescriptor(name, property)));
 		return result;
-	}
-
-	private PropertySummaryDescriptor getPropertySummaryDescriptor(Map<String, PropertyValueDescriptor> descriptors) {
-		for (Map.Entry<String, PropertyValueDescriptor> entry : descriptors.entrySet()) {
-			if (entry.getValue() != null) {
-				return new PropertySummaryDescriptor(entry.getKey(), entry.getValue().getValue());
-			}
-		}
-		return null;
 	}
 
 	private Map<String, PropertyValueDescriptor> getPropertySourceDescriptors(String propertyName) {
