@@ -45,7 +45,7 @@ import org.springframework.web.util.pattern.PathPattern;
  */
 public class ControllerEndpointHandlerMapping extends RequestMappingHandlerMapping {
 
-	private final EndpointMapping endpointMapping;
+	public final EndpointMapping endpointMapping;
 
 	private final CorsConfiguration corsConfiguration;
 
@@ -93,12 +93,8 @@ public class ControllerEndpointHandlerMapping extends RequestMappingHandlerMappi
 			patterns = Collections.singleton(getPathPatternParser().parse(""));
 		}
 		PathPattern[] endpointMappedPatterns = patterns.stream()
-				.map((pattern) -> getEndpointMappedPattern(endpoint, pattern)).toArray(PathPattern[]::new);
+				.map((pattern) -> endpoint.getEndpointMappedPattern(this, pattern)).toArray(PathPattern[]::new);
 		return withNewPatterns(mapping, endpointMappedPatterns);
-	}
-
-	private PathPattern getEndpointMappedPattern(ExposableControllerEndpoint endpoint, PathPattern pattern) {
-		return getPathPatternParser().parse(this.endpointMapping.createSubPath(endpoint.getRootPath() + pattern));
 	}
 
 	private RequestMappingInfo withNewPatterns(RequestMappingInfo mapping, PathPattern[] patterns) {
