@@ -19,9 +19,14 @@ package org.springframework.boot.actuate.autoconfigure.metrics;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.DeprecatedConfigurationProperty;
 import org.springframework.boot.context.properties.NestedConfigurationProperty;
+import org.springframework.context.annotation.Bean;
+
+import io.micrometer.jersey2.server.DefaultJerseyTagsProvider;
+import io.micrometer.jersey2.server.JerseyTagsProvider;
 
 /**
  * {@link ConfigurationProperties @ConfigurationProperties} for configuring
@@ -79,6 +84,12 @@ public class MetricsProperties {
 
 	public Distribution getDistribution() {
 		return this.distribution;
+	}
+
+	@Bean
+	@ConditionalOnMissingBean(JerseyTagsProvider.class)
+	public DefaultJerseyTagsProvider jerseyTagsProvider() {
+		return new DefaultJerseyTagsProvider();
 	}
 
 	public static class Web {

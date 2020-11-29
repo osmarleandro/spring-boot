@@ -22,7 +22,6 @@ import java.lang.reflect.AnnotatedElement;
 import io.micrometer.core.instrument.MeterRegistry;
 import io.micrometer.core.instrument.config.MeterFilter;
 import io.micrometer.jersey2.server.AnnotationFinder;
-import io.micrometer.jersey2.server.DefaultJerseyTagsProvider;
 import io.micrometer.jersey2.server.JerseyTagsProvider;
 import io.micrometer.jersey2.server.MetricsApplicationEventListener;
 import org.glassfish.jersey.server.ResourceConfig;
@@ -36,7 +35,6 @@ import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.boot.autoconfigure.jersey.ResourceConfigCustomizer;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -65,12 +63,6 @@ public class JerseyServerMetricsAutoConfiguration {
 
 	public JerseyServerMetricsAutoConfiguration(MetricsProperties properties) {
 		this.properties = properties;
-	}
-
-	@Bean
-	@ConditionalOnMissingBean(JerseyTagsProvider.class)
-	public DefaultJerseyTagsProvider jerseyTagsProvider() {
-		return new DefaultJerseyTagsProvider();
 	}
 
 	@Bean
