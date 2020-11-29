@@ -77,10 +77,6 @@ public class MetricsProperties {
 		return this.web;
 	}
 
-	public Distribution getDistribution() {
-		return this.distribution;
-	}
-
 	public static class Web {
 
 		private final Client client = new Client();
@@ -278,6 +274,10 @@ public class MetricsProperties {
 
 		public Map<String, String> getMaximumExpectedValue() {
 			return this.maximumExpectedValue;
+		}
+
+		public Distribution getDistribution(MetricsProperties metricsProperties) {
+			return this;
 		}
 
 	}
