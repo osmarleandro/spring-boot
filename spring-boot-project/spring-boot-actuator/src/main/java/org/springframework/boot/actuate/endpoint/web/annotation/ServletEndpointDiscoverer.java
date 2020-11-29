@@ -71,8 +71,8 @@ public class ServletEndpointDiscoverer extends EndpointDiscoverer<ExposableServl
 	@Override
 	protected Operation createOperation(EndpointId endpointId, DiscoveredOperationMethod operationMethod,
 			OperationInvoker invoker) {
-		throw new IllegalStateException("ServletEndpoints must not declare operations");
-	}
+				return endpointId.createOperation(operationMethod, invoker);
+			}
 
 	@Override
 	protected OperationKey createOperationKey(Operation operation) {
