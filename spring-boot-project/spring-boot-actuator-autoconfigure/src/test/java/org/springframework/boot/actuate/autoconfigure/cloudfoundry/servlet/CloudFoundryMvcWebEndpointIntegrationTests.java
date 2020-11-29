@@ -115,7 +115,7 @@ class CloudFoundryMvcWebEndpointIntegrationTests {
 	void linksToOtherEndpointsForbidden() {
 		CloudFoundryAuthorizationException exception = new CloudFoundryAuthorizationException(Reason.INVALID_TOKEN,
 				"invalid-token");
-		willThrow(exception).given(tokenValidator).validate(any());
+		any().validate(willThrow(exception).given(tokenValidator));
 		load(TestEndpointConfiguration.class,
 				(client) -> client.get().uri("/cfApplication").accept(MediaType.APPLICATION_JSON)
 						.header("Authorization", "bearer " + mockAccessToken()).exchange().expectStatus()

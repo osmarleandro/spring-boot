@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.CloudFoundryAuthorizationException.Reason;
+import org.springframework.boot.actuate.autoconfigure.cloudfoundry.servlet.TokenValidator;
 import org.springframework.boot.json.JsonParserFactory;
 import org.springframework.util.Base64Utils;
 import org.springframework.util.StringUtils;
@@ -113,6 +114,14 @@ public class Token {
 	@Override
 	public String toString() {
 		return this.encoded;
+	}
+
+	public void validate(TokenValidator tokenValidator) {
+		tokenValidator.validateAlgorithm(this);
+		tokenValidator.validateKeyIdAndSignature(this);
+		tokenValidator.validateExpiry(this);
+		tokenValidator.validateIssuer(this);
+		tokenValidator.validateAudience(this);
 	}
 
 }

@@ -36,7 +36,7 @@ import org.springframework.util.Base64Utils;
  *
  * @author Madhura Bhave
  */
-class TokenValidator {
+public class TokenValidator {
 
 	private final CloudFoundrySecurityService securityService;
 
@@ -46,15 +46,7 @@ class TokenValidator {
 		this.securityService = cloudFoundrySecurityService;
 	}
 
-	void validate(Token token) {
-		validateAlgorithm(token);
-		validateKeyIdAndSignature(token);
-		validateExpiry(token);
-		validateIssuer(token);
-		validateAudience(token);
-	}
-
-	private void validateAlgorithm(Token token) {
+	public void validateAlgorithm(Token token) {
 		String algorithm = token.getSignatureAlgorithm();
 		if (algorithm == null) {
 			throw new CloudFoundryAuthorizationException(Reason.INVALID_SIGNATURE, "Signing algorithm cannot be null");
@@ -65,7 +57,7 @@ class TokenValidator {
 		}
 	}
 
-	private void validateKeyIdAndSignature(Token token) {
+	public void validateKeyIdAndSignature(Token token) {
 		String keyId = token.getKeyId();
 		if (this.tokenKeys == null || !hasValidKeyId(keyId)) {
 			this.tokenKeys = this.securityService.fetchTokenKeys();
@@ -107,14 +99,14 @@ class TokenValidator {
 		return KeyFactory.getInstance("RSA").generatePublic(keySpec);
 	}
 
-	private void validateExpiry(Token token) {
+	public void validateExpiry(Token token) {
 		long currentTime = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());
 		if (currentTime > token.getExpiry()) {
 			throw new CloudFoundryAuthorizationException(Reason.TOKEN_EXPIRED, "Token expired");
 		}
 	}
 
-	private void validateIssuer(Token token) {
+	public void validateIssuer(Token token) {
 		String uaaUrl = this.securityService.getUaaUrl();
 		String issuerUri = String.format("%s/oauth/token", uaaUrl);
 		if (!issuerUri.equals(token.getIssuer())) {
@@ -123,7 +115,7 @@ class TokenValidator {
 		}
 	}
 
-	private void validateAudience(Token token) {
+	public void validateAudience(Token token) {
 		if (!token.getScope().contains("actuator.read")) {
 			throw new CloudFoundryAuthorizationException(Reason.INVALID_AUDIENCE,
 					"Token does not have audience actuator");
