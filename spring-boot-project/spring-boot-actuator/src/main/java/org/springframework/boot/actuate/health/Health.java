@@ -20,9 +20,14 @@ import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import com.couchbase.client.core.diagnostics.DiagnosticsResult;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
+import reactor.core.publisher.Mono;
+
+import org.springframework.boot.actuate.couchbase.CouchbaseHealth;
+import org.springframework.boot.actuate.couchbase.CouchbaseReactiveHealthIndicator;
 import org.springframework.util.Assert;
 
 /**
@@ -327,6 +332,12 @@ public final class Health extends HealthComponent {
 		 */
 		public Health build() {
 			return new Health(this);
+		}
+
+		public Mono<Health> doHealthCheck(CouchbaseReactiveHealthIndicator couchbaseReactiveHealthIndicator) {
+			DiagnosticsResult diagnostics = couchbaseReactiveHealthIndicator.cluster.diagnostics();
+			new CouchbaseHealth(diagnostics).applyTo(this);
+			return Mono.just(build());
 		}
 
 	}
