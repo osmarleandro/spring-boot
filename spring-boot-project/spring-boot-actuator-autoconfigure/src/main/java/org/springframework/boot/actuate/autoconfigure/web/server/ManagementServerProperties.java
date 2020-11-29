@@ -82,10 +82,6 @@ public class ManagementServerProperties {
 		this.address = address;
 	}
 
-	public Ssl getSsl() {
-		return this.ssl;
-	}
-
 	public void setSsl(Ssl ssl) {
 		this.ssl = ssl;
 	}
@@ -124,6 +120,10 @@ public class ManagementServerProperties {
 				return contextPath.substring(0, contextPath.length() - 1);
 			}
 			return contextPath;
+		}
+
+		public Ssl getSsl(ManagementServerProperties managementServerProperties) {
+			return managementServerProperties.ssl;
 		}
 
 	}
