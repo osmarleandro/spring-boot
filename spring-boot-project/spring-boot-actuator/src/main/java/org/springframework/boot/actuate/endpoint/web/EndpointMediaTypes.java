@@ -16,6 +16,7 @@
 
 package org.springframework.boot.actuate.endpoint.web;
 
+import java.lang.reflect.Parameter;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -93,6 +94,19 @@ public class EndpointMediaTypes {
 	 */
 	public List<String> getConsumed() {
 		return this.consumed;
+	}
+
+	public String getPath(String rootPath, Parameter[] selectorParameters, boolean matchRemainingPathSegments) {
+		StringBuilder path = new StringBuilder(rootPath);
+		for (int i = 0; i < selectorParameters.length; i++) {
+			path.append("/{");
+			if (i == selectorParameters.length - 1 && matchRemainingPathSegments) {
+				path.append("*");
+			}
+			path.append(selectorParameters[i].getName());
+			path.append("}");
+		}
+		return path.toString();
 	}
 
 }
