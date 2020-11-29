@@ -138,4 +138,8 @@ public class Sanitizer {
 		return value;
 	}
 
+	public String getQualifiedKey(String prefix, String key) {
+		return (prefix.isEmpty() ? prefix : prefix + ".") + key;
+	}
+
 }

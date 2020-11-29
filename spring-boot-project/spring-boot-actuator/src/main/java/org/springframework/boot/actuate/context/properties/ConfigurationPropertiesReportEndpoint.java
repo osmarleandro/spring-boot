@@ -208,7 +208,7 @@ public class ConfigurationPropertiesReportEndpoint implements ApplicationContext
 	@SuppressWarnings("unchecked")
 	private Map<String, Object> sanitize(String prefix, Map<String, Object> map) {
 		map.forEach((key, value) -> {
-			String qualifiedKey = getQualifiedKey(prefix, key);
+			String qualifiedKey = sanitizer.getQualifiedKey(prefix, key);
 			if (value instanceof Map) {
 				map.put(key, sanitize(qualifiedKey, (Map<String, Object>) value));
 			}
@@ -245,7 +245,7 @@ public class ConfigurationPropertiesReportEndpoint implements ApplicationContext
 	private Map<String, Object> getInputs(String prefix, Map<String, Object> map) {
 		Map<String, Object> augmented = new LinkedHashMap<>(map);
 		map.forEach((key, value) -> {
-			String qualifiedKey = getQualifiedKey(prefix, key);
+			String qualifiedKey = sanitizer.getQualifiedKey(prefix, key);
 			if (value instanceof Map) {
 				augmented.put(key, getInputs(qualifiedKey, (Map<String, Object>) value));
 			}
@@ -302,10 +302,6 @@ public class ConfigurationPropertiesReportEndpoint implements ApplicationContext
 			input.put("originParents", originParents.stream().map(Object::toString).toArray(String[]::new));
 		}
 		return input;
-	}
-
-	private String getQualifiedKey(String prefix, String key) {
-		return (prefix.isEmpty() ? prefix : prefix + ".") + key;
 	}
 
 	/**
