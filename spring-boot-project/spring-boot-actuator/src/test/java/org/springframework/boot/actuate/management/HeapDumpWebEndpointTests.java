@@ -44,10 +44,10 @@ class HeapDumpWebEndpointTests {
 			}
 
 		};
-		Thread thread = new Thread(() -> slowEndpoint.heapDump(true));
+		Thread thread = new Thread(() -> slowEndpoint.heapDumper.heapDump(slowEndpoint, true));
 		thread.start();
 		dumpingLatch.await();
-		assertThat(slowEndpoint.heapDump(true).getStatus()).isEqualTo(429);
+		assertThat(slowEndpoint.heapDumper.heapDump(slowEndpoint, true).getStatus()).isEqualTo(429);
 		blockingLatch.countDown();
 		thread.join();
 	}

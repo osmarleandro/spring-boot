@@ -62,7 +62,7 @@ public class HeapDumpWebEndpoint {
 
 	private final Lock lock = new ReentrantLock();
 
-	private HeapDumper heapDumper;
+	public HeapDumper heapDumper;
 
 	public HeapDumpWebEndpoint() {
 		this(TimeUnit.SECONDS.toMillis(10));
@@ -70,30 +70,6 @@ public class HeapDumpWebEndpoint {
 
 	protected HeapDumpWebEndpoint(long timeout) {
 		this.timeout = timeout;
-	}
-
-	@ReadOperation
-	public WebEndpointResponse<Resource> heapDump(@Nullable Boolean live) {
-		try {
-			if (this.lock.tryLock(this.timeout, TimeUnit.MILLISECONDS)) {
-				try {
-					return new WebEndpointResponse<>(dumpHeap((live != null) ? live : true));
-				}
-				finally {
-					this.lock.unlock();
-				}
-			}
-		}
-		catch (InterruptedException ex) {
-			Thread.currentThread().interrupt();
-		}
-		catch (IOException ex) {
-			return new WebEndpointResponse<>(WebEndpointResponse.STATUS_INTERNAL_SERVER_ERROR);
-		}
-		catch (HeapDumperUnavailableException ex) {
-			return new WebEndpointResponse<>(WebEndpointResponse.STATUS_SERVICE_UNAVAILABLE);
-		}
-		return new WebEndpointResponse<>(WebEndpointResponse.STATUS_TOO_MANY_REQUESTS);
 	}
 
 	private Resource dumpHeap(boolean live) throws IOException, InterruptedException {
@@ -136,6 +112,30 @@ public class HeapDumpWebEndpoint {
 		 * @throws InterruptedException on thread interruption
 		 */
 		void dumpHeap(File file, boolean live) throws IOException, InterruptedException;
+
+		@ReadOperation
+		default WebEndpointResponse<Resource> heapDump(HeapDumpWebEndpoint heapDumpWebEndpoint, Boolean live) {
+			try {
+				if (heapDumpWebEndpoint.lock.tryLock(heapDumpWebEndpoint.timeout, TimeUnit.MILLISECONDS)) {
+					try {
+						return new WebEndpointResponse<>(heapDumpWebEndpoint.dumpHeap((live != null) ? live : true));
+					}
+					finally {
+						heapDumpWebEndpoint.lock.unlock();
+					}
+				}
+			}
+			catch (InterruptedException ex) {
+				Thread.currentThread().interrupt();
+			}
+			catch (IOException ex) {
+				return new WebEndpointResponse<>(WebEndpointResponse.STATUS_INTERNAL_SERVER_ERROR);
+			}
+			catch (HeapDumperUnavailableException ex) {
+				return new WebEndpointResponse<>(WebEndpointResponse.STATUS_SERVICE_UNAVAILABLE);
+			}
+			return new WebEndpointResponse<>(WebEndpointResponse.STATUS_TOO_MANY_REQUESTS);
+		}
 
 	}
 
