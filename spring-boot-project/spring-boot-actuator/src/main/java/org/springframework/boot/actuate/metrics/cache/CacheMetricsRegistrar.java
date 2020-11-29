@@ -19,11 +19,14 @@ package org.springframework.boot.actuate.metrics.cache;
 import java.util.Collection;
 import java.util.Objects;
 
+import javax.annotation.PostConstruct;
+
 import io.micrometer.core.instrument.MeterRegistry;
 import io.micrometer.core.instrument.Tag;
 import io.micrometer.core.instrument.Tags;
 import io.micrometer.core.instrument.binder.MeterBinder;
 
+import org.springframework.boot.actuate.autoconfigure.metrics.cache.CacheMetricsRegistrarConfiguration;
 import org.springframework.boot.util.LambdaSafe;
 import org.springframework.cache.Cache;
 import org.springframework.cache.transaction.TransactionAwareCacheDecorator;
@@ -92,6 +95,11 @@ public class CacheMetricsRegistrar {
 			return TransactionAwareCacheDecoratorHandler.unwrapIfNecessary(cache);
 		}
 		return cache;
+	}
+
+	@PostConstruct
+	void bindCachesToRegistry(CacheMetricsRegistrarConfiguration cacheMetricsRegistrarConfiguration) {
+		cacheMetricsRegistrarConfiguration.cacheManagers.forEach(cacheMetricsRegistrarConfiguration::bindCacheManagerToRegistry);
 	}
 
 	private static class TransactionAwareCacheDecoratorHandler {
