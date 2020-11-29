@@ -21,6 +21,7 @@ import java.util.Properties;
 import java.util.Set;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.util.StringUtils;
 
 /**
  * Configuration properties for JMX export of endpoints.
@@ -58,6 +59,13 @@ public class JmxEndpointProperties {
 
 	public Properties getStaticNames() {
 		return this.staticNames;
+	}
+
+	String determineDomain(DefaultEndpointObjectNameFactory defaultEndpointObjectNameFactory) {
+		if (StringUtils.hasText(getDomain())) {
+			return getDomain();
+		}
+		return defaultEndpointObjectNameFactory.environment.getProperty("spring.jmx.default-domain", "org.springframework.boot");
 	}
 
 	public static class Exposure {

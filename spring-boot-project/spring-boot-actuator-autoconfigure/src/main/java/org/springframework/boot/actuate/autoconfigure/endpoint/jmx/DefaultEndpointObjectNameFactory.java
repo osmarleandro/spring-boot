@@ -37,7 +37,7 @@ class DefaultEndpointObjectNameFactory implements EndpointObjectNameFactory {
 
 	private final JmxEndpointProperties properties;
 
-	private final Environment environment;
+	final Environment environment;
 
 	private final MBeanServer mBeanServer;
 
@@ -56,7 +56,7 @@ class DefaultEndpointObjectNameFactory implements EndpointObjectNameFactory {
 
 	@Override
 	public ObjectName getObjectName(ExposableJmxEndpoint endpoint) throws MalformedObjectNameException {
-		StringBuilder builder = new StringBuilder(determineDomain());
+		StringBuilder builder = new StringBuilder(properties.determineDomain(this));
 		builder.append(":type=Endpoint");
 		builder.append(",name=").append(StringUtils.capitalize(endpoint.getEndpointId().toString()));
 		String baseName = builder.toString();
@@ -69,13 +69,6 @@ class DefaultEndpointObjectNameFactory implements EndpointObjectNameFactory {
 		}
 		builder.append(getStaticNames());
 		return ObjectNameManager.getInstance(builder.toString());
-	}
-
-	private String determineDomain() {
-		if (StringUtils.hasText(this.properties.getDomain())) {
-			return this.properties.getDomain();
-		}
-		return this.environment.getProperty("spring.jmx.default-domain", "org.springframework.boot");
 	}
 
 	private boolean hasMBean(String baseObjectName) throws MalformedObjectNameException {
