@@ -121,7 +121,7 @@ public class PrometheusMetricsExportAutoConfiguration {
 		@ConditionalOnMissingBean
 		public PrometheusPushGatewayManager prometheusPushGatewayManager(CollectorRegistry collectorRegistry,
 				PrometheusProperties prometheusProperties, Environment environment) {
-			PrometheusProperties.Pushgateway properties = prometheusProperties.getPushgateway();
+			PrometheusProperties.Pushgateway properties = prometheusProperties.getPushgateway().getPushgateway(this);
 			Duration pushRate = properties.getPushRate();
 			String job = getJob(properties, environment);
 			Map<String, String> groupingKey = properties.getGroupingKey();

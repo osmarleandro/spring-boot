@@ -82,10 +82,6 @@ public class PrometheusProperties {
 		this.step = step;
 	}
 
-	public Pushgateway getPushgateway() {
-		return this.pushgateway;
-	}
-
 	/**
 	 * Configuration options for push-based interaction with Prometheus.
 	 */
@@ -193,6 +189,10 @@ public class PrometheusProperties {
 
 		public void setShutdownOperation(ShutdownOperation shutdownOperation) {
 			this.shutdownOperation = shutdownOperation;
+		}
+
+		public Pushgateway getPushgateway(PrometheusProperties prometheusProperties) {
+			return this;
 		}
 
 	}
