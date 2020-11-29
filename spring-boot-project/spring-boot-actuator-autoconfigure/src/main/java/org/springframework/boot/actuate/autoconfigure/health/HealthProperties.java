@@ -63,10 +63,6 @@ public abstract class HealthProperties {
 
 	public abstract Show getShowDetails();
 
-	public Set<String> getRoles() {
-		return this.roles;
-	}
-
 	public void setRoles(Set<String> roles) {
 		this.roles = roles;
 	}
@@ -99,6 +95,10 @@ public abstract class HealthProperties {
 
 		public Map<String, Integer> getHttpMapping() {
 			return this.httpMapping;
+		}
+
+		public Set<String> getRoles(HealthProperties healthProperties) {
+			return healthProperties.roles;
 		}
 
 	}
