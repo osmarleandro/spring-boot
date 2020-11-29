@@ -16,13 +16,21 @@
 
 package org.springframework.boot.actuate.endpoint;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
+import java.util.function.Predicate;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
+import org.springframework.boot.actuate.env.EnvironmentEndpoint;
+import org.springframework.boot.actuate.env.EnvironmentEndpoint.EnvironmentDescriptor;
+import org.springframework.boot.actuate.env.EnvironmentEndpoint.PropertySourceDescriptor;
+import org.springframework.boot.context.properties.bind.PlaceholdersResolver;
+import org.springframework.core.env.EnumerablePropertySource;
 import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
 
@@ -136,6 +144,18 @@ public class Sanitizer {
 			return StringUtils.replace(value, ":" + password + "@", ":******@");
 		}
 		return value;
+	}
+
+	public EnvironmentDescriptor getEnvironmentDescriptor(EnvironmentEndpoint environmentEndpoint, Predicate<String> propertyNamePredicate) {
+		PlaceholdersResolver resolver = environmentEndpoint.getResolver();
+		List<PropertySourceDescriptor> propertySources = new ArrayList<>();
+		environmentEndpoint.getPropertySourcesAsMap().forEach((sourceName, source) -> {
+			if (source instanceof EnumerablePropertySource) {
+				propertySources.add(environmentEndpoint.describeSource(sourceName, (EnumerablePropertySource<?>) source, resolver,
+						propertyNamePredicate));
+			}
+		});
+		return new EnvironmentDescriptor(Arrays.asList(environmentEndpoint.environment.getActiveProfiles()), propertySources);
 	}
 
 }

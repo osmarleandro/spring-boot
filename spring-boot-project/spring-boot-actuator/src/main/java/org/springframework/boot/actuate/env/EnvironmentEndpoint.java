@@ -64,7 +64,7 @@ public class EnvironmentEndpoint {
 
 	private final Sanitizer sanitizer = new Sanitizer();
 
-	private final Environment environment;
+	public final Environment environment;
 
 	public EnvironmentEndpoint(Environment environment) {
 		this.environment = environment;
@@ -77,26 +77,14 @@ public class EnvironmentEndpoint {
 	@ReadOperation
 	public EnvironmentDescriptor environment(@Nullable String pattern) {
 		if (StringUtils.hasText(pattern)) {
-			return getEnvironmentDescriptor(Pattern.compile(pattern).asPredicate());
+			return sanitizer.getEnvironmentDescriptor(this, Pattern.compile(pattern).asPredicate());
 		}
-		return getEnvironmentDescriptor((name) -> true);
+		return sanitizer.getEnvironmentDescriptor(this, (name) -> true);
 	}
 
 	@ReadOperation
 	public EnvironmentEntryDescriptor environmentEntry(@Selector String toMatch) {
 		return getEnvironmentEntryDescriptor(toMatch);
-	}
-
-	private EnvironmentDescriptor getEnvironmentDescriptor(Predicate<String> propertyNamePredicate) {
-		PlaceholdersResolver resolver = getResolver();
-		List<PropertySourceDescriptor> propertySources = new ArrayList<>();
-		getPropertySourcesAsMap().forEach((sourceName, source) -> {
-			if (source instanceof EnumerablePropertySource) {
-				propertySources.add(describeSource(sourceName, (EnumerablePropertySource<?>) source, resolver,
-						propertyNamePredicate));
-			}
-		});
-		return new EnvironmentDescriptor(Arrays.asList(this.environment.getActiveProfiles()), propertySources);
 	}
 
 	private EnvironmentEntryDescriptor getEnvironmentEntryDescriptor(String propertyName) {
@@ -130,7 +118,7 @@ public class EnvironmentEndpoint {
 		return propertySources;
 	}
 
-	private PropertySourceDescriptor describeSource(String sourceName, EnumerablePropertySource<?> source,
+	public PropertySourceDescriptor describeSource(String sourceName, EnumerablePropertySource<?> source,
 			PlaceholdersResolver resolver, Predicate<String> namePredicate) {
 		Map<String, PropertyValueDescriptor> properties = new LinkedHashMap<>();
 		Stream.of(source.getPropertyNames()).filter(namePredicate)
@@ -146,11 +134,11 @@ public class EnvironmentEndpoint {
 		return new PropertyValueDescriptor(sanitize(name, resolved), origin);
 	}
 
-	private PlaceholdersResolver getResolver() {
+	public PlaceholdersResolver getResolver() {
 		return new PropertySourcesPlaceholdersSanitizingResolver(getPropertySources(), this.sanitizer);
 	}
 
-	private Map<String, PropertySource<?>> getPropertySourcesAsMap() {
+	public Map<String, PropertySource<?>> getPropertySourcesAsMap() {
 		Map<String, PropertySource<?>> map = new LinkedHashMap<>();
 		for (PropertySource<?> source : getPropertySources()) {
 			if (!ConfigurationPropertySources.isAttachedConfigurationPropertySource(source)) {
