@@ -37,7 +37,7 @@ public class BuildInfoContributor extends InfoPropertiesInfoContributor<BuildPro
 
 	@Override
 	public void contribute(Info.Builder builder) {
-		builder.withDetail("build", generateContent());
+		builder.withDetail("build", STRING_OBJECT_MAP.generateContent(this));
 	}
 
 	@Override

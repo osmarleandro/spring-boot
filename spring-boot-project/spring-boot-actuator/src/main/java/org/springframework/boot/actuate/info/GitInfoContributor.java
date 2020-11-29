@@ -42,7 +42,7 @@ public class GitInfoContributor extends InfoPropertiesInfoContributor<GitPropert
 
 	@Override
 	public void contribute(Info.Builder builder) {
-		builder.withDetail("git", generateContent());
+		builder.withDetail("git", STRING_OBJECT_MAP.generateContent(this));
 	}
 
 	@Override

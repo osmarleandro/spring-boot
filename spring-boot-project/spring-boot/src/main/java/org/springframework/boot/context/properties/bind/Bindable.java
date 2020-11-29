@@ -23,7 +23,9 @@ import java.util.Map;
 import java.util.Set;
 import java.util.function.Supplier;
 
+import org.springframework.boot.actuate.info.InfoPropertiesInfoContributor;
 import org.springframework.core.ResolvableType;
+import org.springframework.core.env.PropertySource;
 import org.springframework.core.style.ToStringCreator;
 import org.springframework.util.Assert;
 import org.springframework.util.ObjectUtils;
@@ -172,6 +174,19 @@ public final class Bindable<T> {
 	 */
 	public Bindable<T> withSuppliedValue(Supplier<T> suppliedValue) {
 		return new Bindable<>(this.type, this.boxedType, suppliedValue, this.annotations);
+	}
+
+	/**
+	 * Extract the content to contribute to the info endpoint.
+	 * @return the content to expose
+	 * @see #extractContent(PropertySource)
+	 * @param infoPropertiesInfoContributor TODO
+	 * @see #postProcessContent(Map)
+	 */
+	public Map<String, Object> generateContent(InfoPropertiesInfoContributor infoPropertiesInfoContributor) {
+		Map<String, Object> content = infoPropertiesInfoContributor.extractContent(infoPropertiesInfoContributor.toPropertySource());
+		infoPropertiesInfoContributor.postProcessContent(content);
+		return content;
 	}
 
 	/**

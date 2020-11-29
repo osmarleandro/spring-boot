@@ -38,7 +38,7 @@ import org.springframework.util.StringUtils;
  */
 public abstract class InfoPropertiesInfoContributor<T extends InfoProperties> implements InfoContributor {
 
-	private static final Bindable<Map<String, Object>> STRING_OBJECT_MAP = Bindable.mapOf(String.class, Object.class);
+	public static final Bindable<Map<String, Object>> STRING_OBJECT_MAP = Bindable.mapOf(String.class, Object.class);
 
 	private final T properties;
 
@@ -73,23 +73,11 @@ public abstract class InfoPropertiesInfoContributor<T extends InfoProperties> im
 	protected abstract PropertySource<?> toSimplePropertySource();
 
 	/**
-	 * Extract the content to contribute to the info endpoint.
-	 * @return the content to expose
-	 * @see #extractContent(PropertySource)
-	 * @see #postProcessContent(Map)
-	 */
-	protected Map<String, Object> generateContent() {
-		Map<String, Object> content = extractContent(toPropertySource());
-		postProcessContent(content);
-		return content;
-	}
-
-	/**
 	 * Extract the raw content based on the specified {@link PropertySource}.
 	 * @param propertySource the property source to use
 	 * @return the raw content
 	 */
-	protected Map<String, Object> extractContent(PropertySource<?> propertySource) {
+	public Map<String, Object> extractContent(PropertySource<?> propertySource) {
 		return new Binder(ConfigurationPropertySources.from(propertySource)).bind("", STRING_OBJECT_MAP)
 				.orElseGet(LinkedHashMap::new);
 	}
@@ -98,7 +86,7 @@ public abstract class InfoPropertiesInfoContributor<T extends InfoProperties> im
 	 * Post-process the content to expose. Elements can be added, changed or removed.
 	 * @param content the content to expose
 	 */
-	protected void postProcessContent(Map<String, Object> content) {
+	public void postProcessContent(Map<String, Object> content) {
 
 	}
 
@@ -106,7 +94,7 @@ public abstract class InfoPropertiesInfoContributor<T extends InfoProperties> im
 	 * Return the {@link PropertySource} to use based on the chosen {@link Mode}.
 	 * @return the property source
 	 */
-	protected PropertySource<?> toPropertySource() {
+	public PropertySource<?> toPropertySource() {
 		if (this.mode.equals(Mode.FULL)) {
 			return this.properties.toPropertySource();
 		}
