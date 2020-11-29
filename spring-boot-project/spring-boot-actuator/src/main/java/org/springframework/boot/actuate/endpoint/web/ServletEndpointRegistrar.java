@@ -20,7 +20,6 @@ import java.util.Collection;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
-import javax.servlet.ServletRegistration.Dynamic;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -39,9 +38,9 @@ import org.springframework.util.StringUtils;
  */
 public class ServletEndpointRegistrar implements ServletContextInitializer {
 
-	private static final Log logger = LogFactory.getLog(ServletEndpointRegistrar.class);
+	static final Log logger = LogFactory.getLog(ServletEndpointRegistrar.class);
 
-	private final String basePath;
+	final String basePath;
 
 	private final Collection<ExposableServletEndpoint> servletEndpoints;
 
@@ -60,19 +59,7 @@ public class ServletEndpointRegistrar implements ServletContextInitializer {
 
 	@Override
 	public void onStartup(ServletContext servletContext) throws ServletException {
-		this.servletEndpoints.forEach((servletEndpoint) -> register(servletContext, servletEndpoint));
-	}
-
-	private void register(ServletContext servletContext, ExposableServletEndpoint endpoint) {
-		String name = endpoint.getEndpointId().toLowerCaseString() + "-actuator-endpoint";
-		String path = this.basePath + "/" + endpoint.getRootPath();
-		String urlMapping = path.endsWith("/") ? path + "*" : path + "/*";
-		EndpointServlet endpointServlet = endpoint.getEndpointServlet();
-		Dynamic registration = servletContext.addServlet(name, endpointServlet.getServlet());
-		registration.addMapping(urlMapping);
-		registration.setInitParameters(endpointServlet.getInitParameters());
-		registration.setLoadOnStartup(endpointServlet.getLoadOnStartup());
-		logger.info("Registered '" + path + "' to " + name);
+		this.servletEndpoints.forEach((servletEndpoint) -> servletEndpoint.register(servletContext, this));
 	}
 
 }

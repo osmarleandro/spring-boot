@@ -16,6 +16,9 @@
 
 package org.springframework.boot.actuate.endpoint.web;
 
+import javax.servlet.ServletContext;
+import javax.servlet.ServletRegistration.Dynamic;
+
 import org.springframework.boot.actuate.endpoint.ExposableEndpoint;
 import org.springframework.boot.actuate.endpoint.Operation;
 
@@ -32,5 +35,17 @@ public interface ExposableServletEndpoint extends ExposableEndpoint<Operation>, 
 	 * @return the endpoint servlet
 	 */
 	EndpointServlet getEndpointServlet();
+
+	default void register(ServletContext servletContext, ServletEndpointRegistrar servletEndpointRegistrar) {
+		String name = getEndpointId().toLowerCaseString() + "-actuator-endpoint";
+		String path = servletEndpointRegistrar.basePath + "/" + getRootPath();
+		String urlMapping = path.endsWith("/") ? path + "*" : path + "/*";
+		EndpointServlet endpointServlet = getEndpointServlet();
+		Dynamic registration = servletContext.addServlet(name, endpointServlet.getServlet());
+		registration.addMapping(urlMapping);
+		registration.setInitParameters(endpointServlet.getInitParameters());
+		registration.setLoadOnStartup(endpointServlet.getLoadOnStartup());
+		ServletEndpointRegistrar.logger.info("Registered '" + path + "' to " + name);
+	}
 
 }
