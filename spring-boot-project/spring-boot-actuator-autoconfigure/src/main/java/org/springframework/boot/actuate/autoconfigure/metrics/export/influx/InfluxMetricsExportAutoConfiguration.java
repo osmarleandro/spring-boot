@@ -51,16 +51,10 @@ import org.springframework.context.annotation.Configuration;
 @EnableConfigurationProperties(InfluxProperties.class)
 public class InfluxMetricsExportAutoConfiguration {
 
-	private final InfluxProperties properties;
+	final InfluxProperties properties;
 
 	public InfluxMetricsExportAutoConfiguration(InfluxProperties properties) {
 		this.properties = properties;
-	}
-
-	@Bean
-	@ConditionalOnMissingBean
-	public InfluxConfig influxConfig() {
-		return new InfluxPropertiesConfigAdapter(this.properties);
 	}
 
 	@Bean

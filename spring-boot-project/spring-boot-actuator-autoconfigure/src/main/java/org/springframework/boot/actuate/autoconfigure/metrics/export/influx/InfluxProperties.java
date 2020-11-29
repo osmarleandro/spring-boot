@@ -16,10 +16,13 @@
 
 package org.springframework.boot.actuate.autoconfigure.metrics.export.influx;
 
+import io.micrometer.influx.InfluxConfig;
 import io.micrometer.influx.InfluxConsistency;
 
 import org.springframework.boot.actuate.autoconfigure.metrics.export.properties.StepRegistryProperties;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.Bean;
 
 /**
  * {@link ConfigurationProperties @ConfigurationProperties} for configuring Influx metrics
@@ -179,6 +182,12 @@ public class InfluxProperties extends StepRegistryProperties {
 
 	public void setAutoCreateDb(boolean autoCreateDb) {
 		this.autoCreateDb = autoCreateDb;
+	}
+
+	@Bean
+	@ConditionalOnMissingBean
+	public InfluxConfig influxConfig(InfluxMetricsExportAutoConfiguration influxMetricsExportAutoConfiguration) {
+		return new InfluxPropertiesConfigAdapter(this);
 	}
 
 }
