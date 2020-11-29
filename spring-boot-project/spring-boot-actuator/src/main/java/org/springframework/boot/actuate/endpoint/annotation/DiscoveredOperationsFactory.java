@@ -107,4 +107,15 @@ abstract class DiscoveredOperationsFactory<O extends Operation> {
 	protected abstract O createOperation(EndpointId endpointId, DiscoveredOperationMethod operationMethod,
 			OperationInvoker invoker);
 
+	/**
+	 * Determine if an extension bean should be exposed. Subclasses can override this
+	 * method to provide additional logic.
+	 * @param extensionBean the extension bean
+	 * @return {@code true} if the extension is exposed
+	 */
+	@Deprecated
+	protected boolean isExtensionExposed(Object extensionBean) {
+		return true;
+	}
+
 }
