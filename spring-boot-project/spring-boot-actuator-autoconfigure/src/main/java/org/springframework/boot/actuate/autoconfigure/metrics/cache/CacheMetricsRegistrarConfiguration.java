@@ -29,7 +29,6 @@ import org.springframework.boot.actuate.metrics.cache.CacheMetricsRegistrar;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.util.StringUtils;
 
@@ -41,13 +40,14 @@ import org.springframework.util.StringUtils;
  */
 @Configuration(proxyBeanMethods = false)
 @ConditionalOnBean({ CacheMeterBinderProvider.class, MeterRegistry.class })
+public
 class CacheMetricsRegistrarConfiguration {
 
 	private static final String CACHE_MANAGER_SUFFIX = "cacheManager";
 
 	private final MeterRegistry registry;
 
-	private final CacheMetricsRegistrar cacheMetricsRegistrar;
+	public final CacheMetricsRegistrar cacheMetricsRegistrar;
 
 	private final Map<String, CacheManager> cacheManagers;
 
@@ -56,11 +56,6 @@ class CacheMetricsRegistrarConfiguration {
 		this.registry = registry;
 		this.cacheManagers = cacheManagers;
 		this.cacheMetricsRegistrar = new CacheMetricsRegistrar(this.registry, binderProviders);
-	}
-
-	@Bean
-	CacheMetricsRegistrar cacheMetricsRegistrar() {
-		return this.cacheMetricsRegistrar;
 	}
 
 	@PostConstruct
