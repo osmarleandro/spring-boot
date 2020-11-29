@@ -19,7 +19,6 @@ package org.springframework.boot.actuate.health;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 import org.springframework.boot.actuate.endpoint.SecurityContext;
 import org.springframework.boot.actuate.endpoint.http.ApiVersion;
@@ -33,7 +32,7 @@ import org.springframework.util.Assert;
  * @author Phillip Webb
  * @author Scott Frederick
  */
-abstract class HealthEndpointSupport<C, T> {
+public abstract class HealthEndpointSupport<C, T> {
 
 	static final Health DEFAULT_HEALTH = Health.up().build();
 
@@ -125,17 +124,6 @@ abstract class HealthEndpointSupport<C, T> {
 
 	protected abstract T aggregateContributions(ApiVersion apiVersion, Map<String, T> contributions,
 			StatusAggregator statusAggregator, boolean showComponents, Set<String> groupNames);
-
-	protected final CompositeHealth getCompositeHealth(ApiVersion apiVersion, Map<String, HealthComponent> components,
-			StatusAggregator statusAggregator, boolean showComponents, Set<String> groupNames) {
-		Status status = statusAggregator
-				.getAggregateStatus(components.values().stream().map(this::getStatus).collect(Collectors.toSet()));
-		Map<String, HealthComponent> instances = showComponents ? components : null;
-		if (groupNames != null) {
-			return new SystemHealth(apiVersion, status, instances, groupNames);
-		}
-		return new CompositeHealth(apiVersion, status, instances);
-	}
 
 	private Status getStatus(HealthComponent component) {
 		return (component != null) ? component.getStatus() : Status.UNKNOWN;

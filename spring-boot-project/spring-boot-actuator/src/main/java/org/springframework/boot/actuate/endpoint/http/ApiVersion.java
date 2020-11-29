@@ -18,7 +18,15 @@ package org.springframework.boot.actuate.endpoint.http;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
 
+import org.springframework.boot.actuate.health.CompositeHealth;
+import org.springframework.boot.actuate.health.HealthComponent;
+import org.springframework.boot.actuate.health.HealthEndpointSupport;
+import org.springframework.boot.actuate.health.Status;
+import org.springframework.boot.actuate.health.StatusAggregator;
+import org.springframework.boot.actuate.health.SystemHealth;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.MimeTypeUtils;
 
@@ -85,6 +93,16 @@ public enum ApiVersion {
 		int existingOrdinal = (existing != null) ? existing.ordinal() : -1;
 		int candidateOrdinal = (candidate != null) ? candidate.ordinal() : -1;
 		return (candidateOrdinal > existingOrdinal) ? candidate : existing;
+	}
+
+	public final CompositeHealth getCompositeHealth(HealthEndpointSupport healthEndpointSupport, Map<String, HealthComponent> components, StatusAggregator statusAggregator, boolean showComponents, Set<String> groupNames) {
+		Status status = statusAggregator
+				.getAggregateStatus(components.values().stream().map(healthEndpointSupport::getStatus).collect(Collectors.toSet()));
+		Map<String, HealthComponent> instances = showComponents ? components : null;
+		if (groupNames != null) {
+			return new SystemHealth(this, status, instances, groupNames);
+		}
+		return new CompositeHealth(this, status, instances);
 	}
 
 }

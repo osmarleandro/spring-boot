@@ -74,7 +74,7 @@ public class HealthEndpoint extends HealthEndpointSupport<HealthContributor, Hea
 	@Override
 	protected HealthComponent aggregateContributions(ApiVersion apiVersion, Map<String, HealthComponent> contributions,
 			StatusAggregator statusAggregator, boolean showComponents, Set<String> groupNames) {
-		return getCompositeHealth(apiVersion, contributions, statusAggregator, showComponents, groupNames);
+		return apiVersion.getCompositeHealth(this, contributions, statusAggregator, showComponents, groupNames);
 	}
 
 }
