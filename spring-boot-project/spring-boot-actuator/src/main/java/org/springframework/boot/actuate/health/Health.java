@@ -16,13 +16,17 @@
 
 package org.springframework.boot.actuate.health;
 
+import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
+import org.springframework.boot.actuate.couchbase.CouchbaseHealth;
+import org.springframework.boot.actuate.health.Health.Builder;
 import org.springframework.util.Assert;
 
 /**
@@ -327,6 +331,13 @@ public final class Health extends HealthComponent {
 		 */
 		public Health build() {
 			return new Health(this);
+		}
+
+		public void applyTo(CouchbaseHealth couchbaseHealth) {
+			this = couchbaseHealth.isCouchbaseUp(couchbaseHealth.diagnostics) ? up() : down();
+			withDetail("sdk", couchbaseHealth.diagnostics.sdk());
+			withDetail("endpoints", couchbaseHealth.diagnostics.endpoints().values().stream().flatMap(Collection::stream)
+					.map(couchbaseHealth::describe).collect(Collectors.toList()));
 		}
 
 	}

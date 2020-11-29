@@ -49,7 +49,7 @@ public class CouchbaseHealthIndicator extends AbstractHealthIndicator {
 	@Override
 	protected void doHealthCheck(Health.Builder builder) throws Exception {
 		DiagnosticsResult diagnostics = this.cluster.diagnostics();
-		new CouchbaseHealth(diagnostics).applyTo(builder);
+		builder.applyTo(new CouchbaseHealth(diagnostics));
 	}
 
 }
