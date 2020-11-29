@@ -23,10 +23,12 @@ import java.util.Collections;
 import java.util.EnumMap;
 import java.util.Map;
 import java.util.Objects;
+import java.util.function.Supplier;
 
 import org.springframework.boot.actuate.endpoint.EndpointId;
 import org.springframework.boot.actuate.endpoint.Operation;
 import org.springframework.boot.actuate.endpoint.OperationType;
+import org.springframework.boot.actuate.endpoint.annotation.EndpointDiscoverer.ExtensionBean;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvoker;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvokerAdvisor;
 import org.springframework.boot.actuate.endpoint.invoke.ParameterValueMapper;
@@ -36,6 +38,7 @@ import org.springframework.core.MethodIntrospector;
 import org.springframework.core.MethodIntrospector.MetadataLookup;
 import org.springframework.core.annotation.MergedAnnotation;
 import org.springframework.core.annotation.MergedAnnotations;
+import org.springframework.util.ClassUtils;
 
 /**
  * Factory to create an {@link Operation} for annotated methods on an
@@ -106,5 +109,11 @@ abstract class DiscoveredOperationsFactory<O extends Operation> {
 
 	protected abstract O createOperation(EndpointId endpointId, DiscoveredOperationMethod operationMethod,
 			OperationInvoker invoker);
+
+	ExtensionBean createExtensionBean(EndpointDiscoverer endpointDiscoverer, String beanName) {
+		Class<?> beanType = ClassUtils.getUserClass(endpointDiscoverer.applicationContext.getType(beanName));
+		Supplier<Object> beanSupplier = () -> endpointDiscoverer.applicationContext.getBean(beanName);
+		return new ExtensionBean(endpointDiscoverer.applicationContext.getEnvironment(), beanName, beanType, beanSupplier);
+	}
 
 }
