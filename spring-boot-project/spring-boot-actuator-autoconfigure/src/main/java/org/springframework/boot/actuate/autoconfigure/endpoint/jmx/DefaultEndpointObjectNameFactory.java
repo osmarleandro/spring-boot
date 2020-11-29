@@ -33,7 +33,7 @@ import org.springframework.util.StringUtils;
  *
  * @author Stephane Nicoll
  */
-class DefaultEndpointObjectNameFactory implements EndpointObjectNameFactory {
+public class DefaultEndpointObjectNameFactory implements EndpointObjectNameFactory {
 
 	private final JmxEndpointProperties properties;
 

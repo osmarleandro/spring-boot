@@ -16,7 +16,18 @@
 
 package org.springframework.boot.actuate.endpoint.jmx;
 
+import javax.management.MBeanServer;
+
+import org.springframework.beans.factory.ObjectProvider;
+import org.springframework.boot.actuate.autoconfigure.endpoint.jmx.DefaultEndpointObjectNameFactory;
+import org.springframework.boot.actuate.autoconfigure.endpoint.jmx.JmxEndpointAutoConfiguration;
 import org.springframework.boot.actuate.endpoint.EndpointsSupplier;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnSingleCandidate;
+import org.springframework.context.annotation.Bean;
+import org.springframework.core.env.Environment;
+import org.springframework.util.ObjectUtils;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
  * {@link EndpointsSupplier} for {@link ExposableJmxEndpoint JMX endpoints}.
@@ -26,5 +37,18 @@ import org.springframework.boot.actuate.endpoint.EndpointsSupplier;
  */
 @FunctionalInterface
 public interface JmxEndpointsSupplier extends EndpointsSupplier<ExposableJmxEndpoint> {
+
+	@Bean
+	@ConditionalOnSingleCandidate(MBeanServer.class)
+	default JmxEndpointExporter jmxMBeanExporter(MBeanServer mBeanServer, Environment environment, ObjectProvider<ObjectMapper> objectMapper, JmxEndpointAutoConfiguration jmxEndpointAutoConfiguration) {
+		String contextId = ObjectUtils.getIdentityHexString(jmxEndpointAutoConfiguration.applicationContext);
+		EndpointObjectNameFactory objectNameFactory = new DefaultEndpointObjectNameFactory(jmxEndpointAutoConfiguration.properties, environment,
+				mBeanServer, contextId);
+		JmxOperationResponseMapper responseMapper = new JacksonJmxOperationResponseMapper(
+				objectMapper.getIfAvailable());
+		return new JmxEndpointExporter(mBeanServer, objectNameFactory, responseMapper,
+				getEndpoints());
+	
+	}
 
 }
