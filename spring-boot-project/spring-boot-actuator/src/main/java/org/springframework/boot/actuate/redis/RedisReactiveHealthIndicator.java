@@ -24,7 +24,6 @@ import reactor.core.scheduler.Schedulers;
 import org.springframework.boot.actuate.health.AbstractReactiveHealthIndicator;
 import org.springframework.boot.actuate.health.Health;
 import org.springframework.boot.actuate.health.ReactiveHealthIndicator;
-import org.springframework.data.redis.connection.ClusterInfo;
 import org.springframework.data.redis.connection.ReactiveRedisClusterConnection;
 import org.springframework.data.redis.connection.ReactiveRedisConnection;
 import org.springframework.data.redis.connection.ReactiveRedisConnectionFactory;
@@ -65,17 +64,13 @@ public class RedisReactiveHealthIndicator extends AbstractReactiveHealthIndicato
 	private Mono<Health> getHealth(Health.Builder builder, ReactiveRedisConnection connection) {
 		if (connection instanceof ReactiveRedisClusterConnection) {
 			return ((ReactiveRedisClusterConnection) connection).clusterGetClusterInfo()
-					.map((info) -> up(builder, info));
+					.map((info) -> builder.up(info));
 		}
 		return connection.serverCommands().info().map((info) -> up(builder, info));
 	}
 
 	private Health up(Health.Builder builder, Properties info) {
 		return RedisHealth.up(builder, info).build();
-	}
-
-	private Health up(Health.Builder builder, ClusterInfo clusterInfo) {
-		return RedisHealth.up(builder, clusterInfo).build();
 	}
 
 }

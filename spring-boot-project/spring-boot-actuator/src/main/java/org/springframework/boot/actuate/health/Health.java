@@ -23,6 +23,8 @@ import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
+import org.springframework.boot.actuate.redis.RedisHealth;
+import org.springframework.data.redis.connection.ClusterInfo;
 import org.springframework.util.Assert;
 
 /**
@@ -327,6 +329,10 @@ public final class Health extends HealthComponent {
 		 */
 		public Health build() {
 			return new Health(this);
+		}
+
+		public Health up(ClusterInfo clusterInfo) {
+			return RedisHealth.up(this, clusterInfo).build();
 		}
 
 	}

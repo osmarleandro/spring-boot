@@ -28,7 +28,7 @@ import org.springframework.data.redis.connection.ClusterInfo;
  *
  * @author Phillip Webb
  */
-final class RedisHealth {
+public final class RedisHealth {
 
 	private RedisHealth() {
 	}
@@ -38,7 +38,7 @@ final class RedisHealth {
 		return builder.up();
 	}
 
-	static Builder up(Health.Builder builder, ClusterInfo clusterInfo) {
+	public static Builder up(Health.Builder builder, ClusterInfo clusterInfo) {
 		builder.withDetail("cluster_size", clusterInfo.getClusterSize());
 		builder.withDetail("slots_up", clusterInfo.getSlotsOk());
 		builder.withDetail("slots_fail", clusterInfo.getSlotsFail());
