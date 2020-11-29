@@ -27,7 +27,6 @@ import org.springframework.boot.actuate.health.Status;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.data.elasticsearch.client.reactive.ReactiveElasticsearchClient;
 import org.springframework.web.reactive.function.client.ClientResponse;
-import org.springframework.web.reactive.function.client.WebClient;
 
 /**
  * {@link HealthIndicator} for an Elasticsearch cluster using a
@@ -54,14 +53,10 @@ public class ElasticsearchReactiveHealthIndicator extends AbstractReactiveHealth
 
 	@Override
 	protected Mono<Health> doHealthCheck(Health.Builder builder) {
-		return this.client.execute((webClient) -> getHealth(builder, webClient));
+		return this.client.execute((webClient) -> builder.getHealth(this, webClient));
 	}
 
-	private Mono<Health> getHealth(Health.Builder builder, WebClient webClient) {
-		return webClient.get().uri("/_cluster/health/").exchangeToMono((response) -> doHealthCheck(builder, response));
-	}
-
-	private Mono<Health> doHealthCheck(Health.Builder builder, ClientResponse response) {
+	public Mono<Health> doHealthCheck(Health.Builder builder, ClientResponse response) {
 		if (response.statusCode().is2xxSuccessful()) {
 			return response.bodyToMono(STRING_OBJECT_MAP).map((body) -> getHealth(builder, body));
 		}
