@@ -79,7 +79,7 @@ public class WebMvcMetricsFilter extends OncePerRequestFilter {
 
 	@Override
 	protected boolean shouldNotFilterAsyncDispatch() {
-		return false;
+		return autoTimer.shouldNotFilterAsyncDispatch();
 	}
 
 	@Override

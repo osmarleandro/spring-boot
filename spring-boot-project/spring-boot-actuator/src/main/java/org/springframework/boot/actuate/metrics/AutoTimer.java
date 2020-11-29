@@ -94,4 +94,8 @@ public interface AutoTimer {
 	 */
 	void apply(Timer.Builder builder);
 
+	public default boolean shouldNotFilterAsyncDispatch() {
+		return false;
+	}
+
 }
