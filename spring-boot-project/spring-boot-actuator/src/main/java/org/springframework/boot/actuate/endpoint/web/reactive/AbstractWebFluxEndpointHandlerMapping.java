@@ -160,8 +160,8 @@ public abstract class AbstractWebFluxEndpointHandlerMapping extends RequestMappi
 	 */
 	protected ReactiveWebOperation wrapReactiveWebOperation(ExposableWebEndpoint endpoint, WebOperation operation,
 			ReactiveWebOperation reactiveWebOperation) {
-		return reactiveWebOperation;
-	}
+				return endpoint.wrapReactiveWebOperation(operation, reactiveWebOperation);
+			}
 
 	private RequestMappingInfo createRequestMappingInfo(WebOperation operation) {
 		WebOperationRequestPredicate predicate = operation.getRequestPredicate();
@@ -256,7 +256,7 @@ public abstract class AbstractWebFluxEndpointHandlerMapping extends RequestMappi
 	 * A reactive web operation that can be handled by WebFlux.
 	 */
 	@FunctionalInterface
-	protected interface ReactiveWebOperation {
+	public interface ReactiveWebOperation {
 
 		Mono<ResponseEntity<Object>> handle(ServerWebExchange exchange, Map<String, String> body);
 

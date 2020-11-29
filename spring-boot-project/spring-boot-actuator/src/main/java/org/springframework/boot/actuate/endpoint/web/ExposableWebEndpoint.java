@@ -17,6 +17,7 @@
 package org.springframework.boot.actuate.endpoint.web;
 
 import org.springframework.boot.actuate.endpoint.ExposableEndpoint;
+import org.springframework.boot.actuate.endpoint.web.reactive.AbstractWebFluxEndpointHandlerMapping.ReactiveWebOperation;
 
 /**
  * Information describing an endpoint that can be exposed over the web.
@@ -25,5 +26,16 @@ import org.springframework.boot.actuate.endpoint.ExposableEndpoint;
  * @since 2.0.0
  */
 public interface ExposableWebEndpoint extends ExposableEndpoint<WebOperation>, PathMappedEndpoint {
+
+	/**
+	 * Hook point that allows subclasses to wrap the {@link ReactiveWebOperation} before
+	 * it's called. Allows additional features, such as security, to be added.
+	 * @param operation the source operation
+	 * @param reactiveWebOperation the reactive web operation to wrap
+	 * @return a wrapped reactive web operation
+	 */
+	public default ReactiveWebOperation wrapReactiveWebOperation(WebOperation operation, ReactiveWebOperation reactiveWebOperation) {
+		return reactiveWebOperation;
+	}
 
 }
