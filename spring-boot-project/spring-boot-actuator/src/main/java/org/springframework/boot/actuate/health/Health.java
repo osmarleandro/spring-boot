@@ -23,6 +23,7 @@ import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
+import org.springframework.boot.actuate.cassandra.CassandraHealthIndicator;
 import org.springframework.util.Assert;
 
 /**
@@ -327,6 +328,11 @@ public final class Health extends HealthComponent {
 		 */
 		public Health build() {
 			return new Health(this);
+		}
+
+		public void doHealthCheck(CassandraHealthIndicator cassandraHealthIndicator) throws Exception {
+			String version = cassandraHealthIndicator.cassandraOperations.getCqlOperations().queryForObject(CassandraHealthIndicator.SELECT, String.class);
+			up().withDetail("version", version);
 		}
 
 	}

@@ -37,10 +37,10 @@ import org.springframework.util.Assert;
 @Deprecated
 public class CassandraHealthIndicator extends AbstractHealthIndicator {
 
-	private static final SimpleStatement SELECT = SimpleStatement
+	public static final SimpleStatement SELECT = SimpleStatement
 			.newInstance("SELECT release_version FROM system.local").setConsistencyLevel(ConsistencyLevel.LOCAL_ONE);
 
-	private CassandraOperations cassandraOperations;
+	public CassandraOperations cassandraOperations;
 
 	public CassandraHealthIndicator() {
 		super("Cassandra health check failed");
@@ -58,8 +58,7 @@ public class CassandraHealthIndicator extends AbstractHealthIndicator {
 
 	@Override
 	protected void doHealthCheck(Health.Builder builder) throws Exception {
-		String version = this.cassandraOperations.getCqlOperations().queryForObject(SELECT, String.class);
-		builder.up().withDetail("version", version);
+		builder.doHealthCheck(this);
 	}
 
 }
