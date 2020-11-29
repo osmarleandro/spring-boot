@@ -16,12 +16,17 @@
 
 package org.springframework.boot.actuate.neo4j;
 
+import org.neo4j.driver.reactive.RxResult;
+import org.neo4j.driver.reactive.RxSession;
 import org.neo4j.driver.summary.DatabaseInfo;
 import org.neo4j.driver.summary.ResultSummary;
 import org.neo4j.driver.summary.ServerInfo;
 
 import org.springframework.boot.actuate.health.Health.Builder;
 import org.springframework.util.StringUtils;
+
+import reactor.core.publisher.Mono;
+import reactor.util.function.Tuple2;
 
 /**
  * Handle health check details for a Neo4j server.
@@ -44,6 +49,16 @@ class Neo4jHealthDetailsHandler {
 		if (StringUtils.hasText(databaseInfo.name())) {
 			builder.withDetail("database", databaseInfo.name());
 		}
+	}
+
+	Mono<Tuple2<String, ResultSummary>> runHealthCheckQuery(Neo4jReactiveHealthIndicator neo4jReactiveHealthIndicator) {
+		// We use WRITE here to make sure UP is returned for a server that supports
+		// all possible workloads
+		return Mono.using(() -> neo4jReactiveHealthIndicator.driver.rxSession(Neo4jHealthIndicator.DEFAULT_SESSION_CONFIG), (session) -> {
+			RxResult result = session.run(Neo4jHealthIndicator.CYPHER);
+			return Mono.from(result.records()).map((record) -> record.get("edition").asString())
+					.zipWhen((edition) -> Mono.from(result.consume()));
+		}, RxSession::close);
 	}
 
 }
