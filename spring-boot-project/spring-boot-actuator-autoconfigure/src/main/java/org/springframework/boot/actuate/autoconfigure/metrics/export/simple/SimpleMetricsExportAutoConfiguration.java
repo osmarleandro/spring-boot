@@ -55,10 +55,4 @@ public class SimpleMetricsExportAutoConfiguration {
 		return new SimpleMeterRegistry(config, clock);
 	}
 
-	@Bean
-	@ConditionalOnMissingBean
-	public SimpleConfig simpleConfig(SimpleProperties simpleProperties) {
-		return new SimplePropertiesConfigAdapter(simpleProperties);
-	}
-
 }

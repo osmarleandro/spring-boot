@@ -19,9 +19,12 @@ package org.springframework.boot.actuate.autoconfigure.metrics.export.simple;
 import java.time.Duration;
 
 import io.micrometer.core.instrument.simple.CountingMode;
+import io.micrometer.core.instrument.simple.SimpleConfig;
 import io.micrometer.core.instrument.simple.SimpleMeterRegistry;
 
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.Bean;
 
 /**
  * {@link ConfigurationProperties @ConfigurationProperties} for configuring metrics export
@@ -58,6 +61,12 @@ public class SimpleProperties {
 
 	public void setMode(CountingMode mode) {
 		this.mode = mode;
+	}
+
+	@Bean
+	@ConditionalOnMissingBean
+	public SimpleConfig simpleConfig() {
+		return new SimplePropertiesConfigAdapter(this);
 	}
 
 }
