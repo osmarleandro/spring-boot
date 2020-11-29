@@ -144,4 +144,12 @@ public class AuditEvent implements Serializable {
 				+ ", data=" + this.data + "]";
 	}
 
+	boolean isMatch(String principal, Instant after, String type) {
+		boolean match = true;
+		match = match && (principal == null || getPrincipal().equals(principal));
+		match = match && (after == null || getTimestamp().isAfter(after));
+		match = match && (type == null || getType().equals(type));
+		return match;
+	}
+
 }
