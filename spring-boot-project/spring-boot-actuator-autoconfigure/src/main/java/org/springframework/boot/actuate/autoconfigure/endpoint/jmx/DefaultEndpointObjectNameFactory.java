@@ -39,7 +39,7 @@ class DefaultEndpointObjectNameFactory implements EndpointObjectNameFactory {
 
 	private final Environment environment;
 
-	private final MBeanServer mBeanServer;
+	final MBeanServer mBeanServer;
 
 	private final String contextId;
 
@@ -60,7 +60,7 @@ class DefaultEndpointObjectNameFactory implements EndpointObjectNameFactory {
 		builder.append(":type=Endpoint");
 		builder.append(",name=").append(StringUtils.capitalize(endpoint.getEndpointId().toString()));
 		String baseName = builder.toString();
-		if (this.mBeanServer != null && hasMBean(baseName)) {
+		if (this.mBeanServer != null && properties.hasMBean(this, baseName)) {
 			builder.append(",context=").append(this.contextId);
 		}
 		if (this.uniqueNames) {
@@ -76,11 +76,6 @@ class DefaultEndpointObjectNameFactory implements EndpointObjectNameFactory {
 			return this.properties.getDomain();
 		}
 		return this.environment.getProperty("spring.jmx.default-domain", "org.springframework.boot");
-	}
-
-	private boolean hasMBean(String baseObjectName) throws MalformedObjectNameException {
-		ObjectName query = new ObjectName(baseObjectName + ",*");
-		return !this.mBeanServer.queryNames(query, null).isEmpty();
 	}
 
 	private String getStaticNames() {

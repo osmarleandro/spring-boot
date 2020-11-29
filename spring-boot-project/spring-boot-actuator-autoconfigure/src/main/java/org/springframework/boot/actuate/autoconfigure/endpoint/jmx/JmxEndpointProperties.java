@@ -20,6 +20,9 @@ import java.util.LinkedHashSet;
 import java.util.Properties;
 import java.util.Set;
 
+import javax.management.MalformedObjectNameException;
+import javax.management.ObjectName;
+
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
@@ -58,6 +61,11 @@ public class JmxEndpointProperties {
 
 	public Properties getStaticNames() {
 		return this.staticNames;
+	}
+
+	boolean hasMBean(DefaultEndpointObjectNameFactory defaultEndpointObjectNameFactory, String baseObjectName) throws MalformedObjectNameException {
+		ObjectName query = new ObjectName(baseObjectName + ",*");
+		return !defaultEndpointObjectNameFactory.mBeanServer.queryNames(query, null).isEmpty();
 	}
 
 	public static class Exposure {
