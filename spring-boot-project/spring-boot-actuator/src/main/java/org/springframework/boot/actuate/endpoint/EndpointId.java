@@ -16,14 +16,17 @@
 
 package org.springframework.boot.actuate.endpoint;
 
+import java.lang.reflect.Method;
 import java.util.HashSet;
 import java.util.Locale;
 import java.util.Set;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
+import org.springframework.boot.actuate.endpoint.web.annotation.DiscoveredWebOperation;
 import org.springframework.core.env.Environment;
 import org.springframework.util.Assert;
 
@@ -104,6 +107,11 @@ public final class EndpointId {
 	@Override
 	public String toString() {
 		return this.value;
+	}
+
+	public String getId(DiscoveredWebOperation discoveredWebOperation, Method method) {
+		return this + Stream.of(method.getParameters()).filter(discoveredWebOperation::hasSelector).map(discoveredWebOperation::dashName)
+				.collect(Collectors.joining());
 	}
 
 	/**
