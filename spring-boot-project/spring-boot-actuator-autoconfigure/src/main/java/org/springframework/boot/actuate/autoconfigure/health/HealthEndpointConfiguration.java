@@ -44,7 +44,6 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.util.ClassUtils;
 
 /**
  * Configuration for {@link HealthEndpoint} infrastructure beans.
@@ -53,6 +52,7 @@ import org.springframework.util.ClassUtils;
  * @see HealthEndpointAutoConfiguration
  */
 @Configuration(proxyBeanMethods = false)
+public
 class HealthEndpointConfiguration {
 
 	@Bean
@@ -72,18 +72,6 @@ class HealthEndpointConfiguration {
 	HealthEndpointGroups healthEndpointGroups(ApplicationContext applicationContext,
 			HealthEndpointProperties properties) {
 		return new AutoConfiguredHealthEndpointGroups(applicationContext, properties);
-	}
-
-	@Bean
-	@ConditionalOnMissingBean
-	HealthContributorRegistry healthContributorRegistry(ApplicationContext applicationContext,
-			HealthEndpointGroups groups) {
-		Map<String, HealthContributor> healthContributors = new LinkedHashMap<>(
-				applicationContext.getBeansOfType(HealthContributor.class));
-		if (ClassUtils.isPresent("reactor.core.publisher.Flux", applicationContext.getClassLoader())) {
-			healthContributors.putAll(new AdaptedReactiveHealthContributors(applicationContext).get());
-		}
-		return new AutoConfiguredHealthContributorRegistry(healthContributors, groups.getNames());
 	}
 
 	@Bean
@@ -132,7 +120,7 @@ class HealthEndpointConfiguration {
 	 * Adapter to expose {@link ReactiveHealthContributor} beans as
 	 * {@link HealthContributor} instances.
 	 */
-	private static class AdaptedReactiveHealthContributors {
+	public static class AdaptedReactiveHealthContributors {
 
 		private final Map<String, HealthContributor> adapted;
 
@@ -199,7 +187,7 @@ class HealthEndpointConfiguration {
 			};
 		}
 
-		Map<String, HealthContributor> get() {
+		public Map<String, HealthContributor> get() {
 			return this.adapted;
 		}
 

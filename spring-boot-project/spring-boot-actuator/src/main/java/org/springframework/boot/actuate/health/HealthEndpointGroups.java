@@ -16,10 +16,17 @@
 
 package org.springframework.boot.actuate.health;
 
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
 
+import org.springframework.boot.actuate.autoconfigure.health.AutoConfiguredHealthContributorRegistry;
+import org.springframework.boot.actuate.autoconfigure.health.HealthEndpointConfiguration.AdaptedReactiveHealthContributors;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.Bean;
 import org.springframework.util.Assert;
+import org.springframework.util.ClassUtils;
 
 /**
  * A collection of {@link HealthEndpointGroup groups} for use with a health endpoint.
@@ -47,6 +54,18 @@ public interface HealthEndpointGroups {
 	 * @return the {@link HealthEndpointGroup} or {@code null}
 	 */
 	HealthEndpointGroup get(String name);
+
+	@Bean
+	@ConditionalOnMissingBean
+	default
+	HealthContributorRegistry healthContributorRegistry(ApplicationContext applicationContext) {
+		Map<String, HealthContributor> healthContributors = new LinkedHashMap<>(
+				applicationContext.getBeansOfType(HealthContributor.class));
+		if (ClassUtils.isPresent("reactor.core.publisher.Flux", applicationContext.getClassLoader())) {
+			healthContributors.putAll(new AdaptedReactiveHealthContributors(applicationContext).get());
+		}
+		return new AutoConfiguredHealthContributorRegistry(healthContributors, getNames());
+	}
 
 	/**
 	 * Factory method to create a {@link HealthEndpointGroups} instance.

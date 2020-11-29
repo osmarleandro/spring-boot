@@ -30,7 +30,7 @@ import org.springframework.util.Assert;
  *
  * @author Phillip Webb
  */
-class AutoConfiguredHealthContributorRegistry extends DefaultHealthContributorRegistry {
+public class AutoConfiguredHealthContributorRegistry extends DefaultHealthContributorRegistry {
 
 	private final Collection<String> groupNames;
 
