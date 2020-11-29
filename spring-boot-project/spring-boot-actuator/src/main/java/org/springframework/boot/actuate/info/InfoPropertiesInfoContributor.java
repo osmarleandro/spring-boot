@@ -42,7 +42,7 @@ public abstract class InfoPropertiesInfoContributor<T extends InfoProperties> im
 
 	private final T properties;
 
-	private final Mode mode;
+	public final Mode mode;
 
 	protected InfoPropertiesInfoContributor(T properties, Mode mode) {
 		this.properties = properties;
@@ -55,14 +55,6 @@ public abstract class InfoPropertiesInfoContributor<T extends InfoProperties> im
 	 */
 	protected final T getProperties() {
 		return this.properties;
-	}
-
-	/**
-	 * Return the mode that should be used to expose the content.
-	 * @return the mode
-	 */
-	protected final Mode getMode() {
-		return this.mode;
 	}
 
 	/**

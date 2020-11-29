@@ -23,6 +23,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.function.Supplier;
 
+import org.springframework.boot.actuate.info.InfoPropertiesInfoContributor;
+import org.springframework.boot.actuate.info.InfoPropertiesInfoContributor.Mode;
 import org.springframework.core.ResolvableType;
 import org.springframework.core.style.ToStringCreator;
 import org.springframework.util.Assert;
@@ -172,6 +174,15 @@ public final class Bindable<T> {
 	 */
 	public Bindable<T> withSuppliedValue(Supplier<T> suppliedValue) {
 		return new Bindable<>(this.type, this.boxedType, suppliedValue, this.annotations);
+	}
+
+	/**
+	 * Return the mode that should be used to expose the content.
+	 * @param infoPropertiesInfoContributor TODO
+	 * @return the mode
+	 */
+	public final Mode getMode(InfoPropertiesInfoContributor infoPropertiesInfoContributor) {
+		return infoPropertiesInfoContributor.mode;
 	}
 
 	/**
