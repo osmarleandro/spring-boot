@@ -17,12 +17,8 @@
 package org.springframework.boot.actuate.autoconfigure.metrics.export.newrelic;
 
 import io.micrometer.core.instrument.Clock;
-import io.micrometer.core.ipc.http.HttpUrlConnectionSender;
-import io.micrometer.newrelic.ClientProviderType;
 import io.micrometer.newrelic.NewRelicClientProvider;
 import io.micrometer.newrelic.NewRelicConfig;
-import io.micrometer.newrelic.NewRelicInsightsAgentClientProvider;
-import io.micrometer.newrelic.NewRelicInsightsApiClientProvider;
 import io.micrometer.newrelic.NewRelicMeterRegistry;
 
 import org.springframework.boot.actuate.autoconfigure.metrics.CompositeMeterRegistryAutoConfiguration;
@@ -56,7 +52,7 @@ import org.springframework.context.annotation.Configuration;
 @EnableConfigurationProperties(NewRelicProperties.class)
 public class NewRelicMetricsExportAutoConfiguration {
 
-	private final NewRelicProperties properties;
+	final NewRelicProperties properties;
 
 	public NewRelicMetricsExportAutoConfiguration(NewRelicProperties properties) {
 		this.properties = properties;
@@ -66,17 +62,6 @@ public class NewRelicMetricsExportAutoConfiguration {
 	@ConditionalOnMissingBean
 	public NewRelicConfig newRelicConfig() {
 		return new NewRelicPropertiesConfigAdapter(this.properties);
-	}
-
-	@Bean
-	@ConditionalOnMissingBean
-	public NewRelicClientProvider newRelicClientProvider(NewRelicConfig newRelicConfig) {
-		if (newRelicConfig.clientProviderType() == ClientProviderType.INSIGHTS_AGENT) {
-			return new NewRelicInsightsAgentClientProvider(newRelicConfig);
-		}
-		return new NewRelicInsightsApiClientProvider(newRelicConfig,
-				new HttpUrlConnectionSender(this.properties.getConnectTimeout(), this.properties.getReadTimeout()));
-
 	}
 
 	@Bean

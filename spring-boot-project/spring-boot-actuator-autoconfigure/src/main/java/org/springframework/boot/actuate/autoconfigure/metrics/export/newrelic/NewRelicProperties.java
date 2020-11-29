@@ -16,10 +16,17 @@
 
 package org.springframework.boot.actuate.autoconfigure.metrics.export.newrelic;
 
+import io.micrometer.core.ipc.http.HttpUrlConnectionSender;
 import io.micrometer.newrelic.ClientProviderType;
+import io.micrometer.newrelic.NewRelicClientProvider;
+import io.micrometer.newrelic.NewRelicConfig;
+import io.micrometer.newrelic.NewRelicInsightsAgentClientProvider;
+import io.micrometer.newrelic.NewRelicInsightsApiClientProvider;
 
 import org.springframework.boot.actuate.autoconfigure.metrics.export.properties.StepRegistryProperties;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.Bean;
 
 /**
  * {@link ConfigurationProperties @ConfigurationProperties} for configuring New Relic
@@ -114,6 +121,17 @@ public class NewRelicProperties extends StepRegistryProperties {
 
 	public void setUri(String uri) {
 		this.uri = uri;
+	}
+
+	@Bean
+	@ConditionalOnMissingBean
+	public NewRelicClientProvider newRelicClientProvider(NewRelicMetricsExportAutoConfiguration newRelicMetricsExportAutoConfiguration, NewRelicConfig newRelicConfig) {
+		if (newRelicConfig.clientProviderType() == ClientProviderType.INSIGHTS_AGENT) {
+			return new NewRelicInsightsAgentClientProvider(newRelicConfig);
+		}
+		return new NewRelicInsightsApiClientProvider(newRelicConfig,
+				new HttpUrlConnectionSender(this.properties.getConnectTimeout(), this.properties.getReadTimeout()));
+	
 	}
 
 }
