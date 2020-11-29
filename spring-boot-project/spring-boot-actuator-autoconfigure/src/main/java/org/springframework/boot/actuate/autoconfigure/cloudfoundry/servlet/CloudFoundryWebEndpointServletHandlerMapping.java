@@ -49,7 +49,7 @@ import org.springframework.web.servlet.mvc.method.RequestMappingInfoHandlerMappi
  * @author Phillip Webb
  * @author Brian Clozel
  */
-class CloudFoundryWebEndpointServletHandlerMapping extends AbstractWebMvcEndpointHandlerMapping {
+public class CloudFoundryWebEndpointServletHandlerMapping extends AbstractWebMvcEndpointHandlerMapping {
 
 	private final CloudFoundrySecurityInterceptor securityInterceptor;
 
@@ -72,10 +72,10 @@ class CloudFoundryWebEndpointServletHandlerMapping extends AbstractWebMvcEndpoin
 
 	@Override
 	protected LinksHandler getLinksHandler() {
-		return new CloudFoundryLinksHandler();
+		return linksResolver.getLinksHandler();
 	}
 
-	class CloudFoundryLinksHandler implements LinksHandler {
+	public class CloudFoundryLinksHandler implements LinksHandler {
 
 		@Override
 		@ResponseBody
