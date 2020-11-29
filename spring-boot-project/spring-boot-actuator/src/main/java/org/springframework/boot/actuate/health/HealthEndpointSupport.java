@@ -96,7 +96,7 @@ abstract class HealthEndpointSupport<C, T> {
 			return getAggregateHealth(apiVersion, group, (NamedContributors<C>) contributor, showComponents,
 					showDetails, groupNames, isNested);
 		}
-		return (contributor != null) ? getHealth((C) contributor, showDetails) : null;
+		return (contributor != null) ? (C) contributor.getHealth(showDetails) : null;
 	}
 
 	private T getAggregateHealth(ApiVersion apiVersion, HealthEndpointGroup group,
