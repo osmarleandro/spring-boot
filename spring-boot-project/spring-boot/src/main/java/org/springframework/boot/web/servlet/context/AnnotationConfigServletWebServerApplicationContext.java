@@ -20,9 +20,14 @@ import java.util.Arrays;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
+import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
+import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.beans.factory.support.BeanNameGenerator;
 import org.springframework.beans.factory.support.DefaultListableBeanFactory;
+import org.springframework.beans.factory.support.RootBeanDefinition;
+import org.springframework.boot.actuate.autoconfigure.web.servlet.ServletManagementContextFactory;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotatedBeanDefinitionReader;
 import org.springframework.context.annotation.AnnotationConfigRegistry;
 import org.springframework.context.annotation.AnnotationConfigUtils;
@@ -203,6 +208,20 @@ public class AnnotationConfigServletWebServerApplicationContext extends ServletW
 		}
 		if (!this.annotatedClasses.isEmpty()) {
 			this.reader.register(ClassUtils.toClassArray(this.annotatedClasses));
+		}
+	}
+
+	public void registerServletWebServerFactory(ApplicationContext parent, ServletManagementContextFactory servletManagementContextFactory) {
+		try {
+			ConfigurableListableBeanFactory beanFactory = getBeanFactory();
+			if (beanFactory instanceof BeanDefinitionRegistry) {
+				BeanDefinitionRegistry registry = (BeanDefinitionRegistry) beanFactory;
+				registry.registerBeanDefinition("ServletWebServerFactory",
+						new RootBeanDefinition(servletManagementContextFactory.determineServletWebServerFactoryClass(parent)));
+			}
+		}
+		catch (NoSuchBeanDefinitionException ex) {
+			// Ignore and assume auto-configuration
 		}
 	}
 

@@ -23,9 +23,6 @@ import java.util.List;
 
 import org.springframework.beans.FatalBeanException;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
-import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
-import org.springframework.beans.factory.support.BeanDefinitionRegistry;
-import org.springframework.beans.factory.support.RootBeanDefinition;
 import org.springframework.boot.actuate.autoconfigure.web.ManagementContextFactory;
 import org.springframework.boot.autoconfigure.web.servlet.ServletWebServerFactoryAutoConfiguration;
 import org.springframework.boot.web.context.ConfigurableWebServerApplicationContext;
@@ -39,7 +36,7 @@ import org.springframework.util.ClassUtils;
  *
  * @author Andy Wilkinson
  */
-class ServletManagementContextFactory implements ManagementContextFactory {
+public class ServletManagementContextFactory implements ManagementContextFactory {
 
 	@Override
 	public ConfigurableWebServerApplicationContext createManagementContext(ApplicationContext parent,
@@ -49,26 +46,11 @@ class ServletManagementContextFactory implements ManagementContextFactory {
 		List<Class<?>> combinedClasses = new ArrayList<>(Arrays.asList(configClasses));
 		combinedClasses.add(ServletWebServerFactoryAutoConfiguration.class);
 		child.register(ClassUtils.toClassArray(combinedClasses));
-		registerServletWebServerFactory(parent, child);
+		child.registerServletWebServerFactory(parent, this);
 		return child;
 	}
 
-	private void registerServletWebServerFactory(ApplicationContext parent,
-			AnnotationConfigServletWebServerApplicationContext childContext) {
-		try {
-			ConfigurableListableBeanFactory beanFactory = childContext.getBeanFactory();
-			if (beanFactory instanceof BeanDefinitionRegistry) {
-				BeanDefinitionRegistry registry = (BeanDefinitionRegistry) beanFactory;
-				registry.registerBeanDefinition("ServletWebServerFactory",
-						new RootBeanDefinition(determineServletWebServerFactoryClass(parent)));
-			}
-		}
-		catch (NoSuchBeanDefinitionException ex) {
-			// Ignore and assume auto-configuration
-		}
-	}
-
-	private Class<?> determineServletWebServerFactoryClass(ApplicationContext parent)
+	public Class<?> determineServletWebServerFactoryClass(ApplicationContext parent)
 			throws NoSuchBeanDefinitionException {
 		Class<?> factoryClass = parent.getBean(ServletWebServerFactory.class).getClass();
 		if (cannotBeInstantiated(factoryClass)) {
