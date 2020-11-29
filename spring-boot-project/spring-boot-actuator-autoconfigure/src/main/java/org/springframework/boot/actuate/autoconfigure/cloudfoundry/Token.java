@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.CloudFoundryAuthorizationException.Reason;
+import org.springframework.boot.actuate.autoconfigure.cloudfoundry.servlet.TokenValidator;
 import org.springframework.boot.json.JsonParserFactory;
 import org.springframework.util.Base64Utils;
 import org.springframework.util.StringUtils;
@@ -113,6 +114,22 @@ public class Token {
 	@Override
 	public String toString() {
 		return this.encoded;
+	}
+
+	public void validateKeyIdAndSignature(TokenValidator tokenValidator) {
+		String keyId = getKeyId();
+		if (tokenValidator.tokenKeys == null || !tokenValidator.hasValidKeyId(keyId)) {
+			tokenValidator.tokenKeys = tokenValidator.securityService.fetchTokenKeys();
+			if (!tokenValidator.hasValidKeyId(keyId)) {
+				throw new CloudFoundryAuthorizationException(Reason.INVALID_KEY_ID,
+						"Key Id present in token header does not match");
+			}
+		}
+	
+		if (!tokenValidator.hasValidSignature(this, tokenValidator.tokenKeys.get(keyId))) {
+			throw new CloudFoundryAuthorizationException(Reason.INVALID_SIGNATURE,
+					"RSA Signature did not match content");
+		}
 	}
 
 }

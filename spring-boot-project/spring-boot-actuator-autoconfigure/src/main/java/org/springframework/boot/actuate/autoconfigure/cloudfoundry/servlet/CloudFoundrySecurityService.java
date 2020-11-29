@@ -39,7 +39,7 @@ import org.springframework.web.client.RestTemplate;
  *
  * @author Madhura Bhave
  */
-class CloudFoundrySecurityService {
+public class CloudFoundrySecurityService {
 
 	private final RestTemplate restTemplate;
 
@@ -99,7 +99,7 @@ class CloudFoundrySecurityService {
 	 * Return all token keys known by the UAA.
 	 * @return a list of token keys
 	 */
-	Map<String, String> fetchTokenKeys() {
+	public Map<String, String> fetchTokenKeys() {
 		try {
 			return extractTokenKeys(this.restTemplate.getForObject(getUaaUrl() + "/token_keys", Map.class));
 		}

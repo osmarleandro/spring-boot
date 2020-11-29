@@ -36,11 +36,11 @@ import org.springframework.util.Base64Utils;
  *
  * @author Madhura Bhave
  */
-class TokenValidator {
+public class TokenValidator {
 
-	private final CloudFoundrySecurityService securityService;
+	public final CloudFoundrySecurityService securityService;
 
-	private Map<String, String> tokenKeys;
+	public Map<String, String> tokenKeys;
 
 	TokenValidator(CloudFoundrySecurityService cloudFoundrySecurityService) {
 		this.securityService = cloudFoundrySecurityService;
@@ -48,7 +48,7 @@ class TokenValidator {
 
 	void validate(Token token) {
 		validateAlgorithm(token);
-		validateKeyIdAndSignature(token);
+		token.validateKeyIdAndSignature(this);
 		validateExpiry(token);
 		validateIssuer(token);
 		validateAudience(token);
@@ -65,27 +65,11 @@ class TokenValidator {
 		}
 	}
 
-	private void validateKeyIdAndSignature(Token token) {
-		String keyId = token.getKeyId();
-		if (this.tokenKeys == null || !hasValidKeyId(keyId)) {
-			this.tokenKeys = this.securityService.fetchTokenKeys();
-			if (!hasValidKeyId(keyId)) {
-				throw new CloudFoundryAuthorizationException(Reason.INVALID_KEY_ID,
-						"Key Id present in token header does not match");
-			}
-		}
-
-		if (!hasValidSignature(token, this.tokenKeys.get(keyId))) {
-			throw new CloudFoundryAuthorizationException(Reason.INVALID_SIGNATURE,
-					"RSA Signature did not match content");
-		}
-	}
-
-	private boolean hasValidKeyId(String tokenKey) {
+	public boolean hasValidKeyId(String tokenKey) {
 		return this.tokenKeys.containsKey(tokenKey);
 	}
 
-	private boolean hasValidSignature(Token token, String key) {
+	public boolean hasValidSignature(Token token, String key) {
 		try {
 			PublicKey publicKey = getPublicKey(key);
 			Signature signature = Signature.getInstance("SHA256withRSA");
