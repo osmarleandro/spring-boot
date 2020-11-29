@@ -37,4 +37,8 @@ public interface PathMappedEndpoint {
 	 */
 	String getRootPath();
 
+	default String getPath(PathMappedEndpoints pathMappedEndpoints) {
+		return (this != null) ? pathMappedEndpoints.basePath + "/" + getRootPath() : null;
+	}
+
 }

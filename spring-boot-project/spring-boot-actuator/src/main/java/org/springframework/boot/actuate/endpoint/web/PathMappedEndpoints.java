@@ -37,7 +37,7 @@ import org.springframework.util.Assert;
  */
 public class PathMappedEndpoints implements Iterable<PathMappedEndpoint> {
 
-	private final String basePath;
+	final String basePath;
 
 	private final Map<EndpointId, PathMappedEndpoint> endpoints;
 
@@ -99,7 +99,7 @@ public class PathMappedEndpoints implements Iterable<PathMappedEndpoint> {
 	 * @return the full path or {@code null}
 	 */
 	public String getPath(EndpointId endpointId) {
-		return getPath(getEndpoint(endpointId));
+		return getEndpoint(endpointId).getPath(this);
 	}
 
 	/**
@@ -139,10 +139,6 @@ public class PathMappedEndpoints implements Iterable<PathMappedEndpoint> {
 	@Override
 	public Iterator<PathMappedEndpoint> iterator() {
 		return this.endpoints.values().iterator();
-	}
-
-	private String getPath(PathMappedEndpoint endpoint) {
-		return (endpoint != null) ? this.basePath + "/" + endpoint.getRootPath() : null;
 	}
 
 	private <T> List<T> asList(Stream<T> stream) {
