@@ -84,11 +84,11 @@ public class PropertiesMeterFilter implements MeterFilter {
 				.percentilesHistogram(lookupWithFallbackToAll(distribution.getPercentilesHistogram(), id, null))
 				.percentiles(lookupWithFallbackToAll(distribution.getPercentiles(), id, null))
 				.serviceLevelObjectives(
-						convertServiceLevelObjectives(id.getType(), lookup(distribution.getSlo(), id, null)))
+						convertServiceLevelObjectives(id.getType(), properties.lookup(this, distribution.getSlo(), id, null)))
 				.minimumExpectedValue(
-						convertMeterValue(id.getType(), lookup(distribution.getMinimumExpectedValue(), id, null)))
+						convertMeterValue(id.getType(), properties.lookup(this, distribution.getMinimumExpectedValue(), id, null)))
 				.maximumExpectedValue(
-						convertMeterValue(id.getType(), lookup(distribution.getMaximumExpectedValue(), id, null)))
+						convertMeterValue(id.getType(), properties.lookup(this, distribution.getMaximumExpectedValue(), id, null)))
 				.build().merge(config);
 	}
 
@@ -105,13 +105,6 @@ public class PropertiesMeterFilter implements MeterFilter {
 		return (value != null) ? MeterValue.valueOf(value).getValue(meterType) : null;
 	}
 
-	private <T> T lookup(Map<String, T> values, Id id, T defaultValue) {
-		if (values.isEmpty()) {
-			return defaultValue;
-		}
-		return doLookup(values, id, () -> defaultValue);
-	}
-
 	private <T> T lookupWithFallbackToAll(Map<String, T> values, Id id, T defaultValue) {
 		if (values.isEmpty()) {
 			return defaultValue;
@@ -119,7 +112,7 @@ public class PropertiesMeterFilter implements MeterFilter {
 		return doLookup(values, id, () -> values.getOrDefault("all", defaultValue));
 	}
 
-	private <T> T doLookup(Map<String, T> values, Id id, Supplier<T> defaultValue) {
+	<T> T doLookup(Map<String, T> values, Id id, Supplier<T> defaultValue) {
 		String name = id.getName();
 		while (StringUtils.hasLength(name)) {
 			T result = values.get(name);

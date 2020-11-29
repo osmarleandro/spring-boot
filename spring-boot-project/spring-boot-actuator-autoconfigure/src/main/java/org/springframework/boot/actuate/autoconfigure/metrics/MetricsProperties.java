@@ -23,6 +23,8 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.DeprecatedConfigurationProperty;
 import org.springframework.boot.context.properties.NestedConfigurationProperty;
 
+import io.micrometer.core.instrument.Meter.Id;
+
 /**
  * {@link ConfigurationProperties @ConfigurationProperties} for configuring
  * Micrometer-based metrics.
@@ -79,6 +81,13 @@ public class MetricsProperties {
 
 	public Distribution getDistribution() {
 		return this.distribution;
+	}
+
+	<T> T lookup(PropertiesMeterFilter propertiesMeterFilter, Map<String, T> values, Id id, T defaultValue) {
+		if (values.isEmpty()) {
+			return defaultValue;
+		}
+		return propertiesMeterFilter.doLookup(values, id, () -> defaultValue);
 	}
 
 	public static class Web {
