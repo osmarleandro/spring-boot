@@ -18,6 +18,11 @@ package org.springframework.boot.actuate.metrics;
 
 import java.util.function.Supplier;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.boot.actuate.metrics.web.servlet.WebMvcMetricsFilter;
+
 import io.micrometer.core.annotation.Timed;
 import io.micrometer.core.instrument.Timer;
 import io.micrometer.core.instrument.Timer.Builder;
@@ -93,5 +98,9 @@ public interface AutoTimer {
 	 * @param builder the builder to apply settings to
 	 */
 	void apply(Timer.Builder builder);
+
+	public default Timer getTimer(WebMvcMetricsFilter webMvcMetricsFilter, Builder builder, Object handler, HttpServletRequest request, HttpServletResponse response, Throwable exception) {
+		return builder.tags(webMvcMetricsFilter.tagsProvider.getTags(request, response, handler, exception)).register(webMvcMetricsFilter.registry);
+	}
 
 }

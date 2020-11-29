@@ -53,9 +53,9 @@ import org.springframework.web.util.NestedServletException;
  */
 public class WebMvcMetricsFilter extends OncePerRequestFilter {
 
-	private final MeterRegistry registry;
+	public final MeterRegistry registry;
 
-	private final WebMvcTagsProvider tagsProvider;
+	public final WebMvcTagsProvider tagsProvider;
 
 	private final String metricName;
 
@@ -126,13 +126,13 @@ public class WebMvcMetricsFilter extends OncePerRequestFilter {
 		if (annotations.isEmpty()) {
 			if (this.autoTimer.isEnabled()) {
 				Builder builder = this.autoTimer.builder(this.metricName);
-				timerSample.stop(getTimer(builder, handler, request, response, exception));
+				timerSample.stop(autoTimer.getTimer(this, builder, handler, request, response, exception));
 			}
 		}
 		else {
 			for (Timed annotation : annotations) {
 				Builder builder = Timer.builder(annotation, this.metricName);
-				timerSample.stop(getTimer(builder, handler, request, response, exception));
+				timerSample.stop(autoTimer.getTimer(this, builder, handler, request, response, exception));
 			}
 		}
 	}
@@ -162,11 +162,6 @@ public class WebMvcMetricsFilter extends OncePerRequestFilter {
 			return Collections.emptySet();
 		}
 		return annotations.stream(Timed.class).collect(MergedAnnotationCollectors.toAnnotationSet());
-	}
-
-	private Timer getTimer(Builder builder, Object handler, HttpServletRequest request, HttpServletResponse response,
-			Throwable exception) {
-		return builder.tags(this.tagsProvider.getTags(request, response, handler, exception)).register(this.registry);
 	}
 
 	/**
