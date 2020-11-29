@@ -20,9 +20,13 @@ import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import javax.jms.Connection;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
+import org.springframework.boot.actuate.jms.JmsHealthIndicator;
+import org.springframework.boot.actuate.jms.JmsHealthIndicator.MonitoredConnection;
 import org.springframework.util.Assert;
 
 /**
@@ -327,6 +331,13 @@ public final class Health extends HealthComponent {
 		 */
 		public Health build() {
 			return new Health(this);
+		}
+
+		public void doHealthCheck(JmsHealthIndicator jmsHealthIndicator) throws Exception {
+			try (Connection connection = jmsHealthIndicator.connectionFactory.createConnection()) {
+				new MonitoredConnection(connection).start();
+				up().withDetail("provider", connection.getMetaData().getJMSProviderName());
+			}
 		}
 
 	}

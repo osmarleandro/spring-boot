@@ -40,7 +40,7 @@ public class JmsHealthIndicator extends AbstractHealthIndicator {
 
 	private final Log logger = LogFactory.getLog(JmsHealthIndicator.class);
 
-	private final ConnectionFactory connectionFactory;
+	public final ConnectionFactory connectionFactory;
 
 	public JmsHealthIndicator(ConnectionFactory connectionFactory) {
 		super("JMS health check failed");
@@ -49,13 +49,10 @@ public class JmsHealthIndicator extends AbstractHealthIndicator {
 
 	@Override
 	protected void doHealthCheck(Health.Builder builder) throws Exception {
-		try (Connection connection = this.connectionFactory.createConnection()) {
-			new MonitoredConnection(connection).start();
-			builder.up().withDetail("provider", connection.getMetaData().getJMSProviderName());
-		}
+		builder.doHealthCheck(this);
 	}
 
-	private final class MonitoredConnection {
+	public final class MonitoredConnection {
 
 		private final CountDownLatch latch = new CountDownLatch(1);
 
@@ -65,7 +62,7 @@ public class JmsHealthIndicator extends AbstractHealthIndicator {
 			this.connection = connection;
 		}
 
-		void start() throws JMSException {
+		public void start() throws JMSException {
 			new Thread(() -> {
 				try {
 					if (!this.latch.await(5, TimeUnit.SECONDS)) {
