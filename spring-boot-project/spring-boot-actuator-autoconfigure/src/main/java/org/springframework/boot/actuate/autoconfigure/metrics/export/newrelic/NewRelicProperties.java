@@ -16,10 +16,16 @@
 
 package org.springframework.boot.actuate.autoconfigure.metrics.export.newrelic;
 
+import io.micrometer.core.instrument.Clock;
 import io.micrometer.newrelic.ClientProviderType;
+import io.micrometer.newrelic.NewRelicClientProvider;
+import io.micrometer.newrelic.NewRelicConfig;
+import io.micrometer.newrelic.NewRelicMeterRegistry;
 
 import org.springframework.boot.actuate.autoconfigure.metrics.export.properties.StepRegistryProperties;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.Bean;
 
 /**
  * {@link ConfigurationProperties @ConfigurationProperties} for configuring New Relic
@@ -114,6 +120,13 @@ public class NewRelicProperties extends StepRegistryProperties {
 
 	public void setUri(String uri) {
 		this.uri = uri;
+	}
+
+	@Bean
+	@ConditionalOnMissingBean
+	public NewRelicMeterRegistry newRelicMeterRegistry(NewRelicConfig newRelicConfig, Clock clock, NewRelicClientProvider newRelicClientProvider) {
+		return NewRelicMeterRegistry.builder(newRelicConfig).clock(clock).clientProvider(newRelicClientProvider)
+				.build();
 	}
 
 }

@@ -79,12 +79,4 @@ public class NewRelicMetricsExportAutoConfiguration {
 
 	}
 
-	@Bean
-	@ConditionalOnMissingBean
-	public NewRelicMeterRegistry newRelicMeterRegistry(NewRelicConfig newRelicConfig, Clock clock,
-			NewRelicClientProvider newRelicClientProvider) {
-		return NewRelicMeterRegistry.builder(newRelicConfig).clock(clock).clientProvider(newRelicClientProvider)
-				.build();
-	}
-
 }
