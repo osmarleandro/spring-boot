@@ -94,13 +94,13 @@ public class ConfigurationPropertiesReportEndpoint implements ApplicationContext
 
 	private final Sanitizer sanitizer = new Sanitizer();
 
-	private ApplicationContext context;
+	public ApplicationContext context;
 
 	private ObjectMapper objectMapper;
 
 	@Override
 	public void setApplicationContext(ApplicationContext context) throws BeansException {
-		this.context = context;
+		this.sanitizer.setApplicationContext(this, context);
 	}
 
 	public void setKeysToSanitize(String... keysToSanitize) {
