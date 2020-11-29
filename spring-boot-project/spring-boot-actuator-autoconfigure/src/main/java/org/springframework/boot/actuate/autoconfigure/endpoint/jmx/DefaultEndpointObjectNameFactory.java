@@ -23,8 +23,6 @@ import javax.management.ObjectName;
 import org.springframework.boot.actuate.endpoint.jmx.EndpointObjectNameFactory;
 import org.springframework.boot.actuate.endpoint.jmx.ExposableJmxEndpoint;
 import org.springframework.core.env.Environment;
-import org.springframework.jmx.support.ObjectNameManager;
-import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
 
 /**
@@ -33,17 +31,17 @@ import org.springframework.util.StringUtils;
  *
  * @author Stephane Nicoll
  */
-class DefaultEndpointObjectNameFactory implements EndpointObjectNameFactory {
+public class DefaultEndpointObjectNameFactory implements EndpointObjectNameFactory {
 
 	private final JmxEndpointProperties properties;
 
 	private final Environment environment;
 
-	private final MBeanServer mBeanServer;
+	public final MBeanServer mBeanServer;
 
-	private final String contextId;
+	public final String contextId;
 
-	private final boolean uniqueNames;
+	public final boolean uniqueNames;
 
 	DefaultEndpointObjectNameFactory(JmxEndpointProperties properties, Environment environment, MBeanServer mBeanServer,
 			String contextId) {
@@ -56,34 +54,22 @@ class DefaultEndpointObjectNameFactory implements EndpointObjectNameFactory {
 
 	@Override
 	public ObjectName getObjectName(ExposableJmxEndpoint endpoint) throws MalformedObjectNameException {
-		StringBuilder builder = new StringBuilder(determineDomain());
-		builder.append(":type=Endpoint");
-		builder.append(",name=").append(StringUtils.capitalize(endpoint.getEndpointId().toString()));
-		String baseName = builder.toString();
-		if (this.mBeanServer != null && hasMBean(baseName)) {
-			builder.append(",context=").append(this.contextId);
-		}
-		if (this.uniqueNames) {
-			String identity = ObjectUtils.getIdentityHexString(endpoint);
-			builder.append(",identity=").append(identity);
-		}
-		builder.append(getStaticNames());
-		return ObjectNameManager.getInstance(builder.toString());
+		return endpoint.getObjectName(this);
 	}
 
-	private String determineDomain() {
+	public String determineDomain() {
 		if (StringUtils.hasText(this.properties.getDomain())) {
 			return this.properties.getDomain();
 		}
 		return this.environment.getProperty("spring.jmx.default-domain", "org.springframework.boot");
 	}
 
-	private boolean hasMBean(String baseObjectName) throws MalformedObjectNameException {
+	public boolean hasMBean(String baseObjectName) throws MalformedObjectNameException {
 		ObjectName query = new ObjectName(baseObjectName + ",*");
 		return !this.mBeanServer.queryNames(query, null).isEmpty();
 	}
 
-	private String getStaticNames() {
+	public String getStaticNames() {
 		if (this.properties.getStaticNames().isEmpty()) {
 			return "";
 		}

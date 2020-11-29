@@ -16,7 +16,14 @@
 
 package org.springframework.boot.actuate.endpoint.jmx;
 
+import javax.management.MalformedObjectNameException;
+import javax.management.ObjectName;
+
+import org.springframework.boot.actuate.autoconfigure.endpoint.jmx.DefaultEndpointObjectNameFactory;
 import org.springframework.boot.actuate.endpoint.ExposableEndpoint;
+import org.springframework.jmx.support.ObjectNameManager;
+import org.springframework.util.ObjectUtils;
+import org.springframework.util.StringUtils;
 
 /**
  * Information describing an endpoint that can be exposed over JMX.
@@ -25,5 +32,21 @@ import org.springframework.boot.actuate.endpoint.ExposableEndpoint;
  * @since 2.0.0
  */
 public interface ExposableJmxEndpoint extends ExposableEndpoint<JmxOperation> {
+
+	default ObjectName getObjectName(DefaultEndpointObjectNameFactory defaultEndpointObjectNameFactory) throws MalformedObjectNameException {
+		StringBuilder builder = new StringBuilder(defaultEndpointObjectNameFactory.determineDomain());
+		builder.append(":type=Endpoint");
+		builder.append(",name=").append(StringUtils.capitalize(getEndpointId().toString()));
+		String baseName = builder.toString();
+		if (defaultEndpointObjectNameFactory.mBeanServer != null && defaultEndpointObjectNameFactory.hasMBean(baseName)) {
+			builder.append(",context=").append(defaultEndpointObjectNameFactory.contextId);
+		}
+		if (defaultEndpointObjectNameFactory.uniqueNames) {
+			String identity = ObjectUtils.getIdentityHexString(this);
+			builder.append(",identity=").append(identity);
+		}
+		builder.append(defaultEndpointObjectNameFactory.getStaticNames());
+		return ObjectNameManager.getInstance(builder.toString());
+	}
 
 }
