@@ -21,9 +21,6 @@ import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.NavigableSet;
-import java.util.Set;
-import java.util.TreeSet;
 
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
 import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
@@ -48,7 +45,7 @@ import org.springframework.util.Assert;
 @Endpoint(id = "loggers")
 public class LoggersEndpoint {
 
-	private final LoggingSystem loggingSystem;
+	public final LoggingSystem loggingSystem;
 
 	private final LoggerGroups loggerGroups;
 
@@ -71,7 +68,7 @@ public class LoggersEndpoint {
 			return Collections.emptyMap();
 		}
 		Map<String, Object> result = new LinkedHashMap<>();
-		result.put("levels", getLevels());
+		result.put("levels", loggerGroups.getLevels(this));
 		result.put("loggers", getLoggers(configurations));
 		result.put("groups", getGroups());
 		return result;
@@ -104,11 +101,6 @@ public class LoggersEndpoint {
 			return;
 		}
 		this.loggingSystem.setLogLevel(name, configuredLevel);
-	}
-
-	private NavigableSet<LogLevel> getLevels() {
-		Set<LogLevel> levels = this.loggingSystem.getSupportedLogLevels();
-		return new TreeSet<>(levels).descendingSet();
 	}
 
 	private Map<String, LoggerLevels> getLoggers(Collection<LoggerConfiguration> configurations) {
