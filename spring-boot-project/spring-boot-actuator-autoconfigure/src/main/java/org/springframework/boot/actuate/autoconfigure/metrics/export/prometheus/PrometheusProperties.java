@@ -78,10 +78,6 @@ public class PrometheusProperties {
 		return this.step;
 	}
 
-	public void setStep(Duration step) {
-		this.step = step;
-	}
-
 	public Pushgateway getPushgateway() {
 		return this.pushgateway;
 	}
@@ -193,6 +189,10 @@ public class PrometheusProperties {
 
 		public void setShutdownOperation(ShutdownOperation shutdownOperation) {
 			this.shutdownOperation = shutdownOperation;
+		}
+
+		public void setStep(PrometheusProperties prometheusProperties, Duration step) {
+			prometheusProperties.step = step;
 		}
 
 	}
