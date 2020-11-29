@@ -93,7 +93,7 @@ public class ReflectiveOperationInvoker implements OperationInvoker {
 			return false;
 		}
 		if (Principal.class.equals(parameter.getType())) {
-			return context.getSecurityContext().getPrincipal() == null;
+			return context.getSecurityContext().getSecurityContext(this).getPrincipal() == null;
 		}
 		if (SecurityContext.class.equals(parameter.getType())) {
 			return false;
@@ -111,10 +111,10 @@ public class ReflectiveOperationInvoker implements OperationInvoker {
 			return context.getApiVersion();
 		}
 		if (Principal.class.equals(parameter.getType())) {
-			return context.getSecurityContext().getPrincipal();
+			return context.getSecurityContext().getSecurityContext(this).getPrincipal();
 		}
 		if (SecurityContext.class.equals(parameter.getType())) {
-			return context.getSecurityContext();
+			return context.getSecurityContext().getSecurityContext(this);
 		}
 		Object value = context.getArguments().get(parameter.getName());
 		return this.parameterValueMapper.mapParameterValue(parameter, value);

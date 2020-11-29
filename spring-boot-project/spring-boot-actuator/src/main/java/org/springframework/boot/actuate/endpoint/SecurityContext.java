@@ -57,4 +57,13 @@ public interface SecurityContext {
 	 */
 	boolean isUserInRole(String role);
 
+	/**
+	 * Return the security context to use for the invocation.
+	 * @param invocationContext TODO
+	 * @return the security context
+	 */
+	default SecurityContext getSecurityContext(InvocationContext invocationContext) {
+		return this;
+	}
+
 }

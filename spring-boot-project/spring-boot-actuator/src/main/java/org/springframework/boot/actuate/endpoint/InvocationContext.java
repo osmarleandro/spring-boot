@@ -31,7 +31,7 @@ import org.springframework.util.Assert;
  */
 public class InvocationContext {
 
-	private final SecurityContext securityContext;
+	final SecurityContext securityContext;
 
 	private final Map<String, Object> arguments;
 
@@ -70,14 +70,6 @@ public class InvocationContext {
 	 */
 	public ApiVersion getApiVersion() {
 		return this.apiVersion;
-	}
-
-	/**
-	 * Return the security context to use for the invocation.
-	 * @return the security context
-	 */
-	public SecurityContext getSecurityContext() {
-		return this.securityContext;
 	}
 
 	/**
