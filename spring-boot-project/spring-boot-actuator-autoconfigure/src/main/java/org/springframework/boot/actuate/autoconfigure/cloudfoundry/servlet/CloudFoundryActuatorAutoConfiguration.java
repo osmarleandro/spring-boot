@@ -21,9 +21,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
-import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.CloudFoundryWebEndpointDiscoverer;
 import org.springframework.boot.actuate.autoconfigure.endpoint.condition.ConditionalOnAvailableEndpoint;
 import org.springframework.boot.actuate.autoconfigure.health.HealthEndpointAutoConfiguration;
@@ -39,10 +37,6 @@ import org.springframework.boot.actuate.endpoint.web.annotation.ControllerEndpoi
 import org.springframework.boot.actuate.endpoint.web.annotation.ServletEndpointsSupplier;
 import org.springframework.boot.actuate.health.HealthEndpoint;
 import org.springframework.boot.actuate.health.HealthEndpointWebExtension;
-import org.springframework.boot.actuate.info.GitInfoContributor;
-import org.springframework.boot.actuate.info.InfoContributor;
-import org.springframework.boot.actuate.info.InfoEndpoint;
-import org.springframework.boot.actuate.info.InfoPropertiesInfoContributor;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
@@ -53,7 +47,6 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.boot.cloud.CloudPlatform;
-import org.springframework.boot.info.GitProperties;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
@@ -92,19 +85,6 @@ public class CloudFoundryActuatorAutoConfiguration {
 	public CloudFoundryHealthEndpointWebExtension cloudFoundryHealthEndpointWebExtension(
 			HealthEndpointWebExtension healthEndpointWebExtension) {
 		return new CloudFoundryHealthEndpointWebExtension(healthEndpointWebExtension);
-	}
-
-	@Bean
-	@ConditionalOnMissingBean
-	@ConditionalOnAvailableEndpoint
-	@ConditionalOnBean({ InfoEndpoint.class, GitProperties.class })
-	public CloudFoundryInfoEndpointWebExtension cloudFoundryInfoEndpointWebExtension(GitProperties properties,
-			ObjectProvider<InfoContributor> infoContributors) {
-		List<InfoContributor> contributors = infoContributors.orderedStream()
-				.map((infoContributor) -> (infoContributor instanceof GitInfoContributor)
-						? new GitInfoContributor(properties, InfoPropertiesInfoContributor.Mode.FULL) : infoContributor)
-				.collect(Collectors.toList());
-		return new CloudFoundryInfoEndpointWebExtension(new InfoEndpoint(contributors));
 	}
 
 	@Bean

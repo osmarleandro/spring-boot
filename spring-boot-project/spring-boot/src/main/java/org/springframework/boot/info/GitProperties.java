@@ -19,7 +19,20 @@ package org.springframework.boot.info;
 import java.time.Instant;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.List;
 import java.util.Properties;
+import java.util.stream.Collectors;
+
+import org.springframework.beans.factory.ObjectProvider;
+import org.springframework.boot.actuate.autoconfigure.cloudfoundry.servlet.CloudFoundryInfoEndpointWebExtension;
+import org.springframework.boot.actuate.autoconfigure.endpoint.condition.ConditionalOnAvailableEndpoint;
+import org.springframework.boot.actuate.info.GitInfoContributor;
+import org.springframework.boot.actuate.info.InfoContributor;
+import org.springframework.boot.actuate.info.InfoEndpoint;
+import org.springframework.boot.actuate.info.InfoPropertiesInfoContributor;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.context.annotation.Bean;
 
 /**
  * Provide git-related information such as commit id and time.
@@ -75,6 +88,18 @@ public class GitProperties extends InfoProperties {
 	 */
 	public Instant getCommitTime() {
 		return getInstant("commit.time");
+	}
+
+	@Bean
+	@ConditionalOnMissingBean
+	@ConditionalOnAvailableEndpoint
+	@ConditionalOnBean({ InfoEndpoint.class, GitProperties.class })
+	public CloudFoundryInfoEndpointWebExtension cloudFoundryInfoEndpointWebExtension(ObjectProvider<InfoContributor> infoContributors) {
+		List<InfoContributor> contributors = infoContributors.orderedStream()
+				.map((infoContributor) -> (infoContributor instanceof GitInfoContributor)
+						? new GitInfoContributor(this, InfoPropertiesInfoContributor.Mode.FULL) : infoContributor)
+				.collect(Collectors.toList());
+		return new CloudFoundryInfoEndpointWebExtension(new InfoEndpoint(contributors));
 	}
 
 	private static Properties processEntries(Properties properties) {
