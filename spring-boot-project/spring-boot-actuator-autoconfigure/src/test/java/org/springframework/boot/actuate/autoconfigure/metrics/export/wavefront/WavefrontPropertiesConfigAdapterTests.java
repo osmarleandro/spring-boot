@@ -45,7 +45,7 @@ class WavefrontPropertiesConfigAdapterTests
 	@Test
 	void whenPropertiesUriIsSetAdapterUriReturnsIt() {
 		WavefrontProperties properties = createProperties();
-		properties.setUri(URI.create("https://wavefront.example.com"));
+		properties.getSender().setUri(this, URI.create("https://wavefront.example.com"));
 		assertThat(createConfigAdapter(properties).uri()).isEqualTo("https://wavefront.example.com");
 	}
 
