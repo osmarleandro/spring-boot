@@ -67,10 +67,6 @@ public abstract class HealthProperties {
 		return this.roles;
 	}
 
-	public void setRoles(Set<String> roles) {
-		this.roles = roles;
-	}
-
 	/**
 	 * Status properties for the group.
 	 */
@@ -99,6 +95,10 @@ public abstract class HealthProperties {
 
 		public Map<String, Integer> getHttpMapping() {
 			return this.httpMapping;
+		}
+
+		public void setRoles(HealthProperties healthProperties, Set<String> roles) {
+			healthProperties.roles = roles;
 		}
 
 	}
