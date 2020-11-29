@@ -53,7 +53,7 @@ class CompositeHealthTests {
 		Map<String, HealthComponent> components = new LinkedHashMap<>();
 		components.put("a", Health.up().build());
 		CompositeHealth health = new CompositeHealth(ApiVersion.V3, Status.UP, components);
-		assertThat(health.getComponents()).isEqualTo(components);
+		assertThat(health.getStatus().getComponents(this)).isEqualTo(components);
 	}
 
 	@Test

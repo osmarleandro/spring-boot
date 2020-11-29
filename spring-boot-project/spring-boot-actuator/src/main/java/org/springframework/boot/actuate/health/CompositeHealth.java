@@ -39,7 +39,7 @@ public class CompositeHealth extends HealthComponent {
 
 	private final Status status;
 
-	private final Map<String, HealthComponent> components;
+	final Map<String, HealthComponent> components;
 
 	private final Map<String, HealthComponent> details;
 
@@ -57,11 +57,6 @@ public class CompositeHealth extends HealthComponent {
 	@Override
 	public Status getStatus() {
 		return this.status;
-	}
-
-	@JsonInclude(Include.NON_EMPTY)
-	public Map<String, HealthComponent> getComponents() {
-		return this.components;
 	}
 
 	@JsonInclude(Include.NON_EMPTY)

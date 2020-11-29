@@ -106,7 +106,7 @@ abstract class HealthEndpointSupportTests<R extends ContributorRegistry<C>, C, T
 		HealthResult<T> result = create(this.registry, this.groups).getHealth(ApiVersion.V3, SecurityContext.NONE,
 				false, "test");
 		CompositeHealth health = (CompositeHealth) getHealth(result);
-		assertThat(health.getComponents()).containsKey("spring");
+		assertThat(health.getStatus().getComponents(this)).containsKey("spring");
 	}
 
 	@Test
@@ -117,7 +117,7 @@ abstract class HealthEndpointSupportTests<R extends ContributorRegistry<C>, C, T
 		this.registry.registerContributor("test", compositeContributor);
 		HealthEndpointSupport<C, T> endpoint = create(this.registry, this.groups);
 		HealthResult<T> rootResult = endpoint.getHealth(ApiVersion.V3, SecurityContext.NONE, false);
-		assertThat(((CompositeHealth) getHealth(rootResult)).getComponents()).isNullOrEmpty();
+		assertThat(((CompositeHealth) getHealth(rootResult)).getStatus().getComponents(this)).isNullOrEmpty();
 		HealthResult<T> componentResult = endpoint.getHealth(ApiVersion.V3, SecurityContext.NONE, false, "test");
 		assertThat(componentResult).isNull();
 	}
@@ -130,9 +130,9 @@ abstract class HealthEndpointSupportTests<R extends ContributorRegistry<C>, C, T
 		this.registry.registerContributor("test", compositeContributor);
 		HealthEndpointSupport<C, T> endpoint = create(this.registry, this.groups);
 		HealthResult<T> rootResult = endpoint.getHealth(ApiVersion.V3, SecurityContext.NONE, false);
-		assertThat(((CompositeHealth) getHealth(rootResult)).getComponents()).containsKey("test");
+		assertThat(((CompositeHealth) getHealth(rootResult)).getStatus().getComponents(this)).containsKey("test");
 		HealthResult<T> componentResult = endpoint.getHealth(ApiVersion.V3, SecurityContext.NONE, false, "test");
-		assertThat(((CompositeHealth) getHealth(componentResult)).getComponents()).containsKey("spring");
+		assertThat(((CompositeHealth) getHealth(componentResult)).getStatus().getComponents(this)).containsKey("spring");
 	}
 
 	@Test
@@ -172,10 +172,10 @@ abstract class HealthEndpointSupportTests<R extends ContributorRegistry<C>, C, T
 		HealthResult<T> result = create(this.registry, this.groups).getHealth(ApiVersion.V3, SecurityContext.NONE,
 				false);
 		CompositeHealth root = (CompositeHealth) getHealth(result);
-		CompositeHealth component = (CompositeHealth) root.getComponents().get("test");
+		CompositeHealth component = (CompositeHealth) root.getStatus().getComponents(this).get("test");
 		assertThat(root.getStatus()).isEqualTo(Status.DOWN);
 		assertThat(component.getStatus()).isEqualTo(Status.DOWN);
-		assertThat(component.getComponents()).containsOnlyKeys("a", "b");
+		assertThat(component.getStatus().getComponents(this)).containsOnlyKeys("a", "b");
 	}
 
 	@Test
@@ -220,7 +220,7 @@ abstract class HealthEndpointSupportTests<R extends ContributorRegistry<C>, C, T
 		HealthResult<T> result = create(this.registry, groups).getHealth(ApiVersion.V3, SecurityContext.NONE, false,
 				"testGroup");
 		CompositeHealth health = (CompositeHealth) getHealth(result);
-		assertThat(health.getComponents()).containsKey("test");
+		assertThat(health.getStatus().getComponents(this)).containsKey("test");
 	}
 
 	protected abstract HealthEndpointSupport<C, T> create(R registry, HealthEndpointGroups groups);

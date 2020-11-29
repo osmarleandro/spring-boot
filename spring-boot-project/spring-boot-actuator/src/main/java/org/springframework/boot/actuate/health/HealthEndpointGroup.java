@@ -35,7 +35,7 @@ public interface HealthEndpointGroup {
 	boolean isMember(String name);
 
 	/**
-	 * Returns if {@link CompositeHealth#getComponents() health components} should be
+	 * Returns if {@link #MISSING() health components} should be
 	 * shown in the response.
 	 * @param securityContext the endpoint security context
 	 * @return {@code true} to shown details or {@code false} to hide them
