@@ -128,20 +128,10 @@ public class CloudFoundryActuatorAutoConfiguration {
 
 	private CloudFoundrySecurityInterceptor getSecurityInterceptor(RestTemplateBuilder restTemplateBuilder,
 			Environment environment) {
-		CloudFoundrySecurityService cloudfoundrySecurityService = getCloudFoundrySecurityService(restTemplateBuilder,
-				environment);
+		CloudFoundrySecurityService cloudfoundrySecurityService = restTemplateBuilder.getCloudFoundrySecurityService(environment);
 		TokenValidator tokenValidator = new TokenValidator(cloudfoundrySecurityService);
 		return new CloudFoundrySecurityInterceptor(tokenValidator, cloudfoundrySecurityService,
 				environment.getProperty("vcap.application.application_id"));
-	}
-
-	private CloudFoundrySecurityService getCloudFoundrySecurityService(RestTemplateBuilder restTemplateBuilder,
-			Environment environment) {
-		String cloudControllerUrl = environment.getProperty("vcap.application.cf_api");
-		boolean skipSslValidation = environment.getProperty("management.cloudfoundry.skip-ssl-validation",
-				Boolean.class, false);
-		return (cloudControllerUrl != null)
-				? new CloudFoundrySecurityService(restTemplateBuilder, cloudControllerUrl, skipSslValidation) : null;
 	}
 
 	private CorsConfiguration getCorsConfiguration() {

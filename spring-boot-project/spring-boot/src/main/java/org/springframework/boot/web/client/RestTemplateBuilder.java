@@ -36,6 +36,8 @@ import java.util.function.Supplier;
 import reactor.netty.http.client.HttpClientRequest;
 
 import org.springframework.beans.BeanUtils;
+import org.springframework.boot.actuate.autoconfigure.cloudfoundry.servlet.CloudFoundrySecurityService;
+import org.springframework.core.env.Environment;
 import org.springframework.http.client.AbstractClientHttpRequestFactoryWrapper;
 import org.springframework.http.client.ClientHttpRequest;
 import org.springframework.http.client.ClientHttpRequestFactory;
@@ -674,6 +676,14 @@ public class RestTemplateBuilder {
 
 	private <T> Set<T> copiedSetOf(Collection<? extends T> collection) {
 		return Collections.unmodifiableSet(new LinkedHashSet<>(collection));
+	}
+
+	public CloudFoundrySecurityService getCloudFoundrySecurityService(Environment environment) {
+		String cloudControllerUrl = environment.getProperty("vcap.application.cf_api");
+		boolean skipSslValidation = environment.getProperty("management.cloudfoundry.skip-ssl-validation",
+				Boolean.class, false);
+		return (cloudControllerUrl != null)
+				? new CloudFoundrySecurityService(this, cloudControllerUrl, skipSslValidation) : null;
 	}
 
 	private static <T> List<T> copiedListOf(T[] items) {

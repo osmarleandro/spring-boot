@@ -39,7 +39,7 @@ import org.springframework.web.client.RestTemplate;
  *
  * @author Madhura Bhave
  */
-class CloudFoundrySecurityService {
+public class CloudFoundrySecurityService {
 
 	private final RestTemplate restTemplate;
 
