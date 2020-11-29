@@ -30,7 +30,6 @@ import org.springframework.boot.actuate.endpoint.OperationType;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvoker;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvokerAdvisor;
 import org.springframework.boot.actuate.endpoint.invoke.ParameterValueMapper;
-import org.springframework.boot.actuate.endpoint.invoke.reflect.OperationMethod;
 import org.springframework.boot.actuate.endpoint.invoke.reflect.ReflectiveOperationInvoker;
 import org.springframework.core.MethodIntrospector;
 import org.springframework.core.MethodIntrospector.MetadataLookup;
@@ -46,7 +45,7 @@ import org.springframework.core.annotation.MergedAnnotations;
  * @author Stephane Nicoll
  * @author Phillip Webb
  */
-abstract class DiscoveredOperationsFactory<O extends Operation> {
+public abstract class DiscoveredOperationsFactory<O extends Operation> {
 
 	private static final Map<OperationType, Class<? extends Annotation>> OPERATION_TYPES;
 
@@ -60,7 +59,7 @@ abstract class DiscoveredOperationsFactory<O extends Operation> {
 
 	private final ParameterValueMapper parameterValueMapper;
 
-	private final Collection<OperationInvokerAdvisor> invokerAdvisors;
+	public final Collection<OperationInvokerAdvisor> invokerAdvisors;
 
 	DiscoveredOperationsFactory(ParameterValueMapper parameterValueMapper,
 			Collection<OperationInvokerAdvisor> invokerAdvisors) {
@@ -89,19 +88,8 @@ abstract class DiscoveredOperationsFactory<O extends Operation> {
 		DiscoveredOperationMethod operationMethod = new DiscoveredOperationMethod(method, operationType,
 				annotation.asAnnotationAttributes());
 		OperationInvoker invoker = new ReflectiveOperationInvoker(target, operationMethod, this.parameterValueMapper);
-		invoker = applyAdvisors(endpointId, operationMethod, invoker);
+		invoker = endpointId.applyAdvisors(this, operationMethod, invoker);
 		return createOperation(endpointId, operationMethod, invoker);
-	}
-
-	private OperationInvoker applyAdvisors(EndpointId endpointId, OperationMethod operationMethod,
-			OperationInvoker invoker) {
-		if (this.invokerAdvisors != null) {
-			for (OperationInvokerAdvisor advisor : this.invokerAdvisors) {
-				invoker = advisor.apply(endpointId, operationMethod.getOperationType(), operationMethod.getParameters(),
-						invoker);
-			}
-		}
-		return invoker;
 	}
 
 	protected abstract O createOperation(EndpointId endpointId, DiscoveredOperationMethod operationMethod,

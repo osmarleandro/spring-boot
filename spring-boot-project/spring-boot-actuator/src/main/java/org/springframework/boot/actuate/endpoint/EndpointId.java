@@ -23,7 +23,10 @@ import java.util.regex.Pattern;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
+import org.springframework.boot.actuate.endpoint.annotation.DiscoveredOperationsFactory;
+import org.springframework.boot.actuate.endpoint.invoke.OperationInvoker;
+import org.springframework.boot.actuate.endpoint.invoke.OperationInvokerAdvisor;
+import org.springframework.boot.actuate.endpoint.invoke.reflect.OperationMethod;
 import org.springframework.core.env.Environment;
 import org.springframework.util.Assert;
 
@@ -104,6 +107,16 @@ public final class EndpointId {
 	@Override
 	public String toString() {
 		return this.value;
+	}
+
+	public OperationInvoker applyAdvisors(DiscoveredOperationsFactory discoveredOperationsFactory, OperationMethod operationMethod, OperationInvoker invoker) {
+		if (discoveredOperationsFactory.invokerAdvisors != null) {
+			for (OperationInvokerAdvisor advisor : discoveredOperationsFactory.invokerAdvisors) {
+				invoker = advisor.apply(this, operationMethod.getOperationType(), operationMethod.getParameters(),
+						invoker);
+			}
+		}
+		return invoker;
 	}
 
 	/**
