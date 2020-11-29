@@ -16,7 +16,12 @@
 
 package org.springframework.boot.actuate.endpoint.jmx;
 
+import javax.management.MalformedObjectNameException;
+import javax.management.ObjectName;
+
 import org.springframework.boot.actuate.endpoint.ExposableEndpoint;
+import org.springframework.jmx.export.MBeanExportException;
+import org.springframework.util.Assert;
 
 /**
  * Information describing an endpoint that can be exposed over JMX.
@@ -25,5 +30,21 @@ import org.springframework.boot.actuate.endpoint.ExposableEndpoint;
  * @since 2.0.0
  */
 public interface ExposableJmxEndpoint extends ExposableEndpoint<JmxOperation> {
+
+	default ObjectName register(JmxEndpointExporter jmxEndpointExporter) {
+		Assert.notNull(this, "Endpoint must not be null");
+		try {
+			ObjectName name = jmxEndpointExporter.objectNameFactory.getObjectName(this);
+			EndpointMBean mbean = new EndpointMBean(jmxEndpointExporter.responseMapper, jmxEndpointExporter.classLoader, this);
+			jmxEndpointExporter.mBeanServer.registerMBean(mbean, name);
+			return name;
+		}
+		catch (MalformedObjectNameException ex) {
+			throw new IllegalStateException("Invalid ObjectName for " + jmxEndpointExporter.getEndpointDescription(this), ex);
+		}
+		catch (Exception ex) {
+			throw new MBeanExportException("Failed to register MBean for " + jmxEndpointExporter.getEndpointDescription(this), ex);
+		}
+	}
 
 }

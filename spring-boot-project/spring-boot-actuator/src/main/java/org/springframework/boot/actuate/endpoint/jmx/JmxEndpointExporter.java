@@ -23,7 +23,6 @@ import java.util.stream.Collectors;
 import javax.management.InstanceNotFoundException;
 import javax.management.MBeanRegistrationException;
 import javax.management.MBeanServer;
-import javax.management.MalformedObjectNameException;
 import javax.management.ObjectName;
 
 import org.apache.commons.logging.Log;
@@ -33,7 +32,6 @@ import org.springframework.beans.factory.BeanClassLoaderAware;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.jmx.JmxException;
-import org.springframework.jmx.export.MBeanExportException;
 import org.springframework.util.Assert;
 
 /**
@@ -47,13 +45,13 @@ public class JmxEndpointExporter implements InitializingBean, DisposableBean, Be
 
 	private static final Log logger = LogFactory.getLog(JmxEndpointExporter.class);
 
-	private ClassLoader classLoader;
+	ClassLoader classLoader;
 
-	private final MBeanServer mBeanServer;
+	final MBeanServer mBeanServer;
 
-	private final EndpointObjectNameFactory objectNameFactory;
+	final EndpointObjectNameFactory objectNameFactory;
 
-	private final JmxOperationResponseMapper responseMapper;
+	final JmxOperationResponseMapper responseMapper;
 
 	private final Collection<ExposableJmxEndpoint> endpoints;
 
@@ -90,22 +88,6 @@ public class JmxEndpointExporter implements InitializingBean, DisposableBean, Be
 		return this.endpoints.stream().map(this::register).collect(Collectors.toList());
 	}
 
-	private ObjectName register(ExposableJmxEndpoint endpoint) {
-		Assert.notNull(endpoint, "Endpoint must not be null");
-		try {
-			ObjectName name = this.objectNameFactory.getObjectName(endpoint);
-			EndpointMBean mbean = new EndpointMBean(this.responseMapper, this.classLoader, endpoint);
-			this.mBeanServer.registerMBean(mbean, name);
-			return name;
-		}
-		catch (MalformedObjectNameException ex) {
-			throw new IllegalStateException("Invalid ObjectName for " + getEndpointDescription(endpoint), ex);
-		}
-		catch (Exception ex) {
-			throw new MBeanExportException("Failed to register MBean for " + getEndpointDescription(endpoint), ex);
-		}
-	}
-
 	private void unregister(Collection<ObjectName> objectNames) {
 		objectNames.forEach(this::unregister);
 	}
@@ -125,7 +107,7 @@ public class JmxEndpointExporter implements InitializingBean, DisposableBean, Be
 		}
 	}
 
-	private String getEndpointDescription(ExposableJmxEndpoint endpoint) {
+	String getEndpointDescription(ExposableJmxEndpoint endpoint) {
 		return "endpoint '" + endpoint.getEndpointId() + "'";
 	}
 
