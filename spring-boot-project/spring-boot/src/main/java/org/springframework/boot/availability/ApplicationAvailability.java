@@ -16,7 +16,11 @@
 
 package org.springframework.boot.availability;
 
+import java.util.EnumSet;
+
+import org.springframework.boot.actuate.availability.AvailabilityStateHealthIndicator;
 import org.springframework.context.ApplicationContext;
+import org.springframework.util.Assert;
 
 /**
  * Provides {@link AvailabilityState availability state} information for the application.
@@ -77,5 +81,17 @@ public interface ApplicationAvailability {
 	 * published yet
 	 */
 	<S extends AvailabilityState> AvailabilityChangeEvent<S> getLastChangeEvent(Class<S> stateType);
+
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	public
+	default <S extends AvailabilityState> void assertAllEnumsMapped(AvailabilityStateHealthIndicator availabilityStateHealthIndicator, Class<S> stateType) {
+		if (!availabilityStateHealthIndicator.statusMappings.containsKey(null) && Enum.class.isAssignableFrom(stateType)) {
+			EnumSet elements = EnumSet.allOf((Class) stateType);
+			for (Object element : elements) {
+				Assert.isTrue(availabilityStateHealthIndicator.statusMappings.containsKey(element),
+						() -> "StatusMappings does not include " + element);
+			}
+		}
+	}
 
 }

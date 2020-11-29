@@ -16,7 +16,6 @@
 
 package org.springframework.boot.actuate.availability;
 
-import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Consumer;
@@ -43,7 +42,7 @@ public class AvailabilityStateHealthIndicator extends AbstractHealthIndicator {
 
 	private final Class<? extends AvailabilityState> stateType;
 
-	private final Map<AvailabilityState, Status> statusMappings = new HashMap<>();
+	public final Map<AvailabilityState, Status> statusMappings = new HashMap<>();
 
 	/**
 	 * Create a new {@link AvailabilityStateHealthIndicator} instance.
@@ -61,18 +60,7 @@ public class AvailabilityStateHealthIndicator extends AbstractHealthIndicator {
 		this.applicationAvailability = applicationAvailability;
 		this.stateType = stateType;
 		statusMappings.accept(this.statusMappings::put);
-		assertAllEnumsMapped(stateType);
-	}
-
-	@SuppressWarnings({ "unchecked", "rawtypes" })
-	private <S extends AvailabilityState> void assertAllEnumsMapped(Class<S> stateType) {
-		if (!this.statusMappings.containsKey(null) && Enum.class.isAssignableFrom(stateType)) {
-			EnumSet elements = EnumSet.allOf((Class) stateType);
-			for (Object element : elements) {
-				Assert.isTrue(this.statusMappings.containsKey(element),
-						() -> "StatusMappings does not include " + element);
-			}
-		}
+		applicationAvailability.assertAllEnumsMapped(this, stateType);
 	}
 
 	@Override
