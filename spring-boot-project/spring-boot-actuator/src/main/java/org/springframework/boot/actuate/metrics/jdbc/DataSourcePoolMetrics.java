@@ -66,22 +66,17 @@ public class DataSourcePoolMetrics implements MeterBinder {
 	@Override
 	public void bindTo(MeterRegistry registry) {
 		if (this.metadataProvider.getDataSourcePoolMetadata(this.dataSource) != null) {
-			bindPoolMetadata(registry, "active",
+			metadataProvider.bindPoolMetadata(this, registry, "active",
 					"Current number of active connections that have been allocated from the data source.",
 					DataSourcePoolMetadata::getActive);
-			bindPoolMetadata(registry, "idle", "Number of established but idle connections.",
+			metadataProvider.bindPoolMetadata(this, registry, "idle", "Number of established but idle connections.",
 					DataSourcePoolMetadata::getIdle);
-			bindPoolMetadata(registry, "max",
+			metadataProvider.bindPoolMetadata(this, registry, "max",
 					"Maximum number of active connections that can be allocated at the same time.",
 					DataSourcePoolMetadata::getMax);
-			bindPoolMetadata(registry, "min", "Minimum number of idle connections in the pool.",
+			metadataProvider.bindPoolMetadata(this, registry, "min", "Minimum number of idle connections in the pool.",
 					DataSourcePoolMetadata::getMin);
 		}
-	}
-
-	private <N extends Number> void bindPoolMetadata(MeterRegistry registry, String metricName, String description,
-			Function<DataSourcePoolMetadata, N> function) {
-		bindDataSource(registry, metricName, description, this.metadataProvider.getValueFunction(function));
 	}
 
 	private <N extends Number> void bindDataSource(MeterRegistry registry, String metricName, String description,
@@ -92,7 +87,7 @@ public class DataSourcePoolMetrics implements MeterBinder {
 		}
 	}
 
-	private static class CachingDataSourcePoolMetadataProvider implements DataSourcePoolMetadataProvider {
+	static class CachingDataSourcePoolMetadataProvider implements DataSourcePoolMetadataProvider {
 
 		private static final Map<DataSource, DataSourcePoolMetadata> cache = new ConcurrentReferenceHashMap<>();
 
@@ -114,6 +109,10 @@ public class DataSourcePoolMetrics implements MeterBinder {
 				cache.put(dataSource, metadata);
 			}
 			return metadata;
+		}
+
+		<N extends Number> void bindPoolMetadata(DataSourcePoolMetrics dataSourcePoolMetrics, MeterRegistry registry, String metricName, String description, Function<DataSourcePoolMetadata, N> function) {
+			dataSourcePoolMetrics.bindDataSource(registry, metricName, description, getValueFunction(function));
 		}
 
 	}
