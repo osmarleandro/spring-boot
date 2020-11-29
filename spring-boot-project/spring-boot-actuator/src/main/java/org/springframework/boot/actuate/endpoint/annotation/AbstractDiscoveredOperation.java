@@ -32,9 +32,9 @@ import org.springframework.core.style.ToStringCreator;
  */
 public abstract class AbstractDiscoveredOperation implements Operation {
 
-	private final OperationMethod operationMethod;
+	public final OperationMethod operationMethod;
 
-	private final OperationInvoker invoker;
+	public final OperationInvoker invoker;
 
 	/**
 	 * Create a new {@link AbstractDiscoveredOperation} instance.
@@ -44,10 +44,6 @@ public abstract class AbstractDiscoveredOperation implements Operation {
 	public AbstractDiscoveredOperation(DiscoveredOperationMethod operationMethod, OperationInvoker invoker) {
 		this.operationMethod = operationMethod;
 		this.invoker = invoker;
-	}
-
-	public OperationMethod getOperationMethod() {
-		return this.operationMethod;
 	}
 
 	@Override
