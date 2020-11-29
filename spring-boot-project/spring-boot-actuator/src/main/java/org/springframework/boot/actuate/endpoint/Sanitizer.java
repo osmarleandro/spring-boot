@@ -16,13 +16,18 @@
 
 package org.springframework.boot.actuate.endpoint;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
+import org.springframework.boot.actuate.env.EnvironmentEndpoint.PropertySourceEntryDescriptor;
+import org.springframework.boot.actuate.env.EnvironmentEndpoint.PropertyValueDescriptor;
 import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
 
@@ -136,6 +141,13 @@ public class Sanitizer {
 			return StringUtils.replace(value, ":" + password + "@", ":******@");
 		}
 		return value;
+	}
+
+	public List<PropertySourceEntryDescriptor> toPropertySourceDescriptors(
+			Map<String, PropertyValueDescriptor> descriptors) {
+		List<PropertySourceEntryDescriptor> result = new ArrayList<>();
+		descriptors.forEach((name, property) -> result.add(new PropertySourceEntryDescriptor(name, property)));
+		return result;
 	}
 
 }
