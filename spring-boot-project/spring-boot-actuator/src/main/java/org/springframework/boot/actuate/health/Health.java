@@ -23,6 +23,12 @@ import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
+import io.r2dbc.spi.Connection;
+import io.r2dbc.spi.ValidationDepth;
+import reactor.core.publisher.Mono;
+
+import org.springframework.boot.actuate.health.Health.Builder;
+import org.springframework.boot.actuate.r2dbc.ConnectionFactoryHealthIndicator;
 import org.springframework.util.Assert;
 
 /**
@@ -327,6 +333,14 @@ public final class Health extends HealthComponent {
 		 */
 		public Health build() {
 			return new Health(this);
+		}
+
+		public Mono<Health> validateWithConnectionValidation(ConnectionFactoryHealthIndicator connectionFactoryHealthIndicator) {
+			withDetail("validationQuery", "validate(REMOTE)");
+			Mono<Boolean> connectionValidation = Mono.usingWhen(connectionFactoryHealthIndicator.connectionFactory.create(),
+					(connection) -> Mono.from(connection.validate(ValidationDepth.REMOTE)), Connection::close,
+					(connection, ex) -> connection.close(), Connection::close);
+			return connectionValidation.map((valid) -> status((valid) ? Status.UP : Status.DOWN).build());
 		}
 
 	}
