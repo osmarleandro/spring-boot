@@ -19,7 +19,9 @@ package org.springframework.boot.actuate.autoconfigure.system;
 import java.io.File;
 
 import org.springframework.boot.actuate.system.DiskSpaceHealthIndicator;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.Bean;
 import org.springframework.util.Assert;
 import org.springframework.util.unit.DataSize;
 
@@ -58,6 +60,12 @@ public class DiskSpaceHealthIndicatorProperties {
 	public void setThreshold(DataSize threshold) {
 		Assert.isTrue(!threshold.isNegative(), "threshold must be greater than or equal to 0");
 		this.threshold = threshold;
+	}
+
+	@Bean
+	@ConditionalOnMissingBean(name = "diskSpaceHealthIndicator")
+	public DiskSpaceHealthIndicator diskSpaceHealthIndicator() {
+		return new DiskSpaceHealthIndicator(getPath(), getThreshold());
 	}
 
 }
