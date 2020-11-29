@@ -16,6 +16,7 @@
 
 package org.springframework.boot.actuate.endpoint;
 
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Locale;
 import java.util.Set;
@@ -23,7 +24,10 @@ import java.util.regex.Pattern;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
+import org.springframework.boot.actuate.endpoint.jmx.ExposableJmxEndpoint;
+import org.springframework.boot.actuate.endpoint.jmx.JmxOperation;
+import org.springframework.boot.actuate.endpoint.jmx.annotation.DiscoveredJmxEndpoint;
+import org.springframework.boot.actuate.endpoint.jmx.annotation.JmxEndpointDiscoverer;
 import org.springframework.core.env.Environment;
 import org.springframework.util.Assert;
 
@@ -104,6 +108,10 @@ public final class EndpointId {
 	@Override
 	public String toString() {
 		return this.value;
+	}
+
+	public ExposableJmxEndpoint createEndpoint(Object endpointBean, JmxEndpointDiscoverer jmxEndpointDiscoverer, boolean enabledByDefault, Collection<JmxOperation> operations) {
+		return new DiscoveredJmxEndpoint(jmxEndpointDiscoverer, endpointBean, this, enabledByDefault, operations);
 	}
 
 	/**
