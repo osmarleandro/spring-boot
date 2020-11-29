@@ -34,7 +34,7 @@ public abstract class AbstractDiscoveredOperation implements Operation {
 
 	private final OperationMethod operationMethod;
 
-	private final OperationInvoker invoker;
+	public final OperationInvoker invoker;
 
 	/**
 	 * Create a new {@link AbstractDiscoveredOperation} instance.
@@ -57,7 +57,7 @@ public abstract class AbstractDiscoveredOperation implements Operation {
 
 	@Override
 	public Object invoke(InvocationContext context) {
-		return this.invoker.invoke(context);
+		return context.invoke(this);
 	}
 
 	@Override

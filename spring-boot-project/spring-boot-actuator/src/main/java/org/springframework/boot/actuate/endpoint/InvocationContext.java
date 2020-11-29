@@ -18,6 +18,7 @@ package org.springframework.boot.actuate.endpoint;
 
 import java.util.Map;
 
+import org.springframework.boot.actuate.endpoint.annotation.AbstractDiscoveredOperation;
 import org.springframework.boot.actuate.endpoint.http.ApiVersion;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvoker;
 import org.springframework.util.Assert;
@@ -86,6 +87,10 @@ public class InvocationContext {
 	 */
 	public Map<String, Object> getArguments() {
 		return this.arguments;
+	}
+
+	public Object invoke(AbstractDiscoveredOperation abstractDiscoveredOperation) {
+		return abstractDiscoveredOperation.invoker.invoke(this);
 	}
 
 }
