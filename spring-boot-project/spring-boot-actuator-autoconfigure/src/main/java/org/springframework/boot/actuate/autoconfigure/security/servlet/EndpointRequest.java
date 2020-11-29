@@ -284,7 +284,7 @@ public final class EndpointRequest {
 		protected RequestMatcher createDelegate(WebApplicationContext context,
 				RequestMatcherFactory requestMatcherFactory) {
 			WebEndpointProperties properties = context.getBean(WebEndpointProperties.class);
-			String basePath = properties.getBasePath();
+			String basePath = properties.getExposure().getBasePath(this);
 			if (StringUtils.hasText(basePath)) {
 				return new OrRequestMatcher(
 						getLinksMatchers(requestMatcherFactory, getRequestMatcherProvider(context), basePath));

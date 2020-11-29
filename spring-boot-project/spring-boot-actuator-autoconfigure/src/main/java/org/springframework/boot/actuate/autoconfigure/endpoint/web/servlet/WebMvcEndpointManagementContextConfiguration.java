@@ -72,7 +72,7 @@ public class WebMvcEndpointManagementContextConfiguration {
 		allEndpoints.addAll(webEndpoints);
 		allEndpoints.addAll(servletEndpointsSupplier.getEndpoints());
 		allEndpoints.addAll(controllerEndpointsSupplier.getEndpoints());
-		String basePath = webEndpointProperties.getBasePath();
+		String basePath = webEndpointProperties.getExposure().getBasePath(this);
 		EndpointMapping endpointMapping = new EndpointMapping(basePath);
 		boolean shouldRegisterLinksMapping = StringUtils.hasText(basePath)
 				|| ManagementPortType.get(environment).equals(ManagementPortType.DIFFERENT);
@@ -86,7 +86,7 @@ public class WebMvcEndpointManagementContextConfiguration {
 	public ControllerEndpointHandlerMapping controllerEndpointHandlerMapping(
 			ControllerEndpointsSupplier controllerEndpointsSupplier, CorsEndpointProperties corsProperties,
 			WebEndpointProperties webEndpointProperties) {
-		EndpointMapping endpointMapping = new EndpointMapping(webEndpointProperties.getBasePath());
+		EndpointMapping endpointMapping = new EndpointMapping(webEndpointProperties.getExposure().getBasePath(this));
 		return new ControllerEndpointHandlerMapping(endpointMapping, controllerEndpointsSupplier.getEndpoints(),
 				corsProperties.toCorsConfiguration());
 	}

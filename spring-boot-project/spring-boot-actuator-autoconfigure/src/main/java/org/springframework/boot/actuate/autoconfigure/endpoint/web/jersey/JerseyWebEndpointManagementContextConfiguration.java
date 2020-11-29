@@ -72,7 +72,7 @@ class JerseyWebEndpointManagementContextConfiguration {
 			ObjectProvider<ResourceConfig> resourceConfig, WebEndpointsSupplier webEndpointsSupplier,
 			ServletEndpointsSupplier servletEndpointsSupplier, EndpointMediaTypes endpointMediaTypes,
 			WebEndpointProperties webEndpointProperties) {
-		String basePath = webEndpointProperties.getBasePath();
+		String basePath = webEndpointProperties.getExposure().getBasePath(this);
 		boolean shouldRegisterLinks = shouldRegisterLinksMapping(environment, basePath);
 		shouldRegisterLinksMapping(environment, basePath);
 		return new JerseyWebEndpointsResourcesRegistrar(resourceConfig.getIfAvailable(), webEndpointsSupplier,

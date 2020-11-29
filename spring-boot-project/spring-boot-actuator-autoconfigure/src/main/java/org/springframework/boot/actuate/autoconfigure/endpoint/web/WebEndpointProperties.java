@@ -52,10 +52,6 @@ public class WebEndpointProperties {
 		return this.exposure;
 	}
 
-	public String getBasePath() {
-		return this.basePath;
-	}
-
 	public void setBasePath(String basePath) {
 		Assert.isTrue(basePath.isEmpty() || basePath.startsWith("/"), "Base path must start with '/' or be empty");
 		this.basePath = cleanBasePath(basePath);
@@ -98,6 +94,10 @@ public class WebEndpointProperties {
 
 		public void setExclude(Set<String> exclude) {
 			this.exclude = exclude;
+		}
+
+		public String getBasePath(WebEndpointProperties webEndpointProperties) {
+			return webEndpointProperties.basePath;
 		}
 
 	}
