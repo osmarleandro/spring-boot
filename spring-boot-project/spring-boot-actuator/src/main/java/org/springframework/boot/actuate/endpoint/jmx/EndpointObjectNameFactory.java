@@ -37,4 +37,8 @@ public interface EndpointObjectNameFactory {
 	 */
 	ObjectName getObjectName(ExposableJmxEndpoint endpoint) throws MalformedObjectNameException;
 
+	default void afterPropertiesSet(JmxEndpointExporter jmxEndpointExporter) {
+		jmxEndpointExporter.registered = jmxEndpointExporter.register();
+	}
+
 }

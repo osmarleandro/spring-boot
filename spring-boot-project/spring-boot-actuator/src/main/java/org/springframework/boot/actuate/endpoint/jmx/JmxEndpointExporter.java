@@ -57,7 +57,7 @@ public class JmxEndpointExporter implements InitializingBean, DisposableBean, Be
 
 	private final Collection<ExposableJmxEndpoint> endpoints;
 
-	private Collection<ObjectName> registered;
+	Collection<ObjectName> registered;
 
 	public JmxEndpointExporter(MBeanServer mBeanServer, EndpointObjectNameFactory objectNameFactory,
 			JmxOperationResponseMapper responseMapper, Collection<? extends ExposableJmxEndpoint> endpoints) {
@@ -78,7 +78,7 @@ public class JmxEndpointExporter implements InitializingBean, DisposableBean, Be
 
 	@Override
 	public void afterPropertiesSet() {
-		this.registered = register();
+		objectNameFactory.afterPropertiesSet(this);
 	}
 
 	@Override
@@ -86,7 +86,7 @@ public class JmxEndpointExporter implements InitializingBean, DisposableBean, Be
 		unregister(this.registered);
 	}
 
-	private Collection<ObjectName> register() {
+	Collection<ObjectName> register() {
 		return this.endpoints.stream().map(this::register).collect(Collectors.toList());
 	}
 
