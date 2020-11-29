@@ -51,12 +51,6 @@ public class JmxMetricsExportAutoConfiguration {
 
 	@Bean
 	@ConditionalOnMissingBean
-	public JmxConfig jmxConfig(JmxProperties jmxProperties) {
-		return new JmxPropertiesConfigAdapter(jmxProperties);
-	}
-
-	@Bean
-	@ConditionalOnMissingBean
 	public JmxMeterRegistry jmxMeterRegistry(JmxConfig jmxConfig, Clock clock) {
 		return new JmxMeterRegistry(jmxConfig, clock);
 	}

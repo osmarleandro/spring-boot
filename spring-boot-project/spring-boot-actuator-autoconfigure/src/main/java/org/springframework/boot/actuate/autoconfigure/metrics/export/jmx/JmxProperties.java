@@ -18,7 +18,11 @@ package org.springframework.boot.actuate.autoconfigure.metrics.export.jmx;
 
 import java.time.Duration;
 
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.Bean;
+
+import io.micrometer.jmx.JmxConfig;
 
 /**
  * {@link ConfigurationProperties @ConfigurationProperties} for configuring JMX metrics
@@ -55,6 +59,12 @@ public class JmxProperties {
 
 	public void setStep(Duration step) {
 		this.step = step;
+	}
+
+	@Bean
+	@ConditionalOnMissingBean
+	public JmxConfig jmxConfig() {
+		return new JmxPropertiesConfigAdapter(this);
 	}
 
 }
