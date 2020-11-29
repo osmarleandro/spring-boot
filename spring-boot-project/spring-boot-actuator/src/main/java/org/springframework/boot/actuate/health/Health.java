@@ -23,6 +23,8 @@ import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
+import org.bson.Document;
+import org.springframework.boot.actuate.mongo.MongoHealthIndicator;
 import org.springframework.util.Assert;
 
 /**
@@ -327,6 +329,11 @@ public final class Health extends HealthComponent {
 		 */
 		public Health build() {
 			return new Health(this);
+		}
+
+		public void doHealthCheck(MongoHealthIndicator mongoHealthIndicator) throws Exception {
+			Document result = mongoHealthIndicator.mongoTemplate.executeCommand("{ buildInfo: 1 }");
+			up().withDetail("version", result.getString("version"));
 		}
 
 	}

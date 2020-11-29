@@ -16,8 +16,6 @@
 
 package org.springframework.boot.actuate.mongo;
 
-import org.bson.Document;
-
 import org.springframework.boot.actuate.health.AbstractHealthIndicator;
 import org.springframework.boot.actuate.health.Health;
 import org.springframework.boot.actuate.health.HealthIndicator;
@@ -33,7 +31,7 @@ import org.springframework.util.Assert;
  */
 public class MongoHealthIndicator extends AbstractHealthIndicator {
 
-	private final MongoTemplate mongoTemplate;
+	public final MongoTemplate mongoTemplate;
 
 	public MongoHealthIndicator(MongoTemplate mongoTemplate) {
 		super("MongoDB health check failed");
@@ -43,8 +41,7 @@ public class MongoHealthIndicator extends AbstractHealthIndicator {
 
 	@Override
 	protected void doHealthCheck(Health.Builder builder) throws Exception {
-		Document result = this.mongoTemplate.executeCommand("{ buildInfo: 1 }");
-		builder.up().withDetail("version", result.getString("version"));
+		builder.doHealthCheck(this);
 	}
 
 }
