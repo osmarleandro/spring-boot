@@ -36,9 +36,9 @@ import static org.mockito.Mockito.mock;
  *
  * @author Phillip Webb
  */
-class AvailabilityProbesHealthEndpointGroupsTests {
+public class AvailabilityProbesHealthEndpointGroupsTests {
 
-	private HealthEndpointGroups delegate;
+	public HealthEndpointGroups delegate;
 
 	private HealthEndpointGroup group;
 
@@ -112,12 +112,6 @@ class AvailabilityProbesHealthEndpointGroupsTests {
 	@Test
 	void containsAllWhenContainsOneReturnFalse() {
 		given(this.delegate.getNames()).willReturn(new LinkedHashSet<>(Arrays.asList("test", "liveness")));
-		assertThat(AvailabilityProbesHealthEndpointGroups.containsAllProbeGroups(this.delegate)).isFalse();
-	}
-
-	@Test
-	void containsAllWhenContainsNoneReturnFalse() {
-		given(this.delegate.getNames()).willReturn(new LinkedHashSet<>(Arrays.asList("test", "spring")));
 		assertThat(AvailabilityProbesHealthEndpointGroups.containsAllProbeGroups(this.delegate)).isFalse();
 	}
 
