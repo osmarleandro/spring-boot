@@ -25,6 +25,7 @@ import io.micrometer.core.instrument.binder.MeterBinder;
 import io.micrometer.core.instrument.composite.CompositeMeterRegistry;
 import io.micrometer.core.instrument.config.MeterFilter;
 
+import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.boot.util.LambdaSafe;
 
@@ -88,6 +89,13 @@ class MeterRegistryConfigurer {
 
 	private <T> List<T> asOrderedList(ObjectProvider<T> provider) {
 		return provider.orderedStream().collect(Collectors.toList());
+	}
+
+	public Object postProcessAfterInitialization(MeterRegistryPostProcessor meterRegistryPostProcessor, Object bean, String beanName) throws BeansException {
+		if (bean instanceof MeterRegistry) {
+			meterRegistryPostProcessor.getConfigurer().configure((MeterRegistry) bean);
+		}
+		return bean;
 	}
 
 }
