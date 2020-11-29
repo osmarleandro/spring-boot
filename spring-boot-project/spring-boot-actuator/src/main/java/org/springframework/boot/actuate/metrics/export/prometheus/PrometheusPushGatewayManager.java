@@ -113,7 +113,7 @@ public class PrometheusPushGatewayManager {
 					+ (StringUtils.hasLength(host) ? " '" + host + "'" : "")
 					+ ". No longer attempting metrics publication to this host";
 			logger.error(message, ex);
-			shutdown(ShutdownOperation.NONE);
+			ShutdownOperation.NONE.shutdown(this);
 		}
 		catch (Throwable ex) {
 			logger.error("Unable to push metrics to Prometheus Pushgateway", ex);
@@ -133,22 +133,7 @@ public class PrometheusPushGatewayManager {
 	 * Shutdown the manager, running any {@link ShutdownOperation}.
 	 */
 	public void shutdown() {
-		shutdown(this.shutdownOperation);
-	}
-
-	private void shutdown(ShutdownOperation shutdownOperation) {
-		if (this.scheduler instanceof PushGatewayTaskScheduler) {
-			((PushGatewayTaskScheduler) this.scheduler).shutdown();
-		}
-		this.scheduled.cancel(false);
-		switch (shutdownOperation) {
-		case PUSH:
-			push();
-			break;
-		case DELETE:
-			delete();
-			break;
-		}
+		this.shutdownOperation.shutdown(this);
 	}
 
 	/**
@@ -169,7 +154,22 @@ public class PrometheusPushGatewayManager {
 		/**
 		 * Perform a 'delete' before shutdown.
 		 */
-		DELETE
+		DELETE;
+
+		void shutdown(PrometheusPushGatewayManager prometheusPushGatewayManager) {
+			if (prometheusPushGatewayManager.scheduler instanceof PushGatewayTaskScheduler) {
+				((PushGatewayTaskScheduler) prometheusPushGatewayManager.scheduler).shutdown();
+			}
+			prometheusPushGatewayManager.scheduled.cancel(false);
+			switch (this) {
+			case PUSH:
+				prometheusPushGatewayManager.push();
+				break;
+			case DELETE:
+				prometheusPushGatewayManager.delete();
+				break;
+			}
+		}
 
 	}
 
