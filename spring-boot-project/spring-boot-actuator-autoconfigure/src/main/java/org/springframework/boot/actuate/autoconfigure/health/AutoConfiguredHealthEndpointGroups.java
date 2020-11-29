@@ -23,12 +23,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.function.Predicate;
-import java.util.function.Supplier;
 
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.BeanFactoryUtils;
 import org.springframework.beans.factory.ListableBeanFactory;
-import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.beans.factory.annotation.BeanFactoryAnnotationUtils;
 import org.springframework.boot.actuate.autoconfigure.health.HealthEndpointProperties.Group;
 import org.springframework.boot.actuate.autoconfigure.health.HealthProperties.Show;
@@ -92,13 +90,13 @@ class AutoConfiguredHealthEndpointGroups implements HealthEndpointGroups {
 					: defaultShowComponents;
 			Show showDetails = (group.getShowDetails() != null) ? group.getShowDetails() : defaultShowDetails;
 			Set<String> roles = !CollectionUtils.isEmpty(group.getRoles()) ? group.getRoles() : defaultRoles;
-			StatusAggregator statusAggregator = getQualifiedBean(beanFactory, StatusAggregator.class, groupName, () -> {
+			StatusAggregator statusAggregator = primaryGroup.getQualifiedBean(beanFactory, StatusAggregator.class, groupName, () -> {
 				if (!CollectionUtils.isEmpty(status.getOrder())) {
 					return new SimpleStatusAggregator(status.getOrder());
 				}
 				return defaultStatusAggregator;
 			});
-			HttpCodeStatusMapper httpCodeStatusMapper = getQualifiedBean(beanFactory, HttpCodeStatusMapper.class,
+			HttpCodeStatusMapper httpCodeStatusMapper = primaryGroup.getQualifiedBean(beanFactory, HttpCodeStatusMapper.class,
 					groupName, () -> {
 						if (!CollectionUtils.isEmpty(status.getHttpMapping())) {
 							return new SimpleHttpCodeStatusMapper(status.getHttpMapping());
@@ -129,15 +127,6 @@ class AutoConfiguredHealthEndpointGroups implements HealthEndpointGroups {
 			return beanFactory.getBean(candidates.get(0), type);
 		}
 		return beanFactory.getBean(type);
-	}
-
-	private <T> T getQualifiedBean(BeanFactory beanFactory, Class<T> type, String qualifier, Supplier<T> fallback) {
-		try {
-			return BeanFactoryAnnotationUtils.qualifiedBeanOfType(beanFactory, type, qualifier);
-		}
-		catch (NoSuchBeanDefinitionException ex) {
-			return fallback.get();
-		}
 	}
 
 	@Override

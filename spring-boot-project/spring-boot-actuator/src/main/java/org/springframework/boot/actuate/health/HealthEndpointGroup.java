@@ -16,6 +16,11 @@
 
 package org.springframework.boot.actuate.health;
 
+import java.util.function.Supplier;
+
+import org.springframework.beans.factory.BeanFactory;
+import org.springframework.beans.factory.NoSuchBeanDefinitionException;
+import org.springframework.beans.factory.annotation.BeanFactoryAnnotationUtils;
 import org.springframework.boot.actuate.endpoint.SecurityContext;
 
 /**
@@ -61,5 +66,14 @@ public interface HealthEndpointGroup {
 	 * @return the HTTP code status mapper
 	 */
 	HttpCodeStatusMapper getHttpCodeStatusMapper();
+
+	public default <T> T getQualifiedBean(BeanFactory beanFactory, Class<T> type, String qualifier, Supplier<T> fallback) {
+		try {
+			return BeanFactoryAnnotationUtils.qualifiedBeanOfType(beanFactory, type, qualifier);
+		}
+		catch (NoSuchBeanDefinitionException ex) {
+			return fallback.get();
+		}
+	}
 
 }
