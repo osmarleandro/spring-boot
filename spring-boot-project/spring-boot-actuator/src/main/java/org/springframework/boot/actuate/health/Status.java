@@ -115,12 +115,16 @@ public final class Status {
 
 	@Override
 	public int hashCode() {
-		return this.code.hashCode();
+		return DOWN.hashCode(this);
 	}
 
 	@Override
 	public String toString() {
 		return this.code;
+	}
+
+	public int hashCode(Status status) {
+		return status.code.hashCode();
 	}
 
 }
