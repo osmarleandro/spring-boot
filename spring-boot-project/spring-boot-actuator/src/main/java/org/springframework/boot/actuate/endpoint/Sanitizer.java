@@ -23,6 +23,10 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
+import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
+import org.springframework.boot.actuate.endpoint.annotation.Selector;
+import org.springframework.boot.actuate.env.EnvironmentEndpoint;
+import org.springframework.boot.actuate.env.EnvironmentEndpoint.EnvironmentEntryDescriptor;
 import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
 
@@ -136,6 +140,11 @@ public class Sanitizer {
 			return StringUtils.replace(value, ":" + password + "@", ":******@");
 		}
 		return value;
+	}
+
+	@ReadOperation
+	public EnvironmentEntryDescriptor environmentEntry(EnvironmentEndpoint environmentEndpoint, String toMatch) {
+		return environmentEndpoint.getEnvironmentEntryDescriptor(toMatch);
 	}
 
 }

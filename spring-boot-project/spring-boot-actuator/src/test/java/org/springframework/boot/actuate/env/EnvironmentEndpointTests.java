@@ -211,7 +211,7 @@ class EnvironmentEndpointTests {
 			StandardEnvironment environment = new StandardEnvironment();
 			TestPropertyValues.of("my.foo=bar", "my.foo2=bar2").applyTo(environment, TestPropertyValues.Type.MAP,
 					"test");
-			EnvironmentEntryDescriptor descriptor = new EnvironmentEndpoint(environment).environmentEntry("my.foo");
+			EnvironmentEntryDescriptor descriptor = new EnvironmentEndpoint(environment).sanitizer.environmentEntry(new EnvironmentEndpoint(environment), "my.foo");
 			assertThat(descriptor).isNotNull();
 			assertThat(descriptor.getProperty()).isNotNull();
 			assertThat(descriptor.getProperty().getSource()).isEqualTo("test");
@@ -231,7 +231,7 @@ class EnvironmentEndpointTests {
 		OriginParentMockPropertySource propertySource = new OriginParentMockPropertySource();
 		propertySource.setProperty("name", "test");
 		environment.getPropertySources().addFirst(propertySource);
-		EnvironmentEntryDescriptor descriptor = new EnvironmentEndpoint(environment).environmentEntry("name");
+		EnvironmentEntryDescriptor descriptor = new EnvironmentEndpoint(environment).sanitizer.environmentEntry(new EnvironmentEndpoint(environment), "name");
 		PropertySourceEntryDescriptor entryDescriptor = propertySources(descriptor).get("mockProperties");
 		assertThat(entryDescriptor.getProperty().getOrigin()).isEqualTo("name");
 		assertThat(entryDescriptor.getProperty().getOriginParents()).containsExactly("spring", "boot");
@@ -241,7 +241,7 @@ class EnvironmentEndpointTests {
 	void propertyEntryNotFound() {
 		ConfigurableEnvironment environment = emptyEnvironment();
 		environment.getPropertySources().addFirst(singleKeyPropertySource("test", "foo", "bar"));
-		EnvironmentEntryDescriptor descriptor = new EnvironmentEndpoint(environment).environmentEntry("does.not.exist");
+		EnvironmentEntryDescriptor descriptor = new EnvironmentEndpoint(environment).sanitizer.environmentEntry(new EnvironmentEndpoint(environment), "does.not.exist");
 		assertThat(descriptor).isNotNull();
 		assertThat(descriptor.getProperty()).isNull();
 		Map<String, PropertySourceEntryDescriptor> sources = propertySources(descriptor);
@@ -265,7 +265,7 @@ class EnvironmentEndpointTests {
 	void uriPropertyWithSensitiveInfo() {
 		ConfigurableEnvironment environment = new StandardEnvironment();
 		TestPropertyValues.of("sensitive.uri=http://user:password@localhost:8080").applyTo(environment);
-		EnvironmentEntryDescriptor descriptor = new EnvironmentEndpoint(environment).environmentEntry("sensitive.uri");
+		EnvironmentEntryDescriptor descriptor = new EnvironmentEndpoint(environment).sanitizer.environmentEntry(new EnvironmentEndpoint(environment), "sensitive.uri");
 		assertThat(descriptor.getProperty().getValue()).isEqualTo("http://user:******@localhost:8080");
 	}
 
@@ -275,8 +275,8 @@ class EnvironmentEndpointTests {
 		TestPropertyValues
 				.of("sensitive.addresses=http://user:password@localhost:8080,http://user2:password2@localhost:8082")
 				.applyTo(environment);
-		EnvironmentEntryDescriptor descriptor = new EnvironmentEndpoint(environment)
-				.environmentEntry("sensitive.addresses");
+		EnvironmentEntryDescriptor descriptor = new EnvironmentEndpoint(environment).sanitizer
+				.environmentEntry(new EnvironmentEndpoint(environment), "sensitive.addresses");
 		assertThat(descriptor.getProperty().getValue())
 				.isEqualTo("http://user:******@localhost:8080,http://user2:******@localhost:8082");
 	}

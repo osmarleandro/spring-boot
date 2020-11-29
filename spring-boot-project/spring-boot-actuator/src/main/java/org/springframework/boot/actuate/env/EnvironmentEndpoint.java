@@ -30,7 +30,6 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import org.springframework.boot.actuate.endpoint.Sanitizer;
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
 import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
-import org.springframework.boot.actuate.endpoint.annotation.Selector;
 import org.springframework.boot.context.properties.bind.PlaceholdersResolver;
 import org.springframework.boot.context.properties.bind.PropertySourcesPlaceholdersResolver;
 import org.springframework.boot.context.properties.source.ConfigurationPropertySources;
@@ -62,7 +61,7 @@ import org.springframework.util.SystemPropertyUtils;
 @Endpoint(id = "env")
 public class EnvironmentEndpoint {
 
-	private final Sanitizer sanitizer = new Sanitizer();
+	public final Sanitizer sanitizer = new Sanitizer();
 
 	private final Environment environment;
 
@@ -82,11 +81,6 @@ public class EnvironmentEndpoint {
 		return getEnvironmentDescriptor((name) -> true);
 	}
 
-	@ReadOperation
-	public EnvironmentEntryDescriptor environmentEntry(@Selector String toMatch) {
-		return getEnvironmentEntryDescriptor(toMatch);
-	}
-
 	private EnvironmentDescriptor getEnvironmentDescriptor(Predicate<String> propertyNamePredicate) {
 		PlaceholdersResolver resolver = getResolver();
 		List<PropertySourceDescriptor> propertySources = new ArrayList<>();
@@ -99,7 +93,7 @@ public class EnvironmentEndpoint {
 		return new EnvironmentDescriptor(Arrays.asList(this.environment.getActiveProfiles()), propertySources);
 	}
 
-	private EnvironmentEntryDescriptor getEnvironmentEntryDescriptor(String propertyName) {
+	public EnvironmentEntryDescriptor getEnvironmentEntryDescriptor(String propertyName) {
 		Map<String, PropertyValueDescriptor> descriptors = getPropertySourceDescriptors(propertyName);
 		PropertySummaryDescriptor summary = getPropertySummaryDescriptor(descriptors);
 		return new EnvironmentEntryDescriptor(summary, Arrays.asList(this.environment.getActiveProfiles()),

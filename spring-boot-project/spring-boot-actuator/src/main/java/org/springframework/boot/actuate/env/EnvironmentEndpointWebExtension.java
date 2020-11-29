@@ -40,7 +40,7 @@ public class EnvironmentEndpointWebExtension {
 
 	@ReadOperation
 	public WebEndpointResponse<EnvironmentEntryDescriptor> environmentEntry(@Selector String toMatch) {
-		EnvironmentEntryDescriptor descriptor = this.delegate.environmentEntry(toMatch);
+		EnvironmentEntryDescriptor descriptor = this.delegate.sanitizer.environmentEntry(this.delegate, toMatch);
 		return (descriptor.getProperty() != null) ? new WebEndpointResponse<>(descriptor, WebEndpointResponse.STATUS_OK)
 				: new WebEndpointResponse<>(WebEndpointResponse.STATUS_NOT_FOUND);
 	}
