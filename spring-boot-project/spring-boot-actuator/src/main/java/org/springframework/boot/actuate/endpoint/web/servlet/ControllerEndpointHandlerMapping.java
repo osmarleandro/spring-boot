@@ -19,7 +19,6 @@ package org.springframework.boot.actuate.endpoint.web.servlet;
 import java.lang.reflect.Method;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -64,16 +63,10 @@ public class ControllerEndpointHandlerMapping extends RequestMappingHandlerMappi
 		Assert.notNull(endpointMapping, "EndpointMapping must not be null");
 		Assert.notNull(endpoints, "Endpoints must not be null");
 		this.endpointMapping = endpointMapping;
-		this.handlers = getHandlers(endpoints);
+		this.handlers = endpointMapping.getHandlers(endpoints);
 		this.corsConfiguration = corsConfiguration;
 		setOrder(-100);
 		setUseSuffixPatternMatch(false);
-	}
-
-	private Map<Object, ExposableControllerEndpoint> getHandlers(Collection<ExposableControllerEndpoint> endpoints) {
-		Map<Object, ExposableControllerEndpoint> handlers = new LinkedHashMap<>();
-		endpoints.forEach((endpoint) -> handlers.put(endpoint.getController(), endpoint));
-		return Collections.unmodifiableMap(handlers);
 	}
 
 	@Override
