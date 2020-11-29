@@ -18,6 +18,9 @@ package org.springframework.boot.actuate.endpoint.invoke;
 
 import java.util.stream.Stream;
 
+import org.springframework.boot.actuate.endpoint.OperationType;
+import org.springframework.boot.actuate.endpoint.invoke.reflect.OperationMethod;
+
 /**
  * A collection of {@link OperationParameter operation parameters}.
  *
@@ -61,5 +64,14 @@ public interface OperationParameters extends Iterable<OperationParameter> {
 	 * @return a stream of the parameters
 	 */
 	Stream<OperationParameter> stream();
+
+	/**
+	 * Return the operation type.
+	 * @param operationMethod TODO
+	 * @return the operation type
+	 */
+	default OperationType getOperationType(OperationMethod operationMethod) {
+		return operationMethod.operationType;
+	}
 
 }

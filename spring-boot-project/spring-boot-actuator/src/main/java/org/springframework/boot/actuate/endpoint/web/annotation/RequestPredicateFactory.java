@@ -57,7 +57,7 @@ class RequestPredicateFactory {
 				.toArray(Parameter[]::new);
 		Parameter allRemainingPathSegmentsParameter = getAllRemainingPathSegmentsParameter(selectorParameters);
 		String path = getPath(rootPath, selectorParameters, allRemainingPathSegmentsParameter != null);
-		WebEndpointHttpMethod httpMethod = determineHttpMethod(operationMethod.getOperationType());
+		WebEndpointHttpMethod httpMethod = determineHttpMethod(operationMethod.operationParameters.getOperationType(operationMethod));
 		Collection<String> consumes = getConsumes(httpMethod, method);
 		Collection<String> produces = getProduces(operationMethod, method);
 		return new WebOperationRequestPredicate(path, httpMethod, consumes, produces);
