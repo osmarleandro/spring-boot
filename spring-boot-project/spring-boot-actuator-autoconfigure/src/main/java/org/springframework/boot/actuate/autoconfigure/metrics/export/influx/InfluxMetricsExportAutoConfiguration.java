@@ -17,7 +17,6 @@
 package org.springframework.boot.actuate.autoconfigure.metrics.export.influx;
 
 import io.micrometer.core.instrument.Clock;
-import io.micrometer.core.ipc.http.HttpUrlConnectionSender;
 import io.micrometer.influx.InfluxConfig;
 import io.micrometer.influx.InfluxMeterRegistry;
 
@@ -51,7 +50,7 @@ import org.springframework.context.annotation.Configuration;
 @EnableConfigurationProperties(InfluxProperties.class)
 public class InfluxMetricsExportAutoConfiguration {
 
-	private final InfluxProperties properties;
+	final InfluxProperties properties;
 
 	public InfluxMetricsExportAutoConfiguration(InfluxProperties properties) {
 		this.properties = properties;
@@ -61,16 +60,6 @@ public class InfluxMetricsExportAutoConfiguration {
 	@ConditionalOnMissingBean
 	public InfluxConfig influxConfig() {
 		return new InfluxPropertiesConfigAdapter(this.properties);
-	}
-
-	@Bean
-	@ConditionalOnMissingBean
-	public InfluxMeterRegistry influxMeterRegistry(InfluxConfig influxConfig, Clock clock,
-			InfluxProperties influxProperties) {
-		return InfluxMeterRegistry.builder(influxConfig).clock(clock).httpClient(
-				new HttpUrlConnectionSender(this.properties.getConnectTimeout(), this.properties.getReadTimeout()))
-				.build();
-
 	}
 
 }
