@@ -58,16 +58,10 @@ import org.springframework.util.unit.DataSize;
 @EnableConfigurationProperties(WavefrontProperties.class)
 public class WavefrontMetricsExportAutoConfiguration {
 
-	private final WavefrontProperties properties;
+	final WavefrontProperties properties;
 
 	public WavefrontMetricsExportAutoConfiguration(WavefrontProperties properties) {
 		this.properties = properties;
-	}
-
-	@Bean
-	@ConditionalOnMissingBean
-	public WavefrontConfig wavefrontConfig() {
-		return new WavefrontPropertiesConfigAdapter(this.properties);
 	}
 
 	@Bean
