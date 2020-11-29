@@ -16,30 +16,24 @@
 
 package org.springframework.boot.actuate.autoconfigure.metrics.web.servlet;
 
-import java.util.stream.Collectors;
-
 import javax.servlet.DispatcherType;
 
 import io.micrometer.core.instrument.MeterRegistry;
 import io.micrometer.core.instrument.config.MeterFilter;
 
-import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.boot.actuate.autoconfigure.metrics.CompositeMeterRegistryAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.metrics.MetricsAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.metrics.MetricsProperties;
 import org.springframework.boot.actuate.autoconfigure.metrics.MetricsProperties.Web.Server.ServerRequest;
 import org.springframework.boot.actuate.autoconfigure.metrics.OnlyOnceLoggingDenyMeterFilter;
 import org.springframework.boot.actuate.autoconfigure.metrics.export.simple.SimpleMetricsExportAutoConfiguration;
-import org.springframework.boot.actuate.metrics.web.servlet.DefaultWebMvcTagsProvider;
 import org.springframework.boot.actuate.metrics.web.servlet.LongTaskTimingHandlerInterceptor;
 import org.springframework.boot.actuate.metrics.web.servlet.WebMvcMetricsFilter;
-import org.springframework.boot.actuate.metrics.web.servlet.WebMvcTagsContributor;
 import org.springframework.boot.actuate.metrics.web.servlet.WebMvcTagsProvider;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
@@ -68,17 +62,10 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @EnableConfigurationProperties(MetricsProperties.class)
 public class WebMvcMetricsAutoConfiguration {
 
-	private final MetricsProperties properties;
+	public final MetricsProperties properties;
 
 	public WebMvcMetricsAutoConfiguration(MetricsProperties properties) {
 		this.properties = properties;
-	}
-
-	@Bean
-	@ConditionalOnMissingBean(WebMvcTagsProvider.class)
-	public DefaultWebMvcTagsProvider webMvcTagsProvider(ObjectProvider<WebMvcTagsContributor> contributors) {
-		return new DefaultWebMvcTagsProvider(this.properties.getWeb().getServer().getRequest().isIgnoreTrailingSlash(),
-				contributors.orderedStream().collect(Collectors.toList()));
 	}
 
 	@Bean
