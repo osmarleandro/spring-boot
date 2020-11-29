@@ -63,7 +63,7 @@ public interface AutoTimer {
 	 * @return if the auto-timer is enabled
 	 */
 	default boolean isEnabled() {
-		return true;
+		return DISABLED.isEnabled();
 	}
 
 	/**
@@ -93,5 +93,13 @@ public interface AutoTimer {
 	 * @param builder the builder to apply settings to
 	 */
 	void apply(Timer.Builder builder);
+
+	/**
+	 * Return if the auto-timer is enabled and metrics should be recorded.
+	 * @return if the auto-timer is enabled
+	 */
+	default boolean isEnabled() {
+		return true;
+	}
 
 }
