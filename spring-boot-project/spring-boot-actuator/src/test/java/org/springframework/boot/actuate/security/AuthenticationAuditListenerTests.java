@@ -62,7 +62,7 @@ class AuthenticationAuditListenerTests {
 
 	@Test
 	void testOtherAuthenticationSuccess() {
-		this.listener.onApplicationEvent(new InteractiveAuthenticationSuccessEvent(
+		this.listener.webListener.onApplicationEvent(this.listener, new InteractiveAuthenticationSuccessEvent(
 				new UsernamePasswordAuthenticationToken("user", "password"), getClass()));
 		// No need to audit this one (it shadows a regular AuthenticationSuccessEvent)
 		verify(this.publisher, never()).publishEvent(any(ApplicationEvent.class));
@@ -104,7 +104,7 @@ class AuthenticationAuditListenerTests {
 
 	private AuditApplicationEvent handleAuthenticationEvent(AbstractAuthenticationEvent event) {
 		ArgumentCaptor<AuditApplicationEvent> eventCaptor = ArgumentCaptor.forClass(AuditApplicationEvent.class);
-		this.listener.onApplicationEvent(event);
+		this.listener.webListener.onApplicationEvent(this.listener, event);
 		verify(this.publisher).publishEvent(eventCaptor.capture());
 		return eventCaptor.getValue();
 	}

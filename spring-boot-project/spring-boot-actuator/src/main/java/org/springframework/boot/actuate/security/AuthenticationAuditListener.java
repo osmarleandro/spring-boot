@@ -52,26 +52,13 @@ public class AuthenticationAuditListener extends AbstractAuthenticationAuditList
 
 	private static final String WEB_LISTENER_CHECK_CLASS = "org.springframework.security.web.authentication.switchuser.AuthenticationSwitchUserEvent";
 
-	private WebAuditListener webListener = maybeCreateWebListener();
+	public WebAuditListener webListener = maybeCreateWebListener();
 
 	private static WebAuditListener maybeCreateWebListener() {
 		if (ClassUtils.isPresent(WEB_LISTENER_CHECK_CLASS, null)) {
 			return new WebAuditListener();
 		}
 		return null;
-	}
-
-	@Override
-	public void onApplicationEvent(AbstractAuthenticationEvent event) {
-		if (event instanceof AbstractAuthenticationFailureEvent) {
-			onAuthenticationFailureEvent((AbstractAuthenticationFailureEvent) event);
-		}
-		else if (this.webListener != null && this.webListener.accepts(event)) {
-			this.webListener.process(this, event);
-		}
-		else if (event instanceof AuthenticationSuccessEvent) {
-			onAuthenticationSuccessEvent((AuthenticationSuccessEvent) event);
-		}
 	}
 
 	private void onAuthenticationFailureEvent(AbstractAuthenticationFailureEvent event) {
@@ -92,7 +79,7 @@ public class AuthenticationAuditListener extends AbstractAuthenticationAuditList
 		publish(new AuditEvent(event.getAuthentication().getName(), AUTHENTICATION_SUCCESS, data));
 	}
 
-	private static class WebAuditListener {
+	static class WebAuditListener {
 
 		void process(AuthenticationAuditListener listener, AbstractAuthenticationEvent input) {
 			if (listener != null) {
@@ -111,6 +98,18 @@ public class AuthenticationAuditListener extends AbstractAuthenticationAuditList
 
 		boolean accepts(AbstractAuthenticationEvent event) {
 			return event instanceof AuthenticationSwitchUserEvent;
+		}
+
+		public void onApplicationEvent(AuthenticationAuditListener authenticationAuditListener, AbstractAuthenticationEvent event) {
+			if (event instanceof AbstractAuthenticationFailureEvent) {
+				authenticationAuditListener.onAuthenticationFailureEvent((AbstractAuthenticationFailureEvent) event);
+			}
+			else if (this != null && accepts(event)) {
+				process(authenticationAuditListener, event);
+			}
+			else if (event instanceof AuthenticationSuccessEvent) {
+				authenticationAuditListener.onAuthenticationSuccessEvent((AuthenticationSuccessEvent) event);
+			}
 		}
 
 	}
