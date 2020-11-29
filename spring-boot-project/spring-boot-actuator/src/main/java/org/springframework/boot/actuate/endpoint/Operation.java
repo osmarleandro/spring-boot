@@ -16,6 +16,8 @@
 
 package org.springframework.boot.actuate.endpoint;
 
+import org.springframework.boot.actuate.endpoint.annotation.EndpointDiscoverer.OperationKey;
+
 /**
  * An operation on an {@link ExposableEndpoint endpoint}.
  *
@@ -37,5 +39,9 @@ public interface Operation {
 	 * @return the result of the operation, may be {@code null}
 	 */
 	Object invoke(InvocationContext context);
+
+	public default OperationKey createOperationKey() {
+		throw new IllegalStateException("ControllerEndpoints must not declare operations");
+	}
 
 }
