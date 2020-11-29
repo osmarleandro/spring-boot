@@ -17,6 +17,7 @@
 package org.springframework.boot.actuate.endpoint.jmx;
 
 import org.springframework.boot.actuate.endpoint.ExposableEndpoint;
+import org.springframework.util.ClassUtils;
 
 /**
  * Information describing an endpoint that can be exposed over JMX.
@@ -25,5 +26,17 @@ import org.springframework.boot.actuate.endpoint.ExposableEndpoint;
  * @since 2.0.0
  */
 public interface ExposableJmxEndpoint extends ExposableEndpoint<JmxOperation> {
+
+	default ClassLoader overrideThreadContextClassLoader(ClassLoader classLoader) {
+		if (classLoader != null) {
+			try {
+				return ClassUtils.overrideThreadContextClassLoader(classLoader);
+			}
+			catch (SecurityException ex) {
+				// can't set class loader, ignore it and proceed
+			}
+		}
+		return null;
+	}
 
 }
