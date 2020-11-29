@@ -90,10 +90,6 @@ public class ManagementServerProperties {
 		this.ssl = ssl;
 	}
 
-	public Servlet getServlet() {
-		return this.servlet;
-	}
-
 	/**
 	 * Servlet properties.
 	 */
@@ -124,6 +120,10 @@ public class ManagementServerProperties {
 				return contextPath.substring(0, contextPath.length() - 1);
 			}
 			return contextPath;
+		}
+
+		public Servlet getServlet(ManagementServerProperties managementServerProperties) {
+			return this;
 		}
 
 	}
