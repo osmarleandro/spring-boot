@@ -21,6 +21,13 @@ import java.time.Instant;
 import java.time.format.DateTimeFormatter;
 import java.util.Properties;
 
+import org.springframework.boot.actuate.autoconfigure.info.ConditionalOnEnabledInfoContributor;
+import org.springframework.boot.actuate.info.BuildInfoContributor;
+import org.springframework.boot.actuate.info.InfoContributor;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnSingleCandidate;
+import org.springframework.context.annotation.Bean;
+import org.springframework.core.annotation.Order;
+
 /**
  * Provide build-related information such as group and artifact.
  *
@@ -79,6 +86,14 @@ public class BuildProperties extends InfoProperties {
 	 */
 	public Instant getTime() {
 		return getInstant("time");
+	}
+
+	@Bean
+	@ConditionalOnEnabledInfoContributor("build")
+	@ConditionalOnSingleCandidate(BuildProperties.class)
+	@Order(DEFAULT_ORDER)
+	public InfoContributor buildInfoContributor() {
+		return new BuildInfoContributor(this);
 	}
 
 	private static Properties processEntries(Properties properties) {
