@@ -18,9 +18,17 @@ package org.springframework.boot.actuate.endpoint.http;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
+import org.springframework.boot.actuate.health.HealthComponent;
+import org.springframework.boot.actuate.health.ReactiveHealthEndpointWebExtension;
+import org.springframework.boot.actuate.health.ReactiveHealthEndpointWebExtension.NamedHealthComponent;
+import org.springframework.boot.actuate.health.StatusAggregator;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.MimeTypeUtils;
+
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 
 /**
  * API versions supported for the actuator HTTP API. This enum may be injected into
@@ -85,6 +93,12 @@ public enum ApiVersion {
 		int existingOrdinal = (existing != null) ? existing.ordinal() : -1;
 		int candidateOrdinal = (candidate != null) ? candidate.ordinal() : -1;
 		return (candidateOrdinal > existingOrdinal) ? candidate : existing;
+	}
+
+	public Mono<? extends HealthComponent> aggregateContributions(ReactiveHealthEndpointWebExtension reactiveHealthEndpointWebExtension, Map<String, Mono<? extends HealthComponent>> contributions, StatusAggregator statusAggregator, boolean showComponents, Set<String> groupNames) {
+		return Flux.fromIterable(contributions.entrySet()).flatMap(NamedHealthComponent::create)
+				.collectMap(NamedHealthComponent::getName, NamedHealthComponent::getHealth).map((components) -> reactiveHealthEndpointWebExtension
+						.getCompositeHealth(this, components, statusAggregator, showComponents, groupNames));
 	}
 
 }

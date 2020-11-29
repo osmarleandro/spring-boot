@@ -18,9 +18,7 @@ package org.springframework.boot.actuate.health;
 
 import java.util.Arrays;
 import java.util.Map;
-import java.util.Set;
 
-import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import org.springframework.boot.actuate.endpoint.SecurityContext;
@@ -87,19 +85,10 @@ public class ReactiveHealthEndpointWebExtension
 		return ((ReactiveHealthIndicator) contributor).getHealth(includeDetails);
 	}
 
-	@Override
-	protected Mono<? extends HealthComponent> aggregateContributions(ApiVersion apiVersion,
-			Map<String, Mono<? extends HealthComponent>> contributions, StatusAggregator statusAggregator,
-			boolean showComponents, Set<String> groupNames) {
-		return Flux.fromIterable(contributions.entrySet()).flatMap(NamedHealthComponent::create)
-				.collectMap(NamedHealthComponent::getName, NamedHealthComponent::getHealth).map((components) -> this
-						.getCompositeHealth(apiVersion, components, statusAggregator, showComponents, groupNames));
-	}
-
 	/**
 	 * A named {@link HealthComponent}.
 	 */
-	private static final class NamedHealthComponent {
+	public static final class NamedHealthComponent {
 
 		private final String name;
 
