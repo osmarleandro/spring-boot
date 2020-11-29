@@ -50,7 +50,7 @@ public class PropertiesConfigAdapter<T> {
 	 * @return the property or fallback value
 	 */
 	protected final <V> V get(Function<T, V> getter, Supplier<V> fallback) {
-		V value = getter.apply(this.properties);
+		V value = this.properties.apply(getter);
 		return (value != null) ? value : fallback.get();
 	}
 

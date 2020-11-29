@@ -16,6 +16,7 @@
 
 package org.springframework.boot.actuate.endpoint;
 
+import java.time.Duration;
 import java.util.HashSet;
 import java.util.Locale;
 import java.util.Set;
@@ -23,7 +24,9 @@ import java.util.regex.Pattern;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
+import org.springframework.boot.actuate.autoconfigure.endpoint.EndpointIdTimeToLivePropertyFunction;
+import org.springframework.boot.context.properties.bind.BindResult;
+import org.springframework.boot.context.properties.bind.Binder;
 import org.springframework.core.env.Environment;
 import org.springframework.util.Assert;
 
@@ -104,6 +107,12 @@ public final class EndpointId {
 	@Override
 	public String toString() {
 		return this.value;
+	}
+
+	public Long apply(EndpointIdTimeToLivePropertyFunction endpointIdTimeToLivePropertyFunction) {
+		String name = String.format("management.endpoint.%s.cache.time-to-live", toLowerCaseString());
+		BindResult<Duration> duration = Binder.get(endpointIdTimeToLivePropertyFunction.environment).bind(name, EndpointIdTimeToLivePropertyFunction.DURATION);
+		return duration.map(Duration::toMillis).orElse(null);
 	}
 
 	/**
