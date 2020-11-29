@@ -166,7 +166,7 @@ public class EndpointMBean implements DynamicMBean {
 
 	@Override
 	public AttributeList setAttributes(AttributeList attributes) {
-		return new AttributeList();
+		return endpoint.setAttributes(attributes);
 	}
 
 	private static class ReactiveHandler {
