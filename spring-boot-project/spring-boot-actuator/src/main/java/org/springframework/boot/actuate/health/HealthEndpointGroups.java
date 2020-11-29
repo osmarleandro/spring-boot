@@ -16,9 +16,13 @@
 
 package org.springframework.boot.actuate.health;
 
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
 
+import org.springframework.boot.actuate.autoconfigure.health.AutoConfiguredReactiveHealthContributorRegistry;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.context.annotation.Bean;
 import org.springframework.util.Assert;
 
 /**
@@ -47,6 +51,17 @@ public interface HealthEndpointGroups {
 	 * @return the {@link HealthEndpointGroup} or {@code null}
 	 */
 	HealthEndpointGroup get(String name);
+
+	@Bean
+	@ConditionalOnMissingBean
+	default
+	ReactiveHealthContributorRegistry reactiveHealthContributorRegistry(
+			Map<String, HealthContributor> healthContributors, Map<String, ReactiveHealthContributor> reactiveHealthContributors) {
+		Map<String, ReactiveHealthContributor> allContributors = new LinkedHashMap<>(reactiveHealthContributors);
+		healthContributors.forEach((name, contributor) -> allContributors.computeIfAbsent(name,
+				(key) -> ReactiveHealthContributor.adapt(contributor)));
+		return new AutoConfiguredReactiveHealthContributorRegistry(allContributors, getNames());
+	}
 
 	/**
 	 * Factory method to create a {@link HealthEndpointGroups} instance.
