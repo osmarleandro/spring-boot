@@ -31,7 +31,6 @@ import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.util.StringUtils;
 
 /**
  * Configure a {@link CacheMetricsRegistrar} and register all available {@link Cache
@@ -41,9 +40,10 @@ import org.springframework.util.StringUtils;
  */
 @Configuration(proxyBeanMethods = false)
 @ConditionalOnBean({ CacheMeterBinderProvider.class, MeterRegistry.class })
+public
 class CacheMetricsRegistrarConfiguration {
 
-	private static final String CACHE_MANAGER_SUFFIX = "cacheManager";
+	public static final String CACHE_MANAGER_SUFFIX = "cacheManager";
 
 	private final MeterRegistry registry;
 
@@ -74,21 +74,8 @@ class CacheMetricsRegistrarConfiguration {
 	}
 
 	private void bindCacheToRegistry(String beanName, Cache cache) {
-		Tag cacheManagerTag = Tag.of("cacheManager", getCacheManagerName(beanName));
+		Tag cacheManagerTag = Tag.of("cacheManager", cacheMetricsRegistrar.getCacheManagerName(beanName));
 		this.cacheMetricsRegistrar.bindCacheToRegistry(cache, cacheManagerTag);
-	}
-
-	/**
-	 * Get the name of a {@link CacheManager} based on its {@code beanName}.
-	 * @param beanName the name of the {@link CacheManager} bean
-	 * @return a name for the given cache manager
-	 */
-	private String getCacheManagerName(String beanName) {
-		if (beanName.length() > CACHE_MANAGER_SUFFIX.length()
-				&& StringUtils.endsWithIgnoreCase(beanName, CACHE_MANAGER_SUFFIX)) {
-			return beanName.substring(0, beanName.length() - CACHE_MANAGER_SUFFIX.length());
-		}
-		return beanName;
 	}
 
 }
