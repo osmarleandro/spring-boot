@@ -22,7 +22,6 @@ import org.springframework.boot.actuate.health.HealthIndicator;
 import org.springframework.data.redis.connection.RedisClusterConnection;
 import org.springframework.data.redis.connection.RedisConnection;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
-import org.springframework.data.redis.core.RedisConnectionUtils;
 import org.springframework.util.Assert;
 
 /**
@@ -36,7 +35,7 @@ import org.springframework.util.Assert;
  */
 public class RedisHealthIndicator extends AbstractHealthIndicator {
 
-	private final RedisConnectionFactory redisConnectionFactory;
+	public final RedisConnectionFactory redisConnectionFactory;
 
 	public RedisHealthIndicator(RedisConnectionFactory connectionFactory) {
 		super("Redis health check failed");
@@ -46,16 +45,10 @@ public class RedisHealthIndicator extends AbstractHealthIndicator {
 
 	@Override
 	protected void doHealthCheck(Health.Builder builder) throws Exception {
-		RedisConnection connection = RedisConnectionUtils.getConnection(this.redisConnectionFactory);
-		try {
-			doHealthCheck(builder, connection);
-		}
-		finally {
-			RedisConnectionUtils.releaseConnection(connection, this.redisConnectionFactory, false);
-		}
+		builder.doHealthCheck(this);
 	}
 
-	private void doHealthCheck(Health.Builder builder, RedisConnection connection) {
+	public void doHealthCheck(Health.Builder builder, RedisConnection connection) {
 		if (connection instanceof RedisClusterConnection) {
 			RedisHealth.up(builder, ((RedisClusterConnection) connection).clusterGetClusterInfo());
 		}
