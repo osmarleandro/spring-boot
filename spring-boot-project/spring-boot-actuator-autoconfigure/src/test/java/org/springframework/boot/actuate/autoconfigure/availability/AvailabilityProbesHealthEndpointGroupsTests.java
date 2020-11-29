@@ -36,11 +36,11 @@ import static org.mockito.Mockito.mock;
  *
  * @author Phillip Webb
  */
-class AvailabilityProbesHealthEndpointGroupsTests {
+public class AvailabilityProbesHealthEndpointGroupsTests {
 
-	private HealthEndpointGroups delegate;
+	public HealthEndpointGroups delegate;
 
-	private HealthEndpointGroup group;
+	public HealthEndpointGroup group;
 
 	@BeforeEach
 	void setup() {
@@ -66,13 +66,6 @@ class AvailabilityProbesHealthEndpointGroupsTests {
 		given(this.delegate.getNames()).willReturn(Collections.singleton("test"));
 		HealthEndpointGroups availabilityProbes = new AvailabilityProbesHealthEndpointGroups(this.delegate);
 		assertThat(availabilityProbes.getNames()).containsExactly("test", "liveness", "readiness");
-	}
-
-	@Test
-	void getWhenProbeInDelegateReturnsGroupFromDelegate() {
-		given(this.delegate.get("liveness")).willReturn(this.group);
-		HealthEndpointGroups availabilityProbes = new AvailabilityProbesHealthEndpointGroups(this.delegate);
-		assertThat(availabilityProbes.get("liveness")).isEqualTo(this.group);
 	}
 
 	@Test
