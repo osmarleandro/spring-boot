@@ -167,7 +167,7 @@ class IncludeExcludeEndpointFilterTests {
 		if (id != null) {
 			given(endpoint.getEndpointId()).willReturn(id);
 		}
-		return ((EndpointFilter) this.filter).match(endpoint);
+		return endpoint.match(((EndpointFilter) this.filter));
 	}
 
 	abstract static class TestExposableWebEndpoint implements ExposableWebEndpoint {

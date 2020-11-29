@@ -41,4 +41,8 @@ public interface DiscoveredEndpoint<O extends Operation> extends ExposableEndpoi
 	 */
 	Object getEndpointBean();
 
+	default boolean match(DiscovererEndpointFilter discovererEndpointFilter) {
+		return wasDiscoveredBy(discovererEndpointFilter.discoverer);
+	}
+
 }
