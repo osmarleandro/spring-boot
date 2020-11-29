@@ -61,10 +61,6 @@ public class MetricsProperties {
 		return this.useGlobalRegistry;
 	}
 
-	public void setUseGlobalRegistry(boolean useGlobalRegistry) {
-		this.useGlobalRegistry = useGlobalRegistry;
-	}
-
 	public Map<String, Boolean> getEnable() {
 		return this.enable;
 	}
@@ -278,6 +274,10 @@ public class MetricsProperties {
 
 		public Map<String, String> getMaximumExpectedValue() {
 			return this.maximumExpectedValue;
+		}
+
+		public void setUseGlobalRegistry(MetricsProperties metricsProperties, boolean useGlobalRegistry) {
+			metricsProperties.useGlobalRegistry = useGlobalRegistry;
 		}
 
 	}
