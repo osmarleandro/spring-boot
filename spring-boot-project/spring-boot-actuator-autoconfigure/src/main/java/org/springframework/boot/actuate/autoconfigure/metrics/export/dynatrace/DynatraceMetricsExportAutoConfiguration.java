@@ -17,7 +17,6 @@
 package org.springframework.boot.actuate.autoconfigure.metrics.export.dynatrace;
 
 import io.micrometer.core.instrument.Clock;
-import io.micrometer.core.ipc.http.HttpUrlConnectionSender;
 import io.micrometer.dynatrace.DynatraceConfig;
 import io.micrometer.dynatrace.DynatraceMeterRegistry;
 
@@ -51,7 +50,7 @@ import org.springframework.context.annotation.Configuration;
 @EnableConfigurationProperties(DynatraceProperties.class)
 public class DynatraceMetricsExportAutoConfiguration {
 
-	private final DynatraceProperties properties;
+	final DynatraceProperties properties;
 
 	public DynatraceMetricsExportAutoConfiguration(DynatraceProperties properties) {
 		this.properties = properties;
@@ -61,14 +60,6 @@ public class DynatraceMetricsExportAutoConfiguration {
 	@ConditionalOnMissingBean
 	public DynatraceConfig dynatraceConfig() {
 		return new DynatracePropertiesConfigAdapter(this.properties);
-	}
-
-	@Bean
-	@ConditionalOnMissingBean
-	public DynatraceMeterRegistry dynatraceMeterRegistry(DynatraceConfig dynatraceConfig, Clock clock) {
-		return DynatraceMeterRegistry.builder(dynatraceConfig).clock(clock).httpClient(
-				new HttpUrlConnectionSender(this.properties.getConnectTimeout(), this.properties.getReadTimeout()))
-				.build();
 	}
 
 }

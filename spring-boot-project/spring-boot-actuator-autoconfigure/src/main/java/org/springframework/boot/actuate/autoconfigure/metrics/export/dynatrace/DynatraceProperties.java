@@ -17,7 +17,14 @@
 package org.springframework.boot.actuate.autoconfigure.metrics.export.dynatrace;
 
 import org.springframework.boot.actuate.autoconfigure.metrics.export.properties.StepRegistryProperties;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.Bean;
+
+import io.micrometer.core.instrument.Clock;
+import io.micrometer.core.ipc.http.HttpUrlConnectionSender;
+import io.micrometer.dynatrace.DynatraceConfig;
+import io.micrometer.dynatrace.DynatraceMeterRegistry;
 
 /**
  * {@link ConfigurationProperties @ConfigurationProperties} for configuring Dynatrace
@@ -95,6 +102,14 @@ public class DynatraceProperties extends StepRegistryProperties {
 
 	public void setGroup(String group) {
 		this.group = group;
+	}
+
+	@Bean
+	@ConditionalOnMissingBean
+	public DynatraceMeterRegistry dynatraceMeterRegistry(DynatraceMetricsExportAutoConfiguration dynatraceMetricsExportAutoConfiguration, DynatraceConfig dynatraceConfig, Clock clock) {
+		return DynatraceMeterRegistry.builder(dynatraceConfig).clock(clock).httpClient(
+				new HttpUrlConnectionSender(getConnectTimeout(), getReadTimeout()))
+				.build();
 	}
 
 }
