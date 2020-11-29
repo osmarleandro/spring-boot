@@ -20,6 +20,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.Bean;
 
 /**
  * Configuration properties for Jolokia.
@@ -39,6 +40,11 @@ public class JolokiaProperties {
 
 	public Map<String, String> getConfig() {
 		return this.config;
+	}
+
+	@Bean
+	public JolokiaEndpoint jolokiaEndpoint() {
+		return new JolokiaEndpoint(getConfig());
 	}
 
 }
