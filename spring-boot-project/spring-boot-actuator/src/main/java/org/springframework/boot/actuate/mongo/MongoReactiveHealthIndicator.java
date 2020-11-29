@@ -44,11 +44,7 @@ public class MongoReactiveHealthIndicator extends AbstractReactiveHealthIndicato
 	@Override
 	protected Mono<Health> doHealthCheck(Health.Builder builder) {
 		Mono<Document> buildInfo = this.reactiveMongoTemplate.executeCommand("{ buildInfo: 1 }");
-		return buildInfo.map((document) -> up(builder, document));
-	}
-
-	private Health up(Health.Builder builder, Document document) {
-		return builder.up().withDetail("version", document.getString("version")).build();
+		return buildInfo.map((document) -> builder.up(document));
 	}
 
 }

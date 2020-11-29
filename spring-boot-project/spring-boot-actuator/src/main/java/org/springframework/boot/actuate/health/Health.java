@@ -23,6 +23,7 @@ import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
+import org.bson.Document;
 import org.springframework.util.Assert;
 
 /**
@@ -327,6 +328,10 @@ public final class Health extends HealthComponent {
 		 */
 		public Health build() {
 			return new Health(this);
+		}
+
+		public Health up(Document document) {
+			return up().withDetail("version", document.getString("version")).build();
 		}
 
 	}
