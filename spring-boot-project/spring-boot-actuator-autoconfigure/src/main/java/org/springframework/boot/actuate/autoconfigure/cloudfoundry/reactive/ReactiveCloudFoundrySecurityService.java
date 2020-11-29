@@ -43,7 +43,7 @@ import org.springframework.web.reactive.function.client.WebClientResponseExcepti
  *
  * @author Madhura Bhave
  */
-class ReactiveCloudFoundrySecurityService {
+public class ReactiveCloudFoundrySecurityService {
 
 	private static final ParameterizedTypeReference<Map<String, Object>> STRING_OBJECT_MAP = new ParameterizedTypeReference<Map<String, Object>>() {
 	};
@@ -140,7 +140,7 @@ class ReactiveCloudFoundrySecurityService {
 	 * Return a Mono of URL of the UAA.
 	 * @return the UAA url Mono
 	 */
-	Mono<String> getUaaUrl() {
+	public Mono<String> getUaaUrl() {
 		this.uaaUrl = this.webClient.get().uri(this.cloudControllerUrl + "/info").retrieve().bodyToMono(Map.class)
 				.map((response) -> (String) response.get("token_endpoint")).cache()
 				.onErrorMap((ex) -> new CloudFoundryAuthorizationException(Reason.SERVICE_UNAVAILABLE,

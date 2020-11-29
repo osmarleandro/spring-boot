@@ -21,9 +21,12 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.CloudFoundryAuthorizationException.Reason;
+import org.springframework.boot.actuate.autoconfigure.cloudfoundry.reactive.ReactiveTokenValidator;
 import org.springframework.boot.json.JsonParserFactory;
 import org.springframework.util.Base64Utils;
 import org.springframework.util.StringUtils;
+
+import reactor.core.publisher.Mono;
 
 /**
  * The JSON web token provided with each request that originates from Cloud Foundry.
@@ -113,6 +116,14 @@ public class Token {
 	@Override
 	public String toString() {
 		return this.encoded;
+	}
+
+	public Mono<Void> validateIssuer(ReactiveTokenValidator reactiveTokenValidator) {
+		return reactiveTokenValidator.securityService.getUaaUrl().map((uaaUrl) -> String.format("%s/oauth/token", uaaUrl))
+				.filter((issuerUri) -> issuerUri.equals(getIssuer()))
+				.switchIfEmpty(Mono.error(
+						new CloudFoundryAuthorizationException(Reason.INVALID_ISSUER, "Token issuer does not match")))
+				.then();
 	}
 
 }

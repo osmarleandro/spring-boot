@@ -40,9 +40,9 @@ import org.springframework.util.Base64Utils;
  *
  * @author Madhura Bhave
  */
-class ReactiveTokenValidator {
+public class ReactiveTokenValidator {
 
-	private final ReactiveCloudFoundrySecurityService securityService;
+	public final ReactiveCloudFoundrySecurityService securityService;
 
 	private volatile ConcurrentMap<String, String> cachedTokenKeys = new ConcurrentHashMap<>();
 
@@ -52,7 +52,7 @@ class ReactiveTokenValidator {
 
 	Mono<Void> validate(Token token) {
 		return validateAlgorithm(token).then(validateKeyIdAndSignature(token)).then(validateExpiry(token))
-				.then(validateIssuer(token)).then(validateAudience(token));
+				.then(token.validateIssuer(this)).then(validateAudience(token));
 	}
 
 	private Mono<Void> validateAlgorithm(Token token) {
@@ -119,14 +119,6 @@ class ReactiveTokenValidator {
 			return Mono.error(new CloudFoundryAuthorizationException(Reason.TOKEN_EXPIRED, "Token expired"));
 		}
 		return Mono.empty();
-	}
-
-	private Mono<Void> validateIssuer(Token token) {
-		return this.securityService.getUaaUrl().map((uaaUrl) -> String.format("%s/oauth/token", uaaUrl))
-				.filter((issuerUri) -> issuerUri.equals(token.getIssuer()))
-				.switchIfEmpty(Mono.error(
-						new CloudFoundryAuthorizationException(Reason.INVALID_ISSUER, "Token issuer does not match")))
-				.then();
 	}
 
 	private Mono<Void> validateAudience(Token token) {
