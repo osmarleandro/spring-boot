@@ -16,8 +16,12 @@
 
 package org.springframework.boot.actuate.metrics.web.client;
 
+import io.micrometer.core.instrument.MeterRegistry;
 import io.micrometer.core.instrument.Tag;
 
+import org.springframework.boot.actuate.autoconfigure.metrics.MetricsProperties;
+import org.springframework.boot.actuate.autoconfigure.metrics.MetricsProperties.Web.Client.ClientRequest;
+import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpRequest;
 import org.springframework.http.client.ClientHttpResponse;
 import org.springframework.web.client.RestTemplate;
@@ -41,5 +45,13 @@ public interface RestTemplateExchangeTagsProvider {
 	 * @return the tags
 	 */
 	Iterable<Tag> getTags(String urlTemplate, HttpRequest request, ClientHttpResponse response);
+
+	@Bean
+	default
+	MetricsRestTemplateCustomizer metricsRestTemplateCustomizer(MeterRegistry meterRegistry, MetricsProperties properties) {
+		ClientRequest request = properties.getWeb().getClient().getRequest();
+		return new MetricsRestTemplateCustomizer(meterRegistry, this,
+				request.getMetricName(), request.getAutotime());
+	}
 
 }

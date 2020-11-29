@@ -16,12 +16,7 @@
 
 package org.springframework.boot.actuate.autoconfigure.metrics.web.client;
 
-import io.micrometer.core.instrument.MeterRegistry;
-
-import org.springframework.boot.actuate.autoconfigure.metrics.MetricsProperties;
-import org.springframework.boot.actuate.autoconfigure.metrics.MetricsProperties.Web.Client.ClientRequest;
 import org.springframework.boot.actuate.metrics.web.client.DefaultRestTemplateExchangeTagsProvider;
-import org.springframework.boot.actuate.metrics.web.client.MetricsRestTemplateCustomizer;
 import org.springframework.boot.actuate.metrics.web.client.RestTemplateExchangeTagsProvider;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
@@ -47,14 +42,6 @@ class RestTemplateMetricsConfiguration {
 	@ConditionalOnMissingBean(RestTemplateExchangeTagsProvider.class)
 	DefaultRestTemplateExchangeTagsProvider restTemplateExchangeTagsProvider() {
 		return new DefaultRestTemplateExchangeTagsProvider();
-	}
-
-	@Bean
-	MetricsRestTemplateCustomizer metricsRestTemplateCustomizer(MeterRegistry meterRegistry,
-			RestTemplateExchangeTagsProvider restTemplateExchangeTagsProvider, MetricsProperties properties) {
-		ClientRequest request = properties.getWeb().getClient().getRequest();
-		return new MetricsRestTemplateCustomizer(meterRegistry, restTemplateExchangeTagsProvider,
-				request.getMetricName(), request.getAutotime());
 	}
 
 }
