@@ -16,6 +16,9 @@
 
 package org.springframework.boot.actuate.endpoint.web;
 
+import org.glassfish.jersey.server.model.Resource;
+import org.glassfish.jersey.server.model.Resource.Builder;
+import org.springframework.boot.actuate.endpoint.web.jersey.JerseyEndpointResourceFactory.OperationInflector;
 import org.springframework.util.StringUtils;
 
 /**
@@ -46,6 +49,22 @@ public class EndpointMapping {
 
 	public String createSubPath(String path) {
 		return this.path + normalizePath(path);
+	}
+
+	public Resource createResource(WebOperation operation) {
+		WebOperationRequestPredicate requestPredicate = operation.getRequestPredicate();
+		String path = requestPredicate.getPath();
+		String matchAllRemainingPathSegmentsVariable = requestPredicate.getMatchAllRemainingPathSegmentsVariable();
+		if (matchAllRemainingPathSegmentsVariable != null) {
+			path = path.replace("{*" + matchAllRemainingPathSegmentsVariable + "}",
+					"{" + matchAllRemainingPathSegmentsVariable + ": .*}");
+		}
+		Builder resourceBuilder = Resource.builder().path(createSubPath(path));
+		resourceBuilder.addMethod(requestPredicate.getHttpMethod().name())
+				.consumes(StringUtils.toStringArray(requestPredicate.getConsumes()))
+				.produces(StringUtils.toStringArray(requestPredicate.getProduces()))
+				.handledBy(new OperationInflector(operation, !requestPredicate.getConsumes().isEmpty()));
+		return resourceBuilder.build();
 	}
 
 	private static String normalizePath(String path) {

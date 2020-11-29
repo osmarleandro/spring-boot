@@ -51,7 +51,6 @@ import org.springframework.boot.actuate.endpoint.web.ExposableWebEndpoint;
 import org.springframework.boot.actuate.endpoint.web.Link;
 import org.springframework.boot.actuate.endpoint.web.WebEndpointResponse;
 import org.springframework.boot.actuate.endpoint.web.WebOperation;
-import org.springframework.boot.actuate.endpoint.web.WebOperationRequestPredicate;
 import org.springframework.util.AntPathMatcher;
 import org.springframework.util.ClassUtils;
 import org.springframework.util.CollectionUtils;
@@ -82,29 +81,13 @@ public class JerseyEndpointResourceFactory {
 			EndpointLinksResolver linksResolver, boolean shouldRegisterLinks) {
 		List<Resource> resources = new ArrayList<>();
 		endpoints.stream().flatMap((endpoint) -> endpoint.getOperations().stream())
-				.map((operation) -> createResource(endpointMapping, operation)).forEach(resources::add);
+				.map((operation) -> endpointMapping.createResource(operation)).forEach(resources::add);
 		if (shouldRegisterLinks) {
 			Resource resource = createEndpointLinksResource(endpointMapping.getPath(), endpointMediaTypes,
 					linksResolver);
 			resources.add(resource);
 		}
 		return resources;
-	}
-
-	private Resource createResource(EndpointMapping endpointMapping, WebOperation operation) {
-		WebOperationRequestPredicate requestPredicate = operation.getRequestPredicate();
-		String path = requestPredicate.getPath();
-		String matchAllRemainingPathSegmentsVariable = requestPredicate.getMatchAllRemainingPathSegmentsVariable();
-		if (matchAllRemainingPathSegmentsVariable != null) {
-			path = path.replace("{*" + matchAllRemainingPathSegmentsVariable + "}",
-					"{" + matchAllRemainingPathSegmentsVariable + ": .*}");
-		}
-		Builder resourceBuilder = Resource.builder().path(endpointMapping.createSubPath(path));
-		resourceBuilder.addMethod(requestPredicate.getHttpMethod().name())
-				.consumes(StringUtils.toStringArray(requestPredicate.getConsumes()))
-				.produces(StringUtils.toStringArray(requestPredicate.getProduces()))
-				.handledBy(new OperationInflector(operation, !requestPredicate.getConsumes().isEmpty()));
-		return resourceBuilder.build();
 	}
 
 	private Resource createEndpointLinksResource(String endpointPath, EndpointMediaTypes endpointMediaTypes,
@@ -118,7 +101,7 @@ public class JerseyEndpointResourceFactory {
 	/**
 	 * {@link Inflector} to invoke the {@link WebOperation}.
 	 */
-	private static final class OperationInflector implements Inflector<ContainerRequestContext, Object> {
+	public static final class OperationInflector implements Inflector<ContainerRequestContext, Object> {
 
 		private static final String PATH_SEPARATOR = AntPathMatcher.DEFAULT_PATH_SEPARATOR;
 
