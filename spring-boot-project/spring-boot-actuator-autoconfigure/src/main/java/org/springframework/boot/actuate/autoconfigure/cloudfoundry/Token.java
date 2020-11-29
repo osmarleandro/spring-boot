@@ -115,4 +115,15 @@ public class Token {
 		return this.encoded;
 	}
 
+	public void validateAlgorithm() {
+		String algorithm = getSignatureAlgorithm();
+		if (algorithm == null) {
+			throw new CloudFoundryAuthorizationException(Reason.INVALID_SIGNATURE, "Signing algorithm cannot be null");
+		}
+		if (!algorithm.equals("RS256")) {
+			throw new CloudFoundryAuthorizationException(Reason.UNSUPPORTED_TOKEN_SIGNING_ALGORITHM,
+					"Signing algorithm " + algorithm + " not supported");
+		}
+	}
+
 }

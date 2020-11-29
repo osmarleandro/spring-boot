@@ -47,22 +47,11 @@ class TokenValidator {
 	}
 
 	void validate(Token token) {
-		validateAlgorithm(token);
+		token.validateAlgorithm();
 		validateKeyIdAndSignature(token);
 		validateExpiry(token);
 		validateIssuer(token);
 		validateAudience(token);
-	}
-
-	private void validateAlgorithm(Token token) {
-		String algorithm = token.getSignatureAlgorithm();
-		if (algorithm == null) {
-			throw new CloudFoundryAuthorizationException(Reason.INVALID_SIGNATURE, "Signing algorithm cannot be null");
-		}
-		if (!algorithm.equals("RS256")) {
-			throw new CloudFoundryAuthorizationException(Reason.UNSUPPORTED_TOKEN_SIGNING_ALGORITHM,
-					"Signing algorithm " + algorithm + " not supported");
-		}
 	}
 
 	private void validateKeyIdAndSignature(Token token) {
