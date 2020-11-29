@@ -18,10 +18,18 @@ package org.springframework.boot.actuate.autoconfigure.metrics;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.stream.Collectors;
 
+import org.springframework.beans.factory.ObjectProvider;
+import org.springframework.boot.actuate.autoconfigure.metrics.web.reactive.WebFluxMetricsAutoConfiguration;
+import org.springframework.boot.actuate.metrics.web.reactive.server.DefaultWebFluxTagsProvider;
+import org.springframework.boot.actuate.metrics.web.reactive.server.WebFluxTagsContributor;
+import org.springframework.boot.actuate.metrics.web.reactive.server.WebFluxTagsProvider;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.DeprecatedConfigurationProperty;
 import org.springframework.boot.context.properties.NestedConfigurationProperty;
+import org.springframework.context.annotation.Bean;
 
 /**
  * {@link ConfigurationProperties @ConfigurationProperties} for configuring
@@ -79,6 +87,13 @@ public class MetricsProperties {
 
 	public Distribution getDistribution() {
 		return this.distribution;
+	}
+
+	@Bean
+	@ConditionalOnMissingBean(WebFluxTagsProvider.class)
+	public DefaultWebFluxTagsProvider webFluxTagsProvider(WebFluxMetricsAutoConfiguration webFluxMetricsAutoConfiguration, ObjectProvider<WebFluxTagsContributor> contributors) {
+		return new DefaultWebFluxTagsProvider(getWeb().getServer().getRequest().isIgnoreTrailingSlash(),
+				contributors.orderedStream().collect(Collectors.toList()));
 	}
 
 	public static class Web {
