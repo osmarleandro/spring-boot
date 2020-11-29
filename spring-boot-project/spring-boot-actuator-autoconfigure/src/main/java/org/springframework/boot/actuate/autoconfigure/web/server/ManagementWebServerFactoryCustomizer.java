@@ -100,7 +100,7 @@ public abstract class ManagementWebServerFactoryCustomizer<T extends Configurabl
 
 	protected void customize(T factory, ManagementServerProperties managementServerProperties,
 			ServerProperties serverProperties) {
-		factory.setPort(managementServerProperties.getPort());
+		factory.setPort(managementServerProperties.getServlet().getPort(this));
 		Ssl ssl = managementServerProperties.getSsl();
 		if (ssl != null) {
 			factory.setSsl(ssl);

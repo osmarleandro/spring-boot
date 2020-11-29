@@ -55,16 +55,6 @@ public class ManagementServerProperties {
 	private Ssl ssl;
 
 	/**
-	 * Returns the management port or {@code null} if the
-	 * {@link ServerProperties#getPort() server port} should be used.
-	 * @return the port
-	 * @see #setPort(Integer)
-	 */
-	public Integer getPort() {
-		return this.port;
-	}
-
-	/**
 	 * Sets the port of the management server, use {@code null} if the
 	 * {@link ServerProperties#getPort() server port} should be used. Set to 0 to use a
 	 * random port or set to -1 to disable.
@@ -124,6 +114,17 @@ public class ManagementServerProperties {
 				return contextPath.substring(0, contextPath.length() - 1);
 			}
 			return contextPath;
+		}
+
+		/**
+		 * Returns the management port or {@code null} if the
+		 * {@link ServerProperties#getPort() server port} should be used.
+		 * @return the port
+		 * @param managementServerProperties TODO
+		 * @see #setPort(Integer)
+		 */
+		public Integer getPort(ManagementServerProperties managementServerProperties) {
+			return managementServerProperties.port;
 		}
 
 	}

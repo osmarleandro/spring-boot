@@ -31,7 +31,7 @@ class ManagementServerPropertiesTests {
 	@Test
 	void defaultManagementServerProperties() {
 		ManagementServerProperties properties = new ManagementServerProperties();
-		assertThat(properties.getPort()).isNull();
+		assertThat(properties.getServlet().getPort(this)).isNull();
 		assertThat(properties.getServlet().getContextPath()).isEqualTo("");
 	}
 
@@ -40,7 +40,7 @@ class ManagementServerPropertiesTests {
 		ManagementServerProperties properties = new ManagementServerProperties();
 		properties.setPort(123);
 		properties.getServlet().setContextPath("/foo");
-		assertThat(properties.getPort()).isEqualTo(123);
+		assertThat(properties.getServlet().getPort(this)).isEqualTo(123);
 		assertThat(properties.getServlet().getContextPath()).isEqualTo("/foo");
 	}
 
