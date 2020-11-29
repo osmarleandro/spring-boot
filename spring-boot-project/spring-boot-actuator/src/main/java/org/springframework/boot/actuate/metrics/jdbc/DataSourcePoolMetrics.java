@@ -81,15 +81,7 @@ public class DataSourcePoolMetrics implements MeterBinder {
 
 	private <N extends Number> void bindPoolMetadata(MeterRegistry registry, String metricName, String description,
 			Function<DataSourcePoolMetadata, N> function) {
-		bindDataSource(registry, metricName, description, this.metadataProvider.getValueFunction(function));
-	}
-
-	private <N extends Number> void bindDataSource(MeterRegistry registry, String metricName, String description,
-			Function<DataSource, N> function) {
-		if (function.apply(this.dataSource) != null) {
-			Gauge.builder("jdbc.connections." + metricName, this.dataSource, (m) -> function.apply(m).doubleValue())
-					.tags(this.tags).description(description).register(registry);
-		}
+		metadataProvider.bindDataSource(this, registry, metricName, description, this.metadataProvider.getValueFunction(function));
 	}
 
 	private static class CachingDataSourcePoolMetadataProvider implements DataSourcePoolMetadataProvider {
@@ -114,6 +106,13 @@ public class DataSourcePoolMetrics implements MeterBinder {
 				cache.put(dataSource, metadata);
 			}
 			return metadata;
+		}
+
+		<N extends Number> void bindDataSource(DataSourcePoolMetrics dataSourcePoolMetrics, MeterRegistry registry, String metricName, String description, Function<DataSource, N> function) {
+			if (function.apply(dataSourcePoolMetrics.dataSource) != null) {
+				Gauge.builder("jdbc.connections." + metricName, dataSourcePoolMetrics.dataSource, (m) -> function.apply(m).doubleValue())
+						.tags(dataSourcePoolMetrics.tags).description(description).register(registry);
+			}
 		}
 
 	}
