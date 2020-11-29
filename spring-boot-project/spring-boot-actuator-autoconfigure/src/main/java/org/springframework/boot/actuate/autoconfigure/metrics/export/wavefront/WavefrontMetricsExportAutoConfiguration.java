@@ -76,13 +76,6 @@ public class WavefrontMetricsExportAutoConfiguration {
 		return createWavefrontSender(wavefrontConfig);
 	}
 
-	@Bean
-	@ConditionalOnMissingBean
-	public WavefrontMeterRegistry wavefrontMeterRegistry(WavefrontConfig wavefrontConfig, Clock clock,
-			WavefrontSender wavefrontSender) {
-		return WavefrontMeterRegistry.builder(wavefrontConfig).clock(clock).wavefrontSender(wavefrontSender).build();
-	}
-
 	private WavefrontSender createWavefrontSender(WavefrontConfig wavefrontConfig) {
 		Builder builder = WavefrontMeterRegistry.getDefaultSenderBuilder(wavefrontConfig);
 		PropertyMapper mapper = PropertyMapper.get().alwaysApplyingWhenNonNull();
