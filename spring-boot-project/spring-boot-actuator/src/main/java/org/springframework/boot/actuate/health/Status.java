@@ -123,4 +123,9 @@ public final class Status {
 		return this.code;
 	}
 
+	public int hashCode(Health health) {
+		int hashCode = hashCode();
+		return 13 * hashCode + health.details.hashCode();
+	}
+
 }

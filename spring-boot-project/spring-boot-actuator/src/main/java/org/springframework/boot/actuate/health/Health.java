@@ -51,9 +51,9 @@ import org.springframework.util.Assert;
 @JsonInclude(Include.NON_EMPTY)
 public final class Health extends HealthComponent {
 
-	private final Status status;
+	final Status status;
 
-	private final Map<String, Object> details;
+	final Map<String, Object> details;
 
 	/**
 	 * Create a new {@link Health} instance with the specified status and details.
@@ -115,8 +115,7 @@ public final class Health extends HealthComponent {
 
 	@Override
 	public int hashCode() {
-		int hashCode = this.status.hashCode();
-		return 13 * hashCode + this.details.hashCode();
+		return status.hashCode(this);
 	}
 
 	@Override
