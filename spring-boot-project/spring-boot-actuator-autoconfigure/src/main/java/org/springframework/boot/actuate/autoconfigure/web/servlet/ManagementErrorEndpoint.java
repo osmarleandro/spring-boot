@@ -43,7 +43,7 @@ public class ManagementErrorEndpoint {
 
 	private final ErrorAttributes errorAttributes;
 
-	private final ErrorProperties errorProperties;
+	public final ErrorProperties errorProperties;
 
 	public ManagementErrorEndpoint(ErrorAttributes errorAttributes, ErrorProperties errorProperties) {
 		Assert.notNull(errorAttributes, "ErrorAttributes must not be null");
@@ -63,7 +63,7 @@ public class ManagementErrorEndpoint {
 		if (this.errorProperties.isIncludeException()) {
 			options = options.including(Include.EXCEPTION);
 		}
-		if (includeStackTrace(request)) {
+		if (errorAttributes.includeStackTrace(this, request)) {
 			options = options.including(Include.STACK_TRACE);
 		}
 		if (includeMessage(request)) {
@@ -73,19 +73,6 @@ public class ManagementErrorEndpoint {
 			options = options.including(Include.BINDING_ERRORS);
 		}
 		return options;
-	}
-
-	@SuppressWarnings("deprecation")
-	private boolean includeStackTrace(ServletWebRequest request) {
-		switch (this.errorProperties.getIncludeStacktrace()) {
-		case ALWAYS:
-			return true;
-		case ON_PARAM:
-		case ON_TRACE_PARAM:
-			return getBooleanParameter(request, "trace");
-		default:
-			return false;
-		}
 	}
 
 	private boolean includeMessage(ServletWebRequest request) {
@@ -110,7 +97,7 @@ public class ManagementErrorEndpoint {
 		}
 	}
 
-	protected boolean getBooleanParameter(ServletWebRequest request, String parameterName) {
+	public boolean getBooleanParameter(ServletWebRequest request, String parameterName) {
 		String parameter = request.getParameter(parameterName);
 		if (parameter == null) {
 			return false;
