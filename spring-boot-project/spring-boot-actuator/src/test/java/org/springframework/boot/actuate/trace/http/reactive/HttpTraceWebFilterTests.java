@@ -66,7 +66,7 @@ class HttpTraceWebFilterTests {
 			return Mono.empty();
 		}).block(Duration.ofSeconds(30));
 		assertThat(this.repository.findAll()).hasSize(1);
-		Session session = this.repository.findAll().get(0).getSession();
+		Session session = this.repository.findAll().get(0).getPrincipal().getSession(this);
 		assertThat(session).isNotNull();
 		assertThat(session.getId()).isNotNull();
 	}
@@ -78,7 +78,7 @@ class HttpTraceWebFilterTests {
 			return Mono.empty();
 		}).block(Duration.ofSeconds(30));
 		assertThat(this.repository.findAll()).hasSize(1);
-		Session session = this.repository.findAll().get(0).getSession();
+		Session session = this.repository.findAll().get(0).getPrincipal().getSession(this);
 		assertThat(session).isNull();
 	}
 
