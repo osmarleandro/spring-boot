@@ -28,6 +28,7 @@ import org.springframework.core.annotation.Order;
  * @author Phillip Webb
  */
 @Order(Ordered.LOWEST_PRECEDENCE)
+public
 class AvailabilityProbesHealthEndpointGroupsPostProcessor implements HealthEndpointGroupsPostProcessor {
 
 	@Override
