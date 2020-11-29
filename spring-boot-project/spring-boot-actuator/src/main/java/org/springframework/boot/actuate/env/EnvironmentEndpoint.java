@@ -100,7 +100,7 @@ public class EnvironmentEndpoint {
 	}
 
 	private EnvironmentEntryDescriptor getEnvironmentEntryDescriptor(String propertyName) {
-		Map<String, PropertyValueDescriptor> descriptors = getPropertySourceDescriptors(propertyName);
+		Map<String, PropertyValueDescriptor> descriptors = sanitizer.getPropertySourceDescriptors(this, propertyName);
 		PropertySummaryDescriptor summary = getPropertySummaryDescriptor(descriptors);
 		return new EnvironmentEntryDescriptor(summary, Arrays.asList(this.environment.getActiveProfiles()),
 				toPropertySourceDescriptors(descriptors));
@@ -122,14 +122,6 @@ public class EnvironmentEndpoint {
 		return null;
 	}
 
-	private Map<String, PropertyValueDescriptor> getPropertySourceDescriptors(String propertyName) {
-		Map<String, PropertyValueDescriptor> propertySources = new LinkedHashMap<>();
-		PlaceholdersResolver resolver = getResolver();
-		getPropertySourcesAsMap().forEach((sourceName, source) -> propertySources.put(sourceName,
-				source.containsProperty(propertyName) ? describeValueOf(propertyName, source, resolver) : null));
-		return propertySources;
-	}
-
 	private PropertySourceDescriptor describeSource(String sourceName, EnumerablePropertySource<?> source,
 			PlaceholdersResolver resolver, Predicate<String> namePredicate) {
 		Map<String, PropertyValueDescriptor> properties = new LinkedHashMap<>();
@@ -139,18 +131,18 @@ public class EnvironmentEndpoint {
 	}
 
 	@SuppressWarnings("unchecked")
-	private PropertyValueDescriptor describeValueOf(String name, PropertySource<?> source,
+	public PropertyValueDescriptor describeValueOf(String name, PropertySource<?> source,
 			PlaceholdersResolver resolver) {
 		Object resolved = resolver.resolvePlaceholders(source.getProperty(name));
 		Origin origin = ((source instanceof OriginLookup) ? ((OriginLookup<Object>) source).getOrigin(name) : null);
 		return new PropertyValueDescriptor(sanitize(name, resolved), origin);
 	}
 
-	private PlaceholdersResolver getResolver() {
+	public PlaceholdersResolver getResolver() {
 		return new PropertySourcesPlaceholdersSanitizingResolver(getPropertySources(), this.sanitizer);
 	}
 
-	private Map<String, PropertySource<?>> getPropertySourcesAsMap() {
+	public Map<String, PropertySource<?>> getPropertySourcesAsMap() {
 		Map<String, PropertySource<?>> map = new LinkedHashMap<>();
 		for (PropertySource<?> source : getPropertySources()) {
 			if (!ConfigurationPropertySources.isAttachedConfigurationPropertySource(source)) {
