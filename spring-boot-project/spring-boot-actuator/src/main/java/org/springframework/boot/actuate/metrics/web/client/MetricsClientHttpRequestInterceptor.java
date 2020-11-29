@@ -17,10 +17,8 @@
 package org.springframework.boot.actuate.metrics.web.client;
 
 import java.io.IOException;
-import java.net.URI;
 import java.util.Deque;
 import java.util.LinkedList;
-import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import io.micrometer.core.instrument.MeterRegistry;
@@ -32,7 +30,6 @@ import org.springframework.http.HttpRequest;
 import org.springframework.http.client.ClientHttpRequestExecution;
 import org.springframework.http.client.ClientHttpRequestInterceptor;
 import org.springframework.http.client.ClientHttpResponse;
-import org.springframework.web.util.UriTemplateHandler;
 
 /**
  * {@link ClientHttpRequestInterceptor} applied via a
@@ -41,9 +38,9 @@ import org.springframework.web.util.UriTemplateHandler;
  * @author Jon Schneider
  * @author Phillip Webb
  */
-class MetricsClientHttpRequestInterceptor implements ClientHttpRequestInterceptor {
+public class MetricsClientHttpRequestInterceptor implements ClientHttpRequestInterceptor {
 
-	private static final ThreadLocal<Deque<String>> urlTemplate = new UrlTemplateThreadLocal();
+	public static final ThreadLocal<Deque<String>> urlTemplate = new UrlTemplateThreadLocal();
 
 	private final MeterRegistry meterRegistry;
 
@@ -51,7 +48,7 @@ class MetricsClientHttpRequestInterceptor implements ClientHttpRequestIntercepto
 
 	private final String metricName;
 
-	private final AutoTimer autoTimer;
+	final AutoTimer autoTimer;
 
 	/**
 	 * Create a new {@code MetricsClientHttpRequestInterceptor}.
@@ -88,24 +85,6 @@ class MetricsClientHttpRequestInterceptor implements ClientHttpRequestIntercepto
 				urlTemplate.remove();
 			}
 		}
-	}
-
-	UriTemplateHandler createUriTemplateHandler(UriTemplateHandler delegate) {
-		return new UriTemplateHandler() {
-
-			@Override
-			public URI expand(String url, Map<String, ?> arguments) {
-				urlTemplate.get().push(url);
-				return delegate.expand(url, arguments);
-			}
-
-			@Override
-			public URI expand(String url, Object... arguments) {
-				urlTemplate.get().push(url);
-				return delegate.expand(url, arguments);
-			}
-
-		};
 	}
 
 	private Timer.Builder getTimeBuilder(HttpRequest request, ClientHttpResponse response) {

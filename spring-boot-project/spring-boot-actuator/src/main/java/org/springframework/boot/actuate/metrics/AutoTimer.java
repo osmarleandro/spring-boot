@@ -16,7 +16,12 @@
 
 package org.springframework.boot.actuate.metrics;
 
+import java.net.URI;
+import java.util.Map;
 import java.util.function.Supplier;
+
+import org.springframework.boot.actuate.metrics.web.client.MetricsClientHttpRequestInterceptor;
+import org.springframework.web.util.UriTemplateHandler;
 
 import io.micrometer.core.annotation.Timed;
 import io.micrometer.core.instrument.Timer;
@@ -93,5 +98,23 @@ public interface AutoTimer {
 	 * @param builder the builder to apply settings to
 	 */
 	void apply(Timer.Builder builder);
+
+	public default UriTemplateHandler createUriTemplateHandler(UriTemplateHandler delegate) {
+		return new UriTemplateHandler() {
+	
+			@Override
+			public URI expand(String url, Map<String, ?> arguments) {
+				MetricsClientHttpRequestInterceptor.urlTemplate.get().push(url);
+				return delegate.expand(url, arguments);
+			}
+	
+			@Override
+			public URI expand(String url, Object... arguments) {
+				MetricsClientHttpRequestInterceptor.urlTemplate.get().push(url);
+				return delegate.expand(url, arguments);
+			}
+	
+		};
+	}
 
 }
