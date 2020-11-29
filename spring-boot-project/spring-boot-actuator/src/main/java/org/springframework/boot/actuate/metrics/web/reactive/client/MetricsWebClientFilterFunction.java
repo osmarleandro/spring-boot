@@ -31,6 +31,8 @@ import org.springframework.web.reactive.function.client.ClientRequest;
 import org.springframework.web.reactive.function.client.ClientResponse;
 import org.springframework.web.reactive.function.client.ExchangeFilterFunction;
 import org.springframework.web.reactive.function.client.ExchangeFunction;
+import org.springframework.web.reactive.function.client.WebClient;
+import org.springframework.web.reactive.function.client.WebClient.Builder;
 
 /**
  * {@link ExchangeFilterFunction} applied via a {@link MetricsWebClientCustomizer} to
@@ -105,6 +107,14 @@ public class MetricsWebClientFilterFunction implements ExchangeFilterFunction {
 
 	private Context putStartTime(Context context) {
 		return context.put(METRICS_WEBCLIENT_START_TIME, System.nanoTime());
+	}
+
+	public void customize(MetricsWebClientCustomizer metricsWebClientCustomizer, Builder webClientBuilder) {
+		webClientBuilder.filters((filterFunctions) -> {
+			if (!filterFunctions.contains(this)) {
+				filterFunctions.add(0, this);
+			}
+		});
 	}
 
 }
