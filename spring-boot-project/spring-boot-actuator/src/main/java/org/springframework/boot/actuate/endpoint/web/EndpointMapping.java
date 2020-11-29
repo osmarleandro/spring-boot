@@ -16,6 +16,9 @@
 
 package org.springframework.boot.actuate.endpoint.web;
 
+import java.util.List;
+
+import org.springframework.boot.actuate.endpoint.web.servlet.SkipPathExtensionContentNegotiation;
 import org.springframework.util.StringUtils;
 
 /**
@@ -46,6 +49,10 @@ public class EndpointMapping {
 
 	public String createSubPath(String path) {
 		return this.path + normalizePath(path);
+	}
+
+	public void extendInterceptors(List<Object> interceptors) {
+		interceptors.add(new SkipPathExtensionContentNegotiation());
 	}
 
 	private static String normalizePath(String path) {
