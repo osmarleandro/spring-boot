@@ -23,6 +23,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.springframework.boot.actuate.autoconfigure.health.HealthProperties.Show;
 import org.springframework.boot.actuate.health.HealthEndpoint;
 import org.springframework.boot.context.properties.NestedConfigurationProperty;
 
@@ -122,7 +123,11 @@ public abstract class HealthProperties {
 		/**
 		 * Always show the item in the response.
 		 */
-		ALWAYS
+		ALWAYS;
+
+		public void setShowDetails(HealthEndpointProperties healthEndpointProperties) {
+			healthEndpointProperties.showDetails = this;
+		}
 
 	}
 

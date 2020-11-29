@@ -36,7 +36,7 @@ public class HealthEndpointProperties extends HealthProperties {
 	/**
 	 * When to show full health details.
 	 */
-	private Show showDetails = Show.NEVER;
+	Show showDetails = Show.NEVER;
 
 	/**
 	 * Health endpoint groups.
@@ -46,10 +46,6 @@ public class HealthEndpointProperties extends HealthProperties {
 	@Override
 	public Show getShowDetails() {
 		return this.showDetails;
-	}
-
-	public void setShowDetails(Show showDetails) {
-		this.showDetails = showDetails;
 	}
 
 	public Map<String, Group> getGroup() {
