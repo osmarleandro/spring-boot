@@ -18,6 +18,10 @@ package org.springframework.boot.actuate.trace.http;
 
 import java.util.List;
 
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.context.annotation.Bean;
+
 /**
  * A repository for {@link HttpTrace}s.
  *
@@ -38,5 +42,12 @@ public interface HttpTraceRepository {
 	 * @param trace the trace to add
 	 */
 	void add(HttpTrace trace);
+
+	@Bean
+	@ConditionalOnBean(HttpTraceRepository.class)
+	@ConditionalOnMissingBean
+	default HttpTraceEndpoint httpTraceEndpoint() {
+		return new HttpTraceEndpoint(this);
+	}
 
 }
