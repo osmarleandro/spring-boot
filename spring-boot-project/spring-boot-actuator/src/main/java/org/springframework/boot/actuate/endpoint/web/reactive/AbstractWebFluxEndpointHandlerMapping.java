@@ -256,7 +256,7 @@ public abstract class AbstractWebFluxEndpointHandlerMapping extends RequestMappi
 	 * A reactive web operation that can be handled by WebFlux.
 	 */
 	@FunctionalInterface
-	protected interface ReactiveWebOperation {
+	public interface ReactiveWebOperation {
 
 		Mono<ResponseEntity<Object>> handle(ServerWebExchange exchange, Map<String, String> body);
 

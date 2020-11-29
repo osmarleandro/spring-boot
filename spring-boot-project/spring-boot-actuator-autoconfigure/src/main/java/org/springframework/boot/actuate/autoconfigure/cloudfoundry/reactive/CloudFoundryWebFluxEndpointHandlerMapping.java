@@ -50,9 +50,9 @@ import org.springframework.web.server.ServerWebExchange;
  * @author Phillip Webb
  * @author Brian Clozel
  */
-class CloudFoundryWebFluxEndpointHandlerMapping extends AbstractWebFluxEndpointHandlerMapping {
+public class CloudFoundryWebFluxEndpointHandlerMapping extends AbstractWebFluxEndpointHandlerMapping {
 
-	private final CloudFoundrySecurityInterceptor securityInterceptor;
+	public final CloudFoundrySecurityInterceptor securityInterceptor;
 
 	private final EndpointLinksResolver linksResolver;
 
@@ -68,8 +68,8 @@ class CloudFoundryWebFluxEndpointHandlerMapping extends AbstractWebFluxEndpointH
 	@Override
 	protected ReactiveWebOperation wrapReactiveWebOperation(ExposableWebEndpoint endpoint, WebOperation operation,
 			ReactiveWebOperation reactiveWebOperation) {
-		return new SecureReactiveWebOperation(reactiveWebOperation, this.securityInterceptor, endpoint.getEndpointId());
-	}
+				return endpoint.wrapReactiveWebOperation(this, operation, reactiveWebOperation);
+			}
 
 	@Override
 	protected LinksHandler getLinksHandler() {
@@ -114,7 +114,7 @@ class CloudFoundryWebFluxEndpointHandlerMapping extends AbstractWebFluxEndpointH
 	/**
 	 * {@link ReactiveWebOperation} wrapper to add security.
 	 */
-	private static class SecureReactiveWebOperation implements ReactiveWebOperation {
+	public static class SecureReactiveWebOperation implements ReactiveWebOperation {
 
 		private final ReactiveWebOperation delegate;
 

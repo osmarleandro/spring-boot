@@ -16,7 +16,10 @@
 
 package org.springframework.boot.actuate.endpoint.web;
 
+import org.springframework.boot.actuate.autoconfigure.cloudfoundry.reactive.CloudFoundryWebFluxEndpointHandlerMapping;
+import org.springframework.boot.actuate.autoconfigure.cloudfoundry.reactive.CloudFoundryWebFluxEndpointHandlerMapping.SecureReactiveWebOperation;
 import org.springframework.boot.actuate.endpoint.ExposableEndpoint;
+import org.springframework.boot.actuate.endpoint.web.reactive.AbstractWebFluxEndpointHandlerMapping.ReactiveWebOperation;
 
 /**
  * Information describing an endpoint that can be exposed over the web.
@@ -25,5 +28,9 @@ import org.springframework.boot.actuate.endpoint.ExposableEndpoint;
  * @since 2.0.0
  */
 public interface ExposableWebEndpoint extends ExposableEndpoint<WebOperation>, PathMappedEndpoint {
+
+	public default ReactiveWebOperation wrapReactiveWebOperation(CloudFoundryWebFluxEndpointHandlerMapping cloudFoundryWebFluxEndpointHandlerMapping, WebOperation operation, ReactiveWebOperation reactiveWebOperation) {
+		return new SecureReactiveWebOperation(reactiveWebOperation, cloudFoundryWebFluxEndpointHandlerMapping.securityInterceptor, getEndpointId());
+	}
 
 }
