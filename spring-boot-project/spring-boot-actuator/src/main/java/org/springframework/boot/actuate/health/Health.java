@@ -23,6 +23,9 @@ import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
+import reactor.core.publisher.Mono;
+
+import org.springframework.boot.actuate.elasticsearch.ElasticsearchReactiveHealthIndicator;
 import org.springframework.util.Assert;
 
 /**
@@ -327,6 +330,10 @@ public final class Health extends HealthComponent {
 		 */
 		public Health build() {
 			return new Health(this);
+		}
+
+		public Mono<Health> doHealthCheck(ElasticsearchReactiveHealthIndicator elasticsearchReactiveHealthIndicator) {
+			return elasticsearchReactiveHealthIndicator.client.execute((webClient) -> elasticsearchReactiveHealthIndicator.getHealth(this, webClient));
 		}
 
 	}
