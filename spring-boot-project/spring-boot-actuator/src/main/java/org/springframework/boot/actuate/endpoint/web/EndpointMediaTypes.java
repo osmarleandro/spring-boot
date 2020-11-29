@@ -20,8 +20,12 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+import org.glassfish.jersey.server.model.Resource;
+import org.glassfish.jersey.server.model.Resource.Builder;
 import org.springframework.boot.actuate.endpoint.http.ActuatorMediaType;
+import org.springframework.boot.actuate.endpoint.web.jersey.JerseyEndpointResourceFactory.EndpointLinksInflector;
 import org.springframework.util.Assert;
+import org.springframework.util.StringUtils;
 
 /**
  * Media types that are, by default, produced and consumed by an endpoint.
@@ -93,6 +97,13 @@ public class EndpointMediaTypes {
 	 */
 	public List<String> getConsumed() {
 		return this.consumed;
+	}
+
+	public Resource createEndpointLinksResource(String endpointPath, EndpointLinksResolver linksResolver) {
+		Builder resourceBuilder = Resource.builder().path(endpointPath);
+		resourceBuilder.addMethod("GET").produces(StringUtils.toStringArray(getProduced()))
+				.handledBy(new EndpointLinksInflector(linksResolver));
+		return resourceBuilder.build();
 	}
 
 }

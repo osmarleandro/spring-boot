@@ -84,8 +84,7 @@ public class JerseyEndpointResourceFactory {
 		endpoints.stream().flatMap((endpoint) -> endpoint.getOperations().stream())
 				.map((operation) -> createResource(endpointMapping, operation)).forEach(resources::add);
 		if (shouldRegisterLinks) {
-			Resource resource = createEndpointLinksResource(endpointMapping.getPath(), endpointMediaTypes,
-					linksResolver);
+			Resource resource = endpointMediaTypes.createEndpointLinksResource(endpointMapping.getPath(), linksResolver);
 			resources.add(resource);
 		}
 		return resources;
@@ -104,14 +103,6 @@ public class JerseyEndpointResourceFactory {
 				.consumes(StringUtils.toStringArray(requestPredicate.getConsumes()))
 				.produces(StringUtils.toStringArray(requestPredicate.getProduces()))
 				.handledBy(new OperationInflector(operation, !requestPredicate.getConsumes().isEmpty()));
-		return resourceBuilder.build();
-	}
-
-	private Resource createEndpointLinksResource(String endpointPath, EndpointMediaTypes endpointMediaTypes,
-			EndpointLinksResolver linksResolver) {
-		Builder resourceBuilder = Resource.builder().path(endpointPath);
-		resourceBuilder.addMethod("GET").produces(StringUtils.toStringArray(endpointMediaTypes.getProduced()))
-				.handledBy(new EndpointLinksInflector(linksResolver));
 		return resourceBuilder.build();
 	}
 
@@ -270,7 +261,7 @@ public class JerseyEndpointResourceFactory {
 	/**
 	 * {@link Inflector} to for endpoint links.
 	 */
-	private static final class EndpointLinksInflector implements Inflector<ContainerRequestContext, Response> {
+	public static final class EndpointLinksInflector implements Inflector<ContainerRequestContext, Response> {
 
 		private final EndpointLinksResolver linksResolver;
 
