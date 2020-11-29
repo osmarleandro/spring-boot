@@ -16,17 +16,14 @@
 
 package org.springframework.boot.actuate.autoconfigure.health;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 
 import org.springframework.beans.factory.BeanFactory;
-import org.springframework.beans.factory.BeanFactoryUtils;
 import org.springframework.beans.factory.ListableBeanFactory;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.beans.factory.annotation.BeanFactoryAnnotationUtils;
@@ -42,7 +39,6 @@ import org.springframework.boot.actuate.health.StatusAggregator;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.util.CollectionUtils;
-import org.springframework.util.ObjectUtils;
 
 /**
  * Auto-configured {@link HealthEndpointGroups}.
@@ -68,11 +64,11 @@ class AutoConfiguredHealthEndpointGroups implements HealthEndpointGroups {
 		Show showComponents = properties.getShowComponents();
 		Show showDetails = properties.getShowDetails();
 		Set<String> roles = properties.getRoles();
-		StatusAggregator statusAggregator = getNonQualifiedBean(beanFactory, StatusAggregator.class);
+		StatusAggregator statusAggregator = primaryGroup.getNonQualifiedBean(beanFactory, StatusAggregator.class);
 		if (statusAggregator == null) {
 			statusAggregator = new SimpleStatusAggregator(properties.getStatus().getOrder());
 		}
-		HttpCodeStatusMapper httpCodeStatusMapper = getNonQualifiedBean(beanFactory, HttpCodeStatusMapper.class);
+		HttpCodeStatusMapper httpCodeStatusMapper = primaryGroup.getNonQualifiedBean(beanFactory, HttpCodeStatusMapper.class);
 		if (httpCodeStatusMapper == null) {
 			httpCodeStatusMapper = new SimpleHttpCodeStatusMapper(properties.getStatus().getHttpMapping());
 		}
@@ -110,25 +106,6 @@ class AutoConfiguredHealthEndpointGroups implements HealthEndpointGroups {
 					showComponents, showDetails, roles));
 		});
 		return Collections.unmodifiableMap(groups);
-	}
-
-	private <T> T getNonQualifiedBean(ListableBeanFactory beanFactory, Class<T> type) {
-		List<String> candidates = new ArrayList<>();
-		for (String beanName : BeanFactoryUtils.beanNamesForTypeIncludingAncestors(beanFactory, type)) {
-			String[] aliases = beanFactory.getAliases(beanName);
-			if (!BeanFactoryAnnotationUtils.isQualifierMatch(
-					(qualifier) -> !qualifier.equals(beanName) && !ObjectUtils.containsElement(aliases, qualifier),
-					beanName, beanFactory)) {
-				candidates.add(beanName);
-			}
-		}
-		if (candidates.isEmpty()) {
-			return null;
-		}
-		if (candidates.size() == 1) {
-			return beanFactory.getBean(candidates.get(0), type);
-		}
-		return beanFactory.getBean(type);
 	}
 
 	private <T> T getQualifiedBean(BeanFactory beanFactory, Class<T> type, String qualifier, Supplier<T> fallback) {

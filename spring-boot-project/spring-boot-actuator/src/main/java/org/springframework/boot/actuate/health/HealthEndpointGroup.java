@@ -16,7 +16,14 @@
 
 package org.springframework.boot.actuate.health;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.beans.factory.BeanFactoryUtils;
+import org.springframework.beans.factory.ListableBeanFactory;
+import org.springframework.beans.factory.annotation.BeanFactoryAnnotationUtils;
 import org.springframework.boot.actuate.endpoint.SecurityContext;
+import org.springframework.util.ObjectUtils;
 
 /**
  * A logical grouping of {@link HealthContributor health contributors} that can be exposed
@@ -61,5 +68,24 @@ public interface HealthEndpointGroup {
 	 * @return the HTTP code status mapper
 	 */
 	HttpCodeStatusMapper getHttpCodeStatusMapper();
+
+	public default <T> T getNonQualifiedBean(ListableBeanFactory beanFactory, Class<T> type) {
+		List<String> candidates = new ArrayList<>();
+		for (String beanName : BeanFactoryUtils.beanNamesForTypeIncludingAncestors(beanFactory, type)) {
+			String[] aliases = beanFactory.getAliases(beanName);
+			if (!BeanFactoryAnnotationUtils.isQualifierMatch(
+					(qualifier) -> !qualifier.equals(beanName) && !ObjectUtils.containsElement(aliases, qualifier),
+					beanName, beanFactory)) {
+				candidates.add(beanName);
+			}
+		}
+		if (candidates.isEmpty()) {
+			return null;
+		}
+		if (candidates.size() == 1) {
+			return beanFactory.getBean(candidates.get(0), type);
+		}
+		return beanFactory.getBean(type);
+	}
 
 }
