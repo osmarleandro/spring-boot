@@ -20,8 +20,14 @@ import java.net.URI;
 import java.time.Duration;
 
 import org.springframework.boot.actuate.autoconfigure.metrics.export.properties.PushRegistryProperties;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.Bean;
 import org.springframework.util.unit.DataSize;
+
+import com.wavefront.sdk.common.WavefrontSender;
+
+import io.micrometer.wavefront.WavefrontConfig;
 
 /**
  * {@link ConfigurationProperties @ConfigurationProperties} for configuring Wavefront
@@ -93,6 +99,12 @@ public class WavefrontProperties extends PushRegistryProperties {
 
 	public Sender getSender() {
 		return this.sender;
+	}
+
+	@Bean
+	@ConditionalOnMissingBean
+	public WavefrontSender wavefrontSender(WavefrontMetricsExportAutoConfiguration wavefrontMetricsExportAutoConfiguration, WavefrontConfig wavefrontConfig) {
+		return wavefrontMetricsExportAutoConfiguration.createWavefrontSender(wavefrontConfig);
 	}
 
 	public static class Sender {
