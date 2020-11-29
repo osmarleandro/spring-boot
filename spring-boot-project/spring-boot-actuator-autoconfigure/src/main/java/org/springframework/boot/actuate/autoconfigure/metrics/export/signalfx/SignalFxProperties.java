@@ -19,7 +19,11 @@ package org.springframework.boot.actuate.autoconfigure.metrics.export.signalfx;
 import java.time.Duration;
 
 import org.springframework.boot.actuate.autoconfigure.metrics.export.properties.StepRegistryProperties;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.Bean;
+
+import io.micrometer.signalfx.SignalFxConfig;
 
 /**
  * {@link ConfigurationProperties @ConfigurationProperties} for configuring metrics export
@@ -86,6 +90,12 @@ public class SignalFxProperties extends StepRegistryProperties {
 
 	public void setSource(String source) {
 		this.source = source;
+	}
+
+	@Bean
+	@ConditionalOnMissingBean
+	public SignalFxConfig signalfxConfig() {
+		return new SignalFxPropertiesConfigAdapter(this);
 	}
 
 }

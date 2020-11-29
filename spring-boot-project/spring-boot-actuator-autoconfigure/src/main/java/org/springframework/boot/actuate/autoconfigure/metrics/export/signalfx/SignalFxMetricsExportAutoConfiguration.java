@@ -52,12 +52,6 @@ public class SignalFxMetricsExportAutoConfiguration {
 
 	@Bean
 	@ConditionalOnMissingBean
-	public SignalFxConfig signalfxConfig(SignalFxProperties props) {
-		return new SignalFxPropertiesConfigAdapter(props);
-	}
-
-	@Bean
-	@ConditionalOnMissingBean
 	public SignalFxMeterRegistry signalFxMeterRegistry(SignalFxConfig config, Clock clock) {
 		return new SignalFxMeterRegistry(config, clock);
 	}
