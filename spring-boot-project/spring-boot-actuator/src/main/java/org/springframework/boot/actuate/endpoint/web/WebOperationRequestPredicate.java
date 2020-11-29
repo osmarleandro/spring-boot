@@ -21,6 +21,7 @@ import java.util.Collections;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.springframework.boot.actuate.endpoint.web.annotation.DiscoveredWebOperation;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
@@ -155,6 +156,10 @@ public final class WebOperationRequestPredicate {
 			result.append(" produces: ").append(StringUtils.collectionToCommaDelimitedString(this.produces));
 		}
 		return result.toString();
+	}
+
+	public WebOperationRequestPredicate getRequestPredicate(DiscoveredWebOperation discoveredWebOperation) {
+		return this;
 	}
 
 }
