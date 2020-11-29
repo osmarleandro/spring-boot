@@ -17,12 +17,17 @@
 package org.springframework.boot.actuate.endpoint.annotation;
 
 import java.lang.reflect.Method;
+import java.lang.reflect.Parameter;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
 import org.springframework.boot.actuate.endpoint.OperationType;
 import org.springframework.boot.actuate.endpoint.invoke.reflect.OperationMethod;
+import org.springframework.boot.actuate.endpoint.web.WebEndpointHttpMethod;
+import org.springframework.boot.actuate.endpoint.web.WebOperationRequestPredicate;
+import org.springframework.boot.actuate.endpoint.web.annotation.RequestPredicateFactory;
 import org.springframework.core.annotation.AnnotationAttributes;
 import org.springframework.util.Assert;
 
@@ -46,6 +51,18 @@ public class DiscoveredOperationMethod extends OperationMethod {
 
 	public List<String> getProducesMediaTypes() {
 		return this.producesMediaTypes;
+	}
+
+	public WebOperationRequestPredicate getRequestPredicate(String rootPath, RequestPredicateFactory requestPredicateFactory) {
+		Method method = getMethod();
+		Parameter[] selectorParameters = Arrays.stream(method.getParameters()).filter(requestPredicateFactory::hasSelector)
+				.toArray(Parameter[]::new);
+		Parameter allRemainingPathSegmentsParameter = requestPredicateFactory.getAllRemainingPathSegmentsParameter(selectorParameters);
+		String path = requestPredicateFactory.getPath(rootPath, selectorParameters, allRemainingPathSegmentsParameter != null);
+		WebEndpointHttpMethod httpMethod = requestPredicateFactory.determineHttpMethod(getOperationType());
+		Collection<String> consumes = requestPredicateFactory.getConsumes(httpMethod, method);
+		Collection<String> produces = requestPredicateFactory.getProduces(this, method);
+		return new WebOperationRequestPredicate(path, httpMethod, consumes, produces);
 	}
 
 }

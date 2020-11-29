@@ -48,7 +48,7 @@ class RequestPredicateFactoryTests {
 	void getRequestPredicateWhenHasMoreThanOneMatchAllThrowsException() {
 		DiscoveredOperationMethod operationMethod = getDiscoveredOperationMethod(MoreThanOneMatchAll.class);
 		assertThatIllegalStateException()
-				.isThrownBy(() -> this.factory.getRequestPredicate(this.rootPath, operationMethod))
+				.isThrownBy(() -> operationMethod.getRequestPredicate(this.rootPath, this.factory))
 				.withMessage("@Selector annotation with Match.ALL_REMAINING must be unique");
 	}
 
@@ -56,15 +56,15 @@ class RequestPredicateFactoryTests {
 	void getRequestPredicateWhenMatchAllIsNotLastParameterThrowsException() {
 		DiscoveredOperationMethod operationMethod = getDiscoveredOperationMethod(MatchAllIsNotLastParameter.class);
 		assertThatIllegalStateException()
-				.isThrownBy(() -> this.factory.getRequestPredicate(this.rootPath, operationMethod))
+				.isThrownBy(() -> operationMethod.getRequestPredicate(this.rootPath, this.factory))
 				.withMessage("@Selector annotation with Match.ALL_REMAINING must be the last parameter");
 	}
 
 	@Test
 	void getRequestPredicateReturnsPredicateWithPath() {
 		DiscoveredOperationMethod operationMethod = getDiscoveredOperationMethod(ValidSelectors.class);
-		WebOperationRequestPredicate requestPredicate = this.factory.getRequestPredicate(this.rootPath,
-				operationMethod);
+		WebOperationRequestPredicate requestPredicate = operationMethod.getRequestPredicate(this.rootPath,
+				this.factory);
 		assertThat(requestPredicate.getPath()).isEqualTo("/root/{one}/{*two}");
 	}
 

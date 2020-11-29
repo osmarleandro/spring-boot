@@ -18,7 +18,6 @@ package org.springframework.boot.actuate.endpoint.web.annotation;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.stream.Stream;
@@ -42,7 +41,7 @@ import org.springframework.util.Assert;
  * @author Stephane Nicoll
  * @author Phillip Webb
  */
-class RequestPredicateFactory {
+public class RequestPredicateFactory {
 
 	private final EndpointMediaTypes endpointMediaTypes;
 
@@ -51,19 +50,7 @@ class RequestPredicateFactory {
 		this.endpointMediaTypes = endpointMediaTypes;
 	}
 
-	WebOperationRequestPredicate getRequestPredicate(String rootPath, DiscoveredOperationMethod operationMethod) {
-		Method method = operationMethod.getMethod();
-		Parameter[] selectorParameters = Arrays.stream(method.getParameters()).filter(this::hasSelector)
-				.toArray(Parameter[]::new);
-		Parameter allRemainingPathSegmentsParameter = getAllRemainingPathSegmentsParameter(selectorParameters);
-		String path = getPath(rootPath, selectorParameters, allRemainingPathSegmentsParameter != null);
-		WebEndpointHttpMethod httpMethod = determineHttpMethod(operationMethod.getOperationType());
-		Collection<String> consumes = getConsumes(httpMethod, method);
-		Collection<String> produces = getProduces(operationMethod, method);
-		return new WebOperationRequestPredicate(path, httpMethod, consumes, produces);
-	}
-
-	private Parameter getAllRemainingPathSegmentsParameter(Parameter[] selectorParameters) {
+	public Parameter getAllRemainingPathSegmentsParameter(Parameter[] selectorParameters) {
 		Parameter trailingPathsParameter = null;
 		for (Parameter selectorParameter : selectorParameters) {
 			Selector selector = selectorParameter.getAnnotation(Selector.class);
@@ -80,7 +67,7 @@ class RequestPredicateFactory {
 		return trailingPathsParameter;
 	}
 
-	private String getPath(String rootPath, Parameter[] selectorParameters, boolean matchRemainingPathSegments) {
+	public String getPath(String rootPath, Parameter[] selectorParameters, boolean matchRemainingPathSegments) {
 		StringBuilder path = new StringBuilder(rootPath);
 		for (int i = 0; i < selectorParameters.length; i++) {
 			path.append("/{");
@@ -97,14 +84,14 @@ class RequestPredicateFactory {
 		return parameter.getAnnotation(Selector.class) != null;
 	}
 
-	private Collection<String> getConsumes(WebEndpointHttpMethod httpMethod, Method method) {
+	public Collection<String> getConsumes(WebEndpointHttpMethod httpMethod, Method method) {
 		if (WebEndpointHttpMethod.POST == httpMethod && consumesRequestBody(method)) {
 			return this.endpointMediaTypes.getConsumed();
 		}
 		return Collections.emptyList();
 	}
 
-	private Collection<String> getProduces(DiscoveredOperationMethod operationMethod, Method method) {
+	public Collection<String> getProduces(DiscoveredOperationMethod operationMethod, Method method) {
 		if (!operationMethod.getProducesMediaTypes().isEmpty()) {
 			return operationMethod.getProducesMediaTypes();
 		}
@@ -133,7 +120,7 @@ class RequestPredicateFactory {
 				.anyMatch((parameter) -> parameter.getAnnotation(Selector.class) == null);
 	}
 
-	private WebEndpointHttpMethod determineHttpMethod(OperationType operationType) {
+	public WebEndpointHttpMethod determineHttpMethod(OperationType operationType) {
 		if (operationType == OperationType.WRITE) {
 			return WebEndpointHttpMethod.POST;
 		}
