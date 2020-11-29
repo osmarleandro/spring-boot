@@ -16,7 +16,12 @@
 
 package org.springframework.boot.actuate.metrics;
 
+import java.util.Collections;
+import java.util.Set;
 import java.util.function.Supplier;
+
+import org.springframework.boot.actuate.metrics.web.servlet.WebMvcMetricsFilter;
+import org.springframework.web.method.HandlerMethod;
 
 import io.micrometer.core.annotation.Timed;
 import io.micrometer.core.instrument.Timer;
@@ -93,5 +98,12 @@ public interface AutoTimer {
 	 * @param builder the builder to apply settings to
 	 */
 	void apply(Timer.Builder builder);
+
+	public default Set<Timed> getTimedAnnotations(WebMvcMetricsFilter webMvcMetricsFilter, Object handler) {
+		if (!(handler instanceof HandlerMethod)) {
+			return Collections.emptySet();
+		}
+		return webMvcMetricsFilter.getTimedAnnotations((HandlerMethod) handler);
+	}
 
 }

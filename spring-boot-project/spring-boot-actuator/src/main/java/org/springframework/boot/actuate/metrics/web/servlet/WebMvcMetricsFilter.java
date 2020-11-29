@@ -121,7 +121,7 @@ public class WebMvcMetricsFilter extends OncePerRequestFilter {
 	private void record(TimingContext timingContext, HttpServletRequest request, HttpServletResponse response,
 			Throwable exception) {
 		Object handler = getHandler(request);
-		Set<Timed> annotations = getTimedAnnotations(handler);
+		Set<Timed> annotations = autoTimer.getTimedAnnotations(this, handler);
 		Timer.Sample timerSample = timingContext.getTimerSample();
 		if (annotations.isEmpty()) {
 			if (this.autoTimer.isEnabled()) {
@@ -141,14 +141,7 @@ public class WebMvcMetricsFilter extends OncePerRequestFilter {
 		return request.getAttribute(HandlerMapping.BEST_MATCHING_HANDLER_ATTRIBUTE);
 	}
 
-	private Set<Timed> getTimedAnnotations(Object handler) {
-		if (!(handler instanceof HandlerMethod)) {
-			return Collections.emptySet();
-		}
-		return getTimedAnnotations((HandlerMethod) handler);
-	}
-
-	private Set<Timed> getTimedAnnotations(HandlerMethod handler) {
+	public Set<Timed> getTimedAnnotations(HandlerMethod handler) {
 		Set<Timed> methodAnnotations = findTimedAnnotations(handler.getMethod());
 		if (!methodAnnotations.isEmpty()) {
 			return methodAnnotations;
