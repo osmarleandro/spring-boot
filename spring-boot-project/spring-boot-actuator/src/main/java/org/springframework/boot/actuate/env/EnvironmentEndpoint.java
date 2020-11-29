@@ -35,7 +35,6 @@ import org.springframework.boot.context.properties.bind.PlaceholdersResolver;
 import org.springframework.boot.context.properties.bind.PropertySourcesPlaceholdersResolver;
 import org.springframework.boot.context.properties.source.ConfigurationPropertySources;
 import org.springframework.boot.origin.Origin;
-import org.springframework.boot.origin.OriginLookup;
 import org.springframework.core.env.CompositePropertySource;
 import org.springframework.core.env.ConfigurableEnvironment;
 import org.springframework.core.env.EnumerablePropertySource;
@@ -126,7 +125,7 @@ public class EnvironmentEndpoint {
 		Map<String, PropertyValueDescriptor> propertySources = new LinkedHashMap<>();
 		PlaceholdersResolver resolver = getResolver();
 		getPropertySourcesAsMap().forEach((sourceName, source) -> propertySources.put(sourceName,
-				source.containsProperty(propertyName) ? describeValueOf(propertyName, source, resolver) : null));
+				source.containsProperty(propertyName) ? resolver.describeValueOf(propertyName, source, this) : null));
 		return propertySources;
 	}
 
@@ -134,16 +133,8 @@ public class EnvironmentEndpoint {
 			PlaceholdersResolver resolver, Predicate<String> namePredicate) {
 		Map<String, PropertyValueDescriptor> properties = new LinkedHashMap<>();
 		Stream.of(source.getPropertyNames()).filter(namePredicate)
-				.forEach((name) -> properties.put(name, describeValueOf(name, source, resolver)));
+				.forEach((name) -> properties.put(name, resolver.describeValueOf(name, source, this)));
 		return new PropertySourceDescriptor(sourceName, properties);
-	}
-
-	@SuppressWarnings("unchecked")
-	private PropertyValueDescriptor describeValueOf(String name, PropertySource<?> source,
-			PlaceholdersResolver resolver) {
-		Object resolved = resolver.resolvePlaceholders(source.getProperty(name));
-		Origin origin = ((source instanceof OriginLookup) ? ((OriginLookup<Object>) source).getOrigin(name) : null);
-		return new PropertyValueDescriptor(sanitize(name, resolved), origin);
 	}
 
 	private PlaceholdersResolver getResolver() {

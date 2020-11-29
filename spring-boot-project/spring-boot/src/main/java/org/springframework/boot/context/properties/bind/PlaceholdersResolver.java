@@ -16,7 +16,12 @@
 
 package org.springframework.boot.context.properties.bind;
 
+import org.springframework.boot.actuate.env.EnvironmentEndpoint;
+import org.springframework.boot.actuate.env.EnvironmentEndpoint.PropertyValueDescriptor;
+import org.springframework.boot.origin.Origin;
+import org.springframework.boot.origin.OriginLookup;
 import org.springframework.core.env.PropertyResolver;
+import org.springframework.core.env.PropertySource;
 
 /**
  * Optional strategy that used by a {@link Binder} to resolve property placeholders.
@@ -40,5 +45,13 @@ public interface PlaceholdersResolver {
 	 * @return a value with placeholders resolved
 	 */
 	Object resolvePlaceholders(Object value);
+
+	@SuppressWarnings("unchecked")
+	public
+	default PropertyValueDescriptor describeValueOf(String name, PropertySource<?> source, EnvironmentEndpoint environmentEndpoint) {
+		Object resolved = resolvePlaceholders(source.getProperty(name));
+		Origin origin = ((source instanceof OriginLookup) ? ((OriginLookup<Object>) source).getOrigin(name) : null);
+		return new PropertyValueDescriptor(environmentEndpoint.sanitize(name, resolved), origin);
+	}
 
 }
