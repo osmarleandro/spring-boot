@@ -17,7 +17,14 @@
 package org.springframework.boot.actuate.autoconfigure.metrics.export.elastic;
 
 import org.springframework.boot.actuate.autoconfigure.metrics.export.properties.StepRegistryProperties;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.Bean;
+
+import io.micrometer.core.instrument.Clock;
+import io.micrometer.core.ipc.http.HttpUrlConnectionSender;
+import io.micrometer.elastic.ElasticConfig;
+import io.micrometer.elastic.ElasticMeterRegistry;
 
 /**
  * {@link ConfigurationProperties @ConfigurationProperties} for configuring Elastic
@@ -144,6 +151,14 @@ public class ElasticProperties extends StepRegistryProperties {
 
 	public void setPipeline(String pipeline) {
 		this.pipeline = pipeline;
+	}
+
+	@Bean
+	@ConditionalOnMissingBean
+	public ElasticMeterRegistry elasticMeterRegistry(ElasticMetricsExportAutoConfiguration elasticMetricsExportAutoConfiguration, ElasticConfig elasticConfig, Clock clock) {
+		return ElasticMeterRegistry.builder(elasticConfig).clock(clock).httpClient(
+				new HttpUrlConnectionSender(getConnectTimeout(), getReadTimeout()))
+				.build();
 	}
 
 }
