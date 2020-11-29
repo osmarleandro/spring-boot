@@ -57,10 +57,6 @@ public class MetricsProperties {
 
 	private final Distribution distribution = new Distribution();
 
-	public boolean isUseGlobalRegistry() {
-		return this.useGlobalRegistry;
-	}
-
 	public void setUseGlobalRegistry(boolean useGlobalRegistry) {
 		this.useGlobalRegistry = useGlobalRegistry;
 	}
@@ -278,6 +274,10 @@ public class MetricsProperties {
 
 		public Map<String, String> getMaximumExpectedValue() {
 			return this.maximumExpectedValue;
+		}
+
+		public boolean isUseGlobalRegistry(MetricsProperties metricsProperties) {
+			return metricsProperties.useGlobalRegistry;
 		}
 
 	}
