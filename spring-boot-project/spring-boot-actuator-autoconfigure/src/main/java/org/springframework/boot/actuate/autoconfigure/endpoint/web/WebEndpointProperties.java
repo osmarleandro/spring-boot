@@ -68,10 +68,6 @@ public class WebEndpointProperties {
 		return basePath;
 	}
 
-	public Map<String, String> getPathMapping() {
-		return this.pathMapping;
-	}
-
 	public static class Exposure {
 
 		/**
@@ -98,6 +94,10 @@ public class WebEndpointProperties {
 
 		public void setExclude(Set<String> exclude) {
 			this.exclude = exclude;
+		}
+
+		public Map<String, String> getPathMapping(WebEndpointProperties webEndpointProperties) {
+			return webEndpointProperties.pathMapping;
 		}
 
 	}
