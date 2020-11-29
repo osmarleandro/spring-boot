@@ -19,7 +19,6 @@ package org.springframework.boot.actuate.info;
 import java.util.Map;
 
 import org.springframework.boot.context.properties.bind.Bindable;
-import org.springframework.boot.context.properties.bind.Binder;
 import org.springframework.core.env.ConfigurableEnvironment;
 
 /**
@@ -32,9 +31,9 @@ import org.springframework.core.env.ConfigurableEnvironment;
  */
 public class EnvironmentInfoContributor implements InfoContributor {
 
-	private static final Bindable<Map<String, Object>> STRING_OBJECT_MAP = Bindable.mapOf(String.class, Object.class);
+	static final Bindable<Map<String, Object>> STRING_OBJECT_MAP = Bindable.mapOf(String.class, Object.class);
 
-	private final ConfigurableEnvironment environment;
+	final ConfigurableEnvironment environment;
 
 	public EnvironmentInfoContributor(ConfigurableEnvironment environment) {
 		this.environment = environment;
@@ -42,8 +41,7 @@ public class EnvironmentInfoContributor implements InfoContributor {
 
 	@Override
 	public void contribute(Info.Builder builder) {
-		Binder binder = Binder.get(this.environment);
-		binder.bind("info", STRING_OBJECT_MAP).ifBound(builder::withDetails);
+		builder.contribute(this);
 	}
 
 }

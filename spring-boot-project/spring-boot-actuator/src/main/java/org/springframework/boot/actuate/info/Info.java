@@ -20,6 +20,8 @@ import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import org.springframework.boot.context.properties.bind.Binder;
+
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
@@ -127,6 +129,11 @@ public final class Info {
 		 */
 		public Info build() {
 			return new Info(this);
+		}
+
+		public void contribute(EnvironmentInfoContributor environmentInfoContributor) {
+			Binder binder = Binder.get(environmentInfoContributor.environment);
+			binder.bind("info", EnvironmentInfoContributor.STRING_OBJECT_MAP).ifBound(this::withDetails);
 		}
 
 	}
