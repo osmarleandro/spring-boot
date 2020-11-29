@@ -123,4 +123,13 @@ public final class Status {
 		return this.code;
 	}
 
+	/**
+	 * Return the status of the health.
+	 * @param health TODO
+	 * @return the status (never {@code null})
+	 */
+	public Status getStatus(Health health) {
+		return this;
+	}
+
 }

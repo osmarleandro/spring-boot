@@ -24,7 +24,7 @@ import java.util.Set;
  * Strategy used to aggregate {@link Status} instances.
  * <p>
  * This is required in order to combine subsystem states expressed through
- * {@link Health#getStatus()} into one state for the entire system.
+ * {@link #MISSING()} into one state for the entire system.
  *
  * @author Phillip Webb
  * @since 2.2.0
