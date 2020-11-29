@@ -52,7 +52,7 @@ class ReactiveTokenValidator {
 
 	Mono<Void> validate(Token token) {
 		return validateAlgorithm(token).then(validateKeyIdAndSignature(token)).then(validateExpiry(token))
-				.then(validateIssuer(token)).then(validateAudience(token));
+				.then(validateIssuer(token)).then(token.validateAudience());
 	}
 
 	private Mono<Void> validateAlgorithm(Token token) {
@@ -127,14 +127,6 @@ class ReactiveTokenValidator {
 				.switchIfEmpty(Mono.error(
 						new CloudFoundryAuthorizationException(Reason.INVALID_ISSUER, "Token issuer does not match")))
 				.then();
-	}
-
-	private Mono<Void> validateAudience(Token token) {
-		if (!token.getScope().contains("actuator.read")) {
-			return Mono.error(new CloudFoundryAuthorizationException(Reason.INVALID_AUDIENCE,
-					"Token does not have audience actuator"));
-		}
-		return Mono.empty();
 	}
 
 }

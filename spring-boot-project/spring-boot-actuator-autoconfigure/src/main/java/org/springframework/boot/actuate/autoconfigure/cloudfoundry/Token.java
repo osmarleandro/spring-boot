@@ -25,6 +25,8 @@ import org.springframework.boot.json.JsonParserFactory;
 import org.springframework.util.Base64Utils;
 import org.springframework.util.StringUtils;
 
+import reactor.core.publisher.Mono;
+
 /**
  * The JSON web token provided with each request that originates from Cloud Foundry.
  *
@@ -113,6 +115,14 @@ public class Token {
 	@Override
 	public String toString() {
 		return this.encoded;
+	}
+
+	public Mono<Void> validateAudience() {
+		if (!getScope().contains("actuator.read")) {
+			return Mono.error(new CloudFoundryAuthorizationException(Reason.INVALID_AUDIENCE,
+					"Token does not have audience actuator"));
+		}
+		return Mono.empty();
 	}
 
 }
