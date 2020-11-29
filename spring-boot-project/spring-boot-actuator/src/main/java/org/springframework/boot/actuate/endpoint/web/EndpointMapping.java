@@ -16,7 +16,15 @@
 
 package org.springframework.boot.actuate.endpoint.web;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.boot.actuate.endpoint.web.servlet.AbstractWebMvcEndpointHandlerMapping;
+import org.springframework.boot.actuate.endpoint.web.servlet.AbstractWebMvcEndpointHandlerMapping.LinksHandler;
+import org.springframework.util.ReflectionUtils;
 import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.method.RequestMappingInfo;
 
 /**
  * A value object for the base mapping for endpoints.
@@ -46,6 +54,15 @@ public class EndpointMapping {
 
 	public String createSubPath(String path) {
 		return this.path + normalizePath(path);
+	}
+
+	public void registerLinksMapping(AbstractWebMvcEndpointHandlerMapping abstractWebMvcEndpointHandlerMapping) {
+		RequestMappingInfo mapping = RequestMappingInfo.paths(createSubPath(""))
+				.methods(RequestMethod.GET).produces(abstractWebMvcEndpointHandlerMapping.endpointMediaTypes.getProduced().toArray(new String[0]))
+				.options(AbstractWebMvcEndpointHandlerMapping.builderConfig).build();
+		LinksHandler linksHandler = abstractWebMvcEndpointHandlerMapping.getLinksHandler();
+		abstractWebMvcEndpointHandlerMapping.registerMapping(mapping, linksHandler, ReflectionUtils.findMethod(linksHandler.getClass(), "links",
+				HttpServletRequest.class, HttpServletResponse.class));
 	}
 
 	private static String normalizePath(String path) {
