@@ -17,7 +17,11 @@
 package org.springframework.boot.actuate.autoconfigure.metrics.export.stackdriver;
 
 import org.springframework.boot.actuate.autoconfigure.metrics.export.properties.StepRegistryProperties;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.Bean;
+
+import io.micrometer.stackdriver.StackdriverConfig;
 
 /**
  * {@link ConfigurationProperties @ConfigurationProperties} for configuring Stackdriver
@@ -54,6 +58,12 @@ public class StackdriverProperties extends StepRegistryProperties {
 
 	public void setResourceType(String resourceType) {
 		this.resourceType = resourceType;
+	}
+
+	@Bean
+	@ConditionalOnMissingBean
+	public StackdriverConfig stackdriverConfig(StackdriverMetricsExportAutoConfiguration stackdriverMetricsExportAutoConfiguration) {
+		return new StackdriverPropertiesConfigAdapter(this);
 	}
 
 }

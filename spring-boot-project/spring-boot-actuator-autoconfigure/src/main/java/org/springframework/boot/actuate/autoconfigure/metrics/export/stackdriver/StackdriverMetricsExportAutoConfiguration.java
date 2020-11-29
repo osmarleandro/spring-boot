@@ -51,16 +51,10 @@ import org.springframework.context.annotation.Configuration;
 @EnableConfigurationProperties(StackdriverProperties.class)
 public class StackdriverMetricsExportAutoConfiguration {
 
-	private final StackdriverProperties properties;
+	final StackdriverProperties properties;
 
 	public StackdriverMetricsExportAutoConfiguration(StackdriverProperties stackdriverProperties) {
 		this.properties = stackdriverProperties;
-	}
-
-	@Bean
-	@ConditionalOnMissingBean
-	public StackdriverConfig stackdriverConfig() {
-		return new StackdriverPropertiesConfigAdapter(this.properties);
 	}
 
 	@Bean
