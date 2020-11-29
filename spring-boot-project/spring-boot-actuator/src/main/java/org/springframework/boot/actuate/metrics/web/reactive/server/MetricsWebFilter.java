@@ -75,12 +75,8 @@ public class MetricsWebFilter implements WebFilter {
 
 	private Publisher<Void> filter(ServerWebExchange exchange, Mono<Void> call) {
 		long start = System.nanoTime();
-		return call.doOnSuccess((done) -> onSuccess(exchange, start))
+		return call.doOnSuccess((done) -> autoTimer.onSuccess(this, exchange, start))
 				.doOnError((cause) -> onError(exchange, start, cause));
-	}
-
-	private void onSuccess(ServerWebExchange exchange, long start) {
-		record(exchange, start, null);
 	}
 
 	private void onError(ServerWebExchange exchange, long start, Throwable cause) {
@@ -96,7 +92,7 @@ public class MetricsWebFilter implements WebFilter {
 		}
 	}
 
-	private void record(ServerWebExchange exchange, long start, Throwable cause) {
+	public void record(ServerWebExchange exchange, long start, Throwable cause) {
 		Iterable<Tag> tags = this.tagsProvider.httpRequestTags(exchange, cause);
 		this.autoTimer.builder(this.metricName).tags(tags).register(this.registry).record(System.nanoTime() - start,
 				TimeUnit.NANOSECONDS);

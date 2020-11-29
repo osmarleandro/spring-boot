@@ -18,6 +18,9 @@ package org.springframework.boot.actuate.metrics;
 
 import java.util.function.Supplier;
 
+import org.springframework.boot.actuate.metrics.web.reactive.server.MetricsWebFilter;
+import org.springframework.web.server.ServerWebExchange;
+
 import io.micrometer.core.annotation.Timed;
 import io.micrometer.core.instrument.Timer;
 import io.micrometer.core.instrument.Timer.Builder;
@@ -93,5 +96,9 @@ public interface AutoTimer {
 	 * @param builder the builder to apply settings to
 	 */
 	void apply(Timer.Builder builder);
+
+	public default void onSuccess(MetricsWebFilter metricsWebFilter, ServerWebExchange exchange, long start) {
+		metricsWebFilter.record(exchange, start, null);
+	}
 
 }
