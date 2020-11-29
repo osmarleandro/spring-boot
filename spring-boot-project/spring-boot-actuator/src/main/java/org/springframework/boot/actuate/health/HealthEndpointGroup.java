@@ -16,6 +16,9 @@
 
 package org.springframework.boot.actuate.health;
 
+import java.util.Set;
+
+import org.springframework.boot.actuate.autoconfigure.health.AutoConfiguredHealthEndpointGroups;
 import org.springframework.boot.actuate.endpoint.SecurityContext;
 
 /**
@@ -61,5 +64,9 @@ public interface HealthEndpointGroup {
 	 * @return the HTTP code status mapper
 	 */
 	HttpCodeStatusMapper getHttpCodeStatusMapper();
+
+	default Set<String> getNames(AutoConfiguredHealthEndpointGroups autoConfiguredHealthEndpointGroups) {
+		return autoConfiguredHealthEndpointGroups.groups.keySet();
+	}
 
 }
