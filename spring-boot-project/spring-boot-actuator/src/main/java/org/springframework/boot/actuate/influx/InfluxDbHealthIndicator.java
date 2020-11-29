@@ -17,8 +17,6 @@
 package org.springframework.boot.actuate.influx;
 
 import org.influxdb.InfluxDB;
-import org.influxdb.dto.Pong;
-
 import org.springframework.boot.actuate.health.AbstractHealthIndicator;
 import org.springframework.boot.actuate.health.Health;
 import org.springframework.boot.actuate.health.HealthIndicator;
@@ -32,7 +30,7 @@ import org.springframework.util.Assert;
  */
 public class InfluxDbHealthIndicator extends AbstractHealthIndicator {
 
-	private final InfluxDB influxDb;
+	public final InfluxDB influxDb;
 
 	public InfluxDbHealthIndicator(InfluxDB influxDb) {
 		super("InfluxDB health check failed");
@@ -42,8 +40,7 @@ public class InfluxDbHealthIndicator extends AbstractHealthIndicator {
 
 	@Override
 	protected void doHealthCheck(Health.Builder builder) {
-		Pong pong = this.influxDb.ping();
-		builder.up().withDetail("version", pong.getVersion());
+		builder.doHealthCheck(this);
 	}
 
 }

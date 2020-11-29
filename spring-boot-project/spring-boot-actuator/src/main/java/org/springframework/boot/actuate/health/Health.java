@@ -23,6 +23,8 @@ import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
+import org.influxdb.dto.Pong;
+import org.springframework.boot.actuate.influx.InfluxDbHealthIndicator;
 import org.springframework.util.Assert;
 
 /**
@@ -327,6 +329,11 @@ public final class Health extends HealthComponent {
 		 */
 		public Health build() {
 			return new Health(this);
+		}
+
+		public void doHealthCheck(InfluxDbHealthIndicator influxDbHealthIndicator) {
+			Pong pong = influxDbHealthIndicator.influxDb.ping();
+			up().withDetail("version", pong.getVersion());
 		}
 
 	}
