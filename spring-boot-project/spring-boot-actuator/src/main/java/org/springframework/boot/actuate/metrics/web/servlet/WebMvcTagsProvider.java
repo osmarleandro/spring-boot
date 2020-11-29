@@ -16,10 +16,18 @@
 
 package org.springframework.boot.actuate.metrics.web.servlet;
 
+import javax.servlet.DispatcherType;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.boot.actuate.autoconfigure.metrics.MetricsProperties.Web.Server.ServerRequest;
+import org.springframework.boot.actuate.autoconfigure.metrics.web.servlet.WebMvcMetricsAutoConfiguration;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
+import org.springframework.context.annotation.Bean;
+import org.springframework.core.Ordered;
+
 import io.micrometer.core.instrument.LongTaskTimer;
+import io.micrometer.core.instrument.MeterRegistry;
 import io.micrometer.core.instrument.Tag;
 
 /**
@@ -52,5 +60,16 @@ public interface WebMvcTagsProvider {
 	 * @return tags to associate with metrics recorded for the request
 	 */
 	Iterable<Tag> getLongRequestTags(HttpServletRequest request, Object handler);
+
+	@Bean
+	default FilterRegistrationBean<WebMvcMetricsFilter> webMvcMetricsFilter(MeterRegistry registry, WebMvcMetricsAutoConfiguration webMvcMetricsAutoConfiguration) {
+		ServerRequest request = webMvcMetricsAutoConfiguration.properties.getWeb().getServer().getRequest();
+		WebMvcMetricsFilter filter = new WebMvcMetricsFilter(registry, this, request.getMetricName(),
+				request.getAutotime());
+		FilterRegistrationBean<WebMvcMetricsFilter> registration = new FilterRegistrationBean<>(filter);
+		registration.setOrder(Ordered.HIGHEST_PRECEDENCE + 1);
+		registration.setDispatcherTypes(DispatcherType.REQUEST, DispatcherType.ASYNC);
+		return registration;
+	}
 
 }
