@@ -26,4 +26,11 @@ import org.springframework.boot.actuate.endpoint.ExposableEndpoint;
  */
 public interface ExposableJmxEndpoint extends ExposableEndpoint<JmxOperation> {
 
+	default Exception translateIfNecessary(Exception exception) {
+		if (exception.getClass().getName().startsWith("java.")) {
+			return exception;
+		}
+		return new IllegalStateException(exception.getMessage());
+	}
+
 }
