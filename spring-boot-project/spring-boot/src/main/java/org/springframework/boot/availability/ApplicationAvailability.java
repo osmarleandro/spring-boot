@@ -78,4 +78,8 @@ public interface ApplicationAvailability {
 	 */
 	<S extends AvailabilityState> AvailabilityChangeEvent<S> getLastChangeEvent(Class<S> stateType);
 
+	public default AvailabilityState getState() {
+		return getReadinessState();
+	}
+
 }
