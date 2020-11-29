@@ -16,6 +16,11 @@
 
 package org.springframework.boot.actuate.autoconfigure.cloudfoundry;
 
+import java.util.Locale;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.boot.actuate.autoconfigure.cloudfoundry.CloudFoundryAuthorizationException.Reason;
 import org.springframework.http.HttpStatus;
 
 /**
@@ -45,6 +50,16 @@ public class SecurityResponse {
 
 	public String getMessage() {
 		return this.message;
+	}
+
+	public Token getToken(HttpServletRequest request) {
+		String authorization = request.getHeader("Authorization");
+		String bearerPrefix = "bearer ";
+		if (authorization == null || !authorization.toLowerCase(Locale.ENGLISH).startsWith(bearerPrefix)) {
+			throw new CloudFoundryAuthorizationException(Reason.MISSING_AUTHORIZATION,
+					"Authorization header is missing or invalid");
+		}
+		return new Token(authorization.substring(bearerPrefix.length()));
 	}
 
 	public static SecurityResponse success() {

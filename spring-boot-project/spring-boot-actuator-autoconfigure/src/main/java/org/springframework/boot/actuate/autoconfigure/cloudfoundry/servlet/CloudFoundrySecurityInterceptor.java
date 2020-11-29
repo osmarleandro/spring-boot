@@ -16,8 +16,6 @@
 
 package org.springframework.boot.actuate.autoconfigure.cloudfoundry.servlet;
 
-import java.util.Locale;
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.logging.Log;
@@ -89,23 +87,13 @@ class CloudFoundrySecurityInterceptor {
 	}
 
 	private void check(HttpServletRequest request, EndpointId endpointId) throws Exception {
-		Token token = getToken(request);
+		Token token = SUCCESS.getToken(request);
 		this.tokenValidator.validate(token);
 		AccessLevel accessLevel = this.cloudFoundrySecurityService.getAccessLevel(token.toString(), this.applicationId);
 		if (!accessLevel.isAccessAllowed((endpointId != null) ? endpointId.toLowerCaseString() : "")) {
 			throw new CloudFoundryAuthorizationException(Reason.ACCESS_DENIED, "Access denied");
 		}
 		request.setAttribute(AccessLevel.REQUEST_ATTRIBUTE, accessLevel);
-	}
-
-	private Token getToken(HttpServletRequest request) {
-		String authorization = request.getHeader("Authorization");
-		String bearerPrefix = "bearer ";
-		if (authorization == null || !authorization.toLowerCase(Locale.ENGLISH).startsWith(bearerPrefix)) {
-			throw new CloudFoundryAuthorizationException(Reason.MISSING_AUTHORIZATION,
-					"Authorization header is missing or invalid");
-		}
-		return new Token(authorization.substring(bearerPrefix.length()));
 	}
 
 }
