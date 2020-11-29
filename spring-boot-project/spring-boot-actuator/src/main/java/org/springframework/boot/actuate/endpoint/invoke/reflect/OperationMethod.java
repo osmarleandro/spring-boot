@@ -17,12 +17,18 @@
 package org.springframework.boot.actuate.endpoint.invoke.reflect;
 
 import java.lang.reflect.Method;
+import java.util.Collections;
+import java.util.List;
 import java.util.Locale;
 
 import org.springframework.boot.actuate.endpoint.OperationType;
 import org.springframework.boot.actuate.endpoint.invoke.OperationParameters;
+import org.springframework.boot.actuate.endpoint.jmx.JmxOperationParameter;
+import org.springframework.boot.actuate.endpoint.jmx.annotation.DiscoveredJmxOperation;
+import org.springframework.boot.actuate.endpoint.jmx.annotation.DiscoveredJmxOperation.DiscoveredJmxOperationParameter;
 import org.springframework.core.DefaultParameterNameDiscoverer;
 import org.springframework.core.ParameterNameDiscoverer;
+import org.springframework.jmx.export.metadata.ManagedOperationParameter;
 import org.springframework.util.Assert;
 
 /**
@@ -82,6 +88,18 @@ public class OperationMethod {
 	@Override
 	public String toString() {
 		return "Operation " + this.operationType.name().toLowerCase(Locale.ENGLISH) + " method " + this.method;
+	}
+
+	public List<JmxOperationParameter> getParameters(DiscoveredJmxOperation discoveredJmxOperation) {
+		if (!getParameters().hasParameters()) {
+			return Collections.emptyList();
+		}
+		Method method = getMethod();
+		ManagedOperationParameter[] managed = DiscoveredJmxOperation.jmxAttributeSource.getManagedOperationParameters(method);
+		if (managed.length == 0) {
+			return discoveredJmxOperation.asList(getParameters().stream().map(DiscoveredJmxOperationParameter::new));
+		}
+		return discoveredJmxOperation.mergeParameters(getParameters(), managed);
 	}
 
 }
