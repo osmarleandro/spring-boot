@@ -23,7 +23,7 @@ import java.util.regex.Pattern;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
+import org.springframework.boot.actuate.endpoint.web.PathMappedEndpoints;
 import org.springframework.core.env.Environment;
 import org.springframework.util.Assert;
 
@@ -104,6 +104,16 @@ public final class EndpointId {
 	@Override
 	public String toString() {
 		return this.value;
+	}
+
+	/**
+	 * Return the full path for the endpoint with the given ID or {@code null} if the
+	 * endpoint cannot be found.
+	 * @param pathMappedEndpoints TODO
+	 * @return the full path or {@code null}
+	 */
+	public String getPath(PathMappedEndpoints pathMappedEndpoints) {
+		return pathMappedEndpoints.getPath(pathMappedEndpoints.getEndpoint(this));
 	}
 
 	/**
