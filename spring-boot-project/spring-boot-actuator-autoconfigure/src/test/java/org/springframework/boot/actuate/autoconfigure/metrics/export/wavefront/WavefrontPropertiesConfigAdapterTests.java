@@ -59,7 +59,7 @@ class WavefrontPropertiesConfigAdapterTests
 	@Test
 	void whenPropertiesApiTokenIsSetAdapterApiTokenReturnsIt() {
 		WavefrontProperties properties = createProperties();
-		properties.setApiToken("ABC123");
+		properties.getSender().setApiToken(this, "ABC123");
 		assertThat(createConfigAdapter(properties).apiToken()).isEqualTo("ABC123");
 	}
 
