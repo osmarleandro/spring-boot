@@ -20,6 +20,7 @@ import java.util.Map;
 
 import org.springframework.boot.actuate.endpoint.http.ApiVersion;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvoker;
+import org.springframework.boot.actuate.endpoint.invoke.reflect.ReflectiveOperationInvoker;
 import org.springframework.util.Assert;
 
 /**
@@ -86,6 +87,11 @@ public class InvocationContext {
 	 */
 	public Map<String, Object> getArguments() {
 		return this.arguments;
+	}
+
+	public Object[] resolveArguments(ReflectiveOperationInvoker reflectiveOperationInvoker) {
+		return reflectiveOperationInvoker.operationMethod.getParameters().stream().map((parameter) -> reflectiveOperationInvoker.resolveArgument(parameter, this))
+				.toArray();
 	}
 
 }
