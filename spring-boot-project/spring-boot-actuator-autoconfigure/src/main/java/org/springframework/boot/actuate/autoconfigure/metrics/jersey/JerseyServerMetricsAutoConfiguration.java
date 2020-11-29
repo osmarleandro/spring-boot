@@ -29,7 +29,6 @@ import org.glassfish.jersey.server.ResourceConfig;
 
 import org.springframework.boot.actuate.autoconfigure.metrics.MetricsAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.metrics.MetricsProperties;
-import org.springframework.boot.actuate.autoconfigure.metrics.MetricsProperties.Web.Server;
 import org.springframework.boot.actuate.autoconfigure.metrics.OnlyOnceLoggingDenyMeterFilter;
 import org.springframework.boot.actuate.autoconfigure.metrics.export.simple.SimpleMetricsExportAutoConfiguration;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
@@ -38,7 +37,6 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
-import org.springframework.boot.autoconfigure.jersey.ResourceConfigCustomizer;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -61,7 +59,7 @@ import org.springframework.core.annotation.Order;
 @EnableConfigurationProperties(MetricsProperties.class)
 public class JerseyServerMetricsAutoConfiguration {
 
-	private final MetricsProperties properties;
+	public final MetricsProperties properties;
 
 	public JerseyServerMetricsAutoConfiguration(MetricsProperties properties) {
 		this.properties = properties;
@@ -71,15 +69,6 @@ public class JerseyServerMetricsAutoConfiguration {
 	@ConditionalOnMissingBean(JerseyTagsProvider.class)
 	public DefaultJerseyTagsProvider jerseyTagsProvider() {
 		return new DefaultJerseyTagsProvider();
-	}
-
-	@Bean
-	public ResourceConfigCustomizer jerseyServerMetricsResourceConfigCustomizer(MeterRegistry meterRegistry,
-			JerseyTagsProvider tagsProvider) {
-		Server server = this.properties.getWeb().getServer();
-		return (config) -> config.register(
-				new MetricsApplicationEventListener(meterRegistry, tagsProvider, server.getRequest().getMetricName(),
-						server.getRequest().getAutotime().isEnabled(), new AnnotationUtilsAnnotationFinder()));
 	}
 
 	@Bean
@@ -95,7 +84,7 @@ public class JerseyServerMetricsAutoConfiguration {
 	/**
 	 * An {@link AnnotationFinder} that uses {@link AnnotationUtils}.
 	 */
-	private static class AnnotationUtilsAnnotationFinder implements AnnotationFinder {
+	public static class AnnotationUtilsAnnotationFinder implements AnnotationFinder {
 
 		@Override
 		public <A extends Annotation> A findAnnotation(AnnotatedElement annotatedElement, Class<A> annotationType) {

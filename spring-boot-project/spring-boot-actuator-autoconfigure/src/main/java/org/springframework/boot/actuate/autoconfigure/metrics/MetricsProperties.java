@@ -19,9 +19,18 @@ package org.springframework.boot.actuate.autoconfigure.metrics;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import org.springframework.boot.actuate.autoconfigure.metrics.MetricsProperties.Web.Server;
+import org.springframework.boot.actuate.autoconfigure.metrics.jersey.JerseyServerMetricsAutoConfiguration;
+import org.springframework.boot.actuate.autoconfigure.metrics.jersey.JerseyServerMetricsAutoConfiguration.AnnotationUtilsAnnotationFinder;
+import org.springframework.boot.autoconfigure.jersey.ResourceConfigCustomizer;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.DeprecatedConfigurationProperty;
 import org.springframework.boot.context.properties.NestedConfigurationProperty;
+import org.springframework.context.annotation.Bean;
+
+import io.micrometer.core.instrument.MeterRegistry;
+import io.micrometer.jersey2.server.JerseyTagsProvider;
+import io.micrometer.jersey2.server.MetricsApplicationEventListener;
 
 /**
  * {@link ConfigurationProperties @ConfigurationProperties} for configuring
@@ -79,6 +88,14 @@ public class MetricsProperties {
 
 	public Distribution getDistribution() {
 		return this.distribution;
+	}
+
+	@Bean
+	public ResourceConfigCustomizer jerseyServerMetricsResourceConfigCustomizer(JerseyServerMetricsAutoConfiguration jerseyServerMetricsAutoConfiguration, MeterRegistry meterRegistry, JerseyTagsProvider tagsProvider) {
+		Server server = getWeb().getServer();
+		return (config) -> config.register(
+				new MetricsApplicationEventListener(meterRegistry, tagsProvider, server.getRequest().getMetricName(),
+						server.getRequest().getAutotime().isEnabled(), new AnnotationUtilsAnnotationFinder()));
 	}
 
 	public static class Web {
