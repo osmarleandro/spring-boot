@@ -24,6 +24,7 @@ import io.micrometer.core.instrument.Tag;
 import io.micrometer.core.instrument.Tags;
 import io.micrometer.core.instrument.binder.MeterBinder;
 
+import org.springframework.boot.actuate.autoconfigure.metrics.cache.CacheMetricsRegistrarConfiguration;
 import org.springframework.boot.util.LambdaSafe;
 import org.springframework.cache.Cache;
 import org.springframework.cache.transaction.TransactionAwareCacheDecorator;
@@ -92,6 +93,11 @@ public class CacheMetricsRegistrar {
 			return TransactionAwareCacheDecoratorHandler.unwrapIfNecessary(cache);
 		}
 		return cache;
+	}
+
+	public void bindCacheToRegistry(CacheMetricsRegistrarConfiguration cacheMetricsRegistrarConfiguration, String beanName, Cache cache) {
+		Tag cacheManagerTag = Tag.of("cacheManager", cacheMetricsRegistrarConfiguration.getCacheManagerName(beanName));
+		bindCacheToRegistry(cache, cacheManagerTag);
 	}
 
 	private static class TransactionAwareCacheDecoratorHandler {
