@@ -29,6 +29,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
+
 /**
  * Formats a thread dump as plain text.
  *
@@ -120,6 +122,11 @@ class PlainTextThreadDumpFormatter {
 				writer.printf("\t- Locked %s%n", format(lockedSynchronizer));
 			}
 		}
+	}
+
+	@ReadOperation(produces = "text/plain;charset=UTF-8")
+	public String textThreadDump(ThreadDumpEndpoint threadDumpEndpoint) {
+		return threadDumpEndpoint.getFormattedThreadDump(this::format);
 	}
 
 }

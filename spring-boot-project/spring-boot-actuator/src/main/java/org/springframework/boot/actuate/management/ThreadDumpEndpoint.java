@@ -35,19 +35,14 @@ import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
 @Endpoint(id = "threaddump")
 public class ThreadDumpEndpoint {
 
-	private final PlainTextThreadDumpFormatter plainTextFormatter = new PlainTextThreadDumpFormatter();
+	public final PlainTextThreadDumpFormatter plainTextFormatter = new PlainTextThreadDumpFormatter();
 
 	@ReadOperation
 	public ThreadDumpDescriptor threadDump() {
 		return getFormattedThreadDump(ThreadDumpDescriptor::new);
 	}
 
-	@ReadOperation(produces = "text/plain;charset=UTF-8")
-	public String textThreadDump() {
-		return getFormattedThreadDump(this.plainTextFormatter::format);
-	}
-
-	private <T> T getFormattedThreadDump(Function<ThreadInfo[], T> formatter) {
+	<T> T getFormattedThreadDump(Function<ThreadInfo[], T> formatter) {
 		return formatter.apply(ManagementFactory.getThreadMXBean().dumpAllThreads(true, true));
 	}
 
