@@ -87,10 +87,6 @@ public class WavefrontProperties extends PushRegistryProperties {
 		return this.globalPrefix;
 	}
 
-	public void setGlobalPrefix(String globalPrefix) {
-		this.globalPrefix = globalPrefix;
-	}
-
 	public Sender getSender() {
 		return this.sender;
 	}
@@ -125,6 +121,10 @@ public class WavefrontProperties extends PushRegistryProperties {
 
 		public void setMessageSize(DataSize messageSize) {
 			this.messageSize = messageSize;
+		}
+
+		public void setGlobalPrefix(WavefrontProperties wavefrontProperties, String globalPrefix) {
+			wavefrontProperties.globalPrefix = globalPrefix;
 		}
 
 	}

@@ -66,7 +66,7 @@ class WavefrontPropertiesConfigAdapterTests
 	@Test
 	void whenPropertiesGlobalPrefixIsSetAdapterGlobalPrefixReturnsIt() {
 		WavefrontProperties properties = createProperties();
-		properties.setGlobalPrefix("test");
+		properties.getSender().setGlobalPrefix(this, "test");
 		assertThat(createConfigAdapter(properties).globalPrefix()).isEqualTo("test");
 	}
 
