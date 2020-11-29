@@ -17,7 +17,9 @@
 package org.springframework.boot.actuate.autoconfigure.context.properties;
 
 import org.springframework.boot.actuate.context.properties.ConfigurationPropertiesReportEndpoint;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.Bean;
 
 /**
  * Configuration properties for {@link ConfigurationPropertiesReportEndpoint}.
@@ -40,6 +42,17 @@ public class ConfigurationPropertiesReportEndpointProperties {
 
 	public void setKeysToSanitize(String[] keysToSanitize) {
 		this.keysToSanitize = keysToSanitize;
+	}
+
+	@Bean
+	@ConditionalOnMissingBean
+	public ConfigurationPropertiesReportEndpoint configurationPropertiesReportEndpoint() {
+		ConfigurationPropertiesReportEndpoint endpoint = new ConfigurationPropertiesReportEndpoint();
+		String[] keysToSanitize = getKeysToSanitize();
+		if (keysToSanitize != null) {
+			endpoint.setKeysToSanitize(keysToSanitize);
+		}
+		return endpoint;
 	}
 
 }
