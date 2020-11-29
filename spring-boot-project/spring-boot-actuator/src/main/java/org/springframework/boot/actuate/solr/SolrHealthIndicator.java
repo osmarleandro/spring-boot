@@ -24,7 +24,6 @@ import org.apache.solr.common.params.CoreAdminParams;
 import org.springframework.boot.actuate.health.AbstractHealthIndicator;
 import org.springframework.boot.actuate.health.Health;
 import org.springframework.boot.actuate.health.HealthIndicator;
-import org.springframework.boot.actuate.health.Status;
 
 /**
  * {@link HealthIndicator} for Apache Solr.
@@ -41,7 +40,7 @@ public class SolrHealthIndicator extends AbstractHealthIndicator {
 
 	private final SolrClient solrClient;
 
-	private volatile StatusCheck statusCheck;
+	public volatile StatusCheck statusCheck;
 
 	public SolrHealthIndicator(SolrClient solrClient) {
 		super("Solr health check failed");
@@ -50,13 +49,10 @@ public class SolrHealthIndicator extends AbstractHealthIndicator {
 
 	@Override
 	protected void doHealthCheck(Health.Builder builder) throws Exception {
-		int statusCode = initializeStatusCheck();
-		Status status = (statusCode != 0) ? Status.DOWN : Status.UP;
-		builder.status(status).withDetail("status", statusCode).withDetail("detectedPathType",
-				this.statusCheck.getPathType());
+		builder.doHealthCheck(this);
 	}
 
-	private int initializeStatusCheck() throws Exception {
+	public int initializeStatusCheck() throws Exception {
 		StatusCheck statusCheck = this.statusCheck;
 		if (statusCheck != null) {
 			// Already initialized
@@ -83,7 +79,7 @@ public class SolrHealthIndicator extends AbstractHealthIndicator {
 	/**
 	 * Strategy used to perform the status check.
 	 */
-	private abstract static class StatusCheck {
+	public abstract static class StatusCheck {
 
 		private final String pathType;
 
@@ -93,7 +89,7 @@ public class SolrHealthIndicator extends AbstractHealthIndicator {
 
 		abstract int getStatus(SolrClient client) throws Exception;
 
-		String getPathType() {
+		public String getPathType() {
 			return this.pathType;
 		}
 

@@ -23,6 +23,7 @@ import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
+import org.springframework.boot.actuate.solr.SolrHealthIndicator;
 import org.springframework.util.Assert;
 
 /**
@@ -327,6 +328,13 @@ public final class Health extends HealthComponent {
 		 */
 		public Health build() {
 			return new Health(this);
+		}
+
+		public void doHealthCheck(SolrHealthIndicator solrHealthIndicator) throws Exception {
+			int statusCode = solrHealthIndicator.initializeStatusCheck();
+			Status status = (statusCode != 0) ? Status.DOWN : Status.UP;
+			status(status).withDetail("status", statusCode).withDetail("detectedPathType",
+					solrHealthIndicator.statusCheck.getPathType());
 		}
 
 	}
