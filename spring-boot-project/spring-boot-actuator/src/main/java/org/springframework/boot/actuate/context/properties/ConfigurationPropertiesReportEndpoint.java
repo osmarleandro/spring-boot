@@ -53,7 +53,6 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.BeansException;
 import org.springframework.boot.actuate.endpoint.Sanitizer;
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
-import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
 import org.springframework.boot.context.properties.BoundConfigurationProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.ConfigurationPropertiesBean;
@@ -92,9 +91,9 @@ public class ConfigurationPropertiesReportEndpoint implements ApplicationContext
 
 	private static final String CONFIGURATION_PROPERTIES_FILTER_ID = "configurationPropertiesFilter";
 
-	private final Sanitizer sanitizer = new Sanitizer();
+	public final Sanitizer sanitizer = new Sanitizer();
 
-	private ApplicationContext context;
+	public ApplicationContext context;
 
 	private ObjectMapper objectMapper;
 
@@ -107,12 +106,7 @@ public class ConfigurationPropertiesReportEndpoint implements ApplicationContext
 		this.sanitizer.setKeysToSanitize(keysToSanitize);
 	}
 
-	@ReadOperation
-	public ApplicationConfigurationProperties configurationProperties() {
-		return extract(this.context);
-	}
-
-	private ApplicationConfigurationProperties extract(ApplicationContext context) {
+	public ApplicationConfigurationProperties extract(ApplicationContext context) {
 		ObjectMapper mapper = getObjectMapper();
 		Map<String, ContextConfigurationProperties> contexts = new HashMap<>();
 		ApplicationContext target = context;

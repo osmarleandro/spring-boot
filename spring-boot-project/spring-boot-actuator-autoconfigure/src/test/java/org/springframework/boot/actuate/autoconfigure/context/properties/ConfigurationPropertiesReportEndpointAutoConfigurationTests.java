@@ -76,7 +76,7 @@ class ConfigurationPropertiesReportEndpointAutoConfigurationTests {
 			assertThat(context).hasSingleBean(ConfigurationPropertiesReportEndpoint.class);
 			ConfigurationPropertiesReportEndpoint endpoint = context
 					.getBean(ConfigurationPropertiesReportEndpoint.class);
-			ApplicationConfigurationProperties properties = endpoint.configurationProperties();
+			ApplicationConfigurationProperties properties = endpoint.sanitizer.configurationProperties(endpoint);
 			Map<String, Object> nestedProperties = properties.getContexts().get(context.getId()).getBeans()
 					.get("testProperties").getProperties();
 			assertThat(nestedProperties).isNotNull();

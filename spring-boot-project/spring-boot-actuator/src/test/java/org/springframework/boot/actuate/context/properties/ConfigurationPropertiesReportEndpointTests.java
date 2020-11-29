@@ -313,7 +313,7 @@ class ConfigurationPropertiesReportEndpointTests {
 		return (context) -> {
 			ConfigurationPropertiesReportEndpoint endpoint = context
 					.getBean(ConfigurationPropertiesReportEndpoint.class);
-			ContextConfigurationProperties allProperties = endpoint.configurationProperties().getContexts()
+			ContextConfigurationProperties allProperties = endpoint.sanitizer.configurationProperties(endpoint).getContexts()
 					.get(context.getId());
 			Optional<String> key = allProperties.getBeans().keySet().stream()
 					.filter((id) -> findIdFromPrefix(prefix, id)).findAny();

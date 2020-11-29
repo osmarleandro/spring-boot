@@ -23,6 +23,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
+import org.springframework.boot.actuate.context.properties.ConfigurationPropertiesReportEndpoint;
+import org.springframework.boot.actuate.context.properties.ConfigurationPropertiesReportEndpoint.ApplicationConfigurationProperties;
+import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
 import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
 
@@ -136,6 +139,11 @@ public class Sanitizer {
 			return StringUtils.replace(value, ":" + password + "@", ":******@");
 		}
 		return value;
+	}
+
+	@ReadOperation
+	public ApplicationConfigurationProperties configurationProperties(ConfigurationPropertiesReportEndpoint configurationPropertiesReportEndpoint) {
+		return configurationPropertiesReportEndpoint.extract(configurationPropertiesReportEndpoint.context);
 	}
 
 }
