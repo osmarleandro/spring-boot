@@ -23,7 +23,6 @@ import javax.management.MBeanOperationInfo;
 import javax.management.MBeanParameterInfo;
 import javax.management.modelmbean.ModelMBeanAttributeInfo;
 import javax.management.modelmbean.ModelMBeanConstructorInfo;
-import javax.management.modelmbean.ModelMBeanInfoSupport;
 import javax.management.modelmbean.ModelMBeanNotificationInfo;
 import javax.management.modelmbean.ModelMBeanOperationInfo;
 
@@ -37,11 +36,11 @@ import org.springframework.boot.actuate.endpoint.OperationType;
  */
 class MBeanInfoFactory {
 
-	private static final ModelMBeanAttributeInfo[] NO_ATTRIBUTES = new ModelMBeanAttributeInfo[0];
+	static final ModelMBeanAttributeInfo[] NO_ATTRIBUTES = new ModelMBeanAttributeInfo[0];
 
-	private static final ModelMBeanConstructorInfo[] NO_CONSTRUCTORS = new ModelMBeanConstructorInfo[0];
+	static final ModelMBeanConstructorInfo[] NO_CONSTRUCTORS = new ModelMBeanConstructorInfo[0];
 
-	private static final ModelMBeanNotificationInfo[] NO_NOTIFICATIONS = new ModelMBeanNotificationInfo[0];
+	static final ModelMBeanNotificationInfo[] NO_NOTIFICATIONS = new ModelMBeanNotificationInfo[0];
 
 	private final JmxOperationResponseMapper responseMapper;
 
@@ -49,19 +48,11 @@ class MBeanInfoFactory {
 		this.responseMapper = responseMapper;
 	}
 
-	MBeanInfo getMBeanInfo(ExposableJmxEndpoint endpoint) {
-		String className = EndpointMBean.class.getName();
-		String description = getDescription(endpoint);
-		ModelMBeanOperationInfo[] operations = getMBeanOperations(endpoint);
-		return new ModelMBeanInfoSupport(className, description, NO_ATTRIBUTES, NO_CONSTRUCTORS, operations,
-				NO_NOTIFICATIONS);
-	}
-
-	private String getDescription(ExposableJmxEndpoint endpoint) {
+	String getDescription(ExposableJmxEndpoint endpoint) {
 		return "MBean operations for endpoint " + endpoint.getEndpointId();
 	}
 
-	private ModelMBeanOperationInfo[] getMBeanOperations(ExposableJmxEndpoint endpoint) {
+	ModelMBeanOperationInfo[] getMBeanOperations(ExposableJmxEndpoint endpoint) {
 		return endpoint.getOperations().stream().map(this::getMBeanOperation).toArray(ModelMBeanOperationInfo[]::new);
 	}
 

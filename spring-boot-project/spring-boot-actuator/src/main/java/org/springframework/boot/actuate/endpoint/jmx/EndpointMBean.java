@@ -67,7 +67,7 @@ public class EndpointMBean implements DynamicMBean {
 		this.responseMapper = responseMapper;
 		this.classLoader = classLoader;
 		this.endpoint = endpoint;
-		this.info = new MBeanInfoFactory(responseMapper).getMBeanInfo(endpoint);
+		this.info = endpoint.getMBeanInfo(new MBeanInfoFactory(responseMapper));
 		this.operations = getOperations(endpoint);
 	}
 
