@@ -78,10 +78,6 @@ public final class HttpTrace {
 		this.startNanoTime = System.nanoTime();
 	}
 
-	public Instant getTimestamp() {
-		return this.timestamp;
-	}
-
 	void setPrincipal(java.security.Principal principal) {
 		if (principal != null) {
 			this.principal = new Principal(principal.getName());
@@ -254,6 +250,10 @@ public final class HttpTrace {
 
 		public String getName() {
 			return this.name;
+		}
+
+		public Instant getTimestamp(HttpTrace httpTrace) {
+			return httpTrace.timestamp;
 		}
 
 	}

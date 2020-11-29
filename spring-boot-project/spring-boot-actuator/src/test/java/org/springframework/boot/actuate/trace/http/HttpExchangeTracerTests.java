@@ -286,7 +286,7 @@ class HttpExchangeTracerTests {
 		assertThat(trace.getTimeTaken()).isNotNull();
 		assertThat(trace.getPrincipal()).isNull();
 		assertThat(trace.getSession()).isNull();
-		assertThat(trace.getTimestamp()).isNotNull();
+		assertThat(trace.getPrincipal().getTimestamp(this)).isNotNull();
 		assertThat(trace.getRequest().getMethod()).isEqualTo("GET");
 		assertThat(trace.getRequest().getRemoteAddress()).isNull();
 		assertThat(trace.getResponse().getStatus()).isEqualTo(204);
