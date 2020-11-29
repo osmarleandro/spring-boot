@@ -18,7 +18,11 @@ package org.springframework.boot.actuate.endpoint.http;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
+import org.springframework.boot.actuate.health.HealthComponent;
+import org.springframework.boot.actuate.health.HealthEndpointWebExtension;
+import org.springframework.boot.actuate.health.StatusAggregator;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.MimeTypeUtils;
 
@@ -85,6 +89,10 @@ public enum ApiVersion {
 		int existingOrdinal = (existing != null) ? existing.ordinal() : -1;
 		int candidateOrdinal = (candidate != null) ? candidate.ordinal() : -1;
 		return (candidateOrdinal > existingOrdinal) ? candidate : existing;
+	}
+
+	public HealthComponent aggregateContributions(HealthEndpointWebExtension healthEndpointWebExtension, Map<String, HealthComponent> contributions, StatusAggregator statusAggregator, boolean showComponents, Set<String> groupNames) {
+		return healthEndpointWebExtension.getCompositeHealth(this, contributions, statusAggregator, showComponents, groupNames);
 	}
 
 }

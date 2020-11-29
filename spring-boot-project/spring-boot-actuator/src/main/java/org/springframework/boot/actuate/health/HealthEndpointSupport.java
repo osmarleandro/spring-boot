@@ -33,7 +33,7 @@ import org.springframework.util.Assert;
  * @author Phillip Webb
  * @author Scott Frederick
  */
-abstract class HealthEndpointSupport<C, T> {
+public abstract class HealthEndpointSupport<C, T> {
 
 	static final Health DEFAULT_HEALTH = Health.up().build();
 
@@ -117,7 +117,7 @@ abstract class HealthEndpointSupport<C, T> {
 		if (contributions.isEmpty()) {
 			return null;
 		}
-		return aggregateContributions(apiVersion, contributions, group.getStatusAggregator(), showComponents,
+		return apiVersion.aggregateContributions(this, contributions, group.getStatusAggregator(), showComponents,
 				groupNames);
 	}
 
@@ -126,7 +126,7 @@ abstract class HealthEndpointSupport<C, T> {
 	protected abstract T aggregateContributions(ApiVersion apiVersion, Map<String, T> contributions,
 			StatusAggregator statusAggregator, boolean showComponents, Set<String> groupNames);
 
-	protected final CompositeHealth getCompositeHealth(ApiVersion apiVersion, Map<String, HealthComponent> components,
+	public final CompositeHealth getCompositeHealth(ApiVersion apiVersion, Map<String, HealthComponent> components,
 			StatusAggregator statusAggregator, boolean showComponents, Set<String> groupNames) {
 		Status status = statusAggregator
 				.getAggregateStatus(components.values().stream().map(this::getStatus).collect(Collectors.toSet()));
