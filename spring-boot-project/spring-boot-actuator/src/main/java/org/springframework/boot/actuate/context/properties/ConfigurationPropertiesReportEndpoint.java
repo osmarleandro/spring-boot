@@ -60,7 +60,6 @@ import org.springframework.boot.context.properties.ConfigurationPropertiesBean;
 import org.springframework.boot.context.properties.ConstructorBinding;
 import org.springframework.boot.context.properties.source.ConfigurationProperty;
 import org.springframework.boot.context.properties.source.ConfigurationPropertyName;
-import org.springframework.boot.origin.Origin;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.core.KotlinDetector;
@@ -92,7 +91,7 @@ public class ConfigurationPropertiesReportEndpoint implements ApplicationContext
 
 	private static final String CONFIGURATION_PROPERTIES_FILTER_ID = "configurationPropertiesFilter";
 
-	private final Sanitizer sanitizer = new Sanitizer();
+	public final Sanitizer sanitizer = new Sanitizer();
 
 	private ApplicationContext context;
 
@@ -288,20 +287,7 @@ public class ConfigurationPropertiesReportEndpoint implements ApplicationContext
 		if (candidate == null && currentName.isLastElementIndexed()) {
 			candidate = bound.get(currentName.chop(currentName.getNumberOfElements() - 1));
 		}
-		return (candidate != null) ? getInput(currentName.toString(), candidate) : Collections.emptyMap();
-	}
-
-	private Map<String, Object> getInput(String property, ConfigurationProperty candidate) {
-		Map<String, Object> input = new LinkedHashMap<>();
-		Object value = candidate.getValue();
-		Origin origin = Origin.from(candidate);
-		List<Origin> originParents = Origin.parentsFrom(candidate);
-		input.put("value", this.sanitizer.sanitize(property, value));
-		input.put("origin", (origin != null) ? origin.toString() : "none");
-		if (!originParents.isEmpty()) {
-			input.put("originParents", originParents.stream().map(Object::toString).toArray(String[]::new));
-		}
-		return input;
+		return (candidate != null) ? candidate.getInput(currentName.toString(), this) : Collections.emptyMap();
 	}
 
 	private String getQualifiedKey(String prefix, String key) {

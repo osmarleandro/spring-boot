@@ -16,6 +16,11 @@
 
 package org.springframework.boot.context.properties.source;
 
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.boot.actuate.context.properties.ConfigurationPropertiesReportEndpoint;
 import org.springframework.boot.origin.Origin;
 import org.springframework.boot.origin.OriginProvider;
 import org.springframework.boot.origin.OriginTrackedValue;
@@ -92,6 +97,19 @@ public final class ConfigurationProperty implements OriginProvider, Comparable<C
 	@Override
 	public int compareTo(ConfigurationProperty other) {
 		return this.name.compareTo(other.name);
+	}
+
+	public Map<String, Object> getInput(String property, ConfigurationPropertiesReportEndpoint configurationPropertiesReportEndpoint) {
+		Map<String, Object> input = new LinkedHashMap<>();
+		Object value = getValue();
+		Origin origin = Origin.from(this);
+		List<Origin> originParents = Origin.parentsFrom(this);
+		input.put("value", configurationPropertiesReportEndpoint.sanitizer.sanitize(property, value));
+		input.put("origin", (origin != null) ? origin.toString() : "none");
+		if (!originParents.isEmpty()) {
+			input.put("originParents", originParents.stream().map(Object::toString).toArray(String[]::new));
+		}
+		return input;
 	}
 
 	static ConfigurationProperty of(ConfigurationPropertyName name, OriginTrackedValue value) {
