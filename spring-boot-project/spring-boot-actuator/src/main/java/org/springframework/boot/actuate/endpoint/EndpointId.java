@@ -106,6 +106,10 @@ public final class EndpointId {
 		return this.value;
 	}
 
+	public boolean isEnableByDefault(AbstractExposableEndpoint abstractExposableEndpoint) {
+		return abstractExposableEndpoint.enabledByDefault;
+	}
+
 	/**
 	 * Factory method to create a new {@link EndpointId} of the specified value.
 	 * @param value the endpoint ID value
