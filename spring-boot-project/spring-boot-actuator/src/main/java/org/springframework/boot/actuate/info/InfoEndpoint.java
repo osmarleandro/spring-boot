@@ -19,6 +19,7 @@ package org.springframework.boot.actuate.info;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.boot.actuate.autoconfigure.cloudfoundry.servlet.CloudFoundryInfoEndpointWebExtension;
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
 import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
 import org.springframework.util.Assert;
@@ -53,6 +54,11 @@ public class InfoEndpoint {
 		}
 		Info build = builder.build();
 		return build.getDetails();
+	}
+
+	@ReadOperation
+	public Map<String, Object> info(CloudFoundryInfoEndpointWebExtension cloudFoundryInfoEndpointWebExtension) {
+		return info();
 	}
 
 }

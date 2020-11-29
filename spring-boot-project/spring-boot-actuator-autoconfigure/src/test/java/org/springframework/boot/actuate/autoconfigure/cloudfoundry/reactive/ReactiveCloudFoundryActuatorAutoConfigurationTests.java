@@ -250,7 +250,7 @@ class ReactiveCloudFoundryActuatorAutoConfigurationTests {
 		this.contextRunner.withPropertyValues("VCAP_APPLICATION:---").run((context) -> {
 			CloudFoundryInfoEndpointWebExtension extension = context
 					.getBean(CloudFoundryInfoEndpointWebExtension.class);
-			Map<String, Object> git = (Map<String, Object>) extension.info().get("git");
+			Map<String, Object> git = (Map<String, Object>) extension.delegate.info(extension).get("git");
 			Map<String, Object> commit = (Map<String, Object>) git.get("commit");
 			assertThat(commit).hasSize(4);
 		});
