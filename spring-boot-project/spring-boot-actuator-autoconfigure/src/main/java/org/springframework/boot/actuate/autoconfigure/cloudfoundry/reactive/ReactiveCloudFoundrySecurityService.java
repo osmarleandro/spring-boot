@@ -148,4 +148,8 @@ class ReactiveCloudFoundrySecurityService {
 		return this.uaaUrl;
 	}
 
+	void logError(Throwable ex) {
+		CloudFoundrySecurityInterceptor.logger.error(ex.getMessage(), ex);
+	}
+
 }

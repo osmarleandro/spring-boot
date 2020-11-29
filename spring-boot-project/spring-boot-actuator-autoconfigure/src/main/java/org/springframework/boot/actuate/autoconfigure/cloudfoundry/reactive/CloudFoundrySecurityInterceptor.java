@@ -39,7 +39,7 @@ import org.springframework.web.server.ServerWebExchange;
  */
 class CloudFoundrySecurityInterceptor {
 
-	private static final Log logger = LogFactory.getLog(CloudFoundrySecurityInterceptor.class);
+	static final Log logger = LogFactory.getLog(CloudFoundrySecurityInterceptor.class);
 
 	private final ReactiveTokenValidator tokenValidator;
 
@@ -70,10 +70,6 @@ class CloudFoundrySecurityInterceptor {
 					"Cloud controller URL is not available"));
 		}
 		return check(exchange, id).then(SUCCESS).doOnError(this::logError).onErrorResume(this::getErrorResponse);
-	}
-
-	private void logError(Throwable ex) {
-		logger.error(ex.getMessage(), ex);
 	}
 
 	private Mono<Void> check(ServerWebExchange exchange, String id) {
