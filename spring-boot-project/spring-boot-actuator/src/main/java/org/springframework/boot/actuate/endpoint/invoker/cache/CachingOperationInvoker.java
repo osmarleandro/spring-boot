@@ -45,9 +45,9 @@ public class CachingOperationInvoker implements OperationInvoker {
 
 	private static final boolean IS_REACTOR_PRESENT = ClassUtils.isPresent("reactor.core.publisher.Mono", null);
 
-	private final OperationInvoker invoker;
+	public final OperationInvoker invoker;
 
-	private final long timeToLive;
+	public final long timeToLive;
 
 	private final Map<CacheKey, CachedResponse> cachedResponses;
 
@@ -62,14 +62,6 @@ public class CachingOperationInvoker implements OperationInvoker {
 		this.invoker = invoker;
 		this.timeToLive = timeToLive;
 		this.cachedResponses = new ConcurrentHashMap<>();
-	}
-
-	/**
-	 * Return the maximum time in milliseconds that a response can be cached.
-	 * @return the time to live of a response
-	 */
-	public long getTimeToLive() {
-		return this.timeToLive;
 	}
 
 	@Override

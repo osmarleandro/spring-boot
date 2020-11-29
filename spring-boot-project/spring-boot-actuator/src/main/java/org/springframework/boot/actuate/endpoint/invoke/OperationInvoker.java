@@ -17,6 +17,7 @@
 package org.springframework.boot.actuate.endpoint.invoke;
 
 import org.springframework.boot.actuate.endpoint.InvocationContext;
+import org.springframework.boot.actuate.endpoint.invoker.cache.CachingOperationInvoker;
 
 /**
  * Interface to perform an operation invocation.
@@ -35,5 +36,14 @@ public interface OperationInvoker {
 	 * @throws MissingParametersException if parameters are missing
 	 */
 	Object invoke(InvocationContext context) throws MissingParametersException;
+
+	/**
+	 * Return the maximum time in milliseconds that a response can be cached.
+	 * @param cachingOperationInvoker TODO
+	 * @return the time to live of a response
+	 */
+	default long getTimeToLive(CachingOperationInvoker cachingOperationInvoker) {
+		return cachingOperationInvoker.timeToLive;
+	}
 
 }

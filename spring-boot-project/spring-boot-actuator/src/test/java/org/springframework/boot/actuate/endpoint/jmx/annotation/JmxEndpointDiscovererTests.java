@@ -144,7 +144,7 @@ class JmxEndpointDiscovererTests {
 			assertThat(operationByName).containsOnlyKeys("getAll", "getSomething", "update", "deleteSomething");
 			JmxOperation getAll = operationByName.get("getAll");
 			assertThat(getInvoker(getAll)).isInstanceOf(CachingOperationInvoker.class);
-			assertThat(((CachingOperationInvoker) getInvoker(getAll)).getTimeToLive()).isEqualTo(500);
+			assertThat(((CachingOperationInvoker) getInvoker(getAll)).invoker.getTimeToLive(((CachingOperationInvoker) getInvoker(getAll)))).isEqualTo(500);
 		});
 	}
 
@@ -159,10 +159,10 @@ class JmxEndpointDiscovererTests {
 					"getAnother");
 			JmxOperation getAll = operationByName.get("getAll");
 			assertThat(getInvoker(getAll)).isInstanceOf(CachingOperationInvoker.class);
-			assertThat(((CachingOperationInvoker) getInvoker(getAll)).getTimeToLive()).isEqualTo(500);
+			assertThat(((CachingOperationInvoker) getInvoker(getAll)).invoker.getTimeToLive(((CachingOperationInvoker) getInvoker(getAll)))).isEqualTo(500);
 			JmxOperation getAnother = operationByName.get("getAnother");
 			assertThat(getInvoker(getAnother)).isInstanceOf(CachingOperationInvoker.class);
-			assertThat(((CachingOperationInvoker) getInvoker(getAnother)).getTimeToLive()).isEqualTo(500);
+			assertThat(((CachingOperationInvoker) getInvoker(getAnother)).invoker.getTimeToLive(((CachingOperationInvoker) getInvoker(getAnother)))).isEqualTo(500);
 		});
 	}
 
