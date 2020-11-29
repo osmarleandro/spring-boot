@@ -49,9 +49,9 @@ import org.springframework.web.servlet.mvc.method.RequestMappingInfoHandlerMappi
  * @author Phillip Webb
  * @author Brian Clozel
  */
-class CloudFoundryWebEndpointServletHandlerMapping extends AbstractWebMvcEndpointHandlerMapping {
+public class CloudFoundryWebEndpointServletHandlerMapping extends AbstractWebMvcEndpointHandlerMapping {
 
-	private final CloudFoundrySecurityInterceptor securityInterceptor;
+	public final CloudFoundrySecurityInterceptor securityInterceptor;
 
 	private final EndpointLinksResolver linksResolver;
 
@@ -67,8 +67,8 @@ class CloudFoundryWebEndpointServletHandlerMapping extends AbstractWebMvcEndpoin
 	@Override
 	protected ServletWebOperation wrapServletWebOperation(ExposableWebEndpoint endpoint, WebOperation operation,
 			ServletWebOperation servletWebOperation) {
-		return new SecureServletWebOperation(servletWebOperation, this.securityInterceptor, endpoint.getEndpointId());
-	}
+				return endpoint.wrapServletWebOperation(this, operation, servletWebOperation);
+			}
 
 	@Override
 	protected LinksHandler getLinksHandler() {
@@ -117,7 +117,7 @@ class CloudFoundryWebEndpointServletHandlerMapping extends AbstractWebMvcEndpoin
 	/**
 	 * {@link ServletWebOperation} wrapper to add security.
 	 */
-	private static class SecureServletWebOperation implements ServletWebOperation {
+	public static class SecureServletWebOperation implements ServletWebOperation {
 
 		private final ServletWebOperation delegate;
 

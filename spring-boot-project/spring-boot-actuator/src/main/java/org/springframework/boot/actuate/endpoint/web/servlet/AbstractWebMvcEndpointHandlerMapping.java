@@ -259,7 +259,7 @@ public abstract class AbstractWebMvcEndpointHandlerMapping extends RequestMappin
 	 * A servlet web operation that can be handled by Spring MVC.
 	 */
 	@FunctionalInterface
-	protected interface ServletWebOperation {
+	public interface ServletWebOperation {
 
 		Object handle(HttpServletRequest request, Map<String, String> body);
 

@@ -16,7 +16,10 @@
 
 package org.springframework.boot.actuate.endpoint.web;
 
+import org.springframework.boot.actuate.autoconfigure.cloudfoundry.servlet.CloudFoundryWebEndpointServletHandlerMapping;
+import org.springframework.boot.actuate.autoconfigure.cloudfoundry.servlet.CloudFoundryWebEndpointServletHandlerMapping.SecureServletWebOperation;
 import org.springframework.boot.actuate.endpoint.ExposableEndpoint;
+import org.springframework.boot.actuate.endpoint.web.servlet.AbstractWebMvcEndpointHandlerMapping.ServletWebOperation;
 
 /**
  * Information describing an endpoint that can be exposed over the web.
@@ -25,5 +28,9 @@ import org.springframework.boot.actuate.endpoint.ExposableEndpoint;
  * @since 2.0.0
  */
 public interface ExposableWebEndpoint extends ExposableEndpoint<WebOperation>, PathMappedEndpoint {
+
+	public default ServletWebOperation wrapServletWebOperation(CloudFoundryWebEndpointServletHandlerMapping cloudFoundryWebEndpointServletHandlerMapping, WebOperation operation, ServletWebOperation servletWebOperation) {
+		return new SecureServletWebOperation(servletWebOperation, cloudFoundryWebEndpointServletHandlerMapping.securityInterceptor, getEndpointId());
+	}
 
 }
