@@ -16,6 +16,9 @@
 
 package org.springframework.boot.actuate.health;
 
+import reactor.core.publisher.Mono;
+import reactor.core.scheduler.Schedulers;
+
 /**
  * Strategy interface used to contribute {@link Health} to the results returned from the
  * {@link HealthEndpoint}.
@@ -43,5 +46,9 @@ public interface HealthIndicator extends HealthContributor {
 	 * @return the health
 	 */
 	Health health();
+
+	default Mono<Health> health(HealthIndicatorReactiveAdapter healthIndicatorReactiveAdapter) {
+		return Mono.fromCallable(this::health).subscribeOn(Schedulers.boundedElastic());
+	}
 
 }
