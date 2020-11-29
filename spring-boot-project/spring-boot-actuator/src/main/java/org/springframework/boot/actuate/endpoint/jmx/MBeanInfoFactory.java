@@ -19,15 +19,12 @@ package org.springframework.boot.actuate.endpoint.jmx;
 import java.util.List;
 
 import javax.management.MBeanInfo;
-import javax.management.MBeanOperationInfo;
 import javax.management.MBeanParameterInfo;
 import javax.management.modelmbean.ModelMBeanAttributeInfo;
 import javax.management.modelmbean.ModelMBeanConstructorInfo;
 import javax.management.modelmbean.ModelMBeanInfoSupport;
 import javax.management.modelmbean.ModelMBeanNotificationInfo;
 import javax.management.modelmbean.ModelMBeanOperationInfo;
-
-import org.springframework.boot.actuate.endpoint.OperationType;
 
 /**
  * Factory to create {@link MBeanInfo} from an {@link ExposableJmxEndpoint}.
@@ -70,7 +67,7 @@ class MBeanInfoFactory {
 		String description = operation.getDescription();
 		MBeanParameterInfo[] signature = getSignature(operation.getParameters());
 		String type = getType(operation.getOutputType());
-		int impact = getImpact(operation.getType());
+		int impact = operation.getType().getImpact();
 		return new ModelMBeanOperationInfo(name, description, signature, type, impact);
 	}
 
@@ -80,16 +77,6 @@ class MBeanInfoFactory {
 
 	private MBeanParameterInfo getMBeanParameter(JmxOperationParameter parameter) {
 		return new MBeanParameterInfo(parameter.getName(), parameter.getType().getName(), parameter.getDescription());
-	}
-
-	private int getImpact(OperationType operationType) {
-		if (operationType == OperationType.READ) {
-			return MBeanOperationInfo.INFO;
-		}
-		if (operationType == OperationType.WRITE || operationType == OperationType.DELETE) {
-			return MBeanOperationInfo.ACTION;
-		}
-		return MBeanOperationInfo.UNKNOWN;
 	}
 
 	private String getType(Class<?> outputType) {

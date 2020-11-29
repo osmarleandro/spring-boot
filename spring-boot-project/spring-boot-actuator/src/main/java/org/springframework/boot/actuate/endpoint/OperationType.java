@@ -16,6 +16,8 @@
 
 package org.springframework.boot.actuate.endpoint;
 
+import javax.management.MBeanOperationInfo;
+
 /**
  * An enumeration of the different types of operation supported by an endpoint.
  *
@@ -38,6 +40,16 @@ public enum OperationType {
 	/**
 	 * A delete operation.
 	 */
-	DELETE
+	DELETE;
+
+	public int getImpact() {
+		if (this == OperationType.READ) {
+			return MBeanOperationInfo.INFO;
+		}
+		if (this == OperationType.WRITE || this == OperationType.DELETE) {
+			return MBeanOperationInfo.ACTION;
+		}
+		return MBeanOperationInfo.UNKNOWN;
+	}
 
 }
