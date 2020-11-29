@@ -32,9 +32,9 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Brian Clozel
  */
-class AvailabilityProbesAutoConfigurationTests {
+public class AvailabilityProbesAutoConfigurationTests {
 
-	private ApplicationContextRunner contextRunner = new ApplicationContextRunner()
+	public ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(ApplicationAvailabilityAutoConfiguration.class,
 					AvailabilityHealthContributorAutoConfiguration.class, AvailabilityProbesAutoConfiguration.class));
 
@@ -49,15 +49,6 @@ class AvailabilityProbesAutoConfigurationTests {
 	@Test
 	void probesWhenKubernetesAddsBeans() {
 		this.contextRunner.withPropertyValues("spring.main.cloud-platform=kubernetes")
-				.run((context) -> assertThat(context).hasSingleBean(ApplicationAvailability.class)
-						.hasSingleBean(LivenessStateHealthIndicator.class).hasBean("livenessStateHealthIndicator")
-						.hasSingleBean(ReadinessStateHealthIndicator.class).hasBean("readinessStateHealthIndicator")
-						.hasSingleBean(AvailabilityProbesHealthEndpointGroupsPostProcessor.class));
-	}
-
-	@Test
-	void probesWhenPropertyEnabledAddsBeans() {
-		this.contextRunner.withPropertyValues("management.endpoint.health.probes.enabled=true")
 				.run((context) -> assertThat(context).hasSingleBean(ApplicationAvailability.class)
 						.hasSingleBean(LivenessStateHealthIndicator.class).hasBean("livenessStateHealthIndicator")
 						.hasSingleBean(ReadinessStateHealthIndicator.class).hasBean("readinessStateHealthIndicator")
