@@ -35,7 +35,7 @@ public class InvocationContext {
 
 	private final Map<String, Object> arguments;
 
-	private final ApiVersion apiVersion;
+	final ApiVersion apiVersion;
 
 	/**
 	 * Creates a new context for an operation being invoked by the given
@@ -61,15 +61,6 @@ public class InvocationContext {
 		this.apiVersion = (apiVersion != null) ? apiVersion : ApiVersion.LATEST;
 		this.securityContext = securityContext;
 		this.arguments = arguments;
-	}
-
-	/**
-	 * Return the API version in use.
-	 * @return the apiVersion the API version
-	 * @since 2.2.0
-	 */
-	public ApiVersion getApiVersion() {
-		return this.apiVersion;
 	}
 
 	/**

@@ -108,7 +108,7 @@ public class ReflectiveOperationInvoker implements OperationInvoker {
 
 	private Object resolveArgument(OperationParameter parameter, InvocationContext context) {
 		if (ApiVersion.class.equals(parameter.getType())) {
-			return context.getApiVersion();
+			return context.getSecurityContext().getApiVersion(this);
 		}
 		if (Principal.class.equals(parameter.getType())) {
 			return context.getSecurityContext().getPrincipal();

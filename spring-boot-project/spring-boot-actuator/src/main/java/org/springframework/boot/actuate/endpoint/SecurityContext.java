@@ -18,6 +18,8 @@ package org.springframework.boot.actuate.endpoint;
 
 import java.security.Principal;
 
+import org.springframework.boot.actuate.endpoint.http.ApiVersion;
+
 /**
  * Security context in which an endpoint is being invoked.
  *
@@ -56,5 +58,15 @@ public interface SecurityContext {
 	 * @return {@code true} if the user is in the given role
 	 */
 	boolean isUserInRole(String role);
+
+	/**
+	 * Return the API version in use.
+	 * @return the apiVersion the API version
+	 * @param invocationContext TODO
+	 * @since 2.2.0
+	 */
+	default ApiVersion getApiVersion(InvocationContext invocationContext) {
+		return invocationContext.apiVersion;
+	}
 
 }

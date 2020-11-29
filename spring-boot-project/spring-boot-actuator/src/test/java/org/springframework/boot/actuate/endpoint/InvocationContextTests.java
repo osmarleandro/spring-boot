@@ -41,7 +41,7 @@ class InvocationContextTests {
 	@Test
 	void createWhenApiVersionIsNullUsesLatestVersion() {
 		InvocationContext context = new InvocationContext(null, this.securityContext, this.arguments);
-		assertThat(context.getApiVersion()).isEqualTo(ApiVersion.LATEST);
+		assertThat(context.getSecurityContext().getApiVersion(this)).isEqualTo(ApiVersion.LATEST);
 	}
 
 	@Test
@@ -59,7 +59,7 @@ class InvocationContextTests {
 	@Test
 	void getApiVersionReturnsApiVersion() {
 		InvocationContext context = new InvocationContext(ApiVersion.V2, this.securityContext, this.arguments);
-		assertThat(context.getApiVersion()).isEqualTo(ApiVersion.V2);
+		assertThat(context.getSecurityContext().getApiVersion(this)).isEqualTo(ApiVersion.V2);
 	}
 
 	@Test
