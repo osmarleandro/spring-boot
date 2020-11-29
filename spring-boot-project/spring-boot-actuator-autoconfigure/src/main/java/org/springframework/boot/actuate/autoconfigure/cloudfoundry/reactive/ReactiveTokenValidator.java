@@ -26,7 +26,6 @@ import java.security.spec.X509EncodedKeySpec;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
-import java.util.concurrent.TimeUnit;
 
 import reactor.core.publisher.Mono;
 
@@ -51,7 +50,7 @@ class ReactiveTokenValidator {
 	}
 
 	Mono<Void> validate(Token token) {
-		return validateAlgorithm(token).then(validateKeyIdAndSignature(token)).then(validateExpiry(token))
+		return validateAlgorithm(token).then(validateKeyIdAndSignature(token)).then(token.validateExpiry())
 				.then(validateIssuer(token)).then(validateAudience(token));
 	}
 
@@ -111,14 +110,6 @@ class ReactiveTokenValidator {
 		byte[] bytes = Base64Utils.decodeFromString(key);
 		X509EncodedKeySpec keySpec = new X509EncodedKeySpec(bytes);
 		return KeyFactory.getInstance("RSA").generatePublic(keySpec);
-	}
-
-	private Mono<Void> validateExpiry(Token token) {
-		long currentTime = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());
-		if (currentTime > token.getExpiry()) {
-			return Mono.error(new CloudFoundryAuthorizationException(Reason.TOKEN_EXPIRED, "Token expired"));
-		}
-		return Mono.empty();
 	}
 
 	private Mono<Void> validateIssuer(Token token) {

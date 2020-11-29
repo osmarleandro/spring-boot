@@ -19,11 +19,14 @@ package org.springframework.boot.actuate.autoconfigure.cloudfoundry;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.CloudFoundryAuthorizationException.Reason;
 import org.springframework.boot.json.JsonParserFactory;
 import org.springframework.util.Base64Utils;
 import org.springframework.util.StringUtils;
+
+import reactor.core.publisher.Mono;
 
 /**
  * The JSON web token provided with each request that originates from Cloud Foundry.
@@ -113,6 +116,14 @@ public class Token {
 	@Override
 	public String toString() {
 		return this.encoded;
+	}
+
+	public Mono<Void> validateExpiry() {
+		long currentTime = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());
+		if (currentTime > getExpiry()) {
+			return Mono.error(new CloudFoundryAuthorizationException(Reason.TOKEN_EXPIRED, "Token expired"));
+		}
+		return Mono.empty();
 	}
 
 }
