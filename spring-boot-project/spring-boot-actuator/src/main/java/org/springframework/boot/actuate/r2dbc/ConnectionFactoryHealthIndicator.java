@@ -21,7 +21,6 @@ import io.r2dbc.spi.ConnectionFactory;
 import io.r2dbc.spi.Row;
 import io.r2dbc.spi.RowMetadata;
 import io.r2dbc.spi.ValidationDepth;
-import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import org.springframework.boot.actuate.health.AbstractReactiveHealthIndicator;
@@ -41,9 +40,9 @@ import org.springframework.util.StringUtils;
  */
 public class ConnectionFactoryHealthIndicator extends AbstractReactiveHealthIndicator {
 
-	private final ConnectionFactory connectionFactory;
+	public final ConnectionFactory connectionFactory;
 
-	private final String validationQuery;
+	public final String validationQuery;
 
 	/**
 	 * Create a new {@link ConnectionFactoryHealthIndicator} using the specified
@@ -76,17 +75,8 @@ public class ConnectionFactoryHealthIndicator extends AbstractReactiveHealthIndi
 
 	private Mono<Health> validate(Builder builder) {
 		builder.withDetail("database", this.connectionFactory.getMetadata().getName());
-		return (StringUtils.hasText(this.validationQuery)) ? validateWithQuery(builder)
+		return (StringUtils.hasText(this.validationQuery)) ? builder.validateWithQuery(this)
 				: validateWithConnectionValidation(builder);
-	}
-
-	private Mono<Health> validateWithQuery(Builder builder) {
-		builder.withDetail("validationQuery", this.validationQuery);
-		Mono<Object> connectionValidation = Mono.usingWhen(this.connectionFactory.create(),
-				(conn) -> Flux.from(conn.createStatement(this.validationQuery).execute())
-						.flatMap((it) -> it.map(this::extractResult)).next(),
-				Connection::close, (o, throwable) -> o.close(), Connection::close);
-		return connectionValidation.map((result) -> builder.up().withDetail("result", result).build());
 	}
 
 	private Mono<Health> validateWithConnectionValidation(Builder builder) {
