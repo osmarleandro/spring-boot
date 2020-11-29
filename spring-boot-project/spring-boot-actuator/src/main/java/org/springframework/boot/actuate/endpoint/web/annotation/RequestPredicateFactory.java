@@ -26,7 +26,6 @@ import java.util.stream.Stream;
 import org.springframework.boot.actuate.endpoint.OperationType;
 import org.springframework.boot.actuate.endpoint.annotation.DiscoveredOperationMethod;
 import org.springframework.boot.actuate.endpoint.annotation.Selector;
-import org.springframework.boot.actuate.endpoint.annotation.Selector.Match;
 import org.springframework.boot.actuate.endpoint.web.EndpointMediaTypes;
 import org.springframework.boot.actuate.endpoint.web.WebEndpointHttpMethod;
 import org.springframework.boot.actuate.endpoint.web.WebEndpointResponse;
@@ -55,29 +54,12 @@ class RequestPredicateFactory {
 		Method method = operationMethod.getMethod();
 		Parameter[] selectorParameters = Arrays.stream(method.getParameters()).filter(this::hasSelector)
 				.toArray(Parameter[]::new);
-		Parameter allRemainingPathSegmentsParameter = getAllRemainingPathSegmentsParameter(selectorParameters);
+		Parameter allRemainingPathSegmentsParameter = endpointMediaTypes.getAllRemainingPathSegmentsParameter(selectorParameters);
 		String path = getPath(rootPath, selectorParameters, allRemainingPathSegmentsParameter != null);
 		WebEndpointHttpMethod httpMethod = determineHttpMethod(operationMethod.getOperationType());
 		Collection<String> consumes = getConsumes(httpMethod, method);
 		Collection<String> produces = getProduces(operationMethod, method);
 		return new WebOperationRequestPredicate(path, httpMethod, consumes, produces);
-	}
-
-	private Parameter getAllRemainingPathSegmentsParameter(Parameter[] selectorParameters) {
-		Parameter trailingPathsParameter = null;
-		for (Parameter selectorParameter : selectorParameters) {
-			Selector selector = selectorParameter.getAnnotation(Selector.class);
-			if (selector.match() == Match.ALL_REMAINING) {
-				Assert.state(trailingPathsParameter == null,
-						"@Selector annotation with Match.ALL_REMAINING must be unique");
-				trailingPathsParameter = selectorParameter;
-			}
-		}
-		if (trailingPathsParameter != null) {
-			Assert.state(trailingPathsParameter == selectorParameters[selectorParameters.length - 1],
-					"@Selector annotation with Match.ALL_REMAINING must be the last parameter");
-		}
-		return trailingPathsParameter;
 	}
 
 	private String getPath(String rootPath, Parameter[] selectorParameters, boolean matchRemainingPathSegments) {

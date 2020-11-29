@@ -16,10 +16,13 @@
 
 package org.springframework.boot.actuate.endpoint.web;
 
+import java.lang.reflect.Parameter;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+import org.springframework.boot.actuate.endpoint.annotation.Selector;
+import org.springframework.boot.actuate.endpoint.annotation.Selector.Match;
 import org.springframework.boot.actuate.endpoint.http.ActuatorMediaType;
 import org.springframework.util.Assert;
 
@@ -93,6 +96,23 @@ public class EndpointMediaTypes {
 	 */
 	public List<String> getConsumed() {
 		return this.consumed;
+	}
+
+	public Parameter getAllRemainingPathSegmentsParameter(Parameter[] selectorParameters) {
+		Parameter trailingPathsParameter = null;
+		for (Parameter selectorParameter : selectorParameters) {
+			Selector selector = selectorParameter.getAnnotation(Selector.class);
+			if (selector.match() == Match.ALL_REMAINING) {
+				Assert.state(trailingPathsParameter == null,
+						"@Selector annotation with Match.ALL_REMAINING must be unique");
+				trailingPathsParameter = selectorParameter;
+			}
+		}
+		if (trailingPathsParameter != null) {
+			Assert.state(trailingPathsParameter == selectorParameters[selectorParameters.length - 1],
+					"@Selector annotation with Match.ALL_REMAINING must be the last parameter");
+		}
+		return trailingPathsParameter;
 	}
 
 }
