@@ -28,4 +28,8 @@ package org.springframework.boot.actuate.health;
  */
 public interface HealthContributor {
 
+	default HealthComponent getHealth(boolean includeDetails) {
+		return ((HealthIndicator) this).getHealth(includeDetails);
+	}
+
 }
