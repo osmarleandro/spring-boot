@@ -129,6 +129,10 @@ public final class Info {
 			return new Info(this);
 		}
 
+		public void contribute(BuildInfoContributor buildInfoContributor) {
+			withDetail("build", buildInfoContributor.generateContent());
+		}
+
 	}
 
 }
