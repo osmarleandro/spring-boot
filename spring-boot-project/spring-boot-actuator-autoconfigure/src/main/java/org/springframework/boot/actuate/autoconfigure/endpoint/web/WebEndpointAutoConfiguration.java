@@ -23,7 +23,6 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.boot.actuate.autoconfigure.endpoint.EndpointAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.endpoint.expose.IncludeExcludeEndpointFilter;
-import org.springframework.boot.actuate.autoconfigure.endpoint.expose.IncludeExcludeEndpointFilter.DefaultIncludes;
 import org.springframework.boot.actuate.endpoint.EndpointFilter;
 import org.springframework.boot.actuate.endpoint.EndpointsSupplier;
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
@@ -67,7 +66,7 @@ public class WebEndpointAutoConfiguration {
 
 	private final ApplicationContext applicationContext;
 
-	private final WebEndpointProperties properties;
+	final WebEndpointProperties properties;
 
 	public WebEndpointAutoConfiguration(ApplicationContext applicationContext, WebEndpointProperties properties) {
 		this.applicationContext = applicationContext;
@@ -110,13 +109,6 @@ public class WebEndpointAutoConfiguration {
 	@ConditionalOnMissingBean
 	public PathMappedEndpoints pathMappedEndpoints(Collection<EndpointsSupplier<?>> endpointSuppliers) {
 		return new PathMappedEndpoints(this.properties.getBasePath(), endpointSuppliers);
-	}
-
-	@Bean
-	public IncludeExcludeEndpointFilter<ExposableWebEndpoint> webExposeExcludePropertyEndpointFilter() {
-		WebEndpointProperties.Exposure exposure = this.properties.getExposure();
-		return new IncludeExcludeEndpointFilter<>(ExposableWebEndpoint.class, exposure.getInclude(),
-				exposure.getExclude(), DefaultIncludes.WEB);
 	}
 
 	@Bean
