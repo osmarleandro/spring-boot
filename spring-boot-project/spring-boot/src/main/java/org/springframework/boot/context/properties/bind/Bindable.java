@@ -18,12 +18,16 @@ package org.springframework.boot.context.properties.bind;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Array;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.function.Supplier;
 
+import org.springframework.boot.actuate.info.InfoPropertiesInfoContributor;
+import org.springframework.boot.context.properties.source.ConfigurationPropertySources;
 import org.springframework.core.ResolvableType;
+import org.springframework.core.env.PropertySource;
 import org.springframework.core.style.ToStringCreator;
 import org.springframework.util.Assert;
 import org.springframework.util.ObjectUtils;
@@ -172,6 +176,16 @@ public final class Bindable<T> {
 	 */
 	public Bindable<T> withSuppliedValue(Supplier<T> suppliedValue) {
 		return new Bindable<>(this.type, this.boxedType, suppliedValue, this.annotations);
+	}
+
+	/**
+	 * Extract the raw content based on the specified {@link PropertySource}.
+	 * @param propertySource the property source to use
+	 * @return the raw content
+	 */
+	public Map<String, Object> extractContent(PropertySource<?> propertySource) {
+		return new Binder(ConfigurationPropertySources.from(propertySource)).bind("", InfoPropertiesInfoContributor.STRING_OBJECT_MAP)
+				.orElseGet(LinkedHashMap::new);
 	}
 
 	/**

@@ -17,13 +17,10 @@
 package org.springframework.boot.actuate.info;
 
 import java.util.Collections;
-import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Properties;
 
 import org.springframework.boot.context.properties.bind.Bindable;
-import org.springframework.boot.context.properties.bind.Binder;
-import org.springframework.boot.context.properties.source.ConfigurationPropertySources;
 import org.springframework.boot.info.InfoProperties;
 import org.springframework.core.env.PropertySource;
 import org.springframework.util.StringUtils;
@@ -38,7 +35,7 @@ import org.springframework.util.StringUtils;
  */
 public abstract class InfoPropertiesInfoContributor<T extends InfoProperties> implements InfoContributor {
 
-	private static final Bindable<Map<String, Object>> STRING_OBJECT_MAP = Bindable.mapOf(String.class, Object.class);
+	public static final Bindable<Map<String, Object>> STRING_OBJECT_MAP = Bindable.mapOf(String.class, Object.class);
 
 	private final T properties;
 
@@ -75,23 +72,13 @@ public abstract class InfoPropertiesInfoContributor<T extends InfoProperties> im
 	/**
 	 * Extract the content to contribute to the info endpoint.
 	 * @return the content to expose
-	 * @see #extractContent(PropertySource)
+	 * @see #MISSING()
 	 * @see #postProcessContent(Map)
 	 */
 	protected Map<String, Object> generateContent() {
-		Map<String, Object> content = extractContent(toPropertySource());
+		Map<String, Object> content = STRING_OBJECT_MAP.extractContent(toPropertySource());
 		postProcessContent(content);
 		return content;
-	}
-
-	/**
-	 * Extract the raw content based on the specified {@link PropertySource}.
-	 * @param propertySource the property source to use
-	 * @return the raw content
-	 */
-	protected Map<String, Object> extractContent(PropertySource<?> propertySource) {
-		return new Binder(ConfigurationPropertySources.from(propertySource)).bind("", STRING_OBJECT_MAP)
-				.orElseGet(LinkedHashMap::new);
 	}
 
 	/**
