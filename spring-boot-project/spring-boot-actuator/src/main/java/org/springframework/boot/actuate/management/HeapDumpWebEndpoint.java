@@ -100,16 +100,9 @@ public class HeapDumpWebEndpoint {
 		if (this.heapDumper == null) {
 			this.heapDumper = createHeapDumper();
 		}
-		File file = createTempFile(live);
+		File file = heapDumper.createTempFile(live);
 		this.heapDumper.dumpHeap(file, live);
 		return new TemporaryFileSystemResource(file);
-	}
-
-	private File createTempFile(boolean live) throws IOException {
-		String date = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm").format(LocalDateTime.now());
-		File file = File.createTempFile("heapdump" + date + (live ? "-live" : ""), ".hprof");
-		file.delete();
-		return file;
 	}
 
 	/**
@@ -136,6 +129,13 @@ public class HeapDumpWebEndpoint {
 		 * @throws InterruptedException on thread interruption
 		 */
 		void dumpHeap(File file, boolean live) throws IOException, InterruptedException;
+
+		default File createTempFile(boolean live) throws IOException {
+			String date = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm").format(LocalDateTime.now());
+			File file = File.createTempFile("heapdump" + date + (live ? "-live" : ""), ".hprof");
+			file.delete();
+			return file;
+		}
 
 	}
 
