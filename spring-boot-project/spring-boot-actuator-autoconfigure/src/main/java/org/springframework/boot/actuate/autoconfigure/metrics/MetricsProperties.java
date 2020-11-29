@@ -19,9 +19,14 @@ package org.springframework.boot.actuate.autoconfigure.metrics;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import org.springframework.boot.actuate.autoconfigure.metrics.MetricsProperties.Distribution;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.DeprecatedConfigurationProperty;
 import org.springframework.boot.context.properties.NestedConfigurationProperty;
+
+import io.micrometer.core.instrument.Meter;
+import io.micrometer.core.instrument.Meter.Id;
+import io.micrometer.core.instrument.distribution.DistributionStatisticConfig;
 
 /**
  * {@link ConfigurationProperties @ConfigurationProperties} for configuring
@@ -79,6 +84,20 @@ public class MetricsProperties {
 
 	public Distribution getDistribution() {
 		return this.distribution;
+	}
+
+	public DistributionStatisticConfig configure(PropertiesMeterFilter propertiesMeterFilter, Id id, DistributionStatisticConfig config) {
+		Distribution distribution = getDistribution();
+		return DistributionStatisticConfig.builder()
+				.percentilesHistogram(propertiesMeterFilter.lookupWithFallbackToAll(distribution.getPercentilesHistogram(), id, null))
+				.percentiles(propertiesMeterFilter.lookupWithFallbackToAll(distribution.getPercentiles(), id, null))
+				.serviceLevelObjectives(
+						propertiesMeterFilter.convertServiceLevelObjectives(id.getType(), propertiesMeterFilter.lookup(distribution.getSlo(), id, null)))
+				.minimumExpectedValue(
+						propertiesMeterFilter.convertMeterValue(id.getType(), propertiesMeterFilter.lookup(distribution.getMinimumExpectedValue(), id, null)))
+				.maximumExpectedValue(
+						propertiesMeterFilter.convertMeterValue(id.getType(), propertiesMeterFilter.lookup(distribution.getMaximumExpectedValue(), id, null)))
+				.build().merge(config);
 	}
 
 	public static class Web {

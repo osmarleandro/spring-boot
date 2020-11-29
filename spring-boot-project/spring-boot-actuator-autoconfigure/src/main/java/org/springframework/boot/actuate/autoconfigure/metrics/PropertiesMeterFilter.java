@@ -30,7 +30,6 @@ import io.micrometer.core.instrument.config.MeterFilter;
 import io.micrometer.core.instrument.config.MeterFilterReply;
 import io.micrometer.core.instrument.distribution.DistributionStatisticConfig;
 
-import org.springframework.boot.actuate.autoconfigure.metrics.MetricsProperties.Distribution;
 import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
 
@@ -46,7 +45,7 @@ import org.springframework.util.StringUtils;
  */
 public class PropertiesMeterFilter implements MeterFilter {
 
-	private final MetricsProperties properties;
+	final MetricsProperties properties;
 
 	private final MeterFilter mapFilter;
 
@@ -79,20 +78,10 @@ public class PropertiesMeterFilter implements MeterFilter {
 
 	@Override
 	public DistributionStatisticConfig configure(Meter.Id id, DistributionStatisticConfig config) {
-		Distribution distribution = this.properties.getDistribution();
-		return DistributionStatisticConfig.builder()
-				.percentilesHistogram(lookupWithFallbackToAll(distribution.getPercentilesHistogram(), id, null))
-				.percentiles(lookupWithFallbackToAll(distribution.getPercentiles(), id, null))
-				.serviceLevelObjectives(
-						convertServiceLevelObjectives(id.getType(), lookup(distribution.getSlo(), id, null)))
-				.minimumExpectedValue(
-						convertMeterValue(id.getType(), lookup(distribution.getMinimumExpectedValue(), id, null)))
-				.maximumExpectedValue(
-						convertMeterValue(id.getType(), lookup(distribution.getMaximumExpectedValue(), id, null)))
-				.build().merge(config);
+		return properties.configure(this, id, config);
 	}
 
-	private double[] convertServiceLevelObjectives(Meter.Type meterType, ServiceLevelObjectiveBoundary[] slo) {
+	double[] convertServiceLevelObjectives(Meter.Type meterType, ServiceLevelObjectiveBoundary[] slo) {
 		if (slo == null) {
 			return null;
 		}
@@ -101,18 +90,18 @@ public class PropertiesMeterFilter implements MeterFilter {
 		return (converted.length != 0) ? converted : null;
 	}
 
-	private Double convertMeterValue(Meter.Type meterType, String value) {
+	Double convertMeterValue(Meter.Type meterType, String value) {
 		return (value != null) ? MeterValue.valueOf(value).getValue(meterType) : null;
 	}
 
-	private <T> T lookup(Map<String, T> values, Id id, T defaultValue) {
+	<T> T lookup(Map<String, T> values, Id id, T defaultValue) {
 		if (values.isEmpty()) {
 			return defaultValue;
 		}
 		return doLookup(values, id, () -> defaultValue);
 	}
 
-	private <T> T lookupWithFallbackToAll(Map<String, T> values, Id id, T defaultValue) {
+	<T> T lookupWithFallbackToAll(Map<String, T> values, Id id, T defaultValue) {
 		if (values.isEmpty()) {
 			return defaultValue;
 		}
