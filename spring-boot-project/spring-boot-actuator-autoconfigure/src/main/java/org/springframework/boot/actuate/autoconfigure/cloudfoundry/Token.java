@@ -21,9 +21,12 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.CloudFoundryAuthorizationException.Reason;
+import org.springframework.boot.actuate.autoconfigure.cloudfoundry.reactive.ReactiveTokenValidator;
 import org.springframework.boot.json.JsonParserFactory;
 import org.springframework.util.Base64Utils;
 import org.springframework.util.StringUtils;
+
+import reactor.core.publisher.Mono;
 
 /**
  * The JSON web token provided with each request that originates from Cloud Foundry.
@@ -113,6 +116,18 @@ public class Token {
 	@Override
 	public String toString() {
 		return this.encoded;
+	}
+
+	public Mono<String> getTokenKey(ReactiveTokenValidator reactiveTokenValidator) {
+		String keyId = getKeyId();
+		String cached = reactiveTokenValidator.cachedTokenKeys.get(keyId);
+		if (cached != null) {
+			return Mono.just(cached);
+		}
+		return reactiveTokenValidator.securityService.fetchTokenKeys().doOnSuccess(reactiveTokenValidator::cacheTokenKeys)
+				.filter((tokenKeys) -> tokenKeys.containsKey(keyId)).map((tokenKeys) -> tokenKeys.get(keyId))
+				.switchIfEmpty(Mono.error(new CloudFoundryAuthorizationException(Reason.INVALID_KEY_ID,
+						"Key Id present in token header does not match")));
 	}
 
 }

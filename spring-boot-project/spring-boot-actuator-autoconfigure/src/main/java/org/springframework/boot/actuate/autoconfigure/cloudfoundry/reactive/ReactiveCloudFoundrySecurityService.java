@@ -43,7 +43,7 @@ import org.springframework.web.reactive.function.client.WebClientResponseExcepti
  *
  * @author Madhura Bhave
  */
-class ReactiveCloudFoundrySecurityService {
+public class ReactiveCloudFoundrySecurityService {
 
 	private static final ParameterizedTypeReference<Map<String, Object>> STRING_OBJECT_MAP = new ParameterizedTypeReference<Map<String, Object>>() {
 	};
@@ -117,7 +117,7 @@ class ReactiveCloudFoundrySecurityService {
 	 * Return a Mono of all token keys known by the UAA.
 	 * @return a Mono of token keys
 	 */
-	Mono<Map<String, String>> fetchTokenKeys() {
+	public Mono<Map<String, String>> fetchTokenKeys() {
 		return getUaaUrl().flatMap(this::fetchTokenKeys);
 	}
 
