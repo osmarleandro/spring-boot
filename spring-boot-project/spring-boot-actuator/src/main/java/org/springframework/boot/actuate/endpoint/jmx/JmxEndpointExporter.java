@@ -18,7 +18,6 @@ package org.springframework.boot.actuate.endpoint.jmx;
 
 import java.util.Collection;
 import java.util.Collections;
-import java.util.stream.Collectors;
 
 import javax.management.InstanceNotFoundException;
 import javax.management.MBeanRegistrationException;
@@ -55,7 +54,7 @@ public class JmxEndpointExporter implements InitializingBean, DisposableBean, Be
 
 	private final JmxOperationResponseMapper responseMapper;
 
-	private final Collection<ExposableJmxEndpoint> endpoints;
+	final Collection<ExposableJmxEndpoint> endpoints;
 
 	private Collection<ObjectName> registered;
 
@@ -78,16 +77,12 @@ public class JmxEndpointExporter implements InitializingBean, DisposableBean, Be
 
 	@Override
 	public void afterPropertiesSet() {
-		this.registered = register();
+		this.registered = objectNameFactory.register(this);
 	}
 
 	@Override
 	public void destroy() throws Exception {
 		unregister(this.registered);
-	}
-
-	private Collection<ObjectName> register() {
-		return this.endpoints.stream().map(this::register).collect(Collectors.toList());
 	}
 
 	private ObjectName register(ExposableJmxEndpoint endpoint) {

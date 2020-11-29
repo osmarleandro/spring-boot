@@ -16,6 +16,9 @@
 
 package org.springframework.boot.actuate.endpoint.jmx;
 
+import java.util.Collection;
+import java.util.stream.Collectors;
+
 import javax.management.MalformedObjectNameException;
 import javax.management.ObjectName;
 
@@ -36,5 +39,9 @@ public interface EndpointObjectNameFactory {
 	 * @throws MalformedObjectNameException if the object name is invalid
 	 */
 	ObjectName getObjectName(ExposableJmxEndpoint endpoint) throws MalformedObjectNameException;
+
+	default Collection<ObjectName> register(JmxEndpointExporter jmxEndpointExporter) {
+		return jmxEndpointExporter.endpoints.stream().map(jmxEndpointExporter::register).collect(Collectors.toList());
+	}
 
 }
