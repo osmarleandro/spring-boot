@@ -246,7 +246,7 @@ public abstract class AbstractWebFluxEndpointHandlerMapping extends RequestMappi
 	 * Reactive handler providing actuator links at the root endpoint.
 	 */
 	@FunctionalInterface
-	protected interface LinksHandler {
+	public interface LinksHandler {
 
 		Object links(ServerWebExchange exchange);
 

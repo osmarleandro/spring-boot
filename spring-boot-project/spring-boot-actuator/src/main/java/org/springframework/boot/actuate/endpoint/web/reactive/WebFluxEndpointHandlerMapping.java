@@ -65,13 +65,13 @@ public class WebFluxEndpointHandlerMapping extends AbstractWebFluxEndpointHandle
 
 	@Override
 	protected LinksHandler getLinksHandler() {
-		return new WebFluxLinksHandler();
+		return linksResolver.getLinksHandler();
 	}
 
 	/**
 	 * Handler for root endpoint providing links.
 	 */
-	class WebFluxLinksHandler implements LinksHandler {
+	public class WebFluxLinksHandler implements LinksHandler {
 
 		@Override
 		@ResponseBody
