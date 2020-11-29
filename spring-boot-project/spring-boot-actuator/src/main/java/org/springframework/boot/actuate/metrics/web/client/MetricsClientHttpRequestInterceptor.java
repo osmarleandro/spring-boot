@@ -18,8 +18,10 @@ package org.springframework.boot.actuate.metrics.web.client;
 
 import java.io.IOException;
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.Deque;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
@@ -32,6 +34,7 @@ import org.springframework.http.HttpRequest;
 import org.springframework.http.client.ClientHttpRequestExecution;
 import org.springframework.http.client.ClientHttpRequestInterceptor;
 import org.springframework.http.client.ClientHttpResponse;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriTemplateHandler;
 
 /**
@@ -112,6 +115,19 @@ class MetricsClientHttpRequestInterceptor implements ClientHttpRequestIntercepto
 		return this.autoTimer.builder(this.metricName)
 				.tags(this.tagProvider.getTags(urlTemplate.get().poll(), request, response))
 				.description("Timer of RestTemplate operation");
+	}
+
+	public void customize(MetricsRestTemplateCustomizer metricsRestTemplateCustomizer, RestTemplate restTemplate) {
+		UriTemplateHandler templateHandler = restTemplate.getUriTemplateHandler();
+		templateHandler = createUriTemplateHandler(templateHandler);
+		restTemplate.setUriTemplateHandler(templateHandler);
+		List<ClientHttpRequestInterceptor> existingInterceptors = restTemplate.getInterceptors();
+		if (!existingInterceptors.contains(this)) {
+			List<ClientHttpRequestInterceptor> interceptors = new ArrayList<>();
+			interceptors.add(this);
+			interceptors.addAll(existingInterceptors);
+			restTemplate.setInterceptors(interceptors);
+		}
 	}
 
 	private static final class UrlTemplateThreadLocal extends NamedThreadLocal<Deque<String>> {
