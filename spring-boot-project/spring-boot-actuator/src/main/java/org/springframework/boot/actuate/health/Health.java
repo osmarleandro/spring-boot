@@ -23,6 +23,7 @@ import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
+import org.springframework.boot.actuate.ldap.LdapHealthIndicator;
 import org.springframework.util.Assert;
 
 /**
@@ -327,6 +328,11 @@ public final class Health extends HealthComponent {
 		 */
 		public Health build() {
 			return new Health(this);
+		}
+
+		public void doHealthCheck(LdapHealthIndicator ldapHealthIndicator) throws Exception {
+			String version = ldapHealthIndicator.ldapOperations.executeReadOnly(LdapHealthIndicator.versionContextExecutor);
+			up().withDetail("version", version);
 		}
 
 	}

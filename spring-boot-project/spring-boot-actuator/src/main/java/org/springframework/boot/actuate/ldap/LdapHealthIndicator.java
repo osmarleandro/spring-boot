@@ -35,9 +35,9 @@ import org.springframework.util.Assert;
  */
 public class LdapHealthIndicator extends AbstractHealthIndicator {
 
-	private static final ContextExecutor<String> versionContextExecutor = new VersionContextExecutor();
+	public static final ContextExecutor<String> versionContextExecutor = new VersionContextExecutor();
 
-	private final LdapOperations ldapOperations;
+	public final LdapOperations ldapOperations;
 
 	public LdapHealthIndicator(LdapOperations ldapOperations) {
 		super("LDAP health check failed");
@@ -47,8 +47,7 @@ public class LdapHealthIndicator extends AbstractHealthIndicator {
 
 	@Override
 	protected void doHealthCheck(Health.Builder builder) throws Exception {
-		String version = this.ldapOperations.executeReadOnly(versionContextExecutor);
-		builder.up().withDetail("version", version);
+		builder.doHealthCheck(this);
 	}
 
 	private static class VersionContextExecutor implements ContextExecutor<String> {
