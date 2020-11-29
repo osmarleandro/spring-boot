@@ -32,7 +32,7 @@ import org.springframework.core.style.ToStringCreator;
  */
 public abstract class AbstractDiscoveredOperation implements Operation {
 
-	private final OperationMethod operationMethod;
+	public final OperationMethod operationMethod;
 
 	private final OperationInvoker invoker;
 
@@ -52,7 +52,7 @@ public abstract class AbstractDiscoveredOperation implements Operation {
 
 	@Override
 	public OperationType getType() {
-		return this.operationMethod.getOperationType();
+		return invoker.getType(this);
 	}
 
 	@Override

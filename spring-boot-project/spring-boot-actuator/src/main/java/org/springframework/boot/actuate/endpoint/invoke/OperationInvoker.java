@@ -17,6 +17,8 @@
 package org.springframework.boot.actuate.endpoint.invoke;
 
 import org.springframework.boot.actuate.endpoint.InvocationContext;
+import org.springframework.boot.actuate.endpoint.OperationType;
+import org.springframework.boot.actuate.endpoint.annotation.AbstractDiscoveredOperation;
 
 /**
  * Interface to perform an operation invocation.
@@ -35,5 +37,9 @@ public interface OperationInvoker {
 	 * @throws MissingParametersException if parameters are missing
 	 */
 	Object invoke(InvocationContext context) throws MissingParametersException;
+
+	default OperationType getType(AbstractDiscoveredOperation abstractDiscoveredOperation) {
+		return abstractDiscoveredOperation.operationMethod.getOperationType();
+	}
 
 }
