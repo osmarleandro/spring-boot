@@ -47,7 +47,7 @@ class HazelcastHealthContributorAutoConfigurationIntegrationTests {
 			HazelcastInstance hazelcast = context.getBean(HazelcastInstance.class);
 			Health health = context.getBean(HazelcastHealthIndicator.class).health();
 			assertThat(health.getStatus()).isEqualTo(Status.UP);
-			assertThat(health.getDetails()).containsOnlyKeys("name", "uuid").containsEntry("name", hazelcast.getName())
+			assertThat(health.getStatus().getDetails(this)).containsOnlyKeys("name", "uuid").containsEntry("name", hazelcast.getName())
 					.containsEntry("uuid", hazelcast.getLocalEndpoint().getUuid().toString());
 		});
 	}

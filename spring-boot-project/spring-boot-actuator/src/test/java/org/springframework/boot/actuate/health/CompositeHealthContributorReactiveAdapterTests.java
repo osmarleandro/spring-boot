@@ -50,7 +50,7 @@ class CompositeHealthContributorReactiveAdapterTests {
 		assertThat(adapted.getContributor()).isInstanceOf(ReactiveHealthIndicator.class);
 		Health health = ((ReactiveHealthIndicator) adapted.getContributor()).getHealth(true).block();
 		assertThat(health.getStatus()).isEqualTo(Status.UP);
-		assertThat(health.getDetails()).containsEntry("spring", "boot");
+		assertThat(health.getStatus().getDetails(this)).containsEntry("spring", "boot");
 	}
 
 	@Test
@@ -70,7 +70,7 @@ class CompositeHealthContributorReactiveAdapterTests {
 				.getContributor("test1");
 		Health health = ((ReactiveHealthIndicator) nested).getHealth(true).block();
 		assertThat(health.getStatus()).isEqualTo(Status.UP);
-		assertThat(health.getDetails()).containsEntry("spring", "boot");
+		assertThat(health.getStatus().getDetails(this)).containsEntry("spring", "boot");
 	}
 
 	@Test
@@ -82,7 +82,7 @@ class CompositeHealthContributorReactiveAdapterTests {
 		ReactiveHealthContributor adapted = adapter.getContributor("test");
 		Health health = ((ReactiveHealthIndicator) adapted).getHealth(true).block();
 		assertThat(health.getStatus()).isEqualTo(Status.UP);
-		assertThat(health.getDetails()).containsEntry("spring", "boot");
+		assertThat(health.getStatus().getDetails(this)).containsEntry("spring", "boot");
 	}
 
 }

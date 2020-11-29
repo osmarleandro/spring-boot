@@ -45,7 +45,7 @@ class LdapHealthIndicatorTests {
 		LdapHealthIndicator healthIndicator = new LdapHealthIndicator(ldapTemplate);
 		Health health = healthIndicator.health();
 		assertThat(health.getStatus()).isEqualTo(Status.UP);
-		assertThat(health.getDetails().get("version")).isEqualTo("3");
+		assertThat(health.getStatus().getDetails(this).get("version")).isEqualTo("3");
 		verify(ldapTemplate).executeReadOnly((ContextExecutor<String>) any());
 	}
 
@@ -58,7 +58,7 @@ class LdapHealthIndicatorTests {
 		LdapHealthIndicator healthIndicator = new LdapHealthIndicator(ldapTemplate);
 		Health health = healthIndicator.health();
 		assertThat(health.getStatus()).isEqualTo(Status.DOWN);
-		assertThat((String) health.getDetails().get("error")).contains("Connection failed");
+		assertThat((String) health.getStatus().getDetails(this).get("error")).contains("Connection failed");
 		verify(ldapTemplate).executeReadOnly((ContextExecutor<String>) any());
 	}
 

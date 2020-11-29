@@ -140,7 +140,7 @@ abstract class HealthEndpointSupportTests<R extends ContributorRegistry<C>, C, T
 		this.registry.registerContributor("test", createContributor(this.up));
 		HealthResult<T> result = create(this.registry, this.groups).getHealth(ApiVersion.V3, SecurityContext.NONE,
 				false, "test");
-		assertThat(((Health) getHealth(result)).getDetails()).containsEntry("spring", "boot");
+		assertThat(((Health) getHealth(result)).getStatus().getDetails(this)).containsEntry("spring", "boot");
 	}
 
 	@Test
@@ -160,7 +160,7 @@ abstract class HealthEndpointSupportTests<R extends ContributorRegistry<C>, C, T
 		this.registry.registerContributor("test", createContributor(this.up));
 		HealthResult<T> result = create(this.registry, this.groups).getHealth(ApiVersion.V3, SecurityContext.NONE, true,
 				"test");
-		assertThat(((Health) getHealth(result)).getDetails()).containsEntry("spring", "boot");
+		assertThat(((Health) getHealth(result)).getStatus().getDetails(this)).containsEntry("spring", "boot");
 	}
 
 	@Test

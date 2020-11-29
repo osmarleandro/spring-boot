@@ -54,7 +54,7 @@ class JmsHealthIndicatorTests {
 		JmsHealthIndicator indicator = new JmsHealthIndicator(connectionFactory);
 		Health health = indicator.health();
 		assertThat(health.getStatus()).isEqualTo(Status.UP);
-		assertThat(health.getDetails().get("provider")).isEqualTo("JMS test provider");
+		assertThat(health.getStatus().getDetails(this).get("provider")).isEqualTo("JMS test provider");
 		verify(connection, times(1)).close();
 	}
 
@@ -65,7 +65,7 @@ class JmsHealthIndicatorTests {
 		JmsHealthIndicator indicator = new JmsHealthIndicator(connectionFactory);
 		Health health = indicator.health();
 		assertThat(health.getStatus()).isEqualTo(Status.DOWN);
-		assertThat(health.getDetails().get("provider")).isNull();
+		assertThat(health.getStatus().getDetails(this).get("provider")).isNull();
 	}
 
 	@Test
@@ -79,7 +79,7 @@ class JmsHealthIndicatorTests {
 		JmsHealthIndicator indicator = new JmsHealthIndicator(connectionFactory);
 		Health health = indicator.health();
 		assertThat(health.getStatus()).isEqualTo(Status.DOWN);
-		assertThat(health.getDetails().get("provider")).isNull();
+		assertThat(health.getStatus().getDetails(this).get("provider")).isNull();
 		verify(connection, times(1)).close();
 	}
 
@@ -95,7 +95,7 @@ class JmsHealthIndicatorTests {
 		JmsHealthIndicator indicator = new JmsHealthIndicator(connectionFactory);
 		Health health = indicator.health();
 		assertThat(health.getStatus()).isEqualTo(Status.DOWN);
-		assertThat(health.getDetails().get("provider")).isNull();
+		assertThat(health.getStatus().getDetails(this).get("provider")).isNull();
 	}
 
 	@Test
@@ -114,7 +114,7 @@ class JmsHealthIndicatorTests {
 		JmsHealthIndicator indicator = new JmsHealthIndicator(connectionFactory);
 		Health health = indicator.health();
 		assertThat(health.getStatus()).isEqualTo(Status.DOWN);
-		assertThat((String) health.getDetails().get("error")).contains("Connection closed");
+		assertThat((String) health.getStatus().getDetails(this).get("error")).contains("Connection closed");
 	}
 
 	private static final class UnresponsiveStartAnswer implements Answer<Void> {

@@ -54,7 +54,7 @@ class ConnectionFactoryHealthIndicatorTests {
 			ConnectionFactoryHealthIndicator healthIndicator = new ConnectionFactoryHealthIndicator(connectionFactory);
 			healthIndicator.health().as(StepVerifier::create).assertNext((actual) -> {
 				assertThat(actual.getStatus()).isEqualTo(Status.UP);
-				assertThat(actual.getDetails()).containsOnly(entry("database", "H2"),
+				assertThat(actual.getStatus().getDetails(this)).containsOnly(entry("database", "H2"),
 						entry("validationQuery", "validate(REMOTE)"));
 			}).verifyComplete();
 		}
@@ -72,7 +72,7 @@ class ConnectionFactoryHealthIndicatorTests {
 		ConnectionFactoryHealthIndicator healthIndicator = new ConnectionFactoryHealthIndicator(connectionFactory);
 		healthIndicator.health().as(StepVerifier::create).assertNext((actual) -> {
 			assertThat(actual.getStatus()).isEqualTo(Status.DOWN);
-			assertThat(actual.getDetails()).containsOnly(entry("database", "mock"),
+			assertThat(actual.getStatus().getDetails(this)).containsOnly(entry("database", "mock"),
 					entry("validationQuery", "validate(REMOTE)"), entry("error", "java.lang.RuntimeException: test"));
 		}).verifyComplete();
 	}
@@ -88,7 +88,7 @@ class ConnectionFactoryHealthIndicatorTests {
 		ConnectionFactoryHealthIndicator healthIndicator = new ConnectionFactoryHealthIndicator(connectionFactory);
 		healthIndicator.health().as(StepVerifier::create).assertNext((actual) -> {
 			assertThat(actual.getStatus()).isEqualTo(Status.DOWN);
-			assertThat(actual.getDetails()).containsOnly(entry("database", "mock"),
+			assertThat(actual.getStatus().getDetails(this)).containsOnly(entry("database", "mock"),
 					entry("validationQuery", "validate(REMOTE)"));
 		}).verifyComplete();
 	}
@@ -105,7 +105,7 @@ class ConnectionFactoryHealthIndicatorTests {
 					customValidationQuery);
 			healthIndicator.health().as(StepVerifier::create).assertNext((actual) -> {
 				assertThat(actual.getStatus()).isEqualTo(Status.UP);
-				assertThat(actual.getDetails()).containsOnly(entry("database", "H2"), entry("result", 0L),
+				assertThat(actual.getStatus().getDetails(this)).containsOnly(entry("database", "H2"), entry("result", 0L),
 						entry("validationQuery", customValidationQuery));
 			}).verifyComplete();
 		}
@@ -124,9 +124,9 @@ class ConnectionFactoryHealthIndicatorTests {
 					invalidValidationQuery);
 			healthIndicator.health().as(StepVerifier::create).assertNext((actual) -> {
 				assertThat(actual.getStatus()).isEqualTo(Status.DOWN);
-				assertThat(actual.getDetails()).contains(entry("database", "H2"),
+				assertThat(actual.getStatus().getDetails(this)).contains(entry("database", "H2"),
 						entry("validationQuery", invalidValidationQuery));
-				assertThat(actual.getDetails()).containsOnlyKeys("database", "error", "validationQuery");
+				assertThat(actual.getStatus().getDetails(this)).containsOnlyKeys("database", "error", "validationQuery");
 			}).verifyComplete();
 		}
 		finally {

@@ -20,6 +20,8 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.util.Map;
+
 import org.springframework.util.Assert;
 import org.springframework.util.ObjectUtils;
 
@@ -121,6 +123,16 @@ public final class Status {
 	@Override
 	public String toString() {
 		return this.code;
+	}
+
+	/**
+	 * Return the details of the health.
+	 * @param health TODO
+	 * @return the details (or an empty map)
+	 */
+	@JsonInclude(Include.NON_EMPTY)
+	public Map<String, Object> getDetails(Health health) {
+		return health.details;
 	}
 
 }

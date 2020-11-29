@@ -64,7 +64,7 @@ class RabbitHealthIndicatorTests {
 		given(connection.getServerProperties()).willReturn(Collections.singletonMap("version", "123"));
 		Health health = new RabbitHealthIndicator(this.rabbitTemplate).health();
 		assertThat(health.getStatus()).isEqualTo(Status.UP);
-		assertThat(health.getDetails()).containsEntry("version", "123");
+		assertThat(health.getStatus().getDetails(this)).containsEntry("version", "123");
 	}
 
 	@Test

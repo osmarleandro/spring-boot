@@ -47,7 +47,7 @@ class InfluxDbHealthIndicatorTests {
 		InfluxDbHealthIndicator healthIndicator = new InfluxDbHealthIndicator(influxDB);
 		Health health = healthIndicator.health();
 		assertThat(health.getStatus()).isEqualTo(Status.UP);
-		assertThat(health.getDetails().get("version")).isEqualTo("0.9");
+		assertThat(health.getStatus().getDetails(this).get("version")).isEqualTo("0.9");
 		verify(influxDB).ping();
 	}
 
@@ -58,7 +58,7 @@ class InfluxDbHealthIndicatorTests {
 		InfluxDbHealthIndicator healthIndicator = new InfluxDbHealthIndicator(influxDB);
 		Health health = healthIndicator.health();
 		assertThat(health.getStatus()).isEqualTo(Status.DOWN);
-		assertThat((String) health.getDetails().get("error")).contains("Connection failed");
+		assertThat((String) health.getStatus().getDetails(this).get("error")).contains("Connection failed");
 		verify(influxDB).ping();
 	}
 

@@ -120,7 +120,7 @@ class CassandraDriverHealthIndicatorTests {
 		CassandraDriverHealthIndicator healthIndicator = new CassandraDriverHealthIndicator(session);
 		Health health = healthIndicator.health();
 		assertThat(health.getStatus()).isEqualTo(Status.UP);
-		assertThat(health.getDetails().get("version")).isEqualTo(Version.V4_0_0);
+		assertThat(health.getStatus().getDetails(this).get("version")).isEqualTo(Version.V4_0_0);
 	}
 
 	@Test
@@ -129,7 +129,7 @@ class CassandraDriverHealthIndicatorTests {
 		CassandraDriverHealthIndicator healthIndicator = new CassandraDriverHealthIndicator(session);
 		Health health = healthIndicator.health();
 		assertThat(health.getStatus()).isEqualTo(Status.UP);
-		assertThat(health.getDetails().get("version")).isNull();
+		assertThat(health.getStatus().getDetails(this).get("version")).isNull();
 	}
 
 	@Test
@@ -139,7 +139,7 @@ class CassandraDriverHealthIndicatorTests {
 		CassandraDriverHealthIndicator healthIndicator = new CassandraDriverHealthIndicator(session);
 		Health health = healthIndicator.health();
 		assertThat(health.getStatus()).isEqualTo(Status.DOWN);
-		assertThat(health.getDetails().get("error"))
+		assertThat(health.getStatus().getDetails(this).get("error"))
 				.isEqualTo(DriverTimeoutException.class.getName() + ": Test Exception");
 	}
 

@@ -61,7 +61,7 @@ class ElasticsearchRestHealthIndicatorTests {
 		given(this.restClient.performRequest(any(Request.class))).willReturn(response);
 		Health health = this.elasticsearchRestHealthIndicator.health();
 		assertThat(health.getStatus()).isEqualTo(Status.UP);
-		assertHealthDetailsWithStatus(health.getDetails(), "green");
+		assertHealthDetailsWithStatus(health.getStatus().getDetails(this), "green");
 	}
 
 	@Test
@@ -76,7 +76,7 @@ class ElasticsearchRestHealthIndicatorTests {
 		given(this.restClient.performRequest(any(Request.class))).willReturn(response);
 		Health health = this.elasticsearchRestHealthIndicator.health();
 		assertThat(health.getStatus()).isEqualTo(Status.UP);
-		assertHealthDetailsWithStatus(health.getDetails(), "yellow");
+		assertHealthDetailsWithStatus(health.getStatus().getDetails(this), "yellow");
 	}
 
 	@Test
@@ -84,7 +84,7 @@ class ElasticsearchRestHealthIndicatorTests {
 		given(this.restClient.performRequest(any(Request.class))).willThrow(new IOException("Couldn't connect"));
 		Health health = this.elasticsearchRestHealthIndicator.health();
 		assertThat(health.getStatus()).isEqualTo(Status.DOWN);
-		assertThat(health.getDetails()).contains(entry("error", "java.io.IOException: Couldn't connect"));
+		assertThat(health.getStatus().getDetails(this)).contains(entry("error", "java.io.IOException: Couldn't connect"));
 	}
 
 	@Test
@@ -97,7 +97,7 @@ class ElasticsearchRestHealthIndicatorTests {
 		given(this.restClient.performRequest(any(Request.class))).willReturn(response);
 		Health health = this.elasticsearchRestHealthIndicator.health();
 		assertThat(health.getStatus()).isEqualTo(Status.DOWN);
-		assertThat(health.getDetails()).contains(entry("statusCode", 500),
+		assertThat(health.getStatus().getDetails(this)).contains(entry("statusCode", 500),
 				entry("reasonPhrase", "Internal server error"));
 	}
 
@@ -113,7 +113,7 @@ class ElasticsearchRestHealthIndicatorTests {
 		given(this.restClient.performRequest(any(Request.class))).willReturn(response);
 		Health health = this.elasticsearchRestHealthIndicator.health();
 		assertThat(health.getStatus()).isEqualTo(Status.OUT_OF_SERVICE);
-		assertHealthDetailsWithStatus(health.getDetails(), "red");
+		assertHealthDetailsWithStatus(health.getStatus().getDetails(this), "red");
 	}
 
 	private void assertHealthDetailsWithStatus(Map<String, Object> details, String status) {

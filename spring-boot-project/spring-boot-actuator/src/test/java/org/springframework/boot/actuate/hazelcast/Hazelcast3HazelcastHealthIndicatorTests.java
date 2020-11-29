@@ -51,9 +51,9 @@ class Hazelcast3HazelcastHealthIndicatorTests {
 		try {
 			Health health = new HazelcastHealthIndicator(hazelcast).health();
 			assertThat(health.getStatus()).isEqualTo(Status.UP);
-			assertThat(health.getDetails()).containsOnlyKeys("name", "uuid").containsEntry("name",
+			assertThat(health.getStatus().getDetails(this)).containsOnlyKeys("name", "uuid").containsEntry("name",
 					"actuator-hazelcast-3");
-			assertThat(health.getDetails().get("uuid")).asString().isNotEmpty();
+			assertThat(health.getStatus().getDetails(this).get("uuid")).asString().isNotEmpty();
 		}
 		finally {
 			hazelcast.shutdown();

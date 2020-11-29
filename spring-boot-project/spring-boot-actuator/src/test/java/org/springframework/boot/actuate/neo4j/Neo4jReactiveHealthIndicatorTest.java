@@ -56,8 +56,8 @@ class Neo4jReactiveHealthIndicatorTest {
 		Neo4jReactiveHealthIndicator healthIndicator = new Neo4jReactiveHealthIndicator(driver);
 		healthIndicator.health().as(StepVerifier::create).consumeNextWith((health) -> {
 			assertThat(health.getStatus()).isEqualTo(Status.UP);
-			assertThat(health.getDetails()).containsEntry("server", "4711@My Home");
-			assertThat(health.getDetails()).containsEntry("edition", "ultimate collectors edition");
+			assertThat(health.getStatus().getDetails(this)).containsEntry("server", "4711@My Home");
+			assertThat(health.getStatus().getDetails(this)).containsEntry("edition", "ultimate collectors edition");
 		}).verifyComplete();
 	}
 
@@ -78,8 +78,8 @@ class Neo4jReactiveHealthIndicatorTest {
 		Neo4jReactiveHealthIndicator healthIndicator = new Neo4jReactiveHealthIndicator(driver);
 		healthIndicator.health().as(StepVerifier::create).consumeNextWith((health) -> {
 			assertThat(health.getStatus()).isEqualTo(Status.UP);
-			assertThat(health.getDetails()).containsEntry("server", "4711@My Home");
-			assertThat(health.getDetails()).containsEntry("edition", "some edition");
+			assertThat(health.getStatus().getDetails(this)).containsEntry("server", "4711@My Home");
+			assertThat(health.getStatus().getDetails(this)).containsEntry("edition", "some edition");
 		}).verifyComplete();
 		verify(session, times(2)).close();
 	}
@@ -91,7 +91,7 @@ class Neo4jReactiveHealthIndicatorTest {
 		Neo4jReactiveHealthIndicator healthIndicator = new Neo4jReactiveHealthIndicator(driver);
 		healthIndicator.health().as(StepVerifier::create).consumeNextWith((health) -> {
 			assertThat(health.getStatus()).isEqualTo(Status.DOWN);
-			assertThat(health.getDetails()).containsKeys("error");
+			assertThat(health.getStatus().getDetails(this)).containsKeys("error");
 		}).verifyComplete();
 	}
 

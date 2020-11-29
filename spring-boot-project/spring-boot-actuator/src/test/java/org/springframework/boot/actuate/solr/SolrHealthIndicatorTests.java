@@ -100,7 +100,7 @@ class SolrHealthIndicatorTests {
 		SolrHealthIndicator healthIndicator = new SolrHealthIndicator(solrClient);
 		Health health = healthIndicator.health();
 		assertThat(health.getStatus()).isEqualTo(Status.DOWN);
-		assertThat((String) health.getDetails().get("error")).contains("Connection failed");
+		assertThat((String) health.getStatus().getDetails(this).get("error")).contains("Connection failed");
 		verify(solrClient, times(1)).request(any(CoreAdminRequest.class), isNull());
 		verifyNoMoreInteractions(solrClient);
 	}
@@ -125,8 +125,8 @@ class SolrHealthIndicatorTests {
 			String expectedPathType) {
 		Health health = healthIndicator.health();
 		assertThat(health.getStatus()).isEqualTo(expectedStatus);
-		assertThat(health.getDetails().get("status")).isEqualTo(expectedStatusCode);
-		assertThat(health.getDetails().get("detectedPathType")).isEqualTo(expectedPathType);
+		assertThat(health.getStatus().getDetails(this).get("status")).isEqualTo(expectedStatusCode);
+		assertThat(health.getStatus().getDetails(this).get("detectedPathType")).isEqualTo(expectedPathType);
 	}
 
 	private NamedList<Object> mockResponse(int status) {

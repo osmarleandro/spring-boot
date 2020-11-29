@@ -69,7 +69,7 @@ class CloudFoundryReactiveHealthEndpointWebExtensionTests {
 					.getBean(CloudFoundryReactiveHealthEndpointWebExtension.class);
 			HealthComponent body = extension.health(ApiVersion.V3).block(Duration.ofSeconds(30)).getBody();
 			HealthComponent health = ((CompositeHealth) body).getComponents().entrySet().iterator().next().getValue();
-			assertThat(((Health) health).getDetails()).containsEntry("spring", "boot");
+			assertThat(((Health) health).getStatus().getDetails(this)).containsEntry("spring", "boot");
 		});
 	}
 

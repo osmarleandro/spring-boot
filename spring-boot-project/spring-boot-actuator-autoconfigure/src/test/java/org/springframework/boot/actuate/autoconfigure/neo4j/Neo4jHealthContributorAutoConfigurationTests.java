@@ -75,7 +75,7 @@ class Neo4jHealthContributorAutoConfigurationTests {
 				.run((context) -> {
 					assertThat(context).hasBean("neo4jHealthIndicator");
 					Health health = context.getBean("neo4jHealthIndicator", HealthIndicator.class).health();
-					assertThat(health.getDetails()).containsOnly(entry("test", true));
+					assertThat(health.getStatus().getDetails(this)).containsOnly(entry("test", true));
 				});
 	}
 
