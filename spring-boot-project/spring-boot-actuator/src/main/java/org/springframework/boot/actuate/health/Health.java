@@ -23,6 +23,7 @@ import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
+import org.springframework.boot.actuate.jdbc.DataSourceHealthIndicator;
 import org.springframework.util.Assert;
 
 /**
@@ -327,6 +328,15 @@ public final class Health extends HealthComponent {
 		 */
 		public Health build() {
 			return new Health(this);
+		}
+
+		public void doHealthCheck(DataSourceHealthIndicator dataSourceHealthIndicator) throws Exception {
+			if (dataSourceHealthIndicator.dataSource == null) {
+				up().withDetail("database", "unknown");
+			}
+			else {
+				dataSourceHealthIndicator.doDataSourceHealthCheck(this);
+			}
 		}
 
 	}

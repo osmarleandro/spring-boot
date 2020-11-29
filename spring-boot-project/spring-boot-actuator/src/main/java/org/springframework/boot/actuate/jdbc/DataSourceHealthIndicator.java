@@ -51,7 +51,7 @@ import org.springframework.util.StringUtils;
  */
 public class DataSourceHealthIndicator extends AbstractHealthIndicator implements InitializingBean {
 
-	private DataSource dataSource;
+	public DataSource dataSource;
 
 	private String query;
 
@@ -93,15 +93,10 @@ public class DataSourceHealthIndicator extends AbstractHealthIndicator implement
 
 	@Override
 	protected void doHealthCheck(Health.Builder builder) throws Exception {
-		if (this.dataSource == null) {
-			builder.up().withDetail("database", "unknown");
-		}
-		else {
-			doDataSourceHealthCheck(builder);
-		}
+		builder.doHealthCheck(this);
 	}
 
-	private void doDataSourceHealthCheck(Health.Builder builder) throws Exception {
+	public void doDataSourceHealthCheck(Health.Builder builder) throws Exception {
 		builder.up().withDetail("database", getProduct());
 		String validationQuery = this.query;
 		if (StringUtils.hasText(validationQuery)) {
