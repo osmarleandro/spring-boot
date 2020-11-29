@@ -26,6 +26,7 @@ import java.lang.management.ThreadInfo;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -120,6 +121,10 @@ class PlainTextThreadDumpFormatter {
 				writer.printf("\t- Locked %s%n", format(lockedSynchronizer));
 			}
 		}
+	}
+
+	<T> T getFormattedThreadDump(Function<ThreadInfo[], T> formatter) {
+		return formatter.apply(ManagementFactory.getThreadMXBean().dumpAllThreads(true, true));
 	}
 
 }

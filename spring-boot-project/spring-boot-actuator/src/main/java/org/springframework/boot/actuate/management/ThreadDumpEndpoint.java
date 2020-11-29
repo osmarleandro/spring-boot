@@ -16,11 +16,9 @@
 
 package org.springframework.boot.actuate.management;
 
-import java.lang.management.ManagementFactory;
 import java.lang.management.ThreadInfo;
 import java.util.Arrays;
 import java.util.List;
-import java.util.function.Function;
 
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
 import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
@@ -39,16 +37,12 @@ public class ThreadDumpEndpoint {
 
 	@ReadOperation
 	public ThreadDumpDescriptor threadDump() {
-		return getFormattedThreadDump(ThreadDumpDescriptor::new);
+		return plainTextFormatter.getFormattedThreadDump(ThreadDumpDescriptor::new);
 	}
 
 	@ReadOperation(produces = "text/plain;charset=UTF-8")
 	public String textThreadDump() {
-		return getFormattedThreadDump(this.plainTextFormatter::format);
-	}
-
-	private <T> T getFormattedThreadDump(Function<ThreadInfo[], T> formatter) {
-		return formatter.apply(ManagementFactory.getThreadMXBean().dumpAllThreads(true, true));
+		return plainTextFormatter.getFormattedThreadDump(this.plainTextFormatter::format);
 	}
 
 	/**
