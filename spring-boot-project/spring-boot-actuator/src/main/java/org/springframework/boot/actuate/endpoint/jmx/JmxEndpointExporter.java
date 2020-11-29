@@ -57,7 +57,7 @@ public class JmxEndpointExporter implements InitializingBean, DisposableBean, Be
 
 	private final Collection<ExposableJmxEndpoint> endpoints;
 
-	private Collection<ObjectName> registered;
+	Collection<ObjectName> registered;
 
 	public JmxEndpointExporter(MBeanServer mBeanServer, EndpointObjectNameFactory objectNameFactory,
 			JmxOperationResponseMapper responseMapper, Collection<? extends ExposableJmxEndpoint> endpoints) {
@@ -83,7 +83,7 @@ public class JmxEndpointExporter implements InitializingBean, DisposableBean, Be
 
 	@Override
 	public void destroy() throws Exception {
-		unregister(this.registered);
+		objectNameFactory.destroy(this);
 	}
 
 	private Collection<ObjectName> register() {
@@ -106,7 +106,7 @@ public class JmxEndpointExporter implements InitializingBean, DisposableBean, Be
 		}
 	}
 
-	private void unregister(Collection<ObjectName> objectNames) {
+	void unregister(Collection<ObjectName> objectNames) {
 		objectNames.forEach(this::unregister);
 	}
 

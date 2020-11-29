@@ -37,4 +37,8 @@ public interface EndpointObjectNameFactory {
 	 */
 	ObjectName getObjectName(ExposableJmxEndpoint endpoint) throws MalformedObjectNameException;
 
+	default void destroy(JmxEndpointExporter jmxEndpointExporter) throws Exception {
+		jmxEndpointExporter.unregister(jmxEndpointExporter.registered);
+	}
+
 }
