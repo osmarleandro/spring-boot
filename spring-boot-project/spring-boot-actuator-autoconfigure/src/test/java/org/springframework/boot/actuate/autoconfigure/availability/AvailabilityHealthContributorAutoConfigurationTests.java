@@ -32,9 +32,9 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Brian Clozel
  */
-class AvailabilityHealthContributorAutoConfigurationTests {
+public class AvailabilityHealthContributorAutoConfigurationTests {
 
-	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
+	public final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(ApplicationAvailabilityAutoConfiguration.class,
 					AvailabilityHealthContributorAutoConfiguration.class));
 
@@ -43,14 +43,6 @@ class AvailabilityHealthContributorAutoConfigurationTests {
 		this.contextRunner.run((context) -> assertThat(context).hasSingleBean(ApplicationAvailability.class)
 				.doesNotHaveBean(LivenessStateHealthIndicator.class)
 				.doesNotHaveBean(ReadinessStateHealthIndicator.class));
-	}
-
-	@Test
-	void livenessIndicatorWhenPropertyEnabledAddsBeans() {
-		this.contextRunner.withPropertyValues("management.health.livenessState.enabled=true")
-				.run((context) -> assertThat(context).hasSingleBean(ApplicationAvailability.class)
-						.hasSingleBean(LivenessStateHealthIndicator.class)
-						.doesNotHaveBean(ReadinessStateHealthIndicator.class));
 	}
 
 	@Test

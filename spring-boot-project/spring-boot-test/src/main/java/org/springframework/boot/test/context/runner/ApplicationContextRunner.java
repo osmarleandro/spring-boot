@@ -16,9 +16,16 @@
 
 package org.springframework.boot.test.context.runner;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import java.util.List;
 import java.util.function.Supplier;
 
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.actuate.autoconfigure.availability.AvailabilityHealthContributorAutoConfigurationTests;
+import org.springframework.boot.actuate.availability.LivenessStateHealthIndicator;
+import org.springframework.boot.actuate.availability.ReadinessStateHealthIndicator;
+import org.springframework.boot.availability.ApplicationAvailability;
 import org.springframework.boot.context.annotation.Configurations;
 import org.springframework.boot.test.context.assertj.AssertableApplicationContext;
 import org.springframework.boot.test.util.TestPropertyValues;
@@ -77,6 +84,15 @@ public class ApplicationContextRunner extends
 			List<Configurations> configurations) {
 		return new ApplicationContextRunner(contextFactory, allowBeanDefinitionOverriding, initializers,
 				environmentProperties, systemProperties, classLoader, parent, beanRegistrations, configurations);
+	}
+
+	@Test
+	public
+	void livenessIndicatorWhenPropertyEnabledAddsBeans(AvailabilityHealthContributorAutoConfigurationTests availabilityHealthContributorAutoConfigurationTests) {
+		withPropertyValues("management.health.livenessState.enabled=true")
+				.run((context) -> assertThat(context).hasSingleBean(ApplicationAvailability.class)
+						.hasSingleBean(LivenessStateHealthIndicator.class)
+						.doesNotHaveBean(ReadinessStateHealthIndicator.class));
 	}
 
 }
