@@ -52,7 +52,7 @@ class WavefrontPropertiesConfigAdapterTests
 	@Test
 	void whenPropertiesSourceIsSetAdapterSourceReturnsIt() {
 		WavefrontProperties properties = createProperties();
-		properties.setSource("test");
+		properties.getSender().setSource(this, "test");
 		assertThat(createConfigAdapter(properties).source()).isEqualTo("test");
 	}
 
