@@ -33,9 +33,9 @@ import org.springframework.boot.actuate.audit.AuditEventRepository;
  */
 public class AuditListener extends AbstractAuditListener {
 
-	private static final Log logger = LogFactory.getLog(AuditListener.class);
+	public static final Log logger = LogFactory.getLog(AuditListener.class);
 
-	private final AuditEventRepository auditEventRepository;
+	public final AuditEventRepository auditEventRepository;
 
 	public AuditListener(AuditEventRepository auditEventRepository) {
 		this.auditEventRepository = auditEventRepository;
@@ -43,10 +43,7 @@ public class AuditListener extends AbstractAuditListener {
 
 	@Override
 	protected void onAuditEvent(AuditEvent event) {
-		if (logger.isDebugEnabled()) {
-			logger.debug(event);
-		}
-		this.auditEventRepository.add(event);
+		event.onAuditEvent(this);
 	}
 
 }
