@@ -53,13 +53,13 @@ public class EndpointMBean implements DynamicMBean {
 
 	private final JmxOperationResponseMapper responseMapper;
 
-	private final ClassLoader classLoader;
+	final ClassLoader classLoader;
 
-	private final ExposableJmxEndpoint endpoint;
+	final ExposableJmxEndpoint endpoint;
 
 	private final MBeanInfo info;
 
-	private final Map<String, JmxOperation> operations;
+	final Map<String, JmxOperation> operations;
 
 	EndpointMBean(JmxOperationResponseMapper responseMapper, ClassLoader classLoader, ExposableJmxEndpoint endpoint) {
 		Assert.notNull(responseMapper, "ResponseMapper must not be null");
@@ -85,22 +85,10 @@ public class EndpointMBean implements DynamicMBean {
 	@Override
 	public Object invoke(String actionName, Object[] params, String[] signature)
 			throws MBeanException, ReflectionException {
-		JmxOperation operation = this.operations.get(actionName);
-		if (operation == null) {
-			String message = "Endpoint with id '" + this.endpoint.getEndpointId() + "' has no operation named "
-					+ actionName;
-			throw new ReflectionException(new IllegalArgumentException(message), message);
-		}
-		ClassLoader previousClassLoader = overrideThreadContextClassLoader(this.classLoader);
-		try {
-			return invoke(operation, params);
-		}
-		finally {
-			overrideThreadContextClassLoader(previousClassLoader);
-		}
-	}
+				return endpoint.invoke(this, actionName, params, signature);
+			}
 
-	private ClassLoader overrideThreadContextClassLoader(ClassLoader classLoader) {
+	ClassLoader overrideThreadContextClassLoader(ClassLoader classLoader) {
 		if (classLoader != null) {
 			try {
 				return ClassUtils.overrideThreadContextClassLoader(classLoader);
@@ -112,7 +100,7 @@ public class EndpointMBean implements DynamicMBean {
 		return null;
 	}
 
-	private Object invoke(JmxOperation operation, Object[] params) throws MBeanException, ReflectionException {
+	Object invoke(JmxOperation operation, Object[] params) throws MBeanException, ReflectionException {
 		try {
 			String[] parameterNames = operation.getParameters().stream().map(JmxOperationParameter::getName)
 					.toArray(String[]::new);

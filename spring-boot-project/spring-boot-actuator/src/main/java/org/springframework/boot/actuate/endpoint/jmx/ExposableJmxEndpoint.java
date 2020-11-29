@@ -16,6 +16,9 @@
 
 package org.springframework.boot.actuate.endpoint.jmx;
 
+import javax.management.MBeanException;
+import javax.management.ReflectionException;
+
 import org.springframework.boot.actuate.endpoint.ExposableEndpoint;
 
 /**
@@ -25,5 +28,22 @@ import org.springframework.boot.actuate.endpoint.ExposableEndpoint;
  * @since 2.0.0
  */
 public interface ExposableJmxEndpoint extends ExposableEndpoint<JmxOperation> {
+
+	default Object invoke(EndpointMBean endpointMBean, String actionName, Object[] params, String[] signature)
+			throws MBeanException, ReflectionException {
+		JmxOperation operation = endpointMBean.operations.get(actionName);
+		if (operation == null) {
+			String message = "Endpoint with id '" + getEndpointId() + "' has no operation named "
+					+ actionName;
+			throw new ReflectionException(new IllegalArgumentException(message), message);
+		}
+		ClassLoader previousClassLoader = endpointMBean.overrideThreadContextClassLoader(endpointMBean.classLoader);
+		try {
+			return endpointMBean.invoke(operation, params);
+		}
+		finally {
+			endpointMBean.overrideThreadContextClassLoader(previousClassLoader);
+		}
+	}
 
 }
