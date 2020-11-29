@@ -58,10 +58,6 @@ public class PrometheusProperties {
 	 */
 	private Duration step = Duration.ofMinutes(1);
 
-	public boolean isDescriptions() {
-		return this.descriptions;
-	}
-
 	public void setDescriptions(boolean descriptions) {
 		this.descriptions = descriptions;
 	}
@@ -193,6 +189,10 @@ public class PrometheusProperties {
 
 		public void setShutdownOperation(ShutdownOperation shutdownOperation) {
 			this.shutdownOperation = shutdownOperation;
+		}
+
+		public boolean isDescriptions(PrometheusProperties prometheusProperties) {
+			return prometheusProperties.descriptions;
 		}
 
 	}
