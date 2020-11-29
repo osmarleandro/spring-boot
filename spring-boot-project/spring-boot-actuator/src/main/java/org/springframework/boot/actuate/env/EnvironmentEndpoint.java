@@ -62,16 +62,12 @@ import org.springframework.util.SystemPropertyUtils;
 @Endpoint(id = "env")
 public class EnvironmentEndpoint {
 
-	private final Sanitizer sanitizer = new Sanitizer();
+	public final Sanitizer sanitizer = new Sanitizer();
 
 	private final Environment environment;
 
 	public EnvironmentEndpoint(Environment environment) {
 		this.environment = environment;
-	}
-
-	public void setKeysToSanitize(String... keysToSanitize) {
-		this.sanitizer.setKeysToSanitize(keysToSanitize);
 	}
 
 	@ReadOperation
