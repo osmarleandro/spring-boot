@@ -16,10 +16,15 @@
 
 package org.springframework.boot.context.event;
 
+import org.apache.catalina.Manager;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.actuate.metrics.web.tomcat.TomcatMetricsBinder;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
+
+import io.micrometer.core.instrument.binder.tomcat.TomcatMetrics;
 
 /**
  * Event published once the application context has been refreshed but before any
@@ -52,6 +57,13 @@ public class ApplicationStartedEvent extends SpringApplicationEvent {
 	 */
 	public ConfigurableApplicationContext getApplicationContext() {
 		return this.context;
+	}
+
+	public void onApplicationEvent(TomcatMetricsBinder tomcatMetricsBinder) {
+		ApplicationContext applicationContext = getApplicationContext();
+		Manager manager = tomcatMetricsBinder.findManager(applicationContext);
+		tomcatMetricsBinder.tomcatMetrics = new TomcatMetrics(manager, tomcatMetricsBinder.tags);
+		tomcatMetricsBinder.tomcatMetrics.bindTo(tomcatMetricsBinder.meterRegistry);
 	}
 
 }
