@@ -117,7 +117,7 @@ public class ConfigurationPropertiesReportEndpoint implements ApplicationContext
 		Map<String, ContextConfigurationProperties> contexts = new HashMap<>();
 		ApplicationContext target = context;
 		while (target != null) {
-			contexts.put(target.getId(), describeBeans(mapper, target));
+			contexts.put(target.getId(), sanitizer.describeBeans(this, mapper, target));
 			target = target.getParent();
 		}
 		return new ApplicationConfigurationProperties(contexts);
@@ -164,15 +164,7 @@ public class ConfigurationPropertiesReportEndpoint implements ApplicationContext
 		mapper.setSerializerFactory(factory);
 	}
 
-	private ContextConfigurationProperties describeBeans(ObjectMapper mapper, ApplicationContext context) {
-		Map<String, ConfigurationPropertiesBean> beans = ConfigurationPropertiesBean.getAll(context);
-		Map<String, ConfigurationPropertiesBeanDescriptor> descriptors = new HashMap<>();
-		beans.forEach((beanName, bean) -> descriptors.put(beanName, describeBean(mapper, bean)));
-		return new ContextConfigurationProperties(descriptors,
-				(context.getParent() != null) ? context.getParent().getId() : null);
-	}
-
-	private ConfigurationPropertiesBeanDescriptor describeBean(ObjectMapper mapper, ConfigurationPropertiesBean bean) {
+	public ConfigurationPropertiesBeanDescriptor describeBean(ObjectMapper mapper, ConfigurationPropertiesBean bean) {
 		String prefix = bean.getAnnotation().prefix();
 		Map<String, Object> serialized = safeSerialize(mapper, bean.getInstance(), prefix);
 		Map<String, Object> properties = sanitize(prefix, serialized);
