@@ -67,7 +67,7 @@ class DefaultEndpointObjectNameFactory implements EndpointObjectNameFactory {
 			String identity = ObjectUtils.getIdentityHexString(endpoint);
 			builder.append(",identity=").append(identity);
 		}
-		builder.append(getStaticNames());
+		builder.append(properties.getStaticNames(this));
 		return ObjectNameManager.getInstance(builder.toString());
 	}
 
@@ -81,16 +81,6 @@ class DefaultEndpointObjectNameFactory implements EndpointObjectNameFactory {
 	private boolean hasMBean(String baseObjectName) throws MalformedObjectNameException {
 		ObjectName query = new ObjectName(baseObjectName + ",*");
 		return !this.mBeanServer.queryNames(query, null).isEmpty();
-	}
-
-	private String getStaticNames() {
-		if (this.properties.getStaticNames().isEmpty()) {
-			return "";
-		}
-		StringBuilder builder = new StringBuilder();
-		this.properties.getStaticNames()
-				.forEach((name, value) -> builder.append(",").append(name).append("=").append(value));
-		return builder.toString();
 	}
 
 }

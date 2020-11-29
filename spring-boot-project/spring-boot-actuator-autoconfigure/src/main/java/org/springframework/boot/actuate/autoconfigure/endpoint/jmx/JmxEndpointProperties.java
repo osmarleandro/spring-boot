@@ -60,6 +60,16 @@ public class JmxEndpointProperties {
 		return this.staticNames;
 	}
 
+	String getStaticNames(DefaultEndpointObjectNameFactory defaultEndpointObjectNameFactory) {
+		if (getStaticNames().isEmpty()) {
+			return "";
+		}
+		StringBuilder builder = new StringBuilder();
+		getStaticNames()
+				.forEach((name, value) -> builder.append(",").append(name).append("=").append(value));
+		return builder.toString();
+	}
+
 	public static class Exposure {
 
 		/**
