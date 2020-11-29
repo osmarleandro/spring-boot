@@ -48,6 +48,10 @@ public class EndpointMapping {
 		return this.path + normalizePath(path);
 	}
 
+	public boolean isHandler(Class<?> beanType) {
+		return false;
+	}
+
 	private static String normalizePath(String path) {
 		if (!StringUtils.hasText(path)) {
 			return path;
