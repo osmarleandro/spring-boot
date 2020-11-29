@@ -17,12 +17,18 @@
 package org.springframework.boot.actuate.endpoint;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.LinkedHashSet;
+import java.util.Map;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
+import org.springframework.boot.actuate.context.properties.ConfigurationPropertiesReportEndpoint;
+import org.springframework.boot.context.properties.BoundConfigurationProperties;
+import org.springframework.boot.context.properties.source.ConfigurationProperty;
+import org.springframework.boot.context.properties.source.ConfigurationPropertyName;
 import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
 
@@ -136,6 +142,19 @@ public class Sanitizer {
 			return StringUtils.replace(value, ":" + password + "@", ":******@");
 		}
 		return value;
+	}
+
+	public Map<String, Object> applyInput(ConfigurationPropertiesReportEndpoint configurationPropertiesReportEndpoint, String qualifiedKey) {
+		BoundConfigurationProperties bound = BoundConfigurationProperties.get(configurationPropertiesReportEndpoint.context);
+		if (bound == null) {
+			return Collections.emptyMap();
+		}
+		ConfigurationPropertyName currentName = ConfigurationPropertyName.adapt(qualifiedKey, '.');
+		ConfigurationProperty candidate = bound.get(currentName);
+		if (candidate == null && currentName.isLastElementIndexed()) {
+			candidate = bound.get(currentName.chop(currentName.getNumberOfElements() - 1));
+		}
+		return (candidate != null) ? configurationPropertiesReportEndpoint.getInput(currentName.toString(), candidate) : Collections.emptyMap();
 	}
 
 }

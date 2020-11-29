@@ -54,12 +54,10 @@ import org.springframework.beans.BeansException;
 import org.springframework.boot.actuate.endpoint.Sanitizer;
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
 import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
-import org.springframework.boot.context.properties.BoundConfigurationProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.ConfigurationPropertiesBean;
 import org.springframework.boot.context.properties.ConstructorBinding;
 import org.springframework.boot.context.properties.source.ConfigurationProperty;
-import org.springframework.boot.context.properties.source.ConfigurationPropertyName;
 import org.springframework.boot.origin.Origin;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
@@ -94,7 +92,7 @@ public class ConfigurationPropertiesReportEndpoint implements ApplicationContext
 
 	private final Sanitizer sanitizer = new Sanitizer();
 
-	private ApplicationContext context;
+	public ApplicationContext context;
 
 	private ObjectMapper objectMapper;
 
@@ -253,7 +251,7 @@ public class ConfigurationPropertiesReportEndpoint implements ApplicationContext
 				augmented.put(key, getInputs(qualifiedKey, (List<Object>) value));
 			}
 			else {
-				augmented.put(key, applyInput(qualifiedKey));
+				augmented.put(key, sanitizer.applyInput(this, qualifiedKey));
 			}
 		});
 		return augmented;
@@ -272,26 +270,13 @@ public class ConfigurationPropertiesReportEndpoint implements ApplicationContext
 				augmented.add(getInputs(name, (List<Object>) item));
 			}
 			else {
-				augmented.add(applyInput(name));
+				augmented.add(sanitizer.applyInput(this, name));
 			}
 		}
 		return augmented;
 	}
 
-	private Map<String, Object> applyInput(String qualifiedKey) {
-		BoundConfigurationProperties bound = BoundConfigurationProperties.get(this.context);
-		if (bound == null) {
-			return Collections.emptyMap();
-		}
-		ConfigurationPropertyName currentName = ConfigurationPropertyName.adapt(qualifiedKey, '.');
-		ConfigurationProperty candidate = bound.get(currentName);
-		if (candidate == null && currentName.isLastElementIndexed()) {
-			candidate = bound.get(currentName.chop(currentName.getNumberOfElements() - 1));
-		}
-		return (candidate != null) ? getInput(currentName.toString(), candidate) : Collections.emptyMap();
-	}
-
-	private Map<String, Object> getInput(String property, ConfigurationProperty candidate) {
+	public Map<String, Object> getInput(String property, ConfigurationProperty candidate) {
 		Map<String, Object> input = new LinkedHashMap<>();
 		Object value = candidate.getValue();
 		Origin origin = Origin.from(candidate);
