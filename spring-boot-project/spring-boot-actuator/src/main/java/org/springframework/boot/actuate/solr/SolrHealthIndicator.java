@@ -50,28 +50,10 @@ public class SolrHealthIndicator extends AbstractHealthIndicator {
 
 	@Override
 	protected void doHealthCheck(Health.Builder builder) throws Exception {
-		int statusCode = initializeStatusCheck();
+		int statusCode = statusCheck.initializeStatusCheck(this);
 		Status status = (statusCode != 0) ? Status.DOWN : Status.UP;
 		builder.status(status).withDetail("status", statusCode).withDetail("detectedPathType",
 				this.statusCheck.getPathType());
-	}
-
-	private int initializeStatusCheck() throws Exception {
-		StatusCheck statusCheck = this.statusCheck;
-		if (statusCheck != null) {
-			// Already initialized
-			return statusCheck.getStatus(this.solrClient);
-		}
-		try {
-			return initializeStatusCheck(new RootStatusCheck());
-		}
-		catch (RemoteSolrException ex) {
-			// 404 is thrown when SolrClient has a baseUrl pointing to a particular core.
-			if (ex.code() == HTTP_NOT_FOUND_STATUS) {
-				return initializeStatusCheck(new ParticularCoreStatusCheck());
-			}
-			throw ex;
-		}
 	}
 
 	private int initializeStatusCheck(StatusCheck statusCheck) throws Exception {
@@ -83,7 +65,7 @@ public class SolrHealthIndicator extends AbstractHealthIndicator {
 	/**
 	 * Strategy used to perform the status check.
 	 */
-	private abstract static class StatusCheck {
+	abstract static class StatusCheck {
 
 		private final String pathType;
 
@@ -97,12 +79,30 @@ public class SolrHealthIndicator extends AbstractHealthIndicator {
 			return this.pathType;
 		}
 
+		int initializeStatusCheck(SolrHealthIndicator solrHealthIndicator) throws Exception {
+			StatusCheck statusCheck = this;
+			if (statusCheck != null) {
+				// Already initialized
+				return statusCheck.getStatus(solrHealthIndicator.solrClient);
+			}
+			try {
+				return solrHealthIndicator.initializeStatusCheck(new RootStatusCheck());
+			}
+			catch (RemoteSolrException ex) {
+				// 404 is thrown when SolrClient has a baseUrl pointing to a particular core.
+				if (ex.code() == SolrHealthIndicator.HTTP_NOT_FOUND_STATUS) {
+					return solrHealthIndicator.initializeStatusCheck(new ParticularCoreStatusCheck());
+				}
+				throw ex;
+			}
+		}
+
 	}
 
 	/**
 	 * {@link StatusCheck} used when {@code baseUrl} points to the root context.
 	 */
-	private static class RootStatusCheck extends StatusCheck {
+	static class RootStatusCheck extends StatusCheck {
 
 		RootStatusCheck() {
 			super("root");
@@ -120,7 +120,7 @@ public class SolrHealthIndicator extends AbstractHealthIndicator {
 	/**
 	 * {@link StatusCheck} used when {@code baseUrl} points to the particular core.
 	 */
-	private static class ParticularCoreStatusCheck extends StatusCheck {
+	static class ParticularCoreStatusCheck extends StatusCheck {
 
 		ParticularCoreStatusCheck() {
 			super("particular core");
