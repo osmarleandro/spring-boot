@@ -22,6 +22,10 @@ import java.util.Map;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.DeprecatedConfigurationProperty;
 import org.springframework.boot.context.properties.NestedConfigurationProperty;
+import org.springframework.context.annotation.Bean;
+import org.springframework.core.annotation.Order;
+
+import io.micrometer.core.instrument.config.MeterFilter;
 
 /**
  * {@link ConfigurationProperties @ConfigurationProperties} for configuring
@@ -79,6 +83,16 @@ public class MetricsProperties {
 
 	public Distribution getDistribution() {
 		return this.distribution;
+	}
+
+	@Bean
+	@Order(0)
+	public MeterFilter metricsHttpClientUriTagFilter() {
+		String metricName = getWeb().getClient().getRequest().getMetricName();
+		MeterFilter denyFilter = new OnlyOnceLoggingDenyMeterFilter(() -> String
+				.format("Reached the maximum number of URI tags for '%s'. Are you using 'uriVariables'?", metricName));
+		return MeterFilter.maximumAllowableTags(metricName, "uri", getWeb().getClient().getMaxUriTags(),
+				denyFilter);
 	}
 
 	public static class Web {
