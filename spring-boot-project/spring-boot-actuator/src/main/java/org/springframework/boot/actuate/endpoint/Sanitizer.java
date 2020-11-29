@@ -17,7 +17,10 @@
 package org.springframework.boot.actuate.endpoint;
 
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.LinkedHashSet;
+import java.util.Map;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -25,6 +28,8 @@ import java.util.stream.Collectors;
 
 import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
  * Strategy that should be used by endpoint implementations to sanitize potentially
@@ -136,6 +141,24 @@ public class Sanitizer {
 			return StringUtils.replace(value, ":" + password + "@", ":******@");
 		}
 		return value;
+	}
+
+	/**
+	 * Cautiously serialize the bean to a map (returning a map with an error message
+	 * instead of throwing an exception if there is a problem).
+	 * @param mapper the object mapper
+	 * @param bean the source bean
+	 * @param prefix the prefix
+	 * @return the serialized instance
+	 */
+	@SuppressWarnings({ "unchecked" })
+	public Map<String, Object> safeSerialize(ObjectMapper mapper, Object bean, String prefix) {
+		try {
+			return new HashMap<>(mapper.convertValue(bean, Map.class));
+		}
+		catch (Exception ex) {
+			return new HashMap<>(Collections.singletonMap("error", "Cannot serialize '" + prefix + "'"));
+		}
 	}
 
 }

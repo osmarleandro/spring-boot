@@ -174,28 +174,10 @@ public class ConfigurationPropertiesReportEndpoint implements ApplicationContext
 
 	private ConfigurationPropertiesBeanDescriptor describeBean(ObjectMapper mapper, ConfigurationPropertiesBean bean) {
 		String prefix = bean.getAnnotation().prefix();
-		Map<String, Object> serialized = safeSerialize(mapper, bean.getInstance(), prefix);
+		Map<String, Object> serialized = sanitizer.safeSerialize(mapper, bean.getInstance(), prefix);
 		Map<String, Object> properties = sanitize(prefix, serialized);
 		Map<String, Object> inputs = getInputs(prefix, serialized);
 		return new ConfigurationPropertiesBeanDescriptor(prefix, properties, inputs);
-	}
-
-	/**
-	 * Cautiously serialize the bean to a map (returning a map with an error message
-	 * instead of throwing an exception if there is a problem).
-	 * @param mapper the object mapper
-	 * @param bean the source bean
-	 * @param prefix the prefix
-	 * @return the serialized instance
-	 */
-	@SuppressWarnings({ "unchecked" })
-	private Map<String, Object> safeSerialize(ObjectMapper mapper, Object bean, String prefix) {
-		try {
-			return new HashMap<>(mapper.convertValue(bean, Map.class));
-		}
-		catch (Exception ex) {
-			return new HashMap<>(Collections.singletonMap("error", "Cannot serialize '" + prefix + "'"));
-		}
 	}
 
 	/**
