@@ -21,7 +21,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.boot.actuate.autoconfigure.metrics.export.properties.StepRegistryProperties;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.Bean;
+
+import io.micrometer.core.instrument.Clock;
+import io.micrometer.core.ipc.http.HttpUrlConnectionSender;
+import io.micrometer.humio.HumioConfig;
+import io.micrometer.humio.HumioMeterRegistry;
 
 /**
  * {@link ConfigurationProperties @ConfigurationProperties} for configuring Humio metrics
@@ -88,6 +95,15 @@ public class HumioProperties extends StepRegistryProperties {
 
 	public void setUri(String uri) {
 		this.uri = uri;
+	}
+
+	@Bean
+	@ConditionalOnMissingBean
+	public HumioMeterRegistry humioMeterRegistry(HumioMetricsExportAutoConfiguration humioMetricsExportAutoConfiguration, HumioConfig humioConfig, Clock clock) {
+		return HumioMeterRegistry.builder(humioConfig).clock(clock).httpClient(
+				new HttpUrlConnectionSender(getConnectTimeout(), getReadTimeout()))
+				.build();
+	
 	}
 
 }
