@@ -23,7 +23,10 @@ import java.util.regex.Pattern;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
+import org.springframework.boot.actuate.endpoint.annotation.DiscoveredOperationMethod;
+import org.springframework.boot.actuate.endpoint.invoke.OperationInvoker;
+import org.springframework.boot.actuate.endpoint.jmx.JmxOperation;
+import org.springframework.boot.actuate.endpoint.jmx.annotation.DiscoveredJmxOperation;
 import org.springframework.core.env.Environment;
 import org.springframework.util.Assert;
 
@@ -104,6 +107,10 @@ public final class EndpointId {
 	@Override
 	public String toString() {
 		return this.value;
+	}
+
+	public JmxOperation createOperation(DiscoveredOperationMethod operationMethod, OperationInvoker invoker) {
+		return new DiscoveredJmxOperation(this, operationMethod, invoker);
 	}
 
 	/**
