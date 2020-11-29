@@ -18,11 +18,13 @@ package org.springframework.boot.actuate.endpoint.annotation;
 
 import java.lang.reflect.Method;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
 import org.springframework.boot.actuate.endpoint.OperationType;
 import org.springframework.boot.actuate.endpoint.invoke.reflect.OperationMethod;
+import org.springframework.boot.actuate.endpoint.web.annotation.RequestPredicateFactory;
 import org.springframework.core.annotation.AnnotationAttributes;
 import org.springframework.util.Assert;
 
@@ -46,6 +48,19 @@ public class DiscoveredOperationMethod extends OperationMethod {
 
 	public List<String> getProducesMediaTypes() {
 		return this.producesMediaTypes;
+	}
+
+	public Collection<String> getProduces(RequestPredicateFactory requestPredicateFactory, Method method) {
+		if (!getProducesMediaTypes().isEmpty()) {
+			return getProducesMediaTypes();
+		}
+		if (Void.class.equals(method.getReturnType()) || void.class.equals(method.getReturnType())) {
+			return Collections.emptyList();
+		}
+		if (requestPredicateFactory.producesResource(method)) {
+			return Collections.singletonList("application/octet-stream");
+		}
+		return requestPredicateFactory.endpointMediaTypes.getProduced();
 	}
 
 }

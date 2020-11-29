@@ -42,9 +42,9 @@ import org.springframework.util.Assert;
  * @author Stephane Nicoll
  * @author Phillip Webb
  */
-class RequestPredicateFactory {
+public class RequestPredicateFactory {
 
-	private final EndpointMediaTypes endpointMediaTypes;
+	public final EndpointMediaTypes endpointMediaTypes;
 
 	RequestPredicateFactory(EndpointMediaTypes endpointMediaTypes) {
 		Assert.notNull(endpointMediaTypes, "EndpointMediaTypes must not be null");
@@ -59,7 +59,7 @@ class RequestPredicateFactory {
 		String path = getPath(rootPath, selectorParameters, allRemainingPathSegmentsParameter != null);
 		WebEndpointHttpMethod httpMethod = determineHttpMethod(operationMethod.getOperationType());
 		Collection<String> consumes = getConsumes(httpMethod, method);
-		Collection<String> produces = getProduces(operationMethod, method);
+		Collection<String> produces = operationMethod.getProduces(this, method);
 		return new WebOperationRequestPredicate(path, httpMethod, consumes, produces);
 	}
 
@@ -104,20 +104,7 @@ class RequestPredicateFactory {
 		return Collections.emptyList();
 	}
 
-	private Collection<String> getProduces(DiscoveredOperationMethod operationMethod, Method method) {
-		if (!operationMethod.getProducesMediaTypes().isEmpty()) {
-			return operationMethod.getProducesMediaTypes();
-		}
-		if (Void.class.equals(method.getReturnType()) || void.class.equals(method.getReturnType())) {
-			return Collections.emptyList();
-		}
-		if (producesResource(method)) {
-			return Collections.singletonList("application/octet-stream");
-		}
-		return this.endpointMediaTypes.getProduced();
-	}
-
-	private boolean producesResource(Method method) {
+	public boolean producesResource(Method method) {
 		if (Resource.class.equals(method.getReturnType())) {
 			return true;
 		}
