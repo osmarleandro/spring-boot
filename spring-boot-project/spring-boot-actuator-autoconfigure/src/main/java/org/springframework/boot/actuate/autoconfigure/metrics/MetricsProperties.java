@@ -65,10 +65,6 @@ public class MetricsProperties {
 		this.useGlobalRegistry = useGlobalRegistry;
 	}
 
-	public Map<String, Boolean> getEnable() {
-		return this.enable;
-	}
-
 	public Map<String, String> getTags() {
 		return this.tags;
 	}
@@ -278,6 +274,10 @@ public class MetricsProperties {
 
 		public Map<String, String> getMaximumExpectedValue() {
 			return this.maximumExpectedValue;
+		}
+
+		public Map<String, Boolean> getEnable(MetricsProperties metricsProperties) {
+			return metricsProperties.enable;
 		}
 
 	}
