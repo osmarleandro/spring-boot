@@ -16,8 +16,11 @@
 
 package org.springframework.boot.actuate.metrics.web.reactive.client;
 
+import io.micrometer.core.instrument.MeterRegistry;
 import io.micrometer.core.instrument.Tag;
 
+import org.springframework.boot.actuate.autoconfigure.metrics.MetricsProperties;
+import org.springframework.context.annotation.Bean;
 import org.springframework.web.reactive.function.client.ClientRequest;
 import org.springframework.web.reactive.function.client.ClientResponse;
 
@@ -39,5 +42,13 @@ public interface WebClientExchangeTagsProvider {
 	 * @return tags to associate with metrics for the request and response exchange
 	 */
 	Iterable<Tag> tags(ClientRequest request, ClientResponse response, Throwable throwable);
+
+	@Bean
+	default
+	MetricsWebClientCustomizer metricsWebClientCustomizer(MeterRegistry meterRegistry, MetricsProperties properties) {
+		org.springframework.boot.actuate.autoconfigure.metrics.MetricsProperties.Web.Client.ClientRequest request = properties.getWeb().getClient().getRequest();
+		return new MetricsWebClientCustomizer(meterRegistry, this, request.getMetricName(),
+				request.getAutotime());
+	}
 
 }
