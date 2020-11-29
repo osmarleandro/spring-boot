@@ -36,7 +36,7 @@ import org.springframework.util.CollectionUtils;
  * @author Phillip Webb
  * @author Andy Wilkinson
  */
-class AutoConfiguredHealthEndpointGroup implements HealthEndpointGroup {
+public class AutoConfiguredHealthEndpointGroup implements HealthEndpointGroup {
 
 	private final Predicate<String> members;
 
@@ -44,7 +44,7 @@ class AutoConfiguredHealthEndpointGroup implements HealthEndpointGroup {
 
 	private final HttpCodeStatusMapper httpCodeStatusMapper;
 
-	private final Show showComponents;
+	public final Show showComponents;
 
 	private final Show showDetails;
 
@@ -77,10 +77,7 @@ class AutoConfiguredHealthEndpointGroup implements HealthEndpointGroup {
 
 	@Override
 	public boolean showComponents(SecurityContext securityContext) {
-		if (this.showComponents == null) {
-			return showDetails(securityContext);
-		}
-		return getShowResult(securityContext, this.showComponents);
+		return securityContext.showComponents(this);
 	}
 
 	@Override
@@ -88,7 +85,7 @@ class AutoConfiguredHealthEndpointGroup implements HealthEndpointGroup {
 		return getShowResult(securityContext, this.showDetails);
 	}
 
-	private boolean getShowResult(SecurityContext securityContext, Show show) {
+	public boolean getShowResult(SecurityContext securityContext, Show show) {
 		switch (show) {
 		case NEVER:
 			return false;
