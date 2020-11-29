@@ -16,8 +16,6 @@
 
 package org.springframework.boot.actuate.autoconfigure.web.servlet;
 
-import java.util.Map;
-
 import org.springframework.boot.autoconfigure.web.ErrorProperties;
 import org.springframework.boot.web.error.ErrorAttributeOptions;
 import org.springframework.boot.web.error.ErrorAttributeOptions.Include;
@@ -25,8 +23,6 @@ import org.springframework.boot.web.servlet.error.ErrorAttributes;
 import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.request.ServletWebRequest;
 
 /**
@@ -41,7 +37,7 @@ import org.springframework.web.context.request.ServletWebRequest;
 @Controller
 public class ManagementErrorEndpoint {
 
-	private final ErrorAttributes errorAttributes;
+	public final ErrorAttributes errorAttributes;
 
 	private final ErrorProperties errorProperties;
 
@@ -52,13 +48,7 @@ public class ManagementErrorEndpoint {
 		this.errorProperties = errorProperties;
 	}
 
-	@RequestMapping("${server.error.path:${error.path:/error}}")
-	@ResponseBody
-	public Map<String, Object> invoke(ServletWebRequest request) {
-		return this.errorAttributes.getErrorAttributes(request, getErrorAttributeOptions(request));
-	}
-
-	private ErrorAttributeOptions getErrorAttributeOptions(ServletWebRequest request) {
+	public ErrorAttributeOptions getErrorAttributeOptions(ServletWebRequest request) {
 		ErrorAttributeOptions options = ErrorAttributeOptions.defaults();
 		if (this.errorProperties.isIncludeException()) {
 			options = options.including(Include.EXCEPTION);

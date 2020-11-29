@@ -54,7 +54,7 @@ class ManagementErrorEndpointTests {
 	@Test
 	void errorResponseNeverDetails() {
 		ManagementErrorEndpoint endpoint = new ManagementErrorEndpoint(this.errorAttributes, this.errorProperties);
-		Map<String, Object> response = endpoint.invoke(new ServletWebRequest(new MockHttpServletRequest()));
+		Map<String, Object> response = endpoint.errorAttributes.invoke(endpoint, new ServletWebRequest(new MockHttpServletRequest()));
 		assertThat(response).containsEntry("message", "");
 		assertThat(response).doesNotContainKey("trace");
 	}
@@ -66,7 +66,7 @@ class ManagementErrorEndpointTests {
 		this.request.addParameter("trace", "false");
 		this.request.addParameter("message", "false");
 		ManagementErrorEndpoint endpoint = new ManagementErrorEndpoint(this.errorAttributes, this.errorProperties);
-		Map<String, Object> response = endpoint.invoke(new ServletWebRequest(this.request));
+		Map<String, Object> response = endpoint.errorAttributes.invoke(endpoint, new ServletWebRequest(this.request));
 		assertThat(response).containsEntry("message", "test exception");
 		assertThat(response).hasEntrySatisfying("trace",
 				(value) -> assertThat(value).asString().startsWith("java.lang.RuntimeException: test exception"));
@@ -77,7 +77,7 @@ class ManagementErrorEndpointTests {
 		this.errorProperties.setIncludeStacktrace(ErrorProperties.IncludeStacktrace.ON_PARAM);
 		this.errorProperties.setIncludeMessage(ErrorProperties.IncludeAttribute.ON_PARAM);
 		ManagementErrorEndpoint endpoint = new ManagementErrorEndpoint(this.errorAttributes, this.errorProperties);
-		Map<String, Object> response = endpoint.invoke(new ServletWebRequest(this.request));
+		Map<String, Object> response = endpoint.errorAttributes.invoke(endpoint, new ServletWebRequest(this.request));
 		assertThat(response).containsEntry("message", "");
 		assertThat(response).doesNotContainKey("trace");
 	}
@@ -89,7 +89,7 @@ class ManagementErrorEndpointTests {
 		this.request.addParameter("trace", "true");
 		this.request.addParameter("message", "true");
 		ManagementErrorEndpoint endpoint = new ManagementErrorEndpoint(this.errorAttributes, this.errorProperties);
-		Map<String, Object> response = endpoint.invoke(new ServletWebRequest(this.request));
+		Map<String, Object> response = endpoint.errorAttributes.invoke(endpoint, new ServletWebRequest(this.request));
 		assertThat(response).containsEntry("message", "test exception");
 		assertThat(response).hasEntrySatisfying("trace",
 				(value) -> assertThat(value).asString().startsWith("java.lang.RuntimeException: test exception"));
@@ -102,7 +102,7 @@ class ManagementErrorEndpointTests {
 		this.request.addParameter("trace", "false");
 		this.request.addParameter("message", "false");
 		ManagementErrorEndpoint endpoint = new ManagementErrorEndpoint(this.errorAttributes, this.errorProperties);
-		Map<String, Object> response = endpoint.invoke(new ServletWebRequest(this.request));
+		Map<String, Object> response = endpoint.errorAttributes.invoke(endpoint, new ServletWebRequest(this.request));
 		assertThat(response).containsEntry("message", "");
 		assertThat(response).doesNotContainKey("trace");
 	}
@@ -123,7 +123,7 @@ class ManagementErrorEndpointTests {
 
 		};
 		ManagementErrorEndpoint endpoint = new ManagementErrorEndpoint(attributes, this.errorProperties);
-		Map<String, Object> response = endpoint.invoke(new ServletWebRequest(new MockHttpServletRequest()));
+		Map<String, Object> response = endpoint.errorAttributes.invoke(endpoint, new ServletWebRequest(new MockHttpServletRequest()));
 		assertThat(response).containsExactly(entry("message", "An error occurred"));
 	}
 
@@ -143,7 +143,7 @@ class ManagementErrorEndpointTests {
 
 		};
 		ManagementErrorEndpoint endpoint = new ManagementErrorEndpoint(attributes, this.errorProperties);
-		Map<String, Object> response = endpoint.invoke(new ServletWebRequest(new MockHttpServletRequest()));
+		Map<String, Object> response = endpoint.errorAttributes.invoke(endpoint, new ServletWebRequest(new MockHttpServletRequest()));
 		assertThat(response).containsEntry("error", "custom error");
 		assertThat(response).containsEntry("custom", "value");
 		assertThat(response).doesNotContainKey("path");
@@ -161,7 +161,7 @@ class ManagementErrorEndpointTests {
 
 		};
 		ManagementErrorEndpoint endpoint = new ManagementErrorEndpoint(attributes, this.errorProperties);
-		Map<String, Object> response = endpoint.invoke(new ServletWebRequest(new MockHttpServletRequest()));
+		Map<String, Object> response = endpoint.errorAttributes.invoke(endpoint, new ServletWebRequest(new MockHttpServletRequest()));
 		assertThat(response).containsExactly(entry("error", "custom error"));
 	}
 
