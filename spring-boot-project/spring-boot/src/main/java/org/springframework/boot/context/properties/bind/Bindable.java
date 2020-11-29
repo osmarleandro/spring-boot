@@ -175,6 +175,18 @@ public final class Bindable<T> {
 	}
 
 	/**
+	 * Replace the {@code value} for the specified key if the value is not {@code null}.
+	 * @param content the content to expose
+	 * @param key the property to replace
+	 * @param value the new value
+	 */
+	public void replaceValue(Map<String, Object> content, String key, Object value) {
+		if (content.containsKey(key) && value != null) {
+			content.put(key, value);
+		}
+	}
+
+	/**
 	 * Create a new {@link Bindable} of the type of the specified instance with an
 	 * existing value equal to the instance.
 	 * @param <T> the source type
