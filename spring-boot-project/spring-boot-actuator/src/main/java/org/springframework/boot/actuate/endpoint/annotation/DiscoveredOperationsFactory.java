@@ -23,10 +23,15 @@ import java.util.Collections;
 import java.util.EnumMap;
 import java.util.Map;
 import java.util.Objects;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
+import org.springframework.beans.factory.BeanFactoryUtils;
 import org.springframework.boot.actuate.endpoint.EndpointId;
 import org.springframework.boot.actuate.endpoint.Operation;
 import org.springframework.boot.actuate.endpoint.OperationType;
+import org.springframework.boot.actuate.endpoint.annotation.EndpointDiscoverer.EndpointBean;
+import org.springframework.boot.actuate.endpoint.annotation.EndpointDiscoverer.ExtensionBean;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvoker;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvokerAdvisor;
 import org.springframework.boot.actuate.endpoint.invoke.ParameterValueMapper;
@@ -36,6 +41,7 @@ import org.springframework.core.MethodIntrospector;
 import org.springframework.core.MethodIntrospector.MetadataLookup;
 import org.springframework.core.annotation.MergedAnnotation;
 import org.springframework.core.annotation.MergedAnnotations;
+import org.springframework.util.Assert;
 
 /**
  * Factory to create an {@link Operation} for annotated methods on an
@@ -106,5 +112,19 @@ abstract class DiscoveredOperationsFactory<O extends Operation> {
 
 	protected abstract O createOperation(EndpointId endpointId, DiscoveredOperationMethod operationMethod,
 			OperationInvoker invoker);
+
+	void addExtensionBeans(EndpointDiscoverer endpointDiscoverer, Collection<EndpointBean> endpointBeans) {
+		Map<EndpointId, EndpointBean> byId = endpointBeans.stream()
+				.collect(Collectors.toMap(EndpointBean::getId, Function.identity()));
+		String[] beanNames = BeanFactoryUtils.beanNamesForAnnotationIncludingAncestors(endpointDiscoverer.applicationContext,
+				EndpointExtension.class);
+		for (String beanName : beanNames) {
+			ExtensionBean extensionBean = endpointDiscoverer.createExtensionBean(beanName);
+			EndpointBean endpointBean = byId.get(extensionBean.getEndpointId());
+			Assert.state(endpointBean != null, () -> ("Invalid extension '" + extensionBean.getBeanName()
+					+ "': no endpoint found with id '" + extensionBean.getEndpointId() + "'"));
+			endpointDiscoverer.addExtensionBean(endpointBean, extensionBean);
+		}
+	}
 
 }
