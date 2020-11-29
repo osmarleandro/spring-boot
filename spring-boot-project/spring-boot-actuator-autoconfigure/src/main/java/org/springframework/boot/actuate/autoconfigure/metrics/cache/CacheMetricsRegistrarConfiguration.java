@@ -41,6 +41,7 @@ import org.springframework.util.StringUtils;
  */
 @Configuration(proxyBeanMethods = false)
 @ConditionalOnBean({ CacheMeterBinderProvider.class, MeterRegistry.class })
+public
 class CacheMetricsRegistrarConfiguration {
 
 	private static final String CACHE_MANAGER_SUFFIX = "cacheManager";
@@ -68,12 +69,7 @@ class CacheMetricsRegistrarConfiguration {
 		this.cacheManagers.forEach(this::bindCacheManagerToRegistry);
 	}
 
-	private void bindCacheManagerToRegistry(String beanName, CacheManager cacheManager) {
-		cacheManager.getCacheNames()
-				.forEach((cacheName) -> bindCacheToRegistry(beanName, cacheManager.getCache(cacheName)));
-	}
-
-	private void bindCacheToRegistry(String beanName, Cache cache) {
+	public void bindCacheToRegistry(String beanName, Cache cache) {
 		Tag cacheManagerTag = Tag.of("cacheManager", getCacheManagerName(beanName));
 		this.cacheMetricsRegistrar.bindCacheToRegistry(cache, cacheManagerTag);
 	}
