@@ -47,7 +47,7 @@ public class ControllerEndpointHandlerMapping extends RequestMappingHandlerMappi
 
 	private final EndpointMapping endpointMapping;
 
-	private final CorsConfiguration corsConfiguration;
+	public final CorsConfiguration corsConfiguration;
 
 	private final Map<Object, ExposableControllerEndpoint> handlers;
 
@@ -119,7 +119,7 @@ public class ControllerEndpointHandlerMapping extends RequestMappingHandlerMappi
 
 	@Override
 	protected CorsConfiguration initCorsConfiguration(Object handler, Method method, RequestMappingInfo mapping) {
-		return this.corsConfiguration;
+		return endpointMapping.initCorsConfiguration(this, handler, method, mapping);
 	}
 
 	@Override

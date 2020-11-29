@@ -16,7 +16,12 @@
 
 package org.springframework.boot.actuate.endpoint.web;
 
+import java.lang.reflect.Method;
+
+import org.springframework.boot.actuate.endpoint.web.servlet.ControllerEndpointHandlerMapping;
 import org.springframework.util.StringUtils;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.servlet.mvc.method.RequestMappingInfo;
 
 /**
  * A value object for the base mapping for endpoints.
@@ -46,6 +51,10 @@ public class EndpointMapping {
 
 	public String createSubPath(String path) {
 		return this.path + normalizePath(path);
+	}
+
+	public CorsConfiguration initCorsConfiguration(ControllerEndpointHandlerMapping controllerEndpointHandlerMapping, Object handler, Method method, RequestMappingInfo mapping) {
+		return controllerEndpointHandlerMapping.corsConfiguration;
 	}
 
 	private static String normalizePath(String path) {
