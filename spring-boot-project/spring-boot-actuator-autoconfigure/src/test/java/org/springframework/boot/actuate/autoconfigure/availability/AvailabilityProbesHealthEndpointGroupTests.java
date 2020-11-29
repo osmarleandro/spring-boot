@@ -20,7 +20,6 @@ import org.junit.jupiter.api.Test;
 
 import org.springframework.boot.actuate.endpoint.SecurityContext;
 import org.springframework.boot.actuate.health.HttpCodeStatusMapper;
-import org.springframework.boot.actuate.health.StatusAggregator;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
@@ -30,9 +29,9 @@ import static org.mockito.Mockito.mock;
  *
  * @author Phillip Webb
  */
-class AvailabilityProbesHealthEndpointGroupTests {
+public class AvailabilityProbesHealthEndpointGroupTests {
 
-	private AvailabilityProbesHealthEndpointGroup group = new AvailabilityProbesHealthEndpointGroup("a", "b");
+	public AvailabilityProbesHealthEndpointGroup group = new AvailabilityProbesHealthEndpointGroup("a", "b");
 
 	@Test
 	void isMemberWhenMemberReturnsTrue() {
@@ -53,11 +52,6 @@ class AvailabilityProbesHealthEndpointGroupTests {
 	@Test
 	void showDetailsReturnsFalse() {
 		assertThat(this.group.showDetails(mock(SecurityContext.class))).isFalse();
-	}
-
-	@Test
-	void getStatusAggregatorReturnsDefaultStatusAggregator() {
-		assertThat(this.group.getStatusAggregator()).isEqualTo(StatusAggregator.getDefault());
 	}
 
 	@Test
