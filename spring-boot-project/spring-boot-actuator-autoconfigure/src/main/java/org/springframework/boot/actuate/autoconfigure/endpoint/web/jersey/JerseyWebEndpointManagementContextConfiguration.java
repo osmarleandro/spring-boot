@@ -25,9 +25,6 @@ import javax.annotation.PostConstruct;
 
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.server.model.Resource;
-
-import org.springframework.beans.factory.ObjectProvider;
-import org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointProperties;
 import org.springframework.boot.actuate.autoconfigure.web.ManagementContextConfiguration;
 import org.springframework.boot.actuate.autoconfigure.web.server.ManagementPortType;
 import org.springframework.boot.actuate.endpoint.ExposableEndpoint;
@@ -46,7 +43,6 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication.Type;
 import org.springframework.boot.autoconfigure.jersey.ResourceConfigCustomizer;
-import org.springframework.context.annotation.Bean;
 import org.springframework.core.env.Environment;
 import org.springframework.util.StringUtils;
 
@@ -65,21 +61,10 @@ import org.springframework.util.StringUtils;
 @ConditionalOnClass(ResourceConfig.class)
 @ConditionalOnBean(WebEndpointsSupplier.class)
 @ConditionalOnMissingBean(type = "org.springframework.web.servlet.DispatcherServlet")
+public
 class JerseyWebEndpointManagementContextConfiguration {
 
-	@Bean
-	JerseyWebEndpointsResourcesRegistrar jerseyWebEndpointsResourcesRegistrar(Environment environment,
-			ObjectProvider<ResourceConfig> resourceConfig, WebEndpointsSupplier webEndpointsSupplier,
-			ServletEndpointsSupplier servletEndpointsSupplier, EndpointMediaTypes endpointMediaTypes,
-			WebEndpointProperties webEndpointProperties) {
-		String basePath = webEndpointProperties.getBasePath();
-		boolean shouldRegisterLinks = shouldRegisterLinksMapping(environment, basePath);
-		shouldRegisterLinksMapping(environment, basePath);
-		return new JerseyWebEndpointsResourcesRegistrar(resourceConfig.getIfAvailable(), webEndpointsSupplier,
-				servletEndpointsSupplier, endpointMediaTypes, basePath, shouldRegisterLinks);
-	}
-
-	private boolean shouldRegisterLinksMapping(Environment environment, String basePath) {
+	public boolean shouldRegisterLinksMapping(Environment environment, String basePath) {
 		return StringUtils.hasText(basePath)
 				|| ManagementPortType.get(environment).equals(ManagementPortType.DIFFERENT);
 	}
@@ -88,7 +73,7 @@ class JerseyWebEndpointManagementContextConfiguration {
 	 * Register endpoints with the {@link ResourceConfig}. The
 	 * {@link ResourceConfigCustomizer} cannot be used because we don't want to apply
 	 */
-	static class JerseyWebEndpointsResourcesRegistrar {
+	public static class JerseyWebEndpointsResourcesRegistrar {
 
 		private final ResourceConfig resourceConfig;
 
