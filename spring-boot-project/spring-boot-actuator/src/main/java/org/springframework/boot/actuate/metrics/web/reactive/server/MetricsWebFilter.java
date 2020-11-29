@@ -20,7 +20,6 @@ import java.util.concurrent.TimeUnit;
 
 import io.micrometer.core.instrument.MeterRegistry;
 import io.micrometer.core.instrument.Tag;
-import org.reactivestreams.Publisher;
 import reactor.core.publisher.Mono;
 
 import org.springframework.boot.actuate.metrics.AutoTimer;
@@ -70,20 +69,14 @@ public class MetricsWebFilter implements WebFilter {
 		if (!this.autoTimer.isEnabled()) {
 			return chain.filter(exchange);
 		}
-		return chain.filter(exchange).transformDeferred((call) -> filter(exchange, call));
+		return chain.filter(exchange).transformDeferred((call) -> autoTimer.filter(this, exchange, call));
 	}
 
-	private Publisher<Void> filter(ServerWebExchange exchange, Mono<Void> call) {
-		long start = System.nanoTime();
-		return call.doOnSuccess((done) -> onSuccess(exchange, start))
-				.doOnError((cause) -> onError(exchange, start, cause));
-	}
-
-	private void onSuccess(ServerWebExchange exchange, long start) {
+	public void onSuccess(ServerWebExchange exchange, long start) {
 		record(exchange, start, null);
 	}
 
-	private void onError(ServerWebExchange exchange, long start, Throwable cause) {
+	public void onError(ServerWebExchange exchange, long start, Throwable cause) {
 		ServerHttpResponse response = exchange.getResponse();
 		if (response.isCommitted()) {
 			record(exchange, start, cause);
