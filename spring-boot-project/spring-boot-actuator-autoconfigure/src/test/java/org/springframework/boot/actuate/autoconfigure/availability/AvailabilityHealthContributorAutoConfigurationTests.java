@@ -32,18 +32,11 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Brian Clozel
  */
-class AvailabilityHealthContributorAutoConfigurationTests {
+public class AvailabilityHealthContributorAutoConfigurationTests {
 
-	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
+	public final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(ApplicationAvailabilityAutoConfiguration.class,
 					AvailabilityHealthContributorAutoConfiguration.class));
-
-	@Test
-	void probesWhenNotKubernetesAddsNoBeans() {
-		this.contextRunner.run((context) -> assertThat(context).hasSingleBean(ApplicationAvailability.class)
-				.doesNotHaveBean(LivenessStateHealthIndicator.class)
-				.doesNotHaveBean(ReadinessStateHealthIndicator.class));
-	}
 
 	@Test
 	void livenessIndicatorWhenPropertyEnabledAddsBeans() {
