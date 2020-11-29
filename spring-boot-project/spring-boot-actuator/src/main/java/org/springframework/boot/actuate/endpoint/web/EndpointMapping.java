@@ -16,6 +16,12 @@
 
 package org.springframework.boot.actuate.endpoint.web;
 
+import java.util.Collection;
+import java.util.Collections;
+import java.util.LinkedHashMap;
+import java.util.Map;
+
+import org.springframework.boot.actuate.endpoint.web.annotation.ExposableControllerEndpoint;
 import org.springframework.util.StringUtils;
 
 /**
@@ -46,6 +52,12 @@ public class EndpointMapping {
 
 	public String createSubPath(String path) {
 		return this.path + normalizePath(path);
+	}
+
+	public Map<Object, ExposableControllerEndpoint> getHandlers(Collection<ExposableControllerEndpoint> endpoints) {
+		Map<Object, ExposableControllerEndpoint> handlers = new LinkedHashMap<>();
+		endpoints.forEach((endpoint) -> handlers.put(endpoint.getController(), endpoint));
+		return Collections.unmodifiableMap(handlers);
 	}
 
 	private static String normalizePath(String path) {
