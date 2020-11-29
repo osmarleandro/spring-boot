@@ -44,7 +44,6 @@ import com.fasterxml.jackson.databind.ser.BeanSerializerModifier;
 import com.fasterxml.jackson.databind.ser.PropertyWriter;
 import com.fasterxml.jackson.databind.ser.SerializerFactory;
 import com.fasterxml.jackson.databind.ser.impl.SimpleBeanPropertyFilter;
-import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -143,15 +142,9 @@ public class ConfigurationPropertiesReportEndpoint implements ApplicationContext
 		mapper.configure(SerializationFeature.WRITE_DURATIONS_AS_TIMESTAMPS, false);
 		mapper.configure(MapperFeature.USE_STD_BEAN_NAMING, true);
 		mapper.setSerializationInclusion(Include.NON_NULL);
-		applyConfigurationPropertiesFilter(mapper);
+		sanitizer.applyConfigurationPropertiesFilter(mapper);
 		applySerializationModifier(mapper);
 		mapper.registerModule(new JavaTimeModule());
-	}
-
-	private void applyConfigurationPropertiesFilter(ObjectMapper mapper) {
-		mapper.setAnnotationIntrospector(new ConfigurationPropertiesAnnotationIntrospector());
-		mapper.setFilterProvider(
-				new SimpleFilterProvider().setDefaultFilter(new ConfigurationPropertiesPropertyFilter()));
 	}
 
 	/**
@@ -312,7 +305,7 @@ public class ConfigurationPropertiesReportEndpoint implements ApplicationContext
 	 * Extension to {@link JacksonAnnotationIntrospector} to suppress CGLIB generated bean
 	 * properties.
 	 */
-	private static class ConfigurationPropertiesAnnotationIntrospector extends JacksonAnnotationIntrospector {
+	public static class ConfigurationPropertiesAnnotationIntrospector extends JacksonAnnotationIntrospector {
 
 		@Override
 		public Object findFilterId(Annotated a) {
@@ -335,7 +328,7 @@ public class ConfigurationPropertiesReportEndpoint implements ApplicationContext
 	 * <li>Properties that throw an exception when retrieving their value.
 	 * </ul>
 	 */
-	private static class ConfigurationPropertiesPropertyFilter extends SimpleBeanPropertyFilter {
+	public static class ConfigurationPropertiesPropertyFilter extends SimpleBeanPropertyFilter {
 
 		private static final Log logger = LogFactory.getLog(ConfigurationPropertiesPropertyFilter.class);
 
