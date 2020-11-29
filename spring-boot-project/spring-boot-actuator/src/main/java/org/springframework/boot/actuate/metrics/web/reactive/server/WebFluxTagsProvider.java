@@ -16,8 +16,12 @@
 
 package org.springframework.boot.actuate.metrics.web.reactive.server;
 
+import io.micrometer.core.instrument.MeterRegistry;
 import io.micrometer.core.instrument.Tag;
 
+import org.springframework.boot.actuate.autoconfigure.metrics.MetricsProperties.Web.Server.ServerRequest;
+import org.springframework.boot.actuate.autoconfigure.metrics.web.reactive.WebFluxMetricsAutoConfiguration;
+import org.springframework.context.annotation.Bean;
 import org.springframework.web.server.ServerWebExchange;
 
 /**
@@ -37,5 +41,11 @@ public interface WebFluxTagsProvider {
 	 * @return tags to associate with metrics for the request and response exchange
 	 */
 	Iterable<Tag> httpRequestTags(ServerWebExchange exchange, Throwable ex);
+
+	@Bean
+	default MetricsWebFilter webfluxMetrics(MeterRegistry registry, WebFluxMetricsAutoConfiguration webFluxMetricsAutoConfiguration) {
+		ServerRequest request = webFluxMetricsAutoConfiguration.properties.getWeb().getServer().getRequest();
+		return new MetricsWebFilter(registry, this, request.getMetricName(), request.getAutotime());
+	}
 
 }
