@@ -19,14 +19,12 @@ package org.springframework.boot.actuate.info;
 import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.Properties;
 
 import org.springframework.boot.context.properties.bind.Bindable;
 import org.springframework.boot.context.properties.bind.Binder;
 import org.springframework.boot.context.properties.source.ConfigurationPropertySources;
 import org.springframework.boot.info.InfoProperties;
 import org.springframework.core.env.PropertySource;
-import org.springframework.util.StringUtils;
 
 /**
  * A base {@link InfoContributor} to expose an {@link InfoProperties}.
@@ -40,7 +38,7 @@ public abstract class InfoPropertiesInfoContributor<T extends InfoProperties> im
 
 	private static final Bindable<Map<String, Object>> STRING_OBJECT_MAP = Bindable.mapOf(String.class, Object.class);
 
-	private final T properties;
+	public final T properties;
 
 	private final Mode mode;
 
@@ -111,18 +109,6 @@ public abstract class InfoPropertiesInfoContributor<T extends InfoProperties> im
 			return this.properties.toPropertySource();
 		}
 		return toSimplePropertySource();
-	}
-
-	/**
-	 * Copy the specified key to the target {@link Properties} if it is set.
-	 * @param target the target properties to update
-	 * @param key the key
-	 */
-	protected void copyIfSet(Properties target, String key) {
-		String value = this.properties.get(key);
-		if (StringUtils.hasText(value)) {
-			target.put(key, value);
-		}
 	}
 
 	/**

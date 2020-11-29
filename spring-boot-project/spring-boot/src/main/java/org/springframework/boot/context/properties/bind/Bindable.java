@@ -20,13 +20,16 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Array;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 import java.util.Set;
 import java.util.function.Supplier;
 
+import org.springframework.boot.actuate.info.InfoPropertiesInfoContributor;
 import org.springframework.core.ResolvableType;
 import org.springframework.core.style.ToStringCreator;
 import org.springframework.util.Assert;
 import org.springframework.util.ObjectUtils;
+import org.springframework.util.StringUtils;
 
 /**
  * Source that can be bound by a {@link Binder}.
@@ -172,6 +175,19 @@ public final class Bindable<T> {
 	 */
 	public Bindable<T> withSuppliedValue(Supplier<T> suppliedValue) {
 		return new Bindable<>(this.type, this.boxedType, suppliedValue, this.annotations);
+	}
+
+	/**
+	 * Copy the specified key to the target {@link Properties} if it is set.
+	 * @param infoPropertiesInfoContributor TODO
+	 * @param target the target properties to update
+	 * @param key the key
+	 */
+	public void copyIfSet(InfoPropertiesInfoContributor infoPropertiesInfoContributor, Properties target, String key) {
+		String value = infoPropertiesInfoContributor.properties.get(key);
+		if (StringUtils.hasText(value)) {
+			target.put(key, value);
+		}
 	}
 
 	/**

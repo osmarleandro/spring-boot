@@ -43,11 +43,11 @@ public class BuildInfoContributor extends InfoPropertiesInfoContributor<BuildPro
 	@Override
 	protected PropertySource<?> toSimplePropertySource() {
 		Properties props = new Properties();
-		copyIfSet(props, "group");
-		copyIfSet(props, "artifact");
-		copyIfSet(props, "name");
-		copyIfSet(props, "version");
-		copyIfSet(props, "time");
+		STRING_OBJECT_MAP.copyIfSet(this, props, "group");
+		STRING_OBJECT_MAP.copyIfSet(this, props, "artifact");
+		STRING_OBJECT_MAP.copyIfSet(this, props, "name");
+		STRING_OBJECT_MAP.copyIfSet(this, props, "version");
+		STRING_OBJECT_MAP.copyIfSet(this, props, "time");
 		return new PropertiesPropertySource("build", props);
 	}
 
