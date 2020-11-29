@@ -17,10 +17,14 @@
 package org.springframework.boot.actuate.autoconfigure.cloudfoundry;
 
 import java.nio.charset.StandardCharsets;
+import java.security.GeneralSecurityException;
+import java.security.PublicKey;
+import java.security.Signature;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.CloudFoundryAuthorizationException.Reason;
+import org.springframework.boot.actuate.autoconfigure.cloudfoundry.reactive.ReactiveTokenValidator;
 import org.springframework.boot.json.JsonParserFactory;
 import org.springframework.util.Base64Utils;
 import org.springframework.util.StringUtils;
@@ -113,6 +117,19 @@ public class Token {
 	@Override
 	public String toString() {
 		return this.encoded;
+	}
+
+	public boolean hasValidSignature(ReactiveTokenValidator reactiveTokenValidator, String key) {
+		try {
+			PublicKey publicKey = reactiveTokenValidator.getPublicKey(key);
+			Signature signature = Signature.getInstance("SHA256withRSA");
+			signature.initVerify(publicKey);
+			signature.update(getContent());
+			return signature.verify(getSignature());
+		}
+		catch (GeneralSecurityException ex) {
+			return false;
+		}
 	}
 
 }
