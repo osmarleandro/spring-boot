@@ -63,8 +63,4 @@ public class WavefrontPropertiesConfigAdapter extends PushRegistryPropertiesConf
 		return get(WavefrontProperties::getGlobalPrefix, WavefrontConfig.super::globalPrefix);
 	}
 
-	private String getUriAsString(WavefrontProperties properties) {
-		return (properties.getUri() != null) ? properties.getUri().toString() : null;
-	}
-
 }

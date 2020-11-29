@@ -95,6 +95,10 @@ public class WavefrontProperties extends PushRegistryProperties {
 		return this.sender;
 	}
 
+	String getUriAsString() {
+		return (getUri() != null) ? getUri().toString() : null;
+	}
+
 	public static class Sender {
 
 		private int maxQueueSize = 50000;
