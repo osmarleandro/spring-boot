@@ -42,7 +42,7 @@ import org.springframework.core.annotation.MergedAnnotations.SearchStrategy;
 public class ServletEndpointDiscoverer extends EndpointDiscoverer<ExposableServletEndpoint, Operation>
 		implements ServletEndpointsSupplier {
 
-	private final List<PathMapper> endpointPathMappers;
+	public final List<PathMapper> endpointPathMappers;
 
 	/**
 	 * Create a new {@link ServletEndpointDiscoverer} instance.
@@ -59,13 +59,6 @@ public class ServletEndpointDiscoverer extends EndpointDiscoverer<ExposableServl
 	@Override
 	protected boolean isEndpointTypeExposed(Class<?> beanType) {
 		return MergedAnnotations.from(beanType, SearchStrategy.SUPERCLASS).isPresent(ServletEndpoint.class);
-	}
-
-	@Override
-	protected ExposableServletEndpoint createEndpoint(Object endpointBean, EndpointId id, boolean enabledByDefault,
-			Collection<Operation> operations) {
-		String rootPath = PathMapper.getRootPath(this.endpointPathMappers, id);
-		return new DiscoveredServletEndpoint(this, endpointBean, id, rootPath, enabledByDefault);
 	}
 
 	@Override
