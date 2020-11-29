@@ -38,7 +38,7 @@ class AuditListenerTests {
 		AuditEventRepository repository = mock(AuditEventRepository.class);
 		AuditEvent event = new AuditEvent("principal", "type", Collections.emptyMap());
 		AuditListener listener = new AuditListener(repository);
-		listener.onApplicationEvent(new AuditApplicationEvent(event));
+		new AuditApplicationEvent(event).onApplicationEvent(listener);
 		verify(repository).add(event);
 	}
 

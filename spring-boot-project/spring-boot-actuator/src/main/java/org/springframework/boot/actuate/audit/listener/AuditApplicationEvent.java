@@ -89,4 +89,8 @@ public class AuditApplicationEvent extends ApplicationEvent {
 		return this.auditEvent;
 	}
 
+	public void onApplicationEvent(AbstractAuditListener abstractAuditListener) {
+		abstractAuditListener.onAuditEvent(getAuditEvent());
+	}
+
 }
