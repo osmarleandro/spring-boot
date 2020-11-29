@@ -187,8 +187,8 @@ public abstract class AbstractWebMvcEndpointHandlerMapping extends RequestMappin
 	 */
 	protected ServletWebOperation wrapServletWebOperation(ExposableWebEndpoint endpoint, WebOperation operation,
 			ServletWebOperation servletWebOperation) {
-		return servletWebOperation;
-	}
+				return endpoint.wrapServletWebOperation(operation, servletWebOperation);
+			}
 
 	private RequestMappingInfo createRequestMappingInfo(WebOperationRequestPredicate predicate, String path) {
 		return RequestMappingInfo.paths(this.endpointMapping.createSubPath(path))
@@ -259,7 +259,7 @@ public abstract class AbstractWebMvcEndpointHandlerMapping extends RequestMappin
 	 * A servlet web operation that can be handled by Spring MVC.
 	 */
 	@FunctionalInterface
-	protected interface ServletWebOperation {
+	public interface ServletWebOperation {
 
 		Object handle(HttpServletRequest request, Map<String, String> body);
 
