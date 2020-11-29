@@ -205,7 +205,7 @@ public abstract class AbstractWebFluxEndpointHandlerMapping extends RequestMappi
 
 	@Override
 	protected RequestMappingInfo getMappingForMethod(Method method, Class<?> handlerType) {
-		return null;
+		return endpointMapping.getMappingForMethod(method, handlerType);
 	}
 
 	/**
