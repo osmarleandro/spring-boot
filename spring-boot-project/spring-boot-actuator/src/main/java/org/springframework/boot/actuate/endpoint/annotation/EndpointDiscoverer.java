@@ -284,7 +284,7 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 	 * @return {@code true} if the endpoint is exposed
 	 */
 	protected boolean isEndpointTypeExposed(Class<?> beanType) {
-		return true;
+		return operationsFactory.isEndpointTypeExposed(beanType);
 	}
 
 	private boolean isEndpointFiltered(EndpointBean endpointBean) {

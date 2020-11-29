@@ -107,4 +107,14 @@ abstract class DiscoveredOperationsFactory<O extends Operation> {
 	protected abstract O createOperation(EndpointId endpointId, DiscoveredOperationMethod operationMethod,
 			OperationInvoker invoker);
 
+	/**
+	 * Determine if an endpoint bean should be exposed. Subclasses can override this
+	 * method to provide additional logic.
+	 * @param beanType the endpoint bean type
+	 * @return {@code true} if the endpoint is exposed
+	 */
+	protected boolean isEndpointTypeExposed(Class<?> beanType) {
+		return true;
+	}
+
 }
