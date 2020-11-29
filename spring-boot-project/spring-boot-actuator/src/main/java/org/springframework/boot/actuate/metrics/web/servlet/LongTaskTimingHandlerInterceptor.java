@@ -67,7 +67,7 @@ public class LongTaskTimingHandlerInterceptor implements HandlerInterceptor {
 			throws Exception {
 		LongTaskTimingContext timingContext = LongTaskTimingContext.get(request);
 		if (timingContext == null) {
-			startAndAttachTimingContext(request, handler);
+			tagsProvider.startAndAttachTimingContext(this, request, handler);
 		}
 		return true;
 	}
@@ -80,14 +80,7 @@ public class LongTaskTimingHandlerInterceptor implements HandlerInterceptor {
 		}
 	}
 
-	private void startAndAttachTimingContext(HttpServletRequest request, Object handler) {
-		Set<Timed> annotations = getTimedAnnotations(handler);
-		Collection<LongTaskTimer.Sample> longTaskTimerSamples = getLongTaskTimerSamples(request, handler, annotations);
-		LongTaskTimingContext timingContext = new LongTaskTimingContext(longTaskTimerSamples);
-		timingContext.attachTo(request);
-	}
-
-	private Collection<LongTaskTimer.Sample> getLongTaskTimerSamples(HttpServletRequest request, Object handler,
+	Collection<LongTaskTimer.Sample> getLongTaskTimerSamples(HttpServletRequest request, Object handler,
 			Set<Timed> annotations) {
 		List<LongTaskTimer.Sample> samples = new ArrayList<>();
 		annotations.stream().filter(Timed::longTask).forEach((annotation) -> {
@@ -99,7 +92,7 @@ public class LongTaskTimingHandlerInterceptor implements HandlerInterceptor {
 		return samples;
 	}
 
-	private Set<Timed> getTimedAnnotations(Object handler) {
+	Set<Timed> getTimedAnnotations(Object handler) {
 		if (!(handler instanceof HandlerMethod)) {
 			return Collections.emptySet();
 		}

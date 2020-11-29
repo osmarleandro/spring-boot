@@ -16,10 +16,17 @@
 
 package org.springframework.boot.actuate.metrics.web.servlet;
 
+import java.util.Collection;
+import java.util.Set;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.boot.actuate.metrics.web.servlet.LongTaskTimingHandlerInterceptor.LongTaskTimingContext;
+
+import io.micrometer.core.annotation.Timed;
 import io.micrometer.core.instrument.LongTaskTimer;
+import io.micrometer.core.instrument.LongTaskTimer.Sample;
 import io.micrometer.core.instrument.Tag;
 
 /**
@@ -52,5 +59,12 @@ public interface WebMvcTagsProvider {
 	 * @return tags to associate with metrics recorded for the request
 	 */
 	Iterable<Tag> getLongRequestTags(HttpServletRequest request, Object handler);
+
+	default void startAndAttachTimingContext(LongTaskTimingHandlerInterceptor longTaskTimingHandlerInterceptor, HttpServletRequest request, Object handler) {
+		Set<Timed> annotations = longTaskTimingHandlerInterceptor.getTimedAnnotations(handler);
+		Collection<Sample> longTaskTimerSamples = longTaskTimingHandlerInterceptor.getLongTaskTimerSamples(request, handler, annotations);
+		LongTaskTimingContext timingContext = new LongTaskTimingContext(longTaskTimerSamples);
+		timingContext.attachTo(request);
+	}
 
 }
