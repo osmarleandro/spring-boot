@@ -43,7 +43,7 @@ import org.springframework.context.ApplicationContext;
 public class WebEndpointDiscoverer extends EndpointDiscoverer<ExposableWebEndpoint, WebOperation>
 		implements WebEndpointsSupplier {
 
-	private final List<PathMapper> endpointPathMappers;
+	public final List<PathMapper> endpointPathMappers;
 
 	private final RequestPredicateFactory requestPredicateFactory;
 
@@ -63,13 +63,6 @@ public class WebEndpointDiscoverer extends EndpointDiscoverer<ExposableWebEndpoi
 		super(applicationContext, parameterValueMapper, invokerAdvisors, filters);
 		this.endpointPathMappers = endpointPathMappers;
 		this.requestPredicateFactory = new RequestPredicateFactory(endpointMediaTypes);
-	}
-
-	@Override
-	protected ExposableWebEndpoint createEndpoint(Object endpointBean, EndpointId id, boolean enabledByDefault,
-			Collection<WebOperation> operations) {
-		String rootPath = PathMapper.getRootPath(this.endpointPathMappers, id);
-		return new DiscoveredWebEndpoint(this, endpointBean, id, rootPath, enabledByDefault, operations);
 	}
 
 	@Override
