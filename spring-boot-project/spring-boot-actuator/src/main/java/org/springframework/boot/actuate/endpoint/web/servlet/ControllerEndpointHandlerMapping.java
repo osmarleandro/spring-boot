@@ -31,7 +31,6 @@ import org.springframework.boot.actuate.endpoint.web.annotation.RestControllerEn
 import org.springframework.util.Assert;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.servlet.HandlerMapping;
-import org.springframework.web.servlet.mvc.condition.PatternsRequestCondition;
 import org.springframework.web.servlet.mvc.method.RequestMappingInfo;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 
@@ -96,20 +95,11 @@ public class ControllerEndpointHandlerMapping extends RequestMappingHandlerMappi
 		}
 		String[] endpointMappedPatterns = patterns.stream()
 				.map((pattern) -> getEndpointMappedPattern(endpoint, pattern)).toArray(String[]::new);
-		return withNewPatterns(mapping, endpointMappedPatterns);
+		return endpointMapping.withNewPatterns(this, mapping, endpointMappedPatterns);
 	}
 
 	private String getEndpointMappedPattern(ExposableControllerEndpoint endpoint, String pattern) {
 		return this.endpointMapping.createSubPath(endpoint.getRootPath() + pattern);
-	}
-
-	@SuppressWarnings("deprecation")
-	private RequestMappingInfo withNewPatterns(RequestMappingInfo mapping, String[] patterns) {
-		PatternsRequestCondition patternsCondition = new PatternsRequestCondition(patterns, null, null,
-				useSuffixPatternMatch(), useTrailingSlashMatch(), null);
-		return new RequestMappingInfo(patternsCondition, mapping.getMethodsCondition(), mapping.getParamsCondition(),
-				mapping.getHeadersCondition(), mapping.getConsumesCondition(), mapping.getProducesCondition(),
-				mapping.getCustomCondition());
 	}
 
 	@Override

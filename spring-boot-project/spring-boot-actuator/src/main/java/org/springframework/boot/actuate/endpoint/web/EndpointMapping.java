@@ -16,7 +16,10 @@
 
 package org.springframework.boot.actuate.endpoint.web;
 
+import org.springframework.boot.actuate.endpoint.web.servlet.ControllerEndpointHandlerMapping;
 import org.springframework.util.StringUtils;
+import org.springframework.web.servlet.mvc.condition.PatternsRequestCondition;
+import org.springframework.web.servlet.mvc.method.RequestMappingInfo;
 
 /**
  * A value object for the base mapping for endpoints.
@@ -46,6 +49,15 @@ public class EndpointMapping {
 
 	public String createSubPath(String path) {
 		return this.path + normalizePath(path);
+	}
+
+	@SuppressWarnings("deprecation")
+	public RequestMappingInfo withNewPatterns(ControllerEndpointHandlerMapping controllerEndpointHandlerMapping, RequestMappingInfo mapping, String[] patterns) {
+		PatternsRequestCondition patternsCondition = new PatternsRequestCondition(patterns, null, null,
+				controllerEndpointHandlerMapping.useSuffixPatternMatch(), controllerEndpointHandlerMapping.useTrailingSlashMatch(), null);
+		return new RequestMappingInfo(patternsCondition, mapping.getMethodsCondition(), mapping.getParamsCondition(),
+				mapping.getHeadersCondition(), mapping.getConsumesCondition(), mapping.getProducesCondition(),
+				mapping.getCustomCondition());
 	}
 
 	private static String normalizePath(String path) {
