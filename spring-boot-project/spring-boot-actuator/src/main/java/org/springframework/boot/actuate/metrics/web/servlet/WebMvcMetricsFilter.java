@@ -97,16 +97,16 @@ public class WebMvcMetricsFilter extends OncePerRequestFilter {
 				// until the second filter invocation (but we'll be using the
 				// TimingContext that was attached to the first)
 				Throwable exception = (Throwable) request.getAttribute(DispatcherServlet.EXCEPTION_ATTRIBUTE);
-				record(timingContext, request, response, exception);
+				timingContext.record(this, request, response, exception);
 			}
 		}
 		catch (NestedServletException ex) {
 			response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
-			record(timingContext, request, response, ex.getCause());
+			timingContext.record(this, request, response, ex.getCause());
 			throw ex;
 		}
 		catch (ServletException | IOException | RuntimeException ex) {
-			record(timingContext, request, response, ex);
+			timingContext.record(this, request, response, ex);
 			throw ex;
 		}
 	}
@@ -116,25 +116,6 @@ public class WebMvcMetricsFilter extends OncePerRequestFilter {
 		TimingContext timingContext = new TimingContext(timerSample);
 		timingContext.attachTo(request);
 		return timingContext;
-	}
-
-	private void record(TimingContext timingContext, HttpServletRequest request, HttpServletResponse response,
-			Throwable exception) {
-		Object handler = getHandler(request);
-		Set<Timed> annotations = getTimedAnnotations(handler);
-		Timer.Sample timerSample = timingContext.getTimerSample();
-		if (annotations.isEmpty()) {
-			if (this.autoTimer.isEnabled()) {
-				Builder builder = this.autoTimer.builder(this.metricName);
-				timerSample.stop(getTimer(builder, handler, request, response, exception));
-			}
-		}
-		else {
-			for (Timed annotation : annotations) {
-				Builder builder = Timer.builder(annotation, this.metricName);
-				timerSample.stop(getTimer(builder, handler, request, response, exception));
-			}
-		}
 	}
 
 	private Object getHandler(HttpServletRequest request) {
@@ -173,7 +154,7 @@ public class WebMvcMetricsFilter extends OncePerRequestFilter {
 	 * Context object attached to a request to retain information across the multiple
 	 * filter calls that happen with async requests.
 	 */
-	private static class TimingContext {
+	static class TimingContext {
 
 		private static final String ATTRIBUTE = TimingContext.class.getName();
 
@@ -189,6 +170,24 @@ public class WebMvcMetricsFilter extends OncePerRequestFilter {
 
 		void attachTo(HttpServletRequest request) {
 			request.setAttribute(ATTRIBUTE, this);
+		}
+
+		void record(WebMvcMetricsFilter webMvcMetricsFilter, HttpServletRequest request, HttpServletResponse response, Throwable exception) {
+			Object handler = webMvcMetricsFilter.getHandler(request);
+			Set<Timed> annotations = webMvcMetricsFilter.getTimedAnnotations(handler);
+			Sample timerSample = getTimerSample();
+			if (annotations.isEmpty()) {
+				if (webMvcMetricsFilter.autoTimer.isEnabled()) {
+					Builder builder = webMvcMetricsFilter.autoTimer.builder(webMvcMetricsFilter.metricName);
+					timerSample.stop(webMvcMetricsFilter.getTimer(builder, handler, request, response, exception));
+				}
+			}
+			else {
+				for (Timed annotation : annotations) {
+					Builder builder = Timer.builder(annotation, webMvcMetricsFilter.metricName);
+					timerSample.stop(webMvcMetricsFilter.getTimer(builder, handler, request, response, exception));
+				}
+			}
 		}
 
 		static TimingContext get(HttpServletRequest request) {
