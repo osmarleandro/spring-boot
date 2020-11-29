@@ -26,4 +26,8 @@ import org.springframework.boot.actuate.endpoint.ExposableEndpoint;
  */
 public interface ExposableJmxEndpoint extends ExposableEndpoint<JmxOperation> {
 
+	default String getEndpointDescription() {
+		return "endpoint '" + getEndpointId() + "'";
+	}
+
 }

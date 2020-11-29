@@ -99,10 +99,10 @@ public class JmxEndpointExporter implements InitializingBean, DisposableBean, Be
 			return name;
 		}
 		catch (MalformedObjectNameException ex) {
-			throw new IllegalStateException("Invalid ObjectName for " + getEndpointDescription(endpoint), ex);
+			throw new IllegalStateException("Invalid ObjectName for " + endpoint.getEndpointDescription(), ex);
 		}
 		catch (Exception ex) {
-			throw new MBeanExportException("Failed to register MBean for " + getEndpointDescription(endpoint), ex);
+			throw new MBeanExportException("Failed to register MBean for " + endpoint.getEndpointDescription(), ex);
 		}
 	}
 
@@ -123,10 +123,6 @@ public class JmxEndpointExporter implements InitializingBean, DisposableBean, Be
 		catch (MBeanRegistrationException ex) {
 			throw new JmxException("Failed to unregister MBean with ObjectName '" + objectName + "'", ex);
 		}
-	}
-
-	private String getEndpointDescription(ExposableJmxEndpoint endpoint) {
-		return "endpoint '" + endpoint.getEndpointId() + "'";
 	}
 
 }
