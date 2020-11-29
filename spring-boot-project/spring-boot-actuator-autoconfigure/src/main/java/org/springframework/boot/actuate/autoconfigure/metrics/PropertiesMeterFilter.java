@@ -19,7 +19,6 @@ package org.springframework.boot.actuate.autoconfigure.metrics;
 import java.util.Arrays;
 import java.util.Map;
 import java.util.Objects;
-import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 import io.micrometer.core.instrument.Meter;
@@ -32,7 +31,6 @@ import io.micrometer.core.instrument.distribution.DistributionStatisticConfig;
 
 import org.springframework.boot.actuate.autoconfigure.metrics.MetricsProperties.Distribution;
 import org.springframework.util.Assert;
-import org.springframework.util.StringUtils;
 
 /**
  * {@link MeterFilter} to apply settings from {@link MetricsProperties}.
@@ -109,28 +107,14 @@ public class PropertiesMeterFilter implements MeterFilter {
 		if (values.isEmpty()) {
 			return defaultValue;
 		}
-		return doLookup(values, id, () -> defaultValue);
+		return properties.doLookup(values, id, () -> defaultValue);
 	}
 
 	private <T> T lookupWithFallbackToAll(Map<String, T> values, Id id, T defaultValue) {
 		if (values.isEmpty()) {
 			return defaultValue;
 		}
-		return doLookup(values, id, () -> values.getOrDefault("all", defaultValue));
-	}
-
-	private <T> T doLookup(Map<String, T> values, Id id, Supplier<T> defaultValue) {
-		String name = id.getName();
-		while (StringUtils.hasLength(name)) {
-			T result = values.get(name);
-			if (result != null) {
-				return result;
-			}
-			int lastDot = name.lastIndexOf('.');
-			name = (lastDot != -1) ? name.substring(0, lastDot) : "";
-		}
-
-		return defaultValue.get();
+		return properties.doLookup(values, id, () -> values.getOrDefault("all", defaultValue));
 	}
 
 }

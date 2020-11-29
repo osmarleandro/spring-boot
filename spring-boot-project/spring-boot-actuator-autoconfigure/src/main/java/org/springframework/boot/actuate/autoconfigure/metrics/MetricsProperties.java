@@ -18,10 +18,14 @@ package org.springframework.boot.actuate.autoconfigure.metrics;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.function.Supplier;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.DeprecatedConfigurationProperty;
 import org.springframework.boot.context.properties.NestedConfigurationProperty;
+import org.springframework.util.StringUtils;
+
+import io.micrometer.core.instrument.Meter.Id;
 
 /**
  * {@link ConfigurationProperties @ConfigurationProperties} for configuring
@@ -79,6 +83,20 @@ public class MetricsProperties {
 
 	public Distribution getDistribution() {
 		return this.distribution;
+	}
+
+	<T> T doLookup(Map<String, T> values, Id id, Supplier<T> defaultValue) {
+		String name = id.getName();
+		while (StringUtils.hasLength(name)) {
+			T result = values.get(name);
+			if (result != null) {
+				return result;
+			}
+			int lastDot = name.lastIndexOf('.');
+			name = (lastDot != -1) ? name.substring(0, lastDot) : "";
+		}
+	
+		return defaultValue.get();
 	}
 
 	public static class Web {
