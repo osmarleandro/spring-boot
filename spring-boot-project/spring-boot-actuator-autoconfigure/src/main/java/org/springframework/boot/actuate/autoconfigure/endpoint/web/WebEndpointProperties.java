@@ -21,7 +21,10 @@ import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
 
+import org.springframework.boot.actuate.endpoint.web.EndpointMediaTypes;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.Bean;
 import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
 
@@ -70,6 +73,12 @@ public class WebEndpointProperties {
 
 	public Map<String, String> getPathMapping() {
 		return this.pathMapping;
+	}
+
+	@Bean
+	@ConditionalOnMissingBean
+	public EndpointMediaTypes endpointMediaTypes() {
+		return EndpointMediaTypes.DEFAULT;
 	}
 
 	public static class Exposure {

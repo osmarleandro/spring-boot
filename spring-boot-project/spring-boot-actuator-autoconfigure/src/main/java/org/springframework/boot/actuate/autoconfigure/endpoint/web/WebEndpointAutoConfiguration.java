@@ -80,12 +80,6 @@ public class WebEndpointAutoConfiguration {
 	}
 
 	@Bean
-	@ConditionalOnMissingBean
-	public EndpointMediaTypes endpointMediaTypes() {
-		return EndpointMediaTypes.DEFAULT;
-	}
-
-	@Bean
 	@ConditionalOnMissingBean(WebEndpointsSupplier.class)
 	public WebEndpointDiscoverer webEndpointDiscoverer(ParameterValueMapper parameterValueMapper,
 			EndpointMediaTypes endpointMediaTypes, ObjectProvider<PathMapper> endpointPathMappers,
