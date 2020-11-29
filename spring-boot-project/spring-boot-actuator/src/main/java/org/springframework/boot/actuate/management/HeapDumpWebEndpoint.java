@@ -118,7 +118,7 @@ public class HeapDumpWebEndpoint {
 	 * @throws HeapDumperUnavailableException if the heap dumper cannot be created
 	 */
 	protected HeapDumper createHeapDumper() throws HeapDumperUnavailableException {
-		return new HotSpotDiagnosticMXBeanHeapDumper();
+		return heapDumper.createHeapDumper();
 	}
 
 	/**
@@ -136,6 +136,15 @@ public class HeapDumpWebEndpoint {
 		 * @throws InterruptedException on thread interruption
 		 */
 		void dumpHeap(File file, boolean live) throws IOException, InterruptedException;
+
+		/**
+		 * Factory method used to create the {@link HeapDumper}.
+		 * @return the heap dumper to use
+		 * @throws HeapDumperUnavailableException if the heap dumper cannot be created
+		 */
+		default HeapDumper createHeapDumper() throws HeapDumperUnavailableException {
+			return new HotSpotDiagnosticMXBeanHeapDumper();
+		}
 
 	}
 
