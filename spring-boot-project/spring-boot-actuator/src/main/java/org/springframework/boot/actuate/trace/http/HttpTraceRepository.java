@@ -18,6 +18,9 @@ package org.springframework.boot.actuate.trace.http;
 
 import java.util.List;
 
+import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
+import org.springframework.boot.actuate.trace.http.HttpTraceEndpoint.HttpTraceDescriptor;
+
 /**
  * A repository for {@link HttpTrace}s.
  *
@@ -38,5 +41,10 @@ public interface HttpTraceRepository {
 	 * @param trace the trace to add
 	 */
 	void add(HttpTrace trace);
+
+	@ReadOperation
+	default HttpTraceDescriptor traces(HttpTraceEndpoint httpTraceEndpoint) {
+		return new HttpTraceDescriptor(findAll());
+	}
 
 }

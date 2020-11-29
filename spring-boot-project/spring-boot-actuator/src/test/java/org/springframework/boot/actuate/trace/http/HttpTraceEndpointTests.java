@@ -36,7 +36,7 @@ class HttpTraceEndpointTests {
 	void trace() {
 		HttpTraceRepository repository = new InMemoryHttpTraceRepository();
 		repository.add(new HttpTrace(createRequest("GET")));
-		List<HttpTrace> traces = new HttpTraceEndpoint(repository).traces().getTraces();
+		List<HttpTrace> traces = new HttpTraceEndpoint(repository).repository.traces(new HttpTraceEndpoint(repository)).getTraces();
 		assertThat(traces).hasSize(1);
 		HttpTrace trace = traces.get(0);
 		assertThat(trace.getRequest().getMethod()).isEqualTo("GET");
