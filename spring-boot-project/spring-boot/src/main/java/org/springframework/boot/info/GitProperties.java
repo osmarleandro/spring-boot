@@ -21,6 +21,14 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Properties;
 
+import org.springframework.boot.actuate.autoconfigure.info.ConditionalOnEnabledInfoContributor;
+import org.springframework.boot.actuate.autoconfigure.info.InfoContributorProperties;
+import org.springframework.boot.actuate.info.GitInfoContributor;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnSingleCandidate;
+import org.springframework.context.annotation.Bean;
+import org.springframework.core.annotation.Order;
+
 /**
  * Provide git-related information such as commit id and time.
  *
@@ -75,6 +83,15 @@ public class GitProperties extends InfoProperties {
 	 */
 	public Instant getCommitTime() {
 		return getInstant("commit.time");
+	}
+
+	@Bean
+	@ConditionalOnEnabledInfoContributor("git")
+	@ConditionalOnSingleCandidate(GitProperties.class)
+	@ConditionalOnMissingBean
+	@Order(DEFAULT_ORDER)
+	public GitInfoContributor gitInfoContributor(InfoContributorProperties infoContributorProperties) {
+		return new GitInfoContributor(this, infoContributorProperties.getGit().getMode());
 	}
 
 	private static Properties processEntries(Properties properties) {
