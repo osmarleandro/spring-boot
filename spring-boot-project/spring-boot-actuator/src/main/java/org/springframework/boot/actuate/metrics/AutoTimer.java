@@ -16,7 +16,19 @@
 
 package org.springframework.boot.actuate.metrics;
 
+import java.io.IOException;
 import java.util.function.Supplier;
+
+import javax.servlet.FilterChain;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.boot.actuate.metrics.web.servlet.WebMvcMetricsFilter;
+import org.springframework.boot.actuate.metrics.web.servlet.WebMvcMetricsFilter.TimingContext;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.servlet.DispatcherServlet;
+import org.springframework.web.util.NestedServletException;
 
 import io.micrometer.core.annotation.Timed;
 import io.micrometer.core.instrument.Timer;
@@ -93,5 +105,33 @@ public interface AutoTimer {
 	 * @param builder the builder to apply settings to
 	 */
 	void apply(Timer.Builder builder);
+
+	public default void doFilterInternal(WebMvcMetricsFilter webMvcMetricsFilter, HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
+			throws ServletException, IOException {
+		TimingContext timingContext = TimingContext.get(request);
+		if (timingContext == null) {
+			timingContext = webMvcMetricsFilter.startAndAttachTimingContext(request);
+		}
+		try {
+			filterChain.doFilter(request, response);
+			if (!request.isAsyncStarted()) {
+				// Only record when async processing has finished or never been started.
+				// If async was started by something further down the chain we wait
+				// until the second filter invocation (but we'll be using the
+				// TimingContext that was attached to the first)
+				Throwable exception = (Throwable) request.getAttribute(DispatcherServlet.EXCEPTION_ATTRIBUTE);
+				webMvcMetricsFilter.record(timingContext, request, response, exception);
+			}
+		}
+		catch (NestedServletException ex) {
+			response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
+			webMvcMetricsFilter.record(timingContext, request, response, ex.getCause());
+			throw ex;
+		}
+		catch (ServletException | IOException | RuntimeException ex) {
+			webMvcMetricsFilter.record(timingContext, request, response, ex);
+			throw ex;
+		}
+	}
 
 }
