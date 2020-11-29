@@ -19,6 +19,7 @@ package org.springframework.boot.actuate.endpoint.jmx;
 import java.util.List;
 
 import org.springframework.boot.actuate.endpoint.Operation;
+import org.springframework.boot.actuate.endpoint.annotation.EndpointDiscoverer.OperationKey;
 
 /**
  * An operation on a JMX endpoint.
@@ -54,5 +55,9 @@ public interface JmxOperation extends Operation {
 	 * @return the operation parameter names
 	 */
 	List<JmxOperationParameter> getParameters();
+
+	public default OperationKey createOperationKey() {
+		return new OperationKey(getName(), () -> "MBean call '" + getName() + "'");
+	}
 
 }
