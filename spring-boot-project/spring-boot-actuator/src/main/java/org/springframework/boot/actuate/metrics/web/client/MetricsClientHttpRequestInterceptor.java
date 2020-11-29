@@ -24,7 +24,6 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import io.micrometer.core.instrument.MeterRegistry;
-import io.micrometer.core.instrument.Timer;
 
 import org.springframework.boot.actuate.metrics.AutoTimer;
 import org.springframework.core.NamedThreadLocal;
@@ -41,15 +40,15 @@ import org.springframework.web.util.UriTemplateHandler;
  * @author Jon Schneider
  * @author Phillip Webb
  */
-class MetricsClientHttpRequestInterceptor implements ClientHttpRequestInterceptor {
+public class MetricsClientHttpRequestInterceptor implements ClientHttpRequestInterceptor {
 
-	private static final ThreadLocal<Deque<String>> urlTemplate = new UrlTemplateThreadLocal();
+	public static final ThreadLocal<Deque<String>> urlTemplate = new UrlTemplateThreadLocal();
 
 	private final MeterRegistry meterRegistry;
 
-	private final RestTemplateExchangeTagsProvider tagProvider;
+	public final RestTemplateExchangeTagsProvider tagProvider;
 
-	private final String metricName;
+	public final String metricName;
 
 	private final AutoTimer autoTimer;
 
@@ -82,7 +81,7 @@ class MetricsClientHttpRequestInterceptor implements ClientHttpRequestIntercepto
 			return response;
 		}
 		finally {
-			getTimeBuilder(request, response).register(this.meterRegistry).record(System.nanoTime() - startTime,
+			autoTimer.getTimeBuilder(this, request, response).register(this.meterRegistry).record(System.nanoTime() - startTime,
 					TimeUnit.NANOSECONDS);
 			if (urlTemplate.get().isEmpty()) {
 				urlTemplate.remove();
@@ -106,12 +105,6 @@ class MetricsClientHttpRequestInterceptor implements ClientHttpRequestIntercepto
 			}
 
 		};
-	}
-
-	private Timer.Builder getTimeBuilder(HttpRequest request, ClientHttpResponse response) {
-		return this.autoTimer.builder(this.metricName)
-				.tags(this.tagProvider.getTags(urlTemplate.get().poll(), request, response))
-				.description("Timer of RestTemplate operation");
 	}
 
 	private static final class UrlTemplateThreadLocal extends NamedThreadLocal<Deque<String>> {

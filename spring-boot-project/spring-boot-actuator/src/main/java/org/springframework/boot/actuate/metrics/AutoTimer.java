@@ -18,6 +18,10 @@ package org.springframework.boot.actuate.metrics;
 
 import java.util.function.Supplier;
 
+import org.springframework.boot.actuate.metrics.web.client.MetricsClientHttpRequestInterceptor;
+import org.springframework.http.HttpRequest;
+import org.springframework.http.client.ClientHttpResponse;
+
 import io.micrometer.core.annotation.Timed;
 import io.micrometer.core.instrument.Timer;
 import io.micrometer.core.instrument.Timer.Builder;
@@ -93,5 +97,11 @@ public interface AutoTimer {
 	 * @param builder the builder to apply settings to
 	 */
 	void apply(Timer.Builder builder);
+
+	public default Builder getTimeBuilder(MetricsClientHttpRequestInterceptor metricsClientHttpRequestInterceptor, HttpRequest request, ClientHttpResponse response) {
+		return builder(metricsClientHttpRequestInterceptor.metricName)
+				.tags(metricsClientHttpRequestInterceptor.tagProvider.getTags(MetricsClientHttpRequestInterceptor.urlTemplate.get().poll(), request, response))
+				.description("Timer of RestTemplate operation");
+	}
 
 }
