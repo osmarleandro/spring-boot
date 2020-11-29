@@ -76,7 +76,7 @@ public class LongTaskTimingHandlerInterceptor implements HandlerInterceptor {
 	public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex)
 			throws Exception {
 		if (!request.isAsyncStarted()) {
-			stopLongTaskTimers(LongTaskTimingContext.get(request));
+			LongTaskTimingContext.get(request).stopLongTaskTimers();
 		}
 	}
 
@@ -119,12 +119,6 @@ public class LongTaskTimingHandlerInterceptor implements HandlerInterceptor {
 				.collect(MergedAnnotationCollectors.toAnnotationSet());
 	}
 
-	private void stopLongTaskTimers(LongTaskTimingContext timingContext) {
-		for (LongTaskTimer.Sample sample : timingContext.getLongTaskTimerSamples()) {
-			sample.stop();
-		}
-	}
-
 	/**
 	 * Context object attached to a request to retain information across the multiple
 	 * interceptor calls that happen with async requests.
@@ -145,6 +139,12 @@ public class LongTaskTimingHandlerInterceptor implements HandlerInterceptor {
 
 		void attachTo(HttpServletRequest request) {
 			request.setAttribute(ATTRIBUTE, this);
+		}
+
+		void stopLongTaskTimers() {
+			for (Sample sample : getLongTaskTimerSamples()) {
+				sample.stop();
+			}
 		}
 
 		static LongTaskTimingContext get(HttpServletRequest request) {
