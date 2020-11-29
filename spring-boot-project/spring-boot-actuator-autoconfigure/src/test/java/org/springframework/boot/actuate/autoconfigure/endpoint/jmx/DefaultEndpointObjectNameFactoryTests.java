@@ -62,7 +62,7 @@ class DefaultEndpointObjectNameFactoryTests {
 
 	@Test
 	void generateObjectNameWithCustomDomain() {
-		this.properties.setDomain("com.example.acme");
+		this.properties.getExposure().setDomain(this, "com.example.acme");
 		ObjectName objectName = generateObjectName(endpoint(EndpointId.of("test")));
 		assertThat(objectName.toString()).isEqualTo("com.example.acme:type=Endpoint,name=Test");
 	}

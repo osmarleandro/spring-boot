@@ -52,10 +52,6 @@ public class JmxEndpointProperties {
 		return this.domain;
 	}
 
-	public void setDomain(String domain) {
-		this.domain = domain;
-	}
-
 	public Properties getStaticNames() {
 		return this.staticNames;
 	}
@@ -86,6 +82,10 @@ public class JmxEndpointProperties {
 
 		public void setExclude(Set<String> exclude) {
 			this.exclude = exclude;
+		}
+
+		public void setDomain(JmxEndpointProperties jmxEndpointProperties, String domain) {
+			jmxEndpointProperties.domain = domain;
 		}
 
 	}
