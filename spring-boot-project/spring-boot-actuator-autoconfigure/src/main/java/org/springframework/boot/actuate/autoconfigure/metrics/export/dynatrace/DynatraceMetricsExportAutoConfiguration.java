@@ -51,16 +51,10 @@ import org.springframework.context.annotation.Configuration;
 @EnableConfigurationProperties(DynatraceProperties.class)
 public class DynatraceMetricsExportAutoConfiguration {
 
-	private final DynatraceProperties properties;
+	final DynatraceProperties properties;
 
 	public DynatraceMetricsExportAutoConfiguration(DynatraceProperties properties) {
 		this.properties = properties;
-	}
-
-	@Bean
-	@ConditionalOnMissingBean
-	public DynatraceConfig dynatraceConfig() {
-		return new DynatracePropertiesConfigAdapter(this.properties);
 	}
 
 	@Bean

@@ -17,7 +17,11 @@
 package org.springframework.boot.actuate.autoconfigure.metrics.export.dynatrace;
 
 import org.springframework.boot.actuate.autoconfigure.metrics.export.properties.StepRegistryProperties;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.Bean;
+
+import io.micrometer.dynatrace.DynatraceConfig;
 
 /**
  * {@link ConfigurationProperties @ConfigurationProperties} for configuring Dynatrace
@@ -95,6 +99,12 @@ public class DynatraceProperties extends StepRegistryProperties {
 
 	public void setGroup(String group) {
 		this.group = group;
+	}
+
+	@Bean
+	@ConditionalOnMissingBean
+	public DynatraceConfig dynatraceConfig(DynatraceMetricsExportAutoConfiguration dynatraceMetricsExportAutoConfiguration) {
+		return new DynatracePropertiesConfigAdapter(this);
 	}
 
 }
