@@ -27,6 +27,7 @@ import org.springframework.boot.actuate.endpoint.annotation.DeleteOperation;
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
 import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
 import org.springframework.boot.actuate.endpoint.annotation.Selector;
+import org.springframework.boot.actuate.endpoint.web.WebEndpointResponse;
 import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
 import org.springframework.lang.Nullable;
@@ -146,6 +147,18 @@ public class CachesEndpoint {
 
 	private Predicate<String> matchAll() {
 		return (name) -> true;
+	}
+
+	@DeleteOperation
+	public WebEndpointResponse<Void> clearCache(CachesEndpointWebExtension cachesEndpointWebExtension, String cache, String cacheManager) {
+		try {
+			boolean cleared = clearCache(cache, cacheManager);
+			int status = (cleared ? WebEndpointResponse.STATUS_NO_CONTENT : WebEndpointResponse.STATUS_NOT_FOUND);
+			return new WebEndpointResponse<>(status);
+		}
+		catch (NonUniqueCacheException ex) {
+			return new WebEndpointResponse<>(WebEndpointResponse.STATUS_BAD_REQUEST);
+		}
 	}
 
 	/**
