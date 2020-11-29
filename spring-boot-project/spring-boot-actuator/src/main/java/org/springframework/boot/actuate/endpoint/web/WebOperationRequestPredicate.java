@@ -16,11 +16,13 @@
 
 package org.springframework.boot.actuate.endpoint.web;
 
+import java.lang.reflect.Parameter;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.springframework.boot.actuate.endpoint.annotation.Selector;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
@@ -155,6 +157,10 @@ public final class WebOperationRequestPredicate {
 			result.append(" produces: ").append(StringUtils.collectionToCommaDelimitedString(this.produces));
 		}
 		return result.toString();
+	}
+
+	public boolean hasSelector(Parameter parameter) {
+		return parameter.getAnnotation(Selector.class) != null;
 	}
 
 }
