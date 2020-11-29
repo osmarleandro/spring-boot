@@ -16,11 +16,14 @@
 
 package org.springframework.boot.actuate.endpoint.web;
 
+import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
 import org.springframework.boot.actuate.endpoint.http.ActuatorMediaType;
+import org.springframework.core.ResolvableType;
+import org.springframework.core.io.Resource;
 import org.springframework.util.Assert;
 
 /**
@@ -93,6 +96,17 @@ public class EndpointMediaTypes {
 	 */
 	public List<String> getConsumed() {
 		return this.consumed;
+	}
+
+	public boolean producesResource(Method method) {
+		if (Resource.class.equals(method.getReturnType())) {
+			return true;
+		}
+		if (WebEndpointResponse.class.isAssignableFrom(method.getReturnType())) {
+			ResolvableType returnType = ResolvableType.forMethodReturnType(method);
+			return ResolvableType.forClass(Resource.class).isAssignableFrom(returnType.getGeneric(0));
+		}
+		return false;
 	}
 
 }

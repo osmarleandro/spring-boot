@@ -29,10 +29,7 @@ import org.springframework.boot.actuate.endpoint.annotation.Selector;
 import org.springframework.boot.actuate.endpoint.annotation.Selector.Match;
 import org.springframework.boot.actuate.endpoint.web.EndpointMediaTypes;
 import org.springframework.boot.actuate.endpoint.web.WebEndpointHttpMethod;
-import org.springframework.boot.actuate.endpoint.web.WebEndpointResponse;
 import org.springframework.boot.actuate.endpoint.web.WebOperationRequestPredicate;
-import org.springframework.core.ResolvableType;
-import org.springframework.core.io.Resource;
 import org.springframework.util.Assert;
 
 /**
@@ -111,21 +108,10 @@ class RequestPredicateFactory {
 		if (Void.class.equals(method.getReturnType()) || void.class.equals(method.getReturnType())) {
 			return Collections.emptyList();
 		}
-		if (producesResource(method)) {
+		if (endpointMediaTypes.producesResource(method)) {
 			return Collections.singletonList("application/octet-stream");
 		}
 		return this.endpointMediaTypes.getProduced();
-	}
-
-	private boolean producesResource(Method method) {
-		if (Resource.class.equals(method.getReturnType())) {
-			return true;
-		}
-		if (WebEndpointResponse.class.isAssignableFrom(method.getReturnType())) {
-			ResolvableType returnType = ResolvableType.forMethodReturnType(method);
-			return ResolvableType.forClass(Resource.class).isAssignableFrom(returnType.getGeneric(0));
-		}
-		return false;
 	}
 
 	private boolean consumesRequestBody(Method method) {
