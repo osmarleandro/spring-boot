@@ -28,8 +28,6 @@ import org.springframework.boot.actuate.autoconfigure.cloudfoundry.SecurityRespo
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.Token;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.server.reactive.ServerHttpRequest;
-import org.springframework.util.StringUtils;
-import org.springframework.web.cors.reactive.CorsUtils;
 import org.springframework.web.server.ServerWebExchange;
 
 /**
@@ -43,11 +41,11 @@ class CloudFoundrySecurityInterceptor {
 
 	private final ReactiveTokenValidator tokenValidator;
 
-	private final ReactiveCloudFoundrySecurityService cloudFoundrySecurityService;
+	public final ReactiveCloudFoundrySecurityService cloudFoundrySecurityService;
 
-	private final String applicationId;
+	final String applicationId;
 
-	private static final Mono<SecurityResponse> SUCCESS = Mono.just(SecurityResponse.success());
+	static final Mono<SecurityResponse> SUCCESS = Mono.just(SecurityResponse.success());
 
 	CloudFoundrySecurityInterceptor(ReactiveTokenValidator tokenValidator,
 			ReactiveCloudFoundrySecurityService cloudFoundrySecurityService, String applicationId) {
@@ -56,27 +54,11 @@ class CloudFoundrySecurityInterceptor {
 		this.applicationId = applicationId;
 	}
 
-	Mono<SecurityResponse> preHandle(ServerWebExchange exchange, String id) {
-		ServerHttpRequest request = exchange.getRequest();
-		if (CorsUtils.isPreFlightRequest(request)) {
-			return SUCCESS;
-		}
-		if (!StringUtils.hasText(this.applicationId)) {
-			return Mono.error(new CloudFoundryAuthorizationException(Reason.SERVICE_UNAVAILABLE,
-					"Application id is not available"));
-		}
-		if (this.cloudFoundrySecurityService == null) {
-			return Mono.error(new CloudFoundryAuthorizationException(Reason.SERVICE_UNAVAILABLE,
-					"Cloud controller URL is not available"));
-		}
-		return check(exchange, id).then(SUCCESS).doOnError(this::logError).onErrorResume(this::getErrorResponse);
-	}
-
 	private void logError(Throwable ex) {
 		logger.error(ex.getMessage(), ex);
 	}
 
-	private Mono<Void> check(ServerWebExchange exchange, String id) {
+	Mono<Void> check(ServerWebExchange exchange, String id) {
 		try {
 			Token token = getToken(exchange.getRequest());
 			return this.tokenValidator.validate(token)

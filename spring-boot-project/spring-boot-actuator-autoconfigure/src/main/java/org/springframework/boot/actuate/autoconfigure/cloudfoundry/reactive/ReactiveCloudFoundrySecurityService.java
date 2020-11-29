@@ -29,13 +29,18 @@ import reactor.netty.http.client.HttpClient;
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.AccessLevel;
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.CloudFoundryAuthorizationException;
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.CloudFoundryAuthorizationException.Reason;
+import org.springframework.boot.actuate.autoconfigure.cloudfoundry.SecurityResponse;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.client.reactive.ReactorClientHttpConnector;
+import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.util.Assert;
+import org.springframework.util.StringUtils;
+import org.springframework.web.cors.reactive.CorsUtils;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.reactive.function.client.WebClient.RequestHeadersSpec;
 import org.springframework.web.reactive.function.client.WebClientResponseException;
+import org.springframework.web.server.ServerWebExchange;
 
 /**
  * Reactive Cloud Foundry security service to handle REST calls to the cloud controller
@@ -146,6 +151,22 @@ class ReactiveCloudFoundrySecurityService {
 				.onErrorMap((ex) -> new CloudFoundryAuthorizationException(Reason.SERVICE_UNAVAILABLE,
 						"Unable to fetch token keys from UAA."));
 		return this.uaaUrl;
+	}
+
+	Mono<SecurityResponse> preHandle(CloudFoundrySecurityInterceptor cloudFoundrySecurityInterceptor, ServerWebExchange exchange, String id) {
+		ServerHttpRequest request = exchange.getRequest();
+		if (CorsUtils.isPreFlightRequest(request)) {
+			return CloudFoundrySecurityInterceptor.SUCCESS;
+		}
+		if (!StringUtils.hasText(cloudFoundrySecurityInterceptor.applicationId)) {
+			return Mono.error(new CloudFoundryAuthorizationException(Reason.SERVICE_UNAVAILABLE,
+					"Application id is not available"));
+		}
+		if (this == null) {
+			return Mono.error(new CloudFoundryAuthorizationException(Reason.SERVICE_UNAVAILABLE,
+					"Cloud controller URL is not available"));
+		}
+		return cloudFoundrySecurityInterceptor.check(exchange, id).then(CloudFoundrySecurityInterceptor.SUCCESS).doOnError(cloudFoundrySecurityInterceptor::logError).onErrorResume(cloudFoundrySecurityInterceptor::getErrorResponse);
 	}
 
 }
