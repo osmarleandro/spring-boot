@@ -18,8 +18,14 @@ package org.springframework.boot.actuate.autoconfigure.logging;
 
 import java.io.File;
 
+import org.springframework.beans.factory.ObjectProvider;
+import org.springframework.boot.actuate.autoconfigure.logging.LogFileWebEndpointAutoConfiguration.LogFileCondition;
 import org.springframework.boot.actuate.logging.LogFileWebEndpoint;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.logging.LogFile;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Conditional;
 
 /**
  * Configuration properties for {@link LogFileWebEndpoint}.
@@ -42,6 +48,13 @@ public class LogFileWebEndpointProperties {
 
 	public void setExternalFile(File externalFile) {
 		this.externalFile = externalFile;
+	}
+
+	@Bean
+	@ConditionalOnMissingBean
+	@Conditional(LogFileCondition.class)
+	public LogFileWebEndpoint logFileWebEndpoint(ObjectProvider<LogFile> logFile) {
+		return new LogFileWebEndpoint(logFile.getIfAvailable(), getExternalFile());
 	}
 
 }
