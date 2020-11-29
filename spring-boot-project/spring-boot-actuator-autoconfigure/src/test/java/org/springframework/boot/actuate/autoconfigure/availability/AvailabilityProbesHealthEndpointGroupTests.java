@@ -19,7 +19,6 @@ package org.springframework.boot.actuate.autoconfigure.availability;
 import org.junit.jupiter.api.Test;
 
 import org.springframework.boot.actuate.endpoint.SecurityContext;
-import org.springframework.boot.actuate.health.HttpCodeStatusMapper;
 import org.springframework.boot.actuate.health.StatusAggregator;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -30,9 +29,9 @@ import static org.mockito.Mockito.mock;
  *
  * @author Phillip Webb
  */
-class AvailabilityProbesHealthEndpointGroupTests {
+public class AvailabilityProbesHealthEndpointGroupTests {
 
-	private AvailabilityProbesHealthEndpointGroup group = new AvailabilityProbesHealthEndpointGroup("a", "b");
+	public AvailabilityProbesHealthEndpointGroup group = new AvailabilityProbesHealthEndpointGroup("a", "b");
 
 	@Test
 	void isMemberWhenMemberReturnsTrue() {
@@ -58,11 +57,6 @@ class AvailabilityProbesHealthEndpointGroupTests {
 	@Test
 	void getStatusAggregatorReturnsDefaultStatusAggregator() {
 		assertThat(this.group.getStatusAggregator()).isEqualTo(StatusAggregator.getDefault());
-	}
-
-	@Test
-	void getHttpCodeStatusMapperReturnsDefaultHttpCodeStatusMapper() {
-		assertThat(this.group.getHttpCodeStatusMapper()).isEqualTo(HttpCodeStatusMapper.DEFAULT);
 	}
 
 }

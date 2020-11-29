@@ -16,10 +16,13 @@
 
 package org.springframework.boot.actuate.autoconfigure.availability;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.junit.jupiter.api.Test;
 import org.springframework.boot.actuate.endpoint.SecurityContext;
 import org.springframework.boot.actuate.health.HealthEndpointGroup;
 import org.springframework.boot.actuate.health.HttpCodeStatusMapper;
@@ -62,6 +65,11 @@ class AvailabilityProbesHealthEndpointGroup implements HealthEndpointGroup {
 	@Override
 	public HttpCodeStatusMapper getHttpCodeStatusMapper() {
 		return HttpCodeStatusMapper.DEFAULT;
+	}
+
+	@Test
+	void getHttpCodeStatusMapperReturnsDefaultHttpCodeStatusMapper(AvailabilityProbesHealthEndpointGroupTests availabilityProbesHealthEndpointGroupTests) {
+		assertThat(getHttpCodeStatusMapper()).isEqualTo(HttpCodeStatusMapper.DEFAULT);
 	}
 
 }
