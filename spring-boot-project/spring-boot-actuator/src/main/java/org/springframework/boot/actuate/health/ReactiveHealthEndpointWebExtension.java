@@ -44,7 +44,7 @@ import org.springframework.boot.actuate.endpoint.web.annotation.EndpointWebExten
 public class ReactiveHealthEndpointWebExtension
 		extends HealthEndpointSupport<ReactiveHealthContributor, Mono<? extends HealthComponent>> {
 
-	private static final String[] NO_PATH = {};
+	public static final String[] NO_PATH = {};
 
 	/**
 	 * Create a new {@link ReactiveHealthEndpointWebExtension} instance.
@@ -53,12 +53,6 @@ public class ReactiveHealthEndpointWebExtension
 	 */
 	public ReactiveHealthEndpointWebExtension(ReactiveHealthContributorRegistry registry, HealthEndpointGroups groups) {
 		super(registry, groups);
-	}
-
-	@ReadOperation
-	public Mono<WebEndpointResponse<? extends HealthComponent>> health(ApiVersion apiVersion,
-			SecurityContext securityContext) {
-		return health(apiVersion, securityContext, false, NO_PATH);
 	}
 
 	@ReadOperation
