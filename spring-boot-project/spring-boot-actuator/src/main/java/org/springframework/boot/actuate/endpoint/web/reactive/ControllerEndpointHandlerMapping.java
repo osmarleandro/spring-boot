@@ -30,7 +30,6 @@ import org.springframework.boot.actuate.endpoint.web.annotation.RestControllerEn
 import org.springframework.util.Assert;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.reactive.HandlerMapping;
-import org.springframework.web.reactive.result.condition.PatternsRequestCondition;
 import org.springframework.web.reactive.result.method.RequestMappingInfo;
 import org.springframework.web.reactive.result.method.annotation.RequestMappingHandlerMapping;
 import org.springframework.web.util.pattern.PathPattern;
@@ -94,18 +93,11 @@ public class ControllerEndpointHandlerMapping extends RequestMappingHandlerMappi
 		}
 		PathPattern[] endpointMappedPatterns = patterns.stream()
 				.map((pattern) -> getEndpointMappedPattern(endpoint, pattern)).toArray(PathPattern[]::new);
-		return withNewPatterns(mapping, endpointMappedPatterns);
+		return endpointMapping.withNewPatterns(mapping, endpointMappedPatterns);
 	}
 
 	private PathPattern getEndpointMappedPattern(ExposableControllerEndpoint endpoint, PathPattern pattern) {
 		return getPathPatternParser().parse(this.endpointMapping.createSubPath(endpoint.getRootPath() + pattern));
-	}
-
-	private RequestMappingInfo withNewPatterns(RequestMappingInfo mapping, PathPattern[] patterns) {
-		PatternsRequestCondition patternsCondition = new PatternsRequestCondition(patterns);
-		return new RequestMappingInfo(patternsCondition, mapping.getMethodsCondition(), mapping.getParamsCondition(),
-				mapping.getHeadersCondition(), mapping.getConsumesCondition(), mapping.getProducesCondition(),
-				mapping.getCustomCondition());
 	}
 
 	@Override
