@@ -72,7 +72,7 @@ public class LoggersEndpoint {
 		}
 		Map<String, Object> result = new LinkedHashMap<>();
 		result.put("levels", getLevels());
-		result.put("loggers", getLoggers(configurations));
+		result.put("loggers", loggerGroups.getLoggers(configurations));
 		result.put("groups", getGroups());
 		return result;
 	}
@@ -109,14 +109,6 @@ public class LoggersEndpoint {
 	private NavigableSet<LogLevel> getLevels() {
 		Set<LogLevel> levels = this.loggingSystem.getSupportedLogLevels();
 		return new TreeSet<>(levels).descendingSet();
-	}
-
-	private Map<String, LoggerLevels> getLoggers(Collection<LoggerConfiguration> configurations) {
-		Map<String, LoggerLevels> loggers = new LinkedHashMap<>(configurations.size());
-		for (LoggerConfiguration configuration : configurations) {
-			loggers.put(configuration.getName(), new SingleLoggerLevels(configuration));
-		}
-		return loggers;
 	}
 
 	/**

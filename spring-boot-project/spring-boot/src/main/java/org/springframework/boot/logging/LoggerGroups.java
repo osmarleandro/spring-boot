@@ -16,10 +16,15 @@
 
 package org.springframework.boot.logging;
 
+import java.util.Collection;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+
+import org.springframework.boot.actuate.logging.LoggersEndpoint.LoggerLevels;
+import org.springframework.boot.actuate.logging.LoggersEndpoint.SingleLoggerLevels;
 
 /**
  * Logger groups configured via the Spring Environment.
@@ -58,6 +63,14 @@ public final class LoggerGroups implements Iterable<LoggerGroup> {
 	@Override
 	public Iterator<LoggerGroup> iterator() {
 		return this.groups.values().iterator();
+	}
+
+	public Map<String, LoggerLevels> getLoggers(Collection<LoggerConfiguration> configurations) {
+		Map<String, LoggerLevels> loggers = new LinkedHashMap<>(configurations.size());
+		for (LoggerConfiguration configuration : configurations) {
+			loggers.put(configuration.getName(), new SingleLoggerLevels(configuration));
+		}
+		return loggers;
 	}
 
 }
