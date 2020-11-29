@@ -21,7 +21,6 @@ import java.lang.reflect.Parameter;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.stream.Stream;
 
 import org.springframework.boot.actuate.endpoint.OperationType;
 import org.springframework.boot.actuate.endpoint.annotation.DiscoveredOperationMethod;
@@ -98,7 +97,7 @@ class RequestPredicateFactory {
 	}
 
 	private Collection<String> getConsumes(WebEndpointHttpMethod httpMethod, Method method) {
-		if (WebEndpointHttpMethod.POST == httpMethod && consumesRequestBody(method)) {
+		if (WebEndpointHttpMethod.POST == httpMethod && endpointMediaTypes.consumesRequestBody(method)) {
 			return this.endpointMediaTypes.getConsumed();
 		}
 		return Collections.emptyList();
@@ -126,11 +125,6 @@ class RequestPredicateFactory {
 			return ResolvableType.forClass(Resource.class).isAssignableFrom(returnType.getGeneric(0));
 		}
 		return false;
-	}
-
-	private boolean consumesRequestBody(Method method) {
-		return Stream.of(method.getParameters())
-				.anyMatch((parameter) -> parameter.getAnnotation(Selector.class) == null);
 	}
 
 	private WebEndpointHttpMethod determineHttpMethod(OperationType operationType) {

@@ -16,10 +16,13 @@
 
 package org.springframework.boot.actuate.endpoint.web;
 
+import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Stream;
 
+import org.springframework.boot.actuate.endpoint.annotation.Selector;
 import org.springframework.boot.actuate.endpoint.http.ActuatorMediaType;
 import org.springframework.util.Assert;
 
@@ -93,6 +96,11 @@ public class EndpointMediaTypes {
 	 */
 	public List<String> getConsumed() {
 		return this.consumed;
+	}
+
+	public boolean consumesRequestBody(Method method) {
+		return Stream.of(method.getParameters())
+				.anyMatch((parameter) -> parameter.getAnnotation(Selector.class) == null);
 	}
 
 }
