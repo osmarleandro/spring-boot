@@ -17,6 +17,10 @@
 package org.springframework.boot.actuate.endpoint.web;
 
 import org.springframework.boot.actuate.endpoint.ExposableEndpoint;
+import org.springframework.boot.actuate.endpoint.web.servlet.AbstractWebMvcEndpointHandlerMapping;
+import org.springframework.boot.actuate.endpoint.web.servlet.AbstractWebMvcEndpointHandlerMapping.OperationHandler;
+import org.springframework.boot.actuate.endpoint.web.servlet.AbstractWebMvcEndpointHandlerMapping.ServletWebOperation;
+import org.springframework.boot.actuate.endpoint.web.servlet.AbstractWebMvcEndpointHandlerMapping.ServletWebOperationAdapter;
 
 /**
  * Information describing an endpoint that can be exposed over the web.
@@ -25,5 +29,18 @@ import org.springframework.boot.actuate.endpoint.ExposableEndpoint;
  * @since 2.0.0
  */
 public interface ExposableWebEndpoint extends ExposableEndpoint<WebOperation>, PathMappedEndpoint {
+
+	public default void registerMappingForOperation(AbstractWebMvcEndpointHandlerMapping abstractWebMvcEndpointHandlerMapping, WebOperation operation) {
+		WebOperationRequestPredicate predicate = operation.getRequestPredicate();
+		String path = predicate.getPath();
+		String matchAllRemainingPathSegmentsVariable = predicate.getMatchAllRemainingPathSegmentsVariable();
+		if (matchAllRemainingPathSegmentsVariable != null) {
+			path = path.replace("{*" + matchAllRemainingPathSegmentsVariable + "}", "**");
+		}
+		ServletWebOperation servletWebOperation = abstractWebMvcEndpointHandlerMapping.wrapServletWebOperation(this, operation,
+				new ServletWebOperationAdapter(operation));
+		abstractWebMvcEndpointHandlerMapping.registerMapping(abstractWebMvcEndpointHandlerMapping.createRequestMappingInfo(predicate, path), new OperationHandler(servletWebOperation),
+				abstractWebMvcEndpointHandlerMapping.handleMethod);
+	}
 
 }
