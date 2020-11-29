@@ -57,10 +57,6 @@ public abstract class HealthProperties {
 		return this.showComponents;
 	}
 
-	public void setShowComponents(Show showComponents) {
-		this.showComponents = showComponents;
-	}
-
 	public abstract Show getShowDetails();
 
 	public Set<String> getRoles() {
@@ -122,7 +118,11 @@ public abstract class HealthProperties {
 		/**
 		 * Always show the item in the response.
 		 */
-		ALWAYS
+		ALWAYS;
+
+		public void setShowComponents(HealthProperties healthProperties) {
+			healthProperties.showComponents = this;
+		}
 
 	}
 
