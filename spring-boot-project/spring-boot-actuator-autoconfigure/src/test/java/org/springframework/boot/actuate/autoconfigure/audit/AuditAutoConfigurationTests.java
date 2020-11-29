@@ -44,15 +44,10 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Vedran Pavic
  * @author Madhura Bhave
  */
-class AuditAutoConfigurationTests {
+public class AuditAutoConfigurationTests {
 
-	private final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner()
+	public final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(AuditAutoConfiguration.class));
-
-	@Test
-	void autoConfigurationIsDisabledByDefault() {
-		this.contextRunner.run((context) -> assertThat(context).doesNotHaveBean(AuditAutoConfiguration.class));
-	}
 
 	@Test
 	void autoConfigurationIsEnabledWhenAuditEventRepositoryBeanPresent() {
