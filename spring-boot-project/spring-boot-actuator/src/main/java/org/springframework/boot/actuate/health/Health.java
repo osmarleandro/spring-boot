@@ -23,6 +23,9 @@ import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
+import org.springframework.boot.actuate.availability.AvailabilityStateHealthIndicator;
+import org.springframework.boot.actuate.health.Health.Builder;
+import org.springframework.boot.availability.AvailabilityState;
 import org.springframework.util.Assert;
 
 /**
@@ -327,6 +330,16 @@ public final class Health extends HealthComponent {
 		 */
 		public Health build() {
 			return new Health(this);
+		}
+
+		public void doHealthCheck(AvailabilityStateHealthIndicator availabilityStateHealthIndicator) throws Exception {
+			AvailabilityState state = availabilityStateHealthIndicator.getState(availabilityStateHealthIndicator.applicationAvailability);
+			Status status = availabilityStateHealthIndicator.statusMappings.get(state);
+			if (status == null) {
+				status = availabilityStateHealthIndicator.statusMappings.get(null);
+			}
+			Assert.state(status != null, () -> "No mapping provided for " + state);
+			status(status);
 		}
 
 	}

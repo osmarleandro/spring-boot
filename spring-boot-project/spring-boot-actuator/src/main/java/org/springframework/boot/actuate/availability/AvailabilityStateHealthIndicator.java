@@ -39,11 +39,11 @@ import org.springframework.util.Assert;
  */
 public class AvailabilityStateHealthIndicator extends AbstractHealthIndicator {
 
-	private final ApplicationAvailability applicationAvailability;
+	public final ApplicationAvailability applicationAvailability;
 
 	private final Class<? extends AvailabilityState> stateType;
 
-	private final Map<AvailabilityState, Status> statusMappings = new HashMap<>();
+	public final Map<AvailabilityState, Status> statusMappings = new HashMap<>();
 
 	/**
 	 * Create a new {@link AvailabilityStateHealthIndicator} instance.
@@ -77,13 +77,7 @@ public class AvailabilityStateHealthIndicator extends AbstractHealthIndicator {
 
 	@Override
 	protected void doHealthCheck(Builder builder) throws Exception {
-		AvailabilityState state = getState(this.applicationAvailability);
-		Status status = this.statusMappings.get(state);
-		if (status == null) {
-			status = this.statusMappings.get(null);
-		}
-		Assert.state(status != null, () -> "No mapping provided for " + state);
-		builder.status(status);
+		builder.doHealthCheck(this);
 	}
 
 	/**
@@ -92,7 +86,7 @@ public class AvailabilityStateHealthIndicator extends AbstractHealthIndicator {
 	 * @param applicationAvailability the application availability
 	 * @return the current availability state
 	 */
-	protected AvailabilityState getState(ApplicationAvailability applicationAvailability) {
+	public AvailabilityState getState(ApplicationAvailability applicationAvailability) {
 		return applicationAvailability.getState(this.stateType);
 	}
 
