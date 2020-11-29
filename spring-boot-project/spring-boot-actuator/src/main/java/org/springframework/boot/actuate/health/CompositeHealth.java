@@ -37,7 +37,7 @@ import org.springframework.util.Assert;
  */
 public class CompositeHealth extends HealthComponent {
 
-	private final Status status;
+	final Status status;
 
 	private final Map<String, HealthComponent> components;
 
@@ -56,7 +56,7 @@ public class CompositeHealth extends HealthComponent {
 
 	@Override
 	public Status getStatus() {
-		return this.status;
+		return status.getStatus(this);
 	}
 
 	@JsonInclude(Include.NON_EMPTY)

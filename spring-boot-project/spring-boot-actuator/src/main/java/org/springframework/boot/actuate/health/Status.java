@@ -123,4 +123,8 @@ public final class Status {
 		return this.code;
 	}
 
+	public Status getStatus(CompositeHealth compositeHealth) {
+		return this;
+	}
+
 }
