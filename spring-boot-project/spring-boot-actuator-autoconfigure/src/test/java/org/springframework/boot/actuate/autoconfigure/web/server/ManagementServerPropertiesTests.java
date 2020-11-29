@@ -38,7 +38,7 @@ class ManagementServerPropertiesTests {
 	@Test
 	void definedManagementServerProperties() {
 		ManagementServerProperties properties = new ManagementServerProperties();
-		properties.setPort(123);
+		properties.getServlet().setPort(this, 123);
 		properties.getServlet().setContextPath("/foo");
 		assertThat(properties.getPort()).isEqualTo(123);
 		assertThat(properties.getServlet().getContextPath()).isEqualTo("/foo");
