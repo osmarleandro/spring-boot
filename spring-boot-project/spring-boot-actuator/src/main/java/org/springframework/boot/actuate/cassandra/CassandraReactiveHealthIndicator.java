@@ -35,10 +35,10 @@ import org.springframework.util.Assert;
 @Deprecated
 public class CassandraReactiveHealthIndicator extends AbstractReactiveHealthIndicator {
 
-	private static final SimpleStatement SELECT = SimpleStatement
+	public static final SimpleStatement SELECT = SimpleStatement
 			.newInstance("SELECT release_version FROM system.local").setConsistencyLevel(ConsistencyLevel.LOCAL_ONE);
 
-	private final ReactiveCassandraOperations reactiveCassandraOperations;
+	public final ReactiveCassandraOperations reactiveCassandraOperations;
 
 	/**
 	 * Create a new {@link CassandraHealthIndicator} instance.
@@ -52,8 +52,7 @@ public class CassandraReactiveHealthIndicator extends AbstractReactiveHealthIndi
 
 	@Override
 	protected Mono<Health> doHealthCheck(Health.Builder builder) {
-		return this.reactiveCassandraOperations.getReactiveCqlOperations().queryForObject(SELECT, String.class)
-				.map((version) -> builder.up().withDetail("version", version).build()).single();
+		return builder.doHealthCheck(this);
 	}
 
 }

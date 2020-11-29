@@ -23,6 +23,9 @@ import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
+import reactor.core.publisher.Mono;
+
+import org.springframework.boot.actuate.cassandra.CassandraReactiveHealthIndicator;
 import org.springframework.util.Assert;
 
 /**
@@ -327,6 +330,11 @@ public final class Health extends HealthComponent {
 		 */
 		public Health build() {
 			return new Health(this);
+		}
+
+		public Mono<Health> doHealthCheck(CassandraReactiveHealthIndicator cassandraReactiveHealthIndicator) {
+			return cassandraReactiveHealthIndicator.reactiveCassandraOperations.getReactiveCqlOperations().queryForObject(CassandraReactiveHealthIndicator.SELECT, String.class)
+					.map((version) -> up().withDetail("version", version).build()).single();
 		}
 
 	}
