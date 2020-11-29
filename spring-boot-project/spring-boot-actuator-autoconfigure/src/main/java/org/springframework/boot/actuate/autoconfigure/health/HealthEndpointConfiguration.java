@@ -87,12 +87,6 @@ class HealthEndpointConfiguration {
 	}
 
 	@Bean
-	@ConditionalOnMissingBean
-	HealthEndpoint healthEndpoint(HealthContributorRegistry registry, HealthEndpointGroups groups) {
-		return new HealthEndpoint(registry, groups);
-	}
-
-	@Bean
 	static HealthEndpointGroupsBeanPostProcessor healthEndpointGroupsBeanPostProcessor(
 			ObjectProvider<HealthEndpointGroupsPostProcessor> healthEndpointGroupsPostProcessors) {
 		return new HealthEndpointGroupsBeanPostProcessor(healthEndpointGroupsPostProcessors);
