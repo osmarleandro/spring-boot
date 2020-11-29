@@ -38,4 +38,8 @@ public interface JmxOperationResponseMapper {
 	 */
 	Object mapResponse(Object response);
 
+	default String getType(MBeanInfoFactory mBeanInfoFactory, Class<?> outputType) {
+		return mapResponseType(outputType).getName();
+	}
+
 }
