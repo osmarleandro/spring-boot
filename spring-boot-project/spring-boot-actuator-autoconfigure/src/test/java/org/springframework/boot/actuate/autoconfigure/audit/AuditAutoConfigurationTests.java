@@ -44,9 +44,9 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Vedran Pavic
  * @author Madhura Bhave
  */
-class AuditAutoConfigurationTests {
+public class AuditAutoConfigurationTests {
 
-	private final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner()
+	public final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(AuditAutoConfiguration.class));
 
 	@Test
@@ -72,14 +72,6 @@ class AuditAutoConfigurationTests {
 	}
 
 	@Test
-	void ownAuthorizationAuditListener() {
-		this.contextRunner.withUserConfiguration(CustomAuditEventRepositoryConfiguration.class)
-				.withUserConfiguration(CustomAuthorizationAuditListenerConfiguration.class)
-				.run((context) -> assertThat(context.getBean(AbstractAuthorizationAuditListener.class))
-						.isInstanceOf(TestAuthorizationAuditListener.class));
-	}
-
-	@Test
 	void ownAuditListener() {
 		this.contextRunner.withUserConfiguration(CustomAuditEventRepositoryConfiguration.class)
 				.withUserConfiguration(CustomAuditListenerConfiguration.class)
@@ -97,6 +89,7 @@ class AuditAutoConfigurationTests {
 	}
 
 	@Configuration(proxyBeanMethods = false)
+	public
 	static class CustomAuditEventRepositoryConfiguration {
 
 		@Bean
@@ -133,6 +126,7 @@ class AuditAutoConfigurationTests {
 	}
 
 	@Configuration(proxyBeanMethods = false)
+	public
 	static class CustomAuthorizationAuditListenerConfiguration {
 
 		@Bean
@@ -142,7 +136,7 @@ class AuditAutoConfigurationTests {
 
 	}
 
-	static class TestAuthorizationAuditListener extends AbstractAuthorizationAuditListener {
+	public static class TestAuthorizationAuditListener extends AbstractAuthorizationAuditListener {
 
 		@Override
 		public void setApplicationEventPublisher(ApplicationEventPublisher publisher) {
