@@ -92,7 +92,7 @@ public class ConfigurationPropertiesReportEndpoint implements ApplicationContext
 
 	private static final String CONFIGURATION_PROPERTIES_FILTER_ID = "configurationPropertiesFilter";
 
-	private final Sanitizer sanitizer = new Sanitizer();
+	public final Sanitizer sanitizer = new Sanitizer();
 
 	private ApplicationContext context;
 
@@ -101,10 +101,6 @@ public class ConfigurationPropertiesReportEndpoint implements ApplicationContext
 	@Override
 	public void setApplicationContext(ApplicationContext context) throws BeansException {
 		this.context = context;
-	}
-
-	public void setKeysToSanitize(String... keysToSanitize) {
-		this.sanitizer.setKeysToSanitize(keysToSanitize);
 	}
 
 	@ReadOperation

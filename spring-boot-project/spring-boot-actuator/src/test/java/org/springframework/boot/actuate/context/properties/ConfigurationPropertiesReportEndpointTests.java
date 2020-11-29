@@ -371,7 +371,7 @@ class ConfigurationPropertiesReportEndpointTests {
 			ConfigurationPropertiesReportEndpoint endpoint = new ConfigurationPropertiesReportEndpoint();
 			String[] keys = environment.getProperty("test.keys-to-sanitize", String[].class);
 			if (keys != null) {
-				endpoint.setKeysToSanitize(keys);
+				endpoint.sanitizer.setKeysToSanitize(endpoint, keys);
 			}
 			return endpoint;
 		}

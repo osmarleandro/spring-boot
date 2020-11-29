@@ -23,6 +23,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
+import org.springframework.boot.actuate.context.properties.ConfigurationPropertiesReportEndpoint;
 import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
 
@@ -136,6 +137,10 @@ public class Sanitizer {
 			return StringUtils.replace(value, ":" + password + "@", ":******@");
 		}
 		return value;
+	}
+
+	public void setKeysToSanitize(ConfigurationPropertiesReportEndpoint configurationPropertiesReportEndpoint, String... keysToSanitize) {
+		setKeysToSanitize(keysToSanitize);
 	}
 
 }
