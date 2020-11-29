@@ -22,7 +22,6 @@ import org.springframework.boot.actuate.audit.AuditEvent;
 import org.springframework.boot.actuate.audit.AuditEventRepository;
 import org.springframework.boot.actuate.audit.InMemoryAuditEventRepository;
 import org.springframework.boot.actuate.audit.listener.AbstractAuditListener;
-import org.springframework.boot.actuate.audit.listener.AuditListener;
 import org.springframework.boot.actuate.security.AbstractAuthenticationAuditListener;
 import org.springframework.boot.actuate.security.AbstractAuthorizationAuditListener;
 import org.springframework.boot.actuate.security.AuthenticationAuditListener;
@@ -44,9 +43,9 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Vedran Pavic
  * @author Madhura Bhave
  */
-class AuditAutoConfigurationTests {
+public class AuditAutoConfigurationTests {
 
-	private final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner()
+	public final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(AuditAutoConfiguration.class));
 
 	@Test
@@ -87,16 +86,8 @@ class AuditAutoConfigurationTests {
 						.isInstanceOf(TestAuditListener.class));
 	}
 
-	@Test
-	void backsOffWhenDisabled() {
-		this.contextRunner.withUserConfiguration(CustomAuditEventRepositoryConfiguration.class)
-				.withPropertyValues("management.auditevents.enabled=false")
-				.run((context) -> assertThat(context).doesNotHaveBean(AuditListener.class)
-						.doesNotHaveBean(AuthenticationAuditListener.class)
-						.doesNotHaveBean(AuthorizationAuditListener.class));
-	}
-
 	@Configuration(proxyBeanMethods = false)
+	public
 	static class CustomAuditEventRepositoryConfiguration {
 
 		@Bean
