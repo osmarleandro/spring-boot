@@ -16,7 +16,16 @@
 
 package org.springframework.boot.actuate.endpoint.web;
 
+import org.springframework.boot.actuate.endpoint.web.reactive.AbstractWebFluxEndpointHandlerMapping;
+import org.springframework.boot.actuate.endpoint.web.reactive.AbstractWebFluxEndpointHandlerMapping.LinksHandler;
+import org.springframework.util.ReflectionUtils;
 import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.reactive.result.condition.PatternsRequestCondition;
+import org.springframework.web.reactive.result.condition.ProducesRequestCondition;
+import org.springframework.web.reactive.result.condition.RequestMethodsRequestCondition;
+import org.springframework.web.reactive.result.method.RequestMappingInfo;
+import org.springframework.web.server.ServerWebExchange;
 
 /**
  * A value object for the base mapping for endpoints.
@@ -46,6 +55,18 @@ public class EndpointMapping {
 
 	public String createSubPath(String path) {
 		return this.path + normalizePath(path);
+	}
+
+	public void registerLinksMapping(AbstractWebFluxEndpointHandlerMapping abstractWebFluxEndpointHandlerMapping) {
+		PatternsRequestCondition patterns = new PatternsRequestCondition(
+				AbstractWebFluxEndpointHandlerMapping.pathPatternParser.parse(getPath()));
+		RequestMethodsRequestCondition methods = new RequestMethodsRequestCondition(RequestMethod.GET);
+		ProducesRequestCondition produces = new ProducesRequestCondition(
+				StringUtils.toStringArray(abstractWebFluxEndpointHandlerMapping.endpointMediaTypes.getProduced()));
+		RequestMappingInfo mapping = new RequestMappingInfo(patterns, methods, null, null, null, produces, null);
+		LinksHandler linksHandler = abstractWebFluxEndpointHandlerMapping.getLinksHandler();
+		abstractWebFluxEndpointHandlerMapping.registerMapping(mapping, linksHandler,
+				ReflectionUtils.findMethod(linksHandler.getClass(), "links", ServerWebExchange.class));
 	}
 
 	private static String normalizePath(String path) {

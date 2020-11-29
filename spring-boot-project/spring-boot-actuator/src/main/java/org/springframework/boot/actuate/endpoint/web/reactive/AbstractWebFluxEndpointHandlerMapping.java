@@ -81,13 +81,13 @@ import org.springframework.web.util.pattern.PathPatternParser;
  */
 public abstract class AbstractWebFluxEndpointHandlerMapping extends RequestMappingInfoHandlerMapping {
 
-	private static final PathPatternParser pathPatternParser = new PathPatternParser();
+	public static final PathPatternParser pathPatternParser = new PathPatternParser();
 
 	private final EndpointMapping endpointMapping;
 
 	private final Collection<ExposableWebEndpoint> endpoints;
 
-	private final EndpointMediaTypes endpointMediaTypes;
+	public final EndpointMediaTypes endpointMediaTypes;
 
 	private final CorsConfiguration corsConfiguration;
 
@@ -127,7 +127,7 @@ public abstract class AbstractWebFluxEndpointHandlerMapping extends RequestMappi
 			}
 		}
 		if (this.shouldRegisterLinksMapping) {
-			registerLinksMapping();
+			endpointMapping.registerLinksMapping(this);
 		}
 	}
 
@@ -176,18 +176,6 @@ public abstract class AbstractWebFluxEndpointHandlerMapping extends RequestMappi
 		return new RequestMappingInfo(null, patterns, methods, null, null, consumes, produces, null);
 	}
 
-	private void registerLinksMapping() {
-		PatternsRequestCondition patterns = new PatternsRequestCondition(
-				pathPatternParser.parse(this.endpointMapping.getPath()));
-		RequestMethodsRequestCondition methods = new RequestMethodsRequestCondition(RequestMethod.GET);
-		ProducesRequestCondition produces = new ProducesRequestCondition(
-				StringUtils.toStringArray(this.endpointMediaTypes.getProduced()));
-		RequestMappingInfo mapping = new RequestMappingInfo(patterns, methods, null, null, null, produces, null);
-		LinksHandler linksHandler = getLinksHandler();
-		registerMapping(mapping, linksHandler,
-				ReflectionUtils.findMethod(linksHandler.getClass(), "links", ServerWebExchange.class));
-	}
-
 	@Override
 	protected boolean hasCorsConfigurationSource(Object handler) {
 		return this.corsConfiguration != null;
@@ -212,7 +200,7 @@ public abstract class AbstractWebFluxEndpointHandlerMapping extends RequestMappi
 	 * Return the Handler providing actuator links at the root endpoint.
 	 * @return the links handler
 	 */
-	protected abstract LinksHandler getLinksHandler();
+	public abstract LinksHandler getLinksHandler();
 
 	/**
 	 * Return the web endpoints being mapped.
@@ -246,7 +234,7 @@ public abstract class AbstractWebFluxEndpointHandlerMapping extends RequestMappi
 	 * Reactive handler providing actuator links at the root endpoint.
 	 */
 	@FunctionalInterface
-	protected interface LinksHandler {
+	public interface LinksHandler {
 
 		Object links(ServerWebExchange exchange);
 
