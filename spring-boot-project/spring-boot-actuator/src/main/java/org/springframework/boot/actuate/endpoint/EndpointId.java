@@ -16,6 +16,7 @@
 
 package org.springframework.boot.actuate.endpoint;
 
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Locale;
 import java.util.Set;
@@ -23,7 +24,10 @@ import java.util.regex.Pattern;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
+import org.springframework.boot.actuate.endpoint.web.PathMapper;
+import org.springframework.boot.actuate.endpoint.web.annotation.ControllerEndpointDiscoverer;
+import org.springframework.boot.actuate.endpoint.web.annotation.DiscoveredControllerEndpoint;
+import org.springframework.boot.actuate.endpoint.web.annotation.ExposableControllerEndpoint;
 import org.springframework.core.env.Environment;
 import org.springframework.util.Assert;
 
@@ -104,6 +108,11 @@ public final class EndpointId {
 	@Override
 	public String toString() {
 		return this.value;
+	}
+
+	public ExposableControllerEndpoint createEndpoint(Object endpointBean, ControllerEndpointDiscoverer controllerEndpointDiscoverer, boolean enabledByDefault, Collection<Operation> operations) {
+		String rootPath = PathMapper.getRootPath(controllerEndpointDiscoverer.endpointPathMappers, this);
+		return new DiscoveredControllerEndpoint(controllerEndpointDiscoverer, endpointBean, this, rootPath, enabledByDefault);
 	}
 
 	/**

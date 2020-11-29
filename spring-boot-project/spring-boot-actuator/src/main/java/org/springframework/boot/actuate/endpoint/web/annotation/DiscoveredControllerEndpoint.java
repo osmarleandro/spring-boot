@@ -28,7 +28,7 @@ import org.springframework.boot.actuate.endpoint.annotation.EndpointDiscoverer;
  *
  * @author Phillip Webb
  */
-class DiscoveredControllerEndpoint extends AbstractDiscoveredEndpoint<Operation>
+public class DiscoveredControllerEndpoint extends AbstractDiscoveredEndpoint<Operation>
 		implements ExposableControllerEndpoint {
 
 	private final String rootPath;
