@@ -51,12 +51,6 @@ public class GraphiteMetricsExportAutoConfiguration {
 
 	@Bean
 	@ConditionalOnMissingBean
-	public GraphiteConfig graphiteConfig(GraphiteProperties graphiteProperties) {
-		return new GraphitePropertiesConfigAdapter(graphiteProperties);
-	}
-
-	@Bean
-	@ConditionalOnMissingBean
 	public GraphiteMeterRegistry graphiteMeterRegistry(GraphiteConfig graphiteConfig, Clock clock) {
 		return new GraphiteMeterRegistry(graphiteConfig, clock);
 	}

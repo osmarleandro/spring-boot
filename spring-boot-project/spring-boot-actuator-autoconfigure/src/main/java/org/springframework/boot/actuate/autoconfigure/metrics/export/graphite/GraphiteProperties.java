@@ -19,9 +19,12 @@ package org.springframework.boot.actuate.autoconfigure.metrics.export.graphite;
 import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 
+import io.micrometer.graphite.GraphiteConfig;
 import io.micrometer.graphite.GraphiteProtocol;
 
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.Bean;
 import org.springframework.util.ObjectUtils;
 
 /**
@@ -152,6 +155,12 @@ public class GraphiteProperties {
 
 	public void setTagsAsPrefix(String[] tagsAsPrefix) {
 		this.tagsAsPrefix = tagsAsPrefix;
+	}
+
+	@Bean
+	@ConditionalOnMissingBean
+	public GraphiteConfig graphiteConfig() {
+		return new GraphitePropertiesConfigAdapter(this);
 	}
 
 }
