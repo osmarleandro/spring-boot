@@ -23,9 +23,10 @@ import java.util.regex.Pattern;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
+import org.springframework.boot.actuate.autoconfigure.endpoint.web.MappingWebEndpointPathMapper;
 import org.springframework.core.env.Environment;
 import org.springframework.util.Assert;
+import org.springframework.util.StringUtils;
 
 /**
  * An identifier for an actuator endpoint. Endpoint IDs may contain only letters and
@@ -104,6 +105,11 @@ public final class EndpointId {
 	@Override
 	public String toString() {
 		return this.value;
+	}
+
+	public String getRootPath(MappingWebEndpointPathMapper mappingWebEndpointPathMapper) {
+		String path = mappingWebEndpointPathMapper.pathMapping.get(this);
+		return StringUtils.hasText(path) ? path : null;
 	}
 
 	/**
