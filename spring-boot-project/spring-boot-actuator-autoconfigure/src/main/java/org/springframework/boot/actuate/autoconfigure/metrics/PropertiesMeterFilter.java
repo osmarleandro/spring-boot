@@ -16,9 +16,7 @@
 
 package org.springframework.boot.actuate.autoconfigure.metrics;
 
-import java.util.Arrays;
 import java.util.Map;
-import java.util.Objects;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
@@ -84,21 +82,12 @@ public class PropertiesMeterFilter implements MeterFilter {
 				.percentilesHistogram(lookupWithFallbackToAll(distribution.getPercentilesHistogram(), id, null))
 				.percentiles(lookupWithFallbackToAll(distribution.getPercentiles(), id, null))
 				.serviceLevelObjectives(
-						convertServiceLevelObjectives(id.getType(), lookup(distribution.getSlo(), id, null)))
+						properties.convertServiceLevelObjectives(id.getType(), lookup(distribution.getSlo(), id, null)))
 				.minimumExpectedValue(
 						convertMeterValue(id.getType(), lookup(distribution.getMinimumExpectedValue(), id, null)))
 				.maximumExpectedValue(
 						convertMeterValue(id.getType(), lookup(distribution.getMaximumExpectedValue(), id, null)))
 				.build().merge(config);
-	}
-
-	private double[] convertServiceLevelObjectives(Meter.Type meterType, ServiceLevelObjectiveBoundary[] slo) {
-		if (slo == null) {
-			return null;
-		}
-		double[] converted = Arrays.stream(slo).map((candidate) -> candidate.getValue(meterType))
-				.filter(Objects::nonNull).mapToDouble(Double::doubleValue).toArray();
-		return (converted.length != 0) ? converted : null;
 	}
 
 	private Double convertMeterValue(Meter.Type meterType, String value) {

@@ -16,12 +16,17 @@
 
 package org.springframework.boot.actuate.autoconfigure.metrics;
 
+import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Objects;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.DeprecatedConfigurationProperty;
 import org.springframework.boot.context.properties.NestedConfigurationProperty;
+
+import io.micrometer.core.instrument.Meter;
+import io.micrometer.core.instrument.Meter.Type;
 
 /**
  * {@link ConfigurationProperties @ConfigurationProperties} for configuring
@@ -79,6 +84,15 @@ public class MetricsProperties {
 
 	public Distribution getDistribution() {
 		return this.distribution;
+	}
+
+	double[] convertServiceLevelObjectives(Type meterType, ServiceLevelObjectiveBoundary[] slo) {
+		if (slo == null) {
+			return null;
+		}
+		double[] converted = Arrays.stream(slo).map((candidate) -> candidate.getValue(meterType))
+				.filter(Objects::nonNull).mapToDouble(Double::doubleValue).toArray();
+		return (converted.length != 0) ? converted : null;
 	}
 
 	public static class Web {
