@@ -44,9 +44,9 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Vedran Pavic
  * @author Madhura Bhave
  */
-class AuditAutoConfigurationTests {
+public class AuditAutoConfigurationTests {
 
-	private final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner()
+	public final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(AuditAutoConfiguration.class));
 
 	@Test
@@ -80,14 +80,6 @@ class AuditAutoConfigurationTests {
 	}
 
 	@Test
-	void ownAuditListener() {
-		this.contextRunner.withUserConfiguration(CustomAuditEventRepositoryConfiguration.class)
-				.withUserConfiguration(CustomAuditListenerConfiguration.class)
-				.run((context) -> assertThat(context.getBean(AbstractAuditListener.class))
-						.isInstanceOf(TestAuditListener.class));
-	}
-
-	@Test
 	void backsOffWhenDisabled() {
 		this.contextRunner.withUserConfiguration(CustomAuditEventRepositoryConfiguration.class)
 				.withPropertyValues("management.auditevents.enabled=false")
@@ -97,6 +89,7 @@ class AuditAutoConfigurationTests {
 	}
 
 	@Configuration(proxyBeanMethods = false)
+	public
 	static class CustomAuditEventRepositoryConfiguration {
 
 		@Bean
@@ -155,6 +148,7 @@ class AuditAutoConfigurationTests {
 	}
 
 	@Configuration(proxyBeanMethods = false)
+	public
 	static class CustomAuditListenerConfiguration {
 
 		@Bean
@@ -164,7 +158,7 @@ class AuditAutoConfigurationTests {
 
 	}
 
-	static class TestAuditListener extends AbstractAuditListener {
+	public static class TestAuditListener extends AbstractAuditListener {
 
 		@Override
 		protected void onAuditEvent(AuditEvent event) {
