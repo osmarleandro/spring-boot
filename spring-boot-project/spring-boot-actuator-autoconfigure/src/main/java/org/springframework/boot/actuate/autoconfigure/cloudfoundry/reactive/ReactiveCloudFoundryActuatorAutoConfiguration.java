@@ -16,9 +16,7 @@
 
 package org.springframework.boot.actuate.autoconfigure.cloudfoundry.reactive;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -26,18 +24,10 @@ import java.util.stream.Collectors;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.beans.factory.config.BeanPostProcessor;
-import org.springframework.boot.actuate.autoconfigure.cloudfoundry.CloudFoundryWebEndpointDiscoverer;
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.servlet.CloudFoundryInfoEndpointWebExtension;
 import org.springframework.boot.actuate.autoconfigure.endpoint.condition.ConditionalOnAvailableEndpoint;
 import org.springframework.boot.actuate.autoconfigure.health.HealthEndpointAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.info.InfoEndpointAutoConfiguration;
-import org.springframework.boot.actuate.endpoint.ExposableEndpoint;
-import org.springframework.boot.actuate.endpoint.invoke.ParameterValueMapper;
-import org.springframework.boot.actuate.endpoint.web.EndpointLinksResolver;
-import org.springframework.boot.actuate.endpoint.web.EndpointMapping;
-import org.springframework.boot.actuate.endpoint.web.EndpointMediaTypes;
-import org.springframework.boot.actuate.endpoint.web.ExposableWebEndpoint;
-import org.springframework.boot.actuate.endpoint.web.annotation.ControllerEndpointsSupplier;
 import org.springframework.boot.actuate.health.HealthEndpoint;
 import org.springframework.boot.actuate.health.ReactiveHealthEndpointWebExtension;
 import org.springframework.boot.actuate.info.GitInfoContributor;
@@ -54,7 +44,6 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.boot.cloud.CloudPlatform;
 import org.springframework.boot.info.GitProperties;
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
@@ -104,25 +93,7 @@ public class ReactiveCloudFoundryActuatorAutoConfiguration {
 		return new CloudFoundryInfoEndpointWebExtension(new InfoEndpoint(contributors));
 	}
 
-	@Bean
-	public CloudFoundryWebFluxEndpointHandlerMapping cloudFoundryWebFluxEndpointHandlerMapping(
-			ParameterValueMapper parameterMapper, EndpointMediaTypes endpointMediaTypes,
-			WebClient.Builder webClientBuilder, ControllerEndpointsSupplier controllerEndpointsSupplier,
-			ApplicationContext applicationContext) {
-		CloudFoundryWebEndpointDiscoverer endpointDiscoverer = new CloudFoundryWebEndpointDiscoverer(applicationContext,
-				parameterMapper, endpointMediaTypes, null, Collections.emptyList(), Collections.emptyList());
-		CloudFoundrySecurityInterceptor securityInterceptor = getSecurityInterceptor(webClientBuilder,
-				applicationContext.getEnvironment());
-		Collection<ExposableWebEndpoint> webEndpoints = endpointDiscoverer.getEndpoints();
-		List<ExposableEndpoint<?>> allEndpoints = new ArrayList<>();
-		allEndpoints.addAll(webEndpoints);
-		allEndpoints.addAll(controllerEndpointsSupplier.getEndpoints());
-		return new CloudFoundryWebFluxEndpointHandlerMapping(new EndpointMapping("/cloudfoundryapplication"),
-				webEndpoints, endpointMediaTypes, getCorsConfiguration(), securityInterceptor,
-				new EndpointLinksResolver(allEndpoints));
-	}
-
-	private CloudFoundrySecurityInterceptor getSecurityInterceptor(WebClient.Builder webClientBuilder,
+	public CloudFoundrySecurityInterceptor getSecurityInterceptor(WebClient.Builder webClientBuilder,
 			Environment environment) {
 		ReactiveCloudFoundrySecurityService cloudfoundrySecurityService = getCloudFoundrySecurityService(
 				webClientBuilder, environment);
@@ -141,7 +112,7 @@ public class ReactiveCloudFoundryActuatorAutoConfiguration {
 				: null;
 	}
 
-	private CorsConfiguration getCorsConfiguration() {
+	public CorsConfiguration getCorsConfiguration() {
 		CorsConfiguration corsConfiguration = new CorsConfiguration();
 		corsConfiguration.addAllowedOrigin(CorsConfiguration.ALL);
 		corsConfiguration.setAllowedMethods(Arrays.asList(HttpMethod.GET.name(), HttpMethod.POST.name()));

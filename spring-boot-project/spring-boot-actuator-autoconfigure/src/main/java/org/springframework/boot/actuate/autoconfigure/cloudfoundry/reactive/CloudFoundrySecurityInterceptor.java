@@ -37,7 +37,7 @@ import org.springframework.web.server.ServerWebExchange;
  *
  * @author Madhura Bhave
  */
-class CloudFoundrySecurityInterceptor {
+public class CloudFoundrySecurityInterceptor {
 
 	private static final Log logger = LogFactory.getLog(CloudFoundrySecurityInterceptor.class);
 

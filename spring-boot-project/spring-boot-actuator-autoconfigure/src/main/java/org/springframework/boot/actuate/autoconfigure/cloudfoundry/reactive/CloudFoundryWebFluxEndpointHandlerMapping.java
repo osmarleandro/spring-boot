@@ -50,7 +50,7 @@ import org.springframework.web.server.ServerWebExchange;
  * @author Phillip Webb
  * @author Brian Clozel
  */
-class CloudFoundryWebFluxEndpointHandlerMapping extends AbstractWebFluxEndpointHandlerMapping {
+public class CloudFoundryWebFluxEndpointHandlerMapping extends AbstractWebFluxEndpointHandlerMapping {
 
 	private final CloudFoundrySecurityInterceptor securityInterceptor;
 
