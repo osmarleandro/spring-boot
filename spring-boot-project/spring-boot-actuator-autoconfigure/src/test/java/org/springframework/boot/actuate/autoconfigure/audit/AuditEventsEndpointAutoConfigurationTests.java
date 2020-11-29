@@ -34,17 +34,10 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Phillip Webb
  * @author Vedran Pavic
  */
-class AuditEventsEndpointAutoConfigurationTests {
+public class AuditEventsEndpointAutoConfigurationTests {
 
-	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner().withConfiguration(
+	public final ApplicationContextRunner contextRunner = new ApplicationContextRunner().withConfiguration(
 			AutoConfigurations.of(AuditAutoConfiguration.class, AuditEventsEndpointAutoConfiguration.class));
-
-	@Test
-	void runWhenRepositoryBeanAvailableShouldHaveEndpointBean() {
-		this.contextRunner.withUserConfiguration(CustomAuditEventRepositoryConfiguration.class)
-				.withPropertyValues("management.endpoints.web.exposure.include=auditevents")
-				.run((context) -> assertThat(context).hasSingleBean(AuditEventsEndpoint.class));
-	}
 
 	@Test
 	void endpointBacksOffWhenRepositoryNotAvailable() {
@@ -66,6 +59,7 @@ class AuditEventsEndpointAutoConfigurationTests {
 	}
 
 	@Configuration(proxyBeanMethods = false)
+	public
 	static class CustomAuditEventRepositoryConfiguration {
 
 		@Bean
