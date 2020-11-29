@@ -48,7 +48,7 @@ public abstract class AbstractCompositeHealthContributorConfiguration<C, I exten
 
 	}
 
-	protected final C createContributor(Map<String, B> beans) {
+	public final C createContributor(Map<String, B> beans) {
 		Assert.notEmpty(beans, "Beans must not be empty");
 		if (beans.size() == 1) {
 			return createIndicator(beans.values().iterator().next());

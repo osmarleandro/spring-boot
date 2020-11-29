@@ -28,20 +28,17 @@ import org.springframework.boot.actuate.autoconfigure.health.CompositeHealthCont
 import org.springframework.boot.actuate.autoconfigure.health.ConditionalOnEnabledHealthIndicator;
 import org.springframework.boot.actuate.health.AbstractHealthIndicator;
 import org.springframework.boot.actuate.health.Health.Builder;
-import org.springframework.boot.actuate.health.HealthContributor;
 import org.springframework.boot.actuate.health.HealthIndicator;
 import org.springframework.boot.actuate.jdbc.DataSourceHealthIndicator;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.jdbc.metadata.CompositeDataSourcePoolMetadataProvider;
 import org.springframework.boot.jdbc.metadata.DataSourcePoolMetadata;
 import org.springframework.boot.jdbc.metadata.DataSourcePoolMetadataProvider;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource;
@@ -79,19 +76,6 @@ public class DataSourceHealthContributorAutoConfiguration extends
 	@Override
 	public void afterPropertiesSet() throws Exception {
 		this.poolMetadataProvider = new CompositeDataSourcePoolMetadataProvider(this.metadataProviders);
-	}
-
-	@Bean
-	@ConditionalOnMissingBean(name = { "dbHealthIndicator", "dbHealthContributor" })
-	public HealthContributor dbHealthContributor(Map<String, DataSource> dataSources,
-			DataSourceHealthIndicatorProperties dataSourceHealthIndicatorProperties) {
-		if (dataSourceHealthIndicatorProperties.isIgnoreRoutingDataSources()) {
-			Map<String, DataSource> filteredDatasources = dataSources.entrySet().stream()
-					.filter((e) -> !(e.getValue() instanceof AbstractRoutingDataSource))
-					.collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
-			return createContributor(filteredDatasources);
-		}
-		return createContributor(dataSources);
 	}
 
 	@Override

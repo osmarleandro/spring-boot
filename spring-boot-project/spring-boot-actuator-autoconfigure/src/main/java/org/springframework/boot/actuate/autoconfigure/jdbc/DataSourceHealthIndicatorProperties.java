@@ -16,8 +16,17 @@
 
 package org.springframework.boot.actuate.autoconfigure.jdbc;
 
+import java.util.Map;
+import java.util.stream.Collectors;
+
+import javax.sql.DataSource;
+
+import org.springframework.boot.actuate.health.HealthContributor;
 import org.springframework.boot.actuate.jdbc.DataSourceHealthIndicator;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.Bean;
+import org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource;
 
 /**
  * External configuration properties for {@link DataSourceHealthIndicator}.
@@ -40,6 +49,18 @@ public class DataSourceHealthIndicatorProperties {
 
 	public void setIgnoreRoutingDataSources(boolean ignoreRoutingDataSources) {
 		this.ignoreRoutingDataSources = ignoreRoutingDataSources;
+	}
+
+	@Bean
+	@ConditionalOnMissingBean(name = { "dbHealthIndicator", "dbHealthContributor" })
+	public HealthContributor dbHealthContributor(Map<String, DataSource> dataSources, DataSourceHealthContributorAutoConfiguration dataSourceHealthContributorAutoConfiguration) {
+		if (isIgnoreRoutingDataSources()) {
+			Map<String, DataSource> filteredDatasources = dataSources.entrySet().stream()
+					.filter((e) -> !(e.getValue() instanceof AbstractRoutingDataSource))
+					.collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+			return dataSourceHealthContributorAutoConfiguration.createContributor(filteredDatasources);
+		}
+		return dataSourceHealthContributorAutoConfiguration.createContributor(dataSources);
 	}
 
 }
