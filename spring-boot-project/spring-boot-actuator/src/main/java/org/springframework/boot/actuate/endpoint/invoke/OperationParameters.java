@@ -16,7 +16,14 @@
 
 package org.springframework.boot.actuate.endpoint.invoke;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.stream.Stream;
+
+import org.springframework.boot.actuate.endpoint.jmx.JmxOperationParameter;
+import org.springframework.boot.actuate.endpoint.jmx.annotation.DiscoveredJmxOperation.DiscoveredJmxOperationParameter;
+import org.springframework.jmx.export.metadata.ManagedOperationParameter;
 
 /**
  * A collection of {@link OperationParameter operation parameters}.
@@ -61,5 +68,13 @@ public interface OperationParameters extends Iterable<OperationParameter> {
 	 * @return a stream of the parameters
 	 */
 	Stream<OperationParameter> stream();
+
+	public default List<JmxOperationParameter> mergeParameters(ManagedOperationParameter[] managedParameters) {
+		List<JmxOperationParameter> merged = new ArrayList<>(managedParameters.length);
+		for (int i = 0; i < managedParameters.length; i++) {
+			merged.add(new DiscoveredJmxOperationParameter(managedParameters[i], get(i)));
+		}
+		return Collections.unmodifiableList(merged);
+	}
 
 }

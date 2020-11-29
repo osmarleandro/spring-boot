@@ -18,7 +18,6 @@ package org.springframework.boot.actuate.endpoint.jmx.annotation;
 
 import java.lang.reflect.Method;
 import java.time.Instant;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -31,7 +30,6 @@ import org.springframework.boot.actuate.endpoint.annotation.AbstractDiscoveredOp
 import org.springframework.boot.actuate.endpoint.annotation.DiscoveredOperationMethod;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvoker;
 import org.springframework.boot.actuate.endpoint.invoke.OperationParameter;
-import org.springframework.boot.actuate.endpoint.invoke.OperationParameters;
 import org.springframework.boot.actuate.endpoint.invoke.reflect.OperationMethod;
 import org.springframework.boot.actuate.endpoint.jmx.JmxOperation;
 import org.springframework.boot.actuate.endpoint.jmx.JmxOperationParameter;
@@ -48,7 +46,7 @@ import org.springframework.util.StringUtils;
  * @author Stephane Nicoll
  * @author Phillip Webb
  */
-class DiscoveredJmxOperation extends AbstractDiscoveredOperation implements JmxOperation {
+public class DiscoveredJmxOperation extends AbstractDiscoveredOperation implements JmxOperation {
 
 	private static final JmxAttributeSource jmxAttributeSource = new AnnotationJmxAttributeSource();
 
@@ -86,16 +84,7 @@ class DiscoveredJmxOperation extends AbstractDiscoveredOperation implements JmxO
 		if (managed.length == 0) {
 			return asList(operationMethod.getParameters().stream().map(DiscoveredJmxOperationParameter::new));
 		}
-		return mergeParameters(operationMethod.getParameters(), managed);
-	}
-
-	private List<JmxOperationParameter> mergeParameters(OperationParameters operationParameters,
-			ManagedOperationParameter[] managedParameters) {
-		List<JmxOperationParameter> merged = new ArrayList<>(managedParameters.length);
-		for (int i = 0; i < managedParameters.length; i++) {
-			merged.add(new DiscoveredJmxOperationParameter(managedParameters[i], operationParameters.get(i)));
-		}
-		return Collections.unmodifiableList(merged);
+		return operationMethod.getParameters().mergeParameters(managed);
 	}
 
 	private <T> List<T> asList(Stream<T> stream) {
@@ -131,7 +120,7 @@ class DiscoveredJmxOperation extends AbstractDiscoveredOperation implements JmxO
 	/**
 	 * A discovered {@link JmxOperationParameter}.
 	 */
-	private static class DiscoveredJmxOperationParameter implements JmxOperationParameter {
+	public static class DiscoveredJmxOperationParameter implements JmxOperationParameter {
 
 		private final String name;
 
