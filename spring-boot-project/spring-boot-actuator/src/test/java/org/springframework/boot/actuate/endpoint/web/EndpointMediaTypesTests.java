@@ -38,7 +38,7 @@ class EndpointMediaTypesTests {
 	void defaultReturnsExpectedProducedAndConsumedTypes() {
 		assertThat(EndpointMediaTypes.DEFAULT.getProduced()).containsExactly(ActuatorMediaType.V3_JSON,
 				ActuatorMediaType.V2_JSON, "application/json");
-		assertThat(EndpointMediaTypes.DEFAULT.getConsumed()).containsExactly(ActuatorMediaType.V3_JSON,
+		assertThat(EndpointMediaTypes.DEFAULT.DEFAULT.getConsumed(EndpointMediaTypes.DEFAULT)).containsExactly(ActuatorMediaType.V3_JSON,
 				ActuatorMediaType.V2_JSON, "application/json");
 	}
 
@@ -58,7 +58,7 @@ class EndpointMediaTypesTests {
 	void createFromProducedAndConsumedUsesSameListForBoth() {
 		EndpointMediaTypes types = new EndpointMediaTypes("spring/framework", "spring/boot");
 		assertThat(types.getProduced()).containsExactly("spring/framework", "spring/boot");
-		assertThat(types.getConsumed()).containsExactly("spring/framework", "spring/boot");
+		assertThat(types.DEFAULT.getConsumed(types)).containsExactly("spring/framework", "spring/boot");
 	}
 
 	@Test
@@ -72,7 +72,7 @@ class EndpointMediaTypesTests {
 	void getConsumedShouldReturnConsumed() {
 		List<String> consumed = Arrays.asList("a", "b", "c");
 		EndpointMediaTypes types = new EndpointMediaTypes(Collections.emptyList(), consumed);
-		assertThat(types.getConsumed()).isEqualTo(consumed);
+		assertThat(types.DEFAULT.getConsumed(types)).isEqualTo(consumed);
 	}
 
 }

@@ -89,10 +89,11 @@ public class EndpointMediaTypes {
 
 	/**
 	 * Returns the media types consumed by an endpoint.
+	 * @param endpointMediaTypes TODO
 	 * @return the consumed media types
 	 */
-	public List<String> getConsumed() {
-		return this.consumed;
+	public List<String> getConsumed(EndpointMediaTypes endpointMediaTypes) {
+		return endpointMediaTypes.consumed;
 	}
 
 }
