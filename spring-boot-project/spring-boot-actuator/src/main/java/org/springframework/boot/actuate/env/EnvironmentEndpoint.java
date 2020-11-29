@@ -64,7 +64,7 @@ public class EnvironmentEndpoint {
 
 	private final Sanitizer sanitizer = new Sanitizer();
 
-	private final Environment environment;
+	public final Environment environment;
 
 	public EnvironmentEndpoint(Environment environment) {
 		this.environment = environment;
@@ -84,7 +84,7 @@ public class EnvironmentEndpoint {
 
 	@ReadOperation
 	public EnvironmentEntryDescriptor environmentEntry(@Selector String toMatch) {
-		return getEnvironmentEntryDescriptor(toMatch);
+		return sanitizer.getEnvironmentEntryDescriptor(this, toMatch);
 	}
 
 	private EnvironmentDescriptor getEnvironmentDescriptor(Predicate<String> propertyNamePredicate) {
@@ -99,21 +99,14 @@ public class EnvironmentEndpoint {
 		return new EnvironmentDescriptor(Arrays.asList(this.environment.getActiveProfiles()), propertySources);
 	}
 
-	private EnvironmentEntryDescriptor getEnvironmentEntryDescriptor(String propertyName) {
-		Map<String, PropertyValueDescriptor> descriptors = getPropertySourceDescriptors(propertyName);
-		PropertySummaryDescriptor summary = getPropertySummaryDescriptor(descriptors);
-		return new EnvironmentEntryDescriptor(summary, Arrays.asList(this.environment.getActiveProfiles()),
-				toPropertySourceDescriptors(descriptors));
-	}
-
-	private List<PropertySourceEntryDescriptor> toPropertySourceDescriptors(
+	public List<PropertySourceEntryDescriptor> toPropertySourceDescriptors(
 			Map<String, PropertyValueDescriptor> descriptors) {
 		List<PropertySourceEntryDescriptor> result = new ArrayList<>();
 		descriptors.forEach((name, property) -> result.add(new PropertySourceEntryDescriptor(name, property)));
 		return result;
 	}
 
-	private PropertySummaryDescriptor getPropertySummaryDescriptor(Map<String, PropertyValueDescriptor> descriptors) {
+	public PropertySummaryDescriptor getPropertySummaryDescriptor(Map<String, PropertyValueDescriptor> descriptors) {
 		for (Map.Entry<String, PropertyValueDescriptor> entry : descriptors.entrySet()) {
 			if (entry.getValue() != null) {
 				return new PropertySummaryDescriptor(entry.getKey(), entry.getValue().getValue());
@@ -122,7 +115,7 @@ public class EnvironmentEndpoint {
 		return null;
 	}
 
-	private Map<String, PropertyValueDescriptor> getPropertySourceDescriptors(String propertyName) {
+	public Map<String, PropertyValueDescriptor> getPropertySourceDescriptors(String propertyName) {
 		Map<String, PropertyValueDescriptor> propertySources = new LinkedHashMap<>();
 		PlaceholdersResolver resolver = getResolver();
 		getPropertySourcesAsMap().forEach((sourceName, source) -> propertySources.put(sourceName,
