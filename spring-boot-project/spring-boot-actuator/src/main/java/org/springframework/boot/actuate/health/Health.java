@@ -23,6 +23,8 @@ import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
+import org.neo4j.driver.exceptions.SessionExpiredException;
+import org.springframework.boot.actuate.neo4j.Neo4jHealthIndicator;
 import org.springframework.util.Assert;
 
 /**
@@ -327,6 +329,22 @@ public final class Health extends HealthComponent {
 		 */
 		public Health build() {
 			return new Health(this);
+		}
+
+		public void doHealthCheck(Neo4jHealthIndicator neo4jHealthIndicator) {
+			try {
+				try {
+					neo4jHealthIndicator.runHealthCheckQuery(this);
+				}
+				catch (SessionExpiredException ex) {
+					// Retry one time when the session has been expired
+					Neo4jHealthIndicator.logger.warn(Neo4jHealthIndicator.MESSAGE_SESSION_EXPIRED);
+					neo4jHealthIndicator.runHealthCheckQuery(this);
+				}
+			}
+			catch (Exception ex) {
+				down().withException(ex);
+			}
 		}
 
 	}

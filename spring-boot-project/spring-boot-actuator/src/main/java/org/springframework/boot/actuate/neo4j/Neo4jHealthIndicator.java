@@ -23,7 +23,6 @@ import org.neo4j.driver.Driver;
 import org.neo4j.driver.Result;
 import org.neo4j.driver.Session;
 import org.neo4j.driver.SessionConfig;
-import org.neo4j.driver.exceptions.SessionExpiredException;
 import org.neo4j.driver.summary.ResultSummary;
 
 import org.springframework.boot.actuate.health.AbstractHealthIndicator;
@@ -41,7 +40,7 @@ import org.springframework.boot.actuate.health.HealthIndicator;
  */
 public class Neo4jHealthIndicator extends AbstractHealthIndicator {
 
-	private static final Log logger = LogFactory.getLog(Neo4jHealthIndicator.class);
+	public static final Log logger = LogFactory.getLog(Neo4jHealthIndicator.class);
 
 	/**
 	 * The Cypher statement used to verify Neo4j is up.
@@ -51,7 +50,7 @@ public class Neo4jHealthIndicator extends AbstractHealthIndicator {
 	/**
 	 * Message logged before retrying a health check.
 	 */
-	static final String MESSAGE_SESSION_EXPIRED = "Neo4j session has expired, retrying one single time to retrieve server health.";
+	public static final String MESSAGE_SESSION_EXPIRED = "Neo4j session has expired, retrying one single time to retrieve server health.";
 
 	/**
 	 * The default session config to use while connecting.
@@ -71,22 +70,10 @@ public class Neo4jHealthIndicator extends AbstractHealthIndicator {
 
 	@Override
 	protected void doHealthCheck(Health.Builder builder) {
-		try {
-			try {
-				runHealthCheckQuery(builder);
-			}
-			catch (SessionExpiredException ex) {
-				// Retry one time when the session has been expired
-				logger.warn(MESSAGE_SESSION_EXPIRED);
-				runHealthCheckQuery(builder);
-			}
-		}
-		catch (Exception ex) {
-			builder.down().withException(ex);
-		}
+		builder.doHealthCheck(this);
 	}
 
-	private void runHealthCheckQuery(Health.Builder builder) {
+	public void runHealthCheckQuery(Health.Builder builder) {
 		// We use WRITE here to make sure UP is returned for a server that supports
 		// all possible workloads
 		try (Session session = this.driver.session(DEFAULT_SESSION_CONFIG)) {
