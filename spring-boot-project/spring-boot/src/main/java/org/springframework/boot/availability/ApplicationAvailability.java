@@ -16,7 +16,10 @@
 
 package org.springframework.boot.availability;
 
+import org.springframework.boot.actuate.availability.LivenessStateHealthIndicator;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.Bean;
 
 /**
  * Provides {@link AvailabilityState availability state} information for the application.
@@ -77,5 +80,11 @@ public interface ApplicationAvailability {
 	 * published yet
 	 */
 	<S extends AvailabilityState> AvailabilityChangeEvent<S> getLastChangeEvent(Class<S> stateType);
+
+	@Bean
+	@ConditionalOnMissingBean(name = "livenessStateHealthIndicator")
+	default LivenessStateHealthIndicator livenessStateHealthIndicator() {
+		return new LivenessStateHealthIndicator(this);
+	}
 
 }
