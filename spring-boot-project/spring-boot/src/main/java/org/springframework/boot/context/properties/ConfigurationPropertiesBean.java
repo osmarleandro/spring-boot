@@ -30,6 +30,8 @@ import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.beans.factory.support.RootBeanDefinition;
+import org.springframework.boot.actuate.context.properties.ConfigurationPropertiesReportEndpoint;
+import org.springframework.boot.actuate.context.properties.ConfigurationPropertiesReportEndpoint.ConfigurationPropertiesBeanDescriptor;
 import org.springframework.boot.context.properties.bind.Bindable;
 import org.springframework.boot.context.properties.bind.Binder;
 import org.springframework.context.ApplicationContext;
@@ -43,6 +45,8 @@ import org.springframework.util.Assert;
 import org.springframework.util.ClassUtils;
 import org.springframework.util.ReflectionUtils;
 import org.springframework.validation.annotation.Validated;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
  * Provides access to {@link ConfigurationProperties @ConfigurationProperties} bean
@@ -127,6 +131,14 @@ public final class ConfigurationPropertiesBean {
 	 */
 	public Bindable<?> asBindTarget() {
 		return this.bindTarget;
+	}
+
+	public ConfigurationPropertiesBeanDescriptor describeBean(ObjectMapper mapper, ConfigurationPropertiesReportEndpoint configurationPropertiesReportEndpoint) {
+		String prefix = getAnnotation().prefix();
+		Map<String, Object> serialized = configurationPropertiesReportEndpoint.safeSerialize(mapper, getInstance(), prefix);
+		Map<String, Object> properties = configurationPropertiesReportEndpoint.sanitize(prefix, serialized);
+		Map<String, Object> inputs = configurationPropertiesReportEndpoint.getInputs(prefix, serialized);
+		return new ConfigurationPropertiesBeanDescriptor(prefix, properties, inputs);
 	}
 
 	/**

@@ -167,17 +167,9 @@ public class ConfigurationPropertiesReportEndpoint implements ApplicationContext
 	private ContextConfigurationProperties describeBeans(ObjectMapper mapper, ApplicationContext context) {
 		Map<String, ConfigurationPropertiesBean> beans = ConfigurationPropertiesBean.getAll(context);
 		Map<String, ConfigurationPropertiesBeanDescriptor> descriptors = new HashMap<>();
-		beans.forEach((beanName, bean) -> descriptors.put(beanName, describeBean(mapper, bean)));
+		beans.forEach((beanName, bean) -> descriptors.put(beanName, bean.describeBean(mapper, this)));
 		return new ContextConfigurationProperties(descriptors,
 				(context.getParent() != null) ? context.getParent().getId() : null);
-	}
-
-	private ConfigurationPropertiesBeanDescriptor describeBean(ObjectMapper mapper, ConfigurationPropertiesBean bean) {
-		String prefix = bean.getAnnotation().prefix();
-		Map<String, Object> serialized = safeSerialize(mapper, bean.getInstance(), prefix);
-		Map<String, Object> properties = sanitize(prefix, serialized);
-		Map<String, Object> inputs = getInputs(prefix, serialized);
-		return new ConfigurationPropertiesBeanDescriptor(prefix, properties, inputs);
 	}
 
 	/**
@@ -189,7 +181,7 @@ public class ConfigurationPropertiesReportEndpoint implements ApplicationContext
 	 * @return the serialized instance
 	 */
 	@SuppressWarnings({ "unchecked" })
-	private Map<String, Object> safeSerialize(ObjectMapper mapper, Object bean, String prefix) {
+	public Map<String, Object> safeSerialize(ObjectMapper mapper, Object bean, String prefix) {
 		try {
 			return new HashMap<>(mapper.convertValue(bean, Map.class));
 		}
@@ -206,7 +198,7 @@ public class ConfigurationPropertiesReportEndpoint implements ApplicationContext
 	 * @return the sanitized map
 	 */
 	@SuppressWarnings("unchecked")
-	private Map<String, Object> sanitize(String prefix, Map<String, Object> map) {
+	public Map<String, Object> sanitize(String prefix, Map<String, Object> map) {
 		map.forEach((key, value) -> {
 			String qualifiedKey = getQualifiedKey(prefix, key);
 			if (value instanceof Map) {
@@ -242,7 +234,7 @@ public class ConfigurationPropertiesReportEndpoint implements ApplicationContext
 	}
 
 	@SuppressWarnings("unchecked")
-	private Map<String, Object> getInputs(String prefix, Map<String, Object> map) {
+	public Map<String, Object> getInputs(String prefix, Map<String, Object> map) {
 		Map<String, Object> augmented = new LinkedHashMap<>(map);
 		map.forEach((key, value) -> {
 			String qualifiedKey = getQualifiedKey(prefix, key);
