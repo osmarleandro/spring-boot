@@ -49,10 +49,6 @@ public abstract class HealthProperties {
 	 */
 	private Set<String> roles = new HashSet<>();
 
-	public Status getStatus() {
-		return this.status;
-	}
-
 	public Show getShowComponents() {
 		return this.showComponents;
 	}
@@ -99,6 +95,10 @@ public abstract class HealthProperties {
 
 		public Map<String, Integer> getHttpMapping() {
 			return this.httpMapping;
+		}
+
+		public Status getStatus(HealthProperties healthProperties) {
+			return this;
 		}
 
 	}

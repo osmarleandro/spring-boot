@@ -70,11 +70,11 @@ class AutoConfiguredHealthEndpointGroups implements HealthEndpointGroups {
 		Set<String> roles = properties.getRoles();
 		StatusAggregator statusAggregator = getNonQualifiedBean(beanFactory, StatusAggregator.class);
 		if (statusAggregator == null) {
-			statusAggregator = new SimpleStatusAggregator(properties.getStatus().getOrder());
+			statusAggregator = new SimpleStatusAggregator(properties.getStatus().getStatus(this).getOrder());
 		}
 		HttpCodeStatusMapper httpCodeStatusMapper = getNonQualifiedBean(beanFactory, HttpCodeStatusMapper.class);
 		if (httpCodeStatusMapper == null) {
-			httpCodeStatusMapper = new SimpleHttpCodeStatusMapper(properties.getStatus().getHttpMapping());
+			httpCodeStatusMapper = new SimpleHttpCodeStatusMapper(properties.getStatus().getStatus(this).getHttpMapping());
 		}
 		this.primaryGroup = new AutoConfiguredHealthEndpointGroup(ALL, statusAggregator, httpCodeStatusMapper,
 				showComponents, showDetails, roles);
@@ -87,7 +87,7 @@ class AutoConfiguredHealthEndpointGroups implements HealthEndpointGroups {
 			Show defaultShowComponents, Show defaultShowDetails, Set<String> defaultRoles) {
 		Map<String, HealthEndpointGroup> groups = new LinkedHashMap<>();
 		groupProperties.forEach((groupName, group) -> {
-			Status status = group.getStatus();
+			Status status = group.getStatus().getStatus(this);
 			Show showComponents = (group.getShowComponents() != null) ? group.getShowComponents()
 					: defaultShowComponents;
 			Show showDetails = (group.getShowDetails() != null) ? group.getShowDetails() : defaultShowDetails;
