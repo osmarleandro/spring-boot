@@ -19,7 +19,12 @@ package org.springframework.boot.autoconfigure.jersey;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.glassfish.jersey.server.ResourceConfig;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.autoconfigure.web.servlet.DefaultJerseyApplicationPath;
+import org.springframework.boot.autoconfigure.web.servlet.JerseyApplicationPath;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.Bean;
 
 /**
  * {@link ConfigurationProperties @ConfigurationProperties} for Jersey.
@@ -82,6 +87,12 @@ public class JerseyProperties {
 
 	public void setApplicationPath(String applicationPath) {
 		this.applicationPath = applicationPath;
+	}
+
+	@Bean
+	@ConditionalOnMissingBean(JerseyApplicationPath.class)
+	public JerseyApplicationPath jerseyApplicationPath(ResourceConfig config) {
+		return new DefaultJerseyApplicationPath(getApplicationPath(), config);
 	}
 
 	public enum Type {
