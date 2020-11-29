@@ -19,8 +19,12 @@ package org.springframework.boot.web.servlet.error;
 import java.util.Collections;
 import java.util.Map;
 
+import org.springframework.boot.actuate.autoconfigure.web.servlet.ManagementErrorEndpoint;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+import org.springframework.boot.autoconfigure.web.ServerProperties;
 import org.springframework.boot.web.error.ErrorAttributeOptions;
 import org.springframework.boot.web.error.ErrorAttributeOptions.Include;
+import org.springframework.context.annotation.Bean;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.ModelAndView;
@@ -70,5 +74,12 @@ public interface ErrorAttributes {
 	 * @return the {@link Exception} that caused the error or {@code null}
 	 */
 	Throwable getError(WebRequest webRequest);
+
+	@Bean
+	@ConditionalOnBean(ErrorAttributes.class)
+	default
+	ManagementErrorEndpoint errorEndpoint(ServerProperties serverProperties) {
+		return new ManagementErrorEndpoint(this, serverProperties.getError());
+	}
 
 }

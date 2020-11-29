@@ -52,18 +52,8 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 @ConditionalOnWebApplication(type = Type.SERVLET)
 @ConditionalOnClass(DispatcherServlet.class)
 @EnableWebMvc
+public
 class WebMvcEndpointChildContextConfiguration {
-
-	/*
-	 * The error controller is present but not mapped as an endpoint in this context
-	 * because of the DispatcherServlet having had its HandlerMapping explicitly disabled.
-	 * So we expose the same feature but only for machine endpoints.
-	 */
-	@Bean
-	@ConditionalOnBean(ErrorAttributes.class)
-	ManagementErrorEndpoint errorEndpoint(ErrorAttributes errorAttributes, ServerProperties serverProperties) {
-		return new ManagementErrorEndpoint(errorAttributes, serverProperties.getError());
-	}
 
 	@Bean
 	@ConditionalOnBean(ErrorAttributes.class)
