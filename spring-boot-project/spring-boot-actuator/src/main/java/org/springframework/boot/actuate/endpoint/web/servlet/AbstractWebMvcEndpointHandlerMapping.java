@@ -78,13 +78,13 @@ public abstract class AbstractWebMvcEndpointHandlerMapping extends RequestMappin
 
 	private final EndpointMapping endpointMapping;
 
-	private final Collection<ExposableWebEndpoint> endpoints;
+	public final Collection<ExposableWebEndpoint> endpoints;
 
 	private final EndpointMediaTypes endpointMediaTypes;
 
 	private final CorsConfiguration corsConfiguration;
 
-	private final boolean shouldRegisterLinksMapping;
+	public final boolean shouldRegisterLinksMapping;
 
 	private final Method handleMethod = ReflectionUtils.findMethod(OperationHandler.class, "handle",
 			HttpServletRequest.class, Map.class);
@@ -127,14 +127,7 @@ public abstract class AbstractWebMvcEndpointHandlerMapping extends RequestMappin
 
 	@Override
 	protected void initHandlerMethods() {
-		for (ExposableWebEndpoint endpoint : this.endpoints) {
-			for (WebOperation operation : endpoint.getOperations()) {
-				registerMappingForOperation(endpoint, operation);
-			}
-		}
-		if (this.shouldRegisterLinksMapping) {
-			registerLinksMapping();
-		}
+		endpointMapping.initHandlerMethods(this);
 	}
 
 	@Override
@@ -164,7 +157,7 @@ public abstract class AbstractWebMvcEndpointHandlerMapping extends RequestMappin
 		return config;
 	}
 
-	private void registerMappingForOperation(ExposableWebEndpoint endpoint, WebOperation operation) {
+	public void registerMappingForOperation(ExposableWebEndpoint endpoint, WebOperation operation) {
 		WebOperationRequestPredicate predicate = operation.getRequestPredicate();
 		String path = predicate.getPath();
 		String matchAllRemainingPathSegmentsVariable = predicate.getMatchAllRemainingPathSegmentsVariable();
@@ -197,7 +190,7 @@ public abstract class AbstractWebMvcEndpointHandlerMapping extends RequestMappin
 				.produces(predicate.getProduces().toArray(new String[0])).build();
 	}
 
-	private void registerLinksMapping() {
+	public void registerLinksMapping() {
 		RequestMappingInfo mapping = RequestMappingInfo.paths(this.endpointMapping.createSubPath(""))
 				.methods(RequestMethod.GET).produces(this.endpointMediaTypes.getProduced().toArray(new String[0]))
 				.options(builderConfig).build();

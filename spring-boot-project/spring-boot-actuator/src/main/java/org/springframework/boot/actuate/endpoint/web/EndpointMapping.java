@@ -16,6 +16,7 @@
 
 package org.springframework.boot.actuate.endpoint.web;
 
+import org.springframework.boot.actuate.endpoint.web.servlet.AbstractWebMvcEndpointHandlerMapping;
 import org.springframework.util.StringUtils;
 
 /**
@@ -46,6 +47,17 @@ public class EndpointMapping {
 
 	public String createSubPath(String path) {
 		return this.path + normalizePath(path);
+	}
+
+	public void initHandlerMethods(AbstractWebMvcEndpointHandlerMapping abstractWebMvcEndpointHandlerMapping) {
+		for (ExposableWebEndpoint endpoint : abstractWebMvcEndpointHandlerMapping.endpoints) {
+			for (WebOperation operation : endpoint.getOperations()) {
+				abstractWebMvcEndpointHandlerMapping.registerMappingForOperation(endpoint, operation);
+			}
+		}
+		if (abstractWebMvcEndpointHandlerMapping.shouldRegisterLinksMapping) {
+			abstractWebMvcEndpointHandlerMapping.registerLinksMapping();
+		}
 	}
 
 	private static String normalizePath(String path) {
