@@ -76,7 +76,7 @@ public abstract class InfoPropertiesInfoContributor<T extends InfoProperties> im
 	 * Extract the content to contribute to the info endpoint.
 	 * @return the content to expose
 	 * @see #extractContent(PropertySource)
-	 * @see #postProcessContent(Map)
+	 * @see #MISSING()
 	 */
 	protected Map<String, Object> generateContent() {
 		Map<String, Object> content = extractContent(toPropertySource());
@@ -99,7 +99,7 @@ public abstract class InfoPropertiesInfoContributor<T extends InfoProperties> im
 	 * @param content the content to expose
 	 */
 	protected void postProcessContent(Map<String, Object> content) {
-
+		STRING_OBJECT_MAP.postProcessContent(content);
 	}
 
 	/**

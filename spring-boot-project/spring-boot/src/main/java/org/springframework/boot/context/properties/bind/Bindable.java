@@ -175,6 +175,14 @@ public final class Bindable<T> {
 	}
 
 	/**
+	 * Post-process the content to expose. Elements can be added, changed or removed.
+	 * @param content the content to expose
+	 */
+	public void postProcessContent(Map<String, Object> content) {
+	
+	}
+
+	/**
 	 * Create a new {@link Bindable} of the type of the specified instance with an
 	 * existing value equal to the instance.
 	 * @param <T> the source type
