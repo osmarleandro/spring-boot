@@ -37,4 +37,8 @@ public interface EndpointObjectNameFactory {
 	 */
 	ObjectName getObjectName(ExposableJmxEndpoint endpoint) throws MalformedObjectNameException;
 
+	default void setBeanClassLoader(JmxEndpointExporter jmxEndpointExporter, ClassLoader classLoader) {
+		jmxEndpointExporter.classLoader = classLoader;
+	}
+
 }

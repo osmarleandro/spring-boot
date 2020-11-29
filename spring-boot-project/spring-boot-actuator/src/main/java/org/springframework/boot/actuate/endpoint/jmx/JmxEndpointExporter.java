@@ -47,7 +47,7 @@ public class JmxEndpointExporter implements InitializingBean, DisposableBean, Be
 
 	private static final Log logger = LogFactory.getLog(JmxEndpointExporter.class);
 
-	private ClassLoader classLoader;
+	ClassLoader classLoader;
 
 	private final MBeanServer mBeanServer;
 
@@ -73,7 +73,7 @@ public class JmxEndpointExporter implements InitializingBean, DisposableBean, Be
 
 	@Override
 	public void setBeanClassLoader(ClassLoader classLoader) {
-		this.classLoader = classLoader;
+		this.objectNameFactory.setBeanClassLoader(this, classLoader);
 	}
 
 	@Override
