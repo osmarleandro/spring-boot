@@ -44,7 +44,7 @@ class StatusTests {
 	@Test
 	void getCodeReturnsCode() {
 		Status status = new Status("spring", "boot");
-		assertThat(status.getCode()).isEqualTo("spring");
+		assertThat(status.DOWN.getCode(status)).isEqualTo("spring");
 	}
 
 	@Test
@@ -64,7 +64,7 @@ class StatusTests {
 
 	@Test
 	void toStringReturnsCode() {
-		assertThat(Status.OUT_OF_SERVICE.getCode()).isEqualTo("OUT_OF_SERVICE");
+		assertThat(Status.OUT_OF_SERVICE.DOWN.getCode(Status.OUT_OF_SERVICE)).isEqualTo("OUT_OF_SERVICE");
 	}
 
 	@Test

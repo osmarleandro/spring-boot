@@ -359,7 +359,7 @@ class AutoConfiguredHealthEndpointGroupsTests {
 		@Bean
 		@Primary
 		HttpCodeStatusMapper httpCodeStatusMapper() {
-			return new SimpleHttpCodeStatusMapper(Collections.singletonMap(Status.DOWN.getCode(), 200));
+			return new SimpleHttpCodeStatusMapper(Collections.singletonMap(Status.DOWN.DOWN.getCode(Status.DOWN), 200));
 		}
 
 	}
@@ -370,7 +370,7 @@ class AutoConfiguredHealthEndpointGroupsTests {
 		@Bean
 		@Qualifier("a")
 		HttpCodeStatusMapper httpCodeStatusMapper() {
-			return new SimpleHttpCodeStatusMapper(Collections.singletonMap(Status.DOWN.getCode(), 200));
+			return new SimpleHttpCodeStatusMapper(Collections.singletonMap(Status.DOWN.DOWN.getCode(Status.DOWN), 200));
 		}
 
 	}

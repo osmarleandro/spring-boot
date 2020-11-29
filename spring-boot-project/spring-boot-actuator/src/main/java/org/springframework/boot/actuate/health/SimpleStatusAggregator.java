@@ -42,10 +42,10 @@ public class SimpleStatusAggregator implements StatusAggregator {
 
 	static {
 		List<String> defaultOrder = new ArrayList<>();
-		defaultOrder.add(Status.DOWN.getCode());
-		defaultOrder.add(Status.OUT_OF_SERVICE.getCode());
-		defaultOrder.add(Status.UP.getCode());
-		defaultOrder.add(Status.UNKNOWN.getCode());
+		defaultOrder.add(Status.DOWN.DOWN.getCode(Status.DOWN));
+		defaultOrder.add(Status.OUT_OF_SERVICE.DOWN.getCode(Status.OUT_OF_SERVICE));
+		defaultOrder.add(Status.UP.DOWN.getCode(Status.UP));
+		defaultOrder.add(Status.UNKNOWN.DOWN.getCode(Status.UNKNOWN));
 		DEFAULT_ORDER = Collections.unmodifiableList(getUniformCodes(defaultOrder.stream()));
 		INSTANCE = new SimpleStatusAggregator();
 	}
@@ -77,7 +77,7 @@ public class SimpleStatusAggregator implements StatusAggregator {
 	}
 
 	private boolean contains(Status status) {
-		return this.order.contains(getUniformCode(status.getCode()));
+		return this.order.contains(getUniformCode(status.DOWN.getCode(status)));
 	}
 
 	private static List<String> getUniformCodes(Stream<String> codes) {
@@ -105,9 +105,9 @@ public class SimpleStatusAggregator implements StatusAggregator {
 		@Override
 		public int compare(Status s1, Status s2) {
 			List<String> order = SimpleStatusAggregator.this.order;
-			int i1 = order.indexOf(getUniformCode(s1.getCode()));
-			int i2 = order.indexOf(getUniformCode(s2.getCode()));
-			return (i1 < i2) ? -1 : (i1 != i2) ? 1 : s1.getCode().compareTo(s2.getCode());
+			int i1 = order.indexOf(getUniformCode(s1.DOWN.getCode(s1)));
+			int i2 = order.indexOf(getUniformCode(s2.DOWN.getCode(s2)));
+			return (i1 < i2) ? -1 : (i1 != i2) ? 1 : s1.DOWN.getCode(s1).compareTo(s2.DOWN.getCode(s2));
 		}
 
 	}

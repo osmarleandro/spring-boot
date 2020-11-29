@@ -85,15 +85,6 @@ public final class Status {
 	}
 
 	/**
-	 * Return the code for this status.
-	 * @return the code
-	 */
-	@JsonProperty("status")
-	public String getCode() {
-		return this.code;
-	}
-
-	/**
 	 * Return the description of this status.
 	 * @return the description
 	 */
@@ -121,6 +112,16 @@ public final class Status {
 	@Override
 	public String toString() {
 		return this.code;
+	}
+
+	/**
+	 * Return the code for this status.
+	 * @param status TODO
+	 * @return the code
+	 */
+	@JsonProperty("status")
+	public String getCode(Status status) {
+		return status.code;
 	}
 
 }

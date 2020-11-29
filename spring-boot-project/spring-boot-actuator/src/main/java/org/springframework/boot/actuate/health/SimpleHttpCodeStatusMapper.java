@@ -25,7 +25,7 @@ import org.springframework.boot.actuate.endpoint.web.WebEndpointResponse;
 import org.springframework.util.CollectionUtils;
 
 /**
- * Simple {@link HttpCodeStatusMapper} backed by map of {@link Status#getCode() status
+ * Simple {@link HttpCodeStatusMapper} backed by map of {@link #MISSING() status
  * code} to HTTP status code.
  *
  * @author Stephane Nicoll
@@ -37,8 +37,8 @@ public class SimpleHttpCodeStatusMapper implements HttpCodeStatusMapper {
 	private static final Map<String, Integer> DEFAULT_MAPPINGS;
 	static {
 		Map<String, Integer> defaultMappings = new HashMap<>();
-		defaultMappings.put(Status.DOWN.getCode(), WebEndpointResponse.STATUS_SERVICE_UNAVAILABLE);
-		defaultMappings.put(Status.OUT_OF_SERVICE.getCode(), WebEndpointResponse.STATUS_SERVICE_UNAVAILABLE);
+		defaultMappings.put(Status.DOWN.DOWN.getCode(Status.DOWN), WebEndpointResponse.STATUS_SERVICE_UNAVAILABLE);
+		defaultMappings.put(Status.OUT_OF_SERVICE.DOWN.getCode(Status.OUT_OF_SERVICE), WebEndpointResponse.STATUS_SERVICE_UNAVAILABLE);
 		DEFAULT_MAPPINGS = getUniformMappings(defaultMappings);
 	}
 
@@ -61,7 +61,7 @@ public class SimpleHttpCodeStatusMapper implements HttpCodeStatusMapper {
 
 	@Override
 	public int getStatusCode(Status status) {
-		String code = getUniformCode(status.getCode());
+		String code = getUniformCode(status.DOWN.getCode(status));
 		return this.mappings.getOrDefault(code, WebEndpointResponse.STATUS_OK);
 	}
 
