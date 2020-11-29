@@ -16,6 +16,7 @@
 
 package org.springframework.boot.actuate.endpoint.web;
 
+import org.springframework.boot.actuate.endpoint.web.reactive.AbstractWebFluxEndpointHandlerMapping;
 import org.springframework.util.StringUtils;
 
 /**
@@ -46,6 +47,17 @@ public class EndpointMapping {
 
 	public String createSubPath(String path) {
 		return this.path + normalizePath(path);
+	}
+
+	public void initHandlerMethods(AbstractWebFluxEndpointHandlerMapping abstractWebFluxEndpointHandlerMapping) {
+		for (ExposableWebEndpoint endpoint : abstractWebFluxEndpointHandlerMapping.endpoints) {
+			for (WebOperation operation : endpoint.getOperations()) {
+				abstractWebFluxEndpointHandlerMapping.registerMappingForOperation(endpoint, operation);
+			}
+		}
+		if (abstractWebFluxEndpointHandlerMapping.shouldRegisterLinksMapping) {
+			abstractWebFluxEndpointHandlerMapping.registerLinksMapping();
+		}
 	}
 
 	private static String normalizePath(String path) {
