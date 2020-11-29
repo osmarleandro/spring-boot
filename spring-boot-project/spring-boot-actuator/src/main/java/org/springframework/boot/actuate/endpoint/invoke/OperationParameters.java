@@ -18,6 +18,9 @@ package org.springframework.boot.actuate.endpoint.invoke;
 
 import java.util.stream.Stream;
 
+import org.springframework.boot.actuate.endpoint.SecurityContext;
+import org.springframework.boot.actuate.endpoint.http.ApiVersion;
+
 /**
  * A collection of {@link OperationParameter operation parameters}.
  *
@@ -61,5 +64,15 @@ public interface OperationParameters extends Iterable<OperationParameter> {
 	 * @return a stream of the parameters
 	 */
 	Stream<OperationParameter> stream();
+
+	public default boolean hasMandatoryParameter() {
+		for (OperationParameter parameter : this) {
+			if (parameter.isMandatory() && !ApiVersion.class.isAssignableFrom(parameter.getType())
+					&& !SecurityContext.class.isAssignableFrom(parameter.getType())) {
+				return true;
+			}
+		}
+		return false;
+	}
 
 }
