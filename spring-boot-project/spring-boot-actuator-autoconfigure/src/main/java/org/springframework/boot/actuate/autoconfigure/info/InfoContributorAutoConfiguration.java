@@ -66,7 +66,7 @@ public class InfoContributorAutoConfiguration {
 	@Order(DEFAULT_ORDER)
 	public GitInfoContributor gitInfoContributor(GitProperties gitProperties,
 			InfoContributorProperties infoContributorProperties) {
-		return new GitInfoContributor(gitProperties, infoContributorProperties.getGit().getMode());
+		return new GitInfoContributor(gitProperties, infoContributorProperties.getGit().getGit(this).getMode());
 	}
 
 	@Bean

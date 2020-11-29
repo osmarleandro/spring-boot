@@ -30,10 +30,6 @@ public class InfoContributorProperties {
 
 	private final Git git = new Git();
 
-	public Git getGit() {
-		return this.git;
-	}
-
 	public static class Git {
 
 		/**
@@ -47,6 +43,10 @@ public class InfoContributorProperties {
 
 		public void setMode(GitInfoContributor.Mode mode) {
 			this.mode = mode;
+		}
+
+		public Git getGit(InfoContributorProperties infoContributorProperties) {
+			return this;
 		}
 
 	}
