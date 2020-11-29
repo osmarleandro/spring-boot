@@ -16,12 +16,17 @@
 
 package org.springframework.boot.actuate.autoconfigure.endpoint.web;
 
+import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
 
+import org.springframework.boot.actuate.endpoint.EndpointsSupplier;
+import org.springframework.boot.actuate.endpoint.web.PathMappedEndpoints;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.Bean;
 import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
 
@@ -70,6 +75,12 @@ public class WebEndpointProperties {
 
 	public Map<String, String> getPathMapping() {
 		return this.pathMapping;
+	}
+
+	@Bean
+	@ConditionalOnMissingBean
+	public PathMappedEndpoints pathMappedEndpoints(WebEndpointAutoConfiguration webEndpointAutoConfiguration, Collection<EndpointsSupplier<?>> endpointSuppliers) {
+		return new PathMappedEndpoints(getBasePath(), endpointSuppliers);
 	}
 
 	public static class Exposure {

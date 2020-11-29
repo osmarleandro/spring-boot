@@ -25,14 +25,12 @@ import org.springframework.boot.actuate.autoconfigure.endpoint.EndpointAutoConfi
 import org.springframework.boot.actuate.autoconfigure.endpoint.expose.IncludeExcludeEndpointFilter;
 import org.springframework.boot.actuate.autoconfigure.endpoint.expose.IncludeExcludeEndpointFilter.DefaultIncludes;
 import org.springframework.boot.actuate.endpoint.EndpointFilter;
-import org.springframework.boot.actuate.endpoint.EndpointsSupplier;
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvokerAdvisor;
 import org.springframework.boot.actuate.endpoint.invoke.ParameterValueMapper;
 import org.springframework.boot.actuate.endpoint.web.EndpointMediaTypes;
 import org.springframework.boot.actuate.endpoint.web.ExposableServletEndpoint;
 import org.springframework.boot.actuate.endpoint.web.ExposableWebEndpoint;
-import org.springframework.boot.actuate.endpoint.web.PathMappedEndpoints;
 import org.springframework.boot.actuate.endpoint.web.PathMapper;
 import org.springframework.boot.actuate.endpoint.web.WebEndpointsSupplier;
 import org.springframework.boot.actuate.endpoint.web.annotation.ControllerEndpointDiscoverer;
@@ -67,7 +65,7 @@ public class WebEndpointAutoConfiguration {
 
 	private final ApplicationContext applicationContext;
 
-	private final WebEndpointProperties properties;
+	final WebEndpointProperties properties;
 
 	public WebEndpointAutoConfiguration(ApplicationContext applicationContext, WebEndpointProperties properties) {
 		this.applicationContext = applicationContext;
@@ -104,12 +102,6 @@ public class WebEndpointAutoConfiguration {
 		return new ControllerEndpointDiscoverer(this.applicationContext,
 				endpointPathMappers.orderedStream().collect(Collectors.toList()),
 				filters.getIfAvailable(Collections::emptyList));
-	}
-
-	@Bean
-	@ConditionalOnMissingBean
-	public PathMappedEndpoints pathMappedEndpoints(Collection<EndpointsSupplier<?>> endpointSuppliers) {
-		return new PathMappedEndpoints(this.properties.getBasePath(), endpointSuppliers);
 	}
 
 	@Bean
