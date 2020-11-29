@@ -23,6 +23,10 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
+import org.springframework.boot.actuate.env.EnvironmentEndpoint;
+import org.springframework.core.env.ConfigurableEnvironment;
+import org.springframework.core.env.MutablePropertySources;
+import org.springframework.core.env.StandardEnvironment;
 import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
 
@@ -136,6 +140,13 @@ public class Sanitizer {
 			return StringUtils.replace(value, ":" + password + "@", ":******@");
 		}
 		return value;
+	}
+
+	public MutablePropertySources getPropertySources(EnvironmentEndpoint environmentEndpoint) {
+		if (environmentEndpoint.environment instanceof ConfigurableEnvironment) {
+			return ((ConfigurableEnvironment) environmentEndpoint.environment).getPropertySources();
+		}
+		return new StandardEnvironment().getPropertySources();
 	}
 
 }

@@ -40,9 +40,7 @@ import org.springframework.core.env.CompositePropertySource;
 import org.springframework.core.env.ConfigurableEnvironment;
 import org.springframework.core.env.EnumerablePropertySource;
 import org.springframework.core.env.Environment;
-import org.springframework.core.env.MutablePropertySources;
 import org.springframework.core.env.PropertySource;
-import org.springframework.core.env.StandardEnvironment;
 import org.springframework.lang.Nullable;
 import org.springframework.util.PropertyPlaceholderHelper;
 import org.springframework.util.StringUtils;
@@ -64,7 +62,7 @@ public class EnvironmentEndpoint {
 
 	private final Sanitizer sanitizer = new Sanitizer();
 
-	private final Environment environment;
+	public final Environment environment;
 
 	public EnvironmentEndpoint(Environment environment) {
 		this.environment = environment;
@@ -147,24 +145,17 @@ public class EnvironmentEndpoint {
 	}
 
 	private PlaceholdersResolver getResolver() {
-		return new PropertySourcesPlaceholdersSanitizingResolver(getPropertySources(), this.sanitizer);
+		return new PropertySourcesPlaceholdersSanitizingResolver(sanitizer.getPropertySources(this), this.sanitizer);
 	}
 
 	private Map<String, PropertySource<?>> getPropertySourcesAsMap() {
 		Map<String, PropertySource<?>> map = new LinkedHashMap<>();
-		for (PropertySource<?> source : getPropertySources()) {
+		for (PropertySource<?> source : sanitizer.getPropertySources(this)) {
 			if (!ConfigurationPropertySources.isAttachedConfigurationPropertySource(source)) {
 				extract("", map, source);
 			}
 		}
 		return map;
-	}
-
-	private MutablePropertySources getPropertySources() {
-		if (this.environment instanceof ConfigurableEnvironment) {
-			return ((ConfigurableEnvironment) this.environment).getPropertySources();
-		}
-		return new StandardEnvironment().getPropertySources();
 	}
 
 	private void extract(String root, Map<String, PropertySource<?>> map, PropertySource<?> source) {
