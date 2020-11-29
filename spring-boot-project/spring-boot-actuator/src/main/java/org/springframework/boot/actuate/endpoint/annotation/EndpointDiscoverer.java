@@ -48,6 +48,7 @@ import org.springframework.core.annotation.MergedAnnotation;
 import org.springframework.core.annotation.MergedAnnotations;
 import org.springframework.core.annotation.MergedAnnotations.SearchStrategy;
 import org.springframework.core.env.Environment;
+import org.springframework.core.style.ToStringCreator;
 import org.springframework.util.Assert;
 import org.springframework.util.ClassUtils;
 import org.springframework.util.CollectionUtils;
@@ -365,6 +366,9 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 	 * @return the operation key
 	 */
 	protected abstract OperationKey createOperationKey(O operation);
+
+	protected void appendFields(ToStringCreator creator) {
+	}
 
 	/**
 	 * A key generated for an {@link Operation} based on specific criteria from the actual
