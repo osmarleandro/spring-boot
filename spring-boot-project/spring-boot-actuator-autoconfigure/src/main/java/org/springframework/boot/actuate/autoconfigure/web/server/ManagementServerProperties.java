@@ -52,7 +52,7 @@ public class ManagementServerProperties {
 	private final Servlet servlet = new Servlet();
 
 	@NestedConfigurationProperty
-	private Ssl ssl;
+	public Ssl ssl;
 
 	/**
 	 * Returns the management port or {@code null} if the
@@ -84,10 +84,6 @@ public class ManagementServerProperties {
 
 	public Ssl getSsl() {
 		return this.ssl;
-	}
-
-	public void setSsl(Ssl ssl) {
-		this.ssl = ssl;
 	}
 
 	public Servlet getServlet() {

@@ -16,6 +16,8 @@
 
 package org.springframework.boot.web.server;
 
+import org.springframework.boot.actuate.autoconfigure.web.server.ManagementServerProperties;
+
 /**
  * Simple server-independent abstraction for SSL configuration.
  *
@@ -236,6 +238,10 @@ public class Ssl {
 
 	public void setProtocol(String protocol) {
 		this.protocol = protocol;
+	}
+
+	public void setSsl(ManagementServerProperties managementServerProperties) {
+		managementServerProperties.ssl = this;
 	}
 
 	/**
