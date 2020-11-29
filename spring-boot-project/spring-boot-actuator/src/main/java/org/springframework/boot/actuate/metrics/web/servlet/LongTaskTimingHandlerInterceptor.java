@@ -16,7 +16,6 @@
 
 package org.springframework.boot.actuate.metrics.web.servlet;
 
-import java.lang.reflect.AnnotatedElement;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -31,8 +30,6 @@ import io.micrometer.core.instrument.LongTaskTimer;
 import io.micrometer.core.instrument.MeterRegistry;
 import io.micrometer.core.instrument.Tag;
 
-import org.springframework.core.annotation.MergedAnnotationCollectors;
-import org.springframework.core.annotation.MergedAnnotations;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 
@@ -107,16 +104,11 @@ public class LongTaskTimingHandlerInterceptor implements HandlerInterceptor {
 	}
 
 	private Set<Timed> getTimedAnnotations(HandlerMethod handler) {
-		Set<Timed> timed = findTimedAnnotations(handler.getMethod());
+		Set<Timed> timed = tagsProvider.findTimedAnnotations(handler.getMethod());
 		if (timed.isEmpty()) {
-			return findTimedAnnotations(handler.getBeanType());
+			return tagsProvider.findTimedAnnotations(handler.getBeanType());
 		}
 		return timed;
-	}
-
-	private Set<Timed> findTimedAnnotations(AnnotatedElement element) {
-		return MergedAnnotations.from(element).stream(Timed.class)
-				.collect(MergedAnnotationCollectors.toAnnotationSet());
 	}
 
 	private void stopLongTaskTimers(LongTaskTimingContext timingContext) {
