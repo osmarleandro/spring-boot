@@ -19,7 +19,14 @@ package org.springframework.boot.actuate.autoconfigure.metrics.export.appoptics;
 import java.time.Duration;
 
 import org.springframework.boot.actuate.autoconfigure.metrics.export.properties.StepRegistryProperties;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.Bean;
+
+import io.micrometer.appoptics.AppOpticsConfig;
+import io.micrometer.appoptics.AppOpticsMeterRegistry;
+import io.micrometer.core.instrument.Clock;
+import io.micrometer.core.ipc.http.HttpUrlConnectionSender;
 
 /**
  * {@link ConfigurationProperties @ConfigurationProperties} for configuring AppOptics
@@ -113,6 +120,14 @@ public class AppOpticsProperties extends StepRegistryProperties {
 	@Override
 	public void setConnectTimeout(Duration connectTimeout) {
 		this.connectTimeout = connectTimeout;
+	}
+
+	@Bean
+	@ConditionalOnMissingBean
+	public AppOpticsMeterRegistry appOpticsMeterRegistry(AppOpticsMetricsExportAutoConfiguration appOpticsMetricsExportAutoConfiguration, AppOpticsConfig config, Clock clock) {
+		return AppOpticsMeterRegistry.builder(config).clock(clock).httpClient(
+				new HttpUrlConnectionSender(getConnectTimeout(), getReadTimeout()))
+				.build();
 	}
 
 }

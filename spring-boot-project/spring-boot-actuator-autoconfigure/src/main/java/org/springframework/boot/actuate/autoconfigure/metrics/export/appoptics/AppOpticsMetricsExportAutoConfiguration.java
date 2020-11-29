@@ -19,7 +19,6 @@ package org.springframework.boot.actuate.autoconfigure.metrics.export.appoptics;
 import io.micrometer.appoptics.AppOpticsConfig;
 import io.micrometer.appoptics.AppOpticsMeterRegistry;
 import io.micrometer.core.instrument.Clock;
-import io.micrometer.core.ipc.http.HttpUrlConnectionSender;
 
 import org.springframework.boot.actuate.autoconfigure.metrics.CompositeMeterRegistryAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.metrics.MetricsAutoConfiguration;
@@ -51,7 +50,7 @@ import org.springframework.context.annotation.Configuration;
 @EnableConfigurationProperties(AppOpticsProperties.class)
 public class AppOpticsMetricsExportAutoConfiguration {
 
-	private final AppOpticsProperties properties;
+	final AppOpticsProperties properties;
 
 	public AppOpticsMetricsExportAutoConfiguration(AppOpticsProperties properties) {
 		this.properties = properties;
@@ -61,14 +60,6 @@ public class AppOpticsMetricsExportAutoConfiguration {
 	@ConditionalOnMissingBean
 	public AppOpticsConfig appOpticsConfig() {
 		return new AppOpticsPropertiesConfigAdapter(this.properties);
-	}
-
-	@Bean
-	@ConditionalOnMissingBean
-	public AppOpticsMeterRegistry appOpticsMeterRegistry(AppOpticsConfig config, Clock clock) {
-		return AppOpticsMeterRegistry.builder(config).clock(clock).httpClient(
-				new HttpUrlConnectionSender(this.properties.getConnectTimeout(), this.properties.getReadTimeout()))
-				.build();
 	}
 
 }
