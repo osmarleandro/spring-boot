@@ -23,7 +23,12 @@ import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
+import org.neo4j.driver.summary.DatabaseInfo;
+import org.neo4j.driver.summary.ResultSummary;
+import org.neo4j.driver.summary.ServerInfo;
+import org.springframework.boot.actuate.health.Health.Builder;
 import org.springframework.util.Assert;
+import org.springframework.util.StringUtils;
 
 /**
  * Carries information about the health of a component or subsystem. Extends
@@ -327,6 +332,21 @@ public final class Health extends HealthComponent {
 		 */
 		public Health build() {
 			return new Health(this);
+		}
+
+		/**
+		 * Add health details for the specified {@link ResultSummary} and {@code edition}.
+		 * @param edition the edition of the server
+		 * @param resultSummary server information
+		 */
+		public void addHealthDetails(String edition, ResultSummary resultSummary) {
+			ServerInfo serverInfo = resultSummary.server();
+			up().withDetail("server", serverInfo.version() + "@" + serverInfo.address()).withDetail("edition",
+					edition);
+			DatabaseInfo databaseInfo = resultSummary.database();
+			if (StringUtils.hasText(databaseInfo.name())) {
+				withDetail("database", databaseInfo.name());
+			}
 		}
 
 	}

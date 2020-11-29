@@ -93,7 +93,7 @@ public class Neo4jHealthIndicator extends AbstractHealthIndicator {
 			Result result = session.run(CYPHER);
 			String edition = result.single().get("edition").asString();
 			ResultSummary resultSummary = result.consume();
-			this.healthDetailsHandler.addHealthDetails(builder, edition, resultSummary);
+			builder.addHealthDetails(edition, resultSummary);
 		}
 	}
 

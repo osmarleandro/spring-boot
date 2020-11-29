@@ -58,7 +58,7 @@ public final class Neo4jReactiveHealthIndicator extends AbstractReactiveHealthIn
 				.doOnError(SessionExpiredException.class,
 						(e) -> logger.warn(Neo4jHealthIndicator.MESSAGE_SESSION_EXPIRED))
 				.retryWhen(Retry.max(1).filter(SessionExpiredException.class::isInstance)).map((result) -> {
-					this.healthDetailsHandler.addHealthDetails(builder, result.getT1(), result.getT2());
+					builder.addHealthDetails(result.getT1(), result.getT2());
 					return builder.build();
 				});
 	}
