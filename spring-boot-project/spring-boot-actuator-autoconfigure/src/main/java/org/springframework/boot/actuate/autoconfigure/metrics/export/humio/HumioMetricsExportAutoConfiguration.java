@@ -51,16 +51,10 @@ import org.springframework.context.annotation.Configuration;
 @EnableConfigurationProperties(HumioProperties.class)
 public class HumioMetricsExportAutoConfiguration {
 
-	private final HumioProperties properties;
+	final HumioProperties properties;
 
 	public HumioMetricsExportAutoConfiguration(HumioProperties properties) {
 		this.properties = properties;
-	}
-
-	@Bean
-	@ConditionalOnMissingBean
-	public HumioConfig humioConfig() {
-		return new HumioPropertiesConfigAdapter(this.properties);
 	}
 
 	@Bean

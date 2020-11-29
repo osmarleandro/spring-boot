@@ -21,7 +21,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.boot.actuate.autoconfigure.metrics.export.properties.StepRegistryProperties;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.Bean;
+
+import io.micrometer.humio.HumioConfig;
 
 /**
  * {@link ConfigurationProperties @ConfigurationProperties} for configuring Humio metrics
@@ -88,6 +92,12 @@ public class HumioProperties extends StepRegistryProperties {
 
 	public void setUri(String uri) {
 		this.uri = uri;
+	}
+
+	@Bean
+	@ConditionalOnMissingBean
+	public HumioConfig humioConfig(HumioMetricsExportAutoConfiguration humioMetricsExportAutoConfiguration) {
+		return new HumioPropertiesConfigAdapter(this);
 	}
 
 }
