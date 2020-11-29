@@ -16,20 +16,14 @@
 
 package org.springframework.boot.actuate.autoconfigure.logging;
 
-import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.boot.actuate.autoconfigure.endpoint.condition.ConditionalOnAvailableEndpoint;
 import org.springframework.boot.actuate.logging.LoggersEndpoint;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionMessage;
 import org.springframework.boot.autoconfigure.condition.ConditionOutcome;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.SpringBootCondition;
-import org.springframework.boot.logging.LoggerGroups;
 import org.springframework.boot.logging.LoggingSystem;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ConditionContext;
-import org.springframework.context.annotation.Conditional;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.type.AnnotatedTypeMetadata;
 
@@ -43,16 +37,7 @@ import org.springframework.core.type.AnnotatedTypeMetadata;
 @ConditionalOnAvailableEndpoint(endpoint = LoggersEndpoint.class)
 public class LoggersEndpointAutoConfiguration {
 
-	@Bean
-	@ConditionalOnBean(LoggingSystem.class)
-	@Conditional(OnEnabledLoggingSystemCondition.class)
-	@ConditionalOnMissingBean
-	public LoggersEndpoint loggersEndpoint(LoggingSystem loggingSystem,
-			ObjectProvider<LoggerGroups> springBootLoggerGroups) {
-		return new LoggersEndpoint(loggingSystem, springBootLoggerGroups.getIfAvailable(LoggerGroups::new));
-	}
-
-	static class OnEnabledLoggingSystemCondition extends SpringBootCondition {
+	public static class OnEnabledLoggingSystemCondition extends SpringBootCondition {
 
 		@Override
 		public ConditionOutcome getMatchOutcome(ConditionContext context, AnnotatedTypeMetadata metadata) {

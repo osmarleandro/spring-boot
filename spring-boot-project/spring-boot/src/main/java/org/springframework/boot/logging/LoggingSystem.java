@@ -22,6 +22,13 @@ import java.util.EnumSet;
 import java.util.List;
 import java.util.Set;
 
+import org.springframework.beans.factory.ObjectProvider;
+import org.springframework.boot.actuate.autoconfigure.logging.LoggersEndpointAutoConfiguration.OnEnabledLoggingSystemCondition;
+import org.springframework.boot.actuate.logging.LoggersEndpoint;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Conditional;
 import org.springframework.util.Assert;
 import org.springframework.util.ClassUtils;
 import org.springframework.util.StringUtils;
@@ -130,6 +137,14 @@ public abstract class LoggingSystem {
 	 */
 	public LoggerConfiguration getLoggerConfiguration(String loggerName) {
 		throw new UnsupportedOperationException("Unable to get logger configuration");
+	}
+
+	@Bean
+	@ConditionalOnBean(LoggingSystem.class)
+	@Conditional(OnEnabledLoggingSystemCondition.class)
+	@ConditionalOnMissingBean
+	public LoggersEndpoint loggersEndpoint(ObjectProvider<LoggerGroups> springBootLoggerGroups) {
+		return new LoggersEndpoint(this, springBootLoggerGroups.getIfAvailable(LoggerGroups::new));
 	}
 
 	/**
