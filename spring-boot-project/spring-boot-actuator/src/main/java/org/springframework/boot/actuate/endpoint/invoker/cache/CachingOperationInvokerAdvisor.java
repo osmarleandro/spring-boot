@@ -45,7 +45,7 @@ public class CachingOperationInvokerAdvisor implements OperationInvokerAdvisor {
 	public OperationInvoker apply(EndpointId endpointId, OperationType operationType, OperationParameters parameters,
 			OperationInvoker invoker) {
 		if (operationType == OperationType.READ && !hasMandatoryParameter(parameters)) {
-			Long timeToLive = this.endpointIdTimeToLive.apply(endpointId);
+			Long timeToLive = this.endpointIdTimeToLive.INSTANCE.apply(endpointId);
 			if (timeToLive != null && timeToLive > 0) {
 				return new CachingOperationInvoker(invoker, timeToLive);
 			}

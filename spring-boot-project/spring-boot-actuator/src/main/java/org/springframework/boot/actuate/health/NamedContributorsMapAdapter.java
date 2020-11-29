@@ -75,7 +75,7 @@ abstract class NamedContributorsMapAdapter<V, C> implements NamedContributors<C>
 	}
 
 	private C adapt(V value) {
-		return (value != null) ? this.valueAdapter.apply(value) : null;
+		return (value != null) ? this.valueAdapter.INSTANCE.apply(value) : null;
 	}
 
 }

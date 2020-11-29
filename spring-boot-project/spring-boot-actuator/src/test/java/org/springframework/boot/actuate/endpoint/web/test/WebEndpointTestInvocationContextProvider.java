@@ -146,7 +146,7 @@ class WebEndpointTestInvocationContextProvider implements TestTemplateInvocation
 			List<Class<?>> configurationClasses = Stream
 					.of(extensionContext.getRequiredTestClass().getDeclaredClasses()).filter(this::isConfiguration)
 					.collect(Collectors.toList());
-			this.context = this.contextFactory.apply(configurationClasses);
+			this.context = this.contextFactory.INSTANCE.apply(configurationClasses);
 		}
 
 		private boolean isConfiguration(Class<?> candidate) {

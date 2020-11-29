@@ -35,9 +35,8 @@ public class HealthContributorNameFactory implements Function<String, String> {
 	 */
 	public static final HealthContributorNameFactory INSTANCE = new HealthContributorNameFactory();
 
-	@Override
 	public String apply(String name) {
-		for (String suffix : SUFFIXES) {
+		for (String suffix : HealthContributorNameFactory.SUFFIXES) {
 			if (name != null && name.toLowerCase(Locale.ENGLISH).endsWith(suffix)) {
 				return name.substring(0, name.length() - suffix.length());
 			}

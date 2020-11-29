@@ -54,7 +54,7 @@ class DefaultContributorRegistry<C> implements ContributorRegistry<C> {
 		Assert.notNull(nameFactory, "NameFactory must not be null");
 		this.nameFactory = nameFactory;
 		Map<String, C> namedContributors = new LinkedHashMap<>();
-		contributors.forEach((name, contributor) -> namedContributors.put(nameFactory.apply(name), contributor));
+		contributors.forEach((name, contributor) -> namedContributors.put(nameFactory.INSTANCE.apply(name), contributor));
 		this.contributors = Collections.unmodifiableMap(namedContributors);
 	}
 
@@ -62,7 +62,7 @@ class DefaultContributorRegistry<C> implements ContributorRegistry<C> {
 	public void registerContributor(String name, C contributor) {
 		Assert.notNull(name, "Name must not be null");
 		Assert.notNull(contributor, "Contributor must not be null");
-		String adaptedName = this.nameFactory.apply(name);
+		String adaptedName = this.nameFactory.INSTANCE.apply(name);
 		synchronized (this.monitor) {
 			Assert.state(!this.contributors.containsKey(adaptedName),
 					() -> "A contributor named \"" + adaptedName + "\" has already been registered");
@@ -75,7 +75,7 @@ class DefaultContributorRegistry<C> implements ContributorRegistry<C> {
 	@Override
 	public C unregisterContributor(String name) {
 		Assert.notNull(name, "Name must not be null");
-		String adaptedName = this.nameFactory.apply(name);
+		String adaptedName = this.nameFactory.INSTANCE.apply(name);
 		synchronized (this.monitor) {
 			C unregistered = this.contributors.get(adaptedName);
 			if (unregistered != null) {

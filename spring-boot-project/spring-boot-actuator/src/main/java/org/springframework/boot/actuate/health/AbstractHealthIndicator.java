@@ -83,7 +83,7 @@ public abstract class AbstractHealthIndicator implements HealthIndicator {
 		}
 		catch (Exception ex) {
 			if (this.logger.isWarnEnabled()) {
-				String message = this.healthCheckFailedMessage.apply(ex);
+				String message = this.healthCheckFailedMessage.INSTANCE.apply(ex);
 				this.logger.warn(StringUtils.hasText(message) ? message : DEFAULT_MESSAGE, ex);
 			}
 			builder.down(ex);

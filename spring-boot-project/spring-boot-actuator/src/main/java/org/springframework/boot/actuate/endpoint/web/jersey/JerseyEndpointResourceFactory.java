@@ -224,7 +224,7 @@ public class JerseyEndpointResourceFactory {
 
 		private Object convertIfNecessary(Object body) throws IOException {
 			for (Function<Object, Object> converter : BODY_CONVERTERS) {
-				body = converter.apply(body);
+				body = converter.INSTANCE.apply(body);
 			}
 			return body;
 		}

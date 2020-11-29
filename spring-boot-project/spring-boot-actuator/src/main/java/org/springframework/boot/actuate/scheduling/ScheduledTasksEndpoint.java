@@ -125,7 +125,7 @@ public class ScheduledTasksEndpoint {
 
 		private static TaskDescription of(Task task) {
 			return DESCRIBERS.entrySet().stream().filter((entry) -> entry.getKey().isInstance(task))
-					.map((entry) -> entry.getValue().apply(task)).findFirst().orElse(null);
+					.map((entry) -> entry.getValue().INSTANCE.apply(task)).findFirst().orElse(null);
 		}
 
 		private static TaskDescription describeTriggerTask(TriggerTask triggerTask) {

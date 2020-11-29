@@ -81,48 +81,48 @@ class CachingOperationInvokerAdvisorTests {
 	@Test
 	void applyWhenTimeToLiveReturnsNullShouldNotAddAdvise() {
 		OperationParameters parameters = getParameters("get");
-		given(this.timeToLive.apply(any())).willReturn(null);
+		given(this.timeToLive.INSTANCE.apply(any())).willReturn(null);
 		OperationInvoker advised = this.advisor.apply(EndpointId.of("foo"), OperationType.READ, parameters,
 				this.invoker);
 		assertThat(advised).isSameAs(this.invoker);
-		verify(this.timeToLive).apply(EndpointId.of("foo"));
+		verify(this.timeToLive).INSTANCE.apply(EndpointId.of("foo"));
 	}
 
 	@Test
 	void applyWhenTimeToLiveIsZeroShouldNotAddAdvise() {
 		OperationParameters parameters = getParameters("get");
-		given(this.timeToLive.apply(any())).willReturn(0L);
+		given(this.timeToLive.INSTANCE.apply(any())).willReturn(0L);
 		OperationInvoker advised = this.advisor.apply(EndpointId.of("foo"), OperationType.READ, parameters,
 				this.invoker);
 		assertThat(advised).isSameAs(this.invoker);
-		verify(this.timeToLive).apply(EndpointId.of("foo"));
+		verify(this.timeToLive).INSTANCE.apply(EndpointId.of("foo"));
 	}
 
 	@Test
 	void applyShouldAddCacheAdvise() {
 		OperationParameters parameters = getParameters("get");
-		given(this.timeToLive.apply(any())).willReturn(100L);
+		given(this.timeToLive.INSTANCE.apply(any())).willReturn(100L);
 		assertAdviseIsApplied(parameters);
 	}
 
 	@Test
 	void applyWithAllOptionalParametersShouldAddAdvise() {
 		OperationParameters parameters = getParameters("getWithAllOptionalParameters", String.class, String.class);
-		given(this.timeToLive.apply(any())).willReturn(100L);
+		given(this.timeToLive.INSTANCE.apply(any())).willReturn(100L);
 		assertAdviseIsApplied(parameters);
 	}
 
 	@Test
 	void applyWithSecurityContextShouldAddAdvise() {
 		OperationParameters parameters = getParameters("getWithSecurityContext", SecurityContext.class, String.class);
-		given(this.timeToLive.apply(any())).willReturn(100L);
+		given(this.timeToLive.INSTANCE.apply(any())).willReturn(100L);
 		assertAdviseIsApplied(parameters);
 	}
 
 	@Test
 	void applyWithApiVersionShouldAddAdvise() {
 		OperationParameters parameters = getParameters("getWithApiVersion", ApiVersion.class, String.class);
-		given(this.timeToLive.apply(any())).willReturn(100L);
+		given(this.timeToLive.INSTANCE.apply(any())).willReturn(100L);
 		assertAdviseIsApplied(parameters);
 	}
 

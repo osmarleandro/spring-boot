@@ -48,7 +48,7 @@ public class ThreadDumpEndpoint {
 	}
 
 	private <T> T getFormattedThreadDump(Function<ThreadInfo[], T> formatter) {
-		return formatter.apply(ManagementFactory.getThreadMXBean().dumpAllThreads(true, true));
+		return formatter.INSTANCE.apply(ManagementFactory.getThreadMXBean().dumpAllThreads(true, true));
 	}
 
 	/**
