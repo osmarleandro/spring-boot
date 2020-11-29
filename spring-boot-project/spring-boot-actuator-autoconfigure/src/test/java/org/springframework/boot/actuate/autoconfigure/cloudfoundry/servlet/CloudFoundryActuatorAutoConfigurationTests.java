@@ -191,7 +191,7 @@ class CloudFoundryActuatorAutoConfigurationTests {
 				"vcap.application.application_id:my-app-id", "vcap.application.cf_api:https://my-cloud-controller.com")
 				.run((context) -> {
 					CloudFoundryWebEndpointServletHandlerMapping handlerMapping = getHandlerMapping(context);
-					Collection<ExposableWebEndpoint> endpoints = handlerMapping.getEndpoints();
+					Collection<ExposableWebEndpoint> endpoints = handlerMapping.endpointMapping.getEndpoints(handlerMapping);
 					assertThat(endpoints.stream()
 							.filter((candidate) -> EndpointId.of("test").equals(candidate.getEndpointId())).findFirst())
 									.isNotEmpty();
@@ -206,7 +206,7 @@ class CloudFoundryActuatorAutoConfigurationTests {
 						"management.endpoints.web.path-mapping.test=custom")
 				.withBean(TestEndpoint.class, TestEndpoint::new).run((context) -> {
 					CloudFoundryWebEndpointServletHandlerMapping handlerMapping = getHandlerMapping(context);
-					Collection<ExposableWebEndpoint> endpoints = handlerMapping.getEndpoints();
+					Collection<ExposableWebEndpoint> endpoints = handlerMapping.endpointMapping.getEndpoints(handlerMapping);
 					ExposableWebEndpoint endpoint = endpoints.stream()
 							.filter((candidate) -> EndpointId.of("test").equals(candidate.getEndpointId())).findFirst()
 							.get();
@@ -224,10 +224,11 @@ class CloudFoundryActuatorAutoConfigurationTests {
 				.withConfiguration(AutoConfigurations.of(HealthContributorAutoConfiguration.class,
 						HealthEndpointAutoConfiguration.class))
 				.run((context) -> {
-					Collection<ExposableWebEndpoint> endpoints = context
-							.getBean("cloudFoundryWebEndpointServletHandlerMapping",
-									CloudFoundryWebEndpointServletHandlerMapping.class)
-							.getEndpoints();
+					Collection<ExposableWebEndpoint> endpoints = context.getBean("cloudFoundryWebEndpointServletHandlerMapping",
+							CloudFoundryWebEndpointServletHandlerMapping.class).endpointMapping
+							.getEndpoints(context
+									.getBean("cloudFoundryWebEndpointServletHandlerMapping",
+											CloudFoundryWebEndpointServletHandlerMapping.class));
 					ExposableWebEndpoint endpoint = endpoints.iterator().next();
 					assertThat(endpoint.getOperations()).hasSize(2);
 					WebOperation webOperation = findOperationWithRequestPath(endpoint, "health");

@@ -16,6 +16,9 @@
 
 package org.springframework.boot.actuate.endpoint.web;
 
+import java.util.Collection;
+
+import org.springframework.boot.actuate.endpoint.web.servlet.AbstractWebMvcEndpointHandlerMapping;
 import org.springframework.util.StringUtils;
 
 /**
@@ -46,6 +49,15 @@ public class EndpointMapping {
 
 	public String createSubPath(String path) {
 		return this.path + normalizePath(path);
+	}
+
+	/**
+	 * Return the web endpoints being mapped.
+	 * @param abstractWebMvcEndpointHandlerMapping TODO
+	 * @return the endpoints
+	 */
+	public Collection<ExposableWebEndpoint> getEndpoints(AbstractWebMvcEndpointHandlerMapping abstractWebMvcEndpointHandlerMapping) {
+		return abstractWebMvcEndpointHandlerMapping.endpoints;
 	}
 
 	private static String normalizePath(String path) {

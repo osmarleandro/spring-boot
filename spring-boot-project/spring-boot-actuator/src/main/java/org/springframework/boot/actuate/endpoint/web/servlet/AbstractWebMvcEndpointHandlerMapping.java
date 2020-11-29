@@ -76,9 +76,9 @@ import org.springframework.web.util.UrlPathHelper;
 public abstract class AbstractWebMvcEndpointHandlerMapping extends RequestMappingInfoHandlerMapping
 		implements InitializingBean, MatchableHandlerMapping {
 
-	private final EndpointMapping endpointMapping;
+	public final EndpointMapping endpointMapping;
 
-	private final Collection<ExposableWebEndpoint> endpoints;
+	public final Collection<ExposableWebEndpoint> endpoints;
 
 	private final EndpointMediaTypes endpointMediaTypes;
 
@@ -236,14 +236,6 @@ public abstract class AbstractWebMvcEndpointHandlerMapping extends RequestMappin
 	 * @return the links handler
 	 */
 	protected abstract LinksHandler getLinksHandler();
-
-	/**
-	 * Return the web endpoints being mapped.
-	 * @return the endpoints
-	 */
-	public Collection<ExposableWebEndpoint> getEndpoints() {
-		return this.endpoints;
-	}
 
 	/**
 	 * Handler providing actuator links at the root endpoint.
