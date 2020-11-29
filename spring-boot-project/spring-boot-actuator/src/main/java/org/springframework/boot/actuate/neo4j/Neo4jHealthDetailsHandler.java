@@ -28,7 +28,7 @@ import org.springframework.util.StringUtils;
  *
  * @author Stephane Nicoll
  */
-class Neo4jHealthDetailsHandler {
+public class Neo4jHealthDetailsHandler {
 
 	/**
 	 * Add health details for the specified {@link ResultSummary} and {@code edition}.
@@ -36,7 +36,7 @@ class Neo4jHealthDetailsHandler {
 	 * @param edition the edition of the server
 	 * @param resultSummary server information
 	 */
-	void addHealthDetails(Builder builder, String edition, ResultSummary resultSummary) {
+	public void addHealthDetails(Builder builder, String edition, ResultSummary resultSummary) {
 		ServerInfo serverInfo = resultSummary.server();
 		builder.up().withDetail("server", serverInfo.version() + "@" + serverInfo.address()).withDetail("edition",
 				edition);

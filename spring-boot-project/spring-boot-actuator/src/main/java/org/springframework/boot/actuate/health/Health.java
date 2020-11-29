@@ -23,6 +23,10 @@ import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
+import org.neo4j.driver.Result;
+import org.neo4j.driver.Session;
+import org.neo4j.driver.summary.ResultSummary;
+import org.springframework.boot.actuate.neo4j.Neo4jHealthIndicator;
 import org.springframework.util.Assert;
 
 /**
@@ -327,6 +331,17 @@ public final class Health extends HealthComponent {
 		 */
 		public Health build() {
 			return new Health(this);
+		}
+
+		public void runHealthCheckQuery(Neo4jHealthIndicator neo4jHealthIndicator) {
+			// We use WRITE here to make sure UP is returned for a server that supports
+			// all possible workloads
+			try (Session session = neo4jHealthIndicator.driver.session(Neo4jHealthIndicator.DEFAULT_SESSION_CONFIG)) {
+				Result result = session.run(Neo4jHealthIndicator.CYPHER);
+				String edition = result.single().get("edition").asString();
+				ResultSummary resultSummary = result.consume();
+				neo4jHealthIndicator.healthDetailsHandler.addHealthDetails(this, edition, resultSummary);
+			}
 		}
 
 	}
