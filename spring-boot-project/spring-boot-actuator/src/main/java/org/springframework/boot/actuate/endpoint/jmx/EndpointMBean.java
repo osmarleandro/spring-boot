@@ -57,7 +57,7 @@ public class EndpointMBean implements DynamicMBean {
 
 	private final ExposableJmxEndpoint endpoint;
 
-	private final MBeanInfo info;
+	final MBeanInfo info;
 
 	private final Map<String, JmxOperation> operations;
 
@@ -79,7 +79,7 @@ public class EndpointMBean implements DynamicMBean {
 
 	@Override
 	public MBeanInfo getMBeanInfo() {
-		return this.info;
+		return endpoint.getMBeanInfo(this);
 	}
 
 	@Override
