@@ -39,7 +39,7 @@ import org.springframework.web.cors.CorsUtils;
  *
  * @author Madhura Bhave
  */
-class CloudFoundrySecurityInterceptor {
+public class CloudFoundrySecurityInterceptor {
 
 	private static final Log logger = LogFactory.getLog(CloudFoundrySecurityInterceptor.class);
 

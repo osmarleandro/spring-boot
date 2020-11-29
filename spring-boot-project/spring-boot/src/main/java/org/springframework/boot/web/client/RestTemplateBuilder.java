@@ -36,6 +36,11 @@ import java.util.function.Supplier;
 import reactor.netty.http.client.HttpClientRequest;
 
 import org.springframework.beans.BeanUtils;
+import org.springframework.boot.actuate.autoconfigure.cloudfoundry.servlet.CloudFoundryActuatorAutoConfiguration;
+import org.springframework.boot.actuate.autoconfigure.cloudfoundry.servlet.CloudFoundrySecurityInterceptor;
+import org.springframework.boot.actuate.autoconfigure.cloudfoundry.servlet.CloudFoundrySecurityService;
+import org.springframework.boot.actuate.autoconfigure.cloudfoundry.servlet.TokenValidator;
+import org.springframework.core.env.Environment;
 import org.springframework.http.client.AbstractClientHttpRequestFactoryWrapper;
 import org.springframework.http.client.ClientHttpRequest;
 import org.springframework.http.client.ClientHttpRequestFactory;
@@ -674,6 +679,14 @@ public class RestTemplateBuilder {
 
 	private <T> Set<T> copiedSetOf(Collection<? extends T> collection) {
 		return Collections.unmodifiableSet(new LinkedHashSet<>(collection));
+	}
+
+	public CloudFoundrySecurityInterceptor getSecurityInterceptor(CloudFoundryActuatorAutoConfiguration cloudFoundryActuatorAutoConfiguration, Environment environment) {
+		CloudFoundrySecurityService cloudfoundrySecurityService = cloudFoundryActuatorAutoConfiguration.getCloudFoundrySecurityService(this,
+				environment);
+		TokenValidator tokenValidator = new TokenValidator(cloudfoundrySecurityService);
+		return new CloudFoundrySecurityInterceptor(tokenValidator, cloudfoundrySecurityService,
+				environment.getProperty("vcap.application.application_id"));
 	}
 
 	private static <T> List<T> copiedListOf(T[] items) {
