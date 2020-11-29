@@ -32,7 +32,7 @@ import org.springframework.util.Assert;
  * @author Phillip Webb
  * @author Brian Clozel
  */
-class AvailabilityProbesHealthEndpointGroups implements HealthEndpointGroups {
+public class AvailabilityProbesHealthEndpointGroups implements HealthEndpointGroups {
 
 	private static final Map<String, AvailabilityProbesHealthEndpointGroup> GROUPS;
 	static {
@@ -42,7 +42,7 @@ class AvailabilityProbesHealthEndpointGroups implements HealthEndpointGroups {
 		GROUPS = Collections.unmodifiableMap(groups);
 	}
 
-	private final HealthEndpointGroups groups;
+	public final HealthEndpointGroups groups;
 
 	private final Set<String> names;
 
@@ -56,7 +56,7 @@ class AvailabilityProbesHealthEndpointGroups implements HealthEndpointGroups {
 
 	@Override
 	public HealthEndpointGroup getPrimary() {
-		return this.groups.getPrimary();
+		return groups.getPrimary(this);
 	}
 
 	@Override
