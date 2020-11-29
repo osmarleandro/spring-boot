@@ -168,7 +168,7 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 
 	private void addExtensionBean(EndpointBean endpointBean, ExtensionBean extensionBean) {
 		if (isExtensionExposed(endpointBean, extensionBean)) {
-			Assert.state(isEndpointExposed(endpointBean) || isEndpointFiltered(endpointBean),
+			Assert.state(endpointBean.isEndpointExposed(this) || isEndpointFiltered(endpointBean),
 					() -> "Endpoint bean '" + endpointBean.getBeanName() + "' cannot support the extension bean '"
 							+ extensionBean.getBeanName() + "'");
 			endpointBean.addExtension(extensionBean);
@@ -178,7 +178,7 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 	private Collection<E> convertToEndpoints(Collection<EndpointBean> endpointBeans) {
 		Set<E> endpoints = new LinkedHashSet<>();
 		for (EndpointBean endpointBean : endpointBeans) {
-			if (isEndpointExposed(endpointBean)) {
+			if (endpointBean.isEndpointExposed(this)) {
 				endpoints.add(convertToEndpoint(endpointBean));
 			}
 		}
@@ -259,11 +259,6 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 	 */
 	protected boolean isExtensionTypeExposed(Class<?> extensionBeanType) {
 		return true;
-	}
-
-	private boolean isEndpointExposed(EndpointBean endpointBean) {
-		return isFilterMatch(endpointBean.getFilter(), endpointBean) && !isEndpointFiltered(endpointBean)
-				&& isEndpointExposed(endpointBean.getBean());
 	}
 
 	/**
@@ -414,7 +409,7 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 	/**
 	 * Information about an {@link Endpoint @Endpoint} bean.
 	 */
-	private static class EndpointBean {
+	static class EndpointBean {
 
 		private final String beanName;
 
@@ -479,6 +474,11 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 
 		Class<?> getFilter() {
 			return this.filter;
+		}
+
+		boolean isEndpointExposed(EndpointDiscoverer endpointDiscoverer) {
+			return endpointDiscoverer.isFilterMatch(getFilter(), this) && !endpointDiscoverer.isEndpointFiltered(this)
+					&& endpointDiscoverer.isEndpointExposed(getBean());
 		}
 
 	}
