@@ -53,4 +53,9 @@ public interface CompositeHealthContributor extends HealthContributor, NamedCont
 		return new CompositeHealthContributorMapAdapter<>(map, valueAdapter);
 	}
 
+	default ReactiveHealthContributor getContributor(CompositeHealthContributorReactiveAdapter compositeHealthContributorReactiveAdapter, String name) {
+		HealthContributor contributor = getContributor(name);
+		return (contributor != null) ? ReactiveHealthContributor.adapt(contributor) : null;
+	}
+
 }

@@ -30,7 +30,7 @@ import org.springframework.util.Assert;
  */
 class CompositeHealthContributorReactiveAdapter implements CompositeReactiveHealthContributor {
 
-	private final CompositeHealthContributor delegate;
+	final CompositeHealthContributor delegate;
 
 	CompositeHealthContributorReactiveAdapter(CompositeHealthContributor delegate) {
 		Assert.notNull(delegate, "Delegate must not be null");
@@ -59,8 +59,7 @@ class CompositeHealthContributorReactiveAdapter implements CompositeReactiveHeal
 
 	@Override
 	public ReactiveHealthContributor getContributor(String name) {
-		HealthContributor contributor = this.delegate.getContributor(name);
-		return (contributor != null) ? ReactiveHealthContributor.adapt(contributor) : null;
+		return delegate.getContributor(this, name);
 	}
 
 }
