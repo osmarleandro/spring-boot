@@ -20,9 +20,12 @@ import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 
 import info.ganglia.gmetric4j.gmetric.GMetric;
+import io.micrometer.ganglia.GangliaConfig;
 
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.DeprecatedConfigurationProperty;
+import org.springframework.context.annotation.Bean;
 
 /**
  * {@link ConfigurationProperties @ConfigurationProperties} for configuring Ganglia
@@ -157,6 +160,12 @@ public class GangliaProperties {
 
 	public void setPort(Integer port) {
 		this.port = port;
+	}
+
+	@Bean
+	@ConditionalOnMissingBean
+	public GangliaConfig gangliaConfig() {
+		return new GangliaPropertiesConfigAdapter(this);
 	}
 
 }
