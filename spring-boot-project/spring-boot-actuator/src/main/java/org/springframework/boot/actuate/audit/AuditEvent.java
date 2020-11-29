@@ -144,4 +144,12 @@ public class AuditEvent implements Serializable {
 				+ ", data=" + this.data + "]";
 	}
 
+	public void add(InMemoryAuditEventRepository inMemoryAuditEventRepository) {
+		Assert.notNull(this, "AuditEvent must not be null");
+		synchronized (inMemoryAuditEventRepository.monitor) {
+			inMemoryAuditEventRepository.tail = (inMemoryAuditEventRepository.tail + 1) % inMemoryAuditEventRepository.events.length;
+			inMemoryAuditEventRepository.events[inMemoryAuditEventRepository.tail] = this;
+		}
+	}
+
 }
