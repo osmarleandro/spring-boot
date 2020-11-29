@@ -88,7 +88,7 @@ public class EnvironmentEndpoint {
 	}
 
 	private EnvironmentDescriptor getEnvironmentDescriptor(Predicate<String> propertyNamePredicate) {
-		PlaceholdersResolver resolver = getResolver();
+		PlaceholdersResolver resolver = sanitizer.getResolver(this);
 		List<PropertySourceDescriptor> propertySources = new ArrayList<>();
 		getPropertySourcesAsMap().forEach((sourceName, source) -> {
 			if (source instanceof EnumerablePropertySource) {
@@ -124,7 +124,7 @@ public class EnvironmentEndpoint {
 
 	private Map<String, PropertyValueDescriptor> getPropertySourceDescriptors(String propertyName) {
 		Map<String, PropertyValueDescriptor> propertySources = new LinkedHashMap<>();
-		PlaceholdersResolver resolver = getResolver();
+		PlaceholdersResolver resolver = sanitizer.getResolver(this);
 		getPropertySourcesAsMap().forEach((sourceName, source) -> propertySources.put(sourceName,
 				source.containsProperty(propertyName) ? describeValueOf(propertyName, source, resolver) : null));
 		return propertySources;
@@ -146,10 +146,6 @@ public class EnvironmentEndpoint {
 		return new PropertyValueDescriptor(sanitize(name, resolved), origin);
 	}
 
-	private PlaceholdersResolver getResolver() {
-		return new PropertySourcesPlaceholdersSanitizingResolver(getPropertySources(), this.sanitizer);
-	}
-
 	private Map<String, PropertySource<?>> getPropertySourcesAsMap() {
 		Map<String, PropertySource<?>> map = new LinkedHashMap<>();
 		for (PropertySource<?> source : getPropertySources()) {
@@ -160,7 +156,7 @@ public class EnvironmentEndpoint {
 		return map;
 	}
 
-	private MutablePropertySources getPropertySources() {
+	public MutablePropertySources getPropertySources() {
 		if (this.environment instanceof ConfigurableEnvironment) {
 			return ((ConfigurableEnvironment) this.environment).getPropertySources();
 		}
@@ -186,7 +182,7 @@ public class EnvironmentEndpoint {
 	 * {@link PropertySourcesPlaceholdersResolver} that sanitizes sensitive placeholders
 	 * if present.
 	 */
-	private static class PropertySourcesPlaceholdersSanitizingResolver extends PropertySourcesPlaceholdersResolver {
+	public static class PropertySourcesPlaceholdersSanitizingResolver extends PropertySourcesPlaceholdersResolver {
 
 		private final Sanitizer sanitizer;
 
