@@ -19,8 +19,17 @@ package org.springframework.boot.actuate.endpoint.http;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.boot.actuate.autoconfigure.cloudfoundry.reactive.CloudFoundryReactiveHealthEndpointWebExtension;
+import org.springframework.boot.actuate.endpoint.SecurityContext;
+import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
+import org.springframework.boot.actuate.endpoint.annotation.Selector;
+import org.springframework.boot.actuate.endpoint.annotation.Selector.Match;
+import org.springframework.boot.actuate.endpoint.web.WebEndpointResponse;
+import org.springframework.boot.actuate.health.HealthComponent;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.MimeTypeUtils;
+
+import reactor.core.publisher.Mono;
 
 /**
  * API versions supported for the actuator HTTP API. This enum may be injected into
@@ -85,6 +94,11 @@ public enum ApiVersion {
 		int existingOrdinal = (existing != null) ? existing.ordinal() : -1;
 		int candidateOrdinal = (candidate != null) ? candidate.ordinal() : -1;
 		return (candidateOrdinal > existingOrdinal) ? candidate : existing;
+	}
+
+	@ReadOperation
+	public Mono<WebEndpointResponse<? extends HealthComponent>> health(CloudFoundryReactiveHealthEndpointWebExtension cloudFoundryReactiveHealthEndpointWebExtension, String... path) {
+		return cloudFoundryReactiveHealthEndpointWebExtension.delegate.health(this, SecurityContext.NONE, true, path);
 	}
 
 }
