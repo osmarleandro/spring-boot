@@ -45,4 +45,8 @@ public interface WebOperation extends Operation {
 	 */
 	WebOperationRequestPredicate getRequestPredicate();
 
+	default Link createLink(String requestUrl, EndpointLinksResolver endpointLinksResolver) {
+		return endpointLinksResolver.createLink(requestUrl, getRequestPredicate().getPath());
+	}
+
 }
