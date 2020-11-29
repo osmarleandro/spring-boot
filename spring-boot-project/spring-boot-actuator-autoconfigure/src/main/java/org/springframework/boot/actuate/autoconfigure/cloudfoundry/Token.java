@@ -19,6 +19,7 @@ package org.springframework.boot.actuate.autoconfigure.cloudfoundry;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.CloudFoundryAuthorizationException.Reason;
 import org.springframework.boot.json.JsonParserFactory;
@@ -113,6 +114,13 @@ public class Token {
 	@Override
 	public String toString() {
 		return this.encoded;
+	}
+
+	public void validateExpiry() {
+		long currentTime = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());
+		if (currentTime > getExpiry()) {
+			throw new CloudFoundryAuthorizationException(Reason.TOKEN_EXPIRED, "Token expired");
+		}
 	}
 
 }

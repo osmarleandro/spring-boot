@@ -24,7 +24,6 @@ import java.security.Signature;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.X509EncodedKeySpec;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.CloudFoundryAuthorizationException;
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.CloudFoundryAuthorizationException.Reason;
@@ -49,7 +48,7 @@ class TokenValidator {
 	void validate(Token token) {
 		validateAlgorithm(token);
 		validateKeyIdAndSignature(token);
-		validateExpiry(token);
+		token.validateExpiry();
 		validateIssuer(token);
 		validateAudience(token);
 	}
@@ -105,13 +104,6 @@ class TokenValidator {
 		byte[] bytes = Base64Utils.decodeFromString(key);
 		X509EncodedKeySpec keySpec = new X509EncodedKeySpec(bytes);
 		return KeyFactory.getInstance("RSA").generatePublic(keySpec);
-	}
-
-	private void validateExpiry(Token token) {
-		long currentTime = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());
-		if (currentTime > token.getExpiry()) {
-			throw new CloudFoundryAuthorizationException(Reason.TOKEN_EXPIRED, "Token expired");
-		}
 	}
 
 	private void validateIssuer(Token token) {
