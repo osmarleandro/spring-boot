@@ -200,7 +200,7 @@ public abstract class AbstractWebFluxEndpointHandlerMapping extends RequestMappi
 
 	@Override
 	protected boolean isHandler(Class<?> beanType) {
-		return false;
+		return endpointMapping.isHandler(beanType);
 	}
 
 	@Override
