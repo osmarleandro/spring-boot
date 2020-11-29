@@ -109,21 +109,10 @@ public class ConfigurationPropertiesReportEndpoint implements ApplicationContext
 
 	@ReadOperation
 	public ApplicationConfigurationProperties configurationProperties() {
-		return extract(this.context);
+		return sanitizer.extract(this, this.context);
 	}
 
-	private ApplicationConfigurationProperties extract(ApplicationContext context) {
-		ObjectMapper mapper = getObjectMapper();
-		Map<String, ContextConfigurationProperties> contexts = new HashMap<>();
-		ApplicationContext target = context;
-		while (target != null) {
-			contexts.put(target.getId(), describeBeans(mapper, target));
-			target = target.getParent();
-		}
-		return new ApplicationConfigurationProperties(contexts);
-	}
-
-	private ObjectMapper getObjectMapper() {
+	public ObjectMapper getObjectMapper() {
 		if (this.objectMapper == null) {
 			this.objectMapper = new ObjectMapper();
 			configureObjectMapper(this.objectMapper);
@@ -164,7 +153,7 @@ public class ConfigurationPropertiesReportEndpoint implements ApplicationContext
 		mapper.setSerializerFactory(factory);
 	}
 
-	private ContextConfigurationProperties describeBeans(ObjectMapper mapper, ApplicationContext context) {
+	public ContextConfigurationProperties describeBeans(ObjectMapper mapper, ApplicationContext context) {
 		Map<String, ConfigurationPropertiesBean> beans = ConfigurationPropertiesBean.getAll(context);
 		Map<String, ConfigurationPropertiesBeanDescriptor> descriptors = new HashMap<>();
 		beans.forEach((beanName, bean) -> descriptors.put(beanName, describeBean(mapper, bean)));

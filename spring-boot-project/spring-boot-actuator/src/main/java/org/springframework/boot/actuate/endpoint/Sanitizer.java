@@ -17,14 +17,22 @@
 package org.springframework.boot.actuate.endpoint;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.LinkedHashSet;
+import java.util.Map;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
+import org.springframework.boot.actuate.context.properties.ConfigurationPropertiesReportEndpoint;
+import org.springframework.boot.actuate.context.properties.ConfigurationPropertiesReportEndpoint.ApplicationConfigurationProperties;
+import org.springframework.boot.actuate.context.properties.ConfigurationPropertiesReportEndpoint.ContextConfigurationProperties;
+import org.springframework.context.ApplicationContext;
 import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
  * Strategy that should be used by endpoint implementations to sanitize potentially
@@ -136,6 +144,17 @@ public class Sanitizer {
 			return StringUtils.replace(value, ":" + password + "@", ":******@");
 		}
 		return value;
+	}
+
+	public ApplicationConfigurationProperties extract(ConfigurationPropertiesReportEndpoint configurationPropertiesReportEndpoint, ApplicationContext context) {
+		ObjectMapper mapper = configurationPropertiesReportEndpoint.getObjectMapper();
+		Map<String, ContextConfigurationProperties> contexts = new HashMap<>();
+		ApplicationContext target = context;
+		while (target != null) {
+			contexts.put(target.getId(), configurationPropertiesReportEndpoint.describeBeans(mapper, target));
+			target = target.getParent();
+		}
+		return new ApplicationConfigurationProperties(contexts);
 	}
 
 }
