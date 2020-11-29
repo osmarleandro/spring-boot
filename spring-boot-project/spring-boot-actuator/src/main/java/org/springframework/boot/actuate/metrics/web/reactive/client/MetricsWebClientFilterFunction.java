@@ -51,7 +51,7 @@ public class MetricsWebClientFilterFunction implements ExchangeFilterFunction {
 
 	private final String metricName;
 
-	private final AutoTimer autoTimer;
+	public final AutoTimer autoTimer;
 
 	/**
 	 * Create a new {@code MetricsWebClientFilterFunction}.
@@ -71,14 +71,10 @@ public class MetricsWebClientFilterFunction implements ExchangeFilterFunction {
 
 	@Override
 	public Mono<ClientResponse> filter(ClientRequest request, ExchangeFunction next) {
-		if (!this.autoTimer.isEnabled()) {
-			return next.exchange(request);
-		}
-		return next.exchange(request).as((responseMono) -> instrumentResponse(request, responseMono))
-				.contextWrite(this::putStartTime);
+		return autoTimer.filter(this, request, next);
 	}
 
-	private Mono<ClientResponse> instrumentResponse(ClientRequest request, Mono<ClientResponse> responseMono) {
+	public Mono<ClientResponse> instrumentResponse(ClientRequest request, Mono<ClientResponse> responseMono) {
 		final AtomicBoolean responseReceived = new AtomicBoolean();
 		return Mono.deferContextual((ctx) -> responseMono.doOnEach((signal) -> {
 			if (signal.isOnNext() || signal.isOnError()) {

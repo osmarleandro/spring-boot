@@ -18,9 +18,15 @@ package org.springframework.boot.actuate.metrics;
 
 import java.util.function.Supplier;
 
+import org.springframework.boot.actuate.metrics.web.reactive.client.MetricsWebClientFilterFunction;
+import org.springframework.web.reactive.function.client.ClientRequest;
+import org.springframework.web.reactive.function.client.ClientResponse;
+import org.springframework.web.reactive.function.client.ExchangeFunction;
+
 import io.micrometer.core.annotation.Timed;
 import io.micrometer.core.instrument.Timer;
 import io.micrometer.core.instrument.Timer.Builder;
+import reactor.core.publisher.Mono;
 
 /**
  * Strategy that can be used to apply {@link Timer Timers} automatically instead of using
@@ -93,5 +99,13 @@ public interface AutoTimer {
 	 * @param builder the builder to apply settings to
 	 */
 	void apply(Timer.Builder builder);
+
+	default Mono<ClientResponse> filter(MetricsWebClientFilterFunction metricsWebClientFilterFunction, ClientRequest request, ExchangeFunction next) {
+		if (!isEnabled()) {
+			return next.exchange(request);
+		}
+		return next.exchange(request).as((responseMono) -> metricsWebClientFilterFunction.instrumentResponse(request, responseMono))
+				.contextWrite(metricsWebClientFilterFunction::putStartTime);
+	}
 
 }
