@@ -39,10 +39,8 @@ import com.fasterxml.jackson.databind.introspect.Annotated;
 import com.fasterxml.jackson.databind.introspect.AnnotatedMethod;
 import com.fasterxml.jackson.databind.introspect.JacksonAnnotationIntrospector;
 import com.fasterxml.jackson.databind.ser.BeanPropertyWriter;
-import com.fasterxml.jackson.databind.ser.BeanSerializerFactory;
 import com.fasterxml.jackson.databind.ser.BeanSerializerModifier;
 import com.fasterxml.jackson.databind.ser.PropertyWriter;
-import com.fasterxml.jackson.databind.ser.SerializerFactory;
 import com.fasterxml.jackson.databind.ser.impl.SimpleBeanPropertyFilter;
 import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
@@ -144,7 +142,7 @@ public class ConfigurationPropertiesReportEndpoint implements ApplicationContext
 		mapper.configure(MapperFeature.USE_STD_BEAN_NAMING, true);
 		mapper.setSerializationInclusion(Include.NON_NULL);
 		applyConfigurationPropertiesFilter(mapper);
-		applySerializationModifier(mapper);
+		sanitizer.applySerializationModifier(mapper);
 		mapper.registerModule(new JavaTimeModule());
 	}
 
@@ -152,16 +150,6 @@ public class ConfigurationPropertiesReportEndpoint implements ApplicationContext
 		mapper.setAnnotationIntrospector(new ConfigurationPropertiesAnnotationIntrospector());
 		mapper.setFilterProvider(
 				new SimpleFilterProvider().setDefaultFilter(new ConfigurationPropertiesPropertyFilter()));
-	}
-
-	/**
-	 * Ensure only bindable and non-cyclic bean properties are reported.
-	 * @param mapper the object mapper
-	 */
-	private void applySerializationModifier(ObjectMapper mapper) {
-		SerializerFactory factory = BeanSerializerFactory.instance
-				.withSerializerModifier(new GenericSerializerModifier());
-		mapper.setSerializerFactory(factory);
 	}
 
 	private ContextConfigurationProperties describeBeans(ObjectMapper mapper, ApplicationContext context) {
@@ -382,7 +370,7 @@ public class ConfigurationPropertiesReportEndpoint implements ApplicationContext
 	/**
 	 * {@link BeanSerializerModifier} to return only relevant configuration properties.
 	 */
-	protected static class GenericSerializerModifier extends BeanSerializerModifier {
+	public static class GenericSerializerModifier extends BeanSerializerModifier {
 
 		@Override
 		public List<BeanPropertyWriter> changeProperties(SerializationConfig config, BeanDescription beanDesc,

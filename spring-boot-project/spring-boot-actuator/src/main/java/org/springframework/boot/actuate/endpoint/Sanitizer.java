@@ -23,8 +23,13 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
+import org.springframework.boot.actuate.context.properties.ConfigurationPropertiesReportEndpoint.GenericSerializerModifier;
 import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ser.BeanSerializerFactory;
+import com.fasterxml.jackson.databind.ser.SerializerFactory;
 
 /**
  * Strategy that should be used by endpoint implementations to sanitize potentially
@@ -136,6 +141,16 @@ public class Sanitizer {
 			return StringUtils.replace(value, ":" + password + "@", ":******@");
 		}
 		return value;
+	}
+
+	/**
+	 * Ensure only bindable and non-cyclic bean properties are reported.
+	 * @param mapper the object mapper
+	 */
+	public void applySerializationModifier(ObjectMapper mapper) {
+		SerializerFactory factory = BeanSerializerFactory.instance
+				.withSerializerModifier(new GenericSerializerModifier());
+		mapper.setSerializerFactory(factory);
 	}
 
 }
