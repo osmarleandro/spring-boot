@@ -19,7 +19,6 @@ package org.springframework.boot.actuate.redis;
 import org.springframework.boot.actuate.health.AbstractHealthIndicator;
 import org.springframework.boot.actuate.health.Health;
 import org.springframework.boot.actuate.health.HealthIndicator;
-import org.springframework.data.redis.connection.RedisClusterConnection;
 import org.springframework.data.redis.connection.RedisConnection;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisConnectionUtils;
@@ -48,19 +47,10 @@ public class RedisHealthIndicator extends AbstractHealthIndicator {
 	protected void doHealthCheck(Health.Builder builder) throws Exception {
 		RedisConnection connection = RedisConnectionUtils.getConnection(this.redisConnectionFactory);
 		try {
-			doHealthCheck(builder, connection);
+			builder.doHealthCheck(connection);
 		}
 		finally {
 			RedisConnectionUtils.releaseConnection(connection, this.redisConnectionFactory, false);
-		}
-	}
-
-	private void doHealthCheck(Health.Builder builder, RedisConnection connection) {
-		if (connection instanceof RedisClusterConnection) {
-			RedisHealth.up(builder, ((RedisClusterConnection) connection).clusterGetClusterInfo());
-		}
-		else {
-			RedisHealth.up(builder, connection.info());
 		}
 	}
 

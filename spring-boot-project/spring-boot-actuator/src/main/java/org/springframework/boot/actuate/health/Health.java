@@ -23,6 +23,9 @@ import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
+import org.springframework.boot.actuate.redis.RedisHealth;
+import org.springframework.data.redis.connection.RedisClusterConnection;
+import org.springframework.data.redis.connection.RedisConnection;
 import org.springframework.util.Assert;
 
 /**
@@ -327,6 +330,15 @@ public final class Health extends HealthComponent {
 		 */
 		public Health build() {
 			return new Health(this);
+		}
+
+		public void doHealthCheck(RedisConnection connection) {
+			if (connection instanceof RedisClusterConnection) {
+				RedisHealth.up(this, ((RedisClusterConnection) connection).clusterGetClusterInfo());
+			}
+			else {
+				RedisHealth.up(this, connection.info());
+			}
 		}
 
 	}
