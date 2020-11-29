@@ -29,7 +29,7 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
  */
 public class MailHealthIndicator extends AbstractHealthIndicator {
 
-	private final JavaMailSenderImpl mailSender;
+	public final JavaMailSenderImpl mailSender;
 
 	public MailHealthIndicator(JavaMailSenderImpl mailSender) {
 		super("Mail health check failed");
@@ -38,9 +38,7 @@ public class MailHealthIndicator extends AbstractHealthIndicator {
 
 	@Override
 	protected void doHealthCheck(Builder builder) throws Exception {
-		builder.withDetail("location", this.mailSender.getHost() + ":" + this.mailSender.getPort());
-		this.mailSender.testConnection();
-		builder.up();
+		builder.doHealthCheck(this);
 	}
 
 }
