@@ -48,9 +48,9 @@ import org.springframework.util.Assert;
 @Endpoint(id = "loggers")
 public class LoggersEndpoint {
 
-	private final LoggingSystem loggingSystem;
+	public final LoggingSystem loggingSystem;
 
-	private final LoggerGroups loggerGroups;
+	public final LoggerGroups loggerGroups;
 
 	/**
 	 * Create a new {@link LoggersEndpoint} instance.
@@ -97,13 +97,7 @@ public class LoggersEndpoint {
 
 	@WriteOperation
 	public void configureLogLevel(@Selector String name, @Nullable LogLevel configuredLevel) {
-		Assert.notNull(name, "Name must not be empty");
-		LoggerGroup group = this.loggerGroups.get(name);
-		if (group != null && group.hasMembers()) {
-			group.configureLogLevel(configuredLevel, this.loggingSystem::setLogLevel);
-			return;
-		}
-		this.loggingSystem.setLogLevel(name, configuredLevel);
+		configuredLevel.configureLogLevel(name, this);
 	}
 
 	private NavigableSet<LogLevel> getLevels() {

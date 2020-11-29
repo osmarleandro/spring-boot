@@ -119,7 +119,7 @@ class LoggersEndpointTests {
 
 	@Test
 	void configureLogLevelShouldSetLevelOnLoggingSystem() {
-		new LoggersEndpoint(this.loggingSystem, this.loggerGroups).configureLogLevel("ROOT", LogLevel.DEBUG);
+		LogLevel.DEBUG.configureLogLevel("ROOT", new LoggersEndpoint(this.loggingSystem, this.loggerGroups));
 		verify(this.loggingSystem).setLogLevel("ROOT", LogLevel.DEBUG);
 	}
 
@@ -131,7 +131,7 @@ class LoggersEndpointTests {
 
 	@Test
 	void configureLogLevelInLoggerGroupShouldSetLevelOnLoggingSystem() {
-		new LoggersEndpoint(this.loggingSystem, this.loggerGroups).configureLogLevel("test", LogLevel.DEBUG);
+		LogLevel.DEBUG.configureLogLevel("test", new LoggersEndpoint(this.loggingSystem, this.loggerGroups));
 		verify(this.loggingSystem).setLogLevel("test.member", LogLevel.DEBUG);
 	}
 

@@ -16,6 +16,12 @@
 
 package org.springframework.boot.logging;
 
+import org.springframework.boot.actuate.endpoint.annotation.Selector;
+import org.springframework.boot.actuate.endpoint.annotation.WriteOperation;
+import org.springframework.boot.actuate.logging.LoggersEndpoint;
+import org.springframework.lang.Nullable;
+import org.springframework.util.Assert;
+
 /**
  * Logging levels supported by a {@link LoggingSystem}.
  *
@@ -24,6 +30,17 @@ package org.springframework.boot.logging;
  */
 public enum LogLevel {
 
-	TRACE, DEBUG, INFO, WARN, ERROR, FATAL, OFF
+	TRACE, DEBUG, INFO, WARN, ERROR, FATAL, OFF;
+
+	@WriteOperation
+	public void configureLogLevel(String name, LoggersEndpoint loggersEndpoint) {
+		Assert.notNull(name, "Name must not be empty");
+		LoggerGroup group = loggersEndpoint.loggerGroups.get(name);
+		if (group != null && group.hasMembers()) {
+			group.configureLogLevel(this, loggersEndpoint.loggingSystem::setLogLevel);
+			return;
+		}
+		loggersEndpoint.loggingSystem.setLogLevel(name, this);
+	}
 
 }
