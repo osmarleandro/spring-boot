@@ -18,7 +18,6 @@ package org.springframework.boot.actuate.elasticsearch;
 
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
-import java.util.Map;
 
 import org.apache.http.HttpStatus;
 import org.apache.http.StatusLine;
@@ -44,11 +43,11 @@ import org.springframework.util.StreamUtils;
  */
 public class ElasticsearchRestHealthIndicator extends AbstractHealthIndicator {
 
-	private static final String RED_STATUS = "red";
+	public static final String RED_STATUS = "red";
 
 	private final RestClient client;
 
-	private final JsonParser jsonParser;
+	public final JsonParser jsonParser;
 
 	public ElasticsearchRestHealthIndicator(RestHighLevelClient client) {
 		this(client.getLowLevelClient());
@@ -71,20 +70,8 @@ public class ElasticsearchRestHealthIndicator extends AbstractHealthIndicator {
 			return;
 		}
 		try (InputStream inputStream = response.getEntity().getContent()) {
-			doHealthCheck(builder, StreamUtils.copyToString(inputStream, StandardCharsets.UTF_8));
+			builder.doHealthCheck(this, StreamUtils.copyToString(inputStream, StandardCharsets.UTF_8));
 		}
-	}
-
-	private void doHealthCheck(Health.Builder builder, String json) {
-		Map<String, Object> response = this.jsonParser.parseMap(json);
-		String status = (String) response.get("status");
-		if (RED_STATUS.equals(status)) {
-			builder.outOfService();
-		}
-		else {
-			builder.up();
-		}
-		builder.withDetails(response);
 	}
 
 }

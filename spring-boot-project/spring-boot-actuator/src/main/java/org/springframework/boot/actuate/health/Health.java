@@ -23,6 +23,7 @@ import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
+import org.springframework.boot.actuate.elasticsearch.ElasticsearchRestHealthIndicator;
 import org.springframework.util.Assert;
 
 /**
@@ -327,6 +328,18 @@ public final class Health extends HealthComponent {
 		 */
 		public Health build() {
 			return new Health(this);
+		}
+
+		public void doHealthCheck(ElasticsearchRestHealthIndicator elasticsearchRestHealthIndicator, String json) {
+			Map<String, Object> response = elasticsearchRestHealthIndicator.jsonParser.parseMap(json);
+			String status = (String) response.get("status");
+			if (ElasticsearchRestHealthIndicator.RED_STATUS.equals(status)) {
+				outOfService();
+			}
+			else {
+				up();
+			}
+			withDetails(response);
 		}
 
 	}
