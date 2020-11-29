@@ -20,9 +20,14 @@ import java.util.Arrays;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
+import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
+import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.beans.factory.support.BeanNameGenerator;
 import org.springframework.beans.factory.support.DefaultListableBeanFactory;
+import org.springframework.beans.factory.support.RootBeanDefinition;
+import org.springframework.boot.actuate.autoconfigure.web.reactive.ReactiveManagementContextFactory;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotatedBeanDefinitionReader;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigRegistry;
@@ -206,6 +211,20 @@ public class AnnotationConfigReactiveWebServerApplicationContext extends Reactiv
 		}
 		if (!this.annotatedClasses.isEmpty()) {
 			this.reader.register(ClassUtils.toClassArray(this.annotatedClasses));
+		}
+	}
+
+	public void registerReactiveWebServerFactory(ApplicationContext parent, ReactiveManagementContextFactory reactiveManagementContextFactory) {
+		try {
+			ConfigurableListableBeanFactory beanFactory = getBeanFactory();
+			if (beanFactory instanceof BeanDefinitionRegistry) {
+				BeanDefinitionRegistry registry = (BeanDefinitionRegistry) beanFactory;
+				registry.registerBeanDefinition("ReactiveWebServerFactory",
+						new RootBeanDefinition(reactiveManagementContextFactory.determineReactiveWebServerFactoryClass(parent)));
+			}
+		}
+		catch (NoSuchBeanDefinitionException ex) {
+			// Ignore and assume auto-configuration
 		}
 	}
 
