@@ -62,10 +62,6 @@ public class PrometheusProperties {
 		return this.descriptions;
 	}
 
-	public void setDescriptions(boolean descriptions) {
-		this.descriptions = descriptions;
-	}
-
 	public HistogramFlavor getHistogramFlavor() {
 		return this.histogramFlavor;
 	}
@@ -193,6 +189,10 @@ public class PrometheusProperties {
 
 		public void setShutdownOperation(ShutdownOperation shutdownOperation) {
 			this.shutdownOperation = shutdownOperation;
+		}
+
+		public void setDescriptions(PrometheusProperties prometheusProperties, boolean descriptions) {
+			prometheusProperties.descriptions = descriptions;
 		}
 
 	}
