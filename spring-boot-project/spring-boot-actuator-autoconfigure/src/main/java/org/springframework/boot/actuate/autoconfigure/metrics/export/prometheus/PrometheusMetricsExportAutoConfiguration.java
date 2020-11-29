@@ -70,12 +70,6 @@ public class PrometheusMetricsExportAutoConfiguration {
 
 	@Bean
 	@ConditionalOnMissingBean
-	public PrometheusConfig prometheusConfig(PrometheusProperties prometheusProperties) {
-		return new PrometheusPropertiesConfigAdapter(prometheusProperties);
-	}
-
-	@Bean
-	@ConditionalOnMissingBean
 	public PrometheusMeterRegistry prometheusMeterRegistry(PrometheusConfig prometheusConfig,
 			CollectorRegistry collectorRegistry, Clock clock) {
 		return new PrometheusMeterRegistry(prometheusConfig, collectorRegistry, clock);

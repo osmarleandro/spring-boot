@@ -21,9 +21,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 import io.micrometer.prometheus.HistogramFlavor;
+import io.micrometer.prometheus.PrometheusConfig;
 
 import org.springframework.boot.actuate.metrics.export.prometheus.PrometheusPushGatewayManager.ShutdownOperation;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.Bean;
 
 /**
  * {@link ConfigurationProperties @ConfigurationProperties} for configuring metrics export
@@ -84,6 +87,12 @@ public class PrometheusProperties {
 
 	public Pushgateway getPushgateway() {
 		return this.pushgateway;
+	}
+
+	@Bean
+	@ConditionalOnMissingBean
+	public PrometheusConfig prometheusConfig() {
+		return new PrometheusPropertiesConfigAdapter(this);
 	}
 
 	/**
