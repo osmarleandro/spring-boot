@@ -20,6 +20,8 @@ import java.util.Arrays;
 import java.util.Map;
 import java.util.Set;
 
+import org.springframework.boot.actuate.autoconfigure.cloudfoundry.servlet.CloudFoundryHealthEndpointWebExtension;
+import org.springframework.boot.actuate.autoconfigure.endpoint.condition.ConditionalOnAvailableEndpoint;
 import org.springframework.boot.actuate.endpoint.SecurityContext;
 import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
 import org.springframework.boot.actuate.endpoint.annotation.Selector;
@@ -27,6 +29,9 @@ import org.springframework.boot.actuate.endpoint.annotation.Selector.Match;
 import org.springframework.boot.actuate.endpoint.http.ApiVersion;
 import org.springframework.boot.actuate.endpoint.web.WebEndpointResponse;
 import org.springframework.boot.actuate.endpoint.web.annotation.EndpointWebExtension;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.context.annotation.Bean;
 
 /**
  * {@link EndpointWebExtension @EndpointWebExtension} for the {@link HealthEndpoint}.
@@ -89,6 +94,14 @@ public class HealthEndpointWebExtension extends HealthEndpointSupport<HealthCont
 	protected HealthComponent aggregateContributions(ApiVersion apiVersion, Map<String, HealthComponent> contributions,
 			StatusAggregator statusAggregator, boolean showComponents, Set<String> groupNames) {
 		return getCompositeHealth(apiVersion, contributions, statusAggregator, showComponents, groupNames);
+	}
+
+	@Bean
+	@ConditionalOnMissingBean
+	@ConditionalOnAvailableEndpoint
+	@ConditionalOnBean({ HealthEndpoint.class, HealthEndpointWebExtension.class })
+	public CloudFoundryHealthEndpointWebExtension cloudFoundryHealthEndpointWebExtension() {
+		return new CloudFoundryHealthEndpointWebExtension(this);
 	}
 
 }
