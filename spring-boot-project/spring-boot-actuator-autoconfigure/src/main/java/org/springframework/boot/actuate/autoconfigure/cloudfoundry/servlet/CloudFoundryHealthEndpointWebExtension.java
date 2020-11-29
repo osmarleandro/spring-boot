@@ -46,13 +46,13 @@ public class CloudFoundryHealthEndpointWebExtension {
 
 	@ReadOperation
 	public WebEndpointResponse<HealthComponent> health(ApiVersion apiVersion) {
-		return this.delegate.health(apiVersion, SecurityContext.NONE, true);
+		return apiVersion.health(this.delegate, SecurityContext.NONE, true);
 	}
 
 	@ReadOperation
 	public WebEndpointResponse<HealthComponent> health(ApiVersion apiVersion,
 			@Selector(match = Match.ALL_REMAINING) String... path) {
-		return this.delegate.health(apiVersion, SecurityContext.NONE, true, path);
+		return apiVersion.health(this.delegate, SecurityContext.NONE, true, path);
 	}
 
 }

@@ -33,9 +33,9 @@ import org.springframework.util.Assert;
  * @author Phillip Webb
  * @author Scott Frederick
  */
-abstract class HealthEndpointSupport<C, T> {
+public abstract class HealthEndpointSupport<C, T> {
 
-	static final Health DEFAULT_HEALTH = Health.up().build();
+	public static final Health DEFAULT_HEALTH = Health.up().build();
 
 	private final ContributorRegistry<C> registry;
 
@@ -53,7 +53,7 @@ abstract class HealthEndpointSupport<C, T> {
 		this.groups = groups;
 	}
 
-	HealthResult<T> getHealth(ApiVersion apiVersion, SecurityContext securityContext, boolean showAll, String... path) {
+	public HealthResult<T> getHealth(ApiVersion apiVersion, SecurityContext securityContext, boolean showAll, String... path) {
 		HealthEndpointGroup group = (path.length > 0) ? this.groups.get(path[0]) : null;
 		if (group != null) {
 			return getHealth(apiVersion, group, securityContext, showAll, path, 1);
@@ -146,7 +146,7 @@ abstract class HealthEndpointSupport<C, T> {
 	 *
 	 * @param <T> the contributed health component
 	 */
-	static class HealthResult<T> {
+	public static class HealthResult<T> {
 
 		private final T health;
 
@@ -157,11 +157,11 @@ abstract class HealthEndpointSupport<C, T> {
 			this.group = group;
 		}
 
-		T getHealth() {
+		public T getHealth() {
 			return this.health;
 		}
 
-		HealthEndpointGroup getGroup() {
+		public HealthEndpointGroup getGroup() {
 			return this.group;
 		}
 

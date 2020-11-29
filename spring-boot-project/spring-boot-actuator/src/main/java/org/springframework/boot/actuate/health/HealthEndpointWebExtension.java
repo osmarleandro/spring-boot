@@ -16,7 +16,6 @@
 
 package org.springframework.boot.actuate.health;
 
-import java.util.Arrays;
 import java.util.Map;
 import java.util.Set;
 
@@ -44,7 +43,7 @@ import org.springframework.boot.actuate.endpoint.web.annotation.EndpointWebExten
 @EndpointWebExtension(endpoint = HealthEndpoint.class)
 public class HealthEndpointWebExtension extends HealthEndpointSupport<HealthContributor, HealthComponent> {
 
-	private static final String[] NO_PATH = {};
+	public static final String[] NO_PATH = {};
 
 	/**
 	 * Create a new {@link HealthEndpointWebExtension} instance.
@@ -57,27 +56,13 @@ public class HealthEndpointWebExtension extends HealthEndpointSupport<HealthCont
 
 	@ReadOperation
 	public WebEndpointResponse<HealthComponent> health(ApiVersion apiVersion, SecurityContext securityContext) {
-		return health(apiVersion, securityContext, false, NO_PATH);
+		return apiVersion.health(this, securityContext, false, NO_PATH);
 	}
 
 	@ReadOperation
 	public WebEndpointResponse<HealthComponent> health(ApiVersion apiVersion, SecurityContext securityContext,
 			@Selector(match = Match.ALL_REMAINING) String... path) {
-		return health(apiVersion, securityContext, false, path);
-	}
-
-	public WebEndpointResponse<HealthComponent> health(ApiVersion apiVersion, SecurityContext securityContext,
-			boolean showAll, String... path) {
-		HealthResult<HealthComponent> result = getHealth(apiVersion, securityContext, showAll, path);
-		if (result == null) {
-			return (Arrays.equals(path, NO_PATH))
-					? new WebEndpointResponse<>(DEFAULT_HEALTH, WebEndpointResponse.STATUS_OK)
-					: new WebEndpointResponse<>(WebEndpointResponse.STATUS_NOT_FOUND);
-		}
-		HealthComponent health = result.getHealth();
-		HealthEndpointGroup group = result.getGroup();
-		int statusCode = group.getHttpCodeStatusMapper().getStatusCode(health.getStatus());
-		return new WebEndpointResponse<>(health, statusCode);
+		return apiVersion.health(this, securityContext, false, path);
 	}
 
 	@Override

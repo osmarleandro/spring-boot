@@ -16,9 +16,16 @@
 
 package org.springframework.boot.actuate.endpoint.http;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.boot.actuate.endpoint.SecurityContext;
+import org.springframework.boot.actuate.endpoint.web.WebEndpointResponse;
+import org.springframework.boot.actuate.health.HealthComponent;
+import org.springframework.boot.actuate.health.HealthEndpointGroup;
+import org.springframework.boot.actuate.health.HealthEndpointSupport.HealthResult;
+import org.springframework.boot.actuate.health.HealthEndpointWebExtension;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.MimeTypeUtils;
 
@@ -85,6 +92,19 @@ public enum ApiVersion {
 		int existingOrdinal = (existing != null) ? existing.ordinal() : -1;
 		int candidateOrdinal = (candidate != null) ? candidate.ordinal() : -1;
 		return (candidateOrdinal > existingOrdinal) ? candidate : existing;
+	}
+
+	public WebEndpointResponse<HealthComponent> health(HealthEndpointWebExtension healthEndpointWebExtension, SecurityContext securityContext, boolean showAll, String... path) {
+		HealthResult<HealthComponent> result = healthEndpointWebExtension.getHealth(this, securityContext, showAll, path);
+		if (result == null) {
+			return (Arrays.equals(path, HealthEndpointWebExtension.NO_PATH))
+					? new WebEndpointResponse<>(HealthEndpointWebExtension.DEFAULT_HEALTH, WebEndpointResponse.STATUS_OK)
+					: new WebEndpointResponse<>(WebEndpointResponse.STATUS_NOT_FOUND);
+		}
+		HealthComponent health = result.getHealth();
+		HealthEndpointGroup group = result.getGroup();
+		int statusCode = group.getHttpCodeStatusMapper().getStatusCode(health.getStatus());
+		return new WebEndpointResponse<>(health, statusCode);
 	}
 
 }
