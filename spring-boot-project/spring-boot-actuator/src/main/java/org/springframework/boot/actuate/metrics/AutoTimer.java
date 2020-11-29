@@ -16,9 +16,13 @@
 
 package org.springframework.boot.actuate.metrics;
 
+import java.util.concurrent.TimeUnit;
 import java.util.function.Supplier;
 
+import org.springframework.boot.actuate.metrics.web.reactive.client.MetricsWebClientFilterFunction;
+
 import io.micrometer.core.annotation.Timed;
+import io.micrometer.core.instrument.Tag;
 import io.micrometer.core.instrument.Timer;
 import io.micrometer.core.instrument.Timer.Builder;
 
@@ -93,5 +97,10 @@ public interface AutoTimer {
 	 * @param builder the builder to apply settings to
 	 */
 	void apply(Timer.Builder builder);
+
+	public default void recordTimer(MetricsWebClientFilterFunction metricsWebClientFilterFunction, Iterable<Tag> tags, Long startTime) {
+		builder(metricsWebClientFilterFunction.metricName).tags(tags).description("Timer of WebClient operation")
+				.register(metricsWebClientFilterFunction.meterRegistry).record(System.nanoTime() - startTime, TimeUnit.NANOSECONDS);
+	}
 
 }

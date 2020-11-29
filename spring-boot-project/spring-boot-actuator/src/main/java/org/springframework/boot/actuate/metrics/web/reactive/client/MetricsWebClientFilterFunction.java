@@ -16,7 +16,6 @@
 
 package org.springframework.boot.actuate.metrics.web.reactive.client;
 
-import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import io.micrometer.core.instrument.MeterRegistry;
@@ -45,11 +44,11 @@ public class MetricsWebClientFilterFunction implements ExchangeFilterFunction {
 	private static final String METRICS_WEBCLIENT_START_TIME = MetricsWebClientFilterFunction.class.getName()
 			+ ".START_TIME";
 
-	private final MeterRegistry meterRegistry;
+	public final MeterRegistry meterRegistry;
 
 	private final WebClientExchangeTagsProvider tagProvider;
 
-	private final String metricName;
+	public final String metricName;
 
 	private final AutoTimer autoTimer;
 
@@ -84,19 +83,14 @@ public class MetricsWebClientFilterFunction implements ExchangeFilterFunction {
 			if (signal.isOnNext() || signal.isOnError()) {
 				responseReceived.set(true);
 				Iterable<Tag> tags = this.tagProvider.tags(request, signal.get(), signal.getThrowable());
-				recordTimer(tags, getStartTime(ctx));
+				autoTimer.recordTimer(this, tags, getStartTime(ctx));
 			}
 		}).doFinally((signalType) -> {
 			if (!responseReceived.get() && SignalType.CANCEL.equals(signalType)) {
 				Iterable<Tag> tags = this.tagProvider.tags(request, null, null);
-				recordTimer(tags, getStartTime(ctx));
+				autoTimer.recordTimer(this, tags, getStartTime(ctx));
 			}
 		}));
-	}
-
-	private void recordTimer(Iterable<Tag> tags, Long startTime) {
-		this.autoTimer.builder(this.metricName).tags(tags).description("Timer of WebClient operation")
-				.register(this.meterRegistry).record(System.nanoTime() - startTime, TimeUnit.NANOSECONDS);
 	}
 
 	private Long getStartTime(ContextView context) {
