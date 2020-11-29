@@ -65,12 +65,8 @@ public class LongTaskTimingHandlerInterceptor implements HandlerInterceptor {
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
-		LongTaskTimingContext timingContext = LongTaskTimingContext.get(request);
-		if (timingContext == null) {
-			startAndAttachTimingContext(request, handler);
-		}
-		return true;
-	}
+				return tagsProvider.preHandle(this, request, response, handler);
+			}
 
 	@Override
 	public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex)
@@ -80,7 +76,7 @@ public class LongTaskTimingHandlerInterceptor implements HandlerInterceptor {
 		}
 	}
 
-	private void startAndAttachTimingContext(HttpServletRequest request, Object handler) {
+	void startAndAttachTimingContext(HttpServletRequest request, Object handler) {
 		Set<Timed> annotations = getTimedAnnotations(handler);
 		Collection<LongTaskTimer.Sample> longTaskTimerSamples = getLongTaskTimerSamples(request, handler, annotations);
 		LongTaskTimingContext timingContext = new LongTaskTimingContext(longTaskTimerSamples);
