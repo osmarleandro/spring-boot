@@ -22,6 +22,7 @@ import java.util.Map;
 import org.springframework.boot.web.error.ErrorAttributeOptions;
 import org.springframework.boot.web.error.ErrorAttributeOptions.Include;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.context.request.ServletWebRequest;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -70,5 +71,13 @@ public interface ErrorAttributes {
 	 * @return the {@link Exception} that caused the error or {@code null}
 	 */
 	Throwable getError(WebRequest webRequest);
+
+	public default boolean getBooleanParameter(ServletWebRequest request, String parameterName) {
+		String parameter = request.getParameter(parameterName);
+		if (parameter == null) {
+			return false;
+		}
+		return !"false".equalsIgnoreCase(parameter);
+	}
 
 }

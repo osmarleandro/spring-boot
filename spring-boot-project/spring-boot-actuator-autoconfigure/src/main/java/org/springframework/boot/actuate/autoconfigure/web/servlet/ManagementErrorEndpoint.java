@@ -82,7 +82,7 @@ public class ManagementErrorEndpoint {
 			return true;
 		case ON_PARAM:
 		case ON_TRACE_PARAM:
-			return getBooleanParameter(request, "trace");
+			return errorAttributes.getBooleanParameter(request, "trace");
 		default:
 			return false;
 		}
@@ -93,7 +93,7 @@ public class ManagementErrorEndpoint {
 		case ALWAYS:
 			return true;
 		case ON_PARAM:
-			return getBooleanParameter(request, "message");
+			return errorAttributes.getBooleanParameter(request, "message");
 		default:
 			return false;
 		}
@@ -104,18 +104,10 @@ public class ManagementErrorEndpoint {
 		case ALWAYS:
 			return true;
 		case ON_PARAM:
-			return getBooleanParameter(request, "errors");
+			return errorAttributes.getBooleanParameter(request, "errors");
 		default:
 			return false;
 		}
-	}
-
-	protected boolean getBooleanParameter(ServletWebRequest request, String parameterName) {
-		String parameter = request.getParameter(parameterName);
-		if (parameter == null) {
-			return false;
-		}
-		return !"false".equalsIgnoreCase(parameter);
 	}
 
 }
