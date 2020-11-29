@@ -52,12 +52,6 @@ public class AtlasMetricsExportAutoConfiguration {
 
 	@Bean
 	@ConditionalOnMissingBean
-	public AtlasConfig atlasConfig(AtlasProperties atlasProperties) {
-		return new AtlasPropertiesConfigAdapter(atlasProperties);
-	}
-
-	@Bean
-	@ConditionalOnMissingBean
 	public AtlasMeterRegistry atlasMeterRegistry(AtlasConfig atlasConfig, Clock clock) {
 		return new AtlasMeterRegistry(atlasConfig, clock);
 	}

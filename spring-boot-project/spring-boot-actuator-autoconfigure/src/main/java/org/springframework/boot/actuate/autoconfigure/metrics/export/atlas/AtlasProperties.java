@@ -18,7 +18,11 @@ package org.springframework.boot.actuate.autoconfigure.metrics.export.atlas;
 
 import java.time.Duration;
 
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.Bean;
+
+import com.netflix.spectator.atlas.AtlasConfig;
 
 /**
  * {@link ConfigurationProperties @ConfigurationProperties} for configuring Atlas metrics
@@ -200,6 +204,12 @@ public class AtlasProperties {
 
 	public void setEvalUri(String evalUri) {
 		this.evalUri = evalUri;
+	}
+
+	@Bean
+	@ConditionalOnMissingBean
+	public AtlasConfig atlasConfig() {
+		return new AtlasPropertiesConfigAdapter(this);
 	}
 
 }
