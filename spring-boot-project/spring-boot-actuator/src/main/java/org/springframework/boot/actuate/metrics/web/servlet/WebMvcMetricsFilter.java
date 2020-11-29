@@ -17,7 +17,6 @@
 package org.springframework.boot.actuate.metrics.web.servlet;
 
 import java.io.IOException;
-import java.lang.reflect.AnnotatedElement;
 import java.util.Collections;
 import java.util.Set;
 
@@ -33,8 +32,6 @@ import io.micrometer.core.instrument.Timer.Builder;
 import io.micrometer.core.instrument.Timer.Sample;
 
 import org.springframework.boot.actuate.metrics.AutoTimer;
-import org.springframework.core.annotation.MergedAnnotationCollectors;
-import org.springframework.core.annotation.MergedAnnotations;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.filter.OncePerRequestFilter;
 import org.springframework.web.method.HandlerMethod;
@@ -149,19 +146,11 @@ public class WebMvcMetricsFilter extends OncePerRequestFilter {
 	}
 
 	private Set<Timed> getTimedAnnotations(HandlerMethod handler) {
-		Set<Timed> methodAnnotations = findTimedAnnotations(handler.getMethod());
+		Set<Timed> methodAnnotations = autoTimer.findTimedAnnotations(handler.getMethod());
 		if (!methodAnnotations.isEmpty()) {
 			return methodAnnotations;
 		}
-		return findTimedAnnotations(handler.getBeanType());
-	}
-
-	private Set<Timed> findTimedAnnotations(AnnotatedElement element) {
-		MergedAnnotations annotations = MergedAnnotations.from(element);
-		if (!annotations.isPresent(Timed.class)) {
-			return Collections.emptySet();
-		}
-		return annotations.stream(Timed.class).collect(MergedAnnotationCollectors.toAnnotationSet());
+		return autoTimer.findTimedAnnotations(handler.getBeanType());
 	}
 
 	private Timer getTimer(Builder builder, Object handler, HttpServletRequest request, HttpServletResponse response,

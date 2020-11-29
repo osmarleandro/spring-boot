@@ -16,7 +16,13 @@
 
 package org.springframework.boot.actuate.metrics;
 
+import java.lang.reflect.AnnotatedElement;
+import java.util.Collections;
+import java.util.Set;
 import java.util.function.Supplier;
+
+import org.springframework.core.annotation.MergedAnnotationCollectors;
+import org.springframework.core.annotation.MergedAnnotations;
 
 import io.micrometer.core.annotation.Timed;
 import io.micrometer.core.instrument.Timer;
@@ -93,5 +99,13 @@ public interface AutoTimer {
 	 * @param builder the builder to apply settings to
 	 */
 	void apply(Timer.Builder builder);
+
+	public default Set<Timed> findTimedAnnotations(AnnotatedElement element) {
+		MergedAnnotations annotations = MergedAnnotations.from(element);
+		if (!annotations.isPresent(Timed.class)) {
+			return Collections.emptySet();
+		}
+		return annotations.stream(Timed.class).collect(MergedAnnotationCollectors.toAnnotationSet());
+	}
 
 }
