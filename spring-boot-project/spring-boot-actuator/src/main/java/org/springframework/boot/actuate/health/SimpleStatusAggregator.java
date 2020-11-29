@@ -50,7 +50,7 @@ public class SimpleStatusAggregator implements StatusAggregator {
 		INSTANCE = new SimpleStatusAggregator();
 	}
 
-	private final List<String> order;
+	final List<String> order;
 
 	private final Comparator<Status> comparator = new StatusComparator();
 
@@ -76,15 +76,11 @@ public class SimpleStatusAggregator implements StatusAggregator {
 		return statuses.stream().filter(this::contains).min(this.comparator).orElse(Status.UNKNOWN);
 	}
 
-	private boolean contains(Status status) {
-		return this.order.contains(getUniformCode(status.getCode()));
-	}
-
 	private static List<String> getUniformCodes(Stream<String> codes) {
 		return codes.map(SimpleStatusAggregator::getUniformCode).collect(Collectors.toList());
 	}
 
-	private static String getUniformCode(String code) {
+	static String getUniformCode(String code) {
 		if (code == null) {
 			return null;
 		}

@@ -123,4 +123,8 @@ public final class Status {
 		return this.code;
 	}
 
+	boolean contains(SimpleStatusAggregator simpleStatusAggregator) {
+		return simpleStatusAggregator.order.contains(SimpleStatusAggregator.getUniformCode(getCode()));
+	}
+
 }
