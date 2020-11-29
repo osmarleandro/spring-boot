@@ -16,7 +16,10 @@
 
 package org.springframework.boot.actuate.endpoint.web;
 
+import java.lang.reflect.Method;
+
 import org.springframework.util.StringUtils;
+import org.springframework.web.servlet.mvc.method.RequestMappingInfo;
 
 /**
  * A value object for the base mapping for endpoints.
@@ -46,6 +49,10 @@ public class EndpointMapping {
 
 	public String createSubPath(String path) {
 		return this.path + normalizePath(path);
+	}
+
+	public RequestMappingInfo getMappingForMethod(Method method, Class<?> handlerType) {
+		return null;
 	}
 
 	private static String normalizePath(String path) {

@@ -223,7 +223,7 @@ public abstract class AbstractWebMvcEndpointHandlerMapping extends RequestMappin
 
 	@Override
 	protected RequestMappingInfo getMappingForMethod(Method method, Class<?> handlerType) {
-		return null;
+		return endpointMapping.getMappingForMethod(method, handlerType);
 	}
 
 	@Override
