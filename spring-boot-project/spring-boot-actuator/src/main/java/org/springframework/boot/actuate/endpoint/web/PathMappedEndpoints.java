@@ -82,17 +82,6 @@ public class PathMappedEndpoints implements Iterable<PathMappedEndpoint> {
 	}
 
 	/**
-	 * Return the root path for the endpoint with the given ID or {@code null} if the
-	 * endpoint cannot be found.
-	 * @param endpointId the endpoint ID
-	 * @return the root path or {@code null}
-	 */
-	public String getRootPath(EndpointId endpointId) {
-		PathMappedEndpoint endpoint = getEndpoint(endpointId);
-		return (endpoint != null) ? endpoint.getRootPath() : null;
-	}
-
-	/**
 	 * Return the full path for the endpoint with the given ID or {@code null} if the
 	 * endpoint cannot be found.
 	 * @param endpointId the endpoint ID
