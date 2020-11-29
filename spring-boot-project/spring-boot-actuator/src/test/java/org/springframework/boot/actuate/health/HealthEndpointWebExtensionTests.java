@@ -41,7 +41,7 @@ class HealthEndpointWebExtensionTests
 	@Test
 	void healthReturnsSystemHealth() {
 		this.registry.registerContributor("test", createContributor(this.up));
-		WebEndpointResponse<HealthComponent> response = create(this.registry, this.groups).health(ApiVersion.LATEST,
+		WebEndpointResponse<HealthComponent> response = ApiVersion.LATEST.health(create(this.registry, this.groups),
 				SecurityContext.NONE);
 		HealthComponent health = response.getBody();
 		assertThat(health.getStatus()).isEqualTo(Status.UP);
@@ -52,9 +52,9 @@ class HealthEndpointWebExtensionTests
 	@Test
 	void healthWithNoContributorReturnsUp() {
 		assertThat(this.registry).isEmpty();
-		WebEndpointResponse<HealthComponent> response = create(this.registry,
-				HealthEndpointGroups.of(mock(HealthEndpointGroup.class), Collections.emptyMap()))
-						.health(ApiVersion.LATEST, SecurityContext.NONE);
+		WebEndpointResponse<HealthComponent> response = ApiVersion.LATEST
+						.health(create(this.registry,
+								HealthEndpointGroups.of(mock(HealthEndpointGroup.class), Collections.emptyMap())), SecurityContext.NONE);
 		assertThat(response.getStatus()).isEqualTo(200);
 		HealthComponent health = response.getBody();
 		assertThat(health.getStatus()).isEqualTo(Status.UP);

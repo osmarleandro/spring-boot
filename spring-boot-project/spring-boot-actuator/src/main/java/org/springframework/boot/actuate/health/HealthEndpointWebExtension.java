@@ -44,7 +44,7 @@ import org.springframework.boot.actuate.endpoint.web.annotation.EndpointWebExten
 @EndpointWebExtension(endpoint = HealthEndpoint.class)
 public class HealthEndpointWebExtension extends HealthEndpointSupport<HealthContributor, HealthComponent> {
 
-	private static final String[] NO_PATH = {};
+	public static final String[] NO_PATH = {};
 
 	/**
 	 * Create a new {@link HealthEndpointWebExtension} instance.
@@ -53,11 +53,6 @@ public class HealthEndpointWebExtension extends HealthEndpointSupport<HealthCont
 	 */
 	public HealthEndpointWebExtension(HealthContributorRegistry registry, HealthEndpointGroups groups) {
 		super(registry, groups);
-	}
-
-	@ReadOperation
-	public WebEndpointResponse<HealthComponent> health(ApiVersion apiVersion, SecurityContext securityContext) {
-		return health(apiVersion, securityContext, false, NO_PATH);
 	}
 
 	@ReadOperation
