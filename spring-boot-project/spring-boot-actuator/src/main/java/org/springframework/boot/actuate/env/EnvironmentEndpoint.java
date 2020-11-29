@@ -22,7 +22,6 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Predicate;
-import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -43,9 +42,7 @@ import org.springframework.core.env.Environment;
 import org.springframework.core.env.MutablePropertySources;
 import org.springframework.core.env.PropertySource;
 import org.springframework.core.env.StandardEnvironment;
-import org.springframework.lang.Nullable;
 import org.springframework.util.PropertyPlaceholderHelper;
-import org.springframework.util.StringUtils;
 import org.springframework.util.SystemPropertyUtils;
 
 /**
@@ -62,7 +59,7 @@ import org.springframework.util.SystemPropertyUtils;
 @Endpoint(id = "env")
 public class EnvironmentEndpoint {
 
-	private final Sanitizer sanitizer = new Sanitizer();
+	public final Sanitizer sanitizer = new Sanitizer();
 
 	private final Environment environment;
 
@@ -75,19 +72,11 @@ public class EnvironmentEndpoint {
 	}
 
 	@ReadOperation
-	public EnvironmentDescriptor environment(@Nullable String pattern) {
-		if (StringUtils.hasText(pattern)) {
-			return getEnvironmentDescriptor(Pattern.compile(pattern).asPredicate());
-		}
-		return getEnvironmentDescriptor((name) -> true);
-	}
-
-	@ReadOperation
 	public EnvironmentEntryDescriptor environmentEntry(@Selector String toMatch) {
 		return getEnvironmentEntryDescriptor(toMatch);
 	}
 
-	private EnvironmentDescriptor getEnvironmentDescriptor(Predicate<String> propertyNamePredicate) {
+	public EnvironmentDescriptor getEnvironmentDescriptor(Predicate<String> propertyNamePredicate) {
 		PlaceholdersResolver resolver = getResolver();
 		List<PropertySourceDescriptor> propertySources = new ArrayList<>();
 		getPropertySourcesAsMap().forEach((sourceName, source) -> {

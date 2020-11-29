@@ -71,7 +71,7 @@ class EnvironmentEndpointAutoConfigurationTests {
 		return (context) -> {
 			assertThat(context).hasSingleBean(EnvironmentEndpoint.class);
 			EnvironmentEndpoint endpoint = context.getBean(EnvironmentEndpoint.class);
-			EnvironmentDescriptor env = endpoint.environment(null);
+			EnvironmentDescriptor env = endpoint.sanitizer.environment(endpoint, null);
 			Map<String, PropertyValueDescriptor> systemProperties = getSource("systemProperties", env).getProperties();
 			assertThat(systemProperties.get("dbPassword").getValue()).isEqualTo(dbPassword);
 			assertThat(systemProperties.get("apiKey").getValue()).isEqualTo(apiKey);

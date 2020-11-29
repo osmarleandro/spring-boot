@@ -67,7 +67,7 @@ class EnvironmentEndpointTests {
 		ConfigurableEnvironment environment = emptyEnvironment();
 		environment.getPropertySources().addLast(singleKeyPropertySource("one", "my.key", "first"));
 		environment.getPropertySources().addLast(singleKeyPropertySource("two", "my.key", "second"));
-		EnvironmentDescriptor descriptor = new EnvironmentEndpoint(environment).environment(null);
+		EnvironmentDescriptor descriptor = new EnvironmentEndpoint(environment).sanitizer.environment(new EnvironmentEndpoint(environment), null);
 		assertThat(descriptor.getActiveProfiles()).isEmpty();
 		Map<String, PropertySourceDescriptor> sources = propertySources(descriptor);
 		assertThat(sources.keySet()).containsExactly("one", "two");
@@ -82,7 +82,7 @@ class EnvironmentEndpointTests {
 		source.addPropertySource(new MapPropertySource("one", Collections.singletonMap("foo", "bar")));
 		source.addPropertySource(new MapPropertySource("two", Collections.singletonMap("foo", "spam")));
 		environment.getPropertySources().addFirst(source);
-		EnvironmentDescriptor descriptor = new EnvironmentEndpoint(environment).environment(null);
+		EnvironmentDescriptor descriptor = new EnvironmentEndpoint(environment).sanitizer.environment(new EnvironmentEndpoint(environment), null);
 		Map<String, PropertySourceDescriptor> sources = propertySources(descriptor);
 		assertThat(sources.keySet()).containsExactly("composite:one", "composite:two");
 		assertThat(sources.get("composite:one").getProperties().get("foo").getValue()).isEqualTo("bar");
@@ -93,8 +93,8 @@ class EnvironmentEndpointTests {
 	void sensitiveKeysHaveTheirValuesSanitized() {
 		TestPropertyValues.of("dbPassword=123456", "apiKey=123456", "mySecret=123456", "myCredentials=123456",
 				"VCAP_SERVICES=123456").applyToSystemProperties(() -> {
-					EnvironmentDescriptor descriptor = new EnvironmentEndpoint(new StandardEnvironment())
-							.environment(null);
+					EnvironmentDescriptor descriptor = new EnvironmentEndpoint(new StandardEnvironment()).sanitizer
+							.environment(new EnvironmentEndpoint(new StandardEnvironment()), null);
 					Map<String, PropertyValueDescriptor> systemProperties = propertySources(descriptor)
 							.get("systemProperties").getProperties();
 					assertThat(systemProperties.get("dbPassword").getValue()).isEqualTo("******");
@@ -116,8 +116,8 @@ class EnvironmentEndpointTests {
 				.of("my.services.amqp-free.credentials.uri=123456", "credentials.http_api_uri=123456",
 						"my.services.cleardb-free.credentials=123456", "foo.mycredentials.uri=123456")
 				.applyToSystemProperties(() -> {
-					EnvironmentDescriptor descriptor = new EnvironmentEndpoint(new StandardEnvironment())
-							.environment(null);
+					EnvironmentDescriptor descriptor = new EnvironmentEndpoint(new StandardEnvironment()).sanitizer
+							.environment(new EnvironmentEndpoint(new StandardEnvironment()), null);
 					Map<String, PropertyValueDescriptor> systemProperties = propertySources(descriptor)
 							.get("systemProperties").getProperties();
 					assertThat(systemProperties.get("my.services.amqp-free.credentials.uri").getValue())
@@ -135,7 +135,7 @@ class EnvironmentEndpointTests {
 		TestPropertyValues.of("dbPassword=123456", "apiKey=123456").applyToSystemProperties(() -> {
 			EnvironmentEndpoint endpoint = new EnvironmentEndpoint(new StandardEnvironment());
 			endpoint.setKeysToSanitize("key");
-			EnvironmentDescriptor descriptor = endpoint.environment(null);
+			EnvironmentDescriptor descriptor = endpoint.sanitizer.environment(endpoint, null);
 			Map<String, PropertyValueDescriptor> systemProperties = propertySources(descriptor).get("systemProperties")
 					.getProperties();
 			assertThat(systemProperties.get("dbPassword").getValue()).isEqualTo("123456");
@@ -149,7 +149,7 @@ class EnvironmentEndpointTests {
 		TestPropertyValues.of("dbPassword=123456", "apiKey=123456").applyToSystemProperties(() -> {
 			EnvironmentEndpoint endpoint = new EnvironmentEndpoint(new StandardEnvironment());
 			endpoint.setKeysToSanitize(".*pass.*");
-			EnvironmentDescriptor descriptor = endpoint.environment(null);
+			EnvironmentDescriptor descriptor = endpoint.sanitizer.environment(endpoint, null);
 			Map<String, PropertyValueDescriptor> systemProperties = propertySources(descriptor).get("systemProperties")
 					.getProperties();
 			assertThat(systemProperties.get("dbPassword").getValue()).isEqualTo("******");
@@ -162,7 +162,7 @@ class EnvironmentEndpointTests {
 	void propertyWithPlaceholderResolved() {
 		ConfigurableEnvironment environment = emptyEnvironment();
 		TestPropertyValues.of("my.foo: ${bar.blah}", "bar.blah: hello").applyTo(environment);
-		EnvironmentDescriptor descriptor = new EnvironmentEndpoint(environment).environment(null);
+		EnvironmentDescriptor descriptor = new EnvironmentEndpoint(environment).sanitizer.environment(new EnvironmentEndpoint(environment), null);
 		assertThat(propertySources(descriptor).get("test").getProperties().get("my.foo").getValue()).isEqualTo("hello");
 	}
 
@@ -170,7 +170,7 @@ class EnvironmentEndpointTests {
 	void propertyWithPlaceholderNotResolved() {
 		ConfigurableEnvironment environment = emptyEnvironment();
 		TestPropertyValues.of("my.foo: ${bar.blah}").applyTo(environment);
-		EnvironmentDescriptor descriptor = new EnvironmentEndpoint(environment).environment(null);
+		EnvironmentDescriptor descriptor = new EnvironmentEndpoint(environment).sanitizer.environment(new EnvironmentEndpoint(environment), null);
 		assertThat(propertySources(descriptor).get("test").getProperties().get("my.foo").getValue())
 				.isEqualTo("${bar.blah}");
 	}
@@ -179,7 +179,7 @@ class EnvironmentEndpointTests {
 	void propertyWithSensitivePlaceholderResolved() {
 		ConfigurableEnvironment environment = emptyEnvironment();
 		TestPropertyValues.of("my.foo: http://${bar.password}://hello", "bar.password: hello").applyTo(environment);
-		EnvironmentDescriptor descriptor = new EnvironmentEndpoint(environment).environment(null);
+		EnvironmentDescriptor descriptor = new EnvironmentEndpoint(environment).sanitizer.environment(new EnvironmentEndpoint(environment), null);
 		assertThat(propertySources(descriptor).get("test").getProperties().get("my.foo").getValue())
 				.isEqualTo("http://******://hello");
 	}
@@ -188,7 +188,7 @@ class EnvironmentEndpointTests {
 	void propertyWithSensitivePlaceholderNotResolved() {
 		ConfigurableEnvironment environment = emptyEnvironment();
 		TestPropertyValues.of("my.foo: http://${bar.password}://hello").applyTo(environment);
-		EnvironmentDescriptor descriptor = new EnvironmentEndpoint(environment).environment(null);
+		EnvironmentDescriptor descriptor = new EnvironmentEndpoint(environment).sanitizer.environment(new EnvironmentEndpoint(environment), null);
 		assertThat(propertySources(descriptor).get("test").getProperties().get("my.foo").getValue())
 				.isEqualTo("http://${bar.password}://hello");
 	}
@@ -199,7 +199,7 @@ class EnvironmentEndpointTests {
 		ConfigurableEnvironment environment = emptyEnvironment();
 		environment.getPropertySources()
 				.addFirst(singleKeyPropertySource("test", "foo", Collections.singletonMap("bar", "baz")));
-		EnvironmentDescriptor descriptor = new EnvironmentEndpoint(environment).environment(null);
+		EnvironmentDescriptor descriptor = new EnvironmentEndpoint(environment).sanitizer.environment(new EnvironmentEndpoint(environment), null);
 		Map<String, String> foo = (Map<String, String>) propertySources(descriptor).get("test").getProperties()
 				.get("foo").getValue();
 		assertThat(foo.get("bar")).isEqualTo("baz");
@@ -254,7 +254,7 @@ class EnvironmentEndpointTests {
 		ConfigurableEnvironment environment = emptyEnvironment();
 		environment.getPropertySources().addFirst(singleKeyPropertySource("one", "a", "alpha"));
 		environment.getPropertySources().addFirst(singleKeyPropertySource("two", "a", "apple"));
-		EnvironmentDescriptor descriptor = new EnvironmentEndpoint(environment).environment(null);
+		EnvironmentDescriptor descriptor = new EnvironmentEndpoint(environment).sanitizer.environment(new EnvironmentEndpoint(environment), null);
 		Map<String, PropertySourceDescriptor> sources = propertySources(descriptor);
 		assertThat(sources.keySet()).containsExactly("two", "one");
 		assertThat(sources.get("one").getProperties().get("a").getValue()).isEqualTo("alpha");
