@@ -38,4 +38,8 @@ public abstract class HealthComponent {
 	@JsonUnwrapped
 	public abstract Status getStatus();
 
+	Status getStatus() {
+		return (this != null) ? getStatus() : Status.UNKNOWN;
+	}
+
 }
