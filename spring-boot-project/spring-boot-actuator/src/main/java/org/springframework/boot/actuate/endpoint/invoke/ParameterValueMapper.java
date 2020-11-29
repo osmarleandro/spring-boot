@@ -16,6 +16,17 @@
 
 package org.springframework.boot.actuate.endpoint.invoke;
 
+import java.util.stream.Collectors;
+
+import org.springframework.beans.factory.ObjectProvider;
+import org.springframework.boot.actuate.autoconfigure.endpoint.jmx.JmxEndpointAutoConfiguration;
+import org.springframework.boot.actuate.endpoint.EndpointFilter;
+import org.springframework.boot.actuate.endpoint.jmx.ExposableJmxEndpoint;
+import org.springframework.boot.actuate.endpoint.jmx.JmxEndpointsSupplier;
+import org.springframework.boot.actuate.endpoint.jmx.annotation.JmxEndpointDiscoverer;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.context.annotation.Bean;
+
 /**
  * Maps parameter values to the required type when invoking an endpoint.
  *
@@ -38,5 +49,13 @@ public interface ParameterValueMapper {
 	 * @throws ParameterMappingException when a mapping failure occurs
 	 */
 	Object mapParameterValue(OperationParameter parameter, Object value) throws ParameterMappingException;
+
+	@Bean
+	@ConditionalOnMissingBean(JmxEndpointsSupplier.class)
+	default JmxEndpointDiscoverer jmxAnnotationEndpointDiscoverer(JmxEndpointAutoConfiguration jmxEndpointAutoConfiguration, ObjectProvider<OperationInvokerAdvisor> invokerAdvisors, ObjectProvider<EndpointFilter<ExposableJmxEndpoint>> filters) {
+		return new JmxEndpointDiscoverer(jmxEndpointAutoConfiguration.applicationContext, this,
+				invokerAdvisors.orderedStream().collect(Collectors.toList()),
+				filters.orderedStream().collect(Collectors.toList()));
+	}
 
 }
