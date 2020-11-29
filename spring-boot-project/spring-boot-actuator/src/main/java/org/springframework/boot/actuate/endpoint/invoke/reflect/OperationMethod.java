@@ -40,7 +40,7 @@ public class OperationMethod {
 
 	private final OperationType operationType;
 
-	private final OperationParameters operationParameters;
+	public final OperationParameters operationParameters;
 
 	/**
 	 * Create a new {@link OperationMethod} instance.
@@ -69,14 +69,6 @@ public class OperationMethod {
 	 */
 	public OperationType getOperationType() {
 		return this.operationType;
-	}
-
-	/**
-	 * Return the operation parameters.
-	 * @return the operation parameters
-	 */
-	public OperationParameters getParameters() {
-		return this.operationParameters;
 	}
 
 	@Override
