@@ -29,7 +29,7 @@ public final class ParameterMappingException extends InvalidEndpointRequestExcep
 
 	private final OperationParameter parameter;
 
-	private final Object value;
+	final Object value;
 
 	/**
 	 * Creates a new {@code ParameterMappingException} for a failure that occurred when
@@ -51,14 +51,6 @@ public final class ParameterMappingException extends InvalidEndpointRequestExcep
 	 */
 	public OperationParameter getParameter() {
 		return this.parameter;
-	}
-
-	/**
-	 * Return the value being mapped.
-	 * @return the value
-	 */
-	public Object getValue() {
-		return this.value;
 	}
 
 }

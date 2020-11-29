@@ -59,7 +59,7 @@ class ConversionServiceParameterValueMapperTests {
 		assertThatExceptionOfType(ParameterMappingException.class)
 				.isThrownBy(() -> mapper.mapParameterValue(new TestOperationParameter(Integer.class), "123"))
 				.satisfies((ex) -> {
-					assertThat(ex.getValue()).isEqualTo("123");
+					assertThat(ex.getParameter().getValue(this)).isEqualTo("123");
 					assertThat(ex.getParameter().getType()).isEqualTo(Integer.class);
 					assertThat(ex.getCause()).isEqualTo(error);
 				});
