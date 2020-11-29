@@ -18,6 +18,8 @@ package org.springframework.boot.actuate.health;
 
 import org.springframework.util.Assert;
 
+import reactor.core.publisher.Mono;
+
 /**
  * Tagging interface for classes that contribute to {@link HealthComponent health
  * components} to the results returned from the {@link HealthEndpoint}. A contributor must
@@ -40,6 +42,10 @@ public interface ReactiveHealthContributor {
 			return new CompositeHealthContributorReactiveAdapter((CompositeHealthContributor) healthContributor);
 		}
 		throw new IllegalStateException("Unknown HealthContributor type");
+	}
+
+	default Mono<? extends HealthComponent> getHealth(boolean includeDetails) {
+		return ((ReactiveHealthIndicator) this).getHealth(includeDetails);
 	}
 
 }
