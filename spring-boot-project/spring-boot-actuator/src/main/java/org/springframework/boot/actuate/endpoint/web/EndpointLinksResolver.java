@@ -22,8 +22,9 @@ import java.util.Map;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
+import org.springframework.boot.actuate.autoconfigure.cloudfoundry.reactive.CloudFoundryWebFluxEndpointHandlerMapping.CloudFoundryLinksHandler;
 import org.springframework.boot.actuate.endpoint.ExposableEndpoint;
+import org.springframework.boot.actuate.endpoint.web.reactive.AbstractWebFluxEndpointHandlerMapping.LinksHandler;
 
 /**
  * A resolver for {@link Link links} to web endpoints.
@@ -101,6 +102,10 @@ public class EndpointLinksResolver {
 
 	private Link createLink(String requestUrl, String path) {
 		return new Link(requestUrl + (path.startsWith("/") ? path : "/" + path));
+	}
+
+	public LinksHandler getLinksHandler() {
+		return new CloudFoundryLinksHandler();
 	}
 
 }

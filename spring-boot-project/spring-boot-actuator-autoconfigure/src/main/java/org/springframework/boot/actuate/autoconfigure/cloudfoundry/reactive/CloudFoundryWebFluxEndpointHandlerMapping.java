@@ -50,7 +50,7 @@ import org.springframework.web.server.ServerWebExchange;
  * @author Phillip Webb
  * @author Brian Clozel
  */
-class CloudFoundryWebFluxEndpointHandlerMapping extends AbstractWebFluxEndpointHandlerMapping {
+public class CloudFoundryWebFluxEndpointHandlerMapping extends AbstractWebFluxEndpointHandlerMapping {
 
 	private final CloudFoundrySecurityInterceptor securityInterceptor;
 
@@ -73,10 +73,10 @@ class CloudFoundryWebFluxEndpointHandlerMapping extends AbstractWebFluxEndpointH
 
 	@Override
 	protected LinksHandler getLinksHandler() {
-		return new CloudFoundryLinksHandler();
+		return linksResolver.getLinksHandler();
 	}
 
-	class CloudFoundryLinksHandler implements LinksHandler {
+	public class CloudFoundryLinksHandler implements LinksHandler {
 
 		@Override
 		public Publisher<ResponseEntity<Object>> links(ServerWebExchange exchange) {
