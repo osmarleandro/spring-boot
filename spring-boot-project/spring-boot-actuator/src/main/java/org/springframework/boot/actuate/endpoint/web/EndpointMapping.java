@@ -16,7 +16,14 @@
 
 package org.springframework.boot.actuate.endpoint.web;
 
+import java.util.Set;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.boot.actuate.endpoint.web.servlet.AbstractWebMvcEndpointHandlerMapping;
 import org.springframework.util.StringUtils;
+import org.springframework.web.servlet.handler.RequestMatchResult;
+import org.springframework.web.servlet.mvc.method.RequestMappingInfo;
 
 /**
  * A value object for the base mapping for endpoints.
@@ -46,6 +53,17 @@ public class EndpointMapping {
 
 	public String createSubPath(String path) {
 		return this.path + normalizePath(path);
+	}
+
+	public RequestMatchResult match(AbstractWebMvcEndpointHandlerMapping abstractWebMvcEndpointHandlerMapping, HttpServletRequest request, String pattern) {
+		RequestMappingInfo info = RequestMappingInfo.paths(pattern).options(AbstractWebMvcEndpointHandlerMapping.builderConfig).build();
+		RequestMappingInfo matchingInfo = info.getMatchingCondition(request);
+		if (matchingInfo == null) {
+			return null;
+		}
+		Set<String> patterns = matchingInfo.getPatternsCondition().getPatterns();
+		String lookupPath = abstractWebMvcEndpointHandlerMapping.getUrlPathHelper().getLookupPathForRequest(request);
+		return new RequestMatchResult(patterns.iterator().next(), lookupPath, abstractWebMvcEndpointHandlerMapping.getPathMatcher());
 	}
 
 	private static String normalizePath(String path) {

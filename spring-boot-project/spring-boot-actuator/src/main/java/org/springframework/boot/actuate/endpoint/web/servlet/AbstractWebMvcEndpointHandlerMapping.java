@@ -24,7 +24,6 @@ import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -89,7 +88,7 @@ public abstract class AbstractWebMvcEndpointHandlerMapping extends RequestMappin
 	private final Method handleMethod = ReflectionUtils.findMethod(OperationHandler.class, "handle",
 			HttpServletRequest.class, Map.class);
 
-	private static final RequestMappingInfo.BuilderConfiguration builderConfig = getBuilderConfig();
+	public static final RequestMappingInfo.BuilderConfiguration builderConfig = getBuilderConfig();
 
 	/**
 	 * Creates a new {@code WebEndpointHandlerMapping} that provides mappings for the
@@ -145,14 +144,7 @@ public abstract class AbstractWebMvcEndpointHandlerMapping extends RequestMappin
 
 	@Override
 	public RequestMatchResult match(HttpServletRequest request, String pattern) {
-		RequestMappingInfo info = RequestMappingInfo.paths(pattern).options(builderConfig).build();
-		RequestMappingInfo matchingInfo = info.getMatchingCondition(request);
-		if (matchingInfo == null) {
-			return null;
-		}
-		Set<String> patterns = matchingInfo.getPatternsCondition().getPatterns();
-		String lookupPath = getUrlPathHelper().getLookupPathForRequest(request);
-		return new RequestMatchResult(patterns.iterator().next(), lookupPath, getPathMatcher());
+		return endpointMapping.match(this, request, pattern);
 	}
 
 	@SuppressWarnings("deprecation")
