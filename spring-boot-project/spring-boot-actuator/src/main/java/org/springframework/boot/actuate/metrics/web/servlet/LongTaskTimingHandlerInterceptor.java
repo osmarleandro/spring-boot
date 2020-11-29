@@ -17,10 +17,8 @@
 package org.springframework.boot.actuate.metrics.web.servlet;
 
 import java.lang.reflect.AnnotatedElement;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.List;
 import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
@@ -29,7 +27,6 @@ import javax.servlet.http.HttpServletResponse;
 import io.micrometer.core.annotation.Timed;
 import io.micrometer.core.instrument.LongTaskTimer;
 import io.micrometer.core.instrument.MeterRegistry;
-import io.micrometer.core.instrument.Tag;
 
 import org.springframework.core.annotation.MergedAnnotationCollectors;
 import org.springframework.core.annotation.MergedAnnotations;
@@ -46,7 +43,7 @@ import org.springframework.web.servlet.HandlerInterceptor;
  */
 public class LongTaskTimingHandlerInterceptor implements HandlerInterceptor {
 
-	private final MeterRegistry registry;
+	final MeterRegistry registry;
 
 	private final WebMvcTagsProvider tagsProvider;
 
@@ -82,21 +79,9 @@ public class LongTaskTimingHandlerInterceptor implements HandlerInterceptor {
 
 	private void startAndAttachTimingContext(HttpServletRequest request, Object handler) {
 		Set<Timed> annotations = getTimedAnnotations(handler);
-		Collection<LongTaskTimer.Sample> longTaskTimerSamples = getLongTaskTimerSamples(request, handler, annotations);
+		Collection<LongTaskTimer.Sample> longTaskTimerSamples = tagsProvider.getLongTaskTimerSamples(this, request, handler, annotations);
 		LongTaskTimingContext timingContext = new LongTaskTimingContext(longTaskTimerSamples);
 		timingContext.attachTo(request);
-	}
-
-	private Collection<LongTaskTimer.Sample> getLongTaskTimerSamples(HttpServletRequest request, Object handler,
-			Set<Timed> annotations) {
-		List<LongTaskTimer.Sample> samples = new ArrayList<>();
-		annotations.stream().filter(Timed::longTask).forEach((annotation) -> {
-			Iterable<Tag> tags = this.tagsProvider.getLongRequestTags(request, handler);
-			LongTaskTimer.Builder builder = LongTaskTimer.builder(annotation).tags(tags);
-			LongTaskTimer timer = builder.register(this.registry);
-			samples.add(timer.start());
-		});
-		return samples;
 	}
 
 	private Set<Timed> getTimedAnnotations(Object handler) {
