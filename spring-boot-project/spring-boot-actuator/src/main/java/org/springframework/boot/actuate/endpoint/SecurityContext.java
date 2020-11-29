@@ -57,4 +57,8 @@ public interface SecurityContext {
 	 */
 	boolean isUserInRole(String role);
 
+	default boolean showDetails() {
+		return false;
+	}
+
 }

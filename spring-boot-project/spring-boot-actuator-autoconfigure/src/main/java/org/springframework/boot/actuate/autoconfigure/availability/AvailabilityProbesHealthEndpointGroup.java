@@ -51,7 +51,7 @@ class AvailabilityProbesHealthEndpointGroup implements HealthEndpointGroup {
 
 	@Override
 	public boolean showDetails(SecurityContext securityContext) {
-		return false;
+		return securityContext.showDetails();
 	}
 
 	@Override
