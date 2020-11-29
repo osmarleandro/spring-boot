@@ -19,7 +19,6 @@ package org.springframework.boot.actuate.metrics.web.servlet;
 import java.lang.reflect.AnnotatedElement;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
@@ -81,7 +80,7 @@ public class LongTaskTimingHandlerInterceptor implements HandlerInterceptor {
 	}
 
 	private void startAndAttachTimingContext(HttpServletRequest request, Object handler) {
-		Set<Timed> annotations = getTimedAnnotations(handler);
+		Set<Timed> annotations = tagsProvider.getTimedAnnotations(this, handler);
 		Collection<LongTaskTimer.Sample> longTaskTimerSamples = getLongTaskTimerSamples(request, handler, annotations);
 		LongTaskTimingContext timingContext = new LongTaskTimingContext(longTaskTimerSamples);
 		timingContext.attachTo(request);
@@ -99,14 +98,7 @@ public class LongTaskTimingHandlerInterceptor implements HandlerInterceptor {
 		return samples;
 	}
 
-	private Set<Timed> getTimedAnnotations(Object handler) {
-		if (!(handler instanceof HandlerMethod)) {
-			return Collections.emptySet();
-		}
-		return getTimedAnnotations((HandlerMethod) handler);
-	}
-
-	private Set<Timed> getTimedAnnotations(HandlerMethod handler) {
+	Set<Timed> getTimedAnnotations(HandlerMethod handler) {
 		Set<Timed> timed = findTimedAnnotations(handler.getMethod());
 		if (timed.isEmpty()) {
 			return findTimedAnnotations(handler.getBeanType());

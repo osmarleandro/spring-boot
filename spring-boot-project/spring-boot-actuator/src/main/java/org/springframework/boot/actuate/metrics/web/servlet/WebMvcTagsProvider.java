@@ -16,9 +16,15 @@
 
 package org.springframework.boot.actuate.metrics.web.servlet;
 
+import java.util.Collections;
+import java.util.Set;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.web.method.HandlerMethod;
+
+import io.micrometer.core.annotation.Timed;
 import io.micrometer.core.instrument.LongTaskTimer;
 import io.micrometer.core.instrument.Tag;
 
@@ -52,5 +58,12 @@ public interface WebMvcTagsProvider {
 	 * @return tags to associate with metrics recorded for the request
 	 */
 	Iterable<Tag> getLongRequestTags(HttpServletRequest request, Object handler);
+
+	default Set<Timed> getTimedAnnotations(LongTaskTimingHandlerInterceptor longTaskTimingHandlerInterceptor, Object handler) {
+		if (!(handler instanceof HandlerMethod)) {
+			return Collections.emptySet();
+		}
+		return longTaskTimingHandlerInterceptor.getTimedAnnotations((HandlerMethod) handler);
+	}
 
 }
