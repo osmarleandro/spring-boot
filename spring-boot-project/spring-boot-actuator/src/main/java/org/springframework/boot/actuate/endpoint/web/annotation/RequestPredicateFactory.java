@@ -23,7 +23,6 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.stream.Stream;
 
-import org.springframework.boot.actuate.endpoint.OperationType;
 import org.springframework.boot.actuate.endpoint.annotation.DiscoveredOperationMethod;
 import org.springframework.boot.actuate.endpoint.annotation.Selector;
 import org.springframework.boot.actuate.endpoint.annotation.Selector.Match;
@@ -57,7 +56,7 @@ class RequestPredicateFactory {
 				.toArray(Parameter[]::new);
 		Parameter allRemainingPathSegmentsParameter = getAllRemainingPathSegmentsParameter(selectorParameters);
 		String path = getPath(rootPath, selectorParameters, allRemainingPathSegmentsParameter != null);
-		WebEndpointHttpMethod httpMethod = determineHttpMethod(operationMethod.getOperationType());
+		WebEndpointHttpMethod httpMethod = operationMethod.getOperationType().determineHttpMethod();
 		Collection<String> consumes = getConsumes(httpMethod, method);
 		Collection<String> produces = getProduces(operationMethod, method);
 		return new WebOperationRequestPredicate(path, httpMethod, consumes, produces);
@@ -131,16 +130,6 @@ class RequestPredicateFactory {
 	private boolean consumesRequestBody(Method method) {
 		return Stream.of(method.getParameters())
 				.anyMatch((parameter) -> parameter.getAnnotation(Selector.class) == null);
-	}
-
-	private WebEndpointHttpMethod determineHttpMethod(OperationType operationType) {
-		if (operationType == OperationType.WRITE) {
-			return WebEndpointHttpMethod.POST;
-		}
-		if (operationType == OperationType.DELETE) {
-			return WebEndpointHttpMethod.DELETE;
-		}
-		return WebEndpointHttpMethod.GET;
 	}
 
 }

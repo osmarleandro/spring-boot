@@ -16,6 +16,8 @@
 
 package org.springframework.boot.actuate.endpoint;
 
+import org.springframework.boot.actuate.endpoint.web.WebEndpointHttpMethod;
+
 /**
  * An enumeration of the different types of operation supported by an endpoint.
  *
@@ -38,6 +40,16 @@ public enum OperationType {
 	/**
 	 * A delete operation.
 	 */
-	DELETE
+	DELETE;
+
+	public WebEndpointHttpMethod determineHttpMethod() {
+		if (this == OperationType.WRITE) {
+			return WebEndpointHttpMethod.POST;
+		}
+		if (this == OperationType.DELETE) {
+			return WebEndpointHttpMethod.DELETE;
+		}
+		return WebEndpointHttpMethod.GET;
+	}
 
 }
