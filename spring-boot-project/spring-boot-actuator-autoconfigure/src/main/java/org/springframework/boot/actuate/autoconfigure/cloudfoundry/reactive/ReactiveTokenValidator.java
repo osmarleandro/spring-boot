@@ -51,21 +51,8 @@ class ReactiveTokenValidator {
 	}
 
 	Mono<Void> validate(Token token) {
-		return validateAlgorithm(token).then(validateKeyIdAndSignature(token)).then(validateExpiry(token))
+		return token.validateAlgorithm().then(validateKeyIdAndSignature(token)).then(validateExpiry(token))
 				.then(validateIssuer(token)).then(validateAudience(token));
-	}
-
-	private Mono<Void> validateAlgorithm(Token token) {
-		String algorithm = token.getSignatureAlgorithm();
-		if (algorithm == null) {
-			return Mono.error(new CloudFoundryAuthorizationException(Reason.INVALID_SIGNATURE,
-					"Signing algorithm cannot be null"));
-		}
-		if (!algorithm.equals("RS256")) {
-			return Mono.error(new CloudFoundryAuthorizationException(Reason.UNSUPPORTED_TOKEN_SIGNING_ALGORITHM,
-					"Signing algorithm " + algorithm + " not supported"));
-		}
-		return Mono.empty();
 	}
 
 	private Mono<Void> validateKeyIdAndSignature(Token token) {

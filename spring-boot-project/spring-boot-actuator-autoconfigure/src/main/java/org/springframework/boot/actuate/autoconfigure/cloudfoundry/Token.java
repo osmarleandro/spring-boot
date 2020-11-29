@@ -25,6 +25,8 @@ import org.springframework.boot.json.JsonParserFactory;
 import org.springframework.util.Base64Utils;
 import org.springframework.util.StringUtils;
 
+import reactor.core.publisher.Mono;
+
 /**
  * The JSON web token provided with each request that originates from Cloud Foundry.
  *
@@ -113,6 +115,19 @@ public class Token {
 	@Override
 	public String toString() {
 		return this.encoded;
+	}
+
+	public Mono<Void> validateAlgorithm() {
+		String algorithm = getSignatureAlgorithm();
+		if (algorithm == null) {
+			return Mono.error(new CloudFoundryAuthorizationException(Reason.INVALID_SIGNATURE,
+					"Signing algorithm cannot be null"));
+		}
+		if (!algorithm.equals("RS256")) {
+			return Mono.error(new CloudFoundryAuthorizationException(Reason.UNSUPPORTED_TOKEN_SIGNING_ALGORITHM,
+					"Signing algorithm " + algorithm + " not supported"));
+		}
+		return Mono.empty();
 	}
 
 }
