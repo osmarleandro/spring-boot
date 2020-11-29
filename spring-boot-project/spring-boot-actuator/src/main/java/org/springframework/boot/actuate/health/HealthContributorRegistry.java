@@ -16,6 +16,10 @@
 
 package org.springframework.boot.actuate.health;
 
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.context.annotation.Bean;
+
 /**
  * {@link ContributorRegistry} for {@link HealthContributor HealthContributors}.
  *
@@ -23,5 +27,13 @@ package org.springframework.boot.actuate.health;
  * @since 2.2.0
  */
 public interface HealthContributorRegistry extends ContributorRegistry<HealthContributor> {
+
+	@Bean
+	@ConditionalOnBean(HealthEndpoint.class)
+	@ConditionalOnMissingBean
+	default
+	HealthEndpointWebExtension healthEndpointWebExtension(HealthEndpointGroups groups) {
+		return new HealthEndpointWebExtension(this, groups);
+	}
 
 }
