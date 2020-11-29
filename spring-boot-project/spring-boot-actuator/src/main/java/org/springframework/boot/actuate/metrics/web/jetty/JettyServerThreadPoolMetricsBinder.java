@@ -39,9 +39,9 @@ import org.springframework.context.ApplicationListener;
  */
 public class JettyServerThreadPoolMetricsBinder implements ApplicationListener<ApplicationStartedEvent> {
 
-	private final MeterRegistry meterRegistry;
+	public final MeterRegistry meterRegistry;
 
-	private final Iterable<Tag> tags;
+	public final Iterable<Tag> tags;
 
 	public JettyServerThreadPoolMetricsBinder(MeterRegistry meterRegistry) {
 		this(meterRegistry, Collections.emptyList());
@@ -52,16 +52,7 @@ public class JettyServerThreadPoolMetricsBinder implements ApplicationListener<A
 		this.tags = tags;
 	}
 
-	@Override
-	public void onApplicationEvent(ApplicationStartedEvent event) {
-		ApplicationContext applicationContext = event.getApplicationContext();
-		ThreadPool threadPool = findThreadPool(applicationContext);
-		if (threadPool != null) {
-			new JettyServerThreadPoolMetrics(threadPool, this.tags).bindTo(this.meterRegistry);
-		}
-	}
-
-	private ThreadPool findThreadPool(ApplicationContext applicationContext) {
+	public ThreadPool findThreadPool(ApplicationContext applicationContext) {
 		if (applicationContext instanceof WebServerApplicationContext) {
 			WebServer webServer = ((WebServerApplicationContext) applicationContext).getWebServer();
 			if (webServer instanceof JettyWebServer) {

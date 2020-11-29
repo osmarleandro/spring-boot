@@ -16,10 +16,15 @@
 
 package org.springframework.boot.context.event;
 
+import org.eclipse.jetty.util.thread.ThreadPool;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.actuate.metrics.web.jetty.JettyServerThreadPoolMetricsBinder;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
+
+import io.micrometer.core.instrument.binder.jetty.JettyServerThreadPoolMetrics;
 
 /**
  * Event published once the application context has been refreshed but before any
@@ -52,6 +57,14 @@ public class ApplicationStartedEvent extends SpringApplicationEvent {
 	 */
 	public ConfigurableApplicationContext getApplicationContext() {
 		return this.context;
+	}
+
+	public void onApplicationEvent(JettyServerThreadPoolMetricsBinder jettyServerThreadPoolMetricsBinder) {
+		ApplicationContext applicationContext = getApplicationContext();
+		ThreadPool threadPool = jettyServerThreadPoolMetricsBinder.findThreadPool(applicationContext);
+		if (threadPool != null) {
+			new JettyServerThreadPoolMetrics(threadPool, jettyServerThreadPoolMetricsBinder.tags).bindTo(jettyServerThreadPoolMetricsBinder.meterRegistry);
+		}
 	}
 
 }
