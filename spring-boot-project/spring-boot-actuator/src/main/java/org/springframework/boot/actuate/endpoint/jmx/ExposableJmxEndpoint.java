@@ -16,6 +16,9 @@
 
 package org.springframework.boot.actuate.endpoint.jmx;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.boot.actuate.endpoint.ExposableEndpoint;
 
 /**
@@ -25,5 +28,13 @@ import org.springframework.boot.actuate.endpoint.ExposableEndpoint;
  * @since 2.0.0
  */
 public interface ExposableJmxEndpoint extends ExposableEndpoint<JmxOperation> {
+
+	default Map<String, Object> getArguments(String[] parameterNames, Object[] params) {
+		Map<String, Object> arguments = new HashMap<>();
+		for (int i = 0; i < params.length; i++) {
+			arguments.put(parameterNames[i], params[i]);
+		}
+		return arguments;
+	}
 
 }
