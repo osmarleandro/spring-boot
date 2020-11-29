@@ -58,14 +58,7 @@ public class WebEndpointProperties {
 
 	public void setBasePath(String basePath) {
 		Assert.isTrue(basePath.isEmpty() || basePath.startsWith("/"), "Base path must start with '/' or be empty");
-		this.basePath = cleanBasePath(basePath);
-	}
-
-	private String cleanBasePath(String basePath) {
-		if (StringUtils.hasText(basePath) && basePath.endsWith("/")) {
-			return basePath.substring(0, basePath.length() - 1);
-		}
-		return basePath;
+		this.basePath = exposure.cleanBasePath(basePath);
 	}
 
 	public Map<String, String> getPathMapping() {
@@ -98,6 +91,13 @@ public class WebEndpointProperties {
 
 		public void setExclude(Set<String> exclude) {
 			this.exclude = exclude;
+		}
+
+		String cleanBasePath(String basePath) {
+			if (StringUtils.hasText(basePath) && basePath.endsWith("/")) {
+				return basePath.substring(0, basePath.length() - 1);
+			}
+			return basePath;
 		}
 
 	}
