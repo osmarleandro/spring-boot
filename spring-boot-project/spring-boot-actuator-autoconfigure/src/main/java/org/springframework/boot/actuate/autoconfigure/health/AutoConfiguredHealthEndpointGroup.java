@@ -27,7 +27,6 @@ import org.springframework.boot.actuate.health.HttpCodeStatusMapper;
 import org.springframework.boot.actuate.health.StatusAggregator;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.util.ClassUtils;
 import org.springframework.util.CollectionUtils;
 
 /**
@@ -108,7 +107,7 @@ class AutoConfiguredHealthEndpointGroup implements HealthEndpointGroup {
 		if (CollectionUtils.isEmpty(this.roles)) {
 			return true;
 		}
-		boolean checkAuthorities = isSpringSecurityAuthentication(principal);
+		boolean checkAuthorities = httpCodeStatusMapper.isSpringSecurityAuthentication(principal);
 		for (String role : this.roles) {
 			if (securityContext.isUserInRole(role)) {
 				return true;
@@ -124,11 +123,6 @@ class AutoConfiguredHealthEndpointGroup implements HealthEndpointGroup {
 			}
 		}
 		return false;
-	}
-
-	private boolean isSpringSecurityAuthentication(Principal principal) {
-		return ClassUtils.isPresent("org.springframework.security.core.Authentication", null)
-				&& (principal instanceof Authentication);
 	}
 
 	@Override

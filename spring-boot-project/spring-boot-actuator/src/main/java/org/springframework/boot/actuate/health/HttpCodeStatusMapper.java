@@ -16,6 +16,11 @@
 
 package org.springframework.boot.actuate.health;
 
+import java.security.Principal;
+
+import org.springframework.security.core.Authentication;
+import org.springframework.util.ClassUtils;
+
 /**
  * Strategy used to map a {@link Status health status} to an HTTP status code.
  *
@@ -39,5 +44,10 @@ public interface HttpCodeStatusMapper {
 	 * @return the corresponding HTTP status code
 	 */
 	int getStatusCode(Status status);
+
+	public default boolean isSpringSecurityAuthentication(Principal principal) {
+		return ClassUtils.isPresent("org.springframework.security.core.Authentication", null)
+				&& (principal instanceof Authentication);
+	}
 
 }
