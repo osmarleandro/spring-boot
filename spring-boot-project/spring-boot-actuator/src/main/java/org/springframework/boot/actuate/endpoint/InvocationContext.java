@@ -33,7 +33,7 @@ public class InvocationContext {
 
 	private final SecurityContext securityContext;
 
-	private final Map<String, Object> arguments;
+	final Map<String, Object> arguments;
 
 	private final ApiVersion apiVersion;
 
@@ -78,14 +78,6 @@ public class InvocationContext {
 	 */
 	public SecurityContext getSecurityContext() {
 		return this.securityContext;
-	}
-
-	/**
-	 * Return the invocation arguments.
-	 * @return the arguments
-	 */
-	public Map<String, Object> getArguments() {
-		return this.arguments;
 	}
 
 }

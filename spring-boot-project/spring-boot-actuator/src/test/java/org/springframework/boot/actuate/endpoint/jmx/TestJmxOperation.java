@@ -68,7 +68,7 @@ public class TestJmxOperation implements JmxOperation {
 
 	@Override
 	public Object invoke(InvocationContext context) {
-		return (this.invoke != null) ? this.invoke.apply(context.getArguments()) : "result";
+		return (this.invoke != null) ? this.invoke.apply(context.getSecurityContext().getArguments(this)) : "result";
 	}
 
 	@Override

@@ -17,6 +17,7 @@
 package org.springframework.boot.actuate.endpoint;
 
 import java.security.Principal;
+import java.util.Map;
 
 /**
  * Security context in which an endpoint is being invoked.
@@ -56,5 +57,14 @@ public interface SecurityContext {
 	 * @return {@code true} if the user is in the given role
 	 */
 	boolean isUserInRole(String role);
+
+	/**
+	 * Return the invocation arguments.
+	 * @param invocationContext TODO
+	 * @return the arguments
+	 */
+	default Map<String, Object> getArguments(InvocationContext invocationContext) {
+		return invocationContext.arguments;
+	}
 
 }
