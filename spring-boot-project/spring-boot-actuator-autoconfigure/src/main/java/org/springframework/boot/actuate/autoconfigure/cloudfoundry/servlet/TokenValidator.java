@@ -36,9 +36,9 @@ import org.springframework.util.Base64Utils;
  *
  * @author Madhura Bhave
  */
-class TokenValidator {
+public class TokenValidator {
 
-	private final CloudFoundrySecurityService securityService;
+	public final CloudFoundrySecurityService securityService;
 
 	private Map<String, String> tokenKeys;
 
@@ -50,7 +50,7 @@ class TokenValidator {
 		validateAlgorithm(token);
 		validateKeyIdAndSignature(token);
 		validateExpiry(token);
-		validateIssuer(token);
+		token.validateIssuer(this);
 		validateAudience(token);
 	}
 
@@ -111,15 +111,6 @@ class TokenValidator {
 		long currentTime = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());
 		if (currentTime > token.getExpiry()) {
 			throw new CloudFoundryAuthorizationException(Reason.TOKEN_EXPIRED, "Token expired");
-		}
-	}
-
-	private void validateIssuer(Token token) {
-		String uaaUrl = this.securityService.getUaaUrl();
-		String issuerUri = String.format("%s/oauth/token", uaaUrl);
-		if (!issuerUri.equals(token.getIssuer())) {
-			throw new CloudFoundryAuthorizationException(Reason.INVALID_ISSUER,
-					"Token issuer does not match " + uaaUrl + "/oauth/token");
 		}
 	}
 

@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.CloudFoundryAuthorizationException.Reason;
+import org.springframework.boot.actuate.autoconfigure.cloudfoundry.servlet.TokenValidator;
 import org.springframework.boot.json.JsonParserFactory;
 import org.springframework.util.Base64Utils;
 import org.springframework.util.StringUtils;
@@ -113,6 +114,15 @@ public class Token {
 	@Override
 	public String toString() {
 		return this.encoded;
+	}
+
+	public void validateIssuer(TokenValidator tokenValidator) {
+		String uaaUrl = tokenValidator.securityService.getUaaUrl();
+		String issuerUri = String.format("%s/oauth/token", uaaUrl);
+		if (!issuerUri.equals(getIssuer())) {
+			throw new CloudFoundryAuthorizationException(Reason.INVALID_ISSUER,
+					"Token issuer does not match " + uaaUrl + "/oauth/token");
+		}
 	}
 
 }

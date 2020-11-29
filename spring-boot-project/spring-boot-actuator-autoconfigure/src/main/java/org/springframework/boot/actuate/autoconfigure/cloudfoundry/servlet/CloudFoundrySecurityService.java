@@ -39,7 +39,7 @@ import org.springframework.web.client.RestTemplate;
  *
  * @author Madhura Bhave
  */
-class CloudFoundrySecurityService {
+public class CloudFoundrySecurityService {
 
 	private final RestTemplate restTemplate;
 
@@ -121,7 +121,7 @@ class CloudFoundrySecurityService {
 	 * Return the URL of the UAA.
 	 * @return the UAA url
 	 */
-	String getUaaUrl() {
+	public String getUaaUrl() {
 		if (this.uaaUrl == null) {
 			try {
 				Map<?, ?> response = this.restTemplate.getForObject(this.cloudControllerUrl + "/info", Map.class);
