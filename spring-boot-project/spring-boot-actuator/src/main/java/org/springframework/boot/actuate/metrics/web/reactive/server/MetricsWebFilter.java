@@ -98,7 +98,7 @@ public class MetricsWebFilter implements WebFilter {
 
 	private void record(ServerWebExchange exchange, long start, Throwable cause) {
 		Iterable<Tag> tags = this.tagsProvider.httpRequestTags(exchange, cause);
-		this.autoTimer.builder(this.metricName).tags(tags).register(this.registry).record(System.nanoTime() - start,
+		this.autoTimer.DISABLED.builder(this.autoTimer, this.metricName).tags(tags).register(this.registry).record(System.nanoTime() - start,
 				TimeUnit.NANOSECONDS);
 	}
 
