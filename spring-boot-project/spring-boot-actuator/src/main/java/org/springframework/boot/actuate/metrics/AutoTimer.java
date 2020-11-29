@@ -18,9 +18,12 @@ package org.springframework.boot.actuate.metrics;
 
 import java.util.function.Supplier;
 
+import org.springframework.boot.actuate.metrics.web.reactive.client.MetricsWebClientFilterFunction;
+
 import io.micrometer.core.annotation.Timed;
 import io.micrometer.core.instrument.Timer;
 import io.micrometer.core.instrument.Timer.Builder;
+import reactor.util.context.Context;
 
 /**
  * Strategy that can be used to apply {@link Timer Timers} automatically instead of using
@@ -93,5 +96,9 @@ public interface AutoTimer {
 	 * @param builder the builder to apply settings to
 	 */
 	void apply(Timer.Builder builder);
+
+	public default Context putStartTime(Context context) {
+		return context.put(MetricsWebClientFilterFunction.METRICS_WEBCLIENT_START_TIME, System.nanoTime());
+	}
 
 }

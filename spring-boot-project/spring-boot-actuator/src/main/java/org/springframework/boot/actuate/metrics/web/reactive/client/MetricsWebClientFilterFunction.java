@@ -23,7 +23,6 @@ import io.micrometer.core.instrument.MeterRegistry;
 import io.micrometer.core.instrument.Tag;
 import reactor.core.publisher.Mono;
 import reactor.core.publisher.SignalType;
-import reactor.util.context.Context;
 import reactor.util.context.ContextView;
 
 import org.springframework.boot.actuate.metrics.AutoTimer;
@@ -42,7 +41,7 @@ import org.springframework.web.reactive.function.client.ExchangeFunction;
  */
 public class MetricsWebClientFilterFunction implements ExchangeFilterFunction {
 
-	private static final String METRICS_WEBCLIENT_START_TIME = MetricsWebClientFilterFunction.class.getName()
+	public static final String METRICS_WEBCLIENT_START_TIME = MetricsWebClientFilterFunction.class.getName()
 			+ ".START_TIME";
 
 	private final MeterRegistry meterRegistry;
@@ -101,10 +100,6 @@ public class MetricsWebClientFilterFunction implements ExchangeFilterFunction {
 
 	private Long getStartTime(ContextView context) {
 		return context.get(METRICS_WEBCLIENT_START_TIME);
-	}
-
-	private Context putStartTime(Context context) {
-		return context.put(METRICS_WEBCLIENT_START_TIME, System.nanoTime());
 	}
 
 }
