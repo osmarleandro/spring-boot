@@ -16,6 +16,8 @@
 
 package org.springframework.boot.actuate.health;
 
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -23,7 +25,13 @@ import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
+import org.apache.http.HttpStatus;
+import org.apache.http.StatusLine;
+import org.elasticsearch.client.Request;
+import org.elasticsearch.client.Response;
+import org.springframework.boot.actuate.elasticsearch.ElasticsearchRestHealthIndicator;
 import org.springframework.util.Assert;
+import org.springframework.util.StreamUtils;
 
 /**
  * Carries information about the health of a component or subsystem. Extends
@@ -327,6 +335,20 @@ public final class Health extends HealthComponent {
 		 */
 		public Health build() {
 			return new Health(this);
+		}
+
+		public void doHealthCheck(ElasticsearchRestHealthIndicator elasticsearchRestHealthIndicator) throws Exception {
+			Response response = elasticsearchRestHealthIndicator.client.performRequest(new Request("GET", "/_cluster/health/"));
+			StatusLine statusLine = response.getStatusLine();
+			if (statusLine.getStatusCode() != HttpStatus.SC_OK) {
+				down();
+				withDetail("statusCode", statusLine.getStatusCode());
+				withDetail("reasonPhrase", statusLine.getReasonPhrase());
+				return;
+			}
+			try (InputStream inputStream = response.getEntity().getContent()) {
+				elasticsearchRestHealthIndicator.doHealthCheck(this, StreamUtils.copyToString(inputStream, StandardCharsets.UTF_8));
+			}
 		}
 
 	}
