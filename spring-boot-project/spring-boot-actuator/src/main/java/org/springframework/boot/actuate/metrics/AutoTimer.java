@@ -16,7 +16,14 @@
 
 package org.springframework.boot.actuate.metrics;
 
+import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 import java.util.function.Supplier;
+
+import org.springframework.boot.actuate.metrics.web.client.MetricsClientHttpRequestInterceptor;
+import org.springframework.http.HttpRequest;
+import org.springframework.http.client.ClientHttpRequestExecution;
+import org.springframework.http.client.ClientHttpResponse;
 
 import io.micrometer.core.annotation.Timed;
 import io.micrometer.core.instrument.Timer;
@@ -93,5 +100,25 @@ public interface AutoTimer {
 	 * @param builder the builder to apply settings to
 	 */
 	void apply(Timer.Builder builder);
+
+	default ClientHttpResponse intercept(MetricsClientHttpRequestInterceptor metricsClientHttpRequestInterceptor, HttpRequest request, byte[] body, ClientHttpRequestExecution execution)
+			throws IOException {
+		if (!isEnabled()) {
+			return execution.execute(request, body);
+		}
+		long startTime = System.nanoTime();
+		ClientHttpResponse response = null;
+		try {
+			response = execution.execute(request, body);
+			return response;
+		}
+		finally {
+			metricsClientHttpRequestInterceptor.getTimeBuilder(request, response).register(metricsClientHttpRequestInterceptor.meterRegistry).record(System.nanoTime() - startTime,
+					TimeUnit.NANOSECONDS);
+			if (MetricsClientHttpRequestInterceptor.urlTemplate.get().isEmpty()) {
+				MetricsClientHttpRequestInterceptor.urlTemplate.remove();
+			}
+		}
+	}
 
 }

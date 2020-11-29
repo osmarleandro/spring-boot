@@ -21,7 +21,6 @@ import java.net.URI;
 import java.util.Deque;
 import java.util.LinkedList;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
 import io.micrometer.core.instrument.MeterRegistry;
 import io.micrometer.core.instrument.Timer;
@@ -41,17 +40,17 @@ import org.springframework.web.util.UriTemplateHandler;
  * @author Jon Schneider
  * @author Phillip Webb
  */
-class MetricsClientHttpRequestInterceptor implements ClientHttpRequestInterceptor {
+public class MetricsClientHttpRequestInterceptor implements ClientHttpRequestInterceptor {
 
-	private static final ThreadLocal<Deque<String>> urlTemplate = new UrlTemplateThreadLocal();
+	public static final ThreadLocal<Deque<String>> urlTemplate = new UrlTemplateThreadLocal();
 
-	private final MeterRegistry meterRegistry;
+	public final MeterRegistry meterRegistry;
 
 	private final RestTemplateExchangeTagsProvider tagProvider;
 
 	private final String metricName;
 
-	private final AutoTimer autoTimer;
+	public final AutoTimer autoTimer;
 
 	/**
 	 * Create a new {@code MetricsClientHttpRequestInterceptor}.
@@ -72,23 +71,8 @@ class MetricsClientHttpRequestInterceptor implements ClientHttpRequestIntercepto
 	@Override
 	public ClientHttpResponse intercept(HttpRequest request, byte[] body, ClientHttpRequestExecution execution)
 			throws IOException {
-		if (!this.autoTimer.isEnabled()) {
-			return execution.execute(request, body);
-		}
-		long startTime = System.nanoTime();
-		ClientHttpResponse response = null;
-		try {
-			response = execution.execute(request, body);
-			return response;
-		}
-		finally {
-			getTimeBuilder(request, response).register(this.meterRegistry).record(System.nanoTime() - startTime,
-					TimeUnit.NANOSECONDS);
-			if (urlTemplate.get().isEmpty()) {
-				urlTemplate.remove();
+				return autoTimer.intercept(this, request, body, execution);
 			}
-		}
-	}
 
 	UriTemplateHandler createUriTemplateHandler(UriTemplateHandler delegate) {
 		return new UriTemplateHandler() {
@@ -108,7 +92,7 @@ class MetricsClientHttpRequestInterceptor implements ClientHttpRequestIntercepto
 		};
 	}
 
-	private Timer.Builder getTimeBuilder(HttpRequest request, ClientHttpResponse response) {
+	public Timer.Builder getTimeBuilder(HttpRequest request, ClientHttpResponse response) {
 		return this.autoTimer.builder(this.metricName)
 				.tags(this.tagProvider.getTags(urlTemplate.get().poll(), request, response))
 				.description("Timer of RestTemplate operation");
