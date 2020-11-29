@@ -74,10 +74,6 @@ public class PrometheusProperties {
 		this.histogramFlavor = histogramFlavor;
 	}
 
-	public Duration getStep() {
-		return this.step;
-	}
-
 	public void setStep(Duration step) {
 		this.step = step;
 	}
@@ -193,6 +189,10 @@ public class PrometheusProperties {
 
 		public void setShutdownOperation(ShutdownOperation shutdownOperation) {
 			this.shutdownOperation = shutdownOperation;
+		}
+
+		public Duration getStep(PrometheusProperties prometheusProperties) {
+			return prometheusProperties.step;
 		}
 
 	}

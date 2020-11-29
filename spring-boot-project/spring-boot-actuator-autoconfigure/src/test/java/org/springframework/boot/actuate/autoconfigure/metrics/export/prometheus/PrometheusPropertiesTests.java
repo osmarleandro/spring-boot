@@ -34,7 +34,7 @@ class PrometheusPropertiesTests {
 		PrometheusConfig config = PrometheusConfig.DEFAULT;
 		assertThat(properties.isDescriptions()).isEqualTo(config.descriptions());
 		assertThat(properties.getHistogramFlavor()).isEqualTo(config.histogramFlavor());
-		assertThat(properties.getStep()).isEqualTo(config.step());
+		assertThat(properties.getPushgateway().getStep(this)).isEqualTo(config.step());
 	}
 
 }
