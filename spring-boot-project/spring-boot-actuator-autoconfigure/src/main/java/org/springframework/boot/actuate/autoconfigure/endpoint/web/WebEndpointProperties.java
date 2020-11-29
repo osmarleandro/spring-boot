@@ -48,10 +48,6 @@ public class WebEndpointProperties {
 	 */
 	private final Map<String, String> pathMapping = new LinkedHashMap<>();
 
-	public Exposure getExposure() {
-		return this.exposure;
-	}
-
 	public String getBasePath() {
 		return this.basePath;
 	}
@@ -98,6 +94,10 @@ public class WebEndpointProperties {
 
 		public void setExclude(Set<String> exclude) {
 			this.exclude = exclude;
+		}
+
+		public Exposure getExposure(WebEndpointProperties webEndpointProperties) {
+			return this;
 		}
 
 	}

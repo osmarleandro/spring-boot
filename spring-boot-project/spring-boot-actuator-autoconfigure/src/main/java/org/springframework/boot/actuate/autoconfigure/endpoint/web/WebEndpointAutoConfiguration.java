@@ -114,14 +114,14 @@ public class WebEndpointAutoConfiguration {
 
 	@Bean
 	public IncludeExcludeEndpointFilter<ExposableWebEndpoint> webExposeExcludePropertyEndpointFilter() {
-		WebEndpointProperties.Exposure exposure = this.properties.getExposure();
+		WebEndpointProperties.Exposure exposure = this.properties.getExposure().getExposure(this);
 		return new IncludeExcludeEndpointFilter<>(ExposableWebEndpoint.class, exposure.getInclude(),
 				exposure.getExclude(), DefaultIncludes.WEB);
 	}
 
 	@Bean
 	public IncludeExcludeEndpointFilter<ExposableControllerEndpoint> controllerExposeExcludePropertyEndpointFilter() {
-		WebEndpointProperties.Exposure exposure = this.properties.getExposure();
+		WebEndpointProperties.Exposure exposure = this.properties.getExposure().getExposure(this);
 		return new IncludeExcludeEndpointFilter<>(ExposableControllerEndpoint.class, exposure.getInclude(),
 				exposure.getExclude());
 	}
