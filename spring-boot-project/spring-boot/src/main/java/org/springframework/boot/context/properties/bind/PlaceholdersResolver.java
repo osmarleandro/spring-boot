@@ -16,6 +16,15 @@
 
 package org.springframework.boot.context.properties.bind;
 
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.function.Predicate;
+import java.util.stream.Stream;
+
+import org.springframework.boot.actuate.env.EnvironmentEndpoint;
+import org.springframework.boot.actuate.env.EnvironmentEndpoint.PropertySourceDescriptor;
+import org.springframework.boot.actuate.env.EnvironmentEndpoint.PropertyValueDescriptor;
+import org.springframework.core.env.EnumerablePropertySource;
 import org.springframework.core.env.PropertyResolver;
 
 /**
@@ -40,5 +49,12 @@ public interface PlaceholdersResolver {
 	 * @return a value with placeholders resolved
 	 */
 	Object resolvePlaceholders(Object value);
+
+	public default PropertySourceDescriptor describeSource(String sourceName, EnumerablePropertySource<?> source, EnvironmentEndpoint environmentEndpoint, Predicate<String> namePredicate) {
+		Map<String, PropertyValueDescriptor> properties = new LinkedHashMap<>();
+		Stream.of(source.getPropertyNames()).filter(namePredicate)
+				.forEach((name) -> properties.put(name, environmentEndpoint.describeValueOf(name, source, this)));
+		return new PropertySourceDescriptor(sourceName, properties);
+	}
 
 }

@@ -23,7 +23,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Predicate;
 import java.util.regex.Pattern;
-import java.util.stream.Stream;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
@@ -92,7 +91,7 @@ public class EnvironmentEndpoint {
 		List<PropertySourceDescriptor> propertySources = new ArrayList<>();
 		getPropertySourcesAsMap().forEach((sourceName, source) -> {
 			if (source instanceof EnumerablePropertySource) {
-				propertySources.add(describeSource(sourceName, (EnumerablePropertySource<?>) source, resolver,
+				propertySources.add(resolver.describeSource(sourceName, (EnumerablePropertySource<?>) source, this,
 						propertyNamePredicate));
 			}
 		});
@@ -130,16 +129,8 @@ public class EnvironmentEndpoint {
 		return propertySources;
 	}
 
-	private PropertySourceDescriptor describeSource(String sourceName, EnumerablePropertySource<?> source,
-			PlaceholdersResolver resolver, Predicate<String> namePredicate) {
-		Map<String, PropertyValueDescriptor> properties = new LinkedHashMap<>();
-		Stream.of(source.getPropertyNames()).filter(namePredicate)
-				.forEach((name) -> properties.put(name, describeValueOf(name, source, resolver)));
-		return new PropertySourceDescriptor(sourceName, properties);
-	}
-
 	@SuppressWarnings("unchecked")
-	private PropertyValueDescriptor describeValueOf(String name, PropertySource<?> source,
+	public PropertyValueDescriptor describeValueOf(String name, PropertySource<?> source,
 			PlaceholdersResolver resolver) {
 		Object resolved = resolver.resolvePlaceholders(source.getProperty(name));
 		Origin origin = ((source instanceof OriginLookup) ? ((OriginLookup<Object>) source).getOrigin(name) : null);
