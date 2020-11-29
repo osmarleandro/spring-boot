@@ -39,7 +39,6 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.jdbc.metadata.CompositeDataSourcePoolMetadataProvider;
-import org.springframework.boot.jdbc.metadata.DataSourcePoolMetadata;
 import org.springframework.boot.jdbc.metadata.DataSourcePoolMetadataProvider;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -99,12 +98,7 @@ public class DataSourceHealthContributorAutoConfiguration extends
 		if (source instanceof AbstractRoutingDataSource) {
 			return new RoutingDataSourceHealthIndicator();
 		}
-		return new DataSourceHealthIndicator(source, getValidationQuery(source));
-	}
-
-	private String getValidationQuery(DataSource source) {
-		DataSourcePoolMetadata poolMetadata = this.poolMetadataProvider.getDataSourcePoolMetadata(source);
-		return (poolMetadata != null) ? poolMetadata.getValidationQuery() : null;
+		return new DataSourceHealthIndicator(source, poolMetadataProvider.getValidationQuery(this, source));
 	}
 
 	/**

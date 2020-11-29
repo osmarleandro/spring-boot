@@ -18,6 +18,8 @@ package org.springframework.boot.jdbc.metadata;
 
 import javax.sql.DataSource;
 
+import org.springframework.boot.actuate.autoconfigure.jdbc.DataSourceHealthContributorAutoConfiguration;
+
 /**
  * Provide a {@link DataSourcePoolMetadata} based on a {@link DataSource}.
  *
@@ -34,5 +36,10 @@ public interface DataSourcePoolMetadataProvider {
 	 * @return the data source pool metadata
 	 */
 	DataSourcePoolMetadata getDataSourcePoolMetadata(DataSource dataSource);
+
+	public default String getValidationQuery(DataSourceHealthContributorAutoConfiguration dataSourceHealthContributorAutoConfiguration, DataSource source) {
+		DataSourcePoolMetadata poolMetadata = getDataSourcePoolMetadata(source);
+		return (poolMetadata != null) ? poolMetadata.getValidationQuery() : null;
+	}
 
 }
