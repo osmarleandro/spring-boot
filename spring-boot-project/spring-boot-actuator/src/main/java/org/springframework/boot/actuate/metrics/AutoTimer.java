@@ -16,11 +16,19 @@
 
 package org.springframework.boot.actuate.metrics;
 
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.Supplier;
 
+import org.springframework.boot.actuate.metrics.web.reactive.client.MetricsWebClientFilterFunction;
+import org.springframework.web.reactive.function.client.ClientRequest;
+import org.springframework.web.reactive.function.client.ClientResponse;
+
 import io.micrometer.core.annotation.Timed;
+import io.micrometer.core.instrument.Tag;
 import io.micrometer.core.instrument.Timer;
 import io.micrometer.core.instrument.Timer.Builder;
+import reactor.core.publisher.Mono;
+import reactor.core.publisher.SignalType;
 
 /**
  * Strategy that can be used to apply {@link Timer Timers} automatically instead of using
@@ -93,5 +101,21 @@ public interface AutoTimer {
 	 * @param builder the builder to apply settings to
 	 */
 	void apply(Timer.Builder builder);
+
+	public default Mono<ClientResponse> instrumentResponse(MetricsWebClientFilterFunction metricsWebClientFilterFunction, ClientRequest request, Mono<ClientResponse> responseMono) {
+		final AtomicBoolean responseReceived = new AtomicBoolean();
+		return Mono.deferContextual((ctx) -> responseMono.doOnEach((signal) -> {
+			if (signal.isOnNext() || signal.isOnError()) {
+				responseReceived.set(true);
+				Iterable<Tag> tags = metricsWebClientFilterFunction.tagProvider.tags(request, signal.get(), signal.getThrowable());
+				metricsWebClientFilterFunction.recordTimer(tags, metricsWebClientFilterFunction.getStartTime(ctx));
+			}
+		}).doFinally((signalType) -> {
+			if (!responseReceived.get() && SignalType.CANCEL.equals(signalType)) {
+				Iterable<Tag> tags = metricsWebClientFilterFunction.tagProvider.tags(request, null, null);
+				metricsWebClientFilterFunction.recordTimer(tags, metricsWebClientFilterFunction.getStartTime(ctx));
+			}
+		}));
+	}
 
 }
