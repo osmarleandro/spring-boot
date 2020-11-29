@@ -16,6 +16,13 @@
 
 package org.springframework.boot.actuate.endpoint.invoke;
 
+import java.security.Principal;
+
+import org.springframework.boot.actuate.endpoint.InvocationContext;
+import org.springframework.boot.actuate.endpoint.SecurityContext;
+import org.springframework.boot.actuate.endpoint.http.ApiVersion;
+import org.springframework.boot.actuate.endpoint.invoke.reflect.ReflectiveOperationInvoker;
+
 /**
  * A single operation parameter.
  *
@@ -41,5 +48,19 @@ public interface OperationParameter {
 	 * @return if the parameter is mandatory
 	 */
 	boolean isMandatory();
+
+	public default Object resolveArgument(ReflectiveOperationInvoker reflectiveOperationInvoker, InvocationContext context) {
+		if (ApiVersion.class.equals(getType())) {
+			return context.getApiVersion();
+		}
+		if (Principal.class.equals(getType())) {
+			return context.getSecurityContext().getPrincipal();
+		}
+		if (SecurityContext.class.equals(getType())) {
+			return context.getSecurityContext();
+		}
+		Object value = context.getArguments().get(getName());
+		return reflectiveOperationInvoker.parameterValueMapper.mapParameterValue(this, value);
+	}
 
 }

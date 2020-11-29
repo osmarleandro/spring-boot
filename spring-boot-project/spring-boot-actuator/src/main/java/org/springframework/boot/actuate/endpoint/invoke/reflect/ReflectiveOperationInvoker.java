@@ -46,7 +46,7 @@ public class ReflectiveOperationInvoker implements OperationInvoker {
 
 	private final OperationMethod operationMethod;
 
-	private final ParameterValueMapper parameterValueMapper;
+	public final ParameterValueMapper parameterValueMapper;
 
 	/**
 	 * Creates a new {@code ReflectiveOperationInvoker} that will invoke the given
@@ -102,22 +102,8 @@ public class ReflectiveOperationInvoker implements OperationInvoker {
 	}
 
 	private Object[] resolveArguments(InvocationContext context) {
-		return this.operationMethod.getParameters().stream().map((parameter) -> resolveArgument(parameter, context))
+		return this.operationMethod.getParameters().stream().map((parameter) -> parameter.resolveArgument(this, context))
 				.toArray();
-	}
-
-	private Object resolveArgument(OperationParameter parameter, InvocationContext context) {
-		if (ApiVersion.class.equals(parameter.getType())) {
-			return context.getApiVersion();
-		}
-		if (Principal.class.equals(parameter.getType())) {
-			return context.getSecurityContext().getPrincipal();
-		}
-		if (SecurityContext.class.equals(parameter.getType())) {
-			return context.getSecurityContext();
-		}
-		Object value = context.getArguments().get(parameter.getName());
-		return this.parameterValueMapper.mapParameterValue(parameter, value);
 	}
 
 	@Override
