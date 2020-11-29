@@ -23,10 +23,12 @@ import java.util.Objects;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
+import org.springframework.boot.actuate.cache.CachesEndpoint.CacheEntry;
 import org.springframework.boot.actuate.endpoint.annotation.DeleteOperation;
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
 import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
 import org.springframework.boot.actuate.endpoint.annotation.Selector;
+import org.springframework.boot.actuate.endpoint.web.WebEndpointResponse;
 import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
 import org.springframework.lang.Nullable;
@@ -146,6 +148,18 @@ public class CachesEndpoint {
 
 	private Predicate<String> matchAll() {
 		return (name) -> true;
+	}
+
+	@ReadOperation
+	public WebEndpointResponse<CacheEntry> cache(CachesEndpointWebExtension cachesEndpointWebExtension, String cache, String cacheManager) {
+		try {
+			CacheEntry entry = cache(cache, cacheManager);
+			int status = (entry != null) ? WebEndpointResponse.STATUS_OK : WebEndpointResponse.STATUS_NOT_FOUND;
+			return new WebEndpointResponse<>(entry, status);
+		}
+		catch (NonUniqueCacheException ex) {
+			return new WebEndpointResponse<>(WebEndpointResponse.STATUS_BAD_REQUEST);
+		}
 	}
 
 	/**
