@@ -19,8 +19,11 @@ package org.springframework.boot.logging;
 import java.io.File;
 import java.util.Properties;
 
+import org.springframework.boot.actuate.logging.LogFileWebEndpoint;
 import org.springframework.core.env.Environment;
 import org.springframework.core.env.PropertyResolver;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.io.Resource;
 import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
 
@@ -102,6 +105,17 @@ public class LogFile {
 			return this.file;
 		}
 		return new File(this.path, "spring.log").getPath();
+	}
+
+	public Resource getLogFileResource(LogFileWebEndpoint logFileWebEndpoint) {
+		if (logFileWebEndpoint.externalFile != null) {
+			return new FileSystemResource(logFileWebEndpoint.externalFile);
+		}
+		if (this == null) {
+			LogFileWebEndpoint.logger.debug("Missing 'logging.file.name' or 'logging.file.path' properties");
+			return null;
+		}
+		return new FileSystemResource(toString());
 	}
 
 	/**
