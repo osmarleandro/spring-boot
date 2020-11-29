@@ -156,7 +156,7 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 			EndpointBean endpointBean = byId.get(extensionBean.getEndpointId());
 			Assert.state(endpointBean != null, () -> ("Invalid extension '" + extensionBean.getBeanName()
 					+ "': no endpoint found with id '" + extensionBean.getEndpointId() + "'"));
-			addExtensionBean(endpointBean, extensionBean);
+			endpointBean.addExtensionBean(this, extensionBean);
 		}
 	}
 
@@ -164,15 +164,6 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 		Class<?> beanType = ClassUtils.getUserClass(this.applicationContext.getType(beanName));
 		Supplier<Object> beanSupplier = () -> this.applicationContext.getBean(beanName);
 		return new ExtensionBean(this.applicationContext.getEnvironment(), beanName, beanType, beanSupplier);
-	}
-
-	private void addExtensionBean(EndpointBean endpointBean, ExtensionBean extensionBean) {
-		if (isExtensionExposed(endpointBean, extensionBean)) {
-			Assert.state(isEndpointExposed(endpointBean) || isEndpointFiltered(endpointBean),
-					() -> "Endpoint bean '" + endpointBean.getBeanName() + "' cannot support the extension bean '"
-							+ extensionBean.getBeanName() + "'");
-			endpointBean.addExtension(extensionBean);
-		}
 	}
 
 	private Collection<E> convertToEndpoints(Collection<EndpointBean> endpointBeans) {
@@ -414,7 +405,7 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 	/**
 	 * Information about an {@link Endpoint @Endpoint} bean.
 	 */
-	private static class EndpointBean {
+	static class EndpointBean {
 
 		private final String beanName;
 
@@ -481,12 +472,21 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 			return this.filter;
 		}
 
+		void addExtensionBean(EndpointDiscoverer endpointDiscoverer, ExtensionBean extensionBean) {
+			if (endpointDiscoverer.isExtensionExposed(this, extensionBean)) {
+				Assert.state(endpointDiscoverer.isEndpointExposed(this) || endpointDiscoverer.isEndpointFiltered(this),
+						() -> "Endpoint bean '" + getBeanName() + "' cannot support the extension bean '"
+								+ extensionBean.getBeanName() + "'");
+				addExtension(extensionBean);
+			}
+		}
+
 	}
 
 	/**
 	 * Information about an {@link EndpointExtension @EndpointExtension} bean.
 	 */
-	private static class ExtensionBean {
+	static class ExtensionBean {
 
 		private final String beanName;
 
