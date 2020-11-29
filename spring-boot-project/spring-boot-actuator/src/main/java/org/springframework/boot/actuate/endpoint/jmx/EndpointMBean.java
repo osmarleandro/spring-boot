@@ -16,7 +16,6 @@
 
 package org.springframework.boot.actuate.endpoint.jmx;
 
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -68,13 +67,7 @@ public class EndpointMBean implements DynamicMBean {
 		this.classLoader = classLoader;
 		this.endpoint = endpoint;
 		this.info = new MBeanInfoFactory(responseMapper).getMBeanInfo(endpoint);
-		this.operations = getOperations(endpoint);
-	}
-
-	private Map<String, JmxOperation> getOperations(ExposableJmxEndpoint endpoint) {
-		Map<String, JmxOperation> operations = new HashMap<>();
-		endpoint.getOperations().forEach((operation) -> operations.put(operation.getName(), operation));
-		return Collections.unmodifiableMap(operations);
+		this.operations = endpoint.getOperations();
 	}
 
 	@Override

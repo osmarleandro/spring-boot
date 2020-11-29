@@ -16,6 +16,10 @@
 
 package org.springframework.boot.actuate.endpoint.jmx;
 
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.boot.actuate.endpoint.ExposableEndpoint;
 
 /**
@@ -25,5 +29,11 @@ import org.springframework.boot.actuate.endpoint.ExposableEndpoint;
  * @since 2.0.0
  */
 public interface ExposableJmxEndpoint extends ExposableEndpoint<JmxOperation> {
+
+	default Map<String, JmxOperation> getOperations() {
+		Map<String, JmxOperation> operations = new HashMap<>();
+		getOperations().forEach((operation) -> operations.put(operation.getName(), operation));
+		return Collections.unmodifiableMap(operations);
+	}
 
 }
