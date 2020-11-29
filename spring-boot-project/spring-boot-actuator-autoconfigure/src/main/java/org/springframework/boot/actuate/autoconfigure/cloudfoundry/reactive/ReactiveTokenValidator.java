@@ -23,7 +23,6 @@ import java.security.PublicKey;
 import java.security.Signature;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.X509EncodedKeySpec;
-import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.TimeUnit;
@@ -44,7 +43,7 @@ class ReactiveTokenValidator {
 
 	private final ReactiveCloudFoundrySecurityService securityService;
 
-	private volatile ConcurrentMap<String, String> cachedTokenKeys = new ConcurrentHashMap<>();
+	volatile ConcurrentMap<String, String> cachedTokenKeys = new ConcurrentHashMap<>();
 
 	ReactiveTokenValidator(ReactiveCloudFoundrySecurityService securityService) {
 		this.securityService = securityService;
@@ -85,10 +84,6 @@ class ReactiveTokenValidator {
 				.filter((tokenKeys) -> tokenKeys.containsKey(keyId)).map((tokenKeys) -> tokenKeys.get(keyId))
 				.switchIfEmpty(Mono.error(new CloudFoundryAuthorizationException(Reason.INVALID_KEY_ID,
 						"Key Id present in token header does not match")));
-	}
-
-	private void cacheTokenKeys(Map<String, String> tokenKeys) {
-		this.cachedTokenKeys = new ConcurrentHashMap<>(tokenKeys);
 	}
 
 	private boolean hasValidSignature(Token token, String key) {

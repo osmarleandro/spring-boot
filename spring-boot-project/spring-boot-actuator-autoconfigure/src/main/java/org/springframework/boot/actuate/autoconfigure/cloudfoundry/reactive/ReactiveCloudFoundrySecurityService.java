@@ -19,6 +19,7 @@ package org.springframework.boot.actuate.autoconfigure.cloudfoundry.reactive;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import io.netty.handler.ssl.SslContextBuilder;
 import io.netty.handler.ssl.SslProvider;
@@ -146,6 +147,10 @@ class ReactiveCloudFoundrySecurityService {
 				.onErrorMap((ex) -> new CloudFoundryAuthorizationException(Reason.SERVICE_UNAVAILABLE,
 						"Unable to fetch token keys from UAA."));
 		return this.uaaUrl;
+	}
+
+	void cacheTokenKeys(ReactiveTokenValidator reactiveTokenValidator, Map<String, String> tokenKeys) {
+		reactiveTokenValidator.cachedTokenKeys = new ConcurrentHashMap<>(tokenKeys);
 	}
 
 }
