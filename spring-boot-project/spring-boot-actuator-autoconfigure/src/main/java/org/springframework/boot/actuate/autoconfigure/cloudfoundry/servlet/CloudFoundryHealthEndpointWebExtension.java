@@ -38,15 +38,10 @@ import org.springframework.boot.actuate.health.HealthEndpointWebExtension;
 @EndpointCloudFoundryExtension(endpoint = HealthEndpoint.class)
 public class CloudFoundryHealthEndpointWebExtension {
 
-	private final HealthEndpointWebExtension delegate;
+	public final HealthEndpointWebExtension delegate;
 
 	public CloudFoundryHealthEndpointWebExtension(HealthEndpointWebExtension delegate) {
 		this.delegate = delegate;
-	}
-
-	@ReadOperation
-	public WebEndpointResponse<HealthComponent> health(ApiVersion apiVersion) {
-		return this.delegate.health(apiVersion, SecurityContext.NONE, true);
 	}
 
 	@ReadOperation

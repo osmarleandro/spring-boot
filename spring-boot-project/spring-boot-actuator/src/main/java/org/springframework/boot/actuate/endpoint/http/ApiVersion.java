@@ -19,6 +19,11 @@ package org.springframework.boot.actuate.endpoint.http;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.boot.actuate.autoconfigure.cloudfoundry.servlet.CloudFoundryHealthEndpointWebExtension;
+import org.springframework.boot.actuate.endpoint.SecurityContext;
+import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
+import org.springframework.boot.actuate.endpoint.web.WebEndpointResponse;
+import org.springframework.boot.actuate.health.HealthComponent;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.MimeTypeUtils;
 
@@ -85,6 +90,11 @@ public enum ApiVersion {
 		int existingOrdinal = (existing != null) ? existing.ordinal() : -1;
 		int candidateOrdinal = (candidate != null) ? candidate.ordinal() : -1;
 		return (candidateOrdinal > existingOrdinal) ? candidate : existing;
+	}
+
+	@ReadOperation
+	public WebEndpointResponse<HealthComponent> health(CloudFoundryHealthEndpointWebExtension cloudFoundryHealthEndpointWebExtension) {
+		return cloudFoundryHealthEndpointWebExtension.delegate.health(this, SecurityContext.NONE, true);
 	}
 
 }
