@@ -91,10 +91,6 @@ public class WavefrontProperties extends PushRegistryProperties {
 		this.globalPrefix = globalPrefix;
 	}
 
-	public Sender getSender() {
-		return this.sender;
-	}
-
 	public static class Sender {
 
 		private int maxQueueSize = 50000;
@@ -125,6 +121,10 @@ public class WavefrontProperties extends PushRegistryProperties {
 
 		public void setMessageSize(DataSize messageSize) {
 			this.messageSize = messageSize;
+		}
+
+		public Sender getSender(WavefrontProperties wavefrontProperties) {
+			return this;
 		}
 
 	}

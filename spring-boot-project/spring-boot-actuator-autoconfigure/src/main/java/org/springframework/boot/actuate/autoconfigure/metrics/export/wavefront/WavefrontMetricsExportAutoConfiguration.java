@@ -86,7 +86,7 @@ public class WavefrontMetricsExportAutoConfiguration {
 	private WavefrontSender createWavefrontSender(WavefrontConfig wavefrontConfig) {
 		Builder builder = WavefrontMeterRegistry.getDefaultSenderBuilder(wavefrontConfig);
 		PropertyMapper mapper = PropertyMapper.get().alwaysApplyingWhenNonNull();
-		Sender sender = this.properties.getSender();
+		Sender sender = this.properties.getSender().getSender(this);
 		mapper.from(sender.getMaxQueueSize()).to(builder::maxQueueSize);
 		mapper.from(sender.getFlushInterval()).asInt(Duration::getSeconds).to(builder::flushIntervalSeconds);
 		mapper.from(sender.getMessageSize()).asInt(DataSize::toBytes).to(builder::messageSizeBytes);

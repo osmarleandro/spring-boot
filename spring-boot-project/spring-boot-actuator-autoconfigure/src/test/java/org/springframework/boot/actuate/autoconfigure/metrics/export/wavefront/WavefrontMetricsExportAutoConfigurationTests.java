@@ -86,10 +86,10 @@ class WavefrontMetricsExportAutoConfigurationTests {
 					WavefrontProperties properties = new WavefrontProperties();
 					WavefrontSender sender = context.getBean(WavefrontSender.class);
 					assertThat(sender).extracting("metricsBuffer").hasFieldOrPropertyWithValue("capacity",
-							properties.getSender().getMaxQueueSize());
+							properties.getSender().getSender(this).getMaxQueueSize());
 					assertThat(sender).hasFieldOrPropertyWithValue("batchSize", properties.getBatchSize());
 					assertThat(sender).hasFieldOrPropertyWithValue("messageSizeBytes",
-							(int) properties.getSender().getMessageSize().toBytes());
+							(int) properties.getSender().getSender(this).getMessageSize().toBytes());
 				});
 	}
 
