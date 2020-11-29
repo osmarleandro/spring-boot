@@ -29,6 +29,7 @@ import reactor.netty.http.client.HttpClient;
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.AccessLevel;
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.CloudFoundryAuthorizationException;
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.CloudFoundryAuthorizationException.Reason;
+import org.springframework.boot.actuate.autoconfigure.cloudfoundry.SecurityResponse;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.client.reactive.ReactorClientHttpConnector;
@@ -146,6 +147,15 @@ class ReactiveCloudFoundrySecurityService {
 				.onErrorMap((ex) -> new CloudFoundryAuthorizationException(Reason.SERVICE_UNAVAILABLE,
 						"Unable to fetch token keys from UAA."));
 		return this.uaaUrl;
+	}
+
+	Mono<SecurityResponse> getErrorResponse(Throwable throwable) {
+		if (throwable instanceof CloudFoundryAuthorizationException) {
+			CloudFoundryAuthorizationException cfException = (CloudFoundryAuthorizationException) throwable;
+			return Mono.just(new SecurityResponse(cfException.getStatusCode(),
+					"{\"security_error\":\"" + cfException.getMessage() + "\"}"));
+		}
+		return Mono.just(new SecurityResponse(HttpStatus.INTERNAL_SERVER_ERROR, throwable.getMessage()));
 	}
 
 }

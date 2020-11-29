@@ -26,7 +26,6 @@ import org.springframework.boot.actuate.autoconfigure.cloudfoundry.CloudFoundryA
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.CloudFoundryAuthorizationException.Reason;
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.SecurityResponse;
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.Token;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.util.StringUtils;
 import org.springframework.web.cors.reactive.CorsUtils;
@@ -90,15 +89,6 @@ class CloudFoundrySecurityInterceptor {
 		catch (CloudFoundryAuthorizationException ex) {
 			return Mono.error(ex);
 		}
-	}
-
-	private Mono<SecurityResponse> getErrorResponse(Throwable throwable) {
-		if (throwable instanceof CloudFoundryAuthorizationException) {
-			CloudFoundryAuthorizationException cfException = (CloudFoundryAuthorizationException) throwable;
-			return Mono.just(new SecurityResponse(cfException.getStatusCode(),
-					"{\"security_error\":\"" + cfException.getMessage() + "\"}"));
-		}
-		return Mono.just(new SecurityResponse(HttpStatus.INTERNAL_SERVER_ERROR, throwable.getMessage()));
 	}
 
 	private Token getToken(ServerHttpRequest request) {
