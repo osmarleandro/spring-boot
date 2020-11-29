@@ -39,7 +39,7 @@ import org.springframework.web.client.RestTemplate;
  *
  * @author Madhura Bhave
  */
-class CloudFoundrySecurityService {
+public class CloudFoundrySecurityService {
 
 	private final RestTemplate restTemplate;
 
@@ -65,7 +65,7 @@ class CloudFoundrySecurityService {
 	 * @return the access level that should be granted
 	 * @throws CloudFoundryAuthorizationException if the token is not authorized
 	 */
-	AccessLevel getAccessLevel(String token, String applicationId) throws CloudFoundryAuthorizationException {
+	public AccessLevel getAccessLevel(String token, String applicationId) throws CloudFoundryAuthorizationException {
 		try {
 			URI uri = getPermissionsUri(applicationId);
 			RequestEntity<?> request = RequestEntity.get(uri).header("Authorization", "bearer " + token).build();

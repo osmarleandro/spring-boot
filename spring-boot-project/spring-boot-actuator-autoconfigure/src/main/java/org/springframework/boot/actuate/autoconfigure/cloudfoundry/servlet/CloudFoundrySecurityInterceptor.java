@@ -22,8 +22,6 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
-import org.springframework.boot.actuate.autoconfigure.cloudfoundry.AccessLevel;
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.CloudFoundryAuthorizationException;
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.CloudFoundryAuthorizationException.Reason;
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.SecurityResponse;
@@ -39,15 +37,15 @@ import org.springframework.web.cors.CorsUtils;
  *
  * @author Madhura Bhave
  */
-class CloudFoundrySecurityInterceptor {
+public class CloudFoundrySecurityInterceptor {
 
 	private static final Log logger = LogFactory.getLog(CloudFoundrySecurityInterceptor.class);
 
-	private final TokenValidator tokenValidator;
+	public final TokenValidator tokenValidator;
 
-	private final CloudFoundrySecurityService cloudFoundrySecurityService;
+	public final CloudFoundrySecurityService cloudFoundrySecurityService;
 
-	private final String applicationId;
+	public final String applicationId;
 
 	private static final SecurityResponse SUCCESS = SecurityResponse.success();
 
@@ -74,7 +72,7 @@ class CloudFoundrySecurityInterceptor {
 			if (HttpMethod.OPTIONS.matches(request.getMethod())) {
 				return SUCCESS;
 			}
-			check(request, endpointId);
+			endpointId.check(request, this);
 		}
 		catch (Exception ex) {
 			logger.error(ex);
@@ -88,17 +86,7 @@ class CloudFoundrySecurityInterceptor {
 		return SecurityResponse.success();
 	}
 
-	private void check(HttpServletRequest request, EndpointId endpointId) throws Exception {
-		Token token = getToken(request);
-		this.tokenValidator.validate(token);
-		AccessLevel accessLevel = this.cloudFoundrySecurityService.getAccessLevel(token.toString(), this.applicationId);
-		if (!accessLevel.isAccessAllowed((endpointId != null) ? endpointId.toLowerCaseString() : "")) {
-			throw new CloudFoundryAuthorizationException(Reason.ACCESS_DENIED, "Access denied");
-		}
-		request.setAttribute(AccessLevel.REQUEST_ATTRIBUTE, accessLevel);
-	}
-
-	private Token getToken(HttpServletRequest request) {
+	public Token getToken(HttpServletRequest request) {
 		String authorization = request.getHeader("Authorization");
 		String bearerPrefix = "bearer ";
 		if (authorization == null || !authorization.toLowerCase(Locale.ENGLISH).startsWith(bearerPrefix)) {

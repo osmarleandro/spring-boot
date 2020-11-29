@@ -36,7 +36,7 @@ import org.springframework.util.Base64Utils;
  *
  * @author Madhura Bhave
  */
-class TokenValidator {
+public class TokenValidator {
 
 	private final CloudFoundrySecurityService securityService;
 
@@ -46,7 +46,7 @@ class TokenValidator {
 		this.securityService = cloudFoundrySecurityService;
 	}
 
-	void validate(Token token) {
+	public void validate(Token token) {
 		validateAlgorithm(token);
 		validateKeyIdAndSignature(token);
 		validateExpiry(token);

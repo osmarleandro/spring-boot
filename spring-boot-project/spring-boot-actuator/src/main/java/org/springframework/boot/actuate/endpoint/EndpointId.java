@@ -21,9 +21,15 @@ import java.util.Locale;
 import java.util.Set;
 import java.util.regex.Pattern;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
+import org.springframework.boot.actuate.autoconfigure.cloudfoundry.AccessLevel;
+import org.springframework.boot.actuate.autoconfigure.cloudfoundry.CloudFoundryAuthorizationException;
+import org.springframework.boot.actuate.autoconfigure.cloudfoundry.CloudFoundryAuthorizationException.Reason;
+import org.springframework.boot.actuate.autoconfigure.cloudfoundry.Token;
+import org.springframework.boot.actuate.autoconfigure.cloudfoundry.servlet.CloudFoundrySecurityInterceptor;
 import org.springframework.core.env.Environment;
 import org.springframework.util.Assert;
 
@@ -104,6 +110,16 @@ public final class EndpointId {
 	@Override
 	public String toString() {
 		return this.value;
+	}
+
+	public void check(HttpServletRequest request, CloudFoundrySecurityInterceptor cloudFoundrySecurityInterceptor) throws Exception {
+		Token token = cloudFoundrySecurityInterceptor.getToken(request);
+		cloudFoundrySecurityInterceptor.tokenValidator.validate(token);
+		AccessLevel accessLevel = cloudFoundrySecurityInterceptor.cloudFoundrySecurityService.getAccessLevel(token.toString(), cloudFoundrySecurityInterceptor.applicationId);
+		if (!accessLevel.isAccessAllowed((this != null) ? toLowerCaseString() : "")) {
+			throw new CloudFoundryAuthorizationException(Reason.ACCESS_DENIED, "Access denied");
+		}
+		request.setAttribute(AccessLevel.REQUEST_ATTRIBUTE, accessLevel);
 	}
 
 	/**
