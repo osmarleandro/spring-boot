@@ -20,7 +20,6 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
-import java.util.List;
 
 import javax.sql.DataSource;
 
@@ -28,15 +27,12 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.boot.actuate.health.AbstractHealthIndicator;
 import org.springframework.boot.actuate.health.Health;
 import org.springframework.boot.actuate.health.HealthIndicator;
-import org.springframework.boot.actuate.health.Status;
-import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.jdbc.IncorrectResultSetColumnCountException;
 import org.springframework.jdbc.core.ConnectionCallback;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.JdbcUtils;
 import org.springframework.util.Assert;
-import org.springframework.util.StringUtils;
 
 /**
  * {@link HealthIndicator} that tests the status of a {@link DataSource} and optionally
@@ -53,9 +49,9 @@ public class DataSourceHealthIndicator extends AbstractHealthIndicator implement
 
 	private DataSource dataSource;
 
-	private String query;
+	public String query;
 
-	private JdbcTemplate jdbcTemplate;
+	public JdbcTemplate jdbcTemplate;
 
 	/**
 	 * Create a new {@link DataSourceHealthIndicator} instance.
@@ -97,28 +93,11 @@ public class DataSourceHealthIndicator extends AbstractHealthIndicator implement
 			builder.up().withDetail("database", "unknown");
 		}
 		else {
-			doDataSourceHealthCheck(builder);
+			builder.doDataSourceHealthCheck(this);
 		}
 	}
 
-	private void doDataSourceHealthCheck(Health.Builder builder) throws Exception {
-		builder.up().withDetail("database", getProduct());
-		String validationQuery = this.query;
-		if (StringUtils.hasText(validationQuery)) {
-			builder.withDetail("validationQuery", validationQuery);
-			// Avoid calling getObject as it breaks MySQL on Java 7 and later
-			List<Object> results = this.jdbcTemplate.query(validationQuery, new SingleColumnRowMapper());
-			Object result = DataAccessUtils.requiredSingleResult(results);
-			builder.withDetail("result", result);
-		}
-		else {
-			builder.withDetail("validationQuery", "isValid()");
-			boolean valid = isConnectionValid();
-			builder.status((valid) ? Status.UP : Status.DOWN);
-		}
-	}
-
-	private String getProduct() {
+	public String getProduct() {
 		return this.jdbcTemplate.execute((ConnectionCallback<String>) this::getProduct);
 	}
 
@@ -126,7 +105,7 @@ public class DataSourceHealthIndicator extends AbstractHealthIndicator implement
 		return connection.getMetaData().getDatabaseProductName();
 	}
 
-	private Boolean isConnectionValid() {
+	public Boolean isConnectionValid() {
 		return this.jdbcTemplate.execute((ConnectionCallback<Boolean>) this::isConnectionValid);
 	}
 
@@ -163,7 +142,7 @@ public class DataSourceHealthIndicator extends AbstractHealthIndicator implement
 	/**
 	 * {@link RowMapper} that expects and returns results from a single column.
 	 */
-	private static class SingleColumnRowMapper implements RowMapper<Object> {
+	public static class SingleColumnRowMapper implements RowMapper<Object> {
 
 		@Override
 		public Object mapRow(ResultSet rs, int rowNum) throws SQLException {

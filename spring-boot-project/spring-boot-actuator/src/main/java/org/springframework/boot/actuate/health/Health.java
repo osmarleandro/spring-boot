@@ -18,12 +18,17 @@ package org.springframework.boot.actuate.health;
 
 import java.util.Collections;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
+import org.springframework.boot.actuate.jdbc.DataSourceHealthIndicator;
+import org.springframework.boot.actuate.jdbc.DataSourceHealthIndicator.SingleColumnRowMapper;
+import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.util.Assert;
+import org.springframework.util.StringUtils;
 
 /**
  * Carries information about the health of a component or subsystem. Extends
@@ -327,6 +332,23 @@ public final class Health extends HealthComponent {
 		 */
 		public Health build() {
 			return new Health(this);
+		}
+
+		public void doDataSourceHealthCheck(DataSourceHealthIndicator dataSourceHealthIndicator) throws Exception {
+			up().withDetail("database", dataSourceHealthIndicator.getProduct());
+			String validationQuery = dataSourceHealthIndicator.query;
+			if (StringUtils.hasText(validationQuery)) {
+				withDetail("validationQuery", validationQuery);
+				// Avoid calling getObject as it breaks MySQL on Java 7 and later
+				List<Object> results = dataSourceHealthIndicator.jdbcTemplate.query(validationQuery, new SingleColumnRowMapper());
+				Object result = DataAccessUtils.requiredSingleResult(results);
+				withDetail("result", result);
+			}
+			else {
+				withDetail("validationQuery", "isValid()");
+				boolean valid = dataSourceHealthIndicator.isConnectionValid();
+				status((valid) ? Status.UP : Status.DOWN);
+			}
 		}
 
 	}
