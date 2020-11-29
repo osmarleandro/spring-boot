@@ -64,8 +64,8 @@ public class GitInfoContributor extends InfoPropertiesInfoContributor<GitPropert
 	 */
 	@Override
 	protected void postProcessContent(Map<String, Object> content) {
-		replaceValue(getNestedMap(content, "commit"), "time", getProperties().getCommitTime());
-		replaceValue(getNestedMap(content, "build"), "time", getProperties().getInstant("build.time"));
+		replaceValue(STRING_OBJECT_MAP.getNestedMap(content, "commit"), "time", getProperties().getCommitTime());
+		replaceValue(STRING_OBJECT_MAP.getNestedMap(content, "build"), "time", getProperties().getInstant("build.time"));
 	}
 
 }

@@ -18,6 +18,7 @@ package org.springframework.boot.context.properties.bind;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Array;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -172,6 +173,22 @@ public final class Bindable<T> {
 	 */
 	public Bindable<T> withSuppliedValue(Supplier<T> suppliedValue) {
 		return new Bindable<>(this.type, this.boxedType, suppliedValue, this.annotations);
+	}
+
+	/**
+	 * Return the nested map with the specified key or empty map if the specified map
+	 * contains no mapping for the key.
+	 * @param map the content
+	 * @param key the key of a nested map
+	 * @return the nested map
+	 */
+	@SuppressWarnings("unchecked")
+	public Map<String, Object> getNestedMap(Map<String, Object> map, String key) {
+		Object value = map.get(key);
+		if (value == null) {
+			return Collections.emptyMap();
+		}
+		return (Map<String, Object>) value;
 	}
 
 	/**
