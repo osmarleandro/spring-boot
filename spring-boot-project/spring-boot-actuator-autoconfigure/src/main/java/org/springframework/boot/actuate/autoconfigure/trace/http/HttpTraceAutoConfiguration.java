@@ -43,12 +43,6 @@ import org.springframework.context.annotation.Configuration;
 @EnableConfigurationProperties(HttpTraceProperties.class)
 public class HttpTraceAutoConfiguration {
 
-	@Bean
-	@ConditionalOnMissingBean
-	public HttpExchangeTracer httpExchangeTracer(HttpTraceProperties traceProperties) {
-		return new HttpExchangeTracer(traceProperties.getInclude());
-	}
-
 	@Configuration(proxyBeanMethods = false)
 	@ConditionalOnWebApplication(type = Type.SERVLET)
 	static class ServletTraceFilterConfiguration {

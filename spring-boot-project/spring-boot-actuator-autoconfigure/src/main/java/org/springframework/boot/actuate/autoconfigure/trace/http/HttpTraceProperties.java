@@ -19,8 +19,11 @@ package org.springframework.boot.actuate.autoconfigure.trace.http;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.springframework.boot.actuate.trace.http.HttpExchangeTracer;
 import org.springframework.boot.actuate.trace.http.Include;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.Bean;
 
 /**
  * Configuration properties for HTTP tracing.
@@ -47,6 +50,12 @@ public class HttpTraceProperties {
 
 	public void setInclude(Set<Include> include) {
 		this.include = include;
+	}
+
+	@Bean
+	@ConditionalOnMissingBean
+	public HttpExchangeTracer httpExchangeTracer() {
+		return new HttpExchangeTracer(getInclude());
 	}
 
 }
