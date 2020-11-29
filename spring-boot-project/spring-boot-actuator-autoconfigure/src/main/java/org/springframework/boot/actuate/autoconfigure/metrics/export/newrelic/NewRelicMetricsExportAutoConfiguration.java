@@ -56,16 +56,10 @@ import org.springframework.context.annotation.Configuration;
 @EnableConfigurationProperties(NewRelicProperties.class)
 public class NewRelicMetricsExportAutoConfiguration {
 
-	private final NewRelicProperties properties;
+	final NewRelicProperties properties;
 
 	public NewRelicMetricsExportAutoConfiguration(NewRelicProperties properties) {
 		this.properties = properties;
-	}
-
-	@Bean
-	@ConditionalOnMissingBean
-	public NewRelicConfig newRelicConfig() {
-		return new NewRelicPropertiesConfigAdapter(this.properties);
 	}
 
 	@Bean
