@@ -19,6 +19,10 @@ package org.springframework.boot.actuate.endpoint.http;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.boot.actuate.endpoint.SecurityContext;
+import org.springframework.boot.actuate.health.HealthComponent;
+import org.springframework.boot.actuate.health.HealthEndpoint;
+import org.springframework.boot.actuate.health.HealthEndpointSupport.HealthResult;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.MimeTypeUtils;
 
@@ -85,6 +89,11 @@ public enum ApiVersion {
 		int existingOrdinal = (existing != null) ? existing.ordinal() : -1;
 		int candidateOrdinal = (candidate != null) ? candidate.ordinal() : -1;
 		return (candidateOrdinal > existingOrdinal) ? candidate : existing;
+	}
+
+	public HealthComponent health(HealthEndpoint healthEndpoint, String... path) {
+		HealthResult<HealthComponent> result = healthEndpoint.getHealth(this, SecurityContext.NONE, true, path);
+		return (result != null) ? result.getHealth() : null;
 	}
 
 }
