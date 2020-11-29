@@ -18,6 +18,7 @@ package org.springframework.boot.actuate.autoconfigure.cloudfoundry.reactive;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import io.netty.handler.ssl.SslContextBuilder;
@@ -29,9 +30,11 @@ import reactor.netty.http.client.HttpClient;
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.AccessLevel;
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.CloudFoundryAuthorizationException;
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.CloudFoundryAuthorizationException.Reason;
+import org.springframework.boot.actuate.autoconfigure.cloudfoundry.Token;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.client.reactive.ReactorClientHttpConnector;
+import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.util.Assert;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.reactive.function.client.WebClient.RequestHeadersSpec;
@@ -146,6 +149,16 @@ class ReactiveCloudFoundrySecurityService {
 				.onErrorMap((ex) -> new CloudFoundryAuthorizationException(Reason.SERVICE_UNAVAILABLE,
 						"Unable to fetch token keys from UAA."));
 		return this.uaaUrl;
+	}
+
+	Token getToken(ServerHttpRequest request) {
+		String authorization = request.getHeaders().getFirst("Authorization");
+		String bearerPrefix = "bearer ";
+		if (authorization == null || !authorization.toLowerCase(Locale.ENGLISH).startsWith(bearerPrefix)) {
+			throw new CloudFoundryAuthorizationException(Reason.MISSING_AUTHORIZATION,
+					"Authorization header is missing or invalid");
+		}
+		return new Token(authorization.substring(bearerPrefix.length()));
 	}
 
 }

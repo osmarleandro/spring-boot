@@ -16,8 +16,6 @@
 
 package org.springframework.boot.actuate.autoconfigure.cloudfoundry.reactive;
 
-import java.util.Locale;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import reactor.core.publisher.Mono;
@@ -78,7 +76,7 @@ class CloudFoundrySecurityInterceptor {
 
 	private Mono<Void> check(ServerWebExchange exchange, String id) {
 		try {
-			Token token = getToken(exchange.getRequest());
+			Token token = cloudFoundrySecurityService.getToken(exchange.getRequest());
 			return this.tokenValidator.validate(token)
 					.then(this.cloudFoundrySecurityService.getAccessLevel(token.toString(), this.applicationId))
 					.filter((accessLevel) -> accessLevel.isAccessAllowed(id))
@@ -99,16 +97,6 @@ class CloudFoundrySecurityInterceptor {
 					"{\"security_error\":\"" + cfException.getMessage() + "\"}"));
 		}
 		return Mono.just(new SecurityResponse(HttpStatus.INTERNAL_SERVER_ERROR, throwable.getMessage()));
-	}
-
-	private Token getToken(ServerHttpRequest request) {
-		String authorization = request.getHeaders().getFirst("Authorization");
-		String bearerPrefix = "bearer ";
-		if (authorization == null || !authorization.toLowerCase(Locale.ENGLISH).startsWith(bearerPrefix)) {
-			throw new CloudFoundryAuthorizationException(Reason.MISSING_AUTHORIZATION,
-					"Authorization header is missing or invalid");
-		}
-		return new Token(authorization.substring(bearerPrefix.length()));
 	}
 
 }
