@@ -18,6 +18,8 @@ package org.springframework.boot.actuate.endpoint;
 
 import java.security.Principal;
 
+import org.springframework.boot.actuate.autoconfigure.health.AutoConfiguredHealthEndpointGroup;
+
 /**
  * Security context in which an endpoint is being invoked.
  *
@@ -56,5 +58,9 @@ public interface SecurityContext {
 	 * @return {@code true} if the user is in the given role
 	 */
 	boolean isUserInRole(String role);
+
+	default boolean showDetails(AutoConfiguredHealthEndpointGroup autoConfiguredHealthEndpointGroup) {
+		return autoConfiguredHealthEndpointGroup.getShowResult(this, autoConfiguredHealthEndpointGroup.showDetails);
+	}
 
 }

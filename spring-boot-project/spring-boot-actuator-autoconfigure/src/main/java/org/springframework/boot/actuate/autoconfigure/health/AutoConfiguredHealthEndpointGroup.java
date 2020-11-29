@@ -36,7 +36,7 @@ import org.springframework.util.CollectionUtils;
  * @author Phillip Webb
  * @author Andy Wilkinson
  */
-class AutoConfiguredHealthEndpointGroup implements HealthEndpointGroup {
+public class AutoConfiguredHealthEndpointGroup implements HealthEndpointGroup {
 
 	private final Predicate<String> members;
 
@@ -46,7 +46,7 @@ class AutoConfiguredHealthEndpointGroup implements HealthEndpointGroup {
 
 	private final Show showComponents;
 
-	private final Show showDetails;
+	public final Show showDetails;
 
 	private final Collection<String> roles;
 
@@ -85,10 +85,10 @@ class AutoConfiguredHealthEndpointGroup implements HealthEndpointGroup {
 
 	@Override
 	public boolean showDetails(SecurityContext securityContext) {
-		return getShowResult(securityContext, this.showDetails);
+		return securityContext.showDetails(this);
 	}
 
-	private boolean getShowResult(SecurityContext securityContext, Show show) {
+	public boolean getShowResult(SecurityContext securityContext, Show show) {
 		switch (show) {
 		case NEVER:
 			return false;
