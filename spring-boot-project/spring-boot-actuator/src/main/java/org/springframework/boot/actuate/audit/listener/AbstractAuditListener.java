@@ -29,7 +29,7 @@ public abstract class AbstractAuditListener implements ApplicationListener<Audit
 
 	@Override
 	public void onApplicationEvent(AuditApplicationEvent event) {
-		onAuditEvent(event.getAuditEvent());
+		onAuditEvent(event.getAuditEvent().getAuditEvent(this));
 	}
 
 	protected abstract void onAuditEvent(AuditEvent event);

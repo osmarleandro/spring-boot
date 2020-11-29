@@ -31,7 +31,7 @@ import org.springframework.util.Assert;
  */
 public class AuditApplicationEvent extends ApplicationEvent {
 
-	private final AuditEvent auditEvent;
+	public final AuditEvent auditEvent;
 
 	/**
 	 * Create a new {@link AuditApplicationEvent} that wraps a newly created
@@ -79,14 +79,6 @@ public class AuditApplicationEvent extends ApplicationEvent {
 		super(auditEvent);
 		Assert.notNull(auditEvent, "AuditEvent must not be null");
 		this.auditEvent = auditEvent;
-	}
-
-	/**
-	 * Get the audit event.
-	 * @return the audit event
-	 */
-	public AuditEvent getAuditEvent() {
-		return this.auditEvent;
 	}
 
 }
