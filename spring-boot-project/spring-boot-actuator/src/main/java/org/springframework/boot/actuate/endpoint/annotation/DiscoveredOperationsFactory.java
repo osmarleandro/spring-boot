@@ -21,6 +21,7 @@ import java.lang.reflect.Method;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.EnumMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -36,6 +37,7 @@ import org.springframework.core.MethodIntrospector;
 import org.springframework.core.MethodIntrospector.MetadataLookup;
 import org.springframework.core.annotation.MergedAnnotation;
 import org.springframework.core.annotation.MergedAnnotations;
+import org.springframework.util.CollectionUtils;
 
 /**
  * Factory to create an {@link Operation} for annotated methods on an
@@ -106,5 +108,9 @@ abstract class DiscoveredOperationsFactory<O extends Operation> {
 
 	protected abstract O createOperation(EndpointId endpointId, DiscoveredOperationMethod operationMethod,
 			OperationInvoker invoker);
+
+	<T> T getLast(List<T> list) {
+		return CollectionUtils.isEmpty(list) ? null : list.get(list.size() - 1);
+	}
 
 }
