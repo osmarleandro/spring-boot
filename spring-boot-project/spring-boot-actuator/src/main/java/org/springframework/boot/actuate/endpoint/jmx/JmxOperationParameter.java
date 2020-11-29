@@ -16,6 +16,8 @@
 
 package org.springframework.boot.actuate.endpoint.jmx;
 
+import javax.management.MBeanParameterInfo;
+
 /**
  * Describes the parameters of an operation on a JMX endpoint.
  *
@@ -42,5 +44,9 @@ public interface JmxOperationParameter {
 	 * @return the description or {@code null}
 	 */
 	String getDescription();
+
+	default MBeanParameterInfo getMBeanParameter() {
+		return new MBeanParameterInfo(getName(), getType().getName(), getDescription());
+	}
 
 }
