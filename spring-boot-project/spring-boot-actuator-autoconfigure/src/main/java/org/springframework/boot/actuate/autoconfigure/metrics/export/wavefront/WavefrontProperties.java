@@ -59,10 +59,6 @@ public class WavefrontProperties extends PushRegistryProperties {
 
 	private final Sender sender = new Sender();
 
-	public URI getUri() {
-		return this.uri;
-	}
-
 	public void setUri(URI uri) {
 		this.uri = uri;
 	}
@@ -125,6 +121,10 @@ public class WavefrontProperties extends PushRegistryProperties {
 
 		public void setMessageSize(DataSize messageSize) {
 			this.messageSize = messageSize;
+		}
+
+		public URI getUri(WavefrontProperties wavefrontProperties) {
+			return wavefrontProperties.uri;
 		}
 
 	}
