@@ -25,7 +25,6 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.env.Environment;
 
 /**
  * {@link EnableAutoConfiguration Auto-configuration} for the {@link EnvironmentEndpoint}.
@@ -38,17 +37,6 @@ import org.springframework.core.env.Environment;
 @ConditionalOnAvailableEndpoint(endpoint = EnvironmentEndpoint.class)
 @EnableConfigurationProperties(EnvironmentEndpointProperties.class)
 public class EnvironmentEndpointAutoConfiguration {
-
-	@Bean
-	@ConditionalOnMissingBean
-	public EnvironmentEndpoint environmentEndpoint(Environment environment, EnvironmentEndpointProperties properties) {
-		EnvironmentEndpoint endpoint = new EnvironmentEndpoint(environment);
-		String[] keysToSanitize = properties.getKeysToSanitize();
-		if (keysToSanitize != null) {
-			endpoint.setKeysToSanitize(keysToSanitize);
-		}
-		return endpoint;
-	}
 
 	@Bean
 	@ConditionalOnMissingBean

@@ -17,7 +17,10 @@
 package org.springframework.boot.actuate.autoconfigure.env;
 
 import org.springframework.boot.actuate.env.EnvironmentEndpoint;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.Bean;
+import org.springframework.core.env.Environment;
 
 /**
  * Configuration properties for {@link EnvironmentEndpoint}.
@@ -40,6 +43,17 @@ public class EnvironmentEndpointProperties {
 
 	public void setKeysToSanitize(String[] keysToSanitize) {
 		this.keysToSanitize = keysToSanitize;
+	}
+
+	@Bean
+	@ConditionalOnMissingBean
+	public EnvironmentEndpoint environmentEndpoint(Environment environment) {
+		EnvironmentEndpoint endpoint = new EnvironmentEndpoint(environment);
+		String[] keysToSanitize = getKeysToSanitize();
+		if (keysToSanitize != null) {
+			endpoint.setKeysToSanitize(keysToSanitize);
+		}
+		return endpoint;
 	}
 
 }
