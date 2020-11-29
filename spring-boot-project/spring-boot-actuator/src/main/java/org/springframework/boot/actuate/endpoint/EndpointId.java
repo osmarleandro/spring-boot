@@ -23,7 +23,13 @@ import java.util.regex.Pattern;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
+import org.springframework.boot.actuate.endpoint.annotation.DiscoveredOperationMethod;
+import org.springframework.boot.actuate.endpoint.invoke.OperationInvoker;
+import org.springframework.boot.actuate.endpoint.web.PathMapper;
+import org.springframework.boot.actuate.endpoint.web.WebOperation;
+import org.springframework.boot.actuate.endpoint.web.WebOperationRequestPredicate;
+import org.springframework.boot.actuate.endpoint.web.annotation.DiscoveredWebOperation;
+import org.springframework.boot.actuate.endpoint.web.annotation.WebEndpointDiscoverer;
 import org.springframework.core.env.Environment;
 import org.springframework.util.Assert;
 
@@ -104,6 +110,13 @@ public final class EndpointId {
 	@Override
 	public String toString() {
 		return this.value;
+	}
+
+	public WebOperation createOperation(WebEndpointDiscoverer webEndpointDiscoverer, DiscoveredOperationMethod operationMethod, OperationInvoker invoker) {
+		String rootPath = PathMapper.getRootPath(webEndpointDiscoverer.endpointPathMappers, this);
+		WebOperationRequestPredicate requestPredicate = webEndpointDiscoverer.requestPredicateFactory.getRequestPredicate(rootPath,
+				operationMethod);
+		return new DiscoveredWebOperation(this, operationMethod, invoker, requestPredicate);
 	}
 
 	/**

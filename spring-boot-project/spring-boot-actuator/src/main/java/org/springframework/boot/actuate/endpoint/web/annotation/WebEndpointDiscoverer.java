@@ -31,7 +31,6 @@ import org.springframework.boot.actuate.endpoint.web.ExposableWebEndpoint;
 import org.springframework.boot.actuate.endpoint.web.PathMapper;
 import org.springframework.boot.actuate.endpoint.web.WebEndpointsSupplier;
 import org.springframework.boot.actuate.endpoint.web.WebOperation;
-import org.springframework.boot.actuate.endpoint.web.WebOperationRequestPredicate;
 import org.springframework.context.ApplicationContext;
 
 /**
@@ -43,9 +42,9 @@ import org.springframework.context.ApplicationContext;
 public class WebEndpointDiscoverer extends EndpointDiscoverer<ExposableWebEndpoint, WebOperation>
 		implements WebEndpointsSupplier {
 
-	private final List<PathMapper> endpointPathMappers;
+	public final List<PathMapper> endpointPathMappers;
 
-	private final RequestPredicateFactory requestPredicateFactory;
+	public final RequestPredicateFactory requestPredicateFactory;
 
 	/**
 	 * Create a new {@link WebEndpointDiscoverer} instance.
@@ -75,11 +74,8 @@ public class WebEndpointDiscoverer extends EndpointDiscoverer<ExposableWebEndpoi
 	@Override
 	protected WebOperation createOperation(EndpointId endpointId, DiscoveredOperationMethod operationMethod,
 			OperationInvoker invoker) {
-		String rootPath = PathMapper.getRootPath(this.endpointPathMappers, endpointId);
-		WebOperationRequestPredicate requestPredicate = this.requestPredicateFactory.getRequestPredicate(rootPath,
-				operationMethod);
-		return new DiscoveredWebOperation(endpointId, operationMethod, invoker, requestPredicate);
-	}
+				return endpointId.createOperation(this, operationMethod, invoker);
+			}
 
 	@Override
 	protected OperationKey createOperationKey(WebOperation operation) {

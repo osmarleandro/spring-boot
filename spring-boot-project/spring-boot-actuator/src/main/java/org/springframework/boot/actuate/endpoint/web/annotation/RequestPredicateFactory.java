@@ -42,7 +42,7 @@ import org.springframework.util.Assert;
  * @author Stephane Nicoll
  * @author Phillip Webb
  */
-class RequestPredicateFactory {
+public class RequestPredicateFactory {
 
 	private final EndpointMediaTypes endpointMediaTypes;
 
@@ -51,7 +51,7 @@ class RequestPredicateFactory {
 		this.endpointMediaTypes = endpointMediaTypes;
 	}
 
-	WebOperationRequestPredicate getRequestPredicate(String rootPath, DiscoveredOperationMethod operationMethod) {
+	public WebOperationRequestPredicate getRequestPredicate(String rootPath, DiscoveredOperationMethod operationMethod) {
 		Method method = operationMethod.getMethod();
 		Parameter[] selectorParameters = Arrays.stream(method.getParameters()).filter(this::hasSelector)
 				.toArray(Parameter[]::new);
