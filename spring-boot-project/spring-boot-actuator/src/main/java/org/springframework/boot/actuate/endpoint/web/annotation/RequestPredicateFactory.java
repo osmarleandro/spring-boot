@@ -42,9 +42,9 @@ import org.springframework.util.Assert;
  * @author Stephane Nicoll
  * @author Phillip Webb
  */
-class RequestPredicateFactory {
+public class RequestPredicateFactory {
 
-	private final EndpointMediaTypes endpointMediaTypes;
+	public final EndpointMediaTypes endpointMediaTypes;
 
 	RequestPredicateFactory(EndpointMediaTypes endpointMediaTypes) {
 		Assert.notNull(endpointMediaTypes, "EndpointMediaTypes must not be null");
@@ -58,7 +58,7 @@ class RequestPredicateFactory {
 		Parameter allRemainingPathSegmentsParameter = getAllRemainingPathSegmentsParameter(selectorParameters);
 		String path = getPath(rootPath, selectorParameters, allRemainingPathSegmentsParameter != null);
 		WebEndpointHttpMethod httpMethod = determineHttpMethod(operationMethod.getOperationType());
-		Collection<String> consumes = getConsumes(httpMethod, method);
+		Collection<String> consumes = httpMethod.getConsumes(this, method);
 		Collection<String> produces = getProduces(operationMethod, method);
 		return new WebOperationRequestPredicate(path, httpMethod, consumes, produces);
 	}
@@ -97,13 +97,6 @@ class RequestPredicateFactory {
 		return parameter.getAnnotation(Selector.class) != null;
 	}
 
-	private Collection<String> getConsumes(WebEndpointHttpMethod httpMethod, Method method) {
-		if (WebEndpointHttpMethod.POST == httpMethod && consumesRequestBody(method)) {
-			return this.endpointMediaTypes.getConsumed();
-		}
-		return Collections.emptyList();
-	}
-
 	private Collection<String> getProduces(DiscoveredOperationMethod operationMethod, Method method) {
 		if (!operationMethod.getProducesMediaTypes().isEmpty()) {
 			return operationMethod.getProducesMediaTypes();
@@ -128,7 +121,7 @@ class RequestPredicateFactory {
 		return false;
 	}
 
-	private boolean consumesRequestBody(Method method) {
+	public boolean consumesRequestBody(Method method) {
 		return Stream.of(method.getParameters())
 				.anyMatch((parameter) -> parameter.getAnnotation(Selector.class) == null);
 	}

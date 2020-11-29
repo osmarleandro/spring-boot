@@ -16,6 +16,12 @@
 
 package org.springframework.boot.actuate.endpoint.web;
 
+import java.lang.reflect.Method;
+import java.util.Collection;
+import java.util.Collections;
+
+import org.springframework.boot.actuate.endpoint.web.annotation.RequestPredicateFactory;
+
 /**
  * An enumeration of HTTP methods supported by web endpoint operations.
  *
@@ -37,6 +43,13 @@ public enum WebEndpointHttpMethod {
 	/**
 	 * An HTTP DELETE request.
 	 */
-	DELETE
+	DELETE;
+
+	public Collection<String> getConsumes(RequestPredicateFactory requestPredicateFactory, Method method) {
+		if (WebEndpointHttpMethod.POST == this && requestPredicateFactory.consumesRequestBody(method)) {
+			return requestPredicateFactory.endpointMediaTypes.getConsumed();
+		}
+		return Collections.emptyList();
+	}
 
 }
