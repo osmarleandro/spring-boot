@@ -156,8 +156,8 @@ public class EndpointMBean implements DynamicMBean {
 	@Override
 	public void setAttribute(Attribute attribute)
 			throws AttributeNotFoundException, InvalidAttributeValueException, MBeanException, ReflectionException {
-		throw new AttributeNotFoundException("EndpointMBeans do not support attributes");
-	}
+				endpoint.setAttribute(attribute);
+			}
 
 	@Override
 	public AttributeList getAttributes(String[] attributes) {

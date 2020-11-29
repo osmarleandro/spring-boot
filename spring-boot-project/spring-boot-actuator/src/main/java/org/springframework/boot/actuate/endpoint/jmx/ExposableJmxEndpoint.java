@@ -16,6 +16,12 @@
 
 package org.springframework.boot.actuate.endpoint.jmx;
 
+import javax.management.Attribute;
+import javax.management.AttributeNotFoundException;
+import javax.management.InvalidAttributeValueException;
+import javax.management.MBeanException;
+import javax.management.ReflectionException;
+
 import org.springframework.boot.actuate.endpoint.ExposableEndpoint;
 
 /**
@@ -25,5 +31,10 @@ import org.springframework.boot.actuate.endpoint.ExposableEndpoint;
  * @since 2.0.0
  */
 public interface ExposableJmxEndpoint extends ExposableEndpoint<JmxOperation> {
+
+	default void setAttribute(Attribute attribute)
+			throws AttributeNotFoundException, InvalidAttributeValueException, MBeanException, ReflectionException {
+		throw new AttributeNotFoundException("EndpointMBeans do not support attributes");
+	}
 
 }
