@@ -19,6 +19,7 @@ package org.springframework.boot.actuate.autoconfigure.metrics;
 import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 
+import io.micrometer.core.instrument.Meter;
 import io.micrometer.core.instrument.Meter.Type;
 
 import org.springframework.boot.convert.DurationStyle;
@@ -77,6 +78,18 @@ public final class MeterValue {
 			return ((Duration) this.value).toNanos();
 		}
 		return null;
+	}
+
+	/**
+	 * Return the underlying value of the SLA in form suitable to apply to the given meter
+	 * type.
+	 * @param serviceLevelAgreementBoundary TODO
+	 * @param meterType the meter type
+	 * @return the value or {@code null} if the value cannot be applied
+	 */
+	public Long getValue(ServiceLevelAgreementBoundary serviceLevelAgreementBoundary, Type meterType) {
+		Double value = getValue(meterType);
+		return (value != null) ? value.longValue() : null;
 	}
 
 	/**
