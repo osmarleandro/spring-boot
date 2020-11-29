@@ -22,7 +22,6 @@ import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import org.springframework.boot.actuate.endpoint.web.EndpointMapping;
 import org.springframework.boot.actuate.endpoint.web.annotation.ControllerEndpoint;
@@ -84,27 +83,16 @@ public class ControllerEndpointHandlerMapping extends RequestMappingHandlerMappi
 	@Override
 	protected void registerHandlerMethod(Object handler, Method method, RequestMappingInfo mapping) {
 		ExposableControllerEndpoint endpoint = this.handlers.get(handler);
-		mapping = withEndpointMappedPatterns(endpoint, mapping);
+		mapping = endpoint.withEndpointMappedPatterns(this, mapping);
 		super.registerHandlerMethod(handler, method, mapping);
 	}
 
-	private RequestMappingInfo withEndpointMappedPatterns(ExposableControllerEndpoint endpoint,
-			RequestMappingInfo mapping) {
-		Set<String> patterns = mapping.getPatternsCondition().getPatterns();
-		if (patterns.isEmpty()) {
-			patterns = Collections.singleton("");
-		}
-		String[] endpointMappedPatterns = patterns.stream()
-				.map((pattern) -> getEndpointMappedPattern(endpoint, pattern)).toArray(String[]::new);
-		return withNewPatterns(mapping, endpointMappedPatterns);
-	}
-
-	private String getEndpointMappedPattern(ExposableControllerEndpoint endpoint, String pattern) {
+	public String getEndpointMappedPattern(ExposableControllerEndpoint endpoint, String pattern) {
 		return this.endpointMapping.createSubPath(endpoint.getRootPath() + pattern);
 	}
 
 	@SuppressWarnings("deprecation")
-	private RequestMappingInfo withNewPatterns(RequestMappingInfo mapping, String[] patterns) {
+	public RequestMappingInfo withNewPatterns(RequestMappingInfo mapping, String[] patterns) {
 		PatternsRequestCondition patternsCondition = new PatternsRequestCondition(patterns, null, null,
 				useSuffixPatternMatch(), useTrailingSlashMatch(), null);
 		return new RequestMappingInfo(patternsCondition, mapping.getMethodsCondition(), mapping.getParamsCondition(),
