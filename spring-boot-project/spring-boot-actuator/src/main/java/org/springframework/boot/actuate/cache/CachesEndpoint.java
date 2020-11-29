@@ -104,7 +104,7 @@ public class CachesEndpoint {
 	public boolean clearCache(@Selector String cache, @Nullable String cacheManager) {
 		CacheEntry entry = extractUniqueCacheEntry(cache,
 				getCacheEntries((name) -> name.equals(cache), isNameMatch(cacheManager)));
-		return (entry != null && clearCache(entry));
+		return (entry != null && entry.clearCache(this));
 	}
 
 	private List<CacheEntry> getCacheEntries(Predicate<String> cacheNamePredicate,
@@ -127,17 +127,6 @@ public class CachesEndpoint {
 					entries.stream().map(CacheEntry::getCacheManager).distinct().collect(Collectors.toList()));
 		}
 		return (!entries.isEmpty() ? entries.get(0) : null);
-	}
-
-	private boolean clearCache(CacheEntry entry) {
-		String cacheName = entry.getName();
-		String cacheManager = entry.getCacheManager();
-		Cache cache = this.cacheManagers.get(cacheManager).getCache(cacheName);
-		if (cache != null) {
-			cache.clear();
-			return true;
-		}
-		return false;
 	}
 
 	private Predicate<String> isNameMatch(String name) {
@@ -226,6 +215,17 @@ public class CachesEndpoint {
 
 		public String getCacheManager() {
 			return this.cacheManager;
+		}
+
+		boolean clearCache(CachesEndpoint cachesEndpoint) {
+			String cacheName = getName();
+			String cacheManager = getCacheManager();
+			Cache cache = cachesEndpoint.cacheManagers.get(cacheManager).getCache(cacheName);
+			if (cache != null) {
+				cache.clear();
+				return true;
+			}
+			return false;
 		}
 
 	}
