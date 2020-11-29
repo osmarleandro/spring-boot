@@ -16,11 +16,9 @@
 
 package org.springframework.boot.actuate.autoconfigure.cloudfoundry.servlet;
 
-import java.security.GeneralSecurityException;
 import java.security.KeyFactory;
 import java.security.NoSuchAlgorithmException;
 import java.security.PublicKey;
-import java.security.Signature;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.X509EncodedKeySpec;
 import java.util.Map;
@@ -36,7 +34,7 @@ import org.springframework.util.Base64Utils;
  *
  * @author Madhura Bhave
  */
-class TokenValidator {
+public class TokenValidator {
 
 	private final CloudFoundrySecurityService securityService;
 
@@ -75,7 +73,7 @@ class TokenValidator {
 			}
 		}
 
-		if (!hasValidSignature(token, this.tokenKeys.get(keyId))) {
+		if (!token.hasValidSignature(this, this.tokenKeys.get(keyId))) {
 			throw new CloudFoundryAuthorizationException(Reason.INVALID_SIGNATURE,
 					"RSA Signature did not match content");
 		}
@@ -85,20 +83,7 @@ class TokenValidator {
 		return this.tokenKeys.containsKey(tokenKey);
 	}
 
-	private boolean hasValidSignature(Token token, String key) {
-		try {
-			PublicKey publicKey = getPublicKey(key);
-			Signature signature = Signature.getInstance("SHA256withRSA");
-			signature.initVerify(publicKey);
-			signature.update(token.getContent());
-			return signature.verify(token.getSignature());
-		}
-		catch (GeneralSecurityException ex) {
-			return false;
-		}
-	}
-
-	private PublicKey getPublicKey(String key) throws NoSuchAlgorithmException, InvalidKeySpecException {
+	public PublicKey getPublicKey(String key) throws NoSuchAlgorithmException, InvalidKeySpecException {
 		key = key.replace("-----BEGIN PUBLIC KEY-----\n", "");
 		key = key.replace("-----END PUBLIC KEY-----", "");
 		key = key.trim().replace("\n", "");
