@@ -21,8 +21,11 @@ import java.util.Collections;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.springframework.boot.actuate.endpoint.web.servlet.AbstractWebMvcEndpointHandlerMapping;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.method.RequestMappingInfo;
 
 /**
  * A predicate for a request to an operation on a web endpoint.
@@ -155,6 +158,13 @@ public final class WebOperationRequestPredicate {
 			result.append(" produces: ").append(StringUtils.collectionToCommaDelimitedString(this.produces));
 		}
 		return result.toString();
+	}
+
+	public RequestMappingInfo createRequestMappingInfo(AbstractWebMvcEndpointHandlerMapping abstractWebMvcEndpointHandlerMapping, String path) {
+		return RequestMappingInfo.paths(abstractWebMvcEndpointHandlerMapping.endpointMapping.createSubPath(path))
+				.methods(RequestMethod.valueOf(getHttpMethod().name()))
+				.consumes(getConsumes().toArray(new String[0]))
+				.produces(getProduces().toArray(new String[0])).build();
 	}
 
 }
