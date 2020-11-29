@@ -35,7 +35,7 @@ public interface HealthIndicator extends HealthContributor {
 	 */
 	default Health getHealth(boolean includeDetails) {
 		Health health = health();
-		return includeDetails ? health : health.withoutDetails();
+		return includeDetails ? health : health.getStatus().withoutDetails(this);
 	}
 
 	/**

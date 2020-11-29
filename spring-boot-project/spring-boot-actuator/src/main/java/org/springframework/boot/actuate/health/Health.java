@@ -53,7 +53,7 @@ public final class Health extends HealthComponent {
 
 	private final Status status;
 
-	private final Map<String, Object> details;
+	final Map<String, Object> details;
 
 	/**
 	 * Create a new {@link Health} instance with the specified status and details.
@@ -86,19 +86,6 @@ public final class Health extends HealthComponent {
 	@JsonInclude(Include.NON_EMPTY)
 	public Map<String, Object> getDetails() {
 		return this.details;
-	}
-
-	/**
-	 * Return a new instance of this {@link Health} with all {@link #getDetails() details}
-	 * removed.
-	 * @return a new instance without details
-	 * @since 2.2.0
-	 */
-	Health withoutDetails() {
-		if (this.details.isEmpty()) {
-			return this;
-		}
-		return status(getStatus()).build();
 	}
 
 	@Override

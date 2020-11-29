@@ -123,4 +123,18 @@ public final class Status {
 		return this.code;
 	}
 
+	/**
+	 * Return a new instance of this {@link Health} with all {@link #getDetails() details}
+	 * removed.
+	 * @return a new instance without details
+	 * @param health TODO
+	 * @since 2.2.0
+	 */
+	Health withoutDetails(Health health) {
+		if (health.details.isEmpty()) {
+			return health;
+		}
+		return Health.status(health.getStatus()).build();
+	}
+
 }
