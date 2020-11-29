@@ -123,4 +123,15 @@ public final class Status {
 		return this.code;
 	}
 
+	public boolean equals(Health health, Object obj) {
+		if (obj == health) {
+			return true;
+		}
+		if (obj instanceof Health) {
+			Health other = (Health) obj;
+			return equals(other.status) && health.details.equals(other.details);
+		}
+		return false;
+	}
+
 }

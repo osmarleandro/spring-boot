@@ -51,9 +51,9 @@ import org.springframework.util.Assert;
 @JsonInclude(Include.NON_EMPTY)
 public final class Health extends HealthComponent {
 
-	private final Status status;
+	final Status status;
 
-	private final Map<String, Object> details;
+	final Map<String, Object> details;
 
 	/**
 	 * Create a new {@link Health} instance with the specified status and details.
@@ -103,14 +103,7 @@ public final class Health extends HealthComponent {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (obj == this) {
-			return true;
-		}
-		if (obj instanceof Health) {
-			Health other = (Health) obj;
-			return this.status.equals(other.status) && this.details.equals(other.details);
-		}
-		return false;
+		return status.equals(this, obj);
 	}
 
 	@Override
