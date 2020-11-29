@@ -30,7 +30,6 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.annotation.Order;
 
 /**
  * {@link EnableAutoConfiguration Auto-configuration} for Micrometer-based metrics.
@@ -58,12 +57,6 @@ public class MetricsAutoConfiguration {
 			ObjectProvider<MetricsProperties> metricsProperties, ApplicationContext applicationContext) {
 		return new MeterRegistryPostProcessor(meterBinders, meterFilters, meterRegistryCustomizers, metricsProperties,
 				applicationContext);
-	}
-
-	@Bean
-	@Order(0)
-	public PropertiesMeterFilter propertiesMeterFilter(MetricsProperties properties) {
-		return new PropertiesMeterFilter(properties);
 	}
 
 }

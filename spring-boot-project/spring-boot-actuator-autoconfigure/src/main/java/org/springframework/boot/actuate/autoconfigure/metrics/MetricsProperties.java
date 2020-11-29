@@ -22,6 +22,8 @@ import java.util.Map;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.DeprecatedConfigurationProperty;
 import org.springframework.boot.context.properties.NestedConfigurationProperty;
+import org.springframework.context.annotation.Bean;
+import org.springframework.core.annotation.Order;
 
 /**
  * {@link ConfigurationProperties @ConfigurationProperties} for configuring
@@ -79,6 +81,12 @@ public class MetricsProperties {
 
 	public Distribution getDistribution() {
 		return this.distribution;
+	}
+
+	@Bean
+	@Order(0)
+	public PropertiesMeterFilter propertiesMeterFilter() {
+		return new PropertiesMeterFilter(this);
 	}
 
 	public static class Web {
