@@ -96,7 +96,7 @@ public class PropertiesMeterFilter implements MeterFilter {
 		if (slo == null) {
 			return null;
 		}
-		double[] converted = Arrays.stream(slo).map((candidate) -> candidate.getValue(meterType))
+		double[] converted = Arrays.stream(slo).map((candidate) -> candidate.value.getValue(candidate, meterType))
 				.filter(Objects::nonNull).mapToDouble(Double::doubleValue).toArray();
 		return (converted.length != 0) ? converted : null;
 	}
