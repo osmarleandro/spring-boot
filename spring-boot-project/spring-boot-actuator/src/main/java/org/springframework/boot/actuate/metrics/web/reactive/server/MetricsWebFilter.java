@@ -26,7 +26,6 @@ import reactor.core.publisher.Mono;
 import org.springframework.boot.actuate.metrics.AutoTimer;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
-import org.springframework.http.server.reactive.ServerHttpResponse;
 import org.springframework.web.server.ServerWebExchange;
 import org.springframework.web.server.WebFilter;
 import org.springframework.web.server.WebFilterChain;
@@ -76,27 +75,14 @@ public class MetricsWebFilter implements WebFilter {
 	private Publisher<Void> filter(ServerWebExchange exchange, Mono<Void> call) {
 		long start = System.nanoTime();
 		return call.doOnSuccess((done) -> onSuccess(exchange, start))
-				.doOnError((cause) -> onError(exchange, start, cause));
+				.doOnError((cause) -> autoTimer.onError(this, exchange, start, cause));
 	}
 
 	private void onSuccess(ServerWebExchange exchange, long start) {
 		record(exchange, start, null);
 	}
 
-	private void onError(ServerWebExchange exchange, long start, Throwable cause) {
-		ServerHttpResponse response = exchange.getResponse();
-		if (response.isCommitted()) {
-			record(exchange, start, cause);
-		}
-		else {
-			response.beforeCommit(() -> {
-				record(exchange, start, cause);
-				return Mono.empty();
-			});
-		}
-	}
-
-	private void record(ServerWebExchange exchange, long start, Throwable cause) {
+	public void record(ServerWebExchange exchange, long start, Throwable cause) {
 		Iterable<Tag> tags = this.tagsProvider.httpRequestTags(exchange, cause);
 		this.autoTimer.builder(this.metricName).tags(tags).register(this.registry).record(System.nanoTime() - start,
 				TimeUnit.NANOSECONDS);
