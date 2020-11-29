@@ -32,7 +32,7 @@ import org.springframework.util.Assert;
  */
 public class ConversionServiceParameterValueMapper implements ParameterValueMapper {
 
-	private final ConversionService conversionService;
+	public final ConversionService conversionService;
 
 	/**
 	 * Create a new {@link ConversionServiceParameterValueMapper} instance.
@@ -53,12 +53,7 @@ public class ConversionServiceParameterValueMapper implements ParameterValueMapp
 
 	@Override
 	public Object mapParameterValue(OperationParameter parameter, Object value) throws ParameterMappingException {
-		try {
-			return this.conversionService.convert(value, parameter.getType());
-		}
-		catch (Exception ex) {
-			throw new ParameterMappingException(parameter, value, ex);
-		}
+		return parameter.mapParameterValue(this, value);
 	}
 
 }

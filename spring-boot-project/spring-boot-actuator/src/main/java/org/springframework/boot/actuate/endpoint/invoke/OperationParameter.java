@@ -16,6 +16,8 @@
 
 package org.springframework.boot.actuate.endpoint.invoke;
 
+import org.springframework.boot.actuate.endpoint.invoke.convert.ConversionServiceParameterValueMapper;
+
 /**
  * A single operation parameter.
  *
@@ -41,5 +43,14 @@ public interface OperationParameter {
 	 * @return if the parameter is mandatory
 	 */
 	boolean isMandatory();
+
+	default Object mapParameterValue(ConversionServiceParameterValueMapper conversionServiceParameterValueMapper, Object value) throws ParameterMappingException {
+		try {
+			return conversionServiceParameterValueMapper.conversionService.convert(value, getType());
+		}
+		catch (Exception ex) {
+			throw new ParameterMappingException(this, value, ex);
+		}
+	}
 
 }
