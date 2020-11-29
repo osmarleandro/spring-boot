@@ -69,10 +69,6 @@ public class MetricsProperties {
 		return this.enable;
 	}
 
-	public Map<String, String> getTags() {
-		return this.tags;
-	}
-
 	public Web getWeb() {
 		return this.web;
 	}
@@ -278,6 +274,10 @@ public class MetricsProperties {
 
 		public Map<String, String> getMaximumExpectedValue() {
 			return this.maximumExpectedValue;
+		}
+
+		public Map<String, String> getTags(MetricsProperties metricsProperties) {
+			return metricsProperties.tags;
 		}
 
 	}
