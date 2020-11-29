@@ -36,9 +36,9 @@ import static org.mockito.Mockito.mock;
  *
  * @author Phillip Webb
  */
-class AvailabilityProbesHealthEndpointGroupsTests {
+public class AvailabilityProbesHealthEndpointGroupsTests {
 
-	private HealthEndpointGroups delegate;
+	public HealthEndpointGroups delegate;
 
 	private HealthEndpointGroup group;
 
@@ -73,12 +73,6 @@ class AvailabilityProbesHealthEndpointGroupsTests {
 		given(this.delegate.get("liveness")).willReturn(this.group);
 		HealthEndpointGroups availabilityProbes = new AvailabilityProbesHealthEndpointGroups(this.delegate);
 		assertThat(availabilityProbes.get("liveness")).isEqualTo(this.group);
-	}
-
-	@Test
-	void getWhenProbeNotInDelegateReturnsProbeGroup() {
-		HealthEndpointGroups availabilityProbes = new AvailabilityProbesHealthEndpointGroups(this.delegate);
-		assertThat(availabilityProbes.get("liveness")).isInstanceOf(AvailabilityProbesHealthEndpointGroup.class);
 	}
 
 	@Test

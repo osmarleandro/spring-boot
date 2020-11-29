@@ -16,9 +16,15 @@
 
 package org.springframework.boot.actuate.health;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import java.util.Map;
 import java.util.Set;
 
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.actuate.autoconfigure.availability.AvailabilityProbesHealthEndpointGroup;
+import org.springframework.boot.actuate.autoconfigure.availability.AvailabilityProbesHealthEndpointGroups;
+import org.springframework.boot.actuate.autoconfigure.availability.AvailabilityProbesHealthEndpointGroupsTests;
 import org.springframework.util.Assert;
 
 /**
@@ -47,6 +53,13 @@ public interface HealthEndpointGroups {
 	 * @return the {@link HealthEndpointGroup} or {@code null}
 	 */
 	HealthEndpointGroup get(String name);
+
+	@Test
+	default
+	void getWhenProbeNotInDelegateReturnsProbeGroup(AvailabilityProbesHealthEndpointGroupsTests availabilityProbesHealthEndpointGroupsTests) {
+		HealthEndpointGroups availabilityProbes = new AvailabilityProbesHealthEndpointGroups(this);
+		assertThat(availabilityProbes.get("liveness")).isInstanceOf(AvailabilityProbesHealthEndpointGroup.class);
+	}
 
 	/**
 	 * Factory method to create a {@link HealthEndpointGroups} instance.
