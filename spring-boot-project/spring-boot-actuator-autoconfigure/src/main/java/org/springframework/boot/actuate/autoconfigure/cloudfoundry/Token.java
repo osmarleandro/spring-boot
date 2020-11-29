@@ -115,4 +115,12 @@ public class Token {
 		return this.encoded;
 	}
 
+	public void validateAudience() {
+		if (!getScope().contains("actuator.read")) {
+			throw new CloudFoundryAuthorizationException(Reason.INVALID_AUDIENCE,
+					"Token does not have audience actuator");
+		}
+	
+	}
+
 }

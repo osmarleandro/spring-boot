@@ -51,7 +51,7 @@ class TokenValidator {
 		validateKeyIdAndSignature(token);
 		validateExpiry(token);
 		validateIssuer(token);
-		validateAudience(token);
+		token.validateAudience();
 	}
 
 	private void validateAlgorithm(Token token) {
@@ -121,14 +121,6 @@ class TokenValidator {
 			throw new CloudFoundryAuthorizationException(Reason.INVALID_ISSUER,
 					"Token issuer does not match " + uaaUrl + "/oauth/token");
 		}
-	}
-
-	private void validateAudience(Token token) {
-		if (!token.getScope().contains("actuator.read")) {
-			throw new CloudFoundryAuthorizationException(Reason.INVALID_AUDIENCE,
-					"Token does not have audience actuator");
-		}
-
 	}
 
 }
