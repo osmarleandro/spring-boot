@@ -30,9 +30,9 @@ import static org.mockito.Mockito.mock;
  *
  * @author Phillip Webb
  */
-class AvailabilityProbesHealthEndpointGroupTests {
+public class AvailabilityProbesHealthEndpointGroupTests {
 
-	private AvailabilityProbesHealthEndpointGroup group = new AvailabilityProbesHealthEndpointGroup("a", "b");
+	public AvailabilityProbesHealthEndpointGroup group = new AvailabilityProbesHealthEndpointGroup("a", "b");
 
 	@Test
 	void isMemberWhenMemberReturnsTrue() {
@@ -48,11 +48,6 @@ class AvailabilityProbesHealthEndpointGroupTests {
 	@Test
 	void showComponentsReturnsFalse() {
 		assertThat(this.group.showComponents(mock(SecurityContext.class))).isFalse();
-	}
-
-	@Test
-	void showDetailsReturnsFalse() {
-		assertThat(this.group.showDetails(mock(SecurityContext.class))).isFalse();
 	}
 
 	@Test
