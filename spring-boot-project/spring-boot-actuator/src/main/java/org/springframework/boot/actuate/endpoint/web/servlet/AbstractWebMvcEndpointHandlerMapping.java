@@ -249,7 +249,7 @@ public abstract class AbstractWebMvcEndpointHandlerMapping extends RequestMappin
 	 * Handler providing actuator links at the root endpoint.
 	 */
 	@FunctionalInterface
-	protected interface LinksHandler {
+	public interface LinksHandler {
 
 		Object links(HttpServletRequest request, HttpServletResponse response);
 

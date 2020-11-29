@@ -64,13 +64,13 @@ public class WebMvcEndpointHandlerMapping extends AbstractWebMvcEndpointHandlerM
 
 	@Override
 	protected LinksHandler getLinksHandler() {
-		return new WebMvcLinksHandler();
+		return linksResolver.getLinksHandler();
 	}
 
 	/**
 	 * Handler for root endpoint providing links.
 	 */
-	class WebMvcLinksHandler implements LinksHandler {
+	public class WebMvcLinksHandler implements LinksHandler {
 
 		@Override
 		@ResponseBody
