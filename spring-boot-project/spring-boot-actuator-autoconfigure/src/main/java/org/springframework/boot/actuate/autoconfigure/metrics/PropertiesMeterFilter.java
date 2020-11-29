@@ -48,7 +48,7 @@ public class PropertiesMeterFilter implements MeterFilter {
 
 	private final MetricsProperties properties;
 
-	private final MeterFilter mapFilter;
+	final MeterFilter mapFilter;
 
 	public PropertiesMeterFilter(MetricsProperties properties) {
 		Assert.notNull(properties, "Properties must not be null");
@@ -74,7 +74,7 @@ public class PropertiesMeterFilter implements MeterFilter {
 
 	@Override
 	public Id map(Id id) {
-		return this.mapFilter.map(id);
+		return properties.map(this, id);
 	}
 
 	@Override
