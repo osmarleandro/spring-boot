@@ -27,7 +27,7 @@ import java.util.Map;
  */
 public class MapInfoContributor implements InfoContributor {
 
-	private final Map<String, Object> info;
+	final Map<String, Object> info;
 
 	public MapInfoContributor(Map<String, Object> info) {
 		this.info = new LinkedHashMap<>(info);
@@ -35,7 +35,7 @@ public class MapInfoContributor implements InfoContributor {
 
 	@Override
 	public void contribute(Info.Builder builder) {
-		builder.withDetails(this.info);
+		builder.contribute(this);
 	}
 
 }
