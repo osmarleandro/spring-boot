@@ -19,7 +19,6 @@ package org.springframework.boot.actuate.endpoint.invoker.cache;
 import java.security.Principal;
 import java.time.Duration;
 import java.util.Map;
-import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 
 import reactor.core.publisher.Flux;
@@ -74,7 +73,7 @@ public class CachingOperationInvoker implements OperationInvoker {
 
 	@Override
 	public Object invoke(InvocationContext context) {
-		if (hasInput(context)) {
+		if (context.hasInput()) {
 			return this.invoker.invoke(context);
 		}
 		long accessTime = System.currentTimeMillis();
@@ -87,14 +86,6 @@ public class CachingOperationInvoker implements OperationInvoker {
 			this.cachedResponses.put(cacheKey, cached);
 		}
 		return cached.getResponse();
-	}
-
-	private boolean hasInput(InvocationContext context) {
-		Map<String, Object> arguments = context.getArguments();
-		if (!ObjectUtils.isEmpty(arguments)) {
-			return arguments.values().stream().anyMatch(Objects::nonNull);
-		}
-		return false;
 	}
 
 	private CachedResponse createCachedResponse(Object response, long accessTime) {

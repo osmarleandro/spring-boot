@@ -17,10 +17,12 @@
 package org.springframework.boot.actuate.endpoint;
 
 import java.util.Map;
+import java.util.Objects;
 
 import org.springframework.boot.actuate.endpoint.http.ApiVersion;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvoker;
 import org.springframework.util.Assert;
+import org.springframework.util.ObjectUtils;
 
 /**
  * The context for the {@link OperationInvoker invocation of an operation}.
@@ -86,6 +88,14 @@ public class InvocationContext {
 	 */
 	public Map<String, Object> getArguments() {
 		return this.arguments;
+	}
+
+	public boolean hasInput() {
+		Map<String, Object> arguments = getArguments();
+		if (!ObjectUtils.isEmpty(arguments)) {
+			return arguments.values().stream().anyMatch(Objects::nonNull);
+		}
+		return false;
 	}
 
 }
