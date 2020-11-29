@@ -23,7 +23,10 @@ import java.util.regex.Pattern;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
+import org.springframework.boot.actuate.endpoint.invoke.OperationInvoker;
+import org.springframework.boot.actuate.endpoint.invoke.OperationParameters;
+import org.springframework.boot.actuate.endpoint.invoker.cache.CachingOperationInvoker;
+import org.springframework.boot.actuate.endpoint.invoker.cache.CachingOperationInvokerAdvisor;
 import org.springframework.core.env.Environment;
 import org.springframework.util.Assert;
 
@@ -104,6 +107,16 @@ public final class EndpointId {
 	@Override
 	public String toString() {
 		return this.value;
+	}
+
+	public OperationInvoker apply(CachingOperationInvokerAdvisor cachingOperationInvokerAdvisor, OperationType operationType, OperationParameters parameters, OperationInvoker invoker) {
+		if (operationType == OperationType.READ && !cachingOperationInvokerAdvisor.hasMandatoryParameter(parameters)) {
+			Long timeToLive = cachingOperationInvokerAdvisor.endpointIdTimeToLive.apply(this);
+			if (timeToLive != null && timeToLive > 0) {
+				return new CachingOperationInvoker(invoker, timeToLive);
+			}
+		}
+		return invoker;
 	}
 
 	/**

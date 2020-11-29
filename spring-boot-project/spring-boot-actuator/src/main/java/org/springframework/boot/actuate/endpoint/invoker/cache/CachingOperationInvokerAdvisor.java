@@ -35,7 +35,7 @@ import org.springframework.boot.actuate.endpoint.invoke.OperationParameters;
  */
 public class CachingOperationInvokerAdvisor implements OperationInvokerAdvisor {
 
-	private final Function<EndpointId, Long> endpointIdTimeToLive;
+	public final Function<EndpointId, Long> endpointIdTimeToLive;
 
 	public CachingOperationInvokerAdvisor(Function<EndpointId, Long> endpointIdTimeToLive) {
 		this.endpointIdTimeToLive = endpointIdTimeToLive;
@@ -44,16 +44,10 @@ public class CachingOperationInvokerAdvisor implements OperationInvokerAdvisor {
 	@Override
 	public OperationInvoker apply(EndpointId endpointId, OperationType operationType, OperationParameters parameters,
 			OperationInvoker invoker) {
-		if (operationType == OperationType.READ && !hasMandatoryParameter(parameters)) {
-			Long timeToLive = this.endpointIdTimeToLive.apply(endpointId);
-			if (timeToLive != null && timeToLive > 0) {
-				return new CachingOperationInvoker(invoker, timeToLive);
+				return endpointId.apply(this, operationType, parameters, invoker);
 			}
-		}
-		return invoker;
-	}
 
-	private boolean hasMandatoryParameter(OperationParameters parameters) {
+	public boolean hasMandatoryParameter(OperationParameters parameters) {
 		for (OperationParameter parameter : parameters) {
 			if (parameter.isMandatory() && !ApiVersion.class.isAssignableFrom(parameter.getType())
 					&& !SecurityContext.class.isAssignableFrom(parameter.getType())) {
