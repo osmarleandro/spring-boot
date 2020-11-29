@@ -23,6 +23,8 @@ import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
+import org.springframework.boot.actuate.system.DiskSpaceHealthIndicator;
+import org.springframework.core.log.LogMessage;
 import org.springframework.util.Assert;
 
 /**
@@ -327,6 +329,20 @@ public final class Health extends HealthComponent {
 		 */
 		public Health build() {
 			return new Health(this);
+		}
+
+		public void doHealthCheck(DiskSpaceHealthIndicator diskSpaceHealthIndicator) throws Exception {
+			long diskFreeInBytes = diskSpaceHealthIndicator.path.getUsableSpace();
+			if (diskFreeInBytes >= diskSpaceHealthIndicator.threshold.toBytes()) {
+				up();
+			}
+			else {
+				DiskSpaceHealthIndicator.logger.warn(LogMessage.format("Free disk space below threshold. Available: %d bytes (threshold: %s)",
+						diskFreeInBytes, diskSpaceHealthIndicator.threshold));
+				down();
+			}
+			withDetail("total", diskSpaceHealthIndicator.path.getTotalSpace()).withDetail("free", diskFreeInBytes)
+					.withDetail("threshold", diskSpaceHealthIndicator.threshold.toBytes()).withDetail("exists", diskSpaceHealthIndicator.path.exists());
 		}
 
 	}
