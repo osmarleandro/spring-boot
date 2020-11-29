@@ -21,8 +21,6 @@ import java.lang.reflect.Parameter;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import org.reactivestreams.Publisher;
-
 import org.springframework.boot.actuate.endpoint.EndpointId;
 import org.springframework.boot.actuate.endpoint.annotation.AbstractDiscoveredOperation;
 import org.springframework.boot.actuate.endpoint.annotation.DiscoveredOperationMethod;
@@ -40,9 +38,9 @@ import org.springframework.util.ClassUtils;
  * @author Stephane Nicoll
  * @author Phillip Webb
  */
-class DiscoveredWebOperation extends AbstractDiscoveredOperation implements WebOperation {
+public class DiscoveredWebOperation extends AbstractDiscoveredOperation implements WebOperation {
 
-	private static final boolean REACTIVE_STREAMS_PRESENT = ClassUtils.isPresent("org.reactivestreams.Publisher",
+	public static final boolean REACTIVE_STREAMS_PRESENT = ClassUtils.isPresent("org.reactivestreams.Publisher",
 			DiscoveredWebOperation.class.getClassLoader());
 
 	private final String id;
@@ -56,7 +54,7 @@ class DiscoveredWebOperation extends AbstractDiscoveredOperation implements WebO
 		super(operationMethod, invoker);
 		Method method = operationMethod.getMethod();
 		this.id = getId(endpointId, method);
-		this.blocking = getBlocking(method);
+		this.blocking = requestPredicate.getBlocking(method);
 		this.requestPredicate = requestPredicate;
 	}
 
@@ -71,10 +69,6 @@ class DiscoveredWebOperation extends AbstractDiscoveredOperation implements WebO
 
 	private String dashName(Parameter parameter) {
 		return "-" + parameter.getName();
-	}
-
-	private boolean getBlocking(Method method) {
-		return !REACTIVE_STREAMS_PRESENT || !Publisher.class.isAssignableFrom(method.getReturnType());
 	}
 
 	@Override
