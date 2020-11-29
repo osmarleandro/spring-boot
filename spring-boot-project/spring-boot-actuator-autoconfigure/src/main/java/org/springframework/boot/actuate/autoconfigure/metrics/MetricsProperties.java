@@ -23,6 +23,10 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.DeprecatedConfigurationProperty;
 import org.springframework.boot.context.properties.NestedConfigurationProperty;
 
+import io.micrometer.core.instrument.Meter;
+import io.micrometer.core.instrument.Meter.Id;
+import io.micrometer.core.instrument.config.MeterFilterReply;
+
 /**
  * {@link ConfigurationProperties @ConfigurationProperties} for configuring
  * Micrometer-based metrics.
@@ -79,6 +83,11 @@ public class MetricsProperties {
 
 	public Distribution getDistribution() {
 		return this.distribution;
+	}
+
+	public MeterFilterReply accept(PropertiesMeterFilter propertiesMeterFilter, Id id) {
+		boolean enabled = propertiesMeterFilter.lookupWithFallbackToAll(getEnable(), id, true);
+		return enabled ? MeterFilterReply.NEUTRAL : MeterFilterReply.DENY;
 	}
 
 	public static class Web {

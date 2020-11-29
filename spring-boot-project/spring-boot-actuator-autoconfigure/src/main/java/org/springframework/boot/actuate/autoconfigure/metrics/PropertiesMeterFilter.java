@@ -46,7 +46,7 @@ import org.springframework.util.StringUtils;
  */
 public class PropertiesMeterFilter implements MeterFilter {
 
-	private final MetricsProperties properties;
+	final MetricsProperties properties;
 
 	private final MeterFilter mapFilter;
 
@@ -68,8 +68,7 @@ public class PropertiesMeterFilter implements MeterFilter {
 
 	@Override
 	public MeterFilterReply accept(Meter.Id id) {
-		boolean enabled = lookupWithFallbackToAll(this.properties.getEnable(), id, true);
-		return enabled ? MeterFilterReply.NEUTRAL : MeterFilterReply.DENY;
+		return properties.accept(this, id);
 	}
 
 	@Override
@@ -112,7 +111,7 @@ public class PropertiesMeterFilter implements MeterFilter {
 		return doLookup(values, id, () -> defaultValue);
 	}
 
-	private <T> T lookupWithFallbackToAll(Map<String, T> values, Id id, T defaultValue) {
+	<T> T lookupWithFallbackToAll(Map<String, T> values, Id id, T defaultValue) {
 		if (values.isEmpty()) {
 			return defaultValue;
 		}
