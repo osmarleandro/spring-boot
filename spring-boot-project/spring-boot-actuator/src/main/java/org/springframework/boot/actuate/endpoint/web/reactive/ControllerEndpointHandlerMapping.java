@@ -21,7 +21,6 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.Set;
 
 import org.springframework.boot.actuate.endpoint.web.EndpointMapping;
 import org.springframework.boot.actuate.endpoint.web.annotation.ControllerEndpoint;
@@ -82,26 +81,15 @@ public class ControllerEndpointHandlerMapping extends RequestMappingHandlerMappi
 	@Override
 	protected void registerHandlerMethod(Object handler, Method method, RequestMappingInfo mapping) {
 		ExposableControllerEndpoint endpoint = this.handlers.get(handler);
-		mapping = withEndpointMappedPatterns(endpoint, mapping);
+		mapping = endpoint.withEndpointMappedPatterns(this, mapping);
 		super.registerHandlerMethod(handler, method, mapping);
 	}
 
-	private RequestMappingInfo withEndpointMappedPatterns(ExposableControllerEndpoint endpoint,
-			RequestMappingInfo mapping) {
-		Set<PathPattern> patterns = mapping.getPatternsCondition().getPatterns();
-		if (patterns.isEmpty()) {
-			patterns = Collections.singleton(getPathPatternParser().parse(""));
-		}
-		PathPattern[] endpointMappedPatterns = patterns.stream()
-				.map((pattern) -> getEndpointMappedPattern(endpoint, pattern)).toArray(PathPattern[]::new);
-		return withNewPatterns(mapping, endpointMappedPatterns);
-	}
-
-	private PathPattern getEndpointMappedPattern(ExposableControllerEndpoint endpoint, PathPattern pattern) {
+	public PathPattern getEndpointMappedPattern(ExposableControllerEndpoint endpoint, PathPattern pattern) {
 		return getPathPatternParser().parse(this.endpointMapping.createSubPath(endpoint.getRootPath() + pattern));
 	}
 
-	private RequestMappingInfo withNewPatterns(RequestMappingInfo mapping, PathPattern[] patterns) {
+	public RequestMappingInfo withNewPatterns(RequestMappingInfo mapping, PathPattern[] patterns) {
 		PatternsRequestCondition patternsCondition = new PatternsRequestCondition(patterns);
 		return new RequestMappingInfo(patternsCondition, mapping.getMethodsCondition(), mapping.getParamsCondition(),
 				mapping.getHeadersCondition(), mapping.getConsumesCondition(), mapping.getProducesCondition(),

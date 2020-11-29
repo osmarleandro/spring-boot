@@ -16,10 +16,16 @@
 
 package org.springframework.boot.actuate.endpoint.web.annotation;
 
+import java.util.Collections;
+import java.util.Set;
+
 import org.springframework.boot.actuate.endpoint.ExposableEndpoint;
 import org.springframework.boot.actuate.endpoint.Operation;
 import org.springframework.boot.actuate.endpoint.web.PathMappedEndpoint;
+import org.springframework.boot.actuate.endpoint.web.reactive.ControllerEndpointHandlerMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.reactive.result.method.RequestMappingInfo;
+import org.springframework.web.util.pattern.PathPattern;
 
 /**
  * Information describing an endpoint that can be exposed over Spring MVC or Spring
@@ -37,5 +43,15 @@ public interface ExposableControllerEndpoint extends ExposableEndpoint<Operation
 	 * @return the source controller
 	 */
 	Object getController();
+
+	public default RequestMappingInfo withEndpointMappedPatterns(ControllerEndpointHandlerMapping controllerEndpointHandlerMapping, RequestMappingInfo mapping) {
+		Set<PathPattern> patterns = mapping.getPatternsCondition().getPatterns();
+		if (patterns.isEmpty()) {
+			patterns = Collections.singleton(controllerEndpointHandlerMapping.getPathPatternParser().parse(""));
+		}
+		PathPattern[] endpointMappedPatterns = patterns.stream()
+				.map((pattern) -> controllerEndpointHandlerMapping.getEndpointMappedPattern(this, pattern)).toArray(PathPattern[]::new);
+		return controllerEndpointHandlerMapping.withNewPatterns(mapping, endpointMappedPatterns);
+	}
 
 }
