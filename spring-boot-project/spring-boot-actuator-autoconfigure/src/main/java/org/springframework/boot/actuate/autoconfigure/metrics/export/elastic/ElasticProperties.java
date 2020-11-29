@@ -17,7 +17,11 @@
 package org.springframework.boot.actuate.autoconfigure.metrics.export.elastic;
 
 import org.springframework.boot.actuate.autoconfigure.metrics.export.properties.StepRegistryProperties;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.Bean;
+
+import io.micrometer.elastic.ElasticConfig;
 
 /**
  * {@link ConfigurationProperties @ConfigurationProperties} for configuring Elastic
@@ -144,6 +148,12 @@ public class ElasticProperties extends StepRegistryProperties {
 
 	public void setPipeline(String pipeline) {
 		this.pipeline = pipeline;
+	}
+
+	@Bean
+	@ConditionalOnMissingBean
+	public ElasticConfig elasticConfig(ElasticMetricsExportAutoConfiguration elasticMetricsExportAutoConfiguration) {
+		return new ElasticPropertiesConfigAdapter(this);
 	}
 
 }

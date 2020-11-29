@@ -51,16 +51,10 @@ import org.springframework.context.annotation.Configuration;
 @EnableConfigurationProperties(ElasticProperties.class)
 public class ElasticMetricsExportAutoConfiguration {
 
-	private final ElasticProperties properties;
+	final ElasticProperties properties;
 
 	public ElasticMetricsExportAutoConfiguration(ElasticProperties properties) {
 		this.properties = properties;
-	}
-
-	@Bean
-	@ConditionalOnMissingBean
-	public ElasticConfig elasticConfig() {
-		return new ElasticPropertiesConfigAdapter(this.properties);
 	}
 
 	@Bean
