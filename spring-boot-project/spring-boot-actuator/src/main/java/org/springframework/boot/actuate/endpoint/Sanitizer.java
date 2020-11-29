@@ -18,13 +18,22 @@ package org.springframework.boot.actuate.endpoint;
 
 import java.util.Arrays;
 import java.util.LinkedHashSet;
+import java.util.Map;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
+import org.springframework.boot.actuate.context.properties.ConfigurationPropertiesReportEndpoint;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
+
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.databind.MapperFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 /**
  * Strategy that should be used by endpoint implementations to sanitize potentially
@@ -136,6 +145,24 @@ public class Sanitizer {
 			return StringUtils.replace(value, ":" + password + "@", ":******@");
 		}
 		return value;
+	}
+
+	/**
+	 * Configure Jackson's {@link ObjectMapper} to be used to serialize the
+	 * {@link ConfigurationProperties @ConfigurationProperties} objects into a {@link Map}
+	 * structure.
+	 * @param configurationPropertiesReportEndpoint TODO
+	 * @param mapper the object mapper
+	 */
+	public void configureObjectMapper(ConfigurationPropertiesReportEndpoint configurationPropertiesReportEndpoint, ObjectMapper mapper) {
+		mapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
+		mapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
+		mapper.configure(SerializationFeature.WRITE_DURATIONS_AS_TIMESTAMPS, false);
+		mapper.configure(MapperFeature.USE_STD_BEAN_NAMING, true);
+		mapper.setSerializationInclusion(Include.NON_NULL);
+		configurationPropertiesReportEndpoint.applyConfigurationPropertiesFilter(mapper);
+		configurationPropertiesReportEndpoint.applySerializationModifier(mapper);
+		mapper.registerModule(new JavaTimeModule());
 	}
 
 }

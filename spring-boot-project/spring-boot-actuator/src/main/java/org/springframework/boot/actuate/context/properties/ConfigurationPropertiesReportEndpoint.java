@@ -27,13 +27,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.BeanDescription;
-import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationConfig;
-import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.introspect.Annotated;
 import com.fasterxml.jackson.databind.introspect.AnnotatedMethod;
@@ -45,7 +42,7 @@ import com.fasterxml.jackson.databind.ser.PropertyWriter;
 import com.fasterxml.jackson.databind.ser.SerializerFactory;
 import com.fasterxml.jackson.databind.ser.impl.SimpleBeanPropertyFilter;
 import com.fasterxml.jackson.databind.ser.impl.SimpleFilterProvider;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -126,29 +123,12 @@ public class ConfigurationPropertiesReportEndpoint implements ApplicationContext
 	private ObjectMapper getObjectMapper() {
 		if (this.objectMapper == null) {
 			this.objectMapper = new ObjectMapper();
-			configureObjectMapper(this.objectMapper);
+			sanitizer.configureObjectMapper(this, this.objectMapper);
 		}
 		return this.objectMapper;
 	}
 
-	/**
-	 * Configure Jackson's {@link ObjectMapper} to be used to serialize the
-	 * {@link ConfigurationProperties @ConfigurationProperties} objects into a {@link Map}
-	 * structure.
-	 * @param mapper the object mapper
-	 */
-	protected void configureObjectMapper(ObjectMapper mapper) {
-		mapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
-		mapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
-		mapper.configure(SerializationFeature.WRITE_DURATIONS_AS_TIMESTAMPS, false);
-		mapper.configure(MapperFeature.USE_STD_BEAN_NAMING, true);
-		mapper.setSerializationInclusion(Include.NON_NULL);
-		applyConfigurationPropertiesFilter(mapper);
-		applySerializationModifier(mapper);
-		mapper.registerModule(new JavaTimeModule());
-	}
-
-	private void applyConfigurationPropertiesFilter(ObjectMapper mapper) {
+	public void applyConfigurationPropertiesFilter(ObjectMapper mapper) {
 		mapper.setAnnotationIntrospector(new ConfigurationPropertiesAnnotationIntrospector());
 		mapper.setFilterProvider(
 				new SimpleFilterProvider().setDefaultFilter(new ConfigurationPropertiesPropertyFilter()));
@@ -158,7 +138,7 @@ public class ConfigurationPropertiesReportEndpoint implements ApplicationContext
 	 * Ensure only bindable and non-cyclic bean properties are reported.
 	 * @param mapper the object mapper
 	 */
-	private void applySerializationModifier(ObjectMapper mapper) {
+	public void applySerializationModifier(ObjectMapper mapper) {
 		SerializerFactory factory = BeanSerializerFactory.instance
 				.withSerializerModifier(new GenericSerializerModifier());
 		mapper.setSerializerFactory(factory);
