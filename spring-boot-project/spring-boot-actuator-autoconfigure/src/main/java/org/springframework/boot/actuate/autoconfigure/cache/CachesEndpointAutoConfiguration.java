@@ -20,11 +20,9 @@ import java.util.Map;
 
 import org.springframework.boot.actuate.autoconfigure.endpoint.condition.ConditionalOnAvailableEndpoint;
 import org.springframework.boot.actuate.cache.CachesEndpoint;
-import org.springframework.boot.actuate.cache.CachesEndpointWebExtension;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.cache.CacheAutoConfiguration;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.cache.CacheManager;
@@ -48,13 +46,6 @@ public class CachesEndpointAutoConfiguration {
 	@ConditionalOnMissingBean
 	public CachesEndpoint cachesEndpoint(Map<String, CacheManager> cacheManagers) {
 		return new CachesEndpoint(cacheManagers);
-	}
-
-	@Bean
-	@ConditionalOnMissingBean
-	@ConditionalOnBean(CachesEndpoint.class)
-	public CachesEndpointWebExtension cachesEndpointWebExtension(CachesEndpoint cachesEndpoint) {
-		return new CachesEndpointWebExtension(cachesEndpoint);
 	}
 
 }

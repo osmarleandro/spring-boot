@@ -27,8 +27,11 @@ import org.springframework.boot.actuate.endpoint.annotation.DeleteOperation;
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
 import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
 import org.springframework.boot.actuate.endpoint.annotation.Selector;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
+import org.springframework.context.annotation.Bean;
 import org.springframework.lang.Nullable;
 
 /**
@@ -146,6 +149,13 @@ public class CachesEndpoint {
 
 	private Predicate<String> matchAll() {
 		return (name) -> true;
+	}
+
+	@Bean
+	@ConditionalOnMissingBean
+	@ConditionalOnBean(CachesEndpoint.class)
+	public CachesEndpointWebExtension cachesEndpointWebExtension() {
+		return new CachesEndpointWebExtension(this);
 	}
 
 	/**
