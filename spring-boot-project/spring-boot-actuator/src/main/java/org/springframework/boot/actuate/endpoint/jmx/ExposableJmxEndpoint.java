@@ -16,6 +16,8 @@
 
 package org.springframework.boot.actuate.endpoint.jmx;
 
+import javax.management.modelmbean.ModelMBeanOperationInfo;
+
 import org.springframework.boot.actuate.endpoint.ExposableEndpoint;
 
 /**
@@ -25,5 +27,9 @@ import org.springframework.boot.actuate.endpoint.ExposableEndpoint;
  * @since 2.0.0
  */
 public interface ExposableJmxEndpoint extends ExposableEndpoint<JmxOperation> {
+
+	default ModelMBeanOperationInfo[] getMBeanOperations(MBeanInfoFactory mBeanInfoFactory) {
+		return getOperations().stream().map(mBeanInfoFactory::getMBeanOperation).toArray(ModelMBeanOperationInfo[]::new);
+	}
 
 }
