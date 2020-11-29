@@ -63,27 +63,21 @@ public class SolrHealthIndicator extends AbstractHealthIndicator {
 			return statusCheck.getStatus(this.solrClient);
 		}
 		try {
-			return initializeStatusCheck(new RootStatusCheck());
+			return new RootStatusCheck().initializeStatusCheck(this);
 		}
 		catch (RemoteSolrException ex) {
 			// 404 is thrown when SolrClient has a baseUrl pointing to a particular core.
 			if (ex.code() == HTTP_NOT_FOUND_STATUS) {
-				return initializeStatusCheck(new ParticularCoreStatusCheck());
+				return new ParticularCoreStatusCheck().initializeStatusCheck(this);
 			}
 			throw ex;
 		}
 	}
 
-	private int initializeStatusCheck(StatusCheck statusCheck) throws Exception {
-		int result = statusCheck.getStatus(this.solrClient);
-		this.statusCheck = statusCheck;
-		return result;
-	}
-
 	/**
 	 * Strategy used to perform the status check.
 	 */
-	private abstract static class StatusCheck {
+	abstract static class StatusCheck {
 
 		private final String pathType;
 
@@ -95,6 +89,12 @@ public class SolrHealthIndicator extends AbstractHealthIndicator {
 
 		String getPathType() {
 			return this.pathType;
+		}
+
+		int initializeStatusCheck(SolrHealthIndicator solrHealthIndicator) throws Exception {
+			int result = getStatus(solrHealthIndicator.solrClient);
+			solrHealthIndicator.statusCheck = this;
+			return result;
 		}
 
 	}
