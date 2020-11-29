@@ -23,7 +23,11 @@ import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
+import reactor.core.publisher.Mono;
+
+import org.springframework.boot.actuate.elasticsearch.ElasticsearchReactiveHealthIndicator;
 import org.springframework.util.Assert;
+import org.springframework.web.reactive.function.client.ClientResponse;
 
 /**
  * Carries information about the health of a component or subsystem. Extends
@@ -327,6 +331,16 @@ public final class Health extends HealthComponent {
 		 */
 		public Health build() {
 			return new Health(this);
+		}
+
+		public Mono<Health> doHealthCheck(ElasticsearchReactiveHealthIndicator elasticsearchReactiveHealthIndicator, ClientResponse response) {
+			if (response.statusCode().is2xxSuccessful()) {
+				return response.bodyToMono(ElasticsearchReactiveHealthIndicator.STRING_OBJECT_MAP).map((body) -> elasticsearchReactiveHealthIndicator.getHealth(this, body));
+			}
+			down();
+			withDetail("statusCode", response.rawStatusCode());
+			withDetail("reasonPhrase", response.statusCode().getReasonPhrase());
+			return response.releaseBody().thenReturn(build());
 		}
 
 	}
