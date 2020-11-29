@@ -139,26 +139,17 @@ public class IncludeExcludeEndpointFilter<E extends ExposableEndpoint<?>> implem
 			// Leave non-matching types for other filters
 			return true;
 		}
-		return match(endpoint.getEndpointId());
+		return endpoint.getEndpointId().match(this);
 	}
 
-	/**
-	 * Return {@code true} if the filter matches.
-	 * @param endpointId the endpoint ID to check
-	 * @return {@code true} if the filter matches
-	 */
-	protected final boolean match(EndpointId endpointId) {
-		return isIncluded(endpointId) && !isExcluded(endpointId);
-	}
-
-	private boolean isIncluded(EndpointId endpointId) {
+	public boolean isIncluded(EndpointId endpointId) {
 		if (this.include.isEmpty()) {
 			return this.defaultIncludes.matches(endpointId);
 		}
 		return this.include.matches(endpointId);
 	}
 
-	private boolean isExcluded(EndpointId endpointId) {
+	public boolean isExcluded(EndpointId endpointId) {
 		if (this.exclude.isEmpty()) {
 			return false;
 		}

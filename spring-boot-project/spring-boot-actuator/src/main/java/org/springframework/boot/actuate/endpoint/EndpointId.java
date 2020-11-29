@@ -23,7 +23,7 @@ import java.util.regex.Pattern;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
+import org.springframework.boot.actuate.autoconfigure.endpoint.expose.IncludeExcludeEndpointFilter;
 import org.springframework.core.env.Environment;
 import org.springframework.util.Assert;
 
@@ -104,6 +104,15 @@ public final class EndpointId {
 	@Override
 	public String toString() {
 		return this.value;
+	}
+
+	/**
+	 * Return {@code true} if the filter matches.
+	 * @param includeExcludeEndpointFilter TODO
+	 * @return {@code true} if the filter matches
+	 */
+	public final boolean match(IncludeExcludeEndpointFilter includeExcludeEndpointFilter) {
+		return includeExcludeEndpointFilter.isIncluded(this) && !includeExcludeEndpointFilter.isExcluded(this);
 	}
 
 	/**

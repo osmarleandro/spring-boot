@@ -103,7 +103,7 @@ class OnAvailableEndpointCondition extends AbstractEndpointCondition {
 		}
 
 		boolean isExposed(EndpointId id) {
-			return super.match(id);
+			return id.match(this);
 		}
 
 	}
