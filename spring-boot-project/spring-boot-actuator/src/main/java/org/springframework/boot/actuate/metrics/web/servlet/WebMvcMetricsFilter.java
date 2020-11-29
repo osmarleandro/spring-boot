@@ -39,7 +39,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.filter.OncePerRequestFilter;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.DispatcherServlet;
-import org.springframework.web.servlet.HandlerMapping;
 import org.springframework.web.util.NestedServletException;
 
 /**
@@ -120,7 +119,7 @@ public class WebMvcMetricsFilter extends OncePerRequestFilter {
 
 	private void record(TimingContext timingContext, HttpServletRequest request, HttpServletResponse response,
 			Throwable exception) {
-		Object handler = getHandler(request);
+		Object handler = autoTimer.getHandler(request);
 		Set<Timed> annotations = getTimedAnnotations(handler);
 		Timer.Sample timerSample = timingContext.getTimerSample();
 		if (annotations.isEmpty()) {
@@ -135,10 +134,6 @@ public class WebMvcMetricsFilter extends OncePerRequestFilter {
 				timerSample.stop(getTimer(builder, handler, request, response, exception));
 			}
 		}
-	}
-
-	private Object getHandler(HttpServletRequest request) {
-		return request.getAttribute(HandlerMapping.BEST_MATCHING_HANDLER_ATTRIBUTE);
 	}
 
 	private Set<Timed> getTimedAnnotations(Object handler) {

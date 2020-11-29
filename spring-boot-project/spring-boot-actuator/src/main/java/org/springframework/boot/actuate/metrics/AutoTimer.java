@@ -18,6 +18,10 @@ package org.springframework.boot.actuate.metrics;
 
 import java.util.function.Supplier;
 
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.web.servlet.HandlerMapping;
+
 import io.micrometer.core.annotation.Timed;
 import io.micrometer.core.instrument.Timer;
 import io.micrometer.core.instrument.Timer.Builder;
@@ -93,5 +97,9 @@ public interface AutoTimer {
 	 * @param builder the builder to apply settings to
 	 */
 	void apply(Timer.Builder builder);
+
+	public default Object getHandler(HttpServletRequest request) {
+		return request.getAttribute(HandlerMapping.BEST_MATCHING_HANDLER_ATTRIBUTE);
+	}
 
 }
