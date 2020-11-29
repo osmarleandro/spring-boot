@@ -21,6 +21,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
+import org.springframework.boot.actuate.endpoint.annotation.Selector;
+import org.springframework.boot.actuate.logging.LoggersEndpoint;
+import org.springframework.boot.actuate.logging.LoggersEndpoint.GroupLoggerLevels;
+import org.springframework.boot.actuate.logging.LoggersEndpoint.LoggerLevels;
+import org.springframework.boot.actuate.logging.LoggersEndpoint.SingleLoggerLevels;
+import org.springframework.util.Assert;
+
 /**
  * Logger groups configured via the Spring Environment.
  *
@@ -58,6 +66,17 @@ public final class LoggerGroups implements Iterable<LoggerGroup> {
 	@Override
 	public Iterator<LoggerGroup> iterator() {
 		return this.groups.values().iterator();
+	}
+
+	@ReadOperation
+	public LoggerLevels loggerLevels(LoggersEndpoint loggersEndpoint, String name) {
+		Assert.notNull(name, "Name must not be null");
+		LoggerGroup group = get(name);
+		if (group != null) {
+			return new GroupLoggerLevels(group.getConfiguredLevel(), group.getMembers());
+		}
+		LoggerConfiguration configuration = loggersEndpoint.loggingSystem.getLoggerConfiguration(name);
+		return (configuration != null) ? new SingleLoggerLevels(configuration) : null;
 	}
 
 }

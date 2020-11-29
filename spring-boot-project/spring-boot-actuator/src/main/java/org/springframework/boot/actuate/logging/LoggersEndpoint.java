@@ -48,9 +48,9 @@ import org.springframework.util.Assert;
 @Endpoint(id = "loggers")
 public class LoggersEndpoint {
 
-	private final LoggingSystem loggingSystem;
+	public final LoggingSystem loggingSystem;
 
-	private final LoggerGroups loggerGroups;
+	public final LoggerGroups loggerGroups;
 
 	/**
 	 * Create a new {@link LoggersEndpoint} instance.
@@ -82,17 +82,6 @@ public class LoggersEndpoint {
 		this.loggerGroups.forEach((group) -> groups.put(group.getName(),
 				new GroupLoggerLevels(group.getConfiguredLevel(), group.getMembers())));
 		return groups;
-	}
-
-	@ReadOperation
-	public LoggerLevels loggerLevels(@Selector String name) {
-		Assert.notNull(name, "Name must not be null");
-		LoggerGroup group = this.loggerGroups.get(name);
-		if (group != null) {
-			return new GroupLoggerLevels(group.getConfiguredLevel(), group.getMembers());
-		}
-		LoggerConfiguration configuration = this.loggingSystem.getLoggerConfiguration(name);
-		return (configuration != null) ? new SingleLoggerLevels(configuration) : null;
 	}
 
 	@WriteOperation

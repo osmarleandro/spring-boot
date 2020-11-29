@@ -103,16 +103,16 @@ class LoggersEndpointTests {
 	void loggerLevelsWhenNameSpecifiedShouldReturnLevels() {
 		given(this.loggingSystem.getLoggerConfiguration("ROOT"))
 				.willReturn(new LoggerConfiguration("ROOT", null, LogLevel.DEBUG));
-		SingleLoggerLevels levels = (SingleLoggerLevels) new LoggersEndpoint(this.loggingSystem, this.loggerGroups)
-				.loggerLevels("ROOT");
+		SingleLoggerLevels levels = (SingleLoggerLevels) new LoggersEndpoint(this.loggingSystem, this.loggerGroups).loggerGroups
+				.loggerLevels(new LoggersEndpoint(this.loggingSystem, this.loggerGroups), "ROOT");
 		assertThat(levels.getConfiguredLevel()).isNull();
 		assertThat(levels.getEffectiveLevel()).isEqualTo("DEBUG");
 	}
 
 	@Test
 	void groupNameSpecifiedShouldReturnConfiguredLevelAndMembers() {
-		GroupLoggerLevels levels = (GroupLoggerLevels) new LoggersEndpoint(this.loggingSystem, this.loggerGroups)
-				.loggerLevels("test");
+		GroupLoggerLevels levels = (GroupLoggerLevels) new LoggersEndpoint(this.loggingSystem, this.loggerGroups).loggerGroups
+				.loggerLevels(new LoggersEndpoint(this.loggingSystem, this.loggerGroups), "test");
 		assertThat(levels.getConfiguredLevel()).isEqualTo("DEBUG");
 		assertThat(levels.getMembers()).isEqualTo(Collections.singletonList("test.member"));
 	}
