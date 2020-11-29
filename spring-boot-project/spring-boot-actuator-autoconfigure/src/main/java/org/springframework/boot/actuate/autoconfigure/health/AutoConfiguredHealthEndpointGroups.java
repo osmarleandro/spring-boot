@@ -49,11 +49,11 @@ import org.springframework.util.ObjectUtils;
  *
  * @author Phillip Webb
  */
-class AutoConfiguredHealthEndpointGroups implements HealthEndpointGroups {
+public class AutoConfiguredHealthEndpointGroups implements HealthEndpointGroups {
 
 	private static final Predicate<String> ALL = (name) -> true;
 
-	private final HealthEndpointGroup primaryGroup;
+	public final HealthEndpointGroup primaryGroup;
 
 	private final Map<String, HealthEndpointGroup> groups;
 
@@ -142,7 +142,7 @@ class AutoConfiguredHealthEndpointGroups implements HealthEndpointGroups {
 
 	@Override
 	public HealthEndpointGroup getPrimary() {
-		return this.primaryGroup;
+		return primaryGroup.getPrimary(this);
 	}
 
 	@Override
