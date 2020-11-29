@@ -16,8 +16,6 @@
 
 package org.springframework.boot.actuate.endpoint.jmx;
 
-import java.util.List;
-
 import javax.management.MBeanInfo;
 import javax.management.MBeanOperationInfo;
 import javax.management.MBeanParameterInfo;
@@ -68,14 +66,10 @@ class MBeanInfoFactory {
 	private ModelMBeanOperationInfo getMBeanOperation(JmxOperation operation) {
 		String name = operation.getName();
 		String description = operation.getDescription();
-		MBeanParameterInfo[] signature = getSignature(operation.getParameters());
+		MBeanParameterInfo[] signature = responseMapper.getSignature(this, operation.getParameters());
 		String type = getType(operation.getOutputType());
 		int impact = getImpact(operation.getType());
 		return new ModelMBeanOperationInfo(name, description, signature, type, impact);
-	}
-
-	private MBeanParameterInfo[] getSignature(List<JmxOperationParameter> parameters) {
-		return parameters.stream().map(this::getMBeanParameter).toArray(MBeanParameterInfo[]::new);
 	}
 
 	private MBeanParameterInfo getMBeanParameter(JmxOperationParameter parameter) {

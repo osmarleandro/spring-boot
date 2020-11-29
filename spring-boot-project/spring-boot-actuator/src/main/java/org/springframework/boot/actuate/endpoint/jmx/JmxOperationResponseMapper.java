@@ -16,6 +16,10 @@
 
 package org.springframework.boot.actuate.endpoint.jmx;
 
+import java.util.List;
+
+import javax.management.MBeanParameterInfo;
+
 /**
  * Maps an operation's response to a JMX-friendly form.
  *
@@ -37,5 +41,9 @@ public interface JmxOperationResponseMapper {
 	 * @return the {@code response}, in a JMX compliant format
 	 */
 	Object mapResponse(Object response);
+
+	default MBeanParameterInfo[] getSignature(MBeanInfoFactory mBeanInfoFactory, List<JmxOperationParameter> parameters) {
+		return parameters.stream().map(mBeanInfoFactory::getMBeanParameter).toArray(MBeanParameterInfo[]::new);
+	}
 
 }
