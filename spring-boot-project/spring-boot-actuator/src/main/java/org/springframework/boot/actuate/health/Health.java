@@ -23,6 +23,11 @@ import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
+import reactor.core.publisher.Mono;
+
+import org.springframework.boot.actuate.redis.RedisReactiveHealthIndicator;
+import org.springframework.data.redis.connection.ReactiveRedisClusterConnection;
+import org.springframework.data.redis.connection.ReactiveRedisConnection;
 import org.springframework.util.Assert;
 
 /**
@@ -327,6 +332,14 @@ public final class Health extends HealthComponent {
 		 */
 		public Health build() {
 			return new Health(this);
+		}
+
+		public Mono<Health> getHealth(RedisReactiveHealthIndicator redisReactiveHealthIndicator, ReactiveRedisConnection connection) {
+			if (connection instanceof ReactiveRedisClusterConnection) {
+				return ((ReactiveRedisClusterConnection) connection).clusterGetClusterInfo()
+						.map((info) -> redisReactiveHealthIndicator.up(this, info));
+			}
+			return connection.serverCommands().info().map((info) -> redisReactiveHealthIndicator.up(this, info));
 		}
 
 	}
