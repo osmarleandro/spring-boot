@@ -67,7 +67,7 @@ public class WebEndpointAutoConfiguration {
 
 	private final ApplicationContext applicationContext;
 
-	private final WebEndpointProperties properties;
+	final WebEndpointProperties properties;
 
 	public WebEndpointAutoConfiguration(ApplicationContext applicationContext, WebEndpointProperties properties) {
 		this.applicationContext = applicationContext;
@@ -117,13 +117,6 @@ public class WebEndpointAutoConfiguration {
 		WebEndpointProperties.Exposure exposure = this.properties.getExposure();
 		return new IncludeExcludeEndpointFilter<>(ExposableWebEndpoint.class, exposure.getInclude(),
 				exposure.getExclude(), DefaultIncludes.WEB);
-	}
-
-	@Bean
-	public IncludeExcludeEndpointFilter<ExposableControllerEndpoint> controllerExposeExcludePropertyEndpointFilter() {
-		WebEndpointProperties.Exposure exposure = this.properties.getExposure();
-		return new IncludeExcludeEndpointFilter<>(ExposableControllerEndpoint.class, exposure.getInclude(),
-				exposure.getExclude());
 	}
 
 	@Configuration(proxyBeanMethods = false)
