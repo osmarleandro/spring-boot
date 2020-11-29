@@ -20,8 +20,16 @@ import java.net.URI;
 import java.time.Duration;
 
 import org.springframework.boot.actuate.autoconfigure.metrics.export.properties.PushRegistryProperties;
+import org.springframework.boot.actuate.autoconfigure.metrics.export.wavefront.WavefrontProperties.Sender;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.context.properties.PropertyMapper;
 import org.springframework.util.unit.DataSize;
+
+import com.wavefront.sdk.common.WavefrontSender;
+import com.wavefront.sdk.common.clients.WavefrontClient.Builder;
+
+import io.micrometer.wavefront.WavefrontConfig;
+import io.micrometer.wavefront.WavefrontMeterRegistry;
 
 /**
  * {@link ConfigurationProperties @ConfigurationProperties} for configuring Wavefront
@@ -93,6 +101,16 @@ public class WavefrontProperties extends PushRegistryProperties {
 
 	public Sender getSender() {
 		return this.sender;
+	}
+
+	WavefrontSender createWavefrontSender(WavefrontMetricsExportAutoConfiguration wavefrontMetricsExportAutoConfiguration, WavefrontConfig wavefrontConfig) {
+		Builder builder = WavefrontMeterRegistry.getDefaultSenderBuilder(wavefrontConfig);
+		PropertyMapper mapper = PropertyMapper.get().alwaysApplyingWhenNonNull();
+		Sender sender = getSender();
+		mapper.from(sender.getMaxQueueSize()).to(builder::maxQueueSize);
+		mapper.from(sender.getFlushInterval()).asInt(Duration::getSeconds).to(builder::flushIntervalSeconds);
+		mapper.from(sender.getMessageSize()).asInt(DataSize::toBytes).to(builder::messageSizeBytes);
+		return builder.build();
 	}
 
 	public static class Sender {
