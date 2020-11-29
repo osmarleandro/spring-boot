@@ -23,7 +23,12 @@ import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
+import reactor.core.publisher.Mono;
+
+import org.springframework.boot.actuate.health.Health.Builder;
+import org.springframework.boot.actuate.r2dbc.ConnectionFactoryHealthIndicator;
 import org.springframework.util.Assert;
+import org.springframework.util.StringUtils;
 
 /**
  * Carries information about the health of a component or subsystem. Extends
@@ -327,6 +332,12 @@ public final class Health extends HealthComponent {
 		 */
 		public Health build() {
 			return new Health(this);
+		}
+
+		public Mono<Health> validate(ConnectionFactoryHealthIndicator connectionFactoryHealthIndicator) {
+			withDetail("database", connectionFactoryHealthIndicator.connectionFactory.getMetadata().getName());
+			return (StringUtils.hasText(connectionFactoryHealthIndicator.validationQuery)) ? connectionFactoryHealthIndicator.validateWithQuery(this)
+					: connectionFactoryHealthIndicator.validateWithConnectionValidation(this);
 		}
 
 	}
