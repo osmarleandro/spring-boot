@@ -19,9 +19,14 @@ package org.springframework.boot.actuate.autoconfigure.metrics;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import org.springframework.boot.actuate.autoconfigure.metrics.web.reactive.WebFluxMetricsAutoConfiguration;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.DeprecatedConfigurationProperty;
 import org.springframework.boot.context.properties.NestedConfigurationProperty;
+import org.springframework.context.annotation.Bean;
+import org.springframework.core.annotation.Order;
+
+import io.micrometer.core.instrument.config.MeterFilter;
 
 /**
  * {@link ConfigurationProperties @ConfigurationProperties} for configuring
@@ -79,6 +84,16 @@ public class MetricsProperties {
 
 	public Distribution getDistribution() {
 		return this.distribution;
+	}
+
+	@Bean
+	@Order(0)
+	public MeterFilter metricsHttpServerUriTagFilter(WebFluxMetricsAutoConfiguration webFluxMetricsAutoConfiguration) {
+		String metricName = getWeb().getServer().getRequest().getMetricName();
+		MeterFilter filter = new OnlyOnceLoggingDenyMeterFilter(
+				() -> String.format("Reached the maximum number of URI tags for '%s'.", metricName));
+		return MeterFilter.maximumAllowableTags(metricName, "uri", getWeb().getServer().getMaxUriTags(),
+				filter);
 	}
 
 	public static class Web {
