@@ -17,6 +17,7 @@
 package org.springframework.boot.actuate.endpoint.web;
 
 import org.springframework.boot.actuate.endpoint.Operation;
+import org.springframework.boot.actuate.endpoint.annotation.EndpointDiscoverer.OperationKey;
 
 /**
  * An operation on a web endpoint.
@@ -44,5 +45,10 @@ public interface WebOperation extends Operation {
 	 * @return the predicate
 	 */
 	WebOperationRequestPredicate getRequestPredicate();
+
+	public default OperationKey createOperationKey() {
+		return new OperationKey(getRequestPredicate(),
+				() -> "web request predicate " + getRequestPredicate());
+	}
 
 }
