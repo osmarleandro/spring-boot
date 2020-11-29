@@ -16,6 +16,7 @@
 
 package org.springframework.boot.actuate.endpoint.web;
 
+import org.springframework.boot.actuate.endpoint.web.servlet.ControllerEndpointHandlerMapping;
 import org.springframework.util.StringUtils;
 
 /**
@@ -46,6 +47,10 @@ public class EndpointMapping {
 
 	public String createSubPath(String path) {
 		return this.path + normalizePath(path);
+	}
+
+	public void initHandlerMethods(ControllerEndpointHandlerMapping controllerEndpointHandlerMapping) {
+		controllerEndpointHandlerMapping.handlers.keySet().forEach(controllerEndpointHandlerMapping::detectHandlerMethods);
 	}
 
 	private static String normalizePath(String path) {
