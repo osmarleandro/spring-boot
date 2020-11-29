@@ -36,11 +36,11 @@ import static org.mockito.Mockito.mock;
  *
  * @author Phillip Webb
  */
-class AvailabilityProbesHealthEndpointGroupsTests {
+public class AvailabilityProbesHealthEndpointGroupsTests {
 
-	private HealthEndpointGroups delegate;
+	public HealthEndpointGroups delegate;
 
-	private HealthEndpointGroup group;
+	public HealthEndpointGroup group;
 
 	@BeforeEach
 	void setup() {
@@ -52,13 +52,6 @@ class AvailabilityProbesHealthEndpointGroupsTests {
 	void createWhenGroupsIsNullThrowsException() {
 		assertThatIllegalArgumentException().isThrownBy(() -> new AvailabilityProbesHealthEndpointGroups(null))
 				.withMessage("Groups must not be null");
-	}
-
-	@Test
-	void getPrimaryDelegatesToGroups() {
-		given(this.delegate.getPrimary()).willReturn(this.group);
-		HealthEndpointGroups availabilityProbes = new AvailabilityProbesHealthEndpointGroups(this.delegate);
-		assertThat(availabilityProbes.getPrimary()).isEqualTo(this.group);
 	}
 
 	@Test
