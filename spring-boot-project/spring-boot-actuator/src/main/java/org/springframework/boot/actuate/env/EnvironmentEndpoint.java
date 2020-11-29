@@ -31,6 +31,8 @@ import org.springframework.boot.actuate.endpoint.Sanitizer;
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
 import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
 import org.springframework.boot.actuate.endpoint.annotation.Selector;
+import org.springframework.boot.actuate.endpoint.web.WebEndpointResponse;
+import org.springframework.boot.actuate.env.EnvironmentEndpoint.EnvironmentEntryDescriptor;
 import org.springframework.boot.context.properties.bind.PlaceholdersResolver;
 import org.springframework.boot.context.properties.bind.PropertySourcesPlaceholdersResolver;
 import org.springframework.boot.context.properties.source.ConfigurationPropertySources;
@@ -180,6 +182,13 @@ public class EnvironmentEndpoint {
 
 	public Object sanitize(String name, Object object) {
 		return this.sanitizer.sanitize(name, object);
+	}
+
+	@ReadOperation
+	public WebEndpointResponse<EnvironmentEntryDescriptor> environmentEntry(EnvironmentEndpointWebExtension environmentEndpointWebExtension, String toMatch) {
+		EnvironmentEntryDescriptor descriptor = environmentEntry(toMatch);
+		return (descriptor.getProperty() != null) ? new WebEndpointResponse<>(descriptor, WebEndpointResponse.STATUS_OK)
+				: new WebEndpointResponse<>(WebEndpointResponse.STATUS_NOT_FOUND);
 	}
 
 	/**
