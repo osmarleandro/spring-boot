@@ -42,7 +42,7 @@ public class SimpleHttpCodeStatusMapper implements HttpCodeStatusMapper {
 		DEFAULT_MAPPINGS = getUniformMappings(defaultMappings);
 	}
 
-	private final Map<String, Integer> mappings;
+	final Map<String, Integer> mappings;
 
 	/**
 	 * Create a new {@link SimpleHttpCodeStatusMapper} instance using default mappings.
@@ -61,8 +61,7 @@ public class SimpleHttpCodeStatusMapper implements HttpCodeStatusMapper {
 
 	@Override
 	public int getStatusCode(Status status) {
-		String code = getUniformCode(status.getCode());
-		return this.mappings.getOrDefault(code, WebEndpointResponse.STATUS_OK);
+		return status.getStatusCode(this);
 	}
 
 	private static Map<String, Integer> getUniformMappings(Map<String, Integer> mappings) {
@@ -76,7 +75,7 @@ public class SimpleHttpCodeStatusMapper implements HttpCodeStatusMapper {
 		return Collections.unmodifiableMap(result);
 	}
 
-	private static String getUniformCode(String code) {
+	static String getUniformCode(String code) {
 		if (code == null) {
 			return null;
 		}

@@ -20,6 +20,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import org.springframework.boot.actuate.endpoint.web.WebEndpointResponse;
 import org.springframework.util.Assert;
 import org.springframework.util.ObjectUtils;
 
@@ -121,6 +122,11 @@ public final class Status {
 	@Override
 	public String toString() {
 		return this.code;
+	}
+
+	public int getStatusCode(SimpleHttpCodeStatusMapper simpleHttpCodeStatusMapper) {
+		String code = SimpleHttpCodeStatusMapper.getUniformCode(getCode());
+		return simpleHttpCodeStatusMapper.mappings.getOrDefault(code, WebEndpointResponse.STATUS_OK);
 	}
 
 }
