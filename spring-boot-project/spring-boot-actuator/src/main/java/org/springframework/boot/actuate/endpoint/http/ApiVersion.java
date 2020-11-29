@@ -16,11 +16,21 @@
 
 package org.springframework.boot.actuate.endpoint.http;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.boot.actuate.endpoint.SecurityContext;
+import org.springframework.boot.actuate.endpoint.web.WebEndpointResponse;
+import org.springframework.boot.actuate.health.Health;
+import org.springframework.boot.actuate.health.HealthComponent;
+import org.springframework.boot.actuate.health.HealthEndpointGroup;
+import org.springframework.boot.actuate.health.HealthEndpointSupport.HealthResult;
+import org.springframework.boot.actuate.health.ReactiveHealthEndpointWebExtension;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.MimeTypeUtils;
+
+import reactor.core.publisher.Mono;
 
 /**
  * API versions supported for the actuator HTTP API. This enum may be injected into
@@ -85,6 +95,20 @@ public enum ApiVersion {
 		int existingOrdinal = (existing != null) ? existing.ordinal() : -1;
 		int candidateOrdinal = (candidate != null) ? candidate.ordinal() : -1;
 		return (candidateOrdinal > existingOrdinal) ? candidate : existing;
+	}
+
+	public Mono<WebEndpointResponse<? extends HealthComponent>> health(ReactiveHealthEndpointWebExtension reactiveHealthEndpointWebExtension, SecurityContext securityContext, boolean showAll, String... path) {
+		HealthResult<Mono<? extends HealthComponent>> result = reactiveHealthEndpointWebExtension.getHealth(this, securityContext, showAll, path);
+		if (result == null) {
+			return (Arrays.equals(path, ReactiveHealthEndpointWebExtension.NO_PATH))
+					? Mono.just(new WebEndpointResponse<>(ReactiveHealthEndpointWebExtension.DEFAULT_HEALTH, WebEndpointResponse.STATUS_OK))
+					: Mono.just(new WebEndpointResponse<>(WebEndpointResponse.STATUS_NOT_FOUND));
+		}
+		HealthEndpointGroup group = result.getGroup();
+		return result.getHealth().map((health) -> {
+			int statusCode = group.getHttpCodeStatusMapper().getStatusCode(health.getStatus());
+			return new WebEndpointResponse<>(health, statusCode);
+		});
 	}
 
 }

@@ -16,7 +16,6 @@
 
 package org.springframework.boot.actuate.health;
 
-import java.util.Arrays;
 import java.util.Map;
 import java.util.Set;
 
@@ -44,7 +43,7 @@ import org.springframework.boot.actuate.endpoint.web.annotation.EndpointWebExten
 public class ReactiveHealthEndpointWebExtension
 		extends HealthEndpointSupport<ReactiveHealthContributor, Mono<? extends HealthComponent>> {
 
-	private static final String[] NO_PATH = {};
+	public static final String[] NO_PATH = {};
 
 	/**
 	 * Create a new {@link ReactiveHealthEndpointWebExtension} instance.
@@ -58,28 +57,13 @@ public class ReactiveHealthEndpointWebExtension
 	@ReadOperation
 	public Mono<WebEndpointResponse<? extends HealthComponent>> health(ApiVersion apiVersion,
 			SecurityContext securityContext) {
-		return health(apiVersion, securityContext, false, NO_PATH);
+		return apiVersion.health(this, securityContext, false, NO_PATH);
 	}
 
 	@ReadOperation
 	public Mono<WebEndpointResponse<? extends HealthComponent>> health(ApiVersion apiVersion,
 			SecurityContext securityContext, @Selector(match = Match.ALL_REMAINING) String... path) {
-		return health(apiVersion, securityContext, false, path);
-	}
-
-	public Mono<WebEndpointResponse<? extends HealthComponent>> health(ApiVersion apiVersion,
-			SecurityContext securityContext, boolean showAll, String... path) {
-		HealthResult<Mono<? extends HealthComponent>> result = getHealth(apiVersion, securityContext, showAll, path);
-		if (result == null) {
-			return (Arrays.equals(path, NO_PATH))
-					? Mono.just(new WebEndpointResponse<>(DEFAULT_HEALTH, WebEndpointResponse.STATUS_OK))
-					: Mono.just(new WebEndpointResponse<>(WebEndpointResponse.STATUS_NOT_FOUND));
-		}
-		HealthEndpointGroup group = result.getGroup();
-		return result.getHealth().map((health) -> {
-			int statusCode = group.getHttpCodeStatusMapper().getStatusCode(health.getStatus());
-			return new WebEndpointResponse<>(health, statusCode);
-		});
+		return apiVersion.health(this, securityContext, false, path);
 	}
 
 	@Override

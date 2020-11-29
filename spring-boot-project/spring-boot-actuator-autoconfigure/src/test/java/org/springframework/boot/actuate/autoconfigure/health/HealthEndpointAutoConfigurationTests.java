@@ -230,7 +230,7 @@ class HealthEndpointAutoConfigurationTests {
 	void runCreatesReactiveHealthEndpointWebExtension() {
 		this.reactiveContextRunner.run((context) -> {
 			ReactiveHealthEndpointWebExtension webExtension = context.getBean(ReactiveHealthEndpointWebExtension.class);
-			Mono<WebEndpointResponse<? extends HealthComponent>> response = webExtension.health(ApiVersion.V3,
+			Mono<WebEndpointResponse<? extends HealthComponent>> response = ApiVersion.V3.health(webExtension,
 					SecurityContext.NONE, true, "simple");
 			Health health = (Health) (response.block().getBody());
 			assertThat(health.getDetails()).containsEntry("counter", 42);
@@ -243,7 +243,7 @@ class HealthEndpointAutoConfigurationTests {
 				.run((context) -> {
 					ReactiveHealthEndpointWebExtension webExtension = context
 							.getBean(ReactiveHealthEndpointWebExtension.class);
-					Mono<WebEndpointResponse<? extends HealthComponent>> response = webExtension.health(ApiVersion.V3,
+					Mono<WebEndpointResponse<? extends HealthComponent>> response = ApiVersion.V3.health(webExtension,
 							SecurityContext.NONE, true, "simple");
 					assertThat(response).isNull();
 				});
