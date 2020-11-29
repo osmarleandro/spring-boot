@@ -16,12 +16,23 @@
 
 package org.springframework.boot.actuate.autoconfigure.endpoint.web;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
+import org.springframework.beans.factory.ObjectProvider;
+import org.springframework.boot.actuate.endpoint.EndpointFilter;
+import org.springframework.boot.actuate.endpoint.web.PathMapper;
+import org.springframework.boot.actuate.endpoint.web.annotation.ControllerEndpointDiscoverer;
+import org.springframework.boot.actuate.endpoint.web.annotation.ControllerEndpointsSupplier;
+import org.springframework.boot.actuate.endpoint.web.annotation.ExposableControllerEndpoint;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.Bean;
 import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
 
@@ -70,6 +81,14 @@ public class WebEndpointProperties {
 
 	public Map<String, String> getPathMapping() {
 		return this.pathMapping;
+	}
+
+	@Bean
+	@ConditionalOnMissingBean(ControllerEndpointsSupplier.class)
+	public ControllerEndpointDiscoverer controllerEndpointDiscoverer(WebEndpointAutoConfiguration webEndpointAutoConfiguration, ObjectProvider<PathMapper> endpointPathMappers, ObjectProvider<Collection<EndpointFilter<ExposableControllerEndpoint>>> filters) {
+		return new ControllerEndpointDiscoverer(webEndpointAutoConfiguration.applicationContext,
+				endpointPathMappers.orderedStream().collect(Collectors.toList()),
+				filters.getIfAvailable(Collections::emptyList));
 	}
 
 	public static class Exposure {
