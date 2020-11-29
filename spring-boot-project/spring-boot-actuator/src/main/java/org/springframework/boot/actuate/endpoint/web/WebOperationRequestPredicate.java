@@ -16,6 +16,7 @@
 
 package org.springframework.boot.actuate.endpoint.web;
 
+import java.lang.reflect.Parameter;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.regex.Matcher;
@@ -155,6 +156,10 @@ public final class WebOperationRequestPredicate {
 			result.append(" produces: ").append(StringUtils.collectionToCommaDelimitedString(this.produces));
 		}
 		return result.toString();
+	}
+
+	public String dashName(Parameter parameter) {
+		return "-" + parameter.getName();
 	}
 
 }
