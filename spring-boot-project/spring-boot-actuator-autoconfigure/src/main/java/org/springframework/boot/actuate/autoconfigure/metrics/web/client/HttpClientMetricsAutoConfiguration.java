@@ -54,10 +54,10 @@ public class HttpClientMetricsAutoConfiguration {
 	@Bean
 	@Order(0)
 	public MeterFilter metricsHttpClientUriTagFilter(MetricsProperties properties) {
-		String metricName = properties.getWeb().getClient().getRequest().getMetricName();
+		String metricName = properties.getDistribution().getWeb(this).getClient().getRequest().getMetricName();
 		MeterFilter denyFilter = new OnlyOnceLoggingDenyMeterFilter(() -> String
 				.format("Reached the maximum number of URI tags for '%s'. Are you using 'uriVariables'?", metricName));
-		return MeterFilter.maximumAllowableTags(metricName, "uri", properties.getWeb().getClient().getMaxUriTags(),
+		return MeterFilter.maximumAllowableTags(metricName, "uri", properties.getDistribution().getWeb(this).getClient().getMaxUriTags(),
 				denyFilter);
 	}
 

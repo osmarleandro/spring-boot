@@ -73,10 +73,6 @@ public class MetricsProperties {
 		return this.tags;
 	}
 
-	public Web getWeb() {
-		return this.web;
-	}
-
 	public Distribution getDistribution() {
 		return this.distribution;
 	}
@@ -278,6 +274,10 @@ public class MetricsProperties {
 
 		public Map<String, String> getMaximumExpectedValue() {
 			return this.maximumExpectedValue;
+		}
+
+		public Web getWeb(MetricsProperties metricsProperties) {
+			return metricsProperties.web;
 		}
 
 	}
