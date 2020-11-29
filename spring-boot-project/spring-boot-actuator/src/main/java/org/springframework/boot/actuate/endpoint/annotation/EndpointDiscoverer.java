@@ -70,7 +70,7 @@ import org.springframework.util.StringUtils;
 public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O extends Operation>
 		implements EndpointsSupplier<E> {
 
-	private final ApplicationContext applicationContext;
+	final ApplicationContext applicationContext;
 
 	private final Collection<EndpointFilter<E>> filters;
 
@@ -131,19 +131,13 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 				Endpoint.class);
 		for (String beanName : beanNames) {
 			if (!ScopedProxyUtils.isScopedTarget(beanName)) {
-				EndpointBean endpointBean = createEndpointBean(beanName);
+				EndpointBean endpointBean = operationsFactory.createEndpointBean(this, beanName);
 				EndpointBean previous = byId.putIfAbsent(endpointBean.getId(), endpointBean);
 				Assert.state(previous == null, () -> "Found two endpoints with the id '" + endpointBean.getId() + "': '"
 						+ endpointBean.getBeanName() + "' and '" + previous.getBeanName() + "'");
 			}
 		}
 		return byId.values();
-	}
-
-	private EndpointBean createEndpointBean(String beanName) {
-		Class<?> beanType = ClassUtils.getUserClass(this.applicationContext.getType(beanName, false));
-		Supplier<Object> beanSupplier = () -> this.applicationContext.getBean(beanName);
-		return new EndpointBean(this.applicationContext.getEnvironment(), beanName, beanType, beanSupplier);
 	}
 
 	private void addExtensionBeans(Collection<EndpointBean> endpointBeans) {
@@ -414,7 +408,7 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 	/**
 	 * Information about an {@link Endpoint @Endpoint} bean.
 	 */
-	private static class EndpointBean {
+	static class EndpointBean {
 
 		private final String beanName;
 
