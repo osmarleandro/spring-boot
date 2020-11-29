@@ -31,9 +31,6 @@ import javax.management.ReflectionException;
 
 import reactor.core.publisher.Mono;
 
-import org.springframework.boot.actuate.endpoint.InvalidEndpointRequestException;
-import org.springframework.boot.actuate.endpoint.InvocationContext;
-import org.springframework.boot.actuate.endpoint.SecurityContext;
 import org.springframework.util.Assert;
 import org.springframework.util.ClassUtils;
 
@@ -48,10 +45,10 @@ import org.springframework.util.ClassUtils;
  */
 public class EndpointMBean implements DynamicMBean {
 
-	private static final boolean REACTOR_PRESENT = ClassUtils.isPresent("reactor.core.publisher.Mono",
+	static final boolean REACTOR_PRESENT = ClassUtils.isPresent("reactor.core.publisher.Mono",
 			EndpointMBean.class.getClassLoader());
 
-	private final JmxOperationResponseMapper responseMapper;
+	final JmxOperationResponseMapper responseMapper;
 
 	private final ClassLoader classLoader;
 
@@ -93,7 +90,7 @@ public class EndpointMBean implements DynamicMBean {
 		}
 		ClassLoader previousClassLoader = overrideThreadContextClassLoader(this.classLoader);
 		try {
-			return invoke(operation, params);
+			return operation.invoke(this, params);
 		}
 		finally {
 			overrideThreadContextClassLoader(previousClassLoader);
@@ -112,34 +109,14 @@ public class EndpointMBean implements DynamicMBean {
 		return null;
 	}
 
-	private Object invoke(JmxOperation operation, Object[] params) throws MBeanException, ReflectionException {
-		try {
-			String[] parameterNames = operation.getParameters().stream().map(JmxOperationParameter::getName)
-					.toArray(String[]::new);
-			Map<String, Object> arguments = getArguments(parameterNames, params);
-			InvocationContext context = new InvocationContext(SecurityContext.NONE, arguments);
-			Object result = operation.invoke(context);
-			if (REACTOR_PRESENT) {
-				result = ReactiveHandler.handle(result);
-			}
-			return this.responseMapper.mapResponse(result);
-		}
-		catch (InvalidEndpointRequestException ex) {
-			throw new ReflectionException(new IllegalArgumentException(ex.getMessage()), ex.getMessage());
-		}
-		catch (Exception ex) {
-			throw new MBeanException(translateIfNecessary(ex), ex.getMessage());
-		}
-	}
-
-	private Exception translateIfNecessary(Exception exception) {
+	Exception translateIfNecessary(Exception exception) {
 		if (exception.getClass().getName().startsWith("java.")) {
 			return exception;
 		}
 		return new IllegalStateException(exception.getMessage());
 	}
 
-	private Map<String, Object> getArguments(String[] parameterNames, Object[] params) {
+	Map<String, Object> getArguments(String[] parameterNames, Object[] params) {
 		Map<String, Object> arguments = new HashMap<>();
 		for (int i = 0; i < params.length; i++) {
 			arguments.put(parameterNames[i], params[i]);
@@ -169,7 +146,7 @@ public class EndpointMBean implements DynamicMBean {
 		return new AttributeList();
 	}
 
-	private static class ReactiveHandler {
+	static class ReactiveHandler {
 
 		static Object handle(Object result) {
 			if (result instanceof Mono) {

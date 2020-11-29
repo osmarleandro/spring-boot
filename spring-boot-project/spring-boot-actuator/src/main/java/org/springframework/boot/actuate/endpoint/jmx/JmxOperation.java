@@ -17,8 +17,16 @@
 package org.springframework.boot.actuate.endpoint.jmx;
 
 import java.util.List;
+import java.util.Map;
 
+import javax.management.MBeanException;
+import javax.management.ReflectionException;
+
+import org.springframework.boot.actuate.endpoint.InvalidEndpointRequestException;
+import org.springframework.boot.actuate.endpoint.InvocationContext;
 import org.springframework.boot.actuate.endpoint.Operation;
+import org.springframework.boot.actuate.endpoint.SecurityContext;
+import org.springframework.boot.actuate.endpoint.jmx.EndpointMBean.ReactiveHandler;
 
 /**
  * An operation on a JMX endpoint.
@@ -54,5 +62,25 @@ public interface JmxOperation extends Operation {
 	 * @return the operation parameter names
 	 */
 	List<JmxOperationParameter> getParameters();
+
+	default Object invoke(EndpointMBean endpointMBean, Object[] params) throws MBeanException, ReflectionException {
+		try {
+			String[] parameterNames = getParameters().stream().map(JmxOperationParameter::getName)
+					.toArray(String[]::new);
+			Map<String, Object> arguments = endpointMBean.getArguments(parameterNames, params);
+			InvocationContext context = new InvocationContext(SecurityContext.NONE, arguments);
+			Object result = invoke(context);
+			if (EndpointMBean.REACTOR_PRESENT) {
+				result = ReactiveHandler.handle(result);
+			}
+			return endpointMBean.responseMapper.mapResponse(result);
+		}
+		catch (InvalidEndpointRequestException ex) {
+			throw new ReflectionException(new IllegalArgumentException(ex.getMessage()), ex.getMessage());
+		}
+		catch (Exception ex) {
+			throw new MBeanException(endpointMBean.translateIfNecessary(ex), ex.getMessage());
+		}
+	}
 
 }
