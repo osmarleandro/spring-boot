@@ -80,19 +80,20 @@ public class EndpointMediaTypes {
 	}
 
 	/**
-	 * Returns the media types produced by an endpoint.
-	 * @return the produced media types
-	 */
-	public List<String> getProduced() {
-		return this.produced;
-	}
-
-	/**
 	 * Returns the media types consumed by an endpoint.
 	 * @return the consumed media types
 	 */
 	public List<String> getConsumed() {
 		return this.consumed;
+	}
+
+	/**
+	 * Returns the media types produced by an endpoint.
+	 * @param endpointMediaTypes TODO
+	 * @return the produced media types
+	 */
+	public List<String> getProduced(EndpointMediaTypes endpointMediaTypes) {
+		return endpointMediaTypes.produced;
 	}
 
 }
