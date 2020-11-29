@@ -57,4 +57,8 @@ public interface StatusAggregator {
 	 */
 	Status getAggregateStatus(Set<Status> statuses);
 
+	default Status getAggregateStatus(SimpleStatusAggregator simpleStatusAggregator, Set<Status> statuses) {
+		return statuses.stream().filter(simpleStatusAggregator::contains).min(simpleStatusAggregator.comparator).orElse(Status.UNKNOWN);
+	}
+
 }
