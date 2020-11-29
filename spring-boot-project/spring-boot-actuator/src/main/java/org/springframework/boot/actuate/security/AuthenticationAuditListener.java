@@ -70,7 +70,7 @@ public class AuthenticationAuditListener extends AbstractAuthenticationAuditList
 			this.webListener.process(this, event);
 		}
 		else if (event instanceof AuthenticationSuccessEvent) {
-			onAuthenticationSuccessEvent((AuthenticationSuccessEvent) event);
+			webListener.onAuthenticationSuccessEvent(this, (AuthenticationSuccessEvent) event);
 		}
 	}
 
@@ -82,14 +82,6 @@ public class AuthenticationAuditListener extends AbstractAuthenticationAuditList
 			data.put("details", event.getAuthentication().getDetails());
 		}
 		publish(new AuditEvent(event.getAuthentication().getName(), AUTHENTICATION_FAILURE, data));
-	}
-
-	private void onAuthenticationSuccessEvent(AuthenticationSuccessEvent event) {
-		Map<String, Object> data = new HashMap<>();
-		if (event.getAuthentication().getDetails() != null) {
-			data.put("details", event.getAuthentication().getDetails());
-		}
-		publish(new AuditEvent(event.getAuthentication().getName(), AUTHENTICATION_SUCCESS, data));
 	}
 
 	private static class WebAuditListener {
@@ -111,6 +103,14 @@ public class AuthenticationAuditListener extends AbstractAuthenticationAuditList
 
 		boolean accepts(AbstractAuthenticationEvent event) {
 			return event instanceof AuthenticationSwitchUserEvent;
+		}
+
+		void onAuthenticationSuccessEvent(AuthenticationAuditListener authenticationAuditListener, AuthenticationSuccessEvent event) {
+			Map<String, Object> data = new HashMap<>();
+			if (event.getAuthentication().getDetails() != null) {
+				data.put("details", event.getAuthentication().getDetails());
+			}
+			authenticationAuditListener.publish(new AuditEvent(event.getAuthentication().getName(), AuthenticationAuditListener.AUTHENTICATION_SUCCESS, data));
 		}
 
 	}
