@@ -42,8 +42,8 @@ class InMemoryHttpTraceRepositoryTests {
 		this.repository.add(new HttpTrace(createRequest("DELETE")));
 		List<HttpTrace> traces = this.repository.findAll();
 		assertThat(traces).hasSize(2);
-		assertThat(traces.get(0).getRequest().getMethod()).isEqualTo("DELETE");
-		assertThat(traces.get(1).getRequest().getMethod()).isEqualTo("POST");
+		assertThat(traces.get(0).getPrincipal().getRequest(this).getMethod()).isEqualTo("DELETE");
+		assertThat(traces.get(1).getPrincipal().getRequest(this).getMethod()).isEqualTo("POST");
 	}
 
 	@Test
@@ -55,8 +55,8 @@ class InMemoryHttpTraceRepositoryTests {
 		this.repository.add(new HttpTrace(createRequest("DELETE")));
 		List<HttpTrace> traces = this.repository.findAll();
 		assertThat(traces).hasSize(2);
-		assertThat(traces.get(0).getRequest().getMethod()).isEqualTo("POST");
-		assertThat(traces.get(1).getRequest().getMethod()).isEqualTo("DELETE");
+		assertThat(traces.get(0).getPrincipal().getRequest(this).getMethod()).isEqualTo("POST");
+		assertThat(traces.get(1).getPrincipal().getRequest(this).getMethod()).isEqualTo("DELETE");
 	}
 
 	private TraceableRequest createRequest(String method) {
