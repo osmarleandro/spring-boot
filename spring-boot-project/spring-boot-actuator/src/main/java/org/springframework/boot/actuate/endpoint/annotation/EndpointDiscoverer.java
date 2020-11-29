@@ -19,7 +19,6 @@ package org.springframework.boot.actuate.endpoint.annotation;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
-import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
@@ -30,7 +29,6 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
-import org.springframework.aop.scope.ScopedProxyUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.BeanFactoryUtils;
 import org.springframework.boot.actuate.endpoint.EndpointFilter;
@@ -70,7 +68,7 @@ import org.springframework.util.StringUtils;
 public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O extends Operation>
 		implements EndpointsSupplier<E> {
 
-	private final ApplicationContext applicationContext;
+	final ApplicationContext applicationContext;
 
 	private final Collection<EndpointFilter<E>> filters;
 
@@ -120,27 +118,12 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 	}
 
 	private Collection<E> discoverEndpoints() {
-		Collection<EndpointBean> endpointBeans = createEndpointBeans();
+		Collection<EndpointBean> endpointBeans = operationsFactory.createEndpointBeans(this);
 		addExtensionBeans(endpointBeans);
 		return convertToEndpoints(endpointBeans);
 	}
 
-	private Collection<EndpointBean> createEndpointBeans() {
-		Map<EndpointId, EndpointBean> byId = new LinkedHashMap<>();
-		String[] beanNames = BeanFactoryUtils.beanNamesForAnnotationIncludingAncestors(this.applicationContext,
-				Endpoint.class);
-		for (String beanName : beanNames) {
-			if (!ScopedProxyUtils.isScopedTarget(beanName)) {
-				EndpointBean endpointBean = createEndpointBean(beanName);
-				EndpointBean previous = byId.putIfAbsent(endpointBean.getId(), endpointBean);
-				Assert.state(previous == null, () -> "Found two endpoints with the id '" + endpointBean.getId() + "': '"
-						+ endpointBean.getBeanName() + "' and '" + previous.getBeanName() + "'");
-			}
-		}
-		return byId.values();
-	}
-
-	private EndpointBean createEndpointBean(String beanName) {
+	EndpointBean createEndpointBean(String beanName) {
 		Class<?> beanType = ClassUtils.getUserClass(this.applicationContext.getType(beanName, false));
 		Supplier<Object> beanSupplier = () -> this.applicationContext.getBean(beanName);
 		return new EndpointBean(this.applicationContext.getEnvironment(), beanName, beanType, beanSupplier);
@@ -414,7 +397,7 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 	/**
 	 * Information about an {@link Endpoint @Endpoint} bean.
 	 */
-	private static class EndpointBean {
+	static class EndpointBean {
 
 		private final String beanName;
 

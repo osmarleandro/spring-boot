@@ -21,12 +21,16 @@ import java.lang.reflect.Method;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.EnumMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Objects;
 
+import org.springframework.aop.scope.ScopedProxyUtils;
+import org.springframework.beans.factory.BeanFactoryUtils;
 import org.springframework.boot.actuate.endpoint.EndpointId;
 import org.springframework.boot.actuate.endpoint.Operation;
 import org.springframework.boot.actuate.endpoint.OperationType;
+import org.springframework.boot.actuate.endpoint.annotation.EndpointDiscoverer.EndpointBean;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvoker;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvokerAdvisor;
 import org.springframework.boot.actuate.endpoint.invoke.ParameterValueMapper;
@@ -36,6 +40,7 @@ import org.springframework.core.MethodIntrospector;
 import org.springframework.core.MethodIntrospector.MetadataLookup;
 import org.springframework.core.annotation.MergedAnnotation;
 import org.springframework.core.annotation.MergedAnnotations;
+import org.springframework.util.Assert;
 
 /**
  * Factory to create an {@link Operation} for annotated methods on an
@@ -106,5 +111,20 @@ abstract class DiscoveredOperationsFactory<O extends Operation> {
 
 	protected abstract O createOperation(EndpointId endpointId, DiscoveredOperationMethod operationMethod,
 			OperationInvoker invoker);
+
+	Collection<EndpointBean> createEndpointBeans(EndpointDiscoverer endpointDiscoverer) {
+		Map<EndpointId, EndpointBean> byId = new LinkedHashMap<>();
+		String[] beanNames = BeanFactoryUtils.beanNamesForAnnotationIncludingAncestors(endpointDiscoverer.applicationContext,
+				Endpoint.class);
+		for (String beanName : beanNames) {
+			if (!ScopedProxyUtils.isScopedTarget(beanName)) {
+				EndpointBean endpointBean = endpointDiscoverer.createEndpointBean(beanName);
+				EndpointBean previous = byId.putIfAbsent(endpointBean.getId(), endpointBean);
+				Assert.state(previous == null, () -> "Found two endpoints with the id '" + endpointBean.getId() + "': '"
+						+ endpointBean.getBeanName() + "' and '" + previous.getBeanName() + "'");
+			}
+		}
+		return byId.values();
+	}
 
 }
