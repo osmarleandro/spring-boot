@@ -16,6 +16,12 @@
 
 package org.springframework.boot.actuate.endpoint.web;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
+import org.glassfish.jersey.server.model.Resource;
+import org.springframework.boot.actuate.endpoint.web.jersey.JerseyEndpointResourceFactory;
 import org.springframework.util.StringUtils;
 
 /**
@@ -46,6 +52,28 @@ public class EndpointMapping {
 
 	public String createSubPath(String path) {
 		return this.path + normalizePath(path);
+	}
+
+	/**
+	 * Creates {@link Resource Resources} for the operations of the given
+	 * {@code webEndpoints}.
+	 * @param jerseyEndpointResourceFactory TODO
+	 * @param endpoints the web endpoints
+	 * @param endpointMediaTypes media types consumed and produced by the endpoints
+	 * @param linksResolver resolver for determining links to available endpoints
+	 * @param shouldRegisterLinks should register links
+	 * @return the resources for the operations
+	 */
+	public Collection<Resource> createEndpointResources(JerseyEndpointResourceFactory jerseyEndpointResourceFactory, Collection<ExposableWebEndpoint> endpoints, EndpointMediaTypes endpointMediaTypes, EndpointLinksResolver linksResolver, boolean shouldRegisterLinks) {
+		List<Resource> resources = new ArrayList<>();
+		endpoints.stream().flatMap((endpoint) -> endpoint.getOperations().stream())
+				.map((operation) -> jerseyEndpointResourceFactory.createResource(this, operation)).forEach(resources::add);
+		if (shouldRegisterLinks) {
+			Resource resource = jerseyEndpointResourceFactory.createEndpointLinksResource(getPath(), endpointMediaTypes,
+					linksResolver);
+			resources.add(resource);
+		}
+		return resources;
 	}
 
 	private static String normalizePath(String path) {

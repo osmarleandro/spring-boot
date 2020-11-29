@@ -127,7 +127,7 @@ class JerseyWebEndpointManagementContextConfiguration {
 			EndpointLinksResolver linksResolver = getLinksResolver(webEndpoints, servletEndpoints);
 			EndpointMapping mapping = new EndpointMapping(this.basePath);
 			JerseyEndpointResourceFactory resourceFactory = new JerseyEndpointResourceFactory();
-			register(resourceFactory.createEndpointResources(mapping, webEndpoints, this.mediaTypes, linksResolver,
+			register(mapping.createEndpointResources(resourceFactory, webEndpoints, this.mediaTypes, linksResolver,
 					this.shouldRegisterLinks));
 		}
 

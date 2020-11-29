@@ -21,7 +21,6 @@ import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.security.Principal;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -47,7 +46,6 @@ import org.springframework.boot.actuate.endpoint.http.ApiVersion;
 import org.springframework.boot.actuate.endpoint.web.EndpointLinksResolver;
 import org.springframework.boot.actuate.endpoint.web.EndpointMapping;
 import org.springframework.boot.actuate.endpoint.web.EndpointMediaTypes;
-import org.springframework.boot.actuate.endpoint.web.ExposableWebEndpoint;
 import org.springframework.boot.actuate.endpoint.web.Link;
 import org.springframework.boot.actuate.endpoint.web.WebEndpointResponse;
 import org.springframework.boot.actuate.endpoint.web.WebOperation;
@@ -67,31 +65,7 @@ import org.springframework.util.StringUtils;
  */
 public class JerseyEndpointResourceFactory {
 
-	/**
-	 * Creates {@link Resource Resources} for the operations of the given
-	 * {@code webEndpoints}.
-	 * @param endpointMapping the base mapping for all endpoints
-	 * @param endpoints the web endpoints
-	 * @param endpointMediaTypes media types consumed and produced by the endpoints
-	 * @param linksResolver resolver for determining links to available endpoints
-	 * @param shouldRegisterLinks should register links
-	 * @return the resources for the operations
-	 */
-	public Collection<Resource> createEndpointResources(EndpointMapping endpointMapping,
-			Collection<ExposableWebEndpoint> endpoints, EndpointMediaTypes endpointMediaTypes,
-			EndpointLinksResolver linksResolver, boolean shouldRegisterLinks) {
-		List<Resource> resources = new ArrayList<>();
-		endpoints.stream().flatMap((endpoint) -> endpoint.getOperations().stream())
-				.map((operation) -> createResource(endpointMapping, operation)).forEach(resources::add);
-		if (shouldRegisterLinks) {
-			Resource resource = createEndpointLinksResource(endpointMapping.getPath(), endpointMediaTypes,
-					linksResolver);
-			resources.add(resource);
-		}
-		return resources;
-	}
-
-	private Resource createResource(EndpointMapping endpointMapping, WebOperation operation) {
+	public Resource createResource(EndpointMapping endpointMapping, WebOperation operation) {
 		WebOperationRequestPredicate requestPredicate = operation.getRequestPredicate();
 		String path = requestPredicate.getPath();
 		String matchAllRemainingPathSegmentsVariable = requestPredicate.getMatchAllRemainingPathSegmentsVariable();
@@ -107,7 +81,7 @@ public class JerseyEndpointResourceFactory {
 		return resourceBuilder.build();
 	}
 
-	private Resource createEndpointLinksResource(String endpointPath, EndpointMediaTypes endpointMediaTypes,
+	public Resource createEndpointLinksResource(String endpointPath, EndpointMediaTypes endpointMediaTypes,
 			EndpointLinksResolver linksResolver) {
 		Builder resourceBuilder = Resource.builder().path(endpointPath);
 		resourceBuilder.addMethod("GET").produces(StringUtils.toStringArray(endpointMediaTypes.getProduced()))

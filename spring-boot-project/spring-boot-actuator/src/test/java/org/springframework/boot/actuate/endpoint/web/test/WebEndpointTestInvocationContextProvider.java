@@ -241,8 +241,8 @@ class WebEndpointTestInvocationContextProvider implements TestTemplateInvocation
 			WebEndpointDiscoverer discoverer = new WebEndpointDiscoverer(this.applicationContext,
 					new ConversionServiceParameterValueMapper(), endpointMediaTypes, null, Collections.emptyList(),
 					Collections.emptyList());
-			Collection<Resource> resources = new JerseyEndpointResourceFactory().createEndpointResources(
-					new EndpointMapping("/actuator"), discoverer.getEndpoints(), endpointMediaTypes,
+			Collection<Resource> resources = new EndpointMapping("/actuator").createEndpointResources(
+					new JerseyEndpointResourceFactory(), discoverer.getEndpoints(), endpointMediaTypes,
 					new EndpointLinksResolver(discoverer.getEndpoints()), true);
 			config.registerResources(new HashSet<>(resources));
 		}
