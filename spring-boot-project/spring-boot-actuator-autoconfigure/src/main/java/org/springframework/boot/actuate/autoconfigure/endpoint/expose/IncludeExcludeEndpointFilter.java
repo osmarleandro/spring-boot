@@ -16,18 +16,15 @@
 
 package org.springframework.boot.actuate.autoconfigure.endpoint.expose;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedHashSet;
-import java.util.List;
 import java.util.Set;
 
 import org.springframework.boot.actuate.endpoint.EndpointFilter;
 import org.springframework.boot.actuate.endpoint.EndpointId;
 import org.springframework.boot.actuate.endpoint.ExposableEndpoint;
-import org.springframework.boot.context.properties.bind.Bindable;
 import org.springframework.boot.context.properties.bind.Binder;
 import org.springframework.core.env.Environment;
 import org.springframework.util.Assert;
@@ -86,9 +83,9 @@ public class IncludeExcludeEndpointFilter<E extends ExposableEndpoint<?>> implem
 		Assert.notNull(defaultIncludes, "DefaultIncludes must not be null");
 		Binder binder = Binder.get(environment);
 		this.endpointType = endpointType;
-		this.include = new EndpointPatterns(bind(binder, prefix + ".include"));
+		this.include = new EndpointPatterns(binder.bind(prefix + ".include"));
 		this.defaultIncludes = defaultIncludes;
-		this.exclude = new EndpointPatterns(bind(binder, prefix + ".exclude"));
+		this.exclude = new EndpointPatterns(binder.bind(prefix + ".exclude"));
 	}
 
 	/**
@@ -127,10 +124,6 @@ public class IncludeExcludeEndpointFilter<E extends ExposableEndpoint<?>> implem
 		this.include = new EndpointPatterns(include);
 		this.defaultIncludes = defaultIncludes;
 		this.exclude = new EndpointPatterns(exclude);
-	}
-
-	private List<String> bind(Binder binder, String name) {
-		return binder.bind(name, Bindable.listOf(String.class)).orElseGet(ArrayList::new);
 	}
 
 	@Override

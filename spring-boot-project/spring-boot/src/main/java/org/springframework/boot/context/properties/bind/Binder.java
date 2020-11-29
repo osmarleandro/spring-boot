@@ -17,6 +17,7 @@
 package org.springframework.boot.context.properties.bind;
 
 import java.util.ArrayDeque;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
@@ -479,6 +480,10 @@ public class Binder {
 			}
 		}
 		return true;
+	}
+
+	public List<String> bind(String name) {
+		return bind(name, Bindable.listOf(String.class)).orElseGet(ArrayList::new);
 	}
 
 	/**
