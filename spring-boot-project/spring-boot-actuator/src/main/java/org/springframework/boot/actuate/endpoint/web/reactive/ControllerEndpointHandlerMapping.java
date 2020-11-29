@@ -49,7 +49,7 @@ public class ControllerEndpointHandlerMapping extends RequestMappingHandlerMappi
 
 	private final CorsConfiguration corsConfiguration;
 
-	private final Map<Object, ExposableControllerEndpoint> handlers;
+	public final Map<Object, ExposableControllerEndpoint> handlers;
 
 	/**
 	 * Create a new {@link ControllerEndpointHandlerMapping} instance providing mappings
@@ -76,7 +76,7 @@ public class ControllerEndpointHandlerMapping extends RequestMappingHandlerMappi
 
 	@Override
 	protected void initHandlerMethods() {
-		this.handlers.keySet().forEach(this::detectHandlerMethods);
+		endpointMapping.initHandlerMethods(this);
 	}
 
 	@Override
