@@ -17,9 +17,14 @@
 package org.springframework.boot.actuate.endpoint;
 
 import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.springframework.boot.actuate.endpoint.http.ApiVersion;
+import org.springframework.boot.actuate.endpoint.invoke.MissingParametersException;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvoker;
+import org.springframework.boot.actuate.endpoint.invoke.OperationParameter;
+import org.springframework.boot.actuate.endpoint.invoke.reflect.ReflectiveOperationInvoker;
 import org.springframework.util.Assert;
 
 /**
@@ -86,6 +91,14 @@ public class InvocationContext {
 	 */
 	public Map<String, Object> getArguments() {
 		return this.arguments;
+	}
+
+	public void validateRequiredParameters(ReflectiveOperationInvoker reflectiveOperationInvoker) {
+		Set<OperationParameter> missing = reflectiveOperationInvoker.operationMethod.getParameters().stream()
+				.filter((parameter) -> reflectiveOperationInvoker.isMissing(this, parameter)).collect(Collectors.toSet());
+		if (!missing.isEmpty()) {
+			throw new MissingParametersException(missing);
+		}
 	}
 
 }

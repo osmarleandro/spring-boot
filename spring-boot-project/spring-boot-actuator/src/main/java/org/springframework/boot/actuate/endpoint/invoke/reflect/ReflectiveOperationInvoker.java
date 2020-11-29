@@ -18,13 +18,10 @@ package org.springframework.boot.actuate.endpoint.invoke.reflect;
 
 import java.lang.reflect.Method;
 import java.security.Principal;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 import org.springframework.boot.actuate.endpoint.InvocationContext;
 import org.springframework.boot.actuate.endpoint.SecurityContext;
 import org.springframework.boot.actuate.endpoint.http.ApiVersion;
-import org.springframework.boot.actuate.endpoint.invoke.MissingParametersException;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvoker;
 import org.springframework.boot.actuate.endpoint.invoke.OperationParameter;
 import org.springframework.boot.actuate.endpoint.invoke.ParameterValueMapper;
@@ -44,7 +41,7 @@ public class ReflectiveOperationInvoker implements OperationInvoker {
 
 	private final Object target;
 
-	private final OperationMethod operationMethod;
+	public final OperationMethod operationMethod;
 
 	private final ParameterValueMapper parameterValueMapper;
 
@@ -70,22 +67,14 @@ public class ReflectiveOperationInvoker implements OperationInvoker {
 
 	@Override
 	public Object invoke(InvocationContext context) {
-		validateRequiredParameters(context);
+		context.validateRequiredParameters(this);
 		Method method = this.operationMethod.getMethod();
 		Object[] resolvedArguments = resolveArguments(context);
 		ReflectionUtils.makeAccessible(method);
 		return ReflectionUtils.invokeMethod(method, this.target, resolvedArguments);
 	}
 
-	private void validateRequiredParameters(InvocationContext context) {
-		Set<OperationParameter> missing = this.operationMethod.getParameters().stream()
-				.filter((parameter) -> isMissing(context, parameter)).collect(Collectors.toSet());
-		if (!missing.isEmpty()) {
-			throw new MissingParametersException(missing);
-		}
-	}
-
-	private boolean isMissing(InvocationContext context, OperationParameter parameter) {
+	public boolean isMissing(InvocationContext context, OperationParameter parameter) {
 		if (!parameter.isMandatory()) {
 			return false;
 		}
