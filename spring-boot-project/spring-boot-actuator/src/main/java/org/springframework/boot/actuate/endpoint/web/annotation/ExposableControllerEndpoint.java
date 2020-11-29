@@ -19,6 +19,7 @@ package org.springframework.boot.actuate.endpoint.web.annotation;
 import org.springframework.boot.actuate.endpoint.ExposableEndpoint;
 import org.springframework.boot.actuate.endpoint.Operation;
 import org.springframework.boot.actuate.endpoint.web.PathMappedEndpoint;
+import org.springframework.boot.actuate.endpoint.web.servlet.ControllerEndpointHandlerMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
@@ -37,5 +38,9 @@ public interface ExposableControllerEndpoint extends ExposableEndpoint<Operation
 	 * @return the source controller
 	 */
 	Object getController();
+
+	public default String getEndpointMappedPattern(ControllerEndpointHandlerMapping controllerEndpointHandlerMapping, String pattern) {
+		return controllerEndpointHandlerMapping.endpointMapping.createSubPath(getRootPath() + pattern);
+	}
 
 }
