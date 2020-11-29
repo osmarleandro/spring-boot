@@ -161,7 +161,7 @@ public class EndpointMBean implements DynamicMBean {
 
 	@Override
 	public AttributeList getAttributes(String[] attributes) {
-		return new AttributeList();
+		return endpoint.getAttributes(attributes);
 	}
 
 	@Override
