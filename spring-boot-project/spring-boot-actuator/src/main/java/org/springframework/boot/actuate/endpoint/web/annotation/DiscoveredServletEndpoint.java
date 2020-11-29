@@ -32,11 +32,11 @@ import org.springframework.util.Assert;
  *
  * @author Phillip Webb
  */
-class DiscoveredServletEndpoint extends AbstractDiscoveredEndpoint<Operation> implements ExposableServletEndpoint {
+public class DiscoveredServletEndpoint extends AbstractDiscoveredEndpoint<Operation> implements ExposableServletEndpoint {
 
 	private final String rootPath;
 
-	private final EndpointServlet endpointServlet;
+	public final EndpointServlet endpointServlet;
 
 	DiscoveredServletEndpoint(EndpointDiscoverer<?, ?> discoverer, Object endpointBean, EndpointId id, String rootPath,
 			boolean enabledByDefault) {
@@ -59,7 +59,7 @@ class DiscoveredServletEndpoint extends AbstractDiscoveredEndpoint<Operation> im
 
 	@Override
 	public EndpointServlet getEndpointServlet() {
-		return this.endpointServlet;
+		return endpointServlet.getEndpointServlet(this);
 	}
 
 }
