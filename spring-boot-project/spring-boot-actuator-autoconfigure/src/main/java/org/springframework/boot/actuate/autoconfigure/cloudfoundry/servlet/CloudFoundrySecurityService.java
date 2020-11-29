@@ -18,6 +18,11 @@ package org.springframework.boot.actuate.autoconfigure.cloudfoundry.servlet;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.security.KeyFactory;
+import java.security.NoSuchAlgorithmException;
+import java.security.PublicKey;
+import java.security.spec.InvalidKeySpecException;
+import java.security.spec.X509EncodedKeySpec;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,6 +34,7 @@ import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.RequestEntity;
 import org.springframework.util.Assert;
+import org.springframework.util.Base64Utils;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.HttpStatusCodeException;
@@ -133,6 +139,15 @@ class CloudFoundrySecurityService {
 			}
 		}
 		return this.uaaUrl;
+	}
+
+	PublicKey getPublicKey(String key) throws NoSuchAlgorithmException, InvalidKeySpecException {
+		key = key.replace("-----BEGIN PUBLIC KEY-----\n", "");
+		key = key.replace("-----END PUBLIC KEY-----", "");
+		key = key.trim().replace("\n", "");
+		byte[] bytes = Base64Utils.decodeFromString(key);
+		X509EncodedKeySpec keySpec = new X509EncodedKeySpec(bytes);
+		return KeyFactory.getInstance("RSA").generatePublic(keySpec);
 	}
 
 }
