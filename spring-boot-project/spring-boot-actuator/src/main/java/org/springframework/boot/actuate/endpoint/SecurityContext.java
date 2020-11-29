@@ -18,6 +18,9 @@ package org.springframework.boot.actuate.endpoint;
 
 import java.security.Principal;
 
+import org.springframework.boot.actuate.autoconfigure.health.AutoConfiguredHealthEndpointGroup;
+import org.springframework.boot.actuate.autoconfigure.health.HealthProperties.Show;
+
 /**
  * Security context in which an endpoint is being invoked.
  *
@@ -56,5 +59,17 @@ public interface SecurityContext {
 	 * @return {@code true} if the user is in the given role
 	 */
 	boolean isUserInRole(String role);
+
+	public default boolean getShowResult(AutoConfiguredHealthEndpointGroup autoConfiguredHealthEndpointGroup, Show show) {
+		switch (show) {
+		case NEVER:
+			return false;
+		case ALWAYS:
+			return true;
+		case WHEN_AUTHORIZED:
+			return autoConfiguredHealthEndpointGroup.isAuthorized(this);
+		}
+		throw new IllegalStateException("Unsupported 'show' value " + show);
+	}
 
 }

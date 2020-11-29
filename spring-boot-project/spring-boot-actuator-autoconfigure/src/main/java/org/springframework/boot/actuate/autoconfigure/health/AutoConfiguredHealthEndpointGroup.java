@@ -36,7 +36,7 @@ import org.springframework.util.CollectionUtils;
  * @author Phillip Webb
  * @author Andy Wilkinson
  */
-class AutoConfiguredHealthEndpointGroup implements HealthEndpointGroup {
+public class AutoConfiguredHealthEndpointGroup implements HealthEndpointGroup {
 
 	private final Predicate<String> members;
 
@@ -80,27 +80,15 @@ class AutoConfiguredHealthEndpointGroup implements HealthEndpointGroup {
 		if (this.showComponents == null) {
 			return showDetails(securityContext);
 		}
-		return getShowResult(securityContext, this.showComponents);
+		return securityContext.getShowResult(this, this.showComponents);
 	}
 
 	@Override
 	public boolean showDetails(SecurityContext securityContext) {
-		return getShowResult(securityContext, this.showDetails);
+		return securityContext.getShowResult(this, this.showDetails);
 	}
 
-	private boolean getShowResult(SecurityContext securityContext, Show show) {
-		switch (show) {
-		case NEVER:
-			return false;
-		case ALWAYS:
-			return true;
-		case WHEN_AUTHORIZED:
-			return isAuthorized(securityContext);
-		}
-		throw new IllegalStateException("Unsupported 'show' value " + show);
-	}
-
-	private boolean isAuthorized(SecurityContext securityContext) {
+	public boolean isAuthorized(SecurityContext securityContext) {
 		Principal principal = securityContext.getPrincipal();
 		if (principal == null) {
 			return false;
