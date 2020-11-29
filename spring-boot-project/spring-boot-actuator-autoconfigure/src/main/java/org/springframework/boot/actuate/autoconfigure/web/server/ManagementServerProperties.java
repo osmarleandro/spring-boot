@@ -78,10 +78,6 @@ public class ManagementServerProperties {
 		return this.address;
 	}
 
-	public void setAddress(InetAddress address) {
-		this.address = address;
-	}
-
 	public Ssl getSsl() {
 		return this.ssl;
 	}
@@ -124,6 +120,10 @@ public class ManagementServerProperties {
 				return contextPath.substring(0, contextPath.length() - 1);
 			}
 			return contextPath;
+		}
+
+		public void setAddress(ManagementServerProperties managementServerProperties, InetAddress address) {
+			managementServerProperties.address = address;
 		}
 
 	}
