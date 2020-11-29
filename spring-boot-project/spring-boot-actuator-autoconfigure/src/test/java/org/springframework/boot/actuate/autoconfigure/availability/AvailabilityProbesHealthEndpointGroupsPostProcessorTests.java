@@ -32,20 +32,9 @@ import static org.mockito.Mockito.mock;
  *
  * @author Phillip Webb
  */
-class AvailabilityProbesHealthEndpointGroupsPostProcessorTests {
+public class AvailabilityProbesHealthEndpointGroupsPostProcessorTests {
 
-	private AvailabilityProbesHealthEndpointGroupsPostProcessor postProcessor = new AvailabilityProbesHealthEndpointGroupsPostProcessor();
-
-	@Test
-	void postProcessHealthEndpointGroupsWhenGroupsAlreadyContainedReturnsOriginal() {
-		HealthEndpointGroups groups = mock(HealthEndpointGroups.class);
-		Set<String> names = new LinkedHashSet<>();
-		names.add("test");
-		names.add("readiness");
-		names.add("liveness");
-		given(groups.getNames()).willReturn(names);
-		assertThat(this.postProcessor.postProcessHealthEndpointGroups(groups)).isSameAs(groups);
-	}
+	public AvailabilityProbesHealthEndpointGroupsPostProcessor postProcessor = new AvailabilityProbesHealthEndpointGroupsPostProcessor();
 
 	@Test
 	void postProcessHealthEndpointGroupsWhenGroupContainsOneReturnsPostProcessed() {

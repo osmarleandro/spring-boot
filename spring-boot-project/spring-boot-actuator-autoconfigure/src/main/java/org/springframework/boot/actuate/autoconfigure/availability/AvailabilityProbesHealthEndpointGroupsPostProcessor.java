@@ -16,6 +16,14 @@
 
 package org.springframework.boot.actuate.autoconfigure.availability;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.mock;
+
+import java.util.LinkedHashSet;
+import java.util.Set;
+
+import org.junit.jupiter.api.Test;
 import org.springframework.boot.actuate.health.HealthEndpointGroups;
 import org.springframework.boot.actuate.health.HealthEndpointGroupsPostProcessor;
 import org.springframework.core.Ordered;
@@ -36,6 +44,17 @@ class AvailabilityProbesHealthEndpointGroupsPostProcessor implements HealthEndpo
 			return groups;
 		}
 		return new AvailabilityProbesHealthEndpointGroups(groups);
+	}
+
+	@Test
+	void postProcessHealthEndpointGroupsWhenGroupsAlreadyContainedReturnsOriginal(AvailabilityProbesHealthEndpointGroupsPostProcessorTests availabilityProbesHealthEndpointGroupsPostProcessorTests) {
+		HealthEndpointGroups groups = mock(HealthEndpointGroups.class);
+		Set<String> names = new LinkedHashSet<>();
+		names.add("test");
+		names.add("readiness");
+		names.add("liveness");
+		given(groups.getNames()).willReturn(names);
+		assertThat(postProcessHealthEndpointGroups(groups)).isSameAs(groups);
 	}
 
 }
