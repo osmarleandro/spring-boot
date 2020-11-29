@@ -17,7 +17,11 @@
 package org.springframework.boot.actuate.autoconfigure.metrics.export.datadog;
 
 import org.springframework.boot.actuate.autoconfigure.metrics.export.properties.StepRegistryProperties;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.Bean;
+
+import io.micrometer.datadog.DatadogConfig;
 
 /**
  * {@link ConfigurationProperties @ConfigurationProperties} for configuring Datadog
@@ -96,6 +100,12 @@ public class DatadogProperties extends StepRegistryProperties {
 
 	public void setUri(String uri) {
 		this.uri = uri;
+	}
+
+	@Bean
+	@ConditionalOnMissingBean
+	public DatadogConfig datadogConfig(DatadogMetricsExportAutoConfiguration datadogMetricsExportAutoConfiguration) {
+		return new DatadogPropertiesConfigAdapter(this);
 	}
 
 }

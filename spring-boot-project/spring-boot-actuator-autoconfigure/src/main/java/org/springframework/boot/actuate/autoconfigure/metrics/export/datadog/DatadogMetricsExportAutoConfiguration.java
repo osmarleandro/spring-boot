@@ -51,16 +51,10 @@ import org.springframework.context.annotation.Configuration;
 @EnableConfigurationProperties(DatadogProperties.class)
 public class DatadogMetricsExportAutoConfiguration {
 
-	private final DatadogProperties properties;
+	final DatadogProperties properties;
 
 	public DatadogMetricsExportAutoConfiguration(DatadogProperties properties) {
 		this.properties = properties;
-	}
-
-	@Bean
-	@ConditionalOnMissingBean
-	public DatadogConfig datadogConfig() {
-		return new DatadogPropertiesConfigAdapter(this.properties);
 	}
 
 	@Bean
