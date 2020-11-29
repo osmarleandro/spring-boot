@@ -62,7 +62,7 @@ public class ReflectiveOperationInvoker implements OperationInvoker {
 		Assert.notNull(target, "Target must not be null");
 		Assert.notNull(operationMethod, "OperationMethod must not be null");
 		Assert.notNull(parameterValueMapper, "ParameterValueMapper must not be null");
-		ReflectionUtils.makeAccessible(operationMethod.getMethod());
+		ReflectionUtils.makeAccessible(operationMethod.operationParameters.getMethod(operationMethod));
 		this.target = target;
 		this.operationMethod = operationMethod;
 		this.parameterValueMapper = parameterValueMapper;
@@ -71,7 +71,7 @@ public class ReflectiveOperationInvoker implements OperationInvoker {
 	@Override
 	public Object invoke(InvocationContext context) {
 		validateRequiredParameters(context);
-		Method method = this.operationMethod.getMethod();
+		Method method = this.operationMethod.operationParameters.getMethod(this.operationMethod);
 		Object[] resolvedArguments = resolveArguments(context);
 		ReflectionUtils.makeAccessible(method);
 		return ReflectionUtils.invokeMethod(method, this.target, resolvedArguments);

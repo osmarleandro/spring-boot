@@ -62,7 +62,7 @@ class DiscoveredJmxOperation extends AbstractDiscoveredOperation implements JmxO
 
 	DiscoveredJmxOperation(EndpointId endpointId, DiscoveredOperationMethod operationMethod, OperationInvoker invoker) {
 		super(operationMethod, invoker);
-		Method method = operationMethod.getMethod();
+		Method method = operationMethod.operationParameters.getMethod(operationMethod);
 		this.name = method.getName();
 		this.outputType = JmxType.get(method.getReturnType());
 		this.description = getDescription(method, () -> "Invoke " + this.name + " for endpoint " + endpointId);
@@ -81,7 +81,7 @@ class DiscoveredJmxOperation extends AbstractDiscoveredOperation implements JmxO
 		if (!operationMethod.getParameters().hasParameters()) {
 			return Collections.emptyList();
 		}
-		Method method = operationMethod.getMethod();
+		Method method = operationMethod.operationParameters.getMethod(operationMethod);
 		ManagedOperationParameter[] managed = jmxAttributeSource.getManagedOperationParameters(method);
 		if (managed.length == 0) {
 			return asList(operationMethod.getParameters().stream().map(DiscoveredJmxOperationParameter::new));

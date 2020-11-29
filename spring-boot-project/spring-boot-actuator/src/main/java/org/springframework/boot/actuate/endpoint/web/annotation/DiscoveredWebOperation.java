@@ -54,7 +54,7 @@ class DiscoveredWebOperation extends AbstractDiscoveredOperation implements WebO
 	DiscoveredWebOperation(EndpointId endpointId, DiscoveredOperationMethod operationMethod, OperationInvoker invoker,
 			WebOperationRequestPredicate requestPredicate) {
 		super(operationMethod, invoker);
-		Method method = operationMethod.getMethod();
+		Method method = operationMethod.operationParameters.getMethod(operationMethod);
 		this.id = getId(endpointId, method);
 		this.blocking = getBlocking(method);
 		this.requestPredicate = requestPredicate;
