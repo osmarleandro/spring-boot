@@ -16,8 +16,6 @@
 
 package org.springframework.boot.actuate.redis;
 
-import java.util.Properties;
-
 import reactor.core.publisher.Mono;
 import reactor.core.scheduler.Schedulers;
 
@@ -67,11 +65,7 @@ public class RedisReactiveHealthIndicator extends AbstractReactiveHealthIndicato
 			return ((ReactiveRedisClusterConnection) connection).clusterGetClusterInfo()
 					.map((info) -> up(builder, info));
 		}
-		return connection.serverCommands().info().map((info) -> up(builder, info));
-	}
-
-	private Health up(Health.Builder builder, Properties info) {
-		return RedisHealth.up(builder, info).build();
+		return connection.serverCommands().info().map((info) -> builder.up(info));
 	}
 
 	private Health up(Health.Builder builder, ClusterInfo clusterInfo) {
