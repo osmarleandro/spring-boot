@@ -51,12 +51,6 @@ public class StatsdMetricsExportAutoConfiguration {
 
 	@Bean
 	@ConditionalOnMissingBean
-	public StatsdConfig statsdConfig(StatsdProperties statsdProperties) {
-		return new StatsdPropertiesConfigAdapter(statsdProperties);
-	}
-
-	@Bean
-	@ConditionalOnMissingBean
 	public StatsdMeterRegistry statsdMeterRegistry(StatsdConfig statsdConfig, Clock clock) {
 		return new StatsdMeterRegistry(statsdConfig, clock);
 	}

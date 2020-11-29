@@ -18,10 +18,13 @@ package org.springframework.boot.actuate.autoconfigure.metrics.export.statsd;
 
 import java.time.Duration;
 
+import io.micrometer.statsd.StatsdConfig;
 import io.micrometer.statsd.StatsdFlavor;
 import io.micrometer.statsd.StatsdProtocol;
 
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.Bean;
 
 /**
  * {@link ConfigurationProperties @ConfigurationProperties} for configuring StatsD metrics
@@ -138,6 +141,12 @@ public class StatsdProperties {
 
 	public void setPublishUnchangedMeters(boolean publishUnchangedMeters) {
 		this.publishUnchangedMeters = publishUnchangedMeters;
+	}
+
+	@Bean
+	@ConditionalOnMissingBean
+	public StatsdConfig statsdConfig() {
+		return new StatsdPropertiesConfigAdapter(this);
 	}
 
 }
