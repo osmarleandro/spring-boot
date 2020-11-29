@@ -16,8 +16,12 @@
 
 package org.springframework.boot.actuate.endpoint.jmx;
 
+import javax.management.InstanceNotFoundException;
+import javax.management.MBeanRegistrationException;
 import javax.management.MalformedObjectNameException;
 import javax.management.ObjectName;
+
+import org.springframework.jmx.JmxException;
 
 /**
  * A factory to create an {@link ObjectName} for an {@link EndpointMBean}.
@@ -36,5 +40,20 @@ public interface EndpointObjectNameFactory {
 	 * @throws MalformedObjectNameException if the object name is invalid
 	 */
 	ObjectName getObjectName(ExposableJmxEndpoint endpoint) throws MalformedObjectNameException;
+
+	default void unregister(JmxEndpointExporter jmxEndpointExporter, ObjectName objectName) {
+		try {
+			if (JmxEndpointExporter.logger.isDebugEnabled()) {
+				JmxEndpointExporter.logger.debug("Unregister endpoint with ObjectName '" + objectName + "' from the JMX domain");
+			}
+			jmxEndpointExporter.mBeanServer.unregisterMBean(objectName);
+		}
+		catch (InstanceNotFoundException ex) {
+			// Ignore and continue
+		}
+		catch (MBeanRegistrationException ex) {
+			throw new JmxException("Failed to unregister MBean with ObjectName '" + objectName + "'", ex);
+		}
+	}
 
 }

@@ -20,8 +20,6 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.stream.Collectors;
 
-import javax.management.InstanceNotFoundException;
-import javax.management.MBeanRegistrationException;
 import javax.management.MBeanServer;
 import javax.management.MalformedObjectNameException;
 import javax.management.ObjectName;
@@ -32,7 +30,6 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.BeanClassLoaderAware;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
-import org.springframework.jmx.JmxException;
 import org.springframework.jmx.export.MBeanExportException;
 import org.springframework.util.Assert;
 
@@ -45,11 +42,11 @@ import org.springframework.util.Assert;
  */
 public class JmxEndpointExporter implements InitializingBean, DisposableBean, BeanClassLoaderAware {
 
-	private static final Log logger = LogFactory.getLog(JmxEndpointExporter.class);
+	static final Log logger = LogFactory.getLog(JmxEndpointExporter.class);
 
 	private ClassLoader classLoader;
 
-	private final MBeanServer mBeanServer;
+	final MBeanServer mBeanServer;
 
 	private final EndpointObjectNameFactory objectNameFactory;
 
@@ -108,21 +105,6 @@ public class JmxEndpointExporter implements InitializingBean, DisposableBean, Be
 
 	private void unregister(Collection<ObjectName> objectNames) {
 		objectNames.forEach(this::unregister);
-	}
-
-	private void unregister(ObjectName objectName) {
-		try {
-			if (logger.isDebugEnabled()) {
-				logger.debug("Unregister endpoint with ObjectName '" + objectName + "' from the JMX domain");
-			}
-			this.mBeanServer.unregisterMBean(objectName);
-		}
-		catch (InstanceNotFoundException ex) {
-			// Ignore and continue
-		}
-		catch (MBeanRegistrationException ex) {
-			throw new JmxException("Failed to unregister MBean with ObjectName '" + objectName + "'", ex);
-		}
 	}
 
 	private String getEndpointDescription(ExposableJmxEndpoint endpoint) {
