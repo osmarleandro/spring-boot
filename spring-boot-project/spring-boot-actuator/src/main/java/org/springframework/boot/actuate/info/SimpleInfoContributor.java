@@ -26,9 +26,9 @@ import org.springframework.util.Assert;
  */
 public class SimpleInfoContributor implements InfoContributor {
 
-	private final String prefix;
+	final String prefix;
 
-	private final Object detail;
+	final Object detail;
 
 	public SimpleInfoContributor(String prefix, Object detail) {
 		Assert.notNull(prefix, "Prefix must not be null");
@@ -38,9 +38,7 @@ public class SimpleInfoContributor implements InfoContributor {
 
 	@Override
 	public void contribute(Info.Builder builder) {
-		if (this.detail != null) {
-			builder.withDetail(this.prefix, this.detail);
-		}
+		builder.contribute(this);
 	}
 
 }

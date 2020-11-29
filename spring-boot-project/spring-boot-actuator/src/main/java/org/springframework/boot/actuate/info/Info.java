@@ -129,6 +129,12 @@ public final class Info {
 			return new Info(this);
 		}
 
+		public void contribute(SimpleInfoContributor simpleInfoContributor) {
+			if (simpleInfoContributor.detail != null) {
+				withDetail(simpleInfoContributor.prefix, simpleInfoContributor.detail);
+			}
+		}
+
 	}
 
 }
