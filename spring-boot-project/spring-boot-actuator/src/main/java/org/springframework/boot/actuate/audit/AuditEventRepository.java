@@ -17,7 +17,12 @@
 package org.springframework.boot.actuate.audit;
 
 import java.time.Instant;
+import java.time.OffsetDateTime;
 import java.util.List;
+
+import org.springframework.boot.actuate.audit.AuditEventsEndpoint.AuditEventsDescriptor;
+import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
+import org.springframework.lang.Nullable;
 
 /**
  * Repository for {@link AuditEvent}s.
@@ -45,5 +50,11 @@ public interface AuditEventRepository {
 	 * @since 1.4.0
 	 */
 	List<AuditEvent> find(String principal, Instant after, String type);
+
+	@ReadOperation
+	default AuditEventsDescriptor events(AuditEventsEndpoint auditEventsEndpoint, String principal, OffsetDateTime after, String type) {
+		List<AuditEvent> events = find(principal, auditEventsEndpoint.getInstant(after), type);
+		return new AuditEventsDescriptor(events);
+	}
 
 }
