@@ -52,6 +52,7 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 @ConditionalOnWebApplication(type = Type.SERVLET)
 @ConditionalOnClass(DispatcherServlet.class)
 @EnableWebMvc
+public
 class WebMvcEndpointChildContextConfiguration {
 
 	/*
@@ -63,12 +64,6 @@ class WebMvcEndpointChildContextConfiguration {
 	@ConditionalOnBean(ErrorAttributes.class)
 	ManagementErrorEndpoint errorEndpoint(ErrorAttributes errorAttributes, ServerProperties serverProperties) {
 		return new ManagementErrorEndpoint(errorAttributes, serverProperties.getError());
-	}
-
-	@Bean
-	@ConditionalOnBean(ErrorAttributes.class)
-	ManagementErrorPageCustomizer managementErrorPageCustomizer(ServerProperties serverProperties) {
-		return new ManagementErrorPageCustomizer(serverProperties);
 	}
 
 	@Bean(name = DispatcherServletAutoConfiguration.DEFAULT_DISPATCHER_SERVLET_BEAN_NAME)
@@ -112,7 +107,7 @@ class WebMvcEndpointChildContextConfiguration {
 	 * {@link WebServerFactoryCustomizer} to add an {@link ErrorPage} so that the
 	 * {@link ManagementErrorEndpoint} can be used.
 	 */
-	private static class ManagementErrorPageCustomizer
+	public static class ManagementErrorPageCustomizer
 			implements WebServerFactoryCustomizer<ConfigurableServletWebServerFactory>, Ordered {
 
 		private final ServerProperties properties;

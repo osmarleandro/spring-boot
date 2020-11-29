@@ -30,6 +30,8 @@ import java.util.Map;
 
 import io.undertow.UndertowOptions;
 
+import org.springframework.boot.actuate.autoconfigure.web.servlet.WebMvcEndpointChildContextConfiguration.ManagementErrorPageCustomizer;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.DeprecatedConfigurationProperty;
 import org.springframework.boot.context.properties.NestedConfigurationProperty;
@@ -38,9 +40,11 @@ import org.springframework.boot.web.server.Compression;
 import org.springframework.boot.web.server.Http2;
 import org.springframework.boot.web.server.Shutdown;
 import org.springframework.boot.web.server.Ssl;
+import org.springframework.boot.web.servlet.error.ErrorAttributes;
 import org.springframework.boot.web.servlet.server.Encoding;
 import org.springframework.boot.web.servlet.server.Jsp;
 import org.springframework.boot.web.servlet.server.Session;
+import org.springframework.context.annotation.Bean;
 import org.springframework.util.StringUtils;
 import org.springframework.util.unit.DataSize;
 
@@ -210,6 +214,12 @@ public class ServerProperties {
 
 	public void setForwardHeadersStrategy(ForwardHeadersStrategy forwardHeadersStrategy) {
 		this.forwardHeadersStrategy = forwardHeadersStrategy;
+	}
+
+	@Bean
+	@ConditionalOnBean(ErrorAttributes.class)
+	ManagementErrorPageCustomizer managementErrorPageCustomizer() {
+		return new ManagementErrorPageCustomizer(this);
 	}
 
 	/**
