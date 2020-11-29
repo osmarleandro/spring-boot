@@ -82,12 +82,6 @@ public final class HttpTrace {
 		return this.timestamp;
 	}
 
-	void setPrincipal(java.security.Principal principal) {
-		if (principal != null) {
-			this.principal = new Principal(principal.getName());
-		}
-	}
-
 	public Principal getPrincipal() {
 		return this.principal;
 	}
@@ -174,6 +168,12 @@ public final class HttpTrace {
 
 		public String getRemoteAddress() {
 			return this.remoteAddress;
+		}
+
+		void setPrincipal(HttpTrace httpTrace, java.security.Principal principal) {
+			if (principal != null) {
+				httpTrace.principal = new Principal(principal.getName());
+			}
 		}
 
 	}
