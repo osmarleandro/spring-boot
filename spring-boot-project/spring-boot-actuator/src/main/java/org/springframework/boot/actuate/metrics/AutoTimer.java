@@ -73,19 +73,7 @@ public interface AutoTimer {
 	 * @return a new builder instance with auto-settings applied
 	 */
 	default Timer.Builder builder(String name) {
-		return builder(() -> Timer.builder(name));
-	}
-
-	/**
-	 * Factory method to create a new {@link Builder Timer.Builder} with auto-timer
-	 * settings {@link #apply(Timer.Builder) applied}.
-	 * @param supplier the builder supplier
-	 * @return a new builder instance with auto-settings applied
-	 */
-	default Timer.Builder builder(Supplier<Timer.Builder> supplier) {
-		Timer.Builder builder = supplier.get();
-		apply(builder);
-		return builder;
+		return DISABLED.builder(this, () -> Timer.builder(name));
 	}
 
 	/**
@@ -93,5 +81,18 @@ public interface AutoTimer {
 	 * @param builder the builder to apply settings to
 	 */
 	void apply(Timer.Builder builder);
+
+	/**
+	 * Factory method to create a new {@link Builder Timer.Builder} with auto-timer
+	 * settings {@link #apply(Timer.Builder) applied}.
+	 * @param autoTimer TODO
+	 * @param supplier the builder supplier
+	 * @return a new builder instance with auto-settings applied
+	 */
+	default Builder builder(AutoTimer autoTimer, Supplier<Builder> supplier) {
+		Builder builder = supplier.get();
+		autoTimer.apply(builder);
+		return builder;
+	}
 
 }
