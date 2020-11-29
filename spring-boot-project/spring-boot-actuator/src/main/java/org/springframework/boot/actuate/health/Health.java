@@ -23,6 +23,7 @@ import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
+import org.springframework.boot.actuate.elasticsearch.ElasticsearchReactiveHealthIndicator;
 import org.springframework.util.Assert;
 
 /**
@@ -327,6 +328,13 @@ public final class Health extends HealthComponent {
 		 */
 		public Health build() {
 			return new Health(this);
+		}
+
+		public Health getHealth(Map<String, Object> body) {
+			String status = (String) body.get("status");
+			status(ElasticsearchReactiveHealthIndicator.RED_STATUS.equals(status) ? Status.OUT_OF_SERVICE : Status.UP);
+			withDetails(body);
+			return build();
 		}
 
 	}
