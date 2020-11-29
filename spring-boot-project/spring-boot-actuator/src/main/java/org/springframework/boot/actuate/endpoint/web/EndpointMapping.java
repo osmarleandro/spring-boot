@@ -16,7 +16,12 @@
 
 package org.springframework.boot.actuate.endpoint.web;
 
+import java.lang.reflect.Method;
+
+import org.springframework.boot.actuate.endpoint.web.reactive.AbstractWebFluxEndpointHandlerMapping;
 import org.springframework.util.StringUtils;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.reactive.result.method.RequestMappingInfo;
 
 /**
  * A value object for the base mapping for endpoints.
@@ -46,6 +51,10 @@ public class EndpointMapping {
 
 	public String createSubPath(String path) {
 		return this.path + normalizePath(path);
+	}
+
+	public CorsConfiguration initCorsConfiguration(AbstractWebFluxEndpointHandlerMapping abstractWebFluxEndpointHandlerMapping, Object handler, Method method, RequestMappingInfo mapping) {
+		return abstractWebFluxEndpointHandlerMapping.corsConfiguration;
 	}
 
 	private static String normalizePath(String path) {
