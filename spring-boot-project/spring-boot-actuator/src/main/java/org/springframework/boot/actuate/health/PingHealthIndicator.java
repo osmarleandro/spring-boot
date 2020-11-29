@@ -28,7 +28,7 @@ public class PingHealthIndicator extends AbstractHealthIndicator {
 
 	@Override
 	protected void doHealthCheck(Health.Builder builder) throws Exception {
-		builder.up();
+		builder.doHealthCheck();
 	}
 
 }

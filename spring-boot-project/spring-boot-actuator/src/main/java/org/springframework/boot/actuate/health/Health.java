@@ -329,6 +329,10 @@ public final class Health extends HealthComponent {
 			return new Health(this);
 		}
 
+		protected void doHealthCheck() throws Exception {
+			up();
+		}
+
 	}
 
 }
