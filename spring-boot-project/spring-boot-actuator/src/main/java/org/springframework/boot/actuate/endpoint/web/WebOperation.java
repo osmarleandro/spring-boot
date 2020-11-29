@@ -17,6 +17,14 @@
 package org.springframework.boot.actuate.endpoint.web;
 
 import org.springframework.boot.actuate.endpoint.Operation;
+import org.springframework.boot.actuate.endpoint.web.reactive.AbstractWebFluxEndpointHandlerMapping;
+import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.reactive.result.condition.ConsumesRequestCondition;
+import org.springframework.web.reactive.result.condition.PatternsRequestCondition;
+import org.springframework.web.reactive.result.condition.ProducesRequestCondition;
+import org.springframework.web.reactive.result.condition.RequestMethodsRequestCondition;
+import org.springframework.web.reactive.result.method.RequestMappingInfo;
 
 /**
  * An operation on a web endpoint.
@@ -44,5 +52,18 @@ public interface WebOperation extends Operation {
 	 * @return the predicate
 	 */
 	WebOperationRequestPredicate getRequestPredicate();
+
+	public default RequestMappingInfo createRequestMappingInfo(AbstractWebFluxEndpointHandlerMapping abstractWebFluxEndpointHandlerMapping) {
+		WebOperationRequestPredicate predicate = getRequestPredicate();
+		PatternsRequestCondition patterns = new PatternsRequestCondition(
+				AbstractWebFluxEndpointHandlerMapping.pathPatternParser.parse(abstractWebFluxEndpointHandlerMapping.endpointMapping.createSubPath(predicate.getPath())));
+		RequestMethodsRequestCondition methods = new RequestMethodsRequestCondition(
+				RequestMethod.valueOf(predicate.getHttpMethod().name()));
+		ConsumesRequestCondition consumes = new ConsumesRequestCondition(
+				StringUtils.toStringArray(predicate.getConsumes()));
+		ProducesRequestCondition produces = new ProducesRequestCondition(
+				StringUtils.toStringArray(predicate.getProduces()));
+		return new RequestMappingInfo(null, patterns, methods, null, null, consumes, produces, null);
+	}
 
 }

@@ -40,7 +40,6 @@ import org.springframework.boot.actuate.endpoint.web.EndpointMediaTypes;
 import org.springframework.boot.actuate.endpoint.web.ExposableWebEndpoint;
 import org.springframework.boot.actuate.endpoint.web.WebEndpointResponse;
 import org.springframework.boot.actuate.endpoint.web.WebOperation;
-import org.springframework.boot.actuate.endpoint.web.WebOperationRequestPredicate;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -59,7 +58,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.reactive.HandlerMapping;
-import org.springframework.web.reactive.result.condition.ConsumesRequestCondition;
 import org.springframework.web.reactive.result.condition.PatternsRequestCondition;
 import org.springframework.web.reactive.result.condition.ProducesRequestCondition;
 import org.springframework.web.reactive.result.condition.RequestMethodsRequestCondition;
@@ -81,9 +79,9 @@ import org.springframework.web.util.pattern.PathPatternParser;
  */
 public abstract class AbstractWebFluxEndpointHandlerMapping extends RequestMappingInfoHandlerMapping {
 
-	private static final PathPatternParser pathPatternParser = new PathPatternParser();
+	public static final PathPatternParser pathPatternParser = new PathPatternParser();
 
-	private final EndpointMapping endpointMapping;
+	public final EndpointMapping endpointMapping;
 
 	private final Collection<ExposableWebEndpoint> endpoints;
 
@@ -141,11 +139,11 @@ public abstract class AbstractWebFluxEndpointHandlerMapping extends RequestMappi
 		ReactiveWebOperation reactiveWebOperation = wrapReactiveWebOperation(endpoint, operation,
 				new ReactiveWebOperationAdapter(operation));
 		if (operation.getType() == OperationType.WRITE) {
-			registerMapping(createRequestMappingInfo(operation), new WriteOperationHandler((reactiveWebOperation)),
+			registerMapping(operation.createRequestMappingInfo(this), new WriteOperationHandler((reactiveWebOperation)),
 					this.handleWriteMethod);
 		}
 		else {
-			registerMapping(createRequestMappingInfo(operation), new ReadOperationHandler((reactiveWebOperation)),
+			registerMapping(operation.createRequestMappingInfo(this), new ReadOperationHandler((reactiveWebOperation)),
 					this.handleReadMethod);
 		}
 	}
@@ -161,19 +159,6 @@ public abstract class AbstractWebFluxEndpointHandlerMapping extends RequestMappi
 	protected ReactiveWebOperation wrapReactiveWebOperation(ExposableWebEndpoint endpoint, WebOperation operation,
 			ReactiveWebOperation reactiveWebOperation) {
 		return reactiveWebOperation;
-	}
-
-	private RequestMappingInfo createRequestMappingInfo(WebOperation operation) {
-		WebOperationRequestPredicate predicate = operation.getRequestPredicate();
-		PatternsRequestCondition patterns = new PatternsRequestCondition(
-				pathPatternParser.parse(this.endpointMapping.createSubPath(predicate.getPath())));
-		RequestMethodsRequestCondition methods = new RequestMethodsRequestCondition(
-				RequestMethod.valueOf(predicate.getHttpMethod().name()));
-		ConsumesRequestCondition consumes = new ConsumesRequestCondition(
-				StringUtils.toStringArray(predicate.getConsumes()));
-		ProducesRequestCondition produces = new ProducesRequestCondition(
-				StringUtils.toStringArray(predicate.getProduces()));
-		return new RequestMappingInfo(null, patterns, methods, null, null, consumes, produces, null);
 	}
 
 	private void registerLinksMapping() {
