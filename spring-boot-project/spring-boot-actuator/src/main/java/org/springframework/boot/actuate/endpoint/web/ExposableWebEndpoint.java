@@ -17,6 +17,12 @@
 package org.springframework.boot.actuate.endpoint.web;
 
 import org.springframework.boot.actuate.endpoint.ExposableEndpoint;
+import org.springframework.boot.actuate.endpoint.OperationType;
+import org.springframework.boot.actuate.endpoint.web.reactive.AbstractWebFluxEndpointHandlerMapping;
+import org.springframework.boot.actuate.endpoint.web.reactive.AbstractWebFluxEndpointHandlerMapping.ReactiveWebOperation;
+import org.springframework.boot.actuate.endpoint.web.reactive.AbstractWebFluxEndpointHandlerMapping.ReactiveWebOperationAdapter;
+import org.springframework.boot.actuate.endpoint.web.reactive.AbstractWebFluxEndpointHandlerMapping.ReadOperationHandler;
+import org.springframework.boot.actuate.endpoint.web.reactive.AbstractWebFluxEndpointHandlerMapping.WriteOperationHandler;
 
 /**
  * Information describing an endpoint that can be exposed over the web.
@@ -25,5 +31,18 @@ import org.springframework.boot.actuate.endpoint.ExposableEndpoint;
  * @since 2.0.0
  */
 public interface ExposableWebEndpoint extends ExposableEndpoint<WebOperation>, PathMappedEndpoint {
+
+	public default void registerMappingForOperation(AbstractWebFluxEndpointHandlerMapping abstractWebFluxEndpointHandlerMapping, WebOperation operation) {
+		ReactiveWebOperation reactiveWebOperation = abstractWebFluxEndpointHandlerMapping.wrapReactiveWebOperation(this, operation,
+				new ReactiveWebOperationAdapter(operation));
+		if (operation.getType() == OperationType.WRITE) {
+			abstractWebFluxEndpointHandlerMapping.registerMapping(abstractWebFluxEndpointHandlerMapping.createRequestMappingInfo(operation), new WriteOperationHandler((reactiveWebOperation)),
+					abstractWebFluxEndpointHandlerMapping.handleWriteMethod);
+		}
+		else {
+			abstractWebFluxEndpointHandlerMapping.registerMapping(abstractWebFluxEndpointHandlerMapping.createRequestMappingInfo(operation), new ReadOperationHandler((reactiveWebOperation)),
+					abstractWebFluxEndpointHandlerMapping.handleReadMethod);
+		}
+	}
 
 }

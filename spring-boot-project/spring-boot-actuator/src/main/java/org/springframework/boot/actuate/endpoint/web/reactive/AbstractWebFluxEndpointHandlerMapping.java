@@ -31,7 +31,6 @@ import reactor.core.scheduler.Schedulers;
 
 import org.springframework.boot.actuate.endpoint.InvalidEndpointRequestException;
 import org.springframework.boot.actuate.endpoint.InvocationContext;
-import org.springframework.boot.actuate.endpoint.OperationType;
 import org.springframework.boot.actuate.endpoint.SecurityContext;
 import org.springframework.boot.actuate.endpoint.http.ApiVersion;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvoker;
@@ -91,10 +90,10 @@ public abstract class AbstractWebFluxEndpointHandlerMapping extends RequestMappi
 
 	private final CorsConfiguration corsConfiguration;
 
-	private final Method handleWriteMethod = ReflectionUtils.findMethod(WriteOperationHandler.class, "handle",
+	public final Method handleWriteMethod = ReflectionUtils.findMethod(WriteOperationHandler.class, "handle",
 			ServerWebExchange.class, Map.class);
 
-	private final Method handleReadMethod = ReflectionUtils.findMethod(ReadOperationHandler.class, "handle",
+	public final Method handleReadMethod = ReflectionUtils.findMethod(ReadOperationHandler.class, "handle",
 			ServerWebExchange.class);
 
 	private final boolean shouldRegisterLinksMapping;
@@ -123,7 +122,7 @@ public abstract class AbstractWebFluxEndpointHandlerMapping extends RequestMappi
 	protected void initHandlerMethods() {
 		for (ExposableWebEndpoint endpoint : this.endpoints) {
 			for (WebOperation operation : endpoint.getOperations()) {
-				registerMappingForOperation(endpoint, operation);
+				endpoint.registerMappingForOperation(this, operation);
 			}
 		}
 		if (this.shouldRegisterLinksMapping) {
@@ -137,19 +136,6 @@ public abstract class AbstractWebFluxEndpointHandlerMapping extends RequestMappi
 		return new WebFluxEndpointHandlerMethod(handlerMethod.getBean(), handlerMethod.getMethod());
 	}
 
-	private void registerMappingForOperation(ExposableWebEndpoint endpoint, WebOperation operation) {
-		ReactiveWebOperation reactiveWebOperation = wrapReactiveWebOperation(endpoint, operation,
-				new ReactiveWebOperationAdapter(operation));
-		if (operation.getType() == OperationType.WRITE) {
-			registerMapping(createRequestMappingInfo(operation), new WriteOperationHandler((reactiveWebOperation)),
-					this.handleWriteMethod);
-		}
-		else {
-			registerMapping(createRequestMappingInfo(operation), new ReadOperationHandler((reactiveWebOperation)),
-					this.handleReadMethod);
-		}
-	}
-
 	/**
 	 * Hook point that allows subclasses to wrap the {@link ReactiveWebOperation} before
 	 * it's called. Allows additional features, such as security, to be added.
@@ -158,12 +144,12 @@ public abstract class AbstractWebFluxEndpointHandlerMapping extends RequestMappi
 	 * @param reactiveWebOperation the reactive web operation to wrap
 	 * @return a wrapped reactive web operation
 	 */
-	protected ReactiveWebOperation wrapReactiveWebOperation(ExposableWebEndpoint endpoint, WebOperation operation,
+	public ReactiveWebOperation wrapReactiveWebOperation(ExposableWebEndpoint endpoint, WebOperation operation,
 			ReactiveWebOperation reactiveWebOperation) {
 		return reactiveWebOperation;
 	}
 
-	private RequestMappingInfo createRequestMappingInfo(WebOperation operation) {
+	public RequestMappingInfo createRequestMappingInfo(WebOperation operation) {
 		WebOperationRequestPredicate predicate = operation.getRequestPredicate();
 		PatternsRequestCondition patterns = new PatternsRequestCondition(
 				pathPatternParser.parse(this.endpointMapping.createSubPath(predicate.getPath())));
@@ -256,7 +242,7 @@ public abstract class AbstractWebFluxEndpointHandlerMapping extends RequestMappi
 	 * A reactive web operation that can be handled by WebFlux.
 	 */
 	@FunctionalInterface
-	protected interface ReactiveWebOperation {
+	public interface ReactiveWebOperation {
 
 		Mono<ResponseEntity<Object>> handle(ServerWebExchange exchange, Map<String, String> body);
 
@@ -266,7 +252,7 @@ public abstract class AbstractWebFluxEndpointHandlerMapping extends RequestMappi
 	 * Adapter class to convert an {@link OperationInvoker} into a
 	 * {@link ReactiveWebOperation}.
 	 */
-	private static final class ReactiveWebOperationAdapter implements ReactiveWebOperation {
+	public static final class ReactiveWebOperationAdapter implements ReactiveWebOperation {
 
 		private static final String PATH_SEPARATOR = AntPathMatcher.DEFAULT_PATH_SEPARATOR;
 
@@ -375,7 +361,7 @@ public abstract class AbstractWebFluxEndpointHandlerMapping extends RequestMappi
 	/**
 	 * Handler for a {@link ReactiveWebOperation}.
 	 */
-	private static final class WriteOperationHandler {
+	public static final class WriteOperationHandler {
 
 		private final ReactiveWebOperation operation;
 
@@ -394,7 +380,7 @@ public abstract class AbstractWebFluxEndpointHandlerMapping extends RequestMappi
 	/**
 	 * Handler for a {@link ReactiveWebOperation}.
 	 */
-	private static final class ReadOperationHandler {
+	public static final class ReadOperationHandler {
 
 		private final ReactiveWebOperation operation;
 
