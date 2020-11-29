@@ -44,10 +44,6 @@ public class JmxEndpointProperties {
 	 */
 	private final Properties staticNames = new Properties();
 
-	public Exposure getExposure() {
-		return this.exposure;
-	}
-
 	public String getDomain() {
 		return this.domain;
 	}
@@ -86,6 +82,10 @@ public class JmxEndpointProperties {
 
 		public void setExclude(Set<String> exclude) {
 			this.exclude = exclude;
+		}
+
+		public Exposure getExposure(JmxEndpointProperties jmxEndpointProperties) {
+			return this;
 		}
 
 	}
