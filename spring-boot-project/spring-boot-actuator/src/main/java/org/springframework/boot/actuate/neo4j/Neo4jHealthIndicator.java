@@ -51,7 +51,7 @@ public class Neo4jHealthIndicator extends AbstractHealthIndicator {
 	/**
 	 * Message logged before retrying a health check.
 	 */
-	static final String MESSAGE_SESSION_EXPIRED = "Neo4j session has expired, retrying one single time to retrieve server health.";
+	public static final String MESSAGE_SESSION_EXPIRED = "Neo4j session has expired, retrying one single time to retrieve server health.";
 
 	/**
 	 * The default session config to use while connecting.

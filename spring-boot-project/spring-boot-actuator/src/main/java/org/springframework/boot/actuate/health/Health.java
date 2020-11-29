@@ -23,6 +23,12 @@ import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
+import reactor.core.publisher.Mono;
+import reactor.util.retry.Retry;
+
+import org.neo4j.driver.exceptions.SessionExpiredException;
+import org.springframework.boot.actuate.neo4j.Neo4jHealthIndicator;
+import org.springframework.boot.actuate.neo4j.Neo4jReactiveHealthIndicator;
 import org.springframework.util.Assert;
 
 /**
@@ -327,6 +333,16 @@ public final class Health extends HealthComponent {
 		 */
 		public Health build() {
 			return new Health(this);
+		}
+
+		public Mono<Health> doHealthCheck(Neo4jReactiveHealthIndicator neo4jReactiveHealthIndicator) {
+			return neo4jReactiveHealthIndicator.runHealthCheckQuery()
+					.doOnError(SessionExpiredException.class,
+							(e) -> Neo4jReactiveHealthIndicator.logger.warn(Neo4jHealthIndicator.MESSAGE_SESSION_EXPIRED))
+					.retryWhen(Retry.max(1).filter(SessionExpiredException.class::isInstance)).map((result) -> {
+						neo4jReactiveHealthIndicator.healthDetailsHandler.addHealthDetails(this, result.getT1(), result.getT2());
+						return build();
+					});
 		}
 
 	}
