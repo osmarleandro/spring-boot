@@ -60,7 +60,7 @@ class ConversionServiceParameterValueMapperTests {
 				.isThrownBy(() -> mapper.mapParameterValue(new TestOperationParameter(Integer.class), "123"))
 				.satisfies((ex) -> {
 					assertThat(ex.getValue()).isEqualTo("123");
-					assertThat(ex.getParameter().getType()).isEqualTo(Integer.class);
+					assertThat(ex.getParameter().getParameter(this).getType()).isEqualTo(Integer.class);
 					assertThat(ex.getCause()).isEqualTo(error);
 				});
 	}

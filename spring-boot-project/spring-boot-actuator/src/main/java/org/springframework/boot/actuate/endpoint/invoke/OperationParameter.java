@@ -42,4 +42,13 @@ public interface OperationParameter {
 	 */
 	boolean isMandatory();
 
+	/**
+	 * Return the parameter being mapped.
+	 * @param parameterMappingException TODO
+	 * @return the parameter
+	 */
+	default OperationParameter getParameter(ParameterMappingException parameterMappingException) {
+		return this;
+	}
+
 }

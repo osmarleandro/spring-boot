@@ -27,7 +27,7 @@ import org.springframework.boot.actuate.endpoint.InvalidEndpointRequestException
  */
 public final class ParameterMappingException extends InvalidEndpointRequestException {
 
-	private final OperationParameter parameter;
+	final OperationParameter parameter;
 
 	private final Object value;
 
@@ -43,14 +43,6 @@ public final class ParameterMappingException extends InvalidEndpointRequestExcep
 				"Parameter mapping failure", cause);
 		this.parameter = parameter;
 		this.value = value;
-	}
-
-	/**
-	 * Return the parameter being mapped.
-	 * @return the parameter
-	 */
-	public OperationParameter getParameter() {
-		return this.parameter;
 	}
 
 	/**
