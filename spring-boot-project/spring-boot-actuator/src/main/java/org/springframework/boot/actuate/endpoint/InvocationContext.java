@@ -16,11 +16,14 @@
 
 package org.springframework.boot.actuate.endpoint;
 
+import java.lang.reflect.Method;
 import java.util.Map;
 
 import org.springframework.boot.actuate.endpoint.http.ApiVersion;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvoker;
+import org.springframework.boot.actuate.endpoint.invoke.reflect.ReflectiveOperationInvoker;
 import org.springframework.util.Assert;
+import org.springframework.util.ReflectionUtils;
 
 /**
  * The context for the {@link OperationInvoker invocation of an operation}.
@@ -86,6 +89,14 @@ public class InvocationContext {
 	 */
 	public Map<String, Object> getArguments() {
 		return this.arguments;
+	}
+
+	public Object invoke(ReflectiveOperationInvoker reflectiveOperationInvoker) {
+		reflectiveOperationInvoker.validateRequiredParameters(this);
+		Method method = reflectiveOperationInvoker.operationMethod.getMethod();
+		Object[] resolvedArguments = reflectiveOperationInvoker.resolveArguments(this);
+		ReflectionUtils.makeAccessible(method);
+		return ReflectionUtils.invokeMethod(method, reflectiveOperationInvoker.target, resolvedArguments);
 	}
 
 }

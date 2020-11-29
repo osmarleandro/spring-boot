@@ -16,7 +16,6 @@
 
 package org.springframework.boot.actuate.endpoint.invoke.reflect;
 
-import java.lang.reflect.Method;
 import java.security.Principal;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -42,9 +41,9 @@ import org.springframework.util.ReflectionUtils;
  */
 public class ReflectiveOperationInvoker implements OperationInvoker {
 
-	private final Object target;
+	public final Object target;
 
-	private final OperationMethod operationMethod;
+	public final OperationMethod operationMethod;
 
 	private final ParameterValueMapper parameterValueMapper;
 
@@ -70,14 +69,10 @@ public class ReflectiveOperationInvoker implements OperationInvoker {
 
 	@Override
 	public Object invoke(InvocationContext context) {
-		validateRequiredParameters(context);
-		Method method = this.operationMethod.getMethod();
-		Object[] resolvedArguments = resolveArguments(context);
-		ReflectionUtils.makeAccessible(method);
-		return ReflectionUtils.invokeMethod(method, this.target, resolvedArguments);
+		return context.invoke(this);
 	}
 
-	private void validateRequiredParameters(InvocationContext context) {
+	public void validateRequiredParameters(InvocationContext context) {
 		Set<OperationParameter> missing = this.operationMethod.getParameters().stream()
 				.filter((parameter) -> isMissing(context, parameter)).collect(Collectors.toSet());
 		if (!missing.isEmpty()) {
@@ -101,7 +96,7 @@ public class ReflectiveOperationInvoker implements OperationInvoker {
 		return context.getArguments().get(parameter.getName()) == null;
 	}
 
-	private Object[] resolveArguments(InvocationContext context) {
+	public Object[] resolveArguments(InvocationContext context) {
 		return this.operationMethod.getParameters().stream().map((parameter) -> resolveArgument(parameter, context))
 				.toArray();
 	}
