@@ -23,7 +23,8 @@ import java.util.regex.Pattern;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
+import org.springframework.boot.actuate.endpoint.annotation.DiscoveredOperationMethod;
+import org.springframework.boot.actuate.endpoint.invoke.OperationInvoker;
 import org.springframework.core.env.Environment;
 import org.springframework.util.Assert;
 
@@ -104,6 +105,10 @@ public final class EndpointId {
 	@Override
 	public String toString() {
 		return this.value;
+	}
+
+	public Operation createOperation(DiscoveredOperationMethod operationMethod, OperationInvoker invoker) {
+		throw new IllegalStateException("ControllerEndpoints must not declare operations");
 	}
 
 	/**

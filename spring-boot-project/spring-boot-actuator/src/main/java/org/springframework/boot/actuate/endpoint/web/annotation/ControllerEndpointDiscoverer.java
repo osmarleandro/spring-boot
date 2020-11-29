@@ -72,8 +72,8 @@ public class ControllerEndpointDiscoverer extends EndpointDiscoverer<ExposableCo
 	@Override
 	protected Operation createOperation(EndpointId endpointId, DiscoveredOperationMethod operationMethod,
 			OperationInvoker invoker) {
-		throw new IllegalStateException("ControllerEndpoints must not declare operations");
-	}
+				return endpointId.createOperation(operationMethod, invoker);
+			}
 
 	@Override
 	protected OperationKey createOperationKey(Operation operation) {
