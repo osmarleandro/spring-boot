@@ -228,7 +228,7 @@ public abstract class AbstractWebMvcEndpointHandlerMapping extends RequestMappin
 
 	@Override
 	protected void extendInterceptors(List<Object> interceptors) {
-		interceptors.add(new SkipPathExtensionContentNegotiation());
+		endpointMapping.extendInterceptors(interceptors);
 	}
 
 	/**
