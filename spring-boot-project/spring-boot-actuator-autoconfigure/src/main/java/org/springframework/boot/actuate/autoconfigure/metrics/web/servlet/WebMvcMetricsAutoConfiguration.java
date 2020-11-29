@@ -103,16 +103,10 @@ public class WebMvcMetricsAutoConfiguration {
 				filter);
 	}
 
-	@Bean
-	public MetricsWebMvcConfigurer metricsWebMvcConfigurer(MeterRegistry meterRegistry,
-			WebMvcTagsProvider tagsProvider) {
-		return new MetricsWebMvcConfigurer(meterRegistry, tagsProvider);
-	}
-
 	/**
 	 * {@link WebMvcConfigurer} to add metrics interceptors.
 	 */
-	static class MetricsWebMvcConfigurer implements WebMvcConfigurer {
+	public static class MetricsWebMvcConfigurer implements WebMvcConfigurer {
 
 		private final MeterRegistry meterRegistry;
 
