@@ -53,10 +53,6 @@ public abstract class HealthProperties {
 		return this.status;
 	}
 
-	public Show getShowComponents() {
-		return this.showComponents;
-	}
-
 	public void setShowComponents(Show showComponents) {
 		this.showComponents = showComponents;
 	}
@@ -99,6 +95,10 @@ public abstract class HealthProperties {
 
 		public Map<String, Integer> getHttpMapping() {
 			return this.httpMapping;
+		}
+
+		public Show getShowComponents(HealthProperties healthProperties) {
+			return healthProperties.showComponents;
 		}
 
 	}

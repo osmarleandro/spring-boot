@@ -65,7 +65,7 @@ class AutoConfiguredHealthEndpointGroups implements HealthEndpointGroups {
 	AutoConfiguredHealthEndpointGroups(ApplicationContext applicationContext, HealthEndpointProperties properties) {
 		ListableBeanFactory beanFactory = (applicationContext instanceof ConfigurableApplicationContext)
 				? ((ConfigurableApplicationContext) applicationContext).getBeanFactory() : applicationContext;
-		Show showComponents = properties.getShowComponents();
+		Show showComponents = properties.getStatus().getShowComponents(this);
 		Show showDetails = properties.getShowDetails();
 		Set<String> roles = properties.getRoles();
 		StatusAggregator statusAggregator = getNonQualifiedBean(beanFactory, StatusAggregator.class);
@@ -88,7 +88,7 @@ class AutoConfiguredHealthEndpointGroups implements HealthEndpointGroups {
 		Map<String, HealthEndpointGroup> groups = new LinkedHashMap<>();
 		groupProperties.forEach((groupName, group) -> {
 			Status status = group.getStatus();
-			Show showComponents = (group.getShowComponents() != null) ? group.getShowComponents()
+			Show showComponents = (group.getStatus().getShowComponents(this) != null) ? group.getStatus().getShowComponents(this)
 					: defaultShowComponents;
 			Show showDetails = (group.getShowDetails() != null) ? group.getShowDetails() : defaultShowDetails;
 			Set<String> roles = !CollectionUtils.isEmpty(group.getRoles()) ? group.getRoles() : defaultRoles;
