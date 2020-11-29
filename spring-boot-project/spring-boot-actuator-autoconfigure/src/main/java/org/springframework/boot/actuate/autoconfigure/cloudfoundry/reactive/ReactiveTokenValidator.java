@@ -40,7 +40,7 @@ import org.springframework.util.Base64Utils;
  *
  * @author Madhura Bhave
  */
-class ReactiveTokenValidator {
+public class ReactiveTokenValidator {
 
 	private final ReactiveCloudFoundrySecurityService securityService;
 
@@ -50,12 +50,7 @@ class ReactiveTokenValidator {
 		this.securityService = securityService;
 	}
 
-	Mono<Void> validate(Token token) {
-		return validateAlgorithm(token).then(validateKeyIdAndSignature(token)).then(validateExpiry(token))
-				.then(validateIssuer(token)).then(validateAudience(token));
-	}
-
-	private Mono<Void> validateAlgorithm(Token token) {
+	public Mono<Void> validateAlgorithm(Token token) {
 		String algorithm = token.getSignatureAlgorithm();
 		if (algorithm == null) {
 			return Mono.error(new CloudFoundryAuthorizationException(Reason.INVALID_SIGNATURE,
@@ -68,7 +63,7 @@ class ReactiveTokenValidator {
 		return Mono.empty();
 	}
 
-	private Mono<Void> validateKeyIdAndSignature(Token token) {
+	public Mono<Void> validateKeyIdAndSignature(Token token) {
 		return getTokenKey(token).filter((tokenKey) -> hasValidSignature(token, tokenKey))
 				.switchIfEmpty(Mono.error(new CloudFoundryAuthorizationException(Reason.INVALID_SIGNATURE,
 						"RSA Signature did not match content")))
@@ -113,7 +108,7 @@ class ReactiveTokenValidator {
 		return KeyFactory.getInstance("RSA").generatePublic(keySpec);
 	}
 
-	private Mono<Void> validateExpiry(Token token) {
+	public Mono<Void> validateExpiry(Token token) {
 		long currentTime = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());
 		if (currentTime > token.getExpiry()) {
 			return Mono.error(new CloudFoundryAuthorizationException(Reason.TOKEN_EXPIRED, "Token expired"));
@@ -121,7 +116,7 @@ class ReactiveTokenValidator {
 		return Mono.empty();
 	}
 
-	private Mono<Void> validateIssuer(Token token) {
+	public Mono<Void> validateIssuer(Token token) {
 		return this.securityService.getUaaUrl().map((uaaUrl) -> String.format("%s/oauth/token", uaaUrl))
 				.filter((issuerUri) -> issuerUri.equals(token.getIssuer()))
 				.switchIfEmpty(Mono.error(
@@ -129,7 +124,7 @@ class ReactiveTokenValidator {
 				.then();
 	}
 
-	private Mono<Void> validateAudience(Token token) {
+	public Mono<Void> validateAudience(Token token) {
 		if (!token.getScope().contains("actuator.read")) {
 			return Mono.error(new CloudFoundryAuthorizationException(Reason.INVALID_AUDIENCE,
 					"Token does not have audience actuator"));

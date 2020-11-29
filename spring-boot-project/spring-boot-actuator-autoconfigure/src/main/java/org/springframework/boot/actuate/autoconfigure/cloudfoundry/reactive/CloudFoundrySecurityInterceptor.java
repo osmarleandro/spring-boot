@@ -79,7 +79,7 @@ class CloudFoundrySecurityInterceptor {
 	private Mono<Void> check(ServerWebExchange exchange, String id) {
 		try {
 			Token token = getToken(exchange.getRequest());
-			return this.tokenValidator.validate(token)
+			return token.validate(this.tokenValidator)
 					.then(this.cloudFoundrySecurityService.getAccessLevel(token.toString(), this.applicationId))
 					.filter((accessLevel) -> accessLevel.isAccessAllowed(id))
 					.switchIfEmpty(

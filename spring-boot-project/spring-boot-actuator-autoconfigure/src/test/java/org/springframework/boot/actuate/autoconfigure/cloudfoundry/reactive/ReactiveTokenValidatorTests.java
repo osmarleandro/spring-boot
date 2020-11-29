@@ -101,7 +101,7 @@ class ReactiveTokenValidatorTests {
 		String header = "{\"alg\": \"RS256\",  \"kid\": \"invalid-key\",\"typ\": \"JWT\"}";
 		String claims = "{\"exp\": 2147483647, \"iss\": \"http://localhost:8080/uaa/oauth/token\", \"scope\": [\"actuator.read\"]}";
 		StepVerifier
-				.create(this.tokenValidator.validate(new Token(getSignedToken(header.getBytes(), claims.getBytes()))))
+				.create(new Token(getSignedToken(header.getBytes(), claims.getBytes())).validate(this.tokenValidator))
 				.consumeErrorWith((ex) -> {
 					assertThat(ex).isExactlyInstanceOf(CloudFoundryAuthorizationException.class);
 					assertThat(((CloudFoundryAuthorizationException) ex).getReason()).isEqualTo(Reason.INVALID_KEY_ID);
@@ -119,7 +119,7 @@ class ReactiveTokenValidatorTests {
 		String header = "{\"alg\": \"RS256\",  \"kid\": \"valid-key\",\"typ\": \"JWT\"}";
 		String claims = "{\"exp\": 2147483647, \"iss\": \"http://localhost:8080/uaa/oauth/token\", \"scope\": [\"actuator.read\"]}";
 		StepVerifier
-				.create(this.tokenValidator.validate(new Token(getSignedToken(header.getBytes(), claims.getBytes()))))
+				.create(new Token(getSignedToken(header.getBytes(), claims.getBytes())).validate(this.tokenValidator))
 				.verifyComplete();
 		assertThat(this.tokenValidator).hasFieldOrPropertyWithValue("cachedTokenKeys", VALID_KEYS);
 		fetchTokenKeys.assertWasSubscribed();
@@ -133,7 +133,7 @@ class ReactiveTokenValidatorTests {
 		String header = "{\"alg\": \"RS256\",  \"kid\": \"valid-key\",\"typ\": \"JWT\"}";
 		String claims = "{\"exp\": 2147483647, \"iss\": \"http://localhost:8080/uaa/oauth/token\", \"scope\": [\"actuator.read\"]}";
 		StepVerifier
-				.create(this.tokenValidator.validate(new Token(getSignedToken(header.getBytes(), claims.getBytes()))))
+				.create(new Token(getSignedToken(header.getBytes(), claims.getBytes())).validate(this.tokenValidator))
 				.verifyComplete();
 		assertThat(this.tokenValidator).hasFieldOrPropertyWithValue("cachedTokenKeys", VALID_KEYS);
 		fetchTokenKeys.assertWasSubscribed();
@@ -147,7 +147,7 @@ class ReactiveTokenValidatorTests {
 		String header = "{\"alg\": \"RS256\",  \"kid\": \"invalid-key\",\"typ\": \"JWT\"}";
 		String claims = "{\"exp\": 2147483647, \"iss\": \"http://localhost:8080/uaa/oauth/token\", \"scope\": [\"actuator.read\"]}";
 		StepVerifier
-				.create(this.tokenValidator.validate(new Token(getSignedToken(header.getBytes(), claims.getBytes()))))
+				.create(new Token(getSignedToken(header.getBytes(), claims.getBytes())).validate(this.tokenValidator))
 				.consumeErrorWith((ex) -> {
 					assertThat(ex).isExactlyInstanceOf(CloudFoundryAuthorizationException.class);
 					assertThat(((CloudFoundryAuthorizationException) ex).getReason()).isEqualTo(Reason.INVALID_KEY_ID);
@@ -164,7 +164,7 @@ class ReactiveTokenValidatorTests {
 		String header = "{\"alg\": \"RS256\",  \"kid\": \"valid-key\",\"typ\": \"JWT\"}";
 		String claims = "{\"exp\": 2147483647, \"iss\": \"http://localhost:8080/uaa/oauth/token\", \"scope\": [\"actuator.read\"]}";
 		StepVerifier
-				.create(this.tokenValidator.validate(new Token(getSignedToken(header.getBytes(), claims.getBytes()))))
+				.create(new Token(getSignedToken(header.getBytes(), claims.getBytes())).validate(this.tokenValidator))
 				.verifyComplete();
 		fetchTokenKeys.assertWasNotSubscribed();
 	}
@@ -177,7 +177,7 @@ class ReactiveTokenValidatorTests {
 		String header = "{ \"alg\": \"RS256\",  \"kid\": \"valid-key\",\"typ\": \"JWT\"}";
 		String claims = "{ \"exp\": 2147483647, \"iss\": \"http://localhost:8080/uaa/oauth/token\", \"scope\": [\"actuator.read\"]}";
 		StepVerifier
-				.create(this.tokenValidator.validate(new Token(getSignedToken(header.getBytes(), claims.getBytes()))))
+				.create(new Token(getSignedToken(header.getBytes(), claims.getBytes())).validate(this.tokenValidator))
 				.consumeErrorWith((ex) -> {
 					assertThat(ex).isExactlyInstanceOf(CloudFoundryAuthorizationException.class);
 					assertThat(((CloudFoundryAuthorizationException) ex).getReason())
@@ -192,7 +192,7 @@ class ReactiveTokenValidatorTests {
 		String header = "{ \"alg\": \"HS256\",  \"kid\": \"valid-key\", \"typ\": \"JWT\"}";
 		String claims = "{ \"exp\": 2147483647, \"iss\": \"http://localhost:8080/uaa/oauth/token\", \"scope\": [\"actuator.read\"]}";
 		StepVerifier
-				.create(this.tokenValidator.validate(new Token(getSignedToken(header.getBytes(), claims.getBytes()))))
+				.create(new Token(getSignedToken(header.getBytes(), claims.getBytes())).validate(this.tokenValidator))
 				.consumeErrorWith((ex) -> {
 					assertThat(ex).isExactlyInstanceOf(CloudFoundryAuthorizationException.class);
 					assertThat(((CloudFoundryAuthorizationException) ex).getReason())
@@ -207,7 +207,7 @@ class ReactiveTokenValidatorTests {
 		String header = "{ \"alg\": \"RS256\",  \"kid\": \"valid-key\", \"typ\": \"JWT\"}";
 		String claims = "{ \"jti\": \"0236399c350c47f3ae77e67a75e75e7d\", \"exp\": 1477509977, \"scope\": [\"actuator.read\"]}";
 		StepVerifier
-				.create(this.tokenValidator.validate(new Token(getSignedToken(header.getBytes(), claims.getBytes()))))
+				.create(new Token(getSignedToken(header.getBytes(), claims.getBytes())).validate(this.tokenValidator))
 				.consumeErrorWith((ex) -> {
 					assertThat(ex).isExactlyInstanceOf(CloudFoundryAuthorizationException.class);
 					assertThat(((CloudFoundryAuthorizationException) ex).getReason()).isEqualTo(Reason.TOKEN_EXPIRED);
@@ -221,7 +221,7 @@ class ReactiveTokenValidatorTests {
 		String header = "{ \"alg\": \"RS256\",  \"kid\": \"valid-key\", \"typ\": \"JWT\", \"scope\": [\"actuator.read\"]}";
 		String claims = "{ \"exp\": 2147483647, \"iss\": \"http://localhost:8080/uaa/oauth/token\", \"scope\": [\"foo.bar\"]}";
 		StepVerifier
-				.create(this.tokenValidator.validate(new Token(getSignedToken(header.getBytes(), claims.getBytes()))))
+				.create(new Token(getSignedToken(header.getBytes(), claims.getBytes())).validate(this.tokenValidator))
 				.consumeErrorWith((ex) -> {
 					assertThat(ex).isExactlyInstanceOf(CloudFoundryAuthorizationException.class);
 					assertThat(((CloudFoundryAuthorizationException) ex).getReason()).isEqualTo(Reason.INVALID_ISSUER);
@@ -235,7 +235,7 @@ class ReactiveTokenValidatorTests {
 		String header = "{ \"alg\": \"RS256\",  \"kid\": \"valid-key\", \"typ\": \"JWT\"}";
 		String claims = "{ \"exp\": 2147483647, \"iss\": \"http://localhost:8080/uaa/oauth/token\", \"scope\": [\"foo.bar\"]}";
 		StepVerifier
-				.create(this.tokenValidator.validate(new Token(getSignedToken(header.getBytes(), claims.getBytes()))))
+				.create(new Token(getSignedToken(header.getBytes(), claims.getBytes())).validate(this.tokenValidator))
 				.consumeErrorWith((ex) -> {
 					assertThat(ex).isExactlyInstanceOf(CloudFoundryAuthorizationException.class);
 					assertThat(((CloudFoundryAuthorizationException) ex).getReason())
