@@ -30,15 +30,9 @@ import static org.mockito.Mockito.mock;
  *
  * @author Phillip Webb
  */
-class AvailabilityProbesHealthEndpointGroupTests {
+public class AvailabilityProbesHealthEndpointGroupTests {
 
-	private AvailabilityProbesHealthEndpointGroup group = new AvailabilityProbesHealthEndpointGroup("a", "b");
-
-	@Test
-	void isMemberWhenMemberReturnsTrue() {
-		assertThat(this.group.isMember("a")).isTrue();
-		assertThat(this.group.isMember("b")).isTrue();
-	}
+	public AvailabilityProbesHealthEndpointGroup group = new AvailabilityProbesHealthEndpointGroup("a", "b");
 
 	@Test
 	void isMemberWhenNotMemberReturnsFalse() {
