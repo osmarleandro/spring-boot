@@ -16,6 +16,19 @@
 
 package org.springframework.boot.actuate.endpoint.invoke;
 
+import java.util.stream.Collectors;
+
+import org.springframework.beans.factory.ObjectProvider;
+import org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointAutoConfiguration;
+import org.springframework.boot.actuate.endpoint.EndpointFilter;
+import org.springframework.boot.actuate.endpoint.web.EndpointMediaTypes;
+import org.springframework.boot.actuate.endpoint.web.ExposableWebEndpoint;
+import org.springframework.boot.actuate.endpoint.web.PathMapper;
+import org.springframework.boot.actuate.endpoint.web.WebEndpointsSupplier;
+import org.springframework.boot.actuate.endpoint.web.annotation.WebEndpointDiscoverer;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.context.annotation.Bean;
+
 /**
  * Maps parameter values to the required type when invoking an endpoint.
  *
@@ -38,5 +51,14 @@ public interface ParameterValueMapper {
 	 * @throws ParameterMappingException when a mapping failure occurs
 	 */
 	Object mapParameterValue(OperationParameter parameter, Object value) throws ParameterMappingException;
+
+	@Bean
+	@ConditionalOnMissingBean(WebEndpointsSupplier.class)
+	default WebEndpointDiscoverer webEndpointDiscoverer(WebEndpointAutoConfiguration webEndpointAutoConfiguration, EndpointMediaTypes endpointMediaTypes, ObjectProvider<PathMapper> endpointPathMappers, ObjectProvider<OperationInvokerAdvisor> invokerAdvisors, ObjectProvider<EndpointFilter<ExposableWebEndpoint>> filters) {
+		return new WebEndpointDiscoverer(webEndpointAutoConfiguration.applicationContext, this, endpointMediaTypes,
+				endpointPathMappers.orderedStream().collect(Collectors.toList()),
+				invokerAdvisors.orderedStream().collect(Collectors.toList()),
+				filters.orderedStream().collect(Collectors.toList()));
+	}
 
 }
