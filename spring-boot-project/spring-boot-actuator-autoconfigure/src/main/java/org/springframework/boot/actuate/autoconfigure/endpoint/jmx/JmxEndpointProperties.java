@@ -48,10 +48,6 @@ public class JmxEndpointProperties {
 		return this.exposure;
 	}
 
-	public String getDomain() {
-		return this.domain;
-	}
-
 	public void setDomain(String domain) {
 		this.domain = domain;
 	}
@@ -86,6 +82,10 @@ public class JmxEndpointProperties {
 
 		public void setExclude(Set<String> exclude) {
 			this.exclude = exclude;
+		}
+
+		public String getDomain(JmxEndpointProperties jmxEndpointProperties) {
+			return jmxEndpointProperties.domain;
 		}
 
 	}
