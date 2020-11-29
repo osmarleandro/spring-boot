@@ -16,10 +16,8 @@
 
 package org.springframework.boot.actuate.metrics.web.reactive.server;
 
-import java.util.concurrent.TimeUnit;
-
 import io.micrometer.core.instrument.MeterRegistry;
-import io.micrometer.core.instrument.Tag;
+
 import org.reactivestreams.Publisher;
 import reactor.core.publisher.Mono;
 
@@ -41,11 +39,11 @@ import org.springframework.web.server.WebFilterChain;
 @Order(Ordered.HIGHEST_PRECEDENCE + 1)
 public class MetricsWebFilter implements WebFilter {
 
-	private final MeterRegistry registry;
+	public final MeterRegistry registry;
 
-	private final WebFluxTagsProvider tagsProvider;
+	public final WebFluxTagsProvider tagsProvider;
 
-	private final String metricName;
+	public final String metricName;
 
 	private final AutoTimer autoTimer;
 
@@ -80,26 +78,20 @@ public class MetricsWebFilter implements WebFilter {
 	}
 
 	private void onSuccess(ServerWebExchange exchange, long start) {
-		record(exchange, start, null);
+		autoTimer.record(this, exchange, start, null);
 	}
 
 	private void onError(ServerWebExchange exchange, long start, Throwable cause) {
 		ServerHttpResponse response = exchange.getResponse();
 		if (response.isCommitted()) {
-			record(exchange, start, cause);
+			autoTimer.record(this, exchange, start, cause);
 		}
 		else {
 			response.beforeCommit(() -> {
-				record(exchange, start, cause);
+				autoTimer.record(this, exchange, start, cause);
 				return Mono.empty();
 			});
 		}
-	}
-
-	private void record(ServerWebExchange exchange, long start, Throwable cause) {
-		Iterable<Tag> tags = this.tagsProvider.httpRequestTags(exchange, cause);
-		this.autoTimer.builder(this.metricName).tags(tags).register(this.registry).record(System.nanoTime() - start,
-				TimeUnit.NANOSECONDS);
 	}
 
 }

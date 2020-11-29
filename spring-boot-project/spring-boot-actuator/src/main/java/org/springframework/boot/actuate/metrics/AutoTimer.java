@@ -16,9 +16,14 @@
 
 package org.springframework.boot.actuate.metrics;
 
+import java.util.concurrent.TimeUnit;
 import java.util.function.Supplier;
 
+import org.springframework.boot.actuate.metrics.web.reactive.server.MetricsWebFilter;
+import org.springframework.web.server.ServerWebExchange;
+
 import io.micrometer.core.annotation.Timed;
+import io.micrometer.core.instrument.Tag;
 import io.micrometer.core.instrument.Timer;
 import io.micrometer.core.instrument.Timer.Builder;
 
@@ -93,5 +98,11 @@ public interface AutoTimer {
 	 * @param builder the builder to apply settings to
 	 */
 	void apply(Timer.Builder builder);
+
+	public default void record(MetricsWebFilter metricsWebFilter, ServerWebExchange exchange, long start, Throwable cause) {
+		Iterable<Tag> tags = metricsWebFilter.tagsProvider.httpRequestTags(exchange, cause);
+		builder(metricsWebFilter.metricName).tags(tags).register(metricsWebFilter.registry).record(System.nanoTime() - start,
+				TimeUnit.NANOSECONDS);
+	}
 
 }
