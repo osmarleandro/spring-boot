@@ -99,7 +99,7 @@ class LogFileWebEndpointAutoConfigurationTests {
 				"management.endpoint.logfile.external-file:" + file.getAbsolutePath()).run((context) -> {
 					assertThat(context).hasSingleBean(LogFileWebEndpoint.class);
 					LogFileWebEndpoint endpoint = context.getBean(LogFileWebEndpoint.class);
-					Resource resource = endpoint.logFile();
+					Resource resource = endpoint.logFile.logFile(endpoint);
 					assertThat(resource).isNotNull();
 					assertThat(contentOf(resource.getFile())).isEqualTo("--TEST--");
 				});

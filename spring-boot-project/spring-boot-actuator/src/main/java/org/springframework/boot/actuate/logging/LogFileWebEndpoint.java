@@ -22,7 +22,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
-import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
 import org.springframework.boot.actuate.endpoint.web.annotation.WebEndpoint;
 import org.springframework.boot.logging.LogFile;
 import org.springframework.core.io.FileSystemResource;
@@ -43,23 +42,14 @@ public class LogFileWebEndpoint {
 
 	private File externalFile;
 
-	private final LogFile logFile;
+	public final LogFile logFile;
 
 	public LogFileWebEndpoint(LogFile logFile, File externalFile) {
 		this.externalFile = externalFile;
 		this.logFile = logFile;
 	}
 
-	@ReadOperation(produces = "text/plain; charset=UTF-8")
-	public Resource logFile() {
-		Resource logFileResource = getLogFileResource();
-		if (logFileResource == null || !logFileResource.isReadable()) {
-			return null;
-		}
-		return logFileResource;
-	}
-
-	private Resource getLogFileResource() {
+	public Resource getLogFileResource() {
 		if (this.externalFile != null) {
 			return new FileSystemResource(this.externalFile);
 		}
