@@ -24,6 +24,7 @@ import javax.servlet.Servlet;
 import javax.servlet.ServletRegistration.Dynamic;
 
 import org.springframework.beans.BeanUtils;
+import org.springframework.boot.actuate.endpoint.web.annotation.DiscoveredServletEndpoint;
 import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
 
@@ -99,6 +100,10 @@ public final class EndpointServlet {
 
 	int getLoadOnStartup() {
 		return this.loadOnStartup;
+	}
+
+	public String getRootPath(DiscoveredServletEndpoint discoveredServletEndpoint) {
+		return discoveredServletEndpoint.rootPath;
 	}
 
 }
