@@ -75,10 +75,6 @@ public class WavefrontProperties extends PushRegistryProperties {
 		this.source = source;
 	}
 
-	public String getApiToken() {
-		return this.apiToken;
-	}
-
 	public void setApiToken(String apiToken) {
 		this.apiToken = apiToken;
 	}
@@ -125,6 +121,10 @@ public class WavefrontProperties extends PushRegistryProperties {
 
 		public void setMessageSize(DataSize messageSize) {
 			this.messageSize = messageSize;
+		}
+
+		public String getApiToken(WavefrontProperties wavefrontProperties) {
+			return wavefrontProperties.apiToken;
 		}
 
 	}
