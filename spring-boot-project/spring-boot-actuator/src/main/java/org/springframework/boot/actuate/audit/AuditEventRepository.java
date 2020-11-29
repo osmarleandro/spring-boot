@@ -19,6 +19,11 @@ package org.springframework.boot.actuate.audit;
 import java.time.Instant;
 import java.util.List;
 
+import org.springframework.boot.actuate.audit.listener.AbstractAuditListener;
+import org.springframework.boot.actuate.audit.listener.AuditListener;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.context.annotation.Bean;
+
 /**
  * Repository for {@link AuditEvent}s.
  *
@@ -45,5 +50,11 @@ public interface AuditEventRepository {
 	 * @since 1.4.0
 	 */
 	List<AuditEvent> find(String principal, Instant after, String type);
+
+	@Bean
+	@ConditionalOnMissingBean(AbstractAuditListener.class)
+	default AuditListener auditListener() {
+		return new AuditListener(this);
+	}
 
 }
