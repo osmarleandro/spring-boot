@@ -96,12 +96,6 @@ public final class HttpTrace {
 		return this.session;
 	}
 
-	void setSessionId(String sessionId) {
-		if (StringUtils.hasText(sessionId)) {
-			this.session = new Session(sessionId);
-		}
-	}
-
 	public Request getRequest() {
 		return this.request;
 	}
@@ -254,6 +248,12 @@ public final class HttpTrace {
 
 		public String getName() {
 			return this.name;
+		}
+
+		void setSessionId(HttpTrace httpTrace, String sessionId) {
+			if (StringUtils.hasText(sessionId)) {
+				httpTrace.session = new Session(sessionId);
+			}
 		}
 
 	}
