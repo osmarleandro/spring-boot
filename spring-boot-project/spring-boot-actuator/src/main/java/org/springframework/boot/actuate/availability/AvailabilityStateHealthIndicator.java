@@ -41,7 +41,7 @@ public class AvailabilityStateHealthIndicator extends AbstractHealthIndicator {
 
 	private final ApplicationAvailability applicationAvailability;
 
-	private final Class<? extends AvailabilityState> stateType;
+	public final Class<? extends AvailabilityState> stateType;
 
 	private final Map<AvailabilityState, Status> statusMappings = new HashMap<>();
 
@@ -93,7 +93,7 @@ public class AvailabilityStateHealthIndicator extends AbstractHealthIndicator {
 	 * @return the current availability state
 	 */
 	protected AvailabilityState getState(ApplicationAvailability applicationAvailability) {
-		return applicationAvailability.getState(this.stateType);
+		return applicationAvailability.getState(this);
 	}
 
 	/**

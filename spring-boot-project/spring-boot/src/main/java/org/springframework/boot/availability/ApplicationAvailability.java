@@ -16,6 +16,7 @@
 
 package org.springframework.boot.availability;
 
+import org.springframework.boot.actuate.availability.AvailabilityStateHealthIndicator;
 import org.springframework.context.ApplicationContext;
 
 /**
@@ -77,5 +78,15 @@ public interface ApplicationAvailability {
 	 * published yet
 	 */
 	<S extends AvailabilityState> AvailabilityChangeEvent<S> getLastChangeEvent(Class<S> stateType);
+
+	/**
+	 * Return the current availability state. Subclasses can override this method if a
+	 * different retrieval mechanism is needed.
+	 * @param availabilityStateHealthIndicator TODO
+	 * @return the current availability state
+	 */
+	public default AvailabilityState getState(AvailabilityStateHealthIndicator availabilityStateHealthIndicator) {
+		return getState(availabilityStateHealthIndicator.stateType);
+	}
 
 }
