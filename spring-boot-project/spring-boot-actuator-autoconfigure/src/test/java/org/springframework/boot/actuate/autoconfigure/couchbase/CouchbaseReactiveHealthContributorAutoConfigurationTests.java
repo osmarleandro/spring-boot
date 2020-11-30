@@ -33,9 +33,9 @@ import static org.mockito.Mockito.mock;
  *
  * @author Mikalai Lushchytski
  */
-class CouchbaseReactiveHealthContributorAutoConfigurationTests {
+public class CouchbaseReactiveHealthContributorAutoConfigurationTests {
 
-	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
+	public final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.withBean(Cluster.class, () -> mock(Cluster.class))
 			.withConfiguration(AutoConfigurations.of(CouchbaseReactiveHealthContributorAutoConfiguration.class,
 					HealthContributorAutoConfiguration.class));
@@ -51,13 +51,6 @@ class CouchbaseReactiveHealthContributorAutoConfigurationTests {
 		this.contextRunner.withConfiguration(AutoConfigurations.of(CouchbaseHealthContributorAutoConfiguration.class))
 				.run((context) -> assertThat(context).hasSingleBean(CouchbaseReactiveHealthIndicator.class)
 						.hasBean("couchbaseHealthContributor").doesNotHaveBean(CouchbaseHealthIndicator.class));
-	}
-
-	@Test
-	void runWhenDisabledShouldNotCreateIndicator() {
-		this.contextRunner.withPropertyValues("management.health.couchbase.enabled:false")
-				.run((context) -> assertThat(context).doesNotHaveBean(CouchbaseReactiveHealthIndicator.class)
-						.doesNotHaveBean("couchbaseHealthContributor"));
 	}
 
 }
