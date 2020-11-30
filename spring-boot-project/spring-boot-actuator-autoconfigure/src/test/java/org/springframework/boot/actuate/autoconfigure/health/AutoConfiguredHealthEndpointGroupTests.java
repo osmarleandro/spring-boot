@@ -42,13 +42,14 @@ import static org.mockito.Mockito.mock;
  * @author Phillip Webb
  */
 @ExtendWith(MockitoExtension.class)
+public
 class AutoConfiguredHealthEndpointGroupTests {
 
 	@Mock
-	private StatusAggregator statusAggregator;
+	public StatusAggregator statusAggregator;
 
 	@Mock
-	private HttpCodeStatusMapper httpCodeStatusMapper;
+	public HttpCodeStatusMapper httpCodeStatusMapper;
 
 	@Mock
 	private SecurityContext securityContext;
@@ -230,13 +231,6 @@ class AutoConfiguredHealthEndpointGroupTests {
 				.willAnswer((invocation) -> Collections.singleton(new SimpleGrantedAuthority("other")));
 		given(this.securityContext.getPrincipal()).willReturn(principal);
 		assertThat(group.showComponents(this.securityContext)).isFalse();
-	}
-
-	@Test
-	void getStatusAggregatorReturnsStatusAggregator() {
-		AutoConfiguredHealthEndpointGroup group = new AutoConfiguredHealthEndpointGroup((name) -> true,
-				this.statusAggregator, this.httpCodeStatusMapper, null, Show.ALWAYS, Collections.emptySet());
-		assertThat(group.getStatusAggregator()).isSameAs(this.statusAggregator);
 	}
 
 	@Test
