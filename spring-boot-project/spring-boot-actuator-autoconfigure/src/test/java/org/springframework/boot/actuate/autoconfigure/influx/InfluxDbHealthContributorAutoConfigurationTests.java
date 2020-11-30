@@ -32,21 +32,15 @@ import static org.mockito.Mockito.mock;
  *
  * @author Eddú Meléndez
  */
-class InfluxDbHealthContributorAutoConfigurationTests {
+public class InfluxDbHealthContributorAutoConfigurationTests {
 
-	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
+	public final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.withBean(InfluxDB.class, () -> mock(InfluxDB.class)).withConfiguration(AutoConfigurations
 					.of(InfluxDbHealthContributorAutoConfiguration.class, HealthContributorAutoConfiguration.class));
 
 	@Test
 	void runShouldCreateIndicator() {
 		this.contextRunner.run((context) -> assertThat(context).hasSingleBean(InfluxDbHealthIndicator.class));
-	}
-
-	@Test
-	void runWhenDisabledShouldNotCreateIndicator() {
-		this.contextRunner.withPropertyValues("management.health.influxdb.enabled:false")
-				.run((context) -> assertThat(context).doesNotHaveBean(InfluxDbHealthIndicator.class));
 	}
 
 }
