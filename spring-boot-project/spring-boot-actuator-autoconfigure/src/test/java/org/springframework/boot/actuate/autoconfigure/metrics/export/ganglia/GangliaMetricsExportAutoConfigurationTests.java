@@ -34,20 +34,14 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Andy Wilkinson
  */
-class GangliaMetricsExportAutoConfigurationTests {
+public class GangliaMetricsExportAutoConfigurationTests {
 
-	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
+	public final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(GangliaMetricsExportAutoConfiguration.class));
 
 	@Test
 	void backsOffWithoutAClock() {
 		this.contextRunner.run((context) -> assertThat(context).doesNotHaveBean(GangliaMeterRegistry.class));
-	}
-
-	@Test
-	void autoConfiguresItsConfigAndMeterRegistry() {
-		this.contextRunner.withUserConfiguration(BaseConfiguration.class).run((context) -> assertThat(context)
-				.hasSingleBean(GangliaMeterRegistry.class).hasSingleBean(GangliaConfig.class));
 	}
 
 	@Test
@@ -90,6 +84,7 @@ class GangliaMetricsExportAutoConfigurationTests {
 	}
 
 	@Configuration(proxyBeanMethods = false)
+	public
 	static class BaseConfiguration {
 
 		@Bean
