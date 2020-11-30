@@ -34,9 +34,9 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Johannes Graf
  */
-class StackdriverMetricsExportAutoConfigurationTests {
+public class StackdriverMetricsExportAutoConfigurationTests {
 
-	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
+	public final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(StackdriverMetricsExportAutoConfiguration.class));
 
 	@Test
@@ -48,14 +48,6 @@ class StackdriverMetricsExportAutoConfigurationTests {
 	void failsWithoutAProjectId() {
 		this.contextRunner.withUserConfiguration(BaseConfiguration.class)
 				.run((context) -> assertThat(context).hasFailed());
-	}
-
-	@Test
-	void autoConfiguresConfigAndMeterRegistry() {
-		this.contextRunner.withUserConfiguration(BaseConfiguration.class)
-				.withPropertyValues("management.metrics.export.stackdriver.project-id=test-project")
-				.run((context) -> assertThat(context).hasSingleBean(StackdriverMeterRegistry.class)
-						.hasSingleBean(StackdriverConfig.class));
 	}
 
 	@Test
@@ -101,6 +93,7 @@ class StackdriverMetricsExportAutoConfigurationTests {
 	}
 
 	@Configuration(proxyBeanMethods = false)
+	public
 	static class BaseConfiguration {
 
 		@Bean
