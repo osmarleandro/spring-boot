@@ -70,9 +70,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * @author Chanhyeong LEE
  */
 @ExtendWith(OutputCaptureExtension.class)
+public
 class WebMvcMetricsAutoConfigurationTests {
 
-	private final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner()
+	public final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner()
 			.with(MetricsRun.simple()).withConfiguration(AutoConfigurations.of(WebMvcMetricsAutoConfiguration.class));
 
 	@Test
@@ -91,16 +92,6 @@ class WebMvcMetricsAutoConfigurationTests {
 			assertThat(context.getBean(FilterRegistrationBean.class).getFilter())
 					.isInstanceOf(WebMvcMetricsFilter.class);
 		});
-	}
-
-	@Test
-	void tagsProviderWhenIgnoreTrailingSlashIsFalse() {
-		this.contextRunner.withPropertyValues("management.metrics.web.server.request.ignore-trailing-slash=false")
-				.run((context) -> {
-					assertThat(context).hasSingleBean(DefaultWebMvcTagsProvider.class);
-					assertThat(context.getBean(DefaultWebMvcTagsProvider.class)).extracting("ignoreTrailingSlash")
-							.isEqualTo(false);
-				});
 	}
 
 	@Test
