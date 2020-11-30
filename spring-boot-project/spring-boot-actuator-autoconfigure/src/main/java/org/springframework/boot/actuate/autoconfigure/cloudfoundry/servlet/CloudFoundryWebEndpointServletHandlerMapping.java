@@ -49,7 +49,7 @@ import org.springframework.web.servlet.mvc.method.RequestMappingInfoHandlerMappi
  * @author Phillip Webb
  * @author Brian Clozel
  */
-class CloudFoundryWebEndpointServletHandlerMapping extends AbstractWebMvcEndpointHandlerMapping {
+public class CloudFoundryWebEndpointServletHandlerMapping extends AbstractWebMvcEndpointHandlerMapping {
 
 	private final CloudFoundrySecurityInterceptor securityInterceptor;
 
