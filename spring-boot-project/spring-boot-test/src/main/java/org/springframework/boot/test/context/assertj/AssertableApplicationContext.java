@@ -16,11 +16,16 @@
 
 package org.springframework.boot.test.context.assertj;
 
+import java.time.Duration;
 import java.util.function.Supplier;
 
+import org.springframework.boot.actuate.autoconfigure.metrics.web.client.WebClientMetricsConfigurationTests;
 import org.springframework.boot.test.context.runner.ApplicationContextRunner;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.web.reactive.function.client.WebClient;
+
+import io.micrometer.core.instrument.MeterRegistry;
 
 /**
  * An {@link ApplicationContext} that additionally supports AssertJ style assertions. Can
@@ -47,6 +52,16 @@ public interface AssertableApplicationContext
 	static AssertableApplicationContext get(Supplier<? extends ConfigurableApplicationContext> contextSupplier) {
 		return ApplicationContextAssertProvider.get(AssertableApplicationContext.class,
 				ConfigurableApplicationContext.class, contextSupplier);
+	}
+
+	public default MeterRegistry getInitializedMeterRegistry(WebClientMetricsConfigurationTests webClientMetricsConfigurationTests) {
+		WebClient webClient = webClientMetricsConfigurationTests.mockWebClient(getBean(WebClient.Builder.class));
+		MeterRegistry registry = getBean(MeterRegistry.class);
+		for (int i = 0; i < 3; i++) {
+			webClient.get().uri("https://example.org/projects/" + i).retrieve().toBodilessEntity()
+					.block(Duration.ofSeconds(30));
+		}
+		return registry;
 	}
 
 }

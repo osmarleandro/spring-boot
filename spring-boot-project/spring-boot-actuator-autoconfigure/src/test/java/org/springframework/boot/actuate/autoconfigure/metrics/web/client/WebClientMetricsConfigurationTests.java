@@ -29,7 +29,6 @@ import org.springframework.boot.actuate.autoconfigure.metrics.test.MetricsRun;
 import org.springframework.boot.actuate.metrics.web.reactive.client.WebClientExchangeTagsProvider;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
 import org.springframework.boot.autoconfigure.web.reactive.function.client.WebClientAutoConfiguration;
-import org.springframework.boot.test.context.assertj.AssertableApplicationContext;
 import org.springframework.boot.test.context.runner.ApplicationContextRunner;
 import org.springframework.boot.test.system.CapturedOutput;
 import org.springframework.boot.test.system.OutputCaptureExtension;
@@ -52,6 +51,7 @@ import static org.mockito.Mockito.mock;
  * @author Stephane Nicoll
  */
 @ExtendWith(OutputCaptureExtension.class)
+public
 class WebClientMetricsConfigurationTests {
 
 	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner().with(MetricsRun.simple())
@@ -76,7 +76,7 @@ class WebClientMetricsConfigurationTests {
 	@Test
 	void afterMaxUrisReachedFurtherUrisAreDenied(CapturedOutput output) {
 		this.contextRunner.withPropertyValues("management.metrics.web.client.max-uri-tags=2").run((context) -> {
-			MeterRegistry registry = getInitializedMeterRegistry(context);
+			MeterRegistry registry = context.getInitializedMeterRegistry(this);
 			assertThat(registry.get("http.client.requests").meters()).hasSize(2);
 			assertThat(output).contains("Reached the maximum number of URI tags for 'http.client.requests'.")
 					.contains("Are you using 'uriVariables'?");
@@ -86,7 +86,7 @@ class WebClientMetricsConfigurationTests {
 	@Test
 	void shouldNotDenyNorLogIfMaxUrisIsNotReached(CapturedOutput output) {
 		this.contextRunner.withPropertyValues("management.metrics.web.client.max-uri-tags=5").run((context) -> {
-			MeterRegistry registry = getInitializedMeterRegistry(context);
+			MeterRegistry registry = context.getInitializedMeterRegistry(this);
 			assertThat(registry.get("http.client.requests").meters()).hasSize(3);
 			assertThat(output).doesNotContain("Reached the maximum number of URI tags for 'http.client.requests'.")
 					.doesNotContain("Are you using 'uriVariables'?");
@@ -98,23 +98,13 @@ class WebClientMetricsConfigurationTests {
 		this.contextRunner.withPropertyValues("management.metrics.web.client.request.autotime.enabled=true",
 				"management.metrics.web.client.request.autotime.percentiles=0.5,0.7",
 				"management.metrics.web.client.request.autotime.percentiles-histogram=true").run((context) -> {
-					MeterRegistry registry = getInitializedMeterRegistry(context);
+					MeterRegistry registry = context.getInitializedMeterRegistry(this);
 					Timer timer = registry.get("http.client.requests").timer();
 					HistogramSnapshot snapshot = timer.takeSnapshot();
 					assertThat(snapshot.percentileValues()).hasSize(2);
 					assertThat(snapshot.percentileValues()[0].percentile()).isEqualTo(0.5);
 					assertThat(snapshot.percentileValues()[1].percentile()).isEqualTo(0.7);
 				});
-	}
-
-	private MeterRegistry getInitializedMeterRegistry(AssertableApplicationContext context) {
-		WebClient webClient = mockWebClient(context.getBean(WebClient.Builder.class));
-		MeterRegistry registry = context.getBean(MeterRegistry.class);
-		for (int i = 0; i < 3; i++) {
-			webClient.get().uri("https://example.org/projects/" + i).retrieve().toBodilessEntity()
-					.block(Duration.ofSeconds(30));
-		}
-		return registry;
 	}
 
 	private void validateWebClient(WebClient.Builder builder, MeterRegistry registry) {
@@ -125,7 +115,7 @@ class WebClientMetricsConfigurationTests {
 		assertThat(registry.find("http.client.requests").tags("uri", "/projects/{project}").meter()).isNotNull();
 	}
 
-	private WebClient mockWebClient(WebClient.Builder builder) {
+	public WebClient mockWebClient(WebClient.Builder builder) {
 		ClientHttpConnector connector = mock(ClientHttpConnector.class);
 		given(connector.connect(any(), any(), any())).willReturn(Mono.just(new MockClientHttpResponse(HttpStatus.OK)));
 		return builder.clientConnector(connector).build();
