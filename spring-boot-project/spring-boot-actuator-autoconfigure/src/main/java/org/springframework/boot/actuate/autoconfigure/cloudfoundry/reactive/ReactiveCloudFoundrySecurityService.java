@@ -19,10 +19,12 @@ package org.springframework.boot.actuate.autoconfigure.cloudfoundry.reactive;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Consumer;
 
 import io.netty.handler.ssl.SslContextBuilder;
 import io.netty.handler.ssl.SslProvider;
 import io.netty.handler.ssl.util.InsecureTrustManagerFactory;
+import okhttp3.mockwebserver.MockResponse;
 import reactor.core.publisher.Mono;
 import reactor.netty.http.client.HttpClient;
 
@@ -146,6 +148,12 @@ class ReactiveCloudFoundrySecurityService {
 				.onErrorMap((ex) -> new CloudFoundryAuthorizationException(Reason.SERVICE_UNAVAILABLE,
 						"Unable to fetch token keys from UAA."));
 		return this.uaaUrl;
+	}
+
+	public void prepareResponse(ReactiveCloudFoundrySecurityServiceTests reactiveCloudFoundrySecurityServiceTests, Consumer<MockResponse> consumer) {
+		MockResponse response = new MockResponse();
+		consumer.accept(response);
+		reactiveCloudFoundrySecurityServiceTests.server.enqueue(response);
 	}
 
 }
