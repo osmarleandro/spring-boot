@@ -35,15 +35,10 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Andy Wilkinson
  * @author Stephane Nicoll
  */
-class SystemMetricsAutoConfigurationTests {
+public class SystemMetricsAutoConfigurationTests {
 
-	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner().with(MetricsRun.simple())
+	public final ApplicationContextRunner contextRunner = new ApplicationContextRunner().with(MetricsRun.simple())
 			.withConfiguration(AutoConfigurations.of(SystemMetricsAutoConfiguration.class));
-
-	@Test
-	void autoConfiguresUptimeMetrics() {
-		this.contextRunner.run((context) -> assertThat(context).hasSingleBean(UptimeMetrics.class));
-	}
 
 	@Test
 	void allowsCustomUptimeMetricsToBeUsed() {
