@@ -26,6 +26,9 @@ import org.springframework.boot.web.reactive.context.AnnotationConfigReactiveWeb
 import org.springframework.boot.web.reactive.context.ConfigurableReactiveWebApplicationContext;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextInitializer;
+import org.springframework.http.HttpHeaders;
+import org.springframework.test.web.reactive.server.WebTestClient;
+import org.springframework.test.web.reactive.server.WebTestClient.ResponseSpec;
 
 /**
  * An {@link AbstractApplicationContextRunner ApplicationContext runner} for a
@@ -77,6 +80,12 @@ public final class ReactiveWebApplicationContextRunner extends
 			List<Configurations> configurations) {
 		return new ReactiveWebApplicationContextRunner(contextFactory, allowBeanDefinitionOverriding, initializers,
 				environmentProperties, systemProperties, classLoader, parent, beanRegistrations, configurations);
+	}
+
+	public ResponseSpec performAcceptedCorsRequest(WebTestClient webTestClient, String url) {
+		return webTestClient.options().uri(url).header(HttpHeaders.ORIGIN, "spring.example.org")
+				.header(HttpHeaders.ACCESS_CONTROL_REQUEST_METHOD, "GET").exchange().expectHeader()
+				.valueEquals(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN, "spring.example.org").expectStatus().isOk();
 	}
 
 }
