@@ -16,7 +16,6 @@
 
 package org.springframework.boot.actuate.autoconfigure.integrationtest;
 
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
 import org.springframework.boot.actuate.autoconfigure.audit.AuditAutoConfiguration;
@@ -58,15 +57,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * @author Phillip Webb
  * @author Andy Wilkinson
  */
-class ControllerEndpointWebMvcIntegrationTests {
+public class ControllerEndpointWebMvcIntegrationTests {
 
-	private AnnotationConfigServletWebApplicationContext context;
-
-	@AfterEach
-	void close() {
-		TestSecurityContextHolder.clearContext();
-		this.context.close();
-	}
+	public AnnotationConfigServletWebApplicationContext context;
 
 	@Test
 	void endpointsAreSecureByDefault() throws Exception {

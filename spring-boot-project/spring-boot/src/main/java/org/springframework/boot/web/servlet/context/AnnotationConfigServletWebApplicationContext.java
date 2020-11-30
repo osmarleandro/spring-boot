@@ -21,10 +21,12 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 import java.util.function.Supplier;
 
+import org.junit.jupiter.api.AfterEach;
 import org.springframework.beans.factory.config.BeanDefinitionCustomizer;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.beans.factory.support.BeanNameGenerator;
 import org.springframework.beans.factory.support.DefaultListableBeanFactory;
+import org.springframework.boot.actuate.autoconfigure.integrationtest.ControllerEndpointWebMvcIntegrationTests;
 import org.springframework.context.annotation.AnnotatedBeanDefinitionReader;
 import org.springframework.context.annotation.AnnotationConfigRegistry;
 import org.springframework.context.annotation.AnnotationConfigUtils;
@@ -33,6 +35,7 @@ import org.springframework.context.annotation.ClassPathBeanDefinitionScanner;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.ScopeMetadataResolver;
 import org.springframework.core.env.ConfigurableEnvironment;
+import org.springframework.security.test.context.TestSecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
 import org.springframework.util.ClassUtils;
@@ -212,6 +215,13 @@ public class AnnotationConfigServletWebApplicationContext extends GenericWebAppl
 	public <T> void registerBean(String beanName, Class<T> beanClass, Supplier<T> supplier,
 			BeanDefinitionCustomizer... customizers) {
 		this.reader.registerBean(beanClass, beanName, supplier, customizers);
+	}
+
+	@AfterEach
+	public
+	void close(ControllerEndpointWebMvcIntegrationTests controllerEndpointWebMvcIntegrationTests) {
+		TestSecurityContextHolder.clearContext();
+		close();
 	}
 
 }
