@@ -44,9 +44,9 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Andy Wilkinson
  * @author Madhura Bhave
  */
-class HttpTraceAutoConfigurationTests {
+public class HttpTraceAutoConfigurationTests {
 
-	private final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner()
+	public final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(HttpTraceAutoConfiguration.class));
 
 	@Test
@@ -62,15 +62,6 @@ class HttpTraceAutoConfigurationTests {
 			assertThat(context).hasSingleBean(HttpTraceRepository.class);
 			assertThat(context.getBean(HttpTraceRepository.class)).isInstanceOf(CustomHttpTraceRepository.class);
 		});
-	}
-
-	@Test
-	void usesUserProvidedTracer() {
-		this.contextRunner.withUserConfiguration(HttpTraceRepositoryConfiguration.class)
-				.withUserConfiguration(CustomTracerConfiguration.class).run((context) -> {
-					assertThat(context).hasSingleBean(HttpExchangeTracer.class);
-					assertThat(context.getBean(HttpExchangeTracer.class)).isInstanceOf(CustomHttpExchangeTracer.class);
-				});
 	}
 
 	@Test
@@ -122,6 +113,7 @@ class HttpTraceAutoConfigurationTests {
 	}
 
 	@Configuration(proxyBeanMethods = false)
+	public
 	static class HttpTraceRepositoryConfiguration {
 
 		@Bean
@@ -131,7 +123,7 @@ class HttpTraceAutoConfigurationTests {
 
 	}
 
-	private static final class CustomHttpExchangeTracer extends HttpExchangeTracer {
+	public static final class CustomHttpExchangeTracer extends HttpExchangeTracer {
 
 		private CustomHttpExchangeTracer(Set<Include> includes) {
 			super(includes);
@@ -140,6 +132,7 @@ class HttpTraceAutoConfigurationTests {
 	}
 
 	@Configuration(proxyBeanMethods = false)
+	public
 	static class CustomTracerConfiguration {
 
 		@Bean
