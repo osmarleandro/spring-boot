@@ -16,7 +16,6 @@
 package org.springframework.boot.actuate.autoconfigure.web.jersey;
 
 import org.glassfish.jersey.server.ResourceConfig;
-import org.glassfish.jersey.servlet.ServletContainer;
 import org.junit.jupiter.api.Test;
 
 import org.springframework.boot.autoconfigure.AutoConfigurations;
@@ -39,9 +38,10 @@ import static org.mockito.Mockito.mock;
  * @author Madhura Bhave
  */
 @ClassPathExclusions("spring-webmvc-*")
+public
 class JerseySameManagementContextConfigurationTests {
 
-	private final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner()
+	public final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(JerseySameManagementContextConfiguration.class));
 
 	@Test
@@ -78,15 +78,6 @@ class JerseySameManagementContextConfigurationTests {
 			assertThat(context).doesNotHaveBean(JerseyApplicationPath.class);
 			assertThat(context).doesNotHaveBean(ServletRegistrationBean.class);
 			assertThat(context).hasBean("customResourceConfig");
-		});
-	}
-
-	@Test
-	@SuppressWarnings("unchecked")
-	void servletRegistrationBeanIsAutoConfiguredWhenNeeded() {
-		this.contextRunner.withPropertyValues("spring.jersey.application-path=/jersey").run((context) -> {
-			ServletRegistrationBean<ServletContainer> bean = context.getBean(ServletRegistrationBean.class);
-			assertThat(bean.getUrlMappings()).containsExactly("/jersey/*");
 		});
 	}
 
