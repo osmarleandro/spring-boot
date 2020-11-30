@@ -37,9 +37,9 @@ import static org.mockito.Mockito.mock;
  * @author Jon Schneider
  * @author Stephane Nicoll
  */
-class WavefrontMetricsExportAutoConfigurationTests {
+public class WavefrontMetricsExportAutoConfigurationTests {
 
-	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
+	public final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(WavefrontMetricsExportAutoConfiguration.class));
 
 	@Test
@@ -109,14 +109,6 @@ class WavefrontMetricsExportAutoConfigurationTests {
 	}
 
 	@Test
-	void allowsWavefrontSenderToBeCustomized() {
-		this.contextRunner.withUserConfiguration(CustomSenderConfiguration.class)
-				.run((context) -> assertThat(context).hasSingleBean(Clock.class)
-						.hasSingleBean(WavefrontMeterRegistry.class).hasSingleBean(WavefrontConfig.class)
-						.hasSingleBean(WavefrontSender.class).hasBean("customSender"));
-	}
-
-	@Test
 	void allowsRegistryToBeCustomized() {
 		this.contextRunner.withUserConfiguration(CustomRegistryConfiguration.class)
 				.withPropertyValues("management.metrics.export.wavefront.api-token=abcde")
@@ -173,6 +165,7 @@ class WavefrontMetricsExportAutoConfigurationTests {
 
 	@Configuration(proxyBeanMethods = false)
 	@Import(BaseConfiguration.class)
+	public
 	static class CustomSenderConfiguration {
 
 		@Bean
