@@ -34,20 +34,14 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Aleksander Lech
  */
-class ElasticsearchReactiveHealthContributorAutoConfigurationTests {
+public class ElasticsearchReactiveHealthContributorAutoConfigurationTests {
 
-	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
+	public final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(ElasticsearchDataAutoConfiguration.class,
 					ReactiveElasticsearchRestClientAutoConfiguration.class,
 					ElasticsearchRestClientAutoConfiguration.class,
 					ElasticSearchReactiveHealthContributorAutoConfiguration.class,
 					HealthContributorAutoConfiguration.class));
-
-	@Test
-	void runShouldCreateIndicator() {
-		this.contextRunner.run((context) -> assertThat(context)
-				.hasSingleBean(ElasticsearchReactiveHealthIndicator.class).hasBean("elasticsearchHealthContributor"));
-	}
 
 	@Test
 	void runWithRegularIndicatorShouldOnlyCreateReactiveIndicator() {
