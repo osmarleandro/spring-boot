@@ -37,9 +37,9 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Andy Wilkinson
  * @author Stephane Nicoll
  */
-class DynatraceMetricsExportAutoConfigurationTests {
+public class DynatraceMetricsExportAutoConfigurationTests {
 
-	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
+	public final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(DynatraceMetricsExportAutoConfiguration.class));
 
 	@Test
@@ -90,17 +90,7 @@ class DynatraceMetricsExportAutoConfigurationTests {
 						.hasBean("customRegistry").hasSingleBean(DynatraceConfig.class));
 	}
 
-	@Test
-	void stopsMeterRegistryWhenContextIsClosed() {
-		this.contextRunner.withUserConfiguration(BaseConfiguration.class).with(mandatoryProperties()).run((context) -> {
-			DynatraceMeterRegistry registry = context.getBean(DynatraceMeterRegistry.class);
-			assertThat(registry.isClosed()).isFalse();
-			context.close();
-			assertThat(registry.isClosed()).isTrue();
-		});
-	}
-
-	private Function<ApplicationContextRunner, ApplicationContextRunner> mandatoryProperties() {
+	public Function<ApplicationContextRunner, ApplicationContextRunner> mandatoryProperties() {
 		return (runner) -> runner.withPropertyValues(
 				"management.metrics.export.dynatrace.uri=https://dynatrace.example.com",
 				"management.metrics.export.dynatrace.api-token=abcde",
@@ -108,6 +98,7 @@ class DynatraceMetricsExportAutoConfigurationTests {
 	}
 
 	@Configuration(proxyBeanMethods = false)
+	public
 	static class BaseConfiguration {
 
 		@Bean
