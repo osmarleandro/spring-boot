@@ -22,7 +22,7 @@ import ch.qos.logback.classic.Logger;
 import ch.qos.logback.classic.LoggerContext;
 import io.micrometer.core.instrument.MeterRegistry;
 import io.micrometer.core.instrument.binder.MeterBinder;
-import io.micrometer.core.instrument.composite.CompositeMeterRegistry;
+
 import org.junit.jupiter.api.Test;
 import org.slf4j.impl.StaticLoggerBinder;
 
@@ -46,22 +46,12 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Jon Schneider
  */
-class MeterRegistryConfigurerIntegrationTests {
+public class MeterRegistryConfigurerIntegrationTests {
 
-	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
+	public final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.with(MetricsRun.limitedTo(AtlasMetricsExportAutoConfiguration.class,
 					PrometheusMetricsExportAutoConfiguration.class))
 			.withConfiguration(AutoConfigurations.of(JvmMetricsAutoConfiguration.class));
-
-	@Test
-	void binderMetricsAreSearchableFromTheComposite() {
-		this.contextRunner.run((context) -> {
-			CompositeMeterRegistry composite = context.getBean(CompositeMeterRegistry.class);
-			composite.get("jvm.memory.used").gauge();
-			context.getBeansOfType(MeterRegistry.class)
-					.forEach((name, registry) -> registry.get("jvm.memory.used").gauge());
-		});
-	}
 
 	@Test
 	void customizersAreAppliedBeforeBindersAreCreated() {

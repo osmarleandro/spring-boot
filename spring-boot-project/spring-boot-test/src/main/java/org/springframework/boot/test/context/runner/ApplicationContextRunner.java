@@ -19,6 +19,8 @@ package org.springframework.boot.test.context.runner;
 import java.util.List;
 import java.util.function.Supplier;
 
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.actuate.autoconfigure.metrics.MeterRegistryConfigurerIntegrationTests;
 import org.springframework.boot.context.annotation.Configurations;
 import org.springframework.boot.test.context.assertj.AssertableApplicationContext;
 import org.springframework.boot.test.util.TestPropertyValues;
@@ -26,6 +28,9 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextInitializer;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
+import io.micrometer.core.instrument.MeterRegistry;
+import io.micrometer.core.instrument.composite.CompositeMeterRegistry;
 
 /**
  * An {@link AbstractApplicationContextRunner ApplicationContext runner} for a standard,
@@ -77,6 +82,17 @@ public class ApplicationContextRunner extends
 			List<Configurations> configurations) {
 		return new ApplicationContextRunner(contextFactory, allowBeanDefinitionOverriding, initializers,
 				environmentProperties, systemProperties, classLoader, parent, beanRegistrations, configurations);
+	}
+
+	@Test
+	public
+	void binderMetricsAreSearchableFromTheComposite(MeterRegistryConfigurerIntegrationTests meterRegistryConfigurerIntegrationTests) {
+		run((context) -> {
+			CompositeMeterRegistry composite = context.getBean(CompositeMeterRegistry.class);
+			composite.get("jvm.memory.used").gauge();
+			context.getBeansOfType(MeterRegistry.class)
+					.forEach((name, registry) -> registry.get("jvm.memory.used").gauge());
+		});
 	}
 
 }
