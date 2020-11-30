@@ -16,9 +16,15 @@
 
 package org.springframework.boot.test.context.runner;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import java.util.List;
 import java.util.function.Supplier;
 
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.actuate.autoconfigure.health.AutoConfiguredHealthEndpointGroupsTests;
+import org.springframework.boot.actuate.health.HealthEndpointGroup;
+import org.springframework.boot.actuate.health.HealthEndpointGroups;
 import org.springframework.boot.context.annotation.Configurations;
 import org.springframework.boot.test.context.assertj.AssertableApplicationContext;
 import org.springframework.boot.test.util.TestPropertyValues;
@@ -77,6 +83,18 @@ public class ApplicationContextRunner extends
 			List<Configurations> configurations) {
 		return new ApplicationContextRunner(contextFactory, allowBeanDefinitionOverriding, initializers,
 				environmentProperties, systemProperties, classLoader, parent, beanRegistrations, configurations);
+	}
+
+	@Test
+	public
+	void getPrimaryGroupMatchesAllMembers(AutoConfiguredHealthEndpointGroupsTests autoConfiguredHealthEndpointGroupsTests) {
+		run((context) -> {
+			HealthEndpointGroups groups = context.getBean(HealthEndpointGroups.class);
+			HealthEndpointGroup primary = groups.getPrimary();
+			assertThat(primary.isMember("a")).isTrue();
+			assertThat(primary.isMember("b")).isTrue();
+			assertThat(primary.isMember("C")).isTrue();
+		});
 	}
 
 }

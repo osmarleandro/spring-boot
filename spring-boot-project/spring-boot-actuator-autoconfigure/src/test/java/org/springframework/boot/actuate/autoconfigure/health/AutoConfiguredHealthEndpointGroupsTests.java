@@ -45,21 +45,10 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Phillip Webb
  * @author Leo Li
  */
-class AutoConfiguredHealthEndpointGroupsTests {
+public class AutoConfiguredHealthEndpointGroupsTests {
 
-	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
+	public final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(AutoConfiguredHealthEndpointGroupsTestConfiguration.class));
-
-	@Test
-	void getPrimaryGroupMatchesAllMembers() {
-		this.contextRunner.run((context) -> {
-			HealthEndpointGroups groups = context.getBean(HealthEndpointGroups.class);
-			HealthEndpointGroup primary = groups.getPrimary();
-			assertThat(primary.isMember("a")).isTrue();
-			assertThat(primary.isMember("b")).isTrue();
-			assertThat(primary.isMember("C")).isTrue();
-		});
-	}
 
 	@Test
 	void getNamesReturnsGroupNames() {
