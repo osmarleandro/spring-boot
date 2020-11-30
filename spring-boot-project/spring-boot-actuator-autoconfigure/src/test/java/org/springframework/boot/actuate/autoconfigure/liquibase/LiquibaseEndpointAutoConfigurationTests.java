@@ -34,9 +34,9 @@ import static org.mockito.Mockito.mock;
  *
  * @author Phillip Webb
  */
-class LiquibaseEndpointAutoConfigurationTests {
+public class LiquibaseEndpointAutoConfigurationTests {
 
-	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
+	public final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(LiquibaseEndpointAutoConfiguration.class));
 
 	@Test
@@ -59,16 +59,6 @@ class LiquibaseEndpointAutoConfigurationTests {
 	}
 
 	@Test
-	void disablesCloseOfDataSourceWhenEndpointIsEnabled() {
-		this.contextRunner.withUserConfiguration(DataSourceClosingLiquibaseConfiguration.class)
-				.withPropertyValues("management.endpoints.web.exposure.include=liquibase").run((context) -> {
-					assertThat(context).hasSingleBean(LiquibaseEndpoint.class);
-					assertThat(context.getBean(DataSourceClosingSpringLiquibase.class))
-							.hasFieldOrPropertyWithValue("closeDataSourceOnceMigrated", false);
-				});
-	}
-
-	@Test
 	void doesNotDisableCloseOfDataSourceWhenEndpointIsDisabled() {
 		this.contextRunner.withUserConfiguration(DataSourceClosingLiquibaseConfiguration.class)
 				.withPropertyValues("management.endpoint.liquibase.enabled:false").run((context) -> {
@@ -79,6 +69,7 @@ class LiquibaseEndpointAutoConfigurationTests {
 	}
 
 	@Configuration(proxyBeanMethods = false)
+	public
 	static class DataSourceClosingLiquibaseConfiguration {
 
 		@Bean
