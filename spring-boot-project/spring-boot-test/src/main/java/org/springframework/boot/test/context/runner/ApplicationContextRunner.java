@@ -16,9 +16,17 @@
 
 package org.springframework.boot.test.context.runner;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import java.util.List;
+import java.util.Set;
 import java.util.function.Supplier;
 
+import org.assertj.core.api.InstanceOfAssertFactories;
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.actuate.autoconfigure.metrics.export.graphite.GraphiteMetricsExportAutoConfiguration;
+import org.springframework.boot.actuate.autoconfigure.metrics.export.jmx.JmxMetricsExportAutoConfiguration;
+import org.springframework.boot.actuate.autoconfigure.metrics.test.MetricsRun;
 import org.springframework.boot.context.annotation.Configurations;
 import org.springframework.boot.test.context.assertj.AssertableApplicationContext;
 import org.springframework.boot.test.util.TestPropertyValues;
@@ -26,6 +34,11 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextInitializer;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
+import io.micrometer.core.instrument.MeterRegistry;
+import io.micrometer.core.instrument.composite.CompositeMeterRegistry;
+import io.micrometer.graphite.GraphiteMeterRegistry;
+import io.micrometer.jmx.JmxMeterRegistry;
 
 /**
  * An {@link AbstractApplicationContextRunner ApplicationContext runner} for a standard,
@@ -77,6 +90,23 @@ public class ApplicationContextRunner extends
 			List<Configurations> configurations) {
 		return new ApplicationContextRunner(contextFactory, allowBeanDefinitionOverriding, initializers,
 				environmentProperties, systemProperties, classLoader, parent, beanRegistrations, configurations);
+	}
+
+	@Test
+	public
+	void autoConfiguredCompositeDoesNotHaveMeterFiltersApplied() {
+		new ApplicationContextRunner().with(MetricsRun.limitedTo(GraphiteMetricsExportAutoConfiguration.class,
+				JmxMetricsExportAutoConfiguration.class)).run((context) -> {
+					MeterRegistry composite = context.getBean(MeterRegistry.class);
+					assertThat(composite).extracting("filters", InstanceOfAssertFactories.ARRAY).hasSize(0);
+					assertThat(composite).isInstanceOf(CompositeMeterRegistry.class);
+					Set<MeterRegistry> registries = ((CompositeMeterRegistry) composite).getRegistries();
+					assertThat(registries).hasSize(2);
+					assertThat(registries).hasAtLeastOneElementOfType(GraphiteMeterRegistry.class)
+							.hasAtLeastOneElementOfType(JmxMeterRegistry.class);
+					assertThat(registries).allSatisfy((registry) -> assertThat(registry)
+							.extracting("filters", InstanceOfAssertFactories.ARRAY).hasSize(1));
+				});
 	}
 
 }
