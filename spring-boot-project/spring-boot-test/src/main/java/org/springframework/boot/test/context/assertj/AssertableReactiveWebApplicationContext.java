@@ -16,10 +16,18 @@
 
 package org.springframework.boot.test.context.assertj;
 
+import java.time.Duration;
 import java.util.function.Supplier;
 
+import org.springframework.boot.actuate.autoconfigure.security.reactive.ReactiveManagementWebSecurityAutoConfigurationTests;
 import org.springframework.boot.web.reactive.context.ConfigurableReactiveWebApplicationContext;
 import org.springframework.boot.web.reactive.context.ReactiveWebApplicationContext;
+import org.springframework.mock.http.server.reactive.MockServerHttpRequest;
+import org.springframework.mock.http.server.reactive.MockServerHttpResponse;
+import org.springframework.security.web.server.WebFilterChainProxy;
+import org.springframework.web.server.ServerWebExchange;
+
+import reactor.core.publisher.Mono;
 
 /**
  * A {@link ReactiveWebApplicationContext} that additionally supports AssertJ style
@@ -49,6 +57,14 @@ public interface AssertableReactiveWebApplicationContext
 			Supplier<? extends ConfigurableReactiveWebApplicationContext> contextSupplier) {
 		return ApplicationContextAssertProvider.get(AssertableReactiveWebApplicationContext.class,
 				ConfigurableReactiveWebApplicationContext.class, contextSupplier);
+	}
+
+	public default ServerWebExchange performFilter(ReactiveManagementWebSecurityAutoConfigurationTests reactiveManagementWebSecurityAutoConfigurationTests, String path) {
+		ServerWebExchange exchange = reactiveManagementWebSecurityAutoConfigurationTests.webHandler(this).createExchange(MockServerHttpRequest.get(path).build(),
+				new MockServerHttpResponse());
+		WebFilterChainProxy proxy = getBean(WebFilterChainProxy.class);
+		proxy.filter(exchange, (serverWebExchange) -> Mono.empty()).block(Duration.ofSeconds(30));
+		return exchange;
 	}
 
 }

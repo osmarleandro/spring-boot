@@ -17,13 +17,10 @@
 package org.springframework.boot.actuate.autoconfigure.security.reactive;
 
 import java.net.URI;
-import java.time.Duration;
 import java.util.Collections;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
-import reactor.core.publisher.Mono;
-
 import org.springframework.beans.BeansException;
 import org.springframework.boot.actuate.autoconfigure.endpoint.EndpointAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointAutoConfiguration;
@@ -44,8 +41,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.http.server.reactive.ServerHttpResponse;
-import org.springframework.mock.http.server.reactive.MockServerHttpRequest;
-import org.springframework.mock.http.server.reactive.MockServerHttpResponse;
 import org.springframework.security.authentication.ReactiveAuthenticationManager;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.web.server.ServerHttpSecurity;
@@ -63,7 +58,7 @@ import static org.mockito.Mockito.mock;
  *
  * @author Madhura Bhave
  */
-class ReactiveManagementWebSecurityAutoConfigurationTests {
+public class ReactiveManagementWebSecurityAutoConfigurationTests {
 
 	private final ReactiveWebApplicationContextRunner contextRunner = new ReactiveWebApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(HealthContributorAutoConfiguration.class,
@@ -124,37 +119,29 @@ class ReactiveManagementWebSecurityAutoConfigurationTests {
 	}
 
 	private List<String> getAuthenticateHeader(AssertableReactiveWebApplicationContext context, String path) {
-		ServerWebExchange exchange = performFilter(context, path);
+		ServerWebExchange exchange = context.performFilter(this, path);
 		return exchange.getResponse().getHeaders().get(HttpHeaders.WWW_AUTHENTICATE);
 	}
 
-	private ServerWebExchange performFilter(AssertableReactiveWebApplicationContext context, String path) {
-		ServerWebExchange exchange = webHandler(context).createExchange(MockServerHttpRequest.get(path).build(),
-				new MockServerHttpResponse());
-		WebFilterChainProxy proxy = context.getBean(WebFilterChainProxy.class);
-		proxy.filter(exchange, (serverWebExchange) -> Mono.empty()).block(Duration.ofSeconds(30));
-		return exchange;
-	}
-
 	private URI getLocationHeader(AssertableReactiveWebApplicationContext context, String path) {
-		ServerWebExchange exchange = performFilter(context, path);
+		ServerWebExchange exchange = context.performFilter(this, path);
 		return exchange.getResponse().getHeaders().getLocation();
 	}
 
-	private TestHttpWebHandlerAdapter webHandler(AssertableReactiveWebApplicationContext context) {
+	public TestHttpWebHandlerAdapter webHandler(AssertableReactiveWebApplicationContext context) {
 		TestHttpWebHandlerAdapter adapter = new TestHttpWebHandlerAdapter(mock(WebHandler.class));
 		adapter.setApplicationContext(context);
 		return adapter;
 	}
 
-	static class TestHttpWebHandlerAdapter extends HttpWebHandlerAdapter {
+	public static class TestHttpWebHandlerAdapter extends HttpWebHandlerAdapter {
 
 		TestHttpWebHandlerAdapter(WebHandler delegate) {
 			super(delegate);
 		}
 
 		@Override
-		protected ServerWebExchange createExchange(ServerHttpRequest request, ServerHttpResponse response) {
+		public ServerWebExchange createExchange(ServerHttpRequest request, ServerHttpResponse response) {
 			return super.createExchange(request, response);
 		}
 
