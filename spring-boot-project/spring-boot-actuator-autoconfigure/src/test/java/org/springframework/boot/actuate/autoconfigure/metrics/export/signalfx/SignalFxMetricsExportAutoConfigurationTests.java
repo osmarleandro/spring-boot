@@ -34,9 +34,9 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Andy Wilkinson
  */
-class SignalFxMetricsExportAutoConfigurationTests {
+public class SignalFxMetricsExportAutoConfigurationTests {
 
-	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
+	public final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(SignalFxMetricsExportAutoConfiguration.class));
 
 	@Test
@@ -48,14 +48,6 @@ class SignalFxMetricsExportAutoConfigurationTests {
 	void failsWithoutAnAccessToken() {
 		this.contextRunner.withUserConfiguration(BaseConfiguration.class)
 				.run((context) -> assertThat(context).hasFailed());
-	}
-
-	@Test
-	void autoConfiguresWithAnAccessToken() {
-		this.contextRunner.withUserConfiguration(BaseConfiguration.class)
-				.withPropertyValues("management.metrics.export.signalfx.access-token=abcde")
-				.run((context) -> assertThat(context).hasSingleBean(SignalFxMeterRegistry.class)
-						.hasSingleBean(Clock.class).hasSingleBean(SignalFxConfig.class));
 	}
 
 	@Test
@@ -103,6 +95,7 @@ class SignalFxMetricsExportAutoConfigurationTests {
 	}
 
 	@Configuration(proxyBeanMethods = false)
+	public
 	static class BaseConfiguration {
 
 		@Bean
