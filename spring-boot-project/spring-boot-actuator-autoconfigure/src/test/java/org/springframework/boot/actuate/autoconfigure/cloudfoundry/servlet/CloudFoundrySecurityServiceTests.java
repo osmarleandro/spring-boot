@@ -47,17 +47,17 @@ import static org.springframework.test.web.client.response.MockRestResponseCreat
  *
  * @author Madhura Bhave
  */
-class CloudFoundrySecurityServiceTests {
+public class CloudFoundrySecurityServiceTests {
 
-	private static final String CLOUD_CONTROLLER = "https://my-cloud-controller.com";
+	public static final String CLOUD_CONTROLLER = "https://my-cloud-controller.com";
 
 	private static final String CLOUD_CONTROLLER_PERMISSIONS = CLOUD_CONTROLLER + "/v2/apps/my-app-id/permissions";
 
-	private static final String UAA_URL = "https://my-uaa.com";
+	public static final String UAA_URL = "https://my-uaa.com";
 
-	private CloudFoundrySecurityService securityService;
+	public CloudFoundrySecurityService securityService;
 
-	private MockRestServiceServer server;
+	public MockRestServiceServer server;
 
 	@BeforeEach
 	void setup() {
@@ -131,27 +131,6 @@ class CloudFoundrySecurityServiceTests {
 		assertThatExceptionOfType(CloudFoundryAuthorizationException.class)
 				.isThrownBy(() -> this.securityService.getAccessLevel("my-access-token", "my-app-id"))
 				.satisfies(reasonRequirement(Reason.SERVICE_UNAVAILABLE));
-	}
-
-	@Test
-	void fetchTokenKeysWhenSuccessfulShouldReturnListOfKeysFromUAA() {
-		this.server.expect(requestTo(CLOUD_CONTROLLER + "/info"))
-				.andRespond(withSuccess("{\"token_endpoint\":\"https://my-uaa.com\"}", MediaType.APPLICATION_JSON));
-		String tokenKeyValue = "-----BEGIN PUBLIC KEY-----\n"
-				+ "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA0m59l2u9iDnMbrXHfqkO\n"
-				+ "rn2dVQ3vfBJqcDuFUK03d+1PZGbVlNCqnkpIJ8syFppW8ljnWweP7+LiWpRoz0I7\n"
-				+ "fYb3d8TjhV86Y997Fl4DBrxgM6KTJOuE/uxnoDhZQ14LgOU2ckXjOzOdTsnGMKQB\n"
-				+ "LCl0vpcXBtFLMaSbpv1ozi8h7DJyVZ6EnFQZUWGdgTMhDrmqevfx95U/16c5WBDO\n"
-				+ "kqwIn7Glry9n9Suxygbf8g5AzpWcusZgDLIIZ7JTUldBb8qU2a0Dl4mvLZOn4wPo\n"
-				+ "jfj9Cw2QICsc5+Pwf21fP+hzf+1WSRHbnYv8uanRO0gZ8ekGaghM/2H6gqJbo2nI\n"
-				+ "JwIDAQAB\n-----END PUBLIC KEY-----";
-		String responseBody = "{\"keys\" : [ {\"kid\":\"test-key\",\"value\" : \"" + tokenKeyValue.replace("\n", "\\n")
-				+ "\"} ]}";
-		this.server.expect(requestTo(UAA_URL + "/token_keys"))
-				.andRespond(withSuccess(responseBody, MediaType.APPLICATION_JSON));
-		Map<String, String> tokenKeys = this.securityService.fetchTokenKeys();
-		this.server.verify();
-		assertThat(tokenKeys.get("test-key")).isEqualTo(tokenKeyValue);
 	}
 
 	@Test

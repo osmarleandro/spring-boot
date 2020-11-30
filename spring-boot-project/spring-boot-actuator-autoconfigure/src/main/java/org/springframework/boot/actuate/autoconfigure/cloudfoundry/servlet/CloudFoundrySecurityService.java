@@ -16,17 +16,23 @@
 
 package org.springframework.boot.actuate.autoconfigure.cloudfoundry.servlet;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.springframework.test.web.client.match.MockRestRequestMatchers.requestTo;
+import static org.springframework.test.web.client.response.MockRestResponseCreators.withSuccess;
+
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.junit.jupiter.api.Test;
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.AccessLevel;
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.CloudFoundryAuthorizationException;
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.CloudFoundryAuthorizationException.Reason;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.RequestEntity;
 import org.springframework.util.Assert;
 import org.springframework.web.client.HttpClientErrorException;
@@ -133,6 +139,27 @@ class CloudFoundrySecurityService {
 			}
 		}
 		return this.uaaUrl;
+	}
+
+	@Test
+	void fetchTokenKeysWhenSuccessfulShouldReturnListOfKeysFromUAA(CloudFoundrySecurityServiceTests cloudFoundrySecurityServiceTests) {
+		cloudFoundrySecurityServiceTests.server.expect(requestTo(CloudFoundrySecurityServiceTests.CLOUD_CONTROLLER + "/info"))
+				.andRespond(withSuccess("{\"token_endpoint\":\"https://my-uaa.com\"}", MediaType.APPLICATION_JSON));
+		String tokenKeyValue = "-----BEGIN PUBLIC KEY-----\n"
+				+ "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA0m59l2u9iDnMbrXHfqkO\n"
+				+ "rn2dVQ3vfBJqcDuFUK03d+1PZGbVlNCqnkpIJ8syFppW8ljnWweP7+LiWpRoz0I7\n"
+				+ "fYb3d8TjhV86Y997Fl4DBrxgM6KTJOuE/uxnoDhZQ14LgOU2ckXjOzOdTsnGMKQB\n"
+				+ "LCl0vpcXBtFLMaSbpv1ozi8h7DJyVZ6EnFQZUWGdgTMhDrmqevfx95U/16c5WBDO\n"
+				+ "kqwIn7Glry9n9Suxygbf8g5AzpWcusZgDLIIZ7JTUldBb8qU2a0Dl4mvLZOn4wPo\n"
+				+ "jfj9Cw2QICsc5+Pwf21fP+hzf+1WSRHbnYv8uanRO0gZ8ekGaghM/2H6gqJbo2nI\n"
+				+ "JwIDAQAB\n-----END PUBLIC KEY-----";
+		String responseBody = "{\"keys\" : [ {\"kid\":\"test-key\",\"value\" : \"" + tokenKeyValue.replace("\n", "\\n")
+				+ "\"} ]}";
+		cloudFoundrySecurityServiceTests.server.expect(requestTo(CloudFoundrySecurityServiceTests.UAA_URL + "/token_keys"))
+				.andRespond(withSuccess(responseBody, MediaType.APPLICATION_JSON));
+		Map<String, String> tokenKeys = fetchTokenKeys();
+		cloudFoundrySecurityServiceTests.server.verify();
+		assertThat(tokenKeys.get("test-key")).isEqualTo(tokenKeyValue);
 	}
 
 }
