@@ -38,11 +38,11 @@ import static org.mockito.Mockito.mock;
  *
  * @author Stephane Nicoll
  */
-class DefaultEndpointObjectNameFactoryTests {
+public class DefaultEndpointObjectNameFactoryTests {
 
 	private final MockEnvironment environment = new MockEnvironment();
 
-	private final JmxEndpointProperties properties = new JmxEndpointProperties();
+	public final JmxEndpointProperties properties = new JmxEndpointProperties();
 
 	private final MBeanServer mBeanServer = mock(MBeanServer.class);
 
@@ -58,13 +58,6 @@ class DefaultEndpointObjectNameFactoryTests {
 	void generateObjectNameWithCapitalizedId() {
 		ObjectName objectName = generateObjectName(endpoint(EndpointId.of("testEndpoint")));
 		assertThat(objectName.toString()).isEqualTo("org.springframework.boot:type=Endpoint,name=TestEndpoint");
-	}
-
-	@Test
-	void generateObjectNameWithCustomDomain() {
-		this.properties.setDomain("com.example.acme");
-		ObjectName objectName = generateObjectName(endpoint(EndpointId.of("test")));
-		assertThat(objectName.toString()).isEqualTo("com.example.acme:type=Endpoint,name=Test");
 	}
 
 	@Test
@@ -101,7 +94,7 @@ class DefaultEndpointObjectNameFactoryTests {
 
 	}
 
-	private ObjectName generateObjectName(ExposableJmxEndpoint endpoint) {
+	public ObjectName generateObjectName(ExposableJmxEndpoint endpoint) {
 		try {
 			return new DefaultEndpointObjectNameFactory(this.properties, this.environment, this.mBeanServer,
 					this.contextId).getObjectName(endpoint);
@@ -111,7 +104,7 @@ class DefaultEndpointObjectNameFactoryTests {
 		}
 	}
 
-	private ExposableJmxEndpoint endpoint(EndpointId id) {
+	public ExposableJmxEndpoint endpoint(EndpointId id) {
 		ExposableJmxEndpoint endpoint = mock(ExposableJmxEndpoint.class);
 		given(endpoint.getEndpointId()).willReturn(id);
 		return endpoint;
