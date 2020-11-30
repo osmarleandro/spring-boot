@@ -21,7 +21,6 @@ import java.util.Collections;
 import java.util.EnumSet;
 
 import javax.servlet.DispatcherType;
-import javax.servlet.Filter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -51,14 +50,10 @@ import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /**
  * Tests for {@link WebMvcMetricsAutoConfiguration}.
@@ -166,7 +161,7 @@ class WebMvcMetricsAutoConfigurationTests {
 		this.contextRunner.withUserConfiguration(TestController.class)
 				.withConfiguration(AutoConfigurations.of(MetricsAutoConfiguration.class, WebMvcAutoConfiguration.class))
 				.withPropertyValues("management.metrics.web.server.request.autotime.enabled=false").run((context) -> {
-					MeterRegistry registry = getInitializedMeterRegistry(context, "/test3");
+					MeterRegistry registry = context.getInitializedMeterRegistry("/test3");
 					Collection<Meter> meters = registry.get("http.server.requests").meters();
 					assertThat(meters).hasSize(1);
 					Meter meter = meters.iterator().next();
@@ -193,19 +188,7 @@ class WebMvcMetricsAutoConfigurationTests {
 	}
 
 	private MeterRegistry getInitializedMeterRegistry(AssertableWebApplicationContext context) throws Exception {
-		return getInitializedMeterRegistry(context, "/test0", "/test1", "/test2");
-	}
-
-	private MeterRegistry getInitializedMeterRegistry(AssertableWebApplicationContext context, String... urls)
-			throws Exception {
-		assertThat(context).hasSingleBean(FilterRegistrationBean.class);
-		Filter filter = context.getBean(FilterRegistrationBean.class).getFilter();
-		assertThat(filter).isInstanceOf(WebMvcMetricsFilter.class);
-		MockMvc mockMvc = MockMvcBuilders.webAppContextSetup(context).addFilters(filter).build();
-		for (String url : urls) {
-			mockMvc.perform(MockMvcRequestBuilders.get(url)).andExpect(status().isOk());
-		}
-		return context.getBean(MeterRegistry.class);
+		return context.getInitializedMeterRegistry("/test0", "/test1", "/test2");
 	}
 
 	@Configuration(proxyBeanMethods = false)

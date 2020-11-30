@@ -16,11 +16,23 @@
 
 package org.springframework.boot.test.context.assertj;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 import java.util.function.Supplier;
 
+import javax.servlet.Filter;
+
+import org.springframework.boot.actuate.metrics.web.servlet.WebMvcMetricsFilter;
 import org.springframework.boot.test.context.runner.WebApplicationContextRunner;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.ConfigurableWebApplicationContext;
 import org.springframework.web.context.WebApplicationContext;
+
+import io.micrometer.core.instrument.MeterRegistry;
 
 /**
  * A {@link WebApplicationContext} that additionally supports AssertJ style assertions.
@@ -47,6 +59,18 @@ public interface AssertableWebApplicationContext
 	static AssertableWebApplicationContext get(Supplier<? extends ConfigurableWebApplicationContext> contextSupplier) {
 		return ApplicationContextAssertProvider.get(AssertableWebApplicationContext.class,
 				ConfigurableWebApplicationContext.class, contextSupplier);
+	}
+
+	public default MeterRegistry getInitializedMeterRegistry(String... urls)
+			throws Exception {
+		assertThat(this).hasSingleBean(FilterRegistrationBean.class);
+		Filter filter = getBean(FilterRegistrationBean.class).getFilter();
+		assertThat(filter).isInstanceOf(WebMvcMetricsFilter.class);
+		MockMvc mockMvc = MockMvcBuilders.webAppContextSetup(this).addFilters(filter).build();
+		for (String url : urls) {
+			mockMvc.perform(MockMvcRequestBuilders.get(url)).andExpect(status().isOk());
+		}
+		return getBean(MeterRegistry.class);
 	}
 
 }
