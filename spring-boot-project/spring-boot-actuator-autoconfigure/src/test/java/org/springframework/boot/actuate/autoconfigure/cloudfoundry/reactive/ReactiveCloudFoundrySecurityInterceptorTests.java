@@ -16,7 +16,6 @@
 
 package org.springframework.boot.actuate.autoconfigure.cloudfoundry.reactive;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
@@ -43,20 +42,16 @@ import static org.mockito.BDDMockito.given;
  * @author Madhura Bhave
  */
 @ExtendWith(MockitoExtension.class)
+public
 class ReactiveCloudFoundrySecurityInterceptorTests {
 
 	@Mock
-	private ReactiveTokenValidator tokenValidator;
+	public ReactiveTokenValidator tokenValidator;
 
 	@Mock
-	private ReactiveCloudFoundrySecurityService securityService;
+	public ReactiveCloudFoundrySecurityService securityService;
 
-	private CloudFoundrySecurityInterceptor interceptor;
-
-	@BeforeEach
-	void setup() {
-		this.interceptor = new CloudFoundrySecurityInterceptor(this.tokenValidator, this.securityService, "my-app-id");
-	}
+	public CloudFoundrySecurityInterceptor interceptor;
 
 	@Test
 	void preHandleWhenRequestIsPreFlightShouldBeOk() {
