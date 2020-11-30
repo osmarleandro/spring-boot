@@ -25,7 +25,6 @@ import java.security.PrivateKey;
 import java.security.Signature;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.PKCS8EncodedKeySpec;
-import java.util.Collections;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -54,14 +53,15 @@ import static org.mockito.BDDMockito.given;
  * @author Madhura Bhave
  */
 @ExtendWith(MockitoExtension.class)
+public
 class ReactiveTokenValidatorTests {
 
 	private static final byte[] DOT = ".".getBytes();
 
 	@Mock
-	private ReactiveCloudFoundrySecurityService securityService;
+	public ReactiveCloudFoundrySecurityService securityService;
 
-	private ReactiveTokenValidator tokenValidator;
+	public ReactiveTokenValidator tokenValidator;
 
 	private static final String VALID_KEY = "-----BEGIN PUBLIC KEY-----\n"
 			+ "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA0m59l2u9iDnMbrXHfqkO\n"
@@ -72,7 +72,7 @@ class ReactiveTokenValidatorTests {
 			+ "jfj9Cw2QICsc5+Pwf21fP+hzf+1WSRHbnYv8uanRO0gZ8ekGaghM/2H6gqJbo2nI\n"
 			+ "JwIDAQAB\n-----END PUBLIC KEY-----";
 
-	private static final String INVALID_KEY = "-----BEGIN PUBLIC KEY-----\n"
+	public static final String INVALID_KEY = "-----BEGIN PUBLIC KEY-----\n"
 			+ "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAxzYuc22QSst/dS7geYYK\n"
 			+ "5l5kLxU0tayNdixkEQ17ix+CUcUbKIsnyftZxaCYT46rQtXgCaYRdJcbB3hmyrOa\n"
 			+ "vkhTpX79xJZnQmfuamMbZBqitvscxW9zRR9tBUL6vdi/0rpoUwPMEh8+Bw7CgYR0\n"
@@ -170,22 +170,6 @@ class ReactiveTokenValidatorTests {
 	}
 
 	@Test
-	void validateTokenWhenSignatureInvalidShouldThrowException() throws Exception {
-		Map<String, String> KEYS = Collections.singletonMap("valid-key", INVALID_KEY);
-		given(this.securityService.fetchTokenKeys()).willReturn(Mono.just(KEYS));
-		given(this.securityService.getUaaUrl()).willReturn(Mono.just("http://localhost:8080/uaa"));
-		String header = "{ \"alg\": \"RS256\",  \"kid\": \"valid-key\",\"typ\": \"JWT\"}";
-		String claims = "{ \"exp\": 2147483647, \"iss\": \"http://localhost:8080/uaa/oauth/token\", \"scope\": [\"actuator.read\"]}";
-		StepVerifier
-				.create(this.tokenValidator.validate(new Token(getSignedToken(header.getBytes(), claims.getBytes()))))
-				.consumeErrorWith((ex) -> {
-					assertThat(ex).isExactlyInstanceOf(CloudFoundryAuthorizationException.class);
-					assertThat(((CloudFoundryAuthorizationException) ex).getReason())
-							.isEqualTo(Reason.INVALID_SIGNATURE);
-				}).verify();
-	}
-
-	@Test
 	void validateTokenWhenTokenAlgorithmIsNotRS256ShouldThrowException() throws Exception {
 		given(this.securityService.fetchTokenKeys()).willReturn(Mono.just(VALID_KEYS));
 		given(this.securityService.getUaaUrl()).willReturn(Mono.just("http://localhost:8080/uaa"));
@@ -243,7 +227,7 @@ class ReactiveTokenValidatorTests {
 				}).verify();
 	}
 
-	private String getSignedToken(byte[] header, byte[] claims) throws Exception {
+	public String getSignedToken(byte[] header, byte[] claims) throws Exception {
 		PrivateKey privateKey = getPrivateKey();
 		Signature signature = Signature.getInstance("SHA256WithRSA");
 		signature.initSign(privateKey);
