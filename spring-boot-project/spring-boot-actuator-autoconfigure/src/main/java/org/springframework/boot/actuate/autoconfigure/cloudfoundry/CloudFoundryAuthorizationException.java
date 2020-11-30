@@ -16,6 +16,7 @@
 
 package org.springframework.boot.actuate.autoconfigure.cloudfoundry;
 
+import org.springframework.boot.actuate.autoconfigure.cloudfoundry.CloudFoundryAuthorizationException.Reason;
 import org.springframework.http.HttpStatus;
 
 /**
@@ -86,6 +87,10 @@ public class CloudFoundryAuthorizationException extends RuntimeException {
 
 		public HttpStatus getStatus() {
 			return this.status;
+		}
+
+		public CloudFoundryAuthorizationException createException() {
+			return new CloudFoundryAuthorizationException(this, "message");
 		}
 
 	}
