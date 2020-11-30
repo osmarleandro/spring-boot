@@ -16,17 +16,23 @@
 
 package org.springframework.boot.actuate.autoconfigure.cloudfoundry.servlet;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.springframework.test.web.client.match.MockRestRequestMatchers.requestTo;
+import static org.springframework.test.web.client.response.MockRestResponseCreators.withSuccess;
+
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.junit.jupiter.api.Test;
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.AccessLevel;
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.CloudFoundryAuthorizationException;
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.CloudFoundryAuthorizationException.Reason;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.RequestEntity;
 import org.springframework.util.Assert;
 import org.springframework.web.client.HttpClientErrorException;
@@ -133,6 +139,18 @@ class CloudFoundrySecurityService {
 			}
 		}
 		return this.uaaUrl;
+	}
+
+	@Test
+	void fetchTokenKeysWhenNoKeysReturnedFromUAA(CloudFoundrySecurityServiceTests cloudFoundrySecurityServiceTests) {
+		cloudFoundrySecurityServiceTests.server.expect(requestTo(CloudFoundrySecurityServiceTests.CLOUD_CONTROLLER + "/info"))
+				.andRespond(withSuccess("{\"token_endpoint\":\"" + CloudFoundrySecurityServiceTests.UAA_URL + "\"}", MediaType.APPLICATION_JSON));
+		String responseBody = "{\"keys\": []}";
+		cloudFoundrySecurityServiceTests.server.expect(requestTo(CloudFoundrySecurityServiceTests.UAA_URL + "/token_keys"))
+				.andRespond(withSuccess(responseBody, MediaType.APPLICATION_JSON));
+		Map<String, String> tokenKeys = fetchTokenKeys();
+		cloudFoundrySecurityServiceTests.server.verify();
+		assertThat(tokenKeys).hasSize(0);
 	}
 
 }

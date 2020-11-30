@@ -47,17 +47,17 @@ import static org.springframework.test.web.client.response.MockRestResponseCreat
  *
  * @author Madhura Bhave
  */
-class CloudFoundrySecurityServiceTests {
+public class CloudFoundrySecurityServiceTests {
 
-	private static final String CLOUD_CONTROLLER = "https://my-cloud-controller.com";
+	public static final String CLOUD_CONTROLLER = "https://my-cloud-controller.com";
 
 	private static final String CLOUD_CONTROLLER_PERMISSIONS = CLOUD_CONTROLLER + "/v2/apps/my-app-id/permissions";
 
-	private static final String UAA_URL = "https://my-uaa.com";
+	public static final String UAA_URL = "https://my-uaa.com";
 
-	private CloudFoundrySecurityService securityService;
+	public CloudFoundrySecurityService securityService;
 
-	private MockRestServiceServer server;
+	public MockRestServiceServer server;
 
 	@BeforeEach
 	void setup() {
@@ -152,18 +152,6 @@ class CloudFoundrySecurityServiceTests {
 		Map<String, String> tokenKeys = this.securityService.fetchTokenKeys();
 		this.server.verify();
 		assertThat(tokenKeys.get("test-key")).isEqualTo(tokenKeyValue);
-	}
-
-	@Test
-	void fetchTokenKeysWhenNoKeysReturnedFromUAA() {
-		this.server.expect(requestTo(CLOUD_CONTROLLER + "/info"))
-				.andRespond(withSuccess("{\"token_endpoint\":\"" + UAA_URL + "\"}", MediaType.APPLICATION_JSON));
-		String responseBody = "{\"keys\": []}";
-		this.server.expect(requestTo(UAA_URL + "/token_keys"))
-				.andRespond(withSuccess(responseBody, MediaType.APPLICATION_JSON));
-		Map<String, String> tokenKeys = this.securityService.fetchTokenKeys();
-		this.server.verify();
-		assertThat(tokenKeys).hasSize(0);
 	}
 
 	@Test
