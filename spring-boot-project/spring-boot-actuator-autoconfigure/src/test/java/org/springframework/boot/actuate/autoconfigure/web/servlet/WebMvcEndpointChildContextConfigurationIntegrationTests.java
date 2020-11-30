@@ -18,7 +18,6 @@ package org.springframework.boot.actuate.autoconfigure.web.servlet;
 
 import java.util.Collections;
 import java.util.Map;
-import java.util.function.Consumer;
 import java.util.function.Function;
 
 import javax.validation.Valid;
@@ -37,8 +36,6 @@ import org.springframework.boot.autoconfigure.AutoConfigurations;
 import org.springframework.boot.autoconfigure.web.servlet.DispatcherServletAutoConfiguration;
 import org.springframework.boot.autoconfigure.web.servlet.ServletWebServerFactoryAutoConfiguration;
 import org.springframework.boot.autoconfigure.web.servlet.error.ErrorMvcAutoConfiguration;
-import org.springframework.boot.test.context.assertj.AssertableWebApplicationContext;
-import org.springframework.boot.test.context.runner.ContextConsumer;
 import org.springframework.boot.test.context.runner.WebApplicationContextRunner;
 import org.springframework.boot.web.context.ServerPortInfoApplicationContextInitializer;
 import org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext;
@@ -49,7 +46,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.reactive.function.client.ClientResponse;
-import org.springframework.web.reactive.function.client.WebClient;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -76,7 +72,7 @@ class WebMvcEndpointChildContextConfigurationIntegrationTests {
 
 	@Test // gh-17938
 	void errorEndpointIsUsedWithEndpoint() {
-		this.runner.run(withWebTestClient((client) -> {
+		this.runner.run(runner.withWebTestClient((client) -> {
 			Map<String, ?> body = client.get().uri("actuator/fail").accept(MediaType.APPLICATION_JSON)
 					.exchangeToMono(toResponseBody()).block();
 			assertThat(body).hasEntrySatisfying("exception",
@@ -89,7 +85,7 @@ class WebMvcEndpointChildContextConfigurationIntegrationTests {
 	@Test
 	void errorPageAndErrorControllerIncludeDetails() {
 		this.runner.withPropertyValues("server.error.include-stacktrace=always", "server.error.include-message=always")
-				.run(withWebTestClient((client) -> {
+				.run(runner.withWebTestClient((client) -> {
 					Map<String, ?> body = client.get().uri("actuator/fail").accept(MediaType.APPLICATION_JSON)
 							.exchangeToMono(toResponseBody()).block();
 					assertThat(body).hasEntrySatisfying("message",
@@ -101,7 +97,7 @@ class WebMvcEndpointChildContextConfigurationIntegrationTests {
 
 	@Test
 	void errorEndpointIsUsedWithRestControllerEndpoint() {
-		this.runner.run(withWebTestClient((client) -> {
+		this.runner.run(runner.withWebTestClient((client) -> {
 			Map<String, ?> body = client.get().uri("actuator/failController").accept(MediaType.APPLICATION_JSON)
 					.exchangeToMono(toResponseBody()).block();
 			assertThat(body).hasEntrySatisfying("exception",
@@ -113,7 +109,7 @@ class WebMvcEndpointChildContextConfigurationIntegrationTests {
 
 	@Test
 	void errorEndpointIsUsedWithRestControllerEndpointOnBindingError() {
-		this.runner.run(withWebTestClient((client) -> {
+		this.runner.run(runner.withWebTestClient((client) -> {
 			Map<String, ?> body = client.post().uri("actuator/failController")
 					.bodyValue(Collections.singletonMap("content", "")).accept(MediaType.APPLICATION_JSON)
 					.exchangeToMono(toResponseBody()).block();
@@ -123,14 +119,6 @@ class WebMvcEndpointChildContextConfigurationIntegrationTests {
 					(value) -> assertThat(value).asString().contains("Validation failed"));
 			assertThat(body).hasEntrySatisfying("errors", (value) -> assertThat(value).asList().isNotEmpty());
 		}));
-	}
-
-	private ContextConsumer<AssertableWebApplicationContext> withWebTestClient(Consumer<WebClient> webClient) {
-		return (context) -> {
-			String port = context.getEnvironment().getProperty("local.management.port");
-			WebClient client = WebClient.create("http://localhost:" + port);
-			webClient.accept(client);
-		};
 	}
 
 	private Function<ClientResponse, ? extends Mono<Map<String, ?>>> toResponseBody() {

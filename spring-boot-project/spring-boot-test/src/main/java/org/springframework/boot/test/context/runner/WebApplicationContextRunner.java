@@ -17,6 +17,7 @@
 package org.springframework.boot.test.context.runner;
 
 import java.util.List;
+import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 import org.springframework.boot.context.annotation.Configurations;
@@ -28,6 +29,7 @@ import org.springframework.context.ApplicationContextInitializer;
 import org.springframework.mock.web.MockServletContext;
 import org.springframework.web.context.ConfigurableWebApplicationContext;
 import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.reactive.function.client.WebClient;
 
 /**
  * An {@link AbstractApplicationContextRunner ApplicationContext runner} for a Servlet
@@ -81,6 +83,14 @@ public final class WebApplicationContextRunner extends
 			List<Configurations> configurations) {
 		return new WebApplicationContextRunner(contextFactory, allowBeanDefinitionOverriding, initializers,
 				environmentProperties, systemProperties, classLoader, parent, beanRegistrations, configurations);
+	}
+
+	public ContextConsumer<AssertableWebApplicationContext> withWebTestClient(Consumer<WebClient> webClient) {
+		return (context) -> {
+			String port = context.getEnvironment().getProperty("local.management.port");
+			WebClient client = WebClient.create("http://localhost:" + port);
+			webClient.accept(client);
+		};
 	}
 
 	/**
