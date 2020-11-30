@@ -38,13 +38,9 @@ import org.springframework.boot.test.util.TestPropertyValues;
 import org.springframework.boot.web.servlet.context.AnnotationConfigServletWebApplicationContext;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
-import org.springframework.mock.web.MockServletContext;
 import org.springframework.security.authentication.TestingAuthenticationToken;
 import org.springframework.security.test.context.TestSecurityContextHolder;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.DefaultMockMvcBuilder;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.test.web.servlet.setup.MockMvcConfigurer;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
@@ -58,7 +54,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * @author Phillip Webb
  * @author Andy Wilkinson
  */
-class ControllerEndpointWebMvcIntegrationTests {
+public class ControllerEndpointWebMvcIntegrationTests {
 
 	private AnnotationConfigServletWebApplicationContext context;
 
@@ -91,17 +87,7 @@ class ControllerEndpointWebMvcIntegrationTests {
 	}
 
 	private MockMvc createSecureMockMvc() {
-		return doCreateMockMvc(springSecurity());
-	}
-
-	private MockMvc doCreateMockMvc(MockMvcConfigurer... configurers) {
-		this.context.setServletContext(new MockServletContext());
-		this.context.refresh();
-		DefaultMockMvcBuilder builder = MockMvcBuilders.webAppContextSetup(this.context);
-		for (MockMvcConfigurer configurer : configurers) {
-			builder.apply(configurer);
-		}
-		return builder.build();
+		return context.doCreateMockMvc(this, springSecurity());
 	}
 
 	@ImportAutoConfiguration({ JacksonAutoConfiguration.class, HttpMessageConvertersAutoConfiguration.class,

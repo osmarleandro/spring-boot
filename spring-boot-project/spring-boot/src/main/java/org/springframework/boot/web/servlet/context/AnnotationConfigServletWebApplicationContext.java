@@ -25,6 +25,7 @@ import org.springframework.beans.factory.config.BeanDefinitionCustomizer;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.beans.factory.support.BeanNameGenerator;
 import org.springframework.beans.factory.support.DefaultListableBeanFactory;
+import org.springframework.boot.actuate.autoconfigure.integrationtest.ControllerEndpointWebMvcIntegrationTests;
 import org.springframework.context.annotation.AnnotatedBeanDefinitionReader;
 import org.springframework.context.annotation.AnnotationConfigRegistry;
 import org.springframework.context.annotation.AnnotationConfigUtils;
@@ -33,7 +34,12 @@ import org.springframework.context.annotation.ClassPathBeanDefinitionScanner;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.ScopeMetadataResolver;
 import org.springframework.core.env.ConfigurableEnvironment;
+import org.springframework.mock.web.MockServletContext;
 import org.springframework.stereotype.Component;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.setup.DefaultMockMvcBuilder;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.test.web.servlet.setup.MockMvcConfigurer;
 import org.springframework.util.Assert;
 import org.springframework.util.ClassUtils;
 import org.springframework.util.ObjectUtils;
@@ -212,6 +218,16 @@ public class AnnotationConfigServletWebApplicationContext extends GenericWebAppl
 	public <T> void registerBean(String beanName, Class<T> beanClass, Supplier<T> supplier,
 			BeanDefinitionCustomizer... customizers) {
 		this.reader.registerBean(beanClass, beanName, supplier, customizers);
+	}
+
+	public MockMvc doCreateMockMvc(ControllerEndpointWebMvcIntegrationTests controllerEndpointWebMvcIntegrationTests, MockMvcConfigurer... configurers) {
+		setServletContext(new MockServletContext());
+		refresh();
+		DefaultMockMvcBuilder builder = MockMvcBuilders.webAppContextSetup(this);
+		for (MockMvcConfigurer configurer : configurers) {
+			builder.apply(configurer);
+		}
+		return builder.build();
 	}
 
 }
