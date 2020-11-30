@@ -33,9 +33,9 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Madhura Bhave
  */
-class WebMvcEndpointChildContextConfigurationTests {
+public class WebMvcEndpointChildContextConfigurationTests {
 
-	private final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner()
+	public final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner()
 			.withAllowBeanDefinitionOverriding(true);
 
 	@Test
@@ -50,15 +50,6 @@ class WebMvcEndpointChildContextConfigurationTests {
 				.run((context) -> {
 					assertThat(context).hasSingleBean(RequestContextFilter.class);
 					assertThat(context).hasBean("testRequestContextFilter");
-				});
-	}
-
-	@Test
-	void contextShouldNotConfigureRequestContextFilterWhenRequestContextListenerPresent() {
-		this.contextRunner.withUserConfiguration(RequestContextListenerConfig.class,
-				WebMvcEndpointChildContextConfiguration.class).run((context) -> {
-					assertThat(context).hasSingleBean(RequestContextListener.class);
-					assertThat(context).doesNotHaveBean(OrderedRequestContextFilter.class);
 				});
 	}
 
@@ -79,6 +70,7 @@ class WebMvcEndpointChildContextConfigurationTests {
 	}
 
 	@Configuration(proxyBeanMethods = false)
+	public
 	static class RequestContextListenerConfig {
 
 		@Bean
