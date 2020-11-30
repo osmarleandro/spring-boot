@@ -49,13 +49,6 @@ class IncludeExcludeEndpointFilterTests {
 	}
 
 	@Test
-	void createWhenEnvironmentIsNullShouldThrowException() {
-		assertThatIllegalArgumentException()
-				.isThrownBy(() -> new IncludeExcludeEndpointFilter<>(ExposableEndpoint.class, null, "foo"))
-				.withMessageContaining("Environment must not be null");
-	}
-
-	@Test
 	void createWhenPrefixIsNullShouldThrowException() {
 		assertThatIllegalArgumentException()
 				.isThrownBy(
