@@ -62,9 +62,9 @@ import static org.mockito.Mockito.mock;
  * @author Stephane Nicoll
  * @author Scott Frederick
  */
-class HealthEndpointAutoConfigurationTests {
+public class HealthEndpointAutoConfigurationTests {
 
-	private final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner()
+	public final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner()
 			.withUserConfiguration(HealthIndicatorsConfiguration.class).withConfiguration(AutoConfigurations
 					.of(HealthContributorAutoConfiguration.class, HealthEndpointAutoConfiguration.class));
 
@@ -137,15 +137,6 @@ class HealthEndpointAutoConfigurationTests {
 					HealthEndpointGroups groups = context.getBean(HealthEndpointGroups.class);
 					assertThat(groups.getNames()).containsOnly("mock");
 				});
-	}
-
-	@Test
-	void runCreatesHealthContributorRegistryContainingHealthBeans() {
-		this.contextRunner.run((context) -> {
-			HealthContributorRegistry registry = context.getBean(HealthContributorRegistry.class);
-			Object[] names = registry.stream().map(NamedContributor::getName).toArray();
-			assertThat(names).containsExactlyInAnyOrder("simple", "additional", "ping", "reactive");
-		});
 	}
 
 	@Test
