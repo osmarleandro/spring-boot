@@ -63,9 +63,9 @@ import static org.mockito.Mockito.mock;
  *
  * @author Madhura Bhave
  */
-class ReactiveManagementWebSecurityAutoConfigurationTests {
+public class ReactiveManagementWebSecurityAutoConfigurationTests {
 
-	private final ReactiveWebApplicationContextRunner contextRunner = new ReactiveWebApplicationContextRunner()
+	public final ReactiveWebApplicationContextRunner contextRunner = new ReactiveWebApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(HealthContributorAutoConfiguration.class,
 					HealthEndpointAutoConfiguration.class, InfoEndpointAutoConfiguration.class,
 					EnvironmentEndpointAutoConfiguration.class, EndpointAutoConfiguration.class,
@@ -100,14 +100,6 @@ class ReactiveManagementWebSecurityAutoConfigurationTests {
 	}
 
 	@Test
-	void backsOffIfCustomSecurityIsAdded() {
-		this.contextRunner.withUserConfiguration(CustomSecurityConfiguration.class).run((context) -> {
-			assertThat(getLocationHeader(context, "/actuator/health").toString()).contains("/login");
-			assertThat(getLocationHeader(context, "/foo")).isNull();
-		});
-	}
-
-	@Test
 	void backOffIfReactiveOAuth2ResourceServerAutoConfigurationPresent() {
 		this.contextRunner.withConfiguration(AutoConfigurations.of(ReactiveOAuth2ResourceServerAutoConfiguration.class))
 				.withPropertyValues("spring.security.oauth2.resourceserver.jwt.jwk-set-uri=https://authserver")
@@ -136,7 +128,7 @@ class ReactiveManagementWebSecurityAutoConfigurationTests {
 		return exchange;
 	}
 
-	private URI getLocationHeader(AssertableReactiveWebApplicationContext context, String path) {
+	public URI getLocationHeader(AssertableReactiveWebApplicationContext context, String path) {
 		ServerWebExchange exchange = performFilter(context, path);
 		return exchange.getResponse().getHeaders().getLocation();
 	}
@@ -161,6 +153,7 @@ class ReactiveManagementWebSecurityAutoConfigurationTests {
 	}
 
 	@Configuration(proxyBeanMethods = false)
+	public
 	static class CustomSecurityConfiguration {
 
 		@Bean
