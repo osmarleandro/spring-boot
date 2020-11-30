@@ -53,9 +53,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  *
  * @author Andy Wilkinson
  */
-class LoggersEndpointDocumentationTests extends MockMvcEndpointDocumentationTests {
+public class LoggersEndpointDocumentationTests extends MockMvcEndpointDocumentationTests {
 
-	private static final List<FieldDescriptor> levelFields = Arrays.asList(
+	public static final List<FieldDescriptor> levelFields = Arrays.asList(
 			fieldWithPath("configuredLevel").description("Configured level of the logger, if any.").optional(),
 			fieldWithPath("effectiveLevel").description("Effective level of the logger."));
 
@@ -69,7 +69,7 @@ class LoggersEndpointDocumentationTests extends MockMvcEndpointDocumentationTest
 	}
 
 	@MockBean
-	private LoggingSystem loggingSystem;
+	public LoggingSystem loggingSystem;
 
 	@Autowired
 	private LoggerGroups loggerGroups;
@@ -87,14 +87,6 @@ class LoggersEndpointDocumentationTests extends MockMvcEndpointDocumentationTest
 								fieldWithPath("groups").description("Logger groups keyed by name"))
 										.andWithPrefix("loggers.*.", levelFields)
 										.andWithPrefix("groups.*.", groupLevelFields)));
-	}
-
-	@Test
-	void logger() throws Exception {
-		given(this.loggingSystem.getLoggerConfiguration("com.example"))
-				.willReturn(new LoggerConfiguration("com.example", LogLevel.INFO, LogLevel.INFO));
-		this.mockMvc.perform(get("/actuator/loggers/com.example")).andExpect(status().isOk())
-				.andDo(MockMvcRestDocumentation.document("loggers/single", responseFields(levelFields)));
 	}
 
 	@Test
