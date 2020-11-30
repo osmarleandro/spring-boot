@@ -31,7 +31,6 @@ import org.springframework.boot.actuate.trace.http.Include;
 import org.springframework.boot.actuate.web.trace.reactive.HttpTraceWebFilter;
 import org.springframework.boot.actuate.web.trace.servlet.HttpTraceFilter;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
-import org.springframework.boot.test.context.runner.ReactiveWebApplicationContextRunner;
 import org.springframework.boot.test.context.runner.WebApplicationContextRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -44,7 +43,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Andy Wilkinson
  * @author Madhura Bhave
  */
-class HttpTraceAutoConfigurationTests {
+public class HttpTraceAutoConfigurationTests {
 
 	private final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(HttpTraceAutoConfiguration.class));
@@ -70,17 +69,6 @@ class HttpTraceAutoConfigurationTests {
 				.withUserConfiguration(CustomTracerConfiguration.class).run((context) -> {
 					assertThat(context).hasSingleBean(HttpExchangeTracer.class);
 					assertThat(context.getBean(HttpExchangeTracer.class)).isInstanceOf(CustomHttpExchangeTracer.class);
-				});
-	}
-
-	@Test
-	void usesUserProvidedWebFilterWhenReactiveContext() {
-		new ReactiveWebApplicationContextRunner()
-				.withConfiguration(AutoConfigurations.of(HttpTraceAutoConfiguration.class))
-				.withUserConfiguration(HttpTraceRepositoryConfiguration.class)
-				.withUserConfiguration(CustomWebFilterConfiguration.class).run((context) -> {
-					assertThat(context).hasSingleBean(HttpTraceWebFilter.class);
-					assertThat(context.getBean(HttpTraceWebFilter.class)).isInstanceOf(CustomHttpTraceWebFilter.class);
 				});
 	}
 
@@ -122,6 +110,7 @@ class HttpTraceAutoConfigurationTests {
 	}
 
 	@Configuration(proxyBeanMethods = false)
+	public
 	static class HttpTraceRepositoryConfiguration {
 
 		@Bean
@@ -149,7 +138,7 @@ class HttpTraceAutoConfigurationTests {
 
 	}
 
-	private static final class CustomHttpTraceWebFilter extends HttpTraceWebFilter {
+	public static final class CustomHttpTraceWebFilter extends HttpTraceWebFilter {
 
 		private CustomHttpTraceWebFilter(HttpTraceRepository repository, HttpExchangeTracer tracer,
 				Set<Include> includes) {
@@ -159,6 +148,7 @@ class HttpTraceAutoConfigurationTests {
 	}
 
 	@Configuration(proxyBeanMethods = false)
+	public
 	static class CustomWebFilterConfiguration {
 
 		@Bean
