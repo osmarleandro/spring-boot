@@ -16,6 +16,8 @@
 
 package org.springframework.boot.actuate.autoconfigure.cloudfoundry.reactive;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -146,6 +148,10 @@ class ReactiveCloudFoundrySecurityService {
 				.onErrorMap((ex) -> new CloudFoundryAuthorizationException(Reason.SERVICE_UNAVAILABLE,
 						"Unable to fetch token keys from UAA."));
 		return this.uaaUrl;
+	}
+
+	public void expectRequestCount(ReactiveCloudFoundrySecurityServiceTests reactiveCloudFoundrySecurityServiceTests, int count) {
+		assertThat(count).isEqualTo(reactiveCloudFoundrySecurityServiceTests.server.getRequestCount());
 	}
 
 }

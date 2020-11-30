@@ -39,7 +39,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Madhura Bhave
  */
-class ReactiveCloudFoundrySecurityServiceTests {
+public class ReactiveCloudFoundrySecurityServiceTests {
 
 	private static final String CLOUD_CONTROLLER = "/my-cloud-controller.com";
 
@@ -49,7 +49,7 @@ class ReactiveCloudFoundrySecurityServiceTests {
 
 	private ReactiveCloudFoundrySecurityService securityService;
 
-	private MockWebServer server;
+	public MockWebServer server;
 
 	private WebClient.Builder builder;
 
@@ -205,7 +205,7 @@ class ReactiveCloudFoundrySecurityServiceTests {
 		StepVerifier.create(this.securityService.getUaaUrl())
 				.consumeNextWith((uaaUrl) -> assertThat(uaaUrl).isEqualTo(UAA_URL)).expectComplete().verify();
 		expectRequest((request) -> assertThat(request.getPath()).isEqualTo(CLOUD_CONTROLLER + "/info"));
-		expectRequestCount(1);
+		securityService.expectRequestCount(this, 1);
 	}
 
 	@Test
@@ -227,10 +227,6 @@ class ReactiveCloudFoundrySecurityServiceTests {
 
 	private void expectRequest(Consumer<RecordedRequest> consumer) throws InterruptedException {
 		consumer.accept(this.server.takeRequest());
-	}
-
-	private void expectRequestCount(int count) {
-		assertThat(count).isEqualTo(this.server.getRequestCount());
 	}
 
 }
