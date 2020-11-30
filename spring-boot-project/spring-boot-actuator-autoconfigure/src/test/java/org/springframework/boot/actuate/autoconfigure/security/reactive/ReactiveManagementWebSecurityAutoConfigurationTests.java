@@ -16,7 +16,6 @@
 
 package org.springframework.boot.actuate.autoconfigure.security.reactive;
 
-import java.net.URI;
 import java.time.Duration;
 import java.util.Collections;
 import java.util.List;
@@ -63,7 +62,7 @@ import static org.mockito.Mockito.mock;
  *
  * @author Madhura Bhave
  */
-class ReactiveManagementWebSecurityAutoConfigurationTests {
+public class ReactiveManagementWebSecurityAutoConfigurationTests {
 
 	private final ReactiveWebApplicationContextRunner contextRunner = new ReactiveWebApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(HealthContributorAutoConfiguration.class,
@@ -102,8 +101,8 @@ class ReactiveManagementWebSecurityAutoConfigurationTests {
 	@Test
 	void backsOffIfCustomSecurityIsAdded() {
 		this.contextRunner.withUserConfiguration(CustomSecurityConfiguration.class).run((context) -> {
-			assertThat(getLocationHeader(context, "/actuator/health").toString()).contains("/login");
-			assertThat(getLocationHeader(context, "/foo")).isNull();
+			assertThat(context.getLocationHeader(this, "/actuator/health").toString()).contains("/login");
+			assertThat(context.getLocationHeader(this, "/foo")).isNull();
 		});
 	}
 
@@ -118,8 +117,8 @@ class ReactiveManagementWebSecurityAutoConfigurationTests {
 	@Test
 	void backsOffWhenWebFilterChainProxyBeanPresent() {
 		this.contextRunner.withUserConfiguration(WebFilterChainProxyConfiguration.class).run((context) -> {
-			assertThat(getLocationHeader(context, "/actuator/health").toString()).contains("/login");
-			assertThat(getLocationHeader(context, "/foo").toString()).contains("/login");
+			assertThat(context.getLocationHeader(this, "/actuator/health").toString()).contains("/login");
+			assertThat(context.getLocationHeader(this, "/foo").toString()).contains("/login");
 		});
 	}
 
@@ -128,17 +127,12 @@ class ReactiveManagementWebSecurityAutoConfigurationTests {
 		return exchange.getResponse().getHeaders().get(HttpHeaders.WWW_AUTHENTICATE);
 	}
 
-	private ServerWebExchange performFilter(AssertableReactiveWebApplicationContext context, String path) {
+	public ServerWebExchange performFilter(AssertableReactiveWebApplicationContext context, String path) {
 		ServerWebExchange exchange = webHandler(context).createExchange(MockServerHttpRequest.get(path).build(),
 				new MockServerHttpResponse());
 		WebFilterChainProxy proxy = context.getBean(WebFilterChainProxy.class);
 		proxy.filter(exchange, (serverWebExchange) -> Mono.empty()).block(Duration.ofSeconds(30));
 		return exchange;
-	}
-
-	private URI getLocationHeader(AssertableReactiveWebApplicationContext context, String path) {
-		ServerWebExchange exchange = performFilter(context, path);
-		return exchange.getResponse().getHeaders().getLocation();
 	}
 
 	private TestHttpWebHandlerAdapter webHandler(AssertableReactiveWebApplicationContext context) {
