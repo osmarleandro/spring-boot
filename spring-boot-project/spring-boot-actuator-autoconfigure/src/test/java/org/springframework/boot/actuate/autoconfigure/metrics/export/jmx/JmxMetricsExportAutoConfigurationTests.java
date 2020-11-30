@@ -34,9 +34,9 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Andy Wilkinson
  */
-class JmxMetricsExportAutoConfigurationTests {
+public class JmxMetricsExportAutoConfigurationTests {
 
-	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
+	public final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(JmxMetricsExportAutoConfiguration.class));
 
 	@Test
@@ -56,13 +56,6 @@ class JmxMetricsExportAutoConfigurationTests {
 				.withPropertyValues("management.metrics.export.defaults.enabled=false")
 				.run((context) -> assertThat(context).doesNotHaveBean(JmxMeterRegistry.class)
 						.doesNotHaveBean(JmxConfig.class));
-	}
-
-	@Test
-	void autoConfigurationCanBeDisabledWithSpecificEnabledProperty() {
-		this.contextRunner.withUserConfiguration(BaseConfiguration.class)
-				.withPropertyValues("management.metrics.export.jmx.enabled=false").run((context) -> assertThat(context)
-						.doesNotHaveBean(JmxMeterRegistry.class).doesNotHaveBean(JmxConfig.class));
 	}
 
 	@Test
@@ -88,6 +81,7 @@ class JmxMetricsExportAutoConfigurationTests {
 	}
 
 	@Configuration(proxyBeanMethods = false)
+	public
 	static class BaseConfiguration {
 
 		@Bean
