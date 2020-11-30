@@ -130,18 +130,11 @@ class RestTemplateMetricsConfigurationTests {
 	}
 
 	private void validateRestTemplate(RestTemplateBuilder builder, MeterRegistry registry) {
-		RestTemplate restTemplate = mockRestTemplate(builder);
+		RestTemplate restTemplate = builder.mockRestTemplate();
 		assertThat(registry.find("http.client.requests").meter()).isNull();
 		assertThat(restTemplate.getForEntity("/projects/{project}", Void.class, "spring-boot").getStatusCode())
 				.isEqualTo(HttpStatus.OK);
 		assertThat(registry.get("http.client.requests").tags("uri", "/projects/{project}").meter()).isNotNull();
-	}
-
-	private RestTemplate mockRestTemplate(RestTemplateBuilder builder) {
-		RestTemplate restTemplate = builder.build();
-		MockRestServiceServer server = MockRestServiceServer.createServer(restTemplate);
-		server.expect(requestTo("/projects/spring-boot")).andRespond(withStatus(HttpStatus.OK));
-		return restTemplate;
 	}
 
 }

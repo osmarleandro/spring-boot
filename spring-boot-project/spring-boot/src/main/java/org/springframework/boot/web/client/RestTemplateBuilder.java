@@ -16,6 +16,9 @@
 
 package org.springframework.boot.web.client;
 
+import static org.springframework.test.web.client.match.MockRestRequestMatchers.requestTo;
+import static org.springframework.test.web.client.response.MockRestResponseCreators.withStatus;
+
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -36,6 +39,7 @@ import java.util.function.Supplier;
 import reactor.netty.http.client.HttpClientRequest;
 
 import org.springframework.beans.BeanUtils;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.client.AbstractClientHttpRequestFactoryWrapper;
 import org.springframework.http.client.ClientHttpRequest;
 import org.springframework.http.client.ClientHttpRequestFactory;
@@ -43,6 +47,7 @@ import org.springframework.http.client.ClientHttpRequestInterceptor;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.test.web.client.MockRestServiceServer;
 import org.springframework.util.Assert;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.ReflectionUtils;
@@ -674,6 +679,13 @@ public class RestTemplateBuilder {
 
 	private <T> Set<T> copiedSetOf(Collection<? extends T> collection) {
 		return Collections.unmodifiableSet(new LinkedHashSet<>(collection));
+	}
+
+	public RestTemplate mockRestTemplate() {
+		RestTemplate restTemplate = build();
+		MockRestServiceServer server = MockRestServiceServer.createServer(restTemplate);
+		server.expect(requestTo("/projects/spring-boot")).andRespond(withStatus(HttpStatus.OK));
+		return restTemplate;
 	}
 
 	private static <T> List<T> copiedListOf(T[] items) {
