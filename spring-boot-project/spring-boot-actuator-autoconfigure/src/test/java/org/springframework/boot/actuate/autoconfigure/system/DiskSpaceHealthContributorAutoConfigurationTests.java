@@ -32,9 +32,9 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Phillip Webb
  * @author Stephane Nicoll
  */
-class DiskSpaceHealthContributorAutoConfigurationTests {
+public class DiskSpaceHealthContributorAutoConfigurationTests {
 
-	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
+	public final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(DiskSpaceHealthContributorAutoConfiguration.class,
 					HealthContributorAutoConfiguration.class));
 
@@ -63,12 +63,6 @@ class DiskSpaceHealthContributorAutoConfigurationTests {
 	void runWhenPathDoesNotExistShouldCreateIndicator() {
 		this.contextRunner.withPropertyValues("management.health.diskspace.path=does/not/exist")
 				.run((context) -> assertThat(context).hasSingleBean(DiskSpaceHealthIndicator.class));
-	}
-
-	@Test
-	void runWhenDisabledShouldNotCreateIndicator() {
-		this.contextRunner.withPropertyValues("management.health.diskspace.enabled:false")
-				.run((context) -> assertThat(context).doesNotHaveBean(DiskSpaceHealthIndicator.class));
 	}
 
 }
