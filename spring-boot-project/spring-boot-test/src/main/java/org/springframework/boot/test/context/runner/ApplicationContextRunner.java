@@ -16,9 +16,18 @@
 
 package org.springframework.boot.test.context.runner;
 
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
+
 import java.util.List;
 import java.util.function.Supplier;
 
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.actuate.autoconfigure.endpoint.EndpointAutoConfigurationTests;
+import org.springframework.boot.actuate.autoconfigure.endpoint.EndpointAutoConfigurationTests.NonQualifiedConverterConfiguration;
+import org.springframework.boot.actuate.autoconfigure.endpoint.EndpointAutoConfigurationTests.Person;
+import org.springframework.boot.actuate.autoconfigure.endpoint.EndpointAutoConfigurationTests.TestOperationParameter;
+import org.springframework.boot.actuate.endpoint.invoke.ParameterMappingException;
+import org.springframework.boot.actuate.endpoint.invoke.ParameterValueMapper;
 import org.springframework.boot.context.annotation.Configurations;
 import org.springframework.boot.test.context.assertj.AssertableApplicationContext;
 import org.springframework.boot.test.util.TestPropertyValues;
@@ -26,6 +35,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextInitializer;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.core.convert.ConverterNotFoundException;
 
 /**
  * An {@link AbstractApplicationContextRunner ApplicationContext runner} for a standard,
@@ -77,6 +87,18 @@ public class ApplicationContextRunner extends
 			List<Configurations> configurations) {
 		return new ApplicationContextRunner(contextFactory, allowBeanDefinitionOverriding, initializers,
 				environmentProperties, systemProperties, classLoader, parent, beanRegistrations, configurations);
+	}
+
+	@Test
+	public
+	void mapWhenConfigurationConverterIsNotQualifiedShouldNotConvert(EndpointAutoConfigurationTests endpointAutoConfigurationTests) {
+		assertThatExceptionOfType(ParameterMappingException.class).isThrownBy(() -> {
+			withUserConfiguration(NonQualifiedConverterConfiguration.class).run((context) -> {
+				ParameterValueMapper parameterValueMapper = context.getBean(ParameterValueMapper.class);
+				parameterValueMapper.mapParameterValue(new TestOperationParameter(Person.class), "John Smith");
+			});
+	
+		}).withCauseInstanceOf(ConverterNotFoundException.class);
 	}
 
 }

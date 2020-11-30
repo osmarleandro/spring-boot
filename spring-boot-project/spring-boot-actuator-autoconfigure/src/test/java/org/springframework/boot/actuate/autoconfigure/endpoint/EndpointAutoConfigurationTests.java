@@ -43,9 +43,9 @@ import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
  *
  * @author Chao Chang
  */
-class EndpointAutoConfigurationTests {
+public class EndpointAutoConfigurationTests {
 
-	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
+	public final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(EndpointAutoConfiguration.class));
 
 	@Test
@@ -59,17 +59,6 @@ class EndpointAutoConfigurationTests {
 			assertThat(person.firstName).isEqualTo("John");
 			assertThat(person.lastName).isEqualTo("Smith");
 		});
-	}
-
-	@Test
-	void mapWhenConfigurationConverterIsNotQualifiedShouldNotConvert() {
-		assertThatExceptionOfType(ParameterMappingException.class).isThrownBy(() -> {
-			this.contextRunner.withUserConfiguration(NonQualifiedConverterConfiguration.class).run((context) -> {
-				ParameterValueMapper parameterValueMapper = context.getBean(ParameterValueMapper.class);
-				parameterValueMapper.mapParameterValue(new TestOperationParameter(Person.class), "John Smith");
-			});
-
-		}).withCauseInstanceOf(ConverterNotFoundException.class);
 	}
 
 	@Test
@@ -134,6 +123,7 @@ class EndpointAutoConfigurationTests {
 	}
 
 	@Configuration(proxyBeanMethods = false)
+	public
 	static class NonQualifiedConverterConfiguration {
 
 		@Bean
@@ -164,7 +154,7 @@ class EndpointAutoConfigurationTests {
 
 	}
 
-	static class Person {
+	public static class Person {
 
 		private final String firstName;
 
@@ -177,7 +167,7 @@ class EndpointAutoConfigurationTests {
 
 	}
 
-	private static class TestOperationParameter implements OperationParameter {
+	public static class TestOperationParameter implements OperationParameter {
 
 		private final Class<?> type;
 
