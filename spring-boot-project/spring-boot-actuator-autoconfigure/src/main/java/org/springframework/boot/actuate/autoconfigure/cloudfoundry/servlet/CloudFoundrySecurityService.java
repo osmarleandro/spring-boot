@@ -22,12 +22,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.AccessLevel;
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.CloudFoundryAuthorizationException;
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.CloudFoundryAuthorizationException.Reason;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.RequestEntity;
+import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.util.Assert;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.HttpServerErrorException;
@@ -133,6 +135,12 @@ class CloudFoundrySecurityService {
 			}
 		}
 		return this.uaaUrl;
+	}
+
+	@BeforeEach
+	void setup(CloudFoundrySecurityInterceptorTests cloudFoundrySecurityInterceptorTests) {
+		cloudFoundrySecurityInterceptorTests.interceptor = new CloudFoundrySecurityInterceptor(cloudFoundrySecurityInterceptorTests.tokenValidator, this, "my-app-id");
+		cloudFoundrySecurityInterceptorTests.request = new MockHttpServletRequest();
 	}
 
 }

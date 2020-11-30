@@ -16,7 +16,6 @@
 
 package org.springframework.boot.actuate.autoconfigure.cloudfoundry.servlet;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
@@ -43,23 +42,18 @@ import static org.mockito.Mockito.verify;
  * @author Madhura Bhave
  */
 @ExtendWith(MockitoExtension.class)
+public
 class CloudFoundrySecurityInterceptorTests {
 
 	@Mock
-	private TokenValidator tokenValidator;
+	public TokenValidator tokenValidator;
 
 	@Mock
-	private CloudFoundrySecurityService securityService;
+	public CloudFoundrySecurityService securityService;
 
-	private CloudFoundrySecurityInterceptor interceptor;
+	public CloudFoundrySecurityInterceptor interceptor;
 
-	private MockHttpServletRequest request;
-
-	@BeforeEach
-	void setup() {
-		this.interceptor = new CloudFoundrySecurityInterceptor(this.tokenValidator, this.securityService, "my-app-id");
-		this.request = new MockHttpServletRequest();
-	}
+	public MockHttpServletRequest request;
 
 	@Test
 	void preHandleWhenRequestIsPreFlightShouldReturnTrue() {
