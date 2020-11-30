@@ -16,6 +16,13 @@
 
 package org.springframework.boot.test.system;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.actuate.autoconfigure.metrics.web.client.WebClientMetricsConfigurationTests;
+
+import io.micrometer.core.instrument.MeterRegistry;
+
 /**
  * Provides access to {@link System#out System.out} and {@link System#err System.err}
  * output that has been captured by the {@link OutputCaptureExtension} or
@@ -67,5 +74,16 @@ public interface CapturedOutput extends CharSequence {
 	 * @return {@link System#err System.err} captured output
 	 */
 	String getErr();
+
+	@Test
+	default
+	void afterMaxUrisReachedFurtherUrisAreDenied(WebClientMetricsConfigurationTests webClientMetricsConfigurationTests) {
+		webClientMetricsConfigurationTests.contextRunner.withPropertyValues("management.metrics.web.client.max-uri-tags=2").run((context) -> {
+			MeterRegistry registry = webClientMetricsConfigurationTests.getInitializedMeterRegistry(context);
+			assertThat(registry.get("http.client.requests").meters()).hasSize(2);
+			assertThat(this).contains("Reached the maximum number of URI tags for 'http.client.requests'.")
+					.contains("Are you using 'uriVariables'?");
+		});
+	}
 
 }

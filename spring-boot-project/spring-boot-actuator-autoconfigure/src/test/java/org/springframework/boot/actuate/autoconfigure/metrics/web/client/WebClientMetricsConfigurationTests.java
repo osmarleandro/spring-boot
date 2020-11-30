@@ -52,9 +52,10 @@ import static org.mockito.Mockito.mock;
  * @author Stephane Nicoll
  */
 @ExtendWith(OutputCaptureExtension.class)
+public
 class WebClientMetricsConfigurationTests {
 
-	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner().with(MetricsRun.simple())
+	public final ApplicationContextRunner contextRunner = new ApplicationContextRunner().with(MetricsRun.simple())
 			.withConfiguration(
 					AutoConfigurations.of(WebClientAutoConfiguration.class, HttpClientMetricsAutoConfiguration.class));
 
@@ -71,16 +72,6 @@ class WebClientMetricsConfigurationTests {
 	void shouldNotOverrideCustomTagsProvider() {
 		this.contextRunner.withUserConfiguration(CustomTagsProviderConfig.class).run((context) -> assertThat(context)
 				.getBeans(WebClientExchangeTagsProvider.class).hasSize(1).containsKey("customTagsProvider"));
-	}
-
-	@Test
-	void afterMaxUrisReachedFurtherUrisAreDenied(CapturedOutput output) {
-		this.contextRunner.withPropertyValues("management.metrics.web.client.max-uri-tags=2").run((context) -> {
-			MeterRegistry registry = getInitializedMeterRegistry(context);
-			assertThat(registry.get("http.client.requests").meters()).hasSize(2);
-			assertThat(output).contains("Reached the maximum number of URI tags for 'http.client.requests'.")
-					.contains("Are you using 'uriVariables'?");
-		});
 	}
 
 	@Test
@@ -107,7 +98,7 @@ class WebClientMetricsConfigurationTests {
 				});
 	}
 
-	private MeterRegistry getInitializedMeterRegistry(AssertableApplicationContext context) {
+	public MeterRegistry getInitializedMeterRegistry(AssertableApplicationContext context) {
 		WebClient webClient = mockWebClient(context.getBean(WebClient.Builder.class));
 		MeterRegistry registry = context.getBean(MeterRegistry.class);
 		for (int i = 0; i < 3; i++) {
