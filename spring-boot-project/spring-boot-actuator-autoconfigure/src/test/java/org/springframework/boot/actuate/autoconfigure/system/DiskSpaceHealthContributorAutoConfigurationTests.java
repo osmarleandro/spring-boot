@@ -32,22 +32,15 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Phillip Webb
  * @author Stephane Nicoll
  */
-class DiskSpaceHealthContributorAutoConfigurationTests {
+public class DiskSpaceHealthContributorAutoConfigurationTests {
 
-	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
+	public final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(DiskSpaceHealthContributorAutoConfiguration.class,
 					HealthContributorAutoConfiguration.class));
 
 	@Test
 	void runShouldCreateIndicator() {
 		this.contextRunner.run((context) -> assertThat(context).hasSingleBean(DiskSpaceHealthIndicator.class));
-	}
-
-	@Test
-	void thresholdMustBePositive() {
-		this.contextRunner.withPropertyValues("management.health.diskspace.threshold=-10MB")
-				.run((context) -> assertThat(context).hasFailed().getFailure()
-						.hasMessageContaining("Failed to bind properties under 'management.health.diskspace'"));
 	}
 
 	@Test
