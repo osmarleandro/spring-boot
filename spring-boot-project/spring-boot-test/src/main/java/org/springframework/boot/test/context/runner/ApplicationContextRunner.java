@@ -16,9 +16,17 @@
 
 package org.springframework.boot.test.context.runner;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import java.util.List;
 import java.util.function.Supplier;
 
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.actuate.autoconfigure.metrics.KafkaMetricsAutoConfigurationTests;
+import org.springframework.boot.actuate.autoconfigure.metrics.KafkaMetricsAutoConfigurationTests.EnableKafkaStreamsConfiguration;
+import org.springframework.boot.actuate.autoconfigure.metrics.test.MetricsRun;
+import org.springframework.boot.autoconfigure.AutoConfigurations;
+import org.springframework.boot.autoconfigure.kafka.KafkaAutoConfiguration;
 import org.springframework.boot.context.annotation.Configurations;
 import org.springframework.boot.test.context.assertj.AssertableApplicationContext;
 import org.springframework.boot.test.util.TestPropertyValues;
@@ -26,6 +34,8 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextInitializer;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.kafka.config.StreamsBuilderFactoryBean;
+import org.springframework.kafka.streams.KafkaStreamsMicrometerListener;
 
 /**
  * An {@link AbstractApplicationContextRunner ApplicationContext runner} for a standard,
@@ -77,6 +87,19 @@ public class ApplicationContextRunner extends
 			List<Configurations> configurations) {
 		return new ApplicationContextRunner(contextFactory, allowBeanDefinitionOverriding, initializers,
 				environmentProperties, systemProperties, classLoader, parent, beanRegistrations, configurations);
+	}
+
+	@Test
+	public
+	void whenKafkaStreamsIsEnabledAndThereIsAMeterRegistryThenMetricsListenersAreAdded(KafkaMetricsAutoConfigurationTests kafkaMetricsAutoConfigurationTests) {
+		withConfiguration(AutoConfigurations.of(KafkaAutoConfiguration.class))
+				.withUserConfiguration(EnableKafkaStreamsConfiguration.class)
+				.withPropertyValues("spring.application.name=my-test-app").with(MetricsRun.simple()).run((context) -> {
+					StreamsBuilderFactoryBean streamsBuilderFactoryBean = context
+							.getBean(StreamsBuilderFactoryBean.class);
+					assertThat(streamsBuilderFactoryBean.getListeners()).hasSize(1)
+							.hasOnlyElementsOfTypes(KafkaStreamsMicrometerListener.class);
+				});
 	}
 
 }

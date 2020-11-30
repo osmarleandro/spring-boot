@@ -36,7 +36,6 @@ import org.springframework.kafka.core.DefaultKafkaConsumerFactory;
 import org.springframework.kafka.core.DefaultKafkaProducerFactory;
 import org.springframework.kafka.core.MicrometerConsumerListener;
 import org.springframework.kafka.core.MicrometerProducerListener;
-import org.springframework.kafka.streams.KafkaStreamsMicrometerListener;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -47,9 +46,9 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Stephane Nicoll
  * @author Eddú Meléndez
  */
-class KafkaMetricsAutoConfigurationTests {
+public class KafkaMetricsAutoConfigurationTests {
 
-	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
+	public final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(KafkaMetricsAutoConfiguration.class));
 
 	@Test
@@ -74,18 +73,6 @@ class KafkaMetricsAutoConfigurationTests {
 	}
 
 	@Test
-	void whenKafkaStreamsIsEnabledAndThereIsAMeterRegistryThenMetricsListenersAreAdded() {
-		this.contextRunner.withConfiguration(AutoConfigurations.of(KafkaAutoConfiguration.class))
-				.withUserConfiguration(EnableKafkaStreamsConfiguration.class)
-				.withPropertyValues("spring.application.name=my-test-app").with(MetricsRun.simple()).run((context) -> {
-					StreamsBuilderFactoryBean streamsBuilderFactoryBean = context
-							.getBean(StreamsBuilderFactoryBean.class);
-					assertThat(streamsBuilderFactoryBean.getListeners()).hasSize(1)
-							.hasOnlyElementsOfTypes(KafkaStreamsMicrometerListener.class);
-				});
-	}
-
-	@Test
 	void whenKafkaStreamsIsEnabledAndThereIsNoMeterRegistryThenListenerCustomizationBacksOff() {
 		this.contextRunner.withConfiguration(AutoConfigurations.of(KafkaAutoConfiguration.class))
 				.withUserConfiguration(EnableKafkaStreamsConfiguration.class)
@@ -98,6 +85,7 @@ class KafkaMetricsAutoConfigurationTests {
 
 	@Configuration(proxyBeanMethods = false)
 	@EnableKafkaStreams
+	public
 	static class EnableKafkaStreamsConfiguration {
 
 		@Bean
