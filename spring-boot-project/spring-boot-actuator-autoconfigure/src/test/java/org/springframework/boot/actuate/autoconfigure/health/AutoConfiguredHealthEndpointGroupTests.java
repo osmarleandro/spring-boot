@@ -42,19 +42,20 @@ import static org.mockito.Mockito.mock;
  * @author Phillip Webb
  */
 @ExtendWith(MockitoExtension.class)
+public
 class AutoConfiguredHealthEndpointGroupTests {
 
 	@Mock
-	private StatusAggregator statusAggregator;
+	public StatusAggregator statusAggregator;
 
 	@Mock
-	private HttpCodeStatusMapper httpCodeStatusMapper;
+	public HttpCodeStatusMapper httpCodeStatusMapper;
 
 	@Mock
-	private SecurityContext securityContext;
+	public SecurityContext securityContext;
 
 	@Mock
-	private Principal principal;
+	public Principal principal;
 
 	@Test
 	void isMemberWhenMemberPredicateMatchesAcceptsTrue() {
@@ -197,15 +198,6 @@ class AutoConfiguredHealthEndpointGroupTests {
 		given(this.securityContext.isUserInRole("admin")).willReturn(false);
 		given(this.securityContext.isUserInRole("root")).willReturn(true);
 		assertThat(group.showComponents(this.securityContext)).isTrue();
-	}
-
-	@Test
-	void showComponentsWhenShowComponentsIsWhenAuthorizedAndUserIsNotInRoleReturnsFalse() {
-		AutoConfiguredHealthEndpointGroup group = new AutoConfiguredHealthEndpointGroup((name) -> true,
-				this.statusAggregator, this.httpCodeStatusMapper, Show.WHEN_AUTHORIZED, Show.NEVER,
-				Arrays.asList("admin", "rot", "bossmode"));
-		given(this.securityContext.getPrincipal()).willReturn(this.principal);
-		assertThat(group.showComponents(this.securityContext)).isFalse();
 	}
 
 	@Test
