@@ -16,9 +16,19 @@
 
 package org.springframework.boot.test.context.runner;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import java.util.List;
+import java.util.Map;
 import java.util.function.Supplier;
 
+import org.junit.jupiter.api.Test;
+import org.slf4j.impl.StaticLoggerBinder;
+import org.springframework.boot.actuate.autoconfigure.metrics.LogbackMetricsAutoConfiguration;
+import org.springframework.boot.actuate.autoconfigure.metrics.export.jmx.JmxMetricsExportAutoConfiguration;
+import org.springframework.boot.actuate.autoconfigure.metrics.export.prometheus.PrometheusMetricsExportAutoConfiguration;
+import org.springframework.boot.actuate.autoconfigure.metrics.test.MetricsRun;
+import org.springframework.boot.autoconfigure.AutoConfigurations;
 import org.springframework.boot.context.annotation.Configurations;
 import org.springframework.boot.test.context.assertj.AssertableApplicationContext;
 import org.springframework.boot.test.util.TestPropertyValues;
@@ -26,6 +36,10 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextInitializer;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
+import ch.qos.logback.classic.Logger;
+import ch.qos.logback.classic.LoggerContext;
+import io.micrometer.core.instrument.MeterRegistry;
 
 /**
  * An {@link AbstractApplicationContextRunner ApplicationContext runner} for a standard,
@@ -77,6 +91,25 @@ public class ApplicationContextRunner extends
 			List<Configurations> configurations) {
 		return new ApplicationContextRunner(contextFactory, allowBeanDefinitionOverriding, initializers,
 				environmentProperties, systemProperties, classLoader, parent, beanRegistrations, configurations);
+	}
+
+	@Test
+	public
+	void counterIsIncrementedOncePerEventWithCompositeMeterRegistry() {
+		new ApplicationContextRunner()
+				.with(MetricsRun.limitedTo(JmxMetricsExportAutoConfiguration.class,
+						PrometheusMetricsExportAutoConfiguration.class))
+				.withConfiguration(AutoConfigurations.of(LogbackMetricsAutoConfiguration.class)).run((context) -> {
+					Logger logger = ((LoggerContext) StaticLoggerBinder.getSingleton().getLoggerFactory())
+							.getLogger("test-logger");
+					logger.error("Error.");
+					Map<String, MeterRegistry> registriesByName = context.getBeansOfType(MeterRegistry.class);
+					assertThat(registriesByName).hasSize(3);
+					registriesByName.forEach((name,
+							registry) -> assertThat(
+									registry.get("logback.events").tag("level", "error").counter().count())
+											.isEqualTo(1));
+				});
 	}
 
 }
