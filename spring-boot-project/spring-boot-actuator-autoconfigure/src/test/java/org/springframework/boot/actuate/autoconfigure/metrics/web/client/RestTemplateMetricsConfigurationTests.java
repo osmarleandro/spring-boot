@@ -23,7 +23,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
 import org.springframework.boot.actuate.autoconfigure.metrics.test.MetricsRun;
-import org.springframework.boot.actuate.metrics.web.client.DefaultRestTemplateExchangeTagsProvider;
 import org.springframework.boot.actuate.metrics.web.client.MetricsRestTemplateCustomizer;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
 import org.springframework.boot.autoconfigure.web.client.RestTemplateAutoConfiguration;
@@ -106,14 +105,6 @@ class RestTemplateMetricsConfigurationTests {
 					assertThat(snapshot.percentileValues()[0].percentile()).isEqualTo(0.5);
 					assertThat(snapshot.percentileValues()[1].percentile()).isEqualTo(0.7);
 				});
-	}
-
-	@Test
-	void backsOffWhenRestTemplateBuilderIsMissing() {
-		new ApplicationContextRunner().with(MetricsRun.simple())
-				.withConfiguration(AutoConfigurations.of(HttpClientMetricsAutoConfiguration.class))
-				.run((context) -> assertThat(context).doesNotHaveBean(DefaultRestTemplateExchangeTagsProvider.class)
-						.doesNotHaveBean(MetricsRestTemplateCustomizer.class));
 	}
 
 	private MeterRegistry getInitializedMeterRegistry(AssertableApplicationContext context) {
