@@ -49,12 +49,12 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Yunkun Huang
  * @author Phillip Webb
  */
-class WebEndpointAutoConfigurationTests {
+public class WebEndpointAutoConfigurationTests {
 
 	private static final AutoConfigurations CONFIGURATIONS = AutoConfigurations.of(EndpointAutoConfiguration.class,
 			WebEndpointAutoConfiguration.class);
 
-	private final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner()
+	public final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner()
 			.withConfiguration(CONFIGURATIONS);
 
 	@Test
@@ -106,11 +106,6 @@ class WebEndpointAutoConfigurationTests {
 		this.contextRunner
 				.run((context) -> assertThat(context).getBeans(IncludeExcludeEndpointFilter.class).containsKeys(
 						"webExposeExcludePropertyEndpointFilter", "controllerExposeExcludePropertyEndpointFilter"));
-	}
-
-	@Test
-	void contextShouldConfigureServletEndpointDiscoverer() {
-		this.contextRunner.run((context) -> assertThat(context).hasSingleBean(ServletEndpointDiscoverer.class));
 	}
 
 	@Test
