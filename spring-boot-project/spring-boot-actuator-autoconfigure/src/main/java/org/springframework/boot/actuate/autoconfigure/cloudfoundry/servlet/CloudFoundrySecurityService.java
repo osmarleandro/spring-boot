@@ -16,17 +16,24 @@
 
 package org.springframework.boot.actuate.autoconfigure.cloudfoundry.servlet;
 
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.BDDMockito.given;
+
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.junit.jupiter.api.Test;
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.AccessLevel;
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.CloudFoundryAuthorizationException;
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.CloudFoundryAuthorizationException.Reason;
+import org.springframework.boot.actuate.autoconfigure.cloudfoundry.servlet.CloudFoundryMvcWebEndpointIntegrationTests.TestEndpointConfiguration;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.RequestEntity;
 import org.springframework.util.Assert;
 import org.springframework.web.client.HttpClientErrorException;
@@ -133,6 +140,20 @@ class CloudFoundrySecurityService {
 			}
 		}
 		return this.uaaUrl;
+	}
+
+	@Test
+	void linksToOtherEndpointsWithFullAccess(CloudFoundryMvcWebEndpointIntegrationTests cloudFoundryMvcWebEndpointIntegrationTests) {
+		given(getAccessLevel(any(), eq("app-id"))).willReturn(AccessLevel.FULL);
+		cloudFoundryMvcWebEndpointIntegrationTests.load(TestEndpointConfiguration.class,
+				(client) -> client.get().uri("/cfApplication").accept(MediaType.APPLICATION_JSON)
+						.header("Authorization", "bearer " + cloudFoundryMvcWebEndpointIntegrationTests.mockAccessToken()).exchange().expectStatus().isOk()
+						.expectBody().jsonPath("_links.length()").isEqualTo(5).jsonPath("_links.self.href").isNotEmpty()
+						.jsonPath("_links.self.templated").isEqualTo(false).jsonPath("_links.info.href").isNotEmpty()
+						.jsonPath("_links.info.templated").isEqualTo(false).jsonPath("_links.env.href").isNotEmpty()
+						.jsonPath("_links.env.templated").isEqualTo(false).jsonPath("_links.test.href").isNotEmpty()
+						.jsonPath("_links.test.templated").isEqualTo(false).jsonPath("_links.test-part.href")
+						.isNotEmpty().jsonPath("_links.test-part.templated").isEqualTo(true));
 	}
 
 }
