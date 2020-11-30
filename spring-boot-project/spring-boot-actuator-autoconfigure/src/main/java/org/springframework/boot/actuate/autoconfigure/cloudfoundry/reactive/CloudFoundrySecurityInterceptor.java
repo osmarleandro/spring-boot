@@ -16,18 +16,26 @@
 
 package org.springframework.boot.actuate.autoconfigure.cloudfoundry.reactive;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import java.util.Locale;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.junit.jupiter.api.Test;
+
 import reactor.core.publisher.Mono;
+import reactor.test.StepVerifier;
 
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.CloudFoundryAuthorizationException;
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.CloudFoundryAuthorizationException.Reason;
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.SecurityResponse;
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.Token;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.server.reactive.ServerHttpRequest;
+import org.springframework.mock.http.server.reactive.MockServerHttpRequest;
+import org.springframework.mock.web.server.MockServerWebExchange;
 import org.springframework.util.StringUtils;
 import org.springframework.web.cors.reactive.CorsUtils;
 import org.springframework.web.server.ServerWebExchange;
@@ -109,6 +117,16 @@ class CloudFoundrySecurityInterceptor {
 					"Authorization header is missing or invalid");
 		}
 		return new Token(authorization.substring(bearerPrefix.length()));
+	}
+
+	@Test
+	void preHandleWhenRequestIsPreFlightShouldBeOk(ReactiveCloudFoundrySecurityInterceptorTests reactiveCloudFoundrySecurityInterceptorTests) {
+		MockServerWebExchange request = MockServerWebExchange
+				.from(MockServerHttpRequest.options("/a").header(HttpHeaders.ORIGIN, "https://example.com")
+						.header(HttpHeaders.ACCESS_CONTROL_REQUEST_METHOD, "GET").build());
+		StepVerifier.create(preHandle(request, "/a"))
+				.consumeNextWith((response) -> assertThat(response.getStatus()).isEqualTo(HttpStatus.OK))
+				.verifyComplete();
 	}
 
 }

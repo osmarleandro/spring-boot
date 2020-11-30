@@ -43,6 +43,7 @@ import static org.mockito.BDDMockito.given;
  * @author Madhura Bhave
  */
 @ExtendWith(MockitoExtension.class)
+public
 class ReactiveCloudFoundrySecurityInterceptorTests {
 
 	@Mock
@@ -51,21 +52,11 @@ class ReactiveCloudFoundrySecurityInterceptorTests {
 	@Mock
 	private ReactiveCloudFoundrySecurityService securityService;
 
-	private CloudFoundrySecurityInterceptor interceptor;
+	public CloudFoundrySecurityInterceptor interceptor;
 
 	@BeforeEach
 	void setup() {
 		this.interceptor = new CloudFoundrySecurityInterceptor(this.tokenValidator, this.securityService, "my-app-id");
-	}
-
-	@Test
-	void preHandleWhenRequestIsPreFlightShouldBeOk() {
-		MockServerWebExchange request = MockServerWebExchange
-				.from(MockServerHttpRequest.options("/a").header(HttpHeaders.ORIGIN, "https://example.com")
-						.header(HttpHeaders.ACCESS_CONTROL_REQUEST_METHOD, "GET").build());
-		StepVerifier.create(this.interceptor.preHandle(request, "/a"))
-				.consumeNextWith((response) -> assertThat(response.getStatus()).isEqualTo(HttpStatus.OK))
-				.verifyComplete();
 	}
 
 	@Test
