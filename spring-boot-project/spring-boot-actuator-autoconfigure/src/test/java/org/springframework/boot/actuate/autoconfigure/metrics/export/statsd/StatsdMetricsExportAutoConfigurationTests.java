@@ -34,9 +34,9 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Andy Wilkinson
  */
-class StatsdMetricsExportAutoConfigurationTests {
+public class StatsdMetricsExportAutoConfigurationTests {
 
-	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
+	public final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(StatsdMetricsExportAutoConfiguration.class));
 
 	@Test
@@ -62,12 +62,6 @@ class StatsdMetricsExportAutoConfigurationTests {
 		this.contextRunner.withPropertyValues("management.metrics.export.statsd.enabled=false")
 				.run((context) -> assertThat(context).doesNotHaveBean(StatsdMeterRegistry.class)
 						.doesNotHaveBean(StatsdConfig.class));
-	}
-
-	@Test
-	void allowsCustomConfigToBeUsed() {
-		this.contextRunner.withUserConfiguration(CustomConfigConfiguration.class).run((context) -> assertThat(context)
-				.hasSingleBean(StatsdMeterRegistry.class).hasSingleBean(StatsdConfig.class).hasBean("customConfig"));
 	}
 
 	@Test
@@ -98,6 +92,7 @@ class StatsdMetricsExportAutoConfigurationTests {
 
 	@Configuration(proxyBeanMethods = false)
 	@Import(BaseConfiguration.class)
+	public
 	static class CustomConfigConfiguration {
 
 		@Bean
