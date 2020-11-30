@@ -35,18 +35,12 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Yulin Qin
  */
-class MongoReactiveHealthContributorAutoConfigurationTests {
+public class MongoReactiveHealthContributorAutoConfigurationTests {
 
-	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
+	public final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(MongoAutoConfiguration.class, MongoDataAutoConfiguration.class,
 					MongoReactiveAutoConfiguration.class, MongoReactiveDataAutoConfiguration.class,
 					MongoReactiveHealthContributorAutoConfiguration.class, HealthContributorAutoConfiguration.class));
-
-	@Test
-	void runShouldCreateIndicator() {
-		this.contextRunner.run((context) -> assertThat(context).hasSingleBean(MongoReactiveHealthIndicator.class)
-				.hasBean("mongoHealthContributor"));
-	}
 
 	@Test
 	void runWithRegularIndicatorShouldOnlyCreateReactiveIndicator() {
