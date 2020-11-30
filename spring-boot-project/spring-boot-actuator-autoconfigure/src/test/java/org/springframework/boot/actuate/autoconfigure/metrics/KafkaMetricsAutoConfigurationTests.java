@@ -34,8 +34,6 @@ import org.springframework.kafka.annotation.EnableKafkaStreams;
 import org.springframework.kafka.config.StreamsBuilderFactoryBean;
 import org.springframework.kafka.core.DefaultKafkaConsumerFactory;
 import org.springframework.kafka.core.DefaultKafkaProducerFactory;
-import org.springframework.kafka.core.MicrometerConsumerListener;
-import org.springframework.kafka.core.MicrometerProducerListener;
 import org.springframework.kafka.streams.KafkaStreamsMicrometerListener;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -47,21 +45,10 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Stephane Nicoll
  * @author Eddú Meléndez
  */
-class KafkaMetricsAutoConfigurationTests {
+public class KafkaMetricsAutoConfigurationTests {
 
-	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
+	public final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(KafkaMetricsAutoConfiguration.class));
-
-	@Test
-	void whenThereIsAMeterRegistryThenMetricsListenersAreAdded() {
-		this.contextRunner.with(MetricsRun.simple())
-				.withConfiguration(AutoConfigurations.of(KafkaAutoConfiguration.class)).run((context) -> {
-					assertThat(((DefaultKafkaProducerFactory<?, ?>) context.getBean(DefaultKafkaProducerFactory.class))
-							.getListeners()).hasSize(1).hasOnlyElementsOfTypes(MicrometerProducerListener.class);
-					assertThat(((DefaultKafkaConsumerFactory<?, ?>) context.getBean(DefaultKafkaConsumerFactory.class))
-							.getListeners()).hasSize(1).hasOnlyElementsOfTypes(MicrometerConsumerListener.class);
-				});
-	}
 
 	@Test
 	void whenThereIsNoMeterRegistryThenListenerCustomizationBacksOff() {
