@@ -46,9 +46,9 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Andy Wilkinson
  * @author Stephane Nicoll
  */
-class JolokiaEndpointAutoConfigurationTests {
+public class JolokiaEndpointAutoConfigurationTests {
 
-	private final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner()
+	public final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(DispatcherServletAutoConfiguration.class,
 					ManagementContextAutoConfiguration.class, ServletManagementContextAutoConfiguration.class,
 					ServletEndpointManagementContextConfiguration.class, JolokiaEndpointAutoConfiguration.class,
@@ -71,16 +71,6 @@ class JolokiaEndpointAutoConfigurationTests {
 					.getEndpoints();
 			assertThat(endpoints).isEmpty();
 		});
-	}
-
-	@Test
-	void jolokiaServletWhenDisabledShouldNotBeDiscovered() {
-		this.contextRunner.withPropertyValues("management.endpoint.jolokia.enabled=false")
-				.withPropertyValues("management.endpoints.web.exposure.include=jolokia").run((context) -> {
-					Collection<ExposableServletEndpoint> endpoints = context.getBean(ServletEndpointsSupplier.class)
-							.getEndpoints();
-					assertThat(endpoints).isEmpty();
-				});
 	}
 
 	@Test

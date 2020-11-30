@@ -16,9 +16,16 @@
 
 package org.springframework.boot.test.context.runner;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
+import java.util.Collection;
 import java.util.List;
 import java.util.function.Supplier;
 
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.actuate.autoconfigure.jolokia.JolokiaEndpointAutoConfigurationTests;
+import org.springframework.boot.actuate.endpoint.web.ExposableServletEndpoint;
+import org.springframework.boot.actuate.endpoint.web.annotation.ServletEndpointsSupplier;
 import org.springframework.boot.context.annotation.Configurations;
 import org.springframework.boot.test.context.assertj.AssertableWebApplicationContext;
 import org.springframework.boot.test.util.TestPropertyValues;
@@ -81,6 +88,17 @@ public final class WebApplicationContextRunner extends
 			List<Configurations> configurations) {
 		return new WebApplicationContextRunner(contextFactory, allowBeanDefinitionOverriding, initializers,
 				environmentProperties, systemProperties, classLoader, parent, beanRegistrations, configurations);
+	}
+
+	@Test
+	public
+	void jolokiaServletWhenDisabledShouldNotBeDiscovered(JolokiaEndpointAutoConfigurationTests jolokiaEndpointAutoConfigurationTests) {
+		withPropertyValues("management.endpoint.jolokia.enabled=false")
+				.withPropertyValues("management.endpoints.web.exposure.include=jolokia").run((context) -> {
+					Collection<ExposableServletEndpoint> endpoints = context.getBean(ServletEndpointsSupplier.class)
+							.getEndpoints();
+					assertThat(endpoints).isEmpty();
+				});
 	}
 
 	/**
