@@ -36,9 +36,9 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Phillip Webb
  */
-class EnvironmentEndpointAutoConfigurationTests {
+public class EnvironmentEndpointAutoConfigurationTests {
 
-	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
+	public final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(EnvironmentEndpointAutoConfiguration.class));
 
 	@Test
@@ -46,12 +46,6 @@ class EnvironmentEndpointAutoConfigurationTests {
 		this.contextRunner.withPropertyValues("management.endpoints.web.exposure.include=env")
 				.withSystemProperties("dbPassword=123456", "apiKey=123456")
 				.run(validateSystemProperties("******", "******"));
-	}
-
-	@Test
-	void runWhenEnabledPropertyIsFalseShouldNotHaveEndpointBean() {
-		this.contextRunner.withPropertyValues("management.endpoint.env.enabled:false")
-				.run((context) -> assertThat(context).doesNotHaveBean(EnvironmentEndpoint.class));
 	}
 
 	@Test
