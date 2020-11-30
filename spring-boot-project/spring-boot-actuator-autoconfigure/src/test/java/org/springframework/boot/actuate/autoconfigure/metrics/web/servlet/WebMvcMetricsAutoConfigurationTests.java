@@ -70,9 +70,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * @author Chanhyeong LEE
  */
 @ExtendWith(OutputCaptureExtension.class)
+public
 class WebMvcMetricsAutoConfigurationTests {
 
-	private final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner()
+	public final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner()
 			.with(MetricsRun.simple()).withConfiguration(AutoConfigurations.of(WebMvcMetricsAutoConfiguration.class));
 
 	@Test
@@ -133,18 +134,6 @@ class WebMvcMetricsAutoConfigurationTests {
 	}
 
 	@Test
-	void shouldNotDenyNorLogIfMaxUrisIsNotReached(CapturedOutput output) {
-		this.contextRunner.withUserConfiguration(TestController.class)
-				.withConfiguration(AutoConfigurations.of(MetricsAutoConfiguration.class, WebMvcAutoConfiguration.class))
-				.withPropertyValues("management.metrics.web.server.max-uri-tags=5").run((context) -> {
-					MeterRegistry registry = getInitializedMeterRegistry(context);
-					assertThat(registry.get("http.server.requests").meters()).hasSize(3);
-					assertThat(output)
-							.doesNotContain("Reached the maximum number of URI tags for 'http.server.requests'");
-				});
-	}
-
-	@Test
 	void autoTimeRequestsCanBeConfigured() {
 		this.contextRunner.withUserConfiguration(TestController.class)
 				.withConfiguration(AutoConfigurations.of(MetricsAutoConfiguration.class, WebMvcAutoConfiguration.class))
@@ -192,7 +181,7 @@ class WebMvcMetricsAutoConfigurationTests {
 		});
 	}
 
-	private MeterRegistry getInitializedMeterRegistry(AssertableWebApplicationContext context) throws Exception {
+	public MeterRegistry getInitializedMeterRegistry(AssertableWebApplicationContext context) throws Exception {
 		return getInitializedMeterRegistry(context, "/test0", "/test1", "/test2");
 	}
 
