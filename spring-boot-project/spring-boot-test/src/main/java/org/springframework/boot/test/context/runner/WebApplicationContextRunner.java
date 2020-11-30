@@ -19,6 +19,7 @@ package org.springframework.boot.test.context.runner;
 import java.util.List;
 import java.util.function.Supplier;
 
+import org.springframework.boot.actuate.autoconfigure.cloudfoundry.servlet.CloudFoundryWebEndpointServletHandlerMapping;
 import org.springframework.boot.context.annotation.Configurations;
 import org.springframework.boot.test.context.assertj.AssertableWebApplicationContext;
 import org.springframework.boot.test.util.TestPropertyValues;
@@ -81,6 +82,11 @@ public final class WebApplicationContextRunner extends
 			List<Configurations> configurations) {
 		return new WebApplicationContextRunner(contextFactory, allowBeanDefinitionOverriding, initializers,
 				environmentProperties, systemProperties, classLoader, parent, beanRegistrations, configurations);
+	}
+
+	public CloudFoundryWebEndpointServletHandlerMapping getHandlerMapping(ApplicationContext context) {
+		return context.getBean("cloudFoundryWebEndpointServletHandlerMapping",
+				CloudFoundryWebEndpointServletHandlerMapping.class);
 	}
 
 	/**
