@@ -19,6 +19,8 @@ package org.springframework.boot.test.context.assertj;
 import java.util.function.Supplier;
 
 import org.springframework.boot.test.context.runner.WebApplicationContextRunner;
+import org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext;
+import org.springframework.test.web.reactive.server.WebTestClient;
 import org.springframework.web.context.ConfigurableWebApplicationContext;
 import org.springframework.web.context.WebApplicationContext;
 
@@ -47,6 +49,12 @@ public interface AssertableWebApplicationContext
 	static AssertableWebApplicationContext get(Supplier<? extends ConfigurableWebApplicationContext> contextSupplier) {
 		return ApplicationContextAssertProvider.get(AssertableWebApplicationContext.class,
 				ConfigurableWebApplicationContext.class, contextSupplier);
+	}
+
+	public default WebTestClient getWebTestClient() {
+		int port = getSourceApplicationContext(AnnotationConfigServletWebServerApplicationContext.class)
+				.getWebServer().getPort();
+		return WebTestClient.bindToServer().baseUrl("http://localhost:" + port).build();
 	}
 
 }

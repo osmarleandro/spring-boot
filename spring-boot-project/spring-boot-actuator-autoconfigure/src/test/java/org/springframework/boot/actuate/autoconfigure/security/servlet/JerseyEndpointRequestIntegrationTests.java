@@ -40,7 +40,7 @@ class JerseyEndpointRequestIntegrationTests extends AbstractEndpointRequestInteg
 	@Test
 	void toLinksWhenApplicationPathSetShouldMatch() {
 		getContextRunner().withPropertyValues("spring.jersey.application-path=/admin").run((context) -> {
-			WebTestClient webTestClient = getWebTestClient(context);
+			WebTestClient webTestClient = context.getWebTestClient();
 			webTestClient.get().uri("/admin/actuator/").exchange().expectStatus().isOk();
 			webTestClient.get().uri("/admin/actuator").exchange().expectStatus().isOk();
 		});
@@ -49,7 +49,7 @@ class JerseyEndpointRequestIntegrationTests extends AbstractEndpointRequestInteg
 	@Test
 	void toEndpointWhenApplicationPathSetShouldMatch() {
 		getContextRunner().withPropertyValues("spring.jersey.application-path=/admin").run((context) -> {
-			WebTestClient webTestClient = getWebTestClient(context);
+			WebTestClient webTestClient = context.getWebTestClient();
 			webTestClient.get().uri("/admin/actuator/e1").exchange().expectStatus().isOk();
 		});
 	}
@@ -59,7 +59,7 @@ class JerseyEndpointRequestIntegrationTests extends AbstractEndpointRequestInteg
 		getContextRunner()
 				.withPropertyValues("spring.jersey.application-path=/admin", "spring.security.user.password=password")
 				.run((context) -> {
-					WebTestClient webTestClient = getWebTestClient(context);
+					WebTestClient webTestClient = context.getWebTestClient();
 					webTestClient.get().uri("/admin/actuator/e2").exchange().expectStatus().isUnauthorized();
 					webTestClient.get().uri("/admin/actuator/e2").header("Authorization", getBasicAuth()).exchange()
 							.expectStatus().isOk();
@@ -70,7 +70,7 @@ class JerseyEndpointRequestIntegrationTests extends AbstractEndpointRequestInteg
 	void toAnyEndpointShouldMatchServletEndpoint() {
 		getContextRunner().withPropertyValues("spring.security.user.password=password",
 				"management.endpoints.web.exposure.include=se1").run((context) -> {
-					WebTestClient webTestClient = getWebTestClient(context);
+					WebTestClient webTestClient = context.getWebTestClient();
 					webTestClient.get().uri("/actuator/se1").exchange().expectStatus().isUnauthorized();
 					webTestClient.get().uri("/actuator/se1").header("Authorization", getBasicAuth()).exchange()
 							.expectStatus().isOk();
@@ -85,7 +85,7 @@ class JerseyEndpointRequestIntegrationTests extends AbstractEndpointRequestInteg
 		getContextRunner().withPropertyValues("spring.jersey.application-path=/admin",
 				"spring.security.user.password=password", "management.endpoints.web.exposure.include=se1")
 				.run((context) -> {
-					WebTestClient webTestClient = getWebTestClient(context);
+					WebTestClient webTestClient = context.getWebTestClient();
 					webTestClient.get().uri("/admin/actuator/se1").exchange().expectStatus().isUnauthorized();
 					webTestClient.get().uri("/admin/actuator/se1").header("Authorization", getBasicAuth()).exchange()
 							.expectStatus().isOk();
