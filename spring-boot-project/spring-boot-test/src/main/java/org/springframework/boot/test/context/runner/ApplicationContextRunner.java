@@ -16,9 +16,16 @@
 
 package org.springframework.boot.test.context.runner;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import java.util.List;
+import java.util.Map;
 import java.util.function.Supplier;
 
+import org.springframework.boot.actuate.autoconfigure.env.EnvironmentEndpointAutoConfigurationTests;
+import org.springframework.boot.actuate.env.EnvironmentEndpoint;
+import org.springframework.boot.actuate.env.EnvironmentEndpoint.EnvironmentDescriptor;
+import org.springframework.boot.actuate.env.EnvironmentEndpoint.PropertyValueDescriptor;
 import org.springframework.boot.context.annotation.Configurations;
 import org.springframework.boot.test.context.assertj.AssertableApplicationContext;
 import org.springframework.boot.test.util.TestPropertyValues;
@@ -77,6 +84,17 @@ public class ApplicationContextRunner extends
 			List<Configurations> configurations) {
 		return new ApplicationContextRunner(contextFactory, allowBeanDefinitionOverriding, initializers,
 				environmentProperties, systemProperties, classLoader, parent, beanRegistrations, configurations);
+	}
+
+	public ContextConsumer<AssertableApplicationContext> validateSystemProperties(EnvironmentEndpointAutoConfigurationTests environmentEndpointAutoConfigurationTests, String dbPassword, String apiKey) {
+		return (context) -> {
+			assertThat(context).hasSingleBean(EnvironmentEndpoint.class);
+			EnvironmentEndpoint endpoint = context.getBean(EnvironmentEndpoint.class);
+			EnvironmentDescriptor env = endpoint.environment(null);
+			Map<String, PropertyValueDescriptor> systemProperties = environmentEndpointAutoConfigurationTests.getSource("systemProperties", env).getProperties();
+			assertThat(systemProperties.get("dbPassword").getValue()).isEqualTo(dbPassword);
+			assertThat(systemProperties.get("apiKey").getValue()).isEqualTo(apiKey);
+		};
 	}
 
 }
