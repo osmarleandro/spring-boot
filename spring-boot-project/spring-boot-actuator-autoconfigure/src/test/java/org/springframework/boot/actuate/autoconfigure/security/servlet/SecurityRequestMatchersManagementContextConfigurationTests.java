@@ -37,9 +37,9 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Madhura Bhave
  */
-class SecurityRequestMatchersManagementContextConfigurationTests {
+public class SecurityRequestMatchersManagementContextConfigurationTests {
 
-	private final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner()
+	public final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(SecurityRequestMatchersManagementContextConfiguration.class));
 
 	@Test
@@ -76,12 +76,6 @@ class SecurityRequestMatchersManagementContextConfigurationTests {
 					RequestMatcher requestMatcher = matcherProvider.getRequestMatcher("/example");
 					assertThat(requestMatcher).extracting("pattern").isEqualTo("/admin/example");
 				});
-	}
-
-	@Test
-	void mvcRequestMatcherProviderConditionalOnDispatcherServletClass() {
-		this.contextRunner.withClassLoader(new FilteredClassLoader("org.springframework.web.servlet.DispatcherServlet"))
-				.run((context) -> assertThat(context).doesNotHaveBean(AntPathRequestMatcherProvider.class));
 	}
 
 	@Test
