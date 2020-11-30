@@ -16,6 +16,9 @@
 
 package org.springframework.boot.actuate.endpoint;
 
+import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.mock;
+
 import java.util.HashSet;
 import java.util.Locale;
 import java.util.Set;
@@ -23,7 +26,8 @@ import java.util.regex.Pattern;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
+import org.springframework.boot.actuate.autoconfigure.endpoint.ExposeExcludePropertyEndpointFilterTests;
+import org.springframework.boot.actuate.autoconfigure.endpoint.ExposeExcludePropertyEndpointFilterTests.TestExposableWebEndpoint;
 import org.springframework.core.env.Environment;
 import org.springframework.util.Assert;
 
@@ -104,6 +108,13 @@ public final class EndpointId {
 	@Override
 	public String toString() {
 		return this.value;
+	}
+
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	public boolean match(ExposeExcludePropertyEndpointFilterTests exposeExcludePropertyEndpointFilterTests) {
+		ExposableEndpoint<?> endpoint = mock(TestExposableWebEndpoint.class);
+		given(endpoint.getEndpointId()).willReturn(this);
+		return ((EndpointFilter) exposeExcludePropertyEndpointFilterTests.filter).match(endpoint);
 	}
 
 	/**
