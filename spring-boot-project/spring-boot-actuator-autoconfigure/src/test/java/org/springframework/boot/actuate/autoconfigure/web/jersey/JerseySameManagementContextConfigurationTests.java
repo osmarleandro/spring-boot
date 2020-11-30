@@ -39,9 +39,10 @@ import static org.mockito.Mockito.mock;
  * @author Madhura Bhave
  */
 @ClassPathExclusions("spring-webmvc-*")
+public
 class JerseySameManagementContextConfigurationTests {
 
-	private final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner()
+	public final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(JerseySameManagementContextConfiguration.class));
 
 	@Test
@@ -72,16 +73,6 @@ class JerseySameManagementContextConfigurationTests {
 	}
 
 	@Test
-	void existingResourceConfigBeanShouldNotAutoConfigureRelatedBeans() {
-		this.contextRunner.withUserConfiguration(ConfigWithResourceConfig.class).run((context) -> {
-			assertThat(context).hasSingleBean(ResourceConfig.class);
-			assertThat(context).doesNotHaveBean(JerseyApplicationPath.class);
-			assertThat(context).doesNotHaveBean(ServletRegistrationBean.class);
-			assertThat(context).hasBean("customResourceConfig");
-		});
-	}
-
-	@Test
 	@SuppressWarnings("unchecked")
 	void servletRegistrationBeanIsAutoConfiguredWhenNeeded() {
 		this.contextRunner.withPropertyValues("spring.jersey.application-path=/jersey").run((context) -> {
@@ -101,6 +92,7 @@ class JerseySameManagementContextConfigurationTests {
 	}
 
 	@Configuration(proxyBeanMethods = false)
+	public
 	static class ConfigWithResourceConfig {
 
 		@Bean
