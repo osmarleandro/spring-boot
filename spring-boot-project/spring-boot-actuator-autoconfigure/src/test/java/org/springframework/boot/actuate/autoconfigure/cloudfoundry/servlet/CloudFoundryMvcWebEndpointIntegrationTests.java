@@ -63,11 +63,11 @@ import static org.mockito.Mockito.mock;
  *
  * @author Madhura Bhave
  */
-class CloudFoundryMvcWebEndpointIntegrationTests {
+public class CloudFoundryMvcWebEndpointIntegrationTests {
 
 	private static TokenValidator tokenValidator = mock(TokenValidator.class);
 
-	private static CloudFoundrySecurityService securityService = mock(CloudFoundrySecurityService.class);
+	public static CloudFoundrySecurityService securityService = mock(CloudFoundrySecurityService.class);
 
 	@Test
 	void operationWithSecurityInterceptorForbidden() {
@@ -76,15 +76,6 @@ class CloudFoundryMvcWebEndpointIntegrationTests {
 				(client) -> client.get().uri("/cfApplication/test").accept(MediaType.APPLICATION_JSON)
 						.header("Authorization", "bearer " + mockAccessToken()).exchange().expectStatus()
 						.isEqualTo(HttpStatus.FORBIDDEN));
-	}
-
-	@Test
-	void operationWithSecurityInterceptorSuccess() {
-		given(securityService.getAccessLevel(any(), eq("app-id"))).willReturn(AccessLevel.FULL);
-		load(TestEndpointConfiguration.class,
-				(client) -> client.get().uri("/cfApplication/test").accept(MediaType.APPLICATION_JSON)
-						.header("Authorization", "bearer " + mockAccessToken()).exchange().expectStatus()
-						.isEqualTo(HttpStatus.OK));
 	}
 
 	@Test
@@ -142,7 +133,7 @@ class CloudFoundryMvcWebEndpointIntegrationTests {
 		return context.getWebServer().getPort();
 	}
 
-	private void load(Class<?> configuration, Consumer<WebTestClient> clientConsumer) {
+	public void load(Class<?> configuration, Consumer<WebTestClient> clientConsumer) {
 		BiConsumer<ApplicationContext, WebTestClient> consumer = (context, client) -> clientConsumer.accept(client);
 		try (AnnotationConfigServletWebServerApplicationContext context = createApplicationContext(configuration,
 				CloudFoundryMvcConfiguration.class)) {
@@ -151,7 +142,7 @@ class CloudFoundryMvcWebEndpointIntegrationTests {
 		}
 	}
 
-	private String mockAccessToken() {
+	public String mockAccessToken() {
 		return "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ0b3B0YWwu"
 				+ "Y29tIiwiZXhwIjoxNDI2NDIwODAwLCJhd2Vzb21lIjp0cnVlfQ."
 				+ Base64Utils.encodeToString("signature".getBytes());
@@ -258,6 +249,7 @@ class CloudFoundryMvcWebEndpointIntegrationTests {
 
 	@Configuration(proxyBeanMethods = false)
 	@Import(CloudFoundryMvcConfiguration.class)
+	public
 	static class TestEndpointConfiguration {
 
 		@Bean
