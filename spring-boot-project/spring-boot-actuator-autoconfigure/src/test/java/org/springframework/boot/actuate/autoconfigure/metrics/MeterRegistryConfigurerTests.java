@@ -47,16 +47,17 @@ import static org.mockito.Mockito.verifyNoInteractions;
  * @author Andy Wilkinson
  */
 @ExtendWith(MockitoExtension.class)
+public
 class MeterRegistryConfigurerTests {
 
-	private List<MeterBinder> binders = new ArrayList<>();
+	public List<MeterBinder> binders = new ArrayList<>();
 
-	private List<MeterFilter> filters = new ArrayList<>();
+	public List<MeterFilter> filters = new ArrayList<>();
 
-	private List<MeterRegistryCustomizer<?>> customizers = new ArrayList<>();
+	public List<MeterRegistryCustomizer<?>> customizers = new ArrayList<>();
 
 	@Mock
-	private MeterBinder mockBinder;
+	public MeterBinder mockBinder;
 
 	@Mock
 	private MeterFilter mockFilter;
@@ -65,10 +66,10 @@ class MeterRegistryConfigurerTests {
 	private MeterRegistryCustomizer<MeterRegistry> mockCustomizer;
 
 	@Mock
-	private MeterRegistry mockRegistry;
+	public MeterRegistry mockRegistry;
 
 	@Mock
-	private Config mockConfig;
+	public Config mockConfig;
 
 	@Test
 	void configureWhenCompositeShouldApplyCustomizer() {
@@ -98,16 +99,6 @@ class MeterRegistryConfigurerTests {
 				createObjectProvider(this.filters), createObjectProvider(this.binders), false, false);
 		configurer.configure(this.mockRegistry);
 		verify(this.mockConfig).meterFilter(this.mockFilter);
-	}
-
-	@Test
-	void configureShouldApplyBinder() {
-		given(this.mockRegistry.config()).willReturn(this.mockConfig);
-		this.binders.add(this.mockBinder);
-		MeterRegistryConfigurer configurer = new MeterRegistryConfigurer(createObjectProvider(this.customizers),
-				createObjectProvider(this.filters), createObjectProvider(this.binders), false, false);
-		configurer.configure(this.mockRegistry);
-		verify(this.mockBinder).bindTo(this.mockRegistry);
 	}
 
 	@Test
@@ -168,7 +159,7 @@ class MeterRegistryConfigurerTests {
 	}
 
 	@SuppressWarnings("unchecked")
-	private <T> ObjectProvider<T> createObjectProvider(List<T> objects) {
+	public <T> ObjectProvider<T> createObjectProvider(List<T> objects) {
 		ObjectProvider<T> objectProvider = mock(ObjectProvider.class);
 		given(objectProvider.orderedStream()).willReturn(objects.stream());
 		return objectProvider;
