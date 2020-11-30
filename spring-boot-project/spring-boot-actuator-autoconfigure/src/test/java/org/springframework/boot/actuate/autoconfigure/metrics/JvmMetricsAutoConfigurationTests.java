@@ -36,9 +36,9 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Andy Wilkinson
  * @author Stephane Nicoll
  */
-class JvmMetricsAutoConfigurationTests {
+public class JvmMetricsAutoConfigurationTests {
 
-	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner().with(MetricsRun.simple())
+	public final ApplicationContextRunner contextRunner = new ApplicationContextRunner().with(MetricsRun.simple())
 			.withConfiguration(AutoConfigurations.of(JvmMetricsAutoConfiguration.class));
 
 	@Test
@@ -72,14 +72,6 @@ class JvmMetricsAutoConfigurationTests {
 						.hasSingleBean(ClassLoaderMetrics.class).hasBean("customJvmThreadMetrics"));
 	}
 
-	@Test
-	void allowsCustomClassLoaderMetricsToBeUsed() {
-		this.contextRunner.withUserConfiguration(CustomClassLoaderMetricsConfiguration.class)
-				.run((context) -> assertThat(context).hasSingleBean(JvmGcMetrics.class)
-						.hasSingleBean(JvmMemoryMetrics.class).hasSingleBean(JvmThreadMetrics.class)
-						.hasSingleBean(ClassLoaderMetrics.class).hasBean("customClassLoaderMetrics"));
-	}
-
 	@Configuration(proxyBeanMethods = false)
 	static class CustomJvmGcMetricsConfiguration {
 
@@ -111,6 +103,7 @@ class JvmMetricsAutoConfigurationTests {
 	}
 
 	@Configuration(proxyBeanMethods = false)
+	public
 	static class CustomClassLoaderMetricsConfiguration {
 
 		@Bean
