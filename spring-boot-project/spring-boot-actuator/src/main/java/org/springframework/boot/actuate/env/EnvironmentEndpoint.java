@@ -31,6 +31,8 @@ import org.springframework.boot.actuate.endpoint.Sanitizer;
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
 import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
 import org.springframework.boot.actuate.endpoint.annotation.Selector;
+import org.springframework.boot.actuate.env.EnvironmentEndpoint.EnvironmentDescriptor;
+import org.springframework.boot.actuate.env.EnvironmentEndpoint.PropertySourceDescriptor;
 import org.springframework.boot.context.properties.bind.PlaceholdersResolver;
 import org.springframework.boot.context.properties.bind.PropertySourcesPlaceholdersResolver;
 import org.springframework.boot.context.properties.source.ConfigurationPropertySources;
@@ -227,6 +229,11 @@ public class EnvironmentEndpoint {
 
 		public List<PropertySourceDescriptor> getPropertySources() {
 			return this.propertySources;
+		}
+
+		public PropertySourceDescriptor getSource(String name) {
+			return getPropertySources().stream().filter((source) -> name.equals(source.getName())).findFirst()
+					.get();
 		}
 
 	}

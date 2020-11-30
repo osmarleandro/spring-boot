@@ -22,7 +22,6 @@ import org.junit.jupiter.api.Test;
 
 import org.springframework.boot.actuate.env.EnvironmentEndpoint;
 import org.springframework.boot.actuate.env.EnvironmentEndpoint.EnvironmentDescriptor;
-import org.springframework.boot.actuate.env.EnvironmentEndpoint.PropertySourceDescriptor;
 import org.springframework.boot.actuate.env.EnvironmentEndpoint.PropertyValueDescriptor;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
 import org.springframework.boot.test.context.assertj.AssertableApplicationContext;
@@ -72,15 +71,10 @@ class EnvironmentEndpointAutoConfigurationTests {
 			assertThat(context).hasSingleBean(EnvironmentEndpoint.class);
 			EnvironmentEndpoint endpoint = context.getBean(EnvironmentEndpoint.class);
 			EnvironmentDescriptor env = endpoint.environment(null);
-			Map<String, PropertyValueDescriptor> systemProperties = getSource("systemProperties", env).getProperties();
+			Map<String, PropertyValueDescriptor> systemProperties = env.getSource("systemProperties").getProperties();
 			assertThat(systemProperties.get("dbPassword").getValue()).isEqualTo(dbPassword);
 			assertThat(systemProperties.get("apiKey").getValue()).isEqualTo(apiKey);
 		};
-	}
-
-	private PropertySourceDescriptor getSource(String name, EnvironmentDescriptor descriptor) {
-		return descriptor.getPropertySources().stream().filter((source) -> name.equals(source.getName())).findFirst()
-				.get();
 	}
 
 }
