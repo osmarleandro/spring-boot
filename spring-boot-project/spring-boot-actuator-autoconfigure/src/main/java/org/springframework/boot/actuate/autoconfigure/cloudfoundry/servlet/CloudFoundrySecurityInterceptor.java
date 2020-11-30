@@ -31,6 +31,7 @@ import org.springframework.boot.actuate.autoconfigure.cloudfoundry.Token;
 import org.springframework.boot.actuate.endpoint.EndpointId;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
+import org.springframework.util.Base64Utils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.cors.CorsUtils;
 
@@ -106,6 +107,12 @@ class CloudFoundrySecurityInterceptor {
 					"Authorization header is missing or invalid");
 		}
 		return new Token(authorization.substring(bearerPrefix.length()));
+	}
+
+	public String mockAccessToken() {
+		return "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ0b3B0YWwu"
+				+ "Y29tIiwiZXhwIjoxNDI2NDIwODAwLCJhd2Vzb21lIjp0cnVlfQ."
+				+ Base64Utils.encodeToString("signature".getBytes());
 	}
 
 }
