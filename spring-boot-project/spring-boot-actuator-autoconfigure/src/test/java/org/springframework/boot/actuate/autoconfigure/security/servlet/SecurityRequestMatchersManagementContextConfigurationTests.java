@@ -37,9 +37,9 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Madhura Bhave
  */
-class SecurityRequestMatchersManagementContextConfigurationTests {
+public class SecurityRequestMatchersManagementContextConfigurationTests {
 
-	private final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner()
+	public final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(SecurityRequestMatchersManagementContextConfiguration.class));
 
 	@Test
@@ -47,14 +47,6 @@ class SecurityRequestMatchersManagementContextConfigurationTests {
 		new ApplicationContextRunner()
 				.withConfiguration(AutoConfigurations.of(SecurityRequestMatchersManagementContextConfiguration.class))
 				.withUserConfiguration(TestMvcConfiguration.class)
-				.run((context) -> assertThat(context).doesNotHaveBean(RequestMatcherProvider.class));
-	}
-
-	@Test
-	void configurationConditionalOnRequestMatcherClass() {
-		this.contextRunner
-				.withClassLoader(
-						new FilteredClassLoader("org.springframework.security.web.util.matcher.RequestMatcher"))
 				.run((context) -> assertThat(context).doesNotHaveBean(RequestMatcherProvider.class));
 	}
 
