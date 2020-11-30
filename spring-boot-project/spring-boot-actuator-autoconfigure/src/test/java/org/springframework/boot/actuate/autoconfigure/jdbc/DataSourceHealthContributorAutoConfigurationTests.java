@@ -46,9 +46,9 @@ import static org.mockito.Mockito.mock;
  * @author Phillip Webb
  * @author Julio Gomez
  */
-class DataSourceHealthContributorAutoConfigurationTests {
+public class DataSourceHealthContributorAutoConfigurationTests {
 
-	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
+	public final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(DataSourceAutoConfiguration.class,
 					HealthContributorAutoConfiguration.class, DataSourceHealthContributorAutoConfiguration.class))
 			.withPropertyValues("spring.datasource.initialization-mode=never");
@@ -100,14 +100,6 @@ class DataSourceHealthContributorAutoConfigurationTests {
 	}
 
 	@Test
-	void runWithOnlyRoutingDataSourceShouldCrashWhenIgnored() {
-		this.contextRunner.withUserConfiguration(RoutingDataSourceConfig.class)
-				.withPropertyValues("management.health.db.ignore-routing-datasources:true")
-				.run((context) -> assertThat(context).hasFailed().getFailure()
-						.hasRootCauseInstanceOf(IllegalArgumentException.class));
-	}
-
-	@Test
 	void runWithValidationQueryPropertyShouldUseCustomQuery() {
 		this.contextRunner
 				.withUserConfiguration(DataSourceConfig.class, DataSourcePoolMetadataProvidersConfiguration.class)
@@ -140,6 +132,7 @@ class DataSourceHealthContributorAutoConfigurationTests {
 	}
 
 	@Configuration(proxyBeanMethods = false)
+	public
 	static class RoutingDataSourceConfig {
 
 		@Bean
