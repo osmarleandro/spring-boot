@@ -16,9 +16,18 @@
 
 package org.springframework.boot.test.context.runner;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import java.util.List;
 import java.util.function.Supplier;
 
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.actuate.autoconfigure.jdbc.DataSourceHealthContributorAutoConfiguration.RoutingDataSourceHealthIndicator;
+import org.springframework.boot.actuate.autoconfigure.jdbc.DataSourceHealthContributorAutoConfigurationTests;
+import org.springframework.boot.actuate.autoconfigure.jdbc.DataSourceHealthContributorAutoConfigurationTests.RoutingDataSourceConfig;
+import org.springframework.boot.actuate.health.CompositeHealthContributor;
+import org.springframework.boot.actuate.jdbc.DataSourceHealthIndicator;
+import org.springframework.boot.autoconfigure.jdbc.EmbeddedDataSourceConfiguration;
 import org.springframework.boot.context.annotation.Configurations;
 import org.springframework.boot.test.context.assertj.AssertableApplicationContext;
 import org.springframework.boot.test.util.TestPropertyValues;
@@ -77,6 +86,18 @@ public class ApplicationContextRunner extends
 			List<Configurations> configurations) {
 		return new ApplicationContextRunner(contextFactory, allowBeanDefinitionOverriding, initializers,
 				environmentProperties, systemProperties, classLoader, parent, beanRegistrations, configurations);
+	}
+
+	@Test
+	public
+	void runWithRoutingAndEmbeddedDataSourceShouldIncludeRoutingDataSource(DataSourceHealthContributorAutoConfigurationTests dataSourceHealthContributorAutoConfigurationTests) {
+		withUserConfiguration(EmbeddedDataSourceConfiguration.class, RoutingDataSourceConfig.class)
+				.run((context) -> {
+					CompositeHealthContributor composite = context.getBean(CompositeHealthContributor.class);
+					assertThat(composite.getContributor("dataSource")).isInstanceOf(DataSourceHealthIndicator.class);
+					assertThat(composite.getContributor("routingDataSource"))
+							.isInstanceOf(RoutingDataSourceHealthIndicator.class);
+				});
 	}
 
 }

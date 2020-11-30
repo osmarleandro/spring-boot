@@ -46,9 +46,9 @@ import static org.mockito.Mockito.mock;
  * @author Phillip Webb
  * @author Julio Gomez
  */
-class DataSourceHealthContributorAutoConfigurationTests {
+public class DataSourceHealthContributorAutoConfigurationTests {
 
-	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
+	public final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(DataSourceAutoConfiguration.class,
 					HealthContributorAutoConfiguration.class, DataSourceHealthContributorAutoConfiguration.class))
 			.withPropertyValues("spring.datasource.initialization-mode=never");
@@ -69,17 +69,6 @@ class DataSourceHealthContributorAutoConfigurationTests {
 					CompositeHealthContributor contributor = context.getBean(CompositeHealthContributor.class);
 					String[] names = contributor.stream().map(NamedContributor::getName).toArray(String[]::new);
 					assertThat(names).containsExactlyInAnyOrder("dataSource", "testDataSource");
-				});
-	}
-
-	@Test
-	void runWithRoutingAndEmbeddedDataSourceShouldIncludeRoutingDataSource() {
-		this.contextRunner.withUserConfiguration(EmbeddedDataSourceConfiguration.class, RoutingDataSourceConfig.class)
-				.run((context) -> {
-					CompositeHealthContributor composite = context.getBean(CompositeHealthContributor.class);
-					assertThat(composite.getContributor("dataSource")).isInstanceOf(DataSourceHealthIndicator.class);
-					assertThat(composite.getContributor("routingDataSource"))
-							.isInstanceOf(RoutingDataSourceHealthIndicator.class);
 				});
 	}
 
@@ -140,6 +129,7 @@ class DataSourceHealthContributorAutoConfigurationTests {
 	}
 
 	@Configuration(proxyBeanMethods = false)
+	public
 	static class RoutingDataSourceConfig {
 
 		@Bean

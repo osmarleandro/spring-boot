@@ -111,7 +111,7 @@ public class DataSourceHealthContributorAutoConfiguration extends
 	 * {@link HealthIndicator} used for {@link AbstractRoutingDataSource} beans where we
 	 * can't actually query for the status.
 	 */
-	static class RoutingDataSourceHealthIndicator extends AbstractHealthIndicator {
+	public static class RoutingDataSourceHealthIndicator extends AbstractHealthIndicator {
 
 		@Override
 		protected void doHealthCheck(Builder builder) throws Exception {
