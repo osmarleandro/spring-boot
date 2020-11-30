@@ -19,14 +19,11 @@ package org.springframework.boot.actuate.autoconfigure.web.servlet;
 import java.util.Collections;
 import java.util.Map;
 import java.util.function.Consumer;
-import java.util.function.Function;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
 
 import org.junit.jupiter.api.Test;
-import reactor.core.publisher.Mono;
-
 import org.springframework.boot.actuate.autoconfigure.endpoint.EndpointAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.web.server.ManagementContextAutoConfiguration;
@@ -42,13 +39,11 @@ import org.springframework.boot.test.context.runner.ContextConsumer;
 import org.springframework.boot.test.context.runner.WebApplicationContextRunner;
 import org.springframework.boot.web.context.ServerPortInfoApplicationContextInitializer;
 import org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext;
-import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.reactive.function.client.ClientResponse;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -78,7 +73,7 @@ class WebMvcEndpointChildContextConfigurationIntegrationTests {
 	void errorEndpointIsUsedWithEndpoint() {
 		this.runner.run(withWebTestClient((client) -> {
 			Map<String, ?> body = client.get().uri("actuator/fail").accept(MediaType.APPLICATION_JSON)
-					.exchangeToMono(toResponseBody()).block();
+					.exchangeToMono(runner.toResponseBody()).block();
 			assertThat(body).hasEntrySatisfying("exception",
 					(value) -> assertThat(value).asString().contains("IllegalStateException"));
 			assertThat(body).hasEntrySatisfying("message",
@@ -91,7 +86,7 @@ class WebMvcEndpointChildContextConfigurationIntegrationTests {
 		this.runner.withPropertyValues("server.error.include-stacktrace=always", "server.error.include-message=always")
 				.run(withWebTestClient((client) -> {
 					Map<String, ?> body = client.get().uri("actuator/fail").accept(MediaType.APPLICATION_JSON)
-							.exchangeToMono(toResponseBody()).block();
+							.exchangeToMono(runner.toResponseBody()).block();
 					assertThat(body).hasEntrySatisfying("message",
 							(value) -> assertThat(value).asString().contains("Epic Fail"));
 					assertThat(body).hasEntrySatisfying("trace", (value) -> assertThat(value).asString()
@@ -103,7 +98,7 @@ class WebMvcEndpointChildContextConfigurationIntegrationTests {
 	void errorEndpointIsUsedWithRestControllerEndpoint() {
 		this.runner.run(withWebTestClient((client) -> {
 			Map<String, ?> body = client.get().uri("actuator/failController").accept(MediaType.APPLICATION_JSON)
-					.exchangeToMono(toResponseBody()).block();
+					.exchangeToMono(runner.toResponseBody()).block();
 			assertThat(body).hasEntrySatisfying("exception",
 					(value) -> assertThat(value).asString().contains("IllegalStateException"));
 			assertThat(body).hasEntrySatisfying("message",
@@ -116,7 +111,7 @@ class WebMvcEndpointChildContextConfigurationIntegrationTests {
 		this.runner.run(withWebTestClient((client) -> {
 			Map<String, ?> body = client.post().uri("actuator/failController")
 					.bodyValue(Collections.singletonMap("content", "")).accept(MediaType.APPLICATION_JSON)
-					.exchangeToMono(toResponseBody()).block();
+					.exchangeToMono(runner.toResponseBody()).block();
 			assertThat(body).hasEntrySatisfying("exception",
 					(value) -> assertThat(value).asString().contains("MethodArgumentNotValidException"));
 			assertThat(body).hasEntrySatisfying("message",
@@ -131,11 +126,6 @@ class WebMvcEndpointChildContextConfigurationIntegrationTests {
 			WebClient client = WebClient.create("http://localhost:" + port);
 			webClient.accept(client);
 		};
-	}
-
-	private Function<ClientResponse, ? extends Mono<Map<String, ?>>> toResponseBody() {
-		return ((clientResponse) -> clientResponse.bodyToMono(new ParameterizedTypeReference<Map<String, ?>>() {
-		}));
 	}
 
 	@Endpoint(id = "fail")

@@ -17,6 +17,8 @@
 package org.springframework.boot.test.context.runner;
 
 import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
 import java.util.function.Supplier;
 
 import org.springframework.boot.context.annotation.Configurations;
@@ -25,9 +27,13 @@ import org.springframework.boot.test.util.TestPropertyValues;
 import org.springframework.boot.web.servlet.context.AnnotationConfigServletWebApplicationContext;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextInitializer;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.mock.web.MockServletContext;
 import org.springframework.web.context.ConfigurableWebApplicationContext;
 import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.reactive.function.client.ClientResponse;
+
+import reactor.core.publisher.Mono;
 
 /**
  * An {@link AbstractApplicationContextRunner ApplicationContext runner} for a Servlet
@@ -81,6 +87,11 @@ public final class WebApplicationContextRunner extends
 			List<Configurations> configurations) {
 		return new WebApplicationContextRunner(contextFactory, allowBeanDefinitionOverriding, initializers,
 				environmentProperties, systemProperties, classLoader, parent, beanRegistrations, configurations);
+	}
+
+	public Function<ClientResponse, ? extends Mono<Map<String, ?>>> toResponseBody() {
+		return ((clientResponse) -> clientResponse.bodyToMono(new ParameterizedTypeReference<Map<String, ?>>() {
+		}));
 	}
 
 	/**
