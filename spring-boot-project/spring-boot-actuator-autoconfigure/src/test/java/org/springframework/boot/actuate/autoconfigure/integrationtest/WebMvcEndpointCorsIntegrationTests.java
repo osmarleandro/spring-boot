@@ -161,15 +161,7 @@ class WebMvcEndpointCorsIntegrationTests {
 	}
 
 	private ResultActions performAcceptedCorsRequest(MockMvc mockMvc) throws Exception {
-		return performAcceptedCorsRequest(mockMvc, "/actuator/beans");
-	}
-
-	private ResultActions performAcceptedCorsRequest(MockMvc mockMvc, String url) throws Exception {
-		return mockMvc
-				.perform(options(url).header(HttpHeaders.ORIGIN, "foo.example.com")
-						.header(HttpHeaders.ACCESS_CONTROL_REQUEST_METHOD, "GET"))
-				.andExpect(header().string(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN, "foo.example.com"))
-				.andExpect(status().isOk());
+		return contextRunner.performAcceptedCorsRequest(mockMvc, "/actuator/beans");
 	}
 
 	@FunctionalInterface
