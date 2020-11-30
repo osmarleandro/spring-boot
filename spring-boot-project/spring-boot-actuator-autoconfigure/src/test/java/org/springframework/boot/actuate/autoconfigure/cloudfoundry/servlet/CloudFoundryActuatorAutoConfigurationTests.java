@@ -51,23 +51,19 @@ import org.springframework.security.config.BeanIds;
 import org.springframework.security.web.FilterChainProxy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.test.util.ReflectionTestUtils;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.cors.CorsConfiguration;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
 
 /**
  * Tests for {@link CloudFoundryActuatorAutoConfiguration}.
  *
  * @author Madhura Bhave
  */
-class CloudFoundryActuatorAutoConfigurationTests {
+public class CloudFoundryActuatorAutoConfigurationTests {
 
-	private final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner()
+	public final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(SecurityAutoConfiguration.class, WebMvcAutoConfiguration.class,
 					JacksonAutoConfiguration.class, DispatcherServletAutoConfiguration.class,
 					HttpMessageConvertersAutoConfiguration.class, PropertyPlaceholderAutoConfiguration.class,
@@ -90,16 +86,6 @@ class CloudFoundryActuatorAutoConfigurationTests {
 							.containsAll(Arrays.asList(HttpMethod.GET.name(), HttpMethod.POST.name()));
 					assertThat(corsConfiguration.getAllowedHeaders())
 							.containsAll(Arrays.asList("Authorization", "X-Cf-App-Instance", "Content-Type"));
-				});
-	}
-
-	@Test
-	void cloudfoundryapplicationProducesActuatorMediaType() throws Exception {
-		this.contextRunner.withPropertyValues("VCAP_APPLICATION:---", "vcap.application.application_id:my-app-id",
-				"vcap.application.cf_api:https://my-cloud-controller.com").run((context) -> {
-					MockMvc mockMvc = MockMvcBuilders.webAppContextSetup(context).build();
-					mockMvc.perform(get("/cloudfoundryapplication"))
-							.andExpect(header().string("Content-Type", ActuatorMediaType.V3_JSON));
 				});
 	}
 
