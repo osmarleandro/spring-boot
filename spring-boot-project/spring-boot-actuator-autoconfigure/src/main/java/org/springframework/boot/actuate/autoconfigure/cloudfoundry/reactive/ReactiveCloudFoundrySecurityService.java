@@ -26,6 +26,7 @@ import io.netty.handler.ssl.util.InsecureTrustManagerFactory;
 import reactor.core.publisher.Mono;
 import reactor.netty.http.client.HttpClient;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.AccessLevel;
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.CloudFoundryAuthorizationException;
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.CloudFoundryAuthorizationException.Reason;
@@ -146,6 +147,13 @@ class ReactiveCloudFoundrySecurityService {
 				.onErrorMap((ex) -> new CloudFoundryAuthorizationException(Reason.SERVICE_UNAVAILABLE,
 						"Unable to fetch token keys from UAA."));
 		return this.uaaUrl;
+	}
+
+	@BeforeEach
+	void setup(ReactiveTokenValidatorTests reactiveTokenValidatorTests) {
+		ReactiveTokenValidatorTests.VALID_KEYS.put("valid-key", ReactiveTokenValidatorTests.VALID_KEY);
+		ReactiveTokenValidatorTests.INVALID_KEYS.put("invalid-key", ReactiveTokenValidatorTests.INVALID_KEY);
+		reactiveTokenValidatorTests.tokenValidator = new ReactiveTokenValidator(this);
 	}
 
 }

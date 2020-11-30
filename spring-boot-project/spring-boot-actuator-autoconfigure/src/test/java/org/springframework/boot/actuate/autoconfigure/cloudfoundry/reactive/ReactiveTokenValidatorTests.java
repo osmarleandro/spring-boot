@@ -29,7 +29,6 @@ import java.util.Collections;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
@@ -54,16 +53,17 @@ import static org.mockito.BDDMockito.given;
  * @author Madhura Bhave
  */
 @ExtendWith(MockitoExtension.class)
+public
 class ReactiveTokenValidatorTests {
 
 	private static final byte[] DOT = ".".getBytes();
 
 	@Mock
-	private ReactiveCloudFoundrySecurityService securityService;
+	public ReactiveCloudFoundrySecurityService securityService;
 
-	private ReactiveTokenValidator tokenValidator;
+	public ReactiveTokenValidator tokenValidator;
 
-	private static final String VALID_KEY = "-----BEGIN PUBLIC KEY-----\n"
+	public static final String VALID_KEY = "-----BEGIN PUBLIC KEY-----\n"
 			+ "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA0m59l2u9iDnMbrXHfqkO\n"
 			+ "rn2dVQ3vfBJqcDuFUK03d+1PZGbVlNCqnkpIJ8syFppW8ljnWweP7+LiWpRoz0I7\n"
 			+ "fYb3d8TjhV86Y997Fl4DBrxgM6KTJOuE/uxnoDhZQ14LgOU2ckXjOzOdTsnGMKQB\n"
@@ -72,7 +72,7 @@ class ReactiveTokenValidatorTests {
 			+ "jfj9Cw2QICsc5+Pwf21fP+hzf+1WSRHbnYv8uanRO0gZ8ekGaghM/2H6gqJbo2nI\n"
 			+ "JwIDAQAB\n-----END PUBLIC KEY-----";
 
-	private static final String INVALID_KEY = "-----BEGIN PUBLIC KEY-----\n"
+	public static final String INVALID_KEY = "-----BEGIN PUBLIC KEY-----\n"
 			+ "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAxzYuc22QSst/dS7geYYK\n"
 			+ "5l5kLxU0tayNdixkEQ17ix+CUcUbKIsnyftZxaCYT46rQtXgCaYRdJcbB3hmyrOa\n"
 			+ "vkhTpX79xJZnQmfuamMbZBqitvscxW9zRR9tBUL6vdi/0rpoUwPMEh8+Bw7CgYR0\n"
@@ -81,16 +81,9 @@ class ReactiveTokenValidatorTests {
 			+ "r3F7aM9YpErzeYLrl0GhQr9BVJxOvXcVd4kmY+XkiCcrkyS1cnghnllh+LCwQu1s\n"
 			+ "YwIDAQAB\n-----END PUBLIC KEY-----";
 
-	private static final Map<String, String> INVALID_KEYS = new ConcurrentHashMap<>();
+	public static final Map<String, String> INVALID_KEYS = new ConcurrentHashMap<>();
 
-	private static final Map<String, String> VALID_KEYS = new ConcurrentHashMap<>();
-
-	@BeforeEach
-	void setup() {
-		VALID_KEYS.put("valid-key", VALID_KEY);
-		INVALID_KEYS.put("invalid-key", INVALID_KEY);
-		this.tokenValidator = new ReactiveTokenValidator(this.securityService);
-	}
+	public static final Map<String, String> VALID_KEYS = new ConcurrentHashMap<>();
 
 	@Test
 	void validateTokenWhenKidValidationFailsTwiceShouldThrowException() throws Exception {
