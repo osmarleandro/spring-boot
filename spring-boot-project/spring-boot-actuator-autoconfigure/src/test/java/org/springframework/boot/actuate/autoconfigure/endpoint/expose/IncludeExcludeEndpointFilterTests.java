@@ -19,8 +19,6 @@ package org.springframework.boot.actuate.autoconfigure.endpoint.expose;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
-
-import org.springframework.boot.actuate.endpoint.EndpointFilter;
 import org.springframework.boot.actuate.endpoint.EndpointId;
 import org.springframework.boot.actuate.endpoint.ExposableEndpoint;
 import org.springframework.boot.actuate.endpoint.web.ExposableWebEndpoint;
@@ -28,8 +26,6 @@ import org.springframework.mock.env.MockEnvironment;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
-import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.mock;
 
 /**
  * Tests for {@link IncludeExcludeEndpointFilter}.
@@ -37,9 +33,10 @@ import static org.mockito.Mockito.mock;
  * @author Phillip Webb
  */
 @ExtendWith(MockitoExtension.class)
+public
 class IncludeExcludeEndpointFilterTests {
 
-	private IncludeExcludeEndpointFilter<?> filter;
+	public IncludeExcludeEndpointFilter<?> filter;
 
 	@Test
 	void createWhenEndpointTypeIsNullShouldThrowException() {
@@ -74,43 +71,43 @@ class IncludeExcludeEndpointFilterTests {
 	@Test
 	void matchWhenExposeIsEmptyAndExcludeIsEmptyAndInDefaultShouldMatch() {
 		setupFilter("", "");
-		assertThat(match(EndpointId.of("def"))).isTrue();
+		assertThat(EndpointId.of("def").match(this)).isTrue();
 	}
 
 	@Test
 	void matchWhenExposeIsEmptyAndExcludeIsEmptyAndNotInDefaultShouldNotMatch() {
 		setupFilter("", "");
-		assertThat(match(EndpointId.of("bar"))).isFalse();
+		assertThat(EndpointId.of("bar").match(this)).isFalse();
 	}
 
 	@Test
 	void matchWhenExposeMatchesAndExcludeIsEmptyShouldMatch() {
 		setupFilter("bar", "");
-		assertThat(match(EndpointId.of("bar"))).isTrue();
+		assertThat(EndpointId.of("bar").match(this)).isTrue();
 	}
 
 	@Test
 	void matchWhenExposeDoesNotMatchAndExcludeIsEmptyShouldNotMatch() {
 		setupFilter("bar", "");
-		assertThat(match(EndpointId.of("baz"))).isFalse();
+		assertThat(EndpointId.of("baz").match(this)).isFalse();
 	}
 
 	@Test
 	void matchWhenExposeMatchesAndExcludeMatchesShouldNotMatch() {
 		setupFilter("bar,baz", "baz");
-		assertThat(match(EndpointId.of("baz"))).isFalse();
+		assertThat(EndpointId.of("baz").match(this)).isFalse();
 	}
 
 	@Test
 	void matchWhenExposeMatchesAndExcludeDoesNotMatchShouldMatch() {
 		setupFilter("bar,baz", "buz");
-		assertThat(match(EndpointId.of("baz"))).isTrue();
+		assertThat(EndpointId.of("baz").match(this)).isTrue();
 	}
 
 	@Test
 	void matchWhenExposeMatchesWithDifferentCaseShouldMatch() {
 		setupFilter("bar", "");
-		assertThat(match(EndpointId.of("bAr"))).isTrue();
+		assertThat(EndpointId.of("bAr").match(this)).isTrue();
 	}
 
 	@Test
@@ -125,29 +122,29 @@ class IncludeExcludeEndpointFilterTests {
 	@Test
 	void matchWhenIncludeIsAsteriskShouldMatchAll() {
 		setupFilter("*", "buz");
-		assertThat(match(EndpointId.of("bar"))).isTrue();
-		assertThat(match(EndpointId.of("baz"))).isTrue();
-		assertThat(match(EndpointId.of("buz"))).isFalse();
+		assertThat(EndpointId.of("bar").match(this)).isTrue();
+		assertThat(EndpointId.of("baz").match(this)).isTrue();
+		assertThat(EndpointId.of("buz").match(this)).isFalse();
 	}
 
 	@Test
 	void matchWhenExcludeIsAsteriskShouldMatchNone() {
 		setupFilter("bar,baz,buz", "*");
-		assertThat(match(EndpointId.of("bar"))).isFalse();
-		assertThat(match(EndpointId.of("baz"))).isFalse();
-		assertThat(match(EndpointId.of("buz"))).isFalse();
+		assertThat(EndpointId.of("bar").match(this)).isFalse();
+		assertThat(EndpointId.of("baz").match(this)).isFalse();
+		assertThat(EndpointId.of("buz").match(this)).isFalse();
 	}
 
 	@Test
 	void matchWhenMixedCaseShouldMatch() {
 		setupFilter("foo-bar", "");
-		assertThat(match(EndpointId.of("fooBar"))).isTrue();
+		assertThat(EndpointId.of("fooBar").match(this)).isTrue();
 	}
 
 	@Test // gh-20997
 	void matchWhenDashInName() throws Exception {
 		setupFilter("bus-refresh", "");
-		assertThat(match(EndpointId.of("bus-refresh"))).isTrue();
+		assertThat(EndpointId.of("bus-refresh").match(this)).isTrue();
 	}
 
 	private void setupFilter(String include, String exclude) {
@@ -163,14 +160,10 @@ class IncludeExcludeEndpointFilterTests {
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	private boolean match(EndpointId id) {
-		ExposableEndpoint<?> endpoint = mock(TestExposableWebEndpoint.class);
-		if (id != null) {
-			given(endpoint.getEndpointId()).willReturn(id);
-		}
-		return ((EndpointFilter) this.filter).match(endpoint);
+		return id.match(this);
 	}
 
-	abstract static class TestExposableWebEndpoint implements ExposableWebEndpoint {
+	public abstract static class TestExposableWebEndpoint implements ExposableWebEndpoint {
 
 	}
 
