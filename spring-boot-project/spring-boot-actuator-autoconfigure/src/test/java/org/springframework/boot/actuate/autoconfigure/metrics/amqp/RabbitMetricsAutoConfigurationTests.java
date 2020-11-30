@@ -24,16 +24,14 @@ import org.springframework.boot.autoconfigure.AutoConfigurations;
 import org.springframework.boot.autoconfigure.amqp.RabbitAutoConfiguration;
 import org.springframework.boot.test.context.runner.ApplicationContextRunner;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 /**
  * Tests for {@link RabbitMetricsAutoConfiguration}.
  *
  * @author Stephane Nicoll
  */
-class RabbitMetricsAutoConfigurationTests {
+public class RabbitMetricsAutoConfigurationTests {
 
-	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner().with(MetricsRun.simple())
+	public final ApplicationContextRunner contextRunner = new ApplicationContextRunner().with(MetricsRun.simple())
 			.withConfiguration(
 					AutoConfigurations.of(RabbitAutoConfiguration.class, RabbitMetricsAutoConfiguration.class));
 
@@ -42,14 +40,6 @@ class RabbitMetricsAutoConfigurationTests {
 		this.contextRunner.run((context) -> {
 			MeterRegistry registry = context.getBean(MeterRegistry.class);
 			registry.get("rabbitmq.connections").meter();
-		});
-	}
-
-	@Test
-	void rabbitmqNativeConnectionFactoryInstrumentationCanBeDisabled() {
-		this.contextRunner.withPropertyValues("management.metrics.enable.rabbitmq=false").run((context) -> {
-			MeterRegistry registry = context.getBean(MeterRegistry.class);
-			assertThat(registry.find("rabbitmq.connections").meter()).isNull();
 		});
 	}
 
