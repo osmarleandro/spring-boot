@@ -53,7 +53,6 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.web.client.RestTemplate;
 import org.springframework.web.cors.CorsConfiguration;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -65,9 +64,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  *
  * @author Madhura Bhave
  */
-class CloudFoundryActuatorAutoConfigurationTests {
+public class CloudFoundryActuatorAutoConfigurationTests {
 
-	private final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner()
+	public final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(SecurityAutoConfiguration.class, WebMvcAutoConfiguration.class,
 					JacksonAutoConfiguration.class, DispatcherServletAutoConfiguration.class,
 					HttpMessageConvertersAutoConfiguration.class, PropertyPlaceholderAutoConfiguration.class,
@@ -125,22 +124,6 @@ class CloudFoundryActuatorAutoConfigurationTests {
 					String cloudControllerUrl = (String) ReflectionTestUtils.getField(interceptorSecurityService,
 							"cloudControllerUrl");
 					assertThat(cloudControllerUrl).isEqualTo("https://my-cloud-controller.com");
-				});
-	}
-
-	@Test
-	void skipSslValidation() {
-		this.contextRunner.withPropertyValues("VCAP_APPLICATION:---", "vcap.application.application_id:my-app-id",
-				"vcap.application.cf_api:https://my-cloud-controller.com",
-				"management.cloudfoundry.skip-ssl-validation:true").run((context) -> {
-					CloudFoundryWebEndpointServletHandlerMapping handlerMapping = getHandlerMapping(context);
-					Object interceptor = ReflectionTestUtils.getField(handlerMapping, "securityInterceptor");
-					Object interceptorSecurityService = ReflectionTestUtils.getField(interceptor,
-							"cloudFoundrySecurityService");
-					RestTemplate restTemplate = (RestTemplate) ReflectionTestUtils.getField(interceptorSecurityService,
-							"restTemplate");
-					assertThat(restTemplate.getRequestFactory())
-							.isInstanceOf(SkipSslVerificationHttpRequestFactory.class);
 				});
 	}
 
@@ -236,7 +219,7 @@ class CloudFoundryActuatorAutoConfigurationTests {
 				});
 	}
 
-	private CloudFoundryWebEndpointServletHandlerMapping getHandlerMapping(ApplicationContext context) {
+	public CloudFoundryWebEndpointServletHandlerMapping getHandlerMapping(ApplicationContext context) {
 		return context.getBean("cloudFoundryWebEndpointServletHandlerMapping",
 				CloudFoundryWebEndpointServletHandlerMapping.class);
 	}

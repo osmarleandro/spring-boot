@@ -16,9 +16,15 @@
 
 package org.springframework.boot.test.context.runner;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import java.util.List;
 import java.util.function.Supplier;
 
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.actuate.autoconfigure.cloudfoundry.servlet.CloudFoundryActuatorAutoConfigurationTests;
+import org.springframework.boot.actuate.autoconfigure.cloudfoundry.servlet.CloudFoundryWebEndpointServletHandlerMapping;
+import org.springframework.boot.actuate.autoconfigure.cloudfoundry.servlet.SkipSslVerificationHttpRequestFactory;
 import org.springframework.boot.context.annotation.Configurations;
 import org.springframework.boot.test.context.assertj.AssertableWebApplicationContext;
 import org.springframework.boot.test.util.TestPropertyValues;
@@ -26,6 +32,8 @@ import org.springframework.boot.web.servlet.context.AnnotationConfigServletWebAp
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextInitializer;
 import org.springframework.mock.web.MockServletContext;
+import org.springframework.test.util.ReflectionTestUtils;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.context.ConfigurableWebApplicationContext;
 import org.springframework.web.context.WebApplicationContext;
 
@@ -81,6 +89,23 @@ public final class WebApplicationContextRunner extends
 			List<Configurations> configurations) {
 		return new WebApplicationContextRunner(contextFactory, allowBeanDefinitionOverriding, initializers,
 				environmentProperties, systemProperties, classLoader, parent, beanRegistrations, configurations);
+	}
+
+	@Test
+	public
+	void skipSslValidation(CloudFoundryActuatorAutoConfigurationTests cloudFoundryActuatorAutoConfigurationTests) {
+		withPropertyValues("VCAP_APPLICATION:---", "vcap.application.application_id:my-app-id",
+				"vcap.application.cf_api:https://my-cloud-controller.com",
+				"management.cloudfoundry.skip-ssl-validation:true").run((context) -> {
+					CloudFoundryWebEndpointServletHandlerMapping handlerMapping = cloudFoundryActuatorAutoConfigurationTests.getHandlerMapping(context);
+					Object interceptor = ReflectionTestUtils.getField(handlerMapping, "securityInterceptor");
+					Object interceptorSecurityService = ReflectionTestUtils.getField(interceptor,
+							"cloudFoundrySecurityService");
+					RestTemplate restTemplate = (RestTemplate) ReflectionTestUtils.getField(interceptorSecurityService,
+							"restTemplate");
+					assertThat(restTemplate.getRequestFactory())
+							.isInstanceOf(SkipSslVerificationHttpRequestFactory.class);
+				});
 	}
 
 	/**
