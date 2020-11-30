@@ -62,29 +62,15 @@ import static org.mockito.Mockito.mock;
  * @author Stephane Nicoll
  * @author Scott Frederick
  */
-class HealthEndpointAutoConfigurationTests {
+public class HealthEndpointAutoConfigurationTests {
 
-	private final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner()
+	public final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner()
 			.withUserConfiguration(HealthIndicatorsConfiguration.class).withConfiguration(AutoConfigurations
 					.of(HealthContributorAutoConfiguration.class, HealthEndpointAutoConfiguration.class));
 
 	private final ReactiveWebApplicationContextRunner reactiveContextRunner = new ReactiveWebApplicationContextRunner()
 			.withUserConfiguration(HealthIndicatorsConfiguration.class).withConfiguration(AutoConfigurations
 					.of(HealthContributorAutoConfiguration.class, HealthEndpointAutoConfiguration.class));
-
-	@Test
-	void runWhenHealthEndpointIsDisabledDoesNotCreateBeans() {
-		this.contextRunner.withPropertyValues("management.endpoint.health.enabled=false").run((context) -> {
-			assertThat(context).doesNotHaveBean(StatusAggregator.class);
-			assertThat(context).doesNotHaveBean(HttpCodeStatusMapper.class);
-			assertThat(context).doesNotHaveBean(HealthEndpointGroups.class);
-			assertThat(context).doesNotHaveBean(HealthContributorRegistry.class);
-			assertThat(context).doesNotHaveBean(HealthEndpoint.class);
-			assertThat(context).doesNotHaveBean(ReactiveHealthContributorRegistry.class);
-			assertThat(context).doesNotHaveBean(HealthEndpointWebExtension.class);
-			assertThat(context).doesNotHaveBean(ReactiveHealthEndpointWebExtension.class);
-		});
-	}
 
 	@Test
 	void runCreatesStatusAggregatorFromProperties() {
