@@ -41,10 +41,6 @@ class MockReactiveWebServerFactory extends AbstractReactiveWebServerFactory {
 		return this.webServer;
 	}
 
-	MockReactiveWebServer getWebServer() {
-		return this.webServer;
-	}
-
 	static class MockReactiveWebServer implements WebServer {
 
 		private final int port;
@@ -84,6 +80,10 @@ class MockReactiveWebServerFactory extends AbstractReactiveWebServerFactory {
 		@Override
 		public int getPort() {
 			return this.port;
+		}
+
+		MockReactiveWebServer getWebServer(MockReactiveWebServerFactory mockReactiveWebServerFactory) {
+			return this;
 		}
 
 	}
