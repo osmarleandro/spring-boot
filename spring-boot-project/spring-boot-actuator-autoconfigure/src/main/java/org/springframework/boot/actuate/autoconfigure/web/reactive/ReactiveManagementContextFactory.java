@@ -16,14 +16,20 @@
 
 package org.springframework.boot.actuate.autoconfigure.web.reactive;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import java.lang.reflect.Modifier;
 
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.FatalBeanException;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.beans.factory.support.RootBeanDefinition;
 import org.springframework.boot.actuate.autoconfigure.web.ManagementContextFactory;
+import org.springframework.boot.actuate.autoconfigure.web.reactive.ReactiveManagementContextFactoryTests.ParentConfiguration;
+import org.springframework.boot.actuate.autoconfigure.web.reactive.ReactiveManagementContextFactoryTests.TestConfiguration1;
+import org.springframework.boot.actuate.autoconfigure.web.reactive.ReactiveManagementContextFactoryTests.TestConfiguration2;
 import org.springframework.boot.autoconfigure.web.reactive.ReactiveWebServerFactoryAutoConfiguration;
 import org.springframework.boot.web.context.ConfigurableWebServerApplicationContext;
 import org.springframework.boot.web.reactive.context.AnnotationConfigReactiveWebServerApplicationContext;
@@ -80,6 +86,20 @@ class ReactiveManagementContextFactory implements ManagementContextFactory {
 		return factoryClass.isLocalClass()
 				|| (factoryClass.isMemberClass() && !Modifier.isStatic(factoryClass.getModifiers()))
 				|| factoryClass.isAnonymousClass();
+	}
+
+	@Test
+	void createManagementContextShouldCreateChildContextWithConfigClasses(ReactiveManagementContextFactoryTests reactiveManagementContextFactoryTests) {
+		reactiveManagementContextFactoryTests.parent.register(ParentConfiguration.class);
+		reactiveManagementContextFactoryTests.parent.refresh();
+		AnnotationConfigReactiveWebServerApplicationContext childContext = (AnnotationConfigReactiveWebServerApplicationContext) createManagementContext(reactiveManagementContextFactoryTests.parent, TestConfiguration1.class, TestConfiguration2.class);
+		childContext.refresh();
+		assertThat(childContext.getBean(TestConfiguration1.class)).isNotNull();
+		assertThat(childContext.getBean(TestConfiguration2.class)).isNotNull();
+		assertThat(childContext.getBean(ReactiveWebServerFactoryAutoConfiguration.class)).isNotNull();
+	
+		childContext.close();
+		reactiveManagementContextFactoryTests.parent.close();
 	}
 
 }
