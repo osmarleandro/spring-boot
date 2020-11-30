@@ -16,6 +16,8 @@
 
 package org.springframework.boot.test.web.client;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import java.io.IOException;
 import java.net.URI;
 import java.util.Arrays;
@@ -33,7 +35,8 @@ import org.apache.http.conn.ssl.TrustSelfSignedStrategy;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.protocol.HttpContext;
 import org.apache.http.ssl.SSLContextBuilder;
-
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.actuate.autoconfigure.metrics.test.MetricsIntegrationTests;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.boot.web.client.RootUriTemplateHandler;
 import org.springframework.core.ParameterizedTypeReference;
@@ -974,6 +977,13 @@ public class TestRestTemplate {
 			return URI.create(((RootUriTemplateHandler) uriTemplateHandler).getRootUri() + uri.toString());
 		}
 		return uri;
+	}
+
+	@Test
+	public
+	void requestMappingIsInstrumented(MetricsIntegrationTests metricsIntegrationTests) {
+		getForObject("/api/people", Set.class);
+		assertThat(metricsIntegrationTests.registry.get("http.server.requests").timer().count()).isEqualTo(1);
 	}
 
 	/**

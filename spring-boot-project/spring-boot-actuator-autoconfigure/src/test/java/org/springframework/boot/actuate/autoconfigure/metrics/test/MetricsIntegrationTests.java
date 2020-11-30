@@ -83,6 +83,7 @@ import static org.springframework.test.web.client.response.MockRestResponseCreat
  */
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT, classes = MetricsIntegrationTests.MetricsApp.class,
 		properties = "management.metrics.use-global-registry=false")
+public
 class MetricsIntegrationTests {
 
 	@Autowired
@@ -92,10 +93,10 @@ class MetricsIntegrationTests {
 	private RestTemplate external;
 
 	@Autowired
-	private TestRestTemplate loopback;
+	public TestRestTemplate loopback;
 
 	@Autowired
-	private MeterRegistry registry;
+	public MeterRegistry registry;
 
 	@SuppressWarnings("unchecked")
 	@Test
@@ -105,12 +106,6 @@ class MetricsIntegrationTests {
 				.andRespond(withSuccess("{\"message\": \"hello\"}", MediaType.APPLICATION_JSON));
 		assertThat(this.external.getForObject("/api/external", Map.class)).containsKey("message");
 		assertThat(this.registry.get("http.client.requests").timer().count()).isEqualTo(1);
-	}
-
-	@Test
-	void requestMappingIsInstrumented() {
-		this.loopback.getForObject("/api/people", Set.class);
-		assertThat(this.registry.get("http.server.requests").timer().count()).isEqualTo(1);
 	}
 
 	@Test
