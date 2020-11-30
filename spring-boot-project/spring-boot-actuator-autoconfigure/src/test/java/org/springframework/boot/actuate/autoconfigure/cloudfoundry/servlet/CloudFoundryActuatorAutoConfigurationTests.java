@@ -65,9 +65,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  *
  * @author Madhura Bhave
  */
-class CloudFoundryActuatorAutoConfigurationTests {
+public class CloudFoundryActuatorAutoConfigurationTests {
 
-	private final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner()
+	public final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(SecurityAutoConfiguration.class, WebMvcAutoConfiguration.class,
 					JacksonAutoConfiguration.class, DispatcherServletAutoConfiguration.class,
 					HttpMessageConvertersAutoConfiguration.class, PropertyPlaceholderAutoConfiguration.class,
@@ -177,12 +177,6 @@ class CloudFoundryActuatorAutoConfigurationTests {
 		this.contextRunner.withPropertyValues()
 				.run((context) -> assertThat(context.containsBean("cloudFoundryWebEndpointServletHandlerMapping"))
 						.isFalse());
-	}
-
-	@Test
-	void cloudFoundryManagementEndpointsDisabled() {
-		this.contextRunner.withPropertyValues("VCAP_APPLICATION=---", "management.cloudfoundry.enabled:false")
-				.run((context) -> assertThat(context.containsBean("cloudFoundryEndpointHandlerMapping")).isFalse());
 	}
 
 	@Test
