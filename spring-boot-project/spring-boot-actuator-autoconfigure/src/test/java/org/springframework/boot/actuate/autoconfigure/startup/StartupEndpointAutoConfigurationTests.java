@@ -31,20 +31,14 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Brian Clozel
  */
-class StartupEndpointAutoConfigurationTests {
+public class StartupEndpointAutoConfigurationTests {
 
-	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
+	public final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(StartupEndpointAutoConfiguration.class));
 
 	@Test
 	void runShouldNotHaveStartupEndpoint() {
 		this.contextRunner.run((context) -> assertThat(context).doesNotHaveBean(StartupEndpoint.class));
-	}
-
-	@Test
-	void runWhenMissingAppStartupShouldNotHaveStartupEndpoint() {
-		this.contextRunner.withPropertyValues("management.endpoints.web.exposure.include=startup")
-				.run((context) -> assertThat(context).doesNotHaveBean(StartupEndpoint.class));
 	}
 
 	@Test
