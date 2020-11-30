@@ -16,9 +16,15 @@
 
 package org.springframework.boot.test.context.runner;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.mock;
+
 import java.util.List;
 import java.util.function.Supplier;
 
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.actuate.autoconfigure.liquibase.LiquibaseEndpointAutoConfigurationTests;
+import org.springframework.boot.actuate.liquibase.LiquibaseEndpoint;
 import org.springframework.boot.context.annotation.Configurations;
 import org.springframework.boot.test.context.assertj.AssertableApplicationContext;
 import org.springframework.boot.test.util.TestPropertyValues;
@@ -26,6 +32,8 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextInitializer;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
+import liquibase.integration.spring.SpringLiquibase;
 
 /**
  * An {@link AbstractApplicationContextRunner ApplicationContext runner} for a standard,
@@ -77,6 +85,14 @@ public class ApplicationContextRunner extends
 			List<Configurations> configurations) {
 		return new ApplicationContextRunner(contextFactory, allowBeanDefinitionOverriding, initializers,
 				environmentProperties, systemProperties, classLoader, parent, beanRegistrations, configurations);
+	}
+
+	@Test
+	public
+	void runShouldHaveEndpointBean(LiquibaseEndpointAutoConfigurationTests liquibaseEndpointAutoConfigurationTests) {
+		withPropertyValues("management.endpoints.web.exposure.include=liquibase")
+				.withBean(SpringLiquibase.class, () -> mock(SpringLiquibase.class))
+				.run((context) -> assertThat(context).hasSingleBean(LiquibaseEndpoint.class));
 	}
 
 }

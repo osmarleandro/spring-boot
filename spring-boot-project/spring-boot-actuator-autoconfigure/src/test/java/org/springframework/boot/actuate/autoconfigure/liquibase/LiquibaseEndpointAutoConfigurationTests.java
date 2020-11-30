@@ -34,17 +34,10 @@ import static org.mockito.Mockito.mock;
  *
  * @author Phillip Webb
  */
-class LiquibaseEndpointAutoConfigurationTests {
+public class LiquibaseEndpointAutoConfigurationTests {
 
-	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
+	public final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(LiquibaseEndpointAutoConfiguration.class));
-
-	@Test
-	void runShouldHaveEndpointBean() {
-		this.contextRunner.withPropertyValues("management.endpoints.web.exposure.include=liquibase")
-				.withBean(SpringLiquibase.class, () -> mock(SpringLiquibase.class))
-				.run((context) -> assertThat(context).hasSingleBean(LiquibaseEndpoint.class));
-	}
 
 	@Test
 	void runWhenEnabledPropertyIsFalseShouldNotHaveEndpointBean() {
