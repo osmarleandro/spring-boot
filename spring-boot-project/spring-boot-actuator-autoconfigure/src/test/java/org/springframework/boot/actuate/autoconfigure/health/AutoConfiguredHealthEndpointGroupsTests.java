@@ -45,9 +45,9 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Phillip Webb
  * @author Leo Li
  */
-class AutoConfiguredHealthEndpointGroupsTests {
+public class AutoConfiguredHealthEndpointGroupsTests {
 
-	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
+	public final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(AutoConfiguredHealthEndpointGroupsTestConfiguration.class));
 
 	@Test
@@ -59,15 +59,6 @@ class AutoConfiguredHealthEndpointGroupsTests {
 			assertThat(primary.isMember("b")).isTrue();
 			assertThat(primary.isMember("C")).isTrue();
 		});
-	}
-
-	@Test
-	void getNamesReturnsGroupNames() {
-		this.contextRunner.withPropertyValues("management.endpoint.health.group.a.include=*",
-				"management.endpoint.health.group.b.include=*").run((context) -> {
-					HealthEndpointGroups groups = context.getBean(HealthEndpointGroups.class);
-					assertThat(groups.getNames()).containsExactlyInAnyOrder("a", "b");
-				});
 	}
 
 	@Test
