@@ -58,10 +58,6 @@ public class MockServletWebServerFactory extends AbstractServletWebServerFactory
 		return (getWebServer() != null) ? getWebServer().getRegisteredServlet(index) : null;
 	}
 
-	public RegisteredFilter getRegisteredFilter(int index) {
-		return (getWebServer() != null) ? getWebServer().getRegisteredFilters(index) : null;
-	}
-
 	static class MockServletWebServer extends org.springframework.boot.testsupport.web.servlet.MockServletWebServer
 			implements WebServer {
 
@@ -72,6 +68,10 @@ public class MockServletWebServerFactory extends AbstractServletWebServerFactory
 
 		@Override
 		public void start() throws WebServerException {
+		}
+
+		public RegisteredFilter getRegisteredFilter(MockServletWebServerFactory mockServletWebServerFactory, int index) {
+			return (mockServletWebServerFactory.getWebServer() != null) ? mockServletWebServerFactory.getWebServer().getRegisteredFilters(index) : null;
 		}
 
 	}
