@@ -16,15 +16,20 @@
 
 package org.springframework.boot.actuate.autoconfigure.cloudfoundry.servlet;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.junit.jupiter.api.Test;
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.AccessLevel;
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.CloudFoundryAuthorizationException;
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.CloudFoundryAuthorizationException.Reason;
+import org.springframework.boot.actuate.autoconfigure.cloudfoundry.SecurityResponse;
+import org.springframework.boot.actuate.endpoint.EndpointId;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.RequestEntity;
@@ -133,6 +138,14 @@ class CloudFoundrySecurityService {
 			}
 		}
 		return this.uaaUrl;
+	}
+
+	@Test
+	void preHandleWhenCloudFoundrySecurityServiceIsNullShouldReturnFalse(CloudFoundrySecurityInterceptorTests cloudFoundrySecurityInterceptorTests) {
+		cloudFoundrySecurityInterceptorTests.interceptor = new CloudFoundrySecurityInterceptor(cloudFoundrySecurityInterceptorTests.tokenValidator, null, "my-app-id");
+		cloudFoundrySecurityInterceptorTests.request.addHeader("Authorization", "bearer " + cloudFoundrySecurityInterceptorTests.mockAccessToken());
+		SecurityResponse response = cloudFoundrySecurityInterceptorTests.interceptor.preHandle(cloudFoundrySecurityInterceptorTests.request, EndpointId.of("test"));
+		assertThat(response.getStatus()).isEqualTo(Reason.SERVICE_UNAVAILABLE.getStatus());
 	}
 
 }
