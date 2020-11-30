@@ -27,7 +27,6 @@ import org.springframework.boot.actuate.autoconfigure.health.HealthContributorAu
 import org.springframework.boot.actuate.autoconfigure.health.HealthEndpointAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.info.InfoEndpointAutoConfiguration;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
-import org.springframework.boot.autoconfigure.security.oauth2.resource.servlet.OAuth2ResourceServerAutoConfiguration;
 import org.springframework.boot.autoconfigure.security.saml2.Saml2RelyingPartyAutoConfiguration;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.boot.test.context.FilteredClassLoader;
@@ -54,9 +53,9 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Madhura Bhave
  */
-class ManagementWebSecurityAutoConfigurationTests {
+public class ManagementWebSecurityAutoConfigurationTests {
 
-	private final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner().withConfiguration(
+	public final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner().withConfiguration(
 			AutoConfigurations.of(HealthContributorAutoConfiguration.class, HealthEndpointAutoConfiguration.class,
 					InfoEndpointAutoConfiguration.class, EnvironmentEndpointAutoConfiguration.class,
 					EndpointAutoConfiguration.class, WebEndpointAutoConfiguration.class,
@@ -121,14 +120,6 @@ class ManagementWebSecurityAutoConfigurationTests {
 			assertThat(context.getBeansOfType(SecurityFilterChain.class).size()).isEqualTo(1);
 			assertThat(context.containsBean("testSecurityFilterChain")).isTrue();
 		});
-	}
-
-	@Test
-	void backOffIfOAuth2ResourceServerAutoConfigurationPresent() {
-		this.contextRunner.withConfiguration(AutoConfigurations.of(OAuth2ResourceServerAutoConfiguration.class))
-				.withPropertyValues("spring.security.oauth2.resourceserver.jwt.jwk-set-uri=https://authserver")
-				.run((context) -> assertThat(context).doesNotHaveBean(
-						ManagementWebSecurityAutoConfiguration.ManagementWebSecurityConfigurerAdapter.class));
 	}
 
 	@Test
