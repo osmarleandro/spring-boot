@@ -70,9 +70,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * @author Chanhyeong LEE
  */
 @ExtendWith(OutputCaptureExtension.class)
+public
 class WebMvcMetricsAutoConfigurationTests {
 
-	private final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner()
+	public final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner()
 			.with(MetricsRun.simple()).withConfiguration(AutoConfigurations.of(WebMvcMetricsAutoConfiguration.class));
 
 	@Test
@@ -101,14 +102,6 @@ class WebMvcMetricsAutoConfigurationTests {
 					assertThat(context.getBean(DefaultWebMvcTagsProvider.class)).extracting("ignoreTrailingSlash")
 							.isEqualTo(false);
 				});
-	}
-
-	@Test
-	void tagsProviderBacksOff() {
-		this.contextRunner.withUserConfiguration(TagsProviderConfiguration.class).run((context) -> {
-			assertThat(context).doesNotHaveBean(DefaultWebMvcTagsProvider.class);
-			assertThat(context).hasSingleBean(TestWebMvcTagsProvider.class);
-		});
 	}
 
 	@Test
@@ -209,6 +202,7 @@ class WebMvcMetricsAutoConfigurationTests {
 	}
 
 	@Configuration(proxyBeanMethods = false)
+	public
 	static class TagsProviderConfiguration {
 
 		@Bean
@@ -233,7 +227,7 @@ class WebMvcMetricsAutoConfigurationTests {
 
 	}
 
-	private static final class TestWebMvcTagsProvider implements WebMvcTagsProvider {
+	public static final class TestWebMvcTagsProvider implements WebMvcTagsProvider {
 
 		@Override
 		public Iterable<Tag> getTags(HttpServletRequest request, HttpServletResponse response, Object handler,
