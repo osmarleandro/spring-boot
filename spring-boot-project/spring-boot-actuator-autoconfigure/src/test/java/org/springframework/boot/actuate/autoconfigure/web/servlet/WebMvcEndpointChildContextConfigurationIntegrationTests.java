@@ -16,7 +16,6 @@
 
 package org.springframework.boot.actuate.autoconfigure.web.servlet;
 
-import java.util.Collections;
 import java.util.Map;
 import java.util.function.Consumer;
 import java.util.function.Function;
@@ -59,9 +58,9 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Phillip Webb
  * @author Scott Frederick
  */
-class WebMvcEndpointChildContextConfigurationIntegrationTests {
+public class WebMvcEndpointChildContextConfigurationIntegrationTests {
 
-	private final WebApplicationContextRunner runner = new WebApplicationContextRunner(
+	public final WebApplicationContextRunner runner = new WebApplicationContextRunner(
 			AnnotationConfigServletWebServerApplicationContext::new)
 					.withConfiguration(AutoConfigurations.of(ManagementContextAutoConfiguration.class,
 							ServletWebServerFactoryAutoConfiguration.class,
@@ -111,21 +110,7 @@ class WebMvcEndpointChildContextConfigurationIntegrationTests {
 		}));
 	}
 
-	@Test
-	void errorEndpointIsUsedWithRestControllerEndpointOnBindingError() {
-		this.runner.run(withWebTestClient((client) -> {
-			Map<String, ?> body = client.post().uri("actuator/failController")
-					.bodyValue(Collections.singletonMap("content", "")).accept(MediaType.APPLICATION_JSON)
-					.exchangeToMono(toResponseBody()).block();
-			assertThat(body).hasEntrySatisfying("exception",
-					(value) -> assertThat(value).asString().contains("MethodArgumentNotValidException"));
-			assertThat(body).hasEntrySatisfying("message",
-					(value) -> assertThat(value).asString().contains("Validation failed"));
-			assertThat(body).hasEntrySatisfying("errors", (value) -> assertThat(value).asList().isNotEmpty());
-		}));
-	}
-
-	private ContextConsumer<AssertableWebApplicationContext> withWebTestClient(Consumer<WebClient> webClient) {
+	public ContextConsumer<AssertableWebApplicationContext> withWebTestClient(Consumer<WebClient> webClient) {
 		return (context) -> {
 			String port = context.getEnvironment().getProperty("local.management.port");
 			WebClient client = WebClient.create("http://localhost:" + port);
@@ -133,7 +118,7 @@ class WebMvcEndpointChildContextConfigurationIntegrationTests {
 		};
 	}
 
-	private Function<ClientResponse, ? extends Mono<Map<String, ?>>> toResponseBody() {
+	public Function<ClientResponse, ? extends Mono<Map<String, ?>>> toResponseBody() {
 		return ((clientResponse) -> clientResponse.bodyToMono(new ParameterizedTypeReference<Map<String, ?>>() {
 		}));
 	}
