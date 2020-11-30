@@ -63,7 +63,7 @@ import static org.mockito.Mockito.mock;
  *
  * @author Madhura Bhave
  */
-class CloudFoundryMvcWebEndpointIntegrationTests {
+public class CloudFoundryMvcWebEndpointIntegrationTests {
 
 	private static TokenValidator tokenValidator = mock(TokenValidator.class);
 
@@ -85,16 +85,6 @@ class CloudFoundryMvcWebEndpointIntegrationTests {
 				(client) -> client.get().uri("/cfApplication/test").accept(MediaType.APPLICATION_JSON)
 						.header("Authorization", "bearer " + mockAccessToken()).exchange().expectStatus()
 						.isEqualTo(HttpStatus.OK));
-	}
-
-	@Test
-	void responseToOptionsRequestIncludesCorsHeaders() {
-		load(TestEndpointConfiguration.class,
-				(client) -> client.options().uri("/cfApplication/test").accept(MediaType.APPLICATION_JSON)
-						.header("Access-Control-Request-Method", "POST").header("Origin", "https://example.com")
-						.exchange().expectStatus().isOk().expectHeader()
-						.valueEquals("Access-Control-Allow-Origin", "https://example.com").expectHeader()
-						.valueEquals("Access-Control-Allow-Methods", "GET,POST"));
 	}
 
 	@Test
@@ -142,7 +132,7 @@ class CloudFoundryMvcWebEndpointIntegrationTests {
 		return context.getWebServer().getPort();
 	}
 
-	private void load(Class<?> configuration, Consumer<WebTestClient> clientConsumer) {
+	public void load(Class<?> configuration, Consumer<WebTestClient> clientConsumer) {
 		BiConsumer<ApplicationContext, WebTestClient> consumer = (context, client) -> clientConsumer.accept(client);
 		try (AnnotationConfigServletWebServerApplicationContext context = createApplicationContext(configuration,
 				CloudFoundryMvcConfiguration.class)) {
@@ -258,6 +248,7 @@ class CloudFoundryMvcWebEndpointIntegrationTests {
 
 	@Configuration(proxyBeanMethods = false)
 	@Import(CloudFoundryMvcConfiguration.class)
+	public
 	static class TestEndpointConfiguration {
 
 		@Bean

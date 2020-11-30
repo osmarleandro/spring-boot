@@ -22,11 +22,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.junit.jupiter.api.Test;
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.AccessLevel;
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.CloudFoundryAuthorizationException;
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.CloudFoundryAuthorizationException.Reason;
+import org.springframework.boot.actuate.autoconfigure.cloudfoundry.servlet.CloudFoundryMvcWebEndpointIntegrationTests.TestEndpointConfiguration;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.RequestEntity;
 import org.springframework.util.Assert;
 import org.springframework.web.client.HttpClientErrorException;
@@ -133,6 +136,16 @@ class CloudFoundrySecurityService {
 			}
 		}
 		return this.uaaUrl;
+	}
+
+	@Test
+	void responseToOptionsRequestIncludesCorsHeaders(CloudFoundryMvcWebEndpointIntegrationTests cloudFoundryMvcWebEndpointIntegrationTests) {
+		cloudFoundryMvcWebEndpointIntegrationTests.load(TestEndpointConfiguration.class,
+				(client) -> client.options().uri("/cfApplication/test").accept(MediaType.APPLICATION_JSON)
+						.header("Access-Control-Request-Method", "POST").header("Origin", "https://example.com")
+						.exchange().expectStatus().isOk().expectHeader()
+						.valueEquals("Access-Control-Allow-Origin", "https://example.com").expectHeader()
+						.valueEquals("Access-Control-Allow-Methods", "GET,POST"));
 	}
 
 }
