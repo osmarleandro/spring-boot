@@ -44,15 +44,10 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Andy Wilkinson
  * @author Madhura Bhave
  */
-class HttpTraceAutoConfigurationTests {
+public class HttpTraceAutoConfigurationTests {
 
-	private final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner()
+	public final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(HttpTraceAutoConfiguration.class));
-
-	@Test
-	void autoConfigurationIsDisabledByDefault() {
-		this.contextRunner.run((context) -> assertThat(context).doesNotHaveBean(HttpTraceAutoConfiguration.class));
-	}
 
 	@Test
 	void autoConfigurationIsEnabledWhenHttpTraceRepositoryBeanPresent() {
