@@ -62,9 +62,9 @@ import static org.mockito.Mockito.mock;
  * @author Stephane Nicoll
  * @author Scott Frederick
  */
-class HealthEndpointAutoConfigurationTests {
+public class HealthEndpointAutoConfigurationTests {
 
-	private final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner()
+	public final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner()
 			.withUserConfiguration(HealthIndicatorsConfiguration.class).withConfiguration(AutoConfigurations
 					.of(HealthContributorAutoConfiguration.class, HealthEndpointAutoConfiguration.class));
 
@@ -92,15 +92,6 @@ class HealthEndpointAutoConfigurationTests {
 			StatusAggregator aggregator = context.getBean(StatusAggregator.class);
 			assertThat(aggregator.getAggregateStatus(Status.UP, Status.DOWN)).isEqualTo(Status.UP);
 		});
-	}
-
-	@Test
-	void runWhenHasStatusAggregatorBeanIgnoresProperties() {
-		this.contextRunner.withUserConfiguration(StatusAggregatorConfiguration.class)
-				.withPropertyValues("management.endpoint.health.status.order=up,down").run((context) -> {
-					StatusAggregator aggregator = context.getBean(StatusAggregator.class);
-					assertThat(aggregator.getAggregateStatus(Status.UP, Status.DOWN)).isEqualTo(Status.UNKNOWN);
-				});
 	}
 
 	@Test
@@ -280,6 +271,7 @@ class HealthEndpointAutoConfigurationTests {
 	}
 
 	@Configuration(proxyBeanMethods = false)
+	public
 	static class StatusAggregatorConfiguration {
 
 		@Bean
