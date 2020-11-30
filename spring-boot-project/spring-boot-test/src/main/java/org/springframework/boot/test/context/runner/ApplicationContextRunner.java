@@ -16,9 +16,16 @@
 
 package org.springframework.boot.test.context.runner;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import java.util.List;
+import java.util.Map;
 import java.util.function.Supplier;
 
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
+import org.springframework.boot.actuate.autoconfigure.context.ShutdownEndpointAutoConfigurationTests;
+import org.springframework.boot.actuate.context.ShutdownEndpoint;
 import org.springframework.boot.context.annotation.Configurations;
 import org.springframework.boot.test.context.assertj.AssertableApplicationContext;
 import org.springframework.boot.test.util.TestPropertyValues;
@@ -26,6 +33,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextInitializer;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.test.util.ReflectionTestUtils;
 
 /**
  * An {@link AbstractApplicationContextRunner ApplicationContext runner} for a standard,
@@ -77,6 +85,19 @@ public class ApplicationContextRunner extends
 			List<Configurations> configurations) {
 		return new ApplicationContextRunner(contextFactory, allowBeanDefinitionOverriding, initializers,
 				environmentProperties, systemProperties, classLoader, parent, beanRegistrations, configurations);
+	}
+
+	@Test
+	@SuppressWarnings("unchecked")
+	void runShouldHaveEndpointBeanThatIsNotDisposable(ShutdownEndpointAutoConfigurationTests shutdownEndpointAutoConfigurationTests) {
+		withPropertyValues("management.endpoint.shutdown.enabled:true")
+				.withPropertyValues("management.endpoints.web.exposure.include=shutdown").run((context) -> {
+					assertThat(context).hasSingleBean(ShutdownEndpoint.class);
+					ConfigurableListableBeanFactory beanFactory = context.getBeanFactory();
+					Map<String, Object> disposableBeans = (Map<String, Object>) ReflectionTestUtils
+							.getField(beanFactory, "disposableBeans");
+					assertThat(disposableBeans).isEmpty();
+				});
 	}
 
 }
