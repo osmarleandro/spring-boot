@@ -16,7 +16,6 @@
 
 package org.springframework.boot.actuate.autoconfigure.integrationtest;
 
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
 import org.springframework.boot.actuate.autoconfigure.audit.AuditAutoConfiguration;
@@ -45,15 +44,9 @@ import org.springframework.web.bind.annotation.GetMapping;
  *
  * @author Phillip Webb
  */
-class ControllerEndpointWebFluxIntegrationTests {
+public class ControllerEndpointWebFluxIntegrationTests {
 
-	private AnnotationConfigReactiveWebApplicationContext context;
-
-	@AfterEach
-	void close() {
-		TestSecurityContextHolder.clearContext();
-		this.context.close();
-	}
+	public AnnotationConfigReactiveWebApplicationContext context;
 
 	@Test
 	void endpointsCanBeAccessed() throws Exception {

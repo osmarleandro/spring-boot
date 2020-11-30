@@ -16,11 +16,14 @@
 
 package org.springframework.boot.web.reactive.context;
 
+import org.junit.jupiter.api.AfterEach;
 import org.springframework.beans.factory.support.DefaultListableBeanFactory;
+import org.springframework.boot.actuate.autoconfigure.integrationtest.ControllerEndpointWebFluxIntegrationTests;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.ConfigurableEnvironment;
 import org.springframework.core.io.Resource;
+import org.springframework.security.test.context.TestSecurityContextHolder;
 import org.springframework.stereotype.Component;
 
 /**
@@ -91,6 +94,13 @@ public class AnnotationConfigReactiveWebApplicationContext extends AnnotationCon
 	protected Resource getResourceByPath(String path) {
 		// We must be careful not to expose classpath resources
 		return new FilteredReactiveWebContextResource(path);
+	}
+
+	@AfterEach
+	public
+	void close(ControllerEndpointWebFluxIntegrationTests controllerEndpointWebFluxIntegrationTests) {
+		TestSecurityContextHolder.clearContext();
+		close();
 	}
 
 }
