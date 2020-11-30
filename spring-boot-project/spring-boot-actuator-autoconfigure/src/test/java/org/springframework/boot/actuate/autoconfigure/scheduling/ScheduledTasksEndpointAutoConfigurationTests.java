@@ -33,16 +33,10 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Andy Wilkinson
  */
-class ScheduledTasksEndpointAutoConfigurationTests {
+public class ScheduledTasksEndpointAutoConfigurationTests {
 
-	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
+	public final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(ScheduledTasksEndpointAutoConfiguration.class));
-
-	@Test
-	void endpointIsAutoConfigured() {
-		this.contextRunner.withPropertyValues("management.endpoints.web.exposure.include=scheduledtasks")
-				.run((context) -> assertThat(context).hasSingleBean(ScheduledTasksEndpoint.class));
-	}
 
 	@Test
 	void endpointNotAutoConfiguredWhenNotExposed() {
