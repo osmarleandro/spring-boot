@@ -46,9 +46,9 @@ import static org.mockito.Mockito.mock;
  * @author Phillip Webb
  * @author Julio Gomez
  */
-class DataSourceHealthContributorAutoConfigurationTests {
+public class DataSourceHealthContributorAutoConfigurationTests {
 
-	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
+	public final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(DataSourceAutoConfiguration.class,
 					HealthContributorAutoConfiguration.class, DataSourceHealthContributorAutoConfiguration.class))
 			.withPropertyValues("spring.datasource.initialization-mode=never");
@@ -116,14 +116,6 @@ class DataSourceHealthContributorAutoConfigurationTests {
 					DataSourceHealthIndicator indicator = context.getBean(DataSourceHealthIndicator.class);
 					assertThat(indicator.getQuery()).isEqualTo("SELECT from FOOBAR");
 				});
-	}
-
-	@Test
-	void runWhenDisabledShouldNotCreateIndicator() {
-		this.contextRunner.withUserConfiguration(EmbeddedDataSourceConfiguration.class)
-				.withPropertyValues("management.health.db.enabled:false")
-				.run((context) -> assertThat(context).doesNotHaveBean(DataSourceHealthIndicator.class)
-						.doesNotHaveBean(CompositeHealthContributor.class));
 	}
 
 	@Configuration(proxyBeanMethods = false)
