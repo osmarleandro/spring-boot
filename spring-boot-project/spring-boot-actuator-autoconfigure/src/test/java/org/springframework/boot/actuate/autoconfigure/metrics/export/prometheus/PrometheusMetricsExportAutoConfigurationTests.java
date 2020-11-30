@@ -52,9 +52,10 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Stephane Nicoll
  */
 @ExtendWith(OutputCaptureExtension.class)
+public
 class PrometheusMetricsExportAutoConfigurationTests {
 
-	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
+	public final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(PrometheusMetricsExportAutoConfiguration.class));
 
 	@Test
@@ -91,14 +92,6 @@ class PrometheusMetricsExportAutoConfigurationTests {
 				.run((context) -> assertThat(context).hasSingleBean(PrometheusMeterRegistry.class)
 						.hasSingleBean(CollectorRegistry.class).hasSingleBean(PrometheusConfig.class)
 						.hasBean("customConfig"));
-	}
-
-	@Test
-	void allowsCustomRegistryToBeUsed() {
-		this.contextRunner.withUserConfiguration(CustomRegistryConfiguration.class)
-				.run((context) -> assertThat(context).hasSingleBean(PrometheusMeterRegistry.class)
-						.hasBean("customRegistry").hasSingleBean(CollectorRegistry.class)
-						.hasSingleBean(PrometheusConfig.class));
 	}
 
 	@Test
@@ -239,6 +232,7 @@ class PrometheusMetricsExportAutoConfigurationTests {
 
 	@Configuration(proxyBeanMethods = false)
 	@Import(BaseConfiguration.class)
+	public
 	static class CustomRegistryConfiguration {
 
 		@Bean
