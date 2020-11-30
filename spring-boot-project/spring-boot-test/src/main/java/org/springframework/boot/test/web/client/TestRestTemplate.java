@@ -16,6 +16,8 @@
 
 package org.springframework.boot.test.web.client;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import java.io.IOException;
 import java.net.URI;
 import java.util.Arrays;
@@ -33,13 +35,15 @@ import org.apache.http.conn.ssl.TrustSelfSignedStrategy;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.protocol.HttpContext;
 import org.apache.http.ssl.SSLContextBuilder;
-
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.actuate.autoconfigure.integrationtest.JolokiaEndpointAutoConfigurationIntegrationTests;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.boot.web.client.RootUriTemplateHandler;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.client.ClientHttpRequestFactory;
@@ -974,6 +978,15 @@ public class TestRestTemplate {
 			return URI.create(((RootUriTemplateHandler) uriTemplateHandler).getRootUri() + uri.toString());
 		}
 		return uri;
+	}
+
+	@Test
+	public
+	void read(JolokiaEndpointAutoConfigurationIntegrationTests jolokiaEndpointAutoConfigurationIntegrationTests) {
+		ResponseEntity<String> response = getForEntity("/actuator/jolokia/read/java.lang:type=Memory",
+				String.class);
+		assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+		assertThat(response.getBody()).contains("NonHeapMemoryUsage");
 	}
 
 	/**

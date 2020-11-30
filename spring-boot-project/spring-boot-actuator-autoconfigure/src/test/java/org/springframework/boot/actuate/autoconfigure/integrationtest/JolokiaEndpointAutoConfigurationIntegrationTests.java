@@ -58,10 +58,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT,
 		properties = "management.endpoints.web.exposure.include=jolokia")
 @DirtiesContext
+public
 class JolokiaEndpointAutoConfigurationIntegrationTests {
 
 	@Autowired
-	private TestRestTemplate restTemplate;
+	public TestRestTemplate restTemplate;
 
 	@Test
 	void jolokiaIsExposed() {
@@ -77,14 +78,6 @@ class JolokiaEndpointAutoConfigurationIntegrationTests {
 				String.class);
 		assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
 		assertThat(response.getBody()).contains("GarbageCollector");
-	}
-
-	@Test
-	void read() {
-		ResponseEntity<String> response = this.restTemplate.getForEntity("/actuator/jolokia/read/java.lang:type=Memory",
-				String.class);
-		assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
-		assertThat(response.getBody()).contains("NonHeapMemoryUsage");
 	}
 
 	@Test
