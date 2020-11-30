@@ -58,7 +58,6 @@ import org.springframework.test.web.servlet.setup.MockMvcConfigurer;
 
 import static org.hamcrest.Matchers.both;
 import static org.hamcrest.Matchers.hasKey;
-import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -68,7 +67,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  *
  * @author Andy Wilkinson
  */
-class WebMvcEndpointIntegrationTests {
+public class WebMvcEndpointIntegrationTests {
 
 	private AnnotationConfigServletWebApplicationContext context;
 
@@ -82,7 +81,7 @@ class WebMvcEndpointIntegrationTests {
 	void endpointsAreSecureByDefault() throws Exception {
 		this.context = new AnnotationConfigServletWebApplicationContext();
 		this.context.register(SecureConfiguration.class);
-		MockMvc mockMvc = createSecureMockMvc();
+		MockMvc mockMvc = context.createSecureMockMvc(this);
 		mockMvc.perform(get("/actuator/beans").accept(MediaType.APPLICATION_JSON)).andExpect(status().isUnauthorized());
 	}
 
@@ -91,7 +90,7 @@ class WebMvcEndpointIntegrationTests {
 		this.context = new AnnotationConfigServletWebApplicationContext();
 		this.context.register(SecureConfiguration.class);
 		TestPropertyValues.of("management.endpoints.web.base-path:/management").applyTo(this.context);
-		MockMvc mockMvc = createSecureMockMvc();
+		MockMvc mockMvc = context.createSecureMockMvc(this);
 		mockMvc.perform(get("/management/beans").accept(MediaType.APPLICATION_JSON))
 				.andExpect(status().isUnauthorized());
 	}
@@ -105,7 +104,7 @@ class WebMvcEndpointIntegrationTests {
 		TestPropertyValues
 				.of("management.endpoints.web.base-path:/management", "management.endpoints.web.exposure.include=*")
 				.applyTo(this.context);
-		MockMvc mockMvc = createSecureMockMvc();
+		MockMvc mockMvc = context.createSecureMockMvc(this);
 		mockMvc.perform(get("/management/beans")).andExpect(status().isOk());
 	}
 
@@ -119,11 +118,7 @@ class WebMvcEndpointIntegrationTests {
 				both(hasKey("beans")).and(hasKey("servlet")).and(hasKey("restcontroller")).and(hasKey("controller"))));
 	}
 
-	private MockMvc createSecureMockMvc() {
-		return doCreateMockMvc(springSecurity());
-	}
-
-	private MockMvc doCreateMockMvc(MockMvcConfigurer... configurers) {
+	public MockMvc doCreateMockMvc(MockMvcConfigurer... configurers) {
 		this.context.setServletContext(new MockServletContext());
 		this.context.refresh();
 		DefaultMockMvcBuilder builder = MockMvcBuilders.webAppContextSetup(this.context);

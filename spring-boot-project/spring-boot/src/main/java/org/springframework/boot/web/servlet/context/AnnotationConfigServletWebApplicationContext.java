@@ -16,6 +16,8 @@
 
 package org.springframework.boot.web.servlet.context;
 
+import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
+
 import java.util.Arrays;
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -25,6 +27,7 @@ import org.springframework.beans.factory.config.BeanDefinitionCustomizer;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.beans.factory.support.BeanNameGenerator;
 import org.springframework.beans.factory.support.DefaultListableBeanFactory;
+import org.springframework.boot.actuate.autoconfigure.integrationtest.WebMvcEndpointIntegrationTests;
 import org.springframework.context.annotation.AnnotatedBeanDefinitionReader;
 import org.springframework.context.annotation.AnnotationConfigRegistry;
 import org.springframework.context.annotation.AnnotationConfigUtils;
@@ -34,6 +37,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.ScopeMetadataResolver;
 import org.springframework.core.env.ConfigurableEnvironment;
 import org.springframework.stereotype.Component;
+import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.util.Assert;
 import org.springframework.util.ClassUtils;
 import org.springframework.util.ObjectUtils;
@@ -212,6 +216,10 @@ public class AnnotationConfigServletWebApplicationContext extends GenericWebAppl
 	public <T> void registerBean(String beanName, Class<T> beanClass, Supplier<T> supplier,
 			BeanDefinitionCustomizer... customizers) {
 		this.reader.registerBean(beanClass, beanName, supplier, customizers);
+	}
+
+	public MockMvc createSecureMockMvc(WebMvcEndpointIntegrationTests webMvcEndpointIntegrationTests) {
+		return webMvcEndpointIntegrationTests.doCreateMockMvc(springSecurity());
 	}
 
 }
