@@ -47,7 +47,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Stephane Nicoll
  * @author Andy Wilkinson
  */
-class JmxEndpointIntegrationTests {
+public class JmxEndpointIntegrationTests {
 
 	private final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(JmxAutoConfiguration.class, EndpointAutoConfiguration.class,
@@ -87,11 +87,11 @@ class JmxEndpointIntegrationTests {
 
 	private void checkEndpointMBeans(MBeanServer mBeanServer, String[] enabledEndpoints, String[] disabledEndpoints) {
 		for (String enabledEndpoint : enabledEndpoints) {
-			assertThat(isRegistered(mBeanServer, getDefaultObjectName(enabledEndpoint)))
+			assertThat(isRegistered(mBeanServer, contextRunner.getDefaultObjectName(this, enabledEndpoint)))
 					.as(String.format("Endpoint %s", enabledEndpoint)).isTrue();
 		}
 		for (String disabledEndpoint : disabledEndpoints) {
-			assertThat(isRegistered(mBeanServer, getDefaultObjectName(disabledEndpoint)))
+			assertThat(isRegistered(mBeanServer, contextRunner.getDefaultObjectName(this, disabledEndpoint)))
 					.as(String.format("Endpoint %s", disabledEndpoint)).isFalse();
 		}
 	}
@@ -115,11 +115,7 @@ class JmxEndpointIntegrationTests {
 		}
 	}
 
-	private ObjectName getDefaultObjectName(String endpointId) {
-		return getObjectName("org.springframework.boot", endpointId);
-	}
-
-	private ObjectName getObjectName(String domain, String endpointId) {
+	public ObjectName getObjectName(String domain, String endpointId) {
 		try {
 			return new ObjectName(
 					String.format("%s:type=Endpoint,name=%s", domain, StringUtils.capitalize(endpointId)));

@@ -19,6 +19,9 @@ package org.springframework.boot.test.context.runner;
 import java.util.List;
 import java.util.function.Supplier;
 
+import javax.management.ObjectName;
+
+import org.springframework.boot.actuate.autoconfigure.integrationtest.JmxEndpointIntegrationTests;
 import org.springframework.boot.context.annotation.Configurations;
 import org.springframework.boot.test.context.assertj.AssertableWebApplicationContext;
 import org.springframework.boot.test.util.TestPropertyValues;
@@ -81,6 +84,10 @@ public final class WebApplicationContextRunner extends
 			List<Configurations> configurations) {
 		return new WebApplicationContextRunner(contextFactory, allowBeanDefinitionOverriding, initializers,
 				environmentProperties, systemProperties, classLoader, parent, beanRegistrations, configurations);
+	}
+
+	public ObjectName getDefaultObjectName(JmxEndpointIntegrationTests jmxEndpointIntegrationTests, String endpointId) {
+		return jmxEndpointIntegrationTests.getObjectName("org.springframework.boot", endpointId);
 	}
 
 	/**
