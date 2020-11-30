@@ -44,9 +44,9 @@ import org.springframework.test.web.reactive.server.WebTestClient;
  * @author Stephane Nicoll
  * @see WebFluxEndpointManagementContextConfiguration
  */
-class WebFluxEndpointCorsIntegrationTests {
+public class WebFluxEndpointCorsIntegrationTests {
 
-	private final ReactiveWebApplicationContextRunner contextRunner = new ReactiveWebApplicationContextRunner()
+	public final ReactiveWebApplicationContextRunner contextRunner = new ReactiveWebApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(JacksonAutoConfiguration.class, CodecsAutoConfiguration.class,
 					WebFluxAutoConfiguration.class, HttpHandlerAutoConfiguration.class, EndpointAutoConfiguration.class,
 					WebEndpointAutoConfiguration.class, ManagementContextAutoConfiguration.class,
@@ -76,15 +76,6 @@ class WebFluxEndpointCorsIntegrationTests {
 		this.contextRunner.withPropertyValues("management.endpoints.web.cors.allowed-origins:spring.example.org")
 				.run(withWebTestClient((webTestClient) -> performAcceptedCorsRequest(webTestClient, "/actuator/beans")
 						.expectHeader().valueEquals(HttpHeaders.ACCESS_CONTROL_MAX_AGE, "1800")));
-	}
-
-	@Test
-	void maxAgeCanBeConfigured() {
-		this.contextRunner
-				.withPropertyValues("management.endpoints.web.cors.allowed-origins:spring.example.org",
-						"management.endpoints.web.cors.max-age: 2400")
-				.run(withWebTestClient((webTestClient) -> performAcceptedCorsRequest(webTestClient, "/actuator/beans")
-						.expectHeader().valueEquals(HttpHeaders.ACCESS_CONTROL_MAX_AGE, "2400")));
 	}
 
 	@Test
@@ -145,12 +136,12 @@ class WebFluxEndpointCorsIntegrationTests {
 						.expectHeader().doesNotExist(HttpHeaders.ACCESS_CONTROL_ALLOW_CREDENTIALS)));
 	}
 
-	private ContextConsumer<ReactiveWebApplicationContext> withWebTestClient(Consumer<WebTestClient> webTestClient) {
+	public ContextConsumer<ReactiveWebApplicationContext> withWebTestClient(Consumer<WebTestClient> webTestClient) {
 		return (context) -> webTestClient.accept(WebTestClient.bindToApplicationContext(context).configureClient()
 				.baseUrl("https://spring.example.org").build());
 	}
 
-	private WebTestClient.ResponseSpec performAcceptedCorsRequest(WebTestClient webTestClient, String url) {
+	public WebTestClient.ResponseSpec performAcceptedCorsRequest(WebTestClient webTestClient, String url) {
 		return webTestClient.options().uri(url).header(HttpHeaders.ORIGIN, "spring.example.org")
 				.header(HttpHeaders.ACCESS_CONTROL_REQUEST_METHOD, "GET").exchange().expectHeader()
 				.valueEquals(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN, "spring.example.org").expectStatus().isOk();
