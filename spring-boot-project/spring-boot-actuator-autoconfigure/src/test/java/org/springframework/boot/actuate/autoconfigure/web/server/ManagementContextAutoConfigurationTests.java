@@ -27,7 +27,6 @@ import org.springframework.boot.autoconfigure.AutoConfigurations;
 import org.springframework.boot.autoconfigure.web.servlet.DispatcherServletAutoConfiguration;
 import org.springframework.boot.autoconfigure.web.servlet.ServletWebServerFactoryAutoConfiguration;
 import org.springframework.boot.test.context.runner.WebApplicationContextRunner;
-import org.springframework.boot.test.system.CapturedOutput;
 import org.springframework.boot.test.system.OutputCaptureExtension;
 import org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext;
 import org.springframework.util.StringUtils;
@@ -41,19 +40,8 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Andy Wilkinson
  */
 @ExtendWith(OutputCaptureExtension.class)
+public
 class ManagementContextAutoConfigurationTests {
-
-	@Test
-	void childManagementContextShouldStartForEmbeddedServer(CapturedOutput output) {
-		WebApplicationContextRunner contextRunner = new WebApplicationContextRunner(
-				AnnotationConfigServletWebServerApplicationContext::new)
-						.withConfiguration(AutoConfigurations.of(ManagementContextAutoConfiguration.class,
-								ServletWebServerFactoryAutoConfiguration.class,
-								ServletManagementContextAutoConfiguration.class, WebEndpointAutoConfiguration.class,
-								EndpointAutoConfiguration.class));
-		contextRunner.withPropertyValues("server.port=0", "management.server.port=0")
-				.run((context) -> assertThat(output).satisfies(numberOfOccurrences("Tomcat started on port", 2)));
-	}
 
 	@Test
 	void givenSamePortManagementServerWhenManagementServerAddressIsConfiguredThenContextRefreshFails() {
@@ -68,7 +56,7 @@ class ManagementContextAutoConfigurationTests {
 						.hasMessageStartingWith("Management-specific server address cannot be configured"));
 	}
 
-	private <T extends CharSequence> Consumer<T> numberOfOccurrences(String substring, int expectedCount) {
+	public <T extends CharSequence> Consumer<T> numberOfOccurrences(String substring, int expectedCount) {
 		return (charSequence) -> {
 			int count = StringUtils.countOccurrencesOf(charSequence.toString(), substring);
 			assertThat(count).isEqualTo(expectedCount);

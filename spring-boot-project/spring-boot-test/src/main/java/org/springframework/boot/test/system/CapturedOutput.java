@@ -16,6 +16,19 @@
 
 package org.springframework.boot.test.system;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.actuate.autoconfigure.endpoint.EndpointAutoConfiguration;
+import org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointAutoConfiguration;
+import org.springframework.boot.actuate.autoconfigure.web.server.ManagementContextAutoConfiguration;
+import org.springframework.boot.actuate.autoconfigure.web.server.ManagementContextAutoConfigurationTests;
+import org.springframework.boot.actuate.autoconfigure.web.servlet.ServletManagementContextAutoConfiguration;
+import org.springframework.boot.autoconfigure.AutoConfigurations;
+import org.springframework.boot.autoconfigure.web.servlet.ServletWebServerFactoryAutoConfiguration;
+import org.springframework.boot.test.context.runner.WebApplicationContextRunner;
+import org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext;
+
 /**
  * Provides access to {@link System#out System.out} and {@link System#err System.err}
  * output that has been captured by the {@link OutputCaptureExtension} or
@@ -67,5 +80,18 @@ public interface CapturedOutput extends CharSequence {
 	 * @return {@link System#err System.err} captured output
 	 */
 	String getErr();
+
+	@Test
+	default
+	void childManagementContextShouldStartForEmbeddedServer(ManagementContextAutoConfigurationTests managementContextAutoConfigurationTests) {
+		WebApplicationContextRunner contextRunner = new WebApplicationContextRunner(
+				AnnotationConfigServletWebServerApplicationContext::new)
+						.withConfiguration(AutoConfigurations.of(ManagementContextAutoConfiguration.class,
+								ServletWebServerFactoryAutoConfiguration.class,
+								ServletManagementContextAutoConfiguration.class, WebEndpointAutoConfiguration.class,
+								EndpointAutoConfiguration.class));
+		contextRunner.withPropertyValues("server.port=0", "management.server.port=0")
+				.run((context) -> assertThat(this).satisfies(managementContextAutoConfigurationTests.numberOfOccurrences("Tomcat started on port", 2)));
+	}
 
 }
