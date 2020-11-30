@@ -47,9 +47,10 @@ import static org.mockito.Mockito.mock;
  * @author Madhura Bhave
  */
 @ExtendWith(OutputCaptureExtension.class)
+public
 class WebFluxMetricsAutoConfigurationTests {
 
-	private final ReactiveWebApplicationContextRunner contextRunner = new ReactiveWebApplicationContextRunner()
+	public final ReactiveWebApplicationContextRunner contextRunner = new ReactiveWebApplicationContextRunner()
 			.with(MetricsRun.simple()).withConfiguration(AutoConfigurations.of(WebFluxMetricsAutoConfiguration.class));
 
 	@Test
@@ -91,18 +92,6 @@ class WebFluxMetricsAutoConfigurationTests {
 	}
 
 	@Test
-	void shouldNotDenyNorLogIfMaxUrisIsNotReached(CapturedOutput output) {
-		this.contextRunner.withConfiguration(AutoConfigurations.of(WebFluxAutoConfiguration.class))
-				.withUserConfiguration(TestController.class)
-				.withPropertyValues("management.metrics.web.server.max-uri-tags=5").run((context) -> {
-					MeterRegistry registry = getInitializedMeterRegistry(context);
-					assertThat(registry.get("http.server.requests").meters()).hasSize(3);
-					assertThat(output)
-							.doesNotContain("Reached the maximum number of URI tags for 'http.server.requests'");
-				});
-	}
-
-	@Test
 	void metricsAreNotRecordedIfAutoTimeRequestsIsDisabled() {
 		this.contextRunner.withConfiguration(AutoConfigurations.of(WebFluxAutoConfiguration.class))
 				.withUserConfiguration(TestController.class)
@@ -121,7 +110,7 @@ class WebFluxMetricsAutoConfigurationTests {
 		});
 	}
 
-	private MeterRegistry getInitializedMeterRegistry(AssertableReactiveWebApplicationContext context) {
+	public MeterRegistry getInitializedMeterRegistry(AssertableReactiveWebApplicationContext context) {
 		WebTestClient webTestClient = WebTestClient.bindToApplicationContext(context).build();
 		for (int i = 0; i < 3; i++) {
 			webTestClient.get().uri("/test" + i).exchange().expectStatus().isOk();
