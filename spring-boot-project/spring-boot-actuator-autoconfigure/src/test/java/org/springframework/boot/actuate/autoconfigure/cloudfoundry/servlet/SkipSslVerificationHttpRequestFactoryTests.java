@@ -16,28 +16,17 @@
 
 package org.springframework.boot.actuate.autoconfigure.cloudfoundry.servlet;
 
-import javax.net.ssl.SSLHandshakeException;
-
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Test;
-
 import org.springframework.boot.testsupport.web.servlet.ExampleServlet;
 import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
 import org.springframework.boot.web.server.Ssl;
 import org.springframework.boot.web.server.WebServer;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.client.ResourceAccessException;
-import org.springframework.web.client.RestTemplate;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 /**
  * Test for {@link SkipSslVerificationHttpRequestFactory}.
  */
-class SkipSslVerificationHttpRequestFactoryTests {
+public class SkipSslVerificationHttpRequestFactoryTests {
 
 	private WebServer webServer;
 
@@ -48,20 +37,7 @@ class SkipSslVerificationHttpRequestFactoryTests {
 		}
 	}
 
-	@Test
-	void restCallToSelfSignedServerShouldNotThrowSslException() {
-		String httpsUrl = getHttpsUrl();
-		SkipSslVerificationHttpRequestFactory requestFactory = new SkipSslVerificationHttpRequestFactory();
-		RestTemplate restTemplate = new RestTemplate(requestFactory);
-		RestTemplate otherRestTemplate = new RestTemplate();
-		ResponseEntity<String> responseEntity = restTemplate.getForEntity(httpsUrl, String.class);
-		assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
-		assertThatExceptionOfType(ResourceAccessException.class)
-				.isThrownBy(() -> otherRestTemplate.getForEntity(httpsUrl, String.class))
-				.withCauseInstanceOf(SSLHandshakeException.class);
-	}
-
-	private String getHttpsUrl() {
+	public String getHttpsUrl() {
 		TomcatServletWebServerFactory factory = new TomcatServletWebServerFactory(0);
 		factory.setSsl(getSsl("password", "classpath:test.jks"));
 		this.webServer = factory.getWebServer(new ServletRegistrationBean<>(new ExampleServlet(), "/hello"));

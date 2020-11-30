@@ -16,6 +16,19 @@
 
 package org.springframework.boot.web.server;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
+
+import javax.net.ssl.SSLHandshakeException;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.actuate.autoconfigure.cloudfoundry.servlet.SkipSslVerificationHttpRequestFactory;
+import org.springframework.boot.actuate.autoconfigure.cloudfoundry.servlet.SkipSslVerificationHttpRequestFactoryTests;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.client.ResourceAccessException;
+import org.springframework.web.client.RestTemplate;
+
 /**
  * Simple interface that represents a fully configured web server (for example Tomcat,
  * Jetty, Netty). Allows the server to be {@link #start() started} and {@link #stop()
@@ -59,6 +72,20 @@ public interface WebServer {
 	 */
 	default void shutDownGracefully(GracefulShutdownCallback callback) {
 		callback.shutdownComplete(GracefulShutdownResult.IMMEDIATE);
+	}
+
+	@Test
+	default
+	void restCallToSelfSignedServerShouldNotThrowSslException(SkipSslVerificationHttpRequestFactoryTests skipSslVerificationHttpRequestFactoryTests) {
+		String httpsUrl = skipSslVerificationHttpRequestFactoryTests.getHttpsUrl();
+		SkipSslVerificationHttpRequestFactory requestFactory = new SkipSslVerificationHttpRequestFactory();
+		RestTemplate restTemplate = new RestTemplate(requestFactory);
+		RestTemplate otherRestTemplate = new RestTemplate();
+		ResponseEntity<String> responseEntity = restTemplate.getForEntity(httpsUrl, String.class);
+		assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
+		assertThatExceptionOfType(ResourceAccessException.class)
+				.isThrownBy(() -> otherRestTemplate.getForEntity(httpsUrl, String.class))
+				.withCauseInstanceOf(SSLHandshakeException.class);
 	}
 
 }
