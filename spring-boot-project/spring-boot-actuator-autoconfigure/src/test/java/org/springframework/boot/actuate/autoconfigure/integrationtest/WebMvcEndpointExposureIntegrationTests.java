@@ -64,9 +64,9 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Stephane Nicoll
  * @author Phillip Webb
  */
-class WebMvcEndpointExposureIntegrationTests {
+public class WebMvcEndpointExposureIntegrationTests {
 
-	private final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner(
+	public final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner(
 			AnnotationConfigServletWebServerApplicationContext::new)
 					.withConfiguration(AutoConfigurations.of(ServletWebServerFactoryAutoConfiguration.class,
 							DispatcherServletAutoConfiguration.class, JacksonAutoConfiguration.class,
@@ -79,25 +79,6 @@ class WebMvcEndpointExposureIntegrationTests {
 					.withUserConfiguration(CustomMvcEndpoint.class, CustomServletEndpoint.class,
 							HttpTraceRepositoryConfiguration.class, AuditEventRepositoryConfiguration.class)
 					.withPropertyValues("server.port:0");
-
-	@Test
-	void webEndpointsAreDisabledByDefault() {
-		this.contextRunner.run((context) -> {
-			WebTestClient client = createClient(context);
-			assertThat(isExposed(client, HttpMethod.GET, "beans")).isFalse();
-			assertThat(isExposed(client, HttpMethod.GET, "conditions")).isFalse();
-			assertThat(isExposed(client, HttpMethod.GET, "configprops")).isFalse();
-			assertThat(isExposed(client, HttpMethod.GET, "custommvc")).isFalse();
-			assertThat(isExposed(client, HttpMethod.GET, "customservlet")).isFalse();
-			assertThat(isExposed(client, HttpMethod.GET, "env")).isFalse();
-			assertThat(isExposed(client, HttpMethod.GET, "health")).isTrue();
-			assertThat(isExposed(client, HttpMethod.GET, "info")).isTrue();
-			assertThat(isExposed(client, HttpMethod.GET, "mappings")).isFalse();
-			assertThat(isExposed(client, HttpMethod.POST, "shutdown")).isFalse();
-			assertThat(isExposed(client, HttpMethod.GET, "threaddump")).isFalse();
-			assertThat(isExposed(client, HttpMethod.GET, "httptrace")).isFalse();
-		});
-	}
 
 	@Test
 	void webEndpointsCanBeExposed() {
@@ -162,7 +143,7 @@ class WebMvcEndpointExposureIntegrationTests {
 		});
 	}
 
-	private WebTestClient createClient(AssertableWebApplicationContext context) {
+	public WebTestClient createClient(AssertableWebApplicationContext context) {
 		int port = context.getSourceApplicationContext(ServletWebServerApplicationContext.class).getWebServer()
 				.getPort();
 		ExchangeStrategies exchangeStrategies = ExchangeStrategies.builder()
@@ -171,7 +152,7 @@ class WebMvcEndpointExposureIntegrationTests {
 				.build();
 	}
 
-	private boolean isExposed(WebTestClient client, HttpMethod method, String path) throws Exception {
+	public boolean isExposed(WebTestClient client, HttpMethod method, String path) throws Exception {
 		path = "/actuator/" + path;
 		EntityExchangeResult<byte[]> result = client.method(method).uri(path).exchange().expectBody().returnResult();
 		if (result.getStatus() == HttpStatus.OK) {
