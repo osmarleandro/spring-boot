@@ -28,7 +28,6 @@ import org.springframework.boot.actuate.autoconfigure.cloudfoundry.CloudFoundryA
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.SecurityResponse;
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.Token;
 import org.springframework.boot.actuate.endpoint.EndpointId;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.util.Base64Utils;
@@ -43,6 +42,7 @@ import static org.mockito.Mockito.verify;
  * @author Madhura Bhave
  */
 @ExtendWith(MockitoExtension.class)
+public
 class CloudFoundrySecurityInterceptorTests {
 
 	@Mock
@@ -51,23 +51,14 @@ class CloudFoundrySecurityInterceptorTests {
 	@Mock
 	private CloudFoundrySecurityService securityService;
 
-	private CloudFoundrySecurityInterceptor interceptor;
+	public CloudFoundrySecurityInterceptor interceptor;
 
-	private MockHttpServletRequest request;
+	public MockHttpServletRequest request;
 
 	@BeforeEach
 	void setup() {
 		this.interceptor = new CloudFoundrySecurityInterceptor(this.tokenValidator, this.securityService, "my-app-id");
 		this.request = new MockHttpServletRequest();
-	}
-
-	@Test
-	void preHandleWhenRequestIsPreFlightShouldReturnTrue() {
-		this.request.setMethod("OPTIONS");
-		this.request.addHeader(HttpHeaders.ORIGIN, "https://example.com");
-		this.request.addHeader(HttpHeaders.ACCESS_CONTROL_REQUEST_METHOD, "GET");
-		SecurityResponse response = this.interceptor.preHandle(this.request, EndpointId.of("test"));
-		assertThat(response.getStatus()).isEqualTo(HttpStatus.OK);
 	}
 
 	@Test

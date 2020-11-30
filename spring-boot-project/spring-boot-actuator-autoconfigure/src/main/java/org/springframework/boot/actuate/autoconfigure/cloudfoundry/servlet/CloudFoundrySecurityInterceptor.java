@@ -16,19 +16,22 @@
 
 package org.springframework.boot.actuate.autoconfigure.cloudfoundry.servlet;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
+import org.junit.jupiter.api.Test;
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.AccessLevel;
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.CloudFoundryAuthorizationException;
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.CloudFoundryAuthorizationException.Reason;
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.SecurityResponse;
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.Token;
 import org.springframework.boot.actuate.endpoint.EndpointId;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.util.StringUtils;
@@ -106,6 +109,15 @@ class CloudFoundrySecurityInterceptor {
 					"Authorization header is missing or invalid");
 		}
 		return new Token(authorization.substring(bearerPrefix.length()));
+	}
+
+	@Test
+	void preHandleWhenRequestIsPreFlightShouldReturnTrue(CloudFoundrySecurityInterceptorTests cloudFoundrySecurityInterceptorTests) {
+		cloudFoundrySecurityInterceptorTests.request.setMethod("OPTIONS");
+		cloudFoundrySecurityInterceptorTests.request.addHeader(HttpHeaders.ORIGIN, "https://example.com");
+		cloudFoundrySecurityInterceptorTests.request.addHeader(HttpHeaders.ACCESS_CONTROL_REQUEST_METHOD, "GET");
+		SecurityResponse response = preHandle(cloudFoundrySecurityInterceptorTests.request, EndpointId.of("test"));
+		assertThat(response.getStatus()).isEqualTo(HttpStatus.OK);
 	}
 
 }
