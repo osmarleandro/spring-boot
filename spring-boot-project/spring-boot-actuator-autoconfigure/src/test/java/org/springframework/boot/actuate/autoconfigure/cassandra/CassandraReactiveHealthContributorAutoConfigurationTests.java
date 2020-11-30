@@ -38,18 +38,12 @@ import static org.mockito.Mockito.mock;
  * @author Stephane Nicoll
  */
 @SuppressWarnings("deprecation")
+public
 class CassandraReactiveHealthContributorAutoConfigurationTests {
 
-	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
+	public final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(CassandraReactiveHealthContributorAutoConfiguration.class,
 					CassandraHealthContributorAutoConfiguration.class, HealthContributorAutoConfiguration.class));
-
-	@Test
-	void runWithoutCqlSessionOrReactiveCassandraOperationsShouldNotCreateIndicator() {
-		this.contextRunner.run((context) -> assertThat(context).doesNotHaveBean("cassandraHealthContributor")
-				.doesNotHaveBean(org.springframework.boot.actuate.cassandra.CassandraReactiveHealthIndicator.class)
-				.doesNotHaveBean(CassandraDriverReactiveHealthIndicator.class));
-	}
 
 	@Test
 	void runWithCqlSessionOnlyShouldCreateDriverIndicator() {
