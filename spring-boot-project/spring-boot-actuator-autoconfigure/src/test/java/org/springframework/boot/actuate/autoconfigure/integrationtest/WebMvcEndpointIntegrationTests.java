@@ -20,7 +20,6 @@ import java.util.function.Supplier;
 
 import javax.servlet.http.HttpServlet;
 
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
 import org.springframework.boot.actuate.autoconfigure.audit.AuditAutoConfiguration;
@@ -68,15 +67,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  *
  * @author Andy Wilkinson
  */
-class WebMvcEndpointIntegrationTests {
+public class WebMvcEndpointIntegrationTests {
 
-	private AnnotationConfigServletWebApplicationContext context;
-
-	@AfterEach
-	void close() {
-		TestSecurityContextHolder.clearContext();
-		this.context.close();
-	}
+	public AnnotationConfigServletWebApplicationContext context;
 
 	@Test
 	void endpointsAreSecureByDefault() throws Exception {
