@@ -19,8 +19,11 @@ package org.springframework.boot.test.context.assertj;
 import java.util.function.Supplier;
 
 import org.springframework.boot.test.context.runner.WebApplicationContextRunner;
+import org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext;
+import org.springframework.test.web.reactive.server.WebTestClient;
 import org.springframework.web.context.ConfigurableWebApplicationContext;
 import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.reactive.function.client.ExchangeStrategies;
 
 /**
  * A {@link WebApplicationContext} that additionally supports AssertJ style assertions.
@@ -47,6 +50,15 @@ public interface AssertableWebApplicationContext
 	static AssertableWebApplicationContext get(Supplier<? extends ConfigurableWebApplicationContext> contextSupplier) {
 		return ApplicationContextAssertProvider.get(AssertableWebApplicationContext.class,
 				ConfigurableWebApplicationContext.class, contextSupplier);
+	}
+
+	public default WebTestClient createClient() {
+		int port = getSourceApplicationContext(ServletWebServerApplicationContext.class).getWebServer()
+				.getPort();
+		ExchangeStrategies exchangeStrategies = ExchangeStrategies.builder()
+				.codecs((configurer) -> configurer.defaultCodecs().maxInMemorySize(-1)).build();
+		return WebTestClient.bindToServer().baseUrl("http://localhost:" + port).exchangeStrategies(exchangeStrategies)
+				.build();
 	}
 
 }

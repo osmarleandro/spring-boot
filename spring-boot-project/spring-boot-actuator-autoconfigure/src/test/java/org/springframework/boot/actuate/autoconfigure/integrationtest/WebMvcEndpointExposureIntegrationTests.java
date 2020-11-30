@@ -43,10 +43,8 @@ import org.springframework.boot.autoconfigure.jackson.JacksonAutoConfiguration;
 import org.springframework.boot.autoconfigure.web.servlet.DispatcherServletAutoConfiguration;
 import org.springframework.boot.autoconfigure.web.servlet.ServletWebServerFactoryAutoConfiguration;
 import org.springframework.boot.autoconfigure.web.servlet.WebMvcAutoConfiguration;
-import org.springframework.boot.test.context.assertj.AssertableWebApplicationContext;
 import org.springframework.boot.test.context.runner.WebApplicationContextRunner;
 import org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext;
-import org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -54,7 +52,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.test.web.reactive.server.EntityExchangeResult;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.reactive.function.client.ExchangeStrategies;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -83,7 +80,7 @@ class WebMvcEndpointExposureIntegrationTests {
 	@Test
 	void webEndpointsAreDisabledByDefault() {
 		this.contextRunner.run((context) -> {
-			WebTestClient client = createClient(context);
+			WebTestClient client = context.createClient();
 			assertThat(isExposed(client, HttpMethod.GET, "beans")).isFalse();
 			assertThat(isExposed(client, HttpMethod.GET, "conditions")).isFalse();
 			assertThat(isExposed(client, HttpMethod.GET, "configprops")).isFalse();
@@ -104,7 +101,7 @@ class WebMvcEndpointExposureIntegrationTests {
 		WebApplicationContextRunner contextRunner = this.contextRunner
 				.withPropertyValues("management.endpoints.web.exposure.include=*");
 		contextRunner.run((context) -> {
-			WebTestClient client = createClient(context);
+			WebTestClient client = context.createClient();
 			assertThat(isExposed(client, HttpMethod.GET, "beans")).isTrue();
 			assertThat(isExposed(client, HttpMethod.GET, "conditions")).isTrue();
 			assertThat(isExposed(client, HttpMethod.GET, "configprops")).isTrue();
@@ -125,7 +122,7 @@ class WebMvcEndpointExposureIntegrationTests {
 		WebApplicationContextRunner contextRunner = this.contextRunner
 				.withPropertyValues("management.endpoints.web.exposure.include=beans");
 		contextRunner.run((context) -> {
-			WebTestClient client = createClient(context);
+			WebTestClient client = context.createClient();
 			assertThat(isExposed(client, HttpMethod.GET, "beans")).isTrue();
 			assertThat(isExposed(client, HttpMethod.GET, "conditions")).isFalse();
 			assertThat(isExposed(client, HttpMethod.GET, "configprops")).isFalse();
@@ -146,7 +143,7 @@ class WebMvcEndpointExposureIntegrationTests {
 		WebApplicationContextRunner contextRunner = this.contextRunner.withPropertyValues(
 				"management.endpoints.web.exposure.include=*", "management.endpoints.web.exposure.exclude=shutdown");
 		contextRunner.run((context) -> {
-			WebTestClient client = createClient(context);
+			WebTestClient client = context.createClient();
 			assertThat(isExposed(client, HttpMethod.GET, "beans")).isTrue();
 			assertThat(isExposed(client, HttpMethod.GET, "conditions")).isTrue();
 			assertThat(isExposed(client, HttpMethod.GET, "configprops")).isTrue();
@@ -160,15 +157,6 @@ class WebMvcEndpointExposureIntegrationTests {
 			assertThat(isExposed(client, HttpMethod.GET, "threaddump")).isTrue();
 			assertThat(isExposed(client, HttpMethod.GET, "httptrace")).isTrue();
 		});
-	}
-
-	private WebTestClient createClient(AssertableWebApplicationContext context) {
-		int port = context.getSourceApplicationContext(ServletWebServerApplicationContext.class).getWebServer()
-				.getPort();
-		ExchangeStrategies exchangeStrategies = ExchangeStrategies.builder()
-				.codecs((configurer) -> configurer.defaultCodecs().maxInMemorySize(-1)).build();
-		return WebTestClient.bindToServer().baseUrl("http://localhost:" + port).exchangeStrategies(exchangeStrategies)
-				.build();
 	}
 
 	private boolean isExposed(WebTestClient client, HttpMethod method, String path) throws Exception {
