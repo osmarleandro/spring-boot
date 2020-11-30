@@ -16,9 +16,14 @@
 
 package org.springframework.boot.test.context.runner;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import java.util.List;
 import java.util.function.Supplier;
 
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.actuate.autoconfigure.security.reactive.ReactiveManagementWebSecurityAutoConfigurationTests;
+import org.springframework.boot.actuate.autoconfigure.security.reactive.ReactiveManagementWebSecurityAutoConfigurationTests.WebFilterChainProxyConfiguration;
 import org.springframework.boot.context.annotation.Configurations;
 import org.springframework.boot.test.context.assertj.AssertableReactiveWebApplicationContext;
 import org.springframework.boot.test.util.TestPropertyValues;
@@ -77,6 +82,15 @@ public final class ReactiveWebApplicationContextRunner extends
 			List<Configurations> configurations) {
 		return new ReactiveWebApplicationContextRunner(contextFactory, allowBeanDefinitionOverriding, initializers,
 				environmentProperties, systemProperties, classLoader, parent, beanRegistrations, configurations);
+	}
+
+	@Test
+	public
+	void backsOffWhenWebFilterChainProxyBeanPresent(ReactiveManagementWebSecurityAutoConfigurationTests reactiveManagementWebSecurityAutoConfigurationTests) {
+		withUserConfiguration(WebFilterChainProxyConfiguration.class).run((context) -> {
+			assertThat(reactiveManagementWebSecurityAutoConfigurationTests.getLocationHeader(context, "/actuator/health").toString()).contains("/login");
+			assertThat(reactiveManagementWebSecurityAutoConfigurationTests.getLocationHeader(context, "/foo").toString()).contains("/login");
+		});
 	}
 
 }

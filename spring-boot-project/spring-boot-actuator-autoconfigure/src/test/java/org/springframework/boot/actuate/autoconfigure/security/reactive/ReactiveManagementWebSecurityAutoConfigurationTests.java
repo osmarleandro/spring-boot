@@ -63,9 +63,9 @@ import static org.mockito.Mockito.mock;
  *
  * @author Madhura Bhave
  */
-class ReactiveManagementWebSecurityAutoConfigurationTests {
+public class ReactiveManagementWebSecurityAutoConfigurationTests {
 
-	private final ReactiveWebApplicationContextRunner contextRunner = new ReactiveWebApplicationContextRunner()
+	public final ReactiveWebApplicationContextRunner contextRunner = new ReactiveWebApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(HealthContributorAutoConfiguration.class,
 					HealthEndpointAutoConfiguration.class, InfoEndpointAutoConfiguration.class,
 					EnvironmentEndpointAutoConfiguration.class, EndpointAutoConfiguration.class,
@@ -115,14 +115,6 @@ class ReactiveManagementWebSecurityAutoConfigurationTests {
 						.doesNotHaveBean(ReactiveManagementWebSecurityAutoConfiguration.class));
 	}
 
-	@Test
-	void backsOffWhenWebFilterChainProxyBeanPresent() {
-		this.contextRunner.withUserConfiguration(WebFilterChainProxyConfiguration.class).run((context) -> {
-			assertThat(getLocationHeader(context, "/actuator/health").toString()).contains("/login");
-			assertThat(getLocationHeader(context, "/foo").toString()).contains("/login");
-		});
-	}
-
 	private List<String> getAuthenticateHeader(AssertableReactiveWebApplicationContext context, String path) {
 		ServerWebExchange exchange = performFilter(context, path);
 		return exchange.getResponse().getHeaders().get(HttpHeaders.WWW_AUTHENTICATE);
@@ -136,7 +128,7 @@ class ReactiveManagementWebSecurityAutoConfigurationTests {
 		return exchange;
 	}
 
-	private URI getLocationHeader(AssertableReactiveWebApplicationContext context, String path) {
+	public URI getLocationHeader(AssertableReactiveWebApplicationContext context, String path) {
 		ServerWebExchange exchange = performFilter(context, path);
 		return exchange.getResponse().getHeaders().getLocation();
 	}
@@ -176,6 +168,7 @@ class ReactiveManagementWebSecurityAutoConfigurationTests {
 	}
 
 	@Configuration(proxyBeanMethods = false)
+	public
 	static class WebFilterChainProxyConfiguration {
 
 		@Bean
