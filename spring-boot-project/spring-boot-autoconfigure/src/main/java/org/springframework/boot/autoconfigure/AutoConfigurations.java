@@ -16,6 +16,8 @@
 
 package org.springframework.boot.autoconfigure;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -23,6 +25,15 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointAutoConfigurationTests;
+import org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointAutoConfigurationTests.TestAnotherOneEndpoint;
+import org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointAutoConfigurationTests.TestOneEndpoint;
+import org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointAutoConfigurationTests.TestPathMatcher;
+import org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointAutoConfigurationTests.TestTwoEndpoint;
+import org.springframework.boot.actuate.endpoint.web.ExposableWebEndpoint;
+import org.springframework.boot.actuate.endpoint.web.PathMappedEndpoint;
+import org.springframework.boot.actuate.endpoint.web.annotation.WebEndpointDiscoverer;
 import org.springframework.boot.context.annotation.Configurations;
 import org.springframework.core.Ordered;
 import org.springframework.core.type.classreading.SimpleMetadataReaderFactory;
@@ -61,6 +72,24 @@ public class AutoConfigurations extends Configurations implements Ordered {
 	@Override
 	protected AutoConfigurations merge(Set<Class<?>> mergedClasses) {
 		return new AutoConfigurations(mergedClasses);
+	}
+
+	@Test
+	public
+	void webApplicationSupportCustomPathMatcher(WebEndpointAutoConfigurationTests webEndpointAutoConfigurationTests) {
+		webEndpointAutoConfigurationTests.contextRunner
+				.withPropertyValues("management.endpoints.web.exposure.include=*",
+						"management.endpoints.web.path-mapping.testanotherone=foo")
+				.withUserConfiguration(TestPathMatcher.class, TestOneEndpoint.class, TestAnotherOneEndpoint.class,
+						TestTwoEndpoint.class)
+				.run((context) -> {
+					WebEndpointDiscoverer discoverer = context.getBean(WebEndpointDiscoverer.class);
+					Collection<ExposableWebEndpoint> endpoints = discoverer.getEndpoints();
+					ExposableWebEndpoint[] webEndpoints = endpoints.toArray(new ExposableWebEndpoint[0]);
+					List<String> paths = Arrays.stream(webEndpoints).map(PathMappedEndpoint::getRootPath)
+							.collect(Collectors.toList());
+					assertThat(paths).containsOnly("1/testone", "foo", "testtwo");
+				});
 	}
 
 	public static AutoConfigurations of(Class<?>... classes) {
