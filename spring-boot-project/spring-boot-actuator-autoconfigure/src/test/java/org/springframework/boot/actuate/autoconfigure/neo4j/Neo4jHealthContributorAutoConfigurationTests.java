@@ -32,7 +32,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.entry;
 import static org.mockito.Mockito.mock;
 
 /**
@@ -42,9 +41,9 @@ import static org.mockito.Mockito.mock;
  * @author Stephane Nicoll
  * @author Michael J. Simons
  */
-class Neo4jHealthContributorAutoConfigurationTests {
+public class Neo4jHealthContributorAutoConfigurationTests {
 
-	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
+	public final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(HealthContributorAutoConfiguration.class,
 					Neo4jHealthContributorAutoConfiguration.class));
 
@@ -70,22 +69,13 @@ class Neo4jHealthContributorAutoConfigurationTests {
 	}
 
 	@Test
-	void defaultIndicatorCanBeReplaced() {
-		this.contextRunner.withUserConfiguration(Neo4jConfiguration.class, CustomIndicatorConfiguration.class)
-				.run((context) -> {
-					assertThat(context).hasBean("neo4jHealthIndicator");
-					Health health = context.getBean("neo4jHealthIndicator", HealthIndicator.class).health();
-					assertThat(health.getDetails()).containsOnly(entry("test", true));
-				});
-	}
-
-	@Test
 	void shouldRequireDriverBean() {
 		this.contextRunner.run((context) -> assertThat(context).doesNotHaveBean(Neo4jHealthIndicator.class)
 				.doesNotHaveBean(Neo4jReactiveHealthIndicator.class));
 	}
 
 	@Configuration(proxyBeanMethods = false)
+	public
 	static class Neo4jConfiguration {
 
 		@Bean
@@ -96,6 +86,7 @@ class Neo4jHealthContributorAutoConfigurationTests {
 	}
 
 	@Configuration(proxyBeanMethods = false)
+	public
 	static class CustomIndicatorConfiguration {
 
 		@Bean
