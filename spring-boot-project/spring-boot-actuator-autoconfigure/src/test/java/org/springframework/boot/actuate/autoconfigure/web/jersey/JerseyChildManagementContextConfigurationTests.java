@@ -37,9 +37,10 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Madhura Bhave
  */
 @ClassPathExclusions("spring-webmvc-*")
+public
 class JerseyChildManagementContextConfigurationTests {
 
-	private final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner()
+	public final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner()
 			.withUserConfiguration(JerseyChildManagementContextConfiguration.class);
 
 	@Test
@@ -71,11 +72,6 @@ class JerseyChildManagementContextConfigurationTests {
 			ServletRegistrationBean<ServletContainer> bean = context.getBean(ServletRegistrationBean.class);
 			assertThat(bean.getUrlMappings()).containsExactly("/*");
 		});
-	}
-
-	@Test
-	void resourceConfigCustomizerBeanIsNotRequired() {
-		this.contextRunner.run((context) -> assertThat(context).hasSingleBean(ResourceConfig.class));
 	}
 
 }
