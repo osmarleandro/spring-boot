@@ -16,7 +16,6 @@
 
 package org.springframework.boot.actuate.autoconfigure.cloudfoundry.servlet;
 
-import java.util.Arrays;
 import java.util.Collection;
 
 import org.junit.jupiter.api.Test;
@@ -31,7 +30,6 @@ import org.springframework.boot.actuate.endpoint.EndpointId;
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
 import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
 import org.springframework.boot.actuate.endpoint.http.ActuatorMediaType;
-import org.springframework.boot.actuate.endpoint.web.EndpointMapping;
 import org.springframework.boot.actuate.endpoint.web.ExposableWebEndpoint;
 import org.springframework.boot.actuate.endpoint.web.WebOperation;
 import org.springframework.boot.actuate.endpoint.web.WebOperationRequestPredicate;
@@ -45,7 +43,6 @@ import org.springframework.boot.autoconfigure.web.servlet.DispatcherServletAutoC
 import org.springframework.boot.autoconfigure.web.servlet.WebMvcAutoConfiguration;
 import org.springframework.boot.test.context.runner.WebApplicationContextRunner;
 import org.springframework.context.ApplicationContext;
-import org.springframework.http.HttpMethod;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.security.config.BeanIds;
 import org.springframework.security.web.FilterChainProxy;
@@ -54,7 +51,6 @@ import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.web.cors.CorsConfiguration;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -65,33 +61,15 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  *
  * @author Madhura Bhave
  */
-class CloudFoundryActuatorAutoConfigurationTests {
+public class CloudFoundryActuatorAutoConfigurationTests {
 
-	private final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner()
+	public final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(SecurityAutoConfiguration.class, WebMvcAutoConfiguration.class,
 					JacksonAutoConfiguration.class, DispatcherServletAutoConfiguration.class,
 					HttpMessageConvertersAutoConfiguration.class, PropertyPlaceholderAutoConfiguration.class,
 					RestTemplateAutoConfiguration.class, ManagementContextAutoConfiguration.class,
 					ServletManagementContextAutoConfiguration.class, EndpointAutoConfiguration.class,
 					WebEndpointAutoConfiguration.class, CloudFoundryActuatorAutoConfiguration.class));
-
-	@Test
-	void cloudFoundryPlatformActive() {
-		this.contextRunner.withPropertyValues("VCAP_APPLICATION:---", "vcap.application.application_id:my-app-id",
-				"vcap.application.cf_api:https://my-cloud-controller.com").run((context) -> {
-					CloudFoundryWebEndpointServletHandlerMapping handlerMapping = getHandlerMapping(context);
-					EndpointMapping endpointMapping = (EndpointMapping) ReflectionTestUtils.getField(handlerMapping,
-							"endpointMapping");
-					assertThat(endpointMapping.getPath()).isEqualTo("/cloudfoundryapplication");
-					CorsConfiguration corsConfiguration = (CorsConfiguration) ReflectionTestUtils
-							.getField(handlerMapping, "corsConfiguration");
-					assertThat(corsConfiguration.getAllowedOrigins()).contains("*");
-					assertThat(corsConfiguration.getAllowedMethods())
-							.containsAll(Arrays.asList(HttpMethod.GET.name(), HttpMethod.POST.name()));
-					assertThat(corsConfiguration.getAllowedHeaders())
-							.containsAll(Arrays.asList("Authorization", "X-Cf-App-Instance", "Content-Type"));
-				});
-	}
 
 	@Test
 	void cloudfoundryapplicationProducesActuatorMediaType() throws Exception {
@@ -236,7 +214,7 @@ class CloudFoundryActuatorAutoConfigurationTests {
 				});
 	}
 
-	private CloudFoundryWebEndpointServletHandlerMapping getHandlerMapping(ApplicationContext context) {
+	public CloudFoundryWebEndpointServletHandlerMapping getHandlerMapping(ApplicationContext context) {
 		return context.getBean("cloudFoundryWebEndpointServletHandlerMapping",
 				CloudFoundryWebEndpointServletHandlerMapping.class);
 	}

@@ -16,18 +16,28 @@
 
 package org.springframework.boot.test.context.runner;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
+import java.util.Arrays;
 import java.util.List;
 import java.util.function.Supplier;
 
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.actuate.autoconfigure.cloudfoundry.servlet.CloudFoundryActuatorAutoConfigurationTests;
+import org.springframework.boot.actuate.autoconfigure.cloudfoundry.servlet.CloudFoundryWebEndpointServletHandlerMapping;
+import org.springframework.boot.actuate.endpoint.web.EndpointMapping;
 import org.springframework.boot.context.annotation.Configurations;
 import org.springframework.boot.test.context.assertj.AssertableWebApplicationContext;
 import org.springframework.boot.test.util.TestPropertyValues;
 import org.springframework.boot.web.servlet.context.AnnotationConfigServletWebApplicationContext;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextInitializer;
+import org.springframework.http.HttpMethod;
 import org.springframework.mock.web.MockServletContext;
+import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.web.context.ConfigurableWebApplicationContext;
 import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.cors.CorsConfiguration;
 
 /**
  * An {@link AbstractApplicationContextRunner ApplicationContext runner} for a Servlet
@@ -81,6 +91,25 @@ public final class WebApplicationContextRunner extends
 			List<Configurations> configurations) {
 		return new WebApplicationContextRunner(contextFactory, allowBeanDefinitionOverriding, initializers,
 				environmentProperties, systemProperties, classLoader, parent, beanRegistrations, configurations);
+	}
+
+	@Test
+	public
+	void cloudFoundryPlatformActive(CloudFoundryActuatorAutoConfigurationTests cloudFoundryActuatorAutoConfigurationTests) {
+		withPropertyValues("VCAP_APPLICATION:---", "vcap.application.application_id:my-app-id",
+				"vcap.application.cf_api:https://my-cloud-controller.com").run((context) -> {
+					CloudFoundryWebEndpointServletHandlerMapping handlerMapping = cloudFoundryActuatorAutoConfigurationTests.getHandlerMapping(context);
+					EndpointMapping endpointMapping = (EndpointMapping) ReflectionTestUtils.getField(handlerMapping,
+							"endpointMapping");
+					assertThat(endpointMapping.getPath()).isEqualTo("/cloudfoundryapplication");
+					CorsConfiguration corsConfiguration = (CorsConfiguration) ReflectionTestUtils
+							.getField(handlerMapping, "corsConfiguration");
+					assertThat(corsConfiguration.getAllowedOrigins()).contains("*");
+					assertThat(corsConfiguration.getAllowedMethods())
+							.containsAll(Arrays.asList(HttpMethod.GET.name(), HttpMethod.POST.name()));
+					assertThat(corsConfiguration.getAllowedHeaders())
+							.containsAll(Arrays.asList("Authorization", "X-Cf-App-Instance", "Content-Type"));
+				});
 	}
 
 	/**
