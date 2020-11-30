@@ -16,15 +16,24 @@
 
 package org.springframework.boot.test.context.runner;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
+import java.util.EnumSet;
 import java.util.List;
 import java.util.function.Supplier;
 
+import javax.servlet.DispatcherType;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.actuate.autoconfigure.metrics.web.servlet.WebMvcMetricsAutoConfigurationTests;
 import org.springframework.boot.context.annotation.Configurations;
 import org.springframework.boot.test.context.assertj.AssertableWebApplicationContext;
 import org.springframework.boot.test.util.TestPropertyValues;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.boot.web.servlet.context.AnnotationConfigServletWebApplicationContext;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextInitializer;
+import org.springframework.core.Ordered;
 import org.springframework.mock.web.MockServletContext;
 import org.springframework.web.context.ConfigurableWebApplicationContext;
 import org.springframework.web.context.WebApplicationContext;
@@ -81,6 +90,17 @@ public final class WebApplicationContextRunner extends
 			List<Configurations> configurations) {
 		return new WebApplicationContextRunner(contextFactory, allowBeanDefinitionOverriding, initializers,
 				environmentProperties, systemProperties, classLoader, parent, beanRegistrations, configurations);
+	}
+
+	@Test
+	public
+	void filterRegistrationHasExpectedDispatcherTypesAndOrder(WebMvcMetricsAutoConfigurationTests webMvcMetricsAutoConfigurationTests) {
+		run((context) -> {
+			FilterRegistrationBean<?> registration = context.getBean(FilterRegistrationBean.class);
+			assertThat(registration).hasFieldOrPropertyWithValue("dispatcherTypes",
+					EnumSet.of(DispatcherType.REQUEST, DispatcherType.ASYNC));
+			assertThat(registration.getOrder()).isEqualTo(Ordered.HIGHEST_PRECEDENCE + 1);
+		});
 	}
 
 	/**

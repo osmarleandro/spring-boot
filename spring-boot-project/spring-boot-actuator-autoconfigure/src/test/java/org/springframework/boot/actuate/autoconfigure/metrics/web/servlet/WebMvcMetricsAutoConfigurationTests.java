@@ -18,9 +18,7 @@ package org.springframework.boot.actuate.autoconfigure.metrics.web.servlet;
 
 import java.util.Collection;
 import java.util.Collections;
-import java.util.EnumSet;
 
-import javax.servlet.DispatcherType;
 import javax.servlet.Filter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -50,7 +48,6 @@ import org.springframework.boot.test.system.OutputCaptureExtension;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.Ordered;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -70,9 +67,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * @author Chanhyeong LEE
  */
 @ExtendWith(OutputCaptureExtension.class)
+public
 class WebMvcMetricsAutoConfigurationTests {
 
-	private final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner()
+	public final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner()
 			.with(MetricsRun.simple()).withConfiguration(AutoConfigurations.of(WebMvcMetricsAutoConfiguration.class));
 
 	@Test
@@ -108,16 +106,6 @@ class WebMvcMetricsAutoConfigurationTests {
 		this.contextRunner.withUserConfiguration(TagsProviderConfiguration.class).run((context) -> {
 			assertThat(context).doesNotHaveBean(DefaultWebMvcTagsProvider.class);
 			assertThat(context).hasSingleBean(TestWebMvcTagsProvider.class);
-		});
-	}
-
-	@Test
-	void filterRegistrationHasExpectedDispatcherTypesAndOrder() {
-		this.contextRunner.run((context) -> {
-			FilterRegistrationBean<?> registration = context.getBean(FilterRegistrationBean.class);
-			assertThat(registration).hasFieldOrPropertyWithValue("dispatcherTypes",
-					EnumSet.of(DispatcherType.REQUEST, DispatcherType.ASYNC));
-			assertThat(registration.getOrder()).isEqualTo(Ordered.HIGHEST_PRECEDENCE + 1);
 		});
 	}
 
