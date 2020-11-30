@@ -16,9 +16,13 @@
 
 package org.springframework.boot.test.context.runner;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import java.util.List;
 import java.util.function.Supplier;
 
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.actuate.autoconfigure.endpoint.condition.ConditionalOnAvailableEndpointTests;
 import org.springframework.boot.context.annotation.Configurations;
 import org.springframework.boot.test.context.assertj.AssertableApplicationContext;
 import org.springframework.boot.test.util.TestPropertyValues;
@@ -77,6 +81,14 @@ public class ApplicationContextRunner extends
 			List<Configurations> configurations) {
 		return new ApplicationContextRunner(contextFactory, allowBeanDefinitionOverriding, initializers,
 				environmentProperties, systemProperties, classLoader, parent, beanRegistrations, configurations);
+	}
+
+	@Test
+	public
+	void outcomeWhenIncludeMatchesWithCaseShouldMatch(ConditionalOnAvailableEndpointTests conditionalOnAvailableEndpointTests) {
+		withPropertyValues("management.endpoints.web.exposure.include=sPRing")
+				.run((context) -> assertThat(context).hasBean("spring").doesNotHaveBean("health")
+						.doesNotHaveBean("info").doesNotHaveBean("test").doesNotHaveBean("shutdown"));
 	}
 
 }
