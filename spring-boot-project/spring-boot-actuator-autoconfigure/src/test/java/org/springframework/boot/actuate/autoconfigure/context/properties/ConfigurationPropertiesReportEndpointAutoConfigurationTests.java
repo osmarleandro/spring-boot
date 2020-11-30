@@ -38,9 +38,9 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Phillip Webb
  */
-class ConfigurationPropertiesReportEndpointAutoConfigurationTests {
+public class ConfigurationPropertiesReportEndpointAutoConfigurationTests {
 
-	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
+	public final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(ConfigurationPropertiesReportEndpointAutoConfiguration.class));
 
 	@Test
@@ -57,20 +57,12 @@ class ConfigurationPropertiesReportEndpointAutoConfigurationTests {
 	}
 
 	@Test
-	void keysToSanitizeCanBeConfiguredViaTheEnvironment() {
-		this.contextRunner.withUserConfiguration(Config.class)
-				.withPropertyValues("management.endpoint.configprops.keys-to-sanitize: .*pass.*, property")
-				.withPropertyValues("management.endpoints.web.exposure.include=configprops")
-				.run(validateTestProperties("******", "******"));
-	}
-
-	@Test
 	void runWhenNotExposedShouldNotHaveEndpointBean() {
 		this.contextRunner
 				.run((context) -> assertThat(context).doesNotHaveBean(ConfigurationPropertiesReportEndpoint.class));
 	}
 
-	private ContextConsumer<AssertableApplicationContext> validateTestProperties(String dbPassword,
+	public ContextConsumer<AssertableApplicationContext> validateTestProperties(String dbPassword,
 			String myTestProperty) {
 		return (context) -> {
 			assertThat(context).hasSingleBean(ConfigurationPropertiesReportEndpoint.class);
@@ -87,6 +79,7 @@ class ConfigurationPropertiesReportEndpointAutoConfigurationTests {
 
 	@Configuration(proxyBeanMethods = false)
 	@EnableConfigurationProperties
+	public
 	static class Config {
 
 		@Bean
