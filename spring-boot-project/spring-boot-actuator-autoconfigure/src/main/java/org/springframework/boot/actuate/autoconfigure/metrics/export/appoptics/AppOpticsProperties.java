@@ -115,4 +115,8 @@ public class AppOpticsProperties extends StepRegistryProperties {
 		this.connectTimeout = connectTimeout;
 	}
 
+	public AppOpticsPropertiesConfigAdapter createConfigAdapter() {
+		return new AppOpticsPropertiesConfigAdapter(this);
+	}
+
 }
