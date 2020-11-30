@@ -54,13 +54,6 @@ class ExposeExcludePropertyEndpointFilterTests {
 	}
 
 	@Test
-	void createWhenPrefixIsNullShouldThrowException() {
-		assertThatIllegalArgumentException().isThrownBy(
-				() -> new ExposeExcludePropertyEndpointFilter<>(ExposableEndpoint.class, new MockEnvironment(), null))
-				.withMessageContaining("Prefix must not be empty");
-	}
-
-	@Test
 	void createWhenPrefixIsEmptyShouldThrowException() {
 		assertThatIllegalArgumentException().isThrownBy(
 				() -> new ExposeExcludePropertyEndpointFilter<>(ExposableEndpoint.class, new MockEnvironment(), ""))
