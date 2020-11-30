@@ -52,9 +52,10 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Stephane Nicoll
  */
 @ExtendWith(OutputCaptureExtension.class)
+public
 class PrometheusMetricsExportAutoConfigurationTests {
 
-	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
+	public final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(PrometheusMetricsExportAutoConfiguration.class));
 
 	@Test
@@ -120,15 +121,6 @@ class PrometheusMetricsExportAutoConfigurationTests {
 	@Test
 	void scrapeEndpointNotAddedToManagementContextWhenNotExposed() {
 		this.contextRunner.withConfiguration(AutoConfigurations.of(ManagementContextAutoConfiguration.class))
-				.withUserConfiguration(BaseConfiguration.class)
-				.run((context) -> assertThat(context).doesNotHaveBean(PrometheusScrapeEndpoint.class));
-	}
-
-	@Test
-	void scrapeEndpointCanBeDisabled() {
-		this.contextRunner.withConfiguration(AutoConfigurations.of(ManagementContextAutoConfiguration.class))
-				.withPropertyValues("management.endpoints.web.exposure.include=prometheus")
-				.withPropertyValues("management.endpoint.prometheus.enabled=false")
 				.withUserConfiguration(BaseConfiguration.class)
 				.run((context) -> assertThat(context).doesNotHaveBean(PrometheusScrapeEndpoint.class));
 	}
@@ -217,6 +209,7 @@ class PrometheusMetricsExportAutoConfigurationTests {
 	}
 
 	@Configuration(proxyBeanMethods = false)
+	public
 	static class BaseConfiguration {
 
 		@Bean
