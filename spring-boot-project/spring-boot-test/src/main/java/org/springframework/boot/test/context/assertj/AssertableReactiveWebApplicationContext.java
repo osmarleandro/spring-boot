@@ -16,10 +16,14 @@
 
 package org.springframework.boot.test.context.assertj;
 
+import static org.mockito.Mockito.mock;
+
 import java.util.function.Supplier;
 
+import org.springframework.boot.actuate.autoconfigure.security.reactive.ReactiveManagementWebSecurityAutoConfigurationTests.TestHttpWebHandlerAdapter;
 import org.springframework.boot.web.reactive.context.ConfigurableReactiveWebApplicationContext;
 import org.springframework.boot.web.reactive.context.ReactiveWebApplicationContext;
+import org.springframework.web.server.WebHandler;
 
 /**
  * A {@link ReactiveWebApplicationContext} that additionally supports AssertJ style
@@ -49,6 +53,12 @@ public interface AssertableReactiveWebApplicationContext
 			Supplier<? extends ConfigurableReactiveWebApplicationContext> contextSupplier) {
 		return ApplicationContextAssertProvider.get(AssertableReactiveWebApplicationContext.class,
 				ConfigurableReactiveWebApplicationContext.class, contextSupplier);
+	}
+
+	public default TestHttpWebHandlerAdapter webHandler() {
+		TestHttpWebHandlerAdapter adapter = new TestHttpWebHandlerAdapter(mock(WebHandler.class));
+		adapter.setApplicationContext(this);
+		return adapter;
 	}
 
 }

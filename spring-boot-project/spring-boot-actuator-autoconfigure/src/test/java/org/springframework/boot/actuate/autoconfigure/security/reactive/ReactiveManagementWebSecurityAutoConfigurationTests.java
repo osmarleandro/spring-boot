@@ -63,7 +63,7 @@ import static org.mockito.Mockito.mock;
  *
  * @author Madhura Bhave
  */
-class ReactiveManagementWebSecurityAutoConfigurationTests {
+public class ReactiveManagementWebSecurityAutoConfigurationTests {
 
 	private final ReactiveWebApplicationContextRunner contextRunner = new ReactiveWebApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(HealthContributorAutoConfiguration.class,
@@ -129,7 +129,7 @@ class ReactiveManagementWebSecurityAutoConfigurationTests {
 	}
 
 	private ServerWebExchange performFilter(AssertableReactiveWebApplicationContext context, String path) {
-		ServerWebExchange exchange = webHandler(context).createExchange(MockServerHttpRequest.get(path).build(),
+		ServerWebExchange exchange = context.webHandler().createExchange(MockServerHttpRequest.get(path).build(),
 				new MockServerHttpResponse());
 		WebFilterChainProxy proxy = context.getBean(WebFilterChainProxy.class);
 		proxy.filter(exchange, (serverWebExchange) -> Mono.empty()).block(Duration.ofSeconds(30));
@@ -141,13 +141,7 @@ class ReactiveManagementWebSecurityAutoConfigurationTests {
 		return exchange.getResponse().getHeaders().getLocation();
 	}
 
-	private TestHttpWebHandlerAdapter webHandler(AssertableReactiveWebApplicationContext context) {
-		TestHttpWebHandlerAdapter adapter = new TestHttpWebHandlerAdapter(mock(WebHandler.class));
-		adapter.setApplicationContext(context);
-		return adapter;
-	}
-
-	static class TestHttpWebHandlerAdapter extends HttpWebHandlerAdapter {
+	public static class TestHttpWebHandlerAdapter extends HttpWebHandlerAdapter {
 
 		TestHttpWebHandlerAdapter(WebHandler delegate) {
 			super(delegate);
