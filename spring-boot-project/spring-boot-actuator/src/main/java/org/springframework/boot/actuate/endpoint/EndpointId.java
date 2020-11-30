@@ -16,6 +16,9 @@
 
 package org.springframework.boot.actuate.endpoint;
 
+import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.mock;
+
 import java.util.HashSet;
 import java.util.Locale;
 import java.util.Set;
@@ -23,7 +26,7 @@ import java.util.regex.Pattern;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
+import org.springframework.boot.actuate.autoconfigure.security.servlet.EndpointRequestTests.TestEndpoint;
 import org.springframework.core.env.Environment;
 import org.springframework.util.Assert;
 
@@ -104,6 +107,13 @@ public final class EndpointId {
 	@Override
 	public String toString() {
 		return this.value;
+	}
+
+	public TestEndpoint mockEndpoint(String rootPath) {
+		TestEndpoint endpoint = mock(TestEndpoint.class);
+		given(endpoint.getEndpointId()).willReturn(this);
+		given(endpoint.getRootPath()).willReturn(rootPath);
+		return endpoint;
 	}
 
 	/**

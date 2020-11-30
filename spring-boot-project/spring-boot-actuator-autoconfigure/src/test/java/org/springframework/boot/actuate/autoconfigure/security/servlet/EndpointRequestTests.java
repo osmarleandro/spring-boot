@@ -40,8 +40,6 @@ import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.StaticWebApplicationContext;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.mock;
 
 /**
  * Tests for {@link EndpointRequest}.
@@ -49,7 +47,7 @@ import static org.mockito.Mockito.mock;
  * @author Phillip Webb
  * @author Madhura Bhave
  */
-class EndpointRequestTests {
+public class EndpointRequestTests {
 
 	@Test
 	void toAnyEndpointShouldMatchEndpointPath() {
@@ -141,9 +139,9 @@ class EndpointRequestTests {
 	void excludeByClassShouldNotMatchExcluded() {
 		RequestMatcher matcher = EndpointRequest.toAnyEndpoint().excluding(FooEndpoint.class, BazServletEndpoint.class);
 		List<ExposableEndpoint<?>> endpoints = new ArrayList<>();
-		endpoints.add(mockEndpoint(EndpointId.of("foo"), "foo"));
-		endpoints.add(mockEndpoint(EndpointId.of("bar"), "bar"));
-		endpoints.add(mockEndpoint(EndpointId.of("baz"), "baz"));
+		endpoints.add(EndpointId.of("foo").mockEndpoint("foo"));
+		endpoints.add(EndpointId.of("bar").mockEndpoint("bar"));
+		endpoints.add(EndpointId.of("baz").mockEndpoint("baz"));
 		PathMappedEndpoints pathMappedEndpoints = new PathMappedEndpoints("/actuator", () -> endpoints);
 		assertMatcher(matcher, pathMappedEndpoints).doesNotMatch("/actuator/foo");
 		assertMatcher(matcher, pathMappedEndpoints).doesNotMatch("/actuator/baz");
@@ -226,16 +224,9 @@ class EndpointRequestTests {
 
 	private PathMappedEndpoints mockPathMappedEndpoints(String basePath) {
 		List<ExposableEndpoint<?>> endpoints = new ArrayList<>();
-		endpoints.add(mockEndpoint(EndpointId.of("foo"), "foo"));
-		endpoints.add(mockEndpoint(EndpointId.of("bar"), "bar"));
+		endpoints.add(EndpointId.of("foo").mockEndpoint("foo"));
+		endpoints.add(EndpointId.of("bar").mockEndpoint("bar"));
 		return new PathMappedEndpoints(basePath, () -> endpoints);
-	}
-
-	private TestEndpoint mockEndpoint(EndpointId id, String rootPath) {
-		TestEndpoint endpoint = mock(TestEndpoint.class);
-		given(endpoint.getEndpointId()).willReturn(id);
-		given(endpoint.getRootPath()).willReturn(rootPath);
-		return endpoint;
 	}
 
 	private RequestMatcherAssert assertMatcher(RequestMatcher matcher, PathMappedEndpoints pathMappedEndpoints) {
@@ -316,7 +307,7 @@ class EndpointRequestTests {
 
 	}
 
-	interface TestEndpoint extends ExposableEndpoint<Operation>, PathMappedEndpoint {
+	public interface TestEndpoint extends ExposableEndpoint<Operation>, PathMappedEndpoint {
 
 	}
 
