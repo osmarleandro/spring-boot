@@ -42,16 +42,17 @@ import static org.mockito.Mockito.mock;
  * @author Phillip Webb
  */
 @ExtendWith(MockitoExtension.class)
+public
 class AutoConfiguredHealthEndpointGroupTests {
 
 	@Mock
-	private StatusAggregator statusAggregator;
+	public StatusAggregator statusAggregator;
 
 	@Mock
-	private HttpCodeStatusMapper httpCodeStatusMapper;
+	public HttpCodeStatusMapper httpCodeStatusMapper;
 
 	@Mock
-	private SecurityContext securityContext;
+	public SecurityContext securityContext;
 
 	@Mock
 	private Principal principal;
@@ -168,15 +169,6 @@ class AutoConfiguredHealthEndpointGroupTests {
 		AutoConfiguredHealthEndpointGroup group = new AutoConfiguredHealthEndpointGroup((name) -> true,
 				this.statusAggregator, this.httpCodeStatusMapper, Show.ALWAYS, Show.NEVER, Collections.emptySet());
 		assertThat(group.showComponents(SecurityContext.NONE)).isTrue();
-	}
-
-	@Test
-	void showComponentsWhenShowComponentsIsWhenAuthorizedAndPrincipalIsNullReturnsFalse() {
-		AutoConfiguredHealthEndpointGroup group = new AutoConfiguredHealthEndpointGroup((name) -> true,
-				this.statusAggregator, this.httpCodeStatusMapper, Show.WHEN_AUTHORIZED, Show.NEVER,
-				Collections.emptySet());
-		given(this.securityContext.getPrincipal()).willReturn(null);
-		assertThat(group.showComponents(this.securityContext)).isFalse();
 	}
 
 	@Test
