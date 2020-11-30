@@ -41,20 +41,14 @@ import static org.mockito.Mockito.verify;
  *
  * @author Andy Wilkinson
  */
-class MetricsAutoConfigurationTests {
+public class MetricsAutoConfigurationTests {
 
-	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
+	public final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(MetricsAutoConfiguration.class));
 
 	@Test
 	void autoConfiguresAClock() {
 		this.contextRunner.run((context) -> assertThat(context).hasSingleBean(Clock.class));
-	}
-
-	@Test
-	void allowsACustomClockToBeUsed() {
-		this.contextRunner.withUserConfiguration(CustomClockConfiguration.class)
-				.run((context) -> assertThat(context).hasSingleBean(Clock.class).hasBean("customClock"));
 	}
 
 	@SuppressWarnings("unchecked")
@@ -73,6 +67,7 @@ class MetricsAutoConfigurationTests {
 	}
 
 	@Configuration(proxyBeanMethods = false)
+	public
 	static class CustomClockConfiguration {
 
 		@Bean
