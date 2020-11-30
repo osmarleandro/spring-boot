@@ -20,6 +20,9 @@ import java.util.function.Supplier;
 
 import org.springframework.boot.web.reactive.context.ConfigurableReactiveWebApplicationContext;
 import org.springframework.boot.web.reactive.context.ReactiveWebApplicationContext;
+import org.springframework.test.web.reactive.server.WebTestClient;
+
+import io.micrometer.core.instrument.MeterRegistry;
 
 /**
  * A {@link ReactiveWebApplicationContext} that additionally supports AssertJ style
@@ -49,6 +52,14 @@ public interface AssertableReactiveWebApplicationContext
 			Supplier<? extends ConfigurableReactiveWebApplicationContext> contextSupplier) {
 		return ApplicationContextAssertProvider.get(AssertableReactiveWebApplicationContext.class,
 				ConfigurableReactiveWebApplicationContext.class, contextSupplier);
+	}
+
+	public default MeterRegistry getInitializedMeterRegistry() {
+		WebTestClient webTestClient = WebTestClient.bindToApplicationContext(this).build();
+		for (int i = 0; i < 3; i++) {
+			webTestClient.get().uri("/test" + i).exchange().expectStatus().isOk();
+		}
+		return getBean(MeterRegistry.class);
 	}
 
 }

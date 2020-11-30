@@ -28,13 +28,11 @@ import org.springframework.boot.actuate.metrics.web.reactive.server.WebFluxTagsC
 import org.springframework.boot.actuate.metrics.web.reactive.server.WebFluxTagsProvider;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
 import org.springframework.boot.autoconfigure.web.reactive.WebFluxAutoConfiguration;
-import org.springframework.boot.test.context.assertj.AssertableReactiveWebApplicationContext;
 import org.springframework.boot.test.context.runner.ReactiveWebApplicationContextRunner;
 import org.springframework.boot.test.system.CapturedOutput;
 import org.springframework.boot.test.system.OutputCaptureExtension;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.test.web.reactive.server.WebTestClient;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
@@ -84,7 +82,7 @@ class WebFluxMetricsAutoConfigurationTests {
 		this.contextRunner.withConfiguration(AutoConfigurations.of(WebFluxAutoConfiguration.class))
 				.withUserConfiguration(TestController.class)
 				.withPropertyValues("management.metrics.web.server.max-uri-tags=2").run((context) -> {
-					MeterRegistry registry = getInitializedMeterRegistry(context);
+					MeterRegistry registry = context.getInitializedMeterRegistry();
 					assertThat(registry.get("http.server.requests").meters()).hasSize(2);
 					assertThat(output).contains("Reached the maximum number of URI tags for 'http.server.requests'");
 				});
@@ -95,7 +93,7 @@ class WebFluxMetricsAutoConfigurationTests {
 		this.contextRunner.withConfiguration(AutoConfigurations.of(WebFluxAutoConfiguration.class))
 				.withUserConfiguration(TestController.class)
 				.withPropertyValues("management.metrics.web.server.max-uri-tags=5").run((context) -> {
-					MeterRegistry registry = getInitializedMeterRegistry(context);
+					MeterRegistry registry = context.getInitializedMeterRegistry();
 					assertThat(registry.get("http.server.requests").meters()).hasSize(3);
 					assertThat(output)
 							.doesNotContain("Reached the maximum number of URI tags for 'http.server.requests'");
@@ -107,7 +105,7 @@ class WebFluxMetricsAutoConfigurationTests {
 		this.contextRunner.withConfiguration(AutoConfigurations.of(WebFluxAutoConfiguration.class))
 				.withUserConfiguration(TestController.class)
 				.withPropertyValues("management.metrics.web.server.request.autotime.enabled=false").run((context) -> {
-					MeterRegistry registry = getInitializedMeterRegistry(context);
+					MeterRegistry registry = context.getInitializedMeterRegistry();
 					assertThat(registry.find("http.server.requests").meter()).isNull();
 				});
 	}
@@ -119,14 +117,6 @@ class WebFluxMetricsAutoConfigurationTests {
 			assertThat(context.getBean(DefaultWebFluxTagsProvider.class)).extracting("contributors").asList()
 					.hasSize(2);
 		});
-	}
-
-	private MeterRegistry getInitializedMeterRegistry(AssertableReactiveWebApplicationContext context) {
-		WebTestClient webTestClient = WebTestClient.bindToApplicationContext(context).build();
-		for (int i = 0; i < 3; i++) {
-			webTestClient.get().uri("/test" + i).exchange().expectStatus().isOk();
-		}
-		return context.getBean(MeterRegistry.class);
 	}
 
 	@Configuration(proxyBeanMethods = false)
