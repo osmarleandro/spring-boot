@@ -16,9 +16,14 @@
 
 package org.springframework.boot.test.context.runner;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import java.util.List;
 import java.util.function.Supplier;
 
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.actuate.autoconfigure.metrics.export.signalfx.SignalFxMetricsExportAutoConfigurationTests;
+import org.springframework.boot.actuate.autoconfigure.metrics.export.signalfx.SignalFxMetricsExportAutoConfigurationTests.CustomRegistryConfiguration;
 import org.springframework.boot.context.annotation.Configurations;
 import org.springframework.boot.test.context.assertj.AssertableApplicationContext;
 import org.springframework.boot.test.util.TestPropertyValues;
@@ -26,6 +31,10 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextInitializer;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
+import io.micrometer.core.instrument.Clock;
+import io.micrometer.signalfx.SignalFxConfig;
+import io.micrometer.signalfx.SignalFxMeterRegistry;
 
 /**
  * An {@link AbstractApplicationContextRunner ApplicationContext runner} for a standard,
@@ -77,6 +86,15 @@ public class ApplicationContextRunner extends
 			List<Configurations> configurations) {
 		return new ApplicationContextRunner(contextFactory, allowBeanDefinitionOverriding, initializers,
 				environmentProperties, systemProperties, classLoader, parent, beanRegistrations, configurations);
+	}
+
+	@Test
+	public
+	void allowsRegistryToBeCustomized(SignalFxMetricsExportAutoConfigurationTests signalFxMetricsExportAutoConfigurationTests) {
+		withPropertyValues("management.metrics.export.signalfx.access-token=abcde")
+				.withUserConfiguration(CustomRegistryConfiguration.class)
+				.run((context) -> assertThat(context).hasSingleBean(Clock.class).hasSingleBean(SignalFxConfig.class)
+						.hasSingleBean(SignalFxMeterRegistry.class).hasBean("customRegistry"));
 	}
 
 }
