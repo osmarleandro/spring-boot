@@ -34,9 +34,9 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Andy Wilkinson
  */
-class InfluxMetricsExportAutoConfigurationTests {
+public class InfluxMetricsExportAutoConfigurationTests {
 
-	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
+	public final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(InfluxMetricsExportAutoConfiguration.class));
 
 	@Test
@@ -67,12 +67,6 @@ class InfluxMetricsExportAutoConfigurationTests {
 	}
 
 	@Test
-	void allowsCustomConfigToBeUsed() {
-		this.contextRunner.withUserConfiguration(CustomConfigConfiguration.class).run((context) -> assertThat(context)
-				.hasSingleBean(InfluxMeterRegistry.class).hasSingleBean(InfluxConfig.class).hasBean("customConfig"));
-	}
-
-	@Test
 	void allowsCustomRegistryToBeUsed() {
 		this.contextRunner.withUserConfiguration(CustomRegistryConfiguration.class).run((context) -> assertThat(context)
 				.hasSingleBean(InfluxMeterRegistry.class).hasBean("customRegistry").hasSingleBean(InfluxConfig.class));
@@ -100,6 +94,7 @@ class InfluxMetricsExportAutoConfigurationTests {
 
 	@Configuration(proxyBeanMethods = false)
 	@Import(BaseConfiguration.class)
+	public
 	static class CustomConfigConfiguration {
 
 		@Bean
