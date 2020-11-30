@@ -22,7 +22,6 @@ import org.junit.jupiter.api.Test;
 
 import org.springframework.boot.autoconfigure.AutoConfigurations;
 import org.springframework.boot.autoconfigure.web.servlet.JerseyApplicationPath;
-import org.springframework.boot.test.context.FilteredClassLoader;
 import org.springframework.boot.test.context.runner.ApplicationContextRunner;
 import org.springframework.boot.test.context.runner.WebApplicationContextRunner;
 import org.springframework.boot.testsupport.classpath.ClassPathExclusions;
@@ -37,9 +36,10 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Madhura Bhave
  */
 @ClassPathExclusions("spring-webmvc-*")
+public
 class JerseyChildManagementContextConfigurationTests {
 
-	private final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner()
+	public final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner()
 			.withUserConfiguration(JerseyChildManagementContextConfiguration.class);
 
 	@Test
@@ -47,12 +47,6 @@ class JerseyChildManagementContextConfigurationTests {
 		ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 				.withConfiguration(AutoConfigurations.of(JerseySameManagementContextConfiguration.class));
 		contextRunner
-				.run((context) -> assertThat(context).doesNotHaveBean(JerseySameManagementContextConfiguration.class));
-	}
-
-	@Test
-	void autoConfigurationIsConditionalOnClassResourceConfig() {
-		this.contextRunner.withClassLoader(new FilteredClassLoader(ResourceConfig.class))
 				.run((context) -> assertThat(context).doesNotHaveBean(JerseySameManagementContextConfiguration.class));
 	}
 
