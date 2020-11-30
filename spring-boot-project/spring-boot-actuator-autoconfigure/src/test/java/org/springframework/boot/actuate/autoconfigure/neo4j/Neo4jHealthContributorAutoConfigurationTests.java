@@ -42,9 +42,9 @@ import static org.mockito.Mockito.mock;
  * @author Stephane Nicoll
  * @author Michael J. Simons
  */
-class Neo4jHealthContributorAutoConfigurationTests {
+public class Neo4jHealthContributorAutoConfigurationTests {
 
-	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
+	public final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(HealthContributorAutoConfiguration.class,
 					Neo4jHealthContributorAutoConfiguration.class));
 
@@ -77,12 +77,6 @@ class Neo4jHealthContributorAutoConfigurationTests {
 					Health health = context.getBean("neo4jHealthIndicator", HealthIndicator.class).health();
 					assertThat(health.getDetails()).containsOnly(entry("test", true));
 				});
-	}
-
-	@Test
-	void shouldRequireDriverBean() {
-		this.contextRunner.run((context) -> assertThat(context).doesNotHaveBean(Neo4jHealthIndicator.class)
-				.doesNotHaveBean(Neo4jReactiveHealthIndicator.class));
 	}
 
 	@Configuration(proxyBeanMethods = false)
