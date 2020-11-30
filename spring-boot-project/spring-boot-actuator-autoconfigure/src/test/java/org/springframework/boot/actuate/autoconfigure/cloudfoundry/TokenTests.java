@@ -16,8 +16,6 @@
 
 package org.springframework.boot.actuate.autoconfigure.cloudfoundry;
 
-import java.util.function.Consumer;
-
 import org.junit.jupiter.api.Test;
 
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.CloudFoundryAuthorizationException.Reason;
@@ -36,7 +34,7 @@ class TokenTests {
 	@Test
 	void invalidJwtShouldThrowException() {
 		assertThatExceptionOfType(CloudFoundryAuthorizationException.class).isThrownBy(() -> new Token("invalid-token"))
-				.satisfies(reasonRequirement(Reason.INVALID_TOKEN));
+				.satisfies(Reason.INVALID_TOKEN.reasonRequirement());
 	}
 
 	@Test
@@ -46,7 +44,7 @@ class TokenTests {
 		assertThatExceptionOfType(CloudFoundryAuthorizationException.class)
 				.isThrownBy(() -> new Token(Base64Utils.encodeToString(header.getBytes()) + "."
 						+ Base64Utils.encodeToString(claims.getBytes())))
-				.satisfies(reasonRequirement(Reason.INVALID_TOKEN));
+				.satisfies(Reason.INVALID_TOKEN.reasonRequirement());
 	}
 
 	@Test
@@ -56,7 +54,7 @@ class TokenTests {
 		assertThatExceptionOfType(CloudFoundryAuthorizationException.class)
 				.isThrownBy(() -> new Token(Base64Utils.encodeToString(header.getBytes()) + "."
 						+ Base64Utils.encodeToString(claims.getBytes())))
-				.satisfies(reasonRequirement(Reason.INVALID_TOKEN));
+				.satisfies(Reason.INVALID_TOKEN.reasonRequirement());
 	}
 
 	@Test
@@ -64,7 +62,7 @@ class TokenTests {
 		String token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ0b3B0YWwu"
 				+ "Y29tIiwiZXhwIjoxNDI2NDIwODAwLCJhd2Vzb21lIjp0cnVlfQ.";
 		assertThatExceptionOfType(CloudFoundryAuthorizationException.class).isThrownBy(() -> new Token(token))
-				.satisfies(reasonRequirement(Reason.INVALID_TOKEN));
+				.satisfies(Reason.INVALID_TOKEN.reasonRequirement());
 	}
 
 	@Test
@@ -89,7 +87,7 @@ class TokenTests {
 		String claims = "{\"exp\": 2147483647, \"iss\": \"http://localhost:8080/uaa/oauth/token\"}";
 		Token token = createToken(header, claims);
 		assertThatExceptionOfType(CloudFoundryAuthorizationException.class).isThrownBy(token::getSignatureAlgorithm)
-				.satisfies(reasonRequirement(Reason.INVALID_TOKEN));
+				.satisfies(Reason.INVALID_TOKEN.reasonRequirement());
 	}
 
 	@Test
@@ -98,7 +96,7 @@ class TokenTests {
 		String claims = "{\"exp\": 2147483647}";
 		Token token = createToken(header, claims);
 		assertThatExceptionOfType(CloudFoundryAuthorizationException.class).isThrownBy(token::getIssuer)
-				.satisfies(reasonRequirement(Reason.INVALID_TOKEN));
+				.satisfies(Reason.INVALID_TOKEN.reasonRequirement());
 	}
 
 	@Test
@@ -107,7 +105,7 @@ class TokenTests {
 		String claims = "{\"exp\": 2147483647}";
 		Token token = createToken(header, claims);
 		assertThatExceptionOfType(CloudFoundryAuthorizationException.class).isThrownBy(token::getKeyId)
-				.satisfies(reasonRequirement(Reason.INVALID_TOKEN));
+				.satisfies(Reason.INVALID_TOKEN.reasonRequirement());
 	}
 
 	@Test
@@ -116,7 +114,7 @@ class TokenTests {
 		String claims = "{\"iss\": \"http://localhost:8080/uaa/oauth/token\"}";
 		Token token = createToken(header, claims);
 		assertThatExceptionOfType(CloudFoundryAuthorizationException.class).isThrownBy(token::getExpiry)
-				.satisfies(reasonRequirement(Reason.INVALID_TOKEN));
+				.satisfies(Reason.INVALID_TOKEN.reasonRequirement());
 	}
 
 	private Token createToken(String header, String claims) {
@@ -124,10 +122,6 @@ class TokenTests {
 				Base64Utils.encodeToString(header.getBytes()) + "." + Base64Utils.encodeToString(claims.getBytes())
 						+ "." + Base64Utils.encodeToString("signature".getBytes()));
 		return token;
-	}
-
-	private Consumer<CloudFoundryAuthorizationException> reasonRequirement(Reason reason) {
-		return (ex) -> assertThat(ex.getReason()).isEqualTo(reason);
 	}
 
 }

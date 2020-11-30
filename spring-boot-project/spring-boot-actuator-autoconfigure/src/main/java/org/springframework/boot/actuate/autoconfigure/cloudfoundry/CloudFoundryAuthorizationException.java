@@ -16,6 +16,11 @@
 
 package org.springframework.boot.actuate.autoconfigure.cloudfoundry;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
+import java.util.function.Consumer;
+
+import org.springframework.boot.actuate.autoconfigure.cloudfoundry.CloudFoundryAuthorizationException.Reason;
 import org.springframework.http.HttpStatus;
 
 /**
@@ -86,6 +91,10 @@ public class CloudFoundryAuthorizationException extends RuntimeException {
 
 		public HttpStatus getStatus() {
 			return this.status;
+		}
+
+		public Consumer<CloudFoundryAuthorizationException> reasonRequirement() {
+			return (ex) -> assertThat(ex.getReason()).isEqualTo(this);
 		}
 
 	}
