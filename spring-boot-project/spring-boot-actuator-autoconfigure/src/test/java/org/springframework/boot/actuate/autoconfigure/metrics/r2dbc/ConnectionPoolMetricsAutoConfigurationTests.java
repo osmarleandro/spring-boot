@@ -45,9 +45,9 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Tadaya Tsuyukubo
  * @author Stephane Nicoll
  */
-class ConnectionPoolMetricsAutoConfigurationTests {
+public class ConnectionPoolMetricsAutoConfigurationTests {
 
-	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
+	public final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.withPropertyValues("spring.r2dbc.generate-unique-name=true").with(MetricsRun.simple())
 			.withConfiguration(AutoConfigurations.of(ConnectionPoolMetricsAutoConfiguration.class))
 			.withUserConfiguration(BaseConfiguration.class);
@@ -81,15 +81,6 @@ class ConnectionPoolMetricsAutoConfigurationTests {
 	}
 
 	@Test
-	void connectionPoolExposedAsConnectionFactoryTypeIsInstrumented() {
-		this.contextRunner.withUserConfiguration(ConnectionFactoryConfiguration.class).run((context) -> {
-			MeterRegistry registry = context.getBean(MeterRegistry.class);
-			assertThat(registry.find("r2dbc.pool.acquired").gauges()).extracting(Meter::getId)
-					.extracting((id) -> id.getTag("name")).containsExactly("testConnectionPool");
-		});
-	}
-
-	@Test
 	void allConnectionPoolsCanBeInstrumented() {
 		this.contextRunner.withUserConfiguration(TwoConnectionPoolsConfiguration.class).run((context) -> {
 			MeterRegistry registry = context.getBean(MeterRegistry.class);
@@ -109,6 +100,7 @@ class ConnectionPoolMetricsAutoConfigurationTests {
 	}
 
 	@Configuration(proxyBeanMethods = false)
+	public
 	static class ConnectionFactoryConfiguration {
 
 		@Bean

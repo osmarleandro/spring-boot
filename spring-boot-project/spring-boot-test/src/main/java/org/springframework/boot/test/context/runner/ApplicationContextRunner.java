@@ -16,9 +16,14 @@
 
 package org.springframework.boot.test.context.runner;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import java.util.List;
 import java.util.function.Supplier;
 
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.actuate.autoconfigure.metrics.r2dbc.ConnectionPoolMetricsAutoConfigurationTests;
+import org.springframework.boot.actuate.autoconfigure.metrics.r2dbc.ConnectionPoolMetricsAutoConfigurationTests.ConnectionFactoryConfiguration;
 import org.springframework.boot.context.annotation.Configurations;
 import org.springframework.boot.test.context.assertj.AssertableApplicationContext;
 import org.springframework.boot.test.util.TestPropertyValues;
@@ -26,6 +31,9 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextInitializer;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
+import io.micrometer.core.instrument.Meter;
+import io.micrometer.core.instrument.MeterRegistry;
 
 /**
  * An {@link AbstractApplicationContextRunner ApplicationContext runner} for a standard,
@@ -77,6 +85,16 @@ public class ApplicationContextRunner extends
 			List<Configurations> configurations) {
 		return new ApplicationContextRunner(contextFactory, allowBeanDefinitionOverriding, initializers,
 				environmentProperties, systemProperties, classLoader, parent, beanRegistrations, configurations);
+	}
+
+	@Test
+	public
+	void connectionPoolExposedAsConnectionFactoryTypeIsInstrumented(ConnectionPoolMetricsAutoConfigurationTests connectionPoolMetricsAutoConfigurationTests) {
+		withUserConfiguration(ConnectionFactoryConfiguration.class).run((context) -> {
+			MeterRegistry registry = context.getBean(MeterRegistry.class);
+			assertThat(registry.find("r2dbc.pool.acquired").gauges()).extracting(Meter::getId)
+					.extracting((id) -> id.getTag("name")).containsExactly("testConnectionPool");
+		});
 	}
 
 }
