@@ -165,6 +165,10 @@ public class IncludeExcludeEndpointFilter<E extends ExposableEndpoint<?>> implem
 		return this.exclude.matches(endpointId);
 	}
 
+	public boolean match(IncludeExcludeEndpointFilterTests includeExcludeEndpointFilterTests) {
+		return includeExcludeEndpointFilterTests.match(null);
+	}
+
 	/**
 	 * Default include patterns that can be used.
 	 */

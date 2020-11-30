@@ -37,6 +37,7 @@ import static org.mockito.Mockito.mock;
  * @author Phillip Webb
  */
 @ExtendWith(MockitoExtension.class)
+public
 class IncludeExcludeEndpointFilterTests {
 
 	private IncludeExcludeEndpointFilter<?> filter;
@@ -119,7 +120,7 @@ class IncludeExcludeEndpointFilterTests {
 		environment.setProperty("foo.include", "bar");
 		environment.setProperty("foo.exclude", "");
 		this.filter = new IncludeExcludeEndpointFilter<>(DifferentTestExposableWebEndpoint.class, environment, "foo");
-		assertThat(match()).isTrue();
+		assertThat(filter.match(this)).isTrue();
 	}
 
 	@Test
@@ -157,12 +158,8 @@ class IncludeExcludeEndpointFilterTests {
 		this.filter = new IncludeExcludeEndpointFilter<>(TestExposableWebEndpoint.class, environment, "foo", "def");
 	}
 
-	private boolean match() {
-		return match(null);
-	}
-
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	private boolean match(EndpointId id) {
+	public boolean match(EndpointId id) {
 		ExposableEndpoint<?> endpoint = mock(TestExposableWebEndpoint.class);
 		if (id != null) {
 			given(endpoint.getEndpointId()).willReturn(id);
