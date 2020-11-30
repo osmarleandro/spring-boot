@@ -198,22 +198,16 @@ class PrometheusMetricsExportAutoConfigurationTests {
 	}
 
 	private void hasGatewayURL(AssertableApplicationContext context, String url) {
-		assertThat(getPushGateway(context)).hasFieldOrPropertyWithValue("gatewayBaseURL", url);
+		assertThat(context.getPushGateway()).hasFieldOrPropertyWithValue("gatewayBaseURL", url);
 	}
 
 	private ContextConsumer<AssertableApplicationContext> hasHttpConnectionFactory(
 			Consumer<HttpConnectionFactory> httpConnectionFactory) {
 		return (context) -> {
-			PushGateway pushGateway = getPushGateway(context);
+			PushGateway pushGateway = context.getPushGateway();
 			httpConnectionFactory
 					.accept((HttpConnectionFactory) ReflectionTestUtils.getField(pushGateway, "connectionFactory"));
 		};
-	}
-
-	private PushGateway getPushGateway(AssertableApplicationContext context) {
-		assertThat(context).hasSingleBean(PrometheusPushGatewayManager.class);
-		PrometheusPushGatewayManager gatewayManager = context.getBean(PrometheusPushGatewayManager.class);
-		return (PushGateway) ReflectionTestUtils.getField(gatewayManager, "pushGateway");
 	}
 
 	@Configuration(proxyBeanMethods = false)

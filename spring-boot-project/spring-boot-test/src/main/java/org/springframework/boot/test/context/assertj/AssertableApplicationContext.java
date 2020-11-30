@@ -16,11 +16,17 @@
 
 package org.springframework.boot.test.context.assertj;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import java.util.function.Supplier;
 
+import org.springframework.boot.actuate.metrics.export.prometheus.PrometheusPushGatewayManager;
 import org.springframework.boot.test.context.runner.ApplicationContextRunner;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.test.util.ReflectionTestUtils;
+
+import io.prometheus.client.exporter.PushGateway;
 
 /**
  * An {@link ApplicationContext} that additionally supports AssertJ style assertions. Can
@@ -47,6 +53,12 @@ public interface AssertableApplicationContext
 	static AssertableApplicationContext get(Supplier<? extends ConfigurableApplicationContext> contextSupplier) {
 		return ApplicationContextAssertProvider.get(AssertableApplicationContext.class,
 				ConfigurableApplicationContext.class, contextSupplier);
+	}
+
+	public default PushGateway getPushGateway() {
+		assertThat(this).hasSingleBean(PrometheusPushGatewayManager.class);
+		PrometheusPushGatewayManager gatewayManager = getBean(PrometheusPushGatewayManager.class);
+		return (PushGateway) ReflectionTestUtils.getField(gatewayManager, "pushGateway");
 	}
 
 }
