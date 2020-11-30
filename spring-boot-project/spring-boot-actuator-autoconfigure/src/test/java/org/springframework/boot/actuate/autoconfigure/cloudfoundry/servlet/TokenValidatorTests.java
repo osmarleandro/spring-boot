@@ -54,14 +54,15 @@ import static org.mockito.Mockito.verify;
  * @author Madhura Bhave
  */
 @ExtendWith(MockitoExtension.class)
+public
 class TokenValidatorTests {
 
 	private static final byte[] DOT = ".".getBytes();
 
 	@Mock
-	private CloudFoundrySecurityService securityService;
+	public CloudFoundrySecurityService securityService;
 
-	private TokenValidator tokenValidator;
+	public TokenValidator tokenValidator;
 
 	private static final String VALID_KEY = "-----BEGIN PUBLIC KEY-----\n"
 			+ "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA0m59l2u9iDnMbrXHfqkO\n"
@@ -83,7 +84,7 @@ class TokenValidatorTests {
 
 	private static final Map<String, String> INVALID_KEYS = Collections.singletonMap("invalid-key", INVALID_KEY);
 
-	private static final Map<String, String> VALID_KEYS = Collections.singletonMap("valid-key", VALID_KEY);
+	public static final Map<String, String> VALID_KEYS = Collections.singletonMap("valid-key", VALID_KEY);
 
 	@BeforeEach
 	void setup() {
@@ -153,17 +154,6 @@ class TokenValidatorTests {
 	}
 
 	@Test
-	void validateTokenWhenExpiredShouldThrowException() throws Exception {
-		given(this.securityService.fetchTokenKeys()).willReturn(VALID_KEYS);
-		given(this.securityService.fetchTokenKeys()).willReturn(VALID_KEYS);
-		String header = "{ \"alg\": \"RS256\",  \"kid\": \"valid-key\", \"typ\": \"JWT\"}";
-		String claims = "{ \"jti\": \"0236399c350c47f3ae77e67a75e75e7d\", \"exp\": 1477509977, \"scope\": [\"actuator.read\"]}";
-		assertThatExceptionOfType(CloudFoundryAuthorizationException.class).isThrownBy(
-				() -> this.tokenValidator.validate(new Token(getSignedToken(header.getBytes(), claims.getBytes()))))
-				.satisfies(reasonRequirement(Reason.TOKEN_EXPIRED));
-	}
-
-	@Test
 	void validateTokenWhenIssuerIsNotValidShouldThrowException() throws Exception {
 		given(this.securityService.fetchTokenKeys()).willReturn(VALID_KEYS);
 		given(this.securityService.getUaaUrl()).willReturn("https://other-uaa.com");
@@ -185,7 +175,7 @@ class TokenValidatorTests {
 				.satisfies(reasonRequirement(Reason.INVALID_AUDIENCE));
 	}
 
-	private String getSignedToken(byte[] header, byte[] claims) throws Exception {
+	public String getSignedToken(byte[] header, byte[] claims) throws Exception {
 		PrivateKey privateKey = getPrivateKey();
 		Signature signature = Signature.getInstance("SHA256WithRSA");
 		signature.initSign(privateKey);
@@ -245,7 +235,7 @@ class TokenValidatorTests {
 		return result.toByteArray();
 	}
 
-	private Consumer<CloudFoundryAuthorizationException> reasonRequirement(Reason reason) {
+	public Consumer<CloudFoundryAuthorizationException> reasonRequirement(Reason reason) {
 		return (ex) -> assertThat(ex.getReason()).isEqualTo(reason);
 	}
 
