@@ -16,11 +16,20 @@
 
 package org.springframework.boot.test.context.assertj;
 
+import static org.springframework.test.web.client.match.MockRestRequestMatchers.requestTo;
+import static org.springframework.test.web.client.response.MockRestResponseCreators.withStatus;
+
 import java.util.function.Supplier;
 
 import org.springframework.boot.test.context.runner.ApplicationContextRunner;
+import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.http.HttpStatus;
+import org.springframework.test.web.client.MockRestServiceServer;
+import org.springframework.web.client.RestTemplate;
+
+import io.micrometer.core.instrument.MeterRegistry;
 
 /**
  * An {@link ApplicationContext} that additionally supports AssertJ style assertions. Can
@@ -47,6 +56,19 @@ public interface AssertableApplicationContext
 	static AssertableApplicationContext get(Supplier<? extends ConfigurableApplicationContext> contextSupplier) {
 		return ApplicationContextAssertProvider.get(AssertableApplicationContext.class,
 				ConfigurableApplicationContext.class, contextSupplier);
+	}
+
+	public default MeterRegistry getInitializedMeterRegistry() {
+		MeterRegistry registry = getBean(MeterRegistry.class);
+		RestTemplate restTemplate = getBean(RestTemplateBuilder.class).build();
+		MockRestServiceServer server = MockRestServiceServer.createServer(restTemplate);
+		for (int i = 0; i < 3; i++) {
+			server.expect(requestTo("/test/" + i)).andRespond(withStatus(HttpStatus.OK));
+		}
+		for (int i = 0; i < 3; i++) {
+			restTemplate.getForObject("/test/" + i, String.class);
+		}
+		return registry;
 	}
 
 }
