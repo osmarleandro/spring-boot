@@ -78,9 +78,9 @@ import static org.mockito.Mockito.mock;
  *
  * @author Madhura Bhave
  */
-class ReactiveCloudFoundryActuatorAutoConfigurationTests {
+public class ReactiveCloudFoundryActuatorAutoConfigurationTests {
 
-	private final ReactiveWebApplicationContextRunner contextRunner = new ReactiveWebApplicationContextRunner()
+	public final ReactiveWebApplicationContextRunner contextRunner = new ReactiveWebApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(ReactiveSecurityAutoConfiguration.class,
 					ReactiveUserDetailsServiceAutoConfiguration.class, WebFluxAutoConfiguration.class,
 					JacksonAutoConfiguration.class, HttpMessageConvertersAutoConfiguration.class,
@@ -186,12 +186,6 @@ class ReactiveCloudFoundryActuatorAutoConfigurationTests {
 					assertThat(otherRequestMatches).isTrue();
 				});
 
-	}
-
-	@Test
-	void cloudFoundryPlatformInactive() {
-		this.contextRunner.run(
-				(context) -> assertThat(context.containsBean("cloudFoundryWebFluxEndpointHandlerMapping")).isFalse());
 	}
 
 	@Test
