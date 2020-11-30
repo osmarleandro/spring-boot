@@ -19,8 +19,6 @@ package org.springframework.boot.actuate.autoconfigure.cloudfoundry.servlet;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Map;
-import java.util.function.BiConsumer;
-import java.util.function.Consumer;
 
 import org.junit.jupiter.api.Test;
 
@@ -46,7 +44,6 @@ import org.springframework.context.annotation.Import;
 import org.springframework.core.convert.support.DefaultConversionService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.test.web.reactive.server.WebTestClient;
 import org.springframework.util.Base64Utils;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.servlet.DispatcherServlet;
@@ -63,7 +60,7 @@ import static org.mockito.Mockito.mock;
  *
  * @author Madhura Bhave
  */
-class CloudFoundryMvcWebEndpointIntegrationTests {
+public class CloudFoundryMvcWebEndpointIntegrationTests {
 
 	private static TokenValidator tokenValidator = mock(TokenValidator.class);
 
@@ -72,7 +69,7 @@ class CloudFoundryMvcWebEndpointIntegrationTests {
 	@Test
 	void operationWithSecurityInterceptorForbidden() {
 		given(securityService.getAccessLevel(any(), eq("app-id"))).willReturn(AccessLevel.RESTRICTED);
-		load(TestEndpointConfiguration.class,
+		securityService.load(this, TestEndpointConfiguration.class,
 				(client) -> client.get().uri("/cfApplication/test").accept(MediaType.APPLICATION_JSON)
 						.header("Authorization", "bearer " + mockAccessToken()).exchange().expectStatus()
 						.isEqualTo(HttpStatus.FORBIDDEN));
@@ -81,7 +78,7 @@ class CloudFoundryMvcWebEndpointIntegrationTests {
 	@Test
 	void operationWithSecurityInterceptorSuccess() {
 		given(securityService.getAccessLevel(any(), eq("app-id"))).willReturn(AccessLevel.FULL);
-		load(TestEndpointConfiguration.class,
+		securityService.load(this, TestEndpointConfiguration.class,
 				(client) -> client.get().uri("/cfApplication/test").accept(MediaType.APPLICATION_JSON)
 						.header("Authorization", "bearer " + mockAccessToken()).exchange().expectStatus()
 						.isEqualTo(HttpStatus.OK));
@@ -89,7 +86,7 @@ class CloudFoundryMvcWebEndpointIntegrationTests {
 
 	@Test
 	void responseToOptionsRequestIncludesCorsHeaders() {
-		load(TestEndpointConfiguration.class,
+		securityService.load(this, TestEndpointConfiguration.class,
 				(client) -> client.options().uri("/cfApplication/test").accept(MediaType.APPLICATION_JSON)
 						.header("Access-Control-Request-Method", "POST").header("Origin", "https://example.com")
 						.exchange().expectStatus().isOk().expectHeader()
@@ -100,7 +97,7 @@ class CloudFoundryMvcWebEndpointIntegrationTests {
 	@Test
 	void linksToOtherEndpointsWithFullAccess() {
 		given(securityService.getAccessLevel(any(), eq("app-id"))).willReturn(AccessLevel.FULL);
-		load(TestEndpointConfiguration.class,
+		securityService.load(this, TestEndpointConfiguration.class,
 				(client) -> client.get().uri("/cfApplication").accept(MediaType.APPLICATION_JSON)
 						.header("Authorization", "bearer " + mockAccessToken()).exchange().expectStatus().isOk()
 						.expectBody().jsonPath("_links.length()").isEqualTo(5).jsonPath("_links.self.href").isNotEmpty()
@@ -116,7 +113,7 @@ class CloudFoundryMvcWebEndpointIntegrationTests {
 		CloudFoundryAuthorizationException exception = new CloudFoundryAuthorizationException(Reason.INVALID_TOKEN,
 				"invalid-token");
 		willThrow(exception).given(tokenValidator).validate(any());
-		load(TestEndpointConfiguration.class,
+		securityService.load(this, TestEndpointConfiguration.class,
 				(client) -> client.get().uri("/cfApplication").accept(MediaType.APPLICATION_JSON)
 						.header("Authorization", "bearer " + mockAccessToken()).exchange().expectStatus()
 						.isUnauthorized());
@@ -125,7 +122,7 @@ class CloudFoundryMvcWebEndpointIntegrationTests {
 	@Test
 	void linksToOtherEndpointsWithRestrictedAccess() {
 		given(securityService.getAccessLevel(any(), eq("app-id"))).willReturn(AccessLevel.RESTRICTED);
-		load(TestEndpointConfiguration.class,
+		securityService.load(this, TestEndpointConfiguration.class,
 				(client) -> client.get().uri("/cfApplication").accept(MediaType.APPLICATION_JSON)
 						.header("Authorization", "bearer " + mockAccessToken()).exchange().expectStatus().isOk()
 						.expectBody().jsonPath("_links.length()").isEqualTo(2).jsonPath("_links.self.href").isNotEmpty()
@@ -134,21 +131,12 @@ class CloudFoundryMvcWebEndpointIntegrationTests {
 						.jsonPath("_links.test").doesNotExist().jsonPath("_links.test-part").doesNotExist());
 	}
 
-	private AnnotationConfigServletWebServerApplicationContext createApplicationContext(Class<?>... config) {
+	public AnnotationConfigServletWebServerApplicationContext createApplicationContext(Class<?>... config) {
 		return new AnnotationConfigServletWebServerApplicationContext(config);
 	}
 
-	private int getPort(AnnotationConfigServletWebServerApplicationContext context) {
+	public int getPort(AnnotationConfigServletWebServerApplicationContext context) {
 		return context.getWebServer().getPort();
-	}
-
-	private void load(Class<?> configuration, Consumer<WebTestClient> clientConsumer) {
-		BiConsumer<ApplicationContext, WebTestClient> consumer = (context, client) -> clientConsumer.accept(client);
-		try (AnnotationConfigServletWebServerApplicationContext context = createApplicationContext(configuration,
-				CloudFoundryMvcConfiguration.class)) {
-			consumer.accept(context,
-					WebTestClient.bindToServer().baseUrl("http://localhost:" + getPort(context)).build());
-		}
 	}
 
 	private String mockAccessToken() {
@@ -159,6 +147,7 @@ class CloudFoundryMvcWebEndpointIntegrationTests {
 
 	@Configuration(proxyBeanMethods = false)
 	@EnableWebMvc
+	public
 	static class CloudFoundryMvcConfiguration {
 
 		@Bean

@@ -21,13 +21,19 @@ import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.BiConsumer;
+import java.util.function.Consumer;
 
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.AccessLevel;
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.CloudFoundryAuthorizationException;
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.CloudFoundryAuthorizationException.Reason;
+import org.springframework.boot.actuate.autoconfigure.cloudfoundry.servlet.CloudFoundryMvcWebEndpointIntegrationTests.CloudFoundryMvcConfiguration;
 import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext;
+import org.springframework.context.ApplicationContext;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.RequestEntity;
+import org.springframework.test.web.reactive.server.WebTestClient;
 import org.springframework.util.Assert;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.HttpServerErrorException;
@@ -133,6 +139,15 @@ class CloudFoundrySecurityService {
 			}
 		}
 		return this.uaaUrl;
+	}
+
+	public void load(CloudFoundryMvcWebEndpointIntegrationTests cloudFoundryMvcWebEndpointIntegrationTests, Class<?> configuration, Consumer<WebTestClient> clientConsumer) {
+		BiConsumer<ApplicationContext, WebTestClient> consumer = (context, client) -> clientConsumer.accept(client);
+		try (AnnotationConfigServletWebServerApplicationContext context = cloudFoundryMvcWebEndpointIntegrationTests.createApplicationContext(configuration,
+				CloudFoundryMvcConfiguration.class)) {
+			consumer.accept(context,
+					WebTestClient.bindToServer().baseUrl("http://localhost:" + cloudFoundryMvcWebEndpointIntegrationTests.getPort(context)).build());
+		}
 	}
 
 }
