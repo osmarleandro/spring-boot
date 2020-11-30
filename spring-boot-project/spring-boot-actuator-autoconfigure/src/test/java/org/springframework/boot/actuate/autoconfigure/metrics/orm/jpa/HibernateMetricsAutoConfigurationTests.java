@@ -37,7 +37,6 @@ import org.springframework.boot.autoconfigure.AutoConfigurations;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration;
 import org.springframework.boot.orm.jpa.EntityManagerFactoryBuilder;
-import org.springframework.boot.test.context.FilteredClassLoader;
 import org.springframework.boot.test.context.runner.ApplicationContextRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -56,9 +55,9 @@ import static org.mockito.Mockito.mock;
  * @author Rui Figueira
  * @author Stephane Nicoll
  */
-class HibernateMetricsAutoConfigurationTests {
+public class HibernateMetricsAutoConfigurationTests {
 
-	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner().with(MetricsRun.simple())
+	public final ApplicationContextRunner contextRunner = new ApplicationContextRunner().with(MetricsRun.simple())
 			.withConfiguration(AutoConfigurations.of(DataSourceAutoConfiguration.class,
 					HibernateJpaAutoConfiguration.class, HibernateMetricsAutoConfiguration.class))
 			.withUserConfiguration(BaseConfiguration.class);
@@ -117,16 +116,6 @@ class HibernateMetricsAutoConfigurationTests {
 				});
 	}
 
-	@Test
-	void entityManagerFactoryInstrumentationIsDisabledIfHibernateIsNotAvailable() {
-		this.contextRunner.withClassLoader(new FilteredClassLoader(SessionFactory.class))
-				.withUserConfiguration(NonHibernateEntityManagerFactoryConfiguration.class).run((context) -> {
-					assertThat(context).doesNotHaveBean(HibernateMetricsAutoConfiguration.class);
-					MeterRegistry registry = context.getBean(MeterRegistry.class);
-					assertThat(registry.find("hibernate.statements").meter()).isNull();
-				});
-	}
-
 	@Configuration(proxyBeanMethods = false)
 	static class BaseConfiguration {
 
@@ -172,6 +161,7 @@ class HibernateMetricsAutoConfigurationTests {
 	}
 
 	@Configuration(proxyBeanMethods = false)
+	public
 	static class NonHibernateEntityManagerFactoryConfiguration {
 
 		@Bean
