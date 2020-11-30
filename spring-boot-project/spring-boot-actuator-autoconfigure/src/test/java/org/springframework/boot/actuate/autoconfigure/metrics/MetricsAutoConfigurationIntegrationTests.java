@@ -44,9 +44,9 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Stephane Nicoll
  */
-class MetricsAutoConfigurationIntegrationTests {
+public class MetricsAutoConfigurationIntegrationTests {
 
-	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner().with(MetricsRun.simple());
+	public final ApplicationContextRunner contextRunner = new ApplicationContextRunner().with(MetricsRun.simple());
 
 	@Test
 	void propertyBasedMeterFilteringIsAutoConfigured() {
@@ -67,12 +67,6 @@ class MetricsAutoConfigurationIntegrationTests {
 					assertThat(registry.find("my.counter").tags("env", "qa").tags("region", "test")
 							.tags("origin", "local").counter()).isNotNull();
 				});
-	}
-
-	@Test
-	void simpleMeterRegistryIsUsedAsAFallback() {
-		this.contextRunner.run(
-				(context) -> assertThat(context.getBean(MeterRegistry.class)).isInstanceOf(SimpleMeterRegistry.class));
 	}
 
 	@Test
