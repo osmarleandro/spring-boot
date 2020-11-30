@@ -47,9 +47,9 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Stephane Nicoll
  * @author Andy Wilkinson
  */
-class JmxEndpointIntegrationTests {
+public class JmxEndpointIntegrationTests {
 
-	private final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner()
+	public final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(JmxAutoConfiguration.class, EndpointAutoConfiguration.class,
 					JmxEndpointAutoConfiguration.class, HealthContributorAutoConfiguration.class,
 					HttpTraceAutoConfiguration.class))
@@ -76,16 +76,7 @@ class JmxEndpointIntegrationTests {
 		});
 	}
 
-	@Test
-	void singleJmxEndpointCanBeExposed() {
-		this.contextRunner.withPropertyValues("management.endpoints.jmx.exposure.include=beans").run((context) -> {
-			MBeanServer mBeanServer = context.getBean(MBeanServer.class);
-			checkEndpointMBeans(mBeanServer, new String[] { "beans" }, new String[] { "conditions", "configprops",
-					"env", "health", "mappings", "shutdown", "threaddump", "httptrace" });
-		});
-	}
-
-	private void checkEndpointMBeans(MBeanServer mBeanServer, String[] enabledEndpoints, String[] disabledEndpoints) {
+	public void checkEndpointMBeans(MBeanServer mBeanServer, String[] enabledEndpoints, String[] disabledEndpoints) {
 		for (String enabledEndpoint : enabledEndpoints) {
 			assertThat(isRegistered(mBeanServer, getDefaultObjectName(enabledEndpoint)))
 					.as(String.format("Endpoint %s", enabledEndpoint)).isTrue();
