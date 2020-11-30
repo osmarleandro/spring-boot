@@ -48,9 +48,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * @author Stephane Nicoll
  * @see WebMvcEndpointManagementContextConfiguration
  */
-class WebMvcEndpointCorsIntegrationTests {
+public class WebMvcEndpointCorsIntegrationTests {
 
-	private final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner()
+	public final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(JacksonAutoConfiguration.class,
 					HttpMessageConvertersAutoConfiguration.class, WebMvcAutoConfiguration.class,
 					DispatcherServletAutoConfiguration.class, EndpointAutoConfiguration.class,
@@ -91,17 +91,6 @@ class WebMvcEndpointCorsIntegrationTests {
 						"management.endpoints.web.cors.max-age: 2400")
 				.run(withMockMvc((mockMvc) -> performAcceptedCorsRequest(mockMvc)
 						.andExpect(header().string(HttpHeaders.ACCESS_CONTROL_MAX_AGE, "2400"))));
-	}
-
-	@Test
-	void requestsWithDisallowedHeadersAreRejected() {
-		this.contextRunner.withPropertyValues("management.endpoints.web.cors.allowed-origins:foo.example.com")
-				.run(withMockMvc((mockMvc) ->
-
-				mockMvc.perform(options("/actuator/beans").header("Origin", "foo.example.com")
-						.header(HttpHeaders.ACCESS_CONTROL_REQUEST_METHOD, "GET")
-						.header(HttpHeaders.ACCESS_CONTROL_REQUEST_HEADERS, "Alpha"))
-						.andExpect(status().isForbidden())));
 	}
 
 	@Test
@@ -156,7 +145,7 @@ class WebMvcEndpointCorsIntegrationTests {
 						.andExpect(header().doesNotExist(HttpHeaders.ACCESS_CONTROL_ALLOW_CREDENTIALS))));
 	}
 
-	private ContextConsumer<WebApplicationContext> withMockMvc(MockMvcConsumer mockMvc) {
+	public ContextConsumer<WebApplicationContext> withMockMvc(MockMvcConsumer mockMvc) {
 		return (context) -> mockMvc.accept(MockMvcBuilders.webAppContextSetup(context).build());
 	}
 
