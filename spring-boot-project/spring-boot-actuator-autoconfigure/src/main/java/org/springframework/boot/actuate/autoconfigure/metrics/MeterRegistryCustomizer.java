@@ -16,8 +16,13 @@
 
 package org.springframework.boot.actuate.autoconfigure.metrics;
 
+import static org.mockito.Mockito.verify;
+
+import org.junit.jupiter.api.Test;
+
 import io.micrometer.core.instrument.Meter;
 import io.micrometer.core.instrument.MeterRegistry;
+import io.micrometer.core.instrument.composite.CompositeMeterRegistry;
 
 /**
  * Callback interface that can be used to customize auto-configured {@link MeterRegistry
@@ -38,5 +43,16 @@ public interface MeterRegistryCustomizer<T extends MeterRegistry> {
 	 * @param registry the registry to customize
 	 */
 	void customize(T registry);
+
+	@Test
+	default
+	void configureShouldApplyBinderToComposite(MeterRegistryConfigurerTests meterRegistryConfigurerTests) {
+		meterRegistryConfigurerTests.binders.add(meterRegistryConfigurerTests.mockBinder);
+		MeterRegistryConfigurer configurer = new MeterRegistryConfigurer(meterRegistryConfigurerTests.createObjectProvider(meterRegistryConfigurerTests.customizers),
+				meterRegistryConfigurerTests.createObjectProvider(meterRegistryConfigurerTests.filters), meterRegistryConfigurerTests.createObjectProvider(meterRegistryConfigurerTests.binders), false, true);
+		CompositeMeterRegistry composite = new CompositeMeterRegistry();
+		configurer.configure(composite);
+		verify(meterRegistryConfigurerTests.mockBinder).bindTo(composite);
+	}
 
 }
