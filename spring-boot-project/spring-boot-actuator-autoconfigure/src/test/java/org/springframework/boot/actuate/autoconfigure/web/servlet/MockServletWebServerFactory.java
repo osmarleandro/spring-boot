@@ -46,20 +46,16 @@ public class MockServletWebServerFactory extends AbstractServletWebServerFactory
 		return this.webServer;
 	}
 
-	public MockServletWebServer getWebServer() {
-		return this.webServer;
-	}
-
 	public ServletContext getServletContext() {
-		return (getWebServer() != null) ? getWebServer().getServletContext() : null;
+		return (webServer.getWebServer(this) != null) ? webServer.getWebServer(this).getServletContext() : null;
 	}
 
 	public RegisteredServlet getRegisteredServlet(int index) {
-		return (getWebServer() != null) ? getWebServer().getRegisteredServlet(index) : null;
+		return (webServer.getWebServer(this) != null) ? webServer.getWebServer(this).getRegisteredServlet(index) : null;
 	}
 
 	public RegisteredFilter getRegisteredFilter(int index) {
-		return (getWebServer() != null) ? getWebServer().getRegisteredFilters(index) : null;
+		return (webServer.getWebServer(this) != null) ? webServer.getWebServer(this).getRegisteredFilters(index) : null;
 	}
 
 	static class MockServletWebServer extends org.springframework.boot.testsupport.web.servlet.MockServletWebServer
@@ -72,6 +68,10 @@ public class MockServletWebServerFactory extends AbstractServletWebServerFactory
 
 		@Override
 		public void start() throws WebServerException {
+		}
+
+		public MockServletWebServer getWebServer(MockServletWebServerFactory mockServletWebServerFactory) {
+			return this;
 		}
 
 	}
