@@ -17,7 +17,6 @@
 package org.springframework.boot.actuate.autoconfigure.cloudfoundry.reactive;
 
 import java.time.Duration;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -41,7 +40,6 @@ import org.springframework.boot.actuate.endpoint.EndpointId;
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
 import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
 import org.springframework.boot.actuate.endpoint.http.ActuatorMediaType;
-import org.springframework.boot.actuate.endpoint.web.EndpointMapping;
 import org.springframework.boot.actuate.endpoint.web.ExposableWebEndpoint;
 import org.springframework.boot.actuate.endpoint.web.WebOperation;
 import org.springframework.boot.actuate.endpoint.web.WebOperationRequestPredicate;
@@ -59,14 +57,12 @@ import org.springframework.boot.web.reactive.function.client.WebClientCustomizer
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.mock.http.server.reactive.MockServerHttpRequest;
 import org.springframework.mock.web.server.MockServerWebExchange;
 import org.springframework.security.web.server.SecurityWebFilterChain;
 import org.springframework.security.web.server.WebFilterChainProxy;
 import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.test.web.reactive.server.WebTestClient;
-import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -78,9 +74,9 @@ import static org.mockito.Mockito.mock;
  *
  * @author Madhura Bhave
  */
-class ReactiveCloudFoundryActuatorAutoConfigurationTests {
+public class ReactiveCloudFoundryActuatorAutoConfigurationTests {
 
-	private final ReactiveWebApplicationContextRunner contextRunner = new ReactiveWebApplicationContextRunner()
+	public final ReactiveWebApplicationContextRunner contextRunner = new ReactiveWebApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(ReactiveSecurityAutoConfiguration.class,
 					ReactiveUserDetailsServiceAutoConfiguration.class, WebFluxAutoConfiguration.class,
 					JacksonAutoConfiguration.class, HttpMessageConvertersAutoConfiguration.class,
@@ -94,24 +90,6 @@ class ReactiveCloudFoundryActuatorAutoConfigurationTests {
 	@AfterEach
 	void close() {
 		HttpResources.reset();
-	}
-
-	@Test
-	void cloudFoundryPlatformActive() {
-		this.contextRunner.withPropertyValues("VCAP_APPLICATION:---", "vcap.application.application_id:my-app-id",
-				"vcap.application.cf_api:https://my-cloud-controller.com").run((context) -> {
-					CloudFoundryWebFluxEndpointHandlerMapping handlerMapping = getHandlerMapping(context);
-					EndpointMapping endpointMapping = (EndpointMapping) ReflectionTestUtils.getField(handlerMapping,
-							"endpointMapping");
-					assertThat(endpointMapping.getPath()).isEqualTo("/cloudfoundryapplication");
-					CorsConfiguration corsConfiguration = (CorsConfiguration) ReflectionTestUtils
-							.getField(handlerMapping, "corsConfiguration");
-					assertThat(corsConfiguration.getAllowedOrigins()).contains("*");
-					assertThat(corsConfiguration.getAllowedMethods())
-							.containsAll(Arrays.asList(HttpMethod.GET.name(), HttpMethod.POST.name()));
-					assertThat(corsConfiguration.getAllowedHeaders())
-							.containsAll(Arrays.asList("Authorization", "X-Cf-App-Instance", "Content-Type"));
-				});
 	}
 
 	@Test
@@ -293,7 +271,7 @@ class ReactiveCloudFoundryActuatorAutoConfigurationTests {
 				});
 	}
 
-	private CloudFoundryWebFluxEndpointHandlerMapping getHandlerMapping(ApplicationContext context) {
+	public CloudFoundryWebFluxEndpointHandlerMapping getHandlerMapping(ApplicationContext context) {
 		return context.getBean("cloudFoundryWebFluxEndpointHandlerMapping",
 				CloudFoundryWebFluxEndpointHandlerMapping.class);
 	}
