@@ -16,6 +16,8 @@
 
 package org.springframework.boot.autoconfigure;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -23,7 +25,10 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.actuate.endpoint.web.annotation.ServletEndpointDiscoverer;
 import org.springframework.boot.context.annotation.Configurations;
+import org.springframework.boot.test.context.runner.ApplicationContextRunner;
 import org.springframework.core.Ordered;
 import org.springframework.core.type.classreading.SimpleMetadataReaderFactory;
 import org.springframework.util.ClassUtils;
@@ -61,6 +66,13 @@ public class AutoConfigurations extends Configurations implements Ordered {
 	@Override
 	protected AutoConfigurations merge(Set<Class<?>> mergedClasses) {
 		return new AutoConfigurations(mergedClasses);
+	}
+
+	@Test
+	public
+	void contextWhenNotServletShouldNotConfigureServletEndpointDiscoverer() {
+		new ApplicationContextRunner().withConfiguration(this)
+				.run((context) -> assertThat(context).doesNotHaveBean(ServletEndpointDiscoverer.class));
 	}
 
 	public static AutoConfigurations of(Class<?>... classes) {

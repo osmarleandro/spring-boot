@@ -36,7 +36,6 @@ import org.springframework.boot.actuate.endpoint.web.annotation.ControllerEndpoi
 import org.springframework.boot.actuate.endpoint.web.annotation.ServletEndpointDiscoverer;
 import org.springframework.boot.actuate.endpoint.web.annotation.WebEndpointDiscoverer;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
-import org.springframework.boot.test.context.runner.ApplicationContextRunner;
 import org.springframework.boot.test.context.runner.WebApplicationContextRunner;
 import org.springframework.stereotype.Component;
 
@@ -49,9 +48,9 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Yunkun Huang
  * @author Phillip Webb
  */
-class WebEndpointAutoConfigurationTests {
+public class WebEndpointAutoConfigurationTests {
 
-	private static final AutoConfigurations CONFIGURATIONS = AutoConfigurations.of(EndpointAutoConfiguration.class,
+	public static final AutoConfigurations CONFIGURATIONS = AutoConfigurations.of(EndpointAutoConfiguration.class,
 			WebEndpointAutoConfiguration.class);
 
 	private final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner()
@@ -111,12 +110,6 @@ class WebEndpointAutoConfigurationTests {
 	@Test
 	void contextShouldConfigureServletEndpointDiscoverer() {
 		this.contextRunner.run((context) -> assertThat(context).hasSingleBean(ServletEndpointDiscoverer.class));
-	}
-
-	@Test
-	void contextWhenNotServletShouldNotConfigureServletEndpointDiscoverer() {
-		new ApplicationContextRunner().withConfiguration(CONFIGURATIONS)
-				.run((context) -> assertThat(context).doesNotHaveBean(ServletEndpointDiscoverer.class));
 	}
 
 	@Component
