@@ -37,9 +37,9 @@ import static org.mockito.Mockito.mock;
  * @author Jon Schneider
  * @author Stephane Nicoll
  */
-class WavefrontMetricsExportAutoConfigurationTests {
+public class WavefrontMetricsExportAutoConfigurationTests {
 
-	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
+	public final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(WavefrontMetricsExportAutoConfiguration.class));
 
 	@Test
@@ -77,20 +77,6 @@ class WavefrontMetricsExportAutoConfigurationTests {
 				.run((context) -> assertThat(context).hasSingleBean(Clock.class)
 						.hasSingleBean(WavefrontMeterRegistry.class).hasSingleBean(WavefrontConfig.class)
 						.hasSingleBean(WavefrontSender.class).hasBean("customConfig"));
-	}
-
-	@Test
-	void defaultWavefrontSenderSettingsAreConsistent() {
-		this.contextRunner.withUserConfiguration(BaseConfiguration.class)
-				.withPropertyValues("management.metrics.export.wavefront.api-token=abcde").run((context) -> {
-					WavefrontProperties properties = new WavefrontProperties();
-					WavefrontSender sender = context.getBean(WavefrontSender.class);
-					assertThat(sender).extracting("metricsBuffer").hasFieldOrPropertyWithValue("capacity",
-							properties.getSender().getMaxQueueSize());
-					assertThat(sender).hasFieldOrPropertyWithValue("batchSize", properties.getBatchSize());
-					assertThat(sender).hasFieldOrPropertyWithValue("messageSizeBytes",
-							(int) properties.getSender().getMessageSize().toBytes());
-				});
 	}
 
 	@Test
@@ -136,6 +122,7 @@ class WavefrontMetricsExportAutoConfigurationTests {
 	}
 
 	@Configuration(proxyBeanMethods = false)
+	public
 	static class BaseConfiguration {
 
 		@Bean
