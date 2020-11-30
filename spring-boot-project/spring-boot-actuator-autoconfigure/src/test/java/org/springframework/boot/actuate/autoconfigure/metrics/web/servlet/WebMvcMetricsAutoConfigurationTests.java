@@ -70,9 +70,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * @author Chanhyeong LEE
  */
 @ExtendWith(OutputCaptureExtension.class)
+public
 class WebMvcMetricsAutoConfigurationTests {
 
-	private final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner()
+	public final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner()
 			.with(MetricsRun.simple()).withConfiguration(AutoConfigurations.of(WebMvcMetricsAutoConfiguration.class));
 
 	@Test
@@ -184,14 +185,6 @@ class WebMvcMetricsAutoConfigurationTests {
 						.contains(LongTaskTimingHandlerInterceptor.class));
 	}
 
-	@Test
-	void whenTagContributorsAreDefinedThenTagsProviderUsesThem() {
-		this.contextRunner.withUserConfiguration(TagsContributorsConfiguration.class).run((context) -> {
-			assertThat(context).hasSingleBean(DefaultWebMvcTagsProvider.class);
-			assertThat(context.getBean(DefaultWebMvcTagsProvider.class)).extracting("contributors").asList().hasSize(2);
-		});
-	}
-
 	private MeterRegistry getInitializedMeterRegistry(AssertableWebApplicationContext context) throws Exception {
 		return getInitializedMeterRegistry(context, "/test0", "/test1", "/test2");
 	}
@@ -219,6 +212,7 @@ class WebMvcMetricsAutoConfigurationTests {
 	}
 
 	@Configuration(proxyBeanMethods = false)
+	public
 	static class TagsContributorsConfiguration {
 
 		@Bean
