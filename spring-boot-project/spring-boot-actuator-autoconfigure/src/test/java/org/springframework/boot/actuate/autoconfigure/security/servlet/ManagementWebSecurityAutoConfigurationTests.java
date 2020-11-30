@@ -54,9 +54,9 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Madhura Bhave
  */
-class ManagementWebSecurityAutoConfigurationTests {
+public class ManagementWebSecurityAutoConfigurationTests {
 
-	private final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner().withConfiguration(
+	public final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner().withConfiguration(
 			AutoConfigurations.of(HealthContributorAutoConfiguration.class, HealthEndpointAutoConfiguration.class,
 					InfoEndpointAutoConfiguration.class, EnvironmentEndpointAutoConfiguration.class,
 					EndpointAutoConfiguration.class, WebEndpointAutoConfiguration.class,
@@ -98,14 +98,6 @@ class ManagementWebSecurityAutoConfigurationTests {
 	}
 
 	@Test
-	void usesMatchersBasedOffConfiguredActuatorBasePath() {
-		this.contextRunner.withPropertyValues("management.endpoints.web.base-path=/").run((context) -> {
-			HttpStatus status = getResponseStatus(context, "/health");
-			assertThat(status).isEqualTo(HttpStatus.OK);
-		});
-	}
-
-	@Test
 	void backOffIfCustomSecurityIsAdded() {
 		this.contextRunner.withUserConfiguration(CustomSecurityConfiguration.class).run((context) -> {
 			HttpStatus status = getResponseStatus(context, "/actuator/health");
@@ -143,7 +135,7 @@ class ManagementWebSecurityAutoConfigurationTests {
 						ManagementWebSecurityAutoConfiguration.ManagementWebSecurityConfigurerAdapter.class));
 	}
 
-	private HttpStatus getResponseStatus(AssertableWebApplicationContext context, String path)
+	public HttpStatus getResponseStatus(AssertableWebApplicationContext context, String path)
 			throws IOException, javax.servlet.ServletException {
 		FilterChainProxy filterChainProxy = context.getBean(FilterChainProxy.class);
 		MockServletContext servletContext = new MockServletContext();
