@@ -37,15 +37,10 @@ import static org.mockito.Mockito.mock;
  * @author Jon Schneider
  * @author Stephane Nicoll
  */
-class WavefrontMetricsExportAutoConfigurationTests {
+public class WavefrontMetricsExportAutoConfigurationTests {
 
-	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
+	public final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(WavefrontMetricsExportAutoConfiguration.class));
-
-	@Test
-	void backsOffWithoutAClock() {
-		this.contextRunner.run((context) -> assertThat(context).doesNotHaveBean(WavefrontMeterRegistry.class));
-	}
 
 	@Test
 	void failsWithoutAnApiTokenWhenPublishingDirectly() {
