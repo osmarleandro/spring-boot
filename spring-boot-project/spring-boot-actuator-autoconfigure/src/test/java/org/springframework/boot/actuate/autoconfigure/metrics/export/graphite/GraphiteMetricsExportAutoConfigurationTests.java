@@ -36,9 +36,9 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Andy Wilkinson
  * @author Stephane Nicoll
  */
-class GraphiteMetricsExportAutoConfigurationTests {
+public class GraphiteMetricsExportAutoConfigurationTests {
 
-	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
+	public final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(GraphiteMetricsExportAutoConfiguration.class));
 
 	@Test
@@ -85,14 +85,6 @@ class GraphiteMetricsExportAutoConfigurationTests {
 	}
 
 	@Test
-	void autoConfigurationCanBeDisabledWithSpecificEnabledProperty() {
-		this.contextRunner.withUserConfiguration(BaseConfiguration.class)
-				.withPropertyValues("management.metrics.export.graphite.enabled=false")
-				.run((context) -> assertThat(context).doesNotHaveBean(GraphiteMeterRegistry.class)
-						.doesNotHaveBean(GraphiteConfig.class));
-	}
-
-	@Test
 	void allowsCustomConfigToBeUsed() {
 		this.contextRunner.withUserConfiguration(CustomConfigConfiguration.class)
 				.run((context) -> assertThat(context).hasSingleBean(GraphiteMeterRegistry.class)
@@ -117,6 +109,7 @@ class GraphiteMetricsExportAutoConfigurationTests {
 	}
 
 	@Configuration(proxyBeanMethods = false)
+	public
 	static class BaseConfiguration {
 
 		@Bean
