@@ -37,9 +37,9 @@ import static org.mockito.Mockito.mock;
  *
  * @author Andy Wilkinson
  */
-class SimpleMetricsExportAutoConfigurationTests {
+public class SimpleMetricsExportAutoConfigurationTests {
 
-	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
+	public final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(SimpleMetricsExportAutoConfiguration.class));
 
 	@Test
@@ -65,12 +65,6 @@ class SimpleMetricsExportAutoConfigurationTests {
 	}
 
 	@Test
-	void allowsConfigToBeCustomized() {
-		this.contextRunner.withUserConfiguration(CustomConfigConfiguration.class)
-				.run((context) -> assertThat(context).hasSingleBean(SimpleConfig.class).hasBean("customConfig"));
-	}
-
-	@Test
 	void backsOffEntirelyWithCustomMeterRegistry() {
 		this.contextRunner.withUserConfiguration(CustomRegistryConfiguration.class).run((context) -> assertThat(context)
 				.hasSingleBean(MeterRegistry.class).hasBean("customRegistry").doesNotHaveBean(SimpleConfig.class));
@@ -88,6 +82,7 @@ class SimpleMetricsExportAutoConfigurationTests {
 
 	@Configuration(proxyBeanMethods = false)
 	@Import(BaseConfiguration.class)
+	public
 	static class CustomConfigConfiguration {
 
 		@Bean
