@@ -33,16 +33,10 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Madhura Bhave
  */
-class WebMvcEndpointChildContextConfigurationTests {
+public class WebMvcEndpointChildContextConfigurationTests {
 
-	private final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner()
+	public final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner()
 			.withAllowBeanDefinitionOverriding(true);
-
-	@Test
-	void contextShouldConfigureRequestContextFilter() {
-		this.contextRunner.withUserConfiguration(WebMvcEndpointChildContextConfiguration.class)
-				.run((context) -> assertThat(context).hasSingleBean(OrderedRequestContextFilter.class));
-	}
 
 	@Test
 	void contextShouldNotConfigureRequestContextFilterWhenPresent() {
