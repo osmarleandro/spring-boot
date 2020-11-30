@@ -34,9 +34,9 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Stephane Nicoll
  */
-class KairosMetricsExportAutoConfigurationTests {
+public class KairosMetricsExportAutoConfigurationTests {
 
-	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
+	public final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(KairosMetricsExportAutoConfiguration.class));
 
 	@Test
@@ -54,14 +54,6 @@ class KairosMetricsExportAutoConfigurationTests {
 	void autoConfigurationCanBeDisabledWithDefaultsEnabledProperty() {
 		this.contextRunner.withUserConfiguration(BaseConfiguration.class)
 				.withPropertyValues("management.metrics.export.defaults.enabled=false")
-				.run((context) -> assertThat(context).doesNotHaveBean(KairosMeterRegistry.class)
-						.doesNotHaveBean(KairosConfig.class));
-	}
-
-	@Test
-	void autoConfigurationCanBeDisabledWithSpecificEnabledProperty() {
-		this.contextRunner.withUserConfiguration(BaseConfiguration.class)
-				.withPropertyValues("management.metrics.export.kairos.enabled=false")
 				.run((context) -> assertThat(context).doesNotHaveBean(KairosMeterRegistry.class)
 						.doesNotHaveBean(KairosConfig.class));
 	}
@@ -89,6 +81,7 @@ class KairosMetricsExportAutoConfigurationTests {
 	}
 
 	@Configuration(proxyBeanMethods = false)
+	public
 	static class BaseConfiguration {
 
 		@Bean
