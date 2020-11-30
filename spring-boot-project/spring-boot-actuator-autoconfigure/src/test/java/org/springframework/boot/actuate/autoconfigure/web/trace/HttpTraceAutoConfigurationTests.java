@@ -26,7 +26,6 @@ import org.springframework.boot.actuate.autoconfigure.trace.http.HttpTraceProper
 import org.springframework.boot.actuate.trace.http.HttpExchangeTracer;
 import org.springframework.boot.actuate.trace.http.HttpTrace;
 import org.springframework.boot.actuate.trace.http.HttpTraceRepository;
-import org.springframework.boot.actuate.trace.http.InMemoryHttpTraceRepository;
 import org.springframework.boot.actuate.trace.http.Include;
 import org.springframework.boot.actuate.web.trace.reactive.HttpTraceWebFilter;
 import org.springframework.boot.actuate.web.trace.servlet.HttpTraceFilter;
@@ -44,9 +43,9 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Andy Wilkinson
  * @author Madhura Bhave
  */
-class HttpTraceAutoConfigurationTests {
+public class HttpTraceAutoConfigurationTests {
 
-	private final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner()
+	public final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(HttpTraceAutoConfiguration.class));
 
 	@Test
@@ -99,14 +98,6 @@ class HttpTraceAutoConfigurationTests {
 				});
 	}
 
-	@Test
-	void backsOffWhenDisabled() {
-		this.contextRunner.withUserConfiguration(HttpTraceRepositoryConfiguration.class)
-				.withPropertyValues("management.trace.http.enabled=false")
-				.run((context) -> assertThat(context).doesNotHaveBean(InMemoryHttpTraceRepository.class)
-						.doesNotHaveBean(HttpExchangeTracer.class).doesNotHaveBean(HttpTraceFilter.class));
-	}
-
 	static class CustomHttpTraceRepository implements HttpTraceRepository {
 
 		@Override
@@ -122,6 +113,7 @@ class HttpTraceAutoConfigurationTests {
 	}
 
 	@Configuration(proxyBeanMethods = false)
+	public
 	static class HttpTraceRepositoryConfiguration {
 
 		@Bean
