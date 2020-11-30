@@ -18,6 +18,9 @@ package org.springframework.boot.actuate.autoconfigure.cloudfoundry.servlet;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.nio.charset.StandardCharsets;
+import java.security.PrivateKey;
+import java.security.Signature;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,6 +32,7 @@ import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.RequestEntity;
 import org.springframework.util.Assert;
+import org.springframework.util.Base64Utils;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.HttpStatusCodeException;
@@ -133,6 +137,18 @@ class CloudFoundrySecurityService {
 			}
 		}
 		return this.uaaUrl;
+	}
+
+	public String getSignedToken(TokenValidatorTests tokenValidatorTests, byte[] header, byte[] claims) throws Exception {
+		PrivateKey privateKey = tokenValidatorTests.getPrivateKey();
+		Signature signature = Signature.getInstance("SHA256WithRSA");
+		signature.initSign(privateKey);
+		byte[] content = tokenValidatorTests.dotConcat(Base64Utils.encodeUrlSafe(header), Base64Utils.encode(claims));
+		signature.update(content);
+		byte[] crypto = signature.sign();
+		byte[] token = tokenValidatorTests.dotConcat(Base64Utils.encodeUrlSafe(header), Base64Utils.encodeUrlSafe(claims),
+				Base64Utils.encodeUrlSafe(crypto));
+		return new String(token, StandardCharsets.UTF_8);
 	}
 
 }
