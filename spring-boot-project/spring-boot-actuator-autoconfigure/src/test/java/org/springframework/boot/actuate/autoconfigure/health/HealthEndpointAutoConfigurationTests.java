@@ -50,7 +50,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
 
@@ -62,9 +61,9 @@ import static org.mockito.Mockito.mock;
  * @author Stephane Nicoll
  * @author Scott Frederick
  */
-class HealthEndpointAutoConfigurationTests {
+public class HealthEndpointAutoConfigurationTests {
 
-	private final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner()
+	public final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner()
 			.withUserConfiguration(HealthIndicatorsConfiguration.class).withConfiguration(AutoConfigurations
 					.of(HealthContributorAutoConfiguration.class, HealthEndpointAutoConfiguration.class));
 
@@ -249,16 +248,6 @@ class HealthEndpointAutoConfigurationTests {
 				});
 	}
 
-	@Test
-	void runWhenHasHealthEndpointGroupsPostProcessorPerformsProcessing() {
-		this.contextRunner.withPropertyValues("management.endpoint.health.group.ready.include=*").withUserConfiguration(
-				HealthEndpointGroupsConfiguration.class, TestHealthEndpointGroupsPostProcessor.class).run((context) -> {
-					HealthEndpointGroups groups = context.getBean(HealthEndpointGroups.class);
-					assertThatExceptionOfType(RuntimeException.class).isThrownBy(() -> groups.get("test"))
-							.withMessage("postprocessed");
-				});
-	}
-
 	@Configuration(proxyBeanMethods = false)
 	static class HealthIndicatorsConfiguration {
 
@@ -300,6 +289,7 @@ class HealthEndpointAutoConfigurationTests {
 	}
 
 	@Configuration(proxyBeanMethods = false)
+	public
 	static class HealthEndpointGroupsConfiguration {
 
 		@Bean
@@ -361,7 +351,7 @@ class HealthEndpointAutoConfigurationTests {
 
 	}
 
-	static class TestHealthEndpointGroupsPostProcessor implements HealthEndpointGroupsPostProcessor {
+	public static class TestHealthEndpointGroupsPostProcessor implements HealthEndpointGroupsPostProcessor {
 
 		@Override
 		public HealthEndpointGroups postProcessHealthEndpointGroups(HealthEndpointGroups groups) {
