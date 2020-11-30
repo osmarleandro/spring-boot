@@ -43,9 +43,9 @@ import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
  *
  * @author Chao Chang
  */
-class EndpointAutoConfigurationTests {
+public class EndpointAutoConfigurationTests {
 
-	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
+	public final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(EndpointAutoConfiguration.class));
 
 	@Test
@@ -70,19 +70,6 @@ class EndpointAutoConfigurationTests {
 			});
 
 		}).withCauseInstanceOf(ConverterNotFoundException.class);
-	}
-
-	@Test
-	void mapShouldUseGenericConfigurationConverter() {
-		this.contextRunner.withUserConfiguration(GenericConverterConfiguration.class).run((context) -> {
-			ParameterValueMapper parameterValueMapper = context.getBean(ParameterValueMapper.class);
-			Object paramValue = parameterValueMapper.mapParameterValue(new TestOperationParameter(Person.class),
-					"John Smith");
-			assertThat(paramValue).isInstanceOf(Person.class);
-			Person person = (Person) paramValue;
-			assertThat(person.firstName).isEqualTo("John");
-			assertThat(person.lastName).isEqualTo("Smith");
-		});
 	}
 
 	@Test
@@ -144,6 +131,7 @@ class EndpointAutoConfigurationTests {
 	}
 
 	@Configuration(proxyBeanMethods = false)
+	public
 	static class GenericConverterConfiguration {
 
 		@Bean
@@ -164,11 +152,11 @@ class EndpointAutoConfigurationTests {
 
 	}
 
-	static class Person {
+	public static class Person {
 
-		private final String firstName;
+		public final String firstName;
 
-		private final String lastName;
+		public final String lastName;
 
 		Person(String firstName, String lastName) {
 			this.firstName = firstName;
@@ -177,7 +165,7 @@ class EndpointAutoConfigurationTests {
 
 	}
 
-	private static class TestOperationParameter implements OperationParameter {
+	public static class TestOperationParameter implements OperationParameter {
 
 		private final Class<?> type;
 
