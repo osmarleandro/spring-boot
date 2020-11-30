@@ -38,13 +38,13 @@ import static org.assertj.core.api.Assertions.entry;
  *
  * @author Scott Frederick
  */
-class ManagementErrorEndpointTests {
+public class ManagementErrorEndpointTests {
 
-	private final ErrorAttributes errorAttributes = new DefaultErrorAttributes();
+	public final ErrorAttributes errorAttributes = new DefaultErrorAttributes();
 
-	private final ErrorProperties errorProperties = new ErrorProperties();
+	public final ErrorProperties errorProperties = new ErrorProperties();
 
-	private final MockHttpServletRequest request = new MockHttpServletRequest();
+	public final MockHttpServletRequest request = new MockHttpServletRequest();
 
 	@BeforeEach
 	void setUp() {
@@ -93,18 +93,6 @@ class ManagementErrorEndpointTests {
 		assertThat(response).containsEntry("message", "test exception");
 		assertThat(response).hasEntrySatisfying("trace",
 				(value) -> assertThat(value).asString().startsWith("java.lang.RuntimeException: test exception"));
-	}
-
-	@Test
-	void errorResponseParamsFalse() {
-		this.errorProperties.setIncludeStacktrace(ErrorProperties.IncludeStacktrace.ON_PARAM);
-		this.errorProperties.setIncludeMessage(ErrorProperties.IncludeAttribute.ON_PARAM);
-		this.request.addParameter("trace", "false");
-		this.request.addParameter("message", "false");
-		ManagementErrorEndpoint endpoint = new ManagementErrorEndpoint(this.errorAttributes, this.errorProperties);
-		Map<String, Object> response = endpoint.invoke(new ServletWebRequest(this.request));
-		assertThat(response).containsEntry("message", "");
-		assertThat(response).doesNotContainKey("trace");
 	}
 
 	@Test
