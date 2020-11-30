@@ -52,9 +52,10 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Stephane Nicoll
  */
 @ExtendWith(OutputCaptureExtension.class)
+public
 class PrometheusMetricsExportAutoConfigurationTests {
 
-	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
+	public final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(PrometheusMetricsExportAutoConfiguration.class));
 
 	@Test
@@ -178,15 +179,6 @@ class PrometheusMetricsExportAutoConfigurationTests {
 	}
 
 	@Test
-	void withCustomPushGatewayURL() {
-		this.contextRunner.withConfiguration(AutoConfigurations.of(ManagementContextAutoConfiguration.class))
-				.withPropertyValues("management.metrics.export.prometheus.pushgateway.enabled=true",
-						"management.metrics.export.prometheus.pushgateway.base-url=https://example.com:8080")
-				.withUserConfiguration(BaseConfiguration.class)
-				.run((context) -> hasGatewayURL(context, "https://example.com:8080/metrics/"));
-	}
-
-	@Test
 	void withPushGatewayBasicAuth() {
 		this.contextRunner.withConfiguration(AutoConfigurations.of(ManagementContextAutoConfiguration.class))
 				.withPropertyValues("management.metrics.export.prometheus.pushgateway.enabled=true",
@@ -197,7 +189,7 @@ class PrometheusMetricsExportAutoConfigurationTests {
 						.isInstanceOf(BasicAuthHttpConnectionFactory.class)));
 	}
 
-	private void hasGatewayURL(AssertableApplicationContext context, String url) {
+	public void hasGatewayURL(AssertableApplicationContext context, String url) {
 		assertThat(getPushGateway(context)).hasFieldOrPropertyWithValue("gatewayBaseURL", url);
 	}
 
@@ -217,6 +209,7 @@ class PrometheusMetricsExportAutoConfigurationTests {
 	}
 
 	@Configuration(proxyBeanMethods = false)
+	public
 	static class BaseConfiguration {
 
 		@Bean
