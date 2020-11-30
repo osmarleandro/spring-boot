@@ -44,7 +44,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Stephane Nicoll
  */
-class MetricsAutoConfigurationIntegrationTests {
+public class MetricsAutoConfigurationIntegrationTests {
 
 	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner().with(MetricsRun.simple());
 
@@ -92,16 +92,6 @@ class MetricsAutoConfigurationIntegrationTests {
 	}
 
 	@Test
-	void noCompositeIsCreatedWithMultipleRegistriesAndOneThatIsPrimary() {
-		new ApplicationContextRunner()
-				.with(MetricsRun.limitedTo(GraphiteMetricsExportAutoConfiguration.class,
-						JmxMetricsExportAutoConfiguration.class))
-				.withUserConfiguration(PrimaryMeterRegistryConfiguration.class)
-				.run((context) -> assertThat(context.getBean(MeterRegistry.class))
-						.isInstanceOf(SimpleMeterRegistry.class));
-	}
-
-	@Test
 	void compositeCreatedWithMultipleRegistries() {
 		new ApplicationContextRunner().with(MetricsRun.limitedTo(GraphiteMetricsExportAutoConfiguration.class,
 				JmxMetricsExportAutoConfiguration.class)).run((context) -> {
@@ -143,6 +133,7 @@ class MetricsAutoConfigurationIntegrationTests {
 	}
 
 	@Configuration(proxyBeanMethods = false)
+	public
 	static class PrimaryMeterRegistryConfiguration {
 
 		@Primary
