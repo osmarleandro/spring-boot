@@ -48,9 +48,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * @author Stephane Nicoll
  * @see WebMvcEndpointManagementContextConfiguration
  */
-class WebMvcEndpointCorsIntegrationTests {
+public class WebMvcEndpointCorsIntegrationTests {
 
-	private final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner()
+	public final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(JacksonAutoConfiguration.class,
 					HttpMessageConvertersAutoConfiguration.class, WebMvcAutoConfiguration.class,
 					DispatcherServletAutoConfiguration.class, EndpointAutoConfiguration.class,
@@ -147,20 +147,11 @@ class WebMvcEndpointCorsIntegrationTests {
 						.andExpect(header().string(HttpHeaders.ACCESS_CONTROL_ALLOW_CREDENTIALS, "true"))));
 	}
 
-	@Test
-	void credentialsCanBeDisabled() {
-		this.contextRunner
-				.withPropertyValues("management.endpoints.web.cors.allowed-origins:foo.example.com",
-						"management.endpoints.web.cors.allow-credentials:false")
-				.run(withMockMvc((mockMvc) -> performAcceptedCorsRequest(mockMvc)
-						.andExpect(header().doesNotExist(HttpHeaders.ACCESS_CONTROL_ALLOW_CREDENTIALS))));
-	}
-
-	private ContextConsumer<WebApplicationContext> withMockMvc(MockMvcConsumer mockMvc) {
+	public ContextConsumer<WebApplicationContext> withMockMvc(MockMvcConsumer mockMvc) {
 		return (context) -> mockMvc.accept(MockMvcBuilders.webAppContextSetup(context).build());
 	}
 
-	private ResultActions performAcceptedCorsRequest(MockMvc mockMvc) throws Exception {
+	public ResultActions performAcceptedCorsRequest(MockMvc mockMvc) throws Exception {
 		return performAcceptedCorsRequest(mockMvc, "/actuator/beans");
 	}
 
