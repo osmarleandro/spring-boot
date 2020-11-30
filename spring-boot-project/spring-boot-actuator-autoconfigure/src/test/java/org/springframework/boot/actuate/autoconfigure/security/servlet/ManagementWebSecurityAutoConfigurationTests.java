@@ -54,9 +54,9 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Madhura Bhave
  */
-class ManagementWebSecurityAutoConfigurationTests {
+public class ManagementWebSecurityAutoConfigurationTests {
 
-	private final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner().withConfiguration(
+	public final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner().withConfiguration(
 			AutoConfigurations.of(HealthContributorAutoConfiguration.class, HealthEndpointAutoConfiguration.class,
 					InfoEndpointAutoConfiguration.class, EnvironmentEndpointAutoConfiguration.class,
 					EndpointAutoConfiguration.class, WebEndpointAutoConfiguration.class,
@@ -116,14 +116,6 @@ class ManagementWebSecurityAutoConfigurationTests {
 	}
 
 	@Test
-	void backsOffIfSecurityFilterChainBeanIsPresent() {
-		this.contextRunner.withUserConfiguration(TestSecurityFilterChainConfig.class).run((context) -> {
-			assertThat(context.getBeansOfType(SecurityFilterChain.class).size()).isEqualTo(1);
-			assertThat(context.containsBean("testSecurityFilterChain")).isTrue();
-		});
-	}
-
-	@Test
 	void backOffIfOAuth2ResourceServerAutoConfigurationPresent() {
 		this.contextRunner.withConfiguration(AutoConfigurations.of(OAuth2ResourceServerAutoConfiguration.class))
 				.withPropertyValues("spring.security.oauth2.resourceserver.jwt.jwk-set-uri=https://authserver")
@@ -172,6 +164,7 @@ class ManagementWebSecurityAutoConfigurationTests {
 	}
 
 	@Configuration(proxyBeanMethods = false)
+	public
 	static class TestSecurityFilterChainConfig {
 
 		@Bean
