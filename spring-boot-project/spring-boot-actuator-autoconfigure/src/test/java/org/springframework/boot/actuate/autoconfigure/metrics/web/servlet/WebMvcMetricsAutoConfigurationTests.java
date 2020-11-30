@@ -76,12 +76,6 @@ class WebMvcMetricsAutoConfigurationTests {
 			.with(MetricsRun.simple()).withConfiguration(AutoConfigurations.of(WebMvcMetricsAutoConfiguration.class));
 
 	@Test
-	void backsOffWhenMeterRegistryIsMissing() {
-		new WebApplicationContextRunner().withConfiguration(AutoConfigurations.of(WebMvcMetricsAutoConfiguration.class))
-				.run((context) -> assertThat(context).doesNotHaveBean(WebMvcTagsProvider.class));
-	}
-
-	@Test
 	void definesTagsProviderAndFilterWhenMeterRegistryIsPresent() {
 		this.contextRunner.run((context) -> {
 			assertThat(context).hasSingleBean(DefaultWebMvcTagsProvider.class);
