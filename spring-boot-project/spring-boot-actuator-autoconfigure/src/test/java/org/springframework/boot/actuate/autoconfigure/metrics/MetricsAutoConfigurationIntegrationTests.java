@@ -44,7 +44,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Stephane Nicoll
  */
-class MetricsAutoConfigurationIntegrationTests {
+public class MetricsAutoConfigurationIntegrationTests {
 
 	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner().with(MetricsRun.simple());
 
@@ -129,19 +129,6 @@ class MetricsAutoConfigurationIntegrationTests {
 				});
 	}
 
-	@Test
-	void userConfiguredCompositeHasMeterFiltersApplied() {
-		new ApplicationContextRunner().with(MetricsRun.limitedTo())
-				.withUserConfiguration(CompositeMeterRegistryConfiguration.class).run((context) -> {
-					MeterRegistry composite = context.getBean(MeterRegistry.class);
-					assertThat(composite).extracting("filters", InstanceOfAssertFactories.ARRAY).hasSize(1);
-					assertThat(composite).isInstanceOf(CompositeMeterRegistry.class);
-					Set<MeterRegistry> registries = ((CompositeMeterRegistry) composite).getRegistries();
-					assertThat(registries).hasSize(2);
-					assertThat(registries).hasOnlyElementsOfTypes(SimpleMeterRegistry.class);
-				});
-	}
-
 	@Configuration(proxyBeanMethods = false)
 	static class PrimaryMeterRegistryConfiguration {
 
@@ -154,6 +141,7 @@ class MetricsAutoConfigurationIntegrationTests {
 	}
 
 	@Configuration(proxyBeanMethods = false)
+	public
 	static class CompositeMeterRegistryConfiguration {
 
 		@Bean
