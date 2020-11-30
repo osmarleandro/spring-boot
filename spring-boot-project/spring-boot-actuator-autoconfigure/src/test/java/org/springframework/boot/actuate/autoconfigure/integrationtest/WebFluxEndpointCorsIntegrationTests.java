@@ -44,21 +44,14 @@ import org.springframework.test.web.reactive.server.WebTestClient;
  * @author Stephane Nicoll
  * @see WebFluxEndpointManagementContextConfiguration
  */
-class WebFluxEndpointCorsIntegrationTests {
+public class WebFluxEndpointCorsIntegrationTests {
 
-	private final ReactiveWebApplicationContextRunner contextRunner = new ReactiveWebApplicationContextRunner()
+	public final ReactiveWebApplicationContextRunner contextRunner = new ReactiveWebApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(JacksonAutoConfiguration.class, CodecsAutoConfiguration.class,
 					WebFluxAutoConfiguration.class, HttpHandlerAutoConfiguration.class, EndpointAutoConfiguration.class,
 					WebEndpointAutoConfiguration.class, ManagementContextAutoConfiguration.class,
 					ReactiveManagementContextAutoConfiguration.class, BeansEndpointAutoConfiguration.class))
 			.withPropertyValues("management.endpoints.web.exposure.include:*");
-
-	@Test
-	void corsIsDisabledByDefault() {
-		this.contextRunner.run(withWebTestClient((webTestClient) -> webTestClient.options().uri("/actuator/beans")
-				.header("Origin", "spring.example.org").header(HttpHeaders.ACCESS_CONTROL_REQUEST_METHOD, "GET")
-				.exchange().expectHeader().doesNotExist(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN)));
-	}
 
 	@Test
 	void settingAllowedOriginsEnablesCors() {
@@ -145,7 +138,7 @@ class WebFluxEndpointCorsIntegrationTests {
 						.expectHeader().doesNotExist(HttpHeaders.ACCESS_CONTROL_ALLOW_CREDENTIALS)));
 	}
 
-	private ContextConsumer<ReactiveWebApplicationContext> withWebTestClient(Consumer<WebTestClient> webTestClient) {
+	public ContextConsumer<ReactiveWebApplicationContext> withWebTestClient(Consumer<WebTestClient> webTestClient) {
 		return (context) -> webTestClient.accept(WebTestClient.bindToApplicationContext(context).configureClient()
 				.baseUrl("https://spring.example.org").build());
 	}
