@@ -62,9 +62,9 @@ import static org.mockito.Mockito.mock;
  * @author Stephane Nicoll
  * @author Scott Frederick
  */
-class HealthEndpointAutoConfigurationTests {
+public class HealthEndpointAutoConfigurationTests {
 
-	private final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner()
+	public final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner()
 			.withUserConfiguration(HealthIndicatorsConfiguration.class).withConfiguration(AutoConfigurations
 					.of(HealthContributorAutoConfiguration.class, HealthEndpointAutoConfiguration.class));
 
@@ -217,16 +217,6 @@ class HealthEndpointAutoConfigurationTests {
 	}
 
 	@Test
-	void runWhenHasHealthEndpointWebExtensionBeanDoesNotCreateExtraHealthEndpointWebExtension() {
-		this.contextRunner.withUserConfiguration(HealthEndpointWebExtensionConfiguration.class).run((context) -> {
-			HealthEndpointWebExtension webExtension = context.getBean(HealthEndpointWebExtension.class);
-			WebEndpointResponse<HealthComponent> response = webExtension.health(ApiVersion.V3, SecurityContext.NONE,
-					true, "simple");
-			assertThat(response).isNull();
-		});
-	}
-
-	@Test
 	void runCreatesReactiveHealthEndpointWebExtension() {
 		this.reactiveContextRunner.run((context) -> {
 			ReactiveHealthEndpointWebExtension webExtension = context.getBean(ReactiveHealthEndpointWebExtension.class);
@@ -342,6 +332,7 @@ class HealthEndpointAutoConfigurationTests {
 	}
 
 	@Configuration(proxyBeanMethods = false)
+	public
 	static class HealthEndpointWebExtensionConfiguration {
 
 		@Bean

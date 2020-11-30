@@ -16,9 +16,19 @@
 
 package org.springframework.boot.test.context.runner;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import java.util.List;
 import java.util.function.Supplier;
 
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.actuate.autoconfigure.health.HealthEndpointAutoConfigurationTests;
+import org.springframework.boot.actuate.autoconfigure.health.HealthEndpointAutoConfigurationTests.HealthEndpointWebExtensionConfiguration;
+import org.springframework.boot.actuate.endpoint.SecurityContext;
+import org.springframework.boot.actuate.endpoint.http.ApiVersion;
+import org.springframework.boot.actuate.endpoint.web.WebEndpointResponse;
+import org.springframework.boot.actuate.health.HealthComponent;
+import org.springframework.boot.actuate.health.HealthEndpointWebExtension;
 import org.springframework.boot.context.annotation.Configurations;
 import org.springframework.boot.test.context.assertj.AssertableWebApplicationContext;
 import org.springframework.boot.test.util.TestPropertyValues;
@@ -81,6 +91,17 @@ public final class WebApplicationContextRunner extends
 			List<Configurations> configurations) {
 		return new WebApplicationContextRunner(contextFactory, allowBeanDefinitionOverriding, initializers,
 				environmentProperties, systemProperties, classLoader, parent, beanRegistrations, configurations);
+	}
+
+	@Test
+	public
+	void runWhenHasHealthEndpointWebExtensionBeanDoesNotCreateExtraHealthEndpointWebExtension(HealthEndpointAutoConfigurationTests healthEndpointAutoConfigurationTests) {
+		withUserConfiguration(HealthEndpointWebExtensionConfiguration.class).run((context) -> {
+			HealthEndpointWebExtension webExtension = context.getBean(HealthEndpointWebExtension.class);
+			WebEndpointResponse<HealthComponent> response = webExtension.health(ApiVersion.V3, SecurityContext.NONE,
+					true, "simple");
+			assertThat(response).isNull();
+		});
 	}
 
 	/**
