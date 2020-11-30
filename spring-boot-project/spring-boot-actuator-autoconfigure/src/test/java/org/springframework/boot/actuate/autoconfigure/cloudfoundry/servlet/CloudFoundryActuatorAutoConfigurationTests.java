@@ -46,10 +46,6 @@ import org.springframework.boot.autoconfigure.web.servlet.WebMvcAutoConfiguratio
 import org.springframework.boot.test.context.runner.WebApplicationContextRunner;
 import org.springframework.context.ApplicationContext;
 import org.springframework.http.HttpMethod;
-import org.springframework.mock.web.MockHttpServletRequest;
-import org.springframework.security.config.BeanIds;
-import org.springframework.security.web.FilterChainProxy;
-import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -65,9 +61,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  *
  * @author Madhura Bhave
  */
-class CloudFoundryActuatorAutoConfigurationTests {
+public class CloudFoundryActuatorAutoConfigurationTests {
 
-	private final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner()
+	public final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(SecurityAutoConfiguration.class, WebMvcAutoConfiguration.class,
 					JacksonAutoConfiguration.class, DispatcherServletAutoConfiguration.class,
 					HttpMessageConvertersAutoConfiguration.class, PropertyPlaceholderAutoConfiguration.class,
@@ -153,22 +149,6 @@ class CloudFoundryActuatorAutoConfigurationTests {
 					Object interceptorSecurityService = ReflectionTestUtils.getField(securityInterceptor,
 							"cloudFoundrySecurityService");
 					assertThat(interceptorSecurityService).isNull();
-				});
-	}
-
-	@Test
-	void cloudFoundryPathsIgnoredBySpringSecurity() {
-		this.contextRunner.withPropertyValues("VCAP_APPLICATION:---", "vcap.application.application_id:my-app-id")
-				.run((context) -> {
-					FilterChainProxy securityFilterChain = (FilterChainProxy) context
-							.getBean(BeanIds.SPRING_SECURITY_FILTER_CHAIN);
-					SecurityFilterChain chain = securityFilterChain.getFilterChains().get(0);
-					MockHttpServletRequest request = new MockHttpServletRequest();
-					request.setServletPath("/cloudfoundryapplication/my-path");
-					assertThat(chain.getFilters()).isEmpty();
-					assertThat(chain.matches(request)).isTrue();
-					request.setServletPath("/some-other-path");
-					assertThat(chain.matches(request)).isFalse();
 				});
 	}
 
