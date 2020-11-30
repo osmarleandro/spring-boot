@@ -17,7 +17,6 @@
 package org.springframework.boot.actuate.autoconfigure.metrics.export.humio;
 
 import io.micrometer.core.instrument.Clock;
-import io.micrometer.core.instrument.binder.jvm.JvmMemoryMetrics;
 import io.micrometer.humio.HumioConfig;
 import io.micrometer.humio.HumioMeterRegistry;
 import org.junit.jupiter.api.Test;
@@ -35,9 +34,9 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Andy Wilkinson
  */
-class HumioMetricsExportAutoConfigurationTests {
+public class HumioMetricsExportAutoConfigurationTests {
 
-	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
+	public final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(HumioMetricsExportAutoConfiguration.class));
 
 	@Test
@@ -79,18 +78,8 @@ class HumioMetricsExportAutoConfigurationTests {
 				.hasSingleBean(HumioMeterRegistry.class).hasBean("customRegistry").hasSingleBean(HumioConfig.class));
 	}
 
-	@Test
-	void stopsMeterRegistryWhenContextIsClosed() {
-		this.contextRunner.withUserConfiguration(BaseConfiguration.class).run((context) -> {
-			HumioMeterRegistry registry = context.getBean(HumioMeterRegistry.class);
-			new JvmMemoryMetrics().bindTo(registry);
-			assertThat(registry.isClosed()).isFalse();
-			context.close();
-			assertThat(registry.isClosed()).isTrue();
-		});
-	}
-
 	@Configuration(proxyBeanMethods = false)
+	public
 	static class BaseConfiguration {
 
 		@Bean
