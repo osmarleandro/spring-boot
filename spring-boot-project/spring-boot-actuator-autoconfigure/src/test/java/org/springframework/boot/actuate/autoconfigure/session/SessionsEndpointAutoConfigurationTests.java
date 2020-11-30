@@ -33,17 +33,11 @@ import static org.mockito.Mockito.mock;
  *
  * @author Vedran Pavic
  */
-class SessionsEndpointAutoConfigurationTests {
+public class SessionsEndpointAutoConfigurationTests {
 
-	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
+	public final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(SessionsEndpointAutoConfiguration.class))
 			.withUserConfiguration(SessionConfiguration.class);
-
-	@Test
-	void runShouldHaveEndpointBean() {
-		this.contextRunner.withPropertyValues("management.endpoints.web.exposure.include=sessions")
-				.run((context) -> assertThat(context).hasSingleBean(SessionsEndpoint.class));
-	}
 
 	@Test
 	void runWhenNotExposedShouldNotHaveEndpointBean() {
