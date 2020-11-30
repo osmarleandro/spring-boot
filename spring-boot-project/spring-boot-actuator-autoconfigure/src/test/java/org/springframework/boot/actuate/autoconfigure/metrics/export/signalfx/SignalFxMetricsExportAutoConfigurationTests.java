@@ -34,9 +34,9 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Andy Wilkinson
  */
-class SignalFxMetricsExportAutoConfigurationTests {
+public class SignalFxMetricsExportAutoConfigurationTests {
 
-	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
+	public final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(SignalFxMetricsExportAutoConfiguration.class));
 
 	@Test
@@ -62,14 +62,6 @@ class SignalFxMetricsExportAutoConfigurationTests {
 	void autoConfigurationCanBeDisabledWithDefaultsEnabledProperty() {
 		this.contextRunner.withUserConfiguration(BaseConfiguration.class)
 				.withPropertyValues("management.metrics.export.defaults.enabled=false")
-				.run((context) -> assertThat(context).doesNotHaveBean(SignalFxMeterRegistry.class)
-						.doesNotHaveBean(SignalFxConfig.class));
-	}
-
-	@Test
-	void autoConfigurationCanBeDisabledWithSpecificEnabledProperty() {
-		this.contextRunner.withUserConfiguration(BaseConfiguration.class)
-				.withPropertyValues("management.metrics.export.signalfx.enabled=false")
 				.run((context) -> assertThat(context).doesNotHaveBean(SignalFxMeterRegistry.class)
 						.doesNotHaveBean(SignalFxConfig.class));
 	}
@@ -103,6 +95,7 @@ class SignalFxMetricsExportAutoConfigurationTests {
 	}
 
 	@Configuration(proxyBeanMethods = false)
+	public
 	static class BaseConfiguration {
 
 		@Bean
