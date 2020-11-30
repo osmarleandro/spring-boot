@@ -16,9 +16,14 @@
 
 package org.springframework.boot.test.context.runner;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import java.util.List;
 import java.util.function.Supplier;
 
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.actuate.autoconfigure.cloudfoundry.reactive.CloudFoundryWebFluxEndpointHandlerMapping;
+import org.springframework.boot.actuate.autoconfigure.cloudfoundry.reactive.ReactiveCloudFoundryActuatorAutoConfigurationTests;
 import org.springframework.boot.context.annotation.Configurations;
 import org.springframework.boot.test.context.assertj.AssertableReactiveWebApplicationContext;
 import org.springframework.boot.test.util.TestPropertyValues;
@@ -26,6 +31,7 @@ import org.springframework.boot.web.reactive.context.AnnotationConfigReactiveWeb
 import org.springframework.boot.web.reactive.context.ConfigurableReactiveWebApplicationContext;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextInitializer;
+import org.springframework.test.util.ReflectionTestUtils;
 
 /**
  * An {@link AbstractApplicationContextRunner ApplicationContext runner} for a
@@ -77,6 +83,21 @@ public final class ReactiveWebApplicationContextRunner extends
 			List<Configurations> configurations) {
 		return new ReactiveWebApplicationContextRunner(contextFactory, allowBeanDefinitionOverriding, initializers,
 				environmentProperties, systemProperties, classLoader, parent, beanRegistrations, configurations);
+	}
+
+	@Test
+	public
+	void cloudFoundryPlatformActiveSetsCloudControllerUrl(ReactiveCloudFoundryActuatorAutoConfigurationTests reactiveCloudFoundryActuatorAutoConfigurationTests) {
+		withPropertyValues("VCAP_APPLICATION:---", "vcap.application.application_id:my-app-id",
+				"vcap.application.cf_api:https://my-cloud-controller.com").run((context) -> {
+					CloudFoundryWebFluxEndpointHandlerMapping handlerMapping = reactiveCloudFoundryActuatorAutoConfigurationTests.getHandlerMapping(context);
+					Object interceptor = ReflectionTestUtils.getField(handlerMapping, "securityInterceptor");
+					Object interceptorSecurityService = ReflectionTestUtils.getField(interceptor,
+							"cloudFoundrySecurityService");
+					String cloudControllerUrl = (String) ReflectionTestUtils.getField(interceptorSecurityService,
+							"cloudControllerUrl");
+					assertThat(cloudControllerUrl).isEqualTo("https://my-cloud-controller.com");
+				});
 	}
 
 }
