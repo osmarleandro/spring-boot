@@ -33,9 +33,9 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Brian Clozel
  */
-class ConditionalOnAvailableEndpointTests {
+public class ConditionalOnAvailableEndpointTests {
 
-	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
+	public final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.withUserConfiguration(AllEndpointsConfiguration.class);
 
 	@Test
@@ -183,13 +183,6 @@ class ConditionalOnAvailableEndpointTests {
 	}
 
 	@Test // gh-21044
-	void outcomeWhenIncludeAllShouldMatchDashedEndpoint() throws Exception {
-		this.contextRunner.withUserConfiguration(DashedEndpointConfiguration.class)
-				.withPropertyValues("management.endpoints.web.exposure.include=*")
-				.run((context) -> assertThat(context).hasSingleBean(DashedEndpoint.class));
-	}
-
-	@Test // gh-21044
 	void outcomeWhenIncludeDashedShouldMatchDashedEndpoint() throws Exception {
 		this.contextRunner.withUserConfiguration(DashedEndpointConfiguration.class)
 				.withPropertyValues("management.endpoints.web.exposure.include=test-dashed")
@@ -222,6 +215,7 @@ class ConditionalOnAvailableEndpointTests {
 	}
 
 	@Endpoint(id = "test-dashed")
+	public
 	static class DashedEndpoint {
 
 	}
@@ -304,6 +298,7 @@ class ConditionalOnAvailableEndpointTests {
 	}
 
 	@Configuration(proxyBeanMethods = false)
+	public
 	static class DashedEndpointConfiguration {
 
 		@Bean
