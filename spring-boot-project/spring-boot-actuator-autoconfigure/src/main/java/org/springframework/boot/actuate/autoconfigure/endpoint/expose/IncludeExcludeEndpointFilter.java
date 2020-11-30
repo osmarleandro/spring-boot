@@ -16,6 +16,8 @@
 
 package org.springframework.boot.actuate.autoconfigure.endpoint.expose;
 
+import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -24,12 +26,14 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.junit.jupiter.api.Test;
 import org.springframework.boot.actuate.endpoint.EndpointFilter;
 import org.springframework.boot.actuate.endpoint.EndpointId;
 import org.springframework.boot.actuate.endpoint.ExposableEndpoint;
 import org.springframework.boot.context.properties.bind.Bindable;
 import org.springframework.boot.context.properties.bind.Binder;
 import org.springframework.core.env.Environment;
+import org.springframework.mock.env.MockEnvironment;
 import org.springframework.util.Assert;
 
 /**
@@ -163,6 +167,14 @@ public class IncludeExcludeEndpointFilter<E extends ExposableEndpoint<?>> implem
 			return false;
 		}
 		return this.exclude.matches(endpointId);
+	}
+
+	@Test
+	void createWhenPrefixIsEmptyShouldThrowException() {
+		assertThatIllegalArgumentException()
+				.isThrownBy(
+						() -> new IncludeExcludeEndpointFilter<>(ExposableEndpoint.class, new MockEnvironment(), ""))
+				.withMessageContaining("Prefix must not be empty");
 	}
 
 	/**
