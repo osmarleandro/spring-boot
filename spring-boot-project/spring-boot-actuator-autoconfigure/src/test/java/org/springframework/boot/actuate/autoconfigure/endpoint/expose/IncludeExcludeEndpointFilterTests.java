@@ -56,14 +56,6 @@ class IncludeExcludeEndpointFilterTests {
 	}
 
 	@Test
-	void createWhenPrefixIsNullShouldThrowException() {
-		assertThatIllegalArgumentException()
-				.isThrownBy(
-						() -> new IncludeExcludeEndpointFilter<>(ExposableEndpoint.class, new MockEnvironment(), null))
-				.withMessageContaining("Prefix must not be empty");
-	}
-
-	@Test
 	void createWhenPrefixIsEmptyShouldThrowException() {
 		assertThatIllegalArgumentException()
 				.isThrownBy(
