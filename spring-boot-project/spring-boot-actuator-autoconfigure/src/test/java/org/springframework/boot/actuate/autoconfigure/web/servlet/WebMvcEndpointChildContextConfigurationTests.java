@@ -17,8 +17,6 @@
 package org.springframework.boot.actuate.autoconfigure.web.servlet;
 
 import org.junit.jupiter.api.Test;
-
-import org.springframework.boot.autoconfigure.web.servlet.DispatcherServletPath;
 import org.springframework.boot.test.context.runner.WebApplicationContextRunner;
 import org.springframework.boot.web.servlet.filter.OrderedRequestContextFilter;
 import org.springframework.context.annotation.Bean;
@@ -33,9 +31,9 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Madhura Bhave
  */
-class WebMvcEndpointChildContextConfigurationTests {
+public class WebMvcEndpointChildContextConfigurationTests {
 
-	private final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner()
+	public final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner()
 			.withAllowBeanDefinitionOverriding(true);
 
 	@Test
@@ -60,12 +58,6 @@ class WebMvcEndpointChildContextConfigurationTests {
 					assertThat(context).hasSingleBean(RequestContextListener.class);
 					assertThat(context).doesNotHaveBean(OrderedRequestContextFilter.class);
 				});
-	}
-
-	@Test
-	void contextShouldConfigureDispatcherServletPathWithRootPath() {
-		this.contextRunner.withUserConfiguration(WebMvcEndpointChildContextConfiguration.class)
-				.run((context) -> assertThat(context.getBean(DispatcherServletPath.class).getPath()).isEqualTo("/"));
 	}
 
 	@Configuration(proxyBeanMethods = false)

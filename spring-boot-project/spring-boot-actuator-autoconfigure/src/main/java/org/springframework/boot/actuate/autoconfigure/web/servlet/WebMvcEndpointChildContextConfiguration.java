@@ -52,6 +52,7 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 @ConditionalOnWebApplication(type = Type.SERVLET)
 @ConditionalOnClass(DispatcherServlet.class)
 @EnableWebMvc
+public
 class WebMvcEndpointChildContextConfiguration {
 
 	/*
