@@ -34,9 +34,9 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Andy Wilkinson
  */
-class DatadogMetricsExportAutoConfigurationTests {
+public class DatadogMetricsExportAutoConfigurationTests {
 
-	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
+	public final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(DatadogMetricsExportAutoConfiguration.class));
 
 	@Test
@@ -88,18 +88,8 @@ class DatadogMetricsExportAutoConfigurationTests {
 						.hasBean("customRegistry").hasSingleBean(DatadogConfig.class));
 	}
 
-	@Test
-	void stopsMeterRegistryWhenContextIsClosed() {
-		this.contextRunner.withUserConfiguration(BaseConfiguration.class)
-				.withPropertyValues("management.metrics.export.datadog.api-key=abcde").run((context) -> {
-					DatadogMeterRegistry registry = context.getBean(DatadogMeterRegistry.class);
-					assertThat(registry.isClosed()).isFalse();
-					context.close();
-					assertThat(registry.isClosed()).isTrue();
-				});
-	}
-
 	@Configuration(proxyBeanMethods = false)
+	public
 	static class BaseConfiguration {
 
 		@Bean
