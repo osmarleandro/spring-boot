@@ -33,21 +33,11 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Stephane Nicoll
  */
-class CacheMetricsAutoConfigurationTests {
+public class CacheMetricsAutoConfigurationTests {
 
-	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner().with(MetricsRun.simple())
+	public final ApplicationContextRunner contextRunner = new ApplicationContextRunner().with(MetricsRun.simple())
 			.withUserConfiguration(CachingConfiguration.class).withConfiguration(
 					AutoConfigurations.of(CacheAutoConfiguration.class, CacheMetricsAutoConfiguration.class));
-
-	@Test
-	void autoConfiguredCacheManagerIsInstrumented() {
-		this.contextRunner.withPropertyValues("spring.cache.type=caffeine", "spring.cache.cache-names=cache1,cache2")
-				.run((context) -> {
-					MeterRegistry registry = context.getBean(MeterRegistry.class);
-					registry.get("cache.gets").tags("name", "cache1").tags("cacheManager", "cacheManager").meter();
-					registry.get("cache.gets").tags("name", "cache2").tags("cacheManager", "cacheManager").meter();
-				});
-	}
 
 	@Test
 	void autoConfiguredNonSupportedCacheManagerIsIgnored() {
