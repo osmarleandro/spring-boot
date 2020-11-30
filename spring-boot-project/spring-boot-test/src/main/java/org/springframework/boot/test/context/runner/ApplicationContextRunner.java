@@ -16,9 +16,16 @@
 
 package org.springframework.boot.test.context.runner;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import java.util.List;
 import java.util.function.Supplier;
 
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.actuate.autoconfigure.health.HealthContributorAutoConfigurationTests;
+import org.springframework.boot.actuate.autoconfigure.health.HealthContributorAutoConfigurationTests.CustomHealthIndicator;
+import org.springframework.boot.actuate.autoconfigure.health.HealthContributorAutoConfigurationTests.CustomHealthIndicatorConfiguration;
+import org.springframework.boot.actuate.health.PingHealthIndicator;
 import org.springframework.boot.context.annotation.Configurations;
 import org.springframework.boot.test.context.assertj.AssertableApplicationContext;
 import org.springframework.boot.test.util.TestPropertyValues;
@@ -77,6 +84,14 @@ public class ApplicationContextRunner extends
 			List<Configurations> configurations) {
 		return new ApplicationContextRunner(contextFactory, allowBeanDefinitionOverriding, initializers,
 				environmentProperties, systemProperties, classLoader, parent, beanRegistrations, configurations);
+	}
+
+	@Test
+	public
+	void runWhenHasDefinedIndicatorCreatesPingHealthIndicator(HealthContributorAutoConfigurationTests healthContributorAutoConfigurationTests) {
+		withUserConfiguration(CustomHealthIndicatorConfiguration.class)
+				.run((context) -> assertThat(context).hasSingleBean(PingHealthIndicator.class)
+						.hasSingleBean(CustomHealthIndicator.class));
 	}
 
 }
