@@ -43,17 +43,18 @@ import static org.mockito.Mockito.verify;
  * @author Madhura Bhave
  */
 @ExtendWith(MockitoExtension.class)
+public
 class CloudFoundrySecurityInterceptorTests {
 
 	@Mock
-	private TokenValidator tokenValidator;
+	public TokenValidator tokenValidator;
 
 	@Mock
-	private CloudFoundrySecurityService securityService;
+	public CloudFoundrySecurityService securityService;
 
-	private CloudFoundrySecurityInterceptor interceptor;
+	public CloudFoundrySecurityInterceptor interceptor;
 
-	private MockHttpServletRequest request;
+	public MockHttpServletRequest request;
 
 	@BeforeEach
 	void setup() {
@@ -109,20 +110,6 @@ class CloudFoundrySecurityInterceptorTests {
 	}
 
 	@Test
-	void preHandleSuccessfulWithFullAccess() {
-		String accessToken = mockAccessToken();
-		this.request.addHeader("Authorization", "Bearer " + accessToken);
-		given(this.securityService.getAccessLevel(accessToken, "my-app-id")).willReturn(AccessLevel.FULL);
-		SecurityResponse response = this.interceptor.preHandle(this.request, EndpointId.of("test"));
-		ArgumentCaptor<Token> tokenArgumentCaptor = ArgumentCaptor.forClass(Token.class);
-		verify(this.tokenValidator).validate(tokenArgumentCaptor.capture());
-		Token token = tokenArgumentCaptor.getValue();
-		assertThat(token.toString()).isEqualTo(accessToken);
-		assertThat(response.getStatus()).isEqualTo(HttpStatus.OK);
-		assertThat(this.request.getAttribute("cloudFoundryAccessLevel")).isEqualTo(AccessLevel.FULL);
-	}
-
-	@Test
 	void preHandleSuccessfulWithRestrictedAccess() {
 		String accessToken = mockAccessToken();
 		this.request.addHeader("Authorization", "Bearer " + accessToken);
@@ -136,7 +123,7 @@ class CloudFoundrySecurityInterceptorTests {
 		assertThat(this.request.getAttribute("cloudFoundryAccessLevel")).isEqualTo(AccessLevel.RESTRICTED);
 	}
 
-	private String mockAccessToken() {
+	public String mockAccessToken() {
 		return "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ0b3B0YWwu"
 				+ "Y29tIiwiZXhwIjoxNDI2NDIwODAwLCJhd2Vzb21lIjp0cnVlfQ."
 				+ Base64Utils.encodeToString("signature".getBytes());
