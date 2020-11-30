@@ -16,8 +16,6 @@
 
 package org.springframework.boot.actuate.autoconfigure.metrics.export.dynatrace;
 
-import java.util.function.Function;
-
 import io.micrometer.core.instrument.Clock;
 import io.micrometer.dynatrace.DynatraceConfig;
 import io.micrometer.dynatrace.DynatraceMeterRegistry;
@@ -55,7 +53,7 @@ class DynatraceMetricsExportAutoConfigurationTests {
 
 	@Test
 	void autoConfiguresConfigAndMeterRegistry() {
-		this.contextRunner.withUserConfiguration(BaseConfiguration.class).with(mandatoryProperties())
+		this.contextRunner.withUserConfiguration(BaseConfiguration.class).with(contextRunner.mandatoryProperties())
 				.run((context) -> assertThat(context).hasSingleBean(DynatraceMeterRegistry.class)
 						.hasSingleBean(DynatraceConfig.class));
 	}
@@ -85,26 +83,19 @@ class DynatraceMetricsExportAutoConfigurationTests {
 
 	@Test
 	void allowsCustomRegistryToBeUsed() {
-		this.contextRunner.withUserConfiguration(CustomRegistryConfiguration.class).with(mandatoryProperties())
+		this.contextRunner.withUserConfiguration(CustomRegistryConfiguration.class).with(contextRunner.mandatoryProperties())
 				.run((context) -> assertThat(context).hasSingleBean(DynatraceMeterRegistry.class)
 						.hasBean("customRegistry").hasSingleBean(DynatraceConfig.class));
 	}
 
 	@Test
 	void stopsMeterRegistryWhenContextIsClosed() {
-		this.contextRunner.withUserConfiguration(BaseConfiguration.class).with(mandatoryProperties()).run((context) -> {
+		this.contextRunner.withUserConfiguration(BaseConfiguration.class).with(contextRunner.mandatoryProperties()).run((context) -> {
 			DynatraceMeterRegistry registry = context.getBean(DynatraceMeterRegistry.class);
 			assertThat(registry.isClosed()).isFalse();
 			context.close();
 			assertThat(registry.isClosed()).isTrue();
 		});
-	}
-
-	private Function<ApplicationContextRunner, ApplicationContextRunner> mandatoryProperties() {
-		return (runner) -> runner.withPropertyValues(
-				"management.metrics.export.dynatrace.uri=https://dynatrace.example.com",
-				"management.metrics.export.dynatrace.api-token=abcde",
-				"management.metrics.export.dynatrace.device-id=test");
 	}
 
 	@Configuration(proxyBeanMethods = false)

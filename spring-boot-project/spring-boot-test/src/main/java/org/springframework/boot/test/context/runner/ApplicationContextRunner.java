@@ -17,6 +17,7 @@
 package org.springframework.boot.test.context.runner;
 
 import java.util.List;
+import java.util.function.Function;
 import java.util.function.Supplier;
 
 import org.springframework.boot.context.annotation.Configurations;
@@ -77,6 +78,13 @@ public class ApplicationContextRunner extends
 			List<Configurations> configurations) {
 		return new ApplicationContextRunner(contextFactory, allowBeanDefinitionOverriding, initializers,
 				environmentProperties, systemProperties, classLoader, parent, beanRegistrations, configurations);
+	}
+
+	public Function<ApplicationContextRunner, ApplicationContextRunner> mandatoryProperties() {
+		return (runner) -> runner.withPropertyValues(
+				"management.metrics.export.dynatrace.uri=https://dynatrace.example.com",
+				"management.metrics.export.dynatrace.api-token=abcde",
+				"management.metrics.export.dynatrace.device-id=test");
 	}
 
 }
