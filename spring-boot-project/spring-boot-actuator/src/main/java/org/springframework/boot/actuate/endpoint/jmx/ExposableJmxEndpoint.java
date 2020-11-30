@@ -16,6 +16,11 @@
 
 package org.springframework.boot.actuate.endpoint.jmx;
 
+import javax.management.MalformedObjectNameException;
+import javax.management.ObjectName;
+
+import org.springframework.boot.actuate.autoconfigure.endpoint.jmx.DefaultEndpointObjectNameFactory;
+import org.springframework.boot.actuate.autoconfigure.endpoint.jmx.DefaultEndpointObjectNameFactoryTests;
 import org.springframework.boot.actuate.endpoint.ExposableEndpoint;
 
 /**
@@ -25,5 +30,15 @@ import org.springframework.boot.actuate.endpoint.ExposableEndpoint;
  * @since 2.0.0
  */
 public interface ExposableJmxEndpoint extends ExposableEndpoint<JmxOperation> {
+
+	public default ObjectName generateObjectName(DefaultEndpointObjectNameFactoryTests defaultEndpointObjectNameFactoryTests) {
+		try {
+			return new DefaultEndpointObjectNameFactory(defaultEndpointObjectNameFactoryTests.properties, defaultEndpointObjectNameFactoryTests.environment, defaultEndpointObjectNameFactoryTests.mBeanServer,
+					defaultEndpointObjectNameFactoryTests.contextId).getObjectName(this);
+		}
+		catch (MalformedObjectNameException ex) {
+			throw new AssertionError("Invalid object name", ex);
+		}
+	}
 
 }
