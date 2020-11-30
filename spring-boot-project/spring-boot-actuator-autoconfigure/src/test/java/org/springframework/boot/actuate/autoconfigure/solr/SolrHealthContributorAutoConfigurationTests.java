@@ -31,16 +31,11 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Phillip Webb
  */
-class SolrHealthContributorAutoConfigurationTests {
+public class SolrHealthContributorAutoConfigurationTests {
 
-	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
+	public final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(SolrAutoConfiguration.class,
 					SolrHealthContributorAutoConfiguration.class, HealthContributorAutoConfiguration.class));
-
-	@Test
-	void runShouldCreateIndicator() {
-		this.contextRunner.run((context) -> assertThat(context).hasSingleBean(SolrHealthIndicator.class));
-	}
 
 	@Test
 	void runWhenDisabledShouldNotCreateIndicator() {
