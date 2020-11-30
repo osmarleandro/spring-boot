@@ -39,15 +39,15 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Madhura Bhave
  */
-class ReactiveCloudFoundrySecurityServiceTests {
+public class ReactiveCloudFoundrySecurityServiceTests {
 
 	private static final String CLOUD_CONTROLLER = "/my-cloud-controller.com";
 
-	private static final String CLOUD_CONTROLLER_PERMISSIONS = CLOUD_CONTROLLER + "/v2/apps/my-app-id/permissions";
+	public static final String CLOUD_CONTROLLER_PERMISSIONS = CLOUD_CONTROLLER + "/v2/apps/my-app-id/permissions";
 
 	private static final String UAA_URL = "https://my-cloud-controller.com/uaa";
 
-	private ReactiveCloudFoundrySecurityService securityService;
+	public ReactiveCloudFoundrySecurityService securityService;
 
 	private MockWebServer server;
 
@@ -63,19 +63,6 @@ class ReactiveCloudFoundrySecurityServiceTests {
 	@AfterEach
 	void shutdown() throws Exception {
 		this.server.shutdown();
-	}
-
-	@Test
-	void getAccessLevelWhenSpaceDeveloperShouldReturnFull() throws Exception {
-		String responseBody = "{\"read_sensitive_data\": true,\"read_basic_data\": true}";
-		prepareResponse((response) -> response.setBody(responseBody).setHeader("Content-Type", "application/json"));
-		StepVerifier.create(this.securityService.getAccessLevel("my-access-token", "my-app-id"))
-				.consumeNextWith((accessLevel) -> assertThat(accessLevel).isEqualTo(AccessLevel.FULL)).expectComplete()
-				.verify();
-		expectRequest((request) -> {
-			assertThat(request.getHeader(HttpHeaders.AUTHORIZATION)).isEqualTo("bearer my-access-token");
-			assertThat(request.getPath()).isEqualTo(CLOUD_CONTROLLER_PERMISSIONS);
-		});
 	}
 
 	@Test
@@ -219,13 +206,13 @@ class ReactiveCloudFoundrySecurityServiceTests {
 		expectRequest((request) -> assertThat(request.getPath()).isEqualTo(CLOUD_CONTROLLER + "/info"));
 	}
 
-	private void prepareResponse(Consumer<MockResponse> consumer) {
+	public void prepareResponse(Consumer<MockResponse> consumer) {
 		MockResponse response = new MockResponse();
 		consumer.accept(response);
 		this.server.enqueue(response);
 	}
 
-	private void expectRequest(Consumer<RecordedRequest> consumer) throws InterruptedException {
+	public void expectRequest(Consumer<RecordedRequest> consumer) throws InterruptedException {
 		consumer.accept(this.server.takeRequest());
 	}
 
