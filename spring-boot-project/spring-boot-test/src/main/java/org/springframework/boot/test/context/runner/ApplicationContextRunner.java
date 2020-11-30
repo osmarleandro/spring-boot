@@ -16,10 +16,17 @@
 
 package org.springframework.boot.test.context.runner;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import java.util.List;
 import java.util.function.Supplier;
 
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.actuate.autoconfigure.startup.StartupEndpointAutoConfiguration;
+import org.springframework.boot.actuate.startup.StartupEndpoint;
+import org.springframework.boot.autoconfigure.AutoConfigurations;
 import org.springframework.boot.context.annotation.Configurations;
+import org.springframework.boot.context.metrics.buffering.BufferingApplicationStartup;
 import org.springframework.boot.test.context.assertj.AssertableApplicationContext;
 import org.springframework.boot.test.util.TestPropertyValues;
 import org.springframework.context.ApplicationContext;
@@ -77,6 +84,18 @@ public class ApplicationContextRunner extends
 			List<Configurations> configurations) {
 		return new ApplicationContextRunner(contextFactory, allowBeanDefinitionOverriding, initializers,
 				environmentProperties, systemProperties, classLoader, parent, beanRegistrations, configurations);
+	}
+
+	@Test
+	public
+	void runShouldHaveStartupEndpoint() {
+		new ApplicationContextRunner(() -> {
+			AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
+			context.setApplicationStartup(new BufferingApplicationStartup(1));
+			return context;
+		}).withConfiguration(AutoConfigurations.of(StartupEndpointAutoConfiguration.class))
+				.withPropertyValues("management.endpoints.web.exposure.include=startup")
+				.run((context) -> assertThat(context).hasSingleBean(StartupEndpoint.class));
 	}
 
 }

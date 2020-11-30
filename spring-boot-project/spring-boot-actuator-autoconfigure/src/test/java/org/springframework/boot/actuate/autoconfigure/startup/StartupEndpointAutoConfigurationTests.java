@@ -20,9 +20,7 @@ import org.junit.jupiter.api.Test;
 
 import org.springframework.boot.actuate.startup.StartupEndpoint;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
-import org.springframework.boot.context.metrics.buffering.BufferingApplicationStartup;
 import org.springframework.boot.test.context.runner.ApplicationContextRunner;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -45,17 +43,6 @@ class StartupEndpointAutoConfigurationTests {
 	void runWhenMissingAppStartupShouldNotHaveStartupEndpoint() {
 		this.contextRunner.withPropertyValues("management.endpoints.web.exposure.include=startup")
 				.run((context) -> assertThat(context).doesNotHaveBean(StartupEndpoint.class));
-	}
-
-	@Test
-	void runShouldHaveStartupEndpoint() {
-		new ApplicationContextRunner(() -> {
-			AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
-			context.setApplicationStartup(new BufferingApplicationStartup(1));
-			return context;
-		}).withConfiguration(AutoConfigurations.of(StartupEndpointAutoConfiguration.class))
-				.withPropertyValues("management.endpoints.web.exposure.include=startup")
-				.run((context) -> assertThat(context).hasSingleBean(StartupEndpoint.class));
 	}
 
 }
