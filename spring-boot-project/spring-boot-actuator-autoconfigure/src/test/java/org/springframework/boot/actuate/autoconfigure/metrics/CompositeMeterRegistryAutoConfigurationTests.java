@@ -37,11 +37,11 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Phillip Webb
  * @author Andy Wilkinson
  */
-class CompositeMeterRegistryAutoConfigurationTests {
+public class CompositeMeterRegistryAutoConfigurationTests {
 
-	private static final String COMPOSITE_NAME = "compositeMeterRegistry";
+	public static final String COMPOSITE_NAME = "compositeMeterRegistry";
 
-	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
+	public final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.withUserConfiguration(BaseConfig.class)
 			.withConfiguration(AutoConfigurations.of(CompositeMeterRegistryAutoConfiguration.class));
 
@@ -60,18 +60,6 @@ class CompositeMeterRegistryAutoConfigurationTests {
 			assertThat(context).hasSingleBean(MeterRegistry.class);
 			MeterRegistry registry = context.getBean(MeterRegistry.class);
 			assertThat(registry).isInstanceOf(TestMeterRegistry.class);
-		});
-	}
-
-	@Test
-	void registerWhenHasMultipleMeterRegistriesShouldAddPrimaryComposite() {
-		this.contextRunner.withUserConfiguration(MultipleMeterRegistriesConfig.class).run((context) -> {
-			assertThat(context.getBeansOfType(MeterRegistry.class)).hasSize(3).containsKeys("meterRegistryOne",
-					"meterRegistryTwo", COMPOSITE_NAME);
-			MeterRegistry primary = context.getBean(MeterRegistry.class);
-			assertThat(primary).isInstanceOf(CompositeMeterRegistry.class);
-			assertThat(((CompositeMeterRegistry) primary).getRegistries()).hasSize(2);
-			assertThat(primary.config().clock()).isNotNull();
 		});
 	}
 
@@ -112,6 +100,7 @@ class CompositeMeterRegistryAutoConfigurationTests {
 	}
 
 	@Configuration(proxyBeanMethods = false)
+	public
 	static class MultipleMeterRegistriesConfig {
 
 		@Bean
