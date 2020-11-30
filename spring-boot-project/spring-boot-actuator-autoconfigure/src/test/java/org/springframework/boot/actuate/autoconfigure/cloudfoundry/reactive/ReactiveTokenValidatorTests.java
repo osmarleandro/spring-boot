@@ -54,14 +54,15 @@ import static org.mockito.BDDMockito.given;
  * @author Madhura Bhave
  */
 @ExtendWith(MockitoExtension.class)
+public
 class ReactiveTokenValidatorTests {
 
 	private static final byte[] DOT = ".".getBytes();
 
 	@Mock
-	private ReactiveCloudFoundrySecurityService securityService;
+	public ReactiveCloudFoundrySecurityService securityService;
 
-	private ReactiveTokenValidator tokenValidator;
+	public ReactiveTokenValidator tokenValidator;
 
 	private static final String VALID_KEY = "-----BEGIN PUBLIC KEY-----\n"
 			+ "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA0m59l2u9iDnMbrXHfqkO\n"
@@ -83,7 +84,7 @@ class ReactiveTokenValidatorTests {
 
 	private static final Map<String, String> INVALID_KEYS = new ConcurrentHashMap<>();
 
-	private static final Map<String, String> VALID_KEYS = new ConcurrentHashMap<>();
+	public static final Map<String, String> VALID_KEYS = new ConcurrentHashMap<>();
 
 	@BeforeEach
 	void setup() {
@@ -114,20 +115,6 @@ class ReactiveTokenValidatorTests {
 	void validateTokenWhenKidValidationSucceedsInTheSecondAttempt() throws Exception {
 		PublisherProbe<Map<String, String>> fetchTokenKeys = PublisherProbe.of(Mono.just(VALID_KEYS));
 		ReflectionTestUtils.setField(this.tokenValidator, "cachedTokenKeys", INVALID_KEYS);
-		given(this.securityService.fetchTokenKeys()).willReturn(fetchTokenKeys.mono());
-		given(this.securityService.getUaaUrl()).willReturn(Mono.just("http://localhost:8080/uaa"));
-		String header = "{\"alg\": \"RS256\",  \"kid\": \"valid-key\",\"typ\": \"JWT\"}";
-		String claims = "{\"exp\": 2147483647, \"iss\": \"http://localhost:8080/uaa/oauth/token\", \"scope\": [\"actuator.read\"]}";
-		StepVerifier
-				.create(this.tokenValidator.validate(new Token(getSignedToken(header.getBytes(), claims.getBytes()))))
-				.verifyComplete();
-		assertThat(this.tokenValidator).hasFieldOrPropertyWithValue("cachedTokenKeys", VALID_KEYS);
-		fetchTokenKeys.assertWasSubscribed();
-	}
-
-	@Test
-	void validateTokenWhenCacheIsEmptyShouldFetchTokenKeys() throws Exception {
-		PublisherProbe<Map<String, String>> fetchTokenKeys = PublisherProbe.of(Mono.just(VALID_KEYS));
 		given(this.securityService.fetchTokenKeys()).willReturn(fetchTokenKeys.mono());
 		given(this.securityService.getUaaUrl()).willReturn(Mono.just("http://localhost:8080/uaa"));
 		String header = "{\"alg\": \"RS256\",  \"kid\": \"valid-key\",\"typ\": \"JWT\"}";
@@ -243,7 +230,7 @@ class ReactiveTokenValidatorTests {
 				}).verify();
 	}
 
-	private String getSignedToken(byte[] header, byte[] claims) throws Exception {
+	public String getSignedToken(byte[] header, byte[] claims) throws Exception {
 		PrivateKey privateKey = getPrivateKey();
 		Signature signature = Signature.getInstance("SHA256WithRSA");
 		signature.initSign(privateKey);
