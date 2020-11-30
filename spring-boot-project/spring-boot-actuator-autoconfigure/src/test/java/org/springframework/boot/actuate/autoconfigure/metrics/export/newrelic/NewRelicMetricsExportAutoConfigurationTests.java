@@ -38,9 +38,9 @@ import static org.mockito.Mockito.mock;
  * @author Andy Wilkinson
  * @author Stephane Nicoll
  */
-class NewRelicMetricsExportAutoConfigurationTests {
+public class NewRelicMetricsExportAutoConfigurationTests {
 
-	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
+	public final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(NewRelicMetricsExportAutoConfiguration.class));
 
 	@Test
@@ -88,15 +88,6 @@ class NewRelicMetricsExportAutoConfigurationTests {
 						"management.metrics.export.newrelic.account-id=12345",
 						"management.metrics.export.newrelic.event-type=",
 						"management.metrics.export.newrelic.meter-name-event-type-enabled=true")
-				.run((context) -> assertThat(context).hasSingleBean(NewRelicMeterRegistry.class)
-						.hasSingleBean(Clock.class).hasSingleBean(NewRelicConfig.class));
-	}
-
-	@Test
-	void autoConfiguresWithAccountIdAndApiKey() {
-		this.contextRunner.withUserConfiguration(BaseConfiguration.class)
-				.withPropertyValues("management.metrics.export.newrelic.api-key=abcde",
-						"management.metrics.export.newrelic.account-id=12345")
 				.run((context) -> assertThat(context).hasSingleBean(NewRelicMeterRegistry.class)
 						.hasSingleBean(Clock.class).hasSingleBean(NewRelicConfig.class));
 	}
@@ -160,6 +151,7 @@ class NewRelicMetricsExportAutoConfigurationTests {
 	}
 
 	@Configuration(proxyBeanMethods = false)
+	public
 	static class BaseConfiguration {
 
 		@Bean
