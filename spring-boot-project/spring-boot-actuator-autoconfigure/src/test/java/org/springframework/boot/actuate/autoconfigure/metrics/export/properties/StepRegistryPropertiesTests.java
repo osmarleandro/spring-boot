@@ -26,7 +26,7 @@ import io.micrometer.core.instrument.step.StepRegistryConfig;
 public abstract class StepRegistryPropertiesTests extends PushRegistryPropertiesTests {
 
 	protected void assertStepRegistryDefaultValues(StepRegistryProperties properties, StepRegistryConfig config) {
-		super.assertStepRegistryDefaultValues(properties, config);
+		properties.assertStepRegistryDefaultValues(config);
 	}
 
 }

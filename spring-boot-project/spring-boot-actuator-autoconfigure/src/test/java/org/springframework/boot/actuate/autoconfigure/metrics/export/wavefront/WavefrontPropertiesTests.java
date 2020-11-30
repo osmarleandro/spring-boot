@@ -34,7 +34,7 @@ class WavefrontPropertiesTests extends PushRegistryPropertiesTests {
 	void defaultValuesAreConsistent() {
 		WavefrontProperties properties = new WavefrontProperties();
 		WavefrontConfig config = WavefrontConfig.DEFAULT_DIRECT;
-		assertStepRegistryDefaultValues(properties, config);
+		properties.assertStepRegistryDefaultValues(config);
 		assertThat(properties.getUri().toString()).isEqualTo(config.uri());
 		assertThat(properties.getGlobalPrefix()).isEqualTo(config.globalPrefix());
 	}

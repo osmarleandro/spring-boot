@@ -16,7 +16,11 @@
 
 package org.springframework.boot.actuate.autoconfigure.metrics.export.properties;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import java.time.Duration;
+
+import io.micrometer.core.instrument.push.PushRegistryConfig;
 
 /**
  * Base class for properties that configure a metrics registry that pushes aggregated
@@ -93,6 +97,15 @@ public abstract class PushRegistryProperties {
 
 	public void setBatchSize(Integer batchSize) {
 		this.batchSize = batchSize;
+	}
+
+	@SuppressWarnings("deprecation")
+	public void assertStepRegistryDefaultValues(PushRegistryConfig config) {
+		assertThat(getStep()).isEqualTo(config.step());
+		assertThat(isEnabled()).isEqualTo(config.enabled());
+		assertThat(getConnectTimeout()).isEqualTo(config.connectTimeout());
+		assertThat(getReadTimeout()).isEqualTo(config.readTimeout());
+		assertThat(getBatchSize()).isEqualTo(config.batchSize());
 	}
 
 }
