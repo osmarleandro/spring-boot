@@ -34,9 +34,9 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Stephane Nicoll
  */
-class AppOpticsMetricsExportAutoConfigurationTests {
+public class AppOpticsMetricsExportAutoConfigurationTests {
 
-	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
+	public final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(AppOpticsMetricsExportAutoConfiguration.class));
 
 	@Test
@@ -49,14 +49,6 @@ class AppOpticsMetricsExportAutoConfigurationTests {
 		this.contextRunner.withPropertyValues("management.metrics.export.appoptics.api-token=abcde")
 				.withUserConfiguration(BaseConfiguration.class).run((context) -> assertThat(context)
 						.hasSingleBean(AppOpticsMeterRegistry.class).hasSingleBean(AppOpticsConfig.class));
-	}
-
-	@Test
-	void autoConfigurationCanBeDisabledWithDefaultsEnabledProperty() {
-		this.contextRunner.withUserConfiguration(BaseConfiguration.class)
-				.withPropertyValues("management.metrics.export.defaults.enabled=false")
-				.run((context) -> assertThat(context).doesNotHaveBean(AppOpticsMeterRegistry.class)
-						.doesNotHaveBean(AppOpticsConfig.class));
 	}
 
 	@Test
@@ -94,6 +86,7 @@ class AppOpticsMetricsExportAutoConfigurationTests {
 	}
 
 	@Configuration(proxyBeanMethods = false)
+	public
 	static class BaseConfiguration {
 
 		@Bean
