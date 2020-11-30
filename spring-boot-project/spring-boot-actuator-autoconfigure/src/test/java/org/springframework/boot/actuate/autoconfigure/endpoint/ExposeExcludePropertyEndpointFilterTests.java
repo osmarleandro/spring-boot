@@ -40,13 +40,6 @@ class ExposeExcludePropertyEndpointFilterTests {
 	private ExposeExcludePropertyEndpointFilter<?> filter;
 
 	@Test
-	void createWhenEndpointTypeIsNullShouldThrowException() {
-		assertThatIllegalArgumentException()
-				.isThrownBy(() -> new ExposeExcludePropertyEndpointFilter<>(null, new MockEnvironment(), "foo"))
-				.withMessageContaining("EndpointType must not be null");
-	}
-
-	@Test
 	void createWhenEnvironmentIsNullShouldThrowException() {
 		assertThatIllegalArgumentException()
 				.isThrownBy(() -> new ExposeExcludePropertyEndpointFilter<>(ExposableEndpoint.class, null, "foo"))
