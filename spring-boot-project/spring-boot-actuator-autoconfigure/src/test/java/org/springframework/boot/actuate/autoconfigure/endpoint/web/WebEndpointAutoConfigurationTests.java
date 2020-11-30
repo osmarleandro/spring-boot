@@ -32,7 +32,6 @@ import org.springframework.boot.actuate.endpoint.web.EndpointMediaTypes;
 import org.springframework.boot.actuate.endpoint.web.ExposableWebEndpoint;
 import org.springframework.boot.actuate.endpoint.web.PathMappedEndpoint;
 import org.springframework.boot.actuate.endpoint.web.PathMapper;
-import org.springframework.boot.actuate.endpoint.web.annotation.ControllerEndpointDiscoverer;
 import org.springframework.boot.actuate.endpoint.web.annotation.ServletEndpointDiscoverer;
 import org.springframework.boot.actuate.endpoint.web.annotation.WebEndpointDiscoverer;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
@@ -49,12 +48,12 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Yunkun Huang
  * @author Phillip Webb
  */
-class WebEndpointAutoConfigurationTests {
+public class WebEndpointAutoConfigurationTests {
 
 	private static final AutoConfigurations CONFIGURATIONS = AutoConfigurations.of(EndpointAutoConfiguration.class,
 			WebEndpointAutoConfiguration.class);
 
-	private final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner()
+	public final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner()
 			.withConfiguration(CONFIGURATIONS);
 
 	@Test
@@ -91,14 +90,6 @@ class WebEndpointAutoConfigurationTests {
 							.collect(Collectors.toList());
 					assertThat(paths).containsOnly("1/testone", "foo", "testtwo");
 				});
-	}
-
-	@Test
-	void webApplicationConfiguresEndpointDiscoverer() {
-		this.contextRunner.run((context) -> {
-			assertThat(context).hasSingleBean(ControllerEndpointDiscoverer.class);
-			assertThat(context).hasSingleBean(WebEndpointDiscoverer.class);
-		});
 	}
 
 	@Test
