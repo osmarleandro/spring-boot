@@ -48,13 +48,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
-import org.springframework.mock.web.MockServletContext;
 import org.springframework.security.authentication.TestingAuthenticationToken;
 import org.springframework.security.test.context.TestSecurityContextHolder;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.DefaultMockMvcBuilder;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.test.web.servlet.setup.MockMvcConfigurer;
 
 import static org.hamcrest.Matchers.both;
 import static org.hamcrest.Matchers.hasKey;
@@ -68,7 +64,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  *
  * @author Andy Wilkinson
  */
-class WebMvcEndpointIntegrationTests {
+public class WebMvcEndpointIntegrationTests {
 
 	private AnnotationConfigServletWebApplicationContext context;
 
@@ -114,23 +110,13 @@ class WebMvcEndpointIntegrationTests {
 		this.context = new AnnotationConfigServletWebApplicationContext();
 		this.context.register(DefaultConfiguration.class, EndpointsConfiguration.class);
 		TestPropertyValues.of("management.endpoints.web.exposure.include=*").applyTo(this.context);
-		MockMvc mockMvc = doCreateMockMvc();
+		MockMvc mockMvc = context.doCreateMockMvc(this);
 		mockMvc.perform(get("/actuator").accept("*/*")).andExpect(status().isOk()).andExpect(jsonPath("_links",
 				both(hasKey("beans")).and(hasKey("servlet")).and(hasKey("restcontroller")).and(hasKey("controller"))));
 	}
 
 	private MockMvc createSecureMockMvc() {
-		return doCreateMockMvc(springSecurity());
-	}
-
-	private MockMvc doCreateMockMvc(MockMvcConfigurer... configurers) {
-		this.context.setServletContext(new MockServletContext());
-		this.context.refresh();
-		DefaultMockMvcBuilder builder = MockMvcBuilders.webAppContextSetup(this.context);
-		for (MockMvcConfigurer configurer : configurers) {
-			builder.apply(configurer);
-		}
-		return builder.build();
+		return context.doCreateMockMvc(this, springSecurity());
 	}
 
 	@ImportAutoConfiguration({ JacksonAutoConfiguration.class, HttpMessageConvertersAutoConfiguration.class,
