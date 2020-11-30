@@ -16,9 +16,15 @@
 
 package org.springframework.boot.test.context.runner;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import java.util.List;
+import java.util.Map;
 import java.util.function.Supplier;
 
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.actuate.autoconfigure.cloudfoundry.servlet.CloudFoundryInfoEndpointWebExtension;
+import org.springframework.boot.actuate.autoconfigure.cloudfoundry.servlet.CloudFoundryInfoEndpointWebExtensionTests;
 import org.springframework.boot.context.annotation.Configurations;
 import org.springframework.boot.test.context.assertj.AssertableWebApplicationContext;
 import org.springframework.boot.test.util.TestPropertyValues;
@@ -81,6 +87,18 @@ public final class WebApplicationContextRunner extends
 			List<Configurations> configurations) {
 		return new WebApplicationContextRunner(contextFactory, allowBeanDefinitionOverriding, initializers,
 				environmentProperties, systemProperties, classLoader, parent, beanRegistrations, configurations);
+	}
+
+	@Test
+	@SuppressWarnings("unchecked")
+	void gitFullDetailsAlwaysPresent(CloudFoundryInfoEndpointWebExtensionTests cloudFoundryInfoEndpointWebExtensionTests) {
+		run((context) -> {
+			CloudFoundryInfoEndpointWebExtension extension = context
+					.getBean(CloudFoundryInfoEndpointWebExtension.class);
+			Map<String, Object> git = (Map<String, Object>) extension.info().get("git");
+			Map<String, Object> commit = (Map<String, Object>) git.get("commit");
+			assertThat(commit).hasSize(4);
+		});
 	}
 
 	/**

@@ -15,10 +15,6 @@
  */
 package org.springframework.boot.actuate.autoconfigure.cloudfoundry.servlet;
 
-import java.util.Map;
-
-import org.junit.jupiter.api.Test;
-
 import org.springframework.boot.actuate.autoconfigure.endpoint.EndpointAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.health.HealthEndpointAutoConfiguration;
@@ -37,16 +33,14 @@ import org.springframework.boot.autoconfigure.web.servlet.DispatcherServletAutoC
 import org.springframework.boot.autoconfigure.web.servlet.WebMvcAutoConfiguration;
 import org.springframework.boot.test.context.runner.WebApplicationContextRunner;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 /**
  * Tests for {@link CloudFoundryInfoEndpointWebExtension}.
  *
  * @author Madhura Bhave
  */
-class CloudFoundryInfoEndpointWebExtensionTests {
+public class CloudFoundryInfoEndpointWebExtensionTests {
 
-	private final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner()
+	public final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner()
 			.withPropertyValues("VCAP_APPLICATION={}")
 			.withConfiguration(AutoConfigurations.of(SecurityAutoConfiguration.class, WebMvcAutoConfiguration.class,
 					JacksonAutoConfiguration.class, DispatcherServletAutoConfiguration.class,
@@ -56,17 +50,5 @@ class CloudFoundryInfoEndpointWebExtensionTests {
 					WebEndpointAutoConfiguration.class, ProjectInfoAutoConfiguration.class,
 					InfoContributorAutoConfiguration.class, InfoEndpointAutoConfiguration.class,
 					HealthEndpointAutoConfiguration.class, CloudFoundryActuatorAutoConfiguration.class));
-
-	@Test
-	@SuppressWarnings("unchecked")
-	void gitFullDetailsAlwaysPresent() {
-		this.contextRunner.run((context) -> {
-			CloudFoundryInfoEndpointWebExtension extension = context
-					.getBean(CloudFoundryInfoEndpointWebExtension.class);
-			Map<String, Object> git = (Map<String, Object>) extension.info().get("git");
-			Map<String, Object> commit = (Map<String, Object>) git.get("commit");
-			assertThat(commit).hasSize(4);
-		});
-	}
 
 }
