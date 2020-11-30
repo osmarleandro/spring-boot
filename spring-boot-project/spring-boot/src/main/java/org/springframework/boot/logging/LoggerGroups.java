@@ -16,10 +16,18 @@
 
 package org.springframework.boot.logging;
 
+import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.actuate.autoconfigure.endpoint.web.documentation.LoggersEndpointDocumentationTests;
+import org.springframework.restdocs.mockmvc.MockMvcRestDocumentation;
 
 /**
  * Logger groups configured via the Spring Environment.
@@ -58,6 +66,16 @@ public final class LoggerGroups implements Iterable<LoggerGroup> {
 	@Override
 	public Iterator<LoggerGroup> iterator() {
 		return this.groups.values().iterator();
+	}
+
+	@Test
+	public
+	void loggerGroups(LoggersEndpointDocumentationTests loggersEndpointDocumentationTests) throws Exception {
+		get("test").configureLogLevel(LogLevel.INFO, (member, level) -> {
+		});
+		loggersEndpointDocumentationTests.mockMvc.perform(get("/actuator/loggers/test")).andExpect(status().isOk())
+				.andDo(MockMvcRestDocumentation.document("loggers/group", responseFields(LoggersEndpointDocumentationTests.groupLevelFields)));
+		loggersEndpointDocumentationTests.resetLogger();
 	}
 
 }

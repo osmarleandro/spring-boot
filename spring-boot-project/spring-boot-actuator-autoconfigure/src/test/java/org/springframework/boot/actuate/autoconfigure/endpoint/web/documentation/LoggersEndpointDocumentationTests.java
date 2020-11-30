@@ -53,13 +53,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  *
  * @author Andy Wilkinson
  */
-class LoggersEndpointDocumentationTests extends MockMvcEndpointDocumentationTests {
+public class LoggersEndpointDocumentationTests extends MockMvcEndpointDocumentationTests {
 
 	private static final List<FieldDescriptor> levelFields = Arrays.asList(
 			fieldWithPath("configuredLevel").description("Configured level of the logger, if any.").optional(),
 			fieldWithPath("effectiveLevel").description("Effective level of the logger."));
 
-	private static final List<FieldDescriptor> groupLevelFields;
+	public static final List<FieldDescriptor> groupLevelFields;
 
 	static {
 		groupLevelFields = Arrays.asList(
@@ -72,7 +72,7 @@ class LoggersEndpointDocumentationTests extends MockMvcEndpointDocumentationTest
 	private LoggingSystem loggingSystem;
 
 	@Autowired
-	private LoggerGroups loggerGroups;
+	public LoggerGroups loggerGroups;
 
 	@Test
 	void allLoggers() throws Exception {
@@ -95,15 +95,6 @@ class LoggersEndpointDocumentationTests extends MockMvcEndpointDocumentationTest
 				.willReturn(new LoggerConfiguration("com.example", LogLevel.INFO, LogLevel.INFO));
 		this.mockMvc.perform(get("/actuator/loggers/com.example")).andExpect(status().isOk())
 				.andDo(MockMvcRestDocumentation.document("loggers/single", responseFields(levelFields)));
-	}
-
-	@Test
-	void loggerGroups() throws Exception {
-		this.loggerGroups.get("test").configureLogLevel(LogLevel.INFO, (member, level) -> {
-		});
-		this.mockMvc.perform(get("/actuator/loggers/test")).andExpect(status().isOk())
-				.andDo(MockMvcRestDocumentation.document("loggers/group", responseFields(groupLevelFields)));
-		resetLogger();
 	}
 
 	@Test
@@ -132,7 +123,7 @@ class LoggersEndpointDocumentationTests extends MockMvcEndpointDocumentationTest
 		resetLogger();
 	}
 
-	private void resetLogger() {
+	public void resetLogger() {
 		this.loggerGroups.get("test").configureLogLevel(LogLevel.INFO, (a, b) -> {
 		});
 	}
