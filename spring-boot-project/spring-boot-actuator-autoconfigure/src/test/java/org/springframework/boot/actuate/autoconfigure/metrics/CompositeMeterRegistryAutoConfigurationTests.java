@@ -37,11 +37,11 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Phillip Webb
  * @author Andy Wilkinson
  */
-class CompositeMeterRegistryAutoConfigurationTests {
+public class CompositeMeterRegistryAutoConfigurationTests {
 
 	private static final String COMPOSITE_NAME = "compositeMeterRegistry";
 
-	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
+	public final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.withUserConfiguration(BaseConfig.class)
 			.withConfiguration(AutoConfigurations.of(CompositeMeterRegistryAutoConfiguration.class));
 
@@ -51,15 +51,6 @@ class CompositeMeterRegistryAutoConfigurationTests {
 			assertThat(context).hasSingleBean(MeterRegistry.class);
 			CompositeMeterRegistry registry = context.getBean("noOpMeterRegistry", CompositeMeterRegistry.class);
 			assertThat(registry.getRegistries()).isEmpty();
-		});
-	}
-
-	@Test
-	void registerWhenHasSingleMeterRegistryShouldDoNothing() {
-		this.contextRunner.withUserConfiguration(SingleMeterRegistryConfig.class).run((context) -> {
-			assertThat(context).hasSingleBean(MeterRegistry.class);
-			MeterRegistry registry = context.getBean(MeterRegistry.class);
-			assertThat(registry).isInstanceOf(TestMeterRegistry.class);
 		});
 	}
 
@@ -102,6 +93,7 @@ class CompositeMeterRegistryAutoConfigurationTests {
 	}
 
 	@Configuration(proxyBeanMethods = false)
+	public
 	static class SingleMeterRegistryConfig {
 
 		@Bean
@@ -142,7 +134,7 @@ class CompositeMeterRegistryAutoConfigurationTests {
 
 	}
 
-	static class TestMeterRegistry extends SimpleMeterRegistry {
+	public static class TestMeterRegistry extends SimpleMeterRegistry {
 
 	}
 
