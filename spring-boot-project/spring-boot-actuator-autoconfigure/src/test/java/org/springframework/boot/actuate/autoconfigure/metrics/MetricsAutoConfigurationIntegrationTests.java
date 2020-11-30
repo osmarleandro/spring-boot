@@ -44,18 +44,9 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Stephane Nicoll
  */
-class MetricsAutoConfigurationIntegrationTests {
+public class MetricsAutoConfigurationIntegrationTests {
 
-	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner().with(MetricsRun.simple());
-
-	@Test
-	void propertyBasedMeterFilteringIsAutoConfigured() {
-		this.contextRunner.withPropertyValues("management.metrics.enable.my.org=false").run((context) -> {
-			MeterRegistry registry = context.getBean(MeterRegistry.class);
-			registry.timer("my.org.timer");
-			assertThat(registry.find("my.org.timer").timer()).isNull();
-		});
-	}
+	public final ApplicationContextRunner contextRunner = new ApplicationContextRunner().with(MetricsRun.simple());
 
 	@Test
 	void propertyBasedCommonTagsIsAutoConfigured() {
