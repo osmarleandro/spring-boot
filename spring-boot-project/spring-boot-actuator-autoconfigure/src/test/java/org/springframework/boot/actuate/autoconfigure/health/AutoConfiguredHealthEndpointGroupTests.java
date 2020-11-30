@@ -42,13 +42,14 @@ import static org.mockito.Mockito.mock;
  * @author Phillip Webb
  */
 @ExtendWith(MockitoExtension.class)
+public
 class AutoConfiguredHealthEndpointGroupTests {
 
 	@Mock
-	private StatusAggregator statusAggregator;
+	public StatusAggregator statusAggregator;
 
 	@Mock
-	private HttpCodeStatusMapper httpCodeStatusMapper;
+	public HttpCodeStatusMapper httpCodeStatusMapper;
 
 	@Mock
 	private SecurityContext securityContext;
@@ -62,14 +63,6 @@ class AutoConfiguredHealthEndpointGroupTests {
 				this.statusAggregator, this.httpCodeStatusMapper, null, Show.ALWAYS, Collections.emptySet());
 		assertThat(group.isMember("albert")).isTrue();
 		assertThat(group.isMember("arnold")).isTrue();
-	}
-
-	@Test
-	void isMemberWhenMemberPredicateRejectsReturnsTrue() {
-		AutoConfiguredHealthEndpointGroup group = new AutoConfiguredHealthEndpointGroup((name) -> name.startsWith("a"),
-				this.statusAggregator, this.httpCodeStatusMapper, null, Show.ALWAYS, Collections.emptySet());
-		assertThat(group.isMember("bert")).isFalse();
-		assertThat(group.isMember("ernie")).isFalse();
 	}
 
 	@Test
