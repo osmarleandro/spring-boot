@@ -38,11 +38,11 @@ import static org.assertj.core.api.Assertions.entry;
  *
  * @author Scott Frederick
  */
-class ManagementErrorEndpointTests {
+public class ManagementErrorEndpointTests {
 
 	private final ErrorAttributes errorAttributes = new DefaultErrorAttributes();
 
-	private final ErrorProperties errorProperties = new ErrorProperties();
+	public final ErrorProperties errorProperties = new ErrorProperties();
 
 	private final MockHttpServletRequest request = new MockHttpServletRequest();
 
@@ -105,26 +105,6 @@ class ManagementErrorEndpointTests {
 		Map<String, Object> response = endpoint.invoke(new ServletWebRequest(this.request));
 		assertThat(response).containsEntry("message", "");
 		assertThat(response).doesNotContainKey("trace");
-	}
-
-	@Test
-	void errorResponseWithCustomErrorAttributesUsingDeprecatedApi() {
-		ErrorAttributes attributes = new ErrorAttributes() {
-
-			@Override
-			public Map<String, Object> getErrorAttributes(WebRequest webRequest, ErrorAttributeOptions options) {
-				return Collections.singletonMap("message", "An error occurred");
-			}
-
-			@Override
-			public Throwable getError(WebRequest webRequest) {
-				return null;
-			}
-
-		};
-		ManagementErrorEndpoint endpoint = new ManagementErrorEndpoint(attributes, this.errorProperties);
-		Map<String, Object> response = endpoint.invoke(new ServletWebRequest(new MockHttpServletRequest()));
-		assertThat(response).containsExactly(entry("message", "An error occurred"));
 	}
 
 	@Test
