@@ -63,20 +63,15 @@ import static org.mockito.Mockito.mock;
  *
  * @author Madhura Bhave
  */
-class ReactiveManagementWebSecurityAutoConfigurationTests {
+public class ReactiveManagementWebSecurityAutoConfigurationTests {
 
-	private final ReactiveWebApplicationContextRunner contextRunner = new ReactiveWebApplicationContextRunner()
+	public final ReactiveWebApplicationContextRunner contextRunner = new ReactiveWebApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(HealthContributorAutoConfiguration.class,
 					HealthEndpointAutoConfiguration.class, InfoEndpointAutoConfiguration.class,
 					EnvironmentEndpointAutoConfiguration.class, EndpointAutoConfiguration.class,
 					WebEndpointAutoConfiguration.class, ReactiveSecurityAutoConfiguration.class,
 					ReactiveUserDetailsServiceAutoConfiguration.class,
 					ReactiveManagementWebSecurityAutoConfiguration.class));
-
-	@Test
-	void permitAllForHealth() {
-		this.contextRunner.run((context) -> assertThat(getAuthenticateHeader(context, "/actuator/health")).isNull());
-	}
 
 	@Test
 	void permitAllForInfo() {
@@ -123,7 +118,7 @@ class ReactiveManagementWebSecurityAutoConfigurationTests {
 		});
 	}
 
-	private List<String> getAuthenticateHeader(AssertableReactiveWebApplicationContext context, String path) {
+	public List<String> getAuthenticateHeader(AssertableReactiveWebApplicationContext context, String path) {
 		ServerWebExchange exchange = performFilter(context, path);
 		return exchange.getResponse().getHeaders().get(HttpHeaders.WWW_AUTHENTICATE);
 	}
