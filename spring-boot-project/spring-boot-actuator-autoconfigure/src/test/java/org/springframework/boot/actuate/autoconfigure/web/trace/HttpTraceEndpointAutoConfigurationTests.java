@@ -35,9 +35,9 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Phillip Webb
  * @author Madhura Bhave
  */
-class HttpTraceEndpointAutoConfigurationTests {
+public class HttpTraceEndpointAutoConfigurationTests {
 
-	private final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner().withConfiguration(
+	public final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner().withConfiguration(
 			AutoConfigurations.of(HttpTraceAutoConfiguration.class, HttpTraceEndpointAutoConfiguration.class));
 
 	@Test
@@ -58,12 +58,6 @@ class HttpTraceEndpointAutoConfigurationTests {
 		this.contextRunner.withUserConfiguration(HttpTraceRepositoryConfiguration.class)
 				.withPropertyValues("management.endpoints.web.exposure.include=httptrace")
 				.withPropertyValues("management.endpoint.httptrace.enabled:false")
-				.run((context) -> assertThat(context).doesNotHaveBean(HttpTraceEndpoint.class));
-	}
-
-	@Test
-	void endpointBacksOffWhenRepositoryIsNotAvailable() {
-		this.contextRunner.withPropertyValues("management.endpoints.web.exposure.include=httptrace")
 				.run((context) -> assertThat(context).doesNotHaveBean(HttpTraceEndpoint.class));
 	}
 
