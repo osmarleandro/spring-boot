@@ -19,8 +19,7 @@ package org.springframework.boot.actuate.autoconfigure.metrics.web.client;
 import java.time.Duration;
 
 import io.micrometer.core.instrument.MeterRegistry;
-import io.micrometer.core.instrument.Timer;
-import io.micrometer.core.instrument.distribution.HistogramSnapshot;
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import reactor.core.publisher.Mono;
@@ -52,9 +51,10 @@ import static org.mockito.Mockito.mock;
  * @author Stephane Nicoll
  */
 @ExtendWith(OutputCaptureExtension.class)
+public
 class WebClientMetricsConfigurationTests {
 
-	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner().with(MetricsRun.simple())
+	public final ApplicationContextRunner contextRunner = new ApplicationContextRunner().with(MetricsRun.simple())
 			.withConfiguration(
 					AutoConfigurations.of(WebClientAutoConfiguration.class, HttpClientMetricsAutoConfiguration.class));
 
@@ -93,21 +93,7 @@ class WebClientMetricsConfigurationTests {
 		});
 	}
 
-	@Test
-	void autoTimeRequestsCanBeConfigured() {
-		this.contextRunner.withPropertyValues("management.metrics.web.client.request.autotime.enabled=true",
-				"management.metrics.web.client.request.autotime.percentiles=0.5,0.7",
-				"management.metrics.web.client.request.autotime.percentiles-histogram=true").run((context) -> {
-					MeterRegistry registry = getInitializedMeterRegistry(context);
-					Timer timer = registry.get("http.client.requests").timer();
-					HistogramSnapshot snapshot = timer.takeSnapshot();
-					assertThat(snapshot.percentileValues()).hasSize(2);
-					assertThat(snapshot.percentileValues()[0].percentile()).isEqualTo(0.5);
-					assertThat(snapshot.percentileValues()[1].percentile()).isEqualTo(0.7);
-				});
-	}
-
-	private MeterRegistry getInitializedMeterRegistry(AssertableApplicationContext context) {
+	public MeterRegistry getInitializedMeterRegistry(AssertableApplicationContext context) {
 		WebClient webClient = mockWebClient(context.getBean(WebClient.Builder.class));
 		MeterRegistry registry = context.getBean(MeterRegistry.class);
 		for (int i = 0; i < 3; i++) {

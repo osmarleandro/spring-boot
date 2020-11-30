@@ -16,9 +16,13 @@
 
 package org.springframework.boot.test.context.runner;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import java.util.List;
 import java.util.function.Supplier;
 
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.actuate.autoconfigure.metrics.web.client.WebClientMetricsConfigurationTests;
 import org.springframework.boot.context.annotation.Configurations;
 import org.springframework.boot.test.context.assertj.AssertableApplicationContext;
 import org.springframework.boot.test.util.TestPropertyValues;
@@ -26,6 +30,10 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextInitializer;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
+import io.micrometer.core.instrument.MeterRegistry;
+import io.micrometer.core.instrument.Timer;
+import io.micrometer.core.instrument.distribution.HistogramSnapshot;
 
 /**
  * An {@link AbstractApplicationContextRunner ApplicationContext runner} for a standard,
@@ -77,6 +85,21 @@ public class ApplicationContextRunner extends
 			List<Configurations> configurations) {
 		return new ApplicationContextRunner(contextFactory, allowBeanDefinitionOverriding, initializers,
 				environmentProperties, systemProperties, classLoader, parent, beanRegistrations, configurations);
+	}
+
+	@Test
+	public
+	void autoTimeRequestsCanBeConfigured(WebClientMetricsConfigurationTests webClientMetricsConfigurationTests) {
+		withPropertyValues("management.metrics.web.client.request.autotime.enabled=true",
+				"management.metrics.web.client.request.autotime.percentiles=0.5,0.7",
+				"management.metrics.web.client.request.autotime.percentiles-histogram=true").run((context) -> {
+					MeterRegistry registry = webClientMetricsConfigurationTests.getInitializedMeterRegistry(context);
+					Timer timer = registry.get("http.client.requests").timer();
+					HistogramSnapshot snapshot = timer.takeSnapshot();
+					assertThat(snapshot.percentileValues()).hasSize(2);
+					assertThat(snapshot.percentileValues()[0].percentile()).isEqualTo(0.5);
+					assertThat(snapshot.percentileValues()[1].percentile()).isEqualTo(0.7);
+				});
 	}
 
 }
