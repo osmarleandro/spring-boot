@@ -37,9 +37,9 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Andy Wilkinson
  * @author Stephane Nicoll
  */
-class DynatraceMetricsExportAutoConfigurationTests {
+public class DynatraceMetricsExportAutoConfigurationTests {
 
-	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
+	public final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(DynatraceMetricsExportAutoConfiguration.class));
 
 	@Test
@@ -74,13 +74,6 @@ class DynatraceMetricsExportAutoConfigurationTests {
 				.withPropertyValues("management.metrics.export.dynatrace.enabled=false")
 				.run((context) -> assertThat(context).doesNotHaveBean(DynatraceMeterRegistry.class)
 						.doesNotHaveBean(DynatraceConfig.class));
-	}
-
-	@Test
-	void allowsCustomConfigToBeUsed() {
-		this.contextRunner.withUserConfiguration(CustomConfigConfiguration.class)
-				.run((context) -> assertThat(context).hasSingleBean(DynatraceMeterRegistry.class)
-						.hasSingleBean(DynatraceConfig.class).hasBean("customConfig"));
 	}
 
 	@Test
@@ -119,6 +112,7 @@ class DynatraceMetricsExportAutoConfigurationTests {
 
 	@Configuration(proxyBeanMethods = false)
 	@Import(BaseConfiguration.class)
+	public
 	static class CustomConfigConfiguration {
 
 		@Bean
