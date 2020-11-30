@@ -16,9 +16,21 @@
 
 package org.springframework.boot.test.context.runner;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
+import java.util.Collection;
 import java.util.List;
 import java.util.function.Supplier;
 
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.actuate.autoconfigure.cloudfoundry.servlet.CloudFoundryActuatorAutoConfigurationTests;
+import org.springframework.boot.actuate.autoconfigure.cloudfoundry.servlet.CloudFoundryHealthEndpointWebExtension;
+import org.springframework.boot.actuate.autoconfigure.cloudfoundry.servlet.CloudFoundryWebEndpointServletHandlerMapping;
+import org.springframework.boot.actuate.autoconfigure.health.HealthContributorAutoConfiguration;
+import org.springframework.boot.actuate.autoconfigure.health.HealthEndpointAutoConfiguration;
+import org.springframework.boot.actuate.endpoint.web.ExposableWebEndpoint;
+import org.springframework.boot.actuate.endpoint.web.WebOperation;
+import org.springframework.boot.autoconfigure.AutoConfigurations;
 import org.springframework.boot.context.annotation.Configurations;
 import org.springframework.boot.test.context.assertj.AssertableWebApplicationContext;
 import org.springframework.boot.test.util.TestPropertyValues;
@@ -81,6 +93,26 @@ public final class WebApplicationContextRunner extends
 			List<Configurations> configurations) {
 		return new WebApplicationContextRunner(contextFactory, allowBeanDefinitionOverriding, initializers,
 				environmentProperties, systemProperties, classLoader, parent, beanRegistrations, configurations);
+	}
+
+	@Test
+	public
+	void healthEndpointInvokerShouldBeCloudFoundryWebExtension(CloudFoundryActuatorAutoConfigurationTests cloudFoundryActuatorAutoConfigurationTests) {
+		withPropertyValues("VCAP_APPLICATION:---", "vcap.application.application_id:my-app-id",
+						"vcap.application.cf_api:https://my-cloud-controller.com")
+				.withConfiguration(AutoConfigurations.of(HealthContributorAutoConfiguration.class,
+						HealthEndpointAutoConfiguration.class))
+				.run((context) -> {
+					Collection<ExposableWebEndpoint> endpoints = context
+							.getBean("cloudFoundryWebEndpointServletHandlerMapping",
+									CloudFoundryWebEndpointServletHandlerMapping.class)
+							.getEndpoints();
+					ExposableWebEndpoint endpoint = endpoints.iterator().next();
+					assertThat(endpoint.getOperations()).hasSize(2);
+					WebOperation webOperation = cloudFoundryActuatorAutoConfigurationTests.findOperationWithRequestPath(endpoint, "health");
+					assertThat(webOperation).extracting("invoker").extracting("target")
+							.isInstanceOf(CloudFoundryHealthEndpointWebExtension.class);
+				});
 	}
 
 	/**

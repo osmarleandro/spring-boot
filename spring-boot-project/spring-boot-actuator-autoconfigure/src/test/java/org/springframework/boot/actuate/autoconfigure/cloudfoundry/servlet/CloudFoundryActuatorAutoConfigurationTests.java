@@ -23,8 +23,6 @@ import org.junit.jupiter.api.Test;
 
 import org.springframework.boot.actuate.autoconfigure.endpoint.EndpointAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointAutoConfiguration;
-import org.springframework.boot.actuate.autoconfigure.health.HealthContributorAutoConfiguration;
-import org.springframework.boot.actuate.autoconfigure.health.HealthEndpointAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.web.server.ManagementContextAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.web.servlet.ServletManagementContextAutoConfiguration;
 import org.springframework.boot.actuate.endpoint.EndpointId;
@@ -65,9 +63,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  *
  * @author Madhura Bhave
  */
-class CloudFoundryActuatorAutoConfigurationTests {
+public class CloudFoundryActuatorAutoConfigurationTests {
 
-	private final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner()
+	public final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(SecurityAutoConfiguration.class, WebMvcAutoConfiguration.class,
 					JacksonAutoConfiguration.class, DispatcherServletAutoConfiguration.class,
 					HttpMessageConvertersAutoConfiguration.class, PropertyPlaceholderAutoConfiguration.class,
@@ -216,32 +214,12 @@ class CloudFoundryActuatorAutoConfigurationTests {
 				});
 	}
 
-	@Test
-	void healthEndpointInvokerShouldBeCloudFoundryWebExtension() {
-		this.contextRunner
-				.withPropertyValues("VCAP_APPLICATION:---", "vcap.application.application_id:my-app-id",
-						"vcap.application.cf_api:https://my-cloud-controller.com")
-				.withConfiguration(AutoConfigurations.of(HealthContributorAutoConfiguration.class,
-						HealthEndpointAutoConfiguration.class))
-				.run((context) -> {
-					Collection<ExposableWebEndpoint> endpoints = context
-							.getBean("cloudFoundryWebEndpointServletHandlerMapping",
-									CloudFoundryWebEndpointServletHandlerMapping.class)
-							.getEndpoints();
-					ExposableWebEndpoint endpoint = endpoints.iterator().next();
-					assertThat(endpoint.getOperations()).hasSize(2);
-					WebOperation webOperation = findOperationWithRequestPath(endpoint, "health");
-					assertThat(webOperation).extracting("invoker").extracting("target")
-							.isInstanceOf(CloudFoundryHealthEndpointWebExtension.class);
-				});
-	}
-
 	private CloudFoundryWebEndpointServletHandlerMapping getHandlerMapping(ApplicationContext context) {
 		return context.getBean("cloudFoundryWebEndpointServletHandlerMapping",
 				CloudFoundryWebEndpointServletHandlerMapping.class);
 	}
 
-	private WebOperation findOperationWithRequestPath(ExposableWebEndpoint endpoint, String requestPath) {
+	public WebOperation findOperationWithRequestPath(ExposableWebEndpoint endpoint, String requestPath) {
 		for (WebOperation operation : endpoint.getOperations()) {
 			WebOperationRequestPredicate predicate = operation.getRequestPredicate();
 			if (predicate.getPath().equals(requestPath)
