@@ -16,6 +16,11 @@
 
 package org.springframework.boot.actuate.autoconfigure.metrics;
 
+import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.verifyNoInteractions;
+
+import org.junit.jupiter.api.Test;
+
 import io.micrometer.core.instrument.Meter;
 import io.micrometer.core.instrument.MeterRegistry;
 
@@ -38,5 +43,15 @@ public interface MeterRegistryCustomizer<T extends MeterRegistry> {
 	 * @param registry the registry to customize
 	 */
 	void customize(T registry);
+
+	@Test
+	default
+	void configureShouldNotApplyBinderWhenCompositeExists(MeterRegistryConfigurerTests meterRegistryConfigurerTests) {
+		given(meterRegistryConfigurerTests.mockRegistry.config()).willReturn(meterRegistryConfigurerTests.mockConfig);
+		MeterRegistryConfigurer configurer = new MeterRegistryConfigurer(meterRegistryConfigurerTests.createObjectProvider(meterRegistryConfigurerTests.customizers),
+				meterRegistryConfigurerTests.createObjectProvider(meterRegistryConfigurerTests.filters), null, false, true);
+		configurer.configure(meterRegistryConfigurerTests.mockRegistry);
+		verifyNoInteractions(meterRegistryConfigurerTests.mockBinder);
+	}
 
 }

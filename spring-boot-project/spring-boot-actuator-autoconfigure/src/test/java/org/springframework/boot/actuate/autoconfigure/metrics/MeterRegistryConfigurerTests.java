@@ -38,7 +38,6 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.inOrder;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.verifyNoInteractions;
 
 /**
  * Tests for {@link MeterRegistryConfigurer}.
@@ -47,16 +46,17 @@ import static org.mockito.Mockito.verifyNoInteractions;
  * @author Andy Wilkinson
  */
 @ExtendWith(MockitoExtension.class)
+public
 class MeterRegistryConfigurerTests {
 
 	private List<MeterBinder> binders = new ArrayList<>();
 
-	private List<MeterFilter> filters = new ArrayList<>();
+	public List<MeterFilter> filters = new ArrayList<>();
 
-	private List<MeterRegistryCustomizer<?>> customizers = new ArrayList<>();
+	public List<MeterRegistryCustomizer<?>> customizers = new ArrayList<>();
 
 	@Mock
-	private MeterBinder mockBinder;
+	public MeterBinder mockBinder;
 
 	@Mock
 	private MeterFilter mockFilter;
@@ -65,10 +65,10 @@ class MeterRegistryConfigurerTests {
 	private MeterRegistryCustomizer<MeterRegistry> mockCustomizer;
 
 	@Mock
-	private MeterRegistry mockRegistry;
+	public MeterRegistry mockRegistry;
 
 	@Mock
-	private Config mockConfig;
+	public Config mockConfig;
 
 	@Test
 	void configureWhenCompositeShouldApplyCustomizer() {
@@ -121,15 +121,6 @@ class MeterRegistryConfigurerTests {
 	}
 
 	@Test
-	void configureShouldNotApplyBinderWhenCompositeExists() {
-		given(this.mockRegistry.config()).willReturn(this.mockConfig);
-		MeterRegistryConfigurer configurer = new MeterRegistryConfigurer(createObjectProvider(this.customizers),
-				createObjectProvider(this.filters), null, false, true);
-		configurer.configure(this.mockRegistry);
-		verifyNoInteractions(this.mockBinder);
-	}
-
-	@Test
 	void configureShouldBeCalledInOrderCustomizerFilterBinder() {
 		given(this.mockRegistry.config()).willReturn(this.mockConfig);
 		this.customizers.add(this.mockCustomizer);
@@ -168,7 +159,7 @@ class MeterRegistryConfigurerTests {
 	}
 
 	@SuppressWarnings("unchecked")
-	private <T> ObjectProvider<T> createObjectProvider(List<T> objects) {
+	public <T> ObjectProvider<T> createObjectProvider(List<T> objects) {
 		ObjectProvider<T> objectProvider = mock(ObjectProvider.class);
 		given(objectProvider.orderedStream()).willReturn(objects.stream());
 		return objectProvider;
