@@ -22,7 +22,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.actuate.autoconfigure.health.HealthContributorAutoConfiguration;
 import org.springframework.boot.actuate.cassandra.CassandraDriverHealthIndicator;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
-import org.springframework.boot.test.context.FilteredClassLoader;
 import org.springframework.boot.test.context.runner.ApplicationContextRunner;
 import org.springframework.data.cassandra.core.CassandraOperations;
 
@@ -36,9 +35,10 @@ import static org.mockito.Mockito.mock;
  * @author Stephane Nicoll
  */
 @SuppressWarnings("deprecation")
+public
 class CassandraHealthContributorAutoConfigurationTests {
 
-	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
+	public final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(CassandraHealthContributorAutoConfiguration.class,
 					HealthContributorAutoConfiguration.class));
 
@@ -68,14 +68,6 @@ class CassandraHealthContributorAutoConfigurationTests {
 	void runWithCqlSessionAndCassandraOperationsShouldCreateDriverIndicator() {
 		this.contextRunner.withBean(CqlSession.class, () -> mock(CqlSession.class))
 				.withBean(CassandraOperations.class, () -> mock(CassandraOperations.class))
-				.run((context) -> assertThat(context).hasSingleBean(CassandraDriverHealthIndicator.class)
-						.doesNotHaveBean(org.springframework.boot.actuate.cassandra.CassandraHealthIndicator.class));
-	}
-
-	@Test
-	void runWithCqlSessionAndSpringDataAbsentShouldCreateDriverIndicator() {
-		this.contextRunner.withBean(CqlSession.class, () -> mock(CqlSession.class))
-				.withClassLoader(new FilteredClassLoader("org.springframework.data"))
 				.run((context) -> assertThat(context).hasSingleBean(CassandraDriverHealthIndicator.class)
 						.doesNotHaveBean(org.springframework.boot.actuate.cassandra.CassandraHealthIndicator.class));
 	}
