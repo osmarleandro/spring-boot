@@ -48,9 +48,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * @author Stephane Nicoll
  * @see WebMvcEndpointManagementContextConfiguration
  */
-class WebMvcEndpointCorsIntegrationTests {
+public class WebMvcEndpointCorsIntegrationTests {
 
-	private final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner()
+	public final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(JacksonAutoConfiguration.class,
 					HttpMessageConvertersAutoConfiguration.class, WebMvcAutoConfiguration.class,
 					DispatcherServletAutoConfiguration.class, EndpointAutoConfiguration.class,
@@ -118,15 +118,6 @@ class WebMvcEndpointCorsIntegrationTests {
 	}
 
 	@Test
-	void requestsWithDisallowedMethodsAreRejected() {
-		this.contextRunner.withPropertyValues("management.endpoints.web.cors.allowed-origins:foo.example.com")
-				.run(withMockMvc((mockMvc) -> mockMvc
-						.perform(options("/actuator/beans").header(HttpHeaders.ORIGIN, "foo.example.com")
-								.header(HttpHeaders.ACCESS_CONTROL_REQUEST_METHOD, "PATCH"))
-						.andExpect(status().isForbidden())));
-	}
-
-	@Test
 	void allowedMethodsCanBeConfigured() {
 		this.contextRunner
 				.withPropertyValues("management.endpoints.web.cors.allowed-origins:foo.example.com",
@@ -156,7 +147,7 @@ class WebMvcEndpointCorsIntegrationTests {
 						.andExpect(header().doesNotExist(HttpHeaders.ACCESS_CONTROL_ALLOW_CREDENTIALS))));
 	}
 
-	private ContextConsumer<WebApplicationContext> withMockMvc(MockMvcConsumer mockMvc) {
+	public ContextConsumer<WebApplicationContext> withMockMvc(MockMvcConsumer mockMvc) {
 		return (context) -> mockMvc.accept(MockMvcBuilders.webAppContextSetup(context).build());
 	}
 
