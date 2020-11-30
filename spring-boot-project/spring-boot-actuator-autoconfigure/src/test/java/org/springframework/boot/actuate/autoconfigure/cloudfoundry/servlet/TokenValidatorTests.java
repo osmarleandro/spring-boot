@@ -16,8 +16,6 @@
 
 package org.springframework.boot.actuate.autoconfigure.cloudfoundry.servlet;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.security.KeyFactory;
 import java.security.NoSuchAlgorithmException;
@@ -41,7 +39,6 @@ import org.springframework.boot.actuate.autoconfigure.cloudfoundry.CloudFoundryA
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.Token;
 import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.util.Base64Utils;
-import org.springframework.util.StreamUtils;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
@@ -54,9 +51,10 @@ import static org.mockito.Mockito.verify;
  * @author Madhura Bhave
  */
 @ExtendWith(MockitoExtension.class)
+public
 class TokenValidatorTests {
 
-	private static final byte[] DOT = ".".getBytes();
+	public static final byte[] DOT = ".".getBytes();
 
 	@Mock
 	private CloudFoundrySecurityService securityService;
@@ -189,10 +187,10 @@ class TokenValidatorTests {
 		PrivateKey privateKey = getPrivateKey();
 		Signature signature = Signature.getInstance("SHA256WithRSA");
 		signature.initSign(privateKey);
-		byte[] content = dotConcat(Base64Utils.encodeUrlSafe(header), Base64Utils.encode(claims));
+		byte[] content = securityService.dotConcat(Base64Utils.encodeUrlSafe(header), Base64Utils.encode(claims));
 		signature.update(content);
 		byte[] crypto = signature.sign();
-		byte[] token = dotConcat(Base64Utils.encodeUrlSafe(header), Base64Utils.encodeUrlSafe(claims),
+		byte[] token = securityService.dotConcat(Base64Utils.encodeUrlSafe(header), Base64Utils.encodeUrlSafe(claims),
 				Base64Utils.encodeUrlSafe(crypto));
 		return new String(token, StandardCharsets.UTF_8);
 	}
@@ -232,17 +230,6 @@ class TokenValidatorTests {
 		PKCS8EncodedKeySpec keySpec = new PKCS8EncodedKeySpec(pkcs8EncodedBytes);
 		KeyFactory keyFactory = KeyFactory.getInstance("RSA");
 		return keyFactory.generatePrivate(keySpec);
-	}
-
-	private byte[] dotConcat(byte[]... bytes) throws IOException {
-		ByteArrayOutputStream result = new ByteArrayOutputStream();
-		for (int i = 0; i < bytes.length; i++) {
-			if (i > 0) {
-				StreamUtils.copy(DOT, result);
-			}
-			StreamUtils.copy(bytes[i], result);
-		}
-		return result.toByteArray();
 	}
 
 	private Consumer<CloudFoundryAuthorizationException> reasonRequirement(Reason reason) {

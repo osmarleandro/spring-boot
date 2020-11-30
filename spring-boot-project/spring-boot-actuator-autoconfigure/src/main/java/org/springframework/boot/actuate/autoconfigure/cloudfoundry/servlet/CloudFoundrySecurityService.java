@@ -16,6 +16,8 @@
 
 package org.springframework.boot.actuate.autoconfigure.cloudfoundry.servlet;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.HashMap;
@@ -29,6 +31,7 @@ import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.RequestEntity;
 import org.springframework.util.Assert;
+import org.springframework.util.StreamUtils;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.HttpStatusCodeException;
@@ -133,6 +136,17 @@ class CloudFoundrySecurityService {
 			}
 		}
 		return this.uaaUrl;
+	}
+
+	public byte[] dotConcat(byte... bytes) throws IOException {
+		ByteArrayOutputStream result = new ByteArrayOutputStream();
+		for (int i = 0; i < bytes.length; i++) {
+			if (i > 0) {
+				StreamUtils.copy(TokenValidatorTests.DOT, result);
+			}
+			StreamUtils.copy(bytes[i], result);
+		}
+		return result.toByteArray();
 	}
 
 }
