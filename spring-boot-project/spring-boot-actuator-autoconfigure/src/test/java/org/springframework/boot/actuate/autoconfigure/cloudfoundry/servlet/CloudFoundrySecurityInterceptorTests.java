@@ -43,6 +43,7 @@ import static org.mockito.Mockito.verify;
  * @author Madhura Bhave
  */
 @ExtendWith(MockitoExtension.class)
+public
 class CloudFoundrySecurityInterceptorTests {
 
 	@Mock
@@ -51,9 +52,9 @@ class CloudFoundrySecurityInterceptorTests {
 	@Mock
 	private CloudFoundrySecurityService securityService;
 
-	private CloudFoundrySecurityInterceptor interceptor;
+	public CloudFoundrySecurityInterceptor interceptor;
 
-	private MockHttpServletRequest request;
+	public MockHttpServletRequest request;
 
 	@BeforeEach
 	void setup() {
@@ -68,12 +69,6 @@ class CloudFoundrySecurityInterceptorTests {
 		this.request.addHeader(HttpHeaders.ACCESS_CONTROL_REQUEST_METHOD, "GET");
 		SecurityResponse response = this.interceptor.preHandle(this.request, EndpointId.of("test"));
 		assertThat(response.getStatus()).isEqualTo(HttpStatus.OK);
-	}
-
-	@Test
-	void preHandleWhenTokenIsMissingShouldReturnFalse() {
-		SecurityResponse response = this.interceptor.preHandle(this.request, EndpointId.of("test"));
-		assertThat(response.getStatus()).isEqualTo(Reason.MISSING_AUTHORIZATION.getStatus());
 	}
 
 	@Test
