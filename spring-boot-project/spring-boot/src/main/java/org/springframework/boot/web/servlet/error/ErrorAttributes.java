@@ -16,12 +16,19 @@
 
 package org.springframework.boot.web.servlet.error;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import java.util.Collections;
 import java.util.Map;
 
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.actuate.autoconfigure.web.servlet.ManagementErrorEndpoint;
+import org.springframework.boot.actuate.autoconfigure.web.servlet.ManagementErrorEndpointTests;
+import org.springframework.boot.autoconfigure.web.ErrorProperties;
 import org.springframework.boot.web.error.ErrorAttributeOptions;
 import org.springframework.boot.web.error.ErrorAttributeOptions.Include;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.context.request.ServletWebRequest;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -70,5 +77,19 @@ public interface ErrorAttributes {
 	 * @return the {@link Exception} that caused the error or {@code null}
 	 */
 	Throwable getError(WebRequest webRequest);
+
+	@Test
+	default
+	void errorResponseAlwaysDetails(ManagementErrorEndpointTests managementErrorEndpointTests) {
+		managementErrorEndpointTests.errorProperties.setIncludeStacktrace(ErrorProperties.IncludeStacktrace.ALWAYS);
+		managementErrorEndpointTests.errorProperties.setIncludeMessage(ErrorProperties.IncludeAttribute.ALWAYS);
+		managementErrorEndpointTests.request.addParameter("trace", "false");
+		managementErrorEndpointTests.request.addParameter("message", "false");
+		ManagementErrorEndpoint endpoint = new ManagementErrorEndpoint(this, managementErrorEndpointTests.errorProperties);
+		Map<String, Object> response = endpoint.invoke(new ServletWebRequest(managementErrorEndpointTests.request));
+		assertThat(response).containsEntry("message", "test exception");
+		assertThat(response).hasEntrySatisfying("trace",
+				(value) -> assertThat(value).asString().startsWith("java.lang.RuntimeException: test exception"));
+	}
 
 }
