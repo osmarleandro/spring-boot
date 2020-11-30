@@ -27,7 +27,6 @@ import org.springframework.boot.autoconfigure.web.servlet.DispatcherServletPath;
 import org.springframework.boot.autoconfigure.web.servlet.JerseyApplicationPath;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.test.context.FilteredClassLoader;
-import org.springframework.boot.test.context.runner.ApplicationContextRunner;
 import org.springframework.boot.test.context.runner.WebApplicationContextRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -42,7 +41,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Phillip Webb
  * @author Madhura Bhave
  */
-class ServletEndpointManagementContextConfigurationTests {
+public class ServletEndpointManagementContextConfigurationTests {
 
 	private final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner()
 			.withUserConfiguration(TestConfig.class);
@@ -67,15 +66,10 @@ class ServletEndpointManagementContextConfigurationTests {
 		});
 	}
 
-	@Test
-	void contextWhenNoServletBasedShouldNotContainServletEndpointRegistrar() {
-		new ApplicationContextRunner().withUserConfiguration(TestConfig.class)
-				.run((context) -> assertThat(context).doesNotHaveBean(ServletEndpointRegistrar.class));
-	}
-
 	@Configuration(proxyBeanMethods = false)
 	@Import(ServletEndpointManagementContextConfiguration.class)
 	@EnableConfigurationProperties(WebEndpointProperties.class)
+	public
 	static class TestConfig {
 
 		@Bean
