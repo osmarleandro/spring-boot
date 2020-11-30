@@ -16,6 +16,20 @@
 
 package org.springframework.boot.actuate.health;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.mock;
+
+import java.util.Arrays;
+import java.util.Collections;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.actuate.autoconfigure.health.AutoConfiguredHealthEndpointGroup;
+import org.springframework.boot.actuate.autoconfigure.health.AutoConfiguredHealthEndpointGroupTests;
+import org.springframework.boot.actuate.autoconfigure.health.HealthProperties.Show;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+
 /**
  * Strategy used to map a {@link Status health status} to an HTTP status code.
  *
@@ -39,5 +53,18 @@ public interface HttpCodeStatusMapper {
 	 * @return the corresponding HTTP status code
 	 */
 	int getStatusCode(Status status);
+
+	@Test
+	default
+	void showDetailsWhenShowDetailsIsWhenAuthorizedAndUserDoesNotHaveRightAuthoritiesReturnsFalse(AutoConfiguredHealthEndpointGroupTests autoConfiguredHealthEndpointGroupTests) {
+		AutoConfiguredHealthEndpointGroup group = new AutoConfiguredHealthEndpointGroup((name) -> true,
+				autoConfiguredHealthEndpointGroupTests.statusAggregator, this, null, Show.WHEN_AUTHORIZED,
+				Arrays.asList("admin", "rot", "bossmode"));
+		Authentication principal = mock(Authentication.class);
+		given(principal.getAuthorities())
+				.willAnswer((invocation) -> Collections.singleton(new SimpleGrantedAuthority("other")));
+		given(autoConfiguredHealthEndpointGroupTests.securityContext.getPrincipal()).willReturn(principal);
+		assertThat(group.showDetails(autoConfiguredHealthEndpointGroupTests.securityContext)).isFalse();
+	}
 
 }

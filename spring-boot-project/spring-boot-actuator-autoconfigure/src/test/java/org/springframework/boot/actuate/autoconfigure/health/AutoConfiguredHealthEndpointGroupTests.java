@@ -42,16 +42,17 @@ import static org.mockito.Mockito.mock;
  * @author Phillip Webb
  */
 @ExtendWith(MockitoExtension.class)
+public
 class AutoConfiguredHealthEndpointGroupTests {
 
 	@Mock
-	private StatusAggregator statusAggregator;
+	public StatusAggregator statusAggregator;
 
 	@Mock
-	private HttpCodeStatusMapper httpCodeStatusMapper;
+	public HttpCodeStatusMapper httpCodeStatusMapper;
 
 	@Mock
-	private SecurityContext securityContext;
+	public SecurityContext securityContext;
 
 	@Mock
 	private Principal principal;
@@ -132,18 +133,6 @@ class AutoConfiguredHealthEndpointGroupTests {
 				.willAnswer((invocation) -> Collections.singleton(new SimpleGrantedAuthority("admin")));
 		given(this.securityContext.getPrincipal()).willReturn(principal);
 		assertThat(group.showDetails(this.securityContext)).isTrue();
-	}
-
-	@Test
-	void showDetailsWhenShowDetailsIsWhenAuthorizedAndUserDoesNotHaveRightAuthoritiesReturnsFalse() {
-		AutoConfiguredHealthEndpointGroup group = new AutoConfiguredHealthEndpointGroup((name) -> true,
-				this.statusAggregator, this.httpCodeStatusMapper, null, Show.WHEN_AUTHORIZED,
-				Arrays.asList("admin", "rot", "bossmode"));
-		Authentication principal = mock(Authentication.class);
-		given(principal.getAuthorities())
-				.willAnswer((invocation) -> Collections.singleton(new SimpleGrantedAuthority("other")));
-		given(this.securityContext.getPrincipal()).willReturn(principal);
-		assertThat(group.showDetails(this.securityContext)).isFalse();
 	}
 
 	@Test
