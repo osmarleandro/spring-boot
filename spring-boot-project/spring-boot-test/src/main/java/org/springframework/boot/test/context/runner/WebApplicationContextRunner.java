@@ -16,15 +16,21 @@
 
 package org.springframework.boot.test.context.runner;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import java.util.List;
+import java.util.Map;
 import java.util.function.Supplier;
 
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.actuate.autoconfigure.web.servlet.WebMvcEndpointChildContextConfigurationIntegrationTests;
 import org.springframework.boot.context.annotation.Configurations;
 import org.springframework.boot.test.context.assertj.AssertableWebApplicationContext;
 import org.springframework.boot.test.util.TestPropertyValues;
 import org.springframework.boot.web.servlet.context.AnnotationConfigServletWebApplicationContext;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextInitializer;
+import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockServletContext;
 import org.springframework.web.context.ConfigurableWebApplicationContext;
 import org.springframework.web.context.WebApplicationContext;
@@ -81,6 +87,20 @@ public final class WebApplicationContextRunner extends
 			List<Configurations> configurations) {
 		return new WebApplicationContextRunner(contextFactory, allowBeanDefinitionOverriding, initializers,
 				environmentProperties, systemProperties, classLoader, parent, beanRegistrations, configurations);
+	}
+
+	@Test
+	public
+	void errorPageAndErrorControllerIncludeDetails(WebMvcEndpointChildContextConfigurationIntegrationTests webMvcEndpointChildContextConfigurationIntegrationTests) {
+		withPropertyValues("server.error.include-stacktrace=always", "server.error.include-message=always")
+				.run(webMvcEndpointChildContextConfigurationIntegrationTests.withWebTestClient((client) -> {
+					Map<String, ?> body = client.get().uri("actuator/fail").accept(MediaType.APPLICATION_JSON)
+							.exchangeToMono(webMvcEndpointChildContextConfigurationIntegrationTests.toResponseBody()).block();
+					assertThat(body).hasEntrySatisfying("message",
+							(value) -> assertThat(value).asString().contains("Epic Fail"));
+					assertThat(body).hasEntrySatisfying("trace", (value) -> assertThat(value).asString()
+							.contains("java.lang.IllegalStateException: Epic Fail"));
+				}));
 	}
 
 	/**
