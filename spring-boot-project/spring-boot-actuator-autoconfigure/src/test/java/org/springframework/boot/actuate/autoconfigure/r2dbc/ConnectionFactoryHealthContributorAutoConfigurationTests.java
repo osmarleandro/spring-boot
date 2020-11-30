@@ -31,9 +31,9 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Stephane Nicoll
  */
-class ConnectionFactoryHealthContributorAutoConfigurationTests {
+public class ConnectionFactoryHealthContributorAutoConfigurationTests {
 
-	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
+	public final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(ConnectionFactoryHealthContributorAutoConfiguration.class,
 					HealthContributorAutoConfiguration.class));
 
@@ -41,12 +41,6 @@ class ConnectionFactoryHealthContributorAutoConfigurationTests {
 	void runShouldCreateIndicator() {
 		this.contextRunner.withConfiguration(AutoConfigurations.of(R2dbcAutoConfiguration.class))
 				.run((context) -> assertThat(context).hasSingleBean(ConnectionFactoryHealthIndicator.class));
-	}
-
-	@Test
-	void runWithNoConnectionFactoryShouldNotCreateIndicator() {
-		this.contextRunner
-				.run((context) -> assertThat(context).doesNotHaveBean(ConnectionFactoryHealthIndicator.class));
 	}
 
 	@Test
