@@ -18,9 +18,12 @@ package org.springframework.boot.test.context.assertj;
 
 import java.util.function.Supplier;
 
+import org.springframework.boot.actuate.autoconfigure.metrics.web.servlet.WebMvcMetricsAutoConfigurationTests;
 import org.springframework.boot.test.context.runner.WebApplicationContextRunner;
 import org.springframework.web.context.ConfigurableWebApplicationContext;
 import org.springframework.web.context.WebApplicationContext;
+
+import io.micrometer.core.instrument.MeterRegistry;
 
 /**
  * A {@link WebApplicationContext} that additionally supports AssertJ style assertions.
@@ -47,6 +50,10 @@ public interface AssertableWebApplicationContext
 	static AssertableWebApplicationContext get(Supplier<? extends ConfigurableWebApplicationContext> contextSupplier) {
 		return ApplicationContextAssertProvider.get(AssertableWebApplicationContext.class,
 				ConfigurableWebApplicationContext.class, contextSupplier);
+	}
+
+	public default MeterRegistry getInitializedMeterRegistry(WebMvcMetricsAutoConfigurationTests webMvcMetricsAutoConfigurationTests) throws Exception {
+		return webMvcMetricsAutoConfigurationTests.getInitializedMeterRegistry(this, "/test0", "/test1", "/test2");
 	}
 
 }
