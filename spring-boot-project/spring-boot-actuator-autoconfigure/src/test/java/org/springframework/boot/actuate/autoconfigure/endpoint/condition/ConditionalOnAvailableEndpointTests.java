@@ -33,9 +33,9 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Brian Clozel
  */
-class ConditionalOnAvailableEndpointTests {
+public class ConditionalOnAvailableEndpointTests {
 
-	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
+	public final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.withUserConfiguration(AllEndpointsConfiguration.class);
 
 	@Test
@@ -65,15 +65,6 @@ class ConditionalOnAvailableEndpointTests {
 						"management.endpoint.test.enabled=false", "management.endpoint.health.enabled=false")
 				.run((context) -> assertThat(context).hasBean("info").doesNotHaveBean("health").doesNotHaveBean("test")
 						.hasBean("spring").doesNotHaveBean("shutdown"));
-	}
-
-	@Test
-	void outcomeWhenIncludeAllWebAndEnablingEndpointDisabledByDefaultShouldMatchAll() {
-		this.contextRunner
-				.withPropertyValues("management.endpoints.web.exposure.include=*",
-						"management.endpoint.shutdown.enabled=true")
-				.run((context) -> assertThat(context).hasBean("info").hasBean("health").hasBean("test")
-						.hasBean("spring").hasBean("shutdown"));
 	}
 
 	@Test
