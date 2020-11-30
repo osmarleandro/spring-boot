@@ -33,9 +33,9 @@ import static org.mockito.Mockito.mock;
  *
  * @author Phillip Webb
  */
-class LoggersEndpointAutoConfigurationTests {
+public class LoggersEndpointAutoConfigurationTests {
 
-	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
+	public final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(LoggersEndpointAutoConfiguration.class))
 			.withUserConfiguration(LoggingConfiguration.class);
 
@@ -54,12 +54,6 @@ class LoggersEndpointAutoConfigurationTests {
 	@Test
 	void runWhenNotExposedShouldNotHaveEndpointBean() {
 		this.contextRunner.run((context) -> assertThat(context).doesNotHaveBean(LoggersEndpoint.class));
-	}
-
-	@Test
-	void runWithNoneLoggingSystemShouldNotHaveEndpointBean() {
-		this.contextRunner.withSystemProperties("org.springframework.boot.logging.LoggingSystem=none")
-				.run((context) -> assertThat(context).doesNotHaveBean(LoggersEndpoint.class));
 	}
 
 	@Configuration(proxyBeanMethods = false)
