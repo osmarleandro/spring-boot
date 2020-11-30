@@ -44,9 +44,9 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Andy Wilkinson
  * @author Madhura Bhave
  */
-class HttpTraceAutoConfigurationTests {
+public class HttpTraceAutoConfigurationTests {
 
-	private final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner()
+	public final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(HttpTraceAutoConfiguration.class));
 
 	@Test
@@ -91,15 +91,6 @@ class HttpTraceAutoConfigurationTests {
 	}
 
 	@Test
-	void usesUserProvidedServletFilter() {
-		this.contextRunner.withUserConfiguration(HttpTraceRepositoryConfiguration.class)
-				.withUserConfiguration(CustomFilterConfiguration.class).run((context) -> {
-					assertThat(context).hasSingleBean(HttpTraceFilter.class);
-					assertThat(context.getBean(HttpTraceFilter.class)).isInstanceOf(CustomHttpTraceFilter.class);
-				});
-	}
-
-	@Test
 	void backsOffWhenDisabled() {
 		this.contextRunner.withUserConfiguration(HttpTraceRepositoryConfiguration.class)
 				.withPropertyValues("management.trace.http.enabled=false")
@@ -122,6 +113,7 @@ class HttpTraceAutoConfigurationTests {
 	}
 
 	@Configuration(proxyBeanMethods = false)
+	public
 	static class HttpTraceRepositoryConfiguration {
 
 		@Bean
@@ -169,7 +161,7 @@ class HttpTraceAutoConfigurationTests {
 
 	}
 
-	private static final class CustomHttpTraceFilter extends HttpTraceFilter {
+	public static final class CustomHttpTraceFilter extends HttpTraceFilter {
 
 		private CustomHttpTraceFilter(HttpTraceRepository repository, HttpExchangeTracer tracer) {
 			super(repository, tracer);
@@ -178,6 +170,7 @@ class HttpTraceAutoConfigurationTests {
 	}
 
 	@Configuration(proxyBeanMethods = false)
+	public
 	static class CustomFilterConfiguration {
 
 		@Bean
