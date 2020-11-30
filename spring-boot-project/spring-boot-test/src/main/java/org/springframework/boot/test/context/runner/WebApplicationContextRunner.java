@@ -16,9 +16,18 @@
 
 package org.springframework.boot.test.context.runner;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import java.util.List;
 import java.util.function.Supplier;
 
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.actuate.autoconfigure.cloudfoundry.servlet.CloudFoundryHealthEndpointWebExtension;
+import org.springframework.boot.actuate.autoconfigure.cloudfoundry.servlet.CloudFoundryHealthEndpointWebExtensionTests;
+import org.springframework.boot.actuate.endpoint.http.ApiVersion;
+import org.springframework.boot.actuate.health.CompositeHealth;
+import org.springframework.boot.actuate.health.Health;
+import org.springframework.boot.actuate.health.HealthComponent;
 import org.springframework.boot.context.annotation.Configurations;
 import org.springframework.boot.test.context.assertj.AssertableWebApplicationContext;
 import org.springframework.boot.test.util.TestPropertyValues;
@@ -81,6 +90,18 @@ public final class WebApplicationContextRunner extends
 			List<Configurations> configurations) {
 		return new WebApplicationContextRunner(contextFactory, allowBeanDefinitionOverriding, initializers,
 				environmentProperties, systemProperties, classLoader, parent, beanRegistrations, configurations);
+	}
+
+	@Test
+	public
+	void healthComponentsAlwaysPresent(CloudFoundryHealthEndpointWebExtensionTests cloudFoundryHealthEndpointWebExtensionTests) {
+		run((context) -> {
+			CloudFoundryHealthEndpointWebExtension extension = context
+					.getBean(CloudFoundryHealthEndpointWebExtension.class);
+			HealthComponent body = extension.health(ApiVersion.V3).getBody();
+			HealthComponent health = ((CompositeHealth) body).getComponents().entrySet().iterator().next().getValue();
+			assertThat(((Health) health).getDetails()).containsEntry("spring", "boot");
+		});
 	}
 
 	/**
