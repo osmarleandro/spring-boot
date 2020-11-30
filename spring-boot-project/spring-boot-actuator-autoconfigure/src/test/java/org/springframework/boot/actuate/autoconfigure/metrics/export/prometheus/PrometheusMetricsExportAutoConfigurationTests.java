@@ -22,7 +22,6 @@ import io.micrometer.core.instrument.Clock;
 import io.micrometer.prometheus.PrometheusConfig;
 import io.micrometer.prometheus.PrometheusMeterRegistry;
 import io.prometheus.client.CollectorRegistry;
-import io.prometheus.client.exporter.BasicAuthHttpConnectionFactory;
 import io.prometheus.client.exporter.DefaultHttpConnectionFactory;
 import io.prometheus.client.exporter.HttpConnectionFactory;
 import io.prometheus.client.exporter.PushGateway;
@@ -52,9 +51,10 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Stephane Nicoll
  */
 @ExtendWith(OutputCaptureExtension.class)
+public
 class PrometheusMetricsExportAutoConfigurationTests {
 
-	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
+	public final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(PrometheusMetricsExportAutoConfiguration.class));
 
 	@Test
@@ -186,22 +186,11 @@ class PrometheusMetricsExportAutoConfigurationTests {
 				.run((context) -> hasGatewayURL(context, "https://example.com:8080/metrics/"));
 	}
 
-	@Test
-	void withPushGatewayBasicAuth() {
-		this.contextRunner.withConfiguration(AutoConfigurations.of(ManagementContextAutoConfiguration.class))
-				.withPropertyValues("management.metrics.export.prometheus.pushgateway.enabled=true",
-						"management.metrics.export.prometheus.pushgateway.username=admin",
-						"management.metrics.export.prometheus.pushgateway.password=secret")
-				.withUserConfiguration(BaseConfiguration.class)
-				.run(hasHttpConnectionFactory((httpConnectionFactory) -> assertThat(httpConnectionFactory)
-						.isInstanceOf(BasicAuthHttpConnectionFactory.class)));
-	}
-
 	private void hasGatewayURL(AssertableApplicationContext context, String url) {
 		assertThat(getPushGateway(context)).hasFieldOrPropertyWithValue("gatewayBaseURL", url);
 	}
 
-	private ContextConsumer<AssertableApplicationContext> hasHttpConnectionFactory(
+	public ContextConsumer<AssertableApplicationContext> hasHttpConnectionFactory(
 			Consumer<HttpConnectionFactory> httpConnectionFactory) {
 		return (context) -> {
 			PushGateway pushGateway = getPushGateway(context);
@@ -217,6 +206,7 @@ class PrometheusMetricsExportAutoConfigurationTests {
 	}
 
 	@Configuration(proxyBeanMethods = false)
+	public
 	static class BaseConfiguration {
 
 		@Bean
