@@ -85,13 +85,6 @@ class MetricsAutoConfigurationIntegrationTests {
 	}
 
 	@Test
-	void noCompositeIsCreatedWhenASingleMeterRegistryIsAutoConfigured() {
-		new ApplicationContextRunner().with(MetricsRun.limitedTo(GraphiteMetricsExportAutoConfiguration.class))
-				.run((context) -> assertThat(context.getBean(MeterRegistry.class))
-						.isInstanceOf(GraphiteMeterRegistry.class));
-	}
-
-	@Test
 	void noCompositeIsCreatedWithMultipleRegistriesAndOneThatIsPrimary() {
 		new ApplicationContextRunner()
 				.with(MetricsRun.limitedTo(GraphiteMetricsExportAutoConfiguration.class,
