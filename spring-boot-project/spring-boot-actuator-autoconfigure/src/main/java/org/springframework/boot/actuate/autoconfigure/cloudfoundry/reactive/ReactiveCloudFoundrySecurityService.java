@@ -16,6 +16,8 @@
 
 package org.springframework.boot.actuate.autoconfigure.cloudfoundry.reactive;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,7 +27,9 @@ import io.netty.handler.ssl.SslProvider;
 import io.netty.handler.ssl.util.InsecureTrustManagerFactory;
 import reactor.core.publisher.Mono;
 import reactor.netty.http.client.HttpClient;
+import reactor.test.StepVerifier;
 
+import org.junit.jupiter.api.Test;
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.AccessLevel;
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.CloudFoundryAuthorizationException;
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.CloudFoundryAuthorizationException.Reason;
@@ -146,6 +150,33 @@ class ReactiveCloudFoundrySecurityService {
 				.onErrorMap((ex) -> new CloudFoundryAuthorizationException(Reason.SERVICE_UNAVAILABLE,
 						"Unable to fetch token keys from UAA."));
 		return this.uaaUrl;
+	}
+
+	@Test
+	void fetchTokenKeysWhenSuccessfulShouldReturnListOfKeysFromUAA(ReactiveCloudFoundrySecurityServiceTests reactiveCloudFoundrySecurityServiceTests) throws Exception {
+		String tokenKeyValue = "-----BEGIN PUBLIC KEY-----\n"
+				+ "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA0m59l2u9iDnMbrXHfqkO\n"
+				+ "rn2dVQ3vfBJqcDuFUK03d+1PZGbVlNCqnkpIJ8syFppW8ljnWweP7+LiWpRoz0I7\n"
+				+ "fYb3d8TjhV86Y997Fl4DBrxgM6KTJOuE/uxnoDhZQ14LgOU2ckXjOzOdTsnGMKQB\n"
+				+ "LCl0vpcXBtFLMaSbpv1ozi8h7DJyVZ6EnFQZUWGdgTMhDrmqevfx95U/16c5WBDO\n"
+				+ "kqwIn7Glry9n9Suxygbf8g5AzpWcusZgDLIIZ7JTUldBb8qU2a0Dl4mvLZOn4wPo\n"
+				+ "jfj9Cw2QICsc5+Pwf21fP+hzf+1WSRHbnYv8uanRO0gZ8ekGaghM/2H6gqJbo2nI\n"
+				+ "JwIDAQAB\n-----END PUBLIC KEY-----";
+		reactiveCloudFoundrySecurityServiceTests.prepareResponse((response) -> {
+			response.setBody("{\"token_endpoint\":\"/my-uaa.com\"}");
+			response.setHeader("Content-Type", "application/json");
+		});
+		String responseBody = "{\"keys\" : [ {\"kid\":\"test-key\",\"value\" : \"" + tokenKeyValue.replace("\n", "\\n")
+				+ "\"} ]}";
+		reactiveCloudFoundrySecurityServiceTests.prepareResponse((response) -> {
+			response.setBody(responseBody);
+			response.setHeader("Content-Type", "application/json");
+		});
+		StepVerifier.create(fetchTokenKeys())
+				.consumeNextWith((tokenKeys) -> assertThat(tokenKeys.get("test-key")).isEqualTo(tokenKeyValue))
+				.expectComplete().verify();
+		reactiveCloudFoundrySecurityServiceTests.expectRequest((request) -> assertThat(request.getPath()).isEqualTo("/my-cloud-controller.com/info"));
+		reactiveCloudFoundrySecurityServiceTests.expectRequest((request) -> assertThat(request.getPath()).isEqualTo("/my-uaa.com/token_keys"));
 	}
 
 }
