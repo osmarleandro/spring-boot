@@ -65,6 +65,7 @@ import org.springframework.util.StringUtils;
 @ConditionalOnClass(ResourceConfig.class)
 @ConditionalOnBean(WebEndpointsSupplier.class)
 @ConditionalOnMissingBean(type = "org.springframework.web.servlet.DispatcherServlet")
+public
 class JerseyWebEndpointManagementContextConfiguration {
 
 	@Bean
@@ -88,7 +89,7 @@ class JerseyWebEndpointManagementContextConfiguration {
 	 * Register endpoints with the {@link ResourceConfig}. The
 	 * {@link ResourceConfigCustomizer} cannot be used because we don't want to apply
 	 */
-	static class JerseyWebEndpointsResourcesRegistrar {
+	public static class JerseyWebEndpointsResourcesRegistrar {
 
 		private final ResourceConfig resourceConfig;
 
