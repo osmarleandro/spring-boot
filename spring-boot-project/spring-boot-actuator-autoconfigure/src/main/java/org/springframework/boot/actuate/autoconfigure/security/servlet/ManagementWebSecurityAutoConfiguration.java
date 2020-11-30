@@ -59,6 +59,7 @@ import org.springframework.security.web.SecurityFilterChain;
 public class ManagementWebSecurityAutoConfiguration {
 
 	@Configuration(proxyBeanMethods = false)
+	public
 	static class ManagementWebSecurityConfigurerAdapter extends WebSecurityConfigurerAdapter {
 
 		@Override
