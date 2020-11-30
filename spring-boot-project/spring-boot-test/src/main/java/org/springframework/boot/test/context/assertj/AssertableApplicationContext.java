@@ -16,8 +16,11 @@
 
 package org.springframework.boot.test.context.assertj;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import java.util.function.Supplier;
 
+import org.springframework.boot.actuate.autoconfigure.metrics.export.prometheus.PrometheusMetricsExportAutoConfigurationTests;
 import org.springframework.boot.test.context.runner.ApplicationContextRunner;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -47,6 +50,10 @@ public interface AssertableApplicationContext
 	static AssertableApplicationContext get(Supplier<? extends ConfigurableApplicationContext> contextSupplier) {
 		return ApplicationContextAssertProvider.get(AssertableApplicationContext.class,
 				ConfigurableApplicationContext.class, contextSupplier);
+	}
+
+	public default void hasGatewayURL(PrometheusMetricsExportAutoConfigurationTests prometheusMetricsExportAutoConfigurationTests, String url) {
+		assertThat(prometheusMetricsExportAutoConfigurationTests.getPushGateway(this)).hasFieldOrPropertyWithValue("gatewayBaseURL", url);
 	}
 
 }
