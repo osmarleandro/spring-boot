@@ -45,9 +45,9 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Phillip Webb
  * @author Leo Li
  */
-class AutoConfiguredHealthEndpointGroupsTests {
+public class AutoConfiguredHealthEndpointGroupsTests {
 
-	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
+	public final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(AutoConfiguredHealthEndpointGroupsTestConfiguration.class));
 
 	@Test
@@ -86,21 +86,6 @@ class AutoConfiguredHealthEndpointGroupsTests {
 			HealthEndpointGroup group = groups.get("b");
 			assertThat(group).isNull();
 		});
-	}
-
-	@Test
-	void createWhenNoDefinedBeansAdaptsProperties() {
-		this.contextRunner.withPropertyValues("management.endpoint.health.show-components=always",
-				"management.endpoint.health.show-details=never", "management.endpoint.health.status.order=up,down",
-				"management.endpoint.health.status.http-mapping.down=200").run((context) -> {
-					HealthEndpointGroups groups = context.getBean(HealthEndpointGroups.class);
-					HealthEndpointGroup primary = groups.getPrimary();
-					assertThat(primary.showComponents(SecurityContext.NONE)).isTrue();
-					assertThat(primary.showDetails(SecurityContext.NONE)).isFalse();
-					assertThat(primary.getStatusAggregator().getAggregateStatus(Status.UP, Status.DOWN))
-							.isEqualTo(Status.UP);
-					assertThat(primary.getHttpCodeStatusMapper().getStatusCode(Status.DOWN)).isEqualTo(200);
-				});
 	}
 
 	@Test
