@@ -16,9 +16,14 @@
 
 package org.springframework.boot.test.context.runner;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import java.util.List;
 import java.util.function.Supplier;
 
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.actuate.autoconfigure.logging.LogFileWebEndpointAutoConfigurationTests;
+import org.springframework.boot.actuate.logging.LogFileWebEndpoint;
 import org.springframework.boot.context.annotation.Configurations;
 import org.springframework.boot.test.context.assertj.AssertableWebApplicationContext;
 import org.springframework.boot.test.util.TestPropertyValues;
@@ -81,6 +86,13 @@ public final class WebApplicationContextRunner extends
 			List<Configurations> configurations) {
 		return new WebApplicationContextRunner(contextFactory, allowBeanDefinitionOverriding, initializers,
 				environmentProperties, systemProperties, classLoader, parent, beanRegistrations, configurations);
+	}
+
+	@Test
+	public
+	void runWhenLoggingPathIsSetAndExposedShouldHaveEndpointBean(LogFileWebEndpointAutoConfigurationTests logFileWebEndpointAutoConfigurationTests) {
+		withPropertyValues("logging.file.path:test/logs", "management.endpoints.web.exposure.include=logfile")
+				.run((context) -> assertThat(context).hasSingleBean(LogFileWebEndpoint.class));
 	}
 
 	/**
