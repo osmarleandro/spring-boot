@@ -34,9 +34,9 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Andy Wilkinson
  */
-class GangliaMetricsExportAutoConfigurationTests {
+public class GangliaMetricsExportAutoConfigurationTests {
 
-	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
+	public final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(GangliaMetricsExportAutoConfiguration.class));
 
 	@Test
@@ -54,14 +54,6 @@ class GangliaMetricsExportAutoConfigurationTests {
 	void autoConfigurationCanBeDisabledWithDefaultsEnabledProperty() {
 		this.contextRunner.withUserConfiguration(BaseConfiguration.class)
 				.withPropertyValues("management.metrics.export.defaults.enabled=false")
-				.run((context) -> assertThat(context).doesNotHaveBean(GangliaMeterRegistry.class)
-						.doesNotHaveBean(GangliaConfig.class));
-	}
-
-	@Test
-	void autoConfigurationCanBeDisabledWithSpecificEnabledProperty() {
-		this.contextRunner.withUserConfiguration(BaseConfiguration.class)
-				.withPropertyValues("management.metrics.export.ganglia.enabled=false")
 				.run((context) -> assertThat(context).doesNotHaveBean(GangliaMeterRegistry.class)
 						.doesNotHaveBean(GangliaConfig.class));
 	}
@@ -90,6 +82,7 @@ class GangliaMetricsExportAutoConfigurationTests {
 	}
 
 	@Configuration(proxyBeanMethods = false)
+	public
 	static class BaseConfiguration {
 
 		@Bean
