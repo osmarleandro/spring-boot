@@ -34,7 +34,6 @@ import org.springframework.boot.actuate.autoconfigure.metrics.test.MetricsRun;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.jdbc.DataSourceBuilder;
-import org.springframework.boot.jdbc.metadata.DataSourcePoolMetadataProvider;
 import org.springframework.boot.test.context.runner.ApplicationContextRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -51,9 +50,9 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Andy Wilkinson
  * @author Tommy Ludwig
  */
-class DataSourcePoolMetricsAutoConfigurationTests {
+public class DataSourcePoolMetricsAutoConfigurationTests {
 
-	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
+	public final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.withPropertyValues("spring.datasource.generate-unique-name=true").with(MetricsRun.simple())
 			.withConfiguration(AutoConfigurations.of(DataSourcePoolMetricsAutoConfiguration.class))
 			.withUserConfiguration(BaseConfiguration.class);
@@ -167,17 +166,6 @@ class DataSourcePoolMetricsAutoConfigurationTests {
 				});
 	}
 
-	@Test
-	void hikariDataSourceIsInstrumentedWithoutMetadataProvider() {
-		this.contextRunner.withUserConfiguration(OneHikariDataSourceConfiguration.class).run((context) -> {
-			assertThat(context).doesNotHaveBean(DataSourcePoolMetadataProvider.class);
-			context.getBean("hikariDataSource", DataSource.class).getConnection();
-			MeterRegistry registry = context.getBean(MeterRegistry.class);
-			assertThat(registry.get("hikaricp.connections").meter().getId().getTags())
-					.containsExactly(Tag.of("pool", "hikariDataSource"));
-		});
-	}
-
 	private static HikariDataSource createHikariDataSource(String poolName) {
 		String url = "jdbc:hsqldb:mem:test-" + UUID.randomUUID();
 		HikariDataSource hikariDataSource = DataSourceBuilder.create().url(url).type(HikariDataSource.class).build();
@@ -246,6 +234,7 @@ class DataSourcePoolMetricsAutoConfigurationTests {
 	}
 
 	@Configuration(proxyBeanMethods = false)
+	public
 	static class OneHikariDataSourceConfiguration {
 
 		@Bean
