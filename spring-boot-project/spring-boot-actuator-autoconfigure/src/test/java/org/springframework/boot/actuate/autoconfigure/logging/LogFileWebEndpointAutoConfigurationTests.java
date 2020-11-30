@@ -16,21 +16,12 @@
 
 package org.springframework.boot.actuate.autoconfigure.logging;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Path;
-
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.io.TempDir;
-
 import org.springframework.boot.actuate.logging.LogFileWebEndpoint;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
 import org.springframework.boot.test.context.runner.WebApplicationContextRunner;
-import org.springframework.core.io.Resource;
-import org.springframework.util.FileCopyUtils;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.contentOf;
 
 /**
  * Tests for {@link LogFileWebEndpointAutoConfiguration}.
@@ -40,9 +31,9 @@ import static org.assertj.core.api.Assertions.contentOf;
  * @author Phillip Webb
  * @author Christian Carriere-Tisseur
  */
-class LogFileWebEndpointAutoConfigurationTests {
+public class LogFileWebEndpointAutoConfigurationTests {
 
-	private final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner()
+	public final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(LogFileWebEndpointAutoConfiguration.class));
 
 	@Test
@@ -89,20 +80,6 @@ class LogFileWebEndpointAutoConfigurationTests {
 	void logFileWebEndpointCanBeDisabled() {
 		this.contextRunner.withPropertyValues("logging.file.name:test.log", "management.endpoint.logfile.enabled:false")
 				.run((context) -> assertThat(context).doesNotHaveBean(LogFileWebEndpoint.class));
-	}
-
-	@Test
-	void logFileWebEndpointUsesConfiguredExternalFile(@TempDir Path temp) throws IOException {
-		File file = new File(temp.toFile(), "logfile");
-		FileCopyUtils.copy("--TEST--".getBytes(), file);
-		this.contextRunner.withPropertyValues("management.endpoints.web.exposure.include=logfile",
-				"management.endpoint.logfile.external-file:" + file.getAbsolutePath()).run((context) -> {
-					assertThat(context).hasSingleBean(LogFileWebEndpoint.class);
-					LogFileWebEndpoint endpoint = context.getBean(LogFileWebEndpoint.class);
-					Resource resource = endpoint.logFile();
-					assertThat(resource).isNotNull();
-					assertThat(contentOf(resource.getFile())).isEqualTo("--TEST--");
-				});
 	}
 
 }

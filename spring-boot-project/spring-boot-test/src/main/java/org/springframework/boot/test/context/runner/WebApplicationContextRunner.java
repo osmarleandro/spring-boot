@@ -16,16 +16,28 @@
 
 package org.springframework.boot.test.context.runner;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.contentOf;
+
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Path;
 import java.util.List;
 import java.util.function.Supplier;
 
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
+import org.springframework.boot.actuate.autoconfigure.logging.LogFileWebEndpointAutoConfigurationTests;
+import org.springframework.boot.actuate.logging.LogFileWebEndpoint;
 import org.springframework.boot.context.annotation.Configurations;
 import org.springframework.boot.test.context.assertj.AssertableWebApplicationContext;
 import org.springframework.boot.test.util.TestPropertyValues;
 import org.springframework.boot.web.servlet.context.AnnotationConfigServletWebApplicationContext;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextInitializer;
+import org.springframework.core.io.Resource;
 import org.springframework.mock.web.MockServletContext;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.context.ConfigurableWebApplicationContext;
 import org.springframework.web.context.WebApplicationContext;
 
@@ -81,6 +93,21 @@ public final class WebApplicationContextRunner extends
 			List<Configurations> configurations) {
 		return new WebApplicationContextRunner(contextFactory, allowBeanDefinitionOverriding, initializers,
 				environmentProperties, systemProperties, classLoader, parent, beanRegistrations, configurations);
+	}
+
+	@Test
+	public
+	void logFileWebEndpointUsesConfiguredExternalFile(LogFileWebEndpointAutoConfigurationTests logFileWebEndpointAutoConfigurationTests, Path temp) throws IOException {
+		File file = new File(temp.toFile(), "logfile");
+		FileCopyUtils.copy("--TEST--".getBytes(), file);
+		withPropertyValues("management.endpoints.web.exposure.include=logfile",
+				"management.endpoint.logfile.external-file:" + file.getAbsolutePath()).run((context) -> {
+					assertThat(context).hasSingleBean(LogFileWebEndpoint.class);
+					LogFileWebEndpoint endpoint = context.getBean(LogFileWebEndpoint.class);
+					Resource resource = endpoint.logFile();
+					assertThat(resource).isNotNull();
+					assertThat(contentOf(resource.getFile())).isEqualTo("--TEST--");
+				});
 	}
 
 	/**
