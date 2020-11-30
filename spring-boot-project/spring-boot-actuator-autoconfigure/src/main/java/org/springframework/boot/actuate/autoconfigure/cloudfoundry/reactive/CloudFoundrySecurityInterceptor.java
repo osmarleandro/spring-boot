@@ -16,18 +16,29 @@
 
 package org.springframework.boot.actuate.autoconfigure.cloudfoundry.reactive;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.BDDMockito.given;
+
 import java.util.Locale;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import reactor.core.publisher.Mono;
+import org.junit.jupiter.api.Test;
 
+import reactor.core.publisher.Mono;
+import reactor.test.StepVerifier;
+
+import org.springframework.boot.actuate.autoconfigure.cloudfoundry.AccessLevel;
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.CloudFoundryAuthorizationException;
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.CloudFoundryAuthorizationException.Reason;
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.SecurityResponse;
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.Token;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.server.reactive.ServerHttpRequest;
+import org.springframework.mock.http.server.reactive.MockServerHttpRequest;
+import org.springframework.mock.web.server.MockServerWebExchange;
 import org.springframework.util.StringUtils;
 import org.springframework.web.cors.reactive.CorsUtils;
 import org.springframework.web.server.ServerWebExchange;
@@ -109,6 +120,19 @@ class CloudFoundrySecurityInterceptor {
 					"Authorization header is missing or invalid");
 		}
 		return new Token(authorization.substring(bearerPrefix.length()));
+	}
+
+	@Test
+	void preHandleWhenAccessIsNotAllowedShouldReturnAccessDenied(ReactiveCloudFoundrySecurityInterceptorTests reactiveCloudFoundrySecurityInterceptorTests) {
+		given(reactiveCloudFoundrySecurityInterceptorTests.securityService.getAccessLevel(reactiveCloudFoundrySecurityInterceptorTests.mockAccessToken(), "my-app-id"))
+				.willReturn(Mono.just(AccessLevel.RESTRICTED));
+		given(reactiveCloudFoundrySecurityInterceptorTests.tokenValidator.validate(any())).willReturn(Mono.empty());
+		MockServerWebExchange request = MockServerWebExchange.from(MockServerHttpRequest.get("/a")
+				.header(HttpHeaders.AUTHORIZATION, "bearer " + reactiveCloudFoundrySecurityInterceptorTests.mockAccessToken()).build());
+		StepVerifier.create(preHandle(request, "/a"))
+				.consumeNextWith(
+						(response) -> assertThat(response.getStatus()).isEqualTo(Reason.ACCESS_DENIED.getStatus()))
+				.verifyComplete();
 	}
 
 }
