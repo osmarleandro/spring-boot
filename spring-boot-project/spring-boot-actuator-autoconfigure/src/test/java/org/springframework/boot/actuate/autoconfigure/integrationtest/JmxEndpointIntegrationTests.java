@@ -47,7 +47,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Stephane Nicoll
  * @author Andy Wilkinson
  */
-class JmxEndpointIntegrationTests {
+public class JmxEndpointIntegrationTests {
 
 	private final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(JmxAutoConfiguration.class, EndpointAutoConfiguration.class,
@@ -87,26 +87,16 @@ class JmxEndpointIntegrationTests {
 
 	private void checkEndpointMBeans(MBeanServer mBeanServer, String[] enabledEndpoints, String[] disabledEndpoints) {
 		for (String enabledEndpoint : enabledEndpoints) {
-			assertThat(isRegistered(mBeanServer, getDefaultObjectName(enabledEndpoint)))
+			assertThat(contextRunner.isRegistered(this, mBeanServer, getDefaultObjectName(enabledEndpoint)))
 					.as(String.format("Endpoint %s", enabledEndpoint)).isTrue();
 		}
 		for (String disabledEndpoint : disabledEndpoints) {
-			assertThat(isRegistered(mBeanServer, getDefaultObjectName(disabledEndpoint)))
+			assertThat(contextRunner.isRegistered(this, mBeanServer, getDefaultObjectName(disabledEndpoint)))
 					.as(String.format("Endpoint %s", disabledEndpoint)).isFalse();
 		}
 	}
 
-	private boolean isRegistered(MBeanServer mBeanServer, ObjectName objectName) {
-		try {
-			getMBeanInfo(mBeanServer, objectName);
-			return true;
-		}
-		catch (InstanceNotFoundException ex) {
-			return false;
-		}
-	}
-
-	private MBeanInfo getMBeanInfo(MBeanServer mBeanServer, ObjectName objectName) throws InstanceNotFoundException {
+	public MBeanInfo getMBeanInfo(MBeanServer mBeanServer, ObjectName objectName) throws InstanceNotFoundException {
 		try {
 			return mBeanServer.getMBeanInfo(objectName);
 		}
