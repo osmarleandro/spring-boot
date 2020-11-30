@@ -51,9 +51,9 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Andy Wilkinson
  * @author Tommy Ludwig
  */
-class DataSourcePoolMetricsAutoConfigurationTests {
+public class DataSourcePoolMetricsAutoConfigurationTests {
 
-	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
+	public final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.withPropertyValues("spring.datasource.generate-unique-name=true").with(MetricsRun.simple())
 			.withConfiguration(AutoConfigurations.of(DataSourcePoolMetricsAutoConfiguration.class))
 			.withUserConfiguration(BaseConfiguration.class);
@@ -118,16 +118,6 @@ class DataSourcePoolMetricsAutoConfigurationTests {
 					context.getBean(DataSource.class).getConnection();
 					MeterRegistry registry = context.getBean(MeterRegistry.class);
 					assertThat(registry.find("hikaricp.connections").meter()).isNotNull();
-				});
-	}
-
-	@Test
-	void hikariDataSourceInstrumentationCanBeDisabled() {
-		this.contextRunner.withPropertyValues("management.metrics.enable.hikaricp=false")
-				.withConfiguration(AutoConfigurations.of(DataSourceAutoConfiguration.class)).run((context) -> {
-					context.getBean(DataSource.class).getConnection();
-					MeterRegistry registry = context.getBean(MeterRegistry.class);
-					assertThat(registry.find("hikaricp.connections").meter()).isNull();
 				});
 	}
 
