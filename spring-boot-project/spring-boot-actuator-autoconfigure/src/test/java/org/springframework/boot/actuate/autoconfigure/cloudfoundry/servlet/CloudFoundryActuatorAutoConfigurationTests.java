@@ -65,9 +65,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  *
  * @author Madhura Bhave
  */
-class CloudFoundryActuatorAutoConfigurationTests {
+public class CloudFoundryActuatorAutoConfigurationTests {
 
-	private final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner()
+	public final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(SecurityAutoConfiguration.class, WebMvcAutoConfiguration.class,
 					JacksonAutoConfiguration.class, DispatcherServletAutoConfiguration.class,
 					HttpMessageConvertersAutoConfiguration.class, PropertyPlaceholderAutoConfiguration.class,
@@ -141,18 +141,6 @@ class CloudFoundryActuatorAutoConfigurationTests {
 							"restTemplate");
 					assertThat(restTemplate.getRequestFactory())
 							.isInstanceOf(SkipSslVerificationHttpRequestFactory.class);
-				});
-	}
-
-	@Test
-	void cloudFoundryPlatformActiveAndCloudControllerUrlNotPresent() {
-		this.contextRunner.withPropertyValues("VCAP_APPLICATION:---", "vcap.application.application_id:my-app-id")
-				.run((context) -> {
-					CloudFoundryWebEndpointServletHandlerMapping handlerMapping = getHandlerMapping(context);
-					Object securityInterceptor = ReflectionTestUtils.getField(handlerMapping, "securityInterceptor");
-					Object interceptorSecurityService = ReflectionTestUtils.getField(securityInterceptor,
-							"cloudFoundrySecurityService");
-					assertThat(interceptorSecurityService).isNull();
 				});
 	}
 
@@ -236,7 +224,7 @@ class CloudFoundryActuatorAutoConfigurationTests {
 				});
 	}
 
-	private CloudFoundryWebEndpointServletHandlerMapping getHandlerMapping(ApplicationContext context) {
+	public CloudFoundryWebEndpointServletHandlerMapping getHandlerMapping(ApplicationContext context) {
 		return context.getBean("cloudFoundryWebEndpointServletHandlerMapping",
 				CloudFoundryWebEndpointServletHandlerMapping.class);
 	}
