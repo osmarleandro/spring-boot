@@ -26,4 +26,13 @@ import org.springframework.boot.actuate.endpoint.ExposableEndpoint;
  */
 public interface ExposableWebEndpoint extends ExposableEndpoint<WebOperation>, PathMappedEndpoint {
 
+	public default WebOperation findMainReadOperation() {
+		for (WebOperation operation : getOperations()) {
+			if (operation.getRequestPredicate().getPath().equals("health")) {
+				return operation;
+			}
+		}
+		throw new IllegalStateException("No main read operation found from " + getOperations());
+	}
+
 }
