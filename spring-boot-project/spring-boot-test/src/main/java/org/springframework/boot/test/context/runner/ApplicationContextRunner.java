@@ -16,9 +16,14 @@
 
 package org.springframework.boot.test.context.runner;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import java.util.List;
+import java.util.Map;
 import java.util.function.Supplier;
 
+import org.springframework.boot.actuate.context.properties.ConfigurationPropertiesReportEndpoint;
+import org.springframework.boot.actuate.context.properties.ConfigurationPropertiesReportEndpoint.ApplicationConfigurationProperties;
 import org.springframework.boot.context.annotation.Configurations;
 import org.springframework.boot.test.context.assertj.AssertableApplicationContext;
 import org.springframework.boot.test.util.TestPropertyValues;
@@ -77,6 +82,20 @@ public class ApplicationContextRunner extends
 			List<Configurations> configurations) {
 		return new ApplicationContextRunner(contextFactory, allowBeanDefinitionOverriding, initializers,
 				environmentProperties, systemProperties, classLoader, parent, beanRegistrations, configurations);
+	}
+
+	public ContextConsumer<AssertableApplicationContext> validateTestProperties(String dbPassword, String myTestProperty) {
+		return (context) -> {
+			assertThat(context).hasSingleBean(ConfigurationPropertiesReportEndpoint.class);
+			ConfigurationPropertiesReportEndpoint endpoint = context
+					.getBean(ConfigurationPropertiesReportEndpoint.class);
+			ApplicationConfigurationProperties properties = endpoint.configurationProperties();
+			Map<String, Object> nestedProperties = properties.getContexts().get(context.getId()).getBeans()
+					.get("testProperties").getProperties();
+			assertThat(nestedProperties).isNotNull();
+			assertThat(nestedProperties.get("dbPassword")).isEqualTo(dbPassword);
+			assertThat(nestedProperties.get("myTestProperty")).isEqualTo(myTestProperty);
+		};
 	}
 
 }
