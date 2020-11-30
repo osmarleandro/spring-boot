@@ -24,7 +24,6 @@ import org.springframework.boot.autoconfigure.security.servlet.RequestMatcherPro
 import org.springframework.boot.autoconfigure.web.servlet.DispatcherServletPath;
 import org.springframework.boot.autoconfigure.web.servlet.JerseyApplicationPath;
 import org.springframework.boot.test.context.FilteredClassLoader;
-import org.springframework.boot.test.context.runner.ApplicationContextRunner;
 import org.springframework.boot.test.context.runner.WebApplicationContextRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -37,18 +36,10 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Madhura Bhave
  */
-class SecurityRequestMatchersManagementContextConfigurationTests {
+public class SecurityRequestMatchersManagementContextConfigurationTests {
 
 	private final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(SecurityRequestMatchersManagementContextConfiguration.class));
-
-	@Test
-	void configurationConditionalOnWebApplication() {
-		new ApplicationContextRunner()
-				.withConfiguration(AutoConfigurations.of(SecurityRequestMatchersManagementContextConfiguration.class))
-				.withUserConfiguration(TestMvcConfiguration.class)
-				.run((context) -> assertThat(context).doesNotHaveBean(RequestMatcherProvider.class));
-	}
 
 	@Test
 	void configurationConditionalOnRequestMatcherClass() {
@@ -106,6 +97,7 @@ class SecurityRequestMatchersManagementContextConfigurationTests {
 	}
 
 	@Configuration(proxyBeanMethods = false)
+	public
 	static class TestMvcConfiguration {
 
 		@Bean
