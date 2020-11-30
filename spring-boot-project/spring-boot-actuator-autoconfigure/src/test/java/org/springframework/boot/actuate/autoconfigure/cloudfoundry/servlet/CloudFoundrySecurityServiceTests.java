@@ -17,7 +17,6 @@
 package org.springframework.boot.actuate.autoconfigure.cloudfoundry.servlet;
 
 import java.util.Map;
-import java.util.function.Consumer;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -111,7 +110,7 @@ class CloudFoundrySecurityServiceTests {
 				.andExpect(header("Authorization", "bearer my-access-token")).andRespond(withUnauthorizedRequest());
 		assertThatExceptionOfType(CloudFoundryAuthorizationException.class)
 				.isThrownBy(() -> this.securityService.getAccessLevel("my-access-token", "my-app-id"))
-				.satisfies(reasonRequirement(Reason.INVALID_TOKEN));
+				.satisfies(Reason.INVALID_TOKEN.reasonRequirement());
 	}
 
 	@Test
@@ -121,7 +120,7 @@ class CloudFoundrySecurityServiceTests {
 				.andRespond(withStatus(HttpStatus.FORBIDDEN));
 		assertThatExceptionOfType(CloudFoundryAuthorizationException.class)
 				.isThrownBy(() -> this.securityService.getAccessLevel("my-access-token", "my-app-id"))
-				.satisfies(reasonRequirement(Reason.ACCESS_DENIED));
+				.satisfies(Reason.ACCESS_DENIED.reasonRequirement());
 	}
 
 	@Test
@@ -130,7 +129,7 @@ class CloudFoundrySecurityServiceTests {
 				.andExpect(header("Authorization", "bearer my-access-token")).andRespond(withServerError());
 		assertThatExceptionOfType(CloudFoundryAuthorizationException.class)
 				.isThrownBy(() -> this.securityService.getAccessLevel("my-access-token", "my-app-id"))
-				.satisfies(reasonRequirement(Reason.SERVICE_UNAVAILABLE));
+				.satisfies(Reason.SERVICE_UNAVAILABLE.reasonRequirement());
 	}
 
 	@Test
@@ -173,7 +172,7 @@ class CloudFoundrySecurityServiceTests {
 		this.server.expect(requestTo(UAA_URL + "/token_keys")).andRespond(withServerError());
 		assertThatExceptionOfType(CloudFoundryAuthorizationException.class)
 				.isThrownBy(() -> this.securityService.fetchTokenKeys())
-				.satisfies(reasonRequirement(Reason.SERVICE_UNAVAILABLE));
+				.satisfies(Reason.SERVICE_UNAVAILABLE.reasonRequirement());
 	}
 
 	@Test
@@ -193,11 +192,7 @@ class CloudFoundrySecurityServiceTests {
 		this.server.expect(requestTo(CLOUD_CONTROLLER + "/info")).andRespond(withServerError());
 		assertThatExceptionOfType(CloudFoundryAuthorizationException.class)
 				.isThrownBy(() -> this.securityService.getUaaUrl())
-				.satisfies(reasonRequirement(Reason.SERVICE_UNAVAILABLE));
-	}
-
-	private Consumer<CloudFoundryAuthorizationException> reasonRequirement(Reason reason) {
-		return (ex) -> assertThat(ex.getReason()).isEqualTo(reason);
+				.satisfies(Reason.SERVICE_UNAVAILABLE.reasonRequirement());
 	}
 
 }
