@@ -56,9 +56,9 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Michael Weirauch
  * @author Michael Simons
  */
-class JerseyServerMetricsAutoConfigurationTests {
+public class JerseyServerMetricsAutoConfigurationTests {
 
-	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner().with(MetricsRun.simple())
+	public final ApplicationContextRunner contextRunner = new ApplicationContextRunner().with(MetricsRun.simple())
 			.withConfiguration(AutoConfigurations.of(JerseyServerMetricsAutoConfiguration.class));
 
 	private final WebApplicationContextRunner webContextRunner = new WebApplicationContextRunner(
@@ -67,11 +67,6 @@ class JerseyServerMetricsAutoConfigurationTests {
 							JerseyServerMetricsAutoConfiguration.class, ServletWebServerFactoryAutoConfiguration.class,
 							SimpleMetricsExportAutoConfiguration.class, MetricsAutoConfiguration.class))
 					.withUserConfiguration(ResourceConfiguration.class).withPropertyValues("server.port:0");
-
-	@Test
-	void shouldOnlyBeActiveInWebApplicationContext() {
-		this.contextRunner.run((context) -> assertThat(context).doesNotHaveBean(ResourceConfigCustomizer.class));
-	}
 
 	@Test
 	void shouldProvideAllNecessaryBeans() {
