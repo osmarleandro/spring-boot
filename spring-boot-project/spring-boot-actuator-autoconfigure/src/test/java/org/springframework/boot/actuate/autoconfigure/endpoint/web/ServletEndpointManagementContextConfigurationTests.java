@@ -18,7 +18,6 @@ package org.springframework.boot.actuate.autoconfigure.endpoint.web;
 
 import java.util.Collections;
 
-import org.glassfish.jersey.server.ResourceConfig;
 import org.junit.jupiter.api.Test;
 
 import org.springframework.boot.actuate.endpoint.web.ServletEndpointRegistrar;
@@ -42,20 +41,10 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Phillip Webb
  * @author Madhura Bhave
  */
-class ServletEndpointManagementContextConfigurationTests {
+public class ServletEndpointManagementContextConfigurationTests {
 
-	private final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner()
+	public final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner()
 			.withUserConfiguration(TestConfig.class);
-
-	@Test
-	void contextShouldContainServletEndpointRegistrar() {
-		FilteredClassLoader classLoader = new FilteredClassLoader(ResourceConfig.class);
-		this.contextRunner.withClassLoader(classLoader).run((context) -> {
-			assertThat(context).hasSingleBean(ServletEndpointRegistrar.class);
-			ServletEndpointRegistrar bean = context.getBean(ServletEndpointRegistrar.class);
-			assertThat(bean).hasFieldOrPropertyWithValue("basePath", "/test/actuator");
-		});
-	}
 
 	@Test
 	void contextWhenJerseyShouldContainServletEndpointRegistrar() {
