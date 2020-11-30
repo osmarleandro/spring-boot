@@ -19,6 +19,9 @@ package org.springframework.boot.test.context.runner;
 import java.util.List;
 import java.util.function.Supplier;
 
+import javax.management.MalformedObjectNameException;
+import javax.management.ObjectName;
+
 import org.springframework.boot.context.annotation.Configurations;
 import org.springframework.boot.test.context.assertj.AssertableWebApplicationContext;
 import org.springframework.boot.test.util.TestPropertyValues;
@@ -26,6 +29,7 @@ import org.springframework.boot.web.servlet.context.AnnotationConfigServletWebAp
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextInitializer;
 import org.springframework.mock.web.MockServletContext;
+import org.springframework.util.StringUtils;
 import org.springframework.web.context.ConfigurableWebApplicationContext;
 import org.springframework.web.context.WebApplicationContext;
 
@@ -81,6 +85,17 @@ public final class WebApplicationContextRunner extends
 			List<Configurations> configurations) {
 		return new WebApplicationContextRunner(contextFactory, allowBeanDefinitionOverriding, initializers,
 				environmentProperties, systemProperties, classLoader, parent, beanRegistrations, configurations);
+	}
+
+	public ObjectName getObjectName(String domain, String endpointId) {
+		try {
+			return new ObjectName(
+					String.format("%s:type=Endpoint,name=%s", domain, StringUtils.capitalize(endpointId)));
+		}
+		catch (MalformedObjectNameException ex) {
+			throw new IllegalStateException("Invalid object name", ex);
+		}
+	
 	}
 
 	/**

@@ -20,7 +20,6 @@ import javax.management.InstanceNotFoundException;
 import javax.management.IntrospectionException;
 import javax.management.MBeanInfo;
 import javax.management.MBeanServer;
-import javax.management.MalformedObjectNameException;
 import javax.management.ObjectName;
 import javax.management.ReflectionException;
 
@@ -37,7 +36,6 @@ import org.springframework.boot.autoconfigure.jmx.JmxAutoConfiguration;
 import org.springframework.boot.test.context.runner.WebApplicationContextRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.util.StringUtils;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -116,18 +114,7 @@ class JmxEndpointIntegrationTests {
 	}
 
 	private ObjectName getDefaultObjectName(String endpointId) {
-		return getObjectName("org.springframework.boot", endpointId);
-	}
-
-	private ObjectName getObjectName(String domain, String endpointId) {
-		try {
-			return new ObjectName(
-					String.format("%s:type=Endpoint,name=%s", domain, StringUtils.capitalize(endpointId)));
-		}
-		catch (MalformedObjectNameException ex) {
-			throw new IllegalStateException("Invalid object name", ex);
-		}
-
+		return contextRunner.getObjectName("org.springframework.boot", endpointId);
 	}
 
 	@Configuration(proxyBeanMethods = false)
