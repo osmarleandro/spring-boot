@@ -19,6 +19,8 @@ package org.springframework.boot.test.context.runner;
 import java.util.List;
 import java.util.function.Supplier;
 
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.actuate.autoconfigure.integrationtest.WebFluxEndpointCorsIntegrationTests;
 import org.springframework.boot.context.annotation.Configurations;
 import org.springframework.boot.test.context.assertj.AssertableReactiveWebApplicationContext;
 import org.springframework.boot.test.util.TestPropertyValues;
@@ -26,6 +28,7 @@ import org.springframework.boot.web.reactive.context.AnnotationConfigReactiveWeb
 import org.springframework.boot.web.reactive.context.ConfigurableReactiveWebApplicationContext;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextInitializer;
+import org.springframework.http.HttpHeaders;
 
 /**
  * An {@link AbstractApplicationContextRunner ApplicationContext runner} for a
@@ -77,6 +80,14 @@ public final class ReactiveWebApplicationContextRunner extends
 			List<Configurations> configurations) {
 		return new ReactiveWebApplicationContextRunner(contextFactory, allowBeanDefinitionOverriding, initializers,
 				environmentProperties, systemProperties, classLoader, parent, beanRegistrations, configurations);
+	}
+
+	@Test
+	public
+	void maxAgeDefaultsTo30Minutes(WebFluxEndpointCorsIntegrationTests webFluxEndpointCorsIntegrationTests) {
+		withPropertyValues("management.endpoints.web.cors.allowed-origins:spring.example.org")
+				.run(webFluxEndpointCorsIntegrationTests.withWebTestClient((webTestClient) -> webFluxEndpointCorsIntegrationTests.performAcceptedCorsRequest(webTestClient, "/actuator/beans")
+						.expectHeader().valueEquals(HttpHeaders.ACCESS_CONTROL_MAX_AGE, "1800")));
 	}
 
 }
