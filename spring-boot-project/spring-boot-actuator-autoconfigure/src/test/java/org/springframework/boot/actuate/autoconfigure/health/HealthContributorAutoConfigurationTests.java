@@ -34,9 +34,9 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Phillip Webb
  * @author Stephane Nicoll
  */
-class HealthContributorAutoConfigurationTests {
+public class HealthContributorAutoConfigurationTests {
 
-	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
+	public final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(HealthContributorAutoConfiguration.class));
 
 	@Test
@@ -60,15 +60,8 @@ class HealthContributorAutoConfigurationTests {
 
 	}
 
-	@Test
-	void runWhenHasDefaultsDisabledAndPingIndicatorEnabledCreatesPingHealthIndicator() {
-		this.contextRunner.withUserConfiguration(CustomHealthIndicatorConfiguration.class)
-				.withPropertyValues("management.health.defaults.enabled:false", "management.health.ping.enabled:true")
-				.run((context) -> assertThat(context).hasSingleBean(PingHealthIndicator.class));
-
-	}
-
 	@Configuration(proxyBeanMethods = false)
+	public
 	static class CustomHealthIndicatorConfiguration {
 
 		@Bean
