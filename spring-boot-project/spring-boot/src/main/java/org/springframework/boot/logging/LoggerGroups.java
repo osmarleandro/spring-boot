@@ -16,10 +16,21 @@
 
 package org.springframework.boot.logging;
 
+import static org.mockito.Mockito.verify;
+import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
+import static org.springframework.restdocs.payload.PayloadDocumentation.requestFields;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.actuate.autoconfigure.endpoint.web.documentation.LoggersEndpointDocumentationTests;
+import org.springframework.http.MediaType;
+import org.springframework.restdocs.mockmvc.MockMvcRestDocumentation;
 
 /**
  * Logger groups configured via the Spring Environment.
@@ -58,6 +69,22 @@ public final class LoggerGroups implements Iterable<LoggerGroup> {
 	@Override
 	public Iterator<LoggerGroup> iterator() {
 		return this.groups.values().iterator();
+	}
+
+	@Test
+	public
+	void setLogLevelOfLoggerGroup(LoggersEndpointDocumentationTests loggersEndpointDocumentationTests) throws Exception {
+		loggersEndpointDocumentationTests.mockMvc
+				.perform(post("/actuator/loggers/test")
+						.content("{\"configuredLevel\":\"debug\"}").contentType(MediaType.APPLICATION_JSON))
+				.andExpect(status().isNoContent()).andDo(
+						MockMvcRestDocumentation.document("loggers/setGroup",
+								requestFields(fieldWithPath("configuredLevel").description(
+										"Level for the logger group. May be omitted to clear the level of the loggers.")
+										.optional())));
+		verify(loggersEndpointDocumentationTests.loggingSystem).setLogLevel("test.member1", LogLevel.DEBUG);
+		verify(loggersEndpointDocumentationTests.loggingSystem).setLogLevel("test.member2", LogLevel.DEBUG);
+		loggersEndpointDocumentationTests.resetLogger();
 	}
 
 }
