@@ -16,15 +16,20 @@
 
 package org.springframework.boot.test.context.runner;
 
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
+
 import java.util.List;
 import java.util.function.Supplier;
 
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.actuate.autoconfigure.integrationtest.WebMvcEndpointCorsIntegrationTests;
 import org.springframework.boot.context.annotation.Configurations;
 import org.springframework.boot.test.context.assertj.AssertableWebApplicationContext;
 import org.springframework.boot.test.util.TestPropertyValues;
 import org.springframework.boot.web.servlet.context.AnnotationConfigServletWebApplicationContext;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextInitializer;
+import org.springframework.http.HttpHeaders;
 import org.springframework.mock.web.MockServletContext;
 import org.springframework.web.context.ConfigurableWebApplicationContext;
 import org.springframework.web.context.WebApplicationContext;
@@ -81,6 +86,14 @@ public final class WebApplicationContextRunner extends
 			List<Configurations> configurations) {
 		return new WebApplicationContextRunner(contextFactory, allowBeanDefinitionOverriding, initializers,
 				environmentProperties, systemProperties, classLoader, parent, beanRegistrations, configurations);
+	}
+
+	@Test
+	public
+	void maxAgeDefaultsTo30Minutes(WebMvcEndpointCorsIntegrationTests webMvcEndpointCorsIntegrationTests) {
+		withPropertyValues("management.endpoints.web.cors.allowed-origins:foo.example.com")
+				.run(webMvcEndpointCorsIntegrationTests.withMockMvc((mockMvc) -> webMvcEndpointCorsIntegrationTests.performAcceptedCorsRequest(mockMvc)
+						.andExpect(header().string(HttpHeaders.ACCESS_CONTROL_MAX_AGE, "1800"))));
 	}
 
 	/**
