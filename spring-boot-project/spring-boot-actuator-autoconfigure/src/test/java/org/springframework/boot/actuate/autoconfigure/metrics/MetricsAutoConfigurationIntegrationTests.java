@@ -102,18 +102,6 @@ class MetricsAutoConfigurationIntegrationTests {
 	}
 
 	@Test
-	void compositeCreatedWithMultipleRegistries() {
-		new ApplicationContextRunner().with(MetricsRun.limitedTo(GraphiteMetricsExportAutoConfiguration.class,
-				JmxMetricsExportAutoConfiguration.class)).run((context) -> {
-					MeterRegistry registry = context.getBean(MeterRegistry.class);
-					assertThat(registry).isInstanceOf(CompositeMeterRegistry.class);
-					assertThat(((CompositeMeterRegistry) registry).getRegistries())
-							.hasAtLeastOneElementOfType(GraphiteMeterRegistry.class)
-							.hasAtLeastOneElementOfType(JmxMeterRegistry.class);
-				});
-	}
-
-	@Test
 	void autoConfiguredCompositeDoesNotHaveMeterFiltersApplied() {
 		new ApplicationContextRunner().with(MetricsRun.limitedTo(GraphiteMetricsExportAutoConfiguration.class,
 				JmxMetricsExportAutoConfiguration.class)).run((context) -> {
