@@ -16,6 +16,12 @@
 
 package org.springframework.boot.actuate.autoconfigure.metrics;
 
+import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.inOrder;
+
+import org.junit.jupiter.api.Test;
+import org.mockito.InOrder;
+
 import io.micrometer.core.instrument.Meter;
 import io.micrometer.core.instrument.MeterRegistry;
 
@@ -38,5 +44,21 @@ public interface MeterRegistryCustomizer<T extends MeterRegistry> {
 	 * @param registry the registry to customize
 	 */
 	void customize(T registry);
+
+	@Test
+	default
+	void configureShouldBeCalledInOrderCustomizerFilterBinder(MeterRegistryConfigurerTests meterRegistryConfigurerTests) {
+		given(meterRegistryConfigurerTests.mockRegistry.config()).willReturn(meterRegistryConfigurerTests.mockConfig);
+		meterRegistryConfigurerTests.customizers.add(this);
+		meterRegistryConfigurerTests.filters.add(meterRegistryConfigurerTests.mockFilter);
+		meterRegistryConfigurerTests.binders.add(meterRegistryConfigurerTests.mockBinder);
+		MeterRegistryConfigurer configurer = new MeterRegistryConfigurer(meterRegistryConfigurerTests.createObjectProvider(meterRegistryConfigurerTests.customizers),
+				meterRegistryConfigurerTests.createObjectProvider(meterRegistryConfigurerTests.filters), meterRegistryConfigurerTests.createObjectProvider(meterRegistryConfigurerTests.binders), false, false);
+		configurer.configure(meterRegistryConfigurerTests.mockRegistry);
+		InOrder ordered = inOrder(meterRegistryConfigurerTests.mockBinder, meterRegistryConfigurerTests.mockConfig, this);
+		ordered.verify(this).customize(meterRegistryConfigurerTests.mockRegistry);
+		ordered.verify(meterRegistryConfigurerTests.mockConfig).meterFilter(meterRegistryConfigurerTests.mockFilter);
+		ordered.verify(meterRegistryConfigurerTests.mockBinder).bindTo(meterRegistryConfigurerTests.mockRegistry);
+	}
 
 }

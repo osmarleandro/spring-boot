@@ -27,7 +27,6 @@ import io.micrometer.core.instrument.composite.CompositeMeterRegistry;
 import io.micrometer.core.instrument.config.MeterFilter;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InOrder;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
@@ -35,7 +34,6 @@ import org.springframework.beans.factory.ObjectProvider;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.inOrder;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoInteractions;
@@ -47,28 +45,29 @@ import static org.mockito.Mockito.verifyNoInteractions;
  * @author Andy Wilkinson
  */
 @ExtendWith(MockitoExtension.class)
+public
 class MeterRegistryConfigurerTests {
 
-	private List<MeterBinder> binders = new ArrayList<>();
+	public List<MeterBinder> binders = new ArrayList<>();
 
-	private List<MeterFilter> filters = new ArrayList<>();
+	public List<MeterFilter> filters = new ArrayList<>();
 
-	private List<MeterRegistryCustomizer<?>> customizers = new ArrayList<>();
-
-	@Mock
-	private MeterBinder mockBinder;
+	public List<MeterRegistryCustomizer<?>> customizers = new ArrayList<>();
 
 	@Mock
-	private MeterFilter mockFilter;
+	public MeterBinder mockBinder;
 
 	@Mock
-	private MeterRegistryCustomizer<MeterRegistry> mockCustomizer;
+	public MeterFilter mockFilter;
 
 	@Mock
-	private MeterRegistry mockRegistry;
+	public MeterRegistryCustomizer<MeterRegistry> mockCustomizer;
 
 	@Mock
-	private Config mockConfig;
+	public MeterRegistry mockRegistry;
+
+	@Mock
+	public Config mockConfig;
 
 	@Test
 	void configureWhenCompositeShouldApplyCustomizer() {
@@ -130,21 +129,6 @@ class MeterRegistryConfigurerTests {
 	}
 
 	@Test
-	void configureShouldBeCalledInOrderCustomizerFilterBinder() {
-		given(this.mockRegistry.config()).willReturn(this.mockConfig);
-		this.customizers.add(this.mockCustomizer);
-		this.filters.add(this.mockFilter);
-		this.binders.add(this.mockBinder);
-		MeterRegistryConfigurer configurer = new MeterRegistryConfigurer(createObjectProvider(this.customizers),
-				createObjectProvider(this.filters), createObjectProvider(this.binders), false, false);
-		configurer.configure(this.mockRegistry);
-		InOrder ordered = inOrder(this.mockBinder, this.mockConfig, this.mockCustomizer);
-		ordered.verify(this.mockCustomizer).customize(this.mockRegistry);
-		ordered.verify(this.mockConfig).meterFilter(this.mockFilter);
-		ordered.verify(this.mockBinder).bindTo(this.mockRegistry);
-	}
-
-	@Test
 	void configureWhenAddToGlobalRegistryShouldAddToGlobalRegistry() {
 		given(this.mockRegistry.config()).willReturn(this.mockConfig);
 		MeterRegistryConfigurer configurer = new MeterRegistryConfigurer(createObjectProvider(this.customizers),
@@ -168,7 +152,7 @@ class MeterRegistryConfigurerTests {
 	}
 
 	@SuppressWarnings("unchecked")
-	private <T> ObjectProvider<T> createObjectProvider(List<T> objects) {
+	public <T> ObjectProvider<T> createObjectProvider(List<T> objects) {
 		ObjectProvider<T> objectProvider = mock(ObjectProvider.class);
 		given(objectProvider.orderedStream()).willReturn(objects.stream());
 		return objectProvider;
