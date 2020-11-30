@@ -19,6 +19,10 @@ package org.springframework.boot.test.context.runner;
 import java.util.List;
 import java.util.function.Supplier;
 
+import javax.management.MBeanServer;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.actuate.autoconfigure.integrationtest.JmxEndpointIntegrationTests;
 import org.springframework.boot.context.annotation.Configurations;
 import org.springframework.boot.test.context.assertj.AssertableWebApplicationContext;
 import org.springframework.boot.test.util.TestPropertyValues;
@@ -81,6 +85,17 @@ public final class WebApplicationContextRunner extends
 			List<Configurations> configurations) {
 		return new WebApplicationContextRunner(contextFactory, allowBeanDefinitionOverriding, initializers,
 				environmentProperties, systemProperties, classLoader, parent, beanRegistrations, configurations);
+	}
+
+	@Test
+	public
+	void jmxEndpointsCanBeExcluded(JmxEndpointIntegrationTests jmxEndpointIntegrationTests) {
+		withPropertyValues("management.endpoints.jmx.exposure.exclude:*").run((context) -> {
+			MBeanServer mBeanServer = context.getBean(MBeanServer.class);
+			jmxEndpointIntegrationTests.checkEndpointMBeans(mBeanServer, new String[0], new String[] { "beans", "conditions", "configprops", "env",
+					"health", "mappings", "shutdown", "threaddump", "httptrace" });
+	
+		});
 	}
 
 	/**
