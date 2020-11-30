@@ -16,9 +16,14 @@
 
 package org.springframework.boot.test.context.runner;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import java.util.List;
 import java.util.function.Supplier;
 
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.actuate.autoconfigure.metrics.CompositeMeterRegistryAutoConfigurationTests;
+import org.springframework.boot.actuate.autoconfigure.metrics.CompositeMeterRegistryAutoConfigurationTests.NoMeterRegistryConfig;
 import org.springframework.boot.context.annotation.Configurations;
 import org.springframework.boot.test.context.assertj.AssertableApplicationContext;
 import org.springframework.boot.test.util.TestPropertyValues;
@@ -26,6 +31,9 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextInitializer;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
+import io.micrometer.core.instrument.MeterRegistry;
+import io.micrometer.core.instrument.composite.CompositeMeterRegistry;
 
 /**
  * An {@link AbstractApplicationContextRunner ApplicationContext runner} for a standard,
@@ -77,6 +85,16 @@ public class ApplicationContextRunner extends
 			List<Configurations> configurations) {
 		return new ApplicationContextRunner(contextFactory, allowBeanDefinitionOverriding, initializers,
 				environmentProperties, systemProperties, classLoader, parent, beanRegistrations, configurations);
+	}
+
+	@Test
+	public
+	void registerWhenHasNoMeterRegistryShouldRegisterEmptyNoOpComposite(CompositeMeterRegistryAutoConfigurationTests compositeMeterRegistryAutoConfigurationTests) {
+		withUserConfiguration(NoMeterRegistryConfig.class).run((context) -> {
+			assertThat(context).hasSingleBean(MeterRegistry.class);
+			CompositeMeterRegistry registry = context.getBean("noOpMeterRegistry", CompositeMeterRegistry.class);
+			assertThat(registry.getRegistries()).isEmpty();
+		});
 	}
 
 }

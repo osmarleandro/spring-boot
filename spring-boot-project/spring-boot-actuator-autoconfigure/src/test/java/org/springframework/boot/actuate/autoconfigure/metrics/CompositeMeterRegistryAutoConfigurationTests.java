@@ -37,22 +37,13 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Phillip Webb
  * @author Andy Wilkinson
  */
-class CompositeMeterRegistryAutoConfigurationTests {
+public class CompositeMeterRegistryAutoConfigurationTests {
 
 	private static final String COMPOSITE_NAME = "compositeMeterRegistry";
 
-	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
+	public final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.withUserConfiguration(BaseConfig.class)
 			.withConfiguration(AutoConfigurations.of(CompositeMeterRegistryAutoConfiguration.class));
-
-	@Test
-	void registerWhenHasNoMeterRegistryShouldRegisterEmptyNoOpComposite() {
-		this.contextRunner.withUserConfiguration(NoMeterRegistryConfig.class).run((context) -> {
-			assertThat(context).hasSingleBean(MeterRegistry.class);
-			CompositeMeterRegistry registry = context.getBean("noOpMeterRegistry", CompositeMeterRegistry.class);
-			assertThat(registry.getRegistries()).isEmpty();
-		});
-	}
 
 	@Test
 	void registerWhenHasSingleMeterRegistryShouldDoNothing() {
@@ -97,6 +88,7 @@ class CompositeMeterRegistryAutoConfigurationTests {
 	}
 
 	@Configuration(proxyBeanMethods = false)
+	public
 	static class NoMeterRegistryConfig {
 
 	}
