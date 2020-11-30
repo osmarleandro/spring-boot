@@ -33,9 +33,9 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Andy Wilkinson
  */
-class ScheduledTasksEndpointAutoConfigurationTests {
+public class ScheduledTasksEndpointAutoConfigurationTests {
 
-	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
+	public final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(ScheduledTasksEndpointAutoConfiguration.class));
 
 	@Test
@@ -55,13 +55,8 @@ class ScheduledTasksEndpointAutoConfigurationTests {
 				.run((context) -> assertThat(context).doesNotHaveBean(ScheduledTasksEndpoint.class));
 	}
 
-	@Test
-	void endpointBacksOffWhenUserProvidedEndpointIsPresent() {
-		this.contextRunner.withUserConfiguration(CustomEndpointConfiguration.class).run(
-				(context) -> assertThat(context).hasSingleBean(ScheduledTasksEndpoint.class).hasBean("customEndpoint"));
-	}
-
 	@Configuration(proxyBeanMethods = false)
+	public
 	static class CustomEndpointConfiguration {
 
 		@Bean
