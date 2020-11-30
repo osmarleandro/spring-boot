@@ -33,9 +33,9 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Brian Clozel
  */
-class ConditionalOnAvailableEndpointTests {
+public class ConditionalOnAvailableEndpointTests {
 
-	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
+	public final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.withUserConfiguration(AllEndpointsConfiguration.class);
 
 	@Test
@@ -174,12 +174,6 @@ class ConditionalOnAvailableEndpointTests {
 							.contains("No endpoint is specified and the return type of the @Bean method "
 									+ "is neither an @Endpoint, nor an @EndpointExtension");
 				});
-	}
-
-	@Test
-	void outcomeOnCloudFoundryShouldMatchAll() {
-		this.contextRunner.withPropertyValues("VCAP_APPLICATION:---").run(
-				(context) -> assertThat(context).hasBean("info").hasBean("health").hasBean("spring").hasBean("test"));
 	}
 
 	@Test // gh-21044
