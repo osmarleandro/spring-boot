@@ -16,9 +16,16 @@
 
 package org.springframework.boot.test.context.runner;
 
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.BDDMockito.given;
+
 import java.util.List;
 import java.util.function.Supplier;
 
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.actuate.autoconfigure.cloudfoundry.AccessLevel;
+import org.springframework.boot.actuate.autoconfigure.cloudfoundry.reactive.CloudFoundryWebFluxEndpointIntegrationTests;
 import org.springframework.boot.context.annotation.Configurations;
 import org.springframework.boot.test.context.assertj.AssertableReactiveWebApplicationContext;
 import org.springframework.boot.test.util.TestPropertyValues;
@@ -26,6 +33,9 @@ import org.springframework.boot.web.reactive.context.AnnotationConfigReactiveWeb
 import org.springframework.boot.web.reactive.context.ConfigurableReactiveWebApplicationContext;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextInitializer;
+import org.springframework.http.MediaType;
+
+import reactor.core.publisher.Mono;
 
 /**
  * An {@link AbstractApplicationContextRunner ApplicationContext runner} for a
@@ -77,6 +87,21 @@ public final class ReactiveWebApplicationContextRunner extends
 			List<Configurations> configurations) {
 		return new ReactiveWebApplicationContextRunner(contextFactory, allowBeanDefinitionOverriding, initializers,
 				environmentProperties, systemProperties, classLoader, parent, beanRegistrations, configurations);
+	}
+
+	@Test
+	public
+	void linksToOtherEndpointsWithFullAccess(CloudFoundryWebFluxEndpointIntegrationTests cloudFoundryWebFluxEndpointIntegrationTests) {
+		given(CloudFoundryWebFluxEndpointIntegrationTests.tokenValidator.validate(any())).willReturn(Mono.empty());
+		given(CloudFoundryWebFluxEndpointIntegrationTests.securityService.getAccessLevel(any(), eq("app-id"))).willReturn(Mono.just(AccessLevel.FULL));
+		run(cloudFoundryWebFluxEndpointIntegrationTests.withWebTestClient((client) -> client.get().uri("/cfApplication").accept(MediaType.APPLICATION_JSON)
+						.header("Authorization", "bearer " + cloudFoundryWebFluxEndpointIntegrationTests.mockAccessToken()).exchange().expectStatus().isOk()
+						.expectBody().jsonPath("_links.length()").isEqualTo(5).jsonPath("_links.self.href").isNotEmpty()
+						.jsonPath("_links.self.templated").isEqualTo(false).jsonPath("_links.info.href").isNotEmpty()
+						.jsonPath("_links.info.templated").isEqualTo(false).jsonPath("_links.env.href").isNotEmpty()
+						.jsonPath("_links.env.templated").isEqualTo(false).jsonPath("_links.test.href").isNotEmpty()
+						.jsonPath("_links.test.templated").isEqualTo(false).jsonPath("_links.test-part.href")
+						.isNotEmpty().jsonPath("_links.test-part.templated").isEqualTo(true)));
 	}
 
 }
