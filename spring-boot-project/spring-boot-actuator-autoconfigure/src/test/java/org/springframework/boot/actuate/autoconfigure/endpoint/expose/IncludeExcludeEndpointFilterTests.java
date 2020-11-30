@@ -42,13 +42,6 @@ class IncludeExcludeEndpointFilterTests {
 	private IncludeExcludeEndpointFilter<?> filter;
 
 	@Test
-	void createWhenEndpointTypeIsNullShouldThrowException() {
-		assertThatIllegalArgumentException()
-				.isThrownBy(() -> new IncludeExcludeEndpointFilter<>(null, new MockEnvironment(), "foo"))
-				.withMessageContaining("EndpointType must not be null");
-	}
-
-	@Test
 	void createWhenEnvironmentIsNullShouldThrowException() {
 		assertThatIllegalArgumentException()
 				.isThrownBy(() -> new IncludeExcludeEndpointFilter<>(ExposableEndpoint.class, null, "foo"))
