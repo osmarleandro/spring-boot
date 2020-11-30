@@ -39,7 +39,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Madhura Bhave
  */
-class ReactiveCloudFoundrySecurityServiceTests {
+public class ReactiveCloudFoundrySecurityServiceTests {
 
 	private static final String CLOUD_CONTROLLER = "/my-cloud-controller.com";
 
@@ -47,7 +47,7 @@ class ReactiveCloudFoundrySecurityServiceTests {
 
 	private static final String UAA_URL = "https://my-cloud-controller.com/uaa";
 
-	private ReactiveCloudFoundrySecurityService securityService;
+	public ReactiveCloudFoundrySecurityService securityService;
 
 	private MockWebServer server;
 
@@ -181,22 +181,6 @@ class ReactiveCloudFoundrySecurityServiceTests {
 	}
 
 	@Test
-	void fetchTokenKeysWhenUnsuccessfulShouldThrowException() throws Exception {
-		prepareResponse((response) -> {
-			response.setBody("{\"token_endpoint\":\"/my-uaa.com\"}");
-			response.setHeader("Content-Type", "application/json");
-		});
-		prepareResponse((response) -> response.setResponseCode(500));
-		StepVerifier.create(this.securityService.fetchTokenKeys())
-				.consumeErrorWith(
-						(throwable) -> assertThat(((CloudFoundryAuthorizationException) throwable).getReason())
-								.isEqualTo(Reason.SERVICE_UNAVAILABLE))
-				.verify();
-		expectRequest((request) -> assertThat(request.getPath()).isEqualTo("/my-cloud-controller.com/info"));
-		expectRequest((request) -> assertThat(request.getPath()).isEqualTo("/my-uaa.com/token_keys"));
-	}
-
-	@Test
 	void getUaaUrlShouldCallCloudControllerInfoOnlyOnce() throws Exception {
 		prepareResponse((response) -> {
 			response.setBody("{\"token_endpoint\":\"" + UAA_URL + "\"}");
@@ -219,13 +203,13 @@ class ReactiveCloudFoundrySecurityServiceTests {
 		expectRequest((request) -> assertThat(request.getPath()).isEqualTo(CLOUD_CONTROLLER + "/info"));
 	}
 
-	private void prepareResponse(Consumer<MockResponse> consumer) {
+	public void prepareResponse(Consumer<MockResponse> consumer) {
 		MockResponse response = new MockResponse();
 		consumer.accept(response);
 		this.server.enqueue(response);
 	}
 
-	private void expectRequest(Consumer<RecordedRequest> consumer) throws InterruptedException {
+	public void expectRequest(Consumer<RecordedRequest> consumer) throws InterruptedException {
 		consumer.accept(this.server.takeRequest());
 	}
 
