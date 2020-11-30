@@ -16,10 +16,22 @@
 
 package org.springframework.boot.logging;
 
+import static org.mockito.BDDMockito.given;
+import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
+import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import java.util.Arrays;
+import java.util.EnumSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.actuate.autoconfigure.endpoint.web.documentation.LoggersEndpointDocumentationTests;
+import org.springframework.restdocs.mockmvc.MockMvcRestDocumentation;
 
 /**
  * Logger groups configured via the Spring Environment.
@@ -58,6 +70,22 @@ public final class LoggerGroups implements Iterable<LoggerGroup> {
 	@Override
 	public Iterator<LoggerGroup> iterator() {
 		return this.groups.values().iterator();
+	}
+
+	@Test
+	public
+	void allLoggers(LoggersEndpointDocumentationTests loggersEndpointDocumentationTests) throws Exception {
+		given(loggersEndpointDocumentationTests.loggingSystem.getSupportedLogLevels()).willReturn(EnumSet.allOf(LogLevel.class));
+		given(loggersEndpointDocumentationTests.loggingSystem.getLoggerConfigurations())
+				.willReturn(Arrays.asList(new LoggerConfiguration("ROOT", LogLevel.INFO, LogLevel.INFO),
+						new LoggerConfiguration("com.example", LogLevel.DEBUG, LogLevel.DEBUG)));
+		loggersEndpointDocumentationTests.mockMvc.perform(get("/actuator/loggers")).andExpect(status().isOk())
+				.andDo(MockMvcRestDocumentation.document("loggers/all",
+						responseFields(fieldWithPath("levels").description("Levels support by the logging system."),
+								fieldWithPath("loggers").description("Loggers keyed by name."),
+								fieldWithPath("groups").description("Logger groups keyed by name"))
+										.andWithPrefix("loggers.*.", LoggersEndpointDocumentationTests.levelFields)
+										.andWithPrefix("groups.*.", LoggersEndpointDocumentationTests.groupLevelFields)));
 	}
 
 }

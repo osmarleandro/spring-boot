@@ -18,7 +18,6 @@ package org.springframework.boot.actuate.autoconfigure.endpoint.web.documentatio
 
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.EnumSet;
 import java.util.List;
 import java.util.Map;
 
@@ -53,13 +52,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  *
  * @author Andy Wilkinson
  */
-class LoggersEndpointDocumentationTests extends MockMvcEndpointDocumentationTests {
+public class LoggersEndpointDocumentationTests extends MockMvcEndpointDocumentationTests {
 
-	private static final List<FieldDescriptor> levelFields = Arrays.asList(
+	public static final List<FieldDescriptor> levelFields = Arrays.asList(
 			fieldWithPath("configuredLevel").description("Configured level of the logger, if any.").optional(),
 			fieldWithPath("effectiveLevel").description("Effective level of the logger."));
 
-	private static final List<FieldDescriptor> groupLevelFields;
+	public static final List<FieldDescriptor> groupLevelFields;
 
 	static {
 		groupLevelFields = Arrays.asList(
@@ -69,25 +68,10 @@ class LoggersEndpointDocumentationTests extends MockMvcEndpointDocumentationTest
 	}
 
 	@MockBean
-	private LoggingSystem loggingSystem;
+	public LoggingSystem loggingSystem;
 
 	@Autowired
 	private LoggerGroups loggerGroups;
-
-	@Test
-	void allLoggers() throws Exception {
-		given(this.loggingSystem.getSupportedLogLevels()).willReturn(EnumSet.allOf(LogLevel.class));
-		given(this.loggingSystem.getLoggerConfigurations())
-				.willReturn(Arrays.asList(new LoggerConfiguration("ROOT", LogLevel.INFO, LogLevel.INFO),
-						new LoggerConfiguration("com.example", LogLevel.DEBUG, LogLevel.DEBUG)));
-		this.mockMvc.perform(get("/actuator/loggers")).andExpect(status().isOk())
-				.andDo(MockMvcRestDocumentation.document("loggers/all",
-						responseFields(fieldWithPath("levels").description("Levels support by the logging system."),
-								fieldWithPath("loggers").description("Loggers keyed by name."),
-								fieldWithPath("groups").description("Logger groups keyed by name"))
-										.andWithPrefix("loggers.*.", levelFields)
-										.andWithPrefix("groups.*.", groupLevelFields)));
-	}
 
 	@Test
 	void logger() throws Exception {
