@@ -35,9 +35,9 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Andy Wilkinson
  * @author Stephane Nicoll
  */
-class SystemMetricsAutoConfigurationTests {
+public class SystemMetricsAutoConfigurationTests {
 
-	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner().with(MetricsRun.simple())
+	public final ApplicationContextRunner contextRunner = new ApplicationContextRunner().with(MetricsRun.simple())
 			.withConfiguration(AutoConfigurations.of(SystemMetricsAutoConfiguration.class));
 
 	@Test
@@ -68,13 +68,6 @@ class SystemMetricsAutoConfigurationTests {
 		this.contextRunner.run((context) -> assertThat(context).hasSingleBean(FileDescriptorMetrics.class));
 	}
 
-	@Test
-	void allowsCustomFileDescriptorMetricsToBeUsed() {
-		this.contextRunner.withUserConfiguration(CustomFileDescriptorMetricsConfiguration.class)
-				.run((context) -> assertThat(context).hasSingleBean(FileDescriptorMetrics.class)
-						.hasBean("customFileDescriptorMetrics"));
-	}
-
 	@Configuration(proxyBeanMethods = false)
 	static class CustomUptimeMetricsConfiguration {
 
@@ -96,6 +89,7 @@ class SystemMetricsAutoConfigurationTests {
 	}
 
 	@Configuration(proxyBeanMethods = false)
+	public
 	static class CustomFileDescriptorMetricsConfiguration {
 
 		@Bean
