@@ -31,16 +31,11 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Dmytro Nosan
  */
-class HazelcastHealthContributorAutoConfigurationTests {
+public class HazelcastHealthContributorAutoConfigurationTests {
 
-	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
+	public final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(HazelcastAutoConfiguration.class,
 					HazelcastHealthContributorAutoConfiguration.class, HealthContributorAutoConfiguration.class));
-
-	@Test
-	void runShouldCreateIndicator() {
-		this.contextRunner.run((context) -> assertThat(context).hasSingleBean(HazelcastHealthIndicator.class));
-	}
 
 	@Test
 	void runWhenDisabledShouldNotCreateIndicator() {
