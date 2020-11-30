@@ -65,9 +65,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  *
  * @author Madhura Bhave
  */
-class CloudFoundryActuatorAutoConfigurationTests {
+public class CloudFoundryActuatorAutoConfigurationTests {
 
-	private final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner()
+	public final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(SecurityAutoConfiguration.class, WebMvcAutoConfiguration.class,
 					JacksonAutoConfiguration.class, DispatcherServletAutoConfiguration.class,
 					HttpMessageConvertersAutoConfiguration.class, PropertyPlaceholderAutoConfiguration.class,
@@ -199,24 +199,6 @@ class CloudFoundryActuatorAutoConfigurationTests {
 	}
 
 	@Test
-	void endpointPathCustomizationIsNotApplied() {
-		this.contextRunner
-				.withPropertyValues("VCAP_APPLICATION:---", "vcap.application.application_id:my-app-id",
-						"vcap.application.cf_api:https://my-cloud-controller.com",
-						"management.endpoints.web.path-mapping.test=custom")
-				.withBean(TestEndpoint.class, TestEndpoint::new).run((context) -> {
-					CloudFoundryWebEndpointServletHandlerMapping handlerMapping = getHandlerMapping(context);
-					Collection<ExposableWebEndpoint> endpoints = handlerMapping.getEndpoints();
-					ExposableWebEndpoint endpoint = endpoints.stream()
-							.filter((candidate) -> EndpointId.of("test").equals(candidate.getEndpointId())).findFirst()
-							.get();
-					Collection<WebOperation> operations = endpoint.getOperations();
-					assertThat(operations).hasSize(1);
-					assertThat(operations.iterator().next().getRequestPredicate().getPath()).isEqualTo("test");
-				});
-	}
-
-	@Test
 	void healthEndpointInvokerShouldBeCloudFoundryWebExtension() {
 		this.contextRunner
 				.withPropertyValues("VCAP_APPLICATION:---", "vcap.application.application_id:my-app-id",
@@ -236,7 +218,7 @@ class CloudFoundryActuatorAutoConfigurationTests {
 				});
 	}
 
-	private CloudFoundryWebEndpointServletHandlerMapping getHandlerMapping(ApplicationContext context) {
+	public CloudFoundryWebEndpointServletHandlerMapping getHandlerMapping(ApplicationContext context) {
 		return context.getBean("cloudFoundryWebEndpointServletHandlerMapping",
 				CloudFoundryWebEndpointServletHandlerMapping.class);
 	}
@@ -254,6 +236,7 @@ class CloudFoundryActuatorAutoConfigurationTests {
 	}
 
 	@Endpoint(id = "test")
+	public
 	static class TestEndpoint {
 
 		@ReadOperation
