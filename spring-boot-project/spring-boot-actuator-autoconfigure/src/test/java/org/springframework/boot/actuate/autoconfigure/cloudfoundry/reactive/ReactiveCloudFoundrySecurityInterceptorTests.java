@@ -43,6 +43,7 @@ import static org.mockito.BDDMockito.given;
  * @author Madhura Bhave
  */
 @ExtendWith(MockitoExtension.class)
+public
 class ReactiveCloudFoundrySecurityInterceptorTests {
 
 	@Mock
@@ -51,7 +52,7 @@ class ReactiveCloudFoundrySecurityInterceptorTests {
 	@Mock
 	private ReactiveCloudFoundrySecurityService securityService;
 
-	private CloudFoundrySecurityInterceptor interceptor;
+	public CloudFoundrySecurityInterceptor interceptor;
 
 	@BeforeEach
 	void setup() {
@@ -65,14 +66,6 @@ class ReactiveCloudFoundrySecurityInterceptorTests {
 						.header(HttpHeaders.ACCESS_CONTROL_REQUEST_METHOD, "GET").build());
 		StepVerifier.create(this.interceptor.preHandle(request, "/a"))
 				.consumeNextWith((response) -> assertThat(response.getStatus()).isEqualTo(HttpStatus.OK))
-				.verifyComplete();
-	}
-
-	@Test
-	void preHandleWhenTokenIsMissingShouldReturnMissingAuthorization() {
-		MockServerWebExchange request = MockServerWebExchange.from(MockServerHttpRequest.get("/a").build());
-		StepVerifier.create(this.interceptor.preHandle(request, "/a")).consumeNextWith(
-				(response) -> assertThat(response.getStatus()).isEqualTo(Reason.MISSING_AUTHORIZATION.getStatus()))
 				.verifyComplete();
 	}
 
