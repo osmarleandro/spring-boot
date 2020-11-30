@@ -16,8 +16,11 @@
 
 package org.springframework.boot.test.context.assertj;
 
+import java.util.Collection;
 import java.util.function.Supplier;
 
+import org.springframework.boot.actuate.endpoint.web.ExposableServletEndpoint;
+import org.springframework.boot.actuate.endpoint.web.annotation.ServletEndpointsSupplier;
 import org.springframework.boot.test.context.runner.WebApplicationContextRunner;
 import org.springframework.web.context.ConfigurableWebApplicationContext;
 import org.springframework.web.context.WebApplicationContext;
@@ -47,6 +50,11 @@ public interface AssertableWebApplicationContext
 	static AssertableWebApplicationContext get(Supplier<? extends ConfigurableWebApplicationContext> contextSupplier) {
 		return ApplicationContextAssertProvider.get(AssertableWebApplicationContext.class,
 				ConfigurableWebApplicationContext.class, contextSupplier);
+	}
+
+	public default ExposableServletEndpoint getEndpoint() {
+		Collection<ExposableServletEndpoint> endpoints = getBean(ServletEndpointsSupplier.class).getEndpoints();
+		return endpoints.iterator().next();
 	}
 
 }

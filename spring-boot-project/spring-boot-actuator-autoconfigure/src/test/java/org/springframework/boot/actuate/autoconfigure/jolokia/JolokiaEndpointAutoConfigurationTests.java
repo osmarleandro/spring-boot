@@ -30,7 +30,6 @@ import org.springframework.boot.actuate.endpoint.web.annotation.ServletEndpointD
 import org.springframework.boot.actuate.endpoint.web.annotation.ServletEndpointsSupplier;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
 import org.springframework.boot.autoconfigure.web.servlet.DispatcherServletAutoConfiguration;
-import org.springframework.boot.test.context.assertj.AssertableWebApplicationContext;
 import org.springframework.boot.test.context.runner.WebApplicationContextRunner;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
@@ -57,7 +56,7 @@ class JolokiaEndpointAutoConfigurationTests {
 	@Test
 	void jolokiaServletShouldBeEnabledByDefault() {
 		this.contextRunner.withPropertyValues("management.endpoints.web.exposure.include=jolokia").run((context) -> {
-			ExposableServletEndpoint endpoint = getEndpoint(context);
+			ExposableServletEndpoint endpoint = context.getEndpoint();
 			assertThat(endpoint.getRootPath()).isEqualTo("jolokia");
 			Object servlet = ReflectionTestUtils.getField(endpoint.getEndpointServlet(), "servlet");
 			assertThat(servlet).isInstanceOf(AgentServlet.class);
@@ -87,15 +86,10 @@ class JolokiaEndpointAutoConfigurationTests {
 	void jolokiaServletWhenHasCustomConfigShouldApplyInitParams() {
 		this.contextRunner.withPropertyValues("management.endpoint.jolokia.config.debug=true")
 				.withPropertyValues("management.endpoints.web.exposure.include=jolokia").run((context) -> {
-					ExposableServletEndpoint endpoint = getEndpoint(context);
+					ExposableServletEndpoint endpoint = context.getEndpoint();
 					assertThat(endpoint.getEndpointServlet()).extracting("initParameters")
 							.isEqualTo(Collections.singletonMap("debug", "true"));
 				});
-	}
-
-	private ExposableServletEndpoint getEndpoint(AssertableWebApplicationContext context) {
-		Collection<ExposableServletEndpoint> endpoints = context.getBean(ServletEndpointsSupplier.class).getEndpoints();
-		return endpoints.iterator().next();
 	}
 
 	@Configuration(proxyBeanMethods = false)
