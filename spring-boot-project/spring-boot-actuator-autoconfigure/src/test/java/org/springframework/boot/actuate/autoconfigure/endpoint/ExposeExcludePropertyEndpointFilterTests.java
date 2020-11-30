@@ -35,6 +35,7 @@ import static org.mockito.Mockito.mock;
  * @author Phillip Webb
  */
 @Deprecated
+public
 class ExposeExcludePropertyEndpointFilterTests {
 
 	private ExposeExcludePropertyEndpointFilter<?> filter;
@@ -77,12 +78,6 @@ class ExposeExcludePropertyEndpointFilterTests {
 	void matchWhenExposeIsEmptyAndExcludeIsEmptyAndNotInDefaultShouldNotMatch() {
 		setupFilter("", "");
 		assertThat(match(EndpointId.of("bar"))).isFalse();
-	}
-
-	@Test
-	void matchWhenExposeMatchesAndExcludeIsEmptyShouldMatch() {
-		setupFilter("bar", "");
-		assertThat(match(EndpointId.of("bar"))).isTrue();
 	}
 
 	@Test
@@ -147,7 +142,7 @@ class ExposeExcludePropertyEndpointFilterTests {
 		assertThat(match(EndpointId.of("bus-refresh"))).isTrue();
 	}
 
-	private void setupFilter(String include, String exclude) {
+	public void setupFilter(String include, String exclude) {
 		MockEnvironment environment = new MockEnvironment();
 		environment.setProperty("foo.include", include);
 		environment.setProperty("foo.exclude", exclude);
@@ -156,7 +151,7 @@ class ExposeExcludePropertyEndpointFilterTests {
 	}
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	private boolean match(EndpointId id) {
+	public boolean match(EndpointId id) {
 		ExposableEndpoint<?> endpoint = mock(TestExposableWebEndpoint.class);
 		given(endpoint.getEndpointId()).willReturn(id);
 		return ((EndpointFilter) this.filter).match(endpoint);
