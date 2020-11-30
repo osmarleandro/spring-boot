@@ -27,7 +27,6 @@ import java.security.spec.InvalidKeySpecException;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.util.Collections;
 import java.util.Map;
-import java.util.function.Consumer;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -43,7 +42,6 @@ import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.util.Base64Utils;
 import org.springframework.util.StreamUtils;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
@@ -98,7 +96,7 @@ class TokenValidatorTests {
 		String claims = "{\"exp\": 2147483647, \"iss\": \"http://localhost:8080/uaa/oauth/token\", \"scope\": [\"actuator.read\"]}";
 		assertThatExceptionOfType(CloudFoundryAuthorizationException.class).isThrownBy(
 				() -> this.tokenValidator.validate(new Token(getSignedToken(header.getBytes(), claims.getBytes()))))
-				.satisfies(reasonRequirement(Reason.INVALID_KEY_ID));
+				.satisfies(Reason.INVALID_KEY_ID.reasonRequirement());
 	}
 
 	@Test
@@ -140,7 +138,7 @@ class TokenValidatorTests {
 		String claims = "{ \"exp\": 2147483647, \"iss\": \"http://localhost:8080/uaa/oauth/token\", \"scope\": [\"actuator.read\"]}";
 		assertThatExceptionOfType(CloudFoundryAuthorizationException.class).isThrownBy(
 				() -> this.tokenValidator.validate(new Token(getSignedToken(header.getBytes(), claims.getBytes()))))
-				.satisfies(reasonRequirement(Reason.INVALID_SIGNATURE));
+				.satisfies(Reason.INVALID_SIGNATURE.reasonRequirement());
 	}
 
 	@Test
@@ -149,7 +147,7 @@ class TokenValidatorTests {
 		String claims = "{ \"exp\": 2147483647, \"iss\": \"http://localhost:8080/uaa/oauth/token\", \"scope\": [\"actuator.read\"]}";
 		assertThatExceptionOfType(CloudFoundryAuthorizationException.class).isThrownBy(
 				() -> this.tokenValidator.validate(new Token(getSignedToken(header.getBytes(), claims.getBytes()))))
-				.satisfies(reasonRequirement(Reason.UNSUPPORTED_TOKEN_SIGNING_ALGORITHM));
+				.satisfies(Reason.UNSUPPORTED_TOKEN_SIGNING_ALGORITHM.reasonRequirement());
 	}
 
 	@Test
@@ -160,7 +158,7 @@ class TokenValidatorTests {
 		String claims = "{ \"jti\": \"0236399c350c47f3ae77e67a75e75e7d\", \"exp\": 1477509977, \"scope\": [\"actuator.read\"]}";
 		assertThatExceptionOfType(CloudFoundryAuthorizationException.class).isThrownBy(
 				() -> this.tokenValidator.validate(new Token(getSignedToken(header.getBytes(), claims.getBytes()))))
-				.satisfies(reasonRequirement(Reason.TOKEN_EXPIRED));
+				.satisfies(Reason.TOKEN_EXPIRED.reasonRequirement());
 	}
 
 	@Test
@@ -171,7 +169,7 @@ class TokenValidatorTests {
 		String claims = "{ \"exp\": 2147483647, \"iss\": \"http://localhost:8080/uaa/oauth/token\"}";
 		assertThatExceptionOfType(CloudFoundryAuthorizationException.class).isThrownBy(
 				() -> this.tokenValidator.validate(new Token(getSignedToken(header.getBytes(), claims.getBytes()))))
-				.satisfies(reasonRequirement(Reason.INVALID_ISSUER));
+				.satisfies(Reason.INVALID_ISSUER.reasonRequirement());
 	}
 
 	@Test
@@ -182,7 +180,7 @@ class TokenValidatorTests {
 		String claims = "{ \"exp\": 2147483647, \"iss\": \"http://localhost:8080/uaa/oauth/token\", \"scope\": [\"foo.bar\"]}";
 		assertThatExceptionOfType(CloudFoundryAuthorizationException.class).isThrownBy(
 				() -> this.tokenValidator.validate(new Token(getSignedToken(header.getBytes(), claims.getBytes()))))
-				.satisfies(reasonRequirement(Reason.INVALID_AUDIENCE));
+				.satisfies(Reason.INVALID_AUDIENCE.reasonRequirement());
 	}
 
 	private String getSignedToken(byte[] header, byte[] claims) throws Exception {
@@ -243,10 +241,6 @@ class TokenValidatorTests {
 			StreamUtils.copy(bytes[i], result);
 		}
 		return result.toByteArray();
-	}
-
-	private Consumer<CloudFoundryAuthorizationException> reasonRequirement(Reason reason) {
-		return (ex) -> assertThat(ex.getReason()).isEqualTo(reason);
 	}
 
 }
