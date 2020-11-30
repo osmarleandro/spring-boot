@@ -16,6 +16,8 @@
 
 package org.springframework.boot.test.web.client;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import java.io.IOException;
 import java.net.URI;
 import java.util.Arrays;
@@ -33,7 +35,8 @@ import org.apache.http.conn.ssl.TrustSelfSignedStrategy;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.protocol.HttpContext;
 import org.apache.http.ssl.SSLContextBuilder;
-
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.actuate.autoconfigure.metrics.test.MetricsIntegrationTests;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.boot.web.client.RootUriTemplateHandler;
 import org.springframework.core.ParameterizedTypeReference;
@@ -53,6 +56,10 @@ import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.DefaultUriBuilderFactory;
 import org.springframework.web.util.UriTemplateHandler;
+
+import io.micrometer.core.instrument.binder.MeterBinder;
+import io.micrometer.core.instrument.binder.jvm.JvmMemoryMetrics;
+import io.micrometer.core.instrument.binder.logging.LogbackMetrics;
 
 /**
  * Convenient alternative of {@link RestTemplate} that is suitable for integration tests.
@@ -974,6 +981,13 @@ public class TestRestTemplate {
 			return URI.create(((RootUriTemplateHandler) uriTemplateHandler).getRootUri() + uri.toString());
 		}
 		return uri;
+	}
+
+	@Test
+	public
+	void automaticallyRegisteredBinders(MetricsIntegrationTests metricsIntegrationTests) {
+		assertThat(metricsIntegrationTests.context.getBeansOfType(MeterBinder.class).values())
+				.hasAtLeastOneElementOfType(LogbackMetrics.class).hasAtLeastOneElementOfType(JvmMemoryMetrics.class);
 	}
 
 	/**

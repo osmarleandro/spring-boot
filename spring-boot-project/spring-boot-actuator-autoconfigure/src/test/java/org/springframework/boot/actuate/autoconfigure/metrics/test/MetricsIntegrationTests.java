@@ -25,9 +25,6 @@ import javax.servlet.DispatcherType;
 
 import io.micrometer.core.instrument.MeterRegistry;
 import io.micrometer.core.instrument.MockClock;
-import io.micrometer.core.instrument.binder.MeterBinder;
-import io.micrometer.core.instrument.binder.jvm.JvmMemoryMetrics;
-import io.micrometer.core.instrument.binder.logging.LogbackMetrics;
 import io.micrometer.core.instrument.simple.SimpleConfig;
 import io.micrometer.core.instrument.simple.SimpleMeterRegistry;
 import org.junit.jupiter.api.Test;
@@ -83,10 +80,11 @@ import static org.springframework.test.web.client.response.MockRestResponseCreat
  */
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT, classes = MetricsIntegrationTests.MetricsApp.class,
 		properties = "management.metrics.use-global-registry=false")
+public
 class MetricsIntegrationTests {
 
 	@Autowired
-	private ApplicationContext context;
+	public ApplicationContext context;
 
 	@Autowired
 	private RestTemplate external;
@@ -111,12 +109,6 @@ class MetricsIntegrationTests {
 	void requestMappingIsInstrumented() {
 		this.loopback.getForObject("/api/people", Set.class);
 		assertThat(this.registry.get("http.server.requests").timer().count()).isEqualTo(1);
-	}
-
-	@Test
-	void automaticallyRegisteredBinders() {
-		assertThat(this.context.getBeansOfType(MeterBinder.class).values())
-				.hasAtLeastOneElementOfType(LogbackMetrics.class).hasAtLeastOneElementOfType(JvmMemoryMetrics.class);
 	}
 
 	@Test
