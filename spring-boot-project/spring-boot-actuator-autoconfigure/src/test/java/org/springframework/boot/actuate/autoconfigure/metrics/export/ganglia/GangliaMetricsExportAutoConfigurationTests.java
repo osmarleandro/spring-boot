@@ -34,9 +34,9 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Andy Wilkinson
  */
-class GangliaMetricsExportAutoConfigurationTests {
+public class GangliaMetricsExportAutoConfigurationTests {
 
-	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
+	public final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(GangliaMetricsExportAutoConfiguration.class));
 
 	@Test
@@ -73,13 +73,6 @@ class GangliaMetricsExportAutoConfigurationTests {
 	}
 
 	@Test
-	void allowsCustomRegistryToBeUsed() {
-		this.contextRunner.withUserConfiguration(CustomRegistryConfiguration.class)
-				.run((context) -> assertThat(context).hasSingleBean(GangliaMeterRegistry.class)
-						.hasBean("customRegistry").hasSingleBean(GangliaConfig.class));
-	}
-
-	@Test
 	void stopsMeterRegistryWhenContextIsClosed() {
 		this.contextRunner.withUserConfiguration(BaseConfiguration.class).run((context) -> {
 			GangliaMeterRegistry registry = context.getBean(GangliaMeterRegistry.class);
@@ -112,6 +105,7 @@ class GangliaMetricsExportAutoConfigurationTests {
 
 	@Configuration(proxyBeanMethods = false)
 	@Import(BaseConfiguration.class)
+	public
 	static class CustomRegistryConfiguration {
 
 		@Bean
