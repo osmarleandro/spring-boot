@@ -27,7 +27,6 @@ import org.springframework.boot.actuate.autoconfigure.web.jersey.JerseySameManag
 import org.springframework.boot.actuate.endpoint.web.WebEndpointsSupplier;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
 import org.springframework.boot.test.context.FilteredClassLoader;
-import org.springframework.boot.test.context.runner.ApplicationContextRunner;
 import org.springframework.boot.test.context.runner.WebApplicationContextRunner;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -48,14 +47,6 @@ class JerseyWebEndpointManagementContextConfigurationTests {
 	@Test
 	void jerseyWebEndpointsResourcesRegistrarForEndpointsIsAutoConfigured() {
 		this.runner.run((context) -> assertThat(context).hasSingleBean(JerseyWebEndpointsResourcesRegistrar.class));
-	}
-
-	@Test
-	void autoConfigurationIsConditionalOnServletWebApplication() {
-		ApplicationContextRunner contextRunner = new ApplicationContextRunner()
-				.withConfiguration(AutoConfigurations.of(JerseySameManagementContextConfiguration.class));
-		contextRunner
-				.run((context) -> assertThat(context).doesNotHaveBean(JerseySameManagementContextConfiguration.class));
 	}
 
 	@Test
