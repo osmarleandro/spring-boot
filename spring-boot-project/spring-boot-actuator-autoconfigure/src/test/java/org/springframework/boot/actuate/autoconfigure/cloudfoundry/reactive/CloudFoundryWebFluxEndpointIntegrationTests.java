@@ -68,14 +68,14 @@ import static org.mockito.Mockito.mock;
  * @author Madhura Bhave
  * @author Stephane Nicoll
  */
-class CloudFoundryWebFluxEndpointIntegrationTests {
+public class CloudFoundryWebFluxEndpointIntegrationTests {
 
 	private static ReactiveTokenValidator tokenValidator = mock(ReactiveTokenValidator.class);
 
 	private static ReactiveCloudFoundrySecurityService securityService = mock(
 			ReactiveCloudFoundrySecurityService.class);
 
-	private final ReactiveWebApplicationContextRunner contextRunner = new ReactiveWebApplicationContextRunner(
+	public final ReactiveWebApplicationContextRunner contextRunner = new ReactiveWebApplicationContextRunner(
 			AnnotationConfigReactiveWebServerApplicationContext::new)
 					.withConfiguration(AutoConfigurations.of(WebFluxAutoConfiguration.class,
 							HttpHandlerAutoConfiguration.class, ReactiveWebServerFactoryAutoConfiguration.class))
@@ -97,15 +97,6 @@ class CloudFoundryWebFluxEndpointIntegrationTests {
 		this.contextRunner.run(withWebTestClient((client) -> client.get().uri("/cfApplication/test")
 				.accept(MediaType.APPLICATION_JSON).header("Authorization", "bearer " + mockAccessToken()).exchange()
 				.expectStatus().isEqualTo(HttpStatus.OK)));
-	}
-
-	@Test
-	void responseToOptionsRequestIncludesCorsHeaders() {
-		this.contextRunner.run(withWebTestClient((client) -> client.options().uri("/cfApplication/test")
-				.accept(MediaType.APPLICATION_JSON).header("Access-Control-Request-Method", "POST")
-				.header("Origin", "https://example.com").exchange().expectStatus().isOk().expectHeader()
-				.valueEquals("Access-Control-Allow-Origin", "https://example.com").expectHeader()
-				.valueEquals("Access-Control-Allow-Methods", "GET,POST")));
 	}
 
 	@Test
@@ -146,7 +137,7 @@ class CloudFoundryWebFluxEndpointIntegrationTests {
 						.jsonPath("_links.test").doesNotExist().jsonPath("_links.test-part").doesNotExist()));
 	}
 
-	private ContextConsumer<AssertableReactiveWebApplicationContext> withWebTestClient(
+	public ContextConsumer<AssertableReactiveWebApplicationContext> withWebTestClient(
 			Consumer<WebTestClient> clientConsumer) {
 		return (context) -> {
 			int port = ((AnnotationConfigReactiveWebServerApplicationContext) context.getSourceApplicationContext())

@@ -19,6 +19,8 @@ package org.springframework.boot.test.context.runner;
 import java.util.List;
 import java.util.function.Supplier;
 
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.actuate.autoconfigure.cloudfoundry.reactive.CloudFoundryWebFluxEndpointIntegrationTests;
 import org.springframework.boot.context.annotation.Configurations;
 import org.springframework.boot.test.context.assertj.AssertableReactiveWebApplicationContext;
 import org.springframework.boot.test.util.TestPropertyValues;
@@ -26,6 +28,7 @@ import org.springframework.boot.web.reactive.context.AnnotationConfigReactiveWeb
 import org.springframework.boot.web.reactive.context.ConfigurableReactiveWebApplicationContext;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextInitializer;
+import org.springframework.http.MediaType;
 
 /**
  * An {@link AbstractApplicationContextRunner ApplicationContext runner} for a
@@ -77,6 +80,16 @@ public final class ReactiveWebApplicationContextRunner extends
 			List<Configurations> configurations) {
 		return new ReactiveWebApplicationContextRunner(contextFactory, allowBeanDefinitionOverriding, initializers,
 				environmentProperties, systemProperties, classLoader, parent, beanRegistrations, configurations);
+	}
+
+	@Test
+	public
+	void responseToOptionsRequestIncludesCorsHeaders(CloudFoundryWebFluxEndpointIntegrationTests cloudFoundryWebFluxEndpointIntegrationTests) {
+		run(cloudFoundryWebFluxEndpointIntegrationTests.withWebTestClient((client) -> client.options().uri("/cfApplication/test")
+				.accept(MediaType.APPLICATION_JSON).header("Access-Control-Request-Method", "POST")
+				.header("Origin", "https://example.com").exchange().expectStatus().isOk().expectHeader()
+				.valueEquals("Access-Control-Allow-Origin", "https://example.com").expectHeader()
+				.valueEquals("Access-Control-Allow-Methods", "GET,POST")));
 	}
 
 }
