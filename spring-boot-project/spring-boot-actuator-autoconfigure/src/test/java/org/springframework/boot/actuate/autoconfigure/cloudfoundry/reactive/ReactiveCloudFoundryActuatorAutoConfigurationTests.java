@@ -25,10 +25,7 @@ import java.util.stream.Collectors;
 
 import javax.net.ssl.SSLException;
 
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
-import reactor.netty.http.HttpResources;
-
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.servlet.CloudFoundryInfoEndpointWebExtension;
 import org.springframework.boot.actuate.autoconfigure.endpoint.EndpointAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointAutoConfiguration;
@@ -90,11 +87,6 @@ class ReactiveCloudFoundryActuatorAutoConfigurationTests {
 					HealthContributorAutoConfiguration.class, HealthEndpointAutoConfiguration.class,
 					InfoContributorAutoConfiguration.class, InfoEndpointAutoConfiguration.class,
 					ProjectInfoAutoConfiguration.class, ReactiveCloudFoundryActuatorAutoConfiguration.class));
-
-	@AfterEach
-	void close() {
-		HttpResources.reset();
-	}
 
 	@Test
 	void cloudFoundryPlatformActive() {
