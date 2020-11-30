@@ -23,8 +23,6 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.assertj.core.api.AssertDelegateTarget;
 import org.junit.jupiter.api.Test;
-
-import org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointProperties;
 import org.springframework.boot.actuate.endpoint.EndpointId;
 import org.springframework.boot.actuate.endpoint.ExposableEndpoint;
 import org.springframework.boot.actuate.endpoint.Operation;
@@ -32,12 +30,10 @@ import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
 import org.springframework.boot.actuate.endpoint.web.PathMappedEndpoint;
 import org.springframework.boot.actuate.endpoint.web.PathMappedEndpoints;
 import org.springframework.boot.actuate.endpoint.web.annotation.ServletEndpoint;
-import org.springframework.boot.autoconfigure.security.servlet.RequestMatcherProvider;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockServletContext;
 import org.springframework.security.web.util.matcher.RequestMatcher;
 import org.springframework.web.context.WebApplicationContext;
-import org.springframework.web.context.support.StaticWebApplicationContext;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
@@ -49,7 +45,7 @@ import static org.mockito.Mockito.mock;
  * @author Phillip Webb
  * @author Madhura Bhave
  */
-class EndpointRequestTests {
+public class EndpointRequestTests {
 
 	@Test
 	void toAnyEndpointShouldMatchEndpointPath() {
@@ -194,8 +190,7 @@ class EndpointRequestTests {
 	void endpointRequestMatcherShouldUseCustomRequestMatcherProvider() {
 		RequestMatcher matcher = EndpointRequest.toAnyEndpoint();
 		RequestMatcher mockRequestMatcher = (request) -> false;
-		RequestMatcherAssert assertMatcher = assertMatcher(matcher, mockPathMappedEndpoints(""),
-				(pattern) -> mockRequestMatcher);
+		RequestMatcherAssert assertMatcher = mockPathMappedEndpoints("").assertMatcher(matcher, (pattern) -> mockRequestMatcher);
 		assertMatcher.doesNotMatch("/foo");
 		assertMatcher.doesNotMatch("/bar");
 	}
@@ -204,8 +199,7 @@ class EndpointRequestTests {
 	void linksRequestMatcherShouldUseCustomRequestMatcherProvider() {
 		RequestMatcher matcher = EndpointRequest.toLinks();
 		RequestMatcher mockRequestMatcher = (request) -> false;
-		RequestMatcherAssert assertMatcher = assertMatcher(matcher, mockPathMappedEndpoints("/actuator"),
-				(pattern) -> mockRequestMatcher);
+		RequestMatcherAssert assertMatcher = mockPathMappedEndpoints("/actuator").assertMatcher(matcher, (pattern) -> mockRequestMatcher);
 		assertMatcher.doesNotMatch("/actuator");
 	}
 
@@ -221,7 +215,7 @@ class EndpointRequestTests {
 	}
 
 	private RequestMatcherAssert assertMatcher(RequestMatcher matcher, String basePath) {
-		return assertMatcher(matcher, mockPathMappedEndpoints(basePath), null);
+		return mockPathMappedEndpoints(basePath).assertMatcher(matcher, null);
 	}
 
 	private PathMappedEndpoints mockPathMappedEndpoints(String basePath) {
@@ -239,27 +233,10 @@ class EndpointRequestTests {
 	}
 
 	private RequestMatcherAssert assertMatcher(RequestMatcher matcher, PathMappedEndpoints pathMappedEndpoints) {
-		return assertMatcher(matcher, pathMappedEndpoints, null);
+		return pathMappedEndpoints.assertMatcher(matcher, null);
 	}
 
-	private RequestMatcherAssert assertMatcher(RequestMatcher matcher, PathMappedEndpoints pathMappedEndpoints,
-			RequestMatcherProvider matcherProvider) {
-		StaticWebApplicationContext context = new StaticWebApplicationContext();
-		context.registerBean(WebEndpointProperties.class);
-		if (pathMappedEndpoints != null) {
-			context.registerBean(PathMappedEndpoints.class, () -> pathMappedEndpoints);
-			WebEndpointProperties properties = context.getBean(WebEndpointProperties.class);
-			if (!properties.getBasePath().equals(pathMappedEndpoints.getBasePath())) {
-				properties.setBasePath(pathMappedEndpoints.getBasePath());
-			}
-		}
-		if (matcherProvider != null) {
-			context.registerBean(RequestMatcherProvider.class, () -> matcherProvider);
-		}
-		return assertThat(new RequestMatcherAssert(context, matcher));
-	}
-
-	static class RequestMatcherAssert implements AssertDelegateTarget {
+	public static class RequestMatcherAssert implements AssertDelegateTarget {
 
 		private final WebApplicationContext context;
 

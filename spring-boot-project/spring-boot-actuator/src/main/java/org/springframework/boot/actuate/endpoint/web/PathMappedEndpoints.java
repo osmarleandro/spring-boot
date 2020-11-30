@@ -16,6 +16,8 @@
 
 package org.springframework.boot.actuate.endpoint.web;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
@@ -25,9 +27,14 @@ import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointProperties;
+import org.springframework.boot.actuate.autoconfigure.security.servlet.EndpointRequestTests.RequestMatcherAssert;
 import org.springframework.boot.actuate.endpoint.EndpointId;
 import org.springframework.boot.actuate.endpoint.EndpointsSupplier;
+import org.springframework.boot.autoconfigure.security.servlet.RequestMatcherProvider;
+import org.springframework.security.web.util.matcher.RequestMatcher;
 import org.springframework.util.Assert;
+import org.springframework.web.context.support.StaticWebApplicationContext;
 
 /**
  * A collection of {@link PathMappedEndpoint path mapped endpoints}.
@@ -147,6 +154,22 @@ public class PathMappedEndpoints implements Iterable<PathMappedEndpoint> {
 
 	private <T> List<T> asList(Stream<T> stream) {
 		return stream.collect(Collectors.collectingAndThen(Collectors.toList(), Collections::unmodifiableList));
+	}
+
+	public RequestMatcherAssert assertMatcher(RequestMatcher matcher, RequestMatcherProvider matcherProvider) {
+		StaticWebApplicationContext context = new StaticWebApplicationContext();
+		context.registerBean(WebEndpointProperties.class);
+		if (this != null) {
+			context.registerBean(PathMappedEndpoints.class, () -> this);
+			WebEndpointProperties properties = context.getBean(WebEndpointProperties.class);
+			if (!properties.getBasePath().equals(getBasePath())) {
+				properties.setBasePath(getBasePath());
+			}
+		}
+		if (matcherProvider != null) {
+			context.registerBean(RequestMatcherProvider.class, () -> matcherProvider);
+		}
+		return assertThat(new RequestMatcherAssert(context, matcher));
 	}
 
 }
