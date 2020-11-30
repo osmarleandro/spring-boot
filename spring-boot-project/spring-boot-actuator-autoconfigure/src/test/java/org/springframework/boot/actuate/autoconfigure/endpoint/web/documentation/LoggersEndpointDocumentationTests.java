@@ -53,7 +53,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  *
  * @author Andy Wilkinson
  */
-class LoggersEndpointDocumentationTests extends MockMvcEndpointDocumentationTests {
+public class LoggersEndpointDocumentationTests extends MockMvcEndpointDocumentationTests {
 
 	private static final List<FieldDescriptor> levelFields = Arrays.asList(
 			fieldWithPath("configuredLevel").description("Configured level of the logger, if any.").optional(),
@@ -69,7 +69,7 @@ class LoggersEndpointDocumentationTests extends MockMvcEndpointDocumentationTest
 	}
 
 	@MockBean
-	private LoggingSystem loggingSystem;
+	public LoggingSystem loggingSystem;
 
 	@Autowired
 	private LoggerGroups loggerGroups;
@@ -104,17 +104,6 @@ class LoggersEndpointDocumentationTests extends MockMvcEndpointDocumentationTest
 		this.mockMvc.perform(get("/actuator/loggers/test")).andExpect(status().isOk())
 				.andDo(MockMvcRestDocumentation.document("loggers/group", responseFields(groupLevelFields)));
 		resetLogger();
-	}
-
-	@Test
-	void setLogLevel() throws Exception {
-		this.mockMvc
-				.perform(post("/actuator/loggers/com.example").content("{\"configuredLevel\":\"debug\"}")
-						.contentType(MediaType.APPLICATION_JSON))
-				.andExpect(status().isNoContent())
-				.andDo(MockMvcRestDocumentation.document("loggers/set", requestFields(fieldWithPath("configuredLevel")
-						.description("Level for the logger. May be omitted to clear the level.").optional())));
-		verify(this.loggingSystem).setLogLevel("com.example", LogLevel.DEBUG);
 	}
 
 	@Test
