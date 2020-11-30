@@ -25,8 +25,11 @@ import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import org.springframework.boot.actuate.autoconfigure.security.servlet.EndpointRequestTests;
+import org.springframework.boot.actuate.autoconfigure.security.servlet.EndpointRequestTests.RequestMatcherAssert;
 import org.springframework.boot.actuate.endpoint.EndpointId;
 import org.springframework.boot.actuate.endpoint.EndpointsSupplier;
+import org.springframework.security.web.util.matcher.RequestMatcher;
 import org.springframework.util.Assert;
 
 /**
@@ -147,6 +150,10 @@ public class PathMappedEndpoints implements Iterable<PathMappedEndpoint> {
 
 	private <T> List<T> asList(Stream<T> stream) {
 		return stream.collect(Collectors.collectingAndThen(Collectors.toList(), Collections::unmodifiableList));
+	}
+
+	public RequestMatcherAssert assertMatcher(RequestMatcher matcher, EndpointRequestTests endpointRequestTests) {
+		return endpointRequestTests.assertMatcher(matcher, this, null);
 	}
 
 }

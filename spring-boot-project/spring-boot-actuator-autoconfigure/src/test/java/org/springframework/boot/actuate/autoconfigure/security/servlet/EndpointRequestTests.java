@@ -49,7 +49,7 @@ import static org.mockito.Mockito.mock;
  * @author Phillip Webb
  * @author Madhura Bhave
  */
-class EndpointRequestTests {
+public class EndpointRequestTests {
 
 	@Test
 	void toAnyEndpointShouldMatchEndpointPath() {
@@ -145,8 +145,8 @@ class EndpointRequestTests {
 		endpoints.add(mockEndpoint(EndpointId.of("bar"), "bar"));
 		endpoints.add(mockEndpoint(EndpointId.of("baz"), "baz"));
 		PathMappedEndpoints pathMappedEndpoints = new PathMappedEndpoints("/actuator", () -> endpoints);
-		assertMatcher(matcher, pathMappedEndpoints).doesNotMatch("/actuator/foo");
-		assertMatcher(matcher, pathMappedEndpoints).doesNotMatch("/actuator/baz");
+		pathMappedEndpoints.assertMatcher(matcher, this).doesNotMatch("/actuator/foo");
+		pathMappedEndpoints.assertMatcher(matcher, this).doesNotMatch("/actuator/baz");
 		assertMatcher(matcher).matches("/actuator/bar");
 		assertMatcher(matcher).matches("/actuator");
 	}
@@ -212,12 +212,12 @@ class EndpointRequestTests {
 	@Test
 	void noEndpointPathsBeansShouldNeverMatch() {
 		RequestMatcher matcher = EndpointRequest.toAnyEndpoint();
-		assertMatcher(matcher, (PathMappedEndpoints) null).doesNotMatch("/actuator/foo");
-		assertMatcher(matcher, (PathMappedEndpoints) null).doesNotMatch("/actuator/bar");
+		(PathMappedEndpoints) null.assertMatcher(matcher, this).doesNotMatch("/actuator/foo");
+		(PathMappedEndpoints) null.assertMatcher(matcher, this).doesNotMatch("/actuator/bar");
 	}
 
 	private RequestMatcherAssert assertMatcher(RequestMatcher matcher) {
-		return assertMatcher(matcher, mockPathMappedEndpoints("/actuator"));
+		return mockPathMappedEndpoints("/actuator").assertMatcher(matcher, this);
 	}
 
 	private RequestMatcherAssert assertMatcher(RequestMatcher matcher, String basePath) {
@@ -238,11 +238,7 @@ class EndpointRequestTests {
 		return endpoint;
 	}
 
-	private RequestMatcherAssert assertMatcher(RequestMatcher matcher, PathMappedEndpoints pathMappedEndpoints) {
-		return assertMatcher(matcher, pathMappedEndpoints, null);
-	}
-
-	private RequestMatcherAssert assertMatcher(RequestMatcher matcher, PathMappedEndpoints pathMappedEndpoints,
+	public RequestMatcherAssert assertMatcher(RequestMatcher matcher, PathMappedEndpoints pathMappedEndpoints,
 			RequestMatcherProvider matcherProvider) {
 		StaticWebApplicationContext context = new StaticWebApplicationContext();
 		context.registerBean(WebEndpointProperties.class);
@@ -259,7 +255,7 @@ class EndpointRequestTests {
 		return assertThat(new RequestMatcherAssert(context, matcher));
 	}
 
-	static class RequestMatcherAssert implements AssertDelegateTarget {
+	public static class RequestMatcherAssert implements AssertDelegateTarget {
 
 		private final WebApplicationContext context;
 
