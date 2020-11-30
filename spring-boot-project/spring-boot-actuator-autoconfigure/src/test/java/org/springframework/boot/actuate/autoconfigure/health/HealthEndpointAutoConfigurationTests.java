@@ -62,13 +62,13 @@ import static org.mockito.Mockito.mock;
  * @author Stephane Nicoll
  * @author Scott Frederick
  */
-class HealthEndpointAutoConfigurationTests {
+public class HealthEndpointAutoConfigurationTests {
 
 	private final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner()
 			.withUserConfiguration(HealthIndicatorsConfiguration.class).withConfiguration(AutoConfigurations
 					.of(HealthContributorAutoConfiguration.class, HealthEndpointAutoConfiguration.class));
 
-	private final ReactiveWebApplicationContextRunner reactiveContextRunner = new ReactiveWebApplicationContextRunner()
+	public final ReactiveWebApplicationContextRunner reactiveContextRunner = new ReactiveWebApplicationContextRunner()
 			.withUserConfiguration(HealthIndicatorsConfiguration.class).withConfiguration(AutoConfigurations
 					.of(HealthContributorAutoConfiguration.class, HealthEndpointAutoConfiguration.class));
 
@@ -191,17 +191,6 @@ class HealthEndpointAutoConfigurationTests {
 			Object[] names = registry.stream().map(NamedContributor::getName).toArray();
 			assertThat(names).containsExactlyInAnyOrder("simple", "additional", "reactive", "ping");
 		});
-	}
-
-	@Test
-	void runWhenHasReactiveHealthContributorRegistryBeanDoesNotCreateAdditionalReactiveHealthContributorRegistry() {
-		this.reactiveContextRunner.withUserConfiguration(ReactiveHealthContributorRegistryConfiguration.class)
-				.run((context) -> {
-					ReactiveHealthContributorRegistry registry = context
-							.getBean(ReactiveHealthContributorRegistry.class);
-					Object[] names = registry.stream().map(NamedContributor::getName).toArray();
-					assertThat(names).isEmpty();
-				});
 	}
 
 	@Test
@@ -332,6 +321,7 @@ class HealthEndpointAutoConfigurationTests {
 	}
 
 	@Configuration(proxyBeanMethods = false)
+	public
 	static class ReactiveHealthContributorRegistryConfiguration {
 
 		@Bean

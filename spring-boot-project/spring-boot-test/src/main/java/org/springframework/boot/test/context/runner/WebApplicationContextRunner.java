@@ -16,9 +16,16 @@
 
 package org.springframework.boot.test.context.runner;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import java.util.List;
 import java.util.function.Supplier;
 
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.actuate.autoconfigure.health.HealthEndpointAutoConfigurationTests;
+import org.springframework.boot.actuate.autoconfigure.health.HealthEndpointAutoConfigurationTests.ReactiveHealthContributorRegistryConfiguration;
+import org.springframework.boot.actuate.health.NamedContributor;
+import org.springframework.boot.actuate.health.ReactiveHealthContributorRegistry;
 import org.springframework.boot.context.annotation.Configurations;
 import org.springframework.boot.test.context.assertj.AssertableWebApplicationContext;
 import org.springframework.boot.test.util.TestPropertyValues;
@@ -81,6 +88,18 @@ public final class WebApplicationContextRunner extends
 			List<Configurations> configurations) {
 		return new WebApplicationContextRunner(contextFactory, allowBeanDefinitionOverriding, initializers,
 				environmentProperties, systemProperties, classLoader, parent, beanRegistrations, configurations);
+	}
+
+	@Test
+	public
+	void runWhenHasReactiveHealthContributorRegistryBeanDoesNotCreateAdditionalReactiveHealthContributorRegistry(HealthEndpointAutoConfigurationTests healthEndpointAutoConfigurationTests) {
+		healthEndpointAutoConfigurationTests.reactiveContextRunner.withUserConfiguration(ReactiveHealthContributorRegistryConfiguration.class)
+				.run((context) -> {
+					ReactiveHealthContributorRegistry registry = context
+							.getBean(ReactiveHealthContributorRegistry.class);
+					Object[] names = registry.stream().map(NamedContributor::getName).toArray();
+					assertThat(names).isEmpty();
+				});
 	}
 
 	/**
