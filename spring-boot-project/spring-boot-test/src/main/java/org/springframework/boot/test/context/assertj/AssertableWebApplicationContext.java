@@ -16,9 +16,16 @@
 
 package org.springframework.boot.test.context.assertj;
 
+import java.io.IOException;
 import java.util.function.Supplier;
 
 import org.springframework.boot.test.context.runner.WebApplicationContextRunner;
+import org.springframework.http.HttpStatus;
+import org.springframework.mock.web.MockFilterChain;
+import org.springframework.mock.web.MockHttpServletRequest;
+import org.springframework.mock.web.MockHttpServletResponse;
+import org.springframework.mock.web.MockServletContext;
+import org.springframework.security.web.FilterChainProxy;
 import org.springframework.web.context.ConfigurableWebApplicationContext;
 import org.springframework.web.context.WebApplicationContext;
 
@@ -47,6 +54,19 @@ public interface AssertableWebApplicationContext
 	static AssertableWebApplicationContext get(Supplier<? extends ConfigurableWebApplicationContext> contextSupplier) {
 		return ApplicationContextAssertProvider.get(AssertableWebApplicationContext.class,
 				ConfigurableWebApplicationContext.class, contextSupplier);
+	}
+
+	public default HttpStatus getResponseStatus(String path)
+			throws IOException, javax.servlet.ServletException {
+		FilterChainProxy filterChainProxy = getBean(FilterChainProxy.class);
+		MockServletContext servletContext = new MockServletContext();
+		MockHttpServletResponse response = new MockHttpServletResponse();
+		servletContext.setAttribute(WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE, this);
+		MockHttpServletRequest request = new MockHttpServletRequest(servletContext);
+		request.setServletPath(path);
+		request.setMethod("GET");
+		filterChainProxy.doFilter(request, response, new MockFilterChain());
+		return HttpStatus.valueOf(response.getStatus());
 	}
 
 }
