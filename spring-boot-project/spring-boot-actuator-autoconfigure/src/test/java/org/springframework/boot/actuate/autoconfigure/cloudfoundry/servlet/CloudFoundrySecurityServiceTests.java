@@ -47,17 +47,17 @@ import static org.springframework.test.web.client.response.MockRestResponseCreat
  *
  * @author Madhura Bhave
  */
-class CloudFoundrySecurityServiceTests {
+public class CloudFoundrySecurityServiceTests {
 
 	private static final String CLOUD_CONTROLLER = "https://my-cloud-controller.com";
 
-	private static final String CLOUD_CONTROLLER_PERMISSIONS = CLOUD_CONTROLLER + "/v2/apps/my-app-id/permissions";
+	public static final String CLOUD_CONTROLLER_PERMISSIONS = CLOUD_CONTROLLER + "/v2/apps/my-app-id/permissions";
 
 	private static final String UAA_URL = "https://my-uaa.com";
 
-	private CloudFoundrySecurityService securityService;
+	public CloudFoundrySecurityService securityService;
 
-	private MockRestServiceServer server;
+	public MockRestServiceServer server;
 
 	@BeforeEach
 	void setup() {
@@ -125,15 +125,6 @@ class CloudFoundrySecurityServiceTests {
 	}
 
 	@Test
-	void getAccessLevelWhenCloudControllerIsNotReachableThrowsException() {
-		this.server.expect(requestTo(CLOUD_CONTROLLER_PERMISSIONS))
-				.andExpect(header("Authorization", "bearer my-access-token")).andRespond(withServerError());
-		assertThatExceptionOfType(CloudFoundryAuthorizationException.class)
-				.isThrownBy(() -> this.securityService.getAccessLevel("my-access-token", "my-app-id"))
-				.satisfies(reasonRequirement(Reason.SERVICE_UNAVAILABLE));
-	}
-
-	@Test
 	void fetchTokenKeysWhenSuccessfulShouldReturnListOfKeysFromUAA() {
 		this.server.expect(requestTo(CLOUD_CONTROLLER + "/info"))
 				.andRespond(withSuccess("{\"token_endpoint\":\"https://my-uaa.com\"}", MediaType.APPLICATION_JSON));
@@ -196,7 +187,7 @@ class CloudFoundrySecurityServiceTests {
 				.satisfies(reasonRequirement(Reason.SERVICE_UNAVAILABLE));
 	}
 
-	private Consumer<CloudFoundryAuthorizationException> reasonRequirement(Reason reason) {
+	public Consumer<CloudFoundryAuthorizationException> reasonRequirement(Reason reason) {
 		return (ex) -> assertThat(ex.getReason()).isEqualTo(reason);
 	}
 

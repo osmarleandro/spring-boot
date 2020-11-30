@@ -16,12 +16,18 @@
 
 package org.springframework.boot.actuate.autoconfigure.cloudfoundry.servlet;
 
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
+import static org.springframework.test.web.client.match.MockRestRequestMatchers.header;
+import static org.springframework.test.web.client.match.MockRestRequestMatchers.requestTo;
+import static org.springframework.test.web.client.response.MockRestResponseCreators.withServerError;
+
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.junit.jupiter.api.Test;
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.AccessLevel;
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.CloudFoundryAuthorizationException;
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.CloudFoundryAuthorizationException.Reason;
@@ -133,6 +139,15 @@ class CloudFoundrySecurityService {
 			}
 		}
 		return this.uaaUrl;
+	}
+
+	@Test
+	void getAccessLevelWhenCloudControllerIsNotReachableThrowsException(CloudFoundrySecurityServiceTests cloudFoundrySecurityServiceTests) {
+		cloudFoundrySecurityServiceTests.server.expect(requestTo(CloudFoundrySecurityServiceTests.CLOUD_CONTROLLER_PERMISSIONS))
+				.andExpect(header("Authorization", "bearer my-access-token")).andRespond(withServerError());
+		assertThatExceptionOfType(CloudFoundryAuthorizationException.class)
+				.isThrownBy(() -> getAccessLevel("my-access-token", "my-app-id"))
+				.satisfies(cloudFoundrySecurityServiceTests.reasonRequirement(Reason.SERVICE_UNAVAILABLE));
 	}
 
 }
