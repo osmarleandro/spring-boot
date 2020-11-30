@@ -45,9 +45,9 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Phillip Webb
  * @author Leo Li
  */
-class AutoConfiguredHealthEndpointGroupsTests {
+public class AutoConfiguredHealthEndpointGroupsTests {
 
-	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
+	public final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(AutoConfiguredHealthEndpointGroupsTestConfiguration.class));
 
 	@Test
@@ -194,27 +194,6 @@ class AutoConfiguredHealthEndpointGroupsTests {
 	}
 
 	@Test
-	void createWhenHasGroupSpecificStatusAggregatorPropertyAndGroupQualifiedBeanReturnsInstanceWithBeanUsedForExpectedGroups() {
-		this.contextRunner.withUserConfiguration(CustomStatusAggregatorGroupAConfiguration.class)
-				.withPropertyValues("management.endpoint.health.group.a.include=*",
-						"management.endpoint.health.group.a.status.order=up,down",
-						"management.endpoint.health.group.b.include=*",
-						"management.endpoint.health.group.b.status.order=up,down")
-				.run((context) -> {
-					HealthEndpointGroups groups = context.getBean(HealthEndpointGroups.class);
-					HealthEndpointGroup primary = groups.getPrimary();
-					HealthEndpointGroup groupA = groups.get("a");
-					HealthEndpointGroup groupB = groups.get("b");
-					assertThat(primary.getStatusAggregator().getAggregateStatus(Status.UP, Status.DOWN, Status.UNKNOWN))
-							.isEqualTo(Status.DOWN);
-					assertThat(groupA.getStatusAggregator().getAggregateStatus(Status.UP, Status.DOWN, Status.UNKNOWN))
-							.isEqualTo(Status.UNKNOWN);
-					assertThat(groupB.getStatusAggregator().getAggregateStatus(Status.UP, Status.DOWN, Status.UNKNOWN))
-							.isEqualTo(Status.UP);
-				});
-	}
-
-	@Test
 	void createWhenHasHttpCodeStatusMapperBeanReturnsInstanceWithMapperUsedForAllGroups() {
 		this.contextRunner.withUserConfiguration(CustomHttpCodeStatusMapperConfiguration.class)
 				.withPropertyValues("management.endpoint.health.status.http-mapping.down=201",
@@ -343,6 +322,7 @@ class AutoConfiguredHealthEndpointGroupsTests {
 	}
 
 	@Configuration(proxyBeanMethods = false)
+	public
 	static class CustomStatusAggregatorGroupAConfiguration {
 
 		@Bean
