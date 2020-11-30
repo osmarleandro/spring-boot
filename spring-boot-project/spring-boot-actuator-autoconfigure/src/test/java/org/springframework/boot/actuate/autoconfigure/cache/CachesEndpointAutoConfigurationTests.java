@@ -32,21 +32,15 @@ import static org.mockito.Mockito.mock;
  * @author Johannes Edmeier
  * @author Stephane Nicoll
  */
-class CachesEndpointAutoConfigurationTests {
+public class CachesEndpointAutoConfigurationTests {
 
-	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
+	public final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(CachesEndpointAutoConfiguration.class));
 
 	@Test
 	void runShouldHaveEndpointBean() {
 		this.contextRunner.withBean(CacheManager.class, () -> mock(CacheManager.class))
 				.withPropertyValues("management.endpoints.web.exposure.include=caches")
-				.run((context) -> assertThat(context).hasSingleBean(CachesEndpoint.class));
-	}
-
-	@Test
-	void runWithoutCacheManagerShouldHaveEndpointBean() {
-		this.contextRunner.withPropertyValues("management.endpoints.web.exposure.include=caches")
 				.run((context) -> assertThat(context).hasSingleBean(CachesEndpoint.class));
 	}
 
