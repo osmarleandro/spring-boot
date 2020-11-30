@@ -206,4 +206,8 @@ public class AnnotationConfigServletWebServerApplicationContext extends ServletW
 		}
 	}
 
+	public int getPort() {
+		return getWebServer().getPort();
+	}
+
 }
