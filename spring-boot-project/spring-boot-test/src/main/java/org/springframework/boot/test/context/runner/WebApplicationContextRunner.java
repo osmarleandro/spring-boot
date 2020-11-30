@@ -16,16 +16,22 @@
 
 package org.springframework.boot.test.context.runner;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import java.util.List;
 import java.util.function.Supplier;
 
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.actuate.autoconfigure.integrationtest.WebMvcEndpointExposureIntegrationTests;
 import org.springframework.boot.context.annotation.Configurations;
 import org.springframework.boot.test.context.assertj.AssertableWebApplicationContext;
 import org.springframework.boot.test.util.TestPropertyValues;
 import org.springframework.boot.web.servlet.context.AnnotationConfigServletWebApplicationContext;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextInitializer;
+import org.springframework.http.HttpMethod;
 import org.springframework.mock.web.MockServletContext;
+import org.springframework.test.web.reactive.server.WebTestClient;
 import org.springframework.web.context.ConfigurableWebApplicationContext;
 import org.springframework.web.context.WebApplicationContext;
 
@@ -81,6 +87,28 @@ public final class WebApplicationContextRunner extends
 			List<Configurations> configurations) {
 		return new WebApplicationContextRunner(contextFactory, allowBeanDefinitionOverriding, initializers,
 				environmentProperties, systemProperties, classLoader, parent, beanRegistrations, configurations);
+	}
+
+	@Test
+	public
+	void singleWebEndpointCanBeExcluded(WebMvcEndpointExposureIntegrationTests webMvcEndpointExposureIntegrationTests) {
+		WebApplicationContextRunner contextRunner = withPropertyValues(
+				"management.endpoints.web.exposure.include=*", "management.endpoints.web.exposure.exclude=shutdown");
+		contextRunner.run((context) -> {
+			WebTestClient client = webMvcEndpointExposureIntegrationTests.createClient(context);
+			assertThat(webMvcEndpointExposureIntegrationTests.isExposed(client, HttpMethod.GET, "beans")).isTrue();
+			assertThat(webMvcEndpointExposureIntegrationTests.isExposed(client, HttpMethod.GET, "conditions")).isTrue();
+			assertThat(webMvcEndpointExposureIntegrationTests.isExposed(client, HttpMethod.GET, "configprops")).isTrue();
+			assertThat(webMvcEndpointExposureIntegrationTests.isExposed(client, HttpMethod.GET, "custommvc")).isTrue();
+			assertThat(webMvcEndpointExposureIntegrationTests.isExposed(client, HttpMethod.GET, "customservlet")).isTrue();
+			assertThat(webMvcEndpointExposureIntegrationTests.isExposed(client, HttpMethod.GET, "env")).isTrue();
+			assertThat(webMvcEndpointExposureIntegrationTests.isExposed(client, HttpMethod.GET, "health")).isTrue();
+			assertThat(webMvcEndpointExposureIntegrationTests.isExposed(client, HttpMethod.GET, "info")).isTrue();
+			assertThat(webMvcEndpointExposureIntegrationTests.isExposed(client, HttpMethod.GET, "mappings")).isTrue();
+			assertThat(webMvcEndpointExposureIntegrationTests.isExposed(client, HttpMethod.POST, "shutdown")).isFalse();
+			assertThat(webMvcEndpointExposureIntegrationTests.isExposed(client, HttpMethod.GET, "threaddump")).isTrue();
+			assertThat(webMvcEndpointExposureIntegrationTests.isExposed(client, HttpMethod.GET, "httptrace")).isTrue();
+		});
 	}
 
 	/**
