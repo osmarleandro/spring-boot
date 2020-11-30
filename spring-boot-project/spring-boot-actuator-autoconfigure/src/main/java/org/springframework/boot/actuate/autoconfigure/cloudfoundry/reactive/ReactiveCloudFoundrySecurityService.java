@@ -16,6 +16,8 @@
 
 package org.springframework.boot.actuate.autoconfigure.cloudfoundry.reactive;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,11 +27,14 @@ import io.netty.handler.ssl.SslProvider;
 import io.netty.handler.ssl.util.InsecureTrustManagerFactory;
 import reactor.core.publisher.Mono;
 import reactor.netty.http.client.HttpClient;
+import reactor.test.StepVerifier;
 
+import org.junit.jupiter.api.Test;
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.AccessLevel;
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.CloudFoundryAuthorizationException;
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.CloudFoundryAuthorizationException.Reason;
 import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.client.reactive.ReactorClientHttpConnector;
 import org.springframework.util.Assert;
@@ -146,6 +151,19 @@ class ReactiveCloudFoundrySecurityService {
 				.onErrorMap((ex) -> new CloudFoundryAuthorizationException(Reason.SERVICE_UNAVAILABLE,
 						"Unable to fetch token keys from UAA."));
 		return this.uaaUrl;
+	}
+
+	@Test
+	void getAccessLevelWhenNotSpaceDeveloperShouldReturnRestricted(ReactiveCloudFoundrySecurityServiceTests reactiveCloudFoundrySecurityServiceTests) throws Exception {
+		String responseBody = "{\"read_sensitive_data\": false,\"read_basic_data\": true}";
+		reactiveCloudFoundrySecurityServiceTests.prepareResponse((response) -> response.setBody(responseBody).setHeader("Content-Type", "application/json"));
+		StepVerifier.create(getAccessLevel("my-access-token", "my-app-id"))
+				.consumeNextWith((accessLevel) -> assertThat(accessLevel).isEqualTo(AccessLevel.RESTRICTED))
+				.expectComplete().verify();
+		reactiveCloudFoundrySecurityServiceTests.expectRequest((request) -> {
+			assertThat(request.getHeader(HttpHeaders.AUTHORIZATION)).isEqualTo("bearer my-access-token");
+			assertThat(request.getPath()).isEqualTo(ReactiveCloudFoundrySecurityServiceTests.CLOUD_CONTROLLER_PERMISSIONS);
+		});
 	}
 
 }
