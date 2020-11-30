@@ -45,9 +45,9 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Phillip Webb
  * @author Leo Li
  */
-class AutoConfiguredHealthEndpointGroupsTests {
+public class AutoConfiguredHealthEndpointGroupsTests {
 
-	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
+	public final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(AutoConfiguredHealthEndpointGroupsTestConfiguration.class));
 
 	@Test
@@ -149,25 +149,6 @@ class AutoConfiguredHealthEndpointGroupsTests {
 					assertThat(primary.getStatusAggregator().getAggregateStatus(Status.UP, Status.DOWN))
 							.isEqualTo(Status.UP);
 					assertThat(groupA.getStatusAggregator().getAggregateStatus(Status.UP, Status.DOWN))
-							.isEqualTo(Status.UP);
-				});
-	}
-
-	@Test
-	void createWhenHasStatusAggregatorPropertyAndGroupSpecificPropertyReturnsInstanceWithPropertyUsedForExpectedGroups() {
-		this.contextRunner.withPropertyValues("management.endpoint.health.status.order=up,down",
-				"management.endpoint.health.group.a.include=*",
-				"management.endpoint.health.group.a.status.order=unknown,up,down",
-				"management.endpoint.health.group.b.include=*").run((context) -> {
-					HealthEndpointGroups groups = context.getBean(HealthEndpointGroups.class);
-					HealthEndpointGroup primary = groups.getPrimary();
-					HealthEndpointGroup groupA = groups.get("a");
-					HealthEndpointGroup groupB = groups.get("b");
-					assertThat(primary.getStatusAggregator().getAggregateStatus(Status.UP, Status.DOWN, Status.UNKNOWN))
-							.isEqualTo(Status.UP);
-					assertThat(groupA.getStatusAggregator().getAggregateStatus(Status.UP, Status.DOWN, Status.UNKNOWN))
-							.isEqualTo(Status.UNKNOWN);
-					assertThat(groupB.getStatusAggregator().getAggregateStatus(Status.UP, Status.DOWN, Status.UNKNOWN))
 							.isEqualTo(Status.UP);
 				});
 	}
