@@ -38,9 +38,9 @@ import static org.mockito.Mockito.mock;
  * @author Andy Wilkinson
  * @author Stephane Nicoll
  */
-class NewRelicMetricsExportAutoConfigurationTests {
+public class NewRelicMetricsExportAutoConfigurationTests {
 
-	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
+	public final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(NewRelicMetricsExportAutoConfiguration.class));
 
 	@Test
@@ -118,14 +118,6 @@ class NewRelicMetricsExportAutoConfigurationTests {
 	}
 
 	@Test
-	void allowsConfigToBeCustomized() {
-		this.contextRunner.withUserConfiguration(CustomConfigConfiguration.class)
-				.withPropertyValues("management.metrics.export.newrelic.api-key=abcde",
-						"management.metrics.export.newrelic.account-id=12345")
-				.run((context) -> assertThat(context).hasSingleBean(NewRelicConfig.class).hasBean("customConfig"));
-	}
-
-	@Test
 	void allowsRegistryToBeCustomized() {
 		this.contextRunner.withUserConfiguration(CustomRegistryConfiguration.class)
 				.withPropertyValues("management.metrics.export.newrelic.api-key=abcde",
@@ -171,6 +163,7 @@ class NewRelicMetricsExportAutoConfigurationTests {
 
 	@Configuration(proxyBeanMethods = false)
 	@Import(BaseConfiguration.class)
+	public
 	static class CustomConfigConfiguration {
 
 		@Bean
