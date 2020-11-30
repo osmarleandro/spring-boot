@@ -34,9 +34,9 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Andy Wilkinson
  */
-class InfluxMetricsExportAutoConfigurationTests {
+public class InfluxMetricsExportAutoConfigurationTests {
 
-	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
+	public final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(InfluxMetricsExportAutoConfiguration.class));
 
 	@Test
@@ -54,14 +54,6 @@ class InfluxMetricsExportAutoConfigurationTests {
 	void autoConfigurationCanBeDisabledWithDefaultsEnabledProperty() {
 		this.contextRunner.withUserConfiguration(BaseConfiguration.class)
 				.withPropertyValues("management.metrics.export.defaults.enabled=false")
-				.run((context) -> assertThat(context).doesNotHaveBean(InfluxMeterRegistry.class)
-						.doesNotHaveBean(InfluxConfig.class));
-	}
-
-	@Test
-	void autoConfigurationCanBeDisabledWithSpecificEnabledProperty() {
-		this.contextRunner.withUserConfiguration(BaseConfiguration.class)
-				.withPropertyValues("management.metrics.export.influx.enabled=false")
 				.run((context) -> assertThat(context).doesNotHaveBean(InfluxMeterRegistry.class)
 						.doesNotHaveBean(InfluxConfig.class));
 	}
@@ -89,6 +81,7 @@ class InfluxMetricsExportAutoConfigurationTests {
 	}
 
 	@Configuration(proxyBeanMethods = false)
+	public
 	static class BaseConfiguration {
 
 		@Bean
