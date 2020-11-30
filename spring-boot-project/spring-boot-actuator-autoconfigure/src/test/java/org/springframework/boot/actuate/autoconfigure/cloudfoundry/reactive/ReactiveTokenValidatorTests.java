@@ -54,14 +54,15 @@ import static org.mockito.BDDMockito.given;
  * @author Madhura Bhave
  */
 @ExtendWith(MockitoExtension.class)
+public
 class ReactiveTokenValidatorTests {
 
 	private static final byte[] DOT = ".".getBytes();
 
 	@Mock
-	private ReactiveCloudFoundrySecurityService securityService;
+	public ReactiveCloudFoundrySecurityService securityService;
 
-	private ReactiveTokenValidator tokenValidator;
+	public ReactiveTokenValidator tokenValidator;
 
 	private static final String VALID_KEY = "-----BEGIN PUBLIC KEY-----\n"
 			+ "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA0m59l2u9iDnMbrXHfqkO\n"
@@ -83,7 +84,7 @@ class ReactiveTokenValidatorTests {
 
 	private static final Map<String, String> INVALID_KEYS = new ConcurrentHashMap<>();
 
-	private static final Map<String, String> VALID_KEYS = new ConcurrentHashMap<>();
+	public static final Map<String, String> VALID_KEYS = new ConcurrentHashMap<>();
 
 	@BeforeEach
 	void setup() {
@@ -201,20 +202,6 @@ class ReactiveTokenValidatorTests {
 	}
 
 	@Test
-	void validateTokenWhenExpiredShouldThrowException() throws Exception {
-		given(this.securityService.fetchTokenKeys()).willReturn(Mono.just(VALID_KEYS));
-		given(this.securityService.getUaaUrl()).willReturn(Mono.just("http://localhost:8080/uaa"));
-		String header = "{ \"alg\": \"RS256\",  \"kid\": \"valid-key\", \"typ\": \"JWT\"}";
-		String claims = "{ \"jti\": \"0236399c350c47f3ae77e67a75e75e7d\", \"exp\": 1477509977, \"scope\": [\"actuator.read\"]}";
-		StepVerifier
-				.create(this.tokenValidator.validate(new Token(getSignedToken(header.getBytes(), claims.getBytes()))))
-				.consumeErrorWith((ex) -> {
-					assertThat(ex).isExactlyInstanceOf(CloudFoundryAuthorizationException.class);
-					assertThat(((CloudFoundryAuthorizationException) ex).getReason()).isEqualTo(Reason.TOKEN_EXPIRED);
-				}).verify();
-	}
-
-	@Test
 	void validateTokenWhenIssuerIsNotValidShouldThrowException() throws Exception {
 		given(this.securityService.fetchTokenKeys()).willReturn(Mono.just(VALID_KEYS));
 		given(this.securityService.getUaaUrl()).willReturn(Mono.just("https://other-uaa.com"));
@@ -243,7 +230,7 @@ class ReactiveTokenValidatorTests {
 				}).verify();
 	}
 
-	private String getSignedToken(byte[] header, byte[] claims) throws Exception {
+	public String getSignedToken(byte[] header, byte[] claims) throws Exception {
 		PrivateKey privateKey = getPrivateKey();
 		Signature signature = Signature.getInstance("SHA256WithRSA");
 		signature.initSign(privateKey);
