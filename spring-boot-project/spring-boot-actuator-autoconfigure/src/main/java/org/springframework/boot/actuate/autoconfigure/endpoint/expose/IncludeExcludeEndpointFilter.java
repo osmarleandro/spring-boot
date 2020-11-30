@@ -16,6 +16,8 @@
 
 package org.springframework.boot.actuate.autoconfigure.endpoint.expose;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -24,6 +26,7 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.junit.jupiter.api.Test;
 import org.springframework.boot.actuate.endpoint.EndpointFilter;
 import org.springframework.boot.actuate.endpoint.EndpointId;
 import org.springframework.boot.actuate.endpoint.ExposableEndpoint;
@@ -163,6 +166,14 @@ public class IncludeExcludeEndpointFilter<E extends ExposableEndpoint<?>> implem
 			return false;
 		}
 		return this.exclude.matches(endpointId);
+	}
+
+	@Test
+	void matchWhenExcludeIsAsteriskShouldMatchNone(IncludeExcludeEndpointFilterTests includeExcludeEndpointFilterTests) {
+		includeExcludeEndpointFilterTests.setupFilter("bar,baz,buz", "*");
+		assertThat(includeExcludeEndpointFilterTests.match(EndpointId.of("bar"))).isFalse();
+		assertThat(includeExcludeEndpointFilterTests.match(EndpointId.of("baz"))).isFalse();
+		assertThat(includeExcludeEndpointFilterTests.match(EndpointId.of("buz"))).isFalse();
 	}
 
 	/**
