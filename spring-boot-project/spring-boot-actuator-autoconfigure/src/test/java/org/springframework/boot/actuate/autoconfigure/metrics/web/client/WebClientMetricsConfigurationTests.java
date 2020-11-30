@@ -52,9 +52,10 @@ import static org.mockito.Mockito.mock;
  * @author Stephane Nicoll
  */
 @ExtendWith(OutputCaptureExtension.class)
+public
 class WebClientMetricsConfigurationTests {
 
-	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner().with(MetricsRun.simple())
+	public final ApplicationContextRunner contextRunner = new ApplicationContextRunner().with(MetricsRun.simple())
 			.withConfiguration(
 					AutoConfigurations.of(WebClientAutoConfiguration.class, HttpClientMetricsAutoConfiguration.class));
 
@@ -84,16 +85,6 @@ class WebClientMetricsConfigurationTests {
 	}
 
 	@Test
-	void shouldNotDenyNorLogIfMaxUrisIsNotReached(CapturedOutput output) {
-		this.contextRunner.withPropertyValues("management.metrics.web.client.max-uri-tags=5").run((context) -> {
-			MeterRegistry registry = getInitializedMeterRegistry(context);
-			assertThat(registry.get("http.client.requests").meters()).hasSize(3);
-			assertThat(output).doesNotContain("Reached the maximum number of URI tags for 'http.client.requests'.")
-					.doesNotContain("Are you using 'uriVariables'?");
-		});
-	}
-
-	@Test
 	void autoTimeRequestsCanBeConfigured() {
 		this.contextRunner.withPropertyValues("management.metrics.web.client.request.autotime.enabled=true",
 				"management.metrics.web.client.request.autotime.percentiles=0.5,0.7",
@@ -107,7 +98,7 @@ class WebClientMetricsConfigurationTests {
 				});
 	}
 
-	private MeterRegistry getInitializedMeterRegistry(AssertableApplicationContext context) {
+	public MeterRegistry getInitializedMeterRegistry(AssertableApplicationContext context) {
 		WebClient webClient = mockWebClient(context.getBean(WebClient.Builder.class));
 		MeterRegistry registry = context.getBean(MeterRegistry.class);
 		for (int i = 0; i < 3; i++) {
