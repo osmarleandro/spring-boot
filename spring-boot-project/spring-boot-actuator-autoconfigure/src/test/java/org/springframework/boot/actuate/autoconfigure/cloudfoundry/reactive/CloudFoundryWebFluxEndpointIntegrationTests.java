@@ -25,8 +25,6 @@ import org.junit.jupiter.api.Test;
 import reactor.core.publisher.Mono;
 
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.AccessLevel;
-import org.springframework.boot.actuate.autoconfigure.cloudfoundry.CloudFoundryAuthorizationException;
-import org.springframework.boot.actuate.autoconfigure.cloudfoundry.CloudFoundryAuthorizationException.Reason;
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
 import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
 import org.springframework.boot.actuate.endpoint.annotation.Selector;
@@ -59,7 +57,6 @@ import org.springframework.web.cors.CorsConfiguration;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.BDDMockito.willThrow;
 import static org.mockito.Mockito.mock;
 
 /**
@@ -68,14 +65,14 @@ import static org.mockito.Mockito.mock;
  * @author Madhura Bhave
  * @author Stephane Nicoll
  */
-class CloudFoundryWebFluxEndpointIntegrationTests {
+public class CloudFoundryWebFluxEndpointIntegrationTests {
 
-	private static ReactiveTokenValidator tokenValidator = mock(ReactiveTokenValidator.class);
+	public static ReactiveTokenValidator tokenValidator = mock(ReactiveTokenValidator.class);
 
 	private static ReactiveCloudFoundrySecurityService securityService = mock(
 			ReactiveCloudFoundrySecurityService.class);
 
-	private final ReactiveWebApplicationContextRunner contextRunner = new ReactiveWebApplicationContextRunner(
+	public final ReactiveWebApplicationContextRunner contextRunner = new ReactiveWebApplicationContextRunner(
 			AnnotationConfigReactiveWebServerApplicationContext::new)
 					.withConfiguration(AutoConfigurations.of(WebFluxAutoConfiguration.class,
 							HttpHandlerAutoConfiguration.class, ReactiveWebServerFactoryAutoConfiguration.class))
@@ -124,16 +121,6 @@ class CloudFoundryWebFluxEndpointIntegrationTests {
 	}
 
 	@Test
-	void linksToOtherEndpointsForbidden() {
-		CloudFoundryAuthorizationException exception = new CloudFoundryAuthorizationException(Reason.INVALID_TOKEN,
-				"invalid-token");
-		willThrow(exception).given(tokenValidator).validate(any());
-		this.contextRunner.run(withWebTestClient((client) -> client.get().uri("/cfApplication")
-				.accept(MediaType.APPLICATION_JSON).header("Authorization", "bearer " + mockAccessToken()).exchange()
-				.expectStatus().isUnauthorized()));
-	}
-
-	@Test
 	void linksToOtherEndpointsWithRestrictedAccess() {
 		given(tokenValidator.validate(any())).willReturn(Mono.empty());
 		given(securityService.getAccessLevel(any(), eq("app-id"))).willReturn(Mono.just(AccessLevel.RESTRICTED));
@@ -146,7 +133,7 @@ class CloudFoundryWebFluxEndpointIntegrationTests {
 						.jsonPath("_links.test").doesNotExist().jsonPath("_links.test-part").doesNotExist()));
 	}
 
-	private ContextConsumer<AssertableReactiveWebApplicationContext> withWebTestClient(
+	public ContextConsumer<AssertableReactiveWebApplicationContext> withWebTestClient(
 			Consumer<WebTestClient> clientConsumer) {
 		return (context) -> {
 			int port = ((AnnotationConfigReactiveWebServerApplicationContext) context.getSourceApplicationContext())
@@ -155,7 +142,7 @@ class CloudFoundryWebFluxEndpointIntegrationTests {
 		};
 	}
 
-	private String mockAccessToken() {
+	public String mockAccessToken() {
 		return "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ0b3B0YWwu"
 				+ "Y29tIiwiZXhwIjoxNDI2NDIwODAwLCJhd2Vzb21lIjp0cnVlfQ."
 				+ Base64Utils.encodeToString("signature".getBytes());
