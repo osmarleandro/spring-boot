@@ -21,7 +21,7 @@ import java.util.function.Consumer;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
 import okhttp3.mockwebserver.RecordedRequest;
-import org.junit.jupiter.api.AfterEach;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import reactor.test.StepVerifier;
@@ -39,7 +39,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Madhura Bhave
  */
-class ReactiveCloudFoundrySecurityServiceTests {
+public class ReactiveCloudFoundrySecurityServiceTests {
 
 	private static final String CLOUD_CONTROLLER = "/my-cloud-controller.com";
 
@@ -49,7 +49,7 @@ class ReactiveCloudFoundrySecurityServiceTests {
 
 	private ReactiveCloudFoundrySecurityService securityService;
 
-	private MockWebServer server;
+	public MockWebServer server;
 
 	private WebClient.Builder builder;
 
@@ -58,11 +58,6 @@ class ReactiveCloudFoundrySecurityServiceTests {
 		this.server = new MockWebServer();
 		this.builder = WebClient.builder().baseUrl(this.server.url("/").toString());
 		this.securityService = new ReactiveCloudFoundrySecurityService(this.builder, CLOUD_CONTROLLER, false);
-	}
-
-	@AfterEach
-	void shutdown() throws Exception {
-		this.server.shutdown();
 	}
 
 	@Test
