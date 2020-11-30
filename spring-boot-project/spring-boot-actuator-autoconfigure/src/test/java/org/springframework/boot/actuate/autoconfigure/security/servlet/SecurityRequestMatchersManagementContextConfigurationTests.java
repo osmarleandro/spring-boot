@@ -85,13 +85,6 @@ class SecurityRequestMatchersManagementContextConfigurationTests {
 	}
 
 	@Test
-	void mvcRequestMatcherProviderConditionalOnDispatcherServletPathBean() {
-		new WebApplicationContextRunner()
-				.withConfiguration(AutoConfigurations.of(SecurityRequestMatchersManagementContextConfiguration.class))
-				.run((context) -> assertThat(context).doesNotHaveBean(AntPathRequestMatcherProvider.class));
-	}
-
-	@Test
 	void jerseyRequestMatcherProviderConditionalOnResourceConfigClass() {
 		this.contextRunner.withClassLoader(new FilteredClassLoader("org.glassfish.jersey.server.ResourceConfig"))
 				.run((context) -> assertThat(context).doesNotHaveBean(AntPathRequestMatcherProvider.class));
