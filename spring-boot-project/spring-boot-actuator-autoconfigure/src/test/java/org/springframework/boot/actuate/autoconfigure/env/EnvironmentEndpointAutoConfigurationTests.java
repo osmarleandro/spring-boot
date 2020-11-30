@@ -36,9 +36,9 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Phillip Webb
  */
-class EnvironmentEndpointAutoConfigurationTests {
+public class EnvironmentEndpointAutoConfigurationTests {
 
-	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
+	public final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(EnvironmentEndpointAutoConfiguration.class));
 
 	@Test
@@ -59,15 +59,7 @@ class EnvironmentEndpointAutoConfigurationTests {
 		this.contextRunner.run((context) -> assertThat(context).doesNotHaveBean(EnvironmentEndpoint.class));
 	}
 
-	@Test
-	void keysToSanitizeCanBeConfiguredViaTheEnvironment() {
-		this.contextRunner.withPropertyValues("management.endpoints.web.exposure.include=env")
-				.withSystemProperties("dbPassword=123456", "apiKey=123456")
-				.withPropertyValues("management.endpoint.env.keys-to-sanitize=.*pass.*")
-				.run(validateSystemProperties("******", "123456"));
-	}
-
-	private ContextConsumer<AssertableApplicationContext> validateSystemProperties(String dbPassword, String apiKey) {
+	public ContextConsumer<AssertableApplicationContext> validateSystemProperties(String dbPassword, String apiKey) {
 		return (context) -> {
 			assertThat(context).hasSingleBean(EnvironmentEndpoint.class);
 			EnvironmentEndpoint endpoint = context.getBean(EnvironmentEndpoint.class);
