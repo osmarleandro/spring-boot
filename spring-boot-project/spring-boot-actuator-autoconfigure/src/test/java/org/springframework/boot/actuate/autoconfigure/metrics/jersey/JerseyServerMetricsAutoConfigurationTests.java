@@ -25,7 +25,6 @@ import javax.ws.rs.PathParam;
 import io.micrometer.core.instrument.MeterRegistry;
 import io.micrometer.core.instrument.Tag;
 import io.micrometer.core.instrument.Timer;
-import io.micrometer.jersey2.server.DefaultJerseyTagsProvider;
 import io.micrometer.jersey2.server.JerseyTagsProvider;
 import io.micrometer.jersey2.server.MetricsApplicationEventListener;
 import org.glassfish.jersey.server.ResourceConfig;
@@ -56,12 +55,12 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Michael Weirauch
  * @author Michael Simons
  */
-class JerseyServerMetricsAutoConfigurationTests {
+public class JerseyServerMetricsAutoConfigurationTests {
 
 	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner().with(MetricsRun.simple())
 			.withConfiguration(AutoConfigurations.of(JerseyServerMetricsAutoConfiguration.class));
 
-	private final WebApplicationContextRunner webContextRunner = new WebApplicationContextRunner(
+	public final WebApplicationContextRunner webContextRunner = new WebApplicationContextRunner(
 			AnnotationConfigServletWebServerApplicationContext::new)
 					.withConfiguration(AutoConfigurations.of(JerseyAutoConfiguration.class,
 							JerseyServerMetricsAutoConfiguration.class, ServletWebServerFactoryAutoConfiguration.class,
@@ -71,12 +70,6 @@ class JerseyServerMetricsAutoConfigurationTests {
 	@Test
 	void shouldOnlyBeActiveInWebApplicationContext() {
 		this.contextRunner.run((context) -> assertThat(context).doesNotHaveBean(ResourceConfigCustomizer.class));
-	}
-
-	@Test
-	void shouldProvideAllNecessaryBeans() {
-		this.webContextRunner.run((context) -> assertThat(context).hasSingleBean(DefaultJerseyTagsProvider.class)
-				.hasSingleBean(ResourceConfigCustomizer.class));
 	}
 
 	@Test
