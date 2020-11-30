@@ -16,15 +16,12 @@
 
 package org.springframework.boot.actuate.autoconfigure.metrics.export.prometheus;
 
-import java.util.function.Consumer;
-
 import io.micrometer.core.instrument.Clock;
 import io.micrometer.prometheus.PrometheusConfig;
 import io.micrometer.prometheus.PrometheusMeterRegistry;
 import io.prometheus.client.CollectorRegistry;
 import io.prometheus.client.exporter.BasicAuthHttpConnectionFactory;
 import io.prometheus.client.exporter.DefaultHttpConnectionFactory;
-import io.prometheus.client.exporter.HttpConnectionFactory;
 import io.prometheus.client.exporter.PushGateway;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -35,7 +32,6 @@ import org.springframework.boot.actuate.metrics.export.prometheus.PrometheusScra
 import org.springframework.boot.autoconfigure.AutoConfigurations;
 import org.springframework.boot.test.context.assertj.AssertableApplicationContext;
 import org.springframework.boot.test.context.runner.ApplicationContextRunner;
-import org.springframework.boot.test.context.runner.ContextConsumer;
 import org.springframework.boot.test.system.CapturedOutput;
 import org.springframework.boot.test.system.OutputCaptureExtension;
 import org.springframework.context.annotation.Bean;
@@ -52,6 +48,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Stephane Nicoll
  */
 @ExtendWith(OutputCaptureExtension.class)
+public
 class PrometheusMetricsExportAutoConfigurationTests {
 
 	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
@@ -161,7 +158,7 @@ class PrometheusMetricsExportAutoConfigurationTests {
 		this.contextRunner.withConfiguration(AutoConfigurations.of(ManagementContextAutoConfiguration.class))
 				.withPropertyValues("management.metrics.export.prometheus.pushgateway.enabled=true")
 				.withUserConfiguration(BaseConfiguration.class)
-				.run(hasHttpConnectionFactory((httpConnectionFactory) -> assertThat(httpConnectionFactory)
+				.run(contextRunner.hasHttpConnectionFactory(this, (httpConnectionFactory) -> assertThat(httpConnectionFactory)
 						.isInstanceOf(DefaultHttpConnectionFactory.class)));
 	}
 
@@ -193,7 +190,7 @@ class PrometheusMetricsExportAutoConfigurationTests {
 						"management.metrics.export.prometheus.pushgateway.username=admin",
 						"management.metrics.export.prometheus.pushgateway.password=secret")
 				.withUserConfiguration(BaseConfiguration.class)
-				.run(hasHttpConnectionFactory((httpConnectionFactory) -> assertThat(httpConnectionFactory)
+				.run(contextRunner.hasHttpConnectionFactory(this, (httpConnectionFactory) -> assertThat(httpConnectionFactory)
 						.isInstanceOf(BasicAuthHttpConnectionFactory.class)));
 	}
 
@@ -201,16 +198,7 @@ class PrometheusMetricsExportAutoConfigurationTests {
 		assertThat(getPushGateway(context)).hasFieldOrPropertyWithValue("gatewayBaseURL", url);
 	}
 
-	private ContextConsumer<AssertableApplicationContext> hasHttpConnectionFactory(
-			Consumer<HttpConnectionFactory> httpConnectionFactory) {
-		return (context) -> {
-			PushGateway pushGateway = getPushGateway(context);
-			httpConnectionFactory
-					.accept((HttpConnectionFactory) ReflectionTestUtils.getField(pushGateway, "connectionFactory"));
-		};
-	}
-
-	private PushGateway getPushGateway(AssertableApplicationContext context) {
+	public PushGateway getPushGateway(AssertableApplicationContext context) {
 		assertThat(context).hasSingleBean(PrometheusPushGatewayManager.class);
 		PrometheusPushGatewayManager gatewayManager = context.getBean(PrometheusPushGatewayManager.class);
 		return (PushGateway) ReflectionTestUtils.getField(gatewayManager, "pushGateway");

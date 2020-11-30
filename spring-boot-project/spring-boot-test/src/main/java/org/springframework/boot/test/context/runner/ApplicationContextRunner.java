@@ -17,8 +17,10 @@
 package org.springframework.boot.test.context.runner;
 
 import java.util.List;
+import java.util.function.Consumer;
 import java.util.function.Supplier;
 
+import org.springframework.boot.actuate.autoconfigure.metrics.export.prometheus.PrometheusMetricsExportAutoConfigurationTests;
 import org.springframework.boot.context.annotation.Configurations;
 import org.springframework.boot.test.context.assertj.AssertableApplicationContext;
 import org.springframework.boot.test.util.TestPropertyValues;
@@ -26,6 +28,10 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextInitializer;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.test.util.ReflectionTestUtils;
+
+import io.prometheus.client.exporter.HttpConnectionFactory;
+import io.prometheus.client.exporter.PushGateway;
 
 /**
  * An {@link AbstractApplicationContextRunner ApplicationContext runner} for a standard,
@@ -77,6 +83,15 @@ public class ApplicationContextRunner extends
 			List<Configurations> configurations) {
 		return new ApplicationContextRunner(contextFactory, allowBeanDefinitionOverriding, initializers,
 				environmentProperties, systemProperties, classLoader, parent, beanRegistrations, configurations);
+	}
+
+	public ContextConsumer<AssertableApplicationContext> hasHttpConnectionFactory(
+			PrometheusMetricsExportAutoConfigurationTests prometheusMetricsExportAutoConfigurationTests, Consumer<HttpConnectionFactory> httpConnectionFactory) {
+		return (context) -> {
+			PushGateway pushGateway = prometheusMetricsExportAutoConfigurationTests.getPushGateway(context);
+			httpConnectionFactory
+					.accept((HttpConnectionFactory) ReflectionTestUtils.getField(pushGateway, "connectionFactory"));
+		};
 	}
 
 }
