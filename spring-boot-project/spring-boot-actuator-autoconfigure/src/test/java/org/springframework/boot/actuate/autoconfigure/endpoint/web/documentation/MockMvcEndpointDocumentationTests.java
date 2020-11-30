@@ -38,7 +38,7 @@ import org.springframework.web.context.WebApplicationContext;
 @SpringBootTest
 public abstract class MockMvcEndpointDocumentationTests extends AbstractEndpointDocumentationTests {
 
-	protected MockMvc mockMvc;
+	public MockMvc mockMvc;
 
 	@Autowired
 	private WebApplicationContext applicationContext;

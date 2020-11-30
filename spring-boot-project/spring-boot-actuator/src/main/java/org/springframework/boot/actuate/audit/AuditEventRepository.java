@@ -16,8 +16,21 @@
 
 package org.springframework.boot.actuate.audit;
 
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.BDDMockito.given;
+import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
+import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
+import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 import java.time.Instant;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.actuate.autoconfigure.endpoint.web.documentation.AuditEventsEndpointDocumentationTests;
 
 /**
  * Repository for {@link AuditEvent}s.
@@ -45,5 +58,19 @@ public interface AuditEventRepository {
 	 * @since 1.4.0
 	 */
 	List<AuditEvent> find(String principal, Instant after, String type);
+
+	@Test
+	default
+	void allAuditEvents(AuditEventsEndpointDocumentationTests auditEventsEndpointDocumentationTests) throws Exception {
+		String queryTimestamp = "2017-11-07T09:37Z";
+		given(find(any(), any(), any()))
+				.willReturn(Arrays.asList(new AuditEvent("alice", "logout", Collections.emptyMap())));
+		auditEventsEndpointDocumentationTests.mockMvc.perform(get("/actuator/auditevents").param("after", queryTimestamp)).andExpect(status().isOk())
+				.andDo(document("auditevents/all", responseFields(
+						fieldWithPath("events").description("An array of audit events."),
+						fieldWithPath("events.[].timestamp").description("The timestamp of when the event occurred."),
+						fieldWithPath("events.[].principal").description("The principal that triggered the event."),
+						fieldWithPath("events.[].type").description("The type of the event."))));
+	}
 
 }
