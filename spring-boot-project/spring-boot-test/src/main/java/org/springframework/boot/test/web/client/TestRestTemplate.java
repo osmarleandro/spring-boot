@@ -16,12 +16,16 @@
 
 package org.springframework.boot.test.web.client;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import java.io.IOException;
 import java.net.URI;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+
+import javax.servlet.DispatcherType;
 
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.config.CookieSpecs;
@@ -33,9 +37,12 @@ import org.apache.http.conn.ssl.TrustSelfSignedStrategy;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.protocol.HttpContext;
 import org.apache.http.ssl.SSLContextBuilder;
-
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.actuate.autoconfigure.metrics.test.MetricsIntegrationTests;
+import org.springframework.boot.actuate.metrics.web.servlet.WebMvcMetricsFilter;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.boot.web.client.RootUriTemplateHandler;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -45,6 +52,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.http.client.ClientHttpRequestFactory;
 import org.springframework.http.client.ClientHttpResponse;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
+import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.util.Assert;
 import org.springframework.web.client.DefaultResponseErrorHandler;
 import org.springframework.web.client.RequestCallback;
@@ -974,6 +982,18 @@ public class TestRestTemplate {
 			return URI.create(((RootUriTemplateHandler) uriTemplateHandler).getRootUri() + uri.toString());
 		}
 		return uri;
+	}
+
+	@Test
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	void metricsFilterRegisteredForAsyncDispatches(MetricsIntegrationTests metricsIntegrationTests) {
+		Map<String, FilterRegistrationBean> filterRegistrations = metricsIntegrationTests.context
+				.getBeansOfType(FilterRegistrationBean.class);
+		assertThat(filterRegistrations).containsKey("webMvcMetricsFilter");
+		FilterRegistrationBean registration = filterRegistrations.get("webMvcMetricsFilter");
+		assertThat(registration.getFilter()).isInstanceOf(WebMvcMetricsFilter.class);
+		assertThat((Set<DispatcherType>) ReflectionTestUtils.getField(registration, "dispatcherTypes"))
+				.containsExactlyInAnyOrder(DispatcherType.REQUEST, DispatcherType.ASYNC);
 	}
 
 	/**
