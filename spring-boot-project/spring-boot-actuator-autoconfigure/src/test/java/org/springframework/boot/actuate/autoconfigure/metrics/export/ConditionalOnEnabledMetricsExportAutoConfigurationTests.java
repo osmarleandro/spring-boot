@@ -28,9 +28,9 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Chris Bono
  */
-class ConditionalOnEnabledMetricsExportAutoConfigurationTests {
+public class ConditionalOnEnabledMetricsExportAutoConfigurationTests {
 
-	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner().with(MetricsRun.simple());
+	public final ApplicationContextRunner contextRunner = new ApplicationContextRunner().with(MetricsRun.simple());
 
 	@Test
 	void exporterIsEnabledByDefault() {
@@ -47,14 +47,6 @@ class ConditionalOnEnabledMetricsExportAutoConfigurationTests {
 	void exporterCanBeGloballyDisabled() {
 		this.contextRunner.withPropertyValues("management.metrics.export.defaults.enabled=false")
 				.run((context) -> assertThat(context).doesNotHaveBean("simpleMeterRegistry"));
-	}
-
-	@Test
-	void exporterCanBeGloballyDisabledWitSpecificOverride() {
-		this.contextRunner
-				.withPropertyValues("management.metrics.export.defaults.enabled=false",
-						"management.metrics.export.simple.enabled=true")
-				.run((context) -> assertThat(context).hasBean("simpleMeterRegistry"));
 	}
 
 }
