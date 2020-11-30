@@ -34,9 +34,9 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Andy Wilkinson
  */
-class InfluxMetricsExportAutoConfigurationTests {
+public class InfluxMetricsExportAutoConfigurationTests {
 
-	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
+	public final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(InfluxMetricsExportAutoConfiguration.class));
 
 	@Test
@@ -73,12 +73,6 @@ class InfluxMetricsExportAutoConfigurationTests {
 	}
 
 	@Test
-	void allowsCustomRegistryToBeUsed() {
-		this.contextRunner.withUserConfiguration(CustomRegistryConfiguration.class).run((context) -> assertThat(context)
-				.hasSingleBean(InfluxMeterRegistry.class).hasBean("customRegistry").hasSingleBean(InfluxConfig.class));
-	}
-
-	@Test
 	void stopsMeterRegistryWhenContextIsClosed() {
 		this.contextRunner.withUserConfiguration(BaseConfiguration.class).run((context) -> {
 			InfluxMeterRegistry registry = context.getBean(InfluxMeterRegistry.class);
@@ -111,6 +105,7 @@ class InfluxMetricsExportAutoConfigurationTests {
 
 	@Configuration(proxyBeanMethods = false)
 	@Import(BaseConfiguration.class)
+	public
 	static class CustomRegistryConfiguration {
 
 		@Bean
