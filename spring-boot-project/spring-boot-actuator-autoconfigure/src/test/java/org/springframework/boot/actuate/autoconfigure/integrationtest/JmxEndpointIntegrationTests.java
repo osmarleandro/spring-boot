@@ -17,12 +17,9 @@
 package org.springframework.boot.actuate.autoconfigure.integrationtest;
 
 import javax.management.InstanceNotFoundException;
-import javax.management.IntrospectionException;
-import javax.management.MBeanInfo;
 import javax.management.MBeanServer;
 import javax.management.MalformedObjectNameException;
 import javax.management.ObjectName;
-import javax.management.ReflectionException;
 
 import org.junit.jupiter.api.Test;
 
@@ -98,20 +95,11 @@ class JmxEndpointIntegrationTests {
 
 	private boolean isRegistered(MBeanServer mBeanServer, ObjectName objectName) {
 		try {
-			getMBeanInfo(mBeanServer, objectName);
+			contextRunner.getMBeanInfo(mBeanServer, objectName);
 			return true;
 		}
 		catch (InstanceNotFoundException ex) {
 			return false;
-		}
-	}
-
-	private MBeanInfo getMBeanInfo(MBeanServer mBeanServer, ObjectName objectName) throws InstanceNotFoundException {
-		try {
-			return mBeanServer.getMBeanInfo(objectName);
-		}
-		catch (ReflectionException | IntrospectionException ex) {
-			throw new IllegalStateException("Failed to retrieve MBeanInfo for ObjectName " + objectName, ex);
 		}
 	}
 
