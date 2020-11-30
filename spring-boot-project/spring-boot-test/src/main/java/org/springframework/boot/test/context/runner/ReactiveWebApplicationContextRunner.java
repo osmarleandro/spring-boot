@@ -16,9 +16,19 @@
 
 package org.springframework.boot.test.context.runner;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
+import java.util.Collection;
 import java.util.List;
 import java.util.function.Supplier;
 
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.actuate.autoconfigure.cloudfoundry.reactive.CloudFoundryWebFluxEndpointHandlerMapping;
+import org.springframework.boot.actuate.autoconfigure.cloudfoundry.reactive.ReactiveCloudFoundryActuatorAutoConfigurationTests;
+import org.springframework.boot.actuate.autoconfigure.cloudfoundry.reactive.ReactiveCloudFoundryActuatorAutoConfigurationTests.TestEndpoint;
+import org.springframework.boot.actuate.endpoint.EndpointId;
+import org.springframework.boot.actuate.endpoint.web.ExposableWebEndpoint;
+import org.springframework.boot.actuate.endpoint.web.WebOperation;
 import org.springframework.boot.context.annotation.Configurations;
 import org.springframework.boot.test.context.assertj.AssertableReactiveWebApplicationContext;
 import org.springframework.boot.test.util.TestPropertyValues;
@@ -77,6 +87,23 @@ public final class ReactiveWebApplicationContextRunner extends
 			List<Configurations> configurations) {
 		return new ReactiveWebApplicationContextRunner(contextFactory, allowBeanDefinitionOverriding, initializers,
 				environmentProperties, systemProperties, classLoader, parent, beanRegistrations, configurations);
+	}
+
+	@Test
+	public
+	void endpointPathCustomizationIsNotApplied(ReactiveCloudFoundryActuatorAutoConfigurationTests reactiveCloudFoundryActuatorAutoConfigurationTests) {
+		withBean(TestEndpoint.class, TestEndpoint::new).withPropertyValues("VCAP_APPLICATION:---",
+				"vcap.application.application_id:my-app-id", "vcap.application.cf_api:https://my-cloud-controller.com")
+				.run((context) -> {
+					CloudFoundryWebFluxEndpointHandlerMapping handlerMapping = reactiveCloudFoundryActuatorAutoConfigurationTests.getHandlerMapping(context);
+					Collection<ExposableWebEndpoint> endpoints = handlerMapping.getEndpoints();
+					ExposableWebEndpoint endpoint = endpoints.stream()
+							.filter((candidate) -> EndpointId.of("test").equals(candidate.getEndpointId())).findFirst()
+							.get();
+					assertThat(endpoint.getOperations()).hasSize(1);
+					WebOperation operation = endpoint.getOperations().iterator().next();
+					assertThat(operation.getRequestPredicate().getPath()).isEqualTo("test");
+				});
 	}
 
 }

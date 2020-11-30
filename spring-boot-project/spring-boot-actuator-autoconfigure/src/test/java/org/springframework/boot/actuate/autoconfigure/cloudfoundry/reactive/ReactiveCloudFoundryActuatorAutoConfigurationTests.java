@@ -78,9 +78,9 @@ import static org.mockito.Mockito.mock;
  *
  * @author Madhura Bhave
  */
-class ReactiveCloudFoundryActuatorAutoConfigurationTests {
+public class ReactiveCloudFoundryActuatorAutoConfigurationTests {
 
-	private final ReactiveWebApplicationContextRunner contextRunner = new ReactiveWebApplicationContextRunner()
+	public final ReactiveWebApplicationContextRunner contextRunner = new ReactiveWebApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(ReactiveSecurityAutoConfiguration.class,
 					ReactiveUserDetailsServiceAutoConfiguration.class, WebFluxAutoConfiguration.class,
 					JacksonAutoConfiguration.class, HttpMessageConvertersAutoConfiguration.class,
@@ -214,22 +214,6 @@ class ReactiveCloudFoundryActuatorAutoConfigurationTests {
 	}
 
 	@Test
-	void endpointPathCustomizationIsNotApplied() {
-		this.contextRunner.withBean(TestEndpoint.class, TestEndpoint::new).withPropertyValues("VCAP_APPLICATION:---",
-				"vcap.application.application_id:my-app-id", "vcap.application.cf_api:https://my-cloud-controller.com")
-				.run((context) -> {
-					CloudFoundryWebFluxEndpointHandlerMapping handlerMapping = getHandlerMapping(context);
-					Collection<ExposableWebEndpoint> endpoints = handlerMapping.getEndpoints();
-					ExposableWebEndpoint endpoint = endpoints.stream()
-							.filter((candidate) -> EndpointId.of("test").equals(candidate.getEndpointId())).findFirst()
-							.get();
-					assertThat(endpoint.getOperations()).hasSize(1);
-					WebOperation operation = endpoint.getOperations().iterator().next();
-					assertThat(operation.getRequestPredicate().getPath()).isEqualTo("test");
-				});
-	}
-
-	@Test
 	void healthEndpointInvokerShouldBeCloudFoundryWebExtension() {
 		this.contextRunner.withConfiguration(AutoConfigurations.of(HealthEndpointAutoConfiguration.class))
 				.withPropertyValues("VCAP_APPLICATION:---", "vcap.application.application_id:my-app-id",
@@ -293,7 +277,7 @@ class ReactiveCloudFoundryActuatorAutoConfigurationTests {
 				});
 	}
 
-	private CloudFoundryWebFluxEndpointHandlerMapping getHandlerMapping(ApplicationContext context) {
+	public CloudFoundryWebFluxEndpointHandlerMapping getHandlerMapping(ApplicationContext context) {
 		return context.getBean("cloudFoundryWebFluxEndpointHandlerMapping",
 				CloudFoundryWebFluxEndpointHandlerMapping.class);
 	}
@@ -311,6 +295,7 @@ class ReactiveCloudFoundryActuatorAutoConfigurationTests {
 	}
 
 	@Endpoint(id = "test")
+	public
 	static class TestEndpoint {
 
 		@ReadOperation
