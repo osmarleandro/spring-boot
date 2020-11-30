@@ -23,7 +23,6 @@ import org.springframework.boot.autoconfigure.AutoConfigurations;
 import org.springframework.boot.autoconfigure.web.servlet.DefaultJerseyApplicationPath;
 import org.springframework.boot.autoconfigure.web.servlet.JerseyApplicationPath;
 import org.springframework.boot.test.context.FilteredClassLoader;
-import org.springframework.boot.test.context.runner.ApplicationContextRunner;
 import org.springframework.boot.test.context.runner.WebApplicationContextRunner;
 import org.springframework.boot.testsupport.classpath.ClassPathExclusions;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
@@ -43,14 +42,6 @@ class JerseySameManagementContextConfigurationTests {
 
 	private final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(JerseySameManagementContextConfiguration.class));
-
-	@Test
-	void autoConfigurationIsConditionalOnServletWebApplication() {
-		ApplicationContextRunner contextRunner = new ApplicationContextRunner()
-				.withConfiguration(AutoConfigurations.of(JerseySameManagementContextConfiguration.class));
-		contextRunner
-				.run((context) -> assertThat(context).doesNotHaveBean(JerseySameManagementContextConfiguration.class));
-	}
 
 	@Test
 	void autoConfigurationIsConditionalOnClassResourceConfig() {
