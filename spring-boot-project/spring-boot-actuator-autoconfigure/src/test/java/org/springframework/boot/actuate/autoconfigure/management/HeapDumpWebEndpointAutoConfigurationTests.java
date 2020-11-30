@@ -28,16 +28,11 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Phillip Webb
  */
-class HeapDumpWebEndpointAutoConfigurationTests {
+public class HeapDumpWebEndpointAutoConfigurationTests {
 
-	private final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner()
+	public final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner()
 			.withPropertyValues("management.endpoints.web.exposure.include:*")
 			.withUserConfiguration(HeapDumpWebEndpointAutoConfiguration.class);
-
-	@Test
-	void runShouldCreateIndicator() {
-		this.contextRunner.run((context) -> assertThat(context).hasSingleBean(HeapDumpWebEndpoint.class));
-	}
 
 	@Test
 	void runWhenDisabledShouldNotCreateIndicator() {
