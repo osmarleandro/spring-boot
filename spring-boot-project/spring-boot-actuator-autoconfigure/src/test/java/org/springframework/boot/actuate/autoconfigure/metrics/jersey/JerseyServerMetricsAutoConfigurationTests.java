@@ -56,12 +56,12 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Michael Weirauch
  * @author Michael Simons
  */
-class JerseyServerMetricsAutoConfigurationTests {
+public class JerseyServerMetricsAutoConfigurationTests {
 
 	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner().with(MetricsRun.simple())
 			.withConfiguration(AutoConfigurations.of(JerseyServerMetricsAutoConfiguration.class));
 
-	private final WebApplicationContextRunner webContextRunner = new WebApplicationContextRunner(
+	public final WebApplicationContextRunner webContextRunner = new WebApplicationContextRunner(
 			AnnotationConfigServletWebServerApplicationContext::new)
 					.withConfiguration(AutoConfigurations.of(JerseyAutoConfiguration.class,
 							JerseyServerMetricsAutoConfiguration.class, ServletWebServerFactoryAutoConfiguration.class,
@@ -77,12 +77,6 @@ class JerseyServerMetricsAutoConfigurationTests {
 	void shouldProvideAllNecessaryBeans() {
 		this.webContextRunner.run((context) -> assertThat(context).hasSingleBean(DefaultJerseyTagsProvider.class)
 				.hasSingleBean(ResourceConfigCustomizer.class));
-	}
-
-	@Test
-	void shouldHonorExistingTagProvider() {
-		this.webContextRunner.withUserConfiguration(CustomJerseyTagsProviderConfiguration.class)
-				.run((context) -> assertThat(context).hasSingleBean(CustomJerseyTagsProvider.class));
 	}
 
 	@Test
@@ -135,6 +129,7 @@ class JerseyServerMetricsAutoConfigurationTests {
 	}
 
 	@Configuration(proxyBeanMethods = false)
+	public
 	static class CustomJerseyTagsProviderConfiguration {
 
 		@Bean
@@ -144,7 +139,7 @@ class JerseyServerMetricsAutoConfigurationTests {
 
 	}
 
-	static class CustomJerseyTagsProvider implements JerseyTagsProvider {
+	public static class CustomJerseyTagsProvider implements JerseyTagsProvider {
 
 		@Override
 		public Iterable<Tag> httpRequestTags(RequestEvent event) {
