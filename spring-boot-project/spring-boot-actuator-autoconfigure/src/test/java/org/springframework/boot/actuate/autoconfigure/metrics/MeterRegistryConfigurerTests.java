@@ -47,13 +47,14 @@ import static org.mockito.Mockito.verifyNoInteractions;
  * @author Andy Wilkinson
  */
 @ExtendWith(MockitoExtension.class)
+public
 class MeterRegistryConfigurerTests {
 
-	private List<MeterBinder> binders = new ArrayList<>();
+	public List<MeterBinder> binders = new ArrayList<>();
 
-	private List<MeterFilter> filters = new ArrayList<>();
+	public List<MeterFilter> filters = new ArrayList<>();
 
-	private List<MeterRegistryCustomizer<?>> customizers = new ArrayList<>();
+	public List<MeterRegistryCustomizer<?>> customizers = new ArrayList<>();
 
 	@Mock
 	private MeterBinder mockBinder;
@@ -65,10 +66,10 @@ class MeterRegistryConfigurerTests {
 	private MeterRegistryCustomizer<MeterRegistry> mockCustomizer;
 
 	@Mock
-	private MeterRegistry mockRegistry;
+	public MeterRegistry mockRegistry;
 
 	@Mock
-	private Config mockConfig;
+	public Config mockConfig;
 
 	@Test
 	void configureWhenCompositeShouldApplyCustomizer() {
@@ -158,17 +159,8 @@ class MeterRegistryConfigurerTests {
 		}
 	}
 
-	@Test
-	void configureWhenNotAddToGlobalRegistryShouldAddToGlobalRegistry() {
-		given(this.mockRegistry.config()).willReturn(this.mockConfig);
-		MeterRegistryConfigurer configurer = new MeterRegistryConfigurer(createObjectProvider(this.customizers),
-				createObjectProvider(this.filters), createObjectProvider(this.binders), false, false);
-		configurer.configure(this.mockRegistry);
-		assertThat(Metrics.globalRegistry.getRegistries()).doesNotContain(this.mockRegistry);
-	}
-
 	@SuppressWarnings("unchecked")
-	private <T> ObjectProvider<T> createObjectProvider(List<T> objects) {
+	public <T> ObjectProvider<T> createObjectProvider(List<T> objects) {
 		ObjectProvider<T> objectProvider = mock(ObjectProvider.class);
 		given(objectProvider.orderedStream()).willReturn(objects.stream());
 		return objectProvider;
