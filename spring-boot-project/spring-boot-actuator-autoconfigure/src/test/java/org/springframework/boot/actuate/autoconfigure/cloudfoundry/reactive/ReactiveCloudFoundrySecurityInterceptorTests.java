@@ -43,15 +43,16 @@ import static org.mockito.BDDMockito.given;
  * @author Madhura Bhave
  */
 @ExtendWith(MockitoExtension.class)
+public
 class ReactiveCloudFoundrySecurityInterceptorTests {
 
 	@Mock
-	private ReactiveTokenValidator tokenValidator;
+	public ReactiveTokenValidator tokenValidator;
 
 	@Mock
-	private ReactiveCloudFoundrySecurityService securityService;
+	public ReactiveCloudFoundrySecurityService securityService;
 
-	private CloudFoundrySecurityInterceptor interceptor;
+	public CloudFoundrySecurityInterceptor interceptor;
 
 	@BeforeEach
 	void setup() {
@@ -121,19 +122,6 @@ class ReactiveCloudFoundrySecurityInterceptorTests {
 	}
 
 	@Test
-	void preHandleSuccessfulWithFullAccess() {
-		String accessToken = mockAccessToken();
-		given(this.securityService.getAccessLevel(accessToken, "my-app-id")).willReturn(Mono.just(AccessLevel.FULL));
-		given(this.tokenValidator.validate(any())).willReturn(Mono.empty());
-		MockServerWebExchange exchange = MockServerWebExchange.from(MockServerHttpRequest.get("/a")
-				.header(HttpHeaders.AUTHORIZATION, "bearer " + mockAccessToken()).build());
-		StepVerifier.create(this.interceptor.preHandle(exchange, "/a")).consumeNextWith((response) -> {
-			assertThat(response.getStatus()).isEqualTo(HttpStatus.OK);
-			assertThat((AccessLevel) exchange.getAttribute("cloudFoundryAccessLevel")).isEqualTo(AccessLevel.FULL);
-		}).verifyComplete();
-	}
-
-	@Test
 	void preHandleSuccessfulWithRestrictedAccess() {
 		String accessToken = mockAccessToken();
 		given(this.securityService.getAccessLevel(accessToken, "my-app-id"))
@@ -148,7 +136,7 @@ class ReactiveCloudFoundrySecurityInterceptorTests {
 		}).verifyComplete();
 	}
 
-	private String mockAccessToken() {
+	public String mockAccessToken() {
 		return "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ0b3B0YWwu"
 				+ "Y29tIiwiZXhwIjoxNDI2NDIwODAwLCJhd2Vzb21lIjp0cnVlfQ."
 				+ Base64Utils.encodeToString("signature".getBytes());
