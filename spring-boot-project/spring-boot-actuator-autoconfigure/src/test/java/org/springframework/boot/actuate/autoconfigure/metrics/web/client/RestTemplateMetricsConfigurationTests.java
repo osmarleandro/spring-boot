@@ -48,6 +48,7 @@ import static org.springframework.test.web.client.response.MockRestResponseCreat
  * @author Raheela Aslam
  */
 @ExtendWith(OutputCaptureExtension.class)
+public
 class RestTemplateMetricsConfigurationTests {
 
 	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner().with(MetricsRun.simple())
@@ -59,7 +60,7 @@ class RestTemplateMetricsConfigurationTests {
 		this.contextRunner.run((context) -> {
 			MeterRegistry registry = context.getBean(MeterRegistry.class);
 			RestTemplateBuilder builder = context.getBean(RestTemplateBuilder.class);
-			validateRestTemplate(builder, registry);
+			builder.validateRestTemplate(this, registry);
 		});
 	}
 
@@ -70,7 +71,7 @@ class RestTemplateMetricsConfigurationTests {
 			RestTemplateBuilder customBuilder = new RestTemplateBuilder()
 					.customizers(context.getBean(MetricsRestTemplateCustomizer.class));
 			MeterRegistry registry = context.getBean(MeterRegistry.class);
-			validateRestTemplate(customBuilder, registry);
+			customBuilder.validateRestTemplate(this, registry);
 		});
 	}
 
@@ -129,15 +130,7 @@ class RestTemplateMetricsConfigurationTests {
 		return registry;
 	}
 
-	private void validateRestTemplate(RestTemplateBuilder builder, MeterRegistry registry) {
-		RestTemplate restTemplate = mockRestTemplate(builder);
-		assertThat(registry.find("http.client.requests").meter()).isNull();
-		assertThat(restTemplate.getForEntity("/projects/{project}", Void.class, "spring-boot").getStatusCode())
-				.isEqualTo(HttpStatus.OK);
-		assertThat(registry.get("http.client.requests").tags("uri", "/projects/{project}").meter()).isNotNull();
-	}
-
-	private RestTemplate mockRestTemplate(RestTemplateBuilder builder) {
+	public RestTemplate mockRestTemplate(RestTemplateBuilder builder) {
 		RestTemplate restTemplate = builder.build();
 		MockRestServiceServer server = MockRestServiceServer.createServer(restTemplate);
 		server.expect(requestTo("/projects/spring-boot")).andRespond(withStatus(HttpStatus.OK));

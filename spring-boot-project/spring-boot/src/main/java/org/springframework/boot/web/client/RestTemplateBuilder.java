@@ -16,6 +16,8 @@
 
 package org.springframework.boot.web.client;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -36,6 +38,8 @@ import java.util.function.Supplier;
 import reactor.netty.http.client.HttpClientRequest;
 
 import org.springframework.beans.BeanUtils;
+import org.springframework.boot.actuate.autoconfigure.metrics.web.client.RestTemplateMetricsConfigurationTests;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.client.AbstractClientHttpRequestFactoryWrapper;
 import org.springframework.http.client.ClientHttpRequest;
 import org.springframework.http.client.ClientHttpRequestFactory;
@@ -49,6 +53,8 @@ import org.springframework.util.ReflectionUtils;
 import org.springframework.web.client.ResponseErrorHandler;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriTemplateHandler;
+
+import io.micrometer.core.instrument.MeterRegistry;
 
 /**
  * Builder that can be used to configure and create a {@link RestTemplate}. Provides
@@ -674,6 +680,14 @@ public class RestTemplateBuilder {
 
 	private <T> Set<T> copiedSetOf(Collection<? extends T> collection) {
 		return Collections.unmodifiableSet(new LinkedHashSet<>(collection));
+	}
+
+	public void validateRestTemplate(RestTemplateMetricsConfigurationTests restTemplateMetricsConfigurationTests, MeterRegistry registry) {
+		RestTemplate restTemplate = restTemplateMetricsConfigurationTests.mockRestTemplate(this);
+		assertThat(registry.find("http.client.requests").meter()).isNull();
+		assertThat(restTemplate.getForEntity("/projects/{project}", Void.class, "spring-boot").getStatusCode())
+				.isEqualTo(HttpStatus.OK);
+		assertThat(registry.get("http.client.requests").tags("uri", "/projects/{project}").meter()).isNotNull();
 	}
 
 	private static <T> List<T> copiedListOf(T[] items) {
