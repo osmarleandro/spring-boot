@@ -16,6 +16,8 @@
 
 package org.springframework.boot.actuate.autoconfigure.cloudfoundry.reactive;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,13 +27,18 @@ import io.netty.handler.ssl.SslProvider;
 import io.netty.handler.ssl.util.InsecureTrustManagerFactory;
 import reactor.core.publisher.Mono;
 import reactor.netty.http.client.HttpClient;
+import reactor.test.StepVerifier;
 
+import org.junit.jupiter.api.Test;
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.AccessLevel;
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.CloudFoundryAuthorizationException;
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.CloudFoundryAuthorizationException.Reason;
 import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.client.reactive.ReactorClientHttpConnector;
+import org.springframework.mock.http.server.reactive.MockServerHttpRequest;
+import org.springframework.mock.web.server.MockServerWebExchange;
 import org.springframework.util.Assert;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.reactive.function.client.WebClient.RequestHeadersSpec;
@@ -146,6 +153,17 @@ class ReactiveCloudFoundrySecurityService {
 				.onErrorMap((ex) -> new CloudFoundryAuthorizationException(Reason.SERVICE_UNAVAILABLE,
 						"Unable to fetch token keys from UAA."));
 		return this.uaaUrl;
+	}
+
+	@Test
+	void preHandleWhenApplicationIdIsNullShouldReturnError(ReactiveCloudFoundrySecurityInterceptorTests reactiveCloudFoundrySecurityInterceptorTests) {
+		reactiveCloudFoundrySecurityInterceptorTests.interceptor = new CloudFoundrySecurityInterceptor(reactiveCloudFoundrySecurityInterceptorTests.tokenValidator, this, null);
+		MockServerWebExchange request = MockServerWebExchange.from(MockServerHttpRequest.get("/a")
+				.header(HttpHeaders.AUTHORIZATION, "bearer " + reactiveCloudFoundrySecurityInterceptorTests.mockAccessToken()).build());
+		StepVerifier.create(reactiveCloudFoundrySecurityInterceptorTests.interceptor.preHandle(request, "/a"))
+				.consumeErrorWith((ex) -> assertThat(((CloudFoundryAuthorizationException) ex).getReason())
+						.isEqualTo(Reason.SERVICE_UNAVAILABLE))
+				.verify();
 	}
 
 }
