@@ -16,13 +16,15 @@
 
 package org.springframework.boot.actuate.autoconfigure.cloudfoundry.servlet;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
+import org.junit.jupiter.api.Test;
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.AccessLevel;
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.CloudFoundryAuthorizationException;
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.CloudFoundryAuthorizationException.Reason;
@@ -106,6 +108,13 @@ class CloudFoundrySecurityInterceptor {
 					"Authorization header is missing or invalid");
 		}
 		return new Token(authorization.substring(bearerPrefix.length()));
+	}
+
+	@Test
+	void preHandleWhenTokenIsNotBearerShouldReturnFalse(CloudFoundrySecurityInterceptorTests cloudFoundrySecurityInterceptorTests) {
+		cloudFoundrySecurityInterceptorTests.request.addHeader("Authorization", cloudFoundrySecurityInterceptorTests.mockAccessToken());
+		SecurityResponse response = preHandle(cloudFoundrySecurityInterceptorTests.request, EndpointId.of("test"));
+		assertThat(response.getStatus()).isEqualTo(Reason.MISSING_AUTHORIZATION.getStatus());
 	}
 
 }
