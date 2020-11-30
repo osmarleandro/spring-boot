@@ -16,6 +16,9 @@
 
 package org.springframework.boot.actuate.autoconfigure.cloudfoundry.reactive;
 
+import java.nio.charset.StandardCharsets;
+import java.security.PrivateKey;
+import java.security.Signature;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -33,6 +36,7 @@ import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.client.reactive.ReactorClientHttpConnector;
 import org.springframework.util.Assert;
+import org.springframework.util.Base64Utils;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.reactive.function.client.WebClient.RequestHeadersSpec;
 import org.springframework.web.reactive.function.client.WebClientResponseException;
@@ -146,6 +150,18 @@ class ReactiveCloudFoundrySecurityService {
 				.onErrorMap((ex) -> new CloudFoundryAuthorizationException(Reason.SERVICE_UNAVAILABLE,
 						"Unable to fetch token keys from UAA."));
 		return this.uaaUrl;
+	}
+
+	public String getSignedToken(ReactiveTokenValidatorTests reactiveTokenValidatorTests, byte[] header, byte[] claims) throws Exception {
+		PrivateKey privateKey = reactiveTokenValidatorTests.getPrivateKey();
+		Signature signature = Signature.getInstance("SHA256WithRSA");
+		signature.initSign(privateKey);
+		byte[] content = reactiveTokenValidatorTests.dotConcat(Base64Utils.encodeUrlSafe(header), Base64Utils.encode(claims));
+		signature.update(content);
+		byte[] crypto = signature.sign();
+		byte[] token = reactiveTokenValidatorTests.dotConcat(Base64Utils.encodeUrlSafe(header), Base64Utils.encodeUrlSafe(claims),
+				Base64Utils.encodeUrlSafe(crypto));
+		return new String(token, StandardCharsets.UTF_8);
 	}
 
 }
