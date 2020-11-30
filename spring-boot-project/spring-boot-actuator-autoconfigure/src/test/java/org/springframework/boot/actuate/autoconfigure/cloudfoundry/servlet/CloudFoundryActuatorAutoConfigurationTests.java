@@ -65,9 +65,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  *
  * @author Madhura Bhave
  */
-class CloudFoundryActuatorAutoConfigurationTests {
+public class CloudFoundryActuatorAutoConfigurationTests {
 
-	private final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner()
+	public final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(SecurityAutoConfiguration.class, WebMvcAutoConfiguration.class,
 					JacksonAutoConfiguration.class, DispatcherServletAutoConfiguration.class,
 					HttpMessageConvertersAutoConfiguration.class, PropertyPlaceholderAutoConfiguration.class,
@@ -100,17 +100,6 @@ class CloudFoundryActuatorAutoConfigurationTests {
 					MockMvc mockMvc = MockMvcBuilders.webAppContextSetup(context).build();
 					mockMvc.perform(get("/cloudfoundryapplication"))
 							.andExpect(header().string("Content-Type", ActuatorMediaType.V3_JSON));
-				});
-	}
-
-	@Test
-	void cloudFoundryPlatformActiveSetsApplicationId() {
-		this.contextRunner.withPropertyValues("VCAP_APPLICATION:---", "vcap.application.application_id:my-app-id",
-				"vcap.application.cf_api:https://my-cloud-controller.com").run((context) -> {
-					CloudFoundryWebEndpointServletHandlerMapping handlerMapping = getHandlerMapping(context);
-					Object interceptor = ReflectionTestUtils.getField(handlerMapping, "securityInterceptor");
-					String applicationId = (String) ReflectionTestUtils.getField(interceptor, "applicationId");
-					assertThat(applicationId).isEqualTo("my-app-id");
 				});
 	}
 
@@ -236,7 +225,7 @@ class CloudFoundryActuatorAutoConfigurationTests {
 				});
 	}
 
-	private CloudFoundryWebEndpointServletHandlerMapping getHandlerMapping(ApplicationContext context) {
+	public CloudFoundryWebEndpointServletHandlerMapping getHandlerMapping(ApplicationContext context) {
 		return context.getBean("cloudFoundryWebEndpointServletHandlerMapping",
 				CloudFoundryWebEndpointServletHandlerMapping.class);
 	}
