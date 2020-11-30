@@ -49,12 +49,12 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Yunkun Huang
  * @author Phillip Webb
  */
-class WebEndpointAutoConfigurationTests {
+public class WebEndpointAutoConfigurationTests {
 
 	private static final AutoConfigurations CONFIGURATIONS = AutoConfigurations.of(EndpointAutoConfiguration.class,
 			WebEndpointAutoConfiguration.class);
 
-	private final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner()
+	public final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner()
 			.withConfiguration(CONFIGURATIONS);
 
 	@Test
@@ -64,16 +64,6 @@ class WebEndpointAutoConfigurationTests {
 			assertThat(endpointMediaTypes.getConsumed()).containsExactly(ActuatorMediaType.V3_JSON,
 					ActuatorMediaType.V2_JSON, "application/json");
 		});
-	}
-
-	@Test
-	void webApplicationConfiguresPathMapper() {
-		this.contextRunner.withPropertyValues("management.endpoints.web.path-mapping.health=healthcheck")
-				.run((context) -> {
-					assertThat(context).hasSingleBean(PathMapper.class);
-					String pathMapping = context.getBean(PathMapper.class).getRootPath(EndpointId.of("health"));
-					assertThat(pathMapping).isEqualTo("healthcheck");
-				});
 	}
 
 	@Test

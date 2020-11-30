@@ -16,6 +16,8 @@
 
 package org.springframework.boot.autoconfigure;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -23,6 +25,10 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointAutoConfigurationTests;
+import org.springframework.boot.actuate.endpoint.EndpointId;
+import org.springframework.boot.actuate.endpoint.web.PathMapper;
 import org.springframework.boot.context.annotation.Configurations;
 import org.springframework.core.Ordered;
 import org.springframework.core.type.classreading.SimpleMetadataReaderFactory;
@@ -61,6 +67,17 @@ public class AutoConfigurations extends Configurations implements Ordered {
 	@Override
 	protected AutoConfigurations merge(Set<Class<?>> mergedClasses) {
 		return new AutoConfigurations(mergedClasses);
+	}
+
+	@Test
+	public
+	void webApplicationConfiguresPathMapper(WebEndpointAutoConfigurationTests webEndpointAutoConfigurationTests) {
+		webEndpointAutoConfigurationTests.contextRunner.withPropertyValues("management.endpoints.web.path-mapping.health=healthcheck")
+				.run((context) -> {
+					assertThat(context).hasSingleBean(PathMapper.class);
+					String pathMapping = context.getBean(PathMapper.class).getRootPath(EndpointId.of("health"));
+					assertThat(pathMapping).isEqualTo("healthcheck");
+				});
 	}
 
 	public static AutoConfigurations of(Class<?>... classes) {
