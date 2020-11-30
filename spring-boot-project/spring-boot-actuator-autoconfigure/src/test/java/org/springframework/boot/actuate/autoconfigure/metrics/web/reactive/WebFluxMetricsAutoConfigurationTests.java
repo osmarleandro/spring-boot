@@ -47,9 +47,10 @@ import static org.mockito.Mockito.mock;
  * @author Madhura Bhave
  */
 @ExtendWith(OutputCaptureExtension.class)
+public
 class WebFluxMetricsAutoConfigurationTests {
 
-	private final ReactiveWebApplicationContextRunner contextRunner = new ReactiveWebApplicationContextRunner()
+	public final ReactiveWebApplicationContextRunner contextRunner = new ReactiveWebApplicationContextRunner()
 			.with(MetricsRun.simple()).withConfiguration(AutoConfigurations.of(WebFluxMetricsAutoConfiguration.class));
 
 	@Test
@@ -103,16 +104,6 @@ class WebFluxMetricsAutoConfigurationTests {
 	}
 
 	@Test
-	void metricsAreNotRecordedIfAutoTimeRequestsIsDisabled() {
-		this.contextRunner.withConfiguration(AutoConfigurations.of(WebFluxAutoConfiguration.class))
-				.withUserConfiguration(TestController.class)
-				.withPropertyValues("management.metrics.web.server.request.autotime.enabled=false").run((context) -> {
-					MeterRegistry registry = getInitializedMeterRegistry(context);
-					assertThat(registry.find("http.server.requests").meter()).isNull();
-				});
-	}
-
-	@Test
 	void whenTagContributorsAreDefinedThenTagsProviderUsesThem() {
 		this.contextRunner.withUserConfiguration(TagsContributorsConfiguration.class).run((context) -> {
 			assertThat(context).hasSingleBean(DefaultWebFluxTagsProvider.class);
@@ -121,7 +112,7 @@ class WebFluxMetricsAutoConfigurationTests {
 		});
 	}
 
-	private MeterRegistry getInitializedMeterRegistry(AssertableReactiveWebApplicationContext context) {
+	public MeterRegistry getInitializedMeterRegistry(AssertableReactiveWebApplicationContext context) {
 		WebTestClient webTestClient = WebTestClient.bindToApplicationContext(context).build();
 		for (int i = 0; i < 3; i++) {
 			webTestClient.get().uri("/test" + i).exchange().expectStatus().isOk();
