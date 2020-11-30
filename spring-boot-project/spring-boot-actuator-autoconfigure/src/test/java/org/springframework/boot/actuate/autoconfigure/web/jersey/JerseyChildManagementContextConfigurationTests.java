@@ -17,7 +17,6 @@
 package org.springframework.boot.actuate.autoconfigure.web.jersey;
 
 import org.glassfish.jersey.server.ResourceConfig;
-import org.glassfish.jersey.servlet.ServletContainer;
 import org.junit.jupiter.api.Test;
 
 import org.springframework.boot.autoconfigure.AutoConfigurations;
@@ -26,7 +25,6 @@ import org.springframework.boot.test.context.FilteredClassLoader;
 import org.springframework.boot.test.context.runner.ApplicationContextRunner;
 import org.springframework.boot.test.context.runner.WebApplicationContextRunner;
 import org.springframework.boot.testsupport.classpath.ClassPathExclusions;
-import org.springframework.boot.web.servlet.ServletRegistrationBean;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -37,9 +35,10 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Madhura Bhave
  */
 @ClassPathExclusions("spring-webmvc-*")
+public
 class JerseyChildManagementContextConfigurationTests {
 
-	private final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner()
+	public final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner()
 			.withUserConfiguration(JerseyChildManagementContextConfiguration.class);
 
 	@Test
@@ -61,15 +60,6 @@ class JerseyChildManagementContextConfigurationTests {
 		this.contextRunner.run((context) -> {
 			JerseyApplicationPath bean = context.getBean(JerseyApplicationPath.class);
 			assertThat(bean.getPath()).isEqualTo("/");
-		});
-	}
-
-	@Test
-	@SuppressWarnings("unchecked")
-	void servletRegistrationBeanIsAutoConfigured() {
-		this.contextRunner.run((context) -> {
-			ServletRegistrationBean<ServletContainer> bean = context.getBean(ServletRegistrationBean.class);
-			assertThat(bean.getUrlMappings()).containsExactly("/*");
 		});
 	}
 
