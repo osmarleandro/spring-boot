@@ -47,9 +47,9 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Stephane Nicoll
  * @author Eddú Meléndez
  */
-class KafkaMetricsAutoConfigurationTests {
+public class KafkaMetricsAutoConfigurationTests {
 
-	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
+	public final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(KafkaMetricsAutoConfiguration.class));
 
 	@Test
@@ -85,19 +85,9 @@ class KafkaMetricsAutoConfigurationTests {
 				});
 	}
 
-	@Test
-	void whenKafkaStreamsIsEnabledAndThereIsNoMeterRegistryThenListenerCustomizationBacksOff() {
-		this.contextRunner.withConfiguration(AutoConfigurations.of(KafkaAutoConfiguration.class))
-				.withUserConfiguration(EnableKafkaStreamsConfiguration.class)
-				.withPropertyValues("spring.application.name=my-test-app").run((context) -> {
-					StreamsBuilderFactoryBean streamsBuilderFactoryBean = context
-							.getBean(StreamsBuilderFactoryBean.class);
-					assertThat(streamsBuilderFactoryBean.getListeners()).isEmpty();
-				});
-	}
-
 	@Configuration(proxyBeanMethods = false)
 	@EnableKafkaStreams
+	public
 	static class EnableKafkaStreamsConfiguration {
 
 		@Bean
