@@ -16,12 +16,19 @@
 
 package org.springframework.boot.test.context.runner;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.mock;
+
 import java.util.List;
 import java.util.function.Supplier;
 
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.actuate.autoconfigure.cache.CachesEndpointAutoConfigurationTests;
+import org.springframework.boot.actuate.cache.CachesEndpoint;
 import org.springframework.boot.context.annotation.Configurations;
 import org.springframework.boot.test.context.assertj.AssertableApplicationContext;
 import org.springframework.boot.test.util.TestPropertyValues;
+import org.springframework.cache.CacheManager;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextInitializer;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -77,6 +84,15 @@ public class ApplicationContextRunner extends
 			List<Configurations> configurations) {
 		return new ApplicationContextRunner(contextFactory, allowBeanDefinitionOverriding, initializers,
 				environmentProperties, systemProperties, classLoader, parent, beanRegistrations, configurations);
+	}
+
+	@Test
+	public
+	void runWhenEnabledPropertyIsFalseShouldNotHaveEndpointBean(CachesEndpointAutoConfigurationTests cachesEndpointAutoConfigurationTests) {
+		withPropertyValues("management.endpoint.caches.enabled:false")
+				.withPropertyValues("management.endpoints.web.exposure.include=*")
+				.withBean(CacheManager.class, () -> mock(CacheManager.class))
+				.run((context) -> assertThat(context).doesNotHaveBean(CachesEndpoint.class));
 	}
 
 }
