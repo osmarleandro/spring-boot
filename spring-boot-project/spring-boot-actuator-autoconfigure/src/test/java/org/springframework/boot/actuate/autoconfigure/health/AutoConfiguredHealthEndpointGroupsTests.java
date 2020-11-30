@@ -45,9 +45,9 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Phillip Webb
  * @author Leo Li
  */
-class AutoConfiguredHealthEndpointGroupsTests {
+public class AutoConfiguredHealthEndpointGroupsTests {
 
-	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
+	public final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(AutoConfiguredHealthEndpointGroupsTestConfiguration.class));
 
 	@Test
@@ -76,15 +76,6 @@ class AutoConfiguredHealthEndpointGroupsTests {
 			HealthEndpointGroups groups = context.getBean(HealthEndpointGroups.class);
 			HealthEndpointGroup group = groups.get("a");
 			assertThat(group).isNotNull();
-		});
-	}
-
-	@Test
-	void getGroupWhenGroupDoesNotExistReturnsNull() {
-		this.contextRunner.withPropertyValues("management.endpoint.health.group.a.include=*").run((context) -> {
-			HealthEndpointGroups groups = context.getBean(HealthEndpointGroups.class);
-			HealthEndpointGroup group = groups.get("b");
-			assertThat(group).isNull();
 		});
 	}
 
