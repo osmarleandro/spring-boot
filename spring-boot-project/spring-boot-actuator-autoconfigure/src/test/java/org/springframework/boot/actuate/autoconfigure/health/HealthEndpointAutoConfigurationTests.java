@@ -62,13 +62,13 @@ import static org.mockito.Mockito.mock;
  * @author Stephane Nicoll
  * @author Scott Frederick
  */
-class HealthEndpointAutoConfigurationTests {
+public class HealthEndpointAutoConfigurationTests {
 
 	private final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner()
 			.withUserConfiguration(HealthIndicatorsConfiguration.class).withConfiguration(AutoConfigurations
 					.of(HealthContributorAutoConfiguration.class, HealthEndpointAutoConfiguration.class));
 
-	private final ReactiveWebApplicationContextRunner reactiveContextRunner = new ReactiveWebApplicationContextRunner()
+	public final ReactiveWebApplicationContextRunner reactiveContextRunner = new ReactiveWebApplicationContextRunner()
 			.withUserConfiguration(HealthIndicatorsConfiguration.class).withConfiguration(AutoConfigurations
 					.of(HealthContributorAutoConfiguration.class, HealthEndpointAutoConfiguration.class));
 
@@ -238,18 +238,6 @@ class HealthEndpointAutoConfigurationTests {
 	}
 
 	@Test
-	void runWhenHasReactiveHealthEndpointWebExtensionBeanDoesNotCreateExtraReactiveHealthEndpointWebExtension() {
-		this.reactiveContextRunner.withUserConfiguration(ReactiveHealthEndpointWebExtensionConfiguration.class)
-				.run((context) -> {
-					ReactiveHealthEndpointWebExtension webExtension = context
-							.getBean(ReactiveHealthEndpointWebExtension.class);
-					Mono<WebEndpointResponse<? extends HealthComponent>> response = webExtension.health(ApiVersion.V3,
-							SecurityContext.NONE, true, "simple");
-					assertThat(response).isNull();
-				});
-	}
-
-	@Test
 	void runWhenHasHealthEndpointGroupsPostProcessorPerformsProcessing() {
 		this.contextRunner.withPropertyValues("management.endpoint.health.group.ready.include=*").withUserConfiguration(
 				HealthEndpointGroupsConfiguration.class, TestHealthEndpointGroupsPostProcessor.class).run((context) -> {
@@ -352,6 +340,7 @@ class HealthEndpointAutoConfigurationTests {
 	}
 
 	@Configuration(proxyBeanMethods = false)
+	public
 	static class ReactiveHealthEndpointWebExtensionConfiguration {
 
 		@Bean
