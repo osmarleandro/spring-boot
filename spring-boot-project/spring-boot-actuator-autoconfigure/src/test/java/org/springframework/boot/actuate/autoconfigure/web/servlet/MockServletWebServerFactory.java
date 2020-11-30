@@ -54,10 +54,6 @@ public class MockServletWebServerFactory extends AbstractServletWebServerFactory
 		return (getWebServer() != null) ? getWebServer().getServletContext() : null;
 	}
 
-	public RegisteredServlet getRegisteredServlet(int index) {
-		return (getWebServer() != null) ? getWebServer().getRegisteredServlet(index) : null;
-	}
-
 	public RegisteredFilter getRegisteredFilter(int index) {
 		return (getWebServer() != null) ? getWebServer().getRegisteredFilters(index) : null;
 	}
@@ -72,6 +68,10 @@ public class MockServletWebServerFactory extends AbstractServletWebServerFactory
 
 		@Override
 		public void start() throws WebServerException {
+		}
+
+		public RegisteredServlet getRegisteredServlet(MockServletWebServerFactory mockServletWebServerFactory, int index) {
+			return (mockServletWebServerFactory.getWebServer() != null) ? mockServletWebServerFactory.getWebServer().getRegisteredServlet(index) : null;
 		}
 
 	}
