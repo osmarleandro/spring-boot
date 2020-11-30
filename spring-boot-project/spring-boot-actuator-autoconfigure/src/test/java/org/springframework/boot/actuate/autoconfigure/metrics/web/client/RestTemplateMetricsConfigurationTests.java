@@ -48,20 +48,12 @@ import static org.springframework.test.web.client.response.MockRestResponseCreat
  * @author Raheela Aslam
  */
 @ExtendWith(OutputCaptureExtension.class)
+public
 class RestTemplateMetricsConfigurationTests {
 
-	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner().with(MetricsRun.simple())
+	public final ApplicationContextRunner contextRunner = new ApplicationContextRunner().with(MetricsRun.simple())
 			.withConfiguration(AutoConfigurations.of(RestTemplateAutoConfiguration.class,
 					HttpClientMetricsAutoConfiguration.class));
-
-	@Test
-	void restTemplateCreatedWithBuilderIsInstrumented() {
-		this.contextRunner.run((context) -> {
-			MeterRegistry registry = context.getBean(MeterRegistry.class);
-			RestTemplateBuilder builder = context.getBean(RestTemplateBuilder.class);
-			validateRestTemplate(builder, registry);
-		});
-	}
 
 	@Test
 	void restTemplateCanBeCustomizedManually() {
@@ -129,7 +121,7 @@ class RestTemplateMetricsConfigurationTests {
 		return registry;
 	}
 
-	private void validateRestTemplate(RestTemplateBuilder builder, MeterRegistry registry) {
+	public void validateRestTemplate(RestTemplateBuilder builder, MeterRegistry registry) {
 		RestTemplate restTemplate = mockRestTemplate(builder);
 		assertThat(registry.find("http.client.requests").meter()).isNull();
 		assertThat(restTemplate.getForEntity("/projects/{project}", Void.class, "spring-boot").getStatusCode())
