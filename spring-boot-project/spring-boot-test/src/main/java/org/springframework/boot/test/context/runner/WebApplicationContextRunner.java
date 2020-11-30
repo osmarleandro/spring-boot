@@ -16,9 +16,15 @@
 
 package org.springframework.boot.test.context.runner;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import java.util.List;
 import java.util.function.Supplier;
 
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.actuate.autoconfigure.health.HealthEndpointAutoConfigurationTests;
+import org.springframework.boot.actuate.health.HttpCodeStatusMapper;
+import org.springframework.boot.actuate.health.Status;
 import org.springframework.boot.context.annotation.Configurations;
 import org.springframework.boot.test.context.assertj.AssertableWebApplicationContext;
 import org.springframework.boot.test.util.TestPropertyValues;
@@ -81,6 +87,16 @@ public final class WebApplicationContextRunner extends
 			List<Configurations> configurations) {
 		return new WebApplicationContextRunner(contextFactory, allowBeanDefinitionOverriding, initializers,
 				environmentProperties, systemProperties, classLoader, parent, beanRegistrations, configurations);
+	}
+
+	@Test
+	public
+	void runCreatesHttpCodeStatusMapperFromProperties(HealthEndpointAutoConfigurationTests healthEndpointAutoConfigurationTests) {
+		withPropertyValues("management.endpoint.health.status.http-mapping.up=123")
+				.run((context) -> {
+					HttpCodeStatusMapper mapper = context.getBean(HttpCodeStatusMapper.class);
+					assertThat(mapper.getStatusCode(Status.UP)).isEqualTo(123);
+				});
 	}
 
 	/**
