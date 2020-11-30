@@ -34,20 +34,14 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Andy Wilkinson
  */
-class DatadogMetricsExportAutoConfigurationTests {
+public class DatadogMetricsExportAutoConfigurationTests {
 
-	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
+	public final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(DatadogMetricsExportAutoConfiguration.class));
 
 	@Test
 	void backsOffWithoutAClock() {
 		this.contextRunner.run((context) -> assertThat(context).doesNotHaveBean(DatadogMeterRegistry.class));
-	}
-
-	@Test
-	void failsWithoutAnApiKey() {
-		this.contextRunner.withUserConfiguration(BaseConfiguration.class)
-				.run((context) -> assertThat(context).hasFailed());
 	}
 
 	@Test
@@ -100,6 +94,7 @@ class DatadogMetricsExportAutoConfigurationTests {
 	}
 
 	@Configuration(proxyBeanMethods = false)
+	public
 	static class BaseConfiguration {
 
 		@Bean
