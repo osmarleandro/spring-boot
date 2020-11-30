@@ -16,6 +16,12 @@
 
 package org.springframework.boot.test.web.client;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.springframework.test.web.client.ExpectedCount.once;
+import static org.springframework.test.web.client.match.MockRestRequestMatchers.method;
+import static org.springframework.test.web.client.match.MockRestRequestMatchers.requestTo;
+import static org.springframework.test.web.client.response.MockRestResponseCreators.withSuccess;
+
 import java.io.IOException;
 import java.net.URI;
 import java.util.Arrays;
@@ -33,18 +39,21 @@ import org.apache.http.conn.ssl.TrustSelfSignedStrategy;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.protocol.HttpContext;
 import org.apache.http.ssl.SSLContextBuilder;
-
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.actuate.autoconfigure.metrics.test.MetricsIntegrationTests;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.boot.web.client.RootUriTemplateHandler;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.client.ClientHttpRequestFactory;
 import org.springframework.http.client.ClientHttpResponse;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
+import org.springframework.test.web.client.MockRestServiceServer;
 import org.springframework.util.Assert;
 import org.springframework.web.client.DefaultResponseErrorHandler;
 import org.springframework.web.client.RequestCallback;
@@ -974,6 +983,16 @@ public class TestRestTemplate {
 			return URI.create(((RootUriTemplateHandler) uriTemplateHandler).getRootUri() + uri.toString());
 		}
 		return uri;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Test
+	void restTemplateIsInstrumented(MetricsIntegrationTests metricsIntegrationTests) {
+		MockRestServiceServer server = MockRestServiceServer.bindTo(metricsIntegrationTests.external).build();
+		server.expect(once(), requestTo("/api/external")).andExpect(method(HttpMethod.GET))
+				.andRespond(withSuccess("{\"message\": \"hello\"}", MediaType.APPLICATION_JSON));
+		assertThat(metricsIntegrationTests.external.getForObject("/api/external", Map.class)).containsKey("message");
+		assertThat(metricsIntegrationTests.registry.get("http.client.requests").timer().count()).isEqualTo(1);
 	}
 
 	/**

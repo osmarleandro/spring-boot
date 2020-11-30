@@ -62,19 +62,12 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.Primary;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.MediaType;
 import org.springframework.test.util.ReflectionTestUtils;
-import org.springframework.test.web.client.MockRestServiceServer;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.springframework.test.web.client.ExpectedCount.once;
-import static org.springframework.test.web.client.match.MockRestRequestMatchers.method;
-import static org.springframework.test.web.client.match.MockRestRequestMatchers.requestTo;
-import static org.springframework.test.web.client.response.MockRestResponseCreators.withSuccess;
 
 /**
  * Integration tests for Metrics.
@@ -83,29 +76,20 @@ import static org.springframework.test.web.client.response.MockRestResponseCreat
  */
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT, classes = MetricsIntegrationTests.MetricsApp.class,
 		properties = "management.metrics.use-global-registry=false")
+public
 class MetricsIntegrationTests {
 
 	@Autowired
 	private ApplicationContext context;
 
 	@Autowired
-	private RestTemplate external;
+	public RestTemplate external;
 
 	@Autowired
 	private TestRestTemplate loopback;
 
 	@Autowired
-	private MeterRegistry registry;
-
-	@SuppressWarnings("unchecked")
-	@Test
-	void restTemplateIsInstrumented() {
-		MockRestServiceServer server = MockRestServiceServer.bindTo(this.external).build();
-		server.expect(once(), requestTo("/api/external")).andExpect(method(HttpMethod.GET))
-				.andRespond(withSuccess("{\"message\": \"hello\"}", MediaType.APPLICATION_JSON));
-		assertThat(this.external.getForObject("/api/external", Map.class)).containsKey("message");
-		assertThat(this.registry.get("http.client.requests").timer().count()).isEqualTo(1);
-	}
+	public MeterRegistry registry;
 
 	@Test
 	void requestMappingIsInstrumented() {
