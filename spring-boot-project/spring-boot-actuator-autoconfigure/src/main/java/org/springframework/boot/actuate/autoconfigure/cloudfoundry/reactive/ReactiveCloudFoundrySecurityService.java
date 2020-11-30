@@ -16,6 +16,9 @@
 
 package org.springframework.boot.actuate.autoconfigure.cloudfoundry.reactive;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.BDDMockito.given;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,10 +28,13 @@ import io.netty.handler.ssl.SslProvider;
 import io.netty.handler.ssl.util.InsecureTrustManagerFactory;
 import reactor.core.publisher.Mono;
 import reactor.netty.http.client.HttpClient;
+import reactor.test.StepVerifier;
 
+import org.junit.jupiter.api.Test;
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.AccessLevel;
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.CloudFoundryAuthorizationException;
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.CloudFoundryAuthorizationException.Reason;
+import org.springframework.boot.actuate.autoconfigure.cloudfoundry.Token;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.client.reactive.ReactorClientHttpConnector;
@@ -146,6 +152,21 @@ class ReactiveCloudFoundrySecurityService {
 				.onErrorMap((ex) -> new CloudFoundryAuthorizationException(Reason.SERVICE_UNAVAILABLE,
 						"Unable to fetch token keys from UAA."));
 		return this.uaaUrl;
+	}
+
+	@Test
+	void validateTokenWhenTokenAlgorithmIsNotRS256ShouldThrowException(ReactiveTokenValidatorTests reactiveTokenValidatorTests) throws Exception {
+		given(fetchTokenKeys()).willReturn(Mono.just(ReactiveTokenValidatorTests.VALID_KEYS));
+		given(getUaaUrl()).willReturn(Mono.just("http://localhost:8080/uaa"));
+		String header = "{ \"alg\": \"HS256\",  \"kid\": \"valid-key\", \"typ\": \"JWT\"}";
+		String claims = "{ \"exp\": 2147483647, \"iss\": \"http://localhost:8080/uaa/oauth/token\", \"scope\": [\"actuator.read\"]}";
+		StepVerifier
+				.create(reactiveTokenValidatorTests.tokenValidator.validate(new Token(reactiveTokenValidatorTests.getSignedToken(header.getBytes(), claims.getBytes()))))
+				.consumeErrorWith((ex) -> {
+					assertThat(ex).isExactlyInstanceOf(CloudFoundryAuthorizationException.class);
+					assertThat(((CloudFoundryAuthorizationException) ex).getReason())
+							.isEqualTo(Reason.UNSUPPORTED_TOKEN_SIGNING_ALGORITHM);
+				}).verify();
 	}
 
 }
