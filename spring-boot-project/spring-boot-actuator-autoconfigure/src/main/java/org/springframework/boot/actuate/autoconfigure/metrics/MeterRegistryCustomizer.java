@@ -16,8 +16,14 @@
 
 package org.springframework.boot.actuate.autoconfigure.metrics;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.BDDMockito.given;
+
+import org.junit.jupiter.api.Test;
+
 import io.micrometer.core.instrument.Meter;
 import io.micrometer.core.instrument.MeterRegistry;
+import io.micrometer.core.instrument.Metrics;
 
 /**
  * Callback interface that can be used to customize auto-configured {@link MeterRegistry
@@ -38,5 +44,20 @@ public interface MeterRegistryCustomizer<T extends MeterRegistry> {
 	 * @param registry the registry to customize
 	 */
 	void customize(T registry);
+
+	@Test
+	default
+	void configureWhenAddToGlobalRegistryShouldAddToGlobalRegistry(MeterRegistryConfigurerTests meterRegistryConfigurerTests) {
+		given(meterRegistryConfigurerTests.mockRegistry.config()).willReturn(meterRegistryConfigurerTests.mockConfig);
+		MeterRegistryConfigurer configurer = new MeterRegistryConfigurer(meterRegistryConfigurerTests.createObjectProvider(meterRegistryConfigurerTests.customizers),
+				meterRegistryConfigurerTests.createObjectProvider(meterRegistryConfigurerTests.filters), meterRegistryConfigurerTests.createObjectProvider(meterRegistryConfigurerTests.binders), true, false);
+		try {
+			configurer.configure(meterRegistryConfigurerTests.mockRegistry);
+			assertThat(Metrics.globalRegistry.getRegistries()).contains(meterRegistryConfigurerTests.mockRegistry);
+		}
+		finally {
+			Metrics.removeRegistry(meterRegistryConfigurerTests.mockRegistry);
+		}
+	}
 
 }
