@@ -54,9 +54,9 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Madhura Bhave
  */
-class ManagementWebSecurityAutoConfigurationTests {
+public class ManagementWebSecurityAutoConfigurationTests {
 
-	private final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner().withConfiguration(
+	public final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner().withConfiguration(
 			AutoConfigurations.of(HealthContributorAutoConfiguration.class, HealthEndpointAutoConfiguration.class,
 					InfoEndpointAutoConfiguration.class, EnvironmentEndpointAutoConfiguration.class,
 					EndpointAutoConfiguration.class, WebEndpointAutoConfiguration.class,
@@ -106,16 +106,6 @@ class ManagementWebSecurityAutoConfigurationTests {
 	}
 
 	@Test
-	void backOffIfCustomSecurityIsAdded() {
-		this.contextRunner.withUserConfiguration(CustomSecurityConfiguration.class).run((context) -> {
-			HttpStatus status = getResponseStatus(context, "/actuator/health");
-			assertThat(status).isEqualTo(HttpStatus.UNAUTHORIZED);
-			status = getResponseStatus(context, "/foo");
-			assertThat(status).isEqualTo(HttpStatus.OK);
-		});
-	}
-
-	@Test
 	void backsOffIfSecurityFilterChainBeanIsPresent() {
 		this.contextRunner.withUserConfiguration(TestSecurityFilterChainConfig.class).run((context) -> {
 			assertThat(context.getBeansOfType(SecurityFilterChain.class).size()).isEqualTo(1);
@@ -143,7 +133,7 @@ class ManagementWebSecurityAutoConfigurationTests {
 						ManagementWebSecurityAutoConfiguration.ManagementWebSecurityConfigurerAdapter.class));
 	}
 
-	private HttpStatus getResponseStatus(AssertableWebApplicationContext context, String path)
+	public HttpStatus getResponseStatus(AssertableWebApplicationContext context, String path)
 			throws IOException, javax.servlet.ServletException {
 		FilterChainProxy filterChainProxy = context.getBean(FilterChainProxy.class);
 		MockServletContext servletContext = new MockServletContext();
@@ -157,6 +147,7 @@ class ManagementWebSecurityAutoConfigurationTests {
 	}
 
 	@Configuration(proxyBeanMethods = false)
+	public
 	static class CustomSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 		@Override
