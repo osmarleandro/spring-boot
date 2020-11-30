@@ -33,15 +33,10 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Andy Wilkinson
  * @author Stephane Nicoll
  */
-class LogbackMetricsAutoConfigurationTests {
+public class LogbackMetricsAutoConfigurationTests {
 
-	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner().with(MetricsRun.simple())
+	public final ApplicationContextRunner contextRunner = new ApplicationContextRunner().with(MetricsRun.simple())
 			.withConfiguration(AutoConfigurations.of(LogbackMetricsAutoConfiguration.class));
-
-	@Test
-	void autoConfiguresLogbackMetrics() {
-		this.contextRunner.run((context) -> assertThat(context).hasSingleBean(LogbackMetrics.class));
-	}
 
 	@Test
 	void allowsCustomLogbackMetricsToBeUsed() {
