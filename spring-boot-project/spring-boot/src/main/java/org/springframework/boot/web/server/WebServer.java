@@ -61,4 +61,13 @@ public interface WebServer {
 		callback.shutdownComplete(GracefulShutdownResult.IMMEDIATE);
 	}
 
+	public default Ssl getSsl(String keyPassword, String keyStore) {
+		Ssl ssl = new Ssl();
+		ssl.setEnabled(true);
+		ssl.setKeyPassword(keyPassword);
+		ssl.setKeyStore(keyStore);
+		ssl.setKeyStorePassword("secret");
+		return ssl;
+	}
+
 }

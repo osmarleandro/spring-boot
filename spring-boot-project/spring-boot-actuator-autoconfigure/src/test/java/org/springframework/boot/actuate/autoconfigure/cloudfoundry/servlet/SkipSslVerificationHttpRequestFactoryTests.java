@@ -23,7 +23,6 @@ import org.junit.jupiter.api.Test;
 
 import org.springframework.boot.testsupport.web.servlet.ExampleServlet;
 import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
-import org.springframework.boot.web.server.Ssl;
 import org.springframework.boot.web.server.WebServer;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.http.HttpStatus;
@@ -63,19 +62,10 @@ class SkipSslVerificationHttpRequestFactoryTests {
 
 	private String getHttpsUrl() {
 		TomcatServletWebServerFactory factory = new TomcatServletWebServerFactory(0);
-		factory.setSsl(getSsl("password", "classpath:test.jks"));
+		factory.setSsl(webServer.getSsl("password", "classpath:test.jks"));
 		this.webServer = factory.getWebServer(new ServletRegistrationBean<>(new ExampleServlet(), "/hello"));
 		this.webServer.start();
 		return "https://localhost:" + this.webServer.getPort() + "/hello";
-	}
-
-	private Ssl getSsl(String keyPassword, String keyStore) {
-		Ssl ssl = new Ssl();
-		ssl.setEnabled(true);
-		ssl.setKeyPassword(keyPassword);
-		ssl.setKeyStore(keyStore);
-		ssl.setKeyStorePassword("secret");
-		return ssl;
 	}
 
 }
