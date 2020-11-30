@@ -32,7 +32,6 @@ import org.springframework.boot.test.context.runner.WebApplicationContextRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
-import org.springframework.web.servlet.DispatcherServlet;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -42,9 +41,9 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Phillip Webb
  * @author Madhura Bhave
  */
-class ServletEndpointManagementContextConfigurationTests {
+public class ServletEndpointManagementContextConfigurationTests {
 
-	private final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner()
+	public final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner()
 			.withUserConfiguration(TestConfig.class);
 
 	@Test
@@ -54,16 +53,6 @@ class ServletEndpointManagementContextConfigurationTests {
 			assertThat(context).hasSingleBean(ServletEndpointRegistrar.class);
 			ServletEndpointRegistrar bean = context.getBean(ServletEndpointRegistrar.class);
 			assertThat(bean).hasFieldOrPropertyWithValue("basePath", "/test/actuator");
-		});
-	}
-
-	@Test
-	void contextWhenJerseyShouldContainServletEndpointRegistrar() {
-		FilteredClassLoader classLoader = new FilteredClassLoader(DispatcherServlet.class);
-		this.contextRunner.withClassLoader(classLoader).run((context) -> {
-			assertThat(context).hasSingleBean(ServletEndpointRegistrar.class);
-			ServletEndpointRegistrar bean = context.getBean(ServletEndpointRegistrar.class);
-			assertThat(bean).hasFieldOrPropertyWithValue("basePath", "/jersey/actuator");
 		});
 	}
 

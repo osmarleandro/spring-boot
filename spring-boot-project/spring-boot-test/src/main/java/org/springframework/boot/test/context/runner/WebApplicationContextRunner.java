@@ -16,10 +16,16 @@
 
 package org.springframework.boot.test.context.runner;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import java.util.List;
 import java.util.function.Supplier;
 
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.actuate.autoconfigure.endpoint.web.ServletEndpointManagementContextConfigurationTests;
+import org.springframework.boot.actuate.endpoint.web.ServletEndpointRegistrar;
 import org.springframework.boot.context.annotation.Configurations;
+import org.springframework.boot.test.context.FilteredClassLoader;
 import org.springframework.boot.test.context.assertj.AssertableWebApplicationContext;
 import org.springframework.boot.test.util.TestPropertyValues;
 import org.springframework.boot.web.servlet.context.AnnotationConfigServletWebApplicationContext;
@@ -28,6 +34,7 @@ import org.springframework.context.ApplicationContextInitializer;
 import org.springframework.mock.web.MockServletContext;
 import org.springframework.web.context.ConfigurableWebApplicationContext;
 import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.servlet.DispatcherServlet;
 
 /**
  * An {@link AbstractApplicationContextRunner ApplicationContext runner} for a Servlet
@@ -81,6 +88,17 @@ public final class WebApplicationContextRunner extends
 			List<Configurations> configurations) {
 		return new WebApplicationContextRunner(contextFactory, allowBeanDefinitionOverriding, initializers,
 				environmentProperties, systemProperties, classLoader, parent, beanRegistrations, configurations);
+	}
+
+	@Test
+	public
+	void contextWhenJerseyShouldContainServletEndpointRegistrar(ServletEndpointManagementContextConfigurationTests servletEndpointManagementContextConfigurationTests) {
+		FilteredClassLoader classLoader = new FilteredClassLoader(DispatcherServlet.class);
+		withClassLoader(classLoader).run((context) -> {
+			assertThat(context).hasSingleBean(ServletEndpointRegistrar.class);
+			ServletEndpointRegistrar bean = context.getBean(ServletEndpointRegistrar.class);
+			assertThat(bean).hasFieldOrPropertyWithValue("basePath", "/jersey/actuator");
+		});
 	}
 
 	/**
