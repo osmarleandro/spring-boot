@@ -23,7 +23,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.actuate.autoconfigure.health.HealthContributorAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.jdbc.DataSourceHealthContributorAutoConfiguration.RoutingDataSourceHealthIndicator;
 import org.springframework.boot.actuate.health.CompositeHealthContributor;
-import org.springframework.boot.actuate.health.NamedContributor;
 import org.springframework.boot.actuate.jdbc.DataSourceHealthIndicator;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
@@ -46,9 +45,9 @@ import static org.mockito.Mockito.mock;
  * @author Phillip Webb
  * @author Julio Gomez
  */
-class DataSourceHealthContributorAutoConfigurationTests {
+public class DataSourceHealthContributorAutoConfigurationTests {
 
-	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
+	public final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(DataSourceAutoConfiguration.class,
 					HealthContributorAutoConfiguration.class, DataSourceHealthContributorAutoConfiguration.class))
 			.withPropertyValues("spring.datasource.initialization-mode=never");
@@ -59,17 +58,6 @@ class DataSourceHealthContributorAutoConfigurationTests {
 			context.getBean(DataSourceHealthIndicator.class);
 			assertThat(context).hasSingleBean(DataSourceHealthIndicator.class);
 		});
-	}
-
-	@Test
-	void runWhenMultipleDataSourceBeansShouldCreateCompositeIndicator() {
-		this.contextRunner.withUserConfiguration(EmbeddedDataSourceConfiguration.class, DataSourceConfig.class)
-				.run((context) -> {
-					assertThat(context).hasSingleBean(CompositeHealthContributor.class);
-					CompositeHealthContributor contributor = context.getBean(CompositeHealthContributor.class);
-					String[] names = contributor.stream().map(NamedContributor::getName).toArray(String[]::new);
-					assertThat(names).containsExactlyInAnyOrder("dataSource", "testDataSource");
-				});
 	}
 
 	@Test
@@ -128,6 +116,7 @@ class DataSourceHealthContributorAutoConfigurationTests {
 
 	@Configuration(proxyBeanMethods = false)
 	@EnableConfigurationProperties
+	public
 	static class DataSourceConfig {
 
 		@Bean
