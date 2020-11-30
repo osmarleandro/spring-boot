@@ -45,20 +45,12 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Tadaya Tsuyukubo
  * @author Stephane Nicoll
  */
-class ConnectionPoolMetricsAutoConfigurationTests {
+public class ConnectionPoolMetricsAutoConfigurationTests {
 
-	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
+	public final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.withPropertyValues("spring.r2dbc.generate-unique-name=true").with(MetricsRun.simple())
 			.withConfiguration(AutoConfigurations.of(ConnectionPoolMetricsAutoConfiguration.class))
 			.withUserConfiguration(BaseConfiguration.class);
-
-	@Test
-	void autoConfiguredDataSourceIsInstrumented() {
-		this.contextRunner.withConfiguration(AutoConfigurations.of(R2dbcAutoConfiguration.class)).run((context) -> {
-			MeterRegistry registry = context.getBean(MeterRegistry.class);
-			assertThat(registry.find("r2dbc.pool.acquired").gauges()).hasSize(1);
-		});
-	}
 
 	@Test
 	void autoConfiguredDataSourceExposedAsConnectionFactoryTypeIsInstrumented() {
