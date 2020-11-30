@@ -54,14 +54,15 @@ import static org.mockito.Mockito.verify;
  * @author Madhura Bhave
  */
 @ExtendWith(MockitoExtension.class)
+public
 class TokenValidatorTests {
 
 	private static final byte[] DOT = ".".getBytes();
 
 	@Mock
-	private CloudFoundrySecurityService securityService;
+	public CloudFoundrySecurityService securityService;
 
-	private TokenValidator tokenValidator;
+	public TokenValidator tokenValidator;
 
 	private static final String VALID_KEY = "-----BEGIN PUBLIC KEY-----\n"
 			+ "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA0m59l2u9iDnMbrXHfqkO\n"
@@ -81,9 +82,9 @@ class TokenValidatorTests {
 			+ "r3F7aM9YpErzeYLrl0GhQr9BVJxOvXcVd4kmY+XkiCcrkyS1cnghnllh+LCwQu1s\n"
 			+ "YwIDAQAB\n-----END PUBLIC KEY-----";
 
-	private static final Map<String, String> INVALID_KEYS = Collections.singletonMap("invalid-key", INVALID_KEY);
+	public static final Map<String, String> INVALID_KEYS = Collections.singletonMap("invalid-key", INVALID_KEY);
 
-	private static final Map<String, String> VALID_KEYS = Collections.singletonMap("valid-key", VALID_KEY);
+	public static final Map<String, String> VALID_KEYS = Collections.singletonMap("valid-key", VALID_KEY);
 
 	@BeforeEach
 	void setup() {
@@ -99,17 +100,6 @@ class TokenValidatorTests {
 		assertThatExceptionOfType(CloudFoundryAuthorizationException.class).isThrownBy(
 				() -> this.tokenValidator.validate(new Token(getSignedToken(header.getBytes(), claims.getBytes()))))
 				.satisfies(reasonRequirement(Reason.INVALID_KEY_ID));
-	}
-
-	@Test
-	void validateTokenWhenKidValidationSucceedsInTheSecondAttempt() throws Exception {
-		ReflectionTestUtils.setField(this.tokenValidator, "tokenKeys", INVALID_KEYS);
-		given(this.securityService.fetchTokenKeys()).willReturn(VALID_KEYS);
-		given(this.securityService.getUaaUrl()).willReturn("http://localhost:8080/uaa");
-		String header = "{ \"alg\": \"RS256\",  \"kid\": \"valid-key\",\"typ\": \"JWT\"}";
-		String claims = "{ \"exp\": 2147483647, \"iss\": \"http://localhost:8080/uaa/oauth/token\", \"scope\": [\"actuator.read\"]}";
-		this.tokenValidator.validate(new Token(getSignedToken(header.getBytes(), claims.getBytes())));
-		verify(this.securityService).fetchTokenKeys();
 	}
 
 	@Test
@@ -185,7 +175,7 @@ class TokenValidatorTests {
 				.satisfies(reasonRequirement(Reason.INVALID_AUDIENCE));
 	}
 
-	private String getSignedToken(byte[] header, byte[] claims) throws Exception {
+	public String getSignedToken(byte[] header, byte[] claims) throws Exception {
 		PrivateKey privateKey = getPrivateKey();
 		Signature signature = Signature.getInstance("SHA256WithRSA");
 		signature.initSign(privateKey);
