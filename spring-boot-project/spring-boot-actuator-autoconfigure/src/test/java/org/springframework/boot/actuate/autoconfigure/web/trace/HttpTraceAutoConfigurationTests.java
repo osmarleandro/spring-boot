@@ -44,24 +44,14 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Andy Wilkinson
  * @author Madhura Bhave
  */
-class HttpTraceAutoConfigurationTests {
+public class HttpTraceAutoConfigurationTests {
 
-	private final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner()
+	public final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(HttpTraceAutoConfiguration.class));
 
 	@Test
 	void autoConfigurationIsDisabledByDefault() {
 		this.contextRunner.run((context) -> assertThat(context).doesNotHaveBean(HttpTraceAutoConfiguration.class));
-	}
-
-	@Test
-	void autoConfigurationIsEnabledWhenHttpTraceRepositoryBeanPresent() {
-		this.contextRunner.withUserConfiguration(HttpTraceRepositoryConfiguration.class).run((context) -> {
-			assertThat(context).hasSingleBean(HttpExchangeTracer.class);
-			assertThat(context).hasSingleBean(HttpTraceFilter.class);
-			assertThat(context).hasSingleBean(HttpTraceRepository.class);
-			assertThat(context.getBean(HttpTraceRepository.class)).isInstanceOf(CustomHttpTraceRepository.class);
-		});
 	}
 
 	@Test
@@ -107,7 +97,7 @@ class HttpTraceAutoConfigurationTests {
 						.doesNotHaveBean(HttpExchangeTracer.class).doesNotHaveBean(HttpTraceFilter.class));
 	}
 
-	static class CustomHttpTraceRepository implements HttpTraceRepository {
+	public static class CustomHttpTraceRepository implements HttpTraceRepository {
 
 		@Override
 		public List<HttpTrace> findAll() {
@@ -122,6 +112,7 @@ class HttpTraceAutoConfigurationTests {
 	}
 
 	@Configuration(proxyBeanMethods = false)
+	public
 	static class HttpTraceRepositoryConfiguration {
 
 		@Bean
