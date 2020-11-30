@@ -38,9 +38,9 @@ import static org.mockito.Mockito.mock;
  *
  * @author Stephane Nicoll
  */
-class DefaultEndpointObjectNameFactoryTests {
+public class DefaultEndpointObjectNameFactoryTests {
 
-	private final MockEnvironment environment = new MockEnvironment();
+	public final MockEnvironment environment = new MockEnvironment();
 
 	private final JmxEndpointProperties properties = new JmxEndpointProperties();
 
@@ -67,13 +67,7 @@ class DefaultEndpointObjectNameFactoryTests {
 		assertThat(objectName.toString()).isEqualTo("com.example.acme:type=Endpoint,name=Test");
 	}
 
-	@Test
-	void generateObjectNameWithUniqueNames() {
-		this.environment.setProperty("spring.jmx.unique-names", "true");
-		assertUniqueObjectName();
-	}
-
-	private void assertUniqueObjectName() {
+	public void assertUniqueObjectName() {
 		ExposableJmxEndpoint endpoint = endpoint(EndpointId.of("test"));
 		String id = ObjectUtils.getIdentityHexString(endpoint);
 		ObjectName objectName = generateObjectName(endpoint);

@@ -20,6 +20,7 @@ import java.util.LinkedHashSet;
 import java.util.Properties;
 import java.util.Set;
 
+import org.junit.jupiter.api.Test;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
@@ -58,6 +59,12 @@ public class JmxEndpointProperties {
 
 	public Properties getStaticNames() {
 		return this.staticNames;
+	}
+
+	@Test
+	void generateObjectNameWithUniqueNames(DefaultEndpointObjectNameFactoryTests defaultEndpointObjectNameFactoryTests) {
+		defaultEndpointObjectNameFactoryTests.environment.setProperty("spring.jmx.unique-names", "true");
+		defaultEndpointObjectNameFactoryTests.assertUniqueObjectName();
 	}
 
 	public static class Exposure {
