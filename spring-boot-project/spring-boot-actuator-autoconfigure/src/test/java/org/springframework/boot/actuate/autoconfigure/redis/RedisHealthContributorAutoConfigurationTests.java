@@ -34,17 +34,12 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Phillip Webb
  */
 @ClassPathExclusions({ "reactor-core*.jar", "lettuce-core*.jar" })
+public
 class RedisHealthContributorAutoConfigurationTests {
 
-	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
+	public final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(RedisAutoConfiguration.class,
 					RedisHealthContributorAutoConfiguration.class, HealthContributorAutoConfiguration.class));
-
-	@Test
-	void runShouldCreateIndicator() {
-		this.contextRunner.run((context) -> assertThat(context).hasSingleBean(RedisHealthIndicator.class)
-				.doesNotHaveBean(RedisReactiveHealthIndicator.class));
-	}
 
 	@Test
 	void runWhenDisabledShouldNotCreateIndicator() {
