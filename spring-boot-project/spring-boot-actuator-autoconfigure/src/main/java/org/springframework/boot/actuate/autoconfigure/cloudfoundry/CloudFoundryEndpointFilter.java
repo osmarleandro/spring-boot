@@ -16,7 +16,13 @@
 
 package org.springframework.boot.actuate.autoconfigure.cloudfoundry;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.mock;
+
+import org.junit.jupiter.api.Test;
 import org.springframework.boot.actuate.endpoint.EndpointFilter;
+import org.springframework.boot.actuate.endpoint.annotation.DiscoveredEndpoint;
 import org.springframework.boot.actuate.endpoint.annotation.DiscovererEndpointFilter;
 
 /**
@@ -29,6 +35,13 @@ class CloudFoundryEndpointFilter extends DiscovererEndpointFilter {
 
 	protected CloudFoundryEndpointFilter() {
 		super(CloudFoundryWebEndpointDiscoverer.class);
+	}
+
+	@Test
+	void matchIfDiscovererCloudFoundryShouldReturnFalse(CloudFoundryEndpointFilterTests cloudFoundryEndpointFilterTests) {
+		DiscoveredEndpoint<?> endpoint = mock(DiscoveredEndpoint.class);
+		given(endpoint.wasDiscoveredBy(CloudFoundryWebEndpointDiscoverer.class)).willReturn(true);
+		assertThat(match(endpoint)).isTrue();
 	}
 
 }

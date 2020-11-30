@@ -29,16 +29,9 @@ import static org.mockito.Mockito.mock;
  *
  * @author Madhura Bhave
  */
-class CloudFoundryEndpointFilterTests {
+public class CloudFoundryEndpointFilterTests {
 
-	private CloudFoundryEndpointFilter filter = new CloudFoundryEndpointFilter();
-
-	@Test
-	void matchIfDiscovererCloudFoundryShouldReturnFalse() {
-		DiscoveredEndpoint<?> endpoint = mock(DiscoveredEndpoint.class);
-		given(endpoint.wasDiscoveredBy(CloudFoundryWebEndpointDiscoverer.class)).willReturn(true);
-		assertThat(this.filter.match(endpoint)).isTrue();
-	}
+	public CloudFoundryEndpointFilter filter = new CloudFoundryEndpointFilter();
 
 	@Test
 	void matchIfDiscovererNotCloudFoundryShouldReturnFalse() {
