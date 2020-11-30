@@ -46,7 +46,6 @@ import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
 
@@ -56,9 +55,9 @@ import static org.mockito.Mockito.mock;
  * @author Rui Figueira
  * @author Stephane Nicoll
  */
-class HibernateMetricsAutoConfigurationTests {
+public class HibernateMetricsAutoConfigurationTests {
 
-	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner().with(MetricsRun.simple())
+	public final ApplicationContextRunner contextRunner = new ApplicationContextRunner().with(MetricsRun.simple())
 			.withConfiguration(AutoConfigurations.of(DataSourceAutoConfiguration.class,
 					HibernateJpaAutoConfiguration.class, HibernateMetricsAutoConfiguration.class))
 			.withUserConfiguration(BaseConfiguration.class);
@@ -102,18 +101,6 @@ class HibernateMetricsAutoConfigurationTests {
 					MeterRegistry registry = context.getBean(MeterRegistry.class);
 					registry.get("hibernate.statements").tags("entityManagerFactory", "first").meter();
 					registry.get("hibernate.statements").tags("entityManagerFactory", "secondOne").meter();
-				});
-	}
-
-	@Test
-	void entityManagerFactoryInstrumentationIsDisabledIfNotHibernateSessionFactory() {
-		this.contextRunner.withPropertyValues("spring.jpa.properties.hibernate.generate_statistics:true")
-				.withUserConfiguration(NonHibernateEntityManagerFactoryConfiguration.class).run((context) -> {
-					// ensure EntityManagerFactory is not a Hibernate SessionFactory
-					assertThatThrownBy(() -> context.getBean(EntityManagerFactory.class).unwrap(SessionFactory.class))
-							.isInstanceOf(PersistenceException.class);
-					MeterRegistry registry = context.getBean(MeterRegistry.class);
-					assertThat(registry.find("hibernate.statements").meter()).isNull();
 				});
 	}
 
@@ -172,6 +159,7 @@ class HibernateMetricsAutoConfigurationTests {
 	}
 
 	@Configuration(proxyBeanMethods = false)
+	public
 	static class NonHibernateEntityManagerFactoryConfiguration {
 
 		@Bean
