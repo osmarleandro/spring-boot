@@ -17,11 +17,9 @@
 package org.springframework.boot.actuate.autoconfigure.metrics;
 
 import io.micrometer.core.instrument.Clock;
-import io.micrometer.core.instrument.Meter;
 import io.micrometer.core.instrument.MeterRegistry;
 import io.micrometer.core.instrument.binder.MeterBinder;
 import io.micrometer.core.instrument.config.MeterFilter;
-import io.micrometer.core.instrument.config.MeterFilterReply;
 import io.micrometer.core.instrument.simple.SimpleMeterRegistry;
 import org.junit.jupiter.api.Test;
 
@@ -30,20 +28,18 @@ import org.springframework.boot.test.context.runner.ApplicationContextRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
-import org.springframework.test.util.ReflectionTestUtils;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
 
 /**
  * Tests for {@link MetricsAutoConfiguration}.
  *
  * @author Andy Wilkinson
  */
-class MetricsAutoConfigurationTests {
+public class MetricsAutoConfigurationTests {
 
-	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
+	public final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(MetricsAutoConfiguration.class));
 
 	@Test
@@ -57,21 +53,6 @@ class MetricsAutoConfigurationTests {
 				.run((context) -> assertThat(context).hasSingleBean(Clock.class).hasBean("customClock"));
 	}
 
-	@SuppressWarnings("unchecked")
-	@Test
-	void configuresMeterRegistries() {
-		this.contextRunner.withUserConfiguration(MeterRegistryConfiguration.class).run((context) -> {
-			MeterRegistry meterRegistry = context.getBean(MeterRegistry.class);
-			MeterFilter[] filters = (MeterFilter[]) ReflectionTestUtils.getField(meterRegistry, "filters");
-			assertThat(filters).hasSize(3);
-			assertThat(filters[0].accept((Meter.Id) null)).isEqualTo(MeterFilterReply.DENY);
-			assertThat(filters[1]).isInstanceOf(PropertiesMeterFilter.class);
-			assertThat(filters[2].accept((Meter.Id) null)).isEqualTo(MeterFilterReply.ACCEPT);
-			verify((MeterBinder) context.getBean("meterBinder")).bindTo(meterRegistry);
-			verify(context.getBean(MeterRegistryCustomizer.class)).customize(meterRegistry);
-		});
-	}
-
 	@Configuration(proxyBeanMethods = false)
 	static class CustomClockConfiguration {
 
@@ -83,6 +64,7 @@ class MetricsAutoConfigurationTests {
 	}
 
 	@Configuration(proxyBeanMethods = false)
+	public
 	static class MeterRegistryConfiguration {
 
 		@Bean

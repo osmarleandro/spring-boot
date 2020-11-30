@@ -16,9 +16,17 @@
 
 package org.springframework.boot.test.context.runner;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.verify;
+
 import java.util.List;
 import java.util.function.Supplier;
 
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.actuate.autoconfigure.metrics.MeterRegistryCustomizer;
+import org.springframework.boot.actuate.autoconfigure.metrics.MetricsAutoConfigurationTests;
+import org.springframework.boot.actuate.autoconfigure.metrics.MetricsAutoConfigurationTests.MeterRegistryConfiguration;
+import org.springframework.boot.actuate.autoconfigure.metrics.PropertiesMeterFilter;
 import org.springframework.boot.context.annotation.Configurations;
 import org.springframework.boot.test.context.assertj.AssertableApplicationContext;
 import org.springframework.boot.test.util.TestPropertyValues;
@@ -26,6 +34,14 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextInitializer;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.test.util.ReflectionTestUtils;
+
+import io.micrometer.core.instrument.Meter;
+import io.micrometer.core.instrument.Meter.Id;
+import io.micrometer.core.instrument.MeterRegistry;
+import io.micrometer.core.instrument.binder.MeterBinder;
+import io.micrometer.core.instrument.config.MeterFilter;
+import io.micrometer.core.instrument.config.MeterFilterReply;
 
 /**
  * An {@link AbstractApplicationContextRunner ApplicationContext runner} for a standard,
@@ -77,6 +93,21 @@ public class ApplicationContextRunner extends
 			List<Configurations> configurations) {
 		return new ApplicationContextRunner(contextFactory, allowBeanDefinitionOverriding, initializers,
 				environmentProperties, systemProperties, classLoader, parent, beanRegistrations, configurations);
+	}
+
+	@SuppressWarnings("unchecked")
+	@Test
+	void configuresMeterRegistries(MetricsAutoConfigurationTests metricsAutoConfigurationTests) {
+		withUserConfiguration(MeterRegistryConfiguration.class).run((context) -> {
+			MeterRegistry meterRegistry = context.getBean(MeterRegistry.class);
+			MeterFilter[] filters = (MeterFilter[]) ReflectionTestUtils.getField(meterRegistry, "filters");
+			assertThat(filters).hasSize(3);
+			assertThat(filters[0].accept((Id) null)).isEqualTo(MeterFilterReply.DENY);
+			assertThat(filters[1]).isInstanceOf(PropertiesMeterFilter.class);
+			assertThat(filters[2].accept((Id) null)).isEqualTo(MeterFilterReply.ACCEPT);
+			verify((MeterBinder) context.getBean("meterBinder")).bindTo(meterRegistry);
+			verify(context.getBean(MeterRegistryCustomizer.class)).customize(meterRegistry);
+		});
 	}
 
 }
