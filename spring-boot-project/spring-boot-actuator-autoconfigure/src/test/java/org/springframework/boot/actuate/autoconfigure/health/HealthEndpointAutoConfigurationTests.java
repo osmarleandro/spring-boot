@@ -62,9 +62,9 @@ import static org.mockito.Mockito.mock;
  * @author Stephane Nicoll
  * @author Scott Frederick
  */
-class HealthEndpointAutoConfigurationTests {
+public class HealthEndpointAutoConfigurationTests {
 
-	private final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner()
+	public final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner()
 			.withUserConfiguration(HealthIndicatorsConfiguration.class).withConfiguration(AutoConfigurations
 					.of(HealthContributorAutoConfiguration.class, HealthEndpointAutoConfiguration.class));
 
@@ -109,15 +109,6 @@ class HealthEndpointAutoConfigurationTests {
 				.run((context) -> {
 					HttpCodeStatusMapper mapper = context.getBean(HttpCodeStatusMapper.class);
 					assertThat(mapper.getStatusCode(Status.UP)).isEqualTo(123);
-				});
-	}
-
-	@Test
-	void runWhenHasHttpCodeStatusMapperBeanIgnoresProperties() {
-		this.contextRunner.withUserConfiguration(HttpCodeStatusMapperConfiguration.class)
-				.withPropertyValues("management.health.status.http-mapping.up=123").run((context) -> {
-					HttpCodeStatusMapper mapper = context.getBean(HttpCodeStatusMapper.class);
-					assertThat(mapper.getStatusCode(Status.UP)).isEqualTo(456);
 				});
 	}
 
@@ -290,6 +281,7 @@ class HealthEndpointAutoConfigurationTests {
 	}
 
 	@Configuration(proxyBeanMethods = false)
+	public
 	static class HttpCodeStatusMapperConfiguration {
 
 		@Bean
