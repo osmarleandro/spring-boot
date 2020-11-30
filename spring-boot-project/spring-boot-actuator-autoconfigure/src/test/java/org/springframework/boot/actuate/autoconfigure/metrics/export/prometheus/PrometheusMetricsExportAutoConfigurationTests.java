@@ -52,9 +52,10 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Stephane Nicoll
  */
 @ExtendWith(OutputCaptureExtension.class)
+public
 class PrometheusMetricsExportAutoConfigurationTests {
 
-	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
+	public final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(PrometheusMetricsExportAutoConfiguration.class));
 
 	@Test
@@ -141,12 +142,6 @@ class PrometheusMetricsExportAutoConfigurationTests {
 	}
 
 	@Test
-	void pushGatewayIsNotConfiguredWhenEnabledFlagIsNotSet() {
-		this.contextRunner.withUserConfiguration(BaseConfiguration.class)
-				.run((context) -> assertThat(context).doesNotHaveBean(PrometheusPushGatewayManager.class));
-	}
-
-	@Test
 	void withPushGatewayEnabled(CapturedOutput output) {
 		this.contextRunner.withConfiguration(AutoConfigurations.of(ManagementContextAutoConfiguration.class))
 				.withPropertyValues("management.metrics.export.prometheus.pushgateway.enabled=true")
@@ -217,6 +212,7 @@ class PrometheusMetricsExportAutoConfigurationTests {
 	}
 
 	@Configuration(proxyBeanMethods = false)
+	public
 	static class BaseConfiguration {
 
 		@Bean
