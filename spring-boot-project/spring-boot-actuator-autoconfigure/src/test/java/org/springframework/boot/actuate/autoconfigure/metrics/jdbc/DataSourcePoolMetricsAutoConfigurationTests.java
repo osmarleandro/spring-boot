@@ -51,9 +51,9 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Andy Wilkinson
  * @author Tommy Ludwig
  */
-class DataSourcePoolMetricsAutoConfigurationTests {
+public class DataSourcePoolMetricsAutoConfigurationTests {
 
-	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
+	public final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.withPropertyValues("spring.datasource.generate-unique-name=true").with(MetricsRun.simple())
 			.withConfiguration(AutoConfigurations.of(DataSourcePoolMetricsAutoConfiguration.class))
 			.withUserConfiguration(BaseConfiguration.class);
@@ -140,18 +140,6 @@ class DataSourcePoolMetricsAutoConfigurationTests {
 					MeterRegistry registry = context.getBean(MeterRegistry.class);
 					registry.get("hikaricp.connections").tags("pool", "firstDataSource").meter();
 					registry.get("hikaricp.connections").tags("pool", "secondOne").meter();
-				});
-	}
-
-	@Test
-	void someHikariDataSourcesCanBeInstrumented() {
-		this.contextRunner.withUserConfiguration(MixedDataSourcesConfiguration.class)
-				.withConfiguration(AutoConfigurations.of(DataSourceAutoConfiguration.class)).run((context) -> {
-					context.getBean("firstDataSource", DataSource.class).getConnection();
-					context.getBean("secondOne", DataSource.class).getConnection();
-					MeterRegistry registry = context.getBean(MeterRegistry.class);
-					assertThat(registry.get("hikaricp.connections").meter().getId().getTags())
-							.containsExactly(Tag.of("pool", "firstDataSource"));
 				});
 	}
 
@@ -256,6 +244,7 @@ class DataSourcePoolMetricsAutoConfigurationTests {
 	}
 
 	@Configuration(proxyBeanMethods = false)
+	public
 	static class MixedDataSourcesConfiguration {
 
 		@Bean
