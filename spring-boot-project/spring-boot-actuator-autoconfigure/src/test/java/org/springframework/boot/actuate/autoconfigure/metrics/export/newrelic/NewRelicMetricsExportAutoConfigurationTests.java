@@ -38,9 +38,9 @@ import static org.mockito.Mockito.mock;
  * @author Andy Wilkinson
  * @author Stephane Nicoll
  */
-class NewRelicMetricsExportAutoConfigurationTests {
+public class NewRelicMetricsExportAutoConfigurationTests {
 
-	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
+	public final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(NewRelicMetricsExportAutoConfiguration.class));
 
 	@Test
@@ -135,18 +135,6 @@ class NewRelicMetricsExportAutoConfigurationTests {
 	}
 
 	@Test
-	void allowsClientProviderToBeCustomized() {
-		this.contextRunner.withUserConfiguration(CustomClientProviderConfiguration.class)
-				.withPropertyValues("management.metrics.export.newrelic.api-key=abcde",
-						"management.metrics.export.newrelic.account-id=12345")
-				.run((context) -> {
-					assertThat(context).hasSingleBean(NewRelicMeterRegistry.class);
-					assertThat(context.getBean(NewRelicMeterRegistry.class))
-							.hasFieldOrPropertyWithValue("clientProvider", context.getBean("customClientProvider"));
-				});
-	}
-
-	@Test
 	void stopsMeterRegistryWhenContextIsClosed() {
 		this.contextRunner
 				.withPropertyValues("management.metrics.export.newrelic.api-key=abcde",
@@ -201,6 +189,7 @@ class NewRelicMetricsExportAutoConfigurationTests {
 
 	@Configuration(proxyBeanMethods = false)
 	@Import(BaseConfiguration.class)
+	public
 	static class CustomClientProviderConfiguration {
 
 		@Bean

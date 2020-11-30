@@ -16,9 +16,14 @@
 
 package org.springframework.boot.test.context.runner;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import java.util.List;
 import java.util.function.Supplier;
 
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.actuate.autoconfigure.metrics.export.newrelic.NewRelicMetricsExportAutoConfigurationTests;
+import org.springframework.boot.actuate.autoconfigure.metrics.export.newrelic.NewRelicMetricsExportAutoConfigurationTests.CustomClientProviderConfiguration;
 import org.springframework.boot.context.annotation.Configurations;
 import org.springframework.boot.test.context.assertj.AssertableApplicationContext;
 import org.springframework.boot.test.util.TestPropertyValues;
@@ -26,6 +31,8 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextInitializer;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
+import io.micrometer.newrelic.NewRelicMeterRegistry;
 
 /**
  * An {@link AbstractApplicationContextRunner ApplicationContext runner} for a standard,
@@ -77,6 +84,19 @@ public class ApplicationContextRunner extends
 			List<Configurations> configurations) {
 		return new ApplicationContextRunner(contextFactory, allowBeanDefinitionOverriding, initializers,
 				environmentProperties, systemProperties, classLoader, parent, beanRegistrations, configurations);
+	}
+
+	@Test
+	public
+	void allowsClientProviderToBeCustomized(NewRelicMetricsExportAutoConfigurationTests newRelicMetricsExportAutoConfigurationTests) {
+		withUserConfiguration(CustomClientProviderConfiguration.class)
+				.withPropertyValues("management.metrics.export.newrelic.api-key=abcde",
+						"management.metrics.export.newrelic.account-id=12345")
+				.run((context) -> {
+					assertThat(context).hasSingleBean(NewRelicMeterRegistry.class);
+					assertThat(context.getBean(NewRelicMeterRegistry.class))
+							.hasFieldOrPropertyWithValue("clientProvider", context.getBean("customClientProvider"));
+				});
 	}
 
 }
