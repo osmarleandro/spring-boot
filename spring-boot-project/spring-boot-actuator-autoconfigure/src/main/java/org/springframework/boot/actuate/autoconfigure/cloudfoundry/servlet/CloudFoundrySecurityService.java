@@ -16,18 +16,24 @@
 
 package org.springframework.boot.actuate.autoconfigure.cloudfoundry.servlet;
 
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
+import static org.mockito.BDDMockito.given;
+
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.junit.jupiter.api.Test;
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.AccessLevel;
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.CloudFoundryAuthorizationException;
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.CloudFoundryAuthorizationException.Reason;
+import org.springframework.boot.actuate.autoconfigure.cloudfoundry.Token;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.RequestEntity;
+import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.util.Assert;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.HttpServerErrorException;
@@ -133,6 +139,17 @@ class CloudFoundrySecurityService {
 			}
 		}
 		return this.uaaUrl;
+	}
+
+	@Test
+	void validateTokenWhenKidValidationFailsTwiceShouldThrowException(TokenValidatorTests tokenValidatorTests) throws Exception {
+		ReflectionTestUtils.setField(tokenValidatorTests.tokenValidator, "tokenKeys", TokenValidatorTests.INVALID_KEYS);
+		given(fetchTokenKeys()).willReturn(TokenValidatorTests.INVALID_KEYS);
+		String header = "{\"alg\": \"RS256\",  \"kid\": \"valid-key\",\"typ\": \"JWT\"}";
+		String claims = "{\"exp\": 2147483647, \"iss\": \"http://localhost:8080/uaa/oauth/token\", \"scope\": [\"actuator.read\"]}";
+		assertThatExceptionOfType(CloudFoundryAuthorizationException.class).isThrownBy(
+				() -> tokenValidatorTests.tokenValidator.validate(new Token(tokenValidatorTests.getSignedToken(header.getBytes(), claims.getBytes()))))
+				.satisfies(tokenValidatorTests.reasonRequirement(Reason.INVALID_KEY_ID));
 	}
 
 }
