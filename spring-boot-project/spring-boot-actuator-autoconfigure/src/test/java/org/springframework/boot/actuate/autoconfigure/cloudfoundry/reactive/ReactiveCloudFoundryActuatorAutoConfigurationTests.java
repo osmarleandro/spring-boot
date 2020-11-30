@@ -60,10 +60,6 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
-import org.springframework.mock.http.server.reactive.MockServerHttpRequest;
-import org.springframework.mock.web.server.MockServerWebExchange;
-import org.springframework.security.web.server.SecurityWebFilterChain;
-import org.springframework.security.web.server.WebFilterChainProxy;
 import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import org.springframework.web.cors.CorsConfiguration;
@@ -78,9 +74,9 @@ import static org.mockito.Mockito.mock;
  *
  * @author Madhura Bhave
  */
-class ReactiveCloudFoundryActuatorAutoConfigurationTests {
+public class ReactiveCloudFoundryActuatorAutoConfigurationTests {
 
-	private final ReactiveWebApplicationContextRunner contextRunner = new ReactiveWebApplicationContextRunner()
+	public final ReactiveWebApplicationContextRunner contextRunner = new ReactiveWebApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(ReactiveSecurityAutoConfiguration.class,
 					ReactiveUserDetailsServiceAutoConfiguration.class, WebFluxAutoConfiguration.class,
 					JacksonAutoConfiguration.class, HttpMessageConvertersAutoConfiguration.class,
@@ -161,31 +157,6 @@ class ReactiveCloudFoundryActuatorAutoConfigurationTests {
 							"cloudFoundrySecurityService");
 					assertThat(interceptorSecurityService).isNull();
 				});
-	}
-
-	@Test
-	@SuppressWarnings("unchecked")
-	void cloudFoundryPathsIgnoredBySpringSecurity() {
-		this.contextRunner.withPropertyValues("VCAP_APPLICATION:---", "vcap.application.application_id:my-app-id",
-				"vcap.application.cf_api:https://my-cloud-controller.com").run((context) -> {
-					WebFilterChainProxy chainProxy = context.getBean(WebFilterChainProxy.class);
-					List<SecurityWebFilterChain> filters = (List<SecurityWebFilterChain>) ReflectionTestUtils
-							.getField(chainProxy, "filters");
-					Boolean cfRequestMatches = filters.get(0)
-							.matches(MockServerWebExchange
-									.from(MockServerHttpRequest.get("/cloudfoundryapplication/my-path").build()))
-							.block(Duration.ofSeconds(30));
-					Boolean otherRequestMatches = filters.get(0)
-							.matches(MockServerWebExchange.from(MockServerHttpRequest.get("/some-other-path").build()))
-							.block(Duration.ofSeconds(30));
-					assertThat(cfRequestMatches).isTrue();
-					assertThat(otherRequestMatches).isFalse();
-					otherRequestMatches = filters.get(1)
-							.matches(MockServerWebExchange.from(MockServerHttpRequest.get("/some-other-path").build()))
-							.block(Duration.ofSeconds(30));
-					assertThat(otherRequestMatches).isTrue();
-				});
-
 	}
 
 	@Test

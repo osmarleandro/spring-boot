@@ -16,9 +16,14 @@
 
 package org.springframework.boot.test.context.runner;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
+import java.time.Duration;
 import java.util.List;
 import java.util.function.Supplier;
 
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.actuate.autoconfigure.cloudfoundry.reactive.ReactiveCloudFoundryActuatorAutoConfigurationTests;
 import org.springframework.boot.context.annotation.Configurations;
 import org.springframework.boot.test.context.assertj.AssertableReactiveWebApplicationContext;
 import org.springframework.boot.test.util.TestPropertyValues;
@@ -26,6 +31,11 @@ import org.springframework.boot.web.reactive.context.AnnotationConfigReactiveWeb
 import org.springframework.boot.web.reactive.context.ConfigurableReactiveWebApplicationContext;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextInitializer;
+import org.springframework.mock.http.server.reactive.MockServerHttpRequest;
+import org.springframework.mock.web.server.MockServerWebExchange;
+import org.springframework.security.web.server.SecurityWebFilterChain;
+import org.springframework.security.web.server.WebFilterChainProxy;
+import org.springframework.test.util.ReflectionTestUtils;
 
 /**
  * An {@link AbstractApplicationContextRunner ApplicationContext runner} for a
@@ -77,6 +87,31 @@ public final class ReactiveWebApplicationContextRunner extends
 			List<Configurations> configurations) {
 		return new ReactiveWebApplicationContextRunner(contextFactory, allowBeanDefinitionOverriding, initializers,
 				environmentProperties, systemProperties, classLoader, parent, beanRegistrations, configurations);
+	}
+
+	@Test
+	@SuppressWarnings("unchecked")
+	void cloudFoundryPathsIgnoredBySpringSecurity(ReactiveCloudFoundryActuatorAutoConfigurationTests reactiveCloudFoundryActuatorAutoConfigurationTests) {
+		withPropertyValues("VCAP_APPLICATION:---", "vcap.application.application_id:my-app-id",
+				"vcap.application.cf_api:https://my-cloud-controller.com").run((context) -> {
+					WebFilterChainProxy chainProxy = context.getBean(WebFilterChainProxy.class);
+					List<SecurityWebFilterChain> filters = (List<SecurityWebFilterChain>) ReflectionTestUtils
+							.getField(chainProxy, "filters");
+					Boolean cfRequestMatches = filters.get(0)
+							.matches(MockServerWebExchange
+									.from(MockServerHttpRequest.get("/cloudfoundryapplication/my-path").build()))
+							.block(Duration.ofSeconds(30));
+					Boolean otherRequestMatches = filters.get(0)
+							.matches(MockServerWebExchange.from(MockServerHttpRequest.get("/some-other-path").build()))
+							.block(Duration.ofSeconds(30));
+					assertThat(cfRequestMatches).isTrue();
+					assertThat(otherRequestMatches).isFalse();
+					otherRequestMatches = filters.get(1)
+							.matches(MockServerWebExchange.from(MockServerHttpRequest.get("/some-other-path").build()))
+							.block(Duration.ofSeconds(30));
+					assertThat(otherRequestMatches).isTrue();
+				});
+	
 	}
 
 }
