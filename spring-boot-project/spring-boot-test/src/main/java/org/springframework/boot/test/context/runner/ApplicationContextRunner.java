@@ -19,6 +19,8 @@ package org.springframework.boot.test.context.runner;
 import java.util.List;
 import java.util.function.Supplier;
 
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.actuate.autoconfigure.env.EnvironmentEndpointAutoConfigurationTests;
 import org.springframework.boot.context.annotation.Configurations;
 import org.springframework.boot.test.context.assertj.AssertableApplicationContext;
 import org.springframework.boot.test.util.TestPropertyValues;
@@ -77,6 +79,14 @@ public class ApplicationContextRunner extends
 			List<Configurations> configurations) {
 		return new ApplicationContextRunner(contextFactory, allowBeanDefinitionOverriding, initializers,
 				environmentProperties, systemProperties, classLoader, parent, beanRegistrations, configurations);
+	}
+
+	@Test
+	public
+	void runShouldHaveEndpointBean(EnvironmentEndpointAutoConfigurationTests environmentEndpointAutoConfigurationTests) {
+		withPropertyValues("management.endpoints.web.exposure.include=env")
+				.withSystemProperties("dbPassword=123456", "apiKey=123456")
+				.run(environmentEndpointAutoConfigurationTests.validateSystemProperties("******", "******"));
 	}
 
 }
