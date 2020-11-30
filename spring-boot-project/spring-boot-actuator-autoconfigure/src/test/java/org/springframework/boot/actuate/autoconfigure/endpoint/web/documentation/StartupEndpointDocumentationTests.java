@@ -16,16 +16,12 @@
 
 package org.springframework.boot.actuate.autoconfigure.endpoint.web.documentation;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.actuate.startup.StartupEndpoint;
 import org.springframework.boot.context.metrics.buffering.BufferingApplicationStartup;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
-import org.springframework.core.metrics.StartupStep;
 import org.springframework.restdocs.payload.JsonFieldType;
 import org.springframework.restdocs.payload.ResponseFieldsSnippet;
 
@@ -41,17 +37,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * @author Brian Clozel
  */
 class StartupEndpointDocumentationTests extends MockMvcEndpointDocumentationTests {
-
-	@BeforeEach
-	void appendSampleStartupSteps(@Autowired BufferingApplicationStartup applicationStartup) {
-		StartupStep starting = applicationStartup.start("spring.boot.application.starting");
-		starting.tag("mainApplicationClass", "com.example.startup.StartupApplication");
-		starting.end();
-
-		StartupStep instantiate = applicationStartup.start("spring.beans.instantiate");
-		instantiate.tag("beanName", "homeController");
-		instantiate.end();
-	}
 
 	@Test
 	void startup() throws Exception {

@@ -25,6 +25,8 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.function.Predicate;
 
+import org.junit.jupiter.api.BeforeEach;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.metrics.ApplicationStartup;
 import org.springframework.core.metrics.StartupStep;
 import org.springframework.util.Assert;
@@ -140,6 +142,18 @@ public class BufferingApplicationStartup implements ApplicationStartup {
 
 	private long getCurrentTime() {
 		return System.nanoTime();
+	}
+
+	@BeforeEach
+	public
+	void appendSampleStartupSteps() {
+		StartupStep starting = start("spring.boot.application.starting");
+		starting.tag("mainApplicationClass", "com.example.startup.StartupApplication");
+		starting.end();
+	
+		StartupStep instantiate = start("spring.beans.instantiate");
+		instantiate.tag("beanName", "homeController");
+		instantiate.end();
 	}
 
 }
