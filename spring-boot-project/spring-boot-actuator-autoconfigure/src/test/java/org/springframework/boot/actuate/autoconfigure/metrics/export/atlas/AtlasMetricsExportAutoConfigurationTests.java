@@ -34,9 +34,9 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Andy Wilkinson
  */
-class AtlasMetricsExportAutoConfigurationTests {
+public class AtlasMetricsExportAutoConfigurationTests {
 
-	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
+	public final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(AtlasMetricsExportAutoConfiguration.class));
 
 	@Test
@@ -78,17 +78,8 @@ class AtlasMetricsExportAutoConfigurationTests {
 				.hasSingleBean(AtlasMeterRegistry.class).hasBean("customRegistry").hasSingleBean(AtlasConfig.class));
 	}
 
-	@Test
-	void stopsMeterRegistryWhenContextIsClosed() {
-		this.contextRunner.withUserConfiguration(BaseConfiguration.class).run((context) -> {
-			AtlasMeterRegistry registry = context.getBean(AtlasMeterRegistry.class);
-			assertThat(registry.isClosed()).isFalse();
-			context.close();
-			assertThat(registry.isClosed()).isTrue();
-		});
-	}
-
 	@Configuration(proxyBeanMethods = false)
+	public
 	static class BaseConfiguration {
 
 		@Bean
