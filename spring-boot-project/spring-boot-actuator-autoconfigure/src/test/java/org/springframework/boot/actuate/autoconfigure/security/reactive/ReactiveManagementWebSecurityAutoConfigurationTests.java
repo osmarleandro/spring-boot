@@ -41,7 +41,6 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.http.server.reactive.ServerHttpResponse;
 import org.springframework.mock.http.server.reactive.MockServerHttpRequest;
@@ -63,7 +62,7 @@ import static org.mockito.Mockito.mock;
  *
  * @author Madhura Bhave
  */
-class ReactiveManagementWebSecurityAutoConfigurationTests {
+public class ReactiveManagementWebSecurityAutoConfigurationTests {
 
 	private final ReactiveWebApplicationContextRunner contextRunner = new ReactiveWebApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(HealthContributorAutoConfiguration.class,
@@ -75,27 +74,27 @@ class ReactiveManagementWebSecurityAutoConfigurationTests {
 
 	@Test
 	void permitAllForHealth() {
-		this.contextRunner.run((context) -> assertThat(getAuthenticateHeader(context, "/actuator/health")).isNull());
+		this.contextRunner.run((context) -> assertThat(context.getAuthenticateHeader(this, "/actuator/health")).isNull());
 	}
 
 	@Test
 	void permitAllForInfo() {
-		this.contextRunner.run((context) -> assertThat(getAuthenticateHeader(context, "/actuator/info")).isNull());
+		this.contextRunner.run((context) -> assertThat(context.getAuthenticateHeader(this, "/actuator/info")).isNull());
 	}
 
 	@Test
 	void securesEverythingElse() {
 		this.contextRunner.run((context) -> {
-			assertThat(getAuthenticateHeader(context, "/actuator").get(0)).contains("Basic realm=");
-			assertThat(getAuthenticateHeader(context, "/foo").toString()).contains("Basic realm=");
+			assertThat(context.getAuthenticateHeader(this, "/actuator").get(0)).contains("Basic realm=");
+			assertThat(context.getAuthenticateHeader(this, "/foo").toString()).contains("Basic realm=");
 		});
 	}
 
 	@Test
 	void usesMatchersBasedOffConfiguredActuatorBasePath() {
 		this.contextRunner.withPropertyValues("management.endpoints.web.base-path=/").run((context) -> {
-			assertThat(getAuthenticateHeader(context, "/health")).isNull();
-			assertThat(getAuthenticateHeader(context, "/foo").get(0)).contains("Basic realm=");
+			assertThat(context.getAuthenticateHeader(this, "/health")).isNull();
+			assertThat(context.getAuthenticateHeader(this, "/foo").get(0)).contains("Basic realm=");
 		});
 	}
 
@@ -123,12 +122,7 @@ class ReactiveManagementWebSecurityAutoConfigurationTests {
 		});
 	}
 
-	private List<String> getAuthenticateHeader(AssertableReactiveWebApplicationContext context, String path) {
-		ServerWebExchange exchange = performFilter(context, path);
-		return exchange.getResponse().getHeaders().get(HttpHeaders.WWW_AUTHENTICATE);
-	}
-
-	private ServerWebExchange performFilter(AssertableReactiveWebApplicationContext context, String path) {
+	public ServerWebExchange performFilter(AssertableReactiveWebApplicationContext context, String path) {
 		ServerWebExchange exchange = webHandler(context).createExchange(MockServerHttpRequest.get(path).build(),
 				new MockServerHttpResponse());
 		WebFilterChainProxy proxy = context.getBean(WebFilterChainProxy.class);

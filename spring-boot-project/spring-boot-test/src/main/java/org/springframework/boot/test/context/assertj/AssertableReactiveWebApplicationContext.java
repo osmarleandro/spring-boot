@@ -16,10 +16,14 @@
 
 package org.springframework.boot.test.context.assertj;
 
+import java.util.List;
 import java.util.function.Supplier;
 
+import org.springframework.boot.actuate.autoconfigure.security.reactive.ReactiveManagementWebSecurityAutoConfigurationTests;
 import org.springframework.boot.web.reactive.context.ConfigurableReactiveWebApplicationContext;
 import org.springframework.boot.web.reactive.context.ReactiveWebApplicationContext;
+import org.springframework.http.HttpHeaders;
+import org.springframework.web.server.ServerWebExchange;
 
 /**
  * A {@link ReactiveWebApplicationContext} that additionally supports AssertJ style
@@ -49,6 +53,11 @@ public interface AssertableReactiveWebApplicationContext
 			Supplier<? extends ConfigurableReactiveWebApplicationContext> contextSupplier) {
 		return ApplicationContextAssertProvider.get(AssertableReactiveWebApplicationContext.class,
 				ConfigurableReactiveWebApplicationContext.class, contextSupplier);
+	}
+
+	public default List<String> getAuthenticateHeader(ReactiveManagementWebSecurityAutoConfigurationTests reactiveManagementWebSecurityAutoConfigurationTests, String path) {
+		ServerWebExchange exchange = reactiveManagementWebSecurityAutoConfigurationTests.performFilter(this, path);
+		return exchange.getResponse().getHeaders().get(HttpHeaders.WWW_AUTHENTICATE);
 	}
 
 }
