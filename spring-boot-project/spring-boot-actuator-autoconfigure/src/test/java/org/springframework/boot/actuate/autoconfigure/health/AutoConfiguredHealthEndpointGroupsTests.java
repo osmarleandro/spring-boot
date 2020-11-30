@@ -45,9 +45,9 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Phillip Webb
  * @author Leo Li
  */
-class AutoConfiguredHealthEndpointGroupsTests {
+public class AutoConfiguredHealthEndpointGroupsTests {
 
-	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
+	public final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(AutoConfiguredHealthEndpointGroupsTestConfiguration.class));
 
 	@Test
@@ -100,22 +100,6 @@ class AutoConfiguredHealthEndpointGroupsTests {
 					assertThat(primary.getStatusAggregator().getAggregateStatus(Status.UP, Status.DOWN))
 							.isEqualTo(Status.UP);
 					assertThat(primary.getHttpCodeStatusMapper().getStatusCode(Status.DOWN)).isEqualTo(200);
-				});
-	}
-
-	@Test
-	void createWhenHasStatusAggregatorBeanReturnsInstanceWithAggregatorUsedForAllGroups() {
-		this.contextRunner.withUserConfiguration(CustomStatusAggregatorConfiguration.class)
-				.withPropertyValues("management.endpoint.health.status.order=up,down",
-						"management.endpoint.health.group.a.include=*")
-				.run((context) -> {
-					HealthEndpointGroups groups = context.getBean(HealthEndpointGroups.class);
-					HealthEndpointGroup primary = groups.getPrimary();
-					HealthEndpointGroup groupA = groups.get("a");
-					assertThat(primary.getStatusAggregator().getAggregateStatus(Status.UP, Status.DOWN, Status.UNKNOWN))
-							.isEqualTo(Status.UNKNOWN);
-					assertThat(groupA.getStatusAggregator().getAggregateStatus(Status.UP, Status.DOWN, Status.UNKNOWN))
-							.isEqualTo(Status.UNKNOWN);
 				});
 	}
 
@@ -332,6 +316,7 @@ class AutoConfiguredHealthEndpointGroupsTests {
 	}
 
 	@Configuration(proxyBeanMethods = false)
+	public
 	static class CustomStatusAggregatorConfiguration {
 
 		@Bean
