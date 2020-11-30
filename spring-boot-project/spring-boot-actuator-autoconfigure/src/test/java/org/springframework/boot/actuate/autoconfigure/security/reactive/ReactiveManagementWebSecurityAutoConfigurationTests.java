@@ -63,9 +63,9 @@ import static org.mockito.Mockito.mock;
  *
  * @author Madhura Bhave
  */
-class ReactiveManagementWebSecurityAutoConfigurationTests {
+public class ReactiveManagementWebSecurityAutoConfigurationTests {
 
-	private final ReactiveWebApplicationContextRunner contextRunner = new ReactiveWebApplicationContextRunner()
+	public final ReactiveWebApplicationContextRunner contextRunner = new ReactiveWebApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(HealthContributorAutoConfiguration.class,
 					HealthEndpointAutoConfiguration.class, InfoEndpointAutoConfiguration.class,
 					EnvironmentEndpointAutoConfiguration.class, EndpointAutoConfiguration.class,
@@ -88,14 +88,6 @@ class ReactiveManagementWebSecurityAutoConfigurationTests {
 		this.contextRunner.run((context) -> {
 			assertThat(getAuthenticateHeader(context, "/actuator").get(0)).contains("Basic realm=");
 			assertThat(getAuthenticateHeader(context, "/foo").toString()).contains("Basic realm=");
-		});
-	}
-
-	@Test
-	void usesMatchersBasedOffConfiguredActuatorBasePath() {
-		this.contextRunner.withPropertyValues("management.endpoints.web.base-path=/").run((context) -> {
-			assertThat(getAuthenticateHeader(context, "/health")).isNull();
-			assertThat(getAuthenticateHeader(context, "/foo").get(0)).contains("Basic realm=");
 		});
 	}
 
@@ -123,7 +115,7 @@ class ReactiveManagementWebSecurityAutoConfigurationTests {
 		});
 	}
 
-	private List<String> getAuthenticateHeader(AssertableReactiveWebApplicationContext context, String path) {
+	public List<String> getAuthenticateHeader(AssertableReactiveWebApplicationContext context, String path) {
 		ServerWebExchange exchange = performFilter(context, path);
 		return exchange.getResponse().getHeaders().get(HttpHeaders.WWW_AUTHENTICATE);
 	}
