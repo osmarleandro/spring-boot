@@ -16,9 +16,16 @@
 
 package org.springframework.boot.test.context.runner;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import java.util.List;
 import java.util.function.Supplier;
 
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.actuate.autoconfigure.jdbc.DataSourceHealthContributorAutoConfigurationTests;
+import org.springframework.boot.actuate.autoconfigure.jdbc.DataSourceHealthContributorAutoConfigurationTests.DataSourceConfig;
+import org.springframework.boot.actuate.jdbc.DataSourceHealthIndicator;
+import org.springframework.boot.autoconfigure.jdbc.metadata.DataSourcePoolMetadataProvidersConfiguration;
 import org.springframework.boot.context.annotation.Configurations;
 import org.springframework.boot.test.context.assertj.AssertableApplicationContext;
 import org.springframework.boot.test.util.TestPropertyValues;
@@ -77,6 +84,17 @@ public class ApplicationContextRunner extends
 			List<Configurations> configurations) {
 		return new ApplicationContextRunner(contextFactory, allowBeanDefinitionOverriding, initializers,
 				environmentProperties, systemProperties, classLoader, parent, beanRegistrations, configurations);
+	}
+
+	@Test
+	public
+	void runWithValidationQueryPropertyShouldUseCustomQuery(DataSourceHealthContributorAutoConfigurationTests dataSourceHealthContributorAutoConfigurationTests) {
+		withUserConfiguration(DataSourceConfig.class, DataSourcePoolMetadataProvidersConfiguration.class)
+				.withPropertyValues("spring.datasource.test.validation-query:SELECT from FOOBAR").run((context) -> {
+					assertThat(context).hasSingleBean(DataSourceHealthIndicator.class);
+					DataSourceHealthIndicator indicator = context.getBean(DataSourceHealthIndicator.class);
+					assertThat(indicator.getQuery()).isEqualTo("SELECT from FOOBAR");
+				});
 	}
 
 }

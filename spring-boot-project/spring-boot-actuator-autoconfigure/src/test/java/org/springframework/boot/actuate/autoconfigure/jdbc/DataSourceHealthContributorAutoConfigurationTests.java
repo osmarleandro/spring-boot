@@ -28,7 +28,6 @@ import org.springframework.boot.actuate.jdbc.DataSourceHealthIndicator;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.autoconfigure.jdbc.EmbeddedDataSourceConfiguration;
-import org.springframework.boot.autoconfigure.jdbc.metadata.DataSourcePoolMetadataProvidersConfiguration;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.jdbc.DataSourceBuilder;
@@ -46,9 +45,9 @@ import static org.mockito.Mockito.mock;
  * @author Phillip Webb
  * @author Julio Gomez
  */
-class DataSourceHealthContributorAutoConfigurationTests {
+public class DataSourceHealthContributorAutoConfigurationTests {
 
-	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
+	public final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(DataSourceAutoConfiguration.class,
 					HealthContributorAutoConfiguration.class, DataSourceHealthContributorAutoConfiguration.class))
 			.withPropertyValues("spring.datasource.initialization-mode=never");
@@ -108,17 +107,6 @@ class DataSourceHealthContributorAutoConfigurationTests {
 	}
 
 	@Test
-	void runWithValidationQueryPropertyShouldUseCustomQuery() {
-		this.contextRunner
-				.withUserConfiguration(DataSourceConfig.class, DataSourcePoolMetadataProvidersConfiguration.class)
-				.withPropertyValues("spring.datasource.test.validation-query:SELECT from FOOBAR").run((context) -> {
-					assertThat(context).hasSingleBean(DataSourceHealthIndicator.class);
-					DataSourceHealthIndicator indicator = context.getBean(DataSourceHealthIndicator.class);
-					assertThat(indicator.getQuery()).isEqualTo("SELECT from FOOBAR");
-				});
-	}
-
-	@Test
 	void runWhenDisabledShouldNotCreateIndicator() {
 		this.contextRunner.withUserConfiguration(EmbeddedDataSourceConfiguration.class)
 				.withPropertyValues("management.health.db.enabled:false")
@@ -128,6 +116,7 @@ class DataSourceHealthContributorAutoConfigurationTests {
 
 	@Configuration(proxyBeanMethods = false)
 	@EnableConfigurationProperties
+	public
 	static class DataSourceConfig {
 
 		@Bean
