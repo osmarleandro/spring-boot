@@ -16,9 +16,13 @@
 
 package org.springframework.boot.test.context.runner;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
+import java.time.Duration;
 import java.util.List;
 import java.util.function.Supplier;
 
+import org.springframework.boot.actuate.autoconfigure.metrics.web.client.WebClientMetricsConfigurationTests;
 import org.springframework.boot.context.annotation.Configurations;
 import org.springframework.boot.test.context.assertj.AssertableApplicationContext;
 import org.springframework.boot.test.util.TestPropertyValues;
@@ -26,6 +30,10 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextInitializer;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.web.reactive.function.client.WebClient;
+import org.springframework.web.reactive.function.client.WebClient.Builder;
+
+import io.micrometer.core.instrument.MeterRegistry;
 
 /**
  * An {@link AbstractApplicationContextRunner ApplicationContext runner} for a standard,
@@ -77,6 +85,14 @@ public class ApplicationContextRunner extends
 			List<Configurations> configurations) {
 		return new ApplicationContextRunner(contextFactory, allowBeanDefinitionOverriding, initializers,
 				environmentProperties, systemProperties, classLoader, parent, beanRegistrations, configurations);
+	}
+
+	public void validateWebClient(WebClientMetricsConfigurationTests webClientMetricsConfigurationTests, Builder builder, MeterRegistry registry) {
+		WebClient webClient = webClientMetricsConfigurationTests.mockWebClient(builder);
+		assertThat(registry.find("http.client.requests").meter()).isNull();
+		webClient.get().uri("https://example.org/projects/{project}", "spring-boot").retrieve().toBodilessEntity()
+				.block(Duration.ofSeconds(30));
+		assertThat(registry.find("http.client.requests").tags("uri", "/projects/{project}").meter()).isNotNull();
 	}
 
 }

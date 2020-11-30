@@ -52,6 +52,7 @@ import static org.mockito.Mockito.mock;
  * @author Stephane Nicoll
  */
 @ExtendWith(OutputCaptureExtension.class)
+public
 class WebClientMetricsConfigurationTests {
 
 	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner().with(MetricsRun.simple())
@@ -63,7 +64,7 @@ class WebClientMetricsConfigurationTests {
 		this.contextRunner.run((context) -> {
 			MeterRegistry registry = context.getBean(MeterRegistry.class);
 			WebClient.Builder builder = context.getBean(WebClient.Builder.class);
-			validateWebClient(builder, registry);
+			contextRunner.validateWebClient(this, builder, registry);
 		});
 	}
 
@@ -117,15 +118,7 @@ class WebClientMetricsConfigurationTests {
 		return registry;
 	}
 
-	private void validateWebClient(WebClient.Builder builder, MeterRegistry registry) {
-		WebClient webClient = mockWebClient(builder);
-		assertThat(registry.find("http.client.requests").meter()).isNull();
-		webClient.get().uri("https://example.org/projects/{project}", "spring-boot").retrieve().toBodilessEntity()
-				.block(Duration.ofSeconds(30));
-		assertThat(registry.find("http.client.requests").tags("uri", "/projects/{project}").meter()).isNotNull();
-	}
-
-	private WebClient mockWebClient(WebClient.Builder builder) {
+	public WebClient mockWebClient(WebClient.Builder builder) {
 		ClientHttpConnector connector = mock(ClientHttpConnector.class);
 		given(connector.connect(any(), any(), any())).willReturn(Mono.just(new MockClientHttpResponse(HttpStatus.OK)));
 		return builder.clientConnector(connector).build();
