@@ -62,9 +62,9 @@ import static org.mockito.Mockito.mock;
  * @author Stephane Nicoll
  * @author Scott Frederick
  */
-class HealthEndpointAutoConfigurationTests {
+public class HealthEndpointAutoConfigurationTests {
 
-	private final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner()
+	public final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner()
 			.withUserConfiguration(HealthIndicatorsConfiguration.class).withConfiguration(AutoConfigurations
 					.of(HealthContributorAutoConfiguration.class, HealthEndpointAutoConfiguration.class));
 
@@ -202,18 +202,6 @@ class HealthEndpointAutoConfigurationTests {
 					Object[] names = registry.stream().map(NamedContributor::getName).toArray();
 					assertThat(names).isEmpty();
 				});
-	}
-
-	@Test
-	void runCreatesHealthEndpointWebExtension() {
-		this.contextRunner.run((context) -> {
-			HealthEndpointWebExtension webExtension = context.getBean(HealthEndpointWebExtension.class);
-			WebEndpointResponse<HealthComponent> response = webExtension.health(ApiVersion.V3, SecurityContext.NONE,
-					true, "simple");
-			Health health = (Health) response.getBody();
-			assertThat(response.getStatus()).isEqualTo(200);
-			assertThat(health.getDetails()).containsEntry("counter", 42);
-		});
 	}
 
 	@Test
