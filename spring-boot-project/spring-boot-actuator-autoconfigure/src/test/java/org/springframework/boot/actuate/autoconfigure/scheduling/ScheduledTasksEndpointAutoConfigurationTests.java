@@ -33,9 +33,9 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Andy Wilkinson
  */
-class ScheduledTasksEndpointAutoConfigurationTests {
+public class ScheduledTasksEndpointAutoConfigurationTests {
 
-	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
+	public final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(ScheduledTasksEndpointAutoConfiguration.class));
 
 	@Test
@@ -47,12 +47,6 @@ class ScheduledTasksEndpointAutoConfigurationTests {
 	@Test
 	void endpointNotAutoConfiguredWhenNotExposed() {
 		this.contextRunner.run((context) -> assertThat(context).doesNotHaveBean(ScheduledTasksEndpoint.class));
-	}
-
-	@Test
-	void endpointCanBeDisabled() {
-		this.contextRunner.withPropertyValues("management.endpoint.scheduledtasks.enabled:false")
-				.run((context) -> assertThat(context).doesNotHaveBean(ScheduledTasksEndpoint.class));
 	}
 
 	@Test
