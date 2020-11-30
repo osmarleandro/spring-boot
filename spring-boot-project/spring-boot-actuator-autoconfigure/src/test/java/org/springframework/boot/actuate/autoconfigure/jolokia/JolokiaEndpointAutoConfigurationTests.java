@@ -46,9 +46,9 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Andy Wilkinson
  * @author Stephane Nicoll
  */
-class JolokiaEndpointAutoConfigurationTests {
+public class JolokiaEndpointAutoConfigurationTests {
 
-	private final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner()
+	public final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(DispatcherServletAutoConfiguration.class,
 					ManagementContextAutoConfiguration.class, ServletManagementContextAutoConfiguration.class,
 					ServletEndpointManagementContextConfiguration.class, JolokiaEndpointAutoConfiguration.class,
@@ -83,17 +83,7 @@ class JolokiaEndpointAutoConfigurationTests {
 				});
 	}
 
-	@Test
-	void jolokiaServletWhenHasCustomConfigShouldApplyInitParams() {
-		this.contextRunner.withPropertyValues("management.endpoint.jolokia.config.debug=true")
-				.withPropertyValues("management.endpoints.web.exposure.include=jolokia").run((context) -> {
-					ExposableServletEndpoint endpoint = getEndpoint(context);
-					assertThat(endpoint.getEndpointServlet()).extracting("initParameters")
-							.isEqualTo(Collections.singletonMap("debug", "true"));
-				});
-	}
-
-	private ExposableServletEndpoint getEndpoint(AssertableWebApplicationContext context) {
+	public ExposableServletEndpoint getEndpoint(AssertableWebApplicationContext context) {
 		Collection<ExposableServletEndpoint> endpoints = context.getBean(ServletEndpointsSupplier.class).getEndpoints();
 		return endpoints.iterator().next();
 	}
