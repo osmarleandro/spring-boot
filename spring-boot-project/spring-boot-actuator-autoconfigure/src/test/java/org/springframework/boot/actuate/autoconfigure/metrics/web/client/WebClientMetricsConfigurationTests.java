@@ -23,8 +23,6 @@ import io.micrometer.core.instrument.Timer;
 import io.micrometer.core.instrument.distribution.HistogramSnapshot;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import reactor.core.publisher.Mono;
-
 import org.springframework.boot.actuate.autoconfigure.metrics.test.MetricsRun;
 import org.springframework.boot.actuate.metrics.web.reactive.client.WebClientExchangeTagsProvider;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
@@ -35,14 +33,9 @@ import org.springframework.boot.test.system.CapturedOutput;
 import org.springframework.boot.test.system.OutputCaptureExtension;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.client.reactive.ClientHttpConnector;
-import org.springframework.mock.http.client.reactive.MockClientHttpResponse;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
 
 /**
@@ -108,7 +101,7 @@ class WebClientMetricsConfigurationTests {
 	}
 
 	private MeterRegistry getInitializedMeterRegistry(AssertableApplicationContext context) {
-		WebClient webClient = mockWebClient(context.getBean(WebClient.Builder.class));
+		WebClient webClient = contextRunner.mockWebClient(context.getBean(WebClient.Builder.class));
 		MeterRegistry registry = context.getBean(MeterRegistry.class);
 		for (int i = 0; i < 3; i++) {
 			webClient.get().uri("https://example.org/projects/" + i).retrieve().toBodilessEntity()
@@ -118,17 +111,11 @@ class WebClientMetricsConfigurationTests {
 	}
 
 	private void validateWebClient(WebClient.Builder builder, MeterRegistry registry) {
-		WebClient webClient = mockWebClient(builder);
+		WebClient webClient = contextRunner.mockWebClient(builder);
 		assertThat(registry.find("http.client.requests").meter()).isNull();
 		webClient.get().uri("https://example.org/projects/{project}", "spring-boot").retrieve().toBodilessEntity()
 				.block(Duration.ofSeconds(30));
 		assertThat(registry.find("http.client.requests").tags("uri", "/projects/{project}").meter()).isNotNull();
-	}
-
-	private WebClient mockWebClient(WebClient.Builder builder) {
-		ClientHttpConnector connector = mock(ClientHttpConnector.class);
-		given(connector.connect(any(), any(), any())).willReturn(Mono.just(new MockClientHttpResponse(HttpStatus.OK)));
-		return builder.clientConnector(connector).build();
 	}
 
 	@Configuration(proxyBeanMethods = false)
