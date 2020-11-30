@@ -40,9 +40,9 @@ import static org.assertj.core.api.Assertions.contentOf;
  * @author Phillip Webb
  * @author Christian Carriere-Tisseur
  */
-class LogFileWebEndpointAutoConfigurationTests {
+public class LogFileWebEndpointAutoConfigurationTests {
 
-	private final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner()
+	public final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(LogFileWebEndpointAutoConfiguration.class));
 
 	@Test
@@ -55,13 +55,6 @@ class LogFileWebEndpointAutoConfigurationTests {
 	void runWhenLoggingFileIsSetAndNotExposedShouldNotHaveEndpointBean() {
 		this.contextRunner.withPropertyValues("logging.file.name:test.log")
 				.run((context) -> assertThat(context).doesNotHaveBean(LogFileWebEndpoint.class));
-	}
-
-	@Test
-	void runWhenLoggingFileIsSetAndExposedShouldHaveEndpointBean() {
-		this.contextRunner
-				.withPropertyValues("logging.file.name:test.log", "management.endpoints.web.exposure.include=logfile")
-				.run((context) -> assertThat(context).hasSingleBean(LogFileWebEndpoint.class));
 	}
 
 	@Test
