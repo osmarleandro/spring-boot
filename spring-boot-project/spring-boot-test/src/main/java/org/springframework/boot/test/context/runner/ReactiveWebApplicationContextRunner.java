@@ -16,9 +16,15 @@
 
 package org.springframework.boot.test.context.runner;
 
+import java.time.Duration;
 import java.util.List;
 import java.util.function.Supplier;
 
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.actuate.autoconfigure.cloudfoundry.reactive.CloudFoundryWebFluxEndpointHandlerMapping;
+import org.springframework.boot.actuate.autoconfigure.cloudfoundry.reactive.ReactiveCloudFoundryActuatorAutoConfigurationTests;
+import org.springframework.boot.actuate.autoconfigure.health.HealthEndpointAutoConfiguration;
+import org.springframework.boot.autoconfigure.AutoConfigurations;
 import org.springframework.boot.context.annotation.Configurations;
 import org.springframework.boot.test.context.assertj.AssertableReactiveWebApplicationContext;
 import org.springframework.boot.test.util.TestPropertyValues;
@@ -26,6 +32,8 @@ import org.springframework.boot.web.reactive.context.AnnotationConfigReactiveWeb
 import org.springframework.boot.web.reactive.context.ConfigurableReactiveWebApplicationContext;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextInitializer;
+import org.springframework.test.util.ReflectionTestUtils;
+import org.springframework.web.reactive.function.client.WebClient;
 
 /**
  * An {@link AbstractApplicationContextRunner ApplicationContext runner} for a
@@ -77,6 +85,25 @@ public final class ReactiveWebApplicationContextRunner extends
 			List<Configurations> configurations) {
 		return new ReactiveWebApplicationContextRunner(contextFactory, allowBeanDefinitionOverriding, initializers,
 				environmentProperties, systemProperties, classLoader, parent, beanRegistrations, configurations);
+	}
+
+	@Test
+	public
+	void skipSslValidation(ReactiveCloudFoundryActuatorAutoConfigurationTests reactiveCloudFoundryActuatorAutoConfigurationTests) {
+		withConfiguration(AutoConfigurations.of(HealthEndpointAutoConfiguration.class))
+				.withPropertyValues("VCAP_APPLICATION:---", "vcap.application.application_id:my-app-id",
+						"vcap.application.cf_api:https://my-cloud-controller.com",
+						"management.cloudfoundry.skip-ssl-validation:true")
+				.run((context) -> {
+					CloudFoundryWebFluxEndpointHandlerMapping handlerMapping = reactiveCloudFoundryActuatorAutoConfigurationTests.getHandlerMapping(context);
+					Object interceptor = ReflectionTestUtils.getField(handlerMapping, "securityInterceptor");
+					Object interceptorSecurityService = ReflectionTestUtils.getField(interceptor,
+							"cloudFoundrySecurityService");
+					WebClient webClient = (WebClient) ReflectionTestUtils.getField(interceptorSecurityService,
+							"webClient");
+					webClient.get().uri("https://self-signed.badssl.com/").retrieve().toBodilessEntity()
+							.block(Duration.ofSeconds(30));
+				});
 	}
 
 }
