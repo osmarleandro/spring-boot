@@ -17,6 +17,7 @@
 package org.springframework.boot.actuate.endpoint.web;
 
 import org.springframework.boot.actuate.endpoint.ExposableEndpoint;
+import org.springframework.boot.actuate.endpoint.http.ActuatorMediaType;
 
 /**
  * Information describing an endpoint that can be exposed over the web.
@@ -25,5 +26,17 @@ import org.springframework.boot.actuate.endpoint.ExposableEndpoint;
  * @since 2.0.0
  */
 public interface ExposableWebEndpoint extends ExposableEndpoint<WebOperation>, PathMappedEndpoint {
+
+	public default WebOperation findOperationWithRequestPath(String requestPath) {
+		for (WebOperation operation : getOperations()) {
+			WebOperationRequestPredicate predicate = operation.getRequestPredicate();
+			if (predicate.getPath().equals(requestPath)
+					&& predicate.getProduces().contains(ActuatorMediaType.V3_JSON)) {
+				return operation;
+			}
+		}
+		throw new IllegalStateException(
+				"No operation found with request path " + requestPath + " from " + getOperations());
+	}
 
 }

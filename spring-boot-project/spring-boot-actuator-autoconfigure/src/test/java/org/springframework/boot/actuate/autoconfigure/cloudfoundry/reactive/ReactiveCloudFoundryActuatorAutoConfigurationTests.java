@@ -44,7 +44,6 @@ import org.springframework.boot.actuate.endpoint.http.ActuatorMediaType;
 import org.springframework.boot.actuate.endpoint.web.EndpointMapping;
 import org.springframework.boot.actuate.endpoint.web.ExposableWebEndpoint;
 import org.springframework.boot.actuate.endpoint.web.WebOperation;
-import org.springframework.boot.actuate.endpoint.web.WebOperationRequestPredicate;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
 import org.springframework.boot.autoconfigure.context.PropertyPlaceholderAutoConfiguration;
 import org.springframework.boot.autoconfigure.http.HttpMessageConvertersAutoConfiguration;
@@ -238,7 +237,7 @@ class ReactiveCloudFoundryActuatorAutoConfigurationTests {
 					Collection<ExposableWebEndpoint> endpoints = getHandlerMapping(context).getEndpoints();
 					ExposableWebEndpoint endpoint = endpoints.iterator().next();
 					assertThat(endpoint.getOperations()).hasSize(2);
-					WebOperation webOperation = findOperationWithRequestPath(endpoint, "health");
+					WebOperation webOperation = endpoint.findOperationWithRequestPath("health");
 					assertThat(webOperation).extracting("invoker").extracting("target")
 							.isInstanceOf(CloudFoundryReactiveHealthEndpointWebExtension.class);
 				});
@@ -296,18 +295,6 @@ class ReactiveCloudFoundryActuatorAutoConfigurationTests {
 	private CloudFoundryWebFluxEndpointHandlerMapping getHandlerMapping(ApplicationContext context) {
 		return context.getBean("cloudFoundryWebFluxEndpointHandlerMapping",
 				CloudFoundryWebFluxEndpointHandlerMapping.class);
-	}
-
-	private WebOperation findOperationWithRequestPath(ExposableWebEndpoint endpoint, String requestPath) {
-		for (WebOperation operation : endpoint.getOperations()) {
-			WebOperationRequestPredicate predicate = operation.getRequestPredicate();
-			if (predicate.getPath().equals(requestPath)
-					&& predicate.getProduces().contains(ActuatorMediaType.V3_JSON)) {
-				return operation;
-			}
-		}
-		throw new IllegalStateException(
-				"No operation found with request path " + requestPath + " from " + endpoint.getOperations());
 	}
 
 	@Endpoint(id = "test")
