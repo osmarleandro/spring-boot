@@ -74,20 +74,6 @@ class MeterRegistryConfigurerIntegrationTests {
 	}
 
 	@Test
-	void counterIsIncrementedOncePerEventWithoutCompositeMeterRegistry() {
-		new ApplicationContextRunner().with(MetricsRun.limitedTo(JmxMetricsExportAutoConfiguration.class))
-				.withConfiguration(AutoConfigurations.of(LogbackMetricsAutoConfiguration.class)).run((context) -> {
-					Logger logger = ((LoggerContext) StaticLoggerBinder.getSingleton().getLoggerFactory())
-							.getLogger("test-logger");
-					logger.error("Error.");
-					Map<String, MeterRegistry> registriesByName = context.getBeansOfType(MeterRegistry.class);
-					assertThat(registriesByName).hasSize(1);
-					MeterRegistry registry = registriesByName.values().iterator().next();
-					assertThat(registry.get("logback.events").tag("level", "error").counter().count()).isEqualTo(1);
-				});
-	}
-
-	@Test
 	void counterIsIncrementedOncePerEventWithCompositeMeterRegistry() {
 		new ApplicationContextRunner()
 				.with(MetricsRun.limitedTo(JmxMetricsExportAutoConfiguration.class,
