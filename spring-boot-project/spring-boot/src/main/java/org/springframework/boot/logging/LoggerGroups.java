@@ -21,6 +21,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import org.springframework.boot.actuate.autoconfigure.endpoint.web.documentation.LoggersEndpointDocumentationTests;
+
 /**
  * Logger groups configured via the Spring Environment.
  *
@@ -58,6 +60,11 @@ public final class LoggerGroups implements Iterable<LoggerGroup> {
 	@Override
 	public Iterator<LoggerGroup> iterator() {
 		return this.groups.values().iterator();
+	}
+
+	public void resetLogger(LoggersEndpointDocumentationTests loggersEndpointDocumentationTests) {
+		get("test").configureLogLevel(LogLevel.INFO, (a, b) -> {
+		});
 	}
 
 }

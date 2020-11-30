@@ -53,7 +53,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  *
  * @author Andy Wilkinson
  */
-class LoggersEndpointDocumentationTests extends MockMvcEndpointDocumentationTests {
+public class LoggersEndpointDocumentationTests extends MockMvcEndpointDocumentationTests {
 
 	private static final List<FieldDescriptor> levelFields = Arrays.asList(
 			fieldWithPath("configuredLevel").description("Configured level of the logger, if any.").optional(),
@@ -103,7 +103,7 @@ class LoggersEndpointDocumentationTests extends MockMvcEndpointDocumentationTest
 		});
 		this.mockMvc.perform(get("/actuator/loggers/test")).andExpect(status().isOk())
 				.andDo(MockMvcRestDocumentation.document("loggers/group", responseFields(groupLevelFields)));
-		resetLogger();
+		loggerGroups.resetLogger(this);
 	}
 
 	@Test
@@ -129,12 +129,7 @@ class LoggersEndpointDocumentationTests extends MockMvcEndpointDocumentationTest
 										.optional())));
 		verify(this.loggingSystem).setLogLevel("test.member1", LogLevel.DEBUG);
 		verify(this.loggingSystem).setLogLevel("test.member2", LogLevel.DEBUG);
-		resetLogger();
-	}
-
-	private void resetLogger() {
-		this.loggerGroups.get("test").configureLogLevel(LogLevel.INFO, (a, b) -> {
-		});
+		loggerGroups.resetLogger(this);
 	}
 
 	@Test
