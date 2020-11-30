@@ -48,7 +48,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * @author Stephane Nicoll
  * @see WebMvcEndpointManagementContextConfiguration
  */
-class WebMvcEndpointCorsIntegrationTests {
+public class WebMvcEndpointCorsIntegrationTests {
 
 	private final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(JacksonAutoConfiguration.class,
@@ -73,14 +73,14 @@ class WebMvcEndpointCorsIntegrationTests {
 					mockMvc.perform(options("/actuator/beans").header("Origin", "bar.example.com")
 							.header(HttpHeaders.ACCESS_CONTROL_REQUEST_METHOD, "GET"))
 							.andExpect(status().isForbidden());
-					performAcceptedCorsRequest(mockMvc);
+					contextRunner.performAcceptedCorsRequest(this, mockMvc);
 				}));
 	}
 
 	@Test
 	void maxAgeDefaultsTo30Minutes() {
 		this.contextRunner.withPropertyValues("management.endpoints.web.cors.allowed-origins:foo.example.com")
-				.run(withMockMvc((mockMvc) -> performAcceptedCorsRequest(mockMvc)
+				.run(withMockMvc((mockMvc) -> contextRunner.performAcceptedCorsRequest(this, mockMvc)
 						.andExpect(header().string(HttpHeaders.ACCESS_CONTROL_MAX_AGE, "1800"))));
 	}
 
@@ -89,7 +89,7 @@ class WebMvcEndpointCorsIntegrationTests {
 		this.contextRunner
 				.withPropertyValues("management.endpoints.web.cors.allowed-origins:foo.example.com",
 						"management.endpoints.web.cors.max-age: 2400")
-				.run(withMockMvc((mockMvc) -> performAcceptedCorsRequest(mockMvc)
+				.run(withMockMvc((mockMvc) -> contextRunner.performAcceptedCorsRequest(this, mockMvc)
 						.andExpect(header().string(HttpHeaders.ACCESS_CONTROL_MAX_AGE, "2400"))));
 	}
 
@@ -143,7 +143,7 @@ class WebMvcEndpointCorsIntegrationTests {
 		this.contextRunner
 				.withPropertyValues("management.endpoints.web.cors.allowed-origins:foo.example.com",
 						"management.endpoints.web.cors.allow-credentials:true")
-				.run(withMockMvc((mockMvc) -> performAcceptedCorsRequest(mockMvc)
+				.run(withMockMvc((mockMvc) -> contextRunner.performAcceptedCorsRequest(this, mockMvc)
 						.andExpect(header().string(HttpHeaders.ACCESS_CONTROL_ALLOW_CREDENTIALS, "true"))));
 	}
 
@@ -152,7 +152,7 @@ class WebMvcEndpointCorsIntegrationTests {
 		this.contextRunner
 				.withPropertyValues("management.endpoints.web.cors.allowed-origins:foo.example.com",
 						"management.endpoints.web.cors.allow-credentials:false")
-				.run(withMockMvc((mockMvc) -> performAcceptedCorsRequest(mockMvc)
+				.run(withMockMvc((mockMvc) -> contextRunner.performAcceptedCorsRequest(this, mockMvc)
 						.andExpect(header().doesNotExist(HttpHeaders.ACCESS_CONTROL_ALLOW_CREDENTIALS))));
 	}
 
@@ -160,11 +160,7 @@ class WebMvcEndpointCorsIntegrationTests {
 		return (context) -> mockMvc.accept(MockMvcBuilders.webAppContextSetup(context).build());
 	}
 
-	private ResultActions performAcceptedCorsRequest(MockMvc mockMvc) throws Exception {
-		return performAcceptedCorsRequest(mockMvc, "/actuator/beans");
-	}
-
-	private ResultActions performAcceptedCorsRequest(MockMvc mockMvc, String url) throws Exception {
+	public ResultActions performAcceptedCorsRequest(MockMvc mockMvc, String url) throws Exception {
 		return mockMvc
 				.perform(options(url).header(HttpHeaders.ORIGIN, "foo.example.com")
 						.header(HttpHeaders.ACCESS_CONTROL_REQUEST_METHOD, "GET"))
