@@ -56,9 +56,9 @@ import static org.mockito.Mockito.mock;
  * @author Rui Figueira
  * @author Stephane Nicoll
  */
-class HibernateMetricsAutoConfigurationTests {
+public class HibernateMetricsAutoConfigurationTests {
 
-	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner().with(MetricsRun.simple())
+	public final ApplicationContextRunner contextRunner = new ApplicationContextRunner().with(MetricsRun.simple())
 			.withConfiguration(AutoConfigurations.of(DataSourceAutoConfiguration.class,
 					HibernateJpaAutoConfiguration.class, HibernateMetricsAutoConfiguration.class))
 			.withUserConfiguration(BaseConfiguration.class);
@@ -89,19 +89,6 @@ class HibernateMetricsAutoConfigurationTests {
 					context.getBean(EntityManagerFactory.class).unwrap(SessionFactory.class);
 					MeterRegistry registry = context.getBean(MeterRegistry.class);
 					assertThat(registry.find("hibernate.statements").meter()).isNull();
-				});
-	}
-
-	@Test
-	void allEntityManagerFactoriesCanBeInstrumented() {
-		this.contextRunner.withPropertyValues("spring.jpa.properties.hibernate.generate_statistics:true")
-				.withUserConfiguration(TwoEntityManagerFactoriesConfiguration.class).run((context) -> {
-					context.getBean("firstEntityManagerFactory", EntityManagerFactory.class)
-							.unwrap(SessionFactory.class);
-					context.getBean("secondOne", EntityManagerFactory.class).unwrap(SessionFactory.class);
-					MeterRegistry registry = context.getBean(MeterRegistry.class);
-					registry.get("hibernate.statements").tags("entityManagerFactory", "first").meter();
-					registry.get("hibernate.statements").tags("entityManagerFactory", "secondOne").meter();
 				});
 	}
 
@@ -147,6 +134,7 @@ class HibernateMetricsAutoConfigurationTests {
 	}
 
 	@Configuration(proxyBeanMethods = false)
+	public
 	static class TwoEntityManagerFactoriesConfiguration {
 
 		private static final Class<?>[] PACKAGE_CLASSES = new Class<?>[] { MyEntity.class };
