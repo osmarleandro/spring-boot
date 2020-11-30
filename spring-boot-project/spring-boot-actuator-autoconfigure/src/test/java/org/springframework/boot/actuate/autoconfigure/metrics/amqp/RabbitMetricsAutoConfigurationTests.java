@@ -31,19 +31,11 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Stephane Nicoll
  */
-class RabbitMetricsAutoConfigurationTests {
+public class RabbitMetricsAutoConfigurationTests {
 
-	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner().with(MetricsRun.simple())
+	public final ApplicationContextRunner contextRunner = new ApplicationContextRunner().with(MetricsRun.simple())
 			.withConfiguration(
 					AutoConfigurations.of(RabbitAutoConfiguration.class, RabbitMetricsAutoConfiguration.class));
-
-	@Test
-	void autoConfiguredConnectionFactoryIsInstrumented() {
-		this.contextRunner.run((context) -> {
-			MeterRegistry registry = context.getBean(MeterRegistry.class);
-			registry.get("rabbitmq.connections").meter();
-		});
-	}
 
 	@Test
 	void rabbitmqNativeConnectionFactoryInstrumentationCanBeDisabled() {
