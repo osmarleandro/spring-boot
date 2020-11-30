@@ -34,15 +34,10 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Johannes Graf
  */
-class StackdriverMetricsExportAutoConfigurationTests {
+public class StackdriverMetricsExportAutoConfigurationTests {
 
-	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
+	public final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(StackdriverMetricsExportAutoConfiguration.class));
-
-	@Test
-	void backsOffWithoutAClock() {
-		this.contextRunner.run((context) -> assertThat(context).doesNotHaveBean(StackdriverMeterRegistry.class));
-	}
 
 	@Test
 	void failsWithoutAProjectId() {
