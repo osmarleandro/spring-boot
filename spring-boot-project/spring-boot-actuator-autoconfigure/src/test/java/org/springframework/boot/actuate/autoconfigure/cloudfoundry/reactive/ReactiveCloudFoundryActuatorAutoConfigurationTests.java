@@ -20,7 +20,6 @@ import java.time.Duration;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 import javax.net.ssl.SSLException;
@@ -29,7 +28,6 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import reactor.netty.http.HttpResources;
 
-import org.springframework.boot.actuate.autoconfigure.cloudfoundry.servlet.CloudFoundryInfoEndpointWebExtension;
 import org.springframework.boot.actuate.autoconfigure.endpoint.EndpointAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.health.HealthContributorAutoConfiguration;
@@ -78,9 +76,9 @@ import static org.mockito.Mockito.mock;
  *
  * @author Madhura Bhave
  */
-class ReactiveCloudFoundryActuatorAutoConfigurationTests {
+public class ReactiveCloudFoundryActuatorAutoConfigurationTests {
 
-	private final ReactiveWebApplicationContextRunner contextRunner = new ReactiveWebApplicationContextRunner()
+	public final ReactiveWebApplicationContextRunner contextRunner = new ReactiveWebApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(ReactiveSecurityAutoConfiguration.class,
 					ReactiveUserDetailsServiceAutoConfiguration.class, WebFluxAutoConfiguration.class,
 					JacksonAutoConfiguration.class, HttpMessageConvertersAutoConfiguration.class,
@@ -242,18 +240,6 @@ class ReactiveCloudFoundryActuatorAutoConfigurationTests {
 					assertThat(webOperation).extracting("invoker").extracting("target")
 							.isInstanceOf(CloudFoundryReactiveHealthEndpointWebExtension.class);
 				});
-	}
-
-	@Test
-	@SuppressWarnings("unchecked")
-	void gitFullDetailsAlwaysPresent() {
-		this.contextRunner.withPropertyValues("VCAP_APPLICATION:---").run((context) -> {
-			CloudFoundryInfoEndpointWebExtension extension = context
-					.getBean(CloudFoundryInfoEndpointWebExtension.class);
-			Map<String, Object> git = (Map<String, Object>) extension.info().get("git");
-			Map<String, Object> commit = (Map<String, Object>) git.get("commit");
-			assertThat(commit).hasSize(4);
-		});
 	}
 
 	@Test
