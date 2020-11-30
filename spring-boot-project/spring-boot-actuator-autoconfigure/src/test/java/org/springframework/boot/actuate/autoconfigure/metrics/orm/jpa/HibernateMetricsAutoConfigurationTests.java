@@ -56,21 +56,12 @@ import static org.mockito.Mockito.mock;
  * @author Rui Figueira
  * @author Stephane Nicoll
  */
-class HibernateMetricsAutoConfigurationTests {
+public class HibernateMetricsAutoConfigurationTests {
 
-	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner().with(MetricsRun.simple())
+	public final ApplicationContextRunner contextRunner = new ApplicationContextRunner().with(MetricsRun.simple())
 			.withConfiguration(AutoConfigurations.of(DataSourceAutoConfiguration.class,
 					HibernateJpaAutoConfiguration.class, HibernateMetricsAutoConfiguration.class))
 			.withUserConfiguration(BaseConfiguration.class);
-
-	@Test
-	void autoConfiguredEntityManagerFactoryWithStatsIsInstrumented() {
-		this.contextRunner.withPropertyValues("spring.jpa.properties.hibernate.generate_statistics:true")
-				.run((context) -> {
-					MeterRegistry registry = context.getBean(MeterRegistry.class);
-					registry.get("hibernate.statements").tags("entityManagerFactory", "entityManagerFactory").meter();
-				});
-	}
 
 	@Test
 	void autoConfiguredEntityManagerFactoryWithoutStatsIsNotInstrumented() {
