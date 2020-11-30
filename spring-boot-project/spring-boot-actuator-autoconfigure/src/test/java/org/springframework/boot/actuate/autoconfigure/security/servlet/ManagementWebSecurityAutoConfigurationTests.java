@@ -30,7 +30,6 @@ import org.springframework.boot.autoconfigure.AutoConfigurations;
 import org.springframework.boot.autoconfigure.security.oauth2.resource.servlet.OAuth2ResourceServerAutoConfiguration;
 import org.springframework.boot.autoconfigure.security.saml2.Saml2RelyingPartyAutoConfiguration;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
-import org.springframework.boot.test.context.FilteredClassLoader;
 import org.springframework.boot.test.context.assertj.AssertableWebApplicationContext;
 import org.springframework.boot.test.context.runner.WebApplicationContextRunner;
 import org.springframework.context.annotation.Bean;
@@ -54,9 +53,9 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Madhura Bhave
  */
-class ManagementWebSecurityAutoConfigurationTests {
+public class ManagementWebSecurityAutoConfigurationTests {
 
-	private final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner().withConfiguration(
+	public final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner().withConfiguration(
 			AutoConfigurations.of(HealthContributorAutoConfiguration.class, HealthEndpointAutoConfiguration.class,
 					InfoEndpointAutoConfiguration.class, EnvironmentEndpointAutoConfiguration.class,
 					EndpointAutoConfiguration.class, WebEndpointAutoConfiguration.class,
@@ -84,15 +83,6 @@ class ManagementWebSecurityAutoConfigurationTests {
 			HttpStatus status = getResponseStatus(context, "/actuator");
 			assertThat(status).isEqualTo(HttpStatus.UNAUTHORIZED);
 			status = getResponseStatus(context, "/foo");
-			assertThat(status).isEqualTo(HttpStatus.UNAUTHORIZED);
-		});
-	}
-
-	@Test
-	void autoConfigIsConditionalOnSecurityFilterChainClass() {
-		this.contextRunner.withClassLoader(new FilteredClassLoader(SecurityFilterChain.class)).run((context) -> {
-			assertThat(context).doesNotHaveBean(ManagementWebSecurityAutoConfiguration.class);
-			HttpStatus status = getResponseStatus(context, "/actuator/health");
 			assertThat(status).isEqualTo(HttpStatus.UNAUTHORIZED);
 		});
 	}
@@ -143,7 +133,7 @@ class ManagementWebSecurityAutoConfigurationTests {
 						ManagementWebSecurityAutoConfiguration.ManagementWebSecurityConfigurerAdapter.class));
 	}
 
-	private HttpStatus getResponseStatus(AssertableWebApplicationContext context, String path)
+	public HttpStatus getResponseStatus(AssertableWebApplicationContext context, String path)
 			throws IOException, javax.servlet.ServletException {
 		FilterChainProxy filterChainProxy = context.getBean(FilterChainProxy.class);
 		MockServletContext servletContext = new MockServletContext();
