@@ -25,8 +25,6 @@ import java.util.function.Consumer;
 import org.junit.jupiter.api.Test;
 
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.AccessLevel;
-import org.springframework.boot.actuate.autoconfigure.cloudfoundry.CloudFoundryAuthorizationException;
-import org.springframework.boot.actuate.autoconfigure.cloudfoundry.CloudFoundryAuthorizationException.Reason;
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
 import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
 import org.springframework.boot.actuate.endpoint.annotation.Selector;
@@ -55,7 +53,6 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.BDDMockito.willThrow;
 import static org.mockito.Mockito.mock;
 
 /**
@@ -63,9 +60,9 @@ import static org.mockito.Mockito.mock;
  *
  * @author Madhura Bhave
  */
-class CloudFoundryMvcWebEndpointIntegrationTests {
+public class CloudFoundryMvcWebEndpointIntegrationTests {
 
-	private static TokenValidator tokenValidator = mock(TokenValidator.class);
+	public static TokenValidator tokenValidator = mock(TokenValidator.class);
 
 	private static CloudFoundrySecurityService securityService = mock(CloudFoundrySecurityService.class);
 
@@ -112,17 +109,6 @@ class CloudFoundryMvcWebEndpointIntegrationTests {
 	}
 
 	@Test
-	void linksToOtherEndpointsForbidden() {
-		CloudFoundryAuthorizationException exception = new CloudFoundryAuthorizationException(Reason.INVALID_TOKEN,
-				"invalid-token");
-		willThrow(exception).given(tokenValidator).validate(any());
-		load(TestEndpointConfiguration.class,
-				(client) -> client.get().uri("/cfApplication").accept(MediaType.APPLICATION_JSON)
-						.header("Authorization", "bearer " + mockAccessToken()).exchange().expectStatus()
-						.isUnauthorized());
-	}
-
-	@Test
 	void linksToOtherEndpointsWithRestrictedAccess() {
 		given(securityService.getAccessLevel(any(), eq("app-id"))).willReturn(AccessLevel.RESTRICTED);
 		load(TestEndpointConfiguration.class,
@@ -142,7 +128,7 @@ class CloudFoundryMvcWebEndpointIntegrationTests {
 		return context.getWebServer().getPort();
 	}
 
-	private void load(Class<?> configuration, Consumer<WebTestClient> clientConsumer) {
+	public void load(Class<?> configuration, Consumer<WebTestClient> clientConsumer) {
 		BiConsumer<ApplicationContext, WebTestClient> consumer = (context, client) -> clientConsumer.accept(client);
 		try (AnnotationConfigServletWebServerApplicationContext context = createApplicationContext(configuration,
 				CloudFoundryMvcConfiguration.class)) {
@@ -151,7 +137,7 @@ class CloudFoundryMvcWebEndpointIntegrationTests {
 		}
 	}
 
-	private String mockAccessToken() {
+	public String mockAccessToken() {
 		return "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ0b3B0YWwu"
 				+ "Y29tIiwiZXhwIjoxNDI2NDIwODAwLCJhd2Vzb21lIjp0cnVlfQ."
 				+ Base64Utils.encodeToString("signature".getBytes());
@@ -258,6 +244,7 @@ class CloudFoundryMvcWebEndpointIntegrationTests {
 
 	@Configuration(proxyBeanMethods = false)
 	@Import(CloudFoundryMvcConfiguration.class)
+	public
 	static class TestEndpointConfiguration {
 
 		@Bean
