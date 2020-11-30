@@ -78,9 +78,9 @@ import static org.mockito.Mockito.mock;
  *
  * @author Madhura Bhave
  */
-class ReactiveCloudFoundryActuatorAutoConfigurationTests {
+public class ReactiveCloudFoundryActuatorAutoConfigurationTests {
 
-	private final ReactiveWebApplicationContextRunner contextRunner = new ReactiveWebApplicationContextRunner()
+	public final ReactiveWebApplicationContextRunner contextRunner = new ReactiveWebApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(ReactiveSecurityAutoConfiguration.class,
 					ReactiveUserDetailsServiceAutoConfiguration.class, WebFluxAutoConfiguration.class,
 					JacksonAutoConfiguration.class, HttpMessageConvertersAutoConfiguration.class,
@@ -230,21 +230,6 @@ class ReactiveCloudFoundryActuatorAutoConfigurationTests {
 	}
 
 	@Test
-	void healthEndpointInvokerShouldBeCloudFoundryWebExtension() {
-		this.contextRunner.withConfiguration(AutoConfigurations.of(HealthEndpointAutoConfiguration.class))
-				.withPropertyValues("VCAP_APPLICATION:---", "vcap.application.application_id:my-app-id",
-						"vcap.application.cf_api:https://my-cloud-controller.com")
-				.run((context) -> {
-					Collection<ExposableWebEndpoint> endpoints = getHandlerMapping(context).getEndpoints();
-					ExposableWebEndpoint endpoint = endpoints.iterator().next();
-					assertThat(endpoint.getOperations()).hasSize(2);
-					WebOperation webOperation = findOperationWithRequestPath(endpoint, "health");
-					assertThat(webOperation).extracting("invoker").extracting("target")
-							.isInstanceOf(CloudFoundryReactiveHealthEndpointWebExtension.class);
-				});
-	}
-
-	@Test
 	@SuppressWarnings("unchecked")
 	void gitFullDetailsAlwaysPresent() {
 		this.contextRunner.withPropertyValues("VCAP_APPLICATION:---").run((context) -> {
@@ -293,12 +278,12 @@ class ReactiveCloudFoundryActuatorAutoConfigurationTests {
 				});
 	}
 
-	private CloudFoundryWebFluxEndpointHandlerMapping getHandlerMapping(ApplicationContext context) {
+	public CloudFoundryWebFluxEndpointHandlerMapping getHandlerMapping(ApplicationContext context) {
 		return context.getBean("cloudFoundryWebFluxEndpointHandlerMapping",
 				CloudFoundryWebFluxEndpointHandlerMapping.class);
 	}
 
-	private WebOperation findOperationWithRequestPath(ExposableWebEndpoint endpoint, String requestPath) {
+	public WebOperation findOperationWithRequestPath(ExposableWebEndpoint endpoint, String requestPath) {
 		for (WebOperation operation : endpoint.getOperations()) {
 			WebOperationRequestPredicate predicate = operation.getRequestPredicate();
 			if (predicate.getPath().equals(requestPath)
