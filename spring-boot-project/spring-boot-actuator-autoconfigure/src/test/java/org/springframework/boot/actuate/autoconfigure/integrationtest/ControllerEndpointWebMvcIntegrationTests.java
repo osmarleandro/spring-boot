@@ -47,7 +47,6 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcConfigurer;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -58,7 +57,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * @author Phillip Webb
  * @author Andy Wilkinson
  */
-class ControllerEndpointWebMvcIntegrationTests {
+public class ControllerEndpointWebMvcIntegrationTests {
 
 	private AnnotationConfigServletWebApplicationContext context;
 
@@ -72,7 +71,7 @@ class ControllerEndpointWebMvcIntegrationTests {
 	void endpointsAreSecureByDefault() throws Exception {
 		this.context = new AnnotationConfigServletWebApplicationContext();
 		this.context.register(SecureConfiguration.class, ExampleController.class);
-		MockMvc mockMvc = createSecureMockMvc();
+		MockMvc mockMvc = context.createSecureMockMvc(this);
 		mockMvc.perform(get("/actuator/example").accept(MediaType.APPLICATION_JSON))
 				.andExpect(status().isUnauthorized());
 	}
@@ -86,15 +85,11 @@ class ControllerEndpointWebMvcIntegrationTests {
 		TestPropertyValues
 				.of("management.endpoints.web.base-path:/management", "management.endpoints.web.exposure.include=*")
 				.applyTo(this.context);
-		MockMvc mockMvc = createSecureMockMvc();
+		MockMvc mockMvc = context.createSecureMockMvc(this);
 		mockMvc.perform(get("/management/example")).andExpect(status().isOk());
 	}
 
-	private MockMvc createSecureMockMvc() {
-		return doCreateMockMvc(springSecurity());
-	}
-
-	private MockMvc doCreateMockMvc(MockMvcConfigurer... configurers) {
+	public MockMvc doCreateMockMvc(MockMvcConfigurer... configurers) {
 		this.context.setServletContext(new MockServletContext());
 		this.context.refresh();
 		DefaultMockMvcBuilder builder = MockMvcBuilders.webAppContextSetup(this.context);
