@@ -16,6 +16,14 @@
 
 package org.springframework.boot.test.system;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.actuate.autoconfigure.metrics.export.prometheus.PrometheusMetricsExportAutoConfigurationTests;
+import org.springframework.boot.actuate.autoconfigure.metrics.export.prometheus.PrometheusMetricsExportAutoConfigurationTests.BaseConfiguration;
+import org.springframework.boot.actuate.autoconfigure.web.server.ManagementContextAutoConfiguration;
+import org.springframework.boot.autoconfigure.AutoConfigurations;
+
 /**
  * Provides access to {@link System#out System.out} and {@link System#err System.err}
  * output that has been captured by the {@link OutputCaptureExtension} or
@@ -67,5 +75,18 @@ public interface CapturedOutput extends CharSequence {
 	 * @return {@link System#err System.err} captured output
 	 */
 	String getErr();
+
+	@Test
+	@Deprecated
+	default
+	void withCustomLegacyPushGatewayURL(PrometheusMetricsExportAutoConfigurationTests prometheusMetricsExportAutoConfigurationTests) {
+		prometheusMetricsExportAutoConfigurationTests.contextRunner.withConfiguration(AutoConfigurations.of(ManagementContextAutoConfiguration.class))
+				.withPropertyValues("management.metrics.export.prometheus.pushgateway.enabled=true",
+						"management.metrics.export.prometheus.pushgateway.base-url=localhost:9090")
+				.withUserConfiguration(BaseConfiguration.class).run((context) -> {
+					assertThat(this).contains("Invalid PushGateway base url").contains("localhost:9090");
+					prometheusMetricsExportAutoConfigurationTests.hasGatewayURL(context, "http://localhost:9090/metrics/");
+				});
+	}
 
 }
