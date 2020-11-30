@@ -27,7 +27,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.actuate.endpoint.EndpointId;
 import org.springframework.boot.actuate.endpoint.jmx.ExposableJmxEndpoint;
 import org.springframework.mock.env.MockEnvironment;
-import org.springframework.util.ObjectUtils;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
@@ -38,7 +37,7 @@ import static org.mockito.Mockito.mock;
  *
  * @author Stephane Nicoll
  */
-class DefaultEndpointObjectNameFactoryTests {
+public class DefaultEndpointObjectNameFactoryTests {
 
 	private final MockEnvironment environment = new MockEnvironment();
 
@@ -70,14 +69,7 @@ class DefaultEndpointObjectNameFactoryTests {
 	@Test
 	void generateObjectNameWithUniqueNames() {
 		this.environment.setProperty("spring.jmx.unique-names", "true");
-		assertUniqueObjectName();
-	}
-
-	private void assertUniqueObjectName() {
-		ExposableJmxEndpoint endpoint = endpoint(EndpointId.of("test"));
-		String id = ObjectUtils.getIdentityHexString(endpoint);
-		ObjectName objectName = generateObjectName(endpoint);
-		assertThat(objectName.toString()).isEqualTo("org.springframework.boot:type=Endpoint,name=Test,identity=" + id);
+		properties.assertUniqueObjectName(this);
 	}
 
 	@Test
@@ -101,7 +93,7 @@ class DefaultEndpointObjectNameFactoryTests {
 
 	}
 
-	private ObjectName generateObjectName(ExposableJmxEndpoint endpoint) {
+	public ObjectName generateObjectName(ExposableJmxEndpoint endpoint) {
 		try {
 			return new DefaultEndpointObjectNameFactory(this.properties, this.environment, this.mBeanServer,
 					this.contextId).getObjectName(endpoint);
@@ -111,7 +103,7 @@ class DefaultEndpointObjectNameFactoryTests {
 		}
 	}
 
-	private ExposableJmxEndpoint endpoint(EndpointId id) {
+	public ExposableJmxEndpoint endpoint(EndpointId id) {
 		ExposableJmxEndpoint endpoint = mock(ExposableJmxEndpoint.class);
 		given(endpoint.getEndpointId()).willReturn(id);
 		return endpoint;

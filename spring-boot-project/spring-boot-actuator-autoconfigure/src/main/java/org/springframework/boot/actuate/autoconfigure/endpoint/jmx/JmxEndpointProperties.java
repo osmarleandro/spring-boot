@@ -16,11 +16,18 @@
 
 package org.springframework.boot.actuate.autoconfigure.endpoint.jmx;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import java.util.LinkedHashSet;
 import java.util.Properties;
 import java.util.Set;
 
+import javax.management.ObjectName;
+
+import org.springframework.boot.actuate.endpoint.EndpointId;
+import org.springframework.boot.actuate.endpoint.jmx.ExposableJmxEndpoint;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.util.ObjectUtils;
 
 /**
  * Configuration properties for JMX export of endpoints.
@@ -58,6 +65,13 @@ public class JmxEndpointProperties {
 
 	public Properties getStaticNames() {
 		return this.staticNames;
+	}
+
+	public void assertUniqueObjectName(DefaultEndpointObjectNameFactoryTests defaultEndpointObjectNameFactoryTests) {
+		ExposableJmxEndpoint endpoint = defaultEndpointObjectNameFactoryTests.endpoint(EndpointId.of("test"));
+		String id = ObjectUtils.getIdentityHexString(endpoint);
+		ObjectName objectName = defaultEndpointObjectNameFactoryTests.generateObjectName(endpoint);
+		assertThat(objectName.toString()).isEqualTo("org.springframework.boot:type=Endpoint,name=Test,identity=" + id);
 	}
 
 	public static class Exposure {
