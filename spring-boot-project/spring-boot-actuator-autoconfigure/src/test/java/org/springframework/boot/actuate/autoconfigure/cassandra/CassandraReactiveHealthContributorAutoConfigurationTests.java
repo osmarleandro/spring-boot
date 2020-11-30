@@ -38,9 +38,10 @@ import static org.mockito.Mockito.mock;
  * @author Stephane Nicoll
  */
 @SuppressWarnings("deprecation")
+public
 class CassandraReactiveHealthContributorAutoConfigurationTests {
 
-	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
+	public final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(CassandraReactiveHealthContributorAutoConfiguration.class,
 					CassandraHealthContributorAutoConfiguration.class, HealthContributorAutoConfiguration.class));
 
@@ -57,18 +58,6 @@ class CassandraReactiveHealthContributorAutoConfigurationTests {
 				.run((context) -> assertThat(context).hasBean("cassandraHealthContributor")
 						.hasSingleBean(CassandraDriverReactiveHealthIndicator.class).doesNotHaveBean(
 								org.springframework.boot.actuate.cassandra.CassandraReactiveHealthIndicator.class));
-	}
-
-	@Test
-	void runWithReactiveCassandraOperationsOnlyShouldCreateReactiveIndicator() {
-		this.contextRunner.withBean(ReactiveCassandraOperations.class, () -> mock(ReactiveCassandraOperations.class))
-				.withBean(CassandraOperations.class, () -> mock(CassandraOperations.class))
-				.run((context) -> assertThat(context).hasBean("cassandraHealthContributor")
-						.hasSingleBean(
-								org.springframework.boot.actuate.cassandra.CassandraReactiveHealthIndicator.class)
-						.doesNotHaveBean(CassandraDriverReactiveHealthIndicator.class)
-						.doesNotHaveBean(org.springframework.boot.actuate.cassandra.CassandraHealthIndicator.class)
-						.doesNotHaveBean(CassandraDriverHealthIndicator.class));
 	}
 
 	@Test
