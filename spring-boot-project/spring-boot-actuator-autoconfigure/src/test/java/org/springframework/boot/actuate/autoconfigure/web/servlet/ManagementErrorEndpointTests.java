@@ -19,7 +19,6 @@ package org.springframework.boot.actuate.autoconfigure.web.servlet;
 import java.util.Collections;
 import java.util.Map;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import org.springframework.boot.autoconfigure.web.ErrorProperties;
@@ -38,18 +37,13 @@ import static org.assertj.core.api.Assertions.entry;
  *
  * @author Scott Frederick
  */
-class ManagementErrorEndpointTests {
+public class ManagementErrorEndpointTests {
 
 	private final ErrorAttributes errorAttributes = new DefaultErrorAttributes();
 
 	private final ErrorProperties errorProperties = new ErrorProperties();
 
-	private final MockHttpServletRequest request = new MockHttpServletRequest();
-
-	@BeforeEach
-	void setUp() {
-		this.request.setAttribute("javax.servlet.error.exception", new RuntimeException("test exception"));
-	}
+	public final MockHttpServletRequest request = new MockHttpServletRequest();
 
 	@Test
 	void errorResponseNeverDetails() {

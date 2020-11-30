@@ -19,6 +19,8 @@ package org.springframework.boot.web.servlet.error;
 import java.util.Collections;
 import java.util.Map;
 
+import org.junit.jupiter.api.BeforeEach;
+import org.springframework.boot.actuate.autoconfigure.web.servlet.ManagementErrorEndpointTests;
 import org.springframework.boot.web.error.ErrorAttributeOptions;
 import org.springframework.boot.web.error.ErrorAttributeOptions.Include;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -70,5 +72,11 @@ public interface ErrorAttributes {
 	 * @return the {@link Exception} that caused the error or {@code null}
 	 */
 	Throwable getError(WebRequest webRequest);
+
+	@BeforeEach
+	default
+	void setUp(ManagementErrorEndpointTests managementErrorEndpointTests) {
+		managementErrorEndpointTests.request.setAttribute("javax.servlet.error.exception", new RuntimeException("test exception"));
+	}
 
 }
