@@ -16,10 +16,19 @@
 
 package org.springframework.boot.actuate.autoconfigure.endpoint.jmx;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.BDDMockito.given;
+
+import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.Properties;
 import java.util.Set;
 
+import javax.management.MalformedObjectNameException;
+import javax.management.ObjectName;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.actuate.endpoint.EndpointId;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
@@ -58,6 +67,17 @@ public class JmxEndpointProperties {
 
 	public Properties getStaticNames() {
 		return this.staticNames;
+	}
+
+	@Test
+	void generateObjectNameWithDuplicate(DefaultEndpointObjectNameFactoryTests defaultEndpointObjectNameFactoryTests) throws MalformedObjectNameException {
+		defaultEndpointObjectNameFactoryTests.contextId = "testContext";
+		given(defaultEndpointObjectNameFactoryTests.mBeanServer.queryNames(new ObjectName("org.springframework.boot:type=Endpoint,name=Test,*"), null))
+				.willReturn(Collections.singleton(new ObjectName("org.springframework.boot:type=Endpoint,name=Test")));
+		ObjectName objectName = defaultEndpointObjectNameFactoryTests.generateObjectName(defaultEndpointObjectNameFactoryTests.endpoint(EndpointId.of("test")));
+		assertThat(objectName.toString())
+				.isEqualTo("org.springframework.boot:type=Endpoint,name=Test,context=testContext");
+	
 	}
 
 	public static class Exposure {

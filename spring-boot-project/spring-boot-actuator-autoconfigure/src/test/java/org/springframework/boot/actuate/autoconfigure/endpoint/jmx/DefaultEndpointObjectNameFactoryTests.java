@@ -16,8 +16,6 @@
 
 package org.springframework.boot.actuate.autoconfigure.endpoint.jmx;
 
-import java.util.Collections;
-
 import javax.management.MBeanServer;
 import javax.management.MalformedObjectNameException;
 import javax.management.ObjectName;
@@ -38,15 +36,15 @@ import static org.mockito.Mockito.mock;
  *
  * @author Stephane Nicoll
  */
-class DefaultEndpointObjectNameFactoryTests {
+public class DefaultEndpointObjectNameFactoryTests {
 
 	private final MockEnvironment environment = new MockEnvironment();
 
 	private final JmxEndpointProperties properties = new JmxEndpointProperties();
 
-	private final MBeanServer mBeanServer = mock(MBeanServer.class);
+	public final MBeanServer mBeanServer = mock(MBeanServer.class);
 
-	private String contextId;
+	public String contextId;
 
 	@Test
 	void generateObjectName() {
@@ -90,18 +88,7 @@ class DefaultEndpointObjectNameFactoryTests {
 		assertThat(objectName.toString()).startsWith("org.springframework.boot:type=Endpoint,name=Test,");
 	}
 
-	@Test
-	void generateObjectNameWithDuplicate() throws MalformedObjectNameException {
-		this.contextId = "testContext";
-		given(this.mBeanServer.queryNames(new ObjectName("org.springframework.boot:type=Endpoint,name=Test,*"), null))
-				.willReturn(Collections.singleton(new ObjectName("org.springframework.boot:type=Endpoint,name=Test")));
-		ObjectName objectName = generateObjectName(endpoint(EndpointId.of("test")));
-		assertThat(objectName.toString())
-				.isEqualTo("org.springframework.boot:type=Endpoint,name=Test,context=testContext");
-
-	}
-
-	private ObjectName generateObjectName(ExposableJmxEndpoint endpoint) {
+	public ObjectName generateObjectName(ExposableJmxEndpoint endpoint) {
 		try {
 			return new DefaultEndpointObjectNameFactory(this.properties, this.environment, this.mBeanServer,
 					this.contextId).getObjectName(endpoint);
@@ -111,7 +98,7 @@ class DefaultEndpointObjectNameFactoryTests {
 		}
 	}
 
-	private ExposableJmxEndpoint endpoint(EndpointId id) {
+	public ExposableJmxEndpoint endpoint(EndpointId id) {
 		ExposableJmxEndpoint endpoint = mock(ExposableJmxEndpoint.class);
 		given(endpoint.getEndpointId()).willReturn(id);
 		return endpoint;
