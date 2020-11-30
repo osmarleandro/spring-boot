@@ -78,9 +78,9 @@ import static org.mockito.Mockito.mock;
  *
  * @author Madhura Bhave
  */
-class ReactiveCloudFoundryActuatorAutoConfigurationTests {
+public class ReactiveCloudFoundryActuatorAutoConfigurationTests {
 
-	private final ReactiveWebApplicationContextRunner contextRunner = new ReactiveWebApplicationContextRunner()
+	public final ReactiveWebApplicationContextRunner contextRunner = new ReactiveWebApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(ReactiveSecurityAutoConfiguration.class,
 					ReactiveUserDetailsServiceAutoConfiguration.class, WebFluxAutoConfiguration.class,
 					JacksonAutoConfiguration.class, HttpMessageConvertersAutoConfiguration.class,
@@ -146,20 +146,6 @@ class ReactiveCloudFoundryActuatorAutoConfigurationTests {
 					String cloudControllerUrl = (String) ReflectionTestUtils.getField(interceptorSecurityService,
 							"cloudControllerUrl");
 					assertThat(cloudControllerUrl).isEqualTo("https://my-cloud-controller.com");
-				});
-	}
-
-	@Test
-	void cloudFoundryPlatformActiveAndCloudControllerUrlNotPresent() {
-		this.contextRunner.withPropertyValues("VCAP_APPLICATION:---", "vcap.application.application_id:my-app-id")
-				.run((context) -> {
-					CloudFoundryWebFluxEndpointHandlerMapping handlerMapping = context.getBean(
-							"cloudFoundryWebFluxEndpointHandlerMapping",
-							CloudFoundryWebFluxEndpointHandlerMapping.class);
-					Object securityInterceptor = ReflectionTestUtils.getField(handlerMapping, "securityInterceptor");
-					Object interceptorSecurityService = ReflectionTestUtils.getField(securityInterceptor,
-							"cloudFoundrySecurityService");
-					assertThat(interceptorSecurityService).isNull();
 				});
 	}
 
