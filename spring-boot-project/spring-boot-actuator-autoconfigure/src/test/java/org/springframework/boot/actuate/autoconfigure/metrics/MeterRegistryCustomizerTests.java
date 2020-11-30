@@ -37,9 +37,9 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Jon Schneider
  * @author Andy Wilkinson
  */
-class MeterRegistryCustomizerTests {
+public class MeterRegistryCustomizerTests {
 
-	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
+	public final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.with(MetricsRun.limitedTo(AtlasMetricsExportAutoConfiguration.class,
 					PrometheusMetricsExportAutoConfiguration.class))
 			.withConfiguration(AutoConfigurations.of(JvmMetricsAutoConfiguration.class));
@@ -49,14 +49,6 @@ class MeterRegistryCustomizerTests {
 		this.contextRunner.withUserConfiguration(MeterRegistryCustomizerConfiguration.class).run((context) -> {
 			MeterRegistry registry = context.getBean(MeterRegistry.class);
 			registry.get("jvm.memory.used").tags("region", "us-east-1").gauge();
-		});
-	}
-
-	@Test
-	void commonTagsAreAppliedBeforeRegistryIsInjectableElsewhere() {
-		this.contextRunner.withUserConfiguration(MeterRegistryCustomizerConfiguration.class).run((context) -> {
-			MeterRegistry registry = context.getBean(MeterRegistry.class);
-			registry.get("my.thing").tags("region", "us-east-1").gauge();
 		});
 	}
 
@@ -71,6 +63,7 @@ class MeterRegistryCustomizerTests {
 	}
 
 	@Configuration(proxyBeanMethods = false)
+	public
 	static class MeterRegistryCustomizerConfiguration {
 
 		@Bean
