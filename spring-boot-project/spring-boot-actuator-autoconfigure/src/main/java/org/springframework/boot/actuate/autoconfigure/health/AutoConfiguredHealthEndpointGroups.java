@@ -49,7 +49,7 @@ import org.springframework.util.ObjectUtils;
  *
  * @author Phillip Webb
  */
-class AutoConfiguredHealthEndpointGroups implements HealthEndpointGroups {
+public class AutoConfiguredHealthEndpointGroups implements HealthEndpointGroups {
 
 	private static final Predicate<String> ALL = (name) -> true;
 
