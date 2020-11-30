@@ -16,6 +16,13 @@
 
 package org.springframework.boot.actuate.autoconfigure.metrics;
 
+import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.mock;
+
+import java.util.List;
+
+import org.springframework.beans.factory.ObjectProvider;
+
 import io.micrometer.core.instrument.Meter;
 import io.micrometer.core.instrument.MeterRegistry;
 
@@ -38,5 +45,13 @@ public interface MeterRegistryCustomizer<T extends MeterRegistry> {
 	 * @param registry the registry to customize
 	 */
 	void customize(T registry);
+
+	@SuppressWarnings("unchecked")
+	public
+	default <T> ObjectProvider<T> createObjectProvider(List<T> objects) {
+		ObjectProvider<T> objectProvider = mock(ObjectProvider.class);
+		given(objectProvider.orderedStream()).willReturn(objects.stream());
+		return objectProvider;
+	}
 
 }
