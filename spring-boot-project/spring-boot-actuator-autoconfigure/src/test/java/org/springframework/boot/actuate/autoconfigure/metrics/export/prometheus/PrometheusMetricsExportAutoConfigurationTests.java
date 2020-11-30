@@ -52,9 +52,10 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Stephane Nicoll
  */
 @ExtendWith(OutputCaptureExtension.class)
+public
 class PrometheusMetricsExportAutoConfigurationTests {
 
-	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
+	public final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(PrometheusMetricsExportAutoConfiguration.class));
 
 	@Test
@@ -107,14 +108,6 @@ class PrometheusMetricsExportAutoConfigurationTests {
 				.run((context) -> assertThat(context).hasSingleBean(PrometheusMeterRegistry.class)
 						.hasBean("customCollectorRegistry").hasSingleBean(CollectorRegistry.class)
 						.hasSingleBean(PrometheusConfig.class));
-	}
-
-	@Test
-	void addsScrapeEndpointToManagementContext() {
-		this.contextRunner.withConfiguration(AutoConfigurations.of(ManagementContextAutoConfiguration.class))
-				.withUserConfiguration(BaseConfiguration.class)
-				.withPropertyValues("management.endpoints.web.exposure.include=prometheus")
-				.run((context) -> assertThat(context).hasSingleBean(PrometheusScrapeEndpoint.class));
 	}
 
 	@Test
@@ -217,6 +210,7 @@ class PrometheusMetricsExportAutoConfigurationTests {
 	}
 
 	@Configuration(proxyBeanMethods = false)
+	public
 	static class BaseConfiguration {
 
 		@Bean
