@@ -31,17 +31,12 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Phillip Webb
  */
-class MailHealthContributorAutoConfigurationTests {
+public class MailHealthContributorAutoConfigurationTests {
 
-	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
+	public final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(MailSenderAutoConfiguration.class,
 					MailHealthContributorAutoConfiguration.class, HealthContributorAutoConfiguration.class))
 			.withPropertyValues("spring.mail.host:smtp.example.com");
-
-	@Test
-	void runShouldCreateIndicator() {
-		this.contextRunner.run((context) -> assertThat(context).hasSingleBean(MailHealthIndicator.class));
-	}
 
 	@Test
 	void runWhenDisabledShouldNotCreateIndicator() {
