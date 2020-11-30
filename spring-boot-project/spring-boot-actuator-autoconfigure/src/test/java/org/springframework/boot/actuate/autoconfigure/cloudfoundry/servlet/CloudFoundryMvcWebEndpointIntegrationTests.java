@@ -47,7 +47,6 @@ import org.springframework.core.convert.support.DefaultConversionService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.reactive.server.WebTestClient;
-import org.springframework.util.Base64Utils;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.servlet.DispatcherServlet;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -74,7 +73,7 @@ class CloudFoundryMvcWebEndpointIntegrationTests {
 		given(securityService.getAccessLevel(any(), eq("app-id"))).willReturn(AccessLevel.RESTRICTED);
 		load(TestEndpointConfiguration.class,
 				(client) -> client.get().uri("/cfApplication/test").accept(MediaType.APPLICATION_JSON)
-						.header("Authorization", "bearer " + mockAccessToken()).exchange().expectStatus()
+						.header("Authorization", "bearer " + securityService.mockAccessToken()).exchange().expectStatus()
 						.isEqualTo(HttpStatus.FORBIDDEN));
 	}
 
@@ -83,7 +82,7 @@ class CloudFoundryMvcWebEndpointIntegrationTests {
 		given(securityService.getAccessLevel(any(), eq("app-id"))).willReturn(AccessLevel.FULL);
 		load(TestEndpointConfiguration.class,
 				(client) -> client.get().uri("/cfApplication/test").accept(MediaType.APPLICATION_JSON)
-						.header("Authorization", "bearer " + mockAccessToken()).exchange().expectStatus()
+						.header("Authorization", "bearer " + securityService.mockAccessToken()).exchange().expectStatus()
 						.isEqualTo(HttpStatus.OK));
 	}
 
@@ -102,7 +101,7 @@ class CloudFoundryMvcWebEndpointIntegrationTests {
 		given(securityService.getAccessLevel(any(), eq("app-id"))).willReturn(AccessLevel.FULL);
 		load(TestEndpointConfiguration.class,
 				(client) -> client.get().uri("/cfApplication").accept(MediaType.APPLICATION_JSON)
-						.header("Authorization", "bearer " + mockAccessToken()).exchange().expectStatus().isOk()
+						.header("Authorization", "bearer " + securityService.mockAccessToken()).exchange().expectStatus().isOk()
 						.expectBody().jsonPath("_links.length()").isEqualTo(5).jsonPath("_links.self.href").isNotEmpty()
 						.jsonPath("_links.self.templated").isEqualTo(false).jsonPath("_links.info.href").isNotEmpty()
 						.jsonPath("_links.info.templated").isEqualTo(false).jsonPath("_links.env.href").isNotEmpty()
@@ -118,7 +117,7 @@ class CloudFoundryMvcWebEndpointIntegrationTests {
 		willThrow(exception).given(tokenValidator).validate(any());
 		load(TestEndpointConfiguration.class,
 				(client) -> client.get().uri("/cfApplication").accept(MediaType.APPLICATION_JSON)
-						.header("Authorization", "bearer " + mockAccessToken()).exchange().expectStatus()
+						.header("Authorization", "bearer " + securityService.mockAccessToken()).exchange().expectStatus()
 						.isUnauthorized());
 	}
 
@@ -127,7 +126,7 @@ class CloudFoundryMvcWebEndpointIntegrationTests {
 		given(securityService.getAccessLevel(any(), eq("app-id"))).willReturn(AccessLevel.RESTRICTED);
 		load(TestEndpointConfiguration.class,
 				(client) -> client.get().uri("/cfApplication").accept(MediaType.APPLICATION_JSON)
-						.header("Authorization", "bearer " + mockAccessToken()).exchange().expectStatus().isOk()
+						.header("Authorization", "bearer " + securityService.mockAccessToken()).exchange().expectStatus().isOk()
 						.expectBody().jsonPath("_links.length()").isEqualTo(2).jsonPath("_links.self.href").isNotEmpty()
 						.jsonPath("_links.self.templated").isEqualTo(false).jsonPath("_links.info.href").isNotEmpty()
 						.jsonPath("_links.info.templated").isEqualTo(false).jsonPath("_links.env").doesNotExist()
@@ -149,12 +148,6 @@ class CloudFoundryMvcWebEndpointIntegrationTests {
 			consumer.accept(context,
 					WebTestClient.bindToServer().baseUrl("http://localhost:" + getPort(context)).build());
 		}
-	}
-
-	private String mockAccessToken() {
-		return "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ0b3B0YWwu"
-				+ "Y29tIiwiZXhwIjoxNDI2NDIwODAwLCJhd2Vzb21lIjp0cnVlfQ."
-				+ Base64Utils.encodeToString("signature".getBytes());
 	}
 
 	@Configuration(proxyBeanMethods = false)

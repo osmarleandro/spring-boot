@@ -29,6 +29,7 @@ import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.RequestEntity;
 import org.springframework.util.Assert;
+import org.springframework.util.Base64Utils;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.HttpStatusCodeException;
@@ -133,6 +134,12 @@ class CloudFoundrySecurityService {
 			}
 		}
 		return this.uaaUrl;
+	}
+
+	public String mockAccessToken() {
+		return "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ0b3B0YWwu"
+				+ "Y29tIiwiZXhwIjoxNDI2NDIwODAwLCJhd2Vzb21lIjp0cnVlfQ."
+				+ Base64Utils.encodeToString("signature".getBytes());
 	}
 
 }
