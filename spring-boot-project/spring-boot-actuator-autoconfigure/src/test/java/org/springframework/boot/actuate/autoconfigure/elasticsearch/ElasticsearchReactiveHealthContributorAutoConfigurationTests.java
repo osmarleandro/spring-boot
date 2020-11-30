@@ -34,9 +34,9 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Aleksander Lech
  */
-class ElasticsearchReactiveHealthContributorAutoConfigurationTests {
+public class ElasticsearchReactiveHealthContributorAutoConfigurationTests {
 
-	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
+	public final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(ElasticsearchDataAutoConfiguration.class,
 					ReactiveElasticsearchRestClientAutoConfiguration.class,
 					ElasticsearchRestClientAutoConfiguration.class,
@@ -56,13 +56,6 @@ class ElasticsearchReactiveHealthContributorAutoConfigurationTests {
 				.run((context) -> assertThat(context).hasSingleBean(ElasticsearchReactiveHealthIndicator.class)
 						.hasBean("elasticsearchHealthContributor")
 						.doesNotHaveBean(ElasticsearchRestHealthIndicator.class));
-	}
-
-	@Test
-	void runWhenDisabledShouldNotCreateIndicator() {
-		this.contextRunner.withPropertyValues("management.health.elasticsearch.enabled:false")
-				.run((context) -> assertThat(context).doesNotHaveBean(ElasticsearchReactiveHealthIndicator.class)
-						.doesNotHaveBean("elasticsearchHealthContributor"));
 	}
 
 }
