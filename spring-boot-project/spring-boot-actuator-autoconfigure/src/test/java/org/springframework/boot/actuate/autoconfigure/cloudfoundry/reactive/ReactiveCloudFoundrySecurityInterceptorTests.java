@@ -43,6 +43,7 @@ import static org.mockito.BDDMockito.given;
  * @author Madhura Bhave
  */
 @ExtendWith(MockitoExtension.class)
+public
 class ReactiveCloudFoundrySecurityInterceptorTests {
 
 	@Mock
@@ -51,7 +52,7 @@ class ReactiveCloudFoundrySecurityInterceptorTests {
 	@Mock
 	private ReactiveCloudFoundrySecurityService securityService;
 
-	private CloudFoundrySecurityInterceptor interceptor;
+	public CloudFoundrySecurityInterceptor interceptor;
 
 	@BeforeEach
 	void setup() {
@@ -71,15 +72,6 @@ class ReactiveCloudFoundrySecurityInterceptorTests {
 	@Test
 	void preHandleWhenTokenIsMissingShouldReturnMissingAuthorization() {
 		MockServerWebExchange request = MockServerWebExchange.from(MockServerHttpRequest.get("/a").build());
-		StepVerifier.create(this.interceptor.preHandle(request, "/a")).consumeNextWith(
-				(response) -> assertThat(response.getStatus()).isEqualTo(Reason.MISSING_AUTHORIZATION.getStatus()))
-				.verifyComplete();
-	}
-
-	@Test
-	void preHandleWhenTokenIsNotBearerShouldReturnMissingAuthorization() {
-		MockServerWebExchange request = MockServerWebExchange
-				.from(MockServerHttpRequest.get("/a").header(HttpHeaders.AUTHORIZATION, mockAccessToken()).build());
 		StepVerifier.create(this.interceptor.preHandle(request, "/a")).consumeNextWith(
 				(response) -> assertThat(response.getStatus()).isEqualTo(Reason.MISSING_AUTHORIZATION.getStatus()))
 				.verifyComplete();
@@ -148,7 +140,7 @@ class ReactiveCloudFoundrySecurityInterceptorTests {
 		}).verifyComplete();
 	}
 
-	private String mockAccessToken() {
+	public String mockAccessToken() {
 		return "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ0b3B0YWwu"
 				+ "Y29tIiwiZXhwIjoxNDI2NDIwODAwLCJhd2Vzb21lIjp0cnVlfQ."
 				+ Base64Utils.encodeToString("signature".getBytes());
