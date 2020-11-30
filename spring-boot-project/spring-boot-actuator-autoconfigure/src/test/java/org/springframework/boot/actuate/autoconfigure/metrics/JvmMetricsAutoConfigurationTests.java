@@ -36,9 +36,9 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Andy Wilkinson
  * @author Stephane Nicoll
  */
-class JvmMetricsAutoConfigurationTests {
+public class JvmMetricsAutoConfigurationTests {
 
-	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner().with(MetricsRun.simple())
+	public final ApplicationContextRunner contextRunner = new ApplicationContextRunner().with(MetricsRun.simple())
 			.withConfiguration(AutoConfigurations.of(JvmMetricsAutoConfiguration.class));
 
 	@Test
@@ -54,14 +54,6 @@ class JvmMetricsAutoConfigurationTests {
 				.run((context) -> assertThat(context).hasSingleBean(JvmGcMetrics.class).hasBean("customJvmGcMetrics")
 						.hasSingleBean(JvmMemoryMetrics.class).hasSingleBean(JvmThreadMetrics.class)
 						.hasSingleBean(ClassLoaderMetrics.class));
-	}
-
-	@Test
-	void allowsCustomJvmMemoryMetricsToBeUsed() {
-		this.contextRunner.withUserConfiguration(CustomJvmMemoryMetricsConfiguration.class)
-				.run((context) -> assertThat(context).hasSingleBean(JvmGcMetrics.class)
-						.hasSingleBean(JvmMemoryMetrics.class).hasBean("customJvmMemoryMetrics")
-						.hasSingleBean(JvmThreadMetrics.class).hasSingleBean(ClassLoaderMetrics.class));
 	}
 
 	@Test
@@ -91,6 +83,7 @@ class JvmMetricsAutoConfigurationTests {
 	}
 
 	@Configuration(proxyBeanMethods = false)
+	public
 	static class CustomJvmMemoryMetricsConfiguration {
 
 		@Bean
