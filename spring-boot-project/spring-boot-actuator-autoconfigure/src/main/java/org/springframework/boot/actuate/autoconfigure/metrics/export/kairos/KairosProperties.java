@@ -68,4 +68,8 @@ public class KairosProperties extends StepRegistryProperties {
 		this.password = password;
 	}
 
+	public KairosPropertiesConfigAdapter createConfigAdapter() {
+		return new KairosPropertiesConfigAdapter(this);
+	}
+
 }
