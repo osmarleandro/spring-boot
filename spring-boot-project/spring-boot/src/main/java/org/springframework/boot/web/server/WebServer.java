@@ -16,6 +16,9 @@
 
 package org.springframework.boot.web.server;
 
+import org.junit.jupiter.api.AfterEach;
+import org.springframework.boot.actuate.autoconfigure.cloudfoundry.servlet.SkipSslVerificationHttpRequestFactoryTests;
+
 /**
  * Simple interface that represents a fully configured web server (for example Tomcat,
  * Jetty, Netty). Allows the server to be {@link #start() started} and {@link #stop()
@@ -59,6 +62,14 @@ public interface WebServer {
 	 */
 	default void shutDownGracefully(GracefulShutdownCallback callback) {
 		callback.shutdownComplete(GracefulShutdownResult.IMMEDIATE);
+	}
+
+	@AfterEach
+	default
+	void shutdownContainer(SkipSslVerificationHttpRequestFactoryTests skipSslVerificationHttpRequestFactoryTests) {
+		if (this != null) {
+			stop();
+		}
 	}
 
 }
