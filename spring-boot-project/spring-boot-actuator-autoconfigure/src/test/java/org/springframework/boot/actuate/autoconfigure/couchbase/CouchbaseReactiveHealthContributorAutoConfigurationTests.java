@@ -20,7 +20,6 @@ import com.couchbase.client.java.Cluster;
 import org.junit.jupiter.api.Test;
 
 import org.springframework.boot.actuate.autoconfigure.health.HealthContributorAutoConfiguration;
-import org.springframework.boot.actuate.couchbase.CouchbaseHealthIndicator;
 import org.springframework.boot.actuate.couchbase.CouchbaseReactiveHealthIndicator;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
 import org.springframework.boot.test.context.runner.ApplicationContextRunner;
@@ -33,9 +32,9 @@ import static org.mockito.Mockito.mock;
  *
  * @author Mikalai Lushchytski
  */
-class CouchbaseReactiveHealthContributorAutoConfigurationTests {
+public class CouchbaseReactiveHealthContributorAutoConfigurationTests {
 
-	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
+	public final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.withBean(Cluster.class, () -> mock(Cluster.class))
 			.withConfiguration(AutoConfigurations.of(CouchbaseReactiveHealthContributorAutoConfiguration.class,
 					HealthContributorAutoConfiguration.class));
@@ -44,13 +43,6 @@ class CouchbaseReactiveHealthContributorAutoConfigurationTests {
 	void runShouldCreateIndicator() {
 		this.contextRunner.run((context) -> assertThat(context).hasSingleBean(CouchbaseReactiveHealthIndicator.class)
 				.hasBean("couchbaseHealthContributor"));
-	}
-
-	@Test
-	void runWithRegularIndicatorShouldOnlyCreateReactiveIndicator() {
-		this.contextRunner.withConfiguration(AutoConfigurations.of(CouchbaseHealthContributorAutoConfiguration.class))
-				.run((context) -> assertThat(context).hasSingleBean(CouchbaseReactiveHealthIndicator.class)
-						.hasBean("couchbaseHealthContributor").doesNotHaveBean(CouchbaseHealthIndicator.class));
 	}
 
 	@Test
