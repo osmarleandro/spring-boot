@@ -34,9 +34,9 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Stephane Nicoll
  */
-class AppOpticsMetricsExportAutoConfigurationTests {
+public class AppOpticsMetricsExportAutoConfigurationTests {
 
-	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
+	public final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(AppOpticsMetricsExportAutoConfiguration.class));
 
 	@Test
@@ -82,18 +82,8 @@ class AppOpticsMetricsExportAutoConfigurationTests {
 						.hasBean("customRegistry").hasSingleBean(AppOpticsConfig.class));
 	}
 
-	@Test
-	void stopsMeterRegistryWhenContextIsClosed() {
-		this.contextRunner.withPropertyValues("management.metrics.export.appoptics.api-token=abcde")
-				.withUserConfiguration(BaseConfiguration.class).run((context) -> {
-					AppOpticsMeterRegistry registry = context.getBean(AppOpticsMeterRegistry.class);
-					assertThat(registry.isClosed()).isFalse();
-					context.close();
-					assertThat(registry.isClosed()).isTrue();
-				});
-	}
-
 	@Configuration(proxyBeanMethods = false)
+	public
 	static class BaseConfiguration {
 
 		@Bean
