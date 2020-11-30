@@ -33,9 +33,9 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Phillip Webb
  */
-class ShutdownEndpointAutoConfigurationTests {
+public class ShutdownEndpointAutoConfigurationTests {
 
-	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
+	public final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(ShutdownEndpointAutoConfiguration.class));
 
 	@Test
@@ -49,12 +49,6 @@ class ShutdownEndpointAutoConfigurationTests {
 							.getField(beanFactory, "disposableBeans");
 					assertThat(disposableBeans).isEmpty();
 				});
-	}
-
-	@Test
-	void runWhenNotExposedShouldNotHaveEndpointBean() {
-		this.contextRunner.withPropertyValues("management.endpoint.shutdown.enabled:true")
-				.run((context) -> assertThat(context).doesNotHaveBean(ShutdownEndpoint.class));
 	}
 
 	@Test
