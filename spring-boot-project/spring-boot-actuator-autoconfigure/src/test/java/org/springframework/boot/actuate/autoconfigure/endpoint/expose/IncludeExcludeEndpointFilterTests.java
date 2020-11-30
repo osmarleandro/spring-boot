@@ -37,6 +37,7 @@ import static org.mockito.Mockito.mock;
  * @author Phillip Webb
  */
 @ExtendWith(MockitoExtension.class)
+public
 class IncludeExcludeEndpointFilterTests {
 
 	private IncludeExcludeEndpointFilter<?> filter;
@@ -123,14 +124,6 @@ class IncludeExcludeEndpointFilterTests {
 	}
 
 	@Test
-	void matchWhenIncludeIsAsteriskShouldMatchAll() {
-		setupFilter("*", "buz");
-		assertThat(match(EndpointId.of("bar"))).isTrue();
-		assertThat(match(EndpointId.of("baz"))).isTrue();
-		assertThat(match(EndpointId.of("buz"))).isFalse();
-	}
-
-	@Test
 	void matchWhenExcludeIsAsteriskShouldMatchNone() {
 		setupFilter("bar,baz,buz", "*");
 		assertThat(match(EndpointId.of("bar"))).isFalse();
@@ -150,7 +143,7 @@ class IncludeExcludeEndpointFilterTests {
 		assertThat(match(EndpointId.of("bus-refresh"))).isTrue();
 	}
 
-	private void setupFilter(String include, String exclude) {
+	public void setupFilter(String include, String exclude) {
 		MockEnvironment environment = new MockEnvironment();
 		environment.setProperty("foo.include", include);
 		environment.setProperty("foo.exclude", exclude);
@@ -162,7 +155,7 @@ class IncludeExcludeEndpointFilterTests {
 	}
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	private boolean match(EndpointId id) {
+	public boolean match(EndpointId id) {
 		ExposableEndpoint<?> endpoint = mock(TestExposableWebEndpoint.class);
 		if (id != null) {
 			given(endpoint.getEndpointId()).willReturn(id);
