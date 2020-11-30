@@ -34,16 +34,10 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Phillip Webb
  * @author Stephane Nicoll
  */
-class HealthContributorAutoConfigurationTests {
+public class HealthContributorAutoConfigurationTests {
 
-	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
+	public final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(HealthContributorAutoConfiguration.class));
-
-	@Test
-	void runWhenNoOtherIndicatorsCreatesPingHealthIndicator() {
-		this.contextRunner.run((context) -> assertThat(context).getBean(HealthIndicator.class)
-				.isInstanceOf(PingHealthIndicator.class));
-	}
 
 	@Test
 	void runWhenHasDefinedIndicatorCreatesPingHealthIndicator() {
