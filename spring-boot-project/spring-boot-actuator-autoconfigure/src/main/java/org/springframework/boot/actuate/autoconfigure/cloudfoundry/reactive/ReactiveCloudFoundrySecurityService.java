@@ -16,6 +16,8 @@
 
 package org.springframework.boot.actuate.autoconfigure.cloudfoundry.reactive;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,7 +27,9 @@ import io.netty.handler.ssl.SslProvider;
 import io.netty.handler.ssl.util.InsecureTrustManagerFactory;
 import reactor.core.publisher.Mono;
 import reactor.netty.http.client.HttpClient;
+import reactor.test.StepVerifier;
 
+import org.junit.jupiter.api.Test;
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.AccessLevel;
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.CloudFoundryAuthorizationException;
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.CloudFoundryAuthorizationException.Reason;
@@ -146,6 +150,18 @@ class ReactiveCloudFoundrySecurityService {
 				.onErrorMap((ex) -> new CloudFoundryAuthorizationException(Reason.SERVICE_UNAVAILABLE,
 						"Unable to fetch token keys from UAA."));
 		return this.uaaUrl;
+	}
+
+	@Test
+	void getUaaUrlShouldCallCloudControllerInfoOnlyOnce(ReactiveCloudFoundrySecurityServiceTests reactiveCloudFoundrySecurityServiceTests) throws Exception {
+		reactiveCloudFoundrySecurityServiceTests.prepareResponse((response) -> {
+			response.setBody("{\"token_endpoint\":\"" + ReactiveCloudFoundrySecurityServiceTests.UAA_URL + "\"}");
+			response.setHeader("Content-Type", "application/json");
+		});
+		StepVerifier.create(getUaaUrl())
+				.consumeNextWith((uaaUrl) -> assertThat(uaaUrl).isEqualTo(ReactiveCloudFoundrySecurityServiceTests.UAA_URL)).expectComplete().verify();
+		reactiveCloudFoundrySecurityServiceTests.expectRequest((request) -> assertThat(request.getPath()).isEqualTo(ReactiveCloudFoundrySecurityServiceTests.CLOUD_CONTROLLER + "/info"));
+		reactiveCloudFoundrySecurityServiceTests.expectRequestCount(1);
 	}
 
 }
