@@ -19,7 +19,7 @@ package org.springframework.boot.actuate.autoconfigure.health;
 import java.util.Collections;
 
 import org.junit.jupiter.api.Test;
-import reactor.core.publisher.Flux;
+
 import reactor.core.publisher.Mono;
 
 import org.springframework.boot.actuate.endpoint.SecurityContext;
@@ -43,7 +43,6 @@ import org.springframework.boot.actuate.health.ReactiveHealthIndicator;
 import org.springframework.boot.actuate.health.Status;
 import org.springframework.boot.actuate.health.StatusAggregator;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
-import org.springframework.boot.test.context.FilteredClassLoader;
 import org.springframework.boot.test.context.runner.ReactiveWebApplicationContextRunner;
 import org.springframework.boot.test.context.runner.WebApplicationContextRunner;
 import org.springframework.context.annotation.Bean;
@@ -62,9 +61,9 @@ import static org.mockito.Mockito.mock;
  * @author Stephane Nicoll
  * @author Scott Frederick
  */
-class HealthEndpointAutoConfigurationTests {
+public class HealthEndpointAutoConfigurationTests {
 
-	private final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner()
+	public final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner()
 			.withUserConfiguration(HealthIndicatorsConfiguration.class).withConfiguration(AutoConfigurations
 					.of(HealthContributorAutoConfiguration.class, HealthEndpointAutoConfiguration.class));
 
@@ -145,16 +144,6 @@ class HealthEndpointAutoConfigurationTests {
 			HealthContributorRegistry registry = context.getBean(HealthContributorRegistry.class);
 			Object[] names = registry.stream().map(NamedContributor::getName).toArray();
 			assertThat(names).containsExactlyInAnyOrder("simple", "additional", "ping", "reactive");
-		});
-	}
-
-	@Test
-	void runWhenNoReactorCreatesHealthContributorRegistryContainingHealthBeans() {
-		ClassLoader classLoader = new FilteredClassLoader(Mono.class, Flux.class);
-		this.contextRunner.withClassLoader(classLoader).run((context) -> {
-			HealthContributorRegistry registry = context.getBean(HealthContributorRegistry.class);
-			Object[] names = registry.stream().map(NamedContributor::getName).toArray();
-			assertThat(names).containsExactlyInAnyOrder("simple", "additional", "ping");
 		});
 	}
 
