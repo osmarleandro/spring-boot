@@ -39,15 +39,15 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Madhura Bhave
  */
-class ReactiveCloudFoundrySecurityServiceTests {
+public class ReactiveCloudFoundrySecurityServiceTests {
 
 	private static final String CLOUD_CONTROLLER = "/my-cloud-controller.com";
 
-	private static final String CLOUD_CONTROLLER_PERMISSIONS = CLOUD_CONTROLLER + "/v2/apps/my-app-id/permissions";
+	public static final String CLOUD_CONTROLLER_PERMISSIONS = CLOUD_CONTROLLER + "/v2/apps/my-app-id/permissions";
 
 	private static final String UAA_URL = "https://my-cloud-controller.com/uaa";
 
-	private ReactiveCloudFoundrySecurityService securityService;
+	public ReactiveCloudFoundrySecurityService securityService;
 
 	private MockWebServer server;
 
@@ -85,21 +85,6 @@ class ReactiveCloudFoundrySecurityServiceTests {
 		StepVerifier.create(this.securityService.getAccessLevel("my-access-token", "my-app-id"))
 				.consumeNextWith((accessLevel) -> assertThat(accessLevel).isEqualTo(AccessLevel.RESTRICTED))
 				.expectComplete().verify();
-		expectRequest((request) -> {
-			assertThat(request.getHeader(HttpHeaders.AUTHORIZATION)).isEqualTo("bearer my-access-token");
-			assertThat(request.getPath()).isEqualTo(CLOUD_CONTROLLER_PERMISSIONS);
-		});
-	}
-
-	@Test
-	void getAccessLevelWhenTokenIsNotValidShouldThrowException() throws Exception {
-		prepareResponse((response) -> response.setResponseCode(401));
-		StepVerifier.create(this.securityService.getAccessLevel("my-access-token", "my-app-id"))
-				.consumeErrorWith((throwable) -> {
-					assertThat(throwable).isInstanceOf(CloudFoundryAuthorizationException.class);
-					assertThat(((CloudFoundryAuthorizationException) throwable).getReason())
-							.isEqualTo(Reason.INVALID_TOKEN);
-				}).verify();
 		expectRequest((request) -> {
 			assertThat(request.getHeader(HttpHeaders.AUTHORIZATION)).isEqualTo("bearer my-access-token");
 			assertThat(request.getPath()).isEqualTo(CLOUD_CONTROLLER_PERMISSIONS);
@@ -219,13 +204,13 @@ class ReactiveCloudFoundrySecurityServiceTests {
 		expectRequest((request) -> assertThat(request.getPath()).isEqualTo(CLOUD_CONTROLLER + "/info"));
 	}
 
-	private void prepareResponse(Consumer<MockResponse> consumer) {
+	public void prepareResponse(Consumer<MockResponse> consumer) {
 		MockResponse response = new MockResponse();
 		consumer.accept(response);
 		this.server.enqueue(response);
 	}
 
-	private void expectRequest(Consumer<RecordedRequest> consumer) throws InterruptedException {
+	public void expectRequest(Consumer<RecordedRequest> consumer) throws InterruptedException {
 		consumer.accept(this.server.takeRequest());
 	}
 
