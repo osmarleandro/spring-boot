@@ -29,20 +29,14 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Phillip Webb
  */
-class InfoEndpointAutoConfigurationTests {
+public class InfoEndpointAutoConfigurationTests {
 
-	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
+	public final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(InfoEndpointAutoConfiguration.class));
 
 	@Test
 	void runShouldHaveEndpointBean() {
 		this.contextRunner.withPropertyValues("management.endpoint.shutdown.enabled:true")
-				.run((context) -> assertThat(context).hasSingleBean(InfoEndpoint.class));
-	}
-
-	@Test
-	void runShouldHaveEndpointBeanEvenIfDefaultIsDisabled() {
-		this.contextRunner.withPropertyValues("management.endpoint.default.enabled:false")
 				.run((context) -> assertThat(context).hasSingleBean(InfoEndpoint.class));
 	}
 
