@@ -16,12 +16,19 @@
 
 package org.springframework.boot.web.servlet.error;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import java.util.Collections;
 import java.util.Map;
 
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.actuate.autoconfigure.web.servlet.ManagementErrorEndpoint;
+import org.springframework.boot.actuate.autoconfigure.web.servlet.ManagementErrorEndpointTests;
 import org.springframework.boot.web.error.ErrorAttributeOptions;
 import org.springframework.boot.web.error.ErrorAttributeOptions.Include;
+import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.context.request.ServletWebRequest;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -70,5 +77,29 @@ public interface ErrorAttributes {
 	 * @return the {@link Exception} that caused the error or {@code null}
 	 */
 	Throwable getError(WebRequest webRequest);
+
+	@Test
+	default
+	void errorResponseWithDefaultErrorAttributesSubclassUsingDeprecatedApiAndDelegation(ManagementErrorEndpointTests managementErrorEndpointTests) {
+		ErrorAttributes attributes = new DefaultErrorAttributes() {
+	
+			@Override
+			@SuppressWarnings("deprecation")
+			public Map<String, Object> getErrorAttributes(WebRequest webRequest, boolean includeStackTrace) {
+				Map<String, Object> response = super.getErrorAttributes(webRequest, includeStackTrace);
+				response.put("error", "custom error");
+				response.put("custom", "value");
+				response.remove("path");
+				return response;
+			}
+	
+		};
+		ManagementErrorEndpoint endpoint = new ManagementErrorEndpoint(attributes, managementErrorEndpointTests.errorProperties);
+		Map<String, Object> response = endpoint.invoke(new ServletWebRequest(new MockHttpServletRequest()));
+		assertThat(response).containsEntry("error", "custom error");
+		assertThat(response).containsEntry("custom", "value");
+		assertThat(response).doesNotContainKey("path");
+		assertThat(response).containsKey("timestamp");
+	}
 
 }

@@ -38,11 +38,11 @@ import static org.assertj.core.api.Assertions.entry;
  *
  * @author Scott Frederick
  */
-class ManagementErrorEndpointTests {
+public class ManagementErrorEndpointTests {
 
 	private final ErrorAttributes errorAttributes = new DefaultErrorAttributes();
 
-	private final ErrorProperties errorProperties = new ErrorProperties();
+	public final ErrorProperties errorProperties = new ErrorProperties();
 
 	private final MockHttpServletRequest request = new MockHttpServletRequest();
 
@@ -125,29 +125,6 @@ class ManagementErrorEndpointTests {
 		ManagementErrorEndpoint endpoint = new ManagementErrorEndpoint(attributes, this.errorProperties);
 		Map<String, Object> response = endpoint.invoke(new ServletWebRequest(new MockHttpServletRequest()));
 		assertThat(response).containsExactly(entry("message", "An error occurred"));
-	}
-
-	@Test
-	void errorResponseWithDefaultErrorAttributesSubclassUsingDeprecatedApiAndDelegation() {
-		ErrorAttributes attributes = new DefaultErrorAttributes() {
-
-			@Override
-			@SuppressWarnings("deprecation")
-			public Map<String, Object> getErrorAttributes(WebRequest webRequest, boolean includeStackTrace) {
-				Map<String, Object> response = super.getErrorAttributes(webRequest, includeStackTrace);
-				response.put("error", "custom error");
-				response.put("custom", "value");
-				response.remove("path");
-				return response;
-			}
-
-		};
-		ManagementErrorEndpoint endpoint = new ManagementErrorEndpoint(attributes, this.errorProperties);
-		Map<String, Object> response = endpoint.invoke(new ServletWebRequest(new MockHttpServletRequest()));
-		assertThat(response).containsEntry("error", "custom error");
-		assertThat(response).containsEntry("custom", "value");
-		assertThat(response).doesNotContainKey("path");
-		assertThat(response).containsKey("timestamp");
 	}
 
 	@Test
