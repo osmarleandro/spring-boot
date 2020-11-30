@@ -39,9 +39,10 @@ import static org.mockito.Mockito.mock;
  * @author Madhura Bhave
  */
 @ClassPathExclusions("spring-webmvc-*")
+public
 class JerseySameManagementContextConfigurationTests {
 
-	private final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner()
+	public final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(JerseySameManagementContextConfiguration.class));
 
 	@Test
@@ -64,14 +65,6 @@ class JerseySameManagementContextConfigurationTests {
 	}
 
 	@Test
-	void jerseyApplicationPathIsConditionalOnMissingBean() {
-		this.contextRunner.withUserConfiguration(ConfigWithJerseyApplicationPath.class).run((context) -> {
-			assertThat(context).hasSingleBean(JerseyApplicationPath.class);
-			assertThat(context).hasBean("testJerseyApplicationPath");
-		});
-	}
-
-	@Test
 	void existingResourceConfigBeanShouldNotAutoConfigureRelatedBeans() {
 		this.contextRunner.withUserConfiguration(ConfigWithResourceConfig.class).run((context) -> {
 			assertThat(context).hasSingleBean(ResourceConfig.class);
@@ -91,6 +84,7 @@ class JerseySameManagementContextConfigurationTests {
 	}
 
 	@Configuration(proxyBeanMethods = false)
+	public
 	static class ConfigWithJerseyApplicationPath {
 
 		@Bean
