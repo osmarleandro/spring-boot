@@ -20,7 +20,6 @@ import org.glassfish.jersey.servlet.ServletContainer;
 import org.junit.jupiter.api.Test;
 
 import org.springframework.boot.autoconfigure.AutoConfigurations;
-import org.springframework.boot.autoconfigure.web.servlet.DefaultJerseyApplicationPath;
 import org.springframework.boot.autoconfigure.web.servlet.JerseyApplicationPath;
 import org.springframework.boot.test.context.FilteredClassLoader;
 import org.springframework.boot.test.context.runner.ApplicationContextRunner;
@@ -39,9 +38,10 @@ import static org.mockito.Mockito.mock;
  * @author Madhura Bhave
  */
 @ClassPathExclusions("spring-webmvc-*")
+public
 class JerseySameManagementContextConfigurationTests {
 
-	private final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner()
+	public final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(JerseySameManagementContextConfiguration.class));
 
 	@Test
@@ -56,11 +56,6 @@ class JerseySameManagementContextConfigurationTests {
 	void autoConfigurationIsConditionalOnClassResourceConfig() {
 		this.contextRunner.withClassLoader(new FilteredClassLoader(ResourceConfig.class))
 				.run((context) -> assertThat(context).doesNotHaveBean(JerseySameManagementContextConfiguration.class));
-	}
-
-	@Test
-	void jerseyApplicationPathIsAutoConfiguredWhenNeeded() {
-		this.contextRunner.run((context) -> assertThat(context).hasSingleBean(DefaultJerseyApplicationPath.class));
 	}
 
 	@Test
