@@ -38,7 +38,7 @@ import static org.mockito.Mockito.mock;
  *
  * @author Stephane Nicoll
  */
-class DefaultEndpointObjectNameFactoryTests {
+public class DefaultEndpointObjectNameFactoryTests {
 
 	private final MockEnvironment environment = new MockEnvironment();
 
@@ -52,12 +52,6 @@ class DefaultEndpointObjectNameFactoryTests {
 	void generateObjectName() {
 		ObjectName objectName = generateObjectName(endpoint(EndpointId.of("test")));
 		assertThat(objectName.toString()).isEqualTo("org.springframework.boot:type=Endpoint,name=Test");
-	}
-
-	@Test
-	void generateObjectNameWithCapitalizedId() {
-		ObjectName objectName = generateObjectName(endpoint(EndpointId.of("testEndpoint")));
-		assertThat(objectName.toString()).isEqualTo("org.springframework.boot:type=Endpoint,name=TestEndpoint");
 	}
 
 	@Test
@@ -101,7 +95,7 @@ class DefaultEndpointObjectNameFactoryTests {
 
 	}
 
-	private ObjectName generateObjectName(ExposableJmxEndpoint endpoint) {
+	public ObjectName generateObjectName(ExposableJmxEndpoint endpoint) {
 		try {
 			return new DefaultEndpointObjectNameFactory(this.properties, this.environment, this.mBeanServer,
 					this.contextId).getObjectName(endpoint);
@@ -111,7 +105,7 @@ class DefaultEndpointObjectNameFactoryTests {
 		}
 	}
 
-	private ExposableJmxEndpoint endpoint(EndpointId id) {
+	public ExposableJmxEndpoint endpoint(EndpointId id) {
 		ExposableJmxEndpoint endpoint = mock(ExposableJmxEndpoint.class);
 		given(endpoint.getEndpointId()).willReturn(id);
 		return endpoint;
