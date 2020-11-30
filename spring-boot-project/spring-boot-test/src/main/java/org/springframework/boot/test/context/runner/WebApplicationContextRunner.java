@@ -25,7 +25,11 @@ import org.springframework.boot.test.util.TestPropertyValues;
 import org.springframework.boot.web.servlet.context.AnnotationConfigServletWebApplicationContext;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextInitializer;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
 import org.springframework.mock.web.MockServletContext;
+import org.springframework.test.web.reactive.server.EntityExchangeResult;
+import org.springframework.test.web.reactive.server.WebTestClient;
 import org.springframework.web.context.ConfigurableWebApplicationContext;
 import org.springframework.web.context.WebApplicationContext;
 
@@ -81,6 +85,19 @@ public final class WebApplicationContextRunner extends
 			List<Configurations> configurations) {
 		return new WebApplicationContextRunner(contextFactory, allowBeanDefinitionOverriding, initializers,
 				environmentProperties, systemProperties, classLoader, parent, beanRegistrations, configurations);
+	}
+
+	public boolean isExposed(WebTestClient client, HttpMethod method, String path) throws Exception {
+		path = "/actuator/" + path;
+		EntityExchangeResult<byte[]> result = client.method(method).uri(path).exchange().expectBody().returnResult();
+		if (result.getStatus() == HttpStatus.OK) {
+			return true;
+		}
+		if (result.getStatus() == HttpStatus.NOT_FOUND) {
+			return false;
+		}
+		throw new IllegalStateException(
+				String.format("Unexpected %s HTTP status for endpoint %s", result.getStatus(), path));
 	}
 
 	/**

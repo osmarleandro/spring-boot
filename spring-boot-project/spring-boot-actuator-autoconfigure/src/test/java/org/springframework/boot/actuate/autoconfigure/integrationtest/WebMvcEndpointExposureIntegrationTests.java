@@ -50,8 +50,6 @@ import org.springframework.boot.web.servlet.context.ServletWebServerApplicationC
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
-import org.springframework.http.HttpStatus;
-import org.springframework.test.web.reactive.server.EntityExchangeResult;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.reactive.function.client.ExchangeStrategies;
@@ -84,18 +82,18 @@ class WebMvcEndpointExposureIntegrationTests {
 	void webEndpointsAreDisabledByDefault() {
 		this.contextRunner.run((context) -> {
 			WebTestClient client = createClient(context);
-			assertThat(isExposed(client, HttpMethod.GET, "beans")).isFalse();
-			assertThat(isExposed(client, HttpMethod.GET, "conditions")).isFalse();
-			assertThat(isExposed(client, HttpMethod.GET, "configprops")).isFalse();
-			assertThat(isExposed(client, HttpMethod.GET, "custommvc")).isFalse();
-			assertThat(isExposed(client, HttpMethod.GET, "customservlet")).isFalse();
-			assertThat(isExposed(client, HttpMethod.GET, "env")).isFalse();
-			assertThat(isExposed(client, HttpMethod.GET, "health")).isTrue();
-			assertThat(isExposed(client, HttpMethod.GET, "info")).isTrue();
-			assertThat(isExposed(client, HttpMethod.GET, "mappings")).isFalse();
-			assertThat(isExposed(client, HttpMethod.POST, "shutdown")).isFalse();
-			assertThat(isExposed(client, HttpMethod.GET, "threaddump")).isFalse();
-			assertThat(isExposed(client, HttpMethod.GET, "httptrace")).isFalse();
+			assertThat(contextRunner.isExposed(client, HttpMethod.GET, "beans")).isFalse();
+			assertThat(contextRunner.isExposed(client, HttpMethod.GET, "conditions")).isFalse();
+			assertThat(contextRunner.isExposed(client, HttpMethod.GET, "configprops")).isFalse();
+			assertThat(contextRunner.isExposed(client, HttpMethod.GET, "custommvc")).isFalse();
+			assertThat(contextRunner.isExposed(client, HttpMethod.GET, "customservlet")).isFalse();
+			assertThat(contextRunner.isExposed(client, HttpMethod.GET, "env")).isFalse();
+			assertThat(contextRunner.isExposed(client, HttpMethod.GET, "health")).isTrue();
+			assertThat(contextRunner.isExposed(client, HttpMethod.GET, "info")).isTrue();
+			assertThat(contextRunner.isExposed(client, HttpMethod.GET, "mappings")).isFalse();
+			assertThat(contextRunner.isExposed(client, HttpMethod.POST, "shutdown")).isFalse();
+			assertThat(contextRunner.isExposed(client, HttpMethod.GET, "threaddump")).isFalse();
+			assertThat(contextRunner.isExposed(client, HttpMethod.GET, "httptrace")).isFalse();
 		});
 	}
 
@@ -105,18 +103,18 @@ class WebMvcEndpointExposureIntegrationTests {
 				.withPropertyValues("management.endpoints.web.exposure.include=*");
 		contextRunner.run((context) -> {
 			WebTestClient client = createClient(context);
-			assertThat(isExposed(client, HttpMethod.GET, "beans")).isTrue();
-			assertThat(isExposed(client, HttpMethod.GET, "conditions")).isTrue();
-			assertThat(isExposed(client, HttpMethod.GET, "configprops")).isTrue();
-			assertThat(isExposed(client, HttpMethod.GET, "custommvc")).isTrue();
-			assertThat(isExposed(client, HttpMethod.GET, "customservlet")).isTrue();
-			assertThat(isExposed(client, HttpMethod.GET, "env")).isTrue();
-			assertThat(isExposed(client, HttpMethod.GET, "health")).isTrue();
-			assertThat(isExposed(client, HttpMethod.GET, "info")).isTrue();
-			assertThat(isExposed(client, HttpMethod.GET, "mappings")).isTrue();
-			assertThat(isExposed(client, HttpMethod.POST, "shutdown")).isFalse();
-			assertThat(isExposed(client, HttpMethod.GET, "threaddump")).isTrue();
-			assertThat(isExposed(client, HttpMethod.GET, "httptrace")).isTrue();
+			assertThat(contextRunner.isExposed(client, HttpMethod.GET, "beans")).isTrue();
+			assertThat(contextRunner.isExposed(client, HttpMethod.GET, "conditions")).isTrue();
+			assertThat(contextRunner.isExposed(client, HttpMethod.GET, "configprops")).isTrue();
+			assertThat(contextRunner.isExposed(client, HttpMethod.GET, "custommvc")).isTrue();
+			assertThat(contextRunner.isExposed(client, HttpMethod.GET, "customservlet")).isTrue();
+			assertThat(contextRunner.isExposed(client, HttpMethod.GET, "env")).isTrue();
+			assertThat(contextRunner.isExposed(client, HttpMethod.GET, "health")).isTrue();
+			assertThat(contextRunner.isExposed(client, HttpMethod.GET, "info")).isTrue();
+			assertThat(contextRunner.isExposed(client, HttpMethod.GET, "mappings")).isTrue();
+			assertThat(contextRunner.isExposed(client, HttpMethod.POST, "shutdown")).isFalse();
+			assertThat(contextRunner.isExposed(client, HttpMethod.GET, "threaddump")).isTrue();
+			assertThat(contextRunner.isExposed(client, HttpMethod.GET, "httptrace")).isTrue();
 		});
 	}
 
@@ -126,18 +124,18 @@ class WebMvcEndpointExposureIntegrationTests {
 				.withPropertyValues("management.endpoints.web.exposure.include=beans");
 		contextRunner.run((context) -> {
 			WebTestClient client = createClient(context);
-			assertThat(isExposed(client, HttpMethod.GET, "beans")).isTrue();
-			assertThat(isExposed(client, HttpMethod.GET, "conditions")).isFalse();
-			assertThat(isExposed(client, HttpMethod.GET, "configprops")).isFalse();
-			assertThat(isExposed(client, HttpMethod.GET, "custommvc")).isFalse();
-			assertThat(isExposed(client, HttpMethod.GET, "customservlet")).isFalse();
-			assertThat(isExposed(client, HttpMethod.GET, "env")).isFalse();
-			assertThat(isExposed(client, HttpMethod.GET, "health")).isFalse();
-			assertThat(isExposed(client, HttpMethod.GET, "info")).isFalse();
-			assertThat(isExposed(client, HttpMethod.GET, "mappings")).isFalse();
-			assertThat(isExposed(client, HttpMethod.POST, "shutdown")).isFalse();
-			assertThat(isExposed(client, HttpMethod.GET, "threaddump")).isFalse();
-			assertThat(isExposed(client, HttpMethod.GET, "httptrace")).isFalse();
+			assertThat(contextRunner.isExposed(client, HttpMethod.GET, "beans")).isTrue();
+			assertThat(contextRunner.isExposed(client, HttpMethod.GET, "conditions")).isFalse();
+			assertThat(contextRunner.isExposed(client, HttpMethod.GET, "configprops")).isFalse();
+			assertThat(contextRunner.isExposed(client, HttpMethod.GET, "custommvc")).isFalse();
+			assertThat(contextRunner.isExposed(client, HttpMethod.GET, "customservlet")).isFalse();
+			assertThat(contextRunner.isExposed(client, HttpMethod.GET, "env")).isFalse();
+			assertThat(contextRunner.isExposed(client, HttpMethod.GET, "health")).isFalse();
+			assertThat(contextRunner.isExposed(client, HttpMethod.GET, "info")).isFalse();
+			assertThat(contextRunner.isExposed(client, HttpMethod.GET, "mappings")).isFalse();
+			assertThat(contextRunner.isExposed(client, HttpMethod.POST, "shutdown")).isFalse();
+			assertThat(contextRunner.isExposed(client, HttpMethod.GET, "threaddump")).isFalse();
+			assertThat(contextRunner.isExposed(client, HttpMethod.GET, "httptrace")).isFalse();
 		});
 	}
 
@@ -147,18 +145,18 @@ class WebMvcEndpointExposureIntegrationTests {
 				"management.endpoints.web.exposure.include=*", "management.endpoints.web.exposure.exclude=shutdown");
 		contextRunner.run((context) -> {
 			WebTestClient client = createClient(context);
-			assertThat(isExposed(client, HttpMethod.GET, "beans")).isTrue();
-			assertThat(isExposed(client, HttpMethod.GET, "conditions")).isTrue();
-			assertThat(isExposed(client, HttpMethod.GET, "configprops")).isTrue();
-			assertThat(isExposed(client, HttpMethod.GET, "custommvc")).isTrue();
-			assertThat(isExposed(client, HttpMethod.GET, "customservlet")).isTrue();
-			assertThat(isExposed(client, HttpMethod.GET, "env")).isTrue();
-			assertThat(isExposed(client, HttpMethod.GET, "health")).isTrue();
-			assertThat(isExposed(client, HttpMethod.GET, "info")).isTrue();
-			assertThat(isExposed(client, HttpMethod.GET, "mappings")).isTrue();
-			assertThat(isExposed(client, HttpMethod.POST, "shutdown")).isFalse();
-			assertThat(isExposed(client, HttpMethod.GET, "threaddump")).isTrue();
-			assertThat(isExposed(client, HttpMethod.GET, "httptrace")).isTrue();
+			assertThat(contextRunner.isExposed(client, HttpMethod.GET, "beans")).isTrue();
+			assertThat(contextRunner.isExposed(client, HttpMethod.GET, "conditions")).isTrue();
+			assertThat(contextRunner.isExposed(client, HttpMethod.GET, "configprops")).isTrue();
+			assertThat(contextRunner.isExposed(client, HttpMethod.GET, "custommvc")).isTrue();
+			assertThat(contextRunner.isExposed(client, HttpMethod.GET, "customservlet")).isTrue();
+			assertThat(contextRunner.isExposed(client, HttpMethod.GET, "env")).isTrue();
+			assertThat(contextRunner.isExposed(client, HttpMethod.GET, "health")).isTrue();
+			assertThat(contextRunner.isExposed(client, HttpMethod.GET, "info")).isTrue();
+			assertThat(contextRunner.isExposed(client, HttpMethod.GET, "mappings")).isTrue();
+			assertThat(contextRunner.isExposed(client, HttpMethod.POST, "shutdown")).isFalse();
+			assertThat(contextRunner.isExposed(client, HttpMethod.GET, "threaddump")).isTrue();
+			assertThat(contextRunner.isExposed(client, HttpMethod.GET, "httptrace")).isTrue();
 		});
 	}
 
@@ -169,19 +167,6 @@ class WebMvcEndpointExposureIntegrationTests {
 				.codecs((configurer) -> configurer.defaultCodecs().maxInMemorySize(-1)).build();
 		return WebTestClient.bindToServer().baseUrl("http://localhost:" + port).exchangeStrategies(exchangeStrategies)
 				.build();
-	}
-
-	private boolean isExposed(WebTestClient client, HttpMethod method, String path) throws Exception {
-		path = "/actuator/" + path;
-		EntityExchangeResult<byte[]> result = client.method(method).uri(path).exchange().expectBody().returnResult();
-		if (result.getStatus() == HttpStatus.OK) {
-			return true;
-		}
-		if (result.getStatus() == HttpStatus.NOT_FOUND) {
-			return false;
-		}
-		throw new IllegalStateException(
-				String.format("Unexpected %s HTTP status for endpoint %s", result.getStatus(), path));
 	}
 
 	@RestControllerEndpoint(id = "custommvc")
