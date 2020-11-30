@@ -16,6 +16,16 @@
 
 package org.springframework.boot.actuate.health;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
+import java.util.Collections;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.actuate.autoconfigure.health.AutoConfiguredHealthEndpointGroup;
+import org.springframework.boot.actuate.autoconfigure.health.AutoConfiguredHealthEndpointGroupTests;
+import org.springframework.boot.actuate.autoconfigure.health.HealthProperties.Show;
+import org.springframework.boot.actuate.endpoint.SecurityContext;
+
 /**
  * Strategy used to map a {@link Status health status} to an HTTP status code.
  *
@@ -39,5 +49,16 @@ public interface HttpCodeStatusMapper {
 	 * @return the corresponding HTTP status code
 	 */
 	int getStatusCode(Status status);
+
+	@Test
+	default
+	void showComponentsWhenShowComponentsIsNullDelegatesToShowDetails(AutoConfiguredHealthEndpointGroupTests autoConfiguredHealthEndpointGroupTests) {
+		AutoConfiguredHealthEndpointGroup alwaysGroup = new AutoConfiguredHealthEndpointGroup((name) -> true,
+				autoConfiguredHealthEndpointGroupTests.statusAggregator, this, null, Show.ALWAYS, Collections.emptySet());
+		assertThat(alwaysGroup.showComponents(SecurityContext.NONE)).isTrue();
+		AutoConfiguredHealthEndpointGroup neverGroup = new AutoConfiguredHealthEndpointGroup((name) -> true,
+				autoConfiguredHealthEndpointGroupTests.statusAggregator, this, null, Show.NEVER, Collections.emptySet());
+		assertThat(neverGroup.showComponents(SecurityContext.NONE)).isFalse();
+	}
 
 }
