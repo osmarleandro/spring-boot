@@ -38,11 +38,11 @@ import static org.mockito.Mockito.mock;
  *
  * @author Stephane Nicoll
  */
-class DefaultEndpointObjectNameFactoryTests {
+public class DefaultEndpointObjectNameFactoryTests {
 
 	private final MockEnvironment environment = new MockEnvironment();
 
-	private final JmxEndpointProperties properties = new JmxEndpointProperties();
+	public final JmxEndpointProperties properties = new JmxEndpointProperties();
 
 	private final MBeanServer mBeanServer = mock(MBeanServer.class);
 
@@ -81,16 +81,6 @@ class DefaultEndpointObjectNameFactoryTests {
 	}
 
 	@Test
-	void generateObjectNameWithStaticNames() {
-		this.properties.getStaticNames().setProperty("counter", "42");
-		this.properties.getStaticNames().setProperty("foo", "bar");
-		ObjectName objectName = generateObjectName(endpoint(EndpointId.of("test")));
-		assertThat(objectName.getKeyProperty("counter")).isEqualTo("42");
-		assertThat(objectName.getKeyProperty("foo")).isEqualTo("bar");
-		assertThat(objectName.toString()).startsWith("org.springframework.boot:type=Endpoint,name=Test,");
-	}
-
-	@Test
 	void generateObjectNameWithDuplicate() throws MalformedObjectNameException {
 		this.contextId = "testContext";
 		given(this.mBeanServer.queryNames(new ObjectName("org.springframework.boot:type=Endpoint,name=Test,*"), null))
@@ -101,7 +91,7 @@ class DefaultEndpointObjectNameFactoryTests {
 
 	}
 
-	private ObjectName generateObjectName(ExposableJmxEndpoint endpoint) {
+	public ObjectName generateObjectName(ExposableJmxEndpoint endpoint) {
 		try {
 			return new DefaultEndpointObjectNameFactory(this.properties, this.environment, this.mBeanServer,
 					this.contextId).getObjectName(endpoint);
@@ -111,7 +101,7 @@ class DefaultEndpointObjectNameFactoryTests {
 		}
 	}
 
-	private ExposableJmxEndpoint endpoint(EndpointId id) {
+	public ExposableJmxEndpoint endpoint(EndpointId id) {
 		ExposableJmxEndpoint endpoint = mock(ExposableJmxEndpoint.class);
 		given(endpoint.getEndpointId()).willReturn(id);
 		return endpoint;

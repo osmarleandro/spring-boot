@@ -16,10 +16,16 @@
 
 package org.springframework.boot.actuate.autoconfigure.endpoint.jmx;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import java.util.LinkedHashSet;
 import java.util.Properties;
 import java.util.Set;
 
+import javax.management.ObjectName;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.actuate.endpoint.EndpointId;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
@@ -58,6 +64,16 @@ public class JmxEndpointProperties {
 
 	public Properties getStaticNames() {
 		return this.staticNames;
+	}
+
+	@Test
+	void generateObjectNameWithStaticNames(DefaultEndpointObjectNameFactoryTests defaultEndpointObjectNameFactoryTests) {
+		getStaticNames().setProperty("counter", "42");
+		getStaticNames().setProperty("foo", "bar");
+		ObjectName objectName = defaultEndpointObjectNameFactoryTests.generateObjectName(defaultEndpointObjectNameFactoryTests.endpoint(EndpointId.of("test")));
+		assertThat(objectName.getKeyProperty("counter")).isEqualTo("42");
+		assertThat(objectName.getKeyProperty("foo")).isEqualTo("bar");
+		assertThat(objectName.toString()).startsWith("org.springframework.boot:type=Endpoint,name=Test,");
 	}
 
 	public static class Exposure {
