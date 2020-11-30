@@ -16,7 +16,6 @@
 
 package org.springframework.boot.actuate.autoconfigure.metrics;
 
-import io.micrometer.atlas.AtlasMeterRegistry;
 import io.micrometer.core.instrument.MeterRegistry;
 import io.micrometer.prometheus.PrometheusMeterRegistry;
 import org.junit.jupiter.api.Test;
@@ -29,17 +28,15 @@ import org.springframework.boot.test.context.runner.ApplicationContextRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 /**
  * Tests for applying {@link MeterRegistryCustomizer} beans.
  *
  * @author Jon Schneider
  * @author Andy Wilkinson
  */
-class MeterRegistryCustomizerTests {
+public class MeterRegistryCustomizerTests {
 
-	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
+	public final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.with(MetricsRun.limitedTo(AtlasMetricsExportAutoConfiguration.class,
 					PrometheusMetricsExportAutoConfiguration.class))
 			.withConfiguration(AutoConfigurations.of(JvmMetricsAutoConfiguration.class));
@@ -60,17 +57,8 @@ class MeterRegistryCustomizerTests {
 		});
 	}
 
-	@Test
-	void customizersCanBeAppliedToSpecificRegistryTypes() {
-		this.contextRunner.withUserConfiguration(MeterRegistryCustomizerConfiguration.class).run((context) -> {
-			MeterRegistry prometheus = context.getBean(PrometheusMeterRegistry.class);
-			prometheus.get("jvm.memory.used").tags("job", "myjob").gauge();
-			MeterRegistry atlas = context.getBean(AtlasMeterRegistry.class);
-			assertThat(atlas.find("jvm.memory.used").tags("job", "myjob").gauge()).isNull();
-		});
-	}
-
 	@Configuration(proxyBeanMethods = false)
+	public
 	static class MeterRegistryCustomizerConfiguration {
 
 		@Bean

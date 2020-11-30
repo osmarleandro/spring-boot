@@ -16,9 +16,14 @@
 
 package org.springframework.boot.test.context.runner;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import java.util.List;
 import java.util.function.Supplier;
 
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.actuate.autoconfigure.metrics.MeterRegistryCustomizerTests;
+import org.springframework.boot.actuate.autoconfigure.metrics.MeterRegistryCustomizerTests.MeterRegistryCustomizerConfiguration;
 import org.springframework.boot.context.annotation.Configurations;
 import org.springframework.boot.test.context.assertj.AssertableApplicationContext;
 import org.springframework.boot.test.util.TestPropertyValues;
@@ -26,6 +31,10 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextInitializer;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
+import io.micrometer.atlas.AtlasMeterRegistry;
+import io.micrometer.core.instrument.MeterRegistry;
+import io.micrometer.prometheus.PrometheusMeterRegistry;
 
 /**
  * An {@link AbstractApplicationContextRunner ApplicationContext runner} for a standard,
@@ -77,6 +86,17 @@ public class ApplicationContextRunner extends
 			List<Configurations> configurations) {
 		return new ApplicationContextRunner(contextFactory, allowBeanDefinitionOverriding, initializers,
 				environmentProperties, systemProperties, classLoader, parent, beanRegistrations, configurations);
+	}
+
+	@Test
+	public
+	void customizersCanBeAppliedToSpecificRegistryTypes(MeterRegistryCustomizerTests meterRegistryCustomizerTests) {
+		withUserConfiguration(MeterRegistryCustomizerConfiguration.class).run((context) -> {
+			MeterRegistry prometheus = context.getBean(PrometheusMeterRegistry.class);
+			prometheus.get("jvm.memory.used").tags("job", "myjob").gauge();
+			MeterRegistry atlas = context.getBean(AtlasMeterRegistry.class);
+			assertThat(atlas.find("jvm.memory.used").tags("job", "myjob").gauge()).isNull();
+		});
 	}
 
 }
