@@ -47,17 +47,17 @@ import static org.springframework.test.web.client.response.MockRestResponseCreat
  *
  * @author Madhura Bhave
  */
-class CloudFoundrySecurityServiceTests {
+public class CloudFoundrySecurityServiceTests {
 
-	private static final String CLOUD_CONTROLLER = "https://my-cloud-controller.com";
+	public static final String CLOUD_CONTROLLER = "https://my-cloud-controller.com";
 
 	private static final String CLOUD_CONTROLLER_PERMISSIONS = CLOUD_CONTROLLER + "/v2/apps/my-app-id/permissions";
 
-	private static final String UAA_URL = "https://my-uaa.com";
+	public static final String UAA_URL = "https://my-uaa.com";
 
-	private CloudFoundrySecurityService securityService;
+	public CloudFoundrySecurityService securityService;
 
-	private MockRestServiceServer server;
+	public MockRestServiceServer server;
 
 	@BeforeEach
 	void setup() {
@@ -174,18 +174,6 @@ class CloudFoundrySecurityServiceTests {
 		assertThatExceptionOfType(CloudFoundryAuthorizationException.class)
 				.isThrownBy(() -> this.securityService.fetchTokenKeys())
 				.satisfies(reasonRequirement(Reason.SERVICE_UNAVAILABLE));
-	}
-
-	@Test
-	void getUaaUrlShouldCallCloudControllerInfoOnlyOnce() {
-		this.server.expect(requestTo(CLOUD_CONTROLLER + "/info"))
-				.andRespond(withSuccess("{\"token_endpoint\":\"" + UAA_URL + "\"}", MediaType.APPLICATION_JSON));
-		String uaaUrl = this.securityService.getUaaUrl();
-		this.server.verify();
-		assertThat(uaaUrl).isEqualTo(UAA_URL);
-		// Second call should not need to hit server
-		uaaUrl = this.securityService.getUaaUrl();
-		assertThat(uaaUrl).isEqualTo(UAA_URL);
 	}
 
 	@Test
