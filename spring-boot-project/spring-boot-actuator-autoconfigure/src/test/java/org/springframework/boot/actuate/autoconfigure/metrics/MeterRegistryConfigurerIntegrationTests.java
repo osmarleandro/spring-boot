@@ -31,7 +31,6 @@ import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.boot.actuate.autoconfigure.metrics.export.atlas.AtlasMetricsExportAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.metrics.export.jmx.JmxMetricsExportAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.metrics.export.prometheus.PrometheusMetricsExportAutoConfiguration;
-import org.springframework.boot.actuate.autoconfigure.metrics.export.simple.SimpleMetricsExportAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.metrics.test.MetricsRun;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
 import org.springframework.boot.test.context.runner.ApplicationContextRunner;
@@ -46,7 +45,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Jon Schneider
  */
-class MeterRegistryConfigurerIntegrationTests {
+public class MeterRegistryConfigurerIntegrationTests {
 
 	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.with(MetricsRun.limitedTo(AtlasMetricsExportAutoConfiguration.class,
@@ -61,16 +60,6 @@ class MeterRegistryConfigurerIntegrationTests {
 			context.getBeansOfType(MeterRegistry.class)
 					.forEach((name, registry) -> registry.get("jvm.memory.used").gauge());
 		});
-	}
-
-	@Test
-	void customizersAreAppliedBeforeBindersAreCreated() {
-		new ApplicationContextRunner()
-				.withConfiguration(AutoConfigurations.of(MetricsAutoConfiguration.class,
-						SimpleMetricsExportAutoConfiguration.class))
-				.withUserConfiguration(TestConfiguration.class).run((context) -> {
-
-				});
 	}
 
 	@Test
@@ -106,6 +95,7 @@ class MeterRegistryConfigurerIntegrationTests {
 	}
 
 	@Configuration(proxyBeanMethods = false)
+	public
 	static class TestConfiguration {
 
 		@Bean

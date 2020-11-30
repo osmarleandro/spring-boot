@@ -19,6 +19,11 @@ package org.springframework.boot.test.context.runner;
 import java.util.List;
 import java.util.function.Supplier;
 
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.actuate.autoconfigure.metrics.MeterRegistryConfigurerIntegrationTests.TestConfiguration;
+import org.springframework.boot.actuate.autoconfigure.metrics.MetricsAutoConfiguration;
+import org.springframework.boot.actuate.autoconfigure.metrics.export.simple.SimpleMetricsExportAutoConfiguration;
+import org.springframework.boot.autoconfigure.AutoConfigurations;
 import org.springframework.boot.context.annotation.Configurations;
 import org.springframework.boot.test.context.assertj.AssertableApplicationContext;
 import org.springframework.boot.test.util.TestPropertyValues;
@@ -77,6 +82,17 @@ public class ApplicationContextRunner extends
 			List<Configurations> configurations) {
 		return new ApplicationContextRunner(contextFactory, allowBeanDefinitionOverriding, initializers,
 				environmentProperties, systemProperties, classLoader, parent, beanRegistrations, configurations);
+	}
+
+	@Test
+	public
+	void customizersAreAppliedBeforeBindersAreCreated() {
+		new ApplicationContextRunner()
+				.withConfiguration(AutoConfigurations.of(MetricsAutoConfiguration.class,
+						SimpleMetricsExportAutoConfiguration.class))
+				.withUserConfiguration(TestConfiguration.class).run((context) -> {
+	
+				});
 	}
 
 }
