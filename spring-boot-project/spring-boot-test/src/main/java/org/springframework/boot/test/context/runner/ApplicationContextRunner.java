@@ -16,9 +16,14 @@
 
 package org.springframework.boot.test.context.runner;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import java.util.List;
 import java.util.function.Supplier;
 
+import org.apache.logging.log4j.LogManager;
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.actuate.autoconfigure.metrics.Log4J2MetricsWithLog4jLoggerContextAutoConfigurationTests;
 import org.springframework.boot.context.annotation.Configurations;
 import org.springframework.boot.test.context.assertj.AssertableApplicationContext;
 import org.springframework.boot.test.util.TestPropertyValues;
@@ -26,6 +31,8 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextInitializer;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
+import io.micrometer.core.instrument.binder.logging.Log4j2Metrics;
 
 /**
  * An {@link AbstractApplicationContextRunner ApplicationContext runner} for a standard,
@@ -77,6 +84,14 @@ public class ApplicationContextRunner extends
 			List<Configurations> configurations) {
 		return new ApplicationContextRunner(contextFactory, allowBeanDefinitionOverriding, initializers,
 				environmentProperties, systemProperties, classLoader, parent, beanRegistrations, configurations);
+	}
+
+	@Test
+	public
+	void autoConfiguresLog4J2Metrics(Log4J2MetricsWithLog4jLoggerContextAutoConfigurationTests log4j2MetricsWithLog4jLoggerContextAutoConfigurationTests) {
+		assertThat(LogManager.getContext().getClass().getName())
+				.isEqualTo("org.apache.logging.log4j.core.LoggerContext");
+		run((context) -> assertThat(context).hasSingleBean(Log4j2Metrics.class));
 	}
 
 }
