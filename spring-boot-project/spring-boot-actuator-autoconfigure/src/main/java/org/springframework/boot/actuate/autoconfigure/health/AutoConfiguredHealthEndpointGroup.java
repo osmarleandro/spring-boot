@@ -36,7 +36,7 @@ import org.springframework.util.CollectionUtils;
  * @author Phillip Webb
  * @author Andy Wilkinson
  */
-class AutoConfiguredHealthEndpointGroup implements HealthEndpointGroup {
+public class AutoConfiguredHealthEndpointGroup implements HealthEndpointGroup {
 
 	private final Predicate<String> members;
 

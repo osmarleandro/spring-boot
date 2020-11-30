@@ -42,13 +42,14 @@ import static org.mockito.Mockito.mock;
  * @author Phillip Webb
  */
 @ExtendWith(MockitoExtension.class)
+public
 class AutoConfiguredHealthEndpointGroupTests {
 
 	@Mock
-	private StatusAggregator statusAggregator;
+	public StatusAggregator statusAggregator;
 
 	@Mock
-	private HttpCodeStatusMapper httpCodeStatusMapper;
+	public HttpCodeStatusMapper httpCodeStatusMapper;
 
 	@Mock
 	private SecurityContext securityContext;
@@ -70,13 +71,6 @@ class AutoConfiguredHealthEndpointGroupTests {
 				this.statusAggregator, this.httpCodeStatusMapper, null, Show.ALWAYS, Collections.emptySet());
 		assertThat(group.isMember("bert")).isFalse();
 		assertThat(group.isMember("ernie")).isFalse();
-	}
-
-	@Test
-	void showDetailsWhenShowDetailsIsNeverReturnsFalse() {
-		AutoConfiguredHealthEndpointGroup group = new AutoConfiguredHealthEndpointGroup((name) -> true,
-				this.statusAggregator, this.httpCodeStatusMapper, null, Show.NEVER, Collections.emptySet());
-		assertThat(group.showDetails(SecurityContext.NONE)).isFalse();
 	}
 
 	@Test
