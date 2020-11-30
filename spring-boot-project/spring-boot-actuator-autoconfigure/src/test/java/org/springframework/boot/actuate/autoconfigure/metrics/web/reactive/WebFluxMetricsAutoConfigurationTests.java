@@ -47,9 +47,10 @@ import static org.mockito.Mockito.mock;
  * @author Madhura Bhave
  */
 @ExtendWith(OutputCaptureExtension.class)
+public
 class WebFluxMetricsAutoConfigurationTests {
 
-	private final ReactiveWebApplicationContextRunner contextRunner = new ReactiveWebApplicationContextRunner()
+	public final ReactiveWebApplicationContextRunner contextRunner = new ReactiveWebApplicationContextRunner()
 			.with(MetricsRun.simple()).withConfiguration(AutoConfigurations.of(WebFluxMetricsAutoConfiguration.class));
 
 	@Test
@@ -60,16 +61,6 @@ class WebFluxMetricsAutoConfigurationTests {
 			assertThat(context.getBean(DefaultWebFluxTagsProvider.class)).extracting("ignoreTrailingSlash")
 					.isEqualTo(true);
 		});
-	}
-
-	@Test
-	void tagsProviderWhenIgnoreTrailingSlashIsFalse() {
-		this.contextRunner.withPropertyValues("management.metrics.web.server.request.ignore-trailing-slash=false")
-				.run((context) -> {
-					assertThat(context).hasSingleBean(DefaultWebFluxTagsProvider.class);
-					assertThat(context.getBean(DefaultWebFluxTagsProvider.class)).extracting("ignoreTrailingSlash")
-							.isEqualTo(false);
-				});
 	}
 
 	@Test
