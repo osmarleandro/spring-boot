@@ -33,9 +33,9 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Tim Ysewyn
  * @author Stephane Nicoll
  */
-class IntegrationGraphEndpointAutoConfigurationTests {
+public class IntegrationGraphEndpointAutoConfigurationTests {
 
-	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
+	public final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(JmxAutoConfiguration.class, IntegrationAutoConfiguration.class,
 					IntegrationGraphEndpointAutoConfiguration.class));
 
@@ -43,14 +43,6 @@ class IntegrationGraphEndpointAutoConfigurationTests {
 	void runShouldHaveEndpointBean() {
 		this.contextRunner.withPropertyValues("management.endpoints.web.exposure.include=integrationgraph")
 				.run((context) -> assertThat(context).hasSingleBean(IntegrationGraphEndpoint.class));
-	}
-
-	@Test
-	void runWhenEnabledPropertyIsFalseShouldNotHaveEndpointBean() {
-		this.contextRunner.withPropertyValues("management.endpoint.integrationgraph.enabled:false").run((context) -> {
-			assertThat(context).doesNotHaveBean(IntegrationGraphEndpoint.class);
-			assertThat(context).doesNotHaveBean(IntegrationGraphServer.class);
-		});
 	}
 
 	@Test
