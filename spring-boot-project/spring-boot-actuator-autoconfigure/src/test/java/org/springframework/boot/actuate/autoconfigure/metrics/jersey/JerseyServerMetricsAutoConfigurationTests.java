@@ -24,7 +24,6 @@ import javax.ws.rs.PathParam;
 
 import io.micrometer.core.instrument.MeterRegistry;
 import io.micrometer.core.instrument.Tag;
-import io.micrometer.core.instrument.Timer;
 import io.micrometer.jersey2.server.DefaultJerseyTagsProvider;
 import io.micrometer.jersey2.server.JerseyTagsProvider;
 import io.micrometer.jersey2.server.MetricsApplicationEventListener;
@@ -56,12 +55,12 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Michael Weirauch
  * @author Michael Simons
  */
-class JerseyServerMetricsAutoConfigurationTests {
+public class JerseyServerMetricsAutoConfigurationTests {
 
 	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner().with(MetricsRun.simple())
 			.withConfiguration(AutoConfigurations.of(JerseyServerMetricsAutoConfiguration.class));
 
-	private final WebApplicationContextRunner webContextRunner = new WebApplicationContextRunner(
+	public final WebApplicationContextRunner webContextRunner = new WebApplicationContextRunner(
 			AnnotationConfigServletWebServerApplicationContext::new)
 					.withConfiguration(AutoConfigurations.of(JerseyAutoConfiguration.class,
 							JerseyServerMetricsAutoConfiguration.class, ServletWebServerFactoryAutoConfiguration.class,
@@ -86,16 +85,6 @@ class JerseyServerMetricsAutoConfigurationTests {
 	}
 
 	@Test
-	void httpRequestsAreTimed() {
-		this.webContextRunner.run((context) -> {
-			doRequest(context);
-			MeterRegistry registry = context.getBean(MeterRegistry.class);
-			Timer timer = registry.get("http.server.requests").tag("uri", "/users/{id}").timer();
-			assertThat(timer.count()).isEqualTo(1);
-		});
-	}
-
-	@Test
 	void noHttpRequestsTimedWhenJerseyInstrumentationMissingFromClasspath() {
 		this.webContextRunner.withClassLoader(new FilteredClassLoader(MetricsApplicationEventListener.class))
 				.run((context) -> {
@@ -106,7 +95,7 @@ class JerseyServerMetricsAutoConfigurationTests {
 				});
 	}
 
-	private static void doRequest(AssertableWebApplicationContext context) {
+	public static void doRequest(AssertableWebApplicationContext context) {
 		int port = context.getSourceApplicationContext(AnnotationConfigServletWebServerApplicationContext.class)
 				.getWebServer().getPort();
 		RestTemplate restTemplate = new RestTemplate();
