@@ -20,7 +20,7 @@ import java.util.function.Consumer;
 
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
-import okhttp3.mockwebserver.RecordedRequest;
+
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -39,7 +39,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Madhura Bhave
  */
-class ReactiveCloudFoundrySecurityServiceTests {
+public class ReactiveCloudFoundrySecurityServiceTests {
 
 	private static final String CLOUD_CONTROLLER = "/my-cloud-controller.com";
 
@@ -49,7 +49,7 @@ class ReactiveCloudFoundrySecurityServiceTests {
 
 	private ReactiveCloudFoundrySecurityService securityService;
 
-	private MockWebServer server;
+	public MockWebServer server;
 
 	private WebClient.Builder builder;
 
@@ -72,7 +72,7 @@ class ReactiveCloudFoundrySecurityServiceTests {
 		StepVerifier.create(this.securityService.getAccessLevel("my-access-token", "my-app-id"))
 				.consumeNextWith((accessLevel) -> assertThat(accessLevel).isEqualTo(AccessLevel.FULL)).expectComplete()
 				.verify();
-		expectRequest((request) -> {
+		securityService.expectRequest(this, (request) -> {
 			assertThat(request.getHeader(HttpHeaders.AUTHORIZATION)).isEqualTo("bearer my-access-token");
 			assertThat(request.getPath()).isEqualTo(CLOUD_CONTROLLER_PERMISSIONS);
 		});
@@ -85,7 +85,7 @@ class ReactiveCloudFoundrySecurityServiceTests {
 		StepVerifier.create(this.securityService.getAccessLevel("my-access-token", "my-app-id"))
 				.consumeNextWith((accessLevel) -> assertThat(accessLevel).isEqualTo(AccessLevel.RESTRICTED))
 				.expectComplete().verify();
-		expectRequest((request) -> {
+		securityService.expectRequest(this, (request) -> {
 			assertThat(request.getHeader(HttpHeaders.AUTHORIZATION)).isEqualTo("bearer my-access-token");
 			assertThat(request.getPath()).isEqualTo(CLOUD_CONTROLLER_PERMISSIONS);
 		});
@@ -100,7 +100,7 @@ class ReactiveCloudFoundrySecurityServiceTests {
 					assertThat(((CloudFoundryAuthorizationException) throwable).getReason())
 							.isEqualTo(Reason.INVALID_TOKEN);
 				}).verify();
-		expectRequest((request) -> {
+		securityService.expectRequest(this, (request) -> {
 			assertThat(request.getHeader(HttpHeaders.AUTHORIZATION)).isEqualTo("bearer my-access-token");
 			assertThat(request.getPath()).isEqualTo(CLOUD_CONTROLLER_PERMISSIONS);
 		});
@@ -115,7 +115,7 @@ class ReactiveCloudFoundrySecurityServiceTests {
 					assertThat(((CloudFoundryAuthorizationException) throwable).getReason())
 							.isEqualTo(Reason.ACCESS_DENIED);
 				}).verify();
-		expectRequest((request) -> {
+		securityService.expectRequest(this, (request) -> {
 			assertThat(request.getHeader(HttpHeaders.AUTHORIZATION)).isEqualTo("bearer my-access-token");
 			assertThat(request.getPath()).isEqualTo(CLOUD_CONTROLLER_PERMISSIONS);
 		});
@@ -130,7 +130,7 @@ class ReactiveCloudFoundrySecurityServiceTests {
 					assertThat(((CloudFoundryAuthorizationException) throwable).getReason())
 							.isEqualTo(Reason.SERVICE_UNAVAILABLE);
 				}).verify();
-		expectRequest((request) -> {
+		securityService.expectRequest(this, (request) -> {
 			assertThat(request.getHeader(HttpHeaders.AUTHORIZATION)).isEqualTo("bearer my-access-token");
 			assertThat(request.getPath()).isEqualTo(CLOUD_CONTROLLER_PERMISSIONS);
 		});
@@ -159,8 +159,8 @@ class ReactiveCloudFoundrySecurityServiceTests {
 		StepVerifier.create(this.securityService.fetchTokenKeys())
 				.consumeNextWith((tokenKeys) -> assertThat(tokenKeys.get("test-key")).isEqualTo(tokenKeyValue))
 				.expectComplete().verify();
-		expectRequest((request) -> assertThat(request.getPath()).isEqualTo("/my-cloud-controller.com/info"));
-		expectRequest((request) -> assertThat(request.getPath()).isEqualTo("/my-uaa.com/token_keys"));
+		securityService.expectRequest(this, (request) -> assertThat(request.getPath()).isEqualTo("/my-cloud-controller.com/info"));
+		securityService.expectRequest(this, (request) -> assertThat(request.getPath()).isEqualTo("/my-uaa.com/token_keys"));
 	}
 
 	@Test
@@ -176,8 +176,8 @@ class ReactiveCloudFoundrySecurityServiceTests {
 		});
 		StepVerifier.create(this.securityService.fetchTokenKeys())
 				.consumeNextWith((tokenKeys) -> assertThat(tokenKeys).hasSize(0)).expectComplete().verify();
-		expectRequest((request) -> assertThat(request.getPath()).isEqualTo("/my-cloud-controller.com/info"));
-		expectRequest((request) -> assertThat(request.getPath()).isEqualTo("/my-uaa.com/token_keys"));
+		securityService.expectRequest(this, (request) -> assertThat(request.getPath()).isEqualTo("/my-cloud-controller.com/info"));
+		securityService.expectRequest(this, (request) -> assertThat(request.getPath()).isEqualTo("/my-uaa.com/token_keys"));
 	}
 
 	@Test
@@ -192,8 +192,8 @@ class ReactiveCloudFoundrySecurityServiceTests {
 						(throwable) -> assertThat(((CloudFoundryAuthorizationException) throwable).getReason())
 								.isEqualTo(Reason.SERVICE_UNAVAILABLE))
 				.verify();
-		expectRequest((request) -> assertThat(request.getPath()).isEqualTo("/my-cloud-controller.com/info"));
-		expectRequest((request) -> assertThat(request.getPath()).isEqualTo("/my-uaa.com/token_keys"));
+		securityService.expectRequest(this, (request) -> assertThat(request.getPath()).isEqualTo("/my-cloud-controller.com/info"));
+		securityService.expectRequest(this, (request) -> assertThat(request.getPath()).isEqualTo("/my-uaa.com/token_keys"));
 	}
 
 	@Test
@@ -204,7 +204,7 @@ class ReactiveCloudFoundrySecurityServiceTests {
 		});
 		StepVerifier.create(this.securityService.getUaaUrl())
 				.consumeNextWith((uaaUrl) -> assertThat(uaaUrl).isEqualTo(UAA_URL)).expectComplete().verify();
-		expectRequest((request) -> assertThat(request.getPath()).isEqualTo(CLOUD_CONTROLLER + "/info"));
+		securityService.expectRequest(this, (request) -> assertThat(request.getPath()).isEqualTo(CLOUD_CONTROLLER + "/info"));
 		expectRequestCount(1);
 	}
 
@@ -216,17 +216,13 @@ class ReactiveCloudFoundrySecurityServiceTests {
 			assertThat(((CloudFoundryAuthorizationException) throwable).getReason())
 					.isEqualTo(Reason.SERVICE_UNAVAILABLE);
 		}).verify();
-		expectRequest((request) -> assertThat(request.getPath()).isEqualTo(CLOUD_CONTROLLER + "/info"));
+		securityService.expectRequest(this, (request) -> assertThat(request.getPath()).isEqualTo(CLOUD_CONTROLLER + "/info"));
 	}
 
 	private void prepareResponse(Consumer<MockResponse> consumer) {
 		MockResponse response = new MockResponse();
 		consumer.accept(response);
 		this.server.enqueue(response);
-	}
-
-	private void expectRequest(Consumer<RecordedRequest> consumer) throws InterruptedException {
-		consumer.accept(this.server.takeRequest());
 	}
 
 	private void expectRequestCount(int count) {
