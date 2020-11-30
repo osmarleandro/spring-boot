@@ -29,7 +29,6 @@ import java.util.Collections;
 import java.util.Map;
 import java.util.function.Consumer;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
@@ -54,14 +53,15 @@ import static org.mockito.Mockito.verify;
  * @author Madhura Bhave
  */
 @ExtendWith(MockitoExtension.class)
+public
 class TokenValidatorTests {
 
 	private static final byte[] DOT = ".".getBytes();
 
 	@Mock
-	private CloudFoundrySecurityService securityService;
+	public CloudFoundrySecurityService securityService;
 
-	private TokenValidator tokenValidator;
+	public TokenValidator tokenValidator;
 
 	private static final String VALID_KEY = "-----BEGIN PUBLIC KEY-----\n"
 			+ "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA0m59l2u9iDnMbrXHfqkO\n"
@@ -84,11 +84,6 @@ class TokenValidatorTests {
 	private static final Map<String, String> INVALID_KEYS = Collections.singletonMap("invalid-key", INVALID_KEY);
 
 	private static final Map<String, String> VALID_KEYS = Collections.singletonMap("valid-key", VALID_KEY);
-
-	@BeforeEach
-	void setup() {
-		this.tokenValidator = new TokenValidator(this.securityService);
-	}
 
 	@Test
 	void validateTokenWhenKidValidationFailsTwiceShouldThrowException() throws Exception {
