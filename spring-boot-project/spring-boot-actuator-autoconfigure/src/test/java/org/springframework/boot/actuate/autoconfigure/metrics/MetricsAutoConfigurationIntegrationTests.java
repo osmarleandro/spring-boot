@@ -76,15 +76,6 @@ class MetricsAutoConfigurationIntegrationTests {
 	}
 
 	@Test
-	void emptyCompositeIsCreatedWhenNoMeterRegistriesAreAutoConfigured() {
-		new ApplicationContextRunner().with(MetricsRun.limitedTo()).run((context) -> {
-			MeterRegistry registry = context.getBean(MeterRegistry.class);
-			assertThat(registry).isInstanceOf(CompositeMeterRegistry.class);
-			assertThat(((CompositeMeterRegistry) registry).getRegistries()).isEmpty();
-		});
-	}
-
-	@Test
 	void noCompositeIsCreatedWhenASingleMeterRegistryIsAutoConfigured() {
 		new ApplicationContextRunner().with(MetricsRun.limitedTo(GraphiteMetricsExportAutoConfiguration.class))
 				.run((context) -> assertThat(context.getBean(MeterRegistry.class))
