@@ -97,14 +97,6 @@ class SecurityRequestMatchersManagementContextConfigurationTests {
 				.run((context) -> assertThat(context).doesNotHaveBean(AntPathRequestMatcherProvider.class));
 	}
 
-	@Test
-	void jerseyRequestMatcherProviderConditionalOnJerseyApplicationPathBean() {
-		new WebApplicationContextRunner()
-				.withConfiguration(AutoConfigurations.of(SecurityRequestMatchersManagementContextConfiguration.class))
-				.withClassLoader(new FilteredClassLoader("org.springframework.web.servlet.DispatcherServlet"))
-				.run((context) -> assertThat(context).doesNotHaveBean(AntPathRequestMatcherProvider.class));
-	}
-
 	@Configuration(proxyBeanMethods = false)
 	static class TestMvcConfiguration {
 
