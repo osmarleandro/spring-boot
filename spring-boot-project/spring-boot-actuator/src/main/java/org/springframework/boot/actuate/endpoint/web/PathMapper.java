@@ -16,9 +16,17 @@
 
 package org.springframework.boot.actuate.endpoint.web;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.function.Consumer;
+import java.util.function.Function;
 
+import org.springframework.boot.actuate.autoconfigure.cloudfoundry.CloudFoundryWebEndpointDiscoverer;
 import org.springframework.boot.actuate.endpoint.EndpointId;
+import org.springframework.boot.actuate.endpoint.invoke.convert.ConversionServiceParameterValueMapper;
+import org.springframework.boot.actuate.endpoint.invoker.cache.CachingOperationInvokerAdvisor;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.core.convert.support.DefaultConversionService;
 import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
 
@@ -40,6 +48,19 @@ public interface PathMapper {
 	 * given endpoint ID
 	 */
 	String getRootPath(EndpointId endpointId);
+
+	public default void load(Function<EndpointId, Long> timeToLive, Class<?> configuration, Consumer<CloudFoundryWebEndpointDiscoverer> consumer) {
+		try (AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(configuration)) {
+			ConversionServiceParameterValueMapper parameterMapper = new ConversionServiceParameterValueMapper(
+					DefaultConversionService.getSharedInstance());
+			EndpointMediaTypes mediaTypes = new EndpointMediaTypes(Collections.singletonList("application/json"),
+					Collections.singletonList("application/json"));
+			CloudFoundryWebEndpointDiscoverer discoverer = new CloudFoundryWebEndpointDiscoverer(context,
+					parameterMapper, mediaTypes, Collections.singletonList(this),
+					Collections.singleton(new CachingOperationInvokerAdvisor(timeToLive)), Collections.emptyList());
+			consumer.accept(discoverer);
+		}
+	}
 
 	/**
 	 * Resolve the root path for the specified {@code endpointId} from the given path
