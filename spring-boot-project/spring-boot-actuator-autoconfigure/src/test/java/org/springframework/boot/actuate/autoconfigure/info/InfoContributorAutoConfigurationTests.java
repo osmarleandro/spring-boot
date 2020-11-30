@@ -24,7 +24,6 @@ import org.junit.jupiter.api.Test;
 
 import org.springframework.boot.actuate.info.BuildInfoContributor;
 import org.springframework.boot.actuate.info.GitInfoContributor;
-import org.springframework.boot.actuate.info.Info;
 import org.springframework.boot.actuate.info.InfoContributor;
 import org.springframework.boot.info.BuildProperties;
 import org.springframework.boot.info.GitProperties;
@@ -79,8 +78,7 @@ class InfoContributorAutoConfigurationTests {
 		load(GitPropertiesConfiguration.class);
 		Map<String, InfoContributor> beans = this.context.getBeansOfType(InfoContributor.class);
 		assertThat(beans).containsKeys("gitInfoContributor");
-		Map<String, Object> content = invokeContributor(
-				this.context.getBean("gitInfoContributor", InfoContributor.class));
+		Map<String, Object> content = this.context.getBean("gitInfoContributor", InfoContributor.class).invokeContributor();
 		Object git = content.get("git");
 		assertThat(git).isInstanceOf(Map.class);
 		Map<String, Object> gitInfo = (Map<String, Object>) git;
@@ -91,8 +89,7 @@ class InfoContributorAutoConfigurationTests {
 	@Test
 	void gitPropertiesFullMode() {
 		load(GitPropertiesConfiguration.class, "management.info.git.mode=full");
-		Map<String, Object> content = invokeContributor(
-				this.context.getBean("gitInfoContributor", InfoContributor.class));
+		Map<String, Object> content = this.context.getBean("gitInfoContributor", InfoContributor.class).invokeContributor();
 		Object git = content.get("git");
 		assertThat(git).isInstanceOf(Map.class);
 		Map<String, Object> gitInfo = (Map<String, Object>) git;
@@ -113,8 +110,7 @@ class InfoContributorAutoConfigurationTests {
 		load(BuildPropertiesConfiguration.class);
 		Map<String, InfoContributor> beans = this.context.getBeansOfType(InfoContributor.class);
 		assertThat(beans).containsKeys("buildInfoContributor");
-		Map<String, Object> content = invokeContributor(
-				this.context.getBean("buildInfoContributor", InfoContributor.class));
+		Map<String, Object> content = this.context.getBean("buildInfoContributor", InfoContributor.class).invokeContributor();
 		Object build = content.get("build");
 		assertThat(build).isInstanceOf(Map.class);
 		Map<String, Object> buildInfo = (Map<String, Object>) build;
@@ -127,12 +123,6 @@ class InfoContributorAutoConfigurationTests {
 		load(CustomBuildInfoContributorConfiguration.class);
 		assertThat(this.context.getBean(BuildInfoContributor.class))
 				.isSameAs(this.context.getBean("customBuildInfoContributor"));
-	}
-
-	private Map<String, Object> invokeContributor(InfoContributor contributor) {
-		Info.Builder builder = new Info.Builder();
-		contributor.contribute(builder);
-		return builder.build().getDetails();
 	}
 
 	private void load(String... environment) {

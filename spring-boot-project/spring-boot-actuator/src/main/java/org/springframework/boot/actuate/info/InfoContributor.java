@@ -16,6 +16,10 @@
 
 package org.springframework.boot.actuate.info;
 
+import java.util.Map;
+
+import org.springframework.boot.actuate.info.Info.Builder;
+
 /**
  * Contributes additional info details.
  *
@@ -30,5 +34,11 @@ public interface InfoContributor {
 	 * @param builder the builder to use
 	 */
 	void contribute(Info.Builder builder);
+
+	public default Map<String, Object> invokeContributor() {
+		Builder builder = new Builder();
+		contribute(builder);
+		return builder.build().getDetails();
+	}
 
 }
