@@ -54,6 +54,7 @@ import static org.mockito.Mockito.verify;
  * @author Madhura Bhave
  */
 @ExtendWith(MockitoExtension.class)
+public
 class TokenValidatorTests {
 
 	private static final byte[] DOT = ".".getBytes();
@@ -61,7 +62,7 @@ class TokenValidatorTests {
 	@Mock
 	private CloudFoundrySecurityService securityService;
 
-	private TokenValidator tokenValidator;
+	public TokenValidator tokenValidator;
 
 	private static final String VALID_KEY = "-----BEGIN PUBLIC KEY-----\n"
 			+ "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA0m59l2u9iDnMbrXHfqkO\n"
@@ -72,7 +73,7 @@ class TokenValidatorTests {
 			+ "jfj9Cw2QICsc5+Pwf21fP+hzf+1WSRHbnYv8uanRO0gZ8ekGaghM/2H6gqJbo2nI\n"
 			+ "JwIDAQAB\n-----END PUBLIC KEY-----";
 
-	private static final String INVALID_KEY = "-----BEGIN PUBLIC KEY-----\n"
+	public static final String INVALID_KEY = "-----BEGIN PUBLIC KEY-----\n"
 			+ "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAxzYuc22QSst/dS7geYYK\n"
 			+ "5l5kLxU0tayNdixkEQ17ix+CUcUbKIsnyftZxaCYT46rQtXgCaYRdJcbB3hmyrOa\n"
 			+ "vkhTpX79xJZnQmfuamMbZBqitvscxW9zRR9tBUL6vdi/0rpoUwPMEh8+Bw7CgYR0\n"
@@ -133,17 +134,6 @@ class TokenValidatorTests {
 	}
 
 	@Test
-	void validateTokenWhenSignatureInvalidShouldThrowException() throws Exception {
-		ReflectionTestUtils.setField(this.tokenValidator, "tokenKeys",
-				Collections.singletonMap("valid-key", INVALID_KEY));
-		String header = "{ \"alg\": \"RS256\",  \"kid\": \"valid-key\",\"typ\": \"JWT\"}";
-		String claims = "{ \"exp\": 2147483647, \"iss\": \"http://localhost:8080/uaa/oauth/token\", \"scope\": [\"actuator.read\"]}";
-		assertThatExceptionOfType(CloudFoundryAuthorizationException.class).isThrownBy(
-				() -> this.tokenValidator.validate(new Token(getSignedToken(header.getBytes(), claims.getBytes()))))
-				.satisfies(reasonRequirement(Reason.INVALID_SIGNATURE));
-	}
-
-	@Test
 	void validateTokenWhenTokenAlgorithmIsNotRS256ShouldThrowException() throws Exception {
 		String header = "{ \"alg\": \"HS256\",  \"typ\": \"JWT\"}";
 		String claims = "{ \"exp\": 2147483647, \"iss\": \"http://localhost:8080/uaa/oauth/token\", \"scope\": [\"actuator.read\"]}";
@@ -185,7 +175,7 @@ class TokenValidatorTests {
 				.satisfies(reasonRequirement(Reason.INVALID_AUDIENCE));
 	}
 
-	private String getSignedToken(byte[] header, byte[] claims) throws Exception {
+	public String getSignedToken(byte[] header, byte[] claims) throws Exception {
 		PrivateKey privateKey = getPrivateKey();
 		Signature signature = Signature.getInstance("SHA256WithRSA");
 		signature.initSign(privateKey);
@@ -245,7 +235,7 @@ class TokenValidatorTests {
 		return result.toByteArray();
 	}
 
-	private Consumer<CloudFoundryAuthorizationException> reasonRequirement(Reason reason) {
+	public Consumer<CloudFoundryAuthorizationException> reasonRequirement(Reason reason) {
 		return (ex) -> assertThat(ex.getReason()).isEqualTo(reason);
 	}
 
