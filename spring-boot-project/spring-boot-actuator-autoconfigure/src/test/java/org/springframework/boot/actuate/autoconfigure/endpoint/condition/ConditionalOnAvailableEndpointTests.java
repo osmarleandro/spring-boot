@@ -33,9 +33,9 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Brian Clozel
  */
-class ConditionalOnAvailableEndpointTests {
+public class ConditionalOnAvailableEndpointTests {
 
-	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
+	public final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.withUserConfiguration(AllEndpointsConfiguration.class);
 
 	@Test
@@ -157,15 +157,6 @@ class ConditionalOnAvailableEndpointTests {
 	}
 
 	@Test
-	void outcomeWhenIncludeMatchesShouldMatchWithExtensionsAndComponents() {
-		this.contextRunner.withUserConfiguration(ComponentEnabledIfEndpointIsExposedConfiguration.class)
-				.withPropertyValues("management.endpoints.web.exposure.include=spring")
-				.run((context) -> assertThat(context).hasBean("spring").hasBean("springComponent")
-						.hasBean("springExtension").doesNotHaveBean("info").doesNotHaveBean("health")
-						.doesNotHaveBean("test").doesNotHaveBean("shutdown"));
-	}
-
-	@Test
 	void outcomeWithNoEndpointReferenceShouldFail() {
 		this.contextRunner.withUserConfiguration(ComponentWithNoEndpointReferenceConfiguration.class)
 				.withPropertyValues("management.endpoints.web.exposure.include=*").run((context) -> {
@@ -276,6 +267,7 @@ class ConditionalOnAvailableEndpointTests {
 	}
 
 	@Configuration(proxyBeanMethods = false)
+	public
 	static class ComponentEnabledIfEndpointIsExposedConfiguration {
 
 		@Bean
