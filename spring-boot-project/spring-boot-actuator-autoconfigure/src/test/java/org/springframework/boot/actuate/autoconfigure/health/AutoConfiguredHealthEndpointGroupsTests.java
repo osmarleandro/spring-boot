@@ -45,9 +45,9 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Phillip Webb
  * @author Leo Li
  */
-class AutoConfiguredHealthEndpointGroupsTests {
+public class AutoConfiguredHealthEndpointGroupsTests {
 
-	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
+	public final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(AutoConfiguredHealthEndpointGroupsTestConfiguration.class));
 
 	@Test
@@ -274,24 +274,6 @@ class AutoConfiguredHealthEndpointGroupsTests {
 	}
 
 	@Test
-	void createWhenHasHttpCodeStatusMapperPropertyAndGroupQualifiedBeanReturnsInstanceWithBeanUsedForExpectedGroups() {
-		this.contextRunner.withUserConfiguration(CustomHttpCodeStatusMapperGroupAConfiguration.class)
-				.withPropertyValues("management.endpoint.health.status.http-mapping.down=201",
-						"management.endpoint.health.group.a.include=*",
-						"management.endpoint.health.group.a.status.http-mapping.down=201",
-						"management.endpoint.health.group.b.include=*")
-				.run((context) -> {
-					HealthEndpointGroups groups = context.getBean(HealthEndpointGroups.class);
-					HealthEndpointGroup primary = groups.getPrimary();
-					HealthEndpointGroup groupA = groups.get("a");
-					HealthEndpointGroup groupB = groups.get("b");
-					assertThat(primary.getHttpCodeStatusMapper().getStatusCode(Status.DOWN)).isEqualTo(201);
-					assertThat(groupA.getHttpCodeStatusMapper().getStatusCode(Status.DOWN)).isEqualTo(200);
-					assertThat(groupB.getHttpCodeStatusMapper().getStatusCode(Status.DOWN)).isEqualTo(201);
-				});
-	}
-
-	@Test
 	void createWhenHasGroupSpecificHttpCodeStatusMapperPropertyAndGroupQualifiedBeanReturnsInstanceWithBeanUsedForExpectedGroups() {
 		this.contextRunner.withUserConfiguration(CustomHttpCodeStatusMapperGroupAConfiguration.class)
 				.withPropertyValues("management.endpoint.health.group.a.include=*",
@@ -365,6 +347,7 @@ class AutoConfiguredHealthEndpointGroupsTests {
 	}
 
 	@Configuration(proxyBeanMethods = false)
+	public
 	static class CustomHttpCodeStatusMapperGroupAConfiguration {
 
 		@Bean
