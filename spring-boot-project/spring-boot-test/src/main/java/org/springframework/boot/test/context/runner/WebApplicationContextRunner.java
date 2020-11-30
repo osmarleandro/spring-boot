@@ -16,9 +16,15 @@
 
 package org.springframework.boot.test.context.runner;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import java.util.List;
 import java.util.function.Supplier;
 
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.actuate.autoconfigure.security.servlet.SecurityRequestMatchersManagementContextConfigurationTests;
+import org.springframework.boot.actuate.autoconfigure.security.servlet.SecurityRequestMatchersManagementContextConfigurationTests.TestMvcConfiguration;
+import org.springframework.boot.autoconfigure.security.servlet.AntPathRequestMatcherProvider;
 import org.springframework.boot.context.annotation.Configurations;
 import org.springframework.boot.test.context.assertj.AssertableWebApplicationContext;
 import org.springframework.boot.test.util.TestPropertyValues;
@@ -26,6 +32,7 @@ import org.springframework.boot.web.servlet.context.AnnotationConfigServletWebAp
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextInitializer;
 import org.springframework.mock.web.MockServletContext;
+import org.springframework.security.web.util.matcher.RequestMatcher;
 import org.springframework.web.context.ConfigurableWebApplicationContext;
 import org.springframework.web.context.WebApplicationContext;
 
@@ -81,6 +88,16 @@ public final class WebApplicationContextRunner extends
 			List<Configurations> configurations) {
 		return new WebApplicationContextRunner(contextFactory, allowBeanDefinitionOverriding, initializers,
 				environmentProperties, systemProperties, classLoader, parent, beanRegistrations, configurations);
+	}
+
+	@Test
+	public
+	void registersRequestMatcherProviderIfMvcPresent(SecurityRequestMatchersManagementContextConfigurationTests securityRequestMatchersManagementContextConfigurationTests) {
+		withUserConfiguration(TestMvcConfiguration.class).run((context) -> {
+			AntPathRequestMatcherProvider matcherProvider = context.getBean(AntPathRequestMatcherProvider.class);
+			RequestMatcher requestMatcher = matcherProvider.getRequestMatcher("/example");
+			assertThat(requestMatcher).extracting("pattern").isEqualTo("/custom/example");
+		});
 	}
 
 	/**
