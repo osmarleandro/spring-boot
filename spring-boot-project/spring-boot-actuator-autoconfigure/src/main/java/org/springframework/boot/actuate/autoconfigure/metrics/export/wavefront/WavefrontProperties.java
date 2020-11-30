@@ -95,6 +95,10 @@ public class WavefrontProperties extends PushRegistryProperties {
 		return this.sender;
 	}
 
+	public WavefrontPropertiesConfigAdapter createConfigAdapter() {
+		return new WavefrontPropertiesConfigAdapter(this);
+	}
+
 	public static class Sender {
 
 		private int maxQueueSize = 50000;

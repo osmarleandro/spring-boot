@@ -37,37 +37,32 @@ class WavefrontPropertiesConfigAdapterTests
 		return new WavefrontProperties();
 	}
 
-	@Override
-	protected WavefrontPropertiesConfigAdapter createConfigAdapter(WavefrontProperties properties) {
-		return new WavefrontPropertiesConfigAdapter(properties);
-	}
-
 	@Test
 	void whenPropertiesUriIsSetAdapterUriReturnsIt() {
 		WavefrontProperties properties = createProperties();
 		properties.setUri(URI.create("https://wavefront.example.com"));
-		assertThat(createConfigAdapter(properties).uri()).isEqualTo("https://wavefront.example.com");
+		assertThat(properties.createConfigAdapter().uri()).isEqualTo("https://wavefront.example.com");
 	}
 
 	@Test
 	void whenPropertiesSourceIsSetAdapterSourceReturnsIt() {
 		WavefrontProperties properties = createProperties();
 		properties.setSource("test");
-		assertThat(createConfigAdapter(properties).source()).isEqualTo("test");
+		assertThat(properties.createConfigAdapter().source()).isEqualTo("test");
 	}
 
 	@Test
 	void whenPropertiesApiTokenIsSetAdapterApiTokenReturnsIt() {
 		WavefrontProperties properties = createProperties();
 		properties.setApiToken("ABC123");
-		assertThat(createConfigAdapter(properties).apiToken()).isEqualTo("ABC123");
+		assertThat(properties.createConfigAdapter().apiToken()).isEqualTo("ABC123");
 	}
 
 	@Test
 	void whenPropertiesGlobalPrefixIsSetAdapterGlobalPrefixReturnsIt() {
 		WavefrontProperties properties = createProperties();
 		properties.setGlobalPrefix("test");
-		assertThat(createConfigAdapter(properties).globalPrefix()).isEqualTo("test");
+		assertThat(properties.createConfigAdapter().globalPrefix()).isEqualTo("test");
 	}
 
 }

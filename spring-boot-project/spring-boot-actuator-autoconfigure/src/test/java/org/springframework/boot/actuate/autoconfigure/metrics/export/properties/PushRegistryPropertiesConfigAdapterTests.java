@@ -40,21 +40,21 @@ public abstract class PushRegistryPropertiesConfigAdapterTests<P extends PushReg
 	void whenPropertiesStepIsSetAdapterStepReturnsIt() {
 		P properties = createProperties();
 		properties.setStep(Duration.ofSeconds(42));
-		assertThat(createConfigAdapter(properties).step()).hasSeconds(42);
+		assertThat(properties.createConfigAdapter().step()).hasSeconds(42);
 	}
 
 	@Test
 	void whenPropertiesEnabledIsSetAdapterEnabledReturnsIt() {
 		P properties = createProperties();
 		properties.setEnabled(false);
-		assertThat(createConfigAdapter(properties).enabled()).isFalse();
+		assertThat(properties.createConfigAdapter().enabled()).isFalse();
 	}
 
 	@Test
 	void whenPropertiesBatchSizeIsSetAdapterBatchSizeReturnsIt() {
 		P properties = createProperties();
 		properties.setBatchSize(10042);
-		assertThat(createConfigAdapter(properties).batchSize()).isEqualTo(10042);
+		assertThat(properties.createConfigAdapter().batchSize()).isEqualTo(10042);
 	}
 
 }
