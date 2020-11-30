@@ -56,9 +56,9 @@ import static org.mockito.Mockito.mock;
  * @author Rui Figueira
  * @author Stephane Nicoll
  */
-class HibernateMetricsAutoConfigurationTests {
+public class HibernateMetricsAutoConfigurationTests {
 
-	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner().with(MetricsRun.simple())
+	public final ApplicationContextRunner contextRunner = new ApplicationContextRunner().with(MetricsRun.simple())
 			.withConfiguration(AutoConfigurations.of(DataSourceAutoConfiguration.class,
 					HibernateJpaAutoConfiguration.class, HibernateMetricsAutoConfiguration.class))
 			.withUserConfiguration(BaseConfiguration.class);
@@ -76,16 +76,6 @@ class HibernateMetricsAutoConfigurationTests {
 	void autoConfiguredEntityManagerFactoryWithoutStatsIsNotInstrumented() {
 		this.contextRunner.withPropertyValues("spring.jpa.properties.hibernate.generate_statistics:false")
 				.run((context) -> {
-					context.getBean(EntityManagerFactory.class).unwrap(SessionFactory.class);
-					MeterRegistry registry = context.getBean(MeterRegistry.class);
-					assertThat(registry.find("hibernate.statements").meter()).isNull();
-				});
-	}
-
-	@Test
-	void entityManagerFactoryInstrumentationCanBeDisabled() {
-		this.contextRunner.withPropertyValues("management.metrics.enable.hibernate=false",
-				"spring.jpa.properties.hibernate.generate_statistics:true").run((context) -> {
 					context.getBean(EntityManagerFactory.class).unwrap(SessionFactory.class);
 					MeterRegistry registry = context.getBean(MeterRegistry.class);
 					assertThat(registry.find("hibernate.statements").meter()).isNull();
