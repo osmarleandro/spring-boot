@@ -45,9 +45,9 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Phillip Webb
  * @author Leo Li
  */
-class AutoConfiguredHealthEndpointGroupsTests {
+public class AutoConfiguredHealthEndpointGroupsTests {
 
-	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
+	public final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(AutoConfiguredHealthEndpointGroupsTestConfiguration.class));
 
 	@Test
@@ -254,22 +254,6 @@ class AutoConfiguredHealthEndpointGroupsTests {
 					HealthEndpointGroup groupA = groups.get("a");
 					assertThat(primary.getHttpCodeStatusMapper().getStatusCode(Status.DOWN)).isEqualTo(201);
 					assertThat(groupA.getHttpCodeStatusMapper().getStatusCode(Status.DOWN)).isEqualTo(201);
-				});
-	}
-
-	@Test
-	void createWhenHasHttpCodeStatusMapperPropertyAndGroupSpecificPropertyReturnsInstanceWithPropertyUsedForExpectedGroups() {
-		this.contextRunner.withPropertyValues("management.endpoint.health.status.http-mapping.down=201",
-				"management.endpoint.health.group.a.include=*",
-				"management.endpoint.health.group.a.status.http-mapping.down=202",
-				"management.endpoint.health.group.b.include=*").run((context) -> {
-					HealthEndpointGroups groups = context.getBean(HealthEndpointGroups.class);
-					HealthEndpointGroup primary = groups.getPrimary();
-					HealthEndpointGroup groupA = groups.get("a");
-					HealthEndpointGroup groupB = groups.get("b");
-					assertThat(primary.getHttpCodeStatusMapper().getStatusCode(Status.DOWN)).isEqualTo(201);
-					assertThat(groupA.getHttpCodeStatusMapper().getStatusCode(Status.DOWN)).isEqualTo(202);
-					assertThat(groupB.getHttpCodeStatusMapper().getStatusCode(Status.DOWN)).isEqualTo(201);
 				});
 	}
 

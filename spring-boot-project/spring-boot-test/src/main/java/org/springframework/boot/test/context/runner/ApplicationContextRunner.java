@@ -16,9 +16,16 @@
 
 package org.springframework.boot.test.context.runner;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import java.util.List;
 import java.util.function.Supplier;
 
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.actuate.autoconfigure.health.AutoConfiguredHealthEndpointGroupsTests;
+import org.springframework.boot.actuate.health.HealthEndpointGroup;
+import org.springframework.boot.actuate.health.HealthEndpointGroups;
+import org.springframework.boot.actuate.health.Status;
 import org.springframework.boot.context.annotation.Configurations;
 import org.springframework.boot.test.context.assertj.AssertableApplicationContext;
 import org.springframework.boot.test.util.TestPropertyValues;
@@ -77,6 +84,23 @@ public class ApplicationContextRunner extends
 			List<Configurations> configurations) {
 		return new ApplicationContextRunner(contextFactory, allowBeanDefinitionOverriding, initializers,
 				environmentProperties, systemProperties, classLoader, parent, beanRegistrations, configurations);
+	}
+
+	@Test
+	public
+	void createWhenHasHttpCodeStatusMapperPropertyAndGroupSpecificPropertyReturnsInstanceWithPropertyUsedForExpectedGroups(AutoConfiguredHealthEndpointGroupsTests autoConfiguredHealthEndpointGroupsTests) {
+		withPropertyValues("management.endpoint.health.status.http-mapping.down=201",
+				"management.endpoint.health.group.a.include=*",
+				"management.endpoint.health.group.a.status.http-mapping.down=202",
+				"management.endpoint.health.group.b.include=*").run((context) -> {
+					HealthEndpointGroups groups = context.getBean(HealthEndpointGroups.class);
+					HealthEndpointGroup primary = groups.getPrimary();
+					HealthEndpointGroup groupA = groups.get("a");
+					HealthEndpointGroup groupB = groups.get("b");
+					assertThat(primary.getHttpCodeStatusMapper().getStatusCode(Status.DOWN)).isEqualTo(201);
+					assertThat(groupA.getHttpCodeStatusMapper().getStatusCode(Status.DOWN)).isEqualTo(202);
+					assertThat(groupB.getHttpCodeStatusMapper().getStatusCode(Status.DOWN)).isEqualTo(201);
+				});
 	}
 
 }
