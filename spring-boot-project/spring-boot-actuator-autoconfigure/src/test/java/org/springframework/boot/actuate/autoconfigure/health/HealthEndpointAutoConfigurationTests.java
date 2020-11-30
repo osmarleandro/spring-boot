@@ -62,9 +62,9 @@ import static org.mockito.Mockito.mock;
  * @author Stephane Nicoll
  * @author Scott Frederick
  */
-class HealthEndpointAutoConfigurationTests {
+public class HealthEndpointAutoConfigurationTests {
 
-	private final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner()
+	public final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner()
 			.withUserConfiguration(HealthIndicatorsConfiguration.class).withConfiguration(AutoConfigurations
 					.of(HealthContributorAutoConfiguration.class, HealthEndpointAutoConfiguration.class));
 
@@ -173,14 +173,6 @@ class HealthEndpointAutoConfigurationTests {
 			HealthEndpoint endpoint = context.getBean(HealthEndpoint.class);
 			Health health = (Health) endpoint.healthForPath("simple");
 			assertThat(health.getDetails()).containsEntry("counter", 42);
-		});
-	}
-
-	@Test
-	void runWhenHasHealthEndpointBeanDoesNotCreateAdditionalHealthEndpoint() {
-		this.contextRunner.withUserConfiguration(HealthEndpointConfiguration.class).run((context) -> {
-			HealthEndpoint endpoint = context.getBean(HealthEndpoint.class);
-			assertThat(endpoint.health()).isNull();
 		});
 	}
 
@@ -322,6 +314,7 @@ class HealthEndpointAutoConfigurationTests {
 	}
 
 	@Configuration(proxyBeanMethods = false)
+	public
 	static class HealthEndpointConfiguration {
 
 		@Bean
