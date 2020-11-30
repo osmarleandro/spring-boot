@@ -35,9 +35,9 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Andy Wilkinson
  * @author Stephane Nicoll
  */
-class SystemMetricsAutoConfigurationTests {
+public class SystemMetricsAutoConfigurationTests {
 
-	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner().with(MetricsRun.simple())
+	public final ApplicationContextRunner contextRunner = new ApplicationContextRunner().with(MetricsRun.simple())
 			.withConfiguration(AutoConfigurations.of(SystemMetricsAutoConfiguration.class));
 
 	@Test
@@ -54,13 +54,6 @@ class SystemMetricsAutoConfigurationTests {
 	@Test
 	void autoConfiguresProcessorMetrics() {
 		this.contextRunner.run((context) -> assertThat(context).hasSingleBean(ProcessorMetrics.class));
-	}
-
-	@Test
-	void allowsCustomProcessorMetricsToBeUsed() {
-		this.contextRunner.withUserConfiguration(CustomProcessorMetricsConfiguration.class)
-				.run((context) -> assertThat(context).hasSingleBean(ProcessorMetrics.class)
-						.hasBean("customProcessorMetrics"));
 	}
 
 	@Test
@@ -86,6 +79,7 @@ class SystemMetricsAutoConfigurationTests {
 	}
 
 	@Configuration(proxyBeanMethods = false)
+	public
 	static class CustomProcessorMetricsConfiguration {
 
 		@Bean
