@@ -42,9 +42,9 @@ import static org.mockito.Mockito.mock;
  * @author Stephane Nicoll
  * @author Michael J. Simons
  */
-class Neo4jHealthContributorAutoConfigurationTests {
+public class Neo4jHealthContributorAutoConfigurationTests {
 
-	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
+	public final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(HealthContributorAutoConfiguration.class,
 					Neo4jHealthContributorAutoConfiguration.class));
 
@@ -59,14 +59,6 @@ class Neo4jHealthContributorAutoConfigurationTests {
 		this.contextRunner.withUserConfiguration(Neo4jConfiguration.class)
 				.withClassLoader(new FilteredClassLoader(Flux.class)).run((context) -> assertThat(context)
 						.hasSingleBean(Neo4jHealthIndicator.class).doesNotHaveBean(Neo4jReactiveHealthIndicator.class));
-	}
-
-	@Test
-	void runWhenDisabledShouldNotCreateIndicator() {
-		this.contextRunner.withUserConfiguration(Neo4jConfiguration.class)
-				.withPropertyValues("management.health.neo4j.enabled=false")
-				.run((context) -> assertThat(context).doesNotHaveBean(Neo4jHealthIndicator.class)
-						.doesNotHaveBean(Neo4jReactiveHealthIndicator.class));
 	}
 
 	@Test
@@ -86,6 +78,7 @@ class Neo4jHealthContributorAutoConfigurationTests {
 	}
 
 	@Configuration(proxyBeanMethods = false)
+	public
 	static class Neo4jConfiguration {
 
 		@Bean
