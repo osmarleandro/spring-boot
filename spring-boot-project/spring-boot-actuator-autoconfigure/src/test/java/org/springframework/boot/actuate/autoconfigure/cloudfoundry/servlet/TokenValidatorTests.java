@@ -54,6 +54,7 @@ import static org.mockito.Mockito.verify;
  * @author Madhura Bhave
  */
 @ExtendWith(MockitoExtension.class)
+public
 class TokenValidatorTests {
 
 	private static final byte[] DOT = ".".getBytes();
@@ -61,7 +62,7 @@ class TokenValidatorTests {
 	@Mock
 	private CloudFoundrySecurityService securityService;
 
-	private TokenValidator tokenValidator;
+	public TokenValidator tokenValidator;
 
 	private static final String VALID_KEY = "-----BEGIN PUBLIC KEY-----\n"
 			+ "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA0m59l2u9iDnMbrXHfqkO\n"
@@ -144,15 +145,6 @@ class TokenValidatorTests {
 	}
 
 	@Test
-	void validateTokenWhenTokenAlgorithmIsNotRS256ShouldThrowException() throws Exception {
-		String header = "{ \"alg\": \"HS256\",  \"typ\": \"JWT\"}";
-		String claims = "{ \"exp\": 2147483647, \"iss\": \"http://localhost:8080/uaa/oauth/token\", \"scope\": [\"actuator.read\"]}";
-		assertThatExceptionOfType(CloudFoundryAuthorizationException.class).isThrownBy(
-				() -> this.tokenValidator.validate(new Token(getSignedToken(header.getBytes(), claims.getBytes()))))
-				.satisfies(reasonRequirement(Reason.UNSUPPORTED_TOKEN_SIGNING_ALGORITHM));
-	}
-
-	@Test
 	void validateTokenWhenExpiredShouldThrowException() throws Exception {
 		given(this.securityService.fetchTokenKeys()).willReturn(VALID_KEYS);
 		given(this.securityService.fetchTokenKeys()).willReturn(VALID_KEYS);
@@ -185,7 +177,7 @@ class TokenValidatorTests {
 				.satisfies(reasonRequirement(Reason.INVALID_AUDIENCE));
 	}
 
-	private String getSignedToken(byte[] header, byte[] claims) throws Exception {
+	public String getSignedToken(byte[] header, byte[] claims) throws Exception {
 		PrivateKey privateKey = getPrivateKey();
 		Signature signature = Signature.getInstance("SHA256WithRSA");
 		signature.initSign(privateKey);
@@ -245,7 +237,7 @@ class TokenValidatorTests {
 		return result.toByteArray();
 	}
 
-	private Consumer<CloudFoundryAuthorizationException> reasonRequirement(Reason reason) {
+	public Consumer<CloudFoundryAuthorizationException> reasonRequirement(Reason reason) {
 		return (ex) -> assertThat(ex.getReason()).isEqualTo(reason);
 	}
 
