@@ -34,15 +34,10 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Andy Wilkinson
  */
-class JmxMetricsExportAutoConfigurationTests {
+public class JmxMetricsExportAutoConfigurationTests {
 
-	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
+	public final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(JmxMetricsExportAutoConfiguration.class));
-
-	@Test
-	void backsOffWithoutAClock() {
-		this.contextRunner.run((context) -> assertThat(context).doesNotHaveBean(JmxMeterRegistry.class));
-	}
 
 	@Test
 	void autoConfiguresItsConfigAndMeterRegistry() {
