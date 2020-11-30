@@ -16,8 +16,23 @@
 
 package org.springframework.boot.actuate.audit;
 
+import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.verify;
+import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
+import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
+import static org.springframework.restdocs.request.RequestDocumentation.requestParameters;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 import java.time.Instant;
+import java.time.OffsetDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.actuate.autoconfigure.endpoint.web.documentation.AuditEventsEndpointDocumentationTests;
 
 /**
  * Repository for {@link AuditEvent}s.
@@ -45,5 +60,27 @@ public interface AuditEventRepository {
 	 * @since 1.4.0
 	 */
 	List<AuditEvent> find(String principal, Instant after, String type);
+
+	@Test
+	default
+	void filteredAuditEvents(AuditEventsEndpointDocumentationTests auditEventsEndpointDocumentationTests) throws Exception {
+		OffsetDateTime now = OffsetDateTime.now();
+		String queryTimestamp = DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(now);
+		given(find("alice", now.toInstant(), "logout"))
+				.willReturn(Arrays.asList(new AuditEvent("alice", "logout", Collections.emptyMap())));
+		auditEventsEndpointDocumentationTests.mockMvc
+				.perform(get("/actuator/auditevents")
+						.param("principal", "alice").param("after", queryTimestamp).param("type", "logout"))
+				.andExpect(status().isOk())
+				.andDo(document("auditevents/filtered",
+						requestParameters(
+								parameterWithName("after").description(
+										"Restricts the events to those that occurred after the given time. Optional."),
+								parameterWithName("principal").description(
+										"Restricts the events to those with the given principal. Optional."),
+								parameterWithName("type")
+										.description("Restricts the events to those with the given type. Optional."))));
+		verify(this).find("alice", now.toInstant(), "logout");
+	}
 
 }
