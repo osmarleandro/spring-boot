@@ -320,12 +320,12 @@ class AutoConfiguredHealthEndpointGroupsTests {
 	}
 
 	@Configuration(proxyBeanMethods = false)
-	@EnableConfigurationProperties(HealthEndpointProperties.class)
+	@EnableConfigurationProperties(HealthEndpointProperties_RENAMED.class)
 	static class AutoConfiguredHealthEndpointGroupsTestConfiguration {
 
 		@Bean
 		AutoConfiguredHealthEndpointGroups healthEndpointGroups(ConfigurableApplicationContext applicationContext,
-				HealthEndpointProperties properties) {
+				HealthEndpointProperties_RENAMED properties) {
 			return new AutoConfiguredHealthEndpointGroups(applicationContext, properties);
 		}
 

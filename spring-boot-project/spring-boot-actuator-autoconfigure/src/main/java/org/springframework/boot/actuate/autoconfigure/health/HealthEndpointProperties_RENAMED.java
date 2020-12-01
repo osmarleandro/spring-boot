@@ -31,7 +31,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  * @since 2.0.0
  */
 @ConfigurationProperties("management.endpoint.health")
-public class HealthEndpointProperties extends HealthProperties {
+public class HealthEndpointProperties_RENAMED extends HealthProperties {
 
 	/**
 	 * When to show full health details.

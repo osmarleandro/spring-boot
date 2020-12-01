@@ -30,7 +30,7 @@ import org.springframework.beans.factory.BeanFactoryUtils;
 import org.springframework.beans.factory.ListableBeanFactory;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.beans.factory.annotation.BeanFactoryAnnotationUtils;
-import org.springframework.boot.actuate.autoconfigure.health.HealthEndpointProperties.Group;
+import org.springframework.boot.actuate.autoconfigure.health.HealthEndpointProperties_RENAMED.Group;
 import org.springframework.boot.actuate.autoconfigure.health.HealthProperties.Show;
 import org.springframework.boot.actuate.autoconfigure.health.HealthProperties.Status;
 import org.springframework.boot.actuate.health.HealthEndpointGroup;
@@ -62,7 +62,7 @@ class AutoConfiguredHealthEndpointGroups implements HealthEndpointGroups {
 	 * @param applicationContext the application context used to check for override beans
 	 * @param properties the health endpoint properties
 	 */
-	AutoConfiguredHealthEndpointGroups(ApplicationContext applicationContext, HealthEndpointProperties properties) {
+	AutoConfiguredHealthEndpointGroups(ApplicationContext applicationContext, HealthEndpointProperties_RENAMED properties) {
 		ListableBeanFactory beanFactory = (applicationContext instanceof ConfigurableApplicationContext)
 				? ((ConfigurableApplicationContext) applicationContext).getBeanFactory() : applicationContext;
 		Show showComponents = properties.getShowComponents();
