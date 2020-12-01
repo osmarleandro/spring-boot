@@ -49,7 +49,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  *
  * @author Andy Wilkinson
  */
-class ConditionsReportEndpointDocumentationTests extends MockMvcEndpointDocumentationTests {
+class ConditionsReportEndpointDocumentationTests_RENAMED extends MockMvcEndpointDocumentationTests {
 
 	private MockMvc mockMvc;
 
