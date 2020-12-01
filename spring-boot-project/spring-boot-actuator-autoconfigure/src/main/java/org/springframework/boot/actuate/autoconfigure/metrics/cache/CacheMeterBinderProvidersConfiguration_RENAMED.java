@@ -42,7 +42,7 @@ import org.springframework.data.redis.cache.RedisCache;
  */
 @Configuration(proxyBeanMethods = false)
 @ConditionalOnClass(MeterBinder.class)
-class CacheMeterBinderProvidersConfiguration {
+class CacheMeterBinderProvidersConfiguration_RENAMED {
 
 	@Configuration(proxyBeanMethods = false)
 	@ConditionalOnClass({ CaffeineCache.class, com.github.benmanes.caffeine.cache.Cache.class })
