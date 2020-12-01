@@ -101,8 +101,8 @@ class CachesEndpointWebIntegrationTests {
 		}
 
 		@Bean
-		CachesEndpointWebExtension cachesEndpointWebExtension(CachesEndpoint endpoint) {
-			return new CachesEndpointWebExtension(endpoint);
+		CachesEndpointWebExtension_RENAMED cachesEndpointWebExtension(CachesEndpoint endpoint) {
+			return new CachesEndpointWebExtension_RENAMED(endpoint);
 		}
 
 	}

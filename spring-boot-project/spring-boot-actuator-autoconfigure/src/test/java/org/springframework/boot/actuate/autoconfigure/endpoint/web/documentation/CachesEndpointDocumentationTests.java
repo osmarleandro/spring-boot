@@ -25,7 +25,7 @@ import java.util.Map;
 import org.junit.jupiter.api.Test;
 
 import org.springframework.boot.actuate.cache.CachesEndpoint;
-import org.springframework.boot.actuate.cache.CachesEndpointWebExtension;
+import org.springframework.boot.actuate.cache.CachesEndpointWebExtension_RENAMED;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.concurrent.ConcurrentMapCacheManager;
 import org.springframework.context.annotation.Bean;
@@ -103,8 +103,8 @@ class CachesEndpointDocumentationTests extends MockMvcEndpointDocumentationTests
 		}
 
 		@Bean
-		CachesEndpointWebExtension endpointWebExtension(CachesEndpoint endpoint) {
-			return new CachesEndpointWebExtension(endpoint);
+		CachesEndpointWebExtension_RENAMED endpointWebExtension(CachesEndpoint endpoint) {
+			return new CachesEndpointWebExtension_RENAMED(endpoint);
 		}
 
 	}
