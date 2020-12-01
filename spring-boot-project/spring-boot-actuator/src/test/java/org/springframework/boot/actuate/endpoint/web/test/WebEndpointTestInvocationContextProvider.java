@@ -43,7 +43,7 @@ import org.springframework.boot.actuate.endpoint.web.EndpointMapping;
 import org.springframework.boot.actuate.endpoint.web.EndpointMediaTypes;
 import org.springframework.boot.actuate.endpoint.web.annotation.WebEndpointDiscoverer;
 import org.springframework.boot.actuate.endpoint.web.jersey.JerseyEndpointResourceFactory;
-import org.springframework.boot.actuate.endpoint.web.reactive.WebFluxEndpointHandlerMapping;
+import org.springframework.boot.actuate.endpoint.web.reactive.WebFluxEndpointHandlerMapping_RENAMED;
 import org.springframework.boot.actuate.endpoint.web.servlet.WebMvcEndpointHandlerMapping;
 import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
 import org.springframework.boot.autoconfigure.http.HttpMessageConvertersAutoConfiguration;
@@ -282,12 +282,12 @@ class WebEndpointTestInvocationContextProvider implements TestTemplateInvocation
 		}
 
 		@Bean
-		WebFluxEndpointHandlerMapping webEndpointReactiveHandlerMapping() {
+		WebFluxEndpointHandlerMapping_RENAMED webEndpointReactiveHandlerMapping() {
 			EndpointMediaTypes endpointMediaTypes = EndpointMediaTypes.DEFAULT;
 			WebEndpointDiscoverer discoverer = new WebEndpointDiscoverer(this.applicationContext,
 					new ConversionServiceParameterValueMapper(), endpointMediaTypes, null, Collections.emptyList(),
 					Collections.emptyList());
-			return new WebFluxEndpointHandlerMapping(new EndpointMapping("/actuator"), discoverer.getEndpoints(),
+			return new WebFluxEndpointHandlerMapping_RENAMED(new EndpointMapping("/actuator"), discoverer.getEndpoints(),
 					endpointMediaTypes, new CorsConfiguration(), new EndpointLinksResolver(discoverer.getEndpoints()),
 					true);
 		}

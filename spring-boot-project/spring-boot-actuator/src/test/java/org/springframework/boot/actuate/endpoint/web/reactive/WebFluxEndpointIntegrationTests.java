@@ -53,7 +53,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * Integration tests for web endpoints exposed using WebFlux.
  *
  * @author Andy Wilkinson
- * @see WebFluxEndpointHandlerMapping
+ * @see WebFluxEndpointHandlerMapping_RENAMED
  */
 class WebFluxEndpointIntegrationTests
 		extends AbstractWebEndpointIntegrationTests<AnnotationConfigReactiveWebServerApplicationContext> {
@@ -118,13 +118,13 @@ class WebFluxEndpointIntegrationTests
 		}
 
 		@Bean
-		WebFluxEndpointHandlerMapping webEndpointHandlerMapping(Environment environment,
+		WebFluxEndpointHandlerMapping_RENAMED webEndpointHandlerMapping(Environment environment,
 				WebEndpointDiscoverer endpointDiscoverer, EndpointMediaTypes endpointMediaTypes) {
 			CorsConfiguration corsConfiguration = new CorsConfiguration();
 			corsConfiguration.setAllowedOrigins(Arrays.asList("https://example.com"));
 			corsConfiguration.setAllowedMethods(Arrays.asList("GET", "POST"));
 			String endpointPath = environment.getProperty("endpointPath");
-			return new WebFluxEndpointHandlerMapping(new EndpointMapping(endpointPath),
+			return new WebFluxEndpointHandlerMapping_RENAMED(new EndpointMapping(endpointPath),
 					endpointDiscoverer.getEndpoints(), endpointMediaTypes, corsConfiguration,
 					new EndpointLinksResolver(endpointDiscoverer.getEndpoints()), StringUtils.hasText(endpointPath));
 		}
