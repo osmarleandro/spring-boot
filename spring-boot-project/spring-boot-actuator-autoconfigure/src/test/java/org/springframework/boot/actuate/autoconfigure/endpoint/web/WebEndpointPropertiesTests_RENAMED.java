@@ -26,7 +26,7 @@ import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException
  *
  * @author Madhura Bhave
  */
-class WebEndpointPropertiesTests {
+class WebEndpointPropertiesTests_RENAMED {
 
 	@Test
 	void defaultBasePathShouldBeApplication() {
