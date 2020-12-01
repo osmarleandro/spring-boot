@@ -22,11 +22,11 @@ import java.util.Collection;
 import org.springframework.boot.actuate.endpoint.EndpointId;
 
 /**
- * Test {@link ExposableJmxEndpoint} implementation.
+ * Test {@link ExposableJmxEndpoint_RENAMED} implementation.
  *
  * @author Phillip Webb
  */
-public class TestExposableJmxEndpoint implements ExposableJmxEndpoint {
+public class TestExposableJmxEndpoint implements ExposableJmxEndpoint_RENAMED {
 
 	private final Collection<JmxOperation> operations;
 

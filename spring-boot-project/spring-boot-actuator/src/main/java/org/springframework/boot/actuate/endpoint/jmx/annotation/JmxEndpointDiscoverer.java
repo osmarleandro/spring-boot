@@ -25,18 +25,18 @@ import org.springframework.boot.actuate.endpoint.annotation.EndpointDiscoverer;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvoker;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvokerAdvisor;
 import org.springframework.boot.actuate.endpoint.invoke.ParameterValueMapper;
-import org.springframework.boot.actuate.endpoint.jmx.ExposableJmxEndpoint;
+import org.springframework.boot.actuate.endpoint.jmx.ExposableJmxEndpoint_RENAMED;
 import org.springframework.boot.actuate.endpoint.jmx.JmxEndpointsSupplier;
 import org.springframework.boot.actuate.endpoint.jmx.JmxOperation;
 import org.springframework.context.ApplicationContext;
 
 /**
- * {@link EndpointDiscoverer} for {@link ExposableJmxEndpoint JMX endpoints}.
+ * {@link EndpointDiscoverer} for {@link ExposableJmxEndpoint_RENAMED JMX endpoints}.
  *
  * @author Phillip Webb
  * @since 2.0.0
  */
-public class JmxEndpointDiscoverer extends EndpointDiscoverer<ExposableJmxEndpoint, JmxOperation>
+public class JmxEndpointDiscoverer extends EndpointDiscoverer<ExposableJmxEndpoint_RENAMED, JmxOperation>
 		implements JmxEndpointsSupplier {
 
 	/**
@@ -48,12 +48,12 @@ public class JmxEndpointDiscoverer extends EndpointDiscoverer<ExposableJmxEndpoi
 	 */
 	public JmxEndpointDiscoverer(ApplicationContext applicationContext, ParameterValueMapper parameterValueMapper,
 			Collection<OperationInvokerAdvisor> invokerAdvisors,
-			Collection<EndpointFilter<ExposableJmxEndpoint>> filters) {
+			Collection<EndpointFilter<ExposableJmxEndpoint_RENAMED>> filters) {
 		super(applicationContext, parameterValueMapper, invokerAdvisors, filters);
 	}
 
 	@Override
-	protected ExposableJmxEndpoint createEndpoint(Object endpointBean, EndpointId id, boolean enabledByDefault,
+	protected ExposableJmxEndpoint_RENAMED createEndpoint(Object endpointBean, EndpointId id, boolean enabledByDefault,
 			Collection<JmxOperation> operations) {
 		return new DiscoveredJmxEndpoint(this, endpointBean, id, enabledByDefault, operations);
 	}

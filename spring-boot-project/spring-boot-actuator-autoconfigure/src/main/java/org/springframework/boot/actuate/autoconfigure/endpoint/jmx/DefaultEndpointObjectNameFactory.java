@@ -21,7 +21,7 @@ import javax.management.MalformedObjectNameException;
 import javax.management.ObjectName;
 
 import org.springframework.boot.actuate.endpoint.jmx.EndpointObjectNameFactory;
-import org.springframework.boot.actuate.endpoint.jmx.ExposableJmxEndpoint;
+import org.springframework.boot.actuate.endpoint.jmx.ExposableJmxEndpoint_RENAMED;
 import org.springframework.core.env.Environment;
 import org.springframework.jmx.support.ObjectNameManager;
 import org.springframework.util.ObjectUtils;
@@ -55,7 +55,7 @@ class DefaultEndpointObjectNameFactory implements EndpointObjectNameFactory {
 	}
 
 	@Override
-	public ObjectName getObjectName(ExposableJmxEndpoint endpoint) throws MalformedObjectNameException {
+	public ObjectName getObjectName(ExposableJmxEndpoint_RENAMED endpoint) throws MalformedObjectNameException {
 		StringBuilder builder = new StringBuilder(determineDomain());
 		builder.append(":type=Endpoint");
 		builder.append(",name=").append(StringUtils.capitalize(endpoint.getEndpointId().toString()));

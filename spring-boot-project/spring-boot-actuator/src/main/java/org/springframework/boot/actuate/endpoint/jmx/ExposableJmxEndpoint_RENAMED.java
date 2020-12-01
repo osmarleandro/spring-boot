@@ -16,25 +16,14 @@
 
 package org.springframework.boot.actuate.endpoint.jmx;
 
-import javax.management.MalformedObjectNameException;
-import javax.management.ObjectName;
+import org.springframework.boot.actuate.endpoint.ExposableEndpoint;
 
 /**
- * A factory to create an {@link ObjectName} for an {@link EndpointMBean}.
+ * Information describing an endpoint that can be exposed over JMX.
  *
- * @author Stephane Nicoll
+ * @author Phillip Webb
  * @since 2.0.0
  */
-@FunctionalInterface
-public interface EndpointObjectNameFactory {
-
-	/**
-	 * Generate an {@link ObjectName} for the specified {@link ExposableJmxEndpoint_RENAMED
-	 * endpoint}.
-	 * @param endpoint the endpoint MBean to handle
-	 * @return the {@link ObjectName} to use for the endpoint
-	 * @throws MalformedObjectNameException if the object name is invalid
-	 */
-	ObjectName getObjectName(ExposableJmxEndpoint_RENAMED endpoint) throws MalformedObjectNameException;
+public interface ExposableJmxEndpoint_RENAMED extends ExposableEndpoint<JmxOperation> {
 
 }

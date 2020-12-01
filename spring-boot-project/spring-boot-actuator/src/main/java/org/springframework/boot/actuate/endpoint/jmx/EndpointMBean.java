@@ -38,7 +38,7 @@ import org.springframework.util.Assert;
 import org.springframework.util.ClassUtils;
 
 /**
- * Adapter to expose a {@link ExposableJmxEndpoint JMX endpoint} as a
+ * Adapter to expose a {@link ExposableJmxEndpoint_RENAMED JMX endpoint} as a
  * {@link DynamicMBean}.
  *
  * @author Stephane Nicoll
@@ -55,13 +55,13 @@ public class EndpointMBean implements DynamicMBean {
 
 	private final ClassLoader classLoader;
 
-	private final ExposableJmxEndpoint endpoint;
+	private final ExposableJmxEndpoint_RENAMED endpoint;
 
 	private final MBeanInfo info;
 
 	private final Map<String, JmxOperation> operations;
 
-	EndpointMBean(JmxOperationResponseMapper responseMapper, ClassLoader classLoader, ExposableJmxEndpoint endpoint) {
+	EndpointMBean(JmxOperationResponseMapper responseMapper, ClassLoader classLoader, ExposableJmxEndpoint_RENAMED endpoint) {
 		Assert.notNull(responseMapper, "ResponseMapper must not be null");
 		Assert.notNull(endpoint, "Endpoint must not be null");
 		this.responseMapper = responseMapper;
@@ -71,7 +71,7 @@ public class EndpointMBean implements DynamicMBean {
 		this.operations = getOperations(endpoint);
 	}
 
-	private Map<String, JmxOperation> getOperations(ExposableJmxEndpoint endpoint) {
+	private Map<String, JmxOperation> getOperations(ExposableJmxEndpoint_RENAMED endpoint) {
 		Map<String, JmxOperation> operations = new HashMap<>();
 		endpoint.getOperations().forEach((operation) -> operations.put(operation.getName(), operation));
 		return Collections.unmodifiableMap(operations);

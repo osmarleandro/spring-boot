@@ -34,7 +34,7 @@ import org.springframework.boot.actuate.endpoint.annotation.WriteOperation;
 import org.springframework.boot.actuate.endpoint.invoke.convert.ConversionServiceParameterValueMapper;
 import org.springframework.boot.actuate.endpoint.invoker.cache.CachingOperationInvoker;
 import org.springframework.boot.actuate.endpoint.invoker.cache.CachingOperationInvokerAdvisor;
-import org.springframework.boot.actuate.endpoint.jmx.ExposableJmxEndpoint;
+import org.springframework.boot.actuate.endpoint.jmx.ExposableJmxEndpoint_RENAMED;
 import org.springframework.boot.actuate.endpoint.jmx.JmxOperation;
 import org.springframework.boot.actuate.endpoint.jmx.JmxOperationParameter;
 import org.springframework.boot.actuate.endpoint.web.annotation.WebEndpoint;
@@ -66,7 +66,7 @@ class JmxEndpointDiscovererTests {
 	@Test
 	void getEndpointsShouldDiscoverStandardEndpoints() {
 		load(TestEndpoint.class, (discoverer) -> {
-			Map<EndpointId, ExposableJmxEndpoint> endpoints = discover(discoverer);
+			Map<EndpointId, ExposableJmxEndpoint_RENAMED> endpoints = discover(discoverer);
 			assertThat(endpoints).containsOnlyKeys(EndpointId.of("test"));
 			Map<String, JmxOperation> operationByName = mapOperations(
 					endpoints.get(EndpointId.of("test")).getOperations());
@@ -97,7 +97,7 @@ class JmxEndpointDiscovererTests {
 	@Test
 	void getEndpointsWhenHasFilteredEndpointShouldOnlyDiscoverJmxEndpoints() {
 		load(MultipleEndpointsConfiguration.class, (discoverer) -> {
-			Map<EndpointId, ExposableJmxEndpoint> endpoints = discover(discoverer);
+			Map<EndpointId, ExposableJmxEndpoint_RENAMED> endpoints = discover(discoverer);
 			assertThat(endpoints).containsOnlyKeys(EndpointId.of("test"), EndpointId.of("jmx"));
 		});
 	}
@@ -112,7 +112,7 @@ class JmxEndpointDiscovererTests {
 	@Test
 	void getEndpointsWhenHasJmxExtensionShouldOverrideStandardEndpoint() {
 		load(OverriddenOperationJmxEndpointConfiguration.class, (discoverer) -> {
-			Map<EndpointId, ExposableJmxEndpoint> endpoints = discover(discoverer);
+			Map<EndpointId, ExposableJmxEndpoint_RENAMED> endpoints = discover(discoverer);
 			assertThat(endpoints).containsOnlyKeys(EndpointId.of("test"));
 			assertJmxTestEndpoint(endpoints.get(EndpointId.of("test")));
 		});
@@ -121,7 +121,7 @@ class JmxEndpointDiscovererTests {
 	@Test
 	void getEndpointsWhenHasJmxExtensionWithNewOperationAddsExtraOperation() {
 		load(AdditionalOperationJmxEndpointConfiguration.class, (discoverer) -> {
-			Map<EndpointId, ExposableJmxEndpoint> endpoints = discover(discoverer);
+			Map<EndpointId, ExposableJmxEndpoint_RENAMED> endpoints = discover(discoverer);
 			assertThat(endpoints).containsOnlyKeys(EndpointId.of("test"));
 			Map<String, JmxOperation> operationByName = mapOperations(
 					endpoints.get(EndpointId.of("test")).getOperations());
@@ -137,7 +137,7 @@ class JmxEndpointDiscovererTests {
 	@Test
 	void getEndpointsWhenHasCacheWithTtlShouldCacheReadOperationWithTtlValue() {
 		load(TestEndpoint.class, (id) -> 500L, (discoverer) -> {
-			Map<EndpointId, ExposableJmxEndpoint> endpoints = discover(discoverer);
+			Map<EndpointId, ExposableJmxEndpoint_RENAMED> endpoints = discover(discoverer);
 			assertThat(endpoints).containsOnlyKeys(EndpointId.of("test"));
 			Map<String, JmxOperation> operationByName = mapOperations(
 					endpoints.get(EndpointId.of("test")).getOperations());
@@ -151,7 +151,7 @@ class JmxEndpointDiscovererTests {
 	@Test
 	void getEndpointsShouldCacheReadOperations() {
 		load(AdditionalOperationJmxEndpointConfiguration.class, (id) -> 500L, (discoverer) -> {
-			Map<EndpointId, ExposableJmxEndpoint> endpoints = discover(discoverer);
+			Map<EndpointId, ExposableJmxEndpoint_RENAMED> endpoints = discover(discoverer);
 			assertThat(endpoints).containsOnlyKeys(EndpointId.of("test"));
 			Map<String, JmxOperation> operationByName = mapOperations(
 					endpoints.get(EndpointId.of("test")).getOperations());
@@ -205,7 +205,7 @@ class JmxEndpointDiscovererTests {
 		return ReflectionTestUtils.getField(operation, "invoker");
 	}
 
-	private void assertJmxTestEndpoint(ExposableJmxEndpoint endpoint) {
+	private void assertJmxTestEndpoint(ExposableJmxEndpoint_RENAMED endpoint) {
 		Map<String, JmxOperation> operationsByName = mapOperations(endpoint.getOperations());
 		assertThat(operationsByName).containsOnlyKeys("getAll", "getSomething", "update", "deleteSomething");
 		JmxOperation getAll = operationsByName.get("getAll");
@@ -239,8 +239,8 @@ class JmxEndpointDiscovererTests {
 		assertThat(parameter.getDescription()).isEqualTo(description);
 	}
 
-	private Map<EndpointId, ExposableJmxEndpoint> discover(JmxEndpointDiscoverer discoverer) {
-		Map<EndpointId, ExposableJmxEndpoint> byId = new HashMap<>();
+	private Map<EndpointId, ExposableJmxEndpoint_RENAMED> discover(JmxEndpointDiscoverer discoverer) {
+		Map<EndpointId, ExposableJmxEndpoint_RENAMED> byId = new HashMap<>();
 		discoverer.getEndpoints().forEach((endpoint) -> byId.put(endpoint.getEndpointId(), endpoint));
 		return byId;
 	}

@@ -63,7 +63,7 @@ class JmxEndpointExporterTests {
 
 	private JmxOperationResponseMapper responseMapper = new TestJmxOperationResponseMapper();
 
-	private List<ExposableJmxEndpoint> endpoints = new ArrayList<>();
+	private List<ExposableJmxEndpoint_RENAMED> endpoints = new ArrayList<>();
 
 	@Captor
 	private ArgumentCaptor<Object> objectCaptor;
@@ -121,12 +121,12 @@ class JmxEndpointExporterTests {
 	void registerShouldUseObjectNameFactory() throws Exception {
 		this.endpoints.add(new TestExposableJmxEndpoint(new TestJmxOperation()));
 		this.exporter.afterPropertiesSet();
-		verify(this.objectNameFactory).getObjectName(any(ExposableJmxEndpoint.class));
+		verify(this.objectNameFactory).getObjectName(any(ExposableJmxEndpoint_RENAMED.class));
 	}
 
 	@Test
 	void registerWhenObjectNameIsMalformedShouldThrowException() throws Exception {
-		given(this.objectNameFactory.getObjectName(any(ExposableJmxEndpoint.class)))
+		given(this.objectNameFactory.getObjectName(any(ExposableJmxEndpoint_RENAMED.class)))
 				.willThrow(MalformedObjectNameException.class);
 		this.endpoints.add(new TestExposableJmxEndpoint(new TestJmxOperation()));
 		assertThatIllegalStateException().isThrownBy(this.exporter::afterPropertiesSet)
@@ -175,7 +175,7 @@ class JmxEndpointExporterTests {
 	static class TestEndpointObjectNameFactory implements EndpointObjectNameFactory {
 
 		@Override
-		public ObjectName getObjectName(ExposableJmxEndpoint endpoint) throws MalformedObjectNameException {
+		public ObjectName getObjectName(ExposableJmxEndpoint_RENAMED endpoint) throws MalformedObjectNameException {
 			return (endpoint != null) ? new ObjectName("boot:type=Endpoint,name=" + endpoint.getEndpointId()) : null;
 		}
 

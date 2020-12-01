@@ -25,7 +25,7 @@ import javax.management.ObjectName;
 import org.junit.jupiter.api.Test;
 
 import org.springframework.boot.actuate.endpoint.EndpointId;
-import org.springframework.boot.actuate.endpoint.jmx.ExposableJmxEndpoint;
+import org.springframework.boot.actuate.endpoint.jmx.ExposableJmxEndpoint_RENAMED;
 import org.springframework.mock.env.MockEnvironment;
 import org.springframework.util.ObjectUtils;
 
@@ -74,7 +74,7 @@ class DefaultEndpointObjectNameFactoryTests {
 	}
 
 	private void assertUniqueObjectName() {
-		ExposableJmxEndpoint endpoint = endpoint(EndpointId.of("test"));
+		ExposableJmxEndpoint_RENAMED endpoint = endpoint(EndpointId.of("test"));
 		String id = ObjectUtils.getIdentityHexString(endpoint);
 		ObjectName objectName = generateObjectName(endpoint);
 		assertThat(objectName.toString()).isEqualTo("org.springframework.boot:type=Endpoint,name=Test,identity=" + id);
@@ -101,7 +101,7 @@ class DefaultEndpointObjectNameFactoryTests {
 
 	}
 
-	private ObjectName generateObjectName(ExposableJmxEndpoint endpoint) {
+	private ObjectName generateObjectName(ExposableJmxEndpoint_RENAMED endpoint) {
 		try {
 			return new DefaultEndpointObjectNameFactory(this.properties, this.environment, this.mBeanServer,
 					this.contextId).getObjectName(endpoint);
@@ -111,8 +111,8 @@ class DefaultEndpointObjectNameFactoryTests {
 		}
 	}
 
-	private ExposableJmxEndpoint endpoint(EndpointId id) {
-		ExposableJmxEndpoint endpoint = mock(ExposableJmxEndpoint.class);
+	private ExposableJmxEndpoint_RENAMED endpoint(EndpointId id) {
+		ExposableJmxEndpoint_RENAMED endpoint = mock(ExposableJmxEndpoint_RENAMED.class);
 		given(endpoint.getEndpointId()).willReturn(id);
 		return endpoint;
 	}

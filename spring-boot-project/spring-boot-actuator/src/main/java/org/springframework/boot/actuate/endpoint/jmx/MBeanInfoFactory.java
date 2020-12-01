@@ -30,7 +30,7 @@ import javax.management.modelmbean.ModelMBeanOperationInfo;
 import org.springframework.boot.actuate.endpoint.OperationType;
 
 /**
- * Factory to create {@link MBeanInfo} from an {@link ExposableJmxEndpoint}.
+ * Factory to create {@link MBeanInfo} from an {@link ExposableJmxEndpoint_RENAMED}.
  *
  * @author Stephane Nicoll
  * @author Phillip Webb
@@ -49,7 +49,7 @@ class MBeanInfoFactory {
 		this.responseMapper = responseMapper;
 	}
 
-	MBeanInfo getMBeanInfo(ExposableJmxEndpoint endpoint) {
+	MBeanInfo getMBeanInfo(ExposableJmxEndpoint_RENAMED endpoint) {
 		String className = EndpointMBean.class.getName();
 		String description = getDescription(endpoint);
 		ModelMBeanOperationInfo[] operations = getMBeanOperations(endpoint);
@@ -57,11 +57,11 @@ class MBeanInfoFactory {
 				NO_NOTIFICATIONS);
 	}
 
-	private String getDescription(ExposableJmxEndpoint endpoint) {
+	private String getDescription(ExposableJmxEndpoint_RENAMED endpoint) {
 		return "MBean operations for endpoint " + endpoint.getEndpointId();
 	}
 
-	private ModelMBeanOperationInfo[] getMBeanOperations(ExposableJmxEndpoint endpoint) {
+	private ModelMBeanOperationInfo[] getMBeanOperations(ExposableJmxEndpoint_RENAMED endpoint) {
 		return endpoint.getOperations().stream().map(this::getMBeanOperation).toArray(ModelMBeanOperationInfo[]::new);
 	}
 

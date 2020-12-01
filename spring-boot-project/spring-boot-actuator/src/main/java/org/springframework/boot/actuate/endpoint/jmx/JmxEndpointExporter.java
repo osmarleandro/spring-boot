@@ -37,7 +37,7 @@ import org.springframework.jmx.export.MBeanExportException;
 import org.springframework.util.Assert;
 
 /**
- * Exports {@link ExposableJmxEndpoint JMX endpoints} to a {@link MBeanServer}.
+ * Exports {@link ExposableJmxEndpoint_RENAMED JMX endpoints} to a {@link MBeanServer}.
  *
  * @author Stephane Nicoll
  * @author Phillip Webb
@@ -55,12 +55,12 @@ public class JmxEndpointExporter implements InitializingBean, DisposableBean, Be
 
 	private final JmxOperationResponseMapper responseMapper;
 
-	private final Collection<ExposableJmxEndpoint> endpoints;
+	private final Collection<ExposableJmxEndpoint_RENAMED> endpoints;
 
 	private Collection<ObjectName> registered;
 
 	public JmxEndpointExporter(MBeanServer mBeanServer, EndpointObjectNameFactory objectNameFactory,
-			JmxOperationResponseMapper responseMapper, Collection<? extends ExposableJmxEndpoint> endpoints) {
+			JmxOperationResponseMapper responseMapper, Collection<? extends ExposableJmxEndpoint_RENAMED> endpoints) {
 		Assert.notNull(mBeanServer, "MBeanServer must not be null");
 		Assert.notNull(objectNameFactory, "ObjectNameFactory must not be null");
 		Assert.notNull(responseMapper, "ResponseMapper must not be null");
@@ -90,7 +90,7 @@ public class JmxEndpointExporter implements InitializingBean, DisposableBean, Be
 		return this.endpoints.stream().map(this::register).collect(Collectors.toList());
 	}
 
-	private ObjectName register(ExposableJmxEndpoint endpoint) {
+	private ObjectName register(ExposableJmxEndpoint_RENAMED endpoint) {
 		Assert.notNull(endpoint, "Endpoint must not be null");
 		try {
 			ObjectName name = this.objectNameFactory.getObjectName(endpoint);
@@ -125,7 +125,7 @@ public class JmxEndpointExporter implements InitializingBean, DisposableBean, Be
 		}
 	}
 
-	private String getEndpointDescription(ExposableJmxEndpoint endpoint) {
+	private String getEndpointDescription(ExposableJmxEndpoint_RENAMED endpoint) {
 		return "endpoint '" + endpoint.getEndpointId() + "'";
 	}
 
