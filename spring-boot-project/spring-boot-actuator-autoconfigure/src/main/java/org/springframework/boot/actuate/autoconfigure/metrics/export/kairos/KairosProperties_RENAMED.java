@@ -27,7 +27,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  * @since 2.1.0
  */
 @ConfigurationProperties(prefix = "management.metrics.export.kairos")
-public class KairosProperties extends StepRegistryProperties {
+public class KairosProperties_RENAMED extends StepRegistryProperties {
 
 	/**
 	 * URI of the KairosDB server.

@@ -28,21 +28,21 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Stephane Nicoll
  */
 class KairosPropertiesConfigAdapterTests
-		extends StepRegistryPropertiesConfigAdapterTests<KairosProperties, KairosPropertiesConfigAdapter> {
+		extends StepRegistryPropertiesConfigAdapterTests<KairosProperties_RENAMED, KairosPropertiesConfigAdapter> {
 
 	@Override
-	protected KairosProperties createProperties() {
-		return new KairosProperties();
+	protected KairosProperties_RENAMED createProperties() {
+		return new KairosProperties_RENAMED();
 	}
 
 	@Override
-	protected KairosPropertiesConfigAdapter createConfigAdapter(KairosProperties properties) {
+	protected KairosPropertiesConfigAdapter createConfigAdapter(KairosProperties_RENAMED properties) {
 		return new KairosPropertiesConfigAdapter(properties);
 	}
 
 	@Test
 	void whenPropertiesUriIsSetAdapterUriReturnsIt() {
-		KairosProperties properties = createProperties();
+		KairosProperties_RENAMED properties = createProperties();
 		properties.setUri("https://kairos.example.com:8080/api/v1/datapoints");
 		assertThat(createConfigAdapter(properties).uri())
 				.isEqualTo("https://kairos.example.com:8080/api/v1/datapoints");
@@ -50,14 +50,14 @@ class KairosPropertiesConfigAdapterTests
 
 	@Test
 	void whenPropertiesUserNameIsSetAdapterUserNameReturnsIt() {
-		KairosProperties properties = createProperties();
+		KairosProperties_RENAMED properties = createProperties();
 		properties.setUserName("alice");
 		assertThat(createConfigAdapter(properties).userName()).isEqualTo("alice");
 	}
 
 	@Test
 	void whenPropertiesPasswordIsSetAdapterPasswordReturnsIt() {
-		KairosProperties properties = createProperties();
+		KairosProperties_RENAMED properties = createProperties();
 		properties.setPassword("secret");
 		assertThat(createConfigAdapter(properties).password()).isEqualTo("secret");
 	}

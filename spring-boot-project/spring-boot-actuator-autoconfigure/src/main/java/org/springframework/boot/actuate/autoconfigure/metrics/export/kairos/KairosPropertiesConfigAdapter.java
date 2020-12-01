@@ -21,14 +21,14 @@ import io.micrometer.kairos.KairosConfig;
 import org.springframework.boot.actuate.autoconfigure.metrics.export.properties.StepRegistryPropertiesConfigAdapter;
 
 /**
- * Adapter to convert {@link KairosProperties} to a {@link KairosConfig}.
+ * Adapter to convert {@link KairosProperties_RENAMED} to a {@link KairosConfig}.
  *
  * @author Stephane Nicoll
  */
-class KairosPropertiesConfigAdapter extends StepRegistryPropertiesConfigAdapter<KairosProperties>
+class KairosPropertiesConfigAdapter extends StepRegistryPropertiesConfigAdapter<KairosProperties_RENAMED>
 		implements KairosConfig {
 
-	KairosPropertiesConfigAdapter(KairosProperties properties) {
+	KairosPropertiesConfigAdapter(KairosProperties_RENAMED properties) {
 		super(properties);
 	}
 
@@ -39,17 +39,17 @@ class KairosPropertiesConfigAdapter extends StepRegistryPropertiesConfigAdapter<
 
 	@Override
 	public String uri() {
-		return get(KairosProperties::getUri, KairosConfig.super::uri);
+		return get(KairosProperties_RENAMED::getUri, KairosConfig.super::uri);
 	}
 
 	@Override
 	public String userName() {
-		return get(KairosProperties::getUserName, KairosConfig.super::userName);
+		return get(KairosProperties_RENAMED::getUserName, KairosConfig.super::userName);
 	}
 
 	@Override
 	public String password() {
-		return get(KairosProperties::getPassword, KairosConfig.super::password);
+		return get(KairosProperties_RENAMED::getPassword, KairosConfig.super::password);
 	}
 
 }
