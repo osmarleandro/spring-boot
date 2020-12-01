@@ -42,7 +42,7 @@ class ReactiveHealthContributorTests {
 	void adaptWhenHealthIndicatorReturnsHealthIndicatorReactiveAdapter() {
 		HealthIndicator indicator = () -> Health.outOfService().build();
 		ReactiveHealthContributor adapted = ReactiveHealthContributor.adapt(indicator);
-		assertThat(adapted).isInstanceOf(HealthIndicatorReactiveAdapter.class);
+		assertThat(adapted).isInstanceOf(HealthIndicatorReactiveAdapter_RENAMED.class);
 		assertThat(((ReactiveHealthIndicator) adapted).health().block().getStatus()).isEqualTo(Status.OUT_OF_SERVICE);
 	}
 
