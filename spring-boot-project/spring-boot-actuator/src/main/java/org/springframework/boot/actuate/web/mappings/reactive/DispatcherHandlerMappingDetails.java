@@ -31,7 +31,7 @@ public class DispatcherHandlerMappingDetails {
 
 	private HandlerFunctionDescription handlerFunction;
 
-	private RequestMappingConditionsDescription requestMappingConditions;
+	private RequestMappingConditionsDescription_RENAMED requestMappingConditions;
 
 	public HandlerMethodDescription getHandlerMethod() {
 		return this.handlerMethod;
@@ -49,11 +49,11 @@ public class DispatcherHandlerMappingDetails {
 		this.handlerFunction = handlerFunction;
 	}
 
-	public RequestMappingConditionsDescription getRequestMappingConditions() {
+	public RequestMappingConditionsDescription_RENAMED getRequestMappingConditions() {
 		return this.requestMappingConditions;
 	}
 
-	void setRequestMappingConditions(RequestMappingConditionsDescription requestMappingConditions) {
+	void setRequestMappingConditions(RequestMappingConditionsDescription_RENAMED requestMappingConditions) {
 		this.requestMappingConditions = requestMappingConditions;
 	}
 
