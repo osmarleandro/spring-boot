@@ -34,7 +34,7 @@ import static org.mockito.Mockito.mock;
  *
  * @author Phillip Webb
  */
-class LiquibaseEndpointAutoConfigurationTests {
+class LiquibaseEndpointAutoConfigurationTests_RENAMED {
 
 	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(LiquibaseEndpointAutoConfiguration.class));
