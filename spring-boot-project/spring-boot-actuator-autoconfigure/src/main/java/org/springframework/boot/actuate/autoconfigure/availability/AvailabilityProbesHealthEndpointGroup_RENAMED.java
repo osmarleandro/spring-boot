@@ -31,11 +31,11 @@ import org.springframework.boot.actuate.health.StatusAggregator;
  * @author Phillip Webb
  * @author Brian Clozel
  */
-class AvailabilityProbesHealthEndpointGroup implements HealthEndpointGroup {
+class AvailabilityProbesHealthEndpointGroup_RENAMED implements HealthEndpointGroup {
 
 	private final Set<String> members;
 
-	AvailabilityProbesHealthEndpointGroup(String... members) {
+	AvailabilityProbesHealthEndpointGroup_RENAMED(String... members) {
 		this.members = new HashSet<>(Arrays.asList(members));
 	}
 

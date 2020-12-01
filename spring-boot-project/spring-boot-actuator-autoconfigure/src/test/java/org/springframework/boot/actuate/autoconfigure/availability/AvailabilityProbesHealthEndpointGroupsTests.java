@@ -78,7 +78,7 @@ class AvailabilityProbesHealthEndpointGroupsTests {
 	@Test
 	void getWhenProbeNotInDelegateReturnsProbeGroup() {
 		HealthEndpointGroups availabilityProbes = new AvailabilityProbesHealthEndpointGroups(this.delegate);
-		assertThat(availabilityProbes.get("liveness")).isInstanceOf(AvailabilityProbesHealthEndpointGroup.class);
+		assertThat(availabilityProbes.get("liveness")).isInstanceOf(AvailabilityProbesHealthEndpointGroup_RENAMED.class);
 	}
 
 	@Test

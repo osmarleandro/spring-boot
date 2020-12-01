@@ -26,13 +26,13 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 
 /**
- * Tests for {@link AvailabilityProbesHealthEndpointGroup}.
+ * Tests for {@link AvailabilityProbesHealthEndpointGroup_RENAMED}.
  *
  * @author Phillip Webb
  */
 class AvailabilityProbesHealthEndpointGroupTests {
 
-	private AvailabilityProbesHealthEndpointGroup group = new AvailabilityProbesHealthEndpointGroup("a", "b");
+	private AvailabilityProbesHealthEndpointGroup_RENAMED group = new AvailabilityProbesHealthEndpointGroup_RENAMED("a", "b");
 
 	@Test
 	void isMemberWhenMemberReturnsTrue() {

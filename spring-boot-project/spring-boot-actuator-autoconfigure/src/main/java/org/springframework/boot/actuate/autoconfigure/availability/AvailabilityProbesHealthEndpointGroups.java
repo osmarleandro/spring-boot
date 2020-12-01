@@ -34,11 +34,11 @@ import org.springframework.util.Assert;
  */
 class AvailabilityProbesHealthEndpointGroups implements HealthEndpointGroups {
 
-	private static final Map<String, AvailabilityProbesHealthEndpointGroup> GROUPS;
+	private static final Map<String, AvailabilityProbesHealthEndpointGroup_RENAMED> GROUPS;
 	static {
-		Map<String, AvailabilityProbesHealthEndpointGroup> groups = new LinkedHashMap<>();
-		groups.put("liveness", new AvailabilityProbesHealthEndpointGroup("livenessState"));
-		groups.put("readiness", new AvailabilityProbesHealthEndpointGroup("readinessState"));
+		Map<String, AvailabilityProbesHealthEndpointGroup_RENAMED> groups = new LinkedHashMap<>();
+		groups.put("liveness", new AvailabilityProbesHealthEndpointGroup_RENAMED("livenessState"));
+		groups.put("readiness", new AvailabilityProbesHealthEndpointGroup_RENAMED("readinessState"));
 		GROUPS = Collections.unmodifiableMap(groups);
 	}
 
