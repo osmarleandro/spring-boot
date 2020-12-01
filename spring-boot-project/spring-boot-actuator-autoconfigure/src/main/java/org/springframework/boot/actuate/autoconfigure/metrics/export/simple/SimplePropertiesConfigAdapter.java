@@ -24,14 +24,14 @@ import io.micrometer.core.instrument.simple.SimpleConfig;
 import org.springframework.boot.actuate.autoconfigure.metrics.export.properties.PropertiesConfigAdapter;
 
 /**
- * Adapter to convert {@link SimpleProperties} to a {@link SimpleConfig}.
+ * Adapter to convert {@link SimpleProperties_RENAMED} to a {@link SimpleConfig}.
  *
  * @author Jon Schneider
  * @since 2.0.0
  */
-public class SimplePropertiesConfigAdapter extends PropertiesConfigAdapter<SimpleProperties> implements SimpleConfig {
+public class SimplePropertiesConfigAdapter extends PropertiesConfigAdapter<SimpleProperties_RENAMED> implements SimpleConfig {
 
-	public SimplePropertiesConfigAdapter(SimpleProperties properties) {
+	public SimplePropertiesConfigAdapter(SimpleProperties_RENAMED properties) {
 		super(properties);
 	}
 
@@ -47,12 +47,12 @@ public class SimplePropertiesConfigAdapter extends PropertiesConfigAdapter<Simpl
 
 	@Override
 	public Duration step() {
-		return get(SimpleProperties::getStep, SimpleConfig.super::step);
+		return get(SimpleProperties_RENAMED::getStep, SimpleConfig.super::step);
 	}
 
 	@Override
 	public CountingMode mode() {
-		return get(SimpleProperties::getMode, SimpleConfig.super::mode);
+		return get(SimpleProperties_RENAMED::getMode, SimpleConfig.super::mode);
 	}
 
 }

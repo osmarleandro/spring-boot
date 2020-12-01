@@ -28,7 +28,7 @@ class SimplePropertiesTests {
 
 	@Test
 	void defaultValuesAreConsistent() {
-		SimpleProperties properties = new SimpleProperties();
+		SimpleProperties_RENAMED properties = new SimpleProperties_RENAMED();
 		SimpleConfig config = SimpleConfig.DEFAULT;
 		assertThat(properties.getStep()).isEqualTo(config.step());
 		assertThat(properties.getMode()).isEqualTo(config.mode());

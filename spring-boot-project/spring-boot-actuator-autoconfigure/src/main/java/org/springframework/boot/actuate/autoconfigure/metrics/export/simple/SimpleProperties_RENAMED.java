@@ -32,7 +32,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  * @since 2.0.0
  */
 @ConfigurationProperties(prefix = "management.metrics.export.simple")
-public class SimpleProperties {
+public class SimpleProperties_RENAMED {
 
 	/**
 	 * Step size (i.e. reporting frequency) to use.
