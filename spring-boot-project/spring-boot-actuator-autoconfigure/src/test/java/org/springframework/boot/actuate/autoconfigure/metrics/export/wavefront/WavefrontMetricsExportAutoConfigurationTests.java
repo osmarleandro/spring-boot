@@ -32,7 +32,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 
 /**
- * Tests for {@link WavefrontMetricsExportAutoConfiguration}.
+ * Tests for {@link WavefrontMetricsExportAutoConfiguration_RENAMED}.
  *
  * @author Jon Schneider
  * @author Stephane Nicoll
@@ -40,7 +40,7 @@ import static org.mockito.Mockito.mock;
 class WavefrontMetricsExportAutoConfigurationTests {
 
 	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
-			.withConfiguration(AutoConfigurations.of(WavefrontMetricsExportAutoConfiguration.class));
+			.withConfiguration(AutoConfigurations.of(WavefrontMetricsExportAutoConfiguration_RENAMED.class));
 
 	@Test
 	void backsOffWithoutAClock() {

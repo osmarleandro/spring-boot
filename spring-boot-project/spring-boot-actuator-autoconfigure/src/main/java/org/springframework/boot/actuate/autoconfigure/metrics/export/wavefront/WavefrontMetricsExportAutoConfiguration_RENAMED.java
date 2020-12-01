@@ -56,11 +56,11 @@ import org.springframework.util.unit.DataSize;
 @ConditionalOnClass({ WavefrontMeterRegistry.class, WavefrontSender.class })
 @ConditionalOnEnabledMetricsExport("wavefront")
 @EnableConfigurationProperties(WavefrontProperties.class)
-public class WavefrontMetricsExportAutoConfiguration {
+public class WavefrontMetricsExportAutoConfiguration_RENAMED {
 
 	private final WavefrontProperties properties;
 
-	public WavefrontMetricsExportAutoConfiguration(WavefrontProperties properties) {
+	public WavefrontMetricsExportAutoConfiguration_RENAMED(WavefrontProperties properties) {
 		this.properties = properties;
 	}
 
