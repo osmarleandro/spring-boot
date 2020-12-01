@@ -36,7 +36,7 @@ import org.springframework.http.client.SimpleClientHttpRequestFactory;
  *
  * @author Madhura Bhave
  */
-class SkipSslVerificationHttpRequestFactory extends SimpleClientHttpRequestFactory {
+class SkipSslVerificationHttpRequestFactory_RENAMED extends SimpleClientHttpRequestFactory {
 
 	@Override
 	protected void prepareConnection(HttpURLConnection connection, String httpMethod) throws IOException {

@@ -52,7 +52,7 @@ class CloudFoundrySecurityService {
 		Assert.notNull(restTemplateBuilder, "RestTemplateBuilder must not be null");
 		Assert.notNull(cloudControllerUrl, "CloudControllerUrl must not be null");
 		if (skipSslValidation) {
-			restTemplateBuilder = restTemplateBuilder.requestFactory(SkipSslVerificationHttpRequestFactory.class);
+			restTemplateBuilder = restTemplateBuilder.requestFactory(SkipSslVerificationHttpRequestFactory_RENAMED.class);
 		}
 		this.restTemplate = restTemplateBuilder.build();
 		this.cloudControllerUrl = cloudControllerUrl;

@@ -72,7 +72,7 @@ class CloudFoundrySecurityServiceTests {
 		RestTemplateBuilder builder = new RestTemplateBuilder();
 		this.securityService = new CloudFoundrySecurityService(builder, CLOUD_CONTROLLER, true);
 		RestTemplate restTemplate = (RestTemplate) ReflectionTestUtils.getField(this.securityService, "restTemplate");
-		assertThat(restTemplate.getRequestFactory()).isInstanceOf(SkipSslVerificationHttpRequestFactory.class);
+		assertThat(restTemplate.getRequestFactory()).isInstanceOf(SkipSslVerificationHttpRequestFactory_RENAMED.class);
 	}
 
 	@Test
@@ -80,7 +80,7 @@ class CloudFoundrySecurityServiceTests {
 		RestTemplateBuilder builder = new RestTemplateBuilder();
 		this.securityService = new CloudFoundrySecurityService(builder, CLOUD_CONTROLLER, false);
 		RestTemplate restTemplate = (RestTemplate) ReflectionTestUtils.getField(this.securityService, "restTemplate");
-		assertThat(restTemplate.getRequestFactory()).isNotInstanceOf(SkipSslVerificationHttpRequestFactory.class);
+		assertThat(restTemplate.getRequestFactory()).isNotInstanceOf(SkipSslVerificationHttpRequestFactory_RENAMED.class);
 	}
 
 	@Test

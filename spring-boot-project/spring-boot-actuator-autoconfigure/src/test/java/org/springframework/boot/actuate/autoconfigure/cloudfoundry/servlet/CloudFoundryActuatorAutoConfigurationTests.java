@@ -140,7 +140,7 @@ class CloudFoundryActuatorAutoConfigurationTests {
 					RestTemplate restTemplate = (RestTemplate) ReflectionTestUtils.getField(interceptorSecurityService,
 							"restTemplate");
 					assertThat(restTemplate.getRequestFactory())
-							.isInstanceOf(SkipSslVerificationHttpRequestFactory.class);
+							.isInstanceOf(SkipSslVerificationHttpRequestFactory_RENAMED.class);
 				});
 	}
 
