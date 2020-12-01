@@ -28,7 +28,7 @@ import org.springframework.integration.graph.IntegrationGraphServer;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Tests for {@link IntegrationGraphEndpointAutoConfiguration}.
+ * Tests for {@link IntegrationGraphEndpointAutoConfiguration_RENAMED}.
  *
  * @author Tim Ysewyn
  * @author Stephane Nicoll
@@ -37,7 +37,7 @@ class IntegrationGraphEndpointAutoConfigurationTests {
 
 	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(JmxAutoConfiguration.class, IntegrationAutoConfiguration.class,
-					IntegrationGraphEndpointAutoConfiguration.class));
+					IntegrationGraphEndpointAutoConfiguration_RENAMED.class));
 
 	@Test
 	void runShouldHaveEndpointBean() {
@@ -64,7 +64,7 @@ class IntegrationGraphEndpointAutoConfigurationTests {
 	@Test
 	void runWhenSpringIntegrationIsNotEnabledShouldNotHaveEndpointBean() {
 		ApplicationContextRunner noSpringIntegrationRunner = new ApplicationContextRunner()
-				.withConfiguration(AutoConfigurations.of(IntegrationGraphEndpointAutoConfiguration.class));
+				.withConfiguration(AutoConfigurations.of(IntegrationGraphEndpointAutoConfiguration_RENAMED.class));
 		noSpringIntegrationRunner.run((context) -> {
 			assertThat(context).doesNotHaveBean(IntegrationGraphEndpoint.class);
 			assertThat(context).doesNotHaveBean(IntegrationGraphServer.class);
