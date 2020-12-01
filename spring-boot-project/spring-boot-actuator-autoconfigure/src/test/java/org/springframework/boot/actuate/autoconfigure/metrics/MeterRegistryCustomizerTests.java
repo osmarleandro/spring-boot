@@ -21,7 +21,7 @@ import io.micrometer.core.instrument.MeterRegistry;
 import io.micrometer.prometheus.PrometheusMeterRegistry;
 import org.junit.jupiter.api.Test;
 
-import org.springframework.boot.actuate.autoconfigure.metrics.export.atlas.AtlasMetricsExportAutoConfiguration;
+import org.springframework.boot.actuate.autoconfigure.metrics.export.atlas.AtlasMetricsExportAutoConfiguration_RENAMED;
 import org.springframework.boot.actuate.autoconfigure.metrics.export.prometheus.PrometheusMetricsExportAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.metrics.test.MetricsRun;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
@@ -40,7 +40,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 class MeterRegistryCustomizerTests {
 
 	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
-			.with(MetricsRun.limitedTo(AtlasMetricsExportAutoConfiguration.class,
+			.with(MetricsRun.limitedTo(AtlasMetricsExportAutoConfiguration_RENAMED.class,
 					PrometheusMetricsExportAutoConfiguration.class))
 			.withConfiguration(AutoConfigurations.of(JvmMetricsAutoConfiguration.class));
 

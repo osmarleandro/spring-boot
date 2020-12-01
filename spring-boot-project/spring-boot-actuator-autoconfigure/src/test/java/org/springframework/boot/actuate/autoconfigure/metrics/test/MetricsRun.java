@@ -23,7 +23,7 @@ import java.util.function.Function;
 
 import org.springframework.boot.actuate.autoconfigure.metrics.CompositeMeterRegistryAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.metrics.MetricsAutoConfiguration;
-import org.springframework.boot.actuate.autoconfigure.metrics.export.atlas.AtlasMetricsExportAutoConfiguration;
+import org.springframework.boot.actuate.autoconfigure.metrics.export.atlas.AtlasMetricsExportAutoConfiguration_RENAMED;
 import org.springframework.boot.actuate.autoconfigure.metrics.export.datadog.DatadogMetricsExportAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.metrics.export.ganglia.GangliaMetricsExportAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.metrics.export.graphite.GraphiteMetricsExportAutoConfiguration;
@@ -52,7 +52,7 @@ public final class MetricsRun {
 
 	static {
 		Set<Class<?>> implementations = new LinkedHashSet<>();
-		implementations.add(AtlasMetricsExportAutoConfiguration.class);
+		implementations.add(AtlasMetricsExportAutoConfiguration_RENAMED.class);
 		implementations.add(DatadogMetricsExportAutoConfiguration.class);
 		implementations.add(GangliaMetricsExportAutoConfiguration.class);
 		implementations.add(GraphiteMetricsExportAutoConfiguration.class);

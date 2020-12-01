@@ -30,14 +30,14 @@ import org.springframework.context.annotation.Import;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Tests for {@link AtlasMetricsExportAutoConfiguration}.
+ * Tests for {@link AtlasMetricsExportAutoConfiguration_RENAMED}.
  *
  * @author Andy Wilkinson
  */
 class AtlasMetricsExportAutoConfigurationTests {
 
 	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
-			.withConfiguration(AutoConfigurations.of(AtlasMetricsExportAutoConfiguration.class));
+			.withConfiguration(AutoConfigurations.of(AtlasMetricsExportAutoConfiguration_RENAMED.class));
 
 	@Test
 	void backsOffWithoutAClock() {
