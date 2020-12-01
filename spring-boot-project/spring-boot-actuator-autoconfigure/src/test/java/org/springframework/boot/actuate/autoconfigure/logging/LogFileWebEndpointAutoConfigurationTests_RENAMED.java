@@ -40,7 +40,7 @@ import static org.assertj.core.api.Assertions.contentOf;
  * @author Phillip Webb
  * @author Christian Carriere-Tisseur
  */
-class LogFileWebEndpointAutoConfigurationTests {
+class LogFileWebEndpointAutoConfigurationTests_RENAMED {
 
 	private final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(LogFileWebEndpointAutoConfiguration.class));
