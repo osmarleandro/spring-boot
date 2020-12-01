@@ -43,7 +43,7 @@ import org.springframework.web.servlet.DispatcherServlet;
  * @author Andy Wilkinson
  * @author Madhura Bhave
  */
-class JerseyEndpointIntegrationTests {
+class JerseyEndpointIntegrationTests_RENAMED {
 
 	@Test
 	void linksAreProvidedToAllEndpointTypes() {
