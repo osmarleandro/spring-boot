@@ -27,7 +27,7 @@ import org.springframework.boot.actuate.autoconfigure.web.server.ManagementPortT
 import org.springframework.boot.actuate.endpoint.ExposableEndpoint;
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
 import org.springframework.boot.actuate.endpoint.web.EndpointLinksResolver;
-import org.springframework.boot.actuate.endpoint.web.EndpointMapping;
+import org.springframework.boot.actuate.endpoint.web.EndpointMapping_RENAMED;
 import org.springframework.boot.actuate.endpoint.web.EndpointMediaTypes;
 import org.springframework.boot.actuate.endpoint.web.ExposableWebEndpoint;
 import org.springframework.boot.actuate.endpoint.web.WebEndpointsSupplier;
@@ -73,7 +73,7 @@ public class WebMvcEndpointManagementContextConfiguration {
 		allEndpoints.addAll(servletEndpointsSupplier.getEndpoints());
 		allEndpoints.addAll(controllerEndpointsSupplier.getEndpoints());
 		String basePath = webEndpointProperties.getBasePath();
-		EndpointMapping endpointMapping = new EndpointMapping(basePath);
+		EndpointMapping_RENAMED endpointMapping = new EndpointMapping_RENAMED(basePath);
 		boolean shouldRegisterLinksMapping = StringUtils.hasText(basePath)
 				|| ManagementPortType.get(environment).equals(ManagementPortType.DIFFERENT);
 		return new WebMvcEndpointHandlerMapping(endpointMapping, webEndpoints, endpointMediaTypes,
@@ -86,7 +86,7 @@ public class WebMvcEndpointManagementContextConfiguration {
 	public ControllerEndpointHandlerMapping controllerEndpointHandlerMapping(
 			ControllerEndpointsSupplier controllerEndpointsSupplier, CorsEndpointProperties corsProperties,
 			WebEndpointProperties webEndpointProperties) {
-		EndpointMapping endpointMapping = new EndpointMapping(webEndpointProperties.getBasePath());
+		EndpointMapping_RENAMED endpointMapping = new EndpointMapping_RENAMED(webEndpointProperties.getBasePath());
 		return new ControllerEndpointHandlerMapping(endpointMapping, controllerEndpointsSupplier.getEndpoints(),
 				corsProperties.toCorsConfiguration());
 	}

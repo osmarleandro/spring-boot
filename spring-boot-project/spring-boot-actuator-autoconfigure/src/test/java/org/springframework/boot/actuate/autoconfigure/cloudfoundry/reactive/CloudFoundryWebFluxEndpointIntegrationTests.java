@@ -34,7 +34,7 @@ import org.springframework.boot.actuate.endpoint.annotation.WriteOperation;
 import org.springframework.boot.actuate.endpoint.invoke.ParameterValueMapper;
 import org.springframework.boot.actuate.endpoint.invoke.convert.ConversionServiceParameterValueMapper;
 import org.springframework.boot.actuate.endpoint.web.EndpointLinksResolver;
-import org.springframework.boot.actuate.endpoint.web.EndpointMapping;
+import org.springframework.boot.actuate.endpoint.web.EndpointMapping_RENAMED;
 import org.springframework.boot.actuate.endpoint.web.EndpointMediaTypes;
 import org.springframework.boot.actuate.endpoint.web.annotation.WebEndpointDiscoverer;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
@@ -182,7 +182,7 @@ class CloudFoundryWebFluxEndpointIntegrationTests {
 			CorsConfiguration corsConfiguration = new CorsConfiguration();
 			corsConfiguration.setAllowedOrigins(Arrays.asList("https://example.com"));
 			corsConfiguration.setAllowedMethods(Arrays.asList("GET", "POST"));
-			return new CloudFoundryWebFluxEndpointHandlerMapping(new EndpointMapping("/cfApplication"),
+			return new CloudFoundryWebFluxEndpointHandlerMapping(new EndpointMapping_RENAMED("/cfApplication"),
 					webEndpointDiscoverer.getEndpoints(), endpointMediaTypes, corsConfiguration, interceptor,
 					new EndpointLinksResolver(webEndpointDiscoverer.getEndpoints()));
 		}

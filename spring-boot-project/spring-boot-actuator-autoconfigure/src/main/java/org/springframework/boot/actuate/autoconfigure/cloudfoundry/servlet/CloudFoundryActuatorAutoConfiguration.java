@@ -32,7 +32,7 @@ import org.springframework.boot.actuate.autoconfigure.web.servlet.ServletManagem
 import org.springframework.boot.actuate.endpoint.ExposableEndpoint;
 import org.springframework.boot.actuate.endpoint.invoke.ParameterValueMapper;
 import org.springframework.boot.actuate.endpoint.web.EndpointLinksResolver;
-import org.springframework.boot.actuate.endpoint.web.EndpointMapping;
+import org.springframework.boot.actuate.endpoint.web.EndpointMapping_RENAMED;
 import org.springframework.boot.actuate.endpoint.web.EndpointMediaTypes;
 import org.springframework.boot.actuate.endpoint.web.ExposableWebEndpoint;
 import org.springframework.boot.actuate.endpoint.web.annotation.ControllerEndpointsSupplier;
@@ -121,7 +121,7 @@ public class CloudFoundryActuatorAutoConfiguration {
 		allEndpoints.addAll(webEndpoints);
 		allEndpoints.addAll(servletEndpointsSupplier.getEndpoints());
 		allEndpoints.addAll(controllerEndpointsSupplier.getEndpoints());
-		return new CloudFoundryWebEndpointServletHandlerMapping(new EndpointMapping("/cloudfoundryapplication"),
+		return new CloudFoundryWebEndpointServletHandlerMapping(new EndpointMapping_RENAMED("/cloudfoundryapplication"),
 				webEndpoints, endpointMediaTypes, getCorsConfiguration(), securityInterceptor,
 				new EndpointLinksResolver(allEndpoints));
 	}

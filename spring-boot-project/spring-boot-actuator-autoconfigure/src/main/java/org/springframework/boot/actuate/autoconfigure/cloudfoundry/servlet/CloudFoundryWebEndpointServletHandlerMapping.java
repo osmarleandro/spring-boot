@@ -29,7 +29,7 @@ import org.springframework.boot.actuate.autoconfigure.cloudfoundry.AccessLevel;
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.SecurityResponse;
 import org.springframework.boot.actuate.endpoint.EndpointId;
 import org.springframework.boot.actuate.endpoint.web.EndpointLinksResolver;
-import org.springframework.boot.actuate.endpoint.web.EndpointMapping;
+import org.springframework.boot.actuate.endpoint.web.EndpointMapping_RENAMED;
 import org.springframework.boot.actuate.endpoint.web.EndpointMediaTypes;
 import org.springframework.boot.actuate.endpoint.web.ExposableWebEndpoint;
 import org.springframework.boot.actuate.endpoint.web.Link;
@@ -55,7 +55,7 @@ class CloudFoundryWebEndpointServletHandlerMapping extends AbstractWebMvcEndpoin
 
 	private final EndpointLinksResolver linksResolver;
 
-	CloudFoundryWebEndpointServletHandlerMapping(EndpointMapping endpointMapping,
+	CloudFoundryWebEndpointServletHandlerMapping(EndpointMapping_RENAMED endpointMapping,
 			Collection<ExposableWebEndpoint> endpoints, EndpointMediaTypes endpointMediaTypes,
 			CorsConfiguration corsConfiguration, CloudFoundrySecurityInterceptor securityInterceptor,
 			EndpointLinksResolver linksResolver) {

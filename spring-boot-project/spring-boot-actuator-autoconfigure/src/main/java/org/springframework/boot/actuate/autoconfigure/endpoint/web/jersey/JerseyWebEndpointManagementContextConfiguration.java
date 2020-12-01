@@ -33,7 +33,7 @@ import org.springframework.boot.actuate.autoconfigure.web.server.ManagementPortT
 import org.springframework.boot.actuate.endpoint.ExposableEndpoint;
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
 import org.springframework.boot.actuate.endpoint.web.EndpointLinksResolver;
-import org.springframework.boot.actuate.endpoint.web.EndpointMapping;
+import org.springframework.boot.actuate.endpoint.web.EndpointMapping_RENAMED;
 import org.springframework.boot.actuate.endpoint.web.EndpointMediaTypes;
 import org.springframework.boot.actuate.endpoint.web.ExposableServletEndpoint;
 import org.springframework.boot.actuate.endpoint.web.ExposableWebEndpoint;
@@ -125,7 +125,7 @@ class JerseyWebEndpointManagementContextConfiguration {
 			Collection<ExposableWebEndpoint> webEndpoints = this.webEndpointsSupplier.getEndpoints();
 			Collection<ExposableServletEndpoint> servletEndpoints = this.servletEndpointsSupplier.getEndpoints();
 			EndpointLinksResolver linksResolver = getLinksResolver(webEndpoints, servletEndpoints);
-			EndpointMapping mapping = new EndpointMapping(this.basePath);
+			EndpointMapping_RENAMED mapping = new EndpointMapping_RENAMED(this.basePath);
 			JerseyEndpointResourceFactory resourceFactory = new JerseyEndpointResourceFactory();
 			register(resourceFactory.createEndpointResources(mapping, webEndpoints, this.mediaTypes, linksResolver,
 					this.shouldRegisterLinks));

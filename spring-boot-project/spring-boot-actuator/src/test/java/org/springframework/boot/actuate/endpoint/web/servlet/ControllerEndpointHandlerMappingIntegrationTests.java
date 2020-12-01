@@ -24,7 +24,7 @@ import java.util.function.Consumer;
 
 import org.junit.jupiter.api.Test;
 
-import org.springframework.boot.actuate.endpoint.web.EndpointMapping;
+import org.springframework.boot.actuate.endpoint.web.EndpointMapping_RENAMED;
 import org.springframework.boot.actuate.endpoint.web.annotation.ControllerEndpointDiscoverer;
 import org.springframework.boot.actuate.endpoint.web.annotation.ControllerEndpointsSupplier;
 import org.springframework.boot.actuate.endpoint.web.annotation.RestControllerEndpoint;
@@ -116,7 +116,7 @@ class ControllerEndpointHandlerMappingIntegrationTests {
 
 		@Bean
 		ControllerEndpointHandlerMapping webEndpointHandlerMapping(ControllerEndpointsSupplier endpointsSupplier) {
-			return new ControllerEndpointHandlerMapping(new EndpointMapping("actuator"),
+			return new ControllerEndpointHandlerMapping(new EndpointMapping_RENAMED("actuator"),
 					endpointsSupplier.getEndpoints(), null);
 		}
 

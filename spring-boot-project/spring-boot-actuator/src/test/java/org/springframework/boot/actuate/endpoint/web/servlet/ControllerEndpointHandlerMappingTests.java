@@ -21,7 +21,7 @@ import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 
 import org.springframework.boot.actuate.endpoint.EndpointId;
-import org.springframework.boot.actuate.endpoint.web.EndpointMapping;
+import org.springframework.boot.actuate.endpoint.web.EndpointMapping_RENAMED;
 import org.springframework.boot.actuate.endpoint.web.annotation.ControllerEndpoint;
 import org.springframework.boot.actuate.endpoint.web.annotation.ExposableControllerEndpoint;
 import org.springframework.context.support.StaticApplicationContext;
@@ -91,7 +91,7 @@ class ControllerEndpointHandlerMappingTests {
 	}
 
 	private ControllerEndpointHandlerMapping createMapping(String prefix, ExposableControllerEndpoint... endpoints) {
-		ControllerEndpointHandlerMapping mapping = new ControllerEndpointHandlerMapping(new EndpointMapping(prefix),
+		ControllerEndpointHandlerMapping mapping = new ControllerEndpointHandlerMapping(new EndpointMapping_RENAMED(prefix),
 				Arrays.asList(endpoints), null);
 		mapping.setApplicationContext(this.context);
 		mapping.afterPropertiesSet();

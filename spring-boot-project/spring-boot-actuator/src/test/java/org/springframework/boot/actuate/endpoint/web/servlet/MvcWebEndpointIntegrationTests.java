@@ -28,7 +28,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.junit.jupiter.api.Test;
 
 import org.springframework.boot.actuate.endpoint.web.EndpointLinksResolver;
-import org.springframework.boot.actuate.endpoint.web.EndpointMapping;
+import org.springframework.boot.actuate.endpoint.web.EndpointMapping_RENAMED;
 import org.springframework.boot.actuate.endpoint.web.EndpointMediaTypes;
 import org.springframework.boot.actuate.endpoint.web.annotation.AbstractWebEndpointIntegrationTests;
 import org.springframework.boot.actuate.endpoint.web.annotation.WebEndpointDiscoverer;
@@ -154,7 +154,7 @@ class MvcWebEndpointIntegrationTests
 			corsConfiguration.setAllowedOrigins(Arrays.asList("https://example.com"));
 			corsConfiguration.setAllowedMethods(Arrays.asList("GET", "POST"));
 			String endpointPath = environment.getProperty("endpointPath");
-			return new WebMvcEndpointHandlerMapping(new EndpointMapping(endpointPath),
+			return new WebMvcEndpointHandlerMapping(new EndpointMapping_RENAMED(endpointPath),
 					endpointDiscoverer.getEndpoints(), endpointMediaTypes, corsConfiguration,
 					new EndpointLinksResolver(endpointDiscoverer.getEndpoints()), StringUtils.hasText(endpointPath));
 		}

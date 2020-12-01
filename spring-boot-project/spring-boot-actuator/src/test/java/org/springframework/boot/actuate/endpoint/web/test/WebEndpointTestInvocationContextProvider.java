@@ -39,7 +39,7 @@ import org.junit.jupiter.api.extension.TestTemplateInvocationContextProvider;
 
 import org.springframework.boot.actuate.endpoint.invoke.convert.ConversionServiceParameterValueMapper;
 import org.springframework.boot.actuate.endpoint.web.EndpointLinksResolver;
-import org.springframework.boot.actuate.endpoint.web.EndpointMapping;
+import org.springframework.boot.actuate.endpoint.web.EndpointMapping_RENAMED;
 import org.springframework.boot.actuate.endpoint.web.EndpointMediaTypes;
 import org.springframework.boot.actuate.endpoint.web.annotation.WebEndpointDiscoverer;
 import org.springframework.boot.actuate.endpoint.web.jersey.JerseyEndpointResourceFactory;
@@ -242,7 +242,7 @@ class WebEndpointTestInvocationContextProvider implements TestTemplateInvocation
 					new ConversionServiceParameterValueMapper(), endpointMediaTypes, null, Collections.emptyList(),
 					Collections.emptyList());
 			Collection<Resource> resources = new JerseyEndpointResourceFactory().createEndpointResources(
-					new EndpointMapping("/actuator"), discoverer.getEndpoints(), endpointMediaTypes,
+					new EndpointMapping_RENAMED("/actuator"), discoverer.getEndpoints(), endpointMediaTypes,
 					new EndpointLinksResolver(discoverer.getEndpoints()), true);
 			config.registerResources(new HashSet<>(resources));
 		}
@@ -287,7 +287,7 @@ class WebEndpointTestInvocationContextProvider implements TestTemplateInvocation
 			WebEndpointDiscoverer discoverer = new WebEndpointDiscoverer(this.applicationContext,
 					new ConversionServiceParameterValueMapper(), endpointMediaTypes, null, Collections.emptyList(),
 					Collections.emptyList());
-			return new WebFluxEndpointHandlerMapping(new EndpointMapping("/actuator"), discoverer.getEndpoints(),
+			return new WebFluxEndpointHandlerMapping(new EndpointMapping_RENAMED("/actuator"), discoverer.getEndpoints(),
 					endpointMediaTypes, new CorsConfiguration(), new EndpointLinksResolver(discoverer.getEndpoints()),
 					true);
 		}
@@ -316,7 +316,7 @@ class WebEndpointTestInvocationContextProvider implements TestTemplateInvocation
 			WebEndpointDiscoverer discoverer = new WebEndpointDiscoverer(this.applicationContext,
 					new ConversionServiceParameterValueMapper(), endpointMediaTypes, null, Collections.emptyList(),
 					Collections.emptyList());
-			return new WebMvcEndpointHandlerMapping(new EndpointMapping("/actuator"), discoverer.getEndpoints(),
+			return new WebMvcEndpointHandlerMapping(new EndpointMapping_RENAMED("/actuator"), discoverer.getEndpoints(),
 					endpointMediaTypes, new CorsConfiguration(), new EndpointLinksResolver(discoverer.getEndpoints()),
 					true);
 		}
