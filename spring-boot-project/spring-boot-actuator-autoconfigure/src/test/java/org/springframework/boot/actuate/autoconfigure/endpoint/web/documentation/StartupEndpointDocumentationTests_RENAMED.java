@@ -40,7 +40,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  *
  * @author Brian Clozel
  */
-class StartupEndpointDocumentationTests extends MockMvcEndpointDocumentationTests {
+class StartupEndpointDocumentationTests_RENAMED extends MockMvcEndpointDocumentationTests {
 
 	@BeforeEach
 	void appendSampleStartupSteps(@Autowired BufferingApplicationStartup applicationStartup) {
