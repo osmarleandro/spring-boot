@@ -31,7 +31,7 @@ import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
  *
  * @author Madhura Bhave
  */
-class TokenTests {
+class TokenTests_RENAMED {
 
 	@Test
 	void invalidJwtShouldThrowException() {
