@@ -31,7 +31,7 @@ import org.junit.jupiter.api.Test;
 
 import org.springframework.boot.actuate.web.mappings.MappingsEndpoint.ApplicationMappings;
 import org.springframework.boot.actuate.web.mappings.MappingsEndpoint.ContextMappings;
-import org.springframework.boot.actuate.web.mappings.reactive.DispatcherHandlerMappingDescription;
+import org.springframework.boot.actuate.web.mappings.reactive.DispatcherHandlerMappingDescription_RENAMED;
 import org.springframework.boot.actuate.web.mappings.reactive.DispatcherHandlersMappingDescriptionProvider;
 import org.springframework.boot.actuate.web.mappings.servlet.DispatcherServletMappingDescription;
 import org.springframework.boot.actuate.web.mappings.servlet.DispatcherServletsMappingDescriptionProvider;
@@ -135,10 +135,10 @@ class MappingsEndpointTests {
 					ContextMappings contextMappings = contextMappings(context);
 					assertThat(contextMappings.getParentId()).isNull();
 					assertThat(contextMappings.getMappings()).containsOnlyKeys("dispatcherHandlers");
-					Map<String, List<DispatcherHandlerMappingDescription>> dispatcherHandlers = mappings(
+					Map<String, List<DispatcherHandlerMappingDescription_RENAMED>> dispatcherHandlers = mappings(
 							contextMappings, "dispatcherHandlers");
 					assertThat(dispatcherHandlers).containsOnlyKeys("webHandler");
-					List<DispatcherHandlerMappingDescription> handlerMappings = dispatcherHandlers.get("webHandler");
+					List<DispatcherHandlerMappingDescription_RENAMED> handlerMappings = dispatcherHandlers.get("webHandler");
 					assertThat(handlerMappings).hasSize(3);
 				});
 	}
