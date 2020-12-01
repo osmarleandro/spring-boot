@@ -124,7 +124,7 @@ public class ControllerEndpointHandlerMapping extends RequestMappingHandlerMappi
 
 	@Override
 	protected void extendInterceptors(List<Object> interceptors) {
-		interceptors.add(new SkipPathExtensionContentNegotiation());
+		interceptors.add(new SkipPathExtensionContentNegotiation_RENAMED());
 	}
 
 }
