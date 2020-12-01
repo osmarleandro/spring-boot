@@ -39,7 +39,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 
 /**
- * Tests for {@link DiscoveredOperationsFactory}.
+ * Tests for {@link DiscoveredOperationsFactory_RENAMED}.
  *
  * @author Phillip Webb
  */
@@ -175,7 +175,7 @@ class DiscoveredOperationsFactoryTests {
 
 	}
 
-	static class TestDiscoveredOperationsFactory extends DiscoveredOperationsFactory<TestOperation> {
+	static class TestDiscoveredOperationsFactory extends DiscoveredOperationsFactory_RENAMED<TestOperation> {
 
 		TestDiscoveredOperationsFactory(ParameterValueMapper parameterValueMapper,
 				Collection<OperationInvokerAdvisor> invokerAdvisors) {

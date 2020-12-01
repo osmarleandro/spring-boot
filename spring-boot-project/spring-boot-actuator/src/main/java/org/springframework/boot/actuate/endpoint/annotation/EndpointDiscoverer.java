@@ -74,7 +74,7 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 
 	private final Collection<EndpointFilter<E>> filters;
 
-	private final DiscoveredOperationsFactory<O> operationsFactory;
+	private final DiscoveredOperationsFactory_RENAMED<O> operationsFactory;
 
 	private final Map<EndpointBean, E> filterEndpoints = new ConcurrentHashMap<>();
 
@@ -98,9 +98,9 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 		this.operationsFactory = getOperationsFactory(parameterValueMapper, invokerAdvisors);
 	}
 
-	private DiscoveredOperationsFactory<O> getOperationsFactory(ParameterValueMapper parameterValueMapper,
+	private DiscoveredOperationsFactory_RENAMED<O> getOperationsFactory(ParameterValueMapper parameterValueMapper,
 			Collection<OperationInvokerAdvisor> invokerAdvisors) {
-		return new DiscoveredOperationsFactory<O>(parameterValueMapper, invokerAdvisors) {
+		return new DiscoveredOperationsFactory_RENAMED<O>(parameterValueMapper, invokerAdvisors) {
 
 			@Override
 			protected O createOperation(EndpointId endpointId, DiscoveredOperationMethod operationMethod,
