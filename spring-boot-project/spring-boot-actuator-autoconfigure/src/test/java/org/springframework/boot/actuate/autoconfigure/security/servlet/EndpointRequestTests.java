@@ -27,7 +27,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointProperties;
 import org.springframework.boot.actuate.endpoint.EndpointId;
 import org.springframework.boot.actuate.endpoint.ExposableEndpoint;
-import org.springframework.boot.actuate.endpoint.Operation;
+import org.springframework.boot.actuate.endpoint.Operation_RENAMED;
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
 import org.springframework.boot.actuate.endpoint.web.PathMappedEndpoint;
 import org.springframework.boot.actuate.endpoint.web.PathMappedEndpoints;
@@ -316,7 +316,7 @@ class EndpointRequestTests {
 
 	}
 
-	interface TestEndpoint extends ExposableEndpoint<Operation>, PathMappedEndpoint {
+	interface TestEndpoint extends ExposableEndpoint<Operation_RENAMED>, PathMappedEndpoint {
 
 	}
 

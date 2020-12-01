@@ -16,7 +16,7 @@
 
 package org.springframework.boot.actuate.endpoint.web;
 
-import org.springframework.boot.actuate.endpoint.Operation;
+import org.springframework.boot.actuate.endpoint.Operation_RENAMED;
 
 /**
  * An operation on a web endpoint.
@@ -25,7 +25,7 @@ import org.springframework.boot.actuate.endpoint.Operation;
  * @author Phillip Webb
  * @since 2.0.0
  */
-public interface WebOperation extends Operation {
+public interface WebOperation extends Operation_RENAMED {
 
 	/**
 	 * Returns the ID of the operation that uniquely identifies it within its endpoint.

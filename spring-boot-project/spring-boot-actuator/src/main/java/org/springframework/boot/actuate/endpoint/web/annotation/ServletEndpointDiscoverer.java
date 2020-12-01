@@ -22,7 +22,7 @@ import java.util.List;
 
 import org.springframework.boot.actuate.endpoint.EndpointFilter;
 import org.springframework.boot.actuate.endpoint.EndpointId;
-import org.springframework.boot.actuate.endpoint.Operation;
+import org.springframework.boot.actuate.endpoint.Operation_RENAMED;
 import org.springframework.boot.actuate.endpoint.annotation.DiscoveredOperationMethod;
 import org.springframework.boot.actuate.endpoint.annotation.EndpointDiscoverer;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvoker;
@@ -39,7 +39,7 @@ import org.springframework.core.annotation.MergedAnnotations.SearchStrategy;
  * @author Phillip Webb
  * @since 2.0.0
  */
-public class ServletEndpointDiscoverer extends EndpointDiscoverer<ExposableServletEndpoint, Operation>
+public class ServletEndpointDiscoverer extends EndpointDiscoverer<ExposableServletEndpoint, Operation_RENAMED>
 		implements ServletEndpointsSupplier {
 
 	private final List<PathMapper> endpointPathMappers;
@@ -63,19 +63,19 @@ public class ServletEndpointDiscoverer extends EndpointDiscoverer<ExposableServl
 
 	@Override
 	protected ExposableServletEndpoint createEndpoint(Object endpointBean, EndpointId id, boolean enabledByDefault,
-			Collection<Operation> operations) {
+			Collection<Operation_RENAMED> operations) {
 		String rootPath = PathMapper.getRootPath(this.endpointPathMappers, id);
 		return new DiscoveredServletEndpoint(this, endpointBean, id, rootPath, enabledByDefault);
 	}
 
 	@Override
-	protected Operation createOperation(EndpointId endpointId, DiscoveredOperationMethod operationMethod,
+	protected Operation_RENAMED createOperation(EndpointId endpointId, DiscoveredOperationMethod operationMethod,
 			OperationInvoker invoker) {
 		throw new IllegalStateException("ServletEndpoints must not declare operations");
 	}
 
 	@Override
-	protected OperationKey createOperationKey(Operation operation) {
+	protected OperationKey createOperationKey(Operation_RENAMED operation) {
 		throw new IllegalStateException("ServletEndpoints must not declare operations");
 	}
 

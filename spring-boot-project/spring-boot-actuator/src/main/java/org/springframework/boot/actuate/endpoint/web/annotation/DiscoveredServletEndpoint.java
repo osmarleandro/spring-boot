@@ -20,7 +20,7 @@ import java.util.Collections;
 import java.util.function.Supplier;
 
 import org.springframework.boot.actuate.endpoint.EndpointId;
-import org.springframework.boot.actuate.endpoint.Operation;
+import org.springframework.boot.actuate.endpoint.Operation_RENAMED;
 import org.springframework.boot.actuate.endpoint.annotation.AbstractDiscoveredEndpoint;
 import org.springframework.boot.actuate.endpoint.annotation.EndpointDiscoverer;
 import org.springframework.boot.actuate.endpoint.web.EndpointServlet;
@@ -32,7 +32,7 @@ import org.springframework.util.Assert;
  *
  * @author Phillip Webb
  */
-class DiscoveredServletEndpoint extends AbstractDiscoveredEndpoint<Operation> implements ExposableServletEndpoint {
+class DiscoveredServletEndpoint extends AbstractDiscoveredEndpoint<Operation_RENAMED> implements ExposableServletEndpoint {
 
 	private final String rootPath;
 

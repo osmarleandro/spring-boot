@@ -23,13 +23,13 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 import org.springframework.boot.actuate.endpoint.EndpointFilter;
-import org.springframework.boot.actuate.endpoint.Operation;
+import org.springframework.boot.actuate.endpoint.Operation_RENAMED;
 import org.springframework.core.annotation.AliasFor;
 
 /**
  * Annotation primarily used as a meta-annotation to indicate that an annotation provides
  * extension support for an endpoint. Extensions allow additional technology specific
- * {@link Operation operations} to be added to an existing endpoint. For example, a web
+ * {@link Operation_RENAMED operations} to be added to an existing endpoint. For example, a web
  * extension may offer variations of a read operation to support filtering based on a
  * query parameter.
  * <p>

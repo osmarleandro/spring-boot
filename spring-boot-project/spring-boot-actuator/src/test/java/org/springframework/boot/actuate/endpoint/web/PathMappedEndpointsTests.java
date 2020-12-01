@@ -25,7 +25,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.actuate.endpoint.EndpointId;
 import org.springframework.boot.actuate.endpoint.EndpointsSupplier;
 import org.springframework.boot.actuate.endpoint.ExposableEndpoint;
-import org.springframework.boot.actuate.endpoint.Operation;
+import org.springframework.boot.actuate.endpoint.Operation_RENAMED;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
@@ -137,11 +137,11 @@ class PathMappedEndpointsTests {
 		return endpoint;
 	}
 
-	public interface TestEndpoint extends ExposableEndpoint<Operation> {
+	public interface TestEndpoint extends ExposableEndpoint<Operation_RENAMED> {
 
 	}
 
-	public interface TestPathMappedEndpoint extends ExposableEndpoint<Operation>, PathMappedEndpoint {
+	public interface TestPathMappedEndpoint extends ExposableEndpoint<Operation_RENAMED>, PathMappedEndpoint {
 
 	}
 

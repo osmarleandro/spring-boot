@@ -18,7 +18,7 @@ package org.springframework.boot.actuate.endpoint.jmx;
 
 import java.util.List;
 
-import org.springframework.boot.actuate.endpoint.Operation;
+import org.springframework.boot.actuate.endpoint.Operation_RENAMED;
 
 /**
  * An operation on a JMX endpoint.
@@ -28,7 +28,7 @@ import org.springframework.boot.actuate.endpoint.Operation;
  * @author Phillip Webb
  * @since 2.0.0
  */
-public interface JmxOperation extends Operation {
+public interface JmxOperation extends Operation_RENAMED {
 
 	/**
 	 * Returns the name of the operation.

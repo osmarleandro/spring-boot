@@ -17,7 +17,7 @@
 package org.springframework.boot.actuate.endpoint.web;
 
 import org.springframework.boot.actuate.endpoint.ExposableEndpoint;
-import org.springframework.boot.actuate.endpoint.Operation;
+import org.springframework.boot.actuate.endpoint.Operation_RENAMED;
 
 /**
  * Information describing an endpoint that can be exposed by registering a servlet.
@@ -25,7 +25,7 @@ import org.springframework.boot.actuate.endpoint.Operation;
  * @author Phillip Webb
  * @since 2.0.0
  */
-public interface ExposableServletEndpoint extends ExposableEndpoint<Operation>, PathMappedEndpoint {
+public interface ExposableServletEndpoint extends ExposableEndpoint<Operation_RENAMED>, PathMappedEndpoint {
 
 	/**
 	 * Return details of the servlet that should registered.

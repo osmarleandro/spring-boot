@@ -25,7 +25,7 @@ import java.util.Map;
 import java.util.Objects;
 
 import org.springframework.boot.actuate.endpoint.EndpointId;
-import org.springframework.boot.actuate.endpoint.Operation;
+import org.springframework.boot.actuate.endpoint.Operation_RENAMED;
 import org.springframework.boot.actuate.endpoint.OperationType;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvoker;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvokerAdvisor;
@@ -38,7 +38,7 @@ import org.springframework.core.annotation.MergedAnnotation;
 import org.springframework.core.annotation.MergedAnnotations;
 
 /**
- * Factory to create an {@link Operation} for annotated methods on an
+ * Factory to create an {@link Operation_RENAMED} for annotated methods on an
  * {@link Endpoint @Endpoint} or {@link EndpointExtension @EndpointExtension}.
  *
  * @param <O> the operation type
@@ -46,7 +46,7 @@ import org.springframework.core.annotation.MergedAnnotations;
  * @author Stephane Nicoll
  * @author Phillip Webb
  */
-abstract class DiscoveredOperationsFactory<O extends Operation> {
+abstract class DiscoveredOperationsFactory<O extends Operation_RENAMED> {
 
 	private static final Map<OperationType, Class<? extends Annotation>> OPERATION_TYPES;
 

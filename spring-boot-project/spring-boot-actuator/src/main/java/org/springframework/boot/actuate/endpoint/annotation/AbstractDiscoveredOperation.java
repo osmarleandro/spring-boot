@@ -17,20 +17,20 @@
 package org.springframework.boot.actuate.endpoint.annotation;
 
 import org.springframework.boot.actuate.endpoint.InvocationContext;
-import org.springframework.boot.actuate.endpoint.Operation;
+import org.springframework.boot.actuate.endpoint.Operation_RENAMED;
 import org.springframework.boot.actuate.endpoint.OperationType;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvoker;
 import org.springframework.boot.actuate.endpoint.invoke.reflect.OperationMethod;
 import org.springframework.core.style.ToStringCreator;
 
 /**
- * Abstract base class for {@link Operation endpoints operations} discovered by a
+ * Abstract base class for {@link Operation_RENAMED endpoints operations} discovered by a
  * {@link EndpointDiscoverer}.
  *
  * @author Phillip Webb
  * @since 2.0.0
  */
-public abstract class AbstractDiscoveredOperation implements Operation {
+public abstract class AbstractDiscoveredOperation implements Operation_RENAMED {
 
 	private final OperationMethod operationMethod;
 

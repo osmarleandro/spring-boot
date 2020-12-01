@@ -22,7 +22,7 @@ import java.util.List;
 
 import org.springframework.boot.actuate.endpoint.EndpointFilter;
 import org.springframework.boot.actuate.endpoint.EndpointId;
-import org.springframework.boot.actuate.endpoint.Operation;
+import org.springframework.boot.actuate.endpoint.Operation_RENAMED;
 import org.springframework.boot.actuate.endpoint.annotation.DiscoveredOperationMethod;
 import org.springframework.boot.actuate.endpoint.annotation.EndpointDiscoverer;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvoker;
@@ -39,7 +39,7 @@ import org.springframework.core.annotation.MergedAnnotations.SearchStrategy;
  * @author Phillip Webb
  * @since 2.0.0
  */
-public class ControllerEndpointDiscoverer extends EndpointDiscoverer<ExposableControllerEndpoint, Operation>
+public class ControllerEndpointDiscoverer extends EndpointDiscoverer<ExposableControllerEndpoint, Operation_RENAMED>
 		implements ControllerEndpointsSupplier {
 
 	private final List<PathMapper> endpointPathMappers;
@@ -64,19 +64,19 @@ public class ControllerEndpointDiscoverer extends EndpointDiscoverer<ExposableCo
 
 	@Override
 	protected ExposableControllerEndpoint createEndpoint(Object endpointBean, EndpointId id, boolean enabledByDefault,
-			Collection<Operation> operations) {
+			Collection<Operation_RENAMED> operations) {
 		String rootPath = PathMapper.getRootPath(this.endpointPathMappers, id);
 		return new DiscoveredControllerEndpoint(this, endpointBean, id, rootPath, enabledByDefault);
 	}
 
 	@Override
-	protected Operation createOperation(EndpointId endpointId, DiscoveredOperationMethod operationMethod,
+	protected Operation_RENAMED createOperation(EndpointId endpointId, DiscoveredOperationMethod operationMethod,
 			OperationInvoker invoker) {
 		throw new IllegalStateException("ControllerEndpoints must not declare operations");
 	}
 
 	@Override
-	protected OperationKey createOperationKey(Operation operation) {
+	protected OperationKey createOperationKey(Operation_RENAMED operation) {
 		throw new IllegalStateException("ControllerEndpoints must not declare operations");
 	}
 

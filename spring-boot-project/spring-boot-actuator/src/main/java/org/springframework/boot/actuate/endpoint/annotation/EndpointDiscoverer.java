@@ -37,7 +37,7 @@ import org.springframework.boot.actuate.endpoint.EndpointFilter;
 import org.springframework.boot.actuate.endpoint.EndpointId;
 import org.springframework.boot.actuate.endpoint.EndpointsSupplier;
 import org.springframework.boot.actuate.endpoint.ExposableEndpoint;
-import org.springframework.boot.actuate.endpoint.Operation;
+import org.springframework.boot.actuate.endpoint.Operation_RENAMED;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvoker;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvokerAdvisor;
 import org.springframework.boot.actuate.endpoint.invoke.ParameterValueMapper;
@@ -67,7 +67,7 @@ import org.springframework.util.StringUtils;
  * @author Phillip Webb
  * @since 2.0.0
  */
-public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O extends Operation>
+public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O extends Operation_RENAMED>
 		implements EndpointsSupplier<E> {
 
 	private final ApplicationContext applicationContext;
@@ -350,7 +350,7 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 			Collection<O> operations);
 
 	/**
-	 * Factory method to create an {@link Operation endpoint operation}.
+	 * Factory method to create an {@link Operation_RENAMED endpoint operation}.
 	 * @param endpointId the endpoint id
 	 * @param operationMethod the operation method
 	 * @param invoker the invoker to use
@@ -367,7 +367,7 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 	protected abstract OperationKey createOperationKey(O operation);
 
 	/**
-	 * A key generated for an {@link Operation} based on specific criteria from the actual
+	 * A key generated for an {@link Operation_RENAMED} based on specific criteria from the actual
 	 * operation implementation.
 	 */
 	protected static final class OperationKey {
