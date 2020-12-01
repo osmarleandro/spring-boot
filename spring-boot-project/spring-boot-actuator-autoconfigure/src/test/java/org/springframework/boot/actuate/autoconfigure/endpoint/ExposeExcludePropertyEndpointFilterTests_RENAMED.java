@@ -35,7 +35,7 @@ import static org.mockito.Mockito.mock;
  * @author Phillip Webb
  */
 @Deprecated
-class ExposeExcludePropertyEndpointFilterTests {
+class ExposeExcludePropertyEndpointFilterTests_RENAMED {
 
 	private ExposeExcludePropertyEndpointFilter<?> filter;
 
