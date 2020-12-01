@@ -33,7 +33,7 @@ import org.springframework.web.server.ServerWebExchange;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Tests for {@link DefaultWebFluxTagsProvider}.
+ * Tests for {@link DefaultWebFluxTagsProvider_RENAMED}.
  *
  * @author Andy Wilkinson
  */
@@ -42,7 +42,7 @@ public class DefaultWebFluxTagsProviderTests {
 	@Test
 	void whenTagsAreProvidedThenDefaultTagsArePresent() {
 		ServerWebExchange exchange = MockServerWebExchange.from(MockServerHttpRequest.get("/test"));
-		Map<String, Tag> tags = asMap(new DefaultWebFluxTagsProvider().httpRequestTags(exchange, null));
+		Map<String, Tag> tags = asMap(new DefaultWebFluxTagsProvider_RENAMED().httpRequestTags(exchange, null));
 		assertThat(tags).containsOnlyKeys("exception", "method", "outcome", "status", "uri");
 	}
 
@@ -50,7 +50,7 @@ public class DefaultWebFluxTagsProviderTests {
 	void givenSomeContributorsWhenTagsAreProvidedThenDefaultTagsAndContributedTagsArePresent() {
 		ServerWebExchange exchange = MockServerWebExchange.from(MockServerHttpRequest.get("/test"));
 		Map<String, Tag> tags = asMap(
-				new DefaultWebFluxTagsProvider(Arrays.asList(new TestWebFluxTagsContributor("alpha"),
+				new DefaultWebFluxTagsProvider_RENAMED(Arrays.asList(new TestWebFluxTagsContributor("alpha"),
 						new TestWebFluxTagsContributor("bravo", "charlie"))).httpRequestTags(exchange, null));
 		assertThat(tags).containsOnlyKeys("exception", "method", "outcome", "status", "uri", "alpha", "bravo",
 				"charlie");

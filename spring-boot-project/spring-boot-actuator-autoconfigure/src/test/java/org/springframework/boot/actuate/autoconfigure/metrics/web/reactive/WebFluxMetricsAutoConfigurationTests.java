@@ -22,7 +22,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 
 import org.springframework.boot.actuate.autoconfigure.metrics.test.MetricsRun;
 import org.springframework.boot.actuate.autoconfigure.metrics.web.TestController;
-import org.springframework.boot.actuate.metrics.web.reactive.server.DefaultWebFluxTagsProvider;
+import org.springframework.boot.actuate.metrics.web.reactive.server.DefaultWebFluxTagsProvider_RENAMED;
 import org.springframework.boot.actuate.metrics.web.reactive.server.MetricsWebFilter;
 import org.springframework.boot.actuate.metrics.web.reactive.server.WebFluxTagsContributor;
 import org.springframework.boot.actuate.metrics.web.reactive.server.WebFluxTagsProvider;
@@ -56,8 +56,8 @@ class WebFluxMetricsAutoConfigurationTests {
 	void shouldProvideWebFluxMetricsBeans() {
 		this.contextRunner.run((context) -> {
 			assertThat(context).getBeans(MetricsWebFilter.class).hasSize(1);
-			assertThat(context).getBeans(DefaultWebFluxTagsProvider.class).hasSize(1);
-			assertThat(context.getBean(DefaultWebFluxTagsProvider.class)).extracting("ignoreTrailingSlash")
+			assertThat(context).getBeans(DefaultWebFluxTagsProvider_RENAMED.class).hasSize(1);
+			assertThat(context.getBean(DefaultWebFluxTagsProvider_RENAMED.class)).extracting("ignoreTrailingSlash")
 					.isEqualTo(true);
 		});
 	}
@@ -66,8 +66,8 @@ class WebFluxMetricsAutoConfigurationTests {
 	void tagsProviderWhenIgnoreTrailingSlashIsFalse() {
 		this.contextRunner.withPropertyValues("management.metrics.web.server.request.ignore-trailing-slash=false")
 				.run((context) -> {
-					assertThat(context).hasSingleBean(DefaultWebFluxTagsProvider.class);
-					assertThat(context.getBean(DefaultWebFluxTagsProvider.class)).extracting("ignoreTrailingSlash")
+					assertThat(context).hasSingleBean(DefaultWebFluxTagsProvider_RENAMED.class);
+					assertThat(context.getBean(DefaultWebFluxTagsProvider_RENAMED.class)).extracting("ignoreTrailingSlash")
 							.isEqualTo(false);
 				});
 	}
@@ -115,8 +115,8 @@ class WebFluxMetricsAutoConfigurationTests {
 	@Test
 	void whenTagContributorsAreDefinedThenTagsProviderUsesThem() {
 		this.contextRunner.withUserConfiguration(TagsContributorsConfiguration.class).run((context) -> {
-			assertThat(context).hasSingleBean(DefaultWebFluxTagsProvider.class);
-			assertThat(context.getBean(DefaultWebFluxTagsProvider.class)).extracting("contributors").asList()
+			assertThat(context).hasSingleBean(DefaultWebFluxTagsProvider_RENAMED.class);
+			assertThat(context.getBean(DefaultWebFluxTagsProvider_RENAMED.class)).extracting("contributors").asList()
 					.hasSize(2);
 		});
 	}
