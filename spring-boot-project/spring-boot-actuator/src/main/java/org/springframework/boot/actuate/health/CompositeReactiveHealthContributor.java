@@ -51,7 +51,7 @@ public interface CompositeReactiveHealthContributor
 	 */
 	static <V> CompositeReactiveHealthContributor fromMap(Map<String, V> map,
 			Function<V, ? extends ReactiveHealthContributor> valueAdapter) {
-		return new CompositeReactiveHealthContributorMapAdapter<>(map, valueAdapter);
+		return new CompositeReactiveHealthContributorMapAdapter_RENAMED<>(map, valueAdapter);
 	}
 
 }

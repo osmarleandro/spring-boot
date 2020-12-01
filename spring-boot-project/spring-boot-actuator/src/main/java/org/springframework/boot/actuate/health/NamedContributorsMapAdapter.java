@@ -32,7 +32,7 @@ import org.springframework.util.Assert;
  * @param <C> the contributor type
  * @author Phillip Webb
  * @see CompositeHealthContributorMapAdapter
- * @see CompositeReactiveHealthContributorMapAdapter
+ * @see CompositeReactiveHealthContributorMapAdapter_RENAMED
  */
 abstract class NamedContributorsMapAdapter<V, C> implements NamedContributors<C> {
 
