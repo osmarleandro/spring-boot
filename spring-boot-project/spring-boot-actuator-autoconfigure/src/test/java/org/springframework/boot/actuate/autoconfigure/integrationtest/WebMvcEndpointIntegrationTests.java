@@ -30,7 +30,7 @@ import org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointAu
 import org.springframework.boot.actuate.autoconfigure.web.server.ManagementContextAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.web.servlet.ServletManagementContextAutoConfiguration;
 import org.springframework.boot.actuate.endpoint.web.EndpointServlet;
-import org.springframework.boot.actuate.endpoint.web.annotation.ControllerEndpoint;
+import org.springframework.boot.actuate.endpoint.web.annotation.ControllerEndpoint_RENAMED;
 import org.springframework.boot.actuate.endpoint.web.annotation.RestControllerEndpoint;
 import org.springframework.boot.actuate.endpoint.web.annotation.ServletEndpoint;
 import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
@@ -172,7 +172,7 @@ class WebMvcEndpointIntegrationTests {
 
 	}
 
-	@ControllerEndpoint(id = "controller")
+	@ControllerEndpoint_RENAMED(id = "controller")
 	static class TestControllerEndpoint {
 
 	}

@@ -146,12 +146,12 @@ class ControllerEndpointDiscovererTests {
 
 	}
 
-	@ControllerEndpoint(id = "testcontroller")
+	@ControllerEndpoint_RENAMED(id = "testcontroller")
 	static class TestControllerEndpoint {
 
 	}
 
-	@ControllerEndpoint(id = "testcontroller")
+	@ControllerEndpoint_RENAMED(id = "testcontroller")
 	@Validated
 	static class TestProxyControllerEndpoint {
 
@@ -173,7 +173,7 @@ class ControllerEndpointDiscovererTests {
 
 	}
 
-	@ControllerEndpoint(id = "testcontroller")
+	@ControllerEndpoint_RENAMED(id = "testcontroller")
 	static class TestControllerWithOperation {
 
 		@ReadOperation

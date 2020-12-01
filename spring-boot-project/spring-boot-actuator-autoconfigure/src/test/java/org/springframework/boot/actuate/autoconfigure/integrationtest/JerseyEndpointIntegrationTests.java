@@ -23,7 +23,7 @@ import org.springframework.boot.actuate.autoconfigure.beans.BeansEndpointAutoCon
 import org.springframework.boot.actuate.autoconfigure.endpoint.EndpointAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.web.server.ManagementContextAutoConfiguration;
-import org.springframework.boot.actuate.endpoint.web.annotation.ControllerEndpoint;
+import org.springframework.boot.actuate.endpoint.web.annotation.ControllerEndpoint_RENAMED;
 import org.springframework.boot.actuate.endpoint.web.annotation.RestControllerEndpoint;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
 import org.springframework.boot.autoconfigure.jackson.JacksonAutoConfiguration;
@@ -75,7 +75,7 @@ class JerseyEndpointIntegrationTests {
 				});
 	}
 
-	@ControllerEndpoint(id = "controller")
+	@ControllerEndpoint_RENAMED(id = "controller")
 	static class TestControllerEndpoint {
 
 	}

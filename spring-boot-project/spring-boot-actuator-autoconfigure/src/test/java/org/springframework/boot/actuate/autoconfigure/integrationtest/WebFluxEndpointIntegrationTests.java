@@ -23,7 +23,7 @@ import org.springframework.boot.actuate.autoconfigure.endpoint.EndpointAutoConfi
 import org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.web.reactive.ReactiveManagementContextAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.web.server.ManagementContextAutoConfiguration;
-import org.springframework.boot.actuate.endpoint.web.annotation.ControllerEndpoint;
+import org.springframework.boot.actuate.endpoint.web.annotation.ControllerEndpoint_RENAMED;
 import org.springframework.boot.actuate.endpoint.web.annotation.RestControllerEndpoint;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
 import org.springframework.boot.autoconfigure.http.codec.CodecsAutoConfiguration;
@@ -65,7 +65,7 @@ class WebFluxEndpointIntegrationTests {
 				.build();
 	}
 
-	@ControllerEndpoint(id = "controller")
+	@ControllerEndpoint_RENAMED(id = "controller")
 	static class TestControllerEndpoint {
 
 	}

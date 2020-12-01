@@ -23,7 +23,7 @@ import org.junit.jupiter.api.Test;
 
 import org.springframework.boot.actuate.endpoint.EndpointId;
 import org.springframework.boot.actuate.endpoint.web.EndpointMapping;
-import org.springframework.boot.actuate.endpoint.web.annotation.ControllerEndpoint;
+import org.springframework.boot.actuate.endpoint.web.annotation.ControllerEndpoint_RENAMED;
 import org.springframework.boot.actuate.endpoint.web.annotation.ExposableControllerEndpoint;
 import org.springframework.context.support.StaticApplicationContext;
 import org.springframework.http.HttpMethod;
@@ -132,7 +132,7 @@ class ControllerEndpointHandlerMappingTests {
 		return endpoint;
 	}
 
-	@ControllerEndpoint(id = "first")
+	@ControllerEndpoint_RENAMED(id = "first")
 	static class FirstTestMvcEndpoint {
 
 		@GetMapping("/")
@@ -142,7 +142,7 @@ class ControllerEndpointHandlerMappingTests {
 
 	}
 
-	@ControllerEndpoint(id = "second")
+	@ControllerEndpoint_RENAMED(id = "second")
 	static class SecondTestMvcEndpoint {
 
 		@PostMapping("/")
@@ -152,7 +152,7 @@ class ControllerEndpointHandlerMappingTests {
 
 	}
 
-	@ControllerEndpoint(id = "pathless")
+	@ControllerEndpoint_RENAMED(id = "pathless")
 	static class PathlessControllerEndpoint {
 
 		@GetMapping

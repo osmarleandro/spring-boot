@@ -25,7 +25,7 @@ import org.springframework.boot.actuate.autoconfigure.endpoint.EndpointAutoConfi
 import org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.web.reactive.ReactiveManagementContextAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.web.server.ManagementContextAutoConfiguration;
-import org.springframework.boot.actuate.endpoint.web.annotation.ControllerEndpoint;
+import org.springframework.boot.actuate.endpoint.web.annotation.ControllerEndpoint_RENAMED;
 import org.springframework.boot.actuate.endpoint.web.annotation.RestControllerEndpoint;
 import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
 import org.springframework.boot.autoconfigure.context.PropertyPlaceholderAutoConfiguration;
@@ -40,7 +40,7 @@ import org.springframework.test.web.reactive.server.WebTestClient;
 import org.springframework.web.bind.annotation.GetMapping;
 
 /**
- * Integration tests for the Actuator's WebFlux {@link ControllerEndpoint controller
+ * Integration tests for the Actuator's WebFlux {@link ControllerEndpoint_RENAMED controller
  * endpoints}.
  *
  * @author Phillip Webb

@@ -24,7 +24,7 @@ import java.util.Map;
 import java.util.Set;
 
 import org.springframework.boot.actuate.endpoint.web.EndpointMapping;
-import org.springframework.boot.actuate.endpoint.web.annotation.ControllerEndpoint;
+import org.springframework.boot.actuate.endpoint.web.annotation.ControllerEndpoint_RENAMED;
 import org.springframework.boot.actuate.endpoint.web.annotation.ExposableControllerEndpoint;
 import org.springframework.boot.actuate.endpoint.web.annotation.RestControllerEndpoint;
 import org.springframework.util.Assert;
@@ -36,7 +36,7 @@ import org.springframework.web.reactive.result.method.annotation.RequestMappingH
 import org.springframework.web.util.pattern.PathPattern;
 
 /**
- * {@link HandlerMapping} that exposes {@link ControllerEndpoint @ControllerEndpoint} and
+ * {@link HandlerMapping} that exposes {@link ControllerEndpoint_RENAMED @ControllerEndpoint} and
  * {@link RestControllerEndpoint @RestControllerEndpoint} annotated endpoints over Spring
  * WebFlux.
  *
