@@ -44,13 +44,13 @@ import org.springframework.util.StringUtils;
  * @author Alexander Abramov
  * @since 2.0.0
  */
-public class PropertiesMeterFilter implements MeterFilter {
+public class PropertiesMeterFilter_RENAMED implements MeterFilter {
 
 	private final MetricsProperties properties;
 
 	private final MeterFilter mapFilter;
 
-	public PropertiesMeterFilter(MetricsProperties properties) {
+	public PropertiesMeterFilter_RENAMED(MetricsProperties properties) {
 		Assert.notNull(properties, "Properties must not be null");
 		this.properties = properties;
 		this.mapFilter = createMapFilter(properties.getTags());

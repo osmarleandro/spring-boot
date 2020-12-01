@@ -65,7 +65,7 @@ class MetricsAutoConfigurationTests {
 			MeterFilter[] filters = (MeterFilter[]) ReflectionTestUtils.getField(meterRegistry, "filters");
 			assertThat(filters).hasSize(3);
 			assertThat(filters[0].accept((Meter.Id) null)).isEqualTo(MeterFilterReply.DENY);
-			assertThat(filters[1]).isInstanceOf(PropertiesMeterFilter.class);
+			assertThat(filters[1]).isInstanceOf(PropertiesMeterFilter_RENAMED.class);
 			assertThat(filters[2].accept((Meter.Id) null)).isEqualTo(MeterFilterReply.ACCEPT);
 			verify((MeterBinder) context.getBean("meterBinder")).bindTo(meterRegistry);
 			verify(context.getBean(MeterRegistryCustomizer.class)).customize(meterRegistry);
