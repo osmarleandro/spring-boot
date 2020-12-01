@@ -28,10 +28,10 @@ import org.springframework.boot.actuate.autoconfigure.metrics.export.properties.
  * @author Neil Powell
  * @since 2.0.0
  */
-public class NewRelicPropertiesConfigAdapter extends StepRegistryPropertiesConfigAdapter<NewRelicProperties>
+public class NewRelicPropertiesConfigAdapter_RENAMED extends StepRegistryPropertiesConfigAdapter<NewRelicProperties>
 		implements NewRelicConfig {
 
-	public NewRelicPropertiesConfigAdapter(NewRelicProperties properties) {
+	public NewRelicPropertiesConfigAdapter_RENAMED(NewRelicProperties properties) {
 		super(properties);
 	}
 

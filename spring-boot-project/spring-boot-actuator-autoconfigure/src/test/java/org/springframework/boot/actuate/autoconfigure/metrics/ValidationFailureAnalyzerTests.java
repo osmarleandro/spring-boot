@@ -21,7 +21,7 @@ import io.micrometer.newrelic.NewRelicMeterRegistry;
 import org.junit.jupiter.api.Test;
 
 import org.springframework.boot.actuate.autoconfigure.metrics.export.newrelic.NewRelicProperties;
-import org.springframework.boot.actuate.autoconfigure.metrics.export.newrelic.NewRelicPropertiesConfigAdapter;
+import org.springframework.boot.actuate.autoconfigure.metrics.export.newrelic.NewRelicPropertiesConfigAdapter_RENAMED;
 import org.springframework.boot.diagnostics.FailureAnalysis;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -66,7 +66,7 @@ class ValidationFailureAnalyzerTests {
 
 		@Bean
 		NewRelicMeterRegistry meterRegistry(NewRelicProperties newRelicProperties) {
-			return new NewRelicMeterRegistry(new NewRelicPropertiesConfigAdapter(newRelicProperties), Clock.SYSTEM);
+			return new NewRelicMeterRegistry(new NewRelicPropertiesConfigAdapter_RENAMED(newRelicProperties), Clock.SYSTEM);
 		}
 
 	}
