@@ -31,7 +31,7 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration(proxyBeanMethods = false)
 @ConditionalOnAvailableEndpoint(endpoint = HeapDumpWebEndpoint.class)
-public class HeapDumpWebEndpointAutoConfiguration {
+public class HeapDumpWebEndpointAutoConfiguration_RENAMED {
 
 	@Bean
 	@ConditionalOnMissingBean
