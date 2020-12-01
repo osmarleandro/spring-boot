@@ -35,7 +35,7 @@ import org.springframework.test.web.reactive.server.WebTestClient;
  *
  * @author Madhura Bhave
  */
-class JerseyEndpointRequestIntegrationTests extends AbstractEndpointRequestIntegrationTests {
+class JerseyEndpointRequestIntegrationTests_RENAMED extends AbstractEndpointRequestIntegrationTests {
 
 	@Test
 	void toLinksWhenApplicationPathSetShouldMatch() {
