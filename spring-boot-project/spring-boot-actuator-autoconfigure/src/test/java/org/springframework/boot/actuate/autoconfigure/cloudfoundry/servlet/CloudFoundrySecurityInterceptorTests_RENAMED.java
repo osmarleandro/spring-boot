@@ -43,7 +43,7 @@ import static org.mockito.Mockito.verify;
  * @author Madhura Bhave
  */
 @ExtendWith(MockitoExtension.class)
-class CloudFoundrySecurityInterceptorTests {
+class CloudFoundrySecurityInterceptorTests_RENAMED {
 
 	@Mock
 	private TokenValidator tokenValidator;
