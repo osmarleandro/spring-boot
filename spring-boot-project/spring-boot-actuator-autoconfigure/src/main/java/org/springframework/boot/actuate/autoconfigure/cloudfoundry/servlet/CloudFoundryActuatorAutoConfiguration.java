@@ -24,7 +24,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.ObjectProvider;
-import org.springframework.boot.actuate.autoconfigure.cloudfoundry.CloudFoundryWebEndpointDiscoverer;
+import org.springframework.boot.actuate.autoconfigure.cloudfoundry.CloudFoundryWebEndpointDiscoverer_RENAMED;
 import org.springframework.boot.actuate.autoconfigure.endpoint.condition.ConditionalOnAvailableEndpoint;
 import org.springframework.boot.actuate.autoconfigure.health.HealthEndpointAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.info.InfoEndpointAutoConfiguration;
@@ -112,7 +112,7 @@ public class CloudFoundryActuatorAutoConfiguration {
 			ParameterValueMapper parameterMapper, EndpointMediaTypes endpointMediaTypes,
 			RestTemplateBuilder restTemplateBuilder, ServletEndpointsSupplier servletEndpointsSupplier,
 			ControllerEndpointsSupplier controllerEndpointsSupplier, ApplicationContext applicationContext) {
-		CloudFoundryWebEndpointDiscoverer discoverer = new CloudFoundryWebEndpointDiscoverer(applicationContext,
+		CloudFoundryWebEndpointDiscoverer_RENAMED discoverer = new CloudFoundryWebEndpointDiscoverer_RENAMED(applicationContext,
 				parameterMapper, endpointMediaTypes, null, Collections.emptyList(), Collections.emptyList());
 		CloudFoundrySecurityInterceptor securityInterceptor = getSecurityInterceptor(restTemplateBuilder,
 				applicationContext.getEnvironment());

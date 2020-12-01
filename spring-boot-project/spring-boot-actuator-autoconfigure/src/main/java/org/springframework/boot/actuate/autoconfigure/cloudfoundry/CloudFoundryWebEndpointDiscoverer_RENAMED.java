@@ -38,7 +38,7 @@ import org.springframework.core.annotation.MergedAnnotations;
  * @author Madhura Bhave
  * @since 2.0.0
  */
-public class CloudFoundryWebEndpointDiscoverer extends WebEndpointDiscoverer {
+public class CloudFoundryWebEndpointDiscoverer_RENAMED extends WebEndpointDiscoverer {
 
 	/**
 	 * Create a new {@link WebEndpointDiscoverer} instance.
@@ -49,7 +49,7 @@ public class CloudFoundryWebEndpointDiscoverer extends WebEndpointDiscoverer {
 	 * @param invokerAdvisors invoker advisors to apply
 	 * @param filters filters to apply
 	 */
-	public CloudFoundryWebEndpointDiscoverer(ApplicationContext applicationContext,
+	public CloudFoundryWebEndpointDiscoverer_RENAMED(ApplicationContext applicationContext,
 			ParameterValueMapper parameterValueMapper, EndpointMediaTypes endpointMediaTypes,
 			List<PathMapper> endpointPathMappers, Collection<OperationInvokerAdvisor> invokerAdvisors,
 			Collection<EndpointFilter<ExposableWebEndpoint>> filters) {

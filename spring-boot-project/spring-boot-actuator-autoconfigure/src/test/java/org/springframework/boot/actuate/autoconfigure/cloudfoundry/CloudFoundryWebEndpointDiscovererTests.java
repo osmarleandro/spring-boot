@@ -47,7 +47,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 
 /**
- * Tests for {@link CloudFoundryWebEndpointDiscoverer}.
+ * Tests for {@link CloudFoundryWebEndpointDiscoverer_RENAMED}.
  *
  * @author Madhura Bhave
  */
@@ -78,18 +78,18 @@ class CloudFoundryWebEndpointDiscovererTests {
 		throw new IllegalStateException("No main read operation found from " + endpoint.getOperations());
 	}
 
-	private void load(Class<?> configuration, Consumer<CloudFoundryWebEndpointDiscoverer> consumer) {
+	private void load(Class<?> configuration, Consumer<CloudFoundryWebEndpointDiscoverer_RENAMED> consumer) {
 		load((id) -> null, EndpointId::toString, configuration, consumer);
 	}
 
 	private void load(Function<EndpointId, Long> timeToLive, PathMapper endpointPathMapper, Class<?> configuration,
-			Consumer<CloudFoundryWebEndpointDiscoverer> consumer) {
+			Consumer<CloudFoundryWebEndpointDiscoverer_RENAMED> consumer) {
 		try (AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(configuration)) {
 			ConversionServiceParameterValueMapper parameterMapper = new ConversionServiceParameterValueMapper(
 					DefaultConversionService.getSharedInstance());
 			EndpointMediaTypes mediaTypes = new EndpointMediaTypes(Collections.singletonList("application/json"),
 					Collections.singletonList("application/json"));
-			CloudFoundryWebEndpointDiscoverer discoverer = new CloudFoundryWebEndpointDiscoverer(context,
+			CloudFoundryWebEndpointDiscoverer_RENAMED discoverer = new CloudFoundryWebEndpointDiscoverer_RENAMED(context,
 					parameterMapper, mediaTypes, Collections.singletonList(endpointPathMapper),
 					Collections.singleton(new CachingOperationInvokerAdvisor(timeToLive)), Collections.emptyList());
 			consumer.accept(discoverer);

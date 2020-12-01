@@ -21,14 +21,14 @@ import org.springframework.boot.actuate.endpoint.annotation.DiscovererEndpointFi
 
 /**
  * {@link EndpointFilter} for endpoints discovered by
- * {@link CloudFoundryWebEndpointDiscoverer}.
+ * {@link CloudFoundryWebEndpointDiscoverer_RENAMED}.
  *
  * @author Madhura Bhave
  */
 class CloudFoundryEndpointFilter extends DiscovererEndpointFilter {
 
 	protected CloudFoundryEndpointFilter() {
-		super(CloudFoundryWebEndpointDiscoverer.class);
+		super(CloudFoundryWebEndpointDiscoverer_RENAMED.class);
 	}
 
 }
