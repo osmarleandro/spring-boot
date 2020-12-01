@@ -27,7 +27,7 @@ import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.CloudFoundryWebEndpointDiscoverer;
-import org.springframework.boot.actuate.autoconfigure.cloudfoundry.servlet.CloudFoundryInfoEndpointWebExtension;
+import org.springframework.boot.actuate.autoconfigure.cloudfoundry.servlet.CloudFoundryInfoEndpointWebExtension_RENAMED;
 import org.springframework.boot.actuate.autoconfigure.endpoint.condition.ConditionalOnAvailableEndpoint;
 import org.springframework.boot.actuate.autoconfigure.health.HealthEndpointAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.info.InfoEndpointAutoConfiguration;
@@ -95,13 +95,13 @@ public class ReactiveCloudFoundryActuatorAutoConfiguration {
 	@ConditionalOnMissingBean
 	@ConditionalOnAvailableEndpoint
 	@ConditionalOnBean({ InfoEndpoint.class, GitProperties.class })
-	public CloudFoundryInfoEndpointWebExtension cloudFoundryInfoEndpointWebExtension(GitProperties properties,
+	public CloudFoundryInfoEndpointWebExtension_RENAMED cloudFoundryInfoEndpointWebExtension(GitProperties properties,
 			ObjectProvider<InfoContributor> infoContributors) {
 		List<InfoContributor> contributors = infoContributors.orderedStream()
 				.map((infoContributor) -> (infoContributor instanceof GitInfoContributor)
 						? new GitInfoContributor(properties, InfoPropertiesInfoContributor.Mode.FULL) : infoContributor)
 				.collect(Collectors.toList());
-		return new CloudFoundryInfoEndpointWebExtension(new InfoEndpoint(contributors));
+		return new CloudFoundryInfoEndpointWebExtension_RENAMED(new InfoEndpoint(contributors));
 	}
 
 	@Bean

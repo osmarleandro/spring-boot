@@ -30,11 +30,11 @@ import org.springframework.boot.actuate.info.InfoEndpoint;
  * @since 2.2.0
  */
 @EndpointCloudFoundryExtension(endpoint = InfoEndpoint.class)
-public class CloudFoundryInfoEndpointWebExtension {
+public class CloudFoundryInfoEndpointWebExtension_RENAMED {
 
 	private final InfoEndpoint delegate;
 
-	public CloudFoundryInfoEndpointWebExtension(InfoEndpoint delegate) {
+	public CloudFoundryInfoEndpointWebExtension_RENAMED(InfoEndpoint delegate) {
 		this.delegate = delegate;
 	}
 

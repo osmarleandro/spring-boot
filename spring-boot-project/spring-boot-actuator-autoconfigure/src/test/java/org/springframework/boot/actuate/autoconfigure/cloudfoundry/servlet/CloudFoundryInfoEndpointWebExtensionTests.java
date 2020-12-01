@@ -40,7 +40,7 @@ import org.springframework.boot.test.context.runner.WebApplicationContextRunner;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Tests for {@link CloudFoundryInfoEndpointWebExtension}.
+ * Tests for {@link CloudFoundryInfoEndpointWebExtension_RENAMED}.
  *
  * @author Madhura Bhave
  */
@@ -61,8 +61,8 @@ class CloudFoundryInfoEndpointWebExtensionTests {
 	@SuppressWarnings("unchecked")
 	void gitFullDetailsAlwaysPresent() {
 		this.contextRunner.run((context) -> {
-			CloudFoundryInfoEndpointWebExtension extension = context
-					.getBean(CloudFoundryInfoEndpointWebExtension.class);
+			CloudFoundryInfoEndpointWebExtension_RENAMED extension = context
+					.getBean(CloudFoundryInfoEndpointWebExtension_RENAMED.class);
 			Map<String, Object> git = (Map<String, Object>) extension.info().get("git");
 			Map<String, Object> commit = (Map<String, Object>) git.get("commit");
 			assertThat(commit).hasSize(4);

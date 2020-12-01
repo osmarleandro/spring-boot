@@ -29,7 +29,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import reactor.netty.http.HttpResources;
 
-import org.springframework.boot.actuate.autoconfigure.cloudfoundry.servlet.CloudFoundryInfoEndpointWebExtension;
+import org.springframework.boot.actuate.autoconfigure.cloudfoundry.servlet.CloudFoundryInfoEndpointWebExtension_RENAMED;
 import org.springframework.boot.actuate.autoconfigure.endpoint.EndpointAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.health.HealthContributorAutoConfiguration;
@@ -248,8 +248,8 @@ class ReactiveCloudFoundryActuatorAutoConfigurationTests {
 	@SuppressWarnings("unchecked")
 	void gitFullDetailsAlwaysPresent() {
 		this.contextRunner.withPropertyValues("VCAP_APPLICATION:---").run((context) -> {
-			CloudFoundryInfoEndpointWebExtension extension = context
-					.getBean(CloudFoundryInfoEndpointWebExtension.class);
+			CloudFoundryInfoEndpointWebExtension_RENAMED extension = context
+					.getBean(CloudFoundryInfoEndpointWebExtension_RENAMED.class);
 			Map<String, Object> git = (Map<String, Object>) extension.info().get("git");
 			Map<String, Object> commit = (Map<String, Object>) git.get("commit");
 			assertThat(commit).hasSize(4);
