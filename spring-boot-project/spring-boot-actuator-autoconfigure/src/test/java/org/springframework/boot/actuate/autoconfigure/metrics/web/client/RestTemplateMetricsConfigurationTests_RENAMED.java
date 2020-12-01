@@ -48,7 +48,7 @@ import static org.springframework.test.web.client.response.MockRestResponseCreat
  * @author Raheela Aslam
  */
 @ExtendWith(OutputCaptureExtension.class)
-class RestTemplateMetricsConfigurationTests {
+class RestTemplateMetricsConfigurationTests_RENAMED {
 
 	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner().with(MetricsRun.simple())
 			.withConfiguration(AutoConfigurations.of(RestTemplateAutoConfiguration.class,
