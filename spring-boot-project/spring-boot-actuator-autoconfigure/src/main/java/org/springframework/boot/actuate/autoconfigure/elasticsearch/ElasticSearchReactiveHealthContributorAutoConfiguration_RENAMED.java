@@ -47,7 +47,7 @@ import org.springframework.data.elasticsearch.client.reactive.ReactiveElasticsea
 @ConditionalOnBean(ReactiveElasticsearchClient.class)
 @ConditionalOnEnabledHealthIndicator("elasticsearch")
 @AutoConfigureAfter(ReactiveElasticsearchRestClientAutoConfiguration.class)
-public class ElasticSearchReactiveHealthContributorAutoConfiguration extends
+public class ElasticSearchReactiveHealthContributorAutoConfiguration_RENAMED extends
 		CompositeReactiveHealthContributorConfiguration<ElasticsearchReactiveHealthIndicator, ReactiveElasticsearchClient> {
 
 	@Bean

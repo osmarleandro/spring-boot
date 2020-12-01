@@ -30,7 +30,7 @@ import org.springframework.boot.test.context.runner.ApplicationContextRunner;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Tests for {@link ElasticSearchReactiveHealthContributorAutoConfiguration}.
+ * Tests for {@link ElasticSearchReactiveHealthContributorAutoConfiguration_RENAMED}.
  *
  * @author Aleksander Lech
  */
@@ -40,7 +40,7 @@ class ElasticsearchReactiveHealthContributorAutoConfigurationTests {
 			.withConfiguration(AutoConfigurations.of(ElasticsearchDataAutoConfiguration.class,
 					ReactiveElasticsearchRestClientAutoConfiguration.class,
 					ElasticsearchRestClientAutoConfiguration.class,
-					ElasticSearchReactiveHealthContributorAutoConfiguration.class,
+					ElasticSearchReactiveHealthContributorAutoConfiguration_RENAMED.class,
 					HealthContributorAutoConfiguration.class));
 
 	@Test
