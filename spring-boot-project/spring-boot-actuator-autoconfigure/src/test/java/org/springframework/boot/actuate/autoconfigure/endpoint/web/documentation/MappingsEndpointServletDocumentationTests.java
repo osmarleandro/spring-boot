@@ -25,7 +25,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
-import org.springframework.boot.actuate.web.mappings.MappingDescriptionProvider;
+import org.springframework.boot.actuate.web.mappings.MappingDescriptionProvider_RENAMED;
 import org.springframework.boot.actuate.web.mappings.MappingsEndpoint;
 import org.springframework.boot.actuate.web.mappings.servlet.DispatcherServletsMappingDescriptionProvider;
 import org.springframework.boot.actuate.web.mappings.servlet.FiltersMappingDescriptionProvider;
@@ -172,7 +172,7 @@ class MappingsEndpointServletDocumentationTests extends AbstractEndpointDocument
 		}
 
 		@Bean
-		MappingsEndpoint mappingsEndpoint(Collection<MappingDescriptionProvider> descriptionProviders,
+		MappingsEndpoint mappingsEndpoint(Collection<MappingDescriptionProvider_RENAMED> descriptionProviders,
 				ConfigurableApplicationContext context) {
 			return new MappingsEndpoint(descriptionProviders, context);
 		}

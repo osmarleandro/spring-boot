@@ -33,11 +33,11 @@ import org.springframework.context.ApplicationContext;
 @Endpoint(id = "mappings")
 public class MappingsEndpoint {
 
-	private final Collection<MappingDescriptionProvider> descriptionProviders;
+	private final Collection<MappingDescriptionProvider_RENAMED> descriptionProviders;
 
 	private final ApplicationContext context;
 
-	public MappingsEndpoint(Collection<MappingDescriptionProvider> descriptionProviders, ApplicationContext context) {
+	public MappingsEndpoint(Collection<MappingDescriptionProvider_RENAMED> descriptionProviders, ApplicationContext context) {
 		this.descriptionProviders = descriptionProviders;
 		this.context = context;
 	}

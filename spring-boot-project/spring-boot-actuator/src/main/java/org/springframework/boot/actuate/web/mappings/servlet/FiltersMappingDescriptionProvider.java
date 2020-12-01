@@ -23,18 +23,18 @@ import java.util.stream.Collectors;
 import javax.servlet.Filter;
 import javax.servlet.ServletContext;
 
-import org.springframework.boot.actuate.web.mappings.MappingDescriptionProvider;
+import org.springframework.boot.actuate.web.mappings.MappingDescriptionProvider_RENAMED;
 import org.springframework.context.ApplicationContext;
 import org.springframework.web.context.WebApplicationContext;
 
 /**
- * A {@link MappingDescriptionProvider} that describes that mappings of any {@link Filter
+ * A {@link MappingDescriptionProvider_RENAMED} that describes that mappings of any {@link Filter
  * Filters} registered with a {@link ServletContext}.
  *
  * @author Andy Wilkinson
  * @since 2.0.0
  */
-public class FiltersMappingDescriptionProvider implements MappingDescriptionProvider {
+public class FiltersMappingDescriptionProvider implements MappingDescriptionProvider_RENAMED {
 
 	@Override
 	public List<FilterRegistrationMappingDescription> describeMappings(ApplicationContext context) {

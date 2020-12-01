@@ -158,7 +158,7 @@ class MappingsEndpointTests {
 	static class EndpointConfiguration {
 
 		@Bean
-		MappingsEndpoint mappingsEndpoint(Collection<MappingDescriptionProvider> descriptionProviders,
+		MappingsEndpoint mappingsEndpoint(Collection<MappingDescriptionProvider_RENAMED> descriptionProviders,
 				ApplicationContext context) {
 			return new MappingsEndpoint(descriptionProviders, context);
 		}

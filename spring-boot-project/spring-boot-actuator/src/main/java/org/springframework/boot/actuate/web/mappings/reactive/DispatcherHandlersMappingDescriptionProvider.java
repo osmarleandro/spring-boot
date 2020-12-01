@@ -29,7 +29,7 @@ import java.util.stream.Stream;
 import reactor.core.publisher.Mono;
 
 import org.springframework.boot.actuate.web.mappings.HandlerMethodDescription;
-import org.springframework.boot.actuate.web.mappings.MappingDescriptionProvider;
+import org.springframework.boot.actuate.web.mappings.MappingDescriptionProvider_RENAMED;
 import org.springframework.context.ApplicationContext;
 import org.springframework.core.io.Resource;
 import org.springframework.web.method.HandlerMethod;
@@ -47,13 +47,13 @@ import org.springframework.web.reactive.result.method.RequestMappingInfoHandlerM
 import org.springframework.web.util.pattern.PathPattern;
 
 /**
- * A {@link MappingDescriptionProvider} that introspects the {@link HandlerMapping
+ * A {@link MappingDescriptionProvider_RENAMED} that introspects the {@link HandlerMapping
  * HandlerMappings} that are known to a {@link DispatcherHandler}.
  *
  * @author Andy Wilkinson
  * @since 2.0.0
  */
-public class DispatcherHandlersMappingDescriptionProvider implements MappingDescriptionProvider {
+public class DispatcherHandlersMappingDescriptionProvider implements MappingDescriptionProvider_RENAMED {
 
 	private static final List<HandlerMappingDescriptionProvider<? extends HandlerMapping>> descriptionProviders = Arrays
 			.asList(new RequestMappingInfoHandlerMappingDescriptionProvider(),

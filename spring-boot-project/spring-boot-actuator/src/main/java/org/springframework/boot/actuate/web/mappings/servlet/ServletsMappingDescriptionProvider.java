@@ -23,18 +23,18 @@ import java.util.stream.Collectors;
 import javax.servlet.Servlet;
 import javax.servlet.ServletContext;
 
-import org.springframework.boot.actuate.web.mappings.MappingDescriptionProvider;
+import org.springframework.boot.actuate.web.mappings.MappingDescriptionProvider_RENAMED;
 import org.springframework.context.ApplicationContext;
 import org.springframework.web.context.WebApplicationContext;
 
 /**
- * A {@link MappingDescriptionProvider} that describes that mappings of any {@link Servlet
+ * A {@link MappingDescriptionProvider_RENAMED} that describes that mappings of any {@link Servlet
  * Servlets} registered with a {@link ServletContext}.
  *
  * @author Andy Wilkinson
  * @since 2.0.0
  */
-public class ServletsMappingDescriptionProvider implements MappingDescriptionProvider {
+public class ServletsMappingDescriptionProvider implements MappingDescriptionProvider_RENAMED {
 
 	@Override
 	public List<ServletRegistrationMappingDescription> describeMappings(ApplicationContext context) {
