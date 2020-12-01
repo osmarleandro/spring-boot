@@ -38,7 +38,7 @@ import org.springframework.security.authentication.event.AbstractAuthenticationE
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Tests for {@link AuditAutoConfiguration}.
+ * Tests for {@link AuditAutoConfiguration_RENAMED}.
  *
  * @author Dave Syer
  * @author Vedran Pavic
@@ -47,11 +47,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 class AuditAutoConfigurationTests {
 
 	private final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner()
-			.withConfiguration(AutoConfigurations.of(AuditAutoConfiguration.class));
+			.withConfiguration(AutoConfigurations.of(AuditAutoConfiguration_RENAMED.class));
 
 	@Test
 	void autoConfigurationIsDisabledByDefault() {
-		this.contextRunner.run((context) -> assertThat(context).doesNotHaveBean(AuditAutoConfiguration.class));
+		this.contextRunner.run((context) -> assertThat(context).doesNotHaveBean(AuditAutoConfiguration_RENAMED.class));
 	}
 
 	@Test

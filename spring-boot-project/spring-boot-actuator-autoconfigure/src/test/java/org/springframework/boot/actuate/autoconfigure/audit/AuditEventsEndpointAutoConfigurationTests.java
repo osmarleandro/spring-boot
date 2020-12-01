@@ -37,7 +37,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 class AuditEventsEndpointAutoConfigurationTests {
 
 	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner().withConfiguration(
-			AutoConfigurations.of(AuditAutoConfiguration.class, AuditEventsEndpointAutoConfiguration.class));
+			AutoConfigurations.of(AuditAutoConfiguration_RENAMED.class, AuditEventsEndpointAutoConfiguration.class));
 
 	@Test
 	void runWhenRepositoryBeanAvailableShouldHaveEndpointBean() {

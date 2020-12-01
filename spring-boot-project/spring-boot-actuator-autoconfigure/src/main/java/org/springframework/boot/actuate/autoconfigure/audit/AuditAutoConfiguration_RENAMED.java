@@ -42,7 +42,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration(proxyBeanMethods = false)
 @ConditionalOnBean(AuditEventRepository.class)
 @ConditionalOnProperty(prefix = "management.auditevents", name = "enabled", matchIfMissing = true)
-public class AuditAutoConfiguration {
+public class AuditAutoConfiguration_RENAMED {
 
 	@Bean
 	@ConditionalOnMissingBean(AbstractAuditListener.class)
