@@ -113,7 +113,7 @@ class JmxEndpointExporterTests {
 		this.endpoints.add(new TestExposableJmxEndpoint(new TestJmxOperation()));
 		this.exporter.afterPropertiesSet();
 		verify(this.mBeanServer).registerMBean(this.objectCaptor.capture(), this.objectNameCaptor.capture());
-		assertThat(this.objectCaptor.getValue()).isInstanceOf(EndpointMBean.class);
+		assertThat(this.objectCaptor.getValue()).isInstanceOf(EndpointMBean_RENAMED.class);
 		assertThat(this.objectNameCaptor.getValue().getKeyProperty("name")).isEqualTo("test");
 	}
 

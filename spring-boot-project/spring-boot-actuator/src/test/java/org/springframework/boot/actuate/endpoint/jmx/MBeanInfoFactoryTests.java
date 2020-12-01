@@ -45,7 +45,7 @@ class MBeanInfoFactoryTests {
 	void getMBeanInfoShouldReturnMBeanInfo() {
 		MBeanInfo info = this.factory.getMBeanInfo(new TestExposableJmxEndpoint(new TestJmxOperation()));
 		assertThat(info).isNotNull();
-		assertThat(info.getClassName()).isEqualTo(EndpointMBean.class.getName());
+		assertThat(info.getClassName()).isEqualTo(EndpointMBean_RENAMED.class.getName());
 		assertThat(info.getDescription()).isEqualTo("MBean operations for endpoint test");
 		assertThat(info.getAttributes()).isEmpty();
 		assertThat(info.getNotifications()).isEmpty();
