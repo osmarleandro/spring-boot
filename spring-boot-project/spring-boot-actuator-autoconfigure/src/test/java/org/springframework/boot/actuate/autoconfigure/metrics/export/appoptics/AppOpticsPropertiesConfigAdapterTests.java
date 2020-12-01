@@ -23,12 +23,12 @@ import org.springframework.boot.actuate.autoconfigure.metrics.export.properties.
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Tests for {@link AppOpticsPropertiesConfigAdapter}.
+ * Tests for {@link AppOpticsPropertiesConfigAdapter_RENAMED}.
  *
  * @author Stephane Nicoll
  */
 class AppOpticsPropertiesConfigAdapterTests
-		extends StepRegistryPropertiesConfigAdapterTests<AppOpticsProperties, AppOpticsPropertiesConfigAdapter> {
+		extends StepRegistryPropertiesConfigAdapterTests<AppOpticsProperties, AppOpticsPropertiesConfigAdapter_RENAMED> {
 
 	@Override
 	protected AppOpticsProperties createProperties() {
@@ -36,8 +36,8 @@ class AppOpticsPropertiesConfigAdapterTests
 	}
 
 	@Override
-	protected AppOpticsPropertiesConfigAdapter createConfigAdapter(AppOpticsProperties properties) {
-		return new AppOpticsPropertiesConfigAdapter(properties);
+	protected AppOpticsPropertiesConfigAdapter_RENAMED createConfigAdapter(AppOpticsProperties properties) {
+		return new AppOpticsPropertiesConfigAdapter_RENAMED(properties);
 	}
 
 	@Test
