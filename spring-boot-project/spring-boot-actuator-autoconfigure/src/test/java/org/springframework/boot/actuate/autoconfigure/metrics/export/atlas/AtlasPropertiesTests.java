@@ -22,7 +22,7 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Tests for {@link AtlasProperties}.
+ * Tests for {@link AtlasProperties_RENAMED}.
  *
  * @author Stephane Nicoll
  */
@@ -30,7 +30,7 @@ class AtlasPropertiesTests {
 
 	@Test
 	void defaultValuesAreConsistent() {
-		AtlasProperties properties = new AtlasProperties();
+		AtlasProperties_RENAMED properties = new AtlasProperties_RENAMED();
 		AtlasConfig config = (key) -> null;
 		assertThat(properties.getStep()).isEqualTo(config.step());
 		assertThat(properties.isEnabled()).isEqualTo(config.enabled());
