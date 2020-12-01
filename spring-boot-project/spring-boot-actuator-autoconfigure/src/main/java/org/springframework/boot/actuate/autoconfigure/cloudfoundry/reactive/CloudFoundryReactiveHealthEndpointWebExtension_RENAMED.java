@@ -38,11 +38,11 @@ import org.springframework.boot.actuate.health.ReactiveHealthEndpointWebExtensio
  * @since 2.0.0
  */
 @EndpointCloudFoundryExtension(endpoint = HealthEndpoint.class)
-public class CloudFoundryReactiveHealthEndpointWebExtension {
+public class CloudFoundryReactiveHealthEndpointWebExtension_RENAMED {
 
 	private final ReactiveHealthEndpointWebExtension delegate;
 
-	public CloudFoundryReactiveHealthEndpointWebExtension(ReactiveHealthEndpointWebExtension delegate) {
+	public CloudFoundryReactiveHealthEndpointWebExtension_RENAMED(ReactiveHealthEndpointWebExtension delegate) {
 		this.delegate = delegate;
 	}
 

@@ -240,7 +240,7 @@ class ReactiveCloudFoundryActuatorAutoConfigurationTests {
 					assertThat(endpoint.getOperations()).hasSize(2);
 					WebOperation webOperation = findOperationWithRequestPath(endpoint, "health");
 					assertThat(webOperation).extracting("invoker").extracting("target")
-							.isInstanceOf(CloudFoundryReactiveHealthEndpointWebExtension.class);
+							.isInstanceOf(CloudFoundryReactiveHealthEndpointWebExtension_RENAMED.class);
 				});
 	}
 

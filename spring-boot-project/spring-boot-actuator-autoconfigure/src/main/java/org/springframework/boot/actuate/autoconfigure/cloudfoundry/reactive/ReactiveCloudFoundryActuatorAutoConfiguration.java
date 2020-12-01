@@ -86,9 +86,9 @@ public class ReactiveCloudFoundryActuatorAutoConfiguration {
 	@ConditionalOnMissingBean
 	@ConditionalOnAvailableEndpoint
 	@ConditionalOnBean({ HealthEndpoint.class, ReactiveHealthEndpointWebExtension.class })
-	public CloudFoundryReactiveHealthEndpointWebExtension cloudFoundryReactiveHealthEndpointWebExtension(
+	public CloudFoundryReactiveHealthEndpointWebExtension_RENAMED cloudFoundryReactiveHealthEndpointWebExtension(
 			ReactiveHealthEndpointWebExtension reactiveHealthEndpointWebExtension) {
-		return new CloudFoundryReactiveHealthEndpointWebExtension(reactiveHealthEndpointWebExtension);
+		return new CloudFoundryReactiveHealthEndpointWebExtension_RENAMED(reactiveHealthEndpointWebExtension);
 	}
 
 	@Bean

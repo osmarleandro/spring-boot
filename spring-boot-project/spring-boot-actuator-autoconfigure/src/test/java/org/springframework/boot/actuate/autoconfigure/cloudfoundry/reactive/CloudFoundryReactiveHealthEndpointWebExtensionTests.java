@@ -43,7 +43,7 @@ import org.springframework.boot.test.context.runner.ReactiveWebApplicationContex
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Tests for {@link CloudFoundryReactiveHealthEndpointWebExtension}.
+ * Tests for {@link CloudFoundryReactiveHealthEndpointWebExtension_RENAMED}.
  *
  * @author Madhura Bhave
  */
@@ -65,8 +65,8 @@ class CloudFoundryReactiveHealthEndpointWebExtensionTests {
 	@Test
 	void healthComponentsAlwaysPresent() {
 		this.contextRunner.run((context) -> {
-			CloudFoundryReactiveHealthEndpointWebExtension extension = context
-					.getBean(CloudFoundryReactiveHealthEndpointWebExtension.class);
+			CloudFoundryReactiveHealthEndpointWebExtension_RENAMED extension = context
+					.getBean(CloudFoundryReactiveHealthEndpointWebExtension_RENAMED.class);
 			HealthComponent body = extension.health(ApiVersion.V3).block(Duration.ofSeconds(30)).getBody();
 			HealthComponent health = ((CompositeHealth) body).getComponents().entrySet().iterator().next().getValue();
 			assertThat(((Health) health).getDetails()).containsEntry("spring", "boot");
