@@ -16,7 +16,7 @@
 
 package org.springframework.boot.actuate.autoconfigure.health;
 
-import org.springframework.boot.actuate.autoconfigure.health.CompositeHealthContributorConfigurationTests.TestHealthIndicator;
+import org.springframework.boot.actuate.autoconfigure.health.CompositeHealthContributorConfigurationTests_RENAMED.TestHealthIndicator;
 import org.springframework.boot.actuate.health.AbstractHealthIndicator;
 import org.springframework.boot.actuate.health.Health.Builder;
 import org.springframework.boot.actuate.health.HealthContributor;
@@ -26,7 +26,7 @@ import org.springframework.boot.actuate.health.HealthContributor;
  *
  * @author Phillip Webb
  */
-class CompositeHealthContributorConfigurationTests
+class CompositeHealthContributorConfigurationTests_RENAMED
 		extends AbstractCompositeHealthContributorConfigurationTests<HealthContributor, TestHealthIndicator> {
 
 	@Override
