@@ -36,8 +36,8 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import org.springframework.boot.actuate.autoconfigure.cloudfoundry.CloudFoundryAuthorizationException;
-import org.springframework.boot.actuate.autoconfigure.cloudfoundry.CloudFoundryAuthorizationException.Reason;
+import org.springframework.boot.actuate.autoconfigure.cloudfoundry.CloudFoundryAuthorizationException_RENAMED;
+import org.springframework.boot.actuate.autoconfigure.cloudfoundry.CloudFoundryAuthorizationException_RENAMED.Reason;
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.Token;
 import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.util.Base64Utils;
@@ -96,7 +96,7 @@ class TokenValidatorTests {
 		given(this.securityService.fetchTokenKeys()).willReturn(INVALID_KEYS);
 		String header = "{\"alg\": \"RS256\",  \"kid\": \"valid-key\",\"typ\": \"JWT\"}";
 		String claims = "{\"exp\": 2147483647, \"iss\": \"http://localhost:8080/uaa/oauth/token\", \"scope\": [\"actuator.read\"]}";
-		assertThatExceptionOfType(CloudFoundryAuthorizationException.class).isThrownBy(
+		assertThatExceptionOfType(CloudFoundryAuthorizationException_RENAMED.class).isThrownBy(
 				() -> this.tokenValidator.validate(new Token(getSignedToken(header.getBytes(), claims.getBytes()))))
 				.satisfies(reasonRequirement(Reason.INVALID_KEY_ID));
 	}
@@ -138,7 +138,7 @@ class TokenValidatorTests {
 				Collections.singletonMap("valid-key", INVALID_KEY));
 		String header = "{ \"alg\": \"RS256\",  \"kid\": \"valid-key\",\"typ\": \"JWT\"}";
 		String claims = "{ \"exp\": 2147483647, \"iss\": \"http://localhost:8080/uaa/oauth/token\", \"scope\": [\"actuator.read\"]}";
-		assertThatExceptionOfType(CloudFoundryAuthorizationException.class).isThrownBy(
+		assertThatExceptionOfType(CloudFoundryAuthorizationException_RENAMED.class).isThrownBy(
 				() -> this.tokenValidator.validate(new Token(getSignedToken(header.getBytes(), claims.getBytes()))))
 				.satisfies(reasonRequirement(Reason.INVALID_SIGNATURE));
 	}
@@ -147,7 +147,7 @@ class TokenValidatorTests {
 	void validateTokenWhenTokenAlgorithmIsNotRS256ShouldThrowException() throws Exception {
 		String header = "{ \"alg\": \"HS256\",  \"typ\": \"JWT\"}";
 		String claims = "{ \"exp\": 2147483647, \"iss\": \"http://localhost:8080/uaa/oauth/token\", \"scope\": [\"actuator.read\"]}";
-		assertThatExceptionOfType(CloudFoundryAuthorizationException.class).isThrownBy(
+		assertThatExceptionOfType(CloudFoundryAuthorizationException_RENAMED.class).isThrownBy(
 				() -> this.tokenValidator.validate(new Token(getSignedToken(header.getBytes(), claims.getBytes()))))
 				.satisfies(reasonRequirement(Reason.UNSUPPORTED_TOKEN_SIGNING_ALGORITHM));
 	}
@@ -158,7 +158,7 @@ class TokenValidatorTests {
 		given(this.securityService.fetchTokenKeys()).willReturn(VALID_KEYS);
 		String header = "{ \"alg\": \"RS256\",  \"kid\": \"valid-key\", \"typ\": \"JWT\"}";
 		String claims = "{ \"jti\": \"0236399c350c47f3ae77e67a75e75e7d\", \"exp\": 1477509977, \"scope\": [\"actuator.read\"]}";
-		assertThatExceptionOfType(CloudFoundryAuthorizationException.class).isThrownBy(
+		assertThatExceptionOfType(CloudFoundryAuthorizationException_RENAMED.class).isThrownBy(
 				() -> this.tokenValidator.validate(new Token(getSignedToken(header.getBytes(), claims.getBytes()))))
 				.satisfies(reasonRequirement(Reason.TOKEN_EXPIRED));
 	}
@@ -169,7 +169,7 @@ class TokenValidatorTests {
 		given(this.securityService.getUaaUrl()).willReturn("https://other-uaa.com");
 		String header = "{ \"alg\": \"RS256\",  \"kid\": \"valid-key\", \"typ\": \"JWT\", \"scope\": [\"actuator.read\"]}";
 		String claims = "{ \"exp\": 2147483647, \"iss\": \"http://localhost:8080/uaa/oauth/token\"}";
-		assertThatExceptionOfType(CloudFoundryAuthorizationException.class).isThrownBy(
+		assertThatExceptionOfType(CloudFoundryAuthorizationException_RENAMED.class).isThrownBy(
 				() -> this.tokenValidator.validate(new Token(getSignedToken(header.getBytes(), claims.getBytes()))))
 				.satisfies(reasonRequirement(Reason.INVALID_ISSUER));
 	}
@@ -180,7 +180,7 @@ class TokenValidatorTests {
 		given(this.securityService.getUaaUrl()).willReturn("http://localhost:8080/uaa");
 		String header = "{ \"alg\": \"RS256\",  \"kid\": \"valid-key\", \"typ\": \"JWT\"}";
 		String claims = "{ \"exp\": 2147483647, \"iss\": \"http://localhost:8080/uaa/oauth/token\", \"scope\": [\"foo.bar\"]}";
-		assertThatExceptionOfType(CloudFoundryAuthorizationException.class).isThrownBy(
+		assertThatExceptionOfType(CloudFoundryAuthorizationException_RENAMED.class).isThrownBy(
 				() -> this.tokenValidator.validate(new Token(getSignedToken(header.getBytes(), claims.getBytes()))))
 				.satisfies(reasonRequirement(Reason.INVALID_AUDIENCE));
 	}
@@ -245,7 +245,7 @@ class TokenValidatorTests {
 		return result.toByteArray();
 	}
 
-	private Consumer<CloudFoundryAuthorizationException> reasonRequirement(Reason reason) {
+	private Consumer<CloudFoundryAuthorizationException_RENAMED> reasonRequirement(Reason reason) {
 		return (ex) -> assertThat(ex.getReason()).isEqualTo(reason);
 	}
 

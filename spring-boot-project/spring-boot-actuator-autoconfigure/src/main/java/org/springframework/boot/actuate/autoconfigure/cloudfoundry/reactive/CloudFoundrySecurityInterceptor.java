@@ -22,8 +22,8 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import reactor.core.publisher.Mono;
 
-import org.springframework.boot.actuate.autoconfigure.cloudfoundry.CloudFoundryAuthorizationException;
-import org.springframework.boot.actuate.autoconfigure.cloudfoundry.CloudFoundryAuthorizationException.Reason;
+import org.springframework.boot.actuate.autoconfigure.cloudfoundry.CloudFoundryAuthorizationException_RENAMED;
+import org.springframework.boot.actuate.autoconfigure.cloudfoundry.CloudFoundryAuthorizationException_RENAMED.Reason;
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.SecurityResponse;
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.Token;
 import org.springframework.http.HttpStatus;
@@ -62,11 +62,11 @@ class CloudFoundrySecurityInterceptor {
 			return SUCCESS;
 		}
 		if (!StringUtils.hasText(this.applicationId)) {
-			return Mono.error(new CloudFoundryAuthorizationException(Reason.SERVICE_UNAVAILABLE,
+			return Mono.error(new CloudFoundryAuthorizationException_RENAMED(Reason.SERVICE_UNAVAILABLE,
 					"Application id is not available"));
 		}
 		if (this.cloudFoundrySecurityService == null) {
-			return Mono.error(new CloudFoundryAuthorizationException(Reason.SERVICE_UNAVAILABLE,
+			return Mono.error(new CloudFoundryAuthorizationException_RENAMED(Reason.SERVICE_UNAVAILABLE,
 					"Cloud controller URL is not available"));
 		}
 		return check(exchange, id).then(SUCCESS).doOnError(this::logError).onErrorResume(this::getErrorResponse);
@@ -83,18 +83,18 @@ class CloudFoundrySecurityInterceptor {
 					.then(this.cloudFoundrySecurityService.getAccessLevel(token.toString(), this.applicationId))
 					.filter((accessLevel) -> accessLevel.isAccessAllowed(id))
 					.switchIfEmpty(
-							Mono.error(new CloudFoundryAuthorizationException(Reason.ACCESS_DENIED, "Access denied")))
+							Mono.error(new CloudFoundryAuthorizationException_RENAMED(Reason.ACCESS_DENIED, "Access denied")))
 					.doOnSuccess((accessLevel) -> exchange.getAttributes().put("cloudFoundryAccessLevel", accessLevel))
 					.then();
 		}
-		catch (CloudFoundryAuthorizationException ex) {
+		catch (CloudFoundryAuthorizationException_RENAMED ex) {
 			return Mono.error(ex);
 		}
 	}
 
 	private Mono<SecurityResponse> getErrorResponse(Throwable throwable) {
-		if (throwable instanceof CloudFoundryAuthorizationException) {
-			CloudFoundryAuthorizationException cfException = (CloudFoundryAuthorizationException) throwable;
+		if (throwable instanceof CloudFoundryAuthorizationException_RENAMED) {
+			CloudFoundryAuthorizationException_RENAMED cfException = (CloudFoundryAuthorizationException_RENAMED) throwable;
 			return Mono.just(new SecurityResponse(cfException.getStatusCode(),
 					"{\"security_error\":\"" + cfException.getMessage() + "\"}"));
 		}
@@ -105,7 +105,7 @@ class CloudFoundrySecurityInterceptor {
 		String authorization = request.getHeaders().getFirst("Authorization");
 		String bearerPrefix = "bearer ";
 		if (authorization == null || !authorization.toLowerCase(Locale.ENGLISH).startsWith(bearerPrefix)) {
-			throw new CloudFoundryAuthorizationException(Reason.MISSING_AUTHORIZATION,
+			throw new CloudFoundryAuthorizationException_RENAMED(Reason.MISSING_AUTHORIZATION,
 					"Authorization header is missing or invalid");
 		}
 		return new Token(authorization.substring(bearerPrefix.length()));

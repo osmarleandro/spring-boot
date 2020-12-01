@@ -27,8 +27,8 @@ import reactor.core.publisher.Mono;
 import reactor.netty.http.client.HttpClient;
 
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.AccessLevel;
-import org.springframework.boot.actuate.autoconfigure.cloudfoundry.CloudFoundryAuthorizationException;
-import org.springframework.boot.actuate.autoconfigure.cloudfoundry.CloudFoundryAuthorizationException.Reason;
+import org.springframework.boot.actuate.autoconfigure.cloudfoundry.CloudFoundryAuthorizationException_RENAMED;
+import org.springframework.boot.actuate.autoconfigure.cloudfoundry.CloudFoundryAuthorizationException_RENAMED.Reason;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.client.reactive.ReactorClientHttpConnector;
@@ -81,9 +81,9 @@ class ReactiveCloudFoundrySecurityService {
 	 * @param token the token
 	 * @param applicationId the cloud foundry application ID
 	 * @return a Mono of the access level that should be granted
-	 * @throws CloudFoundryAuthorizationException if the token is not authorized
+	 * @throws CloudFoundryAuthorizationException_RENAMED if the token is not authorized
 	 */
-	Mono<AccessLevel> getAccessLevel(String token, String applicationId) throws CloudFoundryAuthorizationException {
+	Mono<AccessLevel> getAccessLevel(String token, String applicationId) throws CloudFoundryAuthorizationException_RENAMED {
 		String uri = getPermissionsUri(applicationId);
 		return this.webClient.get().uri(uri).header("Authorization", "bearer " + token).retrieve().bodyToMono(Map.class)
 				.map(this::getAccessLevel).onErrorMap(this::mapError);
@@ -93,13 +93,13 @@ class ReactiveCloudFoundrySecurityService {
 		if (throwable instanceof WebClientResponseException) {
 			HttpStatus statusCode = ((WebClientResponseException) throwable).getStatusCode();
 			if (statusCode.equals(HttpStatus.FORBIDDEN)) {
-				return new CloudFoundryAuthorizationException(Reason.ACCESS_DENIED, "Access denied");
+				return new CloudFoundryAuthorizationException_RENAMED(Reason.ACCESS_DENIED, "Access denied");
 			}
 			if (statusCode.is4xxClientError()) {
-				return new CloudFoundryAuthorizationException(Reason.INVALID_TOKEN, "Invalid token", throwable);
+				return new CloudFoundryAuthorizationException_RENAMED(Reason.INVALID_TOKEN, "Invalid token", throwable);
 			}
 		}
-		return new CloudFoundryAuthorizationException(Reason.SERVICE_UNAVAILABLE, "Cloud controller not reachable");
+		return new CloudFoundryAuthorizationException_RENAMED(Reason.SERVICE_UNAVAILABLE, "Cloud controller not reachable");
 	}
 
 	private AccessLevel getAccessLevel(Map<?, ?> body) {
@@ -124,7 +124,7 @@ class ReactiveCloudFoundrySecurityService {
 	private Mono<? extends Map<String, String>> fetchTokenKeys(String url) {
 		RequestHeadersSpec<?> uri = this.webClient.get().uri(url + "/token_keys");
 		return uri.retrieve().bodyToMono(STRING_OBJECT_MAP).map(this::extractTokenKeys).onErrorMap(
-				((ex) -> new CloudFoundryAuthorizationException(Reason.SERVICE_UNAVAILABLE, ex.getMessage())));
+				((ex) -> new CloudFoundryAuthorizationException_RENAMED(Reason.SERVICE_UNAVAILABLE, ex.getMessage())));
 	}
 
 	private Map<String, String> extractTokenKeys(Map<String, Object> response) {
@@ -143,7 +143,7 @@ class ReactiveCloudFoundrySecurityService {
 	Mono<String> getUaaUrl() {
 		this.uaaUrl = this.webClient.get().uri(this.cloudControllerUrl + "/info").retrieve().bodyToMono(Map.class)
 				.map((response) -> (String) response.get("token_endpoint")).cache()
-				.onErrorMap((ex) -> new CloudFoundryAuthorizationException(Reason.SERVICE_UNAVAILABLE,
+				.onErrorMap((ex) -> new CloudFoundryAuthorizationException_RENAMED(Reason.SERVICE_UNAVAILABLE,
 						"Unable to fetch token keys from UAA."));
 		return this.uaaUrl;
 	}

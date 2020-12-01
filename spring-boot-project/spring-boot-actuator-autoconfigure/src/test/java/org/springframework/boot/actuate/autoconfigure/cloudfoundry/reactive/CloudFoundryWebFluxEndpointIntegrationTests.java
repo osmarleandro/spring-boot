@@ -25,8 +25,8 @@ import org.junit.jupiter.api.Test;
 import reactor.core.publisher.Mono;
 
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.AccessLevel;
-import org.springframework.boot.actuate.autoconfigure.cloudfoundry.CloudFoundryAuthorizationException;
-import org.springframework.boot.actuate.autoconfigure.cloudfoundry.CloudFoundryAuthorizationException.Reason;
+import org.springframework.boot.actuate.autoconfigure.cloudfoundry.CloudFoundryAuthorizationException_RENAMED;
+import org.springframework.boot.actuate.autoconfigure.cloudfoundry.CloudFoundryAuthorizationException_RENAMED.Reason;
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
 import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
 import org.springframework.boot.actuate.endpoint.annotation.Selector;
@@ -125,7 +125,7 @@ class CloudFoundryWebFluxEndpointIntegrationTests {
 
 	@Test
 	void linksToOtherEndpointsForbidden() {
-		CloudFoundryAuthorizationException exception = new CloudFoundryAuthorizationException(Reason.INVALID_TOKEN,
+		CloudFoundryAuthorizationException_RENAMED exception = new CloudFoundryAuthorizationException_RENAMED(Reason.INVALID_TOKEN,
 				"invalid-token");
 		willThrow(exception).given(tokenValidator).validate(any());
 		this.contextRunner.run(withWebTestClient((client) -> client.get().uri("/cfApplication")

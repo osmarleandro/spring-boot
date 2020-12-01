@@ -24,15 +24,15 @@ import org.springframework.http.HttpStatus;
  * @author Madhura Bhave
  * @since 2.0.0
  */
-public class CloudFoundryAuthorizationException extends RuntimeException {
+public class CloudFoundryAuthorizationException_RENAMED extends RuntimeException {
 
 	private final Reason reason;
 
-	public CloudFoundryAuthorizationException(Reason reason, String message) {
+	public CloudFoundryAuthorizationException_RENAMED(Reason reason, String message) {
 		this(reason, message, null);
 	}
 
-	public CloudFoundryAuthorizationException(Reason reason, String message, Throwable cause) {
+	public CloudFoundryAuthorizationException_RENAMED(Reason reason, String message, Throwable cause) {
 		super(message, cause);
 		this.reason = reason;
 	}

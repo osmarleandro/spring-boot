@@ -27,8 +27,8 @@ import org.junit.jupiter.api.Test;
 import reactor.test.StepVerifier;
 
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.AccessLevel;
-import org.springframework.boot.actuate.autoconfigure.cloudfoundry.CloudFoundryAuthorizationException;
-import org.springframework.boot.actuate.autoconfigure.cloudfoundry.CloudFoundryAuthorizationException.Reason;
+import org.springframework.boot.actuate.autoconfigure.cloudfoundry.CloudFoundryAuthorizationException_RENAMED;
+import org.springframework.boot.actuate.autoconfigure.cloudfoundry.CloudFoundryAuthorizationException_RENAMED.Reason;
 import org.springframework.http.HttpHeaders;
 import org.springframework.web.reactive.function.client.WebClient;
 
@@ -96,8 +96,8 @@ class ReactiveCloudFoundrySecurityServiceTests {
 		prepareResponse((response) -> response.setResponseCode(401));
 		StepVerifier.create(this.securityService.getAccessLevel("my-access-token", "my-app-id"))
 				.consumeErrorWith((throwable) -> {
-					assertThat(throwable).isInstanceOf(CloudFoundryAuthorizationException.class);
-					assertThat(((CloudFoundryAuthorizationException) throwable).getReason())
+					assertThat(throwable).isInstanceOf(CloudFoundryAuthorizationException_RENAMED.class);
+					assertThat(((CloudFoundryAuthorizationException_RENAMED) throwable).getReason())
 							.isEqualTo(Reason.INVALID_TOKEN);
 				}).verify();
 		expectRequest((request) -> {
@@ -111,8 +111,8 @@ class ReactiveCloudFoundrySecurityServiceTests {
 		prepareResponse((response) -> response.setResponseCode(403));
 		StepVerifier.create(this.securityService.getAccessLevel("my-access-token", "my-app-id"))
 				.consumeErrorWith((throwable) -> {
-					assertThat(throwable).isInstanceOf(CloudFoundryAuthorizationException.class);
-					assertThat(((CloudFoundryAuthorizationException) throwable).getReason())
+					assertThat(throwable).isInstanceOf(CloudFoundryAuthorizationException_RENAMED.class);
+					assertThat(((CloudFoundryAuthorizationException_RENAMED) throwable).getReason())
 							.isEqualTo(Reason.ACCESS_DENIED);
 				}).verify();
 		expectRequest((request) -> {
@@ -126,8 +126,8 @@ class ReactiveCloudFoundrySecurityServiceTests {
 		prepareResponse((response) -> response.setResponseCode(500));
 		StepVerifier.create(this.securityService.getAccessLevel("my-access-token", "my-app-id"))
 				.consumeErrorWith((throwable) -> {
-					assertThat(throwable).isInstanceOf(CloudFoundryAuthorizationException.class);
-					assertThat(((CloudFoundryAuthorizationException) throwable).getReason())
+					assertThat(throwable).isInstanceOf(CloudFoundryAuthorizationException_RENAMED.class);
+					assertThat(((CloudFoundryAuthorizationException_RENAMED) throwable).getReason())
 							.isEqualTo(Reason.SERVICE_UNAVAILABLE);
 				}).verify();
 		expectRequest((request) -> {
@@ -189,7 +189,7 @@ class ReactiveCloudFoundrySecurityServiceTests {
 		prepareResponse((response) -> response.setResponseCode(500));
 		StepVerifier.create(this.securityService.fetchTokenKeys())
 				.consumeErrorWith(
-						(throwable) -> assertThat(((CloudFoundryAuthorizationException) throwable).getReason())
+						(throwable) -> assertThat(((CloudFoundryAuthorizationException_RENAMED) throwable).getReason())
 								.isEqualTo(Reason.SERVICE_UNAVAILABLE))
 				.verify();
 		expectRequest((request) -> assertThat(request.getPath()).isEqualTo("/my-cloud-controller.com/info"));
@@ -212,8 +212,8 @@ class ReactiveCloudFoundrySecurityServiceTests {
 	void getUaaUrlWhenCloudControllerUrlIsNotReachableShouldThrowException() throws Exception {
 		prepareResponse((response) -> response.setResponseCode(500));
 		StepVerifier.create(this.securityService.getUaaUrl()).consumeErrorWith((throwable) -> {
-			assertThat(throwable).isInstanceOf(CloudFoundryAuthorizationException.class);
-			assertThat(((CloudFoundryAuthorizationException) throwable).getReason())
+			assertThat(throwable).isInstanceOf(CloudFoundryAuthorizationException_RENAMED.class);
+			assertThat(((CloudFoundryAuthorizationException_RENAMED) throwable).getReason())
 					.isEqualTo(Reason.SERVICE_UNAVAILABLE);
 		}).verify();
 		expectRequest((request) -> assertThat(request.getPath()).isEqualTo(CLOUD_CONTROLLER + "/info"));

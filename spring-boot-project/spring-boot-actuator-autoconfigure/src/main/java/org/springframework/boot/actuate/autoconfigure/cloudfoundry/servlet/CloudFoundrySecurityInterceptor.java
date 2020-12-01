@@ -24,8 +24,8 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.AccessLevel;
-import org.springframework.boot.actuate.autoconfigure.cloudfoundry.CloudFoundryAuthorizationException;
-import org.springframework.boot.actuate.autoconfigure.cloudfoundry.CloudFoundryAuthorizationException.Reason;
+import org.springframework.boot.actuate.autoconfigure.cloudfoundry.CloudFoundryAuthorizationException_RENAMED;
+import org.springframework.boot.actuate.autoconfigure.cloudfoundry.CloudFoundryAuthorizationException_RENAMED.Reason;
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.SecurityResponse;
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.Token;
 import org.springframework.boot.actuate.endpoint.EndpointId;
@@ -64,11 +64,11 @@ class CloudFoundrySecurityInterceptor {
 		}
 		try {
 			if (!StringUtils.hasText(this.applicationId)) {
-				throw new CloudFoundryAuthorizationException(Reason.SERVICE_UNAVAILABLE,
+				throw new CloudFoundryAuthorizationException_RENAMED(Reason.SERVICE_UNAVAILABLE,
 						"Application id is not available");
 			}
 			if (this.cloudFoundrySecurityService == null) {
-				throw new CloudFoundryAuthorizationException(Reason.SERVICE_UNAVAILABLE,
+				throw new CloudFoundryAuthorizationException_RENAMED(Reason.SERVICE_UNAVAILABLE,
 						"Cloud controller URL is not available");
 			}
 			if (HttpMethod.OPTIONS.matches(request.getMethod())) {
@@ -78,8 +78,8 @@ class CloudFoundrySecurityInterceptor {
 		}
 		catch (Exception ex) {
 			logger.error(ex);
-			if (ex instanceof CloudFoundryAuthorizationException) {
-				CloudFoundryAuthorizationException cfException = (CloudFoundryAuthorizationException) ex;
+			if (ex instanceof CloudFoundryAuthorizationException_RENAMED) {
+				CloudFoundryAuthorizationException_RENAMED cfException = (CloudFoundryAuthorizationException_RENAMED) ex;
 				return new SecurityResponse(cfException.getStatusCode(),
 						"{\"security_error\":\"" + cfException.getMessage() + "\"}");
 			}
@@ -93,7 +93,7 @@ class CloudFoundrySecurityInterceptor {
 		this.tokenValidator.validate(token);
 		AccessLevel accessLevel = this.cloudFoundrySecurityService.getAccessLevel(token.toString(), this.applicationId);
 		if (!accessLevel.isAccessAllowed((endpointId != null) ? endpointId.toLowerCaseString() : "")) {
-			throw new CloudFoundryAuthorizationException(Reason.ACCESS_DENIED, "Access denied");
+			throw new CloudFoundryAuthorizationException_RENAMED(Reason.ACCESS_DENIED, "Access denied");
 		}
 		request.setAttribute(AccessLevel.REQUEST_ATTRIBUTE, accessLevel);
 	}
@@ -102,7 +102,7 @@ class CloudFoundrySecurityInterceptor {
 		String authorization = request.getHeader("Authorization");
 		String bearerPrefix = "bearer ";
 		if (authorization == null || !authorization.toLowerCase(Locale.ENGLISH).startsWith(bearerPrefix)) {
-			throw new CloudFoundryAuthorizationException(Reason.MISSING_AUTHORIZATION,
+			throw new CloudFoundryAuthorizationException_RENAMED(Reason.MISSING_AUTHORIZATION,
 					"Authorization header is missing or invalid");
 		}
 		return new Token(authorization.substring(bearerPrefix.length()));

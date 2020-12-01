@@ -25,8 +25,8 @@ import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
 
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.AccessLevel;
-import org.springframework.boot.actuate.autoconfigure.cloudfoundry.CloudFoundryAuthorizationException;
-import org.springframework.boot.actuate.autoconfigure.cloudfoundry.CloudFoundryAuthorizationException.Reason;
+import org.springframework.boot.actuate.autoconfigure.cloudfoundry.CloudFoundryAuthorizationException_RENAMED;
+import org.springframework.boot.actuate.autoconfigure.cloudfoundry.CloudFoundryAuthorizationException_RENAMED.Reason;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.mock.http.server.reactive.MockServerHttpRequest;
@@ -91,7 +91,7 @@ class ReactiveCloudFoundrySecurityInterceptorTests {
 		MockServerWebExchange request = MockServerWebExchange.from(MockServerHttpRequest.get("/a")
 				.header(HttpHeaders.AUTHORIZATION, "bearer " + mockAccessToken()).build());
 		StepVerifier.create(this.interceptor.preHandle(request, "/a"))
-				.consumeErrorWith((ex) -> assertThat(((CloudFoundryAuthorizationException) ex).getReason())
+				.consumeErrorWith((ex) -> assertThat(((CloudFoundryAuthorizationException_RENAMED) ex).getReason())
 						.isEqualTo(Reason.SERVICE_UNAVAILABLE))
 				.verify();
 	}
@@ -102,7 +102,7 @@ class ReactiveCloudFoundrySecurityInterceptorTests {
 		MockServerWebExchange request = MockServerWebExchange
 				.from(MockServerHttpRequest.get("/a").header(HttpHeaders.AUTHORIZATION, mockAccessToken()).build());
 		StepVerifier.create(this.interceptor.preHandle(request, "/a"))
-				.consumeErrorWith((ex) -> assertThat(((CloudFoundryAuthorizationException) ex).getReason())
+				.consumeErrorWith((ex) -> assertThat(((CloudFoundryAuthorizationException_RENAMED) ex).getReason())
 						.isEqualTo(Reason.SERVICE_UNAVAILABLE))
 				.verify();
 	}

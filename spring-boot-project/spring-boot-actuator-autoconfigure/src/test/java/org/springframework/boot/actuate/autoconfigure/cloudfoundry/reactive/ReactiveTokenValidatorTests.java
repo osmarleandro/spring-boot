@@ -38,8 +38,8 @@ import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
 import reactor.test.publisher.PublisherProbe;
 
-import org.springframework.boot.actuate.autoconfigure.cloudfoundry.CloudFoundryAuthorizationException;
-import org.springframework.boot.actuate.autoconfigure.cloudfoundry.CloudFoundryAuthorizationException.Reason;
+import org.springframework.boot.actuate.autoconfigure.cloudfoundry.CloudFoundryAuthorizationException_RENAMED;
+import org.springframework.boot.actuate.autoconfigure.cloudfoundry.CloudFoundryAuthorizationException_RENAMED.Reason;
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.Token;
 import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.util.Base64Utils;
@@ -103,8 +103,8 @@ class ReactiveTokenValidatorTests {
 		StepVerifier
 				.create(this.tokenValidator.validate(new Token(getSignedToken(header.getBytes(), claims.getBytes()))))
 				.consumeErrorWith((ex) -> {
-					assertThat(ex).isExactlyInstanceOf(CloudFoundryAuthorizationException.class);
-					assertThat(((CloudFoundryAuthorizationException) ex).getReason()).isEqualTo(Reason.INVALID_KEY_ID);
+					assertThat(ex).isExactlyInstanceOf(CloudFoundryAuthorizationException_RENAMED.class);
+					assertThat(((CloudFoundryAuthorizationException_RENAMED) ex).getReason()).isEqualTo(Reason.INVALID_KEY_ID);
 				}).verify();
 		assertThat(this.tokenValidator).hasFieldOrPropertyWithValue("cachedTokenKeys", VALID_KEYS);
 		fetchTokenKeys.assertWasSubscribed();
@@ -149,8 +149,8 @@ class ReactiveTokenValidatorTests {
 		StepVerifier
 				.create(this.tokenValidator.validate(new Token(getSignedToken(header.getBytes(), claims.getBytes()))))
 				.consumeErrorWith((ex) -> {
-					assertThat(ex).isExactlyInstanceOf(CloudFoundryAuthorizationException.class);
-					assertThat(((CloudFoundryAuthorizationException) ex).getReason()).isEqualTo(Reason.INVALID_KEY_ID);
+					assertThat(ex).isExactlyInstanceOf(CloudFoundryAuthorizationException_RENAMED.class);
+					assertThat(((CloudFoundryAuthorizationException_RENAMED) ex).getReason()).isEqualTo(Reason.INVALID_KEY_ID);
 				}).verify();
 		assertThat(this.tokenValidator).hasFieldOrPropertyWithValue("cachedTokenKeys", VALID_KEYS);
 		fetchTokenKeys.assertWasSubscribed();
@@ -179,8 +179,8 @@ class ReactiveTokenValidatorTests {
 		StepVerifier
 				.create(this.tokenValidator.validate(new Token(getSignedToken(header.getBytes(), claims.getBytes()))))
 				.consumeErrorWith((ex) -> {
-					assertThat(ex).isExactlyInstanceOf(CloudFoundryAuthorizationException.class);
-					assertThat(((CloudFoundryAuthorizationException) ex).getReason())
+					assertThat(ex).isExactlyInstanceOf(CloudFoundryAuthorizationException_RENAMED.class);
+					assertThat(((CloudFoundryAuthorizationException_RENAMED) ex).getReason())
 							.isEqualTo(Reason.INVALID_SIGNATURE);
 				}).verify();
 	}
@@ -194,8 +194,8 @@ class ReactiveTokenValidatorTests {
 		StepVerifier
 				.create(this.tokenValidator.validate(new Token(getSignedToken(header.getBytes(), claims.getBytes()))))
 				.consumeErrorWith((ex) -> {
-					assertThat(ex).isExactlyInstanceOf(CloudFoundryAuthorizationException.class);
-					assertThat(((CloudFoundryAuthorizationException) ex).getReason())
+					assertThat(ex).isExactlyInstanceOf(CloudFoundryAuthorizationException_RENAMED.class);
+					assertThat(((CloudFoundryAuthorizationException_RENAMED) ex).getReason())
 							.isEqualTo(Reason.UNSUPPORTED_TOKEN_SIGNING_ALGORITHM);
 				}).verify();
 	}
@@ -209,8 +209,8 @@ class ReactiveTokenValidatorTests {
 		StepVerifier
 				.create(this.tokenValidator.validate(new Token(getSignedToken(header.getBytes(), claims.getBytes()))))
 				.consumeErrorWith((ex) -> {
-					assertThat(ex).isExactlyInstanceOf(CloudFoundryAuthorizationException.class);
-					assertThat(((CloudFoundryAuthorizationException) ex).getReason()).isEqualTo(Reason.TOKEN_EXPIRED);
+					assertThat(ex).isExactlyInstanceOf(CloudFoundryAuthorizationException_RENAMED.class);
+					assertThat(((CloudFoundryAuthorizationException_RENAMED) ex).getReason()).isEqualTo(Reason.TOKEN_EXPIRED);
 				}).verify();
 	}
 
@@ -223,8 +223,8 @@ class ReactiveTokenValidatorTests {
 		StepVerifier
 				.create(this.tokenValidator.validate(new Token(getSignedToken(header.getBytes(), claims.getBytes()))))
 				.consumeErrorWith((ex) -> {
-					assertThat(ex).isExactlyInstanceOf(CloudFoundryAuthorizationException.class);
-					assertThat(((CloudFoundryAuthorizationException) ex).getReason()).isEqualTo(Reason.INVALID_ISSUER);
+					assertThat(ex).isExactlyInstanceOf(CloudFoundryAuthorizationException_RENAMED.class);
+					assertThat(((CloudFoundryAuthorizationException_RENAMED) ex).getReason()).isEqualTo(Reason.INVALID_ISSUER);
 				}).verify();
 	}
 
@@ -237,8 +237,8 @@ class ReactiveTokenValidatorTests {
 		StepVerifier
 				.create(this.tokenValidator.validate(new Token(getSignedToken(header.getBytes(), claims.getBytes()))))
 				.consumeErrorWith((ex) -> {
-					assertThat(ex).isExactlyInstanceOf(CloudFoundryAuthorizationException.class);
-					assertThat(((CloudFoundryAuthorizationException) ex).getReason())
+					assertThat(ex).isExactlyInstanceOf(CloudFoundryAuthorizationException_RENAMED.class);
+					assertThat(((CloudFoundryAuthorizationException_RENAMED) ex).getReason())
 							.isEqualTo(Reason.INVALID_AUDIENCE);
 				}).verify();
 	}

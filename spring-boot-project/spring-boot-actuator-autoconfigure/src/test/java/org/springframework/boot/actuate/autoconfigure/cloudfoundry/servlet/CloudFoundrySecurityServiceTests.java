@@ -23,8 +23,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.AccessLevel;
-import org.springframework.boot.actuate.autoconfigure.cloudfoundry.CloudFoundryAuthorizationException;
-import org.springframework.boot.actuate.autoconfigure.cloudfoundry.CloudFoundryAuthorizationException.Reason;
+import org.springframework.boot.actuate.autoconfigure.cloudfoundry.CloudFoundryAuthorizationException_RENAMED;
+import org.springframework.boot.actuate.autoconfigure.cloudfoundry.CloudFoundryAuthorizationException_RENAMED.Reason;
 import org.springframework.boot.test.web.client.MockServerRestTemplateCustomizer;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.HttpStatus;
@@ -109,7 +109,7 @@ class CloudFoundrySecurityServiceTests {
 	void getAccessLevelWhenTokenIsNotValidShouldThrowException() {
 		this.server.expect(requestTo(CLOUD_CONTROLLER_PERMISSIONS))
 				.andExpect(header("Authorization", "bearer my-access-token")).andRespond(withUnauthorizedRequest());
-		assertThatExceptionOfType(CloudFoundryAuthorizationException.class)
+		assertThatExceptionOfType(CloudFoundryAuthorizationException_RENAMED.class)
 				.isThrownBy(() -> this.securityService.getAccessLevel("my-access-token", "my-app-id"))
 				.satisfies(reasonRequirement(Reason.INVALID_TOKEN));
 	}
@@ -119,7 +119,7 @@ class CloudFoundrySecurityServiceTests {
 		this.server.expect(requestTo(CLOUD_CONTROLLER_PERMISSIONS))
 				.andExpect(header("Authorization", "bearer my-access-token"))
 				.andRespond(withStatus(HttpStatus.FORBIDDEN));
-		assertThatExceptionOfType(CloudFoundryAuthorizationException.class)
+		assertThatExceptionOfType(CloudFoundryAuthorizationException_RENAMED.class)
 				.isThrownBy(() -> this.securityService.getAccessLevel("my-access-token", "my-app-id"))
 				.satisfies(reasonRequirement(Reason.ACCESS_DENIED));
 	}
@@ -128,7 +128,7 @@ class CloudFoundrySecurityServiceTests {
 	void getAccessLevelWhenCloudControllerIsNotReachableThrowsException() {
 		this.server.expect(requestTo(CLOUD_CONTROLLER_PERMISSIONS))
 				.andExpect(header("Authorization", "bearer my-access-token")).andRespond(withServerError());
-		assertThatExceptionOfType(CloudFoundryAuthorizationException.class)
+		assertThatExceptionOfType(CloudFoundryAuthorizationException_RENAMED.class)
 				.isThrownBy(() -> this.securityService.getAccessLevel("my-access-token", "my-app-id"))
 				.satisfies(reasonRequirement(Reason.SERVICE_UNAVAILABLE));
 	}
@@ -171,7 +171,7 @@ class CloudFoundrySecurityServiceTests {
 		this.server.expect(requestTo(CLOUD_CONTROLLER + "/info"))
 				.andRespond(withSuccess("{\"token_endpoint\":\"" + UAA_URL + "\"}", MediaType.APPLICATION_JSON));
 		this.server.expect(requestTo(UAA_URL + "/token_keys")).andRespond(withServerError());
-		assertThatExceptionOfType(CloudFoundryAuthorizationException.class)
+		assertThatExceptionOfType(CloudFoundryAuthorizationException_RENAMED.class)
 				.isThrownBy(() -> this.securityService.fetchTokenKeys())
 				.satisfies(reasonRequirement(Reason.SERVICE_UNAVAILABLE));
 	}
@@ -191,12 +191,12 @@ class CloudFoundrySecurityServiceTests {
 	@Test
 	void getUaaUrlWhenCloudControllerUrlIsNotReachableShouldThrowException() {
 		this.server.expect(requestTo(CLOUD_CONTROLLER + "/info")).andRespond(withServerError());
-		assertThatExceptionOfType(CloudFoundryAuthorizationException.class)
+		assertThatExceptionOfType(CloudFoundryAuthorizationException_RENAMED.class)
 				.isThrownBy(() -> this.securityService.getUaaUrl())
 				.satisfies(reasonRequirement(Reason.SERVICE_UNAVAILABLE));
 	}
 
-	private Consumer<CloudFoundryAuthorizationException> reasonRequirement(Reason reason) {
+	private Consumer<CloudFoundryAuthorizationException_RENAMED> reasonRequirement(Reason reason) {
 		return (ex) -> assertThat(ex.getReason()).isEqualTo(reason);
 	}
 

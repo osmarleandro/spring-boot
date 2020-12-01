@@ -26,8 +26,8 @@ import java.security.spec.X509EncodedKeySpec;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
-import org.springframework.boot.actuate.autoconfigure.cloudfoundry.CloudFoundryAuthorizationException;
-import org.springframework.boot.actuate.autoconfigure.cloudfoundry.CloudFoundryAuthorizationException.Reason;
+import org.springframework.boot.actuate.autoconfigure.cloudfoundry.CloudFoundryAuthorizationException_RENAMED;
+import org.springframework.boot.actuate.autoconfigure.cloudfoundry.CloudFoundryAuthorizationException_RENAMED.Reason;
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.Token;
 import org.springframework.util.Base64Utils;
 
@@ -57,10 +57,10 @@ class TokenValidator {
 	private void validateAlgorithm(Token token) {
 		String algorithm = token.getSignatureAlgorithm();
 		if (algorithm == null) {
-			throw new CloudFoundryAuthorizationException(Reason.INVALID_SIGNATURE, "Signing algorithm cannot be null");
+			throw new CloudFoundryAuthorizationException_RENAMED(Reason.INVALID_SIGNATURE, "Signing algorithm cannot be null");
 		}
 		if (!algorithm.equals("RS256")) {
-			throw new CloudFoundryAuthorizationException(Reason.UNSUPPORTED_TOKEN_SIGNING_ALGORITHM,
+			throw new CloudFoundryAuthorizationException_RENAMED(Reason.UNSUPPORTED_TOKEN_SIGNING_ALGORITHM,
 					"Signing algorithm " + algorithm + " not supported");
 		}
 	}
@@ -70,13 +70,13 @@ class TokenValidator {
 		if (this.tokenKeys == null || !hasValidKeyId(keyId)) {
 			this.tokenKeys = this.securityService.fetchTokenKeys();
 			if (!hasValidKeyId(keyId)) {
-				throw new CloudFoundryAuthorizationException(Reason.INVALID_KEY_ID,
+				throw new CloudFoundryAuthorizationException_RENAMED(Reason.INVALID_KEY_ID,
 						"Key Id present in token header does not match");
 			}
 		}
 
 		if (!hasValidSignature(token, this.tokenKeys.get(keyId))) {
-			throw new CloudFoundryAuthorizationException(Reason.INVALID_SIGNATURE,
+			throw new CloudFoundryAuthorizationException_RENAMED(Reason.INVALID_SIGNATURE,
 					"RSA Signature did not match content");
 		}
 	}
@@ -110,7 +110,7 @@ class TokenValidator {
 	private void validateExpiry(Token token) {
 		long currentTime = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());
 		if (currentTime > token.getExpiry()) {
-			throw new CloudFoundryAuthorizationException(Reason.TOKEN_EXPIRED, "Token expired");
+			throw new CloudFoundryAuthorizationException_RENAMED(Reason.TOKEN_EXPIRED, "Token expired");
 		}
 	}
 
@@ -118,14 +118,14 @@ class TokenValidator {
 		String uaaUrl = this.securityService.getUaaUrl();
 		String issuerUri = String.format("%s/oauth/token", uaaUrl);
 		if (!issuerUri.equals(token.getIssuer())) {
-			throw new CloudFoundryAuthorizationException(Reason.INVALID_ISSUER,
+			throw new CloudFoundryAuthorizationException_RENAMED(Reason.INVALID_ISSUER,
 					"Token issuer does not match " + uaaUrl + "/oauth/token");
 		}
 	}
 
 	private void validateAudience(Token token) {
 		if (!token.getScope().contains("actuator.read")) {
-			throw new CloudFoundryAuthorizationException(Reason.INVALID_AUDIENCE,
+			throw new CloudFoundryAuthorizationException_RENAMED(Reason.INVALID_AUDIENCE,
 					"Token does not have audience actuator");
 		}
 

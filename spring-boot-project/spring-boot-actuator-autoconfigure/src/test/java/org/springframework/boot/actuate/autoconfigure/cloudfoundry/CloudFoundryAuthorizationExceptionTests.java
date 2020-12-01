@@ -18,13 +18,13 @@ package org.springframework.boot.actuate.autoconfigure.cloudfoundry;
 
 import org.junit.jupiter.api.Test;
 
-import org.springframework.boot.actuate.autoconfigure.cloudfoundry.CloudFoundryAuthorizationException.Reason;
+import org.springframework.boot.actuate.autoconfigure.cloudfoundry.CloudFoundryAuthorizationException_RENAMED.Reason;
 import org.springframework.http.HttpStatus;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Tests for {@link CloudFoundryAuthorizationException}.
+ * Tests for {@link CloudFoundryAuthorizationException_RENAMED}.
  *
  * @author Madhura Bhave
  */
@@ -77,8 +77,8 @@ class CloudFoundryAuthorizationExceptionTests {
 				.isEqualTo(HttpStatus.SERVICE_UNAVAILABLE);
 	}
 
-	private CloudFoundryAuthorizationException createException(Reason reason) {
-		return new CloudFoundryAuthorizationException(reason, "message");
+	private CloudFoundryAuthorizationException_RENAMED createException(Reason reason) {
+		return new CloudFoundryAuthorizationException_RENAMED(reason, "message");
 	}
 
 }
