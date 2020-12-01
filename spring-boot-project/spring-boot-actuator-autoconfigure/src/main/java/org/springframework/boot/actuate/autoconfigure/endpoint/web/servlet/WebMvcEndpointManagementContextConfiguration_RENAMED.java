@@ -59,7 +59,7 @@ import org.springframework.web.servlet.DispatcherServlet;
 @ConditionalOnClass(DispatcherServlet.class)
 @ConditionalOnBean({ DispatcherServlet.class, WebEndpointsSupplier.class })
 @EnableConfigurationProperties(CorsEndpointProperties.class)
-public class WebMvcEndpointManagementContextConfiguration {
+public class WebMvcEndpointManagementContextConfiguration_RENAMED {
 
 	@Bean
 	@ConditionalOnMissingBean
