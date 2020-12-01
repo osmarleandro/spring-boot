@@ -33,7 +33,7 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
 
 /**
- * Tests for {@link DiscovererEndpointFilter}.
+ * Tests for {@link DiscovererEndpointFilter_RENAMED}.
  *
  * @author Phillip Webb
  */
@@ -47,14 +47,14 @@ class DiscovererEndpointFilterTests {
 
 	@Test
 	void matchWhenDiscoveredByDiscovererShouldReturnTrue() {
-		DiscovererEndpointFilter filter = new TestDiscovererEndpointFilter(TestDiscovererA.class);
+		DiscovererEndpointFilter_RENAMED filter = new TestDiscovererEndpointFilter(TestDiscovererA.class);
 		DiscoveredEndpoint<?> endpoint = mockDiscoveredEndpoint(TestDiscovererA.class);
 		assertThat(filter.match(endpoint)).isTrue();
 	}
 
 	@Test
 	void matchWhenNotDiscoveredByDiscovererShouldReturnFalse() {
-		DiscovererEndpointFilter filter = new TestDiscovererEndpointFilter(TestDiscovererA.class);
+		DiscovererEndpointFilter_RENAMED filter = new TestDiscovererEndpointFilter(TestDiscovererA.class);
 		DiscoveredEndpoint<?> endpoint = mockDiscoveredEndpoint(TestDiscovererB.class);
 		assertThat(filter.match(endpoint)).isFalse();
 	}
@@ -66,7 +66,7 @@ class DiscovererEndpointFilterTests {
 		return endpoint;
 	}
 
-	static class TestDiscovererEndpointFilter extends DiscovererEndpointFilter {
+	static class TestDiscovererEndpointFilter extends DiscovererEndpointFilter_RENAMED {
 
 		TestDiscovererEndpointFilter(Class<? extends EndpointDiscoverer<?, ?>> discoverer) {
 			super(discoverer);

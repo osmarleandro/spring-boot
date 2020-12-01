@@ -41,7 +41,7 @@ import org.springframework.boot.actuate.endpoint.EndpointFilter;
  * } </pre>
  * @author Phillip Webb
  * @since 2.0.0
- * @see DiscovererEndpointFilter
+ * @see DiscovererEndpointFilter_RENAMED
  */
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)

@@ -17,14 +17,14 @@
 package org.springframework.boot.actuate.endpoint.web.annotation;
 
 import org.springframework.boot.actuate.endpoint.EndpointFilter;
-import org.springframework.boot.actuate.endpoint.annotation.DiscovererEndpointFilter;
+import org.springframework.boot.actuate.endpoint.annotation.DiscovererEndpointFilter_RENAMED;
 
 /**
  * {@link EndpointFilter} for endpoints discovered by {@link ServletEndpointDiscoverer}.
  *
  * @author Phillip Webb
  */
-class ServletEndpointFilter extends DiscovererEndpointFilter {
+class ServletEndpointFilter extends DiscovererEndpointFilter_RENAMED {
 
 	ServletEndpointFilter() {
 		super(ServletEndpointDiscoverer.class);

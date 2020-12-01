@@ -478,7 +478,7 @@ class EndpointDiscovererTests {
 
 	}
 
-	static class SpecializedEndpointFilter extends DiscovererEndpointFilter {
+	static class SpecializedEndpointFilter extends DiscovererEndpointFilter_RENAMED {
 
 		SpecializedEndpointFilter() {
 			super(SpecializedEndpointDiscoverer.class);
