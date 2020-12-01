@@ -29,7 +29,7 @@ import org.springframework.boot.testsupport.classpath.ClassPathExclusions;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Tests for {@link RedisHealthContributorAutoConfiguration}.
+ * Tests for {@link RedisHealthContributorAutoConfiguration_RENAMED}.
  *
  * @author Phillip Webb
  */
@@ -38,7 +38,7 @@ class RedisHealthContributorAutoConfigurationTests {
 
 	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(RedisAutoConfiguration.class,
-					RedisHealthContributorAutoConfiguration.class, HealthContributorAutoConfiguration.class));
+					RedisHealthContributorAutoConfiguration_RENAMED.class, HealthContributorAutoConfiguration.class));
 
 	@Test
 	void runShouldCreateIndicator() {

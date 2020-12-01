@@ -46,7 +46,7 @@ class RedisReactiveHealthContributorAutoConfigurationTests {
 
 	@Test
 	void runWithRegularIndicatorShouldOnlyCreateReactiveIndicator() {
-		this.contextRunner.withConfiguration(AutoConfigurations.of(RedisHealthContributorAutoConfiguration.class))
+		this.contextRunner.withConfiguration(AutoConfigurations.of(RedisHealthContributorAutoConfiguration_RENAMED.class))
 				.run((context) -> assertThat(context).hasSingleBean(RedisReactiveHealthIndicator.class)
 						.hasBean("redisHealthContributor").doesNotHaveBean(RedisHealthIndicator.class));
 	}
