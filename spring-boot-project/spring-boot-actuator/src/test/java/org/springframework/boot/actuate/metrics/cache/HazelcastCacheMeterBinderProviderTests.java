@@ -29,7 +29,7 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
 
 /**
- * Tests for {@link HazelcastCacheMeterBinderProvider}.
+ * Tests for {@link HazelcastCacheMeterBinderProvider_RENAMED}.
  *
  * @author Stephane Nicoll
  */
@@ -41,7 +41,7 @@ class HazelcastCacheMeterBinderProviderTests {
 		IMap<Object, Object> nativeCache = mock(IMap.class);
 		given(nativeCache.getName()).willReturn("test");
 		HazelcastCache cache = new HazelcastCache(nativeCache);
-		MeterBinder meterBinder = new HazelcastCacheMeterBinderProvider().getMeterBinder(cache,
+		MeterBinder meterBinder = new HazelcastCacheMeterBinderProvider_RENAMED().getMeterBinder(cache,
 				Collections.emptyList());
 		assertThat(meterBinder).isInstanceOf(HazelcastCacheMetrics.class);
 	}
