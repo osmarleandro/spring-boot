@@ -51,7 +51,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Andy Wilkinson
  */
-class WebEndpointsAutoConfigurationIntegrationTests {
+class WebEndpointsAutoConfigurationIntegrationTests_RENAMED {
 
 	@Test
 	void healthEndpointWebExtensionIsAutoConfigured() {
