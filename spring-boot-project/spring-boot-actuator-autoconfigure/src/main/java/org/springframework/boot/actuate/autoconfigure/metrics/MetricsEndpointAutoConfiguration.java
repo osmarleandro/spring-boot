@@ -20,7 +20,7 @@ import io.micrometer.core.annotation.Timed;
 import io.micrometer.core.instrument.MeterRegistry;
 
 import org.springframework.boot.actuate.autoconfigure.endpoint.condition.ConditionalOnAvailableEndpoint;
-import org.springframework.boot.actuate.metrics.MetricsEndpoint;
+import org.springframework.boot.actuate.metrics.MetricsEndpoint_RENAMED;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
@@ -30,22 +30,22 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * {@link EnableAutoConfiguration Auto-configuration} for {@link MetricsEndpoint}.
+ * {@link EnableAutoConfiguration Auto-configuration} for {@link MetricsEndpoint_RENAMED}.
  *
  * @author Phillip Webb
  * @since 2.0.0
  */
 @Configuration(proxyBeanMethods = false)
 @ConditionalOnClass(Timed.class)
-@ConditionalOnAvailableEndpoint(endpoint = MetricsEndpoint.class)
+@ConditionalOnAvailableEndpoint(endpoint = MetricsEndpoint_RENAMED.class)
 @AutoConfigureAfter({ MetricsAutoConfiguration.class, CompositeMeterRegistryAutoConfiguration.class })
 public class MetricsEndpointAutoConfiguration {
 
 	@Bean
 	@ConditionalOnBean(MeterRegistry.class)
 	@ConditionalOnMissingBean
-	public MetricsEndpoint metricsEndpoint(MeterRegistry registry) {
-		return new MetricsEndpoint(registry);
+	public MetricsEndpoint_RENAMED metricsEndpoint(MeterRegistry registry) {
+		return new MetricsEndpoint_RENAMED(registry);
 	}
 
 }

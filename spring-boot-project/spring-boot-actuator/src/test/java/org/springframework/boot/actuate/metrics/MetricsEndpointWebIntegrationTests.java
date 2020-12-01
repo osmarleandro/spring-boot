@@ -35,7 +35,7 @@ import org.springframework.test.web.reactive.server.WebTestClient;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Web integration tests for {@link MetricsEndpoint}.
+ * Web integration tests for {@link MetricsEndpoint_RENAMED}.
  *
  * @author Jon Schneider
  * @author Andy Wilkinson
@@ -76,8 +76,8 @@ class MetricsEndpointWebIntegrationTests {
 		}
 
 		@Bean
-		MetricsEndpoint metricsEndpoint(MeterRegistry meterRegistry) {
-			return new MetricsEndpoint(meterRegistry);
+		MetricsEndpoint_RENAMED metricsEndpoint(MeterRegistry meterRegistry) {
+			return new MetricsEndpoint_RENAMED(meterRegistry);
 		}
 
 		@Bean
