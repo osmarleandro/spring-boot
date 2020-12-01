@@ -46,7 +46,7 @@ public class CachesEndpointWebExtension {
 			int status = (entry != null) ? WebEndpointResponse.STATUS_OK : WebEndpointResponse.STATUS_NOT_FOUND;
 			return new WebEndpointResponse<>(entry, status);
 		}
-		catch (NonUniqueCacheException ex) {
+		catch (NonUniqueCacheException_RENAMED ex) {
 			return new WebEndpointResponse<>(WebEndpointResponse.STATUS_BAD_REQUEST);
 		}
 	}
@@ -58,7 +58,7 @@ public class CachesEndpointWebExtension {
 			int status = (cleared ? WebEndpointResponse.STATUS_NO_CONTENT : WebEndpointResponse.STATUS_NOT_FOUND);
 			return new WebEndpointResponse<>(status);
 		}
-		catch (NonUniqueCacheException ex) {
+		catch (NonUniqueCacheException_RENAMED ex) {
 			return new WebEndpointResponse<>(WebEndpointResponse.STATUS_BAD_REQUEST);
 		}
 	}

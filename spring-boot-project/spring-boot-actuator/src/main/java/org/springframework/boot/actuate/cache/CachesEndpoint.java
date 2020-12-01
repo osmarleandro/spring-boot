@@ -75,7 +75,7 @@ public class CachesEndpoint {
 	 * @param cache the name of the cache
 	 * @param cacheManager the name of the cacheManager (can be {@code null}
 	 * @return the descriptor of the cache or {@code null} if no such cache exists
-	 * @throws NonUniqueCacheException if more than one cache with that name exists and no
+	 * @throws NonUniqueCacheException_RENAMED if more than one cache with that name exists and no
 	 * {@code cacheManager} was provided to identify a unique candidate
 	 */
 	@ReadOperation
@@ -97,7 +97,7 @@ public class CachesEndpoint {
 	 * @param cacheManager the name of the cacheManager (can be {@code null} to match all)
 	 * @return {@code true} if the cache was cleared or {@code false} if no such cache
 	 * exists
-	 * @throws NonUniqueCacheException if more than one cache with that name exists and no
+	 * @throws NonUniqueCacheException_RENAMED if more than one cache with that name exists and no
 	 * {@code cacheManager} was provided to identify a unique candidate
 	 */
 	@DeleteOperation
@@ -123,7 +123,7 @@ public class CachesEndpoint {
 
 	private CacheEntry extractUniqueCacheEntry(String cache, List<CacheEntry> entries) {
 		if (entries.size() > 1) {
-			throw new NonUniqueCacheException(cache,
+			throw new NonUniqueCacheException_RENAMED(cache,
 					entries.stream().map(CacheEntry::getCacheManager).distinct().collect(Collectors.toList()));
 		}
 		return (!entries.isEmpty() ? entries.get(0) : null);
