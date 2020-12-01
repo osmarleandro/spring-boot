@@ -37,7 +37,7 @@ import org.glassfish.jersey.servlet.ServletContainer;
 import org.springframework.boot.actuate.endpoint.web.EndpointLinksResolver;
 import org.springframework.boot.actuate.endpoint.web.EndpointMapping;
 import org.springframework.boot.actuate.endpoint.web.EndpointMediaTypes;
-import org.springframework.boot.actuate.endpoint.web.annotation.AbstractWebEndpointIntegrationTests;
+import org.springframework.boot.actuate.endpoint.web.annotation.AbstractWebEndpointIntegrationTests_RENAMED;
 import org.springframework.boot.actuate.endpoint.web.annotation.WebEndpointDiscoverer;
 import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
@@ -62,7 +62,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
  * @see JerseyEndpointResourceFactory
  */
 public class JerseyWebEndpointIntegrationTests
-		extends AbstractWebEndpointIntegrationTests<AnnotationConfigServletWebServerApplicationContext> {
+		extends AbstractWebEndpointIntegrationTests_RENAMED<AnnotationConfigServletWebServerApplicationContext> {
 
 	public JerseyWebEndpointIntegrationTests() {
 		super(JerseyWebEndpointIntegrationTests::createApplicationContext,

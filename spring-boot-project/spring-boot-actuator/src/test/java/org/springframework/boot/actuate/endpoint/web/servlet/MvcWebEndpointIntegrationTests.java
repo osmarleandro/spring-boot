@@ -30,7 +30,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.actuate.endpoint.web.EndpointLinksResolver;
 import org.springframework.boot.actuate.endpoint.web.EndpointMapping;
 import org.springframework.boot.actuate.endpoint.web.EndpointMediaTypes;
-import org.springframework.boot.actuate.endpoint.web.annotation.AbstractWebEndpointIntegrationTests;
+import org.springframework.boot.actuate.endpoint.web.annotation.AbstractWebEndpointIntegrationTests_RENAMED;
 import org.springframework.boot.actuate.endpoint.web.annotation.WebEndpointDiscoverer;
 import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
 import org.springframework.boot.autoconfigure.http.HttpMessageConvertersAutoConfiguration;
@@ -66,7 +66,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @see WebMvcEndpointHandlerMapping
  */
 class MvcWebEndpointIntegrationTests
-		extends AbstractWebEndpointIntegrationTests<AnnotationConfigServletWebServerApplicationContext> {
+		extends AbstractWebEndpointIntegrationTests_RENAMED<AnnotationConfigServletWebServerApplicationContext> {
 
 	MvcWebEndpointIntegrationTests() {
 		super(MvcWebEndpointIntegrationTests::createApplicationContext,

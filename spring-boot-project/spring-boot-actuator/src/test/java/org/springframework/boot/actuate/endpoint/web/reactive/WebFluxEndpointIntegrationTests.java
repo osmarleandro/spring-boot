@@ -23,7 +23,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.actuate.endpoint.web.EndpointLinksResolver;
 import org.springframework.boot.actuate.endpoint.web.EndpointMapping;
 import org.springframework.boot.actuate.endpoint.web.EndpointMediaTypes;
-import org.springframework.boot.actuate.endpoint.web.annotation.AbstractWebEndpointIntegrationTests;
+import org.springframework.boot.actuate.endpoint.web.annotation.AbstractWebEndpointIntegrationTests_RENAMED;
 import org.springframework.boot.actuate.endpoint.web.annotation.WebEndpointDiscoverer;
 import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
 import org.springframework.boot.autoconfigure.web.reactive.error.ErrorWebFluxAutoConfiguration;
@@ -56,7 +56,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @see WebFluxEndpointHandlerMapping
  */
 class WebFluxEndpointIntegrationTests
-		extends AbstractWebEndpointIntegrationTests<AnnotationConfigReactiveWebServerApplicationContext> {
+		extends AbstractWebEndpointIntegrationTests_RENAMED<AnnotationConfigReactiveWebServerApplicationContext> {
 
 	WebFluxEndpointIntegrationTests() {
 		super(WebFluxEndpointIntegrationTests::createApplicationContext,

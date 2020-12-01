@@ -41,13 +41,13 @@ import static org.mockito.Mockito.mock;
 class BaseConfiguration {
 
 	@Bean
-	AbstractWebEndpointIntegrationTests.EndpointDelegate endpointDelegate() {
+	AbstractWebEndpointIntegrationTests_RENAMED.EndpointDelegate endpointDelegate() {
 		ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
 		if (classLoader instanceof TomcatEmbeddedWebappClassLoader) {
 			Thread.currentThread().setContextClassLoader(classLoader.getParent());
 		}
 		try {
-			return mock(AbstractWebEndpointIntegrationTests.EndpointDelegate.class);
+			return mock(AbstractWebEndpointIntegrationTests_RENAMED.EndpointDelegate.class);
 		}
 		finally {
 			Thread.currentThread().setContextClassLoader(classLoader);
