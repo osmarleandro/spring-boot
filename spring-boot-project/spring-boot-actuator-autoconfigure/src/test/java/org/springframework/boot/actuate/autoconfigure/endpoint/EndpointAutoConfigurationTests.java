@@ -23,7 +23,7 @@ import org.junit.jupiter.api.Test;
 
 import org.springframework.boot.actuate.endpoint.annotation.EndpointConverter;
 import org.springframework.boot.actuate.endpoint.invoke.OperationParameter;
-import org.springframework.boot.actuate.endpoint.invoke.ParameterMappingException;
+import org.springframework.boot.actuate.endpoint.invoke.ParameterMappingException_RENAMED;
 import org.springframework.boot.actuate.endpoint.invoke.ParameterValueMapper;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
 import org.springframework.boot.test.context.runner.ApplicationContextRunner;
@@ -63,7 +63,7 @@ class EndpointAutoConfigurationTests {
 
 	@Test
 	void mapWhenConfigurationConverterIsNotQualifiedShouldNotConvert() {
-		assertThatExceptionOfType(ParameterMappingException.class).isThrownBy(() -> {
+		assertThatExceptionOfType(ParameterMappingException_RENAMED.class).isThrownBy(() -> {
 			this.contextRunner.withUserConfiguration(NonQualifiedConverterConfiguration.class).run((context) -> {
 				ParameterValueMapper parameterValueMapper = context.getBean(ParameterValueMapper.class);
 				parameterValueMapper.mapParameterValue(new TestOperationParameter(Person.class), "John Smith");
@@ -87,7 +87,7 @@ class EndpointAutoConfigurationTests {
 
 	@Test
 	void mapWhenGenericConfigurationConverterIsNotQualifiedShouldNotConvert() {
-		assertThatExceptionOfType(ParameterMappingException.class).isThrownBy(() -> {
+		assertThatExceptionOfType(ParameterMappingException_RENAMED.class).isThrownBy(() -> {
 			this.contextRunner.withUserConfiguration(NonQualifiedGenericConverterConfiguration.class).run((context) -> {
 				ParameterValueMapper parameterValueMapper = context.getBean(ParameterValueMapper.class);
 				parameterValueMapper.mapParameterValue(new TestOperationParameter(Person.class), "John Smith");

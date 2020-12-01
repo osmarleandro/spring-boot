@@ -17,7 +17,7 @@
 package org.springframework.boot.actuate.endpoint.invoke.convert;
 
 import org.springframework.boot.actuate.endpoint.invoke.OperationParameter;
-import org.springframework.boot.actuate.endpoint.invoke.ParameterMappingException;
+import org.springframework.boot.actuate.endpoint.invoke.ParameterMappingException_RENAMED;
 import org.springframework.boot.actuate.endpoint.invoke.ParameterValueMapper;
 import org.springframework.boot.convert.ApplicationConversionService;
 import org.springframework.core.convert.ConversionService;
@@ -52,12 +52,12 @@ public class ConversionServiceParameterValueMapper implements ParameterValueMapp
 	}
 
 	@Override
-	public Object mapParameterValue(OperationParameter parameter, Object value) throws ParameterMappingException {
+	public Object mapParameterValue(OperationParameter parameter, Object value) throws ParameterMappingException_RENAMED {
 		try {
 			return this.conversionService.convert(value, parameter.getType());
 		}
 		catch (Exception ex) {
-			throw new ParameterMappingException(parameter, value, ex);
+			throw new ParameterMappingException_RENAMED(parameter, value, ex);
 		}
 	}
 

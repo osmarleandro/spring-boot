@@ -21,7 +21,7 @@ import java.time.OffsetDateTime;
 import org.junit.jupiter.api.Test;
 
 import org.springframework.boot.actuate.endpoint.invoke.OperationParameter;
-import org.springframework.boot.actuate.endpoint.invoke.ParameterMappingException;
+import org.springframework.boot.actuate.endpoint.invoke.ParameterMappingException_RENAMED;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.core.convert.support.DefaultConversionService;
 import org.springframework.format.support.DefaultFormattingConversionService;
@@ -56,7 +56,7 @@ class ConversionServiceParameterValueMapperTests {
 		RuntimeException error = new RuntimeException();
 		given(conversionService.convert(any(), any())).willThrow(error);
 		ConversionServiceParameterValueMapper mapper = new ConversionServiceParameterValueMapper(conversionService);
-		assertThatExceptionOfType(ParameterMappingException.class)
+		assertThatExceptionOfType(ParameterMappingException_RENAMED.class)
 				.isThrownBy(() -> mapper.mapParameterValue(new TestOperationParameter(Integer.class), "123"))
 				.satisfies((ex) -> {
 					assertThat(ex.getValue()).isEqualTo("123");
@@ -77,7 +77,7 @@ class ConversionServiceParameterValueMapperTests {
 	void createWithConversionServiceShouldNotRegisterIsoOffsetDateTimeConverter() {
 		ConversionService conversionService = new DefaultConversionService();
 		ConversionServiceParameterValueMapper mapper = new ConversionServiceParameterValueMapper(conversionService);
-		assertThatExceptionOfType(ParameterMappingException.class).isThrownBy(() -> mapper
+		assertThatExceptionOfType(ParameterMappingException_RENAMED.class).isThrownBy(() -> mapper
 				.mapParameterValue(new TestOperationParameter(OffsetDateTime.class), "2011-12-03T10:15:30+01:00"));
 	}
 
