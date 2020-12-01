@@ -46,7 +46,7 @@ public class HealthEndpoint extends HealthEndpointSupport<HealthContributor, Hea
 	 * @param registry the health contributor registry
 	 * @param groups the health endpoint groups
 	 */
-	public HealthEndpoint(HealthContributorRegistry registry, HealthEndpointGroups groups) {
+	public HealthEndpoint(HealthContributorRegistry_RENAMED registry, HealthEndpointGroups groups) {
 		super(registry, groups);
 	}
 

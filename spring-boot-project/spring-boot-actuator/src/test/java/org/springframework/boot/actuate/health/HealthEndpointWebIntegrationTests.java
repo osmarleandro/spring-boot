@@ -114,8 +114,8 @@ class HealthEndpointWebIntegrationTests {
 
 	private void withHealthContributor(ApplicationContext context, String name, HealthContributor healthContributor,
 			ReactiveHealthContributor reactiveHealthContributor, ThrowingCallable callable) {
-		HealthContributorRegistry healthContributorRegistry = getContributorRegistry(context,
-				HealthContributorRegistry.class);
+		HealthContributorRegistry_RENAMED healthContributorRegistry = getContributorRegistry(context,
+				HealthContributorRegistry_RENAMED.class);
 		healthContributorRegistry.registerContributor(name, healthContributor);
 		ReactiveHealthContributorRegistry reactiveHealthContributorRegistry = getContributorRegistry(context,
 				ReactiveHealthContributorRegistry.class);
@@ -144,8 +144,8 @@ class HealthEndpointWebIntegrationTests {
 	@WebEndpointTest
 	void whenHealthIndicatorIsRemovedResponseIsAltered(WebTestClient client, ApplicationContext context) {
 		String name = "bravo";
-		HealthContributorRegistry healthContributorRegistry = getContributorRegistry(context,
-				HealthContributorRegistry.class);
+		HealthContributorRegistry_RENAMED healthContributorRegistry = getContributorRegistry(context,
+				HealthContributorRegistry_RENAMED.class);
 		HealthContributor bravo = healthContributorRegistry.unregisterContributor(name);
 		ReactiveHealthContributorRegistry reactiveHealthContributorRegistry = getContributorRegistry(context,
 				ReactiveHealthContributorRegistry.class);
@@ -168,7 +168,7 @@ class HealthEndpointWebIntegrationTests {
 	static class TestConfiguration {
 
 		@Bean
-		HealthContributorRegistry healthContributorRegistry(Map<String, HealthContributor> healthContributorBeans) {
+		HealthContributorRegistry_RENAMED healthContributorRegistry(Map<String, HealthContributor> healthContributorBeans) {
 			return new DefaultHealthContributorRegistry(healthContributorBeans);
 		}
 
@@ -184,14 +184,14 @@ class HealthEndpointWebIntegrationTests {
 		}
 
 		@Bean
-		HealthEndpoint healthEndpoint(HealthContributorRegistry healthContributorRegistry,
+		HealthEndpoint healthEndpoint(HealthContributorRegistry_RENAMED healthContributorRegistry,
 				HealthEndpointGroups healthEndpointGroups) {
 			return new HealthEndpoint(healthContributorRegistry, healthEndpointGroups);
 		}
 
 		@Bean
 		@ConditionalOnWebApplication(type = Type.SERVLET)
-		HealthEndpointWebExtension healthWebEndpointExtension(HealthContributorRegistry healthContributorRegistry,
+		HealthEndpointWebExtension healthWebEndpointExtension(HealthContributorRegistry_RENAMED healthContributorRegistry,
 				HealthEndpointGroups healthEndpointGroups) {
 			return new HealthEndpointWebExtension(healthContributorRegistry, healthEndpointGroups);
 		}

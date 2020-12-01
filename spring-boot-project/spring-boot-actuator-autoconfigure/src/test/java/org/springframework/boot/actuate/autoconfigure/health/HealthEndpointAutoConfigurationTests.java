@@ -29,7 +29,7 @@ import org.springframework.boot.actuate.health.DefaultHealthContributorRegistry;
 import org.springframework.boot.actuate.health.DefaultReactiveHealthContributorRegistry;
 import org.springframework.boot.actuate.health.Health;
 import org.springframework.boot.actuate.health.HealthComponent;
-import org.springframework.boot.actuate.health.HealthContributorRegistry;
+import org.springframework.boot.actuate.health.HealthContributorRegistry_RENAMED;
 import org.springframework.boot.actuate.health.HealthEndpoint;
 import org.springframework.boot.actuate.health.HealthEndpointGroups;
 import org.springframework.boot.actuate.health.HealthEndpointGroupsPostProcessor;
@@ -78,7 +78,7 @@ class HealthEndpointAutoConfigurationTests {
 			assertThat(context).doesNotHaveBean(StatusAggregator.class);
 			assertThat(context).doesNotHaveBean(HttpCodeStatusMapper.class);
 			assertThat(context).doesNotHaveBean(HealthEndpointGroups.class);
-			assertThat(context).doesNotHaveBean(HealthContributorRegistry.class);
+			assertThat(context).doesNotHaveBean(HealthContributorRegistry_RENAMED.class);
 			assertThat(context).doesNotHaveBean(HealthEndpoint.class);
 			assertThat(context).doesNotHaveBean(ReactiveHealthContributorRegistry.class);
 			assertThat(context).doesNotHaveBean(HealthEndpointWebExtension.class);
@@ -142,7 +142,7 @@ class HealthEndpointAutoConfigurationTests {
 	@Test
 	void runCreatesHealthContributorRegistryContainingHealthBeans() {
 		this.contextRunner.run((context) -> {
-			HealthContributorRegistry registry = context.getBean(HealthContributorRegistry.class);
+			HealthContributorRegistry_RENAMED registry = context.getBean(HealthContributorRegistry_RENAMED.class);
 			Object[] names = registry.stream().map(NamedContributor::getName).toArray();
 			assertThat(names).containsExactlyInAnyOrder("simple", "additional", "ping", "reactive");
 		});
@@ -152,7 +152,7 @@ class HealthEndpointAutoConfigurationTests {
 	void runWhenNoReactorCreatesHealthContributorRegistryContainingHealthBeans() {
 		ClassLoader classLoader = new FilteredClassLoader(Mono.class, Flux.class);
 		this.contextRunner.withClassLoader(classLoader).run((context) -> {
-			HealthContributorRegistry registry = context.getBean(HealthContributorRegistry.class);
+			HealthContributorRegistry_RENAMED registry = context.getBean(HealthContributorRegistry_RENAMED.class);
 			Object[] names = registry.stream().map(NamedContributor::getName).toArray();
 			assertThat(names).containsExactlyInAnyOrder("simple", "additional", "ping");
 		});
@@ -161,7 +161,7 @@ class HealthEndpointAutoConfigurationTests {
 	@Test
 	void runWhenHasHealthContributorRegistryBeanDoesNotCreateAdditionalRegistry() {
 		this.contextRunner.withUserConfiguration(HealthContributorRegistryConfiguration.class).run((context) -> {
-			HealthContributorRegistry registry = context.getBean(HealthContributorRegistry.class);
+			HealthContributorRegistry_RENAMED registry = context.getBean(HealthContributorRegistry_RENAMED.class);
 			Object[] names = registry.stream().map(NamedContributor::getName).toArray();
 			assertThat(names).isEmpty();
 		});
@@ -315,7 +315,7 @@ class HealthEndpointAutoConfigurationTests {
 	static class HealthContributorRegistryConfiguration {
 
 		@Bean
-		HealthContributorRegistry healthContributorRegistry() {
+		HealthContributorRegistry_RENAMED healthContributorRegistry() {
 			return new DefaultHealthContributorRegistry();
 		}
 

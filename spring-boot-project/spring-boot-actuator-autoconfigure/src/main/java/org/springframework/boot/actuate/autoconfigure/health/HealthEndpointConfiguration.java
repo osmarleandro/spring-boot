@@ -28,7 +28,7 @@ import org.springframework.boot.actuate.health.CompositeHealthContributor;
 import org.springframework.boot.actuate.health.CompositeReactiveHealthContributor;
 import org.springframework.boot.actuate.health.Health;
 import org.springframework.boot.actuate.health.HealthContributor;
-import org.springframework.boot.actuate.health.HealthContributorRegistry;
+import org.springframework.boot.actuate.health.HealthContributorRegistry_RENAMED;
 import org.springframework.boot.actuate.health.HealthEndpoint;
 import org.springframework.boot.actuate.health.HealthEndpointGroups;
 import org.springframework.boot.actuate.health.HealthEndpointGroupsPostProcessor;
@@ -76,7 +76,7 @@ class HealthEndpointConfiguration {
 
 	@Bean
 	@ConditionalOnMissingBean
-	HealthContributorRegistry healthContributorRegistry(ApplicationContext applicationContext,
+	HealthContributorRegistry_RENAMED healthContributorRegistry(ApplicationContext applicationContext,
 			HealthEndpointGroups groups) {
 		Map<String, HealthContributor> healthContributors = new LinkedHashMap<>(
 				applicationContext.getBeansOfType(HealthContributor.class));
@@ -88,7 +88,7 @@ class HealthEndpointConfiguration {
 
 	@Bean
 	@ConditionalOnMissingBean
-	HealthEndpoint healthEndpoint(HealthContributorRegistry registry, HealthEndpointGroups groups) {
+	HealthEndpoint healthEndpoint(HealthContributorRegistry_RENAMED registry, HealthEndpointGroups groups) {
 		return new HealthEndpoint(registry, groups);
 	}
 

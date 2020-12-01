@@ -16,28 +16,12 @@
 
 package org.springframework.boot.actuate.health;
 
-import java.util.Map;
-import java.util.function.Function;
-
 /**
- * Default {@link HealthContributorRegistry_RENAMED} implementation.
+ * {@link ContributorRegistry} for {@link HealthContributor HealthContributors}.
  *
  * @author Phillip Webb
  * @since 2.2.0
  */
-public class DefaultHealthContributorRegistry extends DefaultContributorRegistry<HealthContributor>
-		implements HealthContributorRegistry_RENAMED {
-
-	public DefaultHealthContributorRegistry() {
-	}
-
-	public DefaultHealthContributorRegistry(Map<String, HealthContributor> contributors) {
-		super(contributors);
-	}
-
-	public DefaultHealthContributorRegistry(Map<String, HealthContributor> contributors,
-			Function<String, String> nameFactory) {
-		super(contributors, nameFactory);
-	}
+public interface HealthContributorRegistry_RENAMED extends ContributorRegistry<HealthContributor> {
 
 }

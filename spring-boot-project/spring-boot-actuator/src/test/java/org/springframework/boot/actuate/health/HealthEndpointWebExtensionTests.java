@@ -36,7 +36,7 @@ import static org.mockito.Mockito.mock;
  * @author Scott Frederick
  */
 class HealthEndpointWebExtensionTests
-		extends HealthEndpointSupportTests<HealthContributorRegistry, HealthContributor, HealthComponent> {
+		extends HealthEndpointSupportTests<HealthContributorRegistry_RENAMED, HealthContributor, HealthComponent> {
 
 	@Test
 	void healthReturnsSystemHealth() {
@@ -80,12 +80,12 @@ class HealthEndpointWebExtensionTests
 	}
 
 	@Override
-	protected HealthEndpointWebExtension create(HealthContributorRegistry registry, HealthEndpointGroups groups) {
+	protected HealthEndpointWebExtension create(HealthContributorRegistry_RENAMED registry, HealthEndpointGroups groups) {
 		return new HealthEndpointWebExtension(registry, groups);
 	}
 
 	@Override
-	protected HealthContributorRegistry createRegistry() {
+	protected HealthContributorRegistry_RENAMED createRegistry() {
 		return new DefaultHealthContributorRegistry();
 	}
 

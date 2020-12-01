@@ -20,12 +20,12 @@ import java.util.Collection;
 import java.util.Map;
 
 import org.springframework.boot.actuate.health.DefaultReactiveHealthContributorRegistry;
-import org.springframework.boot.actuate.health.HealthContributorRegistry;
+import org.springframework.boot.actuate.health.HealthContributorRegistry_RENAMED;
 import org.springframework.boot.actuate.health.ReactiveHealthContributor;
 import org.springframework.util.Assert;
 
 /**
- * An auto-configured {@link HealthContributorRegistry} that ensures registered indicators
+ * An auto-configured {@link HealthContributorRegistry_RENAMED} that ensures registered indicators
  * do not clash with groups names.
  *
  * @author Phillip Webb

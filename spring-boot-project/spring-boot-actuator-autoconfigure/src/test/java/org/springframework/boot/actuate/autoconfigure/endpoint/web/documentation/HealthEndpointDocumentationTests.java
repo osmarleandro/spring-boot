@@ -32,7 +32,7 @@ import org.springframework.boot.actuate.health.CompositeHealthContributor;
 import org.springframework.boot.actuate.health.DefaultHealthContributorRegistry;
 import org.springframework.boot.actuate.health.Health;
 import org.springframework.boot.actuate.health.HealthContributor;
-import org.springframework.boot.actuate.health.HealthContributorRegistry;
+import org.springframework.boot.actuate.health.HealthContributorRegistry_RENAMED;
 import org.springframework.boot.actuate.health.HealthEndpoint;
 import org.springframework.boot.actuate.health.HealthEndpointGroup;
 import org.springframework.boot.actuate.health.HealthEndpointGroups;
@@ -107,7 +107,7 @@ class HealthEndpointDocumentationTests extends MockMvcEndpointDocumentationTests
 
 		@Bean
 		HealthEndpoint healthEndpoint(Map<String, HealthContributor> healthContributors) {
-			HealthContributorRegistry registry = new DefaultHealthContributorRegistry(healthContributors);
+			HealthContributorRegistry_RENAMED registry = new DefaultHealthContributorRegistry(healthContributors);
 			HealthEndpointGroup primary = new TestHealthEndpointGroup();
 			HealthEndpointGroups groups = HealthEndpointGroups.of(primary, Collections.emptyMap());
 			return new HealthEndpoint(registry, groups);

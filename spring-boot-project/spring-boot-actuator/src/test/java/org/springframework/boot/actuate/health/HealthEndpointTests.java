@@ -33,7 +33,7 @@ import static org.mockito.Mockito.mock;
  * @author Scott Frederick
  */
 class HealthEndpointTests
-		extends HealthEndpointSupportTests<HealthContributorRegistry, HealthContributor, HealthComponent> {
+		extends HealthEndpointSupportTests<HealthContributorRegistry_RENAMED, HealthContributor, HealthComponent> {
 
 	@Test
 	void healthReturnsSystemHealth() {
@@ -67,12 +67,12 @@ class HealthEndpointTests
 	}
 
 	@Override
-	protected HealthEndpoint create(HealthContributorRegistry registry, HealthEndpointGroups groups) {
+	protected HealthEndpoint create(HealthContributorRegistry_RENAMED registry, HealthEndpointGroups groups) {
 		return new HealthEndpoint(registry, groups);
 	}
 
 	@Override
-	protected HealthContributorRegistry createRegistry() {
+	protected HealthContributorRegistry_RENAMED createRegistry() {
 		return new DefaultHealthContributorRegistry();
 	}
 
