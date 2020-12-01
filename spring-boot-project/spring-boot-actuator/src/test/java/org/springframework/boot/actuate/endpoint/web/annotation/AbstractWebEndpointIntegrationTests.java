@@ -36,7 +36,7 @@ import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
 import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
 import org.springframework.boot.actuate.endpoint.annotation.Selector;
 import org.springframework.boot.actuate.endpoint.annotation.Selector.Match;
-import org.springframework.boot.actuate.endpoint.annotation.WriteOperation;
+import org.springframework.boot.actuate.endpoint.annotation.WriteOperation_RENAMED;
 import org.springframework.boot.actuate.endpoint.web.WebEndpointResponse;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -643,7 +643,7 @@ public abstract class AbstractWebEndpointIntegrationTests<T extends Configurable
 			return Collections.singletonMap("part", part);
 		}
 
-		@WriteOperation
+		@WriteOperation_RENAMED
 		void write(@Nullable String foo, @Nullable String bar) {
 			this.endpointDelegate.write(foo, bar);
 		}
@@ -699,7 +699,7 @@ public abstract class AbstractWebEndpointIntegrationTests<T extends Configurable
 			this.delegate = delegate;
 		}
 
-		@WriteOperation
+		@WriteOperation_RENAMED
 		void write() {
 			this.delegate.write();
 		}
@@ -731,7 +731,7 @@ public abstract class AbstractWebEndpointIntegrationTests<T extends Configurable
 			this.delegate = delegate;
 		}
 
-		@WriteOperation
+		@WriteOperation_RENAMED
 		Object write() {
 			this.delegate.write();
 			return null;

@@ -30,7 +30,7 @@ import org.springframework.boot.actuate.autoconfigure.cloudfoundry.CloudFoundryA
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
 import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
 import org.springframework.boot.actuate.endpoint.annotation.Selector;
-import org.springframework.boot.actuate.endpoint.annotation.WriteOperation;
+import org.springframework.boot.actuate.endpoint.annotation.WriteOperation_RENAMED;
 import org.springframework.boot.actuate.endpoint.invoke.ParameterValueMapper;
 import org.springframework.boot.actuate.endpoint.invoke.convert.ConversionServiceParameterValueMapper;
 import org.springframework.boot.actuate.endpoint.web.EndpointLinksResolver;
@@ -222,7 +222,7 @@ class CloudFoundryWebFluxEndpointIntegrationTests {
 			return Collections.singletonMap("part", part);
 		}
 
-		@WriteOperation
+		@WriteOperation_RENAMED
 		void write(String foo, String bar) {
 			this.endpointDelegate.write(foo, bar);
 		}

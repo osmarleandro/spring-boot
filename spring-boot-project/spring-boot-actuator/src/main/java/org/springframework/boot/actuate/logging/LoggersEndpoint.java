@@ -28,7 +28,7 @@ import java.util.TreeSet;
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
 import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
 import org.springframework.boot.actuate.endpoint.annotation.Selector;
-import org.springframework.boot.actuate.endpoint.annotation.WriteOperation;
+import org.springframework.boot.actuate.endpoint.annotation.WriteOperation_RENAMED;
 import org.springframework.boot.logging.LogLevel;
 import org.springframework.boot.logging.LoggerConfiguration;
 import org.springframework.boot.logging.LoggerGroup;
@@ -95,7 +95,7 @@ public class LoggersEndpoint {
 		return (configuration != null) ? new SingleLoggerLevels(configuration) : null;
 	}
 
-	@WriteOperation
+	@WriteOperation_RENAMED
 	public void configureLogLevel(@Selector String name, @Nullable LogLevel configuredLevel) {
 		Assert.notNull(name, "Name must not be empty");
 		LoggerGroup group = this.loggerGroups.get(name);

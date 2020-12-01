@@ -18,7 +18,7 @@ package org.springframework.boot.docs.actuate.endpoint;
 
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
 import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
-import org.springframework.boot.actuate.endpoint.annotation.WriteOperation;
+import org.springframework.boot.actuate.endpoint.annotation.WriteOperation_RENAMED;
 
 /**
  * An example of a custom actuator endpoint.
@@ -36,7 +36,7 @@ public class CustomEndpointExample {
 	// end::read[]
 
 	// tag::write[]
-	@WriteOperation
+	@WriteOperation_RENAMED
 	public void updateCustomData(String name, int counter) {
 		// injects "test" and 42
 	}

@@ -36,7 +36,7 @@ import org.springframework.boot.actuate.endpoint.annotation.DeleteOperation;
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
 import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
 import org.springframework.boot.actuate.endpoint.annotation.Selector;
-import org.springframework.boot.actuate.endpoint.annotation.WriteOperation;
+import org.springframework.boot.actuate.endpoint.annotation.WriteOperation_RENAMED;
 import org.springframework.boot.actuate.endpoint.invoke.convert.ConversionServiceParameterValueMapper;
 import org.springframework.boot.actuate.endpoint.invoker.cache.CachingOperationInvoker;
 import org.springframework.boot.actuate.endpoint.invoker.cache.CachingOperationInvokerAdvisor;
@@ -454,7 +454,7 @@ class WebEndpointDiscovererTests {
 			return null;
 		}
 
-		@WriteOperation
+		@WriteOperation_RENAMED
 		void update(String foo, String bar) {
 
 		}
@@ -563,7 +563,7 @@ class WebEndpointDiscovererTests {
 	@Endpoint(id = "voidwrite")
 	static class VoidWriteOperationEndpoint {
 
-		@WriteOperation
+		@WriteOperation_RENAMED
 		void write(String foo, String bar) {
 		}
 
@@ -587,7 +587,7 @@ class WebEndpointDiscovererTests {
 			return "read";
 		}
 
-		@WriteOperation(produces = { "a/b", "c/d" })
+		@WriteOperation_RENAMED(produces = { "a/b", "c/d" })
 		String write() {
 			return "write";
 		}

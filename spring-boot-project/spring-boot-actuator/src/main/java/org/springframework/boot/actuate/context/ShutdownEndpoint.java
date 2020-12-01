@@ -21,7 +21,7 @@ import java.util.Map;
 
 import org.springframework.beans.BeansException;
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
-import org.springframework.boot.actuate.endpoint.annotation.WriteOperation;
+import org.springframework.boot.actuate.endpoint.annotation.WriteOperation_RENAMED;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -45,7 +45,7 @@ public class ShutdownEndpoint implements ApplicationContextAware {
 
 	private ConfigurableApplicationContext context;
 
-	@WriteOperation
+	@WriteOperation_RENAMED
 	public Map<String, String> shutdown() {
 		if (this.context == null) {
 			return NO_CONTEXT_MESSAGE;

@@ -18,7 +18,7 @@ package org.springframework.boot.actuate.integration;
 
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
 import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
-import org.springframework.boot.actuate.endpoint.annotation.WriteOperation;
+import org.springframework.boot.actuate.endpoint.annotation.WriteOperation_RENAMED;
 import org.springframework.integration.graph.Graph;
 import org.springframework.integration.graph.IntegrationGraphServer;
 
@@ -48,7 +48,7 @@ public class IntegrationGraphEndpoint {
 		return this.graphServer.getGraph();
 	}
 
-	@WriteOperation
+	@WriteOperation_RENAMED
 	public void rebuild() {
 		this.graphServer.rebuild();
 	}

@@ -431,7 +431,7 @@ class EndpointDiscovererTests {
 			return null;
 		}
 
-		@WriteOperation
+		@WriteOperation_RENAMED
 		void update(String foo, String bar) {
 
 		}
@@ -449,7 +449,7 @@ class EndpointDiscovererTests {
 
 	static class TestEndpointSubclass extends TestEndpoint {
 
-		@WriteOperation
+		@WriteOperation_RENAMED
 		void updateWithMoreArguments(String foo, String bar, String baz) {
 
 		}

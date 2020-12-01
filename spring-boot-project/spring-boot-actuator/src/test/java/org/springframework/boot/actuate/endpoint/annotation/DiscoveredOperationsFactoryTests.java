@@ -136,7 +136,7 @@ class DiscoveredOperationsFactoryTests {
 
 	static class ExampleWrite {
 
-		@WriteOperation
+		@WriteOperation_RENAMED
 		String write() {
 			return "write";
 		}
@@ -159,7 +159,7 @@ class DiscoveredOperationsFactoryTests {
 			return "read";
 		}
 
-		@WriteOperation
+		@WriteOperation_RENAMED
 		String write() {
 			return "write";
 		}

@@ -30,7 +30,7 @@ import org.springframework.boot.actuate.endpoint.EndpointId;
 import org.springframework.boot.actuate.endpoint.annotation.DeleteOperation;
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
 import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
-import org.springframework.boot.actuate.endpoint.annotation.WriteOperation;
+import org.springframework.boot.actuate.endpoint.annotation.WriteOperation_RENAMED;
 import org.springframework.boot.actuate.endpoint.invoke.convert.ConversionServiceParameterValueMapper;
 import org.springframework.boot.actuate.endpoint.invoker.cache.CachingOperationInvoker;
 import org.springframework.boot.actuate.endpoint.invoker.cache.CachingOperationInvokerAdvisor;
@@ -399,7 +399,7 @@ class JmxEndpointDiscovererTests {
 			return null;
 		}
 
-		@WriteOperation
+		@WriteOperation_RENAMED
 		void update(String foo, String bar) {
 
 		}
@@ -438,7 +438,7 @@ class JmxEndpointDiscovererTests {
 			return null;
 		}
 
-		@WriteOperation
+		@WriteOperation_RENAMED
 		@ManagedOperation(description = "Update something based on bar")
 		@ManagedOperationParameters({ @ManagedOperationParameter(name = "foo", description = "Foo identifier"),
 				@ManagedOperationParameter(name = "bar", description = "Bar value") })
