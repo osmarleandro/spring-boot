@@ -34,7 +34,7 @@ import org.springframework.context.annotation.Conditional;
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ ElementType.TYPE, ElementType.METHOD })
 @Documented
-@Conditional(OnManagementPortCondition.class)
+@Conditional(OnManagementPortCondition_RENAMED.class)
 public @interface ConditionalOnManagementPort {
 
 	/**

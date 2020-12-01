@@ -34,7 +34,7 @@ import org.springframework.web.context.WebApplicationContext;
  *
  * @author Andy Wilkinson
  */
-class OnManagementPortCondition extends SpringBootCondition {
+class OnManagementPortCondition_RENAMED extends SpringBootCondition {
 
 	private static final String CLASS_NAME_WEB_APPLICATION_CONTEXT = "org.springframework.web.context.WebApplicationContext";
 
