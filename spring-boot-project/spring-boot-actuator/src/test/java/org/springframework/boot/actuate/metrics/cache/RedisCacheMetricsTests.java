@@ -41,7 +41,7 @@ import org.springframework.data.redis.cache.RedisCacheManager;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Tests for {@link RedisCacheMetrics}.
+ * Tests for {@link RedisCacheMetrics_RENAMED}.
  *
  * @author Stephane Nicoll
  */
@@ -103,7 +103,7 @@ class RedisCacheMetricsTests {
 	void cacheMetricsMatchCacheStatistics() {
 		this.contextRunner.run((context) -> {
 			RedisCache cache = getTestCache(context);
-			RedisCacheMetrics cacheMetrics = new RedisCacheMetrics(cache, TAGS);
+			RedisCacheMetrics_RENAMED cacheMetrics = new RedisCacheMetrics_RENAMED(cache, TAGS);
 			assertThat(cacheMetrics.hitCount()).isEqualTo(cache.getStatistics().getHits());
 			assertThat(cacheMetrics.missCount()).isEqualTo(cache.getStatistics().getMisses());
 			assertThat(cacheMetrics.putCount()).isEqualTo(cache.getStatistics().getPuts());
@@ -117,7 +117,7 @@ class RedisCacheMetricsTests {
 		return (context) -> {
 			RedisCache cache = getTestCache(context);
 			SimpleMeterRegistry meterRegistry = new SimpleMeterRegistry();
-			new RedisCacheMetrics(cache, Tags.of("app", "test")).bindTo(meterRegistry);
+			new RedisCacheMetrics_RENAMED(cache, Tags.of("app", "test")).bindTo(meterRegistry);
 			stats.accept(cache, meterRegistry);
 		};
 	}

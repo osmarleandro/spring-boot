@@ -31,7 +31,7 @@ public class RedisCacheMeterBinderProvider implements CacheMeterBinderProvider<R
 
 	@Override
 	public MeterBinder getMeterBinder(RedisCache cache, Iterable<Tag> tags) {
-		return new RedisCacheMetrics(cache, tags);
+		return new RedisCacheMetrics_RENAMED(cache, tags);
 	}
 
 }

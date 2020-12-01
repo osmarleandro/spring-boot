@@ -39,7 +39,7 @@ class RedisCacheMeterBinderProviderTests {
 		RedisCache cache = mock(RedisCache.class);
 		given(cache.getName()).willReturn("test");
 		MeterBinder meterBinder = new RedisCacheMeterBinderProvider().getMeterBinder(cache, Collections.emptyList());
-		assertThat(meterBinder).isInstanceOf(RedisCacheMetrics.class);
+		assertThat(meterBinder).isInstanceOf(RedisCacheMetrics_RENAMED.class);
 	}
 
 }
