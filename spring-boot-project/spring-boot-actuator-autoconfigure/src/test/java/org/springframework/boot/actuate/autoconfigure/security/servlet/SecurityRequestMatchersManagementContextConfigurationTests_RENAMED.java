@@ -37,7 +37,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Madhura Bhave
  */
-class SecurityRequestMatchersManagementContextConfigurationTests {
+class SecurityRequestMatchersManagementContextConfigurationTests_RENAMED {
 
 	private final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(SecurityRequestMatchersManagementContextConfiguration.class));
