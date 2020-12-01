@@ -18,7 +18,7 @@ package smoketest.actuator;
 
 import java.util.Collections;
 
-import org.springframework.boot.actuate.info.Info;
+import org.springframework.boot.actuate.info.Info_RENAMED;
 import org.springframework.boot.actuate.info.InfoContributor;
 import org.springframework.stereotype.Component;
 
@@ -26,7 +26,7 @@ import org.springframework.stereotype.Component;
 public class ExampleInfoContributor implements InfoContributor {
 
 	@Override
-	public void contribute(Info.Builder builder) {
+	public void contribute(Info_RENAMED.Builder builder) {
 		builder.withDetail("example", Collections.singletonMap("someKey", "someValue"));
 	}
 

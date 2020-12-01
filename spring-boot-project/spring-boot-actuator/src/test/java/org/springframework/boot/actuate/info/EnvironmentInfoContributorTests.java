@@ -39,7 +39,7 @@ class EnvironmentInfoContributorTests {
 	@Test
 	void extractOnlyInfoProperty() {
 		TestPropertyValues.of("info.app=my app", "info.version=1.0.0", "foo=bar").applyTo(this.environment);
-		Info actual = contributeFrom(this.environment);
+		Info_RENAMED actual = contributeFrom(this.environment);
 		assertThat(actual.get("app", String.class)).isEqualTo("my app");
 		assertThat(actual.get("version", String.class)).isEqualTo("1.0.0");
 		assertThat(actual.getDetails().size()).isEqualTo(2);
@@ -48,7 +48,7 @@ class EnvironmentInfoContributorTests {
 	@Test
 	void extractNoEntry() {
 		TestPropertyValues.of("foo=bar").applyTo(this.environment);
-		Info actual = contributeFrom(this.environment);
+		Info_RENAMED actual = contributeFrom(this.environment);
 		assertThat(actual.getDetails()).isEmpty();
 	}
 
@@ -56,13 +56,13 @@ class EnvironmentInfoContributorTests {
 	@SuppressWarnings("unchecked")
 	void propertiesFromEnvironmentShouldBindCorrectly() {
 		TestPropertyValues.of("INFO_ENVIRONMENT_FOO=green").applyTo(this.environment, Type.SYSTEM_ENVIRONMENT);
-		Info actual = contributeFrom(this.environment);
+		Info_RENAMED actual = contributeFrom(this.environment);
 		assertThat(actual.get("environment", Map.class)).containsEntry("foo", "green");
 	}
 
-	private static Info contributeFrom(ConfigurableEnvironment environment) {
+	private static Info_RENAMED contributeFrom(ConfigurableEnvironment environment) {
 		EnvironmentInfoContributor contributor = new EnvironmentInfoContributor(environment);
-		Info.Builder builder = new Info.Builder();
+		Info_RENAMED.Builder builder = new Info_RENAMED.Builder();
 		contributor.contribute(builder);
 		return builder.build();
 	}

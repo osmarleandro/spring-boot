@@ -23,7 +23,7 @@ import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.assertj.core.api.Assertions.entry;
 
 /**
- * Tests for {@link Info}.
+ * Tests for {@link Info_RENAMED}.
  *
  * @author Stephane Nicoll
  */
@@ -31,15 +31,15 @@ class InfoTests {
 
 	@Test
 	void infoIsImmutable() {
-		Info info = new Info.Builder().withDetail("foo", "bar").build();
+		Info_RENAMED info = new Info_RENAMED.Builder().withDetail("foo", "bar").build();
 		assertThatExceptionOfType(UnsupportedOperationException.class).isThrownBy(info.getDetails()::clear);
 	}
 
 	@Test
 	void infoTakesCopyOfMap() {
-		Info.Builder builder = new Info.Builder();
+		Info_RENAMED.Builder builder = new Info_RENAMED.Builder();
 		builder.withDetail("foo", "bar");
-		Info build = builder.build();
+		Info_RENAMED build = builder.build();
 		builder.withDetail("biz", "bar");
 		assertThat(build.getDetails()).containsOnly(entry("foo", "bar"));
 	}

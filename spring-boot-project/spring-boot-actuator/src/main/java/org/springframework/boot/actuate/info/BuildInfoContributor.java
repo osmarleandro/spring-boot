@@ -36,7 +36,7 @@ public class BuildInfoContributor extends InfoPropertiesInfoContributor<BuildPro
 	}
 
 	@Override
-	public void contribute(Info.Builder builder) {
+	public void contribute(Info_RENAMED.Builder builder) {
 		builder.withDetail("build", generateContent());
 	}
 

@@ -41,7 +41,7 @@ public class EnvironmentInfoContributor implements InfoContributor {
 	}
 
 	@Override
-	public void contribute(Info.Builder builder) {
+	public void contribute(Info_RENAMED.Builder builder) {
 		Binder binder = Binder.get(this.environment);
 		binder.bind("info", STRING_OBJECT_MAP).ifBound(builder::withDetails);
 	}

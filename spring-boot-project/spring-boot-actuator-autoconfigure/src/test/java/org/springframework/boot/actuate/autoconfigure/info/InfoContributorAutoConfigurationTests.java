@@ -24,7 +24,7 @@ import org.junit.jupiter.api.Test;
 
 import org.springframework.boot.actuate.info.BuildInfoContributor;
 import org.springframework.boot.actuate.info.GitInfoContributor;
-import org.springframework.boot.actuate.info.Info;
+import org.springframework.boot.actuate.info.Info_RENAMED;
 import org.springframework.boot.actuate.info.InfoContributor;
 import org.springframework.boot.info.BuildProperties;
 import org.springframework.boot.info.GitProperties;
@@ -130,7 +130,7 @@ class InfoContributorAutoConfigurationTests {
 	}
 
 	private Map<String, Object> invokeContributor(InfoContributor contributor) {
-		Info.Builder builder = new Info.Builder();
+		Info_RENAMED.Builder builder = new Info_RENAMED.Builder();
 		contributor.contribute(builder);
 		return builder.build().getDetails();
 	}

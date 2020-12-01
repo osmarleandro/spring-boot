@@ -47,11 +47,11 @@ public class InfoEndpoint {
 
 	@ReadOperation
 	public Map<String, Object> info() {
-		Info.Builder builder = new Info.Builder();
+		Info_RENAMED.Builder builder = new Info_RENAMED.Builder();
 		for (InfoContributor contributor : this.infoContributors) {
 			contributor.contribute(builder);
 		}
-		Info build = builder.build();
+		Info_RENAMED build = builder.build();
 		return build.getDetails();
 	}
 

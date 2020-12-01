@@ -41,7 +41,7 @@ public class GitInfoContributor extends InfoPropertiesInfoContributor<GitPropert
 	}
 
 	@Override
-	public void contribute(Info.Builder builder) {
+	public void contribute(Info_RENAMED.Builder builder) {
 		builder.withDetail("git", generateContent());
 	}
 

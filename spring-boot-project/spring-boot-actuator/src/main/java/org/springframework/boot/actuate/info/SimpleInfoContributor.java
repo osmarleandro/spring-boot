@@ -37,7 +37,7 @@ public class SimpleInfoContributor implements InfoContributor {
 	}
 
 	@Override
-	public void contribute(Info.Builder builder) {
+	public void contribute(Info_RENAMED.Builder builder) {
 		if (this.detail != null) {
 			builder.withDetail(this.prefix, this.detail);
 		}

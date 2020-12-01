@@ -26,9 +26,9 @@ package org.springframework.boot.actuate.info;
 public interface InfoContributor {
 
 	/**
-	 * Contributes additional details using the specified {@link Info.Builder Builder}.
+	 * Contributes additional details using the specified {@link Info_RENAMED.Builder Builder}.
 	 * @param builder the builder to use
 	 */
-	void contribute(Info.Builder builder);
+	void contribute(Info_RENAMED.Builder builder);
 
 }

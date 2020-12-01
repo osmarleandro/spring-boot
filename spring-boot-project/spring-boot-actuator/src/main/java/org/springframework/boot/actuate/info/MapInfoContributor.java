@@ -34,7 +34,7 @@ public class MapInfoContributor implements InfoContributor {
 	}
 
 	@Override
-	public void contribute(Info.Builder builder) {
+	public void contribute(Info_RENAMED.Builder builder) {
 		builder.withDetails(this.info);
 	}
 

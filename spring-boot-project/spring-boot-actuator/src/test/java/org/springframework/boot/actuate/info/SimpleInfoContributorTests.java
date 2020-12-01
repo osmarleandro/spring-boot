@@ -36,13 +36,13 @@ class SimpleInfoContributorTests {
 	@Test
 	void mapSimpleObject() {
 		Object o = new Object();
-		Info info = contributeFrom("test", o);
+		Info_RENAMED info = contributeFrom("test", o);
 		assertThat(info.get("test")).isSameAs(o);
 	}
 
-	private static Info contributeFrom(String prefix, Object detail) {
+	private static Info_RENAMED contributeFrom(String prefix, Object detail) {
 		SimpleInfoContributor contributor = new SimpleInfoContributor(prefix, detail);
-		Info.Builder builder = new Info.Builder();
+		Info_RENAMED.Builder builder = new Info_RENAMED.Builder();
 		contributor.contribute(builder);
 		return builder.build();
 	}
