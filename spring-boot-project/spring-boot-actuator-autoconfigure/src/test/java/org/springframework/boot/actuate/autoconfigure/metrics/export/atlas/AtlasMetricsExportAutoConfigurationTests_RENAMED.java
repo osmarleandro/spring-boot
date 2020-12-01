@@ -34,7 +34,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Andy Wilkinson
  */
-class AtlasMetricsExportAutoConfigurationTests {
+class AtlasMetricsExportAutoConfigurationTests_RENAMED {
 
 	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(AtlasMetricsExportAutoConfiguration.class));
