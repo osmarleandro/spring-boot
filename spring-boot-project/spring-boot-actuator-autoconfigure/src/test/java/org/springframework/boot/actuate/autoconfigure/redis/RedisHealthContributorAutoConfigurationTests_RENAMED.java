@@ -34,7 +34,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Phillip Webb
  */
 @ClassPathExclusions({ "reactor-core*.jar", "lettuce-core*.jar" })
-class RedisHealthContributorAutoConfigurationTests {
+class RedisHealthContributorAutoConfigurationTests_RENAMED {
 
 	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(RedisAutoConfiguration.class,
