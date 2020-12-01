@@ -18,7 +18,7 @@ package org.springframework.boot.actuate.autoconfigure.cassandra;
 
 import com.datastax.oss.driver.api.core.CqlSession;
 
-import org.springframework.boot.actuate.autoconfigure.cassandra.CassandraHealthContributorConfigurations.CassandraDriverConfiguration;
+import org.springframework.boot.actuate.autoconfigure.cassandra.CassandraHealthContributorConfigurations_RENAMED.CassandraDriverConfiguration;
 import org.springframework.boot.actuate.autoconfigure.health.ConditionalOnEnabledHealthIndicator;
 import org.springframework.boot.actuate.cassandra.CassandraDriverHealthIndicator;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
@@ -43,7 +43,7 @@ import org.springframework.context.annotation.Import;
 @AutoConfigureAfter({ CassandraAutoConfiguration.class, CassandraDataAutoConfiguration.class,
 		CassandraReactiveHealthContributorAutoConfiguration.class })
 @Import({ CassandraDriverConfiguration.class,
-		CassandraHealthContributorConfigurations.CassandraOperationsConfiguration.class })
+		CassandraHealthContributorConfigurations_RENAMED.CassandraOperationsConfiguration.class })
 @SuppressWarnings("deprecation")
 public class CassandraHealthContributorAutoConfiguration {
 

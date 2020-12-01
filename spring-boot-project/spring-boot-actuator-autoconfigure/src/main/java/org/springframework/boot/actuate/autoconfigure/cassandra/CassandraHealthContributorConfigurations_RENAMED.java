@@ -39,7 +39,7 @@ import org.springframework.data.cassandra.core.ReactiveCassandraOperations;
  *
  * @author Stephane Nicoll
  */
-class CassandraHealthContributorConfigurations {
+class CassandraHealthContributorConfigurations_RENAMED {
 
 	@Configuration(proxyBeanMethods = false)
 	@ConditionalOnBean(CqlSession.class)
