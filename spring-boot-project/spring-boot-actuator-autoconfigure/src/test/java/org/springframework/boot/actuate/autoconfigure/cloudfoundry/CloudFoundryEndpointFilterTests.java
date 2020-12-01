@@ -18,7 +18,7 @@ package org.springframework.boot.actuate.autoconfigure.cloudfoundry;
 
 import org.junit.jupiter.api.Test;
 
-import org.springframework.boot.actuate.endpoint.annotation.DiscoveredEndpoint;
+import org.springframework.boot.actuate.endpoint.annotation.DiscoveredEndpoint_RENAMED;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
@@ -35,14 +35,14 @@ class CloudFoundryEndpointFilterTests {
 
 	@Test
 	void matchIfDiscovererCloudFoundryShouldReturnFalse() {
-		DiscoveredEndpoint<?> endpoint = mock(DiscoveredEndpoint.class);
+		DiscoveredEndpoint_RENAMED<?> endpoint = mock(DiscoveredEndpoint_RENAMED.class);
 		given(endpoint.wasDiscoveredBy(CloudFoundryWebEndpointDiscoverer.class)).willReturn(true);
 		assertThat(this.filter.match(endpoint)).isTrue();
 	}
 
 	@Test
 	void matchIfDiscovererNotCloudFoundryShouldReturnFalse() {
-		DiscoveredEndpoint<?> endpoint = mock(DiscoveredEndpoint.class);
+		DiscoveredEndpoint_RENAMED<?> endpoint = mock(DiscoveredEndpoint_RENAMED.class);
 		given(endpoint.wasDiscoveredBy(CloudFoundryWebEndpointDiscoverer.class)).willReturn(false);
 		assertThat(this.filter.match(endpoint)).isFalse();
 	}

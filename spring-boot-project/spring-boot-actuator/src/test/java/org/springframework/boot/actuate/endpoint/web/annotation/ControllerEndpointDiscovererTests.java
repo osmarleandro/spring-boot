@@ -25,7 +25,7 @@ import java.util.stream.Collectors;
 import org.junit.jupiter.api.Test;
 
 import org.springframework.boot.actuate.endpoint.EndpointId;
-import org.springframework.boot.actuate.endpoint.annotation.DiscoveredEndpoint;
+import org.springframework.boot.actuate.endpoint.annotation.DiscoveredEndpoint_RENAMED;
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
 import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
@@ -64,7 +64,7 @@ class ControllerEndpointDiscovererTests {
 			ExposableControllerEndpoint endpoint = endpoints.iterator().next();
 			assertThat(endpoint.getEndpointId()).isEqualTo(EndpointId.of("testcontroller"));
 			assertThat(endpoint.getController()).isInstanceOf(TestControllerEndpoint.class);
-			assertThat(endpoint).isInstanceOf(DiscoveredEndpoint.class);
+			assertThat(endpoint).isInstanceOf(DiscoveredEndpoint_RENAMED.class);
 		}));
 	}
 
@@ -78,7 +78,7 @@ class ControllerEndpointDiscovererTests {
 					ExposableControllerEndpoint endpoint = endpoints.iterator().next();
 					assertThat(endpoint.getEndpointId()).isEqualTo(EndpointId.of("testcontroller"));
 					assertThat(endpoint.getController()).isInstanceOf(TestProxyControllerEndpoint.class);
-					assertThat(endpoint).isInstanceOf(DiscoveredEndpoint.class);
+					assertThat(endpoint).isInstanceOf(DiscoveredEndpoint_RENAMED.class);
 				}));
 	}
 
@@ -104,7 +104,7 @@ class ControllerEndpointDiscovererTests {
 					ExposableControllerEndpoint endpoint = endpoints.iterator().next();
 					assertThat(endpoint.getEndpointId()).isEqualTo(EndpointId.of("testrestcontroller"));
 					assertThat(endpoint.getController()).isInstanceOf(TestProxyRestControllerEndpoint.class);
-					assertThat(endpoint).isInstanceOf(DiscoveredEndpoint.class);
+					assertThat(endpoint).isInstanceOf(DiscoveredEndpoint_RENAMED.class);
 				}));
 	}
 

@@ -32,7 +32,7 @@ import javax.servlet.ServletResponse;
 import org.junit.jupiter.api.Test;
 
 import org.springframework.boot.actuate.endpoint.EndpointId;
-import org.springframework.boot.actuate.endpoint.annotation.DiscoveredEndpoint;
+import org.springframework.boot.actuate.endpoint.annotation.DiscoveredEndpoint_RENAMED;
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
 import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
 import org.springframework.boot.actuate.endpoint.web.EndpointServlet;
@@ -73,7 +73,7 @@ class ServletEndpointDiscovererTests {
 			ExposableServletEndpoint endpoint = endpoints.iterator().next();
 			assertThat(endpoint.getEndpointId()).isEqualTo(EndpointId.of("testservlet"));
 			assertThat(endpoint.getEndpointServlet()).isNotNull();
-			assertThat(endpoint).isInstanceOf(DiscoveredEndpoint.class);
+			assertThat(endpoint).isInstanceOf(DiscoveredEndpoint_RENAMED.class);
 		}));
 	}
 
@@ -87,7 +87,7 @@ class ServletEndpointDiscovererTests {
 					ExposableServletEndpoint endpoint = endpoints.iterator().next();
 					assertThat(endpoint.getEndpointId()).isEqualTo(EndpointId.of("testservlet"));
 					assertThat(endpoint.getEndpointServlet()).isNotNull();
-					assertThat(endpoint).isInstanceOf(DiscoveredEndpoint.class);
+					assertThat(endpoint).isInstanceOf(DiscoveredEndpoint_RENAMED.class);
 				}));
 	}
 

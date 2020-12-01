@@ -48,20 +48,20 @@ class DiscovererEndpointFilterTests {
 	@Test
 	void matchWhenDiscoveredByDiscovererShouldReturnTrue() {
 		DiscovererEndpointFilter filter = new TestDiscovererEndpointFilter(TestDiscovererA.class);
-		DiscoveredEndpoint<?> endpoint = mockDiscoveredEndpoint(TestDiscovererA.class);
+		DiscoveredEndpoint_RENAMED<?> endpoint = mockDiscoveredEndpoint(TestDiscovererA.class);
 		assertThat(filter.match(endpoint)).isTrue();
 	}
 
 	@Test
 	void matchWhenNotDiscoveredByDiscovererShouldReturnFalse() {
 		DiscovererEndpointFilter filter = new TestDiscovererEndpointFilter(TestDiscovererA.class);
-		DiscoveredEndpoint<?> endpoint = mockDiscoveredEndpoint(TestDiscovererB.class);
+		DiscoveredEndpoint_RENAMED<?> endpoint = mockDiscoveredEndpoint(TestDiscovererB.class);
 		assertThat(filter.match(endpoint)).isFalse();
 	}
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	private DiscoveredEndpoint<?> mockDiscoveredEndpoint(Class<?> discoverer) {
-		DiscoveredEndpoint endpoint = mock(DiscoveredEndpoint.class);
+	private DiscoveredEndpoint_RENAMED<?> mockDiscoveredEndpoint(Class<?> discoverer) {
+		DiscoveredEndpoint_RENAMED endpoint = mock(DiscoveredEndpoint_RENAMED.class);
 		given(endpoint.wasDiscoveredBy(discoverer)).willReturn(true);
 		return endpoint;
 	}

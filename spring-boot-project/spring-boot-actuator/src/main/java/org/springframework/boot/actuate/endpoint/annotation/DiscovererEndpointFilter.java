@@ -26,7 +26,7 @@ import org.springframework.util.Assert;
  * @author Phillip Webb
  * @since 2.0.0
  */
-public abstract class DiscovererEndpointFilter implements EndpointFilter<DiscoveredEndpoint<?>> {
+public abstract class DiscovererEndpointFilter implements EndpointFilter<DiscoveredEndpoint_RENAMED<?>> {
 
 	private final Class<? extends EndpointDiscoverer<?, ?>> discoverer;
 
@@ -40,7 +40,7 @@ public abstract class DiscovererEndpointFilter implements EndpointFilter<Discove
 	}
 
 	@Override
-	public boolean match(DiscoveredEndpoint<?> endpoint) {
+	public boolean match(DiscoveredEndpoint_RENAMED<?> endpoint) {
 		return endpoint.wasDiscoveredBy(this.discoverer);
 	}
 
