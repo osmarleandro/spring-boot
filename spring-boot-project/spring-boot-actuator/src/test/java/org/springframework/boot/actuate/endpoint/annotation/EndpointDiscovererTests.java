@@ -39,7 +39,7 @@ import org.springframework.boot.actuate.endpoint.EndpointId;
 import org.springframework.boot.actuate.endpoint.ExposableEndpoint;
 import org.springframework.boot.actuate.endpoint.Operation;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvoker;
-import org.springframework.boot.actuate.endpoint.invoke.OperationInvokerAdvisor;
+import org.springframework.boot.actuate.endpoint.invoke.OperationInvokerAdvisor_RENAMED;
 import org.springframework.boot.actuate.endpoint.invoke.ParameterValueMapper;
 import org.springframework.boot.actuate.endpoint.invoke.convert.ConversionServiceParameterValueMapper;
 import org.springframework.boot.actuate.endpoint.invoker.cache.CachingOperationInvoker;
@@ -536,7 +536,7 @@ class EndpointDiscovererTests {
 		}
 
 		TestEndpointDiscoverer(ApplicationContext applicationContext, ParameterValueMapper parameterValueMapper,
-				Collection<OperationInvokerAdvisor> invokerAdvisors,
+				Collection<OperationInvokerAdvisor_RENAMED> invokerAdvisors,
 				Collection<EndpointFilter<TestExposableEndpoint>> filters) {
 			super(applicationContext, parameterValueMapper, invokerAdvisors, filters);
 		}

@@ -28,7 +28,7 @@ import org.springframework.boot.actuate.endpoint.EndpointId;
 import org.springframework.boot.actuate.endpoint.Operation;
 import org.springframework.boot.actuate.endpoint.OperationType;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvoker;
-import org.springframework.boot.actuate.endpoint.invoke.OperationInvokerAdvisor;
+import org.springframework.boot.actuate.endpoint.invoke.OperationInvokerAdvisor_RENAMED;
 import org.springframework.boot.actuate.endpoint.invoke.ParameterValueMapper;
 import org.springframework.boot.actuate.endpoint.invoke.reflect.OperationMethod;
 import org.springframework.boot.actuate.endpoint.invoke.reflect.ReflectiveOperationInvoker;
@@ -60,10 +60,10 @@ abstract class DiscoveredOperationsFactory<O extends Operation> {
 
 	private final ParameterValueMapper parameterValueMapper;
 
-	private final Collection<OperationInvokerAdvisor> invokerAdvisors;
+	private final Collection<OperationInvokerAdvisor_RENAMED> invokerAdvisors;
 
 	DiscoveredOperationsFactory(ParameterValueMapper parameterValueMapper,
-			Collection<OperationInvokerAdvisor> invokerAdvisors) {
+			Collection<OperationInvokerAdvisor_RENAMED> invokerAdvisors) {
 		this.parameterValueMapper = parameterValueMapper;
 		this.invokerAdvisors = invokerAdvisors;
 	}
@@ -96,7 +96,7 @@ abstract class DiscoveredOperationsFactory<O extends Operation> {
 	private OperationInvoker applyAdvisors(EndpointId endpointId, OperationMethod operationMethod,
 			OperationInvoker invoker) {
 		if (this.invokerAdvisors != null) {
-			for (OperationInvokerAdvisor advisor : this.invokerAdvisors) {
+			for (OperationInvokerAdvisor_RENAMED advisor : this.invokerAdvisors) {
 				invoker = advisor.apply(endpointId, operationMethod.getOperationType(), operationMethod.getParameters(),
 						invoker);
 			}

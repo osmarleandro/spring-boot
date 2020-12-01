@@ -30,7 +30,7 @@ import org.springframework.boot.actuate.endpoint.InvocationContext;
 import org.springframework.boot.actuate.endpoint.OperationType;
 import org.springframework.boot.actuate.endpoint.SecurityContext;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvoker;
-import org.springframework.boot.actuate.endpoint.invoke.OperationInvokerAdvisor;
+import org.springframework.boot.actuate.endpoint.invoke.OperationInvokerAdvisor_RENAMED;
 import org.springframework.boot.actuate.endpoint.invoke.OperationParameters;
 import org.springframework.boot.actuate.endpoint.invoke.ParameterValueMapper;
 import org.springframework.boot.actuate.endpoint.invoke.reflect.OperationMethod;
@@ -49,7 +49,7 @@ class DiscoveredOperationsFactoryTests {
 
 	private ParameterValueMapper parameterValueMapper;
 
-	private List<OperationInvokerAdvisor> invokerAdvisors;
+	private List<OperationInvokerAdvisor_RENAMED> invokerAdvisors;
 
 	@BeforeEach
 	void setup() {
@@ -178,7 +178,7 @@ class DiscoveredOperationsFactoryTests {
 	static class TestDiscoveredOperationsFactory extends DiscoveredOperationsFactory<TestOperation> {
 
 		TestDiscoveredOperationsFactory(ParameterValueMapper parameterValueMapper,
-				Collection<OperationInvokerAdvisor> invokerAdvisors) {
+				Collection<OperationInvokerAdvisor_RENAMED> invokerAdvisors) {
 			super(parameterValueMapper, invokerAdvisors);
 		}
 
@@ -198,7 +198,7 @@ class DiscoveredOperationsFactoryTests {
 
 	}
 
-	static class TestOperationInvokerAdvisor implements OperationInvokerAdvisor {
+	static class TestOperationInvokerAdvisor implements OperationInvokerAdvisor_RENAMED {
 
 		private EndpointId endpointId;
 

@@ -23,17 +23,17 @@ import org.springframework.boot.actuate.endpoint.OperationType;
 import org.springframework.boot.actuate.endpoint.SecurityContext;
 import org.springframework.boot.actuate.endpoint.http.ApiVersion;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvoker;
-import org.springframework.boot.actuate.endpoint.invoke.OperationInvokerAdvisor;
+import org.springframework.boot.actuate.endpoint.invoke.OperationInvokerAdvisor_RENAMED;
 import org.springframework.boot.actuate.endpoint.invoke.OperationParameter;
 import org.springframework.boot.actuate.endpoint.invoke.OperationParameters;
 
 /**
- * {@link OperationInvokerAdvisor} to optionally provide result caching support.
+ * {@link OperationInvokerAdvisor_RENAMED} to optionally provide result caching support.
  *
  * @author Stephane Nicoll
  * @since 2.0.0
  */
-public class CachingOperationInvokerAdvisor implements OperationInvokerAdvisor {
+public class CachingOperationInvokerAdvisor implements OperationInvokerAdvisor_RENAMED {
 
 	private final Function<EndpointId, Long> endpointIdTimeToLive;
 
