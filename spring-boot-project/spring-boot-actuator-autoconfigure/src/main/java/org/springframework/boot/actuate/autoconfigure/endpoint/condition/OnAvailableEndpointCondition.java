@@ -38,7 +38,7 @@ import org.springframework.util.ConcurrentReferenceHashMap;
  * @author Brian Clozel
  * @author Stephane Nicoll
  * @author Phillip Webb
- * @see ConditionalOnAvailableEndpoint
+ * @see ConditionalOnAvailableEndpoint_RENAMED
  */
 class OnAvailableEndpointCondition extends AbstractEndpointCondition {
 
@@ -49,28 +49,28 @@ class OnAvailableEndpointCondition extends AbstractEndpointCondition {
 	@Override
 	public ConditionOutcome getMatchOutcome(ConditionContext context, AnnotatedTypeMetadata metadata) {
 		ConditionOutcome enablementOutcome = getEnablementOutcome(context, metadata,
-				ConditionalOnAvailableEndpoint.class);
+				ConditionalOnAvailableEndpoint_RENAMED.class);
 		if (!enablementOutcome.isMatch()) {
 			return enablementOutcome;
 		}
 		ConditionMessage message = enablementOutcome.getConditionMessage();
 		Environment environment = context.getEnvironment();
 		if (CloudPlatform.CLOUD_FOUNDRY.isActive(environment)) {
-			return new ConditionOutcome(true, message.andCondition(ConditionalOnAvailableEndpoint.class)
+			return new ConditionOutcome(true, message.andCondition(ConditionalOnAvailableEndpoint_RENAMED.class)
 					.because("application is running on Cloud Foundry"));
 		}
 		EndpointId id = EndpointId.of(environment,
-				getEndpointAttributes(ConditionalOnAvailableEndpoint.class, context, metadata).getString("id"));
+				getEndpointAttributes(ConditionalOnAvailableEndpoint_RENAMED.class, context, metadata).getString("id"));
 		Set<Exposure> exposures = getExposures(environment);
 		for (Exposure exposure : exposures) {
 			if (exposure.isExposed(id)) {
 				return new ConditionOutcome(true,
-						message.andCondition(ConditionalOnAvailableEndpoint.class)
+						message.andCondition(ConditionalOnAvailableEndpoint_RENAMED.class)
 								.because("marked as exposed by a 'management.endpoints." + exposure.getPrefix()
 										+ ".exposure' property"));
 			}
 		}
-		return new ConditionOutcome(false, message.andCondition(ConditionalOnAvailableEndpoint.class)
+		return new ConditionOutcome(false, message.andCondition(ConditionalOnAvailableEndpoint_RENAMED.class)
 				.because("no 'management.endpoints' property marked it as exposed"));
 	}
 

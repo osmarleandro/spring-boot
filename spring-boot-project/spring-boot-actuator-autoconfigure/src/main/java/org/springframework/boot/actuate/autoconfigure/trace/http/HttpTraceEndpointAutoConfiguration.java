@@ -16,7 +16,7 @@
 
 package org.springframework.boot.actuate.autoconfigure.trace.http;
 
-import org.springframework.boot.actuate.autoconfigure.endpoint.condition.ConditionalOnAvailableEndpoint;
+import org.springframework.boot.actuate.autoconfigure.endpoint.condition.ConditionalOnAvailableEndpoint_RENAMED;
 import org.springframework.boot.actuate.trace.http.HttpTraceEndpoint;
 import org.springframework.boot.actuate.trace.http.HttpTraceRepository;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
@@ -33,7 +33,7 @@ import org.springframework.context.annotation.Configuration;
  * @since 2.0.0
  */
 @Configuration(proxyBeanMethods = false)
-@ConditionalOnAvailableEndpoint(endpoint = HttpTraceEndpoint.class)
+@ConditionalOnAvailableEndpoint_RENAMED(endpoint = HttpTraceEndpoint.class)
 @AutoConfigureAfter(HttpTraceAutoConfiguration.class)
 public class HttpTraceEndpointAutoConfiguration {
 

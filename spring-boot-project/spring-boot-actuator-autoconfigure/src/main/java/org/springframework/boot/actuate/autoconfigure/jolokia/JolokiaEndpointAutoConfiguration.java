@@ -18,7 +18,7 @@ package org.springframework.boot.actuate.autoconfigure.jolokia;
 
 import org.jolokia.http.AgentServlet;
 
-import org.springframework.boot.actuate.autoconfigure.endpoint.condition.ConditionalOnAvailableEndpoint;
+import org.springframework.boot.actuate.autoconfigure.endpoint.condition.ConditionalOnAvailableEndpoint_RENAMED;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
@@ -36,7 +36,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration(proxyBeanMethods = false)
 @ConditionalOnWebApplication(type = Type.SERVLET)
 @ConditionalOnClass(AgentServlet.class)
-@ConditionalOnAvailableEndpoint(endpoint = JolokiaEndpoint.class)
+@ConditionalOnAvailableEndpoint_RENAMED(endpoint = JolokiaEndpoint.class)
 @EnableConfigurationProperties(JolokiaProperties.class)
 public class JolokiaEndpointAutoConfiguration {
 

@@ -16,7 +16,7 @@
 
 package org.springframework.boot.actuate.autoconfigure.management;
 
-import org.springframework.boot.actuate.autoconfigure.endpoint.condition.ConditionalOnAvailableEndpoint;
+import org.springframework.boot.actuate.autoconfigure.endpoint.condition.ConditionalOnAvailableEndpoint_RENAMED;
 import org.springframework.boot.actuate.management.HeapDumpWebEndpoint;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -30,7 +30,7 @@ import org.springframework.context.annotation.Configuration;
  * @since 2.0.0
  */
 @Configuration(proxyBeanMethods = false)
-@ConditionalOnAvailableEndpoint(endpoint = HeapDumpWebEndpoint.class)
+@ConditionalOnAvailableEndpoint_RENAMED(endpoint = HeapDumpWebEndpoint.class)
 public class HeapDumpWebEndpointAutoConfiguration {
 
 	@Bean

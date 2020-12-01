@@ -29,7 +29,7 @@ import org.springframework.context.annotation.Configuration;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Tests for {@link ConditionalOnAvailableEndpoint @ConditionalOnAvailableEndpoint}.
+ * Tests for {@link ConditionalOnAvailableEndpoint_RENAMED @ConditionalOnAvailableEndpoint}.
  *
  * @author Brian Clozel
  */
@@ -244,31 +244,31 @@ class ConditionalOnAvailableEndpointTests {
 	static class AllEndpointsConfiguration {
 
 		@Bean
-		@ConditionalOnAvailableEndpoint
+		@ConditionalOnAvailableEndpoint_RENAMED
 		HealthEndpoint health() {
 			return new HealthEndpoint();
 		}
 
 		@Bean
-		@ConditionalOnAvailableEndpoint
+		@ConditionalOnAvailableEndpoint_RENAMED
 		InfoEndpoint info() {
 			return new InfoEndpoint();
 		}
 
 		@Bean
-		@ConditionalOnAvailableEndpoint
+		@ConditionalOnAvailableEndpoint_RENAMED
 		SpringEndpoint spring() {
 			return new SpringEndpoint();
 		}
 
 		@Bean
-		@ConditionalOnAvailableEndpoint
+		@ConditionalOnAvailableEndpoint_RENAMED
 		TestEndpoint test() {
 			return new TestEndpoint();
 		}
 
 		@Bean
-		@ConditionalOnAvailableEndpoint
+		@ConditionalOnAvailableEndpoint_RENAMED
 		ShutdownEndpoint shutdown() {
 			return new ShutdownEndpoint();
 		}
@@ -279,13 +279,13 @@ class ConditionalOnAvailableEndpointTests {
 	static class ComponentEnabledIfEndpointIsExposedConfiguration {
 
 		@Bean
-		@ConditionalOnAvailableEndpoint(endpoint = SpringEndpoint.class)
+		@ConditionalOnAvailableEndpoint_RENAMED(endpoint = SpringEndpoint.class)
 		String springComponent() {
 			return "springComponent";
 		}
 
 		@Bean
-		@ConditionalOnAvailableEndpoint
+		@ConditionalOnAvailableEndpoint_RENAMED
 		SpringEndpointExtension springExtension() {
 			return new SpringEndpointExtension();
 		}
@@ -296,7 +296,7 @@ class ConditionalOnAvailableEndpointTests {
 	static class ComponentWithNoEndpointReferenceConfiguration {
 
 		@Bean
-		@ConditionalOnAvailableEndpoint
+		@ConditionalOnAvailableEndpoint_RENAMED
 		String springcomp() {
 			return "springcomp";
 		}
@@ -307,7 +307,7 @@ class ConditionalOnAvailableEndpointTests {
 	static class DashedEndpointConfiguration {
 
 		@Bean
-		@ConditionalOnAvailableEndpoint
+		@ConditionalOnAvailableEndpoint_RENAMED
 		DashedEndpoint dashedEndpoint() {
 			return new DashedEndpoint();
 		}

@@ -16,7 +16,7 @@
 
 package org.springframework.boot.actuate.autoconfigure.session;
 
-import org.springframework.boot.actuate.autoconfigure.endpoint.condition.ConditionalOnAvailableEndpoint;
+import org.springframework.boot.actuate.autoconfigure.endpoint.condition.ConditionalOnAvailableEndpoint_RENAMED;
 import org.springframework.boot.actuate.session.SessionsEndpoint;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -37,7 +37,7 @@ import org.springframework.session.Session;
  */
 @Configuration(proxyBeanMethods = false)
 @ConditionalOnClass(FindByIndexNameSessionRepository.class)
-@ConditionalOnAvailableEndpoint(endpoint = SessionsEndpoint.class)
+@ConditionalOnAvailableEndpoint_RENAMED(endpoint = SessionsEndpoint.class)
 @AutoConfigureAfter(SessionAutoConfiguration.class)
 public class SessionsEndpointAutoConfiguration {
 

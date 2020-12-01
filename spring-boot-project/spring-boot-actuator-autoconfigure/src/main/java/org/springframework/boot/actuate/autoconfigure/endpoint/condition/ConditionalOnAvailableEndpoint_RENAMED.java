@@ -102,7 +102,7 @@ import org.springframework.core.env.Environment;
 @Target({ ElementType.METHOD, ElementType.TYPE })
 @Documented
 @Conditional(OnAvailableEndpointCondition.class)
-public @interface ConditionalOnAvailableEndpoint {
+public @interface ConditionalOnAvailableEndpoint_RENAMED {
 
 	/**
 	 * The endpoint type that should be checked. Inferred when the return type of the

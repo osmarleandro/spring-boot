@@ -16,7 +16,7 @@
 
 package org.springframework.boot.actuate.autoconfigure.startup;
 
-import org.springframework.boot.actuate.autoconfigure.endpoint.condition.ConditionalOnAvailableEndpoint;
+import org.springframework.boot.actuate.autoconfigure.endpoint.condition.ConditionalOnAvailableEndpoint_RENAMED;
 import org.springframework.boot.actuate.startup.StartupEndpoint;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionMessage;
@@ -38,7 +38,7 @@ import org.springframework.core.type.AnnotatedTypeMetadata;
  * @since 2.4.0
  */
 @Configuration(proxyBeanMethods = false)
-@ConditionalOnAvailableEndpoint(endpoint = StartupEndpoint.class)
+@ConditionalOnAvailableEndpoint_RENAMED(endpoint = StartupEndpoint.class)
 @Conditional(StartupEndpointAutoConfiguration.ApplicationStartupCondition.class)
 public class StartupEndpointAutoConfiguration {
 
