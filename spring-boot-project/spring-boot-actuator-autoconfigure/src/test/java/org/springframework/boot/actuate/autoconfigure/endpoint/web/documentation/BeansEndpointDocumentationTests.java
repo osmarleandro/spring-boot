@@ -24,7 +24,7 @@ import java.util.Map.Entry;
 
 import org.junit.jupiter.api.Test;
 
-import org.springframework.boot.actuate.beans.BeansEndpoint;
+import org.springframework.boot.actuate.beans.BeansEndpoint_RENAMED;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -41,7 +41,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /**
- * Tests for generating documentation describing {@link BeansEndpoint}.
+ * Tests for generating documentation describing {@link BeansEndpoint_RENAMED}.
  *
  * @author Andy Wilkinson
  */
@@ -75,8 +75,8 @@ class BeansEndpointDocumentationTests extends MockMvcEndpointDocumentationTests 
 	static class TestConfiguration {
 
 		@Bean
-		BeansEndpoint beansEndpoint(ConfigurableApplicationContext context) {
-			return new BeansEndpoint(context);
+		BeansEndpoint_RENAMED beansEndpoint(ConfigurableApplicationContext context) {
+			return new BeansEndpoint_RENAMED(context);
 		}
 
 	}
