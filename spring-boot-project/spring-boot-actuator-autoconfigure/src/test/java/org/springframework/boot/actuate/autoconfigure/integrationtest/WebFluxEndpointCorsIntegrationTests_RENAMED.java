@@ -44,7 +44,7 @@ import org.springframework.test.web.reactive.server.WebTestClient;
  * @author Stephane Nicoll
  * @see WebFluxEndpointManagementContextConfiguration
  */
-class WebFluxEndpointCorsIntegrationTests {
+class WebFluxEndpointCorsIntegrationTests_RENAMED {
 
 	private final ReactiveWebApplicationContextRunner contextRunner = new ReactiveWebApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(JacksonAutoConfiguration.class, CodecsAutoConfiguration.class,
