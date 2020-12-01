@@ -33,15 +33,15 @@ import org.springframework.core.env.Environment;
  * @deprecated since 2.2.7 in favor of {@link IncludeExcludeEndpointFilter}
  */
 @Deprecated
-public class ExposeExcludePropertyEndpointFilter<E extends ExposableEndpoint<?>>
+public class ExposeExcludePropertyEndpointFilter_RENAMED<E extends ExposableEndpoint<?>>
 		extends IncludeExcludeEndpointFilter<E> {
 
-	public ExposeExcludePropertyEndpointFilter(Class<E> endpointType, Environment environment, String prefix,
+	public ExposeExcludePropertyEndpointFilter_RENAMED(Class<E> endpointType, Environment environment, String prefix,
 			String... exposeDefaults) {
 		super(endpointType, environment, prefix, exposeDefaults);
 	}
 
-	public ExposeExcludePropertyEndpointFilter(Class<E> endpointType, Collection<String> include,
+	public ExposeExcludePropertyEndpointFilter_RENAMED(Class<E> endpointType, Collection<String> include,
 			Collection<String> exclude, String... exposeDefaults) {
 		super(endpointType, include, exclude, exposeDefaults);
 	}
