@@ -44,7 +44,7 @@ import org.springframework.boot.actuate.endpoint.InvalidEndpointRequestException
 import org.springframework.boot.actuate.endpoint.InvocationContext;
 import org.springframework.boot.actuate.endpoint.SecurityContext;
 import org.springframework.boot.actuate.endpoint.http.ApiVersion;
-import org.springframework.boot.actuate.endpoint.web.EndpointLinksResolver;
+import org.springframework.boot.actuate.endpoint.web.EndpointLinksResolver_RENAMED;
 import org.springframework.boot.actuate.endpoint.web.EndpointMapping;
 import org.springframework.boot.actuate.endpoint.web.EndpointMediaTypes;
 import org.springframework.boot.actuate.endpoint.web.ExposableWebEndpoint;
@@ -79,7 +79,7 @@ public class JerseyEndpointResourceFactory {
 	 */
 	public Collection<Resource> createEndpointResources(EndpointMapping endpointMapping,
 			Collection<ExposableWebEndpoint> endpoints, EndpointMediaTypes endpointMediaTypes,
-			EndpointLinksResolver linksResolver, boolean shouldRegisterLinks) {
+			EndpointLinksResolver_RENAMED linksResolver, boolean shouldRegisterLinks) {
 		List<Resource> resources = new ArrayList<>();
 		endpoints.stream().flatMap((endpoint) -> endpoint.getOperations().stream())
 				.map((operation) -> createResource(endpointMapping, operation)).forEach(resources::add);
@@ -108,7 +108,7 @@ public class JerseyEndpointResourceFactory {
 	}
 
 	private Resource createEndpointLinksResource(String endpointPath, EndpointMediaTypes endpointMediaTypes,
-			EndpointLinksResolver linksResolver) {
+			EndpointLinksResolver_RENAMED linksResolver) {
 		Builder resourceBuilder = Resource.builder().path(endpointPath);
 		resourceBuilder.addMethod("GET").produces(StringUtils.toStringArray(endpointMediaTypes.getProduced()))
 				.handledBy(new EndpointLinksInflector(linksResolver));
@@ -272,9 +272,9 @@ public class JerseyEndpointResourceFactory {
 	 */
 	private static final class EndpointLinksInflector implements Inflector<ContainerRequestContext, Response> {
 
-		private final EndpointLinksResolver linksResolver;
+		private final EndpointLinksResolver_RENAMED linksResolver;
 
-		private EndpointLinksInflector(EndpointLinksResolver linksResolver) {
+		private EndpointLinksInflector(EndpointLinksResolver_RENAMED linksResolver) {
 			this.linksResolver = linksResolver;
 		}
 

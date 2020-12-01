@@ -33,7 +33,7 @@ import org.springframework.boot.actuate.endpoint.annotation.Selector;
 import org.springframework.boot.actuate.endpoint.annotation.WriteOperation;
 import org.springframework.boot.actuate.endpoint.invoke.ParameterValueMapper;
 import org.springframework.boot.actuate.endpoint.invoke.convert.ConversionServiceParameterValueMapper;
-import org.springframework.boot.actuate.endpoint.web.EndpointLinksResolver;
+import org.springframework.boot.actuate.endpoint.web.EndpointLinksResolver_RENAMED;
 import org.springframework.boot.actuate.endpoint.web.EndpointMapping;
 import org.springframework.boot.actuate.endpoint.web.EndpointMediaTypes;
 import org.springframework.boot.actuate.endpoint.web.annotation.WebEndpointDiscoverer;
@@ -181,7 +181,7 @@ class CloudFoundryMvcWebEndpointIntegrationTests {
 			corsConfiguration.setAllowedMethods(Arrays.asList("GET", "POST"));
 			return new CloudFoundryWebEndpointServletHandlerMapping(new EndpointMapping("/cfApplication"),
 					webEndpointDiscoverer.getEndpoints(), endpointMediaTypes, corsConfiguration, interceptor,
-					new EndpointLinksResolver(webEndpointDiscoverer.getEndpoints()));
+					new EndpointLinksResolver_RENAMED(webEndpointDiscoverer.getEndpoints()));
 		}
 
 		@Bean

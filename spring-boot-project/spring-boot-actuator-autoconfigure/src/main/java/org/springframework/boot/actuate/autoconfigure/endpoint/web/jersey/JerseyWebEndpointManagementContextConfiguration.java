@@ -32,7 +32,7 @@ import org.springframework.boot.actuate.autoconfigure.web.ManagementContextConfi
 import org.springframework.boot.actuate.autoconfigure.web.server.ManagementPortType;
 import org.springframework.boot.actuate.endpoint.ExposableEndpoint;
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
-import org.springframework.boot.actuate.endpoint.web.EndpointLinksResolver;
+import org.springframework.boot.actuate.endpoint.web.EndpointLinksResolver_RENAMED;
 import org.springframework.boot.actuate.endpoint.web.EndpointMapping;
 import org.springframework.boot.actuate.endpoint.web.EndpointMediaTypes;
 import org.springframework.boot.actuate.endpoint.web.ExposableServletEndpoint;
@@ -124,19 +124,19 @@ class JerseyWebEndpointManagementContextConfiguration {
 			}
 			Collection<ExposableWebEndpoint> webEndpoints = this.webEndpointsSupplier.getEndpoints();
 			Collection<ExposableServletEndpoint> servletEndpoints = this.servletEndpointsSupplier.getEndpoints();
-			EndpointLinksResolver linksResolver = getLinksResolver(webEndpoints, servletEndpoints);
+			EndpointLinksResolver_RENAMED linksResolver = getLinksResolver(webEndpoints, servletEndpoints);
 			EndpointMapping mapping = new EndpointMapping(this.basePath);
 			JerseyEndpointResourceFactory resourceFactory = new JerseyEndpointResourceFactory();
 			register(resourceFactory.createEndpointResources(mapping, webEndpoints, this.mediaTypes, linksResolver,
 					this.shouldRegisterLinks));
 		}
 
-		private EndpointLinksResolver getLinksResolver(Collection<ExposableWebEndpoint> webEndpoints,
+		private EndpointLinksResolver_RENAMED getLinksResolver(Collection<ExposableWebEndpoint> webEndpoints,
 				Collection<ExposableServletEndpoint> servletEndpoints) {
 			List<ExposableEndpoint<?>> endpoints = new ArrayList<>(webEndpoints.size() + servletEndpoints.size());
 			endpoints.addAll(webEndpoints);
 			endpoints.addAll(servletEndpoints);
-			return new EndpointLinksResolver(endpoints, this.basePath);
+			return new EndpointLinksResolver_RENAMED(endpoints, this.basePath);
 		}
 
 		private void register(Collection<Resource> resources) {

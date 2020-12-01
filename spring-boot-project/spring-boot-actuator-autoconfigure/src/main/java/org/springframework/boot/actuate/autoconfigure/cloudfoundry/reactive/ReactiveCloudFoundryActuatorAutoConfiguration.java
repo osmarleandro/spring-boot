@@ -33,7 +33,7 @@ import org.springframework.boot.actuate.autoconfigure.health.HealthEndpointAutoC
 import org.springframework.boot.actuate.autoconfigure.info.InfoEndpointAutoConfiguration;
 import org.springframework.boot.actuate.endpoint.ExposableEndpoint;
 import org.springframework.boot.actuate.endpoint.invoke.ParameterValueMapper;
-import org.springframework.boot.actuate.endpoint.web.EndpointLinksResolver;
+import org.springframework.boot.actuate.endpoint.web.EndpointLinksResolver_RENAMED;
 import org.springframework.boot.actuate.endpoint.web.EndpointMapping;
 import org.springframework.boot.actuate.endpoint.web.EndpointMediaTypes;
 import org.springframework.boot.actuate.endpoint.web.ExposableWebEndpoint;
@@ -119,7 +119,7 @@ public class ReactiveCloudFoundryActuatorAutoConfiguration {
 		allEndpoints.addAll(controllerEndpointsSupplier.getEndpoints());
 		return new CloudFoundryWebFluxEndpointHandlerMapping(new EndpointMapping("/cloudfoundryapplication"),
 				webEndpoints, endpointMediaTypes, getCorsConfiguration(), securityInterceptor,
-				new EndpointLinksResolver(allEndpoints));
+				new EndpointLinksResolver_RENAMED(allEndpoints));
 	}
 
 	private CloudFoundrySecurityInterceptor getSecurityInterceptor(WebClient.Builder webClientBuilder,

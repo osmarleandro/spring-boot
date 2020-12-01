@@ -23,7 +23,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.springframework.boot.actuate.endpoint.web.EndpointLinksResolver;
+import org.springframework.boot.actuate.endpoint.web.EndpointLinksResolver_RENAMED;
 import org.springframework.boot.actuate.endpoint.web.EndpointMapping;
 import org.springframework.boot.actuate.endpoint.web.EndpointMediaTypes;
 import org.springframework.boot.actuate.endpoint.web.ExposableWebEndpoint;
@@ -42,7 +42,7 @@ import org.springframework.web.servlet.HandlerMapping;
  */
 public class WebMvcEndpointHandlerMapping extends AbstractWebMvcEndpointHandlerMapping {
 
-	private final EndpointLinksResolver linksResolver;
+	private final EndpointLinksResolver_RENAMED linksResolver;
 
 	/**
 	 * Creates a new {@code WebMvcEndpointHandlerMapping} instance that provides mappings
@@ -56,7 +56,7 @@ public class WebMvcEndpointHandlerMapping extends AbstractWebMvcEndpointHandlerM
 	 */
 	public WebMvcEndpointHandlerMapping(EndpointMapping endpointMapping, Collection<ExposableWebEndpoint> endpoints,
 			EndpointMediaTypes endpointMediaTypes, CorsConfiguration corsConfiguration,
-			EndpointLinksResolver linksResolver, boolean shouldRegisterLinksMapping) {
+			EndpointLinksResolver_RENAMED linksResolver, boolean shouldRegisterLinksMapping) {
 		super(endpointMapping, endpoints, endpointMediaTypes, corsConfiguration, shouldRegisterLinksMapping);
 		this.linksResolver = linksResolver;
 		setOrder(-100);

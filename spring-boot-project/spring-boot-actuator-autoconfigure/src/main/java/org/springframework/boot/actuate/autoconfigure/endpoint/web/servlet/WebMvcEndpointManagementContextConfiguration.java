@@ -26,7 +26,7 @@ import org.springframework.boot.actuate.autoconfigure.web.ManagementContextConfi
 import org.springframework.boot.actuate.autoconfigure.web.server.ManagementPortType;
 import org.springframework.boot.actuate.endpoint.ExposableEndpoint;
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
-import org.springframework.boot.actuate.endpoint.web.EndpointLinksResolver;
+import org.springframework.boot.actuate.endpoint.web.EndpointLinksResolver_RENAMED;
 import org.springframework.boot.actuate.endpoint.web.EndpointMapping;
 import org.springframework.boot.actuate.endpoint.web.EndpointMediaTypes;
 import org.springframework.boot.actuate.endpoint.web.ExposableWebEndpoint;
@@ -77,7 +77,7 @@ public class WebMvcEndpointManagementContextConfiguration {
 		boolean shouldRegisterLinksMapping = StringUtils.hasText(basePath)
 				|| ManagementPortType.get(environment).equals(ManagementPortType.DIFFERENT);
 		return new WebMvcEndpointHandlerMapping(endpointMapping, webEndpoints, endpointMediaTypes,
-				corsProperties.toCorsConfiguration(), new EndpointLinksResolver(allEndpoints, basePath),
+				corsProperties.toCorsConfiguration(), new EndpointLinksResolver_RENAMED(allEndpoints, basePath),
 				shouldRegisterLinksMapping);
 	}
 

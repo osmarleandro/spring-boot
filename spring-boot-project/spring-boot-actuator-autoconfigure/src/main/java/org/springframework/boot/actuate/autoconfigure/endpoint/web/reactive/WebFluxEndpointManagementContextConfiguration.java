@@ -26,7 +26,7 @@ import org.springframework.boot.actuate.autoconfigure.web.ManagementContextConfi
 import org.springframework.boot.actuate.autoconfigure.web.server.ManagementPortType;
 import org.springframework.boot.actuate.endpoint.ExposableEndpoint;
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
-import org.springframework.boot.actuate.endpoint.web.EndpointLinksResolver;
+import org.springframework.boot.actuate.endpoint.web.EndpointLinksResolver_RENAMED;
 import org.springframework.boot.actuate.endpoint.web.EndpointMapping;
 import org.springframework.boot.actuate.endpoint.web.EndpointMediaTypes;
 import org.springframework.boot.actuate.endpoint.web.ExposableWebEndpoint;
@@ -74,7 +74,7 @@ public class WebFluxEndpointManagementContextConfiguration {
 		allEndpoints.addAll(endpoints);
 		allEndpoints.addAll(controllerEndpointsSupplier.getEndpoints());
 		return new WebFluxEndpointHandlerMapping(endpointMapping, endpoints, endpointMediaTypes,
-				corsProperties.toCorsConfiguration(), new EndpointLinksResolver(allEndpoints, basePath),
+				corsProperties.toCorsConfiguration(), new EndpointLinksResolver_RENAMED(allEndpoints, basePath),
 				shouldRegisterLinksMapping(environment, basePath));
 	}
 

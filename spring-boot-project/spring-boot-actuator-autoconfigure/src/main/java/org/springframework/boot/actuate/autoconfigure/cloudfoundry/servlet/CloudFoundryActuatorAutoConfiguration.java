@@ -31,7 +31,7 @@ import org.springframework.boot.actuate.autoconfigure.info.InfoEndpointAutoConfi
 import org.springframework.boot.actuate.autoconfigure.web.servlet.ServletManagementContextAutoConfiguration;
 import org.springframework.boot.actuate.endpoint.ExposableEndpoint;
 import org.springframework.boot.actuate.endpoint.invoke.ParameterValueMapper;
-import org.springframework.boot.actuate.endpoint.web.EndpointLinksResolver;
+import org.springframework.boot.actuate.endpoint.web.EndpointLinksResolver_RENAMED;
 import org.springframework.boot.actuate.endpoint.web.EndpointMapping;
 import org.springframework.boot.actuate.endpoint.web.EndpointMediaTypes;
 import org.springframework.boot.actuate.endpoint.web.ExposableWebEndpoint;
@@ -123,7 +123,7 @@ public class CloudFoundryActuatorAutoConfiguration {
 		allEndpoints.addAll(controllerEndpointsSupplier.getEndpoints());
 		return new CloudFoundryWebEndpointServletHandlerMapping(new EndpointMapping("/cloudfoundryapplication"),
 				webEndpoints, endpointMediaTypes, getCorsConfiguration(), securityInterceptor,
-				new EndpointLinksResolver(allEndpoints));
+				new EndpointLinksResolver_RENAMED(allEndpoints));
 	}
 
 	private CloudFoundrySecurityInterceptor getSecurityInterceptor(RestTemplateBuilder restTemplateBuilder,

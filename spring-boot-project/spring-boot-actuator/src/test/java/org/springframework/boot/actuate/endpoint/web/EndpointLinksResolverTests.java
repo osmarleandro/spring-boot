@@ -33,7 +33,7 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
 
 /**
- * Tests for {@link EndpointLinksResolver}.
+ * Tests for {@link EndpointLinksResolver_RENAMED}.
  *
  * @author Andy Wilkinson
  */
@@ -41,7 +41,7 @@ class EndpointLinksResolverTests {
 
 	@Test
 	void linkResolutionWithTrailingSlashStripsSlashOnSelfLink() {
-		Map<String, Link> links = new EndpointLinksResolver(Collections.emptyList())
+		Map<String, Link> links = new EndpointLinksResolver_RENAMED(Collections.emptyList())
 				.resolveLinks("https://api.example.com/actuator/");
 		assertThat(links).hasSize(1);
 		assertThat(links).hasEntrySatisfying("self", linkWithHref("https://api.example.com/actuator"));
@@ -49,7 +49,7 @@ class EndpointLinksResolverTests {
 
 	@Test
 	void linkResolutionWithoutTrailingSlash() {
-		Map<String, Link> links = new EndpointLinksResolver(Collections.emptyList())
+		Map<String, Link> links = new EndpointLinksResolver_RENAMED(Collections.emptyList())
 				.resolveLinks("https://api.example.com/actuator");
 		assertThat(links).hasSize(1);
 		assertThat(links).hasEntrySatisfying("self", linkWithHref("https://api.example.com/actuator"));
@@ -65,7 +65,7 @@ class EndpointLinksResolverTests {
 		given(endpoint.isEnableByDefault()).willReturn(true);
 		given(endpoint.getOperations()).willReturn(operations);
 		String requestUrl = "https://api.example.com/actuator";
-		Map<String, Link> links = new EndpointLinksResolver(Collections.singletonList(endpoint))
+		Map<String, Link> links = new EndpointLinksResolver_RENAMED(Collections.singletonList(endpoint))
 				.resolveLinks(requestUrl);
 		assertThat(links).hasSize(3);
 		assertThat(links).hasEntrySatisfying("self", linkWithHref("https://api.example.com/actuator"));
@@ -81,7 +81,7 @@ class EndpointLinksResolverTests {
 		given(servletEndpoint.isEnableByDefault()).willReturn(true);
 		given(servletEndpoint.getRootPath()).willReturn("alpha");
 		String requestUrl = "https://api.example.com/actuator";
-		Map<String, Link> links = new EndpointLinksResolver(Collections.singletonList(servletEndpoint))
+		Map<String, Link> links = new EndpointLinksResolver_RENAMED(Collections.singletonList(servletEndpoint))
 				.resolveLinks(requestUrl);
 		assertThat(links).hasSize(2);
 		assertThat(links).hasEntrySatisfying("self", linkWithHref("https://api.example.com/actuator"));
@@ -95,7 +95,7 @@ class EndpointLinksResolverTests {
 		given(controllerEndpoint.isEnableByDefault()).willReturn(true);
 		given(controllerEndpoint.getRootPath()).willReturn("alpha");
 		String requestUrl = "https://api.example.com/actuator";
-		Map<String, Link> links = new EndpointLinksResolver(Collections.singletonList(controllerEndpoint))
+		Map<String, Link> links = new EndpointLinksResolver_RENAMED(Collections.singletonList(controllerEndpoint))
 				.resolveLinks(requestUrl);
 		assertThat(links).hasSize(2);
 		assertThat(links).hasEntrySatisfying("self", linkWithHref("https://api.example.com/actuator"));
