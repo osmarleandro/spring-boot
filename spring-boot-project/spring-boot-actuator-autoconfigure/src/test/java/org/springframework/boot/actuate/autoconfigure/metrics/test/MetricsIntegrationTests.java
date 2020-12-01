@@ -36,7 +36,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.actuate.autoconfigure.metrics.JvmMetricsAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.metrics.LogbackMetricsAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.metrics.MetricsAutoConfiguration;
-import org.springframework.boot.actuate.autoconfigure.metrics.SystemMetricsAutoConfiguration;
+import org.springframework.boot.actuate.autoconfigure.metrics.SystemMetricsAutoConfiguration_RENAMED;
 import org.springframework.boot.actuate.autoconfigure.metrics.amqp.RabbitMetricsAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.metrics.cache.CacheMetricsAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.metrics.jdbc.DataSourcePoolMetricsAutoConfiguration;
@@ -133,7 +133,7 @@ class MetricsIntegrationTests {
 
 	@Configuration(proxyBeanMethods = false)
 	@ImportAutoConfiguration({ MetricsAutoConfiguration.class, JvmMetricsAutoConfiguration.class,
-			LogbackMetricsAutoConfiguration.class, SystemMetricsAutoConfiguration.class,
+			LogbackMetricsAutoConfiguration.class, SystemMetricsAutoConfiguration_RENAMED.class,
 			RabbitMetricsAutoConfiguration.class, CacheMetricsAutoConfiguration.class,
 			DataSourcePoolMetricsAutoConfiguration.class, HibernateMetricsAutoConfiguration.class,
 			HttpClientMetricsAutoConfiguration.class, WebFluxMetricsAutoConfiguration.class,

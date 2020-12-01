@@ -30,7 +30,7 @@ import org.springframework.context.annotation.Configuration;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Tests for {@link SystemMetricsAutoConfiguration}.
+ * Tests for {@link SystemMetricsAutoConfiguration_RENAMED}.
  *
  * @author Andy Wilkinson
  * @author Stephane Nicoll
@@ -38,7 +38,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 class SystemMetricsAutoConfigurationTests {
 
 	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner().with(MetricsRun.simple())
-			.withConfiguration(AutoConfigurations.of(SystemMetricsAutoConfiguration.class));
+			.withConfiguration(AutoConfigurations.of(SystemMetricsAutoConfiguration_RENAMED.class));
 
 	@Test
 	void autoConfiguresUptimeMetrics() {

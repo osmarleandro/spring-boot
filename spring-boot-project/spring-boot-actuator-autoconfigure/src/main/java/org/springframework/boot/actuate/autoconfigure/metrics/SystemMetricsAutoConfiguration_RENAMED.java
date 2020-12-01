@@ -39,7 +39,7 @@ import org.springframework.context.annotation.Configuration;
 @AutoConfigureAfter({ MetricsAutoConfiguration.class, CompositeMeterRegistryAutoConfiguration.class })
 @ConditionalOnClass(MeterRegistry.class)
 @ConditionalOnBean(MeterRegistry.class)
-public class SystemMetricsAutoConfiguration {
+public class SystemMetricsAutoConfiguration_RENAMED {
 
 	@Bean
 	@ConditionalOnMissingBean
