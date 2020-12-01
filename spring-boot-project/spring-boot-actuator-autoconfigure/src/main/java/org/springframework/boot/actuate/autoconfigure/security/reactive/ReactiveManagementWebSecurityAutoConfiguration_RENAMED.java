@@ -54,7 +54,7 @@ import org.springframework.security.web.server.WebFilterChainProxy;
 @AutoConfigureAfter({ HealthEndpointAutoConfiguration.class, InfoEndpointAutoConfiguration.class,
 		WebEndpointAutoConfiguration.class, ReactiveOAuth2ClientAutoConfiguration.class,
 		ReactiveOAuth2ResourceServerAutoConfiguration.class })
-public class ReactiveManagementWebSecurityAutoConfiguration {
+public class ReactiveManagementWebSecurityAutoConfiguration_RENAMED {
 
 	@Bean
 	public SecurityWebFilterChain springSecurityFilterChain(ServerHttpSecurity http) throws Exception {

@@ -59,7 +59,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 
 /**
- * Tests for {@link ReactiveManagementWebSecurityAutoConfiguration}.
+ * Tests for {@link ReactiveManagementWebSecurityAutoConfiguration_RENAMED}.
  *
  * @author Madhura Bhave
  */
@@ -71,7 +71,7 @@ class ReactiveManagementWebSecurityAutoConfigurationTests {
 					EnvironmentEndpointAutoConfiguration.class, EndpointAutoConfiguration.class,
 					WebEndpointAutoConfiguration.class, ReactiveSecurityAutoConfiguration.class,
 					ReactiveUserDetailsServiceAutoConfiguration.class,
-					ReactiveManagementWebSecurityAutoConfiguration.class));
+					ReactiveManagementWebSecurityAutoConfiguration_RENAMED.class));
 
 	@Test
 	void permitAllForHealth() {
@@ -112,7 +112,7 @@ class ReactiveManagementWebSecurityAutoConfigurationTests {
 		this.contextRunner.withConfiguration(AutoConfigurations.of(ReactiveOAuth2ResourceServerAutoConfiguration.class))
 				.withPropertyValues("spring.security.oauth2.resourceserver.jwt.jwk-set-uri=https://authserver")
 				.run((context) -> assertThat(context)
-						.doesNotHaveBean(ReactiveManagementWebSecurityAutoConfiguration.class));
+						.doesNotHaveBean(ReactiveManagementWebSecurityAutoConfiguration_RENAMED.class));
 	}
 
 	@Test
