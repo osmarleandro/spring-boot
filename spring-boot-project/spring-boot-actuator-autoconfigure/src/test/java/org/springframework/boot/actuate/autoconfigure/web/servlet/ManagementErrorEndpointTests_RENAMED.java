@@ -38,7 +38,7 @@ import static org.assertj.core.api.Assertions.entry;
  *
  * @author Scott Frederick
  */
-class ManagementErrorEndpointTests {
+class ManagementErrorEndpointTests_RENAMED {
 
 	private final ErrorAttributes errorAttributes = new DefaultErrorAttributes();
 
