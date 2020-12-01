@@ -31,7 +31,7 @@ import org.springframework.context.annotation.Import;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Tests for {@link GraphiteMetricsExportAutoConfiguration}.
+ * Tests for {@link GraphiteMetricsExportAutoConfiguration_RENAMED}.
  *
  * @author Andy Wilkinson
  * @author Stephane Nicoll
@@ -39,7 +39,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 class GraphiteMetricsExportAutoConfigurationTests {
 
 	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
-			.withConfiguration(AutoConfigurations.of(GraphiteMetricsExportAutoConfiguration.class));
+			.withConfiguration(AutoConfigurations.of(GraphiteMetricsExportAutoConfiguration_RENAMED.class));
 
 	@Test
 	void backsOffWithoutAClock() {

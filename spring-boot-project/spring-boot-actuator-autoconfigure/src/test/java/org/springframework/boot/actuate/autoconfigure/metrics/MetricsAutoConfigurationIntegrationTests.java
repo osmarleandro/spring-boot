@@ -29,7 +29,7 @@ import io.micrometer.jmx.JmxMeterRegistry;
 import org.assertj.core.api.InstanceOfAssertFactories;
 import org.junit.jupiter.api.Test;
 
-import org.springframework.boot.actuate.autoconfigure.metrics.export.graphite.GraphiteMetricsExportAutoConfiguration;
+import org.springframework.boot.actuate.autoconfigure.metrics.export.graphite.GraphiteMetricsExportAutoConfiguration_RENAMED;
 import org.springframework.boot.actuate.autoconfigure.metrics.export.jmx.JmxMetricsExportAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.metrics.test.MetricsRun;
 import org.springframework.boot.test.context.runner.ApplicationContextRunner;
@@ -86,7 +86,7 @@ class MetricsAutoConfigurationIntegrationTests {
 
 	@Test
 	void noCompositeIsCreatedWhenASingleMeterRegistryIsAutoConfigured() {
-		new ApplicationContextRunner().with(MetricsRun.limitedTo(GraphiteMetricsExportAutoConfiguration.class))
+		new ApplicationContextRunner().with(MetricsRun.limitedTo(GraphiteMetricsExportAutoConfiguration_RENAMED.class))
 				.run((context) -> assertThat(context.getBean(MeterRegistry.class))
 						.isInstanceOf(GraphiteMeterRegistry.class));
 	}
@@ -94,7 +94,7 @@ class MetricsAutoConfigurationIntegrationTests {
 	@Test
 	void noCompositeIsCreatedWithMultipleRegistriesAndOneThatIsPrimary() {
 		new ApplicationContextRunner()
-				.with(MetricsRun.limitedTo(GraphiteMetricsExportAutoConfiguration.class,
+				.with(MetricsRun.limitedTo(GraphiteMetricsExportAutoConfiguration_RENAMED.class,
 						JmxMetricsExportAutoConfiguration.class))
 				.withUserConfiguration(PrimaryMeterRegistryConfiguration.class)
 				.run((context) -> assertThat(context.getBean(MeterRegistry.class))
@@ -103,7 +103,7 @@ class MetricsAutoConfigurationIntegrationTests {
 
 	@Test
 	void compositeCreatedWithMultipleRegistries() {
-		new ApplicationContextRunner().with(MetricsRun.limitedTo(GraphiteMetricsExportAutoConfiguration.class,
+		new ApplicationContextRunner().with(MetricsRun.limitedTo(GraphiteMetricsExportAutoConfiguration_RENAMED.class,
 				JmxMetricsExportAutoConfiguration.class)).run((context) -> {
 					MeterRegistry registry = context.getBean(MeterRegistry.class);
 					assertThat(registry).isInstanceOf(CompositeMeterRegistry.class);
@@ -115,7 +115,7 @@ class MetricsAutoConfigurationIntegrationTests {
 
 	@Test
 	void autoConfiguredCompositeDoesNotHaveMeterFiltersApplied() {
-		new ApplicationContextRunner().with(MetricsRun.limitedTo(GraphiteMetricsExportAutoConfiguration.class,
+		new ApplicationContextRunner().with(MetricsRun.limitedTo(GraphiteMetricsExportAutoConfiguration_RENAMED.class,
 				JmxMetricsExportAutoConfiguration.class)).run((context) -> {
 					MeterRegistry composite = context.getBean(MeterRegistry.class);
 					assertThat(composite).extracting("filters", InstanceOfAssertFactories.ARRAY).hasSize(0);
