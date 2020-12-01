@@ -24,7 +24,7 @@ import org.springframework.data.redis.connection.ClusterInfo;
 
 /**
  * Shared class used by {@link RedisHealthIndicator} and
- * {@link RedisReactiveHealthIndicator} to provide health details.
+ * {@link RedisReactiveHealthIndicator_RENAMED} to provide health details.
  *
  * @author Phillip Webb
  */
