@@ -26,7 +26,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Stephane Nicoll
  */
-class JmxPropertiesTests {
+class JmxPropertiesTests_RENAMED {
 
 	@Test
 	void defaultValuesAreConsistent() {
