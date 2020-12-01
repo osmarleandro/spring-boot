@@ -49,7 +49,7 @@ import static org.mockito.Mockito.mock;
  * @author Phillip Webb
  * @author Madhura Bhave
  */
-class EndpointRequestTests {
+class EndpointRequestTests_RENAMED {
 
 	@Test
 	void toAnyEndpointShouldMatchEndpointPath() {
