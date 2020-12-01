@@ -23,7 +23,7 @@ import org.junit.jupiter.api.Test;
 
 import org.springframework.boot.actuate.autoconfigure.trace.http.HttpTraceAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.trace.http.HttpTraceProperties;
-import org.springframework.boot.actuate.trace.http.HttpExchangeTracer;
+import org.springframework.boot.actuate.trace.http.HttpExchangeTracer_RENAMED;
 import org.springframework.boot.actuate.trace.http.HttpTrace;
 import org.springframework.boot.actuate.trace.http.HttpTraceRepository;
 import org.springframework.boot.actuate.trace.http.InMemoryHttpTraceRepository;
@@ -57,7 +57,7 @@ class HttpTraceAutoConfigurationTests {
 	@Test
 	void autoConfigurationIsEnabledWhenHttpTraceRepositoryBeanPresent() {
 		this.contextRunner.withUserConfiguration(HttpTraceRepositoryConfiguration.class).run((context) -> {
-			assertThat(context).hasSingleBean(HttpExchangeTracer.class);
+			assertThat(context).hasSingleBean(HttpExchangeTracer_RENAMED.class);
 			assertThat(context).hasSingleBean(HttpTraceFilter.class);
 			assertThat(context).hasSingleBean(HttpTraceRepository.class);
 			assertThat(context.getBean(HttpTraceRepository.class)).isInstanceOf(CustomHttpTraceRepository.class);
@@ -68,8 +68,8 @@ class HttpTraceAutoConfigurationTests {
 	void usesUserProvidedTracer() {
 		this.contextRunner.withUserConfiguration(HttpTraceRepositoryConfiguration.class)
 				.withUserConfiguration(CustomTracerConfiguration.class).run((context) -> {
-					assertThat(context).hasSingleBean(HttpExchangeTracer.class);
-					assertThat(context.getBean(HttpExchangeTracer.class)).isInstanceOf(CustomHttpExchangeTracer.class);
+					assertThat(context).hasSingleBean(HttpExchangeTracer_RENAMED.class);
+					assertThat(context.getBean(HttpExchangeTracer_RENAMED.class)).isInstanceOf(CustomHttpExchangeTracer.class);
 				});
 	}
 
@@ -104,7 +104,7 @@ class HttpTraceAutoConfigurationTests {
 		this.contextRunner.withUserConfiguration(HttpTraceRepositoryConfiguration.class)
 				.withPropertyValues("management.trace.http.enabled=false")
 				.run((context) -> assertThat(context).doesNotHaveBean(InMemoryHttpTraceRepository.class)
-						.doesNotHaveBean(HttpExchangeTracer.class).doesNotHaveBean(HttpTraceFilter.class));
+						.doesNotHaveBean(HttpExchangeTracer_RENAMED.class).doesNotHaveBean(HttpTraceFilter.class));
 	}
 
 	static class CustomHttpTraceRepository implements HttpTraceRepository {
@@ -131,7 +131,7 @@ class HttpTraceAutoConfigurationTests {
 
 	}
 
-	private static final class CustomHttpExchangeTracer extends HttpExchangeTracer {
+	private static final class CustomHttpExchangeTracer extends HttpExchangeTracer_RENAMED {
 
 		private CustomHttpExchangeTracer(Set<Include> includes) {
 			super(includes);
@@ -151,7 +151,7 @@ class HttpTraceAutoConfigurationTests {
 
 	private static final class CustomHttpTraceWebFilter extends HttpTraceWebFilter {
 
-		private CustomHttpTraceWebFilter(HttpTraceRepository repository, HttpExchangeTracer tracer,
+		private CustomHttpTraceWebFilter(HttpTraceRepository repository, HttpExchangeTracer_RENAMED tracer,
 				Set<Include> includes) {
 			super(repository, tracer, includes);
 		}
@@ -162,7 +162,7 @@ class HttpTraceAutoConfigurationTests {
 	static class CustomWebFilterConfiguration {
 
 		@Bean
-		CustomHttpTraceWebFilter customWebFilter(HttpTraceRepository repository, HttpExchangeTracer tracer,
+		CustomHttpTraceWebFilter customWebFilter(HttpTraceRepository repository, HttpExchangeTracer_RENAMED tracer,
 				HttpTraceProperties properties) {
 			return new CustomHttpTraceWebFilter(repository, tracer, properties.getInclude());
 		}
@@ -171,7 +171,7 @@ class HttpTraceAutoConfigurationTests {
 
 	private static final class CustomHttpTraceFilter extends HttpTraceFilter {
 
-		private CustomHttpTraceFilter(HttpTraceRepository repository, HttpExchangeTracer tracer) {
+		private CustomHttpTraceFilter(HttpTraceRepository repository, HttpExchangeTracer_RENAMED tracer) {
 			super(repository, tracer);
 		}
 
@@ -181,7 +181,7 @@ class HttpTraceAutoConfigurationTests {
 	static class CustomFilterConfiguration {
 
 		@Bean
-		CustomHttpTraceFilter customWebFilter(HttpTraceRepository repository, HttpExchangeTracer tracer) {
+		CustomHttpTraceFilter customWebFilter(HttpTraceRepository repository, HttpExchangeTracer_RENAMED tracer) {
 			return new CustomHttpTraceFilter(repository, tracer);
 		}
 

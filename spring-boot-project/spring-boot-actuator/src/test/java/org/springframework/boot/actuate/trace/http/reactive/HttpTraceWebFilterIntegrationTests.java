@@ -22,7 +22,7 @@ import java.util.Set;
 import org.junit.jupiter.api.Test;
 import reactor.core.publisher.Mono;
 
-import org.springframework.boot.actuate.trace.http.HttpExchangeTracer;
+import org.springframework.boot.actuate.trace.http.HttpExchangeTracer_RENAMED;
 import org.springframework.boot.actuate.trace.http.HttpTraceRepository;
 import org.springframework.boot.actuate.trace.http.InMemoryHttpTraceRepository;
 import org.springframework.boot.actuate.trace.http.Include;
@@ -94,7 +94,7 @@ class HttpTraceWebFilterIntegrationTests {
 		@Bean
 		HttpTraceWebFilter httpTraceWebFilter(HttpTraceRepository repository) {
 			Set<Include> includes = EnumSet.allOf(Include.class);
-			return new HttpTraceWebFilter(repository, new HttpExchangeTracer(includes), includes);
+			return new HttpTraceWebFilter(repository, new HttpExchangeTracer_RENAMED(includes), includes);
 		}
 
 		@Bean

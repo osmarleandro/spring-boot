@@ -25,7 +25,7 @@ import java.util.Map;
  *
  * @author Andy Wilkinson
  * @since 2.0.0
- * @see HttpExchangeTracer
+ * @see HttpExchangeTracer_RENAMED
  */
 public interface TraceableRequest {
 

@@ -27,7 +27,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.junit.jupiter.api.Test;
 
-import org.springframework.boot.actuate.trace.http.HttpExchangeTracer;
+import org.springframework.boot.actuate.trace.http.HttpExchangeTracer_RENAMED;
 import org.springframework.boot.actuate.trace.http.HttpTrace.Session;
 import org.springframework.boot.actuate.trace.http.InMemoryHttpTraceRepository;
 import org.springframework.boot.actuate.trace.http.Include;
@@ -56,7 +56,7 @@ class HttpTraceFilterTests {
 
 	private final InMemoryHttpTraceRepository repository = new InMemoryHttpTraceRepository();
 
-	private final HttpExchangeTracer tracer = new HttpExchangeTracer(EnumSet.allOf(Include.class));
+	private final HttpExchangeTracer_RENAMED tracer = new HttpExchangeTracer_RENAMED(EnumSet.allOf(Include.class));
 
 	private final HttpTraceFilter filter = new HttpTraceFilter(this.repository, this.tracer);
 

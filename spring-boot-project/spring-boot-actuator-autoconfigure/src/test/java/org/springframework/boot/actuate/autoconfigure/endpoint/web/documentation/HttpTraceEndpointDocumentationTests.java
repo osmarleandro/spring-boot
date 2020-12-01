@@ -25,7 +25,7 @@ import java.util.UUID;
 
 import org.junit.jupiter.api.Test;
 
-import org.springframework.boot.actuate.trace.http.HttpExchangeTracer;
+import org.springframework.boot.actuate.trace.http.HttpExchangeTracer_RENAMED;
 import org.springframework.boot.actuate.trace.http.HttpTrace;
 import org.springframework.boot.actuate.trace.http.HttpTraceEndpoint;
 import org.springframework.boot.actuate.trace.http.HttpTraceRepository;
@@ -70,7 +70,7 @@ class HttpTraceEndpointDocumentationTests extends MockMvcEndpointDocumentationTe
 				.willReturn(Collections.singletonMap(HttpHeaders.CONTENT_TYPE, Arrays.asList("application/json")));
 		Principal principal = mock(Principal.class);
 		given(principal.getName()).willReturn("alice");
-		HttpExchangeTracer tracer = new HttpExchangeTracer(EnumSet.allOf(Include.class));
+		HttpExchangeTracer_RENAMED tracer = new HttpExchangeTracer_RENAMED(EnumSet.allOf(Include.class));
 		HttpTrace trace = tracer.receivedRequest(request);
 		tracer.sendingResponse(trace, response, () -> principal, () -> UUID.randomUUID().toString());
 		given(this.repository.findAll()).willReturn(Arrays.asList(trace));

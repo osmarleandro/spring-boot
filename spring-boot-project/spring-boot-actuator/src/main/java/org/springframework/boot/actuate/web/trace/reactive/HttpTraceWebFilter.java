@@ -21,7 +21,7 @@ import java.util.Set;
 
 import reactor.core.publisher.Mono;
 
-import org.springframework.boot.actuate.trace.http.HttpExchangeTracer;
+import org.springframework.boot.actuate.trace.http.HttpExchangeTracer_RENAMED;
 import org.springframework.boot.actuate.trace.http.HttpTrace;
 import org.springframework.boot.actuate.trace.http.HttpTraceRepository;
 import org.springframework.boot.actuate.trace.http.Include;
@@ -47,11 +47,11 @@ public class HttpTraceWebFilter implements WebFilter, Ordered {
 
 	private final HttpTraceRepository repository;
 
-	private final HttpExchangeTracer tracer;
+	private final HttpExchangeTracer_RENAMED tracer;
 
 	private final Set<Include> includes;
 
-	public HttpTraceWebFilter(HttpTraceRepository repository, HttpExchangeTracer tracer, Set<Include> includes) {
+	public HttpTraceWebFilter(HttpTraceRepository repository, HttpExchangeTracer_RENAMED tracer, Set<Include> includes) {
 		this.repository = repository;
 		this.tracer = tracer;
 		this.includes = includes;

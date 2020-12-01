@@ -28,7 +28,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpServletResponseWrapper;
 import javax.servlet.http.HttpSession;
 
-import org.springframework.boot.actuate.trace.http.HttpExchangeTracer;
+import org.springframework.boot.actuate.trace.http.HttpExchangeTracer_RENAMED;
 import org.springframework.boot.actuate.trace.http.HttpTrace;
 import org.springframework.boot.actuate.trace.http.HttpTraceRepository;
 import org.springframework.core.Ordered;
@@ -53,14 +53,14 @@ public class HttpTraceFilter extends OncePerRequestFilter implements Ordered {
 
 	private final HttpTraceRepository repository;
 
-	private final HttpExchangeTracer tracer;
+	private final HttpExchangeTracer_RENAMED tracer;
 
 	/**
 	 * Create a new {@link HttpTraceFilter} instance.
 	 * @param repository the trace repository
 	 * @param tracer used to trace exchanges
 	 */
-	public HttpTraceFilter(HttpTraceRepository repository, HttpExchangeTracer tracer) {
+	public HttpTraceFilter(HttpTraceRepository repository, HttpExchangeTracer_RENAMED tracer) {
 		this.repository = repository;
 		this.tracer = tracer;
 	}
