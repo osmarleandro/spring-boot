@@ -44,7 +44,7 @@ import org.springframework.core.env.ConfigurableEnvironment;
  */
 @Configuration(proxyBeanMethods = false)
 @AutoConfigureAfter(ProjectInfoAutoConfiguration.class)
-@EnableConfigurationProperties(InfoContributorProperties.class)
+@EnableConfigurationProperties(InfoContributorProperties_RENAMED.class)
 public class InfoContributorAutoConfiguration {
 
 	/**
@@ -65,7 +65,7 @@ public class InfoContributorAutoConfiguration {
 	@ConditionalOnMissingBean
 	@Order(DEFAULT_ORDER)
 	public GitInfoContributor gitInfoContributor(GitProperties gitProperties,
-			InfoContributorProperties infoContributorProperties) {
+			InfoContributorProperties_RENAMED infoContributorProperties) {
 		return new GitInfoContributor(gitProperties, infoContributorProperties.getGit().getMode());
 	}
 

@@ -26,7 +26,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  * @since 2.0.0
  */
 @ConfigurationProperties("management.info")
-public class InfoContributorProperties {
+public class InfoContributorProperties_RENAMED {
 
 	private final Git git = new Git();
 
