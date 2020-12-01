@@ -33,7 +33,7 @@ import static org.mockito.Mockito.mock;
  *
  * @author Phillip Webb
  */
-class LoggersEndpointAutoConfigurationTests {
+class LoggersEndpointAutoConfigurationTests_RENAMED {
 
 	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(LoggersEndpointAutoConfiguration.class))
