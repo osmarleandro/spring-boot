@@ -232,7 +232,7 @@ class CloudFoundryActuatorAutoConfigurationTests {
 					assertThat(endpoint.getOperations()).hasSize(2);
 					WebOperation webOperation = findOperationWithRequestPath(endpoint, "health");
 					assertThat(webOperation).extracting("invoker").extracting("target")
-							.isInstanceOf(CloudFoundryHealthEndpointWebExtension.class);
+							.isInstanceOf(CloudFoundryHealthEndpointWebExtension_RENAMED.class);
 				});
 	}
 
