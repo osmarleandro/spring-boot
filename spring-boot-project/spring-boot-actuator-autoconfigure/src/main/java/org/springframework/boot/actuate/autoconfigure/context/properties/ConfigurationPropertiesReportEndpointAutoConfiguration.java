@@ -34,13 +34,13 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration(proxyBeanMethods = false)
 @ConditionalOnAvailableEndpoint(endpoint = ConfigurationPropertiesReportEndpoint.class)
-@EnableConfigurationProperties(ConfigurationPropertiesReportEndpointProperties.class)
+@EnableConfigurationProperties(ConfigurationPropertiesReportEndpointProperties_RENAMED.class)
 public class ConfigurationPropertiesReportEndpointAutoConfiguration {
 
 	@Bean
 	@ConditionalOnMissingBean
 	public ConfigurationPropertiesReportEndpoint configurationPropertiesReportEndpoint(
-			ConfigurationPropertiesReportEndpointProperties properties) {
+			ConfigurationPropertiesReportEndpointProperties_RENAMED properties) {
 		ConfigurationPropertiesReportEndpoint endpoint = new ConfigurationPropertiesReportEndpoint();
 		String[] keysToSanitize = properties.getKeysToSanitize();
 		if (keysToSanitize != null) {

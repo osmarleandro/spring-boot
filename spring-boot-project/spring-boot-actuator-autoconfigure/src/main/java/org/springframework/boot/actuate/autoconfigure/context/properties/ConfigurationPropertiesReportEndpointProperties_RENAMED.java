@@ -26,7 +26,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  * @since 2.0.0
  */
 @ConfigurationProperties("management.endpoint.configprops")
-public class ConfigurationPropertiesReportEndpointProperties {
+public class ConfigurationPropertiesReportEndpointProperties_RENAMED {
 
 	/**
 	 * Keys that should be sanitized. Keys can be simple strings that the property ends
