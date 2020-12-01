@@ -32,14 +32,14 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
 
 /**
- * Tests for {@link MBeanInfoFactory}.
+ * Tests for {@link MBeanInfoFactory_RENAMED}.
  *
  * @author Stephane Nicoll
  * @author Phillip Webb
  */
 class MBeanInfoFactoryTests {
 
-	private MBeanInfoFactory factory = new MBeanInfoFactory(new TestJmxOperationResponseMapper());
+	private MBeanInfoFactory_RENAMED factory = new MBeanInfoFactory_RENAMED(new TestJmxOperationResponseMapper());
 
 	@Test
 	void getMBeanInfoShouldReturnMBeanInfo() {
@@ -84,7 +84,7 @@ class MBeanInfoFactoryTests {
 	void getMBeanInfoShouldUseJmxOperationResponseMapper() {
 		JmxOperationResponseMapper mapper = mock(JmxOperationResponseMapper.class);
 		given(mapper.mapResponseType(String.class)).willReturn((Class) Integer.class);
-		MBeanInfoFactory factory = new MBeanInfoFactory(mapper);
+		MBeanInfoFactory_RENAMED factory = new MBeanInfoFactory_RENAMED(mapper);
 		MBeanInfo info = factory.getMBeanInfo(new TestExposableJmxEndpoint(new TestJmxOperation()));
 		MBeanOperationInfo operationInfo = info.getOperations()[0];
 		assertThat(operationInfo.getReturnType()).isEqualTo(Integer.class.getName());
