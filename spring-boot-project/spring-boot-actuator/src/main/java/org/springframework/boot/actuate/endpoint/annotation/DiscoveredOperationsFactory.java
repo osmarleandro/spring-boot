@@ -86,7 +86,7 @@ abstract class DiscoveredOperationsFactory<O extends Operation> {
 		if (!annotation.isPresent()) {
 			return null;
 		}
-		DiscoveredOperationMethod operationMethod = new DiscoveredOperationMethod(method, operationType,
+		DiscoveredOperationMethod_RENAMED operationMethod = new DiscoveredOperationMethod_RENAMED(method, operationType,
 				annotation.asAnnotationAttributes());
 		OperationInvoker invoker = new ReflectiveOperationInvoker(target, operationMethod, this.parameterValueMapper);
 		invoker = applyAdvisors(endpointId, operationMethod, invoker);
@@ -104,7 +104,7 @@ abstract class DiscoveredOperationsFactory<O extends Operation> {
 		return invoker;
 	}
 
-	protected abstract O createOperation(EndpointId endpointId, DiscoveredOperationMethod operationMethod,
+	protected abstract O createOperation(EndpointId endpointId, DiscoveredOperationMethod_RENAMED operationMethod,
 			OperationInvoker invoker);
 
 }

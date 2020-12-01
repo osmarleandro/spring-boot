@@ -183,7 +183,7 @@ class DiscoveredOperationsFactoryTests {
 		}
 
 		@Override
-		protected TestOperation createOperation(EndpointId endpointId, DiscoveredOperationMethod operationMethod,
+		protected TestOperation createOperation(EndpointId endpointId, DiscoveredOperationMethod_RENAMED operationMethod,
 				OperationInvoker invoker) {
 			return new TestOperation(endpointId, operationMethod, invoker);
 		}
@@ -192,7 +192,7 @@ class DiscoveredOperationsFactoryTests {
 
 	static class TestOperation extends AbstractDiscoveredOperation {
 
-		TestOperation(EndpointId endpointId, DiscoveredOperationMethod operationMethod, OperationInvoker invoker) {
+		TestOperation(EndpointId endpointId, DiscoveredOperationMethod_RENAMED operationMethod, OperationInvoker invoker) {
 			super(operationMethod, invoker);
 		}
 

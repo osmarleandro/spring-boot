@@ -22,7 +22,7 @@ import java.util.Collections;
 import org.junit.jupiter.api.Test;
 
 import org.springframework.boot.actuate.endpoint.OperationType;
-import org.springframework.boot.actuate.endpoint.annotation.DiscoveredOperationMethod;
+import org.springframework.boot.actuate.endpoint.annotation.DiscoveredOperationMethod_RENAMED;
 import org.springframework.boot.actuate.endpoint.annotation.Selector;
 import org.springframework.boot.actuate.endpoint.annotation.Selector.Match;
 import org.springframework.boot.actuate.endpoint.web.EndpointMediaTypes;
@@ -46,7 +46,7 @@ class RequestPredicateFactoryTests {
 
 	@Test
 	void getRequestPredicateWhenHasMoreThanOneMatchAllThrowsException() {
-		DiscoveredOperationMethod operationMethod = getDiscoveredOperationMethod(MoreThanOneMatchAll.class);
+		DiscoveredOperationMethod_RENAMED operationMethod = getDiscoveredOperationMethod(MoreThanOneMatchAll.class);
 		assertThatIllegalStateException()
 				.isThrownBy(() -> this.factory.getRequestPredicate(this.rootPath, operationMethod))
 				.withMessage("@Selector annotation with Match.ALL_REMAINING must be unique");
@@ -54,7 +54,7 @@ class RequestPredicateFactoryTests {
 
 	@Test
 	void getRequestPredicateWhenMatchAllIsNotLastParameterThrowsException() {
-		DiscoveredOperationMethod operationMethod = getDiscoveredOperationMethod(MatchAllIsNotLastParameter.class);
+		DiscoveredOperationMethod_RENAMED operationMethod = getDiscoveredOperationMethod(MatchAllIsNotLastParameter.class);
 		assertThatIllegalStateException()
 				.isThrownBy(() -> this.factory.getRequestPredicate(this.rootPath, operationMethod))
 				.withMessage("@Selector annotation with Match.ALL_REMAINING must be the last parameter");
@@ -62,17 +62,17 @@ class RequestPredicateFactoryTests {
 
 	@Test
 	void getRequestPredicateReturnsPredicateWithPath() {
-		DiscoveredOperationMethod operationMethod = getDiscoveredOperationMethod(ValidSelectors.class);
+		DiscoveredOperationMethod_RENAMED operationMethod = getDiscoveredOperationMethod(ValidSelectors.class);
 		WebOperationRequestPredicate requestPredicate = this.factory.getRequestPredicate(this.rootPath,
 				operationMethod);
 		assertThat(requestPredicate.getPath()).isEqualTo("/root/{one}/{*two}");
 	}
 
-	private DiscoveredOperationMethod getDiscoveredOperationMethod(Class<?> source) {
+	private DiscoveredOperationMethod_RENAMED getDiscoveredOperationMethod(Class<?> source) {
 		Method method = source.getDeclaredMethods()[0];
 		AnnotationAttributes attributes = new AnnotationAttributes();
 		attributes.put("produces", "application/json");
-		return new DiscoveredOperationMethod(method, OperationType.READ, attributes);
+		return new DiscoveredOperationMethod_RENAMED(method, OperationType.READ, attributes);
 	}
 
 	static class MoreThanOneMatchAll {

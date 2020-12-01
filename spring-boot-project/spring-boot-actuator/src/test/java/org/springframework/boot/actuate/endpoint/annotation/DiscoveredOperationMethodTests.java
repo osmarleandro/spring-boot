@@ -28,7 +28,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
 
 /**
- * Tests for {@link DiscoveredOperationMethod}.
+ * Tests for {@link DiscoveredOperationMethod_RENAMED}.
  *
  * @author Phillip Webb
  */
@@ -38,7 +38,7 @@ class DiscoveredOperationMethodTests {
 	void createWhenAnnotationAttributesIsNullShouldThrowException() {
 		Method method = ReflectionUtils.findMethod(getClass(), "example");
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> new DiscoveredOperationMethod(method, OperationType.READ, null))
+				.isThrownBy(() -> new DiscoveredOperationMethod_RENAMED(method, OperationType.READ, null))
 				.withMessageContaining("AnnotationAttributes must not be null");
 	}
 
@@ -48,7 +48,7 @@ class DiscoveredOperationMethodTests {
 		AnnotationAttributes annotationAttributes = new AnnotationAttributes();
 		String[] produces = new String[] { "application/json" };
 		annotationAttributes.put("produces", produces);
-		DiscoveredOperationMethod discovered = new DiscoveredOperationMethod(method, OperationType.READ,
+		DiscoveredOperationMethod_RENAMED discovered = new DiscoveredOperationMethod_RENAMED(method, OperationType.READ,
 				annotationAttributes);
 		assertThat(discovered.getProducesMediaTypes()).containsExactly("application/json");
 	}

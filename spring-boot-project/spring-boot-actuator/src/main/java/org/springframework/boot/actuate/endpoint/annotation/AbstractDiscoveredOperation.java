@@ -41,7 +41,7 @@ public abstract class AbstractDiscoveredOperation implements Operation {
 	 * @param operationMethod the method backing the operation
 	 * @param invoker the operation invoker to use
 	 */
-	public AbstractDiscoveredOperation(DiscoveredOperationMethod operationMethod, OperationInvoker invoker) {
+	public AbstractDiscoveredOperation(DiscoveredOperationMethod_RENAMED operationMethod, OperationInvoker invoker) {
 		this.operationMethod = operationMethod;
 		this.invoker = invoker;
 	}

@@ -548,7 +548,7 @@ class EndpointDiscovererTests {
 		}
 
 		@Override
-		protected TestOperation createOperation(EndpointId endpointId, DiscoveredOperationMethod operationMethod,
+		protected TestOperation createOperation(EndpointId endpointId, DiscoveredOperationMethod_RENAMED operationMethod,
 				OperationInvoker invoker) {
 			return new TestOperation(operationMethod, invoker);
 		}
@@ -580,7 +580,7 @@ class EndpointDiscovererTests {
 		}
 
 		@Override
-		protected SpecializedOperation createOperation(EndpointId endpointId, DiscoveredOperationMethod operationMethod,
+		protected SpecializedOperation createOperation(EndpointId endpointId, DiscoveredOperationMethod_RENAMED operationMethod,
 				OperationInvoker invoker) {
 			return new SpecializedOperation(operationMethod, invoker);
 		}
@@ -615,7 +615,7 @@ class EndpointDiscovererTests {
 
 		private final OperationInvoker invoker;
 
-		TestOperation(DiscoveredOperationMethod operationMethod, OperationInvoker invoker) {
+		TestOperation(DiscoveredOperationMethod_RENAMED operationMethod, OperationInvoker invoker) {
 			super(operationMethod, invoker);
 			this.invoker = invoker;
 		}
@@ -628,7 +628,7 @@ class EndpointDiscovererTests {
 
 	static class SpecializedOperation extends TestOperation {
 
-		SpecializedOperation(DiscoveredOperationMethod operationMethod, OperationInvoker invoker) {
+		SpecializedOperation(DiscoveredOperationMethod_RENAMED operationMethod, OperationInvoker invoker) {
 			super(operationMethod, invoker);
 		}
 

@@ -25,7 +25,7 @@ import org.reactivestreams.Publisher;
 
 import org.springframework.boot.actuate.endpoint.EndpointId;
 import org.springframework.boot.actuate.endpoint.annotation.AbstractDiscoveredOperation;
-import org.springframework.boot.actuate.endpoint.annotation.DiscoveredOperationMethod;
+import org.springframework.boot.actuate.endpoint.annotation.DiscoveredOperationMethod_RENAMED;
 import org.springframework.boot.actuate.endpoint.annotation.Selector;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvoker;
 import org.springframework.boot.actuate.endpoint.web.WebOperation;
@@ -51,7 +51,7 @@ class DiscoveredWebOperation extends AbstractDiscoveredOperation implements WebO
 
 	private final WebOperationRequestPredicate requestPredicate;
 
-	DiscoveredWebOperation(EndpointId endpointId, DiscoveredOperationMethod operationMethod, OperationInvoker invoker,
+	DiscoveredWebOperation(EndpointId endpointId, DiscoveredOperationMethod_RENAMED operationMethod, OperationInvoker invoker,
 			WebOperationRequestPredicate requestPredicate) {
 		super(operationMethod, invoker);
 		Method method = operationMethod.getMethod();
