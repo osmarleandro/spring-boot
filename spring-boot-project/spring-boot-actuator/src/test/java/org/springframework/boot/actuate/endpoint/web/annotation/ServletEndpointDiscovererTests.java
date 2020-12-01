@@ -33,7 +33,7 @@ import org.junit.jupiter.api.Test;
 
 import org.springframework.boot.actuate.endpoint.EndpointId;
 import org.springframework.boot.actuate.endpoint.annotation.DiscoveredEndpoint;
-import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
+import org.springframework.boot.actuate.endpoint.annotation.Endpoint_RENAMED;
 import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
 import org.springframework.boot.actuate.endpoint.web.EndpointServlet;
 import org.springframework.boot.actuate.endpoint.web.ExposableServletEndpoint;
@@ -171,7 +171,7 @@ class ServletEndpointDiscovererTests {
 
 	}
 
-	@Endpoint(id = "test")
+	@Endpoint_RENAMED(id = "test")
 	static class TestEndpoint {
 
 	}

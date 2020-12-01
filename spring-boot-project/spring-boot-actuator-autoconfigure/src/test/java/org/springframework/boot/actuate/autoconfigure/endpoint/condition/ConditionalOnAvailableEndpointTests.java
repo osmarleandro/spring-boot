@@ -20,7 +20,7 @@ import org.junit.jupiter.api.Test;
 
 import org.springframework.boot.actuate.endpoint.EndpointFilter;
 import org.springframework.boot.actuate.endpoint.ExposableEndpoint;
-import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
+import org.springframework.boot.actuate.endpoint.annotation.Endpoint_RENAMED;
 import org.springframework.boot.actuate.endpoint.annotation.EndpointExtension;
 import org.springframework.boot.test.context.runner.ApplicationContextRunner;
 import org.springframework.context.annotation.Bean;
@@ -196,32 +196,32 @@ class ConditionalOnAvailableEndpointTests {
 				.run((context) -> assertThat(context).hasSingleBean(DashedEndpoint.class));
 	}
 
-	@Endpoint(id = "health")
+	@Endpoint_RENAMED(id = "health")
 	static class HealthEndpoint {
 
 	}
 
-	@Endpoint(id = "info")
+	@Endpoint_RENAMED(id = "info")
 	static class InfoEndpoint {
 
 	}
 
-	@Endpoint(id = "spring")
+	@Endpoint_RENAMED(id = "spring")
 	static class SpringEndpoint {
 
 	}
 
-	@Endpoint(id = "test")
+	@Endpoint_RENAMED(id = "test")
 	static class TestEndpoint {
 
 	}
 
-	@Endpoint(id = "shutdown", enableByDefault = false)
+	@Endpoint_RENAMED(id = "shutdown", enableByDefault = false)
 	static class ShutdownEndpoint {
 
 	}
 
-	@Endpoint(id = "test-dashed")
+	@Endpoint_RENAMED(id = "test-dashed")
 	static class DashedEndpoint {
 
 	}

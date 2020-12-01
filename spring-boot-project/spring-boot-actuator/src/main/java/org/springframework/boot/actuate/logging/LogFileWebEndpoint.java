@@ -21,7 +21,7 @@ import java.io.File;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
+import org.springframework.boot.actuate.endpoint.annotation.Endpoint_RENAMED;
 import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
 import org.springframework.boot.actuate.endpoint.web.annotation.WebEndpoint;
 import org.springframework.boot.logging.LogFile;
@@ -29,7 +29,7 @@ import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
 
 /**
- * Web {@link Endpoint @Endpoint} that provides access to an application's log file.
+ * Web {@link Endpoint_RENAMED @Endpoint} that provides access to an application's log file.
  *
  * @author Johannes Edmeier
  * @author Phillip Webb

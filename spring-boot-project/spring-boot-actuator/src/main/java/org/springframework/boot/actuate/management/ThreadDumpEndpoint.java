@@ -22,17 +22,17 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.function.Function;
 
-import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
+import org.springframework.boot.actuate.endpoint.annotation.Endpoint_RENAMED;
 import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
 
 /**
- * {@link Endpoint @Endpoint} to expose thread info.
+ * {@link Endpoint_RENAMED @Endpoint} to expose thread info.
  *
  * @author Dave Syer
  * @author Andy Wilkinson
  * @since 2.0.0
  */
-@Endpoint(id = "threaddump")
+@Endpoint_RENAMED(id = "threaddump")
 public class ThreadDumpEndpoint {
 
 	private final PlainTextThreadDumpFormatter plainTextFormatter = new PlainTextThreadDumpFormatter();

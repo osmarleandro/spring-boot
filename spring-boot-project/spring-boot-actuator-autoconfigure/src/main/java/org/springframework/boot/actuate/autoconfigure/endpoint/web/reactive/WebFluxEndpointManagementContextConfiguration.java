@@ -25,7 +25,7 @@ import org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointPr
 import org.springframework.boot.actuate.autoconfigure.web.ManagementContextConfiguration;
 import org.springframework.boot.actuate.autoconfigure.web.server.ManagementPortType;
 import org.springframework.boot.actuate.endpoint.ExposableEndpoint;
-import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
+import org.springframework.boot.actuate.endpoint.annotation.Endpoint_RENAMED;
 import org.springframework.boot.actuate.endpoint.web.EndpointLinksResolver;
 import org.springframework.boot.actuate.endpoint.web.EndpointMapping;
 import org.springframework.boot.actuate.endpoint.web.EndpointMediaTypes;
@@ -48,7 +48,7 @@ import org.springframework.web.reactive.DispatcherHandler;
 
 /**
  * {@link ManagementContextConfiguration @ManagementContextConfiguration} for Reactive
- * {@link Endpoint @Endpoint} concerns.
+ * {@link Endpoint_RENAMED @Endpoint} concerns.
  *
  * @author Andy Wilkinson
  * @author Phillip Webb

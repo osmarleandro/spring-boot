@@ -32,7 +32,7 @@ import reactor.core.publisher.Mono;
 
 import org.springframework.boot.actuate.endpoint.SecurityContext;
 import org.springframework.boot.actuate.endpoint.annotation.DeleteOperation;
-import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
+import org.springframework.boot.actuate.endpoint.annotation.Endpoint_RENAMED;
 import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
 import org.springframework.boot.actuate.endpoint.annotation.Selector;
 import org.springframework.boot.actuate.endpoint.annotation.Selector.Match;
@@ -624,7 +624,7 @@ public abstract class AbstractWebEndpointIntegrationTests<T extends Configurable
 
 	}
 
-	@Endpoint(id = "test")
+	@Endpoint_RENAMED(id = "test")
 	static class TestEndpoint {
 
 		private final EndpointDelegate endpointDelegate;
@@ -655,7 +655,7 @@ public abstract class AbstractWebEndpointIntegrationTests<T extends Configurable
 
 	}
 
-	@Endpoint(id = "matchallremaining")
+	@Endpoint_RENAMED(id = "matchallremaining")
 	static class MatchAllRemainingEndpoint {
 
 		@ReadOperation
@@ -665,7 +665,7 @@ public abstract class AbstractWebEndpointIntegrationTests<T extends Configurable
 
 	}
 
-	@Endpoint(id = "query")
+	@Endpoint_RENAMED(id = "query")
 	static class QueryEndpoint {
 
 		@ReadOperation
@@ -680,7 +680,7 @@ public abstract class AbstractWebEndpointIntegrationTests<T extends Configurable
 
 	}
 
-	@Endpoint(id = "query")
+	@Endpoint_RENAMED(id = "query")
 	static class QueryWithListEndpoint {
 
 		@ReadOperation
@@ -690,7 +690,7 @@ public abstract class AbstractWebEndpointIntegrationTests<T extends Configurable
 
 	}
 
-	@Endpoint(id = "voidwrite")
+	@Endpoint_RENAMED(id = "voidwrite")
 	static class VoidWriteResponseEndpoint {
 
 		private final EndpointDelegate delegate;
@@ -706,7 +706,7 @@ public abstract class AbstractWebEndpointIntegrationTests<T extends Configurable
 
 	}
 
-	@Endpoint(id = "voiddelete")
+	@Endpoint_RENAMED(id = "voiddelete")
 	static class VoidDeleteResponseEndpoint {
 
 		private final EndpointDelegate delegate;
@@ -722,7 +722,7 @@ public abstract class AbstractWebEndpointIntegrationTests<T extends Configurable
 
 	}
 
-	@Endpoint(id = "nullwrite")
+	@Endpoint_RENAMED(id = "nullwrite")
 	static class NullWriteResponseEndpoint {
 
 		private final EndpointDelegate delegate;
@@ -739,7 +739,7 @@ public abstract class AbstractWebEndpointIntegrationTests<T extends Configurable
 
 	}
 
-	@Endpoint(id = "nullread")
+	@Endpoint_RENAMED(id = "nullread")
 	static class NullReadResponseEndpoint {
 
 		@ReadOperation
@@ -749,7 +749,7 @@ public abstract class AbstractWebEndpointIntegrationTests<T extends Configurable
 
 	}
 
-	@Endpoint(id = "nulldelete")
+	@Endpoint_RENAMED(id = "nulldelete")
 	static class NullDeleteResponseEndpoint {
 
 		@DeleteOperation
@@ -759,7 +759,7 @@ public abstract class AbstractWebEndpointIntegrationTests<T extends Configurable
 
 	}
 
-	@Endpoint(id = "resource")
+	@Endpoint_RENAMED(id = "resource")
 	static class ResourceEndpoint {
 
 		@ReadOperation
@@ -769,7 +769,7 @@ public abstract class AbstractWebEndpointIntegrationTests<T extends Configurable
 
 	}
 
-	@Endpoint(id = "resource")
+	@Endpoint_RENAMED(id = "resource")
 	static class ResourceWebEndpointResponseEndpoint {
 
 		@ReadOperation
@@ -779,7 +779,7 @@ public abstract class AbstractWebEndpointIntegrationTests<T extends Configurable
 
 	}
 
-	@Endpoint(id = "mono")
+	@Endpoint_RENAMED(id = "mono")
 	static class MonoResponseEndpoint {
 
 		@ReadOperation
@@ -789,7 +789,7 @@ public abstract class AbstractWebEndpointIntegrationTests<T extends Configurable
 
 	}
 
-	@Endpoint(id = "custommediatypes")
+	@Endpoint_RENAMED(id = "custommediatypes")
 	static class CustomMediaTypesEndpoint {
 
 		@ReadOperation(produces = "text/plain")
@@ -799,7 +799,7 @@ public abstract class AbstractWebEndpointIntegrationTests<T extends Configurable
 
 	}
 
-	@Endpoint(id = "requiredparameters")
+	@Endpoint_RENAMED(id = "requiredparameters")
 	static class RequiredParametersEndpoint {
 
 		@ReadOperation
@@ -809,7 +809,7 @@ public abstract class AbstractWebEndpointIntegrationTests<T extends Configurable
 
 	}
 
-	@Endpoint(id = "principal")
+	@Endpoint_RENAMED(id = "principal")
 	static class PrincipalEndpoint {
 
 		@ReadOperation
@@ -819,7 +819,7 @@ public abstract class AbstractWebEndpointIntegrationTests<T extends Configurable
 
 	}
 
-	@Endpoint(id = "principalquery")
+	@Endpoint_RENAMED(id = "principalquery")
 	static class PrincipalQueryEndpoint {
 
 		@ReadOperation
@@ -829,7 +829,7 @@ public abstract class AbstractWebEndpointIntegrationTests<T extends Configurable
 
 	}
 
-	@Endpoint(id = "securitycontext")
+	@Endpoint_RENAMED(id = "securitycontext")
 	static class SecurityContextEndpoint {
 
 		@ReadOperation
@@ -840,7 +840,7 @@ public abstract class AbstractWebEndpointIntegrationTests<T extends Configurable
 
 	}
 
-	@Endpoint(id = "userinrole")
+	@Endpoint_RENAMED(id = "userinrole")
 	static class UserInRoleEndpoint {
 
 		@ReadOperation

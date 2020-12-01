@@ -24,7 +24,7 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import org.springframework.boot.actuate.endpoint.annotation.DeleteOperation;
-import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
+import org.springframework.boot.actuate.endpoint.annotation.Endpoint_RENAMED;
 import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
 import org.springframework.boot.actuate.endpoint.annotation.Selector;
 import org.springframework.cache.Cache;
@@ -32,13 +32,13 @@ import org.springframework.cache.CacheManager;
 import org.springframework.lang.Nullable;
 
 /**
- * {@link Endpoint @Endpoint} to expose available {@link Cache caches}.
+ * {@link Endpoint_RENAMED @Endpoint} to expose available {@link Cache caches}.
  *
  * @author Johannes Edmeier
  * @author Stephane Nicoll
  * @since 2.1.0
  */
-@Endpoint(id = "caches")
+@Endpoint_RENAMED(id = "caches")
 public class CachesEndpoint {
 
 	private final Map<String, CacheManager> cacheManagers;

@@ -25,7 +25,7 @@ import java.lang.annotation.Target;
 import org.springframework.boot.actuate.endpoint.EndpointFilter;
 
 /**
- * Annotation that can be used on an {@link Endpoint @Endpoint} to implement implicit
+ * Annotation that can be used on an {@link Endpoint_RENAMED @Endpoint} to implement implicit
  * filtering. Often used as a meta-annotation on technology specific endpoint annotations,
  * for example:<pre class="code">
  * &#64;Endpoint

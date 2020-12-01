@@ -20,14 +20,14 @@ import java.util.Map;
 import java.util.Set;
 
 import org.springframework.boot.actuate.endpoint.SecurityContext;
-import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
+import org.springframework.boot.actuate.endpoint.annotation.Endpoint_RENAMED;
 import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
 import org.springframework.boot.actuate.endpoint.annotation.Selector;
 import org.springframework.boot.actuate.endpoint.annotation.Selector.Match;
 import org.springframework.boot.actuate.endpoint.http.ApiVersion;
 
 /**
- * {@link Endpoint @Endpoint} to expose application health information.
+ * {@link Endpoint_RENAMED @Endpoint} to expose application health information.
  *
  * @author Dave Syer
  * @author Christian Dupuis
@@ -36,7 +36,7 @@ import org.springframework.boot.actuate.endpoint.http.ApiVersion;
  * @author Scott Frederick
  * @since 2.0.0
  */
-@Endpoint(id = "health")
+@Endpoint_RENAMED(id = "health")
 public class HealthEndpoint extends HealthEndpointSupport<HealthContributor, HealthComponent> {
 
 	private static final String[] EMPTY_PATH = {};

@@ -20,7 +20,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.ObjectProvider;
-import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
+import org.springframework.boot.actuate.endpoint.annotation.Endpoint_RENAMED;
 import org.springframework.boot.actuate.endpoint.annotation.EndpointConverter;
 import org.springframework.boot.actuate.endpoint.invoke.ParameterValueMapper;
 import org.springframework.boot.actuate.endpoint.invoke.convert.ConversionServiceParameterValueMapper;
@@ -36,7 +36,7 @@ import org.springframework.core.convert.converter.GenericConverter;
 import org.springframework.core.env.Environment;
 
 /**
- * {@link EnableAutoConfiguration Auto-configuration} for {@link Endpoint @Endpoint}
+ * {@link EnableAutoConfiguration Auto-configuration} for {@link Endpoint_RENAMED @Endpoint}
  * support.
  *
  * @author Phillip Webb

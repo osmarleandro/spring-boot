@@ -20,21 +20,21 @@ import java.util.Collections;
 import java.util.Map;
 
 import org.springframework.beans.BeansException;
-import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
+import org.springframework.boot.actuate.endpoint.annotation.Endpoint_RENAMED;
 import org.springframework.boot.actuate.endpoint.annotation.WriteOperation;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.ConfigurableApplicationContext;
 
 /**
- * {@link Endpoint @Endpoint} to shutdown the {@link ApplicationContext}.
+ * {@link Endpoint_RENAMED @Endpoint} to shutdown the {@link ApplicationContext}.
  *
  * @author Dave Syer
  * @author Christian Dupuis
  * @author Andy Wilkinson
  * @since 2.0.0
  */
-@Endpoint(id = "shutdown", enableByDefault = false)
+@Endpoint_RENAMED(id = "shutdown", enableByDefault = false)
 public class ShutdownEndpoint implements ApplicationContextAware {
 
 	private static final Map<String, String> NO_CONTEXT_MESSAGE = Collections

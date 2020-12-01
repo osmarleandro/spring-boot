@@ -21,12 +21,12 @@ import java.util.function.Supplier;
 
 import org.jolokia.http.AgentServlet;
 
-import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
+import org.springframework.boot.actuate.endpoint.annotation.Endpoint_RENAMED;
 import org.springframework.boot.actuate.endpoint.web.EndpointServlet;
 import org.springframework.boot.actuate.endpoint.web.annotation.ServletEndpoint;
 
 /**
- * {@link Endpoint @Endpoint} to expose a Jolokia {@link AgentServlet}.
+ * {@link Endpoint_RENAMED @Endpoint} to expose a Jolokia {@link AgentServlet}.
  *
  * @author Phillip Webb
  * @since 2.0.0

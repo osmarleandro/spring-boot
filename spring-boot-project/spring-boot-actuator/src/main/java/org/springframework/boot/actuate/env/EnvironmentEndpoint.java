@@ -28,7 +28,7 @@ import java.util.stream.Stream;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 import org.springframework.boot.actuate.endpoint.Sanitizer;
-import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
+import org.springframework.boot.actuate.endpoint.annotation.Endpoint_RENAMED;
 import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
 import org.springframework.boot.actuate.endpoint.annotation.Selector;
 import org.springframework.boot.context.properties.bind.PlaceholdersResolver;
@@ -49,7 +49,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.util.SystemPropertyUtils;
 
 /**
- * {@link Endpoint @Endpoint} to expose {@link ConfigurableEnvironment environment}
+ * {@link Endpoint_RENAMED @Endpoint} to expose {@link ConfigurableEnvironment environment}
  * information.
  *
  * @author Dave Syer
@@ -59,7 +59,7 @@ import org.springframework.util.SystemPropertyUtils;
  * @author Stephane Nicoll
  * @since 2.0.0
  */
-@Endpoint(id = "env")
+@Endpoint_RENAMED(id = "env")
 public class EnvironmentEndpoint {
 
 	private final Sanitizer sanitizer = new Sanitizer();

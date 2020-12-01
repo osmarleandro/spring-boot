@@ -27,7 +27,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.AccessLevel;
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.CloudFoundryAuthorizationException;
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.CloudFoundryAuthorizationException.Reason;
-import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
+import org.springframework.boot.actuate.endpoint.annotation.Endpoint_RENAMED;
 import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
 import org.springframework.boot.actuate.endpoint.annotation.Selector;
 import org.springframework.boot.actuate.endpoint.annotation.WriteOperation;
@@ -210,7 +210,7 @@ class CloudFoundryMvcWebEndpointIntegrationTests {
 
 	}
 
-	@Endpoint(id = "test")
+	@Endpoint_RENAMED(id = "test")
 	static class TestEndpoint {
 
 		private final EndpointDelegate endpointDelegate;
@@ -236,7 +236,7 @@ class CloudFoundryMvcWebEndpointIntegrationTests {
 
 	}
 
-	@Endpoint(id = "env")
+	@Endpoint_RENAMED(id = "env")
 	static class TestEnvEndpoint {
 
 		@ReadOperation
@@ -246,7 +246,7 @@ class CloudFoundryMvcWebEndpointIntegrationTests {
 
 	}
 
-	@Endpoint(id = "info")
+	@Endpoint_RENAMED(id = "info")
 	static class TestInfoEndpoint {
 
 		@ReadOperation

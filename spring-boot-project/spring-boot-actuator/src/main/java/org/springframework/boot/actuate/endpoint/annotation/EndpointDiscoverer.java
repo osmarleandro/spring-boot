@@ -57,7 +57,7 @@ import org.springframework.util.StringUtils;
 
 /**
  * A Base for {@link EndpointsSupplier} implementations that discover
- * {@link Endpoint @Endpoint} beans and {@link EndpointExtension @EndpointExtension} beans
+ * {@link Endpoint_RENAMED @Endpoint} beans and {@link EndpointExtension @EndpointExtension} beans
  * in an application context.
  *
  * @param <E> the endpoint type
@@ -128,7 +128,7 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 	private Collection<EndpointBean> createEndpointBeans() {
 		Map<EndpointId, EndpointBean> byId = new LinkedHashMap<>();
 		String[] beanNames = BeanFactoryUtils.beanNamesForAnnotationIncludingAncestors(this.applicationContext,
-				Endpoint.class);
+				Endpoint_RENAMED.class);
 		for (String beanName : beanNames) {
 			if (!ScopedProxyUtils.isScopedTarget(beanName)) {
 				EndpointBean endpointBean = createEndpointBean(beanName);
@@ -412,7 +412,7 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 	}
 
 	/**
-	 * Information about an {@link Endpoint @Endpoint} bean.
+	 * Information about an {@link Endpoint_RENAMED @Endpoint} bean.
 	 */
 	private static class EndpointBean {
 
@@ -431,8 +431,8 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 		private Set<ExtensionBean> extensions = new LinkedHashSet<>();
 
 		EndpointBean(Environment environment, String beanName, Class<?> beanType, Supplier<Object> beanSupplier) {
-			MergedAnnotation<Endpoint> annotation = MergedAnnotations.from(beanType, SearchStrategy.TYPE_HIERARCHY)
-					.get(Endpoint.class);
+			MergedAnnotation<Endpoint_RENAMED> annotation = MergedAnnotations.from(beanType, SearchStrategy.TYPE_HIERARCHY)
+					.get(Endpoint_RENAMED.class);
 			String id = annotation.getString("id");
 			Assert.state(StringUtils.hasText(id),
 					() -> "No @Endpoint id attribute specified for " + beanType.getName());
@@ -505,8 +505,8 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 			MergedAnnotation<EndpointExtension> extensionAnnotation = MergedAnnotations
 					.from(beanType, SearchStrategy.TYPE_HIERARCHY).get(EndpointExtension.class);
 			Class<?> endpointType = extensionAnnotation.getClass("endpoint");
-			MergedAnnotation<Endpoint> endpointAnnotation = MergedAnnotations
-					.from(endpointType, SearchStrategy.TYPE_HIERARCHY).get(Endpoint.class);
+			MergedAnnotation<Endpoint_RENAMED> endpointAnnotation = MergedAnnotations
+					.from(endpointType, SearchStrategy.TYPE_HIERARCHY).get(Endpoint_RENAMED.class);
 			Assert.state(endpointAnnotation.isPresent(),
 					() -> "Extension " + endpointType.getName() + " does not specify an endpoint");
 			this.endpointId = EndpointId.of(environment, endpointAnnotation.getString("id"));

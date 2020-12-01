@@ -16,19 +16,19 @@
 
 package org.springframework.boot.actuate.integration;
 
-import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
+import org.springframework.boot.actuate.endpoint.annotation.Endpoint_RENAMED;
 import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
 import org.springframework.boot.actuate.endpoint.annotation.WriteOperation;
 import org.springframework.integration.graph.Graph;
 import org.springframework.integration.graph.IntegrationGraphServer;
 
 /**
- * {@link Endpoint @Endpoint} to expose the Spring Integration graph.
+ * {@link Endpoint_RENAMED @Endpoint} to expose the Spring Integration graph.
  *
  * @author Tim Ysewyn
  * @since 2.1.0
  */
-@Endpoint(id = "integrationgraph")
+@Endpoint_RENAMED(id = "integrationgraph")
 public class IntegrationGraphEndpoint {
 
 	private final IntegrationGraphServer graphServer;

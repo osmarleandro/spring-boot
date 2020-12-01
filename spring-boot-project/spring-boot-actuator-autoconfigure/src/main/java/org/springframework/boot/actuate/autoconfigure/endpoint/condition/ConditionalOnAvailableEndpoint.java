@@ -22,7 +22,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
+import org.springframework.boot.actuate.endpoint.annotation.Endpoint_RENAMED;
 import org.springframework.boot.actuate.endpoint.annotation.EndpointExtension;
 import org.springframework.context.annotation.Conditional;
 import org.springframework.core.env.Environment;
@@ -32,7 +32,7 @@ import org.springframework.core.env.Environment;
  * endpoint is considered available if it is both enabled and exposed. Matches enablement
  * according to the endpoints specific {@link Environment} property, falling back to
  * {@code management.endpoints.enabled-by-default} or failing that
- * {@link Endpoint#enableByDefault()}. Matches exposure according to any of the
+ * {@link Endpoint_RENAMED#enableByDefault()}. Matches exposure according to any of the
  * {@code management.endpoints.web.exposure.<id>} or
  * {@code management.endpoints.jmx.exposure.<id>} specific properties or failing that to
  * whether the application runs on
@@ -96,7 +96,7 @@ import org.springframework.core.env.Environment;
  * @author Brian Clozel
  * @author Stephane Nicoll
  * @since 2.2.0
- * @see Endpoint
+ * @see Endpoint_RENAMED
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ ElementType.METHOD, ElementType.TYPE })
@@ -106,7 +106,7 @@ public @interface ConditionalOnAvailableEndpoint {
 
 	/**
 	 * The endpoint type that should be checked. Inferred when the return type of the
-	 * {@code @Bean} method is either an {@link Endpoint @Endpoint} or an
+	 * {@code @Bean} method is either an {@link Endpoint_RENAMED @Endpoint} or an
 	 * {@link EndpointExtension @EndpointExtension}.
 	 * @return the endpoint type to check
 	 */

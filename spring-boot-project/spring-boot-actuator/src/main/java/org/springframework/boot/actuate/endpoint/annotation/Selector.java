@@ -23,7 +23,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * A {@code @Selector} can be used on a parameter of an {@link Endpoint @Endpoint} method
+ * A {@code @Selector} can be used on a parameter of an {@link Endpoint_RENAMED @Endpoint} method
  * to indicate that the parameter is used to select a subset of the endpoint's data.
  * <p>
  * A {@code @Selector} may change the way that the endpoint is exposed to the user. For

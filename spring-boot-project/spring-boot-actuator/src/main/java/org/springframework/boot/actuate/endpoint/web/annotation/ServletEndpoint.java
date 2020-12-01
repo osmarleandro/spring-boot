@@ -23,7 +23,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 import java.util.function.Supplier;
 
-import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
+import org.springframework.boot.actuate.endpoint.annotation.Endpoint_RENAMED;
 import org.springframework.boot.actuate.endpoint.annotation.FilteredEndpoint;
 import org.springframework.boot.actuate.endpoint.web.EndpointServlet;
 import org.springframework.core.annotation.AliasFor;
@@ -35,7 +35,7 @@ import org.springframework.core.annotation.AliasFor;
  * <p>
  * This annotation can be used when existing servlets need to be exposed as actuator
  * endpoints, but it is at the expense of portability. Most users should prefer the
- * {@link Endpoint @Endpoint} or {@link WebEndpoint @WebEndpoint} annotations whenever
+ * {@link Endpoint_RENAMED @Endpoint} or {@link WebEndpoint @WebEndpoint} annotations whenever
  * possible.
  *
  * @author Phillip Webb
@@ -44,7 +44,7 @@ import org.springframework.core.annotation.AliasFor;
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-@Endpoint
+@Endpoint_RENAMED
 @FilteredEndpoint(ServletEndpointFilter.class)
 public @interface ServletEndpoint {
 
@@ -52,14 +52,14 @@ public @interface ServletEndpoint {
 	 * The id of the endpoint.
 	 * @return the id
 	 */
-	@AliasFor(annotation = Endpoint.class)
+	@AliasFor(annotation = Endpoint_RENAMED.class)
 	String id();
 
 	/**
 	 * If the endpoint should be enabled or disabled by default.
 	 * @return {@code true} if the endpoint is enabled by default
 	 */
-	@AliasFor(annotation = Endpoint.class)
+	@AliasFor(annotation = Endpoint_RENAMED.class)
 	boolean enableByDefault() default true;
 
 }

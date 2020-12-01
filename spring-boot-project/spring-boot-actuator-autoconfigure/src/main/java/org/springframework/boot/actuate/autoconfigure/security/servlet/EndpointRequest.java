@@ -33,7 +33,7 @@ import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointProperties;
 import org.springframework.boot.actuate.autoconfigure.web.server.ManagementPortType;
 import org.springframework.boot.actuate.endpoint.EndpointId;
-import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
+import org.springframework.boot.actuate.endpoint.annotation.Endpoint_RENAMED;
 import org.springframework.boot.actuate.endpoint.web.PathMappedEndpoints;
 import org.springframework.boot.autoconfigure.security.servlet.RequestMatcherProvider;
 import org.springframework.boot.security.servlet.ApplicationContextRequestMatcher;
@@ -63,7 +63,7 @@ public final class EndpointRequest {
 	}
 
 	/**
-	 * Returns a matcher that includes all {@link Endpoint actuator endpoints}. It also
+	 * Returns a matcher that includes all {@link Endpoint_RENAMED actuator endpoints}. It also
 	 * includes the links endpoint which is present at the base path of the actuator
 	 * endpoints. The {@link EndpointRequestMatcher#excluding(Class...) excluding} method
 	 * can be used to further remove specific endpoints if required. For example:
@@ -77,7 +77,7 @@ public final class EndpointRequest {
 	}
 
 	/**
-	 * Returns a matcher that includes the specified {@link Endpoint actuator endpoints}.
+	 * Returns a matcher that includes the specified {@link Endpoint_RENAMED actuator endpoints}.
 	 * For example: <pre class="code">
 	 * EndpointRequest.to(ShutdownEndpoint.class, HealthEndpoint.class)
 	 * </pre>
@@ -89,7 +89,7 @@ public final class EndpointRequest {
 	}
 
 	/**
-	 * Returns a matcher that includes the specified {@link Endpoint actuator endpoints}.
+	 * Returns a matcher that includes the specified {@link Endpoint_RENAMED actuator endpoints}.
 	 * For example: <pre class="code">
 	 * EndpointRequest.to("shutdown", "health")
 	 * </pre>
@@ -103,7 +103,7 @@ public final class EndpointRequest {
 	/**
 	 * Returns a matcher that matches only on the links endpoint. It can be used when
 	 * security configuration for the links endpoint is different from the other
-	 * {@link Endpoint actuator endpoints}. The
+	 * {@link Endpoint_RENAMED actuator endpoints}. The
 	 * {@link EndpointRequestMatcher#excludingLinks() excludingLinks} method can be used
 	 * in combination with this to remove the links endpoint from
 	 * {@link EndpointRequest#toAnyEndpoint() toAnyEndpoint}. For example:
@@ -181,7 +181,7 @@ public final class EndpointRequest {
 	}
 
 	/**
-	 * The request matcher used to match against {@link Endpoint actuator endpoints}.
+	 * The request matcher used to match against {@link Endpoint_RENAMED actuator endpoints}.
 	 */
 	public static final class EndpointRequestMatcher extends AbstractRequestMatcher {
 
@@ -262,7 +262,7 @@ public final class EndpointRequest {
 		}
 
 		private EndpointId getEndpointId(Class<?> source) {
-			MergedAnnotation<Endpoint> annotation = MergedAnnotations.from(source).get(Endpoint.class);
+			MergedAnnotation<Endpoint_RENAMED> annotation = MergedAnnotations.from(source).get(Endpoint_RENAMED.class);
 			Assert.state(annotation.isPresent(), () -> "Class " + source + " is not annotated with @Endpoint");
 			return EndpointId.of(annotation.getString("id"));
 		}

@@ -22,7 +22,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
+import org.springframework.boot.actuate.endpoint.annotation.Endpoint_RENAMED;
 import org.springframework.boot.actuate.endpoint.annotation.FilteredEndpoint;
 import org.springframework.core.annotation.AliasFor;
 
@@ -36,7 +36,7 @@ import org.springframework.core.annotation.AliasFor;
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-@Endpoint
+@Endpoint_RENAMED
 @FilteredEndpoint(WebEndpointFilter.class)
 public @interface WebEndpoint {
 
@@ -44,14 +44,14 @@ public @interface WebEndpoint {
 	 * The id of the endpoint.
 	 * @return the id
 	 */
-	@AliasFor(annotation = Endpoint.class)
+	@AliasFor(annotation = Endpoint_RENAMED.class)
 	String id();
 
 	/**
 	 * If the endpoint should be enabled or disabled by default.
 	 * @return {@code true} if the endpoint is enabled by default
 	 */
-	@AliasFor(annotation = Endpoint.class)
+	@AliasFor(annotation = Endpoint_RENAMED.class)
 	boolean enableByDefault() default true;
 
 }

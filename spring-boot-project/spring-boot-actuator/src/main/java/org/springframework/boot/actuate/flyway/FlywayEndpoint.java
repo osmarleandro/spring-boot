@@ -29,12 +29,12 @@ import org.flywaydb.core.api.MigrationInfo;
 import org.flywaydb.core.api.MigrationState;
 import org.flywaydb.core.api.MigrationType;
 
-import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
+import org.springframework.boot.actuate.endpoint.annotation.Endpoint_RENAMED;
 import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
 import org.springframework.context.ApplicationContext;
 
 /**
- * {@link Endpoint @Endpoint} to expose flyway info.
+ * {@link Endpoint_RENAMED @Endpoint} to expose flyway info.
  *
  * @author Eddú Meléndez
  * @author Phillip Webb
@@ -42,7 +42,7 @@ import org.springframework.context.ApplicationContext;
  * @author Artsiom Yudovin
  * @since 2.0.0
  */
-@Endpoint(id = "flyway")
+@Endpoint_RENAMED(id = "flyway")
 public class FlywayEndpoint {
 
 	private final ApplicationContext context;

@@ -24,7 +24,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.actuate.autoconfigure.endpoint.EndpointAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.web.server.ManagementContextAutoConfiguration;
-import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
+import org.springframework.boot.actuate.endpoint.annotation.Endpoint_RENAMED;
 import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
 import org.springframework.boot.actuate.endpoint.web.EndpointServlet;
 import org.springframework.boot.actuate.endpoint.web.annotation.ServletEndpoint;
@@ -121,7 +121,7 @@ abstract class AbstractEndpointRequestIntegrationTests {
 
 	}
 
-	@Endpoint(id = "e1")
+	@Endpoint_RENAMED(id = "e1")
 	static class TestEndpoint1 {
 
 		@ReadOperation
@@ -131,7 +131,7 @@ abstract class AbstractEndpointRequestIntegrationTests {
 
 	}
 
-	@Endpoint(id = "e2")
+	@Endpoint_RENAMED(id = "e2")
 	static class TestEndpoint2 {
 
 		@ReadOperation
@@ -141,7 +141,7 @@ abstract class AbstractEndpointRequestIntegrationTests {
 
 	}
 
-	@Endpoint(id = "e3")
+	@Endpoint_RENAMED(id = "e3")
 	static class TestEndpoint3 {
 
 		@ReadOperation

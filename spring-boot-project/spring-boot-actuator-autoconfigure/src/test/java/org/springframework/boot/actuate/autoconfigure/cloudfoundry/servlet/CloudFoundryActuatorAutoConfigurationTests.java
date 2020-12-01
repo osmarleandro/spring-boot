@@ -28,7 +28,7 @@ import org.springframework.boot.actuate.autoconfigure.health.HealthEndpointAutoC
 import org.springframework.boot.actuate.autoconfigure.web.server.ManagementContextAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.web.servlet.ServletManagementContextAutoConfiguration;
 import org.springframework.boot.actuate.endpoint.EndpointId;
-import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
+import org.springframework.boot.actuate.endpoint.annotation.Endpoint_RENAMED;
 import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
 import org.springframework.boot.actuate.endpoint.http.ActuatorMediaType;
 import org.springframework.boot.actuate.endpoint.web.EndpointMapping;
@@ -253,7 +253,7 @@ class CloudFoundryActuatorAutoConfigurationTests {
 				"No operation found with request path " + requestPath + " from " + endpoint.getOperations());
 	}
 
-	@Endpoint(id = "test")
+	@Endpoint_RENAMED(id = "test")
 	static class TestEndpoint {
 
 		@ReadOperation

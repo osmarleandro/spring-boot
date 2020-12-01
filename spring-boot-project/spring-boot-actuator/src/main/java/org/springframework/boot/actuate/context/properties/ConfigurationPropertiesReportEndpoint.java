@@ -52,7 +52,7 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.BeansException;
 import org.springframework.boot.actuate.endpoint.Sanitizer;
-import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
+import org.springframework.boot.actuate.endpoint.annotation.Endpoint_RENAMED;
 import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
 import org.springframework.boot.context.properties.BoundConfigurationProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -70,7 +70,7 @@ import org.springframework.util.ClassUtils;
 import org.springframework.util.StringUtils;
 
 /**
- * {@link Endpoint @Endpoint} to expose application properties from
+ * {@link Endpoint_RENAMED @Endpoint} to expose application properties from
  * {@link ConfigurationProperties @ConfigurationProperties} annotated beans.
  *
  * <p>
@@ -87,7 +87,7 @@ import org.springframework.util.StringUtils;
  * @author Andy Wilkinson
  * @since 2.0.0
  */
-@Endpoint(id = "configprops")
+@Endpoint_RENAMED(id = "configprops")
 public class ConfigurationPropertiesReportEndpoint implements ApplicationContextAware {
 
 	private static final String CONFIGURATION_PROPERTIES_FILTER_ID = "configurationPropertiesFilter";

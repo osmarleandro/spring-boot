@@ -20,17 +20,17 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
+import org.springframework.boot.actuate.endpoint.annotation.Endpoint_RENAMED;
 import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
 import org.springframework.context.ApplicationContext;
 
 /**
- * {@link Endpoint @Endpoint} to expose HTTP request mappings.
+ * {@link Endpoint_RENAMED @Endpoint} to expose HTTP request mappings.
  *
  * @author Andy Wilkinson
  * @since 2.0.0
  */
-@Endpoint(id = "mappings")
+@Endpoint_RENAMED(id = "mappings")
 public class MappingsEndpoint {
 
 	private final Collection<MappingDescriptionProvider> descriptionProviders;

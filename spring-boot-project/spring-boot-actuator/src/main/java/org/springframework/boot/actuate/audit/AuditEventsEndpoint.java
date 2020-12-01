@@ -20,18 +20,18 @@ import java.time.Instant;
 import java.time.OffsetDateTime;
 import java.util.List;
 
-import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
+import org.springframework.boot.actuate.endpoint.annotation.Endpoint_RENAMED;
 import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
 import org.springframework.lang.Nullable;
 import org.springframework.util.Assert;
 
 /**
- * {@link Endpoint @Endpoint} to expose audit events.
+ * {@link Endpoint_RENAMED @Endpoint} to expose audit events.
  *
  * @author Andy Wilkinson
  * @since 2.0.0
  */
-@Endpoint(id = "auditevents")
+@Endpoint_RENAMED(id = "auditevents")
 public class AuditEventsEndpoint {
 
 	private final AuditEventRepository auditEventRepository;

@@ -35,19 +35,19 @@ import io.micrometer.core.instrument.Tag;
 import io.micrometer.core.instrument.composite.CompositeMeterRegistry;
 
 import org.springframework.boot.actuate.endpoint.InvalidEndpointRequestException;
-import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
+import org.springframework.boot.actuate.endpoint.annotation.Endpoint_RENAMED;
 import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
 import org.springframework.boot.actuate.endpoint.annotation.Selector;
 import org.springframework.lang.Nullable;
 
 /**
- * An {@link Endpoint @Endpoint} for exposing the metrics held by a {@link MeterRegistry}.
+ * An {@link Endpoint_RENAMED @Endpoint} for exposing the metrics held by a {@link MeterRegistry}.
  *
  * @author Jon Schneider
  * @author Phillip Webb
  * @since 2.0.0
  */
-@Endpoint(id = "metrics")
+@Endpoint_RENAMED(id = "metrics")
 public class MetricsEndpoint {
 
 	private final MeterRegistry registry;

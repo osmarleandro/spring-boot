@@ -18,18 +18,18 @@ package org.springframework.boot.actuate.trace.http;
 
 import java.util.List;
 
-import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
+import org.springframework.boot.actuate.endpoint.annotation.Endpoint_RENAMED;
 import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
 import org.springframework.util.Assert;
 
 /**
- * {@link Endpoint @Endpoint} to expose {@link HttpTrace} information.
+ * {@link Endpoint_RENAMED @Endpoint} to expose {@link HttpTrace} information.
  *
  * @author Dave Syer
  * @author Andy Wilkinson
  * @since 2.0.0
  */
-@Endpoint(id = "httptrace")
+@Endpoint_RENAMED(id = "httptrace")
 public class HttpTraceEndpoint {
 
 	private final HttpTraceRepository repository;

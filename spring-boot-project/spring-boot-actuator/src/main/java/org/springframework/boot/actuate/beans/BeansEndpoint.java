@@ -22,21 +22,21 @@ import java.util.Map;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
-import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
+import org.springframework.boot.actuate.endpoint.annotation.Endpoint_RENAMED;
 import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.util.StringUtils;
 
 /**
- * {@link Endpoint @Endpoint} to expose details of an application's beans, grouped by
+ * {@link Endpoint_RENAMED @Endpoint} to expose details of an application's beans, grouped by
  * application context.
  *
  * @author Dave Syer
  * @author Andy Wilkinson
  * @since 2.0.0
  */
-@Endpoint(id = "beans")
+@Endpoint_RENAMED(id = "beans")
 public class BeansEndpoint {
 
 	private final ConfigurableApplicationContext context;

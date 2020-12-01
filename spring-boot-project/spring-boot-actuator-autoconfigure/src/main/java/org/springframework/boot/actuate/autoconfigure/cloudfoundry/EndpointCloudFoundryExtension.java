@@ -22,12 +22,12 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
+import org.springframework.boot.actuate.endpoint.annotation.Endpoint_RENAMED;
 import org.springframework.boot.actuate.endpoint.annotation.EndpointExtension;
 
 /**
  * Identifies a type as being a Cloud Foundry specific extension for an
- * {@link Endpoint @Endpoint}.
+ * {@link Endpoint_RENAMED @Endpoint}.
  *
  * @author Phillip Webb
  * @author Madhura Bhave

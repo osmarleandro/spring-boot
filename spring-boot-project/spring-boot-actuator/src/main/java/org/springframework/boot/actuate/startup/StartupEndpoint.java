@@ -17,20 +17,20 @@
 package org.springframework.boot.actuate.startup;
 
 import org.springframework.boot.SpringBootVersion;
-import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
+import org.springframework.boot.actuate.endpoint.annotation.Endpoint_RENAMED;
 import org.springframework.boot.actuate.endpoint.annotation.WriteOperation;
 import org.springframework.boot.context.metrics.buffering.BufferingApplicationStartup;
 import org.springframework.boot.context.metrics.buffering.StartupTimeline;
 
 /**
- * {@link Endpoint @Endpoint} to expose the timeline of the
+ * {@link Endpoint_RENAMED @Endpoint} to expose the timeline of the
  * {@link org.springframework.boot.context.metrics.buffering.BufferingApplicationStartup
  * application startup}.
  *
  * @author Brian Clozel
  * @since 2.4.0
  */
-@Endpoint(id = "startup")
+@Endpoint_RENAMED(id = "startup")
 public class StartupEndpoint {
 
 	private final BufferingApplicationStartup applicationStartup;

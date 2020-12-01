@@ -21,7 +21,7 @@ import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.boot.actuate.endpoint.EndpointId;
-import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
+import org.springframework.boot.actuate.endpoint.annotation.Endpoint_RENAMED;
 import org.springframework.boot.actuate.endpoint.annotation.EndpointExtension;
 import org.springframework.boot.autoconfigure.condition.ConditionMessage;
 import org.springframework.boot.autoconfigure.condition.ConditionOutcome;
@@ -40,7 +40,7 @@ import org.springframework.util.ClassUtils;
 import org.springframework.util.ConcurrentReferenceHashMap;
 
 /**
- * Base class for {@link Endpoint @Endpoint} related {@link SpringBootCondition}
+ * Base class for {@link Endpoint_RENAMED @Endpoint} related {@link SpringBootCondition}
  * implementations.
  *
  * @author Stephane Nicoll
@@ -102,7 +102,7 @@ abstract class AbstractEndpointCondition extends SpringBootCondition {
 
 	protected AnnotationAttributes getEndpointAttributes(Class<?> type) {
 		MergedAnnotations annotations = MergedAnnotations.from(type, SearchStrategy.TYPE_HIERARCHY);
-		MergedAnnotation<Endpoint> endpoint = annotations.get(Endpoint.class);
+		MergedAnnotation<Endpoint_RENAMED> endpoint = annotations.get(Endpoint_RENAMED.class);
 		if (endpoint.isPresent()) {
 			return endpoint.asAnnotationAttributes();
 		}

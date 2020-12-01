@@ -26,7 +26,7 @@ import java.util.Objects;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
+import org.springframework.boot.actuate.endpoint.annotation.Endpoint_RENAMED;
 import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
 import org.springframework.scheduling.Trigger;
 import org.springframework.scheduling.config.CronTask;
@@ -42,13 +42,13 @@ import org.springframework.scheduling.support.PeriodicTrigger;
 import org.springframework.scheduling.support.ScheduledMethodRunnable;
 
 /**
- * {@link Endpoint @Endpoint} to expose information about an application's scheduled
+ * {@link Endpoint_RENAMED @Endpoint} to expose information about an application's scheduled
  * tasks.
  *
  * @author Andy Wilkinson
  * @since 2.0.0
  */
-@Endpoint(id = "scheduledtasks")
+@Endpoint_RENAMED(id = "scheduledtasks")
 public class ScheduledTasksEndpoint {
 
 	private final Collection<ScheduledTaskHolder> scheduledTaskHolders;

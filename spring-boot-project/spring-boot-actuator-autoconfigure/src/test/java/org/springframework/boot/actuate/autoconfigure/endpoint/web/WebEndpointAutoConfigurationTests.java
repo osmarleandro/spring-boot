@@ -26,7 +26,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.actuate.autoconfigure.endpoint.EndpointAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.endpoint.expose.IncludeExcludeEndpointFilter;
 import org.springframework.boot.actuate.endpoint.EndpointId;
-import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
+import org.springframework.boot.actuate.endpoint.annotation.Endpoint_RENAMED;
 import org.springframework.boot.actuate.endpoint.http.ActuatorMediaType;
 import org.springframework.boot.actuate.endpoint.web.EndpointMediaTypes;
 import org.springframework.boot.actuate.endpoint.web.ExposableWebEndpoint;
@@ -133,19 +133,19 @@ class WebEndpointAutoConfigurationTests {
 	}
 
 	@Component
-	@Endpoint(id = "testone")
+	@Endpoint_RENAMED(id = "testone")
 	static class TestOneEndpoint {
 
 	}
 
 	@Component
-	@Endpoint(id = "testanotherone")
+	@Endpoint_RENAMED(id = "testanotherone")
 	static class TestAnotherOneEndpoint {
 
 	}
 
 	@Component
-	@Endpoint(id = "testtwo")
+	@Endpoint_RENAMED(id = "testtwo")
 	static class TestTwoEndpoint {
 
 	}

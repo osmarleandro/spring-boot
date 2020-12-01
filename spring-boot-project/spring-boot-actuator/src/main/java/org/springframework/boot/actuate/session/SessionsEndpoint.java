@@ -23,19 +23,19 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.springframework.boot.actuate.endpoint.annotation.DeleteOperation;
-import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
+import org.springframework.boot.actuate.endpoint.annotation.Endpoint_RENAMED;
 import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
 import org.springframework.boot.actuate.endpoint.annotation.Selector;
 import org.springframework.session.FindByIndexNameSessionRepository;
 import org.springframework.session.Session;
 
 /**
- * {@link Endpoint @Endpoint} to expose a user's {@link Session}s.
+ * {@link Endpoint_RENAMED @Endpoint} to expose a user's {@link Session}s.
  *
  * @author Vedran Pavic
  * @since 2.0.0
  */
-@Endpoint(id = "sessions")
+@Endpoint_RENAMED(id = "sessions")
 public class SessionsEndpoint {
 
 	private final FindByIndexNameSessionRepository<? extends Session> sessionRepository;

@@ -418,7 +418,7 @@ class EndpointDiscovererTests {
 
 	}
 
-	@Endpoint(id = "test")
+	@Endpoint_RENAMED(id = "test")
 	static class TestEndpoint {
 
 		@ReadOperation
@@ -459,11 +459,11 @@ class EndpointDiscovererTests {
 	@Target(ElementType.TYPE)
 	@Retention(RetentionPolicy.RUNTIME)
 	@Documented
-	@Endpoint
+	@Endpoint_RENAMED
 	@FilteredEndpoint(SpecializedEndpointFilter.class)
 	@interface SpecializedEndpoint {
 
-		@AliasFor(annotation = Endpoint.class)
+		@AliasFor(annotation = Endpoint_RENAMED.class)
 		String id();
 
 	}

@@ -33,7 +33,7 @@ import org.junit.jupiter.api.Test;
 
 import org.springframework.boot.actuate.endpoint.EndpointId;
 import org.springframework.boot.actuate.endpoint.annotation.DeleteOperation;
-import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
+import org.springframework.boot.actuate.endpoint.annotation.Endpoint_RENAMED;
 import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
 import org.springframework.boot.actuate.endpoint.annotation.Selector;
 import org.springframework.boot.actuate.endpoint.annotation.WriteOperation;
@@ -465,7 +465,7 @@ class WebEndpointDiscovererTests {
 
 	}
 
-	@Endpoint(id = "test")
+	@Endpoint_RENAMED(id = "test")
 	static class TestEndpoint {
 
 		@ReadOperation
@@ -495,7 +495,7 @@ class WebEndpointDiscovererTests {
 
 	}
 
-	@Endpoint(id = "test")
+	@Endpoint_RENAMED(id = "test")
 	static class ClashingOperationsEndpoint {
 
 		@ReadOperation
@@ -560,7 +560,7 @@ class WebEndpointDiscovererTests {
 
 	}
 
-	@Endpoint(id = "voidwrite")
+	@Endpoint_RENAMED(id = "voidwrite")
 	static class VoidWriteOperationEndpoint {
 
 		@WriteOperation
@@ -569,7 +569,7 @@ class WebEndpointDiscovererTests {
 
 	}
 
-	@Endpoint(id = "resource")
+	@Endpoint_RENAMED(id = "resource")
 	static class ResourceEndpoint {
 
 		@ReadOperation
@@ -579,7 +579,7 @@ class WebEndpointDiscovererTests {
 
 	}
 
-	@Endpoint(id = "custommediatypes")
+	@Endpoint_RENAMED(id = "custommediatypes")
 	static class CustomMediaTypesEndpoint {
 
 		@ReadOperation(produces = "text/plain")

@@ -16,7 +16,7 @@
 
 package org.springframework.boot.docs.actuate.endpoint;
 
-import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
+import org.springframework.boot.actuate.endpoint.annotation.Endpoint_RENAMED;
 import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
 import org.springframework.boot.actuate.endpoint.annotation.WriteOperation;
 
@@ -25,7 +25,7 @@ import org.springframework.boot.actuate.endpoint.annotation.WriteOperation;
  *
  * @author Stephane Nicoll
  */
-@Endpoint(id = "custom")
+@Endpoint_RENAMED(id = "custom")
 public class CustomEndpointExample {
 
 	// tag::read[]

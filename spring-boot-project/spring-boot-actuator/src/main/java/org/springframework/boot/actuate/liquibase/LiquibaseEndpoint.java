@@ -33,19 +33,19 @@ import liquibase.database.DatabaseFactory;
 import liquibase.database.jvm.JdbcConnection;
 import liquibase.integration.spring.SpringLiquibase;
 
-import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
+import org.springframework.boot.actuate.endpoint.annotation.Endpoint_RENAMED;
 import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
 import org.springframework.context.ApplicationContext;
 import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
 
 /**
- * {@link Endpoint @Endpoint} to expose liquibase info.
+ * {@link Endpoint_RENAMED @Endpoint} to expose liquibase info.
  *
  * @author Eddú Meléndez
  * @since 2.0.0
  */
-@Endpoint(id = "liquibase")
+@Endpoint_RENAMED(id = "liquibase")
 public class LiquibaseEndpoint {
 
 	private final ApplicationContext context;

@@ -22,16 +22,16 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
+import org.springframework.boot.actuate.endpoint.annotation.Endpoint_RENAMED;
 import org.springframework.boot.actuate.endpoint.annotation.EndpointExtension;
 import org.springframework.core.annotation.AliasFor;
 
 /**
- * Identifies a type as being a JMX-specific extension of an {@link Endpoint @Endpoint}.
+ * Identifies a type as being a JMX-specific extension of an {@link Endpoint_RENAMED @Endpoint}.
  *
  * @author Stephane Nicoll
  * @since 2.0.0
- * @see Endpoint
+ * @see Endpoint_RENAMED
  */
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
@@ -40,7 +40,7 @@ import org.springframework.core.annotation.AliasFor;
 public @interface EndpointJmxExtension {
 
 	/**
-	 * The {@link Endpoint endpoint} class to which this JMX extension relates.
+	 * The {@link Endpoint_RENAMED endpoint} class to which this JMX extension relates.
 	 * @return the endpoint class
 	 */
 	@AliasFor(annotation = EndpointExtension.class)

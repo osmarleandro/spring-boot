@@ -27,7 +27,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
-import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
+import org.springframework.boot.actuate.endpoint.annotation.Endpoint_RENAMED;
 import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
 import org.springframework.boot.autoconfigure.condition.ConditionEvaluationReport;
 import org.springframework.boot.autoconfigure.condition.ConditionEvaluationReport.ConditionAndOutcome;
@@ -42,7 +42,7 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.util.StringUtils;
 
 /**
- * {@link Endpoint @Endpoint} to expose the {@link ConditionEvaluationReport}.
+ * {@link Endpoint_RENAMED @Endpoint} to expose the {@link ConditionEvaluationReport}.
  *
  * @author Greg Turnquist
  * @author Phillip Webb
@@ -50,7 +50,7 @@ import org.springframework.util.StringUtils;
  * @author Andy Wilkinson
  * @since 2.0.0
  */
-@Endpoint(id = "conditions")
+@Endpoint_RENAMED(id = "conditions")
 public class ConditionsReportEndpoint {
 
 	private final ConfigurableApplicationContext context;

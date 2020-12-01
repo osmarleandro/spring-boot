@@ -26,13 +26,13 @@ import io.prometheus.client.Collector.MetricFamilySamples;
 import io.prometheus.client.CollectorRegistry;
 import io.prometheus.client.exporter.common.TextFormat;
 
-import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
+import org.springframework.boot.actuate.endpoint.annotation.Endpoint_RENAMED;
 import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
 import org.springframework.boot.actuate.endpoint.web.annotation.WebEndpoint;
 import org.springframework.lang.Nullable;
 
 /**
- * {@link Endpoint @Endpoint} that outputs metrics in a format that can be scraped by the
+ * {@link Endpoint_RENAMED @Endpoint} that outputs metrics in a format that can be scraped by the
  * Prometheus server.
  *
  * @author Jon Schneider

@@ -16,7 +16,7 @@
 
 package sample.autoconfig;
 
-import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
+import org.springframework.boot.actuate.endpoint.annotation.Endpoint_RENAMED;
 import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWarDeployment;
 import org.springframework.context.annotation.Bean;
@@ -31,7 +31,7 @@ public class ExampleAutoConfiguration {
 		return new TestEndpoint();
 	}
 
-	@Endpoint(id = "war")
+	@Endpoint_RENAMED(id = "war")
 	static class TestEndpoint {
 
 		@ReadOperation
