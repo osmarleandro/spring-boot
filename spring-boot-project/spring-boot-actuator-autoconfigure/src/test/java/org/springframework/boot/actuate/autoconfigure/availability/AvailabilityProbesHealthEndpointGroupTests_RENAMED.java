@@ -30,7 +30,7 @@ import static org.mockito.Mockito.mock;
  *
  * @author Phillip Webb
  */
-class AvailabilityProbesHealthEndpointGroupTests {
+class AvailabilityProbesHealthEndpointGroupTests_RENAMED {
 
 	private AvailabilityProbesHealthEndpointGroup group = new AvailabilityProbesHealthEndpointGroup("a", "b");
 
