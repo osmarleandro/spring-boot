@@ -26,7 +26,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import reactor.core.publisher.Mono;
 
 import org.springframework.boot.actuate.autoconfigure.metrics.test.MetricsRun;
-import org.springframework.boot.actuate.metrics.web.reactive.client.WebClientExchangeTagsProvider;
+import org.springframework.boot.actuate.metrics.web.reactive.client.WebClientExchangeTagsProvider_RENAMED;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
 import org.springframework.boot.autoconfigure.web.reactive.function.client.WebClientAutoConfiguration;
 import org.springframework.boot.test.context.assertj.AssertableApplicationContext;
@@ -70,7 +70,7 @@ class WebClientMetricsConfigurationTests {
 	@Test
 	void shouldNotOverrideCustomTagsProvider() {
 		this.contextRunner.withUserConfiguration(CustomTagsProviderConfig.class).run((context) -> assertThat(context)
-				.getBeans(WebClientExchangeTagsProvider.class).hasSize(1).containsKey("customTagsProvider"));
+				.getBeans(WebClientExchangeTagsProvider_RENAMED.class).hasSize(1).containsKey("customTagsProvider"));
 	}
 
 	@Test
@@ -135,8 +135,8 @@ class WebClientMetricsConfigurationTests {
 	static class CustomTagsProviderConfig {
 
 		@Bean
-		WebClientExchangeTagsProvider customTagsProvider() {
-			return mock(WebClientExchangeTagsProvider.class);
+		WebClientExchangeTagsProvider_RENAMED customTagsProvider() {
+			return mock(WebClientExchangeTagsProvider_RENAMED.class);
 		}
 
 	}

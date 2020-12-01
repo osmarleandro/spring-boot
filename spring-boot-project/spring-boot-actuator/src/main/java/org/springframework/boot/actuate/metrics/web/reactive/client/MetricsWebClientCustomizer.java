@@ -43,7 +43,7 @@ public class MetricsWebClientCustomizer implements WebClientCustomizer {
 	 * @param autoTimer the auto-timers to apply or {@code null} to disable auto-timing
 	 * @since 2.2.0
 	 */
-	public MetricsWebClientCustomizer(MeterRegistry meterRegistry, WebClientExchangeTagsProvider tagProvider,
+	public MetricsWebClientCustomizer(MeterRegistry meterRegistry, WebClientExchangeTagsProvider_RENAMED tagProvider,
 			String metricName, AutoTimer autoTimer) {
 		this.filterFunction = new MetricsWebClientFilterFunction(meterRegistry, tagProvider, metricName, autoTimer);
 	}

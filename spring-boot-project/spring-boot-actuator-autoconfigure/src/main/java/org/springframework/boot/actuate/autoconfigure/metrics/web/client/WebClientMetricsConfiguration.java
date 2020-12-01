@@ -22,7 +22,7 @@ import org.springframework.boot.actuate.autoconfigure.metrics.MetricsProperties;
 import org.springframework.boot.actuate.autoconfigure.metrics.MetricsProperties.Web.Client.ClientRequest;
 import org.springframework.boot.actuate.metrics.web.reactive.client.DefaultWebClientExchangeTagsProvider;
 import org.springframework.boot.actuate.metrics.web.reactive.client.MetricsWebClientCustomizer;
-import org.springframework.boot.actuate.metrics.web.reactive.client.WebClientExchangeTagsProvider;
+import org.springframework.boot.actuate.metrics.web.reactive.client.WebClientExchangeTagsProvider_RENAMED;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
@@ -41,13 +41,13 @@ class WebClientMetricsConfiguration {
 
 	@Bean
 	@ConditionalOnMissingBean
-	WebClientExchangeTagsProvider defaultWebClientExchangeTagsProvider() {
+	WebClientExchangeTagsProvider_RENAMED defaultWebClientExchangeTagsProvider() {
 		return new DefaultWebClientExchangeTagsProvider();
 	}
 
 	@Bean
 	MetricsWebClientCustomizer metricsWebClientCustomizer(MeterRegistry meterRegistry,
-			WebClientExchangeTagsProvider tagsProvider, MetricsProperties properties) {
+			WebClientExchangeTagsProvider_RENAMED tagsProvider, MetricsProperties properties) {
 		ClientRequest request = properties.getWeb().getClient().getRequest();
 		return new MetricsWebClientCustomizer(meterRegistry, tagsProvider, request.getMetricName(),
 				request.getAutotime());

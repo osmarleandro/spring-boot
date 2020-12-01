@@ -47,7 +47,7 @@ public class MetricsWebClientFilterFunction implements ExchangeFilterFunction {
 
 	private final MeterRegistry meterRegistry;
 
-	private final WebClientExchangeTagsProvider tagProvider;
+	private final WebClientExchangeTagsProvider_RENAMED tagProvider;
 
 	private final String metricName;
 
@@ -61,7 +61,7 @@ public class MetricsWebClientFilterFunction implements ExchangeFilterFunction {
 	 * @param autoTimer the auto-timer configuration or {@code null} to disable
 	 * @since 2.2.0
 	 */
-	public MetricsWebClientFilterFunction(MeterRegistry meterRegistry, WebClientExchangeTagsProvider tagProvider,
+	public MetricsWebClientFilterFunction(MeterRegistry meterRegistry, WebClientExchangeTagsProvider_RENAMED tagProvider,
 			String metricName, AutoTimer autoTimer) {
 		this.meterRegistry = meterRegistry;
 		this.tagProvider = tagProvider;
