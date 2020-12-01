@@ -34,7 +34,7 @@ import org.springframework.boot.actuate.endpoint.web.EndpointMediaTypes;
 import org.springframework.boot.actuate.endpoint.web.ExposableWebEndpoint;
 import org.springframework.boot.actuate.endpoint.web.PathMapper;
 import org.springframework.boot.actuate.endpoint.web.WebOperation;
-import org.springframework.boot.actuate.endpoint.web.annotation.EndpointWebExtension;
+import org.springframework.boot.actuate.endpoint.web.annotation.EndpointWebExtension_RENAMED;
 import org.springframework.boot.actuate.health.HealthContributorRegistry;
 import org.springframework.boot.actuate.health.HealthEndpoint;
 import org.springframework.boot.actuate.health.HealthEndpointGroups;
@@ -138,7 +138,7 @@ class CloudFoundryWebEndpointDiscovererTests {
 
 	}
 
-	@EndpointWebExtension(endpoint = TestEndpoint.class)
+	@EndpointWebExtension_RENAMED(endpoint = TestEndpoint.class)
 	static class TestEndpointWebExtension {
 
 		@ReadOperation
@@ -148,7 +148,7 @@ class CloudFoundryWebEndpointDiscovererTests {
 
 	}
 
-	@EndpointWebExtension(endpoint = HealthEndpoint.class)
+	@EndpointWebExtension_RENAMED(endpoint = HealthEndpoint.class)
 	static class HealthEndpointWebExtension {
 
 		@ReadOperation

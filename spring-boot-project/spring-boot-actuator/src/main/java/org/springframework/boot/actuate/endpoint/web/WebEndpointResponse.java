@@ -16,11 +16,11 @@
 
 package org.springframework.boot.actuate.endpoint.web;
 
-import org.springframework.boot.actuate.endpoint.web.annotation.EndpointWebExtension;
+import org.springframework.boot.actuate.endpoint.web.annotation.EndpointWebExtension_RENAMED;
 
 /**
  * A {@code WebEndpointResponse} can be returned by an operation on a
- * {@link EndpointWebExtension @EndpointWebExtension} to provide additional, web-specific
+ * {@link EndpointWebExtension_RENAMED @EndpointWebExtension} to provide additional, web-specific
  * information such as the HTTP status code.
  *
  * @param <T> the type of the response body

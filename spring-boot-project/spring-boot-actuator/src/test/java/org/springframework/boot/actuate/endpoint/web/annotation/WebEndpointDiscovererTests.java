@@ -441,7 +441,7 @@ class WebEndpointDiscovererTests {
 
 	}
 
-	@EndpointWebExtension(endpoint = TestEndpoint.class)
+	@EndpointWebExtension_RENAMED(endpoint = TestEndpoint.class)
 	static class TestWebEndpointExtension {
 
 		@ReadOperation
@@ -475,7 +475,7 @@ class WebEndpointDiscovererTests {
 
 	}
 
-	@EndpointWebExtension(endpoint = TestEndpoint.class)
+	@EndpointWebExtension_RENAMED(endpoint = TestEndpoint.class)
 	static class OverriddenOperationWebEndpointExtension {
 
 		@ReadOperation
@@ -485,7 +485,7 @@ class WebEndpointDiscovererTests {
 
 	}
 
-	@EndpointWebExtension(endpoint = TestEndpoint.class)
+	@EndpointWebExtension_RENAMED(endpoint = TestEndpoint.class)
 	static class AdditionalOperationWebEndpointExtension {
 
 		@ReadOperation
@@ -510,7 +510,7 @@ class WebEndpointDiscovererTests {
 
 	}
 
-	@EndpointWebExtension(endpoint = TestEndpoint.class)
+	@EndpointWebExtension_RENAMED(endpoint = TestEndpoint.class)
 	static class ClashingOperationsWebEndpointExtension {
 
 		@ReadOperation
@@ -525,7 +525,7 @@ class WebEndpointDiscovererTests {
 
 	}
 
-	@EndpointWebExtension(endpoint = TestEndpoint.class)
+	@EndpointWebExtension_RENAMED(endpoint = TestEndpoint.class)
 	static class ClashingSelectorsWebEndpointExtension {
 
 		@ReadOperation
@@ -550,7 +550,7 @@ class WebEndpointDiscovererTests {
 
 	}
 
-	@EndpointWebExtension(endpoint = NonWebEndpoint.class)
+	@EndpointWebExtension_RENAMED(endpoint = NonWebEndpoint.class)
 	static class NonWebWebEndpointExtension {
 
 		@ReadOperation

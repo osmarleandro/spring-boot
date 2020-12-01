@@ -29,10 +29,10 @@ import org.springframework.boot.actuate.endpoint.annotation.Selector;
 import org.springframework.boot.actuate.endpoint.annotation.Selector.Match;
 import org.springframework.boot.actuate.endpoint.http.ApiVersion;
 import org.springframework.boot.actuate.endpoint.web.WebEndpointResponse;
-import org.springframework.boot.actuate.endpoint.web.annotation.EndpointWebExtension;
+import org.springframework.boot.actuate.endpoint.web.annotation.EndpointWebExtension_RENAMED;
 
 /**
- * Reactive {@link EndpointWebExtension @EndpointWebExtension} for the
+ * Reactive {@link EndpointWebExtension_RENAMED @EndpointWebExtension} for the
  * {@link HealthEndpoint}.
  *
  * @author Stephane Nicoll
@@ -40,7 +40,7 @@ import org.springframework.boot.actuate.endpoint.web.annotation.EndpointWebExten
  * @author Scott Frederick
  * @since 2.0.0
  */
-@EndpointWebExtension(endpoint = HealthEndpoint.class)
+@EndpointWebExtension_RENAMED(endpoint = HealthEndpoint.class)
 public class ReactiveHealthEndpointWebExtension
 		extends HealthEndpointSupport<ReactiveHealthContributor, Mono<? extends HealthComponent>> {
 
