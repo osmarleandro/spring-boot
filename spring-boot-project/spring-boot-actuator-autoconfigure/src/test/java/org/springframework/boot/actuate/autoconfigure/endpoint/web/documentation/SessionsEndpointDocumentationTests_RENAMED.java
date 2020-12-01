@@ -54,7 +54,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * @author Andy Wilkinson
  */
 @TestPropertySource(properties = "spring.jackson.serialization.write-dates-as-timestamps=false")
-class SessionsEndpointDocumentationTests extends MockMvcEndpointDocumentationTests {
+class SessionsEndpointDocumentationTests_RENAMED extends MockMvcEndpointDocumentationTests {
 
 	private static final Session sessionOne = createSession(Instant.now().minusSeconds(60 * 60 * 12),
 			Instant.now().minusSeconds(45));
