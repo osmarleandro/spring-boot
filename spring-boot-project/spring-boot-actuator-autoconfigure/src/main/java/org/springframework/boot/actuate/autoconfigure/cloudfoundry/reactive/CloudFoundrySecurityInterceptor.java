@@ -24,7 +24,7 @@ import reactor.core.publisher.Mono;
 
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.CloudFoundryAuthorizationException;
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.CloudFoundryAuthorizationException.Reason;
-import org.springframework.boot.actuate.autoconfigure.cloudfoundry.SecurityResponse;
+import org.springframework.boot.actuate.autoconfigure.cloudfoundry.SecurityResponse_RENAMED;
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.Token;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.server.reactive.ServerHttpRequest;
@@ -47,7 +47,7 @@ class CloudFoundrySecurityInterceptor {
 
 	private final String applicationId;
 
-	private static final Mono<SecurityResponse> SUCCESS = Mono.just(SecurityResponse.success());
+	private static final Mono<SecurityResponse_RENAMED> SUCCESS = Mono.just(SecurityResponse_RENAMED.success());
 
 	CloudFoundrySecurityInterceptor(ReactiveTokenValidator tokenValidator,
 			ReactiveCloudFoundrySecurityService cloudFoundrySecurityService, String applicationId) {
@@ -56,7 +56,7 @@ class CloudFoundrySecurityInterceptor {
 		this.applicationId = applicationId;
 	}
 
-	Mono<SecurityResponse> preHandle(ServerWebExchange exchange, String id) {
+	Mono<SecurityResponse_RENAMED> preHandle(ServerWebExchange exchange, String id) {
 		ServerHttpRequest request = exchange.getRequest();
 		if (CorsUtils.isPreFlightRequest(request)) {
 			return SUCCESS;
@@ -92,13 +92,13 @@ class CloudFoundrySecurityInterceptor {
 		}
 	}
 
-	private Mono<SecurityResponse> getErrorResponse(Throwable throwable) {
+	private Mono<SecurityResponse_RENAMED> getErrorResponse(Throwable throwable) {
 		if (throwable instanceof CloudFoundryAuthorizationException) {
 			CloudFoundryAuthorizationException cfException = (CloudFoundryAuthorizationException) throwable;
-			return Mono.just(new SecurityResponse(cfException.getStatusCode(),
+			return Mono.just(new SecurityResponse_RENAMED(cfException.getStatusCode(),
 					"{\"security_error\":\"" + cfException.getMessage() + "\"}"));
 		}
-		return Mono.just(new SecurityResponse(HttpStatus.INTERNAL_SERVER_ERROR, throwable.getMessage()));
+		return Mono.just(new SecurityResponse_RENAMED(HttpStatus.INTERNAL_SERVER_ERROR, throwable.getMessage()));
 	}
 
 	private Token getToken(ServerHttpRequest request) {

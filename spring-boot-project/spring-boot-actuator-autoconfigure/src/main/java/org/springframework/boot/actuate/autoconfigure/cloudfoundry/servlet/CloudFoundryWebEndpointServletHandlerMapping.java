@@ -26,7 +26,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.AccessLevel;
-import org.springframework.boot.actuate.autoconfigure.cloudfoundry.SecurityResponse;
+import org.springframework.boot.actuate.autoconfigure.cloudfoundry.SecurityResponse_RENAMED;
 import org.springframework.boot.actuate.endpoint.EndpointId;
 import org.springframework.boot.actuate.endpoint.web.EndpointLinksResolver;
 import org.springframework.boot.actuate.endpoint.web.EndpointMapping;
@@ -80,7 +80,7 @@ class CloudFoundryWebEndpointServletHandlerMapping extends AbstractWebMvcEndpoin
 		@Override
 		@ResponseBody
 		public Map<String, Map<String, Link>> links(HttpServletRequest request, HttpServletResponse response) {
-			SecurityResponse securityResponse = CloudFoundryWebEndpointServletHandlerMapping.this.securityInterceptor
+			SecurityResponse_RENAMED securityResponse = CloudFoundryWebEndpointServletHandlerMapping.this.securityInterceptor
 					.preHandle(request, null);
 			if (!securityResponse.getStatus().equals(HttpStatus.OK)) {
 				sendFailureResponse(response, securityResponse);
@@ -103,7 +103,7 @@ class CloudFoundryWebEndpointServletHandlerMapping extends AbstractWebMvcEndpoin
 			return "Actuator root web endpoint";
 		}
 
-		private void sendFailureResponse(HttpServletResponse response, SecurityResponse securityResponse) {
+		private void sendFailureResponse(HttpServletResponse response, SecurityResponse_RENAMED securityResponse) {
 			try {
 				response.sendError(securityResponse.getStatus().value(), securityResponse.getMessage());
 			}
@@ -134,7 +134,7 @@ class CloudFoundryWebEndpointServletHandlerMapping extends AbstractWebMvcEndpoin
 
 		@Override
 		public Object handle(HttpServletRequest request, Map<String, String> body) {
-			SecurityResponse securityResponse = this.securityInterceptor.preHandle(request, this.endpointId);
+			SecurityResponse_RENAMED securityResponse = this.securityInterceptor.preHandle(request, this.endpointId);
 			if (!securityResponse.getStatus().equals(HttpStatus.OK)) {
 				return new ResponseEntity<Object>(securityResponse.getMessage(), securityResponse.getStatus());
 			}

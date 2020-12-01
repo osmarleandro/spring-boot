@@ -26,7 +26,7 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.AccessLevel;
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.CloudFoundryAuthorizationException;
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.CloudFoundryAuthorizationException.Reason;
-import org.springframework.boot.actuate.autoconfigure.cloudfoundry.SecurityResponse;
+import org.springframework.boot.actuate.autoconfigure.cloudfoundry.SecurityResponse_RENAMED;
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.Token;
 import org.springframework.boot.actuate.endpoint.EndpointId;
 import org.springframework.http.HttpMethod;
@@ -49,7 +49,7 @@ class CloudFoundrySecurityInterceptor {
 
 	private final String applicationId;
 
-	private static final SecurityResponse SUCCESS = SecurityResponse.success();
+	private static final SecurityResponse_RENAMED SUCCESS = SecurityResponse_RENAMED.success();
 
 	CloudFoundrySecurityInterceptor(TokenValidator tokenValidator,
 			CloudFoundrySecurityService cloudFoundrySecurityService, String applicationId) {
@@ -58,9 +58,9 @@ class CloudFoundrySecurityInterceptor {
 		this.applicationId = applicationId;
 	}
 
-	SecurityResponse preHandle(HttpServletRequest request, EndpointId endpointId) {
+	SecurityResponse_RENAMED preHandle(HttpServletRequest request, EndpointId endpointId) {
 		if (CorsUtils.isPreFlightRequest(request)) {
-			return SecurityResponse.success();
+			return SecurityResponse_RENAMED.success();
 		}
 		try {
 			if (!StringUtils.hasText(this.applicationId)) {
@@ -80,12 +80,12 @@ class CloudFoundrySecurityInterceptor {
 			logger.error(ex);
 			if (ex instanceof CloudFoundryAuthorizationException) {
 				CloudFoundryAuthorizationException cfException = (CloudFoundryAuthorizationException) ex;
-				return new SecurityResponse(cfException.getStatusCode(),
+				return new SecurityResponse_RENAMED(cfException.getStatusCode(),
 						"{\"security_error\":\"" + cfException.getMessage() + "\"}");
 			}
-			return new SecurityResponse(HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage());
+			return new SecurityResponse_RENAMED(HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage());
 		}
-		return SecurityResponse.success();
+		return SecurityResponse_RENAMED.success();
 	}
 
 	private void check(HttpServletRequest request, EndpointId endpointId) throws Exception {

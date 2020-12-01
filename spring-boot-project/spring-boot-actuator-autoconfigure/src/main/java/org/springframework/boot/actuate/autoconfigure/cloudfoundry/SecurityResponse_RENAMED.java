@@ -24,17 +24,17 @@ import org.springframework.http.HttpStatus;
  * @author Madhura Bhave
  * @since 2.0.0
  */
-public class SecurityResponse {
+public class SecurityResponse_RENAMED {
 
 	private final HttpStatus status;
 
 	private final String message;
 
-	public SecurityResponse(HttpStatus status) {
+	public SecurityResponse_RENAMED(HttpStatus status) {
 		this(status, null);
 	}
 
-	public SecurityResponse(HttpStatus status, String message) {
+	public SecurityResponse_RENAMED(HttpStatus status, String message) {
 		this.status = status;
 		this.message = message;
 	}
@@ -47,8 +47,8 @@ public class SecurityResponse {
 		return this.message;
 	}
 
-	public static SecurityResponse success() {
-		return new SecurityResponse(HttpStatus.OK);
+	public static SecurityResponse_RENAMED success() {
+		return new SecurityResponse_RENAMED(HttpStatus.OK);
 	}
 
 }
