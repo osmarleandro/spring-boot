@@ -61,7 +61,7 @@ public class DefaultWebFluxTagsProviderTests {
 				.collect(Collectors.toMap(Tag::getKey, Function.identity()));
 	}
 
-	private static final class TestWebFluxTagsContributor implements WebFluxTagsContributor {
+	private static final class TestWebFluxTagsContributor implements WebFluxTagsContributor_RENAMED {
 
 		private final List<String> tagNames;
 

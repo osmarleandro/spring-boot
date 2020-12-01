@@ -35,7 +35,7 @@ public class DefaultWebFluxTagsProvider implements WebFluxTagsProvider {
 
 	private final boolean ignoreTrailingSlash;
 
-	private final List<WebFluxTagsContributor> contributors;
+	private final List<WebFluxTagsContributor_RENAMED> contributors;
 
 	public DefaultWebFluxTagsProvider() {
 		this(false);
@@ -47,7 +47,7 @@ public class DefaultWebFluxTagsProvider implements WebFluxTagsProvider {
 	 * @param contributors the contributors that will provide additional tags
 	 * @since 2.3.0
 	 */
-	public DefaultWebFluxTagsProvider(List<WebFluxTagsContributor> contributors) {
+	public DefaultWebFluxTagsProvider(List<WebFluxTagsContributor_RENAMED> contributors) {
 		this(false, contributors);
 	}
 
@@ -63,7 +63,7 @@ public class DefaultWebFluxTagsProvider implements WebFluxTagsProvider {
 	 * @param contributors the contributors that will provide additional tags
 	 * @since 2.3.0
 	 */
-	public DefaultWebFluxTagsProvider(boolean ignoreTrailingSlash, List<WebFluxTagsContributor> contributors) {
+	public DefaultWebFluxTagsProvider(boolean ignoreTrailingSlash, List<WebFluxTagsContributor_RENAMED> contributors) {
 		this.ignoreTrailingSlash = ignoreTrailingSlash;
 		this.contributors = contributors;
 	}
@@ -72,7 +72,7 @@ public class DefaultWebFluxTagsProvider implements WebFluxTagsProvider {
 	public Iterable<Tag> httpRequestTags(ServerWebExchange exchange, Throwable exception) {
 		Tags tags = Tags.of(WebFluxTags.method(exchange), WebFluxTags.uri(exchange, this.ignoreTrailingSlash),
 				WebFluxTags.exception(exception), WebFluxTags.status(exchange), WebFluxTags.outcome(exchange));
-		for (WebFluxTagsContributor contributor : this.contributors) {
+		for (WebFluxTagsContributor_RENAMED contributor : this.contributors) {
 			tags = tags.and(contributor.httpRequestTags(exchange, exception));
 		}
 		return tags;

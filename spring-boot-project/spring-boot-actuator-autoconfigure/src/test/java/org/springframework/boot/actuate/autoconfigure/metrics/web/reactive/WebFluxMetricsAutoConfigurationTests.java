@@ -24,7 +24,7 @@ import org.springframework.boot.actuate.autoconfigure.metrics.test.MetricsRun;
 import org.springframework.boot.actuate.autoconfigure.metrics.web.TestController;
 import org.springframework.boot.actuate.metrics.web.reactive.server.DefaultWebFluxTagsProvider;
 import org.springframework.boot.actuate.metrics.web.reactive.server.MetricsWebFilter;
-import org.springframework.boot.actuate.metrics.web.reactive.server.WebFluxTagsContributor;
+import org.springframework.boot.actuate.metrics.web.reactive.server.WebFluxTagsContributor_RENAMED;
 import org.springframework.boot.actuate.metrics.web.reactive.server.WebFluxTagsProvider;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
 import org.springframework.boot.autoconfigure.web.reactive.WebFluxAutoConfiguration;
@@ -143,13 +143,13 @@ class WebFluxMetricsAutoConfigurationTests {
 	static class TagsContributorsConfiguration {
 
 		@Bean
-		WebFluxTagsContributor tagContributorOne() {
-			return mock(WebFluxTagsContributor.class);
+		WebFluxTagsContributor_RENAMED tagContributorOne() {
+			return mock(WebFluxTagsContributor_RENAMED.class);
 		}
 
 		@Bean
-		WebFluxTagsContributor tagContributorTwo() {
-			return mock(WebFluxTagsContributor.class);
+		WebFluxTagsContributor_RENAMED tagContributorTwo() {
+			return mock(WebFluxTagsContributor_RENAMED.class);
 		}
 
 	}
