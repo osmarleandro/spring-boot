@@ -31,14 +31,14 @@ import org.springframework.context.annotation.Import;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Tests for {@link HumioMetricsExportAutoConfiguration}.
+ * Tests for {@link HumioMetricsExportAutoConfiguration_RENAMED}.
  *
  * @author Andy Wilkinson
  */
 class HumioMetricsExportAutoConfigurationTests {
 
 	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
-			.withConfiguration(AutoConfigurations.of(HumioMetricsExportAutoConfiguration.class));
+			.withConfiguration(AutoConfigurations.of(HumioMetricsExportAutoConfiguration_RENAMED.class));
 
 	@Test
 	void backsOffWithoutAClock() {
