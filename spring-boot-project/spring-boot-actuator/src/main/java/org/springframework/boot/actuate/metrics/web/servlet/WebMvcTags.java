@@ -23,7 +23,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import io.micrometer.core.instrument.Tag;
 
-import org.springframework.boot.actuate.metrics.http.Outcome;
+import org.springframework.boot.actuate.metrics.http.Outcome_RENAMED;
 import org.springframework.http.HttpStatus;
 import org.springframework.util.StringUtils;
 import org.springframework.web.servlet.HandlerMapping;
@@ -184,7 +184,7 @@ public final class WebMvcTags {
 	 * @since 2.1.0
 	 */
 	public static Tag outcome(HttpServletResponse response) {
-		Outcome outcome = (response != null) ? Outcome.forStatus(response.getStatus()) : Outcome.UNKNOWN;
+		Outcome_RENAMED outcome = (response != null) ? Outcome_RENAMED.forStatus(response.getStatus()) : Outcome_RENAMED.UNKNOWN;
 		return outcome.asTag();
 	}
 

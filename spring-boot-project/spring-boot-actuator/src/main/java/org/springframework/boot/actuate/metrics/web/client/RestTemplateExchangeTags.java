@@ -22,7 +22,7 @@ import java.util.regex.Pattern;
 
 import io.micrometer.core.instrument.Tag;
 
-import org.springframework.boot.actuate.metrics.http.Outcome;
+import org.springframework.boot.actuate.metrics.http.Outcome_RENAMED;
 import org.springframework.http.HttpRequest;
 import org.springframework.http.client.ClientHttpResponse;
 import org.springframework.util.StringUtils;
@@ -128,13 +128,13 @@ public final class RestTemplateExchangeTags {
 	public static Tag outcome(ClientHttpResponse response) {
 		try {
 			if (response != null) {
-				return Outcome.forStatus(response.getRawStatusCode()).asTag();
+				return Outcome_RENAMED.forStatus(response.getRawStatusCode()).asTag();
 			}
 		}
 		catch (IOException ex) {
 			// Continue
 		}
-		return Outcome.UNKNOWN.asTag();
+		return Outcome_RENAMED.UNKNOWN.asTag();
 	}
 
 }

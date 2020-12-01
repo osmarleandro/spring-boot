@@ -21,7 +21,7 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Tests for {@link Outcome}.
+ * Tests for {@link Outcome_RENAMED}.
  *
  * @author Andy Wilkinson
  */
@@ -30,46 +30,46 @@ public class OutcomeTests {
 	@Test
 	void outcomeForInformationalStatusIsInformational() {
 		for (int status = 100; status < 200; status++) {
-			assertThat(Outcome.forStatus(status)).isEqualTo(Outcome.INFORMATIONAL);
+			assertThat(Outcome_RENAMED.forStatus(status)).isEqualTo(Outcome_RENAMED.INFORMATIONAL);
 		}
 	}
 
 	@Test
 	void outcomeForSuccessStatusIsSuccess() {
 		for (int status = 200; status < 300; status++) {
-			assertThat(Outcome.forStatus(status)).isEqualTo(Outcome.SUCCESS);
+			assertThat(Outcome_RENAMED.forStatus(status)).isEqualTo(Outcome_RENAMED.SUCCESS);
 		}
 	}
 
 	@Test
 	void outcomeForRedirectionStatusIsRedirection() {
 		for (int status = 300; status < 400; status++) {
-			assertThat(Outcome.forStatus(status)).isEqualTo(Outcome.REDIRECTION);
+			assertThat(Outcome_RENAMED.forStatus(status)).isEqualTo(Outcome_RENAMED.REDIRECTION);
 		}
 	}
 
 	@Test
 	void outcomeForClientErrorStatusIsClientError() {
 		for (int status = 400; status < 500; status++) {
-			assertThat(Outcome.forStatus(status)).isEqualTo(Outcome.CLIENT_ERROR);
+			assertThat(Outcome_RENAMED.forStatus(status)).isEqualTo(Outcome_RENAMED.CLIENT_ERROR);
 		}
 	}
 
 	@Test
 	void outcomeForServerErrorStatusIsServerError() {
 		for (int status = 500; status < 600; status++) {
-			assertThat(Outcome.forStatus(status)).isEqualTo(Outcome.SERVER_ERROR);
+			assertThat(Outcome_RENAMED.forStatus(status)).isEqualTo(Outcome_RENAMED.SERVER_ERROR);
 		}
 	}
 
 	@Test
 	void outcomeForStatusBelowLowestKnownSeriesIsUnknown() {
-		assertThat(Outcome.forStatus(99)).isEqualTo(Outcome.UNKNOWN);
+		assertThat(Outcome_RENAMED.forStatus(99)).isEqualTo(Outcome_RENAMED.UNKNOWN);
 	}
 
 	@Test
 	void outcomeForStatusAboveHighestKnownSeriesIsUnknown() {
-		assertThat(Outcome.forStatus(600)).isEqualTo(Outcome.UNKNOWN);
+		assertThat(Outcome_RENAMED.forStatus(600)).isEqualTo(Outcome_RENAMED.UNKNOWN);
 	}
 
 }
