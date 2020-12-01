@@ -37,7 +37,7 @@ import static org.junit.jupiter.api.Assertions.fail;
  *
  * @author Andy Wilkinson
  */
-class ValidationFailureAnalyzerTests {
+class ValidationFailureAnalyzerTests_RENAMED {
 
 	@Test
 	void analyzesMissingRequiredConfiguration() {
