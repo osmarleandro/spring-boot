@@ -17,7 +17,7 @@
 package org.springframework.boot.actuate.health;
 
 /**
- * Strategy used to map a {@link Status health status} to an HTTP status code.
+ * Strategy used to map a {@link Status_RENAMED health status} to an HTTP status code.
  *
  * @author Stephane Nicoll
  * @author Phillip Webb
@@ -33,11 +33,11 @@ public interface HttpCodeStatusMapper {
 	HttpCodeStatusMapper DEFAULT = new SimpleHttpCodeStatusMapper();
 
 	/**
-	 * Return the HTTP status code that corresponds to the given {@link Status health
+	 * Return the HTTP status code that corresponds to the given {@link Status_RENAMED health
 	 * status}.
 	 * @param status the health status to map
 	 * @return the corresponding HTTP status code
 	 */
-	int getStatusCode(Status status);
+	int getStatusCode(Status_RENAMED status);
 
 }

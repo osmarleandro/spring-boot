@@ -26,7 +26,7 @@ import reactor.core.publisher.Mono;
 import org.springframework.boot.actuate.health.AbstractReactiveHealthIndicator;
 import org.springframework.boot.actuate.health.Health;
 import org.springframework.boot.actuate.health.ReactiveHealthIndicator;
-import org.springframework.boot.actuate.health.Status;
+import org.springframework.boot.actuate.health.Status_RENAMED;
 import org.springframework.util.Assert;
 
 /**
@@ -56,7 +56,7 @@ public class CassandraDriverReactiveHealthIndicator extends AbstractReactiveHeal
 		return Mono.fromSupplier(() -> {
 			Collection<Node> nodes = this.session.getMetadata().getNodes().values();
 			Optional<Node> nodeUp = nodes.stream().filter((node) -> node.getState() == NodeState.UP).findAny();
-			builder.status(nodeUp.isPresent() ? Status.UP : Status.DOWN);
+			builder.status(nodeUp.isPresent() ? Status_RENAMED.UP : Status_RENAMED.DOWN);
 			nodeUp.map(Node::getCassandraVersion).ifPresent((version) -> builder.withDetail("version", version));
 			return builder.build();
 		});

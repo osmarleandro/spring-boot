@@ -45,7 +45,7 @@ class ReactiveHealthEndpointWebExtensionTests extends
 		WebEndpointResponse<? extends HealthComponent> response = create(this.registry, this.groups)
 				.health(ApiVersion.LATEST, SecurityContext.NONE).block();
 		HealthComponent health = response.getBody();
-		assertThat(health.getStatus()).isEqualTo(Status.UP);
+		assertThat(health.getStatus()).isEqualTo(Status_RENAMED.UP);
 		assertThat(health).isInstanceOf(SystemHealth.class);
 		assertThat(response.getStatus()).isEqualTo(200);
 	}
@@ -58,7 +58,7 @@ class ReactiveHealthEndpointWebExtensionTests extends
 						.health(ApiVersion.LATEST, SecurityContext.NONE).block();
 		assertThat(response.getStatus()).isEqualTo(200);
 		HealthComponent health = response.getBody();
-		assertThat(health.getStatus()).isEqualTo(Status.UP);
+		assertThat(health.getStatus()).isEqualTo(Status_RENAMED.UP);
 		assertThat(health).isInstanceOf(Health.class);
 	}
 

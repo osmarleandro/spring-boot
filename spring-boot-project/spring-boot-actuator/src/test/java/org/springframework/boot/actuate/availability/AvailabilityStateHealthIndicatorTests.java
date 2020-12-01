@@ -21,7 +21,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import org.springframework.boot.actuate.health.Status;
+import org.springframework.boot.actuate.health.Status_RENAMED;
 import org.springframework.boot.availability.ApplicationAvailability;
 import org.springframework.boot.availability.AvailabilityState;
 import org.springframework.boot.availability.LivenessState;
@@ -66,7 +66,7 @@ class AvailabilityStateHealthIndicatorTests {
 	void createWhenStatusMappingDoesNotCoverAllEnumsThrowsException() {
 		assertThatIllegalArgumentException()
 				.isThrownBy(() -> new AvailabilityStateHealthIndicator(this.applicationAvailability,
-						LivenessState.class, (statusMappings) -> statusMappings.add(LivenessState.CORRECT, Status.UP)))
+						LivenessState.class, (statusMappings) -> statusMappings.add(LivenessState.CORRECT, Status_RENAMED.UP)))
 				.withMessage("StatusMappings does not include BROKEN");
 	}
 
@@ -74,33 +74,33 @@ class AvailabilityStateHealthIndicatorTests {
 	void healthReturnsMappedStatus() {
 		AvailabilityStateHealthIndicator indicator = new AvailabilityStateHealthIndicator(this.applicationAvailability,
 				LivenessState.class, (statusMappings) -> {
-					statusMappings.add(LivenessState.CORRECT, Status.UP);
-					statusMappings.add(LivenessState.BROKEN, Status.DOWN);
+					statusMappings.add(LivenessState.CORRECT, Status_RENAMED.UP);
+					statusMappings.add(LivenessState.BROKEN, Status_RENAMED.DOWN);
 				});
 		given(this.applicationAvailability.getState(LivenessState.class)).willReturn(LivenessState.BROKEN);
-		assertThat(indicator.getHealth(false).getStatus()).isEqualTo(Status.DOWN);
+		assertThat(indicator.getHealth(false).getStatus()).isEqualTo(Status_RENAMED.DOWN);
 	}
 
 	@Test
 	void healthReturnsDefaultStatus() {
 		AvailabilityStateHealthIndicator indicator = new AvailabilityStateHealthIndicator(this.applicationAvailability,
 				LivenessState.class, (statusMappings) -> {
-					statusMappings.add(LivenessState.CORRECT, Status.UP);
-					statusMappings.addDefaultStatus(Status.UNKNOWN);
+					statusMappings.add(LivenessState.CORRECT, Status_RENAMED.UP);
+					statusMappings.addDefaultStatus(Status_RENAMED.UNKNOWN);
 				});
 		given(this.applicationAvailability.getState(LivenessState.class)).willReturn(LivenessState.BROKEN);
-		assertThat(indicator.getHealth(false).getStatus()).isEqualTo(Status.UNKNOWN);
+		assertThat(indicator.getHealth(false).getStatus()).isEqualTo(Status_RENAMED.UNKNOWN);
 	}
 
 	@Test
 	void healthWhenNotEnumReturnsMappedStatus() {
 		AvailabilityStateHealthIndicator indicator = new AvailabilityStateHealthIndicator(this.applicationAvailability,
 				TestAvailabilityState.class, (statusMappings) -> {
-					statusMappings.add(TestAvailabilityState.ONE, Status.UP);
-					statusMappings.addDefaultStatus(Status.DOWN);
+					statusMappings.add(TestAvailabilityState.ONE, Status_RENAMED.UP);
+					statusMappings.addDefaultStatus(Status_RENAMED.DOWN);
 				});
 		given(this.applicationAvailability.getState(TestAvailabilityState.class)).willReturn(TestAvailabilityState.TWO);
-		assertThat(indicator.getHealth(false).getStatus()).isEqualTo(Status.DOWN);
+		assertThat(indicator.getHealth(false).getStatus()).isEqualTo(Status_RENAMED.DOWN);
 	}
 
 	static class TestAvailabilityState implements AvailabilityState {

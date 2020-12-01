@@ -28,7 +28,7 @@ import org.springframework.boot.actuate.health.AbstractReactiveHealthIndicator;
 import org.springframework.boot.actuate.health.Health;
 import org.springframework.boot.actuate.health.Health.Builder;
 import org.springframework.boot.actuate.health.HealthIndicator;
-import org.springframework.boot.actuate.health.Status;
+import org.springframework.boot.actuate.health.Status_RENAMED;
 import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
 
@@ -94,7 +94,7 @@ public class ConnectionFactoryHealthIndicator extends AbstractReactiveHealthIndi
 		Mono<Boolean> connectionValidation = Mono.usingWhen(this.connectionFactory.create(),
 				(connection) -> Mono.from(connection.validate(ValidationDepth.REMOTE)), Connection::close,
 				(connection, ex) -> connection.close(), Connection::close);
-		return connectionValidation.map((valid) -> builder.status((valid) ? Status.UP : Status.DOWN).build());
+		return connectionValidation.map((valid) -> builder.status((valid) ? Status_RENAMED.UP : Status_RENAMED.DOWN).build());
 	}
 
 	private Object extractResult(Row row, RowMetadata metadata) {

@@ -37,13 +37,13 @@ import org.springframework.util.Assert;
  */
 public class CompositeHealth extends HealthComponent {
 
-	private final Status status;
+	private final Status_RENAMED status;
 
 	private final Map<String, HealthComponent> components;
 
 	private final Map<String, HealthComponent> details;
 
-	CompositeHealth(ApiVersion apiVersion, Status status, Map<String, HealthComponent> components) {
+	CompositeHealth(ApiVersion apiVersion, Status_RENAMED status, Map<String, HealthComponent> components) {
 		Assert.notNull(status, "Status must not be null");
 		this.status = status;
 		this.components = (apiVersion != ApiVersion.V3) ? null : sort(components);
@@ -55,7 +55,7 @@ public class CompositeHealth extends HealthComponent {
 	}
 
 	@Override
-	public Status getStatus() {
+	public Status_RENAMED getStatus() {
 		return this.status;
 	}
 

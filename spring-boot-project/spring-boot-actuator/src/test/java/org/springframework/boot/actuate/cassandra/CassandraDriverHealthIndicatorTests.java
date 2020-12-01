@@ -32,7 +32,7 @@ import com.datastax.oss.driver.api.core.metadata.NodeState;
 import org.junit.jupiter.api.Test;
 
 import org.springframework.boot.actuate.health.Health;
-import org.springframework.boot.actuate.health.Status;
+import org.springframework.boot.actuate.health.Status_RENAMED;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
@@ -57,7 +57,7 @@ class CassandraDriverHealthIndicatorTests {
 		CqlSession session = mockCqlSessionWithNodeState(NodeState.UP);
 		CassandraDriverHealthIndicator healthIndicator = new CassandraDriverHealthIndicator(session);
 		Health health = healthIndicator.health();
-		assertThat(health.getStatus()).isEqualTo(Status.UP);
+		assertThat(health.getStatus()).isEqualTo(Status_RENAMED.UP);
 	}
 
 	@Test
@@ -65,7 +65,7 @@ class CassandraDriverHealthIndicatorTests {
 		CqlSession session = mockCqlSessionWithNodeState(NodeState.DOWN);
 		CassandraDriverHealthIndicator healthIndicator = new CassandraDriverHealthIndicator(session);
 		Health health = healthIndicator.health();
-		assertThat(health.getStatus()).isEqualTo(Status.DOWN);
+		assertThat(health.getStatus()).isEqualTo(Status_RENAMED.DOWN);
 	}
 
 	@Test
@@ -73,7 +73,7 @@ class CassandraDriverHealthIndicatorTests {
 		CqlSession session = mockCqlSessionWithNodeState(NodeState.UNKNOWN);
 		CassandraDriverHealthIndicator healthIndicator = new CassandraDriverHealthIndicator(session);
 		Health health = healthIndicator.health();
-		assertThat(health.getStatus()).isEqualTo(Status.DOWN);
+		assertThat(health.getStatus()).isEqualTo(Status_RENAMED.DOWN);
 	}
 
 	@Test
@@ -81,7 +81,7 @@ class CassandraDriverHealthIndicatorTests {
 		CqlSession session = mockCqlSessionWithNodeState(NodeState.FORCED_DOWN);
 		CassandraDriverHealthIndicator healthIndicator = new CassandraDriverHealthIndicator(session);
 		Health health = healthIndicator.health();
-		assertThat(health.getStatus()).isEqualTo(Status.DOWN);
+		assertThat(health.getStatus()).isEqualTo(Status_RENAMED.DOWN);
 	}
 
 	@Test
@@ -89,7 +89,7 @@ class CassandraDriverHealthIndicatorTests {
 		CqlSession session = mockCqlSessionWithNodeState(NodeState.UP, NodeState.DOWN);
 		CassandraDriverHealthIndicator healthIndicator = new CassandraDriverHealthIndicator(session);
 		Health health = healthIndicator.health();
-		assertThat(health.getStatus()).isEqualTo(Status.UP);
+		assertThat(health.getStatus()).isEqualTo(Status_RENAMED.UP);
 	}
 
 	@Test
@@ -97,7 +97,7 @@ class CassandraDriverHealthIndicatorTests {
 		CqlSession session = mockCqlSessionWithNodeState(NodeState.UP, NodeState.UNKNOWN);
 		CassandraDriverHealthIndicator healthIndicator = new CassandraDriverHealthIndicator(session);
 		Health health = healthIndicator.health();
-		assertThat(health.getStatus()).isEqualTo(Status.UP);
+		assertThat(health.getStatus()).isEqualTo(Status_RENAMED.UP);
 	}
 
 	@Test
@@ -105,7 +105,7 @@ class CassandraDriverHealthIndicatorTests {
 		CqlSession session = mockCqlSessionWithNodeState(NodeState.UP, NodeState.FORCED_DOWN);
 		CassandraDriverHealthIndicator healthIndicator = new CassandraDriverHealthIndicator(session);
 		Health health = healthIndicator.health();
-		assertThat(health.getStatus()).isEqualTo(Status.UP);
+		assertThat(health.getStatus()).isEqualTo(Status_RENAMED.UP);
 	}
 
 	@Test
@@ -119,7 +119,7 @@ class CassandraDriverHealthIndicatorTests {
 		given(metadata.getNodes()).willReturn(createNodesWithRandomUUID(Collections.singletonList(node)));
 		CassandraDriverHealthIndicator healthIndicator = new CassandraDriverHealthIndicator(session);
 		Health health = healthIndicator.health();
-		assertThat(health.getStatus()).isEqualTo(Status.UP);
+		assertThat(health.getStatus()).isEqualTo(Status_RENAMED.UP);
 		assertThat(health.getDetails().get("version")).isEqualTo(Version.V4_0_0);
 	}
 
@@ -128,7 +128,7 @@ class CassandraDriverHealthIndicatorTests {
 		CqlSession session = mockCqlSessionWithNodeState(NodeState.UP);
 		CassandraDriverHealthIndicator healthIndicator = new CassandraDriverHealthIndicator(session);
 		Health health = healthIndicator.health();
-		assertThat(health.getStatus()).isEqualTo(Status.UP);
+		assertThat(health.getStatus()).isEqualTo(Status_RENAMED.UP);
 		assertThat(health.getDetails().get("version")).isNull();
 	}
 
@@ -138,7 +138,7 @@ class CassandraDriverHealthIndicatorTests {
 		given(session.getMetadata()).willThrow(new DriverTimeoutException("Test Exception"));
 		CassandraDriverHealthIndicator healthIndicator = new CassandraDriverHealthIndicator(session);
 		Health health = healthIndicator.health();
-		assertThat(health.getStatus()).isEqualTo(Status.DOWN);
+		assertThat(health.getStatus()).isEqualTo(Status_RENAMED.DOWN);
 		assertThat(health.getDetails().get("error"))
 				.isEqualTo(DriverTimeoutException.class.getName() + ": Test Exception");
 	}

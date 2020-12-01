@@ -26,7 +26,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import org.springframework.boot.actuate.health.Health;
 import org.springframework.boot.actuate.health.HealthIndicator;
-import org.springframework.boot.actuate.health.Status;
+import org.springframework.boot.actuate.health.Status_RENAMED;
 import org.springframework.util.unit.DataSize;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -62,7 +62,7 @@ class DiskSpaceHealthIndicatorTests {
 		given(this.fileMock.getUsableSpace()).willReturn(freeSpace);
 		given(this.fileMock.getTotalSpace()).willReturn(TOTAL_SPACE.toBytes());
 		Health health = this.healthIndicator.health();
-		assertThat(health.getStatus()).isEqualTo(Status.UP);
+		assertThat(health.getStatus()).isEqualTo(Status_RENAMED.UP);
 		assertThat(health.getDetails().get("threshold")).isEqualTo(THRESHOLD.toBytes());
 		assertThat(health.getDetails().get("free")).isEqualTo(freeSpace);
 		assertThat(health.getDetails().get("total")).isEqualTo(TOTAL_SPACE.toBytes());
@@ -76,7 +76,7 @@ class DiskSpaceHealthIndicatorTests {
 		given(this.fileMock.getUsableSpace()).willReturn(freeSpace);
 		given(this.fileMock.getTotalSpace()).willReturn(TOTAL_SPACE.toBytes());
 		Health health = this.healthIndicator.health();
-		assertThat(health.getStatus()).isEqualTo(Status.DOWN);
+		assertThat(health.getStatus()).isEqualTo(Status_RENAMED.DOWN);
 		assertThat(health.getDetails().get("threshold")).isEqualTo(THRESHOLD.toBytes());
 		assertThat(health.getDetails().get("free")).isEqualTo(freeSpace);
 		assertThat(health.getDetails().get("total")).isEqualTo(TOTAL_SPACE.toBytes());
@@ -86,7 +86,7 @@ class DiskSpaceHealthIndicatorTests {
 	@Test
 	void whenPathDoesNotExistDiskSpaceIsDown() {
 		Health health = new DiskSpaceHealthIndicator(new File("does/not/exist"), THRESHOLD).health();
-		assertThat(health.getStatus()).isEqualTo(Status.DOWN);
+		assertThat(health.getStatus()).isEqualTo(Status_RENAMED.DOWN);
 		assertThat(health.getDetails().get("free")).isEqualTo(0L);
 		assertThat(health.getDetails().get("total")).isEqualTo(0L);
 		assertThat(health.getDetails().get("exists")).isEqualTo(false);

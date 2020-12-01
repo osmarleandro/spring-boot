@@ -28,7 +28,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.amqp.rabbit.core.ChannelCallback;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.boot.actuate.health.Health;
-import org.springframework.boot.actuate.health.Status;
+import org.springframework.boot.actuate.health.Status_RENAMED;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
@@ -63,7 +63,7 @@ class RabbitHealthIndicatorTests {
 		given(this.channel.getConnection()).willReturn(connection);
 		given(connection.getServerProperties()).willReturn(Collections.singletonMap("version", "123"));
 		Health health = new RabbitHealthIndicator(this.rabbitTemplate).health();
-		assertThat(health.getStatus()).isEqualTo(Status.UP);
+		assertThat(health.getStatus()).isEqualTo(Status_RENAMED.UP);
 		assertThat(health.getDetails()).containsEntry("version", "123");
 	}
 
@@ -72,7 +72,7 @@ class RabbitHealthIndicatorTests {
 		givenTemplateExecutionWillInvokeCallback();
 		given(this.channel.getConnection()).willThrow(new RuntimeException());
 		Health health = new RabbitHealthIndicator(this.rabbitTemplate).health();
-		assertThat(health.getStatus()).isEqualTo(Status.DOWN);
+		assertThat(health.getStatus()).isEqualTo(Status_RENAMED.DOWN);
 	}
 
 	private void givenTemplateExecutionWillInvokeCallback() {

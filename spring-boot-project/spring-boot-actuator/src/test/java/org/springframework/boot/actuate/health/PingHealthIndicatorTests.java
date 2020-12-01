@@ -30,7 +30,7 @@ class PingHealthIndicatorTests {
 	@Test
 	void indicatesUp() {
 		PingHealthIndicator healthIndicator = new PingHealthIndicator();
-		assertThat(healthIndicator.health().getStatus()).isEqualTo(Status.UP);
+		assertThat(healthIndicator.health().getStatus()).isEqualTo(Status_RENAMED.UP);
 	}
 
 }

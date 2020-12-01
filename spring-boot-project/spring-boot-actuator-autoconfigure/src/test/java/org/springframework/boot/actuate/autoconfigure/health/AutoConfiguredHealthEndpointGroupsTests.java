@@ -27,7 +27,7 @@ import org.springframework.boot.actuate.health.HealthEndpointGroups;
 import org.springframework.boot.actuate.health.HttpCodeStatusMapper;
 import org.springframework.boot.actuate.health.SimpleHttpCodeStatusMapper;
 import org.springframework.boot.actuate.health.SimpleStatusAggregator;
-import org.springframework.boot.actuate.health.Status;
+import org.springframework.boot.actuate.health.Status_RENAMED;
 import org.springframework.boot.actuate.health.StatusAggregator;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -97,9 +97,9 @@ class AutoConfiguredHealthEndpointGroupsTests {
 					HealthEndpointGroup primary = groups.getPrimary();
 					assertThat(primary.showComponents(SecurityContext.NONE)).isTrue();
 					assertThat(primary.showDetails(SecurityContext.NONE)).isFalse();
-					assertThat(primary.getStatusAggregator().getAggregateStatus(Status.UP, Status.DOWN))
-							.isEqualTo(Status.UP);
-					assertThat(primary.getHttpCodeStatusMapper().getStatusCode(Status.DOWN)).isEqualTo(200);
+					assertThat(primary.getStatusAggregator().getAggregateStatus(Status_RENAMED.UP, Status_RENAMED.DOWN))
+							.isEqualTo(Status_RENAMED.UP);
+					assertThat(primary.getHttpCodeStatusMapper().getStatusCode(Status_RENAMED.DOWN)).isEqualTo(200);
 				});
 	}
 
@@ -112,10 +112,10 @@ class AutoConfiguredHealthEndpointGroupsTests {
 					HealthEndpointGroups groups = context.getBean(HealthEndpointGroups.class);
 					HealthEndpointGroup primary = groups.getPrimary();
 					HealthEndpointGroup groupA = groups.get("a");
-					assertThat(primary.getStatusAggregator().getAggregateStatus(Status.UP, Status.DOWN, Status.UNKNOWN))
-							.isEqualTo(Status.UNKNOWN);
-					assertThat(groupA.getStatusAggregator().getAggregateStatus(Status.UP, Status.DOWN, Status.UNKNOWN))
-							.isEqualTo(Status.UNKNOWN);
+					assertThat(primary.getStatusAggregator().getAggregateStatus(Status_RENAMED.UP, Status_RENAMED.DOWN, Status_RENAMED.UNKNOWN))
+							.isEqualTo(Status_RENAMED.UNKNOWN);
+					assertThat(groupA.getStatusAggregator().getAggregateStatus(Status_RENAMED.UP, Status_RENAMED.DOWN, Status_RENAMED.UNKNOWN))
+							.isEqualTo(Status_RENAMED.UNKNOWN);
 				});
 	}
 
@@ -130,12 +130,12 @@ class AutoConfiguredHealthEndpointGroupsTests {
 					HealthEndpointGroup primary = groups.getPrimary();
 					HealthEndpointGroup groupA = groups.get("a");
 					HealthEndpointGroup groupB = groups.get("b");
-					assertThat(primary.getStatusAggregator().getAggregateStatus(Status.UP, Status.DOWN, Status.UNKNOWN))
-							.isEqualTo(Status.UNKNOWN);
-					assertThat(groupA.getStatusAggregator().getAggregateStatus(Status.UP, Status.DOWN, Status.UNKNOWN))
-							.isEqualTo(Status.UP);
-					assertThat(groupB.getStatusAggregator().getAggregateStatus(Status.UP, Status.DOWN, Status.UNKNOWN))
-							.isEqualTo(Status.UNKNOWN);
+					assertThat(primary.getStatusAggregator().getAggregateStatus(Status_RENAMED.UP, Status_RENAMED.DOWN, Status_RENAMED.UNKNOWN))
+							.isEqualTo(Status_RENAMED.UNKNOWN);
+					assertThat(groupA.getStatusAggregator().getAggregateStatus(Status_RENAMED.UP, Status_RENAMED.DOWN, Status_RENAMED.UNKNOWN))
+							.isEqualTo(Status_RENAMED.UP);
+					assertThat(groupB.getStatusAggregator().getAggregateStatus(Status_RENAMED.UP, Status_RENAMED.DOWN, Status_RENAMED.UNKNOWN))
+							.isEqualTo(Status_RENAMED.UNKNOWN);
 				});
 	}
 
@@ -146,10 +146,10 @@ class AutoConfiguredHealthEndpointGroupsTests {
 					HealthEndpointGroups groups = context.getBean(HealthEndpointGroups.class);
 					HealthEndpointGroup primary = groups.getPrimary();
 					HealthEndpointGroup groupA = groups.get("a");
-					assertThat(primary.getStatusAggregator().getAggregateStatus(Status.UP, Status.DOWN))
-							.isEqualTo(Status.UP);
-					assertThat(groupA.getStatusAggregator().getAggregateStatus(Status.UP, Status.DOWN))
-							.isEqualTo(Status.UP);
+					assertThat(primary.getStatusAggregator().getAggregateStatus(Status_RENAMED.UP, Status_RENAMED.DOWN))
+							.isEqualTo(Status_RENAMED.UP);
+					assertThat(groupA.getStatusAggregator().getAggregateStatus(Status_RENAMED.UP, Status_RENAMED.DOWN))
+							.isEqualTo(Status_RENAMED.UP);
 				});
 	}
 
@@ -163,12 +163,12 @@ class AutoConfiguredHealthEndpointGroupsTests {
 					HealthEndpointGroup primary = groups.getPrimary();
 					HealthEndpointGroup groupA = groups.get("a");
 					HealthEndpointGroup groupB = groups.get("b");
-					assertThat(primary.getStatusAggregator().getAggregateStatus(Status.UP, Status.DOWN, Status.UNKNOWN))
-							.isEqualTo(Status.UP);
-					assertThat(groupA.getStatusAggregator().getAggregateStatus(Status.UP, Status.DOWN, Status.UNKNOWN))
-							.isEqualTo(Status.UNKNOWN);
-					assertThat(groupB.getStatusAggregator().getAggregateStatus(Status.UP, Status.DOWN, Status.UNKNOWN))
-							.isEqualTo(Status.UP);
+					assertThat(primary.getStatusAggregator().getAggregateStatus(Status_RENAMED.UP, Status_RENAMED.DOWN, Status_RENAMED.UNKNOWN))
+							.isEqualTo(Status_RENAMED.UP);
+					assertThat(groupA.getStatusAggregator().getAggregateStatus(Status_RENAMED.UP, Status_RENAMED.DOWN, Status_RENAMED.UNKNOWN))
+							.isEqualTo(Status_RENAMED.UNKNOWN);
+					assertThat(groupB.getStatusAggregator().getAggregateStatus(Status_RENAMED.UP, Status_RENAMED.DOWN, Status_RENAMED.UNKNOWN))
+							.isEqualTo(Status_RENAMED.UP);
 				});
 	}
 
@@ -184,12 +184,12 @@ class AutoConfiguredHealthEndpointGroupsTests {
 					HealthEndpointGroup primary = groups.getPrimary();
 					HealthEndpointGroup groupA = groups.get("a");
 					HealthEndpointGroup groupB = groups.get("b");
-					assertThat(primary.getStatusAggregator().getAggregateStatus(Status.UP, Status.DOWN, Status.UNKNOWN))
-							.isEqualTo(Status.UP);
-					assertThat(groupA.getStatusAggregator().getAggregateStatus(Status.UP, Status.DOWN, Status.UNKNOWN))
-							.isEqualTo(Status.UNKNOWN);
-					assertThat(groupB.getStatusAggregator().getAggregateStatus(Status.UP, Status.DOWN, Status.UNKNOWN))
-							.isEqualTo(Status.UP);
+					assertThat(primary.getStatusAggregator().getAggregateStatus(Status_RENAMED.UP, Status_RENAMED.DOWN, Status_RENAMED.UNKNOWN))
+							.isEqualTo(Status_RENAMED.UP);
+					assertThat(groupA.getStatusAggregator().getAggregateStatus(Status_RENAMED.UP, Status_RENAMED.DOWN, Status_RENAMED.UNKNOWN))
+							.isEqualTo(Status_RENAMED.UNKNOWN);
+					assertThat(groupB.getStatusAggregator().getAggregateStatus(Status_RENAMED.UP, Status_RENAMED.DOWN, Status_RENAMED.UNKNOWN))
+							.isEqualTo(Status_RENAMED.UP);
 				});
 	}
 
@@ -205,12 +205,12 @@ class AutoConfiguredHealthEndpointGroupsTests {
 					HealthEndpointGroup primary = groups.getPrimary();
 					HealthEndpointGroup groupA = groups.get("a");
 					HealthEndpointGroup groupB = groups.get("b");
-					assertThat(primary.getStatusAggregator().getAggregateStatus(Status.UP, Status.DOWN, Status.UNKNOWN))
-							.isEqualTo(Status.DOWN);
-					assertThat(groupA.getStatusAggregator().getAggregateStatus(Status.UP, Status.DOWN, Status.UNKNOWN))
-							.isEqualTo(Status.UNKNOWN);
-					assertThat(groupB.getStatusAggregator().getAggregateStatus(Status.UP, Status.DOWN, Status.UNKNOWN))
-							.isEqualTo(Status.UP);
+					assertThat(primary.getStatusAggregator().getAggregateStatus(Status_RENAMED.UP, Status_RENAMED.DOWN, Status_RENAMED.UNKNOWN))
+							.isEqualTo(Status_RENAMED.DOWN);
+					assertThat(groupA.getStatusAggregator().getAggregateStatus(Status_RENAMED.UP, Status_RENAMED.DOWN, Status_RENAMED.UNKNOWN))
+							.isEqualTo(Status_RENAMED.UNKNOWN);
+					assertThat(groupB.getStatusAggregator().getAggregateStatus(Status_RENAMED.UP, Status_RENAMED.DOWN, Status_RENAMED.UNKNOWN))
+							.isEqualTo(Status_RENAMED.UP);
 				});
 	}
 
@@ -223,8 +223,8 @@ class AutoConfiguredHealthEndpointGroupsTests {
 					HealthEndpointGroups groups = context.getBean(HealthEndpointGroups.class);
 					HealthEndpointGroup primary = groups.getPrimary();
 					HealthEndpointGroup groupA = groups.get("a");
-					assertThat(primary.getHttpCodeStatusMapper().getStatusCode(Status.DOWN)).isEqualTo(200);
-					assertThat(groupA.getHttpCodeStatusMapper().getStatusCode(Status.DOWN)).isEqualTo(200);
+					assertThat(primary.getHttpCodeStatusMapper().getStatusCode(Status_RENAMED.DOWN)).isEqualTo(200);
+					assertThat(groupA.getHttpCodeStatusMapper().getStatusCode(Status_RENAMED.DOWN)).isEqualTo(200);
 				});
 	}
 
@@ -239,9 +239,9 @@ class AutoConfiguredHealthEndpointGroupsTests {
 					HealthEndpointGroup primary = groups.getPrimary();
 					HealthEndpointGroup groupA = groups.get("a");
 					HealthEndpointGroup groupB = groups.get("b");
-					assertThat(primary.getHttpCodeStatusMapper().getStatusCode(Status.DOWN)).isEqualTo(200);
-					assertThat(groupA.getHttpCodeStatusMapper().getStatusCode(Status.DOWN)).isEqualTo(201);
-					assertThat(groupB.getHttpCodeStatusMapper().getStatusCode(Status.DOWN)).isEqualTo(200);
+					assertThat(primary.getHttpCodeStatusMapper().getStatusCode(Status_RENAMED.DOWN)).isEqualTo(200);
+					assertThat(groupA.getHttpCodeStatusMapper().getStatusCode(Status_RENAMED.DOWN)).isEqualTo(201);
+					assertThat(groupB.getHttpCodeStatusMapper().getStatusCode(Status_RENAMED.DOWN)).isEqualTo(200);
 				});
 	}
 
@@ -252,8 +252,8 @@ class AutoConfiguredHealthEndpointGroupsTests {
 					HealthEndpointGroups groups = context.getBean(HealthEndpointGroups.class);
 					HealthEndpointGroup primary = groups.getPrimary();
 					HealthEndpointGroup groupA = groups.get("a");
-					assertThat(primary.getHttpCodeStatusMapper().getStatusCode(Status.DOWN)).isEqualTo(201);
-					assertThat(groupA.getHttpCodeStatusMapper().getStatusCode(Status.DOWN)).isEqualTo(201);
+					assertThat(primary.getHttpCodeStatusMapper().getStatusCode(Status_RENAMED.DOWN)).isEqualTo(201);
+					assertThat(groupA.getHttpCodeStatusMapper().getStatusCode(Status_RENAMED.DOWN)).isEqualTo(201);
 				});
 	}
 
@@ -267,9 +267,9 @@ class AutoConfiguredHealthEndpointGroupsTests {
 					HealthEndpointGroup primary = groups.getPrimary();
 					HealthEndpointGroup groupA = groups.get("a");
 					HealthEndpointGroup groupB = groups.get("b");
-					assertThat(primary.getHttpCodeStatusMapper().getStatusCode(Status.DOWN)).isEqualTo(201);
-					assertThat(groupA.getHttpCodeStatusMapper().getStatusCode(Status.DOWN)).isEqualTo(202);
-					assertThat(groupB.getHttpCodeStatusMapper().getStatusCode(Status.DOWN)).isEqualTo(201);
+					assertThat(primary.getHttpCodeStatusMapper().getStatusCode(Status_RENAMED.DOWN)).isEqualTo(201);
+					assertThat(groupA.getHttpCodeStatusMapper().getStatusCode(Status_RENAMED.DOWN)).isEqualTo(202);
+					assertThat(groupB.getHttpCodeStatusMapper().getStatusCode(Status_RENAMED.DOWN)).isEqualTo(201);
 				});
 	}
 
@@ -285,9 +285,9 @@ class AutoConfiguredHealthEndpointGroupsTests {
 					HealthEndpointGroup primary = groups.getPrimary();
 					HealthEndpointGroup groupA = groups.get("a");
 					HealthEndpointGroup groupB = groups.get("b");
-					assertThat(primary.getHttpCodeStatusMapper().getStatusCode(Status.DOWN)).isEqualTo(201);
-					assertThat(groupA.getHttpCodeStatusMapper().getStatusCode(Status.DOWN)).isEqualTo(200);
-					assertThat(groupB.getHttpCodeStatusMapper().getStatusCode(Status.DOWN)).isEqualTo(201);
+					assertThat(primary.getHttpCodeStatusMapper().getStatusCode(Status_RENAMED.DOWN)).isEqualTo(201);
+					assertThat(groupA.getHttpCodeStatusMapper().getStatusCode(Status_RENAMED.DOWN)).isEqualTo(200);
+					assertThat(groupB.getHttpCodeStatusMapper().getStatusCode(Status_RENAMED.DOWN)).isEqualTo(201);
 				});
 	}
 
@@ -303,9 +303,9 @@ class AutoConfiguredHealthEndpointGroupsTests {
 					HealthEndpointGroup primary = groups.getPrimary();
 					HealthEndpointGroup groupA = groups.get("a");
 					HealthEndpointGroup groupB = groups.get("b");
-					assertThat(primary.getHttpCodeStatusMapper().getStatusCode(Status.DOWN)).isEqualTo(503);
-					assertThat(groupA.getHttpCodeStatusMapper().getStatusCode(Status.DOWN)).isEqualTo(200);
-					assertThat(groupB.getHttpCodeStatusMapper().getStatusCode(Status.DOWN)).isEqualTo(201);
+					assertThat(primary.getHttpCodeStatusMapper().getStatusCode(Status_RENAMED.DOWN)).isEqualTo(503);
+					assertThat(groupA.getHttpCodeStatusMapper().getStatusCode(Status_RENAMED.DOWN)).isEqualTo(200);
+					assertThat(groupB.getHttpCodeStatusMapper().getStatusCode(Status_RENAMED.DOWN)).isEqualTo(201);
 				});
 	}
 
@@ -337,7 +337,7 @@ class AutoConfiguredHealthEndpointGroupsTests {
 		@Bean
 		@Primary
 		StatusAggregator statusAggregator() {
-			return new SimpleStatusAggregator(Status.UNKNOWN, Status.UP, Status.DOWN);
+			return new SimpleStatusAggregator(Status_RENAMED.UNKNOWN, Status_RENAMED.UP, Status_RENAMED.DOWN);
 		}
 
 	}
@@ -348,7 +348,7 @@ class AutoConfiguredHealthEndpointGroupsTests {
 		@Bean
 		@Qualifier("a")
 		StatusAggregator statusAggregator() {
-			return new SimpleStatusAggregator(Status.UNKNOWN, Status.UP, Status.DOWN);
+			return new SimpleStatusAggregator(Status_RENAMED.UNKNOWN, Status_RENAMED.UP, Status_RENAMED.DOWN);
 		}
 
 	}
@@ -359,7 +359,7 @@ class AutoConfiguredHealthEndpointGroupsTests {
 		@Bean
 		@Primary
 		HttpCodeStatusMapper httpCodeStatusMapper() {
-			return new SimpleHttpCodeStatusMapper(Collections.singletonMap(Status.DOWN.getCode(), 200));
+			return new SimpleHttpCodeStatusMapper(Collections.singletonMap(Status_RENAMED.DOWN.getCode(), 200));
 		}
 
 	}
@@ -370,7 +370,7 @@ class AutoConfiguredHealthEndpointGroupsTests {
 		@Bean
 		@Qualifier("a")
 		HttpCodeStatusMapper httpCodeStatusMapper() {
-			return new SimpleHttpCodeStatusMapper(Collections.singletonMap(Status.DOWN.getCode(), 200));
+			return new SimpleHttpCodeStatusMapper(Collections.singletonMap(Status_RENAMED.DOWN.getCode(), 200));
 		}
 
 	}

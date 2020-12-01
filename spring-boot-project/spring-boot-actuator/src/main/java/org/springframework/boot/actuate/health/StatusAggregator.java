@@ -21,7 +21,7 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 
 /**
- * Strategy used to aggregate {@link Status} instances.
+ * Strategy used to aggregate {@link Status_RENAMED} instances.
  * <p>
  * This is required in order to combine subsystem states expressed through
  * {@link Health#getStatus()} into one state for the entire system.
@@ -46,7 +46,7 @@ public interface StatusAggregator {
 	 * @param statuses the statuses to aggregate
 	 * @return the aggregate status
 	 */
-	default Status getAggregateStatus(Status... statuses) {
+	default Status_RENAMED getAggregateStatus(Status_RENAMED... statuses) {
 		return getAggregateStatus(new LinkedHashSet<>(Arrays.asList(statuses)));
 	}
 
@@ -55,6 +55,6 @@ public interface StatusAggregator {
 	 * @param statuses the statuses to aggregate
 	 * @return the aggregate status
 	 */
-	Status getAggregateStatus(Set<Status> statuses);
+	Status_RENAMED getAggregateStatus(Set<Status_RENAMED> statuses);
 
 }

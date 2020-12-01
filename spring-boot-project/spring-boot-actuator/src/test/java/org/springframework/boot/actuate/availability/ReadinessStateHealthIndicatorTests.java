@@ -19,7 +19,7 @@ package org.springframework.boot.actuate.availability;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import org.springframework.boot.actuate.health.Status;
+import org.springframework.boot.actuate.health.Status_RENAMED;
 import org.springframework.boot.availability.ApplicationAvailability;
 import org.springframework.boot.availability.ReadinessState;
 
@@ -47,13 +47,13 @@ class ReadinessStateHealthIndicatorTests {
 	@Test
 	void readinessIsReady() {
 		given(this.availability.getReadinessState()).willReturn(ReadinessState.ACCEPTING_TRAFFIC);
-		assertThat(this.healthIndicator.health().getStatus()).isEqualTo(Status.UP);
+		assertThat(this.healthIndicator.health().getStatus()).isEqualTo(Status_RENAMED.UP);
 	}
 
 	@Test
 	void readinessIsUnready() {
 		given(this.availability.getReadinessState()).willReturn(ReadinessState.REFUSING_TRAFFIC);
-		assertThat(this.healthIndicator.health().getStatus()).isEqualTo(Status.OUT_OF_SERVICE);
+		assertThat(this.healthIndicator.health().getStatus()).isEqualTo(Status_RENAMED.OUT_OF_SERVICE);
 	}
 
 }

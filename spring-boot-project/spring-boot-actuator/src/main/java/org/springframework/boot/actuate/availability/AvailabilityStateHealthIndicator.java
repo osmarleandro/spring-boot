@@ -24,7 +24,7 @@ import java.util.function.Consumer;
 import org.springframework.boot.actuate.health.AbstractHealthIndicator;
 import org.springframework.boot.actuate.health.Health.Builder;
 import org.springframework.boot.actuate.health.HealthIndicator;
-import org.springframework.boot.actuate.health.Status;
+import org.springframework.boot.actuate.health.Status_RENAMED;
 import org.springframework.boot.availability.ApplicationAvailability;
 import org.springframework.boot.availability.AvailabilityState;
 import org.springframework.util.Assert;
@@ -43,7 +43,7 @@ public class AvailabilityStateHealthIndicator extends AbstractHealthIndicator {
 
 	private final Class<? extends AvailabilityState> stateType;
 
-	private final Map<AvailabilityState, Status> statusMappings = new HashMap<>();
+	private final Map<AvailabilityState, Status_RENAMED> statusMappings = new HashMap<>();
 
 	/**
 	 * Create a new {@link AvailabilityStateHealthIndicator} instance.
@@ -78,7 +78,7 @@ public class AvailabilityStateHealthIndicator extends AbstractHealthIndicator {
 	@Override
 	protected void doHealthCheck(Builder builder) throws Exception {
 		AvailabilityState state = getState(this.applicationAvailability);
-		Status status = this.statusMappings.get(state);
+		Status_RENAMED status = this.statusMappings.get(state);
 		if (status == null) {
 			status = this.statusMappings.get(null);
 		}
@@ -107,7 +107,7 @@ public class AvailabilityStateHealthIndicator extends AbstractHealthIndicator {
 		 * Add the status that should be used if no explicit mapping is defined.
 		 * @param status the default status
 		 */
-		default void addDefaultStatus(Status status) {
+		default void addDefaultStatus(Status_RENAMED status) {
 			add(null, status);
 		}
 
@@ -116,7 +116,7 @@ public class AvailabilityStateHealthIndicator extends AbstractHealthIndicator {
 		 * @param availabilityState the availability state
 		 * @param status the mapped status
 		 */
-		void add(S availabilityState, Status status);
+		void add(S availabilityState, Status_RENAMED status);
 
 	}
 

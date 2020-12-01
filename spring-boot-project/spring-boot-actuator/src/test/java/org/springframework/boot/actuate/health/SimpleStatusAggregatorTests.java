@@ -31,47 +31,47 @@ class SimpleStatusAggregatorTests {
 	@Test
 	void getAggregateStatusWhenUsingDefaultInstance() {
 		StatusAggregator aggregator = StatusAggregator.getDefault();
-		Status status = aggregator.getAggregateStatus(Status.DOWN, Status.UP, Status.UNKNOWN, Status.OUT_OF_SERVICE);
-		assertThat(status).isEqualTo(Status.DOWN);
+		Status_RENAMED status = aggregator.getAggregateStatus(Status_RENAMED.DOWN, Status_RENAMED.UP, Status_RENAMED.UNKNOWN, Status_RENAMED.OUT_OF_SERVICE);
+		assertThat(status).isEqualTo(Status_RENAMED.DOWN);
 	}
 
 	@Test
 	void getAggregateStatusWhenUsingNewDefaultOrder() {
 		SimpleStatusAggregator aggregator = new SimpleStatusAggregator();
-		Status status = aggregator.getAggregateStatus(Status.DOWN, Status.UP, Status.UNKNOWN, Status.OUT_OF_SERVICE);
-		assertThat(status).isEqualTo(Status.DOWN);
+		Status_RENAMED status = aggregator.getAggregateStatus(Status_RENAMED.DOWN, Status_RENAMED.UP, Status_RENAMED.UNKNOWN, Status_RENAMED.OUT_OF_SERVICE);
+		assertThat(status).isEqualTo(Status_RENAMED.DOWN);
 	}
 
 	@Test
 	void getAggregateStatusWhenUsingCustomOrder() {
-		SimpleStatusAggregator aggregator = new SimpleStatusAggregator(Status.UNKNOWN, Status.UP, Status.OUT_OF_SERVICE,
-				Status.DOWN);
-		Status status = aggregator.getAggregateStatus(Status.DOWN, Status.UP, Status.UNKNOWN, Status.OUT_OF_SERVICE);
-		assertThat(status).isEqualTo(Status.UNKNOWN);
+		SimpleStatusAggregator aggregator = new SimpleStatusAggregator(Status_RENAMED.UNKNOWN, Status_RENAMED.UP, Status_RENAMED.OUT_OF_SERVICE,
+				Status_RENAMED.DOWN);
+		Status_RENAMED status = aggregator.getAggregateStatus(Status_RENAMED.DOWN, Status_RENAMED.UP, Status_RENAMED.UNKNOWN, Status_RENAMED.OUT_OF_SERVICE);
+		assertThat(status).isEqualTo(Status_RENAMED.UNKNOWN);
 	}
 
 	@Test
 	void getAggregateStatusWhenHasCustomStatusAndUsingDefaultOrder() {
 		SimpleStatusAggregator aggregator = new SimpleStatusAggregator();
-		Status status = aggregator.getAggregateStatus(Status.DOWN, Status.UP, Status.UNKNOWN, Status.OUT_OF_SERVICE,
-				new Status("CUSTOM"));
-		assertThat(status).isEqualTo(Status.DOWN);
+		Status_RENAMED status = aggregator.getAggregateStatus(Status_RENAMED.DOWN, Status_RENAMED.UP, Status_RENAMED.UNKNOWN, Status_RENAMED.OUT_OF_SERVICE,
+				new Status_RENAMED("CUSTOM"));
+		assertThat(status).isEqualTo(Status_RENAMED.DOWN);
 	}
 
 	@Test
 	void getAggregateStatusWhenHasCustomStatusAndUsingCustomOrder() {
 		SimpleStatusAggregator aggregator = new SimpleStatusAggregator("DOWN", "OUT_OF_SERVICE", "UP", "UNKNOWN",
 				"CUSTOM");
-		Status status = aggregator.getAggregateStatus(Status.DOWN, Status.UP, Status.UNKNOWN, Status.OUT_OF_SERVICE,
-				new Status("CUSTOM"));
-		assertThat(status).isEqualTo(Status.DOWN);
+		Status_RENAMED status = aggregator.getAggregateStatus(Status_RENAMED.DOWN, Status_RENAMED.UP, Status_RENAMED.UNKNOWN, Status_RENAMED.OUT_OF_SERVICE,
+				new Status_RENAMED("CUSTOM"));
+		assertThat(status).isEqualTo(Status_RENAMED.DOWN);
 	}
 
 	@Test
 	void createWithNonUniformCodes() {
 		SimpleStatusAggregator aggregator = new SimpleStatusAggregator("out-of-service", "up");
-		Status status = aggregator.getAggregateStatus(Status.UP, Status.OUT_OF_SERVICE);
-		assertThat(status).isEqualTo(Status.OUT_OF_SERVICE);
+		Status_RENAMED status = aggregator.getAggregateStatus(Status_RENAMED.UP, Status_RENAMED.OUT_OF_SERVICE);
+		assertThat(status).isEqualTo(Status_RENAMED.OUT_OF_SERVICE);
 	}
 
 }

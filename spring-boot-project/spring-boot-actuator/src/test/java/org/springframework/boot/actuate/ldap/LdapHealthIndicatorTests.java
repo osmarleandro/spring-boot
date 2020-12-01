@@ -19,7 +19,7 @@ package org.springframework.boot.actuate.ldap;
 import org.junit.jupiter.api.Test;
 
 import org.springframework.boot.actuate.health.Health;
-import org.springframework.boot.actuate.health.Status;
+import org.springframework.boot.actuate.health.Status_RENAMED;
 import org.springframework.ldap.CommunicationException;
 import org.springframework.ldap.core.ContextExecutor;
 import org.springframework.ldap.core.LdapTemplate;
@@ -44,7 +44,7 @@ class LdapHealthIndicatorTests {
 		given(ldapTemplate.executeReadOnly((ContextExecutor<String>) any())).willReturn("3");
 		LdapHealthIndicator healthIndicator = new LdapHealthIndicator(ldapTemplate);
 		Health health = healthIndicator.health();
-		assertThat(health.getStatus()).isEqualTo(Status.UP);
+		assertThat(health.getStatus()).isEqualTo(Status_RENAMED.UP);
 		assertThat(health.getDetails().get("version")).isEqualTo("3");
 		verify(ldapTemplate).executeReadOnly((ContextExecutor<String>) any());
 	}
@@ -57,7 +57,7 @@ class LdapHealthIndicatorTests {
 				.willThrow(new CommunicationException(new javax.naming.CommunicationException("Connection failed")));
 		LdapHealthIndicator healthIndicator = new LdapHealthIndicator(ldapTemplate);
 		Health health = healthIndicator.health();
-		assertThat(health.getStatus()).isEqualTo(Status.DOWN);
+		assertThat(health.getStatus()).isEqualTo(Status_RENAMED.DOWN);
 		assertThat((String) health.getDetails().get("error")).contains("Connection failed");
 		verify(ldapTemplate).executeReadOnly((ContextExecutor<String>) any());
 	}

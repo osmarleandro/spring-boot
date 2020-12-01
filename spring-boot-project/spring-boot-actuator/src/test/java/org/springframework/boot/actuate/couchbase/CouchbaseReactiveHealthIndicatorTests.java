@@ -30,7 +30,7 @@ import com.couchbase.client.java.Cluster;
 import org.junit.jupiter.api.Test;
 
 import org.springframework.boot.actuate.health.Health;
-import org.springframework.boot.actuate.health.Status;
+import org.springframework.boot.actuate.health.Status_RENAMED;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
@@ -53,7 +53,7 @@ class CouchbaseReactiveHealthIndicatorTests {
 		DiagnosticsResult diagnostics = new DiagnosticsResult(endpoints, "test-sdk", "test-id");
 		given(cluster.diagnostics()).willReturn(diagnostics);
 		Health health = healthIndicator.health().block(Duration.ofSeconds(30));
-		assertThat(health.getStatus()).isEqualTo(Status.UP);
+		assertThat(health.getStatus()).isEqualTo(Status_RENAMED.UP);
 		assertThat(health.getDetails()).containsEntry("sdk", "test-sdk");
 		assertThat(health.getDetails()).containsKey("endpoints");
 		assertThat((List<Map<String, Object>>) health.getDetails().get("endpoints")).hasSize(1);
@@ -74,7 +74,7 @@ class CouchbaseReactiveHealthIndicatorTests {
 		DiagnosticsResult diagnostics = new DiagnosticsResult(endpoints, "test-sdk", "test-id");
 		given(cluster.diagnostics()).willReturn(diagnostics);
 		Health health = healthIndicator.health().block(Duration.ofSeconds(30));
-		assertThat(health.getStatus()).isEqualTo(Status.DOWN);
+		assertThat(health.getStatus()).isEqualTo(Status_RENAMED.DOWN);
 		assertThat(health.getDetails()).containsEntry("sdk", "test-sdk");
 		assertThat(health.getDetails()).containsKey("endpoints");
 		assertThat((List<Map<String, Object>>) health.getDetails().get("endpoints")).hasSize(2);

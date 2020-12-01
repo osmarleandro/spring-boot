@@ -23,7 +23,7 @@ import java.util.Properties;
 import org.junit.jupiter.api.Test;
 
 import org.springframework.boot.actuate.health.Health;
-import org.springframework.boot.actuate.health.Status;
+import org.springframework.boot.actuate.health.Status_RENAMED;
 import org.springframework.data.redis.RedisConnectionFailureException;
 import org.springframework.data.redis.connection.ClusterInfo;
 import org.springframework.data.redis.connection.RedisClusterConnection;
@@ -54,7 +54,7 @@ class RedisHealthIndicatorTests {
 		given(redisConnection.info()).willReturn(info);
 		RedisHealthIndicator healthIndicator = createHealthIndicator(redisConnection);
 		Health health = healthIndicator.health();
-		assertThat(health.getStatus()).isEqualTo(Status.UP);
+		assertThat(health.getStatus()).isEqualTo(Status_RENAMED.UP);
 		assertThat(health.getDetails().get("version")).isEqualTo("2.8.9");
 	}
 
@@ -64,7 +64,7 @@ class RedisHealthIndicatorTests {
 		given(redisConnection.info()).willThrow(new RedisConnectionFailureException("Connection failed"));
 		RedisHealthIndicator healthIndicator = createHealthIndicator(redisConnection);
 		Health health = healthIndicator.health();
-		assertThat(health.getStatus()).isEqualTo(Status.DOWN);
+		assertThat(health.getStatus()).isEqualTo(Status_RENAMED.DOWN);
 		assertThat((String) health.getDetails().get("error")).contains("Connection failed");
 	}
 
@@ -89,7 +89,7 @@ class RedisHealthIndicatorTests {
 		given(redisConnectionFactory.getConnection()).willReturn(redisConnection);
 		RedisHealthIndicator healthIndicator = new RedisHealthIndicator(redisConnectionFactory);
 		Health health = healthIndicator.health();
-		assertThat(health.getStatus()).isEqualTo(Status.UP);
+		assertThat(health.getStatus()).isEqualTo(Status_RENAMED.UP);
 		assertThat(health.getDetails().get("cluster_size")).isEqualTo(4L);
 		assertThat(health.getDetails().get("slots_up")).isEqualTo(4L);
 		assertThat(health.getDetails().get("slots_fail")).isEqualTo(0L);

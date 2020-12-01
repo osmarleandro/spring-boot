@@ -36,6 +36,6 @@ public abstract class HealthComponent {
 	 * @return the component status
 	 */
 	@JsonUnwrapped
-	public abstract Status getStatus();
+	public abstract Status_RENAMED getStatus();
 
 }

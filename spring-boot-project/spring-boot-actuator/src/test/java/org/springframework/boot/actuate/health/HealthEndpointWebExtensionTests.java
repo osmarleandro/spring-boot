@@ -44,7 +44,7 @@ class HealthEndpointWebExtensionTests
 		WebEndpointResponse<HealthComponent> response = create(this.registry, this.groups).health(ApiVersion.LATEST,
 				SecurityContext.NONE);
 		HealthComponent health = response.getBody();
-		assertThat(health.getStatus()).isEqualTo(Status.UP);
+		assertThat(health.getStatus()).isEqualTo(Status_RENAMED.UP);
 		assertThat(health).isInstanceOf(SystemHealth.class);
 		assertThat(response.getStatus()).isEqualTo(200);
 	}
@@ -57,7 +57,7 @@ class HealthEndpointWebExtensionTests
 						.health(ApiVersion.LATEST, SecurityContext.NONE);
 		assertThat(response.getStatus()).isEqualTo(200);
 		HealthComponent health = response.getBody();
-		assertThat(health.getStatus()).isEqualTo(Status.UP);
+		assertThat(health.getStatus()).isEqualTo(Status_RENAMED.UP);
 		assertThat(health).isInstanceOf(Health.class);
 	}
 

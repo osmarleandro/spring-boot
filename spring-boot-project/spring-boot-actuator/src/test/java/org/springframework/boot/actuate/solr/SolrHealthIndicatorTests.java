@@ -26,7 +26,7 @@ import org.apache.solr.common.util.NamedList;
 import org.junit.jupiter.api.Test;
 
 import org.springframework.boot.actuate.health.Health;
-import org.springframework.boot.actuate.health.Status;
+import org.springframework.boot.actuate.health.Status_RENAMED;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
@@ -51,7 +51,7 @@ class SolrHealthIndicatorTests {
 		SolrClient solrClient = mock(SolrClient.class);
 		given(solrClient.request(any(CoreAdminRequest.class), isNull())).willReturn(mockResponse(0));
 		SolrHealthIndicator healthIndicator = new SolrHealthIndicator(solrClient);
-		assertHealth(healthIndicator, Status.UP, 0, "root");
+		assertHealth(healthIndicator, Status_RENAMED.UP, 0, "root");
 		verify(solrClient, times(1)).request(any(CoreAdminRequest.class), isNull());
 		verifyNoMoreInteractions(solrClient);
 	}
@@ -61,7 +61,7 @@ class SolrHealthIndicatorTests {
 		SolrClient solrClient = mock(SolrClient.class);
 		given(solrClient.request(any(CoreAdminRequest.class), isNull())).willReturn(mockResponse(400));
 		SolrHealthIndicator healthIndicator = new SolrHealthIndicator(solrClient);
-		assertHealth(healthIndicator, Status.DOWN, 400, "root");
+		assertHealth(healthIndicator, Status_RENAMED.DOWN, 400, "root");
 		verify(solrClient, times(1)).request(any(CoreAdminRequest.class), isNull());
 		verifyNoMoreInteractions(solrClient);
 	}
@@ -73,7 +73,7 @@ class SolrHealthIndicatorTests {
 				.willThrow(new RemoteSolrException("mock", 404, "", null));
 		given(solrClient.ping()).willReturn(mockPingResponse(0));
 		SolrHealthIndicator healthIndicator = new SolrHealthIndicator(solrClient);
-		assertHealth(healthIndicator, Status.UP, 0, "particular core");
+		assertHealth(healthIndicator, Status_RENAMED.UP, 0, "particular core");
 		verify(solrClient, times(1)).request(any(CoreAdminRequest.class), isNull());
 		verify(solrClient, times(1)).ping();
 		verifyNoMoreInteractions(solrClient);
@@ -86,7 +86,7 @@ class SolrHealthIndicatorTests {
 				.willThrow(new RemoteSolrException("mock", 404, "", null));
 		given(solrClient.ping()).willReturn(mockPingResponse(400));
 		SolrHealthIndicator healthIndicator = new SolrHealthIndicator(solrClient);
-		assertHealth(healthIndicator, Status.DOWN, 400, "particular core");
+		assertHealth(healthIndicator, Status_RENAMED.DOWN, 400, "particular core");
 		verify(solrClient, times(1)).request(any(CoreAdminRequest.class), isNull());
 		verify(solrClient, times(1)).ping();
 		verifyNoMoreInteractions(solrClient);
@@ -99,7 +99,7 @@ class SolrHealthIndicatorTests {
 				.willThrow(new IOException("Connection failed"));
 		SolrHealthIndicator healthIndicator = new SolrHealthIndicator(solrClient);
 		Health health = healthIndicator.health();
-		assertThat(health.getStatus()).isEqualTo(Status.DOWN);
+		assertThat(health.getStatus()).isEqualTo(Status_RENAMED.DOWN);
 		assertThat((String) health.getDetails().get("error")).contains("Connection failed");
 		verify(solrClient, times(1)).request(any(CoreAdminRequest.class), isNull());
 		verifyNoMoreInteractions(solrClient);
@@ -121,7 +121,7 @@ class SolrHealthIndicatorTests {
 		verifyNoMoreInteractions(solrClient);
 	}
 
-	private void assertHealth(SolrHealthIndicator healthIndicator, Status expectedStatus, int expectedStatusCode,
+	private void assertHealth(SolrHealthIndicator healthIndicator, Status_RENAMED expectedStatus, int expectedStatusCode,
 			String expectedPathType) {
 		Health health = healthIndicator.health();
 		assertThat(health.getStatus()).isEqualTo(expectedStatus);

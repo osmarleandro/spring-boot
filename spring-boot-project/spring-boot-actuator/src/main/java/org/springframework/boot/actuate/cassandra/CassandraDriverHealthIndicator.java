@@ -26,7 +26,7 @@ import com.datastax.oss.driver.api.core.metadata.NodeState;
 import org.springframework.boot.actuate.health.AbstractHealthIndicator;
 import org.springframework.boot.actuate.health.Health;
 import org.springframework.boot.actuate.health.HealthIndicator;
-import org.springframework.boot.actuate.health.Status;
+import org.springframework.boot.actuate.health.Status_RENAMED;
 import org.springframework.util.Assert;
 
 /**
@@ -55,7 +55,7 @@ public class CassandraDriverHealthIndicator extends AbstractHealthIndicator {
 	protected void doHealthCheck(Health.Builder builder) throws Exception {
 		Collection<Node> nodes = this.session.getMetadata().getNodes().values();
 		Optional<Node> nodeUp = nodes.stream().filter((node) -> node.getState() == NodeState.UP).findAny();
-		builder.status(nodeUp.isPresent() ? Status.UP : Status.DOWN);
+		builder.status(nodeUp.isPresent() ? Status_RENAMED.UP : Status_RENAMED.DOWN);
 		nodeUp.map(Node::getCassandraVersion).ifPresent((version) -> builder.withDetail("version", version));
 	}
 

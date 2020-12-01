@@ -40,7 +40,7 @@ import org.springframework.boot.actuate.health.NamedContributor;
 import org.springframework.boot.actuate.health.ReactiveHealthContributorRegistry;
 import org.springframework.boot.actuate.health.ReactiveHealthEndpointWebExtension;
 import org.springframework.boot.actuate.health.ReactiveHealthIndicator;
-import org.springframework.boot.actuate.health.Status;
+import org.springframework.boot.actuate.health.Status_RENAMED;
 import org.springframework.boot.actuate.health.StatusAggregator;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
 import org.springframework.boot.test.context.FilteredClassLoader;
@@ -90,7 +90,7 @@ class HealthEndpointAutoConfigurationTests {
 	void runCreatesStatusAggregatorFromProperties() {
 		this.contextRunner.withPropertyValues("management.endpoint.health.status.order=up,down").run((context) -> {
 			StatusAggregator aggregator = context.getBean(StatusAggregator.class);
-			assertThat(aggregator.getAggregateStatus(Status.UP, Status.DOWN)).isEqualTo(Status.UP);
+			assertThat(aggregator.getAggregateStatus(Status_RENAMED.UP, Status_RENAMED.DOWN)).isEqualTo(Status_RENAMED.UP);
 		});
 	}
 
@@ -99,7 +99,7 @@ class HealthEndpointAutoConfigurationTests {
 		this.contextRunner.withUserConfiguration(StatusAggregatorConfiguration.class)
 				.withPropertyValues("management.endpoint.health.status.order=up,down").run((context) -> {
 					StatusAggregator aggregator = context.getBean(StatusAggregator.class);
-					assertThat(aggregator.getAggregateStatus(Status.UP, Status.DOWN)).isEqualTo(Status.UNKNOWN);
+					assertThat(aggregator.getAggregateStatus(Status_RENAMED.UP, Status_RENAMED.DOWN)).isEqualTo(Status_RENAMED.UNKNOWN);
 				});
 	}
 
@@ -108,7 +108,7 @@ class HealthEndpointAutoConfigurationTests {
 		this.contextRunner.withPropertyValues("management.endpoint.health.status.http-mapping.up=123")
 				.run((context) -> {
 					HttpCodeStatusMapper mapper = context.getBean(HttpCodeStatusMapper.class);
-					assertThat(mapper.getStatusCode(Status.UP)).isEqualTo(123);
+					assertThat(mapper.getStatusCode(Status_RENAMED.UP)).isEqualTo(123);
 				});
 	}
 
@@ -117,7 +117,7 @@ class HealthEndpointAutoConfigurationTests {
 		this.contextRunner.withUserConfiguration(HttpCodeStatusMapperConfiguration.class)
 				.withPropertyValues("management.health.status.http-mapping.up=123").run((context) -> {
 					HttpCodeStatusMapper mapper = context.getBean(HttpCodeStatusMapper.class);
-					assertThat(mapper.getStatusCode(Status.UP)).isEqualTo(456);
+					assertThat(mapper.getStatusCode(Status_RENAMED.UP)).isEqualTo(456);
 				});
 	}
 
@@ -284,7 +284,7 @@ class HealthEndpointAutoConfigurationTests {
 
 		@Bean
 		StatusAggregator statusAggregator() {
-			return (statuses) -> Status.UNKNOWN;
+			return (statuses) -> Status_RENAMED.UNKNOWN;
 		}
 
 	}

@@ -28,7 +28,7 @@ import org.springframework.util.Assert;
 /**
  * Carries information about the health of a component or subsystem. Extends
  * {@link HealthComponent} so that additional contextual details about the system can be
- * returned along with the {@link Status}.
+ * returned along with the {@link Status_RENAMED}.
  * <p>
  * {@link Health} instances can be created by using {@link Builder}'s fluent API. Typical
  * usage in a {@link HealthIndicator} would be:
@@ -51,7 +51,7 @@ import org.springframework.util.Assert;
 @JsonInclude(Include.NON_EMPTY)
 public final class Health extends HealthComponent {
 
-	private final Status status;
+	private final Status_RENAMED status;
 
 	private final Map<String, Object> details;
 
@@ -65,7 +65,7 @@ public final class Health extends HealthComponent {
 		this.details = Collections.unmodifiableMap(builder.details);
 	}
 
-	Health(Status status, Map<String, Object> details) {
+	Health(Status_RENAMED status, Map<String, Object> details) {
 		this.status = status;
 		this.details = details;
 	}
@@ -75,7 +75,7 @@ public final class Health extends HealthComponent {
 	 * @return the status (never {@code null})
 	 */
 	@Override
-	public Status getStatus() {
+	public Status_RENAMED getStatus() {
 		return this.status;
 	}
 
@@ -125,23 +125,23 @@ public final class Health extends HealthComponent {
 	}
 
 	/**
-	 * Create a new {@link Builder} instance with an {@link Status#UNKNOWN} status.
+	 * Create a new {@link Builder} instance with an {@link Status_RENAMED#UNKNOWN} status.
 	 * @return a new {@link Builder} instance
 	 */
 	public static Builder unknown() {
-		return status(Status.UNKNOWN);
+		return status(Status_RENAMED.UNKNOWN);
 	}
 
 	/**
-	 * Create a new {@link Builder} instance with an {@link Status#UP} status.
+	 * Create a new {@link Builder} instance with an {@link Status_RENAMED#UP} status.
 	 * @return a new {@link Builder} instance
 	 */
 	public static Builder up() {
-		return status(Status.UP);
+		return status(Status_RENAMED.UP);
 	}
 
 	/**
-	 * Create a new {@link Builder} instance with an {@link Status#DOWN} status and the
+	 * Create a new {@link Builder} instance with an {@link Status_RENAMED#DOWN} status and the
 	 * specified exception details.
 	 * @param ex the exception
 	 * @return a new {@link Builder} instance
@@ -151,19 +151,19 @@ public final class Health extends HealthComponent {
 	}
 
 	/**
-	 * Create a new {@link Builder} instance with a {@link Status#DOWN} status.
+	 * Create a new {@link Builder} instance with a {@link Status_RENAMED#DOWN} status.
 	 * @return a new {@link Builder} instance
 	 */
 	public static Builder down() {
-		return status(Status.DOWN);
+		return status(Status_RENAMED.DOWN);
 	}
 
 	/**
-	 * Create a new {@link Builder} instance with an {@link Status#OUT_OF_SERVICE} status.
+	 * Create a new {@link Builder} instance with an {@link Status_RENAMED#OUT_OF_SERVICE} status.
 	 * @return a new {@link Builder} instance
 	 */
 	public static Builder outOfService() {
-		return status(Status.OUT_OF_SERVICE);
+		return status(Status_RENAMED.OUT_OF_SERVICE);
 	}
 
 	/**
@@ -172,15 +172,15 @@ public final class Health extends HealthComponent {
 	 * @return a new {@link Builder} instance
 	 */
 	public static Builder status(String statusCode) {
-		return status(new Status(statusCode));
+		return status(new Status_RENAMED(statusCode));
 	}
 
 	/**
-	 * Create a new {@link Builder} instance with a specific {@link Status}.
+	 * Create a new {@link Builder} instance with a specific {@link Status_RENAMED}.
 	 * @param status the status
 	 * @return a new {@link Builder} instance
 	 */
-	public static Builder status(Status status) {
+	public static Builder status(Status_RENAMED status) {
 		return new Builder(status);
 	}
 
@@ -189,7 +189,7 @@ public final class Health extends HealthComponent {
 	 */
 	public static class Builder {
 
-		private Status status;
+		private Status_RENAMED status;
 
 		private Map<String, Object> details;
 
@@ -197,15 +197,15 @@ public final class Health extends HealthComponent {
 		 * Create new Builder instance.
 		 */
 		public Builder() {
-			this.status = Status.UNKNOWN;
+			this.status = Status_RENAMED.UNKNOWN;
 			this.details = new LinkedHashMap<>();
 		}
 
 		/**
 		 * Create new Builder instance, setting status to given {@code status}.
-		 * @param status the {@link Status} to use
+		 * @param status the {@link Status_RENAMED} to use
 		 */
-		public Builder(Status status) {
+		public Builder(Status_RENAMED status) {
 			Assert.notNull(status, "Status must not be null");
 			this.status = status;
 			this.details = new LinkedHashMap<>();
@@ -214,10 +214,10 @@ public final class Health extends HealthComponent {
 		/**
 		 * Create new Builder instance, setting status to given {@code status} and details
 		 * to given {@code details}.
-		 * @param status the {@link Status} to use
+		 * @param status the {@link Status_RENAMED} to use
 		 * @param details the details {@link Map} to use
 		 */
-		public Builder(Status status, Map<String, ?> details) {
+		public Builder(Status_RENAMED status, Map<String, ?> details) {
 			Assert.notNull(status, "Status must not be null");
 			Assert.notNull(details, "Details must not be null");
 			this.status = status;
@@ -261,23 +261,23 @@ public final class Health extends HealthComponent {
 		}
 
 		/**
-		 * Set status to {@link Status#UNKNOWN} status.
+		 * Set status to {@link Status_RENAMED#UNKNOWN} status.
 		 * @return this {@link Builder} instance
 		 */
 		public Builder unknown() {
-			return status(Status.UNKNOWN);
+			return status(Status_RENAMED.UNKNOWN);
 		}
 
 		/**
-		 * Set status to {@link Status#UP} status.
+		 * Set status to {@link Status_RENAMED#UP} status.
 		 * @return this {@link Builder} instance
 		 */
 		public Builder up() {
-			return status(Status.UP);
+			return status(Status_RENAMED.UP);
 		}
 
 		/**
-		 * Set status to {@link Status#DOWN} and add details for given {@link Throwable}.
+		 * Set status to {@link Status_RENAMED#DOWN} and add details for given {@link Throwable}.
 		 * @param ex the exception
 		 * @return this {@link Builder} instance
 		 */
@@ -286,19 +286,19 @@ public final class Health extends HealthComponent {
 		}
 
 		/**
-		 * Set status to {@link Status#DOWN}.
+		 * Set status to {@link Status_RENAMED#DOWN}.
 		 * @return this {@link Builder} instance
 		 */
 		public Builder down() {
-			return status(Status.DOWN);
+			return status(Status_RENAMED.DOWN);
 		}
 
 		/**
-		 * Set status to {@link Status#OUT_OF_SERVICE}.
+		 * Set status to {@link Status_RENAMED#OUT_OF_SERVICE}.
 		 * @return this {@link Builder} instance
 		 */
 		public Builder outOfService() {
-			return status(Status.OUT_OF_SERVICE);
+			return status(Status_RENAMED.OUT_OF_SERVICE);
 		}
 
 		/**
@@ -307,15 +307,15 @@ public final class Health extends HealthComponent {
 		 * @return this {@link Builder} instance
 		 */
 		public Builder status(String statusCode) {
-			return status(new Status(statusCode));
+			return status(new Status_RENAMED(statusCode));
 		}
 
 		/**
-		 * Set status to given {@link Status} instance.
+		 * Set status to given {@link Status_RENAMED} instance.
 		 * @param status the status
 		 * @return this {@link Builder} instance
 		 */
-		public Builder status(Status status) {
+		public Builder status(Status_RENAMED status) {
 			this.status = status;
 			return this;
 		}

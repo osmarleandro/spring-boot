@@ -24,7 +24,7 @@ import org.apache.solr.common.params.CoreAdminParams;
 import org.springframework.boot.actuate.health.AbstractHealthIndicator;
 import org.springframework.boot.actuate.health.Health;
 import org.springframework.boot.actuate.health.HealthIndicator;
-import org.springframework.boot.actuate.health.Status;
+import org.springframework.boot.actuate.health.Status_RENAMED;
 
 /**
  * {@link HealthIndicator} for Apache Solr.
@@ -51,7 +51,7 @@ public class SolrHealthIndicator extends AbstractHealthIndicator {
 	@Override
 	protected void doHealthCheck(Health.Builder builder) throws Exception {
 		int statusCode = initializeStatusCheck();
-		Status status = (statusCode != 0) ? Status.DOWN : Status.UP;
+		Status_RENAMED status = (statusCode != 0) ? Status_RENAMED.DOWN : Status_RENAMED.UP;
 		builder.status(status).withDetail("status", statusCode).withDetail("detectedPathType",
 				this.statusCheck.getPathType());
 	}

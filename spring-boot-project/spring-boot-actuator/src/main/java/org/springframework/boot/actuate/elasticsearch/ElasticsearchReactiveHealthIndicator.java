@@ -23,7 +23,7 @@ import reactor.core.publisher.Mono;
 import org.springframework.boot.actuate.health.AbstractReactiveHealthIndicator;
 import org.springframework.boot.actuate.health.Health;
 import org.springframework.boot.actuate.health.HealthIndicator;
-import org.springframework.boot.actuate.health.Status;
+import org.springframework.boot.actuate.health.Status_RENAMED;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.data.elasticsearch.client.reactive.ReactiveElasticsearchClient;
 import org.springframework.web.reactive.function.client.ClientResponse;
@@ -73,7 +73,7 @@ public class ElasticsearchReactiveHealthIndicator extends AbstractReactiveHealth
 
 	private Health getHealth(Health.Builder builder, Map<String, Object> body) {
 		String status = (String) body.get("status");
-		builder.status(RED_STATUS.equals(status) ? Status.OUT_OF_SERVICE : Status.UP);
+		builder.status(RED_STATUS.equals(status) ? Status_RENAMED.OUT_OF_SERVICE : Status_RENAMED.UP);
 		builder.withDetails(body);
 		return builder.build();
 	}

@@ -21,7 +21,7 @@ import org.bson.Document;
 import org.junit.jupiter.api.Test;
 
 import org.springframework.boot.actuate.health.Health;
-import org.springframework.boot.actuate.health.Status;
+import org.springframework.boot.actuate.health.Status_RENAMED;
 import org.springframework.data.mongodb.core.MongoTemplate;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -44,7 +44,7 @@ class MongoHealthIndicatorTests {
 		given(mongoTemplate.executeCommand("{ buildInfo: 1 }")).willReturn(commandResult);
 		MongoHealthIndicator healthIndicator = new MongoHealthIndicator(mongoTemplate);
 		Health health = healthIndicator.health();
-		assertThat(health.getStatus()).isEqualTo(Status.UP);
+		assertThat(health.getStatus()).isEqualTo(Status_RENAMED.UP);
 		assertThat(health.getDetails().get("version")).isEqualTo("2.6.4");
 		verify(commandResult).getString("version");
 		verify(mongoTemplate).executeCommand("{ buildInfo: 1 }");
@@ -56,7 +56,7 @@ class MongoHealthIndicatorTests {
 		given(mongoTemplate.executeCommand("{ buildInfo: 1 }")).willThrow(new MongoException("Connection failed"));
 		MongoHealthIndicator healthIndicator = new MongoHealthIndicator(mongoTemplate);
 		Health health = healthIndicator.health();
-		assertThat(health.getStatus()).isEqualTo(Status.DOWN);
+		assertThat(health.getStatus()).isEqualTo(Status_RENAMED.DOWN);
 		assertThat((String) health.getDetails().get("error")).contains("Connection failed");
 		verify(mongoTemplate).executeCommand("{ buildInfo: 1 }");
 	}

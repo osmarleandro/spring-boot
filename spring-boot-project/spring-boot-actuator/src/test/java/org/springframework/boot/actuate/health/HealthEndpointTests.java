@@ -39,7 +39,7 @@ class HealthEndpointTests
 	void healthReturnsSystemHealth() {
 		this.registry.registerContributor("test", createContributor(this.up));
 		HealthComponent health = create(this.registry, this.groups).health();
-		assertThat(health.getStatus()).isEqualTo(Status.UP);
+		assertThat(health.getStatus()).isEqualTo(Status_RENAMED.UP);
 		assertThat(health).isInstanceOf(SystemHealth.class);
 	}
 
@@ -48,7 +48,7 @@ class HealthEndpointTests
 		assertThat(this.registry).isEmpty();
 		HealthComponent health = create(this.registry,
 				HealthEndpointGroups.of(mock(HealthEndpointGroup.class), Collections.emptyMap())).health();
-		assertThat(health.getStatus()).isEqualTo(Status.UP);
+		assertThat(health.getStatus()).isEqualTo(Status_RENAMED.UP);
 		assertThat(health).isInstanceOf(Health.class);
 	}
 

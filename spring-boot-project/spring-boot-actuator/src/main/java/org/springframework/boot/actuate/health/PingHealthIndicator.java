@@ -17,12 +17,12 @@
 package org.springframework.boot.actuate.health;
 
 /**
- * Default implementation of {@link HealthIndicator} that returns {@link Status#UP}.
+ * Default implementation of {@link HealthIndicator} that returns {@link Status_RENAMED#UP}.
  *
  * @author Dave Syer
  * @author Christian Dupuis
  * @since 2.2.0
- * @see Status#UP
+ * @see Status_RENAMED#UP
  */
 public class PingHealthIndicator extends AbstractHealthIndicator {
 

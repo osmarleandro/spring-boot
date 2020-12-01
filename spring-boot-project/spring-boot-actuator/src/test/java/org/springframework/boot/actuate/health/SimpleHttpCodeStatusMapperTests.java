@@ -35,10 +35,10 @@ class SimpleHttpCodeStatusMapperTests {
 	@Test
 	void createWhenMappingsAreNullUsesDefaultMappings() {
 		SimpleHttpCodeStatusMapper mapper = new SimpleHttpCodeStatusMapper(null);
-		assertThat(mapper.getStatusCode(Status.UNKNOWN)).isEqualTo(WebEndpointResponse.STATUS_OK);
-		assertThat(mapper.getStatusCode(Status.UP)).isEqualTo(WebEndpointResponse.STATUS_OK);
-		assertThat(mapper.getStatusCode(Status.DOWN)).isEqualTo(WebEndpointResponse.STATUS_SERVICE_UNAVAILABLE);
-		assertThat(mapper.getStatusCode(Status.OUT_OF_SERVICE))
+		assertThat(mapper.getStatusCode(Status_RENAMED.UNKNOWN)).isEqualTo(WebEndpointResponse.STATUS_OK);
+		assertThat(mapper.getStatusCode(Status_RENAMED.UP)).isEqualTo(WebEndpointResponse.STATUS_OK);
+		assertThat(mapper.getStatusCode(Status_RENAMED.DOWN)).isEqualTo(WebEndpointResponse.STATUS_SERVICE_UNAVAILABLE);
+		assertThat(mapper.getStatusCode(Status_RENAMED.OUT_OF_SERVICE))
 				.isEqualTo(WebEndpointResponse.STATUS_SERVICE_UNAVAILABLE);
 	}
 
@@ -48,9 +48,9 @@ class SimpleHttpCodeStatusMapperTests {
 		map.put("up", 123);
 		map.put("down", 456);
 		SimpleHttpCodeStatusMapper mapper = new SimpleHttpCodeStatusMapper(map);
-		assertThat(mapper.getStatusCode(Status.UP)).isEqualTo(123);
-		assertThat(mapper.getStatusCode(Status.DOWN)).isEqualTo(456);
-		assertThat(mapper.getStatusCode(Status.OUT_OF_SERVICE)).isEqualTo(200);
+		assertThat(mapper.getStatusCode(Status_RENAMED.UP)).isEqualTo(123);
+		assertThat(mapper.getStatusCode(Status_RENAMED.DOWN)).isEqualTo(456);
+		assertThat(mapper.getStatusCode(Status_RENAMED.OUT_OF_SERVICE)).isEqualTo(200);
 	}
 
 	@Test
@@ -58,7 +58,7 @@ class SimpleHttpCodeStatusMapperTests {
 		Map<String, Integer> map = new LinkedHashMap<>();
 		map.put("out-of-service", 123);
 		SimpleHttpCodeStatusMapper mapper = new SimpleHttpCodeStatusMapper(map);
-		assertThat(mapper.getStatusCode(Status.OUT_OF_SERVICE)).isEqualTo(123);
+		assertThat(mapper.getStatusCode(Status_RENAMED.OUT_OF_SERVICE)).isEqualTo(123);
 	}
 
 }

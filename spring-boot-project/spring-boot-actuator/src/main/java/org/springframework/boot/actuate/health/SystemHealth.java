@@ -36,7 +36,7 @@ public final class SystemHealth extends CompositeHealth {
 
 	private final Set<String> groups;
 
-	SystemHealth(ApiVersion apiVersion, Status status, Map<String, HealthComponent> instances, Set<String> groups) {
+	SystemHealth(ApiVersion apiVersion, Status_RENAMED status, Map<String, HealthComponent> instances, Set<String> groups) {
 		super(apiVersion, status, instances);
 		this.groups = (groups != null) ? new TreeSet<>(groups) : null;
 	}

@@ -31,7 +31,7 @@ import org.springframework.util.StringUtils;
  * <p>
  * This implementation is only suitable if an {@link Exception} raised from
  * {@link #doHealthCheck(org.springframework.boot.actuate.health.Health.Builder)} should
- * create a {@link Status#DOWN} health status.
+ * create a {@link Status_RENAMED#DOWN} health status.
  *
  * @author Christian Dupuis
  * @since 1.1.0
@@ -94,7 +94,7 @@ public abstract class AbstractHealthIndicator implements HealthIndicator {
 	/**
 	 * Actual health check logic.
 	 * @param builder the {@link Builder} to report health status and details
-	 * @throws Exception any {@link Exception} that should create a {@link Status#DOWN}
+	 * @throws Exception any {@link Exception} that should create a {@link Status_RENAMED#DOWN}
 	 * system status.
 	 */
 	protected abstract void doHealthCheck(Health.Builder builder) throws Exception;

@@ -26,7 +26,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import org.springframework.boot.actuate.health.Health;
-import org.springframework.boot.actuate.health.Status;
+import org.springframework.boot.actuate.health.Status_RENAMED;
 import org.springframework.boot.jdbc.EmbeddedDatabaseConnection;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.SingleConnectionDataSource;
@@ -68,7 +68,7 @@ class DataSourceHealthIndicatorTests {
 	void healthIndicatorWithDefaultSettings() {
 		this.indicator.setDataSource(this.dataSource);
 		Health health = this.indicator.health();
-		assertThat(health.getStatus()).isEqualTo(Status.UP);
+		assertThat(health.getStatus()).isEqualTo(Status_RENAMED.UP);
 		assertThat(health.getDetails()).containsOnly(entry("database", "HSQL Database Engine"),
 				entry("validationQuery", "isValid()"));
 	}
@@ -80,7 +80,7 @@ class DataSourceHealthIndicatorTests {
 		this.indicator.setDataSource(this.dataSource);
 		this.indicator.setQuery(customValidationQuery);
 		Health health = this.indicator.health();
-		assertThat(health.getStatus()).isEqualTo(Status.UP);
+		assertThat(health.getStatus()).isEqualTo(Status_RENAMED.UP);
 		assertThat(health.getDetails()).containsOnly(entry("database", "HSQL Database Engine"), entry("result", 0L),
 				entry("validationQuery", customValidationQuery));
 	}
@@ -91,7 +91,7 @@ class DataSourceHealthIndicatorTests {
 		this.indicator.setDataSource(this.dataSource);
 		this.indicator.setQuery(invalidValidationQuery);
 		Health health = this.indicator.health();
-		assertThat(health.getStatus()).isEqualTo(Status.DOWN);
+		assertThat(health.getStatus()).isEqualTo(Status_RENAMED.DOWN);
 		assertThat(health.getDetails()).contains(entry("database", "HSQL Database Engine"),
 				entry("validationQuery", invalidValidationQuery));
 		assertThat(health.getDetails()).containsOnlyKeys("database", "error", "validationQuery");
@@ -118,7 +118,7 @@ class DataSourceHealthIndicatorTests {
 		given(dataSource.getConnection()).willReturn(connection);
 		this.indicator.setDataSource(dataSource);
 		Health health = this.indicator.health();
-		assertThat(health.getStatus()).isEqualTo(Status.DOWN);
+		assertThat(health.getStatus()).isEqualTo(Status_RENAMED.DOWN);
 		assertThat(health.getDetails()).containsOnly(entry("database", "HSQL Database Engine"),
 				entry("validationQuery", "isValid()"));
 	}

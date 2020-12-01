@@ -42,25 +42,25 @@ public class SimpleStatusAggregator implements StatusAggregator {
 
 	static {
 		List<String> defaultOrder = new ArrayList<>();
-		defaultOrder.add(Status.DOWN.getCode());
-		defaultOrder.add(Status.OUT_OF_SERVICE.getCode());
-		defaultOrder.add(Status.UP.getCode());
-		defaultOrder.add(Status.UNKNOWN.getCode());
+		defaultOrder.add(Status_RENAMED.DOWN.getCode());
+		defaultOrder.add(Status_RENAMED.OUT_OF_SERVICE.getCode());
+		defaultOrder.add(Status_RENAMED.UP.getCode());
+		defaultOrder.add(Status_RENAMED.UNKNOWN.getCode());
 		DEFAULT_ORDER = Collections.unmodifiableList(getUniformCodes(defaultOrder.stream()));
 		INSTANCE = new SimpleStatusAggregator();
 	}
 
 	private final List<String> order;
 
-	private final Comparator<Status> comparator = new StatusComparator();
+	private final Comparator<Status_RENAMED> comparator = new StatusComparator();
 
 	public SimpleStatusAggregator() {
 		this.order = DEFAULT_ORDER;
 	}
 
-	public SimpleStatusAggregator(Status... order) {
+	public SimpleStatusAggregator(Status_RENAMED... order) {
 		this.order = ObjectUtils.isEmpty(order) ? DEFAULT_ORDER
-				: getUniformCodes(Arrays.stream(order).map(Status::getCode));
+				: getUniformCodes(Arrays.stream(order).map(Status_RENAMED::getCode));
 	}
 
 	public SimpleStatusAggregator(String... order) {
@@ -72,11 +72,11 @@ public class SimpleStatusAggregator implements StatusAggregator {
 	}
 
 	@Override
-	public Status getAggregateStatus(Set<Status> statuses) {
-		return statuses.stream().filter(this::contains).min(this.comparator).orElse(Status.UNKNOWN);
+	public Status_RENAMED getAggregateStatus(Set<Status_RENAMED> statuses) {
+		return statuses.stream().filter(this::contains).min(this.comparator).orElse(Status_RENAMED.UNKNOWN);
 	}
 
-	private boolean contains(Status status) {
+	private boolean contains(Status_RENAMED status) {
 		return this.order.contains(getUniformCode(status.getCode()));
 	}
 
@@ -98,12 +98,12 @@ public class SimpleStatusAggregator implements StatusAggregator {
 	}
 
 	/**
-	 * {@link Comparator} used to order {@link Status}.
+	 * {@link Comparator} used to order {@link Status_RENAMED}.
 	 */
-	private class StatusComparator implements Comparator<Status> {
+	private class StatusComparator implements Comparator<Status_RENAMED> {
 
 		@Override
-		public int compare(Status s1, Status s2) {
+		public int compare(Status_RENAMED s1, Status_RENAMED s2) {
 			List<String> order = SimpleStatusAggregator.this.order;
 			int i1 = order.indexOf(getUniformCode(s1.getCode()));
 			int i2 = order.indexOf(getUniformCode(s2.getCode()));

@@ -24,7 +24,7 @@ import org.influxdb.dto.Pong;
 import org.junit.jupiter.api.Test;
 
 import org.springframework.boot.actuate.health.Health;
-import org.springframework.boot.actuate.health.Status;
+import org.springframework.boot.actuate.health.Status_RENAMED;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
@@ -46,7 +46,7 @@ class InfluxDbHealthIndicatorTests {
 		given(influxDB.ping()).willReturn(pong);
 		InfluxDbHealthIndicator healthIndicator = new InfluxDbHealthIndicator(influxDB);
 		Health health = healthIndicator.health();
-		assertThat(health.getStatus()).isEqualTo(Status.UP);
+		assertThat(health.getStatus()).isEqualTo(Status_RENAMED.UP);
 		assertThat(health.getDetails().get("version")).isEqualTo("0.9");
 		verify(influxDB).ping();
 	}
@@ -57,7 +57,7 @@ class InfluxDbHealthIndicatorTests {
 		given(influxDB.ping()).willThrow(new InfluxDBException(new IOException("Connection failed")));
 		InfluxDbHealthIndicator healthIndicator = new InfluxDbHealthIndicator(influxDB);
 		Health health = healthIndicator.health();
-		assertThat(health.getStatus()).isEqualTo(Status.DOWN);
+		assertThat(health.getStatus()).isEqualTo(Status_RENAMED.DOWN);
 		assertThat((String) health.getDetails().get("error")).contains("Connection failed");
 		verify(influxDB).ping();
 	}

@@ -28,7 +28,7 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.boot.actuate.health.AbstractHealthIndicator;
 import org.springframework.boot.actuate.health.Health;
 import org.springframework.boot.actuate.health.HealthIndicator;
-import org.springframework.boot.actuate.health.Status;
+import org.springframework.boot.actuate.health.Status_RENAMED;
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.jdbc.IncorrectResultSetColumnCountException;
 import org.springframework.jdbc.core.ConnectionCallback;
@@ -114,7 +114,7 @@ public class DataSourceHealthIndicator extends AbstractHealthIndicator implement
 		else {
 			builder.withDetail("validationQuery", "isValid()");
 			boolean valid = isConnectionValid();
-			builder.status((valid) ? Status.UP : Status.DOWN);
+			builder.status((valid) ? Status_RENAMED.UP : Status_RENAMED.DOWN);
 		}
 	}
 

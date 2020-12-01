@@ -26,7 +26,7 @@ import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 
 import org.springframework.boot.actuate.health.Health;
-import org.springframework.boot.actuate.health.Status;
+import org.springframework.boot.actuate.health.Status_RENAMED;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
@@ -53,7 +53,7 @@ class JmsHealthIndicatorTests {
 		given(connectionFactory.createConnection()).willReturn(connection);
 		JmsHealthIndicator indicator = new JmsHealthIndicator(connectionFactory);
 		Health health = indicator.health();
-		assertThat(health.getStatus()).isEqualTo(Status.UP);
+		assertThat(health.getStatus()).isEqualTo(Status_RENAMED.UP);
 		assertThat(health.getDetails().get("provider")).isEqualTo("JMS test provider");
 		verify(connection, times(1)).close();
 	}
@@ -64,7 +64,7 @@ class JmsHealthIndicatorTests {
 		given(connectionFactory.createConnection()).willThrow(new JMSException("test", "123"));
 		JmsHealthIndicator indicator = new JmsHealthIndicator(connectionFactory);
 		Health health = indicator.health();
-		assertThat(health.getStatus()).isEqualTo(Status.DOWN);
+		assertThat(health.getStatus()).isEqualTo(Status_RENAMED.DOWN);
 		assertThat(health.getDetails().get("provider")).isNull();
 	}
 
@@ -78,7 +78,7 @@ class JmsHealthIndicatorTests {
 		given(connectionFactory.createConnection()).willReturn(connection);
 		JmsHealthIndicator indicator = new JmsHealthIndicator(connectionFactory);
 		Health health = indicator.health();
-		assertThat(health.getStatus()).isEqualTo(Status.DOWN);
+		assertThat(health.getStatus()).isEqualTo(Status_RENAMED.DOWN);
 		assertThat(health.getDetails().get("provider")).isNull();
 		verify(connection, times(1)).close();
 	}
@@ -94,7 +94,7 @@ class JmsHealthIndicatorTests {
 		given(connectionFactory.createConnection()).willReturn(connection);
 		JmsHealthIndicator indicator = new JmsHealthIndicator(connectionFactory);
 		Health health = indicator.health();
-		assertThat(health.getStatus()).isEqualTo(Status.DOWN);
+		assertThat(health.getStatus()).isEqualTo(Status_RENAMED.DOWN);
 		assertThat(health.getDetails().get("provider")).isNull();
 	}
 
@@ -113,7 +113,7 @@ class JmsHealthIndicatorTests {
 		given(connectionFactory.createConnection()).willReturn(connection);
 		JmsHealthIndicator indicator = new JmsHealthIndicator(connectionFactory);
 		Health health = indicator.health();
-		assertThat(health.getStatus()).isEqualTo(Status.DOWN);
+		assertThat(health.getStatus()).isEqualTo(Status_RENAMED.DOWN);
 		assertThat((String) health.getDetails().get("error")).contains("Connection closed");
 	}
 

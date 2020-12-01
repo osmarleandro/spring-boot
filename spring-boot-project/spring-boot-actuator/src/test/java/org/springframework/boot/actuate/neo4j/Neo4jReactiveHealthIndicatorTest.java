@@ -31,7 +31,7 @@ import org.neo4j.driver.summary.ResultSummary;
 import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
 
-import org.springframework.boot.actuate.health.Status;
+import org.springframework.boot.actuate.health.Status_RENAMED;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
@@ -55,7 +55,7 @@ class Neo4jReactiveHealthIndicatorTest {
 		Driver driver = mockDriver(resultSummary, "ultimate collectors edition");
 		Neo4jReactiveHealthIndicator healthIndicator = new Neo4jReactiveHealthIndicator(driver);
 		healthIndicator.health().as(StepVerifier::create).consumeNextWith((health) -> {
-			assertThat(health.getStatus()).isEqualTo(Status.UP);
+			assertThat(health.getStatus()).isEqualTo(Status_RENAMED.UP);
 			assertThat(health.getDetails()).containsEntry("server", "4711@My Home");
 			assertThat(health.getDetails()).containsEntry("edition", "ultimate collectors edition");
 		}).verifyComplete();
@@ -77,7 +77,7 @@ class Neo4jReactiveHealthIndicatorTest {
 		given(driver.rxSession(any(SessionConfig.class))).willReturn(session);
 		Neo4jReactiveHealthIndicator healthIndicator = new Neo4jReactiveHealthIndicator(driver);
 		healthIndicator.health().as(StepVerifier::create).consumeNextWith((health) -> {
-			assertThat(health.getStatus()).isEqualTo(Status.UP);
+			assertThat(health.getStatus()).isEqualTo(Status_RENAMED.UP);
 			assertThat(health.getDetails()).containsEntry("server", "4711@My Home");
 			assertThat(health.getDetails()).containsEntry("edition", "some edition");
 		}).verifyComplete();
@@ -90,7 +90,7 @@ class Neo4jReactiveHealthIndicatorTest {
 		given(driver.rxSession(any(SessionConfig.class))).willThrow(ServiceUnavailableException.class);
 		Neo4jReactiveHealthIndicator healthIndicator = new Neo4jReactiveHealthIndicator(driver);
 		healthIndicator.health().as(StepVerifier::create).consumeNextWith((health) -> {
-			assertThat(health.getStatus()).isEqualTo(Status.DOWN);
+			assertThat(health.getStatus()).isEqualTo(Status_RENAMED.DOWN);
 			assertThat(health.getDetails()).containsKeys("error");
 		}).verifyComplete();
 	}

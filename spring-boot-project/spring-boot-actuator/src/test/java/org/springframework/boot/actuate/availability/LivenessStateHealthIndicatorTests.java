@@ -19,7 +19,7 @@ package org.springframework.boot.actuate.availability;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import org.springframework.boot.actuate.health.Status;
+import org.springframework.boot.actuate.health.Status_RENAMED;
 import org.springframework.boot.availability.ApplicationAvailability;
 import org.springframework.boot.availability.LivenessState;
 
@@ -47,13 +47,13 @@ class LivenessStateHealthIndicatorTests {
 	@Test
 	void livenessIsLive() {
 		given(this.availability.getLivenessState()).willReturn(LivenessState.CORRECT);
-		assertThat(this.healthIndicator.health().getStatus()).isEqualTo(Status.UP);
+		assertThat(this.healthIndicator.health().getStatus()).isEqualTo(Status_RENAMED.UP);
 	}
 
 	@Test
 	void livenessIsBroken() {
 		given(this.availability.getLivenessState()).willReturn(LivenessState.BROKEN);
-		assertThat(this.healthIndicator.health().getStatus()).isEqualTo(Status.DOWN);
+		assertThat(this.healthIndicator.health().getStatus()).isEqualTo(Status_RENAMED.DOWN);
 	}
 
 }

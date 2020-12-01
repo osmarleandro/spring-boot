@@ -76,7 +76,7 @@ abstract class HealthEndpointSupportTests<R extends ContributorRegistry<C>, C, T
 				false);
 		assertThat(result.getGroup()).isEqualTo(this.primaryGroup);
 		assertThat(getHealth(result)).isNotSameAs(this.up);
-		assertThat(getHealth(result).getStatus()).isEqualTo(Status.UP);
+		assertThat(getHealth(result).getStatus()).isEqualTo(Status_RENAMED.UP);
 	}
 
 	@Test
@@ -150,7 +150,7 @@ abstract class HealthEndpointSupportTests<R extends ContributorRegistry<C>, C, T
 		HealthEndpointSupport<C, T> endpoint = create(this.registry, this.groups);
 		HealthResult<T> rootResult = endpoint.getHealth(ApiVersion.V3, SecurityContext.NONE, false);
 		HealthResult<T> componentResult = endpoint.getHealth(ApiVersion.V3, SecurityContext.NONE, false, "test");
-		assertThat(((CompositeHealth) getHealth(rootResult)).getStatus()).isEqualTo(Status.UP);
+		assertThat(((CompositeHealth) getHealth(rootResult)).getStatus()).isEqualTo(Status_RENAMED.UP);
 		assertThat(componentResult).isNull();
 	}
 
@@ -173,8 +173,8 @@ abstract class HealthEndpointSupportTests<R extends ContributorRegistry<C>, C, T
 				false);
 		CompositeHealth root = (CompositeHealth) getHealth(result);
 		CompositeHealth component = (CompositeHealth) root.getComponents().get("test");
-		assertThat(root.getStatus()).isEqualTo(Status.DOWN);
-		assertThat(component.getStatus()).isEqualTo(Status.DOWN);
+		assertThat(root.getStatus()).isEqualTo(Status_RENAMED.DOWN);
+		assertThat(component.getStatus()).isEqualTo(Status_RENAMED.DOWN);
 		assertThat(component.getComponents()).containsOnlyKeys("a", "b");
 	}
 
