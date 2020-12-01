@@ -28,7 +28,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Stephane Nicoll
  */
-class InfluxPropertiesTests extends StepRegistryPropertiesTests {
+class InfluxPropertiesTests_RENAMED extends StepRegistryPropertiesTests {
 
 	@Test
 	void defaultValuesAreConsistent() {
