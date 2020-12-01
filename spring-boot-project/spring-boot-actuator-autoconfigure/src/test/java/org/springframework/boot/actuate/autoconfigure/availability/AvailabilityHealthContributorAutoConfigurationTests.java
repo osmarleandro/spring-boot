@@ -19,7 +19,7 @@ package org.springframework.boot.actuate.autoconfigure.availability;
 import org.junit.jupiter.api.Test;
 
 import org.springframework.boot.actuate.availability.LivenessStateHealthIndicator;
-import org.springframework.boot.actuate.availability.ReadinessStateHealthIndicator;
+import org.springframework.boot.actuate.availability.ReadinessStateHealthIndicator_RENAMED;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
 import org.springframework.boot.autoconfigure.availability.ApplicationAvailabilityAutoConfiguration;
 import org.springframework.boot.availability.ApplicationAvailability;
@@ -42,7 +42,7 @@ class AvailabilityHealthContributorAutoConfigurationTests {
 	void probesWhenNotKubernetesAddsNoBeans() {
 		this.contextRunner.run((context) -> assertThat(context).hasSingleBean(ApplicationAvailability.class)
 				.doesNotHaveBean(LivenessStateHealthIndicator.class)
-				.doesNotHaveBean(ReadinessStateHealthIndicator.class));
+				.doesNotHaveBean(ReadinessStateHealthIndicator_RENAMED.class));
 	}
 
 	@Test
@@ -50,14 +50,14 @@ class AvailabilityHealthContributorAutoConfigurationTests {
 		this.contextRunner.withPropertyValues("management.health.livenessState.enabled=true")
 				.run((context) -> assertThat(context).hasSingleBean(ApplicationAvailability.class)
 						.hasSingleBean(LivenessStateHealthIndicator.class)
-						.doesNotHaveBean(ReadinessStateHealthIndicator.class));
+						.doesNotHaveBean(ReadinessStateHealthIndicator_RENAMED.class));
 	}
 
 	@Test
 	void readinessIndicatorWhenPropertyEnabledAddsBeans() {
 		this.contextRunner.withPropertyValues("management.health.readinessState.enabled=true")
 				.run((context) -> assertThat(context).hasSingleBean(ApplicationAvailability.class)
-						.hasSingleBean(ReadinessStateHealthIndicator.class)
+						.hasSingleBean(ReadinessStateHealthIndicator_RENAMED.class)
 						.doesNotHaveBean(LivenessStateHealthIndicator.class));
 	}
 

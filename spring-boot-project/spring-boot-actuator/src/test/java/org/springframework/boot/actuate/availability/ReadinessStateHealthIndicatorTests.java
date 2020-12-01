@@ -28,7 +28,7 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
 
 /**
- * Tests for {@link ReadinessStateHealthIndicator}
+ * Tests for {@link ReadinessStateHealthIndicator_RENAMED}
  *
  * @author Brian Clozel
  */
@@ -36,12 +36,12 @@ class ReadinessStateHealthIndicatorTests {
 
 	private ApplicationAvailability availability;
 
-	private ReadinessStateHealthIndicator healthIndicator;
+	private ReadinessStateHealthIndicator_RENAMED healthIndicator;
 
 	@BeforeEach
 	void setUp() {
 		this.availability = mock(ApplicationAvailability.class);
-		this.healthIndicator = new ReadinessStateHealthIndicator(this.availability);
+		this.healthIndicator = new ReadinessStateHealthIndicator_RENAMED(this.availability);
 	}
 
 	@Test
