@@ -29,14 +29,14 @@ class StackdriverPropertiesConfigAdapterTests {
 
 	@Test
 	void whenPropertiesProjectIdIsSetAdapterProjectIdReturnsIt() {
-		StackdriverProperties properties = new StackdriverProperties();
+		StackdriverProperties_RENAMED properties = new StackdriverProperties_RENAMED();
 		properties.setProjectId("my-gcp-project-id");
 		assertThat(new StackdriverPropertiesConfigAdapter(properties).projectId()).isEqualTo("my-gcp-project-id");
 	}
 
 	@Test
 	void whenPropertiesResourceTypeIsSetAdapterResourceTypeReturnsIt() {
-		StackdriverProperties properties = new StackdriverProperties();
+		StackdriverProperties_RENAMED properties = new StackdriverProperties_RENAMED();
 		properties.setResourceType("my-resource-type");
 		assertThat(new StackdriverPropertiesConfigAdapter(properties).resourceType()).isEqualTo("my-resource-type");
 	}

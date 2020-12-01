@@ -21,15 +21,15 @@ import io.micrometer.stackdriver.StackdriverConfig;
 import org.springframework.boot.actuate.autoconfigure.metrics.export.properties.StepRegistryPropertiesConfigAdapter;
 
 /**
- * Adapter to convert {@link StackdriverProperties} to a {@link StackdriverConfig}.
+ * Adapter to convert {@link StackdriverProperties_RENAMED} to a {@link StackdriverConfig}.
  *
  * @author Johannes Graf
  * @since 2.3.0
  */
-public class StackdriverPropertiesConfigAdapter extends StepRegistryPropertiesConfigAdapter<StackdriverProperties>
+public class StackdriverPropertiesConfigAdapter extends StepRegistryPropertiesConfigAdapter<StackdriverProperties_RENAMED>
 		implements StackdriverConfig {
 
-	public StackdriverPropertiesConfigAdapter(StackdriverProperties properties) {
+	public StackdriverPropertiesConfigAdapter(StackdriverProperties_RENAMED properties) {
 		super(properties);
 	}
 
@@ -40,12 +40,12 @@ public class StackdriverPropertiesConfigAdapter extends StepRegistryPropertiesCo
 
 	@Override
 	public String projectId() {
-		return get(StackdriverProperties::getProjectId, StackdriverConfig.super::projectId);
+		return get(StackdriverProperties_RENAMED::getProjectId, StackdriverConfig.super::projectId);
 	}
 
 	@Override
 	public String resourceType() {
-		return get(StackdriverProperties::getResourceType, StackdriverConfig.super::resourceType);
+		return get(StackdriverProperties_RENAMED::getResourceType, StackdriverConfig.super::resourceType);
 	}
 
 }

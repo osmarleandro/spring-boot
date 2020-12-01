@@ -24,7 +24,7 @@ import org.springframework.boot.actuate.autoconfigure.metrics.export.properties.
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Tests for {@link StackdriverProperties}.
+ * Tests for {@link StackdriverProperties_RENAMED}.
  *
  * @author Johannes Graf
  */
@@ -32,7 +32,7 @@ class StackdriverPropertiesTests extends StepRegistryPropertiesTests {
 
 	@Test
 	void defaultValuesAreConsistent() {
-		StackdriverProperties properties = new StackdriverProperties();
+		StackdriverProperties_RENAMED properties = new StackdriverProperties_RENAMED();
 		StackdriverConfig config = (key) -> null;
 		assertStepRegistryDefaultValues(properties, config);
 		assertThat(properties.getResourceType()).isEqualTo(config.resourceType());
