@@ -45,7 +45,7 @@ import org.springframework.web.bind.annotation.GetMapping;
  *
  * @author Phillip Webb
  */
-class ControllerEndpointWebFluxIntegrationTests {
+class ControllerEndpointWebFluxIntegrationTests_RENAMED {
 
 	private AnnotationConfigReactiveWebApplicationContext context;
 
