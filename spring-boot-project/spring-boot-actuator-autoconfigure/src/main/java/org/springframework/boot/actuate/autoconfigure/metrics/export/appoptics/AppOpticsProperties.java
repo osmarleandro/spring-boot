@@ -18,7 +18,7 @@ package org.springframework.boot.actuate.autoconfigure.metrics.export.appoptics;
 
 import java.time.Duration;
 
-import org.springframework.boot.actuate.autoconfigure.metrics.export.properties.StepRegistryProperties;
+import org.springframework.boot.actuate.autoconfigure.metrics.export.properties.StepRegistryProperties_RENAMED;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
@@ -29,7 +29,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  * @since 2.1.0
  */
 @ConfigurationProperties(prefix = "management.metrics.export.appoptics")
-public class AppOpticsProperties extends StepRegistryProperties {
+public class AppOpticsProperties extends StepRegistryProperties_RENAMED {
 
 	/**
 	 * URI to ship metrics to.

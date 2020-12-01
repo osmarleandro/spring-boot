@@ -16,7 +16,7 @@
 
 package org.springframework.boot.actuate.autoconfigure.metrics.export.datadog;
 
-import org.springframework.boot.actuate.autoconfigure.metrics.export.properties.StepRegistryProperties;
+import org.springframework.boot.actuate.autoconfigure.metrics.export.properties.StepRegistryProperties_RENAMED;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
@@ -28,7 +28,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  * @since 2.0.0
  */
 @ConfigurationProperties(prefix = "management.metrics.export.datadog")
-public class DatadogProperties extends StepRegistryProperties {
+public class DatadogProperties extends StepRegistryProperties_RENAMED {
 
 	/**
 	 * Datadog API key.

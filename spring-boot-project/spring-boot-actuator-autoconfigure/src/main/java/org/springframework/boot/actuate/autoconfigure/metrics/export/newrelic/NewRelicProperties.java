@@ -18,7 +18,7 @@ package org.springframework.boot.actuate.autoconfigure.metrics.export.newrelic;
 
 import io.micrometer.newrelic.ClientProviderType;
 
-import org.springframework.boot.actuate.autoconfigure.metrics.export.properties.StepRegistryProperties;
+import org.springframework.boot.actuate.autoconfigure.metrics.export.properties.StepRegistryProperties_RENAMED;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
@@ -32,7 +32,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  * @since 2.0.0
  */
 @ConfigurationProperties(prefix = "management.metrics.export.newrelic")
-public class NewRelicProperties extends StepRegistryProperties {
+public class NewRelicProperties extends StepRegistryProperties_RENAMED {
 
 	/**
 	 * Whether to send the meter name as the event type instead of using the 'event-type'

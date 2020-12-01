@@ -19,13 +19,13 @@ package org.springframework.boot.actuate.autoconfigure.metrics.export.properties
 import io.micrometer.core.instrument.step.StepRegistryConfig;
 
 /**
- * Base tests for {@link StepRegistryProperties} implementation.
+ * Base tests for {@link StepRegistryProperties_RENAMED} implementation.
  *
  * @author Stephane Nicoll
  */
 public abstract class StepRegistryPropertiesTests extends PushRegistryPropertiesTests {
 
-	protected void assertStepRegistryDefaultValues(StepRegistryProperties properties, StepRegistryConfig config) {
+	protected void assertStepRegistryDefaultValues(StepRegistryProperties_RENAMED properties, StepRegistryConfig config) {
 		super.assertStepRegistryDefaultValues(properties, config);
 	}
 

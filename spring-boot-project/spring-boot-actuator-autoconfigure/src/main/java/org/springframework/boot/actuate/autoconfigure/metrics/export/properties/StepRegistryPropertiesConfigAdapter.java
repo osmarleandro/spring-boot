@@ -19,7 +19,7 @@ package org.springframework.boot.actuate.autoconfigure.metrics.export.properties
 import io.micrometer.core.instrument.step.StepRegistryConfig;
 
 /**
- * Base class for {@link StepRegistryProperties} to {@link StepRegistryConfig} adapters.
+ * Base class for {@link StepRegistryProperties_RENAMED} to {@link StepRegistryConfig} adapters.
  *
  * @param <T> the properties type
  * @author Jon Schneider
@@ -27,7 +27,7 @@ import io.micrometer.core.instrument.step.StepRegistryConfig;
  * @author Artsiom Yudovin
  * @since 2.0.0
  */
-public abstract class StepRegistryPropertiesConfigAdapter<T extends StepRegistryProperties>
+public abstract class StepRegistryPropertiesConfigAdapter<T extends StepRegistryProperties_RENAMED>
 		extends PushRegistryPropertiesConfigAdapter<T> {
 
 	public StepRegistryPropertiesConfigAdapter(T properties) {

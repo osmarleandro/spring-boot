@@ -16,7 +16,7 @@
 
 package org.springframework.boot.actuate.autoconfigure.metrics.export.stackdriver;
 
-import org.springframework.boot.actuate.autoconfigure.metrics.export.properties.StepRegistryProperties;
+import org.springframework.boot.actuate.autoconfigure.metrics.export.properties.StepRegistryProperties_RENAMED;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
@@ -28,7 +28,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  * @since 2.3.0
  */
 @ConfigurationProperties(prefix = "management.metrics.export.stackdriver")
-public class StackdriverProperties extends StepRegistryProperties {
+public class StackdriverProperties extends StepRegistryProperties_RENAMED {
 
 	/**
 	 * Identifier of the Google Cloud project to monitor.

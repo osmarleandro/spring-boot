@@ -18,7 +18,7 @@ package org.springframework.boot.actuate.autoconfigure.metrics.export.influx;
 
 import io.micrometer.influx.InfluxConsistency;
 
-import org.springframework.boot.actuate.autoconfigure.metrics.export.properties.StepRegistryProperties;
+import org.springframework.boot.actuate.autoconfigure.metrics.export.properties.StepRegistryProperties_RENAMED;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
@@ -30,7 +30,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  * @since 2.0.0
  */
 @ConfigurationProperties(prefix = "management.metrics.export.influx")
-public class InfluxProperties extends StepRegistryProperties {
+public class InfluxProperties extends StepRegistryProperties_RENAMED {
 
 	/**
 	 * Tag that will be mapped to "host" when shipping metrics to Influx.

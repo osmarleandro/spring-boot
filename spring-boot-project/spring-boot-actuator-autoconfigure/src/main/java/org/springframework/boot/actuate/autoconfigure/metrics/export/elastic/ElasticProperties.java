@@ -16,7 +16,7 @@
 
 package org.springframework.boot.actuate.autoconfigure.metrics.export.elastic;
 
-import org.springframework.boot.actuate.autoconfigure.metrics.export.properties.StepRegistryProperties;
+import org.springframework.boot.actuate.autoconfigure.metrics.export.properties.StepRegistryProperties_RENAMED;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
@@ -27,7 +27,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  * @since 2.1.0
  */
 @ConfigurationProperties(prefix = "management.metrics.export.elastic")
-public class ElasticProperties extends StepRegistryProperties {
+public class ElasticProperties extends StepRegistryProperties_RENAMED {
 
 	/**
 	 * Host to export metrics to.
