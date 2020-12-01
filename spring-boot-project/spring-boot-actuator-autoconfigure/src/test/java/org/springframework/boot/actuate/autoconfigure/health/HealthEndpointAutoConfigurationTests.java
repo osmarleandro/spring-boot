@@ -37,7 +37,7 @@ import org.springframework.boot.actuate.health.HealthEndpointWebExtension;
 import org.springframework.boot.actuate.health.HealthIndicator;
 import org.springframework.boot.actuate.health.HttpCodeStatusMapper;
 import org.springframework.boot.actuate.health.NamedContributor;
-import org.springframework.boot.actuate.health.ReactiveHealthContributorRegistry;
+import org.springframework.boot.actuate.health.ReactiveHealthContributorRegistry_RENAMED;
 import org.springframework.boot.actuate.health.ReactiveHealthEndpointWebExtension;
 import org.springframework.boot.actuate.health.ReactiveHealthIndicator;
 import org.springframework.boot.actuate.health.Status;
@@ -80,7 +80,7 @@ class HealthEndpointAutoConfigurationTests {
 			assertThat(context).doesNotHaveBean(HealthEndpointGroups.class);
 			assertThat(context).doesNotHaveBean(HealthContributorRegistry.class);
 			assertThat(context).doesNotHaveBean(HealthEndpoint.class);
-			assertThat(context).doesNotHaveBean(ReactiveHealthContributorRegistry.class);
+			assertThat(context).doesNotHaveBean(ReactiveHealthContributorRegistry_RENAMED.class);
 			assertThat(context).doesNotHaveBean(HealthEndpointWebExtension.class);
 			assertThat(context).doesNotHaveBean(ReactiveHealthEndpointWebExtension.class);
 		});
@@ -187,7 +187,7 @@ class HealthEndpointAutoConfigurationTests {
 	@Test
 	void runCreatesReactiveHealthContributorRegistryContainingAdaptedBeans() {
 		this.reactiveContextRunner.run((context) -> {
-			ReactiveHealthContributorRegistry registry = context.getBean(ReactiveHealthContributorRegistry.class);
+			ReactiveHealthContributorRegistry_RENAMED registry = context.getBean(ReactiveHealthContributorRegistry_RENAMED.class);
 			Object[] names = registry.stream().map(NamedContributor::getName).toArray();
 			assertThat(names).containsExactlyInAnyOrder("simple", "additional", "reactive", "ping");
 		});
@@ -197,8 +197,8 @@ class HealthEndpointAutoConfigurationTests {
 	void runWhenHasReactiveHealthContributorRegistryBeanDoesNotCreateAdditionalReactiveHealthContributorRegistry() {
 		this.reactiveContextRunner.withUserConfiguration(ReactiveHealthContributorRegistryConfiguration.class)
 				.run((context) -> {
-					ReactiveHealthContributorRegistry registry = context
-							.getBean(ReactiveHealthContributorRegistry.class);
+					ReactiveHealthContributorRegistry_RENAMED registry = context
+							.getBean(ReactiveHealthContributorRegistry_RENAMED.class);
 					Object[] names = registry.stream().map(NamedContributor::getName).toArray();
 					assertThat(names).isEmpty();
 				});
@@ -335,7 +335,7 @@ class HealthEndpointAutoConfigurationTests {
 	static class ReactiveHealthContributorRegistryConfiguration {
 
 		@Bean
-		ReactiveHealthContributorRegistry reactiveHealthContributorRegistry() {
+		ReactiveHealthContributorRegistry_RENAMED reactiveHealthContributorRegistry() {
 			return new DefaultReactiveHealthContributorRegistry();
 		}
 

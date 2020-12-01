@@ -22,7 +22,7 @@ import java.util.Collections;
 import org.junit.jupiter.api.Test;
 
 import org.springframework.boot.actuate.health.ReactiveHealthContributor;
-import org.springframework.boot.actuate.health.ReactiveHealthContributorRegistry;
+import org.springframework.boot.actuate.health.ReactiveHealthContributorRegistry_RENAMED;
 
 import static org.assertj.core.api.Assertions.assertThatIllegalStateException;
 import static org.mockito.Mockito.mock;
@@ -45,7 +45,7 @@ class AutoConfiguredReactiveHealthContributorRegistryTests {
 
 	@Test
 	void registerContributorWithGroupNameThrowsException() {
-		ReactiveHealthContributorRegistry registry = new AutoConfiguredReactiveHealthContributorRegistry(
+		ReactiveHealthContributorRegistry_RENAMED registry = new AutoConfiguredReactiveHealthContributorRegistry(
 				Collections.emptyMap(), Arrays.asList("spring", "boot"));
 		assertThatIllegalStateException()
 				.isThrownBy(() -> registry.registerContributor("spring", mock(ReactiveHealthContributor.class)))

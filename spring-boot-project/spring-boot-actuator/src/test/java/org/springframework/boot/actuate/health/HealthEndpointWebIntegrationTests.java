@@ -117,8 +117,8 @@ class HealthEndpointWebIntegrationTests {
 		HealthContributorRegistry healthContributorRegistry = getContributorRegistry(context,
 				HealthContributorRegistry.class);
 		healthContributorRegistry.registerContributor(name, healthContributor);
-		ReactiveHealthContributorRegistry reactiveHealthContributorRegistry = getContributorRegistry(context,
-				ReactiveHealthContributorRegistry.class);
+		ReactiveHealthContributorRegistry_RENAMED reactiveHealthContributorRegistry = getContributorRegistry(context,
+				ReactiveHealthContributorRegistry_RENAMED.class);
 		if (reactiveHealthContributorRegistry != null) {
 			reactiveHealthContributorRegistry.registerContributor(name, reactiveHealthContributor);
 		}
@@ -147,8 +147,8 @@ class HealthEndpointWebIntegrationTests {
 		HealthContributorRegistry healthContributorRegistry = getContributorRegistry(context,
 				HealthContributorRegistry.class);
 		HealthContributor bravo = healthContributorRegistry.unregisterContributor(name);
-		ReactiveHealthContributorRegistry reactiveHealthContributorRegistry = getContributorRegistry(context,
-				ReactiveHealthContributorRegistry.class);
+		ReactiveHealthContributorRegistry_RENAMED reactiveHealthContributorRegistry = getContributorRegistry(context,
+				ReactiveHealthContributorRegistry_RENAMED.class);
 		ReactiveHealthContributor reactiveBravo = (reactiveHealthContributorRegistry != null)
 				? reactiveHealthContributorRegistry.unregisterContributor(name) : null;
 		try {
@@ -174,7 +174,7 @@ class HealthEndpointWebIntegrationTests {
 
 		@Bean
 		@ConditionalOnWebApplication(type = Type.REACTIVE)
-		ReactiveHealthContributorRegistry reactiveHealthContributorRegistry(
+		ReactiveHealthContributorRegistry_RENAMED reactiveHealthContributorRegistry(
 				Map<String, HealthContributor> healthContributorBeans,
 				Map<String, ReactiveHealthContributor> reactiveHealthContributorBeans) {
 			Map<String, ReactiveHealthContributor> allIndicators = new LinkedHashMap<>(reactiveHealthContributorBeans);
@@ -199,7 +199,7 @@ class HealthEndpointWebIntegrationTests {
 		@Bean
 		@ConditionalOnWebApplication(type = Type.REACTIVE)
 		ReactiveHealthEndpointWebExtension reactiveHealthWebEndpointExtension(
-				ReactiveHealthContributorRegistry reactiveHealthContributorRegistry,
+				ReactiveHealthContributorRegistry_RENAMED reactiveHealthContributorRegistry,
 				HealthEndpointGroups healthEndpointGroups) {
 			return new ReactiveHealthEndpointWebExtension(reactiveHealthContributorRegistry, healthEndpointGroups);
 		}
