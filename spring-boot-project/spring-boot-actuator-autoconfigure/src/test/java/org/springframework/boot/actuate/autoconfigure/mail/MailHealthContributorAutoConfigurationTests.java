@@ -27,7 +27,7 @@ import org.springframework.boot.test.context.runner.ApplicationContextRunner;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Tests for {@link MailHealthContributorAutoConfiguration}.
+ * Tests for {@link MailHealthContributorAutoConfiguration_RENAMED}.
  *
  * @author Phillip Webb
  */
@@ -35,7 +35,7 @@ class MailHealthContributorAutoConfigurationTests {
 
 	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(MailSenderAutoConfiguration.class,
-					MailHealthContributorAutoConfiguration.class, HealthContributorAutoConfiguration.class))
+					MailHealthContributorAutoConfiguration_RENAMED.class, HealthContributorAutoConfiguration.class))
 			.withPropertyValues("spring.mail.host:smtp.example.com");
 
 	@Test
