@@ -40,7 +40,7 @@ import org.springframework.boot.actuate.metrics.web.servlet.DefaultWebMvcTagsPro
 import org.springframework.boot.actuate.metrics.web.servlet.LongTaskTimingHandlerInterceptor;
 import org.springframework.boot.actuate.metrics.web.servlet.WebMvcMetricsFilter;
 import org.springframework.boot.actuate.metrics.web.servlet.WebMvcTagsContributor;
-import org.springframework.boot.actuate.metrics.web.servlet.WebMvcTagsProvider;
+import org.springframework.boot.actuate.metrics.web.servlet.WebMvcTagsProvider_RENAMED;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
 import org.springframework.boot.autoconfigure.web.servlet.WebMvcAutoConfiguration;
 import org.springframework.boot.test.context.assertj.AssertableWebApplicationContext;
@@ -78,7 +78,7 @@ class WebMvcMetricsAutoConfigurationTests {
 	@Test
 	void backsOffWhenMeterRegistryIsMissing() {
 		new WebApplicationContextRunner().withConfiguration(AutoConfigurations.of(WebMvcMetricsAutoConfiguration.class))
-				.run((context) -> assertThat(context).doesNotHaveBean(WebMvcTagsProvider.class));
+				.run((context) -> assertThat(context).doesNotHaveBean(WebMvcTagsProvider_RENAMED.class));
 	}
 
 	@Test
@@ -233,7 +233,7 @@ class WebMvcMetricsAutoConfigurationTests {
 
 	}
 
-	private static final class TestWebMvcTagsProvider implements WebMvcTagsProvider {
+	private static final class TestWebMvcTagsProvider implements WebMvcTagsProvider_RENAMED {
 
 		@Override
 		public Iterable<Tag> getTags(HttpServletRequest request, HttpServletResponse response, Object handler,

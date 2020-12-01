@@ -48,7 +48,7 @@ public class LongTaskTimingHandlerInterceptor implements HandlerInterceptor {
 
 	private final MeterRegistry registry;
 
-	private final WebMvcTagsProvider tagsProvider;
+	private final WebMvcTagsProvider_RENAMED tagsProvider;
 
 	/**
 	 * Creates a new {@code LongTaskTimingHandlerInterceptor} that will create
@@ -57,7 +57,7 @@ public class LongTaskTimingHandlerInterceptor implements HandlerInterceptor {
 	 * @param registry the registry
 	 * @param tagsProvider the tags provider
 	 */
-	public LongTaskTimingHandlerInterceptor(MeterRegistry registry, WebMvcTagsProvider tagsProvider) {
+	public LongTaskTimingHandlerInterceptor(MeterRegistry registry, WebMvcTagsProvider_RENAMED tagsProvider) {
 		this.registry = registry;
 		this.tagsProvider = tagsProvider;
 	}

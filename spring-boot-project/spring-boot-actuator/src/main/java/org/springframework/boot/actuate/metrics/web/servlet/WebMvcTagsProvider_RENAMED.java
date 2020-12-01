@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2020 the original author or authors.
+ * Copyright 2012-2019 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,13 +23,13 @@ import io.micrometer.core.instrument.LongTaskTimer;
 import io.micrometer.core.instrument.Tag;
 
 /**
- * A contributor of {@link Tag Tags} for Spring MVC-based request handling. Typically used
- * by a {@link WebMvcTagsProvider_RENAMED} to provide tags in addition to its defaults.
+ * Provides {@link Tag Tags} for Spring MVC-based request handling.
  *
+ * @author Jon Schneider
  * @author Andy Wilkinson
- * @since 2.3.0
+ * @since 2.0.0
  */
-public interface WebMvcTagsContributor {
+public interface WebMvcTagsProvider_RENAMED {
 
 	/**
 	 * Provides tags to be associated with metrics for the given {@code request} and

@@ -34,7 +34,7 @@ import org.springframework.boot.actuate.metrics.web.servlet.DefaultWebMvcTagsPro
 import org.springframework.boot.actuate.metrics.web.servlet.LongTaskTimingHandlerInterceptor;
 import org.springframework.boot.actuate.metrics.web.servlet.WebMvcMetricsFilter;
 import org.springframework.boot.actuate.metrics.web.servlet.WebMvcTagsContributor;
-import org.springframework.boot.actuate.metrics.web.servlet.WebMvcTagsProvider;
+import org.springframework.boot.actuate.metrics.web.servlet.WebMvcTagsProvider_RENAMED;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
@@ -75,7 +75,7 @@ public class WebMvcMetricsAutoConfiguration {
 	}
 
 	@Bean
-	@ConditionalOnMissingBean(WebMvcTagsProvider.class)
+	@ConditionalOnMissingBean(WebMvcTagsProvider_RENAMED.class)
 	public DefaultWebMvcTagsProvider webMvcTagsProvider(ObjectProvider<WebMvcTagsContributor> contributors) {
 		return new DefaultWebMvcTagsProvider(this.properties.getWeb().getServer().getRequest().isIgnoreTrailingSlash(),
 				contributors.orderedStream().collect(Collectors.toList()));
@@ -83,7 +83,7 @@ public class WebMvcMetricsAutoConfiguration {
 
 	@Bean
 	public FilterRegistrationBean<WebMvcMetricsFilter> webMvcMetricsFilter(MeterRegistry registry,
-			WebMvcTagsProvider tagsProvider) {
+			WebMvcTagsProvider_RENAMED tagsProvider) {
 		ServerRequest request = this.properties.getWeb().getServer().getRequest();
 		WebMvcMetricsFilter filter = new WebMvcMetricsFilter(registry, tagsProvider, request.getMetricName(),
 				request.getAutotime());
@@ -105,7 +105,7 @@ public class WebMvcMetricsAutoConfiguration {
 
 	@Bean
 	public MetricsWebMvcConfigurer metricsWebMvcConfigurer(MeterRegistry meterRegistry,
-			WebMvcTagsProvider tagsProvider) {
+			WebMvcTagsProvider_RENAMED tagsProvider) {
 		return new MetricsWebMvcConfigurer(meterRegistry, tagsProvider);
 	}
 
@@ -116,9 +116,9 @@ public class WebMvcMetricsAutoConfiguration {
 
 		private final MeterRegistry meterRegistry;
 
-		private final WebMvcTagsProvider tagsProvider;
+		private final WebMvcTagsProvider_RENAMED tagsProvider;
 
-		MetricsWebMvcConfigurer(MeterRegistry meterRegistry, WebMvcTagsProvider tagsProvider) {
+		MetricsWebMvcConfigurer(MeterRegistry meterRegistry, WebMvcTagsProvider_RENAMED tagsProvider) {
 			this.meterRegistry = meterRegistry;
 			this.tagsProvider = tagsProvider;
 		}

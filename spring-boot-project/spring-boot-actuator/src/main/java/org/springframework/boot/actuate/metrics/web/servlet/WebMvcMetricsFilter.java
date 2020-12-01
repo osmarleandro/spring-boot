@@ -55,7 +55,7 @@ public class WebMvcMetricsFilter extends OncePerRequestFilter {
 
 	private final MeterRegistry registry;
 
-	private final WebMvcTagsProvider tagsProvider;
+	private final WebMvcTagsProvider_RENAMED tagsProvider;
 
 	private final String metricName;
 
@@ -69,7 +69,7 @@ public class WebMvcMetricsFilter extends OncePerRequestFilter {
 	 * @param autoTimer the auto-timers to apply or {@code null} to disable auto-timing
 	 * @since 2.2.0
 	 */
-	public WebMvcMetricsFilter(MeterRegistry registry, WebMvcTagsProvider tagsProvider, String metricName,
+	public WebMvcMetricsFilter(MeterRegistry registry, WebMvcTagsProvider_RENAMED tagsProvider, String metricName,
 			AutoTimer autoTimer) {
 		this.registry = registry;
 		this.tagsProvider = tagsProvider;
