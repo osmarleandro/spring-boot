@@ -17,7 +17,7 @@ package org.springframework.boot.actuate.autoconfigure.cloudfoundry.servlet;
 
 import java.util.Map;
 
-import org.springframework.boot.actuate.autoconfigure.cloudfoundry.EndpointCloudFoundryExtension;
+import org.springframework.boot.actuate.autoconfigure.cloudfoundry.EndpointCloudFoundryExtension_RENAMED;
 import org.springframework.boot.actuate.endpoint.annotation.EndpointExtension;
 import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
 import org.springframework.boot.actuate.info.InfoEndpoint;
@@ -29,7 +29,7 @@ import org.springframework.boot.actuate.info.InfoEndpoint;
  * @author Madhura Bhave
  * @since 2.2.0
  */
-@EndpointCloudFoundryExtension(endpoint = InfoEndpoint.class)
+@EndpointCloudFoundryExtension_RENAMED(endpoint = InfoEndpoint.class)
 public class CloudFoundryInfoEndpointWebExtension {
 
 	private final InfoEndpoint delegate;

@@ -72,7 +72,7 @@ public class CloudFoundryWebEndpointDiscoverer extends WebEndpointDiscoverer {
 	}
 
 	private boolean isCloudFoundryHealthEndpointExtension(Class<?> extensionBeanType) {
-		return MergedAnnotations.from(extensionBeanType).isPresent(EndpointCloudFoundryExtension.class);
+		return MergedAnnotations.from(extensionBeanType).isPresent(EndpointCloudFoundryExtension_RENAMED.class);
 	}
 
 }

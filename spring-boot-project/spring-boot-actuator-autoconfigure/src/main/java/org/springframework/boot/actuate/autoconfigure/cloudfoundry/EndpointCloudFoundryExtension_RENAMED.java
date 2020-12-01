@@ -37,7 +37,7 @@ import org.springframework.boot.actuate.endpoint.annotation.EndpointExtension;
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @EndpointExtension(filter = CloudFoundryEndpointFilter.class)
-public @interface EndpointCloudFoundryExtension {
+public @interface EndpointCloudFoundryExtension_RENAMED {
 
 	/**
 	 * The class of the endpoint to provide a Cloud Foundry specific extension for.
