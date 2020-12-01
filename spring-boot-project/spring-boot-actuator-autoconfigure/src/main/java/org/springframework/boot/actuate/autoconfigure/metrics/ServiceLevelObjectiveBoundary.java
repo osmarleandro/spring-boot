@@ -31,9 +31,9 @@ import io.micrometer.core.instrument.Meter;
  */
 public final class ServiceLevelObjectiveBoundary {
 
-	private final MeterValue value;
+	private final MeterValue_RENAMED value;
 
-	ServiceLevelObjectiveBoundary(MeterValue value) {
+	ServiceLevelObjectiveBoundary(MeterValue_RENAMED value) {
 		this.value = value;
 	}
 
@@ -54,7 +54,7 @@ public final class ServiceLevelObjectiveBoundary {
 	 * @return a {@link ServiceLevelObjectiveBoundary} instance
 	 */
 	public static ServiceLevelObjectiveBoundary valueOf(double value) {
-		return new ServiceLevelObjectiveBoundary(MeterValue.valueOf(value));
+		return new ServiceLevelObjectiveBoundary(MeterValue_RENAMED.valueOf(value));
 	}
 
 	/**
@@ -64,7 +64,7 @@ public final class ServiceLevelObjectiveBoundary {
 	 * @return a {@link ServiceLevelObjectiveBoundary} instance
 	 */
 	public static ServiceLevelObjectiveBoundary valueOf(String value) {
-		return new ServiceLevelObjectiveBoundary(MeterValue.valueOf(value));
+		return new ServiceLevelObjectiveBoundary(MeterValue_RENAMED.valueOf(value));
 	}
 
 }

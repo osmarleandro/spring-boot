@@ -32,15 +32,15 @@ import org.springframework.boot.convert.DurationStyle;
  * @author Stephane Nicoll
  * @since 2.2.0
  */
-public final class MeterValue {
+public final class MeterValue_RENAMED {
 
 	private final Object value;
 
-	MeterValue(double value) {
+	MeterValue_RENAMED(double value) {
 		this.value = value;
 	}
 
-	MeterValue(Duration value) {
+	MeterValue_RENAMED(Duration value) {
 		this.value = value;
 	}
 
@@ -80,37 +80,37 @@ public final class MeterValue {
 	}
 
 	/**
-	 * Return a new {@link MeterValue} instance for the given String value. The value may
+	 * Return a new {@link MeterValue_RENAMED} instance for the given String value. The value may
 	 * contain a simple number, or a {@link DurationStyle duration style string}.
 	 * @param value the source value
-	 * @return a {@link MeterValue} instance
+	 * @return a {@link MeterValue_RENAMED} instance
 	 */
-	public static MeterValue valueOf(String value) {
+	public static MeterValue_RENAMED valueOf(String value) {
 		Double number = safeParseDouble(value);
 		if (number != null) {
-			return new MeterValue(number);
+			return new MeterValue_RENAMED(number);
 		}
-		return new MeterValue(DurationStyle.detectAndParse(value));
+		return new MeterValue_RENAMED(DurationStyle.detectAndParse(value));
 	}
 
 	/**
-	 * Return a new {@link MeterValue} instance for the given long value.
+	 * Return a new {@link MeterValue_RENAMED} instance for the given long value.
 	 * @param value the source value
-	 * @return a {@link MeterValue} instance
+	 * @return a {@link MeterValue_RENAMED} instance
 	 * @deprecated as of 2.3.0 in favor of {@link #valueOf(double)}
 	 */
 	@Deprecated
-	public static MeterValue valueOf(long value) {
-		return new MeterValue(value);
+	public static MeterValue_RENAMED valueOf(long value) {
+		return new MeterValue_RENAMED(value);
 	}
 
 	/**
-	 * Return a new {@link MeterValue} instance for the given double value.
+	 * Return a new {@link MeterValue_RENAMED} instance for the given double value.
 	 * @param value the source value
-	 * @return a {@link MeterValue} instance
+	 * @return a {@link MeterValue_RENAMED} instance
 	 */
-	public static MeterValue valueOf(double value) {
-		return new MeterValue(value);
+	public static MeterValue_RENAMED valueOf(double value) {
+		return new MeterValue_RENAMED(value);
 	}
 
 	private static Double safeParseDouble(String value) {
