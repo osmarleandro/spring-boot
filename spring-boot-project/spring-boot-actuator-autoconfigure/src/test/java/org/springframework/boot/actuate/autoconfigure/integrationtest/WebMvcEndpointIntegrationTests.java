@@ -32,7 +32,7 @@ import org.springframework.boot.actuate.autoconfigure.web.servlet.ServletManagem
 import org.springframework.boot.actuate.endpoint.web.EndpointServlet;
 import org.springframework.boot.actuate.endpoint.web.annotation.ControllerEndpoint;
 import org.springframework.boot.actuate.endpoint.web.annotation.RestControllerEndpoint;
-import org.springframework.boot.actuate.endpoint.web.annotation.ServletEndpoint;
+import org.springframework.boot.actuate.endpoint.web.annotation.ServletEndpoint_RENAMED;
 import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
 import org.springframework.boot.autoconfigure.context.PropertyPlaceholderAutoConfiguration;
 import org.springframework.boot.autoconfigure.data.rest.RepositoryRestMvcAutoConfiguration;
@@ -161,7 +161,7 @@ class WebMvcEndpointIntegrationTests {
 
 	}
 
-	@ServletEndpoint(id = "servlet")
+	@ServletEndpoint_RENAMED(id = "servlet")
 	static class TestServletEndpoint implements Supplier<EndpointServlet> {
 
 		@Override

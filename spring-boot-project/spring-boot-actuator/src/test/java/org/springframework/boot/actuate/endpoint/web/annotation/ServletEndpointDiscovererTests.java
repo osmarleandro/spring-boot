@@ -150,7 +150,7 @@ class ServletEndpointDiscovererTests {
 
 	}
 
-	@ServletEndpoint(id = "testservlet")
+	@ServletEndpoint_RENAMED(id = "testservlet")
 	static class TestServletEndpoint implements Supplier<EndpointServlet> {
 
 		@Override
@@ -160,7 +160,7 @@ class ServletEndpointDiscovererTests {
 
 	}
 
-	@ServletEndpoint(id = "testservlet")
+	@ServletEndpoint_RENAMED(id = "testservlet")
 	@Validated
 	static class TestProxyServletEndpoint implements Supplier<EndpointServlet> {
 
@@ -176,7 +176,7 @@ class ServletEndpointDiscovererTests {
 
 	}
 
-	@ServletEndpoint(id = "testservlet")
+	@ServletEndpoint_RENAMED(id = "testservlet")
 	static class TestServletEndpointWithOperation implements Supplier<EndpointServlet> {
 
 		@Override
@@ -199,12 +199,12 @@ class ServletEndpointDiscovererTests {
 
 	}
 
-	@ServletEndpoint(id = "testservlet")
+	@ServletEndpoint_RENAMED(id = "testservlet")
 	static class TestServletEndpointNotASupplier {
 
 	}
 
-	@ServletEndpoint(id = "testservlet")
+	@ServletEndpoint_RENAMED(id = "testservlet")
 	static class TestServletEndpointSupplierOfWrongType implements Supplier<String> {
 
 		@Override
@@ -214,7 +214,7 @@ class ServletEndpointDiscovererTests {
 
 	}
 
-	@ServletEndpoint(id = "testservlet")
+	@ServletEndpoint_RENAMED(id = "testservlet")
 	static class TestServletEndpointSupplierOfNull implements Supplier<EndpointServlet> {
 
 		@Override

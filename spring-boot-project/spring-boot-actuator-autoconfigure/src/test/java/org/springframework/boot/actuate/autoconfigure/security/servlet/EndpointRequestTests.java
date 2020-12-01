@@ -31,7 +31,7 @@ import org.springframework.boot.actuate.endpoint.Operation;
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
 import org.springframework.boot.actuate.endpoint.web.PathMappedEndpoint;
 import org.springframework.boot.actuate.endpoint.web.PathMappedEndpoints;
-import org.springframework.boot.actuate.endpoint.web.annotation.ServletEndpoint;
+import org.springframework.boot.actuate.endpoint.web.annotation.ServletEndpoint_RENAMED;
 import org.springframework.boot.autoconfigure.security.servlet.RequestMatcherProvider;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockServletContext;
@@ -311,7 +311,7 @@ class EndpointRequestTests {
 
 	}
 
-	@ServletEndpoint(id = "baz")
+	@ServletEndpoint_RENAMED(id = "baz")
 	static class BazServletEndpoint {
 
 	}

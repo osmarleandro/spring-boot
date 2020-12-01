@@ -27,7 +27,7 @@ import org.springframework.boot.actuate.autoconfigure.web.server.ManagementConte
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
 import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
 import org.springframework.boot.actuate.endpoint.web.EndpointServlet;
-import org.springframework.boot.actuate.endpoint.web.annotation.ServletEndpoint;
+import org.springframework.boot.actuate.endpoint.web.annotation.ServletEndpoint_RENAMED;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
 import org.springframework.boot.autoconfigure.jackson.JacksonAutoConfiguration;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
@@ -151,7 +151,7 @@ abstract class AbstractEndpointRequestIntegrationTests {
 
 	}
 
-	@ServletEndpoint(id = "se1")
+	@ServletEndpoint_RENAMED(id = "se1")
 	static class TestServletEndpoint implements Supplier<EndpointServlet> {
 
 		@Override

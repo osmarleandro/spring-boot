@@ -58,7 +58,7 @@ public class ServletEndpointDiscoverer extends EndpointDiscoverer<ExposableServl
 
 	@Override
 	protected boolean isEndpointTypeExposed(Class<?> beanType) {
-		return MergedAnnotations.from(beanType, SearchStrategy.SUPERCLASS).isPresent(ServletEndpoint.class);
+		return MergedAnnotations.from(beanType, SearchStrategy.SUPERCLASS).isPresent(ServletEndpoint_RENAMED.class);
 	}
 
 	@Override
