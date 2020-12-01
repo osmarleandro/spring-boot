@@ -54,7 +54,7 @@ import static org.mockito.Mockito.verify;
  * @author Madhura Bhave
  */
 @ExtendWith(MockitoExtension.class)
-class TokenValidatorTests {
+class TokenValidatorTests_RENAMED {
 
 	private static final byte[] DOT = ".".getBytes();
 
