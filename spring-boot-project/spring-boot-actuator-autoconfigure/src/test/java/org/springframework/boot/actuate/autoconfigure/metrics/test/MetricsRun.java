@@ -25,7 +25,7 @@ import org.springframework.boot.actuate.autoconfigure.metrics.CompositeMeterRegi
 import org.springframework.boot.actuate.autoconfigure.metrics.MetricsAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.metrics.export.atlas.AtlasMetricsExportAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.metrics.export.datadog.DatadogMetricsExportAutoConfiguration;
-import org.springframework.boot.actuate.autoconfigure.metrics.export.ganglia.GangliaMetricsExportAutoConfiguration;
+import org.springframework.boot.actuate.autoconfigure.metrics.export.ganglia.GangliaMetricsExportAutoConfiguration_RENAMED;
 import org.springframework.boot.actuate.autoconfigure.metrics.export.graphite.GraphiteMetricsExportAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.metrics.export.influx.InfluxMetricsExportAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.metrics.export.jmx.JmxMetricsExportAutoConfiguration;
@@ -54,7 +54,7 @@ public final class MetricsRun {
 		Set<Class<?>> implementations = new LinkedHashSet<>();
 		implementations.add(AtlasMetricsExportAutoConfiguration.class);
 		implementations.add(DatadogMetricsExportAutoConfiguration.class);
-		implementations.add(GangliaMetricsExportAutoConfiguration.class);
+		implementations.add(GangliaMetricsExportAutoConfiguration_RENAMED.class);
 		implementations.add(GraphiteMetricsExportAutoConfiguration.class);
 		implementations.add(InfluxMetricsExportAutoConfiguration.class);
 		implementations.add(JmxMetricsExportAutoConfiguration.class);
