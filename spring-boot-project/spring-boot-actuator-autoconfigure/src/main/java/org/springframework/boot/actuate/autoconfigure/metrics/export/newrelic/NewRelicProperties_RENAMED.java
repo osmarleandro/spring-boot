@@ -32,7 +32,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  * @since 2.0.0
  */
 @ConfigurationProperties(prefix = "management.metrics.export.newrelic")
-public class NewRelicProperties extends StepRegistryProperties {
+public class NewRelicProperties_RENAMED extends StepRegistryProperties {
 
 	/**
 	 * Whether to send the meter name as the event type instead of using the 'event-type'

@@ -22,16 +22,16 @@ import io.micrometer.newrelic.NewRelicConfig;
 import org.springframework.boot.actuate.autoconfigure.metrics.export.properties.StepRegistryPropertiesConfigAdapter;
 
 /**
- * Adapter to convert {@link NewRelicProperties} to a {@link NewRelicConfig}.
+ * Adapter to convert {@link NewRelicProperties_RENAMED} to a {@link NewRelicConfig}.
  *
  * @author Jon Schneider
  * @author Neil Powell
  * @since 2.0.0
  */
-public class NewRelicPropertiesConfigAdapter extends StepRegistryPropertiesConfigAdapter<NewRelicProperties>
+public class NewRelicPropertiesConfigAdapter extends StepRegistryPropertiesConfigAdapter<NewRelicProperties_RENAMED>
 		implements NewRelicConfig {
 
-	public NewRelicPropertiesConfigAdapter(NewRelicProperties properties) {
+	public NewRelicPropertiesConfigAdapter(NewRelicProperties_RENAMED properties) {
 		super(properties);
 	}
 
@@ -42,32 +42,32 @@ public class NewRelicPropertiesConfigAdapter extends StepRegistryPropertiesConfi
 
 	@Override
 	public boolean meterNameEventTypeEnabled() {
-		return get(NewRelicProperties::isMeterNameEventTypeEnabled, NewRelicConfig.super::meterNameEventTypeEnabled);
+		return get(NewRelicProperties_RENAMED::isMeterNameEventTypeEnabled, NewRelicConfig.super::meterNameEventTypeEnabled);
 	}
 
 	@Override
 	public String eventType() {
-		return get(NewRelicProperties::getEventType, NewRelicConfig.super::eventType);
+		return get(NewRelicProperties_RENAMED::getEventType, NewRelicConfig.super::eventType);
 	}
 
 	@Override
 	public ClientProviderType clientProviderType() {
-		return get(NewRelicProperties::getClientProviderType, NewRelicConfig.super::clientProviderType);
+		return get(NewRelicProperties_RENAMED::getClientProviderType, NewRelicConfig.super::clientProviderType);
 	}
 
 	@Override
 	public String apiKey() {
-		return get(NewRelicProperties::getApiKey, NewRelicConfig.super::apiKey);
+		return get(NewRelicProperties_RENAMED::getApiKey, NewRelicConfig.super::apiKey);
 	}
 
 	@Override
 	public String accountId() {
-		return get(NewRelicProperties::getAccountId, NewRelicConfig.super::accountId);
+		return get(NewRelicProperties_RENAMED::getAccountId, NewRelicConfig.super::accountId);
 	}
 
 	@Override
 	public String uri() {
-		return get(NewRelicProperties::getUri, NewRelicConfig.super::uri);
+		return get(NewRelicProperties_RENAMED::getUri, NewRelicConfig.super::uri);
 	}
 
 }

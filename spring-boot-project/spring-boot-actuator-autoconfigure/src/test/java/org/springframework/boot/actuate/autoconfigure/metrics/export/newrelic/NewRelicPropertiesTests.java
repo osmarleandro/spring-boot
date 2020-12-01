@@ -24,7 +24,7 @@ import org.springframework.boot.actuate.autoconfigure.metrics.export.properties.
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Tests for {@link NewRelicProperties}.
+ * Tests for {@link NewRelicProperties_RENAMED}.
  *
  * @author Stephane Nicoll
  */
@@ -32,7 +32,7 @@ class NewRelicPropertiesTests extends StepRegistryPropertiesTests {
 
 	@Test
 	void defaultValuesAreConsistent() {
-		NewRelicProperties properties = new NewRelicProperties();
+		NewRelicProperties_RENAMED properties = new NewRelicProperties_RENAMED();
 		NewRelicConfig config = (key) -> null;
 		assertStepRegistryDefaultValues(properties, config);
 		assertThat(properties.getClientProviderType()).isEqualTo(config.clientProviderType());
@@ -43,7 +43,7 @@ class NewRelicPropertiesTests extends StepRegistryPropertiesTests {
 
 	@Test
 	void eventTypeDefaultValueIsOverridden() {
-		NewRelicProperties properties = new NewRelicProperties();
+		NewRelicProperties_RENAMED properties = new NewRelicProperties_RENAMED();
 		NewRelicConfig config = (key) -> null;
 		assertThat(properties.getEventType()).isNotEqualTo(config.eventType());
 		assertThat(properties.getEventType()).isEqualTo("SpringBootSample");

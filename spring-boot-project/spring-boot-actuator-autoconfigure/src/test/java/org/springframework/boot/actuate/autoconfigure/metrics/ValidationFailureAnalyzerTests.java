@@ -20,7 +20,7 @@ import io.micrometer.core.instrument.Clock;
 import io.micrometer.newrelic.NewRelicMeterRegistry;
 import org.junit.jupiter.api.Test;
 
-import org.springframework.boot.actuate.autoconfigure.metrics.export.newrelic.NewRelicProperties;
+import org.springframework.boot.actuate.autoconfigure.metrics.export.newrelic.NewRelicProperties_RENAMED;
 import org.springframework.boot.actuate.autoconfigure.metrics.export.newrelic.NewRelicPropertiesConfigAdapter;
 import org.springframework.boot.diagnostics.FailureAnalysis;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -61,11 +61,11 @@ class ValidationFailureAnalyzerTests {
 	}
 
 	@Configuration(proxyBeanMethods = false)
-	@Import(NewRelicProperties.class)
+	@Import(NewRelicProperties_RENAMED.class)
 	static class MissingAccountIdAndApiKeyConfiguration {
 
 		@Bean
-		NewRelicMeterRegistry meterRegistry(NewRelicProperties newRelicProperties) {
+		NewRelicMeterRegistry meterRegistry(NewRelicProperties_RENAMED newRelicProperties) {
 			return new NewRelicMeterRegistry(new NewRelicPropertiesConfigAdapter(newRelicProperties), Clock.SYSTEM);
 		}
 
