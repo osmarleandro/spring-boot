@@ -37,7 +37,7 @@ import org.springframework.web.util.UriTemplateHandler;
  */
 public class MetricsRestTemplateCustomizer implements RestTemplateCustomizer {
 
-	private final MetricsClientHttpRequestInterceptor interceptor;
+	private final MetricsClientHttpRequestInterceptor_RENAMED interceptor;
 
 	/**
 	 * Creates a new {@code MetricsRestTemplateInterceptor}. When {@code autoTimeRequests}
@@ -52,7 +52,7 @@ public class MetricsRestTemplateCustomizer implements RestTemplateCustomizer {
 	 */
 	public MetricsRestTemplateCustomizer(MeterRegistry meterRegistry, RestTemplateExchangeTagsProvider tagProvider,
 			String metricName, AutoTimer autoTimer) {
-		this.interceptor = new MetricsClientHttpRequestInterceptor(meterRegistry, tagProvider, metricName, autoTimer);
+		this.interceptor = new MetricsClientHttpRequestInterceptor_RENAMED(meterRegistry, tagProvider, metricName, autoTimer);
 	}
 
 	@Override
