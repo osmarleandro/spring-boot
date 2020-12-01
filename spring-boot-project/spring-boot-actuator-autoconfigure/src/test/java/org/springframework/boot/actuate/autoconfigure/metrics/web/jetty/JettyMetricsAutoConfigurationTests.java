@@ -21,7 +21,7 @@ import io.micrometer.core.instrument.simple.SimpleMeterRegistry;
 import org.junit.jupiter.api.Test;
 
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.actuate.metrics.web.jetty.JettyServerThreadPoolMetricsBinder;
+import org.springframework.boot.actuate.metrics.web.jetty.JettyServerThreadPoolMetricsBinder_RENAMED;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
 import org.springframework.boot.autoconfigure.web.reactive.ReactiveWebServerFactoryAutoConfiguration;
 import org.springframework.boot.autoconfigure.web.servlet.ServletWebServerFactoryAutoConfiguration;
@@ -55,7 +55,7 @@ class JettyMetricsAutoConfigurationTests {
 				.run((context) -> {
 					context.publishEvent(new ApplicationStartedEvent(new SpringApplication(), null,
 							context.getSourceApplicationContext()));
-					assertThat(context).hasSingleBean(JettyServerThreadPoolMetricsBinder.class);
+					assertThat(context).hasSingleBean(JettyServerThreadPoolMetricsBinder_RENAMED.class);
 					SimpleMeterRegistry registry = context.getBean(SimpleMeterRegistry.class);
 					assertThat(registry.find("jetty.threads.config.min").meter()).isNotNull();
 				});
@@ -79,7 +79,7 @@ class JettyMetricsAutoConfigurationTests {
 	void allowsCustomJettyServerThreadPoolMetricsBinderToBeUsed() {
 		new WebApplicationContextRunner().withConfiguration(AutoConfigurations.of(JettyMetricsAutoConfiguration.class))
 				.withUserConfiguration(CustomJettyServerThreadPoolMetricsBinder.class, MeterRegistryConfiguration.class)
-				.run((context) -> assertThat(context).hasSingleBean(JettyServerThreadPoolMetricsBinder.class)
+				.run((context) -> assertThat(context).hasSingleBean(JettyServerThreadPoolMetricsBinder_RENAMED.class)
 						.hasBean("customJettyServerThreadPoolMetricsBinder"));
 	}
 
@@ -122,8 +122,8 @@ class JettyMetricsAutoConfigurationTests {
 	static class CustomJettyServerThreadPoolMetricsBinder {
 
 		@Bean
-		JettyServerThreadPoolMetricsBinder customJettyServerThreadPoolMetricsBinder(MeterRegistry meterRegistry) {
-			return new JettyServerThreadPoolMetricsBinder(meterRegistry);
+		JettyServerThreadPoolMetricsBinder_RENAMED customJettyServerThreadPoolMetricsBinder(MeterRegistry meterRegistry) {
+			return new JettyServerThreadPoolMetricsBinder_RENAMED(meterRegistry);
 		}
 
 	}

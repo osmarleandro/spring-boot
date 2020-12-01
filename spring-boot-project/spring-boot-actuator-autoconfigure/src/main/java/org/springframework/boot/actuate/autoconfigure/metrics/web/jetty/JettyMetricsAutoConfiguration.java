@@ -21,7 +21,7 @@ import io.micrometer.core.instrument.binder.jetty.JettyServerThreadPoolMetrics;
 import org.eclipse.jetty.server.Server;
 
 import org.springframework.boot.actuate.autoconfigure.metrics.CompositeMeterRegistryAutoConfiguration;
-import org.springframework.boot.actuate.metrics.web.jetty.JettyServerThreadPoolMetricsBinder;
+import org.springframework.boot.actuate.metrics.web.jetty.JettyServerThreadPoolMetricsBinder_RENAMED;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
@@ -45,9 +45,9 @@ public class JettyMetricsAutoConfiguration {
 
 	@Bean
 	@ConditionalOnBean(MeterRegistry.class)
-	@ConditionalOnMissingBean({ JettyServerThreadPoolMetrics.class, JettyServerThreadPoolMetricsBinder.class })
-	public JettyServerThreadPoolMetricsBinder jettyServerThreadPoolMetricsBinder(MeterRegistry meterRegistry) {
-		return new JettyServerThreadPoolMetricsBinder(meterRegistry);
+	@ConditionalOnMissingBean({ JettyServerThreadPoolMetrics.class, JettyServerThreadPoolMetricsBinder_RENAMED.class })
+	public JettyServerThreadPoolMetricsBinder_RENAMED jettyServerThreadPoolMetricsBinder(MeterRegistry meterRegistry) {
+		return new JettyServerThreadPoolMetricsBinder_RENAMED(meterRegistry);
 	}
 
 }
