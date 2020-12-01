@@ -27,19 +27,19 @@ import org.springframework.boot.actuate.endpoint.annotation.DiscoveredOperationM
 import org.springframework.boot.actuate.endpoint.annotation.EndpointDiscoverer;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvoker;
 import org.springframework.boot.actuate.endpoint.invoke.ParameterValueMapper;
-import org.springframework.boot.actuate.endpoint.web.ExposableServletEndpoint;
+import org.springframework.boot.actuate.endpoint.web.ExposableServletEndpoint_RENAMED;
 import org.springframework.boot.actuate.endpoint.web.PathMapper;
 import org.springframework.context.ApplicationContext;
 import org.springframework.core.annotation.MergedAnnotations;
 import org.springframework.core.annotation.MergedAnnotations.SearchStrategy;
 
 /**
- * {@link EndpointDiscoverer} for {@link ExposableServletEndpoint servlet endpoints}.
+ * {@link EndpointDiscoverer} for {@link ExposableServletEndpoint_RENAMED servlet endpoints}.
  *
  * @author Phillip Webb
  * @since 2.0.0
  */
-public class ServletEndpointDiscoverer extends EndpointDiscoverer<ExposableServletEndpoint, Operation>
+public class ServletEndpointDiscoverer extends EndpointDiscoverer<ExposableServletEndpoint_RENAMED, Operation>
 		implements ServletEndpointsSupplier {
 
 	private final List<PathMapper> endpointPathMappers;
@@ -51,7 +51,7 @@ public class ServletEndpointDiscoverer extends EndpointDiscoverer<ExposableServl
 	 * @param filters filters to apply
 	 */
 	public ServletEndpointDiscoverer(ApplicationContext applicationContext, List<PathMapper> endpointPathMappers,
-			Collection<EndpointFilter<ExposableServletEndpoint>> filters) {
+			Collection<EndpointFilter<ExposableServletEndpoint_RENAMED>> filters) {
 		super(applicationContext, ParameterValueMapper.NONE, Collections.emptyList(), filters);
 		this.endpointPathMappers = endpointPathMappers;
 	}
@@ -62,7 +62,7 @@ public class ServletEndpointDiscoverer extends EndpointDiscoverer<ExposableServl
 	}
 
 	@Override
-	protected ExposableServletEndpoint createEndpoint(Object endpointBean, EndpointId id, boolean enabledByDefault,
+	protected ExposableServletEndpoint_RENAMED createEndpoint(Object endpointBean, EndpointId id, boolean enabledByDefault,
 			Collection<Operation> operations) {
 		String rootPath = PathMapper.getRootPath(this.endpointPathMappers, id);
 		return new DiscoveredServletEndpoint(this, endpointBean, id, rootPath, enabledByDefault);

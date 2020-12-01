@@ -30,7 +30,7 @@ import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
 
 /**
- * {@link ServletContextInitializer} to register {@link ExposableServletEndpoint servlet
+ * {@link ServletContextInitializer} to register {@link ExposableServletEndpoint_RENAMED servlet
  * endpoints}.
  *
  * @author Phillip Webb
@@ -43,9 +43,9 @@ public class ServletEndpointRegistrar implements ServletContextInitializer {
 
 	private final String basePath;
 
-	private final Collection<ExposableServletEndpoint> servletEndpoints;
+	private final Collection<ExposableServletEndpoint_RENAMED> servletEndpoints;
 
-	public ServletEndpointRegistrar(String basePath, Collection<ExposableServletEndpoint> servletEndpoints) {
+	public ServletEndpointRegistrar(String basePath, Collection<ExposableServletEndpoint_RENAMED> servletEndpoints) {
 		Assert.notNull(servletEndpoints, "ServletEndpoints must not be null");
 		this.basePath = cleanBasePath(basePath);
 		this.servletEndpoints = servletEndpoints;
@@ -63,7 +63,7 @@ public class ServletEndpointRegistrar implements ServletContextInitializer {
 		this.servletEndpoints.forEach((servletEndpoint) -> register(servletContext, servletEndpoint));
 	}
 
-	private void register(ServletContext servletContext, ExposableServletEndpoint endpoint) {
+	private void register(ServletContext servletContext, ExposableServletEndpoint_RENAMED endpoint) {
 		String name = endpoint.getEndpointId().toLowerCaseString() + "-actuator-endpoint";
 		String path = this.basePath + "/" + endpoint.getRootPath();
 		String urlMapping = path.endsWith("/") ? path + "*" : path + "/*";

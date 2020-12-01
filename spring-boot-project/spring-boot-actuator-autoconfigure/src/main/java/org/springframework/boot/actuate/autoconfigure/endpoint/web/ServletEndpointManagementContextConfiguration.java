@@ -20,7 +20,7 @@ import org.glassfish.jersey.server.ResourceConfig;
 
 import org.springframework.boot.actuate.autoconfigure.endpoint.expose.IncludeExcludeEndpointFilter;
 import org.springframework.boot.actuate.autoconfigure.web.ManagementContextConfiguration;
-import org.springframework.boot.actuate.endpoint.web.ExposableServletEndpoint;
+import org.springframework.boot.actuate.endpoint.web.ExposableServletEndpoint_RENAMED;
 import org.springframework.boot.actuate.endpoint.web.ServletEndpointRegistrar;
 import org.springframework.boot.actuate.endpoint.web.annotation.ServletEndpointsSupplier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
@@ -47,10 +47,10 @@ import org.springframework.web.servlet.DispatcherServlet;
 public class ServletEndpointManagementContextConfiguration {
 
 	@Bean
-	public IncludeExcludeEndpointFilter<ExposableServletEndpoint> servletExposeExcludePropertyEndpointFilter(
+	public IncludeExcludeEndpointFilter<ExposableServletEndpoint_RENAMED> servletExposeExcludePropertyEndpointFilter(
 			WebEndpointProperties properties) {
 		WebEndpointProperties.Exposure exposure = properties.getExposure();
-		return new IncludeExcludeEndpointFilter<>(ExposableServletEndpoint.class, exposure.getInclude(),
+		return new IncludeExcludeEndpointFilter<>(ExposableServletEndpoint_RENAMED.class, exposure.getInclude(),
 				exposure.getExclude());
 	}
 

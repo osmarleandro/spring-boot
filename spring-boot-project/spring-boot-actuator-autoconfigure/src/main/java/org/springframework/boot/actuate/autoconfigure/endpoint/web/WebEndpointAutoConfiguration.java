@@ -30,7 +30,7 @@ import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvokerAdvisor;
 import org.springframework.boot.actuate.endpoint.invoke.ParameterValueMapper;
 import org.springframework.boot.actuate.endpoint.web.EndpointMediaTypes;
-import org.springframework.boot.actuate.endpoint.web.ExposableServletEndpoint;
+import org.springframework.boot.actuate.endpoint.web.ExposableServletEndpoint_RENAMED;
 import org.springframework.boot.actuate.endpoint.web.ExposableWebEndpoint;
 import org.springframework.boot.actuate.endpoint.web.PathMappedEndpoints;
 import org.springframework.boot.actuate.endpoint.web.PathMapper;
@@ -134,7 +134,7 @@ public class WebEndpointAutoConfiguration {
 		@ConditionalOnMissingBean(ServletEndpointsSupplier.class)
 		ServletEndpointDiscoverer servletEndpointDiscoverer(ApplicationContext applicationContext,
 				ObjectProvider<PathMapper> endpointPathMappers,
-				ObjectProvider<EndpointFilter<ExposableServletEndpoint>> filters) {
+				ObjectProvider<EndpointFilter<ExposableServletEndpoint_RENAMED>> filters) {
 			return new ServletEndpointDiscoverer(applicationContext,
 					endpointPathMappers.orderedStream().collect(Collectors.toList()),
 					filters.orderedStream().collect(Collectors.toList()));

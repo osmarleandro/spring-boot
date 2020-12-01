@@ -24,15 +24,15 @@ import org.springframework.boot.actuate.endpoint.Operation;
 import org.springframework.boot.actuate.endpoint.annotation.AbstractDiscoveredEndpoint;
 import org.springframework.boot.actuate.endpoint.annotation.EndpointDiscoverer;
 import org.springframework.boot.actuate.endpoint.web.EndpointServlet;
-import org.springframework.boot.actuate.endpoint.web.ExposableServletEndpoint;
+import org.springframework.boot.actuate.endpoint.web.ExposableServletEndpoint_RENAMED;
 import org.springframework.util.Assert;
 
 /**
- * A discovered {@link ExposableServletEndpoint servlet endpoint}.
+ * A discovered {@link ExposableServletEndpoint_RENAMED servlet endpoint}.
  *
  * @author Phillip Webb
  */
-class DiscoveredServletEndpoint extends AbstractDiscoveredEndpoint<Operation> implements ExposableServletEndpoint {
+class DiscoveredServletEndpoint extends AbstractDiscoveredEndpoint<Operation> implements ExposableServletEndpoint_RENAMED {
 
 	private final String rootPath;
 

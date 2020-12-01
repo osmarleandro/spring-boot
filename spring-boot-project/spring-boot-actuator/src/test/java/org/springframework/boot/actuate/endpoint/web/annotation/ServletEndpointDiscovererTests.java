@@ -36,7 +36,7 @@ import org.springframework.boot.actuate.endpoint.annotation.DiscoveredEndpoint;
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
 import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
 import org.springframework.boot.actuate.endpoint.web.EndpointServlet;
-import org.springframework.boot.actuate.endpoint.web.ExposableServletEndpoint;
+import org.springframework.boot.actuate.endpoint.web.ExposableServletEndpoint_RENAMED;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
 import org.springframework.boot.autoconfigure.validation.ValidationAutoConfiguration;
 import org.springframework.boot.test.context.assertj.AssertableApplicationContext;
@@ -68,9 +68,9 @@ class ServletEndpointDiscovererTests {
 	@Test
 	void getEndpointsShouldIncludeServletEndpoints() {
 		this.contextRunner.withUserConfiguration(TestServletEndpoint.class).run(assertDiscoverer((discoverer) -> {
-			Collection<ExposableServletEndpoint> endpoints = discoverer.getEndpoints();
+			Collection<ExposableServletEndpoint_RENAMED> endpoints = discoverer.getEndpoints();
 			assertThat(endpoints).hasSize(1);
-			ExposableServletEndpoint endpoint = endpoints.iterator().next();
+			ExposableServletEndpoint_RENAMED endpoint = endpoints.iterator().next();
 			assertThat(endpoint.getEndpointId()).isEqualTo(EndpointId.of("testservlet"));
 			assertThat(endpoint.getEndpointServlet()).isNotNull();
 			assertThat(endpoint).isInstanceOf(DiscoveredEndpoint.class);
@@ -82,9 +82,9 @@ class ServletEndpointDiscovererTests {
 		this.contextRunner.withUserConfiguration(TestProxyServletEndpoint.class)
 				.withConfiguration(AutoConfigurations.of(ValidationAutoConfiguration.class))
 				.run(assertDiscoverer((discoverer) -> {
-					Collection<ExposableServletEndpoint> endpoints = discoverer.getEndpoints();
+					Collection<ExposableServletEndpoint_RENAMED> endpoints = discoverer.getEndpoints();
 					assertThat(endpoints).hasSize(1);
-					ExposableServletEndpoint endpoint = endpoints.iterator().next();
+					ExposableServletEndpoint_RENAMED endpoint = endpoints.iterator().next();
 					assertThat(endpoint.getEndpointId()).isEqualTo(EndpointId.of("testservlet"));
 					assertThat(endpoint.getEndpointServlet()).isNotNull();
 					assertThat(endpoint).isInstanceOf(DiscoveredEndpoint.class);
@@ -95,8 +95,8 @@ class ServletEndpointDiscovererTests {
 	void getEndpointsShouldNotDiscoverRegularEndpoints() {
 		this.contextRunner.withUserConfiguration(WithRegularEndpointConfiguration.class)
 				.run(assertDiscoverer((discoverer) -> {
-					Collection<ExposableServletEndpoint> endpoints = discoverer.getEndpoints();
-					List<EndpointId> ids = endpoints.stream().map(ExposableServletEndpoint::getEndpointId)
+					Collection<ExposableServletEndpoint_RENAMED> endpoints = discoverer.getEndpoints();
+					List<EndpointId> ids = endpoints.stream().map(ExposableServletEndpoint_RENAMED::getEndpointId)
 							.collect(Collectors.toList());
 					assertThat(ids).containsOnly(EndpointId.of("testservlet"));
 				}));

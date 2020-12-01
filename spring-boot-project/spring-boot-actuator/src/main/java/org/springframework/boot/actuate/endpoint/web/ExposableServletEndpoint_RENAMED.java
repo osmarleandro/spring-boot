@@ -14,18 +14,23 @@
  * limitations under the License.
  */
 
-package org.springframework.boot.actuate.endpoint.web.annotation;
+package org.springframework.boot.actuate.endpoint.web;
 
-import org.springframework.boot.actuate.endpoint.EndpointsSupplier;
-import org.springframework.boot.actuate.endpoint.web.ExposableServletEndpoint_RENAMED;
+import org.springframework.boot.actuate.endpoint.ExposableEndpoint;
+import org.springframework.boot.actuate.endpoint.Operation;
 
 /**
- * {@link EndpointsSupplier} for {@link ExposableServletEndpoint_RENAMED servlet endpoints}.
+ * Information describing an endpoint that can be exposed by registering a servlet.
  *
  * @author Phillip Webb
  * @since 2.0.0
  */
-@FunctionalInterface
-public interface ServletEndpointsSupplier extends EndpointsSupplier<ExposableServletEndpoint_RENAMED> {
+public interface ExposableServletEndpoint_RENAMED extends ExposableEndpoint<Operation>, PathMappedEndpoint {
+
+	/**
+	 * Return details of the servlet that should registered.
+	 * @return the endpoint servlet
+	 */
+	EndpointServlet getEndpointServlet();
 
 }
