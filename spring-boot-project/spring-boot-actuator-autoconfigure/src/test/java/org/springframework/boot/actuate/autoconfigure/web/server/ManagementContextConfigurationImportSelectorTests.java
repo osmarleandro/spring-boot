@@ -30,7 +30,7 @@ import org.springframework.core.type.AnnotationMetadata;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Tests for {@link ManagementContextConfigurationImportSelector}.
+ * Tests for {@link ManagementContextConfigurationImportSelector_RENAMED}.
  *
  * @author Phillip Webb
  * @author Andy Wilkinson
@@ -59,7 +59,7 @@ class ManagementContextConfigurationImportSelectorTests {
 	}
 
 	private static final class TestManagementContextConfigurationsImportSelector
-			extends ManagementContextConfigurationImportSelector {
+			extends ManagementContextConfigurationImportSelector_RENAMED {
 
 		private final List<String> factoryNames;
 

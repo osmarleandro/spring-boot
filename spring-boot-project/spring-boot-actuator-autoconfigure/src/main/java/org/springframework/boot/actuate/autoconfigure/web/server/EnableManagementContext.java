@@ -33,7 +33,7 @@ import org.springframework.context.annotation.Import;
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-@Import(ManagementContextConfigurationImportSelector.class)
+@Import(ManagementContextConfigurationImportSelector_RENAMED.class)
 @interface EnableManagementContext {
 
 	/**

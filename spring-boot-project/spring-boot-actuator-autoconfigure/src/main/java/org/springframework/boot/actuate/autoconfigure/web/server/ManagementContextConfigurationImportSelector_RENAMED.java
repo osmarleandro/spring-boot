@@ -46,7 +46,7 @@ import org.springframework.util.StringUtils;
  * @see ManagementContextConfiguration
  */
 @Order(Ordered.LOWEST_PRECEDENCE)
-class ManagementContextConfigurationImportSelector implements DeferredImportSelector, BeanClassLoaderAware {
+class ManagementContextConfigurationImportSelector_RENAMED implements DeferredImportSelector, BeanClassLoaderAware {
 
 	private ClassLoader classLoader;
 
