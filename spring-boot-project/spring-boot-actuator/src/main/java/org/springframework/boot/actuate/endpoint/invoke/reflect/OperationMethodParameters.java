@@ -55,7 +55,7 @@ class OperationMethodParameters implements OperationParameters {
 	private List<OperationParameter> getOperationParameters(Parameter[] parameters, String[] names) {
 		List<OperationParameter> operationParameters = new ArrayList<>(parameters.length);
 		for (int i = 0; i < names.length; i++) {
-			operationParameters.add(new OperationMethodParameter(names[i], parameters[i]));
+			operationParameters.add(new OperationMethodParameter_RENAMED(names[i], parameters[i]));
 		}
 		return Collections.unmodifiableList(operationParameters);
 	}
