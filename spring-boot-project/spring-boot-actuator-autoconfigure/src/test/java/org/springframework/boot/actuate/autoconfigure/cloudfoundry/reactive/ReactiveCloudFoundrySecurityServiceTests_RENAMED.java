@@ -39,7 +39,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Madhura Bhave
  */
-class ReactiveCloudFoundrySecurityServiceTests {
+class ReactiveCloudFoundrySecurityServiceTests_RENAMED {
 
 	private static final String CLOUD_CONTROLLER = "/my-cloud-controller.com";
 
