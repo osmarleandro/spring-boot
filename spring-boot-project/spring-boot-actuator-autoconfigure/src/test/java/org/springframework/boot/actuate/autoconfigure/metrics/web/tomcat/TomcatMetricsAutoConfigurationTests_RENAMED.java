@@ -51,7 +51,7 @@ import static org.mockito.Mockito.mock;
  *
  * @author Andy Wilkinson
  */
-class TomcatMetricsAutoConfigurationTests {
+class TomcatMetricsAutoConfigurationTests_RENAMED {
 
 	@Test
 	void autoConfiguresTomcatMetricsWithEmbeddedServletTomcat() {
