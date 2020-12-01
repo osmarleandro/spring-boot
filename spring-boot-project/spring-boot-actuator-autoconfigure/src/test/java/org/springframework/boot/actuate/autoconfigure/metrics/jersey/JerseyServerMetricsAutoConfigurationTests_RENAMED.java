@@ -56,7 +56,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Michael Weirauch
  * @author Michael Simons
  */
-class JerseyServerMetricsAutoConfigurationTests {
+class JerseyServerMetricsAutoConfigurationTests_RENAMED {
 
 	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner().with(MetricsRun.simple())
 			.withConfiguration(AutoConfigurations.of(JerseyServerMetricsAutoConfiguration.class));
