@@ -42,7 +42,7 @@ class CassandraReactiveHealthContributorAutoConfigurationTests {
 
 	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(CassandraReactiveHealthContributorAutoConfiguration.class,
-					CassandraHealthContributorAutoConfiguration.class, HealthContributorAutoConfiguration.class));
+					CassandraHealthContributorAutoConfiguration_RENAMED.class, HealthContributorAutoConfiguration.class));
 
 	@Test
 	void runWithoutCqlSessionOrReactiveCassandraOperationsShouldNotCreateIndicator() {
