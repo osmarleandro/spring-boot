@@ -62,7 +62,7 @@ import static org.springframework.restdocs.webtestclient.WebTestClientRestDocume
  */
 @ExtendWith(RestDocumentationExtension.class)
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
-class MappingsEndpointServletDocumentationTests extends AbstractEndpointDocumentationTests {
+class MappingsEndpointServletDocumentationTests_RENAMED extends AbstractEndpointDocumentationTests {
 
 	@LocalServerPort
 	private int port;
