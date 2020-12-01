@@ -27,7 +27,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import org.junit.jupiter.api.Test;
 
-import org.springframework.boot.actuate.env.EnvironmentEndpoint;
+import org.springframework.boot.actuate.env.EnvironmentEndpoint_RENAMED;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
@@ -51,7 +51,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /**
- * Tests for generating documentation describing the {@link EnvironmentEndpoint}.
+ * Tests for generating documentation describing the {@link EnvironmentEndpoint_RENAMED}.
  *
  * @author Andy Wilkinson
  */
@@ -134,8 +134,8 @@ class EnvironmentEndpointDocumentationTests extends MockMvcEndpointDocumentation
 	static class TestConfiguration {
 
 		@Bean
-		EnvironmentEndpoint endpoint(ConfigurableEnvironment environment) {
-			return new EnvironmentEndpoint(new AbstractEnvironment() {
+		EnvironmentEndpoint_RENAMED endpoint(ConfigurableEnvironment environment) {
+			return new EnvironmentEndpoint_RENAMED(new AbstractEnvironment() {
 
 				@Override
 				protected void customizePropertySources(MutablePropertySources propertySources) {

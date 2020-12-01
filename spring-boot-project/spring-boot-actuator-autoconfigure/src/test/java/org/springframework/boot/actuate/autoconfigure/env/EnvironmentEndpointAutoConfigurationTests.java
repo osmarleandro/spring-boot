@@ -20,10 +20,10 @@ import java.util.Map;
 
 import org.junit.jupiter.api.Test;
 
-import org.springframework.boot.actuate.env.EnvironmentEndpoint;
-import org.springframework.boot.actuate.env.EnvironmentEndpoint.EnvironmentDescriptor;
-import org.springframework.boot.actuate.env.EnvironmentEndpoint.PropertySourceDescriptor;
-import org.springframework.boot.actuate.env.EnvironmentEndpoint.PropertyValueDescriptor;
+import org.springframework.boot.actuate.env.EnvironmentEndpoint_RENAMED;
+import org.springframework.boot.actuate.env.EnvironmentEndpoint_RENAMED.EnvironmentDescriptor;
+import org.springframework.boot.actuate.env.EnvironmentEndpoint_RENAMED.PropertySourceDescriptor;
+import org.springframework.boot.actuate.env.EnvironmentEndpoint_RENAMED.PropertyValueDescriptor;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
 import org.springframework.boot.test.context.assertj.AssertableApplicationContext;
 import org.springframework.boot.test.context.runner.ApplicationContextRunner;
@@ -51,12 +51,12 @@ class EnvironmentEndpointAutoConfigurationTests {
 	@Test
 	void runWhenEnabledPropertyIsFalseShouldNotHaveEndpointBean() {
 		this.contextRunner.withPropertyValues("management.endpoint.env.enabled:false")
-				.run((context) -> assertThat(context).doesNotHaveBean(EnvironmentEndpoint.class));
+				.run((context) -> assertThat(context).doesNotHaveBean(EnvironmentEndpoint_RENAMED.class));
 	}
 
 	@Test
 	void runWhenNotExposedShouldNotHaveEndpointBean() {
-		this.contextRunner.run((context) -> assertThat(context).doesNotHaveBean(EnvironmentEndpoint.class));
+		this.contextRunner.run((context) -> assertThat(context).doesNotHaveBean(EnvironmentEndpoint_RENAMED.class));
 	}
 
 	@Test
@@ -69,8 +69,8 @@ class EnvironmentEndpointAutoConfigurationTests {
 
 	private ContextConsumer<AssertableApplicationContext> validateSystemProperties(String dbPassword, String apiKey) {
 		return (context) -> {
-			assertThat(context).hasSingleBean(EnvironmentEndpoint.class);
-			EnvironmentEndpoint endpoint = context.getBean(EnvironmentEndpoint.class);
+			assertThat(context).hasSingleBean(EnvironmentEndpoint_RENAMED.class);
+			EnvironmentEndpoint_RENAMED endpoint = context.getBean(EnvironmentEndpoint_RENAMED.class);
 			EnvironmentDescriptor env = endpoint.environment(null);
 			Map<String, PropertyValueDescriptor> systemProperties = getSource("systemProperties", env).getProperties();
 			assertThat(systemProperties.get("dbPassword").getValue()).isEqualTo(dbPassword);

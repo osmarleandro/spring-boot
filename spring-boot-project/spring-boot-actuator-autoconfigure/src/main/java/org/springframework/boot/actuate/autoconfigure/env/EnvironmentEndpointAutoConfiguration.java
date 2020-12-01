@@ -17,7 +17,7 @@
 package org.springframework.boot.actuate.autoconfigure.env;
 
 import org.springframework.boot.actuate.autoconfigure.endpoint.condition.ConditionalOnAvailableEndpoint;
-import org.springframework.boot.actuate.env.EnvironmentEndpoint;
+import org.springframework.boot.actuate.env.EnvironmentEndpoint_RENAMED;
 import org.springframework.boot.actuate.env.EnvironmentEndpointWebExtension;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
@@ -28,21 +28,21 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 
 /**
- * {@link EnableAutoConfiguration Auto-configuration} for the {@link EnvironmentEndpoint}.
+ * {@link EnableAutoConfiguration Auto-configuration} for the {@link EnvironmentEndpoint_RENAMED}.
  *
  * @author Phillip Webb
  * @author Stephane Nicoll
  * @since 2.0.0
  */
 @Configuration(proxyBeanMethods = false)
-@ConditionalOnAvailableEndpoint(endpoint = EnvironmentEndpoint.class)
+@ConditionalOnAvailableEndpoint(endpoint = EnvironmentEndpoint_RENAMED.class)
 @EnableConfigurationProperties(EnvironmentEndpointProperties.class)
 public class EnvironmentEndpointAutoConfiguration {
 
 	@Bean
 	@ConditionalOnMissingBean
-	public EnvironmentEndpoint environmentEndpoint(Environment environment, EnvironmentEndpointProperties properties) {
-		EnvironmentEndpoint endpoint = new EnvironmentEndpoint(environment);
+	public EnvironmentEndpoint_RENAMED environmentEndpoint(Environment environment, EnvironmentEndpointProperties properties) {
+		EnvironmentEndpoint_RENAMED endpoint = new EnvironmentEndpoint_RENAMED(environment);
 		String[] keysToSanitize = properties.getKeysToSanitize();
 		if (keysToSanitize != null) {
 			endpoint.setKeysToSanitize(keysToSanitize);
@@ -52,8 +52,8 @@ public class EnvironmentEndpointAutoConfiguration {
 
 	@Bean
 	@ConditionalOnMissingBean
-	@ConditionalOnBean(EnvironmentEndpoint.class)
-	public EnvironmentEndpointWebExtension environmentEndpointWebExtension(EnvironmentEndpoint environmentEndpoint) {
+	@ConditionalOnBean(EnvironmentEndpoint_RENAMED.class)
+	public EnvironmentEndpointWebExtension environmentEndpointWebExtension(EnvironmentEndpoint_RENAMED environmentEndpoint) {
 		return new EnvironmentEndpointWebExtension(environmentEndpoint);
 	}
 

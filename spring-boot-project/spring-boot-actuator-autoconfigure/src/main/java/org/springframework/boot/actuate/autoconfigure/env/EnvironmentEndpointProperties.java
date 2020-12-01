@@ -16,11 +16,11 @@
 
 package org.springframework.boot.actuate.autoconfigure.env;
 
-import org.springframework.boot.actuate.env.EnvironmentEndpoint;
+import org.springframework.boot.actuate.env.EnvironmentEndpoint_RENAMED;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
- * Configuration properties for {@link EnvironmentEndpoint}.
+ * Configuration properties for {@link EnvironmentEndpoint_RENAMED}.
  *
  * @author Stephane Nicoll
  * @since 2.0.0
