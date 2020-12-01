@@ -49,11 +49,11 @@ import org.springframework.context.annotation.Configuration;
 @ConditionalOnClass(KairosMeterRegistry.class)
 @ConditionalOnEnabledMetricsExport("kairos")
 @EnableConfigurationProperties(KairosProperties.class)
-public class KairosMetricsExportAutoConfiguration {
+public class KairosMetricsExportAutoConfiguration_RENAMED {
 
 	private final KairosProperties properties;
 
-	public KairosMetricsExportAutoConfiguration(KairosProperties properties) {
+	public KairosMetricsExportAutoConfiguration_RENAMED(KairosProperties properties) {
 		this.properties = properties;
 	}
 

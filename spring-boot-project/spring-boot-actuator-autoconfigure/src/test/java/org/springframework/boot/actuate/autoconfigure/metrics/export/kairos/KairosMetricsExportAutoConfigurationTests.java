@@ -30,14 +30,14 @@ import org.springframework.context.annotation.Import;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Tests for {@link KairosMetricsExportAutoConfiguration}.
+ * Tests for {@link KairosMetricsExportAutoConfiguration_RENAMED}.
  *
  * @author Stephane Nicoll
  */
 class KairosMetricsExportAutoConfigurationTests {
 
 	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
-			.withConfiguration(AutoConfigurations.of(KairosMetricsExportAutoConfiguration.class));
+			.withConfiguration(AutoConfigurations.of(KairosMetricsExportAutoConfiguration_RENAMED.class));
 
 	@Test
 	void backsOffWithoutAClock() {
