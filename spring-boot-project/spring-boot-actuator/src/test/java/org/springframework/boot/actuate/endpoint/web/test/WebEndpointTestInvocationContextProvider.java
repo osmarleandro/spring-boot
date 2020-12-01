@@ -206,7 +206,7 @@ class WebEndpointTestInvocationContextProvider implements TestTemplateInvocation
 			if (this.context instanceof AnnotationConfigServletWebServerApplicationContext) {
 				return ((AnnotationConfigServletWebServerApplicationContext) this.context).getWebServer().getPort();
 			}
-			return this.context.getBean(PortHolder.class).getPort();
+			return this.context.getBean(PortHolder_RENAMED.class).getPort();
 		}
 
 	}
@@ -255,7 +255,7 @@ class WebEndpointTestInvocationContextProvider implements TestTemplateInvocation
 
 		private final ApplicationContext applicationContext;
 
-		private final PortHolder portHolder = new PortHolder();
+		private final PortHolder_RENAMED portHolder = new PortHolder_RENAMED();
 
 		WebFluxEndpointConfiguration(ApplicationContext applicationContext) {
 			this.applicationContext = applicationContext;
@@ -267,7 +267,7 @@ class WebEndpointTestInvocationContextProvider implements TestTemplateInvocation
 		}
 
 		@Bean
-		PortHolder portHolder() {
+		PortHolder_RENAMED portHolder() {
 			return this.portHolder;
 		}
 
