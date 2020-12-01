@@ -41,7 +41,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration(proxyBeanMethods = false)
 @ConditionalOnClass(Flux.class)
 @ConditionalOnBean(HealthEndpoint.class)
-class ReactiveHealthEndpointConfiguration {
+class ReactiveHealthEndpointConfiguration_RENAMED {
 
 	@Bean
 	@ConditionalOnMissingBean
