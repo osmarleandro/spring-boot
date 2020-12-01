@@ -37,11 +37,11 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
 /**
- * Tests for {@link AuthorizationAuditListener}.
+ * Tests for {@link AuthorizationAuditListener_RENAMED}.
  */
 class AuthorizationAuditListenerTests {
 
-	private final AuthorizationAuditListener listener = new AuthorizationAuditListener();
+	private final AuthorizationAuditListener_RENAMED listener = new AuthorizationAuditListener_RENAMED();
 
 	private final ApplicationEventPublisher publisher = mock(ApplicationEventPublisher.class);
 
@@ -63,7 +63,7 @@ class AuthorizationAuditListenerTests {
 		AuditApplicationEvent event = handleAuthorizationEvent(new AuthorizationFailureEvent(this,
 				Collections.singletonList(new SecurityConfig("USER")),
 				new UsernamePasswordAuthenticationToken("user", "password"), new AccessDeniedException("Bad user")));
-		assertThat(event.getAuditEvent().getType()).isEqualTo(AuthorizationAuditListener.AUTHORIZATION_FAILURE);
+		assertThat(event.getAuditEvent().getType()).isEqualTo(AuthorizationAuditListener_RENAMED.AUTHORIZATION_FAILURE);
 	}
 
 	@Test
@@ -75,7 +75,7 @@ class AuthorizationAuditListenerTests {
 		AuditApplicationEvent event = handleAuthorizationEvent(
 				new AuthorizationFailureEvent(this, Collections.singletonList(new SecurityConfig("USER")),
 						authentication, new AccessDeniedException("Bad user")));
-		assertThat(event.getAuditEvent().getType()).isEqualTo(AuthorizationAuditListener.AUTHORIZATION_FAILURE);
+		assertThat(event.getAuditEvent().getType()).isEqualTo(AuthorizationAuditListener_RENAMED.AUTHORIZATION_FAILURE);
 		assertThat(event.getAuditEvent().getData()).containsEntry("details", details);
 	}
 

@@ -26,7 +26,7 @@ import org.springframework.boot.actuate.audit.listener.AuditListener;
 import org.springframework.boot.actuate.security.AbstractAuthenticationAuditListener;
 import org.springframework.boot.actuate.security.AbstractAuthorizationAuditListener;
 import org.springframework.boot.actuate.security.AuthenticationAuditListener;
-import org.springframework.boot.actuate.security.AuthorizationAuditListener;
+import org.springframework.boot.actuate.security.AuthorizationAuditListener_RENAMED;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
 import org.springframework.boot.test.context.runner.WebApplicationContextRunner;
 import org.springframework.context.ApplicationEventPublisher;
@@ -59,7 +59,7 @@ class AuditAutoConfigurationTests {
 		this.contextRunner.withUserConfiguration(CustomAuditEventRepositoryConfiguration.class).run((context) -> {
 			assertThat(context.getBean(AuditEventRepository.class)).isNotNull();
 			assertThat(context.getBean(AuthenticationAuditListener.class)).isNotNull();
-			assertThat(context.getBean(AuthorizationAuditListener.class)).isNotNull();
+			assertThat(context.getBean(AuthorizationAuditListener_RENAMED.class)).isNotNull();
 		});
 	}
 
@@ -93,7 +93,7 @@ class AuditAutoConfigurationTests {
 				.withPropertyValues("management.auditevents.enabled=false")
 				.run((context) -> assertThat(context).doesNotHaveBean(AuditListener.class)
 						.doesNotHaveBean(AuthenticationAuditListener.class)
-						.doesNotHaveBean(AuthorizationAuditListener.class));
+						.doesNotHaveBean(AuthorizationAuditListener_RENAMED.class));
 	}
 
 	@Configuration(proxyBeanMethods = false)
