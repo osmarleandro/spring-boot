@@ -61,7 +61,7 @@ import static org.mockito.Mockito.mock;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /**
- * Tests for {@link WebMvcMetricsAutoConfiguration}.
+ * Tests for {@link WebMvcMetricsAutoConfiguration_RENAMED}.
  *
  * @author Andy Wilkinson
  * @author Dmytro Nosan
@@ -73,11 +73,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class WebMvcMetricsAutoConfigurationTests {
 
 	private final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner()
-			.with(MetricsRun.simple()).withConfiguration(AutoConfigurations.of(WebMvcMetricsAutoConfiguration.class));
+			.with(MetricsRun.simple()).withConfiguration(AutoConfigurations.of(WebMvcMetricsAutoConfiguration_RENAMED.class));
 
 	@Test
 	void backsOffWhenMeterRegistryIsMissing() {
-		new WebApplicationContextRunner().withConfiguration(AutoConfigurations.of(WebMvcMetricsAutoConfiguration.class))
+		new WebApplicationContextRunner().withConfiguration(AutoConfigurations.of(WebMvcMetricsAutoConfiguration_RENAMED.class))
 				.run((context) -> assertThat(context).doesNotHaveBean(WebMvcTagsProvider.class));
 	}
 

@@ -66,11 +66,11 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @ConditionalOnClass(DispatcherServlet.class)
 @ConditionalOnBean(MeterRegistry.class)
 @EnableConfigurationProperties(MetricsProperties.class)
-public class WebMvcMetricsAutoConfiguration {
+public class WebMvcMetricsAutoConfiguration_RENAMED {
 
 	private final MetricsProperties properties;
 
-	public WebMvcMetricsAutoConfiguration(MetricsProperties properties) {
+	public WebMvcMetricsAutoConfiguration_RENAMED(MetricsProperties properties) {
 		this.properties = properties;
 	}
 

@@ -43,7 +43,7 @@ import org.springframework.boot.actuate.autoconfigure.metrics.jdbc.DataSourcePoo
 import org.springframework.boot.actuate.autoconfigure.metrics.orm.jpa.HibernateMetricsAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.metrics.web.client.HttpClientMetricsAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.metrics.web.reactive.WebFluxMetricsAutoConfiguration;
-import org.springframework.boot.actuate.autoconfigure.metrics.web.servlet.WebMvcMetricsAutoConfiguration;
+import org.springframework.boot.actuate.autoconfigure.metrics.web.servlet.WebMvcMetricsAutoConfiguration_RENAMED;
 import org.springframework.boot.actuate.metrics.web.servlet.WebMvcMetricsFilter;
 import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
 import org.springframework.boot.autoconfigure.http.HttpMessageConvertersAutoConfiguration;
@@ -137,7 +137,7 @@ class MetricsIntegrationTests {
 			RabbitMetricsAutoConfiguration.class, CacheMetricsAutoConfiguration.class,
 			DataSourcePoolMetricsAutoConfiguration.class, HibernateMetricsAutoConfiguration.class,
 			HttpClientMetricsAutoConfiguration.class, WebFluxMetricsAutoConfiguration.class,
-			WebMvcMetricsAutoConfiguration.class, JacksonAutoConfiguration.class,
+			WebMvcMetricsAutoConfiguration_RENAMED.class, JacksonAutoConfiguration.class,
 			HttpMessageConvertersAutoConfiguration.class, RestTemplateAutoConfiguration.class,
 			WebMvcAutoConfiguration.class, DispatcherServletAutoConfiguration.class,
 			ServletWebServerFactoryAutoConfiguration.class })
