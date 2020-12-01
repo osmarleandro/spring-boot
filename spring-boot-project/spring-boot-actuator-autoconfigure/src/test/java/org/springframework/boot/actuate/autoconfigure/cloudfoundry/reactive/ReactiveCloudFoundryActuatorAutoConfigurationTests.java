@@ -74,7 +74,7 @@ import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.mockito.Mockito.mock;
 
 /**
- * Tests for {@link ReactiveCloudFoundryActuatorAutoConfiguration}.
+ * Tests for {@link ReactiveCloudFoundryActuatorAutoConfiguration_RENAMED}.
  *
  * @author Madhura Bhave
  */
@@ -89,7 +89,7 @@ class ReactiveCloudFoundryActuatorAutoConfigurationTests {
 					EndpointAutoConfiguration.class, WebEndpointAutoConfiguration.class,
 					HealthContributorAutoConfiguration.class, HealthEndpointAutoConfiguration.class,
 					InfoContributorAutoConfiguration.class, InfoEndpointAutoConfiguration.class,
-					ProjectInfoAutoConfiguration.class, ReactiveCloudFoundryActuatorAutoConfiguration.class));
+					ProjectInfoAutoConfiguration.class, ReactiveCloudFoundryActuatorAutoConfiguration_RENAMED.class));
 
 	@AfterEach
 	void close() {

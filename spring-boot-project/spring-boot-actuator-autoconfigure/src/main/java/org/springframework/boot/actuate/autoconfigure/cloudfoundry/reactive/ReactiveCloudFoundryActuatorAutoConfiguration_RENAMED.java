@@ -80,7 +80,7 @@ import org.springframework.web.server.WebFilter;
 @AutoConfigureAfter({ HealthEndpointAutoConfiguration.class, InfoEndpointAutoConfiguration.class })
 @ConditionalOnWebApplication(type = ConditionalOnWebApplication.Type.REACTIVE)
 @ConditionalOnCloudPlatform(CloudPlatform.CLOUD_FOUNDRY)
-public class ReactiveCloudFoundryActuatorAutoConfiguration {
+public class ReactiveCloudFoundryActuatorAutoConfiguration_RENAMED {
 
 	@Bean
 	@ConditionalOnMissingBean

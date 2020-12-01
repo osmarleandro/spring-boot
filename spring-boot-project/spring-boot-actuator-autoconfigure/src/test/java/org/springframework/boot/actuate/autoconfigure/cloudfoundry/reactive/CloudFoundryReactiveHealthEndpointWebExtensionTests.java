@@ -59,7 +59,7 @@ class CloudFoundryReactiveHealthEndpointWebExtensionTests {
 					WebClientAutoConfiguration.class, ManagementContextAutoConfiguration.class,
 					EndpointAutoConfiguration.class, WebEndpointAutoConfiguration.class,
 					HealthContributorAutoConfiguration.class, HealthEndpointAutoConfiguration.class,
-					ReactiveCloudFoundryActuatorAutoConfiguration.class))
+					ReactiveCloudFoundryActuatorAutoConfiguration_RENAMED.class))
 			.withUserConfiguration(TestHealthIndicator.class);
 
 	@Test
