@@ -31,7 +31,7 @@ import org.springframework.boot.actuate.endpoint.http.ActuatorMediaType;
 import org.springframework.boot.actuate.endpoint.web.EndpointMediaTypes;
 import org.springframework.boot.actuate.endpoint.web.ExposableWebEndpoint;
 import org.springframework.boot.actuate.endpoint.web.PathMappedEndpoint;
-import org.springframework.boot.actuate.endpoint.web.PathMapper;
+import org.springframework.boot.actuate.endpoint.web.PathMapper_RENAMED;
 import org.springframework.boot.actuate.endpoint.web.annotation.ControllerEndpointDiscoverer;
 import org.springframework.boot.actuate.endpoint.web.annotation.ServletEndpointDiscoverer;
 import org.springframework.boot.actuate.endpoint.web.annotation.WebEndpointDiscoverer;
@@ -70,8 +70,8 @@ class WebEndpointAutoConfigurationTests {
 	void webApplicationConfiguresPathMapper() {
 		this.contextRunner.withPropertyValues("management.endpoints.web.path-mapping.health=healthcheck")
 				.run((context) -> {
-					assertThat(context).hasSingleBean(PathMapper.class);
-					String pathMapping = context.getBean(PathMapper.class).getRootPath(EndpointId.of("health"));
+					assertThat(context).hasSingleBean(PathMapper_RENAMED.class);
+					String pathMapping = context.getBean(PathMapper_RENAMED.class).getRootPath(EndpointId.of("health"));
 					assertThat(pathMapping).isEqualTo("healthcheck");
 				});
 	}
@@ -120,7 +120,7 @@ class WebEndpointAutoConfigurationTests {
 	}
 
 	@Component
-	static class TestPathMatcher implements PathMapper {
+	static class TestPathMatcher implements PathMapper_RENAMED {
 
 		@Override
 		public String getRootPath(EndpointId endpointId) {

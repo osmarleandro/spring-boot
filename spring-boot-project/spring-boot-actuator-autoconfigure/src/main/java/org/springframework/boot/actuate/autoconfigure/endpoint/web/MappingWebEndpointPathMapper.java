@@ -20,19 +20,19 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.boot.actuate.endpoint.EndpointId;
-import org.springframework.boot.actuate.endpoint.web.PathMapper;
+import org.springframework.boot.actuate.endpoint.web.PathMapper_RENAMED;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.util.StringUtils;
 
 /**
- * A {@link PathMapper} implementation that uses a simple {@link Map} to determine the
+ * A {@link PathMapper_RENAMED} implementation that uses a simple {@link Map} to determine the
  * endpoint path.
  *
  * @author Stephane Nicoll
  */
 @Order(Ordered.HIGHEST_PRECEDENCE)
-class MappingWebEndpointPathMapper implements PathMapper {
+class MappingWebEndpointPathMapper implements PathMapper_RENAMED {
 
 	private final Map<EndpointId, String> pathMapping;
 

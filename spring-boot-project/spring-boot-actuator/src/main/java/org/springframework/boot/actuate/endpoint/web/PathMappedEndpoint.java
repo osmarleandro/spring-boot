@@ -24,7 +24,7 @@ import org.springframework.boot.actuate.endpoint.ExposableEndpoint;
  *
  * @author Phillip Webb
  * @since 2.0.0
- * @see PathMapper
+ * @see PathMapper_RENAMED
  */
 @FunctionalInterface
 public interface PathMappedEndpoint {
