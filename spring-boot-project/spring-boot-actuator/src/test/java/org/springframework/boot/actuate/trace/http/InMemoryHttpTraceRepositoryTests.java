@@ -59,8 +59,8 @@ class InMemoryHttpTraceRepositoryTests {
 		assertThat(traces.get(1).getRequest().getMethod()).isEqualTo("DELETE");
 	}
 
-	private TraceableRequest createRequest(String method) {
-		TraceableRequest request = mock(TraceableRequest.class);
+	private TraceableRequest_RENAMED createRequest(String method) {
+		TraceableRequest_RENAMED request = mock(TraceableRequest_RENAMED.class);
 		given(request.getMethod()).willReturn(method);
 		return request;
 	}

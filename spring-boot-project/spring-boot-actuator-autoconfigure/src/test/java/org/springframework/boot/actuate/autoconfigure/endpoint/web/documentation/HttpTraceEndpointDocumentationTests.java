@@ -30,7 +30,7 @@ import org.springframework.boot.actuate.trace.http.HttpTrace;
 import org.springframework.boot.actuate.trace.http.HttpTraceEndpoint;
 import org.springframework.boot.actuate.trace.http.HttpTraceRepository;
 import org.springframework.boot.actuate.trace.http.Include;
-import org.springframework.boot.actuate.trace.http.TraceableRequest;
+import org.springframework.boot.actuate.trace.http.TraceableRequest_RENAMED;
 import org.springframework.boot.actuate.trace.http.TraceableResponse;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Bean;
@@ -59,7 +59,7 @@ class HttpTraceEndpointDocumentationTests extends MockMvcEndpointDocumentationTe
 
 	@Test
 	void traces() throws Exception {
-		TraceableRequest request = mock(TraceableRequest.class);
+		TraceableRequest_RENAMED request = mock(TraceableRequest_RENAMED.class);
 		given(request.getUri()).willReturn(URI.create("https://api.example.com"));
 		given(request.getMethod()).willReturn("GET");
 		given(request.getHeaders())

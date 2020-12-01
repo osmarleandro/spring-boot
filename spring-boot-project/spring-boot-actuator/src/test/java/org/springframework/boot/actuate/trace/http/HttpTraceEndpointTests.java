@@ -42,8 +42,8 @@ class HttpTraceEndpointTests {
 		assertThat(trace.getRequest().getMethod()).isEqualTo("GET");
 	}
 
-	private TraceableRequest createRequest(String method) {
-		TraceableRequest request = mock(TraceableRequest.class);
+	private TraceableRequest_RENAMED createRequest(String method) {
+		TraceableRequest_RENAMED request = mock(TraceableRequest_RENAMED.class);
 		given(request.getMethod()).willReturn(method);
 		return request;
 	}

@@ -23,16 +23,16 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.boot.actuate.trace.http.TraceableRequest;
+import org.springframework.boot.actuate.trace.http.TraceableRequest_RENAMED;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.web.server.ServerWebExchange;
 
 /**
- * A {@link TraceableRequest} backed by a {@link ServerWebExchange}.
+ * A {@link TraceableRequest_RENAMED} backed by a {@link ServerWebExchange}.
  *
  * @author Andy Wilkinson
  */
-class ServerWebExchangeTraceableRequest implements TraceableRequest {
+class ServerWebExchangeTraceableRequest implements TraceableRequest_RENAMED {
 
 	private final String method;
 

@@ -294,12 +294,12 @@ class HttpExchangeTracerTests {
 		assertThat(trace.getResponse().getHeaders()).containsOnlyKeys(HttpHeaders.CONTENT_LENGTH);
 	}
 
-	private TraceableRequest createRequest() {
+	private TraceableRequest_RENAMED createRequest() {
 		return createRequest(Collections.singletonMap(HttpHeaders.ACCEPT, Arrays.asList("application/json")));
 	}
 
-	private TraceableRequest createRequest(Map<String, List<String>> headers) {
-		TraceableRequest request = mock(TraceableRequest.class);
+	private TraceableRequest_RENAMED createRequest(Map<String, List<String>> headers) {
+		TraceableRequest_RENAMED request = mock(TraceableRequest_RENAMED.class);
 		given(request.getMethod()).willReturn("GET");
 		given(request.getRemoteAddress()).willReturn("127.0.0.1");
 		given(request.getHeaders()).willReturn(new HashMap<>(headers));

@@ -72,7 +72,7 @@ public final class HttpTrace {
 		this.startNanoTime = 0;
 	}
 
-	HttpTrace(TraceableRequest request) {
+	HttpTrace(TraceableRequest_RENAMED request) {
 		this.request = new Request(request);
 		this.timestamp = Instant.now();
 		this.startNanoTime = System.nanoTime();
@@ -139,7 +139,7 @@ public final class HttpTrace {
 
 		private final String remoteAddress;
 
-		private Request(TraceableRequest request) {
+		private Request(TraceableRequest_RENAMED request) {
 			this(request.getMethod(), request.getUri(), request.getHeaders(), request.getRemoteAddress());
 		}
 

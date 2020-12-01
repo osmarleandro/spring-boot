@@ -55,7 +55,7 @@ public class HttpExchangeTracer {
 	 * @param request the received request
 	 * @return the HTTP trace for the
 	 */
-	public final HttpTrace receivedRequest(TraceableRequest request) {
+	public final HttpTrace receivedRequest(TraceableRequest_RENAMED request) {
 		return new HttpTrace(new FilteredTraceableRequest(request));
 	}
 
@@ -106,11 +106,11 @@ public class HttpExchangeTracer {
 		return TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - trace.getStartNanoTime());
 	}
 
-	private final class FilteredTraceableRequest implements TraceableRequest {
+	private final class FilteredTraceableRequest implements TraceableRequest_RENAMED {
 
-		private final TraceableRequest delegate;
+		private final TraceableRequest_RENAMED delegate;
 
-		private FilteredTraceableRequest(TraceableRequest delegate) {
+		private FilteredTraceableRequest(TraceableRequest_RENAMED delegate) {
 			this.delegate = delegate;
 		}
 

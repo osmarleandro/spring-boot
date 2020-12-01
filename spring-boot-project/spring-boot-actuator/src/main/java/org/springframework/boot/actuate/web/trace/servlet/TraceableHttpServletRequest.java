@@ -27,16 +27,16 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.springframework.boot.actuate.trace.http.TraceableRequest;
+import org.springframework.boot.actuate.trace.http.TraceableRequest_RENAMED;
 import org.springframework.util.StringUtils;
 import org.springframework.web.util.UriUtils;
 
 /**
- * An adapter that exposes an {@link HttpServletRequest} as a {@link TraceableRequest}.
+ * An adapter that exposes an {@link HttpServletRequest} as a {@link TraceableRequest_RENAMED}.
  *
  * @author Andy Wilkinson
  */
-final class TraceableHttpServletRequest implements TraceableRequest {
+final class TraceableHttpServletRequest implements TraceableRequest_RENAMED {
 
 	private final HttpServletRequest request;
 
