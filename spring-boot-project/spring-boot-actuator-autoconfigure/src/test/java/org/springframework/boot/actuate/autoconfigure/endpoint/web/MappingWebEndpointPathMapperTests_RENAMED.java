@@ -30,7 +30,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Stephane Nicoll
  */
-class MappingWebEndpointPathMapperTests {
+class MappingWebEndpointPathMapperTests_RENAMED {
 
 	@Test
 	void defaultConfiguration() {
