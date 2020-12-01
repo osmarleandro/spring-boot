@@ -20,7 +20,7 @@ import com.datastax.oss.driver.api.core.CqlSession;
 
 import org.springframework.boot.actuate.autoconfigure.cassandra.CassandraHealthContributorConfigurations.CassandraDriverConfiguration;
 import org.springframework.boot.actuate.autoconfigure.health.ConditionalOnEnabledHealthIndicator;
-import org.springframework.boot.actuate.cassandra.CassandraDriverHealthIndicator;
+import org.springframework.boot.actuate.cassandra.CassandraDriverHealthIndicator_RENAMED;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.cassandra.CassandraAutoConfiguration;
@@ -31,7 +31,7 @@ import org.springframework.context.annotation.Import;
 
 /**
  * {@link EnableAutoConfiguration Auto-configuration} for
- * {@link CassandraDriverHealthIndicator}.
+ * {@link CassandraDriverHealthIndicator_RENAMED}.
  *
  * @author Julien Dubois
  * @author Stephane Nicoll

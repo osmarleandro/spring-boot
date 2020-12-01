@@ -20,7 +20,7 @@ import com.datastax.oss.driver.api.core.CqlSession;
 import org.junit.jupiter.api.Test;
 
 import org.springframework.boot.actuate.autoconfigure.health.HealthContributorAutoConfiguration;
-import org.springframework.boot.actuate.cassandra.CassandraDriverHealthIndicator;
+import org.springframework.boot.actuate.cassandra.CassandraDriverHealthIndicator_RENAMED;
 import org.springframework.boot.actuate.cassandra.CassandraDriverReactiveHealthIndicator;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
 import org.springframework.boot.test.context.FilteredClassLoader;
@@ -68,7 +68,7 @@ class CassandraReactiveHealthContributorAutoConfigurationTests {
 								org.springframework.boot.actuate.cassandra.CassandraReactiveHealthIndicator.class)
 						.doesNotHaveBean(CassandraDriverReactiveHealthIndicator.class)
 						.doesNotHaveBean(org.springframework.boot.actuate.cassandra.CassandraHealthIndicator.class)
-						.doesNotHaveBean(CassandraDriverHealthIndicator.class));
+						.doesNotHaveBean(CassandraDriverHealthIndicator_RENAMED.class));
 	}
 
 	@Test
@@ -81,7 +81,7 @@ class CassandraReactiveHealthContributorAutoConfigurationTests {
 						.doesNotHaveBean(
 								org.springframework.boot.actuate.cassandra.CassandraReactiveHealthIndicator.class)
 						.doesNotHaveBean(org.springframework.boot.actuate.cassandra.CassandraHealthIndicator.class)
-						.doesNotHaveBean(CassandraDriverHealthIndicator.class));
+						.doesNotHaveBean(CassandraDriverHealthIndicator_RENAMED.class));
 	}
 
 	@Test

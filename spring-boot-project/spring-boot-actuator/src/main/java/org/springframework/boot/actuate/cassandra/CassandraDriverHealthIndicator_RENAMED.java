@@ -16,50 +16,47 @@
 
 package org.springframework.boot.actuate.cassandra;
 
-import com.datastax.oss.driver.api.core.ConsistencyLevel;
-import com.datastax.oss.driver.api.core.cql.SimpleStatement;
+import java.util.Collection;
+import java.util.Optional;
+
+import com.datastax.oss.driver.api.core.CqlSession;
+import com.datastax.oss.driver.api.core.metadata.Node;
+import com.datastax.oss.driver.api.core.metadata.NodeState;
 
 import org.springframework.boot.actuate.health.AbstractHealthIndicator;
 import org.springframework.boot.actuate.health.Health;
 import org.springframework.boot.actuate.health.HealthIndicator;
-import org.springframework.data.cassandra.core.CassandraOperations;
+import org.springframework.boot.actuate.health.Status;
 import org.springframework.util.Assert;
 
 /**
  * Simple implementation of a {@link HealthIndicator} returning status information for
  * Cassandra data stores.
  *
- * @author Julien Dubois
  * @author Alexandre Dutra
- * @since 2.0.0
- * @deprecated since 2.4.0 in favor of {@link CassandraDriverHealthIndicator_RENAMED}
+ * @author Tomasz Lelek
+ * @since 2.4.0
  */
-@Deprecated
-public class CassandraHealthIndicator extends AbstractHealthIndicator {
+public class CassandraDriverHealthIndicator_RENAMED extends AbstractHealthIndicator {
 
-	private static final SimpleStatement SELECT = SimpleStatement
-			.newInstance("SELECT release_version FROM system.local").setConsistencyLevel(ConsistencyLevel.LOCAL_ONE);
-
-	private CassandraOperations cassandraOperations;
-
-	public CassandraHealthIndicator() {
-		super("Cassandra health check failed");
-	}
+	private final CqlSession session;
 
 	/**
-	 * Create a new {@link CassandraHealthIndicator} instance.
-	 * @param cassandraOperations the Cassandra operations
+	 * Create a new {@link CassandraDriverHealthIndicator_RENAMED} instance.
+	 * @param session the {@link CqlSession}.
 	 */
-	public CassandraHealthIndicator(CassandraOperations cassandraOperations) {
+	public CassandraDriverHealthIndicator_RENAMED(CqlSession session) {
 		super("Cassandra health check failed");
-		Assert.notNull(cassandraOperations, "CassandraOperations must not be null");
-		this.cassandraOperations = cassandraOperations;
+		Assert.notNull(session, "session must not be null");
+		this.session = session;
 	}
 
 	@Override
 	protected void doHealthCheck(Health.Builder builder) throws Exception {
-		String version = this.cassandraOperations.getCqlOperations().queryForObject(SELECT, String.class);
-		builder.up().withDetail("version", version);
+		Collection<Node> nodes = this.session.getMetadata().getNodes().values();
+		Optional<Node> nodeUp = nodes.stream().filter((node) -> node.getState() == NodeState.UP).findAny();
+		builder.status(nodeUp.isPresent() ? Status.UP : Status.DOWN);
+		nodeUp.map(Node::getCassandraVersion).ifPresent((version) -> builder.withDetail("version", version));
 	}
 
 }

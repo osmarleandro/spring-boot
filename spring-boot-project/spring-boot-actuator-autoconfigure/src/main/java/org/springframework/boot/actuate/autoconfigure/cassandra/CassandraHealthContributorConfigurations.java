@@ -22,7 +22,7 @@ import com.datastax.oss.driver.api.core.CqlSession;
 
 import org.springframework.boot.actuate.autoconfigure.health.CompositeHealthContributorConfiguration;
 import org.springframework.boot.actuate.autoconfigure.health.CompositeReactiveHealthContributorConfiguration;
-import org.springframework.boot.actuate.cassandra.CassandraDriverHealthIndicator;
+import org.springframework.boot.actuate.cassandra.CassandraDriverHealthIndicator_RENAMED;
 import org.springframework.boot.actuate.cassandra.CassandraDriverReactiveHealthIndicator;
 import org.springframework.boot.actuate.health.HealthContributor;
 import org.springframework.boot.actuate.health.ReactiveHealthContributor;
@@ -44,7 +44,7 @@ class CassandraHealthContributorConfigurations {
 	@Configuration(proxyBeanMethods = false)
 	@ConditionalOnBean(CqlSession.class)
 	static class CassandraDriverConfiguration
-			extends CompositeHealthContributorConfiguration<CassandraDriverHealthIndicator, CqlSession> {
+			extends CompositeHealthContributorConfiguration<CassandraDriverHealthIndicator_RENAMED, CqlSession> {
 
 		@Bean
 		@ConditionalOnMissingBean(name = { "cassandraHealthIndicator", "cassandraHealthContributor" })
