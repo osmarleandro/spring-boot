@@ -54,7 +54,7 @@ class EndpointMBeanTests {
 
 	private static final String[] NO_SIGNATURE = {};
 
-	private TestExposableJmxEndpoint endpoint = new TestExposableJmxEndpoint(new TestJmxOperation());
+	private TestExposableJmxEndpoint endpoint = new TestExposableJmxEndpoint(new TestJmxOperation_RENAMED());
 
 	private TestJmxOperationResponseMapper responseMapper = new TestJmxOperationResponseMapper();
 
@@ -88,7 +88,7 @@ class EndpointMBeanTests {
 
 	@Test
 	void invokeWhenOperationFailedShouldTranslateException() throws MBeanException, ReflectionException {
-		TestExposableJmxEndpoint endpoint = new TestExposableJmxEndpoint(new TestJmxOperation((arguments) -> {
+		TestExposableJmxEndpoint endpoint = new TestExposableJmxEndpoint(new TestJmxOperation_RENAMED((arguments) -> {
 			throw new FatalBeanException("test failure");
 		}));
 		EndpointMBean bean = new EndpointMBean(this.responseMapper, null, endpoint);
@@ -100,7 +100,7 @@ class EndpointMBeanTests {
 
 	@Test
 	void invokeWhenOperationFailedWithJdkExceptionShouldReuseException() throws MBeanException, ReflectionException {
-		TestExposableJmxEndpoint endpoint = new TestExposableJmxEndpoint(new TestJmxOperation((arguments) -> {
+		TestExposableJmxEndpoint endpoint = new TestExposableJmxEndpoint(new TestJmxOperation_RENAMED((arguments) -> {
 			throw new UnsupportedOperationException("test failure");
 		}));
 		EndpointMBean bean = new EndpointMBean(this.responseMapper, null, endpoint);
@@ -122,7 +122,7 @@ class EndpointMBeanTests {
 	void invokeShouldInvokeJmxOperationWithBeanClassLoader() throws ReflectionException, MBeanException {
 		ClassLoader originalClassLoader = Thread.currentThread().getContextClassLoader();
 		TestExposableJmxEndpoint endpoint = new TestExposableJmxEndpoint(
-				new TestJmxOperation((arguments) -> ClassUtils.getDefaultClassLoader()));
+				new TestJmxOperation_RENAMED((arguments) -> ClassUtils.getDefaultClassLoader()));
 		URLClassLoader beanClassLoader = new URLClassLoader(new URL[0], getClass().getClassLoader());
 		EndpointMBean bean = new EndpointMBean(this.responseMapper, beanClassLoader, endpoint);
 		Object result = bean.invoke("testOperation", NO_PARAMS, NO_SIGNATURE);
@@ -132,7 +132,7 @@ class EndpointMBeanTests {
 
 	@Test
 	void invokeWhenOperationIsInvalidShouldThrowException() throws MBeanException, ReflectionException {
-		TestJmxOperation operation = new TestJmxOperation() {
+		TestJmxOperation_RENAMED operation = new TestJmxOperation_RENAMED() {
 
 			@Override
 			public Object invoke(InvocationContext context) {
@@ -150,7 +150,7 @@ class EndpointMBeanTests {
 	@Test
 	void invokeWhenMonoResultShouldBlockOnMono() throws MBeanException, ReflectionException {
 		TestExposableJmxEndpoint endpoint = new TestExposableJmxEndpoint(
-				new TestJmxOperation((arguments) -> Mono.just("monoResult")));
+				new TestJmxOperation_RENAMED((arguments) -> Mono.just("monoResult")));
 		EndpointMBean bean = new EndpointMBean(this.responseMapper, null, endpoint);
 		Object result = bean.invoke("testOperation", NO_PARAMS, NO_SIGNATURE);
 		assertThat(result).isEqualTo("monoResult");
