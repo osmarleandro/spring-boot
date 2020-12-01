@@ -47,7 +47,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Stephane Nicoll
  * @author Andy Wilkinson
  */
-class JmxEndpointIntegrationTests {
+class JmxEndpointIntegrationTests_RENAMED {
 
 	private final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(JmxAutoConfiguration.class, EndpointAutoConfiguration.class,
