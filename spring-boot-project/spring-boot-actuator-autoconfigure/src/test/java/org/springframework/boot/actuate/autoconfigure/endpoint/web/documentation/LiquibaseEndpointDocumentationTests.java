@@ -22,7 +22,7 @@ import java.util.List;
 import liquibase.changelog.ChangeSet.ExecType;
 import org.junit.jupiter.api.Test;
 
-import org.springframework.boot.actuate.liquibase.LiquibaseEndpoint;
+import org.springframework.boot.actuate.liquibase.LiquibaseEndpoint_RENAMED;
 import org.springframework.boot.autoconfigure.jdbc.EmbeddedDataSourceConfiguration;
 import org.springframework.boot.autoconfigure.liquibase.LiquibaseAutoConfiguration;
 import org.springframework.context.ApplicationContext;
@@ -39,7 +39,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /**
- * Tests for generating documentation describing the {@link LiquibaseEndpoint}.
+ * Tests for generating documentation describing the {@link LiquibaseEndpoint_RENAMED}.
  *
  * @author Andy Wilkinson
  */
@@ -82,8 +82,8 @@ class LiquibaseEndpointDocumentationTests extends MockMvcEndpointDocumentationTe
 	static class TestConfiguration {
 
 		@Bean
-		LiquibaseEndpoint endpoint(ApplicationContext context) {
-			return new LiquibaseEndpoint(context);
+		LiquibaseEndpoint_RENAMED endpoint(ApplicationContext context) {
+			return new LiquibaseEndpoint_RENAMED(context);
 		}
 
 	}

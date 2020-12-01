@@ -25,7 +25,7 @@ import javax.sql.DataSource;
 import liquibase.integration.spring.SpringLiquibase;
 import org.junit.jupiter.api.Test;
 
-import org.springframework.boot.actuate.liquibase.LiquibaseEndpoint.LiquibaseBean;
+import org.springframework.boot.actuate.liquibase.LiquibaseEndpoint_RENAMED.LiquibaseBean;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.autoconfigure.liquibase.LiquibaseAutoConfiguration;
@@ -39,7 +39,7 @@ import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Tests for {@link LiquibaseEndpoint}.
+ * Tests for {@link LiquibaseEndpoint_RENAMED}.
  *
  * @author Eddú Meléndez
  * @author Andy Wilkinson
@@ -56,7 +56,7 @@ class LiquibaseEndpointTests {
 	@Test
 	void liquibaseReportIsReturned() {
 		this.contextRunner.withUserConfiguration(Config.class).run((context) -> {
-			Map<String, LiquibaseBean> liquibaseBeans = context.getBean(LiquibaseEndpoint.class).liquibaseBeans()
+			Map<String, LiquibaseBean> liquibaseBeans = context.getBean(LiquibaseEndpoint_RENAMED.class).liquibaseBeans()
 					.getContexts().get(context.getId()).getLiquibaseBeans();
 			assertThat(liquibaseBeans.get("liquibase").getChangeSets()).hasSize(1);
 		});
@@ -66,7 +66,7 @@ class LiquibaseEndpointTests {
 	void liquibaseReportIsReturnedForContextHierarchy() {
 		this.contextRunner.withUserConfiguration().run((parent) -> {
 			this.contextRunner.withUserConfiguration(Config.class).withParent(parent).run((context) -> {
-				Map<String, LiquibaseBean> liquibaseBeans = context.getBean(LiquibaseEndpoint.class).liquibaseBeans()
+				Map<String, LiquibaseBean> liquibaseBeans = context.getBean(LiquibaseEndpoint_RENAMED.class).liquibaseBeans()
 						.getContexts().get(parent.getId()).getLiquibaseBeans();
 				assertThat(liquibaseBeans.get("liquibase").getChangeSets()).hasSize(1);
 			});
@@ -79,7 +79,7 @@ class LiquibaseEndpointTests {
 				.withPropertyValues("spring.liquibase.default-schema=CUSTOMSCHEMA",
 						"spring.datasource.schema=classpath:/db/create-custom-schema.sql")
 				.run((context) -> {
-					Map<String, LiquibaseBean> liquibaseBeans = context.getBean(LiquibaseEndpoint.class)
+					Map<String, LiquibaseBean> liquibaseBeans = context.getBean(LiquibaseEndpoint_RENAMED.class)
 							.liquibaseBeans().getContexts().get(context.getId()).getLiquibaseBeans();
 					assertThat(liquibaseBeans.get("liquibase").getChangeSets()).hasSize(1);
 				});
@@ -91,7 +91,7 @@ class LiquibaseEndpointTests {
 				.withPropertyValues("spring.liquibase.database-change-log-lock-table=liquibase_database_changelog_lock",
 						"spring.liquibase.database-change-log-table=liquibase_database_changelog")
 				.run((context) -> {
-					Map<String, LiquibaseBean> liquibaseBeans = context.getBean(LiquibaseEndpoint.class)
+					Map<String, LiquibaseBean> liquibaseBeans = context.getBean(LiquibaseEndpoint_RENAMED.class)
 							.liquibaseBeans().getContexts().get(context.getId()).getLiquibaseBeans();
 					assertThat(liquibaseBeans.get("liquibase").getChangeSets()).hasSize(1);
 				});
@@ -102,7 +102,7 @@ class LiquibaseEndpointTests {
 		this.contextRunner.withUserConfiguration(Config.class).run((context) -> {
 			DataSource dataSource = context.getBean(DataSource.class);
 			assertThat(getAutoCommit(dataSource)).isTrue();
-			context.getBean(LiquibaseEndpoint.class).liquibaseBeans();
+			context.getBean(LiquibaseEndpoint_RENAMED.class).liquibaseBeans();
 			assertThat(getAutoCommit(dataSource)).isTrue();
 		});
 	}
@@ -111,7 +111,7 @@ class LiquibaseEndpointTests {
 	void whenMultipleLiquibaseBeansArePresentChangeSetsAreCorrectlyReportedForEachBean() {
 		this.contextRunner.withUserConfiguration(Config.class, MultipleDataSourceLiquibaseConfiguration.class)
 				.run((context) -> {
-					Map<String, LiquibaseBean> liquibaseBeans = context.getBean(LiquibaseEndpoint.class)
+					Map<String, LiquibaseBean> liquibaseBeans = context.getBean(LiquibaseEndpoint_RENAMED.class)
 							.liquibaseBeans().getContexts().get(context.getId()).getLiquibaseBeans();
 					assertThat(liquibaseBeans.get("liquibase").getChangeSets()).hasSize(1);
 					assertThat(liquibaseBeans.get("liquibase").getChangeSets().get(0).getChangeLog())
@@ -132,8 +132,8 @@ class LiquibaseEndpointTests {
 	static class Config {
 
 		@Bean
-		LiquibaseEndpoint endpoint(ApplicationContext context) {
-			return new LiquibaseEndpoint(context);
+		LiquibaseEndpoint_RENAMED endpoint(ApplicationContext context) {
+			return new LiquibaseEndpoint_RENAMED(context);
 		}
 
 	}
