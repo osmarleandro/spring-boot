@@ -24,15 +24,15 @@ import io.micrometer.prometheus.PrometheusConfig;
 import org.springframework.boot.actuate.autoconfigure.metrics.export.properties.PropertiesConfigAdapter;
 
 /**
- * Adapter to convert {@link PrometheusProperties} to a {@link PrometheusConfig}.
+ * Adapter to convert {@link PrometheusProperties_RENAMED} to a {@link PrometheusConfig}.
  *
  * @author Jon Schneider
  * @author Phillip Webb
  */
-class PrometheusPropertiesConfigAdapter extends PropertiesConfigAdapter<PrometheusProperties>
+class PrometheusPropertiesConfigAdapter extends PropertiesConfigAdapter<PrometheusProperties_RENAMED>
 		implements PrometheusConfig {
 
-	PrometheusPropertiesConfigAdapter(PrometheusProperties properties) {
+	PrometheusPropertiesConfigAdapter(PrometheusProperties_RENAMED properties) {
 		super(properties);
 	}
 
@@ -48,17 +48,17 @@ class PrometheusPropertiesConfigAdapter extends PropertiesConfigAdapter<Promethe
 
 	@Override
 	public boolean descriptions() {
-		return get(PrometheusProperties::isDescriptions, PrometheusConfig.super::descriptions);
+		return get(PrometheusProperties_RENAMED::isDescriptions, PrometheusConfig.super::descriptions);
 	}
 
 	@Override
 	public HistogramFlavor histogramFlavor() {
-		return get(PrometheusProperties::getHistogramFlavor, PrometheusConfig.super::histogramFlavor);
+		return get(PrometheusProperties_RENAMED::getHistogramFlavor, PrometheusConfig.super::histogramFlavor);
 	}
 
 	@Override
 	public Duration step() {
-		return get(PrometheusProperties::getStep, PrometheusConfig.super::step);
+		return get(PrometheusProperties_RENAMED::getStep, PrometheusConfig.super::step);
 	}
 
 }

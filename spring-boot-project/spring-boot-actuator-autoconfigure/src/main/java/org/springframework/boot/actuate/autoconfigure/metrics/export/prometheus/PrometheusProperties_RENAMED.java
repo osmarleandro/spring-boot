@@ -34,7 +34,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  * @since 2.0.0
  */
 @ConfigurationProperties(prefix = "management.metrics.export.prometheus")
-public class PrometheusProperties {
+public class PrometheusProperties_RENAMED {
 
 	/**
 	 * Whether to enable publishing descriptions as part of the scrape payload to

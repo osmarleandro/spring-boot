@@ -65,12 +65,12 @@ import org.springframework.util.StringUtils;
 @ConditionalOnBean(Clock.class)
 @ConditionalOnClass(PrometheusMeterRegistry.class)
 @ConditionalOnEnabledMetricsExport("prometheus")
-@EnableConfigurationProperties(PrometheusProperties.class)
+@EnableConfigurationProperties(PrometheusProperties_RENAMED.class)
 public class PrometheusMetricsExportAutoConfiguration {
 
 	@Bean
 	@ConditionalOnMissingBean
-	public PrometheusConfig prometheusConfig(PrometheusProperties prometheusProperties) {
+	public PrometheusConfig prometheusConfig(PrometheusProperties_RENAMED prometheusProperties) {
 		return new PrometheusPropertiesConfigAdapter(prometheusProperties);
 	}
 
@@ -120,8 +120,8 @@ public class PrometheusMetricsExportAutoConfiguration {
 		@Bean
 		@ConditionalOnMissingBean
 		public PrometheusPushGatewayManager prometheusPushGatewayManager(CollectorRegistry collectorRegistry,
-				PrometheusProperties prometheusProperties, Environment environment) {
-			PrometheusProperties.Pushgateway properties = prometheusProperties.getPushgateway();
+				PrometheusProperties_RENAMED prometheusProperties, Environment environment) {
+			PrometheusProperties_RENAMED.Pushgateway properties = prometheusProperties.getPushgateway();
 			Duration pushRate = properties.getPushRate();
 			String job = getJob(properties, environment);
 			Map<String, String> groupingKey = properties.getGroupingKey();
@@ -146,7 +146,7 @@ public class PrometheusMetricsExportAutoConfiguration {
 			}
 		}
 
-		private String getJob(PrometheusProperties.Pushgateway properties, Environment environment) {
+		private String getJob(PrometheusProperties_RENAMED.Pushgateway properties, Environment environment) {
 			String job = properties.getJob();
 			job = (job != null) ? job : environment.getProperty("spring.application.name");
 			return (job != null) ? job : FALLBACK_JOB;

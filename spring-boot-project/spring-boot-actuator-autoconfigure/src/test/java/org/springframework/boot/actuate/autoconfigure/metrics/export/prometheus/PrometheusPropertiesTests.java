@@ -22,7 +22,7 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Tests for {@link PrometheusProperties}.
+ * Tests for {@link PrometheusProperties_RENAMED}.
  *
  * @author Stephane Nicoll
  */
@@ -30,7 +30,7 @@ class PrometheusPropertiesTests {
 
 	@Test
 	void defaultValuesAreConsistent() {
-		PrometheusProperties properties = new PrometheusProperties();
+		PrometheusProperties_RENAMED properties = new PrometheusProperties_RENAMED();
 		PrometheusConfig config = PrometheusConfig.DEFAULT;
 		assertThat(properties.isDescriptions()).isEqualTo(config.descriptions());
 		assertThat(properties.getHistogramFlavor()).isEqualTo(config.histogramFlavor());
