@@ -31,7 +31,7 @@ import org.springframework.cache.ehcache.EhCacheCache;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Tests for {@link EhCache2CacheMeterBinderProvider}.
+ * Tests for {@link EhCache2CacheMeterBinderProvider_RENAMED}.
  *
  * @author Stephane Nicoll
  */
@@ -45,7 +45,7 @@ class EhCache2CacheMeterBinderProviderTests {
 			Cache nativeCache = new Cache(new CacheConfiguration("test", 100));
 			cacheManager.addCache(nativeCache);
 			EhCacheCache cache = new EhCacheCache(nativeCache);
-			MeterBinder meterBinder = new EhCache2CacheMeterBinderProvider().getMeterBinder(cache,
+			MeterBinder meterBinder = new EhCache2CacheMeterBinderProvider_RENAMED().getMeterBinder(cache,
 					Collections.emptyList());
 			assertThat(meterBinder).isInstanceOf(EhCache2Metrics.class);
 		}
