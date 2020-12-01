@@ -32,7 +32,7 @@ import org.springframework.boot.actuate.endpoint.jmx.EndpointObjectNameFactory;
 import org.springframework.boot.actuate.endpoint.jmx.ExposableJmxEndpoint;
 import org.springframework.boot.actuate.endpoint.jmx.JacksonJmxOperationResponseMapper;
 import org.springframework.boot.actuate.endpoint.jmx.JmxEndpointExporter;
-import org.springframework.boot.actuate.endpoint.jmx.JmxEndpointsSupplier;
+import org.springframework.boot.actuate.endpoint.jmx.JmxEndpointsSupplier_RENAMED;
 import org.springframework.boot.actuate.endpoint.jmx.JmxOperationResponseMapper;
 import org.springframework.boot.actuate.endpoint.jmx.annotation.JmxEndpointDiscoverer;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
@@ -73,7 +73,7 @@ public class JmxEndpointAutoConfiguration {
 	}
 
 	@Bean
-	@ConditionalOnMissingBean(JmxEndpointsSupplier.class)
+	@ConditionalOnMissingBean(JmxEndpointsSupplier_RENAMED.class)
 	public JmxEndpointDiscoverer jmxAnnotationEndpointDiscoverer(ParameterValueMapper parameterValueMapper,
 			ObjectProvider<OperationInvokerAdvisor> invokerAdvisors,
 			ObjectProvider<EndpointFilter<ExposableJmxEndpoint>> filters) {
@@ -85,7 +85,7 @@ public class JmxEndpointAutoConfiguration {
 	@Bean
 	@ConditionalOnSingleCandidate(MBeanServer.class)
 	public JmxEndpointExporter jmxMBeanExporter(MBeanServer mBeanServer, Environment environment,
-			ObjectProvider<ObjectMapper> objectMapper, JmxEndpointsSupplier jmxEndpointsSupplier) {
+			ObjectProvider<ObjectMapper> objectMapper, JmxEndpointsSupplier_RENAMED jmxEndpointsSupplier) {
 		String contextId = ObjectUtils.getIdentityHexString(this.applicationContext);
 		EndpointObjectNameFactory objectNameFactory = new DefaultEndpointObjectNameFactory(this.properties, environment,
 				mBeanServer, contextId);

@@ -26,7 +26,7 @@ import org.springframework.boot.actuate.endpoint.invoke.OperationInvoker;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvokerAdvisor;
 import org.springframework.boot.actuate.endpoint.invoke.ParameterValueMapper;
 import org.springframework.boot.actuate.endpoint.jmx.ExposableJmxEndpoint;
-import org.springframework.boot.actuate.endpoint.jmx.JmxEndpointsSupplier;
+import org.springframework.boot.actuate.endpoint.jmx.JmxEndpointsSupplier_RENAMED;
 import org.springframework.boot.actuate.endpoint.jmx.JmxOperation;
 import org.springframework.context.ApplicationContext;
 
@@ -37,7 +37,7 @@ import org.springframework.context.ApplicationContext;
  * @since 2.0.0
  */
 public class JmxEndpointDiscoverer extends EndpointDiscoverer<ExposableJmxEndpoint, JmxOperation>
-		implements JmxEndpointsSupplier {
+		implements JmxEndpointsSupplier_RENAMED {
 
 	/**
 	 * Create a new {@link JmxEndpointDiscoverer} instance.
