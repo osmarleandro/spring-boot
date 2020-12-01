@@ -187,7 +187,7 @@ public final class HttpTrace {
 
 		private final Map<String, List<String>> headers;
 
-		Response(TraceableResponse response) {
+		Response(TraceableResponse_RENAMED response) {
 			this(response.getStatus(), response.getHeaders());
 		}
 

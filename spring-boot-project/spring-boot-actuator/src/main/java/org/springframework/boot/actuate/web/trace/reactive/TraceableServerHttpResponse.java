@@ -20,16 +20,16 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.boot.actuate.trace.http.TraceableResponse;
+import org.springframework.boot.actuate.trace.http.TraceableResponse_RENAMED;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.server.reactive.ServerHttpResponse;
 
 /**
- * An adapter that exposes a {@link ServerHttpResponse} as a {@link TraceableResponse}.
+ * An adapter that exposes a {@link ServerHttpResponse} as a {@link TraceableResponse_RENAMED}.
  *
  * @author Andy Wilkinson
  */
-class TraceableServerHttpResponse implements TraceableResponse {
+class TraceableServerHttpResponse implements TraceableResponse_RENAMED {
 
 	private final int status;
 

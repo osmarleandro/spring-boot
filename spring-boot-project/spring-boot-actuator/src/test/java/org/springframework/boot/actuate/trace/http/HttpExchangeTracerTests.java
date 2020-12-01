@@ -307,12 +307,12 @@ class HttpExchangeTracerTests {
 		return request;
 	}
 
-	private TraceableResponse createResponse() {
+	private TraceableResponse_RENAMED createResponse() {
 		return createResponse(Collections.singletonMap(HttpHeaders.CONTENT_TYPE, Arrays.asList("application/json")));
 	}
 
-	private TraceableResponse createResponse(Map<String, List<String>> headers) {
-		TraceableResponse response = mock(TraceableResponse.class);
+	private TraceableResponse_RENAMED createResponse(Map<String, List<String>> headers) {
+		TraceableResponse_RENAMED response = mock(TraceableResponse_RENAMED.class);
 		given(response.getStatus()).willReturn(204);
 		given(response.getHeaders()).willReturn(new HashMap<>(headers));
 		return response;

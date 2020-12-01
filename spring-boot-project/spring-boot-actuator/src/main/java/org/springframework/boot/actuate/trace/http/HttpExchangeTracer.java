@@ -67,7 +67,7 @@ public class HttpExchangeTracer {
 	 * @param principal a supplier for the exchange's principal
 	 * @param sessionId a supplier for the id of the exchange's session
 	 */
-	public final void sendingResponse(HttpTrace trace, TraceableResponse response, Supplier<Principal> principal,
+	public final void sendingResponse(HttpTrace trace, TraceableResponse_RENAMED response, Supplier<Principal> principal,
 			Supplier<String> sessionId) {
 		setIfIncluded(Include.TIME_TAKEN, () -> calculateTimeTaken(trace), trace::setTimeTaken);
 		setIfIncluded(Include.SESSION_ID, sessionId, trace::setSessionId);
@@ -149,11 +149,11 @@ public class HttpExchangeTracer {
 
 	}
 
-	private final class FilteredTraceableResponse implements TraceableResponse {
+	private final class FilteredTraceableResponse implements TraceableResponse_RENAMED {
 
-		private final TraceableResponse delegate;
+		private final TraceableResponse_RENAMED delegate;
 
-		private FilteredTraceableResponse(TraceableResponse delegate) {
+		private FilteredTraceableResponse(TraceableResponse_RENAMED delegate) {
 			this.delegate = delegate;
 		}
 

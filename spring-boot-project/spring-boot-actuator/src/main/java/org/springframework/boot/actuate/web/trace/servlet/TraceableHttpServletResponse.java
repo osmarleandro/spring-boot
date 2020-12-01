@@ -23,14 +23,14 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 
-import org.springframework.boot.actuate.trace.http.TraceableResponse;
+import org.springframework.boot.actuate.trace.http.TraceableResponse_RENAMED;
 
 /**
- * An adapter that exposes an {@link HttpServletResponse} as a {@link TraceableResponse}.
+ * An adapter that exposes an {@link HttpServletResponse} as a {@link TraceableResponse_RENAMED}.
  *
  * @author Andy Wilkinson
  */
-final class TraceableHttpServletResponse implements TraceableResponse {
+final class TraceableHttpServletResponse implements TraceableResponse_RENAMED {
 
 	private final HttpServletResponse delegate;
 
