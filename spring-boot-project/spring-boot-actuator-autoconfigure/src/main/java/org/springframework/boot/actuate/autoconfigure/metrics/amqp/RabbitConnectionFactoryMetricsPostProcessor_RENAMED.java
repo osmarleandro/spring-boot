@@ -35,7 +35,7 @@ import org.springframework.util.StringUtils;
  *
  * @author Stephane Nicoll
  */
-class RabbitConnectionFactoryMetricsPostProcessor implements BeanPostProcessor, Ordered {
+class RabbitConnectionFactoryMetricsPostProcessor_RENAMED implements BeanPostProcessor, Ordered {
 
 	private static final String CONNECTION_FACTORY_SUFFIX = "connectionFactory";
 
@@ -43,7 +43,7 @@ class RabbitConnectionFactoryMetricsPostProcessor implements BeanPostProcessor, 
 
 	private volatile MeterRegistry meterRegistry;
 
-	RabbitConnectionFactoryMetricsPostProcessor(ApplicationContext context) {
+	RabbitConnectionFactoryMetricsPostProcessor_RENAMED(ApplicationContext context) {
 		this.context = context;
 	}
 

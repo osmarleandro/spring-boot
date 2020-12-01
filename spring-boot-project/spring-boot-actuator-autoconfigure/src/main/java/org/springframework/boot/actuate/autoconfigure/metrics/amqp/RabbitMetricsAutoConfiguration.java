@@ -46,9 +46,9 @@ import org.springframework.context.annotation.Configuration;
 public class RabbitMetricsAutoConfiguration {
 
 	@Bean
-	public static RabbitConnectionFactoryMetricsPostProcessor rabbitConnectionFactoryMetricsPostProcessor(
+	public static RabbitConnectionFactoryMetricsPostProcessor_RENAMED rabbitConnectionFactoryMetricsPostProcessor(
 			ApplicationContext applicationContext) {
-		return new RabbitConnectionFactoryMetricsPostProcessor(applicationContext);
+		return new RabbitConnectionFactoryMetricsPostProcessor_RENAMED(applicationContext);
 	}
 
 }
