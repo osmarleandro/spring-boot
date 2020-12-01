@@ -30,14 +30,14 @@ import org.springframework.boot.test.context.runner.ApplicationContextRunner;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Integration tests for {@link HazelcastHealthContributorAutoConfiguration}.
+ * Integration tests for {@link HazelcastHealthContributorAutoConfiguration_RENAMED}.
  *
  * @author Dmytro Nosan
  */
 class HazelcastHealthContributorAutoConfigurationIntegrationTests {
 
 	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
-			.withConfiguration(AutoConfigurations.of(HazelcastHealthContributorAutoConfiguration.class,
+			.withConfiguration(AutoConfigurations.of(HazelcastHealthContributorAutoConfiguration_RENAMED.class,
 					HazelcastAutoConfiguration.class, HealthContributorAutoConfiguration.class));
 
 	@Test
