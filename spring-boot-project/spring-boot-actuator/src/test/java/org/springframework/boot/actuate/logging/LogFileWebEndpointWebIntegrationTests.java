@@ -23,7 +23,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.io.TempDir;
 
-import org.springframework.boot.actuate.endpoint.web.test.WebEndpointTest;
+import org.springframework.boot.actuate.endpoint.web.test.WebEndpointTest_RENAMED;
 import org.springframework.boot.logging.LogFile;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -54,13 +54,13 @@ class LogFileWebEndpointWebIntegrationTests {
 		tempFile = temp;
 	}
 
-	@WebEndpointTest
+	@WebEndpointTest_RENAMED
 	void getRequestProducesResponseWithLogFile() {
 		this.client.get().uri("/actuator/logfile").exchange().expectStatus().isOk().expectHeader()
 				.contentType("text/plain; charset=UTF-8").expectBody(String.class).isEqualTo("--TEST--");
 	}
 
-	@WebEndpointTest
+	@WebEndpointTest_RENAMED
 	void getRequestThatAcceptsTextPlainProducesResponseWithLogFile() {
 		this.client.get().uri("/actuator/logfile").accept(MediaType.TEXT_PLAIN).exchange().expectStatus().isOk()
 				.expectHeader().contentType("text/plain; charset=UTF-8").expectBody(String.class).isEqualTo("--TEST--");

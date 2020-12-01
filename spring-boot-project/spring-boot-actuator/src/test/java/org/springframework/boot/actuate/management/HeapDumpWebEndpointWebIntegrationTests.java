@@ -24,7 +24,7 @@ import java.util.concurrent.TimeUnit;
 import org.awaitility.Awaitility;
 import org.junit.jupiter.api.BeforeEach;
 
-import org.springframework.boot.actuate.endpoint.web.test.WebEndpointTest;
+import org.springframework.boot.actuate.endpoint.web.test.WebEndpointTest_RENAMED;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -52,13 +52,13 @@ class HeapDumpWebEndpointWebIntegrationTests {
 		this.endpoint.setAvailable(true);
 	}
 
-	@WebEndpointTest
+	@WebEndpointTest_RENAMED
 	void invokeWhenNotAvailableShouldReturnServiceUnavailableStatus(WebTestClient client) {
 		this.endpoint.setAvailable(false);
 		client.get().uri("/actuator/heapdump").exchange().expectStatus().isEqualTo(HttpStatus.SERVICE_UNAVAILABLE);
 	}
 
-	@WebEndpointTest
+	@WebEndpointTest_RENAMED
 	void getRequestShouldReturnHeapDumpInResponseBody(WebTestClient client) throws Exception {
 		client.get().uri("/actuator/heapdump").exchange().expectStatus().isOk().expectHeader()
 				.contentType(MediaType.APPLICATION_OCTET_STREAM).expectBody(String.class).isEqualTo("HEAPDUMP");

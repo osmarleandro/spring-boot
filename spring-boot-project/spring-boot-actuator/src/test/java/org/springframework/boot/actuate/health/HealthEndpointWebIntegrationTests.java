@@ -24,7 +24,7 @@ import org.assertj.core.api.ThrowableAssert.ThrowingCallable;
 import reactor.core.publisher.Mono;
 
 import org.springframework.boot.actuate.endpoint.http.ActuatorMediaType;
-import org.springframework.boot.actuate.endpoint.web.test.WebEndpointTest;
+import org.springframework.boot.actuate.endpoint.web.test.WebEndpointTest_RENAMED;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication.Type;
 import org.springframework.context.ApplicationContext;
@@ -45,14 +45,14 @@ import org.springframework.util.ReflectionUtils;
  */
 class HealthEndpointWebIntegrationTests {
 
-	@WebEndpointTest
+	@WebEndpointTest_RENAMED
 	void whenHealthIsUp200ResponseIsReturned(WebTestClient client) {
 		client.get().uri("/actuator/health").accept(MediaType.APPLICATION_JSON).exchange().expectStatus().isOk()
 				.expectBody().jsonPath("status").isEqualTo("UP").jsonPath("components.alpha.status").isEqualTo("UP")
 				.jsonPath("components.bravo.status").isEqualTo("UP");
 	}
 
-	@WebEndpointTest
+	@WebEndpointTest_RENAMED
 	void whenHealthIsUpAndAcceptsV3Request200ResponseIsReturned(WebTestClient client) {
 		client.get().uri("/actuator/health")
 				.headers((headers) -> headers.set(HttpHeaders.ACCEPT, ActuatorMediaType.V3_JSON)).exchange()
@@ -61,7 +61,7 @@ class HealthEndpointWebIntegrationTests {
 				.isEqualTo("UP");
 	}
 
-	@WebEndpointTest
+	@WebEndpointTest_RENAMED
 	void whenHealthIsUpAndAcceptsAllRequest200ResponseIsReturned(WebTestClient client) {
 		client.get().uri("/actuator/health").headers((headers) -> headers.set(HttpHeaders.ACCEPT, "*/*")).exchange()
 				.expectStatus().isOk().expectBody().jsonPath("status").isEqualTo("UP")
@@ -69,7 +69,7 @@ class HealthEndpointWebIntegrationTests {
 				.isEqualTo("UP");
 	}
 
-	@WebEndpointTest
+	@WebEndpointTest_RENAMED
 	void whenHealthIsUpAndV2Request200ResponseIsReturnedInV2Format(WebTestClient client) {
 		client.get().uri("/actuator/health")
 				.headers((headers) -> headers.set(HttpHeaders.ACCEPT, ActuatorMediaType.V2_JSON)).exchange()
@@ -77,7 +77,7 @@ class HealthEndpointWebIntegrationTests {
 				.isEqualTo("UP").jsonPath("details.bravo.status").isEqualTo("UP");
 	}
 
-	@WebEndpointTest
+	@WebEndpointTest_RENAMED
 	void whenHealthIsDown503ResponseIsReturned(ApplicationContext context, WebTestClient client) {
 		HealthIndicator healthIndicator = () -> Health.down().build();
 		ReactiveHealthIndicator reactiveHealthIndicator = () -> Mono.just(Health.down().build());
@@ -88,7 +88,7 @@ class HealthEndpointWebIntegrationTests {
 						.isEqualTo("UP").jsonPath("components.charlie.status").isEqualTo("DOWN"));
 	}
 
-	@WebEndpointTest
+	@WebEndpointTest_RENAMED
 	void whenComponentHealthIsDown503ResponseIsReturned(ApplicationContext context, WebTestClient client) {
 		HealthIndicator healthIndicator = () -> Health.down().build();
 		ReactiveHealthIndicator reactiveHealthIndicator = () -> Mono.just(Health.down().build());
@@ -98,7 +98,7 @@ class HealthEndpointWebIntegrationTests {
 						.isEqualTo("DOWN"));
 	}
 
-	@WebEndpointTest
+	@WebEndpointTest_RENAMED
 	void whenComponentInstanceHealthIsDown503ResponseIsReturned(ApplicationContext context, WebTestClient client) {
 		HealthIndicator healthIndicator = () -> Health.down().build();
 		CompositeHealthContributor composite = CompositeHealthContributor
@@ -141,7 +141,7 @@ class HealthEndpointWebIntegrationTests {
 		return context.getBeanProvider(registryType).getIfAvailable();
 	}
 
-	@WebEndpointTest
+	@WebEndpointTest_RENAMED
 	void whenHealthIndicatorIsRemovedResponseIsAltered(WebTestClient client, ApplicationContext context) {
 		String name = "bravo";
 		HealthContributorRegistry healthContributorRegistry = getContributorRegistry(context,

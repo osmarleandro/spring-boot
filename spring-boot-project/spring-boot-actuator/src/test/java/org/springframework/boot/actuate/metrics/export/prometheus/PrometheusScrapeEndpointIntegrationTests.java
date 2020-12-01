@@ -23,7 +23,7 @@ import io.micrometer.prometheus.PrometheusMeterRegistry;
 import io.prometheus.client.CollectorRegistry;
 import io.prometheus.client.exporter.common.TextFormat;
 
-import org.springframework.boot.actuate.endpoint.web.test.WebEndpointTest;
+import org.springframework.boot.actuate.endpoint.web.test.WebEndpointTest_RENAMED;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
@@ -39,7 +39,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 class PrometheusScrapeEndpointIntegrationTests {
 
-	@WebEndpointTest
+	@WebEndpointTest_RENAMED
 	void scrapeHasContentTypeText004(WebTestClient client) {
 		client.get().uri("/actuator/prometheus").exchange().expectStatus().isOk().expectHeader()
 				.contentType(MediaType.parseMediaType(TextFormat.CONTENT_TYPE_004)).expectBody(String.class)
@@ -47,7 +47,7 @@ class PrometheusScrapeEndpointIntegrationTests {
 						.contains("counter3_total"));
 	}
 
-	@WebEndpointTest
+	@WebEndpointTest_RENAMED
 	void scrapeWithIncludedNames(WebTestClient client) {
 		client.get().uri("/actuator/prometheus?includedNames=counter1_total,counter2_total").exchange().expectStatus()
 				.isOk().expectHeader().contentType(MediaType.parseMediaType(TextFormat.CONTENT_TYPE_004))

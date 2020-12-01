@@ -19,7 +19,7 @@ package org.springframework.boot.actuate.cache;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import org.springframework.boot.actuate.endpoint.web.test.WebEndpointTest;
+import org.springframework.boot.actuate.endpoint.web.test.WebEndpointTest_RENAMED;
 import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.concurrent.ConcurrentMapCacheManager;
@@ -38,7 +38,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 class CachesEndpointWebIntegrationTests {
 
-	@WebEndpointTest
+	@WebEndpointTest_RENAMED
 	void allCaches(WebTestClient client) {
 		client.get().uri("/actuator/caches").exchange().expectStatus().isOk().expectBody()
 				.jsonPath("cacheManagers.one.caches.a.target").isEqualTo(ConcurrentHashMap.class.getName())
@@ -47,24 +47,24 @@ class CachesEndpointWebIntegrationTests {
 				.jsonPath("cacheManagers.two.caches.c.target").isEqualTo(ConcurrentHashMap.class.getName());
 	}
 
-	@WebEndpointTest
+	@WebEndpointTest_RENAMED
 	void namedCache(WebTestClient client) {
 		client.get().uri("/actuator/caches/b").exchange().expectStatus().isOk().expectBody().jsonPath("name")
 				.isEqualTo("b").jsonPath("cacheManager").isEqualTo("one").jsonPath("target")
 				.isEqualTo(ConcurrentHashMap.class.getName());
 	}
 
-	@WebEndpointTest
+	@WebEndpointTest_RENAMED
 	void namedCacheWithUnknownName(WebTestClient client) {
 		client.get().uri("/actuator/caches/does-not-exist").exchange().expectStatus().isNotFound();
 	}
 
-	@WebEndpointTest
+	@WebEndpointTest_RENAMED
 	void namedCacheWithNonUniqueName(WebTestClient client) {
 		client.get().uri("/actuator/caches/a").exchange().expectStatus().isBadRequest();
 	}
 
-	@WebEndpointTest
+	@WebEndpointTest_RENAMED
 	void clearNamedCache(WebTestClient client, ApplicationContext context) {
 		Cache b = context.getBean("one", CacheManager.class).getCache("b");
 		b.put("test", "value");
@@ -72,12 +72,12 @@ class CachesEndpointWebIntegrationTests {
 		assertThat(b.get("test")).isNull();
 	}
 
-	@WebEndpointTest
+	@WebEndpointTest_RENAMED
 	void cleanNamedCacheWithUnknownName(WebTestClient client) {
 		client.delete().uri("/actuator/caches/does-not-exist").exchange().expectStatus().isNotFound();
 	}
 
-	@WebEndpointTest
+	@WebEndpointTest_RENAMED
 	void clearNamedCacheWithNonUniqueName(WebTestClient client) {
 		client.get().uri("/actuator/caches/a").exchange().expectStatus().isBadRequest();
 	}

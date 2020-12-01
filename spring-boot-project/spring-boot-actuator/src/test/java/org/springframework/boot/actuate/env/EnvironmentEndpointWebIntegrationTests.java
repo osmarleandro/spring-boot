@@ -21,7 +21,7 @@ import java.util.Map;
 
 import org.junit.jupiter.api.BeforeEach;
 
-import org.springframework.boot.actuate.endpoint.web.test.WebEndpointTest;
+import org.springframework.boot.actuate.endpoint.web.test.WebEndpointTest_RENAMED;
 import org.springframework.boot.test.util.TestPropertyValues;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
@@ -43,19 +43,19 @@ class EnvironmentEndpointWebIntegrationTests {
 		this.context = context;
 	}
 
-	@WebEndpointTest
+	@WebEndpointTest_RENAMED
 	void home() {
 		this.client.get().uri("/actuator/env").exchange().expectStatus().isOk().expectBody()
 				.jsonPath("propertySources[?(@.name=='systemProperties')]").exists();
 	}
 
-	@WebEndpointTest
+	@WebEndpointTest_RENAMED
 	void sub() {
 		this.client.get().uri("/actuator/env/foo").exchange().expectStatus().isOk().expectBody()
 				.jsonPath("property.source").isEqualTo("test").jsonPath("property.value").isEqualTo("bar");
 	}
 
-	@WebEndpointTest
+	@WebEndpointTest_RENAMED
 	void regex() {
 		Map<String, Object> map = new HashMap<>();
 		map.put("food", null);
@@ -65,7 +65,7 @@ class EnvironmentEndpointWebIntegrationTests {
 				.isEqualTo("baz");
 	}
 
-	@WebEndpointTest
+	@WebEndpointTest_RENAMED
 	void nestedPathWhenPlaceholderCannotBeResolvedShouldReturnUnresolvedProperty() {
 		Map<String, Object> map = new HashMap<>();
 		map.put("my.foo", "${my.bar}");
@@ -76,7 +76,7 @@ class EnvironmentEndpointWebIntegrationTests {
 				.isEqualTo("${my.bar}");
 	}
 
-	@WebEndpointTest
+	@WebEndpointTest_RENAMED
 	void nestedPathWithSensitivePlaceholderShouldSanitize() {
 		Map<String, Object> map = new HashMap<>();
 		map.put("my.foo", "${my.password}");
@@ -87,12 +87,12 @@ class EnvironmentEndpointWebIntegrationTests {
 				.isEqualTo("******");
 	}
 
-	@WebEndpointTest
+	@WebEndpointTest_RENAMED
 	void nestedPathForUnknownKeyShouldReturn404() {
 		this.client.get().uri("/actuator/env/this.does.not.exist").exchange().expectStatus().isNotFound();
 	}
 
-	@WebEndpointTest
+	@WebEndpointTest_RENAMED
 	void nestedPathMatchedByRegexWhenPlaceholderCannotBeResolvedShouldReturnUnresolvedProperty() {
 		Map<String, Object> map = new HashMap<>();
 		map.put("my.foo", "${my.bar}");
@@ -103,7 +103,7 @@ class EnvironmentEndpointWebIntegrationTests {
 				.isEqualTo("${my.bar}");
 	}
 
-	@WebEndpointTest
+	@WebEndpointTest_RENAMED
 	void nestedPathMatchedByRegexWithSensitivePlaceholderShouldSanitize() {
 		Map<String, Object> map = new HashMap<>();
 		map.put("my.foo", "${my.password}");

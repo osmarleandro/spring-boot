@@ -16,7 +16,7 @@
 
 package org.springframework.boot.actuate.management;
 
-import org.springframework.boot.actuate.endpoint.web.test.WebEndpointTest;
+import org.springframework.boot.actuate.endpoint.web.test.WebEndpointTest_RENAMED;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
@@ -32,13 +32,13 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 class ThreadDumpEndpointWebIntegrationTests {
 
-	@WebEndpointTest
+	@WebEndpointTest_RENAMED
 	void getRequestWithJsonAcceptHeaderShouldProduceJsonThreadDumpResponse(WebTestClient client) throws Exception {
 		client.get().uri("/actuator/threaddump").accept(MediaType.APPLICATION_JSON).exchange().expectStatus().isOk()
 				.expectHeader().contentType(MediaType.APPLICATION_JSON);
 	}
 
-	@WebEndpointTest
+	@WebEndpointTest_RENAMED
 	void getRequestWithTextPlainAcceptHeaderShouldProduceTextPlainResponse(WebTestClient client) throws Exception {
 		String response = client.get().uri("/actuator/threaddump").accept(MediaType.TEXT_PLAIN).exchange()
 				.expectStatus().isOk().expectHeader().contentType("text/plain;charset=UTF-8").expectBody(String.class)

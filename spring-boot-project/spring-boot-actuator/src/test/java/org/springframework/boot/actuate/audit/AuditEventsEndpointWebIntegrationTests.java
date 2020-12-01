@@ -21,7 +21,7 @@ import java.util.Collections;
 
 import net.minidev.json.JSONArray;
 
-import org.springframework.boot.actuate.endpoint.web.test.WebEndpointTest;
+import org.springframework.boot.actuate.endpoint.web.test.WebEndpointTest_RENAMED;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.test.web.reactive.server.WebTestClient;
@@ -35,14 +35,14 @@ import org.springframework.test.web.reactive.server.WebTestClient;
  */
 class AuditEventsEndpointWebIntegrationTests {
 
-	@WebEndpointTest
+	@WebEndpointTest_RENAMED
 	void allEvents(WebTestClient client) {
 		client.get().uri((builder) -> builder.path("/actuator/auditevents").build()).exchange().expectStatus().isOk()
 				.expectBody().jsonPath("events.[*].principal")
 				.isEqualTo(new JSONArray().appendElement("admin").appendElement("admin").appendElement("user"));
 	}
 
-	@WebEndpointTest
+	@WebEndpointTest_RENAMED
 	void eventsAfter(WebTestClient client) {
 		client.get()
 				.uri((builder) -> builder.path("/actuator/auditevents")
@@ -50,14 +50,14 @@ class AuditEventsEndpointWebIntegrationTests {
 				.exchange().expectStatus().isOk().expectBody().jsonPath("events").isEmpty();
 	}
 
-	@WebEndpointTest
+	@WebEndpointTest_RENAMED
 	void eventsWithPrincipal(WebTestClient client) {
 		client.get().uri((builder) -> builder.path("/actuator/auditevents").queryParam("principal", "user").build())
 				.exchange().expectStatus().isOk().expectBody().jsonPath("events.[*].principal")
 				.isEqualTo(new JSONArray().appendElement("user"));
 	}
 
-	@WebEndpointTest
+	@WebEndpointTest_RENAMED
 	void eventsWithType(WebTestClient client) {
 		client.get().uri((builder) -> builder.path("/actuator/auditevents").queryParam("type", "logout").build())
 				.exchange().expectStatus().isOk().expectBody().jsonPath("events.[*].principal")

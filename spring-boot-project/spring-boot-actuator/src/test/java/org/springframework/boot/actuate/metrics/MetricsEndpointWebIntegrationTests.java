@@ -27,7 +27,7 @@ import io.micrometer.core.instrument.binder.jvm.JvmMemoryMetrics;
 import io.micrometer.core.instrument.simple.SimpleConfig;
 import io.micrometer.core.instrument.simple.SimpleMeterRegistry;
 
-import org.springframework.boot.actuate.endpoint.web.test.WebEndpointTest;
+import org.springframework.boot.actuate.endpoint.web.test.WebEndpointTest_RENAMED;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.test.web.reactive.server.WebTestClient;
@@ -46,7 +46,7 @@ class MetricsEndpointWebIntegrationTests {
 
 	private final ObjectMapper mapper = new ObjectMapper();
 
-	@WebEndpointTest
+	@WebEndpointTest_RENAMED
 	@SuppressWarnings("unchecked")
 	void listNames(WebTestClient client) throws IOException {
 		String responseBody = client.get().uri("/actuator/metrics").exchange().expectStatus().isOk()
@@ -55,13 +55,13 @@ class MetricsEndpointWebIntegrationTests {
 		assertThat(names.get("names")).containsOnlyOnce("jvm.memory.used");
 	}
 
-	@WebEndpointTest
+	@WebEndpointTest_RENAMED
 	void selectByName(WebTestClient client) {
 		client.get().uri("/actuator/metrics/jvm.memory.used").exchange().expectStatus().isOk().expectBody()
 				.jsonPath("$.name").isEqualTo("jvm.memory.used");
 	}
 
-	@WebEndpointTest
+	@WebEndpointTest_RENAMED
 	void selectByTag(WebTestClient client) {
 		client.get().uri("/actuator/metrics/jvm.memory.used?tag=id:Compressed%20Class%20Space").exchange()
 				.expectStatus().isOk().expectBody().jsonPath("$.name").isEqualTo("jvm.memory.used");

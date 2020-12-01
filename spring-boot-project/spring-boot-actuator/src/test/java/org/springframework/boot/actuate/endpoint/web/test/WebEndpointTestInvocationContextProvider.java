@@ -77,7 +77,7 @@ import org.springframework.web.util.DefaultUriBuilderFactory.EncodingMode;
 
 /**
  * {@link TestTemplateInvocationContextProvider} for
- * {@link WebEndpointTest @WebEndpointTest}.
+ * {@link WebEndpointTest_RENAMED @WebEndpointTest}.
  *
  * @author Andy Wilkinson
  */
