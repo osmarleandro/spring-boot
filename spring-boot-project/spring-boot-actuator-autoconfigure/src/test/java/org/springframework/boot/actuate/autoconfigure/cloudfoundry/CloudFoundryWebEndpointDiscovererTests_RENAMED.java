@@ -51,7 +51,7 @@ import static org.mockito.Mockito.mock;
  *
  * @author Madhura Bhave
  */
-class CloudFoundryWebEndpointDiscovererTests {
+class CloudFoundryWebEndpointDiscovererTests_RENAMED {
 
 	@Test
 	void getEndpointsShouldAddCloudFoundryHealthExtension() {
