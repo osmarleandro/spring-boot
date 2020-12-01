@@ -21,12 +21,12 @@ import java.util.Collection;
 import javax.servlet.FilterRegistration;
 
 /**
- * A {@link RegistrationMappingDescription} derived from a {@link FilterRegistration}.
+ * A {@link RegistrationMappingDescription_RENAMED} derived from a {@link FilterRegistration}.
  *
  * @author Andy Wilkinson
  * @since 2.0.0
  */
-public class FilterRegistrationMappingDescription extends RegistrationMappingDescription<FilterRegistration> {
+public class FilterRegistrationMappingDescription extends RegistrationMappingDescription_RENAMED<FilterRegistration> {
 
 	/**
 	 * Creates a new {@code FilterRegistrationMappingDescription} derived from the given
