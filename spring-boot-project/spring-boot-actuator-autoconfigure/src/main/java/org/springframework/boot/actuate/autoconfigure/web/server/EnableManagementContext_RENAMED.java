@@ -34,7 +34,7 @@ import org.springframework.context.annotation.Import;
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @Import(ManagementContextConfigurationImportSelector.class)
-@interface EnableManagementContext {
+@interface EnableManagementContext_RENAMED {
 
 	/**
 	 * The management context type that should be enabled.

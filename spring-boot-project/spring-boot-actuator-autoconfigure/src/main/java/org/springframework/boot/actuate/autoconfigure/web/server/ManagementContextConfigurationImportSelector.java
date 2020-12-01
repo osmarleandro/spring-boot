@@ -53,7 +53,7 @@ class ManagementContextConfigurationImportSelector implements DeferredImportSele
 	@Override
 	public String[] selectImports(AnnotationMetadata metadata) {
 		ManagementContextType contextType = (ManagementContextType) metadata
-				.getAnnotationAttributes(EnableManagementContext.class.getName()).get("value");
+				.getAnnotationAttributes(EnableManagementContext_RENAMED.class.getName()).get("value");
 		// Find all management context configuration classes, filtering duplicates
 		List<ManagementConfiguration> configurations = getConfigurations();
 		OrderComparator.sort(configurations);

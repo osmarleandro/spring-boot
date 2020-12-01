@@ -111,7 +111,7 @@ public class ManagementContextAutoConfiguration {
 		}
 
 		@Configuration(proxyBeanMethods = false)
-		@EnableManagementContext(ManagementContextType.SAME)
+		@EnableManagementContext_RENAMED(ManagementContextType.SAME)
 		static class EnableSameManagementContextConfiguration {
 
 		}

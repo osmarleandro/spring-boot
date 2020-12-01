@@ -103,12 +103,12 @@ class ManagementContextConfigurationImportSelectorTests {
 
 	}
 
-	@EnableManagementContext(ManagementContextType.CHILD)
+	@EnableManagementContext_RENAMED(ManagementContextType.CHILD)
 	static class EnableChildContext {
 
 	}
 
-	@EnableManagementContext(ManagementContextType.SAME)
+	@EnableManagementContext_RENAMED(ManagementContextType.SAME)
 	static class EnableSameContext {
 
 	}

@@ -25,7 +25,7 @@ import org.springframework.context.annotation.Configuration;
  * @author Andy Wilkinson
  */
 @Configuration(proxyBeanMethods = false)
-@EnableManagementContext(ManagementContextType.CHILD)
+@EnableManagementContext_RENAMED(ManagementContextType.CHILD)
 class EnableChildManagementContextConfiguration {
 
 }
