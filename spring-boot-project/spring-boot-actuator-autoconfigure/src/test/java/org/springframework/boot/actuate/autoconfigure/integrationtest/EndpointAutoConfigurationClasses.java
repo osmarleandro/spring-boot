@@ -24,7 +24,7 @@ import org.springframework.boot.actuate.autoconfigure.beans.BeansEndpointAutoCon
 import org.springframework.boot.actuate.autoconfigure.condition.ConditionsReportEndpointAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.context.ShutdownEndpointAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.context.properties.ConfigurationPropertiesReportEndpointAutoConfiguration;
-import org.springframework.boot.actuate.autoconfigure.env.EnvironmentEndpointAutoConfiguration;
+import org.springframework.boot.actuate.autoconfigure.env.EnvironmentEndpointAutoConfiguration_RENAMED;
 import org.springframework.boot.actuate.autoconfigure.health.HealthEndpointAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.info.InfoEndpointAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.management.ThreadDumpEndpointAutoConfiguration;
@@ -46,7 +46,7 @@ final class EndpointAutoConfigurationClasses {
 		all.add(ConditionsReportEndpointAutoConfiguration.class);
 		all.add(ConfigurationPropertiesReportEndpointAutoConfiguration.class);
 		all.add(ShutdownEndpointAutoConfiguration.class);
-		all.add(EnvironmentEndpointAutoConfiguration.class);
+		all.add(EnvironmentEndpointAutoConfiguration_RENAMED.class);
 		all.add(HealthEndpointAutoConfiguration.class);
 		all.add(InfoEndpointAutoConfiguration.class);
 		all.add(ThreadDumpEndpointAutoConfiguration.class);

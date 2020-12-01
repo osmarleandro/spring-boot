@@ -22,7 +22,7 @@ import org.junit.jupiter.api.Test;
 
 import org.springframework.boot.actuate.autoconfigure.endpoint.EndpointAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointAutoConfiguration;
-import org.springframework.boot.actuate.autoconfigure.env.EnvironmentEndpointAutoConfiguration;
+import org.springframework.boot.actuate.autoconfigure.env.EnvironmentEndpointAutoConfiguration_RENAMED;
 import org.springframework.boot.actuate.autoconfigure.health.HealthContributorAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.health.HealthEndpointAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.info.InfoEndpointAutoConfiguration;
@@ -58,7 +58,7 @@ class ManagementWebSecurityAutoConfigurationTests {
 
 	private final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner().withConfiguration(
 			AutoConfigurations.of(HealthContributorAutoConfiguration.class, HealthEndpointAutoConfiguration.class,
-					InfoEndpointAutoConfiguration.class, EnvironmentEndpointAutoConfiguration.class,
+					InfoEndpointAutoConfiguration.class, EnvironmentEndpointAutoConfiguration_RENAMED.class,
 					EndpointAutoConfiguration.class, WebEndpointAutoConfiguration.class,
 					SecurityAutoConfiguration.class, ManagementWebSecurityAutoConfiguration.class));
 
