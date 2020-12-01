@@ -38,7 +38,7 @@ import org.springframework.context.annotation.Conditional;
 @Target({ ElementType.TYPE, ElementType.METHOD })
 @Documented
 @Conditional(OnEnabledInfoContributorCondition.class)
-public @interface ConditionalOnEnabledInfoContributor {
+public @interface ConditionalOnEnabledInfoContributor_RENAMED {
 
 	/**
 	 * The name of the info contributor.
