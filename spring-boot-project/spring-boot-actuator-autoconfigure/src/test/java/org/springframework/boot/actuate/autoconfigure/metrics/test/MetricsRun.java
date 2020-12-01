@@ -32,7 +32,7 @@ import org.springframework.boot.actuate.autoconfigure.metrics.export.jmx.JmxMetr
 import org.springframework.boot.actuate.autoconfigure.metrics.export.newrelic.NewRelicMetricsExportAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.metrics.export.prometheus.PrometheusMetricsExportAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.metrics.export.signalfx.SignalFxMetricsExportAutoConfiguration;
-import org.springframework.boot.actuate.autoconfigure.metrics.export.simple.SimpleMetricsExportAutoConfiguration;
+import org.springframework.boot.actuate.autoconfigure.metrics.export.simple.SimpleMetricsExportAutoConfiguration_RENAMED;
 import org.springframework.boot.actuate.autoconfigure.metrics.export.statsd.StatsdMetricsExportAutoConfiguration;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
 import org.springframework.boot.test.context.runner.AbstractApplicationContextRunner;
@@ -60,7 +60,7 @@ public final class MetricsRun {
 		implementations.add(JmxMetricsExportAutoConfiguration.class);
 		implementations.add(NewRelicMetricsExportAutoConfiguration.class);
 		implementations.add(PrometheusMetricsExportAutoConfiguration.class);
-		implementations.add(SimpleMetricsExportAutoConfiguration.class);
+		implementations.add(SimpleMetricsExportAutoConfiguration_RENAMED.class);
 		implementations.add(SignalFxMetricsExportAutoConfiguration.class);
 		implementations.add(StatsdMetricsExportAutoConfiguration.class);
 		EXPORT_AUTO_CONFIGURATIONS = Collections.unmodifiableSet(implementations);
@@ -78,7 +78,7 @@ public final class MetricsRun {
 	 * @return the function to apply
 	 */
 	public static <T extends AbstractApplicationContextRunner<?, ?, ?>> Function<T, T> simple() {
-		return limitedTo(SimpleMetricsExportAutoConfiguration.class);
+		return limitedTo(SimpleMetricsExportAutoConfiguration_RENAMED.class);
 	}
 
 	/**

@@ -31,7 +31,7 @@ import org.springframework.boot.actuate.autoconfigure.metrics.MetricsAutoConfigu
 import org.springframework.boot.actuate.autoconfigure.metrics.MetricsProperties;
 import org.springframework.boot.actuate.autoconfigure.metrics.MetricsProperties.Web.Server;
 import org.springframework.boot.actuate.autoconfigure.metrics.OnlyOnceLoggingDenyMeterFilter;
-import org.springframework.boot.actuate.autoconfigure.metrics.export.simple.SimpleMetricsExportAutoConfiguration;
+import org.springframework.boot.actuate.autoconfigure.metrics.export.simple.SimpleMetricsExportAutoConfiguration_RENAMED;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
@@ -54,7 +54,7 @@ import org.springframework.core.annotation.Order;
  * @since 2.1.0
  */
 @Configuration(proxyBeanMethods = false)
-@AutoConfigureAfter({ MetricsAutoConfiguration.class, SimpleMetricsExportAutoConfiguration.class })
+@AutoConfigureAfter({ MetricsAutoConfiguration.class, SimpleMetricsExportAutoConfiguration_RENAMED.class })
 @ConditionalOnWebApplication(type = ConditionalOnWebApplication.Type.SERVLET)
 @ConditionalOnClass({ ResourceConfig.class, MetricsApplicationEventListener.class })
 @ConditionalOnBean({ MeterRegistry.class, ResourceConfig.class })

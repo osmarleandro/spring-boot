@@ -31,7 +31,7 @@ import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.boot.actuate.autoconfigure.metrics.export.atlas.AtlasMetricsExportAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.metrics.export.jmx.JmxMetricsExportAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.metrics.export.prometheus.PrometheusMetricsExportAutoConfiguration;
-import org.springframework.boot.actuate.autoconfigure.metrics.export.simple.SimpleMetricsExportAutoConfiguration;
+import org.springframework.boot.actuate.autoconfigure.metrics.export.simple.SimpleMetricsExportAutoConfiguration_RENAMED;
 import org.springframework.boot.actuate.autoconfigure.metrics.test.MetricsRun;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
 import org.springframework.boot.test.context.runner.ApplicationContextRunner;
@@ -67,7 +67,7 @@ class MeterRegistryConfigurerIntegrationTests {
 	void customizersAreAppliedBeforeBindersAreCreated() {
 		new ApplicationContextRunner()
 				.withConfiguration(AutoConfigurations.of(MetricsAutoConfiguration.class,
-						SimpleMetricsExportAutoConfiguration.class))
+						SimpleMetricsExportAutoConfiguration_RENAMED.class))
 				.withUserConfiguration(TestConfiguration.class).run((context) -> {
 
 				});

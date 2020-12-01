@@ -28,7 +28,7 @@ import org.hibernate.SessionFactory;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.actuate.autoconfigure.metrics.MetricsAutoConfiguration;
-import org.springframework.boot.actuate.autoconfigure.metrics.export.simple.SimpleMetricsExportAutoConfiguration;
+import org.springframework.boot.actuate.autoconfigure.metrics.export.simple.SimpleMetricsExportAutoConfiguration_RENAMED;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
@@ -47,7 +47,7 @@ import org.springframework.util.StringUtils;
  */
 @Configuration(proxyBeanMethods = false)
 @AutoConfigureAfter({ MetricsAutoConfiguration.class, HibernateJpaAutoConfiguration.class,
-		SimpleMetricsExportAutoConfiguration.class })
+		SimpleMetricsExportAutoConfiguration_RENAMED.class })
 @ConditionalOnClass({ EntityManagerFactory.class, SessionFactory.class, MeterRegistry.class })
 @ConditionalOnBean({ EntityManagerFactory.class, MeterRegistry.class })
 public class HibernateMetricsAutoConfiguration {

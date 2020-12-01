@@ -33,14 +33,14 @@ import static org.mockito.Mockito.mock;
 
 /**
  *
- * Tests for {@link SimpleMetricsExportAutoConfiguration}.
+ * Tests for {@link SimpleMetricsExportAutoConfiguration_RENAMED}.
  *
  * @author Andy Wilkinson
  */
 class SimpleMetricsExportAutoConfigurationTests {
 
 	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
-			.withConfiguration(AutoConfigurations.of(SimpleMetricsExportAutoConfiguration.class));
+			.withConfiguration(AutoConfigurations.of(SimpleMetricsExportAutoConfiguration_RENAMED.class));
 
 	@Test
 	void autoConfiguresConfigAndMeterRegistry() {

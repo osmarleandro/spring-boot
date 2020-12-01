@@ -33,7 +33,7 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.actuate.autoconfigure.metrics.MetricsAutoConfiguration;
-import org.springframework.boot.actuate.autoconfigure.metrics.export.simple.SimpleMetricsExportAutoConfiguration;
+import org.springframework.boot.actuate.autoconfigure.metrics.export.simple.SimpleMetricsExportAutoConfiguration_RENAMED;
 import org.springframework.boot.actuate.metrics.jdbc.DataSourcePoolMetrics;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -55,7 +55,7 @@ import org.springframework.util.StringUtils;
  */
 @Configuration(proxyBeanMethods = false)
 @AutoConfigureAfter({ MetricsAutoConfiguration.class, DataSourceAutoConfiguration.class,
-		SimpleMetricsExportAutoConfiguration.class })
+		SimpleMetricsExportAutoConfiguration_RENAMED.class })
 @ConditionalOnClass({ DataSource.class, MeterRegistry.class })
 @ConditionalOnBean({ DataSource.class, MeterRegistry.class })
 public class DataSourcePoolMetricsAutoConfiguration {

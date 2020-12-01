@@ -29,7 +29,7 @@ import org.springframework.boot.actuate.autoconfigure.metrics.MetricsAutoConfigu
 import org.springframework.boot.actuate.autoconfigure.metrics.MetricsProperties;
 import org.springframework.boot.actuate.autoconfigure.metrics.MetricsProperties.Web.Server.ServerRequest;
 import org.springframework.boot.actuate.autoconfigure.metrics.OnlyOnceLoggingDenyMeterFilter;
-import org.springframework.boot.actuate.autoconfigure.metrics.export.simple.SimpleMetricsExportAutoConfiguration;
+import org.springframework.boot.actuate.autoconfigure.metrics.export.simple.SimpleMetricsExportAutoConfiguration_RENAMED;
 import org.springframework.boot.actuate.metrics.web.servlet.DefaultWebMvcTagsProvider;
 import org.springframework.boot.actuate.metrics.web.servlet.LongTaskTimingHandlerInterceptor;
 import org.springframework.boot.actuate.metrics.web.servlet.WebMvcMetricsFilter;
@@ -61,7 +61,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  */
 @Configuration(proxyBeanMethods = false)
 @AutoConfigureAfter({ MetricsAutoConfiguration.class, CompositeMeterRegistryAutoConfiguration.class,
-		SimpleMetricsExportAutoConfiguration.class })
+		SimpleMetricsExportAutoConfiguration_RENAMED.class })
 @ConditionalOnWebApplication(type = ConditionalOnWebApplication.Type.SERVLET)
 @ConditionalOnClass(DispatcherServlet.class)
 @ConditionalOnBean(MeterRegistry.class)

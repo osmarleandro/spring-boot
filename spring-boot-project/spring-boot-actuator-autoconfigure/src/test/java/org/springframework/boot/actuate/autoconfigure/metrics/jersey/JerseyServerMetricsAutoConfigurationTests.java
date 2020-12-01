@@ -33,7 +33,7 @@ import org.glassfish.jersey.server.monitoring.RequestEvent;
 import org.junit.jupiter.api.Test;
 
 import org.springframework.boot.actuate.autoconfigure.metrics.MetricsAutoConfiguration;
-import org.springframework.boot.actuate.autoconfigure.metrics.export.simple.SimpleMetricsExportAutoConfiguration;
+import org.springframework.boot.actuate.autoconfigure.metrics.export.simple.SimpleMetricsExportAutoConfiguration_RENAMED;
 import org.springframework.boot.actuate.autoconfigure.metrics.test.MetricsRun;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
 import org.springframework.boot.autoconfigure.jersey.JerseyAutoConfiguration;
@@ -65,7 +65,7 @@ class JerseyServerMetricsAutoConfigurationTests {
 			AnnotationConfigServletWebServerApplicationContext::new)
 					.withConfiguration(AutoConfigurations.of(JerseyAutoConfiguration.class,
 							JerseyServerMetricsAutoConfiguration.class, ServletWebServerFactoryAutoConfiguration.class,
-							SimpleMetricsExportAutoConfiguration.class, MetricsAutoConfiguration.class))
+							SimpleMetricsExportAutoConfiguration_RENAMED.class, MetricsAutoConfiguration.class))
 					.withUserConfiguration(ResourceConfiguration.class).withPropertyValues("server.port:0");
 
 	@Test

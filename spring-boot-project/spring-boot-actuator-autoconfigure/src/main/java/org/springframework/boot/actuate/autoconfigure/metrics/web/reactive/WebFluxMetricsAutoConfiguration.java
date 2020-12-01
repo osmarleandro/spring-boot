@@ -27,7 +27,7 @@ import org.springframework.boot.actuate.autoconfigure.metrics.MetricsAutoConfigu
 import org.springframework.boot.actuate.autoconfigure.metrics.MetricsProperties;
 import org.springframework.boot.actuate.autoconfigure.metrics.MetricsProperties.Web.Server.ServerRequest;
 import org.springframework.boot.actuate.autoconfigure.metrics.OnlyOnceLoggingDenyMeterFilter;
-import org.springframework.boot.actuate.autoconfigure.metrics.export.simple.SimpleMetricsExportAutoConfiguration;
+import org.springframework.boot.actuate.autoconfigure.metrics.export.simple.SimpleMetricsExportAutoConfiguration_RENAMED;
 import org.springframework.boot.actuate.metrics.web.reactive.server.DefaultWebFluxTagsProvider;
 import org.springframework.boot.actuate.metrics.web.reactive.server.MetricsWebFilter;
 import org.springframework.boot.actuate.metrics.web.reactive.server.WebFluxTagsContributor;
@@ -51,7 +51,7 @@ import org.springframework.core.annotation.Order;
  */
 @Configuration(proxyBeanMethods = false)
 @AutoConfigureAfter({ MetricsAutoConfiguration.class, CompositeMeterRegistryAutoConfiguration.class,
-		SimpleMetricsExportAutoConfiguration.class })
+		SimpleMetricsExportAutoConfiguration_RENAMED.class })
 @ConditionalOnBean(MeterRegistry.class)
 @ConditionalOnWebApplication(type = ConditionalOnWebApplication.Type.REACTIVE)
 public class WebFluxMetricsAutoConfiguration {
