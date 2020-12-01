@@ -137,7 +137,7 @@ public class ManagementContextAutoConfiguration {
 			if (event.getApplicationContext().equals(this.applicationContext)) {
 				ConfigurableWebServerApplicationContext managementContext = this.managementContextFactory
 						.createManagementContext(this.applicationContext,
-								EnableChildManagementContextConfiguration.class,
+								EnableChildManagementContextConfiguration_RENAMED.class,
 								PropertyPlaceholderAutoConfiguration.class);
 				if (isLazyInitialization()) {
 					managementContext.addBeanFactoryPostProcessor(new LazyInitializationBeanFactoryPostProcessor());
