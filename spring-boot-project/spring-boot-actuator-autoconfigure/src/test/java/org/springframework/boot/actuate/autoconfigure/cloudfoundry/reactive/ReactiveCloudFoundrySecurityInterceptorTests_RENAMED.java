@@ -43,7 +43,7 @@ import static org.mockito.BDDMockito.given;
  * @author Madhura Bhave
  */
 @ExtendWith(MockitoExtension.class)
-class ReactiveCloudFoundrySecurityInterceptorTests {
+class ReactiveCloudFoundrySecurityInterceptorTests_RENAMED {
 
 	@Mock
 	private ReactiveTokenValidator tokenValidator;
