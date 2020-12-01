@@ -22,7 +22,7 @@ import org.springframework.boot.actuate.audit.AuditEvent;
 import org.springframework.boot.actuate.audit.AuditEventRepository;
 import org.springframework.boot.actuate.audit.InMemoryAuditEventRepository;
 import org.springframework.boot.actuate.audit.listener.AbstractAuditListener;
-import org.springframework.boot.actuate.audit.listener.AuditListener;
+import org.springframework.boot.actuate.audit.listener.AuditListener_RENAMED;
 import org.springframework.boot.actuate.security.AbstractAuthenticationAuditListener;
 import org.springframework.boot.actuate.security.AbstractAuthorizationAuditListener;
 import org.springframework.boot.actuate.security.AuthenticationAuditListener;
@@ -91,7 +91,7 @@ class AuditAutoConfigurationTests {
 	void backsOffWhenDisabled() {
 		this.contextRunner.withUserConfiguration(CustomAuditEventRepositoryConfiguration.class)
 				.withPropertyValues("management.auditevents.enabled=false")
-				.run((context) -> assertThat(context).doesNotHaveBean(AuditListener.class)
+				.run((context) -> assertThat(context).doesNotHaveBean(AuditListener_RENAMED.class)
 						.doesNotHaveBean(AuthenticationAuditListener.class)
 						.doesNotHaveBean(AuthorizationAuditListener.class));
 	}

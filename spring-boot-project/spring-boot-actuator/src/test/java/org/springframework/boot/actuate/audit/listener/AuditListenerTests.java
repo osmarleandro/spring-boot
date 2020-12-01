@@ -27,7 +27,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
 /**
- * Tests for {@link AuditListener}.
+ * Tests for {@link AuditListener_RENAMED}.
  *
  * @author Phillip Webb
  */
@@ -37,7 +37,7 @@ class AuditListenerTests {
 	void testStoredEvents() {
 		AuditEventRepository repository = mock(AuditEventRepository.class);
 		AuditEvent event = new AuditEvent("principal", "type", Collections.emptyMap());
-		AuditListener listener = new AuditListener(repository);
+		AuditListener_RENAMED listener = new AuditListener_RENAMED(repository);
 		listener.onApplicationEvent(new AuditApplicationEvent(event));
 		verify(repository).add(event);
 	}
