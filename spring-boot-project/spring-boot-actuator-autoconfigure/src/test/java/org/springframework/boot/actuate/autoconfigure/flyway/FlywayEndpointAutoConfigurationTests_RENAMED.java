@@ -31,7 +31,7 @@ import static org.mockito.Mockito.mock;
  *
  * @author Phillip Webb
  */
-class FlywayEndpointAutoConfigurationTests {
+class FlywayEndpointAutoConfigurationTests_RENAMED {
 
 	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(FlywayEndpointAutoConfiguration.class))
