@@ -32,7 +32,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Andy Wilkinson
  */
-class Log4J2MetricsWithSlf4jLoggerContextAutoConfigurationTests {
+class Log4J2MetricsWithSlf4jLoggerContextAutoConfigurationTests_RENAMED {
 
 	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner().with(MetricsRun.simple())
 			.withConfiguration(AutoConfigurations.of(Log4J2MetricsAutoConfiguration.class));
