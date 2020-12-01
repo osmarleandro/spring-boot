@@ -27,9 +27,9 @@ import org.springframework.boot.actuate.autoconfigure.metrics.export.properties.
  *
  * @author Andy Wilkinson
  */
-class HumioPropertiesConfigAdapter extends StepRegistryPropertiesConfigAdapter<HumioProperties> implements HumioConfig {
+class HumioPropertiesConfigAdapter_RENAMED extends StepRegistryPropertiesConfigAdapter<HumioProperties> implements HumioConfig {
 
-	HumioPropertiesConfigAdapter(HumioProperties properties) {
+	HumioPropertiesConfigAdapter_RENAMED(HumioProperties properties) {
 		super(properties);
 	}
 

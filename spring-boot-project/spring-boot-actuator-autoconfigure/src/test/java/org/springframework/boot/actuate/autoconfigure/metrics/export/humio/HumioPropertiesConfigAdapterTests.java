@@ -23,7 +23,7 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Tests for {@link HumioPropertiesConfigAdapter}.
+ * Tests for {@link HumioPropertiesConfigAdapter_RENAMED}.
  *
  * @author Andy Wilkinson
  */
@@ -33,14 +33,14 @@ class HumioPropertiesConfigAdapterTests {
 	void whenApiTokenIsSetAdapterApiTokenReturnsIt() {
 		HumioProperties properties = new HumioProperties();
 		properties.setApiToken("ABC123");
-		assertThat(new HumioPropertiesConfigAdapter(properties).apiToken()).isEqualTo("ABC123");
+		assertThat(new HumioPropertiesConfigAdapter_RENAMED(properties).apiToken()).isEqualTo("ABC123");
 	}
 
 	@Test
 	void whenPropertiesTagsIsSetAdapterTagsReturnsIt() {
 		HumioProperties properties = new HumioProperties();
 		properties.setTags(Collections.singletonMap("name", "test"));
-		assertThat(new HumioPropertiesConfigAdapter(properties).tags())
+		assertThat(new HumioPropertiesConfigAdapter_RENAMED(properties).tags())
 				.isEqualTo(Collections.singletonMap("name", "test"));
 	}
 
@@ -48,7 +48,7 @@ class HumioPropertiesConfigAdapterTests {
 	void whenPropertiesUriIsSetAdapterUriReturnsIt() {
 		HumioProperties properties = new HumioProperties();
 		properties.setUri("https://humio.example.com");
-		assertThat(new HumioPropertiesConfigAdapter(properties).uri()).isEqualTo("https://humio.example.com");
+		assertThat(new HumioPropertiesConfigAdapter_RENAMED(properties).uri()).isEqualTo("https://humio.example.com");
 	}
 
 }

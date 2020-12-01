@@ -60,7 +60,7 @@ public class HumioMetricsExportAutoConfiguration {
 	@Bean
 	@ConditionalOnMissingBean
 	public HumioConfig humioConfig() {
-		return new HumioPropertiesConfigAdapter(this.properties);
+		return new HumioPropertiesConfigAdapter_RENAMED(this.properties);
 	}
 
 	@Bean
