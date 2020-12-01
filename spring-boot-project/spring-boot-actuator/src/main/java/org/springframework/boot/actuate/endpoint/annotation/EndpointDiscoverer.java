@@ -453,7 +453,7 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 		}
 
 		private Class<?> getFilter(Class<?> type) {
-			return MergedAnnotations.from(type, SearchStrategy.TYPE_HIERARCHY).get(FilteredEndpoint.class)
+			return MergedAnnotations.from(type, SearchStrategy.TYPE_HIERARCHY).get(FilteredEndpoint_RENAMED.class)
 					.getValue(MergedAnnotation.VALUE, Class.class).orElse(null);
 		}
 

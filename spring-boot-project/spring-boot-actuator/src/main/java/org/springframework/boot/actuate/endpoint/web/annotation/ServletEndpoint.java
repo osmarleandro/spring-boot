@@ -24,7 +24,7 @@ import java.lang.annotation.Target;
 import java.util.function.Supplier;
 
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
-import org.springframework.boot.actuate.endpoint.annotation.FilteredEndpoint;
+import org.springframework.boot.actuate.endpoint.annotation.FilteredEndpoint_RENAMED;
 import org.springframework.boot.actuate.endpoint.web.EndpointServlet;
 import org.springframework.core.annotation.AliasFor;
 
@@ -45,7 +45,7 @@ import org.springframework.core.annotation.AliasFor;
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @Endpoint
-@FilteredEndpoint(ServletEndpointFilter.class)
+@FilteredEndpoint_RENAMED(ServletEndpointFilter.class)
 public @interface ServletEndpoint {
 
 	/**

@@ -23,7 +23,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
-import org.springframework.boot.actuate.endpoint.annotation.FilteredEndpoint;
+import org.springframework.boot.actuate.endpoint.annotation.FilteredEndpoint_RENAMED;
 import org.springframework.core.annotation.AliasFor;
 
 /**
@@ -37,7 +37,7 @@ import org.springframework.core.annotation.AliasFor;
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @Endpoint
-@FilteredEndpoint(WebEndpointFilter.class)
+@FilteredEndpoint_RENAMED(WebEndpointFilter.class)
 public @interface WebEndpoint {
 
 	/**

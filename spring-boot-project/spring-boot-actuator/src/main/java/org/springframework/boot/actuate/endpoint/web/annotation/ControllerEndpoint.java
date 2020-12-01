@@ -24,7 +24,7 @@ import java.lang.annotation.Target;
 
 import org.springframework.boot.actuate.endpoint.annotation.DeleteOperation;
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
-import org.springframework.boot.actuate.endpoint.annotation.FilteredEndpoint;
+import org.springframework.boot.actuate.endpoint.annotation.FilteredEndpoint_RENAMED;
 import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
 import org.springframework.boot.actuate.endpoint.annotation.WriteOperation;
 import org.springframework.core.annotation.AliasFor;
@@ -52,7 +52,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @Endpoint
-@FilteredEndpoint(ControllerEndpointFilter.class)
+@FilteredEndpoint_RENAMED(ControllerEndpointFilter.class)
 public @interface ControllerEndpoint {
 
 	/**
