@@ -52,7 +52,7 @@ class ElasticsearchReactiveHealthContributorAutoConfigurationTests {
 	@Test
 	void runWithRegularIndicatorShouldOnlyCreateReactiveIndicator() {
 		this.contextRunner
-				.withConfiguration(AutoConfigurations.of(ElasticSearchRestHealthContributorAutoConfiguration.class))
+				.withConfiguration(AutoConfigurations.of(ElasticSearchRestHealthContributorAutoConfiguration_RENAMED.class))
 				.run((context) -> assertThat(context).hasSingleBean(ElasticsearchReactiveHealthIndicator.class)
 						.hasBean("elasticsearchHealthContributor")
 						.doesNotHaveBean(ElasticsearchRestHealthIndicator.class));
