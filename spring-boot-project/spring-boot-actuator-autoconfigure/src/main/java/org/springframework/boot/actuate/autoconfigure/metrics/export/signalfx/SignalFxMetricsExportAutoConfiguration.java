@@ -22,7 +22,7 @@ import io.micrometer.signalfx.SignalFxMeterRegistry;
 
 import org.springframework.boot.actuate.autoconfigure.metrics.CompositeMeterRegistryAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.metrics.MetricsAutoConfiguration;
-import org.springframework.boot.actuate.autoconfigure.metrics.export.ConditionalOnEnabledMetricsExport;
+import org.springframework.boot.actuate.autoconfigure.metrics.export.ConditionalOnEnabledMetricsExport_RENAMED;
 import org.springframework.boot.actuate.autoconfigure.metrics.export.simple.SimpleMetricsExportAutoConfiguration;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
@@ -46,7 +46,7 @@ import org.springframework.context.annotation.Configuration;
 @AutoConfigureAfter(MetricsAutoConfiguration.class)
 @ConditionalOnBean(Clock.class)
 @ConditionalOnClass(SignalFxMeterRegistry.class)
-@ConditionalOnEnabledMetricsExport("signalfx")
+@ConditionalOnEnabledMetricsExport_RENAMED("signalfx")
 @EnableConfigurationProperties(SignalFxProperties.class)
 public class SignalFxMetricsExportAutoConfiguration {
 

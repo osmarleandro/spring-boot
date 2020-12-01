@@ -26,7 +26,7 @@ import io.micrometer.wavefront.WavefrontMeterRegistry;
 
 import org.springframework.boot.actuate.autoconfigure.metrics.CompositeMeterRegistryAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.metrics.MetricsAutoConfiguration;
-import org.springframework.boot.actuate.autoconfigure.metrics.export.ConditionalOnEnabledMetricsExport;
+import org.springframework.boot.actuate.autoconfigure.metrics.export.ConditionalOnEnabledMetricsExport_RENAMED;
 import org.springframework.boot.actuate.autoconfigure.metrics.export.simple.SimpleMetricsExportAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.metrics.export.wavefront.WavefrontProperties.Sender;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
@@ -54,7 +54,7 @@ import org.springframework.util.unit.DataSize;
 @AutoConfigureAfter(MetricsAutoConfiguration.class)
 @ConditionalOnBean(Clock.class)
 @ConditionalOnClass({ WavefrontMeterRegistry.class, WavefrontSender.class })
-@ConditionalOnEnabledMetricsExport("wavefront")
+@ConditionalOnEnabledMetricsExport_RENAMED("wavefront")
 @EnableConfigurationProperties(WavefrontProperties.class)
 public class WavefrontMetricsExportAutoConfiguration {
 

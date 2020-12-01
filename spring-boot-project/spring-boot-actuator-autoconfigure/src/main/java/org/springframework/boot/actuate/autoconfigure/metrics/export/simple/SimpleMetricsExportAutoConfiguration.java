@@ -23,7 +23,7 @@ import io.micrometer.core.instrument.simple.SimpleMeterRegistry;
 
 import org.springframework.boot.actuate.autoconfigure.metrics.CompositeMeterRegistryAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.metrics.MetricsAutoConfiguration;
-import org.springframework.boot.actuate.autoconfigure.metrics.export.ConditionalOnEnabledMetricsExport;
+import org.springframework.boot.actuate.autoconfigure.metrics.export.ConditionalOnEnabledMetricsExport_RENAMED;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -47,7 +47,7 @@ import org.springframework.context.annotation.Configuration;
 @ConditionalOnBean(Clock.class)
 @EnableConfigurationProperties(SimpleProperties.class)
 @ConditionalOnMissingBean(MeterRegistry.class)
-@ConditionalOnEnabledMetricsExport("simple")
+@ConditionalOnEnabledMetricsExport_RENAMED("simple")
 public class SimpleMetricsExportAutoConfiguration {
 
 	@Bean

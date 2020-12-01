@@ -38,7 +38,7 @@ import org.springframework.context.annotation.Conditional;
 @Target({ ElementType.TYPE, ElementType.METHOD })
 @Documented
 @Conditional(OnMetricsExportEnabledCondition.class)
-public @interface ConditionalOnEnabledMetricsExport {
+public @interface ConditionalOnEnabledMetricsExport_RENAMED {
 
 	/**
 	 * The name of the metrics exporter.

@@ -22,7 +22,7 @@ import io.micrometer.jmx.JmxMeterRegistry;
 
 import org.springframework.boot.actuate.autoconfigure.metrics.CompositeMeterRegistryAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.metrics.MetricsAutoConfiguration;
-import org.springframework.boot.actuate.autoconfigure.metrics.export.ConditionalOnEnabledMetricsExport;
+import org.springframework.boot.actuate.autoconfigure.metrics.export.ConditionalOnEnabledMetricsExport_RENAMED;
 import org.springframework.boot.actuate.autoconfigure.metrics.export.simple.SimpleMetricsExportAutoConfiguration;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
@@ -45,7 +45,7 @@ import org.springframework.context.annotation.Configuration;
 @AutoConfigureAfter(MetricsAutoConfiguration.class)
 @ConditionalOnBean(Clock.class)
 @ConditionalOnClass(JmxMeterRegistry.class)
-@ConditionalOnEnabledMetricsExport("jmx")
+@ConditionalOnEnabledMetricsExport_RENAMED("jmx")
 @EnableConfigurationProperties(JmxProperties.class)
 public class JmxMetricsExportAutoConfiguration {
 

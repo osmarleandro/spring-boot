@@ -23,7 +23,7 @@ import io.micrometer.dynatrace.DynatraceMeterRegistry;
 
 import org.springframework.boot.actuate.autoconfigure.metrics.CompositeMeterRegistryAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.metrics.MetricsAutoConfiguration;
-import org.springframework.boot.actuate.autoconfigure.metrics.export.ConditionalOnEnabledMetricsExport;
+import org.springframework.boot.actuate.autoconfigure.metrics.export.ConditionalOnEnabledMetricsExport_RENAMED;
 import org.springframework.boot.actuate.autoconfigure.metrics.export.simple.SimpleMetricsExportAutoConfiguration;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
@@ -47,7 +47,7 @@ import org.springframework.context.annotation.Configuration;
 @AutoConfigureAfter(MetricsAutoConfiguration.class)
 @ConditionalOnBean(Clock.class)
 @ConditionalOnClass(DynatraceMeterRegistry.class)
-@ConditionalOnEnabledMetricsExport("dynatrace")
+@ConditionalOnEnabledMetricsExport_RENAMED("dynatrace")
 @EnableConfigurationProperties(DynatraceProperties.class)
 public class DynatraceMetricsExportAutoConfiguration {
 

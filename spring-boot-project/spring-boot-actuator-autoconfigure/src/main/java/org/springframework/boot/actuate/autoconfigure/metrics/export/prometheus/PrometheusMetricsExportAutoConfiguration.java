@@ -33,7 +33,7 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.boot.actuate.autoconfigure.endpoint.condition.ConditionalOnAvailableEndpoint;
 import org.springframework.boot.actuate.autoconfigure.metrics.CompositeMeterRegistryAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.metrics.MetricsAutoConfiguration;
-import org.springframework.boot.actuate.autoconfigure.metrics.export.ConditionalOnEnabledMetricsExport;
+import org.springframework.boot.actuate.autoconfigure.metrics.export.ConditionalOnEnabledMetricsExport_RENAMED;
 import org.springframework.boot.actuate.autoconfigure.metrics.export.simple.SimpleMetricsExportAutoConfiguration;
 import org.springframework.boot.actuate.metrics.export.prometheus.PrometheusPushGatewayManager;
 import org.springframework.boot.actuate.metrics.export.prometheus.PrometheusPushGatewayManager.ShutdownOperation;
@@ -64,7 +64,7 @@ import org.springframework.util.StringUtils;
 @AutoConfigureAfter(MetricsAutoConfiguration.class)
 @ConditionalOnBean(Clock.class)
 @ConditionalOnClass(PrometheusMeterRegistry.class)
-@ConditionalOnEnabledMetricsExport("prometheus")
+@ConditionalOnEnabledMetricsExport_RENAMED("prometheus")
 @EnableConfigurationProperties(PrometheusProperties.class)
 public class PrometheusMetricsExportAutoConfiguration {
 

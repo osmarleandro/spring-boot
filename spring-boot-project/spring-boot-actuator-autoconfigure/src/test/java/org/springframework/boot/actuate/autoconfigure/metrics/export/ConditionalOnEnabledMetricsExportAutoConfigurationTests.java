@@ -24,7 +24,7 @@ import org.springframework.boot.test.context.runner.ApplicationContextRunner;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Tests for {@link ConditionalOnEnabledMetricsExport}.
+ * Tests for {@link ConditionalOnEnabledMetricsExport_RENAMED}.
  *
  * @author Chris Bono
  */
