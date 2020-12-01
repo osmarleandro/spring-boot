@@ -19,7 +19,7 @@ package org.springframework.boot.actuate.autoconfigure.ldap;
 import org.junit.jupiter.api.Test;
 
 import org.springframework.boot.actuate.autoconfigure.health.HealthContributorAutoConfiguration;
-import org.springframework.boot.actuate.ldap.LdapHealthIndicator;
+import org.springframework.boot.actuate.ldap.LdapHealthIndicator_RENAMED;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
 import org.springframework.boot.test.context.runner.ApplicationContextRunner;
 import org.springframework.ldap.core.LdapOperations;
@@ -41,13 +41,13 @@ class LdapHealthContributorAutoConfigurationTests {
 
 	@Test
 	void runShouldCreateIndicator() {
-		this.contextRunner.run((context) -> assertThat(context).hasSingleBean(LdapHealthIndicator.class));
+		this.contextRunner.run((context) -> assertThat(context).hasSingleBean(LdapHealthIndicator_RENAMED.class));
 	}
 
 	@Test
 	void runWhenDisabledShouldNotCreateIndicator() {
 		this.contextRunner.withPropertyValues("management.health.ldap.enabled:false")
-				.run((context) -> assertThat(context).doesNotHaveBean(LdapHealthIndicator.class));
+				.run((context) -> assertThat(context).doesNotHaveBean(LdapHealthIndicator_RENAMED.class));
 	}
 
 }

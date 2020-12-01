@@ -21,7 +21,7 @@ import java.util.Map;
 import org.springframework.boot.actuate.autoconfigure.health.CompositeHealthContributorConfiguration;
 import org.springframework.boot.actuate.autoconfigure.health.ConditionalOnEnabledHealthIndicator;
 import org.springframework.boot.actuate.health.HealthContributor;
-import org.springframework.boot.actuate.ldap.LdapHealthIndicator;
+import org.springframework.boot.actuate.ldap.LdapHealthIndicator_RENAMED;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
@@ -33,7 +33,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.ldap.core.LdapOperations;
 
 /**
- * {@link EnableAutoConfiguration Auto-configuration} for {@link LdapHealthIndicator}.
+ * {@link EnableAutoConfiguration Auto-configuration} for {@link LdapHealthIndicator_RENAMED}.
  *
  * @author Eddú Meléndez
  * @author Stephane Nicoll
@@ -45,7 +45,7 @@ import org.springframework.ldap.core.LdapOperations;
 @ConditionalOnEnabledHealthIndicator("ldap")
 @AutoConfigureAfter(LdapAutoConfiguration.class)
 public class LdapHealthContributorAutoConfiguration
-		extends CompositeHealthContributorConfiguration<LdapHealthIndicator, LdapOperations> {
+		extends CompositeHealthContributorConfiguration<LdapHealthIndicator_RENAMED, LdapOperations> {
 
 	@Bean
 	@ConditionalOnMissingBean(name = { "ldapHealthIndicator", "ldapHealthContributor" })

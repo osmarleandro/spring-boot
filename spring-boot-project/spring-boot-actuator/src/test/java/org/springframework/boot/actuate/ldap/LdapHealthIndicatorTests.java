@@ -31,7 +31,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
 /**
- * Tests for {@link LdapHealthIndicator}
+ * Tests for {@link LdapHealthIndicator_RENAMED}
  *
  * @author Eddú Meléndez
  */
@@ -42,7 +42,7 @@ class LdapHealthIndicatorTests {
 	void ldapIsUp() {
 		LdapTemplate ldapTemplate = mock(LdapTemplate.class);
 		given(ldapTemplate.executeReadOnly((ContextExecutor<String>) any())).willReturn("3");
-		LdapHealthIndicator healthIndicator = new LdapHealthIndicator(ldapTemplate);
+		LdapHealthIndicator_RENAMED healthIndicator = new LdapHealthIndicator_RENAMED(ldapTemplate);
 		Health health = healthIndicator.health();
 		assertThat(health.getStatus()).isEqualTo(Status.UP);
 		assertThat(health.getDetails().get("version")).isEqualTo("3");
@@ -55,7 +55,7 @@ class LdapHealthIndicatorTests {
 		LdapTemplate ldapTemplate = mock(LdapTemplate.class);
 		given(ldapTemplate.executeReadOnly((ContextExecutor<String>) any()))
 				.willThrow(new CommunicationException(new javax.naming.CommunicationException("Connection failed")));
-		LdapHealthIndicator healthIndicator = new LdapHealthIndicator(ldapTemplate);
+		LdapHealthIndicator_RENAMED healthIndicator = new LdapHealthIndicator_RENAMED(ldapTemplate);
 		Health health = healthIndicator.health();
 		assertThat(health.getStatus()).isEqualTo(Status.DOWN);
 		assertThat((String) health.getDetails().get("error")).contains("Connection failed");
