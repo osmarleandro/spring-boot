@@ -37,7 +37,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  *
  * @author Andy Wilkinson
  */
-class ConfigurationPropertiesReportEndpointDocumentationTests extends MockMvcEndpointDocumentationTests {
+class ConfigurationPropertiesReportEndpointDocumentationTests extends MockMvcEndpointDocumentationTests_RENAMED {
 
 	@Test
 	void configProps() throws Exception {

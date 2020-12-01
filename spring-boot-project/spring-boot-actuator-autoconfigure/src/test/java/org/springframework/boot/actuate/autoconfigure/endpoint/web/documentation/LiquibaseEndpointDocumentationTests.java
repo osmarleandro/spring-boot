@@ -43,7 +43,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  *
  * @author Andy Wilkinson
  */
-class LiquibaseEndpointDocumentationTests extends MockMvcEndpointDocumentationTests {
+class LiquibaseEndpointDocumentationTests extends MockMvcEndpointDocumentationTests_RENAMED {
 
 	@Test
 	void liquibase() throws Exception {

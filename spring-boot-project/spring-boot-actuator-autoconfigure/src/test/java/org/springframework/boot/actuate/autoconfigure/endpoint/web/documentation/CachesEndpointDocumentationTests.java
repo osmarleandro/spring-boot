@@ -48,7 +48,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  *
  * @author Stephane Nicoll
  */
-class CachesEndpointDocumentationTests extends MockMvcEndpointDocumentationTests {
+class CachesEndpointDocumentationTests extends MockMvcEndpointDocumentationTests_RENAMED {
 
 	private static final List<FieldDescriptor> levelFields = Arrays.asList(
 			fieldWithPath("name").description("Cache name."),

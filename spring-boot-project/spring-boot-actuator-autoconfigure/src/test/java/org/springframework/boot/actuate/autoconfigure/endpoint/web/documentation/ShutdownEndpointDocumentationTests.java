@@ -36,7 +36,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  *
  * @author Andy Wilkinson
  */
-class ShutdownEndpointDocumentationTests extends MockMvcEndpointDocumentationTests {
+class ShutdownEndpointDocumentationTests extends MockMvcEndpointDocumentationTests_RENAMED {
 
 	@Test
 	void shutdown() throws Exception {

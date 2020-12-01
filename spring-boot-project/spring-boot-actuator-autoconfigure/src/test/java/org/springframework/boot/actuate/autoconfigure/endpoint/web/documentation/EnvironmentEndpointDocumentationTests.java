@@ -57,7 +57,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  */
 @TestPropertySource(
 		properties = "spring.config.location=classpath:/org/springframework/boot/actuate/autoconfigure/endpoint/web/documentation/")
-class EnvironmentEndpointDocumentationTests extends MockMvcEndpointDocumentationTests {
+class EnvironmentEndpointDocumentationTests extends MockMvcEndpointDocumentationTests_RENAMED {
 
 	private static final FieldDescriptor activeProfiles = fieldWithPath("activeProfiles")
 			.description("Names of the active profiles, if any.");

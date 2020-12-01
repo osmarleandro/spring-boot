@@ -48,7 +48,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  *
  * @author Andy Wilkinson
  */
-class ScheduledTasksEndpointDocumentationTests extends MockMvcEndpointDocumentationTests {
+class ScheduledTasksEndpointDocumentationTests extends MockMvcEndpointDocumentationTests_RENAMED {
 
 	@Test
 	void scheduledTasks() throws Exception {

@@ -39,7 +39,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  *
  * @author Andy Wilkinson
  */
-class MetricsEndpointDocumentationTests extends MockMvcEndpointDocumentationTests {
+class MetricsEndpointDocumentationTests extends MockMvcEndpointDocumentationTests_RENAMED {
 
 	@Test
 	void metricNames() throws Exception {

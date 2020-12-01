@@ -65,7 +65,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * @author Andy Wilkinson
  * @author Stephane Nicoll
  */
-class HealthEndpointDocumentationTests extends MockMvcEndpointDocumentationTests {
+class HealthEndpointDocumentationTests extends MockMvcEndpointDocumentationTests_RENAMED {
 
 	private static final List<FieldDescriptor> componentFields = Arrays.asList(
 			fieldWithPath("status").description("Status of a specific part of the application"),

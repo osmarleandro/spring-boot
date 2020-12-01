@@ -43,7 +43,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  *
  * @author Andy Wilkinson
  */
-class ThreadDumpEndpointDocumentationTests extends MockMvcEndpointDocumentationTests {
+class ThreadDumpEndpointDocumentationTests extends MockMvcEndpointDocumentationTests_RENAMED {
 
 	@Test
 	void jsonThreadDump() throws Exception {

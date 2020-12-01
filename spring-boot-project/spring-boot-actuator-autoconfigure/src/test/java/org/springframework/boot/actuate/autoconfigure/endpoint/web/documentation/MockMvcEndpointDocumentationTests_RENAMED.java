@@ -36,7 +36,7 @@ import org.springframework.web.context.WebApplicationContext;
  */
 @ExtendWith(RestDocumentationExtension.class)
 @SpringBootTest
-public abstract class MockMvcEndpointDocumentationTests extends AbstractEndpointDocumentationTests {
+public abstract class MockMvcEndpointDocumentationTests_RENAMED extends AbstractEndpointDocumentationTests {
 
 	protected MockMvc mockMvc;
 
