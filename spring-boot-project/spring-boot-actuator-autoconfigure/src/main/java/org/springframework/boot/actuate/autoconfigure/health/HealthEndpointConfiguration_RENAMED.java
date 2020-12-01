@@ -53,7 +53,7 @@ import org.springframework.util.ClassUtils;
  * @see HealthEndpointAutoConfiguration
  */
 @Configuration(proxyBeanMethods = false)
-class HealthEndpointConfiguration {
+class HealthEndpointConfiguration_RENAMED {
 
 	@Bean
 	@ConditionalOnMissingBean
