@@ -26,7 +26,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Stephane Nicoll
  */
-class PrometheusPropertiesTests {
+class PrometheusPropertiesTests_RENAMED {
 
 	@Test
 	void defaultValuesAreConsistent() {
