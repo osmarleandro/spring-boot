@@ -18,7 +18,7 @@ package org.springframework.boot.actuate.autoconfigure.management;
 
 import org.junit.jupiter.api.Test;
 
-import org.springframework.boot.actuate.management.HeapDumpWebEndpoint;
+import org.springframework.boot.actuate.management.HeapDumpWebEndpoint_RENAMED;
 import org.springframework.boot.test.context.runner.WebApplicationContextRunner;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -36,13 +36,13 @@ class HeapDumpWebEndpointAutoConfigurationTests {
 
 	@Test
 	void runShouldCreateIndicator() {
-		this.contextRunner.run((context) -> assertThat(context).hasSingleBean(HeapDumpWebEndpoint.class));
+		this.contextRunner.run((context) -> assertThat(context).hasSingleBean(HeapDumpWebEndpoint_RENAMED.class));
 	}
 
 	@Test
 	void runWhenDisabledShouldNotCreateIndicator() {
 		this.contextRunner.withPropertyValues("management.endpoint.heapdump.enabled:false")
-				.run((context) -> assertThat(context).doesNotHaveBean(HeapDumpWebEndpoint.class));
+				.run((context) -> assertThat(context).doesNotHaveBean(HeapDumpWebEndpoint_RENAMED.class));
 	}
 
 }

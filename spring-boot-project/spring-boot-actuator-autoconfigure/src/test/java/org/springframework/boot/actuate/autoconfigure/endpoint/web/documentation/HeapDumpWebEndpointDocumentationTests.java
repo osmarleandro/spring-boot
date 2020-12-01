@@ -21,7 +21,7 @@ import java.util.Map;
 
 import org.junit.jupiter.api.Test;
 
-import org.springframework.boot.actuate.management.HeapDumpWebEndpoint;
+import org.springframework.boot.actuate.management.HeapDumpWebEndpoint_RENAMED;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
@@ -35,7 +35,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /**
- * Tests for generating documentation describing the {@link HeapDumpWebEndpoint}.
+ * Tests for generating documentation describing the {@link HeapDumpWebEndpoint_RENAMED}.
  *
  * @author Andy Wilkinson
  */
@@ -61,8 +61,8 @@ class HeapDumpWebEndpointDocumentationTests extends MockMvcEndpointDocumentation
 	static class TestConfiguration {
 
 		@Bean
-		HeapDumpWebEndpoint endpoint() {
-			return new HeapDumpWebEndpoint() {
+		HeapDumpWebEndpoint_RENAMED endpoint() {
+			return new HeapDumpWebEndpoint_RENAMED() {
 
 				@Override
 				protected HeapDumper createHeapDumper() throws HeapDumperUnavailableException {

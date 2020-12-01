@@ -23,7 +23,7 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Tests for {@link HeapDumpWebEndpoint}.
+ * Tests for {@link HeapDumpWebEndpoint_RENAMED}.
  *
  * @author Andy Wilkinson
  */
@@ -33,7 +33,7 @@ class HeapDumpWebEndpointTests {
 	void parallelRequestProducesTooManyRequestsResponse() throws InterruptedException {
 		CountDownLatch dumpingLatch = new CountDownLatch(1);
 		CountDownLatch blockingLatch = new CountDownLatch(1);
-		HeapDumpWebEndpoint slowEndpoint = new HeapDumpWebEndpoint(2500) {
+		HeapDumpWebEndpoint_RENAMED slowEndpoint = new HeapDumpWebEndpoint_RENAMED(2500) {
 
 			@Override
 			protected HeapDumper createHeapDumper() throws HeapDumperUnavailableException {

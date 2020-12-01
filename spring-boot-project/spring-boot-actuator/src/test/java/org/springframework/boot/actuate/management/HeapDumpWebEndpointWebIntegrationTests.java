@@ -36,7 +36,7 @@ import org.springframework.util.FileCopyUtils;
 import static org.hamcrest.Matchers.is;
 
 /**
- * Integration tests for {@link HeapDumpWebEndpoint} exposed by Jersey, Spring MVC, and
+ * Integration tests for {@link HeapDumpWebEndpoint_RENAMED} exposed by Jersey, Spring MVC, and
  * WebFlux.
  *
  * @author Phillip Webb
@@ -73,13 +73,13 @@ class HeapDumpWebEndpointWebIntegrationTests {
 	static class TestConfiguration {
 
 		@Bean
-		HeapDumpWebEndpoint endpoint() {
+		HeapDumpWebEndpoint_RENAMED endpoint() {
 			return new TestHeapDumpWebEndpoint();
 		}
 
 	}
 
-	static class TestHeapDumpWebEndpoint extends HeapDumpWebEndpoint {
+	static class TestHeapDumpWebEndpoint extends HeapDumpWebEndpoint_RENAMED {
 
 		private boolean available;
 
