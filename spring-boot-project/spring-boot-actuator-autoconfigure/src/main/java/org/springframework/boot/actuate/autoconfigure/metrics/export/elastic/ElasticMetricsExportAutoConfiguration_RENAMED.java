@@ -49,11 +49,11 @@ import org.springframework.context.annotation.Configuration;
 @ConditionalOnClass(ElasticMeterRegistry.class)
 @ConditionalOnEnabledMetricsExport("elastic")
 @EnableConfigurationProperties(ElasticProperties.class)
-public class ElasticMetricsExportAutoConfiguration {
+public class ElasticMetricsExportAutoConfiguration_RENAMED {
 
 	private final ElasticProperties properties;
 
-	public ElasticMetricsExportAutoConfiguration(ElasticProperties properties) {
+	public ElasticMetricsExportAutoConfiguration_RENAMED(ElasticProperties properties) {
 		this.properties = properties;
 	}
 
