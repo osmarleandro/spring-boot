@@ -30,7 +30,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Stephane Nicoll
  * @author Artsiom Yudovin
  */
-public abstract class PushRegistryPropertiesConfigAdapterTests<P extends PushRegistryProperties, A extends PushRegistryPropertiesConfigAdapter<P>> {
+public abstract class PushRegistryPropertiesConfigAdapterTests_RENAMED<P extends PushRegistryProperties, A extends PushRegistryPropertiesConfigAdapter<P>> {
 
 	protected abstract P createProperties();
 

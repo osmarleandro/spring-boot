@@ -20,7 +20,7 @@ import java.net.URI;
 
 import org.junit.jupiter.api.Test;
 
-import org.springframework.boot.actuate.autoconfigure.metrics.export.properties.PushRegistryPropertiesConfigAdapterTests;
+import org.springframework.boot.actuate.autoconfigure.metrics.export.properties.PushRegistryPropertiesConfigAdapterTests_RENAMED;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -30,7 +30,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Stephane Nicoll
  */
 class WavefrontPropertiesConfigAdapterTests
-		extends PushRegistryPropertiesConfigAdapterTests<WavefrontProperties, WavefrontPropertiesConfigAdapter> {
+		extends PushRegistryPropertiesConfigAdapterTests_RENAMED<WavefrontProperties, WavefrontPropertiesConfigAdapter> {
 
 	@Override
 	protected WavefrontProperties createProperties() {
