@@ -28,7 +28,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
 
 /**
- * Tests for {@link EndpointMediaTypes}.
+ * Tests for {@link EndpointMediaTypes_RENAMED}.
  *
  * @author Phillip Webb
  */
@@ -36,27 +36,27 @@ class EndpointMediaTypesTests {
 
 	@Test
 	void defaultReturnsExpectedProducedAndConsumedTypes() {
-		assertThat(EndpointMediaTypes.DEFAULT.getProduced()).containsExactly(ActuatorMediaType.V3_JSON,
+		assertThat(EndpointMediaTypes_RENAMED.DEFAULT.getProduced()).containsExactly(ActuatorMediaType.V3_JSON,
 				ActuatorMediaType.V2_JSON, "application/json");
-		assertThat(EndpointMediaTypes.DEFAULT.getConsumed()).containsExactly(ActuatorMediaType.V3_JSON,
+		assertThat(EndpointMediaTypes_RENAMED.DEFAULT.getConsumed()).containsExactly(ActuatorMediaType.V3_JSON,
 				ActuatorMediaType.V2_JSON, "application/json");
 	}
 
 	@Test
 	void createWhenProducedIsNullShouldThrowException() {
-		assertThatIllegalArgumentException().isThrownBy(() -> new EndpointMediaTypes(null, Collections.emptyList()))
+		assertThatIllegalArgumentException().isThrownBy(() -> new EndpointMediaTypes_RENAMED(null, Collections.emptyList()))
 				.withMessageContaining("Produced must not be null");
 	}
 
 	@Test
 	void createWhenConsumedIsNullShouldThrowException() {
-		assertThatIllegalArgumentException().isThrownBy(() -> new EndpointMediaTypes(Collections.emptyList(), null))
+		assertThatIllegalArgumentException().isThrownBy(() -> new EndpointMediaTypes_RENAMED(Collections.emptyList(), null))
 				.withMessageContaining("Consumed must not be null");
 	}
 
 	@Test
 	void createFromProducedAndConsumedUsesSameListForBoth() {
-		EndpointMediaTypes types = new EndpointMediaTypes("spring/framework", "spring/boot");
+		EndpointMediaTypes_RENAMED types = new EndpointMediaTypes_RENAMED("spring/framework", "spring/boot");
 		assertThat(types.getProduced()).containsExactly("spring/framework", "spring/boot");
 		assertThat(types.getConsumed()).containsExactly("spring/framework", "spring/boot");
 	}
@@ -64,14 +64,14 @@ class EndpointMediaTypesTests {
 	@Test
 	void getProducedShouldReturnProduced() {
 		List<String> produced = Arrays.asList("a", "b", "c");
-		EndpointMediaTypes types = new EndpointMediaTypes(produced, Collections.emptyList());
+		EndpointMediaTypes_RENAMED types = new EndpointMediaTypes_RENAMED(produced, Collections.emptyList());
 		assertThat(types.getProduced()).isEqualTo(produced);
 	}
 
 	@Test
 	void getConsumedShouldReturnConsumed() {
 		List<String> consumed = Arrays.asList("a", "b", "c");
-		EndpointMediaTypes types = new EndpointMediaTypes(Collections.emptyList(), consumed);
+		EndpointMediaTypes_RENAMED types = new EndpointMediaTypes_RENAMED(Collections.emptyList(), consumed);
 		assertThat(types.getConsumed()).isEqualTo(consumed);
 	}
 

@@ -29,7 +29,7 @@ import org.springframework.boot.actuate.endpoint.EndpointsSupplier;
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvokerAdvisor;
 import org.springframework.boot.actuate.endpoint.invoke.ParameterValueMapper;
-import org.springframework.boot.actuate.endpoint.web.EndpointMediaTypes;
+import org.springframework.boot.actuate.endpoint.web.EndpointMediaTypes_RENAMED;
 import org.springframework.boot.actuate.endpoint.web.ExposableServletEndpoint;
 import org.springframework.boot.actuate.endpoint.web.ExposableWebEndpoint;
 import org.springframework.boot.actuate.endpoint.web.PathMappedEndpoints;
@@ -81,14 +81,14 @@ public class WebEndpointAutoConfiguration {
 
 	@Bean
 	@ConditionalOnMissingBean
-	public EndpointMediaTypes endpointMediaTypes() {
-		return EndpointMediaTypes.DEFAULT;
+	public EndpointMediaTypes_RENAMED endpointMediaTypes() {
+		return EndpointMediaTypes_RENAMED.DEFAULT;
 	}
 
 	@Bean
 	@ConditionalOnMissingBean(WebEndpointsSupplier.class)
 	public WebEndpointDiscoverer webEndpointDiscoverer(ParameterValueMapper parameterValueMapper,
-			EndpointMediaTypes endpointMediaTypes, ObjectProvider<PathMapper> endpointPathMappers,
+			EndpointMediaTypes_RENAMED endpointMediaTypes, ObjectProvider<PathMapper> endpointPathMappers,
 			ObjectProvider<OperationInvokerAdvisor> invokerAdvisors,
 			ObjectProvider<EndpointFilter<ExposableWebEndpoint>> filters) {
 		return new WebEndpointDiscoverer(this.applicationContext, parameterValueMapper, endpointMediaTypes,

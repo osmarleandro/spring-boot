@@ -40,7 +40,7 @@ import org.junit.jupiter.api.extension.TestTemplateInvocationContextProvider;
 import org.springframework.boot.actuate.endpoint.invoke.convert.ConversionServiceParameterValueMapper;
 import org.springframework.boot.actuate.endpoint.web.EndpointLinksResolver;
 import org.springframework.boot.actuate.endpoint.web.EndpointMapping;
-import org.springframework.boot.actuate.endpoint.web.EndpointMediaTypes;
+import org.springframework.boot.actuate.endpoint.web.EndpointMediaTypes_RENAMED;
 import org.springframework.boot.actuate.endpoint.web.annotation.WebEndpointDiscoverer;
 import org.springframework.boot.actuate.endpoint.web.jersey.JerseyEndpointResourceFactory;
 import org.springframework.boot.actuate.endpoint.web.reactive.WebFluxEndpointHandlerMapping;
@@ -237,7 +237,7 @@ class WebEndpointTestInvocationContextProvider implements TestTemplateInvocation
 		}
 
 		private void customize(ResourceConfig config) {
-			EndpointMediaTypes endpointMediaTypes = EndpointMediaTypes.DEFAULT;
+			EndpointMediaTypes_RENAMED endpointMediaTypes = EndpointMediaTypes_RENAMED.DEFAULT;
 			WebEndpointDiscoverer discoverer = new WebEndpointDiscoverer(this.applicationContext,
 					new ConversionServiceParameterValueMapper(), endpointMediaTypes, null, Collections.emptyList(),
 					Collections.emptyList());
@@ -283,7 +283,7 @@ class WebEndpointTestInvocationContextProvider implements TestTemplateInvocation
 
 		@Bean
 		WebFluxEndpointHandlerMapping webEndpointReactiveHandlerMapping() {
-			EndpointMediaTypes endpointMediaTypes = EndpointMediaTypes.DEFAULT;
+			EndpointMediaTypes_RENAMED endpointMediaTypes = EndpointMediaTypes_RENAMED.DEFAULT;
 			WebEndpointDiscoverer discoverer = new WebEndpointDiscoverer(this.applicationContext,
 					new ConversionServiceParameterValueMapper(), endpointMediaTypes, null, Collections.emptyList(),
 					Collections.emptyList());
@@ -312,7 +312,7 @@ class WebEndpointTestInvocationContextProvider implements TestTemplateInvocation
 
 		@Bean
 		WebMvcEndpointHandlerMapping webEndpointServletHandlerMapping() {
-			EndpointMediaTypes endpointMediaTypes = EndpointMediaTypes.DEFAULT;
+			EndpointMediaTypes_RENAMED endpointMediaTypes = EndpointMediaTypes_RENAMED.DEFAULT;
 			WebEndpointDiscoverer discoverer = new WebEndpointDiscoverer(this.applicationContext,
 					new ConversionServiceParameterValueMapper(), endpointMediaTypes, null, Collections.emptyList(),
 					Collections.emptyList());

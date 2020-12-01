@@ -22,7 +22,7 @@ import java.util.List;
 import org.springframework.boot.actuate.endpoint.EndpointFilter;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvokerAdvisor;
 import org.springframework.boot.actuate.endpoint.invoke.ParameterValueMapper;
-import org.springframework.boot.actuate.endpoint.web.EndpointMediaTypes;
+import org.springframework.boot.actuate.endpoint.web.EndpointMediaTypes_RENAMED;
 import org.springframework.boot.actuate.endpoint.web.ExposableWebEndpoint;
 import org.springframework.boot.actuate.endpoint.web.PathMapper;
 import org.springframework.boot.actuate.endpoint.web.annotation.EndpointWebExtension;
@@ -50,7 +50,7 @@ public class CloudFoundryWebEndpointDiscoverer extends WebEndpointDiscoverer {
 	 * @param filters filters to apply
 	 */
 	public CloudFoundryWebEndpointDiscoverer(ApplicationContext applicationContext,
-			ParameterValueMapper parameterValueMapper, EndpointMediaTypes endpointMediaTypes,
+			ParameterValueMapper parameterValueMapper, EndpointMediaTypes_RENAMED endpointMediaTypes,
 			List<PathMapper> endpointPathMappers, Collection<OperationInvokerAdvisor> invokerAdvisors,
 			Collection<EndpointFilter<ExposableWebEndpoint>> filters) {
 		super(applicationContext, parameterValueMapper, endpointMediaTypes, endpointPathMappers, invokerAdvisors,

@@ -25,7 +25,7 @@ import org.springframework.boot.actuate.endpoint.OperationType;
 import org.springframework.boot.actuate.endpoint.annotation.DiscoveredOperationMethod;
 import org.springframework.boot.actuate.endpoint.annotation.Selector;
 import org.springframework.boot.actuate.endpoint.annotation.Selector.Match;
-import org.springframework.boot.actuate.endpoint.web.EndpointMediaTypes;
+import org.springframework.boot.actuate.endpoint.web.EndpointMediaTypes_RENAMED;
 import org.springframework.boot.actuate.endpoint.web.WebOperationRequestPredicate;
 import org.springframework.core.annotation.AnnotationAttributes;
 
@@ -40,7 +40,7 @@ import static org.assertj.core.api.Assertions.assertThatIllegalStateException;
 class RequestPredicateFactoryTests {
 
 	private final RequestPredicateFactory factory = new RequestPredicateFactory(
-			new EndpointMediaTypes(Collections.emptyList(), Collections.emptyList()));
+			new EndpointMediaTypes_RENAMED(Collections.emptyList(), Collections.emptyList()));
 
 	private String rootPath = "/root";
 

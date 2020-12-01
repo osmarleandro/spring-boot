@@ -22,7 +22,7 @@ import java.util.List;
 
 import org.springframework.boot.actuate.endpoint.invoke.ParameterValueMapper;
 import org.springframework.boot.actuate.endpoint.invoke.convert.ConversionServiceParameterValueMapper;
-import org.springframework.boot.actuate.endpoint.web.EndpointMediaTypes;
+import org.springframework.boot.actuate.endpoint.web.EndpointMediaTypes_RENAMED;
 import org.springframework.boot.web.embedded.tomcat.TomcatEmbeddedWebappClassLoader;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
@@ -55,13 +55,13 @@ class BaseConfiguration {
 	}
 
 	@Bean
-	EndpointMediaTypes endpointMediaTypes() {
+	EndpointMediaTypes_RENAMED endpointMediaTypes() {
 		List<String> mediaTypes = Arrays.asList("application/vnd.test+json", "application/json");
-		return new EndpointMediaTypes(mediaTypes, mediaTypes);
+		return new EndpointMediaTypes_RENAMED(mediaTypes, mediaTypes);
 	}
 
 	@Bean
-	WebEndpointDiscoverer webEndpointDiscoverer(EndpointMediaTypes endpointMediaTypes,
+	WebEndpointDiscoverer webEndpointDiscoverer(EndpointMediaTypes_RENAMED endpointMediaTypes,
 			ApplicationContext applicationContext) {
 		ParameterValueMapper parameterMapper = new ConversionServiceParameterValueMapper(
 				DefaultConversionService.getSharedInstance());
