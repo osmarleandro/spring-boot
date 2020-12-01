@@ -52,7 +52,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  *
  * @author Andy Wilkinson
  */
-class HttpTraceEndpointDocumentationTests extends MockMvcEndpointDocumentationTests {
+class HttpTraceEndpointDocumentationTests_RENAMED extends MockMvcEndpointDocumentationTests {
 
 	@MockBean
 	private HttpTraceRepository repository;
