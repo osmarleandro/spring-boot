@@ -42,10 +42,10 @@ import org.springframework.core.type.AnnotatedTypeMetadata;
  * @since 2.3.0
  */
 @Configuration(proxyBeanMethods = false)
-@Conditional(AvailabilityProbesAutoConfiguration.ProbesCondition.class)
+@Conditional(AvailabilityProbesAutoConfiguration_RENAMED.ProbesCondition.class)
 @AutoConfigureAfter({ AvailabilityHealthContributorAutoConfiguration.class,
 		ApplicationAvailabilityAutoConfiguration.class })
-public class AvailabilityProbesAutoConfiguration {
+public class AvailabilityProbesAutoConfiguration_RENAMED {
 
 	@Bean
 	@ConditionalOnMissingBean(name = "livenessStateHealthIndicator")
