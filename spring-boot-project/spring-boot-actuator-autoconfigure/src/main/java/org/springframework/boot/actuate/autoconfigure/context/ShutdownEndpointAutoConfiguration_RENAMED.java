@@ -31,7 +31,7 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration(proxyBeanMethods = false)
 @ConditionalOnAvailableEndpoint(endpoint = ShutdownEndpoint.class)
-public class ShutdownEndpointAutoConfiguration {
+public class ShutdownEndpointAutoConfiguration_RENAMED {
 
 	@Bean(destroyMethod = "")
 	@ConditionalOnMissingBean

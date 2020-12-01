@@ -29,14 +29,14 @@ import org.springframework.test.util.ReflectionTestUtils;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Tests for {@link ShutdownEndpointAutoConfiguration}.
+ * Tests for {@link ShutdownEndpointAutoConfiguration_RENAMED}.
  *
  * @author Phillip Webb
  */
 class ShutdownEndpointAutoConfigurationTests {
 
 	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
-			.withConfiguration(AutoConfigurations.of(ShutdownEndpointAutoConfiguration.class));
+			.withConfiguration(AutoConfigurations.of(ShutdownEndpointAutoConfiguration_RENAMED.class));
 
 	@Test
 	@SuppressWarnings("unchecked")
