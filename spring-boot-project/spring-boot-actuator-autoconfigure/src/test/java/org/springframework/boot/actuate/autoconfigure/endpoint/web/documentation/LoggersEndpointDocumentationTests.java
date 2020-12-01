@@ -25,7 +25,7 @@ import java.util.Map;
 import org.junit.jupiter.api.Test;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.actuate.logging.LoggersEndpoint;
+import org.springframework.boot.actuate.logging.LoggersEndpoint_RENAMED;
 import org.springframework.boot.logging.LogLevel;
 import org.springframework.boot.logging.LoggerConfiguration;
 import org.springframework.boot.logging.LoggerGroups;
@@ -49,7 +49,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /**
- * Tests for generating documentation describing the {@link LoggersEndpoint}.
+ * Tests for generating documentation describing the {@link LoggersEndpoint_RENAMED}.
  *
  * @author Andy Wilkinson
  */
@@ -150,11 +150,11 @@ class LoggersEndpointDocumentationTests extends MockMvcEndpointDocumentationTest
 	static class TestConfiguration {
 
 		@Bean
-		LoggersEndpoint endpoint(LoggingSystem loggingSystem, LoggerGroups groups) {
+		LoggersEndpoint_RENAMED endpoint(LoggingSystem loggingSystem, LoggerGroups groups) {
 			groups.putAll(getLoggerGroups());
 			groups.get("test").configureLogLevel(LogLevel.INFO, (member, level) -> {
 			});
-			return new LoggersEndpoint(loggingSystem, groups);
+			return new LoggersEndpoint_RENAMED(loggingSystem, groups);
 		}
 
 		private Map<String, List<String>> getLoggerGroups() {

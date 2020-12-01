@@ -18,7 +18,7 @@ package org.springframework.boot.actuate.autoconfigure.logging;
 
 import org.junit.jupiter.api.Test;
 
-import org.springframework.boot.actuate.logging.LoggersEndpoint;
+import org.springframework.boot.actuate.logging.LoggersEndpoint_RENAMED;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
 import org.springframework.boot.logging.LoggingSystem;
 import org.springframework.boot.test.context.runner.ApplicationContextRunner;
@@ -42,24 +42,24 @@ class LoggersEndpointAutoConfigurationTests {
 	@Test
 	void runShouldHaveEndpointBean() {
 		this.contextRunner.withPropertyValues("management.endpoints.web.exposure.include=loggers")
-				.run((context) -> assertThat(context).hasSingleBean(LoggersEndpoint.class));
+				.run((context) -> assertThat(context).hasSingleBean(LoggersEndpoint_RENAMED.class));
 	}
 
 	@Test
 	void runWhenEnabledPropertyIsFalseShouldNotHaveEndpointBean() {
 		this.contextRunner.withPropertyValues("management.endpoint.loggers.enabled:false")
-				.run((context) -> assertThat(context).doesNotHaveBean(LoggersEndpoint.class));
+				.run((context) -> assertThat(context).doesNotHaveBean(LoggersEndpoint_RENAMED.class));
 	}
 
 	@Test
 	void runWhenNotExposedShouldNotHaveEndpointBean() {
-		this.contextRunner.run((context) -> assertThat(context).doesNotHaveBean(LoggersEndpoint.class));
+		this.contextRunner.run((context) -> assertThat(context).doesNotHaveBean(LoggersEndpoint_RENAMED.class));
 	}
 
 	@Test
 	void runWithNoneLoggingSystemShouldNotHaveEndpointBean() {
 		this.contextRunner.withSystemProperties("org.springframework.boot.logging.LoggingSystem=none")
-				.run((context) -> assertThat(context).doesNotHaveBean(LoggersEndpoint.class));
+				.run((context) -> assertThat(context).doesNotHaveBean(LoggersEndpoint_RENAMED.class));
 	}
 
 	@Configuration(proxyBeanMethods = false)

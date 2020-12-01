@@ -48,7 +48,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoInteractions;
 
 /**
- * Integration tests for {@link LoggersEndpoint} when exposed via Jersey, Spring MVC, and
+ * Integration tests for {@link LoggersEndpoint_RENAMED} when exposed via Jersey, Spring MVC, and
  * WebFlux.
  *
  * @author Ben Hale
@@ -251,9 +251,9 @@ class LoggersEndpointWebIntegrationTests {
 		}
 
 		@Bean
-		LoggersEndpoint endpoint(LoggingSystem loggingSystem,
+		LoggersEndpoint_RENAMED endpoint(LoggingSystem loggingSystem,
 				ObjectProvider<LoggerGroups> loggingGroupsObjectProvider) {
-			return new LoggersEndpoint(loggingSystem, loggingGroupsObjectProvider.getIfAvailable());
+			return new LoggersEndpoint_RENAMED(loggingSystem, loggingGroupsObjectProvider.getIfAvailable());
 		}
 
 	}

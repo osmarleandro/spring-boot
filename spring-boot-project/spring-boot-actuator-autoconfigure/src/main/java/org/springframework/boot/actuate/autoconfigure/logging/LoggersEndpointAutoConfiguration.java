@@ -18,7 +18,7 @@ package org.springframework.boot.actuate.autoconfigure.logging;
 
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.boot.actuate.autoconfigure.endpoint.condition.ConditionalOnAvailableEndpoint;
-import org.springframework.boot.actuate.logging.LoggersEndpoint;
+import org.springframework.boot.actuate.logging.LoggersEndpoint_RENAMED;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionMessage;
 import org.springframework.boot.autoconfigure.condition.ConditionOutcome;
@@ -34,22 +34,22 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.type.AnnotatedTypeMetadata;
 
 /**
- * {@link EnableAutoConfiguration Auto-configuration} for the {@link LoggersEndpoint}.
+ * {@link EnableAutoConfiguration Auto-configuration} for the {@link LoggersEndpoint_RENAMED}.
  *
  * @author Phillip Webb
  * @since 2.0.0
  */
 @Configuration(proxyBeanMethods = false)
-@ConditionalOnAvailableEndpoint(endpoint = LoggersEndpoint.class)
+@ConditionalOnAvailableEndpoint(endpoint = LoggersEndpoint_RENAMED.class)
 public class LoggersEndpointAutoConfiguration {
 
 	@Bean
 	@ConditionalOnBean(LoggingSystem.class)
 	@Conditional(OnEnabledLoggingSystemCondition.class)
 	@ConditionalOnMissingBean
-	public LoggersEndpoint loggersEndpoint(LoggingSystem loggingSystem,
+	public LoggersEndpoint_RENAMED loggersEndpoint(LoggingSystem loggingSystem,
 			ObjectProvider<LoggerGroups> springBootLoggerGroups) {
-		return new LoggersEndpoint(loggingSystem, springBootLoggerGroups.getIfAvailable(LoggerGroups::new));
+		return new LoggersEndpoint_RENAMED(loggingSystem, springBootLoggerGroups.getIfAvailable(LoggerGroups::new));
 	}
 
 	static class OnEnabledLoggingSystemCondition extends SpringBootCondition {
