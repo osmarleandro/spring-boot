@@ -31,7 +31,7 @@ import org.springframework.util.Assert;
  */
 public class InvocationContext {
 
-	private final SecurityContext securityContext;
+	private final SecurityContext_RENAMED securityContext;
 
 	private final Map<String, Object> arguments;
 
@@ -43,7 +43,7 @@ public class InvocationContext {
 	 * @param securityContext the current security context. Never {@code null}
 	 * @param arguments the arguments available to the operation. Never {@code null}
 	 */
-	public InvocationContext(SecurityContext securityContext, Map<String, Object> arguments) {
+	public InvocationContext(SecurityContext_RENAMED securityContext, Map<String, Object> arguments) {
 		this(null, securityContext, arguments);
 	}
 
@@ -55,7 +55,7 @@ public class InvocationContext {
 	 * @param arguments the arguments available to the operation. Never {@code null}
 	 * @since 2.2.0
 	 */
-	public InvocationContext(ApiVersion apiVersion, SecurityContext securityContext, Map<String, Object> arguments) {
+	public InvocationContext(ApiVersion apiVersion, SecurityContext_RENAMED securityContext, Map<String, Object> arguments) {
 		Assert.notNull(securityContext, "SecurityContext must not be null");
 		Assert.notNull(arguments, "Arguments must not be null");
 		this.apiVersion = (apiVersion != null) ? apiVersion : ApiVersion.LATEST;
@@ -76,7 +76,7 @@ public class InvocationContext {
 	 * Return the security context to use for the invocation.
 	 * @return the security context
 	 */
-	public SecurityContext getSecurityContext() {
+	public SecurityContext_RENAMED getSecurityContext() {
 		return this.securityContext;
 	}
 

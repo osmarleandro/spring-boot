@@ -32,7 +32,7 @@ import reactor.core.scheduler.Schedulers;
 import org.springframework.boot.actuate.endpoint.InvalidEndpointRequestException;
 import org.springframework.boot.actuate.endpoint.InvocationContext;
 import org.springframework.boot.actuate.endpoint.OperationType;
-import org.springframework.boot.actuate.endpoint.SecurityContext;
+import org.springframework.boot.actuate.endpoint.SecurityContext_RENAMED;
 import org.springframework.boot.actuate.endpoint.http.ApiVersion;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvoker;
 import org.springframework.boot.actuate.endpoint.web.EndpointMapping;
@@ -274,7 +274,7 @@ public abstract class AbstractWebFluxEndpointHandlerMapping extends RequestMappi
 
 		private final OperationInvoker invoker;
 
-		private final Supplier<Mono<? extends SecurityContext>> securityContextSupplier;
+		private final Supplier<Mono<? extends SecurityContext_RENAMED>> securityContextSupplier;
 
 		private ReactiveWebOperationAdapter(WebOperation operation) {
 			this.operation = operation;
@@ -290,7 +290,7 @@ public abstract class AbstractWebFluxEndpointHandlerMapping extends RequestMappi
 			return invoker;
 		}
 
-		private Supplier<Mono<? extends SecurityContext>> getSecurityContextSupplier() {
+		private Supplier<Mono<? extends SecurityContext_RENAMED>> getSecurityContextSupplier() {
 			if (ClassUtils.isPresent("org.springframework.security.core.context.ReactiveSecurityContextHolder",
 					getClass().getClassLoader())) {
 				return this::springSecurityContext;
@@ -298,14 +298,14 @@ public abstract class AbstractWebFluxEndpointHandlerMapping extends RequestMappi
 			return this::emptySecurityContext;
 		}
 
-		Mono<? extends SecurityContext> springSecurityContext() {
+		Mono<? extends SecurityContext_RENAMED> springSecurityContext() {
 			return ReactiveSecurityContextHolder.getContext()
 					.map((securityContext) -> new ReactiveSecurityContext(securityContext.getAuthentication()))
 					.switchIfEmpty(Mono.just(new ReactiveSecurityContext(null)));
 		}
 
-		Mono<SecurityContext> emptySecurityContext() {
-			return Mono.just(SecurityContext.NONE);
+		Mono<SecurityContext_RENAMED> emptySecurityContext() {
+			return Mono.just(SecurityContext_RENAMED.NONE);
 		}
 
 		@Override
@@ -428,7 +428,7 @@ public abstract class AbstractWebFluxEndpointHandlerMapping extends RequestMappi
 
 	}
 
-	private static final class ReactiveSecurityContext implements SecurityContext {
+	private static final class ReactiveSecurityContext implements SecurityContext_RENAMED {
 
 		private final RoleVoter roleVoter = new RoleVoter();
 

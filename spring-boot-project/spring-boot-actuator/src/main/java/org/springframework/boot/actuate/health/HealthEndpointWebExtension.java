@@ -20,7 +20,7 @@ import java.util.Arrays;
 import java.util.Map;
 import java.util.Set;
 
-import org.springframework.boot.actuate.endpoint.SecurityContext;
+import org.springframework.boot.actuate.endpoint.SecurityContext_RENAMED;
 import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
 import org.springframework.boot.actuate.endpoint.annotation.Selector;
 import org.springframework.boot.actuate.endpoint.annotation.Selector.Match;
@@ -56,17 +56,17 @@ public class HealthEndpointWebExtension extends HealthEndpointSupport<HealthCont
 	}
 
 	@ReadOperation
-	public WebEndpointResponse<HealthComponent> health(ApiVersion apiVersion, SecurityContext securityContext) {
+	public WebEndpointResponse<HealthComponent> health(ApiVersion apiVersion, SecurityContext_RENAMED securityContext) {
 		return health(apiVersion, securityContext, false, NO_PATH);
 	}
 
 	@ReadOperation
-	public WebEndpointResponse<HealthComponent> health(ApiVersion apiVersion, SecurityContext securityContext,
+	public WebEndpointResponse<HealthComponent> health(ApiVersion apiVersion, SecurityContext_RENAMED securityContext,
 			@Selector(match = Match.ALL_REMAINING) String... path) {
 		return health(apiVersion, securityContext, false, path);
 	}
 
-	public WebEndpointResponse<HealthComponent> health(ApiVersion apiVersion, SecurityContext securityContext,
+	public WebEndpointResponse<HealthComponent> health(ApiVersion apiVersion, SecurityContext_RENAMED securityContext,
 			boolean showAll, String... path) {
 		HealthResult<HealthComponent> result = getHealth(apiVersion, securityContext, showAll, path);
 		if (result == null) {

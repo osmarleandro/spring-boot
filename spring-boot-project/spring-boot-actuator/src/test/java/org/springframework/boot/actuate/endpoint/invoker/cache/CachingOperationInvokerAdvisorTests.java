@@ -27,7 +27,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import org.springframework.boot.actuate.endpoint.EndpointId;
 import org.springframework.boot.actuate.endpoint.OperationType;
-import org.springframework.boot.actuate.endpoint.SecurityContext;
+import org.springframework.boot.actuate.endpoint.SecurityContext_RENAMED;
 import org.springframework.boot.actuate.endpoint.http.ApiVersion;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvoker;
 import org.springframework.boot.actuate.endpoint.invoke.OperationParameters;
@@ -114,7 +114,7 @@ class CachingOperationInvokerAdvisorTests {
 
 	@Test
 	void applyWithSecurityContextShouldAddAdvise() {
-		OperationParameters parameters = getParameters("getWithSecurityContext", SecurityContext.class, String.class);
+		OperationParameters parameters = getParameters("getWithSecurityContext", SecurityContext_RENAMED.class, String.class);
 		given(this.timeToLive.apply(any())).willReturn(100L);
 		assertAdviseIsApplied(parameters);
 	}
@@ -157,7 +157,7 @@ class CachingOperationInvokerAdvisorTests {
 			return "";
 		}
 
-		String getWithSecurityContext(SecurityContext securityContext, @Nullable String bar) {
+		String getWithSecurityContext(SecurityContext_RENAMED securityContext, @Nullable String bar) {
 			return "";
 		}
 

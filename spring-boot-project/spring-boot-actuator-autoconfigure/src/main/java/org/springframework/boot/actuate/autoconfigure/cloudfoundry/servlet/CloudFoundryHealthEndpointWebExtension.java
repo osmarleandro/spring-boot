@@ -17,7 +17,7 @@
 package org.springframework.boot.actuate.autoconfigure.cloudfoundry.servlet;
 
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.EndpointCloudFoundryExtension;
-import org.springframework.boot.actuate.endpoint.SecurityContext;
+import org.springframework.boot.actuate.endpoint.SecurityContext_RENAMED;
 import org.springframework.boot.actuate.endpoint.annotation.EndpointExtension;
 import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
 import org.springframework.boot.actuate.endpoint.annotation.Selector;
@@ -46,13 +46,13 @@ public class CloudFoundryHealthEndpointWebExtension {
 
 	@ReadOperation
 	public WebEndpointResponse<HealthComponent> health(ApiVersion apiVersion) {
-		return this.delegate.health(apiVersion, SecurityContext.NONE, true);
+		return this.delegate.health(apiVersion, SecurityContext_RENAMED.NONE, true);
 	}
 
 	@ReadOperation
 	public WebEndpointResponse<HealthComponent> health(ApiVersion apiVersion,
 			@Selector(match = Match.ALL_REMAINING) String... path) {
-		return this.delegate.health(apiVersion, SecurityContext.NONE, true, path);
+		return this.delegate.health(apiVersion, SecurityContext_RENAMED.NONE, true, path);
 	}
 
 }

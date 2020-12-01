@@ -21,7 +21,7 @@ import java.util.Collection;
 import java.util.function.Predicate;
 
 import org.springframework.boot.actuate.autoconfigure.health.HealthProperties.Show;
-import org.springframework.boot.actuate.endpoint.SecurityContext;
+import org.springframework.boot.actuate.endpoint.SecurityContext_RENAMED;
 import org.springframework.boot.actuate.health.HealthEndpointGroup;
 import org.springframework.boot.actuate.health.HttpCodeStatusMapper;
 import org.springframework.boot.actuate.health.StatusAggregator;
@@ -76,7 +76,7 @@ class AutoConfiguredHealthEndpointGroup implements HealthEndpointGroup {
 	}
 
 	@Override
-	public boolean showComponents(SecurityContext securityContext) {
+	public boolean showComponents(SecurityContext_RENAMED securityContext) {
 		if (this.showComponents == null) {
 			return showDetails(securityContext);
 		}
@@ -84,11 +84,11 @@ class AutoConfiguredHealthEndpointGroup implements HealthEndpointGroup {
 	}
 
 	@Override
-	public boolean showDetails(SecurityContext securityContext) {
+	public boolean showDetails(SecurityContext_RENAMED securityContext) {
 		return getShowResult(securityContext, this.showDetails);
 	}
 
-	private boolean getShowResult(SecurityContext securityContext, Show show) {
+	private boolean getShowResult(SecurityContext_RENAMED securityContext, Show show) {
 		switch (show) {
 		case NEVER:
 			return false;
@@ -100,7 +100,7 @@ class AutoConfiguredHealthEndpointGroup implements HealthEndpointGroup {
 		throw new IllegalStateException("Unsupported 'show' value " + show);
 	}
 
-	private boolean isAuthorized(SecurityContext securityContext) {
+	private boolean isAuthorized(SecurityContext_RENAMED securityContext) {
 		Principal principal = securityContext.getPrincipal();
 		if (principal == null) {
 			return false;

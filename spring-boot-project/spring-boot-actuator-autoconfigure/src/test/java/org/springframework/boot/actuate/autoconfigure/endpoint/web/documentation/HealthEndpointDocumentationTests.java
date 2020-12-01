@@ -27,7 +27,7 @@ import javax.sql.DataSource;
 
 import org.junit.jupiter.api.Test;
 
-import org.springframework.boot.actuate.endpoint.SecurityContext;
+import org.springframework.boot.actuate.endpoint.SecurityContext_RENAMED;
 import org.springframework.boot.actuate.health.CompositeHealthContributor;
 import org.springframework.boot.actuate.health.DefaultHealthContributorRegistry;
 import org.springframework.boot.actuate.health.Health;
@@ -145,12 +145,12 @@ class HealthEndpointDocumentationTests extends MockMvcEndpointDocumentationTests
 		}
 
 		@Override
-		public boolean showComponents(SecurityContext securityContext) {
+		public boolean showComponents(SecurityContext_RENAMED securityContext) {
 			return true;
 		}
 
 		@Override
-		public boolean showDetails(SecurityContext securityContext) {
+		public boolean showDetails(SecurityContext_RENAMED securityContext) {
 			return true;
 		}
 

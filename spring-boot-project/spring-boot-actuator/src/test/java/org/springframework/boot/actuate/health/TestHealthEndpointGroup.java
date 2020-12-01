@@ -18,7 +18,7 @@ package org.springframework.boot.actuate.health;
 
 import java.util.function.Predicate;
 
-import org.springframework.boot.actuate.endpoint.SecurityContext;
+import org.springframework.boot.actuate.endpoint.SecurityContext_RENAMED;
 
 /**
  * Test implementation of {@link HealthEndpointGroups}.
@@ -51,7 +51,7 @@ class TestHealthEndpointGroup implements HealthEndpointGroup {
 	}
 
 	@Override
-	public boolean showComponents(SecurityContext securityContext) {
+	public boolean showComponents(SecurityContext_RENAMED securityContext) {
 		return (this.showComponents != null) ? this.showComponents : this.showDetails;
 	}
 
@@ -60,7 +60,7 @@ class TestHealthEndpointGroup implements HealthEndpointGroup {
 	}
 
 	@Override
-	public boolean showDetails(SecurityContext securityContext) {
+	public boolean showDetails(SecurityContext_RENAMED securityContext) {
 		return this.showDetails;
 	}
 

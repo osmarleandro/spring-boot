@@ -30,7 +30,7 @@ import java.util.function.Supplier;
 import org.junit.jupiter.api.Test;
 import reactor.core.publisher.Mono;
 
-import org.springframework.boot.actuate.endpoint.SecurityContext;
+import org.springframework.boot.actuate.endpoint.SecurityContext_RENAMED;
 import org.springframework.boot.actuate.endpoint.annotation.DeleteOperation;
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
 import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
@@ -833,7 +833,7 @@ public abstract class AbstractWebEndpointIntegrationTests<T extends Configurable
 	static class SecurityContextEndpoint {
 
 		@ReadOperation
-		String read(SecurityContext securityContext) {
+		String read(SecurityContext_RENAMED securityContext) {
 			Principal principal = securityContext.getPrincipal();
 			return (principal != null) ? principal.getName() : "None";
 		}
@@ -844,7 +844,7 @@ public abstract class AbstractWebEndpointIntegrationTests<T extends Configurable
 	static class UserInRoleEndpoint {
 
 		@ReadOperation
-		String read(SecurityContext securityContext, String role) {
+		String read(SecurityContext_RENAMED securityContext, String role) {
 			return role + ": " + securityContext.isUserInRole(role);
 		}
 

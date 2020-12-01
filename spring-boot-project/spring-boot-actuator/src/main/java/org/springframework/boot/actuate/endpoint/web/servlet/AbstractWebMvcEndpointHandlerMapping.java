@@ -32,7 +32,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.boot.actuate.endpoint.InvalidEndpointRequestException;
 import org.springframework.boot.actuate.endpoint.InvocationContext;
-import org.springframework.boot.actuate.endpoint.SecurityContext;
+import org.springframework.boot.actuate.endpoint.SecurityContext_RENAMED;
 import org.springframework.boot.actuate.endpoint.http.ApiVersion;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvoker;
 import org.springframework.boot.actuate.endpoint.web.EndpointMapping;
@@ -410,7 +410,7 @@ public abstract class AbstractWebMvcEndpointHandlerMapping extends RequestMappin
 
 	}
 
-	private static final class ServletSecurityContext implements SecurityContext {
+	private static final class ServletSecurityContext implements SecurityContext_RENAMED {
 
 		private final HttpServletRequest request;
 

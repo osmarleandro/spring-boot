@@ -21,7 +21,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import org.springframework.boot.actuate.endpoint.SecurityContext;
+import org.springframework.boot.actuate.endpoint.SecurityContext_RENAMED;
 import org.springframework.boot.actuate.endpoint.http.ApiVersion;
 import org.springframework.util.Assert;
 
@@ -53,7 +53,7 @@ abstract class HealthEndpointSupport<C, T> {
 		this.groups = groups;
 	}
 
-	HealthResult<T> getHealth(ApiVersion apiVersion, SecurityContext securityContext, boolean showAll, String... path) {
+	HealthResult<T> getHealth(ApiVersion apiVersion, SecurityContext_RENAMED securityContext, boolean showAll, String... path) {
 		HealthEndpointGroup group = (path.length > 0) ? this.groups.get(path[0]) : null;
 		if (group != null) {
 			return getHealth(apiVersion, group, securityContext, showAll, path, 1);
@@ -61,7 +61,7 @@ abstract class HealthEndpointSupport<C, T> {
 		return getHealth(apiVersion, this.groups.getPrimary(), securityContext, showAll, path, 0);
 	}
 
-	private HealthResult<T> getHealth(ApiVersion apiVersion, HealthEndpointGroup group, SecurityContext securityContext,
+	private HealthResult<T> getHealth(ApiVersion apiVersion, HealthEndpointGroup group, SecurityContext_RENAMED securityContext,
 			boolean showAll, String[] path, int pathOffset) {
 		boolean showComponents = showAll || group.showComponents(securityContext);
 		boolean showDetails = showAll || group.showDetails(securityContext);

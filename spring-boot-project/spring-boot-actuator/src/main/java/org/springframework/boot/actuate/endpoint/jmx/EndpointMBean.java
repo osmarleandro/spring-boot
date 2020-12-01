@@ -33,7 +33,7 @@ import reactor.core.publisher.Mono;
 
 import org.springframework.boot.actuate.endpoint.InvalidEndpointRequestException;
 import org.springframework.boot.actuate.endpoint.InvocationContext;
-import org.springframework.boot.actuate.endpoint.SecurityContext;
+import org.springframework.boot.actuate.endpoint.SecurityContext_RENAMED;
 import org.springframework.util.Assert;
 import org.springframework.util.ClassUtils;
 
@@ -117,7 +117,7 @@ public class EndpointMBean implements DynamicMBean {
 			String[] parameterNames = operation.getParameters().stream().map(JmxOperationParameter::getName)
 					.toArray(String[]::new);
 			Map<String, Object> arguments = getArguments(parameterNames, params);
-			InvocationContext context = new InvocationContext(SecurityContext.NONE, arguments);
+			InvocationContext context = new InvocationContext(SecurityContext_RENAMED.NONE, arguments);
 			Object result = operation.invoke(context);
 			if (REACTOR_PRESENT) {
 				result = ReactiveHandler.handle(result);

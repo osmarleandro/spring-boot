@@ -23,7 +23,7 @@ import java.util.Set;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-import org.springframework.boot.actuate.endpoint.SecurityContext;
+import org.springframework.boot.actuate.endpoint.SecurityContext_RENAMED;
 import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
 import org.springframework.boot.actuate.endpoint.annotation.Selector;
 import org.springframework.boot.actuate.endpoint.annotation.Selector.Match;
@@ -57,18 +57,18 @@ public class ReactiveHealthEndpointWebExtension
 
 	@ReadOperation
 	public Mono<WebEndpointResponse<? extends HealthComponent>> health(ApiVersion apiVersion,
-			SecurityContext securityContext) {
+			SecurityContext_RENAMED securityContext) {
 		return health(apiVersion, securityContext, false, NO_PATH);
 	}
 
 	@ReadOperation
 	public Mono<WebEndpointResponse<? extends HealthComponent>> health(ApiVersion apiVersion,
-			SecurityContext securityContext, @Selector(match = Match.ALL_REMAINING) String... path) {
+			SecurityContext_RENAMED securityContext, @Selector(match = Match.ALL_REMAINING) String... path) {
 		return health(apiVersion, securityContext, false, path);
 	}
 
 	public Mono<WebEndpointResponse<? extends HealthComponent>> health(ApiVersion apiVersion,
-			SecurityContext securityContext, boolean showAll, String... path) {
+			SecurityContext_RENAMED securityContext, boolean showAll, String... path) {
 		HealthResult<Mono<? extends HealthComponent>> result = getHealth(apiVersion, securityContext, showAll, path);
 		if (result == null) {
 			return (Arrays.equals(path, NO_PATH))

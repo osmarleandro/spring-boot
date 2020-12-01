@@ -18,7 +18,7 @@ package org.springframework.boot.actuate.autoconfigure.availability;
 
 import org.junit.jupiter.api.Test;
 
-import org.springframework.boot.actuate.endpoint.SecurityContext;
+import org.springframework.boot.actuate.endpoint.SecurityContext_RENAMED;
 import org.springframework.boot.actuate.health.HttpCodeStatusMapper;
 import org.springframework.boot.actuate.health.StatusAggregator;
 
@@ -47,12 +47,12 @@ class AvailabilityProbesHealthEndpointGroupTests {
 
 	@Test
 	void showComponentsReturnsFalse() {
-		assertThat(this.group.showComponents(mock(SecurityContext.class))).isFalse();
+		assertThat(this.group.showComponents(mock(SecurityContext_RENAMED.class))).isFalse();
 	}
 
 	@Test
 	void showDetailsReturnsFalse() {
-		assertThat(this.group.showDetails(mock(SecurityContext.class))).isFalse();
+		assertThat(this.group.showDetails(mock(SecurityContext_RENAMED.class))).isFalse();
 	}
 
 	@Test

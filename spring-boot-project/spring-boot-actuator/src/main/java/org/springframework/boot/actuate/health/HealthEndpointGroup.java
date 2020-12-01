@@ -16,7 +16,7 @@
 
 package org.springframework.boot.actuate.health;
 
-import org.springframework.boot.actuate.endpoint.SecurityContext;
+import org.springframework.boot.actuate.endpoint.SecurityContext_RENAMED;
 
 /**
  * A logical grouping of {@link HealthContributor health contributors} that can be exposed
@@ -40,7 +40,7 @@ public interface HealthEndpointGroup {
 	 * @param securityContext the endpoint security context
 	 * @return {@code true} to shown details or {@code false} to hide them
 	 */
-	boolean showComponents(SecurityContext securityContext);
+	boolean showComponents(SecurityContext_RENAMED securityContext);
 
 	/**
 	 * Returns if {@link Health#getDetails() health details} should be shown in the
@@ -48,7 +48,7 @@ public interface HealthEndpointGroup {
 	 * @param securityContext the endpoint security context
 	 * @return {@code true} to shown details or {@code false} to hide them
 	 */
-	boolean showDetails(SecurityContext securityContext);
+	boolean showDetails(SecurityContext_RENAMED securityContext);
 
 	/**
 	 * Returns the status aggregator that should be used for this group.

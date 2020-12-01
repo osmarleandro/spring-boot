@@ -34,7 +34,7 @@ import static org.mockito.Mockito.mock;
  */
 class InvocationContextTests {
 
-	private final SecurityContext securityContext = mock(SecurityContext.class);
+	private final SecurityContext_RENAMED securityContext = mock(SecurityContext_RENAMED.class);
 
 	private final Map<String, Object> arguments = Collections.singletonMap("test", "value");
 

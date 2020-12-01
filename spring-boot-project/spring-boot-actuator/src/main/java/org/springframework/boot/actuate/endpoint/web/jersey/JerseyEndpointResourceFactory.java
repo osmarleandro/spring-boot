@@ -42,7 +42,7 @@ import reactor.core.publisher.Mono;
 
 import org.springframework.boot.actuate.endpoint.InvalidEndpointRequestException;
 import org.springframework.boot.actuate.endpoint.InvocationContext;
-import org.springframework.boot.actuate.endpoint.SecurityContext;
+import org.springframework.boot.actuate.endpoint.SecurityContext_RENAMED;
 import org.springframework.boot.actuate.endpoint.http.ApiVersion;
 import org.springframework.boot.actuate.endpoint.web.EndpointLinksResolver;
 import org.springframework.boot.actuate.endpoint.web.EndpointMapping;
@@ -287,7 +287,7 @@ public class JerseyEndpointResourceFactory {
 
 	}
 
-	private static final class JerseySecurityContext implements SecurityContext {
+	private static final class JerseySecurityContext implements SecurityContext_RENAMED {
 
 		private final javax.ws.rs.core.SecurityContext securityContext;
 

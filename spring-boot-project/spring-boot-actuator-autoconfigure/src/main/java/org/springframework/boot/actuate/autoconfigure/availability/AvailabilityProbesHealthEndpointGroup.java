@@ -20,7 +20,7 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.springframework.boot.actuate.endpoint.SecurityContext;
+import org.springframework.boot.actuate.endpoint.SecurityContext_RENAMED;
 import org.springframework.boot.actuate.health.HealthEndpointGroup;
 import org.springframework.boot.actuate.health.HttpCodeStatusMapper;
 import org.springframework.boot.actuate.health.StatusAggregator;
@@ -45,12 +45,12 @@ class AvailabilityProbesHealthEndpointGroup implements HealthEndpointGroup {
 	}
 
 	@Override
-	public boolean showComponents(SecurityContext securityContext) {
+	public boolean showComponents(SecurityContext_RENAMED securityContext) {
 		return false;
 	}
 
 	@Override
-	public boolean showDetails(SecurityContext securityContext) {
+	public boolean showDetails(SecurityContext_RENAMED securityContext) {
 		return false;
 	}
 

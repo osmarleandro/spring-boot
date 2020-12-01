@@ -23,7 +23,7 @@ import org.junit.jupiter.api.Test;
 
 import org.springframework.boot.actuate.endpoint.InvocationContext;
 import org.springframework.boot.actuate.endpoint.OperationType;
-import org.springframework.boot.actuate.endpoint.SecurityContext;
+import org.springframework.boot.actuate.endpoint.SecurityContext_RENAMED;
 import org.springframework.boot.actuate.endpoint.http.ApiVersion;
 import org.springframework.boot.actuate.endpoint.invoke.MissingParametersException;
 import org.springframework.boot.actuate.endpoint.invoke.ParameterValueMapper;
@@ -52,7 +52,7 @@ class ReflectiveOperationInvokerTests {
 	void setup() {
 		this.target = new Example();
 		this.operationMethod = new OperationMethod(ReflectionUtils.findMethod(Example.class, "reverse",
-				ApiVersion.class, SecurityContext.class, String.class), OperationType.READ);
+				ApiVersion.class, SecurityContext_RENAMED.class, String.class), OperationType.READ);
 		this.parameterValueMapper = (parameter, value) -> (value != null) ? value.toString() : null;
 	}
 
@@ -82,7 +82,7 @@ class ReflectiveOperationInvokerTests {
 		ReflectiveOperationInvoker invoker = new ReflectiveOperationInvoker(this.target, this.operationMethod,
 				this.parameterValueMapper);
 		Object result = invoker
-				.invoke(new InvocationContext(mock(SecurityContext.class), Collections.singletonMap("name", "boot")));
+				.invoke(new InvocationContext(mock(SecurityContext_RENAMED.class), Collections.singletonMap("name", "boot")));
 		assertThat(result).isEqualTo("toob");
 	}
 
@@ -91,17 +91,17 @@ class ReflectiveOperationInvokerTests {
 		ReflectiveOperationInvoker invoker = new ReflectiveOperationInvoker(this.target, this.operationMethod,
 				this.parameterValueMapper);
 		assertThatExceptionOfType(MissingParametersException.class).isThrownBy(() -> invoker
-				.invoke(new InvocationContext(mock(SecurityContext.class), Collections.singletonMap("name", null))));
+				.invoke(new InvocationContext(mock(SecurityContext_RENAMED.class), Collections.singletonMap("name", null))));
 	}
 
 	@Test
 	void invokeWhenMissingNullableArgumentShouldInvoke() {
 		OperationMethod operationMethod = new OperationMethod(ReflectionUtils.findMethod(Example.class,
-				"reverseNullable", ApiVersion.class, SecurityContext.class, String.class), OperationType.READ);
+				"reverseNullable", ApiVersion.class, SecurityContext_RENAMED.class, String.class), OperationType.READ);
 		ReflectiveOperationInvoker invoker = new ReflectiveOperationInvoker(this.target, operationMethod,
 				this.parameterValueMapper);
 		Object result = invoker
-				.invoke(new InvocationContext(mock(SecurityContext.class), Collections.singletonMap("name", null)));
+				.invoke(new InvocationContext(mock(SecurityContext_RENAMED.class), Collections.singletonMap("name", null)));
 		assertThat(result).isEqualTo("llun");
 	}
 
@@ -110,19 +110,19 @@ class ReflectiveOperationInvokerTests {
 		ReflectiveOperationInvoker invoker = new ReflectiveOperationInvoker(this.target, this.operationMethod,
 				this.parameterValueMapper);
 		Object result = invoker
-				.invoke(new InvocationContext(mock(SecurityContext.class), Collections.singletonMap("name", 1234)));
+				.invoke(new InvocationContext(mock(SecurityContext_RENAMED.class), Collections.singletonMap("name", 1234)));
 		assertThat(result).isEqualTo("4321");
 	}
 
 	static class Example {
 
-		String reverse(ApiVersion apiVersion, SecurityContext securityContext, String name) {
+		String reverse(ApiVersion apiVersion, SecurityContext_RENAMED securityContext, String name) {
 			assertThat(apiVersion).isEqualTo(ApiVersion.LATEST);
 			assertThat(securityContext).isNotNull();
 			return new StringBuilder(name).reverse().toString();
 		}
 
-		String reverseNullable(ApiVersion apiVersion, SecurityContext securityContext, @Nullable String name) {
+		String reverseNullable(ApiVersion apiVersion, SecurityContext_RENAMED securityContext, @Nullable String name) {
 			assertThat(apiVersion).isEqualTo(ApiVersion.LATEST);
 			assertThat(securityContext).isNotNull();
 			return new StringBuilder(String.valueOf(name)).reverse().toString();

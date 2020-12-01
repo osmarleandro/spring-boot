@@ -28,7 +28,7 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import org.springframework.boot.actuate.endpoint.InvocationContext;
-import org.springframework.boot.actuate.endpoint.SecurityContext;
+import org.springframework.boot.actuate.endpoint.SecurityContext_RENAMED;
 import org.springframework.boot.actuate.endpoint.http.ApiVersion;
 import org.springframework.boot.actuate.endpoint.invoke.MissingParametersException;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvoker;
@@ -81,7 +81,7 @@ class CachingOperationInvokerTests {
 	void cacheInTtlWithMonoResponse() {
 		MonoOperationInvoker.invocations = new AtomicInteger();
 		MonoOperationInvoker target = new MonoOperationInvoker();
-		InvocationContext context = new InvocationContext(mock(SecurityContext.class), Collections.emptyMap());
+		InvocationContext context = new InvocationContext(mock(SecurityContext_RENAMED.class), Collections.emptyMap());
 		CachingOperationInvoker invoker = new CachingOperationInvoker(target, CACHE_TTL);
 		Object response = ((Mono<?>) invoker.invoke(context)).block();
 		Object cachedResponse = ((Mono<?>) invoker.invoke(context)).block();
@@ -93,7 +93,7 @@ class CachingOperationInvokerTests {
 	void cacheInTtlWithFluxResponse() {
 		FluxOperationInvoker.invocations = new AtomicInteger();
 		FluxOperationInvoker target = new FluxOperationInvoker();
-		InvocationContext context = new InvocationContext(mock(SecurityContext.class), Collections.emptyMap());
+		InvocationContext context = new InvocationContext(mock(SecurityContext_RENAMED.class), Collections.emptyMap());
 		CachingOperationInvoker invoker = new CachingOperationInvoker(target, CACHE_TTL);
 		Object response = ((Flux<?>) invoker.invoke(context)).blockLast();
 		Object cachedResponse = ((Flux<?>) invoker.invoke(context)).blockLast();
@@ -108,7 +108,7 @@ class CachingOperationInvokerTests {
 	private void assertCacheIsUsed(Map<String, Object> parameters, Principal principal) {
 		OperationInvoker target = mock(OperationInvoker.class);
 		Object expected = new Object();
-		SecurityContext securityContext = mock(SecurityContext.class);
+		SecurityContext_RENAMED securityContext = mock(SecurityContext_RENAMED.class);
 		if (principal != null) {
 			given(securityContext.getPrincipal()).willReturn(principal);
 		}
@@ -129,7 +129,7 @@ class CachingOperationInvokerTests {
 		Map<String, Object> parameters = new HashMap<>();
 		parameters.put("test", "value");
 		parameters.put("something", null);
-		InvocationContext context = new InvocationContext(mock(SecurityContext.class), parameters);
+		InvocationContext context = new InvocationContext(mock(SecurityContext_RENAMED.class), parameters);
 		given(target.invoke(context)).willReturn(new Object());
 		CachingOperationInvoker invoker = new CachingOperationInvoker(target, CACHE_TTL);
 		invoker.invoke(context);
@@ -142,7 +142,7 @@ class CachingOperationInvokerTests {
 	void targetAlwaysInvokedWithDifferentPrincipals() {
 		OperationInvoker target = mock(OperationInvoker.class);
 		Map<String, Object> parameters = new HashMap<>();
-		SecurityContext securityContext = mock(SecurityContext.class);
+		SecurityContext_RENAMED securityContext = mock(SecurityContext_RENAMED.class);
 		given(securityContext.getPrincipal()).willReturn(mock(Principal.class), mock(Principal.class),
 				mock(Principal.class));
 		InvocationContext context = new InvocationContext(securityContext, parameters);
@@ -161,8 +161,8 @@ class CachingOperationInvokerTests {
 	void targetInvokedWhenCalledWithAndWithoutPrincipal() {
 		OperationInvoker target = mock(OperationInvoker.class);
 		Map<String, Object> parameters = new HashMap<>();
-		SecurityContext anonymous = mock(SecurityContext.class);
-		SecurityContext authenticated = mock(SecurityContext.class);
+		SecurityContext_RENAMED anonymous = mock(SecurityContext_RENAMED.class);
+		SecurityContext_RENAMED authenticated = mock(SecurityContext_RENAMED.class);
 		given(authenticated.getPrincipal()).willReturn(mock(Principal.class));
 		InvocationContext anonymousContext = new InvocationContext(anonymous, parameters);
 		Object anonymousResult = new Object();
@@ -183,7 +183,7 @@ class CachingOperationInvokerTests {
 	void targetInvokedWhenCacheExpires() throws InterruptedException {
 		OperationInvoker target = mock(OperationInvoker.class);
 		Map<String, Object> parameters = new HashMap<>();
-		InvocationContext context = new InvocationContext(mock(SecurityContext.class), parameters);
+		InvocationContext context = new InvocationContext(mock(SecurityContext_RENAMED.class), parameters);
 		given(target.invoke(context)).willReturn(new Object());
 		CachingOperationInvoker invoker = new CachingOperationInvoker(target, 50L);
 		invoker.invoke(context);
@@ -200,9 +200,9 @@ class CachingOperationInvokerTests {
 		OperationInvoker target = mock(OperationInvoker.class);
 		Object expectedV2 = new Object();
 		Object expectedV3 = new Object();
-		InvocationContext contextV2 = new InvocationContext(ApiVersion.V2, mock(SecurityContext.class),
+		InvocationContext contextV2 = new InvocationContext(ApiVersion.V2, mock(SecurityContext_RENAMED.class),
 				Collections.emptyMap());
-		InvocationContext contextV3 = new InvocationContext(ApiVersion.V3, mock(SecurityContext.class),
+		InvocationContext contextV3 = new InvocationContext(ApiVersion.V3, mock(SecurityContext_RENAMED.class),
 				Collections.emptyMap());
 		given(target.invoke(contextV2)).willReturn(expectedV2);
 		given(target.invoke(contextV3)).willReturn(expectedV3);

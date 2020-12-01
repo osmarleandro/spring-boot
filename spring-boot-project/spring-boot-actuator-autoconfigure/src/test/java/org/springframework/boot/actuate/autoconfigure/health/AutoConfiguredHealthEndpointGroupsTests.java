@@ -21,7 +21,7 @@ import java.util.Collections;
 import org.junit.jupiter.api.Test;
 
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.boot.actuate.endpoint.SecurityContext;
+import org.springframework.boot.actuate.endpoint.SecurityContext_RENAMED;
 import org.springframework.boot.actuate.health.HealthEndpointGroup;
 import org.springframework.boot.actuate.health.HealthEndpointGroups;
 import org.springframework.boot.actuate.health.HttpCodeStatusMapper;
@@ -95,8 +95,8 @@ class AutoConfiguredHealthEndpointGroupsTests {
 				"management.endpoint.health.status.http-mapping.down=200").run((context) -> {
 					HealthEndpointGroups groups = context.getBean(HealthEndpointGroups.class);
 					HealthEndpointGroup primary = groups.getPrimary();
-					assertThat(primary.showComponents(SecurityContext.NONE)).isTrue();
-					assertThat(primary.showDetails(SecurityContext.NONE)).isFalse();
+					assertThat(primary.showComponents(SecurityContext_RENAMED.NONE)).isTrue();
+					assertThat(primary.showDetails(SecurityContext_RENAMED.NONE)).isFalse();
 					assertThat(primary.getStatusAggregator().getAggregateStatus(Status.UP, Status.DOWN))
 							.isEqualTo(Status.UP);
 					assertThat(primary.getHttpCodeStatusMapper().getStatusCode(Status.DOWN)).isEqualTo(200);
@@ -315,7 +315,7 @@ class AutoConfiguredHealthEndpointGroupsTests {
 				"management.endpoint.health.group.a.include=*").run((context) -> {
 					HealthEndpointGroups groups = context.getBean(HealthEndpointGroups.class);
 					HealthEndpointGroup groupA = groups.get("a");
-					assertThat(groupA.showDetails(SecurityContext.NONE)).isTrue();
+					assertThat(groupA.showDetails(SecurityContext_RENAMED.NONE)).isTrue();
 				});
 	}
 
