@@ -46,7 +46,7 @@ import org.springframework.test.web.reactive.server.WebTestClient;
  *
  * @author Madhura Bhave
  */
-abstract class AbstractEndpointRequestIntegrationTests {
+abstract class AbstractEndpointRequestIntegrationTests_RENAMED {
 
 	@Test
 	void toEndpointShouldMatch() {
