@@ -42,7 +42,7 @@ import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException
  * @author Jon Schneider
  * @author Artsiom Yudovin
  */
-class PropertiesMeterFilterTests {
+class PropertiesMeterFilterTests_RENAMED {
 
 	@Test
 	void createWhenPropertiesIsNullShouldThrowException() {
