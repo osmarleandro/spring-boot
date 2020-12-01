@@ -63,7 +63,7 @@ import static org.mockito.BDDMockito.willThrow;
 import static org.mockito.Mockito.mock;
 
 /**
- * Tests for {@link CloudFoundryWebFluxEndpointHandlerMapping}.
+ * Tests for {@link CloudFoundryWebFluxEndpointHandlerMapping_RENAMED}.
  *
  * @author Madhura Bhave
  * @author Stephane Nicoll
@@ -176,13 +176,13 @@ class CloudFoundryWebFluxEndpointIntegrationTests {
 		}
 
 		@Bean
-		CloudFoundryWebFluxEndpointHandlerMapping cloudFoundryWebEndpointServletHandlerMapping(
+		CloudFoundryWebFluxEndpointHandlerMapping_RENAMED cloudFoundryWebEndpointServletHandlerMapping(
 				WebEndpointDiscoverer webEndpointDiscoverer, EndpointMediaTypes endpointMediaTypes,
 				CloudFoundrySecurityInterceptor interceptor) {
 			CorsConfiguration corsConfiguration = new CorsConfiguration();
 			corsConfiguration.setAllowedOrigins(Arrays.asList("https://example.com"));
 			corsConfiguration.setAllowedMethods(Arrays.asList("GET", "POST"));
-			return new CloudFoundryWebFluxEndpointHandlerMapping(new EndpointMapping("/cfApplication"),
+			return new CloudFoundryWebFluxEndpointHandlerMapping_RENAMED(new EndpointMapping("/cfApplication"),
 					webEndpointDiscoverer.getEndpoints(), endpointMediaTypes, corsConfiguration, interceptor,
 					new EndpointLinksResolver(webEndpointDiscoverer.getEndpoints()));
 		}
