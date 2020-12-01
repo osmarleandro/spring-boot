@@ -27,7 +27,7 @@ import java.time.Duration;
  * @author Stephane Nicoll
  * @since 2.2.0
  */
-public abstract class PushRegistryProperties {
+public abstract class PushRegistryProperties_RENAMED {
 
 	/**
 	 * Step size (i.e. reporting frequency) to use.

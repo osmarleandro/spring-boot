@@ -17,13 +17,13 @@
 package org.springframework.boot.actuate.autoconfigure.metrics.export.properties;
 
 /**
- * {@link PushRegistryProperties} extensions for registries that are step-normalized.
+ * {@link PushRegistryProperties_RENAMED} extensions for registries that are step-normalized.
  *
  * @author Jon Schneider
  * @author Andy Wilkinson
  * @author Stephane Nicoll
  * @since 2.0.0
  */
-public abstract class StepRegistryProperties extends PushRegistryProperties {
+public abstract class StepRegistryProperties extends PushRegistryProperties_RENAMED {
 
 }

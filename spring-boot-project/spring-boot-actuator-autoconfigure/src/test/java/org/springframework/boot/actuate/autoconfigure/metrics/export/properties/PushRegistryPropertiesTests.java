@@ -21,14 +21,14 @@ import io.micrometer.core.instrument.push.PushRegistryConfig;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Base tests for {@link PushRegistryProperties} implementation.
+ * Base tests for {@link PushRegistryProperties_RENAMED} implementation.
  *
  * @author Stephane Nicoll
  */
 public abstract class PushRegistryPropertiesTests {
 
 	@SuppressWarnings("deprecation")
-	protected void assertStepRegistryDefaultValues(PushRegistryProperties properties, PushRegistryConfig config) {
+	protected void assertStepRegistryDefaultValues(PushRegistryProperties_RENAMED properties, PushRegistryConfig config) {
 		assertThat(properties.getStep()).isEqualTo(config.step());
 		assertThat(properties.isEnabled()).isEqualTo(config.enabled());
 		assertThat(properties.getConnectTimeout()).isEqualTo(config.connectTimeout());

@@ -19,7 +19,7 @@ package org.springframework.boot.actuate.autoconfigure.metrics.export.wavefront;
 import java.net.URI;
 import java.time.Duration;
 
-import org.springframework.boot.actuate.autoconfigure.metrics.export.properties.PushRegistryProperties;
+import org.springframework.boot.actuate.autoconfigure.metrics.export.properties.PushRegistryProperties_RENAMED;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.util.unit.DataSize;
 
@@ -32,7 +32,7 @@ import org.springframework.util.unit.DataSize;
  * @since 2.0.0
  */
 @ConfigurationProperties("management.metrics.export.wavefront")
-public class WavefrontProperties extends PushRegistryProperties {
+public class WavefrontProperties extends PushRegistryProperties_RENAMED {
 
 	/**
 	 * URI to ship metrics to.

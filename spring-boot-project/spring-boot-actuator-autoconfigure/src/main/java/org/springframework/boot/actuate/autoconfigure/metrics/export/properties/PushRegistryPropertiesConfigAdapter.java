@@ -21,7 +21,7 @@ import java.time.Duration;
 import io.micrometer.core.instrument.push.PushRegistryConfig;
 
 /**
- * Base class for {@link PushRegistryProperties} to {@link PushRegistryConfig} adapters.
+ * Base class for {@link PushRegistryProperties_RENAMED} to {@link PushRegistryConfig} adapters.
  *
  * @param <T> the properties type
  * @author Jon Schneider
@@ -29,7 +29,7 @@ import io.micrometer.core.instrument.push.PushRegistryConfig;
  * @author Artsiom Yudovin
  * @since 2.2.0
  */
-public abstract class PushRegistryPropertiesConfigAdapter<T extends PushRegistryProperties>
+public abstract class PushRegistryPropertiesConfigAdapter<T extends PushRegistryProperties_RENAMED>
 		extends PropertiesConfigAdapter<T> implements PushRegistryConfig {
 
 	public PushRegistryPropertiesConfigAdapter(T properties) {
