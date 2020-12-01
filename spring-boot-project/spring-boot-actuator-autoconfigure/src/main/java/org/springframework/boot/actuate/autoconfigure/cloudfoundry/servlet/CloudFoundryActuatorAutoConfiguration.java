@@ -108,7 +108,7 @@ public class CloudFoundryActuatorAutoConfiguration {
 	}
 
 	@Bean
-	public CloudFoundryWebEndpointServletHandlerMapping cloudFoundryWebEndpointServletHandlerMapping(
+	public CloudFoundryWebEndpointServletHandlerMapping_RENAMED cloudFoundryWebEndpointServletHandlerMapping(
 			ParameterValueMapper parameterMapper, EndpointMediaTypes endpointMediaTypes,
 			RestTemplateBuilder restTemplateBuilder, ServletEndpointsSupplier servletEndpointsSupplier,
 			ControllerEndpointsSupplier controllerEndpointsSupplier, ApplicationContext applicationContext) {
@@ -121,7 +121,7 @@ public class CloudFoundryActuatorAutoConfiguration {
 		allEndpoints.addAll(webEndpoints);
 		allEndpoints.addAll(servletEndpointsSupplier.getEndpoints());
 		allEndpoints.addAll(controllerEndpointsSupplier.getEndpoints());
-		return new CloudFoundryWebEndpointServletHandlerMapping(new EndpointMapping("/cloudfoundryapplication"),
+		return new CloudFoundryWebEndpointServletHandlerMapping_RENAMED(new EndpointMapping("/cloudfoundryapplication"),
 				webEndpoints, endpointMediaTypes, getCorsConfiguration(), securityInterceptor,
 				new EndpointLinksResolver(allEndpoints));
 	}

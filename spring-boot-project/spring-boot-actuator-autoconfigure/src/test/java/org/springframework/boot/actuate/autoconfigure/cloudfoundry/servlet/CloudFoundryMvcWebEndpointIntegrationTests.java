@@ -173,13 +173,13 @@ class CloudFoundryMvcWebEndpointIntegrationTests {
 		}
 
 		@Bean
-		CloudFoundryWebEndpointServletHandlerMapping cloudFoundryWebEndpointServletHandlerMapping(
+		CloudFoundryWebEndpointServletHandlerMapping_RENAMED cloudFoundryWebEndpointServletHandlerMapping(
 				WebEndpointDiscoverer webEndpointDiscoverer, EndpointMediaTypes endpointMediaTypes,
 				CloudFoundrySecurityInterceptor interceptor) {
 			CorsConfiguration corsConfiguration = new CorsConfiguration();
 			corsConfiguration.setAllowedOrigins(Arrays.asList("https://example.com"));
 			corsConfiguration.setAllowedMethods(Arrays.asList("GET", "POST"));
-			return new CloudFoundryWebEndpointServletHandlerMapping(new EndpointMapping("/cfApplication"),
+			return new CloudFoundryWebEndpointServletHandlerMapping_RENAMED(new EndpointMapping("/cfApplication"),
 					webEndpointDiscoverer.getEndpoints(), endpointMediaTypes, corsConfiguration, interceptor,
 					new EndpointLinksResolver(webEndpointDiscoverer.getEndpoints()));
 		}

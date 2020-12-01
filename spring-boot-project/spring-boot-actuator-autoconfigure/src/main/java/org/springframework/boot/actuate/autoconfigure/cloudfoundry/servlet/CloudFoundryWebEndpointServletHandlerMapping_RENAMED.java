@@ -49,13 +49,13 @@ import org.springframework.web.servlet.mvc.method.RequestMappingInfoHandlerMappi
  * @author Phillip Webb
  * @author Brian Clozel
  */
-class CloudFoundryWebEndpointServletHandlerMapping extends AbstractWebMvcEndpointHandlerMapping {
+class CloudFoundryWebEndpointServletHandlerMapping_RENAMED extends AbstractWebMvcEndpointHandlerMapping {
 
 	private final CloudFoundrySecurityInterceptor securityInterceptor;
 
 	private final EndpointLinksResolver linksResolver;
 
-	CloudFoundryWebEndpointServletHandlerMapping(EndpointMapping endpointMapping,
+	CloudFoundryWebEndpointServletHandlerMapping_RENAMED(EndpointMapping endpointMapping,
 			Collection<ExposableWebEndpoint> endpoints, EndpointMediaTypes endpointMediaTypes,
 			CorsConfiguration corsConfiguration, CloudFoundrySecurityInterceptor securityInterceptor,
 			EndpointLinksResolver linksResolver) {
@@ -80,7 +80,7 @@ class CloudFoundryWebEndpointServletHandlerMapping extends AbstractWebMvcEndpoin
 		@Override
 		@ResponseBody
 		public Map<String, Map<String, Link>> links(HttpServletRequest request, HttpServletResponse response) {
-			SecurityResponse securityResponse = CloudFoundryWebEndpointServletHandlerMapping.this.securityInterceptor
+			SecurityResponse securityResponse = CloudFoundryWebEndpointServletHandlerMapping_RENAMED.this.securityInterceptor
 					.preHandle(request, null);
 			if (!securityResponse.getStatus().equals(HttpStatus.OK)) {
 				sendFailureResponse(response, securityResponse);
@@ -90,7 +90,7 @@ class CloudFoundryWebEndpointServletHandlerMapping extends AbstractWebMvcEndpoin
 			if (accessLevel == null) {
 				return Collections.singletonMap("_links", filteredLinks);
 			}
-			Map<String, Link> links = CloudFoundryWebEndpointServletHandlerMapping.this.linksResolver
+			Map<String, Link> links = CloudFoundryWebEndpointServletHandlerMapping_RENAMED.this.linksResolver
 					.resolveLinks(request.getRequestURL().toString());
 			filteredLinks = links.entrySet().stream()
 					.filter((e) -> e.getKey().equals("self") || accessLevel.isAccessAllowed(e.getKey()))
