@@ -27,7 +27,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Andy Wilkinson
  */
-class HumioPropertiesConfigAdapterTests {
+class HumioPropertiesConfigAdapterTests_RENAMED {
 
 	@Test
 	void whenApiTokenIsSetAdapterApiTokenReturnsIt() {
