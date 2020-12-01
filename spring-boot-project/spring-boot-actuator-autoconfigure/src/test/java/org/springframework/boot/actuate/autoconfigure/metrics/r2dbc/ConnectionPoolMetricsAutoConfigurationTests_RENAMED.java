@@ -45,7 +45,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Tadaya Tsuyukubo
  * @author Stephane Nicoll
  */
-class ConnectionPoolMetricsAutoConfigurationTests {
+class ConnectionPoolMetricsAutoConfigurationTests_RENAMED {
 
 	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.withPropertyValues("spring.r2dbc.generate-unique-name=true").with(MetricsRun.simple())
