@@ -47,7 +47,7 @@ class HealthEndpointTests
 	void healthWithNoContributorReturnsUp() {
 		assertThat(this.registry).isEmpty();
 		HealthComponent health = create(this.registry,
-				HealthEndpointGroups.of(mock(HealthEndpointGroup.class), Collections.emptyMap())).health();
+				HealthEndpointGroups.of(mock(HealthEndpointGroup_RENAMED.class), Collections.emptyMap())).health();
 		assertThat(health.getStatus()).isEqualTo(Status.UP);
 		assertThat(health).isInstanceOf(Health.class);
 	}

@@ -33,7 +33,7 @@ import org.springframework.beans.factory.annotation.BeanFactoryAnnotationUtils;
 import org.springframework.boot.actuate.autoconfigure.health.HealthEndpointProperties.Group;
 import org.springframework.boot.actuate.autoconfigure.health.HealthProperties.Show;
 import org.springframework.boot.actuate.autoconfigure.health.HealthProperties.Status;
-import org.springframework.boot.actuate.health.HealthEndpointGroup;
+import org.springframework.boot.actuate.health.HealthEndpointGroup_RENAMED;
 import org.springframework.boot.actuate.health.HealthEndpointGroups;
 import org.springframework.boot.actuate.health.HttpCodeStatusMapper;
 import org.springframework.boot.actuate.health.SimpleHttpCodeStatusMapper;
@@ -53,9 +53,9 @@ class AutoConfiguredHealthEndpointGroups implements HealthEndpointGroups {
 
 	private static final Predicate<String> ALL = (name) -> true;
 
-	private final HealthEndpointGroup primaryGroup;
+	private final HealthEndpointGroup_RENAMED primaryGroup;
 
-	private final Map<String, HealthEndpointGroup> groups;
+	private final Map<String, HealthEndpointGroup_RENAMED> groups;
 
 	/**
 	 * Create a new {@link AutoConfiguredHealthEndpointGroups} instance.
@@ -82,10 +82,10 @@ class AutoConfiguredHealthEndpointGroups implements HealthEndpointGroups {
 				showComponents, showDetails, roles);
 	}
 
-	private Map<String, HealthEndpointGroup> createGroups(Map<String, Group> groupProperties, BeanFactory beanFactory,
+	private Map<String, HealthEndpointGroup_RENAMED> createGroups(Map<String, Group> groupProperties, BeanFactory beanFactory,
 			StatusAggregator defaultStatusAggregator, HttpCodeStatusMapper defaultHttpCodeStatusMapper,
 			Show defaultShowComponents, Show defaultShowDetails, Set<String> defaultRoles) {
-		Map<String, HealthEndpointGroup> groups = new LinkedHashMap<>();
+		Map<String, HealthEndpointGroup_RENAMED> groups = new LinkedHashMap<>();
 		groupProperties.forEach((groupName, group) -> {
 			Status status = group.getStatus();
 			Show showComponents = (group.getShowComponents() != null) ? group.getShowComponents()
@@ -141,7 +141,7 @@ class AutoConfiguredHealthEndpointGroups implements HealthEndpointGroups {
 	}
 
 	@Override
-	public HealthEndpointGroup getPrimary() {
+	public HealthEndpointGroup_RENAMED getPrimary() {
 		return this.primaryGroup;
 	}
 
@@ -151,7 +151,7 @@ class AutoConfiguredHealthEndpointGroups implements HealthEndpointGroups {
 	}
 
 	@Override
-	public HealthEndpointGroup get(String name) {
+	public HealthEndpointGroup_RENAMED get(String name) {
 		return this.groups.get(name);
 	}
 

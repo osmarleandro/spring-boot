@@ -23,7 +23,7 @@ import java.util.LinkedHashSet;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import org.springframework.boot.actuate.health.HealthEndpointGroup;
+import org.springframework.boot.actuate.health.HealthEndpointGroup_RENAMED;
 import org.springframework.boot.actuate.health.HealthEndpointGroups;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -40,12 +40,12 @@ class AvailabilityProbesHealthEndpointGroupsTests {
 
 	private HealthEndpointGroups delegate;
 
-	private HealthEndpointGroup group;
+	private HealthEndpointGroup_RENAMED group;
 
 	@BeforeEach
 	void setup() {
 		this.delegate = mock(HealthEndpointGroups.class);
-		this.group = mock(HealthEndpointGroup.class);
+		this.group = mock(HealthEndpointGroup_RENAMED.class);
 	}
 
 	@Test
@@ -90,7 +90,7 @@ class AvailabilityProbesHealthEndpointGroupsTests {
 	@Test
 	void getLivenessProbeHasOnlyLivenessStateAsMember() {
 		HealthEndpointGroups availabilityProbes = new AvailabilityProbesHealthEndpointGroups(this.delegate);
-		HealthEndpointGroup probeGroup = availabilityProbes.get("liveness");
+		HealthEndpointGroup_RENAMED probeGroup = availabilityProbes.get("liveness");
 		assertThat(probeGroup.isMember("livenessState")).isTrue();
 		assertThat(probeGroup.isMember("readinessState")).isFalse();
 	}
@@ -98,7 +98,7 @@ class AvailabilityProbesHealthEndpointGroupsTests {
 	@Test
 	void getReadinessProbeHasOnlyReadinessStateAsMember() {
 		HealthEndpointGroups availabilityProbes = new AvailabilityProbesHealthEndpointGroups(this.delegate);
-		HealthEndpointGroup probeGroup = availabilityProbes.get("readiness");
+		HealthEndpointGroup_RENAMED probeGroup = availabilityProbes.get("readiness");
 		assertThat(probeGroup.isMember("livenessState")).isFalse();
 		assertThat(probeGroup.isMember("readinessState")).isTrue();
 	}

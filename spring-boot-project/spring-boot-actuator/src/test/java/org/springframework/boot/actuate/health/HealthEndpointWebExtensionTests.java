@@ -53,7 +53,7 @@ class HealthEndpointWebExtensionTests
 	void healthWithNoContributorReturnsUp() {
 		assertThat(this.registry).isEmpty();
 		WebEndpointResponse<HealthComponent> response = create(this.registry,
-				HealthEndpointGroups.of(mock(HealthEndpointGroup.class), Collections.emptyMap()))
+				HealthEndpointGroups.of(mock(HealthEndpointGroup_RENAMED.class), Collections.emptyMap()))
 						.health(ApiVersion.LATEST, SecurityContext.NONE);
 		assertThat(response.getStatus()).isEqualTo(200);
 		HealthComponent health = response.getBody();

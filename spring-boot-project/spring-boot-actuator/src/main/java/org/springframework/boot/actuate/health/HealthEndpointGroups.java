@@ -22,7 +22,7 @@ import java.util.Set;
 import org.springframework.util.Assert;
 
 /**
- * A collection of {@link HealthEndpointGroup groups} for use with a health endpoint.
+ * A collection of {@link HealthEndpointGroup_RENAMED groups} for use with a health endpoint.
  *
  * @author Phillip Webb
  * @since 2.2.0
@@ -33,7 +33,7 @@ public interface HealthEndpointGroups {
 	 * Return the primary group used by the endpoint.
 	 * @return the primary group (never {@code null})
 	 */
-	HealthEndpointGroup getPrimary();
+	HealthEndpointGroup_RENAMED getPrimary();
 
 	/**
 	 * Return the names of any additional groups.
@@ -44,9 +44,9 @@ public interface HealthEndpointGroups {
 	/**
 	 * Return the group with the specified name or {@code null} if the name is not known.
 	 * @param name the name of the group
-	 * @return the {@link HealthEndpointGroup} or {@code null}
+	 * @return the {@link HealthEndpointGroup_RENAMED} or {@code null}
 	 */
-	HealthEndpointGroup get(String name);
+	HealthEndpointGroup_RENAMED get(String name);
 
 	/**
 	 * Factory method to create a {@link HealthEndpointGroups} instance.
@@ -54,13 +54,13 @@ public interface HealthEndpointGroups {
 	 * @param additional the additional groups
 	 * @return a new {@link HealthEndpointGroups} instance
 	 */
-	static HealthEndpointGroups of(HealthEndpointGroup primary, Map<String, HealthEndpointGroup> additional) {
+	static HealthEndpointGroups of(HealthEndpointGroup_RENAMED primary, Map<String, HealthEndpointGroup_RENAMED> additional) {
 		Assert.notNull(primary, "Primary must not be null");
 		Assert.notNull(additional, "Additional must not be null");
 		return new HealthEndpointGroups() {
 
 			@Override
-			public HealthEndpointGroup getPrimary() {
+			public HealthEndpointGroup_RENAMED getPrimary() {
 				return primary;
 			}
 
@@ -70,7 +70,7 @@ public interface HealthEndpointGroups {
 			}
 
 			@Override
-			public HealthEndpointGroup get(String name) {
+			public HealthEndpointGroup_RENAMED get(String name) {
 				return additional.get(name);
 			}
 

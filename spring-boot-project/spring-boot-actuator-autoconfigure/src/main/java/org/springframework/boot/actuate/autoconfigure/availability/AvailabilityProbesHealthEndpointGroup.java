@@ -21,17 +21,17 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.springframework.boot.actuate.endpoint.SecurityContext;
-import org.springframework.boot.actuate.health.HealthEndpointGroup;
+import org.springframework.boot.actuate.health.HealthEndpointGroup_RENAMED;
 import org.springframework.boot.actuate.health.HttpCodeStatusMapper;
 import org.springframework.boot.actuate.health.StatusAggregator;
 
 /**
- * {@link HealthEndpointGroup} used to support availability probes.
+ * {@link HealthEndpointGroup_RENAMED} used to support availability probes.
  *
  * @author Phillip Webb
  * @author Brian Clozel
  */
-class AvailabilityProbesHealthEndpointGroup implements HealthEndpointGroup {
+class AvailabilityProbesHealthEndpointGroup implements HealthEndpointGroup_RENAMED {
 
 	private final Set<String> members;
 

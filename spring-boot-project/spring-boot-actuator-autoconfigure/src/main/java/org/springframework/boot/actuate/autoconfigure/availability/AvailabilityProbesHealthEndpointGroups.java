@@ -22,7 +22,7 @@ import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
 
-import org.springframework.boot.actuate.health.HealthEndpointGroup;
+import org.springframework.boot.actuate.health.HealthEndpointGroup_RENAMED;
 import org.springframework.boot.actuate.health.HealthEndpointGroups;
 import org.springframework.util.Assert;
 
@@ -55,7 +55,7 @@ class AvailabilityProbesHealthEndpointGroups implements HealthEndpointGroups {
 	}
 
 	@Override
-	public HealthEndpointGroup getPrimary() {
+	public HealthEndpointGroup_RENAMED getPrimary() {
 		return this.groups.getPrimary();
 	}
 
@@ -65,8 +65,8 @@ class AvailabilityProbesHealthEndpointGroups implements HealthEndpointGroups {
 	}
 
 	@Override
-	public HealthEndpointGroup get(String name) {
-		HealthEndpointGroup group = this.groups.get(name);
+	public HealthEndpointGroup_RENAMED get(String name) {
+		HealthEndpointGroup_RENAMED group = this.groups.get(name);
 		if (group == null) {
 			group = GROUPS.get(name);
 		}

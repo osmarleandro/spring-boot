@@ -22,7 +22,7 @@ import java.util.function.Predicate;
 
 import org.springframework.boot.actuate.autoconfigure.health.HealthProperties.Show;
 import org.springframework.boot.actuate.endpoint.SecurityContext;
-import org.springframework.boot.actuate.health.HealthEndpointGroup;
+import org.springframework.boot.actuate.health.HealthEndpointGroup_RENAMED;
 import org.springframework.boot.actuate.health.HttpCodeStatusMapper;
 import org.springframework.boot.actuate.health.StatusAggregator;
 import org.springframework.security.core.Authentication;
@@ -31,12 +31,12 @@ import org.springframework.util.ClassUtils;
 import org.springframework.util.CollectionUtils;
 
 /**
- * Auto-configured {@link HealthEndpointGroup} backed by {@link HealthProperties}.
+ * Auto-configured {@link HealthEndpointGroup_RENAMED} backed by {@link HealthProperties}.
  *
  * @author Phillip Webb
  * @author Andy Wilkinson
  */
-class AutoConfiguredHealthEndpointGroup implements HealthEndpointGroup {
+class AutoConfiguredHealthEndpointGroup implements HealthEndpointGroup_RENAMED {
 
 	private final Predicate<String> members;
 

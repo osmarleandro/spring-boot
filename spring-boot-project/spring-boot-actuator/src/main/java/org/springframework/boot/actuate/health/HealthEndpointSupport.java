@@ -54,14 +54,14 @@ abstract class HealthEndpointSupport<C, T> {
 	}
 
 	HealthResult<T> getHealth(ApiVersion apiVersion, SecurityContext securityContext, boolean showAll, String... path) {
-		HealthEndpointGroup group = (path.length > 0) ? this.groups.get(path[0]) : null;
+		HealthEndpointGroup_RENAMED group = (path.length > 0) ? this.groups.get(path[0]) : null;
 		if (group != null) {
 			return getHealth(apiVersion, group, securityContext, showAll, path, 1);
 		}
 		return getHealth(apiVersion, this.groups.getPrimary(), securityContext, showAll, path, 0);
 	}
 
-	private HealthResult<T> getHealth(ApiVersion apiVersion, HealthEndpointGroup group, SecurityContext securityContext,
+	private HealthResult<T> getHealth(ApiVersion apiVersion, HealthEndpointGroup_RENAMED group, SecurityContext securityContext,
 			boolean showAll, String[] path, int pathOffset) {
 		boolean showComponents = showAll || group.showComponents(securityContext);
 		boolean showDetails = showAll || group.showDetails(securityContext);
@@ -90,7 +90,7 @@ abstract class HealthEndpointSupport<C, T> {
 	}
 
 	@SuppressWarnings("unchecked")
-	private T getContribution(ApiVersion apiVersion, HealthEndpointGroup group, Object contributor,
+	private T getContribution(ApiVersion apiVersion, HealthEndpointGroup_RENAMED group, Object contributor,
 			boolean showComponents, boolean showDetails, Set<String> groupNames, boolean isNested) {
 		if (contributor instanceof NamedContributors) {
 			return getAggregateHealth(apiVersion, group, (NamedContributors<C>) contributor, showComponents,
@@ -99,7 +99,7 @@ abstract class HealthEndpointSupport<C, T> {
 		return (contributor != null) ? getHealth((C) contributor, showDetails) : null;
 	}
 
-	private T getAggregateHealth(ApiVersion apiVersion, HealthEndpointGroup group,
+	private T getAggregateHealth(ApiVersion apiVersion, HealthEndpointGroup_RENAMED group,
 			NamedContributors<C> namedContributors, boolean showComponents, boolean showDetails, Set<String> groupNames,
 			boolean isNested) {
 		Map<String, T> contributions = new LinkedHashMap<>();
@@ -150,9 +150,9 @@ abstract class HealthEndpointSupport<C, T> {
 
 		private final T health;
 
-		private final HealthEndpointGroup group;
+		private final HealthEndpointGroup_RENAMED group;
 
-		HealthResult(T health, HealthEndpointGroup group) {
+		HealthResult(T health, HealthEndpointGroup_RENAMED group) {
 			this.health = health;
 			this.group = group;
 		}
@@ -161,7 +161,7 @@ abstract class HealthEndpointSupport<C, T> {
 			return this.health;
 		}
 
-		HealthEndpointGroup getGroup() {
+		HealthEndpointGroup_RENAMED getGroup() {
 			return this.group;
 		}
 

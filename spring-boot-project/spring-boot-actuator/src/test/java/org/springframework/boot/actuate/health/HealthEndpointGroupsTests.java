@@ -40,14 +40,14 @@ class HealthEndpointGroupsTests {
 	@Test
 	void ofWhenAdditionalIsNullThrowsException() {
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> HealthEndpointGroups.of(mock(HealthEndpointGroup.class), null))
+				.isThrownBy(() -> HealthEndpointGroups.of(mock(HealthEndpointGroup_RENAMED.class), null))
 				.withMessage("Additional must not be null");
 	}
 
 	@Test
 	void ofReturnsHealthEndpointGroupsInstance() {
-		HealthEndpointGroup primary = mock(HealthEndpointGroup.class);
-		HealthEndpointGroup group = mock(HealthEndpointGroup.class);
+		HealthEndpointGroup_RENAMED primary = mock(HealthEndpointGroup_RENAMED.class);
+		HealthEndpointGroup_RENAMED group = mock(HealthEndpointGroup_RENAMED.class);
 		HealthEndpointGroups groups = HealthEndpointGroups.of(primary, Collections.singletonMap("group", group));
 		assertThat(groups.getPrimary()).isSameAs(primary);
 		assertThat(groups.getNames()).containsExactly("group");
