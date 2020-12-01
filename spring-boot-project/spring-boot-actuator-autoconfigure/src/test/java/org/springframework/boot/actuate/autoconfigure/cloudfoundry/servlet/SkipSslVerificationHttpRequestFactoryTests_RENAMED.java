@@ -37,7 +37,7 @@ import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 /**
  * Test for {@link SkipSslVerificationHttpRequestFactory}.
  */
-class SkipSslVerificationHttpRequestFactoryTests {
+class SkipSslVerificationHttpRequestFactoryTests_RENAMED {
 
 	private WebServer webServer;
 
