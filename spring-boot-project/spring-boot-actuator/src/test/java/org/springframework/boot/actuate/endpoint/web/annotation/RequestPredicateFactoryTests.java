@@ -33,13 +33,13 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatIllegalStateException;
 
 /**
- * Tests for {@link RequestPredicateFactory}.
+ * Tests for {@link RequestPredicateFactory_RENAMED}.
  *
  * @author Phillip Webb
  */
 class RequestPredicateFactoryTests {
 
-	private final RequestPredicateFactory factory = new RequestPredicateFactory(
+	private final RequestPredicateFactory_RENAMED factory = new RequestPredicateFactory_RENAMED(
 			new EndpointMediaTypes(Collections.emptyList(), Collections.emptyList()));
 
 	private String rootPath = "/root";

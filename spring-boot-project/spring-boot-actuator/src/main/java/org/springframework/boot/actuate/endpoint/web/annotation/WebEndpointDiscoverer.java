@@ -45,7 +45,7 @@ public class WebEndpointDiscoverer extends EndpointDiscoverer<ExposableWebEndpoi
 
 	private final List<PathMapper> endpointPathMappers;
 
-	private final RequestPredicateFactory requestPredicateFactory;
+	private final RequestPredicateFactory_RENAMED requestPredicateFactory;
 
 	/**
 	 * Create a new {@link WebEndpointDiscoverer} instance.
@@ -62,7 +62,7 @@ public class WebEndpointDiscoverer extends EndpointDiscoverer<ExposableWebEndpoi
 			Collection<EndpointFilter<ExposableWebEndpoint>> filters) {
 		super(applicationContext, parameterValueMapper, invokerAdvisors, filters);
 		this.endpointPathMappers = endpointPathMappers;
-		this.requestPredicateFactory = new RequestPredicateFactory(endpointMediaTypes);
+		this.requestPredicateFactory = new RequestPredicateFactory_RENAMED(endpointMediaTypes);
 	}
 
 	@Override
