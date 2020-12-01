@@ -26,7 +26,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import reactor.test.StepVerifier;
 
-import org.springframework.boot.actuate.autoconfigure.cloudfoundry.AccessLevel;
+import org.springframework.boot.actuate.autoconfigure.cloudfoundry.AccessLevel_RENAMED;
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.CloudFoundryAuthorizationException;
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.CloudFoundryAuthorizationException.Reason;
 import org.springframework.http.HttpHeaders;
@@ -70,7 +70,7 @@ class ReactiveCloudFoundrySecurityServiceTests {
 		String responseBody = "{\"read_sensitive_data\": true,\"read_basic_data\": true}";
 		prepareResponse((response) -> response.setBody(responseBody).setHeader("Content-Type", "application/json"));
 		StepVerifier.create(this.securityService.getAccessLevel("my-access-token", "my-app-id"))
-				.consumeNextWith((accessLevel) -> assertThat(accessLevel).isEqualTo(AccessLevel.FULL)).expectComplete()
+				.consumeNextWith((accessLevel) -> assertThat(accessLevel).isEqualTo(AccessLevel_RENAMED.FULL)).expectComplete()
 				.verify();
 		expectRequest((request) -> {
 			assertThat(request.getHeader(HttpHeaders.AUTHORIZATION)).isEqualTo("bearer my-access-token");
@@ -83,7 +83,7 @@ class ReactiveCloudFoundrySecurityServiceTests {
 		String responseBody = "{\"read_sensitive_data\": false,\"read_basic_data\": true}";
 		prepareResponse((response) -> response.setBody(responseBody).setHeader("Content-Type", "application/json"));
 		StepVerifier.create(this.securityService.getAccessLevel("my-access-token", "my-app-id"))
-				.consumeNextWith((accessLevel) -> assertThat(accessLevel).isEqualTo(AccessLevel.RESTRICTED))
+				.consumeNextWith((accessLevel) -> assertThat(accessLevel).isEqualTo(AccessLevel_RENAMED.RESTRICTED))
 				.expectComplete().verify();
 		expectRequest((request) -> {
 			assertThat(request.getHeader(HttpHeaders.AUTHORIZATION)).isEqualTo("bearer my-access-token");

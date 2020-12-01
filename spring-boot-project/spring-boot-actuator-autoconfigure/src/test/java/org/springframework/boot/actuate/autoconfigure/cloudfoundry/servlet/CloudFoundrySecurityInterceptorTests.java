@@ -23,7 +23,7 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import org.springframework.boot.actuate.autoconfigure.cloudfoundry.AccessLevel;
+import org.springframework.boot.actuate.autoconfigure.cloudfoundry.AccessLevel_RENAMED;
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.CloudFoundryAuthorizationException.Reason;
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.SecurityResponse;
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.Token;
@@ -103,7 +103,7 @@ class CloudFoundrySecurityInterceptorTests {
 	void preHandleWhenAccessIsNotAllowedShouldReturnFalse() {
 		String accessToken = mockAccessToken();
 		this.request.addHeader("Authorization", "bearer " + accessToken);
-		given(this.securityService.getAccessLevel(accessToken, "my-app-id")).willReturn(AccessLevel.RESTRICTED);
+		given(this.securityService.getAccessLevel(accessToken, "my-app-id")).willReturn(AccessLevel_RENAMED.RESTRICTED);
 		SecurityResponse response = this.interceptor.preHandle(this.request, EndpointId.of("test"));
 		assertThat(response.getStatus()).isEqualTo(Reason.ACCESS_DENIED.getStatus());
 	}
@@ -112,28 +112,28 @@ class CloudFoundrySecurityInterceptorTests {
 	void preHandleSuccessfulWithFullAccess() {
 		String accessToken = mockAccessToken();
 		this.request.addHeader("Authorization", "Bearer " + accessToken);
-		given(this.securityService.getAccessLevel(accessToken, "my-app-id")).willReturn(AccessLevel.FULL);
+		given(this.securityService.getAccessLevel(accessToken, "my-app-id")).willReturn(AccessLevel_RENAMED.FULL);
 		SecurityResponse response = this.interceptor.preHandle(this.request, EndpointId.of("test"));
 		ArgumentCaptor<Token> tokenArgumentCaptor = ArgumentCaptor.forClass(Token.class);
 		verify(this.tokenValidator).validate(tokenArgumentCaptor.capture());
 		Token token = tokenArgumentCaptor.getValue();
 		assertThat(token.toString()).isEqualTo(accessToken);
 		assertThat(response.getStatus()).isEqualTo(HttpStatus.OK);
-		assertThat(this.request.getAttribute("cloudFoundryAccessLevel")).isEqualTo(AccessLevel.FULL);
+		assertThat(this.request.getAttribute("cloudFoundryAccessLevel")).isEqualTo(AccessLevel_RENAMED.FULL);
 	}
 
 	@Test
 	void preHandleSuccessfulWithRestrictedAccess() {
 		String accessToken = mockAccessToken();
 		this.request.addHeader("Authorization", "Bearer " + accessToken);
-		given(this.securityService.getAccessLevel(accessToken, "my-app-id")).willReturn(AccessLevel.RESTRICTED);
+		given(this.securityService.getAccessLevel(accessToken, "my-app-id")).willReturn(AccessLevel_RENAMED.RESTRICTED);
 		SecurityResponse response = this.interceptor.preHandle(this.request, EndpointId.of("info"));
 		ArgumentCaptor<Token> tokenArgumentCaptor = ArgumentCaptor.forClass(Token.class);
 		verify(this.tokenValidator).validate(tokenArgumentCaptor.capture());
 		Token token = tokenArgumentCaptor.getValue();
 		assertThat(token.toString()).isEqualTo(accessToken);
 		assertThat(response.getStatus()).isEqualTo(HttpStatus.OK);
-		assertThat(this.request.getAttribute("cloudFoundryAccessLevel")).isEqualTo(AccessLevel.RESTRICTED);
+		assertThat(this.request.getAttribute("cloudFoundryAccessLevel")).isEqualTo(AccessLevel_RENAMED.RESTRICTED);
 	}
 
 	private String mockAccessToken() {

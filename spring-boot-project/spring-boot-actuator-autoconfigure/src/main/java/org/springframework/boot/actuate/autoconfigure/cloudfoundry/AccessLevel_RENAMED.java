@@ -26,7 +26,7 @@ import java.util.List;
  * @author Madhura Bhave
  * @since 2.0.0
  */
-public enum AccessLevel {
+public enum AccessLevel_RENAMED {
 
 	/**
 	 * Restricted access to a limited set of endpoints.
@@ -42,7 +42,7 @@ public enum AccessLevel {
 
 	private final List<String> ids;
 
-	AccessLevel(String... ids) {
+	AccessLevel_RENAMED(String... ids) {
 		this.ids = Arrays.asList(ids);
 	}
 

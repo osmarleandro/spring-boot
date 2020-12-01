@@ -24,7 +24,7 @@ import java.util.function.Consumer;
 
 import org.junit.jupiter.api.Test;
 
-import org.springframework.boot.actuate.autoconfigure.cloudfoundry.AccessLevel;
+import org.springframework.boot.actuate.autoconfigure.cloudfoundry.AccessLevel_RENAMED;
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.CloudFoundryAuthorizationException;
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.CloudFoundryAuthorizationException.Reason;
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
@@ -71,7 +71,7 @@ class CloudFoundryMvcWebEndpointIntegrationTests {
 
 	@Test
 	void operationWithSecurityInterceptorForbidden() {
-		given(securityService.getAccessLevel(any(), eq("app-id"))).willReturn(AccessLevel.RESTRICTED);
+		given(securityService.getAccessLevel(any(), eq("app-id"))).willReturn(AccessLevel_RENAMED.RESTRICTED);
 		load(TestEndpointConfiguration.class,
 				(client) -> client.get().uri("/cfApplication/test").accept(MediaType.APPLICATION_JSON)
 						.header("Authorization", "bearer " + mockAccessToken()).exchange().expectStatus()
@@ -80,7 +80,7 @@ class CloudFoundryMvcWebEndpointIntegrationTests {
 
 	@Test
 	void operationWithSecurityInterceptorSuccess() {
-		given(securityService.getAccessLevel(any(), eq("app-id"))).willReturn(AccessLevel.FULL);
+		given(securityService.getAccessLevel(any(), eq("app-id"))).willReturn(AccessLevel_RENAMED.FULL);
 		load(TestEndpointConfiguration.class,
 				(client) -> client.get().uri("/cfApplication/test").accept(MediaType.APPLICATION_JSON)
 						.header("Authorization", "bearer " + mockAccessToken()).exchange().expectStatus()
@@ -99,7 +99,7 @@ class CloudFoundryMvcWebEndpointIntegrationTests {
 
 	@Test
 	void linksToOtherEndpointsWithFullAccess() {
-		given(securityService.getAccessLevel(any(), eq("app-id"))).willReturn(AccessLevel.FULL);
+		given(securityService.getAccessLevel(any(), eq("app-id"))).willReturn(AccessLevel_RENAMED.FULL);
 		load(TestEndpointConfiguration.class,
 				(client) -> client.get().uri("/cfApplication").accept(MediaType.APPLICATION_JSON)
 						.header("Authorization", "bearer " + mockAccessToken()).exchange().expectStatus().isOk()
@@ -124,7 +124,7 @@ class CloudFoundryMvcWebEndpointIntegrationTests {
 
 	@Test
 	void linksToOtherEndpointsWithRestrictedAccess() {
-		given(securityService.getAccessLevel(any(), eq("app-id"))).willReturn(AccessLevel.RESTRICTED);
+		given(securityService.getAccessLevel(any(), eq("app-id"))).willReturn(AccessLevel_RENAMED.RESTRICTED);
 		load(TestEndpointConfiguration.class,
 				(client) -> client.get().uri("/cfApplication").accept(MediaType.APPLICATION_JSON)
 						.header("Authorization", "bearer " + mockAccessToken()).exchange().expectStatus().isOk()

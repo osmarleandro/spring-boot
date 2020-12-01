@@ -26,7 +26,7 @@ import io.netty.handler.ssl.util.InsecureTrustManagerFactory;
 import reactor.core.publisher.Mono;
 import reactor.netty.http.client.HttpClient;
 
-import org.springframework.boot.actuate.autoconfigure.cloudfoundry.AccessLevel;
+import org.springframework.boot.actuate.autoconfigure.cloudfoundry.AccessLevel_RENAMED;
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.CloudFoundryAuthorizationException;
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.CloudFoundryAuthorizationException.Reason;
 import org.springframework.core.ParameterizedTypeReference;
@@ -83,7 +83,7 @@ class ReactiveCloudFoundrySecurityService {
 	 * @return a Mono of the access level that should be granted
 	 * @throws CloudFoundryAuthorizationException if the token is not authorized
 	 */
-	Mono<AccessLevel> getAccessLevel(String token, String applicationId) throws CloudFoundryAuthorizationException {
+	Mono<AccessLevel_RENAMED> getAccessLevel(String token, String applicationId) throws CloudFoundryAuthorizationException {
 		String uri = getPermissionsUri(applicationId);
 		return this.webClient.get().uri(uri).header("Authorization", "bearer " + token).retrieve().bodyToMono(Map.class)
 				.map(this::getAccessLevel).onErrorMap(this::mapError);
@@ -102,11 +102,11 @@ class ReactiveCloudFoundrySecurityService {
 		return new CloudFoundryAuthorizationException(Reason.SERVICE_UNAVAILABLE, "Cloud controller not reachable");
 	}
 
-	private AccessLevel getAccessLevel(Map<?, ?> body) {
+	private AccessLevel_RENAMED getAccessLevel(Map<?, ?> body) {
 		if (Boolean.TRUE.equals(body.get("read_sensitive_data"))) {
-			return AccessLevel.FULL;
+			return AccessLevel_RENAMED.FULL;
 		}
-		return AccessLevel.RESTRICTED;
+		return AccessLevel_RENAMED.RESTRICTED;
 	}
 
 	private String getPermissionsUri(String applicationId) {

@@ -22,7 +22,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.boot.actuate.autoconfigure.cloudfoundry.AccessLevel;
+import org.springframework.boot.actuate.autoconfigure.cloudfoundry.AccessLevel_RENAMED;
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.CloudFoundryAuthorizationException;
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.CloudFoundryAuthorizationException.Reason;
 import org.springframework.boot.web.client.RestTemplateBuilder;
@@ -65,15 +65,15 @@ class CloudFoundrySecurityService {
 	 * @return the access level that should be granted
 	 * @throws CloudFoundryAuthorizationException if the token is not authorized
 	 */
-	AccessLevel getAccessLevel(String token, String applicationId) throws CloudFoundryAuthorizationException {
+	AccessLevel_RENAMED getAccessLevel(String token, String applicationId) throws CloudFoundryAuthorizationException {
 		try {
 			URI uri = getPermissionsUri(applicationId);
 			RequestEntity<?> request = RequestEntity.get(uri).header("Authorization", "bearer " + token).build();
 			Map<?, ?> body = this.restTemplate.exchange(request, Map.class).getBody();
 			if (Boolean.TRUE.equals(body.get("read_sensitive_data"))) {
-				return AccessLevel.FULL;
+				return AccessLevel_RENAMED.FULL;
 			}
-			return AccessLevel.RESTRICTED;
+			return AccessLevel_RENAMED.RESTRICTED;
 		}
 		catch (HttpClientErrorException ex) {
 			if (ex.getStatusCode().equals(HttpStatus.FORBIDDEN)) {

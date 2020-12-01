@@ -25,7 +25,7 @@ import java.util.stream.Collectors;
 import org.reactivestreams.Publisher;
 import reactor.core.publisher.Mono;
 
-import org.springframework.boot.actuate.autoconfigure.cloudfoundry.AccessLevel;
+import org.springframework.boot.actuate.autoconfigure.cloudfoundry.AccessLevel_RENAMED;
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.SecurityResponse;
 import org.springframework.boot.actuate.endpoint.EndpointId;
 import org.springframework.boot.actuate.endpoint.web.EndpointLinksResolver;
@@ -86,7 +86,7 @@ class CloudFoundryWebFluxEndpointHandlerMapping extends AbstractWebFluxEndpointH
 						if (!securityResponse.getStatus().equals(HttpStatus.OK)) {
 							return new ResponseEntity<>(securityResponse.getStatus());
 						}
-						AccessLevel accessLevel = exchange.getAttribute(AccessLevel.REQUEST_ATTRIBUTE);
+						AccessLevel_RENAMED accessLevel = exchange.getAttribute(AccessLevel_RENAMED.REQUEST_ATTRIBUTE);
 						Map<String, Link> links = CloudFoundryWebFluxEndpointHandlerMapping.this.linksResolver
 								.resolveLinks(request.getURI().toString());
 						return new ResponseEntity<>(
@@ -95,7 +95,7 @@ class CloudFoundryWebFluxEndpointHandlerMapping extends AbstractWebFluxEndpointH
 					});
 		}
 
-		private Map<String, Link> getAccessibleLinks(AccessLevel accessLevel, Map<String, Link> links) {
+		private Map<String, Link> getAccessibleLinks(AccessLevel_RENAMED accessLevel, Map<String, Link> links) {
 			if (accessLevel == null) {
 				return new LinkedHashMap<>();
 			}

@@ -24,7 +24,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
 
-import org.springframework.boot.actuate.autoconfigure.cloudfoundry.AccessLevel;
+import org.springframework.boot.actuate.autoconfigure.cloudfoundry.AccessLevel_RENAMED;
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.CloudFoundryAuthorizationException;
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.CloudFoundryAuthorizationException.Reason;
 import org.springframework.http.HttpHeaders;
@@ -110,7 +110,7 @@ class ReactiveCloudFoundrySecurityInterceptorTests {
 	@Test
 	void preHandleWhenAccessIsNotAllowedShouldReturnAccessDenied() {
 		given(this.securityService.getAccessLevel(mockAccessToken(), "my-app-id"))
-				.willReturn(Mono.just(AccessLevel.RESTRICTED));
+				.willReturn(Mono.just(AccessLevel_RENAMED.RESTRICTED));
 		given(this.tokenValidator.validate(any())).willReturn(Mono.empty());
 		MockServerWebExchange request = MockServerWebExchange.from(MockServerHttpRequest.get("/a")
 				.header(HttpHeaders.AUTHORIZATION, "bearer " + mockAccessToken()).build());
@@ -123,13 +123,13 @@ class ReactiveCloudFoundrySecurityInterceptorTests {
 	@Test
 	void preHandleSuccessfulWithFullAccess() {
 		String accessToken = mockAccessToken();
-		given(this.securityService.getAccessLevel(accessToken, "my-app-id")).willReturn(Mono.just(AccessLevel.FULL));
+		given(this.securityService.getAccessLevel(accessToken, "my-app-id")).willReturn(Mono.just(AccessLevel_RENAMED.FULL));
 		given(this.tokenValidator.validate(any())).willReturn(Mono.empty());
 		MockServerWebExchange exchange = MockServerWebExchange.from(MockServerHttpRequest.get("/a")
 				.header(HttpHeaders.AUTHORIZATION, "bearer " + mockAccessToken()).build());
 		StepVerifier.create(this.interceptor.preHandle(exchange, "/a")).consumeNextWith((response) -> {
 			assertThat(response.getStatus()).isEqualTo(HttpStatus.OK);
-			assertThat((AccessLevel) exchange.getAttribute("cloudFoundryAccessLevel")).isEqualTo(AccessLevel.FULL);
+			assertThat((AccessLevel_RENAMED) exchange.getAttribute("cloudFoundryAccessLevel")).isEqualTo(AccessLevel_RENAMED.FULL);
 		}).verifyComplete();
 	}
 
@@ -137,14 +137,14 @@ class ReactiveCloudFoundrySecurityInterceptorTests {
 	void preHandleSuccessfulWithRestrictedAccess() {
 		String accessToken = mockAccessToken();
 		given(this.securityService.getAccessLevel(accessToken, "my-app-id"))
-				.willReturn(Mono.just(AccessLevel.RESTRICTED));
+				.willReturn(Mono.just(AccessLevel_RENAMED.RESTRICTED));
 		given(this.tokenValidator.validate(any())).willReturn(Mono.empty());
 		MockServerWebExchange exchange = MockServerWebExchange.from(MockServerHttpRequest.get("/info")
 				.header(HttpHeaders.AUTHORIZATION, "bearer " + mockAccessToken()).build());
 		StepVerifier.create(this.interceptor.preHandle(exchange, "info")).consumeNextWith((response) -> {
 			assertThat(response.getStatus()).isEqualTo(HttpStatus.OK);
-			assertThat((AccessLevel) exchange.getAttribute("cloudFoundryAccessLevel"))
-					.isEqualTo(AccessLevel.RESTRICTED);
+			assertThat((AccessLevel_RENAMED) exchange.getAttribute("cloudFoundryAccessLevel"))
+					.isEqualTo(AccessLevel_RENAMED.RESTRICTED);
 		}).verifyComplete();
 	}
 

@@ -22,7 +22,7 @@ import java.util.function.Consumer;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import org.springframework.boot.actuate.autoconfigure.cloudfoundry.AccessLevel;
+import org.springframework.boot.actuate.autoconfigure.cloudfoundry.AccessLevel_RENAMED;
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.CloudFoundryAuthorizationException;
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.CloudFoundryAuthorizationException.Reason;
 import org.springframework.boot.test.web.client.MockServerRestTemplateCustomizer;
@@ -89,9 +89,9 @@ class CloudFoundrySecurityServiceTests {
 		this.server.expect(requestTo(CLOUD_CONTROLLER_PERMISSIONS))
 				.andExpect(header("Authorization", "bearer my-access-token"))
 				.andRespond(withSuccess(responseBody, MediaType.APPLICATION_JSON));
-		AccessLevel accessLevel = this.securityService.getAccessLevel("my-access-token", "my-app-id");
+		AccessLevel_RENAMED accessLevel = this.securityService.getAccessLevel("my-access-token", "my-app-id");
 		this.server.verify();
-		assertThat(accessLevel).isEqualTo(AccessLevel.FULL);
+		assertThat(accessLevel).isEqualTo(AccessLevel_RENAMED.FULL);
 	}
 
 	@Test
@@ -100,9 +100,9 @@ class CloudFoundrySecurityServiceTests {
 		this.server.expect(requestTo(CLOUD_CONTROLLER_PERMISSIONS))
 				.andExpect(header("Authorization", "bearer my-access-token"))
 				.andRespond(withSuccess(responseBody, MediaType.APPLICATION_JSON));
-		AccessLevel accessLevel = this.securityService.getAccessLevel("my-access-token", "my-app-id");
+		AccessLevel_RENAMED accessLevel = this.securityService.getAccessLevel("my-access-token", "my-app-id");
 		this.server.verify();
-		assertThat(accessLevel).isEqualTo(AccessLevel.RESTRICTED);
+		assertThat(accessLevel).isEqualTo(AccessLevel_RENAMED.RESTRICTED);
 	}
 
 	@Test

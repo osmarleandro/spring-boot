@@ -23,7 +23,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import org.springframework.boot.actuate.autoconfigure.cloudfoundry.AccessLevel;
+import org.springframework.boot.actuate.autoconfigure.cloudfoundry.AccessLevel_RENAMED;
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.CloudFoundryAuthorizationException;
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.CloudFoundryAuthorizationException.Reason;
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.SecurityResponse;
@@ -91,11 +91,11 @@ class CloudFoundrySecurityInterceptor {
 	private void check(HttpServletRequest request, EndpointId endpointId) throws Exception {
 		Token token = getToken(request);
 		this.tokenValidator.validate(token);
-		AccessLevel accessLevel = this.cloudFoundrySecurityService.getAccessLevel(token.toString(), this.applicationId);
+		AccessLevel_RENAMED accessLevel = this.cloudFoundrySecurityService.getAccessLevel(token.toString(), this.applicationId);
 		if (!accessLevel.isAccessAllowed((endpointId != null) ? endpointId.toLowerCaseString() : "")) {
 			throw new CloudFoundryAuthorizationException(Reason.ACCESS_DENIED, "Access denied");
 		}
-		request.setAttribute(AccessLevel.REQUEST_ATTRIBUTE, accessLevel);
+		request.setAttribute(AccessLevel_RENAMED.REQUEST_ATTRIBUTE, accessLevel);
 	}
 
 	private Token getToken(HttpServletRequest request) {
