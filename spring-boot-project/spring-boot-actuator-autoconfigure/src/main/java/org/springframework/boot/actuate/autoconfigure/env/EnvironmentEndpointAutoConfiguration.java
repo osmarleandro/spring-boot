@@ -36,12 +36,12 @@ import org.springframework.core.env.Environment;
  */
 @Configuration(proxyBeanMethods = false)
 @ConditionalOnAvailableEndpoint(endpoint = EnvironmentEndpoint.class)
-@EnableConfigurationProperties(EnvironmentEndpointProperties.class)
+@EnableConfigurationProperties(EnvironmentEndpointProperties_RENAMED.class)
 public class EnvironmentEndpointAutoConfiguration {
 
 	@Bean
 	@ConditionalOnMissingBean
-	public EnvironmentEndpoint environmentEndpoint(Environment environment, EnvironmentEndpointProperties properties) {
+	public EnvironmentEndpoint environmentEndpoint(Environment environment, EnvironmentEndpointProperties_RENAMED properties) {
 		EnvironmentEndpoint endpoint = new EnvironmentEndpoint(environment);
 		String[] keysToSanitize = properties.getKeysToSanitize();
 		if (keysToSanitize != null) {
