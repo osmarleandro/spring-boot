@@ -30,11 +30,11 @@ import org.springframework.util.Assert;
  *
  * @author Phillip Webb
  */
-class AutoConfiguredReactiveHealthContributorRegistry extends DefaultReactiveHealthContributorRegistry {
+class AutoConfiguredReactiveHealthContributorRegistry_RENAMED extends DefaultReactiveHealthContributorRegistry {
 
 	private final Collection<String> groupNames;
 
-	AutoConfiguredReactiveHealthContributorRegistry(Map<String, ReactiveHealthContributor> contributors,
+	AutoConfiguredReactiveHealthContributorRegistry_RENAMED(Map<String, ReactiveHealthContributor> contributors,
 			Collection<String> groupNames) {
 		super(contributors);
 		this.groupNames = groupNames;

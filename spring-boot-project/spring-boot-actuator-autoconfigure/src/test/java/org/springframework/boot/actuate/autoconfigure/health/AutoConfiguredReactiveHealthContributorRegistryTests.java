@@ -28,7 +28,7 @@ import static org.assertj.core.api.Assertions.assertThatIllegalStateException;
 import static org.mockito.Mockito.mock;
 
 /**
- * Tests for {@link AutoConfiguredReactiveHealthContributorRegistry}.
+ * Tests for {@link AutoConfiguredReactiveHealthContributorRegistry_RENAMED}.
  *
  * @author Phillip Webb
  */
@@ -37,7 +37,7 @@ class AutoConfiguredReactiveHealthContributorRegistryTests {
 	@Test
 	void createWhenContributorsClashesWithGroupNameThrowsException() {
 		assertThatIllegalStateException()
-				.isThrownBy(() -> new AutoConfiguredReactiveHealthContributorRegistry(
+				.isThrownBy(() -> new AutoConfiguredReactiveHealthContributorRegistry_RENAMED(
 						Collections.singletonMap("boot", mock(ReactiveHealthContributor.class)),
 						Arrays.asList("spring", "boot")))
 				.withMessage("ReactiveHealthContributor with name \"boot\" clashes with group");
@@ -45,7 +45,7 @@ class AutoConfiguredReactiveHealthContributorRegistryTests {
 
 	@Test
 	void registerContributorWithGroupNameThrowsException() {
-		ReactiveHealthContributorRegistry registry = new AutoConfiguredReactiveHealthContributorRegistry(
+		ReactiveHealthContributorRegistry registry = new AutoConfiguredReactiveHealthContributorRegistry_RENAMED(
 				Collections.emptyMap(), Arrays.asList("spring", "boot"));
 		assertThatIllegalStateException()
 				.isThrownBy(() -> registry.registerContributor("spring", mock(ReactiveHealthContributor.class)))
