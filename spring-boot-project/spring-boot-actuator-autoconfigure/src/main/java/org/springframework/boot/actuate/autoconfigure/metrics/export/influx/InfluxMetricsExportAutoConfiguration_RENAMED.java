@@ -49,11 +49,11 @@ import org.springframework.context.annotation.Configuration;
 @ConditionalOnClass(InfluxMeterRegistry.class)
 @ConditionalOnEnabledMetricsExport("influx")
 @EnableConfigurationProperties(InfluxProperties.class)
-public class InfluxMetricsExportAutoConfiguration {
+public class InfluxMetricsExportAutoConfiguration_RENAMED {
 
 	private final InfluxProperties properties;
 
-	public InfluxMetricsExportAutoConfiguration(InfluxProperties properties) {
+	public InfluxMetricsExportAutoConfiguration_RENAMED(InfluxProperties properties) {
 		this.properties = properties;
 	}
 
