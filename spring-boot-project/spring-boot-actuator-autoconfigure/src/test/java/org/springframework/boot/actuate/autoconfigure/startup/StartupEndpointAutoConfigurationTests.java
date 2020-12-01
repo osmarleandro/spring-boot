@@ -27,14 +27,14 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Tests for {@link StartupEndpointAutoConfiguration}
+ * Tests for {@link StartupEndpointAutoConfiguration_RENAMED}
  *
  * @author Brian Clozel
  */
 class StartupEndpointAutoConfigurationTests {
 
 	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
-			.withConfiguration(AutoConfigurations.of(StartupEndpointAutoConfiguration.class));
+			.withConfiguration(AutoConfigurations.of(StartupEndpointAutoConfiguration_RENAMED.class));
 
 	@Test
 	void runShouldNotHaveStartupEndpoint() {
@@ -53,7 +53,7 @@ class StartupEndpointAutoConfigurationTests {
 			AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
 			context.setApplicationStartup(new BufferingApplicationStartup(1));
 			return context;
-		}).withConfiguration(AutoConfigurations.of(StartupEndpointAutoConfiguration.class))
+		}).withConfiguration(AutoConfigurations.of(StartupEndpointAutoConfiguration_RENAMED.class))
 				.withPropertyValues("management.endpoints.web.exposure.include=startup")
 				.run((context) -> assertThat(context).hasSingleBean(StartupEndpoint.class));
 	}

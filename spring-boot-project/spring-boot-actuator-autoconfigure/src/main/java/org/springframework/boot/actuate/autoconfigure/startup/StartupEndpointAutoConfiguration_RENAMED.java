@@ -39,8 +39,8 @@ import org.springframework.core.type.AnnotatedTypeMetadata;
  */
 @Configuration(proxyBeanMethods = false)
 @ConditionalOnAvailableEndpoint(endpoint = StartupEndpoint.class)
-@Conditional(StartupEndpointAutoConfiguration.ApplicationStartupCondition.class)
-public class StartupEndpointAutoConfiguration {
+@Conditional(StartupEndpointAutoConfiguration_RENAMED.ApplicationStartupCondition.class)
+public class StartupEndpointAutoConfiguration_RENAMED {
 
 	@Bean
 	@ConditionalOnMissingBean
