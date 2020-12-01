@@ -47,7 +47,7 @@ import static org.springframework.test.web.client.response.MockRestResponseCreat
  *
  * @author Madhura Bhave
  */
-class CloudFoundrySecurityServiceTests {
+class CloudFoundrySecurityServiceTests_RENAMED {
 
 	private static final String CLOUD_CONTROLLER = "https://my-cloud-controller.com";
 
