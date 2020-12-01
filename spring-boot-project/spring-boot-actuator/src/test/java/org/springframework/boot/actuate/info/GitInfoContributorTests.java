@@ -22,7 +22,7 @@ import java.util.Properties;
 
 import org.junit.jupiter.api.Test;
 
-import org.springframework.boot.actuate.info.InfoPropertiesInfoContributor.Mode;
+import org.springframework.boot.actuate.info.InfoPropertiesInfoContributor_RENAMED.Mode;
 import org.springframework.boot.info.GitProperties;
 
 import static org.assertj.core.api.Assertions.assertThat;
