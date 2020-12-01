@@ -27,7 +27,7 @@ import org.springframework.boot.actuate.endpoint.web.EndpointLinksResolver;
 import org.springframework.boot.actuate.endpoint.web.EndpointMapping;
 import org.springframework.boot.actuate.endpoint.web.EndpointMediaTypes;
 import org.springframework.boot.actuate.endpoint.web.ExposableWebEndpoint;
-import org.springframework.boot.actuate.endpoint.web.Link;
+import org.springframework.boot.actuate.endpoint.web.Link_RENAMED;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.servlet.HandlerMapping;
@@ -74,7 +74,7 @@ public class WebMvcEndpointHandlerMapping extends AbstractWebMvcEndpointHandlerM
 
 		@Override
 		@ResponseBody
-		public Map<String, Map<String, Link>> links(HttpServletRequest request, HttpServletResponse response) {
+		public Map<String, Map<String, Link_RENAMED>> links(HttpServletRequest request, HttpServletResponse response) {
 			return Collections.singletonMap("_links",
 					WebMvcEndpointHandlerMapping.this.linksResolver.resolveLinks(request.getRequestURL().toString()));
 		}

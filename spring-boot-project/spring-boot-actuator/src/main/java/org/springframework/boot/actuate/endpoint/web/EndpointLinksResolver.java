@@ -26,7 +26,7 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.boot.actuate.endpoint.ExposableEndpoint;
 
 /**
- * A resolver for {@link Link links} to web endpoints.
+ * A resolver for {@link Link_RENAMED links} to web endpoints.
  *
  * @author Andy Wilkinson
  * @since 2.0.0
@@ -65,17 +65,17 @@ public class EndpointLinksResolver {
 	 * @param requestUrl the url of the request for the endpoint links
 	 * @return the links
 	 */
-	public Map<String, Link> resolveLinks(String requestUrl) {
+	public Map<String, Link_RENAMED> resolveLinks(String requestUrl) {
 		String normalizedUrl = normalizeRequestUrl(requestUrl);
-		Map<String, Link> links = new LinkedHashMap<>();
-		links.put("self", new Link(normalizedUrl));
+		Map<String, Link_RENAMED> links = new LinkedHashMap<>();
+		links.put("self", new Link_RENAMED(normalizedUrl));
 		for (ExposableEndpoint<?> endpoint : this.endpoints) {
 			if (endpoint instanceof ExposableWebEndpoint) {
 				collectLinks(links, (ExposableWebEndpoint) endpoint, normalizedUrl);
 			}
 			else if (endpoint instanceof PathMappedEndpoint) {
 				String rootPath = ((PathMappedEndpoint) endpoint).getRootPath();
-				Link link = createLink(normalizedUrl, rootPath);
+				Link_RENAMED link = createLink(normalizedUrl, rootPath);
 				links.put(endpoint.getEndpointId().toLowerCaseString(), link);
 			}
 		}
@@ -89,18 +89,18 @@ public class EndpointLinksResolver {
 		return requestUrl;
 	}
 
-	private void collectLinks(Map<String, Link> links, ExposableWebEndpoint endpoint, String normalizedUrl) {
+	private void collectLinks(Map<String, Link_RENAMED> links, ExposableWebEndpoint endpoint, String normalizedUrl) {
 		for (WebOperation operation : endpoint.getOperations()) {
 			links.put(operation.getId(), createLink(normalizedUrl, operation));
 		}
 	}
 
-	private Link createLink(String requestUrl, WebOperation operation) {
+	private Link_RENAMED createLink(String requestUrl, WebOperation operation) {
 		return createLink(requestUrl, operation.getRequestPredicate().getPath());
 	}
 
-	private Link createLink(String requestUrl, String path) {
-		return new Link(requestUrl + (path.startsWith("/") ? path : "/" + path));
+	private Link_RENAMED createLink(String requestUrl, String path) {
+		return new Link_RENAMED(requestUrl + (path.startsWith("/") ? path : "/" + path));
 	}
 
 }

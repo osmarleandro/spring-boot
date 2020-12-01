@@ -22,7 +22,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
 
 /**
- * Tests for {@link Link}.
+ * Tests for {@link Link_RENAMED}.
  *
  * @author Phillip Webb
  */
@@ -30,28 +30,28 @@ class LinkTests {
 
 	@Test
 	void createWhenHrefIsNullShouldThrowException() {
-		assertThatIllegalArgumentException().isThrownBy(() -> new Link(null))
+		assertThatIllegalArgumentException().isThrownBy(() -> new Link_RENAMED(null))
 				.withMessageContaining("HREF must not be null");
 	}
 
 	@Test
 	void getHrefShouldReturnHref() {
 		String href = "https://example.com";
-		Link link = new Link(href);
+		Link_RENAMED link = new Link_RENAMED(href);
 		assertThat(link.getHref()).isEqualTo(href);
 	}
 
 	@Test
 	void isTemplatedWhenContainsPlaceholderShouldReturnTrue() {
 		String href = "https://example.com/{path}";
-		Link link = new Link(href);
+		Link_RENAMED link = new Link_RENAMED(href);
 		assertThat(link.isTemplated()).isTrue();
 	}
 
 	@Test
 	void isTemplatedWhenContainsNoPlaceholderShouldReturnFalse() {
 		String href = "https://example.com/path";
-		Link link = new Link(href);
+		Link_RENAMED link = new Link_RENAMED(href);
 		assertThat(link.isTemplated()).isFalse();
 	}
 

@@ -32,7 +32,7 @@ import org.springframework.boot.actuate.endpoint.web.EndpointLinksResolver;
 import org.springframework.boot.actuate.endpoint.web.EndpointMapping;
 import org.springframework.boot.actuate.endpoint.web.EndpointMediaTypes;
 import org.springframework.boot.actuate.endpoint.web.ExposableWebEndpoint;
-import org.springframework.boot.actuate.endpoint.web.Link;
+import org.springframework.boot.actuate.endpoint.web.Link_RENAMED;
 import org.springframework.boot.actuate.endpoint.web.WebOperation;
 import org.springframework.boot.actuate.endpoint.web.reactive.AbstractWebFluxEndpointHandlerMapping;
 import org.springframework.http.HttpStatus;
@@ -87,7 +87,7 @@ class CloudFoundryWebFluxEndpointHandlerMapping extends AbstractWebFluxEndpointH
 							return new ResponseEntity<>(securityResponse.getStatus());
 						}
 						AccessLevel accessLevel = exchange.getAttribute(AccessLevel.REQUEST_ATTRIBUTE);
-						Map<String, Link> links = CloudFoundryWebFluxEndpointHandlerMapping.this.linksResolver
+						Map<String, Link_RENAMED> links = CloudFoundryWebFluxEndpointHandlerMapping.this.linksResolver
 								.resolveLinks(request.getURI().toString());
 						return new ResponseEntity<>(
 								Collections.singletonMap("_links", getAccessibleLinks(accessLevel, links)),
@@ -95,7 +95,7 @@ class CloudFoundryWebFluxEndpointHandlerMapping extends AbstractWebFluxEndpointH
 					});
 		}
 
-		private Map<String, Link> getAccessibleLinks(AccessLevel accessLevel, Map<String, Link> links) {
+		private Map<String, Link_RENAMED> getAccessibleLinks(AccessLevel accessLevel, Map<String, Link_RENAMED> links) {
 			if (accessLevel == null) {
 				return new LinkedHashMap<>();
 			}

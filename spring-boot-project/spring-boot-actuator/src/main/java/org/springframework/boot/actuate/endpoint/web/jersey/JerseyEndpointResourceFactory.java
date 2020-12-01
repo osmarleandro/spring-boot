@@ -48,7 +48,7 @@ import org.springframework.boot.actuate.endpoint.web.EndpointLinksResolver;
 import org.springframework.boot.actuate.endpoint.web.EndpointMapping;
 import org.springframework.boot.actuate.endpoint.web.EndpointMediaTypes;
 import org.springframework.boot.actuate.endpoint.web.ExposableWebEndpoint;
-import org.springframework.boot.actuate.endpoint.web.Link;
+import org.springframework.boot.actuate.endpoint.web.Link_RENAMED;
 import org.springframework.boot.actuate.endpoint.web.WebEndpointResponse;
 import org.springframework.boot.actuate.endpoint.web.WebOperation;
 import org.springframework.boot.actuate.endpoint.web.WebOperationRequestPredicate;
@@ -280,7 +280,7 @@ public class JerseyEndpointResourceFactory {
 
 		@Override
 		public Response apply(ContainerRequestContext request) {
-			Map<String, Link> links = this.linksResolver
+			Map<String, Link_RENAMED> links = this.linksResolver
 					.resolveLinks(request.getUriInfo().getAbsolutePath().toString());
 			return Response.ok(Collections.singletonMap("_links", links)).build();
 		}

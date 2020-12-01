@@ -25,7 +25,7 @@ import org.springframework.boot.actuate.endpoint.web.EndpointLinksResolver;
 import org.springframework.boot.actuate.endpoint.web.EndpointMapping;
 import org.springframework.boot.actuate.endpoint.web.EndpointMediaTypes;
 import org.springframework.boot.actuate.endpoint.web.ExposableWebEndpoint;
-import org.springframework.boot.actuate.endpoint.web.Link;
+import org.springframework.boot.actuate.endpoint.web.Link_RENAMED;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.reactive.HandlerMapping;
@@ -75,7 +75,7 @@ public class WebFluxEndpointHandlerMapping extends AbstractWebFluxEndpointHandle
 
 		@Override
 		@ResponseBody
-		public Map<String, Map<String, Link>> links(ServerWebExchange exchange) {
+		public Map<String, Map<String, Link_RENAMED>> links(ServerWebExchange exchange) {
 			String requestUri = UriComponentsBuilder.fromUri(exchange.getRequest().getURI()).replaceQuery(null)
 					.toUriString();
 			return Collections.singletonMap("_links",

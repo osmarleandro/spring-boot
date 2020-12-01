@@ -32,7 +32,7 @@ import org.springframework.boot.actuate.endpoint.web.EndpointLinksResolver;
 import org.springframework.boot.actuate.endpoint.web.EndpointMapping;
 import org.springframework.boot.actuate.endpoint.web.EndpointMediaTypes;
 import org.springframework.boot.actuate.endpoint.web.ExposableWebEndpoint;
-import org.springframework.boot.actuate.endpoint.web.Link;
+import org.springframework.boot.actuate.endpoint.web.Link_RENAMED;
 import org.springframework.boot.actuate.endpoint.web.WebOperation;
 import org.springframework.boot.actuate.endpoint.web.servlet.AbstractWebMvcEndpointHandlerMapping;
 import org.springframework.http.HttpStatus;
@@ -79,18 +79,18 @@ class CloudFoundryWebEndpointServletHandlerMapping extends AbstractWebMvcEndpoin
 
 		@Override
 		@ResponseBody
-		public Map<String, Map<String, Link>> links(HttpServletRequest request, HttpServletResponse response) {
+		public Map<String, Map<String, Link_RENAMED>> links(HttpServletRequest request, HttpServletResponse response) {
 			SecurityResponse securityResponse = CloudFoundryWebEndpointServletHandlerMapping.this.securityInterceptor
 					.preHandle(request, null);
 			if (!securityResponse.getStatus().equals(HttpStatus.OK)) {
 				sendFailureResponse(response, securityResponse);
 			}
 			AccessLevel accessLevel = (AccessLevel) request.getAttribute(AccessLevel.REQUEST_ATTRIBUTE);
-			Map<String, Link> filteredLinks = new LinkedHashMap<>();
+			Map<String, Link_RENAMED> filteredLinks = new LinkedHashMap<>();
 			if (accessLevel == null) {
 				return Collections.singletonMap("_links", filteredLinks);
 			}
-			Map<String, Link> links = CloudFoundryWebEndpointServletHandlerMapping.this.linksResolver
+			Map<String, Link_RENAMED> links = CloudFoundryWebEndpointServletHandlerMapping.this.linksResolver
 					.resolveLinks(request.getRequestURL().toString());
 			filteredLinks = links.entrySet().stream()
 					.filter((e) -> e.getKey().equals("self") || accessLevel.isAccessAllowed(e.getKey()))
