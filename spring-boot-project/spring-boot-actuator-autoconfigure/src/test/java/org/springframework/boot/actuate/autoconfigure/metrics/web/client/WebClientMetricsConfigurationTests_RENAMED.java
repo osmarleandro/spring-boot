@@ -52,7 +52,7 @@ import static org.mockito.Mockito.mock;
  * @author Stephane Nicoll
  */
 @ExtendWith(OutputCaptureExtension.class)
-class WebClientMetricsConfigurationTests {
+class WebClientMetricsConfigurationTests_RENAMED {
 
 	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner().with(MetricsRun.simple())
 			.withConfiguration(
