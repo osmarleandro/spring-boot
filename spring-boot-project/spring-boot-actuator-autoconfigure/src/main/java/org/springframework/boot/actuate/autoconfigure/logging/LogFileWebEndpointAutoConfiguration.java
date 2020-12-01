@@ -18,7 +18,7 @@ package org.springframework.boot.actuate.autoconfigure.logging;
 
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.boot.actuate.autoconfigure.endpoint.condition.ConditionalOnAvailableEndpoint;
-import org.springframework.boot.actuate.logging.LogFileWebEndpoint;
+import org.springframework.boot.actuate.logging.LogFileWebEndpoint_RENAMED;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionMessage;
 import org.springframework.boot.autoconfigure.condition.ConditionOutcome;
@@ -35,23 +35,23 @@ import org.springframework.core.type.AnnotatedTypeMetadata;
 import org.springframework.util.StringUtils;
 
 /**
- * {@link EnableAutoConfiguration Auto-configuration} for {@link LogFileWebEndpoint}.
+ * {@link EnableAutoConfiguration Auto-configuration} for {@link LogFileWebEndpoint_RENAMED}.
  *
  * @author Andy Wilkinson
  * @author Christian Carriere-Tisseur
  * @since 2.0.0
  */
 @Configuration(proxyBeanMethods = false)
-@ConditionalOnAvailableEndpoint(endpoint = LogFileWebEndpoint.class)
+@ConditionalOnAvailableEndpoint(endpoint = LogFileWebEndpoint_RENAMED.class)
 @EnableConfigurationProperties(LogFileWebEndpointProperties.class)
 public class LogFileWebEndpointAutoConfiguration {
 
 	@Bean
 	@ConditionalOnMissingBean
 	@Conditional(LogFileCondition.class)
-	public LogFileWebEndpoint logFileWebEndpoint(ObjectProvider<LogFile> logFile,
+	public LogFileWebEndpoint_RENAMED logFileWebEndpoint(ObjectProvider<LogFile> logFile,
 			LogFileWebEndpointProperties properties) {
-		return new LogFileWebEndpoint(logFile.getIfAvailable(), properties.getExternalFile());
+		return new LogFileWebEndpoint_RENAMED(logFile.getIfAvailable(), properties.getExternalFile());
 	}
 
 	private static class LogFileCondition extends SpringBootCondition {

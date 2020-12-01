@@ -33,7 +33,7 @@ import org.springframework.test.web.reactive.server.WebTestClient;
 import org.springframework.util.FileCopyUtils;
 
 /**
- * Integration tests for {@link LogFileWebEndpoint} exposed by Jersey, Spring MVC, and
+ * Integration tests for {@link LogFileWebEndpoint_RENAMED} exposed by Jersey, Spring MVC, and
  * WebFlux.
  *
  * @author Andy Wilkinson
@@ -70,12 +70,12 @@ class LogFileWebEndpointWebIntegrationTests {
 	static class TestConfiguration {
 
 		@Bean
-		LogFileWebEndpoint logFileEndpoint() throws IOException {
+		LogFileWebEndpoint_RENAMED logFileEndpoint() throws IOException {
 			File logFile = new File(tempFile, "test.log");
 			FileCopyUtils.copy("--TEST--".getBytes(), logFile);
 			MockEnvironment environment = new MockEnvironment();
 			environment.setProperty("logging.file.name", logFile.getAbsolutePath());
-			return new LogFileWebEndpoint(LogFile.get(environment), null);
+			return new LogFileWebEndpoint_RENAMED(LogFile.get(environment), null);
 		}
 
 	}

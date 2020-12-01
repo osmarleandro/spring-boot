@@ -18,11 +18,11 @@ package org.springframework.boot.actuate.autoconfigure.logging;
 
 import java.io.File;
 
-import org.springframework.boot.actuate.logging.LogFileWebEndpoint;
+import org.springframework.boot.actuate.logging.LogFileWebEndpoint_RENAMED;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
- * Configuration properties for {@link LogFileWebEndpoint}.
+ * Configuration properties for {@link LogFileWebEndpoint_RENAMED}.
  *
  * @author Stephane Nicoll
  * @since 2.0.0

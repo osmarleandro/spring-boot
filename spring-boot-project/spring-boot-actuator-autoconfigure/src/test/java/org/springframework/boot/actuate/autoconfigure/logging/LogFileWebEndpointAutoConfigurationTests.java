@@ -23,7 +23,7 @@ import java.nio.file.Path;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
-import org.springframework.boot.actuate.logging.LogFileWebEndpoint;
+import org.springframework.boot.actuate.logging.LogFileWebEndpoint_RENAMED;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
 import org.springframework.boot.test.context.runner.WebApplicationContextRunner;
 import org.springframework.core.io.Resource;
@@ -48,33 +48,33 @@ class LogFileWebEndpointAutoConfigurationTests {
 	@Test
 	void runWithOnlyExposedShouldNotHaveEndpointBean() {
 		this.contextRunner.withPropertyValues("management.endpoints.web.exposure.include=logfile")
-				.run((context) -> assertThat(context).doesNotHaveBean(LogFileWebEndpoint.class));
+				.run((context) -> assertThat(context).doesNotHaveBean(LogFileWebEndpoint_RENAMED.class));
 	}
 
 	@Test
 	void runWhenLoggingFileIsSetAndNotExposedShouldNotHaveEndpointBean() {
 		this.contextRunner.withPropertyValues("logging.file.name:test.log")
-				.run((context) -> assertThat(context).doesNotHaveBean(LogFileWebEndpoint.class));
+				.run((context) -> assertThat(context).doesNotHaveBean(LogFileWebEndpoint_RENAMED.class));
 	}
 
 	@Test
 	void runWhenLoggingFileIsSetAndExposedShouldHaveEndpointBean() {
 		this.contextRunner
 				.withPropertyValues("logging.file.name:test.log", "management.endpoints.web.exposure.include=logfile")
-				.run((context) -> assertThat(context).hasSingleBean(LogFileWebEndpoint.class));
+				.run((context) -> assertThat(context).hasSingleBean(LogFileWebEndpoint_RENAMED.class));
 	}
 
 	@Test
 	void runWhenLoggingPathIsSetAndNotExposedShouldNotHaveEndpointBean() {
 		this.contextRunner.withPropertyValues("logging.file.path:test/logs")
-				.run((context) -> assertThat(context).doesNotHaveBean(LogFileWebEndpoint.class));
+				.run((context) -> assertThat(context).doesNotHaveBean(LogFileWebEndpoint_RENAMED.class));
 	}
 
 	@Test
 	void runWhenLoggingPathIsSetAndExposedShouldHaveEndpointBean() {
 		this.contextRunner
 				.withPropertyValues("logging.file.path:test/logs", "management.endpoints.web.exposure.include=logfile")
-				.run((context) -> assertThat(context).hasSingleBean(LogFileWebEndpoint.class));
+				.run((context) -> assertThat(context).hasSingleBean(LogFileWebEndpoint_RENAMED.class));
 	}
 
 	@Test
@@ -82,13 +82,13 @@ class LogFileWebEndpointAutoConfigurationTests {
 		this.contextRunner
 				.withPropertyValues("management.endpoint.logfile.external-file:external.log",
 						"management.endpoints.web.exposure.include=logfile")
-				.run((context) -> assertThat(context).hasSingleBean(LogFileWebEndpoint.class));
+				.run((context) -> assertThat(context).hasSingleBean(LogFileWebEndpoint_RENAMED.class));
 	}
 
 	@Test
 	void logFileWebEndpointCanBeDisabled() {
 		this.contextRunner.withPropertyValues("logging.file.name:test.log", "management.endpoint.logfile.enabled:false")
-				.run((context) -> assertThat(context).doesNotHaveBean(LogFileWebEndpoint.class));
+				.run((context) -> assertThat(context).doesNotHaveBean(LogFileWebEndpoint_RENAMED.class));
 	}
 
 	@Test
@@ -97,8 +97,8 @@ class LogFileWebEndpointAutoConfigurationTests {
 		FileCopyUtils.copy("--TEST--".getBytes(), file);
 		this.contextRunner.withPropertyValues("management.endpoints.web.exposure.include=logfile",
 				"management.endpoint.logfile.external-file:" + file.getAbsolutePath()).run((context) -> {
-					assertThat(context).hasSingleBean(LogFileWebEndpoint.class);
-					LogFileWebEndpoint endpoint = context.getBean(LogFileWebEndpoint.class);
+					assertThat(context).hasSingleBean(LogFileWebEndpoint_RENAMED.class);
+					LogFileWebEndpoint_RENAMED endpoint = context.getBean(LogFileWebEndpoint_RENAMED.class);
 					Resource resource = endpoint.logFile();
 					assertThat(resource).isNotNull();
 					assertThat(contentOf(resource.getFile())).isEqualTo("--TEST--");

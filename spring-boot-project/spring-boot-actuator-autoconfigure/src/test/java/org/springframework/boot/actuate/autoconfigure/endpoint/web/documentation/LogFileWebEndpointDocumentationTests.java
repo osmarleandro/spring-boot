@@ -18,7 +18,7 @@ package org.springframework.boot.actuate.autoconfigure.endpoint.web.documentatio
 
 import org.junit.jupiter.api.Test;
 
-import org.springframework.boot.actuate.logging.LogFileWebEndpoint;
+import org.springframework.boot.actuate.logging.LogFileWebEndpoint_RENAMED;
 import org.springframework.boot.logging.LogFile;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -31,7 +31,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /**
- * Tests for generating documentation describing the {@link LogFileWebEndpoint}.
+ * Tests for generating documentation describing the {@link LogFileWebEndpoint_RENAMED}.
  *
  * @author Andy Wilkinson
  */
@@ -56,8 +56,8 @@ class LogFileWebEndpointDocumentationTests extends MockMvcEndpointDocumentationT
 	static class TestConfiguration {
 
 		@Bean
-		LogFileWebEndpoint endpoint(Environment environment) {
-			return new LogFileWebEndpoint(LogFile.get(environment), null);
+		LogFileWebEndpoint_RENAMED endpoint(Environment environment) {
+			return new LogFileWebEndpoint_RENAMED(LogFile.get(environment), null);
 		}
 
 	}

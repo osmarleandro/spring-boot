@@ -34,7 +34,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.contentOf;
 
 /**
- * Tests for {@link LogFileWebEndpoint}.
+ * Tests for {@link LogFileWebEndpoint_RENAMED}.
  *
  * @author Johannes Edmeier
  * @author Phillip Webb
@@ -54,21 +54,21 @@ class LogFileWebEndpointTests {
 
 	@Test
 	void nullResponseWithoutLogFile() {
-		LogFileWebEndpoint endpoint = new LogFileWebEndpoint(null, null);
+		LogFileWebEndpoint_RENAMED endpoint = new LogFileWebEndpoint_RENAMED(null, null);
 		assertThat(endpoint.logFile()).isNull();
 	}
 
 	@Test
 	void nullResponseWithMissingLogFile() {
 		this.environment.setProperty("logging.file.name", "no_test.log");
-		LogFileWebEndpoint endpoint = new LogFileWebEndpoint(LogFile.get(this.environment), null);
+		LogFileWebEndpoint_RENAMED endpoint = new LogFileWebEndpoint_RENAMED(LogFile.get(this.environment), null);
 		assertThat(endpoint.logFile()).isNull();
 	}
 
 	@Test
 	void resourceResponseWithLogFile() throws Exception {
 		this.environment.setProperty("logging.file.name", this.logFile.getAbsolutePath());
-		LogFileWebEndpoint endpoint = new LogFileWebEndpoint(LogFile.get(this.environment), null);
+		LogFileWebEndpoint_RENAMED endpoint = new LogFileWebEndpoint_RENAMED(LogFile.get(this.environment), null);
 		Resource resource = endpoint.logFile();
 		assertThat(resource).isNotNull();
 		assertThat(contentOf(resource.getFile())).isEqualTo("--TEST--");
@@ -76,7 +76,7 @@ class LogFileWebEndpointTests {
 
 	@Test
 	void resourceResponseWithExternalLogFile() throws Exception {
-		LogFileWebEndpoint endpoint = new LogFileWebEndpoint(null, this.logFile);
+		LogFileWebEndpoint_RENAMED endpoint = new LogFileWebEndpoint_RENAMED(null, this.logFile);
 		Resource resource = endpoint.logFile();
 		assertThat(resource).isNotNull();
 		assertThat(contentOf(resource.getFile())).isEqualTo("--TEST--");
