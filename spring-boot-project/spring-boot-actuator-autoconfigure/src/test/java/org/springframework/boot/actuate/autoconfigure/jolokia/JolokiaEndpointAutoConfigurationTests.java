@@ -27,7 +27,7 @@ import org.springframework.boot.actuate.autoconfigure.web.server.ManagementConte
 import org.springframework.boot.actuate.autoconfigure.web.servlet.ServletManagementContextAutoConfiguration;
 import org.springframework.boot.actuate.endpoint.web.ExposableServletEndpoint;
 import org.springframework.boot.actuate.endpoint.web.annotation.ServletEndpointDiscoverer;
-import org.springframework.boot.actuate.endpoint.web.annotation.ServletEndpointsSupplier;
+import org.springframework.boot.actuate.endpoint.web.annotation.ServletEndpointsSupplier_RENAMED;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
 import org.springframework.boot.autoconfigure.web.servlet.DispatcherServletAutoConfiguration;
 import org.springframework.boot.test.context.assertj.AssertableWebApplicationContext;
@@ -67,7 +67,7 @@ class JolokiaEndpointAutoConfigurationTests {
 	@Test
 	void jolokiaServletWhenEndpointNotExposedShouldNotBeDiscovered() {
 		this.contextRunner.run((context) -> {
-			Collection<ExposableServletEndpoint> endpoints = context.getBean(ServletEndpointsSupplier.class)
+			Collection<ExposableServletEndpoint> endpoints = context.getBean(ServletEndpointsSupplier_RENAMED.class)
 					.getEndpoints();
 			assertThat(endpoints).isEmpty();
 		});
@@ -77,7 +77,7 @@ class JolokiaEndpointAutoConfigurationTests {
 	void jolokiaServletWhenDisabledShouldNotBeDiscovered() {
 		this.contextRunner.withPropertyValues("management.endpoint.jolokia.enabled=false")
 				.withPropertyValues("management.endpoints.web.exposure.include=jolokia").run((context) -> {
-					Collection<ExposableServletEndpoint> endpoints = context.getBean(ServletEndpointsSupplier.class)
+					Collection<ExposableServletEndpoint> endpoints = context.getBean(ServletEndpointsSupplier_RENAMED.class)
 							.getEndpoints();
 					assertThat(endpoints).isEmpty();
 				});
@@ -94,7 +94,7 @@ class JolokiaEndpointAutoConfigurationTests {
 	}
 
 	private ExposableServletEndpoint getEndpoint(AssertableWebApplicationContext context) {
-		Collection<ExposableServletEndpoint> endpoints = context.getBean(ServletEndpointsSupplier.class).getEndpoints();
+		Collection<ExposableServletEndpoint> endpoints = context.getBean(ServletEndpointsSupplier_RENAMED.class).getEndpoints();
 		return endpoints.iterator().next();
 	}
 

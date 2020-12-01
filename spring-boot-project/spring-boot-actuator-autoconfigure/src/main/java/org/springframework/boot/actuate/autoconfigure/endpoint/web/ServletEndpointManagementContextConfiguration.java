@@ -22,7 +22,7 @@ import org.springframework.boot.actuate.autoconfigure.endpoint.expose.IncludeExc
 import org.springframework.boot.actuate.autoconfigure.web.ManagementContextConfiguration;
 import org.springframework.boot.actuate.endpoint.web.ExposableServletEndpoint;
 import org.springframework.boot.actuate.endpoint.web.ServletEndpointRegistrar;
-import org.springframework.boot.actuate.endpoint.web.annotation.ServletEndpointsSupplier;
+import org.springframework.boot.actuate.endpoint.web.annotation.ServletEndpointsSupplier_RENAMED;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
@@ -60,7 +60,7 @@ public class ServletEndpointManagementContextConfiguration {
 
 		@Bean
 		public ServletEndpointRegistrar servletEndpointRegistrar(WebEndpointProperties properties,
-				ServletEndpointsSupplier servletEndpointsSupplier, DispatcherServletPath dispatcherServletPath) {
+				ServletEndpointsSupplier_RENAMED servletEndpointsSupplier, DispatcherServletPath dispatcherServletPath) {
 			return new ServletEndpointRegistrar(dispatcherServletPath.getRelativePath(properties.getBasePath()),
 					servletEndpointsSupplier.getEndpoints());
 		}
@@ -74,7 +74,7 @@ public class ServletEndpointManagementContextConfiguration {
 
 		@Bean
 		public ServletEndpointRegistrar servletEndpointRegistrar(WebEndpointProperties properties,
-				ServletEndpointsSupplier servletEndpointsSupplier, JerseyApplicationPath jerseyApplicationPath) {
+				ServletEndpointsSupplier_RENAMED servletEndpointsSupplier, JerseyApplicationPath jerseyApplicationPath) {
 			return new ServletEndpointRegistrar(jerseyApplicationPath.getRelativePath(properties.getBasePath()),
 					servletEndpointsSupplier.getEndpoints());
 		}

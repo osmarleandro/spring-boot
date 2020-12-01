@@ -39,7 +39,7 @@ import org.springframework.boot.actuate.endpoint.web.annotation.ControllerEndpoi
 import org.springframework.boot.actuate.endpoint.web.annotation.ControllerEndpointsSupplier;
 import org.springframework.boot.actuate.endpoint.web.annotation.ExposableControllerEndpoint;
 import org.springframework.boot.actuate.endpoint.web.annotation.ServletEndpointDiscoverer;
-import org.springframework.boot.actuate.endpoint.web.annotation.ServletEndpointsSupplier;
+import org.springframework.boot.actuate.endpoint.web.annotation.ServletEndpointsSupplier_RENAMED;
 import org.springframework.boot.actuate.endpoint.web.annotation.WebEndpointDiscoverer;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -131,7 +131,7 @@ public class WebEndpointAutoConfiguration {
 	static class WebEndpointServletConfiguration {
 
 		@Bean
-		@ConditionalOnMissingBean(ServletEndpointsSupplier.class)
+		@ConditionalOnMissingBean(ServletEndpointsSupplier_RENAMED.class)
 		ServletEndpointDiscoverer servletEndpointDiscoverer(ApplicationContext applicationContext,
 				ObjectProvider<PathMapper> endpointPathMappers,
 				ObjectProvider<EndpointFilter<ExposableServletEndpoint>> filters) {

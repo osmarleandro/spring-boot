@@ -38,7 +38,7 @@ import org.springframework.boot.actuate.endpoint.web.EndpointMediaTypes;
 import org.springframework.boot.actuate.endpoint.web.ExposableServletEndpoint;
 import org.springframework.boot.actuate.endpoint.web.ExposableWebEndpoint;
 import org.springframework.boot.actuate.endpoint.web.WebEndpointsSupplier;
-import org.springframework.boot.actuate.endpoint.web.annotation.ServletEndpointsSupplier;
+import org.springframework.boot.actuate.endpoint.web.annotation.ServletEndpointsSupplier_RENAMED;
 import org.springframework.boot.actuate.endpoint.web.jersey.JerseyEndpointResourceFactory;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
@@ -70,7 +70,7 @@ class JerseyWebEndpointManagementContextConfiguration {
 	@Bean
 	JerseyWebEndpointsResourcesRegistrar jerseyWebEndpointsResourcesRegistrar(Environment environment,
 			ObjectProvider<ResourceConfig> resourceConfig, WebEndpointsSupplier webEndpointsSupplier,
-			ServletEndpointsSupplier servletEndpointsSupplier, EndpointMediaTypes endpointMediaTypes,
+			ServletEndpointsSupplier_RENAMED servletEndpointsSupplier, EndpointMediaTypes endpointMediaTypes,
 			WebEndpointProperties webEndpointProperties) {
 		String basePath = webEndpointProperties.getBasePath();
 		boolean shouldRegisterLinks = shouldRegisterLinksMapping(environment, basePath);
@@ -94,7 +94,7 @@ class JerseyWebEndpointManagementContextConfiguration {
 
 		private final WebEndpointsSupplier webEndpointsSupplier;
 
-		private final ServletEndpointsSupplier servletEndpointsSupplier;
+		private final ServletEndpointsSupplier_RENAMED servletEndpointsSupplier;
 
 		private final EndpointMediaTypes mediaTypes;
 
@@ -103,7 +103,7 @@ class JerseyWebEndpointManagementContextConfiguration {
 		private final boolean shouldRegisterLinks;
 
 		JerseyWebEndpointsResourcesRegistrar(ResourceConfig resourceConfig, WebEndpointsSupplier webEndpointsSupplier,
-				ServletEndpointsSupplier servletEndpointsSupplier, EndpointMediaTypes endpointMediaTypes,
+				ServletEndpointsSupplier_RENAMED servletEndpointsSupplier, EndpointMediaTypes endpointMediaTypes,
 				String basePath, boolean shouldRegisterLinks) {
 			super();
 			this.resourceConfig = resourceConfig;
