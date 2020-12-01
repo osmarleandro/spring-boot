@@ -20,7 +20,7 @@ import java.time.Instant;
 import java.util.List;
 
 /**
- * Repository for {@link AuditEvent}s.
+ * Repository for {@link AuditEvent_RENAMED}s.
  *
  * @author Dave Syer
  * @author Vedran Pavic
@@ -32,7 +32,7 @@ public interface AuditEventRepository {
 	 * Log an event.
 	 * @param event the audit event to log
 	 */
-	void add(AuditEvent event);
+	void add(AuditEvent_RENAMED event);
 
 	/**
 	 * Find audit events of specified type relating to the specified principal that
@@ -44,6 +44,6 @@ public interface AuditEventRepository {
 	 * @return audit events of specified type relating to the principal
 	 * @since 1.4.0
 	 */
-	List<AuditEvent> find(String principal, Instant after, String type);
+	List<AuditEvent_RENAMED> find(String principal, Instant after, String type);
 
 }

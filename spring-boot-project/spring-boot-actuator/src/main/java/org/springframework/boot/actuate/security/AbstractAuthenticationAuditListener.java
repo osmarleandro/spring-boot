@@ -16,7 +16,7 @@
 
 package org.springframework.boot.actuate.security;
 
-import org.springframework.boot.actuate.audit.AuditEvent;
+import org.springframework.boot.actuate.audit.AuditEvent_RENAMED;
 import org.springframework.boot.actuate.audit.listener.AuditApplicationEvent;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.ApplicationEventPublisherAware;
@@ -25,7 +25,7 @@ import org.springframework.security.authentication.event.AbstractAuthenticationE
 
 /**
  * Abstract {@link ApplicationListener} to expose Spring Security
- * {@link AbstractAuthenticationEvent authentication events} as {@link AuditEvent}s.
+ * {@link AbstractAuthenticationEvent authentication events} as {@link AuditEvent_RENAMED}s.
  *
  * @author Dave Syer
  * @author Vedran Pavic
@@ -45,7 +45,7 @@ public abstract class AbstractAuthenticationAuditListener
 		return this.publisher;
 	}
 
-	protected void publish(AuditEvent event) {
+	protected void publish(AuditEvent_RENAMED event) {
 		if (getPublisher() != null) {
 			getPublisher().publishEvent(new AuditApplicationEvent(event));
 		}

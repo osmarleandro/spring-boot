@@ -82,8 +82,8 @@ class AuditEventsEndpointWebIntegrationTests {
 			return new AuditEventsEndpoint(auditEventRepository);
 		}
 
-		private AuditEvent createEvent(String instant, String principal, String type) {
-			return new AuditEvent(Instant.parse(instant), principal, type, Collections.emptyMap());
+		private AuditEvent_RENAMED createEvent(String instant, String principal, String type) {
+			return new AuditEvent_RENAMED(Instant.parse(instant), principal, type, Collections.emptyMap());
 		}
 
 	}

@@ -23,7 +23,7 @@ import java.util.Collections;
 
 import org.junit.jupiter.api.Test;
 
-import org.springframework.boot.actuate.audit.AuditEvent;
+import org.springframework.boot.actuate.audit.AuditEvent_RENAMED;
 import org.springframework.boot.actuate.audit.AuditEventRepository;
 import org.springframework.boot.actuate.audit.AuditEventsEndpoint;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -56,7 +56,7 @@ class AuditEventsEndpointDocumentationTests extends MockMvcEndpointDocumentation
 	void allAuditEvents() throws Exception {
 		String queryTimestamp = "2017-11-07T09:37Z";
 		given(this.repository.find(any(), any(), any()))
-				.willReturn(Arrays.asList(new AuditEvent("alice", "logout", Collections.emptyMap())));
+				.willReturn(Arrays.asList(new AuditEvent_RENAMED("alice", "logout", Collections.emptyMap())));
 		this.mockMvc.perform(get("/actuator/auditevents").param("after", queryTimestamp)).andExpect(status().isOk())
 				.andDo(document("auditevents/all", responseFields(
 						fieldWithPath("events").description("An array of audit events."),
@@ -70,7 +70,7 @@ class AuditEventsEndpointDocumentationTests extends MockMvcEndpointDocumentation
 		OffsetDateTime now = OffsetDateTime.now();
 		String queryTimestamp = DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(now);
 		given(this.repository.find("alice", now.toInstant(), "logout"))
-				.willReturn(Arrays.asList(new AuditEvent("alice", "logout", Collections.emptyMap())));
+				.willReturn(Arrays.asList(new AuditEvent_RENAMED("alice", "logout", Collections.emptyMap())));
 		this.mockMvc
 				.perform(get("/actuator/auditevents")
 						.param("principal", "alice").param("after", queryTimestamp).param("type", "logout"))

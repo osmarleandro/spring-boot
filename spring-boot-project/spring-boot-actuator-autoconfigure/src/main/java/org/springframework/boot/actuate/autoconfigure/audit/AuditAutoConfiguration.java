@@ -16,7 +16,7 @@
 
 package org.springframework.boot.actuate.autoconfigure.audit;
 
-import org.springframework.boot.actuate.audit.AuditEvent;
+import org.springframework.boot.actuate.audit.AuditEvent_RENAMED;
 import org.springframework.boot.actuate.audit.AuditEventRepository;
 import org.springframework.boot.actuate.audit.listener.AbstractAuditListener;
 import org.springframework.boot.actuate.audit.listener.AuditListener;
@@ -33,7 +33,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * {@link EnableAutoConfiguration Auto-configuration} for {@link AuditEvent}s.
+ * {@link EnableAutoConfiguration Auto-configuration} for {@link AuditEvent_RENAMED}s.
  *
  * @author Dave Syer
  * @author Vedran Pavic

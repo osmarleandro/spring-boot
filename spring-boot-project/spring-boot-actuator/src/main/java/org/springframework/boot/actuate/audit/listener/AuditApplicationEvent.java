@@ -19,63 +19,63 @@ package org.springframework.boot.actuate.audit.listener;
 import java.time.Instant;
 import java.util.Map;
 
-import org.springframework.boot.actuate.audit.AuditEvent;
+import org.springframework.boot.actuate.audit.AuditEvent_RENAMED;
 import org.springframework.context.ApplicationEvent;
 import org.springframework.util.Assert;
 
 /**
- * Spring {@link ApplicationEvent} to encapsulate {@link AuditEvent}s.
+ * Spring {@link ApplicationEvent} to encapsulate {@link AuditEvent_RENAMED}s.
  *
  * @author Dave Syer
  * @since 1.0.0
  */
 public class AuditApplicationEvent extends ApplicationEvent {
 
-	private final AuditEvent auditEvent;
+	private final AuditEvent_RENAMED auditEvent;
 
 	/**
 	 * Create a new {@link AuditApplicationEvent} that wraps a newly created
-	 * {@link AuditEvent}.
+	 * {@link AuditEvent_RENAMED}.
 	 * @param principal the principal
 	 * @param type the event type
 	 * @param data the event data
-	 * @see AuditEvent#AuditEvent(String, String, Map)
+	 * @see AuditEvent_RENAMED#AuditEvent(String, String, Map)
 	 */
 	public AuditApplicationEvent(String principal, String type, Map<String, Object> data) {
-		this(new AuditEvent(principal, type, data));
+		this(new AuditEvent_RENAMED(principal, type, data));
 	}
 
 	/**
 	 * Create a new {@link AuditApplicationEvent} that wraps a newly created
-	 * {@link AuditEvent}.
+	 * {@link AuditEvent_RENAMED}.
 	 * @param principal the principal
 	 * @param type the event type
 	 * @param data the event data
-	 * @see AuditEvent#AuditEvent(String, String, String...)
+	 * @see AuditEvent_RENAMED#AuditEvent(String, String, String...)
 	 */
 	public AuditApplicationEvent(String principal, String type, String... data) {
-		this(new AuditEvent(principal, type, data));
+		this(new AuditEvent_RENAMED(principal, type, data));
 	}
 
 	/**
 	 * Create a new {@link AuditApplicationEvent} that wraps a newly created
-	 * {@link AuditEvent}.
+	 * {@link AuditEvent_RENAMED}.
 	 * @param timestamp the timestamp
 	 * @param principal the principal
 	 * @param type the event type
 	 * @param data the event data
-	 * @see AuditEvent#AuditEvent(Instant, String, String, Map)
+	 * @see AuditEvent_RENAMED#AuditEvent(Instant, String, String, Map)
 	 */
 	public AuditApplicationEvent(Instant timestamp, String principal, String type, Map<String, Object> data) {
-		this(new AuditEvent(timestamp, principal, type, data));
+		this(new AuditEvent_RENAMED(timestamp, principal, type, data));
 	}
 
 	/**
 	 * Create a new {@link AuditApplicationEvent} that wraps the specified
-	 * {@link AuditEvent}.
+	 * {@link AuditEvent_RENAMED}.
 	 * @param auditEvent the source of this event
 	 */
-	public AuditApplicationEvent(AuditEvent auditEvent) {
+	public AuditApplicationEvent(AuditEvent_RENAMED auditEvent) {
 		super(auditEvent);
 		Assert.notNull(auditEvent, "AuditEvent must not be null");
 		this.auditEvent = auditEvent;
@@ -85,7 +85,7 @@ public class AuditApplicationEvent extends ApplicationEvent {
 	 * Get the audit event.
 	 * @return the audit event
 	 */
-	public AuditEvent getAuditEvent() {
+	public AuditEvent_RENAMED getAuditEvent() {
 		return this.auditEvent;
 	}
 

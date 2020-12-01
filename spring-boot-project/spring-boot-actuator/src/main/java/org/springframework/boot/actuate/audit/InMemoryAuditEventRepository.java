@@ -39,7 +39,7 @@ public class InMemoryAuditEventRepository implements AuditEventRepository {
 	/**
 	 * Circular buffer of the event with tail pointing to the last element.
 	 */
-	private AuditEvent[] events;
+	private AuditEvent_RENAMED[] events;
 
 	private volatile int tail = -1;
 
@@ -48,7 +48,7 @@ public class InMemoryAuditEventRepository implements AuditEventRepository {
 	}
 
 	public InMemoryAuditEventRepository(int capacity) {
-		this.events = new AuditEvent[capacity];
+		this.events = new AuditEvent_RENAMED[capacity];
 	}
 
 	/**
@@ -57,12 +57,12 @@ public class InMemoryAuditEventRepository implements AuditEventRepository {
 	 */
 	public void setCapacity(int capacity) {
 		synchronized (this.monitor) {
-			this.events = new AuditEvent[capacity];
+			this.events = new AuditEvent_RENAMED[capacity];
 		}
 	}
 
 	@Override
-	public void add(AuditEvent event) {
+	public void add(AuditEvent_RENAMED event) {
 		Assert.notNull(event, "AuditEvent must not be null");
 		synchronized (this.monitor) {
 			this.tail = (this.tail + 1) % this.events.length;
@@ -71,11 +71,11 @@ public class InMemoryAuditEventRepository implements AuditEventRepository {
 	}
 
 	@Override
-	public List<AuditEvent> find(String principal, Instant after, String type) {
-		LinkedList<AuditEvent> events = new LinkedList<>();
+	public List<AuditEvent_RENAMED> find(String principal, Instant after, String type) {
+		LinkedList<AuditEvent_RENAMED> events = new LinkedList<>();
 		synchronized (this.monitor) {
 			for (int i = 0; i < this.events.length; i++) {
-				AuditEvent event = resolveTailEvent(i);
+				AuditEvent_RENAMED event = resolveTailEvent(i);
 				if (event != null && isMatch(principal, after, type, event)) {
 					events.addFirst(event);
 				}
@@ -84,7 +84,7 @@ public class InMemoryAuditEventRepository implements AuditEventRepository {
 		return events;
 	}
 
-	private boolean isMatch(String principal, Instant after, String type, AuditEvent event) {
+	private boolean isMatch(String principal, Instant after, String type, AuditEvent_RENAMED event) {
 		boolean match = true;
 		match = match && (principal == null || event.getPrincipal().equals(principal));
 		match = match && (after == null || event.getTimestamp().isAfter(after));
@@ -92,7 +92,7 @@ public class InMemoryAuditEventRepository implements AuditEventRepository {
 		return match;
 	}
 
-	private AuditEvent resolveTailEvent(int offset) {
+	private AuditEvent_RENAMED resolveTailEvent(int offset) {
 		int index = ((this.tail + this.events.length - offset) % this.events.length);
 		return this.events[index];
 	}

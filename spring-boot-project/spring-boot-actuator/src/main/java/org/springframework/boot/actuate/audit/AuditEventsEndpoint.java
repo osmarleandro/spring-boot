@@ -44,7 +44,7 @@ public class AuditEventsEndpoint {
 	@ReadOperation
 	public AuditEventsDescriptor events(@Nullable String principal, @Nullable OffsetDateTime after,
 			@Nullable String type) {
-		List<AuditEvent> events = this.auditEventRepository.find(principal, getInstant(after), type);
+		List<AuditEvent_RENAMED> events = this.auditEventRepository.find(principal, getInstant(after), type);
 		return new AuditEventsDescriptor(events);
 	}
 
@@ -53,18 +53,18 @@ public class AuditEventsEndpoint {
 	}
 
 	/**
-	 * A description of an application's {@link AuditEvent audit events}. Primarily
+	 * A description of an application's {@link AuditEvent_RENAMED audit events}. Primarily
 	 * intended for serialization to JSON.
 	 */
 	public static final class AuditEventsDescriptor {
 
-		private final List<AuditEvent> events;
+		private final List<AuditEvent_RENAMED> events;
 
-		private AuditEventsDescriptor(List<AuditEvent> events) {
+		private AuditEventsDescriptor(List<AuditEvent_RENAMED> events) {
 			this.events = events;
 		}
 
-		public List<AuditEvent> getEvents() {
+		public List<AuditEvent_RENAMED> getEvents() {
 			return this.events;
 		}
 

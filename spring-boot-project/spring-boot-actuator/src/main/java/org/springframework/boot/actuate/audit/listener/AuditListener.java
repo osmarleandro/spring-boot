@@ -19,7 +19,7 @@ package org.springframework.boot.actuate.audit.listener;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import org.springframework.boot.actuate.audit.AuditEvent;
+import org.springframework.boot.actuate.audit.AuditEvent_RENAMED;
 import org.springframework.boot.actuate.audit.AuditEventRepository;
 
 /**
@@ -42,7 +42,7 @@ public class AuditListener extends AbstractAuditListener {
 	}
 
 	@Override
-	protected void onAuditEvent(AuditEvent event) {
+	protected void onAuditEvent(AuditEvent_RENAMED event) {
 		if (logger.isDebugEnabled()) {
 			logger.debug(event);
 		}

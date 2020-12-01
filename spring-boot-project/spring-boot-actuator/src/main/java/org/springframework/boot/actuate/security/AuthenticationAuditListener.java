@@ -19,7 +19,7 @@ package org.springframework.boot.actuate.security;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.springframework.boot.actuate.audit.AuditEvent;
+import org.springframework.boot.actuate.audit.AuditEvent_RENAMED;
 import org.springframework.security.authentication.event.AbstractAuthenticationEvent;
 import org.springframework.security.authentication.event.AbstractAuthenticationFailureEvent;
 import org.springframework.security.authentication.event.AuthenticationSuccessEvent;
@@ -81,7 +81,7 @@ public class AuthenticationAuditListener extends AbstractAuthenticationAuditList
 		if (event.getAuthentication().getDetails() != null) {
 			data.put("details", event.getAuthentication().getDetails());
 		}
-		publish(new AuditEvent(event.getAuthentication().getName(), AUTHENTICATION_FAILURE, data));
+		publish(new AuditEvent_RENAMED(event.getAuthentication().getName(), AUTHENTICATION_FAILURE, data));
 	}
 
 	private void onAuthenticationSuccessEvent(AuthenticationSuccessEvent event) {
@@ -89,7 +89,7 @@ public class AuthenticationAuditListener extends AbstractAuthenticationAuditList
 		if (event.getAuthentication().getDetails() != null) {
 			data.put("details", event.getAuthentication().getDetails());
 		}
-		publish(new AuditEvent(event.getAuthentication().getName(), AUTHENTICATION_SUCCESS, data));
+		publish(new AuditEvent_RENAMED(event.getAuthentication().getName(), AUTHENTICATION_SUCCESS, data));
 	}
 
 	private static class WebAuditListener {
@@ -104,7 +104,7 @@ public class AuthenticationAuditListener extends AbstractAuthenticationAuditList
 				if (event.getTargetUser() != null) {
 					data.put("target", event.getTargetUser().getUsername());
 				}
-				listener.publish(new AuditEvent(event.getAuthentication().getName(), AUTHENTICATION_SWITCH, data));
+				listener.publish(new AuditEvent_RENAMED(event.getAuthentication().getName(), AUTHENTICATION_SWITCH, data));
 			}
 
 		}

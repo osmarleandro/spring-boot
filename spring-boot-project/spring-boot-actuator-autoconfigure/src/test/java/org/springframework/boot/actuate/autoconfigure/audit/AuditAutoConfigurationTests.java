@@ -18,7 +18,7 @@ package org.springframework.boot.actuate.autoconfigure.audit;
 
 import org.junit.jupiter.api.Test;
 
-import org.springframework.boot.actuate.audit.AuditEvent;
+import org.springframework.boot.actuate.audit.AuditEvent_RENAMED;
 import org.springframework.boot.actuate.audit.AuditEventRepository;
 import org.springframework.boot.actuate.audit.InMemoryAuditEventRepository;
 import org.springframework.boot.actuate.audit.listener.AbstractAuditListener;
@@ -167,7 +167,7 @@ class AuditAutoConfigurationTests {
 	static class TestAuditListener extends AbstractAuditListener {
 
 		@Override
-		protected void onAuditEvent(AuditEvent event) {
+		protected void onAuditEvent(AuditEvent_RENAMED event) {
 
 		}
 
