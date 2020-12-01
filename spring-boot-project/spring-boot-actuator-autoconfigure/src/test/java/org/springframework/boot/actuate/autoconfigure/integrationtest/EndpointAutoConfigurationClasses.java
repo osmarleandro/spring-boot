@@ -19,7 +19,7 @@ package org.springframework.boot.actuate.autoconfigure.integrationtest;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.boot.actuate.autoconfigure.audit.AuditEventsEndpointAutoConfiguration;
+import org.springframework.boot.actuate.autoconfigure.audit.AuditEventsEndpointAutoConfiguration_RENAMED;
 import org.springframework.boot.actuate.autoconfigure.beans.BeansEndpointAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.condition.ConditionsReportEndpointAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.context.ShutdownEndpointAutoConfiguration;
@@ -41,7 +41,7 @@ final class EndpointAutoConfigurationClasses {
 
 	static {
 		List<Class<?>> all = new ArrayList<>();
-		all.add(AuditEventsEndpointAutoConfiguration.class);
+		all.add(AuditEventsEndpointAutoConfiguration_RENAMED.class);
 		all.add(BeansEndpointAutoConfiguration.class);
 		all.add(ConditionsReportEndpointAutoConfiguration.class);
 		all.add(ConfigurationPropertiesReportEndpointAutoConfiguration.class);

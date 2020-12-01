@@ -37,7 +37,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration(proxyBeanMethods = false)
 @AutoConfigureAfter(AuditAutoConfiguration.class)
 @ConditionalOnAvailableEndpoint(endpoint = AuditEventsEndpoint.class)
-public class AuditEventsEndpointAutoConfiguration {
+public class AuditEventsEndpointAutoConfiguration_RENAMED {
 
 	@Bean
 	@ConditionalOnMissingBean

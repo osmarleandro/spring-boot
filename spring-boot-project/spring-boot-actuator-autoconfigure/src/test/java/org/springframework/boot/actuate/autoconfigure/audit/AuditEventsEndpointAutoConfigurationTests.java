@@ -28,7 +28,7 @@ import org.springframework.context.annotation.Configuration;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Tests for {@link AuditEventsEndpointAutoConfiguration}.
+ * Tests for {@link AuditEventsEndpointAutoConfiguration_RENAMED}.
  *
  * @author Andy Wilkinson
  * @author Phillip Webb
@@ -37,7 +37,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 class AuditEventsEndpointAutoConfigurationTests {
 
 	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner().withConfiguration(
-			AutoConfigurations.of(AuditAutoConfiguration.class, AuditEventsEndpointAutoConfiguration.class));
+			AutoConfigurations.of(AuditAutoConfiguration.class, AuditEventsEndpointAutoConfiguration_RENAMED.class));
 
 	@Test
 	void runWhenRepositoryBeanAvailableShouldHaveEndpointBean() {
