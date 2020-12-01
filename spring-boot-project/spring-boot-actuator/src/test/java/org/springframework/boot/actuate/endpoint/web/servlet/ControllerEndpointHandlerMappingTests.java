@@ -38,7 +38,7 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
 
 /**
- * Tests for {@link ControllerEndpointHandlerMapping}.
+ * Tests for {@link ControllerEndpointHandlerMapping_RENAMED}.
  *
  * @author Phillip Webb
  * @author Stephane Nicoll
@@ -51,7 +51,7 @@ class ControllerEndpointHandlerMappingTests {
 	void mappingWithNoPrefix() throws Exception {
 		ExposableControllerEndpoint first = firstEndpoint();
 		ExposableControllerEndpoint second = secondEndpoint();
-		ControllerEndpointHandlerMapping mapping = createMapping("", first, second);
+		ControllerEndpointHandlerMapping_RENAMED mapping = createMapping("", first, second);
 		assertThat(mapping.getHandler(request("GET", "/first")).getHandler())
 				.isEqualTo(handlerOf(first.getController(), "get"));
 		assertThat(mapping.getHandler(request("POST", "/second")).getHandler())
@@ -63,7 +63,7 @@ class ControllerEndpointHandlerMappingTests {
 	void mappingWithPrefix() throws Exception {
 		ExposableControllerEndpoint first = firstEndpoint();
 		ExposableControllerEndpoint second = secondEndpoint();
-		ControllerEndpointHandlerMapping mapping = createMapping("actuator", first, second);
+		ControllerEndpointHandlerMapping_RENAMED mapping = createMapping("actuator", first, second);
 		assertThat(mapping.getHandler(request("GET", "/actuator/first")).getHandler())
 				.isEqualTo(handlerOf(first.getController(), "get"));
 		assertThat(mapping.getHandler(request("POST", "/actuator/second")).getHandler())
@@ -75,7 +75,7 @@ class ControllerEndpointHandlerMappingTests {
 	@Test
 	void mappingNarrowedToMethod() throws Exception {
 		ExposableControllerEndpoint first = firstEndpoint();
-		ControllerEndpointHandlerMapping mapping = createMapping("actuator", first);
+		ControllerEndpointHandlerMapping_RENAMED mapping = createMapping("actuator", first);
 		assertThatExceptionOfType(HttpRequestMethodNotSupportedException.class)
 				.isThrownBy(() -> mapping.getHandler(request("POST", "/actuator/first")));
 	}
@@ -83,15 +83,15 @@ class ControllerEndpointHandlerMappingTests {
 	@Test
 	void mappingWithNoPath() throws Exception {
 		ExposableControllerEndpoint pathless = pathlessEndpoint();
-		ControllerEndpointHandlerMapping mapping = createMapping("actuator", pathless);
+		ControllerEndpointHandlerMapping_RENAMED mapping = createMapping("actuator", pathless);
 		assertThat(mapping.getHandler(request("GET", "/actuator/pathless")).getHandler())
 				.isEqualTo(handlerOf(pathless.getController(), "get"));
 		assertThat(mapping.getHandler(request("GET", "/pathless"))).isNull();
 		assertThat(mapping.getHandler(request("GET", "/"))).isNull();
 	}
 
-	private ControllerEndpointHandlerMapping createMapping(String prefix, ExposableControllerEndpoint... endpoints) {
-		ControllerEndpointHandlerMapping mapping = new ControllerEndpointHandlerMapping(new EndpointMapping(prefix),
+	private ControllerEndpointHandlerMapping_RENAMED createMapping(String prefix, ExposableControllerEndpoint... endpoints) {
+		ControllerEndpointHandlerMapping_RENAMED mapping = new ControllerEndpointHandlerMapping_RENAMED(new EndpointMapping(prefix),
 				Arrays.asList(endpoints), null);
 		mapping.setApplicationContext(this.context);
 		mapping.afterPropertiesSet();

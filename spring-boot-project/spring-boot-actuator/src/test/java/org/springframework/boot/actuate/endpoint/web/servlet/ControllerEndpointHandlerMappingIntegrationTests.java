@@ -52,7 +52,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.util.DefaultUriBuilderFactory;
 
 /**
- * Integration tests for {@link ControllerEndpointHandlerMapping}.
+ * Integration tests for {@link ControllerEndpointHandlerMapping_RENAMED}.
  *
  * @author Phillip Webb
  * @author Stephane Nicoll
@@ -115,8 +115,8 @@ class ControllerEndpointHandlerMappingIntegrationTests {
 		}
 
 		@Bean
-		ControllerEndpointHandlerMapping webEndpointHandlerMapping(ControllerEndpointsSupplier endpointsSupplier) {
-			return new ControllerEndpointHandlerMapping(new EndpointMapping("actuator"),
+		ControllerEndpointHandlerMapping_RENAMED webEndpointHandlerMapping(ControllerEndpointsSupplier endpointsSupplier) {
+			return new ControllerEndpointHandlerMapping_RENAMED(new EndpointMapping("actuator"),
 					endpointsSupplier.getEndpoints(), null);
 		}
 
