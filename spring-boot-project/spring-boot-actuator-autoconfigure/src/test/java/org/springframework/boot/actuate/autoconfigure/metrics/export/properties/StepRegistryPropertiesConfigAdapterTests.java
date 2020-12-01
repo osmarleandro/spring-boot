@@ -17,14 +17,14 @@
 package org.springframework.boot.actuate.autoconfigure.metrics.export.properties;
 
 /**
- * Base test for {@link StepRegistryPropertiesConfigAdapter} implementations.
+ * Base test for {@link StepRegistryPropertiesConfigAdapter_RENAMED} implementations.
  *
  * @param <P> properties used by the tests
  * @param <A> adapter used by the tests
  * @author Stephane Nicoll
  * @author Artsiom Yudovin
  */
-public abstract class StepRegistryPropertiesConfigAdapterTests<P extends StepRegistryProperties, A extends StepRegistryPropertiesConfigAdapter<P>>
+public abstract class StepRegistryPropertiesConfigAdapterTests<P extends StepRegistryProperties, A extends StepRegistryPropertiesConfigAdapter_RENAMED<P>>
 		extends PushRegistryPropertiesConfigAdapterTests<P, A> {
 
 }

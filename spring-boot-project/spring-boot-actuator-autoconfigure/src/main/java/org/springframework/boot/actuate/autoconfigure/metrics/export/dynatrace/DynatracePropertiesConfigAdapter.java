@@ -18,14 +18,14 @@ package org.springframework.boot.actuate.autoconfigure.metrics.export.dynatrace;
 
 import io.micrometer.dynatrace.DynatraceConfig;
 
-import org.springframework.boot.actuate.autoconfigure.metrics.export.properties.StepRegistryPropertiesConfigAdapter;
+import org.springframework.boot.actuate.autoconfigure.metrics.export.properties.StepRegistryPropertiesConfigAdapter_RENAMED;
 
 /**
  * Adapter to convert {@link DynatraceProperties} to a {@link DynatraceConfig}.
  *
  * @author Andy Wilkinson
  */
-class DynatracePropertiesConfigAdapter extends StepRegistryPropertiesConfigAdapter<DynatraceProperties>
+class DynatracePropertiesConfigAdapter extends StepRegistryPropertiesConfigAdapter_RENAMED<DynatraceProperties>
 		implements DynatraceConfig {
 
 	DynatracePropertiesConfigAdapter(DynatraceProperties properties) {

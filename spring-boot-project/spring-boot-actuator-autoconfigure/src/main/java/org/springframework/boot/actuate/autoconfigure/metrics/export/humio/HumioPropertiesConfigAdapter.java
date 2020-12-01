@@ -20,14 +20,14 @@ import java.util.Map;
 
 import io.micrometer.humio.HumioConfig;
 
-import org.springframework.boot.actuate.autoconfigure.metrics.export.properties.StepRegistryPropertiesConfigAdapter;
+import org.springframework.boot.actuate.autoconfigure.metrics.export.properties.StepRegistryPropertiesConfigAdapter_RENAMED;
 
 /**
  * Adapter to convert {@link HumioProperties} to a {@link HumioConfig}.
  *
  * @author Andy Wilkinson
  */
-class HumioPropertiesConfigAdapter extends StepRegistryPropertiesConfigAdapter<HumioProperties> implements HumioConfig {
+class HumioPropertiesConfigAdapter extends StepRegistryPropertiesConfigAdapter_RENAMED<HumioProperties> implements HumioConfig {
 
 	HumioPropertiesConfigAdapter(HumioProperties properties) {
 		super(properties);

@@ -18,7 +18,7 @@ package org.springframework.boot.actuate.autoconfigure.metrics.export.stackdrive
 
 import io.micrometer.stackdriver.StackdriverConfig;
 
-import org.springframework.boot.actuate.autoconfigure.metrics.export.properties.StepRegistryPropertiesConfigAdapter;
+import org.springframework.boot.actuate.autoconfigure.metrics.export.properties.StepRegistryPropertiesConfigAdapter_RENAMED;
 
 /**
  * Adapter to convert {@link StackdriverProperties} to a {@link StackdriverConfig}.
@@ -26,7 +26,7 @@ import org.springframework.boot.actuate.autoconfigure.metrics.export.properties.
  * @author Johannes Graf
  * @since 2.3.0
  */
-public class StackdriverPropertiesConfigAdapter extends StepRegistryPropertiesConfigAdapter<StackdriverProperties>
+public class StackdriverPropertiesConfigAdapter extends StepRegistryPropertiesConfigAdapter_RENAMED<StackdriverProperties>
 		implements StackdriverConfig {
 
 	public StackdriverPropertiesConfigAdapter(StackdriverProperties properties) {

@@ -18,7 +18,7 @@ package org.springframework.boot.actuate.autoconfigure.metrics.export.datadog;
 
 import io.micrometer.datadog.DatadogConfig;
 
-import org.springframework.boot.actuate.autoconfigure.metrics.export.properties.StepRegistryPropertiesConfigAdapter;
+import org.springframework.boot.actuate.autoconfigure.metrics.export.properties.StepRegistryPropertiesConfigAdapter_RENAMED;
 
 /**
  * Adapter to convert {@link DatadogProperties} to a {@link DatadogConfig}.
@@ -26,7 +26,7 @@ import org.springframework.boot.actuate.autoconfigure.metrics.export.properties.
  * @author Jon Schneider
  * @author Phillip Webb
  */
-class DatadogPropertiesConfigAdapter extends StepRegistryPropertiesConfigAdapter<DatadogProperties>
+class DatadogPropertiesConfigAdapter extends StepRegistryPropertiesConfigAdapter_RENAMED<DatadogProperties>
 		implements DatadogConfig {
 
 	DatadogPropertiesConfigAdapter(DatadogProperties properties) {

@@ -18,14 +18,14 @@ package org.springframework.boot.actuate.autoconfigure.metrics.export.appoptics;
 
 import io.micrometer.appoptics.AppOpticsConfig;
 
-import org.springframework.boot.actuate.autoconfigure.metrics.export.properties.StepRegistryPropertiesConfigAdapter;
+import org.springframework.boot.actuate.autoconfigure.metrics.export.properties.StepRegistryPropertiesConfigAdapter_RENAMED;
 
 /**
  * Adapter to convert {@link AppOpticsProperties} to an {@link AppOpticsConfig}.
  *
  * @author Stephane Nicoll
  */
-class AppOpticsPropertiesConfigAdapter extends StepRegistryPropertiesConfigAdapter<AppOpticsProperties>
+class AppOpticsPropertiesConfigAdapter extends StepRegistryPropertiesConfigAdapter_RENAMED<AppOpticsProperties>
 		implements AppOpticsConfig {
 
 	AppOpticsPropertiesConfigAdapter(AppOpticsProperties properties) {

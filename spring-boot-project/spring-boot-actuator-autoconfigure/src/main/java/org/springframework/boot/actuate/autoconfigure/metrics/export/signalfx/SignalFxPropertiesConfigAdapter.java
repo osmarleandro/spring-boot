@@ -18,7 +18,7 @@ package org.springframework.boot.actuate.autoconfigure.metrics.export.signalfx;
 
 import io.micrometer.signalfx.SignalFxConfig;
 
-import org.springframework.boot.actuate.autoconfigure.metrics.export.properties.StepRegistryPropertiesConfigAdapter;
+import org.springframework.boot.actuate.autoconfigure.metrics.export.properties.StepRegistryPropertiesConfigAdapter_RENAMED;
 
 /**
  * Adapter to convert {@link SignalFxProperties} to a {@link SignalFxConfig}.
@@ -26,7 +26,7 @@ import org.springframework.boot.actuate.autoconfigure.metrics.export.properties.
  * @author Jon Schneider
  * @since 2.0.0
  */
-public class SignalFxPropertiesConfigAdapter extends StepRegistryPropertiesConfigAdapter<SignalFxProperties>
+public class SignalFxPropertiesConfigAdapter extends StepRegistryPropertiesConfigAdapter_RENAMED<SignalFxProperties>
 		implements SignalFxConfig {
 
 	public SignalFxPropertiesConfigAdapter(SignalFxProperties properties) {

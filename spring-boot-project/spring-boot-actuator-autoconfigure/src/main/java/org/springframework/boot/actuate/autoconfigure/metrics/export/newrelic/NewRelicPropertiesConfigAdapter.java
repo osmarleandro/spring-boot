@@ -19,7 +19,7 @@ package org.springframework.boot.actuate.autoconfigure.metrics.export.newrelic;
 import io.micrometer.newrelic.ClientProviderType;
 import io.micrometer.newrelic.NewRelicConfig;
 
-import org.springframework.boot.actuate.autoconfigure.metrics.export.properties.StepRegistryPropertiesConfigAdapter;
+import org.springframework.boot.actuate.autoconfigure.metrics.export.properties.StepRegistryPropertiesConfigAdapter_RENAMED;
 
 /**
  * Adapter to convert {@link NewRelicProperties} to a {@link NewRelicConfig}.
@@ -28,7 +28,7 @@ import org.springframework.boot.actuate.autoconfigure.metrics.export.properties.
  * @author Neil Powell
  * @since 2.0.0
  */
-public class NewRelicPropertiesConfigAdapter extends StepRegistryPropertiesConfigAdapter<NewRelicProperties>
+public class NewRelicPropertiesConfigAdapter extends StepRegistryPropertiesConfigAdapter_RENAMED<NewRelicProperties>
 		implements NewRelicConfig {
 
 	public NewRelicPropertiesConfigAdapter(NewRelicProperties properties) {

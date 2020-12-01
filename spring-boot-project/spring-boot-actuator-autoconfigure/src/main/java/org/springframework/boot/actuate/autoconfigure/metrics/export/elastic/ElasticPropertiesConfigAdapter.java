@@ -18,14 +18,14 @@ package org.springframework.boot.actuate.autoconfigure.metrics.export.elastic;
 
 import io.micrometer.elastic.ElasticConfig;
 
-import org.springframework.boot.actuate.autoconfigure.metrics.export.properties.StepRegistryPropertiesConfigAdapter;
+import org.springframework.boot.actuate.autoconfigure.metrics.export.properties.StepRegistryPropertiesConfigAdapter_RENAMED;
 
 /**
  * Adapter to convert {@link ElasticProperties} to an {@link ElasticConfig}.
  *
  * @author Andy Wilkinson
  */
-class ElasticPropertiesConfigAdapter extends StepRegistryPropertiesConfigAdapter<ElasticProperties>
+class ElasticPropertiesConfigAdapter extends StepRegistryPropertiesConfigAdapter_RENAMED<ElasticProperties>
 		implements ElasticConfig {
 
 	ElasticPropertiesConfigAdapter(ElasticProperties properties) {

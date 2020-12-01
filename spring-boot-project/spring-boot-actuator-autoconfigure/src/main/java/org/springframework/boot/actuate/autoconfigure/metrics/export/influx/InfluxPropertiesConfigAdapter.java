@@ -19,7 +19,7 @@ package org.springframework.boot.actuate.autoconfigure.metrics.export.influx;
 import io.micrometer.influx.InfluxConfig;
 import io.micrometer.influx.InfluxConsistency;
 
-import org.springframework.boot.actuate.autoconfigure.metrics.export.properties.StepRegistryPropertiesConfigAdapter;
+import org.springframework.boot.actuate.autoconfigure.metrics.export.properties.StepRegistryPropertiesConfigAdapter_RENAMED;
 
 /**
  * Adapter to convert {@link InfluxProperties} to an {@link InfluxConfig}.
@@ -27,7 +27,7 @@ import org.springframework.boot.actuate.autoconfigure.metrics.export.properties.
  * @author Jon Schneider
  * @author Phillip Webb
  */
-class InfluxPropertiesConfigAdapter extends StepRegistryPropertiesConfigAdapter<InfluxProperties>
+class InfluxPropertiesConfigAdapter extends StepRegistryPropertiesConfigAdapter_RENAMED<InfluxProperties>
 		implements InfluxConfig {
 
 	InfluxPropertiesConfigAdapter(InfluxProperties properties) {
