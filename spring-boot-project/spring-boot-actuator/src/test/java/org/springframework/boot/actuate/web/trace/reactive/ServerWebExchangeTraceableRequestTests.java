@@ -32,7 +32,7 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
 
 /**
- * Tests for {@link ServerWebExchangeTraceableRequest}.
+ * Tests for {@link ServerWebExchangeTraceableRequest_RENAMED}.
  *
  * @author Dmytro Nosan
  */
@@ -53,7 +53,7 @@ class ServerWebExchangeTraceableRequestTests {
 	void getMethod() {
 		String method = "POST";
 		given(this.request.getMethodValue()).willReturn(method);
-		ServerWebExchangeTraceableRequest traceableRequest = new ServerWebExchangeTraceableRequest(this.exchange);
+		ServerWebExchangeTraceableRequest_RENAMED traceableRequest = new ServerWebExchangeTraceableRequest_RENAMED(this.exchange);
 		assertThat(traceableRequest.getMethod()).isSameAs(method);
 	}
 
@@ -61,7 +61,7 @@ class ServerWebExchangeTraceableRequestTests {
 	void getUri() {
 		URI uri = URI.create("http://localhost:8080/");
 		given(this.request.getURI()).willReturn(uri);
-		ServerWebExchangeTraceableRequest traceableRequest = new ServerWebExchangeTraceableRequest(this.exchange);
+		ServerWebExchangeTraceableRequest_RENAMED traceableRequest = new ServerWebExchangeTraceableRequest_RENAMED(this.exchange);
 		assertThat(traceableRequest.getUri()).isSameAs(uri);
 	}
 
@@ -70,7 +70,7 @@ class ServerWebExchangeTraceableRequestTests {
 		HttpHeaders httpHeaders = new HttpHeaders();
 		httpHeaders.add("name", "value");
 		given(this.request.getHeaders()).willReturn(httpHeaders);
-		ServerWebExchangeTraceableRequest traceableRequest = new ServerWebExchangeTraceableRequest(this.exchange);
+		ServerWebExchangeTraceableRequest_RENAMED traceableRequest = new ServerWebExchangeTraceableRequest_RENAMED(this.exchange);
 		assertThat(traceableRequest.getHeaders()).containsOnly(entry("name", Collections.singletonList("value")));
 	}
 
@@ -78,7 +78,7 @@ class ServerWebExchangeTraceableRequestTests {
 	void getUnresolvedRemoteAddress() {
 		InetSocketAddress socketAddress = InetSocketAddress.createUnresolved("unresolved.example.com", 8080);
 		given(this.request.getRemoteAddress()).willReturn(socketAddress);
-		ServerWebExchangeTraceableRequest traceableRequest = new ServerWebExchangeTraceableRequest(this.exchange);
+		ServerWebExchangeTraceableRequest_RENAMED traceableRequest = new ServerWebExchangeTraceableRequest_RENAMED(this.exchange);
 		assertThat(traceableRequest.getRemoteAddress()).isNull();
 	}
 
@@ -86,7 +86,7 @@ class ServerWebExchangeTraceableRequestTests {
 	void getRemoteAddress() {
 		InetSocketAddress socketAddress = new InetSocketAddress(0);
 		given(this.request.getRemoteAddress()).willReturn(socketAddress);
-		ServerWebExchangeTraceableRequest traceableRequest = new ServerWebExchangeTraceableRequest(this.exchange);
+		ServerWebExchangeTraceableRequest_RENAMED traceableRequest = new ServerWebExchangeTraceableRequest_RENAMED(this.exchange);
 		assertThat(traceableRequest.getRemoteAddress()).isEqualTo(socketAddress.getAddress().toString());
 	}
 
