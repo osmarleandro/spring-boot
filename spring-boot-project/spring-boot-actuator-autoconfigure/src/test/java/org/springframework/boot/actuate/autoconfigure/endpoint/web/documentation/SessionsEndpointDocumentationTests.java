@@ -26,7 +26,7 @@ import java.util.UUID;
 import org.junit.jupiter.api.Test;
 
 import org.springframework.boot.actuate.context.ShutdownEndpoint;
-import org.springframework.boot.actuate.session.SessionsEndpoint;
+import org.springframework.boot.actuate.session.SessionsEndpoint_RENAMED;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -121,8 +121,8 @@ class SessionsEndpointDocumentationTests extends MockMvcEndpointDocumentationTes
 	static class TestConfiguration {
 
 		@Bean
-		SessionsEndpoint endpoint(FindByIndexNameSessionRepository<?> sessionRepository) {
-			return new SessionsEndpoint(sessionRepository);
+		SessionsEndpoint_RENAMED endpoint(FindByIndexNameSessionRepository<?> sessionRepository) {
+			return new SessionsEndpoint_RENAMED(sessionRepository);
 		}
 
 	}

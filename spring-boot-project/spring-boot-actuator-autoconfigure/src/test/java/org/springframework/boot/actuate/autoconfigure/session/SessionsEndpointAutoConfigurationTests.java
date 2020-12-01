@@ -18,7 +18,7 @@ package org.springframework.boot.actuate.autoconfigure.session;
 
 import org.junit.jupiter.api.Test;
 
-import org.springframework.boot.actuate.session.SessionsEndpoint;
+import org.springframework.boot.actuate.session.SessionsEndpoint_RENAMED;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
 import org.springframework.boot.test.context.runner.ApplicationContextRunner;
 import org.springframework.context.annotation.Bean;
@@ -42,18 +42,18 @@ class SessionsEndpointAutoConfigurationTests {
 	@Test
 	void runShouldHaveEndpointBean() {
 		this.contextRunner.withPropertyValues("management.endpoints.web.exposure.include=sessions")
-				.run((context) -> assertThat(context).hasSingleBean(SessionsEndpoint.class));
+				.run((context) -> assertThat(context).hasSingleBean(SessionsEndpoint_RENAMED.class));
 	}
 
 	@Test
 	void runWhenNotExposedShouldNotHaveEndpointBean() {
-		this.contextRunner.run((context) -> assertThat(context).doesNotHaveBean(SessionsEndpoint.class));
+		this.contextRunner.run((context) -> assertThat(context).doesNotHaveBean(SessionsEndpoint_RENAMED.class));
 	}
 
 	@Test
 	void runWhenEnabledPropertyIsFalseShouldNotHaveEndpointBean() {
 		this.contextRunner.withPropertyValues("management.endpoint.sessions.enabled:false")
-				.run((context) -> assertThat(context).doesNotHaveBean(SessionsEndpoint.class));
+				.run((context) -> assertThat(context).doesNotHaveBean(SessionsEndpoint_RENAMED.class));
 	}
 
 	@Configuration(proxyBeanMethods = false)

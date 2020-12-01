@@ -32,7 +32,7 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
 
 /**
- * Integration tests for {@link SessionsEndpoint} exposed by Jersey, Spring MVC, and
+ * Integration tests for {@link SessionsEndpoint_RENAMED} exposed by Jersey, Spring MVC, and
  * WebFlux.
  *
  * @author Vedran Pavic
@@ -76,8 +76,8 @@ class SessionsEndpointWebIntegrationTests {
 	static class TestConfiguration {
 
 		@Bean
-		SessionsEndpoint sessionsEndpoint() {
-			return new SessionsEndpoint(repository);
+		SessionsEndpoint_RENAMED sessionsEndpoint() {
+			return new SessionsEndpoint_RENAMED(repository);
 		}
 
 	}

@@ -21,7 +21,7 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import org.springframework.boot.actuate.session.SessionsEndpoint.SessionDescriptor;
+import org.springframework.boot.actuate.session.SessionsEndpoint_RENAMED.SessionDescriptor;
 import org.springframework.session.FindByIndexNameSessionRepository;
 import org.springframework.session.MapSession;
 import org.springframework.session.Session;
@@ -32,7 +32,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
 /**
- * Tests for {@link SessionsEndpoint}.
+ * Tests for {@link SessionsEndpoint_RENAMED}.
  *
  * @author Vedran Pavic
  */
@@ -43,7 +43,7 @@ class SessionsEndpointTests {
 	@SuppressWarnings("unchecked")
 	private final FindByIndexNameSessionRepository<Session> repository = mock(FindByIndexNameSessionRepository.class);
 
-	private final SessionsEndpoint endpoint = new SessionsEndpoint(this.repository);
+	private final SessionsEndpoint_RENAMED endpoint = new SessionsEndpoint_RENAMED(this.repository);
 
 	@Test
 	void sessionsForUsername() {
