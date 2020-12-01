@@ -39,7 +39,7 @@ import static org.mockito.Mockito.mock;
  * @author Madhura Bhave
  */
 @ClassPathExclusions("spring-webmvc-*")
-class JerseySameManagementContextConfigurationTests {
+class JerseySameManagementContextConfigurationTests_RENAMED {
 
 	private final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(JerseySameManagementContextConfiguration.class));
