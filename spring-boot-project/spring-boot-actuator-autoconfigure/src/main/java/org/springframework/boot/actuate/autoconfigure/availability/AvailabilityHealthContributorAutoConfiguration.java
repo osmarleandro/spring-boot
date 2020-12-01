@@ -16,7 +16,7 @@
 
 package org.springframework.boot.actuate.autoconfigure.availability;
 
-import org.springframework.boot.actuate.availability.AvailabilityStateHealthIndicator;
+import org.springframework.boot.actuate.availability.AvailabilityStateHealthIndicator_RENAMED;
 import org.springframework.boot.actuate.availability.LivenessStateHealthIndicator;
 import org.springframework.boot.actuate.availability.ReadinessStateHealthIndicator;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
@@ -30,7 +30,7 @@ import org.springframework.context.annotation.Configuration;
 
 /**
  * {@link EnableAutoConfiguration Auto-configuration} for
- * {@link AvailabilityStateHealthIndicator}.
+ * {@link AvailabilityStateHealthIndicator_RENAMED}.
  *
  * @author Brian Clozel
  * @since 2.3.2
