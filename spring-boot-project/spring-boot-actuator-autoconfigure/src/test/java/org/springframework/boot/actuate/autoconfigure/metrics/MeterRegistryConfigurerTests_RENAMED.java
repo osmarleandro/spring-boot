@@ -47,7 +47,7 @@ import static org.mockito.Mockito.verifyNoInteractions;
  * @author Andy Wilkinson
  */
 @ExtendWith(MockitoExtension.class)
-class MeterRegistryConfigurerTests {
+class MeterRegistryConfigurerTests_RENAMED {
 
 	private List<MeterBinder> binders = new ArrayList<>();
 
