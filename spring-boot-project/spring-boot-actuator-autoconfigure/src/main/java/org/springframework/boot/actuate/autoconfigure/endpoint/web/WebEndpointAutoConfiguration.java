@@ -22,8 +22,8 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.boot.actuate.autoconfigure.endpoint.EndpointAutoConfiguration;
-import org.springframework.boot.actuate.autoconfigure.endpoint.expose.IncludeExcludeEndpointFilter;
-import org.springframework.boot.actuate.autoconfigure.endpoint.expose.IncludeExcludeEndpointFilter.DefaultIncludes;
+import org.springframework.boot.actuate.autoconfigure.endpoint.expose.IncludeExcludeEndpointFilter_RENAMED;
+import org.springframework.boot.actuate.autoconfigure.endpoint.expose.IncludeExcludeEndpointFilter_RENAMED.DefaultIncludes;
 import org.springframework.boot.actuate.endpoint.EndpointFilter;
 import org.springframework.boot.actuate.endpoint.EndpointsSupplier;
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
@@ -113,16 +113,16 @@ public class WebEndpointAutoConfiguration {
 	}
 
 	@Bean
-	public IncludeExcludeEndpointFilter<ExposableWebEndpoint> webExposeExcludePropertyEndpointFilter() {
+	public IncludeExcludeEndpointFilter_RENAMED<ExposableWebEndpoint> webExposeExcludePropertyEndpointFilter() {
 		WebEndpointProperties.Exposure exposure = this.properties.getExposure();
-		return new IncludeExcludeEndpointFilter<>(ExposableWebEndpoint.class, exposure.getInclude(),
+		return new IncludeExcludeEndpointFilter_RENAMED<>(ExposableWebEndpoint.class, exposure.getInclude(),
 				exposure.getExclude(), DefaultIncludes.WEB);
 	}
 
 	@Bean
-	public IncludeExcludeEndpointFilter<ExposableControllerEndpoint> controllerExposeExcludePropertyEndpointFilter() {
+	public IncludeExcludeEndpointFilter_RENAMED<ExposableControllerEndpoint> controllerExposeExcludePropertyEndpointFilter() {
 		WebEndpointProperties.Exposure exposure = this.properties.getExposure();
-		return new IncludeExcludeEndpointFilter<>(ExposableControllerEndpoint.class, exposure.getInclude(),
+		return new IncludeExcludeEndpointFilter_RENAMED<>(ExposableControllerEndpoint.class, exposure.getInclude(),
 				exposure.getExclude());
 	}
 
