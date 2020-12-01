@@ -36,7 +36,7 @@ import org.springframework.util.CollectionUtils;
  * @author Phillip Webb
  * @author Andy Wilkinson
  */
-class AutoConfiguredHealthEndpointGroup implements HealthEndpointGroup {
+class AutoConfiguredHealthEndpointGroup_RENAMED implements HealthEndpointGroup {
 
 	private final Predicate<String> members;
 
@@ -51,7 +51,7 @@ class AutoConfiguredHealthEndpointGroup implements HealthEndpointGroup {
 	private final Collection<String> roles;
 
 	/**
-	 * Create a new {@link AutoConfiguredHealthEndpointGroup} instance.
+	 * Create a new {@link AutoConfiguredHealthEndpointGroup_RENAMED} instance.
 	 * @param members a predicate used to test for group membership
 	 * @param statusAggregator the status aggregator to use
 	 * @param httpCodeStatusMapper the HTTP code status mapper to use
@@ -59,7 +59,7 @@ class AutoConfiguredHealthEndpointGroup implements HealthEndpointGroup {
 	 * @param showDetails the show details setting
 	 * @param roles the roles to match
 	 */
-	AutoConfiguredHealthEndpointGroup(Predicate<String> members, StatusAggregator statusAggregator,
+	AutoConfiguredHealthEndpointGroup_RENAMED(Predicate<String> members, StatusAggregator statusAggregator,
 			HttpCodeStatusMapper httpCodeStatusMapper, Show showComponents, Show showDetails,
 			Collection<String> roles) {
 		this.members = members;

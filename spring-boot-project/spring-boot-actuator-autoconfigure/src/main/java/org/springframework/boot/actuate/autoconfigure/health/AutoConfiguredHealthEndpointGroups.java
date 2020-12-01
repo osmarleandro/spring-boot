@@ -76,7 +76,7 @@ class AutoConfiguredHealthEndpointGroups implements HealthEndpointGroups {
 		if (httpCodeStatusMapper == null) {
 			httpCodeStatusMapper = new SimpleHttpCodeStatusMapper(properties.getStatus().getHttpMapping());
 		}
-		this.primaryGroup = new AutoConfiguredHealthEndpointGroup(ALL, statusAggregator, httpCodeStatusMapper,
+		this.primaryGroup = new AutoConfiguredHealthEndpointGroup_RENAMED(ALL, statusAggregator, httpCodeStatusMapper,
 				showComponents, showDetails, roles);
 		this.groups = createGroups(properties.getGroup(), beanFactory, statusAggregator, httpCodeStatusMapper,
 				showComponents, showDetails, roles);
@@ -106,7 +106,7 @@ class AutoConfiguredHealthEndpointGroups implements HealthEndpointGroups {
 						return defaultHttpCodeStatusMapper;
 					});
 			Predicate<String> members = new IncludeExcludeGroupMemberPredicate(group.getInclude(), group.getExclude());
-			groups.put(groupName, new AutoConfiguredHealthEndpointGroup(members, statusAggregator, httpCodeStatusMapper,
+			groups.put(groupName, new AutoConfiguredHealthEndpointGroup_RENAMED(members, statusAggregator, httpCodeStatusMapper,
 					showComponents, showDetails, roles));
 		});
 		return Collections.unmodifiableMap(groups);
