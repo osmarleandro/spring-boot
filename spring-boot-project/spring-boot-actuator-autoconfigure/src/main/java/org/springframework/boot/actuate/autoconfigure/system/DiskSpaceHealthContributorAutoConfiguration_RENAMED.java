@@ -38,7 +38,7 @@ import org.springframework.context.annotation.Configuration;
 @ConditionalOnEnabledHealthIndicator("diskspace")
 @AutoConfigureBefore(HealthContributorAutoConfiguration.class)
 @EnableConfigurationProperties(DiskSpaceHealthIndicatorProperties.class)
-public class DiskSpaceHealthContributorAutoConfiguration {
+public class DiskSpaceHealthContributorAutoConfiguration_RENAMED {
 
 	@Bean
 	@ConditionalOnMissingBean(name = "diskSpaceHealthIndicator")

@@ -27,7 +27,7 @@ import org.springframework.util.unit.DataSize;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Tests for {@link DiskSpaceHealthContributorAutoConfiguration}.
+ * Tests for {@link DiskSpaceHealthContributorAutoConfiguration_RENAMED}.
  *
  * @author Phillip Webb
  * @author Stephane Nicoll
@@ -35,7 +35,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 class DiskSpaceHealthContributorAutoConfigurationTests {
 
 	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
-			.withConfiguration(AutoConfigurations.of(DiskSpaceHealthContributorAutoConfiguration.class,
+			.withConfiguration(AutoConfigurations.of(DiskSpaceHealthContributorAutoConfiguration_RENAMED.class,
 					HealthContributorAutoConfiguration.class));
 
 	@Test
