@@ -27,7 +27,7 @@ import org.springframework.context.annotation.Configuration;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Tests for {@link StartupEndpoint}.
+ * Tests for {@link StartupEndpoint_RENAMED}.
  *
  * @author Brian Clozel
  */
@@ -40,7 +40,7 @@ class StartupEndpointTests {
 				.withInitializer((context) -> context.setApplicationStartup(applicationStartup))
 				.withUserConfiguration(EndpointConfiguration.class);
 		contextRunner.run((context) -> {
-			StartupEndpoint.StartupResponse startup = context.getBean(StartupEndpoint.class).startup();
+			StartupEndpoint_RENAMED.StartupResponse startup = context.getBean(StartupEndpoint_RENAMED.class).startup();
 			assertThat(startup.getSpringBootVersion()).isEqualTo(SpringBootVersion.getVersion());
 			assertThat(startup.getTimeline().getStartTime())
 					.isEqualTo(applicationStartup.getBufferedTimeline().getStartTime());
@@ -54,7 +54,7 @@ class StartupEndpointTests {
 				.withInitializer((context) -> context.setApplicationStartup(applicationStartup))
 				.withUserConfiguration(EndpointConfiguration.class);
 		contextRunner.run((context) -> {
-			StartupEndpoint.StartupResponse startup = context.getBean(StartupEndpoint.class).startup();
+			StartupEndpoint_RENAMED.StartupResponse startup = context.getBean(StartupEndpoint_RENAMED.class).startup();
 			assertThat(startup.getTimeline().getEvents()).isNotEmpty();
 			assertThat(applicationStartup.getBufferedTimeline().getEvents()).isEmpty();
 		});
@@ -64,8 +64,8 @@ class StartupEndpointTests {
 	static class EndpointConfiguration {
 
 		@Bean
-		StartupEndpoint endpoint(BufferingApplicationStartup applicationStartup) {
-			return new StartupEndpoint(applicationStartup);
+		StartupEndpoint_RENAMED endpoint(BufferingApplicationStartup applicationStartup) {
+			return new StartupEndpoint_RENAMED(applicationStartup);
 		}
 
 	}

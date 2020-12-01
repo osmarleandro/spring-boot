@@ -18,7 +18,7 @@ package org.springframework.boot.actuate.autoconfigure.startup;
 
 import org.junit.jupiter.api.Test;
 
-import org.springframework.boot.actuate.startup.StartupEndpoint;
+import org.springframework.boot.actuate.startup.StartupEndpoint_RENAMED;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
 import org.springframework.boot.context.metrics.buffering.BufferingApplicationStartup;
 import org.springframework.boot.test.context.runner.ApplicationContextRunner;
@@ -38,13 +38,13 @@ class StartupEndpointAutoConfigurationTests {
 
 	@Test
 	void runShouldNotHaveStartupEndpoint() {
-		this.contextRunner.run((context) -> assertThat(context).doesNotHaveBean(StartupEndpoint.class));
+		this.contextRunner.run((context) -> assertThat(context).doesNotHaveBean(StartupEndpoint_RENAMED.class));
 	}
 
 	@Test
 	void runWhenMissingAppStartupShouldNotHaveStartupEndpoint() {
 		this.contextRunner.withPropertyValues("management.endpoints.web.exposure.include=startup")
-				.run((context) -> assertThat(context).doesNotHaveBean(StartupEndpoint.class));
+				.run((context) -> assertThat(context).doesNotHaveBean(StartupEndpoint_RENAMED.class));
 	}
 
 	@Test
@@ -55,7 +55,7 @@ class StartupEndpointAutoConfigurationTests {
 			return context;
 		}).withConfiguration(AutoConfigurations.of(StartupEndpointAutoConfiguration.class))
 				.withPropertyValues("management.endpoints.web.exposure.include=startup")
-				.run((context) -> assertThat(context).hasSingleBean(StartupEndpoint.class));
+				.run((context) -> assertThat(context).hasSingleBean(StartupEndpoint_RENAMED.class));
 	}
 
 }

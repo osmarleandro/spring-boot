@@ -20,7 +20,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.actuate.startup.StartupEndpoint;
+import org.springframework.boot.actuate.startup.StartupEndpoint_RENAMED;
 import org.springframework.boot.context.metrics.buffering.BufferingApplicationStartup;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -36,7 +36,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /**
- * Tests for generating documentation describing {@link StartupEndpoint}.
+ * Tests for generating documentation describing {@link StartupEndpoint_RENAMED}.
  *
  * @author Brian Clozel
  */
@@ -84,8 +84,8 @@ class StartupEndpointDocumentationTests extends MockMvcEndpointDocumentationTest
 	static class TestConfiguration {
 
 		@Bean
-		StartupEndpoint startupEndpoint(BufferingApplicationStartup startup) {
-			return new StartupEndpoint(startup);
+		StartupEndpoint_RENAMED startupEndpoint(BufferingApplicationStartup startup) {
+			return new StartupEndpoint_RENAMED(startup);
 		}
 
 		@Bean
