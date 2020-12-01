@@ -46,7 +46,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Madhura Bhave
  */
-class CloudFoundryHealthEndpointWebExtensionTests {
+class CloudFoundryHealthEndpointWebExtensionTests_RENAMED {
 
 	private final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner()
 			.withPropertyValues("VCAP_APPLICATION={}")
