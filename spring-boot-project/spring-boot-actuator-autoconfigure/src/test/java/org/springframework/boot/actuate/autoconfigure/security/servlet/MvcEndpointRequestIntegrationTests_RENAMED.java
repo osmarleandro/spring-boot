@@ -35,7 +35,7 @@ import org.springframework.test.web.reactive.server.WebTestClient;
  *
  * @author Madhura Bhave
  */
-class MvcEndpointRequestIntegrationTests extends AbstractEndpointRequestIntegrationTests {
+class MvcEndpointRequestIntegrationTests_RENAMED extends AbstractEndpointRequestIntegrationTests {
 
 	@Test
 	void toLinksWhenServletPathSetShouldMatch() {
