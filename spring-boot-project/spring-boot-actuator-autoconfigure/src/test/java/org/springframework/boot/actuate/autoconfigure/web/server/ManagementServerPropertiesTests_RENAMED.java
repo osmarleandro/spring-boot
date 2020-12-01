@@ -26,7 +26,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Phillip Webb
  * @author Stephane Nicoll
  */
-class ManagementServerPropertiesTests {
+class ManagementServerPropertiesTests_RENAMED {
 
 	@Test
 	void defaultManagementServerProperties() {
