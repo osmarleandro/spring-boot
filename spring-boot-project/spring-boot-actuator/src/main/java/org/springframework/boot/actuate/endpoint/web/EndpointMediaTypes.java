@@ -20,7 +20,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import org.springframework.boot.actuate.endpoint.http.ActuatorMediaType;
+import org.springframework.boot.actuate.endpoint.http.ActuatorMediaType_RENAMED;
 import org.springframework.util.Assert;
 
 /**
@@ -36,8 +36,8 @@ public class EndpointMediaTypes {
 	/**
 	 * Default {@link EndpointMediaTypes} for this version of Spring Boot.
 	 */
-	public static final EndpointMediaTypes DEFAULT = new EndpointMediaTypes(ActuatorMediaType.V3_JSON,
-			ActuatorMediaType.V2_JSON, JSON_MEDIA_TYPE);
+	public static final EndpointMediaTypes DEFAULT = new EndpointMediaTypes(ActuatorMediaType_RENAMED.V3_JSON,
+			ActuatorMediaType_RENAMED.V2_JSON, JSON_MEDIA_TYPE);
 
 	private final List<String> produced;
 

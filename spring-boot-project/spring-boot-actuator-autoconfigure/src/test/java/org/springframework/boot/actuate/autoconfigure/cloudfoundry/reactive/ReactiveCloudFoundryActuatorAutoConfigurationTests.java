@@ -40,7 +40,7 @@ import org.springframework.boot.actuate.autoconfigure.web.server.ManagementConte
 import org.springframework.boot.actuate.endpoint.EndpointId;
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
 import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
-import org.springframework.boot.actuate.endpoint.http.ActuatorMediaType;
+import org.springframework.boot.actuate.endpoint.http.ActuatorMediaType_RENAMED;
 import org.springframework.boot.actuate.endpoint.web.EndpointMapping;
 import org.springframework.boot.actuate.endpoint.web.ExposableWebEndpoint;
 import org.springframework.boot.actuate.endpoint.web.WebOperation;
@@ -120,7 +120,7 @@ class ReactiveCloudFoundryActuatorAutoConfigurationTests {
 				"vcap.application.cf_api:https://my-cloud-controller.com").run((context) -> {
 					WebTestClient webTestClient = WebTestClient.bindToApplicationContext(context).build();
 					webTestClient.get().uri("/cloudfoundryapplication").header("Content-Type",
-							ActuatorMediaType.V2_JSON + ";charset=UTF-8");
+							ActuatorMediaType_RENAMED.V2_JSON + ";charset=UTF-8");
 				});
 	}
 
@@ -302,7 +302,7 @@ class ReactiveCloudFoundryActuatorAutoConfigurationTests {
 		for (WebOperation operation : endpoint.getOperations()) {
 			WebOperationRequestPredicate predicate = operation.getRequestPredicate();
 			if (predicate.getPath().equals(requestPath)
-					&& predicate.getProduces().contains(ActuatorMediaType.V3_JSON)) {
+					&& predicate.getProduces().contains(ActuatorMediaType_RENAMED.V3_JSON)) {
 				return operation;
 			}
 		}

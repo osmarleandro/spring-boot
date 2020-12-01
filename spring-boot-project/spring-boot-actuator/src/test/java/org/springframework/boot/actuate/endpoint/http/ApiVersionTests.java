@@ -46,27 +46,27 @@ class ApiVersionTests {
 
 	@Test
 	void fromHttpHeadersWhenHasSingleV2HeaderReturnsV2() {
-		ApiVersion version = ApiVersion.fromHttpHeaders(acceptHeader(ActuatorMediaType.V2_JSON));
+		ApiVersion version = ApiVersion.fromHttpHeaders(acceptHeader(ActuatorMediaType_RENAMED.V2_JSON));
 		assertThat(version).isEqualTo(ApiVersion.V2);
 	}
 
 	@Test
 	void fromHttpHeadersWhenHasSingleV3HeaderReturnsV3() {
-		ApiVersion version = ApiVersion.fromHttpHeaders(acceptHeader(ActuatorMediaType.V3_JSON));
+		ApiVersion version = ApiVersion.fromHttpHeaders(acceptHeader(ActuatorMediaType_RENAMED.V3_JSON));
 		assertThat(version).isEqualTo(ApiVersion.V3);
 	}
 
 	@Test
 	void fromHttpHeadersWhenHasV2AndV3HeaderReturnsV3() {
 		ApiVersion version = ApiVersion
-				.fromHttpHeaders(acceptHeader(ActuatorMediaType.V2_JSON, ActuatorMediaType.V3_JSON));
+				.fromHttpHeaders(acceptHeader(ActuatorMediaType_RENAMED.V2_JSON, ActuatorMediaType_RENAMED.V3_JSON));
 		assertThat(version).isEqualTo(ApiVersion.V3);
 	}
 
 	@Test
 	void fromHttpHeadersWhenHasV2AndV3AsOneHeaderReturnsV3() {
 		ApiVersion version = ApiVersion
-				.fromHttpHeaders(acceptHeader(ActuatorMediaType.V2_JSON + "," + ActuatorMediaType.V3_JSON));
+				.fromHttpHeaders(acceptHeader(ActuatorMediaType_RENAMED.V2_JSON + "," + ActuatorMediaType_RENAMED.V3_JSON));
 		assertThat(version).isEqualTo(ApiVersion.V3);
 	}
 

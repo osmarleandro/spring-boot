@@ -30,7 +30,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.mockito.Mockito;
 
 import org.springframework.beans.factory.ObjectProvider;
-import org.springframework.boot.actuate.endpoint.http.ActuatorMediaType;
+import org.springframework.boot.actuate.endpoint.http.ActuatorMediaType_RENAMED;
 import org.springframework.boot.actuate.endpoint.web.test.WebEndpointTest;
 import org.springframework.boot.logging.LogLevel;
 import org.springframework.boot.logging.LoggerConfiguration;
@@ -126,7 +126,7 @@ class LoggersEndpointWebIntegrationTests {
 	@WebEndpointTest
 	void setLoggerUsingActuatorV2JsonShouldSetLogLevel() {
 		this.client.post().uri("/actuator/loggers/ROOT")
-				.contentType(MediaType.parseMediaType(ActuatorMediaType.V2_JSON))
+				.contentType(MediaType.parseMediaType(ActuatorMediaType_RENAMED.V2_JSON))
 				.bodyValue(Collections.singletonMap("configuredLevel", "debug")).exchange().expectStatus()
 				.isNoContent();
 		verify(this.loggingSystem).setLogLevel("ROOT", LogLevel.DEBUG);
@@ -135,7 +135,7 @@ class LoggersEndpointWebIntegrationTests {
 	@WebEndpointTest
 	void setLoggerUsingActuatorV3JsonShouldSetLogLevel() {
 		this.client.post().uri("/actuator/loggers/ROOT")
-				.contentType(MediaType.parseMediaType(ActuatorMediaType.V3_JSON))
+				.contentType(MediaType.parseMediaType(ActuatorMediaType_RENAMED.V3_JSON))
 				.bodyValue(Collections.singletonMap("configuredLevel", "debug")).exchange().expectStatus()
 				.isNoContent();
 		verify(this.loggingSystem).setLogLevel("ROOT", LogLevel.DEBUG);
@@ -144,7 +144,7 @@ class LoggersEndpointWebIntegrationTests {
 	@WebEndpointTest
 	void setLoggerGroupUsingActuatorV2JsonShouldSetLogLevel() {
 		this.client.post().uri("/actuator/loggers/test")
-				.contentType(MediaType.parseMediaType(ActuatorMediaType.V2_JSON))
+				.contentType(MediaType.parseMediaType(ActuatorMediaType_RENAMED.V2_JSON))
 				.bodyValue(Collections.singletonMap("configuredLevel", "debug")).exchange().expectStatus()
 				.isNoContent();
 		verify(this.loggingSystem).setLogLevel("test.member1", LogLevel.DEBUG);
@@ -171,7 +171,7 @@ class LoggersEndpointWebIntegrationTests {
 	@WebEndpointTest
 	void setLoggerWithNullLogLevel() {
 		this.client.post().uri("/actuator/loggers/ROOT")
-				.contentType(MediaType.parseMediaType(ActuatorMediaType.V3_JSON))
+				.contentType(MediaType.parseMediaType(ActuatorMediaType_RENAMED.V3_JSON))
 				.bodyValue(Collections.singletonMap("configuredLevel", null)).exchange().expectStatus().isNoContent();
 		verify(this.loggingSystem).setLogLevel("ROOT", null);
 	}
@@ -179,7 +179,7 @@ class LoggersEndpointWebIntegrationTests {
 	@WebEndpointTest
 	void setLoggerWithNoLogLevel() {
 		this.client.post().uri("/actuator/loggers/ROOT")
-				.contentType(MediaType.parseMediaType(ActuatorMediaType.V3_JSON)).bodyValue(Collections.emptyMap())
+				.contentType(MediaType.parseMediaType(ActuatorMediaType_RENAMED.V3_JSON)).bodyValue(Collections.emptyMap())
 				.exchange().expectStatus().isNoContent();
 		verify(this.loggingSystem).setLogLevel("ROOT", null);
 	}
@@ -187,7 +187,7 @@ class LoggersEndpointWebIntegrationTests {
 	@WebEndpointTest
 	void setLoggerGroupWithNullLogLevel() {
 		this.client.post().uri("/actuator/loggers/test")
-				.contentType(MediaType.parseMediaType(ActuatorMediaType.V3_JSON))
+				.contentType(MediaType.parseMediaType(ActuatorMediaType_RENAMED.V3_JSON))
 				.bodyValue(Collections.singletonMap("configuredLevel", null)).exchange().expectStatus().isNoContent();
 		verify(this.loggingSystem).setLogLevel("test.member1", null);
 		verify(this.loggingSystem).setLogLevel("test.member2", null);
@@ -196,7 +196,7 @@ class LoggersEndpointWebIntegrationTests {
 	@WebEndpointTest
 	void setLoggerGroupWithNoLogLevel() {
 		this.client.post().uri("/actuator/loggers/test")
-				.contentType(MediaType.parseMediaType(ActuatorMediaType.V3_JSON)).bodyValue(Collections.emptyMap())
+				.contentType(MediaType.parseMediaType(ActuatorMediaType_RENAMED.V3_JSON)).bodyValue(Collections.emptyMap())
 				.exchange().expectStatus().isNoContent();
 		verify(this.loggingSystem).setLogLevel("test.member1", null);
 		verify(this.loggingSystem).setLogLevel("test.member2", null);

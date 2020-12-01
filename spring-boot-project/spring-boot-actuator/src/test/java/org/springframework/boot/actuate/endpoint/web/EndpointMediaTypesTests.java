@@ -22,7 +22,7 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import org.springframework.boot.actuate.endpoint.http.ActuatorMediaType;
+import org.springframework.boot.actuate.endpoint.http.ActuatorMediaType_RENAMED;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
@@ -36,10 +36,10 @@ class EndpointMediaTypesTests {
 
 	@Test
 	void defaultReturnsExpectedProducedAndConsumedTypes() {
-		assertThat(EndpointMediaTypes.DEFAULT.getProduced()).containsExactly(ActuatorMediaType.V3_JSON,
-				ActuatorMediaType.V2_JSON, "application/json");
-		assertThat(EndpointMediaTypes.DEFAULT.getConsumed()).containsExactly(ActuatorMediaType.V3_JSON,
-				ActuatorMediaType.V2_JSON, "application/json");
+		assertThat(EndpointMediaTypes.DEFAULT.getProduced()).containsExactly(ActuatorMediaType_RENAMED.V3_JSON,
+				ActuatorMediaType_RENAMED.V2_JSON, "application/json");
+		assertThat(EndpointMediaTypes.DEFAULT.getConsumed()).containsExactly(ActuatorMediaType_RENAMED.V3_JSON,
+				ActuatorMediaType_RENAMED.V2_JSON, "application/json");
 	}
 
 	@Test

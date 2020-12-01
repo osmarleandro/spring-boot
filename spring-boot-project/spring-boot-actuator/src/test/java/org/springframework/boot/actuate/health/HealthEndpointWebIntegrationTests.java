@@ -23,7 +23,7 @@ import java.util.Map;
 import org.assertj.core.api.ThrowableAssert.ThrowingCallable;
 import reactor.core.publisher.Mono;
 
-import org.springframework.boot.actuate.endpoint.http.ActuatorMediaType;
+import org.springframework.boot.actuate.endpoint.http.ActuatorMediaType_RENAMED;
 import org.springframework.boot.actuate.endpoint.web.test.WebEndpointTest;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication.Type;
@@ -55,7 +55,7 @@ class HealthEndpointWebIntegrationTests {
 	@WebEndpointTest
 	void whenHealthIsUpAndAcceptsV3Request200ResponseIsReturned(WebTestClient client) {
 		client.get().uri("/actuator/health")
-				.headers((headers) -> headers.set(HttpHeaders.ACCEPT, ActuatorMediaType.V3_JSON)).exchange()
+				.headers((headers) -> headers.set(HttpHeaders.ACCEPT, ActuatorMediaType_RENAMED.V3_JSON)).exchange()
 				.expectStatus().isOk().expectBody().jsonPath("status").isEqualTo("UP")
 				.jsonPath("components.alpha.status").isEqualTo("UP").jsonPath("components.bravo.status")
 				.isEqualTo("UP");
@@ -72,7 +72,7 @@ class HealthEndpointWebIntegrationTests {
 	@WebEndpointTest
 	void whenHealthIsUpAndV2Request200ResponseIsReturnedInV2Format(WebTestClient client) {
 		client.get().uri("/actuator/health")
-				.headers((headers) -> headers.set(HttpHeaders.ACCEPT, ActuatorMediaType.V2_JSON)).exchange()
+				.headers((headers) -> headers.set(HttpHeaders.ACCEPT, ActuatorMediaType_RENAMED.V2_JSON)).exchange()
 				.expectStatus().isOk().expectBody().jsonPath("status").isEqualTo("UP").jsonPath("details.alpha.status")
 				.isEqualTo("UP").jsonPath("details.bravo.status").isEqualTo("UP");
 	}
