@@ -23,7 +23,7 @@ import io.micrometer.core.instrument.Tags;
 
 import org.springframework.amqp.rabbit.connection.AbstractConnectionFactory;
 import org.springframework.beans.factory.config.BeanPostProcessor;
-import org.springframework.boot.actuate.metrics.amqp.RabbitMetrics;
+import org.springframework.boot.actuate.metrics.amqp.RabbitMetrics_RENAMED;
 import org.springframework.context.ApplicationContext;
 import org.springframework.core.Ordered;
 import org.springframework.util.StringUtils;
@@ -59,7 +59,7 @@ class RabbitConnectionFactoryMetricsPostProcessor implements BeanPostProcessor, 
 			AbstractConnectionFactory connectionFactory) {
 		ConnectionFactory rabbitConnectionFactory = connectionFactory.getRabbitConnectionFactory();
 		String connectionFactoryName = getConnectionFactoryName(beanName);
-		new RabbitMetrics(rabbitConnectionFactory, Tags.of("name", connectionFactoryName)).bindTo(registry);
+		new RabbitMetrics_RENAMED(rabbitConnectionFactory, Tags.of("name", connectionFactoryName)).bindTo(registry);
 	}
 
 	/**
