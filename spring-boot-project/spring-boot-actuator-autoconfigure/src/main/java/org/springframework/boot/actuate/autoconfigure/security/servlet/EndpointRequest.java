@@ -34,7 +34,7 @@ import org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointPr
 import org.springframework.boot.actuate.autoconfigure.web.server.ManagementPortType;
 import org.springframework.boot.actuate.endpoint.EndpointId;
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
-import org.springframework.boot.actuate.endpoint.web.PathMappedEndpoints;
+import org.springframework.boot.actuate.endpoint.web.PathMappedEndpoints_RENAMED;
 import org.springframework.boot.autoconfigure.security.servlet.RequestMatcherProvider;
 import org.springframework.boot.security.servlet.ApplicationContextRequestMatcher;
 import org.springframework.boot.web.context.WebServerApplicationContext;
@@ -228,7 +228,7 @@ public final class EndpointRequest {
 		@Override
 		protected RequestMatcher createDelegate(WebApplicationContext context,
 				RequestMatcherFactory requestMatcherFactory) {
-			PathMappedEndpoints pathMappedEndpoints = context.getBean(PathMappedEndpoints.class);
+			PathMappedEndpoints_RENAMED pathMappedEndpoints = context.getBean(PathMappedEndpoints_RENAMED.class);
 			RequestMatcherProvider matcherProvider = getRequestMatcherProvider(context);
 			Set<String> paths = new LinkedHashSet<>();
 			if (this.includes.isEmpty()) {
@@ -244,7 +244,7 @@ public final class EndpointRequest {
 			return new OrRequestMatcher(delegateMatchers);
 		}
 
-		private Stream<String> streamPaths(List<Object> source, PathMappedEndpoints pathMappedEndpoints) {
+		private Stream<String> streamPaths(List<Object> source, PathMappedEndpoints_RENAMED pathMappedEndpoints) {
 			return source.stream().filter(Objects::nonNull).map(this::getEndpointId).map(pathMappedEndpoints::getPath);
 		}
 

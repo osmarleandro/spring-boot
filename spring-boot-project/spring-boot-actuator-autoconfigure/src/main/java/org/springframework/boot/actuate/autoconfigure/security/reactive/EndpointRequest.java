@@ -34,7 +34,7 @@ import org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointPr
 import org.springframework.boot.actuate.autoconfigure.web.server.ManagementPortType;
 import org.springframework.boot.actuate.endpoint.EndpointId;
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
-import org.springframework.boot.actuate.endpoint.web.PathMappedEndpoints;
+import org.springframework.boot.actuate.endpoint.web.PathMappedEndpoints_RENAMED;
 import org.springframework.boot.security.reactive.ApplicationContextServerWebExchangeMatcher;
 import org.springframework.context.ApplicationContext;
 import org.springframework.core.annotation.MergedAnnotation;
@@ -149,7 +149,7 @@ public final class EndpointRequest {
 	 * The {@link ServerWebExchangeMatcher} used to match against {@link Endpoint actuator
 	 * endpoints}.
 	 */
-	public static final class EndpointServerWebExchangeMatcher extends AbstractWebExchangeMatcher<PathMappedEndpoints> {
+	public static final class EndpointServerWebExchangeMatcher extends AbstractWebExchangeMatcher<PathMappedEndpoints_RENAMED> {
 
 		private final List<Object> includes;
 
@@ -172,7 +172,7 @@ public final class EndpointRequest {
 		}
 
 		private EndpointServerWebExchangeMatcher(List<Object> includes, List<Object> excludes, boolean includeLinks) {
-			super(PathMappedEndpoints.class);
+			super(PathMappedEndpoints_RENAMED.class);
 			this.includes = includes;
 			this.excludes = excludes;
 			this.includeLinks = includeLinks;
@@ -195,11 +195,11 @@ public final class EndpointRequest {
 		}
 
 		@Override
-		protected void initialized(Supplier<PathMappedEndpoints> pathMappedEndpoints) {
+		protected void initialized(Supplier<PathMappedEndpoints_RENAMED> pathMappedEndpoints) {
 			this.delegate = createDelegate(pathMappedEndpoints);
 		}
 
-		private ServerWebExchangeMatcher createDelegate(Supplier<PathMappedEndpoints> pathMappedEndpoints) {
+		private ServerWebExchangeMatcher createDelegate(Supplier<PathMappedEndpoints_RENAMED> pathMappedEndpoints) {
 			try {
 				return createDelegate(pathMappedEndpoints.get());
 			}
@@ -208,7 +208,7 @@ public final class EndpointRequest {
 			}
 		}
 
-		private ServerWebExchangeMatcher createDelegate(PathMappedEndpoints pathMappedEndpoints) {
+		private ServerWebExchangeMatcher createDelegate(PathMappedEndpoints_RENAMED pathMappedEndpoints) {
 			Set<String> paths = new LinkedHashSet<>();
 			if (this.includes.isEmpty()) {
 				paths.addAll(pathMappedEndpoints.getAllPaths());
@@ -222,7 +222,7 @@ public final class EndpointRequest {
 			return new OrServerWebExchangeMatcher(delegateMatchers);
 		}
 
-		private Stream<String> streamPaths(List<Object> source, PathMappedEndpoints pathMappedEndpoints) {
+		private Stream<String> streamPaths(List<Object> source, PathMappedEndpoints_RENAMED pathMappedEndpoints) {
 			return source.stream().filter(Objects::nonNull).map(this::getEndpointId).map(pathMappedEndpoints::getPath);
 		}
 
@@ -251,7 +251,7 @@ public final class EndpointRequest {
 		}
 
 		@Override
-		protected Mono<MatchResult> matches(ServerWebExchange exchange, Supplier<PathMappedEndpoints> context) {
+		protected Mono<MatchResult> matches(ServerWebExchange exchange, Supplier<PathMappedEndpoints_RENAMED> context) {
 			return this.delegate.matches(exchange);
 		}
 

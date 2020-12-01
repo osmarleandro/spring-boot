@@ -29,7 +29,7 @@ import org.springframework.boot.actuate.endpoint.ExposableEndpoint;
 import org.springframework.boot.actuate.endpoint.Operation;
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
 import org.springframework.boot.actuate.endpoint.web.PathMappedEndpoint;
-import org.springframework.boot.actuate.endpoint.web.PathMappedEndpoints;
+import org.springframework.boot.actuate.endpoint.web.PathMappedEndpoints_RENAMED;
 import org.springframework.boot.actuate.endpoint.web.annotation.ServletEndpoint;
 import org.springframework.context.support.StaticApplicationContext;
 import org.springframework.http.server.reactive.ServerHttpRequest;
@@ -134,7 +134,7 @@ class EndpointRequestTests {
 		endpoints.add(mockEndpoint(EndpointId.of("foo"), "foo"));
 		endpoints.add(mockEndpoint(EndpointId.of("bar"), "bar"));
 		endpoints.add(mockEndpoint(EndpointId.of("baz"), "baz"));
-		PathMappedEndpoints pathMappedEndpoints = new PathMappedEndpoints("/actuator", () -> endpoints);
+		PathMappedEndpoints_RENAMED pathMappedEndpoints = new PathMappedEndpoints_RENAMED("/actuator", () -> endpoints);
 		assertMatcher(matcher, pathMappedEndpoints).doesNotMatch("/actuator/foo");
 		assertMatcher(matcher, pathMappedEndpoints).doesNotMatch("/actuator/baz");
 		assertMatcher(matcher).matches("/actuator/bar");
@@ -184,8 +184,8 @@ class EndpointRequestTests {
 	@Test
 	void noEndpointPathsBeansShouldNeverMatch() {
 		ServerWebExchangeMatcher matcher = EndpointRequest.toAnyEndpoint();
-		assertMatcher(matcher, (PathMappedEndpoints) null).doesNotMatch("/actuator/foo");
-		assertMatcher(matcher, (PathMappedEndpoints) null).doesNotMatch("/actuator/bar");
+		assertMatcher(matcher, (PathMappedEndpoints_RENAMED) null).doesNotMatch("/actuator/foo");
+		assertMatcher(matcher, (PathMappedEndpoints_RENAMED) null).doesNotMatch("/actuator/bar");
 	}
 
 	private RequestMatcherAssert assertMatcher(ServerWebExchangeMatcher matcher) {
@@ -196,11 +196,11 @@ class EndpointRequestTests {
 		return assertMatcher(matcher, mockPathMappedEndpoints(basePath));
 	}
 
-	private PathMappedEndpoints mockPathMappedEndpoints(String basePath) {
+	private PathMappedEndpoints_RENAMED mockPathMappedEndpoints(String basePath) {
 		List<ExposableEndpoint<?>> endpoints = new ArrayList<>();
 		endpoints.add(mockEndpoint(EndpointId.of("foo"), "foo"));
 		endpoints.add(mockEndpoint(EndpointId.of("bar"), "bar"));
-		return new PathMappedEndpoints(basePath, () -> endpoints);
+		return new PathMappedEndpoints_RENAMED(basePath, () -> endpoints);
 	}
 
 	private TestEndpoint mockEndpoint(EndpointId id, String rootPath) {
@@ -211,11 +211,11 @@ class EndpointRequestTests {
 	}
 
 	private RequestMatcherAssert assertMatcher(ServerWebExchangeMatcher matcher,
-			PathMappedEndpoints pathMappedEndpoints) {
+			PathMappedEndpoints_RENAMED pathMappedEndpoints) {
 		StaticApplicationContext context = new StaticApplicationContext();
 		context.registerBean(WebEndpointProperties.class);
 		if (pathMappedEndpoints != null) {
-			context.registerBean(PathMappedEndpoints.class, () -> pathMappedEndpoints);
+			context.registerBean(PathMappedEndpoints_RENAMED.class, () -> pathMappedEndpoints);
 			WebEndpointProperties properties = context.getBean(WebEndpointProperties.class);
 			if (!properties.getBasePath().equals(pathMappedEndpoints.getBasePath())) {
 				properties.setBasePath(pathMappedEndpoints.getBasePath());
