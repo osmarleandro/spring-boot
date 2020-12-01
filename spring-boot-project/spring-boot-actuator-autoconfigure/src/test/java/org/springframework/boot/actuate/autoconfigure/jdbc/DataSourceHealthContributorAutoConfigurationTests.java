@@ -23,7 +23,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.actuate.autoconfigure.health.HealthContributorAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.jdbc.DataSourceHealthContributorAutoConfiguration.RoutingDataSourceHealthIndicator;
 import org.springframework.boot.actuate.health.CompositeHealthContributor;
-import org.springframework.boot.actuate.health.NamedContributor;
+import org.springframework.boot.actuate.health.NamedContributor_RENAMED;
 import org.springframework.boot.actuate.jdbc.DataSourceHealthIndicator;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
@@ -67,7 +67,7 @@ class DataSourceHealthContributorAutoConfigurationTests {
 				.run((context) -> {
 					assertThat(context).hasSingleBean(CompositeHealthContributor.class);
 					CompositeHealthContributor contributor = context.getBean(CompositeHealthContributor.class);
-					String[] names = contributor.stream().map(NamedContributor::getName).toArray(String[]::new);
+					String[] names = contributor.stream().map(NamedContributor_RENAMED::getName).toArray(String[]::new);
 					assertThat(names).containsExactlyInAnyOrder("dataSource", "testDataSource");
 				});
 	}

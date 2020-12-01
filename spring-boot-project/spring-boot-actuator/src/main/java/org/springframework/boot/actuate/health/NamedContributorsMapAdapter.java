@@ -51,9 +51,9 @@ abstract class NamedContributorsMapAdapter<V, C> implements NamedContributors<C>
 	}
 
 	@Override
-	public Iterator<NamedContributor<C>> iterator() {
+	public Iterator<NamedContributor_RENAMED<C>> iterator() {
 		Iterator<Entry<String, V>> iterator = this.map.entrySet().iterator();
-		return new Iterator<NamedContributor<C>>() {
+		return new Iterator<NamedContributor_RENAMED<C>>() {
 
 			@Override
 			public boolean hasNext() {
@@ -61,9 +61,9 @@ abstract class NamedContributorsMapAdapter<V, C> implements NamedContributors<C>
 			}
 
 			@Override
-			public NamedContributor<C> next() {
+			public NamedContributor_RENAMED<C> next() {
 				Entry<String, V> entry = iterator.next();
-				return NamedContributor.of(entry.getKey(), adapt(entry.getValue()));
+				return NamedContributor_RENAMED.of(entry.getKey(), adapt(entry.getValue()));
 			}
 
 		};

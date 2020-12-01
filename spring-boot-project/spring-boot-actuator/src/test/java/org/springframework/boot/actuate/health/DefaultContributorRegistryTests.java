@@ -148,9 +148,9 @@ abstract class DefaultContributorRegistryTests {
 	void iteratorIteratesContributors() {
 		this.registry.registerContributor("one", this.one);
 		this.registry.registerContributor("two", this.two);
-		Iterator<NamedContributor<HealthIndicator>> iterator = this.registry.iterator();
-		NamedContributor<HealthIndicator> first = iterator.next();
-		NamedContributor<HealthIndicator> second = iterator.next();
+		Iterator<NamedContributor_RENAMED<HealthIndicator>> iterator = this.registry.iterator();
+		NamedContributor_RENAMED<HealthIndicator> first = iterator.next();
+		NamedContributor_RENAMED<HealthIndicator> second = iterator.next();
 		assertThat(iterator.hasNext()).isFalse();
 		assertThat(first.getName()).isEqualTo("one");
 		assertThat(first.getContributor()).isEqualTo(this.one);

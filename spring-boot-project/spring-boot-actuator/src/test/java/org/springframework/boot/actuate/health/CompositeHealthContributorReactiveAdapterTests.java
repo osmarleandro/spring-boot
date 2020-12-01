@@ -43,9 +43,9 @@ class CompositeHealthContributorReactiveAdapterTests {
 		CompositeHealthContributor delegate = CompositeHealthContributor
 				.fromMap(Collections.singletonMap("test", indicator));
 		CompositeHealthContributorReactiveAdapter adapter = new CompositeHealthContributorReactiveAdapter(delegate);
-		Iterator<NamedContributor<ReactiveHealthContributor>> iterator = adapter.iterator();
+		Iterator<NamedContributor_RENAMED<ReactiveHealthContributor>> iterator = adapter.iterator();
 		assertThat(iterator.hasNext()).isTrue();
-		NamedContributor<ReactiveHealthContributor> adapted = iterator.next();
+		NamedContributor_RENAMED<ReactiveHealthContributor> adapted = iterator.next();
 		assertThat(adapted.getName()).isEqualTo("test");
 		assertThat(adapted.getContributor()).isInstanceOf(ReactiveHealthIndicator.class);
 		Health health = ((ReactiveHealthIndicator) adapted.getContributor()).getHealth(true).block();
@@ -61,9 +61,9 @@ class CompositeHealthContributorReactiveAdapterTests {
 		CompositeHealthContributor delegate = CompositeHealthContributor
 				.fromMap(Collections.singletonMap("test2", composite));
 		CompositeHealthContributorReactiveAdapter adapter = new CompositeHealthContributorReactiveAdapter(delegate);
-		Iterator<NamedContributor<ReactiveHealthContributor>> iterator = adapter.iterator();
+		Iterator<NamedContributor_RENAMED<ReactiveHealthContributor>> iterator = adapter.iterator();
 		assertThat(iterator.hasNext()).isTrue();
-		NamedContributor<ReactiveHealthContributor> adapted = iterator.next();
+		NamedContributor_RENAMED<ReactiveHealthContributor> adapted = iterator.next();
 		assertThat(adapted.getName()).isEqualTo("test2");
 		assertThat(adapted.getContributor()).isInstanceOf(CompositeReactiveHealthContributor.class);
 		ReactiveHealthContributor nested = ((CompositeReactiveHealthContributor) adapted.getContributor())

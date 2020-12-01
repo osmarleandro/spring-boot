@@ -103,7 +103,7 @@ abstract class HealthEndpointSupport<C, T> {
 			NamedContributors<C> namedContributors, boolean showComponents, boolean showDetails, Set<String> groupNames,
 			boolean isNested) {
 		Map<String, T> contributions = new LinkedHashMap<>();
-		for (NamedContributor<C> namedContributor : namedContributors) {
+		for (NamedContributor_RENAMED<C> namedContributor : namedContributors) {
 			String name = namedContributor.getName();
 			C contributor = namedContributor.getContributor();
 			if (group.isMember(name) || isNested) {

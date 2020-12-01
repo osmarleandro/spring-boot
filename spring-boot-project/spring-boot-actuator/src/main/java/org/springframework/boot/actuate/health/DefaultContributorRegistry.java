@@ -93,9 +93,9 @@ class DefaultContributorRegistry<C> implements ContributorRegistry<C> {
 	}
 
 	@Override
-	public Iterator<NamedContributor<C>> iterator() {
+	public Iterator<NamedContributor_RENAMED<C>> iterator() {
 		Iterator<Map.Entry<String, C>> iterator = this.contributors.entrySet().iterator();
-		return new Iterator<NamedContributor<C>>() {
+		return new Iterator<NamedContributor_RENAMED<C>>() {
 
 			@Override
 			public boolean hasNext() {
@@ -103,9 +103,9 @@ class DefaultContributorRegistry<C> implements ContributorRegistry<C> {
 			}
 
 			@Override
-			public NamedContributor<C> next() {
+			public NamedContributor_RENAMED<C> next() {
 				Entry<String, C> entry = iterator.next();
-				return NamedContributor.of(entry.getKey(), entry.getValue());
+				return NamedContributor_RENAMED.of(entry.getKey(), entry.getValue());
 			}
 
 		};

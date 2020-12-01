@@ -34,7 +34,7 @@ import org.springframework.boot.actuate.health.HealthEndpointGroups;
 import org.springframework.boot.actuate.health.HealthEndpointGroupsPostProcessor;
 import org.springframework.boot.actuate.health.HealthIndicator;
 import org.springframework.boot.actuate.health.HttpCodeStatusMapper;
-import org.springframework.boot.actuate.health.NamedContributor;
+import org.springframework.boot.actuate.health.NamedContributor_RENAMED;
 import org.springframework.boot.actuate.health.ReactiveHealthContributor;
 import org.springframework.boot.actuate.health.ReactiveHealthIndicator;
 import org.springframework.boot.actuate.health.SimpleHttpCodeStatusMapper;
@@ -173,9 +173,9 @@ class HealthEndpointConfiguration {
 			return new CompositeHealthContributor() {
 
 				@Override
-				public Iterator<NamedContributor<HealthContributor>> iterator() {
-					Iterator<NamedContributor<ReactiveHealthContributor>> iterator = composite.iterator();
-					return new Iterator<NamedContributor<HealthContributor>>() {
+				public Iterator<NamedContributor_RENAMED<HealthContributor>> iterator() {
+					Iterator<NamedContributor_RENAMED<ReactiveHealthContributor>> iterator = composite.iterator();
+					return new Iterator<NamedContributor_RENAMED<HealthContributor>>() {
 
 						@Override
 						public boolean hasNext() {
@@ -183,9 +183,9 @@ class HealthEndpointConfiguration {
 						}
 
 						@Override
-						public NamedContributor<HealthContributor> next() {
-							NamedContributor<ReactiveHealthContributor> next = iterator.next();
-							return NamedContributor.of(next.getName(), adapt(next.getContributor()));
+						public NamedContributor_RENAMED<HealthContributor> next() {
+							NamedContributor_RENAMED<ReactiveHealthContributor> next = iterator.next();
+							return NamedContributor_RENAMED.of(next.getName(), adapt(next.getContributor()));
 						}
 
 					};

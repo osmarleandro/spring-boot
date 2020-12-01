@@ -67,9 +67,9 @@ class NamedContributorsMapAdapterTests {
 	@Test
 	void iterateReturnsAdaptedEntries() {
 		TestNamedContributorsMapAdapter<String> adapter = createAdapter();
-		Iterator<NamedContributor<String>> iterator = adapter.iterator();
-		NamedContributor<String> one = iterator.next();
-		NamedContributor<String> two = iterator.next();
+		Iterator<NamedContributor_RENAMED<String>> iterator = adapter.iterator();
+		NamedContributor_RENAMED<String> one = iterator.next();
+		NamedContributor_RENAMED<String> two = iterator.next();
 		assertThat(iterator.hasNext()).isFalse();
 		assertThat(one.getName()).isEqualTo("one");
 		assertThat(one.getContributor()).isEqualTo("eno");

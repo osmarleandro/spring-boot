@@ -16,33 +16,47 @@
 
 package org.springframework.boot.actuate.health;
 
-import java.util.stream.Stream;
-import java.util.stream.StreamSupport;
+import org.springframework.util.Assert;
 
 /**
- * A collection of named health endpoint contributors (either {@link HealthContributor} or
+ * A single named health endpoint contributors (either {@link HealthContributor} or
  * {@link ReactiveHealthContributor}).
  *
  * @param <C> the contributor type
  * @author Phillip Webb
  * @since 2.0.0
- * @see NamedContributor_RENAMED
+ * @see NamedContributors
  */
-public interface NamedContributors<C> extends Iterable<NamedContributor_RENAMED<C>> {
+public interface NamedContributor_RENAMED<C> {
 
 	/**
-	 * Return the contributor with the given name.
-	 * @param name the name of the contributor
-	 * @return a contributor instance of {@code null}
+	 * Returns the name of the contributor.
+	 * @return the contributor name
 	 */
-	C getContributor(String name);
+	String getName();
 
 	/**
-	 * Return a stream of the {@link NamedContributor_RENAMED named contributors}.
-	 * @return the stream of named contributors
+	 * Returns the contributor instance.
+	 * @return the contributor instance
 	 */
-	default Stream<NamedContributor_RENAMED<C>> stream() {
-		return StreamSupport.stream(spliterator(), false);
+	C getContributor();
+
+	static <C> NamedContributor_RENAMED<C> of(String name, C contributor) {
+		Assert.notNull(name, "Name must not be null");
+		Assert.notNull(contributor, "Contributor must not be null");
+		return new NamedContributor_RENAMED<C>() {
+
+			@Override
+			public String getName() {
+				return name;
+			}
+
+			@Override
+			public C getContributor() {
+				return contributor;
+			}
+
+		};
 	}
 
 }

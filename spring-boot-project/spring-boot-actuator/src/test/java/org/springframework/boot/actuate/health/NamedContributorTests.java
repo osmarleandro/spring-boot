@@ -22,7 +22,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
 
 /**
- * Tests for {@link NamedContributor}.
+ * Tests for {@link NamedContributor_RENAMED}.
  *
  * @author Phillip Webb
  */
@@ -30,20 +30,20 @@ class NamedContributorTests {
 
 	@Test
 	void ofNameAndContributorCreatesContributor() {
-		NamedContributor<String> contributor = NamedContributor.of("one", "two");
+		NamedContributor_RENAMED<String> contributor = NamedContributor_RENAMED.of("one", "two");
 		assertThat(contributor.getName()).isEqualTo("one");
 		assertThat(contributor.getContributor()).isEqualTo("two");
 	}
 
 	@Test
 	void ofWhenNameIsNullThrowsException() {
-		assertThatIllegalArgumentException().isThrownBy(() -> NamedContributor.of(null, "two"))
+		assertThatIllegalArgumentException().isThrownBy(() -> NamedContributor_RENAMED.of(null, "two"))
 				.withMessage("Name must not be null");
 	}
 
 	@Test
 	void ofWhenContributorIsNullThrowsException() {
-		assertThatIllegalArgumentException().isThrownBy(() -> NamedContributor.of("one", null))
+		assertThatIllegalArgumentException().isThrownBy(() -> NamedContributor_RENAMED.of("one", null))
 				.withMessage("Contributor must not be null");
 
 	}

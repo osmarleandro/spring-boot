@@ -38,9 +38,9 @@ class CompositeHealthContributorReactiveAdapter implements CompositeReactiveHeal
 	}
 
 	@Override
-	public Iterator<NamedContributor<ReactiveHealthContributor>> iterator() {
-		Iterator<NamedContributor<HealthContributor>> iterator = this.delegate.iterator();
-		return new Iterator<NamedContributor<ReactiveHealthContributor>>() {
+	public Iterator<NamedContributor_RENAMED<ReactiveHealthContributor>> iterator() {
+		Iterator<NamedContributor_RENAMED<HealthContributor>> iterator = this.delegate.iterator();
+		return new Iterator<NamedContributor_RENAMED<ReactiveHealthContributor>>() {
 
 			@Override
 			public boolean hasNext() {
@@ -48,9 +48,9 @@ class CompositeHealthContributorReactiveAdapter implements CompositeReactiveHeal
 			}
 
 			@Override
-			public NamedContributor<ReactiveHealthContributor> next() {
-				NamedContributor<HealthContributor> namedContributor = iterator.next();
-				return NamedContributor.of(namedContributor.getName(),
+			public NamedContributor_RENAMED<ReactiveHealthContributor> next() {
+				NamedContributor_RENAMED<HealthContributor> namedContributor = iterator.next();
+				return NamedContributor_RENAMED.of(namedContributor.getName(),
 						ReactiveHealthContributor.adapt(namedContributor.getContributor()));
 			}
 
