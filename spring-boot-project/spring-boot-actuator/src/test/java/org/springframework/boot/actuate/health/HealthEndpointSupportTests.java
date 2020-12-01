@@ -46,9 +46,9 @@ abstract class HealthEndpointSupportTests<R extends ContributorRegistry<C>, C, T
 
 	final Health down = Health.down().build();
 
-	final TestHealthEndpointGroup primaryGroup = new TestHealthEndpointGroup();
+	final TestHealthEndpointGroup_RENAMED primaryGroup = new TestHealthEndpointGroup_RENAMED();
 
-	final TestHealthEndpointGroup allTheAs = new TestHealthEndpointGroup((name) -> name.startsWith("a"));
+	final TestHealthEndpointGroup_RENAMED allTheAs = new TestHealthEndpointGroup_RENAMED((name) -> name.startsWith("a"));
 
 	final HealthEndpointGroups groups = HealthEndpointGroups.of(this.primaryGroup,
 			Collections.singletonMap("alltheas", this.allTheAs));
@@ -214,7 +214,7 @@ abstract class HealthEndpointSupportTests<R extends ContributorRegistry<C>, C, T
 		C contributor = createContributor(this.up);
 		C compositeContributor = createCompositeContributor(Collections.singletonMap("spring", contributor));
 		this.registry.registerContributor("test", compositeContributor);
-		TestHealthEndpointGroup testGroup = new TestHealthEndpointGroup((name) -> name.startsWith("test"));
+		TestHealthEndpointGroup_RENAMED testGroup = new TestHealthEndpointGroup_RENAMED((name) -> name.startsWith("test"));
 		HealthEndpointGroups groups = HealthEndpointGroups.of(this.primaryGroup,
 				Collections.singletonMap("testGroup", testGroup));
 		HealthResult<T> result = create(this.registry, groups).getHealth(ApiVersion.V3, SecurityContext.NONE, false,

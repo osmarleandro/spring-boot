@@ -206,8 +206,8 @@ class HealthEndpointWebIntegrationTests {
 
 		@Bean
 		HealthEndpointGroups healthEndpointGroups() {
-			TestHealthEndpointGroup primary = new TestHealthEndpointGroup();
-			TestHealthEndpointGroup allTheAs = new TestHealthEndpointGroup((name) -> name.startsWith("a"));
+			TestHealthEndpointGroup_RENAMED primary = new TestHealthEndpointGroup_RENAMED();
+			TestHealthEndpointGroup_RENAMED allTheAs = new TestHealthEndpointGroup_RENAMED((name) -> name.startsWith("a"));
 			return HealthEndpointGroups.of(primary, Collections.singletonMap("alltheas", allTheAs));
 		}
 
