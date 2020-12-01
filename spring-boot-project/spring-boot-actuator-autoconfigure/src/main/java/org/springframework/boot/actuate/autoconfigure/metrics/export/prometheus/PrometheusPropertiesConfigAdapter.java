@@ -21,7 +21,7 @@ import java.time.Duration;
 import io.micrometer.prometheus.HistogramFlavor;
 import io.micrometer.prometheus.PrometheusConfig;
 
-import org.springframework.boot.actuate.autoconfigure.metrics.export.properties.PropertiesConfigAdapter;
+import org.springframework.boot.actuate.autoconfigure.metrics.export.properties.PropertiesConfigAdapter_RENAMED;
 
 /**
  * Adapter to convert {@link PrometheusProperties} to a {@link PrometheusConfig}.
@@ -29,7 +29,7 @@ import org.springframework.boot.actuate.autoconfigure.metrics.export.properties.
  * @author Jon Schneider
  * @author Phillip Webb
  */
-class PrometheusPropertiesConfigAdapter extends PropertiesConfigAdapter<PrometheusProperties>
+class PrometheusPropertiesConfigAdapter extends PropertiesConfigAdapter_RENAMED<PrometheusProperties>
 		implements PrometheusConfig {
 
 	PrometheusPropertiesConfigAdapter(PrometheusProperties properties) {

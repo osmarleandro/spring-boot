@@ -22,7 +22,7 @@ import java.util.concurrent.TimeUnit;
 import info.ganglia.gmetric4j.gmetric.GMetric;
 import io.micrometer.ganglia.GangliaConfig;
 
-import org.springframework.boot.actuate.autoconfigure.metrics.export.properties.PropertiesConfigAdapter;
+import org.springframework.boot.actuate.autoconfigure.metrics.export.properties.PropertiesConfigAdapter_RENAMED;
 
 /**
  * Adapter to convert {@link GangliaProperties} to a {@link GangliaConfig}.
@@ -30,7 +30,7 @@ import org.springframework.boot.actuate.autoconfigure.metrics.export.properties.
  * @author Jon Schneider
  * @author Phillip Webb
  */
-class GangliaPropertiesConfigAdapter extends PropertiesConfigAdapter<GangliaProperties> implements GangliaConfig {
+class GangliaPropertiesConfigAdapter extends PropertiesConfigAdapter_RENAMED<GangliaProperties> implements GangliaConfig {
 
 	GangliaPropertiesConfigAdapter(GangliaProperties properties) {
 		super(properties);

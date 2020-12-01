@@ -29,15 +29,15 @@ import org.springframework.util.Assert;
  * @author Nikolay Rybak
  * @since 2.0.0
  */
-public class PropertiesConfigAdapter<T> {
+public class PropertiesConfigAdapter_RENAMED<T> {
 
 	private T properties;
 
 	/**
-	 * Create a new {@link PropertiesConfigAdapter} instance.
+	 * Create a new {@link PropertiesConfigAdapter_RENAMED} instance.
 	 * @param properties the source properties
 	 */
-	public PropertiesConfigAdapter(T properties) {
+	public PropertiesConfigAdapter_RENAMED(T properties) {
 		Assert.notNull(properties, "Properties must not be null");
 		this.properties = properties;
 	}

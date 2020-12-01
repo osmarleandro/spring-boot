@@ -20,7 +20,7 @@ import java.time.Duration;
 
 import io.micrometer.jmx.JmxConfig;
 
-import org.springframework.boot.actuate.autoconfigure.metrics.export.properties.PropertiesConfigAdapter;
+import org.springframework.boot.actuate.autoconfigure.metrics.export.properties.PropertiesConfigAdapter_RENAMED;
 
 /**
  * Adapter to convert {@link JmxProperties} to a {@link JmxConfig}.
@@ -28,7 +28,7 @@ import org.springframework.boot.actuate.autoconfigure.metrics.export.properties.
  * @author Jon Schneider
  * @author Stephane Nicoll
  */
-class JmxPropertiesConfigAdapter extends PropertiesConfigAdapter<JmxProperties> implements JmxConfig {
+class JmxPropertiesConfigAdapter extends PropertiesConfigAdapter_RENAMED<JmxProperties> implements JmxConfig {
 
 	JmxPropertiesConfigAdapter(JmxProperties properties) {
 		super(properties);

@@ -30,7 +30,7 @@ import io.micrometer.core.instrument.push.PushRegistryConfig;
  * @since 2.2.0
  */
 public abstract class PushRegistryPropertiesConfigAdapter<T extends PushRegistryProperties>
-		extends PropertiesConfigAdapter<T> implements PushRegistryConfig {
+		extends PropertiesConfigAdapter_RENAMED<T> implements PushRegistryConfig {
 
 	public PushRegistryPropertiesConfigAdapter(T properties) {
 		super(properties);

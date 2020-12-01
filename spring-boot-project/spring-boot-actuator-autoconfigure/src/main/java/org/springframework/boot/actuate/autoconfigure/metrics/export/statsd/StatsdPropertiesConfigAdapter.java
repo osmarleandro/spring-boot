@@ -22,7 +22,7 @@ import io.micrometer.statsd.StatsdConfig;
 import io.micrometer.statsd.StatsdFlavor;
 import io.micrometer.statsd.StatsdProtocol;
 
-import org.springframework.boot.actuate.autoconfigure.metrics.export.properties.PropertiesConfigAdapter;
+import org.springframework.boot.actuate.autoconfigure.metrics.export.properties.PropertiesConfigAdapter_RENAMED;
 
 /**
  * Adapter to convert {@link StatsdProperties} to a {@link StatsdConfig}.
@@ -30,7 +30,7 @@ import org.springframework.boot.actuate.autoconfigure.metrics.export.properties.
  * @author Jon Schneider
  * @since 2.0.0
  */
-public class StatsdPropertiesConfigAdapter extends PropertiesConfigAdapter<StatsdProperties> implements StatsdConfig {
+public class StatsdPropertiesConfigAdapter extends PropertiesConfigAdapter_RENAMED<StatsdProperties> implements StatsdConfig {
 
 	public StatsdPropertiesConfigAdapter(StatsdProperties properties) {
 		super(properties);

@@ -20,7 +20,7 @@ import java.time.Duration;
 
 import com.netflix.spectator.atlas.AtlasConfig;
 
-import org.springframework.boot.actuate.autoconfigure.metrics.export.properties.PropertiesConfigAdapter;
+import org.springframework.boot.actuate.autoconfigure.metrics.export.properties.PropertiesConfigAdapter_RENAMED;
 
 /**
  * Adapter to convert {@link AtlasProperties} to an {@link AtlasConfig}.
@@ -28,7 +28,7 @@ import org.springframework.boot.actuate.autoconfigure.metrics.export.properties.
  * @author Jon Schneider
  * @author Phillip Webb
  */
-class AtlasPropertiesConfigAdapter extends PropertiesConfigAdapter<AtlasProperties> implements AtlasConfig {
+class AtlasPropertiesConfigAdapter extends PropertiesConfigAdapter_RENAMED<AtlasProperties> implements AtlasConfig {
 
 	AtlasPropertiesConfigAdapter(AtlasProperties properties) {
 		super(properties);
