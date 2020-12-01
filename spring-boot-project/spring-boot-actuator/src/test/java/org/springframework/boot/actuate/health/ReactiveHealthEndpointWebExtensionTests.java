@@ -37,7 +37,7 @@ import static org.mockito.Mockito.mock;
  * @author Scott Frederick
  */
 class ReactiveHealthEndpointWebExtensionTests extends
-		HealthEndpointSupportTests<ReactiveHealthContributorRegistry, ReactiveHealthContributor, Mono<? extends HealthComponent>> {
+		HealthEndpointSupportTests<ReactiveHealthContributorRegistry, ReactiveHealthContributor_RENAMED, Mono<? extends HealthComponent>> {
 
 	@Test
 	void healthReturnsSystemHealth() {
@@ -92,13 +92,13 @@ class ReactiveHealthEndpointWebExtensionTests extends
 	}
 
 	@Override
-	protected ReactiveHealthContributor createContributor(Health health) {
+	protected ReactiveHealthContributor_RENAMED createContributor(Health health) {
 		return (ReactiveHealthIndicator) () -> Mono.just(health);
 	}
 
 	@Override
-	protected ReactiveHealthContributor createCompositeContributor(
-			Map<String, ReactiveHealthContributor> contributors) {
+	protected ReactiveHealthContributor_RENAMED createCompositeContributor(
+			Map<String, ReactiveHealthContributor_RENAMED> contributors) {
 		return CompositeReactiveHealthContributor.fromMap(contributors);
 	}
 

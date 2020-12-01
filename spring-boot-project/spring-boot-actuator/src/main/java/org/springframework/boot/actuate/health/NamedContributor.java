@@ -20,7 +20,7 @@ import org.springframework.util.Assert;
 
 /**
  * A single named health endpoint contributors (either {@link HealthContributor} or
- * {@link ReactiveHealthContributor}).
+ * {@link ReactiveHealthContributor_RENAMED}).
  *
  * @param <C> the contributor type
  * @author Phillip Webb

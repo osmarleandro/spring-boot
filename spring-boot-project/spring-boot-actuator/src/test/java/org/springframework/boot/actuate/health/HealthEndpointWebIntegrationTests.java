@@ -113,7 +113,7 @@ class HealthEndpointWebIntegrationTests {
 	}
 
 	private void withHealthContributor(ApplicationContext context, String name, HealthContributor healthContributor,
-			ReactiveHealthContributor reactiveHealthContributor, ThrowingCallable callable) {
+			ReactiveHealthContributor_RENAMED reactiveHealthContributor, ThrowingCallable callable) {
 		HealthContributorRegistry healthContributorRegistry = getContributorRegistry(context,
 				HealthContributorRegistry.class);
 		healthContributorRegistry.registerContributor(name, healthContributor);
@@ -149,7 +149,7 @@ class HealthEndpointWebIntegrationTests {
 		HealthContributor bravo = healthContributorRegistry.unregisterContributor(name);
 		ReactiveHealthContributorRegistry reactiveHealthContributorRegistry = getContributorRegistry(context,
 				ReactiveHealthContributorRegistry.class);
-		ReactiveHealthContributor reactiveBravo = (reactiveHealthContributorRegistry != null)
+		ReactiveHealthContributor_RENAMED reactiveBravo = (reactiveHealthContributorRegistry != null)
 				? reactiveHealthContributorRegistry.unregisterContributor(name) : null;
 		try {
 			client.get().uri("/actuator/health").accept(MediaType.APPLICATION_JSON).exchange().expectStatus().isOk()
@@ -176,10 +176,10 @@ class HealthEndpointWebIntegrationTests {
 		@ConditionalOnWebApplication(type = Type.REACTIVE)
 		ReactiveHealthContributorRegistry reactiveHealthContributorRegistry(
 				Map<String, HealthContributor> healthContributorBeans,
-				Map<String, ReactiveHealthContributor> reactiveHealthContributorBeans) {
-			Map<String, ReactiveHealthContributor> allIndicators = new LinkedHashMap<>(reactiveHealthContributorBeans);
+				Map<String, ReactiveHealthContributor_RENAMED> reactiveHealthContributorBeans) {
+			Map<String, ReactiveHealthContributor_RENAMED> allIndicators = new LinkedHashMap<>(reactiveHealthContributorBeans);
 			healthContributorBeans.forEach((name, contributor) -> allIndicators.computeIfAbsent(name,
-					(key) -> ReactiveHealthContributor.adapt(contributor)));
+					(key) -> ReactiveHealthContributor_RENAMED.adapt(contributor)));
 			return new DefaultReactiveHealthContributorRegistry(allIndicators);
 		}
 

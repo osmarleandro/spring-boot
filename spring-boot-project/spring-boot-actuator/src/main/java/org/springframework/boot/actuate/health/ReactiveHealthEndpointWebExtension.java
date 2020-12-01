@@ -42,7 +42,7 @@ import org.springframework.boot.actuate.endpoint.web.annotation.EndpointWebExten
  */
 @EndpointWebExtension(endpoint = HealthEndpoint.class)
 public class ReactiveHealthEndpointWebExtension
-		extends HealthEndpointSupport<ReactiveHealthContributor, Mono<? extends HealthComponent>> {
+		extends HealthEndpointSupport<ReactiveHealthContributor_RENAMED, Mono<? extends HealthComponent>> {
 
 	private static final String[] NO_PATH = {};
 
@@ -83,7 +83,7 @@ public class ReactiveHealthEndpointWebExtension
 	}
 
 	@Override
-	protected Mono<? extends HealthComponent> getHealth(ReactiveHealthContributor contributor, boolean includeDetails) {
+	protected Mono<? extends HealthComponent> getHealth(ReactiveHealthContributor_RENAMED contributor, boolean includeDetails) {
 		return ((ReactiveHealthIndicator) contributor).getHealth(includeDetails);
 	}
 

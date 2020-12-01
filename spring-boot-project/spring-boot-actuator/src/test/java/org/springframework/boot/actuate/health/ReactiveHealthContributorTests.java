@@ -26,7 +26,7 @@ import static org.assertj.core.api.Assertions.assertThatIllegalStateException;
 import static org.mockito.Mockito.mock;
 
 /**
- * Tests for {@link ReactiveHealthContributor}.
+ * Tests for {@link ReactiveHealthContributor_RENAMED}.
  *
  * @author Phillip Webb
  */
@@ -34,14 +34,14 @@ class ReactiveHealthContributorTests {
 
 	@Test
 	void adaptWhenNullThrowsException() {
-		assertThatIllegalArgumentException().isThrownBy(() -> ReactiveHealthContributor.adapt(null))
+		assertThatIllegalArgumentException().isThrownBy(() -> ReactiveHealthContributor_RENAMED.adapt(null))
 				.withMessage("HealthContributor must not be null");
 	}
 
 	@Test
 	void adaptWhenHealthIndicatorReturnsHealthIndicatorReactiveAdapter() {
 		HealthIndicator indicator = () -> Health.outOfService().build();
-		ReactiveHealthContributor adapted = ReactiveHealthContributor.adapt(indicator);
+		ReactiveHealthContributor_RENAMED adapted = ReactiveHealthContributor_RENAMED.adapt(indicator);
 		assertThat(adapted).isInstanceOf(HealthIndicatorReactiveAdapter.class);
 		assertThat(((ReactiveHealthIndicator) adapted).health().block().getStatus()).isEqualTo(Status.OUT_OF_SERVICE);
 	}
@@ -51,16 +51,16 @@ class ReactiveHealthContributorTests {
 		HealthIndicator indicator = () -> Health.outOfService().build();
 		CompositeHealthContributor contributor = CompositeHealthContributor
 				.fromMap(Collections.singletonMap("a", indicator));
-		ReactiveHealthContributor adapted = ReactiveHealthContributor.adapt(contributor);
+		ReactiveHealthContributor_RENAMED adapted = ReactiveHealthContributor_RENAMED.adapt(contributor);
 		assertThat(adapted).isInstanceOf(CompositeHealthContributorReactiveAdapter.class);
-		ReactiveHealthContributor contained = ((CompositeReactiveHealthContributor) adapted).getContributor("a");
+		ReactiveHealthContributor_RENAMED contained = ((CompositeReactiveHealthContributor) adapted).getContributor("a");
 		assertThat(((ReactiveHealthIndicator) contained).health().block().getStatus()).isEqualTo(Status.OUT_OF_SERVICE);
 	}
 
 	@Test
 	void adaptWhenUnknownThrowsException() {
 		assertThatIllegalStateException()
-				.isThrownBy(() -> ReactiveHealthContributor.adapt(mock(HealthContributor.class)))
+				.isThrownBy(() -> ReactiveHealthContributor_RENAMED.adapt(mock(HealthContributor.class)))
 				.withMessage("Unknown HealthContributor type");
 	}
 

@@ -22,7 +22,7 @@ import org.springframework.boot.actuate.autoconfigure.health.CompositeReactiveHe
 import org.springframework.boot.actuate.health.AbstractReactiveHealthIndicator;
 import org.springframework.boot.actuate.health.Health;
 import org.springframework.boot.actuate.health.Health.Builder;
-import org.springframework.boot.actuate.health.ReactiveHealthContributor;
+import org.springframework.boot.actuate.health.ReactiveHealthContributor_RENAMED;
 
 /**
  * Tests for {@link CompositeReactiveHealthContributorConfiguration}.
@@ -30,10 +30,10 @@ import org.springframework.boot.actuate.health.ReactiveHealthContributor;
  * @author Phillip Webb
  */
 class CompositeReactiveHealthContributorConfigurationTests extends
-		AbstractCompositeHealthContributorConfigurationTests<ReactiveHealthContributor, TestReactiveHealthIndicator> {
+		AbstractCompositeHealthContributorConfigurationTests<ReactiveHealthContributor_RENAMED, TestReactiveHealthIndicator> {
 
 	@Override
-	protected AbstractCompositeHealthContributorConfiguration<ReactiveHealthContributor, TestReactiveHealthIndicator, TestBean> newComposite() {
+	protected AbstractCompositeHealthContributorConfiguration<ReactiveHealthContributor_RENAMED, TestReactiveHealthIndicator, TestBean> newComposite() {
 		return new TestCompositeReactiveHealthContributorConfiguration();
 	}
 

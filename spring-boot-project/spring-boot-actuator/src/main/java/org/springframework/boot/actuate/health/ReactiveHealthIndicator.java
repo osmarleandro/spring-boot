@@ -30,7 +30,7 @@ import reactor.core.publisher.Mono;
  * @see HealthIndicator
  */
 @FunctionalInterface
-public interface ReactiveHealthIndicator extends ReactiveHealthContributor {
+public interface ReactiveHealthIndicator extends ReactiveHealthContributor_RENAMED {
 
 	/**
 	 * Provide the indicator of health.

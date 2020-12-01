@@ -21,7 +21,7 @@ import java.util.Collections;
 
 import org.junit.jupiter.api.Test;
 
-import org.springframework.boot.actuate.health.ReactiveHealthContributor;
+import org.springframework.boot.actuate.health.ReactiveHealthContributor_RENAMED;
 import org.springframework.boot.actuate.health.ReactiveHealthContributorRegistry;
 
 import static org.assertj.core.api.Assertions.assertThatIllegalStateException;
@@ -38,7 +38,7 @@ class AutoConfiguredReactiveHealthContributorRegistryTests {
 	void createWhenContributorsClashesWithGroupNameThrowsException() {
 		assertThatIllegalStateException()
 				.isThrownBy(() -> new AutoConfiguredReactiveHealthContributorRegistry(
-						Collections.singletonMap("boot", mock(ReactiveHealthContributor.class)),
+						Collections.singletonMap("boot", mock(ReactiveHealthContributor_RENAMED.class)),
 						Arrays.asList("spring", "boot")))
 				.withMessage("ReactiveHealthContributor with name \"boot\" clashes with group");
 	}
@@ -48,7 +48,7 @@ class AutoConfiguredReactiveHealthContributorRegistryTests {
 		ReactiveHealthContributorRegistry registry = new AutoConfiguredReactiveHealthContributorRegistry(
 				Collections.emptyMap(), Arrays.asList("spring", "boot"));
 		assertThatIllegalStateException()
-				.isThrownBy(() -> registry.registerContributor("spring", mock(ReactiveHealthContributor.class)))
+				.isThrownBy(() -> registry.registerContributor("spring", mock(ReactiveHealthContributor_RENAMED.class)))
 				.withMessage("ReactiveHealthContributor with name \"spring\" clashes with group");
 	}
 

@@ -35,7 +35,7 @@ import org.springframework.boot.actuate.health.HealthEndpointGroupsPostProcessor
 import org.springframework.boot.actuate.health.HealthIndicator;
 import org.springframework.boot.actuate.health.HttpCodeStatusMapper;
 import org.springframework.boot.actuate.health.NamedContributor;
-import org.springframework.boot.actuate.health.ReactiveHealthContributor;
+import org.springframework.boot.actuate.health.ReactiveHealthContributor_RENAMED;
 import org.springframework.boot.actuate.health.ReactiveHealthIndicator;
 import org.springframework.boot.actuate.health.SimpleHttpCodeStatusMapper;
 import org.springframework.boot.actuate.health.SimpleStatusAggregator;
@@ -129,7 +129,7 @@ class HealthEndpointConfiguration {
 	}
 
 	/**
-	 * Adapter to expose {@link ReactiveHealthContributor} beans as
+	 * Adapter to expose {@link ReactiveHealthContributor_RENAMED} beans as
 	 * {@link HealthContributor} instances.
 	 */
 	private static class AdaptedReactiveHealthContributors {
@@ -138,12 +138,12 @@ class HealthEndpointConfiguration {
 
 		AdaptedReactiveHealthContributors(ApplicationContext applicationContext) {
 			Map<String, HealthContributor> adapted = new LinkedHashMap<>();
-			applicationContext.getBeansOfType(ReactiveHealthContributor.class)
+			applicationContext.getBeansOfType(ReactiveHealthContributor_RENAMED.class)
 					.forEach((name, contributor) -> adapted.put(name, adapt(contributor)));
 			this.adapted = Collections.unmodifiableMap(adapted);
 		}
 
-		private HealthContributor adapt(ReactiveHealthContributor contributor) {
+		private HealthContributor adapt(ReactiveHealthContributor_RENAMED contributor) {
 			if (contributor instanceof ReactiveHealthIndicator) {
 				return adapt((ReactiveHealthIndicator) contributor);
 			}
@@ -174,7 +174,7 @@ class HealthEndpointConfiguration {
 
 				@Override
 				public Iterator<NamedContributor<HealthContributor>> iterator() {
-					Iterator<NamedContributor<ReactiveHealthContributor>> iterator = composite.iterator();
+					Iterator<NamedContributor<ReactiveHealthContributor_RENAMED>> iterator = composite.iterator();
 					return new Iterator<NamedContributor<HealthContributor>>() {
 
 						@Override
@@ -184,7 +184,7 @@ class HealthEndpointConfiguration {
 
 						@Override
 						public NamedContributor<HealthContributor> next() {
-							NamedContributor<ReactiveHealthContributor> next = iterator.next();
+							NamedContributor<ReactiveHealthContributor_RENAMED> next = iterator.next();
 							return NamedContributor.of(next.getName(), adapt(next.getContributor()));
 						}
 

@@ -26,7 +26,7 @@ import org.springframework.util.Assert;
  * reactive environment.
  *
  * @author Phillip Webb
- * @see ReactiveHealthContributor#adapt(HealthContributor)
+ * @see ReactiveHealthContributor_RENAMED#adapt(HealthContributor)
  */
 class CompositeHealthContributorReactiveAdapter implements CompositeReactiveHealthContributor {
 
@@ -38,9 +38,9 @@ class CompositeHealthContributorReactiveAdapter implements CompositeReactiveHeal
 	}
 
 	@Override
-	public Iterator<NamedContributor<ReactiveHealthContributor>> iterator() {
+	public Iterator<NamedContributor<ReactiveHealthContributor_RENAMED>> iterator() {
 		Iterator<NamedContributor<HealthContributor>> iterator = this.delegate.iterator();
-		return new Iterator<NamedContributor<ReactiveHealthContributor>>() {
+		return new Iterator<NamedContributor<ReactiveHealthContributor_RENAMED>>() {
 
 			@Override
 			public boolean hasNext() {
@@ -48,19 +48,19 @@ class CompositeHealthContributorReactiveAdapter implements CompositeReactiveHeal
 			}
 
 			@Override
-			public NamedContributor<ReactiveHealthContributor> next() {
+			public NamedContributor<ReactiveHealthContributor_RENAMED> next() {
 				NamedContributor<HealthContributor> namedContributor = iterator.next();
 				return NamedContributor.of(namedContributor.getName(),
-						ReactiveHealthContributor.adapt(namedContributor.getContributor()));
+						ReactiveHealthContributor_RENAMED.adapt(namedContributor.getContributor()));
 			}
 
 		};
 	}
 
 	@Override
-	public ReactiveHealthContributor getContributor(String name) {
+	public ReactiveHealthContributor_RENAMED getContributor(String name) {
 		HealthContributor contributor = this.delegate.getContributor(name);
-		return (contributor != null) ? ReactiveHealthContributor.adapt(contributor) : null;
+		return (contributor != null) ? ReactiveHealthContributor_RENAMED.adapt(contributor) : null;
 	}
 
 }

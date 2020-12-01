@@ -18,7 +18,7 @@ package org.springframework.boot.actuate.health;
 
 /**
  * A mutable registry of health endpoint contributors (either {@link HealthContributor} or
- * {@link ReactiveHealthContributor}).
+ * {@link ReactiveHealthContributor_RENAMED}).
  *
  * @param <C> the contributor type
  * @author Phillip Webb
