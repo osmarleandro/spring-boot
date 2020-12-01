@@ -42,7 +42,7 @@ import static org.mockito.Mockito.mock;
  * @author Phillip Webb
  */
 @ExtendWith(MockitoExtension.class)
-class AutoConfiguredHealthEndpointGroupTests {
+class AutoConfiguredHealthEndpointGroupTests_RENAMED {
 
 	@Mock
 	private StatusAggregator statusAggregator;
