@@ -60,7 +60,7 @@ public class InfluxMetricsExportAutoConfiguration {
 	@Bean
 	@ConditionalOnMissingBean
 	public InfluxConfig influxConfig() {
-		return new InfluxPropertiesConfigAdapter(this.properties);
+		return new InfluxPropertiesConfigAdapter_RENAMED(this.properties);
 	}
 
 	@Bean

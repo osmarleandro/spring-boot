@@ -27,10 +27,10 @@ import org.springframework.boot.actuate.autoconfigure.metrics.export.properties.
  * @author Jon Schneider
  * @author Phillip Webb
  */
-class InfluxPropertiesConfigAdapter extends StepRegistryPropertiesConfigAdapter<InfluxProperties>
+class InfluxPropertiesConfigAdapter_RENAMED extends StepRegistryPropertiesConfigAdapter<InfluxProperties>
 		implements InfluxConfig {
 
-	InfluxPropertiesConfigAdapter(InfluxProperties properties) {
+	InfluxPropertiesConfigAdapter_RENAMED(InfluxProperties properties) {
 		super(properties);
 	}
 
