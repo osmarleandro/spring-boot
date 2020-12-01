@@ -19,7 +19,7 @@ package smoketest.security.method;
 import java.util.Date;
 import java.util.Map;
 
-import org.springframework.boot.actuate.autoconfigure.security.servlet.EndpointRequest;
+import org.springframework.boot.actuate.autoconfigure.security.servlet.EndpointRequest_RENAMED;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.annotation.Bean;
@@ -92,7 +92,7 @@ public class SampleMethodSecurityApplication implements WebMvcConfigurer {
 
 		@Override
 		protected void configure(HttpSecurity http) throws Exception {
-			http.requestMatcher(EndpointRequest.toAnyEndpoint());
+			http.requestMatcher(EndpointRequest_RENAMED.toAnyEndpoint());
 			http.authorizeRequests((requests) -> requests.anyRequest().authenticated());
 			http.httpBasic();
 		}

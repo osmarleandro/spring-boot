@@ -64,7 +64,7 @@ public class ManagementWebSecurityAutoConfiguration {
 		@Override
 		protected void configure(HttpSecurity http) throws Exception {
 			http.authorizeRequests((requests) -> {
-				requests.requestMatchers(EndpointRequest.to(HealthEndpoint.class, InfoEndpoint.class)).permitAll();
+				requests.requestMatchers(EndpointRequest_RENAMED.to(HealthEndpoint.class, InfoEndpoint.class)).permitAll();
 				requests.anyRequest().authenticated();
 			});
 			http.formLogin(Customizer.withDefaults());

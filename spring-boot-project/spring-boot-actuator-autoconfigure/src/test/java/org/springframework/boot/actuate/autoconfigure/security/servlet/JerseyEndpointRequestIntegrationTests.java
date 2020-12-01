@@ -31,7 +31,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.test.web.reactive.server.WebTestClient;
 
 /**
- * Integration tests for {@link EndpointRequest} with Jersey.
+ * Integration tests for {@link EndpointRequest_RENAMED} with Jersey.
  *
  * @author Madhura Bhave
  */

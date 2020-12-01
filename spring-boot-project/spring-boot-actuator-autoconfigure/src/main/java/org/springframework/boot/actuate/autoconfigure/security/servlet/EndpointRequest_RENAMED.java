@@ -55,11 +55,11 @@ import org.springframework.web.context.WebApplicationContext;
  * @author Phillip Webb
  * @since 2.0.0
  */
-public final class EndpointRequest {
+public final class EndpointRequest_RENAMED {
 
 	private static final RequestMatcher EMPTY_MATCHER = (request) -> false;
 
-	private EndpointRequest() {
+	private EndpointRequest_RENAMED() {
 	}
 
 	/**
@@ -106,7 +106,7 @@ public final class EndpointRequest {
 	 * {@link Endpoint actuator endpoints}. The
 	 * {@link EndpointRequestMatcher#excludingLinks() excludingLinks} method can be used
 	 * in combination with this to remove the links endpoint from
-	 * {@link EndpointRequest#toAnyEndpoint() toAnyEndpoint}. For example:
+	 * {@link EndpointRequest_RENAMED#toAnyEndpoint() toAnyEndpoint}. For example:
 	 * <pre class="code">
 	 * EndpointRequest.toLinks()
 	 * </pre>

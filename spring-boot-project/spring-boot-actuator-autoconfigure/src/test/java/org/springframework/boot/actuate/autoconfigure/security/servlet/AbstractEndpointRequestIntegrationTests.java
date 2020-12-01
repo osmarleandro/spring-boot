@@ -42,7 +42,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.test.web.reactive.server.WebTestClient;
 
 /**
- * Abstract base class for {@link EndpointRequest} tests.
+ * Abstract base class for {@link EndpointRequest_RENAMED} tests.
  *
  * @author Madhura Bhave
  */
@@ -171,9 +171,9 @@ abstract class AbstractEndpointRequestIntegrationTests {
 				@Override
 				protected void configure(HttpSecurity http) throws Exception {
 					http.authorizeRequests((requests) -> {
-						requests.requestMatchers(EndpointRequest.toLinks()).permitAll();
-						requests.requestMatchers(EndpointRequest.to(TestEndpoint1.class)).permitAll();
-						requests.requestMatchers(EndpointRequest.toAnyEndpoint()).authenticated();
+						requests.requestMatchers(EndpointRequest_RENAMED.toLinks()).permitAll();
+						requests.requestMatchers(EndpointRequest_RENAMED.to(TestEndpoint1.class)).permitAll();
+						requests.requestMatchers(EndpointRequest_RENAMED.toAnyEndpoint()).authenticated();
 						requests.anyRequest().hasRole("ADMIN");
 					});
 					http.httpBasic();

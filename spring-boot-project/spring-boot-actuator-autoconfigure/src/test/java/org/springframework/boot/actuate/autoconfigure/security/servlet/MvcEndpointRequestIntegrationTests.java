@@ -31,7 +31,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.test.web.reactive.server.WebTestClient;
 
 /**
- * Integration tests for {@link EndpointRequest} with Spring MVC.
+ * Integration tests for {@link EndpointRequest_RENAMED} with Spring MVC.
  *
  * @author Madhura Bhave
  */
