@@ -139,7 +139,7 @@ public class DispatcherServletsMappingDescriptionProvider implements MappingDesc
 		}
 
 		private DispatcherServletMappingDescription describe(Entry<RequestMappingInfo, HandlerMethod> mapping) {
-			DispatcherServletMappingDetails mappingDetails = new DispatcherServletMappingDetails();
+			DispatcherServletMappingDetails_RENAMED mappingDetails = new DispatcherServletMappingDetails_RENAMED();
 			mappingDetails.setHandlerMethod(new HandlerMethodDescription(mapping.getValue()));
 			mappingDetails.setRequestMappingConditions(new RequestMappingConditionsDescription(mapping.getKey()));
 			return new DispatcherServletMappingDescription(mapping.getKey().toString(), mapping.getValue().toString(),
