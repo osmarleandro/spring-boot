@@ -26,10 +26,10 @@ import org.springframework.boot.actuate.autoconfigure.metrics.export.properties.
  * @author Jon Schneider
  * @since 2.0.0
  */
-public class SignalFxPropertiesConfigAdapter extends StepRegistryPropertiesConfigAdapter<SignalFxProperties>
+public class SignalFxPropertiesConfigAdapter_RENAMED extends StepRegistryPropertiesConfigAdapter<SignalFxProperties>
 		implements SignalFxConfig {
 
-	public SignalFxPropertiesConfigAdapter(SignalFxProperties properties) {
+	public SignalFxPropertiesConfigAdapter_RENAMED(SignalFxProperties properties) {
 		super(properties);
 		accessToken(); // validate that an access token is set
 	}

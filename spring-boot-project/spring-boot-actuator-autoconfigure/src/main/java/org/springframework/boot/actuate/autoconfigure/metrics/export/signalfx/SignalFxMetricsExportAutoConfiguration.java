@@ -53,7 +53,7 @@ public class SignalFxMetricsExportAutoConfiguration {
 	@Bean
 	@ConditionalOnMissingBean
 	public SignalFxConfig signalfxConfig(SignalFxProperties props) {
-		return new SignalFxPropertiesConfigAdapter(props);
+		return new SignalFxPropertiesConfigAdapter_RENAMED(props);
 	}
 
 	@Bean
