@@ -61,7 +61,7 @@ class JmxEndpointExporterTests {
 	@Spy
 	private EndpointObjectNameFactory objectNameFactory = new TestEndpointObjectNameFactory();
 
-	private JmxOperationResponseMapper responseMapper = new TestJmxOperationResponseMapper();
+	private JmxOperationResponseMapper responseMapper = new TestJmxOperationResponseMapper_RENAMED();
 
 	private List<ExposableJmxEndpoint> endpoints = new ArrayList<>();
 

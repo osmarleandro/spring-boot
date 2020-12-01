@@ -56,7 +56,7 @@ class EndpointMBeanTests {
 
 	private TestExposableJmxEndpoint endpoint = new TestExposableJmxEndpoint(new TestJmxOperation());
 
-	private TestJmxOperationResponseMapper responseMapper = new TestJmxOperationResponseMapper();
+	private TestJmxOperationResponseMapper_RENAMED responseMapper = new TestJmxOperationResponseMapper_RENAMED();
 
 	@Test
 	void createWhenResponseMapperIsNullShouldThrowException() {
@@ -158,7 +158,7 @@ class EndpointMBeanTests {
 
 	@Test
 	void invokeShouldCallResponseMapper() throws MBeanException, ReflectionException {
-		TestJmxOperationResponseMapper responseMapper = spy(this.responseMapper);
+		TestJmxOperationResponseMapper_RENAMED responseMapper = spy(this.responseMapper);
 		EndpointMBean bean = new EndpointMBean(responseMapper, null, this.endpoint);
 		bean.invoke("testOperation", NO_PARAMS, NO_SIGNATURE);
 		verify(responseMapper).mapResponseType(String.class);
