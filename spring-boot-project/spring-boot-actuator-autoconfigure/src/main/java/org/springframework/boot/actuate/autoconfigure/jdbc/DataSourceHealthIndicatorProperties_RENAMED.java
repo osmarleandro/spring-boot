@@ -26,7 +26,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  * @since 2.4.0
  */
 @ConfigurationProperties(prefix = "management.health.db")
-public class DataSourceHealthIndicatorProperties {
+public class DataSourceHealthIndicatorProperties_RENAMED {
 
 	/**
 	 * Whether to ignore AbstractRoutingDataSources when creating database health

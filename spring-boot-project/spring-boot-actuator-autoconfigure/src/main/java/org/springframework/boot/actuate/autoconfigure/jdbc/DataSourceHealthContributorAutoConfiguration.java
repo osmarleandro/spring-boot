@@ -63,7 +63,7 @@ import org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource;
 @ConditionalOnBean(DataSource.class)
 @ConditionalOnEnabledHealthIndicator("db")
 @AutoConfigureAfter(DataSourceAutoConfiguration.class)
-@EnableConfigurationProperties(DataSourceHealthIndicatorProperties.class)
+@EnableConfigurationProperties(DataSourceHealthIndicatorProperties_RENAMED.class)
 public class DataSourceHealthContributorAutoConfiguration extends
 		CompositeHealthContributorConfiguration<AbstractHealthIndicator, DataSource> implements InitializingBean {
 
@@ -84,7 +84,7 @@ public class DataSourceHealthContributorAutoConfiguration extends
 	@Bean
 	@ConditionalOnMissingBean(name = { "dbHealthIndicator", "dbHealthContributor" })
 	public HealthContributor dbHealthContributor(Map<String, DataSource> dataSources,
-			DataSourceHealthIndicatorProperties dataSourceHealthIndicatorProperties) {
+			DataSourceHealthIndicatorProperties_RENAMED dataSourceHealthIndicatorProperties) {
 		if (dataSourceHealthIndicatorProperties.isIgnoreRoutingDataSources()) {
 			Map<String, DataSource> filteredDatasources = dataSources.entrySet().stream()
 					.filter((e) -> !(e.getValue() instanceof AbstractRoutingDataSource))
