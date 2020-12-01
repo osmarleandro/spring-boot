@@ -58,7 +58,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * @author Phillip Webb
  * @author Andy Wilkinson
  */
-class ControllerEndpointWebMvcIntegrationTests {
+class ControllerEndpointWebMvcIntegrationTests_RENAMED {
 
 	private AnnotationConfigServletWebApplicationContext context;
 
