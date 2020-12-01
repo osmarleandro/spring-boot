@@ -24,7 +24,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 
 import org.springframework.boot.actuate.autoconfigure.metrics.test.MetricsRun;
 import org.springframework.boot.actuate.metrics.web.client.DefaultRestTemplateExchangeTagsProvider;
-import org.springframework.boot.actuate.metrics.web.client.MetricsRestTemplateCustomizer;
+import org.springframework.boot.actuate.metrics.web.client.MetricsRestTemplateCustomizer_RENAMED;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
 import org.springframework.boot.autoconfigure.web.client.RestTemplateAutoConfiguration;
 import org.springframework.boot.test.context.assertj.AssertableApplicationContext;
@@ -66,9 +66,9 @@ class RestTemplateMetricsConfigurationTests {
 	@Test
 	void restTemplateCanBeCustomizedManually() {
 		this.contextRunner.run((context) -> {
-			assertThat(context).hasSingleBean(MetricsRestTemplateCustomizer.class);
+			assertThat(context).hasSingleBean(MetricsRestTemplateCustomizer_RENAMED.class);
 			RestTemplateBuilder customBuilder = new RestTemplateBuilder()
-					.customizers(context.getBean(MetricsRestTemplateCustomizer.class));
+					.customizers(context.getBean(MetricsRestTemplateCustomizer_RENAMED.class));
 			MeterRegistry registry = context.getBean(MeterRegistry.class);
 			validateRestTemplate(customBuilder, registry);
 		});
@@ -113,7 +113,7 @@ class RestTemplateMetricsConfigurationTests {
 		new ApplicationContextRunner().with(MetricsRun.simple())
 				.withConfiguration(AutoConfigurations.of(HttpClientMetricsAutoConfiguration.class))
 				.run((context) -> assertThat(context).doesNotHaveBean(DefaultRestTemplateExchangeTagsProvider.class)
-						.doesNotHaveBean(MetricsRestTemplateCustomizer.class));
+						.doesNotHaveBean(MetricsRestTemplateCustomizer_RENAMED.class));
 	}
 
 	private MeterRegistry getInitializedMeterRegistry(AssertableApplicationContext context) {

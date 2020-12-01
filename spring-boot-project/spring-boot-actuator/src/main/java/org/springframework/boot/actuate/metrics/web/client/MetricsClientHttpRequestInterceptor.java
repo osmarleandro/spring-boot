@@ -36,7 +36,7 @@ import org.springframework.web.util.UriTemplateHandler;
 
 /**
  * {@link ClientHttpRequestInterceptor} applied via a
- * {@link MetricsRestTemplateCustomizer} to record metrics.
+ * {@link MetricsRestTemplateCustomizer_RENAMED} to record metrics.
  *
  * @author Jon Schneider
  * @author Phillip Webb

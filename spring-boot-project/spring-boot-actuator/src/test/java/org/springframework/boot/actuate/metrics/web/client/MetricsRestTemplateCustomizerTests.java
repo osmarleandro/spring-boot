@@ -43,7 +43,7 @@ import org.springframework.web.client.RestTemplate;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Tests for {@link MetricsRestTemplateCustomizer}.
+ * Tests for {@link MetricsRestTemplateCustomizer_RENAMED}.
  *
  * @author Jon Schneider
  * @author Brian Clozel
@@ -56,14 +56,14 @@ class MetricsRestTemplateCustomizerTests {
 
 	private MockRestServiceServer mockServer;
 
-	private MetricsRestTemplateCustomizer customizer;
+	private MetricsRestTemplateCustomizer_RENAMED customizer;
 
 	@BeforeEach
 	void setup() {
 		this.registry = new SimpleMeterRegistry(SimpleConfig.DEFAULT, new MockClock());
 		this.restTemplate = new RestTemplate();
 		this.mockServer = MockRestServiceServer.createServer(this.restTemplate);
-		this.customizer = new MetricsRestTemplateCustomizer(this.registry,
+		this.customizer = new MetricsRestTemplateCustomizer_RENAMED(this.registry,
 				new DefaultRestTemplateExchangeTagsProvider(), "http.client.requests", AutoTimer.ENABLED);
 		this.customizer.customize(this.restTemplate);
 	}
