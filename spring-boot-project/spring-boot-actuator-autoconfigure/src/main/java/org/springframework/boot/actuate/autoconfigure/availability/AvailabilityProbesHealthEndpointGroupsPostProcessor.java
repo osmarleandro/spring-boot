@@ -23,7 +23,7 @@ import org.springframework.core.annotation.Order;
 
 /**
  * {@link HealthEndpointGroupsPostProcessor} to add
- * {@link AvailabilityProbesHealthEndpointGroups}.
+ * {@link AvailabilityProbesHealthEndpointGroups_RENAMED}.
  *
  * @author Phillip Webb
  */
@@ -32,10 +32,10 @@ class AvailabilityProbesHealthEndpointGroupsPostProcessor implements HealthEndpo
 
 	@Override
 	public HealthEndpointGroups postProcessHealthEndpointGroups(HealthEndpointGroups groups) {
-		if (AvailabilityProbesHealthEndpointGroups.containsAllProbeGroups(groups)) {
+		if (AvailabilityProbesHealthEndpointGroups_RENAMED.containsAllProbeGroups(groups)) {
 			return groups;
 		}
-		return new AvailabilityProbesHealthEndpointGroups(groups);
+		return new AvailabilityProbesHealthEndpointGroups_RENAMED(groups);
 	}
 
 }
