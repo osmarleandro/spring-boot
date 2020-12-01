@@ -28,7 +28,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Stephane Nicoll
  */
-class KairosPropertiesTests extends StepRegistryPropertiesTests {
+class KairosPropertiesTests_RENAMED extends StepRegistryPropertiesTests {
 
 	@Test
 	void defaultValuesAreConsistent() {
