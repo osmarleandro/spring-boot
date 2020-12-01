@@ -31,7 +31,7 @@ import org.springframework.util.Assert;
  * @param <V> the value type
  * @param <C> the contributor type
  * @author Phillip Webb
- * @see CompositeHealthContributorMapAdapter
+ * @see CompositeHealthContributorMapAdapter_RENAMED
  * @see CompositeReactiveHealthContributorMapAdapter
  */
 abstract class NamedContributorsMapAdapter<V, C> implements NamedContributors<C> {
