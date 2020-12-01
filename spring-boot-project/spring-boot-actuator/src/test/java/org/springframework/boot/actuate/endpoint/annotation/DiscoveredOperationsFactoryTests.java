@@ -31,7 +31,7 @@ import org.springframework.boot.actuate.endpoint.OperationType;
 import org.springframework.boot.actuate.endpoint.SecurityContext;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvoker;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvokerAdvisor;
-import org.springframework.boot.actuate.endpoint.invoke.OperationParameters;
+import org.springframework.boot.actuate.endpoint.invoke.OperationParameters_RENAMED;
 import org.springframework.boot.actuate.endpoint.invoke.ParameterValueMapper;
 import org.springframework.boot.actuate.endpoint.invoke.reflect.OperationMethod;
 
@@ -204,11 +204,11 @@ class DiscoveredOperationsFactoryTests {
 
 		private OperationType operationType;
 
-		private OperationParameters parameters;
+		private OperationParameters_RENAMED parameters;
 
 		@Override
 		public OperationInvoker apply(EndpointId endpointId, OperationType operationType,
-				OperationParameters parameters, OperationInvoker invoker) {
+				OperationParameters_RENAMED parameters, OperationInvoker invoker) {
 			this.endpointId = endpointId;
 			this.operationType = operationType;
 			this.parameters = parameters;
@@ -223,7 +223,7 @@ class DiscoveredOperationsFactoryTests {
 			return this.operationType;
 		}
 
-		OperationParameters getParameters() {
+		OperationParameters_RENAMED getParameters() {
 			return this.parameters;
 		}
 

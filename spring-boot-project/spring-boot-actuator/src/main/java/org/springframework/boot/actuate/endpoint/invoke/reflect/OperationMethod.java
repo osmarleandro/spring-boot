@@ -20,7 +20,7 @@ import java.lang.reflect.Method;
 import java.util.Locale;
 
 import org.springframework.boot.actuate.endpoint.OperationType;
-import org.springframework.boot.actuate.endpoint.invoke.OperationParameters;
+import org.springframework.boot.actuate.endpoint.invoke.OperationParameters_RENAMED;
 import org.springframework.core.DefaultParameterNameDiscoverer;
 import org.springframework.core.ParameterNameDiscoverer;
 import org.springframework.util.Assert;
@@ -40,7 +40,7 @@ public class OperationMethod {
 
 	private final OperationType operationType;
 
-	private final OperationParameters operationParameters;
+	private final OperationParameters_RENAMED operationParameters;
 
 	/**
 	 * Create a new {@link OperationMethod} instance.
@@ -75,7 +75,7 @@ public class OperationMethod {
 	 * Return the operation parameters.
 	 * @return the operation parameters
 	 */
-	public OperationParameters getParameters() {
+	public OperationParameters_RENAMED getParameters() {
 		return this.operationParameters;
 	}
 

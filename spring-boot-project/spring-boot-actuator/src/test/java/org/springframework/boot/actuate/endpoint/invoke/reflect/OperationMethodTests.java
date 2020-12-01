@@ -21,7 +21,7 @@ import java.lang.reflect.Method;
 import org.junit.jupiter.api.Test;
 
 import org.springframework.boot.actuate.endpoint.OperationType;
-import org.springframework.boot.actuate.endpoint.invoke.OperationParameters;
+import org.springframework.boot.actuate.endpoint.invoke.OperationParameters_RENAMED;
 import org.springframework.util.ReflectionUtils;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -63,7 +63,7 @@ class OperationMethodTests {
 	@Test
 	void getParametersShouldReturnParameters() {
 		OperationMethod operationMethod = new OperationMethod(this.exampleMethod, OperationType.READ);
-		OperationParameters parameters = operationMethod.getParameters();
+		OperationParameters_RENAMED parameters = operationMethod.getParameters();
 		assertThat(parameters.getParameterCount()).isEqualTo(1);
 		assertThat(parameters.iterator().next().getName()).isEqualTo("name");
 	}

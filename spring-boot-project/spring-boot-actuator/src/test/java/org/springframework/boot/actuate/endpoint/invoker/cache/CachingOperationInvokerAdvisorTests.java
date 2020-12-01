@@ -30,7 +30,7 @@ import org.springframework.boot.actuate.endpoint.OperationType;
 import org.springframework.boot.actuate.endpoint.SecurityContext;
 import org.springframework.boot.actuate.endpoint.http.ApiVersion;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvoker;
-import org.springframework.boot.actuate.endpoint.invoke.OperationParameters;
+import org.springframework.boot.actuate.endpoint.invoke.OperationParameters_RENAMED;
 import org.springframework.boot.actuate.endpoint.invoke.reflect.OperationMethod;
 import org.springframework.lang.Nullable;
 import org.springframework.util.ReflectionUtils;
@@ -64,7 +64,7 @@ class CachingOperationInvokerAdvisorTests {
 
 	@Test
 	void applyWhenOperationIsNotReadShouldNotAddAdvise() {
-		OperationParameters parameters = getParameters("get");
+		OperationParameters_RENAMED parameters = getParameters("get");
 		OperationInvoker advised = this.advisor.apply(EndpointId.of("foo"), OperationType.WRITE, parameters,
 				this.invoker);
 		assertThat(advised).isSameAs(this.invoker);
@@ -72,7 +72,7 @@ class CachingOperationInvokerAdvisorTests {
 
 	@Test
 	void applyWhenHasAtLeaseOneMandatoryParameterShouldNotAddAdvise() {
-		OperationParameters parameters = getParameters("getWithParameters", String.class, String.class);
+		OperationParameters_RENAMED parameters = getParameters("getWithParameters", String.class, String.class);
 		OperationInvoker advised = this.advisor.apply(EndpointId.of("foo"), OperationType.READ, parameters,
 				this.invoker);
 		assertThat(advised).isSameAs(this.invoker);
@@ -80,7 +80,7 @@ class CachingOperationInvokerAdvisorTests {
 
 	@Test
 	void applyWhenTimeToLiveReturnsNullShouldNotAddAdvise() {
-		OperationParameters parameters = getParameters("get");
+		OperationParameters_RENAMED parameters = getParameters("get");
 		given(this.timeToLive.apply(any())).willReturn(null);
 		OperationInvoker advised = this.advisor.apply(EndpointId.of("foo"), OperationType.READ, parameters,
 				this.invoker);
@@ -90,7 +90,7 @@ class CachingOperationInvokerAdvisorTests {
 
 	@Test
 	void applyWhenTimeToLiveIsZeroShouldNotAddAdvise() {
-		OperationParameters parameters = getParameters("get");
+		OperationParameters_RENAMED parameters = getParameters("get");
 		given(this.timeToLive.apply(any())).willReturn(0L);
 		OperationInvoker advised = this.advisor.apply(EndpointId.of("foo"), OperationType.READ, parameters,
 				this.invoker);
@@ -100,33 +100,33 @@ class CachingOperationInvokerAdvisorTests {
 
 	@Test
 	void applyShouldAddCacheAdvise() {
-		OperationParameters parameters = getParameters("get");
+		OperationParameters_RENAMED parameters = getParameters("get");
 		given(this.timeToLive.apply(any())).willReturn(100L);
 		assertAdviseIsApplied(parameters);
 	}
 
 	@Test
 	void applyWithAllOptionalParametersShouldAddAdvise() {
-		OperationParameters parameters = getParameters("getWithAllOptionalParameters", String.class, String.class);
+		OperationParameters_RENAMED parameters = getParameters("getWithAllOptionalParameters", String.class, String.class);
 		given(this.timeToLive.apply(any())).willReturn(100L);
 		assertAdviseIsApplied(parameters);
 	}
 
 	@Test
 	void applyWithSecurityContextShouldAddAdvise() {
-		OperationParameters parameters = getParameters("getWithSecurityContext", SecurityContext.class, String.class);
+		OperationParameters_RENAMED parameters = getParameters("getWithSecurityContext", SecurityContext.class, String.class);
 		given(this.timeToLive.apply(any())).willReturn(100L);
 		assertAdviseIsApplied(parameters);
 	}
 
 	@Test
 	void applyWithApiVersionShouldAddAdvise() {
-		OperationParameters parameters = getParameters("getWithApiVersion", ApiVersion.class, String.class);
+		OperationParameters_RENAMED parameters = getParameters("getWithApiVersion", ApiVersion.class, String.class);
 		given(this.timeToLive.apply(any())).willReturn(100L);
 		assertAdviseIsApplied(parameters);
 	}
 
-	private void assertAdviseIsApplied(OperationParameters parameters) {
+	private void assertAdviseIsApplied(OperationParameters_RENAMED parameters) {
 		OperationInvoker advised = this.advisor.apply(EndpointId.of("foo"), OperationType.READ, parameters,
 				this.invoker);
 		assertThat(advised).isInstanceOf(CachingOperationInvoker.class);
@@ -134,7 +134,7 @@ class CachingOperationInvokerAdvisorTests {
 		assertThat(advised).hasFieldOrPropertyWithValue("timeToLive", 100L);
 	}
 
-	private OperationParameters getParameters(String methodName, Class<?>... parameterTypes) {
+	private OperationParameters_RENAMED getParameters(String methodName, Class<?>... parameterTypes) {
 		return getOperationMethod(methodName, parameterTypes).getParameters();
 	}
 

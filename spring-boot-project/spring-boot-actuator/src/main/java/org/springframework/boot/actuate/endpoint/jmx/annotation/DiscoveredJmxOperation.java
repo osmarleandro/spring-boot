@@ -31,7 +31,7 @@ import org.springframework.boot.actuate.endpoint.annotation.AbstractDiscoveredOp
 import org.springframework.boot.actuate.endpoint.annotation.DiscoveredOperationMethod;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvoker;
 import org.springframework.boot.actuate.endpoint.invoke.OperationParameter;
-import org.springframework.boot.actuate.endpoint.invoke.OperationParameters;
+import org.springframework.boot.actuate.endpoint.invoke.OperationParameters_RENAMED;
 import org.springframework.boot.actuate.endpoint.invoke.reflect.OperationMethod;
 import org.springframework.boot.actuate.endpoint.jmx.JmxOperation;
 import org.springframework.boot.actuate.endpoint.jmx.JmxOperationParameter;
@@ -89,7 +89,7 @@ class DiscoveredJmxOperation extends AbstractDiscoveredOperation implements JmxO
 		return mergeParameters(operationMethod.getParameters(), managed);
 	}
 
-	private List<JmxOperationParameter> mergeParameters(OperationParameters operationParameters,
+	private List<JmxOperationParameter> mergeParameters(OperationParameters_RENAMED operationParameters,
 			ManagedOperationParameter[] managedParameters) {
 		List<JmxOperationParameter> merged = new ArrayList<>(managedParameters.length);
 		for (int i = 0; i < managedParameters.length; i++) {

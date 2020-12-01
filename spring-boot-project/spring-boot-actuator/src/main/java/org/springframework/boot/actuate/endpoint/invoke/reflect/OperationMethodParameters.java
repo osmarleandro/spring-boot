@@ -25,16 +25,16 @@ import java.util.List;
 import java.util.stream.Stream;
 
 import org.springframework.boot.actuate.endpoint.invoke.OperationParameter;
-import org.springframework.boot.actuate.endpoint.invoke.OperationParameters;
+import org.springframework.boot.actuate.endpoint.invoke.OperationParameters_RENAMED;
 import org.springframework.core.ParameterNameDiscoverer;
 import org.springframework.util.Assert;
 
 /**
- * {@link OperationParameters} created from an {@link OperationMethod}.
+ * {@link OperationParameters_RENAMED} created from an {@link OperationMethod}.
  *
  * @author Phillip Webb
  */
-class OperationMethodParameters implements OperationParameters {
+class OperationMethodParameters implements OperationParameters_RENAMED {
 
 	private final List<OperationParameter> operationParameters;
 
