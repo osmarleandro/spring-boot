@@ -39,13 +39,13 @@ import org.springframework.web.context.request.ServletWebRequest;
  * @since 2.0.0
  */
 @Controller
-public class ManagementErrorEndpoint {
+public class ManagementErrorEndpoint_RENAMED {
 
 	private final ErrorAttributes errorAttributes;
 
 	private final ErrorProperties errorProperties;
 
-	public ManagementErrorEndpoint(ErrorAttributes errorAttributes, ErrorProperties errorProperties) {
+	public ManagementErrorEndpoint_RENAMED(ErrorAttributes errorAttributes, ErrorProperties errorProperties) {
 		Assert.notNull(errorAttributes, "ErrorAttributes must not be null");
 		Assert.notNull(errorProperties, "ErrorProperties must not be null");
 		this.errorAttributes = errorAttributes;

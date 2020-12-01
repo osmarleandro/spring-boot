@@ -61,8 +61,8 @@ class WebMvcEndpointChildContextConfiguration {
 	 */
 	@Bean
 	@ConditionalOnBean(ErrorAttributes.class)
-	ManagementErrorEndpoint errorEndpoint(ErrorAttributes errorAttributes, ServerProperties serverProperties) {
-		return new ManagementErrorEndpoint(errorAttributes, serverProperties.getError());
+	ManagementErrorEndpoint_RENAMED errorEndpoint(ErrorAttributes errorAttributes, ServerProperties serverProperties) {
+		return new ManagementErrorEndpoint_RENAMED(errorAttributes, serverProperties.getError());
 	}
 
 	@Bean
@@ -110,7 +110,7 @@ class WebMvcEndpointChildContextConfiguration {
 
 	/**
 	 * {@link WebServerFactoryCustomizer} to add an {@link ErrorPage} so that the
-	 * {@link ManagementErrorEndpoint} can be used.
+	 * {@link ManagementErrorEndpoint_RENAMED} can be used.
 	 */
 	private static class ManagementErrorPageCustomizer
 			implements WebServerFactoryCustomizer<ConfigurableServletWebServerFactory>, Ordered {

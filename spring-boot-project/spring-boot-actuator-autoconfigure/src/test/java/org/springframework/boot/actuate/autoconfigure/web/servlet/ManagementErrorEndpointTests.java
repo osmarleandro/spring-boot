@@ -34,7 +34,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.entry;
 
 /**
- * Tests for {@link ManagementErrorEndpoint}.
+ * Tests for {@link ManagementErrorEndpoint_RENAMED}.
  *
  * @author Scott Frederick
  */
@@ -53,7 +53,7 @@ class ManagementErrorEndpointTests {
 
 	@Test
 	void errorResponseNeverDetails() {
-		ManagementErrorEndpoint endpoint = new ManagementErrorEndpoint(this.errorAttributes, this.errorProperties);
+		ManagementErrorEndpoint_RENAMED endpoint = new ManagementErrorEndpoint_RENAMED(this.errorAttributes, this.errorProperties);
 		Map<String, Object> response = endpoint.invoke(new ServletWebRequest(new MockHttpServletRequest()));
 		assertThat(response).containsEntry("message", "");
 		assertThat(response).doesNotContainKey("trace");
@@ -65,7 +65,7 @@ class ManagementErrorEndpointTests {
 		this.errorProperties.setIncludeMessage(ErrorProperties.IncludeAttribute.ALWAYS);
 		this.request.addParameter("trace", "false");
 		this.request.addParameter("message", "false");
-		ManagementErrorEndpoint endpoint = new ManagementErrorEndpoint(this.errorAttributes, this.errorProperties);
+		ManagementErrorEndpoint_RENAMED endpoint = new ManagementErrorEndpoint_RENAMED(this.errorAttributes, this.errorProperties);
 		Map<String, Object> response = endpoint.invoke(new ServletWebRequest(this.request));
 		assertThat(response).containsEntry("message", "test exception");
 		assertThat(response).hasEntrySatisfying("trace",
@@ -76,7 +76,7 @@ class ManagementErrorEndpointTests {
 	void errorResponseParamsAbsent() {
 		this.errorProperties.setIncludeStacktrace(ErrorProperties.IncludeStacktrace.ON_PARAM);
 		this.errorProperties.setIncludeMessage(ErrorProperties.IncludeAttribute.ON_PARAM);
-		ManagementErrorEndpoint endpoint = new ManagementErrorEndpoint(this.errorAttributes, this.errorProperties);
+		ManagementErrorEndpoint_RENAMED endpoint = new ManagementErrorEndpoint_RENAMED(this.errorAttributes, this.errorProperties);
 		Map<String, Object> response = endpoint.invoke(new ServletWebRequest(this.request));
 		assertThat(response).containsEntry("message", "");
 		assertThat(response).doesNotContainKey("trace");
@@ -88,7 +88,7 @@ class ManagementErrorEndpointTests {
 		this.errorProperties.setIncludeMessage(ErrorProperties.IncludeAttribute.ON_PARAM);
 		this.request.addParameter("trace", "true");
 		this.request.addParameter("message", "true");
-		ManagementErrorEndpoint endpoint = new ManagementErrorEndpoint(this.errorAttributes, this.errorProperties);
+		ManagementErrorEndpoint_RENAMED endpoint = new ManagementErrorEndpoint_RENAMED(this.errorAttributes, this.errorProperties);
 		Map<String, Object> response = endpoint.invoke(new ServletWebRequest(this.request));
 		assertThat(response).containsEntry("message", "test exception");
 		assertThat(response).hasEntrySatisfying("trace",
@@ -101,7 +101,7 @@ class ManagementErrorEndpointTests {
 		this.errorProperties.setIncludeMessage(ErrorProperties.IncludeAttribute.ON_PARAM);
 		this.request.addParameter("trace", "false");
 		this.request.addParameter("message", "false");
-		ManagementErrorEndpoint endpoint = new ManagementErrorEndpoint(this.errorAttributes, this.errorProperties);
+		ManagementErrorEndpoint_RENAMED endpoint = new ManagementErrorEndpoint_RENAMED(this.errorAttributes, this.errorProperties);
 		Map<String, Object> response = endpoint.invoke(new ServletWebRequest(this.request));
 		assertThat(response).containsEntry("message", "");
 		assertThat(response).doesNotContainKey("trace");
@@ -122,7 +122,7 @@ class ManagementErrorEndpointTests {
 			}
 
 		};
-		ManagementErrorEndpoint endpoint = new ManagementErrorEndpoint(attributes, this.errorProperties);
+		ManagementErrorEndpoint_RENAMED endpoint = new ManagementErrorEndpoint_RENAMED(attributes, this.errorProperties);
 		Map<String, Object> response = endpoint.invoke(new ServletWebRequest(new MockHttpServletRequest()));
 		assertThat(response).containsExactly(entry("message", "An error occurred"));
 	}
@@ -142,7 +142,7 @@ class ManagementErrorEndpointTests {
 			}
 
 		};
-		ManagementErrorEndpoint endpoint = new ManagementErrorEndpoint(attributes, this.errorProperties);
+		ManagementErrorEndpoint_RENAMED endpoint = new ManagementErrorEndpoint_RENAMED(attributes, this.errorProperties);
 		Map<String, Object> response = endpoint.invoke(new ServletWebRequest(new MockHttpServletRequest()));
 		assertThat(response).containsEntry("error", "custom error");
 		assertThat(response).containsEntry("custom", "value");
@@ -160,7 +160,7 @@ class ManagementErrorEndpointTests {
 			}
 
 		};
-		ManagementErrorEndpoint endpoint = new ManagementErrorEndpoint(attributes, this.errorProperties);
+		ManagementErrorEndpoint_RENAMED endpoint = new ManagementErrorEndpoint_RENAMED(attributes, this.errorProperties);
 		Map<String, Object> response = endpoint.invoke(new ServletWebRequest(new MockHttpServletRequest()));
 		assertThat(response).containsExactly(entry("error", "custom error"));
 	}
