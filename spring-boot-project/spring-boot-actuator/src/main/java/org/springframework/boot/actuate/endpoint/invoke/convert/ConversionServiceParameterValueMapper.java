@@ -18,19 +18,19 @@ package org.springframework.boot.actuate.endpoint.invoke.convert;
 
 import org.springframework.boot.actuate.endpoint.invoke.OperationParameter;
 import org.springframework.boot.actuate.endpoint.invoke.ParameterMappingException;
-import org.springframework.boot.actuate.endpoint.invoke.ParameterValueMapper;
+import org.springframework.boot.actuate.endpoint.invoke.ParameterValueMapper_RENAMED;
 import org.springframework.boot.convert.ApplicationConversionService;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.util.Assert;
 
 /**
- * {@link ParameterValueMapper} backed by a {@link ConversionService}.
+ * {@link ParameterValueMapper_RENAMED} backed by a {@link ConversionService}.
  *
  * @author Stephane Nicoll
  * @author Phillip Webb
  * @since 2.0.0
  */
-public class ConversionServiceParameterValueMapper implements ParameterValueMapper {
+public class ConversionServiceParameterValueMapper implements ParameterValueMapper_RENAMED {
 
 	private final ConversionService conversionService;
 

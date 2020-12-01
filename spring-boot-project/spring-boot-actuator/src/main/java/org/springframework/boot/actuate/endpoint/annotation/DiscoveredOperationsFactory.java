@@ -29,7 +29,7 @@ import org.springframework.boot.actuate.endpoint.Operation;
 import org.springframework.boot.actuate.endpoint.OperationType;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvoker;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvokerAdvisor;
-import org.springframework.boot.actuate.endpoint.invoke.ParameterValueMapper;
+import org.springframework.boot.actuate.endpoint.invoke.ParameterValueMapper_RENAMED;
 import org.springframework.boot.actuate.endpoint.invoke.reflect.OperationMethod;
 import org.springframework.boot.actuate.endpoint.invoke.reflect.ReflectiveOperationInvoker;
 import org.springframework.core.MethodIntrospector;
@@ -58,11 +58,11 @@ abstract class DiscoveredOperationsFactory<O extends Operation> {
 		OPERATION_TYPES = Collections.unmodifiableMap(operationTypes);
 	}
 
-	private final ParameterValueMapper parameterValueMapper;
+	private final ParameterValueMapper_RENAMED parameterValueMapper;
 
 	private final Collection<OperationInvokerAdvisor> invokerAdvisors;
 
-	DiscoveredOperationsFactory(ParameterValueMapper parameterValueMapper,
+	DiscoveredOperationsFactory(ParameterValueMapper_RENAMED parameterValueMapper,
 			Collection<OperationInvokerAdvisor> invokerAdvisors) {
 		this.parameterValueMapper = parameterValueMapper;
 		this.invokerAdvisors = invokerAdvisors;

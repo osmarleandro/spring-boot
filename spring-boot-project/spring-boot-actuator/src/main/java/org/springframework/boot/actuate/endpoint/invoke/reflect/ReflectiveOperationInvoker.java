@@ -27,7 +27,7 @@ import org.springframework.boot.actuate.endpoint.http.ApiVersion;
 import org.springframework.boot.actuate.endpoint.invoke.MissingParametersException;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvoker;
 import org.springframework.boot.actuate.endpoint.invoke.OperationParameter;
-import org.springframework.boot.actuate.endpoint.invoke.ParameterValueMapper;
+import org.springframework.boot.actuate.endpoint.invoke.ParameterValueMapper_RENAMED;
 import org.springframework.core.style.ToStringCreator;
 import org.springframework.util.Assert;
 import org.springframework.util.ReflectionUtils;
@@ -46,7 +46,7 @@ public class ReflectiveOperationInvoker implements OperationInvoker {
 
 	private final OperationMethod operationMethod;
 
-	private final ParameterValueMapper parameterValueMapper;
+	private final ParameterValueMapper_RENAMED parameterValueMapper;
 
 	/**
 	 * Creates a new {@code ReflectiveOperationInvoker} that will invoke the given
@@ -58,7 +58,7 @@ public class ReflectiveOperationInvoker implements OperationInvoker {
 	 * @param parameterValueMapper the parameter mapper
 	 */
 	public ReflectiveOperationInvoker(Object target, OperationMethod operationMethod,
-			ParameterValueMapper parameterValueMapper) {
+			ParameterValueMapper_RENAMED parameterValueMapper) {
 		Assert.notNull(target, "Target must not be null");
 		Assert.notNull(operationMethod, "OperationMethod must not be null");
 		Assert.notNull(parameterValueMapper, "ParameterValueMapper must not be null");

@@ -26,7 +26,7 @@ import org.springframework.boot.actuate.endpoint.OperationType;
 import org.springframework.boot.actuate.endpoint.SecurityContext;
 import org.springframework.boot.actuate.endpoint.http.ApiVersion;
 import org.springframework.boot.actuate.endpoint.invoke.MissingParametersException;
-import org.springframework.boot.actuate.endpoint.invoke.ParameterValueMapper;
+import org.springframework.boot.actuate.endpoint.invoke.ParameterValueMapper_RENAMED;
 import org.springframework.lang.Nullable;
 import org.springframework.util.ReflectionUtils;
 
@@ -46,7 +46,7 @@ class ReflectiveOperationInvokerTests {
 
 	private OperationMethod operationMethod;
 
-	private ParameterValueMapper parameterValueMapper;
+	private ParameterValueMapper_RENAMED parameterValueMapper;
 
 	@BeforeEach
 	void setup() {

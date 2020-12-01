@@ -32,7 +32,7 @@ import org.springframework.boot.actuate.endpoint.SecurityContext;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvoker;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvokerAdvisor;
 import org.springframework.boot.actuate.endpoint.invoke.OperationParameters;
-import org.springframework.boot.actuate.endpoint.invoke.ParameterValueMapper;
+import org.springframework.boot.actuate.endpoint.invoke.ParameterValueMapper_RENAMED;
 import org.springframework.boot.actuate.endpoint.invoke.reflect.OperationMethod;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -47,7 +47,7 @@ class DiscoveredOperationsFactoryTests {
 
 	private TestDiscoveredOperationsFactory factory;
 
-	private ParameterValueMapper parameterValueMapper;
+	private ParameterValueMapper_RENAMED parameterValueMapper;
 
 	private List<OperationInvokerAdvisor> invokerAdvisors;
 
@@ -177,7 +177,7 @@ class DiscoveredOperationsFactoryTests {
 
 	static class TestDiscoveredOperationsFactory extends DiscoveredOperationsFactory<TestOperation> {
 
-		TestDiscoveredOperationsFactory(ParameterValueMapper parameterValueMapper,
+		TestDiscoveredOperationsFactory(ParameterValueMapper_RENAMED parameterValueMapper,
 				Collection<OperationInvokerAdvisor> invokerAdvisors) {
 			super(parameterValueMapper, invokerAdvisors);
 		}

@@ -24,7 +24,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.actuate.endpoint.annotation.EndpointConverter;
 import org.springframework.boot.actuate.endpoint.invoke.OperationParameter;
 import org.springframework.boot.actuate.endpoint.invoke.ParameterMappingException;
-import org.springframework.boot.actuate.endpoint.invoke.ParameterValueMapper;
+import org.springframework.boot.actuate.endpoint.invoke.ParameterValueMapper_RENAMED;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
 import org.springframework.boot.test.context.runner.ApplicationContextRunner;
 import org.springframework.context.annotation.Bean;
@@ -51,7 +51,7 @@ class EndpointAutoConfigurationTests {
 	@Test
 	void mapShouldUseConfigurationConverter() {
 		this.contextRunner.withUserConfiguration(ConverterConfiguration.class).run((context) -> {
-			ParameterValueMapper parameterValueMapper = context.getBean(ParameterValueMapper.class);
+			ParameterValueMapper_RENAMED parameterValueMapper = context.getBean(ParameterValueMapper_RENAMED.class);
 			Object paramValue = parameterValueMapper.mapParameterValue(new TestOperationParameter(Person.class),
 					"John Smith");
 			assertThat(paramValue).isInstanceOf(Person.class);
@@ -65,7 +65,7 @@ class EndpointAutoConfigurationTests {
 	void mapWhenConfigurationConverterIsNotQualifiedShouldNotConvert() {
 		assertThatExceptionOfType(ParameterMappingException.class).isThrownBy(() -> {
 			this.contextRunner.withUserConfiguration(NonQualifiedConverterConfiguration.class).run((context) -> {
-				ParameterValueMapper parameterValueMapper = context.getBean(ParameterValueMapper.class);
+				ParameterValueMapper_RENAMED parameterValueMapper = context.getBean(ParameterValueMapper_RENAMED.class);
 				parameterValueMapper.mapParameterValue(new TestOperationParameter(Person.class), "John Smith");
 			});
 
@@ -75,7 +75,7 @@ class EndpointAutoConfigurationTests {
 	@Test
 	void mapShouldUseGenericConfigurationConverter() {
 		this.contextRunner.withUserConfiguration(GenericConverterConfiguration.class).run((context) -> {
-			ParameterValueMapper parameterValueMapper = context.getBean(ParameterValueMapper.class);
+			ParameterValueMapper_RENAMED parameterValueMapper = context.getBean(ParameterValueMapper_RENAMED.class);
 			Object paramValue = parameterValueMapper.mapParameterValue(new TestOperationParameter(Person.class),
 					"John Smith");
 			assertThat(paramValue).isInstanceOf(Person.class);
@@ -89,7 +89,7 @@ class EndpointAutoConfigurationTests {
 	void mapWhenGenericConfigurationConverterIsNotQualifiedShouldNotConvert() {
 		assertThatExceptionOfType(ParameterMappingException.class).isThrownBy(() -> {
 			this.contextRunner.withUserConfiguration(NonQualifiedGenericConverterConfiguration.class).run((context) -> {
-				ParameterValueMapper parameterValueMapper = context.getBean(ParameterValueMapper.class);
+				ParameterValueMapper_RENAMED parameterValueMapper = context.getBean(ParameterValueMapper_RENAMED.class);
 				parameterValueMapper.mapParameterValue(new TestOperationParameter(Person.class), "John Smith");
 			});
 

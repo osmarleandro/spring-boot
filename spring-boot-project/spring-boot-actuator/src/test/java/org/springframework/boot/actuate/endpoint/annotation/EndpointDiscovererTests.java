@@ -40,7 +40,7 @@ import org.springframework.boot.actuate.endpoint.ExposableEndpoint;
 import org.springframework.boot.actuate.endpoint.Operation;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvoker;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvokerAdvisor;
-import org.springframework.boot.actuate.endpoint.invoke.ParameterValueMapper;
+import org.springframework.boot.actuate.endpoint.invoke.ParameterValueMapper_RENAMED;
 import org.springframework.boot.actuate.endpoint.invoke.convert.ConversionServiceParameterValueMapper;
 import org.springframework.boot.actuate.endpoint.invoker.cache.CachingOperationInvoker;
 import org.springframework.boot.actuate.endpoint.invoker.cache.CachingOperationInvokerAdvisor;
@@ -71,7 +71,7 @@ class EndpointDiscovererTests {
 	@Test
 	void createWhenApplicationContextIsNullShouldThrowException() {
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> new TestEndpointDiscoverer(null, mock(ParameterValueMapper.class),
+				.isThrownBy(() -> new TestEndpointDiscoverer(null, mock(ParameterValueMapper_RENAMED.class),
 						Collections.emptyList(), Collections.emptyList()))
 				.withMessageContaining("ApplicationContext must not be null");
 	}
@@ -88,7 +88,7 @@ class EndpointDiscovererTests {
 	void createWhenInvokerAdvisorsIsNullShouldThrowException() {
 		assertThatIllegalArgumentException()
 				.isThrownBy(() -> new TestEndpointDiscoverer(mock(ApplicationContext.class),
-						mock(ParameterValueMapper.class), null, Collections.emptyList()))
+						mock(ParameterValueMapper_RENAMED.class), null, Collections.emptyList()))
 				.withMessageContaining("InvokerAdvisors must not be null");
 	}
 
@@ -96,7 +96,7 @@ class EndpointDiscovererTests {
 	void createWhenFiltersIsNullShouldThrowException() {
 		assertThatIllegalArgumentException()
 				.isThrownBy(() -> new TestEndpointDiscoverer(mock(ApplicationContext.class),
-						mock(ParameterValueMapper.class), Collections.emptyList(), null))
+						mock(ParameterValueMapper_RENAMED.class), Collections.emptyList(), null))
 				.withMessageContaining("Filters must not be null");
 	}
 
@@ -535,7 +535,7 @@ class EndpointDiscovererTests {
 					Collections.singleton(new CachingOperationInvokerAdvisor(timeToLive)), filters);
 		}
 
-		TestEndpointDiscoverer(ApplicationContext applicationContext, ParameterValueMapper parameterValueMapper,
+		TestEndpointDiscoverer(ApplicationContext applicationContext, ParameterValueMapper_RENAMED parameterValueMapper,
 				Collection<OperationInvokerAdvisor> invokerAdvisors,
 				Collection<EndpointFilter<TestExposableEndpoint>> filters) {
 			super(applicationContext, parameterValueMapper, invokerAdvisors, filters);

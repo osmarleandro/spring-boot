@@ -20,7 +20,7 @@ import org.springframework.boot.actuate.endpoint.InvalidEndpointRequestException
 
 /**
  * A {@code ParameterMappingException} is thrown when a failure occurs during
- * {@link ParameterValueMapper#mapParameterValue operation parameter mapping}.
+ * {@link ParameterValueMapper_RENAMED#mapParameterValue operation parameter mapping}.
  *
  * @author Andy Wilkinson
  * @since 2.0.0
