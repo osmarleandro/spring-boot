@@ -44,7 +44,7 @@ import org.springframework.boot.actuate.autoconfigure.metrics.orm.jpa.HibernateM
 import org.springframework.boot.actuate.autoconfigure.metrics.web.client.HttpClientMetricsAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.metrics.web.reactive.WebFluxMetricsAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.metrics.web.servlet.WebMvcMetricsAutoConfiguration;
-import org.springframework.boot.actuate.metrics.web.servlet.WebMvcMetricsFilter;
+import org.springframework.boot.actuate.metrics.web.servlet.WebMvcMetricsFilter_RENAMED;
 import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
 import org.springframework.boot.autoconfigure.http.HttpMessageConvertersAutoConfiguration;
 import org.springframework.boot.autoconfigure.jackson.JacksonAutoConfiguration;
@@ -126,7 +126,7 @@ class MetricsIntegrationTests {
 				.getBeansOfType(FilterRegistrationBean.class);
 		assertThat(filterRegistrations).containsKey("webMvcMetricsFilter");
 		FilterRegistrationBean registration = filterRegistrations.get("webMvcMetricsFilter");
-		assertThat(registration.getFilter()).isInstanceOf(WebMvcMetricsFilter.class);
+		assertThat(registration.getFilter()).isInstanceOf(WebMvcMetricsFilter_RENAMED.class);
 		assertThat((Set<DispatcherType>) ReflectionTestUtils.getField(registration, "dispatcherTypes"))
 				.containsExactlyInAnyOrder(DispatcherType.REQUEST, DispatcherType.ASYNC);
 	}

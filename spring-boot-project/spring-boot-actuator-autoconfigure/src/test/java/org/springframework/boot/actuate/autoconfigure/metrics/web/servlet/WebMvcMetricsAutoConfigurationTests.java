@@ -38,7 +38,7 @@ import org.springframework.boot.actuate.autoconfigure.metrics.test.MetricsRun;
 import org.springframework.boot.actuate.autoconfigure.metrics.web.TestController;
 import org.springframework.boot.actuate.metrics.web.servlet.DefaultWebMvcTagsProvider;
 import org.springframework.boot.actuate.metrics.web.servlet.LongTaskTimingHandlerInterceptor;
-import org.springframework.boot.actuate.metrics.web.servlet.WebMvcMetricsFilter;
+import org.springframework.boot.actuate.metrics.web.servlet.WebMvcMetricsFilter_RENAMED;
 import org.springframework.boot.actuate.metrics.web.servlet.WebMvcTagsContributor;
 import org.springframework.boot.actuate.metrics.web.servlet.WebMvcTagsProvider;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
@@ -89,7 +89,7 @@ class WebMvcMetricsAutoConfigurationTests {
 					.isEqualTo(true);
 			assertThat(context).hasSingleBean(FilterRegistrationBean.class);
 			assertThat(context.getBean(FilterRegistrationBean.class).getFilter())
-					.isInstanceOf(WebMvcMetricsFilter.class);
+					.isInstanceOf(WebMvcMetricsFilter_RENAMED.class);
 		});
 	}
 
@@ -200,7 +200,7 @@ class WebMvcMetricsAutoConfigurationTests {
 			throws Exception {
 		assertThat(context).hasSingleBean(FilterRegistrationBean.class);
 		Filter filter = context.getBean(FilterRegistrationBean.class).getFilter();
-		assertThat(filter).isInstanceOf(WebMvcMetricsFilter.class);
+		assertThat(filter).isInstanceOf(WebMvcMetricsFilter_RENAMED.class);
 		MockMvc mockMvc = MockMvcBuilders.webAppContextSetup(context).addFilters(filter).build();
 		for (String url : urls) {
 			mockMvc.perform(MockMvcRequestBuilders.get(url)).andExpect(status().isOk());

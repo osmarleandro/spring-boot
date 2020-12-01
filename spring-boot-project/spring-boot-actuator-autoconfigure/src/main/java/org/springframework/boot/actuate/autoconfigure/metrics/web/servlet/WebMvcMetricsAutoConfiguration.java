@@ -32,7 +32,7 @@ import org.springframework.boot.actuate.autoconfigure.metrics.OnlyOnceLoggingDen
 import org.springframework.boot.actuate.autoconfigure.metrics.export.simple.SimpleMetricsExportAutoConfiguration;
 import org.springframework.boot.actuate.metrics.web.servlet.DefaultWebMvcTagsProvider;
 import org.springframework.boot.actuate.metrics.web.servlet.LongTaskTimingHandlerInterceptor;
-import org.springframework.boot.actuate.metrics.web.servlet.WebMvcMetricsFilter;
+import org.springframework.boot.actuate.metrics.web.servlet.WebMvcMetricsFilter_RENAMED;
 import org.springframework.boot.actuate.metrics.web.servlet.WebMvcTagsContributor;
 import org.springframework.boot.actuate.metrics.web.servlet.WebMvcTagsProvider;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
@@ -82,12 +82,12 @@ public class WebMvcMetricsAutoConfiguration {
 	}
 
 	@Bean
-	public FilterRegistrationBean<WebMvcMetricsFilter> webMvcMetricsFilter(MeterRegistry registry,
+	public FilterRegistrationBean<WebMvcMetricsFilter_RENAMED> webMvcMetricsFilter(MeterRegistry registry,
 			WebMvcTagsProvider tagsProvider) {
 		ServerRequest request = this.properties.getWeb().getServer().getRequest();
-		WebMvcMetricsFilter filter = new WebMvcMetricsFilter(registry, tagsProvider, request.getMetricName(),
+		WebMvcMetricsFilter_RENAMED filter = new WebMvcMetricsFilter_RENAMED(registry, tagsProvider, request.getMetricName(),
 				request.getAutotime());
-		FilterRegistrationBean<WebMvcMetricsFilter> registration = new FilterRegistrationBean<>(filter);
+		FilterRegistrationBean<WebMvcMetricsFilter_RENAMED> registration = new FilterRegistrationBean<>(filter);
 		registration.setOrder(Ordered.HIGHEST_PRECEDENCE + 1);
 		registration.setDispatcherTypes(DispatcherType.REQUEST, DispatcherType.ASYNC);
 		return registration;

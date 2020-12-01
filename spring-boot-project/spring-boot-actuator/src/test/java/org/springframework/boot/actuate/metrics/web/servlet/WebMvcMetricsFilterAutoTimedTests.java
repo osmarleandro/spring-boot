@@ -47,7 +47,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /**
- * Test for {@link WebMvcMetricsFilter} with auto-timed enabled.
+ * Test for {@link WebMvcMetricsFilter_RENAMED} with auto-timed enabled.
  *
  * @author Jon Schneider
  * @author Tadaya Tsuyukubo
@@ -65,7 +65,7 @@ class WebMvcMetricsFilterAutoTimedTests {
 	private MockMvc mvc;
 
 	@Autowired
-	private WebMvcMetricsFilter filter;
+	private WebMvcMetricsFilter_RENAMED filter;
 
 	@BeforeEach
 	void setupMockMvc() {
@@ -99,8 +99,8 @@ class WebMvcMetricsFilterAutoTimedTests {
 		}
 
 		@Bean
-		WebMvcMetricsFilter webMetricsFilter(WebApplicationContext context, MeterRegistry registry) {
-			return new WebMvcMetricsFilter(registry, new DefaultWebMvcTagsProvider(), "http.server.requests",
+		WebMvcMetricsFilter_RENAMED webMetricsFilter(WebApplicationContext context, MeterRegistry registry) {
+			return new WebMvcMetricsFilter_RENAMED(registry, new DefaultWebMvcTagsProvider(), "http.server.requests",
 					(builder) -> builder.publishPercentiles(0.5, 0.95).publishPercentileHistogram(true));
 		}
 

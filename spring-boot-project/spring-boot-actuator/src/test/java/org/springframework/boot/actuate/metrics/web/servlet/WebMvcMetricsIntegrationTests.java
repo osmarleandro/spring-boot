@@ -52,7 +52,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /**
- * Tests for {@link WebMvcMetricsFilter} in the presence of a custom exception handler.
+ * Tests for {@link WebMvcMetricsFilter_RENAMED} in the presence of a custom exception handler.
  *
  * @author Jon Schneider
  */
@@ -68,7 +68,7 @@ class WebMvcMetricsIntegrationTests {
 	private SimpleMeterRegistry registry;
 
 	@Autowired
-	private WebMvcMetricsFilter filter;
+	private WebMvcMetricsFilter_RENAMED filter;
 
 	private MockMvc mvc;
 
@@ -107,8 +107,8 @@ class WebMvcMetricsIntegrationTests {
 		}
 
 		@Bean
-		WebMvcMetricsFilter webMetricsFilter(MeterRegistry registry, WebApplicationContext ctx) {
-			return new WebMvcMetricsFilter(registry, new DefaultWebMvcTagsProvider(), "http.server.requests",
+		WebMvcMetricsFilter_RENAMED webMetricsFilter(MeterRegistry registry, WebApplicationContext ctx) {
+			return new WebMvcMetricsFilter_RENAMED(registry, new DefaultWebMvcTagsProvider(), "http.server.requests",
 					AutoTimer.ENABLED);
 		}
 
