@@ -33,7 +33,7 @@ import org.springframework.beans.factory.ListableBeanFactory;
 import org.springframework.boot.actuate.autoconfigure.web.ManagementContextConfiguration;
 import org.springframework.boot.actuate.autoconfigure.web.ManagementContextType;
 import org.springframework.boot.actuate.autoconfigure.web.server.ManagementServerProperties;
-import org.springframework.boot.actuate.autoconfigure.web.server.ManagementWebServerFactoryCustomizer;
+import org.springframework.boot.actuate.autoconfigure.web.server.ManagementWebServerFactoryCustomizer_RENAMED;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
@@ -111,7 +111,7 @@ class ServletManagementChildContextConfiguration {
 	}
 
 	static class ServletManagementWebServerFactoryCustomizer
-			extends ManagementWebServerFactoryCustomizer<ConfigurableServletWebServerFactory> {
+			extends ManagementWebServerFactoryCustomizer_RENAMED<ConfigurableServletWebServerFactory> {
 
 		ServletManagementWebServerFactoryCustomizer(ListableBeanFactory beanFactory) {
 			super(beanFactory, ServletWebServerFactoryCustomizer.class, TomcatServletWebServerFactoryCustomizer.class,

@@ -19,7 +19,7 @@ package org.springframework.boot.actuate.autoconfigure.web.reactive;
 import org.springframework.beans.factory.ListableBeanFactory;
 import org.springframework.boot.actuate.autoconfigure.web.ManagementContextConfiguration;
 import org.springframework.boot.actuate.autoconfigure.web.ManagementContextType;
-import org.springframework.boot.actuate.autoconfigure.web.server.ManagementWebServerFactoryCustomizer;
+import org.springframework.boot.actuate.autoconfigure.web.server.ManagementWebServerFactoryCustomizer_RENAMED;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication.Type;
 import org.springframework.boot.autoconfigure.web.embedded.JettyWebServerFactoryCustomizer;
@@ -61,7 +61,7 @@ public class ReactiveManagementChildContextConfiguration {
 	}
 
 	static class ReactiveManagementWebServerFactoryCustomizer
-			extends ManagementWebServerFactoryCustomizer<ConfigurableReactiveWebServerFactory> {
+			extends ManagementWebServerFactoryCustomizer_RENAMED<ConfigurableReactiveWebServerFactory> {
 
 		ReactiveManagementWebServerFactoryCustomizer(ListableBeanFactory beanFactory) {
 			super(beanFactory, ReactiveWebServerFactoryCustomizer.class, TomcatWebServerFactoryCustomizer.class,

@@ -41,7 +41,7 @@ import org.springframework.core.Ordered;
  * @author Andy Wilkinson
  * @since 2.0.0
  */
-public abstract class ManagementWebServerFactoryCustomizer<T extends ConfigurableWebServerFactory>
+public abstract class ManagementWebServerFactoryCustomizer_RENAMED<T extends ConfigurableWebServerFactory>
 		implements WebServerFactoryCustomizer<T>, Ordered {
 
 	private final ListableBeanFactory beanFactory;
@@ -50,7 +50,7 @@ public abstract class ManagementWebServerFactoryCustomizer<T extends Configurabl
 
 	@SafeVarargs
 	@SuppressWarnings("varargs")
-	protected ManagementWebServerFactoryCustomizer(ListableBeanFactory beanFactory,
+	protected ManagementWebServerFactoryCustomizer_RENAMED(ListableBeanFactory beanFactory,
 			Class<? extends WebServerFactoryCustomizer<?>>... customizerClasses) {
 		this.beanFactory = beanFactory;
 		this.customizerClasses = customizerClasses;
