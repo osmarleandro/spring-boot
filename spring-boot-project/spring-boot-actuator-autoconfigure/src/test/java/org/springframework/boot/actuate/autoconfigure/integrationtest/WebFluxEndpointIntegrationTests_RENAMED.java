@@ -41,7 +41,7 @@ import org.springframework.test.web.reactive.server.WebTestClient;
  *
  * @author Andy Wilkinson
  */
-class WebFluxEndpointIntegrationTests {
+class WebFluxEndpointIntegrationTests_RENAMED {
 
 	@Test
 	void linksAreProvidedToAllEndpointTypes() throws Exception {
