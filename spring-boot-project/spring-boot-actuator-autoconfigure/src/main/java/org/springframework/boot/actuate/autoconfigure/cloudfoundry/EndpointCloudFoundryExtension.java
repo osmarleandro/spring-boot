@@ -36,7 +36,7 @@ import org.springframework.boot.actuate.endpoint.annotation.EndpointExtension;
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-@EndpointExtension(filter = CloudFoundryEndpointFilter.class)
+@EndpointExtension(filter = CloudFoundryEndpointFilter_RENAMED.class)
 public @interface EndpointCloudFoundryExtension {
 
 	/**

@@ -25,13 +25,13 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
 
 /**
- * Tests for {@link CloudFoundryEndpointFilter}.
+ * Tests for {@link CloudFoundryEndpointFilter_RENAMED}.
  *
  * @author Madhura Bhave
  */
 class CloudFoundryEndpointFilterTests {
 
-	private CloudFoundryEndpointFilter filter = new CloudFoundryEndpointFilter();
+	private CloudFoundryEndpointFilter_RENAMED filter = new CloudFoundryEndpointFilter_RENAMED();
 
 	@Test
 	void matchIfDiscovererCloudFoundryShouldReturnFalse() {

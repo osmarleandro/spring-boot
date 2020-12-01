@@ -25,9 +25,9 @@ import org.springframework.boot.actuate.endpoint.annotation.DiscovererEndpointFi
  *
  * @author Madhura Bhave
  */
-class CloudFoundryEndpointFilter extends DiscovererEndpointFilter {
+class CloudFoundryEndpointFilter_RENAMED extends DiscovererEndpointFilter {
 
-	protected CloudFoundryEndpointFilter() {
+	protected CloudFoundryEndpointFilter_RENAMED() {
 		super(CloudFoundryWebEndpointDiscoverer.class);
 	}
 
