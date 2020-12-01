@@ -21,7 +21,7 @@ import java.util.Collections;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.junit.jupiter.api.Test;
 
-import org.springframework.boot.actuate.endpoint.web.ServletEndpointRegistrar;
+import org.springframework.boot.actuate.endpoint.web.ServletEndpointRegistrar_RENAMED;
 import org.springframework.boot.actuate.endpoint.web.annotation.ServletEndpointsSupplier;
 import org.springframework.boot.autoconfigure.web.servlet.DispatcherServletPath;
 import org.springframework.boot.autoconfigure.web.servlet.JerseyApplicationPath;
@@ -51,8 +51,8 @@ class ServletEndpointManagementContextConfigurationTests {
 	void contextShouldContainServletEndpointRegistrar() {
 		FilteredClassLoader classLoader = new FilteredClassLoader(ResourceConfig.class);
 		this.contextRunner.withClassLoader(classLoader).run((context) -> {
-			assertThat(context).hasSingleBean(ServletEndpointRegistrar.class);
-			ServletEndpointRegistrar bean = context.getBean(ServletEndpointRegistrar.class);
+			assertThat(context).hasSingleBean(ServletEndpointRegistrar_RENAMED.class);
+			ServletEndpointRegistrar_RENAMED bean = context.getBean(ServletEndpointRegistrar_RENAMED.class);
 			assertThat(bean).hasFieldOrPropertyWithValue("basePath", "/test/actuator");
 		});
 	}
@@ -61,8 +61,8 @@ class ServletEndpointManagementContextConfigurationTests {
 	void contextWhenJerseyShouldContainServletEndpointRegistrar() {
 		FilteredClassLoader classLoader = new FilteredClassLoader(DispatcherServlet.class);
 		this.contextRunner.withClassLoader(classLoader).run((context) -> {
-			assertThat(context).hasSingleBean(ServletEndpointRegistrar.class);
-			ServletEndpointRegistrar bean = context.getBean(ServletEndpointRegistrar.class);
+			assertThat(context).hasSingleBean(ServletEndpointRegistrar_RENAMED.class);
+			ServletEndpointRegistrar_RENAMED bean = context.getBean(ServletEndpointRegistrar_RENAMED.class);
 			assertThat(bean).hasFieldOrPropertyWithValue("basePath", "/jersey/actuator");
 		});
 	}
@@ -70,7 +70,7 @@ class ServletEndpointManagementContextConfigurationTests {
 	@Test
 	void contextWhenNoServletBasedShouldNotContainServletEndpointRegistrar() {
 		new ApplicationContextRunner().withUserConfiguration(TestConfig.class)
-				.run((context) -> assertThat(context).doesNotHaveBean(ServletEndpointRegistrar.class));
+				.run((context) -> assertThat(context).doesNotHaveBean(ServletEndpointRegistrar_RENAMED.class));
 	}
 
 	@Configuration(proxyBeanMethods = false)
