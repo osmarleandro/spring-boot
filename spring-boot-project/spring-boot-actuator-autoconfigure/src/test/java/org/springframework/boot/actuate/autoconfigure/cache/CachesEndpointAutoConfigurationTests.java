@@ -27,7 +27,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 
 /**
- * Tests for {@link CachesEndpointAutoConfiguration}.
+ * Tests for {@link CachesEndpointAutoConfiguration_RENAMED}.
  *
  * @author Johannes Edmeier
  * @author Stephane Nicoll
@@ -35,7 +35,7 @@ import static org.mockito.Mockito.mock;
 class CachesEndpointAutoConfigurationTests {
 
 	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
-			.withConfiguration(AutoConfigurations.of(CachesEndpointAutoConfiguration.class));
+			.withConfiguration(AutoConfigurations.of(CachesEndpointAutoConfiguration_RENAMED.class));
 
 	@Test
 	void runShouldHaveEndpointBean() {

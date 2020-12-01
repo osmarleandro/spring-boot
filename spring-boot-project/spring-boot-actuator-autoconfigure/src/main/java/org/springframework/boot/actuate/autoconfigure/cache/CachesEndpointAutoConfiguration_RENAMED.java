@@ -42,7 +42,7 @@ import org.springframework.context.annotation.Configuration;
 @ConditionalOnClass(CacheManager.class)
 @ConditionalOnAvailableEndpoint(endpoint = CachesEndpoint.class)
 @AutoConfigureAfter(CacheAutoConfiguration.class)
-public class CachesEndpointAutoConfiguration {
+public class CachesEndpointAutoConfiguration_RENAMED {
 
 	@Bean
 	@ConditionalOnMissingBean
