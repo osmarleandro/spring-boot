@@ -47,7 +47,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 
 /**
- * Tests for {@link TomcatMetricsAutoConfiguration}.
+ * Tests for {@link TomcatMetricsAutoConfiguration_RENAMED}.
  *
  * @author Andy Wilkinson
  */
@@ -57,7 +57,7 @@ class TomcatMetricsAutoConfigurationTests {
 	void autoConfiguresTomcatMetricsWithEmbeddedServletTomcat() {
 		resetTomcatState();
 		new WebApplicationContextRunner(AnnotationConfigServletWebServerApplicationContext::new)
-				.withConfiguration(AutoConfigurations.of(TomcatMetricsAutoConfiguration.class,
+				.withConfiguration(AutoConfigurations.of(TomcatMetricsAutoConfiguration_RENAMED.class,
 						ServletWebServerFactoryAutoConfiguration.class))
 				.withUserConfiguration(ServletWebServerConfiguration.class, MeterRegistryConfiguration.class)
 				.withPropertyValues("server.tomcat.mbeanregistry.enabled=true").run((context) -> {
@@ -74,7 +74,7 @@ class TomcatMetricsAutoConfigurationTests {
 	void autoConfiguresTomcatMetricsWithEmbeddedReactiveTomcat() {
 		resetTomcatState();
 		new ReactiveWebApplicationContextRunner(AnnotationConfigReactiveWebServerApplicationContext::new)
-				.withConfiguration(AutoConfigurations.of(TomcatMetricsAutoConfiguration.class,
+				.withConfiguration(AutoConfigurations.of(TomcatMetricsAutoConfiguration_RENAMED.class,
 						ReactiveWebServerFactoryAutoConfiguration.class))
 				.withUserConfiguration(ReactiveWebServerConfiguration.class, MeterRegistryConfiguration.class)
 				.withPropertyValues("server.tomcat.mbeanregistry.enabled=true").run((context) -> {
@@ -88,14 +88,14 @@ class TomcatMetricsAutoConfigurationTests {
 
 	@Test
 	void autoConfiguresTomcatMetricsWithStandaloneTomcat() {
-		new WebApplicationContextRunner().withConfiguration(AutoConfigurations.of(TomcatMetricsAutoConfiguration.class))
+		new WebApplicationContextRunner().withConfiguration(AutoConfigurations.of(TomcatMetricsAutoConfiguration_RENAMED.class))
 				.withUserConfiguration(MeterRegistryConfiguration.class)
 				.run((context) -> assertThat(context).hasSingleBean(TomcatMetricsBinder.class));
 	}
 
 	@Test
 	void allowsCustomTomcatMetricsBinderToBeUsed() {
-		new WebApplicationContextRunner().withConfiguration(AutoConfigurations.of(TomcatMetricsAutoConfiguration.class))
+		new WebApplicationContextRunner().withConfiguration(AutoConfigurations.of(TomcatMetricsAutoConfiguration_RENAMED.class))
 				.withUserConfiguration(MeterRegistryConfiguration.class, CustomTomcatMetricsBinder.class)
 				.run((context) -> assertThat(context).hasSingleBean(TomcatMetricsBinder.class)
 						.hasBean("customTomcatMetricsBinder"));
@@ -103,7 +103,7 @@ class TomcatMetricsAutoConfigurationTests {
 
 	@Test
 	void allowsCustomTomcatMetricsToBeUsed() {
-		new WebApplicationContextRunner().withConfiguration(AutoConfigurations.of(TomcatMetricsAutoConfiguration.class))
+		new WebApplicationContextRunner().withConfiguration(AutoConfigurations.of(TomcatMetricsAutoConfiguration_RENAMED.class))
 				.withUserConfiguration(MeterRegistryConfiguration.class, CustomTomcatMetrics.class)
 				.run((context) -> assertThat(context).doesNotHaveBean(TomcatMetricsBinder.class)
 						.hasBean("customTomcatMetrics"));

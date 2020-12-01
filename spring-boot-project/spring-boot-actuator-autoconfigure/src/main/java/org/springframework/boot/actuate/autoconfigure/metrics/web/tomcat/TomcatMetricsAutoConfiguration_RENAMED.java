@@ -41,7 +41,7 @@ import org.springframework.context.annotation.Configuration;
 @ConditionalOnWebApplication
 @ConditionalOnClass({ TomcatMetrics.class, Manager.class })
 @AutoConfigureAfter(CompositeMeterRegistryAutoConfiguration.class)
-public class TomcatMetricsAutoConfiguration {
+public class TomcatMetricsAutoConfiguration_RENAMED {
 
 	@Bean
 	@ConditionalOnBean(MeterRegistry.class)
