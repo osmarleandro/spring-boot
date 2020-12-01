@@ -25,7 +25,7 @@ import reactor.core.publisher.Mono;
 import org.springframework.boot.actuate.endpoint.SecurityContext;
 import org.springframework.boot.actuate.endpoint.http.ApiVersion;
 import org.springframework.boot.actuate.endpoint.web.WebEndpointResponse;
-import org.springframework.boot.actuate.health.DefaultHealthContributorRegistry;
+import org.springframework.boot.actuate.health.DefaultHealthContributorRegistry_RENAMED;
 import org.springframework.boot.actuate.health.DefaultReactiveHealthContributorRegistry;
 import org.springframework.boot.actuate.health.Health;
 import org.springframework.boot.actuate.health.HealthComponent;
@@ -316,7 +316,7 @@ class HealthEndpointAutoConfigurationTests {
 
 		@Bean
 		HealthContributorRegistry healthContributorRegistry() {
-			return new DefaultHealthContributorRegistry();
+			return new DefaultHealthContributorRegistry_RENAMED();
 		}
 
 	}

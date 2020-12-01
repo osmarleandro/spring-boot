@@ -29,7 +29,7 @@ import org.junit.jupiter.api.Test;
 
 import org.springframework.boot.actuate.endpoint.SecurityContext;
 import org.springframework.boot.actuate.health.CompositeHealthContributor;
-import org.springframework.boot.actuate.health.DefaultHealthContributorRegistry;
+import org.springframework.boot.actuate.health.DefaultHealthContributorRegistry_RENAMED;
 import org.springframework.boot.actuate.health.Health;
 import org.springframework.boot.actuate.health.HealthContributor;
 import org.springframework.boot.actuate.health.HealthContributorRegistry;
@@ -107,7 +107,7 @@ class HealthEndpointDocumentationTests extends MockMvcEndpointDocumentationTests
 
 		@Bean
 		HealthEndpoint healthEndpoint(Map<String, HealthContributor> healthContributors) {
-			HealthContributorRegistry registry = new DefaultHealthContributorRegistry(healthContributors);
+			HealthContributorRegistry registry = new DefaultHealthContributorRegistry_RENAMED(healthContributors);
 			HealthEndpointGroup primary = new TestHealthEndpointGroup();
 			HealthEndpointGroups groups = HealthEndpointGroups.of(primary, Collections.emptyMap());
 			return new HealthEndpoint(registry, groups);

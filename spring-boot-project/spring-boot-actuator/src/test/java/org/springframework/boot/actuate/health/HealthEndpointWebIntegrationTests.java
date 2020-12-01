@@ -169,7 +169,7 @@ class HealthEndpointWebIntegrationTests {
 
 		@Bean
 		HealthContributorRegistry healthContributorRegistry(Map<String, HealthContributor> healthContributorBeans) {
-			return new DefaultHealthContributorRegistry(healthContributorBeans);
+			return new DefaultHealthContributorRegistry_RENAMED(healthContributorBeans);
 		}
 
 		@Bean

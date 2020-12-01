@@ -30,7 +30,7 @@ import org.springframework.util.Assert;
  *
  * @param <C> the health contributor type
  * @author Phillip Webb
- * @see DefaultHealthContributorRegistry
+ * @see DefaultHealthContributorRegistry_RENAMED
  * @see DefaultReactiveHealthContributorRegistry
  */
 class DefaultContributorRegistry<C> implements ContributorRegistry<C> {
