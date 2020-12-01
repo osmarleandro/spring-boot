@@ -30,7 +30,7 @@ import org.springframework.boot.actuate.endpoint.http.ApiVersion;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Tests for {@link SystemHealth}.
+ * Tests for {@link SystemHealth_RENAMED}.
  *
  * @author Phillip Webb
  */
@@ -42,7 +42,7 @@ class SystemHealthTests {
 		components.put("db1", Health.up().build());
 		components.put("db2", Health.down().withDetail("a", "b").build());
 		Set<String> groups = new LinkedHashSet<>(Arrays.asList("liveness", "readiness"));
-		CompositeHealth health = new SystemHealth(ApiVersion.V3, Status.UP, components, groups);
+		CompositeHealth health = new SystemHealth_RENAMED(ApiVersion.V3, Status.UP, components, groups);
 		ObjectMapper mapper = new ObjectMapper();
 		String json = mapper.writeValueAsString(health);
 		assertThat(json).isEqualTo("{\"status\":\"UP\",\"components\":{\"db1\":{\"status\":\"UP\"},"

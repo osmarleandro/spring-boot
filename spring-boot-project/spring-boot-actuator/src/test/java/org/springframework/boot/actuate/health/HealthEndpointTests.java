@@ -40,7 +40,7 @@ class HealthEndpointTests
 		this.registry.registerContributor("test", createContributor(this.up));
 		HealthComponent health = create(this.registry, this.groups).health();
 		assertThat(health.getStatus()).isEqualTo(Status.UP);
-		assertThat(health).isInstanceOf(SystemHealth.class);
+		assertThat(health).isInstanceOf(SystemHealth_RENAMED.class);
 	}
 
 	@Test

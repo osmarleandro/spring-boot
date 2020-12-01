@@ -190,7 +190,7 @@ abstract class HealthEndpointSupportTests<R extends ContributorRegistry<C>, C, T
 		this.registry.registerContributor("test", createContributor(this.up));
 		HealthResult<T> result = create(this.registry, this.groups).getHealth(ApiVersion.V3, SecurityContext.NONE,
 				false);
-		assertThat(((SystemHealth) getHealth(result)).getGroups()).containsOnly("alltheas");
+		assertThat(((SystemHealth_RENAMED) getHealth(result)).getGroups()).containsOnly("alltheas");
 	}
 
 	@Test
@@ -198,7 +198,7 @@ abstract class HealthEndpointSupportTests<R extends ContributorRegistry<C>, C, T
 		this.registry.registerContributor("atest", createContributor(this.up));
 		HealthResult<T> result = create(this.registry, this.groups).getHealth(ApiVersion.V3, SecurityContext.NONE,
 				false, "alltheas");
-		assertThat(getHealth(result)).isNotInstanceOf(SystemHealth.class);
+		assertThat(getHealth(result)).isNotInstanceOf(SystemHealth_RENAMED.class);
 	}
 
 	@Test

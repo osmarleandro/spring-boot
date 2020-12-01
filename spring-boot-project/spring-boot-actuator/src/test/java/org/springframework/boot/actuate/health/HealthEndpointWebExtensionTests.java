@@ -45,7 +45,7 @@ class HealthEndpointWebExtensionTests
 				SecurityContext.NONE);
 		HealthComponent health = response.getBody();
 		assertThat(health.getStatus()).isEqualTo(Status.UP);
-		assertThat(health).isInstanceOf(SystemHealth.class);
+		assertThat(health).isInstanceOf(SystemHealth_RENAMED.class);
 		assertThat(response.getStatus()).isEqualTo(200);
 	}
 
