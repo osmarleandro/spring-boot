@@ -24,9 +24,9 @@ import org.springframework.context.annotation.Condition;
  *
  * @author Stephane Nicoll
  */
-class OnEnabledInfoContributorCondition extends OnEndpointElementCondition {
+class OnEnabledInfoContributorCondition_RENAMED extends OnEndpointElementCondition {
 
-	OnEnabledInfoContributorCondition() {
+	OnEnabledInfoContributorCondition_RENAMED() {
 		super("management.info.", ConditionalOnEnabledInfoContributor.class);
 	}
 
