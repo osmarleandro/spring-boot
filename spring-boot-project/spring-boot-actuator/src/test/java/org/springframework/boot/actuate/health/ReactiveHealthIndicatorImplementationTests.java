@@ -28,7 +28,7 @@ import org.springframework.boot.test.system.OutputCaptureExtension;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Tests for {@link AbstractReactiveHealthIndicator}.
+ * Tests for {@link AbstractReactiveHealthIndicator_RENAMED}.
  *
  * @author Dmytro Nosan
  * @author Stephane Nicoll
@@ -59,7 +59,7 @@ class ReactiveHealthIndicatorImplementationTests {
 		assertThat(output).contains("Health check failed with RuntimeException");
 	}
 
-	private static final class SimpleReactiveHealthIndicator extends AbstractReactiveHealthIndicator {
+	private static final class SimpleReactiveHealthIndicator extends AbstractReactiveHealthIndicator_RENAMED {
 
 		SimpleReactiveHealthIndicator() {
 			super("Health check failed for simple");
@@ -72,7 +72,7 @@ class ReactiveHealthIndicatorImplementationTests {
 
 	}
 
-	private static final class CustomErrorMessageReactiveHealthIndicator extends AbstractReactiveHealthIndicator {
+	private static final class CustomErrorMessageReactiveHealthIndicator extends AbstractReactiveHealthIndicator_RENAMED {
 
 		CustomErrorMessageReactiveHealthIndicator() {
 			super("Health check failed for custom");
@@ -86,7 +86,7 @@ class ReactiveHealthIndicatorImplementationTests {
 	}
 
 	private static final class CustomErrorMessageFunctionReactiveHealthIndicator
-			extends AbstractReactiveHealthIndicator {
+			extends AbstractReactiveHealthIndicator_RENAMED {
 
 		CustomErrorMessageFunctionReactiveHealthIndicator() {
 			super((ex) -> "Health check failed with " + ex.getClass().getSimpleName());

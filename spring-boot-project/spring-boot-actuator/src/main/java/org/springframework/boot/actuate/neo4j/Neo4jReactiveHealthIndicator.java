@@ -27,7 +27,7 @@ import reactor.core.publisher.Mono;
 import reactor.util.function.Tuple2;
 import reactor.util.retry.Retry;
 
-import org.springframework.boot.actuate.health.AbstractReactiveHealthIndicator;
+import org.springframework.boot.actuate.health.AbstractReactiveHealthIndicator_RENAMED;
 import org.springframework.boot.actuate.health.Health;
 import org.springframework.boot.actuate.health.ReactiveHealthIndicator;
 
@@ -39,7 +39,7 @@ import org.springframework.boot.actuate.health.ReactiveHealthIndicator;
  * @author Stephane Nicoll
  * @since 2.4.0
  */
-public final class Neo4jReactiveHealthIndicator extends AbstractReactiveHealthIndicator {
+public final class Neo4jReactiveHealthIndicator extends AbstractReactiveHealthIndicator_RENAMED {
 
 	private static final Log logger = LogFactory.getLog(Neo4jReactiveHealthIndicator.class);
 

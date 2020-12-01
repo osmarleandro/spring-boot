@@ -24,7 +24,7 @@ import io.r2dbc.spi.ValidationDepth;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-import org.springframework.boot.actuate.health.AbstractReactiveHealthIndicator;
+import org.springframework.boot.actuate.health.AbstractReactiveHealthIndicator_RENAMED;
 import org.springframework.boot.actuate.health.Health;
 import org.springframework.boot.actuate.health.Health.Builder;
 import org.springframework.boot.actuate.health.HealthIndicator;
@@ -39,7 +39,7 @@ import org.springframework.util.StringUtils;
  * @author Stephane Nicoll
  * @since 2.3.0
  */
-public class ConnectionFactoryHealthIndicator extends AbstractReactiveHealthIndicator {
+public class ConnectionFactoryHealthIndicator extends AbstractReactiveHealthIndicator_RENAMED {
 
 	private final ConnectionFactory connectionFactory;
 

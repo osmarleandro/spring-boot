@@ -20,7 +20,7 @@ import java.util.Map;
 
 import reactor.core.publisher.Mono;
 
-import org.springframework.boot.actuate.health.AbstractReactiveHealthIndicator;
+import org.springframework.boot.actuate.health.AbstractReactiveHealthIndicator_RENAMED;
 import org.springframework.boot.actuate.health.Health;
 import org.springframework.boot.actuate.health.HealthIndicator;
 import org.springframework.boot.actuate.health.Status;
@@ -38,7 +38,7 @@ import org.springframework.web.reactive.function.client.WebClient;
  * @author Scott Frederick
  * @since 2.3.2
  */
-public class ElasticsearchReactiveHealthIndicator extends AbstractReactiveHealthIndicator {
+public class ElasticsearchReactiveHealthIndicator extends AbstractReactiveHealthIndicator_RENAMED {
 
 	private static final ParameterizedTypeReference<Map<String, Object>> STRING_OBJECT_MAP = new ParameterizedTypeReference<Map<String, Object>>() {
 	};

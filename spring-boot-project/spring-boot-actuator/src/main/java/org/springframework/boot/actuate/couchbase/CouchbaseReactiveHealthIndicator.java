@@ -19,7 +19,7 @@ import com.couchbase.client.core.diagnostics.DiagnosticsResult;
 import com.couchbase.client.java.Cluster;
 import reactor.core.publisher.Mono;
 
-import org.springframework.boot.actuate.health.AbstractReactiveHealthIndicator;
+import org.springframework.boot.actuate.health.AbstractReactiveHealthIndicator_RENAMED;
 import org.springframework.boot.actuate.health.Health;
 import org.springframework.boot.actuate.health.ReactiveHealthIndicator;
 
@@ -30,7 +30,7 @@ import org.springframework.boot.actuate.health.ReactiveHealthIndicator;
  * @author Stephane Nicoll
  * @since 2.1.0
  */
-public class CouchbaseReactiveHealthIndicator extends AbstractReactiveHealthIndicator {
+public class CouchbaseReactiveHealthIndicator extends AbstractReactiveHealthIndicator_RENAMED {
 
 	private final Cluster cluster;
 

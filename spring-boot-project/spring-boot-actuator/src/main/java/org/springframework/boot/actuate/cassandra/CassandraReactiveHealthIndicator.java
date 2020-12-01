@@ -19,7 +19,7 @@ import com.datastax.oss.driver.api.core.ConsistencyLevel;
 import com.datastax.oss.driver.api.core.cql.SimpleStatement;
 import reactor.core.publisher.Mono;
 
-import org.springframework.boot.actuate.health.AbstractReactiveHealthIndicator;
+import org.springframework.boot.actuate.health.AbstractReactiveHealthIndicator_RENAMED;
 import org.springframework.boot.actuate.health.Health;
 import org.springframework.boot.actuate.health.ReactiveHealthIndicator;
 import org.springframework.data.cassandra.core.ReactiveCassandraOperations;
@@ -33,7 +33,7 @@ import org.springframework.util.Assert;
  * @deprecated since 2.4.0 in favor of {@link CassandraDriverHealthIndicator}
  */
 @Deprecated
-public class CassandraReactiveHealthIndicator extends AbstractReactiveHealthIndicator {
+public class CassandraReactiveHealthIndicator extends AbstractReactiveHealthIndicator_RENAMED {
 
 	private static final SimpleStatement SELECT = SimpleStatement
 			.newInstance("SELECT release_version FROM system.local").setConsistencyLevel(ConsistencyLevel.LOCAL_ONE);

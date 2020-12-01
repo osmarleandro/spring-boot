@@ -23,7 +23,7 @@ import com.datastax.oss.driver.api.core.metadata.Node;
 import com.datastax.oss.driver.api.core.metadata.NodeState;
 import reactor.core.publisher.Mono;
 
-import org.springframework.boot.actuate.health.AbstractReactiveHealthIndicator;
+import org.springframework.boot.actuate.health.AbstractReactiveHealthIndicator_RENAMED;
 import org.springframework.boot.actuate.health.Health;
 import org.springframework.boot.actuate.health.ReactiveHealthIndicator;
 import org.springframework.boot.actuate.health.Status;
@@ -37,7 +37,7 @@ import org.springframework.util.Assert;
  * @author Tomasz Lelek
  * @since 2.4.0
  */
-public class CassandraDriverReactiveHealthIndicator extends AbstractReactiveHealthIndicator {
+public class CassandraDriverReactiveHealthIndicator extends AbstractReactiveHealthIndicator_RENAMED {
 
 	private final CqlSession session;
 

@@ -19,7 +19,7 @@ package org.springframework.boot.actuate.mongo;
 import org.bson.Document;
 import reactor.core.publisher.Mono;
 
-import org.springframework.boot.actuate.health.AbstractReactiveHealthIndicator;
+import org.springframework.boot.actuate.health.AbstractReactiveHealthIndicator_RENAMED;
 import org.springframework.boot.actuate.health.Health;
 import org.springframework.boot.actuate.health.ReactiveHealthIndicator;
 import org.springframework.data.mongodb.core.ReactiveMongoTemplate;
@@ -31,7 +31,7 @@ import org.springframework.util.Assert;
  * @author Yulin Qin
  * @since 2.0.0
  */
-public class MongoReactiveHealthIndicator extends AbstractReactiveHealthIndicator {
+public class MongoReactiveHealthIndicator extends AbstractReactiveHealthIndicator_RENAMED {
 
 	private final ReactiveMongoTemplate reactiveMongoTemplate;
 

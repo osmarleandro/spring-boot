@@ -21,7 +21,7 @@ import java.util.Properties;
 import reactor.core.publisher.Mono;
 import reactor.core.scheduler.Schedulers;
 
-import org.springframework.boot.actuate.health.AbstractReactiveHealthIndicator;
+import org.springframework.boot.actuate.health.AbstractReactiveHealthIndicator_RENAMED;
 import org.springframework.boot.actuate.health.Health;
 import org.springframework.boot.actuate.health.ReactiveHealthIndicator;
 import org.springframework.data.redis.connection.ClusterInfo;
@@ -38,7 +38,7 @@ import org.springframework.data.redis.connection.ReactiveRedisConnectionFactory;
  * @author Scott Frederick
  * @since 2.0.0
  */
-public class RedisReactiveHealthIndicator extends AbstractReactiveHealthIndicator {
+public class RedisReactiveHealthIndicator extends AbstractReactiveHealthIndicator_RENAMED {
 
 	private final ReactiveRedisConnectionFactory connectionFactory;
 
