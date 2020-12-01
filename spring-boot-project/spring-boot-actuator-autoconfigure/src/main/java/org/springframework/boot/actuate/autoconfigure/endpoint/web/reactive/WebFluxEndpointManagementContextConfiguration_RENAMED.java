@@ -59,7 +59,7 @@ import org.springframework.web.reactive.DispatcherHandler;
 @ConditionalOnClass({ DispatcherHandler.class, HttpHandler.class })
 @ConditionalOnBean(WebEndpointsSupplier.class)
 @EnableConfigurationProperties(CorsEndpointProperties.class)
-public class WebFluxEndpointManagementContextConfiguration {
+public class WebFluxEndpointManagementContextConfiguration_RENAMED {
 
 	@Bean
 	@ConditionalOnMissingBean
