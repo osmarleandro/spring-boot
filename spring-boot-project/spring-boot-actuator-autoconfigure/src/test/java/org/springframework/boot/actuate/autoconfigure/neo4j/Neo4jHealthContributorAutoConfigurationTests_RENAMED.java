@@ -42,7 +42,7 @@ import static org.mockito.Mockito.mock;
  * @author Stephane Nicoll
  * @author Michael J. Simons
  */
-class Neo4jHealthContributorAutoConfigurationTests {
+class Neo4jHealthContributorAutoConfigurationTests_RENAMED {
 
 	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(HealthContributorAutoConfiguration.class,
