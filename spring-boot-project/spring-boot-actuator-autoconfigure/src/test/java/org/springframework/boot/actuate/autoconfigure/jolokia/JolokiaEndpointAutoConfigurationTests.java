@@ -40,7 +40,7 @@ import org.springframework.test.util.ReflectionTestUtils;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Tests for {@link JolokiaEndpointAutoConfiguration}.
+ * Tests for {@link JolokiaEndpointAutoConfiguration_RENAMED}.
  *
  * @author Christian Dupuis
  * @author Andy Wilkinson
@@ -51,7 +51,7 @@ class JolokiaEndpointAutoConfigurationTests {
 	private final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(DispatcherServletAutoConfiguration.class,
 					ManagementContextAutoConfiguration.class, ServletManagementContextAutoConfiguration.class,
-					ServletEndpointManagementContextConfiguration.class, JolokiaEndpointAutoConfiguration.class,
+					ServletEndpointManagementContextConfiguration.class, JolokiaEndpointAutoConfiguration_RENAMED.class,
 					TestConfiguration.class));
 
 	@Test

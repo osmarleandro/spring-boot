@@ -38,7 +38,7 @@ import org.springframework.context.annotation.Configuration;
 @ConditionalOnClass(AgentServlet.class)
 @ConditionalOnAvailableEndpoint(endpoint = JolokiaEndpoint.class)
 @EnableConfigurationProperties(JolokiaProperties.class)
-public class JolokiaEndpointAutoConfiguration {
+public class JolokiaEndpointAutoConfiguration_RENAMED {
 
 	@Bean
 	public JolokiaEndpoint jolokiaEndpoint(JolokiaProperties properties) {
