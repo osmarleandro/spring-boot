@@ -22,7 +22,7 @@ import org.glassfish.jersey.server.ResourceConfig;
 import org.junit.jupiter.api.Test;
 
 import org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointAutoConfiguration;
-import org.springframework.boot.actuate.autoconfigure.endpoint.web.jersey.JerseyWebEndpointManagementContextConfiguration.JerseyWebEndpointsResourcesRegistrar;
+import org.springframework.boot.actuate.autoconfigure.endpoint.web.jersey.JerseyWebEndpointManagementContextConfiguration_RENAMED.JerseyWebEndpointsResourcesRegistrar;
 import org.springframework.boot.actuate.autoconfigure.web.jersey.JerseySameManagementContextConfiguration;
 import org.springframework.boot.actuate.endpoint.web.WebEndpointsSupplier;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
@@ -33,7 +33,7 @@ import org.springframework.boot.test.context.runner.WebApplicationContextRunner;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Tests for {@link JerseyWebEndpointManagementContextConfiguration}.
+ * Tests for {@link JerseyWebEndpointManagementContextConfiguration_RENAMED}.
  *
  * @author Michael Simons
  * @author Madhura Bhave
@@ -42,7 +42,7 @@ class JerseyWebEndpointManagementContextConfigurationTests {
 
 	private final WebApplicationContextRunner runner = new WebApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(WebEndpointAutoConfiguration.class,
-					JerseyWebEndpointManagementContextConfiguration.class))
+					JerseyWebEndpointManagementContextConfiguration_RENAMED.class))
 			.withBean(WebEndpointsSupplier.class, () -> Collections::emptyList);
 
 	@Test

@@ -65,7 +65,7 @@ import org.springframework.util.StringUtils;
 @ConditionalOnClass(ResourceConfig.class)
 @ConditionalOnBean(WebEndpointsSupplier.class)
 @ConditionalOnMissingBean(type = "org.springframework.web.servlet.DispatcherServlet")
-class JerseyWebEndpointManagementContextConfiguration {
+class JerseyWebEndpointManagementContextConfiguration_RENAMED {
 
 	@Bean
 	JerseyWebEndpointsResourcesRegistrar jerseyWebEndpointsResourcesRegistrar(Environment environment,
