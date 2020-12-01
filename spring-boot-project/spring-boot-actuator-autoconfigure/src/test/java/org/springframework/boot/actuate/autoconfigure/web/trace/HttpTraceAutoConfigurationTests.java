@@ -22,7 +22,7 @@ import java.util.Set;
 import org.junit.jupiter.api.Test;
 
 import org.springframework.boot.actuate.autoconfigure.trace.http.HttpTraceAutoConfiguration;
-import org.springframework.boot.actuate.autoconfigure.trace.http.HttpTraceProperties;
+import org.springframework.boot.actuate.autoconfigure.trace.http.HttpTraceProperties_RENAMED;
 import org.springframework.boot.actuate.trace.http.HttpExchangeTracer;
 import org.springframework.boot.actuate.trace.http.HttpTrace;
 import org.springframework.boot.actuate.trace.http.HttpTraceRepository;
@@ -143,7 +143,7 @@ class HttpTraceAutoConfigurationTests {
 	static class CustomTracerConfiguration {
 
 		@Bean
-		CustomHttpExchangeTracer customTracer(HttpTraceProperties properties) {
+		CustomHttpExchangeTracer customTracer(HttpTraceProperties_RENAMED properties) {
 			return new CustomHttpExchangeTracer(properties.getInclude());
 		}
 
@@ -163,7 +163,7 @@ class HttpTraceAutoConfigurationTests {
 
 		@Bean
 		CustomHttpTraceWebFilter customWebFilter(HttpTraceRepository repository, HttpExchangeTracer tracer,
-				HttpTraceProperties properties) {
+				HttpTraceProperties_RENAMED properties) {
 			return new CustomHttpTraceWebFilter(repository, tracer, properties.getInclude());
 		}
 

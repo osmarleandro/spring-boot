@@ -33,7 +33,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  * @since 2.0.0
  */
 @ConfigurationProperties(prefix = "management.trace.http")
-public class HttpTraceProperties {
+public class HttpTraceProperties_RENAMED {
 
 	/**
 	 * Items to be included in the trace. Defaults to request headers (excluding
