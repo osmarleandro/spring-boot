@@ -23,7 +23,7 @@ import org.springframework.mock.web.MockHttpServletRequest;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Tests for {@link TraceableHttpServletRequest}.
+ * Tests for {@link TraceableHttpServletRequest_RENAMED}.
  *
  * @author Madhura Bhave
  */
@@ -60,7 +60,7 @@ class TraceableHttpServletRequestTests {
 	}
 
 	private void validate(String expectedUri) {
-		TraceableHttpServletRequest trace = new TraceableHttpServletRequest(this.request);
+		TraceableHttpServletRequest_RENAMED trace = new TraceableHttpServletRequest_RENAMED(this.request);
 		assertThat(trace.getUri().toString()).isEqualTo(expectedUri);
 	}
 

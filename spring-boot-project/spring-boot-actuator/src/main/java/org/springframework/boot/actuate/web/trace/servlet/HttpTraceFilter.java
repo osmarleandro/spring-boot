@@ -81,7 +81,7 @@ public class HttpTraceFilter extends OncePerRequestFilter implements Ordered {
 			filterChain.doFilter(request, response);
 			return;
 		}
-		TraceableHttpServletRequest traceableRequest = new TraceableHttpServletRequest(request);
+		TraceableHttpServletRequest_RENAMED traceableRequest = new TraceableHttpServletRequest_RENAMED(request);
 		HttpTrace trace = this.tracer.receivedRequest(traceableRequest);
 		int status = HttpStatus.INTERNAL_SERVER_ERROR.value();
 		try {
