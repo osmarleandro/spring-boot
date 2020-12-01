@@ -24,7 +24,7 @@ import org.springframework.boot.actuate.autoconfigure.metrics.export.properties.
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Tests for {@link HumioProperties}.
+ * Tests for {@link HumioProperties_RENAMED}.
  *
  * @author Andy Wilkinson
  */
@@ -32,7 +32,7 @@ class HumioPropertiesTests extends StepRegistryPropertiesTests {
 
 	@Test
 	void defaultValuesAreConsistent() {
-		HumioProperties properties = new HumioProperties();
+		HumioProperties_RENAMED properties = new HumioProperties_RENAMED();
 		HumioConfig config = (key) -> null;
 		assertStepRegistryDefaultValues(properties, config);
 		assertThat(properties.getApiToken()).isEqualTo(config.apiToken());

@@ -23,13 +23,13 @@ import io.micrometer.humio.HumioConfig;
 import org.springframework.boot.actuate.autoconfigure.metrics.export.properties.StepRegistryPropertiesConfigAdapter;
 
 /**
- * Adapter to convert {@link HumioProperties} to a {@link HumioConfig}.
+ * Adapter to convert {@link HumioProperties_RENAMED} to a {@link HumioConfig}.
  *
  * @author Andy Wilkinson
  */
-class HumioPropertiesConfigAdapter extends StepRegistryPropertiesConfigAdapter<HumioProperties> implements HumioConfig {
+class HumioPropertiesConfigAdapter extends StepRegistryPropertiesConfigAdapter<HumioProperties_RENAMED> implements HumioConfig {
 
-	HumioPropertiesConfigAdapter(HumioProperties properties) {
+	HumioPropertiesConfigAdapter(HumioProperties_RENAMED properties) {
 		super(properties);
 	}
 
@@ -45,17 +45,17 @@ class HumioPropertiesConfigAdapter extends StepRegistryPropertiesConfigAdapter<H
 
 	@Override
 	public String uri() {
-		return get(HumioProperties::getUri, HumioConfig.super::uri);
+		return get(HumioProperties_RENAMED::getUri, HumioConfig.super::uri);
 	}
 
 	@Override
 	public Map<String, String> tags() {
-		return get(HumioProperties::getTags, HumioConfig.super::tags);
+		return get(HumioProperties_RENAMED::getTags, HumioConfig.super::tags);
 	}
 
 	@Override
 	public String apiToken() {
-		return get(HumioProperties::getApiToken, HumioConfig.super::apiToken);
+		return get(HumioProperties_RENAMED::getApiToken, HumioConfig.super::apiToken);
 	}
 
 }

@@ -48,12 +48,12 @@ import org.springframework.context.annotation.Configuration;
 @ConditionalOnBean(Clock.class)
 @ConditionalOnClass(HumioMeterRegistry.class)
 @ConditionalOnEnabledMetricsExport("humio")
-@EnableConfigurationProperties(HumioProperties.class)
+@EnableConfigurationProperties(HumioProperties_RENAMED.class)
 public class HumioMetricsExportAutoConfiguration {
 
-	private final HumioProperties properties;
+	private final HumioProperties_RENAMED properties;
 
-	public HumioMetricsExportAutoConfiguration(HumioProperties properties) {
+	public HumioMetricsExportAutoConfiguration(HumioProperties_RENAMED properties) {
 		this.properties = properties;
 	}
 

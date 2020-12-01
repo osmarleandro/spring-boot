@@ -31,7 +31,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  * @since 2.1.0
  */
 @ConfigurationProperties(prefix = "management.metrics.export.humio")
-public class HumioProperties extends StepRegistryProperties {
+public class HumioProperties_RENAMED extends StepRegistryProperties {
 
 	/**
 	 * Humio API token.
