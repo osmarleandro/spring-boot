@@ -37,7 +37,7 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
 
 /**
- * Tests for {@link ElasticsearchRestHealthIndicator}.
+ * Tests for {@link ElasticsearchRestHealthIndicator_RENAMED}.
  *
  * @author Artsiom Yudovin
  * @author Filip Hrisafov
@@ -46,7 +46,7 @@ class ElasticsearchRestHealthIndicatorTests {
 
 	private final RestClient restClient = mock(RestClient.class);
 
-	private final ElasticsearchRestHealthIndicator elasticsearchRestHealthIndicator = new ElasticsearchRestHealthIndicator(
+	private final ElasticsearchRestHealthIndicator_RENAMED elasticsearchRestHealthIndicator = new ElasticsearchRestHealthIndicator_RENAMED(
 			this.restClient);
 
 	@Test
