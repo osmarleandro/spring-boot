@@ -60,7 +60,7 @@ class ReactiveManagementContextFactoryTests {
 
 		@Bean
 		ReactiveWebServerFactory reactiveWebServerFactory() {
-			return new MockReactiveWebServerFactory();
+			return new MockReactiveWebServerFactory_RENAMED();
 		}
 
 		@Bean

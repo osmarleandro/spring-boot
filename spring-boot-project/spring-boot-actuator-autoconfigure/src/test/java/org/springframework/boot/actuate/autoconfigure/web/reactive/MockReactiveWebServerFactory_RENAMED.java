@@ -31,7 +31,7 @@ import static org.mockito.Mockito.spy;
  *
  * @author Brian Clozel
  */
-class MockReactiveWebServerFactory extends AbstractReactiveWebServerFactory {
+class MockReactiveWebServerFactory_RENAMED extends AbstractReactiveWebServerFactory {
 
 	private MockReactiveWebServer webServer;
 
