@@ -41,7 +41,7 @@ import org.springframework.boot.actuate.endpoint.invoke.convert.ConversionServic
 import org.springframework.boot.actuate.endpoint.web.EndpointLinksResolver;
 import org.springframework.boot.actuate.endpoint.web.EndpointMapping;
 import org.springframework.boot.actuate.endpoint.web.EndpointMediaTypes;
-import org.springframework.boot.actuate.endpoint.web.annotation.WebEndpointDiscoverer;
+import org.springframework.boot.actuate.endpoint.web.annotation.WebEndpointDiscoverer_RENAMED;
 import org.springframework.boot.actuate.endpoint.web.jersey.JerseyEndpointResourceFactory;
 import org.springframework.boot.actuate.endpoint.web.reactive.WebFluxEndpointHandlerMapping;
 import org.springframework.boot.actuate.endpoint.web.servlet.WebMvcEndpointHandlerMapping;
@@ -238,7 +238,7 @@ class WebEndpointTestInvocationContextProvider implements TestTemplateInvocation
 
 		private void customize(ResourceConfig config) {
 			EndpointMediaTypes endpointMediaTypes = EndpointMediaTypes.DEFAULT;
-			WebEndpointDiscoverer discoverer = new WebEndpointDiscoverer(this.applicationContext,
+			WebEndpointDiscoverer_RENAMED discoverer = new WebEndpointDiscoverer_RENAMED(this.applicationContext,
 					new ConversionServiceParameterValueMapper(), endpointMediaTypes, null, Collections.emptyList(),
 					Collections.emptyList());
 			Collection<Resource> resources = new JerseyEndpointResourceFactory().createEndpointResources(
@@ -284,7 +284,7 @@ class WebEndpointTestInvocationContextProvider implements TestTemplateInvocation
 		@Bean
 		WebFluxEndpointHandlerMapping webEndpointReactiveHandlerMapping() {
 			EndpointMediaTypes endpointMediaTypes = EndpointMediaTypes.DEFAULT;
-			WebEndpointDiscoverer discoverer = new WebEndpointDiscoverer(this.applicationContext,
+			WebEndpointDiscoverer_RENAMED discoverer = new WebEndpointDiscoverer_RENAMED(this.applicationContext,
 					new ConversionServiceParameterValueMapper(), endpointMediaTypes, null, Collections.emptyList(),
 					Collections.emptyList());
 			return new WebFluxEndpointHandlerMapping(new EndpointMapping("/actuator"), discoverer.getEndpoints(),
@@ -313,7 +313,7 @@ class WebEndpointTestInvocationContextProvider implements TestTemplateInvocation
 		@Bean
 		WebMvcEndpointHandlerMapping webEndpointServletHandlerMapping() {
 			EndpointMediaTypes endpointMediaTypes = EndpointMediaTypes.DEFAULT;
-			WebEndpointDiscoverer discoverer = new WebEndpointDiscoverer(this.applicationContext,
+			WebEndpointDiscoverer_RENAMED discoverer = new WebEndpointDiscoverer_RENAMED(this.applicationContext,
 					new ConversionServiceParameterValueMapper(), endpointMediaTypes, null, Collections.emptyList(),
 					Collections.emptyList());
 			return new WebMvcEndpointHandlerMapping(new EndpointMapping("/actuator"), discoverer.getEndpoints(),

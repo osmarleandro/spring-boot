@@ -26,22 +26,22 @@ import org.springframework.boot.actuate.endpoint.web.EndpointMediaTypes;
 import org.springframework.boot.actuate.endpoint.web.ExposableWebEndpoint;
 import org.springframework.boot.actuate.endpoint.web.PathMapper;
 import org.springframework.boot.actuate.endpoint.web.annotation.EndpointWebExtension;
-import org.springframework.boot.actuate.endpoint.web.annotation.WebEndpointDiscoverer;
+import org.springframework.boot.actuate.endpoint.web.annotation.WebEndpointDiscoverer_RENAMED;
 import org.springframework.boot.actuate.health.HealthEndpoint;
 import org.springframework.context.ApplicationContext;
 import org.springframework.core.annotation.MergedAnnotations;
 
 /**
- * {@link WebEndpointDiscoverer} for Cloud Foundry that uses Cloud Foundry specific
+ * {@link WebEndpointDiscoverer_RENAMED} for Cloud Foundry that uses Cloud Foundry specific
  * extensions for the {@link HealthEndpoint}.
  *
  * @author Madhura Bhave
  * @since 2.0.0
  */
-public class CloudFoundryWebEndpointDiscoverer extends WebEndpointDiscoverer {
+public class CloudFoundryWebEndpointDiscoverer extends WebEndpointDiscoverer_RENAMED {
 
 	/**
-	 * Create a new {@link WebEndpointDiscoverer} instance.
+	 * Create a new {@link WebEndpointDiscoverer_RENAMED} instance.
 	 * @param applicationContext the source application context
 	 * @param parameterValueMapper the parameter value mapper
 	 * @param endpointMediaTypes the endpoint media types

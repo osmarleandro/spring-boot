@@ -36,7 +36,7 @@ import org.springframework.boot.actuate.endpoint.invoke.convert.ConversionServic
 import org.springframework.boot.actuate.endpoint.web.EndpointLinksResolver;
 import org.springframework.boot.actuate.endpoint.web.EndpointMapping;
 import org.springframework.boot.actuate.endpoint.web.EndpointMediaTypes;
-import org.springframework.boot.actuate.endpoint.web.annotation.WebEndpointDiscoverer;
+import org.springframework.boot.actuate.endpoint.web.annotation.WebEndpointDiscoverer_RENAMED;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
 import org.springframework.boot.autoconfigure.web.reactive.HttpHandlerAutoConfiguration;
 import org.springframework.boot.autoconfigure.web.reactive.ReactiveWebServerFactoryAutoConfiguration;
@@ -177,7 +177,7 @@ class CloudFoundryWebFluxEndpointIntegrationTests {
 
 		@Bean
 		CloudFoundryWebFluxEndpointHandlerMapping cloudFoundryWebEndpointServletHandlerMapping(
-				WebEndpointDiscoverer webEndpointDiscoverer, EndpointMediaTypes endpointMediaTypes,
+				WebEndpointDiscoverer_RENAMED webEndpointDiscoverer, EndpointMediaTypes endpointMediaTypes,
 				CloudFoundrySecurityInterceptor interceptor) {
 			CorsConfiguration corsConfiguration = new CorsConfiguration();
 			corsConfiguration.setAllowedOrigins(Arrays.asList("https://example.com"));
@@ -188,11 +188,11 @@ class CloudFoundryWebFluxEndpointIntegrationTests {
 		}
 
 		@Bean
-		WebEndpointDiscoverer webEndpointDiscoverer(ApplicationContext applicationContext,
+		WebEndpointDiscoverer_RENAMED webEndpointDiscoverer(ApplicationContext applicationContext,
 				EndpointMediaTypes endpointMediaTypes) {
 			ParameterValueMapper parameterMapper = new ConversionServiceParameterValueMapper(
 					DefaultConversionService.getSharedInstance());
-			return new WebEndpointDiscoverer(applicationContext, parameterMapper, endpointMediaTypes, null,
+			return new WebEndpointDiscoverer_RENAMED(applicationContext, parameterMapper, endpointMediaTypes, null,
 					Collections.emptyList(), Collections.emptyList());
 		}
 

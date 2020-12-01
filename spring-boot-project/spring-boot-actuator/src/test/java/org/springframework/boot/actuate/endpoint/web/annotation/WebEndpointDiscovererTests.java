@@ -60,7 +60,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatIllegalStateException;
 
 /**
- * Tests for {@link WebEndpointDiscoverer}.
+ * Tests for {@link WebEndpointDiscoverer_RENAMED}.
  *
  * @author Andy Wilkinson
  * @author Stephane Nicoll
@@ -216,18 +216,18 @@ class WebEndpointDiscovererTests {
 		});
 	}
 
-	private void load(Class<?> configuration, Consumer<WebEndpointDiscoverer> consumer) {
+	private void load(Class<?> configuration, Consumer<WebEndpointDiscoverer_RENAMED> consumer) {
 		load((id) -> null, EndpointId::toString, configuration, consumer);
 	}
 
 	private void load(Function<EndpointId, Long> timeToLive, PathMapper endpointPathMapper, Class<?> configuration,
-			Consumer<WebEndpointDiscoverer> consumer) {
+			Consumer<WebEndpointDiscoverer_RENAMED> consumer) {
 		try (AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(configuration)) {
 			ConversionServiceParameterValueMapper parameterMapper = new ConversionServiceParameterValueMapper(
 					DefaultConversionService.getSharedInstance());
 			EndpointMediaTypes mediaTypes = new EndpointMediaTypes(Collections.singletonList("application/json"),
 					Collections.singletonList("application/json"));
-			WebEndpointDiscoverer discoverer = new WebEndpointDiscoverer(context, parameterMapper, mediaTypes,
+			WebEndpointDiscoverer_RENAMED discoverer = new WebEndpointDiscoverer_RENAMED(context, parameterMapper, mediaTypes,
 					Collections.singletonList(endpointPathMapper),
 					Collections.singleton(new CachingOperationInvokerAdvisor(timeToLive)), Collections.emptyList());
 			consumer.accept(discoverer);

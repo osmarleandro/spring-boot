@@ -34,7 +34,7 @@ import org.springframework.boot.actuate.endpoint.web.PathMappedEndpoint;
 import org.springframework.boot.actuate.endpoint.web.PathMapper;
 import org.springframework.boot.actuate.endpoint.web.annotation.ControllerEndpointDiscoverer;
 import org.springframework.boot.actuate.endpoint.web.annotation.ServletEndpointDiscoverer;
-import org.springframework.boot.actuate.endpoint.web.annotation.WebEndpointDiscoverer;
+import org.springframework.boot.actuate.endpoint.web.annotation.WebEndpointDiscoverer_RENAMED;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
 import org.springframework.boot.test.context.runner.ApplicationContextRunner;
 import org.springframework.boot.test.context.runner.WebApplicationContextRunner;
@@ -84,7 +84,7 @@ class WebEndpointAutoConfigurationTests {
 				.withUserConfiguration(TestPathMatcher.class, TestOneEndpoint.class, TestAnotherOneEndpoint.class,
 						TestTwoEndpoint.class)
 				.run((context) -> {
-					WebEndpointDiscoverer discoverer = context.getBean(WebEndpointDiscoverer.class);
+					WebEndpointDiscoverer_RENAMED discoverer = context.getBean(WebEndpointDiscoverer_RENAMED.class);
 					Collection<ExposableWebEndpoint> endpoints = discoverer.getEndpoints();
 					ExposableWebEndpoint[] webEndpoints = endpoints.toArray(new ExposableWebEndpoint[0]);
 					List<String> paths = Arrays.stream(webEndpoints).map(PathMappedEndpoint::getRootPath)
@@ -97,7 +97,7 @@ class WebEndpointAutoConfigurationTests {
 	void webApplicationConfiguresEndpointDiscoverer() {
 		this.contextRunner.run((context) -> {
 			assertThat(context).hasSingleBean(ControllerEndpointDiscoverer.class);
-			assertThat(context).hasSingleBean(WebEndpointDiscoverer.class);
+			assertThat(context).hasSingleBean(WebEndpointDiscoverer_RENAMED.class);
 		});
 	}
 

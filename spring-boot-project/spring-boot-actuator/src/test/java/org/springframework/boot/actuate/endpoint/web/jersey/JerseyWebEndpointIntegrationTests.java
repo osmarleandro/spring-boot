@@ -38,7 +38,7 @@ import org.springframework.boot.actuate.endpoint.web.EndpointLinksResolver;
 import org.springframework.boot.actuate.endpoint.web.EndpointMapping;
 import org.springframework.boot.actuate.endpoint.web.EndpointMediaTypes;
 import org.springframework.boot.actuate.endpoint.web.annotation.AbstractWebEndpointIntegrationTests;
-import org.springframework.boot.actuate.endpoint.web.annotation.WebEndpointDiscoverer;
+import org.springframework.boot.actuate.endpoint.web.annotation.WebEndpointDiscoverer_RENAMED;
 import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext;
@@ -104,7 +104,7 @@ public class JerseyWebEndpointIntegrationTests
 		}
 
 		@Bean
-		ResourceConfig resourceConfig(Environment environment, WebEndpointDiscoverer endpointDiscoverer,
+		ResourceConfig resourceConfig(Environment environment, WebEndpointDiscoverer_RENAMED endpointDiscoverer,
 				EndpointMediaTypes endpointMediaTypes) {
 			ResourceConfig resourceConfig = new ResourceConfig();
 			String endpointPath = environment.getProperty("endpointPath");

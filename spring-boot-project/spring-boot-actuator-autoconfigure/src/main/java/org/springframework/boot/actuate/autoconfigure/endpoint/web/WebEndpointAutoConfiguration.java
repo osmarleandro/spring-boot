@@ -40,7 +40,7 @@ import org.springframework.boot.actuate.endpoint.web.annotation.ControllerEndpoi
 import org.springframework.boot.actuate.endpoint.web.annotation.ExposableControllerEndpoint;
 import org.springframework.boot.actuate.endpoint.web.annotation.ServletEndpointDiscoverer;
 import org.springframework.boot.actuate.endpoint.web.annotation.ServletEndpointsSupplier;
-import org.springframework.boot.actuate.endpoint.web.annotation.WebEndpointDiscoverer;
+import org.springframework.boot.actuate.endpoint.web.annotation.WebEndpointDiscoverer_RENAMED;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -87,11 +87,11 @@ public class WebEndpointAutoConfiguration {
 
 	@Bean
 	@ConditionalOnMissingBean(WebEndpointsSupplier.class)
-	public WebEndpointDiscoverer webEndpointDiscoverer(ParameterValueMapper parameterValueMapper,
+	public WebEndpointDiscoverer_RENAMED webEndpointDiscoverer(ParameterValueMapper parameterValueMapper,
 			EndpointMediaTypes endpointMediaTypes, ObjectProvider<PathMapper> endpointPathMappers,
 			ObjectProvider<OperationInvokerAdvisor> invokerAdvisors,
 			ObjectProvider<EndpointFilter<ExposableWebEndpoint>> filters) {
-		return new WebEndpointDiscoverer(this.applicationContext, parameterValueMapper, endpointMediaTypes,
+		return new WebEndpointDiscoverer_RENAMED(this.applicationContext, parameterValueMapper, endpointMediaTypes,
 				endpointPathMappers.orderedStream().collect(Collectors.toList()),
 				invokerAdvisors.orderedStream().collect(Collectors.toList()),
 				filters.orderedStream().collect(Collectors.toList()));
