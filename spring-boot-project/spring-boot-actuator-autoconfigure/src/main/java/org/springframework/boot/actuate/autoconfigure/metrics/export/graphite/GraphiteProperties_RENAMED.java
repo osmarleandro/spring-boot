@@ -33,7 +33,7 @@ import org.springframework.util.ObjectUtils;
  * @since 2.0.0
  */
 @ConfigurationProperties(prefix = "management.metrics.export.graphite")
-public class GraphiteProperties {
+public class GraphiteProperties_RENAMED {
 
 	/**
 	 * Whether exporting of metrics to Graphite is enabled.

@@ -22,7 +22,7 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Tests for {@link GraphiteProperties}.
+ * Tests for {@link GraphiteProperties_RENAMED}.
  *
  * @author Stephane Nicoll
  */
@@ -30,7 +30,7 @@ class GraphitePropertiesTests {
 
 	@Test
 	void defaultValuesAreConsistent() {
-		GraphiteProperties properties = new GraphiteProperties();
+		GraphiteProperties_RENAMED properties = new GraphiteProperties_RENAMED();
 		GraphiteConfig config = GraphiteConfig.DEFAULT;
 		assertThat(properties.isEnabled()).isEqualTo(config.enabled());
 		assertThat(properties.getStep()).isEqualTo(config.step());
@@ -45,14 +45,14 @@ class GraphitePropertiesTests {
 
 	@Test
 	void graphiteTagsAreDisabledIfTagsAsPrefixIsSet() {
-		GraphiteProperties properties = new GraphiteProperties();
+		GraphiteProperties_RENAMED properties = new GraphiteProperties_RENAMED();
 		properties.setTagsAsPrefix(new String[] { "app" });
 		assertThat(properties.getGraphiteTagsEnabled()).isFalse();
 	}
 
 	@Test
 	void graphiteTagsCanBeEnabledEvenIfTagsAsPrefixIsSet() {
-		GraphiteProperties properties = new GraphiteProperties();
+		GraphiteProperties_RENAMED properties = new GraphiteProperties_RENAMED();
 		properties.setGraphiteTagsEnabled(true);
 		properties.setTagsAsPrefix(new String[] { "app" });
 		assertThat(properties.getGraphiteTagsEnabled()).isTrue();
