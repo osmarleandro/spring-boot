@@ -19,7 +19,7 @@ package org.springframework.boot.actuate.autoconfigure.metrics.export.signalfx;
 import io.micrometer.signalfx.SignalFxConfig;
 import org.junit.jupiter.api.Test;
 
-import org.springframework.boot.actuate.autoconfigure.metrics.export.properties.StepRegistryPropertiesTests;
+import org.springframework.boot.actuate.autoconfigure.metrics.export.properties.StepRegistryPropertiesTests_RENAMED;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -28,7 +28,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Stephane Nicoll
  */
-class SignalFxPropertiesTests extends StepRegistryPropertiesTests {
+class SignalFxPropertiesTests extends StepRegistryPropertiesTests_RENAMED {
 
 	@Test
 	void defaultValuesAreConsistent() {

@@ -19,7 +19,7 @@ package org.springframework.boot.actuate.autoconfigure.metrics.export.stackdrive
 import io.micrometer.stackdriver.StackdriverConfig;
 import org.junit.jupiter.api.Test;
 
-import org.springframework.boot.actuate.autoconfigure.metrics.export.properties.StepRegistryPropertiesTests;
+import org.springframework.boot.actuate.autoconfigure.metrics.export.properties.StepRegistryPropertiesTests_RENAMED;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -28,7 +28,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Johannes Graf
  */
-class StackdriverPropertiesTests extends StepRegistryPropertiesTests {
+class StackdriverPropertiesTests extends StepRegistryPropertiesTests_RENAMED {
 
 	@Test
 	void defaultValuesAreConsistent() {
