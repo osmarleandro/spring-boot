@@ -33,7 +33,7 @@ import org.springframework.boot.context.properties.NestedConfigurationProperty;
  * @since 2.0.0
  */
 @ConfigurationProperties("management.metrics")
-public class MetricsProperties {
+public class MetricsProperties_RENAMED {
 
 	/**
 	 * Whether auto-configured MeterRegistry implementations should be bound to the global

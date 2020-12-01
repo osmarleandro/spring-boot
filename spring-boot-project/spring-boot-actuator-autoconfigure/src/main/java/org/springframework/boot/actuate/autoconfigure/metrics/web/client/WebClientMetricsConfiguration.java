@@ -18,8 +18,8 @@ package org.springframework.boot.actuate.autoconfigure.metrics.web.client;
 
 import io.micrometer.core.instrument.MeterRegistry;
 
-import org.springframework.boot.actuate.autoconfigure.metrics.MetricsProperties;
-import org.springframework.boot.actuate.autoconfigure.metrics.MetricsProperties.Web.Client.ClientRequest;
+import org.springframework.boot.actuate.autoconfigure.metrics.MetricsProperties_RENAMED;
+import org.springframework.boot.actuate.autoconfigure.metrics.MetricsProperties_RENAMED.Web.Client.ClientRequest;
 import org.springframework.boot.actuate.metrics.web.reactive.client.DefaultWebClientExchangeTagsProvider;
 import org.springframework.boot.actuate.metrics.web.reactive.client.MetricsWebClientCustomizer;
 import org.springframework.boot.actuate.metrics.web.reactive.client.WebClientExchangeTagsProvider;
@@ -47,7 +47,7 @@ class WebClientMetricsConfiguration {
 
 	@Bean
 	MetricsWebClientCustomizer metricsWebClientCustomizer(MeterRegistry meterRegistry,
-			WebClientExchangeTagsProvider tagsProvider, MetricsProperties properties) {
+			WebClientExchangeTagsProvider tagsProvider, MetricsProperties_RENAMED properties) {
 		ClientRequest request = properties.getWeb().getClient().getRequest();
 		return new MetricsWebClientCustomizer(meterRegistry, tagsProvider, request.getMetricName(),
 				request.getAutotime());

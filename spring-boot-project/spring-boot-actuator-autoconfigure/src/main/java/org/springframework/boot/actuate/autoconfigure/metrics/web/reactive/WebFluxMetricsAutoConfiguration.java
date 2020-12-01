@@ -24,8 +24,8 @@ import io.micrometer.core.instrument.config.MeterFilter;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.boot.actuate.autoconfigure.metrics.CompositeMeterRegistryAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.metrics.MetricsAutoConfiguration;
-import org.springframework.boot.actuate.autoconfigure.metrics.MetricsProperties;
-import org.springframework.boot.actuate.autoconfigure.metrics.MetricsProperties.Web.Server.ServerRequest;
+import org.springframework.boot.actuate.autoconfigure.metrics.MetricsProperties_RENAMED;
+import org.springframework.boot.actuate.autoconfigure.metrics.MetricsProperties_RENAMED.Web.Server.ServerRequest;
 import org.springframework.boot.actuate.autoconfigure.metrics.OnlyOnceLoggingDenyMeterFilter;
 import org.springframework.boot.actuate.autoconfigure.metrics.export.simple.SimpleMetricsExportAutoConfiguration;
 import org.springframework.boot.actuate.metrics.web.reactive.server.DefaultWebFluxTagsProvider;
@@ -56,9 +56,9 @@ import org.springframework.core.annotation.Order;
 @ConditionalOnWebApplication(type = ConditionalOnWebApplication.Type.REACTIVE)
 public class WebFluxMetricsAutoConfiguration {
 
-	private final MetricsProperties properties;
+	private final MetricsProperties_RENAMED properties;
 
-	public WebFluxMetricsAutoConfiguration(MetricsProperties properties) {
+	public WebFluxMetricsAutoConfiguration(MetricsProperties_RENAMED properties) {
 		this.properties = properties;
 	}
 

@@ -21,7 +21,7 @@ import io.micrometer.core.instrument.config.MeterFilter;
 
 import org.springframework.boot.actuate.autoconfigure.metrics.CompositeMeterRegistryAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.metrics.MetricsAutoConfiguration;
-import org.springframework.boot.actuate.autoconfigure.metrics.MetricsProperties;
+import org.springframework.boot.actuate.autoconfigure.metrics.MetricsProperties_RENAMED;
 import org.springframework.boot.actuate.autoconfigure.metrics.OnlyOnceLoggingDenyMeterFilter;
 import org.springframework.boot.actuate.autoconfigure.metrics.export.simple.SimpleMetricsExportAutoConfiguration;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
@@ -53,7 +53,7 @@ public class HttpClientMetricsAutoConfiguration {
 
 	@Bean
 	@Order(0)
-	public MeterFilter metricsHttpClientUriTagFilter(MetricsProperties properties) {
+	public MeterFilter metricsHttpClientUriTagFilter(MetricsProperties_RENAMED properties) {
 		String metricName = properties.getWeb().getClient().getRequest().getMetricName();
 		MeterFilter denyFilter = new OnlyOnceLoggingDenyMeterFilter(() -> String
 				.format("Reached the maximum number of URI tags for '%s'. Are you using 'uriVariables'?", metricName));

@@ -41,7 +41,7 @@ import org.springframework.core.annotation.Order;
  */
 @Configuration(proxyBeanMethods = false)
 @ConditionalOnClass(Timed.class)
-@EnableConfigurationProperties(MetricsProperties.class)
+@EnableConfigurationProperties(MetricsProperties_RENAMED.class)
 @AutoConfigureBefore(CompositeMeterRegistryAutoConfiguration.class)
 public class MetricsAutoConfiguration {
 
@@ -55,14 +55,14 @@ public class MetricsAutoConfiguration {
 	public static MeterRegistryPostProcessor meterRegistryPostProcessor(ObjectProvider<MeterBinder> meterBinders,
 			ObjectProvider<MeterFilter> meterFilters,
 			ObjectProvider<MeterRegistryCustomizer<?>> meterRegistryCustomizers,
-			ObjectProvider<MetricsProperties> metricsProperties, ApplicationContext applicationContext) {
+			ObjectProvider<MetricsProperties_RENAMED> metricsProperties, ApplicationContext applicationContext) {
 		return new MeterRegistryPostProcessor(meterBinders, meterFilters, meterRegistryCustomizers, metricsProperties,
 				applicationContext);
 	}
 
 	@Bean
 	@Order(0)
-	public PropertiesMeterFilter propertiesMeterFilter(MetricsProperties properties) {
+	public PropertiesMeterFilter propertiesMeterFilter(MetricsProperties_RENAMED properties) {
 		return new PropertiesMeterFilter(properties);
 	}
 

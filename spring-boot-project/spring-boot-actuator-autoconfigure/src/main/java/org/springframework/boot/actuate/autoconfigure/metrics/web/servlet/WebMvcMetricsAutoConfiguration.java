@@ -26,8 +26,8 @@ import io.micrometer.core.instrument.config.MeterFilter;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.boot.actuate.autoconfigure.metrics.CompositeMeterRegistryAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.metrics.MetricsAutoConfiguration;
-import org.springframework.boot.actuate.autoconfigure.metrics.MetricsProperties;
-import org.springframework.boot.actuate.autoconfigure.metrics.MetricsProperties.Web.Server.ServerRequest;
+import org.springframework.boot.actuate.autoconfigure.metrics.MetricsProperties_RENAMED;
+import org.springframework.boot.actuate.autoconfigure.metrics.MetricsProperties_RENAMED.Web.Server.ServerRequest;
 import org.springframework.boot.actuate.autoconfigure.metrics.OnlyOnceLoggingDenyMeterFilter;
 import org.springframework.boot.actuate.autoconfigure.metrics.export.simple.SimpleMetricsExportAutoConfiguration;
 import org.springframework.boot.actuate.metrics.web.servlet.DefaultWebMvcTagsProvider;
@@ -65,12 +65,12 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @ConditionalOnWebApplication(type = ConditionalOnWebApplication.Type.SERVLET)
 @ConditionalOnClass(DispatcherServlet.class)
 @ConditionalOnBean(MeterRegistry.class)
-@EnableConfigurationProperties(MetricsProperties.class)
+@EnableConfigurationProperties(MetricsProperties_RENAMED.class)
 public class WebMvcMetricsAutoConfiguration {
 
-	private final MetricsProperties properties;
+	private final MetricsProperties_RENAMED properties;
 
-	public WebMvcMetricsAutoConfiguration(MetricsProperties properties) {
+	public WebMvcMetricsAutoConfiguration(MetricsProperties_RENAMED properties) {
 		this.properties = properties;
 	}
 

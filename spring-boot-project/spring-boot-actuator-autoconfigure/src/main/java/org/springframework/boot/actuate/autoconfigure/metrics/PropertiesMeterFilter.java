@@ -30,12 +30,12 @@ import io.micrometer.core.instrument.config.MeterFilter;
 import io.micrometer.core.instrument.config.MeterFilterReply;
 import io.micrometer.core.instrument.distribution.DistributionStatisticConfig;
 
-import org.springframework.boot.actuate.autoconfigure.metrics.MetricsProperties.Distribution;
+import org.springframework.boot.actuate.autoconfigure.metrics.MetricsProperties_RENAMED.Distribution;
 import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
 
 /**
- * {@link MeterFilter} to apply settings from {@link MetricsProperties}.
+ * {@link MeterFilter} to apply settings from {@link MetricsProperties_RENAMED}.
  *
  * @author Jon Schneider
  * @author Phillip Webb
@@ -46,11 +46,11 @@ import org.springframework.util.StringUtils;
  */
 public class PropertiesMeterFilter implements MeterFilter {
 
-	private final MetricsProperties properties;
+	private final MetricsProperties_RENAMED properties;
 
 	private final MeterFilter mapFilter;
 
-	public PropertiesMeterFilter(MetricsProperties properties) {
+	public PropertiesMeterFilter(MetricsProperties_RENAMED properties) {
 		Assert.notNull(properties, "Properties must not be null");
 		this.properties = properties;
 		this.mapFilter = createMapFilter(properties.getTags());

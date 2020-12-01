@@ -28,8 +28,8 @@ import io.micrometer.jersey2.server.MetricsApplicationEventListener;
 import org.glassfish.jersey.server.ResourceConfig;
 
 import org.springframework.boot.actuate.autoconfigure.metrics.MetricsAutoConfiguration;
-import org.springframework.boot.actuate.autoconfigure.metrics.MetricsProperties;
-import org.springframework.boot.actuate.autoconfigure.metrics.MetricsProperties.Web.Server;
+import org.springframework.boot.actuate.autoconfigure.metrics.MetricsProperties_RENAMED;
+import org.springframework.boot.actuate.autoconfigure.metrics.MetricsProperties_RENAMED.Web.Server;
 import org.springframework.boot.actuate.autoconfigure.metrics.OnlyOnceLoggingDenyMeterFilter;
 import org.springframework.boot.actuate.autoconfigure.metrics.export.simple.SimpleMetricsExportAutoConfiguration;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
@@ -58,12 +58,12 @@ import org.springframework.core.annotation.Order;
 @ConditionalOnWebApplication(type = ConditionalOnWebApplication.Type.SERVLET)
 @ConditionalOnClass({ ResourceConfig.class, MetricsApplicationEventListener.class })
 @ConditionalOnBean({ MeterRegistry.class, ResourceConfig.class })
-@EnableConfigurationProperties(MetricsProperties.class)
+@EnableConfigurationProperties(MetricsProperties_RENAMED.class)
 public class JerseyServerMetricsAutoConfiguration {
 
-	private final MetricsProperties properties;
+	private final MetricsProperties_RENAMED properties;
 
-	public JerseyServerMetricsAutoConfiguration(MetricsProperties properties) {
+	public JerseyServerMetricsAutoConfiguration(MetricsProperties_RENAMED properties) {
 		this.properties = properties;
 	}
 

@@ -294,11 +294,11 @@ class PropertiesMeterFilterTests {
 		return Meter.builder(name, meterType, Collections.emptyList()).register(registry).getId();
 	}
 
-	private MetricsProperties createProperties(String... properties) {
+	private MetricsProperties_RENAMED createProperties(String... properties) {
 		MockEnvironment environment = new MockEnvironment();
 		TestPropertyValues.of(properties).applyTo(environment);
 		Binder binder = Binder.get(environment);
-		return binder.bind("", Bindable.of(MetricsProperties.class)).orElseGet(MetricsProperties::new);
+		return binder.bind("", Bindable.of(MetricsProperties_RENAMED.class)).orElseGet(MetricsProperties_RENAMED::new);
 	}
 
 	static class TestMeterRegistry extends SimpleMeterRegistry {
