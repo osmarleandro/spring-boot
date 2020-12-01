@@ -26,7 +26,7 @@ import org.springframework.util.Assert;
  * reactive environment.
  *
  * @author Phillip Webb
- * @see ReactiveHealthContributor#adapt(HealthContributor)
+ * @see ReactiveHealthContributor#adapt(HealthContributor_RENAMED)
  */
 class CompositeHealthContributorReactiveAdapter implements CompositeReactiveHealthContributor {
 
@@ -39,7 +39,7 @@ class CompositeHealthContributorReactiveAdapter implements CompositeReactiveHeal
 
 	@Override
 	public Iterator<NamedContributor<ReactiveHealthContributor>> iterator() {
-		Iterator<NamedContributor<HealthContributor>> iterator = this.delegate.iterator();
+		Iterator<NamedContributor<HealthContributor_RENAMED>> iterator = this.delegate.iterator();
 		return new Iterator<NamedContributor<ReactiveHealthContributor>>() {
 
 			@Override
@@ -49,7 +49,7 @@ class CompositeHealthContributorReactiveAdapter implements CompositeReactiveHeal
 
 			@Override
 			public NamedContributor<ReactiveHealthContributor> next() {
-				NamedContributor<HealthContributor> namedContributor = iterator.next();
+				NamedContributor<HealthContributor_RENAMED> namedContributor = iterator.next();
 				return NamedContributor.of(namedContributor.getName(),
 						ReactiveHealthContributor.adapt(namedContributor.getContributor()));
 			}
@@ -59,7 +59,7 @@ class CompositeHealthContributorReactiveAdapter implements CompositeReactiveHeal
 
 	@Override
 	public ReactiveHealthContributor getContributor(String name) {
-		HealthContributor contributor = this.delegate.getContributor(name);
+		HealthContributor_RENAMED contributor = this.delegate.getContributor(name);
 		return (contributor != null) ? ReactiveHealthContributor.adapt(contributor) : null;
 	}
 

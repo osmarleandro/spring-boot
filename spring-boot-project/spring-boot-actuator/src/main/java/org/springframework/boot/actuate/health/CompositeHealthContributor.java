@@ -20,7 +20,7 @@ import java.util.Map;
 import java.util.function.Function;
 
 /**
- * A {@link HealthContributor} that is composed of other {@link HealthContributor}
+ * A {@link HealthContributor_RENAMED} that is composed of other {@link HealthContributor_RENAMED}
  * instances.
  *
  * @author Phillip Webb
@@ -28,7 +28,7 @@ import java.util.function.Function;
  * @see CompositeHealth
  * @see CompositeReactiveHealthContributor
  */
-public interface CompositeHealthContributor extends HealthContributor, NamedContributors<HealthContributor> {
+public interface CompositeHealthContributor extends HealthContributor_RENAMED, NamedContributors<HealthContributor_RENAMED> {
 
 	/**
 	 * Factory method that will create a {@link CompositeHealthContributor} from the
@@ -36,7 +36,7 @@ public interface CompositeHealthContributor extends HealthContributor, NamedCont
 	 * @param map the source map
 	 * @return a composite health contributor instance
 	 */
-	static CompositeHealthContributor fromMap(Map<String, ? extends HealthContributor> map) {
+	static CompositeHealthContributor fromMap(Map<String, ? extends HealthContributor_RENAMED> map) {
 		return fromMap(map, Function.identity());
 	}
 
@@ -49,7 +49,7 @@ public interface CompositeHealthContributor extends HealthContributor, NamedCont
 	 * @return a composite health contributor instance
 	 */
 	static <V> CompositeHealthContributor fromMap(Map<String, V> map,
-			Function<V, ? extends HealthContributor> valueAdapter) {
+			Function<V, ? extends HealthContributor_RENAMED> valueAdapter) {
 		return new CompositeHealthContributorMapAdapter<>(map, valueAdapter);
 	}
 

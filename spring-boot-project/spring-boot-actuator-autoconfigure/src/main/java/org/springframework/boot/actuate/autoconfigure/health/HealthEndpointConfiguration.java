@@ -27,7 +27,7 @@ import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.boot.actuate.health.CompositeHealthContributor;
 import org.springframework.boot.actuate.health.CompositeReactiveHealthContributor;
 import org.springframework.boot.actuate.health.Health;
-import org.springframework.boot.actuate.health.HealthContributor;
+import org.springframework.boot.actuate.health.HealthContributor_RENAMED;
 import org.springframework.boot.actuate.health.HealthContributorRegistry;
 import org.springframework.boot.actuate.health.HealthEndpoint;
 import org.springframework.boot.actuate.health.HealthEndpointGroups;
@@ -78,8 +78,8 @@ class HealthEndpointConfiguration {
 	@ConditionalOnMissingBean
 	HealthContributorRegistry healthContributorRegistry(ApplicationContext applicationContext,
 			HealthEndpointGroups groups) {
-		Map<String, HealthContributor> healthContributors = new LinkedHashMap<>(
-				applicationContext.getBeansOfType(HealthContributor.class));
+		Map<String, HealthContributor_RENAMED> healthContributors = new LinkedHashMap<>(
+				applicationContext.getBeansOfType(HealthContributor_RENAMED.class));
 		if (ClassUtils.isPresent("reactor.core.publisher.Flux", applicationContext.getClassLoader())) {
 			healthContributors.putAll(new AdaptedReactiveHealthContributors(applicationContext).get());
 		}
@@ -130,20 +130,20 @@ class HealthEndpointConfiguration {
 
 	/**
 	 * Adapter to expose {@link ReactiveHealthContributor} beans as
-	 * {@link HealthContributor} instances.
+	 * {@link HealthContributor_RENAMED} instances.
 	 */
 	private static class AdaptedReactiveHealthContributors {
 
-		private final Map<String, HealthContributor> adapted;
+		private final Map<String, HealthContributor_RENAMED> adapted;
 
 		AdaptedReactiveHealthContributors(ApplicationContext applicationContext) {
-			Map<String, HealthContributor> adapted = new LinkedHashMap<>();
+			Map<String, HealthContributor_RENAMED> adapted = new LinkedHashMap<>();
 			applicationContext.getBeansOfType(ReactiveHealthContributor.class)
 					.forEach((name, contributor) -> adapted.put(name, adapt(contributor)));
 			this.adapted = Collections.unmodifiableMap(adapted);
 		}
 
-		private HealthContributor adapt(ReactiveHealthContributor contributor) {
+		private HealthContributor_RENAMED adapt(ReactiveHealthContributor contributor) {
 			if (contributor instanceof ReactiveHealthIndicator) {
 				return adapt((ReactiveHealthIndicator) contributor);
 			}
@@ -173,9 +173,9 @@ class HealthEndpointConfiguration {
 			return new CompositeHealthContributor() {
 
 				@Override
-				public Iterator<NamedContributor<HealthContributor>> iterator() {
+				public Iterator<NamedContributor<HealthContributor_RENAMED>> iterator() {
 					Iterator<NamedContributor<ReactiveHealthContributor>> iterator = composite.iterator();
-					return new Iterator<NamedContributor<HealthContributor>>() {
+					return new Iterator<NamedContributor<HealthContributor_RENAMED>>() {
 
 						@Override
 						public boolean hasNext() {
@@ -183,7 +183,7 @@ class HealthEndpointConfiguration {
 						}
 
 						@Override
-						public NamedContributor<HealthContributor> next() {
+						public NamedContributor<HealthContributor_RENAMED> next() {
 							NamedContributor<ReactiveHealthContributor> next = iterator.next();
 							return NamedContributor.of(next.getName(), adapt(next.getContributor()));
 						}
@@ -192,14 +192,14 @@ class HealthEndpointConfiguration {
 				}
 
 				@Override
-				public HealthContributor getContributor(String name) {
+				public HealthContributor_RENAMED getContributor(String name) {
 					return adapt(composite.getContributor(name));
 				}
 
 			};
 		}
 
-		Map<String, HealthContributor> get() {
+		Map<String, HealthContributor_RENAMED> get() {
 			return this.adapted;
 		}
 

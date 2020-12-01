@@ -25,17 +25,17 @@ import java.util.function.Function;
  * @author Phillip Webb
  * @since 2.2.0
  */
-public class DefaultHealthContributorRegistry extends DefaultContributorRegistry<HealthContributor>
+public class DefaultHealthContributorRegistry extends DefaultContributorRegistry<HealthContributor_RENAMED>
 		implements HealthContributorRegistry {
 
 	public DefaultHealthContributorRegistry() {
 	}
 
-	public DefaultHealthContributorRegistry(Map<String, HealthContributor> contributors) {
+	public DefaultHealthContributorRegistry(Map<String, HealthContributor_RENAMED> contributors) {
 		super(contributors);
 	}
 
-	public DefaultHealthContributorRegistry(Map<String, HealthContributor> contributors,
+	public DefaultHealthContributorRegistry(Map<String, HealthContributor_RENAMED> contributors,
 			Function<String, String> nameFactory) {
 		super(contributors, nameFactory);
 	}

@@ -112,7 +112,7 @@ class HealthEndpointWebIntegrationTests {
 						.isEqualTo("DOWN"));
 	}
 
-	private void withHealthContributor(ApplicationContext context, String name, HealthContributor healthContributor,
+	private void withHealthContributor(ApplicationContext context, String name, HealthContributor_RENAMED healthContributor,
 			ReactiveHealthContributor reactiveHealthContributor, ThrowingCallable callable) {
 		HealthContributorRegistry healthContributorRegistry = getContributorRegistry(context,
 				HealthContributorRegistry.class);
@@ -146,7 +146,7 @@ class HealthEndpointWebIntegrationTests {
 		String name = "bravo";
 		HealthContributorRegistry healthContributorRegistry = getContributorRegistry(context,
 				HealthContributorRegistry.class);
-		HealthContributor bravo = healthContributorRegistry.unregisterContributor(name);
+		HealthContributor_RENAMED bravo = healthContributorRegistry.unregisterContributor(name);
 		ReactiveHealthContributorRegistry reactiveHealthContributorRegistry = getContributorRegistry(context,
 				ReactiveHealthContributorRegistry.class);
 		ReactiveHealthContributor reactiveBravo = (reactiveHealthContributorRegistry != null)
@@ -168,14 +168,14 @@ class HealthEndpointWebIntegrationTests {
 	static class TestConfiguration {
 
 		@Bean
-		HealthContributorRegistry healthContributorRegistry(Map<String, HealthContributor> healthContributorBeans) {
+		HealthContributorRegistry healthContributorRegistry(Map<String, HealthContributor_RENAMED> healthContributorBeans) {
 			return new DefaultHealthContributorRegistry(healthContributorBeans);
 		}
 
 		@Bean
 		@ConditionalOnWebApplication(type = Type.REACTIVE)
 		ReactiveHealthContributorRegistry reactiveHealthContributorRegistry(
-				Map<String, HealthContributor> healthContributorBeans,
+				Map<String, HealthContributor_RENAMED> healthContributorBeans,
 				Map<String, ReactiveHealthContributor> reactiveHealthContributorBeans) {
 			Map<String, ReactiveHealthContributor> allIndicators = new LinkedHashMap<>(reactiveHealthContributorBeans);
 			healthContributorBeans.forEach((name, contributor) -> allIndicators.computeIfAbsent(name,

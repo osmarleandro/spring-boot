@@ -37,7 +37,7 @@ import org.springframework.boot.actuate.endpoint.http.ApiVersion;
  * @since 2.0.0
  */
 @Endpoint(id = "health")
-public class HealthEndpoint extends HealthEndpointSupport<HealthContributor, HealthComponent> {
+public class HealthEndpoint extends HealthEndpointSupport<HealthContributor_RENAMED, HealthComponent> {
 
 	private static final String[] EMPTY_PATH = {};
 
@@ -67,7 +67,7 @@ public class HealthEndpoint extends HealthEndpointSupport<HealthContributor, Hea
 	}
 
 	@Override
-	protected HealthComponent getHealth(HealthContributor contributor, boolean includeDetails) {
+	protected HealthComponent getHealth(HealthContributor_RENAMED contributor, boolean includeDetails) {
 		return ((HealthIndicator) contributor).getHealth(includeDetails);
 	}
 

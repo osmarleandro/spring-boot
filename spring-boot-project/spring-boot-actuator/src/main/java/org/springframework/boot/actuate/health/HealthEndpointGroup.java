@@ -19,7 +19,7 @@ package org.springframework.boot.actuate.health;
 import org.springframework.boot.actuate.endpoint.SecurityContext;
 
 /**
- * A logical grouping of {@link HealthContributor health contributors} that can be exposed
+ * A logical grouping of {@link HealthContributor_RENAMED health contributors} that can be exposed
  * by the {@link HealthEndpoint}.
  *
  * @author Phillip Webb

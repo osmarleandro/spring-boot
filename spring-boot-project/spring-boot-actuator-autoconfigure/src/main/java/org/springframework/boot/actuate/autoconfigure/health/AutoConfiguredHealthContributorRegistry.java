@@ -20,7 +20,7 @@ import java.util.Collection;
 import java.util.Map;
 
 import org.springframework.boot.actuate.health.DefaultHealthContributorRegistry;
-import org.springframework.boot.actuate.health.HealthContributor;
+import org.springframework.boot.actuate.health.HealthContributor_RENAMED;
 import org.springframework.boot.actuate.health.HealthContributorRegistry;
 import org.springframework.util.Assert;
 
@@ -34,7 +34,7 @@ class AutoConfiguredHealthContributorRegistry extends DefaultHealthContributorRe
 
 	private final Collection<String> groupNames;
 
-	AutoConfiguredHealthContributorRegistry(Map<String, HealthContributor> contributors,
+	AutoConfiguredHealthContributorRegistry(Map<String, HealthContributor_RENAMED> contributors,
 			Collection<String> groupNames) {
 		super(contributors);
 		this.groupNames = groupNames;
@@ -42,7 +42,7 @@ class AutoConfiguredHealthContributorRegistry extends DefaultHealthContributorRe
 	}
 
 	@Override
-	public void registerContributor(String name, HealthContributor contributor) {
+	public void registerContributor(String name, HealthContributor_RENAMED contributor) {
 		assertDoesNotClashWithGroup(name);
 		super.registerContributor(name, contributor);
 	}

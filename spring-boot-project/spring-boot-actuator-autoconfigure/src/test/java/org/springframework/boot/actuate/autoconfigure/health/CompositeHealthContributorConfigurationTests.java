@@ -19,7 +19,7 @@ package org.springframework.boot.actuate.autoconfigure.health;
 import org.springframework.boot.actuate.autoconfigure.health.CompositeHealthContributorConfigurationTests.TestHealthIndicator;
 import org.springframework.boot.actuate.health.AbstractHealthIndicator;
 import org.springframework.boot.actuate.health.Health.Builder;
-import org.springframework.boot.actuate.health.HealthContributor;
+import org.springframework.boot.actuate.health.HealthContributor_RENAMED;
 
 /**
  * Tests for {@link CompositeHealthContributorConfiguration}.
@@ -27,10 +27,10 @@ import org.springframework.boot.actuate.health.HealthContributor;
  * @author Phillip Webb
  */
 class CompositeHealthContributorConfigurationTests
-		extends AbstractCompositeHealthContributorConfigurationTests<HealthContributor, TestHealthIndicator> {
+		extends AbstractCompositeHealthContributorConfigurationTests<HealthContributor_RENAMED, TestHealthIndicator> {
 
 	@Override
-	protected AbstractCompositeHealthContributorConfiguration<HealthContributor, TestHealthIndicator, TestBean> newComposite() {
+	protected AbstractCompositeHealthContributorConfiguration<HealthContributor_RENAMED, TestHealthIndicator, TestBean> newComposite() {
 		return new TestCompositeHealthContributorConfiguration();
 	}
 

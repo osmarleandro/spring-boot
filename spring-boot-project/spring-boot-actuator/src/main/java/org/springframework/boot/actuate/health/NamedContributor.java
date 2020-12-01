@@ -19,7 +19,7 @@ package org.springframework.boot.actuate.health;
 import org.springframework.util.Assert;
 
 /**
- * A single named health endpoint contributors (either {@link HealthContributor} or
+ * A single named health endpoint contributors (either {@link HealthContributor_RENAMED} or
  * {@link ReactiveHealthContributor}).
  *
  * @param <C> the contributor type

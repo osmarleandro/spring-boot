@@ -60,7 +60,7 @@ class ReactiveHealthContributorTests {
 	@Test
 	void adaptWhenUnknownThrowsException() {
 		assertThatIllegalStateException()
-				.isThrownBy(() -> ReactiveHealthContributor.adapt(mock(HealthContributor.class)))
+				.isThrownBy(() -> ReactiveHealthContributor.adapt(mock(HealthContributor_RENAMED.class)))
 				.withMessage("Unknown HealthContributor type");
 	}
 

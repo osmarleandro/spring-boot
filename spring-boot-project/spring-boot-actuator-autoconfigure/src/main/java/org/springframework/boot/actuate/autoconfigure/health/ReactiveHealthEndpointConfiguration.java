@@ -21,7 +21,7 @@ import java.util.Map;
 
 import reactor.core.publisher.Flux;
 
-import org.springframework.boot.actuate.health.HealthContributor;
+import org.springframework.boot.actuate.health.HealthContributor_RENAMED;
 import org.springframework.boot.actuate.health.HealthEndpoint;
 import org.springframework.boot.actuate.health.HealthEndpointGroups;
 import org.springframework.boot.actuate.health.ReactiveHealthContributor;
@@ -46,7 +46,7 @@ class ReactiveHealthEndpointConfiguration {
 	@Bean
 	@ConditionalOnMissingBean
 	ReactiveHealthContributorRegistry reactiveHealthContributorRegistry(
-			Map<String, HealthContributor> healthContributors,
+			Map<String, HealthContributor_RENAMED> healthContributors,
 			Map<String, ReactiveHealthContributor> reactiveHealthContributors, HealthEndpointGroups groups) {
 		Map<String, ReactiveHealthContributor> allContributors = new LinkedHashMap<>(reactiveHealthContributors);
 		healthContributors.forEach((name, contributor) -> allContributors.computeIfAbsent(name,

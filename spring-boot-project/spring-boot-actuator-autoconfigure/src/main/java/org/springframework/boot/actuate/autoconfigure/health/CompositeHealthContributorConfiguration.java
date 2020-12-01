@@ -19,7 +19,7 @@ package org.springframework.boot.actuate.autoconfigure.health;
 import java.util.Map;
 
 import org.springframework.boot.actuate.health.CompositeHealthContributor;
-import org.springframework.boot.actuate.health.HealthContributor;
+import org.springframework.boot.actuate.health.HealthContributor_RENAMED;
 import org.springframework.boot.actuate.health.HealthIndicator;
 
 /**
@@ -33,10 +33,10 @@ import org.springframework.boot.actuate.health.HealthIndicator;
  * @since 2.2.0
  */
 public abstract class CompositeHealthContributorConfiguration<I extends HealthIndicator, B>
-		extends AbstractCompositeHealthContributorConfiguration<HealthContributor, I, B> {
+		extends AbstractCompositeHealthContributorConfiguration<HealthContributor_RENAMED, I, B> {
 
 	@Override
-	protected final HealthContributor createComposite(Map<String, B> beans) {
+	protected final HealthContributor_RENAMED createComposite(Map<String, B> beans) {
 		return CompositeHealthContributor.fromMap(beans, this::createIndicator);
 	}
 

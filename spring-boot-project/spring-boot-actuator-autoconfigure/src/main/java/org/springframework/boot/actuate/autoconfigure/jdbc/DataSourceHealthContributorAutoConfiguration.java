@@ -28,7 +28,7 @@ import org.springframework.boot.actuate.autoconfigure.health.CompositeHealthCont
 import org.springframework.boot.actuate.autoconfigure.health.ConditionalOnEnabledHealthIndicator;
 import org.springframework.boot.actuate.health.AbstractHealthIndicator;
 import org.springframework.boot.actuate.health.Health.Builder;
-import org.springframework.boot.actuate.health.HealthContributor;
+import org.springframework.boot.actuate.health.HealthContributor_RENAMED;
 import org.springframework.boot.actuate.health.HealthIndicator;
 import org.springframework.boot.actuate.jdbc.DataSourceHealthIndicator;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
@@ -83,7 +83,7 @@ public class DataSourceHealthContributorAutoConfiguration extends
 
 	@Bean
 	@ConditionalOnMissingBean(name = { "dbHealthIndicator", "dbHealthContributor" })
-	public HealthContributor dbHealthContributor(Map<String, DataSource> dataSources,
+	public HealthContributor_RENAMED dbHealthContributor(Map<String, DataSource> dataSources,
 			DataSourceHealthIndicatorProperties dataSourceHealthIndicatorProperties) {
 		if (dataSourceHealthIndicatorProperties.isIgnoreRoutingDataSources()) {
 			Map<String, DataSource> filteredDatasources = dataSources.entrySet().stream()

@@ -16,14 +16,14 @@
 
 package org.springframework.boot.actuate.autoconfigure.health;
 
-import org.springframework.boot.actuate.health.HealthContributor;
+import org.springframework.boot.actuate.health.HealthContributor_RENAMED;
 import org.springframework.boot.actuate.health.PingHealthIndicator;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * {@link EnableAutoConfiguration Auto-configuration} for {@link HealthContributor health
+ * {@link EnableAutoConfiguration Auto-configuration} for {@link HealthContributor_RENAMED health
  * contributors}.
  *
  * @author Phillip Webb

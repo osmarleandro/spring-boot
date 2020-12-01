@@ -16,20 +16,16 @@
 
 package org.springframework.boot.actuate.health;
 
-import java.util.Map;
-import java.util.function.Function;
-
 /**
- * {@link CompositeHealthContributor} backed by a map with values adapted as necessary.
+ * Tagging interface for classes that contribute to {@link HealthComponent health
+ * components} to the results returned from the {@link HealthEndpoint}. A contributor must
+ * be either a {@link HealthIndicator} or a {@link CompositeHealthContributor}.
  *
- * @param <V> the value type
  * @author Phillip Webb
+ * @since 2.2.0
+ * @see HealthIndicator
+ * @see CompositeHealthContributor
  */
-class CompositeHealthContributorMapAdapter<V> extends NamedContributorsMapAdapter<V, HealthContributor_RENAMED>
-		implements CompositeHealthContributor {
-
-	CompositeHealthContributorMapAdapter(Map<String, V> map, Function<V, ? extends HealthContributor_RENAMED> valueAdapter) {
-		super(map, valueAdapter);
-	}
+public interface HealthContributor_RENAMED {
 
 }

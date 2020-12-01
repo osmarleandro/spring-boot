@@ -20,7 +20,7 @@ import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
 /**
- * A collection of named health endpoint contributors (either {@link HealthContributor} or
+ * A collection of named health endpoint contributors (either {@link HealthContributor_RENAMED} or
  * {@link ReactiveHealthContributor}).
  *
  * @param <C> the contributor type
