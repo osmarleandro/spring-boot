@@ -22,7 +22,7 @@ import org.junit.jupiter.api.Test;
 import static org.mockito.Mockito.mock;
 
 /**
- * Tests for {@link TomcatMetricsBinder}.
+ * Tests for {@link TomcatMetricsBinder_RENAMED}.
  *
  * @author Andy Wilkinson
  */
@@ -32,7 +32,7 @@ class TomcatMetricsBinderTests {
 
 	@Test
 	void destroySucceedsWhenCalledBeforeApplicationHasStarted() {
-		new TomcatMetricsBinder(this.meterRegistry).destroy();
+		new TomcatMetricsBinder_RENAMED(this.meterRegistry).destroy();
 	}
 
 }
