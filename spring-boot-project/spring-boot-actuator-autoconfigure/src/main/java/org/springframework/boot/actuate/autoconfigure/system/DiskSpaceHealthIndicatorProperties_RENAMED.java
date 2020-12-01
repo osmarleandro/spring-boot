@@ -31,7 +31,7 @@ import org.springframework.util.unit.DataSize;
  * @since 1.2.0
  */
 @ConfigurationProperties(prefix = "management.health.diskspace")
-public class DiskSpaceHealthIndicatorProperties {
+public class DiskSpaceHealthIndicatorProperties_RENAMED {
 
 	/**
 	 * Path used to compute the available disk space.
