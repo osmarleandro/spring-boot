@@ -47,7 +47,7 @@ import org.springframework.context.annotation.Configuration;
 @ConditionalOnClass(StatsdMeterRegistry.class)
 @ConditionalOnEnabledMetricsExport("statsd")
 @EnableConfigurationProperties(StatsdProperties.class)
-public class StatsdMetricsExportAutoConfiguration {
+public class StatsdMetricsExportAutoConfiguration_RENAMED {
 
 	@Bean
 	@ConditionalOnMissingBean
