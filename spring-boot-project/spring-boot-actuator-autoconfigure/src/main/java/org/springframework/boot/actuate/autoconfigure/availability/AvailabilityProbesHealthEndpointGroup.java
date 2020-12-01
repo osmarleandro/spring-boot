@@ -23,7 +23,7 @@ import java.util.Set;
 import org.springframework.boot.actuate.endpoint.SecurityContext;
 import org.springframework.boot.actuate.health.HealthEndpointGroup;
 import org.springframework.boot.actuate.health.HttpCodeStatusMapper;
-import org.springframework.boot.actuate.health.StatusAggregator;
+import org.springframework.boot.actuate.health.StatusAggregator_RENAMED;
 
 /**
  * {@link HealthEndpointGroup} used to support availability probes.
@@ -55,8 +55,8 @@ class AvailabilityProbesHealthEndpointGroup implements HealthEndpointGroup {
 	}
 
 	@Override
-	public StatusAggregator getStatusAggregator() {
-		return StatusAggregator.getDefault();
+	public StatusAggregator_RENAMED getStatusAggregator() {
+		return StatusAggregator_RENAMED.getDefault();
 	}
 
 	@Override

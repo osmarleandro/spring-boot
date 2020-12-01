@@ -89,7 +89,7 @@ public class ReactiveHealthEndpointWebExtension
 
 	@Override
 	protected Mono<? extends HealthComponent> aggregateContributions(ApiVersion apiVersion,
-			Map<String, Mono<? extends HealthComponent>> contributions, StatusAggregator statusAggregator,
+			Map<String, Mono<? extends HealthComponent>> contributions, StatusAggregator_RENAMED statusAggregator,
 			boolean showComponents, Set<String> groupNames) {
 		return Flux.fromIterable(contributions.entrySet()).flatMap(NamedHealthComponent::create)
 				.collectMap(NamedHealthComponent::getName, NamedHealthComponent::getHealth).map((components) -> this

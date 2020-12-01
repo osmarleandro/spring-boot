@@ -39,7 +39,7 @@ import org.springframework.boot.actuate.health.ReactiveHealthContributor;
 import org.springframework.boot.actuate.health.ReactiveHealthIndicator;
 import org.springframework.boot.actuate.health.SimpleHttpCodeStatusMapper;
 import org.springframework.boot.actuate.health.SimpleStatusAggregator;
-import org.springframework.boot.actuate.health.StatusAggregator;
+import org.springframework.boot.actuate.health.StatusAggregator_RENAMED;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
@@ -57,7 +57,7 @@ class HealthEndpointConfiguration {
 
 	@Bean
 	@ConditionalOnMissingBean
-	StatusAggregator healthStatusAggregator(HealthEndpointProperties properties) {
+	StatusAggregator_RENAMED healthStatusAggregator(HealthEndpointProperties properties) {
 		return new SimpleStatusAggregator(properties.getStatus().getOrder());
 	}
 

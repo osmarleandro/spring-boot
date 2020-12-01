@@ -24,7 +24,7 @@ import org.springframework.boot.actuate.autoconfigure.health.HealthProperties.Sh
 import org.springframework.boot.actuate.endpoint.SecurityContext;
 import org.springframework.boot.actuate.health.HealthEndpointGroup;
 import org.springframework.boot.actuate.health.HttpCodeStatusMapper;
-import org.springframework.boot.actuate.health.StatusAggregator;
+import org.springframework.boot.actuate.health.StatusAggregator_RENAMED;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.util.ClassUtils;
@@ -40,7 +40,7 @@ class AutoConfiguredHealthEndpointGroup implements HealthEndpointGroup {
 
 	private final Predicate<String> members;
 
-	private final StatusAggregator statusAggregator;
+	private final StatusAggregator_RENAMED statusAggregator;
 
 	private final HttpCodeStatusMapper httpCodeStatusMapper;
 
@@ -59,7 +59,7 @@ class AutoConfiguredHealthEndpointGroup implements HealthEndpointGroup {
 	 * @param showDetails the show details setting
 	 * @param roles the roles to match
 	 */
-	AutoConfiguredHealthEndpointGroup(Predicate<String> members, StatusAggregator statusAggregator,
+	AutoConfiguredHealthEndpointGroup(Predicate<String> members, StatusAggregator_RENAMED statusAggregator,
 			HttpCodeStatusMapper httpCodeStatusMapper, Show showComponents, Show showDetails,
 			Collection<String> roles) {
 		this.members = members;
@@ -132,7 +132,7 @@ class AutoConfiguredHealthEndpointGroup implements HealthEndpointGroup {
 	}
 
 	@Override
-	public StatusAggregator getStatusAggregator() {
+	public StatusAggregator_RENAMED getStatusAggregator() {
 		return this.statusAggregator;
 	}
 

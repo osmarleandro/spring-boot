@@ -28,7 +28,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.actuate.autoconfigure.health.HealthProperties.Show;
 import org.springframework.boot.actuate.endpoint.SecurityContext;
 import org.springframework.boot.actuate.health.HttpCodeStatusMapper;
-import org.springframework.boot.actuate.health.StatusAggregator;
+import org.springframework.boot.actuate.health.StatusAggregator_RENAMED;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
@@ -45,7 +45,7 @@ import static org.mockito.Mockito.mock;
 class AutoConfiguredHealthEndpointGroupTests {
 
 	@Mock
-	private StatusAggregator statusAggregator;
+	private StatusAggregator_RENAMED statusAggregator;
 
 	@Mock
 	private HttpCodeStatusMapper httpCodeStatusMapper;

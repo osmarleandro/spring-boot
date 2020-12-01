@@ -30,7 +30,7 @@ class SimpleStatusAggregatorTests {
 
 	@Test
 	void getAggregateStatusWhenUsingDefaultInstance() {
-		StatusAggregator aggregator = StatusAggregator.getDefault();
+		StatusAggregator_RENAMED aggregator = StatusAggregator_RENAMED.getDefault();
 		Status status = aggregator.getAggregateStatus(Status.DOWN, Status.UP, Status.UNKNOWN, Status.OUT_OF_SERVICE);
 		assertThat(status).isEqualTo(Status.DOWN);
 	}

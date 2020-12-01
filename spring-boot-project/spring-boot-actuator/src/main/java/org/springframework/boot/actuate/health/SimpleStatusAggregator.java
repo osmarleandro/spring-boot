@@ -29,16 +29,16 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.util.ObjectUtils;
 
 /**
- * {@link StatusAggregator} backed by an ordered status list.
+ * {@link StatusAggregator_RENAMED} backed by an ordered status list.
  *
  * @author Phillip Webb
  * @since 2.2.0
  */
-public class SimpleStatusAggregator implements StatusAggregator {
+public class SimpleStatusAggregator implements StatusAggregator_RENAMED {
 
 	private static final List<String> DEFAULT_ORDER;
 
-	static final StatusAggregator INSTANCE;
+	static final StatusAggregator_RENAMED INSTANCE;
 
 	static {
 		List<String> defaultOrder = new ArrayList<>();

@@ -38,7 +38,7 @@ import org.springframework.boot.actuate.health.HealthEndpointGroups;
 import org.springframework.boot.actuate.health.HttpCodeStatusMapper;
 import org.springframework.boot.actuate.health.SimpleHttpCodeStatusMapper;
 import org.springframework.boot.actuate.health.SimpleStatusAggregator;
-import org.springframework.boot.actuate.health.StatusAggregator;
+import org.springframework.boot.actuate.health.StatusAggregator_RENAMED;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.util.CollectionUtils;
@@ -68,7 +68,7 @@ class AutoConfiguredHealthEndpointGroups implements HealthEndpointGroups {
 		Show showComponents = properties.getShowComponents();
 		Show showDetails = properties.getShowDetails();
 		Set<String> roles = properties.getRoles();
-		StatusAggregator statusAggregator = getNonQualifiedBean(beanFactory, StatusAggregator.class);
+		StatusAggregator_RENAMED statusAggregator = getNonQualifiedBean(beanFactory, StatusAggregator_RENAMED.class);
 		if (statusAggregator == null) {
 			statusAggregator = new SimpleStatusAggregator(properties.getStatus().getOrder());
 		}
@@ -83,7 +83,7 @@ class AutoConfiguredHealthEndpointGroups implements HealthEndpointGroups {
 	}
 
 	private Map<String, HealthEndpointGroup> createGroups(Map<String, Group> groupProperties, BeanFactory beanFactory,
-			StatusAggregator defaultStatusAggregator, HttpCodeStatusMapper defaultHttpCodeStatusMapper,
+			StatusAggregator_RENAMED defaultStatusAggregator, HttpCodeStatusMapper defaultHttpCodeStatusMapper,
 			Show defaultShowComponents, Show defaultShowDetails, Set<String> defaultRoles) {
 		Map<String, HealthEndpointGroup> groups = new LinkedHashMap<>();
 		groupProperties.forEach((groupName, group) -> {
@@ -92,7 +92,7 @@ class AutoConfiguredHealthEndpointGroups implements HealthEndpointGroups {
 					: defaultShowComponents;
 			Show showDetails = (group.getShowDetails() != null) ? group.getShowDetails() : defaultShowDetails;
 			Set<String> roles = !CollectionUtils.isEmpty(group.getRoles()) ? group.getRoles() : defaultRoles;
-			StatusAggregator statusAggregator = getQualifiedBean(beanFactory, StatusAggregator.class, groupName, () -> {
+			StatusAggregator_RENAMED statusAggregator = getQualifiedBean(beanFactory, StatusAggregator_RENAMED.class, groupName, () -> {
 				if (!CollectionUtils.isEmpty(status.getOrder())) {
 					return new SimpleStatusAggregator(status.getOrder());
 				}

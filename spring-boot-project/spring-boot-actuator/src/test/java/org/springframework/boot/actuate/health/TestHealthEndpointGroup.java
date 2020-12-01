@@ -27,7 +27,7 @@ import org.springframework.boot.actuate.endpoint.SecurityContext;
  */
 class TestHealthEndpointGroup implements HealthEndpointGroup {
 
-	private final StatusAggregator statusAggregator = new SimpleStatusAggregator();
+	private final StatusAggregator_RENAMED statusAggregator = new SimpleStatusAggregator();
 
 	private final HttpCodeStatusMapper httpCodeStatusMapper = new SimpleHttpCodeStatusMapper();
 
@@ -69,7 +69,7 @@ class TestHealthEndpointGroup implements HealthEndpointGroup {
 	}
 
 	@Override
-	public StatusAggregator getStatusAggregator() {
+	public StatusAggregator_RENAMED getStatusAggregator() {
 		return this.statusAggregator;
 	}
 

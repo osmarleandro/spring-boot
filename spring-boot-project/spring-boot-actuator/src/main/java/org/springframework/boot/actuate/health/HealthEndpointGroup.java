@@ -54,7 +54,7 @@ public interface HealthEndpointGroup {
 	 * Returns the status aggregator that should be used for this group.
 	 * @return the status aggregator for this group
 	 */
-	StatusAggregator getStatusAggregator();
+	StatusAggregator_RENAMED getStatusAggregator();
 
 	/**
 	 * Returns the {@link HttpCodeStatusMapper} that should be used for this group.

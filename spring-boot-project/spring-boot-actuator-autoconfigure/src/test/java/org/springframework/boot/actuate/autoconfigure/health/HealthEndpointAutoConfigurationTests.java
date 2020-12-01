@@ -41,7 +41,7 @@ import org.springframework.boot.actuate.health.ReactiveHealthContributorRegistry
 import org.springframework.boot.actuate.health.ReactiveHealthEndpointWebExtension;
 import org.springframework.boot.actuate.health.ReactiveHealthIndicator;
 import org.springframework.boot.actuate.health.Status;
-import org.springframework.boot.actuate.health.StatusAggregator;
+import org.springframework.boot.actuate.health.StatusAggregator_RENAMED;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
 import org.springframework.boot.test.context.FilteredClassLoader;
 import org.springframework.boot.test.context.runner.ReactiveWebApplicationContextRunner;
@@ -75,7 +75,7 @@ class HealthEndpointAutoConfigurationTests {
 	@Test
 	void runWhenHealthEndpointIsDisabledDoesNotCreateBeans() {
 		this.contextRunner.withPropertyValues("management.endpoint.health.enabled=false").run((context) -> {
-			assertThat(context).doesNotHaveBean(StatusAggregator.class);
+			assertThat(context).doesNotHaveBean(StatusAggregator_RENAMED.class);
 			assertThat(context).doesNotHaveBean(HttpCodeStatusMapper.class);
 			assertThat(context).doesNotHaveBean(HealthEndpointGroups.class);
 			assertThat(context).doesNotHaveBean(HealthContributorRegistry.class);
@@ -89,7 +89,7 @@ class HealthEndpointAutoConfigurationTests {
 	@Test
 	void runCreatesStatusAggregatorFromProperties() {
 		this.contextRunner.withPropertyValues("management.endpoint.health.status.order=up,down").run((context) -> {
-			StatusAggregator aggregator = context.getBean(StatusAggregator.class);
+			StatusAggregator_RENAMED aggregator = context.getBean(StatusAggregator_RENAMED.class);
 			assertThat(aggregator.getAggregateStatus(Status.UP, Status.DOWN)).isEqualTo(Status.UP);
 		});
 	}
@@ -98,7 +98,7 @@ class HealthEndpointAutoConfigurationTests {
 	void runWhenHasStatusAggregatorBeanIgnoresProperties() {
 		this.contextRunner.withUserConfiguration(StatusAggregatorConfiguration.class)
 				.withPropertyValues("management.endpoint.health.status.order=up,down").run((context) -> {
-					StatusAggregator aggregator = context.getBean(StatusAggregator.class);
+					StatusAggregator_RENAMED aggregator = context.getBean(StatusAggregator_RENAMED.class);
 					assertThat(aggregator.getAggregateStatus(Status.UP, Status.DOWN)).isEqualTo(Status.UNKNOWN);
 				});
 	}
@@ -283,7 +283,7 @@ class HealthEndpointAutoConfigurationTests {
 	static class StatusAggregatorConfiguration {
 
 		@Bean
-		StatusAggregator statusAggregator() {
+		StatusAggregator_RENAMED statusAggregator() {
 			return (statuses) -> Status.UNKNOWN;
 		}
 
