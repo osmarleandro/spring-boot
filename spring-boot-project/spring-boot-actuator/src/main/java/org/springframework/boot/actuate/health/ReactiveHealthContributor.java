@@ -37,7 +37,7 @@ public interface ReactiveHealthContributor {
 			return new HealthIndicatorReactiveAdapter((HealthIndicator) healthContributor);
 		}
 		if (healthContributor instanceof CompositeHealthContributor) {
-			return new CompositeHealthContributorReactiveAdapter((CompositeHealthContributor) healthContributor);
+			return new CompositeHealthContributorReactiveAdapter_RENAMED((CompositeHealthContributor) healthContributor);
 		}
 		throw new IllegalStateException("Unknown HealthContributor type");
 	}

@@ -52,7 +52,7 @@ class ReactiveHealthContributorTests {
 		CompositeHealthContributor contributor = CompositeHealthContributor
 				.fromMap(Collections.singletonMap("a", indicator));
 		ReactiveHealthContributor adapted = ReactiveHealthContributor.adapt(contributor);
-		assertThat(adapted).isInstanceOf(CompositeHealthContributorReactiveAdapter.class);
+		assertThat(adapted).isInstanceOf(CompositeHealthContributorReactiveAdapter_RENAMED.class);
 		ReactiveHealthContributor contained = ((CompositeReactiveHealthContributor) adapted).getContributor("a");
 		assertThat(((ReactiveHealthIndicator) contained).health().block().getStatus()).isEqualTo(Status.OUT_OF_SERVICE);
 	}
