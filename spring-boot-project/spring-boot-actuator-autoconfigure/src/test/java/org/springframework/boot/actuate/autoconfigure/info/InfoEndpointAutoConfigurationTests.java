@@ -25,14 +25,14 @@ import org.springframework.boot.test.context.runner.ApplicationContextRunner;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Tests for {@link InfoEndpointAutoConfiguration}.
+ * Tests for {@link InfoEndpointAutoConfiguration_RENAMED}.
  *
  * @author Phillip Webb
  */
 class InfoEndpointAutoConfigurationTests {
 
 	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
-			.withConfiguration(AutoConfigurations.of(InfoEndpointAutoConfiguration.class));
+			.withConfiguration(AutoConfigurations.of(InfoEndpointAutoConfiguration_RENAMED.class));
 
 	@Test
 	void runShouldHaveEndpointBean() {
