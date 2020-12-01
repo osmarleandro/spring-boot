@@ -35,8 +35,8 @@ import org.springframework.boot.actuate.autoconfigure.metrics.CompositeMeterRegi
 import org.springframework.boot.actuate.autoconfigure.metrics.MetricsAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.metrics.export.ConditionalOnEnabledMetricsExport;
 import org.springframework.boot.actuate.autoconfigure.metrics.export.simple.SimpleMetricsExportAutoConfiguration;
-import org.springframework.boot.actuate.metrics.export.prometheus.PrometheusPushGatewayManager;
-import org.springframework.boot.actuate.metrics.export.prometheus.PrometheusPushGatewayManager.ShutdownOperation;
+import org.springframework.boot.actuate.metrics.export.prometheus.PrometheusPushGatewayManager_RENAMED;
+import org.springframework.boot.actuate.metrics.export.prometheus.PrometheusPushGatewayManager_RENAMED.ShutdownOperation;
 import org.springframework.boot.actuate.metrics.export.prometheus.PrometheusScrapeEndpoint;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
@@ -119,7 +119,7 @@ public class PrometheusMetricsExportAutoConfiguration {
 
 		@Bean
 		@ConditionalOnMissingBean
-		public PrometheusPushGatewayManager prometheusPushGatewayManager(CollectorRegistry collectorRegistry,
+		public PrometheusPushGatewayManager_RENAMED prometheusPushGatewayManager(CollectorRegistry collectorRegistry,
 				PrometheusProperties prometheusProperties, Environment environment) {
 			PrometheusProperties.Pushgateway properties = prometheusProperties.getPushgateway();
 			Duration pushRate = properties.getPushRate();
@@ -131,7 +131,7 @@ public class PrometheusMetricsExportAutoConfiguration {
 				pushGateway.setConnectionFactory(
 						new BasicAuthHttpConnectionFactory(properties.getUsername(), properties.getPassword()));
 			}
-			return new PrometheusPushGatewayManager(pushGateway, collectorRegistry, pushRate, job, groupingKey,
+			return new PrometheusPushGatewayManager_RENAMED(pushGateway, collectorRegistry, pushRate, job, groupingKey,
 					shutdownOperation);
 		}
 

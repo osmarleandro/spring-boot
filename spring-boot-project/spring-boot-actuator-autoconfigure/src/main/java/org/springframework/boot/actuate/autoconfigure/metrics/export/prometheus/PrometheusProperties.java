@@ -22,7 +22,7 @@ import java.util.Map;
 
 import io.micrometer.prometheus.HistogramFlavor;
 
-import org.springframework.boot.actuate.metrics.export.prometheus.PrometheusPushGatewayManager.ShutdownOperation;
+import org.springframework.boot.actuate.metrics.export.prometheus.PrometheusPushGatewayManager_RENAMED.ShutdownOperation;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**

@@ -30,7 +30,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
 import org.springframework.boot.actuate.autoconfigure.web.server.ManagementContextAutoConfiguration;
-import org.springframework.boot.actuate.metrics.export.prometheus.PrometheusPushGatewayManager;
+import org.springframework.boot.actuate.metrics.export.prometheus.PrometheusPushGatewayManager_RENAMED;
 import org.springframework.boot.actuate.metrics.export.prometheus.PrometheusScrapeEndpoint;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
 import org.springframework.boot.test.context.assertj.AssertableApplicationContext;
@@ -143,7 +143,7 @@ class PrometheusMetricsExportAutoConfigurationTests {
 	@Test
 	void pushGatewayIsNotConfiguredWhenEnabledFlagIsNotSet() {
 		this.contextRunner.withUserConfiguration(BaseConfiguration.class)
-				.run((context) -> assertThat(context).doesNotHaveBean(PrometheusPushGatewayManager.class));
+				.run((context) -> assertThat(context).doesNotHaveBean(PrometheusPushGatewayManager_RENAMED.class));
 	}
 
 	@Test
@@ -211,8 +211,8 @@ class PrometheusMetricsExportAutoConfigurationTests {
 	}
 
 	private PushGateway getPushGateway(AssertableApplicationContext context) {
-		assertThat(context).hasSingleBean(PrometheusPushGatewayManager.class);
-		PrometheusPushGatewayManager gatewayManager = context.getBean(PrometheusPushGatewayManager.class);
+		assertThat(context).hasSingleBean(PrometheusPushGatewayManager_RENAMED.class);
+		PrometheusPushGatewayManager_RENAMED gatewayManager = context.getBean(PrometheusPushGatewayManager_RENAMED.class);
 		return (PushGateway) ReflectionTestUtils.getField(gatewayManager, "pushGateway");
 	}
 
