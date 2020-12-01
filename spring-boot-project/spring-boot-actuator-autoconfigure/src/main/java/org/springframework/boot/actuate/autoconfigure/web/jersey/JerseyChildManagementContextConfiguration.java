@@ -17,7 +17,7 @@ package org.springframework.boot.actuate.autoconfigure.web.jersey;
 
 import org.glassfish.jersey.server.ResourceConfig;
 
-import org.springframework.boot.actuate.autoconfigure.web.ManagementContextConfiguration;
+import org.springframework.boot.actuate.autoconfigure.web.ManagementContextConfiguration_RENAMED;
 import org.springframework.boot.actuate.autoconfigure.web.ManagementContextType;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingClass;
@@ -27,14 +27,14 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
 
 /**
- * {@link ManagementContextConfiguration @ManagementContextConfiguration} for Jersey
+ * {@link ManagementContextConfiguration_RENAMED @ManagementContextConfiguration} for Jersey
  * infrastructure when a separate management context with a web server running on a
  * different port is required.
  *
  * @author Madhura Bhave
  * @since 2.1.0
  */
-@ManagementContextConfiguration(value = ManagementContextType.CHILD, proxyBeanMethods = false)
+@ManagementContextConfiguration_RENAMED(value = ManagementContextType.CHILD, proxyBeanMethods = false)
 @Import(JerseyManagementContextConfiguration.class)
 @ConditionalOnWebApplication(type = ConditionalOnWebApplication.Type.SERVLET)
 @ConditionalOnClass(ResourceConfig.class)

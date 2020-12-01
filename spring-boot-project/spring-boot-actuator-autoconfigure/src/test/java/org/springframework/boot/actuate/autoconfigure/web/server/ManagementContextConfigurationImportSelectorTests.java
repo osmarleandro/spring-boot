@@ -22,7 +22,7 @@ import java.util.stream.Stream;
 
 import org.junit.jupiter.api.Test;
 
-import org.springframework.boot.actuate.autoconfigure.web.ManagementContextConfiguration;
+import org.springframework.boot.actuate.autoconfigure.web.ManagementContextConfiguration_RENAMED;
 import org.springframework.boot.actuate.autoconfigure.web.ManagementContextType;
 import org.springframework.core.annotation.Order;
 import org.springframework.core.type.AnnotationMetadata;
@@ -93,12 +93,12 @@ class ManagementContextConfigurationImportSelectorTests {
 
 	}
 
-	@ManagementContextConfiguration(ManagementContextType.CHILD)
+	@ManagementContextConfiguration_RENAMED(ManagementContextType.CHILD)
 	static class ChildOnly {
 
 	}
 
-	@ManagementContextConfiguration(ManagementContextType.SAME)
+	@ManagementContextConfiguration_RENAMED(ManagementContextType.SAME)
 	static class SameOnly {
 
 	}

@@ -17,7 +17,7 @@
 package org.springframework.boot.actuate.autoconfigure.web.reactive;
 
 import org.springframework.beans.factory.ListableBeanFactory;
-import org.springframework.boot.actuate.autoconfigure.web.ManagementContextConfiguration;
+import org.springframework.boot.actuate.autoconfigure.web.ManagementContextConfiguration_RENAMED;
 import org.springframework.boot.actuate.autoconfigure.web.ManagementContextType;
 import org.springframework.boot.actuate.autoconfigure.web.server.ManagementWebServerFactoryCustomizer;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
@@ -36,7 +36,7 @@ import org.springframework.web.reactive.config.EnableWebFlux;
 import org.springframework.web.server.adapter.WebHttpHandlerBuilder;
 
 /**
- * {@link ManagementContextConfiguration @ManagementContextConfiguration} for reactive web
+ * {@link ManagementContextConfiguration_RENAMED @ManagementContextConfiguration} for reactive web
  * infrastructure when a separate management context with a web server running on a
  * different port is required.
  *
@@ -45,7 +45,7 @@ import org.springframework.web.server.adapter.WebHttpHandlerBuilder;
  * @since 2.0.0
  */
 @EnableWebFlux
-@ManagementContextConfiguration(value = ManagementContextType.CHILD, proxyBeanMethods = false)
+@ManagementContextConfiguration_RENAMED(value = ManagementContextType.CHILD, proxyBeanMethods = false)
 @ConditionalOnWebApplication(type = Type.REACTIVE)
 public class ReactiveManagementChildContextConfiguration {
 

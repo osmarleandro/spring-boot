@@ -22,7 +22,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.BeanClassLoaderAware;
-import org.springframework.boot.actuate.autoconfigure.web.ManagementContextConfiguration;
+import org.springframework.boot.actuate.autoconfigure.web.ManagementContextConfiguration_RENAMED;
 import org.springframework.boot.actuate.autoconfigure.web.ManagementContextType;
 import org.springframework.context.annotation.DeferredImportSelector;
 import org.springframework.core.OrderComparator;
@@ -43,7 +43,7 @@ import org.springframework.util.StringUtils;
  * @author Dave Syer
  * @author Phillip Webb
  * @author Andy Wilkinson
- * @see ManagementContextConfiguration
+ * @see ManagementContextConfiguration_RENAMED
  */
 @Order(Ordered.LOWEST_PRECEDENCE)
 class ManagementContextConfigurationImportSelector implements DeferredImportSelector, BeanClassLoaderAware {
@@ -88,7 +88,7 @@ class ManagementContextConfigurationImportSelector implements DeferredImportSele
 	}
 
 	protected List<String> loadFactoryNames() {
-		return SpringFactoriesLoader.loadFactoryNames(ManagementContextConfiguration.class, this.classLoader);
+		return SpringFactoriesLoader.loadFactoryNames(ManagementContextConfiguration_RENAMED.class, this.classLoader);
 	}
 
 	@Override
@@ -116,7 +116,7 @@ class ManagementContextConfigurationImportSelector implements DeferredImportSele
 
 		private ManagementContextType readContextType(AnnotationMetadata annotationMetadata) {
 			Map<String, Object> annotationAttributes = annotationMetadata
-					.getAnnotationAttributes(ManagementContextConfiguration.class.getName());
+					.getAnnotationAttributes(ManagementContextConfiguration_RENAMED.class.getName());
 			return (annotationAttributes != null) ? (ManagementContextType) annotationAttributes.get("value")
 					: ManagementContextType.ANY;
 		}

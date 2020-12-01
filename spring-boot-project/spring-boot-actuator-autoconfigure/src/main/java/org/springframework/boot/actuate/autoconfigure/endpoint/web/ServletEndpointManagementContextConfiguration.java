@@ -19,7 +19,7 @@ package org.springframework.boot.actuate.autoconfigure.endpoint.web;
 import org.glassfish.jersey.server.ResourceConfig;
 
 import org.springframework.boot.actuate.autoconfigure.endpoint.expose.IncludeExcludeEndpointFilter;
-import org.springframework.boot.actuate.autoconfigure.web.ManagementContextConfiguration;
+import org.springframework.boot.actuate.autoconfigure.web.ManagementContextConfiguration_RENAMED;
 import org.springframework.boot.actuate.endpoint.web.ExposableServletEndpoint;
 import org.springframework.boot.actuate.endpoint.web.ServletEndpointRegistrar;
 import org.springframework.boot.actuate.endpoint.web.annotation.ServletEndpointsSupplier;
@@ -34,7 +34,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.DispatcherServlet;
 
 /**
- * {@link ManagementContextConfiguration @ManagementContextConfiguration} for servlet
+ * {@link ManagementContextConfiguration_RENAMED @ManagementContextConfiguration} for servlet
  * endpoints.
  *
  * @author Phillip Webb
@@ -42,7 +42,7 @@ import org.springframework.web.servlet.DispatcherServlet;
  * @author Madhura Bhave
  * @since 2.0.0
  */
-@ManagementContextConfiguration(proxyBeanMethods = false)
+@ManagementContextConfiguration_RENAMED(proxyBeanMethods = false)
 @ConditionalOnWebApplication(type = Type.SERVLET)
 public class ServletEndpointManagementContextConfiguration {
 

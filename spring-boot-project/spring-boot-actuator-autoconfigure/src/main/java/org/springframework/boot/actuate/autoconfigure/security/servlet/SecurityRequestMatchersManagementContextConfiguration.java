@@ -18,7 +18,7 @@ package org.springframework.boot.actuate.autoconfigure.security.servlet;
 
 import org.glassfish.jersey.server.ResourceConfig;
 
-import org.springframework.boot.actuate.autoconfigure.web.ManagementContextConfiguration;
+import org.springframework.boot.actuate.autoconfigure.web.ManagementContextConfiguration_RENAMED;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -34,13 +34,13 @@ import org.springframework.security.web.util.matcher.RequestMatcher;
 import org.springframework.web.servlet.DispatcherServlet;
 
 /**
- * {@link ManagementContextConfiguration} that configures the appropriate
+ * {@link ManagementContextConfiguration_RENAMED} that configures the appropriate
  * {@link RequestMatcherProvider}.
  *
  * @author Madhura Bhave
  * @since 2.1.8
  */
-@ManagementContextConfiguration(proxyBeanMethods = false)
+@ManagementContextConfiguration_RENAMED(proxyBeanMethods = false)
 @ConditionalOnClass({ RequestMatcher.class })
 @ConditionalOnWebApplication(type = ConditionalOnWebApplication.Type.SERVLET)
 public class SecurityRequestMatchersManagementContextConfiguration {

@@ -22,7 +22,7 @@ import java.util.List;
 
 import org.springframework.boot.actuate.autoconfigure.endpoint.web.CorsEndpointProperties;
 import org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointProperties;
-import org.springframework.boot.actuate.autoconfigure.web.ManagementContextConfiguration;
+import org.springframework.boot.actuate.autoconfigure.web.ManagementContextConfiguration_RENAMED;
 import org.springframework.boot.actuate.autoconfigure.web.server.ManagementPortType;
 import org.springframework.boot.actuate.endpoint.ExposableEndpoint;
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
@@ -47,14 +47,14 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.servlet.DispatcherServlet;
 
 /**
- * {@link ManagementContextConfiguration @ManagementContextConfiguration} for Spring MVC
+ * {@link ManagementContextConfiguration_RENAMED @ManagementContextConfiguration} for Spring MVC
  * {@link Endpoint @Endpoint} concerns.
  *
  * @author Andy Wilkinson
  * @author Phillip Webb
  * @since 2.0.0
  */
-@ManagementContextConfiguration(proxyBeanMethods = false)
+@ManagementContextConfiguration_RENAMED(proxyBeanMethods = false)
 @ConditionalOnWebApplication(type = Type.SERVLET)
 @ConditionalOnClass(DispatcherServlet.class)
 @ConditionalOnBean({ DispatcherServlet.class, WebEndpointsSupplier.class })

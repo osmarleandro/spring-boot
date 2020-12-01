@@ -47,7 +47,7 @@ import org.springframework.core.annotation.Order;
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @Configuration
-public @interface ManagementContextConfiguration {
+public @interface ManagementContextConfiguration_RENAMED {
 
 	/**
 	 * Specifies the type of management context that is required for this configuration to

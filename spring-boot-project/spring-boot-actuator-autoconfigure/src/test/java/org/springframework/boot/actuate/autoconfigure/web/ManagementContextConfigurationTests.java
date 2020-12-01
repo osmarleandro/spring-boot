@@ -25,7 +25,7 @@ import org.springframework.core.annotation.AnnotationAttributes;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Tests for {@link ManagementContextConfiguration @ManagementContextConfiguration}.
+ * Tests for {@link ManagementContextConfiguration_RENAMED @ManagementContextConfiguration}.
  *
  * @author Andy Wilkinson
  */
@@ -45,12 +45,12 @@ class ManagementContextConfigurationTests {
 		assertThat(attributes.get("proxyBeanMethods")).isEqualTo(false);
 	}
 
-	@ManagementContextConfiguration
+	@ManagementContextConfiguration_RENAMED
 	static class DefaultManagementContextConfiguration {
 
 	}
 
-	@ManagementContextConfiguration(proxyBeanMethods = false)
+	@ManagementContextConfiguration_RENAMED(proxyBeanMethods = false)
 	static class NoBeanMethodProxyingManagementContextConfiguration {
 
 	}

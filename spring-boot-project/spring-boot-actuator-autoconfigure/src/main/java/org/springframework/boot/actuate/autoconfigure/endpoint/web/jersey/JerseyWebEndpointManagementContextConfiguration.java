@@ -28,7 +28,7 @@ import org.glassfish.jersey.server.model.Resource;
 
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointProperties;
-import org.springframework.boot.actuate.autoconfigure.web.ManagementContextConfiguration;
+import org.springframework.boot.actuate.autoconfigure.web.ManagementContextConfiguration_RENAMED;
 import org.springframework.boot.actuate.autoconfigure.web.server.ManagementPortType;
 import org.springframework.boot.actuate.endpoint.ExposableEndpoint;
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
@@ -51,7 +51,7 @@ import org.springframework.core.env.Environment;
 import org.springframework.util.StringUtils;
 
 /**
- * {@link ManagementContextConfiguration @ManagementContextConfiguration} for Jersey
+ * {@link ManagementContextConfiguration_RENAMED @ManagementContextConfiguration} for Jersey
  * {@link Endpoint @Endpoint} concerns.
  *
  * @author Andy Wilkinson
@@ -60,7 +60,7 @@ import org.springframework.util.StringUtils;
  * @author Madhura Bhave
  * @author HaiTao Zhang
  */
-@ManagementContextConfiguration(proxyBeanMethods = false)
+@ManagementContextConfiguration_RENAMED(proxyBeanMethods = false)
 @ConditionalOnWebApplication(type = Type.SERVLET)
 @ConditionalOnClass(ResourceConfig.class)
 @ConditionalOnBean(WebEndpointsSupplier.class)

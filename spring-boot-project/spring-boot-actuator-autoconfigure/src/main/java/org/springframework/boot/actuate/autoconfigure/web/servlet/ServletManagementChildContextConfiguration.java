@@ -30,7 +30,7 @@ import org.eclipse.jetty.server.Server;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.HierarchicalBeanFactory;
 import org.springframework.beans.factory.ListableBeanFactory;
-import org.springframework.boot.actuate.autoconfigure.web.ManagementContextConfiguration;
+import org.springframework.boot.actuate.autoconfigure.web.ManagementContextConfiguration_RENAMED;
 import org.springframework.boot.actuate.autoconfigure.web.ManagementContextType;
 import org.springframework.boot.actuate.autoconfigure.web.server.ManagementServerProperties;
 import org.springframework.boot.actuate.autoconfigure.web.server.ManagementWebServerFactoryCustomizer;
@@ -59,7 +59,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.util.StringUtils;
 
 /**
- * {@link ManagementContextConfiguration @ManagementContextConfiguration} for Servlet web
+ * {@link ManagementContextConfiguration_RENAMED @ManagementContextConfiguration} for Servlet web
  * endpoint infrastructure when a separate management context with a web server running on
  * a different port is required.
  *
@@ -69,7 +69,7 @@ import org.springframework.util.StringUtils;
  * @author Eddú Meléndez
  * @author Phillip Webb
  */
-@ManagementContextConfiguration(value = ManagementContextType.CHILD, proxyBeanMethods = false)
+@ManagementContextConfiguration_RENAMED(value = ManagementContextType.CHILD, proxyBeanMethods = false)
 @ConditionalOnWebApplication(type = Type.SERVLET)
 class ServletManagementChildContextConfiguration {
 
