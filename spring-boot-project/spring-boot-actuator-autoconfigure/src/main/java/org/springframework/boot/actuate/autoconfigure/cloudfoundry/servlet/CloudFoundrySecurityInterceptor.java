@@ -27,7 +27,7 @@ import org.springframework.boot.actuate.autoconfigure.cloudfoundry.AccessLevel;
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.CloudFoundryAuthorizationException;
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.CloudFoundryAuthorizationException.Reason;
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.SecurityResponse;
-import org.springframework.boot.actuate.autoconfigure.cloudfoundry.Token;
+import org.springframework.boot.actuate.autoconfigure.cloudfoundry.Token_RENAMED;
 import org.springframework.boot.actuate.endpoint.EndpointId;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
@@ -89,7 +89,7 @@ class CloudFoundrySecurityInterceptor {
 	}
 
 	private void check(HttpServletRequest request, EndpointId endpointId) throws Exception {
-		Token token = getToken(request);
+		Token_RENAMED token = getToken(request);
 		this.tokenValidator.validate(token);
 		AccessLevel accessLevel = this.cloudFoundrySecurityService.getAccessLevel(token.toString(), this.applicationId);
 		if (!accessLevel.isAccessAllowed((endpointId != null) ? endpointId.toLowerCaseString() : "")) {
@@ -98,14 +98,14 @@ class CloudFoundrySecurityInterceptor {
 		request.setAttribute(AccessLevel.REQUEST_ATTRIBUTE, accessLevel);
 	}
 
-	private Token getToken(HttpServletRequest request) {
+	private Token_RENAMED getToken(HttpServletRequest request) {
 		String authorization = request.getHeader("Authorization");
 		String bearerPrefix = "bearer ";
 		if (authorization == null || !authorization.toLowerCase(Locale.ENGLISH).startsWith(bearerPrefix)) {
 			throw new CloudFoundryAuthorizationException(Reason.MISSING_AUTHORIZATION,
 					"Authorization header is missing or invalid");
 		}
-		return new Token(authorization.substring(bearerPrefix.length()));
+		return new Token_RENAMED(authorization.substring(bearerPrefix.length()));
 	}
 
 }

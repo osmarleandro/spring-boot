@@ -27,7 +27,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 /**
- * Tests for {@link Token}.
+ * Tests for {@link Token_RENAMED}.
  *
  * @author Madhura Bhave
  */
@@ -35,7 +35,7 @@ class TokenTests {
 
 	@Test
 	void invalidJwtShouldThrowException() {
-		assertThatExceptionOfType(CloudFoundryAuthorizationException.class).isThrownBy(() -> new Token("invalid-token"))
+		assertThatExceptionOfType(CloudFoundryAuthorizationException.class).isThrownBy(() -> new Token_RENAMED("invalid-token"))
 				.satisfies(reasonRequirement(Reason.INVALID_TOKEN));
 	}
 
@@ -44,7 +44,7 @@ class TokenTests {
 		String header = "{\"alg\": \"RS256\", \"kid\": \"key-id\", \"typ\": \"JWT\"}";
 		String claims = "invalid-claims";
 		assertThatExceptionOfType(CloudFoundryAuthorizationException.class)
-				.isThrownBy(() -> new Token(Base64Utils.encodeToString(header.getBytes()) + "."
+				.isThrownBy(() -> new Token_RENAMED(Base64Utils.encodeToString(header.getBytes()) + "."
 						+ Base64Utils.encodeToString(claims.getBytes())))
 				.satisfies(reasonRequirement(Reason.INVALID_TOKEN));
 	}
@@ -54,7 +54,7 @@ class TokenTests {
 		String header = "invalid-header";
 		String claims = "{\"exp\": 2147483647, \"iss\": \"http://localhost:8080/uaa/oauth/token\"}";
 		assertThatExceptionOfType(CloudFoundryAuthorizationException.class)
-				.isThrownBy(() -> new Token(Base64Utils.encodeToString(header.getBytes()) + "."
+				.isThrownBy(() -> new Token_RENAMED(Base64Utils.encodeToString(header.getBytes()) + "."
 						+ Base64Utils.encodeToString(claims.getBytes())))
 				.satisfies(reasonRequirement(Reason.INVALID_TOKEN));
 	}
@@ -63,7 +63,7 @@ class TokenTests {
 	void emptyJwtSignatureShouldThrowException() {
 		String token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ0b3B0YWwu"
 				+ "Y29tIiwiZXhwIjoxNDI2NDIwODAwLCJhd2Vzb21lIjp0cnVlfQ.";
-		assertThatExceptionOfType(CloudFoundryAuthorizationException.class).isThrownBy(() -> new Token(token))
+		assertThatExceptionOfType(CloudFoundryAuthorizationException.class).isThrownBy(() -> new Token_RENAMED(token))
 				.satisfies(reasonRequirement(Reason.INVALID_TOKEN));
 	}
 
@@ -74,7 +74,7 @@ class TokenTests {
 		String content = Base64Utils.encodeToString(header.getBytes()) + "."
 				+ Base64Utils.encodeToString(claims.getBytes());
 		String signature = Base64Utils.encodeToString("signature".getBytes());
-		Token token = new Token(content + "." + signature);
+		Token_RENAMED token = new Token_RENAMED(content + "." + signature);
 		assertThat(token.getExpiry()).isEqualTo(2147483647);
 		assertThat(token.getIssuer()).isEqualTo("http://localhost:8080/uaa/oauth/token");
 		assertThat(token.getSignatureAlgorithm()).isEqualTo("RS256");
@@ -87,7 +87,7 @@ class TokenTests {
 	void getSignatureAlgorithmWhenAlgIsNullShouldThrowException() {
 		String header = "{\"kid\": \"key-id\",  \"typ\": \"JWT\"}";
 		String claims = "{\"exp\": 2147483647, \"iss\": \"http://localhost:8080/uaa/oauth/token\"}";
-		Token token = createToken(header, claims);
+		Token_RENAMED token = createToken(header, claims);
 		assertThatExceptionOfType(CloudFoundryAuthorizationException.class).isThrownBy(token::getSignatureAlgorithm)
 				.satisfies(reasonRequirement(Reason.INVALID_TOKEN));
 	}
@@ -96,7 +96,7 @@ class TokenTests {
 	void getIssuerWhenIssIsNullShouldThrowException() {
 		String header = "{\"alg\": \"RS256\", \"kid\": \"key-id\", \"typ\": \"JWT\"}";
 		String claims = "{\"exp\": 2147483647}";
-		Token token = createToken(header, claims);
+		Token_RENAMED token = createToken(header, claims);
 		assertThatExceptionOfType(CloudFoundryAuthorizationException.class).isThrownBy(token::getIssuer)
 				.satisfies(reasonRequirement(Reason.INVALID_TOKEN));
 	}
@@ -105,7 +105,7 @@ class TokenTests {
 	void getKidWhenKidIsNullShouldThrowException() {
 		String header = "{\"alg\": \"RS256\", \"typ\": \"JWT\"}";
 		String claims = "{\"exp\": 2147483647}";
-		Token token = createToken(header, claims);
+		Token_RENAMED token = createToken(header, claims);
 		assertThatExceptionOfType(CloudFoundryAuthorizationException.class).isThrownBy(token::getKeyId)
 				.satisfies(reasonRequirement(Reason.INVALID_TOKEN));
 	}
@@ -114,13 +114,13 @@ class TokenTests {
 	void getExpiryWhenExpIsNullShouldThrowException() {
 		String header = "{\"alg\": \"RS256\",  \"kid\": \"key-id\", \"typ\": \"JWT\"}";
 		String claims = "{\"iss\": \"http://localhost:8080/uaa/oauth/token\"}";
-		Token token = createToken(header, claims);
+		Token_RENAMED token = createToken(header, claims);
 		assertThatExceptionOfType(CloudFoundryAuthorizationException.class).isThrownBy(token::getExpiry)
 				.satisfies(reasonRequirement(Reason.INVALID_TOKEN));
 	}
 
-	private Token createToken(String header, String claims) {
-		Token token = new Token(
+	private Token_RENAMED createToken(String header, String claims) {
+		Token_RENAMED token = new Token_RENAMED(
 				Base64Utils.encodeToString(header.getBytes()) + "." + Base64Utils.encodeToString(claims.getBytes())
 						+ "." + Base64Utils.encodeToString("signature".getBytes()));
 		return token;

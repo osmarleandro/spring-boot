@@ -31,7 +31,7 @@ import org.springframework.util.StringUtils;
  * @author Madhura Bhave
  * @since 1.5.22
  */
-public class Token {
+public class Token_RENAMED {
 
 	private final String encoded;
 
@@ -41,7 +41,7 @@ public class Token {
 
 	private final Map<String, Object> claims;
 
-	public Token(String encoded) {
+	public Token_RENAMED(String encoded) {
 		this.encoded = encoded;
 		int firstPeriod = encoded.indexOf('.');
 		int lastPeriod = encoded.lastIndexOf('.');

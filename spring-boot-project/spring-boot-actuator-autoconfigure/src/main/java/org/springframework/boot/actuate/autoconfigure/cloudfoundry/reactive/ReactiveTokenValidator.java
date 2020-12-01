@@ -32,11 +32,11 @@ import reactor.core.publisher.Mono;
 
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.CloudFoundryAuthorizationException;
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.CloudFoundryAuthorizationException.Reason;
-import org.springframework.boot.actuate.autoconfigure.cloudfoundry.Token;
+import org.springframework.boot.actuate.autoconfigure.cloudfoundry.Token_RENAMED;
 import org.springframework.util.Base64Utils;
 
 /**
- * Validator used to ensure that a signed {@link Token} has not been tampered with.
+ * Validator used to ensure that a signed {@link Token_RENAMED} has not been tampered with.
  *
  * @author Madhura Bhave
  */
@@ -50,12 +50,12 @@ class ReactiveTokenValidator {
 		this.securityService = securityService;
 	}
 
-	Mono<Void> validate(Token token) {
+	Mono<Void> validate(Token_RENAMED token) {
 		return validateAlgorithm(token).then(validateKeyIdAndSignature(token)).then(validateExpiry(token))
 				.then(validateIssuer(token)).then(validateAudience(token));
 	}
 
-	private Mono<Void> validateAlgorithm(Token token) {
+	private Mono<Void> validateAlgorithm(Token_RENAMED token) {
 		String algorithm = token.getSignatureAlgorithm();
 		if (algorithm == null) {
 			return Mono.error(new CloudFoundryAuthorizationException(Reason.INVALID_SIGNATURE,
@@ -68,14 +68,14 @@ class ReactiveTokenValidator {
 		return Mono.empty();
 	}
 
-	private Mono<Void> validateKeyIdAndSignature(Token token) {
+	private Mono<Void> validateKeyIdAndSignature(Token_RENAMED token) {
 		return getTokenKey(token).filter((tokenKey) -> hasValidSignature(token, tokenKey))
 				.switchIfEmpty(Mono.error(new CloudFoundryAuthorizationException(Reason.INVALID_SIGNATURE,
 						"RSA Signature did not match content")))
 				.then();
 	}
 
-	private Mono<String> getTokenKey(Token token) {
+	private Mono<String> getTokenKey(Token_RENAMED token) {
 		String keyId = token.getKeyId();
 		String cached = this.cachedTokenKeys.get(keyId);
 		if (cached != null) {
@@ -91,7 +91,7 @@ class ReactiveTokenValidator {
 		this.cachedTokenKeys = new ConcurrentHashMap<>(tokenKeys);
 	}
 
-	private boolean hasValidSignature(Token token, String key) {
+	private boolean hasValidSignature(Token_RENAMED token, String key) {
 		try {
 			PublicKey publicKey = getPublicKey(key);
 			Signature signature = Signature.getInstance("SHA256withRSA");
@@ -113,7 +113,7 @@ class ReactiveTokenValidator {
 		return KeyFactory.getInstance("RSA").generatePublic(keySpec);
 	}
 
-	private Mono<Void> validateExpiry(Token token) {
+	private Mono<Void> validateExpiry(Token_RENAMED token) {
 		long currentTime = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());
 		if (currentTime > token.getExpiry()) {
 			return Mono.error(new CloudFoundryAuthorizationException(Reason.TOKEN_EXPIRED, "Token expired"));
@@ -121,7 +121,7 @@ class ReactiveTokenValidator {
 		return Mono.empty();
 	}
 
-	private Mono<Void> validateIssuer(Token token) {
+	private Mono<Void> validateIssuer(Token_RENAMED token) {
 		return this.securityService.getUaaUrl().map((uaaUrl) -> String.format("%s/oauth/token", uaaUrl))
 				.filter((issuerUri) -> issuerUri.equals(token.getIssuer()))
 				.switchIfEmpty(Mono.error(
@@ -129,7 +129,7 @@ class ReactiveTokenValidator {
 				.then();
 	}
 
-	private Mono<Void> validateAudience(Token token) {
+	private Mono<Void> validateAudience(Token_RENAMED token) {
 		if (!token.getScope().contains("actuator.read")) {
 			return Mono.error(new CloudFoundryAuthorizationException(Reason.INVALID_AUDIENCE,
 					"Token does not have audience actuator"));

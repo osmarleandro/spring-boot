@@ -28,11 +28,11 @@ import java.util.concurrent.TimeUnit;
 
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.CloudFoundryAuthorizationException;
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.CloudFoundryAuthorizationException.Reason;
-import org.springframework.boot.actuate.autoconfigure.cloudfoundry.Token;
+import org.springframework.boot.actuate.autoconfigure.cloudfoundry.Token_RENAMED;
 import org.springframework.util.Base64Utils;
 
 /**
- * Validator used to ensure that a signed {@link Token} has not been tampered with.
+ * Validator used to ensure that a signed {@link Token_RENAMED} has not been tampered with.
  *
  * @author Madhura Bhave
  */
@@ -46,7 +46,7 @@ class TokenValidator {
 		this.securityService = cloudFoundrySecurityService;
 	}
 
-	void validate(Token token) {
+	void validate(Token_RENAMED token) {
 		validateAlgorithm(token);
 		validateKeyIdAndSignature(token);
 		validateExpiry(token);
@@ -54,7 +54,7 @@ class TokenValidator {
 		validateAudience(token);
 	}
 
-	private void validateAlgorithm(Token token) {
+	private void validateAlgorithm(Token_RENAMED token) {
 		String algorithm = token.getSignatureAlgorithm();
 		if (algorithm == null) {
 			throw new CloudFoundryAuthorizationException(Reason.INVALID_SIGNATURE, "Signing algorithm cannot be null");
@@ -65,7 +65,7 @@ class TokenValidator {
 		}
 	}
 
-	private void validateKeyIdAndSignature(Token token) {
+	private void validateKeyIdAndSignature(Token_RENAMED token) {
 		String keyId = token.getKeyId();
 		if (this.tokenKeys == null || !hasValidKeyId(keyId)) {
 			this.tokenKeys = this.securityService.fetchTokenKeys();
@@ -85,7 +85,7 @@ class TokenValidator {
 		return this.tokenKeys.containsKey(tokenKey);
 	}
 
-	private boolean hasValidSignature(Token token, String key) {
+	private boolean hasValidSignature(Token_RENAMED token, String key) {
 		try {
 			PublicKey publicKey = getPublicKey(key);
 			Signature signature = Signature.getInstance("SHA256withRSA");
@@ -107,14 +107,14 @@ class TokenValidator {
 		return KeyFactory.getInstance("RSA").generatePublic(keySpec);
 	}
 
-	private void validateExpiry(Token token) {
+	private void validateExpiry(Token_RENAMED token) {
 		long currentTime = TimeUnit.MILLISECONDS.toSeconds(System.currentTimeMillis());
 		if (currentTime > token.getExpiry()) {
 			throw new CloudFoundryAuthorizationException(Reason.TOKEN_EXPIRED, "Token expired");
 		}
 	}
 
-	private void validateIssuer(Token token) {
+	private void validateIssuer(Token_RENAMED token) {
 		String uaaUrl = this.securityService.getUaaUrl();
 		String issuerUri = String.format("%s/oauth/token", uaaUrl);
 		if (!issuerUri.equals(token.getIssuer())) {
@@ -123,7 +123,7 @@ class TokenValidator {
 		}
 	}
 
-	private void validateAudience(Token token) {
+	private void validateAudience(Token_RENAMED token) {
 		if (!token.getScope().contains("actuator.read")) {
 			throw new CloudFoundryAuthorizationException(Reason.INVALID_AUDIENCE,
 					"Token does not have audience actuator");
