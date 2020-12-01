@@ -25,7 +25,7 @@ import java.util.function.Function;
  * @param <V> the value type
  * @author Phillip Webb
  */
-class CompositeHealthContributorMapAdapter<V> extends NamedContributorsMapAdapter<V, HealthContributor>
+class CompositeHealthContributorMapAdapter<V> extends NamedContributorsMapAdapter_RENAMED<V, HealthContributor>
 		implements CompositeHealthContributor {
 
 	CompositeHealthContributorMapAdapter(Map<String, V> map, Function<V, ? extends HealthContributor> valueAdapter) {
