@@ -32,7 +32,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Andy Wilkinson
  */
 @ClassPathOverrides({ "org.apache.logging.log4j:log4j-core:2.9.0", "org.apache.logging.log4j:log4j-slf4j-impl:2.9.0" })
-class MetricsAutoConfigurationWithLog4j2AndLogbackTests {
+class MetricsAutoConfigurationWithLog4j2AndLogbackTests_RENAMED {
 
 	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(MetricsAutoConfiguration.class));
