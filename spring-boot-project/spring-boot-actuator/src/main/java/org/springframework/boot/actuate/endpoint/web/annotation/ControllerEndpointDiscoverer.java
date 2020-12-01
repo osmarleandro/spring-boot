@@ -66,7 +66,7 @@ public class ControllerEndpointDiscoverer extends EndpointDiscoverer<ExposableCo
 	protected ExposableControllerEndpoint createEndpoint(Object endpointBean, EndpointId id, boolean enabledByDefault,
 			Collection<Operation> operations) {
 		String rootPath = PathMapper.getRootPath(this.endpointPathMappers, id);
-		return new DiscoveredControllerEndpoint(this, endpointBean, id, rootPath, enabledByDefault);
+		return new DiscoveredControllerEndpoint_RENAMED(this, endpointBean, id, rootPath, enabledByDefault);
 	}
 
 	@Override
