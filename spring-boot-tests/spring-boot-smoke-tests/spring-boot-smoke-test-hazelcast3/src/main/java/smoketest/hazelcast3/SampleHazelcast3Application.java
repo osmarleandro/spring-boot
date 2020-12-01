@@ -20,7 +20,7 @@ import com.hazelcast.spring.cache.HazelcastCacheManager;
 
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.actuate.metrics.cache.CacheMetricsRegistrar;
+import org.springframework.boot.actuate.metrics.cache.CacheMetricsRegistrar_RENAMED;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
@@ -35,7 +35,7 @@ public class SampleHazelcast3Application {
 
 	@Bean
 	public ApplicationRunner registerCache(CountryRepository repository, HazelcastCacheManager cacheManager,
-			CacheMetricsRegistrar registrar) {
+			CacheMetricsRegistrar_RENAMED registrar) {
 		return (args) -> {
 			repository.findByCode("BE");
 			registrar.bindCacheToRegistry(cacheManager.getCache("countries"));

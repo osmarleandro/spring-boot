@@ -25,7 +25,7 @@ import io.micrometer.core.instrument.MeterRegistry;
 import io.micrometer.core.instrument.Tag;
 
 import org.springframework.boot.actuate.metrics.cache.CacheMeterBinderProvider;
-import org.springframework.boot.actuate.metrics.cache.CacheMetricsRegistrar;
+import org.springframework.boot.actuate.metrics.cache.CacheMetricsRegistrar_RENAMED;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
@@ -34,7 +34,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.util.StringUtils;
 
 /**
- * Configure a {@link CacheMetricsRegistrar} and register all available {@link Cache
+ * Configure a {@link CacheMetricsRegistrar_RENAMED} and register all available {@link Cache
  * caches}.
  *
  * @author Stephane Nicoll
@@ -47,7 +47,7 @@ class CacheMetricsRegistrarConfiguration {
 
 	private final MeterRegistry registry;
 
-	private final CacheMetricsRegistrar cacheMetricsRegistrar;
+	private final CacheMetricsRegistrar_RENAMED cacheMetricsRegistrar;
 
 	private final Map<String, CacheManager> cacheManagers;
 
@@ -55,11 +55,11 @@ class CacheMetricsRegistrarConfiguration {
 			Map<String, CacheManager> cacheManagers) {
 		this.registry = registry;
 		this.cacheManagers = cacheManagers;
-		this.cacheMetricsRegistrar = new CacheMetricsRegistrar(this.registry, binderProviders);
+		this.cacheMetricsRegistrar = new CacheMetricsRegistrar_RENAMED(this.registry, binderProviders);
 	}
 
 	@Bean
-	CacheMetricsRegistrar cacheMetricsRegistrar() {
+	CacheMetricsRegistrar_RENAMED cacheMetricsRegistrar() {
 		return this.cacheMetricsRegistrar;
 	}
 
