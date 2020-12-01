@@ -17,7 +17,7 @@
 package org.springframework.boot.actuate.autoconfigure.audit;
 
 import org.springframework.boot.actuate.audit.AuditEventRepository;
-import org.springframework.boot.actuate.audit.AuditEventsEndpoint;
+import org.springframework.boot.actuate.audit.AuditEventsEndpoint_RENAMED;
 import org.springframework.boot.actuate.autoconfigure.endpoint.condition.ConditionalOnAvailableEndpoint;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -27,7 +27,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * {@link EnableAutoConfiguration Auto-configuration} for the {@link AuditEventsEndpoint}.
+ * {@link EnableAutoConfiguration Auto-configuration} for the {@link AuditEventsEndpoint_RENAMED}.
  *
  * @author Phillip Webb
  * @author Andy Wilkinson
@@ -36,14 +36,14 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration(proxyBeanMethods = false)
 @AutoConfigureAfter(AuditAutoConfiguration.class)
-@ConditionalOnAvailableEndpoint(endpoint = AuditEventsEndpoint.class)
+@ConditionalOnAvailableEndpoint(endpoint = AuditEventsEndpoint_RENAMED.class)
 public class AuditEventsEndpointAutoConfiguration {
 
 	@Bean
 	@ConditionalOnMissingBean
 	@ConditionalOnBean(AuditEventRepository.class)
-	public AuditEventsEndpoint auditEventsEndpoint(AuditEventRepository auditEventRepository) {
-		return new AuditEventsEndpoint(auditEventRepository);
+	public AuditEventsEndpoint_RENAMED auditEventsEndpoint(AuditEventRepository auditEventRepository) {
+		return new AuditEventsEndpoint_RENAMED(auditEventRepository);
 	}
 
 }

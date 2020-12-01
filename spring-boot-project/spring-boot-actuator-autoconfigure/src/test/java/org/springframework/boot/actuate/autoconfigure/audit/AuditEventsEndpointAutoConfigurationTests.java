@@ -18,7 +18,7 @@ package org.springframework.boot.actuate.autoconfigure.audit;
 
 import org.junit.jupiter.api.Test;
 
-import org.springframework.boot.actuate.audit.AuditEventsEndpoint;
+import org.springframework.boot.actuate.audit.AuditEventsEndpoint_RENAMED;
 import org.springframework.boot.actuate.audit.InMemoryAuditEventRepository;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
 import org.springframework.boot.test.context.runner.ApplicationContextRunner;
@@ -43,18 +43,18 @@ class AuditEventsEndpointAutoConfigurationTests {
 	void runWhenRepositoryBeanAvailableShouldHaveEndpointBean() {
 		this.contextRunner.withUserConfiguration(CustomAuditEventRepositoryConfiguration.class)
 				.withPropertyValues("management.endpoints.web.exposure.include=auditevents")
-				.run((context) -> assertThat(context).hasSingleBean(AuditEventsEndpoint.class));
+				.run((context) -> assertThat(context).hasSingleBean(AuditEventsEndpoint_RENAMED.class));
 	}
 
 	@Test
 	void endpointBacksOffWhenRepositoryNotAvailable() {
 		this.contextRunner.withPropertyValues("management.endpoints.web.exposure.include=auditevents")
-				.run((context) -> assertThat(context).doesNotHaveBean(AuditEventsEndpoint.class));
+				.run((context) -> assertThat(context).doesNotHaveBean(AuditEventsEndpoint_RENAMED.class));
 	}
 
 	@Test
 	void runWhenNotExposedShouldNotHaveEndpointBean() {
-		this.contextRunner.run((context) -> assertThat(context).doesNotHaveBean(AuditEventsEndpoint.class));
+		this.contextRunner.run((context) -> assertThat(context).doesNotHaveBean(AuditEventsEndpoint_RENAMED.class));
 	}
 
 	@Test
@@ -62,7 +62,7 @@ class AuditEventsEndpointAutoConfigurationTests {
 		this.contextRunner.withUserConfiguration(CustomAuditEventRepositoryConfiguration.class)
 				.withPropertyValues("management.endpoint.auditevents.enabled:false")
 				.withPropertyValues("management.endpoints.web.exposure.include=*")
-				.run((context) -> assertThat(context).doesNotHaveBean(AuditEventsEndpoint.class));
+				.run((context) -> assertThat(context).doesNotHaveBean(AuditEventsEndpoint_RENAMED.class));
 	}
 
 	@Configuration(proxyBeanMethods = false)

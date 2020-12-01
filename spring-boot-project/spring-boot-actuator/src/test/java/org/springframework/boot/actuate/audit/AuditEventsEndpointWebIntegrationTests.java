@@ -27,7 +27,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.test.web.reactive.server.WebTestClient;
 
 /**
- * Integration tests for {@link AuditEventsEndpoint} exposed by Jersey, Spring MVC, and
+ * Integration tests for {@link AuditEventsEndpoint_RENAMED} exposed by Jersey, Spring MVC, and
  * WebFlux.
  *
  * @author Vedran Pavic
@@ -78,8 +78,8 @@ class AuditEventsEndpointWebIntegrationTests {
 		}
 
 		@Bean
-		AuditEventsEndpoint auditEventsEndpoint(AuditEventRepository auditEventRepository) {
-			return new AuditEventsEndpoint(auditEventRepository);
+		AuditEventsEndpoint_RENAMED auditEventsEndpoint(AuditEventRepository auditEventRepository) {
+			return new AuditEventsEndpoint_RENAMED(auditEventRepository);
 		}
 
 		private AuditEvent createEvent(String instant, String principal, String type) {

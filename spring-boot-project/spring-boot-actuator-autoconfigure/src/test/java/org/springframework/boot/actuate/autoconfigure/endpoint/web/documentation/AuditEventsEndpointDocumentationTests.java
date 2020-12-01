@@ -25,7 +25,7 @@ import org.junit.jupiter.api.Test;
 
 import org.springframework.boot.actuate.audit.AuditEvent;
 import org.springframework.boot.actuate.audit.AuditEventRepository;
-import org.springframework.boot.actuate.audit.AuditEventsEndpoint;
+import org.springframework.boot.actuate.audit.AuditEventsEndpoint_RENAMED;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -43,7 +43,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /**
- * Tests for generating documentation describing {@link AuditEventsEndpoint}.
+ * Tests for generating documentation describing {@link AuditEventsEndpoint_RENAMED}.
  *
  * @author Andy Wilkinson
  */
@@ -91,8 +91,8 @@ class AuditEventsEndpointDocumentationTests extends MockMvcEndpointDocumentation
 	static class TestConfiguration {
 
 		@Bean
-		AuditEventsEndpoint auditEventsEndpoint(AuditEventRepository repository) {
-			return new AuditEventsEndpoint(repository);
+		AuditEventsEndpoint_RENAMED auditEventsEndpoint(AuditEventRepository repository) {
+			return new AuditEventsEndpoint_RENAMED(repository);
 		}
 
 	}

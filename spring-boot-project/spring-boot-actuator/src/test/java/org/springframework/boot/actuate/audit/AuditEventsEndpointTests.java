@@ -27,7 +27,7 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
 
 /**
- * Tests for {@link AuditEventsEndpoint}.
+ * Tests for {@link AuditEventsEndpoint_RENAMED}.
  *
  * @author Andy Wilkinson
  */
@@ -35,7 +35,7 @@ class AuditEventsEndpointTests {
 
 	private final AuditEventRepository repository = mock(AuditEventRepository.class);
 
-	private final AuditEventsEndpoint endpoint = new AuditEventsEndpoint(this.repository);
+	private final AuditEventsEndpoint_RENAMED endpoint = new AuditEventsEndpoint_RENAMED(this.repository);
 
 	private final AuditEvent event = new AuditEvent("principal", "type", Collections.singletonMap("a", "alpha"));
 
