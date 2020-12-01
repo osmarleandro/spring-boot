@@ -35,7 +35,7 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
 
 /**
- * Tests for {@link HazelcastHealthIndicator} with Hazelcast 3.
+ * Tests for {@link HazelcastHealthIndicator_RENAMED} with Hazelcast 3.
  *
  * @author Dmytro Nosan
  * @author Stephane Nicoll
@@ -49,7 +49,7 @@ class Hazelcast3HazelcastHealthIndicatorTests {
 		HazelcastInstance hazelcast = new HazelcastInstanceFactory(new ClassPathResource("hazelcast-3.xml"))
 				.getHazelcastInstance();
 		try {
-			Health health = new HazelcastHealthIndicator(hazelcast).health();
+			Health health = new HazelcastHealthIndicator_RENAMED(hazelcast).health();
 			assertThat(health.getStatus()).isEqualTo(Status.UP);
 			assertThat(health.getDetails()).containsOnlyKeys("name", "uuid").containsEntry("name",
 					"actuator-hazelcast-3");
@@ -64,7 +64,7 @@ class Hazelcast3HazelcastHealthIndicatorTests {
 	void hazelcastDown() {
 		HazelcastInstance hazelcast = mock(HazelcastInstance.class);
 		given(hazelcast.executeTransaction(any())).willThrow(new HazelcastException());
-		Health health = new HazelcastHealthIndicator(hazelcast).health();
+		Health health = new HazelcastHealthIndicator_RENAMED(hazelcast).health();
 		assertThat(health.getStatus()).isEqualTo(Status.DOWN);
 	}
 

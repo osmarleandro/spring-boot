@@ -22,7 +22,7 @@ import com.hazelcast.core.HazelcastInstance;
 
 import org.springframework.boot.actuate.autoconfigure.health.CompositeHealthContributorConfiguration;
 import org.springframework.boot.actuate.autoconfigure.health.ConditionalOnEnabledHealthIndicator;
-import org.springframework.boot.actuate.hazelcast.HazelcastHealthIndicator;
+import org.springframework.boot.actuate.hazelcast.HazelcastHealthIndicator_RENAMED;
 import org.springframework.boot.actuate.health.HealthContributor;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -35,7 +35,7 @@ import org.springframework.context.annotation.Configuration;
 
 /**
  * {@link EnableAutoConfiguration Auto-configuration} for
- * {@link HazelcastHealthIndicator}.
+ * {@link HazelcastHealthIndicator_RENAMED}.
  *
  * @author Dmytro Nosan
  * @since 2.2.0
@@ -46,7 +46,7 @@ import org.springframework.context.annotation.Configuration;
 @ConditionalOnEnabledHealthIndicator("hazelcast")
 @AutoConfigureAfter(HazelcastAutoConfiguration.class)
 public class HazelcastHealthContributorAutoConfiguration
-		extends CompositeHealthContributorConfiguration<HazelcastHealthIndicator, HazelcastInstance> {
+		extends CompositeHealthContributorConfiguration<HazelcastHealthIndicator_RENAMED, HazelcastInstance> {
 
 	@Bean
 	@ConditionalOnMissingBean(name = { "hazelcastHealthIndicator", "hazelcastHealthContributor" })
