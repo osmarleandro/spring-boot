@@ -48,12 +48,12 @@ import org.springframework.context.annotation.Configuration;
 @ConditionalOnBean(Clock.class)
 @ConditionalOnClass(DatadogMeterRegistry.class)
 @ConditionalOnEnabledMetricsExport("datadog")
-@EnableConfigurationProperties(DatadogProperties.class)
+@EnableConfigurationProperties(DatadogProperties_RENAMED.class)
 public class DatadogMetricsExportAutoConfiguration {
 
-	private final DatadogProperties properties;
+	private final DatadogProperties_RENAMED properties;
 
-	public DatadogMetricsExportAutoConfiguration(DatadogProperties properties) {
+	public DatadogMetricsExportAutoConfiguration(DatadogProperties_RENAMED properties) {
 		this.properties = properties;
 	}
 

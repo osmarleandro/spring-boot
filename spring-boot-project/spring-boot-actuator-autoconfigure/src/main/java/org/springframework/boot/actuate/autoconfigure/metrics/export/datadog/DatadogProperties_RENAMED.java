@@ -28,7 +28,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  * @since 2.0.0
  */
 @ConfigurationProperties(prefix = "management.metrics.export.datadog")
-public class DatadogProperties extends StepRegistryProperties {
+public class DatadogProperties_RENAMED extends StepRegistryProperties {
 
 	/**
 	 * Datadog API key.

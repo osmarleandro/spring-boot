@@ -24,7 +24,7 @@ import org.springframework.boot.actuate.autoconfigure.metrics.export.properties.
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Tests for {@link DatadogProperties}.
+ * Tests for {@link DatadogProperties_RENAMED}.
  *
  * @author Stephane Nicoll
  */
@@ -32,7 +32,7 @@ class DatadogPropertiesTests extends StepRegistryPropertiesTests {
 
 	@Test
 	void defaultValuesAreConsistent() {
-		DatadogProperties properties = new DatadogProperties();
+		DatadogProperties_RENAMED properties = new DatadogProperties_RENAMED();
 		DatadogConfig config = (key) -> null;
 		assertStepRegistryDefaultValues(properties, config);
 		assertThat(properties.isDescriptions()).isEqualTo(config.descriptions());

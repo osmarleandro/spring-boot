@@ -29,7 +29,7 @@ class DatadogPropertiesConfigAdapterTests {
 
 	@Test
 	void uriCanBeSet() {
-		DatadogProperties properties = new DatadogProperties();
+		DatadogProperties_RENAMED properties = new DatadogProperties_RENAMED();
 		properties.setUri("https://app.example.com/api/v1/series");
 		properties.setApiKey("my-key");
 		assertThat(new DatadogPropertiesConfigAdapter(properties).uri())

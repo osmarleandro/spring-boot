@@ -21,15 +21,15 @@ import io.micrometer.datadog.DatadogConfig;
 import org.springframework.boot.actuate.autoconfigure.metrics.export.properties.StepRegistryPropertiesConfigAdapter;
 
 /**
- * Adapter to convert {@link DatadogProperties} to a {@link DatadogConfig}.
+ * Adapter to convert {@link DatadogProperties_RENAMED} to a {@link DatadogConfig}.
  *
  * @author Jon Schneider
  * @author Phillip Webb
  */
-class DatadogPropertiesConfigAdapter extends StepRegistryPropertiesConfigAdapter<DatadogProperties>
+class DatadogPropertiesConfigAdapter extends StepRegistryPropertiesConfigAdapter<DatadogProperties_RENAMED>
 		implements DatadogConfig {
 
-	DatadogPropertiesConfigAdapter(DatadogProperties properties) {
+	DatadogPropertiesConfigAdapter(DatadogProperties_RENAMED properties) {
 		super(properties);
 	}
 
@@ -40,27 +40,27 @@ class DatadogPropertiesConfigAdapter extends StepRegistryPropertiesConfigAdapter
 
 	@Override
 	public String apiKey() {
-		return get(DatadogProperties::getApiKey, DatadogConfig.super::apiKey);
+		return get(DatadogProperties_RENAMED::getApiKey, DatadogConfig.super::apiKey);
 	}
 
 	@Override
 	public String applicationKey() {
-		return get(DatadogProperties::getApplicationKey, DatadogConfig.super::applicationKey);
+		return get(DatadogProperties_RENAMED::getApplicationKey, DatadogConfig.super::applicationKey);
 	}
 
 	@Override
 	public String hostTag() {
-		return get(DatadogProperties::getHostTag, DatadogConfig.super::hostTag);
+		return get(DatadogProperties_RENAMED::getHostTag, DatadogConfig.super::hostTag);
 	}
 
 	@Override
 	public String uri() {
-		return get(DatadogProperties::getUri, DatadogConfig.super::uri);
+		return get(DatadogProperties_RENAMED::getUri, DatadogConfig.super::uri);
 	}
 
 	@Override
 	public boolean descriptions() {
-		return get(DatadogProperties::isDescriptions, DatadogConfig.super::descriptions);
+		return get(DatadogProperties_RENAMED::isDescriptions, DatadogConfig.super::descriptions);
 	}
 
 }
