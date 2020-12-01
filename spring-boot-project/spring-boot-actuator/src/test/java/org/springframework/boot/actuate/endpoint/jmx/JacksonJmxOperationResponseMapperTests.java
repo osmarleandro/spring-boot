@@ -36,19 +36,19 @@ import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.verify;
 
 /**
- * Tests for {@link JacksonJmxOperationResponseMapper}
+ * Tests for {@link JacksonJmxOperationResponseMapper_RENAMED}
  *
  * @author Phillip Webb
  */
 class JacksonJmxOperationResponseMapperTests {
 
-	private JacksonJmxOperationResponseMapper mapper = new JacksonJmxOperationResponseMapper(null);
+	private JacksonJmxOperationResponseMapper_RENAMED mapper = new JacksonJmxOperationResponseMapper_RENAMED(null);
 
 	private final BasicJsonTester json = new BasicJsonTester(getClass());
 
 	@Test
 	void createWhenObjectMapperIsNullShouldUseDefaultObjectMapper() {
-		JacksonJmxOperationResponseMapper mapper = new JacksonJmxOperationResponseMapper(null);
+		JacksonJmxOperationResponseMapper_RENAMED mapper = new JacksonJmxOperationResponseMapper_RENAMED(null);
 		Object mapped = mapper.mapResponse(Collections.singleton("test"));
 		assertThat(this.json.from(mapped.toString())).isEqualToJson("[test]");
 	}
@@ -56,7 +56,7 @@ class JacksonJmxOperationResponseMapperTests {
 	@Test
 	void createWhenObjectMapperIsSpecifiedShouldUseObjectMapper() {
 		ObjectMapper objectMapper = spy(ObjectMapper.class);
-		JacksonJmxOperationResponseMapper mapper = new JacksonJmxOperationResponseMapper(objectMapper);
+		JacksonJmxOperationResponseMapper_RENAMED mapper = new JacksonJmxOperationResponseMapper_RENAMED(objectMapper);
 		Set<String> response = Collections.singleton("test");
 		mapper.mapResponse(response);
 		verify(objectMapper).convertValue(eq(response), any(JavaType.class));
