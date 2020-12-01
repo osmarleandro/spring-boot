@@ -51,11 +51,11 @@ import org.springframework.util.StringUtils;
  * @since 2.0.0
  */
 @Endpoint(id = "conditions")
-public class ConditionsReportEndpoint {
+public class ConditionsReportEndpoint_RENAMED {
 
 	private final ConfigurableApplicationContext context;
 
-	public ConditionsReportEndpoint(ConfigurableApplicationContext context) {
+	public ConditionsReportEndpoint_RENAMED(ConfigurableApplicationContext context) {
 		this.context = context;
 	}
 

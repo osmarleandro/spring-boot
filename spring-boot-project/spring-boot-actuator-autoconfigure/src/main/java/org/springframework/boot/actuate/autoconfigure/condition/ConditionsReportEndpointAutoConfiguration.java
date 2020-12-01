@@ -26,19 +26,19 @@ import org.springframework.context.annotation.Configuration;
 
 /**
  * {@link EnableAutoConfiguration Auto-configuration} for the
- * {@link ConditionsReportEndpoint}.
+ * {@link ConditionsReportEndpoint_RENAMED}.
  *
  * @author Phillip Webb
  * @since 2.0.0
  */
 @Configuration(proxyBeanMethods = false)
-@ConditionalOnAvailableEndpoint(endpoint = ConditionsReportEndpoint.class)
+@ConditionalOnAvailableEndpoint(endpoint = ConditionsReportEndpoint_RENAMED.class)
 public class ConditionsReportEndpointAutoConfiguration {
 
 	@Bean
 	@ConditionalOnMissingBean(search = SearchStrategy.CURRENT)
-	public ConditionsReportEndpoint conditionsReportEndpoint(ConfigurableApplicationContext context) {
-		return new ConditionsReportEndpoint(context);
+	public ConditionsReportEndpoint_RENAMED conditionsReportEndpoint(ConfigurableApplicationContext context) {
+		return new ConditionsReportEndpoint_RENAMED(context);
 	}
 
 }

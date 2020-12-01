@@ -36,18 +36,18 @@ class ConditionsReportEndpointAutoConfigurationTests {
 	@Test
 	void runShouldHaveEndpointBean() {
 		this.contextRunner.withPropertyValues("management.endpoints.web.exposure.include=conditions")
-				.run((context) -> assertThat(context).hasSingleBean(ConditionsReportEndpoint.class));
+				.run((context) -> assertThat(context).hasSingleBean(ConditionsReportEndpoint_RENAMED.class));
 	}
 
 	@Test
 	void runWhenNotExposedShouldNotHaveEndpointBean() {
-		this.contextRunner.run((context) -> assertThat(context).doesNotHaveBean(ConditionsReportEndpoint.class));
+		this.contextRunner.run((context) -> assertThat(context).doesNotHaveBean(ConditionsReportEndpoint_RENAMED.class));
 	}
 
 	@Test
 	void runWhenEnabledPropertyIsFalseShouldNotHaveEndpointBean() {
 		this.contextRunner.withPropertyValues("management.endpoint.conditions.enabled:false")
-				.run((context) -> assertThat(context).doesNotHaveBean(ConditionsReportEndpoint.class));
+				.run((context) -> assertThat(context).doesNotHaveBean(ConditionsReportEndpoint_RENAMED.class));
 	}
 
 }

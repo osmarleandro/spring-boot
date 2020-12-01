@@ -23,7 +23,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.actuate.autoconfigure.condition.ConditionsReportEndpoint;
+import org.springframework.boot.actuate.autoconfigure.condition.ConditionsReportEndpoint_RENAMED;
 import org.springframework.boot.autoconfigure.condition.ConditionEvaluationReport;
 import org.springframework.boot.autoconfigure.context.PropertyPlaceholderAutoConfiguration;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -45,7 +45,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /**
- * Tests for generating documentation describing {@link ConditionsReportEndpoint}.
+ * Tests for generating documentation describing {@link ConditionsReportEndpoint_RENAMED}.
  *
  * @author Andy Wilkinson
  */
@@ -96,12 +96,12 @@ class ConditionsReportEndpointDocumentationTests extends MockMvcEndpointDocument
 	static class TestConfiguration {
 
 		@Bean
-		ConditionsReportEndpoint autoConfigurationReportEndpoint(ConfigurableApplicationContext context) {
+		ConditionsReportEndpoint_RENAMED autoConfigurationReportEndpoint(ConfigurableApplicationContext context) {
 			ConditionEvaluationReport conditionEvaluationReport = ConditionEvaluationReport
 					.get(context.getBeanFactory());
 			conditionEvaluationReport
 					.recordEvaluationCandidates(Arrays.asList(PropertyPlaceholderAutoConfiguration.class.getName()));
-			return new ConditionsReportEndpoint(context);
+			return new ConditionsReportEndpoint_RENAMED(context);
 		}
 
 	}
