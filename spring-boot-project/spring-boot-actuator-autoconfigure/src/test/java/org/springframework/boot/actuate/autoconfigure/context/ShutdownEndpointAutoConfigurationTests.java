@@ -21,7 +21,7 @@ import java.util.Map;
 import org.junit.jupiter.api.Test;
 
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
-import org.springframework.boot.actuate.context.ShutdownEndpoint;
+import org.springframework.boot.actuate.context.ShutdownEndpoint_RENAMED;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
 import org.springframework.boot.test.context.runner.ApplicationContextRunner;
 import org.springframework.test.util.ReflectionTestUtils;
@@ -43,7 +43,7 @@ class ShutdownEndpointAutoConfigurationTests {
 	void runShouldHaveEndpointBeanThatIsNotDisposable() {
 		this.contextRunner.withPropertyValues("management.endpoint.shutdown.enabled:true")
 				.withPropertyValues("management.endpoints.web.exposure.include=shutdown").run((context) -> {
-					assertThat(context).hasSingleBean(ShutdownEndpoint.class);
+					assertThat(context).hasSingleBean(ShutdownEndpoint_RENAMED.class);
 					ConfigurableListableBeanFactory beanFactory = context.getBeanFactory();
 					Map<String, Object> disposableBeans = (Map<String, Object>) ReflectionTestUtils
 							.getField(beanFactory, "disposableBeans");
@@ -54,13 +54,13 @@ class ShutdownEndpointAutoConfigurationTests {
 	@Test
 	void runWhenNotExposedShouldNotHaveEndpointBean() {
 		this.contextRunner.withPropertyValues("management.endpoint.shutdown.enabled:true")
-				.run((context) -> assertThat(context).doesNotHaveBean(ShutdownEndpoint.class));
+				.run((context) -> assertThat(context).doesNotHaveBean(ShutdownEndpoint_RENAMED.class));
 	}
 
 	@Test
 	void runWhenEnabledPropertyIsFalseShouldNotHaveEndpointBean() {
 		this.contextRunner.withPropertyValues("management.endpoint.shutdown.enabled:false")
-				.run((context) -> assertThat(context).doesNotHaveBean(ShutdownEndpoint.class));
+				.run((context) -> assertThat(context).doesNotHaveBean(ShutdownEndpoint_RENAMED.class));
 	}
 
 }

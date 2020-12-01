@@ -25,7 +25,7 @@ import java.util.UUID;
 
 import org.junit.jupiter.api.Test;
 
-import org.springframework.boot.actuate.context.ShutdownEndpoint;
+import org.springframework.boot.actuate.context.ShutdownEndpoint_RENAMED;
 import org.springframework.boot.actuate.session.SessionsEndpoint;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Bean;
@@ -49,7 +49,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /**
- * Tests for generating documentation describing the {@link ShutdownEndpoint}.
+ * Tests for generating documentation describing the {@link ShutdownEndpoint_RENAMED}.
  *
  * @author Andy Wilkinson
  */
