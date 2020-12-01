@@ -24,7 +24,7 @@ import java.util.stream.Stream;
 import org.reactivestreams.Publisher;
 
 import org.springframework.boot.actuate.endpoint.EndpointId;
-import org.springframework.boot.actuate.endpoint.annotation.AbstractDiscoveredOperation;
+import org.springframework.boot.actuate.endpoint.annotation.AbstractDiscoveredOperation_RENAMED;
 import org.springframework.boot.actuate.endpoint.annotation.DiscoveredOperationMethod;
 import org.springframework.boot.actuate.endpoint.annotation.Selector;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvoker;
@@ -40,7 +40,7 @@ import org.springframework.util.ClassUtils;
  * @author Stephane Nicoll
  * @author Phillip Webb
  */
-class DiscoveredWebOperation extends AbstractDiscoveredOperation implements WebOperation {
+class DiscoveredWebOperation extends AbstractDiscoveredOperation_RENAMED implements WebOperation {
 
 	private static final boolean REACTIVE_STREAMS_PRESENT = ClassUtils.isPresent("org.reactivestreams.Publisher",
 			DiscoveredWebOperation.class.getClassLoader());

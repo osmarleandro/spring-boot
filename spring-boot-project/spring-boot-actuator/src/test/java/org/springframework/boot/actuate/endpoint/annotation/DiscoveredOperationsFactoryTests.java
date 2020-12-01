@@ -190,7 +190,7 @@ class DiscoveredOperationsFactoryTests {
 
 	}
 
-	static class TestOperation extends AbstractDiscoveredOperation {
+	static class TestOperation extends AbstractDiscoveredOperation_RENAMED {
 
 		TestOperation(EndpointId endpointId, DiscoveredOperationMethod operationMethod, OperationInvoker invoker) {
 			super(operationMethod, invoker);
