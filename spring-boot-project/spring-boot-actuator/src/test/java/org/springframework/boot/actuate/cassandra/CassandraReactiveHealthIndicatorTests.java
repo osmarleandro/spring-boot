@@ -33,7 +33,7 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
 
 /**
- * Tests for {@link CassandraReactiveHealthIndicator}.
+ * Tests for {@link CassandraReactiveHealthIndicator_RENAMED}.
  *
  * @author Artsiom Yudovin
  */
@@ -48,7 +48,7 @@ class CassandraReactiveHealthIndicatorTests {
 		ReactiveCassandraOperations reactiveCassandraOperations = mock(ReactiveCassandraOperations.class);
 		given(reactiveCassandraOperations.getReactiveCqlOperations()).willReturn(reactiveCqlOperations);
 
-		CassandraReactiveHealthIndicator cassandraReactiveHealthIndicator = new CassandraReactiveHealthIndicator(
+		CassandraReactiveHealthIndicator_RENAMED cassandraReactiveHealthIndicator = new CassandraReactiveHealthIndicator_RENAMED(
 				reactiveCassandraOperations);
 		Mono<Health> health = cassandraReactiveHealthIndicator.health();
 		StepVerifier.create(health).consumeNextWith((h) -> {
@@ -64,7 +64,7 @@ class CassandraReactiveHealthIndicatorTests {
 		given(reactiveCassandraOperations.getReactiveCqlOperations())
 				.willThrow(new CassandraInternalException("Connection failed"));
 
-		CassandraReactiveHealthIndicator cassandraReactiveHealthIndicator = new CassandraReactiveHealthIndicator(
+		CassandraReactiveHealthIndicator_RENAMED cassandraReactiveHealthIndicator = new CassandraReactiveHealthIndicator_RENAMED(
 				reactiveCassandraOperations);
 		Mono<Health> health = cassandraReactiveHealthIndicator.health();
 		StepVerifier.create(health).consumeNextWith((h) -> {

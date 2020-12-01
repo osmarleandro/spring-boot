@@ -87,7 +87,7 @@ class CassandraHealthContributorConfigurations {
 	@ConditionalOnBean(ReactiveCassandraOperations.class)
 	@Deprecated
 	static class CassandraReactiveOperationsConfiguration extends
-			CompositeReactiveHealthContributorConfiguration<org.springframework.boot.actuate.cassandra.CassandraReactiveHealthIndicator, ReactiveCassandraOperations> {
+			CompositeReactiveHealthContributorConfiguration<org.springframework.boot.actuate.cassandra.CassandraReactiveHealthIndicator_RENAMED, ReactiveCassandraOperations> {
 
 		@Bean
 		@ConditionalOnMissingBean(name = { "cassandraHealthIndicator", "cassandraHealthContributor" })
