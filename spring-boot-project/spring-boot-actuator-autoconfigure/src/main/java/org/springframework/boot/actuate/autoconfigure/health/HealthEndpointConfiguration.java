@@ -25,7 +25,7 @@ import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.boot.actuate.health.CompositeHealthContributor;
-import org.springframework.boot.actuate.health.CompositeReactiveHealthContributor;
+import org.springframework.boot.actuate.health.CompositeReactiveHealthContributor_RENAMED;
 import org.springframework.boot.actuate.health.Health;
 import org.springframework.boot.actuate.health.HealthContributor;
 import org.springframework.boot.actuate.health.HealthContributorRegistry;
@@ -147,8 +147,8 @@ class HealthEndpointConfiguration {
 			if (contributor instanceof ReactiveHealthIndicator) {
 				return adapt((ReactiveHealthIndicator) contributor);
 			}
-			if (contributor instanceof CompositeReactiveHealthContributor) {
-				return adapt((CompositeReactiveHealthContributor) contributor);
+			if (contributor instanceof CompositeReactiveHealthContributor_RENAMED) {
+				return adapt((CompositeReactiveHealthContributor_RENAMED) contributor);
 			}
 			throw new IllegalStateException("Unsupported ReactiveHealthContributor type " + contributor.getClass());
 		}
@@ -169,7 +169,7 @@ class HealthEndpointConfiguration {
 			};
 		}
 
-		private CompositeHealthContributor adapt(CompositeReactiveHealthContributor composite) {
+		private CompositeHealthContributor adapt(CompositeReactiveHealthContributor_RENAMED composite) {
 			return new CompositeHealthContributor() {
 
 				@Override

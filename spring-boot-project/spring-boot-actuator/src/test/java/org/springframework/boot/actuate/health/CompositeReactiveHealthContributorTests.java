@@ -25,7 +25,7 @@ import reactor.core.publisher.Mono;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Tests for {@link CompositeReactiveHealthContributor}.
+ * Tests for {@link CompositeReactiveHealthContributor_RENAMED}.
  *
  * @author Phillip Webb
  */
@@ -36,7 +36,7 @@ class CompositeReactiveHealthContributorTests {
 		Map<String, ReactiveHealthContributor> map = new LinkedHashMap<>();
 		ReactiveHealthIndicator indicator = () -> Mono.just(Health.down().build());
 		map.put("test", indicator);
-		CompositeReactiveHealthContributor composite = CompositeReactiveHealthContributor.fromMap(map);
+		CompositeReactiveHealthContributor_RENAMED composite = CompositeReactiveHealthContributor_RENAMED.fromMap(map);
 		assertThat(composite).isInstanceOf(CompositeReactiveHealthContributorMapAdapter.class);
 		NamedContributor<ReactiveHealthContributor> namedContributor = composite.iterator().next();
 		assertThat(namedContributor.getName()).isEqualTo("test");
@@ -49,7 +49,7 @@ class CompositeReactiveHealthContributorTests {
 		ReactiveHealthIndicator downIndicator = () -> Mono.just(Health.down().build());
 		ReactiveHealthIndicator upIndicator = () -> Mono.just(Health.up().build());
 		map.put("test", downIndicator);
-		CompositeReactiveHealthContributor composite = CompositeReactiveHealthContributor.fromMap(map,
+		CompositeReactiveHealthContributor_RENAMED composite = CompositeReactiveHealthContributor_RENAMED.fromMap(map,
 				(value) -> upIndicator);
 		assertThat(composite).isInstanceOf(CompositeReactiveHealthContributorMapAdapter.class);
 		NamedContributor<ReactiveHealthContributor> namedContributor = composite.iterator().next();

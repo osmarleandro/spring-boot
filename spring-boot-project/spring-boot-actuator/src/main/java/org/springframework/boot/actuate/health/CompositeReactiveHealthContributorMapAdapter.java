@@ -20,14 +20,14 @@ import java.util.Map;
 import java.util.function.Function;
 
 /**
- * {@link CompositeReactiveHealthContributor} backed by a map with values adapted as
+ * {@link CompositeReactiveHealthContributor_RENAMED} backed by a map with values adapted as
  * necessary.
  *
  * @param <V> the value type
  * @author Phillip Webb
  */
 class CompositeReactiveHealthContributorMapAdapter<V> extends NamedContributorsMapAdapter<V, ReactiveHealthContributor>
-		implements CompositeReactiveHealthContributor {
+		implements CompositeReactiveHealthContributor_RENAMED {
 
 	CompositeReactiveHealthContributorMapAdapter(Map<String, V> map,
 			Function<V, ? extends ReactiveHealthContributor> valueAdapter) {

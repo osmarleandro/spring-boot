@@ -104,7 +104,7 @@ class HealthEndpointWebIntegrationTests {
 		CompositeHealthContributor composite = CompositeHealthContributor
 				.fromMap(Collections.singletonMap("one", healthIndicator));
 		ReactiveHealthIndicator reactiveHealthIndicator = () -> Mono.just(Health.down().build());
-		CompositeReactiveHealthContributor reactiveComposite = CompositeReactiveHealthContributor
+		CompositeReactiveHealthContributor_RENAMED reactiveComposite = CompositeReactiveHealthContributor_RENAMED
 				.fromMap(Collections.singletonMap("one", reactiveHealthIndicator));
 		withHealthContributor(context, "charlie", composite, reactiveComposite,
 				() -> client.get().uri("/actuator/health/charlie/one").accept(MediaType.APPLICATION_JSON).exchange()

@@ -65,8 +65,8 @@ class CompositeHealthContributorReactiveAdapterTests {
 		assertThat(iterator.hasNext()).isTrue();
 		NamedContributor<ReactiveHealthContributor> adapted = iterator.next();
 		assertThat(adapted.getName()).isEqualTo("test2");
-		assertThat(adapted.getContributor()).isInstanceOf(CompositeReactiveHealthContributor.class);
-		ReactiveHealthContributor nested = ((CompositeReactiveHealthContributor) adapted.getContributor())
+		assertThat(adapted.getContributor()).isInstanceOf(CompositeReactiveHealthContributor_RENAMED.class);
+		ReactiveHealthContributor nested = ((CompositeReactiveHealthContributor_RENAMED) adapted.getContributor())
 				.getContributor("test1");
 		Health health = ((ReactiveHealthIndicator) nested).getHealth(true).block();
 		assertThat(health.getStatus()).isEqualTo(Status.UP);

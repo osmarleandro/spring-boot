@@ -99,7 +99,7 @@ class ReactiveHealthEndpointWebExtensionTests extends
 	@Override
 	protected ReactiveHealthContributor createCompositeContributor(
 			Map<String, ReactiveHealthContributor> contributors) {
-		return CompositeReactiveHealthContributor.fromMap(contributors);
+		return CompositeReactiveHealthContributor_RENAMED.fromMap(contributors);
 	}
 
 	@Override

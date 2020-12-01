@@ -22,13 +22,13 @@ import org.springframework.util.Assert;
 
 /**
  * Adapts a {@link CompositeHealthContributor} to a
- * {@link CompositeReactiveHealthContributor} so that it can be safely invoked in a
+ * {@link CompositeReactiveHealthContributor_RENAMED} so that it can be safely invoked in a
  * reactive environment.
  *
  * @author Phillip Webb
  * @see ReactiveHealthContributor#adapt(HealthContributor)
  */
-class CompositeHealthContributorReactiveAdapter implements CompositeReactiveHealthContributor {
+class CompositeHealthContributorReactiveAdapter implements CompositeReactiveHealthContributor_RENAMED {
 
 	private final CompositeHealthContributor delegate;
 
