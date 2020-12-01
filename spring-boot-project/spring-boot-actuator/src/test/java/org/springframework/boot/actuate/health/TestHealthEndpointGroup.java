@@ -29,7 +29,7 @@ class TestHealthEndpointGroup implements HealthEndpointGroup {
 
 	private final StatusAggregator statusAggregator = new SimpleStatusAggregator();
 
-	private final HttpCodeStatusMapper httpCodeStatusMapper = new SimpleHttpCodeStatusMapper();
+	private final HttpCodeStatusMapper httpCodeStatusMapper = new SimpleHttpCodeStatusMapper_RENAMED();
 
 	private final Predicate<String> memberPredicate;
 

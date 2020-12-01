@@ -37,7 +37,7 @@ import org.springframework.boot.actuate.health.HttpCodeStatusMapper;
 import org.springframework.boot.actuate.health.NamedContributor;
 import org.springframework.boot.actuate.health.ReactiveHealthContributor;
 import org.springframework.boot.actuate.health.ReactiveHealthIndicator;
-import org.springframework.boot.actuate.health.SimpleHttpCodeStatusMapper;
+import org.springframework.boot.actuate.health.SimpleHttpCodeStatusMapper_RENAMED;
 import org.springframework.boot.actuate.health.SimpleStatusAggregator;
 import org.springframework.boot.actuate.health.StatusAggregator;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -64,7 +64,7 @@ class HealthEndpointConfiguration {
 	@Bean
 	@ConditionalOnMissingBean
 	HttpCodeStatusMapper healthHttpCodeStatusMapper(HealthEndpointProperties properties) {
-		return new SimpleHttpCodeStatusMapper(properties.getStatus().getHttpMapping());
+		return new SimpleHttpCodeStatusMapper_RENAMED(properties.getStatus().getHttpMapping());
 	}
 
 	@Bean

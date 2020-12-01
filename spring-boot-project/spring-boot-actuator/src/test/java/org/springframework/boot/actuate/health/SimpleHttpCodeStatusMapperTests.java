@@ -26,7 +26,7 @@ import org.springframework.boot.actuate.endpoint.web.WebEndpointResponse;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Tests for {@link SimpleHttpCodeStatusMapper}.
+ * Tests for {@link SimpleHttpCodeStatusMapper_RENAMED}.
  *
  * @author Phillip Webb
  */
@@ -34,7 +34,7 @@ class SimpleHttpCodeStatusMapperTests {
 
 	@Test
 	void createWhenMappingsAreNullUsesDefaultMappings() {
-		SimpleHttpCodeStatusMapper mapper = new SimpleHttpCodeStatusMapper(null);
+		SimpleHttpCodeStatusMapper_RENAMED mapper = new SimpleHttpCodeStatusMapper_RENAMED(null);
 		assertThat(mapper.getStatusCode(Status.UNKNOWN)).isEqualTo(WebEndpointResponse.STATUS_OK);
 		assertThat(mapper.getStatusCode(Status.UP)).isEqualTo(WebEndpointResponse.STATUS_OK);
 		assertThat(mapper.getStatusCode(Status.DOWN)).isEqualTo(WebEndpointResponse.STATUS_SERVICE_UNAVAILABLE);
@@ -47,7 +47,7 @@ class SimpleHttpCodeStatusMapperTests {
 		Map<String, Integer> map = new LinkedHashMap<>();
 		map.put("up", 123);
 		map.put("down", 456);
-		SimpleHttpCodeStatusMapper mapper = new SimpleHttpCodeStatusMapper(map);
+		SimpleHttpCodeStatusMapper_RENAMED mapper = new SimpleHttpCodeStatusMapper_RENAMED(map);
 		assertThat(mapper.getStatusCode(Status.UP)).isEqualTo(123);
 		assertThat(mapper.getStatusCode(Status.DOWN)).isEqualTo(456);
 		assertThat(mapper.getStatusCode(Status.OUT_OF_SERVICE)).isEqualTo(200);
@@ -57,7 +57,7 @@ class SimpleHttpCodeStatusMapperTests {
 	void getStatusCodeWhenMappingsAreNotUniformReturnsMappedStatus() {
 		Map<String, Integer> map = new LinkedHashMap<>();
 		map.put("out-of-service", 123);
-		SimpleHttpCodeStatusMapper mapper = new SimpleHttpCodeStatusMapper(map);
+		SimpleHttpCodeStatusMapper_RENAMED mapper = new SimpleHttpCodeStatusMapper_RENAMED(map);
 		assertThat(mapper.getStatusCode(Status.OUT_OF_SERVICE)).isEqualTo(123);
 	}
 

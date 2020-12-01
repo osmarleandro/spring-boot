@@ -30,7 +30,7 @@ public interface HttpCodeStatusMapper {
 	 * A {@link HttpCodeStatusMapper} instance using default mappings.
 	 * @since 2.3.0
 	 */
-	HttpCodeStatusMapper DEFAULT = new SimpleHttpCodeStatusMapper();
+	HttpCodeStatusMapper DEFAULT = new SimpleHttpCodeStatusMapper_RENAMED();
 
 	/**
 	 * Return the HTTP status code that corresponds to the given {@link Status health

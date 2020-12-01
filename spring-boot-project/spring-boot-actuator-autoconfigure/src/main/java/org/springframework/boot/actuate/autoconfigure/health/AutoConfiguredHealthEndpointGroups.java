@@ -36,7 +36,7 @@ import org.springframework.boot.actuate.autoconfigure.health.HealthProperties.St
 import org.springframework.boot.actuate.health.HealthEndpointGroup;
 import org.springframework.boot.actuate.health.HealthEndpointGroups;
 import org.springframework.boot.actuate.health.HttpCodeStatusMapper;
-import org.springframework.boot.actuate.health.SimpleHttpCodeStatusMapper;
+import org.springframework.boot.actuate.health.SimpleHttpCodeStatusMapper_RENAMED;
 import org.springframework.boot.actuate.health.SimpleStatusAggregator;
 import org.springframework.boot.actuate.health.StatusAggregator;
 import org.springframework.context.ApplicationContext;
@@ -74,7 +74,7 @@ class AutoConfiguredHealthEndpointGroups implements HealthEndpointGroups {
 		}
 		HttpCodeStatusMapper httpCodeStatusMapper = getNonQualifiedBean(beanFactory, HttpCodeStatusMapper.class);
 		if (httpCodeStatusMapper == null) {
-			httpCodeStatusMapper = new SimpleHttpCodeStatusMapper(properties.getStatus().getHttpMapping());
+			httpCodeStatusMapper = new SimpleHttpCodeStatusMapper_RENAMED(properties.getStatus().getHttpMapping());
 		}
 		this.primaryGroup = new AutoConfiguredHealthEndpointGroup(ALL, statusAggregator, httpCodeStatusMapper,
 				showComponents, showDetails, roles);
@@ -101,7 +101,7 @@ class AutoConfiguredHealthEndpointGroups implements HealthEndpointGroups {
 			HttpCodeStatusMapper httpCodeStatusMapper = getQualifiedBean(beanFactory, HttpCodeStatusMapper.class,
 					groupName, () -> {
 						if (!CollectionUtils.isEmpty(status.getHttpMapping())) {
-							return new SimpleHttpCodeStatusMapper(status.getHttpMapping());
+							return new SimpleHttpCodeStatusMapper_RENAMED(status.getHttpMapping());
 						}
 						return defaultHttpCodeStatusMapper;
 					});
