@@ -28,7 +28,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Andy Wilkinson
  */
-class ElasticPropertiesTests extends StepRegistryPropertiesTests {
+class ElasticPropertiesTests_RENAMED extends StepRegistryPropertiesTests {
 
 	@Test
 	void defaultValuesAreConsistent() {
