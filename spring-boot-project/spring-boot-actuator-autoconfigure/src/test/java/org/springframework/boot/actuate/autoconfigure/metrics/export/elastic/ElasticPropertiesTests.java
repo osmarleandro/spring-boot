@@ -24,7 +24,7 @@ import org.springframework.boot.actuate.autoconfigure.metrics.export.properties.
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Tests for {@link ElasticProperties}.
+ * Tests for {@link ElasticProperties_RENAMED}.
  *
  * @author Andy Wilkinson
  */
@@ -32,7 +32,7 @@ class ElasticPropertiesTests extends StepRegistryPropertiesTests {
 
 	@Test
 	void defaultValuesAreConsistent() {
-		ElasticProperties properties = new ElasticProperties();
+		ElasticProperties_RENAMED properties = new ElasticProperties_RENAMED();
 		ElasticConfig config = ElasticConfig.DEFAULT;
 		assertStepRegistryDefaultValues(properties, config);
 		assertThat(properties.getHost()).isEqualTo(config.host());

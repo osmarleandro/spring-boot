@@ -27,7 +27,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  * @since 2.1.0
  */
 @ConfigurationProperties(prefix = "management.metrics.export.elastic")
-public class ElasticProperties extends StepRegistryProperties {
+public class ElasticProperties_RENAMED extends StepRegistryProperties {
 
 	/**
 	 * Host to export metrics to.

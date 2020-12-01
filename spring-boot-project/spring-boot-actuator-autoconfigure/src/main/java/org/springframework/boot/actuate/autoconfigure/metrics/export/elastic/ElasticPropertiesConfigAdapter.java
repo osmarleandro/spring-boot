@@ -21,14 +21,14 @@ import io.micrometer.elastic.ElasticConfig;
 import org.springframework.boot.actuate.autoconfigure.metrics.export.properties.StepRegistryPropertiesConfigAdapter;
 
 /**
- * Adapter to convert {@link ElasticProperties} to an {@link ElasticConfig}.
+ * Adapter to convert {@link ElasticProperties_RENAMED} to an {@link ElasticConfig}.
  *
  * @author Andy Wilkinson
  */
-class ElasticPropertiesConfigAdapter extends StepRegistryPropertiesConfigAdapter<ElasticProperties>
+class ElasticPropertiesConfigAdapter extends StepRegistryPropertiesConfigAdapter<ElasticProperties_RENAMED>
 		implements ElasticConfig {
 
-	ElasticPropertiesConfigAdapter(ElasticProperties properties) {
+	ElasticPropertiesConfigAdapter(ElasticProperties_RENAMED properties) {
 		super(properties);
 	}
 
@@ -39,47 +39,47 @@ class ElasticPropertiesConfigAdapter extends StepRegistryPropertiesConfigAdapter
 
 	@Override
 	public String host() {
-		return get(ElasticProperties::getHost, ElasticConfig.super::host);
+		return get(ElasticProperties_RENAMED::getHost, ElasticConfig.super::host);
 	}
 
 	@Override
 	public String index() {
-		return get(ElasticProperties::getIndex, ElasticConfig.super::index);
+		return get(ElasticProperties_RENAMED::getIndex, ElasticConfig.super::index);
 	}
 
 	@Override
 	public String indexDateFormat() {
-		return get(ElasticProperties::getIndexDateFormat, ElasticConfig.super::indexDateFormat);
+		return get(ElasticProperties_RENAMED::getIndexDateFormat, ElasticConfig.super::indexDateFormat);
 	}
 
 	@Override
 	public String indexDateSeparator() {
-		return get(ElasticProperties::getIndexDateSeparator, ElasticConfig.super::indexDateSeparator);
+		return get(ElasticProperties_RENAMED::getIndexDateSeparator, ElasticConfig.super::indexDateSeparator);
 	}
 
 	@Override
 	public String timestampFieldName() {
-		return get(ElasticProperties::getTimestampFieldName, ElasticConfig.super::timestampFieldName);
+		return get(ElasticProperties_RENAMED::getTimestampFieldName, ElasticConfig.super::timestampFieldName);
 	}
 
 	@Override
 	public boolean autoCreateIndex() {
-		return get(ElasticProperties::isAutoCreateIndex, ElasticConfig.super::autoCreateIndex);
+		return get(ElasticProperties_RENAMED::isAutoCreateIndex, ElasticConfig.super::autoCreateIndex);
 	}
 
 	@Override
 	public String userName() {
-		return get(ElasticProperties::getUserName, ElasticConfig.super::userName);
+		return get(ElasticProperties_RENAMED::getUserName, ElasticConfig.super::userName);
 	}
 
 	@Override
 	public String password() {
-		return get(ElasticProperties::getPassword, ElasticConfig.super::password);
+		return get(ElasticProperties_RENAMED::getPassword, ElasticConfig.super::password);
 	}
 
 	@Override
 	public String pipeline() {
-		return get(ElasticProperties::getPipeline, ElasticConfig.super::pipeline);
+		return get(ElasticProperties_RENAMED::getPipeline, ElasticConfig.super::pipeline);
 	}
 
 }
