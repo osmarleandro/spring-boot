@@ -34,7 +34,7 @@ import static org.mockito.Mockito.mock;
  *
  * @author Madhura Bhave
  */
-class ReactiveManagementContextFactoryTests {
+class ReactiveManagementContextFactoryTests_RENAMED {
 
 	private ReactiveManagementContextFactory factory = new ReactiveManagementContextFactory();
 
