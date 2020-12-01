@@ -28,7 +28,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Andy Wilkinson
  */
-class DynatracePropertiesTests extends StepRegistryPropertiesTests {
+class DynatracePropertiesTests_RENAMED extends StepRegistryPropertiesTests {
 
 	@Test
 	void defaultValuesAreConsistent() {
