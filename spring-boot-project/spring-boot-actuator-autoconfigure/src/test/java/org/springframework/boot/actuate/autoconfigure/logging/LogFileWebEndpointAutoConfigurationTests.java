@@ -33,7 +33,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.contentOf;
 
 /**
- * Tests for {@link LogFileWebEndpointAutoConfiguration}.
+ * Tests for {@link LogFileWebEndpointAutoConfiguration_RENAMED}.
  *
  * @author Andy Wilkinson
  * @author Stephane Nicoll
@@ -43,7 +43,7 @@ import static org.assertj.core.api.Assertions.contentOf;
 class LogFileWebEndpointAutoConfigurationTests {
 
 	private final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner()
-			.withConfiguration(AutoConfigurations.of(LogFileWebEndpointAutoConfiguration.class));
+			.withConfiguration(AutoConfigurations.of(LogFileWebEndpointAutoConfiguration_RENAMED.class));
 
 	@Test
 	void runWithOnlyExposedShouldNotHaveEndpointBean() {
