@@ -101,7 +101,7 @@ import org.springframework.core.env.Environment;
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ ElementType.METHOD, ElementType.TYPE })
 @Documented
-@Conditional(OnAvailableEndpointCondition.class)
+@Conditional(OnAvailableEndpointCondition_RENAMED.class)
 public @interface ConditionalOnAvailableEndpoint {
 
 	/**
