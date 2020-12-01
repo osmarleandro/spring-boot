@@ -28,7 +28,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
 
 /**
- * Tests for {@link OperationMethod}.
+ * Tests for {@link OperationMethod_RENAMED}.
  *
  * @author Phillip Webb
  */
@@ -38,31 +38,31 @@ class OperationMethodTests {
 
 	@Test
 	void createWhenMethodIsNullShouldThrowException() {
-		assertThatIllegalArgumentException().isThrownBy(() -> new OperationMethod(null, OperationType.READ))
+		assertThatIllegalArgumentException().isThrownBy(() -> new OperationMethod_RENAMED(null, OperationType.READ))
 				.withMessageContaining("Method must not be null");
 	}
 
 	@Test
 	void createWhenOperationTypeIsNullShouldThrowException() {
-		assertThatIllegalArgumentException().isThrownBy(() -> new OperationMethod(this.exampleMethod, null))
+		assertThatIllegalArgumentException().isThrownBy(() -> new OperationMethod_RENAMED(this.exampleMethod, null))
 				.withMessageContaining("OperationType must not be null");
 	}
 
 	@Test
 	void getMethodShouldReturnMethod() {
-		OperationMethod operationMethod = new OperationMethod(this.exampleMethod, OperationType.READ);
+		OperationMethod_RENAMED operationMethod = new OperationMethod_RENAMED(this.exampleMethod, OperationType.READ);
 		assertThat(operationMethod.getMethod()).isEqualTo(this.exampleMethod);
 	}
 
 	@Test
 	void getOperationTypeShouldReturnOperationType() {
-		OperationMethod operationMethod = new OperationMethod(this.exampleMethod, OperationType.READ);
+		OperationMethod_RENAMED operationMethod = new OperationMethod_RENAMED(this.exampleMethod, OperationType.READ);
 		assertThat(operationMethod.getOperationType()).isEqualTo(OperationType.READ);
 	}
 
 	@Test
 	void getParametersShouldReturnParameters() {
-		OperationMethod operationMethod = new OperationMethod(this.exampleMethod, OperationType.READ);
+		OperationMethod_RENAMED operationMethod = new OperationMethod_RENAMED(this.exampleMethod, OperationType.READ);
 		OperationParameters parameters = operationMethod.getParameters();
 		assertThat(parameters.getParameterCount()).isEqualTo(1);
 		assertThat(parameters.iterator().next().getName()).isEqualTo("name");

@@ -30,7 +30,7 @@ import org.springframework.core.ParameterNameDiscoverer;
 import org.springframework.util.Assert;
 
 /**
- * {@link OperationParameters} created from an {@link OperationMethod}.
+ * {@link OperationParameters} created from an {@link OperationMethod_RENAMED}.
  *
  * @author Phillip Webb
  */

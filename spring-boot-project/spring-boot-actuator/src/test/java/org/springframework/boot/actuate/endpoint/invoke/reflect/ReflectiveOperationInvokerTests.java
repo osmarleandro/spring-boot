@@ -44,14 +44,14 @@ class ReflectiveOperationInvokerTests {
 
 	private Example target;
 
-	private OperationMethod operationMethod;
+	private OperationMethod_RENAMED operationMethod;
 
 	private ParameterValueMapper parameterValueMapper;
 
 	@BeforeEach
 	void setup() {
 		this.target = new Example();
-		this.operationMethod = new OperationMethod(ReflectionUtils.findMethod(Example.class, "reverse",
+		this.operationMethod = new OperationMethod_RENAMED(ReflectionUtils.findMethod(Example.class, "reverse",
 				ApiVersion.class, SecurityContext.class, String.class), OperationType.READ);
 		this.parameterValueMapper = (parameter, value) -> (value != null) ? value.toString() : null;
 	}
@@ -96,7 +96,7 @@ class ReflectiveOperationInvokerTests {
 
 	@Test
 	void invokeWhenMissingNullableArgumentShouldInvoke() {
-		OperationMethod operationMethod = new OperationMethod(ReflectionUtils.findMethod(Example.class,
+		OperationMethod_RENAMED operationMethod = new OperationMethod_RENAMED(ReflectionUtils.findMethod(Example.class,
 				"reverseNullable", ApiVersion.class, SecurityContext.class, String.class), OperationType.READ);
 		ReflectiveOperationInvoker invoker = new ReflectiveOperationInvoker(this.target, operationMethod,
 				this.parameterValueMapper);

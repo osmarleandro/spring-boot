@@ -23,7 +23,7 @@ import org.springframework.lang.Nullable;
 import org.springframework.util.ObjectUtils;
 
 /**
- * {@link OperationParameter} created from an {@link OperationMethod}.
+ * {@link OperationParameter} created from an {@link OperationMethod_RENAMED}.
  *
  * @author Phillip Webb
  */

@@ -31,7 +31,7 @@ import org.springframework.boot.actuate.endpoint.SecurityContext;
 import org.springframework.boot.actuate.endpoint.http.ApiVersion;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvoker;
 import org.springframework.boot.actuate.endpoint.invoke.OperationParameters;
-import org.springframework.boot.actuate.endpoint.invoke.reflect.OperationMethod;
+import org.springframework.boot.actuate.endpoint.invoke.reflect.OperationMethod_RENAMED;
 import org.springframework.lang.Nullable;
 import org.springframework.util.ReflectionUtils;
 
@@ -138,9 +138,9 @@ class CachingOperationInvokerAdvisorTests {
 		return getOperationMethod(methodName, parameterTypes).getParameters();
 	}
 
-	private OperationMethod getOperationMethod(String methodName, Class<?>... parameterTypes) {
+	private OperationMethod_RENAMED getOperationMethod(String methodName, Class<?>... parameterTypes) {
 		Method method = ReflectionUtils.findMethod(TestOperations.class, methodName, parameterTypes);
-		return new OperationMethod(method, OperationType.READ);
+		return new OperationMethod_RENAMED(method, OperationType.READ);
 	}
 
 	static class TestOperations {

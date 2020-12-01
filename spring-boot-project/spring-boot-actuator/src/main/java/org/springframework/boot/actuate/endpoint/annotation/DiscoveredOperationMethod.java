@@ -22,17 +22,17 @@ import java.util.Collections;
 import java.util.List;
 
 import org.springframework.boot.actuate.endpoint.OperationType;
-import org.springframework.boot.actuate.endpoint.invoke.reflect.OperationMethod;
+import org.springframework.boot.actuate.endpoint.invoke.reflect.OperationMethod_RENAMED;
 import org.springframework.core.annotation.AnnotationAttributes;
 import org.springframework.util.Assert;
 
 /**
- * An {@link OperationMethod} discovered by an {@link EndpointDiscoverer}.
+ * An {@link OperationMethod_RENAMED} discovered by an {@link EndpointDiscoverer}.
  *
  * @author Phillip Webb
  * @since 2.0.0
  */
-public class DiscoveredOperationMethod extends OperationMethod {
+public class DiscoveredOperationMethod extends OperationMethod_RENAMED {
 
 	private final List<String> producesMediaTypes;
 
