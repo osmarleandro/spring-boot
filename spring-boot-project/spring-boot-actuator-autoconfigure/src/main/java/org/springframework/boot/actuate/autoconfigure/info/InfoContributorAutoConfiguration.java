@@ -16,7 +16,7 @@
 
 package org.springframework.boot.actuate.autoconfigure.info;
 
-import org.springframework.boot.actuate.info.BuildInfoContributor;
+import org.springframework.boot.actuate.info.BuildInfoContributor_RENAMED;
 import org.springframework.boot.actuate.info.EnvironmentInfoContributor;
 import org.springframework.boot.actuate.info.GitInfoContributor;
 import org.springframework.boot.actuate.info.InfoContributor;
@@ -74,7 +74,7 @@ public class InfoContributorAutoConfiguration {
 	@ConditionalOnSingleCandidate(BuildProperties.class)
 	@Order(DEFAULT_ORDER)
 	public InfoContributor buildInfoContributor(BuildProperties buildProperties) {
-		return new BuildInfoContributor(buildProperties);
+		return new BuildInfoContributor_RENAMED(buildProperties);
 	}
 
 }

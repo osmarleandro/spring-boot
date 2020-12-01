@@ -22,7 +22,7 @@ import java.util.Properties;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
-import org.springframework.boot.actuate.info.BuildInfoContributor;
+import org.springframework.boot.actuate.info.BuildInfoContributor_RENAMED;
 import org.springframework.boot.actuate.info.GitInfoContributor;
 import org.springframework.boot.actuate.info.Info;
 import org.springframework.boot.actuate.info.InfoContributor;
@@ -125,7 +125,7 @@ class InfoContributorAutoConfigurationTests {
 	@Test
 	void customBuildInfoContributor() {
 		load(CustomBuildInfoContributorConfiguration.class);
-		assertThat(this.context.getBean(BuildInfoContributor.class))
+		assertThat(this.context.getBean(BuildInfoContributor_RENAMED.class))
 				.isSameAs(this.context.getBean("customBuildInfoContributor"));
 	}
 
@@ -203,8 +203,8 @@ class InfoContributorAutoConfigurationTests {
 	static class CustomBuildInfoContributorConfiguration {
 
 		@Bean
-		BuildInfoContributor customBuildInfoContributor() {
-			return new BuildInfoContributor(new BuildProperties(new Properties()));
+		BuildInfoContributor_RENAMED customBuildInfoContributor() {
+			return new BuildInfoContributor_RENAMED(new BuildProperties(new Properties()));
 		}
 
 	}
