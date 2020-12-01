@@ -16,15 +16,15 @@
 
 package org.springframework.boot.actuate.endpoint.jmx;
 
-import org.springframework.boot.actuate.endpoint.EndpointsSupplier;
+import org.springframework.boot.actuate.endpoint.EndpointsSupplier_RENAMED;
 
 /**
- * {@link EndpointsSupplier} for {@link ExposableJmxEndpoint JMX endpoints}.
+ * {@link EndpointsSupplier_RENAMED} for {@link ExposableJmxEndpoint JMX endpoints}.
  *
  * @author Phillip Webb
  * @since 2.0.0
  */
 @FunctionalInterface
-public interface JmxEndpointsSupplier extends EndpointsSupplier<ExposableJmxEndpoint> {
+public interface JmxEndpointsSupplier extends EndpointsSupplier_RENAMED<ExposableJmxEndpoint> {
 
 }

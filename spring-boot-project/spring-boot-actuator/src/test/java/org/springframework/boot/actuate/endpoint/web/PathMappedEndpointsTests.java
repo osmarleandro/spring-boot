@@ -23,7 +23,7 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 
 import org.springframework.boot.actuate.endpoint.EndpointId;
-import org.springframework.boot.actuate.endpoint.EndpointsSupplier;
+import org.springframework.boot.actuate.endpoint.EndpointsSupplier_RENAMED;
 import org.springframework.boot.actuate.endpoint.ExposableEndpoint;
 import org.springframework.boot.actuate.endpoint.Operation;
 
@@ -49,7 +49,7 @@ class PathMappedEndpointsTests {
 	@Test
 	void createWhenSuppliersIsNullShouldThrowException() {
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> new PathMappedEndpoints(null, (Collection<EndpointsSupplier<?>>) null))
+				.isThrownBy(() -> new PathMappedEndpoints(null, (Collection<EndpointsSupplier_RENAMED<?>>) null))
 				.withMessageContaining("Suppliers must not be null");
 	}
 

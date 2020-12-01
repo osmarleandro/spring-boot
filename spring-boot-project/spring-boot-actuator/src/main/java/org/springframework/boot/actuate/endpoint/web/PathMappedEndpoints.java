@@ -26,7 +26,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.springframework.boot.actuate.endpoint.EndpointId;
-import org.springframework.boot.actuate.endpoint.EndpointsSupplier;
+import org.springframework.boot.actuate.endpoint.EndpointsSupplier_RENAMED;
 import org.springframework.util.Assert;
 
 /**
@@ -46,7 +46,7 @@ public class PathMappedEndpoints implements Iterable<PathMappedEndpoint> {
 	 * @param basePath the base path of the endpoints
 	 * @param supplier the endpoint supplier
 	 */
-	public PathMappedEndpoints(String basePath, EndpointsSupplier<?> supplier) {
+	public PathMappedEndpoints(String basePath, EndpointsSupplier_RENAMED<?> supplier) {
 		Assert.notNull(supplier, "Supplier must not be null");
 		this.basePath = (basePath != null) ? basePath : "";
 		this.endpoints = getEndpoints(Collections.singleton(supplier));
@@ -57,13 +57,13 @@ public class PathMappedEndpoints implements Iterable<PathMappedEndpoint> {
 	 * @param basePath the base path of the endpoints
 	 * @param suppliers the endpoint suppliers
 	 */
-	public PathMappedEndpoints(String basePath, Collection<EndpointsSupplier<?>> suppliers) {
+	public PathMappedEndpoints(String basePath, Collection<EndpointsSupplier_RENAMED<?>> suppliers) {
 		Assert.notNull(suppliers, "Suppliers must not be null");
 		this.basePath = (basePath != null) ? basePath : "";
 		this.endpoints = getEndpoints(suppliers);
 	}
 
-	private Map<EndpointId, PathMappedEndpoint> getEndpoints(Collection<EndpointsSupplier<?>> suppliers) {
+	private Map<EndpointId, PathMappedEndpoint> getEndpoints(Collection<EndpointsSupplier_RENAMED<?>> suppliers) {
 		Map<EndpointId, PathMappedEndpoint> endpoints = new LinkedHashMap<>();
 		suppliers.forEach((supplier) -> supplier.getEndpoints().forEach((endpoint) -> {
 			if (endpoint instanceof PathMappedEndpoint) {

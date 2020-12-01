@@ -35,7 +35,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.BeanFactoryUtils;
 import org.springframework.boot.actuate.endpoint.EndpointFilter;
 import org.springframework.boot.actuate.endpoint.EndpointId;
-import org.springframework.boot.actuate.endpoint.EndpointsSupplier;
+import org.springframework.boot.actuate.endpoint.EndpointsSupplier_RENAMED;
 import org.springframework.boot.actuate.endpoint.ExposableEndpoint;
 import org.springframework.boot.actuate.endpoint.Operation;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvoker;
@@ -56,7 +56,7 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.util.StringUtils;
 
 /**
- * A Base for {@link EndpointsSupplier} implementations that discover
+ * A Base for {@link EndpointsSupplier_RENAMED} implementations that discover
  * {@link Endpoint @Endpoint} beans and {@link EndpointExtension @EndpointExtension} beans
  * in an application context.
  *
@@ -68,7 +68,7 @@ import org.springframework.util.StringUtils;
  * @since 2.0.0
  */
 public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O extends Operation>
-		implements EndpointsSupplier<E> {
+		implements EndpointsSupplier_RENAMED<E> {
 
 	private final ApplicationContext applicationContext;
 

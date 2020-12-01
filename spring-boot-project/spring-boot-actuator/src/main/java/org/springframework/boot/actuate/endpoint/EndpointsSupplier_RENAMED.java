@@ -14,17 +14,26 @@
  * limitations under the License.
  */
 
-package org.springframework.boot.actuate.endpoint.web.annotation;
+package org.springframework.boot.actuate.endpoint;
 
-import org.springframework.boot.actuate.endpoint.EndpointsSupplier_RENAMED;
+import java.util.Collection;
 
 /**
- * {@link EndpointsSupplier_RENAMED} for {@link ExposableControllerEndpoint controller endpoints}.
+ * Provides access to a collection of {@link ExposableEndpoint endpoints}.
  *
+ * @param <E> the endpoint type
+ * @author Andy Wilkinson
+ * @author Stephane Nicoll
  * @author Phillip Webb
  * @since 2.0.0
  */
 @FunctionalInterface
-public interface ControllerEndpointsSupplier extends EndpointsSupplier_RENAMED<ExposableControllerEndpoint> {
+public interface EndpointsSupplier_RENAMED<E extends ExposableEndpoint<?>> {
+
+	/**
+	 * Return the provided endpoints.
+	 * @return the endpoints
+	 */
+	Collection<E> getEndpoints();
 
 }
