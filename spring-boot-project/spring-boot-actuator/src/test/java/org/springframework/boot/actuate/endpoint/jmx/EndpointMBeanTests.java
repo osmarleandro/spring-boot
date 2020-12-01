@@ -32,7 +32,7 @@ import reactor.core.publisher.Mono;
 
 import org.springframework.beans.FatalBeanException;
 import org.springframework.boot.actuate.endpoint.InvalidEndpointRequestException;
-import org.springframework.boot.actuate.endpoint.InvocationContext;
+import org.springframework.boot.actuate.endpoint.InvocationContext_RENAMED;
 import org.springframework.util.ClassUtils;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -135,7 +135,7 @@ class EndpointMBeanTests {
 		TestJmxOperation operation = new TestJmxOperation() {
 
 			@Override
-			public Object invoke(InvocationContext context) {
+			public Object invoke(InvocationContext_RENAMED context) {
 				throw new InvalidEndpointRequestException("test failure", "test");
 			}
 

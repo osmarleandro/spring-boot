@@ -25,7 +25,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-import org.springframework.boot.actuate.endpoint.InvocationContext;
+import org.springframework.boot.actuate.endpoint.InvocationContext_RENAMED;
 import org.springframework.boot.actuate.endpoint.http.ApiVersion;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvoker;
 import org.springframework.util.Assert;
@@ -73,7 +73,7 @@ public class CachingOperationInvoker implements OperationInvoker {
 	}
 
 	@Override
-	public Object invoke(InvocationContext context) {
+	public Object invoke(InvocationContext_RENAMED context) {
 		if (hasInput(context)) {
 			return this.invoker.invoke(context);
 		}
@@ -89,7 +89,7 @@ public class CachingOperationInvoker implements OperationInvoker {
 		return cached.getResponse();
 	}
 
-	private boolean hasInput(InvocationContext context) {
+	private boolean hasInput(InvocationContext_RENAMED context) {
 		Map<String, Object> arguments = context.getArguments();
 		if (!ObjectUtils.isEmpty(arguments)) {
 			return arguments.values().stream().anyMatch(Objects::nonNull);

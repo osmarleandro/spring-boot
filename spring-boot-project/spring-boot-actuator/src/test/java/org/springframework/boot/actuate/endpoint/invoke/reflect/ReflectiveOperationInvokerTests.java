@@ -21,7 +21,7 @@ import java.util.Collections;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import org.springframework.boot.actuate.endpoint.InvocationContext;
+import org.springframework.boot.actuate.endpoint.InvocationContext_RENAMED;
 import org.springframework.boot.actuate.endpoint.OperationType;
 import org.springframework.boot.actuate.endpoint.SecurityContext;
 import org.springframework.boot.actuate.endpoint.http.ApiVersion;
@@ -82,7 +82,7 @@ class ReflectiveOperationInvokerTests {
 		ReflectiveOperationInvoker invoker = new ReflectiveOperationInvoker(this.target, this.operationMethod,
 				this.parameterValueMapper);
 		Object result = invoker
-				.invoke(new InvocationContext(mock(SecurityContext.class), Collections.singletonMap("name", "boot")));
+				.invoke(new InvocationContext_RENAMED(mock(SecurityContext.class), Collections.singletonMap("name", "boot")));
 		assertThat(result).isEqualTo("toob");
 	}
 
@@ -91,7 +91,7 @@ class ReflectiveOperationInvokerTests {
 		ReflectiveOperationInvoker invoker = new ReflectiveOperationInvoker(this.target, this.operationMethod,
 				this.parameterValueMapper);
 		assertThatExceptionOfType(MissingParametersException.class).isThrownBy(() -> invoker
-				.invoke(new InvocationContext(mock(SecurityContext.class), Collections.singletonMap("name", null))));
+				.invoke(new InvocationContext_RENAMED(mock(SecurityContext.class), Collections.singletonMap("name", null))));
 	}
 
 	@Test
@@ -101,7 +101,7 @@ class ReflectiveOperationInvokerTests {
 		ReflectiveOperationInvoker invoker = new ReflectiveOperationInvoker(this.target, operationMethod,
 				this.parameterValueMapper);
 		Object result = invoker
-				.invoke(new InvocationContext(mock(SecurityContext.class), Collections.singletonMap("name", null)));
+				.invoke(new InvocationContext_RENAMED(mock(SecurityContext.class), Collections.singletonMap("name", null)));
 		assertThat(result).isEqualTo("llun");
 	}
 
@@ -110,7 +110,7 @@ class ReflectiveOperationInvokerTests {
 		ReflectiveOperationInvoker invoker = new ReflectiveOperationInvoker(this.target, this.operationMethod,
 				this.parameterValueMapper);
 		Object result = invoker
-				.invoke(new InvocationContext(mock(SecurityContext.class), Collections.singletonMap("name", 1234)));
+				.invoke(new InvocationContext_RENAMED(mock(SecurityContext.class), Collections.singletonMap("name", 1234)));
 		assertThat(result).isEqualTo("4321");
 	}
 

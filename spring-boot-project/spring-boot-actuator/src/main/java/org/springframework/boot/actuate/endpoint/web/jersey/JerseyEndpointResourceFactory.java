@@ -41,7 +41,7 @@ import org.glassfish.jersey.server.model.Resource.Builder;
 import reactor.core.publisher.Mono;
 
 import org.springframework.boot.actuate.endpoint.InvalidEndpointRequestException;
-import org.springframework.boot.actuate.endpoint.InvocationContext;
+import org.springframework.boot.actuate.endpoint.InvocationContext_RENAMED;
 import org.springframework.boot.actuate.endpoint.SecurityContext;
 import org.springframework.boot.actuate.endpoint.http.ApiVersion;
 import org.springframework.boot.actuate.endpoint.web.EndpointLinksResolver;
@@ -153,7 +153,7 @@ public class JerseyEndpointResourceFactory {
 			try {
 				ApiVersion apiVersion = ApiVersion.fromHttpHeaders(data.getHeaders());
 				JerseySecurityContext securityContext = new JerseySecurityContext(data.getSecurityContext());
-				InvocationContext invocationContext = new InvocationContext(apiVersion, securityContext, arguments);
+				InvocationContext_RENAMED invocationContext = new InvocationContext_RENAMED(apiVersion, securityContext, arguments);
 				Object response = this.operation.invoke(invocationContext);
 				return convertToJaxRsResponse(response, data.getRequest().getMethod());
 			}

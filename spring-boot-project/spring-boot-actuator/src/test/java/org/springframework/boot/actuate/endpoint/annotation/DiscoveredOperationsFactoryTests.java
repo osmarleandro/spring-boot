@@ -26,7 +26,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import org.springframework.boot.actuate.endpoint.EndpointId;
-import org.springframework.boot.actuate.endpoint.InvocationContext;
+import org.springframework.boot.actuate.endpoint.InvocationContext_RENAMED;
 import org.springframework.boot.actuate.endpoint.OperationType;
 import org.springframework.boot.actuate.endpoint.SecurityContext;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvoker;
@@ -106,7 +106,7 @@ class DiscoveredOperationsFactoryTests {
 		TestOperation operation = getFirst(
 				this.factory.createOperations(EndpointId.of("test"), new ExampleWithParams()));
 		Map<String, Object> params = Collections.singletonMap("name", 123);
-		Object result = operation.invoke(new InvocationContext(mock(SecurityContext.class), params));
+		Object result = operation.invoke(new InvocationContext_RENAMED(mock(SecurityContext.class), params));
 		assertThat(result).isEqualTo("123");
 	}
 
@@ -115,7 +115,7 @@ class DiscoveredOperationsFactoryTests {
 		TestOperationInvokerAdvisor advisor = new TestOperationInvokerAdvisor();
 		this.invokerAdvisors.add(advisor);
 		TestOperation operation = getFirst(this.factory.createOperations(EndpointId.of("test"), new ExampleRead()));
-		operation.invoke(new InvocationContext(mock(SecurityContext.class), Collections.emptyMap()));
+		operation.invoke(new InvocationContext_RENAMED(mock(SecurityContext.class), Collections.emptyMap()));
 		assertThat(advisor.getEndpointId()).isEqualTo(EndpointId.of("test"));
 		assertThat(advisor.getOperationType()).isEqualTo(OperationType.READ);
 		assertThat(advisor.getParameters()).isEmpty();

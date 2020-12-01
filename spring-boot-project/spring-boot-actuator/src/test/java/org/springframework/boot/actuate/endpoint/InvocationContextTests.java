@@ -28,7 +28,7 @@ import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException
 import static org.mockito.Mockito.mock;
 
 /**
- * Tests for {@link InvocationContext}.
+ * Tests for {@link InvocationContext_RENAMED}.
  *
  * @author Phillip Webb
  */
@@ -40,37 +40,37 @@ class InvocationContextTests {
 
 	@Test
 	void createWhenApiVersionIsNullUsesLatestVersion() {
-		InvocationContext context = new InvocationContext(null, this.securityContext, this.arguments);
+		InvocationContext_RENAMED context = new InvocationContext_RENAMED(null, this.securityContext, this.arguments);
 		assertThat(context.getApiVersion()).isEqualTo(ApiVersion.LATEST);
 	}
 
 	@Test
 	void createWhenSecurityContextIsNullThrowsException() {
-		assertThatIllegalArgumentException().isThrownBy(() -> new InvocationContext(null, this.arguments))
+		assertThatIllegalArgumentException().isThrownBy(() -> new InvocationContext_RENAMED(null, this.arguments))
 				.withMessage("SecurityContext must not be null");
 	}
 
 	@Test
 	void createWhenArgumentsIsNullThrowsException() {
-		assertThatIllegalArgumentException().isThrownBy(() -> new InvocationContext(this.securityContext, null))
+		assertThatIllegalArgumentException().isThrownBy(() -> new InvocationContext_RENAMED(this.securityContext, null))
 				.withMessage("Arguments must not be null");
 	}
 
 	@Test
 	void getApiVersionReturnsApiVersion() {
-		InvocationContext context = new InvocationContext(ApiVersion.V2, this.securityContext, this.arguments);
+		InvocationContext_RENAMED context = new InvocationContext_RENAMED(ApiVersion.V2, this.securityContext, this.arguments);
 		assertThat(context.getApiVersion()).isEqualTo(ApiVersion.V2);
 	}
 
 	@Test
 	void getSecurityContextReturnsSecurityContext() {
-		InvocationContext context = new InvocationContext(this.securityContext, this.arguments);
+		InvocationContext_RENAMED context = new InvocationContext_RENAMED(this.securityContext, this.arguments);
 		assertThat(context.getSecurityContext()).isEqualTo(this.securityContext);
 	}
 
 	@Test
 	void getArgumentsReturnsArguments() {
-		InvocationContext context = new InvocationContext(this.securityContext, this.arguments);
+		InvocationContext_RENAMED context = new InvocationContext_RENAMED(this.securityContext, this.arguments);
 		assertThat(context.getArguments()).isEqualTo(this.arguments);
 	}
 

@@ -30,7 +30,7 @@ import reactor.core.publisher.Mono;
 import reactor.core.scheduler.Schedulers;
 
 import org.springframework.boot.actuate.endpoint.InvalidEndpointRequestException;
-import org.springframework.boot.actuate.endpoint.InvocationContext;
+import org.springframework.boot.actuate.endpoint.InvocationContext_RENAMED;
 import org.springframework.boot.actuate.endpoint.OperationType;
 import org.springframework.boot.actuate.endpoint.SecurityContext;
 import org.springframework.boot.actuate.endpoint.http.ApiVersion;
@@ -236,7 +236,7 @@ public abstract class AbstractWebFluxEndpointHandlerMapping extends RequestMappi
 		}
 
 		@Override
-		public Object invoke(InvocationContext context) {
+		public Object invoke(InvocationContext_RENAMED context) {
 			return Mono.fromCallable(() -> this.invoker.invoke(context)).subscribeOn(Schedulers.boundedElastic());
 		}
 
@@ -319,7 +319,7 @@ public abstract class AbstractWebFluxEndpointHandlerMapping extends RequestMappi
 						tokenizePathSegments((String) arguments.get(matchAllRemainingPathSegmentsVariable)));
 			}
 			return this.securityContextSupplier.get()
-					.map((securityContext) -> new InvocationContext(apiVersion, securityContext, arguments))
+					.map((securityContext) -> new InvocationContext_RENAMED(apiVersion, securityContext, arguments))
 					.flatMap((invocationContext) -> handleResult((Publisher<?>) this.invoker.invoke(invocationContext),
 							exchange.getRequest().getMethod()));
 		}

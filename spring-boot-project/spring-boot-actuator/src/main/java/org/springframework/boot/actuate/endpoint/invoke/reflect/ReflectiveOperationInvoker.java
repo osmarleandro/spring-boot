@@ -21,7 +21,7 @@ import java.security.Principal;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import org.springframework.boot.actuate.endpoint.InvocationContext;
+import org.springframework.boot.actuate.endpoint.InvocationContext_RENAMED;
 import org.springframework.boot.actuate.endpoint.SecurityContext;
 import org.springframework.boot.actuate.endpoint.http.ApiVersion;
 import org.springframework.boot.actuate.endpoint.invoke.MissingParametersException;
@@ -69,7 +69,7 @@ public class ReflectiveOperationInvoker implements OperationInvoker {
 	}
 
 	@Override
-	public Object invoke(InvocationContext context) {
+	public Object invoke(InvocationContext_RENAMED context) {
 		validateRequiredParameters(context);
 		Method method = this.operationMethod.getMethod();
 		Object[] resolvedArguments = resolveArguments(context);
@@ -77,7 +77,7 @@ public class ReflectiveOperationInvoker implements OperationInvoker {
 		return ReflectionUtils.invokeMethod(method, this.target, resolvedArguments);
 	}
 
-	private void validateRequiredParameters(InvocationContext context) {
+	private void validateRequiredParameters(InvocationContext_RENAMED context) {
 		Set<OperationParameter> missing = this.operationMethod.getParameters().stream()
 				.filter((parameter) -> isMissing(context, parameter)).collect(Collectors.toSet());
 		if (!missing.isEmpty()) {
@@ -85,7 +85,7 @@ public class ReflectiveOperationInvoker implements OperationInvoker {
 		}
 	}
 
-	private boolean isMissing(InvocationContext context, OperationParameter parameter) {
+	private boolean isMissing(InvocationContext_RENAMED context, OperationParameter parameter) {
 		if (!parameter.isMandatory()) {
 			return false;
 		}
@@ -101,12 +101,12 @@ public class ReflectiveOperationInvoker implements OperationInvoker {
 		return context.getArguments().get(parameter.getName()) == null;
 	}
 
-	private Object[] resolveArguments(InvocationContext context) {
+	private Object[] resolveArguments(InvocationContext_RENAMED context) {
 		return this.operationMethod.getParameters().stream().map((parameter) -> resolveArgument(parameter, context))
 				.toArray();
 	}
 
-	private Object resolveArgument(OperationParameter parameter, InvocationContext context) {
+	private Object resolveArgument(OperationParameter parameter, InvocationContext_RENAMED context) {
 		if (ApiVersion.class.equals(parameter.getType())) {
 			return context.getApiVersion();
 		}
