@@ -28,7 +28,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Stephane Nicoll
  */
-class WavefrontPropertiesTests extends PushRegistryPropertiesTests {
+class WavefrontPropertiesTests_RENAMED extends PushRegistryPropertiesTests {
 
 	@Test
 	void defaultValuesAreConsistent() {
