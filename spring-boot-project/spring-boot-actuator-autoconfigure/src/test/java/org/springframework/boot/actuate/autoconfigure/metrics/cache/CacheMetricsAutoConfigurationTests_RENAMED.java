@@ -33,7 +33,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Stephane Nicoll
  */
-class CacheMetricsAutoConfigurationTests {
+class CacheMetricsAutoConfigurationTests_RENAMED {
 
 	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner().with(MetricsRun.simple())
 			.withUserConfiguration(CachingConfiguration.class).withConfiguration(
