@@ -21,7 +21,7 @@ import java.util.Map;
 
 import org.junit.jupiter.api.Test;
 
-import org.springframework.boot.actuate.endpoint.web.WebEndpointResponse;
+import org.springframework.boot.actuate.endpoint.web.WebEndpointResponse_RENAMED;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -35,11 +35,11 @@ class SimpleHttpCodeStatusMapperTests {
 	@Test
 	void createWhenMappingsAreNullUsesDefaultMappings() {
 		SimpleHttpCodeStatusMapper mapper = new SimpleHttpCodeStatusMapper(null);
-		assertThat(mapper.getStatusCode(Status.UNKNOWN)).isEqualTo(WebEndpointResponse.STATUS_OK);
-		assertThat(mapper.getStatusCode(Status.UP)).isEqualTo(WebEndpointResponse.STATUS_OK);
-		assertThat(mapper.getStatusCode(Status.DOWN)).isEqualTo(WebEndpointResponse.STATUS_SERVICE_UNAVAILABLE);
+		assertThat(mapper.getStatusCode(Status.UNKNOWN)).isEqualTo(WebEndpointResponse_RENAMED.STATUS_OK);
+		assertThat(mapper.getStatusCode(Status.UP)).isEqualTo(WebEndpointResponse_RENAMED.STATUS_OK);
+		assertThat(mapper.getStatusCode(Status.DOWN)).isEqualTo(WebEndpointResponse_RENAMED.STATUS_SERVICE_UNAVAILABLE);
 		assertThat(mapper.getStatusCode(Status.OUT_OF_SERVICE))
-				.isEqualTo(WebEndpointResponse.STATUS_SERVICE_UNAVAILABLE);
+				.isEqualTo(WebEndpointResponse_RENAMED.STATUS_SERVICE_UNAVAILABLE);
 	}
 
 	@Test

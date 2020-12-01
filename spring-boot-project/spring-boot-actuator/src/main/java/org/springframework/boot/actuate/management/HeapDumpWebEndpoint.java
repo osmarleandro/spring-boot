@@ -38,7 +38,7 @@ import org.apache.commons.logging.LogFactory;
 
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
 import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
-import org.springframework.boot.actuate.endpoint.web.WebEndpointResponse;
+import org.springframework.boot.actuate.endpoint.web.WebEndpointResponse_RENAMED;
 import org.springframework.boot.actuate.endpoint.web.annotation.WebEndpoint;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
@@ -73,11 +73,11 @@ public class HeapDumpWebEndpoint {
 	}
 
 	@ReadOperation
-	public WebEndpointResponse<Resource> heapDump(@Nullable Boolean live) {
+	public WebEndpointResponse_RENAMED<Resource> heapDump(@Nullable Boolean live) {
 		try {
 			if (this.lock.tryLock(this.timeout, TimeUnit.MILLISECONDS)) {
 				try {
-					return new WebEndpointResponse<>(dumpHeap((live != null) ? live : true));
+					return new WebEndpointResponse_RENAMED<>(dumpHeap((live != null) ? live : true));
 				}
 				finally {
 					this.lock.unlock();
@@ -88,12 +88,12 @@ public class HeapDumpWebEndpoint {
 			Thread.currentThread().interrupt();
 		}
 		catch (IOException ex) {
-			return new WebEndpointResponse<>(WebEndpointResponse.STATUS_INTERNAL_SERVER_ERROR);
+			return new WebEndpointResponse_RENAMED<>(WebEndpointResponse_RENAMED.STATUS_INTERNAL_SERVER_ERROR);
 		}
 		catch (HeapDumperUnavailableException ex) {
-			return new WebEndpointResponse<>(WebEndpointResponse.STATUS_SERVICE_UNAVAILABLE);
+			return new WebEndpointResponse_RENAMED<>(WebEndpointResponse_RENAMED.STATUS_SERVICE_UNAVAILABLE);
 		}
-		return new WebEndpointResponse<>(WebEndpointResponse.STATUS_TOO_MANY_REQUESTS);
+		return new WebEndpointResponse_RENAMED<>(WebEndpointResponse_RENAMED.STATUS_TOO_MANY_REQUESTS);
 	}
 
 	private Resource dumpHeap(boolean live) throws IOException, InterruptedException {

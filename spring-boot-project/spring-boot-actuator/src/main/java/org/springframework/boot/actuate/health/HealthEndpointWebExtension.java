@@ -25,7 +25,7 @@ import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
 import org.springframework.boot.actuate.endpoint.annotation.Selector;
 import org.springframework.boot.actuate.endpoint.annotation.Selector.Match;
 import org.springframework.boot.actuate.endpoint.http.ApiVersion;
-import org.springframework.boot.actuate.endpoint.web.WebEndpointResponse;
+import org.springframework.boot.actuate.endpoint.web.WebEndpointResponse_RENAMED;
 import org.springframework.boot.actuate.endpoint.web.annotation.EndpointWebExtension;
 
 /**
@@ -56,28 +56,28 @@ public class HealthEndpointWebExtension extends HealthEndpointSupport<HealthCont
 	}
 
 	@ReadOperation
-	public WebEndpointResponse<HealthComponent> health(ApiVersion apiVersion, SecurityContext securityContext) {
+	public WebEndpointResponse_RENAMED<HealthComponent> health(ApiVersion apiVersion, SecurityContext securityContext) {
 		return health(apiVersion, securityContext, false, NO_PATH);
 	}
 
 	@ReadOperation
-	public WebEndpointResponse<HealthComponent> health(ApiVersion apiVersion, SecurityContext securityContext,
+	public WebEndpointResponse_RENAMED<HealthComponent> health(ApiVersion apiVersion, SecurityContext securityContext,
 			@Selector(match = Match.ALL_REMAINING) String... path) {
 		return health(apiVersion, securityContext, false, path);
 	}
 
-	public WebEndpointResponse<HealthComponent> health(ApiVersion apiVersion, SecurityContext securityContext,
+	public WebEndpointResponse_RENAMED<HealthComponent> health(ApiVersion apiVersion, SecurityContext securityContext,
 			boolean showAll, String... path) {
 		HealthResult<HealthComponent> result = getHealth(apiVersion, securityContext, showAll, path);
 		if (result == null) {
 			return (Arrays.equals(path, NO_PATH))
-					? new WebEndpointResponse<>(DEFAULT_HEALTH, WebEndpointResponse.STATUS_OK)
-					: new WebEndpointResponse<>(WebEndpointResponse.STATUS_NOT_FOUND);
+					? new WebEndpointResponse_RENAMED<>(DEFAULT_HEALTH, WebEndpointResponse_RENAMED.STATUS_OK)
+					: new WebEndpointResponse_RENAMED<>(WebEndpointResponse_RENAMED.STATUS_NOT_FOUND);
 		}
 		HealthComponent health = result.getHealth();
 		HealthEndpointGroup group = result.getGroup();
 		int statusCode = group.getHttpCodeStatusMapper().getStatusCode(health.getStatus());
-		return new WebEndpointResponse<>(health, statusCode);
+		return new WebEndpointResponse_RENAMED<>(health, statusCode);
 	}
 
 	@Override

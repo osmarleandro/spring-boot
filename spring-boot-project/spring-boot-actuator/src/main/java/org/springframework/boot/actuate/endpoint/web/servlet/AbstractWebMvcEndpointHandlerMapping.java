@@ -38,7 +38,7 @@ import org.springframework.boot.actuate.endpoint.invoke.OperationInvoker;
 import org.springframework.boot.actuate.endpoint.web.EndpointMapping;
 import org.springframework.boot.actuate.endpoint.web.EndpointMediaTypes;
 import org.springframework.boot.actuate.endpoint.web.ExposableWebEndpoint;
-import org.springframework.boot.actuate.endpoint.web.WebEndpointResponse;
+import org.springframework.boot.actuate.endpoint.web.WebEndpointResponse_RENAMED;
 import org.springframework.boot.actuate.endpoint.web.WebOperation;
 import org.springframework.boot.actuate.endpoint.web.WebOperationRequestPredicate;
 import org.springframework.http.HttpHeaders;
@@ -348,10 +348,10 @@ public abstract class AbstractWebMvcEndpointHandlerMapping extends RequestMappin
 				return new ResponseEntity<>(
 						(httpMethod != HttpMethod.GET) ? HttpStatus.NO_CONTENT : HttpStatus.NOT_FOUND);
 			}
-			if (!(result instanceof WebEndpointResponse)) {
+			if (!(result instanceof WebEndpointResponse_RENAMED)) {
 				return result;
 			}
-			WebEndpointResponse<?> response = (WebEndpointResponse<?>) result;
+			WebEndpointResponse_RENAMED<?> response = (WebEndpointResponse_RENAMED<?>) result;
 			return new ResponseEntity<Object>(response.getBody(), HttpStatus.valueOf(response.getStatus()));
 		}
 

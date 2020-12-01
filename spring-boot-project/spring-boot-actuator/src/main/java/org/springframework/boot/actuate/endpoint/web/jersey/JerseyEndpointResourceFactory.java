@@ -49,7 +49,7 @@ import org.springframework.boot.actuate.endpoint.web.EndpointMapping;
 import org.springframework.boot.actuate.endpoint.web.EndpointMediaTypes;
 import org.springframework.boot.actuate.endpoint.web.ExposableWebEndpoint;
 import org.springframework.boot.actuate.endpoint.web.Link;
-import org.springframework.boot.actuate.endpoint.web.WebEndpointResponse;
+import org.springframework.boot.actuate.endpoint.web.WebEndpointResponse_RENAMED;
 import org.springframework.boot.actuate.endpoint.web.WebOperation;
 import org.springframework.boot.actuate.endpoint.web.WebOperationRequestPredicate;
 import org.springframework.util.AntPathMatcher;
@@ -210,10 +210,10 @@ public class JerseyEndpointResourceFactory {
 				return Response.status(status).build();
 			}
 			try {
-				if (!(response instanceof WebEndpointResponse)) {
+				if (!(response instanceof WebEndpointResponse_RENAMED)) {
 					return Response.status(Status.OK).entity(convertIfNecessary(response)).build();
 				}
-				WebEndpointResponse<?> webEndpointResponse = (WebEndpointResponse<?>) response;
+				WebEndpointResponse_RENAMED<?> webEndpointResponse = (WebEndpointResponse_RENAMED<?>) response;
 				return Response.status(webEndpointResponse.getStatus())
 						.entity(convertIfNecessary(webEndpointResponse.getBody())).build();
 			}

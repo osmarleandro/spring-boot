@@ -29,7 +29,7 @@ import org.springframework.boot.actuate.endpoint.annotation.Selector;
 import org.springframework.boot.actuate.endpoint.annotation.Selector.Match;
 import org.springframework.boot.actuate.endpoint.web.EndpointMediaTypes;
 import org.springframework.boot.actuate.endpoint.web.WebEndpointHttpMethod;
-import org.springframework.boot.actuate.endpoint.web.WebEndpointResponse;
+import org.springframework.boot.actuate.endpoint.web.WebEndpointResponse_RENAMED;
 import org.springframework.boot.actuate.endpoint.web.WebOperationRequestPredicate;
 import org.springframework.core.ResolvableType;
 import org.springframework.core.io.Resource;
@@ -121,7 +121,7 @@ class RequestPredicateFactory {
 		if (Resource.class.equals(method.getReturnType())) {
 			return true;
 		}
-		if (WebEndpointResponse.class.isAssignableFrom(method.getReturnType())) {
+		if (WebEndpointResponse_RENAMED.class.isAssignableFrom(method.getReturnType())) {
 			ResolvableType returnType = ResolvableType.forMethodReturnType(method);
 			return ResolvableType.forClass(Resource.class).isAssignableFrom(returnType.getGeneric(0));
 		}

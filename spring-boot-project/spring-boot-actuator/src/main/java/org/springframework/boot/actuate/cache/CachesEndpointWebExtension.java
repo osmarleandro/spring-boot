@@ -20,7 +20,7 @@ import org.springframework.boot.actuate.cache.CachesEndpoint.CacheEntry;
 import org.springframework.boot.actuate.endpoint.annotation.DeleteOperation;
 import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
 import org.springframework.boot.actuate.endpoint.annotation.Selector;
-import org.springframework.boot.actuate.endpoint.web.WebEndpointResponse;
+import org.springframework.boot.actuate.endpoint.web.WebEndpointResponse_RENAMED;
 import org.springframework.boot.actuate.endpoint.web.annotation.EndpointWebExtension;
 import org.springframework.lang.Nullable;
 
@@ -40,26 +40,26 @@ public class CachesEndpointWebExtension {
 	}
 
 	@ReadOperation
-	public WebEndpointResponse<CacheEntry> cache(@Selector String cache, @Nullable String cacheManager) {
+	public WebEndpointResponse_RENAMED<CacheEntry> cache(@Selector String cache, @Nullable String cacheManager) {
 		try {
 			CacheEntry entry = this.delegate.cache(cache, cacheManager);
-			int status = (entry != null) ? WebEndpointResponse.STATUS_OK : WebEndpointResponse.STATUS_NOT_FOUND;
-			return new WebEndpointResponse<>(entry, status);
+			int status = (entry != null) ? WebEndpointResponse_RENAMED.STATUS_OK : WebEndpointResponse_RENAMED.STATUS_NOT_FOUND;
+			return new WebEndpointResponse_RENAMED<>(entry, status);
 		}
 		catch (NonUniqueCacheException ex) {
-			return new WebEndpointResponse<>(WebEndpointResponse.STATUS_BAD_REQUEST);
+			return new WebEndpointResponse_RENAMED<>(WebEndpointResponse_RENAMED.STATUS_BAD_REQUEST);
 		}
 	}
 
 	@DeleteOperation
-	public WebEndpointResponse<Void> clearCache(@Selector String cache, @Nullable String cacheManager) {
+	public WebEndpointResponse_RENAMED<Void> clearCache(@Selector String cache, @Nullable String cacheManager) {
 		try {
 			boolean cleared = this.delegate.clearCache(cache, cacheManager);
-			int status = (cleared ? WebEndpointResponse.STATUS_NO_CONTENT : WebEndpointResponse.STATUS_NOT_FOUND);
-			return new WebEndpointResponse<>(status);
+			int status = (cleared ? WebEndpointResponse_RENAMED.STATUS_NO_CONTENT : WebEndpointResponse_RENAMED.STATUS_NOT_FOUND);
+			return new WebEndpointResponse_RENAMED<>(status);
 		}
 		catch (NonUniqueCacheException ex) {
-			return new WebEndpointResponse<>(WebEndpointResponse.STATUS_BAD_REQUEST);
+			return new WebEndpointResponse_RENAMED<>(WebEndpointResponse_RENAMED.STATUS_BAD_REQUEST);
 		}
 	}
 
