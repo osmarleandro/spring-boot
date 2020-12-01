@@ -29,7 +29,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Andy Wilkinson
  */
-class ManagementContextConfigurationTests {
+class ManagementContextConfigurationTests_RENAMED {
 
 	@Test
 	void proxyBeanMethodsIsEnabledByDefault() {
