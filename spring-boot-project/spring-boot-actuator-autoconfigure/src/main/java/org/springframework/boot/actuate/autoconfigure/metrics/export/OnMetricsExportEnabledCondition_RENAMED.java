@@ -24,9 +24,9 @@ import org.springframework.context.annotation.Condition;
  *
  * @author Chris Bono
  */
-class OnMetricsExportEnabledCondition extends OnEndpointElementCondition {
+class OnMetricsExportEnabledCondition_RENAMED extends OnEndpointElementCondition {
 
-	protected OnMetricsExportEnabledCondition() {
+	protected OnMetricsExportEnabledCondition_RENAMED() {
 		super("management.metrics.export.", ConditionalOnEnabledMetricsExport.class);
 	}
 
