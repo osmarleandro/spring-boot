@@ -25,7 +25,7 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Tests for {@link InfoEndpoint}.
+ * Tests for {@link InfoEndpoint_RENAMED}.
  *
  * @author Phillip Webb
  * @author Dave Syer
@@ -36,7 +36,7 @@ class InfoEndpointTests {
 
 	@Test
 	void info() {
-		InfoEndpoint endpoint = new InfoEndpoint(Arrays.asList((builder) -> builder.withDetail("key1", "value1"),
+		InfoEndpoint_RENAMED endpoint = new InfoEndpoint_RENAMED(Arrays.asList((builder) -> builder.withDetail("key1", "value1"),
 				(builder) -> builder.withDetail("key2", "value2")));
 		Map<String, Object> info = endpoint.info();
 		assertThat(info).hasSize(2);
@@ -46,7 +46,7 @@ class InfoEndpointTests {
 
 	@Test
 	void infoWithNoContributorsProducesEmptyMap() {
-		InfoEndpoint endpoint = new InfoEndpoint(Collections.emptyList());
+		InfoEndpoint_RENAMED endpoint = new InfoEndpoint_RENAMED(Collections.emptyList());
 		Map<String, Object> info = endpoint.info();
 		assertThat(info).isEmpty();
 	}

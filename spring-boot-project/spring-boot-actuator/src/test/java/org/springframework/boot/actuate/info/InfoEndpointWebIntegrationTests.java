@@ -29,7 +29,7 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.reactive.server.WebTestClient;
 
 /**
- * Integration tests for {@link InfoEndpoint} exposed by Jersey, Spring MVC, and WebFlux.
+ * Integration tests for {@link InfoEndpoint_RENAMED} exposed by Jersey, Spring MVC, and WebFlux.
  *
  * @author Meang Akira Tanaka
  * @author Stephane Nicoll
@@ -50,8 +50,8 @@ class InfoEndpointWebIntegrationTests {
 	static class TestConfiguration {
 
 		@Bean
-		InfoEndpoint endpoint(ObjectProvider<InfoContributor> infoContributors) {
-			return new InfoEndpoint(infoContributors.orderedStream().collect(Collectors.toList()));
+		InfoEndpoint_RENAMED endpoint(ObjectProvider<InfoContributor> infoContributors) {
+			return new InfoEndpoint_RENAMED(infoContributors.orderedStream().collect(Collectors.toList()));
 		}
 
 		@Bean

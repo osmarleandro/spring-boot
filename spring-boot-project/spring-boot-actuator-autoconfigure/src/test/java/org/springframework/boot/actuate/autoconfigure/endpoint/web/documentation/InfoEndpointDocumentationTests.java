@@ -24,7 +24,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.actuate.info.BuildInfoContributor;
 import org.springframework.boot.actuate.info.GitInfoContributor;
 import org.springframework.boot.actuate.info.InfoContributor;
-import org.springframework.boot.actuate.info.InfoEndpoint;
+import org.springframework.boot.actuate.info.InfoEndpoint_RENAMED;
 import org.springframework.boot.info.BuildProperties;
 import org.springframework.boot.info.GitProperties;
 import org.springframework.context.annotation.Bean;
@@ -40,7 +40,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /**
- * Tests for generating documentation describing the {@link InfoEndpoint}.
+ * Tests for generating documentation describing the {@link InfoEndpoint_RENAMED}.
  *
  * @author Andy Wilkinson
  */
@@ -73,8 +73,8 @@ class InfoEndpointDocumentationTests extends MockMvcEndpointDocumentationTests {
 	static class TestConfiguration {
 
 		@Bean
-		InfoEndpoint endpoint(List<InfoContributor> infoContributors) {
-			return new InfoEndpoint(infoContributors);
+		InfoEndpoint_RENAMED endpoint(List<InfoContributor> infoContributors) {
+			return new InfoEndpoint_RENAMED(infoContributors);
 		}
 
 		@Bean

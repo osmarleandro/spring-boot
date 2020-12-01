@@ -20,21 +20,21 @@ import java.util.Map;
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.EndpointCloudFoundryExtension;
 import org.springframework.boot.actuate.endpoint.annotation.EndpointExtension;
 import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
-import org.springframework.boot.actuate.info.InfoEndpoint;
+import org.springframework.boot.actuate.info.InfoEndpoint_RENAMED;
 
 /**
- * {@link EndpointExtension @EndpointExtension} for the {@link InfoEndpoint} that always
+ * {@link EndpointExtension @EndpointExtension} for the {@link InfoEndpoint_RENAMED} that always
  * exposes full git details.
  *
  * @author Madhura Bhave
  * @since 2.2.0
  */
-@EndpointCloudFoundryExtension(endpoint = InfoEndpoint.class)
+@EndpointCloudFoundryExtension(endpoint = InfoEndpoint_RENAMED.class)
 public class CloudFoundryInfoEndpointWebExtension {
 
-	private final InfoEndpoint delegate;
+	private final InfoEndpoint_RENAMED delegate;
 
-	public CloudFoundryInfoEndpointWebExtension(InfoEndpoint delegate) {
+	public CloudFoundryInfoEndpointWebExtension(InfoEndpoint_RENAMED delegate) {
 		this.delegate = delegate;
 	}
 

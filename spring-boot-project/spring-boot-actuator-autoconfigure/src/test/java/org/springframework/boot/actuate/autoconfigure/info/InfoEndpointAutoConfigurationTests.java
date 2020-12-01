@@ -18,7 +18,7 @@ package org.springframework.boot.actuate.autoconfigure.info;
 
 import org.junit.jupiter.api.Test;
 
-import org.springframework.boot.actuate.info.InfoEndpoint;
+import org.springframework.boot.actuate.info.InfoEndpoint_RENAMED;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
 import org.springframework.boot.test.context.runner.ApplicationContextRunner;
 
@@ -37,19 +37,19 @@ class InfoEndpointAutoConfigurationTests {
 	@Test
 	void runShouldHaveEndpointBean() {
 		this.contextRunner.withPropertyValues("management.endpoint.shutdown.enabled:true")
-				.run((context) -> assertThat(context).hasSingleBean(InfoEndpoint.class));
+				.run((context) -> assertThat(context).hasSingleBean(InfoEndpoint_RENAMED.class));
 	}
 
 	@Test
 	void runShouldHaveEndpointBeanEvenIfDefaultIsDisabled() {
 		this.contextRunner.withPropertyValues("management.endpoint.default.enabled:false")
-				.run((context) -> assertThat(context).hasSingleBean(InfoEndpoint.class));
+				.run((context) -> assertThat(context).hasSingleBean(InfoEndpoint_RENAMED.class));
 	}
 
 	@Test
 	void runWhenEnabledPropertyIsFalseShouldNotHaveEndpointBean() {
 		this.contextRunner.withPropertyValues("management.endpoint.info.enabled:false")
-				.run((context) -> assertThat(context).doesNotHaveBean(InfoEndpoint.class));
+				.run((context) -> assertThat(context).doesNotHaveBean(InfoEndpoint_RENAMED.class));
 	}
 
 }
