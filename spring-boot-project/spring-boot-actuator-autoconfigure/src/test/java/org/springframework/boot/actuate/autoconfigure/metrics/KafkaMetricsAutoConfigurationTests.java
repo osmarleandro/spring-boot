@@ -41,7 +41,7 @@ import org.springframework.kafka.streams.KafkaStreamsMicrometerListener;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Tests for {@link KafkaMetricsAutoConfiguration}.
+ * Tests for {@link KafkaMetricsAutoConfiguration_RENAMED}.
  *
  * @author Andy Wilkinson
  * @author Stephane Nicoll
@@ -50,7 +50,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 class KafkaMetricsAutoConfigurationTests {
 
 	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
-			.withConfiguration(AutoConfigurations.of(KafkaMetricsAutoConfiguration.class));
+			.withConfiguration(AutoConfigurations.of(KafkaMetricsAutoConfiguration_RENAMED.class));
 
 	@Test
 	void whenThereIsAMeterRegistryThenMetricsListenersAreAdded() {
