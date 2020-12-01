@@ -61,13 +61,13 @@ import org.springframework.util.ObjectUtils;
 @AutoConfigureAfter(JmxAutoConfiguration.class)
 @EnableConfigurationProperties(JmxEndpointProperties.class)
 @ConditionalOnProperty(prefix = "spring.jmx", name = "enabled", havingValue = "true")
-public class JmxEndpointAutoConfiguration {
+public class JmxEndpointAutoConfiguration_RENAMED {
 
 	private final ApplicationContext applicationContext;
 
 	private final JmxEndpointProperties properties;
 
-	public JmxEndpointAutoConfiguration(ApplicationContext applicationContext, JmxEndpointProperties properties) {
+	public JmxEndpointAutoConfiguration_RENAMED(ApplicationContext applicationContext, JmxEndpointProperties properties) {
 		this.applicationContext = applicationContext;
 		this.properties = properties;
 	}
