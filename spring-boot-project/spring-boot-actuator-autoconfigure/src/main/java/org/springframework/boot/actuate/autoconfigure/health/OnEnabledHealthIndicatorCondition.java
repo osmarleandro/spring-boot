@@ -16,7 +16,7 @@
 
 package org.springframework.boot.actuate.autoconfigure.health;
 
-import org.springframework.boot.actuate.autoconfigure.OnEndpointElementCondition;
+import org.springframework.boot.actuate.autoconfigure.OnEndpointElementCondition_RENAMED;
 import org.springframework.context.annotation.Condition;
 
 /**
@@ -24,7 +24,7 @@ import org.springframework.context.annotation.Condition;
  *
  * @author Stephane Nicoll
  */
-class OnEnabledHealthIndicatorCondition extends OnEndpointElementCondition {
+class OnEnabledHealthIndicatorCondition extends OnEndpointElementCondition_RENAMED {
 
 	OnEnabledHealthIndicatorCondition() {
 		super("management.health.", ConditionalOnEnabledHealthIndicator.class);

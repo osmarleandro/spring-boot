@@ -16,7 +16,7 @@
 
 package org.springframework.boot.actuate.autoconfigure.metrics.export;
 
-import org.springframework.boot.actuate.autoconfigure.OnEndpointElementCondition;
+import org.springframework.boot.actuate.autoconfigure.OnEndpointElementCondition_RENAMED;
 import org.springframework.context.annotation.Condition;
 
 /**
@@ -24,7 +24,7 @@ import org.springframework.context.annotation.Condition;
  *
  * @author Chris Bono
  */
-class OnMetricsExportEnabledCondition extends OnEndpointElementCondition {
+class OnMetricsExportEnabledCondition extends OnEndpointElementCondition_RENAMED {
 
 	protected OnMetricsExportEnabledCondition() {
 		super("management.metrics.export.", ConditionalOnEnabledMetricsExport.class);

@@ -16,7 +16,7 @@
 
 package org.springframework.boot.actuate.autoconfigure.info;
 
-import org.springframework.boot.actuate.autoconfigure.OnEndpointElementCondition;
+import org.springframework.boot.actuate.autoconfigure.OnEndpointElementCondition_RENAMED;
 import org.springframework.context.annotation.Condition;
 
 /**
@@ -24,7 +24,7 @@ import org.springframework.context.annotation.Condition;
  *
  * @author Stephane Nicoll
  */
-class OnEnabledInfoContributorCondition extends OnEndpointElementCondition {
+class OnEnabledInfoContributorCondition extends OnEndpointElementCondition_RENAMED {
 
 	OnEnabledInfoContributorCondition() {
 		super("management.info.", ConditionalOnEnabledInfoContributor.class);
