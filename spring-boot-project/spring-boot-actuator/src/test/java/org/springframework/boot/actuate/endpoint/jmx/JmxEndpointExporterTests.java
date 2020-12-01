@@ -110,7 +110,7 @@ class JmxEndpointExporterTests {
 
 	@Test
 	void afterPropertiesSetShouldRegisterMBeans() throws Exception {
-		this.endpoints.add(new TestExposableJmxEndpoint(new TestJmxOperation()));
+		this.endpoints.add(new TestExposableJmxEndpoint_RENAMED(new TestJmxOperation()));
 		this.exporter.afterPropertiesSet();
 		verify(this.mBeanServer).registerMBean(this.objectCaptor.capture(), this.objectNameCaptor.capture());
 		assertThat(this.objectCaptor.getValue()).isInstanceOf(EndpointMBean.class);
@@ -119,7 +119,7 @@ class JmxEndpointExporterTests {
 
 	@Test
 	void registerShouldUseObjectNameFactory() throws Exception {
-		this.endpoints.add(new TestExposableJmxEndpoint(new TestJmxOperation()));
+		this.endpoints.add(new TestExposableJmxEndpoint_RENAMED(new TestJmxOperation()));
 		this.exporter.afterPropertiesSet();
 		verify(this.objectNameFactory).getObjectName(any(ExposableJmxEndpoint.class));
 	}
@@ -128,7 +128,7 @@ class JmxEndpointExporterTests {
 	void registerWhenObjectNameIsMalformedShouldThrowException() throws Exception {
 		given(this.objectNameFactory.getObjectName(any(ExposableJmxEndpoint.class)))
 				.willThrow(MalformedObjectNameException.class);
-		this.endpoints.add(new TestExposableJmxEndpoint(new TestJmxOperation()));
+		this.endpoints.add(new TestExposableJmxEndpoint_RENAMED(new TestJmxOperation()));
 		assertThatIllegalStateException().isThrownBy(this.exporter::afterPropertiesSet)
 				.withMessageContaining("Invalid ObjectName for endpoint 'test'");
 	}
@@ -137,14 +137,14 @@ class JmxEndpointExporterTests {
 	void registerWhenRegistrationFailsShouldThrowException() throws Exception {
 		given(this.mBeanServer.registerMBean(any(), any(ObjectName.class)))
 				.willThrow(new MBeanRegistrationException(new RuntimeException()));
-		this.endpoints.add(new TestExposableJmxEndpoint(new TestJmxOperation()));
+		this.endpoints.add(new TestExposableJmxEndpoint_RENAMED(new TestJmxOperation()));
 		assertThatExceptionOfType(MBeanExportException.class).isThrownBy(this.exporter::afterPropertiesSet)
 				.withMessageContaining("Failed to register MBean for endpoint 'test");
 	}
 
 	@Test
 	void destroyShouldUnregisterMBeans() throws Exception {
-		this.endpoints.add(new TestExposableJmxEndpoint(new TestJmxOperation()));
+		this.endpoints.add(new TestExposableJmxEndpoint_RENAMED(new TestJmxOperation()));
 		this.exporter.afterPropertiesSet();
 		this.exporter.destroy();
 		verify(this.mBeanServer).unregisterMBean(this.objectNameCaptor.capture());
@@ -153,7 +153,7 @@ class JmxEndpointExporterTests {
 
 	@Test
 	void unregisterWhenInstanceNotFoundShouldContinue() throws Exception {
-		this.endpoints.add(new TestExposableJmxEndpoint(new TestJmxOperation()));
+		this.endpoints.add(new TestExposableJmxEndpoint_RENAMED(new TestJmxOperation()));
 		this.exporter.afterPropertiesSet();
 		willThrow(InstanceNotFoundException.class).given(this.mBeanServer).unregisterMBean(any(ObjectName.class));
 		this.exporter.destroy();
@@ -161,7 +161,7 @@ class JmxEndpointExporterTests {
 
 	@Test
 	void unregisterWhenUnregisterThrowsExceptionShouldThrowException() throws Exception {
-		this.endpoints.add(new TestExposableJmxEndpoint(new TestJmxOperation()));
+		this.endpoints.add(new TestExposableJmxEndpoint_RENAMED(new TestJmxOperation()));
 		this.exporter.afterPropertiesSet();
 		willThrow(new MBeanRegistrationException(new RuntimeException())).given(this.mBeanServer)
 				.unregisterMBean(any(ObjectName.class));
