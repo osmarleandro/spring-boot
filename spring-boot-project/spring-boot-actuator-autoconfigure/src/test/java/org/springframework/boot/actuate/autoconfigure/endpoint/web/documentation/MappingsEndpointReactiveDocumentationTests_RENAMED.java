@@ -62,7 +62,7 @@ import static org.springframework.web.reactive.function.server.RouterFunctions.r
  */
 @ExtendWith(RestDocumentationExtension.class)
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT, properties = "spring.main.web-application-type=reactive")
-class MappingsEndpointReactiveDocumentationTests extends AbstractEndpointDocumentationTests {
+class MappingsEndpointReactiveDocumentationTests_RENAMED extends AbstractEndpointDocumentationTests {
 
 	@LocalServerPort
 	private int port;
