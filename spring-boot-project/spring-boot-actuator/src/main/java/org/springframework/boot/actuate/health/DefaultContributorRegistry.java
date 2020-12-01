@@ -26,14 +26,14 @@ import java.util.function.Function;
 import org.springframework.util.Assert;
 
 /**
- * Default {@link ContributorRegistry} implementation.
+ * Default {@link ContributorRegistry_RENAMED} implementation.
  *
  * @param <C> the health contributor type
  * @author Phillip Webb
  * @see DefaultHealthContributorRegistry
  * @see DefaultReactiveHealthContributorRegistry
  */
-class DefaultContributorRegistry<C> implements ContributorRegistry<C> {
+class DefaultContributorRegistry<C> implements ContributorRegistry_RENAMED<C> {
 
 	private final Function<String, String> nameFactory;
 

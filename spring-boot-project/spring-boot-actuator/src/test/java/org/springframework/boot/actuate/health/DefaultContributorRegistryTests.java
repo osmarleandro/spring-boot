@@ -41,7 +41,7 @@ abstract class DefaultContributorRegistryTests {
 
 	private final HealthIndicator two = mock(HealthIndicator.class);
 
-	private ContributorRegistry<HealthIndicator> registry;
+	private ContributorRegistry_RENAMED<HealthIndicator> registry;
 
 	@BeforeEach
 	void setUp() {

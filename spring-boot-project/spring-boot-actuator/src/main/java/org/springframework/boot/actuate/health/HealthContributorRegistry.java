@@ -17,11 +17,11 @@
 package org.springframework.boot.actuate.health;
 
 /**
- * {@link ContributorRegistry} for {@link HealthContributor HealthContributors}.
+ * {@link ContributorRegistry_RENAMED} for {@link HealthContributor HealthContributors}.
  *
  * @author Phillip Webb
  * @since 2.2.0
  */
-public interface HealthContributorRegistry extends ContributorRegistry<HealthContributor> {
+public interface HealthContributorRegistry extends ContributorRegistry_RENAMED<HealthContributor> {
 
 }
