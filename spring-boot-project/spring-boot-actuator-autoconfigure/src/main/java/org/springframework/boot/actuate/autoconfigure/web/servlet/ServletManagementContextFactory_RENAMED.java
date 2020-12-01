@@ -39,7 +39,7 @@ import org.springframework.util.ClassUtils;
  *
  * @author Andy Wilkinson
  */
-class ServletManagementContextFactory implements ManagementContextFactory {
+class ServletManagementContextFactory_RENAMED implements ManagementContextFactory {
 
 	@Override
 	public ConfigurableWebServerApplicationContext createManagementContext(ApplicationContext parent,

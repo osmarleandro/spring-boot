@@ -42,8 +42,8 @@ import org.springframework.context.annotation.Configuration;
 public class ServletManagementContextAutoConfiguration {
 
 	@Bean
-	public ServletManagementContextFactory servletWebChildContextFactory() {
-		return new ServletManagementContextFactory();
+	public ServletManagementContextFactory_RENAMED servletWebChildContextFactory() {
+		return new ServletManagementContextFactory_RENAMED();
 	}
 
 	@Bean
