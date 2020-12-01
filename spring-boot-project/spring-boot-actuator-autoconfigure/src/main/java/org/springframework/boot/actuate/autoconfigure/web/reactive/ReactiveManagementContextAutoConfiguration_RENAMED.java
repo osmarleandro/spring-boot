@@ -35,7 +35,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration(proxyBeanMethods = false)
 @ConditionalOnClass(Flux.class)
 @ConditionalOnWebApplication(type = Type.REACTIVE)
-public class ReactiveManagementContextAutoConfiguration {
+public class ReactiveManagementContextAutoConfiguration_RENAMED {
 
 	@Bean
 	public ReactiveManagementContextFactory reactiveWebChildContextFactory() {
