@@ -69,8 +69,8 @@ class AuditEventsEndpointWebIntegrationTests {
 	static class TestConfiguration {
 
 		@Bean
-		AuditEventRepository auditEventsRepository() {
-			AuditEventRepository repository = new InMemoryAuditEventRepository(3);
+		AuditEventRepository_RENAMED auditEventsRepository() {
+			AuditEventRepository_RENAMED repository = new InMemoryAuditEventRepository(3);
 			repository.add(createEvent("2016-11-01T11:00:00Z", "admin", "login"));
 			repository.add(createEvent("2016-11-01T12:00:00Z", "admin", "logout"));
 			repository.add(createEvent("2016-11-01T12:00:00Z", "user", "login"));
@@ -78,7 +78,7 @@ class AuditEventsEndpointWebIntegrationTests {
 		}
 
 		@Bean
-		AuditEventsEndpoint auditEventsEndpoint(AuditEventRepository auditEventRepository) {
+		AuditEventsEndpoint auditEventsEndpoint(AuditEventRepository_RENAMED auditEventRepository) {
 			return new AuditEventsEndpoint(auditEventRepository);
 		}
 

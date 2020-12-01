@@ -24,7 +24,7 @@ import java.util.Collections;
 import org.junit.jupiter.api.Test;
 
 import org.springframework.boot.actuate.audit.AuditEvent;
-import org.springframework.boot.actuate.audit.AuditEventRepository;
+import org.springframework.boot.actuate.audit.AuditEventRepository_RENAMED;
 import org.springframework.boot.actuate.audit.AuditEventsEndpoint;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Bean;
@@ -50,7 +50,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class AuditEventsEndpointDocumentationTests extends MockMvcEndpointDocumentationTests {
 
 	@MockBean
-	private AuditEventRepository repository;
+	private AuditEventRepository_RENAMED repository;
 
 	@Test
 	void allAuditEvents() throws Exception {
@@ -91,7 +91,7 @@ class AuditEventsEndpointDocumentationTests extends MockMvcEndpointDocumentation
 	static class TestConfiguration {
 
 		@Bean
-		AuditEventsEndpoint auditEventsEndpoint(AuditEventRepository repository) {
+		AuditEventsEndpoint auditEventsEndpoint(AuditEventRepository_RENAMED repository) {
 			return new AuditEventsEndpoint(repository);
 		}
 

@@ -23,14 +23,14 @@ import java.util.List;
 import org.springframework.util.Assert;
 
 /**
- * In-memory {@link AuditEventRepository} implementation.
+ * In-memory {@link AuditEventRepository_RENAMED} implementation.
  *
  * @author Dave Syer
  * @author Phillip Webb
  * @author Vedran Pavic
  * @since 1.0.0
  */
-public class InMemoryAuditEventRepository implements AuditEventRepository {
+public class InMemoryAuditEventRepository implements AuditEventRepository_RENAMED {
 
 	private static final int DEFAULT_CAPACITY = 1000;
 

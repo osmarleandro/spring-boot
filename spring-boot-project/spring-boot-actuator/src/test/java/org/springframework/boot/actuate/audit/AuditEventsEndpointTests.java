@@ -33,7 +33,7 @@ import static org.mockito.Mockito.mock;
  */
 class AuditEventsEndpointTests {
 
-	private final AuditEventRepository repository = mock(AuditEventRepository.class);
+	private final AuditEventRepository_RENAMED repository = mock(AuditEventRepository_RENAMED.class);
 
 	private final AuditEventsEndpoint endpoint = new AuditEventsEndpoint(this.repository);
 

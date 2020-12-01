@@ -16,7 +16,7 @@
 
 package org.springframework.boot.actuate.autoconfigure.audit;
 
-import org.springframework.boot.actuate.audit.AuditEventRepository;
+import org.springframework.boot.actuate.audit.AuditEventRepository_RENAMED;
 import org.springframework.boot.actuate.audit.AuditEventsEndpoint;
 import org.springframework.boot.actuate.autoconfigure.endpoint.condition.ConditionalOnAvailableEndpoint;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
@@ -41,8 +41,8 @@ public class AuditEventsEndpointAutoConfiguration {
 
 	@Bean
 	@ConditionalOnMissingBean
-	@ConditionalOnBean(AuditEventRepository.class)
-	public AuditEventsEndpoint auditEventsEndpoint(AuditEventRepository auditEventRepository) {
+	@ConditionalOnBean(AuditEventRepository_RENAMED.class)
+	public AuditEventsEndpoint auditEventsEndpoint(AuditEventRepository_RENAMED auditEventRepository) {
 		return new AuditEventsEndpoint(auditEventRepository);
 	}
 

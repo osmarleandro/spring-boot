@@ -34,14 +34,14 @@ import org.springframework.util.Assert;
  * agent carried out an action of a particular type. This object records the details of
  * such an event.
  * <p>
- * Users can inject a {@link AuditEventRepository} to publish their own events or
+ * Users can inject a {@link AuditEventRepository_RENAMED} to publish their own events or
  * alternatively use Spring's {@link ApplicationEventPublisher} (usually obtained by
  * implementing {@link ApplicationEventPublisherAware}) to publish AuditApplicationEvents
  * (wrappers for AuditEvent).
  *
  * @author Dave Syer
  * @since 1.0.0
- * @see AuditEventRepository
+ * @see AuditEventRepository_RENAMED
  */
 @JsonInclude(Include.NON_EMPTY)
 public class AuditEvent implements Serializable {

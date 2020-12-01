@@ -19,7 +19,7 @@ package org.springframework.boot.actuate.autoconfigure.audit;
 import org.junit.jupiter.api.Test;
 
 import org.springframework.boot.actuate.audit.AuditEvent;
-import org.springframework.boot.actuate.audit.AuditEventRepository;
+import org.springframework.boot.actuate.audit.AuditEventRepository_RENAMED;
 import org.springframework.boot.actuate.audit.InMemoryAuditEventRepository;
 import org.springframework.boot.actuate.audit.listener.AbstractAuditListener;
 import org.springframework.boot.actuate.audit.listener.AuditListener;
@@ -57,7 +57,7 @@ class AuditAutoConfigurationTests {
 	@Test
 	void autoConfigurationIsEnabledWhenAuditEventRepositoryBeanPresent() {
 		this.contextRunner.withUserConfiguration(CustomAuditEventRepositoryConfiguration.class).run((context) -> {
-			assertThat(context.getBean(AuditEventRepository.class)).isNotNull();
+			assertThat(context.getBean(AuditEventRepository_RENAMED.class)).isNotNull();
 			assertThat(context.getBean(AuthenticationAuditListener.class)).isNotNull();
 			assertThat(context.getBean(AuthorizationAuditListener.class)).isNotNull();
 		});

@@ -34,9 +34,9 @@ import org.springframework.util.Assert;
 @Endpoint(id = "auditevents")
 public class AuditEventsEndpoint {
 
-	private final AuditEventRepository auditEventRepository;
+	private final AuditEventRepository_RENAMED auditEventRepository;
 
-	public AuditEventsEndpoint(AuditEventRepository auditEventRepository) {
+	public AuditEventsEndpoint(AuditEventRepository_RENAMED auditEventRepository) {
 		Assert.notNull(auditEventRepository, "AuditEventRepository must not be null");
 		this.auditEventRepository = auditEventRepository;
 	}

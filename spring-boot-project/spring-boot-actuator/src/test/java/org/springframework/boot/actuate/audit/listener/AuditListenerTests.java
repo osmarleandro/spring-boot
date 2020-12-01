@@ -21,7 +21,7 @@ import java.util.Collections;
 import org.junit.jupiter.api.Test;
 
 import org.springframework.boot.actuate.audit.AuditEvent;
-import org.springframework.boot.actuate.audit.AuditEventRepository;
+import org.springframework.boot.actuate.audit.AuditEventRepository_RENAMED;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
@@ -35,7 +35,7 @@ class AuditListenerTests {
 
 	@Test
 	void testStoredEvents() {
-		AuditEventRepository repository = mock(AuditEventRepository.class);
+		AuditEventRepository_RENAMED repository = mock(AuditEventRepository_RENAMED.class);
 		AuditEvent event = new AuditEvent("principal", "type", Collections.emptyMap());
 		AuditListener listener = new AuditListener(repository);
 		listener.onApplicationEvent(new AuditApplicationEvent(event));
