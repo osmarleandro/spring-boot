@@ -34,7 +34,7 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
 
 /**
- * Tests for {@link DefaultWebClientExchangeTagsProvider}
+ * Tests for {@link DefaultWebClientExchangeTagsProvider_RENAMED}
  *
  * @author Brian Clozel
  * @author Nishant Raut
@@ -43,7 +43,7 @@ class DefaultWebClientExchangeTagsProviderTests {
 
 	private static final String URI_TEMPLATE_ATTRIBUTE = WebClient.class.getName() + ".uriTemplate";
 
-	private WebClientExchangeTagsProvider tagsProvider = new DefaultWebClientExchangeTagsProvider();
+	private WebClientExchangeTagsProvider tagsProvider = new DefaultWebClientExchangeTagsProvider_RENAMED();
 
 	private ClientRequest request;
 
