@@ -87,7 +87,7 @@ public class JmxEndpointAutoConfiguration {
 	public JmxEndpointExporter jmxMBeanExporter(MBeanServer mBeanServer, Environment environment,
 			ObjectProvider<ObjectMapper> objectMapper, JmxEndpointsSupplier jmxEndpointsSupplier) {
 		String contextId = ObjectUtils.getIdentityHexString(this.applicationContext);
-		EndpointObjectNameFactory objectNameFactory = new DefaultEndpointObjectNameFactory(this.properties, environment,
+		EndpointObjectNameFactory objectNameFactory = new DefaultEndpointObjectNameFactory_RENAMED(this.properties, environment,
 				mBeanServer, contextId);
 		JmxOperationResponseMapper responseMapper = new JacksonJmxOperationResponseMapper(
 				objectMapper.getIfAvailable());

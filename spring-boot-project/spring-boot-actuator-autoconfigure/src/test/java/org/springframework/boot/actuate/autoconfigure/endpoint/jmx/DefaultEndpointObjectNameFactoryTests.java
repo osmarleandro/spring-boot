@@ -34,7 +34,7 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
 
 /**
- * Tests for {@link DefaultEndpointObjectNameFactory}.
+ * Tests for {@link DefaultEndpointObjectNameFactory_RENAMED}.
  *
  * @author Stephane Nicoll
  */
@@ -103,7 +103,7 @@ class DefaultEndpointObjectNameFactoryTests {
 
 	private ObjectName generateObjectName(ExposableJmxEndpoint endpoint) {
 		try {
-			return new DefaultEndpointObjectNameFactory(this.properties, this.environment, this.mBeanServer,
+			return new DefaultEndpointObjectNameFactory_RENAMED(this.properties, this.environment, this.mBeanServer,
 					this.contextId).getObjectName(endpoint);
 		}
 		catch (MalformedObjectNameException ex) {
