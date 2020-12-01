@@ -33,7 +33,7 @@ import static org.mockito.Mockito.mock;
 
 /**
  *
- * Tests for {@link NewRelicMetricsExportAutoConfiguration}.
+ * Tests for {@link NewRelicMetricsExportAutoConfiguration_RENAMED}.
  *
  * @author Andy Wilkinson
  * @author Stephane Nicoll
@@ -41,7 +41,7 @@ import static org.mockito.Mockito.mock;
 class NewRelicMetricsExportAutoConfigurationTests {
 
 	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
-			.withConfiguration(AutoConfigurations.of(NewRelicMetricsExportAutoConfiguration.class));
+			.withConfiguration(AutoConfigurations.of(NewRelicMetricsExportAutoConfiguration_RENAMED.class));
 
 	@Test
 	void backsOffWithoutAClock() {

@@ -54,11 +54,11 @@ import org.springframework.context.annotation.Configuration;
 @ConditionalOnClass(NewRelicMeterRegistry.class)
 @ConditionalOnEnabledMetricsExport("newrelic")
 @EnableConfigurationProperties(NewRelicProperties.class)
-public class NewRelicMetricsExportAutoConfiguration {
+public class NewRelicMetricsExportAutoConfiguration_RENAMED {
 
 	private final NewRelicProperties properties;
 
-	public NewRelicMetricsExportAutoConfiguration(NewRelicProperties properties) {
+	public NewRelicMetricsExportAutoConfiguration_RENAMED(NewRelicProperties properties) {
 		this.properties = properties;
 	}
 
