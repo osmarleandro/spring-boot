@@ -37,7 +37,7 @@ import static org.mockito.Mockito.mock;
  * @author Phillip Webb
  */
 @ExtendWith(MockitoExtension.class)
-class IncludeExcludeEndpointFilterTests {
+class IncludeExcludeEndpointFilterTests_RENAMED {
 
 	private IncludeExcludeEndpointFilter<?> filter;
 
