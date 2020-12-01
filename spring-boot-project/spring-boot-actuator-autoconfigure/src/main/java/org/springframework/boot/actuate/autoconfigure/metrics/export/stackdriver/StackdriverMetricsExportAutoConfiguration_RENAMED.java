@@ -49,11 +49,11 @@ import org.springframework.context.annotation.Configuration;
 @ConditionalOnClass(StackdriverMeterRegistry.class)
 @ConditionalOnEnabledMetricsExport("stackdriver")
 @EnableConfigurationProperties(StackdriverProperties.class)
-public class StackdriverMetricsExportAutoConfiguration {
+public class StackdriverMetricsExportAutoConfiguration_RENAMED {
 
 	private final StackdriverProperties properties;
 
-	public StackdriverMetricsExportAutoConfiguration(StackdriverProperties stackdriverProperties) {
+	public StackdriverMetricsExportAutoConfiguration_RENAMED(StackdriverProperties stackdriverProperties) {
 		this.properties = stackdriverProperties;
 	}
 
