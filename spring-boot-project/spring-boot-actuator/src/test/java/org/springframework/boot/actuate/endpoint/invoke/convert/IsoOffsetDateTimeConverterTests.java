@@ -25,7 +25,7 @@ import org.springframework.core.convert.support.DefaultConversionService;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Tests for {@link IsoOffsetDateTimeConverter}.
+ * Tests for {@link IsoOffsetDateTimeConverter_RENAMED}.
  *
  * @author Phillip Webb
  */
@@ -33,7 +33,7 @@ class IsoOffsetDateTimeConverterTests {
 
 	@Test
 	void convertShouldConvertIsoDate() {
-		IsoOffsetDateTimeConverter converter = new IsoOffsetDateTimeConverter();
+		IsoOffsetDateTimeConverter_RENAMED converter = new IsoOffsetDateTimeConverter_RENAMED();
 		OffsetDateTime time = converter.convert("2011-12-03T10:15:30+01:00");
 		assertThat(time).isNotNull();
 	}
@@ -41,7 +41,7 @@ class IsoOffsetDateTimeConverterTests {
 	@Test
 	void registerConverterShouldRegister() {
 		DefaultConversionService service = new DefaultConversionService();
-		IsoOffsetDateTimeConverter.registerConverter(service);
+		IsoOffsetDateTimeConverter_RENAMED.registerConverter(service);
 		OffsetDateTime time = service.convert("2011-12-03T10:15:30+01:00", OffsetDateTime.class);
 		assertThat(time).isNotNull();
 	}
