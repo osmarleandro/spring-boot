@@ -31,7 +31,7 @@ import org.springframework.context.annotation.Import;
  * @since 2.0.0
  */
 @Configuration(proxyBeanMethods = false)
-@Import({ NoOpMeterRegistryConfiguration.class, CompositeMeterRegistryConfiguration.class })
+@Import({ NoOpMeterRegistryConfiguration_RENAMED.class, CompositeMeterRegistryConfiguration.class })
 @ConditionalOnClass(CompositeMeterRegistry.class)
 public class CompositeMeterRegistryAutoConfiguration {
 

@@ -34,7 +34,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration(proxyBeanMethods = false)
 @ConditionalOnBean(Clock.class)
 @ConditionalOnMissingBean(MeterRegistry.class)
-class NoOpMeterRegistryConfiguration {
+class NoOpMeterRegistryConfiguration_RENAMED {
 
 	@Bean
 	CompositeMeterRegistry noOpMeterRegistry(Clock clock) {
