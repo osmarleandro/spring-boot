@@ -28,7 +28,7 @@ import org.springframework.boot.actuate.endpoint.EndpointFilter;
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvokerAdvisor;
 import org.springframework.boot.actuate.endpoint.invoke.ParameterValueMapper;
-import org.springframework.boot.actuate.endpoint.jmx.EndpointObjectNameFactory;
+import org.springframework.boot.actuate.endpoint.jmx.EndpointObjectNameFactory_RENAMED;
 import org.springframework.boot.actuate.endpoint.jmx.ExposableJmxEndpoint;
 import org.springframework.boot.actuate.endpoint.jmx.JacksonJmxOperationResponseMapper;
 import org.springframework.boot.actuate.endpoint.jmx.JmxEndpointExporter;
@@ -87,7 +87,7 @@ public class JmxEndpointAutoConfiguration {
 	public JmxEndpointExporter jmxMBeanExporter(MBeanServer mBeanServer, Environment environment,
 			ObjectProvider<ObjectMapper> objectMapper, JmxEndpointsSupplier jmxEndpointsSupplier) {
 		String contextId = ObjectUtils.getIdentityHexString(this.applicationContext);
-		EndpointObjectNameFactory objectNameFactory = new DefaultEndpointObjectNameFactory(this.properties, environment,
+		EndpointObjectNameFactory_RENAMED objectNameFactory = new DefaultEndpointObjectNameFactory(this.properties, environment,
 				mBeanServer, contextId);
 		JmxOperationResponseMapper responseMapper = new JacksonJmxOperationResponseMapper(
 				objectMapper.getIfAvailable());

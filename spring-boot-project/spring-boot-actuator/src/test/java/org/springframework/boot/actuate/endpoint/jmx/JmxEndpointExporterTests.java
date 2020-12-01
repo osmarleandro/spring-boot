@@ -59,7 +59,7 @@ class JmxEndpointExporterTests {
 	private MBeanServer mBeanServer;
 
 	@Spy
-	private EndpointObjectNameFactory objectNameFactory = new TestEndpointObjectNameFactory();
+	private EndpointObjectNameFactory_RENAMED objectNameFactory = new TestEndpointObjectNameFactory();
 
 	private JmxOperationResponseMapper responseMapper = new TestJmxOperationResponseMapper();
 
@@ -170,9 +170,9 @@ class JmxEndpointExporterTests {
 	}
 
 	/**
-	 * Test {@link EndpointObjectNameFactory}.
+	 * Test {@link EndpointObjectNameFactory_RENAMED}.
 	 */
-	static class TestEndpointObjectNameFactory implements EndpointObjectNameFactory {
+	static class TestEndpointObjectNameFactory implements EndpointObjectNameFactory_RENAMED {
 
 		@Override
 		public ObjectName getObjectName(ExposableJmxEndpoint endpoint) throws MalformedObjectNameException {

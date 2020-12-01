@@ -51,7 +51,7 @@ public class JmxEndpointExporter implements InitializingBean, DisposableBean, Be
 
 	private final MBeanServer mBeanServer;
 
-	private final EndpointObjectNameFactory objectNameFactory;
+	private final EndpointObjectNameFactory_RENAMED objectNameFactory;
 
 	private final JmxOperationResponseMapper responseMapper;
 
@@ -59,7 +59,7 @@ public class JmxEndpointExporter implements InitializingBean, DisposableBean, Be
 
 	private Collection<ObjectName> registered;
 
-	public JmxEndpointExporter(MBeanServer mBeanServer, EndpointObjectNameFactory objectNameFactory,
+	public JmxEndpointExporter(MBeanServer mBeanServer, EndpointObjectNameFactory_RENAMED objectNameFactory,
 			JmxOperationResponseMapper responseMapper, Collection<? extends ExposableJmxEndpoint> endpoints) {
 		Assert.notNull(mBeanServer, "MBeanServer must not be null");
 		Assert.notNull(objectNameFactory, "ObjectNameFactory must not be null");

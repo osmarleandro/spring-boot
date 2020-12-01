@@ -20,7 +20,7 @@ import javax.management.MBeanServer;
 import javax.management.MalformedObjectNameException;
 import javax.management.ObjectName;
 
-import org.springframework.boot.actuate.endpoint.jmx.EndpointObjectNameFactory;
+import org.springframework.boot.actuate.endpoint.jmx.EndpointObjectNameFactory_RENAMED;
 import org.springframework.boot.actuate.endpoint.jmx.ExposableJmxEndpoint;
 import org.springframework.core.env.Environment;
 import org.springframework.jmx.support.ObjectNameManager;
@@ -28,12 +28,12 @@ import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
 
 /**
- * A {@link EndpointObjectNameFactory} that generates standard {@link ObjectName} for
+ * A {@link EndpointObjectNameFactory_RENAMED} that generates standard {@link ObjectName} for
  * Actuator's endpoints.
  *
  * @author Stephane Nicoll
  */
-class DefaultEndpointObjectNameFactory implements EndpointObjectNameFactory {
+class DefaultEndpointObjectNameFactory implements EndpointObjectNameFactory_RENAMED {
 
 	private final JmxEndpointProperties properties;
 
