@@ -36,7 +36,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration(proxyBeanMethods = false)
 @ConditionalOnWebApplication(type = Type.SERVLET)
 @ConditionalOnBean(HealthEndpoint.class)
-class HealthEndpointWebExtensionConfiguration {
+class HealthEndpointWebExtensionConfiguration_RENAMED {
 
 	@Bean
 	@ConditionalOnBean(HealthEndpoint.class)
