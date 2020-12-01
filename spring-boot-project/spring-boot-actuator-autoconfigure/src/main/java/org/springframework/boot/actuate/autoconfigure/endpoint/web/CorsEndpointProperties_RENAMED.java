@@ -34,7 +34,7 @@ import org.springframework.web.cors.CorsConfiguration;
  * @since 2.0.0
  */
 @ConfigurationProperties(prefix = "management.endpoints.web.cors")
-public class CorsEndpointProperties {
+public class CorsEndpointProperties_RENAMED {
 
 	/**
 	 * Comma-separated list of origins to allow. '*' allows all origins. When not set,

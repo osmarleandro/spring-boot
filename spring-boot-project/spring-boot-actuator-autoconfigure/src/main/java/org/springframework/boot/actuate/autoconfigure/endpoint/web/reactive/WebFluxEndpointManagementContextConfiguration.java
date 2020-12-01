@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import org.springframework.boot.actuate.autoconfigure.endpoint.web.CorsEndpointProperties;
+import org.springframework.boot.actuate.autoconfigure.endpoint.web.CorsEndpointProperties_RENAMED;
 import org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointProperties;
 import org.springframework.boot.actuate.autoconfigure.web.ManagementContextConfiguration;
 import org.springframework.boot.actuate.autoconfigure.web.server.ManagementPortType;
@@ -58,14 +58,14 @@ import org.springframework.web.reactive.DispatcherHandler;
 @ConditionalOnWebApplication(type = Type.REACTIVE)
 @ConditionalOnClass({ DispatcherHandler.class, HttpHandler.class })
 @ConditionalOnBean(WebEndpointsSupplier.class)
-@EnableConfigurationProperties(CorsEndpointProperties.class)
+@EnableConfigurationProperties(CorsEndpointProperties_RENAMED.class)
 public class WebFluxEndpointManagementContextConfiguration {
 
 	@Bean
 	@ConditionalOnMissingBean
 	public WebFluxEndpointHandlerMapping webEndpointReactiveHandlerMapping(WebEndpointsSupplier webEndpointsSupplier,
 			ControllerEndpointsSupplier controllerEndpointsSupplier, EndpointMediaTypes endpointMediaTypes,
-			CorsEndpointProperties corsProperties, WebEndpointProperties webEndpointProperties,
+			CorsEndpointProperties_RENAMED corsProperties, WebEndpointProperties webEndpointProperties,
 			Environment environment) {
 		String basePath = webEndpointProperties.getBasePath();
 		EndpointMapping endpointMapping = new EndpointMapping(basePath);
@@ -86,7 +86,7 @@ public class WebFluxEndpointManagementContextConfiguration {
 	@Bean
 	@ConditionalOnMissingBean
 	public ControllerEndpointHandlerMapping controllerEndpointHandlerMapping(
-			ControllerEndpointsSupplier controllerEndpointsSupplier, CorsEndpointProperties corsProperties,
+			ControllerEndpointsSupplier controllerEndpointsSupplier, CorsEndpointProperties_RENAMED corsProperties,
 			WebEndpointProperties webEndpointProperties) {
 		EndpointMapping endpointMapping = new EndpointMapping(webEndpointProperties.getBasePath());
 		return new ControllerEndpointHandlerMapping(endpointMapping, controllerEndpointsSupplier.getEndpoints(),
