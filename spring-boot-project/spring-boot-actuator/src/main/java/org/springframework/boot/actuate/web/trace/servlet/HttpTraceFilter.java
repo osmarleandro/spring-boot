@@ -89,7 +89,7 @@ public class HttpTraceFilter extends OncePerRequestFilter implements Ordered {
 			status = response.getStatus();
 		}
 		finally {
-			TraceableHttpServletResponse traceableResponse = new TraceableHttpServletResponse(
+			TraceableHttpServletResponse_RENAMED traceableResponse = new TraceableHttpServletResponse_RENAMED(
 					(status != response.getStatus()) ? new CustomStatusResponseWrapper(response, status) : response);
 			this.tracer.sendingResponse(trace, traceableResponse, request::getUserPrincipal,
 					() -> getSessionId(request));
