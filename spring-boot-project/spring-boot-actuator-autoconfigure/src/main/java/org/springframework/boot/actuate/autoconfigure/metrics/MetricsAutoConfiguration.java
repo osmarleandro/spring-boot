@@ -54,7 +54,7 @@ public class MetricsAutoConfiguration {
 	@Bean
 	public static MeterRegistryPostProcessor meterRegistryPostProcessor(ObjectProvider<MeterBinder> meterBinders,
 			ObjectProvider<MeterFilter> meterFilters,
-			ObjectProvider<MeterRegistryCustomizer<?>> meterRegistryCustomizers,
+			ObjectProvider<MeterRegistryCustomizer_RENAMED<?>> meterRegistryCustomizers,
 			ObjectProvider<MetricsProperties> metricsProperties, ApplicationContext applicationContext) {
 		return new MeterRegistryPostProcessor(meterBinders, meterFilters, meterRegistryCustomizers, metricsProperties,
 				applicationContext);

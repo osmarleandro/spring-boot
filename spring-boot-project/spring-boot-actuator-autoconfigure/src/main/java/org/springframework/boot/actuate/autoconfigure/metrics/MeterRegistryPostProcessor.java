@@ -40,7 +40,7 @@ class MeterRegistryPostProcessor implements BeanPostProcessor {
 
 	private final ObjectProvider<MeterFilter> meterFilters;
 
-	private final ObjectProvider<MeterRegistryCustomizer<?>> meterRegistryCustomizers;
+	private final ObjectProvider<MeterRegistryCustomizer_RENAMED<?>> meterRegistryCustomizers;
 
 	private final ObjectProvider<MetricsProperties> metricsProperties;
 
@@ -49,7 +49,7 @@ class MeterRegistryPostProcessor implements BeanPostProcessor {
 	private final ApplicationContext applicationContext;
 
 	MeterRegistryPostProcessor(ObjectProvider<MeterBinder> meterBinders, ObjectProvider<MeterFilter> meterFilters,
-			ObjectProvider<MeterRegistryCustomizer<?>> meterRegistryCustomizers,
+			ObjectProvider<MeterRegistryCustomizer_RENAMED<?>> meterRegistryCustomizers,
 			ObjectProvider<MetricsProperties> metricsProperties, ApplicationContext applicationContext) {
 		this.meterBinders = meterBinders;
 		this.meterFilters = meterFilters;

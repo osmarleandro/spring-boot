@@ -32,7 +32,7 @@ import org.springframework.context.annotation.Configuration;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Tests for applying {@link MeterRegistryCustomizer} beans.
+ * Tests for applying {@link MeterRegistryCustomizer_RENAMED} beans.
  *
  * @author Jon Schneider
  * @author Andy Wilkinson
@@ -74,12 +74,12 @@ class MeterRegistryCustomizerTests {
 	static class MeterRegistryCustomizerConfiguration {
 
 		@Bean
-		MeterRegistryCustomizer<MeterRegistry> commonTags() {
+		MeterRegistryCustomizer_RENAMED<MeterRegistry> commonTags() {
 			return (registry) -> registry.config().commonTags("region", "us-east-1");
 		}
 
 		@Bean
-		MeterRegistryCustomizer<PrometheusMeterRegistry> prometheusOnlyCommonTags() {
+		MeterRegistryCustomizer_RENAMED<PrometheusMeterRegistry> prometheusOnlyCommonTags() {
 			return (registry) -> registry.config().commonTags("job", "myjob");
 		}
 

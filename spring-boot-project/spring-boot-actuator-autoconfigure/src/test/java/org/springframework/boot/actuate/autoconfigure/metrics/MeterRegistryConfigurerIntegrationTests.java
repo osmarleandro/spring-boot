@@ -115,7 +115,7 @@ class MeterRegistryConfigurerIntegrationTests {
 		}
 
 		@Bean
-		MeterRegistryCustomizer<?> testCustomizer() {
+		MeterRegistryCustomizer_RENAMED<?> testCustomizer() {
 			return (registry) -> registry.config().commonTags("testTag", "testValue");
 		}
 

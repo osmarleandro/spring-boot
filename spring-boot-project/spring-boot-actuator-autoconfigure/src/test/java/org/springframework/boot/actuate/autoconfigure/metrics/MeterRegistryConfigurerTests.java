@@ -53,7 +53,7 @@ class MeterRegistryConfigurerTests {
 
 	private List<MeterFilter> filters = new ArrayList<>();
 
-	private List<MeterRegistryCustomizer<?>> customizers = new ArrayList<>();
+	private List<MeterRegistryCustomizer_RENAMED<?>> customizers = new ArrayList<>();
 
 	@Mock
 	private MeterBinder mockBinder;
@@ -62,7 +62,7 @@ class MeterRegistryConfigurerTests {
 	private MeterFilter mockFilter;
 
 	@Mock
-	private MeterRegistryCustomizer<MeterRegistry> mockCustomizer;
+	private MeterRegistryCustomizer_RENAMED<MeterRegistry> mockCustomizer;
 
 	@Mock
 	private MeterRegistry mockRegistry;

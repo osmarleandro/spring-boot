@@ -68,7 +68,7 @@ class MetricsAutoConfigurationTests {
 			assertThat(filters[1]).isInstanceOf(PropertiesMeterFilter.class);
 			assertThat(filters[2].accept((Meter.Id) null)).isEqualTo(MeterFilterReply.ACCEPT);
 			verify((MeterBinder) context.getBean("meterBinder")).bindTo(meterRegistry);
-			verify(context.getBean(MeterRegistryCustomizer.class)).customize(meterRegistry);
+			verify(context.getBean(MeterRegistryCustomizer_RENAMED.class)).customize(meterRegistry);
 		});
 	}
 
@@ -92,8 +92,8 @@ class MetricsAutoConfigurationTests {
 
 		@Bean
 		@SuppressWarnings("rawtypes")
-		MeterRegistryCustomizer meterRegistryCustomizer() {
-			return mock(MeterRegistryCustomizer.class);
+		MeterRegistryCustomizer_RENAMED meterRegistryCustomizer() {
+			return mock(MeterRegistryCustomizer_RENAMED.class);
 		}
 
 		@Bean

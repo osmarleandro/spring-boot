@@ -31,7 +31,7 @@ import io.micrometer.core.instrument.MeterRegistry;
  * @since 2.0.0
  */
 @FunctionalInterface
-public interface MeterRegistryCustomizer<T extends MeterRegistry> {
+public interface MeterRegistryCustomizer_RENAMED<T extends MeterRegistry> {
 
 	/**
 	 * Customize the given {@code registry}.
