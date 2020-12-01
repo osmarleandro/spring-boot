@@ -31,7 +31,7 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration(proxyBeanMethods = false)
 @ConditionalOnAvailableEndpoint(endpoint = ThreadDumpEndpoint.class)
-public class ThreadDumpEndpointAutoConfiguration {
+public class ThreadDumpEndpointAutoConfiguration_RENAMED {
 
 	@Bean
 	@ConditionalOnMissingBean
