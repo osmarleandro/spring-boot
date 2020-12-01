@@ -109,7 +109,7 @@ public class DispatcherHandlersMappingDescriptionProvider implements MappingDesc
 		}
 
 		private DispatcherHandlerMappingDescription describe(Entry<RequestMappingInfo, HandlerMethod> mapping) {
-			DispatcherHandlerMappingDetails handlerMapping = new DispatcherHandlerMappingDetails();
+			DispatcherHandlerMappingDetails_RENAMED handlerMapping = new DispatcherHandlerMappingDetails_RENAMED();
 			handlerMapping.setHandlerMethod(new HandlerMethodDescription(mapping.getValue()));
 			handlerMapping.setRequestMappingConditions(new RequestMappingConditionsDescription(mapping.getKey()));
 			return new DispatcherHandlerMappingDescription(mapping.getKey().toString(), mapping.getValue().toString(),
@@ -172,7 +172,7 @@ public class DispatcherHandlersMappingDescriptionProvider implements MappingDesc
 
 		@Override
 		public void route(RequestPredicate predicate, HandlerFunction<?> handlerFunction) {
-			DispatcherHandlerMappingDetails details = new DispatcherHandlerMappingDetails();
+			DispatcherHandlerMappingDetails_RENAMED details = new DispatcherHandlerMappingDetails_RENAMED();
 			details.setHandlerFunction(new HandlerFunctionDescription(handlerFunction));
 			this.descriptions.add(
 					new DispatcherHandlerMappingDescription(predicate.toString(), handlerFunction.toString(), details));

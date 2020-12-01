@@ -30,9 +30,9 @@ public class DispatcherHandlerMappingDescription {
 
 	private final String handler;
 
-	private final DispatcherHandlerMappingDetails details;
+	private final DispatcherHandlerMappingDetails_RENAMED details;
 
-	DispatcherHandlerMappingDescription(String predicate, String handler, DispatcherHandlerMappingDetails details) {
+	DispatcherHandlerMappingDescription(String predicate, String handler, DispatcherHandlerMappingDetails_RENAMED details) {
 		this.predicate = predicate;
 		this.handler = handler;
 		this.details = details;
@@ -46,7 +46,7 @@ public class DispatcherHandlerMappingDescription {
 		return this.predicate;
 	}
 
-	public DispatcherHandlerMappingDetails getDetails() {
+	public DispatcherHandlerMappingDetails_RENAMED getDetails() {
 		return this.details;
 	}
 
