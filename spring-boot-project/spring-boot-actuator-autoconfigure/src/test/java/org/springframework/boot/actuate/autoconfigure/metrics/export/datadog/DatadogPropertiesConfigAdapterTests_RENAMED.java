@@ -25,7 +25,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Stephane Nicoll
  */
-class DatadogPropertiesConfigAdapterTests {
+class DatadogPropertiesConfigAdapterTests_RENAMED {
 
 	@Test
 	void uriCanBeSet() {
