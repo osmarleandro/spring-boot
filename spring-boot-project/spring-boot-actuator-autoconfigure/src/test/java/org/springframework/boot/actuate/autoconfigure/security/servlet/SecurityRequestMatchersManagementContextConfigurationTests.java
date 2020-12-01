@@ -33,19 +33,19 @@ import org.springframework.security.web.util.matcher.RequestMatcher;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Tests for {@link SecurityRequestMatchersManagementContextConfiguration}.
+ * Tests for {@link SecurityRequestMatchersManagementContextConfiguration_RENAMED}.
  *
  * @author Madhura Bhave
  */
 class SecurityRequestMatchersManagementContextConfigurationTests {
 
 	private final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner()
-			.withConfiguration(AutoConfigurations.of(SecurityRequestMatchersManagementContextConfiguration.class));
+			.withConfiguration(AutoConfigurations.of(SecurityRequestMatchersManagementContextConfiguration_RENAMED.class));
 
 	@Test
 	void configurationConditionalOnWebApplication() {
 		new ApplicationContextRunner()
-				.withConfiguration(AutoConfigurations.of(SecurityRequestMatchersManagementContextConfiguration.class))
+				.withConfiguration(AutoConfigurations.of(SecurityRequestMatchersManagementContextConfiguration_RENAMED.class))
 				.withUserConfiguration(TestMvcConfiguration.class)
 				.run((context) -> assertThat(context).doesNotHaveBean(RequestMatcherProvider.class));
 	}
@@ -87,7 +87,7 @@ class SecurityRequestMatchersManagementContextConfigurationTests {
 	@Test
 	void mvcRequestMatcherProviderConditionalOnDispatcherServletPathBean() {
 		new WebApplicationContextRunner()
-				.withConfiguration(AutoConfigurations.of(SecurityRequestMatchersManagementContextConfiguration.class))
+				.withConfiguration(AutoConfigurations.of(SecurityRequestMatchersManagementContextConfiguration_RENAMED.class))
 				.run((context) -> assertThat(context).doesNotHaveBean(AntPathRequestMatcherProvider.class));
 	}
 
@@ -100,7 +100,7 @@ class SecurityRequestMatchersManagementContextConfigurationTests {
 	@Test
 	void jerseyRequestMatcherProviderConditionalOnJerseyApplicationPathBean() {
 		new WebApplicationContextRunner()
-				.withConfiguration(AutoConfigurations.of(SecurityRequestMatchersManagementContextConfiguration.class))
+				.withConfiguration(AutoConfigurations.of(SecurityRequestMatchersManagementContextConfiguration_RENAMED.class))
 				.withClassLoader(new FilteredClassLoader("org.springframework.web.servlet.DispatcherServlet"))
 				.run((context) -> assertThat(context).doesNotHaveBean(AntPathRequestMatcherProvider.class));
 	}

@@ -43,7 +43,7 @@ import org.springframework.web.servlet.DispatcherServlet;
 @ManagementContextConfiguration(proxyBeanMethods = false)
 @ConditionalOnClass({ RequestMatcher.class })
 @ConditionalOnWebApplication(type = ConditionalOnWebApplication.Type.SERVLET)
-public class SecurityRequestMatchersManagementContextConfiguration {
+public class SecurityRequestMatchersManagementContextConfiguration_RENAMED {
 
 	@Configuration(proxyBeanMethods = false)
 	@ConditionalOnClass(DispatcherServlet.class)
