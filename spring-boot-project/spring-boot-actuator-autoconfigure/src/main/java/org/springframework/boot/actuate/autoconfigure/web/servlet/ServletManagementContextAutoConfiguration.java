@@ -47,7 +47,7 @@ public class ServletManagementContextAutoConfiguration {
 	}
 
 	@Bean
-	public ManagementServletContext managementServletContext(WebEndpointProperties properties) {
+	public ManagementServletContext_RENAMED managementServletContext(WebEndpointProperties properties) {
 		return properties::getBasePath;
 	}
 

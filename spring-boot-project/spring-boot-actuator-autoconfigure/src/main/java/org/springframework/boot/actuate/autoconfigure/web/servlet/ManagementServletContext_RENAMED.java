@@ -24,7 +24,7 @@ package org.springframework.boot.actuate.autoconfigure.web.servlet;
  * @since 2.0.0
  */
 @FunctionalInterface
-public interface ManagementServletContext {
+public interface ManagementServletContext_RENAMED {
 
 	/**
 	 * Return the servlet path of the management server.
