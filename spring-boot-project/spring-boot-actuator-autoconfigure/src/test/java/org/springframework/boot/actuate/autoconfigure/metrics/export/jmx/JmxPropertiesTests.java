@@ -22,7 +22,7 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Tests for {@link JmxProperties}.
+ * Tests for {@link JmxProperties_RENAMED}.
  *
  * @author Stephane Nicoll
  */
@@ -30,7 +30,7 @@ class JmxPropertiesTests {
 
 	@Test
 	void defaultValuesAreConsistent() {
-		JmxProperties properties = new JmxProperties();
+		JmxProperties_RENAMED properties = new JmxProperties_RENAMED();
 		JmxConfig config = JmxConfig.DEFAULT;
 		assertThat(properties.getDomain()).isEqualTo(config.domain());
 		assertThat(properties.getStep()).isEqualTo(config.step());

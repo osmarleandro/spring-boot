@@ -23,14 +23,14 @@ import io.micrometer.jmx.JmxConfig;
 import org.springframework.boot.actuate.autoconfigure.metrics.export.properties.PropertiesConfigAdapter;
 
 /**
- * Adapter to convert {@link JmxProperties} to a {@link JmxConfig}.
+ * Adapter to convert {@link JmxProperties_RENAMED} to a {@link JmxConfig}.
  *
  * @author Jon Schneider
  * @author Stephane Nicoll
  */
-class JmxPropertiesConfigAdapter extends PropertiesConfigAdapter<JmxProperties> implements JmxConfig {
+class JmxPropertiesConfigAdapter extends PropertiesConfigAdapter<JmxProperties_RENAMED> implements JmxConfig {
 
-	JmxPropertiesConfigAdapter(JmxProperties properties) {
+	JmxPropertiesConfigAdapter(JmxProperties_RENAMED properties) {
 		super(properties);
 	}
 
@@ -46,12 +46,12 @@ class JmxPropertiesConfigAdapter extends PropertiesConfigAdapter<JmxProperties> 
 
 	@Override
 	public String domain() {
-		return get(JmxProperties::getDomain, JmxConfig.super::domain);
+		return get(JmxProperties_RENAMED::getDomain, JmxConfig.super::domain);
 	}
 
 	@Override
 	public Duration step() {
-		return get(JmxProperties::getStep, JmxConfig.super::step);
+		return get(JmxProperties_RENAMED::getStep, JmxConfig.super::step);
 	}
 
 }

@@ -29,7 +29,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  * @since 2.0.0
  */
 @ConfigurationProperties(prefix = "management.metrics.export.jmx")
-public class JmxProperties {
+public class JmxProperties_RENAMED {
 
 	/**
 	 * Metrics JMX domain name.
