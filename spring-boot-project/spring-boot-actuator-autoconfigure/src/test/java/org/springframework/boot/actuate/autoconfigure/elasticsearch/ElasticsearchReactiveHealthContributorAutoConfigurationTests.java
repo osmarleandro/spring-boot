@@ -19,7 +19,7 @@ package org.springframework.boot.actuate.autoconfigure.elasticsearch;
 import org.junit.jupiter.api.Test;
 
 import org.springframework.boot.actuate.autoconfigure.health.HealthContributorAutoConfiguration;
-import org.springframework.boot.actuate.elasticsearch.ElasticsearchReactiveHealthIndicator;
+import org.springframework.boot.actuate.elasticsearch.ElasticsearchReactiveHealthIndicator_RENAMED;
 import org.springframework.boot.actuate.elasticsearch.ElasticsearchRestHealthIndicator;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
 import org.springframework.boot.autoconfigure.data.elasticsearch.ElasticsearchDataAutoConfiguration;
@@ -46,14 +46,14 @@ class ElasticsearchReactiveHealthContributorAutoConfigurationTests {
 	@Test
 	void runShouldCreateIndicator() {
 		this.contextRunner.run((context) -> assertThat(context)
-				.hasSingleBean(ElasticsearchReactiveHealthIndicator.class).hasBean("elasticsearchHealthContributor"));
+				.hasSingleBean(ElasticsearchReactiveHealthIndicator_RENAMED.class).hasBean("elasticsearchHealthContributor"));
 	}
 
 	@Test
 	void runWithRegularIndicatorShouldOnlyCreateReactiveIndicator() {
 		this.contextRunner
 				.withConfiguration(AutoConfigurations.of(ElasticSearchRestHealthContributorAutoConfiguration.class))
-				.run((context) -> assertThat(context).hasSingleBean(ElasticsearchReactiveHealthIndicator.class)
+				.run((context) -> assertThat(context).hasSingleBean(ElasticsearchReactiveHealthIndicator_RENAMED.class)
 						.hasBean("elasticsearchHealthContributor")
 						.doesNotHaveBean(ElasticsearchRestHealthIndicator.class));
 	}
@@ -61,7 +61,7 @@ class ElasticsearchReactiveHealthContributorAutoConfigurationTests {
 	@Test
 	void runWhenDisabledShouldNotCreateIndicator() {
 		this.contextRunner.withPropertyValues("management.health.elasticsearch.enabled:false")
-				.run((context) -> assertThat(context).doesNotHaveBean(ElasticsearchReactiveHealthIndicator.class)
+				.run((context) -> assertThat(context).doesNotHaveBean(ElasticsearchReactiveHealthIndicator_RENAMED.class)
 						.doesNotHaveBean("elasticsearchHealthContributor"));
 	}
 

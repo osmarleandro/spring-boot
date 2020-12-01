@@ -22,7 +22,7 @@ import reactor.core.publisher.Flux;
 
 import org.springframework.boot.actuate.autoconfigure.health.CompositeReactiveHealthContributorConfiguration;
 import org.springframework.boot.actuate.autoconfigure.health.ConditionalOnEnabledHealthIndicator;
-import org.springframework.boot.actuate.elasticsearch.ElasticsearchReactiveHealthIndicator;
+import org.springframework.boot.actuate.elasticsearch.ElasticsearchReactiveHealthIndicator_RENAMED;
 import org.springframework.boot.actuate.health.ReactiveHealthContributor;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -36,7 +36,7 @@ import org.springframework.data.elasticsearch.client.reactive.ReactiveElasticsea
 
 /**
  * {@link EnableAutoConfiguration Auto-configuration} for
- * {@link ElasticsearchReactiveHealthIndicator} using the
+ * {@link ElasticsearchReactiveHealthIndicator_RENAMED} using the
  * {@link ReactiveElasticsearchClient}.
  *
  * @author Aleksander Lech
@@ -48,7 +48,7 @@ import org.springframework.data.elasticsearch.client.reactive.ReactiveElasticsea
 @ConditionalOnEnabledHealthIndicator("elasticsearch")
 @AutoConfigureAfter(ReactiveElasticsearchRestClientAutoConfiguration.class)
 public class ElasticSearchReactiveHealthContributorAutoConfiguration extends
-		CompositeReactiveHealthContributorConfiguration<ElasticsearchReactiveHealthIndicator, ReactiveElasticsearchClient> {
+		CompositeReactiveHealthContributorConfiguration<ElasticsearchReactiveHealthIndicator_RENAMED, ReactiveElasticsearchClient> {
 
 	@Bean
 	@ConditionalOnMissingBean(name = { "elasticsearchHealthIndicator", "elasticsearchHealthContributor" })

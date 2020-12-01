@@ -37,7 +37,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.entry;
 
 /**
- * Tests for {@link ElasticsearchReactiveHealthIndicator}
+ * Tests for {@link ElasticsearchReactiveHealthIndicator_RENAMED}
  *
  * @author Brian Clozel
  * @author Scott Frederick
@@ -46,7 +46,7 @@ class ElasticsearchReactiveHealthIndicatorTests {
 
 	private MockWebServer server;
 
-	private ElasticsearchReactiveHealthIndicator healthIndicator;
+	private ElasticsearchReactiveHealthIndicator_RENAMED healthIndicator;
 
 	@BeforeEach
 	void setup() throws Exception {
@@ -54,7 +54,7 @@ class ElasticsearchReactiveHealthIndicatorTests {
 		this.server.start();
 		ReactiveElasticsearchClient client = DefaultReactiveElasticsearchClient
 				.create(ClientConfiguration.create(this.server.getHostName() + ":" + this.server.getPort()));
-		this.healthIndicator = new ElasticsearchReactiveHealthIndicator(client);
+		this.healthIndicator = new ElasticsearchReactiveHealthIndicator_RENAMED(client);
 	}
 
 	@AfterEach
