@@ -27,7 +27,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Phillip Webb
  * @author Stephane Nicoll
  */
-class ServiceLevelObjectiveBoundaryTests {
+class ServiceLevelObjectiveBoundaryTests_RENAMED {
 
 	@Test
 	void getValueForTimerWhenFromLongShouldReturnMsToNanosValue() {
