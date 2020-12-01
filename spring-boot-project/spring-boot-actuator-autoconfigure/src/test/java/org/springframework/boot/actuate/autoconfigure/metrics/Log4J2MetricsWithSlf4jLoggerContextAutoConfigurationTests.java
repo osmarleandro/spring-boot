@@ -28,14 +28,14 @@ import org.springframework.boot.test.context.runner.ApplicationContextRunner;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Tests for {@link Log4J2MetricsAutoConfiguration}.
+ * Tests for {@link Log4J2MetricsAutoConfiguration_RENAMED}.
  *
  * @author Andy Wilkinson
  */
 class Log4J2MetricsWithSlf4jLoggerContextAutoConfigurationTests {
 
 	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner().with(MetricsRun.simple())
-			.withConfiguration(AutoConfigurations.of(Log4J2MetricsAutoConfiguration.class));
+			.withConfiguration(AutoConfigurations.of(Log4J2MetricsAutoConfiguration_RENAMED.class));
 
 	@Test
 	void backsOffWhenLoggerContextIsBackedBySlf4j() {

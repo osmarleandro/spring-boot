@@ -21,7 +21,7 @@ import io.micrometer.core.instrument.binder.logging.Log4j2Metrics;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.spi.LoggerContext;
 
-import org.springframework.boot.actuate.autoconfigure.metrics.Log4J2MetricsAutoConfiguration.Log4JCoreLoggerContextCondition;
+import org.springframework.boot.actuate.autoconfigure.metrics.Log4J2MetricsAutoConfiguration_RENAMED.Log4JCoreLoggerContextCondition;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionOutcome;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
@@ -46,7 +46,7 @@ import org.springframework.core.type.AnnotatedTypeMetadata;
 		name = "org.apache.logging.log4j.core.LoggerContext")
 @ConditionalOnBean(MeterRegistry.class)
 @Conditional(Log4JCoreLoggerContextCondition.class)
-public class Log4J2MetricsAutoConfiguration {
+public class Log4J2MetricsAutoConfiguration_RENAMED {
 
 	@Bean
 	@ConditionalOnMissingBean

@@ -30,7 +30,7 @@ import org.springframework.context.annotation.Configuration;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Tests for {@link Log4J2MetricsAutoConfiguration}.
+ * Tests for {@link Log4J2MetricsAutoConfiguration_RENAMED}.
  *
  * @author Andy Wilkinson
  */
@@ -38,7 +38,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 class Log4J2MetricsWithLog4jLoggerContextAutoConfigurationTests {
 
 	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner().with(MetricsRun.simple())
-			.withConfiguration(AutoConfigurations.of(Log4J2MetricsAutoConfiguration.class));
+			.withConfiguration(AutoConfigurations.of(Log4J2MetricsAutoConfiguration_RENAMED.class));
 
 	@Test
 	void autoConfiguresLog4J2Metrics() {
