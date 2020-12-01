@@ -38,7 +38,7 @@ import org.springframework.context.annotation.Configuration;
  * @author Michael J. Simons
  * @author Stephane Nicoll
  */
-class Neo4jHealthContributorConfigurations {
+class Neo4jHealthContributorConfigurations_RENAMED {
 
 	@Configuration(proxyBeanMethods = false)
 	static class Neo4jConfiguration extends CompositeHealthContributorConfiguration<Neo4jHealthIndicator, Driver> {

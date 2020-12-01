@@ -19,8 +19,8 @@ package org.springframework.boot.actuate.autoconfigure.neo4j;
 import org.neo4j.driver.Driver;
 
 import org.springframework.boot.actuate.autoconfigure.health.ConditionalOnEnabledHealthIndicator;
-import org.springframework.boot.actuate.autoconfigure.neo4j.Neo4jHealthContributorConfigurations.Neo4jConfiguration;
-import org.springframework.boot.actuate.autoconfigure.neo4j.Neo4jHealthContributorConfigurations.Neo4jReactiveConfiguration;
+import org.springframework.boot.actuate.autoconfigure.neo4j.Neo4jHealthContributorConfigurations_RENAMED.Neo4jConfiguration;
+import org.springframework.boot.actuate.autoconfigure.neo4j.Neo4jHealthContributorConfigurations_RENAMED.Neo4jReactiveConfiguration;
 import org.springframework.boot.actuate.neo4j.Neo4jHealthIndicator;
 import org.springframework.boot.actuate.neo4j.Neo4jReactiveHealthIndicator;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
