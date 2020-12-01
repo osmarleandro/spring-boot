@@ -29,7 +29,7 @@ import org.springframework.boot.actuate.trace.http.HttpTraceRepository;
 import org.springframework.boot.actuate.trace.http.InMemoryHttpTraceRepository;
 import org.springframework.boot.actuate.trace.http.Include;
 import org.springframework.boot.actuate.web.trace.reactive.HttpTraceWebFilter;
-import org.springframework.boot.actuate.web.trace.servlet.HttpTraceFilter;
+import org.springframework.boot.actuate.web.trace.servlet.HttpTraceFilter_RENAMED;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
 import org.springframework.boot.test.context.runner.ReactiveWebApplicationContextRunner;
 import org.springframework.boot.test.context.runner.WebApplicationContextRunner;
@@ -58,7 +58,7 @@ class HttpTraceAutoConfigurationTests {
 	void autoConfigurationIsEnabledWhenHttpTraceRepositoryBeanPresent() {
 		this.contextRunner.withUserConfiguration(HttpTraceRepositoryConfiguration.class).run((context) -> {
 			assertThat(context).hasSingleBean(HttpExchangeTracer.class);
-			assertThat(context).hasSingleBean(HttpTraceFilter.class);
+			assertThat(context).hasSingleBean(HttpTraceFilter_RENAMED.class);
 			assertThat(context).hasSingleBean(HttpTraceRepository.class);
 			assertThat(context.getBean(HttpTraceRepository.class)).isInstanceOf(CustomHttpTraceRepository.class);
 		});
@@ -87,15 +87,15 @@ class HttpTraceAutoConfigurationTests {
 	@Test
 	void configuresServletFilter() {
 		this.contextRunner.withUserConfiguration(HttpTraceRepositoryConfiguration.class)
-				.run((context) -> assertThat(context).hasSingleBean(HttpTraceFilter.class));
+				.run((context) -> assertThat(context).hasSingleBean(HttpTraceFilter_RENAMED.class));
 	}
 
 	@Test
 	void usesUserProvidedServletFilter() {
 		this.contextRunner.withUserConfiguration(HttpTraceRepositoryConfiguration.class)
 				.withUserConfiguration(CustomFilterConfiguration.class).run((context) -> {
-					assertThat(context).hasSingleBean(HttpTraceFilter.class);
-					assertThat(context.getBean(HttpTraceFilter.class)).isInstanceOf(CustomHttpTraceFilter.class);
+					assertThat(context).hasSingleBean(HttpTraceFilter_RENAMED.class);
+					assertThat(context.getBean(HttpTraceFilter_RENAMED.class)).isInstanceOf(CustomHttpTraceFilter.class);
 				});
 	}
 
@@ -104,7 +104,7 @@ class HttpTraceAutoConfigurationTests {
 		this.contextRunner.withUserConfiguration(HttpTraceRepositoryConfiguration.class)
 				.withPropertyValues("management.trace.http.enabled=false")
 				.run((context) -> assertThat(context).doesNotHaveBean(InMemoryHttpTraceRepository.class)
-						.doesNotHaveBean(HttpExchangeTracer.class).doesNotHaveBean(HttpTraceFilter.class));
+						.doesNotHaveBean(HttpExchangeTracer.class).doesNotHaveBean(HttpTraceFilter_RENAMED.class));
 	}
 
 	static class CustomHttpTraceRepository implements HttpTraceRepository {
@@ -169,7 +169,7 @@ class HttpTraceAutoConfigurationTests {
 
 	}
 
-	private static final class CustomHttpTraceFilter extends HttpTraceFilter {
+	private static final class CustomHttpTraceFilter extends HttpTraceFilter_RENAMED {
 
 		private CustomHttpTraceFilter(HttpTraceRepository repository, HttpExchangeTracer tracer) {
 			super(repository, tracer);

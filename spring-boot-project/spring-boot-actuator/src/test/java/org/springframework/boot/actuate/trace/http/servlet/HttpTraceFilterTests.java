@@ -31,7 +31,7 @@ import org.springframework.boot.actuate.trace.http.HttpExchangeTracer;
 import org.springframework.boot.actuate.trace.http.HttpTrace.Session;
 import org.springframework.boot.actuate.trace.http.InMemoryHttpTraceRepository;
 import org.springframework.boot.actuate.trace.http.Include;
-import org.springframework.boot.actuate.web.trace.servlet.HttpTraceFilter;
+import org.springframework.boot.actuate.web.trace.servlet.HttpTraceFilter_RENAMED;
 import org.springframework.mock.web.MockFilterChain;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
@@ -42,7 +42,7 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
 
 /**
- * Tests for {@link HttpTraceFilter}.
+ * Tests for {@link HttpTraceFilter_RENAMED}.
  *
  * @author Dave Syer
  * @author Wallace Wadge
@@ -58,7 +58,7 @@ class HttpTraceFilterTests {
 
 	private final HttpExchangeTracer tracer = new HttpExchangeTracer(EnumSet.allOf(Include.class));
 
-	private final HttpTraceFilter filter = new HttpTraceFilter(this.repository, this.tracer);
+	private final HttpTraceFilter_RENAMED filter = new HttpTraceFilter_RENAMED(this.repository, this.tracer);
 
 	@Test
 	void filterTracesExchange() throws ServletException, IOException {

@@ -19,7 +19,7 @@ package org.springframework.boot.actuate.autoconfigure.trace.http;
 import org.springframework.boot.actuate.trace.http.HttpExchangeTracer;
 import org.springframework.boot.actuate.trace.http.HttpTraceRepository;
 import org.springframework.boot.actuate.web.trace.reactive.HttpTraceWebFilter;
-import org.springframework.boot.actuate.web.trace.servlet.HttpTraceFilter;
+import org.springframework.boot.actuate.web.trace.servlet.HttpTraceFilter_RENAMED;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -55,8 +55,8 @@ public class HttpTraceAutoConfiguration {
 
 		@Bean
 		@ConditionalOnMissingBean
-		HttpTraceFilter httpTraceFilter(HttpTraceRepository repository, HttpExchangeTracer tracer) {
-			return new HttpTraceFilter(repository, tracer);
+		HttpTraceFilter_RENAMED httpTraceFilter(HttpTraceRepository repository, HttpExchangeTracer tracer) {
+			return new HttpTraceFilter_RENAMED(repository, tracer);
 		}
 
 	}
