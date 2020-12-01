@@ -22,7 +22,7 @@ import io.micrometer.core.instrument.binder.logging.LogbackMetrics;
 import org.slf4j.ILoggerFactory;
 import org.slf4j.LoggerFactory;
 
-import org.springframework.boot.actuate.autoconfigure.metrics.LogbackMetricsAutoConfiguration.LogbackLoggingCondition;
+import org.springframework.boot.actuate.autoconfigure.metrics.LogbackMetricsAutoConfiguration_RENAMED.LogbackLoggingCondition;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionMessage;
@@ -48,7 +48,7 @@ import org.springframework.core.type.AnnotatedTypeMetadata;
 @ConditionalOnClass({ MeterRegistry.class, LoggerContext.class, LoggerFactory.class })
 @ConditionalOnBean(MeterRegistry.class)
 @Conditional(LogbackLoggingCondition.class)
-public class LogbackMetricsAutoConfiguration {
+public class LogbackMetricsAutoConfiguration_RENAMED {
 
 	@Bean
 	@ConditionalOnMissingBean

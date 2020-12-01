@@ -28,7 +28,7 @@ import org.springframework.context.annotation.Configuration;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Tests for {@link LogbackMetricsAutoConfiguration}.
+ * Tests for {@link LogbackMetricsAutoConfiguration_RENAMED}.
  *
  * @author Andy Wilkinson
  * @author Stephane Nicoll
@@ -36,7 +36,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 class LogbackMetricsAutoConfigurationTests {
 
 	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner().with(MetricsRun.simple())
-			.withConfiguration(AutoConfigurations.of(LogbackMetricsAutoConfiguration.class));
+			.withConfiguration(AutoConfigurations.of(LogbackMetricsAutoConfiguration_RENAMED.class));
 
 	@Test
 	void autoConfiguresLogbackMetrics() {

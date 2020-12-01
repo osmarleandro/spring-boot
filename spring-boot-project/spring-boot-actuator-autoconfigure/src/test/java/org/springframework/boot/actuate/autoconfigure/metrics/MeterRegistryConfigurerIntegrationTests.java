@@ -76,7 +76,7 @@ class MeterRegistryConfigurerIntegrationTests {
 	@Test
 	void counterIsIncrementedOncePerEventWithoutCompositeMeterRegistry() {
 		new ApplicationContextRunner().with(MetricsRun.limitedTo(JmxMetricsExportAutoConfiguration.class))
-				.withConfiguration(AutoConfigurations.of(LogbackMetricsAutoConfiguration.class)).run((context) -> {
+				.withConfiguration(AutoConfigurations.of(LogbackMetricsAutoConfiguration_RENAMED.class)).run((context) -> {
 					Logger logger = ((LoggerContext) StaticLoggerBinder.getSingleton().getLoggerFactory())
 							.getLogger("test-logger");
 					logger.error("Error.");
@@ -92,7 +92,7 @@ class MeterRegistryConfigurerIntegrationTests {
 		new ApplicationContextRunner()
 				.with(MetricsRun.limitedTo(JmxMetricsExportAutoConfiguration.class,
 						PrometheusMetricsExportAutoConfiguration.class))
-				.withConfiguration(AutoConfigurations.of(LogbackMetricsAutoConfiguration.class)).run((context) -> {
+				.withConfiguration(AutoConfigurations.of(LogbackMetricsAutoConfiguration_RENAMED.class)).run((context) -> {
 					Logger logger = ((LoggerContext) StaticLoggerBinder.getSingleton().getLoggerFactory())
 							.getLogger("test-logger");
 					logger.error("Error.");
