@@ -21,15 +21,15 @@ import io.micrometer.wavefront.WavefrontConfig;
 import org.springframework.boot.actuate.autoconfigure.metrics.export.properties.PushRegistryPropertiesConfigAdapter;
 
 /**
- * Adapter to convert {@link WavefrontProperties} to a {@link WavefrontConfig}.
+ * Adapter to convert {@link WavefrontProperties_RENAMED} to a {@link WavefrontConfig}.
  *
  * @author Jon Schneider
  * @since 2.0.0
  */
-public class WavefrontPropertiesConfigAdapter extends PushRegistryPropertiesConfigAdapter<WavefrontProperties>
+public class WavefrontPropertiesConfigAdapter extends PushRegistryPropertiesConfigAdapter<WavefrontProperties_RENAMED>
 		implements WavefrontConfig {
 
-	public WavefrontPropertiesConfigAdapter(WavefrontProperties properties) {
+	public WavefrontPropertiesConfigAdapter(WavefrontProperties_RENAMED properties) {
 		super(properties);
 	}
 
@@ -50,20 +50,20 @@ public class WavefrontPropertiesConfigAdapter extends PushRegistryPropertiesConf
 
 	@Override
 	public String source() {
-		return get(WavefrontProperties::getSource, WavefrontConfig.super::source);
+		return get(WavefrontProperties_RENAMED::getSource, WavefrontConfig.super::source);
 	}
 
 	@Override
 	public String apiToken() {
-		return get(WavefrontProperties::getApiToken, WavefrontConfig.super::apiToken);
+		return get(WavefrontProperties_RENAMED::getApiToken, WavefrontConfig.super::apiToken);
 	}
 
 	@Override
 	public String globalPrefix() {
-		return get(WavefrontProperties::getGlobalPrefix, WavefrontConfig.super::globalPrefix);
+		return get(WavefrontProperties_RENAMED::getGlobalPrefix, WavefrontConfig.super::globalPrefix);
 	}
 
-	private String getUriAsString(WavefrontProperties properties) {
+	private String getUriAsString(WavefrontProperties_RENAMED properties) {
 		return (properties.getUri() != null) ? properties.getUri().toString() : null;
 	}
 

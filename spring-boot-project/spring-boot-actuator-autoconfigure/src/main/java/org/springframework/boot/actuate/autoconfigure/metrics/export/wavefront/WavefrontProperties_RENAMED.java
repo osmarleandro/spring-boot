@@ -32,7 +32,7 @@ import org.springframework.util.unit.DataSize;
  * @since 2.0.0
  */
 @ConfigurationProperties("management.metrics.export.wavefront")
-public class WavefrontProperties extends PushRegistryProperties {
+public class WavefrontProperties_RENAMED extends PushRegistryProperties {
 
 	/**
 	 * URI to ship metrics to.

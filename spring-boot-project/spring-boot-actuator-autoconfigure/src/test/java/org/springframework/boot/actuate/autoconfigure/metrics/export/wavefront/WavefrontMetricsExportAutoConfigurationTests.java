@@ -83,7 +83,7 @@ class WavefrontMetricsExportAutoConfigurationTests {
 	void defaultWavefrontSenderSettingsAreConsistent() {
 		this.contextRunner.withUserConfiguration(BaseConfiguration.class)
 				.withPropertyValues("management.metrics.export.wavefront.api-token=abcde").run((context) -> {
-					WavefrontProperties properties = new WavefrontProperties();
+					WavefrontProperties_RENAMED properties = new WavefrontProperties_RENAMED();
 					WavefrontSender sender = context.getBean(WavefrontSender.class);
 					assertThat(sender).extracting("metricsBuffer").hasFieldOrPropertyWithValue("capacity",
 							properties.getSender().getMaxQueueSize());

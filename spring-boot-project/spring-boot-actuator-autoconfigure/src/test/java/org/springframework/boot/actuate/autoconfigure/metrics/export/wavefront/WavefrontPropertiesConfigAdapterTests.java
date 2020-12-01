@@ -30,42 +30,42 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Stephane Nicoll
  */
 class WavefrontPropertiesConfigAdapterTests
-		extends PushRegistryPropertiesConfigAdapterTests<WavefrontProperties, WavefrontPropertiesConfigAdapter> {
+		extends PushRegistryPropertiesConfigAdapterTests<WavefrontProperties_RENAMED, WavefrontPropertiesConfigAdapter> {
 
 	@Override
-	protected WavefrontProperties createProperties() {
-		return new WavefrontProperties();
+	protected WavefrontProperties_RENAMED createProperties() {
+		return new WavefrontProperties_RENAMED();
 	}
 
 	@Override
-	protected WavefrontPropertiesConfigAdapter createConfigAdapter(WavefrontProperties properties) {
+	protected WavefrontPropertiesConfigAdapter createConfigAdapter(WavefrontProperties_RENAMED properties) {
 		return new WavefrontPropertiesConfigAdapter(properties);
 	}
 
 	@Test
 	void whenPropertiesUriIsSetAdapterUriReturnsIt() {
-		WavefrontProperties properties = createProperties();
+		WavefrontProperties_RENAMED properties = createProperties();
 		properties.setUri(URI.create("https://wavefront.example.com"));
 		assertThat(createConfigAdapter(properties).uri()).isEqualTo("https://wavefront.example.com");
 	}
 
 	@Test
 	void whenPropertiesSourceIsSetAdapterSourceReturnsIt() {
-		WavefrontProperties properties = createProperties();
+		WavefrontProperties_RENAMED properties = createProperties();
 		properties.setSource("test");
 		assertThat(createConfigAdapter(properties).source()).isEqualTo("test");
 	}
 
 	@Test
 	void whenPropertiesApiTokenIsSetAdapterApiTokenReturnsIt() {
-		WavefrontProperties properties = createProperties();
+		WavefrontProperties_RENAMED properties = createProperties();
 		properties.setApiToken("ABC123");
 		assertThat(createConfigAdapter(properties).apiToken()).isEqualTo("ABC123");
 	}
 
 	@Test
 	void whenPropertiesGlobalPrefixIsSetAdapterGlobalPrefixReturnsIt() {
-		WavefrontProperties properties = createProperties();
+		WavefrontProperties_RENAMED properties = createProperties();
 		properties.setGlobalPrefix("test");
 		assertThat(createConfigAdapter(properties).globalPrefix()).isEqualTo("test");
 	}

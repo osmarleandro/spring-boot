@@ -24,7 +24,7 @@ import org.springframework.boot.actuate.autoconfigure.metrics.export.properties.
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Tests for {@link WavefrontProperties}.
+ * Tests for {@link WavefrontProperties_RENAMED}.
  *
  * @author Stephane Nicoll
  */
@@ -32,7 +32,7 @@ class WavefrontPropertiesTests extends PushRegistryPropertiesTests {
 
 	@Test
 	void defaultValuesAreConsistent() {
-		WavefrontProperties properties = new WavefrontProperties();
+		WavefrontProperties_RENAMED properties = new WavefrontProperties_RENAMED();
 		WavefrontConfig config = WavefrontConfig.DEFAULT_DIRECT;
 		assertStepRegistryDefaultValues(properties, config);
 		assertThat(properties.getUri().toString()).isEqualTo(config.uri());
