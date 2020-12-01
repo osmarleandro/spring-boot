@@ -23,7 +23,7 @@ import java.util.Map;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 
-import org.springframework.boot.actuate.endpoint.http.ApiVersion;
+import org.springframework.boot.actuate.endpoint.http.ApiVersion_RENAMED;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
@@ -38,13 +38,13 @@ class CompositeHealthTests {
 	@Test
 	void createWhenStatusIsNullThrowsException() {
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> new CompositeHealth(ApiVersion.V3, null, Collections.emptyMap()))
+				.isThrownBy(() -> new CompositeHealth(ApiVersion_RENAMED.V3, null, Collections.emptyMap()))
 				.withMessage("Status must not be null");
 	}
 
 	@Test
 	void getStatusReturnsStatus() {
-		CompositeHealth health = new CompositeHealth(ApiVersion.V3, Status.UP, Collections.emptyMap());
+		CompositeHealth health = new CompositeHealth(ApiVersion_RENAMED.V3, Status.UP, Collections.emptyMap());
 		assertThat(health.getStatus()).isEqualTo(Status.UP);
 	}
 
@@ -52,7 +52,7 @@ class CompositeHealthTests {
 	void getComponentReturnsComponents() {
 		Map<String, HealthComponent> components = new LinkedHashMap<>();
 		components.put("a", Health.up().build());
-		CompositeHealth health = new CompositeHealth(ApiVersion.V3, Status.UP, components);
+		CompositeHealth health = new CompositeHealth(ApiVersion_RENAMED.V3, Status.UP, components);
 		assertThat(health.getComponents()).isEqualTo(components);
 	}
 
@@ -61,7 +61,7 @@ class CompositeHealthTests {
 		Map<String, HealthComponent> components = new LinkedHashMap<>();
 		components.put("db1", Health.up().build());
 		components.put("db2", Health.down().withDetail("a", "b").build());
-		CompositeHealth health = new CompositeHealth(ApiVersion.V3, Status.UP, components);
+		CompositeHealth health = new CompositeHealth(ApiVersion_RENAMED.V3, Status.UP, components);
 		ObjectMapper mapper = new ObjectMapper();
 		String json = mapper.writeValueAsString(health);
 		assertThat(json).isEqualTo("{\"status\":\"UP\",\"components\":{\"db1\":{\"status\":\"UP\"},"
@@ -73,7 +73,7 @@ class CompositeHealthTests {
 		Map<String, HealthComponent> components = new LinkedHashMap<>();
 		components.put("db1", Health.up().build());
 		components.put("db2", Health.down().withDetail("a", "b").build());
-		CompositeHealth health = new CompositeHealth(ApiVersion.V2, Status.UP, components);
+		CompositeHealth health = new CompositeHealth(ApiVersion_RENAMED.V2, Status.UP, components);
 		ObjectMapper mapper = new ObjectMapper();
 		String json = mapper.writeValueAsString(health);
 		assertThat(json).isEqualTo("{\"status\":\"UP\",\"details\":{\"db1\":{\"status\":\"UP\"},"

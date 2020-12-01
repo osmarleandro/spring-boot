@@ -25,7 +25,7 @@ import java.util.Set;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 
-import org.springframework.boot.actuate.endpoint.http.ApiVersion;
+import org.springframework.boot.actuate.endpoint.http.ApiVersion_RENAMED;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -42,7 +42,7 @@ class SystemHealthTests {
 		components.put("db1", Health.up().build());
 		components.put("db2", Health.down().withDetail("a", "b").build());
 		Set<String> groups = new LinkedHashSet<>(Arrays.asList("liveness", "readiness"));
-		CompositeHealth health = new SystemHealth(ApiVersion.V3, Status.UP, components, groups);
+		CompositeHealth health = new SystemHealth(ApiVersion_RENAMED.V3, Status.UP, components, groups);
 		ObjectMapper mapper = new ObjectMapper();
 		String json = mapper.writeValueAsString(health);
 		assertThat(json).isEqualTo("{\"status\":\"UP\",\"components\":{\"db1\":{\"status\":\"UP\"},"

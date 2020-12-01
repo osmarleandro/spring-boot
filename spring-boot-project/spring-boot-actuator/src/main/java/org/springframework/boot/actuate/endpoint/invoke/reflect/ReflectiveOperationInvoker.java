@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.boot.actuate.endpoint.InvocationContext;
 import org.springframework.boot.actuate.endpoint.SecurityContext;
-import org.springframework.boot.actuate.endpoint.http.ApiVersion;
+import org.springframework.boot.actuate.endpoint.http.ApiVersion_RENAMED;
 import org.springframework.boot.actuate.endpoint.invoke.MissingParametersException;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvoker;
 import org.springframework.boot.actuate.endpoint.invoke.OperationParameter;
@@ -89,7 +89,7 @@ public class ReflectiveOperationInvoker implements OperationInvoker {
 		if (!parameter.isMandatory()) {
 			return false;
 		}
-		if (ApiVersion.class.equals(parameter.getType())) {
+		if (ApiVersion_RENAMED.class.equals(parameter.getType())) {
 			return false;
 		}
 		if (Principal.class.equals(parameter.getType())) {
@@ -107,7 +107,7 @@ public class ReflectiveOperationInvoker implements OperationInvoker {
 	}
 
 	private Object resolveArgument(OperationParameter parameter, InvocationContext context) {
-		if (ApiVersion.class.equals(parameter.getType())) {
+		if (ApiVersion_RENAMED.class.equals(parameter.getType())) {
 			return context.getApiVersion();
 		}
 		if (Principal.class.equals(parameter.getType())) {

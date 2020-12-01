@@ -18,7 +18,7 @@ package org.springframework.boot.actuate.endpoint;
 
 import java.util.Map;
 
-import org.springframework.boot.actuate.endpoint.http.ApiVersion;
+import org.springframework.boot.actuate.endpoint.http.ApiVersion_RENAMED;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvoker;
 import org.springframework.util.Assert;
 
@@ -35,7 +35,7 @@ public class InvocationContext {
 
 	private final Map<String, Object> arguments;
 
-	private final ApiVersion apiVersion;
+	private final ApiVersion_RENAMED apiVersion;
 
 	/**
 	 * Creates a new context for an operation being invoked by the given
@@ -55,10 +55,10 @@ public class InvocationContext {
 	 * @param arguments the arguments available to the operation. Never {@code null}
 	 * @since 2.2.0
 	 */
-	public InvocationContext(ApiVersion apiVersion, SecurityContext securityContext, Map<String, Object> arguments) {
+	public InvocationContext(ApiVersion_RENAMED apiVersion, SecurityContext securityContext, Map<String, Object> arguments) {
 		Assert.notNull(securityContext, "SecurityContext must not be null");
 		Assert.notNull(arguments, "Arguments must not be null");
-		this.apiVersion = (apiVersion != null) ? apiVersion : ApiVersion.LATEST;
+		this.apiVersion = (apiVersion != null) ? apiVersion : ApiVersion_RENAMED.LATEST;
 		this.securityContext = securityContext;
 		this.arguments = arguments;
 	}
@@ -68,7 +68,7 @@ public class InvocationContext {
 	 * @return the apiVersion the API version
 	 * @since 2.2.0
 	 */
-	public ApiVersion getApiVersion() {
+	public ApiVersion_RENAMED getApiVersion() {
 		return this.apiVersion;
 	}
 

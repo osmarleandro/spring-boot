@@ -26,12 +26,12 @@ package org.springframework.boot.actuate.endpoint.http;
 public final class ActuatorMediaType {
 
 	/**
-	 * Constant for the Actuator {@link ApiVersion#V2 v2} media type.
+	 * Constant for the Actuator {@link ApiVersion_RENAMED#V2 v2} media type.
 	 */
 	public static final String V2_JSON = "application/vnd.spring-boot.actuator.v2+json";
 
 	/**
-	 * Constant for the Actuator {@link ApiVersion#V3 v3} media type.
+	 * Constant for the Actuator {@link ApiVersion_RENAMED#V3 v3} media type.
 	 */
 	public static final String V3_JSON = "application/vnd.spring-boot.actuator.v3+json";
 
