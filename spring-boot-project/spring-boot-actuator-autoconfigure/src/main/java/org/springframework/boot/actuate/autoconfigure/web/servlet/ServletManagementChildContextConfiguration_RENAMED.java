@@ -71,7 +71,7 @@ import org.springframework.util.StringUtils;
  */
 @ManagementContextConfiguration(value = ManagementContextType.CHILD, proxyBeanMethods = false)
 @ConditionalOnWebApplication(type = Type.SERVLET)
-class ServletManagementChildContextConfiguration {
+class ServletManagementChildContextConfiguration_RENAMED {
 
 	@Bean
 	ServletManagementWebServerFactoryCustomizer servletManagementWebServerFactoryCustomizer(
