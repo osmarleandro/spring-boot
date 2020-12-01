@@ -54,7 +54,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Madhura Bhave
  */
-class ManagementWebSecurityAutoConfigurationTests {
+class ManagementWebSecurityAutoConfigurationTests_RENAMED {
 
 	private final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner().withConfiguration(
 			AutoConfigurations.of(HealthContributorAutoConfiguration.class, HealthEndpointAutoConfiguration.class,
