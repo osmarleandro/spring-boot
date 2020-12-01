@@ -50,7 +50,7 @@ import org.springframework.util.StringUtils;
 		SimpleMetricsExportAutoConfiguration.class })
 @ConditionalOnClass({ EntityManagerFactory.class, SessionFactory.class, MeterRegistry.class })
 @ConditionalOnBean({ EntityManagerFactory.class, MeterRegistry.class })
-public class HibernateMetricsAutoConfiguration {
+public class HibernateMetricsAutoConfiguration_RENAMED {
 
 	private static final String ENTITY_MANAGER_FACTORY_SUFFIX = "entityManagerFactory";
 

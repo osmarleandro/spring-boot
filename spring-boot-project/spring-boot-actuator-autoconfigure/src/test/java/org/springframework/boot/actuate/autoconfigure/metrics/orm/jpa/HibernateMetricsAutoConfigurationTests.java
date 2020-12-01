@@ -51,7 +51,7 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
 
 /**
- * Tests for {@link HibernateMetricsAutoConfiguration}.
+ * Tests for {@link HibernateMetricsAutoConfiguration_RENAMED}.
  *
  * @author Rui Figueira
  * @author Stephane Nicoll
@@ -60,7 +60,7 @@ class HibernateMetricsAutoConfigurationTests {
 
 	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner().with(MetricsRun.simple())
 			.withConfiguration(AutoConfigurations.of(DataSourceAutoConfiguration.class,
-					HibernateJpaAutoConfiguration.class, HibernateMetricsAutoConfiguration.class))
+					HibernateJpaAutoConfiguration.class, HibernateMetricsAutoConfiguration_RENAMED.class))
 			.withUserConfiguration(BaseConfiguration.class);
 
 	@Test
@@ -121,7 +121,7 @@ class HibernateMetricsAutoConfigurationTests {
 	void entityManagerFactoryInstrumentationIsDisabledIfHibernateIsNotAvailable() {
 		this.contextRunner.withClassLoader(new FilteredClassLoader(SessionFactory.class))
 				.withUserConfiguration(NonHibernateEntityManagerFactoryConfiguration.class).run((context) -> {
-					assertThat(context).doesNotHaveBean(HibernateMetricsAutoConfiguration.class);
+					assertThat(context).doesNotHaveBean(HibernateMetricsAutoConfiguration_RENAMED.class);
 					MeterRegistry registry = context.getBean(MeterRegistry.class);
 					assertThat(registry.find("hibernate.statements").meter()).isNull();
 				});
