@@ -29,7 +29,7 @@ import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
 import org.springframework.boot.actuate.endpoint.web.EndpointLinksResolver;
 import org.springframework.boot.actuate.endpoint.web.EndpointMapping;
 import org.springframework.boot.actuate.endpoint.web.EndpointMediaTypes;
-import org.springframework.boot.actuate.endpoint.web.ExposableWebEndpoint;
+import org.springframework.boot.actuate.endpoint.web.ExposableWebEndpoint_RENAMED;
 import org.springframework.boot.actuate.endpoint.web.WebEndpointsSupplier;
 import org.springframework.boot.actuate.endpoint.web.annotation.ControllerEndpointsSupplier;
 import org.springframework.boot.actuate.endpoint.web.reactive.ControllerEndpointHandlerMapping;
@@ -69,7 +69,7 @@ public class WebFluxEndpointManagementContextConfiguration {
 			Environment environment) {
 		String basePath = webEndpointProperties.getBasePath();
 		EndpointMapping endpointMapping = new EndpointMapping(basePath);
-		Collection<ExposableWebEndpoint> endpoints = webEndpointsSupplier.getEndpoints();
+		Collection<ExposableWebEndpoint_RENAMED> endpoints = webEndpointsSupplier.getEndpoints();
 		List<ExposableEndpoint<?>> allEndpoints = new ArrayList<>();
 		allEndpoints.addAll(endpoints);
 		allEndpoints.addAll(controllerEndpointsSupplier.getEndpoints());

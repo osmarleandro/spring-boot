@@ -42,7 +42,7 @@ import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
 import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
 import org.springframework.boot.actuate.endpoint.http.ActuatorMediaType;
 import org.springframework.boot.actuate.endpoint.web.EndpointMapping;
-import org.springframework.boot.actuate.endpoint.web.ExposableWebEndpoint;
+import org.springframework.boot.actuate.endpoint.web.ExposableWebEndpoint_RENAMED;
 import org.springframework.boot.actuate.endpoint.web.WebOperation;
 import org.springframework.boot.actuate.endpoint.web.WebOperationRequestPredicate;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
@@ -206,8 +206,8 @@ class ReactiveCloudFoundryActuatorAutoConfigurationTests {
 				"vcap.application.application_id:my-app-id", "vcap.application.cf_api:https://my-cloud-controller.com")
 				.run((context) -> {
 					CloudFoundryWebFluxEndpointHandlerMapping handlerMapping = getHandlerMapping(context);
-					Collection<ExposableWebEndpoint> endpoints = handlerMapping.getEndpoints();
-					List<EndpointId> endpointIds = endpoints.stream().map(ExposableWebEndpoint::getEndpointId)
+					Collection<ExposableWebEndpoint_RENAMED> endpoints = handlerMapping.getEndpoints();
+					List<EndpointId> endpointIds = endpoints.stream().map(ExposableWebEndpoint_RENAMED::getEndpointId)
 							.collect(Collectors.toList());
 					assertThat(endpointIds).contains(EndpointId.of("test"));
 				});
@@ -219,8 +219,8 @@ class ReactiveCloudFoundryActuatorAutoConfigurationTests {
 				"vcap.application.application_id:my-app-id", "vcap.application.cf_api:https://my-cloud-controller.com")
 				.run((context) -> {
 					CloudFoundryWebFluxEndpointHandlerMapping handlerMapping = getHandlerMapping(context);
-					Collection<ExposableWebEndpoint> endpoints = handlerMapping.getEndpoints();
-					ExposableWebEndpoint endpoint = endpoints.stream()
+					Collection<ExposableWebEndpoint_RENAMED> endpoints = handlerMapping.getEndpoints();
+					ExposableWebEndpoint_RENAMED endpoint = endpoints.stream()
 							.filter((candidate) -> EndpointId.of("test").equals(candidate.getEndpointId())).findFirst()
 							.get();
 					assertThat(endpoint.getOperations()).hasSize(1);
@@ -235,8 +235,8 @@ class ReactiveCloudFoundryActuatorAutoConfigurationTests {
 				.withPropertyValues("VCAP_APPLICATION:---", "vcap.application.application_id:my-app-id",
 						"vcap.application.cf_api:https://my-cloud-controller.com")
 				.run((context) -> {
-					Collection<ExposableWebEndpoint> endpoints = getHandlerMapping(context).getEndpoints();
-					ExposableWebEndpoint endpoint = endpoints.iterator().next();
+					Collection<ExposableWebEndpoint_RENAMED> endpoints = getHandlerMapping(context).getEndpoints();
+					ExposableWebEndpoint_RENAMED endpoint = endpoints.iterator().next();
 					assertThat(endpoint.getOperations()).hasSize(2);
 					WebOperation webOperation = findOperationWithRequestPath(endpoint, "health");
 					assertThat(webOperation).extracting("invoker").extracting("target")
@@ -298,7 +298,7 @@ class ReactiveCloudFoundryActuatorAutoConfigurationTests {
 				CloudFoundryWebFluxEndpointHandlerMapping.class);
 	}
 
-	private WebOperation findOperationWithRequestPath(ExposableWebEndpoint endpoint, String requestPath) {
+	private WebOperation findOperationWithRequestPath(ExposableWebEndpoint_RENAMED endpoint, String requestPath) {
 		for (WebOperation operation : endpoint.getOperations()) {
 			WebOperationRequestPredicate predicate = operation.getRequestPredicate();
 			if (predicate.getPath().equals(requestPath)

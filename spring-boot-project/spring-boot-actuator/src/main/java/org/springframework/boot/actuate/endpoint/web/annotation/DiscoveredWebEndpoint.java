@@ -21,15 +21,15 @@ import java.util.Collection;
 import org.springframework.boot.actuate.endpoint.EndpointId;
 import org.springframework.boot.actuate.endpoint.annotation.AbstractDiscoveredEndpoint;
 import org.springframework.boot.actuate.endpoint.annotation.EndpointDiscoverer;
-import org.springframework.boot.actuate.endpoint.web.ExposableWebEndpoint;
+import org.springframework.boot.actuate.endpoint.web.ExposableWebEndpoint_RENAMED;
 import org.springframework.boot.actuate.endpoint.web.WebOperation;
 
 /**
- * A discovered {@link ExposableWebEndpoint web endpoint}.
+ * A discovered {@link ExposableWebEndpoint_RENAMED web endpoint}.
  *
  * @author Phillip Webb
  */
-class DiscoveredWebEndpoint extends AbstractDiscoveredEndpoint<WebOperation> implements ExposableWebEndpoint {
+class DiscoveredWebEndpoint extends AbstractDiscoveredEndpoint<WebOperation> implements ExposableWebEndpoint_RENAMED {
 
 	private final String rootPath;
 

@@ -21,7 +21,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.actuate.endpoint.EndpointFilter;
 import org.springframework.boot.actuate.endpoint.EndpointId;
 import org.springframework.boot.actuate.endpoint.ExposableEndpoint;
-import org.springframework.boot.actuate.endpoint.web.ExposableWebEndpoint;
+import org.springframework.boot.actuate.endpoint.web.ExposableWebEndpoint_RENAMED;
 import org.springframework.mock.env.MockEnvironment;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -162,11 +162,11 @@ class ExposeExcludePropertyEndpointFilterTests {
 		return ((EndpointFilter) this.filter).match(endpoint);
 	}
 
-	abstract static class TestExposableWebEndpoint implements ExposableWebEndpoint {
+	abstract static class TestExposableWebEndpoint implements ExposableWebEndpoint_RENAMED {
 
 	}
 
-	abstract static class DifferentTestExposableWebEndpoint implements ExposableWebEndpoint {
+	abstract static class DifferentTestExposableWebEndpoint implements ExposableWebEndpoint_RENAMED {
 
 	}
 

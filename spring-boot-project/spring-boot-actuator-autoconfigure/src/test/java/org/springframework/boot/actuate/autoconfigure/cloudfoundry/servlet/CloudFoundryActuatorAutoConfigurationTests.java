@@ -32,7 +32,7 @@ import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
 import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
 import org.springframework.boot.actuate.endpoint.http.ActuatorMediaType;
 import org.springframework.boot.actuate.endpoint.web.EndpointMapping;
-import org.springframework.boot.actuate.endpoint.web.ExposableWebEndpoint;
+import org.springframework.boot.actuate.endpoint.web.ExposableWebEndpoint_RENAMED;
 import org.springframework.boot.actuate.endpoint.web.WebOperation;
 import org.springframework.boot.actuate.endpoint.web.WebOperationRequestPredicate;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
@@ -191,7 +191,7 @@ class CloudFoundryActuatorAutoConfigurationTests {
 				"vcap.application.application_id:my-app-id", "vcap.application.cf_api:https://my-cloud-controller.com")
 				.run((context) -> {
 					CloudFoundryWebEndpointServletHandlerMapping handlerMapping = getHandlerMapping(context);
-					Collection<ExposableWebEndpoint> endpoints = handlerMapping.getEndpoints();
+					Collection<ExposableWebEndpoint_RENAMED> endpoints = handlerMapping.getEndpoints();
 					assertThat(endpoints.stream()
 							.filter((candidate) -> EndpointId.of("test").equals(candidate.getEndpointId())).findFirst())
 									.isNotEmpty();
@@ -206,8 +206,8 @@ class CloudFoundryActuatorAutoConfigurationTests {
 						"management.endpoints.web.path-mapping.test=custom")
 				.withBean(TestEndpoint.class, TestEndpoint::new).run((context) -> {
 					CloudFoundryWebEndpointServletHandlerMapping handlerMapping = getHandlerMapping(context);
-					Collection<ExposableWebEndpoint> endpoints = handlerMapping.getEndpoints();
-					ExposableWebEndpoint endpoint = endpoints.stream()
+					Collection<ExposableWebEndpoint_RENAMED> endpoints = handlerMapping.getEndpoints();
+					ExposableWebEndpoint_RENAMED endpoint = endpoints.stream()
 							.filter((candidate) -> EndpointId.of("test").equals(candidate.getEndpointId())).findFirst()
 							.get();
 					Collection<WebOperation> operations = endpoint.getOperations();
@@ -224,11 +224,11 @@ class CloudFoundryActuatorAutoConfigurationTests {
 				.withConfiguration(AutoConfigurations.of(HealthContributorAutoConfiguration.class,
 						HealthEndpointAutoConfiguration.class))
 				.run((context) -> {
-					Collection<ExposableWebEndpoint> endpoints = context
+					Collection<ExposableWebEndpoint_RENAMED> endpoints = context
 							.getBean("cloudFoundryWebEndpointServletHandlerMapping",
 									CloudFoundryWebEndpointServletHandlerMapping.class)
 							.getEndpoints();
-					ExposableWebEndpoint endpoint = endpoints.iterator().next();
+					ExposableWebEndpoint_RENAMED endpoint = endpoints.iterator().next();
 					assertThat(endpoint.getOperations()).hasSize(2);
 					WebOperation webOperation = findOperationWithRequestPath(endpoint, "health");
 					assertThat(webOperation).extracting("invoker").extracting("target")
@@ -241,7 +241,7 @@ class CloudFoundryActuatorAutoConfigurationTests {
 				CloudFoundryWebEndpointServletHandlerMapping.class);
 	}
 
-	private WebOperation findOperationWithRequestPath(ExposableWebEndpoint endpoint, String requestPath) {
+	private WebOperation findOperationWithRequestPath(ExposableWebEndpoint_RENAMED endpoint, String requestPath) {
 		for (WebOperation operation : endpoint.getOperations()) {
 			WebOperationRequestPredicate predicate = operation.getRequestPredicate();
 			if (predicate.getPath().equals(requestPath)

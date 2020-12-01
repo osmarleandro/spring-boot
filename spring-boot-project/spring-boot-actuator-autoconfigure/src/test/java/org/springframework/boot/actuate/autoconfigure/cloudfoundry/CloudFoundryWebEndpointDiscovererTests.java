@@ -31,7 +31,7 @@ import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
 import org.springframework.boot.actuate.endpoint.invoke.convert.ConversionServiceParameterValueMapper;
 import org.springframework.boot.actuate.endpoint.invoker.cache.CachingOperationInvokerAdvisor;
 import org.springframework.boot.actuate.endpoint.web.EndpointMediaTypes;
-import org.springframework.boot.actuate.endpoint.web.ExposableWebEndpoint;
+import org.springframework.boot.actuate.endpoint.web.ExposableWebEndpoint_RENAMED;
 import org.springframework.boot.actuate.endpoint.web.PathMapper;
 import org.springframework.boot.actuate.endpoint.web.WebOperation;
 import org.springframework.boot.actuate.endpoint.web.annotation.EndpointWebExtension;
@@ -56,9 +56,9 @@ class CloudFoundryWebEndpointDiscovererTests {
 	@Test
 	void getEndpointsShouldAddCloudFoundryHealthExtension() {
 		load(TestConfiguration.class, (discoverer) -> {
-			Collection<ExposableWebEndpoint> endpoints = discoverer.getEndpoints();
+			Collection<ExposableWebEndpoint_RENAMED> endpoints = discoverer.getEndpoints();
 			assertThat(endpoints.size()).isEqualTo(2);
-			for (ExposableWebEndpoint endpoint : endpoints) {
+			for (ExposableWebEndpoint_RENAMED endpoint : endpoints) {
 				if (endpoint.getEndpointId().equals(EndpointId.of("health"))) {
 					WebOperation operation = findMainReadOperation(endpoint);
 					assertThat(operation
@@ -69,7 +69,7 @@ class CloudFoundryWebEndpointDiscovererTests {
 		});
 	}
 
-	private WebOperation findMainReadOperation(ExposableWebEndpoint endpoint) {
+	private WebOperation findMainReadOperation(ExposableWebEndpoint_RENAMED endpoint) {
 		for (WebOperation operation : endpoint.getOperations()) {
 			if (operation.getRequestPredicate().getPath().equals("health")) {
 				return operation;

@@ -37,7 +37,7 @@ import org.springframework.boot.actuate.endpoint.http.ApiVersion;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvoker;
 import org.springframework.boot.actuate.endpoint.web.EndpointMapping;
 import org.springframework.boot.actuate.endpoint.web.EndpointMediaTypes;
-import org.springframework.boot.actuate.endpoint.web.ExposableWebEndpoint;
+import org.springframework.boot.actuate.endpoint.web.ExposableWebEndpoint_RENAMED;
 import org.springframework.boot.actuate.endpoint.web.WebEndpointResponse;
 import org.springframework.boot.actuate.endpoint.web.WebOperation;
 import org.springframework.boot.actuate.endpoint.web.WebOperationRequestPredicate;
@@ -64,7 +64,7 @@ import org.springframework.web.servlet.mvc.method.RequestMappingInfoHandlerMappi
 import org.springframework.web.util.UrlPathHelper;
 
 /**
- * A custom {@link HandlerMapping} that makes {@link ExposableWebEndpoint web endpoints}
+ * A custom {@link HandlerMapping} that makes {@link ExposableWebEndpoint_RENAMED web endpoints}
  * available over HTTP using Spring MVC.
  *
  * @author Andy Wilkinson
@@ -78,7 +78,7 @@ public abstract class AbstractWebMvcEndpointHandlerMapping extends RequestMappin
 
 	private final EndpointMapping endpointMapping;
 
-	private final Collection<ExposableWebEndpoint> endpoints;
+	private final Collection<ExposableWebEndpoint_RENAMED> endpoints;
 
 	private final EndpointMediaTypes endpointMediaTypes;
 
@@ -100,7 +100,7 @@ public abstract class AbstractWebMvcEndpointHandlerMapping extends RequestMappin
 	 * @param shouldRegisterLinksMapping whether the links endpoint should be registered
 	 */
 	public AbstractWebMvcEndpointHandlerMapping(EndpointMapping endpointMapping,
-			Collection<ExposableWebEndpoint> endpoints, EndpointMediaTypes endpointMediaTypes,
+			Collection<ExposableWebEndpoint_RENAMED> endpoints, EndpointMediaTypes endpointMediaTypes,
 			boolean shouldRegisterLinksMapping) {
 		this(endpointMapping, endpoints, endpointMediaTypes, null, shouldRegisterLinksMapping);
 	}
@@ -115,7 +115,7 @@ public abstract class AbstractWebMvcEndpointHandlerMapping extends RequestMappin
 	 * @param shouldRegisterLinksMapping whether the links endpoint should be registered
 	 */
 	public AbstractWebMvcEndpointHandlerMapping(EndpointMapping endpointMapping,
-			Collection<ExposableWebEndpoint> endpoints, EndpointMediaTypes endpointMediaTypes,
+			Collection<ExposableWebEndpoint_RENAMED> endpoints, EndpointMediaTypes endpointMediaTypes,
 			CorsConfiguration corsConfiguration, boolean shouldRegisterLinksMapping) {
 		this.endpointMapping = endpointMapping;
 		this.endpoints = endpoints;
@@ -127,7 +127,7 @@ public abstract class AbstractWebMvcEndpointHandlerMapping extends RequestMappin
 
 	@Override
 	protected void initHandlerMethods() {
-		for (ExposableWebEndpoint endpoint : this.endpoints) {
+		for (ExposableWebEndpoint_RENAMED endpoint : this.endpoints) {
 			for (WebOperation operation : endpoint.getOperations()) {
 				registerMappingForOperation(endpoint, operation);
 			}
@@ -164,7 +164,7 @@ public abstract class AbstractWebMvcEndpointHandlerMapping extends RequestMappin
 		return config;
 	}
 
-	private void registerMappingForOperation(ExposableWebEndpoint endpoint, WebOperation operation) {
+	private void registerMappingForOperation(ExposableWebEndpoint_RENAMED endpoint, WebOperation operation) {
 		WebOperationRequestPredicate predicate = operation.getRequestPredicate();
 		String path = predicate.getPath();
 		String matchAllRemainingPathSegmentsVariable = predicate.getMatchAllRemainingPathSegmentsVariable();
@@ -185,7 +185,7 @@ public abstract class AbstractWebMvcEndpointHandlerMapping extends RequestMappin
 	 * @param servletWebOperation the servlet web operation to wrap
 	 * @return a wrapped servlet web operation
 	 */
-	protected ServletWebOperation wrapServletWebOperation(ExposableWebEndpoint endpoint, WebOperation operation,
+	protected ServletWebOperation wrapServletWebOperation(ExposableWebEndpoint_RENAMED endpoint, WebOperation operation,
 			ServletWebOperation servletWebOperation) {
 		return servletWebOperation;
 	}
@@ -241,7 +241,7 @@ public abstract class AbstractWebMvcEndpointHandlerMapping extends RequestMappin
 	 * Return the web endpoints being mapped.
 	 * @return the endpoints
 	 */
-	public Collection<ExposableWebEndpoint> getEndpoints() {
+	public Collection<ExposableWebEndpoint_RENAMED> getEndpoints() {
 		return this.endpoints;
 	}
 

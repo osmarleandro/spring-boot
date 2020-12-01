@@ -37,7 +37,7 @@ import org.springframework.boot.actuate.endpoint.http.ApiVersion;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvoker;
 import org.springframework.boot.actuate.endpoint.web.EndpointMapping;
 import org.springframework.boot.actuate.endpoint.web.EndpointMediaTypes;
-import org.springframework.boot.actuate.endpoint.web.ExposableWebEndpoint;
+import org.springframework.boot.actuate.endpoint.web.ExposableWebEndpoint_RENAMED;
 import org.springframework.boot.actuate.endpoint.web.WebEndpointResponse;
 import org.springframework.boot.actuate.endpoint.web.WebOperation;
 import org.springframework.boot.actuate.endpoint.web.WebOperationRequestPredicate;
@@ -85,7 +85,7 @@ public abstract class AbstractWebFluxEndpointHandlerMapping extends RequestMappi
 
 	private final EndpointMapping endpointMapping;
 
-	private final Collection<ExposableWebEndpoint> endpoints;
+	private final Collection<ExposableWebEndpoint_RENAMED> endpoints;
 
 	private final EndpointMediaTypes endpointMediaTypes;
 
@@ -109,7 +109,7 @@ public abstract class AbstractWebFluxEndpointHandlerMapping extends RequestMappi
 	 * @param shouldRegisterLinksMapping whether the links endpoint should be registered
 	 */
 	public AbstractWebFluxEndpointHandlerMapping(EndpointMapping endpointMapping,
-			Collection<ExposableWebEndpoint> endpoints, EndpointMediaTypes endpointMediaTypes,
+			Collection<ExposableWebEndpoint_RENAMED> endpoints, EndpointMediaTypes endpointMediaTypes,
 			CorsConfiguration corsConfiguration, boolean shouldRegisterLinksMapping) {
 		this.endpointMapping = endpointMapping;
 		this.endpoints = endpoints;
@@ -121,7 +121,7 @@ public abstract class AbstractWebFluxEndpointHandlerMapping extends RequestMappi
 
 	@Override
 	protected void initHandlerMethods() {
-		for (ExposableWebEndpoint endpoint : this.endpoints) {
+		for (ExposableWebEndpoint_RENAMED endpoint : this.endpoints) {
 			for (WebOperation operation : endpoint.getOperations()) {
 				registerMappingForOperation(endpoint, operation);
 			}
@@ -137,7 +137,7 @@ public abstract class AbstractWebFluxEndpointHandlerMapping extends RequestMappi
 		return new WebFluxEndpointHandlerMethod(handlerMethod.getBean(), handlerMethod.getMethod());
 	}
 
-	private void registerMappingForOperation(ExposableWebEndpoint endpoint, WebOperation operation) {
+	private void registerMappingForOperation(ExposableWebEndpoint_RENAMED endpoint, WebOperation operation) {
 		ReactiveWebOperation reactiveWebOperation = wrapReactiveWebOperation(endpoint, operation,
 				new ReactiveWebOperationAdapter(operation));
 		if (operation.getType() == OperationType.WRITE) {
@@ -158,7 +158,7 @@ public abstract class AbstractWebFluxEndpointHandlerMapping extends RequestMappi
 	 * @param reactiveWebOperation the reactive web operation to wrap
 	 * @return a wrapped reactive web operation
 	 */
-	protected ReactiveWebOperation wrapReactiveWebOperation(ExposableWebEndpoint endpoint, WebOperation operation,
+	protected ReactiveWebOperation wrapReactiveWebOperation(ExposableWebEndpoint_RENAMED endpoint, WebOperation operation,
 			ReactiveWebOperation reactiveWebOperation) {
 		return reactiveWebOperation;
 	}
@@ -218,7 +218,7 @@ public abstract class AbstractWebFluxEndpointHandlerMapping extends RequestMappi
 	 * Return the web endpoints being mapped.
 	 * @return the endpoints
 	 */
-	public Collection<ExposableWebEndpoint> getEndpoints() {
+	public Collection<ExposableWebEndpoint_RENAMED> getEndpoints() {
 		return this.endpoints;
 	}
 

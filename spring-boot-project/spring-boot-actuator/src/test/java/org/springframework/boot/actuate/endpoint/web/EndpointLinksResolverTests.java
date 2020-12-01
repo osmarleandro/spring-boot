@@ -60,7 +60,7 @@ class EndpointLinksResolverTests {
 		List<WebOperation> operations = new ArrayList<>();
 		operations.add(operationWithPath("/alpha", "alpha"));
 		operations.add(operationWithPath("/alpha/{name}", "alpha-name"));
-		ExposableWebEndpoint endpoint = mock(ExposableWebEndpoint.class);
+		ExposableWebEndpoint_RENAMED endpoint = mock(ExposableWebEndpoint_RENAMED.class);
 		given(endpoint.getEndpointId()).willReturn(EndpointId.of("alpha"));
 		given(endpoint.isEnableByDefault()).willReturn(true);
 		given(endpoint.getOperations()).willReturn(operations);

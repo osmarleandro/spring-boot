@@ -27,7 +27,7 @@ import org.springframework.boot.actuate.endpoint.invoke.OperationInvoker;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvokerAdvisor;
 import org.springframework.boot.actuate.endpoint.invoke.ParameterValueMapper;
 import org.springframework.boot.actuate.endpoint.web.EndpointMediaTypes;
-import org.springframework.boot.actuate.endpoint.web.ExposableWebEndpoint;
+import org.springframework.boot.actuate.endpoint.web.ExposableWebEndpoint_RENAMED;
 import org.springframework.boot.actuate.endpoint.web.PathMapper;
 import org.springframework.boot.actuate.endpoint.web.WebEndpointsSupplier;
 import org.springframework.boot.actuate.endpoint.web.WebOperation;
@@ -35,12 +35,12 @@ import org.springframework.boot.actuate.endpoint.web.WebOperationRequestPredicat
 import org.springframework.context.ApplicationContext;
 
 /**
- * {@link EndpointDiscoverer} for {@link ExposableWebEndpoint web endpoints}.
+ * {@link EndpointDiscoverer} for {@link ExposableWebEndpoint_RENAMED web endpoints}.
  *
  * @author Phillip Webb
  * @since 2.0.0
  */
-public class WebEndpointDiscoverer extends EndpointDiscoverer<ExposableWebEndpoint, WebOperation>
+public class WebEndpointDiscoverer extends EndpointDiscoverer<ExposableWebEndpoint_RENAMED, WebOperation>
 		implements WebEndpointsSupplier {
 
 	private final List<PathMapper> endpointPathMappers;
@@ -59,14 +59,14 @@ public class WebEndpointDiscoverer extends EndpointDiscoverer<ExposableWebEndpoi
 	public WebEndpointDiscoverer(ApplicationContext applicationContext, ParameterValueMapper parameterValueMapper,
 			EndpointMediaTypes endpointMediaTypes, List<PathMapper> endpointPathMappers,
 			Collection<OperationInvokerAdvisor> invokerAdvisors,
-			Collection<EndpointFilter<ExposableWebEndpoint>> filters) {
+			Collection<EndpointFilter<ExposableWebEndpoint_RENAMED>> filters) {
 		super(applicationContext, parameterValueMapper, invokerAdvisors, filters);
 		this.endpointPathMappers = endpointPathMappers;
 		this.requestPredicateFactory = new RequestPredicateFactory(endpointMediaTypes);
 	}
 
 	@Override
-	protected ExposableWebEndpoint createEndpoint(Object endpointBean, EndpointId id, boolean enabledByDefault,
+	protected ExposableWebEndpoint_RENAMED createEndpoint(Object endpointBean, EndpointId id, boolean enabledByDefault,
 			Collection<WebOperation> operations) {
 		String rootPath = PathMapper.getRootPath(this.endpointPathMappers, id);
 		return new DiscoveredWebEndpoint(this, endpointBean, id, rootPath, enabledByDefault, operations);

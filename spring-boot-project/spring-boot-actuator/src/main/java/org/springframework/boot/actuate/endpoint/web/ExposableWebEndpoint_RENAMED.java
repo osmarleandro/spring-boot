@@ -16,15 +16,14 @@
 
 package org.springframework.boot.actuate.endpoint.web;
 
-import org.springframework.boot.actuate.endpoint.EndpointsSupplier;
+import org.springframework.boot.actuate.endpoint.ExposableEndpoint;
 
 /**
- * {@link EndpointsSupplier} for {@link ExposableWebEndpoint_RENAMED web endpoints}.
+ * Information describing an endpoint that can be exposed over the web.
  *
  * @author Phillip Webb
  * @since 2.0.0
  */
-@FunctionalInterface
-public interface WebEndpointsSupplier extends EndpointsSupplier<ExposableWebEndpoint_RENAMED> {
+public interface ExposableWebEndpoint_RENAMED extends ExposableEndpoint<WebOperation>, PathMappedEndpoint {
 
 }

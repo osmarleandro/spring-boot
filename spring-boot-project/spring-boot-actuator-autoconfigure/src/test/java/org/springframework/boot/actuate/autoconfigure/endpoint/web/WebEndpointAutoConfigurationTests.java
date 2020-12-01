@@ -29,7 +29,7 @@ import org.springframework.boot.actuate.endpoint.EndpointId;
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
 import org.springframework.boot.actuate.endpoint.http.ActuatorMediaType;
 import org.springframework.boot.actuate.endpoint.web.EndpointMediaTypes;
-import org.springframework.boot.actuate.endpoint.web.ExposableWebEndpoint;
+import org.springframework.boot.actuate.endpoint.web.ExposableWebEndpoint_RENAMED;
 import org.springframework.boot.actuate.endpoint.web.PathMappedEndpoint;
 import org.springframework.boot.actuate.endpoint.web.PathMapper;
 import org.springframework.boot.actuate.endpoint.web.annotation.ControllerEndpointDiscoverer;
@@ -85,8 +85,8 @@ class WebEndpointAutoConfigurationTests {
 						TestTwoEndpoint.class)
 				.run((context) -> {
 					WebEndpointDiscoverer discoverer = context.getBean(WebEndpointDiscoverer.class);
-					Collection<ExposableWebEndpoint> endpoints = discoverer.getEndpoints();
-					ExposableWebEndpoint[] webEndpoints = endpoints.toArray(new ExposableWebEndpoint[0]);
+					Collection<ExposableWebEndpoint_RENAMED> endpoints = discoverer.getEndpoints();
+					ExposableWebEndpoint_RENAMED[] webEndpoints = endpoints.toArray(new ExposableWebEndpoint_RENAMED[0]);
 					List<String> paths = Arrays.stream(webEndpoints).map(PathMappedEndpoint::getRootPath)
 							.collect(Collectors.toList());
 					assertThat(paths).containsOnly("1/testone", "foo", "testtwo");

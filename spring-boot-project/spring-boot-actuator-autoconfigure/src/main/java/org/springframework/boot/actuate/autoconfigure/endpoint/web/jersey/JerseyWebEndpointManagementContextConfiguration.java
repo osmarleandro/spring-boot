@@ -36,7 +36,7 @@ import org.springframework.boot.actuate.endpoint.web.EndpointLinksResolver;
 import org.springframework.boot.actuate.endpoint.web.EndpointMapping;
 import org.springframework.boot.actuate.endpoint.web.EndpointMediaTypes;
 import org.springframework.boot.actuate.endpoint.web.ExposableServletEndpoint;
-import org.springframework.boot.actuate.endpoint.web.ExposableWebEndpoint;
+import org.springframework.boot.actuate.endpoint.web.ExposableWebEndpoint_RENAMED;
 import org.springframework.boot.actuate.endpoint.web.WebEndpointsSupplier;
 import org.springframework.boot.actuate.endpoint.web.annotation.ServletEndpointsSupplier;
 import org.springframework.boot.actuate.endpoint.web.jersey.JerseyEndpointResourceFactory;
@@ -122,7 +122,7 @@ class JerseyWebEndpointManagementContextConfiguration {
 			if (this.resourceConfig == null) {
 				return;
 			}
-			Collection<ExposableWebEndpoint> webEndpoints = this.webEndpointsSupplier.getEndpoints();
+			Collection<ExposableWebEndpoint_RENAMED> webEndpoints = this.webEndpointsSupplier.getEndpoints();
 			Collection<ExposableServletEndpoint> servletEndpoints = this.servletEndpointsSupplier.getEndpoints();
 			EndpointLinksResolver linksResolver = getLinksResolver(webEndpoints, servletEndpoints);
 			EndpointMapping mapping = new EndpointMapping(this.basePath);
@@ -131,7 +131,7 @@ class JerseyWebEndpointManagementContextConfiguration {
 					this.shouldRegisterLinks));
 		}
 
-		private EndpointLinksResolver getLinksResolver(Collection<ExposableWebEndpoint> webEndpoints,
+		private EndpointLinksResolver getLinksResolver(Collection<ExposableWebEndpoint_RENAMED> webEndpoints,
 				Collection<ExposableServletEndpoint> servletEndpoints) {
 			List<ExposableEndpoint<?>> endpoints = new ArrayList<>(webEndpoints.size() + servletEndpoints.size());
 			endpoints.addAll(webEndpoints);

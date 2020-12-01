@@ -31,7 +31,7 @@ import org.springframework.boot.actuate.endpoint.invoke.OperationInvokerAdvisor;
 import org.springframework.boot.actuate.endpoint.invoke.ParameterValueMapper;
 import org.springframework.boot.actuate.endpoint.web.EndpointMediaTypes;
 import org.springframework.boot.actuate.endpoint.web.ExposableServletEndpoint;
-import org.springframework.boot.actuate.endpoint.web.ExposableWebEndpoint;
+import org.springframework.boot.actuate.endpoint.web.ExposableWebEndpoint_RENAMED;
 import org.springframework.boot.actuate.endpoint.web.PathMappedEndpoints;
 import org.springframework.boot.actuate.endpoint.web.PathMapper;
 import org.springframework.boot.actuate.endpoint.web.WebEndpointsSupplier;
@@ -90,7 +90,7 @@ public class WebEndpointAutoConfiguration {
 	public WebEndpointDiscoverer webEndpointDiscoverer(ParameterValueMapper parameterValueMapper,
 			EndpointMediaTypes endpointMediaTypes, ObjectProvider<PathMapper> endpointPathMappers,
 			ObjectProvider<OperationInvokerAdvisor> invokerAdvisors,
-			ObjectProvider<EndpointFilter<ExposableWebEndpoint>> filters) {
+			ObjectProvider<EndpointFilter<ExposableWebEndpoint_RENAMED>> filters) {
 		return new WebEndpointDiscoverer(this.applicationContext, parameterValueMapper, endpointMediaTypes,
 				endpointPathMappers.orderedStream().collect(Collectors.toList()),
 				invokerAdvisors.orderedStream().collect(Collectors.toList()),
@@ -113,9 +113,9 @@ public class WebEndpointAutoConfiguration {
 	}
 
 	@Bean
-	public IncludeExcludeEndpointFilter<ExposableWebEndpoint> webExposeExcludePropertyEndpointFilter() {
+	public IncludeExcludeEndpointFilter<ExposableWebEndpoint_RENAMED> webExposeExcludePropertyEndpointFilter() {
 		WebEndpointProperties.Exposure exposure = this.properties.getExposure();
-		return new IncludeExcludeEndpointFilter<>(ExposableWebEndpoint.class, exposure.getInclude(),
+		return new IncludeExcludeEndpointFilter<>(ExposableWebEndpoint_RENAMED.class, exposure.getInclude(),
 				exposure.getExclude(), DefaultIncludes.WEB);
 	}
 
