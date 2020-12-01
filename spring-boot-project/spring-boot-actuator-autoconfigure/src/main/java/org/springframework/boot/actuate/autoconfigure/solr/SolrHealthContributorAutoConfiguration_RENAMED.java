@@ -45,7 +45,7 @@ import org.springframework.context.annotation.Configuration;
 @ConditionalOnBean(SolrClient.class)
 @ConditionalOnEnabledHealthIndicator("solr")
 @AutoConfigureAfter(SolrAutoConfiguration.class)
-public class SolrHealthContributorAutoConfiguration
+public class SolrHealthContributorAutoConfiguration_RENAMED
 		extends CompositeHealthContributorConfiguration<SolrHealthIndicator, SolrClient> {
 
 	@Bean
