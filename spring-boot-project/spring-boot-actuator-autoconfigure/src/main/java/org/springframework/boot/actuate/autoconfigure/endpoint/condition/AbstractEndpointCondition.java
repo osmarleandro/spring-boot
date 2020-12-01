@@ -22,7 +22,7 @@ import java.util.Optional;
 
 import org.springframework.boot.actuate.endpoint.EndpointId;
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
-import org.springframework.boot.actuate.endpoint.annotation.EndpointExtension;
+import org.springframework.boot.actuate.endpoint.annotation.EndpointExtension_RENAMED;
 import org.springframework.boot.autoconfigure.condition.ConditionMessage;
 import org.springframework.boot.autoconfigure.condition.ConditionOutcome;
 import org.springframework.boot.autoconfigure.condition.SpringBootCondition;
@@ -106,7 +106,7 @@ abstract class AbstractEndpointCondition extends SpringBootCondition {
 		if (endpoint.isPresent()) {
 			return endpoint.asAnnotationAttributes();
 		}
-		MergedAnnotation<EndpointExtension> extension = annotations.get(EndpointExtension.class);
+		MergedAnnotation<EndpointExtension_RENAMED> extension = annotations.get(EndpointExtension_RENAMED.class);
 		Assert.state(extension.isPresent(), "No endpoint is specified and the return type of the @Bean method is "
 				+ "neither an @Endpoint, nor an @EndpointExtension");
 		return getEndpointAttributes(extension.getClass("endpoint"));

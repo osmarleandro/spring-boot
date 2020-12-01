@@ -23,7 +23,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
-import org.springframework.boot.actuate.endpoint.annotation.EndpointExtension;
+import org.springframework.boot.actuate.endpoint.annotation.EndpointExtension_RENAMED;
 import org.springframework.context.annotation.Conditional;
 import org.springframework.core.env.Environment;
 
@@ -107,7 +107,7 @@ public @interface ConditionalOnAvailableEndpoint {
 	/**
 	 * The endpoint type that should be checked. Inferred when the return type of the
 	 * {@code @Bean} method is either an {@link Endpoint @Endpoint} or an
-	 * {@link EndpointExtension @EndpointExtension}.
+	 * {@link EndpointExtension_RENAMED @EndpointExtension}.
 	 * @return the endpoint type to check
 	 */
 	Class<?> endpoint() default Void.class;

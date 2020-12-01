@@ -18,12 +18,12 @@ package org.springframework.boot.actuate.autoconfigure.cloudfoundry.servlet;
 import java.util.Map;
 
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.EndpointCloudFoundryExtension;
-import org.springframework.boot.actuate.endpoint.annotation.EndpointExtension;
+import org.springframework.boot.actuate.endpoint.annotation.EndpointExtension_RENAMED;
 import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
 import org.springframework.boot.actuate.info.InfoEndpoint;
 
 /**
- * {@link EndpointExtension @EndpointExtension} for the {@link InfoEndpoint} that always
+ * {@link EndpointExtension_RENAMED @EndpointExtension} for the {@link InfoEndpoint} that always
  * exposes full git details.
  *
  * @author Madhura Bhave

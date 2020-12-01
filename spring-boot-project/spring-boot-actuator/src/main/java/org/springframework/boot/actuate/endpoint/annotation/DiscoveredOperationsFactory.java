@@ -39,7 +39,7 @@ import org.springframework.core.annotation.MergedAnnotations;
 
 /**
  * Factory to create an {@link Operation} for annotated methods on an
- * {@link Endpoint @Endpoint} or {@link EndpointExtension @EndpointExtension}.
+ * {@link Endpoint @Endpoint} or {@link EndpointExtension_RENAMED @EndpointExtension}.
  *
  * @param <O> the operation type
  * @author Andy Wilkinson

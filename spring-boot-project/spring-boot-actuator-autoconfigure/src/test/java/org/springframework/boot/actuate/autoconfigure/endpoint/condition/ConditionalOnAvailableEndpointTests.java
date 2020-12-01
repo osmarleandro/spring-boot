@@ -21,7 +21,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.actuate.endpoint.EndpointFilter;
 import org.springframework.boot.actuate.endpoint.ExposableEndpoint;
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
-import org.springframework.boot.actuate.endpoint.annotation.EndpointExtension;
+import org.springframework.boot.actuate.endpoint.annotation.EndpointExtension_RENAMED;
 import org.springframework.boot.test.context.runner.ApplicationContextRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -226,7 +226,7 @@ class ConditionalOnAvailableEndpointTests {
 
 	}
 
-	@EndpointExtension(endpoint = SpringEndpoint.class, filter = TestFilter.class)
+	@EndpointExtension_RENAMED(endpoint = SpringEndpoint.class, filter = TestFilter.class)
 	static class SpringEndpointExtension {
 
 	}

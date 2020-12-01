@@ -23,7 +23,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
-import org.springframework.boot.actuate.endpoint.annotation.EndpointExtension;
+import org.springframework.boot.actuate.endpoint.annotation.EndpointExtension_RENAMED;
 
 /**
  * Identifies a type as being a Cloud Foundry specific extension for an
@@ -36,7 +36,7 @@ import org.springframework.boot.actuate.endpoint.annotation.EndpointExtension;
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-@EndpointExtension(filter = CloudFoundryEndpointFilter.class)
+@EndpointExtension_RENAMED(filter = CloudFoundryEndpointFilter.class)
 public @interface EndpointCloudFoundryExtension {
 
 	/**

@@ -23,7 +23,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
-import org.springframework.boot.actuate.endpoint.annotation.EndpointExtension;
+import org.springframework.boot.actuate.endpoint.annotation.EndpointExtension_RENAMED;
 import org.springframework.core.annotation.AliasFor;
 
 /**
@@ -37,14 +37,14 @@ import org.springframework.core.annotation.AliasFor;
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-@EndpointExtension(filter = WebEndpointFilter.class)
+@EndpointExtension_RENAMED(filter = WebEndpointFilter.class)
 public @interface EndpointWebExtension {
 
 	/**
 	 * The {@link Endpoint endpoint} class to which this Web extension relates.
 	 * @return the endpoint class
 	 */
-	@AliasFor(annotation = EndpointExtension.class)
+	@AliasFor(annotation = EndpointExtension_RENAMED.class)
 	Class<?> endpoint();
 
 }

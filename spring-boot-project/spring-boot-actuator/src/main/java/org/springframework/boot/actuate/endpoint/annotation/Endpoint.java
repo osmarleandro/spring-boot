@@ -39,12 +39,12 @@ import org.springframework.boot.actuate.endpoint.EndpointId;
  * support the broadest possible range of exposure technologies. If you need deeper
  * support for a specific technology you can either write an endpoint that is
  * {@link FilteredEndpoint filtered} to a certain technology, or provide
- * {@link EndpointExtension extension} for the broader endpoint.
+ * {@link EndpointExtension_RENAMED extension} for the broader endpoint.
  *
  * @author Andy Wilkinson
  * @author Phillip Webb
  * @since 2.0.0
- * @see EndpointExtension
+ * @see EndpointExtension_RENAMED
  * @see FilteredEndpoint
  * @see EndpointDiscoverer
  */

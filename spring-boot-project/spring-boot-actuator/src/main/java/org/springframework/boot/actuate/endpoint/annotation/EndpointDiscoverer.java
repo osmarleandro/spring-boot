@@ -57,7 +57,7 @@ import org.springframework.util.StringUtils;
 
 /**
  * A Base for {@link EndpointsSupplier} implementations that discover
- * {@link Endpoint @Endpoint} beans and {@link EndpointExtension @EndpointExtension} beans
+ * {@link Endpoint @Endpoint} beans and {@link EndpointExtension_RENAMED @EndpointExtension} beans
  * in an application context.
  *
  * @param <E> the endpoint type
@@ -150,7 +150,7 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 		Map<EndpointId, EndpointBean> byId = endpointBeans.stream()
 				.collect(Collectors.toMap(EndpointBean::getId, Function.identity()));
 		String[] beanNames = BeanFactoryUtils.beanNamesForAnnotationIncludingAncestors(this.applicationContext,
-				EndpointExtension.class);
+				EndpointExtension_RENAMED.class);
 		for (String beanName : beanNames) {
 			ExtensionBean extensionBean = createExtensionBean(beanName);
 			EndpointBean endpointBean = byId.get(extensionBean.getEndpointId());
@@ -484,7 +484,7 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 	}
 
 	/**
-	 * Information about an {@link EndpointExtension @EndpointExtension} bean.
+	 * Information about an {@link EndpointExtension_RENAMED @EndpointExtension} bean.
 	 */
 	private static class ExtensionBean {
 
@@ -502,8 +502,8 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 			this.beanName = beanName;
 			this.beanType = beanType;
 			this.beanSupplier = beanSupplier;
-			MergedAnnotation<EndpointExtension> extensionAnnotation = MergedAnnotations
-					.from(beanType, SearchStrategy.TYPE_HIERARCHY).get(EndpointExtension.class);
+			MergedAnnotation<EndpointExtension_RENAMED> extensionAnnotation = MergedAnnotations
+					.from(beanType, SearchStrategy.TYPE_HIERARCHY).get(EndpointExtension_RENAMED.class);
 			Class<?> endpointType = extensionAnnotation.getClass("endpoint");
 			MergedAnnotation<Endpoint> endpointAnnotation = MergedAnnotations
 					.from(endpointType, SearchStrategy.TYPE_HIERARCHY).get(Endpoint.class);
