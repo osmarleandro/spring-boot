@@ -27,7 +27,7 @@ import javax.management.modelmbean.ModelMBeanInfoSupport;
 import javax.management.modelmbean.ModelMBeanNotificationInfo;
 import javax.management.modelmbean.ModelMBeanOperationInfo;
 
-import org.springframework.boot.actuate.endpoint.OperationType;
+import org.springframework.boot.actuate.endpoint.OperationType_RENAMED;
 
 /**
  * Factory to create {@link MBeanInfo} from an {@link ExposableJmxEndpoint}.
@@ -82,11 +82,11 @@ class MBeanInfoFactory {
 		return new MBeanParameterInfo(parameter.getName(), parameter.getType().getName(), parameter.getDescription());
 	}
 
-	private int getImpact(OperationType operationType) {
-		if (operationType == OperationType.READ) {
+	private int getImpact(OperationType_RENAMED operationType) {
+		if (operationType == OperationType_RENAMED.READ) {
 			return MBeanOperationInfo.INFO;
 		}
-		if (operationType == OperationType.WRITE || operationType == OperationType.DELETE) {
+		if (operationType == OperationType_RENAMED.WRITE || operationType == OperationType_RENAMED.DELETE) {
 			return MBeanOperationInfo.ACTION;
 		}
 		return MBeanOperationInfo.UNKNOWN;

@@ -21,7 +21,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import org.springframework.boot.actuate.endpoint.OperationType;
+import org.springframework.boot.actuate.endpoint.OperationType_RENAMED;
 import org.springframework.boot.actuate.endpoint.invoke.reflect.OperationMethod;
 import org.springframework.core.annotation.AnnotationAttributes;
 import org.springframework.util.Assert;
@@ -36,7 +36,7 @@ public class DiscoveredOperationMethod extends OperationMethod {
 
 	private final List<String> producesMediaTypes;
 
-	public DiscoveredOperationMethod(Method method, OperationType operationType,
+	public DiscoveredOperationMethod(Method method, OperationType_RENAMED operationType,
 			AnnotationAttributes annotationAttributes) {
 		super(method, operationType);
 		Assert.notNull(annotationAttributes, "AnnotationAttributes must not be null");

@@ -25,7 +25,7 @@ import org.assertj.core.api.Condition;
 import org.junit.jupiter.api.Test;
 
 import org.springframework.boot.actuate.endpoint.EndpointId;
-import org.springframework.boot.actuate.endpoint.OperationType;
+import org.springframework.boot.actuate.endpoint.OperationType_RENAMED;
 import org.springframework.boot.actuate.endpoint.web.annotation.ExposableControllerEndpoint;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -107,7 +107,7 @@ class EndpointLinksResolverTests {
 				Collections.emptyList(), Collections.emptyList());
 		WebOperation operation = mock(WebOperation.class);
 		given(operation.getId()).willReturn(id);
-		given(operation.getType()).willReturn(OperationType.READ);
+		given(operation.getType()).willReturn(OperationType_RENAMED.READ);
 		given(operation.getRequestPredicate()).willReturn(predicate);
 		return operation;
 	}

@@ -20,7 +20,7 @@ import java.lang.reflect.Method;
 
 import org.junit.jupiter.api.Test;
 
-import org.springframework.boot.actuate.endpoint.OperationType;
+import org.springframework.boot.actuate.endpoint.OperationType_RENAMED;
 import org.springframework.core.annotation.AnnotationAttributes;
 import org.springframework.util.ReflectionUtils;
 
@@ -38,7 +38,7 @@ class DiscoveredOperationMethodTests {
 	void createWhenAnnotationAttributesIsNullShouldThrowException() {
 		Method method = ReflectionUtils.findMethod(getClass(), "example");
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> new DiscoveredOperationMethod(method, OperationType.READ, null))
+				.isThrownBy(() -> new DiscoveredOperationMethod(method, OperationType_RENAMED.READ, null))
 				.withMessageContaining("AnnotationAttributes must not be null");
 	}
 
@@ -48,7 +48,7 @@ class DiscoveredOperationMethodTests {
 		AnnotationAttributes annotationAttributes = new AnnotationAttributes();
 		String[] produces = new String[] { "application/json" };
 		annotationAttributes.put("produces", produces);
-		DiscoveredOperationMethod discovered = new DiscoveredOperationMethod(method, OperationType.READ,
+		DiscoveredOperationMethod discovered = new DiscoveredOperationMethod(method, OperationType_RENAMED.READ,
 				annotationAttributes);
 		assertThat(discovered.getProducesMediaTypes()).containsExactly("application/json");
 	}

@@ -21,7 +21,7 @@ import java.util.Collections;
 
 import org.junit.jupiter.api.Test;
 
-import org.springframework.boot.actuate.endpoint.OperationType;
+import org.springframework.boot.actuate.endpoint.OperationType_RENAMED;
 import org.springframework.boot.actuate.endpoint.annotation.DiscoveredOperationMethod;
 import org.springframework.boot.actuate.endpoint.annotation.Selector;
 import org.springframework.boot.actuate.endpoint.annotation.Selector.Match;
@@ -72,7 +72,7 @@ class RequestPredicateFactoryTests {
 		Method method = source.getDeclaredMethods()[0];
 		AnnotationAttributes attributes = new AnnotationAttributes();
 		attributes.put("produces", "application/json");
-		return new DiscoveredOperationMethod(method, OperationType.READ, attributes);
+		return new DiscoveredOperationMethod(method, OperationType_RENAMED.READ, attributes);
 	}
 
 	static class MoreThanOneMatchAll {

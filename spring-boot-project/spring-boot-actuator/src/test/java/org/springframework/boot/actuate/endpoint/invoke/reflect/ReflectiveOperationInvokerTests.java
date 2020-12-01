@@ -22,7 +22,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import org.springframework.boot.actuate.endpoint.InvocationContext;
-import org.springframework.boot.actuate.endpoint.OperationType;
+import org.springframework.boot.actuate.endpoint.OperationType_RENAMED;
 import org.springframework.boot.actuate.endpoint.SecurityContext;
 import org.springframework.boot.actuate.endpoint.http.ApiVersion;
 import org.springframework.boot.actuate.endpoint.invoke.MissingParametersException;
@@ -52,7 +52,7 @@ class ReflectiveOperationInvokerTests {
 	void setup() {
 		this.target = new Example();
 		this.operationMethod = new OperationMethod(ReflectionUtils.findMethod(Example.class, "reverse",
-				ApiVersion.class, SecurityContext.class, String.class), OperationType.READ);
+				ApiVersion.class, SecurityContext.class, String.class), OperationType_RENAMED.READ);
 		this.parameterValueMapper = (parameter, value) -> (value != null) ? value.toString() : null;
 	}
 
@@ -97,7 +97,7 @@ class ReflectiveOperationInvokerTests {
 	@Test
 	void invokeWhenMissingNullableArgumentShouldInvoke() {
 		OperationMethod operationMethod = new OperationMethod(ReflectionUtils.findMethod(Example.class,
-				"reverseNullable", ApiVersion.class, SecurityContext.class, String.class), OperationType.READ);
+				"reverseNullable", ApiVersion.class, SecurityContext.class, String.class), OperationType_RENAMED.READ);
 		ReflectiveOperationInvoker invoker = new ReflectiveOperationInvoker(this.target, operationMethod,
 				this.parameterValueMapper);
 		Object result = invoker

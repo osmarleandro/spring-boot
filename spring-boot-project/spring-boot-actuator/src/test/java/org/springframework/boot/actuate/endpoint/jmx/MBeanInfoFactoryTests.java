@@ -25,7 +25,7 @@ import javax.management.MBeanParameterInfo;
 
 import org.junit.jupiter.api.Test;
 
-import org.springframework.boot.actuate.endpoint.OperationType;
+import org.springframework.boot.actuate.endpoint.OperationType_RENAMED;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
@@ -61,21 +61,21 @@ class MBeanInfoFactoryTests {
 	@Test
 	void getMBeanInfoWhenReadOperationShouldHaveInfoImpact() {
 		MBeanInfo info = this.factory
-				.getMBeanInfo(new TestExposableJmxEndpoint(new TestJmxOperation(OperationType.READ)));
+				.getMBeanInfo(new TestExposableJmxEndpoint(new TestJmxOperation(OperationType_RENAMED.READ)));
 		assertThat(info.getOperations()[0].getImpact()).isEqualTo(MBeanOperationInfo.INFO);
 	}
 
 	@Test
 	void getMBeanInfoWhenWriteOperationShouldHaveActionImpact() {
 		MBeanInfo info = this.factory
-				.getMBeanInfo(new TestExposableJmxEndpoint(new TestJmxOperation(OperationType.WRITE)));
+				.getMBeanInfo(new TestExposableJmxEndpoint(new TestJmxOperation(OperationType_RENAMED.WRITE)));
 		assertThat(info.getOperations()[0].getImpact()).isEqualTo(MBeanOperationInfo.ACTION);
 	}
 
 	@Test
 	void getMBeanInfoWhenDeleteOperationShouldHaveActionImpact() {
 		MBeanInfo info = this.factory
-				.getMBeanInfo(new TestExposableJmxEndpoint(new TestJmxOperation(OperationType.DELETE)));
+				.getMBeanInfo(new TestExposableJmxEndpoint(new TestJmxOperation(OperationType_RENAMED.DELETE)));
 		assertThat(info.getOperations()[0].getImpact()).isEqualTo(MBeanOperationInfo.ACTION);
 	}
 

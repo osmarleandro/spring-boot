@@ -31,7 +31,7 @@ import reactor.core.scheduler.Schedulers;
 
 import org.springframework.boot.actuate.endpoint.InvalidEndpointRequestException;
 import org.springframework.boot.actuate.endpoint.InvocationContext;
-import org.springframework.boot.actuate.endpoint.OperationType;
+import org.springframework.boot.actuate.endpoint.OperationType_RENAMED;
 import org.springframework.boot.actuate.endpoint.SecurityContext;
 import org.springframework.boot.actuate.endpoint.http.ApiVersion;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvoker;
@@ -140,7 +140,7 @@ public abstract class AbstractWebFluxEndpointHandlerMapping extends RequestMappi
 	private void registerMappingForOperation(ExposableWebEndpoint endpoint, WebOperation operation) {
 		ReactiveWebOperation reactiveWebOperation = wrapReactiveWebOperation(endpoint, operation,
 				new ReactiveWebOperationAdapter(operation));
-		if (operation.getType() == OperationType.WRITE) {
+		if (operation.getType() == OperationType_RENAMED.WRITE) {
 			registerMapping(createRequestMappingInfo(operation), new WriteOperationHandler((reactiveWebOperation)),
 					this.handleWriteMethod);
 		}

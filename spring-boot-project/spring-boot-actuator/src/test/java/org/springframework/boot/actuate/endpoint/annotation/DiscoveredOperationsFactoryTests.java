@@ -27,7 +27,7 @@ import org.junit.jupiter.api.Test;
 
 import org.springframework.boot.actuate.endpoint.EndpointId;
 import org.springframework.boot.actuate.endpoint.InvocationContext;
-import org.springframework.boot.actuate.endpoint.OperationType;
+import org.springframework.boot.actuate.endpoint.OperationType_RENAMED;
 import org.springframework.boot.actuate.endpoint.SecurityContext;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvoker;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvokerAdvisor;
@@ -63,7 +63,7 @@ class DiscoveredOperationsFactoryTests {
 		Collection<TestOperation> operations = this.factory.createOperations(EndpointId.of("test"), new ExampleRead());
 		assertThat(operations).hasSize(1);
 		TestOperation operation = getFirst(operations);
-		assertThat(operation.getType()).isEqualTo(OperationType.READ);
+		assertThat(operation.getType()).isEqualTo(OperationType_RENAMED.READ);
 	}
 
 	@Test
@@ -71,7 +71,7 @@ class DiscoveredOperationsFactoryTests {
 		Collection<TestOperation> operations = this.factory.createOperations(EndpointId.of("test"), new ExampleWrite());
 		assertThat(operations).hasSize(1);
 		TestOperation operation = getFirst(operations);
-		assertThat(operation.getType()).isEqualTo(OperationType.WRITE);
+		assertThat(operation.getType()).isEqualTo(OperationType_RENAMED.WRITE);
 	}
 
 	@Test
@@ -80,7 +80,7 @@ class DiscoveredOperationsFactoryTests {
 				new ExampleDelete());
 		assertThat(operations).hasSize(1);
 		TestOperation operation = getFirst(operations);
-		assertThat(operation.getType()).isEqualTo(OperationType.DELETE);
+		assertThat(operation.getType()).isEqualTo(OperationType_RENAMED.DELETE);
 	}
 
 	@Test
@@ -88,8 +88,8 @@ class DiscoveredOperationsFactoryTests {
 		Collection<TestOperation> operations = this.factory.createOperations(EndpointId.of("test"),
 				new ExampleMultiple());
 		assertThat(operations).hasSize(2);
-		assertThat(operations.stream().map(TestOperation::getType)).containsOnly(OperationType.READ,
-				OperationType.WRITE);
+		assertThat(operations.stream().map(TestOperation::getType)).containsOnly(OperationType_RENAMED.READ,
+				OperationType_RENAMED.WRITE);
 	}
 
 	@Test
@@ -117,7 +117,7 @@ class DiscoveredOperationsFactoryTests {
 		TestOperation operation = getFirst(this.factory.createOperations(EndpointId.of("test"), new ExampleRead()));
 		operation.invoke(new InvocationContext(mock(SecurityContext.class), Collections.emptyMap()));
 		assertThat(advisor.getEndpointId()).isEqualTo(EndpointId.of("test"));
-		assertThat(advisor.getOperationType()).isEqualTo(OperationType.READ);
+		assertThat(advisor.getOperationType()).isEqualTo(OperationType_RENAMED.READ);
 		assertThat(advisor.getParameters()).isEmpty();
 	}
 
@@ -202,12 +202,12 @@ class DiscoveredOperationsFactoryTests {
 
 		private EndpointId endpointId;
 
-		private OperationType operationType;
+		private OperationType_RENAMED operationType;
 
 		private OperationParameters parameters;
 
 		@Override
-		public OperationInvoker apply(EndpointId endpointId, OperationType operationType,
+		public OperationInvoker apply(EndpointId endpointId, OperationType_RENAMED operationType,
 				OperationParameters parameters, OperationInvoker invoker) {
 			this.endpointId = endpointId;
 			this.operationType = operationType;
@@ -219,7 +219,7 @@ class DiscoveredOperationsFactoryTests {
 			return this.endpointId;
 		}
 
-		OperationType getOperationType() {
+		OperationType_RENAMED getOperationType() {
 			return this.operationType;
 		}
 

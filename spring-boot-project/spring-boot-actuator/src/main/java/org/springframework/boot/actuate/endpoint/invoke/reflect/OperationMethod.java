@@ -19,7 +19,7 @@ package org.springframework.boot.actuate.endpoint.invoke.reflect;
 import java.lang.reflect.Method;
 import java.util.Locale;
 
-import org.springframework.boot.actuate.endpoint.OperationType;
+import org.springframework.boot.actuate.endpoint.OperationType_RENAMED;
 import org.springframework.boot.actuate.endpoint.invoke.OperationParameters;
 import org.springframework.core.DefaultParameterNameDiscoverer;
 import org.springframework.core.ParameterNameDiscoverer;
@@ -38,7 +38,7 @@ public class OperationMethod {
 
 	private final Method method;
 
-	private final OperationType operationType;
+	private final OperationType_RENAMED operationType;
 
 	private final OperationParameters operationParameters;
 
@@ -47,7 +47,7 @@ public class OperationMethod {
 	 * @param method the source method
 	 * @param operationType the operation type
 	 */
-	public OperationMethod(Method method, OperationType operationType) {
+	public OperationMethod(Method method, OperationType_RENAMED operationType) {
 		Assert.notNull(method, "Method must not be null");
 		Assert.notNull(operationType, "OperationType must not be null");
 		this.method = method;
@@ -67,7 +67,7 @@ public class OperationMethod {
 	 * Return the operation type.
 	 * @return the operation type
 	 */
-	public OperationType getOperationType() {
+	public OperationType_RENAMED getOperationType() {
 		return this.operationType;
 	}
 

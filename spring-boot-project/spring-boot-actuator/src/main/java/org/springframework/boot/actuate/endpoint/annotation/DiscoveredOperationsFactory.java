@@ -26,7 +26,7 @@ import java.util.Objects;
 
 import org.springframework.boot.actuate.endpoint.EndpointId;
 import org.springframework.boot.actuate.endpoint.Operation;
-import org.springframework.boot.actuate.endpoint.OperationType;
+import org.springframework.boot.actuate.endpoint.OperationType_RENAMED;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvoker;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvokerAdvisor;
 import org.springframework.boot.actuate.endpoint.invoke.ParameterValueMapper;
@@ -48,13 +48,13 @@ import org.springframework.core.annotation.MergedAnnotations;
  */
 abstract class DiscoveredOperationsFactory<O extends Operation> {
 
-	private static final Map<OperationType, Class<? extends Annotation>> OPERATION_TYPES;
+	private static final Map<OperationType_RENAMED, Class<? extends Annotation>> OPERATION_TYPES;
 
 	static {
-		Map<OperationType, Class<? extends Annotation>> operationTypes = new EnumMap<>(OperationType.class);
-		operationTypes.put(OperationType.READ, ReadOperation.class);
-		operationTypes.put(OperationType.WRITE, WriteOperation.class);
-		operationTypes.put(OperationType.DELETE, DeleteOperation.class);
+		Map<OperationType_RENAMED, Class<? extends Annotation>> operationTypes = new EnumMap<>(OperationType_RENAMED.class);
+		operationTypes.put(OperationType_RENAMED.READ, ReadOperation.class);
+		operationTypes.put(OperationType_RENAMED.WRITE, WriteOperation.class);
+		operationTypes.put(OperationType_RENAMED.DELETE, DeleteOperation.class);
 		OPERATION_TYPES = Collections.unmodifiableMap(operationTypes);
 	}
 
@@ -80,7 +80,7 @@ abstract class DiscoveredOperationsFactory<O extends Operation> {
 				.filter(Objects::nonNull).findFirst().orElse(null);
 	}
 
-	private O createOperation(EndpointId endpointId, Object target, Method method, OperationType operationType,
+	private O createOperation(EndpointId endpointId, Object target, Method method, OperationType_RENAMED operationType,
 			Class<? extends Annotation> annotationType) {
 		MergedAnnotation<?> annotation = MergedAnnotations.from(method).get(annotationType);
 		if (!annotation.isPresent()) {

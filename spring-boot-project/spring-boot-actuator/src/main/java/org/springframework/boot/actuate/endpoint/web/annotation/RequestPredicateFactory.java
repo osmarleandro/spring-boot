@@ -23,7 +23,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.stream.Stream;
 
-import org.springframework.boot.actuate.endpoint.OperationType;
+import org.springframework.boot.actuate.endpoint.OperationType_RENAMED;
 import org.springframework.boot.actuate.endpoint.annotation.DiscoveredOperationMethod;
 import org.springframework.boot.actuate.endpoint.annotation.Selector;
 import org.springframework.boot.actuate.endpoint.annotation.Selector.Match;
@@ -133,11 +133,11 @@ class RequestPredicateFactory {
 				.anyMatch((parameter) -> parameter.getAnnotation(Selector.class) == null);
 	}
 
-	private WebEndpointHttpMethod determineHttpMethod(OperationType operationType) {
-		if (operationType == OperationType.WRITE) {
+	private WebEndpointHttpMethod determineHttpMethod(OperationType_RENAMED operationType) {
+		if (operationType == OperationType_RENAMED.WRITE) {
 			return WebEndpointHttpMethod.POST;
 		}
-		if (operationType == OperationType.DELETE) {
+		if (operationType == OperationType_RENAMED.DELETE) {
 			return WebEndpointHttpMethod.DELETE;
 		}
 		return WebEndpointHttpMethod.GET;

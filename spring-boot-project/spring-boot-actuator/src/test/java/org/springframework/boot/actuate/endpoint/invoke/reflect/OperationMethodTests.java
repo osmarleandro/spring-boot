@@ -20,7 +20,7 @@ import java.lang.reflect.Method;
 
 import org.junit.jupiter.api.Test;
 
-import org.springframework.boot.actuate.endpoint.OperationType;
+import org.springframework.boot.actuate.endpoint.OperationType_RENAMED;
 import org.springframework.boot.actuate.endpoint.invoke.OperationParameters;
 import org.springframework.util.ReflectionUtils;
 
@@ -38,7 +38,7 @@ class OperationMethodTests {
 
 	@Test
 	void createWhenMethodIsNullShouldThrowException() {
-		assertThatIllegalArgumentException().isThrownBy(() -> new OperationMethod(null, OperationType.READ))
+		assertThatIllegalArgumentException().isThrownBy(() -> new OperationMethod(null, OperationType_RENAMED.READ))
 				.withMessageContaining("Method must not be null");
 	}
 
@@ -50,19 +50,19 @@ class OperationMethodTests {
 
 	@Test
 	void getMethodShouldReturnMethod() {
-		OperationMethod operationMethod = new OperationMethod(this.exampleMethod, OperationType.READ);
+		OperationMethod operationMethod = new OperationMethod(this.exampleMethod, OperationType_RENAMED.READ);
 		assertThat(operationMethod.getMethod()).isEqualTo(this.exampleMethod);
 	}
 
 	@Test
 	void getOperationTypeShouldReturnOperationType() {
-		OperationMethod operationMethod = new OperationMethod(this.exampleMethod, OperationType.READ);
-		assertThat(operationMethod.getOperationType()).isEqualTo(OperationType.READ);
+		OperationMethod operationMethod = new OperationMethod(this.exampleMethod, OperationType_RENAMED.READ);
+		assertThat(operationMethod.getOperationType()).isEqualTo(OperationType_RENAMED.READ);
 	}
 
 	@Test
 	void getParametersShouldReturnParameters() {
-		OperationMethod operationMethod = new OperationMethod(this.exampleMethod, OperationType.READ);
+		OperationMethod operationMethod = new OperationMethod(this.exampleMethod, OperationType_RENAMED.READ);
 		OperationParameters parameters = operationMethod.getParameters();
 		assertThat(parameters.getParameterCount()).isEqualTo(1);
 		assertThat(parameters.iterator().next().getName()).isEqualTo("name");

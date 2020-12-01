@@ -26,7 +26,7 @@ import java.util.Map;
 import org.junit.jupiter.api.Test;
 
 import org.springframework.boot.actuate.endpoint.EndpointId;
-import org.springframework.boot.actuate.endpoint.OperationType;
+import org.springframework.boot.actuate.endpoint.OperationType_RENAMED;
 import org.springframework.boot.actuate.endpoint.annotation.DiscoveredOperationMethod;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvoker;
 import org.springframework.boot.actuate.endpoint.jmx.JmxOperationParameter;
@@ -122,7 +122,7 @@ class DiscoveredJmxOperationTests {
 		Method method = findMethod(methodName);
 		AnnotationAttributes annotationAttributes = new AnnotationAttributes();
 		annotationAttributes.put("produces", "application/xml");
-		DiscoveredOperationMethod operationMethod = new DiscoveredOperationMethod(method, OperationType.READ,
+		DiscoveredOperationMethod operationMethod = new DiscoveredOperationMethod(method, OperationType_RENAMED.READ,
 				annotationAttributes);
 		return new DiscoveredJmxOperation(EndpointId.of("test"), operationMethod, mock(OperationInvoker.class));
 	}
@@ -135,7 +135,7 @@ class DiscoveredJmxOperationTests {
 
 	interface Example {
 
-		OperationType getEnum();
+		OperationType_RENAMED getEnum();
 
 		Date getDate();
 
@@ -147,7 +147,7 @@ class DiscoveredJmxOperationTests {
 
 		ApplicationContext getApplicationContext();
 
-		Object params(OperationType enumParam, Date dateParam, Instant instantParam, Integer integerParam,
+		Object params(OperationType_RENAMED enumParam, Date dateParam, Instant instantParam, Integer integerParam,
 				ApplicationContext applicationContextParam);
 
 		@ManagedOperation(description = "fromannotation")

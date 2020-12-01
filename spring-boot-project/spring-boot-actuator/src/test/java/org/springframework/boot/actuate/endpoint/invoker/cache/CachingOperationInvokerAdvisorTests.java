@@ -26,7 +26,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import org.springframework.boot.actuate.endpoint.EndpointId;
-import org.springframework.boot.actuate.endpoint.OperationType;
+import org.springframework.boot.actuate.endpoint.OperationType_RENAMED;
 import org.springframework.boot.actuate.endpoint.SecurityContext;
 import org.springframework.boot.actuate.endpoint.http.ApiVersion;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvoker;
@@ -65,7 +65,7 @@ class CachingOperationInvokerAdvisorTests {
 	@Test
 	void applyWhenOperationIsNotReadShouldNotAddAdvise() {
 		OperationParameters parameters = getParameters("get");
-		OperationInvoker advised = this.advisor.apply(EndpointId.of("foo"), OperationType.WRITE, parameters,
+		OperationInvoker advised = this.advisor.apply(EndpointId.of("foo"), OperationType_RENAMED.WRITE, parameters,
 				this.invoker);
 		assertThat(advised).isSameAs(this.invoker);
 	}
@@ -73,7 +73,7 @@ class CachingOperationInvokerAdvisorTests {
 	@Test
 	void applyWhenHasAtLeaseOneMandatoryParameterShouldNotAddAdvise() {
 		OperationParameters parameters = getParameters("getWithParameters", String.class, String.class);
-		OperationInvoker advised = this.advisor.apply(EndpointId.of("foo"), OperationType.READ, parameters,
+		OperationInvoker advised = this.advisor.apply(EndpointId.of("foo"), OperationType_RENAMED.READ, parameters,
 				this.invoker);
 		assertThat(advised).isSameAs(this.invoker);
 	}
@@ -82,7 +82,7 @@ class CachingOperationInvokerAdvisorTests {
 	void applyWhenTimeToLiveReturnsNullShouldNotAddAdvise() {
 		OperationParameters parameters = getParameters("get");
 		given(this.timeToLive.apply(any())).willReturn(null);
-		OperationInvoker advised = this.advisor.apply(EndpointId.of("foo"), OperationType.READ, parameters,
+		OperationInvoker advised = this.advisor.apply(EndpointId.of("foo"), OperationType_RENAMED.READ, parameters,
 				this.invoker);
 		assertThat(advised).isSameAs(this.invoker);
 		verify(this.timeToLive).apply(EndpointId.of("foo"));
@@ -92,7 +92,7 @@ class CachingOperationInvokerAdvisorTests {
 	void applyWhenTimeToLiveIsZeroShouldNotAddAdvise() {
 		OperationParameters parameters = getParameters("get");
 		given(this.timeToLive.apply(any())).willReturn(0L);
-		OperationInvoker advised = this.advisor.apply(EndpointId.of("foo"), OperationType.READ, parameters,
+		OperationInvoker advised = this.advisor.apply(EndpointId.of("foo"), OperationType_RENAMED.READ, parameters,
 				this.invoker);
 		assertThat(advised).isSameAs(this.invoker);
 		verify(this.timeToLive).apply(EndpointId.of("foo"));
@@ -127,7 +127,7 @@ class CachingOperationInvokerAdvisorTests {
 	}
 
 	private void assertAdviseIsApplied(OperationParameters parameters) {
-		OperationInvoker advised = this.advisor.apply(EndpointId.of("foo"), OperationType.READ, parameters,
+		OperationInvoker advised = this.advisor.apply(EndpointId.of("foo"), OperationType_RENAMED.READ, parameters,
 				this.invoker);
 		assertThat(advised).isInstanceOf(CachingOperationInvoker.class);
 		assertThat(advised).hasFieldOrPropertyWithValue("invoker", this.invoker);
@@ -140,7 +140,7 @@ class CachingOperationInvokerAdvisorTests {
 
 	private OperationMethod getOperationMethod(String methodName, Class<?>... parameterTypes) {
 		Method method = ReflectionUtils.findMethod(TestOperations.class, methodName, parameterTypes);
-		return new OperationMethod(method, OperationType.READ);
+		return new OperationMethod(method, OperationType_RENAMED.READ);
 	}
 
 	static class TestOperations {

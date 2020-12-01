@@ -17,25 +17,27 @@
 package org.springframework.boot.actuate.endpoint;
 
 /**
- * An operation on an {@link ExposableEndpoint endpoint}.
+ * An enumeration of the different types of operation supported by an endpoint.
  *
  * @author Andy Wilkinson
- * @author Phillip Webb
  * @since 2.0.0
+ * @see Operation
  */
-public interface Operation {
+public enum OperationType_RENAMED {
 
 	/**
-	 * Returns the {@link OperationType_RENAMED type} of the operation.
-	 * @return the type
+	 * A read operation.
 	 */
-	OperationType_RENAMED getType();
+	READ,
 
 	/**
-	 * Invoke the underlying operation using the given {@code context}.
-	 * @param context the context in to use when invoking the operation
-	 * @return the result of the operation, may be {@code null}
+	 * A write operation.
 	 */
-	Object invoke(InvocationContext context);
+	WRITE,
+
+	/**
+	 * A delete operation.
+	 */
+	DELETE
 
 }

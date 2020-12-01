@@ -22,7 +22,7 @@ import java.util.Map;
 import java.util.function.Function;
 
 import org.springframework.boot.actuate.endpoint.InvocationContext;
-import org.springframework.boot.actuate.endpoint.OperationType;
+import org.springframework.boot.actuate.endpoint.OperationType_RENAMED;
 
 /**
  * Test {@link JmxOperation} implementation.
@@ -31,38 +31,38 @@ import org.springframework.boot.actuate.endpoint.OperationType;
  */
 public class TestJmxOperation implements JmxOperation {
 
-	private final OperationType operationType;
+	private final OperationType_RENAMED operationType;
 
 	private final Function<Map<String, Object>, Object> invoke;
 
 	private final List<JmxOperationParameter> parameters;
 
 	public TestJmxOperation() {
-		this.operationType = OperationType.READ;
+		this.operationType = OperationType_RENAMED.READ;
 		this.invoke = null;
 		this.parameters = Collections.emptyList();
 	}
 
-	public TestJmxOperation(OperationType operationType) {
+	public TestJmxOperation(OperationType_RENAMED operationType) {
 		this.operationType = operationType;
 		this.invoke = null;
 		this.parameters = Collections.emptyList();
 	}
 
 	public TestJmxOperation(Function<Map<String, Object>, Object> invoke) {
-		this.operationType = OperationType.READ;
+		this.operationType = OperationType_RENAMED.READ;
 		this.invoke = invoke;
 		this.parameters = Collections.emptyList();
 	}
 
 	public TestJmxOperation(List<JmxOperationParameter> parameters) {
-		this.operationType = OperationType.READ;
+		this.operationType = OperationType_RENAMED.READ;
 		this.invoke = null;
 		this.parameters = parameters;
 	}
 
 	@Override
-	public OperationType getType() {
+	public OperationType_RENAMED getType() {
 		return this.operationType;
 	}
 
