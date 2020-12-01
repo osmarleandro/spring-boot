@@ -44,7 +44,7 @@ import static org.mockito.Mockito.mock;
  *
  * @author Andy Wilkinson
  */
-class JettyMetricsAutoConfigurationTests {
+class JettyMetricsAutoConfigurationTests_RENAMED {
 
 	@Test
 	void autoConfiguresThreadPoolMetricsWithEmbeddedServletJetty() {
