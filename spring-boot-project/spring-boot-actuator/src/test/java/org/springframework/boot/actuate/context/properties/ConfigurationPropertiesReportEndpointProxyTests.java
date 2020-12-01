@@ -127,7 +127,7 @@ class ConfigurationPropertiesReportEndpointProxyTests {
 	}
 
 	@Configuration(proxyBeanMethods = false)
-	@EnableConfigurationProperties(ValidatedConstructorBindingProperties.class)
+	@EnableConfigurationProperties(ValidatedConstructorBindingProperties_RENAMED.class)
 	@Import(Config.class)
 	static class ValidatedConfiguration {
 
