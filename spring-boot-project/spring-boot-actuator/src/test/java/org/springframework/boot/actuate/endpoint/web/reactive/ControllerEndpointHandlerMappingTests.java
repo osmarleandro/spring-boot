@@ -41,7 +41,7 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
 
 /**
- * Tests for {@link ControllerEndpointHandlerMapping}.
+ * Tests for {@link ControllerEndpointHandlerMapping_RENAMED}.
  *
  * @author Phillip Webb
  * @author Stephane Nicoll
@@ -54,7 +54,7 @@ class ControllerEndpointHandlerMappingTests {
 	void mappingWithNoPrefix() throws Exception {
 		ExposableControllerEndpoint first = firstEndpoint();
 		ExposableControllerEndpoint second = secondEndpoint();
-		ControllerEndpointHandlerMapping mapping = createMapping("", first, second);
+		ControllerEndpointHandlerMapping_RENAMED mapping = createMapping("", first, second);
 		assertThat(getHandler(mapping, HttpMethod.GET, "/first")).isEqualTo(handlerOf(first.getController(), "get"));
 		assertThat(getHandler(mapping, HttpMethod.POST, "/second"))
 				.isEqualTo(handlerOf(second.getController(), "save"));
@@ -65,7 +65,7 @@ class ControllerEndpointHandlerMappingTests {
 	void mappingWithPrefix() throws Exception {
 		ExposableControllerEndpoint first = firstEndpoint();
 		ExposableControllerEndpoint second = secondEndpoint();
-		ControllerEndpointHandlerMapping mapping = createMapping("actuator", first, second);
+		ControllerEndpointHandlerMapping_RENAMED mapping = createMapping("actuator", first, second);
 		assertThat(getHandler(mapping, HttpMethod.GET, "/actuator/first"))
 				.isEqualTo(handlerOf(first.getController(), "get"));
 		assertThat(getHandler(mapping, HttpMethod.POST, "/actuator/second"))
@@ -77,7 +77,7 @@ class ControllerEndpointHandlerMappingTests {
 	@Test
 	void mappingWithNoPath() throws Exception {
 		ExposableControllerEndpoint pathless = pathlessEndpoint();
-		ControllerEndpointHandlerMapping mapping = createMapping("actuator", pathless);
+		ControllerEndpointHandlerMapping_RENAMED mapping = createMapping("actuator", pathless);
 		assertThat(getHandler(mapping, HttpMethod.GET, "/actuator/pathless"))
 				.isEqualTo(handlerOf(pathless.getController(), "get"));
 		assertThat(getHandler(mapping, HttpMethod.GET, "/pathless")).isNull();
@@ -87,17 +87,17 @@ class ControllerEndpointHandlerMappingTests {
 	@Test
 	void mappingNarrowedToMethod() throws Exception {
 		ExposableControllerEndpoint first = firstEndpoint();
-		ControllerEndpointHandlerMapping mapping = createMapping("actuator", first);
+		ControllerEndpointHandlerMapping_RENAMED mapping = createMapping("actuator", first);
 		assertThatExceptionOfType(MethodNotAllowedException.class)
 				.isThrownBy(() -> getHandler(mapping, HttpMethod.POST, "/actuator/first"));
 	}
 
-	private Object getHandler(ControllerEndpointHandlerMapping mapping, HttpMethod method, String requestURI) {
+	private Object getHandler(ControllerEndpointHandlerMapping_RENAMED mapping, HttpMethod method, String requestURI) {
 		return mapping.getHandler(exchange(method, requestURI)).block(Duration.ofSeconds(30));
 	}
 
-	private ControllerEndpointHandlerMapping createMapping(String prefix, ExposableControllerEndpoint... endpoints) {
-		ControllerEndpointHandlerMapping mapping = new ControllerEndpointHandlerMapping(new EndpointMapping(prefix),
+	private ControllerEndpointHandlerMapping_RENAMED createMapping(String prefix, ExposableControllerEndpoint... endpoints) {
+		ControllerEndpointHandlerMapping_RENAMED mapping = new ControllerEndpointHandlerMapping_RENAMED(new EndpointMapping(prefix),
 				Arrays.asList(endpoints), null);
 		mapping.setApplicationContext(this.context);
 		mapping.afterPropertiesSet();
