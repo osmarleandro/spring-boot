@@ -41,7 +41,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Andy Wilkinson
  */
 @ExtendWith(OutputCaptureExtension.class)
-class ManagementContextAutoConfigurationTests {
+class ManagementContextAutoConfigurationTests_RENAMED {
 
 	@Test
 	void childManagementContextShouldStartForEmbeddedServer(CapturedOutput output) {
