@@ -42,7 +42,7 @@ class MeterRegistryCustomizerTests {
 	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.with(MetricsRun.limitedTo(AtlasMetricsExportAutoConfiguration.class,
 					PrometheusMetricsExportAutoConfiguration.class))
-			.withConfiguration(AutoConfigurations.of(JvmMetricsAutoConfiguration.class));
+			.withConfiguration(AutoConfigurations.of(JvmMetricsAutoConfiguration_RENAMED.class));
 
 	@Test
 	void commonTagsAreAppliedToAutoConfiguredBinders() {

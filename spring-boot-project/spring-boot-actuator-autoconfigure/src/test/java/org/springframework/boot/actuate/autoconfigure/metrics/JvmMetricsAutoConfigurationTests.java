@@ -31,7 +31,7 @@ import org.springframework.context.annotation.Configuration;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Tests for {@link JvmMetricsAutoConfiguration}.
+ * Tests for {@link JvmMetricsAutoConfiguration_RENAMED}.
  *
  * @author Andy Wilkinson
  * @author Stephane Nicoll
@@ -39,7 +39,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 class JvmMetricsAutoConfigurationTests {
 
 	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner().with(MetricsRun.simple())
-			.withConfiguration(AutoConfigurations.of(JvmMetricsAutoConfiguration.class));
+			.withConfiguration(AutoConfigurations.of(JvmMetricsAutoConfiguration_RENAMED.class));
 
 	@Test
 	void autoConfiguresJvmMetrics() {
