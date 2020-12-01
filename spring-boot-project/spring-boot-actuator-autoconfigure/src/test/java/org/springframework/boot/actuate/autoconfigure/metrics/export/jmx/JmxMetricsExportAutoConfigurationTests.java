@@ -30,14 +30,14 @@ import org.springframework.context.annotation.Import;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Tests for {@link JmxMetricsExportAutoConfiguration}.
+ * Tests for {@link JmxMetricsExportAutoConfiguration_RENAMED}.
  *
  * @author Andy Wilkinson
  */
 class JmxMetricsExportAutoConfigurationTests {
 
 	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
-			.withConfiguration(AutoConfigurations.of(JmxMetricsExportAutoConfiguration.class));
+			.withConfiguration(AutoConfigurations.of(JmxMetricsExportAutoConfiguration_RENAMED.class));
 
 	@Test
 	void backsOffWithoutAClock() {

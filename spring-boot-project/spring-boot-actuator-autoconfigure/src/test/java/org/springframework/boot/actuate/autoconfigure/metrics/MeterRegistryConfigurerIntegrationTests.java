@@ -29,7 +29,7 @@ import org.slf4j.impl.StaticLoggerBinder;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.boot.actuate.autoconfigure.metrics.export.atlas.AtlasMetricsExportAutoConfiguration;
-import org.springframework.boot.actuate.autoconfigure.metrics.export.jmx.JmxMetricsExportAutoConfiguration;
+import org.springframework.boot.actuate.autoconfigure.metrics.export.jmx.JmxMetricsExportAutoConfiguration_RENAMED;
 import org.springframework.boot.actuate.autoconfigure.metrics.export.prometheus.PrometheusMetricsExportAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.metrics.export.simple.SimpleMetricsExportAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.metrics.test.MetricsRun;
@@ -75,7 +75,7 @@ class MeterRegistryConfigurerIntegrationTests {
 
 	@Test
 	void counterIsIncrementedOncePerEventWithoutCompositeMeterRegistry() {
-		new ApplicationContextRunner().with(MetricsRun.limitedTo(JmxMetricsExportAutoConfiguration.class))
+		new ApplicationContextRunner().with(MetricsRun.limitedTo(JmxMetricsExportAutoConfiguration_RENAMED.class))
 				.withConfiguration(AutoConfigurations.of(LogbackMetricsAutoConfiguration.class)).run((context) -> {
 					Logger logger = ((LoggerContext) StaticLoggerBinder.getSingleton().getLoggerFactory())
 							.getLogger("test-logger");
@@ -90,7 +90,7 @@ class MeterRegistryConfigurerIntegrationTests {
 	@Test
 	void counterIsIncrementedOncePerEventWithCompositeMeterRegistry() {
 		new ApplicationContextRunner()
-				.with(MetricsRun.limitedTo(JmxMetricsExportAutoConfiguration.class,
+				.with(MetricsRun.limitedTo(JmxMetricsExportAutoConfiguration_RENAMED.class,
 						PrometheusMetricsExportAutoConfiguration.class))
 				.withConfiguration(AutoConfigurations.of(LogbackMetricsAutoConfiguration.class)).run((context) -> {
 					Logger logger = ((LoggerContext) StaticLoggerBinder.getSingleton().getLoggerFactory())

@@ -28,7 +28,7 @@ import org.springframework.boot.actuate.autoconfigure.metrics.export.datadog.Dat
 import org.springframework.boot.actuate.autoconfigure.metrics.export.ganglia.GangliaMetricsExportAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.metrics.export.graphite.GraphiteMetricsExportAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.metrics.export.influx.InfluxMetricsExportAutoConfiguration;
-import org.springframework.boot.actuate.autoconfigure.metrics.export.jmx.JmxMetricsExportAutoConfiguration;
+import org.springframework.boot.actuate.autoconfigure.metrics.export.jmx.JmxMetricsExportAutoConfiguration_RENAMED;
 import org.springframework.boot.actuate.autoconfigure.metrics.export.newrelic.NewRelicMetricsExportAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.metrics.export.prometheus.PrometheusMetricsExportAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.metrics.export.signalfx.SignalFxMetricsExportAutoConfiguration;
@@ -57,7 +57,7 @@ public final class MetricsRun {
 		implementations.add(GangliaMetricsExportAutoConfiguration.class);
 		implementations.add(GraphiteMetricsExportAutoConfiguration.class);
 		implementations.add(InfluxMetricsExportAutoConfiguration.class);
-		implementations.add(JmxMetricsExportAutoConfiguration.class);
+		implementations.add(JmxMetricsExportAutoConfiguration_RENAMED.class);
 		implementations.add(NewRelicMetricsExportAutoConfiguration.class);
 		implementations.add(PrometheusMetricsExportAutoConfiguration.class);
 		implementations.add(SimpleMetricsExportAutoConfiguration.class);

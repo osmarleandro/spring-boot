@@ -47,7 +47,7 @@ import org.springframework.context.annotation.Configuration;
 @ConditionalOnClass(JmxMeterRegistry.class)
 @ConditionalOnEnabledMetricsExport("jmx")
 @EnableConfigurationProperties(JmxProperties.class)
-public class JmxMetricsExportAutoConfiguration {
+public class JmxMetricsExportAutoConfiguration_RENAMED {
 
 	@Bean
 	@ConditionalOnMissingBean
