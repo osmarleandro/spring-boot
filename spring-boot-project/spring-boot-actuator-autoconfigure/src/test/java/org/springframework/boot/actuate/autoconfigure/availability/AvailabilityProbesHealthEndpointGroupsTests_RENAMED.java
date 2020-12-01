@@ -36,7 +36,7 @@ import static org.mockito.Mockito.mock;
  *
  * @author Phillip Webb
  */
-class AvailabilityProbesHealthEndpointGroupsTests {
+class AvailabilityProbesHealthEndpointGroupsTests_RENAMED {
 
 	private HealthEndpointGroups delegate;
 
