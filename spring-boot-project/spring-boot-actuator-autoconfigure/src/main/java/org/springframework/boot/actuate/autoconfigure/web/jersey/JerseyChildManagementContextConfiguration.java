@@ -35,7 +35,7 @@ import org.springframework.context.annotation.Import;
  * @since 2.1.0
  */
 @ManagementContextConfiguration(value = ManagementContextType.CHILD, proxyBeanMethods = false)
-@Import(JerseyManagementContextConfiguration.class)
+@Import(JerseyManagementContextConfiguration_RENAMED.class)
 @ConditionalOnWebApplication(type = ConditionalOnWebApplication.Type.SERVLET)
 @ConditionalOnClass(ResourceConfig.class)
 @ConditionalOnMissingClass("org.springframework.web.servlet.DispatcherServlet")

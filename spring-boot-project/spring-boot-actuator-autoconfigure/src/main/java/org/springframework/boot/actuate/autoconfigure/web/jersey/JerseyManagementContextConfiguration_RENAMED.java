@@ -29,7 +29,7 @@ import org.springframework.context.annotation.Configuration;
  * @author Madhura Bhave
  */
 @Configuration(proxyBeanMethods = false)
-class JerseyManagementContextConfiguration {
+class JerseyManagementContextConfiguration_RENAMED {
 
 	@Bean
 	ServletRegistrationBean<ServletContainer> jerseyServletRegistration(JerseyApplicationPath jerseyApplicationPath,

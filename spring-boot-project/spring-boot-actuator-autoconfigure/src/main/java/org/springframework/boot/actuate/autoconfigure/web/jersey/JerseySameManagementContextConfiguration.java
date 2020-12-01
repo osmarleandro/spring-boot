@@ -38,7 +38,7 @@ import org.springframework.context.annotation.Import;
  * @since 2.1.0
  */
 @ManagementContextConfiguration(value = ManagementContextType.SAME, proxyBeanMethods = false)
-@Import(JerseyManagementContextConfiguration.class)
+@Import(JerseyManagementContextConfiguration_RENAMED.class)
 @EnableConfigurationProperties(JerseyProperties.class)
 @ConditionalOnMissingBean(ResourceConfig.class)
 @ConditionalOnWebApplication(type = ConditionalOnWebApplication.Type.SERVLET)
