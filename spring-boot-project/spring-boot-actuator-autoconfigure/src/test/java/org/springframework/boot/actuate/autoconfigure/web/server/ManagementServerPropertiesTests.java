@@ -21,7 +21,7 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Tests for {@link ManagementServerProperties}.
+ * Tests for {@link ManagementServerProperties_RENAMED}.
  *
  * @author Phillip Webb
  * @author Stephane Nicoll
@@ -30,14 +30,14 @@ class ManagementServerPropertiesTests {
 
 	@Test
 	void defaultManagementServerProperties() {
-		ManagementServerProperties properties = new ManagementServerProperties();
+		ManagementServerProperties_RENAMED properties = new ManagementServerProperties_RENAMED();
 		assertThat(properties.getPort()).isNull();
 		assertThat(properties.getServlet().getContextPath()).isEqualTo("");
 	}
 
 	@Test
 	void definedManagementServerProperties() {
-		ManagementServerProperties properties = new ManagementServerProperties();
+		ManagementServerProperties_RENAMED properties = new ManagementServerProperties_RENAMED();
 		properties.setPort(123);
 		properties.getServlet().setContextPath("/foo");
 		assertThat(properties.getPort()).isEqualTo(123);
@@ -46,14 +46,14 @@ class ManagementServerPropertiesTests {
 
 	@Test
 	void trailingSlashOfContextPathIsRemoved() {
-		ManagementServerProperties properties = new ManagementServerProperties();
+		ManagementServerProperties_RENAMED properties = new ManagementServerProperties_RENAMED();
 		properties.getServlet().setContextPath("/foo/");
 		assertThat(properties.getServlet().getContextPath()).isEqualTo("/foo");
 	}
 
 	@Test
 	void slashOfContextPathIsDefaultValue() {
-		ManagementServerProperties properties = new ManagementServerProperties();
+		ManagementServerProperties_RENAMED properties = new ManagementServerProperties_RENAMED();
 		properties.getServlet().setContextPath("/");
 		assertThat(properties.getServlet().getContextPath()).isEqualTo("");
 	}

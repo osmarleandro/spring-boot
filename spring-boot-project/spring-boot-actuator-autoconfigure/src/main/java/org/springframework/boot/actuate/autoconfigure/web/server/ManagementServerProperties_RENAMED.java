@@ -35,7 +35,7 @@ import org.springframework.util.StringUtils;
  * @see ServerProperties
  */
 @ConfigurationProperties(prefix = "management.server", ignoreUnknownFields = true)
-public class ManagementServerProperties {
+public class ManagementServerProperties_RENAMED {
 
 	/**
 	 * Management endpoint HTTP port (uses the same port as the application by default).

@@ -63,8 +63,8 @@ public abstract class ManagementWebServerFactoryCustomizer<T extends Configurabl
 
 	@Override
 	public final void customize(T factory) {
-		ManagementServerProperties managementServerProperties = BeanFactoryUtils
-				.beanOfTypeIncludingAncestors(this.beanFactory, ManagementServerProperties.class);
+		ManagementServerProperties_RENAMED managementServerProperties = BeanFactoryUtils
+				.beanOfTypeIncludingAncestors(this.beanFactory, ManagementServerProperties_RENAMED.class);
 		// Customize as per the parent context first (so e.g. the access logs go to
 		// the same place)
 		customizeSameAsParentContext(factory);
@@ -98,7 +98,7 @@ public abstract class ManagementWebServerFactoryCustomizer<T extends Configurabl
 				.invoke((customizer) -> customizer.customize(factory));
 	}
 
-	protected void customize(T factory, ManagementServerProperties managementServerProperties,
+	protected void customize(T factory, ManagementServerProperties_RENAMED managementServerProperties,
 			ServerProperties serverProperties) {
 		factory.setPort(managementServerProperties.getPort());
 		Ssl ssl = managementServerProperties.getSsl();

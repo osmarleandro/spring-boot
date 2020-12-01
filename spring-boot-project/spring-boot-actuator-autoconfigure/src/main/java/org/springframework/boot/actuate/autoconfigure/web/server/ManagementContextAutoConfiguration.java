@@ -57,7 +57,7 @@ import org.springframework.util.Assert;
  */
 @Configuration(proxyBeanMethods = false)
 @AutoConfigureOrder(Ordered.LOWEST_PRECEDENCE)
-@EnableConfigurationProperties({ WebEndpointProperties.class, ManagementServerProperties.class })
+@EnableConfigurationProperties({ WebEndpointProperties.class, ManagementServerProperties_RENAMED.class })
 public class ManagementContextAutoConfiguration {
 
 	@Configuration(proxyBeanMethods = false)
