@@ -40,7 +40,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 
 /**
- * Tests for {@link WebFluxMetricsAutoConfiguration}
+ * Tests for {@link WebFluxMetricsAutoConfiguration_RENAMED}
  *
  * @author Brian Clozel
  * @author Dmytro Nosan
@@ -50,7 +50,7 @@ import static org.mockito.Mockito.mock;
 class WebFluxMetricsAutoConfigurationTests {
 
 	private final ReactiveWebApplicationContextRunner contextRunner = new ReactiveWebApplicationContextRunner()
-			.with(MetricsRun.simple()).withConfiguration(AutoConfigurations.of(WebFluxMetricsAutoConfiguration.class));
+			.with(MetricsRun.simple()).withConfiguration(AutoConfigurations.of(WebFluxMetricsAutoConfiguration_RENAMED.class));
 
 	@Test
 	void shouldProvideWebFluxMetricsBeans() {

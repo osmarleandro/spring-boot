@@ -54,11 +54,11 @@ import org.springframework.core.annotation.Order;
 		SimpleMetricsExportAutoConfiguration.class })
 @ConditionalOnBean(MeterRegistry.class)
 @ConditionalOnWebApplication(type = ConditionalOnWebApplication.Type.REACTIVE)
-public class WebFluxMetricsAutoConfiguration {
+public class WebFluxMetricsAutoConfiguration_RENAMED {
 
 	private final MetricsProperties properties;
 
-	public WebFluxMetricsAutoConfiguration(MetricsProperties properties) {
+	public WebFluxMetricsAutoConfiguration_RENAMED(MetricsProperties properties) {
 		this.properties = properties;
 	}
 
