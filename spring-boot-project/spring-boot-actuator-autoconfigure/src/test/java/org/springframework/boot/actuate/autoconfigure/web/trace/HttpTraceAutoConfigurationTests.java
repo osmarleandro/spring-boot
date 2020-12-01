@@ -28,7 +28,7 @@ import org.springframework.boot.actuate.trace.http.HttpTrace;
 import org.springframework.boot.actuate.trace.http.HttpTraceRepository;
 import org.springframework.boot.actuate.trace.http.InMemoryHttpTraceRepository;
 import org.springframework.boot.actuate.trace.http.Include;
-import org.springframework.boot.actuate.web.trace.reactive.HttpTraceWebFilter;
+import org.springframework.boot.actuate.web.trace.reactive.HttpTraceWebFilter_RENAMED;
 import org.springframework.boot.actuate.web.trace.servlet.HttpTraceFilter;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
 import org.springframework.boot.test.context.runner.ReactiveWebApplicationContextRunner;
@@ -79,8 +79,8 @@ class HttpTraceAutoConfigurationTests {
 				.withConfiguration(AutoConfigurations.of(HttpTraceAutoConfiguration.class))
 				.withUserConfiguration(HttpTraceRepositoryConfiguration.class)
 				.withUserConfiguration(CustomWebFilterConfiguration.class).run((context) -> {
-					assertThat(context).hasSingleBean(HttpTraceWebFilter.class);
-					assertThat(context.getBean(HttpTraceWebFilter.class)).isInstanceOf(CustomHttpTraceWebFilter.class);
+					assertThat(context).hasSingleBean(HttpTraceWebFilter_RENAMED.class);
+					assertThat(context.getBean(HttpTraceWebFilter_RENAMED.class)).isInstanceOf(CustomHttpTraceWebFilter.class);
 				});
 	}
 
@@ -149,7 +149,7 @@ class HttpTraceAutoConfigurationTests {
 
 	}
 
-	private static final class CustomHttpTraceWebFilter extends HttpTraceWebFilter {
+	private static final class CustomHttpTraceWebFilter extends HttpTraceWebFilter_RENAMED {
 
 		private CustomHttpTraceWebFilter(HttpTraceRepository repository, HttpExchangeTracer tracer,
 				Set<Include> includes) {

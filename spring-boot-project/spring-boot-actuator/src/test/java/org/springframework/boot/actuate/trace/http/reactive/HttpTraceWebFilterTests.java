@@ -27,7 +27,7 @@ import org.springframework.boot.actuate.trace.http.HttpExchangeTracer;
 import org.springframework.boot.actuate.trace.http.HttpTrace.Session;
 import org.springframework.boot.actuate.trace.http.InMemoryHttpTraceRepository;
 import org.springframework.boot.actuate.trace.http.Include;
-import org.springframework.boot.actuate.web.trace.reactive.HttpTraceWebFilter;
+import org.springframework.boot.actuate.web.trace.reactive.HttpTraceWebFilter_RENAMED;
 import org.springframework.mock.http.server.reactive.MockServerHttpRequest;
 import org.springframework.mock.web.server.MockServerWebExchange;
 import org.springframework.web.server.ServerWebExchange;
@@ -39,7 +39,7 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
 
 /**
- * Tests for {@link HttpTraceWebFilter}.
+ * Tests for {@link HttpTraceWebFilter_RENAMED}.
  *
  * @author Andy Wilkinson
  */
@@ -49,7 +49,7 @@ class HttpTraceWebFilterTests {
 
 	private final HttpExchangeTracer tracer = new HttpExchangeTracer(EnumSet.allOf(Include.class));
 
-	private final HttpTraceWebFilter filter = new HttpTraceWebFilter(this.repository, this.tracer,
+	private final HttpTraceWebFilter_RENAMED filter = new HttpTraceWebFilter_RENAMED(this.repository, this.tracer,
 			EnumSet.allOf(Include.class));
 
 	@Test

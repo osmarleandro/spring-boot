@@ -26,7 +26,7 @@ import org.springframework.boot.actuate.trace.http.HttpExchangeTracer;
 import org.springframework.boot.actuate.trace.http.HttpTraceRepository;
 import org.springframework.boot.actuate.trace.http.InMemoryHttpTraceRepository;
 import org.springframework.boot.actuate.trace.http.Include;
-import org.springframework.boot.actuate.web.trace.reactive.HttpTraceWebFilter;
+import org.springframework.boot.actuate.web.trace.reactive.HttpTraceWebFilter_RENAMED;
 import org.springframework.boot.test.context.runner.ReactiveWebApplicationContextRunner;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
@@ -45,7 +45,7 @@ import static org.springframework.web.reactive.function.server.RequestPredicates
 import static org.springframework.web.reactive.function.server.RouterFunctions.route;
 
 /**
- * Integration tests for {@link HttpTraceWebFilter}.
+ * Integration tests for {@link HttpTraceWebFilter_RENAMED}.
  *
  * @author Andy Wilkinson
  */
@@ -92,9 +92,9 @@ class HttpTraceWebFilterIntegrationTests {
 	static class Config {
 
 		@Bean
-		HttpTraceWebFilter httpTraceWebFilter(HttpTraceRepository repository) {
+		HttpTraceWebFilter_RENAMED httpTraceWebFilter(HttpTraceRepository repository) {
 			Set<Include> includes = EnumSet.allOf(Include.class);
-			return new HttpTraceWebFilter(repository, new HttpExchangeTracer(includes), includes);
+			return new HttpTraceWebFilter_RENAMED(repository, new HttpExchangeTracer(includes), includes);
 		}
 
 		@Bean
