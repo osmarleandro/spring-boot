@@ -35,7 +35,7 @@ public class TestJmxOperation implements JmxOperation {
 
 	private final Function<Map<String, Object>, Object> invoke;
 
-	private final List<JmxOperationParameter> parameters;
+	private final List<JmxOperationParameter_RENAMED> parameters;
 
 	public TestJmxOperation() {
 		this.operationType = OperationType.READ;
@@ -55,7 +55,7 @@ public class TestJmxOperation implements JmxOperation {
 		this.parameters = Collections.emptyList();
 	}
 
-	public TestJmxOperation(List<JmxOperationParameter> parameters) {
+	public TestJmxOperation(List<JmxOperationParameter_RENAMED> parameters) {
 		this.operationType = OperationType.READ;
 		this.invoke = null;
 		this.parameters = parameters;
@@ -87,7 +87,7 @@ public class TestJmxOperation implements JmxOperation {
 	}
 
 	@Override
-	public List<JmxOperationParameter> getParameters() {
+	public List<JmxOperationParameter_RENAMED> getParameters() {
 		return this.parameters;
 	}
 

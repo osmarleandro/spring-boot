@@ -92,7 +92,7 @@ class MBeanInfoFactoryTests {
 
 	@Test
 	void getMBeanShouldMapOperationParameters() {
-		List<JmxOperationParameter> parameters = new ArrayList<>();
+		List<JmxOperationParameter_RENAMED> parameters = new ArrayList<>();
 		parameters.add(mockParameter("one", String.class, "myone"));
 		parameters.add(mockParameter("two", Object.class, null));
 		TestJmxOperation operation = new TestJmxOperation(parameters);
@@ -109,8 +109,8 @@ class MBeanInfoFactoryTests {
 	}
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
-	private JmxOperationParameter mockParameter(String name, Class<?> type, String description) {
-		JmxOperationParameter parameter = mock(JmxOperationParameter.class);
+	private JmxOperationParameter_RENAMED mockParameter(String name, Class<?> type, String description) {
+		JmxOperationParameter_RENAMED parameter = mock(JmxOperationParameter_RENAMED.class);
 		given(parameter.getName()).willReturn(name);
 		given(parameter.getType()).willReturn((Class) type);
 		given(parameter.getDescription()).willReturn(description);

@@ -34,7 +34,7 @@ import org.springframework.boot.actuate.endpoint.invoke.OperationParameter;
 import org.springframework.boot.actuate.endpoint.invoke.OperationParameters;
 import org.springframework.boot.actuate.endpoint.invoke.reflect.OperationMethod;
 import org.springframework.boot.actuate.endpoint.jmx.JmxOperation;
-import org.springframework.boot.actuate.endpoint.jmx.JmxOperationParameter;
+import org.springframework.boot.actuate.endpoint.jmx.JmxOperationParameter_RENAMED;
 import org.springframework.core.style.ToStringCreator;
 import org.springframework.jmx.export.annotation.AnnotationJmxAttributeSource;
 import org.springframework.jmx.export.metadata.JmxAttributeSource;
@@ -58,7 +58,7 @@ class DiscoveredJmxOperation extends AbstractDiscoveredOperation implements JmxO
 
 	private final String description;
 
-	private final List<JmxOperationParameter> parameters;
+	private final List<JmxOperationParameter_RENAMED> parameters;
 
 	DiscoveredJmxOperation(EndpointId endpointId, DiscoveredOperationMethod operationMethod, OperationInvoker invoker) {
 		super(operationMethod, invoker);
@@ -77,7 +77,7 @@ class DiscoveredJmxOperation extends AbstractDiscoveredOperation implements JmxO
 		return fallback.get();
 	}
 
-	private List<JmxOperationParameter> getParameters(OperationMethod operationMethod) {
+	private List<JmxOperationParameter_RENAMED> getParameters(OperationMethod operationMethod) {
 		if (!operationMethod.getParameters().hasParameters()) {
 			return Collections.emptyList();
 		}
@@ -89,9 +89,9 @@ class DiscoveredJmxOperation extends AbstractDiscoveredOperation implements JmxO
 		return mergeParameters(operationMethod.getParameters(), managed);
 	}
 
-	private List<JmxOperationParameter> mergeParameters(OperationParameters operationParameters,
+	private List<JmxOperationParameter_RENAMED> mergeParameters(OperationParameters operationParameters,
 			ManagedOperationParameter[] managedParameters) {
-		List<JmxOperationParameter> merged = new ArrayList<>(managedParameters.length);
+		List<JmxOperationParameter_RENAMED> merged = new ArrayList<>(managedParameters.length);
 		for (int i = 0; i < managedParameters.length; i++) {
 			merged.add(new DiscoveredJmxOperationParameter(managedParameters[i], operationParameters.get(i)));
 		}
@@ -118,7 +118,7 @@ class DiscoveredJmxOperation extends AbstractDiscoveredOperation implements JmxO
 	}
 
 	@Override
-	public List<JmxOperationParameter> getParameters() {
+	public List<JmxOperationParameter_RENAMED> getParameters() {
 		return this.parameters;
 	}
 
@@ -129,9 +129,9 @@ class DiscoveredJmxOperation extends AbstractDiscoveredOperation implements JmxO
 	}
 
 	/**
-	 * A discovered {@link JmxOperationParameter}.
+	 * A discovered {@link JmxOperationParameter_RENAMED}.
 	 */
-	private static class DiscoveredJmxOperationParameter implements JmxOperationParameter {
+	private static class DiscoveredJmxOperationParameter implements JmxOperationParameter_RENAMED {
 
 		private final String name;
 

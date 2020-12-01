@@ -36,7 +36,7 @@ import org.springframework.boot.actuate.endpoint.invoker.cache.CachingOperationI
 import org.springframework.boot.actuate.endpoint.invoker.cache.CachingOperationInvokerAdvisor;
 import org.springframework.boot.actuate.endpoint.jmx.ExposableJmxEndpoint;
 import org.springframework.boot.actuate.endpoint.jmx.JmxOperation;
-import org.springframework.boot.actuate.endpoint.jmx.JmxOperationParameter;
+import org.springframework.boot.actuate.endpoint.jmx.JmxOperationParameter_RENAMED;
 import org.springframework.boot.actuate.endpoint.web.annotation.WebEndpoint;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.Bean;
@@ -233,7 +233,7 @@ class JmxEndpointDiscovererTests {
 	private void hasDocumentedParameter(JmxOperation operation, int index, String name, Class<?> type,
 			String description) {
 		assertThat(index).isLessThan(operation.getParameters().size());
-		JmxOperationParameter parameter = operation.getParameters().get(index);
+		JmxOperationParameter_RENAMED parameter = operation.getParameters().get(index);
 		assertThat(parameter.getName()).isEqualTo(name);
 		assertThat(parameter.getType()).isEqualTo(type);
 		assertThat(parameter.getDescription()).isEqualTo(description);

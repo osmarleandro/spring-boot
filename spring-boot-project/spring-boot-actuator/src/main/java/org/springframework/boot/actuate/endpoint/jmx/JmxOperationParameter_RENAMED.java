@@ -16,43 +16,31 @@
 
 package org.springframework.boot.actuate.endpoint.jmx;
 
-import java.util.List;
-
-import org.springframework.boot.actuate.endpoint.Operation;
-
 /**
- * An operation on a JMX endpoint.
+ * Describes the parameters of an operation on a JMX endpoint.
  *
  * @author Stephane Nicoll
- * @author Andy Wilkinson
  * @author Phillip Webb
  * @since 2.0.0
  */
-public interface JmxOperation extends Operation {
+public interface JmxOperationParameter_RENAMED {
 
 	/**
-	 * Returns the name of the operation.
-	 * @return the operation name
+	 * Return the name of the operation parameter.
+	 * @return the name of the parameter
 	 */
 	String getName();
 
 	/**
-	 * Returns the type of the output of the operation.
-	 * @return the output type
+	 * Return the type of the operation parameter.
+	 * @return the type
 	 */
-	Class<?> getOutputType();
+	Class<?> getType();
 
 	/**
-	 * Returns the description of the operation.
-	 * @return the operation description
+	 * Return the description of the parameter or {@code null} if none is available.
+	 * @return the description or {@code null}
 	 */
 	String getDescription();
-
-	/**
-	 * Returns the parameters the operation expects in the order that they should be
-	 * provided.
-	 * @return the operation parameter names
-	 */
-	List<JmxOperationParameter_RENAMED> getParameters();
 
 }
