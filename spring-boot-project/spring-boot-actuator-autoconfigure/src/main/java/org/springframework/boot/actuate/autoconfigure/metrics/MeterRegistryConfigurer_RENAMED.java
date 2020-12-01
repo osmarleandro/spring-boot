@@ -36,7 +36,7 @@ import org.springframework.boot.util.LambdaSafe;
  * @author Jon Schneider
  * @author Phillip Webb
  */
-class MeterRegistryConfigurer {
+class MeterRegistryConfigurer_RENAMED {
 
 	private final ObjectProvider<MeterRegistryCustomizer<?>> customizers;
 
@@ -48,7 +48,7 @@ class MeterRegistryConfigurer {
 
 	private final boolean hasCompositeMeterRegistry;
 
-	MeterRegistryConfigurer(ObjectProvider<MeterRegistryCustomizer<?>> customizers, ObjectProvider<MeterFilter> filters,
+	MeterRegistryConfigurer_RENAMED(ObjectProvider<MeterRegistryCustomizer<?>> customizers, ObjectProvider<MeterFilter> filters,
 			ObjectProvider<MeterBinder> binders, boolean addToGlobalRegistry, boolean hasCompositeMeterRegistry) {
 		this.customizers = customizers;
 		this.filters = filters;
@@ -75,7 +75,7 @@ class MeterRegistryConfigurer {
 	@SuppressWarnings("unchecked")
 	private void customize(MeterRegistry registry) {
 		LambdaSafe.callbacks(MeterRegistryCustomizer.class, asOrderedList(this.customizers), registry)
-				.withLogger(MeterRegistryConfigurer.class).invoke((customizer) -> customizer.customize(registry));
+				.withLogger(MeterRegistryConfigurer_RENAMED.class).invoke((customizer) -> customizer.customize(registry));
 	}
 
 	private void addFilters(MeterRegistry registry) {

@@ -42,7 +42,7 @@ import org.springframework.context.annotation.Configuration;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Integration tests for {@link MeterRegistryConfigurer}.
+ * Integration tests for {@link MeterRegistryConfigurer_RENAMED}.
  *
  * @author Jon Schneider
  */

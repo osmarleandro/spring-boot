@@ -28,7 +28,7 @@ import org.springframework.context.ApplicationContext;
 
 /**
  * {@link BeanPostProcessor} that delegates to a lazily created
- * {@link MeterRegistryConfigurer} to post-process {@link MeterRegistry} beans.
+ * {@link MeterRegistryConfigurer_RENAMED} to post-process {@link MeterRegistry} beans.
  *
  * @author Jon Schneider
  * @author Phillip Webb
@@ -44,7 +44,7 @@ class MeterRegistryPostProcessor implements BeanPostProcessor {
 
 	private final ObjectProvider<MetricsProperties> metricsProperties;
 
-	private volatile MeterRegistryConfigurer configurer;
+	private volatile MeterRegistryConfigurer_RENAMED configurer;
 
 	private final ApplicationContext applicationContext;
 
@@ -66,11 +66,11 @@ class MeterRegistryPostProcessor implements BeanPostProcessor {
 		return bean;
 	}
 
-	private MeterRegistryConfigurer getConfigurer() {
+	private MeterRegistryConfigurer_RENAMED getConfigurer() {
 		if (this.configurer == null) {
 			boolean hasCompositeMeterRegistry = this.applicationContext
 					.getBeanNamesForType(CompositeMeterRegistry.class, false, false).length != 0;
-			this.configurer = new MeterRegistryConfigurer(this.meterRegistryCustomizers, this.meterFilters,
+			this.configurer = new MeterRegistryConfigurer_RENAMED(this.meterRegistryCustomizers, this.meterFilters,
 					this.meterBinders, this.metricsProperties.getObject().isUseGlobalRegistry(),
 					hasCompositeMeterRegistry);
 		}
