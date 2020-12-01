@@ -55,7 +55,7 @@ class CloudFoundryInfoEndpointWebExtensionTests {
 					ServletManagementContextAutoConfiguration.class, EndpointAutoConfiguration.class,
 					WebEndpointAutoConfiguration.class, ProjectInfoAutoConfiguration.class,
 					InfoContributorAutoConfiguration.class, InfoEndpointAutoConfiguration.class,
-					HealthEndpointAutoConfiguration.class, CloudFoundryActuatorAutoConfiguration.class));
+					HealthEndpointAutoConfiguration.class, CloudFoundryActuatorAutoConfiguration_RENAMED.class));
 
 	@Test
 	@SuppressWarnings("unchecked")

@@ -83,7 +83,7 @@ import org.springframework.web.servlet.DispatcherServlet;
 @ConditionalOnClass(DispatcherServlet.class)
 @ConditionalOnBean(DispatcherServlet.class)
 @ConditionalOnCloudPlatform(CloudPlatform.CLOUD_FOUNDRY)
-public class CloudFoundryActuatorAutoConfiguration {
+public class CloudFoundryActuatorAutoConfiguration_RENAMED {
 
 	@Bean
 	@ConditionalOnMissingBean

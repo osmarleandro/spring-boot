@@ -56,7 +56,7 @@ class CloudFoundryHealthEndpointWebExtensionTests {
 					RestTemplateAutoConfiguration.class, ManagementContextAutoConfiguration.class,
 					ServletManagementContextAutoConfiguration.class, EndpointAutoConfiguration.class,
 					WebEndpointAutoConfiguration.class, HealthContributorAutoConfiguration.class,
-					HealthEndpointAutoConfiguration.class, CloudFoundryActuatorAutoConfiguration.class))
+					HealthEndpointAutoConfiguration.class, CloudFoundryActuatorAutoConfiguration_RENAMED.class))
 			.withUserConfiguration(TestHealthIndicator.class);
 
 	@Test

@@ -61,7 +61,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
 
 /**
- * Tests for {@link CloudFoundryActuatorAutoConfiguration}.
+ * Tests for {@link CloudFoundryActuatorAutoConfiguration_RENAMED}.
  *
  * @author Madhura Bhave
  */
@@ -73,7 +73,7 @@ class CloudFoundryActuatorAutoConfigurationTests {
 					HttpMessageConvertersAutoConfiguration.class, PropertyPlaceholderAutoConfiguration.class,
 					RestTemplateAutoConfiguration.class, ManagementContextAutoConfiguration.class,
 					ServletManagementContextAutoConfiguration.class, EndpointAutoConfiguration.class,
-					WebEndpointAutoConfiguration.class, CloudFoundryActuatorAutoConfiguration.class));
+					WebEndpointAutoConfiguration.class, CloudFoundryActuatorAutoConfiguration_RENAMED.class));
 
 	@Test
 	void cloudFoundryPlatformActive() {
