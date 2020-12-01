@@ -55,7 +55,7 @@ class CloudFoundryReactiveHealthEndpointWebExtensionTests {
 					ReactiveUserDetailsServiceAutoConfiguration.class, WebFluxAutoConfiguration.class,
 					JacksonAutoConfiguration.class, HttpMessageConvertersAutoConfiguration.class,
 					PropertyPlaceholderAutoConfiguration.class,
-					ReactiveCloudFoundryActuatorAutoConfigurationTests.WebClientCustomizerConfig.class,
+					ReactiveCloudFoundryActuatorAutoConfigurationTests_RENAMED.WebClientCustomizerConfig.class,
 					WebClientAutoConfiguration.class, ManagementContextAutoConfiguration.class,
 					EndpointAutoConfiguration.class, WebEndpointAutoConfiguration.class,
 					HealthContributorAutoConfiguration.class, HealthEndpointAutoConfiguration.class,
