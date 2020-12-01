@@ -28,7 +28,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Madhura Bhave
  */
-class CloudFoundryAuthorizationExceptionTests {
+class CloudFoundryAuthorizationExceptionTests_RENAMED {
 
 	@Test
 	void statusCodeForInvalidTokenReasonShouldBe401() {
