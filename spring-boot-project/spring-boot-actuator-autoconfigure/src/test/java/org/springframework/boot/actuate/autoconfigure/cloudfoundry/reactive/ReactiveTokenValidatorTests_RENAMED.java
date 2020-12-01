@@ -54,7 +54,7 @@ import static org.mockito.BDDMockito.given;
  * @author Madhura Bhave
  */
 @ExtendWith(MockitoExtension.class)
-class ReactiveTokenValidatorTests {
+class ReactiveTokenValidatorTests_RENAMED {
 
 	private static final byte[] DOT = ".".getBytes();
 
