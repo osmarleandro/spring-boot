@@ -41,7 +41,7 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 
 /**
- * Tests for {@link CachingOperationInvokerAdvisor}.
+ * Tests for {@link CachingOperationInvokerAdvisor_RENAMED}.
  *
  * @author Phillip Webb
  * @author Stephane Nicoll
@@ -55,11 +55,11 @@ class CachingOperationInvokerAdvisorTests {
 	@Mock
 	private Function<EndpointId, Long> timeToLive;
 
-	private CachingOperationInvokerAdvisor advisor;
+	private CachingOperationInvokerAdvisor_RENAMED advisor;
 
 	@BeforeEach
 	void setup() {
-		this.advisor = new CachingOperationInvokerAdvisor(this.timeToLive);
+		this.advisor = new CachingOperationInvokerAdvisor_RENAMED(this.timeToLive);
 	}
 
 	@Test

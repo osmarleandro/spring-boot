@@ -24,7 +24,7 @@ import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
 import org.springframework.boot.actuate.endpoint.annotation.EndpointConverter;
 import org.springframework.boot.actuate.endpoint.invoke.ParameterValueMapper;
 import org.springframework.boot.actuate.endpoint.invoke.convert.ConversionServiceParameterValueMapper;
-import org.springframework.boot.actuate.endpoint.invoker.cache.CachingOperationInvokerAdvisor;
+import org.springframework.boot.actuate.endpoint.invoker.cache.CachingOperationInvokerAdvisor_RENAMED;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.convert.ApplicationConversionService;
@@ -71,8 +71,8 @@ public class EndpointAutoConfiguration {
 
 	@Bean
 	@ConditionalOnMissingBean
-	public CachingOperationInvokerAdvisor endpointCachingOperationInvokerAdvisor(Environment environment) {
-		return new CachingOperationInvokerAdvisor(new EndpointIdTimeToLivePropertyFunction(environment));
+	public CachingOperationInvokerAdvisor_RENAMED endpointCachingOperationInvokerAdvisor(Environment environment) {
+		return new CachingOperationInvokerAdvisor_RENAMED(new EndpointIdTimeToLivePropertyFunction(environment));
 	}
 
 }

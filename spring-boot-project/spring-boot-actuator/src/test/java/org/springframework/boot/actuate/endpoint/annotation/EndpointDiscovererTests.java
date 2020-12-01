@@ -43,7 +43,7 @@ import org.springframework.boot.actuate.endpoint.invoke.OperationInvokerAdvisor;
 import org.springframework.boot.actuate.endpoint.invoke.ParameterValueMapper;
 import org.springframework.boot.actuate.endpoint.invoke.convert.ConversionServiceParameterValueMapper;
 import org.springframework.boot.actuate.endpoint.invoker.cache.CachingOperationInvoker;
-import org.springframework.boot.actuate.endpoint.invoker.cache.CachingOperationInvokerAdvisor;
+import org.springframework.boot.actuate.endpoint.invoker.cache.CachingOperationInvokerAdvisor_RENAMED;
 import org.springframework.cglib.proxy.Enhancer;
 import org.springframework.cglib.proxy.FixedValue;
 import org.springframework.context.ApplicationContext;
@@ -532,7 +532,7 @@ class EndpointDiscovererTests {
 		TestEndpointDiscoverer(ApplicationContext applicationContext, Function<EndpointId, Long> timeToLive,
 				Collection<EndpointFilter<TestExposableEndpoint>> filters) {
 			this(applicationContext, new ConversionServiceParameterValueMapper(),
-					Collections.singleton(new CachingOperationInvokerAdvisor(timeToLive)), filters);
+					Collections.singleton(new CachingOperationInvokerAdvisor_RENAMED(timeToLive)), filters);
 		}
 
 		TestEndpointDiscoverer(ApplicationContext applicationContext, ParameterValueMapper parameterValueMapper,

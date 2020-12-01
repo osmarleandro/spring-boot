@@ -20,7 +20,7 @@ import java.time.Duration;
 import java.util.function.Function;
 
 import org.springframework.boot.actuate.endpoint.EndpointId;
-import org.springframework.boot.actuate.endpoint.invoker.cache.CachingOperationInvokerAdvisor;
+import org.springframework.boot.actuate.endpoint.invoker.cache.CachingOperationInvokerAdvisor_RENAMED;
 import org.springframework.boot.context.properties.bind.BindResult;
 import org.springframework.boot.context.properties.bind.Bindable;
 import org.springframework.boot.context.properties.bind.Binder;
@@ -28,7 +28,7 @@ import org.springframework.core.env.Environment;
 import org.springframework.core.env.PropertyResolver;
 
 /**
- * Function for use with {@link CachingOperationInvokerAdvisor} that extracts caching
+ * Function for use with {@link CachingOperationInvokerAdvisor_RENAMED} that extracts caching
  * time-to-live from a {@link PropertyResolver resolved property}.
  *
  * @author Stephane Nicoll
