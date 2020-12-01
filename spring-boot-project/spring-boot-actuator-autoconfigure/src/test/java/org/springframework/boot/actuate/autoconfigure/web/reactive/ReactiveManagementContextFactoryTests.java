@@ -30,13 +30,13 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 
 /**
- * Tests for {@link ReactiveManagementContextFactory}.
+ * Tests for {@link ReactiveManagementContextFactory_RENAMED}.
  *
  * @author Madhura Bhave
  */
 class ReactiveManagementContextFactoryTests {
 
-	private ReactiveManagementContextFactory factory = new ReactiveManagementContextFactory();
+	private ReactiveManagementContextFactory_RENAMED factory = new ReactiveManagementContextFactory_RENAMED();
 
 	private AnnotationConfigReactiveWebServerApplicationContext parent = new AnnotationConfigReactiveWebServerApplicationContext();
 

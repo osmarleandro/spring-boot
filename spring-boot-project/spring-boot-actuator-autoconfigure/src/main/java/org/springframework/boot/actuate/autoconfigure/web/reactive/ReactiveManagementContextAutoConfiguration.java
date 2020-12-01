@@ -38,8 +38,8 @@ import org.springframework.context.annotation.Configuration;
 public class ReactiveManagementContextAutoConfiguration {
 
 	@Bean
-	public ReactiveManagementContextFactory reactiveWebChildContextFactory() {
-		return new ReactiveManagementContextFactory();
+	public ReactiveManagementContextFactory_RENAMED reactiveWebChildContextFactory() {
+		return new ReactiveManagementContextFactory_RENAMED();
 	}
 
 }

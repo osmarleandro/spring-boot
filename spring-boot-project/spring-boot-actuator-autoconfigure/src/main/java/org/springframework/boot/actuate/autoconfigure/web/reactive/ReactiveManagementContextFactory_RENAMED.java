@@ -36,7 +36,7 @@ import org.springframework.util.ObjectUtils;
  *
  * @author Andy Wilkinson
  */
-class ReactiveManagementContextFactory implements ManagementContextFactory {
+class ReactiveManagementContextFactory_RENAMED implements ManagementContextFactory {
 
 	@Override
 	public ConfigurableWebServerApplicationContext createManagementContext(ApplicationContext parent,
