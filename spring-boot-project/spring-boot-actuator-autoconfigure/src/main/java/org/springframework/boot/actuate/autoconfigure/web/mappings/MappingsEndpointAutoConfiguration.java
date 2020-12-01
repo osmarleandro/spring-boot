@@ -23,7 +23,7 @@ import org.springframework.boot.actuate.autoconfigure.endpoint.condition.Conditi
 import org.springframework.boot.actuate.web.mappings.MappingDescriptionProvider;
 import org.springframework.boot.actuate.web.mappings.MappingsEndpoint;
 import org.springframework.boot.actuate.web.mappings.reactive.DispatcherHandlersMappingDescriptionProvider;
-import org.springframework.boot.actuate.web.mappings.servlet.DispatcherServletsMappingDescriptionProvider;
+import org.springframework.boot.actuate.web.mappings.servlet.DispatcherServletsMappingDescriptionProvider_RENAMED;
 import org.springframework.boot.actuate.web.mappings.servlet.FiltersMappingDescriptionProvider;
 import org.springframework.boot.actuate.web.mappings.servlet.ServletsMappingDescriptionProvider;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -74,8 +74,8 @@ public class MappingsEndpointAutoConfiguration {
 		static class SpringMvcConfiguration {
 
 			@Bean
-			DispatcherServletsMappingDescriptionProvider dispatcherServletMappingDescriptionProvider() {
-				return new DispatcherServletsMappingDescriptionProvider();
+			DispatcherServletsMappingDescriptionProvider_RENAMED dispatcherServletMappingDescriptionProvider() {
+				return new DispatcherServletsMappingDescriptionProvider_RENAMED();
 			}
 
 		}
