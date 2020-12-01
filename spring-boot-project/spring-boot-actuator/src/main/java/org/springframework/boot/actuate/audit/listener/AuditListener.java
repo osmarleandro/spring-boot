@@ -23,7 +23,7 @@ import org.springframework.boot.actuate.audit.AuditEvent;
 import org.springframework.boot.actuate.audit.AuditEventRepository;
 
 /**
- * The default {@link AbstractAuditListener} implementation. Listens for
+ * The default {@link AbstractAuditListener_RENAMED} implementation. Listens for
  * {@link AuditApplicationEvent}s and stores them in a {@link AuditEventRepository}.
  *
  * @author Dave Syer
@@ -31,7 +31,7 @@ import org.springframework.boot.actuate.audit.AuditEventRepository;
  * @author Vedran Pavic
  * @since 1.0.0
  */
-public class AuditListener extends AbstractAuditListener {
+public class AuditListener extends AbstractAuditListener_RENAMED {
 
 	private static final Log logger = LogFactory.getLog(AuditListener.class);
 

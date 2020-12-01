@@ -21,7 +21,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.actuate.audit.AuditEvent;
 import org.springframework.boot.actuate.audit.AuditEventRepository;
 import org.springframework.boot.actuate.audit.InMemoryAuditEventRepository;
-import org.springframework.boot.actuate.audit.listener.AbstractAuditListener;
+import org.springframework.boot.actuate.audit.listener.AbstractAuditListener_RENAMED;
 import org.springframework.boot.actuate.audit.listener.AuditListener;
 import org.springframework.boot.actuate.security.AbstractAuthenticationAuditListener;
 import org.springframework.boot.actuate.security.AbstractAuthorizationAuditListener;
@@ -83,7 +83,7 @@ class AuditAutoConfigurationTests {
 	void ownAuditListener() {
 		this.contextRunner.withUserConfiguration(CustomAuditEventRepositoryConfiguration.class)
 				.withUserConfiguration(CustomAuditListenerConfiguration.class)
-				.run((context) -> assertThat(context.getBean(AbstractAuditListener.class))
+				.run((context) -> assertThat(context.getBean(AbstractAuditListener_RENAMED.class))
 						.isInstanceOf(TestAuditListener.class));
 	}
 
@@ -164,7 +164,7 @@ class AuditAutoConfigurationTests {
 
 	}
 
-	static class TestAuditListener extends AbstractAuditListener {
+	static class TestAuditListener extends AbstractAuditListener_RENAMED {
 
 		@Override
 		protected void onAuditEvent(AuditEvent event) {
