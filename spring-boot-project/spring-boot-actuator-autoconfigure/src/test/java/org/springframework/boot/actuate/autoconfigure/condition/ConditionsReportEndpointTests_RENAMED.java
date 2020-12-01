@@ -43,7 +43,7 @@ import static org.mockito.Mockito.mock;
  * @author Phillip Webb
  * @author Andy Wilkinson
  */
-class ConditionsReportEndpointTests {
+class ConditionsReportEndpointTests_RENAMED {
 
 	@Test
 	void invoke() {
