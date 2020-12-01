@@ -44,7 +44,7 @@ import org.springframework.web.servlet.DispatcherServlet;
  */
 @ManagementContextConfiguration(proxyBeanMethods = false)
 @ConditionalOnWebApplication(type = Type.SERVLET)
-public class ServletEndpointManagementContextConfiguration {
+public class ServletEndpointManagementContextConfiguration_RENAMED {
 
 	@Bean
 	public IncludeExcludeEndpointFilter<ExposableServletEndpoint> servletExposeExcludePropertyEndpointFilter(

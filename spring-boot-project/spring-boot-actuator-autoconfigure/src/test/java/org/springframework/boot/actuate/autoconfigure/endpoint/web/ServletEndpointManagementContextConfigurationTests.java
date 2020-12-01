@@ -37,7 +37,7 @@ import org.springframework.web.servlet.DispatcherServlet;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Tests for {@link ServletEndpointManagementContextConfiguration}.
+ * Tests for {@link ServletEndpointManagementContextConfiguration_RENAMED}.
  *
  * @author Phillip Webb
  * @author Madhura Bhave
@@ -74,7 +74,7 @@ class ServletEndpointManagementContextConfigurationTests {
 	}
 
 	@Configuration(proxyBeanMethods = false)
-	@Import(ServletEndpointManagementContextConfiguration.class)
+	@Import(ServletEndpointManagementContextConfiguration_RENAMED.class)
 	@EnableConfigurationProperties(WebEndpointProperties.class)
 	static class TestConfig {
 
