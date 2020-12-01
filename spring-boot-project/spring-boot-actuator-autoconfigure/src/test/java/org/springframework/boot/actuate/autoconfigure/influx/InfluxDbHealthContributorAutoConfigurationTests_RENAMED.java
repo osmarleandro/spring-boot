@@ -32,7 +32,7 @@ import static org.mockito.Mockito.mock;
  *
  * @author Eddú Meléndez
  */
-class InfluxDbHealthContributorAutoConfigurationTests {
+class InfluxDbHealthContributorAutoConfigurationTests_RENAMED {
 
 	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.withBean(InfluxDB.class, () -> mock(InfluxDB.class)).withConfiguration(AutoConfigurations
