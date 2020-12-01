@@ -50,7 +50,7 @@ public class MetricsRestTemplateCustomizer implements RestTemplateCustomizer {
 	 * @param autoTimer the auto-timers to apply or {@code null} to disable auto-timing
 	 * @since 2.2.0
 	 */
-	public MetricsRestTemplateCustomizer(MeterRegistry meterRegistry, RestTemplateExchangeTagsProvider tagProvider,
+	public MetricsRestTemplateCustomizer(MeterRegistry meterRegistry, RestTemplateExchangeTagsProvider_RENAMED tagProvider,
 			String metricName, AutoTimer autoTimer) {
 		this.interceptor = new MetricsClientHttpRequestInterceptor(meterRegistry, tagProvider, metricName, autoTimer);
 	}

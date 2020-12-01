@@ -47,7 +47,7 @@ class MetricsClientHttpRequestInterceptor implements ClientHttpRequestIntercepto
 
 	private final MeterRegistry meterRegistry;
 
-	private final RestTemplateExchangeTagsProvider tagProvider;
+	private final RestTemplateExchangeTagsProvider_RENAMED tagProvider;
 
 	private final String metricName;
 
@@ -61,7 +61,7 @@ class MetricsClientHttpRequestInterceptor implements ClientHttpRequestIntercepto
 	 * @param autoTimer the auto-timers to apply or {@code null} to disable auto-timing
 	 * @since 2.2.0
 	 */
-	MetricsClientHttpRequestInterceptor(MeterRegistry meterRegistry, RestTemplateExchangeTagsProvider tagProvider,
+	MetricsClientHttpRequestInterceptor(MeterRegistry meterRegistry, RestTemplateExchangeTagsProvider_RENAMED tagProvider,
 			String metricName, AutoTimer autoTimer) {
 		this.tagProvider = tagProvider;
 		this.meterRegistry = meterRegistry;

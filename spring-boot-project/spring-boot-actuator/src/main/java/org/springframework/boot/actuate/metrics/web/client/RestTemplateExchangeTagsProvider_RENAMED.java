@@ -16,30 +16,30 @@
 
 package org.springframework.boot.actuate.metrics.web.client;
 
-import java.util.Arrays;
-
 import io.micrometer.core.instrument.Tag;
 
 import org.springframework.http.HttpRequest;
 import org.springframework.http.client.ClientHttpResponse;
-import org.springframework.util.StringUtils;
+import org.springframework.web.client.RestTemplate;
 
 /**
- * Default implementation of {@link RestTemplateExchangeTagsProvider_RENAMED}.
+ * Provides {@link Tag Tags} for an exchange performed by a {@link RestTemplate}.
  *
  * @author Jon Schneider
- * @author Nishant Raut
+ * @author Andy Wilkinson
  * @since 2.0.0
  */
-public class DefaultRestTemplateExchangeTagsProvider implements RestTemplateExchangeTagsProvider_RENAMED {
+@FunctionalInterface
+public interface RestTemplateExchangeTagsProvider_RENAMED {
 
-	@Override
-	public Iterable<Tag> getTags(String urlTemplate, HttpRequest request, ClientHttpResponse response) {
-		Tag uriTag = (StringUtils.hasText(urlTemplate) ? RestTemplateExchangeTags.uri(urlTemplate)
-				: RestTemplateExchangeTags.uri(request));
-		return Arrays.asList(RestTemplateExchangeTags.method(request), uriTag,
-				RestTemplateExchangeTags.status(response), RestTemplateExchangeTags.clientName(request),
-				RestTemplateExchangeTags.outcome(response));
-	}
+	/**
+	 * Provides the tags to be associated with metrics that are recorded for the given
+	 * {@code request} and {@code response} exchange.
+	 * @param urlTemplate the source URl template, if available
+	 * @param request the request
+	 * @param response the response (may be {@code null} if the exchange failed)
+	 * @return the tags
+	 */
+	Iterable<Tag> getTags(String urlTemplate, HttpRequest request, ClientHttpResponse response);
 
 }
