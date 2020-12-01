@@ -31,7 +31,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Stephane Nicoll
  * @author Phillip Webb
  */
-class EndpointIdTimeToLivePropertyFunctionTests {
+class EndpointIdTimeToLivePropertyFunctionTests_RENAMED {
 
 	private final MockEnvironment environment = new MockEnvironment();
 
