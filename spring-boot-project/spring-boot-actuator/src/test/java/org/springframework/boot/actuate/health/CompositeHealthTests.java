@@ -50,7 +50,7 @@ class CompositeHealthTests {
 
 	@Test
 	void getComponentReturnsComponents() {
-		Map<String, HealthComponent> components = new LinkedHashMap<>();
+		Map<String, HealthComponent_RENAMED> components = new LinkedHashMap<>();
 		components.put("a", Health.up().build());
 		CompositeHealth health = new CompositeHealth(ApiVersion.V3, Status.UP, components);
 		assertThat(health.getComponents()).isEqualTo(components);
@@ -58,7 +58,7 @@ class CompositeHealthTests {
 
 	@Test
 	void serializeV3WithJacksonReturnsValidJson() throws Exception {
-		Map<String, HealthComponent> components = new LinkedHashMap<>();
+		Map<String, HealthComponent_RENAMED> components = new LinkedHashMap<>();
 		components.put("db1", Health.up().build());
 		components.put("db2", Health.down().withDetail("a", "b").build());
 		CompositeHealth health = new CompositeHealth(ApiVersion.V3, Status.UP, components);
@@ -70,7 +70,7 @@ class CompositeHealthTests {
 
 	@Test
 	void serializeV2WithJacksonReturnsValidJson() throws Exception {
-		Map<String, HealthComponent> components = new LinkedHashMap<>();
+		Map<String, HealthComponent_RENAMED> components = new LinkedHashMap<>();
 		components.put("db1", Health.up().build());
 		components.put("db2", Health.down().withDetail("a", "b").build());
 		CompositeHealth health = new CompositeHealth(ApiVersion.V2, Status.UP, components);

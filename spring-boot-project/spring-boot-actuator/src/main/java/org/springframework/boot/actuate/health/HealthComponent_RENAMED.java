@@ -16,16 +16,26 @@
 
 package org.springframework.boot.actuate.health;
 
+import com.fasterxml.jackson.annotation.JsonUnwrapped;
+
 /**
- * Tagging interface for classes that contribute to {@link HealthComponent_RENAMED health
- * components} to the results returned from the {@link HealthEndpoint}. A contributor must
- * be either a {@link HealthIndicator} or a {@link CompositeHealthContributor}.
+ * An component that contributes data to results returned from the {@link HealthEndpoint}.
  *
  * @author Phillip Webb
  * @since 2.2.0
- * @see HealthIndicator
- * @see CompositeHealthContributor
+ * @see Health
+ * @see CompositeHealth
  */
-public interface HealthContributor {
+public abstract class HealthComponent_RENAMED {
+
+	HealthComponent_RENAMED() {
+	}
+
+	/**
+	 * Return the status of the component.
+	 * @return the component status
+	 */
+	@JsonUnwrapped
+	public abstract Status getStatus();
 
 }

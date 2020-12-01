@@ -27,7 +27,7 @@ import org.springframework.util.Assert;
 
 /**
  * Carries information about the health of a component or subsystem. Extends
- * {@link HealthComponent} so that additional contextual details about the system can be
+ * {@link HealthComponent_RENAMED} so that additional contextual details about the system can be
  * returned along with the {@link Status}.
  * <p>
  * {@link Health} instances can be created by using {@link Builder}'s fluent API. Typical
@@ -49,7 +49,7 @@ import org.springframework.util.Assert;
  * @since 1.1.0
  */
 @JsonInclude(Include.NON_EMPTY)
-public final class Health extends HealthComponent {
+public final class Health extends HealthComponent_RENAMED {
 
 	private final Status status;
 

@@ -37,7 +37,7 @@ import org.springframework.boot.actuate.endpoint.http.ApiVersion;
  * @since 2.0.0
  */
 @Endpoint(id = "health")
-public class HealthEndpoint extends HealthEndpointSupport<HealthContributor, HealthComponent> {
+public class HealthEndpoint extends HealthEndpointSupport<HealthContributor, HealthComponent_RENAMED> {
 
 	private static final String[] EMPTY_PATH = {};
 
@@ -51,28 +51,28 @@ public class HealthEndpoint extends HealthEndpointSupport<HealthContributor, Hea
 	}
 
 	@ReadOperation
-	public HealthComponent health() {
-		HealthComponent health = health(ApiVersion.V3, EMPTY_PATH);
+	public HealthComponent_RENAMED health() {
+		HealthComponent_RENAMED health = health(ApiVersion.V3, EMPTY_PATH);
 		return (health != null) ? health : DEFAULT_HEALTH;
 	}
 
 	@ReadOperation
-	public HealthComponent healthForPath(@Selector(match = Match.ALL_REMAINING) String... path) {
+	public HealthComponent_RENAMED healthForPath(@Selector(match = Match.ALL_REMAINING) String... path) {
 		return health(ApiVersion.V3, path);
 	}
 
-	private HealthComponent health(ApiVersion apiVersion, String... path) {
-		HealthResult<HealthComponent> result = getHealth(apiVersion, SecurityContext.NONE, true, path);
+	private HealthComponent_RENAMED health(ApiVersion apiVersion, String... path) {
+		HealthResult<HealthComponent_RENAMED> result = getHealth(apiVersion, SecurityContext.NONE, true, path);
 		return (result != null) ? result.getHealth() : null;
 	}
 
 	@Override
-	protected HealthComponent getHealth(HealthContributor contributor, boolean includeDetails) {
+	protected HealthComponent_RENAMED getHealth(HealthContributor contributor, boolean includeDetails) {
 		return ((HealthIndicator) contributor).getHealth(includeDetails);
 	}
 
 	@Override
-	protected HealthComponent aggregateContributions(ApiVersion apiVersion, Map<String, HealthComponent> contributions,
+	protected HealthComponent_RENAMED aggregateContributions(ApiVersion apiVersion, Map<String, HealthComponent_RENAMED> contributions,
 			StatusAggregator statusAggregator, boolean showComponents, Set<String> groupNames) {
 		return getCompositeHealth(apiVersion, contributions, statusAggregator, showComponents, groupNames);
 	}

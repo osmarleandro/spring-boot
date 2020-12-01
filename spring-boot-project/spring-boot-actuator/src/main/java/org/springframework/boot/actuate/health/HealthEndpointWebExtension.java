@@ -42,7 +42,7 @@ import org.springframework.boot.actuate.endpoint.web.annotation.EndpointWebExten
  * @since 2.0.0
  */
 @EndpointWebExtension(endpoint = HealthEndpoint.class)
-public class HealthEndpointWebExtension extends HealthEndpointSupport<HealthContributor, HealthComponent> {
+public class HealthEndpointWebExtension extends HealthEndpointSupport<HealthContributor, HealthComponent_RENAMED> {
 
 	private static final String[] NO_PATH = {};
 
@@ -56,37 +56,37 @@ public class HealthEndpointWebExtension extends HealthEndpointSupport<HealthCont
 	}
 
 	@ReadOperation
-	public WebEndpointResponse<HealthComponent> health(ApiVersion apiVersion, SecurityContext securityContext) {
+	public WebEndpointResponse<HealthComponent_RENAMED> health(ApiVersion apiVersion, SecurityContext securityContext) {
 		return health(apiVersion, securityContext, false, NO_PATH);
 	}
 
 	@ReadOperation
-	public WebEndpointResponse<HealthComponent> health(ApiVersion apiVersion, SecurityContext securityContext,
+	public WebEndpointResponse<HealthComponent_RENAMED> health(ApiVersion apiVersion, SecurityContext securityContext,
 			@Selector(match = Match.ALL_REMAINING) String... path) {
 		return health(apiVersion, securityContext, false, path);
 	}
 
-	public WebEndpointResponse<HealthComponent> health(ApiVersion apiVersion, SecurityContext securityContext,
+	public WebEndpointResponse<HealthComponent_RENAMED> health(ApiVersion apiVersion, SecurityContext securityContext,
 			boolean showAll, String... path) {
-		HealthResult<HealthComponent> result = getHealth(apiVersion, securityContext, showAll, path);
+		HealthResult<HealthComponent_RENAMED> result = getHealth(apiVersion, securityContext, showAll, path);
 		if (result == null) {
 			return (Arrays.equals(path, NO_PATH))
 					? new WebEndpointResponse<>(DEFAULT_HEALTH, WebEndpointResponse.STATUS_OK)
 					: new WebEndpointResponse<>(WebEndpointResponse.STATUS_NOT_FOUND);
 		}
-		HealthComponent health = result.getHealth();
+		HealthComponent_RENAMED health = result.getHealth();
 		HealthEndpointGroup group = result.getGroup();
 		int statusCode = group.getHttpCodeStatusMapper().getStatusCode(health.getStatus());
 		return new WebEndpointResponse<>(health, statusCode);
 	}
 
 	@Override
-	protected HealthComponent getHealth(HealthContributor contributor, boolean includeDetails) {
+	protected HealthComponent_RENAMED getHealth(HealthContributor contributor, boolean includeDetails) {
 		return ((HealthIndicator) contributor).getHealth(includeDetails);
 	}
 
 	@Override
-	protected HealthComponent aggregateContributions(ApiVersion apiVersion, Map<String, HealthComponent> contributions,
+	protected HealthComponent_RENAMED aggregateContributions(ApiVersion apiVersion, Map<String, HealthComponent_RENAMED> contributions,
 			StatusAggregator statusAggregator, boolean showComponents, Set<String> groupNames) {
 		return getCompositeHealth(apiVersion, contributions, statusAggregator, showComponents, groupNames);
 	}

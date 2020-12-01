@@ -37,14 +37,14 @@ import static org.mockito.Mockito.mock;
  * @author Scott Frederick
  */
 class ReactiveHealthEndpointWebExtensionTests extends
-		HealthEndpointSupportTests<ReactiveHealthContributorRegistry, ReactiveHealthContributor, Mono<? extends HealthComponent>> {
+		HealthEndpointSupportTests<ReactiveHealthContributorRegistry, ReactiveHealthContributor, Mono<? extends HealthComponent_RENAMED>> {
 
 	@Test
 	void healthReturnsSystemHealth() {
 		this.registry.registerContributor("test", createContributor(this.up));
-		WebEndpointResponse<? extends HealthComponent> response = create(this.registry, this.groups)
+		WebEndpointResponse<? extends HealthComponent_RENAMED> response = create(this.registry, this.groups)
 				.health(ApiVersion.LATEST, SecurityContext.NONE).block();
-		HealthComponent health = response.getBody();
+		HealthComponent_RENAMED health = response.getBody();
 		assertThat(health.getStatus()).isEqualTo(Status.UP);
 		assertThat(health).isInstanceOf(SystemHealth.class);
 		assertThat(response.getStatus()).isEqualTo(200);
@@ -53,11 +53,11 @@ class ReactiveHealthEndpointWebExtensionTests extends
 	@Test
 	void healthWithNoContributorReturnsUp() {
 		assertThat(this.registry).isEmpty();
-		WebEndpointResponse<? extends HealthComponent> response = create(this.registry,
+		WebEndpointResponse<? extends HealthComponent_RENAMED> response = create(this.registry,
 				HealthEndpointGroups.of(mock(HealthEndpointGroup.class), Collections.emptyMap()))
 						.health(ApiVersion.LATEST, SecurityContext.NONE).block();
 		assertThat(response.getStatus()).isEqualTo(200);
-		HealthComponent health = response.getBody();
+		HealthComponent_RENAMED health = response.getBody();
 		assertThat(health.getStatus()).isEqualTo(Status.UP);
 		assertThat(health).isInstanceOf(Health.class);
 	}
@@ -65,7 +65,7 @@ class ReactiveHealthEndpointWebExtensionTests extends
 	@Test
 	void healthWhenPathDoesNotExistReturnsHttp404() {
 		this.registry.registerContributor("test", createContributor(this.up));
-		WebEndpointResponse<? extends HealthComponent> response = create(this.registry, this.groups)
+		WebEndpointResponse<? extends HealthComponent_RENAMED> response = create(this.registry, this.groups)
 				.health(ApiVersion.LATEST, SecurityContext.NONE, "missing").block();
 		assertThat(response.getBody()).isNull();
 		assertThat(response.getStatus()).isEqualTo(404);
@@ -74,7 +74,7 @@ class ReactiveHealthEndpointWebExtensionTests extends
 	@Test
 	void healthWhenPathExistsReturnsHealth() {
 		this.registry.registerContributor("test", createContributor(this.up));
-		WebEndpointResponse<? extends HealthComponent> response = create(this.registry, this.groups)
+		WebEndpointResponse<? extends HealthComponent_RENAMED> response = create(this.registry, this.groups)
 				.health(ApiVersion.LATEST, SecurityContext.NONE, "test").block();
 		assertThat(response.getBody()).isEqualTo(this.up);
 		assertThat(response.getStatus()).isEqualTo(200);
@@ -103,7 +103,7 @@ class ReactiveHealthEndpointWebExtensionTests extends
 	}
 
 	@Override
-	protected HealthComponent getHealth(HealthResult<Mono<? extends HealthComponent>> result) {
+	protected HealthComponent_RENAMED getHealth(HealthResult<Mono<? extends HealthComponent_RENAMED>> result) {
 		return result.getHealth().block();
 	}
 

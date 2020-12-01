@@ -33,12 +33,12 @@ import static org.mockito.Mockito.mock;
  * @author Scott Frederick
  */
 class HealthEndpointTests
-		extends HealthEndpointSupportTests<HealthContributorRegistry, HealthContributor, HealthComponent> {
+		extends HealthEndpointSupportTests<HealthContributorRegistry, HealthContributor, HealthComponent_RENAMED> {
 
 	@Test
 	void healthReturnsSystemHealth() {
 		this.registry.registerContributor("test", createContributor(this.up));
-		HealthComponent health = create(this.registry, this.groups).health();
+		HealthComponent_RENAMED health = create(this.registry, this.groups).health();
 		assertThat(health.getStatus()).isEqualTo(Status.UP);
 		assertThat(health).isInstanceOf(SystemHealth.class);
 	}
@@ -46,7 +46,7 @@ class HealthEndpointTests
 	@Test
 	void healthWithNoContributorReturnsUp() {
 		assertThat(this.registry).isEmpty();
-		HealthComponent health = create(this.registry,
+		HealthComponent_RENAMED health = create(this.registry,
 				HealthEndpointGroups.of(mock(HealthEndpointGroup.class), Collections.emptyMap())).health();
 		assertThat(health.getStatus()).isEqualTo(Status.UP);
 		assertThat(health).isInstanceOf(Health.class);
@@ -55,14 +55,14 @@ class HealthEndpointTests
 	@Test
 	void healthWhenPathDoesNotExistReturnsNull() {
 		this.registry.registerContributor("test", createContributor(this.up));
-		HealthComponent health = create(this.registry, this.groups).healthForPath("missing");
+		HealthComponent_RENAMED health = create(this.registry, this.groups).healthForPath("missing");
 		assertThat(health).isNull();
 	}
 
 	@Test
 	void healthWhenPathExistsReturnsHealth() {
 		this.registry.registerContributor("test", createContributor(this.up));
-		HealthComponent health = create(this.registry, this.groups).healthForPath("test");
+		HealthComponent_RENAMED health = create(this.registry, this.groups).healthForPath("test");
 		assertThat(health).isEqualTo(this.up);
 	}
 
@@ -87,7 +87,7 @@ class HealthEndpointTests
 	}
 
 	@Override
-	protected HealthComponent getHealth(HealthResult<HealthComponent> result) {
+	protected HealthComponent_RENAMED getHealth(HealthResult<HealthComponent_RENAMED> result) {
 		return result.getHealth();
 	}
 

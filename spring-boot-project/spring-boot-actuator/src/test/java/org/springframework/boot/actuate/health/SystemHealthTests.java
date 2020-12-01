@@ -38,7 +38,7 @@ class SystemHealthTests {
 
 	@Test
 	void serializeWithJacksonReturnsValidJson() throws Exception {
-		Map<String, HealthComponent> components = new LinkedHashMap<>();
+		Map<String, HealthComponent_RENAMED> components = new LinkedHashMap<>();
 		components.put("db1", Health.up().build());
 		components.put("db2", Health.down().withDetail("a", "b").build());
 		Set<String> groups = new LinkedHashSet<>(Arrays.asList("liveness", "readiness"));

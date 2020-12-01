@@ -42,7 +42,7 @@ import org.springframework.boot.actuate.endpoint.web.annotation.EndpointWebExten
  */
 @EndpointWebExtension(endpoint = HealthEndpoint.class)
 public class ReactiveHealthEndpointWebExtension
-		extends HealthEndpointSupport<ReactiveHealthContributor, Mono<? extends HealthComponent>> {
+		extends HealthEndpointSupport<ReactiveHealthContributor, Mono<? extends HealthComponent_RENAMED>> {
 
 	private static final String[] NO_PATH = {};
 
@@ -56,20 +56,20 @@ public class ReactiveHealthEndpointWebExtension
 	}
 
 	@ReadOperation
-	public Mono<WebEndpointResponse<? extends HealthComponent>> health(ApiVersion apiVersion,
+	public Mono<WebEndpointResponse<? extends HealthComponent_RENAMED>> health(ApiVersion apiVersion,
 			SecurityContext securityContext) {
 		return health(apiVersion, securityContext, false, NO_PATH);
 	}
 
 	@ReadOperation
-	public Mono<WebEndpointResponse<? extends HealthComponent>> health(ApiVersion apiVersion,
+	public Mono<WebEndpointResponse<? extends HealthComponent_RENAMED>> health(ApiVersion apiVersion,
 			SecurityContext securityContext, @Selector(match = Match.ALL_REMAINING) String... path) {
 		return health(apiVersion, securityContext, false, path);
 	}
 
-	public Mono<WebEndpointResponse<? extends HealthComponent>> health(ApiVersion apiVersion,
+	public Mono<WebEndpointResponse<? extends HealthComponent_RENAMED>> health(ApiVersion apiVersion,
 			SecurityContext securityContext, boolean showAll, String... path) {
-		HealthResult<Mono<? extends HealthComponent>> result = getHealth(apiVersion, securityContext, showAll, path);
+		HealthResult<Mono<? extends HealthComponent_RENAMED>> result = getHealth(apiVersion, securityContext, showAll, path);
 		if (result == null) {
 			return (Arrays.equals(path, NO_PATH))
 					? Mono.just(new WebEndpointResponse<>(DEFAULT_HEALTH, WebEndpointResponse.STATUS_OK))
@@ -83,13 +83,13 @@ public class ReactiveHealthEndpointWebExtension
 	}
 
 	@Override
-	protected Mono<? extends HealthComponent> getHealth(ReactiveHealthContributor contributor, boolean includeDetails) {
+	protected Mono<? extends HealthComponent_RENAMED> getHealth(ReactiveHealthContributor contributor, boolean includeDetails) {
 		return ((ReactiveHealthIndicator) contributor).getHealth(includeDetails);
 	}
 
 	@Override
-	protected Mono<? extends HealthComponent> aggregateContributions(ApiVersion apiVersion,
-			Map<String, Mono<? extends HealthComponent>> contributions, StatusAggregator statusAggregator,
+	protected Mono<? extends HealthComponent_RENAMED> aggregateContributions(ApiVersion apiVersion,
+			Map<String, Mono<? extends HealthComponent_RENAMED>> contributions, StatusAggregator statusAggregator,
 			boolean showComponents, Set<String> groupNames) {
 		return Flux.fromIterable(contributions.entrySet()).flatMap(NamedHealthComponent::create)
 				.collectMap(NamedHealthComponent::getName, NamedHealthComponent::getHealth).map((components) -> this
@@ -97,30 +97,30 @@ public class ReactiveHealthEndpointWebExtension
 	}
 
 	/**
-	 * A named {@link HealthComponent}.
+	 * A named {@link HealthComponent_RENAMED}.
 	 */
 	private static final class NamedHealthComponent {
 
 		private final String name;
 
-		private final HealthComponent health;
+		private final HealthComponent_RENAMED health;
 
 		private NamedHealthComponent(Object... pair) {
 			this.name = (String) pair[0];
-			this.health = (HealthComponent) pair[1];
+			this.health = (HealthComponent_RENAMED) pair[1];
 		}
 
 		String getName() {
 			return this.name;
 		}
 
-		HealthComponent getHealth() {
+		HealthComponent_RENAMED getHealth() {
 			return this.health;
 		}
 
-		static Mono<NamedHealthComponent> create(Map.Entry<String, Mono<? extends HealthComponent>> entry) {
+		static Mono<NamedHealthComponent> create(Map.Entry<String, Mono<? extends HealthComponent_RENAMED>> entry) {
 			Mono<String> name = Mono.just(entry.getKey());
-			Mono<? extends HealthComponent> health = entry.getValue();
+			Mono<? extends HealthComponent_RENAMED> health = entry.getValue();
 			return Mono.zip(NamedHealthComponent::new, name, health);
 		}
 

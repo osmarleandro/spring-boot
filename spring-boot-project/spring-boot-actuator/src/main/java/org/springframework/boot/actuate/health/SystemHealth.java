@@ -26,7 +26,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import org.springframework.boot.actuate.endpoint.http.ApiVersion;
 
 /**
- * A {@link HealthComponent} that represents the overall system health and the available
+ * A {@link HealthComponent_RENAMED} that represents the overall system health and the available
  * groups.
  *
  * @author Phillip Webb
@@ -36,7 +36,7 @@ public final class SystemHealth extends CompositeHealth {
 
 	private final Set<String> groups;
 
-	SystemHealth(ApiVersion apiVersion, Status status, Map<String, HealthComponent> instances, Set<String> groups) {
+	SystemHealth(ApiVersion apiVersion, Status status, Map<String, HealthComponent_RENAMED> instances, Set<String> groups) {
 		super(apiVersion, status, instances);
 		this.groups = (groups != null) ? new TreeSet<>(groups) : null;
 	}

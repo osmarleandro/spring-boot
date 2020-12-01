@@ -19,7 +19,7 @@ package org.springframework.boot.actuate.health;
 import org.springframework.util.Assert;
 
 /**
- * Tagging interface for classes that contribute to {@link HealthComponent health
+ * Tagging interface for classes that contribute to {@link HealthComponent_RENAMED health
  * components} to the results returned from the {@link HealthEndpoint}. A contributor must
  * be either a {@link ReactiveHealthIndicator} or a
  * {@link CompositeReactiveHealthContributor}.

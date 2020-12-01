@@ -27,7 +27,7 @@ import org.springframework.boot.actuate.endpoint.http.ApiVersion;
 import org.springframework.util.Assert;
 
 /**
- * A {@link HealthComponent} that is composed of other {@link HealthComponent} instances.
+ * A {@link HealthComponent_RENAMED} that is composed of other {@link HealthComponent_RENAMED} instances.
  * Used to provide a unified view of related components. For example, a database health
  * indicator may be a composite containing the {@link Health} of each datasource
  * connection.
@@ -35,22 +35,22 @@ import org.springframework.util.Assert;
  * @author Phillip Webb
  * @since 2.2.0
  */
-public class CompositeHealth extends HealthComponent {
+public class CompositeHealth extends HealthComponent_RENAMED {
 
 	private final Status status;
 
-	private final Map<String, HealthComponent> components;
+	private final Map<String, HealthComponent_RENAMED> components;
 
-	private final Map<String, HealthComponent> details;
+	private final Map<String, HealthComponent_RENAMED> details;
 
-	CompositeHealth(ApiVersion apiVersion, Status status, Map<String, HealthComponent> components) {
+	CompositeHealth(ApiVersion apiVersion, Status status, Map<String, HealthComponent_RENAMED> components) {
 		Assert.notNull(status, "Status must not be null");
 		this.status = status;
 		this.components = (apiVersion != ApiVersion.V3) ? null : sort(components);
 		this.details = (apiVersion != ApiVersion.V2) ? null : sort(components);
 	}
 
-	private Map<String, HealthComponent> sort(Map<String, HealthComponent> components) {
+	private Map<String, HealthComponent_RENAMED> sort(Map<String, HealthComponent_RENAMED> components) {
 		return (components != null) ? new TreeMap<>(components) : components;
 	}
 
@@ -60,13 +60,13 @@ public class CompositeHealth extends HealthComponent {
 	}
 
 	@JsonInclude(Include.NON_EMPTY)
-	public Map<String, HealthComponent> getComponents() {
+	public Map<String, HealthComponent_RENAMED> getComponents() {
 		return this.components;
 	}
 
 	@JsonInclude(Include.NON_EMPTY)
 	@JsonProperty
-	Map<String, HealthComponent> getDetails() {
+	Map<String, HealthComponent_RENAMED> getDetails() {
 		return this.details;
 	}
 
