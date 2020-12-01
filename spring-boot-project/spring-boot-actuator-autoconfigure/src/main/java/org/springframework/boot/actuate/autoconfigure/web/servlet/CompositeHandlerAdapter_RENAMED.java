@@ -35,13 +35,13 @@ import org.springframework.web.servlet.ModelAndView;
  * @author Stephane Nicoll
  * @author Phillip Webb
  */
-class CompositeHandlerAdapter implements HandlerAdapter {
+class CompositeHandlerAdapter_RENAMED implements HandlerAdapter {
 
 	private final ListableBeanFactory beanFactory;
 
 	private List<HandlerAdapter> adapters;
 
-	CompositeHandlerAdapter(ListableBeanFactory beanFactory) {
+	CompositeHandlerAdapter_RENAMED(ListableBeanFactory beanFactory) {
 		this.beanFactory = beanFactory;
 	}
 

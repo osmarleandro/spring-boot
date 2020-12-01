@@ -93,8 +93,8 @@ class WebMvcEndpointChildContextConfiguration {
 	}
 
 	@Bean(name = DispatcherServlet.HANDLER_ADAPTER_BEAN_NAME)
-	CompositeHandlerAdapter compositeHandlerAdapter(ListableBeanFactory beanFactory) {
-		return new CompositeHandlerAdapter(beanFactory);
+	CompositeHandlerAdapter_RENAMED compositeHandlerAdapter(ListableBeanFactory beanFactory) {
+		return new CompositeHandlerAdapter_RENAMED(beanFactory);
 	}
 
 	@Bean(name = DispatcherServlet.HANDLER_EXCEPTION_RESOLVER_BEAN_NAME)
