@@ -63,7 +63,7 @@ import static org.mockito.Mockito.mock;
  *
  * @author Madhura Bhave
  */
-class ReactiveManagementWebSecurityAutoConfigurationTests {
+class ReactiveManagementWebSecurityAutoConfigurationTests_RENAMED {
 
 	private final ReactiveWebApplicationContextRunner contextRunner = new ReactiveWebApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(HealthContributorAutoConfiguration.class,
