@@ -28,7 +28,7 @@ import io.prometheus.client.exporter.common.TextFormat;
 
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
 import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
-import org.springframework.boot.actuate.endpoint.web.annotation.WebEndpoint;
+import org.springframework.boot.actuate.endpoint.web.annotation.WebEndpoint_RENAMED;
 import org.springframework.lang.Nullable;
 
 /**
@@ -39,7 +39,7 @@ import org.springframework.lang.Nullable;
  * @author Johnny Lim
  * @since 2.0.0
  */
-@WebEndpoint(id = "prometheus")
+@WebEndpoint_RENAMED(id = "prometheus")
 public class PrometheusScrapeEndpoint {
 
 	private final CollectorRegistry collectorRegistry;

@@ -41,11 +41,11 @@ import org.springframework.web.bind.annotation.PostMapping;
  * <p>
  * This annotation can be used when deeper Spring integration is required, but at the
  * expense of portability. Most users should prefer the {@link Endpoint @Endpoint} or
- * {@link WebEndpoint @WebEndpoint} annotation whenever possible.
+ * {@link WebEndpoint_RENAMED @WebEndpoint} annotation whenever possible.
  *
  * @author Phillip Webb
  * @since 2.0.0
- * @see WebEndpoint
+ * @see WebEndpoint_RENAMED
  * @see RestControllerEndpoint
  */
 @Target(ElementType.TYPE)

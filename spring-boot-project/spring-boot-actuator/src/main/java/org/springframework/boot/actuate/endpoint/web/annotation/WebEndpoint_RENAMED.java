@@ -21,23 +21,15 @@ import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
-import java.util.function.Supplier;
 
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
 import org.springframework.boot.actuate.endpoint.annotation.FilteredEndpoint;
-import org.springframework.boot.actuate.endpoint.web.EndpointServlet;
 import org.springframework.core.annotation.AliasFor;
 
 /**
- * Identifies a type as being an endpoint that supplies a servlet to expose.
- * Implementations must also implement {@link Supplier Supplier&lt;EndpointServlet&gt;}
- * and return a valid {@link EndpointServlet}.
- * <p>
- * This annotation can be used when existing servlets need to be exposed as actuator
- * endpoints, but it is at the expense of portability. Most users should prefer the
- * {@link Endpoint @Endpoint} or {@link WebEndpoint_RENAMED @WebEndpoint} annotations whenever
- * possible.
+ * Identifies a type as being an endpoint that is only exposed over HTTP.
  *
+ * @author Andy Wilkinson
  * @author Phillip Webb
  * @since 2.0.0
  */
@@ -45,8 +37,8 @@ import org.springframework.core.annotation.AliasFor;
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @Endpoint
-@FilteredEndpoint(ServletEndpointFilter.class)
-public @interface ServletEndpoint {
+@FilteredEndpoint(WebEndpointFilter.class)
+public @interface WebEndpoint_RENAMED {
 
 	/**
 	 * The id of the endpoint.

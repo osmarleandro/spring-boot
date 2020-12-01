@@ -23,7 +23,7 @@ import org.apache.commons.logging.LogFactory;
 
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
 import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
-import org.springframework.boot.actuate.endpoint.web.annotation.WebEndpoint;
+import org.springframework.boot.actuate.endpoint.web.annotation.WebEndpoint_RENAMED;
 import org.springframework.boot.logging.LogFile;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
@@ -36,7 +36,7 @@ import org.springframework.core.io.Resource;
  * @author Andy Wilkinson
  * @since 2.0.0
  */
-@WebEndpoint(id = "logfile")
+@WebEndpoint_RENAMED(id = "logfile")
 public class LogFileWebEndpoint {
 
 	private static final Log logger = LogFactory.getLog(LogFileWebEndpoint.class);

@@ -37,7 +37,7 @@ import org.springframework.boot.actuate.endpoint.invoker.cache.CachingOperationI
 import org.springframework.boot.actuate.endpoint.jmx.ExposableJmxEndpoint;
 import org.springframework.boot.actuate.endpoint.jmx.JmxOperation;
 import org.springframework.boot.actuate.endpoint.jmx.JmxOperationParameter;
-import org.springframework.boot.actuate.endpoint.web.annotation.WebEndpoint;
+import org.springframework.boot.actuate.endpoint.web.annotation.WebEndpoint_RENAMED;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -497,7 +497,7 @@ class JmxEndpointDiscovererTests {
 
 	}
 
-	@WebEndpoint(id = "nonjmx")
+	@WebEndpoint_RENAMED(id = "nonjmx")
 	static class NonJmxEndpoint {
 
 		@ReadOperation

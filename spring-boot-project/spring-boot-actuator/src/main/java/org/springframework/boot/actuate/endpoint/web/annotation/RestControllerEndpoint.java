@@ -42,11 +42,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * <p>
  * This annotation can be used when deeper Spring integration is required, but at the
  * expense of portability. Most users should prefer the {@link Endpoint @Endpoint} or
- * {@link WebEndpoint @WebEndpoint} annotations whenever possible.
+ * {@link WebEndpoint_RENAMED @WebEndpoint} annotations whenever possible.
  *
  * @author Phillip Webb
  * @since 2.0.0
- * @see WebEndpoint
+ * @see WebEndpoint_RENAMED
  * @see ControllerEndpoint
  */
 @Target(ElementType.TYPE)
