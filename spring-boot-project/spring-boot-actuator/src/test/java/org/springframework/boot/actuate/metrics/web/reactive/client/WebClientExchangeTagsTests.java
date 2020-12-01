@@ -34,7 +34,7 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
 
 /**
- * Tests for {@link WebClientExchangeTags}.
+ * Tests for {@link WebClientExchangeTags_RENAMED}.
  *
  * @author Brian Clozel
  * @author Nishant Raut
@@ -56,121 +56,121 @@ class WebClientExchangeTagsTests {
 
 	@Test
 	void method() {
-		assertThat(WebClientExchangeTags.method(this.request)).isEqualTo(Tag.of("method", "GET"));
+		assertThat(WebClientExchangeTags_RENAMED.method(this.request)).isEqualTo(Tag.of("method", "GET"));
 	}
 
 	@Test
 	void uriWhenAbsoluteTemplateIsAvailableShouldReturnTemplate() {
-		assertThat(WebClientExchangeTags.uri(this.request)).isEqualTo(Tag.of("uri", "/projects/{project}"));
+		assertThat(WebClientExchangeTags_RENAMED.uri(this.request)).isEqualTo(Tag.of("uri", "/projects/{project}"));
 	}
 
 	@Test
 	void uriWhenRelativeTemplateIsAvailableShouldReturnTemplate() {
 		this.request = ClientRequest.create(HttpMethod.GET, URI.create("https://example.org/projects/spring-boot"))
 				.attribute(URI_TEMPLATE_ATTRIBUTE, "/projects/{project}").build();
-		assertThat(WebClientExchangeTags.uri(this.request)).isEqualTo(Tag.of("uri", "/projects/{project}"));
+		assertThat(WebClientExchangeTags_RENAMED.uri(this.request)).isEqualTo(Tag.of("uri", "/projects/{project}"));
 	}
 
 	@Test
 	void uriWhenTemplateIsMissingShouldReturnPath() {
 		this.request = ClientRequest.create(HttpMethod.GET, URI.create("https://example.org/projects/spring-boot"))
 				.build();
-		assertThat(WebClientExchangeTags.uri(this.request)).isEqualTo(Tag.of("uri", "/projects/spring-boot"));
+		assertThat(WebClientExchangeTags_RENAMED.uri(this.request)).isEqualTo(Tag.of("uri", "/projects/spring-boot"));
 	}
 
 	@Test
 	void uriWhenTemplateIsMissingShouldReturnPathWithQueryParams() {
 		this.request = ClientRequest
 				.create(HttpMethod.GET, URI.create("https://example.org/projects/spring-boot?section=docs")).build();
-		assertThat(WebClientExchangeTags.uri(this.request))
+		assertThat(WebClientExchangeTags_RENAMED.uri(this.request))
 				.isEqualTo(Tag.of("uri", "/projects/spring-boot?section=docs"));
 	}
 
 	@Test
 	void clientName() {
-		assertThat(WebClientExchangeTags.clientName(this.request)).isEqualTo(Tag.of("clientName", "example.org"));
+		assertThat(WebClientExchangeTags_RENAMED.clientName(this.request)).isEqualTo(Tag.of("clientName", "example.org"));
 	}
 
 	@Test
 	void status() {
 		given(this.response.rawStatusCode()).willReturn(HttpStatus.OK.value());
-		assertThat(WebClientExchangeTags.status(this.response, null)).isEqualTo(Tag.of("status", "200"));
+		assertThat(WebClientExchangeTags_RENAMED.status(this.response, null)).isEqualTo(Tag.of("status", "200"));
 	}
 
 	@Test
 	void statusWhenIOException() {
-		assertThat(WebClientExchangeTags.status(null, new IOException())).isEqualTo(Tag.of("status", "IO_ERROR"));
+		assertThat(WebClientExchangeTags_RENAMED.status(null, new IOException())).isEqualTo(Tag.of("status", "IO_ERROR"));
 	}
 
 	@Test
 	void statusWhenClientException() {
-		assertThat(WebClientExchangeTags.status(null, new IllegalArgumentException()))
+		assertThat(WebClientExchangeTags_RENAMED.status(null, new IllegalArgumentException()))
 				.isEqualTo(Tag.of("status", "CLIENT_ERROR"));
 	}
 
 	@Test
 	void statusWhenNonStandard() {
 		given(this.response.rawStatusCode()).willReturn(490);
-		assertThat(WebClientExchangeTags.status(this.response, null)).isEqualTo(Tag.of("status", "490"));
+		assertThat(WebClientExchangeTags_RENAMED.status(this.response, null)).isEqualTo(Tag.of("status", "490"));
 	}
 
 	@Test
 	void statusWhenCancelled() {
-		assertThat(WebClientExchangeTags.status(null, null)).isEqualTo(Tag.of("status", "CLIENT_ERROR"));
+		assertThat(WebClientExchangeTags_RENAMED.status(null, null)).isEqualTo(Tag.of("status", "CLIENT_ERROR"));
 	}
 
 	@Test
 	void outcomeTagIsUnknownWhenResponseIsNull() {
-		Tag tag = WebClientExchangeTags.outcome(null);
+		Tag tag = WebClientExchangeTags_RENAMED.outcome(null);
 		assertThat(tag.getValue()).isEqualTo("UNKNOWN");
 	}
 
 	@Test
 	void outcomeTagIsInformationalWhenResponseIs1xx() {
 		given(this.response.rawStatusCode()).willReturn(HttpStatus.CONTINUE.value());
-		Tag tag = WebClientExchangeTags.outcome(this.response);
+		Tag tag = WebClientExchangeTags_RENAMED.outcome(this.response);
 		assertThat(tag.getValue()).isEqualTo("INFORMATIONAL");
 	}
 
 	@Test
 	void outcomeTagIsSuccessWhenResponseIs2xx() {
 		given(this.response.rawStatusCode()).willReturn(HttpStatus.OK.value());
-		Tag tag = WebClientExchangeTags.outcome(this.response);
+		Tag tag = WebClientExchangeTags_RENAMED.outcome(this.response);
 		assertThat(tag.getValue()).isEqualTo("SUCCESS");
 	}
 
 	@Test
 	void outcomeTagIsRedirectionWhenResponseIs3xx() {
 		given(this.response.rawStatusCode()).willReturn(HttpStatus.MOVED_PERMANENTLY.value());
-		Tag tag = WebClientExchangeTags.outcome(this.response);
+		Tag tag = WebClientExchangeTags_RENAMED.outcome(this.response);
 		assertThat(tag.getValue()).isEqualTo("REDIRECTION");
 	}
 
 	@Test
 	void outcomeTagIsClientErrorWhenResponseIs4xx() {
 		given(this.response.rawStatusCode()).willReturn(HttpStatus.BAD_REQUEST.value());
-		Tag tag = WebClientExchangeTags.outcome(this.response);
+		Tag tag = WebClientExchangeTags_RENAMED.outcome(this.response);
 		assertThat(tag.getValue()).isEqualTo("CLIENT_ERROR");
 	}
 
 	@Test
 	void outcomeTagIsServerErrorWhenResponseIs5xx() {
 		given(this.response.rawStatusCode()).willReturn(HttpStatus.BAD_GATEWAY.value());
-		Tag tag = WebClientExchangeTags.outcome(this.response);
+		Tag tag = WebClientExchangeTags_RENAMED.outcome(this.response);
 		assertThat(tag.getValue()).isEqualTo("SERVER_ERROR");
 	}
 
 	@Test
 	void outcomeTagIsClientErrorWhenResponseIsNonStandardInClientSeries() {
 		given(this.response.rawStatusCode()).willReturn(490);
-		Tag tag = WebClientExchangeTags.outcome(this.response);
+		Tag tag = WebClientExchangeTags_RENAMED.outcome(this.response);
 		assertThat(tag.getValue()).isEqualTo("CLIENT_ERROR");
 	}
 
 	@Test
 	void outcomeTagIsUnknownWhenResponseStatusIsInUnknownSeries() {
 		given(this.response.rawStatusCode()).willReturn(701);
-		Tag tag = WebClientExchangeTags.outcome(this.response);
+		Tag tag = WebClientExchangeTags_RENAMED.outcome(this.response);
 		assertThat(tag.getValue()).isEqualTo("UNKNOWN");
 	}
 

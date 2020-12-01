@@ -34,11 +34,11 @@ public class DefaultWebClientExchangeTagsProvider implements WebClientExchangeTa
 
 	@Override
 	public Iterable<Tag> tags(ClientRequest request, ClientResponse response, Throwable throwable) {
-		Tag method = WebClientExchangeTags.method(request);
-		Tag uri = WebClientExchangeTags.uri(request);
-		Tag clientName = WebClientExchangeTags.clientName(request);
-		Tag status = WebClientExchangeTags.status(response, throwable);
-		Tag outcome = WebClientExchangeTags.outcome(response);
+		Tag method = WebClientExchangeTags_RENAMED.method(request);
+		Tag uri = WebClientExchangeTags_RENAMED.uri(request);
+		Tag clientName = WebClientExchangeTags_RENAMED.clientName(request);
+		Tag status = WebClientExchangeTags_RENAMED.status(response, throwable);
+		Tag outcome = WebClientExchangeTags_RENAMED.outcome(response);
 		return Arrays.asList(method, uri, clientName, status, outcome);
 	}
 
