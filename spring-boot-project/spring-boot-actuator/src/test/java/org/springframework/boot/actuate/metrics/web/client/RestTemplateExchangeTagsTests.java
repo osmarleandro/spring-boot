@@ -30,7 +30,7 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
 
 /**
- * Tests for {@link RestTemplateExchangeTags}.
+ * Tests for {@link RestTemplateExchangeTags_RENAMED}.
  *
  * @author Nishant Raut
  * @author Brian Clozel
@@ -39,42 +39,42 @@ class RestTemplateExchangeTagsTests {
 
 	@Test
 	void outcomeTagIsUnknownWhenResponseIsNull() {
-		Tag tag = RestTemplateExchangeTags.outcome(null);
+		Tag tag = RestTemplateExchangeTags_RENAMED.outcome(null);
 		assertThat(tag.getValue()).isEqualTo("UNKNOWN");
 	}
 
 	@Test
 	void outcomeTagIsInformationalWhenResponseIs1xx() {
 		ClientHttpResponse response = new MockClientHttpResponse("foo".getBytes(), HttpStatus.CONTINUE);
-		Tag tag = RestTemplateExchangeTags.outcome(response);
+		Tag tag = RestTemplateExchangeTags_RENAMED.outcome(response);
 		assertThat(tag.getValue()).isEqualTo("INFORMATIONAL");
 	}
 
 	@Test
 	void outcomeTagIsSuccessWhenResponseIs2xx() {
 		ClientHttpResponse response = new MockClientHttpResponse("foo".getBytes(), HttpStatus.OK);
-		Tag tag = RestTemplateExchangeTags.outcome(response);
+		Tag tag = RestTemplateExchangeTags_RENAMED.outcome(response);
 		assertThat(tag.getValue()).isEqualTo("SUCCESS");
 	}
 
 	@Test
 	void outcomeTagIsRedirectionWhenResponseIs3xx() {
 		ClientHttpResponse response = new MockClientHttpResponse("foo".getBytes(), HttpStatus.MOVED_PERMANENTLY);
-		Tag tag = RestTemplateExchangeTags.outcome(response);
+		Tag tag = RestTemplateExchangeTags_RENAMED.outcome(response);
 		assertThat(tag.getValue()).isEqualTo("REDIRECTION");
 	}
 
 	@Test
 	void outcomeTagIsClientErrorWhenResponseIs4xx() {
 		ClientHttpResponse response = new MockClientHttpResponse("foo".getBytes(), HttpStatus.BAD_REQUEST);
-		Tag tag = RestTemplateExchangeTags.outcome(response);
+		Tag tag = RestTemplateExchangeTags_RENAMED.outcome(response);
 		assertThat(tag.getValue()).isEqualTo("CLIENT_ERROR");
 	}
 
 	@Test
 	void outcomeTagIsServerErrorWhenResponseIs5xx() {
 		ClientHttpResponse response = new MockClientHttpResponse("foo".getBytes(), HttpStatus.BAD_GATEWAY);
-		Tag tag = RestTemplateExchangeTags.outcome(response);
+		Tag tag = RestTemplateExchangeTags_RENAMED.outcome(response);
 		assertThat(tag.getValue()).isEqualTo("SERVER_ERROR");
 	}
 
@@ -82,7 +82,7 @@ class RestTemplateExchangeTagsTests {
 	void outcomeTagIsUnknownWhenResponseThrowsIOException() throws Exception {
 		ClientHttpResponse response = mock(ClientHttpResponse.class);
 		given(response.getRawStatusCode()).willThrow(IOException.class);
-		Tag tag = RestTemplateExchangeTags.outcome(response);
+		Tag tag = RestTemplateExchangeTags_RENAMED.outcome(response);
 		assertThat(tag.getValue()).isEqualTo("UNKNOWN");
 	}
 
@@ -90,7 +90,7 @@ class RestTemplateExchangeTagsTests {
 	void outcomeTagIsClientErrorWhenResponseIsNonStandardInClientSeries() throws IOException {
 		ClientHttpResponse response = mock(ClientHttpResponse.class);
 		given(response.getRawStatusCode()).willReturn(490);
-		Tag tag = RestTemplateExchangeTags.outcome(response);
+		Tag tag = RestTemplateExchangeTags_RENAMED.outcome(response);
 		assertThat(tag.getValue()).isEqualTo("CLIENT_ERROR");
 	}
 
@@ -98,7 +98,7 @@ class RestTemplateExchangeTagsTests {
 	void outcomeTagIsUnknownWhenResponseStatusIsInUnknownSeries() throws IOException {
 		ClientHttpResponse response = mock(ClientHttpResponse.class);
 		given(response.getRawStatusCode()).willReturn(701);
-		Tag tag = RestTemplateExchangeTags.outcome(response);
+		Tag tag = RestTemplateExchangeTags_RENAMED.outcome(response);
 		assertThat(tag.getValue()).isEqualTo("UNKNOWN");
 	}
 
