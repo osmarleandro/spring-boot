@@ -38,7 +38,7 @@ import org.springframework.boot.actuate.health.HealthIndicator;
 import org.springframework.boot.actuate.health.HttpCodeStatusMapper;
 import org.springframework.boot.actuate.health.NamedContributor;
 import org.springframework.boot.actuate.health.ReactiveHealthContributorRegistry;
-import org.springframework.boot.actuate.health.ReactiveHealthEndpointWebExtension;
+import org.springframework.boot.actuate.health.ReactiveHealthEndpointWebExtension_RENAMED;
 import org.springframework.boot.actuate.health.ReactiveHealthIndicator;
 import org.springframework.boot.actuate.health.Status;
 import org.springframework.boot.actuate.health.StatusAggregator;
@@ -82,7 +82,7 @@ class HealthEndpointAutoConfigurationTests {
 			assertThat(context).doesNotHaveBean(HealthEndpoint.class);
 			assertThat(context).doesNotHaveBean(ReactiveHealthContributorRegistry.class);
 			assertThat(context).doesNotHaveBean(HealthEndpointWebExtension.class);
-			assertThat(context).doesNotHaveBean(ReactiveHealthEndpointWebExtension.class);
+			assertThat(context).doesNotHaveBean(ReactiveHealthEndpointWebExtension_RENAMED.class);
 		});
 	}
 
@@ -229,7 +229,7 @@ class HealthEndpointAutoConfigurationTests {
 	@Test
 	void runCreatesReactiveHealthEndpointWebExtension() {
 		this.reactiveContextRunner.run((context) -> {
-			ReactiveHealthEndpointWebExtension webExtension = context.getBean(ReactiveHealthEndpointWebExtension.class);
+			ReactiveHealthEndpointWebExtension_RENAMED webExtension = context.getBean(ReactiveHealthEndpointWebExtension_RENAMED.class);
 			Mono<WebEndpointResponse<? extends HealthComponent>> response = webExtension.health(ApiVersion.V3,
 					SecurityContext.NONE, true, "simple");
 			Health health = (Health) (response.block().getBody());
@@ -241,8 +241,8 @@ class HealthEndpointAutoConfigurationTests {
 	void runWhenHasReactiveHealthEndpointWebExtensionBeanDoesNotCreateExtraReactiveHealthEndpointWebExtension() {
 		this.reactiveContextRunner.withUserConfiguration(ReactiveHealthEndpointWebExtensionConfiguration.class)
 				.run((context) -> {
-					ReactiveHealthEndpointWebExtension webExtension = context
-							.getBean(ReactiveHealthEndpointWebExtension.class);
+					ReactiveHealthEndpointWebExtension_RENAMED webExtension = context
+							.getBean(ReactiveHealthEndpointWebExtension_RENAMED.class);
 					Mono<WebEndpointResponse<? extends HealthComponent>> response = webExtension.health(ApiVersion.V3,
 							SecurityContext.NONE, true, "simple");
 					assertThat(response).isNull();
@@ -355,8 +355,8 @@ class HealthEndpointAutoConfigurationTests {
 	static class ReactiveHealthEndpointWebExtensionConfiguration {
 
 		@Bean
-		ReactiveHealthEndpointWebExtension reactiveHealthEndpointWebExtension() {
-			return mock(ReactiveHealthEndpointWebExtension.class);
+		ReactiveHealthEndpointWebExtension_RENAMED reactiveHealthEndpointWebExtension() {
+			return mock(ReactiveHealthEndpointWebExtension_RENAMED.class);
 		}
 
 	}

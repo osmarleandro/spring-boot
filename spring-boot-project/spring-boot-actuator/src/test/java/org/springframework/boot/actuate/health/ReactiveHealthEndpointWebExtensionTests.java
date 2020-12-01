@@ -31,7 +31,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 
 /**
- * Tests for {@link ReactiveHealthEndpointWebExtension}.
+ * Tests for {@link ReactiveHealthEndpointWebExtension_RENAMED}.
  *
  * @author Phillip Webb
  * @author Scott Frederick
@@ -81,9 +81,9 @@ class ReactiveHealthEndpointWebExtensionTests extends
 	}
 
 	@Override
-	protected ReactiveHealthEndpointWebExtension create(ReactiveHealthContributorRegistry registry,
+	protected ReactiveHealthEndpointWebExtension_RENAMED create(ReactiveHealthContributorRegistry registry,
 			HealthEndpointGroups groups) {
-		return new ReactiveHealthEndpointWebExtension(registry, groups);
+		return new ReactiveHealthEndpointWebExtension_RENAMED(registry, groups);
 	}
 
 	@Override
