@@ -34,14 +34,14 @@ import org.springframework.context.annotation.Configuration;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Tests for {@link ConfigurationPropertiesReportEndpointAutoConfiguration}.
+ * Tests for {@link ConfigurationPropertiesReportEndpointAutoConfiguration_RENAMED}.
  *
  * @author Phillip Webb
  */
 class ConfigurationPropertiesReportEndpointAutoConfigurationTests {
 
 	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
-			.withConfiguration(AutoConfigurations.of(ConfigurationPropertiesReportEndpointAutoConfiguration.class));
+			.withConfiguration(AutoConfigurations.of(ConfigurationPropertiesReportEndpointAutoConfiguration_RENAMED.class));
 
 	@Test
 	void runShouldHaveEndpointBean() {

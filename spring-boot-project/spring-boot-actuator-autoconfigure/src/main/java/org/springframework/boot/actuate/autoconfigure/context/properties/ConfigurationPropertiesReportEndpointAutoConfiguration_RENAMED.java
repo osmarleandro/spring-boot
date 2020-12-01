@@ -35,7 +35,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration(proxyBeanMethods = false)
 @ConditionalOnAvailableEndpoint(endpoint = ConfigurationPropertiesReportEndpoint.class)
 @EnableConfigurationProperties(ConfigurationPropertiesReportEndpointProperties.class)
-public class ConfigurationPropertiesReportEndpointAutoConfiguration {
+public class ConfigurationPropertiesReportEndpointAutoConfiguration_RENAMED {
 
 	@Bean
 	@ConditionalOnMissingBean
