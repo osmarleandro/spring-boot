@@ -18,7 +18,7 @@ package org.springframework.boot.actuate.autoconfigure.integrationtest;
 
 import org.junit.jupiter.api.Test;
 
-import org.springframework.boot.actuate.autoconfigure.beans.BeansEndpointAutoConfiguration;
+import org.springframework.boot.actuate.autoconfigure.beans.BeansEndpointAutoConfiguration_RENAMED;
 import org.springframework.boot.actuate.autoconfigure.endpoint.EndpointAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.endpoint.web.servlet.WebMvcEndpointManagementContextConfiguration;
@@ -55,7 +55,7 @@ class WebMvcEndpointCorsIntegrationTests {
 					HttpMessageConvertersAutoConfiguration.class, WebMvcAutoConfiguration.class,
 					DispatcherServletAutoConfiguration.class, EndpointAutoConfiguration.class,
 					WebEndpointAutoConfiguration.class, ManagementContextAutoConfiguration.class,
-					ServletManagementContextAutoConfiguration.class, BeansEndpointAutoConfiguration.class))
+					ServletManagementContextAutoConfiguration.class, BeansEndpointAutoConfiguration_RENAMED.class))
 			.withPropertyValues("management.endpoints.web.exposure.include:*");
 
 	@Test

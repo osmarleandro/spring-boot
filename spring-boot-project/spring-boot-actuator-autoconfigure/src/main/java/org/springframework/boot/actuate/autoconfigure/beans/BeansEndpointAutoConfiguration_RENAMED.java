@@ -32,7 +32,7 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration(proxyBeanMethods = false)
 @ConditionalOnAvailableEndpoint(endpoint = BeansEndpoint.class)
-public class BeansEndpointAutoConfiguration {
+public class BeansEndpointAutoConfiguration_RENAMED {
 
 	@Bean
 	@ConditionalOnMissingBean

@@ -19,7 +19,7 @@ package org.springframework.boot.actuate.autoconfigure.integrationtest;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.junit.jupiter.api.Test;
 
-import org.springframework.boot.actuate.autoconfigure.beans.BeansEndpointAutoConfiguration;
+import org.springframework.boot.actuate.autoconfigure.beans.BeansEndpointAutoConfiguration_RENAMED;
 import org.springframework.boot.actuate.autoconfigure.endpoint.EndpointAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.web.server.ManagementContextAutoConfiguration;
@@ -62,7 +62,7 @@ class JerseyEndpointIntegrationTests {
 				.withConfiguration(AutoConfigurations.of(JacksonAutoConfiguration.class, JerseyAutoConfiguration.class,
 						EndpointAutoConfiguration.class, ServletWebServerFactoryAutoConfiguration.class,
 						WebEndpointAutoConfiguration.class, ManagementContextAutoConfiguration.class,
-						BeansEndpointAutoConfiguration.class))
+						BeansEndpointAutoConfiguration_RENAMED.class))
 				.withUserConfiguration(userConfigurations)
 				.withPropertyValues("management.endpoints.web.exposure.include:*", "server.port:0").run((context) -> {
 					int port = context

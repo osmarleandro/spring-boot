@@ -20,7 +20,7 @@ import java.util.function.Consumer;
 
 import org.junit.jupiter.api.Test;
 
-import org.springframework.boot.actuate.autoconfigure.beans.BeansEndpointAutoConfiguration;
+import org.springframework.boot.actuate.autoconfigure.beans.BeansEndpointAutoConfiguration_RENAMED;
 import org.springframework.boot.actuate.autoconfigure.endpoint.EndpointAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.endpoint.web.reactive.WebFluxEndpointManagementContextConfiguration;
@@ -50,7 +50,7 @@ class WebFluxEndpointCorsIntegrationTests {
 			.withConfiguration(AutoConfigurations.of(JacksonAutoConfiguration.class, CodecsAutoConfiguration.class,
 					WebFluxAutoConfiguration.class, HttpHandlerAutoConfiguration.class, EndpointAutoConfiguration.class,
 					WebEndpointAutoConfiguration.class, ManagementContextAutoConfiguration.class,
-					ReactiveManagementContextAutoConfiguration.class, BeansEndpointAutoConfiguration.class))
+					ReactiveManagementContextAutoConfiguration.class, BeansEndpointAutoConfiguration_RENAMED.class))
 			.withPropertyValues("management.endpoints.web.exposure.include:*");
 
 	@Test

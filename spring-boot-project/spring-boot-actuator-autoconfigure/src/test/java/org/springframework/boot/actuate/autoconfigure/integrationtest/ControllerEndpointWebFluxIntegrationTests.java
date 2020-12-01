@@ -20,7 +20,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
 import org.springframework.boot.actuate.autoconfigure.audit.AuditAutoConfiguration;
-import org.springframework.boot.actuate.autoconfigure.beans.BeansEndpointAutoConfiguration;
+import org.springframework.boot.actuate.autoconfigure.beans.BeansEndpointAutoConfiguration_RENAMED;
 import org.springframework.boot.actuate.autoconfigure.endpoint.EndpointAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.web.reactive.ReactiveManagementContextAutoConfiguration;
@@ -71,7 +71,7 @@ class ControllerEndpointWebFluxIntegrationTests {
 			EndpointAutoConfiguration.class, WebEndpointAutoConfiguration.class,
 			ReactiveManagementContextAutoConfiguration.class, AuditAutoConfiguration.class,
 			PropertyPlaceholderAutoConfiguration.class, WebFluxAutoConfiguration.class,
-			ManagementContextAutoConfiguration.class, BeansEndpointAutoConfiguration.class })
+			ManagementContextAutoConfiguration.class, BeansEndpointAutoConfiguration_RENAMED.class })
 	static class DefaultConfiguration {
 
 	}
