@@ -88,7 +88,7 @@ class ReactiveHealthEndpointWebExtensionTests extends
 
 	@Override
 	protected ReactiveHealthContributorRegistry createRegistry() {
-		return new DefaultReactiveHealthContributorRegistry();
+		return new DefaultReactiveHealthContributorRegistry_RENAMED();
 	}
 
 	@Override

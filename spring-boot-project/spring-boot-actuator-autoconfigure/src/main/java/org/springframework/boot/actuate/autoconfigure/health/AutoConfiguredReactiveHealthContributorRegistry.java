@@ -19,7 +19,7 @@ package org.springframework.boot.actuate.autoconfigure.health;
 import java.util.Collection;
 import java.util.Map;
 
-import org.springframework.boot.actuate.health.DefaultReactiveHealthContributorRegistry;
+import org.springframework.boot.actuate.health.DefaultReactiveHealthContributorRegistry_RENAMED;
 import org.springframework.boot.actuate.health.HealthContributorRegistry;
 import org.springframework.boot.actuate.health.ReactiveHealthContributor;
 import org.springframework.util.Assert;
@@ -30,7 +30,7 @@ import org.springframework.util.Assert;
  *
  * @author Phillip Webb
  */
-class AutoConfiguredReactiveHealthContributorRegistry extends DefaultReactiveHealthContributorRegistry {
+class AutoConfiguredReactiveHealthContributorRegistry extends DefaultReactiveHealthContributorRegistry_RENAMED {
 
 	private final Collection<String> groupNames;
 
