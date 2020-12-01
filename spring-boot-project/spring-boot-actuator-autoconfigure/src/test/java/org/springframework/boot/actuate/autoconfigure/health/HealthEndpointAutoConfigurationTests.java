@@ -125,7 +125,7 @@ class HealthEndpointAutoConfigurationTests {
 	void runCreatesHealthEndpointGroups() {
 		this.contextRunner.withPropertyValues("management.endpoint.health.group.ready.include=*").run((context) -> {
 			HealthEndpointGroups groups = context.getBean(HealthEndpointGroups.class);
-			assertThat(groups).isInstanceOf(AutoConfiguredHealthEndpointGroups.class);
+			assertThat(groups).isInstanceOf(AutoConfiguredHealthEndpointGroups_RENAMED.class);
 			assertThat(groups.getNames()).containsOnly("ready");
 		});
 	}

@@ -49,7 +49,7 @@ import org.springframework.util.ObjectUtils;
  *
  * @author Phillip Webb
  */
-class AutoConfiguredHealthEndpointGroups implements HealthEndpointGroups {
+class AutoConfiguredHealthEndpointGroups_RENAMED implements HealthEndpointGroups {
 
 	private static final Predicate<String> ALL = (name) -> true;
 
@@ -58,11 +58,11 @@ class AutoConfiguredHealthEndpointGroups implements HealthEndpointGroups {
 	private final Map<String, HealthEndpointGroup> groups;
 
 	/**
-	 * Create a new {@link AutoConfiguredHealthEndpointGroups} instance.
+	 * Create a new {@link AutoConfiguredHealthEndpointGroups_RENAMED} instance.
 	 * @param applicationContext the application context used to check for override beans
 	 * @param properties the health endpoint properties
 	 */
-	AutoConfiguredHealthEndpointGroups(ApplicationContext applicationContext, HealthEndpointProperties properties) {
+	AutoConfiguredHealthEndpointGroups_RENAMED(ApplicationContext applicationContext, HealthEndpointProperties properties) {
 		ListableBeanFactory beanFactory = (applicationContext instanceof ConfigurableApplicationContext)
 				? ((ConfigurableApplicationContext) applicationContext).getBeanFactory() : applicationContext;
 		Show showComponents = properties.getShowComponents();

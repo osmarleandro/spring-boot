@@ -40,7 +40,7 @@ import org.springframework.context.annotation.Primary;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Tests for {@link AutoConfiguredHealthEndpointGroups}.
+ * Tests for {@link AutoConfiguredHealthEndpointGroups_RENAMED}.
  *
  * @author Phillip Webb
  * @author Leo Li
@@ -324,9 +324,9 @@ class AutoConfiguredHealthEndpointGroupsTests {
 	static class AutoConfiguredHealthEndpointGroupsTestConfiguration {
 
 		@Bean
-		AutoConfiguredHealthEndpointGroups healthEndpointGroups(ConfigurableApplicationContext applicationContext,
+		AutoConfiguredHealthEndpointGroups_RENAMED healthEndpointGroups(ConfigurableApplicationContext applicationContext,
 				HealthEndpointProperties properties) {
-			return new AutoConfiguredHealthEndpointGroups(applicationContext, properties);
+			return new AutoConfiguredHealthEndpointGroups_RENAMED(applicationContext, properties);
 		}
 
 	}
