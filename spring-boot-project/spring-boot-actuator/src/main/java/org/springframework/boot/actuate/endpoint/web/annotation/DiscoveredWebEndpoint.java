@@ -19,7 +19,7 @@ package org.springframework.boot.actuate.endpoint.web.annotation;
 import java.util.Collection;
 
 import org.springframework.boot.actuate.endpoint.EndpointId;
-import org.springframework.boot.actuate.endpoint.annotation.AbstractDiscoveredEndpoint;
+import org.springframework.boot.actuate.endpoint.annotation.AbstractDiscoveredEndpoint_RENAMED;
 import org.springframework.boot.actuate.endpoint.annotation.EndpointDiscoverer;
 import org.springframework.boot.actuate.endpoint.web.ExposableWebEndpoint;
 import org.springframework.boot.actuate.endpoint.web.WebOperation;
@@ -29,7 +29,7 @@ import org.springframework.boot.actuate.endpoint.web.WebOperation;
  *
  * @author Phillip Webb
  */
-class DiscoveredWebEndpoint extends AbstractDiscoveredEndpoint<WebOperation> implements ExposableWebEndpoint {
+class DiscoveredWebEndpoint extends AbstractDiscoveredEndpoint_RENAMED<WebOperation> implements ExposableWebEndpoint {
 
 	private final String rootPath;
 

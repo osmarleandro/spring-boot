@@ -593,7 +593,7 @@ class EndpointDiscovererTests {
 
 	}
 
-	static class TestExposableEndpoint extends AbstractDiscoveredEndpoint<TestOperation> {
+	static class TestExposableEndpoint extends AbstractDiscoveredEndpoint_RENAMED<TestOperation> {
 
 		TestExposableEndpoint(EndpointDiscoverer<?, ?> discoverer, Object endpointBean, EndpointId id,
 				boolean enabledByDefault, Collection<? extends TestOperation> operations) {
@@ -602,7 +602,7 @@ class EndpointDiscovererTests {
 
 	}
 
-	static class SpecializedExposableEndpoint extends AbstractDiscoveredEndpoint<SpecializedOperation> {
+	static class SpecializedExposableEndpoint extends AbstractDiscoveredEndpoint_RENAMED<SpecializedOperation> {
 
 		SpecializedExposableEndpoint(EndpointDiscoverer<?, ?> discoverer, Object endpointBean, EndpointId id,
 				boolean enabledByDefault, Collection<? extends SpecializedOperation> operations) {

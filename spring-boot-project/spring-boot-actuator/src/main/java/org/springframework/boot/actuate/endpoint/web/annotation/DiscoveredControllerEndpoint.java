@@ -20,7 +20,7 @@ import java.util.Collections;
 
 import org.springframework.boot.actuate.endpoint.EndpointId;
 import org.springframework.boot.actuate.endpoint.Operation;
-import org.springframework.boot.actuate.endpoint.annotation.AbstractDiscoveredEndpoint;
+import org.springframework.boot.actuate.endpoint.annotation.AbstractDiscoveredEndpoint_RENAMED;
 import org.springframework.boot.actuate.endpoint.annotation.EndpointDiscoverer;
 
 /**
@@ -28,7 +28,7 @@ import org.springframework.boot.actuate.endpoint.annotation.EndpointDiscoverer;
  *
  * @author Phillip Webb
  */
-class DiscoveredControllerEndpoint extends AbstractDiscoveredEndpoint<Operation>
+class DiscoveredControllerEndpoint extends AbstractDiscoveredEndpoint_RENAMED<Operation>
 		implements ExposableControllerEndpoint {
 
 	private final String rootPath;

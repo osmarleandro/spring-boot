@@ -21,7 +21,7 @@ import java.util.function.Supplier;
 
 import org.springframework.boot.actuate.endpoint.EndpointId;
 import org.springframework.boot.actuate.endpoint.Operation;
-import org.springframework.boot.actuate.endpoint.annotation.AbstractDiscoveredEndpoint;
+import org.springframework.boot.actuate.endpoint.annotation.AbstractDiscoveredEndpoint_RENAMED;
 import org.springframework.boot.actuate.endpoint.annotation.EndpointDiscoverer;
 import org.springframework.boot.actuate.endpoint.web.EndpointServlet;
 import org.springframework.boot.actuate.endpoint.web.ExposableServletEndpoint;
@@ -32,7 +32,7 @@ import org.springframework.util.Assert;
  *
  * @author Phillip Webb
  */
-class DiscoveredServletEndpoint extends AbstractDiscoveredEndpoint<Operation> implements ExposableServletEndpoint {
+class DiscoveredServletEndpoint extends AbstractDiscoveredEndpoint_RENAMED<Operation> implements ExposableServletEndpoint {
 
 	private final String rootPath;
 
