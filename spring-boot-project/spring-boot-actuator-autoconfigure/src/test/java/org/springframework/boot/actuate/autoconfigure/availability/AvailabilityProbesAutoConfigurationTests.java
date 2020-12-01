@@ -18,7 +18,7 @@ package org.springframework.boot.actuate.autoconfigure.availability;
 
 import org.junit.jupiter.api.Test;
 
-import org.springframework.boot.actuate.availability.LivenessStateHealthIndicator;
+import org.springframework.boot.actuate.availability.LivenessStateHealthIndicator_RENAMED;
 import org.springframework.boot.actuate.availability.ReadinessStateHealthIndicator;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
 import org.springframework.boot.autoconfigure.availability.ApplicationAvailabilityAutoConfiguration;
@@ -41,7 +41,7 @@ class AvailabilityProbesAutoConfigurationTests {
 	@Test
 	void probesWhenNotKubernetesAddsNoBeans() {
 		this.contextRunner.run((context) -> assertThat(context).hasSingleBean(ApplicationAvailability.class)
-				.doesNotHaveBean(LivenessStateHealthIndicator.class)
+				.doesNotHaveBean(LivenessStateHealthIndicator_RENAMED.class)
 				.doesNotHaveBean(ReadinessStateHealthIndicator.class)
 				.doesNotHaveBean(AvailabilityProbesHealthEndpointGroupsPostProcessor.class));
 	}
@@ -50,7 +50,7 @@ class AvailabilityProbesAutoConfigurationTests {
 	void probesWhenKubernetesAddsBeans() {
 		this.contextRunner.withPropertyValues("spring.main.cloud-platform=kubernetes")
 				.run((context) -> assertThat(context).hasSingleBean(ApplicationAvailability.class)
-						.hasSingleBean(LivenessStateHealthIndicator.class).hasBean("livenessStateHealthIndicator")
+						.hasSingleBean(LivenessStateHealthIndicator_RENAMED.class).hasBean("livenessStateHealthIndicator")
 						.hasSingleBean(ReadinessStateHealthIndicator.class).hasBean("readinessStateHealthIndicator")
 						.hasSingleBean(AvailabilityProbesHealthEndpointGroupsPostProcessor.class));
 	}
@@ -59,7 +59,7 @@ class AvailabilityProbesAutoConfigurationTests {
 	void probesWhenPropertyEnabledAddsBeans() {
 		this.contextRunner.withPropertyValues("management.endpoint.health.probes.enabled=true")
 				.run((context) -> assertThat(context).hasSingleBean(ApplicationAvailability.class)
-						.hasSingleBean(LivenessStateHealthIndicator.class).hasBean("livenessStateHealthIndicator")
+						.hasSingleBean(LivenessStateHealthIndicator_RENAMED.class).hasBean("livenessStateHealthIndicator")
 						.hasSingleBean(ReadinessStateHealthIndicator.class).hasBean("readinessStateHealthIndicator")
 						.hasSingleBean(AvailabilityProbesHealthEndpointGroupsPostProcessor.class));
 	}
@@ -70,7 +70,7 @@ class AvailabilityProbesAutoConfigurationTests {
 				.withPropertyValues("spring.main.cloud-platform=kubernetes",
 						"management.endpoint.health.probes.enabled=false")
 				.run((context) -> assertThat(context).hasSingleBean(ApplicationAvailability.class)
-						.doesNotHaveBean(LivenessStateHealthIndicator.class)
+						.doesNotHaveBean(LivenessStateHealthIndicator_RENAMED.class)
 						.doesNotHaveBean(ReadinessStateHealthIndicator.class)
 						.doesNotHaveBean(AvailabilityProbesHealthEndpointGroupsPostProcessor.class));
 	}
