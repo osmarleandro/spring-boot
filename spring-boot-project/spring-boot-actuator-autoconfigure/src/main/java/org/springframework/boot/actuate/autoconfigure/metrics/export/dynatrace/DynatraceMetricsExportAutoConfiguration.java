@@ -60,7 +60,7 @@ public class DynatraceMetricsExportAutoConfiguration {
 	@Bean
 	@ConditionalOnMissingBean
 	public DynatraceConfig dynatraceConfig() {
-		return new DynatracePropertiesConfigAdapter(this.properties);
+		return new DynatracePropertiesConfigAdapter_RENAMED(this.properties);
 	}
 
 	@Bean

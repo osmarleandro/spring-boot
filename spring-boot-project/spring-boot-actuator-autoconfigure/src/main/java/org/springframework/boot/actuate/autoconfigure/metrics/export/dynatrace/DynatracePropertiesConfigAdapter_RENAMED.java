@@ -25,10 +25,10 @@ import org.springframework.boot.actuate.autoconfigure.metrics.export.properties.
  *
  * @author Andy Wilkinson
  */
-class DynatracePropertiesConfigAdapter extends StepRegistryPropertiesConfigAdapter<DynatraceProperties>
+class DynatracePropertiesConfigAdapter_RENAMED extends StepRegistryPropertiesConfigAdapter<DynatraceProperties>
 		implements DynatraceConfig {
 
-	DynatracePropertiesConfigAdapter(DynatraceProperties properties) {
+	DynatracePropertiesConfigAdapter_RENAMED(DynatraceProperties properties) {
 		super(properties);
 	}
 
