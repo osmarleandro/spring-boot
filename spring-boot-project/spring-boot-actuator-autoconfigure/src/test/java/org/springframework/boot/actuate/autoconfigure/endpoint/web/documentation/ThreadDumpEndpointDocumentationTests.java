@@ -22,7 +22,7 @@ import java.util.concurrent.locks.ReentrantLock;
 
 import org.junit.jupiter.api.Test;
 
-import org.springframework.boot.actuate.management.ThreadDumpEndpoint;
+import org.springframework.boot.actuate.management.ThreadDumpEndpoint_RENAMED;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
@@ -39,7 +39,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /**
- * Tests for generating documentation describing {@link ThreadDumpEndpoint}.
+ * Tests for generating documentation describing {@link ThreadDumpEndpoint_RENAMED}.
  *
  * @author Andy Wilkinson
  */
@@ -196,8 +196,8 @@ class ThreadDumpEndpointDocumentationTests extends MockMvcEndpointDocumentationT
 	static class TestConfiguration {
 
 		@Bean
-		ThreadDumpEndpoint endpoint() {
-			return new ThreadDumpEndpoint();
+		ThreadDumpEndpoint_RENAMED endpoint() {
+			return new ThreadDumpEndpoint_RENAMED();
 		}
 
 	}

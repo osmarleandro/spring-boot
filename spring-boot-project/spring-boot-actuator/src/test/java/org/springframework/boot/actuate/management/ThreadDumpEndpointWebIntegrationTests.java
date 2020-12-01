@@ -25,7 +25,7 @@ import org.springframework.test.web.reactive.server.WebTestClient;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Integration tests for {@link ThreadDumpEndpoint} exposed by Jersey, Spring MVC, and
+ * Integration tests for {@link ThreadDumpEndpoint_RENAMED} exposed by Jersey, Spring MVC, and
  * WebFlux.
  *
  * @author Andy Wilkinson
@@ -50,8 +50,8 @@ class ThreadDumpEndpointWebIntegrationTests {
 	public static class TestConfiguration {
 
 		@Bean
-		public ThreadDumpEndpoint endpoint() {
-			return new ThreadDumpEndpoint();
+		public ThreadDumpEndpoint_RENAMED endpoint() {
+			return new ThreadDumpEndpoint_RENAMED();
 		}
 
 	}

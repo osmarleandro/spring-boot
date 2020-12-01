@@ -27,7 +27,7 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Tests for {@link ThreadDumpEndpoint}.
+ * Tests for {@link ThreadDumpEndpoint_RENAMED}.
  *
  * @author Phillip Webb
  * @author Andy Wilkinson
@@ -36,7 +36,7 @@ class ThreadDumpEndpointTests {
 
 	@Test
 	void dumpThreads() {
-		assertThat(new ThreadDumpEndpoint().threadDump().getThreads().size()).isGreaterThan(0);
+		assertThat(new ThreadDumpEndpoint_RENAMED().threadDump().getThreads().size()).isGreaterThan(0);
 	}
 
 	@Test
@@ -92,7 +92,7 @@ class ThreadDumpEndpointTests {
 		synchronized (contendedMonitor) {
 			contendedMonitorThread.start();
 			awaitState(contendedMonitorThread, State.BLOCKED);
-			threadDump = new ThreadDumpEndpoint().textThreadDump();
+			threadDump = new ThreadDumpEndpoint_RENAMED().textThreadDump();
 		}
 		latch.countDown();
 		synchronized (monitor) {

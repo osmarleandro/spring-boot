@@ -18,7 +18,7 @@ package org.springframework.boot.actuate.autoconfigure.management;
 
 import org.junit.jupiter.api.Test;
 
-import org.springframework.boot.actuate.management.ThreadDumpEndpoint;
+import org.springframework.boot.actuate.management.ThreadDumpEndpoint_RENAMED;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
 import org.springframework.boot.test.context.runner.ApplicationContextRunner;
 
@@ -37,19 +37,19 @@ class ThreadDumpEndpointAutoConfigurationTests {
 	@Test
 	void runShouldHaveEndpointBean() {
 		this.contextRunner.withPropertyValues("management.endpoints.web.exposure.include=threaddump")
-				.run((context) -> assertThat(context).hasSingleBean(ThreadDumpEndpoint.class));
+				.run((context) -> assertThat(context).hasSingleBean(ThreadDumpEndpoint_RENAMED.class));
 	}
 
 	@Test
 	void runWhenNotExposedShouldNotHaveEndpointBean() {
-		this.contextRunner.run((context) -> assertThat(context).doesNotHaveBean(ThreadDumpEndpoint.class));
+		this.contextRunner.run((context) -> assertThat(context).doesNotHaveBean(ThreadDumpEndpoint_RENAMED.class));
 	}
 
 	@Test
 	void runWhenEnabledPropertyIsFalseShouldNotHaveEndpointBean() {
 		this.contextRunner.withPropertyValues("management.endpoints.web.exposure.include=*")
 				.withPropertyValues("management.endpoint.threaddump.enabled:false")
-				.run((context) -> assertThat(context).doesNotHaveBean(ThreadDumpEndpoint.class));
+				.run((context) -> assertThat(context).doesNotHaveBean(ThreadDumpEndpoint_RENAMED.class));
 	}
 
 }
