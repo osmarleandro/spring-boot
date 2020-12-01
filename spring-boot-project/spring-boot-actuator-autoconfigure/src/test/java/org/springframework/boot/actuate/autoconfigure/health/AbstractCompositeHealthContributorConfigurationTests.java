@@ -29,7 +29,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
 
 /**
- * Tests for {@link AbstractCompositeHealthContributorConfiguration}.
+ * Tests for {@link AbstractCompositeHealthContributorConfiguration_RENAMED}.
  *
  * @param <C> the contributor type
  * @param <I> the health indicator type
@@ -69,7 +69,7 @@ abstract class AbstractCompositeHealthContributorConfigurationTests<C, I extends
 		assertThat(ClassUtils.getShortName(contributor.getClass())).startsWith("Composite");
 	}
 
-	protected abstract AbstractCompositeHealthContributorConfiguration<C, I, TestBean> newComposite();
+	protected abstract AbstractCompositeHealthContributorConfiguration_RENAMED<C, I, TestBean> newComposite();
 
 	static class TestBean {
 

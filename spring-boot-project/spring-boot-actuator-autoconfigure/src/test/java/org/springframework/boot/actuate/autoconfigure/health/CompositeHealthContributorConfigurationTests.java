@@ -30,7 +30,7 @@ class CompositeHealthContributorConfigurationTests
 		extends AbstractCompositeHealthContributorConfigurationTests<HealthContributor, TestHealthIndicator> {
 
 	@Override
-	protected AbstractCompositeHealthContributorConfiguration<HealthContributor, TestHealthIndicator, TestBean> newComposite() {
+	protected AbstractCompositeHealthContributorConfiguration_RENAMED<HealthContributor, TestHealthIndicator, TestBean> newComposite() {
 		return new TestCompositeHealthContributorConfiguration();
 	}
 

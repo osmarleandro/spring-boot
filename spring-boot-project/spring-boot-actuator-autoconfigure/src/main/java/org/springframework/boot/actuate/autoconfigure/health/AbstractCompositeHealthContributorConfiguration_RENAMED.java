@@ -34,14 +34,14 @@ import org.springframework.util.Assert;
  * @author Phillip Webb
  * @since 2.2.0
  */
-public abstract class AbstractCompositeHealthContributorConfiguration<C, I extends C, B> {
+public abstract class AbstractCompositeHealthContributorConfiguration_RENAMED<C, I extends C, B> {
 
 	private final Class<?> indicatorType;
 
 	private final Class<?> beanType;
 
-	AbstractCompositeHealthContributorConfiguration() {
-		ResolvableType type = ResolvableType.forClass(AbstractCompositeHealthContributorConfiguration.class,
+	AbstractCompositeHealthContributorConfiguration_RENAMED() {
+		ResolvableType type = ResolvableType.forClass(AbstractCompositeHealthContributorConfiguration_RENAMED.class,
 				getClass());
 		this.indicatorType = type.resolveGeneric(1);
 		this.beanType = type.resolveGeneric(2);

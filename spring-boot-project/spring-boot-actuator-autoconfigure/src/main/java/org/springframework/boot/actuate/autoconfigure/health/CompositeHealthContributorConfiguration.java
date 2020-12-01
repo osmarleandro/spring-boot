@@ -33,7 +33,7 @@ import org.springframework.boot.actuate.health.HealthIndicator;
  * @since 2.2.0
  */
 public abstract class CompositeHealthContributorConfiguration<I extends HealthIndicator, B>
-		extends AbstractCompositeHealthContributorConfiguration<HealthContributor, I, B> {
+		extends AbstractCompositeHealthContributorConfiguration_RENAMED<HealthContributor, I, B> {
 
 	@Override
 	protected final HealthContributor createComposite(Map<String, B> beans) {
