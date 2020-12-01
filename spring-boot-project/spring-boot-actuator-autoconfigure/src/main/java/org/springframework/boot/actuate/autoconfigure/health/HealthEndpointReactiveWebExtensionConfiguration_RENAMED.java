@@ -36,7 +36,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration(proxyBeanMethods = false)
 @ConditionalOnWebApplication(type = Type.REACTIVE)
 @ConditionalOnBean(HealthEndpoint.class)
-class HealthEndpointReactiveWebExtensionConfiguration {
+class HealthEndpointReactiveWebExtensionConfiguration_RENAMED {
 
 	@Bean
 	@ConditionalOnMissingBean
