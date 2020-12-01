@@ -44,7 +44,7 @@ import org.springframework.context.annotation.Import;
 @ConditionalOnWebApplication(type = ConditionalOnWebApplication.Type.SERVLET)
 @ConditionalOnClass(ResourceConfig.class)
 @ConditionalOnMissingClass("org.springframework.web.servlet.DispatcherServlet")
-public class JerseySameManagementContextConfiguration {
+public class JerseySameManagementContextConfiguration_RENAMED {
 
 	@Bean
 	@ConditionalOnMissingBean(JerseyApplicationPath.class)

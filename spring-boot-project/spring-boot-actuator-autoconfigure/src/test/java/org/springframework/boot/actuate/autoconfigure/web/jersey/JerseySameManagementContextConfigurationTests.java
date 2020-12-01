@@ -34,7 +34,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 
 /**
- * Tests for {@link JerseySameManagementContextConfiguration}.
+ * Tests for {@link JerseySameManagementContextConfiguration_RENAMED}.
  *
  * @author Madhura Bhave
  */
@@ -42,20 +42,20 @@ import static org.mockito.Mockito.mock;
 class JerseySameManagementContextConfigurationTests {
 
 	private final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner()
-			.withConfiguration(AutoConfigurations.of(JerseySameManagementContextConfiguration.class));
+			.withConfiguration(AutoConfigurations.of(JerseySameManagementContextConfiguration_RENAMED.class));
 
 	@Test
 	void autoConfigurationIsConditionalOnServletWebApplication() {
 		ApplicationContextRunner contextRunner = new ApplicationContextRunner()
-				.withConfiguration(AutoConfigurations.of(JerseySameManagementContextConfiguration.class));
+				.withConfiguration(AutoConfigurations.of(JerseySameManagementContextConfiguration_RENAMED.class));
 		contextRunner
-				.run((context) -> assertThat(context).doesNotHaveBean(JerseySameManagementContextConfiguration.class));
+				.run((context) -> assertThat(context).doesNotHaveBean(JerseySameManagementContextConfiguration_RENAMED.class));
 	}
 
 	@Test
 	void autoConfigurationIsConditionalOnClassResourceConfig() {
 		this.contextRunner.withClassLoader(new FilteredClassLoader(ResourceConfig.class))
-				.run((context) -> assertThat(context).doesNotHaveBean(JerseySameManagementContextConfiguration.class));
+				.run((context) -> assertThat(context).doesNotHaveBean(JerseySameManagementContextConfiguration_RENAMED.class));
 	}
 
 	@Test

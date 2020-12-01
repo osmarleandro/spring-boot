@@ -45,15 +45,15 @@ class JerseyChildManagementContextConfigurationTests {
 	@Test
 	void autoConfigurationIsConditionalOnServletWebApplication() {
 		ApplicationContextRunner contextRunner = new ApplicationContextRunner()
-				.withConfiguration(AutoConfigurations.of(JerseySameManagementContextConfiguration.class));
+				.withConfiguration(AutoConfigurations.of(JerseySameManagementContextConfiguration_RENAMED.class));
 		contextRunner
-				.run((context) -> assertThat(context).doesNotHaveBean(JerseySameManagementContextConfiguration.class));
+				.run((context) -> assertThat(context).doesNotHaveBean(JerseySameManagementContextConfiguration_RENAMED.class));
 	}
 
 	@Test
 	void autoConfigurationIsConditionalOnClassResourceConfig() {
 		this.contextRunner.withClassLoader(new FilteredClassLoader(ResourceConfig.class))
-				.run((context) -> assertThat(context).doesNotHaveBean(JerseySameManagementContextConfiguration.class));
+				.run((context) -> assertThat(context).doesNotHaveBean(JerseySameManagementContextConfiguration_RENAMED.class));
 	}
 
 	@Test

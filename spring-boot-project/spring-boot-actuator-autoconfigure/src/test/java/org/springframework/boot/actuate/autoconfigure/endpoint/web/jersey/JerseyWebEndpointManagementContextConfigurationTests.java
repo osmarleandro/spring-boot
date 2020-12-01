@@ -23,7 +23,7 @@ import org.junit.jupiter.api.Test;
 
 import org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.endpoint.web.jersey.JerseyWebEndpointManagementContextConfiguration.JerseyWebEndpointsResourcesRegistrar;
-import org.springframework.boot.actuate.autoconfigure.web.jersey.JerseySameManagementContextConfiguration;
+import org.springframework.boot.actuate.autoconfigure.web.jersey.JerseySameManagementContextConfiguration_RENAMED;
 import org.springframework.boot.actuate.endpoint.web.WebEndpointsSupplier;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
 import org.springframework.boot.test.context.FilteredClassLoader;
@@ -53,15 +53,15 @@ class JerseyWebEndpointManagementContextConfigurationTests {
 	@Test
 	void autoConfigurationIsConditionalOnServletWebApplication() {
 		ApplicationContextRunner contextRunner = new ApplicationContextRunner()
-				.withConfiguration(AutoConfigurations.of(JerseySameManagementContextConfiguration.class));
+				.withConfiguration(AutoConfigurations.of(JerseySameManagementContextConfiguration_RENAMED.class));
 		contextRunner
-				.run((context) -> assertThat(context).doesNotHaveBean(JerseySameManagementContextConfiguration.class));
+				.run((context) -> assertThat(context).doesNotHaveBean(JerseySameManagementContextConfiguration_RENAMED.class));
 	}
 
 	@Test
 	void autoConfigurationIsConditionalOnClassResourceConfig() {
 		this.runner.withClassLoader(new FilteredClassLoader(ResourceConfig.class))
-				.run((context) -> assertThat(context).doesNotHaveBean(JerseySameManagementContextConfiguration.class));
+				.run((context) -> assertThat(context).doesNotHaveBean(JerseySameManagementContextConfiguration_RENAMED.class));
 	}
 
 }
