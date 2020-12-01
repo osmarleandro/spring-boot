@@ -29,7 +29,7 @@ import org.springframework.context.annotation.Configuration;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Tests for {@link CacheMetricsAutoConfiguration}.
+ * Tests for {@link CacheMetricsAutoConfiguration_RENAMED}.
  *
  * @author Stephane Nicoll
  */
@@ -37,7 +37,7 @@ class CacheMetricsAutoConfigurationTests {
 
 	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner().with(MetricsRun.simple())
 			.withUserConfiguration(CachingConfiguration.class).withConfiguration(
-					AutoConfigurations.of(CacheAutoConfiguration.class, CacheMetricsAutoConfiguration.class));
+					AutoConfigurations.of(CacheAutoConfiguration.class, CacheMetricsAutoConfiguration_RENAMED.class));
 
 	@Test
 	void autoConfiguredCacheManagerIsInstrumented() {
