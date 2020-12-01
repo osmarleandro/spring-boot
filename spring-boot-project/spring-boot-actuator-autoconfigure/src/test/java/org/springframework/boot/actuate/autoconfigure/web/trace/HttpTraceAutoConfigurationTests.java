@@ -26,7 +26,7 @@ import org.springframework.boot.actuate.autoconfigure.trace.http.HttpTraceProper
 import org.springframework.boot.actuate.trace.http.HttpExchangeTracer;
 import org.springframework.boot.actuate.trace.http.HttpTrace;
 import org.springframework.boot.actuate.trace.http.HttpTraceRepository;
-import org.springframework.boot.actuate.trace.http.InMemoryHttpTraceRepository;
+import org.springframework.boot.actuate.trace.http.InMemoryHttpTraceRepository_RENAMED;
 import org.springframework.boot.actuate.trace.http.Include;
 import org.springframework.boot.actuate.web.trace.reactive.HttpTraceWebFilter;
 import org.springframework.boot.actuate.web.trace.servlet.HttpTraceFilter;
@@ -103,7 +103,7 @@ class HttpTraceAutoConfigurationTests {
 	void backsOffWhenDisabled() {
 		this.contextRunner.withUserConfiguration(HttpTraceRepositoryConfiguration.class)
 				.withPropertyValues("management.trace.http.enabled=false")
-				.run((context) -> assertThat(context).doesNotHaveBean(InMemoryHttpTraceRepository.class)
+				.run((context) -> assertThat(context).doesNotHaveBean(InMemoryHttpTraceRepository_RENAMED.class)
 						.doesNotHaveBean(HttpExchangeTracer.class).doesNotHaveBean(HttpTraceFilter.class));
 	}
 

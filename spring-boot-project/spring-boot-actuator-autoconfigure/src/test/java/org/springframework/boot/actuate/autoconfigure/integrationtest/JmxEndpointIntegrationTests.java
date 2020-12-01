@@ -31,7 +31,7 @@ import org.springframework.boot.actuate.autoconfigure.endpoint.EndpointAutoConfi
 import org.springframework.boot.actuate.autoconfigure.endpoint.jmx.JmxEndpointAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.health.HealthContributorAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.trace.http.HttpTraceAutoConfiguration;
-import org.springframework.boot.actuate.trace.http.InMemoryHttpTraceRepository;
+import org.springframework.boot.actuate.trace.http.InMemoryHttpTraceRepository_RENAMED;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
 import org.springframework.boot.autoconfigure.jmx.JmxAutoConfiguration;
 import org.springframework.boot.test.context.runner.WebApplicationContextRunner;
@@ -134,8 +134,8 @@ class JmxEndpointIntegrationTests {
 	static class HttpTraceRepositoryConfiguration {
 
 		@Bean
-		InMemoryHttpTraceRepository httpTraceRepository() {
-			return new InMemoryHttpTraceRepository();
+		InMemoryHttpTraceRepository_RENAMED httpTraceRepository() {
+			return new InMemoryHttpTraceRepository_RENAMED();
 		}
 
 	}

@@ -25,14 +25,14 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
 
 /**
- * Tests for {@link InMemoryHttpTraceRepository}.
+ * Tests for {@link InMemoryHttpTraceRepository_RENAMED}.
  *
  * @author Dave Syer
  * @author Andy Wilkinson
  */
 class InMemoryHttpTraceRepositoryTests {
 
-	private final InMemoryHttpTraceRepository repository = new InMemoryHttpTraceRepository();
+	private final InMemoryHttpTraceRepository_RENAMED repository = new InMemoryHttpTraceRepository_RENAMED();
 
 	@Test
 	void capacityLimited() {
