@@ -70,7 +70,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * @author Chanhyeong LEE
  */
 @ExtendWith(OutputCaptureExtension.class)
-class WebMvcMetricsAutoConfigurationTests {
+class WebMvcMetricsAutoConfigurationTests_RENAMED {
 
 	private final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner()
 			.with(MetricsRun.simple()).withConfiguration(AutoConfigurations.of(WebMvcMetricsAutoConfiguration.class));
