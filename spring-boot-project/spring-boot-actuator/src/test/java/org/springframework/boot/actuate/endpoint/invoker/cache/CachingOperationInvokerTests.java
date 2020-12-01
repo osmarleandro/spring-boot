@@ -30,7 +30,7 @@ import reactor.core.publisher.Mono;
 import org.springframework.boot.actuate.endpoint.InvocationContext;
 import org.springframework.boot.actuate.endpoint.SecurityContext;
 import org.springframework.boot.actuate.endpoint.http.ApiVersion;
-import org.springframework.boot.actuate.endpoint.invoke.MissingParametersException;
+import org.springframework.boot.actuate.endpoint.invoke.MissingParametersException_RENAMED;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvoker;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -220,7 +220,7 @@ class CachingOperationInvokerTests {
 		static AtomicInteger invocations = new AtomicInteger();
 
 		@Override
-		public Mono<String> invoke(InvocationContext context) throws MissingParametersException {
+		public Mono<String> invoke(InvocationContext context) throws MissingParametersException_RENAMED {
 			return Mono.fromCallable(() -> {
 				invocations.incrementAndGet();
 				return "test";
@@ -234,7 +234,7 @@ class CachingOperationInvokerTests {
 		static AtomicInteger invocations = new AtomicInteger();
 
 		@Override
-		public Flux<String> invoke(InvocationContext context) throws MissingParametersException {
+		public Flux<String> invoke(InvocationContext context) throws MissingParametersException_RENAMED {
 			return Flux.just("spring", "boot").hide().doFirst(invocations::incrementAndGet);
 		}
 

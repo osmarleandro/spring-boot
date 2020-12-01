@@ -25,7 +25,7 @@ import org.springframework.boot.actuate.endpoint.InvocationContext;
 import org.springframework.boot.actuate.endpoint.OperationType;
 import org.springframework.boot.actuate.endpoint.SecurityContext;
 import org.springframework.boot.actuate.endpoint.http.ApiVersion;
-import org.springframework.boot.actuate.endpoint.invoke.MissingParametersException;
+import org.springframework.boot.actuate.endpoint.invoke.MissingParametersException_RENAMED;
 import org.springframework.boot.actuate.endpoint.invoke.ParameterValueMapper;
 import org.springframework.lang.Nullable;
 import org.springframework.util.ReflectionUtils;
@@ -90,7 +90,7 @@ class ReflectiveOperationInvokerTests {
 	void invokeWhenMissingNonNullableArgumentShouldThrowException() {
 		ReflectiveOperationInvoker invoker = new ReflectiveOperationInvoker(this.target, this.operationMethod,
 				this.parameterValueMapper);
-		assertThatExceptionOfType(MissingParametersException.class).isThrownBy(() -> invoker
+		assertThatExceptionOfType(MissingParametersException_RENAMED.class).isThrownBy(() -> invoker
 				.invoke(new InvocationContext(mock(SecurityContext.class), Collections.singletonMap("name", null))));
 	}
 

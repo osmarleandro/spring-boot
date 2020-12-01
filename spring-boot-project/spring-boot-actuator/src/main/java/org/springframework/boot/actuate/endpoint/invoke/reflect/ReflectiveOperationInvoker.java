@@ -24,7 +24,7 @@ import java.util.stream.Collectors;
 import org.springframework.boot.actuate.endpoint.InvocationContext;
 import org.springframework.boot.actuate.endpoint.SecurityContext;
 import org.springframework.boot.actuate.endpoint.http.ApiVersion;
-import org.springframework.boot.actuate.endpoint.invoke.MissingParametersException;
+import org.springframework.boot.actuate.endpoint.invoke.MissingParametersException_RENAMED;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvoker;
 import org.springframework.boot.actuate.endpoint.invoke.OperationParameter;
 import org.springframework.boot.actuate.endpoint.invoke.ParameterValueMapper;
@@ -81,7 +81,7 @@ public class ReflectiveOperationInvoker implements OperationInvoker {
 		Set<OperationParameter> missing = this.operationMethod.getParameters().stream()
 				.filter((parameter) -> isMissing(context, parameter)).collect(Collectors.toSet());
 		if (!missing.isEmpty()) {
-			throw new MissingParametersException(missing);
+			throw new MissingParametersException_RENAMED(missing);
 		}
 	}
 
