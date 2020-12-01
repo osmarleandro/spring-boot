@@ -35,7 +35,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Andy Wilkinson
  */
-class HumioMetricsExportAutoConfigurationTests {
+class HumioMetricsExportAutoConfigurationTests_RENAMED {
 
 	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(HumioMetricsExportAutoConfiguration.class));
