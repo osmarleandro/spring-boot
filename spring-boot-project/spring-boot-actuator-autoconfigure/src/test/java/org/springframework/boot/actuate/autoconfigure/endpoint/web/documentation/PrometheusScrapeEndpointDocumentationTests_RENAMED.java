@@ -39,7 +39,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * @author Andy Wilkinson
  * @author Johnny Lim
  */
-class PrometheusScrapeEndpointDocumentationTests extends MockMvcEndpointDocumentationTests {
+class PrometheusScrapeEndpointDocumentationTests_RENAMED extends MockMvcEndpointDocumentationTests {
 
 	@Test
 	void prometheus() throws Exception {
