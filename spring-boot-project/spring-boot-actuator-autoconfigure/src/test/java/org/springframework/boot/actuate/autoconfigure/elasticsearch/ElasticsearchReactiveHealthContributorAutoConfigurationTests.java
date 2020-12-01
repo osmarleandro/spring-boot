@@ -18,7 +18,7 @@ package org.springframework.boot.actuate.autoconfigure.elasticsearch;
 
 import org.junit.jupiter.api.Test;
 
-import org.springframework.boot.actuate.autoconfigure.health.HealthContributorAutoConfiguration;
+import org.springframework.boot.actuate.autoconfigure.health.HealthContributorAutoConfiguration_RENAMED;
 import org.springframework.boot.actuate.elasticsearch.ElasticsearchReactiveHealthIndicator;
 import org.springframework.boot.actuate.elasticsearch.ElasticsearchRestHealthIndicator;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
@@ -41,7 +41,7 @@ class ElasticsearchReactiveHealthContributorAutoConfigurationTests {
 					ReactiveElasticsearchRestClientAutoConfiguration.class,
 					ElasticsearchRestClientAutoConfiguration.class,
 					ElasticSearchReactiveHealthContributorAutoConfiguration.class,
-					HealthContributorAutoConfiguration.class));
+					HealthContributorAutoConfiguration_RENAMED.class));
 
 	@Test
 	void runShouldCreateIndicator() {

@@ -18,7 +18,7 @@ package org.springframework.boot.actuate.autoconfigure.redis;
 
 import org.junit.jupiter.api.Test;
 
-import org.springframework.boot.actuate.autoconfigure.health.HealthContributorAutoConfiguration;
+import org.springframework.boot.actuate.autoconfigure.health.HealthContributorAutoConfiguration_RENAMED;
 import org.springframework.boot.actuate.redis.RedisHealthIndicator;
 import org.springframework.boot.actuate.redis.RedisReactiveHealthIndicator;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
@@ -36,7 +36,7 @@ class RedisReactiveHealthContributorAutoConfigurationTests {
 
 	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(RedisAutoConfiguration.class,
-					RedisReactiveHealthContributorAutoConfiguration.class, HealthContributorAutoConfiguration.class));
+					RedisReactiveHealthContributorAutoConfiguration.class, HealthContributorAutoConfiguration_RENAMED.class));
 
 	@Test
 	void runShouldCreateIndicator() {

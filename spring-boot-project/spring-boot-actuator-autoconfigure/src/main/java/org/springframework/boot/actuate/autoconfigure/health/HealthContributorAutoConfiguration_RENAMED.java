@@ -30,7 +30,7 @@ import org.springframework.context.annotation.Configuration;
  * @since 2.2.0
  */
 @Configuration(proxyBeanMethods = false)
-public class HealthContributorAutoConfiguration {
+public class HealthContributorAutoConfiguration_RENAMED {
 
 	@Bean
 	@ConditionalOnEnabledHealthIndicator("ping")

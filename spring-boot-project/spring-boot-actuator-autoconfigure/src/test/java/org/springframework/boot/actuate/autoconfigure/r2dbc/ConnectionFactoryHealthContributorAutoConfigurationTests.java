@@ -18,7 +18,7 @@ package org.springframework.boot.actuate.autoconfigure.r2dbc;
 
 import org.junit.jupiter.api.Test;
 
-import org.springframework.boot.actuate.autoconfigure.health.HealthContributorAutoConfiguration;
+import org.springframework.boot.actuate.autoconfigure.health.HealthContributorAutoConfiguration_RENAMED;
 import org.springframework.boot.actuate.r2dbc.ConnectionFactoryHealthIndicator;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
 import org.springframework.boot.autoconfigure.r2dbc.R2dbcAutoConfiguration;
@@ -35,7 +35,7 @@ class ConnectionFactoryHealthContributorAutoConfigurationTests {
 
 	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(ConnectionFactoryHealthContributorAutoConfiguration.class,
-					HealthContributorAutoConfiguration.class));
+					HealthContributorAutoConfiguration_RENAMED.class));
 
 	@Test
 	void runShouldCreateIndicator() {

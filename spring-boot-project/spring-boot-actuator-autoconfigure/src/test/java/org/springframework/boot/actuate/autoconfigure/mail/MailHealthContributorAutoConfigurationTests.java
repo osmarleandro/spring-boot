@@ -18,7 +18,7 @@ package org.springframework.boot.actuate.autoconfigure.mail;
 
 import org.junit.jupiter.api.Test;
 
-import org.springframework.boot.actuate.autoconfigure.health.HealthContributorAutoConfiguration;
+import org.springframework.boot.actuate.autoconfigure.health.HealthContributorAutoConfiguration_RENAMED;
 import org.springframework.boot.actuate.mail.MailHealthIndicator;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
 import org.springframework.boot.autoconfigure.mail.MailSenderAutoConfiguration;
@@ -35,7 +35,7 @@ class MailHealthContributorAutoConfigurationTests {
 
 	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(MailSenderAutoConfiguration.class,
-					MailHealthContributorAutoConfiguration.class, HealthContributorAutoConfiguration.class))
+					MailHealthContributorAutoConfiguration.class, HealthContributorAutoConfiguration_RENAMED.class))
 			.withPropertyValues("spring.mail.host:smtp.example.com");
 
 	@Test

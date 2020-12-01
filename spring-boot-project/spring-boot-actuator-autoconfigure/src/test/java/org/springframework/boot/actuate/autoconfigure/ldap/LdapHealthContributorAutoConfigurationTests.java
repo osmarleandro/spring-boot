@@ -18,7 +18,7 @@ package org.springframework.boot.actuate.autoconfigure.ldap;
 
 import org.junit.jupiter.api.Test;
 
-import org.springframework.boot.actuate.autoconfigure.health.HealthContributorAutoConfiguration;
+import org.springframework.boot.actuate.autoconfigure.health.HealthContributorAutoConfiguration_RENAMED;
 import org.springframework.boot.actuate.ldap.LdapHealthIndicator;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
 import org.springframework.boot.test.context.runner.ApplicationContextRunner;
@@ -37,7 +37,7 @@ class LdapHealthContributorAutoConfigurationTests {
 
 	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.withBean(LdapOperations.class, () -> mock(LdapOperations.class)).withConfiguration(AutoConfigurations
-					.of(LdapHealthContributorAutoConfiguration.class, HealthContributorAutoConfiguration.class));
+					.of(LdapHealthContributorAutoConfiguration.class, HealthContributorAutoConfiguration_RENAMED.class));
 
 	@Test
 	void runShouldCreateIndicator() {

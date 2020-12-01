@@ -29,7 +29,7 @@ import org.springframework.context.annotation.Configuration;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Tests for {@link HealthContributorAutoConfiguration}.
+ * Tests for {@link HealthContributorAutoConfiguration_RENAMED}.
  *
  * @author Phillip Webb
  * @author Stephane Nicoll
@@ -37,7 +37,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 class HealthContributorAutoConfigurationTests {
 
 	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
-			.withConfiguration(AutoConfigurations.of(HealthContributorAutoConfiguration.class));
+			.withConfiguration(AutoConfigurations.of(HealthContributorAutoConfiguration_RENAMED.class));
 
 	@Test
 	void runWhenNoOtherIndicatorsCreatesPingHealthIndicator() {

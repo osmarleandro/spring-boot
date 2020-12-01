@@ -18,7 +18,7 @@ package org.springframework.boot.actuate.autoconfigure.mongo;
 
 import org.junit.jupiter.api.Test;
 
-import org.springframework.boot.actuate.autoconfigure.health.HealthContributorAutoConfiguration;
+import org.springframework.boot.actuate.autoconfigure.health.HealthContributorAutoConfiguration_RENAMED;
 import org.springframework.boot.actuate.mongo.MongoHealthIndicator;
 import org.springframework.boot.actuate.mongo.MongoReactiveHealthIndicator;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
@@ -40,7 +40,7 @@ class MongoReactiveHealthContributorAutoConfigurationTests {
 	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(MongoAutoConfiguration.class, MongoDataAutoConfiguration.class,
 					MongoReactiveAutoConfiguration.class, MongoReactiveDataAutoConfiguration.class,
-					MongoReactiveHealthContributorAutoConfiguration.class, HealthContributorAutoConfiguration.class));
+					MongoReactiveHealthContributorAutoConfiguration.class, HealthContributorAutoConfiguration_RENAMED.class));
 
 	@Test
 	void runShouldCreateIndicator() {

@@ -18,7 +18,7 @@ package org.springframework.boot.actuate.autoconfigure.solr;
 
 import org.junit.jupiter.api.Test;
 
-import org.springframework.boot.actuate.autoconfigure.health.HealthContributorAutoConfiguration;
+import org.springframework.boot.actuate.autoconfigure.health.HealthContributorAutoConfiguration_RENAMED;
 import org.springframework.boot.actuate.solr.SolrHealthIndicator;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
 import org.springframework.boot.autoconfigure.solr.SolrAutoConfiguration;
@@ -35,7 +35,7 @@ class SolrHealthContributorAutoConfigurationTests {
 
 	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(SolrAutoConfiguration.class,
-					SolrHealthContributorAutoConfiguration.class, HealthContributorAutoConfiguration.class));
+					SolrHealthContributorAutoConfiguration.class, HealthContributorAutoConfiguration_RENAMED.class));
 
 	@Test
 	void runShouldCreateIndicator() {

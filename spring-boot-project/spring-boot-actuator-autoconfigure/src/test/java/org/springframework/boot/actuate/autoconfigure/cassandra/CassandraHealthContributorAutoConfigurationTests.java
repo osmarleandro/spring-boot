@@ -19,7 +19,7 @@ package org.springframework.boot.actuate.autoconfigure.cassandra;
 import com.datastax.oss.driver.api.core.CqlSession;
 import org.junit.jupiter.api.Test;
 
-import org.springframework.boot.actuate.autoconfigure.health.HealthContributorAutoConfiguration;
+import org.springframework.boot.actuate.autoconfigure.health.HealthContributorAutoConfiguration_RENAMED;
 import org.springframework.boot.actuate.cassandra.CassandraDriverHealthIndicator;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
 import org.springframework.boot.test.context.FilteredClassLoader;
@@ -40,7 +40,7 @@ class CassandraHealthContributorAutoConfigurationTests {
 
 	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(CassandraHealthContributorAutoConfiguration.class,
-					HealthContributorAutoConfiguration.class));
+					HealthContributorAutoConfiguration_RENAMED.class));
 
 	@Test
 	void runWithoutCqlSessionOrCassandraOperationsShouldNotCreateIndicator() {
