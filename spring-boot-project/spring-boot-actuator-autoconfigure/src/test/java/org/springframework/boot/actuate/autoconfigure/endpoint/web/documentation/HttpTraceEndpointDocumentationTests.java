@@ -29,7 +29,7 @@ import org.springframework.boot.actuate.trace.http.HttpExchangeTracer;
 import org.springframework.boot.actuate.trace.http.HttpTrace;
 import org.springframework.boot.actuate.trace.http.HttpTraceEndpoint;
 import org.springframework.boot.actuate.trace.http.HttpTraceRepository;
-import org.springframework.boot.actuate.trace.http.Include;
+import org.springframework.boot.actuate.trace.http.Include_RENAMED;
 import org.springframework.boot.actuate.trace.http.TraceableRequest;
 import org.springframework.boot.actuate.trace.http.TraceableResponse;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -70,7 +70,7 @@ class HttpTraceEndpointDocumentationTests extends MockMvcEndpointDocumentationTe
 				.willReturn(Collections.singletonMap(HttpHeaders.CONTENT_TYPE, Arrays.asList("application/json")));
 		Principal principal = mock(Principal.class);
 		given(principal.getName()).willReturn("alice");
-		HttpExchangeTracer tracer = new HttpExchangeTracer(EnumSet.allOf(Include.class));
+		HttpExchangeTracer tracer = new HttpExchangeTracer(EnumSet.allOf(Include_RENAMED.class));
 		HttpTrace trace = tracer.receivedRequest(request);
 		tracer.sendingResponse(trace, response, () -> principal, () -> UUID.randomUUID().toString());
 		given(this.repository.findAll()).willReturn(Arrays.asList(trace));

@@ -19,7 +19,7 @@ package org.springframework.boot.actuate.autoconfigure.trace.http;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.springframework.boot.actuate.trace.http.Include;
+import org.springframework.boot.actuate.trace.http.Include_RENAMED;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
@@ -39,13 +39,13 @@ public class HttpTraceProperties {
 	 * Items to be included in the trace. Defaults to request headers (excluding
 	 * Authorization and Cookie), response headers (excluding Set-Cookie), and time taken.
 	 */
-	private Set<Include> include = new HashSet<>(Include.defaultIncludes());
+	private Set<Include_RENAMED> include = new HashSet<>(Include_RENAMED.defaultIncludes());
 
-	public Set<Include> getInclude() {
+	public Set<Include_RENAMED> getInclude() {
 		return this.include;
 	}
 
-	public void setInclude(Set<Include> include) {
+	public void setInclude(Set<Include_RENAMED> include) {
 		this.include = include;
 	}
 

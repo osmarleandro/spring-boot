@@ -27,7 +27,7 @@ import org.springframework.boot.actuate.trace.http.HttpExchangeTracer;
 import org.springframework.boot.actuate.trace.http.HttpTrace;
 import org.springframework.boot.actuate.trace.http.HttpTraceRepository;
 import org.springframework.boot.actuate.trace.http.InMemoryHttpTraceRepository;
-import org.springframework.boot.actuate.trace.http.Include;
+import org.springframework.boot.actuate.trace.http.Include_RENAMED;
 import org.springframework.boot.actuate.web.trace.reactive.HttpTraceWebFilter;
 import org.springframework.boot.actuate.web.trace.servlet.HttpTraceFilter;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
@@ -133,7 +133,7 @@ class HttpTraceAutoConfigurationTests {
 
 	private static final class CustomHttpExchangeTracer extends HttpExchangeTracer {
 
-		private CustomHttpExchangeTracer(Set<Include> includes) {
+		private CustomHttpExchangeTracer(Set<Include_RENAMED> includes) {
 			super(includes);
 		}
 
@@ -152,7 +152,7 @@ class HttpTraceAutoConfigurationTests {
 	private static final class CustomHttpTraceWebFilter extends HttpTraceWebFilter {
 
 		private CustomHttpTraceWebFilter(HttpTraceRepository repository, HttpExchangeTracer tracer,
-				Set<Include> includes) {
+				Set<Include_RENAMED> includes) {
 			super(repository, tracer, includes);
 		}
 

@@ -26,7 +26,7 @@ import reactor.core.publisher.Mono;
 import org.springframework.boot.actuate.trace.http.HttpExchangeTracer;
 import org.springframework.boot.actuate.trace.http.HttpTrace.Session;
 import org.springframework.boot.actuate.trace.http.InMemoryHttpTraceRepository;
-import org.springframework.boot.actuate.trace.http.Include;
+import org.springframework.boot.actuate.trace.http.Include_RENAMED;
 import org.springframework.boot.actuate.web.trace.reactive.HttpTraceWebFilter;
 import org.springframework.mock.http.server.reactive.MockServerHttpRequest;
 import org.springframework.mock.web.server.MockServerWebExchange;
@@ -47,10 +47,10 @@ class HttpTraceWebFilterTests {
 
 	private final InMemoryHttpTraceRepository repository = new InMemoryHttpTraceRepository();
 
-	private final HttpExchangeTracer tracer = new HttpExchangeTracer(EnumSet.allOf(Include.class));
+	private final HttpExchangeTracer tracer = new HttpExchangeTracer(EnumSet.allOf(Include_RENAMED.class));
 
 	private final HttpTraceWebFilter filter = new HttpTraceWebFilter(this.repository, this.tracer,
-			EnumSet.allOf(Include.class));
+			EnumSet.allOf(Include_RENAMED.class));
 
 	@Test
 	void filterTracesExchange() {

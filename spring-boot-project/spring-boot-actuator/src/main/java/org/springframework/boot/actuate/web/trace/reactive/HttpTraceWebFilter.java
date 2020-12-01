@@ -24,7 +24,7 @@ import reactor.core.publisher.Mono;
 import org.springframework.boot.actuate.trace.http.HttpExchangeTracer;
 import org.springframework.boot.actuate.trace.http.HttpTrace;
 import org.springframework.boot.actuate.trace.http.HttpTraceRepository;
-import org.springframework.boot.actuate.trace.http.Include;
+import org.springframework.boot.actuate.trace.http.Include_RENAMED;
 import org.springframework.core.Ordered;
 import org.springframework.web.server.ServerWebExchange;
 import org.springframework.web.server.WebFilter;
@@ -49,9 +49,9 @@ public class HttpTraceWebFilter implements WebFilter, Ordered {
 
 	private final HttpExchangeTracer tracer;
 
-	private final Set<Include> includes;
+	private final Set<Include_RENAMED> includes;
 
-	public HttpTraceWebFilter(HttpTraceRepository repository, HttpExchangeTracer tracer, Set<Include> includes) {
+	public HttpTraceWebFilter(HttpTraceRepository repository, HttpExchangeTracer tracer, Set<Include_RENAMED> includes) {
 		this.repository = repository;
 		this.tracer = tracer;
 		this.includes = includes;
@@ -68,9 +68,9 @@ public class HttpTraceWebFilter implements WebFilter, Ordered {
 
 	@Override
 	public Mono<Void> filter(ServerWebExchange exchange, WebFilterChain chain) {
-		Mono<?> principal = (this.includes.contains(Include.PRINCIPAL)
+		Mono<?> principal = (this.includes.contains(Include_RENAMED.PRINCIPAL)
 				? exchange.getPrincipal().cast(Object.class).defaultIfEmpty(NONE) : Mono.just(NONE));
-		Mono<?> session = (this.includes.contains(Include.SESSION_ID) ? exchange.getSession() : Mono.just(NONE));
+		Mono<?> session = (this.includes.contains(Include_RENAMED.SESSION_ID) ? exchange.getSession() : Mono.just(NONE));
 		return Mono.zip(principal, session).flatMap((tuple) -> filter(exchange, chain,
 				asType(tuple.getT1(), Principal.class), asType(tuple.getT2(), WebSession.class)));
 	}

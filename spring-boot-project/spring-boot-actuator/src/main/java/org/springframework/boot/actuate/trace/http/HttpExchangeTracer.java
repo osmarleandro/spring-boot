@@ -38,14 +38,14 @@ import org.springframework.http.HttpHeaders;
  */
 public class HttpExchangeTracer {
 
-	private final Set<Include> includes;
+	private final Set<Include_RENAMED> includes;
 
 	/**
 	 * Creates a new {@code HttpExchangeTracer} that will use the given {@code includes}
 	 * to determine the contents of its traces.
 	 * @param includes the includes
 	 */
-	public HttpExchangeTracer(Set<Include> includes) {
+	public HttpExchangeTracer(Set<Include_RENAMED> includes) {
 		this.includes = includes;
 	}
 
@@ -69,9 +69,9 @@ public class HttpExchangeTracer {
 	 */
 	public final void sendingResponse(HttpTrace trace, TraceableResponse response, Supplier<Principal> principal,
 			Supplier<String> sessionId) {
-		setIfIncluded(Include.TIME_TAKEN, () -> calculateTimeTaken(trace), trace::setTimeTaken);
-		setIfIncluded(Include.SESSION_ID, sessionId, trace::setSessionId);
-		setIfIncluded(Include.PRINCIPAL, principal, trace::setPrincipal);
+		setIfIncluded(Include_RENAMED.TIME_TAKEN, () -> calculateTimeTaken(trace), trace::setTimeTaken);
+		setIfIncluded(Include_RENAMED.SESSION_ID, sessionId, trace::setSessionId);
+		setIfIncluded(Include_RENAMED.PRINCIPAL, principal, trace::setPrincipal);
 		trace.setResponse(new HttpTrace.Response(new FilteredTraceableResponse(response)));
 	}
 
@@ -83,17 +83,17 @@ public class HttpExchangeTracer {
 
 	}
 
-	private <T> T getIfIncluded(Include include, Supplier<T> valueSupplier) {
+	private <T> T getIfIncluded(Include_RENAMED include, Supplier<T> valueSupplier) {
 		return this.includes.contains(include) ? valueSupplier.get() : null;
 	}
 
-	private <T> void setIfIncluded(Include include, Supplier<T> supplier, Consumer<T> consumer) {
+	private <T> void setIfIncluded(Include_RENAMED include, Supplier<T> supplier, Consumer<T> consumer) {
 		if (this.includes.contains(include)) {
 			consumer.accept(supplier.get());
 		}
 	}
 
-	private Map<String, List<String>> getHeadersIfIncluded(Include include,
+	private Map<String, List<String>> getHeadersIfIncluded(Include_RENAMED include,
 			Supplier<Map<String, List<String>>> headersSupplier, Predicate<String> headerPredicate) {
 		if (!this.includes.contains(include)) {
 			return new LinkedHashMap<>();
@@ -126,7 +126,7 @@ public class HttpExchangeTracer {
 
 		@Override
 		public Map<String, List<String>> getHeaders() {
-			Map<String, List<String>> headers = getHeadersIfIncluded(Include.REQUEST_HEADERS, this.delegate::getHeaders,
+			Map<String, List<String>> headers = getHeadersIfIncluded(Include_RENAMED.REQUEST_HEADERS, this.delegate::getHeaders,
 					this::includedHeader);
 			postProcessRequestHeaders(headers);
 			return headers;
@@ -134,17 +134,17 @@ public class HttpExchangeTracer {
 
 		private boolean includedHeader(String name) {
 			if (name.equalsIgnoreCase(HttpHeaders.COOKIE)) {
-				return HttpExchangeTracer.this.includes.contains(Include.COOKIE_HEADERS);
+				return HttpExchangeTracer.this.includes.contains(Include_RENAMED.COOKIE_HEADERS);
 			}
 			if (name.equalsIgnoreCase(HttpHeaders.AUTHORIZATION)) {
-				return HttpExchangeTracer.this.includes.contains(Include.AUTHORIZATION_HEADER);
+				return HttpExchangeTracer.this.includes.contains(Include_RENAMED.AUTHORIZATION_HEADER);
 			}
 			return true;
 		}
 
 		@Override
 		public String getRemoteAddress() {
-			return getIfIncluded(Include.REMOTE_ADDRESS, this.delegate::getRemoteAddress);
+			return getIfIncluded(Include_RENAMED.REMOTE_ADDRESS, this.delegate::getRemoteAddress);
 		}
 
 	}
@@ -164,12 +164,12 @@ public class HttpExchangeTracer {
 
 		@Override
 		public Map<String, List<String>> getHeaders() {
-			return getHeadersIfIncluded(Include.RESPONSE_HEADERS, this.delegate::getHeaders, this::includedHeader);
+			return getHeadersIfIncluded(Include_RENAMED.RESPONSE_HEADERS, this.delegate::getHeaders, this::includedHeader);
 		}
 
 		private boolean includedHeader(String name) {
 			if (name.equalsIgnoreCase(HttpHeaders.SET_COOKIE)) {
-				return HttpExchangeTracer.this.includes.contains(Include.COOKIE_HEADERS);
+				return HttpExchangeTracer.this.includes.contains(Include_RENAMED.COOKIE_HEADERS);
 			}
 			return true;
 		}
