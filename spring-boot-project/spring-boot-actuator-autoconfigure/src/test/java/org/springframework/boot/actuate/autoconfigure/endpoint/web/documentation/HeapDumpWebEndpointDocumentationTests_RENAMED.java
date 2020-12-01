@@ -39,7 +39,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  *
  * @author Andy Wilkinson
  */
-class HeapDumpWebEndpointDocumentationTests extends MockMvcEndpointDocumentationTests {
+class HeapDumpWebEndpointDocumentationTests_RENAMED extends MockMvcEndpointDocumentationTests {
 
 	@Test
 	void heapDump() throws Exception {
