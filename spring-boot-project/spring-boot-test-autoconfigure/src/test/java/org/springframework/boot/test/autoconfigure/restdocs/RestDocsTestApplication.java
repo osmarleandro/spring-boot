@@ -16,7 +16,7 @@
 
 package org.springframework.boot.test.autoconfigure.restdocs;
 
-import org.springframework.boot.actuate.autoconfigure.security.servlet.ManagementWebSecurityAutoConfiguration;
+import org.springframework.boot.actuate.autoconfigure.security.servlet.ManagementWebSecurityAutoConfiguration_RENAMED;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.cassandra.CassandraAutoConfiguration;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
@@ -27,7 +27,7 @@ import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfi
  * @author Andy Wilkinson
  */
 @SpringBootApplication(exclude = { CassandraAutoConfiguration.class, SecurityAutoConfiguration.class,
-		ManagementWebSecurityAutoConfiguration.class })
+		ManagementWebSecurityAutoConfiguration_RENAMED.class })
 public class RestDocsTestApplication {
 
 }

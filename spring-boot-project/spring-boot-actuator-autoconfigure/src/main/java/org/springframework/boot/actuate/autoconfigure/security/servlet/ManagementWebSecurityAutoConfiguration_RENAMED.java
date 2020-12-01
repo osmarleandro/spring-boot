@@ -56,7 +56,7 @@ import org.springframework.security.web.SecurityFilterChain;
 @AutoConfigureAfter({ HealthEndpointAutoConfiguration.class, InfoEndpointAutoConfiguration.class,
 		WebEndpointAutoConfiguration.class, OAuth2ClientAutoConfiguration.class,
 		OAuth2ResourceServerAutoConfiguration.class, Saml2RelyingPartyAutoConfiguration.class })
-public class ManagementWebSecurityAutoConfiguration {
+public class ManagementWebSecurityAutoConfiguration_RENAMED {
 
 	@Configuration(proxyBeanMethods = false)
 	static class ManagementWebSecurityConfigurerAdapter extends WebSecurityConfigurerAdapter {

@@ -50,7 +50,7 @@ import org.springframework.web.context.WebApplicationContext;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Tests for {@link ManagementWebSecurityAutoConfiguration}.
+ * Tests for {@link ManagementWebSecurityAutoConfiguration_RENAMED}.
  *
  * @author Madhura Bhave
  */
@@ -60,7 +60,7 @@ class ManagementWebSecurityAutoConfigurationTests {
 			AutoConfigurations.of(HealthContributorAutoConfiguration.class, HealthEndpointAutoConfiguration.class,
 					InfoEndpointAutoConfiguration.class, EnvironmentEndpointAutoConfiguration.class,
 					EndpointAutoConfiguration.class, WebEndpointAutoConfiguration.class,
-					SecurityAutoConfiguration.class, ManagementWebSecurityAutoConfiguration.class));
+					SecurityAutoConfiguration.class, ManagementWebSecurityAutoConfiguration_RENAMED.class));
 
 	@Test
 	void permitAllForHealth() {
@@ -91,7 +91,7 @@ class ManagementWebSecurityAutoConfigurationTests {
 	@Test
 	void autoConfigIsConditionalOnSecurityFilterChainClass() {
 		this.contextRunner.withClassLoader(new FilteredClassLoader(SecurityFilterChain.class)).run((context) -> {
-			assertThat(context).doesNotHaveBean(ManagementWebSecurityAutoConfiguration.class);
+			assertThat(context).doesNotHaveBean(ManagementWebSecurityAutoConfiguration_RENAMED.class);
 			HttpStatus status = getResponseStatus(context, "/actuator/health");
 			assertThat(status).isEqualTo(HttpStatus.UNAUTHORIZED);
 		});
@@ -128,7 +128,7 @@ class ManagementWebSecurityAutoConfigurationTests {
 		this.contextRunner.withConfiguration(AutoConfigurations.of(OAuth2ResourceServerAutoConfiguration.class))
 				.withPropertyValues("spring.security.oauth2.resourceserver.jwt.jwk-set-uri=https://authserver")
 				.run((context) -> assertThat(context).doesNotHaveBean(
-						ManagementWebSecurityAutoConfiguration.ManagementWebSecurityConfigurerAdapter.class));
+						ManagementWebSecurityAutoConfiguration_RENAMED.ManagementWebSecurityConfigurerAdapter.class));
 	}
 
 	@Test
@@ -140,7 +140,7 @@ class ManagementWebSecurityAutoConfigurationTests {
 						"spring.security.saml2.relyingparty.registration.simplesamlphp.identityprovider.entity-id=https://simplesaml-for-spring-saml.cfapps.io/saml2/idp/metadata.php",
 						"spring.security.saml2.relyingparty.registration.simplesamlphp.identityprovider.verification.credentials[0].certificate-location=classpath:saml/certificate-location")
 				.run((context) -> assertThat(context).doesNotHaveBean(
-						ManagementWebSecurityAutoConfiguration.ManagementWebSecurityConfigurerAdapter.class));
+						ManagementWebSecurityAutoConfiguration_RENAMED.ManagementWebSecurityConfigurerAdapter.class));
 	}
 
 	private HttpStatus getResponseStatus(AssertableWebApplicationContext context, String path)
