@@ -27,13 +27,13 @@ import java.util.stream.Collectors;
  *
  * @author Phillip Webb
  */
-class IncludeExcludeGroupMemberPredicate implements Predicate<String> {
+class IncludeExcludeGroupMemberPredicate_RENAMED implements Predicate<String> {
 
 	private final Set<String> include;
 
 	private final Set<String> exclude;
 
-	IncludeExcludeGroupMemberPredicate(Set<String> include, Set<String> exclude) {
+	IncludeExcludeGroupMemberPredicate_RENAMED(Set<String> include, Set<String> exclude) {
 		this.include = clean(include);
 		this.exclude = clean(exclude);
 	}

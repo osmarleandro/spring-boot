@@ -27,7 +27,7 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Tests for {@link IncludeExcludeGroupMemberPredicate}.
+ * Tests for {@link IncludeExcludeGroupMemberPredicate_RENAMED}.
  *
  * @author Phillip Webb
  * @author Madhura Bhave
@@ -36,7 +36,7 @@ class IncludeExcludeGroupMemberPredicateTests {
 
 	@Test
 	void testWhenEmptyIncludeAndExcludeAcceptsAll() {
-		Predicate<String> predicate = new IncludeExcludeGroupMemberPredicate(null, null);
+		Predicate<String> predicate = new IncludeExcludeGroupMemberPredicate_RENAMED(null, null);
 		assertThat(predicate).accepts("a", "b", "c");
 	}
 
@@ -48,7 +48,7 @@ class IncludeExcludeGroupMemberPredicateTests {
 
 	@Test
 	void testWhenEmptyIncludeAndNonEmptyExcludeAcceptsAllButExclude() {
-		Predicate<String> predicate = new IncludeExcludeGroupMemberPredicate(null, Collections.singleton("c"));
+		Predicate<String> predicate = new IncludeExcludeGroupMemberPredicate_RENAMED(null, Collections.singleton("c"));
 		assertThat(predicate).accepts("a", "b");
 	}
 
@@ -107,7 +107,7 @@ class IncludeExcludeGroupMemberPredicateTests {
 		}
 
 		Predicate<String> exclude(String... exclude) {
-			return new IncludeExcludeGroupMemberPredicate(asSet(this.include), asSet(exclude));
+			return new IncludeExcludeGroupMemberPredicate_RENAMED(asSet(this.include), asSet(exclude));
 		}
 
 		private Set<String> asSet(String[] names) {

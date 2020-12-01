@@ -105,7 +105,7 @@ class AutoConfiguredHealthEndpointGroups implements HealthEndpointGroups {
 						}
 						return defaultHttpCodeStatusMapper;
 					});
-			Predicate<String> members = new IncludeExcludeGroupMemberPredicate(group.getInclude(), group.getExclude());
+			Predicate<String> members = new IncludeExcludeGroupMemberPredicate_RENAMED(group.getInclude(), group.getExclude());
 			groups.put(groupName, new AutoConfiguredHealthEndpointGroup(members, statusAggregator, httpCodeStatusMapper,
 					showComponents, showDetails, roles));
 		});
