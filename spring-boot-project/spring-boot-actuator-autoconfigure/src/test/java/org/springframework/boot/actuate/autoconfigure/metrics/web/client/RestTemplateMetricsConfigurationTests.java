@@ -23,7 +23,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
 import org.springframework.boot.actuate.autoconfigure.metrics.test.MetricsRun;
-import org.springframework.boot.actuate.metrics.web.client.DefaultRestTemplateExchangeTagsProvider;
+import org.springframework.boot.actuate.metrics.web.client.DefaultRestTemplateExchangeTagsProvider_RENAMED;
 import org.springframework.boot.actuate.metrics.web.client.MetricsRestTemplateCustomizer;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
 import org.springframework.boot.autoconfigure.web.client.RestTemplateAutoConfiguration;
@@ -112,7 +112,7 @@ class RestTemplateMetricsConfigurationTests {
 	void backsOffWhenRestTemplateBuilderIsMissing() {
 		new ApplicationContextRunner().with(MetricsRun.simple())
 				.withConfiguration(AutoConfigurations.of(HttpClientMetricsAutoConfiguration.class))
-				.run((context) -> assertThat(context).doesNotHaveBean(DefaultRestTemplateExchangeTagsProvider.class)
+				.run((context) -> assertThat(context).doesNotHaveBean(DefaultRestTemplateExchangeTagsProvider_RENAMED.class)
 						.doesNotHaveBean(MetricsRestTemplateCustomizer.class));
 	}
 

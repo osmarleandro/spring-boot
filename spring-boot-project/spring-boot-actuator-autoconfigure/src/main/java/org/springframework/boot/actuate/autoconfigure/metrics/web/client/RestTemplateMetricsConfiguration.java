@@ -20,7 +20,7 @@ import io.micrometer.core.instrument.MeterRegistry;
 
 import org.springframework.boot.actuate.autoconfigure.metrics.MetricsProperties;
 import org.springframework.boot.actuate.autoconfigure.metrics.MetricsProperties.Web.Client.ClientRequest;
-import org.springframework.boot.actuate.metrics.web.client.DefaultRestTemplateExchangeTagsProvider;
+import org.springframework.boot.actuate.metrics.web.client.DefaultRestTemplateExchangeTagsProvider_RENAMED;
 import org.springframework.boot.actuate.metrics.web.client.MetricsRestTemplateCustomizer;
 import org.springframework.boot.actuate.metrics.web.client.RestTemplateExchangeTagsProvider;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
@@ -45,8 +45,8 @@ class RestTemplateMetricsConfiguration {
 
 	@Bean
 	@ConditionalOnMissingBean(RestTemplateExchangeTagsProvider.class)
-	DefaultRestTemplateExchangeTagsProvider restTemplateExchangeTagsProvider() {
-		return new DefaultRestTemplateExchangeTagsProvider();
+	DefaultRestTemplateExchangeTagsProvider_RENAMED restTemplateExchangeTagsProvider() {
+		return new DefaultRestTemplateExchangeTagsProvider_RENAMED();
 	}
 
 	@Bean
