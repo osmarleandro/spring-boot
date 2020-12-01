@@ -40,7 +40,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Madhura Bhave
  * @author Scott Frederick
  */
-class CompositeHandlerExceptionResolverTests {
+class CompositeHandlerExceptionResolverTests_RENAMED {
 
 	private AnnotationConfigApplicationContext context;
 
