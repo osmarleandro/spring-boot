@@ -36,7 +36,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.actuate.autoconfigure.metrics.MetricsAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.metrics.test.MetricsRun;
 import org.springframework.boot.actuate.autoconfigure.metrics.web.TestController;
-import org.springframework.boot.actuate.metrics.web.servlet.DefaultWebMvcTagsProvider;
+import org.springframework.boot.actuate.metrics.web.servlet.DefaultWebMvcTagsProvider_RENAMED;
 import org.springframework.boot.actuate.metrics.web.servlet.LongTaskTimingHandlerInterceptor;
 import org.springframework.boot.actuate.metrics.web.servlet.WebMvcMetricsFilter;
 import org.springframework.boot.actuate.metrics.web.servlet.WebMvcTagsContributor;
@@ -84,8 +84,8 @@ class WebMvcMetricsAutoConfigurationTests {
 	@Test
 	void definesTagsProviderAndFilterWhenMeterRegistryIsPresent() {
 		this.contextRunner.run((context) -> {
-			assertThat(context).hasSingleBean(DefaultWebMvcTagsProvider.class);
-			assertThat(context.getBean(DefaultWebMvcTagsProvider.class)).extracting("ignoreTrailingSlash")
+			assertThat(context).hasSingleBean(DefaultWebMvcTagsProvider_RENAMED.class);
+			assertThat(context.getBean(DefaultWebMvcTagsProvider_RENAMED.class)).extracting("ignoreTrailingSlash")
 					.isEqualTo(true);
 			assertThat(context).hasSingleBean(FilterRegistrationBean.class);
 			assertThat(context.getBean(FilterRegistrationBean.class).getFilter())
@@ -97,8 +97,8 @@ class WebMvcMetricsAutoConfigurationTests {
 	void tagsProviderWhenIgnoreTrailingSlashIsFalse() {
 		this.contextRunner.withPropertyValues("management.metrics.web.server.request.ignore-trailing-slash=false")
 				.run((context) -> {
-					assertThat(context).hasSingleBean(DefaultWebMvcTagsProvider.class);
-					assertThat(context.getBean(DefaultWebMvcTagsProvider.class)).extracting("ignoreTrailingSlash")
+					assertThat(context).hasSingleBean(DefaultWebMvcTagsProvider_RENAMED.class);
+					assertThat(context.getBean(DefaultWebMvcTagsProvider_RENAMED.class)).extracting("ignoreTrailingSlash")
 							.isEqualTo(false);
 				});
 	}
@@ -106,7 +106,7 @@ class WebMvcMetricsAutoConfigurationTests {
 	@Test
 	void tagsProviderBacksOff() {
 		this.contextRunner.withUserConfiguration(TagsProviderConfiguration.class).run((context) -> {
-			assertThat(context).doesNotHaveBean(DefaultWebMvcTagsProvider.class);
+			assertThat(context).doesNotHaveBean(DefaultWebMvcTagsProvider_RENAMED.class);
 			assertThat(context).hasSingleBean(TestWebMvcTagsProvider.class);
 		});
 	}
@@ -187,8 +187,8 @@ class WebMvcMetricsAutoConfigurationTests {
 	@Test
 	void whenTagContributorsAreDefinedThenTagsProviderUsesThem() {
 		this.contextRunner.withUserConfiguration(TagsContributorsConfiguration.class).run((context) -> {
-			assertThat(context).hasSingleBean(DefaultWebMvcTagsProvider.class);
-			assertThat(context.getBean(DefaultWebMvcTagsProvider.class)).extracting("contributors").asList().hasSize(2);
+			assertThat(context).hasSingleBean(DefaultWebMvcTagsProvider_RENAMED.class);
+			assertThat(context.getBean(DefaultWebMvcTagsProvider_RENAMED.class)).extracting("contributors").asList().hasSize(2);
 		});
 	}
 

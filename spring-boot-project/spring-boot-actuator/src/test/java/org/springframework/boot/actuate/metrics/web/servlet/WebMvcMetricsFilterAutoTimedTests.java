@@ -100,7 +100,7 @@ class WebMvcMetricsFilterAutoTimedTests {
 
 		@Bean
 		WebMvcMetricsFilter webMetricsFilter(WebApplicationContext context, MeterRegistry registry) {
-			return new WebMvcMetricsFilter(registry, new DefaultWebMvcTagsProvider(), "http.server.requests",
+			return new WebMvcMetricsFilter(registry, new DefaultWebMvcTagsProvider_RENAMED(), "http.server.requests",
 					(builder) -> builder.publishPercentiles(0.5, 0.95).publishPercentileHistogram(true));
 		}
 

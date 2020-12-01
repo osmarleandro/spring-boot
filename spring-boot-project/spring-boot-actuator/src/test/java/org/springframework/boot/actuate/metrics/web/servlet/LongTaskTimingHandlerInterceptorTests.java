@@ -144,7 +144,7 @@ class LongTaskTimingHandlerInterceptorTests {
 				@Override
 				public void addInterceptors(InterceptorRegistry registry) {
 					registry.addInterceptor(
-							new LongTaskTimingHandlerInterceptor(meterRegistry, new DefaultWebMvcTagsProvider()));
+							new LongTaskTimingHandlerInterceptor(meterRegistry, new DefaultWebMvcTagsProvider_RENAMED()));
 				}
 
 			};

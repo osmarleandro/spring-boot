@@ -30,7 +30,7 @@ import org.springframework.boot.actuate.autoconfigure.metrics.MetricsProperties;
 import org.springframework.boot.actuate.autoconfigure.metrics.MetricsProperties.Web.Server.ServerRequest;
 import org.springframework.boot.actuate.autoconfigure.metrics.OnlyOnceLoggingDenyMeterFilter;
 import org.springframework.boot.actuate.autoconfigure.metrics.export.simple.SimpleMetricsExportAutoConfiguration;
-import org.springframework.boot.actuate.metrics.web.servlet.DefaultWebMvcTagsProvider;
+import org.springframework.boot.actuate.metrics.web.servlet.DefaultWebMvcTagsProvider_RENAMED;
 import org.springframework.boot.actuate.metrics.web.servlet.LongTaskTimingHandlerInterceptor;
 import org.springframework.boot.actuate.metrics.web.servlet.WebMvcMetricsFilter;
 import org.springframework.boot.actuate.metrics.web.servlet.WebMvcTagsContributor;
@@ -76,8 +76,8 @@ public class WebMvcMetricsAutoConfiguration {
 
 	@Bean
 	@ConditionalOnMissingBean(WebMvcTagsProvider.class)
-	public DefaultWebMvcTagsProvider webMvcTagsProvider(ObjectProvider<WebMvcTagsContributor> contributors) {
-		return new DefaultWebMvcTagsProvider(this.properties.getWeb().getServer().getRequest().isIgnoreTrailingSlash(),
+	public DefaultWebMvcTagsProvider_RENAMED webMvcTagsProvider(ObjectProvider<WebMvcTagsContributor> contributors) {
+		return new DefaultWebMvcTagsProvider_RENAMED(this.properties.getWeb().getServer().getRequest().isIgnoreTrailingSlash(),
 				contributors.orderedStream().collect(Collectors.toList()));
 	}
 

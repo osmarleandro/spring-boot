@@ -108,7 +108,7 @@ class WebMvcMetricsIntegrationTests {
 
 		@Bean
 		WebMvcMetricsFilter webMetricsFilter(MeterRegistry registry, WebApplicationContext ctx) {
-			return new WebMvcMetricsFilter(registry, new DefaultWebMvcTagsProvider(), "http.server.requests",
+			return new WebMvcMetricsFilter(registry, new DefaultWebMvcTagsProvider_RENAMED(), "http.server.requests",
 					AutoTimer.ENABLED);
 		}
 

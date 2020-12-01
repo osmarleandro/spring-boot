@@ -29,13 +29,13 @@ import javax.servlet.http.HttpServletResponse;
 import io.micrometer.core.instrument.Tag;
 import org.junit.jupiter.api.Test;
 
-import org.springframework.boot.actuate.metrics.web.servlet.DefaultWebMvcTagsProvider;
+import org.springframework.boot.actuate.metrics.web.servlet.DefaultWebMvcTagsProvider_RENAMED;
 import org.springframework.boot.actuate.metrics.web.servlet.WebMvcTagsContributor;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Tests for {@link DefaultWebMvcTagsProvider}.
+ * Tests for {@link DefaultWebMvcTagsProvider_RENAMED}.
  *
  * @author Andy Wilkinson
  */
@@ -43,14 +43,14 @@ public class DefaultWebMvcTagsProviderTests {
 
 	@Test
 	void whenTagsAreProvidedThenDefaultTagsArePresent() {
-		Map<String, Tag> tags = asMap(new DefaultWebMvcTagsProvider().getTags(null, null, null, null));
+		Map<String, Tag> tags = asMap(new DefaultWebMvcTagsProvider_RENAMED().getTags(null, null, null, null));
 		assertThat(tags).containsOnlyKeys("exception", "method", "outcome", "status", "uri");
 	}
 
 	@Test
 	void givenSomeContributorsWhenTagsAreProvidedThenDefaultTagsAndContributedTagsArePresent() {
 		Map<String, Tag> tags = asMap(
-				new DefaultWebMvcTagsProvider(Arrays.asList(new TestWebMvcTagsContributor("alpha"),
+				new DefaultWebMvcTagsProvider_RENAMED(Arrays.asList(new TestWebMvcTagsContributor("alpha"),
 						new TestWebMvcTagsContributor("bravo", "charlie"))).getTags(null, null, null, null));
 		assertThat(tags).containsOnlyKeys("exception", "method", "outcome", "status", "uri", "alpha", "bravo",
 				"charlie");
@@ -58,14 +58,14 @@ public class DefaultWebMvcTagsProviderTests {
 
 	@Test
 	void whenLongRequestTagsAreProvidedThenDefaultTagsArePresent() {
-		Map<String, Tag> tags = asMap(new DefaultWebMvcTagsProvider().getLongRequestTags(null, null));
+		Map<String, Tag> tags = asMap(new DefaultWebMvcTagsProvider_RENAMED().getLongRequestTags(null, null));
 		assertThat(tags).containsOnlyKeys("method", "uri");
 	}
 
 	@Test
 	void givenSomeContributorsWhenLongRequestTagsAreProvidedThenDefaultTagsAndContributedTagsArePresent() {
 		Map<String, Tag> tags = asMap(
-				new DefaultWebMvcTagsProvider(Arrays.asList(new TestWebMvcTagsContributor("alpha"),
+				new DefaultWebMvcTagsProvider_RENAMED(Arrays.asList(new TestWebMvcTagsContributor("alpha"),
 						new TestWebMvcTagsContributor("bravo", "charlie"))).getLongRequestTags(null, null));
 		assertThat(tags).containsOnlyKeys("method", "uri", "alpha", "bravo", "charlie");
 	}
