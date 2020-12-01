@@ -20,7 +20,7 @@ import java.security.Principal;
 import java.util.Collection;
 import java.util.function.Predicate;
 
-import org.springframework.boot.actuate.autoconfigure.health.HealthProperties.Show;
+import org.springframework.boot.actuate.autoconfigure.health.HealthProperties_RENAMED.Show;
 import org.springframework.boot.actuate.endpoint.SecurityContext;
 import org.springframework.boot.actuate.health.HealthEndpointGroup;
 import org.springframework.boot.actuate.health.HttpCodeStatusMapper;
@@ -31,7 +31,7 @@ import org.springframework.util.ClassUtils;
 import org.springframework.util.CollectionUtils;
 
 /**
- * Auto-configured {@link HealthEndpointGroup} backed by {@link HealthProperties}.
+ * Auto-configured {@link HealthEndpointGroup} backed by {@link HealthProperties_RENAMED}.
  *
  * @author Phillip Webb
  * @author Andy Wilkinson

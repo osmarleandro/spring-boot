@@ -33,7 +33,7 @@ import org.springframework.boot.context.properties.NestedConfigurationProperty;
  * @author Phillip Webb
  * @since 2.2.0
  */
-public abstract class HealthProperties {
+public abstract class HealthProperties_RENAMED {
 
 	@NestedConfigurationProperty
 	private final Status status = new Status();
