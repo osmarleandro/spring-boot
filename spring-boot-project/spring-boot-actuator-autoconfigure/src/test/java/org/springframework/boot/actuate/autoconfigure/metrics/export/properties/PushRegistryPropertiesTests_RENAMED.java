@@ -25,7 +25,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Stephane Nicoll
  */
-public abstract class PushRegistryPropertiesTests {
+public abstract class PushRegistryPropertiesTests_RENAMED {
 
 	@SuppressWarnings("deprecation")
 	protected void assertStepRegistryDefaultValues(PushRegistryProperties properties, PushRegistryConfig config) {
