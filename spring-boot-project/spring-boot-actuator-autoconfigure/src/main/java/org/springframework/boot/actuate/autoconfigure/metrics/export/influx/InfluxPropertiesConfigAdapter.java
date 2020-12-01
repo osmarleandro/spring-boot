@@ -22,15 +22,15 @@ import io.micrometer.influx.InfluxConsistency;
 import org.springframework.boot.actuate.autoconfigure.metrics.export.properties.StepRegistryPropertiesConfigAdapter;
 
 /**
- * Adapter to convert {@link InfluxProperties} to an {@link InfluxConfig}.
+ * Adapter to convert {@link InfluxProperties_RENAMED} to an {@link InfluxConfig}.
  *
  * @author Jon Schneider
  * @author Phillip Webb
  */
-class InfluxPropertiesConfigAdapter extends StepRegistryPropertiesConfigAdapter<InfluxProperties>
+class InfluxPropertiesConfigAdapter extends StepRegistryPropertiesConfigAdapter<InfluxProperties_RENAMED>
 		implements InfluxConfig {
 
-	InfluxPropertiesConfigAdapter(InfluxProperties properties) {
+	InfluxPropertiesConfigAdapter(InfluxProperties_RENAMED properties) {
 		super(properties);
 	}
 
@@ -41,57 +41,57 @@ class InfluxPropertiesConfigAdapter extends StepRegistryPropertiesConfigAdapter<
 
 	@Override
 	public String db() {
-		return get(InfluxProperties::getDb, InfluxConfig.super::db);
+		return get(InfluxProperties_RENAMED::getDb, InfluxConfig.super::db);
 	}
 
 	@Override
 	public InfluxConsistency consistency() {
-		return get(InfluxProperties::getConsistency, InfluxConfig.super::consistency);
+		return get(InfluxProperties_RENAMED::getConsistency, InfluxConfig.super::consistency);
 	}
 
 	@Override
 	public String userName() {
-		return get(InfluxProperties::getUserName, InfluxConfig.super::userName);
+		return get(InfluxProperties_RENAMED::getUserName, InfluxConfig.super::userName);
 	}
 
 	@Override
 	public String password() {
-		return get(InfluxProperties::getPassword, InfluxConfig.super::password);
+		return get(InfluxProperties_RENAMED::getPassword, InfluxConfig.super::password);
 	}
 
 	@Override
 	public String retentionPolicy() {
-		return get(InfluxProperties::getRetentionPolicy, InfluxConfig.super::retentionPolicy);
+		return get(InfluxProperties_RENAMED::getRetentionPolicy, InfluxConfig.super::retentionPolicy);
 	}
 
 	@Override
 	public Integer retentionReplicationFactor() {
-		return get(InfluxProperties::getRetentionReplicationFactor, InfluxConfig.super::retentionReplicationFactor);
+		return get(InfluxProperties_RENAMED::getRetentionReplicationFactor, InfluxConfig.super::retentionReplicationFactor);
 	}
 
 	@Override
 	public String retentionDuration() {
-		return get(InfluxProperties::getRetentionDuration, InfluxConfig.super::retentionDuration);
+		return get(InfluxProperties_RENAMED::getRetentionDuration, InfluxConfig.super::retentionDuration);
 	}
 
 	@Override
 	public String retentionShardDuration() {
-		return get(InfluxProperties::getRetentionShardDuration, InfluxConfig.super::retentionShardDuration);
+		return get(InfluxProperties_RENAMED::getRetentionShardDuration, InfluxConfig.super::retentionShardDuration);
 	}
 
 	@Override
 	public String uri() {
-		return get(InfluxProperties::getUri, InfluxConfig.super::uri);
+		return get(InfluxProperties_RENAMED::getUri, InfluxConfig.super::uri);
 	}
 
 	@Override
 	public boolean compressed() {
-		return get(InfluxProperties::isCompressed, InfluxConfig.super::compressed);
+		return get(InfluxProperties_RENAMED::isCompressed, InfluxConfig.super::compressed);
 	}
 
 	@Override
 	public boolean autoCreateDb() {
-		return get(InfluxProperties::isAutoCreateDb, InfluxConfig.super::autoCreateDb);
+		return get(InfluxProperties_RENAMED::isAutoCreateDb, InfluxConfig.super::autoCreateDb);
 	}
 
 }

@@ -24,7 +24,7 @@ import org.springframework.boot.actuate.autoconfigure.metrics.export.properties.
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Tests for {@link InfluxProperties}.
+ * Tests for {@link InfluxProperties_RENAMED}.
  *
  * @author Stephane Nicoll
  */
@@ -32,7 +32,7 @@ class InfluxPropertiesTests extends StepRegistryPropertiesTests {
 
 	@Test
 	void defaultValuesAreConsistent() {
-		InfluxProperties properties = new InfluxProperties();
+		InfluxProperties_RENAMED properties = new InfluxProperties_RENAMED();
 		InfluxConfig config = InfluxConfig.DEFAULT;
 		assertStepRegistryDefaultValues(properties, config);
 		assertThat(properties.getDb()).isEqualTo(config.db());

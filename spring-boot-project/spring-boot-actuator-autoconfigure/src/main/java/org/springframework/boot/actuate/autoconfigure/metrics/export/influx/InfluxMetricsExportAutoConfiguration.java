@@ -48,12 +48,12 @@ import org.springframework.context.annotation.Configuration;
 @ConditionalOnBean(Clock.class)
 @ConditionalOnClass(InfluxMeterRegistry.class)
 @ConditionalOnEnabledMetricsExport("influx")
-@EnableConfigurationProperties(InfluxProperties.class)
+@EnableConfigurationProperties(InfluxProperties_RENAMED.class)
 public class InfluxMetricsExportAutoConfiguration {
 
-	private final InfluxProperties properties;
+	private final InfluxProperties_RENAMED properties;
 
-	public InfluxMetricsExportAutoConfiguration(InfluxProperties properties) {
+	public InfluxMetricsExportAutoConfiguration(InfluxProperties_RENAMED properties) {
 		this.properties = properties;
 	}
 
@@ -66,7 +66,7 @@ public class InfluxMetricsExportAutoConfiguration {
 	@Bean
 	@ConditionalOnMissingBean
 	public InfluxMeterRegistry influxMeterRegistry(InfluxConfig influxConfig, Clock clock,
-			InfluxProperties influxProperties) {
+			InfluxProperties_RENAMED influxProperties) {
 		return InfluxMeterRegistry.builder(influxConfig).clock(clock).httpClient(
 				new HttpUrlConnectionSender(this.properties.getConnectTimeout(), this.properties.getReadTimeout()))
 				.build();

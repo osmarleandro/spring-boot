@@ -30,7 +30,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  * @since 2.0.0
  */
 @ConfigurationProperties(prefix = "management.metrics.export.influx")
-public class InfluxProperties extends StepRegistryProperties {
+public class InfluxProperties_RENAMED extends StepRegistryProperties {
 
 	/**
 	 * Tag that will be mapped to "host" when shipping metrics to Influx.
