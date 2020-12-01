@@ -18,7 +18,7 @@ package org.springframework.boot.actuate.autoconfigure.web.trace;
 
 import org.junit.jupiter.api.Test;
 
-import org.springframework.boot.actuate.autoconfigure.trace.http.HttpTraceAutoConfiguration;
+import org.springframework.boot.actuate.autoconfigure.trace.http.HttpTraceAutoConfiguration_RENAMED;
 import org.springframework.boot.actuate.autoconfigure.trace.http.HttpTraceEndpointAutoConfiguration;
 import org.springframework.boot.actuate.trace.http.HttpTraceEndpoint;
 import org.springframework.boot.actuate.trace.http.InMemoryHttpTraceRepository;
@@ -38,7 +38,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 class HttpTraceEndpointAutoConfigurationTests {
 
 	private final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner().withConfiguration(
-			AutoConfigurations.of(HttpTraceAutoConfiguration.class, HttpTraceEndpointAutoConfiguration.class));
+			AutoConfigurations.of(HttpTraceAutoConfiguration_RENAMED.class, HttpTraceEndpointAutoConfiguration.class));
 
 	@Test
 	void runWhenRepositoryBeanAvailableShouldHaveEndpointBean() {

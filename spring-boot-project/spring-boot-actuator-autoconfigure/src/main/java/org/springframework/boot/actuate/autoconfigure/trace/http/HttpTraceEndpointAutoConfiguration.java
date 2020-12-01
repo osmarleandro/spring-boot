@@ -34,7 +34,7 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration(proxyBeanMethods = false)
 @ConditionalOnAvailableEndpoint(endpoint = HttpTraceEndpoint.class)
-@AutoConfigureAfter(HttpTraceAutoConfiguration.class)
+@AutoConfigureAfter(HttpTraceAutoConfiguration_RENAMED.class)
 public class HttpTraceEndpointAutoConfiguration {
 
 	@Bean

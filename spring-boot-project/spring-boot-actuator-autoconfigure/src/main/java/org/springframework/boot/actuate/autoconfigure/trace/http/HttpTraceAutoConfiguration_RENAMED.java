@@ -41,7 +41,7 @@ import org.springframework.context.annotation.Configuration;
 @ConditionalOnProperty(prefix = "management.trace.http", name = "enabled", matchIfMissing = true)
 @ConditionalOnBean(HttpTraceRepository.class)
 @EnableConfigurationProperties(HttpTraceProperties.class)
-public class HttpTraceAutoConfiguration {
+public class HttpTraceAutoConfiguration_RENAMED {
 
 	@Bean
 	@ConditionalOnMissingBean

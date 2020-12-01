@@ -21,7 +21,7 @@ import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 
-import org.springframework.boot.actuate.autoconfigure.trace.http.HttpTraceAutoConfiguration;
+import org.springframework.boot.actuate.autoconfigure.trace.http.HttpTraceAutoConfiguration_RENAMED;
 import org.springframework.boot.actuate.autoconfigure.trace.http.HttpTraceProperties;
 import org.springframework.boot.actuate.trace.http.HttpExchangeTracer;
 import org.springframework.boot.actuate.trace.http.HttpTrace;
@@ -39,7 +39,7 @@ import org.springframework.context.annotation.Configuration;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Tests for {@link HttpTraceAutoConfiguration}.
+ * Tests for {@link HttpTraceAutoConfiguration_RENAMED}.
  *
  * @author Andy Wilkinson
  * @author Madhura Bhave
@@ -47,11 +47,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 class HttpTraceAutoConfigurationTests {
 
 	private final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner()
-			.withConfiguration(AutoConfigurations.of(HttpTraceAutoConfiguration.class));
+			.withConfiguration(AutoConfigurations.of(HttpTraceAutoConfiguration_RENAMED.class));
 
 	@Test
 	void autoConfigurationIsDisabledByDefault() {
-		this.contextRunner.run((context) -> assertThat(context).doesNotHaveBean(HttpTraceAutoConfiguration.class));
+		this.contextRunner.run((context) -> assertThat(context).doesNotHaveBean(HttpTraceAutoConfiguration_RENAMED.class));
 	}
 
 	@Test
@@ -76,7 +76,7 @@ class HttpTraceAutoConfigurationTests {
 	@Test
 	void usesUserProvidedWebFilterWhenReactiveContext() {
 		new ReactiveWebApplicationContextRunner()
-				.withConfiguration(AutoConfigurations.of(HttpTraceAutoConfiguration.class))
+				.withConfiguration(AutoConfigurations.of(HttpTraceAutoConfiguration_RENAMED.class))
 				.withUserConfiguration(HttpTraceRepositoryConfiguration.class)
 				.withUserConfiguration(CustomWebFilterConfiguration.class).run((context) -> {
 					assertThat(context).hasSingleBean(HttpTraceWebFilter.class);
