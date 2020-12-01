@@ -31,7 +31,7 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
 
 /**
- * Tests for {@link MongoReactiveHealthIndicator}.
+ * Tests for {@link MongoReactiveHealthIndicator_RENAMED}.
  *
  * @author Yulin Qin
  */
@@ -43,7 +43,7 @@ class MongoReactiveHealthIndicatorTests {
 		given(buildInfo.getString("version")).willReturn("2.6.4");
 		ReactiveMongoTemplate reactiveMongoTemplate = mock(ReactiveMongoTemplate.class);
 		given(reactiveMongoTemplate.executeCommand("{ buildInfo: 1 }")).willReturn(Mono.just(buildInfo));
-		MongoReactiveHealthIndicator mongoReactiveHealthIndicator = new MongoReactiveHealthIndicator(
+		MongoReactiveHealthIndicator_RENAMED mongoReactiveHealthIndicator = new MongoReactiveHealthIndicator_RENAMED(
 				reactiveMongoTemplate);
 		Mono<Health> health = mongoReactiveHealthIndicator.health();
 		StepVerifier.create(health).consumeNextWith((h) -> {
@@ -58,7 +58,7 @@ class MongoReactiveHealthIndicatorTests {
 		ReactiveMongoTemplate reactiveMongoTemplate = mock(ReactiveMongoTemplate.class);
 		given(reactiveMongoTemplate.executeCommand("{ buildInfo: 1 }"))
 				.willThrow(new MongoException("Connection failed"));
-		MongoReactiveHealthIndicator mongoReactiveHealthIndicator = new MongoReactiveHealthIndicator(
+		MongoReactiveHealthIndicator_RENAMED mongoReactiveHealthIndicator = new MongoReactiveHealthIndicator_RENAMED(
 				reactiveMongoTemplate);
 		Mono<Health> health = mongoReactiveHealthIndicator.health();
 		StepVerifier.create(health).consumeNextWith((h) -> {
