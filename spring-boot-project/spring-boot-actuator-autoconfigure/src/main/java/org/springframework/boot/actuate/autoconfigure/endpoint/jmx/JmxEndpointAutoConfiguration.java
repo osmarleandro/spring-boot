@@ -34,7 +34,7 @@ import org.springframework.boot.actuate.endpoint.jmx.JacksonJmxOperationResponse
 import org.springframework.boot.actuate.endpoint.jmx.JmxEndpointExporter;
 import org.springframework.boot.actuate.endpoint.jmx.JmxEndpointsSupplier;
 import org.springframework.boot.actuate.endpoint.jmx.JmxOperationResponseMapper;
-import org.springframework.boot.actuate.endpoint.jmx.annotation.JmxEndpointDiscoverer;
+import org.springframework.boot.actuate.endpoint.jmx.annotation.JmxEndpointDiscoverer_RENAMED;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -74,10 +74,10 @@ public class JmxEndpointAutoConfiguration {
 
 	@Bean
 	@ConditionalOnMissingBean(JmxEndpointsSupplier.class)
-	public JmxEndpointDiscoverer jmxAnnotationEndpointDiscoverer(ParameterValueMapper parameterValueMapper,
+	public JmxEndpointDiscoverer_RENAMED jmxAnnotationEndpointDiscoverer(ParameterValueMapper parameterValueMapper,
 			ObjectProvider<OperationInvokerAdvisor> invokerAdvisors,
 			ObjectProvider<EndpointFilter<ExposableJmxEndpoint>> filters) {
-		return new JmxEndpointDiscoverer(this.applicationContext, parameterValueMapper,
+		return new JmxEndpointDiscoverer_RENAMED(this.applicationContext, parameterValueMapper,
 				invokerAdvisors.orderedStream().collect(Collectors.toList()),
 				filters.orderedStream().collect(Collectors.toList()));
 	}

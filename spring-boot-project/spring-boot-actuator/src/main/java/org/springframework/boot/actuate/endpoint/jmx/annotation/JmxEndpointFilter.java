@@ -20,14 +20,14 @@ import org.springframework.boot.actuate.endpoint.EndpointFilter;
 import org.springframework.boot.actuate.endpoint.annotation.DiscovererEndpointFilter;
 
 /**
- * {@link EndpointFilter} for endpoints discovered by {@link JmxEndpointDiscoverer}.
+ * {@link EndpointFilter} for endpoints discovered by {@link JmxEndpointDiscoverer_RENAMED}.
  *
  * @author Phillip Webb
  */
 class JmxEndpointFilter extends DiscovererEndpointFilter {
 
 	JmxEndpointFilter() {
-		super(JmxEndpointDiscoverer.class);
+		super(JmxEndpointDiscoverer_RENAMED.class);
 	}
 
 }

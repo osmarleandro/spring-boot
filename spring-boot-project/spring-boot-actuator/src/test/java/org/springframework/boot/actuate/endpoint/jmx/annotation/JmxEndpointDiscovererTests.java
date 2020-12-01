@@ -51,7 +51,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatIllegalStateException;
 
 /**
- * Tests for {@link JmxEndpointDiscoverer}.
+ * Tests for {@link JmxEndpointDiscoverer_RENAMED}.
  *
  * @author Stephane Nicoll
  * @author Phillip Webb
@@ -239,7 +239,7 @@ class JmxEndpointDiscovererTests {
 		assertThat(parameter.getDescription()).isEqualTo(description);
 	}
 
-	private Map<EndpointId, ExposableJmxEndpoint> discover(JmxEndpointDiscoverer discoverer) {
+	private Map<EndpointId, ExposableJmxEndpoint> discover(JmxEndpointDiscoverer_RENAMED discoverer) {
 		Map<EndpointId, ExposableJmxEndpoint> byId = new HashMap<>();
 		discoverer.getEndpoints().forEach((endpoint) -> byId.put(endpoint.getEndpointId(), endpoint));
 		return byId;
@@ -251,16 +251,16 @@ class JmxEndpointDiscovererTests {
 		return byName;
 	}
 
-	private void load(Class<?> configuration, Consumer<JmxEndpointDiscoverer> consumer) {
+	private void load(Class<?> configuration, Consumer<JmxEndpointDiscoverer_RENAMED> consumer) {
 		load(configuration, (id) -> null, consumer);
 	}
 
 	private void load(Class<?> configuration, Function<EndpointId, Long> timeToLive,
-			Consumer<JmxEndpointDiscoverer> consumer) {
+			Consumer<JmxEndpointDiscoverer_RENAMED> consumer) {
 		try (AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(configuration)) {
 			ConversionServiceParameterValueMapper parameterMapper = new ConversionServiceParameterValueMapper(
 					DefaultConversionService.getSharedInstance());
-			JmxEndpointDiscoverer discoverer = new JmxEndpointDiscoverer(context, parameterMapper,
+			JmxEndpointDiscoverer_RENAMED discoverer = new JmxEndpointDiscoverer_RENAMED(context, parameterMapper,
 					Collections.singleton(new CachingOperationInvokerAdvisor(timeToLive)), Collections.emptyList());
 			consumer.accept(discoverer);
 		}
