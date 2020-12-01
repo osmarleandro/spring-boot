@@ -46,7 +46,7 @@ class DefaultContributorRegistry<C> implements ContributorRegistry<C> {
 	}
 
 	DefaultContributorRegistry(Map<String, C> contributors) {
-		this(contributors, HealthContributorNameFactory.INSTANCE);
+		this(contributors, HealthContributorNameFactory_RENAMED.INSTANCE);
 	}
 
 	DefaultContributorRegistry(Map<String, C> contributors, Function<String, String> nameFactory) {
