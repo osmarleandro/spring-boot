@@ -28,7 +28,7 @@ import org.springframework.boot.test.context.runner.ApplicationContextRunner;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Tests for {@link AvailabilityHealthContributorAutoConfiguration}
+ * Tests for {@link AvailabilityHealthContributorAutoConfiguration_RENAMED}
  *
  * @author Brian Clozel
  */
@@ -36,7 +36,7 @@ class AvailabilityHealthContributorAutoConfigurationTests {
 
 	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(ApplicationAvailabilityAutoConfiguration.class,
-					AvailabilityHealthContributorAutoConfiguration.class));
+					AvailabilityHealthContributorAutoConfiguration_RENAMED.class));
 
 	@Test
 	void probesWhenNotKubernetesAddsNoBeans() {

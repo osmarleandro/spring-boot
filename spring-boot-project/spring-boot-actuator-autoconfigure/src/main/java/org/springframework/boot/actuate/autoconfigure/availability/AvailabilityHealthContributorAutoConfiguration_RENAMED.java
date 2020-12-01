@@ -37,7 +37,7 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration(proxyBeanMethods = false)
 @AutoConfigureAfter(ApplicationAvailabilityAutoConfiguration.class)
-public class AvailabilityHealthContributorAutoConfiguration {
+public class AvailabilityHealthContributorAutoConfiguration_RENAMED {
 
 	@Bean
 	@ConditionalOnMissingBean(name = "livenessStateHealthIndicator")

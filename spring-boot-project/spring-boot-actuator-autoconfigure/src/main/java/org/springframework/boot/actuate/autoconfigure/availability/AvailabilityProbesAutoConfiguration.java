@@ -43,7 +43,7 @@ import org.springframework.core.type.AnnotatedTypeMetadata;
  */
 @Configuration(proxyBeanMethods = false)
 @Conditional(AvailabilityProbesAutoConfiguration.ProbesCondition.class)
-@AutoConfigureAfter({ AvailabilityHealthContributorAutoConfiguration.class,
+@AutoConfigureAfter({ AvailabilityHealthContributorAutoConfiguration_RENAMED.class,
 		ApplicationAvailabilityAutoConfiguration.class })
 public class AvailabilityProbesAutoConfiguration {
 

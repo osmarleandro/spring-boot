@@ -36,7 +36,7 @@ class AvailabilityProbesAutoConfigurationTests {
 
 	private ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(ApplicationAvailabilityAutoConfiguration.class,
-					AvailabilityHealthContributorAutoConfiguration.class, AvailabilityProbesAutoConfiguration.class));
+					AvailabilityHealthContributorAutoConfiguration_RENAMED.class, AvailabilityProbesAutoConfiguration.class));
 
 	@Test
 	void probesWhenNotKubernetesAddsNoBeans() {
