@@ -34,8 +34,8 @@ import org.springframework.boot.actuate.endpoint.SecurityContext;
 import org.springframework.boot.actuate.endpoint.annotation.DeleteOperation;
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
 import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
-import org.springframework.boot.actuate.endpoint.annotation.Selector;
-import org.springframework.boot.actuate.endpoint.annotation.Selector.Match;
+import org.springframework.boot.actuate.endpoint.annotation.Selector_RENAMED;
+import org.springframework.boot.actuate.endpoint.annotation.Selector_RENAMED.Match;
 import org.springframework.boot.actuate.endpoint.annotation.WriteOperation;
 import org.springframework.boot.actuate.endpoint.web.WebEndpointResponse;
 import org.springframework.context.ApplicationContext;
@@ -639,7 +639,7 @@ public abstract class AbstractWebEndpointIntegrationTests<T extends Configurable
 		}
 
 		@ReadOperation
-		Map<String, Object> readPart(@Selector String part) {
+		Map<String, Object> readPart(@Selector_RENAMED String part) {
 			return Collections.singletonMap("part", part);
 		}
 
@@ -649,7 +649,7 @@ public abstract class AbstractWebEndpointIntegrationTests<T extends Configurable
 		}
 
 		@DeleteOperation
-		Map<String, Object> deletePart(@Selector String part) {
+		Map<String, Object> deletePart(@Selector_RENAMED String part) {
 			return Collections.singletonMap("part", part);
 		}
 
@@ -659,7 +659,7 @@ public abstract class AbstractWebEndpointIntegrationTests<T extends Configurable
 	static class MatchAllRemainingEndpoint {
 
 		@ReadOperation
-		Map<String, String> select(@Selector(match = Match.ALL_REMAINING) String... selection) {
+		Map<String, String> select(@Selector_RENAMED(match = Match.ALL_REMAINING) String... selection) {
 			return Collections.singletonMap("selection", StringUtils.arrayToDelimitedString(selection, "|"));
 		}
 
@@ -674,7 +674,7 @@ public abstract class AbstractWebEndpointIntegrationTests<T extends Configurable
 		}
 
 		@ReadOperation
-		Map<String, String> queryWithParameterList(@Selector String list, String one, List<String> two) {
+		Map<String, String> queryWithParameterList(@Selector_RENAMED String list, String one, List<String> two) {
 			return Collections.singletonMap("query", list + " " + one + " " + two);
 		}
 

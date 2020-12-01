@@ -25,8 +25,8 @@ import java.util.stream.Stream;
 
 import org.springframework.boot.actuate.endpoint.OperationType;
 import org.springframework.boot.actuate.endpoint.annotation.DiscoveredOperationMethod;
-import org.springframework.boot.actuate.endpoint.annotation.Selector;
-import org.springframework.boot.actuate.endpoint.annotation.Selector.Match;
+import org.springframework.boot.actuate.endpoint.annotation.Selector_RENAMED;
+import org.springframework.boot.actuate.endpoint.annotation.Selector_RENAMED.Match;
 import org.springframework.boot.actuate.endpoint.web.EndpointMediaTypes;
 import org.springframework.boot.actuate.endpoint.web.WebEndpointHttpMethod;
 import org.springframework.boot.actuate.endpoint.web.WebEndpointResponse;
@@ -66,7 +66,7 @@ class RequestPredicateFactory {
 	private Parameter getAllRemainingPathSegmentsParameter(Parameter[] selectorParameters) {
 		Parameter trailingPathsParameter = null;
 		for (Parameter selectorParameter : selectorParameters) {
-			Selector selector = selectorParameter.getAnnotation(Selector.class);
+			Selector_RENAMED selector = selectorParameter.getAnnotation(Selector_RENAMED.class);
 			if (selector.match() == Match.ALL_REMAINING) {
 				Assert.state(trailingPathsParameter == null,
 						"@Selector annotation with Match.ALL_REMAINING must be unique");
@@ -94,7 +94,7 @@ class RequestPredicateFactory {
 	}
 
 	private boolean hasSelector(Parameter parameter) {
-		return parameter.getAnnotation(Selector.class) != null;
+		return parameter.getAnnotation(Selector_RENAMED.class) != null;
 	}
 
 	private Collection<String> getConsumes(WebEndpointHttpMethod httpMethod, Method method) {
@@ -130,7 +130,7 @@ class RequestPredicateFactory {
 
 	private boolean consumesRequestBody(Method method) {
 		return Stream.of(method.getParameters())
-				.anyMatch((parameter) -> parameter.getAnnotation(Selector.class) == null);
+				.anyMatch((parameter) -> parameter.getAnnotation(Selector_RENAMED.class) == null);
 	}
 
 	private WebEndpointHttpMethod determineHttpMethod(OperationType operationType) {

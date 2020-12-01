@@ -23,8 +23,8 @@ import org.junit.jupiter.api.Test;
 
 import org.springframework.boot.actuate.endpoint.OperationType;
 import org.springframework.boot.actuate.endpoint.annotation.DiscoveredOperationMethod;
-import org.springframework.boot.actuate.endpoint.annotation.Selector;
-import org.springframework.boot.actuate.endpoint.annotation.Selector.Match;
+import org.springframework.boot.actuate.endpoint.annotation.Selector_RENAMED;
+import org.springframework.boot.actuate.endpoint.annotation.Selector_RENAMED.Match;
 import org.springframework.boot.actuate.endpoint.web.EndpointMediaTypes;
 import org.springframework.boot.actuate.endpoint.web.WebOperationRequestPredicate;
 import org.springframework.core.annotation.AnnotationAttributes;
@@ -77,22 +77,22 @@ class RequestPredicateFactoryTests {
 
 	static class MoreThanOneMatchAll {
 
-		void test(@Selector(match = Match.ALL_REMAINING) String[] one,
-				@Selector(match = Match.ALL_REMAINING) String[] two) {
+		void test(@Selector_RENAMED(match = Match.ALL_REMAINING) String[] one,
+				@Selector_RENAMED(match = Match.ALL_REMAINING) String[] two) {
 		}
 
 	}
 
 	static class MatchAllIsNotLastParameter {
 
-		void test(@Selector(match = Match.ALL_REMAINING) String[] one, @Selector String[] two) {
+		void test(@Selector_RENAMED(match = Match.ALL_REMAINING) String[] one, @Selector_RENAMED String[] two) {
 		}
 
 	}
 
 	static class ValidSelectors {
 
-		void test(@Selector String[] one, @Selector(match = Match.ALL_REMAINING) String[] two) {
+		void test(@Selector_RENAMED String[] one, @Selector_RENAMED(match = Match.ALL_REMAINING) String[] two) {
 		}
 
 	}

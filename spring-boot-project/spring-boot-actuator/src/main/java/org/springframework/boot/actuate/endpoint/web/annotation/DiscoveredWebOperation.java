@@ -26,7 +26,7 @@ import org.reactivestreams.Publisher;
 import org.springframework.boot.actuate.endpoint.EndpointId;
 import org.springframework.boot.actuate.endpoint.annotation.AbstractDiscoveredOperation;
 import org.springframework.boot.actuate.endpoint.annotation.DiscoveredOperationMethod;
-import org.springframework.boot.actuate.endpoint.annotation.Selector;
+import org.springframework.boot.actuate.endpoint.annotation.Selector_RENAMED;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvoker;
 import org.springframework.boot.actuate.endpoint.web.WebOperation;
 import org.springframework.boot.actuate.endpoint.web.WebOperationRequestPredicate;
@@ -66,7 +66,7 @@ class DiscoveredWebOperation extends AbstractDiscoveredOperation implements WebO
 	}
 
 	private boolean hasSelector(Parameter parameter) {
-		return parameter.getAnnotation(Selector.class) != null;
+		return parameter.getAnnotation(Selector_RENAMED.class) != null;
 	}
 
 	private String dashName(Parameter parameter) {

@@ -35,7 +35,7 @@ import org.springframework.boot.actuate.endpoint.EndpointId;
 import org.springframework.boot.actuate.endpoint.annotation.DeleteOperation;
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
 import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
-import org.springframework.boot.actuate.endpoint.annotation.Selector;
+import org.springframework.boot.actuate.endpoint.annotation.Selector_RENAMED;
 import org.springframework.boot.actuate.endpoint.annotation.WriteOperation;
 import org.springframework.boot.actuate.endpoint.invoke.convert.ConversionServiceParameterValueMapper;
 import org.springframework.boot.actuate.endpoint.invoker.cache.CachingOperationInvoker;
@@ -450,7 +450,7 @@ class WebEndpointDiscovererTests {
 		}
 
 		@ReadOperation
-		Object getOne(@Selector String id) {
+		Object getOne(@Selector_RENAMED String id) {
 			return null;
 		}
 
@@ -489,7 +489,7 @@ class WebEndpointDiscovererTests {
 	static class AdditionalOperationWebEndpointExtension {
 
 		@ReadOperation
-		Object getOne(@Selector String id) {
+		Object getOne(@Selector_RENAMED String id) {
 			return null;
 		}
 
@@ -529,12 +529,12 @@ class WebEndpointDiscovererTests {
 	static class ClashingSelectorsWebEndpointExtension {
 
 		@ReadOperation
-		Object readOne(@Selector String oneA, @Selector String oneB) {
+		Object readOne(@Selector_RENAMED String oneA, @Selector_RENAMED String oneB) {
 			return null;
 		}
 
 		@ReadOperation
-		Object readTwo(@Selector String twoA, @Selector String twoB) {
+		Object readTwo(@Selector_RENAMED String twoA, @Selector_RENAMED String twoB) {
 			return null;
 		}
 
@@ -554,7 +554,7 @@ class WebEndpointDiscovererTests {
 	static class NonWebWebEndpointExtension {
 
 		@ReadOperation
-		Object getSomething(@Selector String name) {
+		Object getSomething(@Selector_RENAMED String name) {
 			return null;
 		}
 

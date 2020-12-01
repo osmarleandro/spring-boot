@@ -37,7 +37,7 @@ import io.micrometer.core.instrument.composite.CompositeMeterRegistry;
 import org.springframework.boot.actuate.endpoint.InvalidEndpointRequestException;
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
 import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
-import org.springframework.boot.actuate.endpoint.annotation.Selector;
+import org.springframework.boot.actuate.endpoint.annotation.Selector_RENAMED;
 import org.springframework.lang.Nullable;
 
 /**
@@ -77,7 +77,7 @@ public class MetricsEndpoint {
 	}
 
 	@ReadOperation
-	public MetricResponse metric(@Selector String requiredMetricName, @Nullable List<String> tag) {
+	public MetricResponse metric(@Selector_RENAMED String requiredMetricName, @Nullable List<String> tag) {
 		List<Tag> tags = parseTags(tag);
 		Collection<Meter> meters = findFirstMatchingMeters(this.registry, requiredMetricName, tags);
 		if (meters.isEmpty()) {

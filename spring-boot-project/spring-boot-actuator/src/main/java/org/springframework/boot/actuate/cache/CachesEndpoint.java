@@ -26,7 +26,7 @@ import java.util.stream.Collectors;
 import org.springframework.boot.actuate.endpoint.annotation.DeleteOperation;
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
 import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
-import org.springframework.boot.actuate.endpoint.annotation.Selector;
+import org.springframework.boot.actuate.endpoint.annotation.Selector_RENAMED;
 import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
 import org.springframework.lang.Nullable;
@@ -79,7 +79,7 @@ public class CachesEndpoint {
 	 * {@code cacheManager} was provided to identify a unique candidate
 	 */
 	@ReadOperation
-	public CacheEntry cache(@Selector String cache, @Nullable String cacheManager) {
+	public CacheEntry cache(@Selector_RENAMED String cache, @Nullable String cacheManager) {
 		return extractUniqueCacheEntry(cache, getCacheEntries((name) -> name.equals(cache), isNameMatch(cacheManager)));
 	}
 
@@ -101,7 +101,7 @@ public class CachesEndpoint {
 	 * {@code cacheManager} was provided to identify a unique candidate
 	 */
 	@DeleteOperation
-	public boolean clearCache(@Selector String cache, @Nullable String cacheManager) {
+	public boolean clearCache(@Selector_RENAMED String cache, @Nullable String cacheManager) {
 		CacheEntry entry = extractUniqueCacheEntry(cache,
 				getCacheEntries((name) -> name.equals(cache), isNameMatch(cacheManager)));
 		return (entry != null && clearCache(entry));

@@ -29,7 +29,7 @@ import org.springframework.boot.actuate.autoconfigure.cloudfoundry.CloudFoundryA
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.CloudFoundryAuthorizationException.Reason;
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
 import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
-import org.springframework.boot.actuate.endpoint.annotation.Selector;
+import org.springframework.boot.actuate.endpoint.annotation.Selector_RENAMED;
 import org.springframework.boot.actuate.endpoint.annotation.WriteOperation;
 import org.springframework.boot.actuate.endpoint.invoke.ParameterValueMapper;
 import org.springframework.boot.actuate.endpoint.invoke.convert.ConversionServiceParameterValueMapper;
@@ -218,7 +218,7 @@ class CloudFoundryWebFluxEndpointIntegrationTests {
 		}
 
 		@ReadOperation
-		Map<String, Object> readPart(@Selector String part) {
+		Map<String, Object> readPart(@Selector_RENAMED String part) {
 			return Collections.singletonMap("part", part);
 		}
 

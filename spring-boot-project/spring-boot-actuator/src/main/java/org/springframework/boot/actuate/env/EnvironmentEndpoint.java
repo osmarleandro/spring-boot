@@ -30,7 +30,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import org.springframework.boot.actuate.endpoint.Sanitizer;
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
 import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
-import org.springframework.boot.actuate.endpoint.annotation.Selector;
+import org.springframework.boot.actuate.endpoint.annotation.Selector_RENAMED;
 import org.springframework.boot.context.properties.bind.PlaceholdersResolver;
 import org.springframework.boot.context.properties.bind.PropertySourcesPlaceholdersResolver;
 import org.springframework.boot.context.properties.source.ConfigurationPropertySources;
@@ -83,7 +83,7 @@ public class EnvironmentEndpoint {
 	}
 
 	@ReadOperation
-	public EnvironmentEntryDescriptor environmentEntry(@Selector String toMatch) {
+	public EnvironmentEntryDescriptor environmentEntry(@Selector_RENAMED String toMatch) {
 		return getEnvironmentEntryDescriptor(toMatch);
 	}
 

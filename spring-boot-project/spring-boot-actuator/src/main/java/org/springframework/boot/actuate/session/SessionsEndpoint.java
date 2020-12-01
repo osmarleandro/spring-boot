@@ -25,7 +25,7 @@ import java.util.stream.Collectors;
 import org.springframework.boot.actuate.endpoint.annotation.DeleteOperation;
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
 import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
-import org.springframework.boot.actuate.endpoint.annotation.Selector;
+import org.springframework.boot.actuate.endpoint.annotation.Selector_RENAMED;
 import org.springframework.session.FindByIndexNameSessionRepository;
 import org.springframework.session.Session;
 
@@ -55,7 +55,7 @@ public class SessionsEndpoint {
 	}
 
 	@ReadOperation
-	public SessionDescriptor getSession(@Selector String sessionId) {
+	public SessionDescriptor getSession(@Selector_RENAMED String sessionId) {
 		Session session = this.sessionRepository.findById(sessionId);
 		if (session == null) {
 			return null;
@@ -64,7 +64,7 @@ public class SessionsEndpoint {
 	}
 
 	@DeleteOperation
-	public void deleteSession(@Selector String sessionId) {
+	public void deleteSession(@Selector_RENAMED String sessionId) {
 		this.sessionRepository.deleteById(sessionId);
 	}
 

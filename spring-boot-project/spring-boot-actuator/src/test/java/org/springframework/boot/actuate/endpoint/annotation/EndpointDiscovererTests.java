@@ -427,7 +427,7 @@ class EndpointDiscovererTests {
 		}
 
 		@ReadOperation
-		Object getOne(@Selector String id) {
+		Object getOne(@Selector_RENAMED String id) {
 			return null;
 		}
 
@@ -437,7 +437,7 @@ class EndpointDiscovererTests {
 		}
 
 		@DeleteOperation
-		void deleteOne(@Selector String id) {
+		void deleteOne(@Selector_RENAMED String id) {
 
 		}
 
@@ -513,7 +513,7 @@ class EndpointDiscovererTests {
 	static class SubSpecializedTestEndpoint extends SpecializedTestEndpoint {
 
 		@ReadOperation
-		Object getSpecialOne(@Selector String id) {
+		Object getSpecialOne(@Selector_RENAMED String id) {
 			return null;
 		}
 
