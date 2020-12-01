@@ -35,7 +35,7 @@ import org.springframework.web.servlet.ModelAndView;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Tests for {@link CompositeHandlerExceptionResolver}.
+ * Tests for {@link CompositeHandlerExceptionResolver_RENAMED}.
  *
  * @author Madhura Bhave
  * @author Scott Frederick
@@ -51,7 +51,7 @@ class CompositeHandlerExceptionResolverTests {
 	@Test
 	void resolverShouldDelegateToOtherResolversInContext() {
 		load(TestConfiguration.class);
-		CompositeHandlerExceptionResolver resolver = (CompositeHandlerExceptionResolver) this.context
+		CompositeHandlerExceptionResolver_RENAMED resolver = (CompositeHandlerExceptionResolver_RENAMED) this.context
 				.getBean(DispatcherServlet.HANDLER_EXCEPTION_RESOLVER_BEAN_NAME);
 		ModelAndView resolved = resolver.resolveException(this.request, this.response, null,
 				new HttpRequestMethodNotSupportedException("POST"));
@@ -61,7 +61,7 @@ class CompositeHandlerExceptionResolverTests {
 	@Test
 	void resolverShouldAddDefaultResolverIfNonePresent() {
 		load(BaseConfiguration.class);
-		CompositeHandlerExceptionResolver resolver = (CompositeHandlerExceptionResolver) this.context
+		CompositeHandlerExceptionResolver_RENAMED resolver = (CompositeHandlerExceptionResolver_RENAMED) this.context
 				.getBean(DispatcherServlet.HANDLER_EXCEPTION_RESOLVER_BEAN_NAME);
 		HttpRequestMethodNotSupportedException exception = new HttpRequestMethodNotSupportedException("POST");
 		ModelAndView resolved = resolver.resolveException(this.request, this.response, null, exception);
@@ -80,8 +80,8 @@ class CompositeHandlerExceptionResolverTests {
 	static class BaseConfiguration {
 
 		@Bean(name = DispatcherServlet.HANDLER_EXCEPTION_RESOLVER_BEAN_NAME)
-		CompositeHandlerExceptionResolver compositeHandlerExceptionResolver() {
-			return new CompositeHandlerExceptionResolver();
+		CompositeHandlerExceptionResolver_RENAMED compositeHandlerExceptionResolver() {
+			return new CompositeHandlerExceptionResolver_RENAMED();
 		}
 
 	}

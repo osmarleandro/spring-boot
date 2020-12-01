@@ -98,8 +98,8 @@ class WebMvcEndpointChildContextConfiguration {
 	}
 
 	@Bean(name = DispatcherServlet.HANDLER_EXCEPTION_RESOLVER_BEAN_NAME)
-	CompositeHandlerExceptionResolver compositeHandlerExceptionResolver() {
-		return new CompositeHandlerExceptionResolver();
+	CompositeHandlerExceptionResolver_RENAMED compositeHandlerExceptionResolver() {
+		return new CompositeHandlerExceptionResolver_RENAMED();
 	}
 
 	@Bean

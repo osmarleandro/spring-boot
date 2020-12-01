@@ -39,7 +39,7 @@ import org.springframework.web.servlet.mvc.support.DefaultHandlerExceptionResolv
  * @author Phillip Webb
  * @author Scott Frederick
  */
-class CompositeHandlerExceptionResolver implements HandlerExceptionResolver {
+class CompositeHandlerExceptionResolver_RENAMED implements HandlerExceptionResolver {
 
 	@Autowired
 	private ListableBeanFactory beanFactory;
