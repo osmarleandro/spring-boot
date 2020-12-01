@@ -32,7 +32,7 @@ import static org.mockito.Mockito.mock;
  *
  * @author Phillip Webb
  */
-class AvailabilityProbesHealthEndpointGroupsPostProcessorTests {
+class AvailabilityProbesHealthEndpointGroupsPostProcessorTests_RENAMED {
 
 	private AvailabilityProbesHealthEndpointGroupsPostProcessor postProcessor = new AvailabilityProbesHealthEndpointGroupsPostProcessor();
 
