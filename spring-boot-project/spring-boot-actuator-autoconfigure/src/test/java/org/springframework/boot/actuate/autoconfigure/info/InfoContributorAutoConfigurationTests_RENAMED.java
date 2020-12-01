@@ -40,7 +40,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Stephane Nicoll
  */
-class InfoContributorAutoConfigurationTests {
+class InfoContributorAutoConfigurationTests_RENAMED {
 
 	private AnnotationConfigApplicationContext context;
 
