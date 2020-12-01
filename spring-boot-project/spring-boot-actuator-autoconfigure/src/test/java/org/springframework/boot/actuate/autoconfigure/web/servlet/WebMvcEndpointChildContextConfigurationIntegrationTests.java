@@ -29,7 +29,7 @@ import reactor.core.publisher.Mono;
 
 import org.springframework.boot.actuate.autoconfigure.endpoint.EndpointAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointAutoConfiguration;
-import org.springframework.boot.actuate.autoconfigure.web.server.ManagementContextAutoConfiguration;
+import org.springframework.boot.actuate.autoconfigure.web.server.ManagementContextAutoConfiguration_RENAMED;
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
 import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
 import org.springframework.boot.actuate.endpoint.web.annotation.RestControllerEndpoint;
@@ -63,7 +63,7 @@ class WebMvcEndpointChildContextConfigurationIntegrationTests {
 
 	private final WebApplicationContextRunner runner = new WebApplicationContextRunner(
 			AnnotationConfigServletWebServerApplicationContext::new)
-					.withConfiguration(AutoConfigurations.of(ManagementContextAutoConfiguration.class,
+					.withConfiguration(AutoConfigurations.of(ManagementContextAutoConfiguration_RENAMED.class,
 							ServletWebServerFactoryAutoConfiguration.class,
 							ServletManagementContextAutoConfiguration.class, WebEndpointAutoConfiguration.class,
 							EndpointAutoConfiguration.class, DispatcherServletAutoConfiguration.class,

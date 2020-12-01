@@ -23,7 +23,7 @@ import org.jolokia.http.AgentServlet;
 import org.junit.jupiter.api.Test;
 
 import org.springframework.boot.actuate.autoconfigure.endpoint.web.ServletEndpointManagementContextConfiguration;
-import org.springframework.boot.actuate.autoconfigure.web.server.ManagementContextAutoConfiguration;
+import org.springframework.boot.actuate.autoconfigure.web.server.ManagementContextAutoConfiguration_RENAMED;
 import org.springframework.boot.actuate.autoconfigure.web.servlet.ServletManagementContextAutoConfiguration;
 import org.springframework.boot.actuate.endpoint.web.ExposableServletEndpoint;
 import org.springframework.boot.actuate.endpoint.web.annotation.ServletEndpointDiscoverer;
@@ -50,7 +50,7 @@ class JolokiaEndpointAutoConfigurationTests {
 
 	private final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(DispatcherServletAutoConfiguration.class,
-					ManagementContextAutoConfiguration.class, ServletManagementContextAutoConfiguration.class,
+					ManagementContextAutoConfiguration_RENAMED.class, ServletManagementContextAutoConfiguration.class,
 					ServletEndpointManagementContextConfiguration.class, JolokiaEndpointAutoConfiguration.class,
 					TestConfiguration.class));
 

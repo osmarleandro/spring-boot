@@ -24,7 +24,7 @@ import org.springframework.boot.actuate.autoconfigure.beans.BeansEndpointAutoCon
 import org.springframework.boot.actuate.autoconfigure.endpoint.EndpointAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.web.reactive.ReactiveManagementContextAutoConfiguration;
-import org.springframework.boot.actuate.autoconfigure.web.server.ManagementContextAutoConfiguration;
+import org.springframework.boot.actuate.autoconfigure.web.server.ManagementContextAutoConfiguration_RENAMED;
 import org.springframework.boot.actuate.endpoint.web.annotation.ControllerEndpoint;
 import org.springframework.boot.actuate.endpoint.web.annotation.RestControllerEndpoint;
 import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
@@ -71,7 +71,7 @@ class ControllerEndpointWebFluxIntegrationTests {
 			EndpointAutoConfiguration.class, WebEndpointAutoConfiguration.class,
 			ReactiveManagementContextAutoConfiguration.class, AuditAutoConfiguration.class,
 			PropertyPlaceholderAutoConfiguration.class, WebFluxAutoConfiguration.class,
-			ManagementContextAutoConfiguration.class, BeansEndpointAutoConfiguration.class })
+			ManagementContextAutoConfiguration_RENAMED.class, BeansEndpointAutoConfiguration.class })
 	static class DefaultConfiguration {
 
 	}

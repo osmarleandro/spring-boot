@@ -29,7 +29,7 @@ import io.prometheus.client.exporter.PushGateway;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
-import org.springframework.boot.actuate.autoconfigure.web.server.ManagementContextAutoConfiguration;
+import org.springframework.boot.actuate.autoconfigure.web.server.ManagementContextAutoConfiguration_RENAMED;
 import org.springframework.boot.actuate.metrics.export.prometheus.PrometheusPushGatewayManager;
 import org.springframework.boot.actuate.metrics.export.prometheus.PrometheusScrapeEndpoint;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
@@ -111,7 +111,7 @@ class PrometheusMetricsExportAutoConfigurationTests {
 
 	@Test
 	void addsScrapeEndpointToManagementContext() {
-		this.contextRunner.withConfiguration(AutoConfigurations.of(ManagementContextAutoConfiguration.class))
+		this.contextRunner.withConfiguration(AutoConfigurations.of(ManagementContextAutoConfiguration_RENAMED.class))
 				.withUserConfiguration(BaseConfiguration.class)
 				.withPropertyValues("management.endpoints.web.exposure.include=prometheus")
 				.run((context) -> assertThat(context).hasSingleBean(PrometheusScrapeEndpoint.class));
@@ -119,14 +119,14 @@ class PrometheusMetricsExportAutoConfigurationTests {
 
 	@Test
 	void scrapeEndpointNotAddedToManagementContextWhenNotExposed() {
-		this.contextRunner.withConfiguration(AutoConfigurations.of(ManagementContextAutoConfiguration.class))
+		this.contextRunner.withConfiguration(AutoConfigurations.of(ManagementContextAutoConfiguration_RENAMED.class))
 				.withUserConfiguration(BaseConfiguration.class)
 				.run((context) -> assertThat(context).doesNotHaveBean(PrometheusScrapeEndpoint.class));
 	}
 
 	@Test
 	void scrapeEndpointCanBeDisabled() {
-		this.contextRunner.withConfiguration(AutoConfigurations.of(ManagementContextAutoConfiguration.class))
+		this.contextRunner.withConfiguration(AutoConfigurations.of(ManagementContextAutoConfiguration_RENAMED.class))
 				.withPropertyValues("management.endpoints.web.exposure.include=prometheus")
 				.withPropertyValues("management.endpoint.prometheus.enabled=false")
 				.withUserConfiguration(BaseConfiguration.class)
@@ -135,7 +135,7 @@ class PrometheusMetricsExportAutoConfigurationTests {
 
 	@Test
 	void allowsCustomScrapeEndpointToBeUsed() {
-		this.contextRunner.withConfiguration(AutoConfigurations.of(ManagementContextAutoConfiguration.class))
+		this.contextRunner.withConfiguration(AutoConfigurations.of(ManagementContextAutoConfiguration_RENAMED.class))
 				.withUserConfiguration(CustomEndpointConfiguration.class).run((context) -> assertThat(context)
 						.hasBean("customEndpoint").hasSingleBean(PrometheusScrapeEndpoint.class));
 	}
@@ -148,7 +148,7 @@ class PrometheusMetricsExportAutoConfigurationTests {
 
 	@Test
 	void withPushGatewayEnabled(CapturedOutput output) {
-		this.contextRunner.withConfiguration(AutoConfigurations.of(ManagementContextAutoConfiguration.class))
+		this.contextRunner.withConfiguration(AutoConfigurations.of(ManagementContextAutoConfiguration_RENAMED.class))
 				.withPropertyValues("management.metrics.export.prometheus.pushgateway.enabled=true")
 				.withUserConfiguration(BaseConfiguration.class).run((context) -> {
 					assertThat(output).doesNotContain("Invalid PushGateway base url");
@@ -158,7 +158,7 @@ class PrometheusMetricsExportAutoConfigurationTests {
 
 	@Test
 	void withPushGatewayNoBasicAuth() {
-		this.contextRunner.withConfiguration(AutoConfigurations.of(ManagementContextAutoConfiguration.class))
+		this.contextRunner.withConfiguration(AutoConfigurations.of(ManagementContextAutoConfiguration_RENAMED.class))
 				.withPropertyValues("management.metrics.export.prometheus.pushgateway.enabled=true")
 				.withUserConfiguration(BaseConfiguration.class)
 				.run(hasHttpConnectionFactory((httpConnectionFactory) -> assertThat(httpConnectionFactory)
@@ -168,7 +168,7 @@ class PrometheusMetricsExportAutoConfigurationTests {
 	@Test
 	@Deprecated
 	void withCustomLegacyPushGatewayURL(CapturedOutput output) {
-		this.contextRunner.withConfiguration(AutoConfigurations.of(ManagementContextAutoConfiguration.class))
+		this.contextRunner.withConfiguration(AutoConfigurations.of(ManagementContextAutoConfiguration_RENAMED.class))
 				.withPropertyValues("management.metrics.export.prometheus.pushgateway.enabled=true",
 						"management.metrics.export.prometheus.pushgateway.base-url=localhost:9090")
 				.withUserConfiguration(BaseConfiguration.class).run((context) -> {
@@ -179,7 +179,7 @@ class PrometheusMetricsExportAutoConfigurationTests {
 
 	@Test
 	void withCustomPushGatewayURL() {
-		this.contextRunner.withConfiguration(AutoConfigurations.of(ManagementContextAutoConfiguration.class))
+		this.contextRunner.withConfiguration(AutoConfigurations.of(ManagementContextAutoConfiguration_RENAMED.class))
 				.withPropertyValues("management.metrics.export.prometheus.pushgateway.enabled=true",
 						"management.metrics.export.prometheus.pushgateway.base-url=https://example.com:8080")
 				.withUserConfiguration(BaseConfiguration.class)
@@ -188,7 +188,7 @@ class PrometheusMetricsExportAutoConfigurationTests {
 
 	@Test
 	void withPushGatewayBasicAuth() {
-		this.contextRunner.withConfiguration(AutoConfigurations.of(ManagementContextAutoConfiguration.class))
+		this.contextRunner.withConfiguration(AutoConfigurations.of(ManagementContextAutoConfiguration_RENAMED.class))
 				.withPropertyValues("management.metrics.export.prometheus.pushgateway.enabled=true",
 						"management.metrics.export.prometheus.pushgateway.username=admin",
 						"management.metrics.export.prometheus.pushgateway.password=secret")

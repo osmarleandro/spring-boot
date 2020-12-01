@@ -58,7 +58,7 @@ import org.springframework.util.Assert;
 @Configuration(proxyBeanMethods = false)
 @AutoConfigureOrder(Ordered.LOWEST_PRECEDENCE)
 @EnableConfigurationProperties({ WebEndpointProperties.class, ManagementServerProperties.class })
-public class ManagementContextAutoConfiguration {
+public class ManagementContextAutoConfiguration_RENAMED {
 
 	@Configuration(proxyBeanMethods = false)
 	@ConditionalOnManagementPort(ManagementPortType.SAME)

@@ -31,7 +31,7 @@ import org.springframework.boot.actuate.autoconfigure.endpoint.EndpointAutoConfi
 import org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.health.HealthContributorAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.trace.http.HttpTraceAutoConfiguration;
-import org.springframework.boot.actuate.autoconfigure.web.server.ManagementContextAutoConfiguration;
+import org.springframework.boot.actuate.autoconfigure.web.server.ManagementContextAutoConfiguration_RENAMED;
 import org.springframework.boot.actuate.autoconfigure.web.servlet.ServletManagementContextAutoConfiguration;
 import org.springframework.boot.actuate.endpoint.web.EndpointServlet;
 import org.springframework.boot.actuate.endpoint.web.annotation.RestControllerEndpoint;
@@ -72,8 +72,8 @@ class WebMvcEndpointExposureIntegrationTests {
 							DispatcherServletAutoConfiguration.class, JacksonAutoConfiguration.class,
 							HttpMessageConvertersAutoConfiguration.class, WebMvcAutoConfiguration.class,
 							EndpointAutoConfiguration.class, WebEndpointAutoConfiguration.class,
-							ManagementContextAutoConfiguration.class, ServletManagementContextAutoConfiguration.class,
-							ManagementContextAutoConfiguration.class, ServletManagementContextAutoConfiguration.class,
+							ManagementContextAutoConfiguration_RENAMED.class, ServletManagementContextAutoConfiguration.class,
+							ManagementContextAutoConfiguration_RENAMED.class, ServletManagementContextAutoConfiguration.class,
 							HttpTraceAutoConfiguration.class, HealthContributorAutoConfiguration.class))
 					.withConfiguration(AutoConfigurations.of(EndpointAutoConfigurationClasses.ALL))
 					.withUserConfiguration(CustomMvcEndpoint.class, CustomServletEndpoint.class,

@@ -23,7 +23,7 @@ import org.junit.jupiter.api.Test;
 
 import org.springframework.boot.actuate.autoconfigure.endpoint.EndpointAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointAutoConfiguration;
-import org.springframework.boot.actuate.autoconfigure.web.server.ManagementContextAutoConfiguration;
+import org.springframework.boot.actuate.autoconfigure.web.server.ManagementContextAutoConfiguration_RENAMED;
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
 import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
 import org.springframework.boot.actuate.endpoint.web.EndpointServlet;
@@ -80,7 +80,7 @@ abstract class AbstractEndpointRequestIntegrationTests {
 				.withUserConfiguration(BaseConfiguration.class, SecurityConfiguration.class).withConfiguration(
 						AutoConfigurations.of(JacksonAutoConfiguration.class, SecurityAutoConfiguration.class,
 								UserDetailsServiceAutoConfiguration.class, EndpointAutoConfiguration.class,
-								WebEndpointAutoConfiguration.class, ManagementContextAutoConfiguration.class));
+								WebEndpointAutoConfiguration.class, ManagementContextAutoConfiguration_RENAMED.class));
 
 	}
 

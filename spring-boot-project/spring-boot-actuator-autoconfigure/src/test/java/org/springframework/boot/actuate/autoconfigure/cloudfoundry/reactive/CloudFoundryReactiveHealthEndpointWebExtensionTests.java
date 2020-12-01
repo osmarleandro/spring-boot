@@ -24,7 +24,7 @@ import org.springframework.boot.actuate.autoconfigure.endpoint.EndpointAutoConfi
 import org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.health.HealthContributorAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.health.HealthEndpointAutoConfiguration;
-import org.springframework.boot.actuate.autoconfigure.web.server.ManagementContextAutoConfiguration;
+import org.springframework.boot.actuate.autoconfigure.web.server.ManagementContextAutoConfiguration_RENAMED;
 import org.springframework.boot.actuate.endpoint.http.ApiVersion;
 import org.springframework.boot.actuate.health.CompositeHealth;
 import org.springframework.boot.actuate.health.Health;
@@ -56,7 +56,7 @@ class CloudFoundryReactiveHealthEndpointWebExtensionTests {
 					JacksonAutoConfiguration.class, HttpMessageConvertersAutoConfiguration.class,
 					PropertyPlaceholderAutoConfiguration.class,
 					ReactiveCloudFoundryActuatorAutoConfigurationTests.WebClientCustomizerConfig.class,
-					WebClientAutoConfiguration.class, ManagementContextAutoConfiguration.class,
+					WebClientAutoConfiguration.class, ManagementContextAutoConfiguration_RENAMED.class,
 					EndpointAutoConfiguration.class, WebEndpointAutoConfiguration.class,
 					HealthContributorAutoConfiguration.class, HealthEndpointAutoConfiguration.class,
 					ReactiveCloudFoundryActuatorAutoConfiguration.class))

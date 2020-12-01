@@ -35,7 +35,7 @@ import org.springframework.util.StringUtils;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Tests for {@link ManagementContextAutoConfiguration}.
+ * Tests for {@link ManagementContextAutoConfiguration_RENAMED}.
  *
  * @author Madhura Bhave
  * @author Andy Wilkinson
@@ -47,7 +47,7 @@ class ManagementContextAutoConfigurationTests {
 	void childManagementContextShouldStartForEmbeddedServer(CapturedOutput output) {
 		WebApplicationContextRunner contextRunner = new WebApplicationContextRunner(
 				AnnotationConfigServletWebServerApplicationContext::new)
-						.withConfiguration(AutoConfigurations.of(ManagementContextAutoConfiguration.class,
+						.withConfiguration(AutoConfigurations.of(ManagementContextAutoConfiguration_RENAMED.class,
 								ServletWebServerFactoryAutoConfiguration.class,
 								ServletManagementContextAutoConfiguration.class, WebEndpointAutoConfiguration.class,
 								EndpointAutoConfiguration.class));
@@ -59,7 +59,7 @@ class ManagementContextAutoConfigurationTests {
 	void givenSamePortManagementServerWhenManagementServerAddressIsConfiguredThenContextRefreshFails() {
 		WebApplicationContextRunner contextRunner = new WebApplicationContextRunner(
 				AnnotationConfigServletWebServerApplicationContext::new)
-						.withConfiguration(AutoConfigurations.of(ManagementContextAutoConfiguration.class,
+						.withConfiguration(AutoConfigurations.of(ManagementContextAutoConfiguration_RENAMED.class,
 								ServletWebServerFactoryAutoConfiguration.class,
 								ServletManagementContextAutoConfiguration.class, WebEndpointAutoConfiguration.class,
 								EndpointAutoConfiguration.class, DispatcherServletAutoConfiguration.class));
