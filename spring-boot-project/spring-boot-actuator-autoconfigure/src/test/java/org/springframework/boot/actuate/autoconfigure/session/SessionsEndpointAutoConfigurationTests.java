@@ -29,14 +29,14 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 
 /**
- * Tests for {@link SessionsEndpointAutoConfiguration}.
+ * Tests for {@link SessionsEndpointAutoConfiguration_RENAMED}.
  *
  * @author Vedran Pavic
  */
 class SessionsEndpointAutoConfigurationTests {
 
 	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
-			.withConfiguration(AutoConfigurations.of(SessionsEndpointAutoConfiguration.class))
+			.withConfiguration(AutoConfigurations.of(SessionsEndpointAutoConfiguration_RENAMED.class))
 			.withUserConfiguration(SessionConfiguration.class);
 
 	@Test
