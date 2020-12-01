@@ -32,7 +32,7 @@ import static org.mockito.Mockito.mock;
  *
  * @author Phillip Webb
  */
-class AutoConfiguredReactiveHealthContributorRegistryTests {
+class AutoConfiguredReactiveHealthContributorRegistryTests_RENAMED {
 
 	@Test
 	void createWhenContributorsClashesWithGroupNameThrowsException() {
