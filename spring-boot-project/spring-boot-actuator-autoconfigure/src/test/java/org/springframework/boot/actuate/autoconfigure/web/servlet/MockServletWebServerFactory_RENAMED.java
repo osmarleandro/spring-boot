@@ -36,7 +36,7 @@ import static org.mockito.Mockito.spy;
  * @author Phillip Webb
  * @author Andy Wilkinson
  */
-public class MockServletWebServerFactory extends AbstractServletWebServerFactory {
+public class MockServletWebServerFactory_RENAMED extends AbstractServletWebServerFactory {
 
 	private MockServletWebServer webServer;
 
