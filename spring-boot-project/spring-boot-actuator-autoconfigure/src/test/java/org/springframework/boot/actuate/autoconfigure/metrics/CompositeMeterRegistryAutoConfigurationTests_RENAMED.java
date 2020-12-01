@@ -37,7 +37,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Phillip Webb
  * @author Andy Wilkinson
  */
-class CompositeMeterRegistryAutoConfigurationTests {
+class CompositeMeterRegistryAutoConfigurationTests_RENAMED {
 
 	private static final String COMPOSITE_NAME = "compositeMeterRegistry";
 
