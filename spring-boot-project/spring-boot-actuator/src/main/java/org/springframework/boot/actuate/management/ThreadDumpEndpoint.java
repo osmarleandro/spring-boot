@@ -35,7 +35,7 @@ import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
 @Endpoint(id = "threaddump")
 public class ThreadDumpEndpoint {
 
-	private final PlainTextThreadDumpFormatter plainTextFormatter = new PlainTextThreadDumpFormatter();
+	private final PlainTextThreadDumpFormatter_RENAMED plainTextFormatter = new PlainTextThreadDumpFormatter_RENAMED();
 
 	@ReadOperation
 	public ThreadDumpDescriptor threadDump() {
