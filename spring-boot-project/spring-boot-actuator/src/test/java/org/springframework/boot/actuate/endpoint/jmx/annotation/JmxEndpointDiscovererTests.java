@@ -421,7 +421,7 @@ class JmxEndpointDiscovererTests {
 
 	}
 
-	@EndpointJmxExtension(endpoint = TestEndpoint.class)
+	@EndpointJmxExtension_RENAMED(endpoint = TestEndpoint.class)
 	static class TestJmxEndpointExtension {
 
 		@ManagedOperation(description = "Get all the things")
@@ -456,7 +456,7 @@ class JmxEndpointDiscovererTests {
 
 	}
 
-	@EndpointJmxExtension(endpoint = TestEndpoint.class)
+	@EndpointJmxExtension_RENAMED(endpoint = TestEndpoint.class)
 	static class AdditionalOperationJmxEndpointExtension {
 
 		@ManagedOperation(description = "Get another thing")
@@ -482,7 +482,7 @@ class JmxEndpointDiscovererTests {
 
 	}
 
-	@EndpointJmxExtension(endpoint = TestEndpoint.class)
+	@EndpointJmxExtension_RENAMED(endpoint = TestEndpoint.class)
 	static class ClashingOperationsJmxEndpointExtension {
 
 		@ReadOperation
@@ -507,7 +507,7 @@ class JmxEndpointDiscovererTests {
 
 	}
 
-	@EndpointJmxExtension(endpoint = NonJmxEndpoint.class)
+	@EndpointJmxExtension_RENAMED(endpoint = NonJmxEndpoint.class)
 	static class NonJmxJmxEndpointExtension {
 
 		@ReadOperation
