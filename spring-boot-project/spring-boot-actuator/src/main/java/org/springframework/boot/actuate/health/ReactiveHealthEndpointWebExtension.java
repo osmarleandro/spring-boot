@@ -33,14 +33,14 @@ import org.springframework.boot.actuate.endpoint.web.annotation.EndpointWebExten
 
 /**
  * Reactive {@link EndpointWebExtension @EndpointWebExtension} for the
- * {@link HealthEndpoint}.
+ * {@link HealthEndpoint_RENAMED}.
  *
  * @author Stephane Nicoll
  * @author Phillip Webb
  * @author Scott Frederick
  * @since 2.0.0
  */
-@EndpointWebExtension(endpoint = HealthEndpoint.class)
+@EndpointWebExtension(endpoint = HealthEndpoint_RENAMED.class)
 public class ReactiveHealthEndpointWebExtension
 		extends HealthEndpointSupport<ReactiveHealthContributor, Mono<? extends HealthComponent>> {
 

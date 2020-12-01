@@ -19,7 +19,7 @@ package org.springframework.boot.actuate.health;
 import com.fasterxml.jackson.annotation.JsonUnwrapped;
 
 /**
- * An component that contributes data to results returned from the {@link HealthEndpoint}.
+ * An component that contributes data to results returned from the {@link HealthEndpoint_RENAMED}.
  *
  * @author Phillip Webb
  * @since 2.2.0

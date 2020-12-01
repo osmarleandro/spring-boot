@@ -29,7 +29,7 @@ import org.springframework.boot.actuate.health.CompositeReactiveHealthContributo
 import org.springframework.boot.actuate.health.Health;
 import org.springframework.boot.actuate.health.HealthContributor;
 import org.springframework.boot.actuate.health.HealthContributorRegistry;
-import org.springframework.boot.actuate.health.HealthEndpoint;
+import org.springframework.boot.actuate.health.HealthEndpoint_RENAMED;
 import org.springframework.boot.actuate.health.HealthEndpointGroups;
 import org.springframework.boot.actuate.health.HealthEndpointGroupsPostProcessor;
 import org.springframework.boot.actuate.health.HealthIndicator;
@@ -47,7 +47,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.util.ClassUtils;
 
 /**
- * Configuration for {@link HealthEndpoint} infrastructure beans.
+ * Configuration for {@link HealthEndpoint_RENAMED} infrastructure beans.
  *
  * @author Phillip Webb
  * @see HealthEndpointAutoConfiguration
@@ -88,8 +88,8 @@ class HealthEndpointConfiguration {
 
 	@Bean
 	@ConditionalOnMissingBean
-	HealthEndpoint healthEndpoint(HealthContributorRegistry registry, HealthEndpointGroups groups) {
-		return new HealthEndpoint(registry, groups);
+	HealthEndpoint_RENAMED healthEndpoint(HealthContributorRegistry registry, HealthEndpointGroups groups) {
+		return new HealthEndpoint_RENAMED(registry, groups);
 	}
 
 	@Bean

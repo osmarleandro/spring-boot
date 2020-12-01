@@ -22,7 +22,7 @@ import java.util.Map;
 import reactor.core.publisher.Flux;
 
 import org.springframework.boot.actuate.health.HealthContributor;
-import org.springframework.boot.actuate.health.HealthEndpoint;
+import org.springframework.boot.actuate.health.HealthEndpoint_RENAMED;
 import org.springframework.boot.actuate.health.HealthEndpointGroups;
 import org.springframework.boot.actuate.health.ReactiveHealthContributor;
 import org.springframework.boot.actuate.health.ReactiveHealthContributorRegistry;
@@ -33,14 +33,14 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * Configuration for reactive {@link HealthEndpoint} infrastructure beans.
+ * Configuration for reactive {@link HealthEndpoint_RENAMED} infrastructure beans.
  *
  * @author Phillip Webb
  * @see HealthEndpointAutoConfiguration
  */
 @Configuration(proxyBeanMethods = false)
 @ConditionalOnClass(Flux.class)
-@ConditionalOnBean(HealthEndpoint.class)
+@ConditionalOnBean(HealthEndpoint_RENAMED.class)
 class ReactiveHealthEndpointConfiguration {
 
 	@Bean

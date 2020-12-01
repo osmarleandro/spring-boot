@@ -17,7 +17,7 @@
 package org.springframework.boot.actuate.autoconfigure.health;
 
 import org.springframework.boot.actuate.health.HealthContributorRegistry;
-import org.springframework.boot.actuate.health.HealthEndpoint;
+import org.springframework.boot.actuate.health.HealthEndpoint_RENAMED;
 import org.springframework.boot.actuate.health.HealthEndpointGroups;
 import org.springframework.boot.actuate.health.HealthEndpointWebExtension;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
@@ -28,18 +28,18 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * Configuration for {@link HealthEndpoint} web extensions.
+ * Configuration for {@link HealthEndpoint_RENAMED} web extensions.
  *
  * @author Phillip Webb
  * @see HealthEndpointAutoConfiguration
  */
 @Configuration(proxyBeanMethods = false)
 @ConditionalOnWebApplication(type = Type.SERVLET)
-@ConditionalOnBean(HealthEndpoint.class)
+@ConditionalOnBean(HealthEndpoint_RENAMED.class)
 class HealthEndpointWebExtensionConfiguration {
 
 	@Bean
-	@ConditionalOnBean(HealthEndpoint.class)
+	@ConditionalOnBean(HealthEndpoint_RENAMED.class)
 	@ConditionalOnMissingBean
 	HealthEndpointWebExtension healthEndpointWebExtension(HealthContributorRegistry healthContributorRegistry,
 			HealthEndpointGroups groups) {

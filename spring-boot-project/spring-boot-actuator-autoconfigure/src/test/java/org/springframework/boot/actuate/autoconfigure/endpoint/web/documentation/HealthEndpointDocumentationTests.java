@@ -33,7 +33,7 @@ import org.springframework.boot.actuate.health.DefaultHealthContributorRegistry;
 import org.springframework.boot.actuate.health.Health;
 import org.springframework.boot.actuate.health.HealthContributor;
 import org.springframework.boot.actuate.health.HealthContributorRegistry;
-import org.springframework.boot.actuate.health.HealthEndpoint;
+import org.springframework.boot.actuate.health.HealthEndpoint_RENAMED;
 import org.springframework.boot.actuate.health.HealthEndpointGroup;
 import org.springframework.boot.actuate.health.HealthEndpointGroups;
 import org.springframework.boot.actuate.health.HealthIndicator;
@@ -60,7 +60,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /**
- * Tests for generating documentation describing the {@link HealthEndpoint}.
+ * Tests for generating documentation describing the {@link HealthEndpoint_RENAMED}.
  *
  * @author Andy Wilkinson
  * @author Stephane Nicoll
@@ -106,11 +106,11 @@ class HealthEndpointDocumentationTests extends MockMvcEndpointDocumentationTests
 	static class TestConfiguration {
 
 		@Bean
-		HealthEndpoint healthEndpoint(Map<String, HealthContributor> healthContributors) {
+		HealthEndpoint_RENAMED healthEndpoint(Map<String, HealthContributor> healthContributors) {
 			HealthContributorRegistry registry = new DefaultHealthContributorRegistry(healthContributors);
 			HealthEndpointGroup primary = new TestHealthEndpointGroup();
 			HealthEndpointGroups groups = HealthEndpointGroups.of(primary, Collections.emptyMap());
-			return new HealthEndpoint(registry, groups);
+			return new HealthEndpoint_RENAMED(registry, groups);
 		}
 
 		@Bean

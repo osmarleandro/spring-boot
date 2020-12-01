@@ -37,7 +37,7 @@ import org.springframework.boot.actuate.endpoint.web.EndpointMediaTypes;
 import org.springframework.boot.actuate.endpoint.web.ExposableWebEndpoint;
 import org.springframework.boot.actuate.endpoint.web.annotation.ControllerEndpointsSupplier;
 import org.springframework.boot.actuate.endpoint.web.annotation.ServletEndpointsSupplier;
-import org.springframework.boot.actuate.health.HealthEndpoint;
+import org.springframework.boot.actuate.health.HealthEndpoint_RENAMED;
 import org.springframework.boot.actuate.health.HealthEndpointWebExtension;
 import org.springframework.boot.actuate.info.GitInfoContributor;
 import org.springframework.boot.actuate.info.InfoContributor;
@@ -88,7 +88,7 @@ public class CloudFoundryActuatorAutoConfiguration {
 	@Bean
 	@ConditionalOnMissingBean
 	@ConditionalOnAvailableEndpoint
-	@ConditionalOnBean({ HealthEndpoint.class, HealthEndpointWebExtension.class })
+	@ConditionalOnBean({ HealthEndpoint_RENAMED.class, HealthEndpointWebExtension.class })
 	public CloudFoundryHealthEndpointWebExtension cloudFoundryHealthEndpointWebExtension(
 			HealthEndpointWebExtension healthEndpointWebExtension) {
 		return new CloudFoundryHealthEndpointWebExtension(healthEndpointWebExtension);

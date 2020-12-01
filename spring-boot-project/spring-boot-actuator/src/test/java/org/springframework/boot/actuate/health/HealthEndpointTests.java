@@ -27,7 +27,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 
 /**
- * Tests for {@link HealthEndpoint}.
+ * Tests for {@link HealthEndpoint_RENAMED}.
  *
  * @author Phillip Webb
  * @author Scott Frederick
@@ -67,8 +67,8 @@ class HealthEndpointTests
 	}
 
 	@Override
-	protected HealthEndpoint create(HealthContributorRegistry registry, HealthEndpointGroups groups) {
-		return new HealthEndpoint(registry, groups);
+	protected HealthEndpoint_RENAMED create(HealthContributorRegistry registry, HealthEndpointGroups groups) {
+		return new HealthEndpoint_RENAMED(registry, groups);
 	}
 
 	@Override

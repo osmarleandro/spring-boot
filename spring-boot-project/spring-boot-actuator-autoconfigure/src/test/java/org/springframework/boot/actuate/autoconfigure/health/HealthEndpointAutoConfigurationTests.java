@@ -30,7 +30,7 @@ import org.springframework.boot.actuate.health.DefaultReactiveHealthContributorR
 import org.springframework.boot.actuate.health.Health;
 import org.springframework.boot.actuate.health.HealthComponent;
 import org.springframework.boot.actuate.health.HealthContributorRegistry;
-import org.springframework.boot.actuate.health.HealthEndpoint;
+import org.springframework.boot.actuate.health.HealthEndpoint_RENAMED;
 import org.springframework.boot.actuate.health.HealthEndpointGroups;
 import org.springframework.boot.actuate.health.HealthEndpointGroupsPostProcessor;
 import org.springframework.boot.actuate.health.HealthEndpointWebExtension;
@@ -79,7 +79,7 @@ class HealthEndpointAutoConfigurationTests {
 			assertThat(context).doesNotHaveBean(HttpCodeStatusMapper.class);
 			assertThat(context).doesNotHaveBean(HealthEndpointGroups.class);
 			assertThat(context).doesNotHaveBean(HealthContributorRegistry.class);
-			assertThat(context).doesNotHaveBean(HealthEndpoint.class);
+			assertThat(context).doesNotHaveBean(HealthEndpoint_RENAMED.class);
 			assertThat(context).doesNotHaveBean(ReactiveHealthContributorRegistry.class);
 			assertThat(context).doesNotHaveBean(HealthEndpointWebExtension.class);
 			assertThat(context).doesNotHaveBean(ReactiveHealthEndpointWebExtension.class);
@@ -170,7 +170,7 @@ class HealthEndpointAutoConfigurationTests {
 	@Test
 	void runCreatesHealthEndpoint() {
 		this.contextRunner.withPropertyValues("management.endpoint.health.show-details=always").run((context) -> {
-			HealthEndpoint endpoint = context.getBean(HealthEndpoint.class);
+			HealthEndpoint_RENAMED endpoint = context.getBean(HealthEndpoint_RENAMED.class);
 			Health health = (Health) endpoint.healthForPath("simple");
 			assertThat(health.getDetails()).containsEntry("counter", 42);
 		});
@@ -179,7 +179,7 @@ class HealthEndpointAutoConfigurationTests {
 	@Test
 	void runWhenHasHealthEndpointBeanDoesNotCreateAdditionalHealthEndpoint() {
 		this.contextRunner.withUserConfiguration(HealthEndpointConfiguration.class).run((context) -> {
-			HealthEndpoint endpoint = context.getBean(HealthEndpoint.class);
+			HealthEndpoint_RENAMED endpoint = context.getBean(HealthEndpoint_RENAMED.class);
 			assertThat(endpoint.health()).isNull();
 		});
 	}
@@ -325,8 +325,8 @@ class HealthEndpointAutoConfigurationTests {
 	static class HealthEndpointConfiguration {
 
 		@Bean
-		HealthEndpoint healthEndpoint() {
-			return mock(HealthEndpoint.class);
+		HealthEndpoint_RENAMED healthEndpoint() {
+			return mock(HealthEndpoint_RENAMED.class);
 		}
 
 	}

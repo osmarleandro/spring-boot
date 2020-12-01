@@ -37,7 +37,7 @@ import org.springframework.test.web.reactive.server.WebTestClient;
 import org.springframework.util.ReflectionUtils;
 
 /**
- * Integration tests for {@link HealthEndpoint} and {@link HealthEndpointWebExtension}
+ * Integration tests for {@link HealthEndpoint_RENAMED} and {@link HealthEndpointWebExtension}
  * exposed by Jersey, Spring MVC, and WebFlux.
  *
  * @author Andy Wilkinson
@@ -184,9 +184,9 @@ class HealthEndpointWebIntegrationTests {
 		}
 
 		@Bean
-		HealthEndpoint healthEndpoint(HealthContributorRegistry healthContributorRegistry,
+		HealthEndpoint_RENAMED healthEndpoint(HealthContributorRegistry healthContributorRegistry,
 				HealthEndpointGroups healthEndpointGroups) {
-			return new HealthEndpoint(healthContributorRegistry, healthEndpointGroups);
+			return new HealthEndpoint_RENAMED(healthContributorRegistry, healthEndpointGroups);
 		}
 
 		@Bean

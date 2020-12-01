@@ -23,7 +23,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.springframework.boot.actuate.health.HealthEndpoint;
+import org.springframework.boot.actuate.health.HealthEndpoint_RENAMED;
 import org.springframework.boot.context.properties.NestedConfigurationProperty;
 
 /**
@@ -104,7 +104,7 @@ public abstract class HealthProperties {
 	}
 
 	/**
-	 * Options for showing items in responses from the {@link HealthEndpoint} web
+	 * Options for showing items in responses from the {@link HealthEndpoint_RENAMED} web
 	 * extensions.
 	 */
 	public enum Show {

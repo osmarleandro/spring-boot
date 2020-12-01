@@ -27,13 +27,13 @@ import org.springframework.boot.actuate.endpoint.web.ExposableWebEndpoint;
 import org.springframework.boot.actuate.endpoint.web.PathMapper;
 import org.springframework.boot.actuate.endpoint.web.annotation.EndpointWebExtension;
 import org.springframework.boot.actuate.endpoint.web.annotation.WebEndpointDiscoverer;
-import org.springframework.boot.actuate.health.HealthEndpoint;
+import org.springframework.boot.actuate.health.HealthEndpoint_RENAMED;
 import org.springframework.context.ApplicationContext;
 import org.springframework.core.annotation.MergedAnnotations;
 
 /**
  * {@link WebEndpointDiscoverer} for Cloud Foundry that uses Cloud Foundry specific
- * extensions for the {@link HealthEndpoint}.
+ * extensions for the {@link HealthEndpoint_RENAMED}.
  *
  * @author Madhura Bhave
  * @since 2.0.0
@@ -68,7 +68,7 @@ public class CloudFoundryWebEndpointDiscoverer extends WebEndpointDiscoverer {
 
 	private boolean isHealthEndpointExtension(Class<?> extensionBeanType) {
 		return MergedAnnotations.from(extensionBeanType).get(EndpointWebExtension.class)
-				.getValue("endpoint", Class.class).map(HealthEndpoint.class::isAssignableFrom).orElse(false);
+				.getValue("endpoint", Class.class).map(HealthEndpoint_RENAMED.class::isAssignableFrom).orElse(false);
 	}
 
 	private boolean isCloudFoundryHealthEndpointExtension(Class<?> extensionBeanType) {

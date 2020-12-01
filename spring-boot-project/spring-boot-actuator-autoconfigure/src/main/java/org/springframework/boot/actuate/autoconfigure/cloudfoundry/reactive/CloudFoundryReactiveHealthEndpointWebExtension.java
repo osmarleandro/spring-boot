@@ -27,17 +27,17 @@ import org.springframework.boot.actuate.endpoint.annotation.Selector.Match;
 import org.springframework.boot.actuate.endpoint.http.ApiVersion;
 import org.springframework.boot.actuate.endpoint.web.WebEndpointResponse;
 import org.springframework.boot.actuate.health.HealthComponent;
-import org.springframework.boot.actuate.health.HealthEndpoint;
+import org.springframework.boot.actuate.health.HealthEndpoint_RENAMED;
 import org.springframework.boot.actuate.health.ReactiveHealthEndpointWebExtension;
 
 /**
- * Reactive {@link EndpointExtension @EndpointExtension} for the {@link HealthEndpoint}
+ * Reactive {@link EndpointExtension @EndpointExtension} for the {@link HealthEndpoint_RENAMED}
  * that always exposes full health details.
  *
  * @author Madhura Bhave
  * @since 2.0.0
  */
-@EndpointCloudFoundryExtension(endpoint = HealthEndpoint.class)
+@EndpointCloudFoundryExtension(endpoint = HealthEndpoint_RENAMED.class)
 public class CloudFoundryReactiveHealthEndpointWebExtension {
 
 	private final ReactiveHealthEndpointWebExtension delegate;

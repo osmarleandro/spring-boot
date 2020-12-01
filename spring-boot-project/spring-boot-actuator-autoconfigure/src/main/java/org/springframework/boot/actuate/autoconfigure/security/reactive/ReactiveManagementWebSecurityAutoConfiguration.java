@@ -19,7 +19,7 @@ package org.springframework.boot.actuate.autoconfigure.security.reactive;
 import org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.health.HealthEndpointAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.info.InfoEndpointAutoConfiguration;
-import org.springframework.boot.actuate.health.HealthEndpoint;
+import org.springframework.boot.actuate.health.HealthEndpoint_RENAMED;
 import org.springframework.boot.actuate.info.InfoEndpoint;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
@@ -59,7 +59,7 @@ public class ReactiveManagementWebSecurityAutoConfiguration {
 	@Bean
 	public SecurityWebFilterChain springSecurityFilterChain(ServerHttpSecurity http) throws Exception {
 		http.authorizeExchange((exchanges) -> {
-			exchanges.matchers(EndpointRequest.to(HealthEndpoint.class, InfoEndpoint.class)).permitAll();
+			exchanges.matchers(EndpointRequest.to(HealthEndpoint_RENAMED.class, InfoEndpoint.class)).permitAll();
 			exchanges.anyExchange().authenticated();
 		});
 		http.httpBasic(Customizer.withDefaults());

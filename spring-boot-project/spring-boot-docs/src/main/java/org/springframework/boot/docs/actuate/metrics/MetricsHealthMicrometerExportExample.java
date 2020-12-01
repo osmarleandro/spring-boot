@@ -19,7 +19,7 @@ package org.springframework.boot.docs.actuate.metrics;
 import io.micrometer.core.instrument.Gauge;
 import io.micrometer.core.instrument.MeterRegistry;
 
-import org.springframework.boot.actuate.health.HealthEndpoint;
+import org.springframework.boot.actuate.health.HealthEndpoint_RENAMED;
 import org.springframework.boot.actuate.health.HealthIndicator;
 import org.springframework.boot.actuate.health.Status;
 import org.springframework.context.annotation.Configuration;
@@ -35,12 +35,12 @@ public class MetricsHealthMicrometerExportExample {
 	@Configuration
 	public class HealthMetricsConfiguration {
 
-		public HealthMetricsConfiguration(MeterRegistry registry, HealthEndpoint healthEndpoint) {
+		public HealthMetricsConfiguration(MeterRegistry registry, HealthEndpoint_RENAMED healthEndpoint) {
 			// This example presumes common tags (such as the app) are applied elsewhere
 			Gauge.builder("health", healthEndpoint, this::getStatusCode).strongReference(true).register(registry);
 		}
 
-		private int getStatusCode(HealthEndpoint health) {
+		private int getStatusCode(HealthEndpoint_RENAMED health) {
 			Status status = health.health().getStatus();
 			if (Status.UP.equals(status)) {
 				return 3;
