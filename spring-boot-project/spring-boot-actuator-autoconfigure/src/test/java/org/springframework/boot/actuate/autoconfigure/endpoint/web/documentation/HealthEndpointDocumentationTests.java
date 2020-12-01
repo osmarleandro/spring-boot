@@ -42,7 +42,7 @@ import org.springframework.boot.actuate.health.SimpleHttpCodeStatusMapper;
 import org.springframework.boot.actuate.health.SimpleStatusAggregator;
 import org.springframework.boot.actuate.health.StatusAggregator;
 import org.springframework.boot.actuate.jdbc.DataSourceHealthIndicator;
-import org.springframework.boot.actuate.system.DiskSpaceHealthIndicator;
+import org.springframework.boot.actuate.system.DiskSpaceHealthIndicator_RENAMED;
 import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.context.annotation.Bean;
@@ -114,8 +114,8 @@ class HealthEndpointDocumentationTests extends MockMvcEndpointDocumentationTests
 		}
 
 		@Bean
-		DiskSpaceHealthIndicator diskSpaceHealthIndicator() {
-			return new DiskSpaceHealthIndicator(new File("."), DataSize.ofMegabytes(10));
+		DiskSpaceHealthIndicator_RENAMED diskSpaceHealthIndicator() {
+			return new DiskSpaceHealthIndicator_RENAMED(new File("."), DataSize.ofMegabytes(10));
 		}
 
 		@Bean

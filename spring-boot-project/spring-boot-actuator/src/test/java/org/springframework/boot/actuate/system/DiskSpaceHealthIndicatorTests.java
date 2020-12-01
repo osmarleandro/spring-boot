@@ -33,7 +33,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
 
 /**
- * Tests for {@link DiskSpaceHealthIndicator}.
+ * Tests for {@link DiskSpaceHealthIndicator_RENAMED}.
  *
  * @author Mattias Severson
  * @author Stephane Nicoll
@@ -52,7 +52,7 @@ class DiskSpaceHealthIndicatorTests {
 
 	@BeforeEach
 	void setUp() {
-		this.healthIndicator = new DiskSpaceHealthIndicator(this.fileMock, THRESHOLD);
+		this.healthIndicator = new DiskSpaceHealthIndicator_RENAMED(this.fileMock, THRESHOLD);
 	}
 
 	@Test
@@ -85,7 +85,7 @@ class DiskSpaceHealthIndicatorTests {
 
 	@Test
 	void whenPathDoesNotExistDiskSpaceIsDown() {
-		Health health = new DiskSpaceHealthIndicator(new File("does/not/exist"), THRESHOLD).health();
+		Health health = new DiskSpaceHealthIndicator_RENAMED(new File("does/not/exist"), THRESHOLD).health();
 		assertThat(health.getStatus()).isEqualTo(Status.DOWN);
 		assertThat(health.getDetails().get("free")).isEqualTo(0L);
 		assertThat(health.getDetails().get("total")).isEqualTo(0L);

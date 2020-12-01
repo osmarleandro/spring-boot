@@ -19,7 +19,7 @@ package org.springframework.boot.actuate.autoconfigure.system;
 import org.junit.jupiter.api.Test;
 
 import org.springframework.boot.actuate.autoconfigure.health.HealthContributorAutoConfiguration;
-import org.springframework.boot.actuate.system.DiskSpaceHealthIndicator;
+import org.springframework.boot.actuate.system.DiskSpaceHealthIndicator_RENAMED;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
 import org.springframework.boot.test.context.runner.ApplicationContextRunner;
 import org.springframework.util.unit.DataSize;
@@ -40,7 +40,7 @@ class DiskSpaceHealthContributorAutoConfigurationTests {
 
 	@Test
 	void runShouldCreateIndicator() {
-		this.contextRunner.run((context) -> assertThat(context).hasSingleBean(DiskSpaceHealthIndicator.class));
+		this.contextRunner.run((context) -> assertThat(context).hasSingleBean(DiskSpaceHealthIndicator_RENAMED.class));
 	}
 
 	@Test
@@ -53,8 +53,8 @@ class DiskSpaceHealthContributorAutoConfigurationTests {
 	@Test
 	void thresholdCanBeCustomized() {
 		this.contextRunner.withPropertyValues("management.health.diskspace.threshold=20MB").run((context) -> {
-			assertThat(context).hasSingleBean(DiskSpaceHealthIndicator.class);
-			assertThat(context.getBean(DiskSpaceHealthIndicator.class)).hasFieldOrPropertyWithValue("threshold",
+			assertThat(context).hasSingleBean(DiskSpaceHealthIndicator_RENAMED.class);
+			assertThat(context.getBean(DiskSpaceHealthIndicator_RENAMED.class)).hasFieldOrPropertyWithValue("threshold",
 					DataSize.ofMegabytes(20));
 		});
 	}
@@ -62,13 +62,13 @@ class DiskSpaceHealthContributorAutoConfigurationTests {
 	@Test
 	void runWhenPathDoesNotExistShouldCreateIndicator() {
 		this.contextRunner.withPropertyValues("management.health.diskspace.path=does/not/exist")
-				.run((context) -> assertThat(context).hasSingleBean(DiskSpaceHealthIndicator.class));
+				.run((context) -> assertThat(context).hasSingleBean(DiskSpaceHealthIndicator_RENAMED.class));
 	}
 
 	@Test
 	void runWhenDisabledShouldNotCreateIndicator() {
 		this.contextRunner.withPropertyValues("management.health.diskspace.enabled:false")
-				.run((context) -> assertThat(context).doesNotHaveBean(DiskSpaceHealthIndicator.class));
+				.run((context) -> assertThat(context).doesNotHaveBean(DiskSpaceHealthIndicator_RENAMED.class));
 	}
 
 }
