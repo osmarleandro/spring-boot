@@ -21,7 +21,7 @@ import java.util.Base64;
 import org.junit.jupiter.api.Test;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.actuate.autoconfigure.security.reactive.EndpointRequest;
+import org.springframework.boot.actuate.autoconfigure.security.reactive.EndpointRequest_RENAMED;
 import org.springframework.boot.actuate.autoconfigure.web.server.LocalManagementPort;
 import org.springframework.boot.actuate.web.mappings.MappingsEndpoint;
 import org.springframework.boot.autoconfigure.security.reactive.PathRequest;
@@ -92,8 +92,8 @@ class ManagementPortSampleSecureWebFluxTests {
 		@Bean
 		SecurityWebFilterChain springSecurityFilterChain(ServerHttpSecurity http) throws Exception {
 			http.authorizeExchange((exchanges) -> {
-				exchanges.matchers(EndpointRequest.to("health", "info")).permitAll();
-				exchanges.matchers(EndpointRequest.toAnyEndpoint().excluding(MappingsEndpoint.class))
+				exchanges.matchers(EndpointRequest_RENAMED.to("health", "info")).permitAll();
+				exchanges.matchers(EndpointRequest_RENAMED.toAnyEndpoint().excluding(MappingsEndpoint.class))
 						.hasRole("ACTUATOR");
 				exchanges.matchers(PathRequest.toStaticResources().atCommonLocations()).permitAll();
 				exchanges.pathMatchers("/login").permitAll();
