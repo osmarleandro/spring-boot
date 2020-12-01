@@ -35,7 +35,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  *
  * @author Tim Ysewyn
  */
-class IntegrationGraphEndpointDocumentationTests extends MockMvcEndpointDocumentationTests {
+class IntegrationGraphEndpointDocumentationTests_RENAMED extends MockMvcEndpointDocumentationTests {
 
 	@Test
 	void graph() throws Exception {
