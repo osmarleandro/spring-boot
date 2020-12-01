@@ -28,7 +28,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 
 /**
- * Tests for {@link CouchbaseHealthContributorAutoConfiguration}.
+ * Tests for {@link CouchbaseHealthContributorAutoConfiguration_RENAMED}.
  *
  * @author Phillip Webb
  * @author Stephane Nicoll
@@ -37,7 +37,7 @@ class CouchbaseHealthContributorAutoConfigurationTests {
 
 	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.withBean(Cluster.class, () -> mock(Cluster.class)).withConfiguration(AutoConfigurations
-					.of(CouchbaseHealthContributorAutoConfiguration.class, HealthContributorAutoConfiguration.class));
+					.of(CouchbaseHealthContributorAutoConfiguration_RENAMED.class, HealthContributorAutoConfiguration.class));
 
 	@Test
 	void runShouldCreateIndicator() {

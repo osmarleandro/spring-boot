@@ -48,7 +48,7 @@ class CouchbaseReactiveHealthContributorAutoConfigurationTests {
 
 	@Test
 	void runWithRegularIndicatorShouldOnlyCreateReactiveIndicator() {
-		this.contextRunner.withConfiguration(AutoConfigurations.of(CouchbaseHealthContributorAutoConfiguration.class))
+		this.contextRunner.withConfiguration(AutoConfigurations.of(CouchbaseHealthContributorAutoConfiguration_RENAMED.class))
 				.run((context) -> assertThat(context).hasSingleBean(CouchbaseReactiveHealthIndicator.class)
 						.hasBean("couchbaseHealthContributor").doesNotHaveBean(CouchbaseHealthIndicator.class));
 	}
