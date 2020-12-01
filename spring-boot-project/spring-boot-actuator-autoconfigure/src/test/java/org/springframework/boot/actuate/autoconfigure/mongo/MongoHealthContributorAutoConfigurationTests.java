@@ -28,7 +28,7 @@ import org.springframework.boot.test.context.runner.ApplicationContextRunner;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Tests for {@link MongoHealthContributorAutoConfiguration}
+ * Tests for {@link MongoHealthContributorAutoConfiguration_RENAMED}
  *
  * @author Phillip Webb
  */
@@ -36,7 +36,7 @@ class MongoHealthContributorAutoConfigurationTests {
 
 	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(MongoAutoConfiguration.class, MongoDataAutoConfiguration.class,
-					MongoHealthContributorAutoConfiguration.class, HealthContributorAutoConfiguration.class));
+					MongoHealthContributorAutoConfiguration_RENAMED.class, HealthContributorAutoConfiguration.class));
 
 	@Test
 	void runShouldCreateIndicator() {

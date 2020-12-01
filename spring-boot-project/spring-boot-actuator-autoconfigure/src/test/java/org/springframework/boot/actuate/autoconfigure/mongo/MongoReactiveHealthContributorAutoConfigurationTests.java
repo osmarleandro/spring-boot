@@ -50,7 +50,7 @@ class MongoReactiveHealthContributorAutoConfigurationTests {
 
 	@Test
 	void runWithRegularIndicatorShouldOnlyCreateReactiveIndicator() {
-		this.contextRunner.withConfiguration(AutoConfigurations.of(MongoHealthContributorAutoConfiguration.class))
+		this.contextRunner.withConfiguration(AutoConfigurations.of(MongoHealthContributorAutoConfiguration_RENAMED.class))
 				.run((context) -> assertThat(context).hasSingleBean(MongoReactiveHealthIndicator.class)
 						.hasBean("mongoHealthContributor").doesNotHaveBean(MongoHealthIndicator.class));
 	}
