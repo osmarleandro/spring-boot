@@ -28,7 +28,7 @@ import org.springframework.boot.test.context.runner.ApplicationContextRunner;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Tests for {@link RedisReactiveHealthContributorAutoConfiguration}.
+ * Tests for {@link RedisReactiveHealthContributorAutoConfiguration_RENAMED}.
  *
  * @author Phillip Webb
  */
@@ -36,7 +36,7 @@ class RedisReactiveHealthContributorAutoConfigurationTests {
 
 	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(RedisAutoConfiguration.class,
-					RedisReactiveHealthContributorAutoConfiguration.class, HealthContributorAutoConfiguration.class));
+					RedisReactiveHealthContributorAutoConfiguration_RENAMED.class, HealthContributorAutoConfiguration.class));
 
 	@Test
 	void runShouldCreateIndicator() {
