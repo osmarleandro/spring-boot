@@ -28,7 +28,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 
 /**
- * Tests for {@link LdapHealthContributorAutoConfiguration}.
+ * Tests for {@link LdapHealthContributorAutoConfiguration_RENAMED}.
  *
  * @author Eddú Meléndez
  * @author Stephane Nicoll
@@ -37,7 +37,7 @@ class LdapHealthContributorAutoConfigurationTests {
 
 	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.withBean(LdapOperations.class, () -> mock(LdapOperations.class)).withConfiguration(AutoConfigurations
-					.of(LdapHealthContributorAutoConfiguration.class, HealthContributorAutoConfiguration.class));
+					.of(LdapHealthContributorAutoConfiguration_RENAMED.class, HealthContributorAutoConfiguration.class));
 
 	@Test
 	void runShouldCreateIndicator() {

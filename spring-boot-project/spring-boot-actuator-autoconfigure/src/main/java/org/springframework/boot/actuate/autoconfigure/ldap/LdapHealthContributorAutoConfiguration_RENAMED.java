@@ -44,7 +44,7 @@ import org.springframework.ldap.core.LdapOperations;
 @ConditionalOnBean(LdapOperations.class)
 @ConditionalOnEnabledHealthIndicator("ldap")
 @AutoConfigureAfter(LdapAutoConfiguration.class)
-public class LdapHealthContributorAutoConfiguration
+public class LdapHealthContributorAutoConfiguration_RENAMED
 		extends CompositeHealthContributorConfiguration<LdapHealthIndicator, LdapOperations> {
 
 	@Bean
