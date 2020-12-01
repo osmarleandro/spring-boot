@@ -28,7 +28,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
 import org.springframework.boot.actuate.autoconfigure.endpoint.EndpointAutoConfiguration;
-import org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointAutoConfiguration;
+import org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointAutoConfiguration_RENAMED;
 import org.springframework.boot.actuate.autoconfigure.endpoint.web.reactive.WebFluxEndpointManagementContextConfiguration;
 import org.springframework.boot.actuate.autoconfigure.endpoint.web.servlet.WebMvcEndpointManagementContextConfiguration;
 import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
@@ -119,7 +119,7 @@ public abstract class AbstractEndpointDocumentationTests {
 	@Configuration(proxyBeanMethods = false)
 	@ImportAutoConfiguration({ JacksonAutoConfiguration.class, HttpMessageConvertersAutoConfiguration.class,
 			WebMvcAutoConfiguration.class, DispatcherServletAutoConfiguration.class, EndpointAutoConfiguration.class,
-			WebEndpointAutoConfiguration.class, WebMvcEndpointManagementContextConfiguration.class,
+			WebEndpointAutoConfiguration_RENAMED.class, WebMvcEndpointManagementContextConfiguration.class,
 			WebFluxEndpointManagementContextConfiguration.class, PropertyPlaceholderAutoConfiguration.class,
 			WebFluxAutoConfiguration.class, HttpHandlerAutoConfiguration.class })
 	static class BaseDocumentationConfiguration {

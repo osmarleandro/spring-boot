@@ -22,7 +22,7 @@ import java.util.Collection;
 import org.junit.jupiter.api.Test;
 
 import org.springframework.boot.actuate.autoconfigure.endpoint.EndpointAutoConfiguration;
-import org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointAutoConfiguration;
+import org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointAutoConfiguration_RENAMED;
 import org.springframework.boot.actuate.autoconfigure.health.HealthContributorAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.health.HealthEndpointAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.web.server.ManagementContextAutoConfiguration;
@@ -73,7 +73,7 @@ class CloudFoundryActuatorAutoConfigurationTests {
 					HttpMessageConvertersAutoConfiguration.class, PropertyPlaceholderAutoConfiguration.class,
 					RestTemplateAutoConfiguration.class, ManagementContextAutoConfiguration.class,
 					ServletManagementContextAutoConfiguration.class, EndpointAutoConfiguration.class,
-					WebEndpointAutoConfiguration.class, CloudFoundryActuatorAutoConfiguration.class));
+					WebEndpointAutoConfiguration_RENAMED.class, CloudFoundryActuatorAutoConfiguration.class));
 
 	@Test
 	void cloudFoundryPlatformActive() {

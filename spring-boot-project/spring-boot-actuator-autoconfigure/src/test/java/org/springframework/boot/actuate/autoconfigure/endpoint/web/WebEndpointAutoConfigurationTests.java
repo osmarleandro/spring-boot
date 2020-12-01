@@ -43,7 +43,7 @@ import org.springframework.stereotype.Component;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Tests for {@link WebEndpointAutoConfiguration}.
+ * Tests for {@link WebEndpointAutoConfiguration_RENAMED}.
  *
  * @author Andy Wilkinson
  * @author Yunkun Huang
@@ -52,7 +52,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 class WebEndpointAutoConfigurationTests {
 
 	private static final AutoConfigurations CONFIGURATIONS = AutoConfigurations.of(EndpointAutoConfiguration.class,
-			WebEndpointAutoConfiguration.class);
+			WebEndpointAutoConfiguration_RENAMED.class);
 
 	private final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner()
 			.withConfiguration(CONFIGURATIONS);

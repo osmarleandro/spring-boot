@@ -19,7 +19,7 @@ package org.springframework.boot.actuate.autoconfigure.cloudfoundry.servlet;
 import org.junit.jupiter.api.Test;
 
 import org.springframework.boot.actuate.autoconfigure.endpoint.EndpointAutoConfiguration;
-import org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointAutoConfiguration;
+import org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointAutoConfiguration_RENAMED;
 import org.springframework.boot.actuate.autoconfigure.health.HealthContributorAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.health.HealthEndpointAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.web.server.ManagementContextAutoConfiguration;
@@ -55,7 +55,7 @@ class CloudFoundryHealthEndpointWebExtensionTests {
 					HttpMessageConvertersAutoConfiguration.class, PropertyPlaceholderAutoConfiguration.class,
 					RestTemplateAutoConfiguration.class, ManagementContextAutoConfiguration.class,
 					ServletManagementContextAutoConfiguration.class, EndpointAutoConfiguration.class,
-					WebEndpointAutoConfiguration.class, HealthContributorAutoConfiguration.class,
+					WebEndpointAutoConfiguration_RENAMED.class, HealthContributorAutoConfiguration.class,
 					HealthEndpointAutoConfiguration.class, CloudFoundryActuatorAutoConfiguration.class))
 			.withUserConfiguration(TestHealthIndicator.class);
 

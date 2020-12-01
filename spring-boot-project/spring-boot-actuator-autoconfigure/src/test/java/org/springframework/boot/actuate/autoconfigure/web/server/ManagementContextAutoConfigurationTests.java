@@ -21,7 +21,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
 import org.springframework.boot.actuate.autoconfigure.endpoint.EndpointAutoConfiguration;
-import org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointAutoConfiguration;
+import org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointAutoConfiguration_RENAMED;
 import org.springframework.boot.actuate.autoconfigure.web.servlet.ServletManagementContextAutoConfiguration;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
 import org.springframework.boot.autoconfigure.web.servlet.DispatcherServletAutoConfiguration;
@@ -49,7 +49,7 @@ class ManagementContextAutoConfigurationTests {
 				AnnotationConfigServletWebServerApplicationContext::new)
 						.withConfiguration(AutoConfigurations.of(ManagementContextAutoConfiguration.class,
 								ServletWebServerFactoryAutoConfiguration.class,
-								ServletManagementContextAutoConfiguration.class, WebEndpointAutoConfiguration.class,
+								ServletManagementContextAutoConfiguration.class, WebEndpointAutoConfiguration_RENAMED.class,
 								EndpointAutoConfiguration.class));
 		contextRunner.withPropertyValues("server.port=0", "management.server.port=0")
 				.run((context) -> assertThat(output).satisfies(numberOfOccurrences("Tomcat started on port", 2)));
@@ -61,7 +61,7 @@ class ManagementContextAutoConfigurationTests {
 				AnnotationConfigServletWebServerApplicationContext::new)
 						.withConfiguration(AutoConfigurations.of(ManagementContextAutoConfiguration.class,
 								ServletWebServerFactoryAutoConfiguration.class,
-								ServletManagementContextAutoConfiguration.class, WebEndpointAutoConfiguration.class,
+								ServletManagementContextAutoConfiguration.class, WebEndpointAutoConfiguration_RENAMED.class,
 								EndpointAutoConfiguration.class, DispatcherServletAutoConfiguration.class));
 		contextRunner.withPropertyValues("server.port=0", "management.server.address=127.0.0.1")
 				.run((context) -> assertThat(context).getFailure()

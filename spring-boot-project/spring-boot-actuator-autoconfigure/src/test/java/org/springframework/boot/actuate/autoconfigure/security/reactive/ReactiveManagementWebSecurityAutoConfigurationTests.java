@@ -26,7 +26,7 @@ import reactor.core.publisher.Mono;
 
 import org.springframework.beans.BeansException;
 import org.springframework.boot.actuate.autoconfigure.endpoint.EndpointAutoConfiguration;
-import org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointAutoConfiguration;
+import org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointAutoConfiguration_RENAMED;
 import org.springframework.boot.actuate.autoconfigure.env.EnvironmentEndpointAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.health.HealthContributorAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.health.HealthEndpointAutoConfiguration;
@@ -69,7 +69,7 @@ class ReactiveManagementWebSecurityAutoConfigurationTests {
 			.withConfiguration(AutoConfigurations.of(HealthContributorAutoConfiguration.class,
 					HealthEndpointAutoConfiguration.class, InfoEndpointAutoConfiguration.class,
 					EnvironmentEndpointAutoConfiguration.class, EndpointAutoConfiguration.class,
-					WebEndpointAutoConfiguration.class, ReactiveSecurityAutoConfiguration.class,
+					WebEndpointAutoConfiguration_RENAMED.class, ReactiveSecurityAutoConfiguration.class,
 					ReactiveUserDetailsServiceAutoConfiguration.class,
 					ReactiveManagementWebSecurityAutoConfiguration.class));
 

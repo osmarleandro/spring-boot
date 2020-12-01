@@ -16,7 +16,7 @@
 
 package org.springframework.boot.actuate.autoconfigure.security.reactive;
 
-import org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointAutoConfiguration;
+import org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointAutoConfiguration_RENAMED;
 import org.springframework.boot.actuate.autoconfigure.health.HealthEndpointAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.info.InfoEndpointAutoConfiguration;
 import org.springframework.boot.actuate.health.HealthEndpoint;
@@ -52,7 +52,7 @@ import org.springframework.security.web.server.WebFilterChainProxy;
 @ConditionalOnWebApplication(type = ConditionalOnWebApplication.Type.REACTIVE)
 @AutoConfigureBefore(ReactiveSecurityAutoConfiguration.class)
 @AutoConfigureAfter({ HealthEndpointAutoConfiguration.class, InfoEndpointAutoConfiguration.class,
-		WebEndpointAutoConfiguration.class, ReactiveOAuth2ClientAutoConfiguration.class,
+		WebEndpointAutoConfiguration_RENAMED.class, ReactiveOAuth2ClientAutoConfiguration.class,
 		ReactiveOAuth2ResourceServerAutoConfiguration.class })
 public class ReactiveManagementWebSecurityAutoConfiguration {
 

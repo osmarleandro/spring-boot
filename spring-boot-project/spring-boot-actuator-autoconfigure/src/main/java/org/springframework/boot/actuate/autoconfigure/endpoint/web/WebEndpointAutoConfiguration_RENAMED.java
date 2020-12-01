@@ -63,13 +63,13 @@ import org.springframework.context.annotation.Configuration;
 @ConditionalOnWebApplication
 @AutoConfigureAfter(EndpointAutoConfiguration.class)
 @EnableConfigurationProperties(WebEndpointProperties.class)
-public class WebEndpointAutoConfiguration {
+public class WebEndpointAutoConfiguration_RENAMED {
 
 	private final ApplicationContext applicationContext;
 
 	private final WebEndpointProperties properties;
 
-	public WebEndpointAutoConfiguration(ApplicationContext applicationContext, WebEndpointProperties properties) {
+	public WebEndpointAutoConfiguration_RENAMED(ApplicationContext applicationContext, WebEndpointProperties properties) {
 		this.applicationContext = applicationContext;
 		this.properties = properties;
 	}

@@ -27,7 +27,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.actuate.autoconfigure.endpoint.EndpointAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.endpoint.web.ServletEndpointManagementContextConfiguration;
-import org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointAutoConfiguration;
+import org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointAutoConfiguration_RENAMED;
 import org.springframework.boot.actuate.autoconfigure.jolokia.JolokiaEndpointAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.web.server.ManagementContextAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.web.servlet.ServletManagementContextAutoConfiguration;
@@ -98,7 +98,7 @@ class JolokiaEndpointAutoConfigurationIntegrationTests {
 	@Configuration(proxyBeanMethods = false)
 	@MinimalWebConfiguration
 	@Import({ JacksonAutoConfiguration.class, HttpMessageConvertersAutoConfiguration.class,
-			JolokiaEndpointAutoConfiguration.class, EndpointAutoConfiguration.class, WebEndpointAutoConfiguration.class,
+			JolokiaEndpointAutoConfiguration.class, EndpointAutoConfiguration.class, WebEndpointAutoConfiguration_RENAMED.class,
 			ServletManagementContextAutoConfiguration.class, ManagementContextAutoConfiguration.class,
 			ServletEndpointManagementContextConfiguration.class })
 	static class Application {

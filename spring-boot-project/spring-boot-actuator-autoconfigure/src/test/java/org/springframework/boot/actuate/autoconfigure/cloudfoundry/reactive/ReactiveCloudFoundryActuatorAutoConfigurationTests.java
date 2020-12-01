@@ -31,7 +31,7 @@ import reactor.netty.http.HttpResources;
 
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.servlet.CloudFoundryInfoEndpointWebExtension;
 import org.springframework.boot.actuate.autoconfigure.endpoint.EndpointAutoConfiguration;
-import org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointAutoConfiguration;
+import org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointAutoConfiguration_RENAMED;
 import org.springframework.boot.actuate.autoconfigure.health.HealthContributorAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.health.HealthEndpointAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.info.InfoContributorAutoConfiguration;
@@ -86,7 +86,7 @@ class ReactiveCloudFoundryActuatorAutoConfigurationTests {
 					JacksonAutoConfiguration.class, HttpMessageConvertersAutoConfiguration.class,
 					PropertyPlaceholderAutoConfiguration.class, WebClientCustomizerConfig.class,
 					WebClientAutoConfiguration.class, ManagementContextAutoConfiguration.class,
-					EndpointAutoConfiguration.class, WebEndpointAutoConfiguration.class,
+					EndpointAutoConfiguration.class, WebEndpointAutoConfiguration_RENAMED.class,
 					HealthContributorAutoConfiguration.class, HealthEndpointAutoConfiguration.class,
 					InfoContributorAutoConfiguration.class, InfoEndpointAutoConfiguration.class,
 					ProjectInfoAutoConfiguration.class, ReactiveCloudFoundryActuatorAutoConfiguration.class));

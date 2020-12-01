@@ -22,7 +22,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.actuate.autoconfigure.audit.AuditAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.beans.BeansEndpointAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.endpoint.EndpointAutoConfiguration;
-import org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointAutoConfiguration;
+import org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointAutoConfiguration_RENAMED;
 import org.springframework.boot.actuate.autoconfigure.web.server.ManagementContextAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.web.servlet.ServletManagementContextAutoConfiguration;
 import org.springframework.boot.actuate.endpoint.web.annotation.ControllerEndpoint;
@@ -105,7 +105,7 @@ class ControllerEndpointWebMvcIntegrationTests {
 	}
 
 	@ImportAutoConfiguration({ JacksonAutoConfiguration.class, HttpMessageConvertersAutoConfiguration.class,
-			EndpointAutoConfiguration.class, WebEndpointAutoConfiguration.class,
+			EndpointAutoConfiguration.class, WebEndpointAutoConfiguration_RENAMED.class,
 			ServletManagementContextAutoConfiguration.class, AuditAutoConfiguration.class,
 			PropertyPlaceholderAutoConfiguration.class, WebMvcAutoConfiguration.class,
 			ManagementContextAutoConfiguration.class, DispatcherServletAutoConfiguration.class,
