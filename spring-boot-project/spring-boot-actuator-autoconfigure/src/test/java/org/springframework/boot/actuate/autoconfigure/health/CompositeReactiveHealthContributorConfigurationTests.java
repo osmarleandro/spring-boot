@@ -30,7 +30,7 @@ import org.springframework.boot.actuate.health.ReactiveHealthContributor;
  * @author Phillip Webb
  */
 class CompositeReactiveHealthContributorConfigurationTests extends
-		AbstractCompositeHealthContributorConfigurationTests<ReactiveHealthContributor, TestReactiveHealthIndicator> {
+		AbstractCompositeHealthContributorConfigurationTests_RENAMED<ReactiveHealthContributor, TestReactiveHealthIndicator> {
 
 	@Override
 	protected AbstractCompositeHealthContributorConfiguration<ReactiveHealthContributor, TestReactiveHealthIndicator, TestBean> newComposite() {

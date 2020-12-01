@@ -35,12 +35,12 @@ import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException
  * @param <I> the health indicator type
  * @author Phillip Webb
  */
-abstract class AbstractCompositeHealthContributorConfigurationTests<C, I extends C> {
+abstract class AbstractCompositeHealthContributorConfigurationTests_RENAMED<C, I extends C> {
 
 	private final Class<?> indicatorType;
 
-	AbstractCompositeHealthContributorConfigurationTests() {
-		ResolvableType type = ResolvableType.forClass(AbstractCompositeHealthContributorConfigurationTests.class,
+	AbstractCompositeHealthContributorConfigurationTests_RENAMED() {
+		ResolvableType type = ResolvableType.forClass(AbstractCompositeHealthContributorConfigurationTests_RENAMED.class,
 				getClass());
 		this.indicatorType = type.resolveGeneric(1);
 	}
