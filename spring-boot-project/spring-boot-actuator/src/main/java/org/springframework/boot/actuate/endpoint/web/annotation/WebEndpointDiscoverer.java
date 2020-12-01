@@ -69,7 +69,7 @@ public class WebEndpointDiscoverer extends EndpointDiscoverer<ExposableWebEndpoi
 	protected ExposableWebEndpoint createEndpoint(Object endpointBean, EndpointId id, boolean enabledByDefault,
 			Collection<WebOperation> operations) {
 		String rootPath = PathMapper.getRootPath(this.endpointPathMappers, id);
-		return new DiscoveredWebEndpoint(this, endpointBean, id, rootPath, enabledByDefault, operations);
+		return new DiscoveredWebEndpoint_RENAMED(this, endpointBean, id, rootPath, enabledByDefault, operations);
 	}
 
 	@Override
