@@ -75,7 +75,7 @@ class WebMvcEndpointExposureIntegrationTests {
 							ManagementContextAutoConfiguration.class, ServletManagementContextAutoConfiguration.class,
 							ManagementContextAutoConfiguration.class, ServletManagementContextAutoConfiguration.class,
 							HttpTraceAutoConfiguration.class, HealthContributorAutoConfiguration.class))
-					.withConfiguration(AutoConfigurations.of(EndpointAutoConfigurationClasses.ALL))
+					.withConfiguration(AutoConfigurations.of(EndpointAutoConfigurationClasses_RENAMED.ALL))
 					.withUserConfiguration(CustomMvcEndpoint.class, CustomServletEndpoint.class,
 							HttpTraceRepositoryConfiguration.class, AuditEventRepositoryConfiguration.class)
 					.withPropertyValues("server.port:0");

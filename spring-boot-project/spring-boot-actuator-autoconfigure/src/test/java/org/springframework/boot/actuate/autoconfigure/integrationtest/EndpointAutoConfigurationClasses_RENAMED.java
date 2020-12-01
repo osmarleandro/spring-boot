@@ -35,7 +35,7 @@ import org.springframework.util.ClassUtils;
 /**
  * A list of all endpoint auto-configuration classes for use in tests.
  */
-final class EndpointAutoConfigurationClasses {
+final class EndpointAutoConfigurationClasses_RENAMED {
 
 	static final Class<?>[] ALL;
 
@@ -55,7 +55,7 @@ final class EndpointAutoConfigurationClasses {
 		ALL = ClassUtils.toClassArray(all);
 	}
 
-	private EndpointAutoConfigurationClasses() {
+	private EndpointAutoConfigurationClasses_RENAMED() {
 	}
 
 }

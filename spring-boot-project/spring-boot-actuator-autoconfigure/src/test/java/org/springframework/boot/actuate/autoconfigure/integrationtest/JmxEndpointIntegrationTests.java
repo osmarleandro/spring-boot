@@ -55,7 +55,7 @@ class JmxEndpointIntegrationTests {
 					HttpTraceAutoConfiguration.class))
 			.withUserConfiguration(HttpTraceRepositoryConfiguration.class, AuditEventRepositoryConfiguration.class)
 			.withPropertyValues("spring.jmx.enabled=true")
-			.withConfiguration(AutoConfigurations.of(EndpointAutoConfigurationClasses.ALL));
+			.withConfiguration(AutoConfigurations.of(EndpointAutoConfigurationClasses_RENAMED.ALL));
 
 	@Test
 	void jmxEndpointsAreExposed() {
