@@ -24,7 +24,7 @@ import com.fasterxml.jackson.annotation.JsonUnwrapped;
  * @author Phillip Webb
  * @since 2.2.0
  * @see Health
- * @see CompositeHealth
+ * @see CompositeHealth_RENAMED
  */
 public abstract class HealthComponent {
 

@@ -26,7 +26,7 @@ import org.springframework.boot.actuate.autoconfigure.health.HealthContributorAu
 import org.springframework.boot.actuate.autoconfigure.health.HealthEndpointAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.web.server.ManagementContextAutoConfiguration;
 import org.springframework.boot.actuate.endpoint.http.ApiVersion;
-import org.springframework.boot.actuate.health.CompositeHealth;
+import org.springframework.boot.actuate.health.CompositeHealth_RENAMED;
 import org.springframework.boot.actuate.health.Health;
 import org.springframework.boot.actuate.health.HealthComponent;
 import org.springframework.boot.actuate.health.HealthIndicator;
@@ -68,7 +68,7 @@ class CloudFoundryReactiveHealthEndpointWebExtensionTests {
 			CloudFoundryReactiveHealthEndpointWebExtension extension = context
 					.getBean(CloudFoundryReactiveHealthEndpointWebExtension.class);
 			HealthComponent body = extension.health(ApiVersion.V3).block(Duration.ofSeconds(30)).getBody();
-			HealthComponent health = ((CompositeHealth) body).getComponents().entrySet().iterator().next().getValue();
+			HealthComponent health = ((CompositeHealth_RENAMED) body).getComponents().entrySet().iterator().next().getValue();
 			assertThat(((Health) health).getDetails()).containsEntry("spring", "boot");
 		});
 	}
