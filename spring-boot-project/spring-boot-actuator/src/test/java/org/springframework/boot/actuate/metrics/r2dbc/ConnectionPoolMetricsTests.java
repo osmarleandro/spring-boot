@@ -36,7 +36,7 @@ import reactor.test.StepVerifier;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Tests for {@link ConnectionPoolMetrics}.
+ * Tests for {@link ConnectionPoolMetrics_RENAMED}.
  *
  * @author Tadaya Tsuyukubo
  * @author Mark Paluch
@@ -68,7 +68,7 @@ class ConnectionPoolMetricsTests {
 		SimpleMeterRegistry registry = new SimpleMeterRegistry();
 		ConnectionPool connectionPool = new ConnectionPool(
 				ConnectionPoolConfiguration.builder(this.connectionFactory).initialSize(3).maxSize(7).build());
-		ConnectionPoolMetrics metrics = new ConnectionPoolMetrics(connectionPool, "test-pool",
+		ConnectionPoolMetrics_RENAMED metrics = new ConnectionPoolMetrics_RENAMED(connectionPool, "test-pool",
 				Tags.of(testTag, regionTag));
 		metrics.bindTo(registry);
 		// acquire two connections

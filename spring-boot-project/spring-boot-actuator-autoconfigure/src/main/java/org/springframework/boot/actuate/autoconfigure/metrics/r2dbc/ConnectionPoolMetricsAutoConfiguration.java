@@ -26,7 +26,7 @@ import io.r2dbc.spi.ConnectionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.actuate.autoconfigure.metrics.MetricsAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.metrics.export.simple.SimpleMetricsExportAutoConfiguration;
-import org.springframework.boot.actuate.metrics.r2dbc.ConnectionPoolMetrics;
+import org.springframework.boot.actuate.metrics.r2dbc.ConnectionPoolMetrics_RENAMED;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
@@ -54,7 +54,7 @@ public class ConnectionPoolMetricsAutoConfiguration {
 			MeterRegistry registry) {
 		connectionFactories.forEach((beanName, connectionFactory) -> {
 			if (connectionFactory instanceof ConnectionPool) {
-				new ConnectionPoolMetrics((ConnectionPool) connectionFactory, beanName, Tags.empty()).bindTo(registry);
+				new ConnectionPoolMetrics_RENAMED((ConnectionPool) connectionFactory, beanName, Tags.empty()).bindTo(registry);
 			}
 		});
 	}
