@@ -58,7 +58,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT,
 		properties = "management.endpoints.web.exposure.include=jolokia")
 @DirtiesContext
-class JolokiaEndpointAutoConfigurationIntegrationTests {
+class JolokiaEndpointAutoConfigurationIntegrationTests_RENAMED {
 
 	@Autowired
 	private TestRestTemplate restTemplate;
