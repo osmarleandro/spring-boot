@@ -28,9 +28,9 @@ import org.springframework.boot.actuate.autoconfigure.metrics.export.properties.
  * @author Jon Schneider
  * @author Stephane Nicoll
  */
-class JmxPropertiesConfigAdapter extends PropertiesConfigAdapter<JmxProperties> implements JmxConfig {
+class JmxPropertiesConfigAdapter_RENAMED extends PropertiesConfigAdapter<JmxProperties> implements JmxConfig {
 
-	JmxPropertiesConfigAdapter(JmxProperties properties) {
+	JmxPropertiesConfigAdapter_RENAMED(JmxProperties properties) {
 		super(properties);
 	}
 

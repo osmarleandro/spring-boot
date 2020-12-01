@@ -52,7 +52,7 @@ public class JmxMetricsExportAutoConfiguration {
 	@Bean
 	@ConditionalOnMissingBean
 	public JmxConfig jmxConfig(JmxProperties jmxProperties) {
-		return new JmxPropertiesConfigAdapter(jmxProperties);
+		return new JmxPropertiesConfigAdapter_RENAMED(jmxProperties);
 	}
 
 	@Bean
