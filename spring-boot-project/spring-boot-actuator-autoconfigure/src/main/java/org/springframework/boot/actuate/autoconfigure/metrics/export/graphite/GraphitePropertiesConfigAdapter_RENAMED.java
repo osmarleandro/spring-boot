@@ -30,9 +30,9 @@ import org.springframework.boot.actuate.autoconfigure.metrics.export.properties.
  * @author Jon Schneider
  * @author Phillip Webb
  */
-class GraphitePropertiesConfigAdapter extends PropertiesConfigAdapter<GraphiteProperties> implements GraphiteConfig {
+class GraphitePropertiesConfigAdapter_RENAMED extends PropertiesConfigAdapter<GraphiteProperties> implements GraphiteConfig {
 
-	GraphitePropertiesConfigAdapter(GraphiteProperties properties) {
+	GraphitePropertiesConfigAdapter_RENAMED(GraphiteProperties properties) {
 		super(properties);
 	}
 
