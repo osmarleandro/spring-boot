@@ -25,7 +25,7 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
 
 /**
- * Tests for {@link HttpTraceEndpoint}.
+ * Tests for {@link HttpTraceEndpoint_RENAMED}.
  *
  * @author Phillip Webb
  * @author Andy Wilkinson
@@ -36,7 +36,7 @@ class HttpTraceEndpointTests {
 	void trace() {
 		HttpTraceRepository repository = new InMemoryHttpTraceRepository();
 		repository.add(new HttpTrace(createRequest("GET")));
-		List<HttpTrace> traces = new HttpTraceEndpoint(repository).traces().getTraces();
+		List<HttpTrace> traces = new HttpTraceEndpoint_RENAMED(repository).traces().getTraces();
 		assertThat(traces).hasSize(1);
 		HttpTrace trace = traces.get(0);
 		assertThat(trace.getRequest().getMethod()).isEqualTo("GET");

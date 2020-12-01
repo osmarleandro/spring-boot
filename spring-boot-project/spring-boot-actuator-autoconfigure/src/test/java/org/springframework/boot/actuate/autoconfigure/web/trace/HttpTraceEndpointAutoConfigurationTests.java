@@ -20,7 +20,7 @@ import org.junit.jupiter.api.Test;
 
 import org.springframework.boot.actuate.autoconfigure.trace.http.HttpTraceAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.trace.http.HttpTraceEndpointAutoConfiguration;
-import org.springframework.boot.actuate.trace.http.HttpTraceEndpoint;
+import org.springframework.boot.actuate.trace.http.HttpTraceEndpoint_RENAMED;
 import org.springframework.boot.actuate.trace.http.InMemoryHttpTraceRepository;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
 import org.springframework.boot.test.context.runner.WebApplicationContextRunner;
@@ -44,13 +44,13 @@ class HttpTraceEndpointAutoConfigurationTests {
 	void runWhenRepositoryBeanAvailableShouldHaveEndpointBean() {
 		this.contextRunner.withUserConfiguration(HttpTraceRepositoryConfiguration.class)
 				.withPropertyValues("management.endpoints.web.exposure.include=httptrace")
-				.run((context) -> assertThat(context).hasSingleBean(HttpTraceEndpoint.class));
+				.run((context) -> assertThat(context).hasSingleBean(HttpTraceEndpoint_RENAMED.class));
 	}
 
 	@Test
 	void runWhenNotExposedShouldNotHaveEndpointBean() {
 		this.contextRunner.withUserConfiguration(HttpTraceRepositoryConfiguration.class)
-				.run((context) -> assertThat(context).doesNotHaveBean(HttpTraceEndpoint.class));
+				.run((context) -> assertThat(context).doesNotHaveBean(HttpTraceEndpoint_RENAMED.class));
 	}
 
 	@Test
@@ -58,13 +58,13 @@ class HttpTraceEndpointAutoConfigurationTests {
 		this.contextRunner.withUserConfiguration(HttpTraceRepositoryConfiguration.class)
 				.withPropertyValues("management.endpoints.web.exposure.include=httptrace")
 				.withPropertyValues("management.endpoint.httptrace.enabled:false")
-				.run((context) -> assertThat(context).doesNotHaveBean(HttpTraceEndpoint.class));
+				.run((context) -> assertThat(context).doesNotHaveBean(HttpTraceEndpoint_RENAMED.class));
 	}
 
 	@Test
 	void endpointBacksOffWhenRepositoryIsNotAvailable() {
 		this.contextRunner.withPropertyValues("management.endpoints.web.exposure.include=httptrace")
-				.run((context) -> assertThat(context).doesNotHaveBean(HttpTraceEndpoint.class));
+				.run((context) -> assertThat(context).doesNotHaveBean(HttpTraceEndpoint_RENAMED.class));
 	}
 
 	@Configuration(proxyBeanMethods = false)
