@@ -32,7 +32,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Phillip Webb
  * @author Madhura Bhave
  */
-class IncludeExcludeGroupMemberPredicateTests {
+class IncludeExcludeGroupMemberPredicateTests_RENAMED {
 
 	@Test
 	void testWhenEmptyIncludeAndExcludeAcceptsAll() {
