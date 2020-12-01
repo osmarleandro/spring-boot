@@ -82,7 +82,7 @@ class MBeanInfoFactoryTests {
 	@Test
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	void getMBeanInfoShouldUseJmxOperationResponseMapper() {
-		JmxOperationResponseMapper mapper = mock(JmxOperationResponseMapper.class);
+		JmxOperationResponseMapper_RENAMED mapper = mock(JmxOperationResponseMapper_RENAMED.class);
 		given(mapper.mapResponseType(String.class)).willReturn((Class) Integer.class);
 		MBeanInfoFactory factory = new MBeanInfoFactory(mapper);
 		MBeanInfo info = factory.getMBeanInfo(new TestExposableJmxEndpoint(new TestJmxOperation()));

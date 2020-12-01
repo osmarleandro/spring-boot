@@ -43,9 +43,9 @@ class MBeanInfoFactory {
 
 	private static final ModelMBeanNotificationInfo[] NO_NOTIFICATIONS = new ModelMBeanNotificationInfo[0];
 
-	private final JmxOperationResponseMapper responseMapper;
+	private final JmxOperationResponseMapper_RENAMED responseMapper;
 
-	MBeanInfoFactory(JmxOperationResponseMapper responseMapper) {
+	MBeanInfoFactory(JmxOperationResponseMapper_RENAMED responseMapper) {
 		this.responseMapper = responseMapper;
 	}
 

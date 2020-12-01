@@ -33,7 +33,7 @@ import org.springframework.boot.actuate.endpoint.jmx.ExposableJmxEndpoint;
 import org.springframework.boot.actuate.endpoint.jmx.JacksonJmxOperationResponseMapper;
 import org.springframework.boot.actuate.endpoint.jmx.JmxEndpointExporter;
 import org.springframework.boot.actuate.endpoint.jmx.JmxEndpointsSupplier;
-import org.springframework.boot.actuate.endpoint.jmx.JmxOperationResponseMapper;
+import org.springframework.boot.actuate.endpoint.jmx.JmxOperationResponseMapper_RENAMED;
 import org.springframework.boot.actuate.endpoint.jmx.annotation.JmxEndpointDiscoverer;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -89,7 +89,7 @@ public class JmxEndpointAutoConfiguration {
 		String contextId = ObjectUtils.getIdentityHexString(this.applicationContext);
 		EndpointObjectNameFactory objectNameFactory = new DefaultEndpointObjectNameFactory(this.properties, environment,
 				mBeanServer, contextId);
-		JmxOperationResponseMapper responseMapper = new JacksonJmxOperationResponseMapper(
+		JmxOperationResponseMapper_RENAMED responseMapper = new JacksonJmxOperationResponseMapper(
 				objectMapper.getIfAvailable());
 		return new JmxEndpointExporter(mBeanServer, objectNameFactory, responseMapper,
 				jmxEndpointsSupplier.getEndpoints());

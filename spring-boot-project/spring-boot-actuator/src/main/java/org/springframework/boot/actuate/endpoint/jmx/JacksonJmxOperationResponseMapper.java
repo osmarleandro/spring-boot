@@ -24,13 +24,13 @@ import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
- * {@link JmxOperationResponseMapper} that delegates to a Jackson {@link ObjectMapper} to
+ * {@link JmxOperationResponseMapper_RENAMED} that delegates to a Jackson {@link ObjectMapper} to
  * return a JSON response.
  *
  * @author Stephane Nicoll
  * @since 2.0.0
  */
-public class JacksonJmxOperationResponseMapper implements JmxOperationResponseMapper {
+public class JacksonJmxOperationResponseMapper implements JmxOperationResponseMapper_RENAMED {
 
 	private final ObjectMapper objectMapper;
 
