@@ -31,7 +31,7 @@ import org.springframework.boot.actuate.endpoint.invoke.OperationInvoker;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvokerAdvisor;
 import org.springframework.boot.actuate.endpoint.invoke.ParameterValueMapper;
 import org.springframework.boot.actuate.endpoint.invoke.reflect.OperationMethod;
-import org.springframework.boot.actuate.endpoint.invoke.reflect.ReflectiveOperationInvoker;
+import org.springframework.boot.actuate.endpoint.invoke.reflect.ReflectiveOperationInvoker_RENAMED;
 import org.springframework.core.MethodIntrospector;
 import org.springframework.core.MethodIntrospector.MetadataLookup;
 import org.springframework.core.annotation.MergedAnnotation;
@@ -88,7 +88,7 @@ abstract class DiscoveredOperationsFactory<O extends Operation> {
 		}
 		DiscoveredOperationMethod operationMethod = new DiscoveredOperationMethod(method, operationType,
 				annotation.asAnnotationAttributes());
-		OperationInvoker invoker = new ReflectiveOperationInvoker(target, operationMethod, this.parameterValueMapper);
+		OperationInvoker invoker = new ReflectiveOperationInvoker_RENAMED(target, operationMethod, this.parameterValueMapper);
 		invoker = applyAdvisors(endpointId, operationMethod, invoker);
 		return createOperation(endpointId, operationMethod, invoker);
 	}

@@ -30,7 +30,7 @@ import org.springframework.util.Assert;
  *
  * @author Phillip Webb
  * @since 2.0.0
- * @see ReflectiveOperationInvoker
+ * @see ReflectiveOperationInvoker_RENAMED
  */
 public class OperationMethod {
 

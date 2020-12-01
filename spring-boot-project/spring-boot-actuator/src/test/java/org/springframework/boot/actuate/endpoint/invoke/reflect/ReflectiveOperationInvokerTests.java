@@ -36,7 +36,7 @@ import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException
 import static org.mockito.Mockito.mock;
 
 /**
- * Tests for {@link ReflectiveOperationInvoker}.
+ * Tests for {@link ReflectiveOperationInvoker_RENAMED}.
  *
  * @author Phillip Webb
  */
@@ -59,27 +59,27 @@ class ReflectiveOperationInvokerTests {
 	@Test
 	void createWhenTargetIsNullShouldThrowException() {
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> new ReflectiveOperationInvoker(null, this.operationMethod, this.parameterValueMapper))
+				.isThrownBy(() -> new ReflectiveOperationInvoker_RENAMED(null, this.operationMethod, this.parameterValueMapper))
 				.withMessageContaining("Target must not be null");
 	}
 
 	@Test
 	void createWhenOperationMethodIsNullShouldThrowException() {
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> new ReflectiveOperationInvoker(this.target, null, this.parameterValueMapper))
+				.isThrownBy(() -> new ReflectiveOperationInvoker_RENAMED(this.target, null, this.parameterValueMapper))
 				.withMessageContaining("OperationMethod must not be null");
 	}
 
 	@Test
 	void createWhenParameterValueMapperIsNullShouldThrowException() {
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> new ReflectiveOperationInvoker(this.target, this.operationMethod, null))
+				.isThrownBy(() -> new ReflectiveOperationInvoker_RENAMED(this.target, this.operationMethod, null))
 				.withMessageContaining("ParameterValueMapper must not be null");
 	}
 
 	@Test
 	void invokeShouldInvokeMethod() {
-		ReflectiveOperationInvoker invoker = new ReflectiveOperationInvoker(this.target, this.operationMethod,
+		ReflectiveOperationInvoker_RENAMED invoker = new ReflectiveOperationInvoker_RENAMED(this.target, this.operationMethod,
 				this.parameterValueMapper);
 		Object result = invoker
 				.invoke(new InvocationContext(mock(SecurityContext.class), Collections.singletonMap("name", "boot")));
@@ -88,7 +88,7 @@ class ReflectiveOperationInvokerTests {
 
 	@Test
 	void invokeWhenMissingNonNullableArgumentShouldThrowException() {
-		ReflectiveOperationInvoker invoker = new ReflectiveOperationInvoker(this.target, this.operationMethod,
+		ReflectiveOperationInvoker_RENAMED invoker = new ReflectiveOperationInvoker_RENAMED(this.target, this.operationMethod,
 				this.parameterValueMapper);
 		assertThatExceptionOfType(MissingParametersException.class).isThrownBy(() -> invoker
 				.invoke(new InvocationContext(mock(SecurityContext.class), Collections.singletonMap("name", null))));
@@ -98,7 +98,7 @@ class ReflectiveOperationInvokerTests {
 	void invokeWhenMissingNullableArgumentShouldInvoke() {
 		OperationMethod operationMethod = new OperationMethod(ReflectionUtils.findMethod(Example.class,
 				"reverseNullable", ApiVersion.class, SecurityContext.class, String.class), OperationType.READ);
-		ReflectiveOperationInvoker invoker = new ReflectiveOperationInvoker(this.target, operationMethod,
+		ReflectiveOperationInvoker_RENAMED invoker = new ReflectiveOperationInvoker_RENAMED(this.target, operationMethod,
 				this.parameterValueMapper);
 		Object result = invoker
 				.invoke(new InvocationContext(mock(SecurityContext.class), Collections.singletonMap("name", null)));
@@ -107,7 +107,7 @@ class ReflectiveOperationInvokerTests {
 
 	@Test
 	void invokeShouldResolveParameters() {
-		ReflectiveOperationInvoker invoker = new ReflectiveOperationInvoker(this.target, this.operationMethod,
+		ReflectiveOperationInvoker_RENAMED invoker = new ReflectiveOperationInvoker_RENAMED(this.target, this.operationMethod,
 				this.parameterValueMapper);
 		Object result = invoker
 				.invoke(new InvocationContext(mock(SecurityContext.class), Collections.singletonMap("name", 1234)));
