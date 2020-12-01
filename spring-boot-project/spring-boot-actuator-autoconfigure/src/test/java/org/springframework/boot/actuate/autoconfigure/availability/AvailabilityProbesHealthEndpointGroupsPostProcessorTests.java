@@ -28,13 +28,13 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
 
 /**
- * Tests for {@link AvailabilityProbesHealthEndpointGroupsPostProcessor}.
+ * Tests for {@link AvailabilityProbesHealthEndpointGroupsPostProcessor_RENAMED}.
  *
  * @author Phillip Webb
  */
 class AvailabilityProbesHealthEndpointGroupsPostProcessorTests {
 
-	private AvailabilityProbesHealthEndpointGroupsPostProcessor postProcessor = new AvailabilityProbesHealthEndpointGroupsPostProcessor();
+	private AvailabilityProbesHealthEndpointGroupsPostProcessor_RENAMED postProcessor = new AvailabilityProbesHealthEndpointGroupsPostProcessor_RENAMED();
 
 	@Test
 	void postProcessHealthEndpointGroupsWhenGroupsAlreadyContainedReturnsOriginal() {

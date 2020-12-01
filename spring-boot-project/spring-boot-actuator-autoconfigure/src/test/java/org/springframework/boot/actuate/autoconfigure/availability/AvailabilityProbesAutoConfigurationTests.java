@@ -43,7 +43,7 @@ class AvailabilityProbesAutoConfigurationTests {
 		this.contextRunner.run((context) -> assertThat(context).hasSingleBean(ApplicationAvailability.class)
 				.doesNotHaveBean(LivenessStateHealthIndicator.class)
 				.doesNotHaveBean(ReadinessStateHealthIndicator.class)
-				.doesNotHaveBean(AvailabilityProbesHealthEndpointGroupsPostProcessor.class));
+				.doesNotHaveBean(AvailabilityProbesHealthEndpointGroupsPostProcessor_RENAMED.class));
 	}
 
 	@Test
@@ -52,7 +52,7 @@ class AvailabilityProbesAutoConfigurationTests {
 				.run((context) -> assertThat(context).hasSingleBean(ApplicationAvailability.class)
 						.hasSingleBean(LivenessStateHealthIndicator.class).hasBean("livenessStateHealthIndicator")
 						.hasSingleBean(ReadinessStateHealthIndicator.class).hasBean("readinessStateHealthIndicator")
-						.hasSingleBean(AvailabilityProbesHealthEndpointGroupsPostProcessor.class));
+						.hasSingleBean(AvailabilityProbesHealthEndpointGroupsPostProcessor_RENAMED.class));
 	}
 
 	@Test
@@ -61,7 +61,7 @@ class AvailabilityProbesAutoConfigurationTests {
 				.run((context) -> assertThat(context).hasSingleBean(ApplicationAvailability.class)
 						.hasSingleBean(LivenessStateHealthIndicator.class).hasBean("livenessStateHealthIndicator")
 						.hasSingleBean(ReadinessStateHealthIndicator.class).hasBean("readinessStateHealthIndicator")
-						.hasSingleBean(AvailabilityProbesHealthEndpointGroupsPostProcessor.class));
+						.hasSingleBean(AvailabilityProbesHealthEndpointGroupsPostProcessor_RENAMED.class));
 	}
 
 	@Test
@@ -72,7 +72,7 @@ class AvailabilityProbesAutoConfigurationTests {
 				.run((context) -> assertThat(context).hasSingleBean(ApplicationAvailability.class)
 						.doesNotHaveBean(LivenessStateHealthIndicator.class)
 						.doesNotHaveBean(ReadinessStateHealthIndicator.class)
-						.doesNotHaveBean(AvailabilityProbesHealthEndpointGroupsPostProcessor.class));
+						.doesNotHaveBean(AvailabilityProbesHealthEndpointGroupsPostProcessor_RENAMED.class));
 	}
 
 }

@@ -61,8 +61,8 @@ public class AvailabilityProbesAutoConfiguration {
 	}
 
 	@Bean
-	public AvailabilityProbesHealthEndpointGroupsPostProcessor availabilityProbesHealthEndpointGroupsPostProcessor() {
-		return new AvailabilityProbesHealthEndpointGroupsPostProcessor();
+	public AvailabilityProbesHealthEndpointGroupsPostProcessor_RENAMED availabilityProbesHealthEndpointGroupsPostProcessor() {
+		return new AvailabilityProbesHealthEndpointGroupsPostProcessor_RENAMED();
 	}
 
 	/**
