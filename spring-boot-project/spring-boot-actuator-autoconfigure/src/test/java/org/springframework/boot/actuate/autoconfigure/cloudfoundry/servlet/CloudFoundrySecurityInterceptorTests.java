@@ -49,7 +49,7 @@ class CloudFoundrySecurityInterceptorTests {
 	private TokenValidator tokenValidator;
 
 	@Mock
-	private CloudFoundrySecurityService securityService;
+	private CloudFoundrySecurityService_RENAMED securityService;
 
 	private CloudFoundrySecurityInterceptor interceptor;
 

@@ -45,14 +45,14 @@ class CloudFoundrySecurityInterceptor {
 
 	private final TokenValidator tokenValidator;
 
-	private final CloudFoundrySecurityService cloudFoundrySecurityService;
+	private final CloudFoundrySecurityService_RENAMED cloudFoundrySecurityService;
 
 	private final String applicationId;
 
 	private static final SecurityResponse SUCCESS = SecurityResponse.success();
 
 	CloudFoundrySecurityInterceptor(TokenValidator tokenValidator,
-			CloudFoundrySecurityService cloudFoundrySecurityService, String applicationId) {
+			CloudFoundrySecurityService_RENAMED cloudFoundrySecurityService, String applicationId) {
 		this.tokenValidator = tokenValidator;
 		this.cloudFoundrySecurityService = cloudFoundrySecurityService;
 		this.applicationId = applicationId;

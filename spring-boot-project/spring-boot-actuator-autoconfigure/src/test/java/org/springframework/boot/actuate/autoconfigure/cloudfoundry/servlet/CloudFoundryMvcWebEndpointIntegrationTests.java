@@ -67,7 +67,7 @@ class CloudFoundryMvcWebEndpointIntegrationTests {
 
 	private static TokenValidator tokenValidator = mock(TokenValidator.class);
 
-	private static CloudFoundrySecurityService securityService = mock(CloudFoundrySecurityService.class);
+	private static CloudFoundrySecurityService_RENAMED securityService = mock(CloudFoundrySecurityService_RENAMED.class);
 
 	@Test
 	void operationWithSecurityInterceptorForbidden() {

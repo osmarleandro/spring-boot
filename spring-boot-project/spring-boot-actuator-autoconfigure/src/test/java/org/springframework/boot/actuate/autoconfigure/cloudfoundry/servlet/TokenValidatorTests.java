@@ -59,7 +59,7 @@ class TokenValidatorTests {
 	private static final byte[] DOT = ".".getBytes();
 
 	@Mock
-	private CloudFoundrySecurityService securityService;
+	private CloudFoundrySecurityService_RENAMED securityService;
 
 	private TokenValidator tokenValidator;
 

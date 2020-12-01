@@ -38,11 +38,11 @@ import org.springframework.util.Base64Utils;
  */
 class TokenValidator {
 
-	private final CloudFoundrySecurityService securityService;
+	private final CloudFoundrySecurityService_RENAMED securityService;
 
 	private Map<String, String> tokenKeys;
 
-	TokenValidator(CloudFoundrySecurityService cloudFoundrySecurityService) {
+	TokenValidator(CloudFoundrySecurityService_RENAMED cloudFoundrySecurityService) {
 		this.securityService = cloudFoundrySecurityService;
 	}
 
