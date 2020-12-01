@@ -41,7 +41,7 @@ import org.springframework.context.annotation.Import;
 @ConditionalOnClass(CqlSession.class)
 @ConditionalOnEnabledHealthIndicator("cassandra")
 @AutoConfigureAfter({ CassandraAutoConfiguration.class, CassandraDataAutoConfiguration.class,
-		CassandraReactiveHealthContributorAutoConfiguration.class })
+		CassandraReactiveHealthContributorAutoConfiguration_RENAMED.class })
 @Import({ CassandraDriverConfiguration.class,
 		CassandraHealthContributorConfigurations.CassandraOperationsConfiguration.class })
 @SuppressWarnings("deprecation")

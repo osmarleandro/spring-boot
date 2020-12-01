@@ -32,7 +32,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 
 /**
- * Tests for {@link CassandraReactiveHealthContributorAutoConfiguration}.
+ * Tests for {@link CassandraReactiveHealthContributorAutoConfiguration_RENAMED}.
  *
  * @author Artsiom Yudovin
  * @author Stephane Nicoll
@@ -41,7 +41,7 @@ import static org.mockito.Mockito.mock;
 class CassandraReactiveHealthContributorAutoConfigurationTests {
 
 	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
-			.withConfiguration(AutoConfigurations.of(CassandraReactiveHealthContributorAutoConfiguration.class,
+			.withConfiguration(AutoConfigurations.of(CassandraReactiveHealthContributorAutoConfiguration_RENAMED.class,
 					CassandraHealthContributorAutoConfiguration.class, HealthContributorAutoConfiguration.class));
 
 	@Test

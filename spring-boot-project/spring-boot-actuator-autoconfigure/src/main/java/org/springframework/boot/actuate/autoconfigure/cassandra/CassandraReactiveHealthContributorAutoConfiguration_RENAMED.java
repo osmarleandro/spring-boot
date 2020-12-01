@@ -43,6 +43,6 @@ import org.springframework.context.annotation.Import;
 @Import({ CassandraReactiveDriverConfiguration.class,
 		CassandraHealthContributorConfigurations.CassandraReactiveOperationsConfiguration.class })
 @SuppressWarnings("deprecation")
-public class CassandraReactiveHealthContributorAutoConfiguration {
+public class CassandraReactiveHealthContributorAutoConfiguration_RENAMED {
 
 }
