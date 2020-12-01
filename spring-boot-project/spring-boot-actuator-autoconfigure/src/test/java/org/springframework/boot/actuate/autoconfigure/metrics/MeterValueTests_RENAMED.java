@@ -32,7 +32,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Phillip Webb
  * @author Stephane Nicoll
  */
-class MeterValueTests {
+class MeterValueTests_RENAMED {
 
 	@Test
 	void getValueForDistributionSummaryWhenFromNumberShouldReturnDoubleValue() {
