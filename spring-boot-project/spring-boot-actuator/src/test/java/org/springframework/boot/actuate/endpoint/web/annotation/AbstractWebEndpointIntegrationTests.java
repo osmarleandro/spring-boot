@@ -427,7 +427,7 @@ public abstract class AbstractWebEndpointIntegrationTests<T extends Configurable
 	}
 
 	@Configuration(proxyBeanMethods = false)
-	@Import(BaseConfiguration.class)
+	@Import(BaseConfiguration_RENAMED.class)
 	protected static class TestEndpointConfiguration {
 
 		@Bean
@@ -438,7 +438,7 @@ public abstract class AbstractWebEndpointIntegrationTests<T extends Configurable
 	}
 
 	@Configuration(proxyBeanMethods = false)
-	@Import(BaseConfiguration.class)
+	@Import(BaseConfiguration_RENAMED.class)
 	static class MatchAllRemainingEndpointConfiguration {
 
 		@Bean
@@ -449,7 +449,7 @@ public abstract class AbstractWebEndpointIntegrationTests<T extends Configurable
 	}
 
 	@Configuration(proxyBeanMethods = false)
-	@Import(BaseConfiguration.class)
+	@Import(BaseConfiguration_RENAMED.class)
 	static class QueryEndpointConfiguration {
 
 		@Bean
@@ -460,7 +460,7 @@ public abstract class AbstractWebEndpointIntegrationTests<T extends Configurable
 	}
 
 	@Configuration(proxyBeanMethods = false)
-	@Import(BaseConfiguration.class)
+	@Import(BaseConfiguration_RENAMED.class)
 	static class QueryWithListEndpointConfiguration {
 
 		@Bean
@@ -471,7 +471,7 @@ public abstract class AbstractWebEndpointIntegrationTests<T extends Configurable
 	}
 
 	@Configuration(proxyBeanMethods = false)
-	@Import(BaseConfiguration.class)
+	@Import(BaseConfiguration_RENAMED.class)
 	static class VoidWriteResponseEndpointConfiguration {
 
 		@Bean
@@ -482,7 +482,7 @@ public abstract class AbstractWebEndpointIntegrationTests<T extends Configurable
 	}
 
 	@Configuration(proxyBeanMethods = false)
-	@Import(BaseConfiguration.class)
+	@Import(BaseConfiguration_RENAMED.class)
 	static class VoidDeleteResponseEndpointConfiguration {
 
 		@Bean
@@ -493,7 +493,7 @@ public abstract class AbstractWebEndpointIntegrationTests<T extends Configurable
 	}
 
 	@Configuration(proxyBeanMethods = false)
-	@Import(BaseConfiguration.class)
+	@Import(BaseConfiguration_RENAMED.class)
 	static class NullWriteResponseEndpointConfiguration {
 
 		@Bean
@@ -504,7 +504,7 @@ public abstract class AbstractWebEndpointIntegrationTests<T extends Configurable
 	}
 
 	@Configuration(proxyBeanMethods = false)
-	@Import(BaseConfiguration.class)
+	@Import(BaseConfiguration_RENAMED.class)
 	static class NullReadResponseEndpointConfiguration {
 
 		@Bean
@@ -515,7 +515,7 @@ public abstract class AbstractWebEndpointIntegrationTests<T extends Configurable
 	}
 
 	@Configuration(proxyBeanMethods = false)
-	@Import(BaseConfiguration.class)
+	@Import(BaseConfiguration_RENAMED.class)
 	static class NullDeleteResponseEndpointConfiguration {
 
 		@Bean
@@ -526,7 +526,7 @@ public abstract class AbstractWebEndpointIntegrationTests<T extends Configurable
 	}
 
 	@Configuration(proxyBeanMethods = false)
-	@Import(BaseConfiguration.class)
+	@Import(BaseConfiguration_RENAMED.class)
 	protected static class ResourceEndpointConfiguration {
 
 		@Bean
@@ -537,7 +537,7 @@ public abstract class AbstractWebEndpointIntegrationTests<T extends Configurable
 	}
 
 	@Configuration(proxyBeanMethods = false)
-	@Import(BaseConfiguration.class)
+	@Import(BaseConfiguration_RENAMED.class)
 	static class ResourceWebEndpointResponseEndpointConfiguration {
 
 		@Bean
@@ -548,7 +548,7 @@ public abstract class AbstractWebEndpointIntegrationTests<T extends Configurable
 	}
 
 	@Configuration(proxyBeanMethods = false)
-	@Import(BaseConfiguration.class)
+	@Import(BaseConfiguration_RENAMED.class)
 	static class MonoResponseEndpointConfiguration {
 
 		@Bean
@@ -559,7 +559,7 @@ public abstract class AbstractWebEndpointIntegrationTests<T extends Configurable
 	}
 
 	@Configuration(proxyBeanMethods = false)
-	@Import(BaseConfiguration.class)
+	@Import(BaseConfiguration_RENAMED.class)
 	static class CustomMediaTypesEndpointConfiguration {
 
 		@Bean
@@ -570,7 +570,7 @@ public abstract class AbstractWebEndpointIntegrationTests<T extends Configurable
 	}
 
 	@Configuration(proxyBeanMethods = false)
-	@Import(BaseConfiguration.class)
+	@Import(BaseConfiguration_RENAMED.class)
 	static class RequiredParameterEndpointConfiguration {
 
 		@Bean
@@ -581,7 +581,7 @@ public abstract class AbstractWebEndpointIntegrationTests<T extends Configurable
 	}
 
 	@Configuration(proxyBeanMethods = false)
-	@Import(BaseConfiguration.class)
+	@Import(BaseConfiguration_RENAMED.class)
 	static class PrincipalEndpointConfiguration {
 
 		@Bean
@@ -592,7 +592,7 @@ public abstract class AbstractWebEndpointIntegrationTests<T extends Configurable
 	}
 
 	@Configuration(proxyBeanMethods = false)
-	@Import(BaseConfiguration.class)
+	@Import(BaseConfiguration_RENAMED.class)
 	static class PrincipalQueryEndpointConfiguration {
 
 		@Bean
@@ -603,7 +603,7 @@ public abstract class AbstractWebEndpointIntegrationTests<T extends Configurable
 	}
 
 	@Configuration(proxyBeanMethods = false)
-	@Import(BaseConfiguration.class)
+	@Import(BaseConfiguration_RENAMED.class)
 	static class SecurityContextEndpointConfiguration {
 
 		@Bean
@@ -614,7 +614,7 @@ public abstract class AbstractWebEndpointIntegrationTests<T extends Configurable
 	}
 
 	@Configuration(proxyBeanMethods = false)
-	@Import(BaseConfiguration.class)
+	@Import(BaseConfiguration_RENAMED.class)
 	static class UserInRoleEndpointConfiguration {
 
 		@Bean

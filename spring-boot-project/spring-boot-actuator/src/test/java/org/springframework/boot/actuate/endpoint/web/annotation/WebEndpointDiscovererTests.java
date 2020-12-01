@@ -420,7 +420,7 @@ class WebEndpointDiscovererTests {
 	}
 
 	@Configuration(proxyBeanMethods = false)
-	@Import(BaseConfiguration.class)
+	@Import(BaseConfiguration_RENAMED.class)
 	static class ResourceEndpointConfiguration {
 
 		@Bean
@@ -431,7 +431,7 @@ class WebEndpointDiscovererTests {
 	}
 
 	@Configuration(proxyBeanMethods = false)
-	@Import(BaseConfiguration.class)
+	@Import(BaseConfiguration_RENAMED.class)
 	static class CustomMediaTypesEndpointConfiguration {
 
 		@Bean
