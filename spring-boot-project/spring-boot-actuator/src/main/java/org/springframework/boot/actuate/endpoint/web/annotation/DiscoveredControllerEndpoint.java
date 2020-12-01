@@ -24,12 +24,12 @@ import org.springframework.boot.actuate.endpoint.annotation.AbstractDiscoveredEn
 import org.springframework.boot.actuate.endpoint.annotation.EndpointDiscoverer;
 
 /**
- * A discovered {@link ExposableControllerEndpoint controller endpoint}.
+ * A discovered {@link ExposableControllerEndpoint_RENAMED controller endpoint}.
  *
  * @author Phillip Webb
  */
 class DiscoveredControllerEndpoint extends AbstractDiscoveredEndpoint<Operation>
-		implements ExposableControllerEndpoint {
+		implements ExposableControllerEndpoint_RENAMED {
 
 	private final String rootPath;
 

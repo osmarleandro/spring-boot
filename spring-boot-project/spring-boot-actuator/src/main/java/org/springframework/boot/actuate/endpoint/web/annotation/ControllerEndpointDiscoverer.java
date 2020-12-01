@@ -33,13 +33,13 @@ import org.springframework.core.annotation.MergedAnnotations;
 import org.springframework.core.annotation.MergedAnnotations.SearchStrategy;
 
 /**
- * {@link EndpointDiscoverer} for {@link ExposableControllerEndpoint controller
+ * {@link EndpointDiscoverer} for {@link ExposableControllerEndpoint_RENAMED controller
  * endpoints}.
  *
  * @author Phillip Webb
  * @since 2.0.0
  */
-public class ControllerEndpointDiscoverer extends EndpointDiscoverer<ExposableControllerEndpoint, Operation>
+public class ControllerEndpointDiscoverer extends EndpointDiscoverer<ExposableControllerEndpoint_RENAMED, Operation>
 		implements ControllerEndpointsSupplier {
 
 	private final List<PathMapper> endpointPathMappers;
@@ -51,7 +51,7 @@ public class ControllerEndpointDiscoverer extends EndpointDiscoverer<ExposableCo
 	 * @param filters filters to apply
 	 */
 	public ControllerEndpointDiscoverer(ApplicationContext applicationContext, List<PathMapper> endpointPathMappers,
-			Collection<EndpointFilter<ExposableControllerEndpoint>> filters) {
+			Collection<EndpointFilter<ExposableControllerEndpoint_RENAMED>> filters) {
 		super(applicationContext, ParameterValueMapper.NONE, Collections.emptyList(), filters);
 		this.endpointPathMappers = endpointPathMappers;
 	}
@@ -63,7 +63,7 @@ public class ControllerEndpointDiscoverer extends EndpointDiscoverer<ExposableCo
 	}
 
 	@Override
-	protected ExposableControllerEndpoint createEndpoint(Object endpointBean, EndpointId id, boolean enabledByDefault,
+	protected ExposableControllerEndpoint_RENAMED createEndpoint(Object endpointBean, EndpointId id, boolean enabledByDefault,
 			Collection<Operation> operations) {
 		String rootPath = PathMapper.getRootPath(this.endpointPathMappers, id);
 		return new DiscoveredControllerEndpoint(this, endpointBean, id, rootPath, enabledByDefault);

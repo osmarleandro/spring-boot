@@ -59,9 +59,9 @@ class ControllerEndpointDiscovererTests {
 	@Test
 	void getEndpointsShouldIncludeControllerEndpoints() {
 		this.contextRunner.withUserConfiguration(TestControllerEndpoint.class).run(assertDiscoverer((discoverer) -> {
-			Collection<ExposableControllerEndpoint> endpoints = discoverer.getEndpoints();
+			Collection<ExposableControllerEndpoint_RENAMED> endpoints = discoverer.getEndpoints();
 			assertThat(endpoints).hasSize(1);
-			ExposableControllerEndpoint endpoint = endpoints.iterator().next();
+			ExposableControllerEndpoint_RENAMED endpoint = endpoints.iterator().next();
 			assertThat(endpoint.getEndpointId()).isEqualTo(EndpointId.of("testcontroller"));
 			assertThat(endpoint.getController()).isInstanceOf(TestControllerEndpoint.class);
 			assertThat(endpoint).isInstanceOf(DiscoveredEndpoint.class);
@@ -73,9 +73,9 @@ class ControllerEndpointDiscovererTests {
 		this.contextRunner.withUserConfiguration(TestProxyControllerEndpoint.class)
 				.withConfiguration(AutoConfigurations.of(ValidationAutoConfiguration.class))
 				.run(assertDiscoverer((discoverer) -> {
-					Collection<ExposableControllerEndpoint> endpoints = discoverer.getEndpoints();
+					Collection<ExposableControllerEndpoint_RENAMED> endpoints = discoverer.getEndpoints();
 					assertThat(endpoints).hasSize(1);
-					ExposableControllerEndpoint endpoint = endpoints.iterator().next();
+					ExposableControllerEndpoint_RENAMED endpoint = endpoints.iterator().next();
 					assertThat(endpoint.getEndpointId()).isEqualTo(EndpointId.of("testcontroller"));
 					assertThat(endpoint.getController()).isInstanceOf(TestProxyControllerEndpoint.class);
 					assertThat(endpoint).isInstanceOf(DiscoveredEndpoint.class);
@@ -86,9 +86,9 @@ class ControllerEndpointDiscovererTests {
 	void getEndpointsShouldIncludeRestControllerEndpoints() {
 		this.contextRunner.withUserConfiguration(TestRestControllerEndpoint.class)
 				.run(assertDiscoverer((discoverer) -> {
-					Collection<ExposableControllerEndpoint> endpoints = discoverer.getEndpoints();
+					Collection<ExposableControllerEndpoint_RENAMED> endpoints = discoverer.getEndpoints();
 					assertThat(endpoints).hasSize(1);
-					ExposableControllerEndpoint endpoint = endpoints.iterator().next();
+					ExposableControllerEndpoint_RENAMED endpoint = endpoints.iterator().next();
 					assertThat(endpoint.getEndpointId()).isEqualTo(EndpointId.of("testrestcontroller"));
 					assertThat(endpoint.getController()).isInstanceOf(TestRestControllerEndpoint.class);
 				}));
@@ -99,9 +99,9 @@ class ControllerEndpointDiscovererTests {
 		this.contextRunner.withUserConfiguration(TestProxyRestControllerEndpoint.class)
 				.withConfiguration(AutoConfigurations.of(ValidationAutoConfiguration.class))
 				.run(assertDiscoverer((discoverer) -> {
-					Collection<ExposableControllerEndpoint> endpoints = discoverer.getEndpoints();
+					Collection<ExposableControllerEndpoint_RENAMED> endpoints = discoverer.getEndpoints();
 					assertThat(endpoints).hasSize(1);
-					ExposableControllerEndpoint endpoint = endpoints.iterator().next();
+					ExposableControllerEndpoint_RENAMED endpoint = endpoints.iterator().next();
 					assertThat(endpoint.getEndpointId()).isEqualTo(EndpointId.of("testrestcontroller"));
 					assertThat(endpoint.getController()).isInstanceOf(TestProxyRestControllerEndpoint.class);
 					assertThat(endpoint).isInstanceOf(DiscoveredEndpoint.class);
@@ -112,8 +112,8 @@ class ControllerEndpointDiscovererTests {
 	void getEndpointsShouldNotDiscoverRegularEndpoints() {
 		this.contextRunner.withUserConfiguration(WithRegularEndpointConfiguration.class)
 				.run(assertDiscoverer((discoverer) -> {
-					Collection<ExposableControllerEndpoint> endpoints = discoverer.getEndpoints();
-					List<EndpointId> ids = endpoints.stream().map(ExposableControllerEndpoint::getEndpointId)
+					Collection<ExposableControllerEndpoint_RENAMED> endpoints = discoverer.getEndpoints();
+					List<EndpointId> ids = endpoints.stream().map(ExposableControllerEndpoint_RENAMED::getEndpointId)
 							.collect(Collectors.toList());
 					assertThat(ids).containsOnly(EndpointId.of("testcontroller"), EndpointId.of("testrestcontroller"));
 				}));

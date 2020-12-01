@@ -26,7 +26,7 @@ import java.util.Set;
 
 import org.springframework.boot.actuate.endpoint.web.EndpointMapping;
 import org.springframework.boot.actuate.endpoint.web.annotation.ControllerEndpoint;
-import org.springframework.boot.actuate.endpoint.web.annotation.ExposableControllerEndpoint;
+import org.springframework.boot.actuate.endpoint.web.annotation.ExposableControllerEndpoint_RENAMED;
 import org.springframework.boot.actuate.endpoint.web.annotation.RestControllerEndpoint;
 import org.springframework.util.Assert;
 import org.springframework.web.cors.CorsConfiguration;
@@ -49,7 +49,7 @@ public class ControllerEndpointHandlerMapping extends RequestMappingHandlerMappi
 
 	private final CorsConfiguration corsConfiguration;
 
-	private final Map<Object, ExposableControllerEndpoint> handlers;
+	private final Map<Object, ExposableControllerEndpoint_RENAMED> handlers;
 
 	/**
 	 * Create a new {@link ControllerEndpointHandlerMapping} instance providing mappings
@@ -60,7 +60,7 @@ public class ControllerEndpointHandlerMapping extends RequestMappingHandlerMappi
 	 */
 	@SuppressWarnings("deprecation")
 	public ControllerEndpointHandlerMapping(EndpointMapping endpointMapping,
-			Collection<ExposableControllerEndpoint> endpoints, CorsConfiguration corsConfiguration) {
+			Collection<ExposableControllerEndpoint_RENAMED> endpoints, CorsConfiguration corsConfiguration) {
 		Assert.notNull(endpointMapping, "EndpointMapping must not be null");
 		Assert.notNull(endpoints, "Endpoints must not be null");
 		this.endpointMapping = endpointMapping;
@@ -70,8 +70,8 @@ public class ControllerEndpointHandlerMapping extends RequestMappingHandlerMappi
 		setUseSuffixPatternMatch(false);
 	}
 
-	private Map<Object, ExposableControllerEndpoint> getHandlers(Collection<ExposableControllerEndpoint> endpoints) {
-		Map<Object, ExposableControllerEndpoint> handlers = new LinkedHashMap<>();
+	private Map<Object, ExposableControllerEndpoint_RENAMED> getHandlers(Collection<ExposableControllerEndpoint_RENAMED> endpoints) {
+		Map<Object, ExposableControllerEndpoint_RENAMED> handlers = new LinkedHashMap<>();
 		endpoints.forEach((endpoint) -> handlers.put(endpoint.getController(), endpoint));
 		return Collections.unmodifiableMap(handlers);
 	}
@@ -83,12 +83,12 @@ public class ControllerEndpointHandlerMapping extends RequestMappingHandlerMappi
 
 	@Override
 	protected void registerHandlerMethod(Object handler, Method method, RequestMappingInfo mapping) {
-		ExposableControllerEndpoint endpoint = this.handlers.get(handler);
+		ExposableControllerEndpoint_RENAMED endpoint = this.handlers.get(handler);
 		mapping = withEndpointMappedPatterns(endpoint, mapping);
 		super.registerHandlerMethod(handler, method, mapping);
 	}
 
-	private RequestMappingInfo withEndpointMappedPatterns(ExposableControllerEndpoint endpoint,
+	private RequestMappingInfo withEndpointMappedPatterns(ExposableControllerEndpoint_RENAMED endpoint,
 			RequestMappingInfo mapping) {
 		Set<String> patterns = mapping.getPatternsCondition().getPatterns();
 		if (patterns.isEmpty()) {
@@ -99,7 +99,7 @@ public class ControllerEndpointHandlerMapping extends RequestMappingHandlerMappi
 		return withNewPatterns(mapping, endpointMappedPatterns);
 	}
 
-	private String getEndpointMappedPattern(ExposableControllerEndpoint endpoint, String pattern) {
+	private String getEndpointMappedPattern(ExposableControllerEndpoint_RENAMED endpoint, String pattern) {
 		return this.endpointMapping.createSubPath(endpoint.getRootPath() + pattern);
 	}
 

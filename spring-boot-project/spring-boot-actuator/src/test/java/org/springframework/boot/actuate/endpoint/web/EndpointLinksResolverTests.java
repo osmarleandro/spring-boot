@@ -26,7 +26,7 @@ import org.junit.jupiter.api.Test;
 
 import org.springframework.boot.actuate.endpoint.EndpointId;
 import org.springframework.boot.actuate.endpoint.OperationType;
-import org.springframework.boot.actuate.endpoint.web.annotation.ExposableControllerEndpoint;
+import org.springframework.boot.actuate.endpoint.web.annotation.ExposableControllerEndpoint_RENAMED;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
@@ -90,7 +90,7 @@ class EndpointLinksResolverTests {
 
 	@Test
 	void resolvedLinksContainsALinkForControllerEndpoint() {
-		ExposableControllerEndpoint controllerEndpoint = mock(ExposableControllerEndpoint.class);
+		ExposableControllerEndpoint_RENAMED controllerEndpoint = mock(ExposableControllerEndpoint_RENAMED.class);
 		given(controllerEndpoint.getEndpointId()).willReturn(EndpointId.of("alpha"));
 		given(controllerEndpoint.isEnableByDefault()).willReturn(true);
 		given(controllerEndpoint.getRootPath()).willReturn("alpha");

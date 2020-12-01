@@ -23,7 +23,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.actuate.endpoint.EndpointId;
 import org.springframework.boot.actuate.endpoint.web.EndpointMapping;
 import org.springframework.boot.actuate.endpoint.web.annotation.ControllerEndpoint;
-import org.springframework.boot.actuate.endpoint.web.annotation.ExposableControllerEndpoint;
+import org.springframework.boot.actuate.endpoint.web.annotation.ExposableControllerEndpoint_RENAMED;
 import org.springframework.context.support.StaticApplicationContext;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.util.ReflectionUtils;
@@ -49,8 +49,8 @@ class ControllerEndpointHandlerMappingTests {
 
 	@Test
 	void mappingWithNoPrefix() throws Exception {
-		ExposableControllerEndpoint first = firstEndpoint();
-		ExposableControllerEndpoint second = secondEndpoint();
+		ExposableControllerEndpoint_RENAMED first = firstEndpoint();
+		ExposableControllerEndpoint_RENAMED second = secondEndpoint();
 		ControllerEndpointHandlerMapping mapping = createMapping("", first, second);
 		assertThat(mapping.getHandler(request("GET", "/first")).getHandler())
 				.isEqualTo(handlerOf(first.getController(), "get"));
@@ -61,8 +61,8 @@ class ControllerEndpointHandlerMappingTests {
 
 	@Test
 	void mappingWithPrefix() throws Exception {
-		ExposableControllerEndpoint first = firstEndpoint();
-		ExposableControllerEndpoint second = secondEndpoint();
+		ExposableControllerEndpoint_RENAMED first = firstEndpoint();
+		ExposableControllerEndpoint_RENAMED second = secondEndpoint();
 		ControllerEndpointHandlerMapping mapping = createMapping("actuator", first, second);
 		assertThat(mapping.getHandler(request("GET", "/actuator/first")).getHandler())
 				.isEqualTo(handlerOf(first.getController(), "get"));
@@ -74,7 +74,7 @@ class ControllerEndpointHandlerMappingTests {
 
 	@Test
 	void mappingNarrowedToMethod() throws Exception {
-		ExposableControllerEndpoint first = firstEndpoint();
+		ExposableControllerEndpoint_RENAMED first = firstEndpoint();
 		ControllerEndpointHandlerMapping mapping = createMapping("actuator", first);
 		assertThatExceptionOfType(HttpRequestMethodNotSupportedException.class)
 				.isThrownBy(() -> mapping.getHandler(request("POST", "/actuator/first")));
@@ -82,7 +82,7 @@ class ControllerEndpointHandlerMappingTests {
 
 	@Test
 	void mappingWithNoPath() throws Exception {
-		ExposableControllerEndpoint pathless = pathlessEndpoint();
+		ExposableControllerEndpoint_RENAMED pathless = pathlessEndpoint();
 		ControllerEndpointHandlerMapping mapping = createMapping("actuator", pathless);
 		assertThat(mapping.getHandler(request("GET", "/actuator/pathless")).getHandler())
 				.isEqualTo(handlerOf(pathless.getController(), "get"));
@@ -90,7 +90,7 @@ class ControllerEndpointHandlerMappingTests {
 		assertThat(mapping.getHandler(request("GET", "/"))).isNull();
 	}
 
-	private ControllerEndpointHandlerMapping createMapping(String prefix, ExposableControllerEndpoint... endpoints) {
+	private ControllerEndpointHandlerMapping createMapping(String prefix, ExposableControllerEndpoint_RENAMED... endpoints) {
 		ControllerEndpointHandlerMapping mapping = new ControllerEndpointHandlerMapping(new EndpointMapping(prefix),
 				Arrays.asList(endpoints), null);
 		mapping.setApplicationContext(this.context);
@@ -106,20 +106,20 @@ class ControllerEndpointHandlerMappingTests {
 		return new MockHttpServletRequest(method, requestURI);
 	}
 
-	private ExposableControllerEndpoint firstEndpoint() {
+	private ExposableControllerEndpoint_RENAMED firstEndpoint() {
 		return mockEndpoint(EndpointId.of("first"), new FirstTestMvcEndpoint());
 	}
 
-	private ExposableControllerEndpoint secondEndpoint() {
+	private ExposableControllerEndpoint_RENAMED secondEndpoint() {
 		return mockEndpoint(EndpointId.of("second"), new SecondTestMvcEndpoint());
 	}
 
-	private ExposableControllerEndpoint pathlessEndpoint() {
+	private ExposableControllerEndpoint_RENAMED pathlessEndpoint() {
 		return mockEndpoint(EndpointId.of("pathless"), new PathlessControllerEndpoint());
 	}
 
-	private ExposableControllerEndpoint mockEndpoint(EndpointId id, Object controller) {
-		ExposableControllerEndpoint endpoint = mock(ExposableControllerEndpoint.class);
+	private ExposableControllerEndpoint_RENAMED mockEndpoint(EndpointId id, Object controller) {
+		ExposableControllerEndpoint_RENAMED endpoint = mock(ExposableControllerEndpoint_RENAMED.class);
 		given(endpoint.getEndpointId()).willReturn(id);
 		given(endpoint.getController()).willReturn(controller);
 		given(endpoint.getRootPath()).willReturn(id.toString());
