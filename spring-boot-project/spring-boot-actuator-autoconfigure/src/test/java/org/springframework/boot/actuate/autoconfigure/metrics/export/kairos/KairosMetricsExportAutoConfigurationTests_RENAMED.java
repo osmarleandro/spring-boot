@@ -34,7 +34,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Stephane Nicoll
  */
-class KairosMetricsExportAutoConfigurationTests {
+class KairosMetricsExportAutoConfigurationTests_RENAMED {
 
 	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(KairosMetricsExportAutoConfiguration.class));
