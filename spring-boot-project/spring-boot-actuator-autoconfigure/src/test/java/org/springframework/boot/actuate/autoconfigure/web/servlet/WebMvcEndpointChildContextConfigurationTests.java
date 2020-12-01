@@ -29,7 +29,7 @@ import org.springframework.web.filter.RequestContextFilter;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Tests for {@link WebMvcEndpointChildContextConfiguration}.
+ * Tests for {@link WebMvcEndpointChildContextConfiguration_RENAMED}.
  *
  * @author Madhura Bhave
  */
@@ -40,13 +40,13 @@ class WebMvcEndpointChildContextConfigurationTests {
 
 	@Test
 	void contextShouldConfigureRequestContextFilter() {
-		this.contextRunner.withUserConfiguration(WebMvcEndpointChildContextConfiguration.class)
+		this.contextRunner.withUserConfiguration(WebMvcEndpointChildContextConfiguration_RENAMED.class)
 				.run((context) -> assertThat(context).hasSingleBean(OrderedRequestContextFilter.class));
 	}
 
 	@Test
 	void contextShouldNotConfigureRequestContextFilterWhenPresent() {
-		this.contextRunner.withUserConfiguration(ExistingConfig.class, WebMvcEndpointChildContextConfiguration.class)
+		this.contextRunner.withUserConfiguration(ExistingConfig.class, WebMvcEndpointChildContextConfiguration_RENAMED.class)
 				.run((context) -> {
 					assertThat(context).hasSingleBean(RequestContextFilter.class);
 					assertThat(context).hasBean("testRequestContextFilter");
@@ -56,7 +56,7 @@ class WebMvcEndpointChildContextConfigurationTests {
 	@Test
 	void contextShouldNotConfigureRequestContextFilterWhenRequestContextListenerPresent() {
 		this.contextRunner.withUserConfiguration(RequestContextListenerConfig.class,
-				WebMvcEndpointChildContextConfiguration.class).run((context) -> {
+				WebMvcEndpointChildContextConfiguration_RENAMED.class).run((context) -> {
 					assertThat(context).hasSingleBean(RequestContextListener.class);
 					assertThat(context).doesNotHaveBean(OrderedRequestContextFilter.class);
 				});
@@ -64,7 +64,7 @@ class WebMvcEndpointChildContextConfigurationTests {
 
 	@Test
 	void contextShouldConfigureDispatcherServletPathWithRootPath() {
-		this.contextRunner.withUserConfiguration(WebMvcEndpointChildContextConfiguration.class)
+		this.contextRunner.withUserConfiguration(WebMvcEndpointChildContextConfiguration_RENAMED.class)
 				.run((context) -> assertThat(context.getBean(DispatcherServletPath.class).getPath()).isEqualTo("/"));
 	}
 

@@ -54,7 +54,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Integration tests for {@link WebMvcEndpointChildContextConfiguration}.
+ * Integration tests for {@link WebMvcEndpointChildContextConfiguration_RENAMED}.
  *
  * @author Phillip Webb
  * @author Scott Frederick

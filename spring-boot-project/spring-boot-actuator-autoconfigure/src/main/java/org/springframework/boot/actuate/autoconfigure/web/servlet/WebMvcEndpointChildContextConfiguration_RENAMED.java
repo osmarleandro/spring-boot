@@ -52,7 +52,7 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 @ConditionalOnWebApplication(type = Type.SERVLET)
 @ConditionalOnClass(DispatcherServlet.class)
 @EnableWebMvc
-class WebMvcEndpointChildContextConfiguration {
+class WebMvcEndpointChildContextConfiguration_RENAMED {
 
 	/*
 	 * The error controller is present but not mapped as an endpoint in this context
