@@ -23,7 +23,7 @@ import javax.jms.ConnectionFactory;
 import org.springframework.boot.actuate.autoconfigure.health.CompositeHealthContributorConfiguration;
 import org.springframework.boot.actuate.autoconfigure.health.ConditionalOnEnabledHealthIndicator;
 import org.springframework.boot.actuate.health.HealthContributor;
-import org.springframework.boot.actuate.jms.JmsHealthIndicator;
+import org.springframework.boot.actuate.jms.JmsHealthIndicator_RENAMED;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
@@ -35,7 +35,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * {@link EnableAutoConfiguration Auto-configuration} for {@link JmsHealthIndicator}.
+ * {@link EnableAutoConfiguration Auto-configuration} for {@link JmsHealthIndicator_RENAMED}.
  *
  * @author Stephane Nicoll
  * @since 2.0.0
@@ -46,7 +46,7 @@ import org.springframework.context.annotation.Configuration;
 @ConditionalOnEnabledHealthIndicator("jms")
 @AutoConfigureAfter({ ActiveMQAutoConfiguration.class, ArtemisAutoConfiguration.class })
 public class JmsHealthContributorAutoConfiguration
-		extends CompositeHealthContributorConfiguration<JmsHealthIndicator, ConnectionFactory> {
+		extends CompositeHealthContributorConfiguration<JmsHealthIndicator_RENAMED, ConnectionFactory> {
 
 	@Bean
 	@ConditionalOnMissingBean(name = { "jmsHealthIndicator", "jmsHealthContributor" })

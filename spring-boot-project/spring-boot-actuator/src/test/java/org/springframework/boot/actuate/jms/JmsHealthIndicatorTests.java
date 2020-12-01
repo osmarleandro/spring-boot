@@ -37,7 +37,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 /**
- * Tests for {@link JmsHealthIndicator}.
+ * Tests for {@link JmsHealthIndicator_RENAMED}.
  *
  * @author Stephane Nicoll
  */
@@ -51,7 +51,7 @@ class JmsHealthIndicatorTests {
 		given(connection.getMetaData()).willReturn(connectionMetaData);
 		ConnectionFactory connectionFactory = mock(ConnectionFactory.class);
 		given(connectionFactory.createConnection()).willReturn(connection);
-		JmsHealthIndicator indicator = new JmsHealthIndicator(connectionFactory);
+		JmsHealthIndicator_RENAMED indicator = new JmsHealthIndicator_RENAMED(connectionFactory);
 		Health health = indicator.health();
 		assertThat(health.getStatus()).isEqualTo(Status.UP);
 		assertThat(health.getDetails().get("provider")).isEqualTo("JMS test provider");
@@ -62,7 +62,7 @@ class JmsHealthIndicatorTests {
 	void jmsBrokerIsDown() throws JMSException {
 		ConnectionFactory connectionFactory = mock(ConnectionFactory.class);
 		given(connectionFactory.createConnection()).willThrow(new JMSException("test", "123"));
-		JmsHealthIndicator indicator = new JmsHealthIndicator(connectionFactory);
+		JmsHealthIndicator_RENAMED indicator = new JmsHealthIndicator_RENAMED(connectionFactory);
 		Health health = indicator.health();
 		assertThat(health.getStatus()).isEqualTo(Status.DOWN);
 		assertThat(health.getDetails().get("provider")).isNull();
@@ -76,7 +76,7 @@ class JmsHealthIndicatorTests {
 		given(connection.getMetaData()).willReturn(connectionMetaData);
 		ConnectionFactory connectionFactory = mock(ConnectionFactory.class);
 		given(connectionFactory.createConnection()).willReturn(connection);
-		JmsHealthIndicator indicator = new JmsHealthIndicator(connectionFactory);
+		JmsHealthIndicator_RENAMED indicator = new JmsHealthIndicator_RENAMED(connectionFactory);
 		Health health = indicator.health();
 		assertThat(health.getStatus()).isEqualTo(Status.DOWN);
 		assertThat(health.getDetails().get("provider")).isNull();
@@ -92,7 +92,7 @@ class JmsHealthIndicatorTests {
 		given(connection.getMetaData()).willReturn(connectionMetaData);
 		willThrow(new JMSException("Could not start", "123")).given(connection).start();
 		given(connectionFactory.createConnection()).willReturn(connection);
-		JmsHealthIndicator indicator = new JmsHealthIndicator(connectionFactory);
+		JmsHealthIndicator_RENAMED indicator = new JmsHealthIndicator_RENAMED(connectionFactory);
 		Health health = indicator.health();
 		assertThat(health.getStatus()).isEqualTo(Status.DOWN);
 		assertThat(health.getDetails().get("provider")).isNull();
@@ -111,7 +111,7 @@ class JmsHealthIndicatorTests {
 		}).given(connection).close();
 		ConnectionFactory connectionFactory = mock(ConnectionFactory.class);
 		given(connectionFactory.createConnection()).willReturn(connection);
-		JmsHealthIndicator indicator = new JmsHealthIndicator(connectionFactory);
+		JmsHealthIndicator_RENAMED indicator = new JmsHealthIndicator_RENAMED(connectionFactory);
 		Health health = indicator.health();
 		assertThat(health.getStatus()).isEqualTo(Status.DOWN);
 		assertThat((String) health.getDetails().get("error")).contains("Connection closed");

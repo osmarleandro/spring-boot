@@ -19,7 +19,7 @@ package org.springframework.boot.actuate.autoconfigure.jms;
 import org.junit.jupiter.api.Test;
 
 import org.springframework.boot.actuate.autoconfigure.health.HealthContributorAutoConfiguration;
-import org.springframework.boot.actuate.jms.JmsHealthIndicator;
+import org.springframework.boot.actuate.jms.JmsHealthIndicator_RENAMED;
 import org.springframework.boot.actuate.ldap.LdapHealthIndicator;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
 import org.springframework.boot.autoconfigure.jms.activemq.ActiveMQAutoConfiguration;
@@ -40,7 +40,7 @@ class JmsHealthContributorAutoConfigurationTests {
 
 	@Test
 	void runShouldCreateIndicator() {
-		this.contextRunner.run((context) -> assertThat(context).hasSingleBean(JmsHealthIndicator.class));
+		this.contextRunner.run((context) -> assertThat(context).hasSingleBean(JmsHealthIndicator_RENAMED.class));
 	}
 
 	@Test
