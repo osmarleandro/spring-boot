@@ -34,7 +34,7 @@ import org.springframework.boot.actuate.autoconfigure.trace.http.HttpTraceAutoCo
 import org.springframework.boot.actuate.autoconfigure.web.server.ManagementContextAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.web.servlet.ServletManagementContextAutoConfiguration;
 import org.springframework.boot.actuate.endpoint.web.EndpointServlet;
-import org.springframework.boot.actuate.endpoint.web.annotation.RestControllerEndpoint;
+import org.springframework.boot.actuate.endpoint.web.annotation.RestControllerEndpoint_RENAMED;
 import org.springframework.boot.actuate.endpoint.web.annotation.ServletEndpoint;
 import org.springframework.boot.actuate.trace.http.InMemoryHttpTraceRepository;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
@@ -184,7 +184,7 @@ class WebMvcEndpointExposureIntegrationTests {
 				String.format("Unexpected %s HTTP status for endpoint %s", result.getStatus(), path));
 	}
 
-	@RestControllerEndpoint(id = "custommvc")
+	@RestControllerEndpoint_RENAMED(id = "custommvc")
 	static class CustomMvcEndpoint {
 
 		@GetMapping("/")

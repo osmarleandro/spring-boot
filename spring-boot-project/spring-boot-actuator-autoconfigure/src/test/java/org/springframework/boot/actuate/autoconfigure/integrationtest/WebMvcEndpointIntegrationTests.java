@@ -31,7 +31,7 @@ import org.springframework.boot.actuate.autoconfigure.web.server.ManagementConte
 import org.springframework.boot.actuate.autoconfigure.web.servlet.ServletManagementContextAutoConfiguration;
 import org.springframework.boot.actuate.endpoint.web.EndpointServlet;
 import org.springframework.boot.actuate.endpoint.web.annotation.ControllerEndpoint;
-import org.springframework.boot.actuate.endpoint.web.annotation.RestControllerEndpoint;
+import org.springframework.boot.actuate.endpoint.web.annotation.RestControllerEndpoint_RENAMED;
 import org.springframework.boot.actuate.endpoint.web.annotation.ServletEndpoint;
 import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
 import org.springframework.boot.autoconfigure.context.PropertyPlaceholderAutoConfiguration;
@@ -177,7 +177,7 @@ class WebMvcEndpointIntegrationTests {
 
 	}
 
-	@RestControllerEndpoint(id = "restcontroller")
+	@RestControllerEndpoint_RENAMED(id = "restcontroller")
 	static class TestRestControllerEndpoint {
 
 	}

@@ -27,7 +27,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.actuate.endpoint.web.EndpointMapping;
 import org.springframework.boot.actuate.endpoint.web.annotation.ControllerEndpointDiscoverer;
 import org.springframework.boot.actuate.endpoint.web.annotation.ControllerEndpointsSupplier;
-import org.springframework.boot.actuate.endpoint.web.annotation.RestControllerEndpoint;
+import org.springframework.boot.actuate.endpoint.web.annotation.RestControllerEndpoint_RENAMED;
 import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
 import org.springframework.boot.autoconfigure.http.HttpMessageConvertersAutoConfiguration;
 import org.springframework.boot.autoconfigure.jackson.JacksonAutoConfiguration;
@@ -122,7 +122,7 @@ class ControllerEndpointHandlerMappingIntegrationTests {
 
 	}
 
-	@RestControllerEndpoint(id = "example")
+	@RestControllerEndpoint_RENAMED(id = "example")
 	static class ExampleMvcEndpoint {
 
 		@GetMapping(path = "one", produces = MediaType.TEXT_PLAIN_VALUE)

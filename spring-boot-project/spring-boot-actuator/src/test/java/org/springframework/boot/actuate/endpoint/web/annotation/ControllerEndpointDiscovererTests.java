@@ -157,12 +157,12 @@ class ControllerEndpointDiscovererTests {
 
 	}
 
-	@RestControllerEndpoint(id = "testrestcontroller")
+	@RestControllerEndpoint_RENAMED(id = "testrestcontroller")
 	static class TestRestControllerEndpoint {
 
 	}
 
-	@RestControllerEndpoint(id = "testrestcontroller")
+	@RestControllerEndpoint_RENAMED(id = "testrestcontroller")
 	@Validated
 	static class TestProxyRestControllerEndpoint {
 

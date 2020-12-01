@@ -31,29 +31,31 @@ import org.springframework.core.annotation.AliasFor;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
- * Identifies a type as being an endpoint that is only exposed over Spring MVC or Spring
- * WebFlux. Mapped methods must be annotated with {@link GetMapping @GetMapping},
+ * Identifies a type as being a REST endpoint that is only exposed over Spring MVC or
+ * Spring WebFlux. Mapped methods must be annotated with {@link GetMapping @GetMapping},
  * {@link PostMapping @PostMapping}, {@link DeleteMapping @DeleteMapping}, etc annotations
  * rather than {@link ReadOperation @ReadOperation},
  * {@link WriteOperation @WriteOperation}, {@link DeleteOperation @DeleteOperation}.
  * <p>
  * This annotation can be used when deeper Spring integration is required, but at the
  * expense of portability. Most users should prefer the {@link Endpoint @Endpoint} or
- * {@link WebEndpoint @WebEndpoint} annotation whenever possible.
+ * {@link WebEndpoint @WebEndpoint} annotations whenever possible.
  *
  * @author Phillip Webb
  * @since 2.0.0
  * @see WebEndpoint
- * @see RestControllerEndpoint_RENAMED
+ * @see ControllerEndpoint
  */
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @Endpoint
 @FilteredEndpoint(ControllerEndpointFilter.class)
-public @interface ControllerEndpoint {
+@ResponseBody
+public @interface RestControllerEndpoint_RENAMED {
 
 	/**
 	 * The id of the endpoint.

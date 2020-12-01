@@ -59,7 +59,7 @@ public class ControllerEndpointDiscoverer extends EndpointDiscoverer<ExposableCo
 	@Override
 	protected boolean isEndpointTypeExposed(Class<?> beanType) {
 		MergedAnnotations annotations = MergedAnnotations.from(beanType, SearchStrategy.SUPERCLASS);
-		return annotations.isPresent(ControllerEndpoint.class) || annotations.isPresent(RestControllerEndpoint.class);
+		return annotations.isPresent(ControllerEndpoint.class) || annotations.isPresent(RestControllerEndpoint_RENAMED.class);
 	}
 
 	@Override
