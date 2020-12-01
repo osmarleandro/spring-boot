@@ -41,7 +41,7 @@ class CloudFoundrySecurityInterceptor {
 
 	private static final Log logger = LogFactory.getLog(CloudFoundrySecurityInterceptor.class);
 
-	private final ReactiveTokenValidator tokenValidator;
+	private final ReactiveTokenValidator_RENAMED tokenValidator;
 
 	private final ReactiveCloudFoundrySecurityService cloudFoundrySecurityService;
 
@@ -49,7 +49,7 @@ class CloudFoundrySecurityInterceptor {
 
 	private static final Mono<SecurityResponse> SUCCESS = Mono.just(SecurityResponse.success());
 
-	CloudFoundrySecurityInterceptor(ReactiveTokenValidator tokenValidator,
+	CloudFoundrySecurityInterceptor(ReactiveTokenValidator_RENAMED tokenValidator,
 			ReactiveCloudFoundrySecurityService cloudFoundrySecurityService, String applicationId) {
 		this.tokenValidator = tokenValidator;
 		this.cloudFoundrySecurityService = cloudFoundrySecurityService;

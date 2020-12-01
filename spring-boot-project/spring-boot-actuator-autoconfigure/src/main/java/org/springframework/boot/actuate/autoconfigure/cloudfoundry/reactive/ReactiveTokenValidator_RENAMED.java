@@ -40,13 +40,13 @@ import org.springframework.util.Base64Utils;
  *
  * @author Madhura Bhave
  */
-class ReactiveTokenValidator {
+class ReactiveTokenValidator_RENAMED {
 
 	private final ReactiveCloudFoundrySecurityService securityService;
 
 	private volatile ConcurrentMap<String, String> cachedTokenKeys = new ConcurrentHashMap<>();
 
-	ReactiveTokenValidator(ReactiveCloudFoundrySecurityService securityService) {
+	ReactiveTokenValidator_RENAMED(ReactiveCloudFoundrySecurityService securityService) {
 		this.securityService = securityService;
 	}
 

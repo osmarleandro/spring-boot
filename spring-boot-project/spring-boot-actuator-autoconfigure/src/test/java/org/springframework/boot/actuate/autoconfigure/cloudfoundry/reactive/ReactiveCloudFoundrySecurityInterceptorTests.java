@@ -46,7 +46,7 @@ import static org.mockito.BDDMockito.given;
 class ReactiveCloudFoundrySecurityInterceptorTests {
 
 	@Mock
-	private ReactiveTokenValidator tokenValidator;
+	private ReactiveTokenValidator_RENAMED tokenValidator;
 
 	@Mock
 	private ReactiveCloudFoundrySecurityService securityService;

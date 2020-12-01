@@ -126,7 +126,7 @@ public class ReactiveCloudFoundryActuatorAutoConfiguration {
 			Environment environment) {
 		ReactiveCloudFoundrySecurityService cloudfoundrySecurityService = getCloudFoundrySecurityService(
 				webClientBuilder, environment);
-		ReactiveTokenValidator tokenValidator = new ReactiveTokenValidator(cloudfoundrySecurityService);
+		ReactiveTokenValidator_RENAMED tokenValidator = new ReactiveTokenValidator_RENAMED(cloudfoundrySecurityService);
 		return new CloudFoundrySecurityInterceptor(tokenValidator, cloudfoundrySecurityService,
 				environment.getProperty("vcap.application.application_id"));
 	}
