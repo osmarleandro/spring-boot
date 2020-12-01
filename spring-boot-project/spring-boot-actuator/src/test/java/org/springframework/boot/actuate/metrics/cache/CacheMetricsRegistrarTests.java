@@ -40,7 +40,7 @@ class CacheMetricsRegistrarTests {
 	@Test
 	void bindToSupportedCache() {
 		CacheMetricsRegistrar registrar = new CacheMetricsRegistrar(this.meterRegistry,
-				Collections.singleton(new CaffeineCacheMeterBinderProvider()));
+				Collections.singleton(new CaffeineCacheMeterBinderProvider_RENAMED()));
 		assertThat(registrar.bindCacheToRegistry(new CaffeineCache("test", Caffeine.newBuilder().build()))).isTrue();
 		assertThat(this.meterRegistry.get("cache.gets").tags("name", "test").meter()).isNotNull();
 	}
@@ -48,7 +48,7 @@ class CacheMetricsRegistrarTests {
 	@Test
 	void bindToSupportedCacheWrappedInTransactionProxy() {
 		CacheMetricsRegistrar registrar = new CacheMetricsRegistrar(this.meterRegistry,
-				Collections.singleton(new CaffeineCacheMeterBinderProvider()));
+				Collections.singleton(new CaffeineCacheMeterBinderProvider_RENAMED()));
 		assertThat(registrar.bindCacheToRegistry(
 				new TransactionAwareCacheDecorator(new CaffeineCache("test", Caffeine.newBuilder().build())))).isTrue();
 		assertThat(this.meterRegistry.get("cache.gets").tags("name", "test").meter()).isNotNull();

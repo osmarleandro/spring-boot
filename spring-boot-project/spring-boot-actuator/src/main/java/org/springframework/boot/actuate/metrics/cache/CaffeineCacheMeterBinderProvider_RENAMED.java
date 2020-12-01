@@ -16,29 +16,23 @@
 
 package org.springframework.boot.actuate.metrics.cache;
 
-import java.util.Collections;
-
-import com.github.benmanes.caffeine.cache.Caffeine;
+import io.micrometer.core.instrument.Tag;
 import io.micrometer.core.instrument.binder.MeterBinder;
 import io.micrometer.core.instrument.binder.cache.CaffeineCacheMetrics;
-import org.junit.jupiter.api.Test;
 
 import org.springframework.cache.caffeine.CaffeineCache;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 /**
- * Tests for {@link CaffeineCacheMeterBinderProvider_RENAMED}.
+ * {@link CacheMeterBinderProvider} implementation for Caffeine.
  *
  * @author Stephane Nicoll
+ * @since 2.0.0
  */
-class CaffeineCacheMeterBinderProviderTests {
+public class CaffeineCacheMeterBinderProvider_RENAMED implements CacheMeterBinderProvider<CaffeineCache> {
 
-	@Test
-	void caffeineCacheProvider() {
-		CaffeineCache cache = new CaffeineCache("test", Caffeine.newBuilder().build());
-		MeterBinder meterBinder = new CaffeineCacheMeterBinderProvider_RENAMED().getMeterBinder(cache, Collections.emptyList());
-		assertThat(meterBinder).isInstanceOf(CaffeineCacheMetrics.class);
+	@Override
+	public MeterBinder getMeterBinder(CaffeineCache cache, Iterable<Tag> tags) {
+		return new CaffeineCacheMetrics(cache.getNativeCache(), cache.getName(), tags);
 	}
 
 }

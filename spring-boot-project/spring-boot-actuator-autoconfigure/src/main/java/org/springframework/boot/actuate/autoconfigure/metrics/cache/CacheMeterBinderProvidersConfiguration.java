@@ -22,7 +22,7 @@ import io.micrometer.core.instrument.binder.MeterBinder;
 import net.sf.ehcache.Ehcache;
 
 import org.springframework.boot.actuate.metrics.cache.CacheMeterBinderProvider;
-import org.springframework.boot.actuate.metrics.cache.CaffeineCacheMeterBinderProvider;
+import org.springframework.boot.actuate.metrics.cache.CaffeineCacheMeterBinderProvider_RENAMED;
 import org.springframework.boot.actuate.metrics.cache.EhCache2CacheMeterBinderProvider;
 import org.springframework.boot.actuate.metrics.cache.HazelcastCacheMeterBinderProvider;
 import org.springframework.boot.actuate.metrics.cache.JCacheCacheMeterBinderProvider;
@@ -49,8 +49,8 @@ class CacheMeterBinderProvidersConfiguration {
 	static class CaffeineCacheMeterBinderProviderConfiguration {
 
 		@Bean
-		CaffeineCacheMeterBinderProvider caffeineCacheMeterBinderProvider() {
-			return new CaffeineCacheMeterBinderProvider();
+		CaffeineCacheMeterBinderProvider_RENAMED caffeineCacheMeterBinderProvider() {
+			return new CaffeineCacheMeterBinderProvider_RENAMED();
 		}
 
 	}
