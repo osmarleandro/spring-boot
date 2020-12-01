@@ -59,7 +59,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Phillip Webb
  * @author Scott Frederick
  */
-class WebMvcEndpointChildContextConfigurationIntegrationTests {
+class WebMvcEndpointChildContextConfigurationIntegrationTests_RENAMED {
 
 	private final WebApplicationContextRunner runner = new WebApplicationContextRunner(
 			AnnotationConfigServletWebServerApplicationContext::new)
