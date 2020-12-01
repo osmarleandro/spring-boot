@@ -20,13 +20,13 @@ import java.util.Collection;
 
 import org.springframework.boot.actuate.endpoint.AbstractExposableEndpoint;
 import org.springframework.boot.actuate.endpoint.EndpointId;
-import org.springframework.boot.actuate.endpoint.ExposableEndpoint;
+import org.springframework.boot.actuate.endpoint.ExposableEndpoint_RENAMED;
 import org.springframework.boot.actuate.endpoint.Operation;
 import org.springframework.core.style.ToStringCreator;
 import org.springframework.util.Assert;
 
 /**
- * Abstract base class for {@link ExposableEndpoint endpoints} discovered by a
+ * Abstract base class for {@link ExposableEndpoint_RENAMED endpoints} discovered by a
  * {@link EndpointDiscoverer}.
  *
  * @param <O> the operation type

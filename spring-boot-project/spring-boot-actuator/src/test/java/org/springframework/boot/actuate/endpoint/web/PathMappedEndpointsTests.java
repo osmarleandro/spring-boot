@@ -24,7 +24,7 @@ import org.junit.jupiter.api.Test;
 
 import org.springframework.boot.actuate.endpoint.EndpointId;
 import org.springframework.boot.actuate.endpoint.EndpointsSupplier;
-import org.springframework.boot.actuate.endpoint.ExposableEndpoint;
+import org.springframework.boot.actuate.endpoint.ExposableEndpoint_RENAMED;
 import org.springframework.boot.actuate.endpoint.Operation;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -116,7 +116,7 @@ class PathMappedEndpointsTests {
 	}
 
 	private PathMappedEndpoints createTestMapped(String basePath) {
-		List<ExposableEndpoint<?>> endpoints = new ArrayList<>();
+		List<ExposableEndpoint_RENAMED<?>> endpoints = new ArrayList<>();
 		endpoints.add(mockEndpoint(EndpointId.of("e1")));
 		endpoints.add(mockEndpoint(EndpointId.of("e2"), "p2"));
 		endpoints.add(mockEndpoint(EndpointId.of("e3"), "p3"));
@@ -137,11 +137,11 @@ class PathMappedEndpointsTests {
 		return endpoint;
 	}
 
-	public interface TestEndpoint extends ExposableEndpoint<Operation> {
+	public interface TestEndpoint extends ExposableEndpoint_RENAMED<Operation> {
 
 	}
 
-	public interface TestPathMappedEndpoint extends ExposableEndpoint<Operation>, PathMappedEndpoint {
+	public interface TestPathMappedEndpoint extends ExposableEndpoint_RENAMED<Operation>, PathMappedEndpoint {
 
 	}
 

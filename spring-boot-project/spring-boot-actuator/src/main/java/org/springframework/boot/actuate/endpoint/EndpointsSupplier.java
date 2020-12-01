@@ -19,7 +19,7 @@ package org.springframework.boot.actuate.endpoint;
 import java.util.Collection;
 
 /**
- * Provides access to a collection of {@link ExposableEndpoint endpoints}.
+ * Provides access to a collection of {@link ExposableEndpoint_RENAMED endpoints}.
  *
  * @param <E> the endpoint type
  * @author Andy Wilkinson
@@ -28,7 +28,7 @@ import java.util.Collection;
  * @since 2.0.0
  */
 @FunctionalInterface
-public interface EndpointsSupplier<E extends ExposableEndpoint<?>> {
+public interface EndpointsSupplier<E extends ExposableEndpoint_RENAMED<?>> {
 
 	/**
 	 * Return the provided endpoints.

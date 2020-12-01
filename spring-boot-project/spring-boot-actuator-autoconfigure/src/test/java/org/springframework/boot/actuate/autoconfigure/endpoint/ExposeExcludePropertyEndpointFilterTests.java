@@ -20,7 +20,7 @@ import org.junit.jupiter.api.Test;
 
 import org.springframework.boot.actuate.endpoint.EndpointFilter;
 import org.springframework.boot.actuate.endpoint.EndpointId;
-import org.springframework.boot.actuate.endpoint.ExposableEndpoint;
+import org.springframework.boot.actuate.endpoint.ExposableEndpoint_RENAMED;
 import org.springframework.boot.actuate.endpoint.web.ExposableWebEndpoint;
 import org.springframework.mock.env.MockEnvironment;
 
@@ -49,21 +49,21 @@ class ExposeExcludePropertyEndpointFilterTests {
 	@Test
 	void createWhenEnvironmentIsNullShouldThrowException() {
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> new ExposeExcludePropertyEndpointFilter<>(ExposableEndpoint.class, null, "foo"))
+				.isThrownBy(() -> new ExposeExcludePropertyEndpointFilter<>(ExposableEndpoint_RENAMED.class, null, "foo"))
 				.withMessageContaining("Environment must not be null");
 	}
 
 	@Test
 	void createWhenPrefixIsNullShouldThrowException() {
 		assertThatIllegalArgumentException().isThrownBy(
-				() -> new ExposeExcludePropertyEndpointFilter<>(ExposableEndpoint.class, new MockEnvironment(), null))
+				() -> new ExposeExcludePropertyEndpointFilter<>(ExposableEndpoint_RENAMED.class, new MockEnvironment(), null))
 				.withMessageContaining("Prefix must not be empty");
 	}
 
 	@Test
 	void createWhenPrefixIsEmptyShouldThrowException() {
 		assertThatIllegalArgumentException().isThrownBy(
-				() -> new ExposeExcludePropertyEndpointFilter<>(ExposableEndpoint.class, new MockEnvironment(), ""))
+				() -> new ExposeExcludePropertyEndpointFilter<>(ExposableEndpoint_RENAMED.class, new MockEnvironment(), ""))
 				.withMessageContaining("Prefix must not be empty");
 	}
 
@@ -157,7 +157,7 @@ class ExposeExcludePropertyEndpointFilterTests {
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	private boolean match(EndpointId id) {
-		ExposableEndpoint<?> endpoint = mock(TestExposableWebEndpoint.class);
+		ExposableEndpoint_RENAMED<?> endpoint = mock(TestExposableWebEndpoint.class);
 		given(endpoint.getEndpointId()).willReturn(id);
 		return ((EndpointFilter) this.filter).match(endpoint);
 	}

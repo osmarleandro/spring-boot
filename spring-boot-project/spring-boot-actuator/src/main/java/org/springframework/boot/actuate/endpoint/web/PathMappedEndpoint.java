@@ -16,10 +16,10 @@
 
 package org.springframework.boot.actuate.endpoint.web;
 
-import org.springframework.boot.actuate.endpoint.ExposableEndpoint;
+import org.springframework.boot.actuate.endpoint.ExposableEndpoint_RENAMED;
 
 /**
- * Interface that can be implemented by an {@link ExposableEndpoint} that is mapped to a
+ * Interface that can be implemented by an {@link ExposableEndpoint_RENAMED} that is mapped to a
  * root web path.
  *
  * @author Phillip Webb

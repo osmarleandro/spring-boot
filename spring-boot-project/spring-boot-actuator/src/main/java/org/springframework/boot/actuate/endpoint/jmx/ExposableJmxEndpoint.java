@@ -16,7 +16,7 @@
 
 package org.springframework.boot.actuate.endpoint.jmx;
 
-import org.springframework.boot.actuate.endpoint.ExposableEndpoint;
+import org.springframework.boot.actuate.endpoint.ExposableEndpoint_RENAMED;
 
 /**
  * Information describing an endpoint that can be exposed over JMX.
@@ -24,6 +24,6 @@ import org.springframework.boot.actuate.endpoint.ExposableEndpoint;
  * @author Phillip Webb
  * @since 2.0.0
  */
-public interface ExposableJmxEndpoint extends ExposableEndpoint<JmxOperation> {
+public interface ExposableJmxEndpoint extends ExposableEndpoint_RENAMED<JmxOperation> {
 
 }

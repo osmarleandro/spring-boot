@@ -17,7 +17,7 @@
 package org.springframework.boot.actuate.endpoint;
 
 /**
- * An operation on an {@link ExposableEndpoint endpoint}.
+ * An operation on an {@link ExposableEndpoint_RENAMED endpoint}.
  *
  * @author Andy Wilkinson
  * @author Phillip Webb

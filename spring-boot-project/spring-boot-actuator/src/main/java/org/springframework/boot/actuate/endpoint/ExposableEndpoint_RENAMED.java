@@ -14,23 +14,36 @@
  * limitations under the License.
  */
 
-package org.springframework.boot.actuate.endpoint.web;
+package org.springframework.boot.actuate.endpoint;
 
-import org.springframework.boot.actuate.endpoint.ExposableEndpoint_RENAMED;
-import org.springframework.boot.actuate.endpoint.Operation;
+import java.util.Collection;
 
 /**
- * Information describing an endpoint that can be exposed by registering a servlet.
+ * Information describing an endpoint that can be exposed in some technology specific way.
  *
+ * @param <O> the type of the endpoint's operations
+ * @author Andy Wilkinson
  * @author Phillip Webb
  * @since 2.0.0
  */
-public interface ExposableServletEndpoint extends ExposableEndpoint_RENAMED<Operation>, PathMappedEndpoint {
+public interface ExposableEndpoint_RENAMED<O extends Operation> {
 
 	/**
-	 * Return details of the servlet that should registered.
-	 * @return the endpoint servlet
+	 * Return the endpoint ID.
+	 * @return the endpoint ID
 	 */
-	EndpointServlet getEndpointServlet();
+	EndpointId getEndpointId();
+
+	/**
+	 * Returns if the endpoint is enabled by default.
+	 * @return if the endpoint is enabled by default
+	 */
+	boolean isEnableByDefault();
+
+	/**
+	 * Returns the operations of the endpoint.
+	 * @return the operations
+	 */
+	Collection<O> getOperations();
 
 }

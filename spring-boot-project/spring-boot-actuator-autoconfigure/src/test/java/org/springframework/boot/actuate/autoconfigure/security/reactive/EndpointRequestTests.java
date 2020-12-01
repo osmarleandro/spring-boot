@@ -25,7 +25,7 @@ import org.junit.jupiter.api.Test;
 
 import org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointProperties;
 import org.springframework.boot.actuate.endpoint.EndpointId;
-import org.springframework.boot.actuate.endpoint.ExposableEndpoint;
+import org.springframework.boot.actuate.endpoint.ExposableEndpoint_RENAMED;
 import org.springframework.boot.actuate.endpoint.Operation;
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
 import org.springframework.boot.actuate.endpoint.web.PathMappedEndpoint;
@@ -130,7 +130,7 @@ class EndpointRequestTests {
 	void excludeByClassShouldNotMatchExcluded() {
 		ServerWebExchangeMatcher matcher = EndpointRequest.toAnyEndpoint().excluding(FooEndpoint.class,
 				BazServletEndpoint.class);
-		List<ExposableEndpoint<?>> endpoints = new ArrayList<>();
+		List<ExposableEndpoint_RENAMED<?>> endpoints = new ArrayList<>();
 		endpoints.add(mockEndpoint(EndpointId.of("foo"), "foo"));
 		endpoints.add(mockEndpoint(EndpointId.of("bar"), "bar"));
 		endpoints.add(mockEndpoint(EndpointId.of("baz"), "baz"));
@@ -197,7 +197,7 @@ class EndpointRequestTests {
 	}
 
 	private PathMappedEndpoints mockPathMappedEndpoints(String basePath) {
-		List<ExposableEndpoint<?>> endpoints = new ArrayList<>();
+		List<ExposableEndpoint_RENAMED<?>> endpoints = new ArrayList<>();
 		endpoints.add(mockEndpoint(EndpointId.of("foo"), "foo"));
 		endpoints.add(mockEndpoint(EndpointId.of("bar"), "bar"));
 		return new PathMappedEndpoints(basePath, () -> endpoints);
@@ -292,7 +292,7 @@ class EndpointRequestTests {
 
 	}
 
-	interface TestEndpoint extends ExposableEndpoint<Operation>, PathMappedEndpoint {
+	interface TestEndpoint extends ExposableEndpoint_RENAMED<Operation>, PathMappedEndpoint {
 
 	}
 

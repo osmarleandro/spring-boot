@@ -24,13 +24,13 @@ import java.util.List;
 import org.springframework.util.Assert;
 
 /**
- * Abstract base class for {@link ExposableEndpoint} implementations.
+ * Abstract base class for {@link ExposableEndpoint_RENAMED} implementations.
  *
  * @param <O> the operation type.
  * @author Phillip Webb
  * @since 2.0.0
  */
-public abstract class AbstractExposableEndpoint<O extends Operation> implements ExposableEndpoint<O> {
+public abstract class AbstractExposableEndpoint<O extends Operation> implements ExposableEndpoint_RENAMED<O> {
 
 	private final EndpointId id;
 

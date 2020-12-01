@@ -21,7 +21,7 @@ import java.util.Collection;
 import org.junit.jupiter.api.Test;
 
 import org.springframework.boot.actuate.endpoint.EndpointFilter;
-import org.springframework.boot.actuate.endpoint.ExposableEndpoint;
+import org.springframework.boot.actuate.endpoint.ExposableEndpoint_RENAMED;
 import org.springframework.boot.actuate.endpoint.Operation;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvokerAdvisor;
 import org.springframework.boot.actuate.endpoint.invoke.ParameterValueMapper;
@@ -74,21 +74,21 @@ class DiscovererEndpointFilterTests {
 
 	}
 
-	abstract static class TestDiscovererA extends EndpointDiscoverer<ExposableEndpoint<Operation>, Operation> {
+	abstract static class TestDiscovererA extends EndpointDiscoverer<ExposableEndpoint_RENAMED<Operation>, Operation> {
 
 		TestDiscovererA(ApplicationContext applicationContext, ParameterValueMapper parameterValueMapper,
 				Collection<OperationInvokerAdvisor> invokerAdvisors,
-				Collection<EndpointFilter<ExposableEndpoint<Operation>>> filters) {
+				Collection<EndpointFilter<ExposableEndpoint_RENAMED<Operation>>> filters) {
 			super(applicationContext, parameterValueMapper, invokerAdvisors, filters);
 		}
 
 	}
 
-	abstract static class TestDiscovererB extends EndpointDiscoverer<ExposableEndpoint<Operation>, Operation> {
+	abstract static class TestDiscovererB extends EndpointDiscoverer<ExposableEndpoint_RENAMED<Operation>, Operation> {
 
 		TestDiscovererB(ApplicationContext applicationContext, ParameterValueMapper parameterValueMapper,
 				Collection<OperationInvokerAdvisor> invokerAdvisors,
-				Collection<EndpointFilter<ExposableEndpoint<Operation>>> filters) {
+				Collection<EndpointFilter<ExposableEndpoint_RENAMED<Operation>>> filters) {
 			super(applicationContext, parameterValueMapper, invokerAdvisors, filters);
 		}
 

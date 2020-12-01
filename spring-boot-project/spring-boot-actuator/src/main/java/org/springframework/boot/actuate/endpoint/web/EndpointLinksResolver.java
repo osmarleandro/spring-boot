@@ -23,7 +23,7 @@ import java.util.Map;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import org.springframework.boot.actuate.endpoint.ExposableEndpoint;
+import org.springframework.boot.actuate.endpoint.ExposableEndpoint_RENAMED;
 
 /**
  * A resolver for {@link Link links} to web endpoints.
@@ -35,14 +35,14 @@ public class EndpointLinksResolver {
 
 	private static final Log logger = LogFactory.getLog(EndpointLinksResolver.class);
 
-	private final Collection<? extends ExposableEndpoint<?>> endpoints;
+	private final Collection<? extends ExposableEndpoint_RENAMED<?>> endpoints;
 
 	/**
 	 * Creates a new {@code EndpointLinksResolver} that will resolve links to the given
 	 * {@code endpoints}.
 	 * @param endpoints the endpoints
 	 */
-	public EndpointLinksResolver(Collection<? extends ExposableEndpoint<?>> endpoints) {
+	public EndpointLinksResolver(Collection<? extends ExposableEndpoint_RENAMED<?>> endpoints) {
 		this.endpoints = endpoints;
 	}
 
@@ -52,7 +52,7 @@ public class EndpointLinksResolver {
 	 * @param endpoints the endpoints
 	 * @param basePath the basePath
 	 */
-	public EndpointLinksResolver(Collection<? extends ExposableEndpoint<?>> endpoints, String basePath) {
+	public EndpointLinksResolver(Collection<? extends ExposableEndpoint_RENAMED<?>> endpoints, String basePath) {
 		this.endpoints = endpoints;
 		if (logger.isInfoEnabled()) {
 			logger.info("Exposing " + endpoints.size() + " endpoint(s) beneath base path '" + basePath + "'");
@@ -69,7 +69,7 @@ public class EndpointLinksResolver {
 		String normalizedUrl = normalizeRequestUrl(requestUrl);
 		Map<String, Link> links = new LinkedHashMap<>();
 		links.put("self", new Link(normalizedUrl));
-		for (ExposableEndpoint<?> endpoint : this.endpoints) {
+		for (ExposableEndpoint_RENAMED<?> endpoint : this.endpoints) {
 			if (endpoint instanceof ExposableWebEndpoint) {
 				collectLinks(links, (ExposableWebEndpoint) endpoint, normalizedUrl);
 			}

@@ -23,7 +23,7 @@ import java.util.Set;
 import org.springframework.boot.actuate.autoconfigure.endpoint.expose.IncludeExcludeEndpointFilter;
 import org.springframework.boot.actuate.autoconfigure.endpoint.expose.IncludeExcludeEndpointFilter.DefaultIncludes;
 import org.springframework.boot.actuate.endpoint.EndpointId;
-import org.springframework.boot.actuate.endpoint.ExposableEndpoint;
+import org.springframework.boot.actuate.endpoint.ExposableEndpoint_RENAMED;
 import org.springframework.boot.autoconfigure.condition.ConditionMessage;
 import org.springframework.boot.autoconfigure.condition.ConditionOutcome;
 import org.springframework.boot.cloud.CloudPlatform;
@@ -87,13 +87,13 @@ class OnAvailableEndpointCondition extends AbstractEndpointCondition {
 		return exposures;
 	}
 
-	static class Exposure extends IncludeExcludeEndpointFilter<ExposableEndpoint<?>> {
+	static class Exposure extends IncludeExcludeEndpointFilter<ExposableEndpoint_RENAMED<?>> {
 
 		private final String prefix;
 
 		@SuppressWarnings({ "rawtypes", "unchecked" })
 		Exposure(Environment environment, String prefix, DefaultIncludes defaultIncludes) {
-			super((Class) ExposableEndpoint.class, environment, "management.endpoints." + prefix + ".exposure",
+			super((Class) ExposableEndpoint_RENAMED.class, environment, "management.endpoints." + prefix + ".exposure",
 					defaultIncludes);
 			this.prefix = prefix;
 		}
