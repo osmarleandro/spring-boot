@@ -42,7 +42,7 @@ class DefaultEndpointObjectNameFactoryTests {
 
 	private final MockEnvironment environment = new MockEnvironment();
 
-	private final JmxEndpointProperties properties = new JmxEndpointProperties();
+	private final JmxEndpointProperties_RENAMED properties = new JmxEndpointProperties_RENAMED();
 
 	private final MBeanServer mBeanServer = mock(MBeanServer.class);
 

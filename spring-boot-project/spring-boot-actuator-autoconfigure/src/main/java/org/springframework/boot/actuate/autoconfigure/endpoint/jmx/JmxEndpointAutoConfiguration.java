@@ -59,15 +59,15 @@ import org.springframework.util.ObjectUtils;
  */
 @Configuration(proxyBeanMethods = false)
 @AutoConfigureAfter(JmxAutoConfiguration.class)
-@EnableConfigurationProperties(JmxEndpointProperties.class)
+@EnableConfigurationProperties(JmxEndpointProperties_RENAMED.class)
 @ConditionalOnProperty(prefix = "spring.jmx", name = "enabled", havingValue = "true")
 public class JmxEndpointAutoConfiguration {
 
 	private final ApplicationContext applicationContext;
 
-	private final JmxEndpointProperties properties;
+	private final JmxEndpointProperties_RENAMED properties;
 
-	public JmxEndpointAutoConfiguration(ApplicationContext applicationContext, JmxEndpointProperties properties) {
+	public JmxEndpointAutoConfiguration(ApplicationContext applicationContext, JmxEndpointProperties_RENAMED properties) {
 		this.applicationContext = applicationContext;
 		this.properties = properties;
 	}
@@ -98,7 +98,7 @@ public class JmxEndpointAutoConfiguration {
 
 	@Bean
 	public IncludeExcludeEndpointFilter<ExposableJmxEndpoint> jmxIncludeExcludePropertyEndpointFilter() {
-		JmxEndpointProperties.Exposure exposure = this.properties.getExposure();
+		JmxEndpointProperties_RENAMED.Exposure exposure = this.properties.getExposure();
 		return new IncludeExcludeEndpointFilter<>(ExposableJmxEndpoint.class, exposure.getInclude(),
 				exposure.getExclude(), "*");
 	}

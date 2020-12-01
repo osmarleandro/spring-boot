@@ -35,7 +35,7 @@ import org.springframework.util.StringUtils;
  */
 class DefaultEndpointObjectNameFactory implements EndpointObjectNameFactory {
 
-	private final JmxEndpointProperties properties;
+	private final JmxEndpointProperties_RENAMED properties;
 
 	private final Environment environment;
 
@@ -45,7 +45,7 @@ class DefaultEndpointObjectNameFactory implements EndpointObjectNameFactory {
 
 	private final boolean uniqueNames;
 
-	DefaultEndpointObjectNameFactory(JmxEndpointProperties properties, Environment environment, MBeanServer mBeanServer,
+	DefaultEndpointObjectNameFactory(JmxEndpointProperties_RENAMED properties, Environment environment, MBeanServer mBeanServer,
 			String contextId) {
 		this.properties = properties;
 		this.environment = environment;

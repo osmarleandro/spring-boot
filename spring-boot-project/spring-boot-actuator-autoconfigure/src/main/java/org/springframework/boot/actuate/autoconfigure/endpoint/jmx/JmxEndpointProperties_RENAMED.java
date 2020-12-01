@@ -29,7 +29,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  * @since 2.0.0
  */
 @ConfigurationProperties("management.endpoints.jmx")
-public class JmxEndpointProperties {
+public class JmxEndpointProperties_RENAMED {
 
 	private final Exposure exposure = new Exposure();
 
