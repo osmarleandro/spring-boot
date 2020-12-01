@@ -18,7 +18,7 @@ package org.springframework.boot.actuate.autoconfigure.metrics;
 
 import io.micrometer.core.instrument.Timer.Builder;
 
-import org.springframework.boot.actuate.metrics.AutoTimer;
+import org.springframework.boot.actuate.metrics.AutoTimer_RENAMED;
 
 /**
  * Nested configuration properties for items that are automatically timed.
@@ -28,7 +28,7 @@ import org.springframework.boot.actuate.metrics.AutoTimer;
  * @author Phillip Webb
  * @since 2.2.0
  */
-public final class AutoTimeProperties implements AutoTimer {
+public final class AutoTimeProperties implements AutoTimer_RENAMED {
 
 	private boolean enabled = true;
 

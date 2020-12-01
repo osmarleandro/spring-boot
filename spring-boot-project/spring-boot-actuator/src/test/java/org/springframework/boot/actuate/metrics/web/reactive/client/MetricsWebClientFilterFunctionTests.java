@@ -32,7 +32,7 @@ import org.junit.jupiter.api.Test;
 import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
 
-import org.springframework.boot.actuate.metrics.AutoTimer;
+import org.springframework.boot.actuate.metrics.AutoTimer_RENAMED;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.reactive.function.client.ClientRequest;
@@ -66,7 +66,7 @@ class MetricsWebClientFilterFunctionTests {
 	void setup() {
 		this.registry = new SimpleMeterRegistry(SimpleConfig.DEFAULT, new MockClock());
 		this.filterFunction = new MetricsWebClientFilterFunction(this.registry,
-				new DefaultWebClientExchangeTagsProvider(), "http.client.requests", AutoTimer.ENABLED);
+				new DefaultWebClientExchangeTagsProvider(), "http.client.requests", AutoTimer_RENAMED.ENABLED);
 		this.response = mock(ClientResponse.class);
 		this.exchange = (r) -> Mono.just(this.response);
 	}

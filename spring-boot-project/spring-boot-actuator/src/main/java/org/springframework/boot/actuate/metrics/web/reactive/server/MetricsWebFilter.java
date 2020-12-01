@@ -23,7 +23,7 @@ import io.micrometer.core.instrument.Tag;
 import org.reactivestreams.Publisher;
 import reactor.core.publisher.Mono;
 
-import org.springframework.boot.actuate.metrics.AutoTimer;
+import org.springframework.boot.actuate.metrics.AutoTimer_RENAMED;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.server.reactive.ServerHttpResponse;
@@ -47,7 +47,7 @@ public class MetricsWebFilter implements WebFilter {
 
 	private final String metricName;
 
-	private final AutoTimer autoTimer;
+	private final AutoTimer_RENAMED autoTimer;
 
 	/**
 	 * Create a new {@code MetricsWebFilter}.
@@ -58,11 +58,11 @@ public class MetricsWebFilter implements WebFilter {
 	 * @since 2.2.0
 	 */
 	public MetricsWebFilter(MeterRegistry registry, WebFluxTagsProvider tagsProvider, String metricName,
-			AutoTimer autoTimer) {
+			AutoTimer_RENAMED autoTimer) {
 		this.registry = registry;
 		this.tagsProvider = tagsProvider;
 		this.metricName = metricName;
-		this.autoTimer = (autoTimer != null) ? autoTimer : AutoTimer.DISABLED;
+		this.autoTimer = (autoTimer != null) ? autoTimer : AutoTimer_RENAMED.DISABLED;
 	}
 
 	@Override

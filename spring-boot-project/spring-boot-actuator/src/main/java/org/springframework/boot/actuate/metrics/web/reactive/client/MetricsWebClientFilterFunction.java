@@ -26,7 +26,7 @@ import reactor.core.publisher.SignalType;
 import reactor.util.context.Context;
 import reactor.util.context.ContextView;
 
-import org.springframework.boot.actuate.metrics.AutoTimer;
+import org.springframework.boot.actuate.metrics.AutoTimer_RENAMED;
 import org.springframework.web.reactive.function.client.ClientRequest;
 import org.springframework.web.reactive.function.client.ClientResponse;
 import org.springframework.web.reactive.function.client.ExchangeFilterFunction;
@@ -51,7 +51,7 @@ public class MetricsWebClientFilterFunction implements ExchangeFilterFunction {
 
 	private final String metricName;
 
-	private final AutoTimer autoTimer;
+	private final AutoTimer_RENAMED autoTimer;
 
 	/**
 	 * Create a new {@code MetricsWebClientFilterFunction}.
@@ -62,11 +62,11 @@ public class MetricsWebClientFilterFunction implements ExchangeFilterFunction {
 	 * @since 2.2.0
 	 */
 	public MetricsWebClientFilterFunction(MeterRegistry meterRegistry, WebClientExchangeTagsProvider tagProvider,
-			String metricName, AutoTimer autoTimer) {
+			String metricName, AutoTimer_RENAMED autoTimer) {
 		this.meterRegistry = meterRegistry;
 		this.tagProvider = tagProvider;
 		this.metricName = metricName;
-		this.autoTimer = (autoTimer != null) ? autoTimer : AutoTimer.DISABLED;
+		this.autoTimer = (autoTimer != null) ? autoTimer : AutoTimer_RENAMED.DISABLED;
 	}
 
 	@Override

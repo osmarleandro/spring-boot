@@ -56,7 +56,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.boot.actuate.metrics.AutoTimer;
+import org.springframework.boot.actuate.metrics.AutoTimer_RENAMED;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
@@ -365,7 +365,7 @@ class WebMvcMetricsFilterTests {
 		@Bean
 		WebMvcMetricsFilter webMetricsFilter(MeterRegistry registry, WebApplicationContext ctx) {
 			return new WebMvcMetricsFilter(registry, new DefaultWebMvcTagsProvider(true), "http.server.requests",
-					AutoTimer.ENABLED);
+					AutoTimer_RENAMED.ENABLED);
 		}
 
 	}

@@ -28,7 +28,7 @@ import io.micrometer.core.instrument.simple.SimpleMeterRegistry;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import org.springframework.boot.actuate.metrics.AutoTimer;
+import org.springframework.boot.actuate.metrics.AutoTimer_RENAMED;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpRequest;
 import org.springframework.http.MediaType;
@@ -64,7 +64,7 @@ class MetricsRestTemplateCustomizerTests {
 		this.restTemplate = new RestTemplate();
 		this.mockServer = MockRestServiceServer.createServer(this.restTemplate);
 		this.customizer = new MetricsRestTemplateCustomizer(this.registry,
-				new DefaultRestTemplateExchangeTagsProvider(), "http.client.requests", AutoTimer.ENABLED);
+				new DefaultRestTemplateExchangeTagsProvider(), "http.client.requests", AutoTimer_RENAMED.ENABLED);
 		this.customizer.customize(this.restTemplate);
 	}
 

@@ -25,7 +25,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import reactor.core.publisher.Mono;
 
-import org.springframework.boot.actuate.metrics.AutoTimer;
+import org.springframework.boot.actuate.metrics.AutoTimer_RENAMED;
 import org.springframework.mock.http.server.reactive.MockServerHttpRequest;
 import org.springframework.mock.web.server.MockServerWebExchange;
 import org.springframework.web.reactive.HandlerMapping;
@@ -52,7 +52,7 @@ class MetricsWebFilterTests {
 		MockClock clock = new MockClock();
 		this.registry = new SimpleMeterRegistry(SimpleConfig.DEFAULT, clock);
 		this.webFilter = new MetricsWebFilter(this.registry, new DefaultWebFluxTagsProvider(true), REQUEST_METRICS_NAME,
-				AutoTimer.ENABLED);
+				AutoTimer_RENAMED.ENABLED);
 	}
 
 	@Test

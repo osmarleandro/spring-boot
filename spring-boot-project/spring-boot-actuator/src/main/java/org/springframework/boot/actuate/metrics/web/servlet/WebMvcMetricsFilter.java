@@ -32,7 +32,7 @@ import io.micrometer.core.instrument.Timer;
 import io.micrometer.core.instrument.Timer.Builder;
 import io.micrometer.core.instrument.Timer.Sample;
 
-import org.springframework.boot.actuate.metrics.AutoTimer;
+import org.springframework.boot.actuate.metrics.AutoTimer_RENAMED;
 import org.springframework.core.annotation.MergedAnnotationCollectors;
 import org.springframework.core.annotation.MergedAnnotations;
 import org.springframework.http.HttpStatus;
@@ -59,7 +59,7 @@ public class WebMvcMetricsFilter extends OncePerRequestFilter {
 
 	private final String metricName;
 
-	private final AutoTimer autoTimer;
+	private final AutoTimer_RENAMED autoTimer;
 
 	/**
 	 * Create a new {@link WebMvcMetricsFilter} instance.
@@ -70,7 +70,7 @@ public class WebMvcMetricsFilter extends OncePerRequestFilter {
 	 * @since 2.2.0
 	 */
 	public WebMvcMetricsFilter(MeterRegistry registry, WebMvcTagsProvider tagsProvider, String metricName,
-			AutoTimer autoTimer) {
+			AutoTimer_RENAMED autoTimer) {
 		this.registry = registry;
 		this.tagsProvider = tagsProvider;
 		this.metricName = metricName;

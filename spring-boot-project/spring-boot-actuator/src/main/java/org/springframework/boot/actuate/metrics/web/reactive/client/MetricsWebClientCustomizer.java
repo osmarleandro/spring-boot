@@ -18,7 +18,7 @@ package org.springframework.boot.actuate.metrics.web.reactive.client;
 
 import io.micrometer.core.instrument.MeterRegistry;
 
-import org.springframework.boot.actuate.metrics.AutoTimer;
+import org.springframework.boot.actuate.metrics.AutoTimer_RENAMED;
 import org.springframework.boot.web.reactive.function.client.WebClientCustomizer;
 import org.springframework.web.reactive.function.client.WebClient;
 
@@ -44,7 +44,7 @@ public class MetricsWebClientCustomizer implements WebClientCustomizer {
 	 * @since 2.2.0
 	 */
 	public MetricsWebClientCustomizer(MeterRegistry meterRegistry, WebClientExchangeTagsProvider tagProvider,
-			String metricName, AutoTimer autoTimer) {
+			String metricName, AutoTimer_RENAMED autoTimer) {
 		this.filterFunction = new MetricsWebClientFilterFunction(meterRegistry, tagProvider, metricName, autoTimer);
 	}
 

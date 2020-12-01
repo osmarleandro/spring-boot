@@ -21,7 +21,7 @@ import java.util.List;
 
 import io.micrometer.core.instrument.MeterRegistry;
 
-import org.springframework.boot.actuate.metrics.AutoTimer;
+import org.springframework.boot.actuate.metrics.AutoTimer_RENAMED;
 import org.springframework.boot.web.client.RestTemplateCustomizer;
 import org.springframework.http.client.ClientHttpRequestInterceptor;
 import org.springframework.web.client.RestTemplate;
@@ -43,7 +43,7 @@ public class MetricsRestTemplateCustomizer implements RestTemplateCustomizer {
 	 * Creates a new {@code MetricsRestTemplateInterceptor}. When {@code autoTimeRequests}
 	 * is set to {@code true}, the interceptor records metrics using the given
 	 * {@code meterRegistry} with tags provided by the given {@code tagProvider} and with
-	 * {@link AutoTimer auto-timed configuration}.
+	 * {@link AutoTimer_RENAMED auto-timed configuration}.
 	 * @param meterRegistry the meter registry
 	 * @param tagProvider the tag provider
 	 * @param metricName the name of the recorded metric
@@ -51,7 +51,7 @@ public class MetricsRestTemplateCustomizer implements RestTemplateCustomizer {
 	 * @since 2.2.0
 	 */
 	public MetricsRestTemplateCustomizer(MeterRegistry meterRegistry, RestTemplateExchangeTagsProvider tagProvider,
-			String metricName, AutoTimer autoTimer) {
+			String metricName, AutoTimer_RENAMED autoTimer) {
 		this.interceptor = new MetricsClientHttpRequestInterceptor(meterRegistry, tagProvider, metricName, autoTimer);
 	}
 

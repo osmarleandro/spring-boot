@@ -26,7 +26,7 @@ import java.util.concurrent.TimeUnit;
 import io.micrometer.core.instrument.MeterRegistry;
 import io.micrometer.core.instrument.Timer;
 
-import org.springframework.boot.actuate.metrics.AutoTimer;
+import org.springframework.boot.actuate.metrics.AutoTimer_RENAMED;
 import org.springframework.core.NamedThreadLocal;
 import org.springframework.http.HttpRequest;
 import org.springframework.http.client.ClientHttpRequestExecution;
@@ -51,7 +51,7 @@ class MetricsClientHttpRequestInterceptor implements ClientHttpRequestIntercepto
 
 	private final String metricName;
 
-	private final AutoTimer autoTimer;
+	private final AutoTimer_RENAMED autoTimer;
 
 	/**
 	 * Create a new {@code MetricsClientHttpRequestInterceptor}.
@@ -62,11 +62,11 @@ class MetricsClientHttpRequestInterceptor implements ClientHttpRequestIntercepto
 	 * @since 2.2.0
 	 */
 	MetricsClientHttpRequestInterceptor(MeterRegistry meterRegistry, RestTemplateExchangeTagsProvider tagProvider,
-			String metricName, AutoTimer autoTimer) {
+			String metricName, AutoTimer_RENAMED autoTimer) {
 		this.tagProvider = tagProvider;
 		this.meterRegistry = meterRegistry;
 		this.metricName = metricName;
-		this.autoTimer = (autoTimer != null) ? autoTimer : AutoTimer.DISABLED;
+		this.autoTimer = (autoTimer != null) ? autoTimer : AutoTimer_RENAMED.DISABLED;
 	}
 
 	@Override
