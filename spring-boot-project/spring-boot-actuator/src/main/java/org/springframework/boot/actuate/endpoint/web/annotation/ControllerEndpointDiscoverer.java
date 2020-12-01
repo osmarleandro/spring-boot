@@ -20,7 +20,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
-import org.springframework.boot.actuate.endpoint.EndpointFilter;
+import org.springframework.boot.actuate.endpoint.EndpointFilter_RENAMED;
 import org.springframework.boot.actuate.endpoint.EndpointId;
 import org.springframework.boot.actuate.endpoint.Operation;
 import org.springframework.boot.actuate.endpoint.annotation.DiscoveredOperationMethod;
@@ -51,7 +51,7 @@ public class ControllerEndpointDiscoverer extends EndpointDiscoverer<ExposableCo
 	 * @param filters filters to apply
 	 */
 	public ControllerEndpointDiscoverer(ApplicationContext applicationContext, List<PathMapper> endpointPathMappers,
-			Collection<EndpointFilter<ExposableControllerEndpoint>> filters) {
+			Collection<EndpointFilter_RENAMED<ExposableControllerEndpoint>> filters) {
 		super(applicationContext, ParameterValueMapper.NONE, Collections.emptyList(), filters);
 		this.endpointPathMappers = endpointPathMappers;
 	}

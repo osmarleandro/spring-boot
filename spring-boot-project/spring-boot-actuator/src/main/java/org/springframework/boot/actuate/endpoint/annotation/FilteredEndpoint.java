@@ -22,7 +22,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import org.springframework.boot.actuate.endpoint.EndpointFilter;
+import org.springframework.boot.actuate.endpoint.EndpointFilter_RENAMED;
 
 /**
  * Annotation that can be used on an {@link Endpoint @Endpoint} to implement implicit
@@ -52,6 +52,6 @@ public @interface FilteredEndpoint {
 	 * The filter class to use.
 	 * @return the filter class
 	 */
-	Class<? extends EndpointFilter<?>> value();
+	Class<? extends EndpointFilter_RENAMED<?>> value();
 
 }

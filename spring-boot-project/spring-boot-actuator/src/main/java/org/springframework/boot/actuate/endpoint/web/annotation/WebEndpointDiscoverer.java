@@ -19,7 +19,7 @@ package org.springframework.boot.actuate.endpoint.web.annotation;
 import java.util.Collection;
 import java.util.List;
 
-import org.springframework.boot.actuate.endpoint.EndpointFilter;
+import org.springframework.boot.actuate.endpoint.EndpointFilter_RENAMED;
 import org.springframework.boot.actuate.endpoint.EndpointId;
 import org.springframework.boot.actuate.endpoint.annotation.DiscoveredOperationMethod;
 import org.springframework.boot.actuate.endpoint.annotation.EndpointDiscoverer;
@@ -59,7 +59,7 @@ public class WebEndpointDiscoverer extends EndpointDiscoverer<ExposableWebEndpoi
 	public WebEndpointDiscoverer(ApplicationContext applicationContext, ParameterValueMapper parameterValueMapper,
 			EndpointMediaTypes endpointMediaTypes, List<PathMapper> endpointPathMappers,
 			Collection<OperationInvokerAdvisor> invokerAdvisors,
-			Collection<EndpointFilter<ExposableWebEndpoint>> filters) {
+			Collection<EndpointFilter_RENAMED<ExposableWebEndpoint>> filters) {
 		super(applicationContext, parameterValueMapper, invokerAdvisors, filters);
 		this.endpointPathMappers = endpointPathMappers;
 		this.requestPredicateFactory = new RequestPredicateFactory(endpointMediaTypes);

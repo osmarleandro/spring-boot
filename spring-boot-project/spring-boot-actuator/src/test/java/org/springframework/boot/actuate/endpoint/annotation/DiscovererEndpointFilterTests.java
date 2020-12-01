@@ -20,7 +20,7 @@ import java.util.Collection;
 
 import org.junit.jupiter.api.Test;
 
-import org.springframework.boot.actuate.endpoint.EndpointFilter;
+import org.springframework.boot.actuate.endpoint.EndpointFilter_RENAMED;
 import org.springframework.boot.actuate.endpoint.ExposableEndpoint;
 import org.springframework.boot.actuate.endpoint.Operation;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvokerAdvisor;
@@ -78,7 +78,7 @@ class DiscovererEndpointFilterTests {
 
 		TestDiscovererA(ApplicationContext applicationContext, ParameterValueMapper parameterValueMapper,
 				Collection<OperationInvokerAdvisor> invokerAdvisors,
-				Collection<EndpointFilter<ExposableEndpoint<Operation>>> filters) {
+				Collection<EndpointFilter_RENAMED<ExposableEndpoint<Operation>>> filters) {
 			super(applicationContext, parameterValueMapper, invokerAdvisors, filters);
 		}
 
@@ -88,7 +88,7 @@ class DiscovererEndpointFilterTests {
 
 		TestDiscovererB(ApplicationContext applicationContext, ParameterValueMapper parameterValueMapper,
 				Collection<OperationInvokerAdvisor> invokerAdvisors,
-				Collection<EndpointFilter<ExposableEndpoint<Operation>>> filters) {
+				Collection<EndpointFilter_RENAMED<ExposableEndpoint<Operation>>> filters) {
 			super(applicationContext, parameterValueMapper, invokerAdvisors, filters);
 		}
 

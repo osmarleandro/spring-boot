@@ -14,21 +14,23 @@
  * limitations under the License.
  */
 
-package org.springframework.boot.actuate.autoconfigure.cloudfoundry;
-
-import org.springframework.boot.actuate.endpoint.EndpointFilter_RENAMED;
-import org.springframework.boot.actuate.endpoint.annotation.DiscovererEndpointFilter;
+package org.springframework.boot.actuate.endpoint;
 
 /**
- * {@link EndpointFilter_RENAMED} for endpoints discovered by
- * {@link CloudFoundryWebEndpointDiscoverer}.
+ * Strategy class that can be used to filter {@link ExposableEndpoint endpoints}.
  *
- * @author Madhura Bhave
+ * @author Phillip Webb
+ * @param <E> the endpoint type
+ * @since 2.0.0
  */
-class CloudFoundryEndpointFilter extends DiscovererEndpointFilter {
+@FunctionalInterface
+public interface EndpointFilter_RENAMED<E extends ExposableEndpoint<?>> {
 
-	protected CloudFoundryEndpointFilter() {
-		super(CloudFoundryWebEndpointDiscoverer.class);
-	}
+	/**
+	 * Return {@code true} if the filter matches.
+	 * @param endpoint the endpoint to check
+	 * @return {@code true} if the filter matches
+	 */
+	boolean match(E endpoint);
 
 }

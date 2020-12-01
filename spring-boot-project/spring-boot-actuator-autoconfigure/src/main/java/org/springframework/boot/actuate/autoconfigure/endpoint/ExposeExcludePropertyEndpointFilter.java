@@ -19,12 +19,12 @@ package org.springframework.boot.actuate.autoconfigure.endpoint;
 import java.util.Collection;
 
 import org.springframework.boot.actuate.autoconfigure.endpoint.expose.IncludeExcludeEndpointFilter;
-import org.springframework.boot.actuate.endpoint.EndpointFilter;
+import org.springframework.boot.actuate.endpoint.EndpointFilter_RENAMED;
 import org.springframework.boot.actuate.endpoint.ExposableEndpoint;
 import org.springframework.core.env.Environment;
 
 /**
- * {@link EndpointFilter} that will filter endpoints based on {@code include} and
+ * {@link EndpointFilter_RENAMED} that will filter endpoints based on {@code include} and
  * {@code exclude} patterns.
  *
  * @param <E> the endpoint type

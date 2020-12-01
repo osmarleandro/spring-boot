@@ -18,7 +18,7 @@ package org.springframework.boot.actuate.endpoint.jmx.annotation;
 
 import java.util.Collection;
 
-import org.springframework.boot.actuate.endpoint.EndpointFilter;
+import org.springframework.boot.actuate.endpoint.EndpointFilter_RENAMED;
 import org.springframework.boot.actuate.endpoint.EndpointId;
 import org.springframework.boot.actuate.endpoint.annotation.DiscoveredOperationMethod;
 import org.springframework.boot.actuate.endpoint.annotation.EndpointDiscoverer;
@@ -48,7 +48,7 @@ public class JmxEndpointDiscoverer extends EndpointDiscoverer<ExposableJmxEndpoi
 	 */
 	public JmxEndpointDiscoverer(ApplicationContext applicationContext, ParameterValueMapper parameterValueMapper,
 			Collection<OperationInvokerAdvisor> invokerAdvisors,
-			Collection<EndpointFilter<ExposableJmxEndpoint>> filters) {
+			Collection<EndpointFilter_RENAMED<ExposableJmxEndpoint>> filters) {
 		super(applicationContext, parameterValueMapper, invokerAdvisors, filters);
 	}
 

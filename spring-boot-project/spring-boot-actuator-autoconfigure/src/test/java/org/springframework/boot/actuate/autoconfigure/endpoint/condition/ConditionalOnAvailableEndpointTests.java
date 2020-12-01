@@ -18,7 +18,7 @@ package org.springframework.boot.actuate.autoconfigure.endpoint.condition;
 
 import org.junit.jupiter.api.Test;
 
-import org.springframework.boot.actuate.endpoint.EndpointFilter;
+import org.springframework.boot.actuate.endpoint.EndpointFilter_RENAMED;
 import org.springframework.boot.actuate.endpoint.ExposableEndpoint;
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
 import org.springframework.boot.actuate.endpoint.annotation.EndpointExtension;
@@ -231,7 +231,7 @@ class ConditionalOnAvailableEndpointTests {
 
 	}
 
-	static class TestFilter implements EndpointFilter<ExposableEndpoint<?>> {
+	static class TestFilter implements EndpointFilter_RENAMED<ExposableEndpoint<?>> {
 
 		@Override
 		public boolean match(ExposableEndpoint<?> endpoint) {

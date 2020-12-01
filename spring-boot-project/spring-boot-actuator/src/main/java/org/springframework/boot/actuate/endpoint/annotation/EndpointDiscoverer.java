@@ -33,7 +33,7 @@ import java.util.stream.Collectors;
 import org.springframework.aop.scope.ScopedProxyUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.BeanFactoryUtils;
-import org.springframework.boot.actuate.endpoint.EndpointFilter;
+import org.springframework.boot.actuate.endpoint.EndpointFilter_RENAMED;
 import org.springframework.boot.actuate.endpoint.EndpointId;
 import org.springframework.boot.actuate.endpoint.EndpointsSupplier;
 import org.springframework.boot.actuate.endpoint.ExposableEndpoint;
@@ -72,7 +72,7 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 
 	private final ApplicationContext applicationContext;
 
-	private final Collection<EndpointFilter<E>> filters;
+	private final Collection<EndpointFilter_RENAMED<E>> filters;
 
 	private final DiscoveredOperationsFactory<O> operationsFactory;
 
@@ -88,7 +88,7 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 	 * @param filters filters to apply
 	 */
 	public EndpointDiscoverer(ApplicationContext applicationContext, ParameterValueMapper parameterValueMapper,
-			Collection<OperationInvokerAdvisor> invokerAdvisors, Collection<EndpointFilter<E>> filters) {
+			Collection<OperationInvokerAdvisor> invokerAdvisors, Collection<EndpointFilter_RENAMED<E>> filters) {
 		Assert.notNull(applicationContext, "ApplicationContext must not be null");
 		Assert.notNull(parameterValueMapper, "ParameterValueMapper must not be null");
 		Assert.notNull(invokerAdvisors, "InvokerAdvisors must not be null");
@@ -288,7 +288,7 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 	}
 
 	private boolean isEndpointFiltered(EndpointBean endpointBean) {
-		for (EndpointFilter<E> filter : this.filters) {
+		for (EndpointFilter_RENAMED<E> filter : this.filters) {
 			if (!isFilterMatch(filter, endpointBean)) {
 				return true;
 			}
@@ -305,21 +305,21 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 			return true;
 		}
 		E endpoint = getFilterEndpoint(endpointBean);
-		Class<?> generic = ResolvableType.forClass(EndpointFilter.class, filter).resolveGeneric(0);
+		Class<?> generic = ResolvableType.forClass(EndpointFilter_RENAMED.class, filter).resolveGeneric(0);
 		if (generic == null || generic.isInstance(endpoint)) {
-			EndpointFilter<E> instance = (EndpointFilter<E>) BeanUtils.instantiateClass(filter);
+			EndpointFilter_RENAMED<E> instance = (EndpointFilter_RENAMED<E>) BeanUtils.instantiateClass(filter);
 			return isFilterMatch(instance, endpoint);
 		}
 		return false;
 	}
 
-	private boolean isFilterMatch(EndpointFilter<E> filter, EndpointBean endpointBean) {
+	private boolean isFilterMatch(EndpointFilter_RENAMED<E> filter, EndpointBean endpointBean) {
 		return isFilterMatch(filter, getFilterEndpoint(endpointBean));
 	}
 
 	@SuppressWarnings("unchecked")
-	private boolean isFilterMatch(EndpointFilter<E> filter, E endpoint) {
-		return LambdaSafe.callback(EndpointFilter.class, filter, endpoint).withLogger(EndpointDiscoverer.class)
+	private boolean isFilterMatch(EndpointFilter_RENAMED<E> filter, E endpoint) {
+		return LambdaSafe.callback(EndpointFilter_RENAMED.class, filter, endpoint).withLogger(EndpointDiscoverer.class)
 				.invokeAnd((f) -> f.match(endpoint)).get();
 	}
 

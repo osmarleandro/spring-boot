@@ -34,7 +34,7 @@ import java.util.function.Function;
 
 import org.junit.jupiter.api.Test;
 
-import org.springframework.boot.actuate.endpoint.EndpointFilter;
+import org.springframework.boot.actuate.endpoint.EndpointFilter_RENAMED;
 import org.springframework.boot.actuate.endpoint.EndpointId;
 import org.springframework.boot.actuate.endpoint.ExposableEndpoint;
 import org.springframework.boot.actuate.endpoint.Operation;
@@ -251,7 +251,7 @@ class EndpointDiscovererTests {
 	@Test
 	void getEndpointsShouldApplyFilters() {
 		load(SpecializedEndpointsConfiguration.class, (context) -> {
-			EndpointFilter<SpecializedExposableEndpoint> filter = (endpoint) -> {
+			EndpointFilter_RENAMED<SpecializedExposableEndpoint> filter = (endpoint) -> {
 				EndpointId id = endpoint.getEndpointId();
 				return !id.equals(EndpointId.of("specialized")) && !id.equals(EndpointId.of("specialized-superclass"));
 			};
@@ -530,14 +530,14 @@ class EndpointDiscovererTests {
 		}
 
 		TestEndpointDiscoverer(ApplicationContext applicationContext, Function<EndpointId, Long> timeToLive,
-				Collection<EndpointFilter<TestExposableEndpoint>> filters) {
+				Collection<EndpointFilter_RENAMED<TestExposableEndpoint>> filters) {
 			this(applicationContext, new ConversionServiceParameterValueMapper(),
 					Collections.singleton(new CachingOperationInvokerAdvisor(timeToLive)), filters);
 		}
 
 		TestEndpointDiscoverer(ApplicationContext applicationContext, ParameterValueMapper parameterValueMapper,
 				Collection<OperationInvokerAdvisor> invokerAdvisors,
-				Collection<EndpointFilter<TestExposableEndpoint>> filters) {
+				Collection<EndpointFilter_RENAMED<TestExposableEndpoint>> filters) {
 			super(applicationContext, parameterValueMapper, invokerAdvisors, filters);
 		}
 
@@ -569,7 +569,7 @@ class EndpointDiscovererTests {
 		}
 
 		SpecializedEndpointDiscoverer(ApplicationContext applicationContext,
-				Collection<EndpointFilter<SpecializedExposableEndpoint>> filters) {
+				Collection<EndpointFilter_RENAMED<SpecializedExposableEndpoint>> filters) {
 			super(applicationContext, new ConversionServiceParameterValueMapper(), Collections.emptyList(), filters);
 		}
 

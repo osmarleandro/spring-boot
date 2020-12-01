@@ -16,17 +16,17 @@
 
 package org.springframework.boot.actuate.endpoint.annotation;
 
-import org.springframework.boot.actuate.endpoint.EndpointFilter;
+import org.springframework.boot.actuate.endpoint.EndpointFilter_RENAMED;
 import org.springframework.util.Assert;
 
 /**
- * {@link EndpointFilter} the matches based on the {@link EndpointDiscoverer} the created
+ * {@link EndpointFilter_RENAMED} the matches based on the {@link EndpointDiscoverer} the created
  * the endpoint.
  *
  * @author Phillip Webb
  * @since 2.0.0
  */
-public abstract class DiscovererEndpointFilter implements EndpointFilter<DiscoveredEndpoint<?>> {
+public abstract class DiscovererEndpointFilter implements EndpointFilter_RENAMED<DiscoveredEndpoint<?>> {
 
 	private final Class<? extends EndpointDiscoverer<?, ?>> discoverer;
 

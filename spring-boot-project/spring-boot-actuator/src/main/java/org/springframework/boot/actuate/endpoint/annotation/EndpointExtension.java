@@ -22,7 +22,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import org.springframework.boot.actuate.endpoint.EndpointFilter;
+import org.springframework.boot.actuate.endpoint.EndpointFilter_RENAMED;
 import org.springframework.boot.actuate.endpoint.Operation;
 import org.springframework.core.annotation.AliasFor;
 
@@ -33,7 +33,7 @@ import org.springframework.core.annotation.AliasFor;
  * extension may offer variations of a read operation to support filtering based on a
  * query parameter.
  * <p>
- * Extension annotations must provide an {@link EndpointFilter} to restrict when the
+ * Extension annotations must provide an {@link EndpointFilter_RENAMED} to restrict when the
  * extension applies. The {@code endpoint} attribute is usually re-declared using
  * {@link AliasFor @AliasFor}. For example: <pre class="code">
  * &#64;EndpointExtension(filter = WebEndpointFilter.class)
@@ -57,7 +57,7 @@ public @interface EndpointExtension {
 	 * The filter class used to determine when the extension applies.
 	 * @return the filter class
 	 */
-	Class<? extends EndpointFilter<?>> filter();
+	Class<? extends EndpointFilter_RENAMED<?>> filter();
 
 	/**
 	 * The class of the endpoint to extend.

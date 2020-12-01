@@ -18,7 +18,7 @@ package org.springframework.boot.actuate.autoconfigure.endpoint;
 
 import org.junit.jupiter.api.Test;
 
-import org.springframework.boot.actuate.endpoint.EndpointFilter;
+import org.springframework.boot.actuate.endpoint.EndpointFilter_RENAMED;
 import org.springframework.boot.actuate.endpoint.EndpointId;
 import org.springframework.boot.actuate.endpoint.ExposableEndpoint;
 import org.springframework.boot.actuate.endpoint.web.ExposableWebEndpoint;
@@ -159,7 +159,7 @@ class ExposeExcludePropertyEndpointFilterTests {
 	private boolean match(EndpointId id) {
 		ExposableEndpoint<?> endpoint = mock(TestExposableWebEndpoint.class);
 		given(endpoint.getEndpointId()).willReturn(id);
-		return ((EndpointFilter) this.filter).match(endpoint);
+		return ((EndpointFilter_RENAMED) this.filter).match(endpoint);
 	}
 
 	abstract static class TestExposableWebEndpoint implements ExposableWebEndpoint {

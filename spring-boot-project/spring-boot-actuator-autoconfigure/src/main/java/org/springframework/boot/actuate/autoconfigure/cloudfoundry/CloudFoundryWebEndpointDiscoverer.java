@@ -19,7 +19,7 @@ package org.springframework.boot.actuate.autoconfigure.cloudfoundry;
 import java.util.Collection;
 import java.util.List;
 
-import org.springframework.boot.actuate.endpoint.EndpointFilter;
+import org.springframework.boot.actuate.endpoint.EndpointFilter_RENAMED;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvokerAdvisor;
 import org.springframework.boot.actuate.endpoint.invoke.ParameterValueMapper;
 import org.springframework.boot.actuate.endpoint.web.EndpointMediaTypes;
@@ -52,7 +52,7 @@ public class CloudFoundryWebEndpointDiscoverer extends WebEndpointDiscoverer {
 	public CloudFoundryWebEndpointDiscoverer(ApplicationContext applicationContext,
 			ParameterValueMapper parameterValueMapper, EndpointMediaTypes endpointMediaTypes,
 			List<PathMapper> endpointPathMappers, Collection<OperationInvokerAdvisor> invokerAdvisors,
-			Collection<EndpointFilter<ExposableWebEndpoint>> filters) {
+			Collection<EndpointFilter_RENAMED<ExposableWebEndpoint>> filters) {
 		super(applicationContext, parameterValueMapper, endpointMediaTypes, endpointPathMappers, invokerAdvisors,
 				filters);
 	}

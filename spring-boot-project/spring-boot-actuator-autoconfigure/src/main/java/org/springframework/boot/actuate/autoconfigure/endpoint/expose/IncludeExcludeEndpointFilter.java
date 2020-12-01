@@ -24,7 +24,7 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.springframework.boot.actuate.endpoint.EndpointFilter;
+import org.springframework.boot.actuate.endpoint.EndpointFilter_RENAMED;
 import org.springframework.boot.actuate.endpoint.EndpointId;
 import org.springframework.boot.actuate.endpoint.ExposableEndpoint;
 import org.springframework.boot.context.properties.bind.Bindable;
@@ -33,14 +33,14 @@ import org.springframework.core.env.Environment;
 import org.springframework.util.Assert;
 
 /**
- * {@link EndpointFilter} that will filter endpoints based on {@code include} and
+ * {@link EndpointFilter_RENAMED} that will filter endpoints based on {@code include} and
  * {@code exclude} patterns.
  *
  * @param <E> the endpoint type
  * @author Phillip Webb
  * @since 2.2.7
  */
-public class IncludeExcludeEndpointFilter<E extends ExposableEndpoint<?>> implements EndpointFilter<E> {
+public class IncludeExcludeEndpointFilter<E extends ExposableEndpoint<?>> implements EndpointFilter_RENAMED<E> {
 
 	private final Class<E> endpointType;
 
