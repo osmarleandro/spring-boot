@@ -28,7 +28,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Chris Bono
  */
-class ConditionalOnEnabledMetricsExportAutoConfigurationTests {
+class ConditionalOnEnabledMetricsExportAutoConfigurationTests_RENAMED {
 
 	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner().with(MetricsRun.simple());
 
