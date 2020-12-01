@@ -30,7 +30,7 @@ import org.springframework.boot.actuate.autoconfigure.endpoint.web.ServletEndpoi
 import org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.jolokia.JolokiaEndpointAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.web.server.ManagementContextAutoConfiguration;
-import org.springframework.boot.actuate.autoconfigure.web.servlet.ServletManagementContextAutoConfiguration;
+import org.springframework.boot.actuate.autoconfigure.web.servlet.ServletManagementContextAutoConfiguration_RENAMED;
 import org.springframework.boot.autoconfigure.context.PropertyPlaceholderAutoConfiguration;
 import org.springframework.boot.autoconfigure.http.HttpMessageConvertersAutoConfiguration;
 import org.springframework.boot.autoconfigure.jackson.JacksonAutoConfiguration;
@@ -99,7 +99,7 @@ class JolokiaEndpointAutoConfigurationIntegrationTests {
 	@MinimalWebConfiguration
 	@Import({ JacksonAutoConfiguration.class, HttpMessageConvertersAutoConfiguration.class,
 			JolokiaEndpointAutoConfiguration.class, EndpointAutoConfiguration.class, WebEndpointAutoConfiguration.class,
-			ServletManagementContextAutoConfiguration.class, ManagementContextAutoConfiguration.class,
+			ServletManagementContextAutoConfiguration_RENAMED.class, ManagementContextAutoConfiguration.class,
 			ServletEndpointManagementContextConfiguration.class })
 	static class Application {
 

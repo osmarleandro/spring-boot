@@ -23,7 +23,7 @@ import org.springframework.boot.actuate.autoconfigure.endpoint.EndpointAutoConfi
 import org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.endpoint.web.servlet.WebMvcEndpointManagementContextConfiguration;
 import org.springframework.boot.actuate.autoconfigure.web.server.ManagementContextAutoConfiguration;
-import org.springframework.boot.actuate.autoconfigure.web.servlet.ServletManagementContextAutoConfiguration;
+import org.springframework.boot.actuate.autoconfigure.web.servlet.ServletManagementContextAutoConfiguration_RENAMED;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
 import org.springframework.boot.autoconfigure.http.HttpMessageConvertersAutoConfiguration;
 import org.springframework.boot.autoconfigure.jackson.JacksonAutoConfiguration;
@@ -55,7 +55,7 @@ class WebMvcEndpointCorsIntegrationTests {
 					HttpMessageConvertersAutoConfiguration.class, WebMvcAutoConfiguration.class,
 					DispatcherServletAutoConfiguration.class, EndpointAutoConfiguration.class,
 					WebEndpointAutoConfiguration.class, ManagementContextAutoConfiguration.class,
-					ServletManagementContextAutoConfiguration.class, BeansEndpointAutoConfiguration.class))
+					ServletManagementContextAutoConfiguration_RENAMED.class, BeansEndpointAutoConfiguration.class))
 			.withPropertyValues("management.endpoints.web.exposure.include:*");
 
 	@Test

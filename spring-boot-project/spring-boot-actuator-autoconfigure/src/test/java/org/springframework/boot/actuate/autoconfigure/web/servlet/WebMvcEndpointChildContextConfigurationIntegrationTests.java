@@ -65,7 +65,7 @@ class WebMvcEndpointChildContextConfigurationIntegrationTests {
 			AnnotationConfigServletWebServerApplicationContext::new)
 					.withConfiguration(AutoConfigurations.of(ManagementContextAutoConfiguration.class,
 							ServletWebServerFactoryAutoConfiguration.class,
-							ServletManagementContextAutoConfiguration.class, WebEndpointAutoConfiguration.class,
+							ServletManagementContextAutoConfiguration_RENAMED.class, WebEndpointAutoConfiguration.class,
 							EndpointAutoConfiguration.class, DispatcherServletAutoConfiguration.class,
 							ErrorMvcAutoConfiguration.class))
 					.withUserConfiguration(FailingEndpoint.class, FailingControllerEndpoint.class)

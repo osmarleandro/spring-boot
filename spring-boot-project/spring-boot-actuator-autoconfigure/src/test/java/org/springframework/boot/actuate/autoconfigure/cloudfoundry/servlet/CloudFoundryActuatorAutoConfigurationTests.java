@@ -26,7 +26,7 @@ import org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointAu
 import org.springframework.boot.actuate.autoconfigure.health.HealthContributorAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.health.HealthEndpointAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.web.server.ManagementContextAutoConfiguration;
-import org.springframework.boot.actuate.autoconfigure.web.servlet.ServletManagementContextAutoConfiguration;
+import org.springframework.boot.actuate.autoconfigure.web.servlet.ServletManagementContextAutoConfiguration_RENAMED;
 import org.springframework.boot.actuate.endpoint.EndpointId;
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
 import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
@@ -72,7 +72,7 @@ class CloudFoundryActuatorAutoConfigurationTests {
 					JacksonAutoConfiguration.class, DispatcherServletAutoConfiguration.class,
 					HttpMessageConvertersAutoConfiguration.class, PropertyPlaceholderAutoConfiguration.class,
 					RestTemplateAutoConfiguration.class, ManagementContextAutoConfiguration.class,
-					ServletManagementContextAutoConfiguration.class, EndpointAutoConfiguration.class,
+					ServletManagementContextAutoConfiguration_RENAMED.class, EndpointAutoConfiguration.class,
 					WebEndpointAutoConfiguration.class, CloudFoundryActuatorAutoConfiguration.class));
 
 	@Test

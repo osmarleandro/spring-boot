@@ -28,7 +28,7 @@ import org.springframework.boot.actuate.autoconfigure.beans.BeansEndpointAutoCon
 import org.springframework.boot.actuate.autoconfigure.endpoint.EndpointAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.web.server.ManagementContextAutoConfiguration;
-import org.springframework.boot.actuate.autoconfigure.web.servlet.ServletManagementContextAutoConfiguration;
+import org.springframework.boot.actuate.autoconfigure.web.servlet.ServletManagementContextAutoConfiguration_RENAMED;
 import org.springframework.boot.actuate.endpoint.web.EndpointServlet;
 import org.springframework.boot.actuate.endpoint.web.annotation.ControllerEndpoint;
 import org.springframework.boot.actuate.endpoint.web.annotation.RestControllerEndpoint;
@@ -135,7 +135,7 @@ class WebMvcEndpointIntegrationTests {
 
 	@ImportAutoConfiguration({ JacksonAutoConfiguration.class, HttpMessageConvertersAutoConfiguration.class,
 			EndpointAutoConfiguration.class, WebEndpointAutoConfiguration.class,
-			ServletManagementContextAutoConfiguration.class, AuditAutoConfiguration.class,
+			ServletManagementContextAutoConfiguration_RENAMED.class, AuditAutoConfiguration.class,
 			PropertyPlaceholderAutoConfiguration.class, WebMvcAutoConfiguration.class,
 			ManagementContextAutoConfiguration.class, AuditAutoConfiguration.class,
 			DispatcherServletAutoConfiguration.class, BeansEndpointAutoConfiguration.class })

@@ -39,7 +39,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration(proxyBeanMethods = false)
 @ConditionalOnClass(Servlet.class)
 @ConditionalOnWebApplication(type = Type.SERVLET)
-public class ServletManagementContextAutoConfiguration {
+public class ServletManagementContextAutoConfiguration_RENAMED {
 
 	@Bean
 	public ServletManagementContextFactory servletWebChildContextFactory() {

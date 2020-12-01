@@ -23,7 +23,7 @@ import org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointAu
 import org.springframework.boot.actuate.autoconfigure.health.HealthContributorAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.health.HealthEndpointAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.web.server.ManagementContextAutoConfiguration;
-import org.springframework.boot.actuate.autoconfigure.web.servlet.ServletManagementContextAutoConfiguration;
+import org.springframework.boot.actuate.autoconfigure.web.servlet.ServletManagementContextAutoConfiguration_RENAMED;
 import org.springframework.boot.actuate.endpoint.http.ApiVersion;
 import org.springframework.boot.actuate.health.CompositeHealth;
 import org.springframework.boot.actuate.health.Health;
@@ -54,7 +54,7 @@ class CloudFoundryHealthEndpointWebExtensionTests {
 					JacksonAutoConfiguration.class, DispatcherServletAutoConfiguration.class,
 					HttpMessageConvertersAutoConfiguration.class, PropertyPlaceholderAutoConfiguration.class,
 					RestTemplateAutoConfiguration.class, ManagementContextAutoConfiguration.class,
-					ServletManagementContextAutoConfiguration.class, EndpointAutoConfiguration.class,
+					ServletManagementContextAutoConfiguration_RENAMED.class, EndpointAutoConfiguration.class,
 					WebEndpointAutoConfiguration.class, HealthContributorAutoConfiguration.class,
 					HealthEndpointAutoConfiguration.class, CloudFoundryActuatorAutoConfiguration.class))
 			.withUserConfiguration(TestHealthIndicator.class);
