@@ -23,11 +23,11 @@ import java.util.function.Consumer;
 
 import org.junit.jupiter.api.Test;
 
-import org.springframework.boot.actuate.scheduling.ScheduledTasksEndpoint.CronTaskDescription;
-import org.springframework.boot.actuate.scheduling.ScheduledTasksEndpoint.CustomTriggerTaskDescription;
-import org.springframework.boot.actuate.scheduling.ScheduledTasksEndpoint.FixedDelayTaskDescription;
-import org.springframework.boot.actuate.scheduling.ScheduledTasksEndpoint.FixedRateTaskDescription;
-import org.springframework.boot.actuate.scheduling.ScheduledTasksEndpoint.ScheduledTasksReport;
+import org.springframework.boot.actuate.scheduling.ScheduledTasksEndpoint_RENAMED.CronTaskDescription;
+import org.springframework.boot.actuate.scheduling.ScheduledTasksEndpoint_RENAMED.CustomTriggerTaskDescription;
+import org.springframework.boot.actuate.scheduling.ScheduledTasksEndpoint_RENAMED.FixedDelayTaskDescription;
+import org.springframework.boot.actuate.scheduling.ScheduledTasksEndpoint_RENAMED.FixedRateTaskDescription;
+import org.springframework.boot.actuate.scheduling.ScheduledTasksEndpoint_RENAMED.ScheduledTasksReport;
 import org.springframework.boot.test.context.runner.ApplicationContextRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -43,7 +43,7 @@ import org.springframework.scheduling.support.PeriodicTrigger;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Tests for {@link ScheduledTasksEndpoint}.
+ * Tests for {@link ScheduledTasksEndpoint_RENAMED}.
  *
  * @author Andy Wilkinson
  */
@@ -151,7 +151,7 @@ class ScheduledTasksEndpointTests {
 
 	private void run(Class<?> configuration, Consumer<ScheduledTasksReport> consumer) {
 		this.contextRunner.withUserConfiguration(configuration)
-				.run((context) -> consumer.accept(context.getBean(ScheduledTasksEndpoint.class).scheduledTasks()));
+				.run((context) -> consumer.accept(context.getBean(ScheduledTasksEndpoint_RENAMED.class).scheduledTasks()));
 	}
 
 	@Configuration(proxyBeanMethods = false)
@@ -159,8 +159,8 @@ class ScheduledTasksEndpointTests {
 	static class BaseConfiguration {
 
 		@Bean
-		ScheduledTasksEndpoint endpoint(Collection<ScheduledTaskHolder> scheduledTaskHolders) {
-			return new ScheduledTasksEndpoint(scheduledTaskHolders);
+		ScheduledTasksEndpoint_RENAMED endpoint(Collection<ScheduledTaskHolder> scheduledTaskHolders) {
+			return new ScheduledTasksEndpoint_RENAMED(scheduledTaskHolders);
 		}
 
 	}

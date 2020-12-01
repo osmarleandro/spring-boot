@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.boot.actuate.autoconfigure.endpoint.condition.ConditionalOnAvailableEndpoint;
-import org.springframework.boot.actuate.scheduling.ScheduledTasksEndpoint;
+import org.springframework.boot.actuate.scheduling.ScheduledTasksEndpoint_RENAMED;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
@@ -28,19 +28,19 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.config.ScheduledTaskHolder;
 
 /**
- * {@link EnableAutoConfiguration Auto-configuration} for {@link ScheduledTasksEndpoint}.
+ * {@link EnableAutoConfiguration Auto-configuration} for {@link ScheduledTasksEndpoint_RENAMED}.
  *
  * @author Andy Wilkinson
  * @since 2.0.0
  */
 @Configuration(proxyBeanMethods = false)
-@ConditionalOnAvailableEndpoint(endpoint = ScheduledTasksEndpoint.class)
+@ConditionalOnAvailableEndpoint(endpoint = ScheduledTasksEndpoint_RENAMED.class)
 public class ScheduledTasksEndpointAutoConfiguration {
 
 	@Bean
 	@ConditionalOnMissingBean
-	public ScheduledTasksEndpoint scheduledTasksEndpoint(ObjectProvider<ScheduledTaskHolder> holders) {
-		return new ScheduledTasksEndpoint(holders.orderedStream().collect(Collectors.toList()));
+	public ScheduledTasksEndpoint_RENAMED scheduledTasksEndpoint(ObjectProvider<ScheduledTaskHolder> holders) {
+		return new ScheduledTasksEndpoint_RENAMED(holders.orderedStream().collect(Collectors.toList()));
 	}
 
 }

@@ -22,7 +22,7 @@ import java.util.regex.Pattern;
 
 import org.junit.jupiter.api.Test;
 
-import org.springframework.boot.actuate.scheduling.ScheduledTasksEndpoint;
+import org.springframework.boot.actuate.scheduling.ScheduledTasksEndpoint_RENAMED;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
@@ -44,7 +44,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /**
- * Tests for generating documentation describing the {@link ScheduledTasksEndpoint}.
+ * Tests for generating documentation describing the {@link ScheduledTasksEndpoint_RENAMED}.
  *
  * @author Andy Wilkinson
  */
@@ -90,8 +90,8 @@ class ScheduledTasksEndpointDocumentationTests extends MockMvcEndpointDocumentat
 	static class TestConfiguration {
 
 		@Bean
-		ScheduledTasksEndpoint endpoint(Collection<ScheduledTaskHolder> holders) {
-			return new ScheduledTasksEndpoint(holders);
+		ScheduledTasksEndpoint_RENAMED endpoint(Collection<ScheduledTaskHolder> holders) {
+			return new ScheduledTasksEndpoint_RENAMED(holders);
 		}
 
 		@Scheduled(cron = "0 0 0/3 1/1 * ?")

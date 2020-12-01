@@ -20,7 +20,7 @@ import java.util.Collections;
 
 import org.junit.jupiter.api.Test;
 
-import org.springframework.boot.actuate.scheduling.ScheduledTasksEndpoint;
+import org.springframework.boot.actuate.scheduling.ScheduledTasksEndpoint_RENAMED;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
 import org.springframework.boot.test.context.runner.ApplicationContextRunner;
 import org.springframework.context.annotation.Bean;
@@ -41,24 +41,24 @@ class ScheduledTasksEndpointAutoConfigurationTests {
 	@Test
 	void endpointIsAutoConfigured() {
 		this.contextRunner.withPropertyValues("management.endpoints.web.exposure.include=scheduledtasks")
-				.run((context) -> assertThat(context).hasSingleBean(ScheduledTasksEndpoint.class));
+				.run((context) -> assertThat(context).hasSingleBean(ScheduledTasksEndpoint_RENAMED.class));
 	}
 
 	@Test
 	void endpointNotAutoConfiguredWhenNotExposed() {
-		this.contextRunner.run((context) -> assertThat(context).doesNotHaveBean(ScheduledTasksEndpoint.class));
+		this.contextRunner.run((context) -> assertThat(context).doesNotHaveBean(ScheduledTasksEndpoint_RENAMED.class));
 	}
 
 	@Test
 	void endpointCanBeDisabled() {
 		this.contextRunner.withPropertyValues("management.endpoint.scheduledtasks.enabled:false")
-				.run((context) -> assertThat(context).doesNotHaveBean(ScheduledTasksEndpoint.class));
+				.run((context) -> assertThat(context).doesNotHaveBean(ScheduledTasksEndpoint_RENAMED.class));
 	}
 
 	@Test
 	void endpointBacksOffWhenUserProvidedEndpointIsPresent() {
 		this.contextRunner.withUserConfiguration(CustomEndpointConfiguration.class).run(
-				(context) -> assertThat(context).hasSingleBean(ScheduledTasksEndpoint.class).hasBean("customEndpoint"));
+				(context) -> assertThat(context).hasSingleBean(ScheduledTasksEndpoint_RENAMED.class).hasBean("customEndpoint"));
 	}
 
 	@Configuration(proxyBeanMethods = false)
@@ -71,7 +71,7 @@ class ScheduledTasksEndpointAutoConfigurationTests {
 
 	}
 
-	private static final class CustomEndpoint extends ScheduledTasksEndpoint {
+	private static final class CustomEndpoint extends ScheduledTasksEndpoint_RENAMED {
 
 		private CustomEndpoint() {
 			super(Collections.emptyList());
