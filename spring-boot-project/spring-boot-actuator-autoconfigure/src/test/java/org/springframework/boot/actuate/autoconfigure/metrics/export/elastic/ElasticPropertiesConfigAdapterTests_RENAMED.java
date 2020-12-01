@@ -25,7 +25,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Andy Wilkinson
  */
-class ElasticPropertiesConfigAdapterTests {
+class ElasticPropertiesConfigAdapterTests_RENAMED {
 
 	@Test
 	void whenPropertiesHostsIsSetAdapterHostsReturnsIt() {
