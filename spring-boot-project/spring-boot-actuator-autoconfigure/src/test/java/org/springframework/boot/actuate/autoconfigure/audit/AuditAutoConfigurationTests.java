@@ -23,7 +23,7 @@ import org.springframework.boot.actuate.audit.AuditEventRepository;
 import org.springframework.boot.actuate.audit.InMemoryAuditEventRepository;
 import org.springframework.boot.actuate.audit.listener.AbstractAuditListener;
 import org.springframework.boot.actuate.audit.listener.AuditListener;
-import org.springframework.boot.actuate.security.AbstractAuthenticationAuditListener;
+import org.springframework.boot.actuate.security.AbstractAuthenticationAuditListener_RENAMED;
 import org.springframework.boot.actuate.security.AbstractAuthorizationAuditListener;
 import org.springframework.boot.actuate.security.AuthenticationAuditListener;
 import org.springframework.boot.actuate.security.AuthorizationAuditListener;
@@ -67,7 +67,7 @@ class AuditAutoConfigurationTests {
 	void ownAuthenticationAuditListener() {
 		this.contextRunner.withUserConfiguration(CustomAuditEventRepositoryConfiguration.class)
 				.withUserConfiguration(CustomAuthenticationAuditListenerConfiguration.class)
-				.run((context) -> assertThat(context.getBean(AbstractAuthenticationAuditListener.class))
+				.run((context) -> assertThat(context.getBean(AbstractAuthenticationAuditListener_RENAMED.class))
 						.isInstanceOf(TestAuthenticationAuditListener.class));
 	}
 
@@ -120,7 +120,7 @@ class AuditAutoConfigurationTests {
 
 	}
 
-	static class TestAuthenticationAuditListener extends AbstractAuthenticationAuditListener {
+	static class TestAuthenticationAuditListener extends AbstractAuthenticationAuditListener_RENAMED {
 
 		@Override
 		public void setApplicationEventPublisher(ApplicationEventPublisher publisher) {

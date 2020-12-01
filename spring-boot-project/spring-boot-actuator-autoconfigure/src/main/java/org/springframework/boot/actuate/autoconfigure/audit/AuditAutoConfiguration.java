@@ -20,7 +20,7 @@ import org.springframework.boot.actuate.audit.AuditEvent;
 import org.springframework.boot.actuate.audit.AuditEventRepository;
 import org.springframework.boot.actuate.audit.listener.AbstractAuditListener;
 import org.springframework.boot.actuate.audit.listener.AuditListener;
-import org.springframework.boot.actuate.security.AbstractAuthenticationAuditListener;
+import org.springframework.boot.actuate.security.AbstractAuthenticationAuditListener_RENAMED;
 import org.springframework.boot.actuate.security.AbstractAuthorizationAuditListener;
 import org.springframework.boot.actuate.security.AuthenticationAuditListener;
 import org.springframework.boot.actuate.security.AuthorizationAuditListener;
@@ -52,7 +52,7 @@ public class AuditAutoConfiguration {
 
 	@Bean
 	@ConditionalOnClass(name = "org.springframework.security.authentication.event.AbstractAuthenticationEvent")
-	@ConditionalOnMissingBean(AbstractAuthenticationAuditListener.class)
+	@ConditionalOnMissingBean(AbstractAuthenticationAuditListener_RENAMED.class)
 	public AuthenticationAuditListener authenticationAuditListener() throws Exception {
 		return new AuthenticationAuditListener();
 	}
