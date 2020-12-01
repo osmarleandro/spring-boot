@@ -22,7 +22,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
 
 /**
- * Tests for {@link SimpleInfoContributor}.
+ * Tests for {@link SimpleInfoContributor_RENAMED}.
  *
  * @author Stephane Nicoll
  */
@@ -30,7 +30,7 @@ class SimpleInfoContributorTests {
 
 	@Test
 	void prefixIsMandatory() {
-		assertThatIllegalArgumentException().isThrownBy(() -> new SimpleInfoContributor(null, new Object()));
+		assertThatIllegalArgumentException().isThrownBy(() -> new SimpleInfoContributor_RENAMED(null, new Object()));
 	}
 
 	@Test
@@ -41,7 +41,7 @@ class SimpleInfoContributorTests {
 	}
 
 	private static Info contributeFrom(String prefix, Object detail) {
-		SimpleInfoContributor contributor = new SimpleInfoContributor(prefix, detail);
+		SimpleInfoContributor_RENAMED contributor = new SimpleInfoContributor_RENAMED(prefix, detail);
 		Info.Builder builder = new Info.Builder();
 		contributor.contribute(builder);
 		return builder.build();
