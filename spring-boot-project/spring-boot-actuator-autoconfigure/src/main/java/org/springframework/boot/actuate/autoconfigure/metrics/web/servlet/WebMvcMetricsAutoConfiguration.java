@@ -31,7 +31,7 @@ import org.springframework.boot.actuate.autoconfigure.metrics.MetricsProperties.
 import org.springframework.boot.actuate.autoconfigure.metrics.OnlyOnceLoggingDenyMeterFilter;
 import org.springframework.boot.actuate.autoconfigure.metrics.export.simple.SimpleMetricsExportAutoConfiguration;
 import org.springframework.boot.actuate.metrics.web.servlet.DefaultWebMvcTagsProvider;
-import org.springframework.boot.actuate.metrics.web.servlet.LongTaskTimingHandlerInterceptor;
+import org.springframework.boot.actuate.metrics.web.servlet.LongTaskTimingHandlerInterceptor_RENAMED;
 import org.springframework.boot.actuate.metrics.web.servlet.WebMvcMetricsFilter;
 import org.springframework.boot.actuate.metrics.web.servlet.WebMvcTagsContributor;
 import org.springframework.boot.actuate.metrics.web.servlet.WebMvcTagsProvider;
@@ -125,7 +125,7 @@ public class WebMvcMetricsAutoConfiguration {
 
 		@Override
 		public void addInterceptors(InterceptorRegistry registry) {
-			registry.addInterceptor(new LongTaskTimingHandlerInterceptor(this.meterRegistry, this.tagsProvider));
+			registry.addInterceptor(new LongTaskTimingHandlerInterceptor_RENAMED(this.meterRegistry, this.tagsProvider));
 		}
 
 	}

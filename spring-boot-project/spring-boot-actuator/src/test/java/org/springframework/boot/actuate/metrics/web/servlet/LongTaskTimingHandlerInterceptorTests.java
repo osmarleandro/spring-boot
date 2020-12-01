@@ -59,7 +59,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /**
- * Tests for {@link LongTaskTimingHandlerInterceptor}.
+ * Tests for {@link LongTaskTimingHandlerInterceptor_RENAMED}.
  *
  * @author Andy Wilkinson
  */
@@ -144,7 +144,7 @@ class LongTaskTimingHandlerInterceptorTests {
 				@Override
 				public void addInterceptors(InterceptorRegistry registry) {
 					registry.addInterceptor(
-							new LongTaskTimingHandlerInterceptor(meterRegistry, new DefaultWebMvcTagsProvider()));
+							new LongTaskTimingHandlerInterceptor_RENAMED(meterRegistry, new DefaultWebMvcTagsProvider()));
 				}
 
 			};

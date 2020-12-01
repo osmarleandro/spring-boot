@@ -37,7 +37,7 @@ import org.springframework.boot.actuate.autoconfigure.metrics.MetricsAutoConfigu
 import org.springframework.boot.actuate.autoconfigure.metrics.test.MetricsRun;
 import org.springframework.boot.actuate.autoconfigure.metrics.web.TestController;
 import org.springframework.boot.actuate.metrics.web.servlet.DefaultWebMvcTagsProvider;
-import org.springframework.boot.actuate.metrics.web.servlet.LongTaskTimingHandlerInterceptor;
+import org.springframework.boot.actuate.metrics.web.servlet.LongTaskTimingHandlerInterceptor_RENAMED;
 import org.springframework.boot.actuate.metrics.web.servlet.WebMvcMetricsFilter;
 import org.springframework.boot.actuate.metrics.web.servlet.WebMvcTagsContributor;
 import org.springframework.boot.actuate.metrics.web.servlet.WebMvcTagsProvider;
@@ -181,7 +181,7 @@ class WebMvcMetricsAutoConfigurationTests {
 				.withConfiguration(AutoConfigurations.of(MetricsAutoConfiguration.class, WebMvcAutoConfiguration.class))
 				.run((context) -> assertThat(context.getBean(RequestMappingHandlerMapping.class))
 						.extracting("interceptors").asList().extracting((item) -> (Class) item.getClass())
-						.contains(LongTaskTimingHandlerInterceptor.class));
+						.contains(LongTaskTimingHandlerInterceptor_RENAMED.class));
 	}
 
 	@Test
