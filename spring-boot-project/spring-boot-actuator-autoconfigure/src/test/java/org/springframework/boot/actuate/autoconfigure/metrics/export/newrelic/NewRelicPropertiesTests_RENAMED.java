@@ -28,7 +28,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Stephane Nicoll
  */
-class NewRelicPropertiesTests extends StepRegistryPropertiesTests {
+class NewRelicPropertiesTests_RENAMED extends StepRegistryPropertiesTests {
 
 	@Test
 	void defaultValuesAreConsistent() {
