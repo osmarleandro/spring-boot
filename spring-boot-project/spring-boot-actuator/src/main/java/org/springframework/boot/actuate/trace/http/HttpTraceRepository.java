@@ -19,7 +19,7 @@ package org.springframework.boot.actuate.trace.http;
 import java.util.List;
 
 /**
- * A repository for {@link HttpTrace}s.
+ * A repository for {@link HttpTrace_RENAMED}s.
  *
  * @author Dave Syer
  * @author Andy Wilkinson
@@ -28,15 +28,15 @@ import java.util.List;
 public interface HttpTraceRepository {
 
 	/**
-	 * Find all {@link HttpTrace} objects contained in the repository.
+	 * Find all {@link HttpTrace_RENAMED} objects contained in the repository.
 	 * @return the results
 	 */
-	List<HttpTrace> findAll();
+	List<HttpTrace_RENAMED> findAll();
 
 	/**
 	 * Adds a trace to the repository.
 	 * @param trace the trace to add
 	 */
-	void add(HttpTrace trace);
+	void add(HttpTrace_RENAMED trace);
 
 }

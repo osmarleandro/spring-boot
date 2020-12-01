@@ -55,8 +55,8 @@ public class HttpExchangeTracer {
 	 * @param request the received request
 	 * @return the HTTP trace for the
 	 */
-	public final HttpTrace receivedRequest(TraceableRequest request) {
-		return new HttpTrace(new FilteredTraceableRequest(request));
+	public final HttpTrace_RENAMED receivedRequest(TraceableRequest request) {
+		return new HttpTrace_RENAMED(new FilteredTraceableRequest(request));
 	}
 
 	/**
@@ -67,12 +67,12 @@ public class HttpExchangeTracer {
 	 * @param principal a supplier for the exchange's principal
 	 * @param sessionId a supplier for the id of the exchange's session
 	 */
-	public final void sendingResponse(HttpTrace trace, TraceableResponse response, Supplier<Principal> principal,
+	public final void sendingResponse(HttpTrace_RENAMED trace, TraceableResponse response, Supplier<Principal> principal,
 			Supplier<String> sessionId) {
 		setIfIncluded(Include.TIME_TAKEN, () -> calculateTimeTaken(trace), trace::setTimeTaken);
 		setIfIncluded(Include.SESSION_ID, sessionId, trace::setSessionId);
 		setIfIncluded(Include.PRINCIPAL, principal, trace::setPrincipal);
-		trace.setResponse(new HttpTrace.Response(new FilteredTraceableResponse(response)));
+		trace.setResponse(new HttpTrace_RENAMED.Response(new FilteredTraceableResponse(response)));
 	}
 
 	/**
@@ -102,7 +102,7 @@ public class HttpExchangeTracer {
 				.collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
 	}
 
-	private long calculateTimeTaken(HttpTrace trace) {
+	private long calculateTimeTaken(HttpTrace_RENAMED trace) {
 		return TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - trace.getStartNanoTime());
 	}
 

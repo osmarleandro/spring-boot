@@ -34,7 +34,7 @@ public class InMemoryHttpTraceRepository implements HttpTraceRepository {
 
 	private boolean reverse = true;
 
-	private final List<HttpTrace> traces = new LinkedList<>();
+	private final List<HttpTrace_RENAMED> traces = new LinkedList<>();
 
 	/**
 	 * Flag to say that the repository lists traces in reverse order.
@@ -57,14 +57,14 @@ public class InMemoryHttpTraceRepository implements HttpTraceRepository {
 	}
 
 	@Override
-	public List<HttpTrace> findAll() {
+	public List<HttpTrace_RENAMED> findAll() {
 		synchronized (this.traces) {
 			return Collections.unmodifiableList(new ArrayList<>(this.traces));
 		}
 	}
 
 	@Override
-	public void add(HttpTrace trace) {
+	public void add(HttpTrace_RENAMED trace) {
 		synchronized (this.traces) {
 			while (this.traces.size() >= this.capacity) {
 				this.traces.remove(this.reverse ? this.capacity - 1 : 0);

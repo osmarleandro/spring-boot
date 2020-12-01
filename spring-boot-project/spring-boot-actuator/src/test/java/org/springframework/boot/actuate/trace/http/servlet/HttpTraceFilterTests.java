@@ -28,7 +28,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.junit.jupiter.api.Test;
 
 import org.springframework.boot.actuate.trace.http.HttpExchangeTracer;
-import org.springframework.boot.actuate.trace.http.HttpTrace.Session;
+import org.springframework.boot.actuate.trace.http.HttpTrace_RENAMED.Session;
 import org.springframework.boot.actuate.trace.http.InMemoryHttpTraceRepository;
 import org.springframework.boot.actuate.trace.http.Include;
 import org.springframework.boot.actuate.web.trace.servlet.HttpTraceFilter;
@@ -92,7 +92,7 @@ class HttpTraceFilterTests {
 		request.setUserPrincipal(principal);
 		this.filter.doFilter(request, new MockHttpServletResponse(), new MockFilterChain());
 		assertThat(this.repository.findAll()).hasSize(1);
-		org.springframework.boot.actuate.trace.http.HttpTrace.Principal tracedPrincipal = this.repository.findAll()
+		org.springframework.boot.actuate.trace.http.HttpTrace_RENAMED.Principal tracedPrincipal = this.repository.findAll()
 				.get(0).getPrincipal();
 		assertThat(tracedPrincipal).isNotNull();
 		assertThat(tracedPrincipal.getName()).isEqualTo("alice");

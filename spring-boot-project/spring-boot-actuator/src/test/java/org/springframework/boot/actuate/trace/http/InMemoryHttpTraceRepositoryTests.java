@@ -37,10 +37,10 @@ class InMemoryHttpTraceRepositoryTests {
 	@Test
 	void capacityLimited() {
 		this.repository.setCapacity(2);
-		this.repository.add(new HttpTrace(createRequest("GET")));
-		this.repository.add(new HttpTrace(createRequest("POST")));
-		this.repository.add(new HttpTrace(createRequest("DELETE")));
-		List<HttpTrace> traces = this.repository.findAll();
+		this.repository.add(new HttpTrace_RENAMED(createRequest("GET")));
+		this.repository.add(new HttpTrace_RENAMED(createRequest("POST")));
+		this.repository.add(new HttpTrace_RENAMED(createRequest("DELETE")));
+		List<HttpTrace_RENAMED> traces = this.repository.findAll();
 		assertThat(traces).hasSize(2);
 		assertThat(traces.get(0).getRequest().getMethod()).isEqualTo("DELETE");
 		assertThat(traces.get(1).getRequest().getMethod()).isEqualTo("POST");
@@ -50,10 +50,10 @@ class InMemoryHttpTraceRepositoryTests {
 	void reverseFalse() {
 		this.repository.setReverse(false);
 		this.repository.setCapacity(2);
-		this.repository.add(new HttpTrace(createRequest("GET")));
-		this.repository.add(new HttpTrace(createRequest("POST")));
-		this.repository.add(new HttpTrace(createRequest("DELETE")));
-		List<HttpTrace> traces = this.repository.findAll();
+		this.repository.add(new HttpTrace_RENAMED(createRequest("GET")));
+		this.repository.add(new HttpTrace_RENAMED(createRequest("POST")));
+		this.repository.add(new HttpTrace_RENAMED(createRequest("DELETE")));
+		List<HttpTrace_RENAMED> traces = this.repository.findAll();
 		assertThat(traces).hasSize(2);
 		assertThat(traces.get(0).getRequest().getMethod()).isEqualTo("POST");
 		assertThat(traces.get(1).getRequest().getMethod()).isEqualTo("DELETE");

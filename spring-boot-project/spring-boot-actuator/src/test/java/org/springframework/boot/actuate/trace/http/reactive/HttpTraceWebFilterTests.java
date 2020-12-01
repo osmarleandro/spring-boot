@@ -24,7 +24,7 @@ import org.junit.jupiter.api.Test;
 import reactor.core.publisher.Mono;
 
 import org.springframework.boot.actuate.trace.http.HttpExchangeTracer;
-import org.springframework.boot.actuate.trace.http.HttpTrace.Session;
+import org.springframework.boot.actuate.trace.http.HttpTrace_RENAMED.Session;
 import org.springframework.boot.actuate.trace.http.InMemoryHttpTraceRepository;
 import org.springframework.boot.actuate.trace.http.Include;
 import org.springframework.boot.actuate.web.trace.reactive.HttpTraceWebFilter;
@@ -100,7 +100,7 @@ class HttpTraceWebFilterTests {
 			return Mono.empty();
 		}).block(Duration.ofSeconds(30));
 		assertThat(this.repository.findAll()).hasSize(1);
-		org.springframework.boot.actuate.trace.http.HttpTrace.Principal tracedPrincipal = this.repository.findAll()
+		org.springframework.boot.actuate.trace.http.HttpTrace_RENAMED.Principal tracedPrincipal = this.repository.findAll()
 				.get(0).getPrincipal();
 		assertThat(tracedPrincipal).isNotNull();
 		assertThat(tracedPrincipal.getName()).isEqualTo("alice");

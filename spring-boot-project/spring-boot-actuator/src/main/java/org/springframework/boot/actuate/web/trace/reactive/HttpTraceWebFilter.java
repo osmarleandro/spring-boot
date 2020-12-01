@@ -22,7 +22,7 @@ import java.util.Set;
 import reactor.core.publisher.Mono;
 
 import org.springframework.boot.actuate.trace.http.HttpExchangeTracer;
-import org.springframework.boot.actuate.trace.http.HttpTrace;
+import org.springframework.boot.actuate.trace.http.HttpTrace_RENAMED;
 import org.springframework.boot.actuate.trace.http.HttpTraceRepository;
 import org.springframework.boot.actuate.trace.http.Include;
 import org.springframework.core.Ordered;
@@ -85,7 +85,7 @@ public class HttpTraceWebFilter implements WebFilter, Ordered {
 	private Mono<Void> filter(ServerWebExchange exchange, WebFilterChain chain, Principal principal,
 			WebSession session) {
 		ServerWebExchangeTraceableRequest request = new ServerWebExchangeTraceableRequest(exchange);
-		HttpTrace trace = this.tracer.receivedRequest(request);
+		HttpTrace_RENAMED trace = this.tracer.receivedRequest(request);
 		exchange.getResponse().beforeCommit(() -> {
 			TraceableServerHttpResponse response = new TraceableServerHttpResponse(exchange.getResponse());
 			this.tracer.sendingResponse(trace, response, () -> principal, () -> getStartedSessionId(session));

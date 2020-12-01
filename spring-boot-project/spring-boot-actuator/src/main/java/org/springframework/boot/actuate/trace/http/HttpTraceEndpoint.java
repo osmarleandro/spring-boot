@@ -23,7 +23,7 @@ import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
 import org.springframework.util.Assert;
 
 /**
- * {@link Endpoint @Endpoint} to expose {@link HttpTrace} information.
+ * {@link Endpoint @Endpoint} to expose {@link HttpTrace_RENAMED} information.
  *
  * @author Dave Syer
  * @author Andy Wilkinson
@@ -49,18 +49,18 @@ public class HttpTraceEndpoint {
 	}
 
 	/**
-	 * A description of an application's {@link HttpTrace} entries. Primarily intended for
+	 * A description of an application's {@link HttpTrace_RENAMED} entries. Primarily intended for
 	 * serialization to JSON.
 	 */
 	public static final class HttpTraceDescriptor {
 
-		private final List<HttpTrace> traces;
+		private final List<HttpTrace_RENAMED> traces;
 
-		private HttpTraceDescriptor(List<HttpTrace> traces) {
+		private HttpTraceDescriptor(List<HttpTrace_RENAMED> traces) {
 			this.traces = traces;
 		}
 
-		public List<HttpTrace> getTraces() {
+		public List<HttpTrace_RENAMED> getTraces() {
 			return this.traces;
 		}
 

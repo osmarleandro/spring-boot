@@ -27,7 +27,7 @@ import java.util.Map;
 
 import org.junit.jupiter.api.Test;
 
-import org.springframework.boot.actuate.trace.http.HttpTrace.Request;
+import org.springframework.boot.actuate.trace.http.HttpTrace_RENAMED.Request;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.util.LinkedMultiValueMap;
@@ -46,42 +46,42 @@ class HttpExchangeTracerTests {
 
 	@Test
 	void methodIsIncluded() {
-		HttpTrace trace = new HttpExchangeTracer(EnumSet.noneOf(Include.class)).receivedRequest(createRequest());
+		HttpTrace_RENAMED trace = new HttpExchangeTracer(EnumSet.noneOf(Include.class)).receivedRequest(createRequest());
 		Request request = trace.getRequest();
 		assertThat(request.getMethod()).isEqualTo("GET");
 	}
 
 	@Test
 	void uriIsIncluded() {
-		HttpTrace trace = new HttpExchangeTracer(EnumSet.noneOf(Include.class)).receivedRequest(createRequest());
+		HttpTrace_RENAMED trace = new HttpExchangeTracer(EnumSet.noneOf(Include.class)).receivedRequest(createRequest());
 		Request request = trace.getRequest();
 		assertThat(request.getUri()).isEqualTo(URI.create("https://api.example.com"));
 	}
 
 	@Test
 	void remoteAddressIsNotIncludedByDefault() {
-		HttpTrace trace = new HttpExchangeTracer(EnumSet.noneOf(Include.class)).receivedRequest(createRequest());
+		HttpTrace_RENAMED trace = new HttpExchangeTracer(EnumSet.noneOf(Include.class)).receivedRequest(createRequest());
 		Request request = trace.getRequest();
 		assertThat(request.getRemoteAddress()).isNull();
 	}
 
 	@Test
 	void remoteAddressCanBeIncluded() {
-		HttpTrace trace = new HttpExchangeTracer(EnumSet.of(Include.REMOTE_ADDRESS)).receivedRequest(createRequest());
+		HttpTrace_RENAMED trace = new HttpExchangeTracer(EnumSet.of(Include.REMOTE_ADDRESS)).receivedRequest(createRequest());
 		Request request = trace.getRequest();
 		assertThat(request.getRemoteAddress()).isEqualTo("127.0.0.1");
 	}
 
 	@Test
 	void requestHeadersAreNotIncludedByDefault() {
-		HttpTrace trace = new HttpExchangeTracer(EnumSet.noneOf(Include.class)).receivedRequest(createRequest());
+		HttpTrace_RENAMED trace = new HttpExchangeTracer(EnumSet.noneOf(Include.class)).receivedRequest(createRequest());
 		Request request = trace.getRequest();
 		assertThat(request.getHeaders()).isEmpty();
 	}
 
 	@Test
 	void requestHeadersCanBeIncluded() {
-		HttpTrace trace = new HttpExchangeTracer(EnumSet.of(Include.REQUEST_HEADERS)).receivedRequest(createRequest());
+		HttpTrace_RENAMED trace = new HttpExchangeTracer(EnumSet.of(Include.REQUEST_HEADERS)).receivedRequest(createRequest());
 		Request request = trace.getRequest();
 		assertThat(request.getHeaders()).containsOnlyKeys(HttpHeaders.ACCEPT);
 	}
@@ -91,7 +91,7 @@ class HttpExchangeTracerTests {
 		MultiValueMap<String, String> headers = new LinkedMultiValueMap<>();
 		headers.add("to-remove", "test");
 		headers.add("test", "value");
-		HttpTrace trace = new RequestHeadersFilterHttpExchangeTracer().receivedRequest(createRequest(headers));
+		HttpTrace_RENAMED trace = new RequestHeadersFilterHttpExchangeTracer().receivedRequest(createRequest(headers));
 		Request request = trace.getRequest();
 		assertThat(request.getHeaders()).containsOnlyKeys("test", "to-add");
 		assertThat(request.getHeaders().get("test")).containsExactly("value");
@@ -100,7 +100,7 @@ class HttpExchangeTracerTests {
 
 	@Test
 	void authorizationHeaderIsNotIncludedByDefault() {
-		HttpTrace trace = new HttpExchangeTracer(EnumSet.of(Include.REQUEST_HEADERS)).receivedRequest(
+		HttpTrace_RENAMED trace = new HttpExchangeTracer(EnumSet.of(Include.REQUEST_HEADERS)).receivedRequest(
 				createRequest(Collections.singletonMap(HttpHeaders.AUTHORIZATION, Arrays.asList("secret"))));
 		Request request = trace.getRequest();
 		assertThat(request.getHeaders()).isEmpty();
@@ -108,7 +108,7 @@ class HttpExchangeTracerTests {
 
 	@Test
 	void mixedCaseAuthorizationHeaderIsNotIncludedByDefault() {
-		HttpTrace trace = new HttpExchangeTracer(EnumSet.of(Include.REQUEST_HEADERS)).receivedRequest(
+		HttpTrace_RENAMED trace = new HttpExchangeTracer(EnumSet.of(Include.REQUEST_HEADERS)).receivedRequest(
 				createRequest(Collections.singletonMap(mixedCase(HttpHeaders.AUTHORIZATION), Arrays.asList("secret"))));
 		Request request = trace.getRequest();
 		assertThat(request.getHeaders()).isEmpty();
@@ -116,7 +116,7 @@ class HttpExchangeTracerTests {
 
 	@Test
 	void authorizationHeaderCanBeIncluded() {
-		HttpTrace trace = new HttpExchangeTracer(EnumSet.of(Include.REQUEST_HEADERS, Include.AUTHORIZATION_HEADER))
+		HttpTrace_RENAMED trace = new HttpExchangeTracer(EnumSet.of(Include.REQUEST_HEADERS, Include.AUTHORIZATION_HEADER))
 				.receivedRequest(
 						createRequest(Collections.singletonMap(HttpHeaders.AUTHORIZATION, Arrays.asList("secret"))));
 		Request request = trace.getRequest();
@@ -125,7 +125,7 @@ class HttpExchangeTracerTests {
 
 	@Test
 	void mixedCaseAuthorizationHeaderCanBeIncluded() {
-		HttpTrace trace = new HttpExchangeTracer(EnumSet.of(Include.REQUEST_HEADERS, Include.AUTHORIZATION_HEADER))
+		HttpTrace_RENAMED trace = new HttpExchangeTracer(EnumSet.of(Include.REQUEST_HEADERS, Include.AUTHORIZATION_HEADER))
 				.receivedRequest(createRequest(
 						Collections.singletonMap(mixedCase(HttpHeaders.AUTHORIZATION), Arrays.asList("secret"))));
 		Request request = trace.getRequest();
@@ -134,7 +134,7 @@ class HttpExchangeTracerTests {
 
 	@Test
 	void cookieHeaderIsNotIncludedByDefault() {
-		HttpTrace trace = new HttpExchangeTracer(EnumSet.of(Include.REQUEST_HEADERS)).receivedRequest(
+		HttpTrace_RENAMED trace = new HttpExchangeTracer(EnumSet.of(Include.REQUEST_HEADERS)).receivedRequest(
 				createRequest(Collections.singletonMap(HttpHeaders.COOKIE, Arrays.asList("test=test"))));
 		Request request = trace.getRequest();
 		assertThat(request.getHeaders()).isEmpty();
@@ -142,7 +142,7 @@ class HttpExchangeTracerTests {
 
 	@Test
 	void mixedCaseCookieHeaderIsNotIncludedByDefault() {
-		HttpTrace trace = new HttpExchangeTracer(EnumSet.of(Include.REQUEST_HEADERS)).receivedRequest(
+		HttpTrace_RENAMED trace = new HttpExchangeTracer(EnumSet.of(Include.REQUEST_HEADERS)).receivedRequest(
 				createRequest(Collections.singletonMap(mixedCase(HttpHeaders.COOKIE), Arrays.asList("value"))));
 		Request request = trace.getRequest();
 		assertThat(request.getHeaders()).isEmpty();
@@ -150,7 +150,7 @@ class HttpExchangeTracerTests {
 
 	@Test
 	void cookieHeaderCanBeIncluded() {
-		HttpTrace trace = new HttpExchangeTracer(EnumSet.of(Include.REQUEST_HEADERS, Include.COOKIE_HEADERS))
+		HttpTrace_RENAMED trace = new HttpExchangeTracer(EnumSet.of(Include.REQUEST_HEADERS, Include.COOKIE_HEADERS))
 				.receivedRequest(createRequest(Collections.singletonMap(HttpHeaders.COOKIE, Arrays.asList("value"))));
 		Request request = trace.getRequest();
 		assertThat(request.getHeaders()).containsOnlyKeys(HttpHeaders.COOKIE);
@@ -158,7 +158,7 @@ class HttpExchangeTracerTests {
 
 	@Test
 	void mixedCaseCookieHeaderCanBeIncluded() {
-		HttpTrace trace = new HttpExchangeTracer(EnumSet.of(Include.REQUEST_HEADERS, Include.COOKIE_HEADERS))
+		HttpTrace_RENAMED trace = new HttpExchangeTracer(EnumSet.of(Include.REQUEST_HEADERS, Include.COOKIE_HEADERS))
 				.receivedRequest(
 						createRequest(Collections.singletonMap(mixedCase(HttpHeaders.COOKIE), Arrays.asList("value"))));
 		Request request = trace.getRequest();
@@ -167,21 +167,21 @@ class HttpExchangeTracerTests {
 
 	@Test
 	void statusIsIncluded() {
-		HttpTrace trace = new HttpTrace(createRequest());
+		HttpTrace_RENAMED trace = new HttpTrace_RENAMED(createRequest());
 		new HttpExchangeTracer(EnumSet.noneOf(Include.class)).sendingResponse(trace, createResponse(), null, null);
 		assertThat(trace.getResponse().getStatus()).isEqualTo(204);
 	}
 
 	@Test
 	void responseHeadersAreNotIncludedByDefault() {
-		HttpTrace trace = new HttpTrace(createRequest());
+		HttpTrace_RENAMED trace = new HttpTrace_RENAMED(createRequest());
 		new HttpExchangeTracer(EnumSet.noneOf(Include.class)).sendingResponse(trace, createResponse(), null, null);
 		assertThat(trace.getResponse().getHeaders()).isEmpty();
 	}
 
 	@Test
 	void responseHeadersCanBeIncluded() {
-		HttpTrace trace = new HttpTrace(createRequest());
+		HttpTrace_RENAMED trace = new HttpTrace_RENAMED(createRequest());
 		new HttpExchangeTracer(EnumSet.of(Include.RESPONSE_HEADERS)).sendingResponse(trace, createResponse(), null,
 				null);
 		assertThat(trace.getResponse().getHeaders()).containsOnlyKeys(HttpHeaders.CONTENT_TYPE);
@@ -189,7 +189,7 @@ class HttpExchangeTracerTests {
 
 	@Test
 	void setCookieHeaderIsNotIncludedByDefault() {
-		HttpTrace trace = new HttpTrace(createRequest());
+		HttpTrace_RENAMED trace = new HttpTrace_RENAMED(createRequest());
 		new HttpExchangeTracer(EnumSet.of(Include.RESPONSE_HEADERS)).sendingResponse(trace,
 				createResponse(Collections.singletonMap(HttpHeaders.SET_COOKIE, Arrays.asList("test=test"))), null,
 				null);
@@ -198,7 +198,7 @@ class HttpExchangeTracerTests {
 
 	@Test
 	void mixedCaseSetCookieHeaderIsNotIncludedByDefault() {
-		HttpTrace trace = new HttpTrace(createRequest());
+		HttpTrace_RENAMED trace = new HttpTrace_RENAMED(createRequest());
 		new HttpExchangeTracer(EnumSet.of(Include.RESPONSE_HEADERS)).sendingResponse(trace,
 				createResponse(Collections.singletonMap(mixedCase(HttpHeaders.SET_COOKIE), Arrays.asList("test=test"))),
 				null, null);
@@ -207,7 +207,7 @@ class HttpExchangeTracerTests {
 
 	@Test
 	void setCookieHeaderCanBeIncluded() {
-		HttpTrace trace = new HttpTrace(createRequest());
+		HttpTrace_RENAMED trace = new HttpTrace_RENAMED(createRequest());
 		new HttpExchangeTracer(EnumSet.of(Include.RESPONSE_HEADERS, Include.COOKIE_HEADERS)).sendingResponse(trace,
 				createResponse(Collections.singletonMap(HttpHeaders.SET_COOKIE, Arrays.asList("test=test"))), null,
 				null);
@@ -216,7 +216,7 @@ class HttpExchangeTracerTests {
 
 	@Test
 	void mixedCaseSetCookieHeaderCanBeIncluded() {
-		HttpTrace trace = new HttpTrace(createRequest());
+		HttpTrace_RENAMED trace = new HttpTrace_RENAMED(createRequest());
 		new HttpExchangeTracer(EnumSet.of(Include.RESPONSE_HEADERS, Include.COOKIE_HEADERS)).sendingResponse(trace,
 				createResponse(Collections.singletonMap(mixedCase(HttpHeaders.SET_COOKIE), Arrays.asList("test=test"))),
 				null, null);
@@ -225,7 +225,7 @@ class HttpExchangeTracerTests {
 
 	@Test
 	void principalIsNotIncludedByDefault() {
-		HttpTrace trace = new HttpTrace(createRequest());
+		HttpTrace_RENAMED trace = new HttpTrace_RENAMED(createRequest());
 		new HttpExchangeTracer(EnumSet.noneOf(Include.class)).sendingResponse(trace, createResponse(),
 				this::createPrincipal, null);
 		assertThat(trace.getPrincipal()).isNull();
@@ -233,7 +233,7 @@ class HttpExchangeTracerTests {
 
 	@Test
 	void principalCanBeIncluded() {
-		HttpTrace trace = new HttpTrace(createRequest());
+		HttpTrace_RENAMED trace = new HttpTrace_RENAMED(createRequest());
 		new HttpExchangeTracer(EnumSet.of(Include.PRINCIPAL)).sendingResponse(trace, createResponse(),
 				this::createPrincipal, null);
 		assertThat(trace.getPrincipal()).isNotNull();
@@ -242,7 +242,7 @@ class HttpExchangeTracerTests {
 
 	@Test
 	void sessionIdIsNotIncludedByDefault() {
-		HttpTrace trace = new HttpTrace(createRequest());
+		HttpTrace_RENAMED trace = new HttpTrace_RENAMED(createRequest());
 		new HttpExchangeTracer(EnumSet.noneOf(Include.class)).sendingResponse(trace, createResponse(), null,
 				() -> "sessionId");
 		assertThat(trace.getSession()).isNull();
@@ -250,7 +250,7 @@ class HttpExchangeTracerTests {
 
 	@Test
 	void sessionIdCanBeIncluded() {
-		HttpTrace trace = new HttpTrace(createRequest());
+		HttpTrace_RENAMED trace = new HttpTrace_RENAMED(createRequest());
 		new HttpExchangeTracer(EnumSet.of(Include.SESSION_ID)).sendingResponse(trace, createResponse(), null,
 				() -> "sessionId");
 		assertThat(trace.getSession()).isNotNull();
@@ -259,14 +259,14 @@ class HttpExchangeTracerTests {
 
 	@Test
 	void timeTakenIsNotIncludedByDefault() {
-		HttpTrace trace = new HttpTrace(createRequest());
+		HttpTrace_RENAMED trace = new HttpTrace_RENAMED(createRequest());
 		new HttpExchangeTracer(EnumSet.noneOf(Include.class)).sendingResponse(trace, createResponse(), null, null);
 		assertThat(trace.getTimeTaken()).isNull();
 	}
 
 	@Test
 	void timeTakenCanBeIncluded() {
-		HttpTrace trace = new HttpTrace(createRequest());
+		HttpTrace_RENAMED trace = new HttpTrace_RENAMED(createRequest());
 		new HttpExchangeTracer(EnumSet.of(Include.TIME_TAKEN)).sendingResponse(trace, createResponse(), null, null);
 		assertThat(trace.getTimeTaken()).isNotNull();
 	}
@@ -278,7 +278,7 @@ class HttpExchangeTracerTests {
 		requestHeaders.set(HttpHeaders.COOKIE, "value");
 		requestHeaders.set(HttpHeaders.AUTHORIZATION, "secret");
 		HttpExchangeTracer tracer = new HttpExchangeTracer(Include.defaultIncludes());
-		HttpTrace trace = tracer.receivedRequest(createRequest(requestHeaders));
+		HttpTrace_RENAMED trace = tracer.receivedRequest(createRequest(requestHeaders));
 		HttpHeaders responseHeaders = new HttpHeaders();
 		responseHeaders.set(HttpHeaders.SET_COOKIE, "test=test");
 		responseHeaders.setContentLength(0);

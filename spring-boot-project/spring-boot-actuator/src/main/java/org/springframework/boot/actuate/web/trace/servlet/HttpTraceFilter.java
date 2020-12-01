@@ -29,7 +29,7 @@ import javax.servlet.http.HttpServletResponseWrapper;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.boot.actuate.trace.http.HttpExchangeTracer;
-import org.springframework.boot.actuate.trace.http.HttpTrace;
+import org.springframework.boot.actuate.trace.http.HttpTrace_RENAMED;
 import org.springframework.boot.actuate.trace.http.HttpTraceRepository;
 import org.springframework.core.Ordered;
 import org.springframework.http.HttpStatus;
@@ -82,7 +82,7 @@ public class HttpTraceFilter extends OncePerRequestFilter implements Ordered {
 			return;
 		}
 		TraceableHttpServletRequest traceableRequest = new TraceableHttpServletRequest(request);
-		HttpTrace trace = this.tracer.receivedRequest(traceableRequest);
+		HttpTrace_RENAMED trace = this.tracer.receivedRequest(traceableRequest);
 		int status = HttpStatus.INTERNAL_SERVER_ERROR.value();
 		try {
 			filterChain.doFilter(request, response);

@@ -24,7 +24,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.actuate.autoconfigure.trace.http.HttpTraceAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.trace.http.HttpTraceProperties;
 import org.springframework.boot.actuate.trace.http.HttpExchangeTracer;
-import org.springframework.boot.actuate.trace.http.HttpTrace;
+import org.springframework.boot.actuate.trace.http.HttpTrace_RENAMED;
 import org.springframework.boot.actuate.trace.http.HttpTraceRepository;
 import org.springframework.boot.actuate.trace.http.InMemoryHttpTraceRepository;
 import org.springframework.boot.actuate.trace.http.Include;
@@ -110,12 +110,12 @@ class HttpTraceAutoConfigurationTests {
 	static class CustomHttpTraceRepository implements HttpTraceRepository {
 
 		@Override
-		public List<HttpTrace> findAll() {
+		public List<HttpTrace_RENAMED> findAll() {
 			return null;
 		}
 
 		@Override
-		public void add(HttpTrace trace) {
+		public void add(HttpTrace_RENAMED trace) {
 
 		}
 
