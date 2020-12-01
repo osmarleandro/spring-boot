@@ -43,7 +43,7 @@ import org.springframework.context.annotation.Configuration;
 @ConditionalOnClass(SpringLiquibase.class)
 @ConditionalOnAvailableEndpoint(endpoint = LiquibaseEndpoint.class)
 @AutoConfigureAfter(LiquibaseAutoConfiguration.class)
-public class LiquibaseEndpointAutoConfiguration {
+public class LiquibaseEndpointAutoConfiguration_RENAMED {
 
 	@Bean
 	@ConditionalOnBean(SpringLiquibase.class)

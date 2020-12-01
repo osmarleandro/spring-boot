@@ -30,14 +30,14 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 
 /**
- * Tests for {@link LiquibaseEndpointAutoConfiguration}.
+ * Tests for {@link LiquibaseEndpointAutoConfiguration_RENAMED}.
  *
  * @author Phillip Webb
  */
 class LiquibaseEndpointAutoConfigurationTests {
 
 	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
-			.withConfiguration(AutoConfigurations.of(LiquibaseEndpointAutoConfiguration.class));
+			.withConfiguration(AutoConfigurations.of(LiquibaseEndpointAutoConfiguration_RENAMED.class));
 
 	@Test
 	void runShouldHaveEndpointBean() {
