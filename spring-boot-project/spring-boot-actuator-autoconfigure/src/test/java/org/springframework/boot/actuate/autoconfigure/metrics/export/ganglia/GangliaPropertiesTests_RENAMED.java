@@ -26,7 +26,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Stephane Nicoll
  */
-class GangliaPropertiesTests {
+class GangliaPropertiesTests_RENAMED {
 
 	@Test
 	@SuppressWarnings("deprecation")
