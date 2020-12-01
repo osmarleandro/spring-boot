@@ -26,7 +26,7 @@ import org.springframework.boot.actuate.endpoint.http.ApiVersion;
 import org.springframework.boot.actuate.endpoint.web.WebEndpointResponse;
 import org.springframework.boot.actuate.health.HealthComponent;
 import org.springframework.boot.actuate.health.HealthEndpoint;
-import org.springframework.boot.actuate.health.HealthEndpointWebExtension;
+import org.springframework.boot.actuate.health.HealthEndpointWebExtension_RENAMED;
 
 /**
  * {@link EndpointExtension @EndpointExtension} for the {@link HealthEndpoint} that always
@@ -38,9 +38,9 @@ import org.springframework.boot.actuate.health.HealthEndpointWebExtension;
 @EndpointCloudFoundryExtension(endpoint = HealthEndpoint.class)
 public class CloudFoundryHealthEndpointWebExtension {
 
-	private final HealthEndpointWebExtension delegate;
+	private final HealthEndpointWebExtension_RENAMED delegate;
 
-	public CloudFoundryHealthEndpointWebExtension(HealthEndpointWebExtension delegate) {
+	public CloudFoundryHealthEndpointWebExtension(HealthEndpointWebExtension_RENAMED delegate) {
 		this.delegate = delegate;
 	}
 

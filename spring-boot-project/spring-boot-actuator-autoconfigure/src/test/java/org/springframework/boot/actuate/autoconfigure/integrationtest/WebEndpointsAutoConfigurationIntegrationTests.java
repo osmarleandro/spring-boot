@@ -20,7 +20,7 @@ import org.junit.jupiter.api.Test;
 
 import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.boot.actuate.autoconfigure.metrics.MetricsAutoConfiguration;
-import org.springframework.boot.actuate.health.HealthEndpointWebExtension;
+import org.springframework.boot.actuate.health.HealthEndpointWebExtension_RENAMED;
 import org.springframework.boot.actuate.health.ReactiveHealthEndpointWebExtension;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.cassandra.CassandraAutoConfiguration;
@@ -56,7 +56,7 @@ class WebEndpointsAutoConfigurationIntegrationTests {
 	@Test
 	void healthEndpointWebExtensionIsAutoConfigured() {
 		servletWebRunner().run((context) -> context.getBean(WebEndpointTestApplication.class));
-		servletWebRunner().run((context) -> assertThat(context).hasSingleBean(HealthEndpointWebExtension.class));
+		servletWebRunner().run((context) -> assertThat(context).hasSingleBean(HealthEndpointWebExtension_RENAMED.class));
 	}
 
 	@Test

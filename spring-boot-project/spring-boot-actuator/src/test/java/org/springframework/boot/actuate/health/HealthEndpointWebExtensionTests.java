@@ -30,7 +30,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 
 /**
- * Tests for {@link HealthEndpointWebExtension}.
+ * Tests for {@link HealthEndpointWebExtension_RENAMED}.
  *
  * @author Phillip Webb
  * @author Scott Frederick
@@ -80,8 +80,8 @@ class HealthEndpointWebExtensionTests
 	}
 
 	@Override
-	protected HealthEndpointWebExtension create(HealthContributorRegistry registry, HealthEndpointGroups groups) {
-		return new HealthEndpointWebExtension(registry, groups);
+	protected HealthEndpointWebExtension_RENAMED create(HealthContributorRegistry registry, HealthEndpointGroups groups) {
+		return new HealthEndpointWebExtension_RENAMED(registry, groups);
 	}
 
 	@Override

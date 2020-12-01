@@ -33,7 +33,7 @@ import org.springframework.boot.actuate.health.HealthContributorRegistry;
 import org.springframework.boot.actuate.health.HealthEndpoint;
 import org.springframework.boot.actuate.health.HealthEndpointGroups;
 import org.springframework.boot.actuate.health.HealthEndpointGroupsPostProcessor;
-import org.springframework.boot.actuate.health.HealthEndpointWebExtension;
+import org.springframework.boot.actuate.health.HealthEndpointWebExtension_RENAMED;
 import org.springframework.boot.actuate.health.HealthIndicator;
 import org.springframework.boot.actuate.health.HttpCodeStatusMapper;
 import org.springframework.boot.actuate.health.NamedContributor;
@@ -81,7 +81,7 @@ class HealthEndpointAutoConfigurationTests {
 			assertThat(context).doesNotHaveBean(HealthContributorRegistry.class);
 			assertThat(context).doesNotHaveBean(HealthEndpoint.class);
 			assertThat(context).doesNotHaveBean(ReactiveHealthContributorRegistry.class);
-			assertThat(context).doesNotHaveBean(HealthEndpointWebExtension.class);
+			assertThat(context).doesNotHaveBean(HealthEndpointWebExtension_RENAMED.class);
 			assertThat(context).doesNotHaveBean(ReactiveHealthEndpointWebExtension.class);
 		});
 	}
@@ -207,7 +207,7 @@ class HealthEndpointAutoConfigurationTests {
 	@Test
 	void runCreatesHealthEndpointWebExtension() {
 		this.contextRunner.run((context) -> {
-			HealthEndpointWebExtension webExtension = context.getBean(HealthEndpointWebExtension.class);
+			HealthEndpointWebExtension_RENAMED webExtension = context.getBean(HealthEndpointWebExtension_RENAMED.class);
 			WebEndpointResponse<HealthComponent> response = webExtension.health(ApiVersion.V3, SecurityContext.NONE,
 					true, "simple");
 			Health health = (Health) response.getBody();
@@ -219,7 +219,7 @@ class HealthEndpointAutoConfigurationTests {
 	@Test
 	void runWhenHasHealthEndpointWebExtensionBeanDoesNotCreateExtraHealthEndpointWebExtension() {
 		this.contextRunner.withUserConfiguration(HealthEndpointWebExtensionConfiguration.class).run((context) -> {
-			HealthEndpointWebExtension webExtension = context.getBean(HealthEndpointWebExtension.class);
+			HealthEndpointWebExtension_RENAMED webExtension = context.getBean(HealthEndpointWebExtension_RENAMED.class);
 			WebEndpointResponse<HealthComponent> response = webExtension.health(ApiVersion.V3, SecurityContext.NONE,
 					true, "simple");
 			assertThat(response).isNull();
@@ -345,8 +345,8 @@ class HealthEndpointAutoConfigurationTests {
 	static class HealthEndpointWebExtensionConfiguration {
 
 		@Bean
-		HealthEndpointWebExtension healthEndpointWebExtension() {
-			return mock(HealthEndpointWebExtension.class);
+		HealthEndpointWebExtension_RENAMED healthEndpointWebExtension() {
+			return mock(HealthEndpointWebExtension_RENAMED.class);
 		}
 
 	}
