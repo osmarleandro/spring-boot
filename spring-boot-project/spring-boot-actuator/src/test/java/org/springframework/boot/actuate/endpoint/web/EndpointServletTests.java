@@ -32,7 +32,7 @@ import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException
 import static org.assertj.core.api.Assertions.entry;
 
 /**
- * Tests for {@link EndpointServlet}.
+ * Tests for {@link EndpointServlet_RENAMED}.
  *
  * @author Phillip Webb
  * @author Stephane Nicoll
@@ -41,50 +41,50 @@ class EndpointServletTests {
 
 	@Test
 	void createWhenServletClassIsNullShouldThrowException() {
-		assertThatIllegalArgumentException().isThrownBy(() -> new EndpointServlet((Class<Servlet>) null))
+		assertThatIllegalArgumentException().isThrownBy(() -> new EndpointServlet_RENAMED((Class<Servlet>) null))
 				.withMessageContaining("Servlet must not be null");
 	}
 
 	@Test
 	void createWhenServletIsNullShouldThrowException() {
-		assertThatIllegalArgumentException().isThrownBy(() -> new EndpointServlet((Servlet) null))
+		assertThatIllegalArgumentException().isThrownBy(() -> new EndpointServlet_RENAMED((Servlet) null))
 				.withMessageContaining("Servlet must not be null");
 	}
 
 	@Test
 	void createWithServletClassShouldCreateServletInstance() {
-		EndpointServlet endpointServlet = new EndpointServlet(TestServlet.class);
+		EndpointServlet_RENAMED endpointServlet = new EndpointServlet_RENAMED(TestServlet.class);
 		assertThat(endpointServlet.getServlet()).isInstanceOf(TestServlet.class);
 	}
 
 	@Test
 	void getServletShouldGetServlet() {
 		TestServlet servlet = new TestServlet();
-		EndpointServlet endpointServlet = new EndpointServlet(servlet);
+		EndpointServlet_RENAMED endpointServlet = new EndpointServlet_RENAMED(servlet);
 		assertThat(endpointServlet.getServlet()).isEqualTo(servlet);
 	}
 
 	@Test
 	void withInitParameterNullName() {
-		EndpointServlet endpointServlet = new EndpointServlet(TestServlet.class);
+		EndpointServlet_RENAMED endpointServlet = new EndpointServlet_RENAMED(TestServlet.class);
 		assertThatIllegalArgumentException().isThrownBy(() -> endpointServlet.withInitParameter(null, "value"));
 	}
 
 	@Test
 	void withInitParameterEmptyName() {
-		EndpointServlet endpointServlet = new EndpointServlet(TestServlet.class);
+		EndpointServlet_RENAMED endpointServlet = new EndpointServlet_RENAMED(TestServlet.class);
 		assertThatIllegalArgumentException().isThrownBy(() -> endpointServlet.withInitParameter(" ", "value"));
 	}
 
 	@Test
 	void withInitParameterShouldReturnNewInstance() {
-		EndpointServlet endpointServlet = new EndpointServlet(TestServlet.class);
+		EndpointServlet_RENAMED endpointServlet = new EndpointServlet_RENAMED(TestServlet.class);
 		assertThat(endpointServlet.withInitParameter("spring", "boot")).isNotSameAs(endpointServlet);
 	}
 
 	@Test
 	void withInitParameterWhenHasExistingShouldMergeParameters() {
-		EndpointServlet endpointServlet = new EndpointServlet(TestServlet.class).withInitParameter("a", "b")
+		EndpointServlet_RENAMED endpointServlet = new EndpointServlet_RENAMED(TestServlet.class).withInitParameter("a", "b")
 				.withInitParameter("c", "d");
 		assertThat(endpointServlet.withInitParameter("a", "b1").withInitParameter("e", "f").getInitParameters())
 				.containsExactly(entry("a", "b1"), entry("c", "d"), entry("e", "f"));
@@ -92,28 +92,28 @@ class EndpointServletTests {
 
 	@Test
 	void withInitParametersNullName() {
-		EndpointServlet endpointServlet = new EndpointServlet(TestServlet.class);
+		EndpointServlet_RENAMED endpointServlet = new EndpointServlet_RENAMED(TestServlet.class);
 		assertThatIllegalArgumentException()
 				.isThrownBy(() -> endpointServlet.withInitParameters(Collections.singletonMap(null, "value")));
 	}
 
 	@Test
 	void withInitParametersEmptyName() {
-		EndpointServlet endpointServlet = new EndpointServlet(TestServlet.class);
+		EndpointServlet_RENAMED endpointServlet = new EndpointServlet_RENAMED(TestServlet.class);
 		assertThatIllegalArgumentException()
 				.isThrownBy(() -> endpointServlet.withInitParameters(Collections.singletonMap(" ", "value")));
 	}
 
 	@Test
 	void withInitParametersShouldCreateNewInstance() {
-		EndpointServlet endpointServlet = new EndpointServlet(TestServlet.class);
+		EndpointServlet_RENAMED endpointServlet = new EndpointServlet_RENAMED(TestServlet.class);
 		assertThat(endpointServlet.withInitParameters(Collections.singletonMap("spring", "boot")))
 				.isNotSameAs(endpointServlet);
 	}
 
 	@Test
 	void withInitParametersWhenHasExistingShouldMergeParameters() {
-		EndpointServlet endpointServlet = new EndpointServlet(TestServlet.class).withInitParameter("a", "b")
+		EndpointServlet_RENAMED endpointServlet = new EndpointServlet_RENAMED(TestServlet.class).withInitParameter("a", "b")
 				.withInitParameter("c", "d");
 		Map<String, String> extra = new LinkedHashMap<>();
 		extra.put("a", "b1");
@@ -124,13 +124,13 @@ class EndpointServletTests {
 
 	@Test
 	void withLoadOnStartupNotSetShouldReturnDefaultValue() {
-		EndpointServlet endpointServlet = new EndpointServlet(TestServlet.class);
+		EndpointServlet_RENAMED endpointServlet = new EndpointServlet_RENAMED(TestServlet.class);
 		assertThat(endpointServlet.getLoadOnStartup()).isEqualTo(-1);
 	}
 
 	@Test
 	void withLoadOnStartupSetShouldReturnValue() {
-		EndpointServlet endpointServlet = new EndpointServlet(TestServlet.class).withLoadOnStartup(3);
+		EndpointServlet_RENAMED endpointServlet = new EndpointServlet_RENAMED(TestServlet.class).withLoadOnStartup(3);
 		assertThat(endpointServlet.getLoadOnStartup()).isEqualTo(3);
 	}
 

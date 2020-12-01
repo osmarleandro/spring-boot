@@ -25,13 +25,13 @@ import java.util.function.Supplier;
 
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
 import org.springframework.boot.actuate.endpoint.annotation.FilteredEndpoint;
-import org.springframework.boot.actuate.endpoint.web.EndpointServlet;
+import org.springframework.boot.actuate.endpoint.web.EndpointServlet_RENAMED;
 import org.springframework.core.annotation.AliasFor;
 
 /**
  * Identifies a type as being an endpoint that supplies a servlet to expose.
  * Implementations must also implement {@link Supplier Supplier&lt;EndpointServlet&gt;}
- * and return a valid {@link EndpointServlet}.
+ * and return a valid {@link EndpointServlet_RENAMED}.
  * <p>
  * This annotation can be used when existing servlets need to be exposed as actuator
  * endpoints, but it is at the expense of portability. Most users should prefer the

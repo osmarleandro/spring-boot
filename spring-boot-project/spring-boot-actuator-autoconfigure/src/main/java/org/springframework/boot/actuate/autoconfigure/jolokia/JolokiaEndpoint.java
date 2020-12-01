@@ -22,7 +22,7 @@ import java.util.function.Supplier;
 import org.jolokia.http.AgentServlet;
 
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
-import org.springframework.boot.actuate.endpoint.web.EndpointServlet;
+import org.springframework.boot.actuate.endpoint.web.EndpointServlet_RENAMED;
 import org.springframework.boot.actuate.endpoint.web.annotation.ServletEndpoint;
 
 /**
@@ -32,7 +32,7 @@ import org.springframework.boot.actuate.endpoint.web.annotation.ServletEndpoint;
  * @since 2.0.0
  */
 @ServletEndpoint(id = "jolokia")
-public class JolokiaEndpoint implements Supplier<EndpointServlet> {
+public class JolokiaEndpoint implements Supplier<EndpointServlet_RENAMED> {
 
 	private final Map<String, String> initParameters;
 
@@ -41,8 +41,8 @@ public class JolokiaEndpoint implements Supplier<EndpointServlet> {
 	}
 
 	@Override
-	public EndpointServlet get() {
-		return new EndpointServlet(AgentServlet.class).withInitParameters(this.initParameters);
+	public EndpointServlet_RENAMED get() {
+		return new EndpointServlet_RENAMED(AgentServlet.class).withInitParameters(this.initParameters);
 	}
 
 }

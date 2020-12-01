@@ -33,7 +33,7 @@ import org.springframework.boot.actuate.autoconfigure.health.HealthContributorAu
 import org.springframework.boot.actuate.autoconfigure.trace.http.HttpTraceAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.web.server.ManagementContextAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.web.servlet.ServletManagementContextAutoConfiguration;
-import org.springframework.boot.actuate.endpoint.web.EndpointServlet;
+import org.springframework.boot.actuate.endpoint.web.EndpointServlet_RENAMED;
 import org.springframework.boot.actuate.endpoint.web.annotation.RestControllerEndpoint;
 import org.springframework.boot.actuate.endpoint.web.annotation.ServletEndpoint;
 import org.springframework.boot.actuate.trace.http.InMemoryHttpTraceRepository;
@@ -195,11 +195,11 @@ class WebMvcEndpointExposureIntegrationTests {
 	}
 
 	@ServletEndpoint(id = "customservlet")
-	static class CustomServletEndpoint implements Supplier<EndpointServlet> {
+	static class CustomServletEndpoint implements Supplier<EndpointServlet_RENAMED> {
 
 		@Override
-		public EndpointServlet get() {
-			return new EndpointServlet(new HttpServlet() {
+		public EndpointServlet_RENAMED get() {
+			return new EndpointServlet_RENAMED(new HttpServlet() {
 
 				@Override
 				protected void doGet(HttpServletRequest req, HttpServletResponse resp)

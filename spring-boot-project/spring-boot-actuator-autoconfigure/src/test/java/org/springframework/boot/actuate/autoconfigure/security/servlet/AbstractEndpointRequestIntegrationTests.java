@@ -26,7 +26,7 @@ import org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointAu
 import org.springframework.boot.actuate.autoconfigure.web.server.ManagementContextAutoConfiguration;
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
 import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
-import org.springframework.boot.actuate.endpoint.web.EndpointServlet;
+import org.springframework.boot.actuate.endpoint.web.EndpointServlet_RENAMED;
 import org.springframework.boot.actuate.endpoint.web.annotation.ServletEndpoint;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
 import org.springframework.boot.autoconfigure.jackson.JacksonAutoConfiguration;
@@ -152,11 +152,11 @@ abstract class AbstractEndpointRequestIntegrationTests {
 	}
 
 	@ServletEndpoint(id = "se1")
-	static class TestServletEndpoint implements Supplier<EndpointServlet> {
+	static class TestServletEndpoint implements Supplier<EndpointServlet_RENAMED> {
 
 		@Override
-		public EndpointServlet get() {
-			return new EndpointServlet(AgentServlet.class);
+		public EndpointServlet_RENAMED get() {
+			return new EndpointServlet_RENAMED(AgentServlet.class);
 		}
 
 	}

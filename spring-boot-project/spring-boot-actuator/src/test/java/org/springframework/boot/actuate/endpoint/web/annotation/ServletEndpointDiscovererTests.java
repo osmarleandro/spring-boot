@@ -35,7 +35,7 @@ import org.springframework.boot.actuate.endpoint.EndpointId;
 import org.springframework.boot.actuate.endpoint.annotation.DiscoveredEndpoint;
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
 import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
-import org.springframework.boot.actuate.endpoint.web.EndpointServlet;
+import org.springframework.boot.actuate.endpoint.web.EndpointServlet_RENAMED;
 import org.springframework.boot.actuate.endpoint.web.ExposableServletEndpoint;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
 import org.springframework.boot.autoconfigure.validation.ValidationAutoConfiguration;
@@ -151,22 +151,22 @@ class ServletEndpointDiscovererTests {
 	}
 
 	@ServletEndpoint(id = "testservlet")
-	static class TestServletEndpoint implements Supplier<EndpointServlet> {
+	static class TestServletEndpoint implements Supplier<EndpointServlet_RENAMED> {
 
 		@Override
-		public EndpointServlet get() {
-			return new EndpointServlet(TestServlet.class);
+		public EndpointServlet_RENAMED get() {
+			return new EndpointServlet_RENAMED(TestServlet.class);
 		}
 
 	}
 
 	@ServletEndpoint(id = "testservlet")
 	@Validated
-	static class TestProxyServletEndpoint implements Supplier<EndpointServlet> {
+	static class TestProxyServletEndpoint implements Supplier<EndpointServlet_RENAMED> {
 
 		@Override
-		public EndpointServlet get() {
-			return new EndpointServlet(TestServlet.class);
+		public EndpointServlet_RENAMED get() {
+			return new EndpointServlet_RENAMED(TestServlet.class);
 		}
 
 	}
@@ -177,11 +177,11 @@ class ServletEndpointDiscovererTests {
 	}
 
 	@ServletEndpoint(id = "testservlet")
-	static class TestServletEndpointWithOperation implements Supplier<EndpointServlet> {
+	static class TestServletEndpointWithOperation implements Supplier<EndpointServlet_RENAMED> {
 
 		@Override
-		public EndpointServlet get() {
-			return new EndpointServlet(TestServlet.class);
+		public EndpointServlet_RENAMED get() {
+			return new EndpointServlet_RENAMED(TestServlet.class);
 		}
 
 		@ReadOperation
@@ -215,10 +215,10 @@ class ServletEndpointDiscovererTests {
 	}
 
 	@ServletEndpoint(id = "testservlet")
-	static class TestServletEndpointSupplierOfNull implements Supplier<EndpointServlet> {
+	static class TestServletEndpointSupplierOfNull implements Supplier<EndpointServlet_RENAMED> {
 
 		@Override
-		public EndpointServlet get() {
+		public EndpointServlet_RENAMED get() {
 			return null;
 		}
 

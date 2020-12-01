@@ -23,7 +23,7 @@ import org.springframework.boot.actuate.endpoint.EndpointId;
 import org.springframework.boot.actuate.endpoint.Operation;
 import org.springframework.boot.actuate.endpoint.annotation.AbstractDiscoveredEndpoint;
 import org.springframework.boot.actuate.endpoint.annotation.EndpointDiscoverer;
-import org.springframework.boot.actuate.endpoint.web.EndpointServlet;
+import org.springframework.boot.actuate.endpoint.web.EndpointServlet_RENAMED;
 import org.springframework.boot.actuate.endpoint.web.ExposableServletEndpoint;
 import org.springframework.util.Assert;
 
@@ -36,7 +36,7 @@ class DiscoveredServletEndpoint extends AbstractDiscoveredEndpoint<Operation> im
 
 	private final String rootPath;
 
-	private final EndpointServlet endpointServlet;
+	private final EndpointServlet_RENAMED endpointServlet;
 
 	DiscoveredServletEndpoint(EndpointDiscoverer<?, ?> discoverer, Object endpointBean, EndpointId id, String rootPath,
 			boolean enabledByDefault) {
@@ -46,9 +46,9 @@ class DiscoveredServletEndpoint extends AbstractDiscoveredEndpoint<Operation> im
 				() -> "ServletEndpoint bean " + beanType + " must be a supplier");
 		Object supplied = ((Supplier<?>) endpointBean).get();
 		Assert.state(supplied != null, () -> "ServletEndpoint bean " + beanType + " must not supply null");
-		Assert.state(supplied instanceof EndpointServlet,
+		Assert.state(supplied instanceof EndpointServlet_RENAMED,
 				() -> "ServletEndpoint bean " + beanType + " must supply an EndpointServlet");
-		this.endpointServlet = (EndpointServlet) supplied;
+		this.endpointServlet = (EndpointServlet_RENAMED) supplied;
 		this.rootPath = rootPath;
 	}
 
@@ -58,7 +58,7 @@ class DiscoveredServletEndpoint extends AbstractDiscoveredEndpoint<Operation> im
 	}
 
 	@Override
-	public EndpointServlet getEndpointServlet() {
+	public EndpointServlet_RENAMED getEndpointServlet() {
 		return this.endpointServlet;
 	}
 
