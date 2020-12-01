@@ -53,7 +53,7 @@ public class AtlasMetricsExportAutoConfiguration {
 	@Bean
 	@ConditionalOnMissingBean
 	public AtlasConfig atlasConfig(AtlasProperties atlasProperties) {
-		return new AtlasPropertiesConfigAdapter(atlasProperties);
+		return new AtlasPropertiesConfigAdapter_RENAMED(atlasProperties);
 	}
 
 	@Bean
