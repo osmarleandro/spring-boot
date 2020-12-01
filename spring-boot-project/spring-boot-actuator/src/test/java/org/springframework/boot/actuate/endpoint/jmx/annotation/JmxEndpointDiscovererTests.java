@@ -31,7 +31,7 @@ import org.springframework.boot.actuate.endpoint.annotation.DeleteOperation;
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
 import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
 import org.springframework.boot.actuate.endpoint.annotation.WriteOperation;
-import org.springframework.boot.actuate.endpoint.invoke.convert.ConversionServiceParameterValueMapper;
+import org.springframework.boot.actuate.endpoint.invoke.convert.ConversionServiceParameterValueMapper_RENAMED;
 import org.springframework.boot.actuate.endpoint.invoker.cache.CachingOperationInvoker;
 import org.springframework.boot.actuate.endpoint.invoker.cache.CachingOperationInvokerAdvisor;
 import org.springframework.boot.actuate.endpoint.jmx.ExposableJmxEndpoint;
@@ -258,7 +258,7 @@ class JmxEndpointDiscovererTests {
 	private void load(Class<?> configuration, Function<EndpointId, Long> timeToLive,
 			Consumer<JmxEndpointDiscoverer> consumer) {
 		try (AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(configuration)) {
-			ConversionServiceParameterValueMapper parameterMapper = new ConversionServiceParameterValueMapper(
+			ConversionServiceParameterValueMapper_RENAMED parameterMapper = new ConversionServiceParameterValueMapper_RENAMED(
 					DefaultConversionService.getSharedInstance());
 			JmxEndpointDiscoverer discoverer = new JmxEndpointDiscoverer(context, parameterMapper,
 					Collections.singleton(new CachingOperationInvokerAdvisor(timeToLive)), Collections.emptyList());

@@ -41,7 +41,7 @@ import org.springframework.boot.actuate.endpoint.Operation;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvoker;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvokerAdvisor;
 import org.springframework.boot.actuate.endpoint.invoke.ParameterValueMapper;
-import org.springframework.boot.actuate.endpoint.invoke.convert.ConversionServiceParameterValueMapper;
+import org.springframework.boot.actuate.endpoint.invoke.convert.ConversionServiceParameterValueMapper_RENAMED;
 import org.springframework.boot.actuate.endpoint.invoker.cache.CachingOperationInvoker;
 import org.springframework.boot.actuate.endpoint.invoker.cache.CachingOperationInvokerAdvisor;
 import org.springframework.cglib.proxy.Enhancer;
@@ -531,7 +531,7 @@ class EndpointDiscovererTests {
 
 		TestEndpointDiscoverer(ApplicationContext applicationContext, Function<EndpointId, Long> timeToLive,
 				Collection<EndpointFilter<TestExposableEndpoint>> filters) {
-			this(applicationContext, new ConversionServiceParameterValueMapper(),
+			this(applicationContext, new ConversionServiceParameterValueMapper_RENAMED(),
 					Collections.singleton(new CachingOperationInvokerAdvisor(timeToLive)), filters);
 		}
 
@@ -570,7 +570,7 @@ class EndpointDiscovererTests {
 
 		SpecializedEndpointDiscoverer(ApplicationContext applicationContext,
 				Collection<EndpointFilter<SpecializedExposableEndpoint>> filters) {
-			super(applicationContext, new ConversionServiceParameterValueMapper(), Collections.emptyList(), filters);
+			super(applicationContext, new ConversionServiceParameterValueMapper_RENAMED(), Collections.emptyList(), filters);
 		}
 
 		@Override

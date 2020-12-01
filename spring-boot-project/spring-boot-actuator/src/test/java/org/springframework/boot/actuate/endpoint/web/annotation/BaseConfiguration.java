@@ -21,7 +21,7 @@ import java.util.Collections;
 import java.util.List;
 
 import org.springframework.boot.actuate.endpoint.invoke.ParameterValueMapper;
-import org.springframework.boot.actuate.endpoint.invoke.convert.ConversionServiceParameterValueMapper;
+import org.springframework.boot.actuate.endpoint.invoke.convert.ConversionServiceParameterValueMapper_RENAMED;
 import org.springframework.boot.actuate.endpoint.web.EndpointMediaTypes;
 import org.springframework.boot.web.embedded.tomcat.TomcatEmbeddedWebappClassLoader;
 import org.springframework.context.ApplicationContext;
@@ -63,7 +63,7 @@ class BaseConfiguration {
 	@Bean
 	WebEndpointDiscoverer webEndpointDiscoverer(EndpointMediaTypes endpointMediaTypes,
 			ApplicationContext applicationContext) {
-		ParameterValueMapper parameterMapper = new ConversionServiceParameterValueMapper(
+		ParameterValueMapper parameterMapper = new ConversionServiceParameterValueMapper_RENAMED(
 				DefaultConversionService.getSharedInstance());
 		return new WebEndpointDiscoverer(applicationContext, parameterMapper, endpointMediaTypes, null,
 				Collections.emptyList(), Collections.emptyList());

@@ -35,7 +35,7 @@ import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.verify;
 
 /**
- * Tests for {@link ConversionServiceParameterValueMapper}.
+ * Tests for {@link ConversionServiceParameterValueMapper_RENAMED}.
  *
  * @author Phillip Webb
  */
@@ -44,7 +44,7 @@ class ConversionServiceParameterValueMapperTests {
 	@Test
 	void mapParameterShouldDelegateToConversionService() {
 		DefaultFormattingConversionService conversionService = spy(new DefaultFormattingConversionService());
-		ConversionServiceParameterValueMapper mapper = new ConversionServiceParameterValueMapper(conversionService);
+		ConversionServiceParameterValueMapper_RENAMED mapper = new ConversionServiceParameterValueMapper_RENAMED(conversionService);
 		Object mapped = mapper.mapParameterValue(new TestOperationParameter(Integer.class), "123");
 		assertThat(mapped).isEqualTo(123);
 		verify(conversionService).convert("123", Integer.class);
@@ -55,7 +55,7 @@ class ConversionServiceParameterValueMapperTests {
 		ConversionService conversionService = mock(ConversionService.class);
 		RuntimeException error = new RuntimeException();
 		given(conversionService.convert(any(), any())).willThrow(error);
-		ConversionServiceParameterValueMapper mapper = new ConversionServiceParameterValueMapper(conversionService);
+		ConversionServiceParameterValueMapper_RENAMED mapper = new ConversionServiceParameterValueMapper_RENAMED(conversionService);
 		assertThatExceptionOfType(ParameterMappingException.class)
 				.isThrownBy(() -> mapper.mapParameterValue(new TestOperationParameter(Integer.class), "123"))
 				.satisfies((ex) -> {
@@ -67,7 +67,7 @@ class ConversionServiceParameterValueMapperTests {
 
 	@Test
 	void createShouldRegisterIsoOffsetDateTimeConverter() {
-		ConversionServiceParameterValueMapper mapper = new ConversionServiceParameterValueMapper();
+		ConversionServiceParameterValueMapper_RENAMED mapper = new ConversionServiceParameterValueMapper_RENAMED();
 		Object mapped = mapper.mapParameterValue(new TestOperationParameter(OffsetDateTime.class),
 				"2011-12-03T10:15:30+01:00");
 		assertThat(mapped).isNotNull();
@@ -76,7 +76,7 @@ class ConversionServiceParameterValueMapperTests {
 	@Test
 	void createWithConversionServiceShouldNotRegisterIsoOffsetDateTimeConverter() {
 		ConversionService conversionService = new DefaultConversionService();
-		ConversionServiceParameterValueMapper mapper = new ConversionServiceParameterValueMapper(conversionService);
+		ConversionServiceParameterValueMapper_RENAMED mapper = new ConversionServiceParameterValueMapper_RENAMED(conversionService);
 		assertThatExceptionOfType(ParameterMappingException.class).isThrownBy(() -> mapper
 				.mapParameterValue(new TestOperationParameter(OffsetDateTime.class), "2011-12-03T10:15:30+01:00"));
 	}
