@@ -26,7 +26,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.junit.jupiter.api.Test;
 
-import org.springframework.boot.actuate.audit.InMemoryAuditEventRepository;
+import org.springframework.boot.actuate.audit.InMemoryAuditEventRepository_RENAMED;
 import org.springframework.boot.actuate.autoconfigure.endpoint.EndpointAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.health.HealthContributorAutoConfiguration;
@@ -225,8 +225,8 @@ class WebMvcEndpointExposureIntegrationTests {
 	static class AuditEventRepositoryConfiguration {
 
 		@Bean
-		InMemoryAuditEventRepository auditEventRepository() {
-			return new InMemoryAuditEventRepository();
+		InMemoryAuditEventRepository_RENAMED auditEventRepository() {
+			return new InMemoryAuditEventRepository_RENAMED();
 		}
 
 	}

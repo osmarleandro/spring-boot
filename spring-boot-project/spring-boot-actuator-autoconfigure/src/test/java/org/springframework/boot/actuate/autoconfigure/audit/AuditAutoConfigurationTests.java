@@ -20,7 +20,7 @@ import org.junit.jupiter.api.Test;
 
 import org.springframework.boot.actuate.audit.AuditEvent;
 import org.springframework.boot.actuate.audit.AuditEventRepository;
-import org.springframework.boot.actuate.audit.InMemoryAuditEventRepository;
+import org.springframework.boot.actuate.audit.InMemoryAuditEventRepository_RENAMED;
 import org.springframework.boot.actuate.audit.listener.AbstractAuditListener;
 import org.springframework.boot.actuate.audit.listener.AuditListener;
 import org.springframework.boot.actuate.security.AbstractAuthenticationAuditListener;
@@ -106,7 +106,7 @@ class AuditAutoConfigurationTests {
 
 	}
 
-	static class TestAuditEventRepository extends InMemoryAuditEventRepository {
+	static class TestAuditEventRepository extends InMemoryAuditEventRepository_RENAMED {
 
 	}
 

@@ -26,7 +26,7 @@ import javax.management.ReflectionException;
 
 import org.junit.jupiter.api.Test;
 
-import org.springframework.boot.actuate.audit.InMemoryAuditEventRepository;
+import org.springframework.boot.actuate.audit.InMemoryAuditEventRepository_RENAMED;
 import org.springframework.boot.actuate.autoconfigure.endpoint.EndpointAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.endpoint.jmx.JmxEndpointAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.health.HealthContributorAutoConfiguration;
@@ -144,8 +144,8 @@ class JmxEndpointIntegrationTests {
 	static class AuditEventRepositoryConfiguration {
 
 		@Bean
-		InMemoryAuditEventRepository auditEventRepository() {
-			return new InMemoryAuditEventRepository();
+		InMemoryAuditEventRepository_RENAMED auditEventRepository() {
+			return new InMemoryAuditEventRepository_RENAMED();
 		}
 
 	}
