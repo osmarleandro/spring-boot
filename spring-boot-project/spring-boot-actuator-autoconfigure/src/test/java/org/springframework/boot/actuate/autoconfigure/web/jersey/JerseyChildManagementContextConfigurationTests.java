@@ -31,7 +31,7 @@ import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Tests for {@link JerseyChildManagementContextConfiguration}.
+ * Tests for {@link JerseyChildManagementContextConfiguration_RENAMED}.
  *
  * @author Andy Wilkinson
  * @author Madhura Bhave
@@ -40,7 +40,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 class JerseyChildManagementContextConfigurationTests {
 
 	private final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner()
-			.withUserConfiguration(JerseyChildManagementContextConfiguration.class);
+			.withUserConfiguration(JerseyChildManagementContextConfiguration_RENAMED.class);
 
 	@Test
 	void autoConfigurationIsConditionalOnServletWebApplication() {
