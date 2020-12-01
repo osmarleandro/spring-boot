@@ -20,7 +20,7 @@ import java.util.Map;
 
 import io.r2dbc.spi.ConnectionFactory;
 
-import org.springframework.boot.actuate.autoconfigure.health.CompositeReactiveHealthContributorConfiguration;
+import org.springframework.boot.actuate.autoconfigure.health.CompositeReactiveHealthContributorConfiguration_RENAMED;
 import org.springframework.boot.actuate.autoconfigure.health.ConditionalOnEnabledHealthIndicator;
 import org.springframework.boot.actuate.health.ReactiveHealthContributor;
 import org.springframework.boot.actuate.r2dbc.ConnectionFactoryHealthIndicator;
@@ -46,7 +46,7 @@ import org.springframework.context.annotation.Configuration;
 @ConditionalOnEnabledHealthIndicator("r2dbc")
 @AutoConfigureAfter(R2dbcAutoConfiguration.class)
 public class ConnectionFactoryHealthContributorAutoConfiguration
-		extends CompositeReactiveHealthContributorConfiguration<ConnectionFactoryHealthIndicator, ConnectionFactory> {
+		extends CompositeReactiveHealthContributorConfiguration_RENAMED<ConnectionFactoryHealthIndicator, ConnectionFactory> {
 
 	private final Map<String, ConnectionFactory> connectionFactory;
 

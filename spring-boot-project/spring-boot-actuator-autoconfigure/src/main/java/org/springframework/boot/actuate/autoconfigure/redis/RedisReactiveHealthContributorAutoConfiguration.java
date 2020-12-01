@@ -20,7 +20,7 @@ import java.util.Map;
 
 import reactor.core.publisher.Flux;
 
-import org.springframework.boot.actuate.autoconfigure.health.CompositeReactiveHealthContributorConfiguration;
+import org.springframework.boot.actuate.autoconfigure.health.CompositeReactiveHealthContributorConfiguration_RENAMED;
 import org.springframework.boot.actuate.autoconfigure.health.ConditionalOnEnabledHealthIndicator;
 import org.springframework.boot.actuate.health.ReactiveHealthContributor;
 import org.springframework.boot.actuate.redis.RedisReactiveHealthIndicator;
@@ -50,7 +50,7 @@ import org.springframework.data.redis.connection.ReactiveRedisConnectionFactory;
 @ConditionalOnEnabledHealthIndicator("redis")
 @AutoConfigureAfter(RedisReactiveAutoConfiguration.class)
 public class RedisReactiveHealthContributorAutoConfiguration extends
-		CompositeReactiveHealthContributorConfiguration<RedisReactiveHealthIndicator, ReactiveRedisConnectionFactory> {
+		CompositeReactiveHealthContributorConfiguration_RENAMED<RedisReactiveHealthIndicator, ReactiveRedisConnectionFactory> {
 
 	private final Map<String, ReactiveRedisConnectionFactory> redisConnectionFactories;
 

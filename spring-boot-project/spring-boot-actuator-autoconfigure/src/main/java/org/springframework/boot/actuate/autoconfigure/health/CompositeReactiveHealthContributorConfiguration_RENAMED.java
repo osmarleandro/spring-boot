@@ -32,7 +32,7 @@ import org.springframework.boot.actuate.health.ReactiveHealthIndicator;
  * @author Phillip Webb
  * @since 2.2.0
  */
-public abstract class CompositeReactiveHealthContributorConfiguration<I extends ReactiveHealthIndicator, B>
+public abstract class CompositeReactiveHealthContributorConfiguration_RENAMED<I extends ReactiveHealthIndicator, B>
 		extends AbstractCompositeHealthContributorConfiguration<ReactiveHealthContributor, I, B> {
 
 	@Override
