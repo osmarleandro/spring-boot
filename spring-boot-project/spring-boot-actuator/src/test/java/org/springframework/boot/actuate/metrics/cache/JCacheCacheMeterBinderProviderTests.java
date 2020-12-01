@@ -34,7 +34,7 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
 
 /**
- * Tests for {@link JCacheCacheMeterBinderProvider}.
+ * Tests for {@link JCacheCacheMeterBinderProvider_RENAMED}.
  *
  * @author Stephane Nicoll
  */
@@ -51,7 +51,7 @@ class JCacheCacheMeterBinderProviderTests {
 		given(this.nativeCache.getCacheManager()).willReturn(cacheManager);
 		given(this.nativeCache.getName()).willReturn("test");
 		JCacheCache cache = new JCacheCache(this.nativeCache);
-		MeterBinder meterBinder = new JCacheCacheMeterBinderProvider().getMeterBinder(cache, Collections.emptyList());
+		MeterBinder meterBinder = new JCacheCacheMeterBinderProvider_RENAMED().getMeterBinder(cache, Collections.emptyList());
 		assertThat(meterBinder).isInstanceOf(JCacheMetrics.class);
 	}
 
