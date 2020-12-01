@@ -46,7 +46,7 @@ import org.springframework.test.util.ReflectionTestUtils;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Tests for {@link PrometheusMetricsExportAutoConfiguration}.
+ * Tests for {@link PrometheusMetricsExportAutoConfiguration_RENAMED}.
  *
  * @author Andy Wilkinson
  * @author Stephane Nicoll
@@ -55,7 +55,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 class PrometheusMetricsExportAutoConfigurationTests {
 
 	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
-			.withConfiguration(AutoConfigurations.of(PrometheusMetricsExportAutoConfiguration.class));
+			.withConfiguration(AutoConfigurations.of(PrometheusMetricsExportAutoConfiguration_RENAMED.class));
 
 	@Test
 	void backsOffWithoutAClock() {
