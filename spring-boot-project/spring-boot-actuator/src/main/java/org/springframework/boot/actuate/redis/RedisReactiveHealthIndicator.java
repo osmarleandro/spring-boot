@@ -23,14 +23,14 @@ import reactor.core.scheduler.Schedulers;
 
 import org.springframework.boot.actuate.health.AbstractReactiveHealthIndicator;
 import org.springframework.boot.actuate.health.Health;
-import org.springframework.boot.actuate.health.ReactiveHealthIndicator;
+import org.springframework.boot.actuate.health.ReactiveHealthIndicator_RENAMED;
 import org.springframework.data.redis.connection.ClusterInfo;
 import org.springframework.data.redis.connection.ReactiveRedisClusterConnection;
 import org.springframework.data.redis.connection.ReactiveRedisConnection;
 import org.springframework.data.redis.connection.ReactiveRedisConnectionFactory;
 
 /**
- * A {@link ReactiveHealthIndicator} for Redis.
+ * A {@link ReactiveHealthIndicator_RENAMED} for Redis.
  *
  * @author Stephane Nicoll
  * @author Mark Paluch

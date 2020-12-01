@@ -21,10 +21,10 @@ import reactor.core.publisher.Mono;
 
 import org.springframework.boot.actuate.health.AbstractReactiveHealthIndicator;
 import org.springframework.boot.actuate.health.Health;
-import org.springframework.boot.actuate.health.ReactiveHealthIndicator;
+import org.springframework.boot.actuate.health.ReactiveHealthIndicator_RENAMED;
 
 /**
- * A {@link ReactiveHealthIndicator} for Couchbase.
+ * A {@link ReactiveHealthIndicator_RENAMED} for Couchbase.
  *
  * @author Mikalai Lushchytski
  * @author Stephane Nicoll

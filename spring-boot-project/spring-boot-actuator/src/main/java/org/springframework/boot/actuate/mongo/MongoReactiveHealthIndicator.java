@@ -21,12 +21,12 @@ import reactor.core.publisher.Mono;
 
 import org.springframework.boot.actuate.health.AbstractReactiveHealthIndicator;
 import org.springframework.boot.actuate.health.Health;
-import org.springframework.boot.actuate.health.ReactiveHealthIndicator;
+import org.springframework.boot.actuate.health.ReactiveHealthIndicator_RENAMED;
 import org.springframework.data.mongodb.core.ReactiveMongoTemplate;
 import org.springframework.util.Assert;
 
 /**
- * A {@link ReactiveHealthIndicator} for Mongo.
+ * A {@link ReactiveHealthIndicator_RENAMED} for Mongo.
  *
  * @author Yulin Qin
  * @since 2.0.0

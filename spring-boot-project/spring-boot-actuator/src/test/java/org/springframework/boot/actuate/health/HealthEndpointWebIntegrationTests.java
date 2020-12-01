@@ -80,7 +80,7 @@ class HealthEndpointWebIntegrationTests {
 	@WebEndpointTest
 	void whenHealthIsDown503ResponseIsReturned(ApplicationContext context, WebTestClient client) {
 		HealthIndicator healthIndicator = () -> Health.down().build();
-		ReactiveHealthIndicator reactiveHealthIndicator = () -> Mono.just(Health.down().build());
+		ReactiveHealthIndicator_RENAMED reactiveHealthIndicator = () -> Mono.just(Health.down().build());
 		withHealthContributor(context, "charlie", healthIndicator, reactiveHealthIndicator,
 				() -> client.get().uri("/actuator/health").accept(MediaType.APPLICATION_JSON).exchange().expectStatus()
 						.isEqualTo(HttpStatus.SERVICE_UNAVAILABLE).expectBody().jsonPath("status").isEqualTo("DOWN")
@@ -91,7 +91,7 @@ class HealthEndpointWebIntegrationTests {
 	@WebEndpointTest
 	void whenComponentHealthIsDown503ResponseIsReturned(ApplicationContext context, WebTestClient client) {
 		HealthIndicator healthIndicator = () -> Health.down().build();
-		ReactiveHealthIndicator reactiveHealthIndicator = () -> Mono.just(Health.down().build());
+		ReactiveHealthIndicator_RENAMED reactiveHealthIndicator = () -> Mono.just(Health.down().build());
 		withHealthContributor(context, "charlie", healthIndicator, reactiveHealthIndicator,
 				() -> client.get().uri("/actuator/health/charlie").accept(MediaType.APPLICATION_JSON).exchange()
 						.expectStatus().isEqualTo(HttpStatus.SERVICE_UNAVAILABLE).expectBody().jsonPath("status")
@@ -103,7 +103,7 @@ class HealthEndpointWebIntegrationTests {
 		HealthIndicator healthIndicator = () -> Health.down().build();
 		CompositeHealthContributor composite = CompositeHealthContributor
 				.fromMap(Collections.singletonMap("one", healthIndicator));
-		ReactiveHealthIndicator reactiveHealthIndicator = () -> Mono.just(Health.down().build());
+		ReactiveHealthIndicator_RENAMED reactiveHealthIndicator = () -> Mono.just(Health.down().build());
 		CompositeReactiveHealthContributor reactiveComposite = CompositeReactiveHealthContributor
 				.fromMap(Collections.singletonMap("one", reactiveHealthIndicator));
 		withHealthContributor(context, "charlie", composite, reactiveComposite,

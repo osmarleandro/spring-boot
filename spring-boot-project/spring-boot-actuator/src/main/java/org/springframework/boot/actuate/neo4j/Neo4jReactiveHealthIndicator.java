@@ -29,10 +29,10 @@ import reactor.util.retry.Retry;
 
 import org.springframework.boot.actuate.health.AbstractReactiveHealthIndicator;
 import org.springframework.boot.actuate.health.Health;
-import org.springframework.boot.actuate.health.ReactiveHealthIndicator;
+import org.springframework.boot.actuate.health.ReactiveHealthIndicator_RENAMED;
 
 /**
- * {@link ReactiveHealthIndicator} that tests the status of a Neo4j by executing a Cypher
+ * {@link ReactiveHealthIndicator_RENAMED} that tests the status of a Neo4j by executing a Cypher
  * statement and extracting server and database information.
  *
  * @author Michael J. Simons

@@ -22,12 +22,12 @@ import reactor.core.scheduler.Schedulers;
 import org.springframework.util.Assert;
 
 /**
- * Adapts a {@link HealthIndicator} to a {@link ReactiveHealthIndicator} so that it can be
+ * Adapts a {@link HealthIndicator} to a {@link ReactiveHealthIndicator_RENAMED} so that it can be
  * safely invoked in a reactive environment.
  *
  * @author Stephane Nicoll
  */
-class HealthIndicatorReactiveAdapter implements ReactiveHealthIndicator {
+class HealthIndicatorReactiveAdapter implements ReactiveHealthIndicator_RENAMED {
 
 	private final HealthIndicator delegate;
 

@@ -21,12 +21,12 @@ import org.springframework.util.Assert;
 /**
  * Tagging interface for classes that contribute to {@link HealthComponent health
  * components} to the results returned from the {@link HealthEndpoint}. A contributor must
- * be either a {@link ReactiveHealthIndicator} or a
+ * be either a {@link ReactiveHealthIndicator_RENAMED} or a
  * {@link CompositeReactiveHealthContributor}.
  *
  * @author Phillip Webb
  * @since 2.2.0
- * @see ReactiveHealthIndicator
+ * @see ReactiveHealthIndicator_RENAMED
  * @see CompositeReactiveHealthContributor
  */
 public interface ReactiveHealthContributor {

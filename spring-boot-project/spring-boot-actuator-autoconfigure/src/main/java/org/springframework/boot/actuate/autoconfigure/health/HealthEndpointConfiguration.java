@@ -36,7 +36,7 @@ import org.springframework.boot.actuate.health.HealthIndicator;
 import org.springframework.boot.actuate.health.HttpCodeStatusMapper;
 import org.springframework.boot.actuate.health.NamedContributor;
 import org.springframework.boot.actuate.health.ReactiveHealthContributor;
-import org.springframework.boot.actuate.health.ReactiveHealthIndicator;
+import org.springframework.boot.actuate.health.ReactiveHealthIndicator_RENAMED;
 import org.springframework.boot.actuate.health.SimpleHttpCodeStatusMapper;
 import org.springframework.boot.actuate.health.SimpleStatusAggregator;
 import org.springframework.boot.actuate.health.StatusAggregator;
@@ -144,8 +144,8 @@ class HealthEndpointConfiguration {
 		}
 
 		private HealthContributor adapt(ReactiveHealthContributor contributor) {
-			if (contributor instanceof ReactiveHealthIndicator) {
-				return adapt((ReactiveHealthIndicator) contributor);
+			if (contributor instanceof ReactiveHealthIndicator_RENAMED) {
+				return adapt((ReactiveHealthIndicator_RENAMED) contributor);
 			}
 			if (contributor instanceof CompositeReactiveHealthContributor) {
 				return adapt((CompositeReactiveHealthContributor) contributor);
@@ -153,7 +153,7 @@ class HealthEndpointConfiguration {
 			throw new IllegalStateException("Unsupported ReactiveHealthContributor type " + contributor.getClass());
 		}
 
-		private HealthIndicator adapt(ReactiveHealthIndicator indicator) {
+		private HealthIndicator adapt(ReactiveHealthIndicator_RENAMED indicator) {
 			return new HealthIndicator() {
 
 				@Override

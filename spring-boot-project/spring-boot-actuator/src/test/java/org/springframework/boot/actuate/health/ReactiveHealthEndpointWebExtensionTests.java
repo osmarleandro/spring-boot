@@ -93,7 +93,7 @@ class ReactiveHealthEndpointWebExtensionTests extends
 
 	@Override
 	protected ReactiveHealthContributor createContributor(Health health) {
-		return (ReactiveHealthIndicator) () -> Mono.just(health);
+		return (ReactiveHealthIndicator_RENAMED) () -> Mono.just(health);
 	}
 
 	@Override

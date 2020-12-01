@@ -22,13 +22,13 @@ import reactor.core.publisher.Mono;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Tests for {@link ReactiveHealthIndicator}.
+ * Tests for {@link ReactiveHealthIndicator_RENAMED}.
  *
  * @author Phillip Webb
  */
 class ReactiveHealthIndicatorTests {
 
-	private final ReactiveHealthIndicator indicator = () -> Mono.just(Health.up().withDetail("spring", "boot").build());
+	private final ReactiveHealthIndicator_RENAMED indicator = () -> Mono.just(Health.up().withDetail("spring", "boot").build());
 
 	@Test
 	void getHealthWhenIncludeDetailsIsTrueReturnsHealthWithDetails() {

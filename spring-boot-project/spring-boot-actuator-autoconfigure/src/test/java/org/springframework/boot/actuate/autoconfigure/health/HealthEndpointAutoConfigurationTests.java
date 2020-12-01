@@ -39,7 +39,7 @@ import org.springframework.boot.actuate.health.HttpCodeStatusMapper;
 import org.springframework.boot.actuate.health.NamedContributor;
 import org.springframework.boot.actuate.health.ReactiveHealthContributorRegistry;
 import org.springframework.boot.actuate.health.ReactiveHealthEndpointWebExtension;
-import org.springframework.boot.actuate.health.ReactiveHealthIndicator;
+import org.springframework.boot.actuate.health.ReactiveHealthIndicator_RENAMED;
 import org.springframework.boot.actuate.health.Status;
 import org.springframework.boot.actuate.health.StatusAggregator;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
@@ -273,7 +273,7 @@ class HealthEndpointAutoConfigurationTests {
 		}
 
 		@Bean
-		ReactiveHealthIndicator reactiveHealthIndicator() {
+		ReactiveHealthIndicator_RENAMED reactiveHealthIndicator() {
 			return () -> Mono.just(Health.up().build());
 		}
 

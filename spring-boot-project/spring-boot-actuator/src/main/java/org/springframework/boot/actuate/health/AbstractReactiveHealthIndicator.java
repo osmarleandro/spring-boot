@@ -26,14 +26,14 @@ import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
 
 /**
- * Base {@link ReactiveHealthIndicator} implementations that encapsulates creation of
+ * Base {@link ReactiveHealthIndicator_RENAMED} implementations that encapsulates creation of
  * {@link Health} instance and error handling.
  *
  * @author Stephane Nicoll
  * @author Nikolay Rybak
  * @since 2.0.0
  */
-public abstract class AbstractReactiveHealthIndicator implements ReactiveHealthIndicator {
+public abstract class AbstractReactiveHealthIndicator implements ReactiveHealthIndicator_RENAMED {
 
 	private static final String NO_MESSAGE = null;
 

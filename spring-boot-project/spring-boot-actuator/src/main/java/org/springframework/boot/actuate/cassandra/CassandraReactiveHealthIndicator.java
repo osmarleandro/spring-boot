@@ -21,12 +21,12 @@ import reactor.core.publisher.Mono;
 
 import org.springframework.boot.actuate.health.AbstractReactiveHealthIndicator;
 import org.springframework.boot.actuate.health.Health;
-import org.springframework.boot.actuate.health.ReactiveHealthIndicator;
+import org.springframework.boot.actuate.health.ReactiveHealthIndicator_RENAMED;
 import org.springframework.data.cassandra.core.ReactiveCassandraOperations;
 import org.springframework.util.Assert;
 
 /**
- * A {@link ReactiveHealthIndicator} for Cassandra.
+ * A {@link ReactiveHealthIndicator_RENAMED} for Cassandra.
  *
  * @author Artsiom Yudovin
  * @since 2.1.0

@@ -25,12 +25,12 @@ import reactor.core.publisher.Mono;
 
 import org.springframework.boot.actuate.health.AbstractReactiveHealthIndicator;
 import org.springframework.boot.actuate.health.Health;
-import org.springframework.boot.actuate.health.ReactiveHealthIndicator;
+import org.springframework.boot.actuate.health.ReactiveHealthIndicator_RENAMED;
 import org.springframework.boot.actuate.health.Status;
 import org.springframework.util.Assert;
 
 /**
- * Simple implementation of a {@link ReactiveHealthIndicator} returning status information
+ * Simple implementation of a {@link ReactiveHealthIndicator_RENAMED} returning status information
  * for Cassandra data stores.
  *
  * @author Alexandre Dutra

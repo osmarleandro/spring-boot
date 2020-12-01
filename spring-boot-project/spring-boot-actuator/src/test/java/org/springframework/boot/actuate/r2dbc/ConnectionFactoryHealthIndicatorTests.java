@@ -31,7 +31,7 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
 
-import org.springframework.boot.actuate.health.ReactiveHealthIndicator;
+import org.springframework.boot.actuate.health.ReactiveHealthIndicator_RENAMED;
 import org.springframework.boot.actuate.health.Status;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -101,7 +101,7 @@ class ConnectionFactoryHealthIndicatorTests {
 			Mono.from(connectionFactory.create()).flatMapMany((it) -> Flux
 					.from(it.createStatement("CREATE TABLE HEALTH_TEST (id INTEGER IDENTITY PRIMARY KEY)").execute())
 					.flatMap(Result::getRowsUpdated).thenMany(it.close())).as(StepVerifier::create).verifyComplete();
-			ReactiveHealthIndicator healthIndicator = new ConnectionFactoryHealthIndicator(connectionFactory,
+			ReactiveHealthIndicator_RENAMED healthIndicator = new ConnectionFactoryHealthIndicator(connectionFactory,
 					customValidationQuery);
 			healthIndicator.health().as(StepVerifier::create).assertNext((actual) -> {
 				assertThat(actual.getStatus()).isEqualTo(Status.UP);
@@ -120,7 +120,7 @@ class ConnectionFactoryHealthIndicatorTests {
 		CloseableConnectionFactory connectionFactory = createTestDatabase();
 		try {
 			String invalidValidationQuery = "SELECT COUNT(*) from DOES_NOT_EXIST";
-			ReactiveHealthIndicator healthIndicator = new ConnectionFactoryHealthIndicator(connectionFactory,
+			ReactiveHealthIndicator_RENAMED healthIndicator = new ConnectionFactoryHealthIndicator(connectionFactory,
 					invalidValidationQuery);
 			healthIndicator.health().as(StepVerifier::create).assertNext((actual) -> {
 				assertThat(actual.getStatus()).isEqualTo(Status.DOWN);
