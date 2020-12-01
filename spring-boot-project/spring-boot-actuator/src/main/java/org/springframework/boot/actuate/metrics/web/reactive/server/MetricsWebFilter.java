@@ -43,7 +43,7 @@ public class MetricsWebFilter implements WebFilter {
 
 	private final MeterRegistry registry;
 
-	private final WebFluxTagsProvider tagsProvider;
+	private final WebFluxTagsProvider_RENAMED tagsProvider;
 
 	private final String metricName;
 
@@ -57,7 +57,7 @@ public class MetricsWebFilter implements WebFilter {
 	 * @param autoTimer the auto-timers to apply or {@code null} to disable auto-timing
 	 * @since 2.2.0
 	 */
-	public MetricsWebFilter(MeterRegistry registry, WebFluxTagsProvider tagsProvider, String metricName,
+	public MetricsWebFilter(MeterRegistry registry, WebFluxTagsProvider_RENAMED tagsProvider, String metricName,
 			AutoTimer autoTimer) {
 		this.registry = registry;
 		this.tagsProvider = tagsProvider;

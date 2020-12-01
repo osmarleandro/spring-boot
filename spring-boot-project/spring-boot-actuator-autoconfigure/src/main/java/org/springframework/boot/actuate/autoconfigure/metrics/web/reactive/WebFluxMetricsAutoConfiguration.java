@@ -31,7 +31,7 @@ import org.springframework.boot.actuate.autoconfigure.metrics.export.simple.Simp
 import org.springframework.boot.actuate.metrics.web.reactive.server.DefaultWebFluxTagsProvider;
 import org.springframework.boot.actuate.metrics.web.reactive.server.MetricsWebFilter;
 import org.springframework.boot.actuate.metrics.web.reactive.server.WebFluxTagsContributor;
-import org.springframework.boot.actuate.metrics.web.reactive.server.WebFluxTagsProvider;
+import org.springframework.boot.actuate.metrics.web.reactive.server.WebFluxTagsProvider_RENAMED;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
@@ -63,14 +63,14 @@ public class WebFluxMetricsAutoConfiguration {
 	}
 
 	@Bean
-	@ConditionalOnMissingBean(WebFluxTagsProvider.class)
+	@ConditionalOnMissingBean(WebFluxTagsProvider_RENAMED.class)
 	public DefaultWebFluxTagsProvider webFluxTagsProvider(ObjectProvider<WebFluxTagsContributor> contributors) {
 		return new DefaultWebFluxTagsProvider(this.properties.getWeb().getServer().getRequest().isIgnoreTrailingSlash(),
 				contributors.orderedStream().collect(Collectors.toList()));
 	}
 
 	@Bean
-	public MetricsWebFilter webfluxMetrics(MeterRegistry registry, WebFluxTagsProvider tagConfigurer) {
+	public MetricsWebFilter webfluxMetrics(MeterRegistry registry, WebFluxTagsProvider_RENAMED tagConfigurer) {
 		ServerRequest request = this.properties.getWeb().getServer().getRequest();
 		return new MetricsWebFilter(registry, tagConfigurer, request.getMetricName(), request.getAutotime());
 	}

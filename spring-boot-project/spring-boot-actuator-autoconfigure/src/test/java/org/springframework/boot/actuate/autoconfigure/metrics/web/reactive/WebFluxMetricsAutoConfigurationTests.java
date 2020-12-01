@@ -25,7 +25,7 @@ import org.springframework.boot.actuate.autoconfigure.metrics.web.TestController
 import org.springframework.boot.actuate.metrics.web.reactive.server.DefaultWebFluxTagsProvider;
 import org.springframework.boot.actuate.metrics.web.reactive.server.MetricsWebFilter;
 import org.springframework.boot.actuate.metrics.web.reactive.server.WebFluxTagsContributor;
-import org.springframework.boot.actuate.metrics.web.reactive.server.WebFluxTagsProvider;
+import org.springframework.boot.actuate.metrics.web.reactive.server.WebFluxTagsProvider_RENAMED;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
 import org.springframework.boot.autoconfigure.web.reactive.WebFluxAutoConfiguration;
 import org.springframework.boot.test.context.assertj.AssertableReactiveWebApplicationContext;
@@ -75,7 +75,7 @@ class WebFluxMetricsAutoConfigurationTests {
 	@Test
 	void shouldNotOverrideCustomTagsProvider() {
 		this.contextRunner.withUserConfiguration(CustomWebFluxTagsProviderConfig.class)
-				.run((context) -> assertThat(context).getBeans(WebFluxTagsProvider.class).hasSize(1)
+				.run((context) -> assertThat(context).getBeans(WebFluxTagsProvider_RENAMED.class).hasSize(1)
 						.containsKey("customWebFluxTagsProvider"));
 	}
 
@@ -133,8 +133,8 @@ class WebFluxMetricsAutoConfigurationTests {
 	static class CustomWebFluxTagsProviderConfig {
 
 		@Bean
-		WebFluxTagsProvider customWebFluxTagsProvider() {
-			return mock(WebFluxTagsProvider.class);
+		WebFluxTagsProvider_RENAMED customWebFluxTagsProvider() {
+			return mock(WebFluxTagsProvider_RENAMED.class);
 		}
 
 	}

@@ -25,13 +25,13 @@ import io.micrometer.core.instrument.Tags;
 import org.springframework.web.server.ServerWebExchange;
 
 /**
- * Default implementation of {@link WebFluxTagsProvider}.
+ * Default implementation of {@link WebFluxTagsProvider_RENAMED}.
  *
  * @author Jon Schneider
  * @author Andy Wilkinson
  * @since 2.0.0
  */
-public class DefaultWebFluxTagsProvider implements WebFluxTagsProvider {
+public class DefaultWebFluxTagsProvider implements WebFluxTagsProvider_RENAMED {
 
 	private final boolean ignoreTrailingSlash;
 
