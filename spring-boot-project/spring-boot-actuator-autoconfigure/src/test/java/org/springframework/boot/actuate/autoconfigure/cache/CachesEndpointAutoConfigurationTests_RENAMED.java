@@ -32,7 +32,7 @@ import static org.mockito.Mockito.mock;
  * @author Johannes Edmeier
  * @author Stephane Nicoll
  */
-class CachesEndpointAutoConfigurationTests {
+class CachesEndpointAutoConfigurationTests_RENAMED {
 
 	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(CachesEndpointAutoConfiguration.class));
