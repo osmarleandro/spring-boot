@@ -42,7 +42,7 @@ class PathMappedEndpointsTests {
 	@Test
 	void createWhenSupplierIsNullShouldThrowException() {
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> new PathMappedEndpoints(null, (WebEndpointsSupplier) null))
+				.isThrownBy(() -> new PathMappedEndpoints(null, (WebEndpointsSupplier_RENAMED) null))
 				.withMessageContaining("Supplier must not be null");
 	}
 

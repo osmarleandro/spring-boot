@@ -34,7 +34,7 @@ import org.springframework.boot.actuate.endpoint.web.ExposableServletEndpoint;
 import org.springframework.boot.actuate.endpoint.web.ExposableWebEndpoint;
 import org.springframework.boot.actuate.endpoint.web.PathMappedEndpoints;
 import org.springframework.boot.actuate.endpoint.web.PathMapper;
-import org.springframework.boot.actuate.endpoint.web.WebEndpointsSupplier;
+import org.springframework.boot.actuate.endpoint.web.WebEndpointsSupplier_RENAMED;
 import org.springframework.boot.actuate.endpoint.web.annotation.ControllerEndpointDiscoverer;
 import org.springframework.boot.actuate.endpoint.web.annotation.ControllerEndpointsSupplier;
 import org.springframework.boot.actuate.endpoint.web.annotation.ExposableControllerEndpoint;
@@ -86,7 +86,7 @@ public class WebEndpointAutoConfiguration {
 	}
 
 	@Bean
-	@ConditionalOnMissingBean(WebEndpointsSupplier.class)
+	@ConditionalOnMissingBean(WebEndpointsSupplier_RENAMED.class)
 	public WebEndpointDiscoverer webEndpointDiscoverer(ParameterValueMapper parameterValueMapper,
 			EndpointMediaTypes endpointMediaTypes, ObjectProvider<PathMapper> endpointPathMappers,
 			ObjectProvider<OperationInvokerAdvisor> invokerAdvisors,

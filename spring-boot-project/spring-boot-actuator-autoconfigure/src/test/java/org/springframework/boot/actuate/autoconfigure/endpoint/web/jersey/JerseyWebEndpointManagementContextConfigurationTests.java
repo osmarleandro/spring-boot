@@ -24,7 +24,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.endpoint.web.jersey.JerseyWebEndpointManagementContextConfiguration.JerseyWebEndpointsResourcesRegistrar;
 import org.springframework.boot.actuate.autoconfigure.web.jersey.JerseySameManagementContextConfiguration;
-import org.springframework.boot.actuate.endpoint.web.WebEndpointsSupplier;
+import org.springframework.boot.actuate.endpoint.web.WebEndpointsSupplier_RENAMED;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
 import org.springframework.boot.test.context.FilteredClassLoader;
 import org.springframework.boot.test.context.runner.ApplicationContextRunner;
@@ -43,7 +43,7 @@ class JerseyWebEndpointManagementContextConfigurationTests {
 	private final WebApplicationContextRunner runner = new WebApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(WebEndpointAutoConfiguration.class,
 					JerseyWebEndpointManagementContextConfiguration.class))
-			.withBean(WebEndpointsSupplier.class, () -> Collections::emptyList);
+			.withBean(WebEndpointsSupplier_RENAMED.class, () -> Collections::emptyList);
 
 	@Test
 	void jerseyWebEndpointsResourcesRegistrarForEndpointsIsAutoConfigured() {

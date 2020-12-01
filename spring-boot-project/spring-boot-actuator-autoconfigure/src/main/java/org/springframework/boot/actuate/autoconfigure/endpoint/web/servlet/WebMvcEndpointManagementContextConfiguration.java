@@ -30,7 +30,7 @@ import org.springframework.boot.actuate.endpoint.web.EndpointLinksResolver;
 import org.springframework.boot.actuate.endpoint.web.EndpointMapping;
 import org.springframework.boot.actuate.endpoint.web.EndpointMediaTypes;
 import org.springframework.boot.actuate.endpoint.web.ExposableWebEndpoint;
-import org.springframework.boot.actuate.endpoint.web.WebEndpointsSupplier;
+import org.springframework.boot.actuate.endpoint.web.WebEndpointsSupplier_RENAMED;
 import org.springframework.boot.actuate.endpoint.web.annotation.ControllerEndpointsSupplier;
 import org.springframework.boot.actuate.endpoint.web.annotation.ServletEndpointsSupplier;
 import org.springframework.boot.actuate.endpoint.web.servlet.ControllerEndpointHandlerMapping;
@@ -57,13 +57,13 @@ import org.springframework.web.servlet.DispatcherServlet;
 @ManagementContextConfiguration(proxyBeanMethods = false)
 @ConditionalOnWebApplication(type = Type.SERVLET)
 @ConditionalOnClass(DispatcherServlet.class)
-@ConditionalOnBean({ DispatcherServlet.class, WebEndpointsSupplier.class })
+@ConditionalOnBean({ DispatcherServlet.class, WebEndpointsSupplier_RENAMED.class })
 @EnableConfigurationProperties(CorsEndpointProperties.class)
 public class WebMvcEndpointManagementContextConfiguration {
 
 	@Bean
 	@ConditionalOnMissingBean
-	public WebMvcEndpointHandlerMapping webEndpointServletHandlerMapping(WebEndpointsSupplier webEndpointsSupplier,
+	public WebMvcEndpointHandlerMapping webEndpointServletHandlerMapping(WebEndpointsSupplier_RENAMED webEndpointsSupplier,
 			ServletEndpointsSupplier servletEndpointsSupplier, ControllerEndpointsSupplier controllerEndpointsSupplier,
 			EndpointMediaTypes endpointMediaTypes, CorsEndpointProperties corsProperties,
 			WebEndpointProperties webEndpointProperties, Environment environment) {

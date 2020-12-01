@@ -37,7 +37,7 @@ import org.springframework.boot.actuate.endpoint.web.EndpointMapping;
 import org.springframework.boot.actuate.endpoint.web.EndpointMediaTypes;
 import org.springframework.boot.actuate.endpoint.web.ExposableServletEndpoint;
 import org.springframework.boot.actuate.endpoint.web.ExposableWebEndpoint;
-import org.springframework.boot.actuate.endpoint.web.WebEndpointsSupplier;
+import org.springframework.boot.actuate.endpoint.web.WebEndpointsSupplier_RENAMED;
 import org.springframework.boot.actuate.endpoint.web.annotation.ServletEndpointsSupplier;
 import org.springframework.boot.actuate.endpoint.web.jersey.JerseyEndpointResourceFactory;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
@@ -63,13 +63,13 @@ import org.springframework.util.StringUtils;
 @ManagementContextConfiguration(proxyBeanMethods = false)
 @ConditionalOnWebApplication(type = Type.SERVLET)
 @ConditionalOnClass(ResourceConfig.class)
-@ConditionalOnBean(WebEndpointsSupplier.class)
+@ConditionalOnBean(WebEndpointsSupplier_RENAMED.class)
 @ConditionalOnMissingBean(type = "org.springframework.web.servlet.DispatcherServlet")
 class JerseyWebEndpointManagementContextConfiguration {
 
 	@Bean
 	JerseyWebEndpointsResourcesRegistrar jerseyWebEndpointsResourcesRegistrar(Environment environment,
-			ObjectProvider<ResourceConfig> resourceConfig, WebEndpointsSupplier webEndpointsSupplier,
+			ObjectProvider<ResourceConfig> resourceConfig, WebEndpointsSupplier_RENAMED webEndpointsSupplier,
 			ServletEndpointsSupplier servletEndpointsSupplier, EndpointMediaTypes endpointMediaTypes,
 			WebEndpointProperties webEndpointProperties) {
 		String basePath = webEndpointProperties.getBasePath();
@@ -92,7 +92,7 @@ class JerseyWebEndpointManagementContextConfiguration {
 
 		private final ResourceConfig resourceConfig;
 
-		private final WebEndpointsSupplier webEndpointsSupplier;
+		private final WebEndpointsSupplier_RENAMED webEndpointsSupplier;
 
 		private final ServletEndpointsSupplier servletEndpointsSupplier;
 
@@ -102,7 +102,7 @@ class JerseyWebEndpointManagementContextConfiguration {
 
 		private final boolean shouldRegisterLinks;
 
-		JerseyWebEndpointsResourcesRegistrar(ResourceConfig resourceConfig, WebEndpointsSupplier webEndpointsSupplier,
+		JerseyWebEndpointsResourcesRegistrar(ResourceConfig resourceConfig, WebEndpointsSupplier_RENAMED webEndpointsSupplier,
 				ServletEndpointsSupplier servletEndpointsSupplier, EndpointMediaTypes endpointMediaTypes,
 				String basePath, boolean shouldRegisterLinks) {
 			super();

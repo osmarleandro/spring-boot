@@ -29,7 +29,7 @@ import org.springframework.boot.actuate.endpoint.invoke.ParameterValueMapper;
 import org.springframework.boot.actuate.endpoint.web.EndpointMediaTypes;
 import org.springframework.boot.actuate.endpoint.web.ExposableWebEndpoint;
 import org.springframework.boot.actuate.endpoint.web.PathMapper;
-import org.springframework.boot.actuate.endpoint.web.WebEndpointsSupplier;
+import org.springframework.boot.actuate.endpoint.web.WebEndpointsSupplier_RENAMED;
 import org.springframework.boot.actuate.endpoint.web.WebOperation;
 import org.springframework.boot.actuate.endpoint.web.WebOperationRequestPredicate;
 import org.springframework.context.ApplicationContext;
@@ -41,7 +41,7 @@ import org.springframework.context.ApplicationContext;
  * @since 2.0.0
  */
 public class WebEndpointDiscoverer extends EndpointDiscoverer<ExposableWebEndpoint, WebOperation>
-		implements WebEndpointsSupplier {
+		implements WebEndpointsSupplier_RENAMED {
 
 	private final List<PathMapper> endpointPathMappers;
 
