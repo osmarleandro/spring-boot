@@ -35,7 +35,7 @@ import org.springframework.scheduling.config.ScheduledTaskHolder;
  */
 @Configuration(proxyBeanMethods = false)
 @ConditionalOnAvailableEndpoint(endpoint = ScheduledTasksEndpoint.class)
-public class ScheduledTasksEndpointAutoConfiguration {
+public class ScheduledTasksEndpointAutoConfiguration_RENAMED {
 
 	@Bean
 	@ConditionalOnMissingBean

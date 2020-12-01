@@ -29,14 +29,14 @@ import org.springframework.context.annotation.Configuration;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Tests for {@link ScheduledTasksEndpointAutoConfiguration}.
+ * Tests for {@link ScheduledTasksEndpointAutoConfiguration_RENAMED}.
  *
  * @author Andy Wilkinson
  */
 class ScheduledTasksEndpointAutoConfigurationTests {
 
 	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
-			.withConfiguration(AutoConfigurations.of(ScheduledTasksEndpointAutoConfiguration.class));
+			.withConfiguration(AutoConfigurations.of(ScheduledTasksEndpointAutoConfiguration_RENAMED.class));
 
 	@Test
 	void endpointIsAutoConfigured() {
