@@ -30,9 +30,9 @@ import org.springframework.boot.actuate.autoconfigure.metrics.export.properties.
  * @author Jon Schneider
  * @since 2.0.0
  */
-public class StatsdPropertiesConfigAdapter extends PropertiesConfigAdapter<StatsdProperties> implements StatsdConfig {
+public class StatsdPropertiesConfigAdapter_RENAMED extends PropertiesConfigAdapter<StatsdProperties> implements StatsdConfig {
 
-	public StatsdPropertiesConfigAdapter(StatsdProperties properties) {
+	public StatsdPropertiesConfigAdapter_RENAMED(StatsdProperties properties) {
 		super(properties);
 	}
 

@@ -52,7 +52,7 @@ public class StatsdMetricsExportAutoConfiguration {
 	@Bean
 	@ConditionalOnMissingBean
 	public StatsdConfig statsdConfig(StatsdProperties statsdProperties) {
-		return new StatsdPropertiesConfigAdapter(statsdProperties);
+		return new StatsdPropertiesConfigAdapter_RENAMED(statsdProperties);
 	}
 
 	@Bean
