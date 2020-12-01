@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
-import org.springframework.boot.actuate.endpoint.annotation.EndpointConverter;
+import org.springframework.boot.actuate.endpoint.annotation.EndpointConverter_RENAMED;
 import org.springframework.boot.actuate.endpoint.invoke.ParameterValueMapper;
 import org.springframework.boot.actuate.endpoint.invoke.convert.ConversionServiceParameterValueMapper;
 import org.springframework.boot.actuate.endpoint.invoker.cache.CachingOperationInvokerAdvisor;
@@ -50,8 +50,8 @@ public class EndpointAutoConfiguration {
 	@Bean
 	@ConditionalOnMissingBean
 	public ParameterValueMapper endpointOperationParameterMapper(
-			@EndpointConverter ObjectProvider<Converter<?, ?>> converters,
-			@EndpointConverter ObjectProvider<GenericConverter> genericConverters) {
+			@EndpointConverter_RENAMED ObjectProvider<Converter<?, ?>> converters,
+			@EndpointConverter_RENAMED ObjectProvider<GenericConverter> genericConverters) {
 		ConversionService conversionService = createConversionService(
 				converters.orderedStream().collect(Collectors.toList()),
 				genericConverters.orderedStream().collect(Collectors.toList()));

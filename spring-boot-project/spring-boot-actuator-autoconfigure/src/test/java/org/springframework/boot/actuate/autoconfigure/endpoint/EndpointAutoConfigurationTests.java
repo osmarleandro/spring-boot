@@ -21,7 +21,7 @@ import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 
-import org.springframework.boot.actuate.endpoint.annotation.EndpointConverter;
+import org.springframework.boot.actuate.endpoint.annotation.EndpointConverter_RENAMED;
 import org.springframework.boot.actuate.endpoint.invoke.OperationParameter;
 import org.springframework.boot.actuate.endpoint.invoke.ParameterMappingException;
 import org.springframework.boot.actuate.endpoint.invoke.ParameterValueMapper;
@@ -126,7 +126,7 @@ class EndpointAutoConfigurationTests {
 	static class ConverterConfiguration {
 
 		@Bean
-		@EndpointConverter
+		@EndpointConverter_RENAMED
 		Converter<String, Person> personConverter() {
 			return new PersonConverter();
 		}
@@ -147,7 +147,7 @@ class EndpointAutoConfigurationTests {
 	static class GenericConverterConfiguration {
 
 		@Bean
-		@EndpointConverter
+		@EndpointConverter_RENAMED
 		GenericConverter genericPersonConverter() {
 			return new GenericPersonConverter();
 		}
