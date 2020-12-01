@@ -40,7 +40,7 @@ import org.springframework.util.ConcurrentReferenceHashMap;
  * @author Phillip Webb
  * @see ConditionalOnAvailableEndpoint
  */
-class OnAvailableEndpointCondition extends AbstractEndpointCondition {
+class OnAvailableEndpointCondition extends AbstractEndpointCondition_RENAMED {
 
 	private static final String JMX_ENABLED_KEY = "spring.jmx.enabled";
 

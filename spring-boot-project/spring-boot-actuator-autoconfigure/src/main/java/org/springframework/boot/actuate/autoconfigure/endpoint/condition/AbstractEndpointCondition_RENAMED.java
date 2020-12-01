@@ -47,7 +47,7 @@ import org.springframework.util.ConcurrentReferenceHashMap;
  * @author Andy Wilkinson
  * @author Phillip Webb
  */
-abstract class AbstractEndpointCondition extends SpringBootCondition {
+abstract class AbstractEndpointCondition_RENAMED extends SpringBootCondition {
 
 	private static final String ENABLED_BY_DEFAULT_KEY = "management.endpoints.enabled-by-default";
 
