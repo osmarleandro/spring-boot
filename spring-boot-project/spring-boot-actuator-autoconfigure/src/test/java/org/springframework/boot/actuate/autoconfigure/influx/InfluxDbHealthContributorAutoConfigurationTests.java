@@ -28,7 +28,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 
 /**
- * Tests for {@link InfluxDbHealthContributorAutoConfiguration}.
+ * Tests for {@link InfluxDbHealthContributorAutoConfiguration_RENAMED}.
  *
  * @author Eddú Meléndez
  */
@@ -36,7 +36,7 @@ class InfluxDbHealthContributorAutoConfigurationTests {
 
 	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.withBean(InfluxDB.class, () -> mock(InfluxDB.class)).withConfiguration(AutoConfigurations
-					.of(InfluxDbHealthContributorAutoConfiguration.class, HealthContributorAutoConfiguration.class));
+					.of(InfluxDbHealthContributorAutoConfiguration_RENAMED.class, HealthContributorAutoConfiguration.class));
 
 	@Test
 	void runShouldCreateIndicator() {
