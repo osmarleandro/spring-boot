@@ -48,7 +48,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * @author Stephane Nicoll
  * @see WebMvcEndpointManagementContextConfiguration
  */
-class WebMvcEndpointCorsIntegrationTests {
+class WebMvcEndpointCorsIntegrationTests_RENAMED {
 
 	private final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(JacksonAutoConfiguration.class,
