@@ -25,7 +25,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Johannes Graf
  */
-class StackdriverPropertiesConfigAdapterTests {
+class StackdriverPropertiesConfigAdapterTests_RENAMED {
 
 	@Test
 	void whenPropertiesProjectIdIsSetAdapterProjectIdReturnsIt() {
