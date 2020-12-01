@@ -43,7 +43,7 @@ import org.springframework.context.annotation.Configuration;
  *
  * @author Dave Syer
  */
-class SpringApplicationHierarchyTests {
+class SpringApplicationHierarchyTests_RENAMED {
 
 	private ConfigurableApplicationContext context;
 
