@@ -25,7 +25,7 @@ import org.springframework.boot.actuate.autoconfigure.trace.http.HttpTraceAutoCo
 import org.springframework.boot.actuate.autoconfigure.trace.http.HttpTraceProperties;
 import org.springframework.boot.actuate.trace.http.HttpExchangeTracer;
 import org.springframework.boot.actuate.trace.http.HttpTrace;
-import org.springframework.boot.actuate.trace.http.HttpTraceRepository;
+import org.springframework.boot.actuate.trace.http.HttpTraceRepository_RENAMED;
 import org.springframework.boot.actuate.trace.http.InMemoryHttpTraceRepository;
 import org.springframework.boot.actuate.trace.http.Include;
 import org.springframework.boot.actuate.web.trace.reactive.HttpTraceWebFilter;
@@ -59,8 +59,8 @@ class HttpTraceAutoConfigurationTests {
 		this.contextRunner.withUserConfiguration(HttpTraceRepositoryConfiguration.class).run((context) -> {
 			assertThat(context).hasSingleBean(HttpExchangeTracer.class);
 			assertThat(context).hasSingleBean(HttpTraceFilter.class);
-			assertThat(context).hasSingleBean(HttpTraceRepository.class);
-			assertThat(context.getBean(HttpTraceRepository.class)).isInstanceOf(CustomHttpTraceRepository.class);
+			assertThat(context).hasSingleBean(HttpTraceRepository_RENAMED.class);
+			assertThat(context.getBean(HttpTraceRepository_RENAMED.class)).isInstanceOf(CustomHttpTraceRepository.class);
 		});
 	}
 
@@ -107,7 +107,7 @@ class HttpTraceAutoConfigurationTests {
 						.doesNotHaveBean(HttpExchangeTracer.class).doesNotHaveBean(HttpTraceFilter.class));
 	}
 
-	static class CustomHttpTraceRepository implements HttpTraceRepository {
+	static class CustomHttpTraceRepository implements HttpTraceRepository_RENAMED {
 
 		@Override
 		public List<HttpTrace> findAll() {
@@ -151,7 +151,7 @@ class HttpTraceAutoConfigurationTests {
 
 	private static final class CustomHttpTraceWebFilter extends HttpTraceWebFilter {
 
-		private CustomHttpTraceWebFilter(HttpTraceRepository repository, HttpExchangeTracer tracer,
+		private CustomHttpTraceWebFilter(HttpTraceRepository_RENAMED repository, HttpExchangeTracer tracer,
 				Set<Include> includes) {
 			super(repository, tracer, includes);
 		}
@@ -162,7 +162,7 @@ class HttpTraceAutoConfigurationTests {
 	static class CustomWebFilterConfiguration {
 
 		@Bean
-		CustomHttpTraceWebFilter customWebFilter(HttpTraceRepository repository, HttpExchangeTracer tracer,
+		CustomHttpTraceWebFilter customWebFilter(HttpTraceRepository_RENAMED repository, HttpExchangeTracer tracer,
 				HttpTraceProperties properties) {
 			return new CustomHttpTraceWebFilter(repository, tracer, properties.getInclude());
 		}
@@ -171,7 +171,7 @@ class HttpTraceAutoConfigurationTests {
 
 	private static final class CustomHttpTraceFilter extends HttpTraceFilter {
 
-		private CustomHttpTraceFilter(HttpTraceRepository repository, HttpExchangeTracer tracer) {
+		private CustomHttpTraceFilter(HttpTraceRepository_RENAMED repository, HttpExchangeTracer tracer) {
 			super(repository, tracer);
 		}
 
@@ -181,7 +181,7 @@ class HttpTraceAutoConfigurationTests {
 	static class CustomFilterConfiguration {
 
 		@Bean
-		CustomHttpTraceFilter customWebFilter(HttpTraceRepository repository, HttpExchangeTracer tracer) {
+		CustomHttpTraceFilter customWebFilter(HttpTraceRepository_RENAMED repository, HttpExchangeTracer tracer) {
 			return new CustomHttpTraceFilter(repository, tracer);
 		}
 

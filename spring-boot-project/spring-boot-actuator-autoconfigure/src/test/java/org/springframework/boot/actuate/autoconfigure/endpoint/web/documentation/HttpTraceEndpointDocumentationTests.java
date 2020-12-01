@@ -28,7 +28,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.actuate.trace.http.HttpExchangeTracer;
 import org.springframework.boot.actuate.trace.http.HttpTrace;
 import org.springframework.boot.actuate.trace.http.HttpTraceEndpoint;
-import org.springframework.boot.actuate.trace.http.HttpTraceRepository;
+import org.springframework.boot.actuate.trace.http.HttpTraceRepository_RENAMED;
 import org.springframework.boot.actuate.trace.http.Include;
 import org.springframework.boot.actuate.trace.http.TraceableRequest;
 import org.springframework.boot.actuate.trace.http.TraceableResponse;
@@ -55,7 +55,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class HttpTraceEndpointDocumentationTests extends MockMvcEndpointDocumentationTests {
 
 	@MockBean
-	private HttpTraceRepository repository;
+	private HttpTraceRepository_RENAMED repository;
 
 	@Test
 	void traces() throws Exception {
@@ -106,7 +106,7 @@ class HttpTraceEndpointDocumentationTests extends MockMvcEndpointDocumentationTe
 	static class TestConfiguration {
 
 		@Bean
-		HttpTraceEndpoint httpTraceEndpoint(HttpTraceRepository repository) {
+		HttpTraceEndpoint httpTraceEndpoint(HttpTraceRepository_RENAMED repository) {
 			return new HttpTraceEndpoint(repository);
 		}
 

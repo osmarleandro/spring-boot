@@ -17,7 +17,7 @@
 package org.springframework.boot.actuate.autoconfigure.trace.http;
 
 import org.springframework.boot.actuate.trace.http.HttpExchangeTracer;
-import org.springframework.boot.actuate.trace.http.HttpTraceRepository;
+import org.springframework.boot.actuate.trace.http.HttpTraceRepository_RENAMED;
 import org.springframework.boot.actuate.web.trace.reactive.HttpTraceWebFilter;
 import org.springframework.boot.actuate.web.trace.servlet.HttpTraceFilter;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -39,7 +39,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration(proxyBeanMethods = false)
 @ConditionalOnWebApplication
 @ConditionalOnProperty(prefix = "management.trace.http", name = "enabled", matchIfMissing = true)
-@ConditionalOnBean(HttpTraceRepository.class)
+@ConditionalOnBean(HttpTraceRepository_RENAMED.class)
 @EnableConfigurationProperties(HttpTraceProperties.class)
 public class HttpTraceAutoConfiguration {
 
@@ -55,7 +55,7 @@ public class HttpTraceAutoConfiguration {
 
 		@Bean
 		@ConditionalOnMissingBean
-		HttpTraceFilter httpTraceFilter(HttpTraceRepository repository, HttpExchangeTracer tracer) {
+		HttpTraceFilter httpTraceFilter(HttpTraceRepository_RENAMED repository, HttpExchangeTracer tracer) {
 			return new HttpTraceFilter(repository, tracer);
 		}
 
@@ -67,7 +67,7 @@ public class HttpTraceAutoConfiguration {
 
 		@Bean
 		@ConditionalOnMissingBean
-		HttpTraceWebFilter httpTraceWebFilter(HttpTraceRepository repository, HttpExchangeTracer tracer,
+		HttpTraceWebFilter httpTraceWebFilter(HttpTraceRepository_RENAMED repository, HttpExchangeTracer tracer,
 				HttpTraceProperties traceProperties) {
 			return new HttpTraceWebFilter(repository, tracer, traceProperties.getInclude());
 		}

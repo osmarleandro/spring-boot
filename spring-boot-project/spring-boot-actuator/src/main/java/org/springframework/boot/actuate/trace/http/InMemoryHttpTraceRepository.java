@@ -22,13 +22,13 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * In-memory implementation of {@link HttpTraceRepository}.
+ * In-memory implementation of {@link HttpTraceRepository_RENAMED}.
  *
  * @author Dave Syer
  * @author Olivier Bourgain
  * @since 2.0.0
  */
-public class InMemoryHttpTraceRepository implements HttpTraceRepository {
+public class InMemoryHttpTraceRepository implements HttpTraceRepository_RENAMED {
 
 	private int capacity = 100;
 

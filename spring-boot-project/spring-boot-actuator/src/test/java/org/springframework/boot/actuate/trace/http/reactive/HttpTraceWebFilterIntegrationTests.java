@@ -23,7 +23,7 @@ import org.junit.jupiter.api.Test;
 import reactor.core.publisher.Mono;
 
 import org.springframework.boot.actuate.trace.http.HttpExchangeTracer;
-import org.springframework.boot.actuate.trace.http.HttpTraceRepository;
+import org.springframework.boot.actuate.trace.http.HttpTraceRepository_RENAMED;
 import org.springframework.boot.actuate.trace.http.InMemoryHttpTraceRepository;
 import org.springframework.boot.actuate.trace.http.Include;
 import org.springframework.boot.actuate.web.trace.reactive.HttpTraceWebFilter;
@@ -59,7 +59,7 @@ class HttpTraceWebFilterIntegrationTests {
 		this.contextRunner.run((context) -> {
 			WebTestClient.bindToApplicationContext(context).build().get().uri("/").exchange().expectStatus()
 					.isNotFound();
-			HttpTraceRepository repository = context.getBean(HttpTraceRepository.class);
+			HttpTraceRepository_RENAMED repository = context.getBean(HttpTraceRepository_RENAMED.class);
 			assertThat(repository.findAll()).hasSize(1);
 			assertThat(repository.findAll().get(0).getResponse().getStatus()).isEqualTo(404);
 		});
@@ -70,7 +70,7 @@ class HttpTraceWebFilterIntegrationTests {
 		this.contextRunner.run((context) -> {
 			WebTestClient.bindToApplicationContext(context).build().get().uri("/mono-error").exchange().expectStatus()
 					.isEqualTo(HttpStatus.INTERNAL_SERVER_ERROR);
-			HttpTraceRepository repository = context.getBean(HttpTraceRepository.class);
+			HttpTraceRepository_RENAMED repository = context.getBean(HttpTraceRepository_RENAMED.class);
 			assertThat(repository.findAll()).hasSize(1);
 			assertThat(repository.findAll().get(0).getResponse().getStatus()).isEqualTo(500);
 		});
@@ -81,7 +81,7 @@ class HttpTraceWebFilterIntegrationTests {
 		this.contextRunner.run((context) -> {
 			WebTestClient.bindToApplicationContext(context).build().get().uri("/thrown").exchange().expectStatus()
 					.isEqualTo(HttpStatus.INTERNAL_SERVER_ERROR);
-			HttpTraceRepository repository = context.getBean(HttpTraceRepository.class);
+			HttpTraceRepository_RENAMED repository = context.getBean(HttpTraceRepository_RENAMED.class);
 			assertThat(repository.findAll()).hasSize(1);
 			assertThat(repository.findAll().get(0).getResponse().getStatus()).isEqualTo(500);
 		});
@@ -92,13 +92,13 @@ class HttpTraceWebFilterIntegrationTests {
 	static class Config {
 
 		@Bean
-		HttpTraceWebFilter httpTraceWebFilter(HttpTraceRepository repository) {
+		HttpTraceWebFilter httpTraceWebFilter(HttpTraceRepository_RENAMED repository) {
 			Set<Include> includes = EnumSet.allOf(Include.class);
 			return new HttpTraceWebFilter(repository, new HttpExchangeTracer(includes), includes);
 		}
 
 		@Bean
-		HttpTraceRepository httpTraceRepository() {
+		HttpTraceRepository_RENAMED httpTraceRepository() {
 			return new InMemoryHttpTraceRepository();
 		}
 

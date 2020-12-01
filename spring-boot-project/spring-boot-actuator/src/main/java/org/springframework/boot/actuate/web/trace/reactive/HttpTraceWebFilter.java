@@ -23,7 +23,7 @@ import reactor.core.publisher.Mono;
 
 import org.springframework.boot.actuate.trace.http.HttpExchangeTracer;
 import org.springframework.boot.actuate.trace.http.HttpTrace;
-import org.springframework.boot.actuate.trace.http.HttpTraceRepository;
+import org.springframework.boot.actuate.trace.http.HttpTraceRepository_RENAMED;
 import org.springframework.boot.actuate.trace.http.Include;
 import org.springframework.core.Ordered;
 import org.springframework.web.server.ServerWebExchange;
@@ -45,13 +45,13 @@ public class HttpTraceWebFilter implements WebFilter, Ordered {
 	// enriched headers, but users can add stuff after this if they want to
 	private int order = Ordered.LOWEST_PRECEDENCE - 10;
 
-	private final HttpTraceRepository repository;
+	private final HttpTraceRepository_RENAMED repository;
 
 	private final HttpExchangeTracer tracer;
 
 	private final Set<Include> includes;
 
-	public HttpTraceWebFilter(HttpTraceRepository repository, HttpExchangeTracer tracer, Set<Include> includes) {
+	public HttpTraceWebFilter(HttpTraceRepository_RENAMED repository, HttpExchangeTracer tracer, Set<Include> includes) {
 		this.repository = repository;
 		this.tracer = tracer;
 		this.includes = includes;

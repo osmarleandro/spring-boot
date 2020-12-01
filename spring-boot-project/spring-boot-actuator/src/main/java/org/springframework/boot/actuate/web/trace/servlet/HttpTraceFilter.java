@@ -30,13 +30,13 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.boot.actuate.trace.http.HttpExchangeTracer;
 import org.springframework.boot.actuate.trace.http.HttpTrace;
-import org.springframework.boot.actuate.trace.http.HttpTraceRepository;
+import org.springframework.boot.actuate.trace.http.HttpTraceRepository_RENAMED;
 import org.springframework.core.Ordered;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 /**
- * Servlet {@link Filter} that logs all requests to an {@link HttpTraceRepository}.
+ * Servlet {@link Filter} that logs all requests to an {@link HttpTraceRepository_RENAMED}.
  *
  * @author Dave Syer
  * @author Wallace Wadge
@@ -51,7 +51,7 @@ public class HttpTraceFilter extends OncePerRequestFilter implements Ordered {
 	// enriched headers, but users can add stuff after this if they want to
 	private int order = Ordered.LOWEST_PRECEDENCE - 10;
 
-	private final HttpTraceRepository repository;
+	private final HttpTraceRepository_RENAMED repository;
 
 	private final HttpExchangeTracer tracer;
 
@@ -60,7 +60,7 @@ public class HttpTraceFilter extends OncePerRequestFilter implements Ordered {
 	 * @param repository the trace repository
 	 * @param tracer used to trace exchanges
 	 */
-	public HttpTraceFilter(HttpTraceRepository repository, HttpExchangeTracer tracer) {
+	public HttpTraceFilter(HttpTraceRepository_RENAMED repository, HttpExchangeTracer tracer) {
 		this.repository = repository;
 		this.tracer = tracer;
 	}

@@ -50,7 +50,7 @@ public final class HttpTrace {
 
 	/**
 	 * Creates a fully-configured {@code HttpTrace} instance. Primarily for use by
-	 * {@link HttpTraceRepository} implementations when recreating a trace from a
+	 * {@link HttpTraceRepository_RENAMED} implementations when recreating a trace from a
 	 * persistent store.
 	 * @param request the request
 	 * @param response the response
@@ -145,7 +145,7 @@ public final class HttpTrace {
 
 		/**
 		 * Creates a fully-configured {@code Request} instance. Primarily for use by
-		 * {@link HttpTraceRepository} implementations when recreating a request from a
+		 * {@link HttpTraceRepository_RENAMED} implementations when recreating a request from a
 		 * persistent store.
 		 * @param method the HTTP method of the request
 		 * @param uri the URI of the request
@@ -193,7 +193,7 @@ public final class HttpTrace {
 
 		/**
 		 * Creates a fully-configured {@code Response} instance. Primarily for use by
-		 * {@link HttpTraceRepository} implementations when recreating a response from a
+		 * {@link HttpTraceRepository_RENAMED} implementations when recreating a response from a
 		 * persistent store.
 		 * @param status the status of the response
 		 * @param headers the response headers

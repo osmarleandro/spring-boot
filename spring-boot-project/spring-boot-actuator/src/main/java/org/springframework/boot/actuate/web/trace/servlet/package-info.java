@@ -17,6 +17,6 @@
 /**
  * Actuator servlet HTTP tracing support.
  *
- * @see org.springframework.boot.actuate.trace.http.HttpTraceRepository
+ * @see org.springframework.boot.actuate.trace.http.HttpTraceRepository_RENAMED
  */
 package org.springframework.boot.actuate.web.trace.servlet;
