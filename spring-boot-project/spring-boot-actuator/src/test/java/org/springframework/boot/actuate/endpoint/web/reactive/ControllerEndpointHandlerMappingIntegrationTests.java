@@ -26,7 +26,7 @@ import org.junit.jupiter.api.Test;
 
 import org.springframework.boot.actuate.endpoint.web.EndpointMapping;
 import org.springframework.boot.actuate.endpoint.web.annotation.ControllerEndpointDiscoverer;
-import org.springframework.boot.actuate.endpoint.web.annotation.ControllerEndpointsSupplier;
+import org.springframework.boot.actuate.endpoint.web.annotation.ControllerEndpointsSupplier_RENAMED;
 import org.springframework.boot.actuate.endpoint.web.annotation.RestControllerEndpoint;
 import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
 import org.springframework.boot.autoconfigure.http.HttpMessageConvertersAutoConfiguration;
@@ -122,7 +122,7 @@ class ControllerEndpointHandlerMappingIntegrationTests {
 		}
 
 		@Bean
-		ControllerEndpointHandlerMapping webEndpointHandlerMapping(ControllerEndpointsSupplier endpointsSupplier) {
+		ControllerEndpointHandlerMapping webEndpointHandlerMapping(ControllerEndpointsSupplier_RENAMED endpointsSupplier) {
 			return new ControllerEndpointHandlerMapping(new EndpointMapping("actuator"),
 					endpointsSupplier.getEndpoints(), null);
 		}
