@@ -32,7 +32,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  * @since 2.0.0
  */
 @ConfigurationProperties(prefix = "management.metrics.export.statsd")
-public class StatsdProperties {
+public class StatsdProperties_RENAMED {
 
 	/**
 	 * Whether exporting of metrics to StatsD is enabled.

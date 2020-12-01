@@ -22,7 +22,7 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Tests for {@link StatsdProperties}.
+ * Tests for {@link StatsdProperties_RENAMED}.
  *
  * @author Stephane Nicoll
  */
@@ -30,7 +30,7 @@ class StatsdPropertiesTests {
 
 	@Test
 	void defaultValuesAreConsistent() {
-		StatsdProperties properties = new StatsdProperties();
+		StatsdProperties_RENAMED properties = new StatsdProperties_RENAMED();
 		StatsdConfig config = StatsdConfig.DEFAULT;
 		assertThat(properties.isEnabled()).isEqualTo(config.enabled());
 		assertThat(properties.getFlavor()).isEqualTo(config.flavor());
