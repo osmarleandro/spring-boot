@@ -80,10 +80,10 @@ abstract class HealthEndpointSupport<C, T> {
 	private Object getContributor(String[] path, int pathOffset) {
 		Object contributor = this.registry;
 		while (pathOffset < path.length) {
-			if (!(contributor instanceof NamedContributors)) {
+			if (!(contributor instanceof NamedContributors_RENAMED)) {
 				return null;
 			}
-			contributor = ((NamedContributors<C>) contributor).getContributor(path[pathOffset]);
+			contributor = ((NamedContributors_RENAMED<C>) contributor).getContributor(path[pathOffset]);
 			pathOffset++;
 		}
 		return contributor;
@@ -92,15 +92,15 @@ abstract class HealthEndpointSupport<C, T> {
 	@SuppressWarnings("unchecked")
 	private T getContribution(ApiVersion apiVersion, HealthEndpointGroup group, Object contributor,
 			boolean showComponents, boolean showDetails, Set<String> groupNames, boolean isNested) {
-		if (contributor instanceof NamedContributors) {
-			return getAggregateHealth(apiVersion, group, (NamedContributors<C>) contributor, showComponents,
+		if (contributor instanceof NamedContributors_RENAMED) {
+			return getAggregateHealth(apiVersion, group, (NamedContributors_RENAMED<C>) contributor, showComponents,
 					showDetails, groupNames, isNested);
 		}
 		return (contributor != null) ? getHealth((C) contributor, showDetails) : null;
 	}
 
 	private T getAggregateHealth(ApiVersion apiVersion, HealthEndpointGroup group,
-			NamedContributors<C> namedContributors, boolean showComponents, boolean showDetails, Set<String> groupNames,
+			NamedContributors_RENAMED<C> namedContributors, boolean showComponents, boolean showDetails, Set<String> groupNames,
 			boolean isNested) {
 		Map<String, T> contributions = new LinkedHashMap<>();
 		for (NamedContributor<C> namedContributor : namedContributors) {

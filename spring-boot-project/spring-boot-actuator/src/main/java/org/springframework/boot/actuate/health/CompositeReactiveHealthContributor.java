@@ -29,7 +29,7 @@ import java.util.function.Function;
  * @see CompositeHealthContributor
  */
 public interface CompositeReactiveHealthContributor
-		extends ReactiveHealthContributor, NamedContributors<ReactiveHealthContributor> {
+		extends ReactiveHealthContributor, NamedContributors_RENAMED<ReactiveHealthContributor> {
 
 	/**
 	 * Factory method that will create a {@link CompositeReactiveHealthContributor} from

@@ -26,7 +26,7 @@ import java.util.function.Function;
 import org.springframework.util.Assert;
 
 /**
- * {@link NamedContributors} backed by a map with values adapted as necessary.
+ * {@link NamedContributors_RENAMED} backed by a map with values adapted as necessary.
  *
  * @param <V> the value type
  * @param <C> the contributor type
@@ -34,7 +34,7 @@ import org.springframework.util.Assert;
  * @see CompositeHealthContributorMapAdapter
  * @see CompositeReactiveHealthContributorMapAdapter
  */
-abstract class NamedContributorsMapAdapter<V, C> implements NamedContributors<C> {
+abstract class NamedContributorsMapAdapter<V, C> implements NamedContributors_RENAMED<C> {
 
 	private final Map<String, V> map;
 
