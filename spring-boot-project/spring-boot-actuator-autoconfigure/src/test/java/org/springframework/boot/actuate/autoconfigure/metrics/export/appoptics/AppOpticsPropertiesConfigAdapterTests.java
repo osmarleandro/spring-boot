@@ -18,7 +18,7 @@ package org.springframework.boot.actuate.autoconfigure.metrics.export.appoptics;
 
 import org.junit.jupiter.api.Test;
 
-import org.springframework.boot.actuate.autoconfigure.metrics.export.properties.StepRegistryPropertiesConfigAdapterTests;
+import org.springframework.boot.actuate.autoconfigure.metrics.export.properties.StepRegistryPropertiesConfigAdapterTests_RENAMED;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -28,7 +28,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Stephane Nicoll
  */
 class AppOpticsPropertiesConfigAdapterTests
-		extends StepRegistryPropertiesConfigAdapterTests<AppOpticsProperties, AppOpticsPropertiesConfigAdapter> {
+		extends StepRegistryPropertiesConfigAdapterTests_RENAMED<AppOpticsProperties, AppOpticsPropertiesConfigAdapter> {
 
 	@Override
 	protected AppOpticsProperties createProperties() {
