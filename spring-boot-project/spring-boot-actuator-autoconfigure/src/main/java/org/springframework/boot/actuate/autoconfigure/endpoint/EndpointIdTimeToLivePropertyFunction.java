@@ -19,7 +19,7 @@ package org.springframework.boot.actuate.autoconfigure.endpoint;
 import java.time.Duration;
 import java.util.function.Function;
 
-import org.springframework.boot.actuate.endpoint.EndpointId;
+import org.springframework.boot.actuate.endpoint.EndpointId_RENAMED;
 import org.springframework.boot.actuate.endpoint.invoker.cache.CachingOperationInvokerAdvisor;
 import org.springframework.boot.context.properties.bind.BindResult;
 import org.springframework.boot.context.properties.bind.Bindable;
@@ -34,7 +34,7 @@ import org.springframework.core.env.PropertyResolver;
  * @author Stephane Nicoll
  * @author Phillip Webb
  */
-class EndpointIdTimeToLivePropertyFunction implements Function<EndpointId, Long> {
+class EndpointIdTimeToLivePropertyFunction implements Function<EndpointId_RENAMED, Long> {
 
 	private static final Bindable<Duration> DURATION = Bindable.of(Duration.class);
 
@@ -49,7 +49,7 @@ class EndpointIdTimeToLivePropertyFunction implements Function<EndpointId, Long>
 	}
 
 	@Override
-	public Long apply(EndpointId endpointId) {
+	public Long apply(EndpointId_RENAMED endpointId) {
 		String name = String.format("management.endpoint.%s.cache.time-to-live", endpointId.toLowerCaseString());
 		BindResult<Duration> duration = Binder.get(this.environment).bind(name, DURATION);
 		return duration.map(Duration::toMillis).orElse(null);

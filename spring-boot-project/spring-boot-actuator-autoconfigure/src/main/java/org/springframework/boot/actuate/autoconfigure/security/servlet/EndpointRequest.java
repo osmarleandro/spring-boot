@@ -32,7 +32,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointProperties;
 import org.springframework.boot.actuate.autoconfigure.web.server.ManagementPortType;
-import org.springframework.boot.actuate.endpoint.EndpointId;
+import org.springframework.boot.actuate.endpoint.EndpointId_RENAMED;
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
 import org.springframework.boot.actuate.endpoint.web.PathMappedEndpoints;
 import org.springframework.boot.autoconfigure.security.servlet.RequestMatcherProvider;
@@ -248,12 +248,12 @@ public final class EndpointRequest {
 			return source.stream().filter(Objects::nonNull).map(this::getEndpointId).map(pathMappedEndpoints::getPath);
 		}
 
-		private EndpointId getEndpointId(Object source) {
-			if (source instanceof EndpointId) {
-				return (EndpointId) source;
+		private EndpointId_RENAMED getEndpointId(Object source) {
+			if (source instanceof EndpointId_RENAMED) {
+				return (EndpointId_RENAMED) source;
 			}
 			if (source instanceof String) {
-				return (EndpointId.of((String) source));
+				return (EndpointId_RENAMED.of((String) source));
 			}
 			if (source instanceof Class) {
 				return getEndpointId((Class<?>) source);
@@ -261,10 +261,10 @@ public final class EndpointRequest {
 			throw new IllegalStateException("Unsupported source " + source);
 		}
 
-		private EndpointId getEndpointId(Class<?> source) {
+		private EndpointId_RENAMED getEndpointId(Class<?> source) {
 			MergedAnnotation<Endpoint> annotation = MergedAnnotations.from(source).get(Endpoint.class);
 			Assert.state(annotation.isPresent(), () -> "Class " + source + " is not annotated with @Endpoint");
-			return EndpointId.of(annotation.getString("id"));
+			return EndpointId_RENAMED.of(annotation.getString("id"));
 		}
 
 		private List<RequestMatcher> getDelegateMatchers(RequestMatcherFactory requestMatcherFactory,

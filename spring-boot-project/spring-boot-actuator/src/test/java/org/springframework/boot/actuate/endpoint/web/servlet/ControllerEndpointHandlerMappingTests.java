@@ -20,7 +20,7 @@ import java.util.Arrays;
 
 import org.junit.jupiter.api.Test;
 
-import org.springframework.boot.actuate.endpoint.EndpointId;
+import org.springframework.boot.actuate.endpoint.EndpointId_RENAMED;
 import org.springframework.boot.actuate.endpoint.web.EndpointMapping;
 import org.springframework.boot.actuate.endpoint.web.annotation.ControllerEndpoint;
 import org.springframework.boot.actuate.endpoint.web.annotation.ExposableControllerEndpoint;
@@ -107,18 +107,18 @@ class ControllerEndpointHandlerMappingTests {
 	}
 
 	private ExposableControllerEndpoint firstEndpoint() {
-		return mockEndpoint(EndpointId.of("first"), new FirstTestMvcEndpoint());
+		return mockEndpoint(EndpointId_RENAMED.of("first"), new FirstTestMvcEndpoint());
 	}
 
 	private ExposableControllerEndpoint secondEndpoint() {
-		return mockEndpoint(EndpointId.of("second"), new SecondTestMvcEndpoint());
+		return mockEndpoint(EndpointId_RENAMED.of("second"), new SecondTestMvcEndpoint());
 	}
 
 	private ExposableControllerEndpoint pathlessEndpoint() {
-		return mockEndpoint(EndpointId.of("pathless"), new PathlessControllerEndpoint());
+		return mockEndpoint(EndpointId_RENAMED.of("pathless"), new PathlessControllerEndpoint());
 	}
 
-	private ExposableControllerEndpoint mockEndpoint(EndpointId id, Object controller) {
+	private ExposableControllerEndpoint mockEndpoint(EndpointId_RENAMED id, Object controller) {
 		ExposableControllerEndpoint endpoint = mock(ExposableControllerEndpoint.class);
 		given(endpoint.getEndpointId()).willReturn(id);
 		given(endpoint.getController()).willReturn(controller);

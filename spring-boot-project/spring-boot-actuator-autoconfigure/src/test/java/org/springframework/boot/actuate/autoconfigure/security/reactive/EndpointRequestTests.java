@@ -24,7 +24,7 @@ import org.assertj.core.api.AssertDelegateTarget;
 import org.junit.jupiter.api.Test;
 
 import org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointProperties;
-import org.springframework.boot.actuate.endpoint.EndpointId;
+import org.springframework.boot.actuate.endpoint.EndpointId_RENAMED;
 import org.springframework.boot.actuate.endpoint.ExposableEndpoint;
 import org.springframework.boot.actuate.endpoint.Operation;
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
@@ -131,9 +131,9 @@ class EndpointRequestTests {
 		ServerWebExchangeMatcher matcher = EndpointRequest.toAnyEndpoint().excluding(FooEndpoint.class,
 				BazServletEndpoint.class);
 		List<ExposableEndpoint<?>> endpoints = new ArrayList<>();
-		endpoints.add(mockEndpoint(EndpointId.of("foo"), "foo"));
-		endpoints.add(mockEndpoint(EndpointId.of("bar"), "bar"));
-		endpoints.add(mockEndpoint(EndpointId.of("baz"), "baz"));
+		endpoints.add(mockEndpoint(EndpointId_RENAMED.of("foo"), "foo"));
+		endpoints.add(mockEndpoint(EndpointId_RENAMED.of("bar"), "bar"));
+		endpoints.add(mockEndpoint(EndpointId_RENAMED.of("baz"), "baz"));
 		PathMappedEndpoints pathMappedEndpoints = new PathMappedEndpoints("/actuator", () -> endpoints);
 		assertMatcher(matcher, pathMappedEndpoints).doesNotMatch("/actuator/foo");
 		assertMatcher(matcher, pathMappedEndpoints).doesNotMatch("/actuator/baz");
@@ -198,12 +198,12 @@ class EndpointRequestTests {
 
 	private PathMappedEndpoints mockPathMappedEndpoints(String basePath) {
 		List<ExposableEndpoint<?>> endpoints = new ArrayList<>();
-		endpoints.add(mockEndpoint(EndpointId.of("foo"), "foo"));
-		endpoints.add(mockEndpoint(EndpointId.of("bar"), "bar"));
+		endpoints.add(mockEndpoint(EndpointId_RENAMED.of("foo"), "foo"));
+		endpoints.add(mockEndpoint(EndpointId_RENAMED.of("bar"), "bar"));
 		return new PathMappedEndpoints(basePath, () -> endpoints);
 	}
 
-	private TestEndpoint mockEndpoint(EndpointId id, String rootPath) {
+	private TestEndpoint mockEndpoint(EndpointId_RENAMED id, String rootPath) {
 		TestEndpoint endpoint = mock(TestEndpoint.class);
 		given(endpoint.getEndpointId()).willReturn(id);
 		given(endpoint.getRootPath()).willReturn(rootPath);

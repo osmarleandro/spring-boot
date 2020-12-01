@@ -24,7 +24,7 @@ import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
 
-import org.springframework.boot.actuate.endpoint.EndpointId;
+import org.springframework.boot.actuate.endpoint.EndpointId_RENAMED;
 import org.springframework.boot.actuate.endpoint.annotation.DiscoveredEndpoint;
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
 import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
@@ -62,7 +62,7 @@ class ControllerEndpointDiscovererTests {
 			Collection<ExposableControllerEndpoint> endpoints = discoverer.getEndpoints();
 			assertThat(endpoints).hasSize(1);
 			ExposableControllerEndpoint endpoint = endpoints.iterator().next();
-			assertThat(endpoint.getEndpointId()).isEqualTo(EndpointId.of("testcontroller"));
+			assertThat(endpoint.getEndpointId()).isEqualTo(EndpointId_RENAMED.of("testcontroller"));
 			assertThat(endpoint.getController()).isInstanceOf(TestControllerEndpoint.class);
 			assertThat(endpoint).isInstanceOf(DiscoveredEndpoint.class);
 		}));
@@ -76,7 +76,7 @@ class ControllerEndpointDiscovererTests {
 					Collection<ExposableControllerEndpoint> endpoints = discoverer.getEndpoints();
 					assertThat(endpoints).hasSize(1);
 					ExposableControllerEndpoint endpoint = endpoints.iterator().next();
-					assertThat(endpoint.getEndpointId()).isEqualTo(EndpointId.of("testcontroller"));
+					assertThat(endpoint.getEndpointId()).isEqualTo(EndpointId_RENAMED.of("testcontroller"));
 					assertThat(endpoint.getController()).isInstanceOf(TestProxyControllerEndpoint.class);
 					assertThat(endpoint).isInstanceOf(DiscoveredEndpoint.class);
 				}));
@@ -89,7 +89,7 @@ class ControllerEndpointDiscovererTests {
 					Collection<ExposableControllerEndpoint> endpoints = discoverer.getEndpoints();
 					assertThat(endpoints).hasSize(1);
 					ExposableControllerEndpoint endpoint = endpoints.iterator().next();
-					assertThat(endpoint.getEndpointId()).isEqualTo(EndpointId.of("testrestcontroller"));
+					assertThat(endpoint.getEndpointId()).isEqualTo(EndpointId_RENAMED.of("testrestcontroller"));
 					assertThat(endpoint.getController()).isInstanceOf(TestRestControllerEndpoint.class);
 				}));
 	}
@@ -102,7 +102,7 @@ class ControllerEndpointDiscovererTests {
 					Collection<ExposableControllerEndpoint> endpoints = discoverer.getEndpoints();
 					assertThat(endpoints).hasSize(1);
 					ExposableControllerEndpoint endpoint = endpoints.iterator().next();
-					assertThat(endpoint.getEndpointId()).isEqualTo(EndpointId.of("testrestcontroller"));
+					assertThat(endpoint.getEndpointId()).isEqualTo(EndpointId_RENAMED.of("testrestcontroller"));
 					assertThat(endpoint.getController()).isInstanceOf(TestProxyRestControllerEndpoint.class);
 					assertThat(endpoint).isInstanceOf(DiscoveredEndpoint.class);
 				}));
@@ -113,9 +113,9 @@ class ControllerEndpointDiscovererTests {
 		this.contextRunner.withUserConfiguration(WithRegularEndpointConfiguration.class)
 				.run(assertDiscoverer((discoverer) -> {
 					Collection<ExposableControllerEndpoint> endpoints = discoverer.getEndpoints();
-					List<EndpointId> ids = endpoints.stream().map(ExposableControllerEndpoint::getEndpointId)
+					List<EndpointId_RENAMED> ids = endpoints.stream().map(ExposableControllerEndpoint::getEndpointId)
 							.collect(Collectors.toList());
-					assertThat(ids).containsOnly(EndpointId.of("testcontroller"), EndpointId.of("testrestcontroller"));
+					assertThat(ids).containsOnly(EndpointId_RENAMED.of("testcontroller"), EndpointId_RENAMED.of("testrestcontroller"));
 				}));
 	}
 

@@ -31,7 +31,7 @@ import javax.servlet.ServletResponse;
 
 import org.junit.jupiter.api.Test;
 
-import org.springframework.boot.actuate.endpoint.EndpointId;
+import org.springframework.boot.actuate.endpoint.EndpointId_RENAMED;
 import org.springframework.boot.actuate.endpoint.annotation.DiscoveredEndpoint;
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
 import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
@@ -71,7 +71,7 @@ class ServletEndpointDiscovererTests {
 			Collection<ExposableServletEndpoint> endpoints = discoverer.getEndpoints();
 			assertThat(endpoints).hasSize(1);
 			ExposableServletEndpoint endpoint = endpoints.iterator().next();
-			assertThat(endpoint.getEndpointId()).isEqualTo(EndpointId.of("testservlet"));
+			assertThat(endpoint.getEndpointId()).isEqualTo(EndpointId_RENAMED.of("testservlet"));
 			assertThat(endpoint.getEndpointServlet()).isNotNull();
 			assertThat(endpoint).isInstanceOf(DiscoveredEndpoint.class);
 		}));
@@ -85,7 +85,7 @@ class ServletEndpointDiscovererTests {
 					Collection<ExposableServletEndpoint> endpoints = discoverer.getEndpoints();
 					assertThat(endpoints).hasSize(1);
 					ExposableServletEndpoint endpoint = endpoints.iterator().next();
-					assertThat(endpoint.getEndpointId()).isEqualTo(EndpointId.of("testservlet"));
+					assertThat(endpoint.getEndpointId()).isEqualTo(EndpointId_RENAMED.of("testservlet"));
 					assertThat(endpoint.getEndpointServlet()).isNotNull();
 					assertThat(endpoint).isInstanceOf(DiscoveredEndpoint.class);
 				}));
@@ -96,9 +96,9 @@ class ServletEndpointDiscovererTests {
 		this.contextRunner.withUserConfiguration(WithRegularEndpointConfiguration.class)
 				.run(assertDiscoverer((discoverer) -> {
 					Collection<ExposableServletEndpoint> endpoints = discoverer.getEndpoints();
-					List<EndpointId> ids = endpoints.stream().map(ExposableServletEndpoint::getEndpointId)
+					List<EndpointId_RENAMED> ids = endpoints.stream().map(ExposableServletEndpoint::getEndpointId)
 							.collect(Collectors.toList());
-					assertThat(ids).containsOnly(EndpointId.of("testservlet"));
+					assertThat(ids).containsOnly(EndpointId_RENAMED.of("testservlet"));
 				}));
 	}
 

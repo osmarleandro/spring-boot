@@ -19,7 +19,7 @@ package org.springframework.boot.actuate.endpoint.jmx;
 import java.util.Arrays;
 import java.util.Collection;
 
-import org.springframework.boot.actuate.endpoint.EndpointId;
+import org.springframework.boot.actuate.endpoint.EndpointId_RENAMED;
 
 /**
  * Test {@link ExposableJmxEndpoint} implementation.
@@ -39,8 +39,8 @@ public class TestExposableJmxEndpoint implements ExposableJmxEndpoint {
 	}
 
 	@Override
-	public EndpointId getEndpointId() {
-		return EndpointId.of("test");
+	public EndpointId_RENAMED getEndpointId() {
+		return EndpointId_RENAMED.of("test");
 	}
 
 	@Override

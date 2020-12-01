@@ -23,7 +23,7 @@ import java.util.function.Function;
 
 import org.junit.jupiter.api.Test;
 
-import org.springframework.boot.actuate.endpoint.EndpointId;
+import org.springframework.boot.actuate.endpoint.EndpointId_RENAMED;
 import org.springframework.boot.actuate.endpoint.InvocationContext;
 import org.springframework.boot.actuate.endpoint.SecurityContext;
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
@@ -59,7 +59,7 @@ class CloudFoundryWebEndpointDiscovererTests {
 			Collection<ExposableWebEndpoint> endpoints = discoverer.getEndpoints();
 			assertThat(endpoints.size()).isEqualTo(2);
 			for (ExposableWebEndpoint endpoint : endpoints) {
-				if (endpoint.getEndpointId().equals(EndpointId.of("health"))) {
+				if (endpoint.getEndpointId().equals(EndpointId_RENAMED.of("health"))) {
 					WebOperation operation = findMainReadOperation(endpoint);
 					assertThat(operation
 							.invoke(new InvocationContext(mock(SecurityContext.class), Collections.emptyMap())))
@@ -79,10 +79,10 @@ class CloudFoundryWebEndpointDiscovererTests {
 	}
 
 	private void load(Class<?> configuration, Consumer<CloudFoundryWebEndpointDiscoverer> consumer) {
-		load((id) -> null, EndpointId::toString, configuration, consumer);
+		load((id) -> null, EndpointId_RENAMED::toString, configuration, consumer);
 	}
 
-	private void load(Function<EndpointId, Long> timeToLive, PathMapper endpointPathMapper, Class<?> configuration,
+	private void load(Function<EndpointId_RENAMED, Long> timeToLive, PathMapper endpointPathMapper, Class<?> configuration,
 			Consumer<CloudFoundryWebEndpointDiscoverer> consumer) {
 		try (AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(configuration)) {
 			ConversionServiceParameterValueMapper parameterMapper = new ConversionServiceParameterValueMapper(

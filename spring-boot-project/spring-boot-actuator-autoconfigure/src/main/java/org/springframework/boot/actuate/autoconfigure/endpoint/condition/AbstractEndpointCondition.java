@@ -20,7 +20,7 @@ import java.lang.annotation.Annotation;
 import java.util.Map;
 import java.util.Optional;
 
-import org.springframework.boot.actuate.endpoint.EndpointId;
+import org.springframework.boot.actuate.endpoint.EndpointId_RENAMED;
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
 import org.springframework.boot.actuate.endpoint.annotation.EndpointExtension;
 import org.springframework.boot.autoconfigure.condition.ConditionMessage;
@@ -62,7 +62,7 @@ abstract class AbstractEndpointCondition extends SpringBootCondition {
 			Class<? extends Annotation> annotationClass) {
 		Environment environment = context.getEnvironment();
 		AnnotationAttributes attributes = getEndpointAttributes(annotationClass, context, metadata);
-		EndpointId id = EndpointId.of(environment, attributes.getString("id"));
+		EndpointId_RENAMED id = EndpointId_RENAMED.of(environment, attributes.getString("id"));
 		String key = "management.endpoint." + id.toLowerCaseString() + ".enabled";
 		Boolean userDefinedEnabled = environment.getProperty(key, Boolean.class);
 		if (userDefinedEnabled != null) {

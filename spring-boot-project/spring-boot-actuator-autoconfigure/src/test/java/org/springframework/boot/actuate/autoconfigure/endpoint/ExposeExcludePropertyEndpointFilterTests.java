@@ -19,7 +19,7 @@ package org.springframework.boot.actuate.autoconfigure.endpoint;
 import org.junit.jupiter.api.Test;
 
 import org.springframework.boot.actuate.endpoint.EndpointFilter;
-import org.springframework.boot.actuate.endpoint.EndpointId;
+import org.springframework.boot.actuate.endpoint.EndpointId_RENAMED;
 import org.springframework.boot.actuate.endpoint.ExposableEndpoint;
 import org.springframework.boot.actuate.endpoint.web.ExposableWebEndpoint;
 import org.springframework.mock.env.MockEnvironment;
@@ -70,43 +70,43 @@ class ExposeExcludePropertyEndpointFilterTests {
 	@Test
 	void matchWhenExposeIsEmptyAndExcludeIsEmptyAndInDefaultShouldMatch() {
 		setupFilter("", "");
-		assertThat(match(EndpointId.of("def"))).isTrue();
+		assertThat(match(EndpointId_RENAMED.of("def"))).isTrue();
 	}
 
 	@Test
 	void matchWhenExposeIsEmptyAndExcludeIsEmptyAndNotInDefaultShouldNotMatch() {
 		setupFilter("", "");
-		assertThat(match(EndpointId.of("bar"))).isFalse();
+		assertThat(match(EndpointId_RENAMED.of("bar"))).isFalse();
 	}
 
 	@Test
 	void matchWhenExposeMatchesAndExcludeIsEmptyShouldMatch() {
 		setupFilter("bar", "");
-		assertThat(match(EndpointId.of("bar"))).isTrue();
+		assertThat(match(EndpointId_RENAMED.of("bar"))).isTrue();
 	}
 
 	@Test
 	void matchWhenExposeDoesNotMatchAndExcludeIsEmptyShouldNotMatch() {
 		setupFilter("bar", "");
-		assertThat(match(EndpointId.of("baz"))).isFalse();
+		assertThat(match(EndpointId_RENAMED.of("baz"))).isFalse();
 	}
 
 	@Test
 	void matchWhenExposeMatchesAndExcludeMatchesShouldNotMatch() {
 		setupFilter("bar,baz", "baz");
-		assertThat(match(EndpointId.of("baz"))).isFalse();
+		assertThat(match(EndpointId_RENAMED.of("baz"))).isFalse();
 	}
 
 	@Test
 	void matchWhenExposeMatchesAndExcludeDoesNotMatchShouldMatch() {
 		setupFilter("bar,baz", "buz");
-		assertThat(match(EndpointId.of("baz"))).isTrue();
+		assertThat(match(EndpointId_RENAMED.of("baz"))).isTrue();
 	}
 
 	@Test
 	void matchWhenExposeMatchesWithDifferentCaseShouldMatch() {
 		setupFilter("bar", "");
-		assertThat(match(EndpointId.of("bAr"))).isTrue();
+		assertThat(match(EndpointId_RENAMED.of("bAr"))).isTrue();
 	}
 
 	@Test
@@ -116,35 +116,35 @@ class ExposeExcludePropertyEndpointFilterTests {
 		environment.setProperty("foo.exclude", "");
 		this.filter = new ExposeExcludePropertyEndpointFilter<>(DifferentTestExposableWebEndpoint.class, environment,
 				"foo");
-		assertThat(match(EndpointId.of("baz"))).isTrue();
+		assertThat(match(EndpointId_RENAMED.of("baz"))).isTrue();
 	}
 
 	@Test
 	void matchWhenIncludeIsAsteriskShouldMatchAll() {
 		setupFilter("*", "buz");
-		assertThat(match(EndpointId.of("bar"))).isTrue();
-		assertThat(match(EndpointId.of("baz"))).isTrue();
-		assertThat(match(EndpointId.of("buz"))).isFalse();
+		assertThat(match(EndpointId_RENAMED.of("bar"))).isTrue();
+		assertThat(match(EndpointId_RENAMED.of("baz"))).isTrue();
+		assertThat(match(EndpointId_RENAMED.of("buz"))).isFalse();
 	}
 
 	@Test
 	void matchWhenExcludeIsAsteriskShouldMatchNone() {
 		setupFilter("bar,baz,buz", "*");
-		assertThat(match(EndpointId.of("bar"))).isFalse();
-		assertThat(match(EndpointId.of("baz"))).isFalse();
-		assertThat(match(EndpointId.of("buz"))).isFalse();
+		assertThat(match(EndpointId_RENAMED.of("bar"))).isFalse();
+		assertThat(match(EndpointId_RENAMED.of("baz"))).isFalse();
+		assertThat(match(EndpointId_RENAMED.of("buz"))).isFalse();
 	}
 
 	@Test
 	void matchWhenMixedCaseShouldMatch() {
 		setupFilter("foo-bar", "");
-		assertThat(match(EndpointId.of("fooBar"))).isTrue();
+		assertThat(match(EndpointId_RENAMED.of("fooBar"))).isTrue();
 	}
 
 	@Test // gh-20997
 	void matchWhenDashInName() throws Exception {
 		setupFilter("bus-refresh", "");
-		assertThat(match(EndpointId.of("bus-refresh"))).isTrue();
+		assertThat(match(EndpointId_RENAMED.of("bus-refresh"))).isTrue();
 	}
 
 	private void setupFilter(String include, String exclude) {
@@ -156,7 +156,7 @@ class ExposeExcludePropertyEndpointFilterTests {
 	}
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	private boolean match(EndpointId id) {
+	private boolean match(EndpointId_RENAMED id) {
 		ExposableEndpoint<?> endpoint = mock(TestExposableWebEndpoint.class);
 		given(endpoint.getEndpointId()).willReturn(id);
 		return ((EndpointFilter) this.filter).match(endpoint);

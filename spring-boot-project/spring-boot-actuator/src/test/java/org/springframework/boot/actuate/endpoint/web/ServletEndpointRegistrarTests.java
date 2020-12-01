@@ -33,7 +33,7 @@ import org.mockito.Captor;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import org.springframework.boot.actuate.endpoint.EndpointId;
+import org.springframework.boot.actuate.endpoint.EndpointId_RENAMED;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
@@ -127,7 +127,7 @@ class ServletEndpointRegistrarTests {
 
 	private ExposableServletEndpoint mockEndpoint(EndpointServlet endpointServlet) {
 		ExposableServletEndpoint endpoint = mock(ExposableServletEndpoint.class);
-		given(endpoint.getEndpointId()).willReturn(EndpointId.of("test"));
+		given(endpoint.getEndpointId()).willReturn(EndpointId_RENAMED.of("test"));
 		given(endpoint.getEndpointServlet()).willReturn(endpointServlet);
 		given(endpoint.getRootPath()).willReturn("test");
 		return endpoint;

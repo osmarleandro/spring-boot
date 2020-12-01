@@ -25,7 +25,7 @@ import org.junit.jupiter.api.Test;
 
 import org.springframework.boot.actuate.autoconfigure.endpoint.EndpointAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.endpoint.expose.IncludeExcludeEndpointFilter;
-import org.springframework.boot.actuate.endpoint.EndpointId;
+import org.springframework.boot.actuate.endpoint.EndpointId_RENAMED;
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
 import org.springframework.boot.actuate.endpoint.http.ActuatorMediaType;
 import org.springframework.boot.actuate.endpoint.web.EndpointMediaTypes;
@@ -71,7 +71,7 @@ class WebEndpointAutoConfigurationTests {
 		this.contextRunner.withPropertyValues("management.endpoints.web.path-mapping.health=healthcheck")
 				.run((context) -> {
 					assertThat(context).hasSingleBean(PathMapper.class);
-					String pathMapping = context.getBean(PathMapper.class).getRootPath(EndpointId.of("health"));
+					String pathMapping = context.getBean(PathMapper.class).getRootPath(EndpointId_RENAMED.of("health"));
 					assertThat(pathMapping).isEqualTo("healthcheck");
 				});
 	}
@@ -123,7 +123,7 @@ class WebEndpointAutoConfigurationTests {
 	static class TestPathMatcher implements PathMapper {
 
 		@Override
-		public String getRootPath(EndpointId endpointId) {
+		public String getRootPath(EndpointId_RENAMED endpointId) {
 			if (endpointId.toString().endsWith("one")) {
 				return "1/" + endpointId.toString();
 			}

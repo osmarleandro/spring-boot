@@ -25,7 +25,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.springframework.boot.actuate.endpoint.EndpointFilter;
-import org.springframework.boot.actuate.endpoint.EndpointId;
+import org.springframework.boot.actuate.endpoint.EndpointId_RENAMED;
 import org.springframework.boot.actuate.endpoint.ExposableEndpoint;
 import org.springframework.boot.context.properties.bind.Bindable;
 import org.springframework.boot.context.properties.bind.Binder;
@@ -147,18 +147,18 @@ public class IncludeExcludeEndpointFilter<E extends ExposableEndpoint<?>> implem
 	 * @param endpointId the endpoint ID to check
 	 * @return {@code true} if the filter matches
 	 */
-	protected final boolean match(EndpointId endpointId) {
+	protected final boolean match(EndpointId_RENAMED endpointId) {
 		return isIncluded(endpointId) && !isExcluded(endpointId);
 	}
 
-	private boolean isIncluded(EndpointId endpointId) {
+	private boolean isIncluded(EndpointId_RENAMED endpointId) {
 		if (this.include.isEmpty()) {
 			return this.defaultIncludes.matches(endpointId);
 		}
 		return this.include.matches(endpointId);
 	}
 
-	private boolean isExcluded(EndpointId endpointId) {
+	private boolean isExcluded(EndpointId_RENAMED endpointId) {
 		if (this.exclude.isEmpty()) {
 			return false;
 		}
@@ -201,7 +201,7 @@ public class IncludeExcludeEndpointFilter<E extends ExposableEndpoint<?>> implem
 
 		private final boolean matchesAll;
 
-		private final Set<EndpointId> endpointIds;
+		private final Set<EndpointId_RENAMED> endpointIds;
 
 		EndpointPatterns(String[] patterns) {
 			this((patterns != null) ? Arrays.asList(patterns) : (Collection<String>) null);
@@ -210,13 +210,13 @@ public class IncludeExcludeEndpointFilter<E extends ExposableEndpoint<?>> implem
 		EndpointPatterns(Collection<String> patterns) {
 			patterns = (patterns != null) ? patterns : Collections.emptySet();
 			boolean matchesAll = false;
-			Set<EndpointId> endpointIds = new LinkedHashSet<>();
+			Set<EndpointId_RENAMED> endpointIds = new LinkedHashSet<>();
 			for (String pattern : patterns) {
 				if ("*".equals(pattern)) {
 					matchesAll = true;
 				}
 				else {
-					endpointIds.add(EndpointId.fromPropertyValue(pattern));
+					endpointIds.add(EndpointId_RENAMED.fromPropertyValue(pattern));
 				}
 			}
 			this.empty = patterns.isEmpty();
@@ -228,7 +228,7 @@ public class IncludeExcludeEndpointFilter<E extends ExposableEndpoint<?>> implem
 			return this.empty;
 		}
 
-		boolean matches(EndpointId endpointId) {
+		boolean matches(EndpointId_RENAMED endpointId) {
 			return this.matchesAll || this.endpointIds.contains(endpointId);
 		}
 

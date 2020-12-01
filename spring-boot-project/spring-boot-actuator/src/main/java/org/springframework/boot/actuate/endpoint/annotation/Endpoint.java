@@ -22,7 +22,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import org.springframework.boot.actuate.endpoint.EndpointId;
+import org.springframework.boot.actuate.endpoint.EndpointId_RENAMED;
 
 /**
  * Identifies a type as being an actuator endpoint that provides information about the
@@ -54,9 +54,9 @@ import org.springframework.boot.actuate.endpoint.EndpointId;
 public @interface Endpoint {
 
 	/**
-	 * The id of the endpoint (must follow {@link EndpointId} rules).
+	 * The id of the endpoint (must follow {@link EndpointId_RENAMED} rules).
 	 * @return the id
-	 * @see EndpointId
+	 * @see EndpointId_RENAMED
 	 */
 	String id() default "";
 

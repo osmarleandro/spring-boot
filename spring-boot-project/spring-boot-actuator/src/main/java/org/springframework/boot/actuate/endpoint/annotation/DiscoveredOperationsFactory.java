@@ -24,7 +24,7 @@ import java.util.EnumMap;
 import java.util.Map;
 import java.util.Objects;
 
-import org.springframework.boot.actuate.endpoint.EndpointId;
+import org.springframework.boot.actuate.endpoint.EndpointId_RENAMED;
 import org.springframework.boot.actuate.endpoint.Operation;
 import org.springframework.boot.actuate.endpoint.OperationType;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvoker;
@@ -68,19 +68,19 @@ abstract class DiscoveredOperationsFactory<O extends Operation> {
 		this.invokerAdvisors = invokerAdvisors;
 	}
 
-	Collection<O> createOperations(EndpointId id, Object target) {
+	Collection<O> createOperations(EndpointId_RENAMED id, Object target) {
 		return MethodIntrospector
 				.selectMethods(target.getClass(), (MetadataLookup<O>) (method) -> createOperation(id, target, method))
 				.values();
 	}
 
-	private O createOperation(EndpointId endpointId, Object target, Method method) {
+	private O createOperation(EndpointId_RENAMED endpointId, Object target, Method method) {
 		return OPERATION_TYPES.entrySet().stream()
 				.map((entry) -> createOperation(endpointId, target, method, entry.getKey(), entry.getValue()))
 				.filter(Objects::nonNull).findFirst().orElse(null);
 	}
 
-	private O createOperation(EndpointId endpointId, Object target, Method method, OperationType operationType,
+	private O createOperation(EndpointId_RENAMED endpointId, Object target, Method method, OperationType operationType,
 			Class<? extends Annotation> annotationType) {
 		MergedAnnotation<?> annotation = MergedAnnotations.from(method).get(annotationType);
 		if (!annotation.isPresent()) {
@@ -93,7 +93,7 @@ abstract class DiscoveredOperationsFactory<O extends Operation> {
 		return createOperation(endpointId, operationMethod, invoker);
 	}
 
-	private OperationInvoker applyAdvisors(EndpointId endpointId, OperationMethod operationMethod,
+	private OperationInvoker applyAdvisors(EndpointId_RENAMED endpointId, OperationMethod operationMethod,
 			OperationInvoker invoker) {
 		if (this.invokerAdvisors != null) {
 			for (OperationInvokerAdvisor advisor : this.invokerAdvisors) {
@@ -104,7 +104,7 @@ abstract class DiscoveredOperationsFactory<O extends Operation> {
 		return invoker;
 	}
 
-	protected abstract O createOperation(EndpointId endpointId, DiscoveredOperationMethod operationMethod,
+	protected abstract O createOperation(EndpointId_RENAMED endpointId, DiscoveredOperationMethod operationMethod,
 			OperationInvoker invoker);
 
 }

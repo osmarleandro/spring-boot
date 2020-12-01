@@ -22,7 +22,7 @@ import java.util.Set;
 
 import org.springframework.boot.actuate.autoconfigure.endpoint.expose.IncludeExcludeEndpointFilter;
 import org.springframework.boot.actuate.autoconfigure.endpoint.expose.IncludeExcludeEndpointFilter.DefaultIncludes;
-import org.springframework.boot.actuate.endpoint.EndpointId;
+import org.springframework.boot.actuate.endpoint.EndpointId_RENAMED;
 import org.springframework.boot.actuate.endpoint.ExposableEndpoint;
 import org.springframework.boot.autoconfigure.condition.ConditionMessage;
 import org.springframework.boot.autoconfigure.condition.ConditionOutcome;
@@ -59,7 +59,7 @@ class OnAvailableEndpointCondition extends AbstractEndpointCondition {
 			return new ConditionOutcome(true, message.andCondition(ConditionalOnAvailableEndpoint.class)
 					.because("application is running on Cloud Foundry"));
 		}
-		EndpointId id = EndpointId.of(environment,
+		EndpointId_RENAMED id = EndpointId_RENAMED.of(environment,
 				getEndpointAttributes(ConditionalOnAvailableEndpoint.class, context, metadata).getString("id"));
 		Set<Exposure> exposures = getExposures(environment);
 		for (Exposure exposure : exposures) {
@@ -102,7 +102,7 @@ class OnAvailableEndpointCondition extends AbstractEndpointCondition {
 			return this.prefix;
 		}
 
-		boolean isExposed(EndpointId id) {
+		boolean isExposed(EndpointId_RENAMED id) {
 			return super.match(id);
 		}
 
