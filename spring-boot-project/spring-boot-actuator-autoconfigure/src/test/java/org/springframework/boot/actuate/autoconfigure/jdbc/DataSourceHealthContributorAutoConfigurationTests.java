@@ -21,7 +21,7 @@ import javax.sql.DataSource;
 import org.junit.jupiter.api.Test;
 
 import org.springframework.boot.actuate.autoconfigure.health.HealthContributorAutoConfiguration;
-import org.springframework.boot.actuate.autoconfigure.jdbc.DataSourceHealthContributorAutoConfiguration.RoutingDataSourceHealthIndicator;
+import org.springframework.boot.actuate.autoconfigure.jdbc.DataSourceHealthContributorAutoConfiguration_RENAMED.RoutingDataSourceHealthIndicator;
 import org.springframework.boot.actuate.health.CompositeHealthContributor;
 import org.springframework.boot.actuate.health.NamedContributor;
 import org.springframework.boot.actuate.jdbc.DataSourceHealthIndicator;
@@ -41,7 +41,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 
 /**
- * Tests for {@link DataSourceHealthContributorAutoConfiguration}.
+ * Tests for {@link DataSourceHealthContributorAutoConfiguration_RENAMED}.
  *
  * @author Phillip Webb
  * @author Julio Gomez
@@ -50,7 +50,7 @@ class DataSourceHealthContributorAutoConfigurationTests {
 
 	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(DataSourceAutoConfiguration.class,
-					HealthContributorAutoConfiguration.class, DataSourceHealthContributorAutoConfiguration.class))
+					HealthContributorAutoConfiguration.class, DataSourceHealthContributorAutoConfiguration_RENAMED.class))
 			.withPropertyValues("spring.datasource.initialization-mode=never");
 
 	@Test

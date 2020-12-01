@@ -64,14 +64,14 @@ import org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource;
 @ConditionalOnEnabledHealthIndicator("db")
 @AutoConfigureAfter(DataSourceAutoConfiguration.class)
 @EnableConfigurationProperties(DataSourceHealthIndicatorProperties.class)
-public class DataSourceHealthContributorAutoConfiguration extends
+public class DataSourceHealthContributorAutoConfiguration_RENAMED extends
 		CompositeHealthContributorConfiguration<AbstractHealthIndicator, DataSource> implements InitializingBean {
 
 	private final Collection<DataSourcePoolMetadataProvider> metadataProviders;
 
 	private DataSourcePoolMetadataProvider poolMetadataProvider;
 
-	public DataSourceHealthContributorAutoConfiguration(Map<String, DataSource> dataSources,
+	public DataSourceHealthContributorAutoConfiguration_RENAMED(Map<String, DataSource> dataSources,
 			ObjectProvider<DataSourcePoolMetadataProvider> metadataProviders) {
 		this.metadataProviders = metadataProviders.orderedStream().collect(Collectors.toList());
 	}
