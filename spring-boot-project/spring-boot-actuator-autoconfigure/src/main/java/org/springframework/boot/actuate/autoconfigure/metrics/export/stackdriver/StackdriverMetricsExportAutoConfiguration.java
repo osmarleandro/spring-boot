@@ -60,7 +60,7 @@ public class StackdriverMetricsExportAutoConfiguration {
 	@Bean
 	@ConditionalOnMissingBean
 	public StackdriverConfig stackdriverConfig() {
-		return new StackdriverPropertiesConfigAdapter(this.properties);
+		return new StackdriverPropertiesConfigAdapter_RENAMED(this.properties);
 	}
 
 	@Bean

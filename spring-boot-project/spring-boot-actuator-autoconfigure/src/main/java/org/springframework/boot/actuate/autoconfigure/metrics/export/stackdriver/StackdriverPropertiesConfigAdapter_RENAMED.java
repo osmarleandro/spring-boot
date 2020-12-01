@@ -26,10 +26,10 @@ import org.springframework.boot.actuate.autoconfigure.metrics.export.properties.
  * @author Johannes Graf
  * @since 2.3.0
  */
-public class StackdriverPropertiesConfigAdapter extends StepRegistryPropertiesConfigAdapter<StackdriverProperties>
+public class StackdriverPropertiesConfigAdapter_RENAMED extends StepRegistryPropertiesConfigAdapter<StackdriverProperties>
 		implements StackdriverConfig {
 
-	public StackdriverPropertiesConfigAdapter(StackdriverProperties properties) {
+	public StackdriverPropertiesConfigAdapter_RENAMED(StackdriverProperties properties) {
 		super(properties);
 	}
 

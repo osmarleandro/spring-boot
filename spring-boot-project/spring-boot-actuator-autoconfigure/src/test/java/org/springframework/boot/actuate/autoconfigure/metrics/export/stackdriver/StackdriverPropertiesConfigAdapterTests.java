@@ -21,7 +21,7 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Tests for {@link StackdriverPropertiesConfigAdapter}.
+ * Tests for {@link StackdriverPropertiesConfigAdapter_RENAMED}.
  *
  * @author Johannes Graf
  */
@@ -31,14 +31,14 @@ class StackdriverPropertiesConfigAdapterTests {
 	void whenPropertiesProjectIdIsSetAdapterProjectIdReturnsIt() {
 		StackdriverProperties properties = new StackdriverProperties();
 		properties.setProjectId("my-gcp-project-id");
-		assertThat(new StackdriverPropertiesConfigAdapter(properties).projectId()).isEqualTo("my-gcp-project-id");
+		assertThat(new StackdriverPropertiesConfigAdapter_RENAMED(properties).projectId()).isEqualTo("my-gcp-project-id");
 	}
 
 	@Test
 	void whenPropertiesResourceTypeIsSetAdapterResourceTypeReturnsIt() {
 		StackdriverProperties properties = new StackdriverProperties();
 		properties.setResourceType("my-resource-type");
-		assertThat(new StackdriverPropertiesConfigAdapter(properties).resourceType()).isEqualTo("my-resource-type");
+		assertThat(new StackdriverPropertiesConfigAdapter_RENAMED(properties).resourceType()).isEqualTo("my-resource-type");
 	}
 
 }
