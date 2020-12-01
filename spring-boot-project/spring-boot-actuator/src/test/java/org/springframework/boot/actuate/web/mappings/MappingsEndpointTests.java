@@ -35,7 +35,7 @@ import org.springframework.boot.actuate.web.mappings.reactive.DispatcherHandlerM
 import org.springframework.boot.actuate.web.mappings.reactive.DispatcherHandlersMappingDescriptionProvider;
 import org.springframework.boot.actuate.web.mappings.servlet.DispatcherServletMappingDescription;
 import org.springframework.boot.actuate.web.mappings.servlet.DispatcherServletsMappingDescriptionProvider;
-import org.springframework.boot.actuate.web.mappings.servlet.FilterRegistrationMappingDescription;
+import org.springframework.boot.actuate.web.mappings.servlet.FilterRegistrationMappingDescription_RENAMED;
 import org.springframework.boot.actuate.web.mappings.servlet.FiltersMappingDescriptionProvider;
 import org.springframework.boot.actuate.web.mappings.servlet.ServletRegistrationMappingDescription;
 import org.springframework.boot.actuate.web.mappings.servlet.ServletsMappingDescriptionProvider;
@@ -89,7 +89,7 @@ class MappingsEndpointTests {
 					assertThat(handlerMappings).hasSize(1);
 					List<ServletRegistrationMappingDescription> servlets = mappings(contextMappings, "servlets");
 					assertThat(servlets).hasSize(1);
-					List<FilterRegistrationMappingDescription> filters = mappings(contextMappings, "servletFilters");
+					List<FilterRegistrationMappingDescription_RENAMED> filters = mappings(contextMappings, "servletFilters");
 					assertThat(filters).hasSize(1);
 				});
 	}
