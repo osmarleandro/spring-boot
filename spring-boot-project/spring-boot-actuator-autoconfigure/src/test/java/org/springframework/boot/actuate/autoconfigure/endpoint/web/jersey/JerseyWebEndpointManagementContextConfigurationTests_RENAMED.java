@@ -38,7 +38,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Michael Simons
  * @author Madhura Bhave
  */
-class JerseyWebEndpointManagementContextConfigurationTests {
+class JerseyWebEndpointManagementContextConfigurationTests_RENAMED {
 
 	private final WebApplicationContextRunner runner = new WebApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(WebEndpointAutoConfiguration.class,
