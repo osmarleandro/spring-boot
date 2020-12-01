@@ -21,7 +21,7 @@ import org.junit.jupiter.api.Test;
 
 import org.springframework.boot.actuate.autoconfigure.health.HealthContributorAutoConfiguration;
 import org.springframework.boot.actuate.couchbase.CouchbaseHealthIndicator;
-import org.springframework.boot.actuate.couchbase.CouchbaseReactiveHealthIndicator;
+import org.springframework.boot.actuate.couchbase.CouchbaseReactiveHealthIndicator_RENAMED;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
 import org.springframework.boot.test.context.runner.ApplicationContextRunner;
 
@@ -42,21 +42,21 @@ class CouchbaseReactiveHealthContributorAutoConfigurationTests {
 
 	@Test
 	void runShouldCreateIndicator() {
-		this.contextRunner.run((context) -> assertThat(context).hasSingleBean(CouchbaseReactiveHealthIndicator.class)
+		this.contextRunner.run((context) -> assertThat(context).hasSingleBean(CouchbaseReactiveHealthIndicator_RENAMED.class)
 				.hasBean("couchbaseHealthContributor"));
 	}
 
 	@Test
 	void runWithRegularIndicatorShouldOnlyCreateReactiveIndicator() {
 		this.contextRunner.withConfiguration(AutoConfigurations.of(CouchbaseHealthContributorAutoConfiguration.class))
-				.run((context) -> assertThat(context).hasSingleBean(CouchbaseReactiveHealthIndicator.class)
+				.run((context) -> assertThat(context).hasSingleBean(CouchbaseReactiveHealthIndicator_RENAMED.class)
 						.hasBean("couchbaseHealthContributor").doesNotHaveBean(CouchbaseHealthIndicator.class));
 	}
 
 	@Test
 	void runWhenDisabledShouldNotCreateIndicator() {
 		this.contextRunner.withPropertyValues("management.health.couchbase.enabled:false")
-				.run((context) -> assertThat(context).doesNotHaveBean(CouchbaseReactiveHealthIndicator.class)
+				.run((context) -> assertThat(context).doesNotHaveBean(CouchbaseReactiveHealthIndicator_RENAMED.class)
 						.doesNotHaveBean("couchbaseHealthContributor"));
 	}
 

@@ -22,7 +22,7 @@ import reactor.core.publisher.Flux;
 
 import org.springframework.boot.actuate.autoconfigure.health.CompositeReactiveHealthContributorConfiguration;
 import org.springframework.boot.actuate.autoconfigure.health.ConditionalOnEnabledHealthIndicator;
-import org.springframework.boot.actuate.couchbase.CouchbaseReactiveHealthIndicator;
+import org.springframework.boot.actuate.couchbase.CouchbaseReactiveHealthIndicator_RENAMED;
 import org.springframework.boot.actuate.health.ReactiveHealthContributor;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -35,7 +35,7 @@ import org.springframework.context.annotation.Configuration;
 
 /**
  * {@link EnableAutoConfiguration Auto-configuration} for
- * {@link CouchbaseReactiveHealthIndicator}.
+ * {@link CouchbaseReactiveHealthIndicator_RENAMED}.
  *
  * @author Mikalai Lushchytski
  * @author Stephane Nicoll
@@ -47,7 +47,7 @@ import org.springframework.context.annotation.Configuration;
 @ConditionalOnEnabledHealthIndicator("couchbase")
 @AutoConfigureAfter(CouchbaseAutoConfiguration.class)
 public class CouchbaseReactiveHealthContributorAutoConfiguration
-		extends CompositeReactiveHealthContributorConfiguration<CouchbaseReactiveHealthIndicator, Cluster> {
+		extends CompositeReactiveHealthContributorConfiguration<CouchbaseReactiveHealthIndicator_RENAMED, Cluster> {
 
 	@Bean
 	@ConditionalOnMissingBean(name = { "couchbaseHealthIndicator", "couchbaseHealthContributor" })
