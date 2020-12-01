@@ -26,7 +26,7 @@ import org.springframework.boot.testsupport.classpath.ClassPathOverrides;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Tests for {@link MetricsAutoConfiguration} when both Log4j2 and Logback are on the
+ * Tests for {@link MetricsAutoConfiguration_RENAMED} when both Log4j2 and Logback are on the
  * classpath.
  *
  * @author Andy Wilkinson
@@ -35,7 +35,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 class MetricsAutoConfigurationWithLog4j2AndLogbackTests {
 
 	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
-			.withConfiguration(AutoConfigurations.of(MetricsAutoConfiguration.class));
+			.withConfiguration(AutoConfigurations.of(MetricsAutoConfiguration_RENAMED.class));
 
 	@Test
 	void doesNotConfigureLogbackMetrics() {

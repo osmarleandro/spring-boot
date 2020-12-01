@@ -37,14 +37,14 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
 /**
- * Tests for {@link MetricsAutoConfiguration}.
+ * Tests for {@link MetricsAutoConfiguration_RENAMED}.
  *
  * @author Andy Wilkinson
  */
 class MetricsAutoConfigurationTests {
 
 	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
-			.withConfiguration(AutoConfigurations.of(MetricsAutoConfiguration.class));
+			.withConfiguration(AutoConfigurations.of(MetricsAutoConfiguration_RENAMED.class));
 
 	@Test
 	void autoConfiguresAClock() {

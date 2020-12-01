@@ -66,7 +66,7 @@ class MeterRegistryConfigurerIntegrationTests {
 	@Test
 	void customizersAreAppliedBeforeBindersAreCreated() {
 		new ApplicationContextRunner()
-				.withConfiguration(AutoConfigurations.of(MetricsAutoConfiguration.class,
+				.withConfiguration(AutoConfigurations.of(MetricsAutoConfiguration_RENAMED.class,
 						SimpleMetricsExportAutoConfiguration.class))
 				.withUserConfiguration(TestConfiguration.class).run((context) -> {
 

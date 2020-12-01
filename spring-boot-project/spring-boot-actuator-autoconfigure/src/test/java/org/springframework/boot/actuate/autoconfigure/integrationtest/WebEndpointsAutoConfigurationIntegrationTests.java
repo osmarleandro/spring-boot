@@ -19,7 +19,7 @@ package org.springframework.boot.actuate.autoconfigure.integrationtest;
 import org.junit.jupiter.api.Test;
 
 import org.springframework.boot.SpringBootConfiguration;
-import org.springframework.boot.actuate.autoconfigure.metrics.MetricsAutoConfiguration;
+import org.springframework.boot.actuate.autoconfigure.metrics.MetricsAutoConfiguration_RENAMED;
 import org.springframework.boot.actuate.health.HealthEndpointWebExtension;
 import org.springframework.boot.actuate.health.ReactiveHealthEndpointWebExtension;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -82,7 +82,7 @@ class WebEndpointsAutoConfigurationIntegrationTests {
 			RepositoryRestMvcAutoConfiguration.class, HazelcastAutoConfiguration.class,
 			ElasticsearchDataAutoConfiguration.class, SolrRepositoriesAutoConfiguration.class,
 			SolrAutoConfiguration.class, RedisAutoConfiguration.class, RedisRepositoriesAutoConfiguration.class,
-			MetricsAutoConfiguration.class })
+			MetricsAutoConfiguration_RENAMED.class })
 	@SpringBootConfiguration
 	static class WebEndpointTestApplication {
 

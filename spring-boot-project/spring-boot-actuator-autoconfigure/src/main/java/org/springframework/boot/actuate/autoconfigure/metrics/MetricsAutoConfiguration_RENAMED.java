@@ -43,7 +43,7 @@ import org.springframework.core.annotation.Order;
 @ConditionalOnClass(Timed.class)
 @EnableConfigurationProperties(MetricsProperties.class)
 @AutoConfigureBefore(CompositeMeterRegistryAutoConfiguration.class)
-public class MetricsAutoConfiguration {
+public class MetricsAutoConfiguration_RENAMED {
 
 	@Bean
 	@ConditionalOnMissingBean
