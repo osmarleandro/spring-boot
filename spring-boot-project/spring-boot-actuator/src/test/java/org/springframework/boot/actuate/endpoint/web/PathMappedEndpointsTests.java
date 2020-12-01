@@ -141,7 +141,7 @@ class PathMappedEndpointsTests {
 
 	}
 
-	public interface TestPathMappedEndpoint extends ExposableEndpoint<Operation>, PathMappedEndpoint {
+	public interface TestPathMappedEndpoint extends ExposableEndpoint<Operation>, PathMappedEndpoint_RENAMED {
 
 	}
 

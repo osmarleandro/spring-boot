@@ -17,20 +17,24 @@
 package org.springframework.boot.actuate.endpoint.web;
 
 import org.springframework.boot.actuate.endpoint.ExposableEndpoint;
-import org.springframework.boot.actuate.endpoint.Operation;
 
 /**
- * Information describing an endpoint that can be exposed by registering a servlet.
+ * Interface that can be implemented by an {@link ExposableEndpoint} that is mapped to a
+ * root web path.
  *
  * @author Phillip Webb
  * @since 2.0.0
+ * @see PathMapper
  */
-public interface ExposableServletEndpoint extends ExposableEndpoint<Operation>, PathMappedEndpoint_RENAMED {
+@FunctionalInterface
+public interface PathMappedEndpoint_RENAMED {
 
 	/**
-	 * Return details of the servlet that should registered.
-	 * @return the endpoint servlet
+	 * Return the root path of the endpoint, relative to the context that exposes it. For
+	 * example, a root path of {@code example} would be exposed under the URL
+	 * "/{actuator-context}/example".
+	 * @return the root path for the endpoint
 	 */
-	EndpointServlet getEndpointServlet();
+	String getRootPath();
 
 }

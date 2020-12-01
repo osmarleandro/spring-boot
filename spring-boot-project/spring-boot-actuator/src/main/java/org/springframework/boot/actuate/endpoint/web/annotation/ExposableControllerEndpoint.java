@@ -18,7 +18,7 @@ package org.springframework.boot.actuate.endpoint.web.annotation;
 
 import org.springframework.boot.actuate.endpoint.ExposableEndpoint;
 import org.springframework.boot.actuate.endpoint.Operation;
-import org.springframework.boot.actuate.endpoint.web.PathMappedEndpoint;
+import org.springframework.boot.actuate.endpoint.web.PathMappedEndpoint_RENAMED;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
@@ -29,7 +29,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * @author Phillip Webb
  * @since 2.0.0
  */
-public interface ExposableControllerEndpoint extends ExposableEndpoint<Operation>, PathMappedEndpoint {
+public interface ExposableControllerEndpoint extends ExposableEndpoint<Operation>, PathMappedEndpoint_RENAMED {
 
 	/**
 	 * Return the source controller that contains {@link RequestMapping @RequestMapping}

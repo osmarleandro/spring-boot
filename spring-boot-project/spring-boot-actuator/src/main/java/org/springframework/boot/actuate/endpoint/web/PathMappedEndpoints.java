@@ -30,16 +30,16 @@ import org.springframework.boot.actuate.endpoint.EndpointsSupplier;
 import org.springframework.util.Assert;
 
 /**
- * A collection of {@link PathMappedEndpoint path mapped endpoints}.
+ * A collection of {@link PathMappedEndpoint_RENAMED path mapped endpoints}.
  *
  * @author Phillip Webb
  * @since 2.0.0
  */
-public class PathMappedEndpoints implements Iterable<PathMappedEndpoint> {
+public class PathMappedEndpoints implements Iterable<PathMappedEndpoint_RENAMED> {
 
 	private final String basePath;
 
-	private final Map<EndpointId, PathMappedEndpoint> endpoints;
+	private final Map<EndpointId, PathMappedEndpoint_RENAMED> endpoints;
 
 	/**
 	 * Create a new {@link PathMappedEndpoints} instance for the given supplier.
@@ -63,11 +63,11 @@ public class PathMappedEndpoints implements Iterable<PathMappedEndpoint> {
 		this.endpoints = getEndpoints(suppliers);
 	}
 
-	private Map<EndpointId, PathMappedEndpoint> getEndpoints(Collection<EndpointsSupplier<?>> suppliers) {
-		Map<EndpointId, PathMappedEndpoint> endpoints = new LinkedHashMap<>();
+	private Map<EndpointId, PathMappedEndpoint_RENAMED> getEndpoints(Collection<EndpointsSupplier<?>> suppliers) {
+		Map<EndpointId, PathMappedEndpoint_RENAMED> endpoints = new LinkedHashMap<>();
 		suppliers.forEach((supplier) -> supplier.getEndpoints().forEach((endpoint) -> {
-			if (endpoint instanceof PathMappedEndpoint) {
-				endpoints.put(endpoint.getEndpointId(), (PathMappedEndpoint) endpoint);
+			if (endpoint instanceof PathMappedEndpoint_RENAMED) {
+				endpoints.put(endpoint.getEndpointId(), (PathMappedEndpoint_RENAMED) endpoint);
 			}
 		}));
 		return Collections.unmodifiableMap(endpoints);
@@ -88,7 +88,7 @@ public class PathMappedEndpoints implements Iterable<PathMappedEndpoint> {
 	 * @return the root path or {@code null}
 	 */
 	public String getRootPath(EndpointId endpointId) {
-		PathMappedEndpoint endpoint = getEndpoint(endpointId);
+		PathMappedEndpoint_RENAMED endpoint = getEndpoint(endpointId);
 		return (endpoint != null) ? endpoint.getRootPath() : null;
 	}
 
@@ -107,7 +107,7 @@ public class PathMappedEndpoints implements Iterable<PathMappedEndpoint> {
 	 * @return all root paths
 	 */
 	public Collection<String> getAllRootPaths() {
-		return asList(stream().map(PathMappedEndpoint::getRootPath));
+		return asList(stream().map(PathMappedEndpoint_RENAMED::getRootPath));
 	}
 
 	/**
@@ -119,29 +119,29 @@ public class PathMappedEndpoints implements Iterable<PathMappedEndpoint> {
 	}
 
 	/**
-	 * Return the {@link PathMappedEndpoint} with the given ID or {@code null} if the
+	 * Return the {@link PathMappedEndpoint_RENAMED} with the given ID or {@code null} if the
 	 * endpoint cannot be found.
 	 * @param endpointId the endpoint ID
 	 * @return the path mapped endpoint or {@code null}
 	 */
-	public PathMappedEndpoint getEndpoint(EndpointId endpointId) {
+	public PathMappedEndpoint_RENAMED getEndpoint(EndpointId endpointId) {
 		return this.endpoints.get(endpointId);
 	}
 
 	/**
-	 * Stream all {@link PathMappedEndpoint path mapped endpoints}.
+	 * Stream all {@link PathMappedEndpoint_RENAMED path mapped endpoints}.
 	 * @return a stream of endpoints
 	 */
-	public Stream<PathMappedEndpoint> stream() {
+	public Stream<PathMappedEndpoint_RENAMED> stream() {
 		return this.endpoints.values().stream();
 	}
 
 	@Override
-	public Iterator<PathMappedEndpoint> iterator() {
+	public Iterator<PathMappedEndpoint_RENAMED> iterator() {
 		return this.endpoints.values().iterator();
 	}
 
-	private String getPath(PathMappedEndpoint endpoint) {
+	private String getPath(PathMappedEndpoint_RENAMED endpoint) {
 		return (endpoint != null) ? this.basePath + "/" + endpoint.getRootPath() : null;
 	}
 

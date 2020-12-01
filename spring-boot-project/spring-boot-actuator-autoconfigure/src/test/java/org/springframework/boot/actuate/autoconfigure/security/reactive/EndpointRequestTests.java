@@ -28,7 +28,7 @@ import org.springframework.boot.actuate.endpoint.EndpointId;
 import org.springframework.boot.actuate.endpoint.ExposableEndpoint;
 import org.springframework.boot.actuate.endpoint.Operation;
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
-import org.springframework.boot.actuate.endpoint.web.PathMappedEndpoint;
+import org.springframework.boot.actuate.endpoint.web.PathMappedEndpoint_RENAMED;
 import org.springframework.boot.actuate.endpoint.web.PathMappedEndpoints;
 import org.springframework.boot.actuate.endpoint.web.annotation.ServletEndpoint;
 import org.springframework.context.support.StaticApplicationContext;
@@ -292,7 +292,7 @@ class EndpointRequestTests {
 
 	}
 
-	interface TestEndpoint extends ExposableEndpoint<Operation>, PathMappedEndpoint {
+	interface TestEndpoint extends ExposableEndpoint<Operation>, PathMappedEndpoint_RENAMED {
 
 	}
 
