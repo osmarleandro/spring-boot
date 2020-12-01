@@ -30,7 +30,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.InitializingBean;
-import org.springframework.boot.actuate.endpoint.InvalidEndpointRequestException;
+import org.springframework.boot.actuate.endpoint.InvalidEndpointRequestException_RENAMED;
 import org.springframework.boot.actuate.endpoint.InvocationContext;
 import org.springframework.boot.actuate.endpoint.SecurityContext;
 import org.springframework.boot.actuate.endpoint.http.ApiVersion;
@@ -289,7 +289,7 @@ public abstract class AbstractWebMvcEndpointHandlerMapping extends RequestMappin
 				InvocationContext invocationContext = new InvocationContext(apiVersion, securityContext, arguments);
 				return handleResult(this.operation.invoke(invocationContext), HttpMethod.resolve(request.getMethod()));
 			}
-			catch (InvalidEndpointRequestException ex) {
+			catch (InvalidEndpointRequestException_RENAMED ex) {
 				throw new BadOperationRequestException(ex.getReason());
 			}
 		}

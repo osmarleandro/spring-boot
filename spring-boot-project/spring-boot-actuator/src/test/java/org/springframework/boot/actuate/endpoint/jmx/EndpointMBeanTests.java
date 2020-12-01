@@ -31,7 +31,7 @@ import org.junit.jupiter.api.Test;
 import reactor.core.publisher.Mono;
 
 import org.springframework.beans.FatalBeanException;
-import org.springframework.boot.actuate.endpoint.InvalidEndpointRequestException;
+import org.springframework.boot.actuate.endpoint.InvalidEndpointRequestException_RENAMED;
 import org.springframework.boot.actuate.endpoint.InvocationContext;
 import org.springframework.util.ClassUtils;
 
@@ -136,7 +136,7 @@ class EndpointMBeanTests {
 
 			@Override
 			public Object invoke(InvocationContext context) {
-				throw new InvalidEndpointRequestException("test failure", "test");
+				throw new InvalidEndpointRequestException_RENAMED("test failure", "test");
 			}
 
 		};

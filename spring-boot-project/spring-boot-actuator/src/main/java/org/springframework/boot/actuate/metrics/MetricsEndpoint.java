@@ -34,7 +34,7 @@ import io.micrometer.core.instrument.Statistic;
 import io.micrometer.core.instrument.Tag;
 import io.micrometer.core.instrument.composite.CompositeMeterRegistry;
 
-import org.springframework.boot.actuate.endpoint.InvalidEndpointRequestException;
+import org.springframework.boot.actuate.endpoint.InvalidEndpointRequestException_RENAMED;
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
 import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
 import org.springframework.boot.actuate.endpoint.annotation.Selector;
@@ -101,7 +101,7 @@ public class MetricsEndpoint {
 	private Tag parseTag(String tag) {
 		String[] parts = tag.split(":", 2);
 		if (parts.length != 2) {
-			throw new InvalidEndpointRequestException(
+			throw new InvalidEndpointRequestException_RENAMED(
 					"Each tag parameter must be in the form 'key:value' but was: " + tag,
 					"Each tag parameter must be in the form 'key:value'");
 		}

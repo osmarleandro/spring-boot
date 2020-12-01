@@ -31,7 +31,7 @@ import javax.management.ReflectionException;
 
 import reactor.core.publisher.Mono;
 
-import org.springframework.boot.actuate.endpoint.InvalidEndpointRequestException;
+import org.springframework.boot.actuate.endpoint.InvalidEndpointRequestException_RENAMED;
 import org.springframework.boot.actuate.endpoint.InvocationContext;
 import org.springframework.boot.actuate.endpoint.SecurityContext;
 import org.springframework.util.Assert;
@@ -124,7 +124,7 @@ public class EndpointMBean implements DynamicMBean {
 			}
 			return this.responseMapper.mapResponse(result);
 		}
-		catch (InvalidEndpointRequestException ex) {
+		catch (InvalidEndpointRequestException_RENAMED ex) {
 			throw new ReflectionException(new IllegalArgumentException(ex.getMessage()), ex.getMessage());
 		}
 		catch (Exception ex) {

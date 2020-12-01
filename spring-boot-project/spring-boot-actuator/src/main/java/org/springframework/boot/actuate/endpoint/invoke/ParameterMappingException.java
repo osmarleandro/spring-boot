@@ -16,7 +16,7 @@
 
 package org.springframework.boot.actuate.endpoint.invoke;
 
-import org.springframework.boot.actuate.endpoint.InvalidEndpointRequestException;
+import org.springframework.boot.actuate.endpoint.InvalidEndpointRequestException_RENAMED;
 
 /**
  * A {@code ParameterMappingException} is thrown when a failure occurs during
@@ -25,7 +25,7 @@ import org.springframework.boot.actuate.endpoint.InvalidEndpointRequestException
  * @author Andy Wilkinson
  * @since 2.0.0
  */
-public final class ParameterMappingException extends InvalidEndpointRequestException {
+public final class ParameterMappingException extends InvalidEndpointRequestException_RENAMED {
 
 	private final OperationParameter parameter;
 

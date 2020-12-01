@@ -19,7 +19,7 @@ package org.springframework.boot.actuate.endpoint.invoke;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import org.springframework.boot.actuate.endpoint.InvalidEndpointRequestException;
+import org.springframework.boot.actuate.endpoint.InvalidEndpointRequestException_RENAMED;
 import org.springframework.util.StringUtils;
 
 /**
@@ -30,7 +30,7 @@ import org.springframework.util.StringUtils;
  * @author Phillip Webb
  * @since 2.0.0
  */
-public final class MissingParametersException extends InvalidEndpointRequestException {
+public final class MissingParametersException extends InvalidEndpointRequestException_RENAMED {
 
 	private final Set<OperationParameter> missingParameters;
 

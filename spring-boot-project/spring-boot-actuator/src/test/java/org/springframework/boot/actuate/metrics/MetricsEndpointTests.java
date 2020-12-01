@@ -29,7 +29,7 @@ import io.micrometer.core.instrument.simple.SimpleConfig;
 import io.micrometer.core.instrument.simple.SimpleMeterRegistry;
 import org.junit.jupiter.api.Test;
 
-import org.springframework.boot.actuate.endpoint.InvalidEndpointRequestException;
+import org.springframework.boot.actuate.endpoint.InvalidEndpointRequestException_RENAMED;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
@@ -148,7 +148,7 @@ class MetricsEndpointTests {
 
 	@Test
 	void metricWithInvalidTag() {
-		assertThatExceptionOfType(InvalidEndpointRequestException.class)
+		assertThatExceptionOfType(InvalidEndpointRequestException_RENAMED.class)
 				.isThrownBy(() -> this.endpoint.metric("counter", Collections.singletonList("key")));
 	}
 
