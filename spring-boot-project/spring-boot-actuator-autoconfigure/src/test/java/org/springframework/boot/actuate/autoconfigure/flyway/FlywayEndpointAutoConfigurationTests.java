@@ -19,7 +19,7 @@ package org.springframework.boot.actuate.autoconfigure.flyway;
 import org.flywaydb.core.Flyway;
 import org.junit.jupiter.api.Test;
 
-import org.springframework.boot.actuate.flyway.FlywayEndpoint;
+import org.springframework.boot.actuate.flyway.FlywayEndpoint_RENAMED;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
 import org.springframework.boot.test.context.runner.ApplicationContextRunner;
 
@@ -40,18 +40,18 @@ class FlywayEndpointAutoConfigurationTests {
 	@Test
 	void runShouldHaveEndpointBean() {
 		this.contextRunner.withPropertyValues("management.endpoints.web.exposure.include=flyway")
-				.run((context) -> assertThat(context).hasSingleBean(FlywayEndpoint.class));
+				.run((context) -> assertThat(context).hasSingleBean(FlywayEndpoint_RENAMED.class));
 	}
 
 	@Test
 	void runWhenEnabledPropertyIsFalseShouldNotHaveEndpointBean() {
 		this.contextRunner.withPropertyValues("management.endpoint.flyway.enabled:false")
-				.run((context) -> assertThat(context).doesNotHaveBean(FlywayEndpoint.class));
+				.run((context) -> assertThat(context).doesNotHaveBean(FlywayEndpoint_RENAMED.class));
 	}
 
 	@Test
 	void runWhenNotExposedShouldNotHaveEndpointBean() {
-		this.contextRunner.run((context) -> assertThat(context).doesNotHaveBean(FlywayEndpoint.class));
+		this.contextRunner.run((context) -> assertThat(context).doesNotHaveBean(FlywayEndpoint_RENAMED.class));
 	}
 
 }

@@ -25,7 +25,7 @@ import org.flywaydb.core.api.MigrationState;
 import org.flywaydb.core.api.MigrationType;
 import org.junit.jupiter.api.Test;
 
-import org.springframework.boot.actuate.flyway.FlywayEndpoint;
+import org.springframework.boot.actuate.flyway.FlywayEndpoint_RENAMED;
 import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
 import org.springframework.boot.autoconfigure.flyway.FlywayAutoConfiguration;
 import org.springframework.boot.jdbc.EmbeddedDatabaseConnection;
@@ -43,7 +43,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /**
- * Tests for generating documentation describing the {@link FlywayEndpoint}.
+ * Tests for generating documentation describing the {@link FlywayEndpoint_RENAMED}.
  *
  * @author Andy Wilkinson
  */
@@ -95,8 +95,8 @@ class FlywayEndpointDocumentationTests extends MockMvcEndpointDocumentationTests
 		}
 
 		@Bean
-		FlywayEndpoint endpoint(ApplicationContext context) {
-			return new FlywayEndpoint(context);
+		FlywayEndpoint_RENAMED endpoint(ApplicationContext context) {
+			return new FlywayEndpoint_RENAMED(context);
 		}
 
 	}
