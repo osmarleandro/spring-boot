@@ -35,7 +35,7 @@ import org.springframework.context.annotation.Conditional;
 @Target({ ElementType.TYPE, ElementType.METHOD })
 @Documented
 @Conditional(OnManagementPortCondition.class)
-public @interface ConditionalOnManagementPort {
+public @interface ConditionalOnManagementPort_RENAMED {
 
 	/**
 	 * The {@link ManagementPortType} to match.

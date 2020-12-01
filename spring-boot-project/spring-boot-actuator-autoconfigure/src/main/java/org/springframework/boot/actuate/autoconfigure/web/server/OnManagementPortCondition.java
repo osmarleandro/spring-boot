@@ -44,7 +44,7 @@ class OnManagementPortCondition extends SpringBootCondition {
 		if (!isWebApplicationContext(context)) {
 			return ConditionOutcome.noMatch(message.because("non web application context"));
 		}
-		Map<String, Object> attributes = metadata.getAnnotationAttributes(ConditionalOnManagementPort.class.getName());
+		Map<String, Object> attributes = metadata.getAnnotationAttributes(ConditionalOnManagementPort_RENAMED.class.getName());
 		ManagementPortType requiredType = (ManagementPortType) attributes.get("value");
 		ManagementPortType actualType = ManagementPortType.get(context.getEnvironment());
 		if (actualType == requiredType) {

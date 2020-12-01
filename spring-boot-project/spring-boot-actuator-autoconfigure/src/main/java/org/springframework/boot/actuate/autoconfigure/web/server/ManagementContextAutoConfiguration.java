@@ -61,7 +61,7 @@ import org.springframework.util.Assert;
 public class ManagementContextAutoConfiguration {
 
 	@Configuration(proxyBeanMethods = false)
-	@ConditionalOnManagementPort(ManagementPortType.SAME)
+	@ConditionalOnManagementPort_RENAMED(ManagementPortType.SAME)
 	static class SameManagementContextConfiguration implements SmartInitializingSingleton {
 
 		private final Environment environment;
@@ -119,7 +119,7 @@ public class ManagementContextAutoConfiguration {
 	}
 
 	@Configuration(proxyBeanMethods = false)
-	@ConditionalOnManagementPort(ManagementPortType.DIFFERENT)
+	@ConditionalOnManagementPort_RENAMED(ManagementPortType.DIFFERENT)
 	static class DifferentManagementContextConfiguration implements ApplicationListener<WebServerInitializedEvent> {
 
 		private final ApplicationContext applicationContext;
