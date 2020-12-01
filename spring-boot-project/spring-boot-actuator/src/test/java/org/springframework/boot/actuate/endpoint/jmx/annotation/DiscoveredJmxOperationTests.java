@@ -28,7 +28,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.actuate.endpoint.EndpointId;
 import org.springframework.boot.actuate.endpoint.OperationType;
 import org.springframework.boot.actuate.endpoint.annotation.DiscoveredOperationMethod;
-import org.springframework.boot.actuate.endpoint.invoke.OperationInvoker;
+import org.springframework.boot.actuate.endpoint.invoke.OperationInvoker_RENAMED;
 import org.springframework.boot.actuate.endpoint.jmx.JmxOperationParameter;
 import org.springframework.context.ApplicationContext;
 import org.springframework.core.annotation.AnnotationAttributes;
@@ -124,7 +124,7 @@ class DiscoveredJmxOperationTests {
 		annotationAttributes.put("produces", "application/xml");
 		DiscoveredOperationMethod operationMethod = new DiscoveredOperationMethod(method, OperationType.READ,
 				annotationAttributes);
-		return new DiscoveredJmxOperation(EndpointId.of("test"), operationMethod, mock(OperationInvoker.class));
+		return new DiscoveredJmxOperation(EndpointId.of("test"), operationMethod, mock(OperationInvoker_RENAMED.class));
 	}
 
 	private Method findMethod(String methodName) {

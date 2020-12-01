@@ -16,27 +16,24 @@
 
 package org.springframework.boot.actuate.endpoint.invoke;
 
-import org.springframework.boot.actuate.endpoint.EndpointId;
-import org.springframework.boot.actuate.endpoint.OperationType;
+import org.springframework.boot.actuate.endpoint.InvocationContext;
 
 /**
- * Allows additional functionality to be applied to an {@link OperationInvoker_RENAMED}.
+ * Interface to perform an operation invocation.
  *
+ * @author Andy Wilkinson
  * @author Phillip Webb
  * @since 2.0.0
  */
 @FunctionalInterface
-public interface OperationInvokerAdvisor {
+public interface OperationInvoker_RENAMED {
 
 	/**
-	 * Apply additional functionality to the given invoker.
-	 * @param endpointId the endpoint ID
-	 * @param operationType the operation type
-	 * @param parameters the operation parameters
-	 * @param invoker the invoker to advise
-	 * @return an potentially new operation invoker with support for additional features
+	 * Invoke the underlying operation using the given {@code context}.
+	 * @param context the context to use to invoke the operation
+	 * @return the result of the operation, may be {@code null}
+	 * @throws MissingParametersException if parameters are missing
 	 */
-	OperationInvoker_RENAMED apply(EndpointId endpointId, OperationType operationType, OperationParameters parameters,
-			OperationInvoker_RENAMED invoker);
+	Object invoke(InvocationContext context) throws MissingParametersException;
 
 }

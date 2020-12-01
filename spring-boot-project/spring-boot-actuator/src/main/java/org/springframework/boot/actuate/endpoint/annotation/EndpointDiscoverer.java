@@ -38,7 +38,7 @@ import org.springframework.boot.actuate.endpoint.EndpointId;
 import org.springframework.boot.actuate.endpoint.EndpointsSupplier;
 import org.springframework.boot.actuate.endpoint.ExposableEndpoint;
 import org.springframework.boot.actuate.endpoint.Operation;
-import org.springframework.boot.actuate.endpoint.invoke.OperationInvoker;
+import org.springframework.boot.actuate.endpoint.invoke.OperationInvoker_RENAMED;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvokerAdvisor;
 import org.springframework.boot.actuate.endpoint.invoke.ParameterValueMapper;
 import org.springframework.boot.util.LambdaSafe;
@@ -104,7 +104,7 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 
 			@Override
 			protected O createOperation(EndpointId endpointId, DiscoveredOperationMethod operationMethod,
-					OperationInvoker invoker) {
+					OperationInvoker_RENAMED invoker) {
 				return EndpointDiscoverer.this.createOperation(endpointId, operationMethod, invoker);
 			}
 
@@ -357,7 +357,7 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 	 * @return a created operation
 	 */
 	protected abstract O createOperation(EndpointId endpointId, DiscoveredOperationMethod operationMethod,
-			OperationInvoker invoker);
+			OperationInvoker_RENAMED invoker);
 
 	/**
 	 * Create an {@link OperationKey} for the given operation.

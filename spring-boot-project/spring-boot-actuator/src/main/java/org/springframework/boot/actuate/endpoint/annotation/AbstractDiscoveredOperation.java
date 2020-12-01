@@ -19,7 +19,7 @@ package org.springframework.boot.actuate.endpoint.annotation;
 import org.springframework.boot.actuate.endpoint.InvocationContext;
 import org.springframework.boot.actuate.endpoint.Operation;
 import org.springframework.boot.actuate.endpoint.OperationType;
-import org.springframework.boot.actuate.endpoint.invoke.OperationInvoker;
+import org.springframework.boot.actuate.endpoint.invoke.OperationInvoker_RENAMED;
 import org.springframework.boot.actuate.endpoint.invoke.reflect.OperationMethod;
 import org.springframework.core.style.ToStringCreator;
 
@@ -34,14 +34,14 @@ public abstract class AbstractDiscoveredOperation implements Operation {
 
 	private final OperationMethod operationMethod;
 
-	private final OperationInvoker invoker;
+	private final OperationInvoker_RENAMED invoker;
 
 	/**
 	 * Create a new {@link AbstractDiscoveredOperation} instance.
 	 * @param operationMethod the method backing the operation
 	 * @param invoker the operation invoker to use
 	 */
-	public AbstractDiscoveredOperation(DiscoveredOperationMethod operationMethod, OperationInvoker invoker) {
+	public AbstractDiscoveredOperation(DiscoveredOperationMethod operationMethod, OperationInvoker_RENAMED invoker) {
 		this.operationMethod = operationMethod;
 		this.invoker = invoker;
 	}

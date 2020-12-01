@@ -25,7 +25,7 @@ import org.springframework.boot.actuate.endpoint.EndpointId;
 import org.springframework.boot.actuate.endpoint.Operation;
 import org.springframework.boot.actuate.endpoint.annotation.DiscoveredOperationMethod;
 import org.springframework.boot.actuate.endpoint.annotation.EndpointDiscoverer;
-import org.springframework.boot.actuate.endpoint.invoke.OperationInvoker;
+import org.springframework.boot.actuate.endpoint.invoke.OperationInvoker_RENAMED;
 import org.springframework.boot.actuate.endpoint.invoke.ParameterValueMapper;
 import org.springframework.boot.actuate.endpoint.web.ExposableServletEndpoint;
 import org.springframework.boot.actuate.endpoint.web.PathMapper;
@@ -70,7 +70,7 @@ public class ServletEndpointDiscoverer extends EndpointDiscoverer<ExposableServl
 
 	@Override
 	protected Operation createOperation(EndpointId endpointId, DiscoveredOperationMethod operationMethod,
-			OperationInvoker invoker) {
+			OperationInvoker_RENAMED invoker) {
 		throw new IllegalStateException("ServletEndpoints must not declare operations");
 	}
 

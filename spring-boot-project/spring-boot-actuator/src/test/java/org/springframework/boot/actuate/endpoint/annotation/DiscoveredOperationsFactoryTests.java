@@ -29,7 +29,7 @@ import org.springframework.boot.actuate.endpoint.EndpointId;
 import org.springframework.boot.actuate.endpoint.InvocationContext;
 import org.springframework.boot.actuate.endpoint.OperationType;
 import org.springframework.boot.actuate.endpoint.SecurityContext;
-import org.springframework.boot.actuate.endpoint.invoke.OperationInvoker;
+import org.springframework.boot.actuate.endpoint.invoke.OperationInvoker_RENAMED;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvokerAdvisor;
 import org.springframework.boot.actuate.endpoint.invoke.OperationParameters;
 import org.springframework.boot.actuate.endpoint.invoke.ParameterValueMapper;
@@ -184,7 +184,7 @@ class DiscoveredOperationsFactoryTests {
 
 		@Override
 		protected TestOperation createOperation(EndpointId endpointId, DiscoveredOperationMethod operationMethod,
-				OperationInvoker invoker) {
+				OperationInvoker_RENAMED invoker) {
 			return new TestOperation(endpointId, operationMethod, invoker);
 		}
 
@@ -192,7 +192,7 @@ class DiscoveredOperationsFactoryTests {
 
 	static class TestOperation extends AbstractDiscoveredOperation {
 
-		TestOperation(EndpointId endpointId, DiscoveredOperationMethod operationMethod, OperationInvoker invoker) {
+		TestOperation(EndpointId endpointId, DiscoveredOperationMethod operationMethod, OperationInvoker_RENAMED invoker) {
 			super(operationMethod, invoker);
 		}
 
@@ -207,8 +207,8 @@ class DiscoveredOperationsFactoryTests {
 		private OperationParameters parameters;
 
 		@Override
-		public OperationInvoker apply(EndpointId endpointId, OperationType operationType,
-				OperationParameters parameters, OperationInvoker invoker) {
+		public OperationInvoker_RENAMED apply(EndpointId endpointId, OperationType operationType,
+				OperationParameters parameters, OperationInvoker_RENAMED invoker) {
 			this.endpointId = endpointId;
 			this.operationType = operationType;
 			this.parameters = parameters;

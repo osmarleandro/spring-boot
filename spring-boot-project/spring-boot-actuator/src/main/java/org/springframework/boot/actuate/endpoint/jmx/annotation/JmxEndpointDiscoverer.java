@@ -22,7 +22,7 @@ import org.springframework.boot.actuate.endpoint.EndpointFilter;
 import org.springframework.boot.actuate.endpoint.EndpointId;
 import org.springframework.boot.actuate.endpoint.annotation.DiscoveredOperationMethod;
 import org.springframework.boot.actuate.endpoint.annotation.EndpointDiscoverer;
-import org.springframework.boot.actuate.endpoint.invoke.OperationInvoker;
+import org.springframework.boot.actuate.endpoint.invoke.OperationInvoker_RENAMED;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvokerAdvisor;
 import org.springframework.boot.actuate.endpoint.invoke.ParameterValueMapper;
 import org.springframework.boot.actuate.endpoint.jmx.ExposableJmxEndpoint;
@@ -60,7 +60,7 @@ public class JmxEndpointDiscoverer extends EndpointDiscoverer<ExposableJmxEndpoi
 
 	@Override
 	protected JmxOperation createOperation(EndpointId endpointId, DiscoveredOperationMethod operationMethod,
-			OperationInvoker invoker) {
+			OperationInvoker_RENAMED invoker) {
 		return new DiscoveredJmxOperation(endpointId, operationMethod, invoker);
 	}
 

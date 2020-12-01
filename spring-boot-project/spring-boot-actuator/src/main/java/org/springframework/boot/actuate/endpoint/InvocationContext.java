@@ -19,11 +19,11 @@ package org.springframework.boot.actuate.endpoint;
 import java.util.Map;
 
 import org.springframework.boot.actuate.endpoint.http.ApiVersion;
-import org.springframework.boot.actuate.endpoint.invoke.OperationInvoker;
+import org.springframework.boot.actuate.endpoint.invoke.OperationInvoker_RENAMED;
 import org.springframework.util.Assert;
 
 /**
- * The context for the {@link OperationInvoker invocation of an operation}.
+ * The context for the {@link OperationInvoker_RENAMED invocation of an operation}.
  *
  * @author Andy Wilkinson
  * @author Phillip Webb

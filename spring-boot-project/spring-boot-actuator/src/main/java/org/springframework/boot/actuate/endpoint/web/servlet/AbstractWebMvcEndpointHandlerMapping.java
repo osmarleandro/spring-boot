@@ -34,7 +34,7 @@ import org.springframework.boot.actuate.endpoint.InvalidEndpointRequestException
 import org.springframework.boot.actuate.endpoint.InvocationContext;
 import org.springframework.boot.actuate.endpoint.SecurityContext;
 import org.springframework.boot.actuate.endpoint.http.ApiVersion;
-import org.springframework.boot.actuate.endpoint.invoke.OperationInvoker;
+import org.springframework.boot.actuate.endpoint.invoke.OperationInvoker_RENAMED;
 import org.springframework.boot.actuate.endpoint.web.EndpointMapping;
 import org.springframework.boot.actuate.endpoint.web.EndpointMediaTypes;
 import org.springframework.boot.actuate.endpoint.web.ExposableWebEndpoint;
@@ -266,7 +266,7 @@ public abstract class AbstractWebMvcEndpointHandlerMapping extends RequestMappin
 	}
 
 	/**
-	 * Adapter class to convert an {@link OperationInvoker} into a
+	 * Adapter class to convert an {@link OperationInvoker_RENAMED} into a
 	 * {@link ServletWebOperation}.
 	 */
 	private static class ServletWebOperationAdapter implements ServletWebOperation {

@@ -27,13 +27,13 @@ import reactor.core.publisher.Mono;
 
 import org.springframework.boot.actuate.endpoint.InvocationContext;
 import org.springframework.boot.actuate.endpoint.http.ApiVersion;
-import org.springframework.boot.actuate.endpoint.invoke.OperationInvoker;
+import org.springframework.boot.actuate.endpoint.invoke.OperationInvoker_RENAMED;
 import org.springframework.util.Assert;
 import org.springframework.util.ClassUtils;
 import org.springframework.util.ObjectUtils;
 
 /**
- * An {@link OperationInvoker} that caches the response of an operation with a
+ * An {@link OperationInvoker_RENAMED} that caches the response of an operation with a
  * configurable time to live.
  *
  * @author Stephane Nicoll
@@ -41,23 +41,23 @@ import org.springframework.util.ObjectUtils;
  * @author Phillip Webb
  * @since 2.0.0
  */
-public class CachingOperationInvoker implements OperationInvoker {
+public class CachingOperationInvoker implements OperationInvoker_RENAMED {
 
 	private static final boolean IS_REACTOR_PRESENT = ClassUtils.isPresent("reactor.core.publisher.Mono", null);
 
-	private final OperationInvoker invoker;
+	private final OperationInvoker_RENAMED invoker;
 
 	private final long timeToLive;
 
 	private final Map<CacheKey, CachedResponse> cachedResponses;
 
 	/**
-	 * Create a new instance with the target {@link OperationInvoker} to use to compute
+	 * Create a new instance with the target {@link OperationInvoker_RENAMED} to use to compute
 	 * the response and the time to live for the cache.
-	 * @param invoker the {@link OperationInvoker} this instance wraps
+	 * @param invoker the {@link OperationInvoker_RENAMED} this instance wraps
 	 * @param timeToLive the maximum time in milliseconds that a response can be cached
 	 */
-	CachingOperationInvoker(OperationInvoker invoker, long timeToLive) {
+	CachingOperationInvoker(OperationInvoker_RENAMED invoker, long timeToLive) {
 		Assert.isTrue(timeToLive > 0, "TimeToLive must be strictly positive");
 		this.invoker = invoker;
 		this.timeToLive = timeToLive;
@@ -113,7 +113,7 @@ public class CachingOperationInvoker implements OperationInvoker {
 	 * @deprecated as of 2.3.0 to make it package-private in 2.4
 	 */
 	@Deprecated
-	public static OperationInvoker apply(OperationInvoker invoker, long timeToLive) {
+	public static OperationInvoker_RENAMED apply(OperationInvoker_RENAMED invoker, long timeToLive) {
 		if (timeToLive > 0) {
 			return new CachingOperationInvoker(invoker, timeToLive);
 		}

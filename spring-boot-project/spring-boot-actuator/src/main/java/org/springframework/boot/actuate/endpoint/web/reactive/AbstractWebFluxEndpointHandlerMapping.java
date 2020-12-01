@@ -34,7 +34,7 @@ import org.springframework.boot.actuate.endpoint.InvocationContext;
 import org.springframework.boot.actuate.endpoint.OperationType;
 import org.springframework.boot.actuate.endpoint.SecurityContext;
 import org.springframework.boot.actuate.endpoint.http.ApiVersion;
-import org.springframework.boot.actuate.endpoint.invoke.OperationInvoker;
+import org.springframework.boot.actuate.endpoint.invoke.OperationInvoker_RENAMED;
 import org.springframework.boot.actuate.endpoint.web.EndpointMapping;
 import org.springframework.boot.actuate.endpoint.web.EndpointMediaTypes;
 import org.springframework.boot.actuate.endpoint.web.ExposableWebEndpoint;
@@ -223,15 +223,15 @@ public abstract class AbstractWebFluxEndpointHandlerMapping extends RequestMappi
 	}
 
 	/**
-	 * An {@link OperationInvoker} that performs the invocation of a blocking operation on
+	 * An {@link OperationInvoker_RENAMED} that performs the invocation of a blocking operation on
 	 * a separate thread using Reactor's {@link Schedulers#boundedElastic() bounded
 	 * elastic scheduler}.
 	 */
-	protected static final class ElasticSchedulerInvoker implements OperationInvoker {
+	protected static final class ElasticSchedulerInvoker implements OperationInvoker_RENAMED {
 
-		private final OperationInvoker invoker;
+		private final OperationInvoker_RENAMED invoker;
 
-		public ElasticSchedulerInvoker(OperationInvoker invoker) {
+		public ElasticSchedulerInvoker(OperationInvoker_RENAMED invoker) {
 			this.invoker = invoker;
 		}
 
@@ -263,7 +263,7 @@ public abstract class AbstractWebFluxEndpointHandlerMapping extends RequestMappi
 	}
 
 	/**
-	 * Adapter class to convert an {@link OperationInvoker} into a
+	 * Adapter class to convert an {@link OperationInvoker_RENAMED} into a
 	 * {@link ReactiveWebOperation}.
 	 */
 	private static final class ReactiveWebOperationAdapter implements ReactiveWebOperation {
@@ -272,7 +272,7 @@ public abstract class AbstractWebFluxEndpointHandlerMapping extends RequestMappi
 
 		private final WebOperation operation;
 
-		private final OperationInvoker invoker;
+		private final OperationInvoker_RENAMED invoker;
 
 		private final Supplier<Mono<? extends SecurityContext>> securityContextSupplier;
 
@@ -282,8 +282,8 @@ public abstract class AbstractWebFluxEndpointHandlerMapping extends RequestMappi
 			this.securityContextSupplier = getSecurityContextSupplier();
 		}
 
-		private OperationInvoker getInvoker(WebOperation operation) {
-			OperationInvoker invoker = operation::invoke;
+		private OperationInvoker_RENAMED getInvoker(WebOperation operation) {
+			OperationInvoker_RENAMED invoker = operation::invoke;
 			if (operation.isBlocking()) {
 				invoker = new ElasticSchedulerInvoker(invoker);
 			}

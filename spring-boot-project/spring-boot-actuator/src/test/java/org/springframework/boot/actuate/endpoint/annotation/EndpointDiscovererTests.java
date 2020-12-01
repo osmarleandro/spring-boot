@@ -38,7 +38,7 @@ import org.springframework.boot.actuate.endpoint.EndpointFilter;
 import org.springframework.boot.actuate.endpoint.EndpointId;
 import org.springframework.boot.actuate.endpoint.ExposableEndpoint;
 import org.springframework.boot.actuate.endpoint.Operation;
-import org.springframework.boot.actuate.endpoint.invoke.OperationInvoker;
+import org.springframework.boot.actuate.endpoint.invoke.OperationInvoker_RENAMED;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvokerAdvisor;
 import org.springframework.boot.actuate.endpoint.invoke.ParameterValueMapper;
 import org.springframework.boot.actuate.endpoint.invoke.convert.ConversionServiceParameterValueMapper;
@@ -549,7 +549,7 @@ class EndpointDiscovererTests {
 
 		@Override
 		protected TestOperation createOperation(EndpointId endpointId, DiscoveredOperationMethod operationMethod,
-				OperationInvoker invoker) {
+				OperationInvoker_RENAMED invoker) {
 			return new TestOperation(operationMethod, invoker);
 		}
 
@@ -581,7 +581,7 @@ class EndpointDiscovererTests {
 
 		@Override
 		protected SpecializedOperation createOperation(EndpointId endpointId, DiscoveredOperationMethod operationMethod,
-				OperationInvoker invoker) {
+				OperationInvoker_RENAMED invoker) {
 			return new SpecializedOperation(operationMethod, invoker);
 		}
 
@@ -613,14 +613,14 @@ class EndpointDiscovererTests {
 
 	static class TestOperation extends AbstractDiscoveredOperation {
 
-		private final OperationInvoker invoker;
+		private final OperationInvoker_RENAMED invoker;
 
-		TestOperation(DiscoveredOperationMethod operationMethod, OperationInvoker invoker) {
+		TestOperation(DiscoveredOperationMethod operationMethod, OperationInvoker_RENAMED invoker) {
 			super(operationMethod, invoker);
 			this.invoker = invoker;
 		}
 
-		OperationInvoker getInvoker() {
+		OperationInvoker_RENAMED getInvoker() {
 			return this.invoker;
 		}
 
@@ -628,7 +628,7 @@ class EndpointDiscovererTests {
 
 	static class SpecializedOperation extends TestOperation {
 
-		SpecializedOperation(DiscoveredOperationMethod operationMethod, OperationInvoker invoker) {
+		SpecializedOperation(DiscoveredOperationMethod operationMethod, OperationInvoker_RENAMED invoker) {
 			super(operationMethod, invoker);
 		}
 

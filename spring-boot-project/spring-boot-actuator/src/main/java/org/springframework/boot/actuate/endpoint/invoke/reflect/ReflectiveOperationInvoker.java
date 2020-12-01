@@ -25,7 +25,7 @@ import org.springframework.boot.actuate.endpoint.InvocationContext;
 import org.springframework.boot.actuate.endpoint.SecurityContext;
 import org.springframework.boot.actuate.endpoint.http.ApiVersion;
 import org.springframework.boot.actuate.endpoint.invoke.MissingParametersException;
-import org.springframework.boot.actuate.endpoint.invoke.OperationInvoker;
+import org.springframework.boot.actuate.endpoint.invoke.OperationInvoker_RENAMED;
 import org.springframework.boot.actuate.endpoint.invoke.OperationParameter;
 import org.springframework.boot.actuate.endpoint.invoke.ParameterValueMapper;
 import org.springframework.core.style.ToStringCreator;
@@ -40,7 +40,7 @@ import org.springframework.util.ReflectionUtils;
  * @author Phillip Webb
  * @since 2.0.0
  */
-public class ReflectiveOperationInvoker implements OperationInvoker {
+public class ReflectiveOperationInvoker implements OperationInvoker_RENAMED {
 
 	private final Object target;
 

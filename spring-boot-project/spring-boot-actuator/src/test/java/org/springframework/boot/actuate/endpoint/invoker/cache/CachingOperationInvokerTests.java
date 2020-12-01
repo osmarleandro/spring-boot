@@ -31,7 +31,7 @@ import org.springframework.boot.actuate.endpoint.InvocationContext;
 import org.springframework.boot.actuate.endpoint.SecurityContext;
 import org.springframework.boot.actuate.endpoint.http.ApiVersion;
 import org.springframework.boot.actuate.endpoint.invoke.MissingParametersException;
-import org.springframework.boot.actuate.endpoint.invoke.OperationInvoker;
+import org.springframework.boot.actuate.endpoint.invoke.OperationInvoker_RENAMED;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
@@ -55,7 +55,7 @@ class CachingOperationInvokerTests {
 	@Test
 	void createInstanceWithTtlSetToZero() {
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> new CachingOperationInvoker(mock(OperationInvoker.class), 0))
+				.isThrownBy(() -> new CachingOperationInvoker(mock(OperationInvoker_RENAMED.class), 0))
 				.withMessageContaining("TimeToLive");
 	}
 
@@ -106,7 +106,7 @@ class CachingOperationInvokerTests {
 	}
 
 	private void assertCacheIsUsed(Map<String, Object> parameters, Principal principal) {
-		OperationInvoker target = mock(OperationInvoker.class);
+		OperationInvoker_RENAMED target = mock(OperationInvoker_RENAMED.class);
 		Object expected = new Object();
 		SecurityContext securityContext = mock(SecurityContext.class);
 		if (principal != null) {
@@ -125,7 +125,7 @@ class CachingOperationInvokerTests {
 
 	@Test
 	void targetAlwaysInvokedWithParameters() {
-		OperationInvoker target = mock(OperationInvoker.class);
+		OperationInvoker_RENAMED target = mock(OperationInvoker_RENAMED.class);
 		Map<String, Object> parameters = new HashMap<>();
 		parameters.put("test", "value");
 		parameters.put("something", null);
@@ -140,7 +140,7 @@ class CachingOperationInvokerTests {
 
 	@Test
 	void targetAlwaysInvokedWithDifferentPrincipals() {
-		OperationInvoker target = mock(OperationInvoker.class);
+		OperationInvoker_RENAMED target = mock(OperationInvoker_RENAMED.class);
 		Map<String, Object> parameters = new HashMap<>();
 		SecurityContext securityContext = mock(SecurityContext.class);
 		given(securityContext.getPrincipal()).willReturn(mock(Principal.class), mock(Principal.class),
@@ -159,7 +159,7 @@ class CachingOperationInvokerTests {
 
 	@Test
 	void targetInvokedWhenCalledWithAndWithoutPrincipal() {
-		OperationInvoker target = mock(OperationInvoker.class);
+		OperationInvoker_RENAMED target = mock(OperationInvoker_RENAMED.class);
 		Map<String, Object> parameters = new HashMap<>();
 		SecurityContext anonymous = mock(SecurityContext.class);
 		SecurityContext authenticated = mock(SecurityContext.class);
@@ -181,7 +181,7 @@ class CachingOperationInvokerTests {
 
 	@Test
 	void targetInvokedWhenCacheExpires() throws InterruptedException {
-		OperationInvoker target = mock(OperationInvoker.class);
+		OperationInvoker_RENAMED target = mock(OperationInvoker_RENAMED.class);
 		Map<String, Object> parameters = new HashMap<>();
 		InvocationContext context = new InvocationContext(mock(SecurityContext.class), parameters);
 		given(target.invoke(context)).willReturn(new Object());
@@ -197,7 +197,7 @@ class CachingOperationInvokerTests {
 
 	@Test
 	void targetInvokedWithDifferentApiVersion() {
-		OperationInvoker target = mock(OperationInvoker.class);
+		OperationInvoker_RENAMED target = mock(OperationInvoker_RENAMED.class);
 		Object expectedV2 = new Object();
 		Object expectedV3 = new Object();
 		InvocationContext contextV2 = new InvocationContext(ApiVersion.V2, mock(SecurityContext.class),
@@ -215,7 +215,7 @@ class CachingOperationInvokerTests {
 		verify(target, times(1)).invoke(contextV3);
 	}
 
-	private static class MonoOperationInvoker implements OperationInvoker {
+	private static class MonoOperationInvoker implements OperationInvoker_RENAMED {
 
 		static AtomicInteger invocations = new AtomicInteger();
 
@@ -229,7 +229,7 @@ class CachingOperationInvokerTests {
 
 	}
 
-	private static class FluxOperationInvoker implements OperationInvoker {
+	private static class FluxOperationInvoker implements OperationInvoker_RENAMED {
 
 		static AtomicInteger invocations = new AtomicInteger();
 

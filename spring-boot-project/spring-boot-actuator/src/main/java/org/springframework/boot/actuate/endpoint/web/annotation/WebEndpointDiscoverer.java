@@ -23,7 +23,7 @@ import org.springframework.boot.actuate.endpoint.EndpointFilter;
 import org.springframework.boot.actuate.endpoint.EndpointId;
 import org.springframework.boot.actuate.endpoint.annotation.DiscoveredOperationMethod;
 import org.springframework.boot.actuate.endpoint.annotation.EndpointDiscoverer;
-import org.springframework.boot.actuate.endpoint.invoke.OperationInvoker;
+import org.springframework.boot.actuate.endpoint.invoke.OperationInvoker_RENAMED;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvokerAdvisor;
 import org.springframework.boot.actuate.endpoint.invoke.ParameterValueMapper;
 import org.springframework.boot.actuate.endpoint.web.EndpointMediaTypes;
@@ -74,7 +74,7 @@ public class WebEndpointDiscoverer extends EndpointDiscoverer<ExposableWebEndpoi
 
 	@Override
 	protected WebOperation createOperation(EndpointId endpointId, DiscoveredOperationMethod operationMethod,
-			OperationInvoker invoker) {
+			OperationInvoker_RENAMED invoker) {
 		String rootPath = PathMapper.getRootPath(this.endpointPathMappers, endpointId);
 		WebOperationRequestPredicate requestPredicate = this.requestPredicateFactory.getRequestPredicate(rootPath,
 				operationMethod);
