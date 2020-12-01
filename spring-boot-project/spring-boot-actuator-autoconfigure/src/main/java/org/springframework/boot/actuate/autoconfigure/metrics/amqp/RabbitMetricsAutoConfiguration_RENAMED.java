@@ -43,7 +43,7 @@ import org.springframework.context.annotation.Configuration;
 		SimpleMetricsExportAutoConfiguration.class })
 @ConditionalOnClass({ ConnectionFactory.class, AbstractConnectionFactory.class })
 @ConditionalOnBean({ AbstractConnectionFactory.class, MeterRegistry.class })
-public class RabbitMetricsAutoConfiguration {
+public class RabbitMetricsAutoConfiguration_RENAMED {
 
 	@Bean
 	public static RabbitConnectionFactoryMetricsPostProcessor rabbitConnectionFactoryMetricsPostProcessor(

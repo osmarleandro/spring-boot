@@ -27,7 +27,7 @@ import org.springframework.boot.test.context.runner.ApplicationContextRunner;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Tests for {@link RabbitMetricsAutoConfiguration}.
+ * Tests for {@link RabbitMetricsAutoConfiguration_RENAMED}.
  *
  * @author Stephane Nicoll
  */
@@ -35,7 +35,7 @@ class RabbitMetricsAutoConfigurationTests {
 
 	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner().with(MetricsRun.simple())
 			.withConfiguration(
-					AutoConfigurations.of(RabbitAutoConfiguration.class, RabbitMetricsAutoConfiguration.class));
+					AutoConfigurations.of(RabbitAutoConfiguration.class, RabbitMetricsAutoConfiguration_RENAMED.class));
 
 	@Test
 	void autoConfiguredConnectionFactoryIsInstrumented() {
