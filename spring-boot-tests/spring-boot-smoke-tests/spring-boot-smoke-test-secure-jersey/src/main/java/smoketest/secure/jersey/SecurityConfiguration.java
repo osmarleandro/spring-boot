@@ -17,7 +17,7 @@
 package smoketest.secure.jersey;
 
 import org.springframework.boot.actuate.autoconfigure.security.servlet.EndpointRequest;
-import org.springframework.boot.actuate.web.mappings.MappingsEndpoint;
+import org.springframework.boot.actuate.web.mappings.MappingsEndpoint_RENAMED;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -43,7 +43,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		// @formatter:off
 		http.authorizeRequests()
 				.requestMatchers(EndpointRequest.to("health", "info")).permitAll()
-				.requestMatchers(EndpointRequest.toAnyEndpoint().excluding(MappingsEndpoint.class)).hasRole("ACTUATOR")
+				.requestMatchers(EndpointRequest.toAnyEndpoint().excluding(MappingsEndpoint_RENAMED.class)).hasRole("ACTUATOR")
 				.antMatchers("/**").hasRole("USER")
 				.and()
 			.httpBasic();

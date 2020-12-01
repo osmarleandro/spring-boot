@@ -22,7 +22,7 @@ import org.junit.jupiter.api.Test;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.actuate.autoconfigure.security.reactive.EndpointRequest;
-import org.springframework.boot.actuate.web.mappings.MappingsEndpoint;
+import org.springframework.boot.actuate.web.mappings.MappingsEndpoint_RENAMED;
 import org.springframework.boot.autoconfigure.security.reactive.PathRequest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Bean;
@@ -118,7 +118,7 @@ class SampleSecureWebFluxCustomSecurityTests {
 		SecurityWebFilterChain springSecurityFilterChain(ServerHttpSecurity http) throws Exception {
 			http.authorizeExchange((exchanges) -> {
 				exchanges.matchers(EndpointRequest.to("health", "info")).permitAll();
-				exchanges.matchers(EndpointRequest.toAnyEndpoint().excluding(MappingsEndpoint.class))
+				exchanges.matchers(EndpointRequest.toAnyEndpoint().excluding(MappingsEndpoint_RENAMED.class))
 						.hasRole("ACTUATOR");
 				exchanges.matchers(PathRequest.toStaticResources().atCommonLocations()).permitAll();
 				exchanges.pathMatchers("/login").permitAll();

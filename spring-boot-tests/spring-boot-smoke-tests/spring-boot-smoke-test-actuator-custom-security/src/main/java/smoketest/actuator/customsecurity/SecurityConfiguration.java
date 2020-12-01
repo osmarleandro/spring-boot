@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.boot.actuate.autoconfigure.security.servlet.EndpointRequest;
-import org.springframework.boot.actuate.web.mappings.MappingsEndpoint;
+import org.springframework.boot.actuate.web.mappings.MappingsEndpoint_RENAMED;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -58,7 +58,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		http.authorizeRequests((requests) -> {
 			requests.mvcMatchers("/actuator/beans").hasRole("BEANS");
 			requests.requestMatchers(EndpointRequest.to("health", "info")).permitAll();
-			requests.requestMatchers(EndpointRequest.toAnyEndpoint().excluding(MappingsEndpoint.class))
+			requests.requestMatchers(EndpointRequest.toAnyEndpoint().excluding(MappingsEndpoint_RENAMED.class))
 					.hasRole("ACTUATOR");
 			requests.requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll();
 			requests.antMatchers("/foo").permitAll();

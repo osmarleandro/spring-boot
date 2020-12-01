@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.boot.actuate.autoconfigure.endpoint.condition.ConditionalOnAvailableEndpoint;
 import org.springframework.boot.actuate.web.mappings.MappingDescriptionProvider;
-import org.springframework.boot.actuate.web.mappings.MappingsEndpoint;
+import org.springframework.boot.actuate.web.mappings.MappingsEndpoint_RENAMED;
 import org.springframework.boot.actuate.web.mappings.reactive.DispatcherHandlersMappingDescriptionProvider;
 import org.springframework.boot.actuate.web.mappings.servlet.DispatcherServletsMappingDescriptionProvider;
 import org.springframework.boot.actuate.web.mappings.servlet.FiltersMappingDescriptionProvider;
@@ -38,7 +38,7 @@ import org.springframework.web.reactive.DispatcherHandler;
 import org.springframework.web.servlet.DispatcherServlet;
 
 /**
- * {@link EnableAutoConfiguration Auto-configuration} for {@link MappingsEndpoint}.
+ * {@link EnableAutoConfiguration Auto-configuration} for {@link MappingsEndpoint_RENAMED}.
  *
  * @author Andy Wilkinson
  * @since 2.0.0
@@ -48,9 +48,9 @@ public class MappingsEndpointAutoConfiguration {
 
 	@Bean
 	@ConditionalOnAvailableEndpoint
-	public MappingsEndpoint mappingsEndpoint(ApplicationContext applicationContext,
+	public MappingsEndpoint_RENAMED mappingsEndpoint(ApplicationContext applicationContext,
 			ObjectProvider<MappingDescriptionProvider> descriptionProviders) {
-		return new MappingsEndpoint(descriptionProviders.orderedStream().collect(Collectors.toList()),
+		return new MappingsEndpoint_RENAMED(descriptionProviders.orderedStream().collect(Collectors.toList()),
 				applicationContext);
 	}
 

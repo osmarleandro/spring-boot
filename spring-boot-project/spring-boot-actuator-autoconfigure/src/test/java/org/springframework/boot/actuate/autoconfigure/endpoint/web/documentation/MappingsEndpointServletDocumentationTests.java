@@ -26,7 +26,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
 import org.springframework.boot.actuate.web.mappings.MappingDescriptionProvider;
-import org.springframework.boot.actuate.web.mappings.MappingsEndpoint;
+import org.springframework.boot.actuate.web.mappings.MappingsEndpoint_RENAMED;
 import org.springframework.boot.actuate.web.mappings.servlet.DispatcherServletsMappingDescriptionProvider;
 import org.springframework.boot.actuate.web.mappings.servlet.FiltersMappingDescriptionProvider;
 import org.springframework.boot.actuate.web.mappings.servlet.ServletsMappingDescriptionProvider;
@@ -56,7 +56,7 @@ import static org.springframework.restdocs.webtestclient.WebTestClientRestDocume
 import static org.springframework.restdocs.webtestclient.WebTestClientRestDocumentation.documentationConfiguration;
 
 /**
- * Tests for generating documentation describing {@link MappingsEndpoint}.
+ * Tests for generating documentation describing {@link MappingsEndpoint_RENAMED}.
  *
  * @author Andy Wilkinson
  */
@@ -172,9 +172,9 @@ class MappingsEndpointServletDocumentationTests extends AbstractEndpointDocument
 		}
 
 		@Bean
-		MappingsEndpoint mappingsEndpoint(Collection<MappingDescriptionProvider> descriptionProviders,
+		MappingsEndpoint_RENAMED mappingsEndpoint(Collection<MappingDescriptionProvider> descriptionProviders,
 				ConfigurableApplicationContext context) {
-			return new MappingsEndpoint(descriptionProviders, context);
+			return new MappingsEndpoint_RENAMED(descriptionProviders, context);
 		}
 
 		@Bean

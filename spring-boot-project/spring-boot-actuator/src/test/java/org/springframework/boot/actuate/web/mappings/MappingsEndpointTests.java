@@ -29,8 +29,8 @@ import javax.servlet.ServletRegistration;
 
 import org.junit.jupiter.api.Test;
 
-import org.springframework.boot.actuate.web.mappings.MappingsEndpoint.ApplicationMappings;
-import org.springframework.boot.actuate.web.mappings.MappingsEndpoint.ContextMappings;
+import org.springframework.boot.actuate.web.mappings.MappingsEndpoint_RENAMED.ApplicationMappings;
+import org.springframework.boot.actuate.web.mappings.MappingsEndpoint_RENAMED.ContextMappings;
 import org.springframework.boot.actuate.web.mappings.reactive.DispatcherHandlerMappingDescription;
 import org.springframework.boot.actuate.web.mappings.reactive.DispatcherHandlersMappingDescriptionProvider;
 import org.springframework.boot.actuate.web.mappings.servlet.DispatcherServletMappingDescription;
@@ -65,7 +65,7 @@ import static org.springframework.web.reactive.function.server.RequestPredicates
 import static org.springframework.web.reactive.function.server.RouterFunctions.route;
 
 /**
- * Tests for {@link MappingsEndpoint}.
+ * Tests for {@link MappingsEndpoint_RENAMED}.
  *
  * @author Andy Wilkinson
  * @author Stephane Nicoll
@@ -144,7 +144,7 @@ class MappingsEndpointTests {
 	}
 
 	private ContextMappings contextMappings(ApplicationContext context) {
-		ApplicationMappings applicationMappings = context.getBean(MappingsEndpoint.class).mappings();
+		ApplicationMappings applicationMappings = context.getBean(MappingsEndpoint_RENAMED.class).mappings();
 		assertThat(applicationMappings.getContexts()).containsOnlyKeys(context.getId());
 		return applicationMappings.getContexts().get(context.getId());
 	}
@@ -158,9 +158,9 @@ class MappingsEndpointTests {
 	static class EndpointConfiguration {
 
 		@Bean
-		MappingsEndpoint mappingsEndpoint(Collection<MappingDescriptionProvider> descriptionProviders,
+		MappingsEndpoint_RENAMED mappingsEndpoint(Collection<MappingDescriptionProvider> descriptionProviders,
 				ApplicationContext context) {
-			return new MappingsEndpoint(descriptionProviders, context);
+			return new MappingsEndpoint_RENAMED(descriptionProviders, context);
 		}
 
 	}
