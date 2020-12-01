@@ -59,7 +59,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
  * Integration tests for web endpoints exposed using Jersey.
  *
  * @author Andy Wilkinson
- * @see JerseyEndpointResourceFactory
+ * @see JerseyEndpointResourceFactory_RENAMED
  */
 public class JerseyWebEndpointIntegrationTests
 		extends AbstractWebEndpointIntegrationTests<AnnotationConfigServletWebServerApplicationContext> {
@@ -108,7 +108,7 @@ public class JerseyWebEndpointIntegrationTests
 				EndpointMediaTypes endpointMediaTypes) {
 			ResourceConfig resourceConfig = new ResourceConfig();
 			String endpointPath = environment.getProperty("endpointPath");
-			Collection<Resource> resources = new JerseyEndpointResourceFactory().createEndpointResources(
+			Collection<Resource> resources = new JerseyEndpointResourceFactory_RENAMED().createEndpointResources(
 					new EndpointMapping(endpointPath), endpointDiscoverer.getEndpoints(), endpointMediaTypes,
 					new EndpointLinksResolver(endpointDiscoverer.getEndpoints()), StringUtils.hasText(endpointPath));
 			resourceConfig.registerResources(new HashSet<>(resources));

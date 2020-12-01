@@ -42,7 +42,7 @@ import org.springframework.boot.actuate.endpoint.web.EndpointLinksResolver;
 import org.springframework.boot.actuate.endpoint.web.EndpointMapping;
 import org.springframework.boot.actuate.endpoint.web.EndpointMediaTypes;
 import org.springframework.boot.actuate.endpoint.web.annotation.WebEndpointDiscoverer;
-import org.springframework.boot.actuate.endpoint.web.jersey.JerseyEndpointResourceFactory;
+import org.springframework.boot.actuate.endpoint.web.jersey.JerseyEndpointResourceFactory_RENAMED;
 import org.springframework.boot.actuate.endpoint.web.reactive.WebFluxEndpointHandlerMapping;
 import org.springframework.boot.actuate.endpoint.web.servlet.WebMvcEndpointHandlerMapping;
 import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
@@ -241,7 +241,7 @@ class WebEndpointTestInvocationContextProvider implements TestTemplateInvocation
 			WebEndpointDiscoverer discoverer = new WebEndpointDiscoverer(this.applicationContext,
 					new ConversionServiceParameterValueMapper(), endpointMediaTypes, null, Collections.emptyList(),
 					Collections.emptyList());
-			Collection<Resource> resources = new JerseyEndpointResourceFactory().createEndpointResources(
+			Collection<Resource> resources = new JerseyEndpointResourceFactory_RENAMED().createEndpointResources(
 					new EndpointMapping("/actuator"), discoverer.getEndpoints(), endpointMediaTypes,
 					new EndpointLinksResolver(discoverer.getEndpoints()), true);
 			config.registerResources(new HashSet<>(resources));
