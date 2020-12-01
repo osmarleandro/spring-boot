@@ -21,14 +21,14 @@ import org.springframework.boot.actuate.endpoint.annotation.DiscovererEndpointFi
 
 /**
  * {@link EndpointFilter} for endpoints discovered by
- * {@link ControllerEndpointDiscoverer}.
+ * {@link ControllerEndpointDiscoverer_RENAMED}.
  *
  * @author Phillip Webb
  */
 class ControllerEndpointFilter extends DiscovererEndpointFilter {
 
 	ControllerEndpointFilter() {
-		super(ControllerEndpointDiscoverer.class);
+		super(ControllerEndpointDiscoverer_RENAMED.class);
 	}
 
 }

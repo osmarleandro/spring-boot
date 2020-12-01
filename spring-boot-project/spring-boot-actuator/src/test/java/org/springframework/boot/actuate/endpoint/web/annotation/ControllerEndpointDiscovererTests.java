@@ -41,7 +41,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatIllegalStateException;
 
 /**
- * Tests for {@link ControllerEndpointDiscoverer}.
+ * Tests for {@link ControllerEndpointDiscoverer_RENAMED}.
  *
  * @author Phillip Webb
  * @author Stephane Nicoll
@@ -127,9 +127,9 @@ class ControllerEndpointDiscovererTests {
 	}
 
 	private ContextConsumer<AssertableApplicationContext> assertDiscoverer(
-			Consumer<ControllerEndpointDiscoverer> consumer) {
+			Consumer<ControllerEndpointDiscoverer_RENAMED> consumer) {
 		return (context) -> {
-			ControllerEndpointDiscoverer discoverer = new ControllerEndpointDiscoverer(context, null,
+			ControllerEndpointDiscoverer_RENAMED discoverer = new ControllerEndpointDiscoverer_RENAMED(context, null,
 					Collections.emptyList());
 			consumer.accept(discoverer);
 		};
