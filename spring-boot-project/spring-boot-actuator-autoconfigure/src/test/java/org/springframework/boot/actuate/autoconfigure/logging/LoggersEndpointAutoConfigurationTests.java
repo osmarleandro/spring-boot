@@ -29,14 +29,14 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 
 /**
- * Tests for {@link LoggersEndpointAutoConfiguration}.
+ * Tests for {@link LoggersEndpointAutoConfiguration_RENAMED}.
  *
  * @author Phillip Webb
  */
 class LoggersEndpointAutoConfigurationTests {
 
 	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
-			.withConfiguration(AutoConfigurations.of(LoggersEndpointAutoConfiguration.class))
+			.withConfiguration(AutoConfigurations.of(LoggersEndpointAutoConfiguration_RENAMED.class))
 			.withUserConfiguration(LoggingConfiguration.class);
 
 	@Test

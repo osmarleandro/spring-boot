@@ -41,7 +41,7 @@ import org.springframework.core.type.AnnotatedTypeMetadata;
  */
 @Configuration(proxyBeanMethods = false)
 @ConditionalOnAvailableEndpoint(endpoint = LoggersEndpoint.class)
-public class LoggersEndpointAutoConfiguration {
+public class LoggersEndpointAutoConfiguration_RENAMED {
 
 	@Bean
 	@ConditionalOnBean(LoggingSystem.class)
