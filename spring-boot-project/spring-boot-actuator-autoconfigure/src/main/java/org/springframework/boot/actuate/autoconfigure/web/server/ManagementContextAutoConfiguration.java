@@ -23,7 +23,7 @@ import org.springframework.beans.factory.config.BeanFactoryPostProcessor;
 import org.springframework.boot.LazyInitializationBeanFactoryPostProcessor;
 import org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointProperties;
 import org.springframework.boot.actuate.autoconfigure.web.ManagementContextFactory;
-import org.springframework.boot.actuate.autoconfigure.web.ManagementContextType;
+import org.springframework.boot.actuate.autoconfigure.web.ManagementContextType_RENAMED;
 import org.springframework.boot.autoconfigure.AutoConfigureOrder;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.context.PropertyPlaceholderAutoConfiguration;
@@ -111,7 +111,7 @@ public class ManagementContextAutoConfiguration {
 		}
 
 		@Configuration(proxyBeanMethods = false)
-		@EnableManagementContext(ManagementContextType.SAME)
+		@EnableManagementContext(ManagementContextType_RENAMED.SAME)
 		static class EnableSameManagementContextConfiguration {
 
 		}

@@ -23,7 +23,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.BeanClassLoaderAware;
 import org.springframework.boot.actuate.autoconfigure.web.ManagementContextConfiguration;
-import org.springframework.boot.actuate.autoconfigure.web.ManagementContextType;
+import org.springframework.boot.actuate.autoconfigure.web.ManagementContextType_RENAMED;
 import org.springframework.context.annotation.DeferredImportSelector;
 import org.springframework.core.OrderComparator;
 import org.springframework.core.Ordered;
@@ -52,14 +52,14 @@ class ManagementContextConfigurationImportSelector implements DeferredImportSele
 
 	@Override
 	public String[] selectImports(AnnotationMetadata metadata) {
-		ManagementContextType contextType = (ManagementContextType) metadata
+		ManagementContextType_RENAMED contextType = (ManagementContextType_RENAMED) metadata
 				.getAnnotationAttributes(EnableManagementContext.class.getName()).get("value");
 		// Find all management context configuration classes, filtering duplicates
 		List<ManagementConfiguration> configurations = getConfigurations();
 		OrderComparator.sort(configurations);
 		List<String> names = new ArrayList<>();
 		for (ManagementConfiguration configuration : configurations) {
-			if (configuration.getContextType() == ManagementContextType.ANY
+			if (configuration.getContextType() == ManagementContextType_RENAMED.ANY
 					|| configuration.getContextType() == contextType) {
 				names.add(configuration.getClassName());
 			}
@@ -105,7 +105,7 @@ class ManagementContextConfigurationImportSelector implements DeferredImportSele
 
 		private final int order;
 
-		private final ManagementContextType contextType;
+		private final ManagementContextType_RENAMED contextType;
 
 		ManagementConfiguration(MetadataReader metadataReader) {
 			AnnotationMetadata annotationMetadata = metadataReader.getAnnotationMetadata();
@@ -114,11 +114,11 @@ class ManagementContextConfigurationImportSelector implements DeferredImportSele
 			this.contextType = readContextType(annotationMetadata);
 		}
 
-		private ManagementContextType readContextType(AnnotationMetadata annotationMetadata) {
+		private ManagementContextType_RENAMED readContextType(AnnotationMetadata annotationMetadata) {
 			Map<String, Object> annotationAttributes = annotationMetadata
 					.getAnnotationAttributes(ManagementContextConfiguration.class.getName());
-			return (annotationAttributes != null) ? (ManagementContextType) annotationAttributes.get("value")
-					: ManagementContextType.ANY;
+			return (annotationAttributes != null) ? (ManagementContextType_RENAMED) annotationAttributes.get("value")
+					: ManagementContextType_RENAMED.ANY;
 		}
 
 		private int readOrder(AnnotationMetadata annotationMetadata) {
@@ -136,7 +136,7 @@ class ManagementContextConfigurationImportSelector implements DeferredImportSele
 			return this.order;
 		}
 
-		ManagementContextType getContextType() {
+		ManagementContextType_RENAMED getContextType() {
 			return this.contextType;
 		}
 

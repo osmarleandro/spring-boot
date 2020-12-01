@@ -22,7 +22,7 @@ package org.springframework.boot.actuate.autoconfigure.web;
  * @author Andy Wilkinson
  * @since 2.0.0
  */
-public enum ManagementContextType {
+public enum ManagementContextType_RENAMED {
 
 	/**
 	 * The management context is the same as the main application context.

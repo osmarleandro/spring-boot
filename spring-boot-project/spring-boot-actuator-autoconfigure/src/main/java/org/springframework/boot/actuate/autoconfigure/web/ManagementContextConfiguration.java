@@ -55,7 +55,7 @@ public @interface ManagementContextConfiguration {
 	 * @return the required management context type
 	 * @since 2.0.0
 	 */
-	ManagementContextType value() default ManagementContextType.ANY;
+	ManagementContextType_RENAMED value() default ManagementContextType_RENAMED.ANY;
 
 	/**
 	 * Specify whether {@link Bean @Bean} methods should get proxied in order to enforce

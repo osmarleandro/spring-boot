@@ -22,7 +22,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import org.springframework.boot.actuate.autoconfigure.web.ManagementContextType;
+import org.springframework.boot.actuate.autoconfigure.web.ManagementContextType_RENAMED;
 import org.springframework.context.annotation.Import;
 
 /**
@@ -40,6 +40,6 @@ import org.springframework.context.annotation.Import;
 	 * The management context type that should be enabled.
 	 * @return the management context type
 	 */
-	ManagementContextType value();
+	ManagementContextType_RENAMED value();
 
 }

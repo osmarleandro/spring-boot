@@ -16,7 +16,7 @@
 
 package org.springframework.boot.actuate.autoconfigure.web.server;
 
-import org.springframework.boot.actuate.autoconfigure.web.ManagementContextType;
+import org.springframework.boot.actuate.autoconfigure.web.ManagementContextType_RENAMED;
 import org.springframework.context.annotation.Configuration;
 
 /**
@@ -25,7 +25,7 @@ import org.springframework.context.annotation.Configuration;
  * @author Andy Wilkinson
  */
 @Configuration(proxyBeanMethods = false)
-@EnableManagementContext(ManagementContextType.CHILD)
+@EnableManagementContext(ManagementContextType_RENAMED.CHILD)
 class EnableChildManagementContextConfiguration {
 
 }

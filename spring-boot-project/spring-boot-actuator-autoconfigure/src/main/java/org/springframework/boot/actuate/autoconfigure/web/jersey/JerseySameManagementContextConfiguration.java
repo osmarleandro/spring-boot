@@ -18,7 +18,7 @@ package org.springframework.boot.actuate.autoconfigure.web.jersey;
 import org.glassfish.jersey.server.ResourceConfig;
 
 import org.springframework.boot.actuate.autoconfigure.web.ManagementContextConfiguration;
-import org.springframework.boot.actuate.autoconfigure.web.ManagementContextType;
+import org.springframework.boot.actuate.autoconfigure.web.ManagementContextType_RENAMED;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingClass;
@@ -37,7 +37,7 @@ import org.springframework.context.annotation.Import;
  * @author Madhura Bhave
  * @since 2.1.0
  */
-@ManagementContextConfiguration(value = ManagementContextType.SAME, proxyBeanMethods = false)
+@ManagementContextConfiguration(value = ManagementContextType_RENAMED.SAME, proxyBeanMethods = false)
 @Import(JerseyManagementContextConfiguration.class)
 @EnableConfigurationProperties(JerseyProperties.class)
 @ConditionalOnMissingBean(ResourceConfig.class)
