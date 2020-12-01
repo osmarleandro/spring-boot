@@ -47,7 +47,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Stephane Nicoll
  * @author Eddú Meléndez
  */
-class KafkaMetricsAutoConfigurationTests {
+class KafkaMetricsAutoConfigurationTests_RENAMED {
 
 	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(KafkaMetricsAutoConfiguration.class));
