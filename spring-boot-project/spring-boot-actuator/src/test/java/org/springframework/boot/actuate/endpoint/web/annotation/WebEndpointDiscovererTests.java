@@ -45,7 +45,7 @@ import org.springframework.boot.actuate.endpoint.web.EndpointMediaTypes;
 import org.springframework.boot.actuate.endpoint.web.ExposableWebEndpoint;
 import org.springframework.boot.actuate.endpoint.web.PathMapper;
 import org.springframework.boot.actuate.endpoint.web.WebEndpointHttpMethod;
-import org.springframework.boot.actuate.endpoint.web.WebOperation;
+import org.springframework.boot.actuate.endpoint.web.WebOperation_RENAMED;
 import org.springframework.boot.actuate.endpoint.web.WebOperationRequestPredicate;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.Bean;
@@ -170,7 +170,7 @@ class WebEndpointDiscovererTests {
 			assertThat(endpoints).containsOnlyKeys(EndpointId.of("test"));
 			ExposableWebEndpoint endpoint = endpoints.get(EndpointId.of("test"));
 			assertThat(endpoint.getOperations()).hasSize(1);
-			WebOperation operation = endpoint.getOperations().iterator().next();
+			WebOperation_RENAMED operation = endpoint.getOperations().iterator().next();
 			Object invoker = ReflectionTestUtils.getField(operation, "invoker");
 			assertThat(invoker).isInstanceOf(CachingOperationInvoker.class);
 			assertThat(((CachingOperationInvoker) invoker).getTimeToLive()).isEqualTo(500);
@@ -241,7 +241,7 @@ class WebEndpointDiscovererTests {
 	}
 
 	private List<WebOperationRequestPredicate> requestPredicates(ExposableWebEndpoint endpoint) {
-		return endpoint.getOperations().stream().map(WebOperation::getRequestPredicate).collect(Collectors.toList());
+		return endpoint.getOperations().stream().map(WebOperation_RENAMED::getRequestPredicate).collect(Collectors.toList());
 	}
 
 	private Condition<List<? extends WebOperationRequestPredicate>> requestPredicates(

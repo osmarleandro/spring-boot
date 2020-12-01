@@ -33,7 +33,7 @@ import org.springframework.boot.actuate.endpoint.web.EndpointMapping;
 import org.springframework.boot.actuate.endpoint.web.EndpointMediaTypes;
 import org.springframework.boot.actuate.endpoint.web.ExposableWebEndpoint;
 import org.springframework.boot.actuate.endpoint.web.Link;
-import org.springframework.boot.actuate.endpoint.web.WebOperation;
+import org.springframework.boot.actuate.endpoint.web.WebOperation_RENAMED;
 import org.springframework.boot.actuate.endpoint.web.servlet.AbstractWebMvcEndpointHandlerMapping;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -65,7 +65,7 @@ class CloudFoundryWebEndpointServletHandlerMapping extends AbstractWebMvcEndpoin
 	}
 
 	@Override
-	protected ServletWebOperation wrapServletWebOperation(ExposableWebEndpoint endpoint, WebOperation operation,
+	protected ServletWebOperation wrapServletWebOperation(ExposableWebEndpoint endpoint, WebOperation_RENAMED operation,
 			ServletWebOperation servletWebOperation) {
 		return new SecureServletWebOperation(servletWebOperation, this.securityInterceptor, endpoint.getEndpointId());
 	}

@@ -33,7 +33,7 @@ import org.springframework.boot.actuate.endpoint.web.EndpointMapping;
 import org.springframework.boot.actuate.endpoint.web.EndpointMediaTypes;
 import org.springframework.boot.actuate.endpoint.web.ExposableWebEndpoint;
 import org.springframework.boot.actuate.endpoint.web.Link;
-import org.springframework.boot.actuate.endpoint.web.WebOperation;
+import org.springframework.boot.actuate.endpoint.web.WebOperation_RENAMED;
 import org.springframework.boot.actuate.endpoint.web.reactive.AbstractWebFluxEndpointHandlerMapping;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -66,7 +66,7 @@ class CloudFoundryWebFluxEndpointHandlerMapping extends AbstractWebFluxEndpointH
 	}
 
 	@Override
-	protected ReactiveWebOperation wrapReactiveWebOperation(ExposableWebEndpoint endpoint, WebOperation operation,
+	protected ReactiveWebOperation wrapReactiveWebOperation(ExposableWebEndpoint endpoint, WebOperation_RENAMED operation,
 			ReactiveWebOperation reactiveWebOperation) {
 		return new SecureReactiveWebOperation(reactiveWebOperation, this.securityInterceptor, endpoint.getEndpointId());
 	}

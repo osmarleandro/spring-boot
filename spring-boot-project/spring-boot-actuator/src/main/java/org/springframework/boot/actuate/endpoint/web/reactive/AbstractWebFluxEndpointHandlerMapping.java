@@ -39,7 +39,7 @@ import org.springframework.boot.actuate.endpoint.web.EndpointMapping;
 import org.springframework.boot.actuate.endpoint.web.EndpointMediaTypes;
 import org.springframework.boot.actuate.endpoint.web.ExposableWebEndpoint;
 import org.springframework.boot.actuate.endpoint.web.WebEndpointResponse;
-import org.springframework.boot.actuate.endpoint.web.WebOperation;
+import org.springframework.boot.actuate.endpoint.web.WebOperation_RENAMED;
 import org.springframework.boot.actuate.endpoint.web.WebOperationRequestPredicate;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
@@ -122,7 +122,7 @@ public abstract class AbstractWebFluxEndpointHandlerMapping extends RequestMappi
 	@Override
 	protected void initHandlerMethods() {
 		for (ExposableWebEndpoint endpoint : this.endpoints) {
-			for (WebOperation operation : endpoint.getOperations()) {
+			for (WebOperation_RENAMED operation : endpoint.getOperations()) {
 				registerMappingForOperation(endpoint, operation);
 			}
 		}
@@ -137,7 +137,7 @@ public abstract class AbstractWebFluxEndpointHandlerMapping extends RequestMappi
 		return new WebFluxEndpointHandlerMethod(handlerMethod.getBean(), handlerMethod.getMethod());
 	}
 
-	private void registerMappingForOperation(ExposableWebEndpoint endpoint, WebOperation operation) {
+	private void registerMappingForOperation(ExposableWebEndpoint endpoint, WebOperation_RENAMED operation) {
 		ReactiveWebOperation reactiveWebOperation = wrapReactiveWebOperation(endpoint, operation,
 				new ReactiveWebOperationAdapter(operation));
 		if (operation.getType() == OperationType.WRITE) {
@@ -158,12 +158,12 @@ public abstract class AbstractWebFluxEndpointHandlerMapping extends RequestMappi
 	 * @param reactiveWebOperation the reactive web operation to wrap
 	 * @return a wrapped reactive web operation
 	 */
-	protected ReactiveWebOperation wrapReactiveWebOperation(ExposableWebEndpoint endpoint, WebOperation operation,
+	protected ReactiveWebOperation wrapReactiveWebOperation(ExposableWebEndpoint endpoint, WebOperation_RENAMED operation,
 			ReactiveWebOperation reactiveWebOperation) {
 		return reactiveWebOperation;
 	}
 
-	private RequestMappingInfo createRequestMappingInfo(WebOperation operation) {
+	private RequestMappingInfo createRequestMappingInfo(WebOperation_RENAMED operation) {
 		WebOperationRequestPredicate predicate = operation.getRequestPredicate();
 		PatternsRequestCondition patterns = new PatternsRequestCondition(
 				pathPatternParser.parse(this.endpointMapping.createSubPath(predicate.getPath())));
@@ -270,19 +270,19 @@ public abstract class AbstractWebFluxEndpointHandlerMapping extends RequestMappi
 
 		private static final String PATH_SEPARATOR = AntPathMatcher.DEFAULT_PATH_SEPARATOR;
 
-		private final WebOperation operation;
+		private final WebOperation_RENAMED operation;
 
 		private final OperationInvoker invoker;
 
 		private final Supplier<Mono<? extends SecurityContext>> securityContextSupplier;
 
-		private ReactiveWebOperationAdapter(WebOperation operation) {
+		private ReactiveWebOperationAdapter(WebOperation_RENAMED operation) {
 			this.operation = operation;
 			this.invoker = getInvoker(operation);
 			this.securityContextSupplier = getSecurityContextSupplier();
 		}
 
-		private OperationInvoker getInvoker(WebOperation operation) {
+		private OperationInvoker getInvoker(WebOperation_RENAMED operation) {
 			OperationInvoker invoker = operation::invoke;
 			if (operation.isBlocking()) {
 				invoker = new ElasticSchedulerInvoker(invoker);

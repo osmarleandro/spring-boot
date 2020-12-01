@@ -50,7 +50,7 @@ import org.springframework.boot.actuate.endpoint.web.EndpointMediaTypes;
 import org.springframework.boot.actuate.endpoint.web.ExposableWebEndpoint;
 import org.springframework.boot.actuate.endpoint.web.Link;
 import org.springframework.boot.actuate.endpoint.web.WebEndpointResponse;
-import org.springframework.boot.actuate.endpoint.web.WebOperation;
+import org.springframework.boot.actuate.endpoint.web.WebOperation_RENAMED;
 import org.springframework.boot.actuate.endpoint.web.WebOperationRequestPredicate;
 import org.springframework.util.AntPathMatcher;
 import org.springframework.util.ClassUtils;
@@ -58,7 +58,7 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
 /**
- * A factory for creating Jersey {@link Resource Resources} for {@link WebOperation web
+ * A factory for creating Jersey {@link Resource Resources} for {@link WebOperation_RENAMED web
  * endpoint operations}.
  *
  * @author Andy Wilkinson
@@ -91,7 +91,7 @@ public class JerseyEndpointResourceFactory {
 		return resources;
 	}
 
-	private Resource createResource(EndpointMapping endpointMapping, WebOperation operation) {
+	private Resource createResource(EndpointMapping endpointMapping, WebOperation_RENAMED operation) {
 		WebOperationRequestPredicate requestPredicate = operation.getRequestPredicate();
 		String path = requestPredicate.getPath();
 		String matchAllRemainingPathSegmentsVariable = requestPredicate.getMatchAllRemainingPathSegmentsVariable();
@@ -116,7 +116,7 @@ public class JerseyEndpointResourceFactory {
 	}
 
 	/**
-	 * {@link Inflector} to invoke the {@link WebOperation}.
+	 * {@link Inflector} to invoke the {@link WebOperation_RENAMED}.
 	 */
 	private static final class OperationInflector implements Inflector<ContainerRequestContext, Object> {
 
@@ -133,11 +133,11 @@ public class JerseyEndpointResourceFactory {
 			BODY_CONVERTERS = Collections.unmodifiableList(converters);
 		}
 
-		private final WebOperation operation;
+		private final WebOperation_RENAMED operation;
 
 		private final boolean readBody;
 
-		private OperationInflector(WebOperation operation, boolean readBody) {
+		private OperationInflector(WebOperation_RENAMED operation, boolean readBody) {
 			this.operation = operation;
 			this.readBody = readBody;
 		}

@@ -57,7 +57,7 @@ class EndpointLinksResolverTests {
 
 	@Test
 	void resolvedLinksContainsALinkForEachWebEndpointOperation() {
-		List<WebOperation> operations = new ArrayList<>();
+		List<WebOperation_RENAMED> operations = new ArrayList<>();
 		operations.add(operationWithPath("/alpha", "alpha"));
 		operations.add(operationWithPath("/alpha/{name}", "alpha-name"));
 		ExposableWebEndpoint endpoint = mock(ExposableWebEndpoint.class);
@@ -102,10 +102,10 @@ class EndpointLinksResolverTests {
 		assertThat(links).hasEntrySatisfying("alpha", linkWithHref("https://api.example.com/actuator/alpha"));
 	}
 
-	private WebOperation operationWithPath(String path, String id) {
+	private WebOperation_RENAMED operationWithPath(String path, String id) {
 		WebOperationRequestPredicate predicate = new WebOperationRequestPredicate(path, WebEndpointHttpMethod.GET,
 				Collections.emptyList(), Collections.emptyList());
-		WebOperation operation = mock(WebOperation.class);
+		WebOperation_RENAMED operation = mock(WebOperation_RENAMED.class);
 		given(operation.getId()).willReturn(id);
 		given(operation.getType()).willReturn(OperationType.READ);
 		given(operation.getRequestPredicate()).willReturn(predicate);

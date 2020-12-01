@@ -30,7 +30,7 @@ import org.springframework.boot.actuate.endpoint.web.EndpointMediaTypes;
 import org.springframework.boot.actuate.endpoint.web.ExposableWebEndpoint;
 import org.springframework.boot.actuate.endpoint.web.PathMapper;
 import org.springframework.boot.actuate.endpoint.web.WebEndpointsSupplier;
-import org.springframework.boot.actuate.endpoint.web.WebOperation;
+import org.springframework.boot.actuate.endpoint.web.WebOperation_RENAMED;
 import org.springframework.boot.actuate.endpoint.web.WebOperationRequestPredicate;
 import org.springframework.context.ApplicationContext;
 
@@ -40,7 +40,7 @@ import org.springframework.context.ApplicationContext;
  * @author Phillip Webb
  * @since 2.0.0
  */
-public class WebEndpointDiscoverer extends EndpointDiscoverer<ExposableWebEndpoint, WebOperation>
+public class WebEndpointDiscoverer extends EndpointDiscoverer<ExposableWebEndpoint, WebOperation_RENAMED>
 		implements WebEndpointsSupplier {
 
 	private final List<PathMapper> endpointPathMappers;
@@ -67,13 +67,13 @@ public class WebEndpointDiscoverer extends EndpointDiscoverer<ExposableWebEndpoi
 
 	@Override
 	protected ExposableWebEndpoint createEndpoint(Object endpointBean, EndpointId id, boolean enabledByDefault,
-			Collection<WebOperation> operations) {
+			Collection<WebOperation_RENAMED> operations) {
 		String rootPath = PathMapper.getRootPath(this.endpointPathMappers, id);
 		return new DiscoveredWebEndpoint(this, endpointBean, id, rootPath, enabledByDefault, operations);
 	}
 
 	@Override
-	protected WebOperation createOperation(EndpointId endpointId, DiscoveredOperationMethod operationMethod,
+	protected WebOperation_RENAMED createOperation(EndpointId endpointId, DiscoveredOperationMethod operationMethod,
 			OperationInvoker invoker) {
 		String rootPath = PathMapper.getRootPath(this.endpointPathMappers, endpointId);
 		WebOperationRequestPredicate requestPredicate = this.requestPredicateFactory.getRequestPredicate(rootPath,
@@ -82,7 +82,7 @@ public class WebEndpointDiscoverer extends EndpointDiscoverer<ExposableWebEndpoi
 	}
 
 	@Override
-	protected OperationKey createOperationKey(WebOperation operation) {
+	protected OperationKey createOperationKey(WebOperation_RENAMED operation) {
 		return new OperationKey(operation.getRequestPredicate(),
 				() -> "web request predicate " + operation.getRequestPredicate());
 	}

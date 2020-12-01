@@ -28,19 +28,19 @@ import org.springframework.boot.actuate.endpoint.annotation.AbstractDiscoveredOp
 import org.springframework.boot.actuate.endpoint.annotation.DiscoveredOperationMethod;
 import org.springframework.boot.actuate.endpoint.annotation.Selector;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvoker;
-import org.springframework.boot.actuate.endpoint.web.WebOperation;
+import org.springframework.boot.actuate.endpoint.web.WebOperation_RENAMED;
 import org.springframework.boot.actuate.endpoint.web.WebOperationRequestPredicate;
 import org.springframework.core.style.ToStringCreator;
 import org.springframework.util.ClassUtils;
 
 /**
- * A discovered {@link WebOperation web operation}.
+ * A discovered {@link WebOperation_RENAMED web operation}.
  *
  * @author Andy Wilkinson
  * @author Stephane Nicoll
  * @author Phillip Webb
  */
-class DiscoveredWebOperation extends AbstractDiscoveredOperation implements WebOperation {
+class DiscoveredWebOperation extends AbstractDiscoveredOperation implements WebOperation_RENAMED {
 
 	private static final boolean REACTIVE_STREAMS_PRESENT = ClassUtils.isPresent("org.reactivestreams.Publisher",
 			DiscoveredWebOperation.class.getClassLoader());

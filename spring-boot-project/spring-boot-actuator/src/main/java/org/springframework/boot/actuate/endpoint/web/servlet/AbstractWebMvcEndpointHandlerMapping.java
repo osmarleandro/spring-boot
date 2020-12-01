@@ -39,7 +39,7 @@ import org.springframework.boot.actuate.endpoint.web.EndpointMapping;
 import org.springframework.boot.actuate.endpoint.web.EndpointMediaTypes;
 import org.springframework.boot.actuate.endpoint.web.ExposableWebEndpoint;
 import org.springframework.boot.actuate.endpoint.web.WebEndpointResponse;
-import org.springframework.boot.actuate.endpoint.web.WebOperation;
+import org.springframework.boot.actuate.endpoint.web.WebOperation_RENAMED;
 import org.springframework.boot.actuate.endpoint.web.WebOperationRequestPredicate;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -128,7 +128,7 @@ public abstract class AbstractWebMvcEndpointHandlerMapping extends RequestMappin
 	@Override
 	protected void initHandlerMethods() {
 		for (ExposableWebEndpoint endpoint : this.endpoints) {
-			for (WebOperation operation : endpoint.getOperations()) {
+			for (WebOperation_RENAMED operation : endpoint.getOperations()) {
 				registerMappingForOperation(endpoint, operation);
 			}
 		}
@@ -164,7 +164,7 @@ public abstract class AbstractWebMvcEndpointHandlerMapping extends RequestMappin
 		return config;
 	}
 
-	private void registerMappingForOperation(ExposableWebEndpoint endpoint, WebOperation operation) {
+	private void registerMappingForOperation(ExposableWebEndpoint endpoint, WebOperation_RENAMED operation) {
 		WebOperationRequestPredicate predicate = operation.getRequestPredicate();
 		String path = predicate.getPath();
 		String matchAllRemainingPathSegmentsVariable = predicate.getMatchAllRemainingPathSegmentsVariable();
@@ -185,7 +185,7 @@ public abstract class AbstractWebMvcEndpointHandlerMapping extends RequestMappin
 	 * @param servletWebOperation the servlet web operation to wrap
 	 * @return a wrapped servlet web operation
 	 */
-	protected ServletWebOperation wrapServletWebOperation(ExposableWebEndpoint endpoint, WebOperation operation,
+	protected ServletWebOperation wrapServletWebOperation(ExposableWebEndpoint endpoint, WebOperation_RENAMED operation,
 			ServletWebOperation servletWebOperation) {
 		return servletWebOperation;
 	}
@@ -273,9 +273,9 @@ public abstract class AbstractWebMvcEndpointHandlerMapping extends RequestMappin
 
 		private static final String PATH_SEPARATOR = AntPathMatcher.DEFAULT_PATH_SEPARATOR;
 
-		private final WebOperation operation;
+		private final WebOperation_RENAMED operation;
 
-		ServletWebOperationAdapter(WebOperation operation) {
+		ServletWebOperationAdapter(WebOperation_RENAMED operation) {
 			this.operation = operation;
 		}
 

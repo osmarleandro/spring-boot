@@ -43,7 +43,7 @@ import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
 import org.springframework.boot.actuate.endpoint.http.ActuatorMediaType;
 import org.springframework.boot.actuate.endpoint.web.EndpointMapping;
 import org.springframework.boot.actuate.endpoint.web.ExposableWebEndpoint;
-import org.springframework.boot.actuate.endpoint.web.WebOperation;
+import org.springframework.boot.actuate.endpoint.web.WebOperation_RENAMED;
 import org.springframework.boot.actuate.endpoint.web.WebOperationRequestPredicate;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
 import org.springframework.boot.autoconfigure.context.PropertyPlaceholderAutoConfiguration;
@@ -224,7 +224,7 @@ class ReactiveCloudFoundryActuatorAutoConfigurationTests {
 							.filter((candidate) -> EndpointId.of("test").equals(candidate.getEndpointId())).findFirst()
 							.get();
 					assertThat(endpoint.getOperations()).hasSize(1);
-					WebOperation operation = endpoint.getOperations().iterator().next();
+					WebOperation_RENAMED operation = endpoint.getOperations().iterator().next();
 					assertThat(operation.getRequestPredicate().getPath()).isEqualTo("test");
 				});
 	}
@@ -238,7 +238,7 @@ class ReactiveCloudFoundryActuatorAutoConfigurationTests {
 					Collection<ExposableWebEndpoint> endpoints = getHandlerMapping(context).getEndpoints();
 					ExposableWebEndpoint endpoint = endpoints.iterator().next();
 					assertThat(endpoint.getOperations()).hasSize(2);
-					WebOperation webOperation = findOperationWithRequestPath(endpoint, "health");
+					WebOperation_RENAMED webOperation = findOperationWithRequestPath(endpoint, "health");
 					assertThat(webOperation).extracting("invoker").extracting("target")
 							.isInstanceOf(CloudFoundryReactiveHealthEndpointWebExtension.class);
 				});
@@ -298,8 +298,8 @@ class ReactiveCloudFoundryActuatorAutoConfigurationTests {
 				CloudFoundryWebFluxEndpointHandlerMapping.class);
 	}
 
-	private WebOperation findOperationWithRequestPath(ExposableWebEndpoint endpoint, String requestPath) {
-		for (WebOperation operation : endpoint.getOperations()) {
+	private WebOperation_RENAMED findOperationWithRequestPath(ExposableWebEndpoint endpoint, String requestPath) {
+		for (WebOperation_RENAMED operation : endpoint.getOperations()) {
 			WebOperationRequestPredicate predicate = operation.getRequestPredicate();
 			if (predicate.getPath().equals(requestPath)
 					&& predicate.getProduces().contains(ActuatorMediaType.V3_JSON)) {
