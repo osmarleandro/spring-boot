@@ -22,7 +22,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.actuate.autoconfigure.endpoint.EndpointAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.health.HealthEndpointAutoConfiguration;
-import org.springframework.boot.actuate.autoconfigure.info.InfoContributorAutoConfiguration;
+import org.springframework.boot.actuate.autoconfigure.info.InfoContributorAutoConfiguration_RENAMED;
 import org.springframework.boot.actuate.autoconfigure.info.InfoEndpointAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.web.server.ManagementContextAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.web.servlet.ServletManagementContextAutoConfiguration;
@@ -54,7 +54,7 @@ class CloudFoundryInfoEndpointWebExtensionTests {
 					RestTemplateAutoConfiguration.class, ManagementContextAutoConfiguration.class,
 					ServletManagementContextAutoConfiguration.class, EndpointAutoConfiguration.class,
 					WebEndpointAutoConfiguration.class, ProjectInfoAutoConfiguration.class,
-					InfoContributorAutoConfiguration.class, InfoEndpointAutoConfiguration.class,
+					InfoContributorAutoConfiguration_RENAMED.class, InfoEndpointAutoConfiguration.class,
 					HealthEndpointAutoConfiguration.class, CloudFoundryActuatorAutoConfiguration.class));
 
 	@Test

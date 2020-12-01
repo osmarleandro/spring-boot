@@ -36,7 +36,7 @@ import org.springframework.context.annotation.Configuration;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Tests for {@link InfoContributorAutoConfiguration}.
+ * Tests for {@link InfoContributorAutoConfiguration_RENAMED}.
  *
  * @author Stephane Nicoll
  */
@@ -144,7 +144,7 @@ class InfoContributorAutoConfigurationTests {
 		if (config != null) {
 			context.register(config);
 		}
-		context.register(InfoContributorAutoConfiguration.class);
+		context.register(InfoContributorAutoConfiguration_RENAMED.class);
 		TestPropertyValues.of(environment).applyTo(context);
 		context.refresh();
 		this.context = context;

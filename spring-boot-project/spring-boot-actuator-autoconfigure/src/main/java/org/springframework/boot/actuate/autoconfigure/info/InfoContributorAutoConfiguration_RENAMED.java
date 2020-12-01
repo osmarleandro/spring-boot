@@ -45,7 +45,7 @@ import org.springframework.core.env.ConfigurableEnvironment;
 @Configuration(proxyBeanMethods = false)
 @AutoConfigureAfter(ProjectInfoAutoConfiguration.class)
 @EnableConfigurationProperties(InfoContributorProperties.class)
-public class InfoContributorAutoConfiguration {
+public class InfoContributorAutoConfiguration_RENAMED {
 
 	/**
 	 * The default order for the core {@link InfoContributor} beans.

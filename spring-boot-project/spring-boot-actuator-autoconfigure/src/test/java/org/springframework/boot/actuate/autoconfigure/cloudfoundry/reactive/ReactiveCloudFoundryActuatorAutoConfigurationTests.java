@@ -34,7 +34,7 @@ import org.springframework.boot.actuate.autoconfigure.endpoint.EndpointAutoConfi
 import org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.health.HealthContributorAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.health.HealthEndpointAutoConfiguration;
-import org.springframework.boot.actuate.autoconfigure.info.InfoContributorAutoConfiguration;
+import org.springframework.boot.actuate.autoconfigure.info.InfoContributorAutoConfiguration_RENAMED;
 import org.springframework.boot.actuate.autoconfigure.info.InfoEndpointAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.web.server.ManagementContextAutoConfiguration;
 import org.springframework.boot.actuate.endpoint.EndpointId;
@@ -88,7 +88,7 @@ class ReactiveCloudFoundryActuatorAutoConfigurationTests {
 					WebClientAutoConfiguration.class, ManagementContextAutoConfiguration.class,
 					EndpointAutoConfiguration.class, WebEndpointAutoConfiguration.class,
 					HealthContributorAutoConfiguration.class, HealthEndpointAutoConfiguration.class,
-					InfoContributorAutoConfiguration.class, InfoEndpointAutoConfiguration.class,
+					InfoContributorAutoConfiguration_RENAMED.class, InfoEndpointAutoConfiguration.class,
 					ProjectInfoAutoConfiguration.class, ReactiveCloudFoundryActuatorAutoConfiguration.class));
 
 	@AfterEach

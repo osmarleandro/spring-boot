@@ -36,7 +36,7 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration(proxyBeanMethods = false)
 @ConditionalOnAvailableEndpoint(endpoint = InfoEndpoint.class)
-@AutoConfigureAfter(InfoContributorAutoConfiguration.class)
+@AutoConfigureAfter(InfoContributorAutoConfiguration_RENAMED.class)
 public class InfoEndpointAutoConfiguration {
 
 	@Bean
