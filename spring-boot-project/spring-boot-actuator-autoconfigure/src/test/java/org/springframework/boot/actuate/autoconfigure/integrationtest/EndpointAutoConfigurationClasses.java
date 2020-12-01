@@ -29,7 +29,7 @@ import org.springframework.boot.actuate.autoconfigure.health.HealthEndpointAutoC
 import org.springframework.boot.actuate.autoconfigure.info.InfoEndpointAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.management.ThreadDumpEndpointAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.trace.http.HttpTraceEndpointAutoConfiguration;
-import org.springframework.boot.actuate.autoconfigure.web.mappings.MappingsEndpointAutoConfiguration;
+import org.springframework.boot.actuate.autoconfigure.web.mappings.MappingsEndpointAutoConfiguration_RENAMED;
 import org.springframework.util.ClassUtils;
 
 /**
@@ -51,7 +51,7 @@ final class EndpointAutoConfigurationClasses {
 		all.add(InfoEndpointAutoConfiguration.class);
 		all.add(ThreadDumpEndpointAutoConfiguration.class);
 		all.add(HttpTraceEndpointAutoConfiguration.class);
-		all.add(MappingsEndpointAutoConfiguration.class);
+		all.add(MappingsEndpointAutoConfiguration_RENAMED.class);
 		ALL = ClassUtils.toClassArray(all);
 	}
 

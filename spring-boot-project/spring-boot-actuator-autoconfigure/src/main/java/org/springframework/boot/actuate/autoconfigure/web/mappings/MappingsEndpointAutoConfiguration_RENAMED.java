@@ -44,7 +44,7 @@ import org.springframework.web.servlet.DispatcherServlet;
  * @since 2.0.0
  */
 @Configuration(proxyBeanMethods = false)
-public class MappingsEndpointAutoConfiguration {
+public class MappingsEndpointAutoConfiguration_RENAMED {
 
 	@Bean
 	@ConditionalOnAvailableEndpoint
