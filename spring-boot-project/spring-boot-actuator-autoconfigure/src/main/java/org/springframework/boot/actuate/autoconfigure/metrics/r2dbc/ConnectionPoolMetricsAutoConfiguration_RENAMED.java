@@ -47,7 +47,7 @@ import org.springframework.context.annotation.Configuration;
 		R2dbcAutoConfiguration.class })
 @ConditionalOnClass({ ConnectionPool.class, MeterRegistry.class })
 @ConditionalOnBean({ ConnectionFactory.class, MeterRegistry.class })
-public class ConnectionPoolMetricsAutoConfiguration {
+public class ConnectionPoolMetricsAutoConfiguration_RENAMED {
 
 	@Autowired
 	public void bindConnectionPoolsToRegistry(Map<String, ConnectionFactory> connectionFactories,

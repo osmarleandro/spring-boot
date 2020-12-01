@@ -40,7 +40,7 @@ import org.springframework.context.annotation.Configuration;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Tests for {@link ConnectionPoolMetricsAutoConfiguration}.
+ * Tests for {@link ConnectionPoolMetricsAutoConfiguration_RENAMED}.
  *
  * @author Tadaya Tsuyukubo
  * @author Stephane Nicoll
@@ -49,7 +49,7 @@ class ConnectionPoolMetricsAutoConfigurationTests {
 
 	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.withPropertyValues("spring.r2dbc.generate-unique-name=true").with(MetricsRun.simple())
-			.withConfiguration(AutoConfigurations.of(ConnectionPoolMetricsAutoConfiguration.class))
+			.withConfiguration(AutoConfigurations.of(ConnectionPoolMetricsAutoConfiguration_RENAMED.class))
 			.withUserConfiguration(BaseConfiguration.class);
 
 	@Test
