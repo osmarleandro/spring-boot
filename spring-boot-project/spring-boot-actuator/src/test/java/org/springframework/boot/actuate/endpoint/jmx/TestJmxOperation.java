@@ -25,11 +25,11 @@ import org.springframework.boot.actuate.endpoint.InvocationContext;
 import org.springframework.boot.actuate.endpoint.OperationType;
 
 /**
- * Test {@link JmxOperation} implementation.
+ * Test {@link JmxOperation_RENAMED} implementation.
  *
  * @author Phillip Webb
  */
-public class TestJmxOperation implements JmxOperation {
+public class TestJmxOperation implements JmxOperation_RENAMED {
 
 	private final OperationType operationType;
 

@@ -33,7 +33,7 @@ import org.springframework.boot.actuate.endpoint.invoke.OperationInvoker;
 import org.springframework.boot.actuate.endpoint.invoke.OperationParameter;
 import org.springframework.boot.actuate.endpoint.invoke.OperationParameters;
 import org.springframework.boot.actuate.endpoint.invoke.reflect.OperationMethod;
-import org.springframework.boot.actuate.endpoint.jmx.JmxOperation;
+import org.springframework.boot.actuate.endpoint.jmx.JmxOperation_RENAMED;
 import org.springframework.boot.actuate.endpoint.jmx.JmxOperationParameter;
 import org.springframework.core.style.ToStringCreator;
 import org.springframework.jmx.export.annotation.AnnotationJmxAttributeSource;
@@ -43,12 +43,12 @@ import org.springframework.jmx.export.metadata.ManagedOperationParameter;
 import org.springframework.util.StringUtils;
 
 /**
- * A discovered {@link JmxOperation JMX operation}.
+ * A discovered {@link JmxOperation_RENAMED JMX operation}.
  *
  * @author Stephane Nicoll
  * @author Phillip Webb
  */
-class DiscoveredJmxOperation extends AbstractDiscoveredOperation implements JmxOperation {
+class DiscoveredJmxOperation extends AbstractDiscoveredOperation implements JmxOperation_RENAMED {
 
 	private static final JmxAttributeSource jmxAttributeSource = new AnnotationJmxAttributeSource();
 

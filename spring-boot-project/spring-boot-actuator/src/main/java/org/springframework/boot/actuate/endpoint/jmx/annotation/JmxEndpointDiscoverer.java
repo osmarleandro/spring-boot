@@ -27,7 +27,7 @@ import org.springframework.boot.actuate.endpoint.invoke.OperationInvokerAdvisor;
 import org.springframework.boot.actuate.endpoint.invoke.ParameterValueMapper;
 import org.springframework.boot.actuate.endpoint.jmx.ExposableJmxEndpoint;
 import org.springframework.boot.actuate.endpoint.jmx.JmxEndpointsSupplier;
-import org.springframework.boot.actuate.endpoint.jmx.JmxOperation;
+import org.springframework.boot.actuate.endpoint.jmx.JmxOperation_RENAMED;
 import org.springframework.context.ApplicationContext;
 
 /**
@@ -36,7 +36,7 @@ import org.springframework.context.ApplicationContext;
  * @author Phillip Webb
  * @since 2.0.0
  */
-public class JmxEndpointDiscoverer extends EndpointDiscoverer<ExposableJmxEndpoint, JmxOperation>
+public class JmxEndpointDiscoverer extends EndpointDiscoverer<ExposableJmxEndpoint, JmxOperation_RENAMED>
 		implements JmxEndpointsSupplier {
 
 	/**
@@ -54,18 +54,18 @@ public class JmxEndpointDiscoverer extends EndpointDiscoverer<ExposableJmxEndpoi
 
 	@Override
 	protected ExposableJmxEndpoint createEndpoint(Object endpointBean, EndpointId id, boolean enabledByDefault,
-			Collection<JmxOperation> operations) {
+			Collection<JmxOperation_RENAMED> operations) {
 		return new DiscoveredJmxEndpoint(this, endpointBean, id, enabledByDefault, operations);
 	}
 
 	@Override
-	protected JmxOperation createOperation(EndpointId endpointId, DiscoveredOperationMethod operationMethod,
+	protected JmxOperation_RENAMED createOperation(EndpointId endpointId, DiscoveredOperationMethod operationMethod,
 			OperationInvoker invoker) {
 		return new DiscoveredJmxOperation(endpointId, operationMethod, invoker);
 	}
 
 	@Override
-	protected OperationKey createOperationKey(JmxOperation operation) {
+	protected OperationKey createOperationKey(JmxOperation_RENAMED operation) {
 		return new OperationKey(operation.getName(), () -> "MBean call '" + operation.getName() + "'");
 	}
 

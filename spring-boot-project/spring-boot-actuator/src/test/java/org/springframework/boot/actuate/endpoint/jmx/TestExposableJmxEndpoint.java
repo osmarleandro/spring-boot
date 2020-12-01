@@ -28,13 +28,13 @@ import org.springframework.boot.actuate.endpoint.EndpointId;
  */
 public class TestExposableJmxEndpoint implements ExposableJmxEndpoint {
 
-	private final Collection<JmxOperation> operations;
+	private final Collection<JmxOperation_RENAMED> operations;
 
-	public TestExposableJmxEndpoint(JmxOperation... operations) {
+	public TestExposableJmxEndpoint(JmxOperation_RENAMED... operations) {
 		this(Arrays.asList(operations));
 	}
 
-	public TestExposableJmxEndpoint(Collection<JmxOperation> operations) {
+	public TestExposableJmxEndpoint(Collection<JmxOperation_RENAMED> operations) {
 		this.operations = operations;
 	}
 
@@ -49,7 +49,7 @@ public class TestExposableJmxEndpoint implements ExposableJmxEndpoint {
 	}
 
 	@Override
-	public Collection<JmxOperation> getOperations() {
+	public Collection<JmxOperation_RENAMED> getOperations() {
 		return this.operations;
 	}
 

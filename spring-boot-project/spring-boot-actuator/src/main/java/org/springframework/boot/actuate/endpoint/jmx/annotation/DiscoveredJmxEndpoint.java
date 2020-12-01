@@ -22,17 +22,17 @@ import org.springframework.boot.actuate.endpoint.EndpointId;
 import org.springframework.boot.actuate.endpoint.annotation.AbstractDiscoveredEndpoint;
 import org.springframework.boot.actuate.endpoint.annotation.EndpointDiscoverer;
 import org.springframework.boot.actuate.endpoint.jmx.ExposableJmxEndpoint;
-import org.springframework.boot.actuate.endpoint.jmx.JmxOperation;
+import org.springframework.boot.actuate.endpoint.jmx.JmxOperation_RENAMED;
 
 /**
  * A discovered {@link ExposableJmxEndpoint JMX endpoint}.
  *
  * @author Phillip Webb
  */
-class DiscoveredJmxEndpoint extends AbstractDiscoveredEndpoint<JmxOperation> implements ExposableJmxEndpoint {
+class DiscoveredJmxEndpoint extends AbstractDiscoveredEndpoint<JmxOperation_RENAMED> implements ExposableJmxEndpoint {
 
 	DiscoveredJmxEndpoint(EndpointDiscoverer<?, ?> discoverer, Object endpointBean, EndpointId id,
-			boolean enabledByDefault, Collection<JmxOperation> operations) {
+			boolean enabledByDefault, Collection<JmxOperation_RENAMED> operations) {
 		super(discoverer, endpointBean, id, enabledByDefault, operations);
 	}
 

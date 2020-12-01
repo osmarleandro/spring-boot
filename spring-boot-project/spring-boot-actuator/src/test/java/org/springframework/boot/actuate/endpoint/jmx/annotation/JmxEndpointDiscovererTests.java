@@ -35,7 +35,7 @@ import org.springframework.boot.actuate.endpoint.invoke.convert.ConversionServic
 import org.springframework.boot.actuate.endpoint.invoker.cache.CachingOperationInvoker;
 import org.springframework.boot.actuate.endpoint.invoker.cache.CachingOperationInvokerAdvisor;
 import org.springframework.boot.actuate.endpoint.jmx.ExposableJmxEndpoint;
-import org.springframework.boot.actuate.endpoint.jmx.JmxOperation;
+import org.springframework.boot.actuate.endpoint.jmx.JmxOperation_RENAMED;
 import org.springframework.boot.actuate.endpoint.jmx.JmxOperationParameter;
 import org.springframework.boot.actuate.endpoint.web.annotation.WebEndpoint;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -68,25 +68,25 @@ class JmxEndpointDiscovererTests {
 		load(TestEndpoint.class, (discoverer) -> {
 			Map<EndpointId, ExposableJmxEndpoint> endpoints = discover(discoverer);
 			assertThat(endpoints).containsOnlyKeys(EndpointId.of("test"));
-			Map<String, JmxOperation> operationByName = mapOperations(
+			Map<String, JmxOperation_RENAMED> operationByName = mapOperations(
 					endpoints.get(EndpointId.of("test")).getOperations());
 			assertThat(operationByName).containsOnlyKeys("getAll", "getSomething", "update", "deleteSomething");
-			JmxOperation getAll = operationByName.get("getAll");
+			JmxOperation_RENAMED getAll = operationByName.get("getAll");
 			assertThat(getAll.getDescription()).isEqualTo("Invoke getAll for endpoint test");
 			assertThat(getAll.getOutputType()).isEqualTo(Object.class);
 			assertThat(getAll.getParameters()).isEmpty();
-			JmxOperation getSomething = operationByName.get("getSomething");
+			JmxOperation_RENAMED getSomething = operationByName.get("getSomething");
 			assertThat(getSomething.getDescription()).isEqualTo("Invoke getSomething for endpoint test");
 			assertThat(getSomething.getOutputType()).isEqualTo(String.class);
 			assertThat(getSomething.getParameters()).hasSize(1);
 			assertThat(getSomething.getParameters().get(0).getType()).isEqualTo(String.class);
-			JmxOperation update = operationByName.get("update");
+			JmxOperation_RENAMED update = operationByName.get("update");
 			assertThat(update.getDescription()).isEqualTo("Invoke update for endpoint test");
 			assertThat(update.getOutputType()).isEqualTo(Void.TYPE);
 			assertThat(update.getParameters()).hasSize(2);
 			assertThat(update.getParameters().get(0).getType()).isEqualTo(String.class);
 			assertThat(update.getParameters().get(1).getType()).isEqualTo(String.class);
-			JmxOperation deleteSomething = operationByName.get("deleteSomething");
+			JmxOperation_RENAMED deleteSomething = operationByName.get("deleteSomething");
 			assertThat(deleteSomething.getDescription()).isEqualTo("Invoke deleteSomething for endpoint test");
 			assertThat(deleteSomething.getOutputType()).isEqualTo(Void.TYPE);
 			assertThat(deleteSomething.getParameters()).hasSize(1);
@@ -123,11 +123,11 @@ class JmxEndpointDiscovererTests {
 		load(AdditionalOperationJmxEndpointConfiguration.class, (discoverer) -> {
 			Map<EndpointId, ExposableJmxEndpoint> endpoints = discover(discoverer);
 			assertThat(endpoints).containsOnlyKeys(EndpointId.of("test"));
-			Map<String, JmxOperation> operationByName = mapOperations(
+			Map<String, JmxOperation_RENAMED> operationByName = mapOperations(
 					endpoints.get(EndpointId.of("test")).getOperations());
 			assertThat(operationByName).containsOnlyKeys("getAll", "getSomething", "update", "deleteSomething",
 					"getAnother");
-			JmxOperation getAnother = operationByName.get("getAnother");
+			JmxOperation_RENAMED getAnother = operationByName.get("getAnother");
 			assertThat(getAnother.getDescription()).isEqualTo("Get another thing");
 			assertThat(getAnother.getOutputType()).isEqualTo(Object.class);
 			assertThat(getAnother.getParameters()).isEmpty();
@@ -139,10 +139,10 @@ class JmxEndpointDiscovererTests {
 		load(TestEndpoint.class, (id) -> 500L, (discoverer) -> {
 			Map<EndpointId, ExposableJmxEndpoint> endpoints = discover(discoverer);
 			assertThat(endpoints).containsOnlyKeys(EndpointId.of("test"));
-			Map<String, JmxOperation> operationByName = mapOperations(
+			Map<String, JmxOperation_RENAMED> operationByName = mapOperations(
 					endpoints.get(EndpointId.of("test")).getOperations());
 			assertThat(operationByName).containsOnlyKeys("getAll", "getSomething", "update", "deleteSomething");
-			JmxOperation getAll = operationByName.get("getAll");
+			JmxOperation_RENAMED getAll = operationByName.get("getAll");
 			assertThat(getInvoker(getAll)).isInstanceOf(CachingOperationInvoker.class);
 			assertThat(((CachingOperationInvoker) getInvoker(getAll)).getTimeToLive()).isEqualTo(500);
 		});
@@ -153,14 +153,14 @@ class JmxEndpointDiscovererTests {
 		load(AdditionalOperationJmxEndpointConfiguration.class, (id) -> 500L, (discoverer) -> {
 			Map<EndpointId, ExposableJmxEndpoint> endpoints = discover(discoverer);
 			assertThat(endpoints).containsOnlyKeys(EndpointId.of("test"));
-			Map<String, JmxOperation> operationByName = mapOperations(
+			Map<String, JmxOperation_RENAMED> operationByName = mapOperations(
 					endpoints.get(EndpointId.of("test")).getOperations());
 			assertThat(operationByName).containsOnlyKeys("getAll", "getSomething", "update", "deleteSomething",
 					"getAnother");
-			JmxOperation getAll = operationByName.get("getAll");
+			JmxOperation_RENAMED getAll = operationByName.get("getAll");
 			assertThat(getInvoker(getAll)).isInstanceOf(CachingOperationInvoker.class);
 			assertThat(((CachingOperationInvoker) getInvoker(getAll)).getTimeToLive()).isEqualTo(500);
-			JmxOperation getAnother = operationByName.get("getAnother");
+			JmxOperation_RENAMED getAnother = operationByName.get("getAnother");
 			assertThat(getInvoker(getAnother)).isInstanceOf(CachingOperationInvoker.class);
 			assertThat(((CachingOperationInvoker) getInvoker(getAnother)).getTimeToLive()).isEqualTo(500);
 		});
@@ -201,36 +201,36 @@ class JmxEndpointDiscovererTests {
 						"Endpoint bean 'nonJmxEndpoint' cannot support the extension bean 'nonJmxJmxEndpointExtension'"));
 	}
 
-	private Object getInvoker(JmxOperation operation) {
+	private Object getInvoker(JmxOperation_RENAMED operation) {
 		return ReflectionTestUtils.getField(operation, "invoker");
 	}
 
 	private void assertJmxTestEndpoint(ExposableJmxEndpoint endpoint) {
-		Map<String, JmxOperation> operationsByName = mapOperations(endpoint.getOperations());
+		Map<String, JmxOperation_RENAMED> operationsByName = mapOperations(endpoint.getOperations());
 		assertThat(operationsByName).containsOnlyKeys("getAll", "getSomething", "update", "deleteSomething");
-		JmxOperation getAll = operationsByName.get("getAll");
+		JmxOperation_RENAMED getAll = operationsByName.get("getAll");
 		assertThat(getAll.getDescription()).isEqualTo("Get all the things");
 		assertThat(getAll.getOutputType()).isEqualTo(Object.class);
 		assertThat(getAll.getParameters()).isEmpty();
-		JmxOperation getSomething = operationsByName.get("getSomething");
+		JmxOperation_RENAMED getSomething = operationsByName.get("getSomething");
 		assertThat(getSomething.getDescription()).isEqualTo("Get something based on a timeUnit");
 		assertThat(getSomething.getOutputType()).isEqualTo(String.class);
 		assertThat(getSomething.getParameters()).hasSize(1);
 		hasDocumentedParameter(getSomething, 0, "unitMs", Long.class, "Number of milliseconds");
-		JmxOperation update = operationsByName.get("update");
+		JmxOperation_RENAMED update = operationsByName.get("update");
 		assertThat(update.getDescription()).isEqualTo("Update something based on bar");
 		assertThat(update.getOutputType()).isEqualTo(Void.TYPE);
 		assertThat(update.getParameters()).hasSize(2);
 		hasDocumentedParameter(update, 0, "foo", String.class, "Foo identifier");
 		hasDocumentedParameter(update, 1, "bar", String.class, "Bar value");
-		JmxOperation deleteSomething = operationsByName.get("deleteSomething");
+		JmxOperation_RENAMED deleteSomething = operationsByName.get("deleteSomething");
 		assertThat(deleteSomething.getDescription()).isEqualTo("Delete something based on a timeUnit");
 		assertThat(deleteSomething.getOutputType()).isEqualTo(Void.TYPE);
 		assertThat(deleteSomething.getParameters()).hasSize(1);
 		hasDocumentedParameter(deleteSomething, 0, "unitMs", Long.class, "Number of milliseconds");
 	}
 
-	private void hasDocumentedParameter(JmxOperation operation, int index, String name, Class<?> type,
+	private void hasDocumentedParameter(JmxOperation_RENAMED operation, int index, String name, Class<?> type,
 			String description) {
 		assertThat(index).isLessThan(operation.getParameters().size());
 		JmxOperationParameter parameter = operation.getParameters().get(index);
@@ -245,8 +245,8 @@ class JmxEndpointDiscovererTests {
 		return byId;
 	}
 
-	private Map<String, JmxOperation> mapOperations(Collection<JmxOperation> operations) {
-		Map<String, JmxOperation> byName = new HashMap<>();
+	private Map<String, JmxOperation_RENAMED> mapOperations(Collection<JmxOperation_RENAMED> operations) {
+		Map<String, JmxOperation_RENAMED> byName = new HashMap<>();
 		operations.forEach((operation) -> byName.put(operation.getName(), operation));
 		return byName;
 	}

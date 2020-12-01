@@ -59,7 +59,7 @@ public class EndpointMBean implements DynamicMBean {
 
 	private final MBeanInfo info;
 
-	private final Map<String, JmxOperation> operations;
+	private final Map<String, JmxOperation_RENAMED> operations;
 
 	EndpointMBean(JmxOperationResponseMapper responseMapper, ClassLoader classLoader, ExposableJmxEndpoint endpoint) {
 		Assert.notNull(responseMapper, "ResponseMapper must not be null");
@@ -71,8 +71,8 @@ public class EndpointMBean implements DynamicMBean {
 		this.operations = getOperations(endpoint);
 	}
 
-	private Map<String, JmxOperation> getOperations(ExposableJmxEndpoint endpoint) {
-		Map<String, JmxOperation> operations = new HashMap<>();
+	private Map<String, JmxOperation_RENAMED> getOperations(ExposableJmxEndpoint endpoint) {
+		Map<String, JmxOperation_RENAMED> operations = new HashMap<>();
 		endpoint.getOperations().forEach((operation) -> operations.put(operation.getName(), operation));
 		return Collections.unmodifiableMap(operations);
 	}
@@ -85,7 +85,7 @@ public class EndpointMBean implements DynamicMBean {
 	@Override
 	public Object invoke(String actionName, Object[] params, String[] signature)
 			throws MBeanException, ReflectionException {
-		JmxOperation operation = this.operations.get(actionName);
+		JmxOperation_RENAMED operation = this.operations.get(actionName);
 		if (operation == null) {
 			String message = "Endpoint with id '" + this.endpoint.getEndpointId() + "' has no operation named "
 					+ actionName;
@@ -112,7 +112,7 @@ public class EndpointMBean implements DynamicMBean {
 		return null;
 	}
 
-	private Object invoke(JmxOperation operation, Object[] params) throws MBeanException, ReflectionException {
+	private Object invoke(JmxOperation_RENAMED operation, Object[] params) throws MBeanException, ReflectionException {
 		try {
 			String[] parameterNames = operation.getParameters().stream().map(JmxOperationParameter::getName)
 					.toArray(String[]::new);
