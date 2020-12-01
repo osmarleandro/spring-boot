@@ -37,7 +37,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Madhura Bhave
  */
 @ClassPathExclusions("spring-webmvc-*")
-class JerseyChildManagementContextConfigurationTests {
+class JerseyChildManagementContextConfigurationTests_RENAMED {
 
 	private final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner()
 			.withUserConfiguration(JerseyChildManagementContextConfiguration.class);
