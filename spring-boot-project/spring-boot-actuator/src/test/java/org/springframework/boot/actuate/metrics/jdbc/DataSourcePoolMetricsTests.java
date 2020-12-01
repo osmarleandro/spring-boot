@@ -33,7 +33,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * Tests for {@link DataSourcePoolMetrics}.
+ * Tests for {@link DataSourcePoolMetrics_RENAMED}.
  *
  * @author Jon Schneider
  * @author Andy Wilkinson
@@ -66,7 +66,7 @@ class DataSourcePoolMetricsTests {
 
 		DataSourceConfig(DataSource dataSource, Collection<DataSourcePoolMetadataProvider> metadataProviders,
 				MeterRegistry registry) {
-			new DataSourcePoolMetrics(dataSource, metadataProviders, "data.source", Collections.emptyList())
+			new DataSourcePoolMetrics_RENAMED(dataSource, metadataProviders, "data.source", Collections.emptyList())
 					.bindTo(registry);
 		}
 

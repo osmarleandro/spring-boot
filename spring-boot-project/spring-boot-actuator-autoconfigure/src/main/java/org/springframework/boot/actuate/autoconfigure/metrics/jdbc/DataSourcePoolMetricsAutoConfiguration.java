@@ -34,7 +34,7 @@ import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.actuate.autoconfigure.metrics.MetricsAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.metrics.export.simple.SimpleMetricsExportAutoConfiguration;
-import org.springframework.boot.actuate.metrics.jdbc.DataSourcePoolMetrics;
+import org.springframework.boot.actuate.metrics.jdbc.DataSourcePoolMetrics_RENAMED;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
@@ -78,7 +78,7 @@ public class DataSourcePoolMetricsAutoConfiguration {
 		private void bindDataSourceToRegistry(String beanName, DataSource dataSource,
 				Collection<DataSourcePoolMetadataProvider> metadataProviders, MeterRegistry registry) {
 			String dataSourceName = getDataSourceName(beanName);
-			new DataSourcePoolMetrics(dataSource, metadataProviders, dataSourceName, Collections.emptyList())
+			new DataSourcePoolMetrics_RENAMED(dataSource, metadataProviders, dataSourceName, Collections.emptyList())
 					.bindTo(registry);
 		}
 
