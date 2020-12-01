@@ -20,7 +20,7 @@ import org.springframework.boot.actuate.endpoint.EndpointFilter;
 import org.springframework.util.Assert;
 
 /**
- * {@link EndpointFilter} the matches based on the {@link EndpointDiscoverer} the created
+ * {@link EndpointFilter} the matches based on the {@link EndpointDiscoverer_RENAMED} the created
  * the endpoint.
  *
  * @author Phillip Webb
@@ -28,13 +28,13 @@ import org.springframework.util.Assert;
  */
 public abstract class DiscovererEndpointFilter implements EndpointFilter<DiscoveredEndpoint<?>> {
 
-	private final Class<? extends EndpointDiscoverer<?, ?>> discoverer;
+	private final Class<? extends EndpointDiscoverer_RENAMED<?, ?>> discoverer;
 
 	/**
 	 * Create a new {@link DiscovererEndpointFilter} instance.
 	 * @param discoverer the required discoverer
 	 */
-	protected DiscovererEndpointFilter(Class<? extends EndpointDiscoverer<?, ?>> discoverer) {
+	protected DiscovererEndpointFilter(Class<? extends EndpointDiscoverer_RENAMED<?, ?>> discoverer) {
 		Assert.notNull(discoverer, "Discoverer must not be null");
 		this.discoverer = discoverer;
 	}

@@ -25,7 +25,7 @@ import org.springframework.core.style.ToStringCreator;
 
 /**
  * Abstract base class for {@link Operation endpoints operations} discovered by a
- * {@link EndpointDiscoverer}.
+ * {@link EndpointDiscoverer_RENAMED}.
  *
  * @author Phillip Webb
  * @since 2.0.0

@@ -22,7 +22,7 @@ import java.util.List;
 import org.springframework.boot.actuate.endpoint.EndpointFilter;
 import org.springframework.boot.actuate.endpoint.EndpointId;
 import org.springframework.boot.actuate.endpoint.annotation.DiscoveredOperationMethod;
-import org.springframework.boot.actuate.endpoint.annotation.EndpointDiscoverer;
+import org.springframework.boot.actuate.endpoint.annotation.EndpointDiscoverer_RENAMED;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvoker;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvokerAdvisor;
 import org.springframework.boot.actuate.endpoint.invoke.ParameterValueMapper;
@@ -35,12 +35,12 @@ import org.springframework.boot.actuate.endpoint.web.WebOperationRequestPredicat
 import org.springframework.context.ApplicationContext;
 
 /**
- * {@link EndpointDiscoverer} for {@link ExposableWebEndpoint web endpoints}.
+ * {@link EndpointDiscoverer_RENAMED} for {@link ExposableWebEndpoint web endpoints}.
  *
  * @author Phillip Webb
  * @since 2.0.0
  */
-public class WebEndpointDiscoverer extends EndpointDiscoverer<ExposableWebEndpoint, WebOperation>
+public class WebEndpointDiscoverer extends EndpointDiscoverer_RENAMED<ExposableWebEndpoint, WebOperation>
 		implements WebEndpointsSupplier {
 
 	private final List<PathMapper> endpointPathMappers;

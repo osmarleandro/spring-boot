@@ -27,7 +27,7 @@ import org.springframework.util.Assert;
 
 /**
  * Abstract base class for {@link ExposableEndpoint endpoints} discovered by a
- * {@link EndpointDiscoverer}.
+ * {@link EndpointDiscoverer_RENAMED}.
  *
  * @param <O> the operation type
  * @author Phillip Webb
@@ -36,7 +36,7 @@ import org.springframework.util.Assert;
 public abstract class AbstractDiscoveredEndpoint<O extends Operation> extends AbstractExposableEndpoint<O>
 		implements DiscoveredEndpoint<O> {
 
-	private final EndpointDiscoverer<?, ?> discoverer;
+	private final EndpointDiscoverer_RENAMED<?, ?> discoverer;
 
 	private final Object endpointBean;
 
@@ -48,7 +48,7 @@ public abstract class AbstractDiscoveredEndpoint<O extends Operation> extends Ab
 	 * @param enabledByDefault if the endpoint is enabled by default
 	 * @param operations the endpoint operations
 	 */
-	public AbstractDiscoveredEndpoint(EndpointDiscoverer<?, ?> discoverer, Object endpointBean, EndpointId id,
+	public AbstractDiscoveredEndpoint(EndpointDiscoverer_RENAMED<?, ?> discoverer, Object endpointBean, EndpointId id,
 			boolean enabledByDefault, Collection<? extends O> operations) {
 		super(id, enabledByDefault, operations);
 		Assert.notNull(discoverer, "Discoverer must not be null");
@@ -63,7 +63,7 @@ public abstract class AbstractDiscoveredEndpoint<O extends Operation> extends Ab
 	}
 
 	@Override
-	public boolean wasDiscoveredBy(Class<? extends EndpointDiscoverer<?, ?>> discoverer) {
+	public boolean wasDiscoveredBy(Class<? extends EndpointDiscoverer_RENAMED<?, ?>> discoverer) {
 		return discoverer.isInstance(this.discoverer);
 	}
 

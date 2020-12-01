@@ -21,7 +21,7 @@ import java.util.Collection;
 import org.springframework.boot.actuate.endpoint.EndpointFilter;
 import org.springframework.boot.actuate.endpoint.EndpointId;
 import org.springframework.boot.actuate.endpoint.annotation.DiscoveredOperationMethod;
-import org.springframework.boot.actuate.endpoint.annotation.EndpointDiscoverer;
+import org.springframework.boot.actuate.endpoint.annotation.EndpointDiscoverer_RENAMED;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvoker;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvokerAdvisor;
 import org.springframework.boot.actuate.endpoint.invoke.ParameterValueMapper;
@@ -31,12 +31,12 @@ import org.springframework.boot.actuate.endpoint.jmx.JmxOperation;
 import org.springframework.context.ApplicationContext;
 
 /**
- * {@link EndpointDiscoverer} for {@link ExposableJmxEndpoint JMX endpoints}.
+ * {@link EndpointDiscoverer_RENAMED} for {@link ExposableJmxEndpoint JMX endpoints}.
  *
  * @author Phillip Webb
  * @since 2.0.0
  */
-public class JmxEndpointDiscoverer extends EndpointDiscoverer<ExposableJmxEndpoint, JmxOperation>
+public class JmxEndpointDiscoverer extends EndpointDiscoverer_RENAMED<ExposableJmxEndpoint, JmxOperation>
 		implements JmxEndpointsSupplier {
 
 	/**

@@ -60,7 +60,7 @@ import static org.assertj.core.api.Assertions.assertThatIllegalStateException;
 import static org.mockito.Mockito.mock;
 
 /**
- * Tests for {@link EndpointDiscoverer}.
+ * Tests for {@link EndpointDiscoverer_RENAMED}.
  *
  * @author Andy Wilkinson
  * @author Stephane Nicoll
@@ -519,7 +519,7 @@ class EndpointDiscovererTests {
 
 	}
 
-	static class TestEndpointDiscoverer extends EndpointDiscoverer<TestExposableEndpoint, TestOperation> {
+	static class TestEndpointDiscoverer extends EndpointDiscoverer_RENAMED<TestExposableEndpoint, TestOperation> {
 
 		TestEndpointDiscoverer(ApplicationContext applicationContext) {
 			this(applicationContext, (id) -> null);
@@ -562,7 +562,7 @@ class EndpointDiscovererTests {
 	}
 
 	static class SpecializedEndpointDiscoverer
-			extends EndpointDiscoverer<SpecializedExposableEndpoint, SpecializedOperation> {
+			extends EndpointDiscoverer_RENAMED<SpecializedExposableEndpoint, SpecializedOperation> {
 
 		SpecializedEndpointDiscoverer(ApplicationContext applicationContext) {
 			this(applicationContext, Collections.emptyList());
@@ -595,7 +595,7 @@ class EndpointDiscovererTests {
 
 	static class TestExposableEndpoint extends AbstractDiscoveredEndpoint<TestOperation> {
 
-		TestExposableEndpoint(EndpointDiscoverer<?, ?> discoverer, Object endpointBean, EndpointId id,
+		TestExposableEndpoint(EndpointDiscoverer_RENAMED<?, ?> discoverer, Object endpointBean, EndpointId id,
 				boolean enabledByDefault, Collection<? extends TestOperation> operations) {
 			super(discoverer, endpointBean, id, enabledByDefault, operations);
 		}
@@ -604,7 +604,7 @@ class EndpointDiscovererTests {
 
 	static class SpecializedExposableEndpoint extends AbstractDiscoveredEndpoint<SpecializedOperation> {
 
-		SpecializedExposableEndpoint(EndpointDiscoverer<?, ?> discoverer, Object endpointBean, EndpointId id,
+		SpecializedExposableEndpoint(EndpointDiscoverer_RENAMED<?, ?> discoverer, Object endpointBean, EndpointId id,
 				boolean enabledByDefault, Collection<? extends SpecializedOperation> operations) {
 			super(discoverer, endpointBean, id, enabledByDefault, operations);
 		}

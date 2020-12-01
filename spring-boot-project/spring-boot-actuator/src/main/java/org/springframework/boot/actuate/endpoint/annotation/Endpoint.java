@@ -46,7 +46,7 @@ import org.springframework.boot.actuate.endpoint.EndpointId;
  * @since 2.0.0
  * @see EndpointExtension
  * @see FilteredEndpoint
- * @see EndpointDiscoverer
+ * @see EndpointDiscoverer_RENAMED
  */
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)

@@ -68,13 +68,13 @@ class DiscovererEndpointFilterTests {
 
 	static class TestDiscovererEndpointFilter extends DiscovererEndpointFilter {
 
-		TestDiscovererEndpointFilter(Class<? extends EndpointDiscoverer<?, ?>> discoverer) {
+		TestDiscovererEndpointFilter(Class<? extends EndpointDiscoverer_RENAMED<?, ?>> discoverer) {
 			super(discoverer);
 		}
 
 	}
 
-	abstract static class TestDiscovererA extends EndpointDiscoverer<ExposableEndpoint<Operation>, Operation> {
+	abstract static class TestDiscovererA extends EndpointDiscoverer_RENAMED<ExposableEndpoint<Operation>, Operation> {
 
 		TestDiscovererA(ApplicationContext applicationContext, ParameterValueMapper parameterValueMapper,
 				Collection<OperationInvokerAdvisor> invokerAdvisors,
@@ -84,7 +84,7 @@ class DiscovererEndpointFilterTests {
 
 	}
 
-	abstract static class TestDiscovererB extends EndpointDiscoverer<ExposableEndpoint<Operation>, Operation> {
+	abstract static class TestDiscovererB extends EndpointDiscoverer_RENAMED<ExposableEndpoint<Operation>, Operation> {
 
 		TestDiscovererB(ApplicationContext applicationContext, ParameterValueMapper parameterValueMapper,
 				Collection<OperationInvokerAdvisor> invokerAdvisors,

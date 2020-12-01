@@ -27,7 +27,7 @@ import org.springframework.core.annotation.AnnotationAttributes;
 import org.springframework.util.Assert;
 
 /**
- * An {@link OperationMethod} discovered by an {@link EndpointDiscoverer}.
+ * An {@link OperationMethod} discovered by an {@link EndpointDiscoverer_RENAMED}.
  *
  * @author Phillip Webb
  * @since 2.0.0

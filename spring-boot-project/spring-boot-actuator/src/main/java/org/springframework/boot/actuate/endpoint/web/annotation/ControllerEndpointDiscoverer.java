@@ -24,7 +24,7 @@ import org.springframework.boot.actuate.endpoint.EndpointFilter;
 import org.springframework.boot.actuate.endpoint.EndpointId;
 import org.springframework.boot.actuate.endpoint.Operation;
 import org.springframework.boot.actuate.endpoint.annotation.DiscoveredOperationMethod;
-import org.springframework.boot.actuate.endpoint.annotation.EndpointDiscoverer;
+import org.springframework.boot.actuate.endpoint.annotation.EndpointDiscoverer_RENAMED;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvoker;
 import org.springframework.boot.actuate.endpoint.invoke.ParameterValueMapper;
 import org.springframework.boot.actuate.endpoint.web.PathMapper;
@@ -33,13 +33,13 @@ import org.springframework.core.annotation.MergedAnnotations;
 import org.springframework.core.annotation.MergedAnnotations.SearchStrategy;
 
 /**
- * {@link EndpointDiscoverer} for {@link ExposableControllerEndpoint controller
+ * {@link EndpointDiscoverer_RENAMED} for {@link ExposableControllerEndpoint controller
  * endpoints}.
  *
  * @author Phillip Webb
  * @since 2.0.0
  */
-public class ControllerEndpointDiscoverer extends EndpointDiscoverer<ExposableControllerEndpoint, Operation>
+public class ControllerEndpointDiscoverer extends EndpointDiscoverer_RENAMED<ExposableControllerEndpoint, Operation>
 		implements ControllerEndpointsSupplier {
 
 	private final List<PathMapper> endpointPathMappers;
