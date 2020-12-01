@@ -41,7 +41,7 @@ import org.springframework.context.annotation.Configuration;
 @ConditionalOnWebApplication
 @ConditionalOnClass({ JettyServerThreadPoolMetrics.class, Server.class })
 @AutoConfigureAfter(CompositeMeterRegistryAutoConfiguration.class)
-public class JettyMetricsAutoConfiguration {
+public class JettyMetricsAutoConfiguration_RENAMED {
 
 	@Bean
 	@ConditionalOnBean(MeterRegistry.class)

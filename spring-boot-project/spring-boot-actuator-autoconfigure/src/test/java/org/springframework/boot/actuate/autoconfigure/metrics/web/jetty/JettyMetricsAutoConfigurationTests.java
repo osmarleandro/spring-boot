@@ -40,7 +40,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 
 /**
- * Tests for {@link JettyMetricsAutoConfiguration}.
+ * Tests for {@link JettyMetricsAutoConfiguration_RENAMED}.
  *
  * @author Andy Wilkinson
  */
@@ -49,7 +49,7 @@ class JettyMetricsAutoConfigurationTests {
 	@Test
 	void autoConfiguresThreadPoolMetricsWithEmbeddedServletJetty() {
 		new WebApplicationContextRunner(AnnotationConfigServletWebServerApplicationContext::new)
-				.withConfiguration(AutoConfigurations.of(JettyMetricsAutoConfiguration.class,
+				.withConfiguration(AutoConfigurations.of(JettyMetricsAutoConfiguration_RENAMED.class,
 						ServletWebServerFactoryAutoConfiguration.class))
 				.withUserConfiguration(ServletWebServerConfiguration.class, MeterRegistryConfiguration.class)
 				.run((context) -> {
@@ -64,7 +64,7 @@ class JettyMetricsAutoConfigurationTests {
 	@Test
 	void autoConfiguresThreadPoolMetricsWithEmbeddedReactiveJetty() {
 		new ReactiveWebApplicationContextRunner(AnnotationConfigReactiveWebServerApplicationContext::new)
-				.withConfiguration(AutoConfigurations.of(JettyMetricsAutoConfiguration.class,
+				.withConfiguration(AutoConfigurations.of(JettyMetricsAutoConfiguration_RENAMED.class,
 						ReactiveWebServerFactoryAutoConfiguration.class))
 				.withUserConfiguration(ReactiveWebServerConfiguration.class, MeterRegistryConfiguration.class)
 				.run((context) -> {
@@ -77,7 +77,7 @@ class JettyMetricsAutoConfigurationTests {
 
 	@Test
 	void allowsCustomJettyServerThreadPoolMetricsBinderToBeUsed() {
-		new WebApplicationContextRunner().withConfiguration(AutoConfigurations.of(JettyMetricsAutoConfiguration.class))
+		new WebApplicationContextRunner().withConfiguration(AutoConfigurations.of(JettyMetricsAutoConfiguration_RENAMED.class))
 				.withUserConfiguration(CustomJettyServerThreadPoolMetricsBinder.class, MeterRegistryConfiguration.class)
 				.run((context) -> assertThat(context).hasSingleBean(JettyServerThreadPoolMetricsBinder.class)
 						.hasBean("customJettyServerThreadPoolMetricsBinder"));
