@@ -28,7 +28,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  * @since 2.0.0
  */
 @ConfigurationProperties(prefix = "management.endpoint.logfile")
-public class LogFileWebEndpointProperties {
+public class LogFileWebEndpointProperties_RENAMED {
 
 	/**
 	 * External Logfile to be accessed. Can be used if the logfile is written by output

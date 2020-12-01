@@ -43,14 +43,14 @@ import org.springframework.util.StringUtils;
  */
 @Configuration(proxyBeanMethods = false)
 @ConditionalOnAvailableEndpoint(endpoint = LogFileWebEndpoint.class)
-@EnableConfigurationProperties(LogFileWebEndpointProperties.class)
+@EnableConfigurationProperties(LogFileWebEndpointProperties_RENAMED.class)
 public class LogFileWebEndpointAutoConfiguration {
 
 	@Bean
 	@ConditionalOnMissingBean
 	@Conditional(LogFileCondition.class)
 	public LogFileWebEndpoint logFileWebEndpoint(ObjectProvider<LogFile> logFile,
-			LogFileWebEndpointProperties properties) {
+			LogFileWebEndpointProperties_RENAMED properties) {
 		return new LogFileWebEndpoint(logFile.getIfAvailable(), properties.getExternalFile());
 	}
 
