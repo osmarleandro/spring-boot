@@ -30,13 +30,13 @@ import org.springframework.boot.actuate.endpoint.annotation.Selector.Match;
 import org.springframework.boot.actuate.endpoint.web.EndpointMediaTypes;
 import org.springframework.boot.actuate.endpoint.web.WebEndpointHttpMethod;
 import org.springframework.boot.actuate.endpoint.web.WebEndpointResponse;
-import org.springframework.boot.actuate.endpoint.web.WebOperationRequestPredicate;
+import org.springframework.boot.actuate.endpoint.web.WebOperationRequestPredicate_RENAMED;
 import org.springframework.core.ResolvableType;
 import org.springframework.core.io.Resource;
 import org.springframework.util.Assert;
 
 /**
- * Factory to create a {@link WebOperationRequestPredicate}.
+ * Factory to create a {@link WebOperationRequestPredicate_RENAMED}.
  *
  * @author Andy Wilkinson
  * @author Stephane Nicoll
@@ -51,7 +51,7 @@ class RequestPredicateFactory {
 		this.endpointMediaTypes = endpointMediaTypes;
 	}
 
-	WebOperationRequestPredicate getRequestPredicate(String rootPath, DiscoveredOperationMethod operationMethod) {
+	WebOperationRequestPredicate_RENAMED getRequestPredicate(String rootPath, DiscoveredOperationMethod operationMethod) {
 		Method method = operationMethod.getMethod();
 		Parameter[] selectorParameters = Arrays.stream(method.getParameters()).filter(this::hasSelector)
 				.toArray(Parameter[]::new);
@@ -60,7 +60,7 @@ class RequestPredicateFactory {
 		WebEndpointHttpMethod httpMethod = determineHttpMethod(operationMethod.getOperationType());
 		Collection<String> consumes = getConsumes(httpMethod, method);
 		Collection<String> produces = getProduces(operationMethod, method);
-		return new WebOperationRequestPredicate(path, httpMethod, consumes, produces);
+		return new WebOperationRequestPredicate_RENAMED(path, httpMethod, consumes, produces);
 	}
 
 	private Parameter getAllRemainingPathSegmentsParameter(Parameter[] selectorParameters) {

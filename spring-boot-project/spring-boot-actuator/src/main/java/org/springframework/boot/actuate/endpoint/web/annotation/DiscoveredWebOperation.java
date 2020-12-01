@@ -29,7 +29,7 @@ import org.springframework.boot.actuate.endpoint.annotation.DiscoveredOperationM
 import org.springframework.boot.actuate.endpoint.annotation.Selector;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvoker;
 import org.springframework.boot.actuate.endpoint.web.WebOperation;
-import org.springframework.boot.actuate.endpoint.web.WebOperationRequestPredicate;
+import org.springframework.boot.actuate.endpoint.web.WebOperationRequestPredicate_RENAMED;
 import org.springframework.core.style.ToStringCreator;
 import org.springframework.util.ClassUtils;
 
@@ -49,10 +49,10 @@ class DiscoveredWebOperation extends AbstractDiscoveredOperation implements WebO
 
 	private final boolean blocking;
 
-	private final WebOperationRequestPredicate requestPredicate;
+	private final WebOperationRequestPredicate_RENAMED requestPredicate;
 
 	DiscoveredWebOperation(EndpointId endpointId, DiscoveredOperationMethod operationMethod, OperationInvoker invoker,
-			WebOperationRequestPredicate requestPredicate) {
+			WebOperationRequestPredicate_RENAMED requestPredicate) {
 		super(operationMethod, invoker);
 		Method method = operationMethod.getMethod();
 		this.id = getId(endpointId, method);
@@ -88,7 +88,7 @@ class DiscoveredWebOperation extends AbstractDiscoveredOperation implements WebO
 	}
 
 	@Override
-	public WebOperationRequestPredicate getRequestPredicate() {
+	public WebOperationRequestPredicate_RENAMED getRequestPredicate() {
 		return this.requestPredicate;
 	}
 

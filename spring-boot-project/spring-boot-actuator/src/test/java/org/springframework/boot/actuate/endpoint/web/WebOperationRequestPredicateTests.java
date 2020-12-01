@@ -23,7 +23,7 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Tests for {@link WebOperationRequestPredicate}.
+ * Tests for {@link WebOperationRequestPredicate_RENAMED}.
  *
  * @author Andy Wilkinson
  * @author Phillip Webb
@@ -86,8 +86,8 @@ class WebOperationRequestPredicateTests {
 		assertThat(predicateWithPath("/path/foo1").getMatchAllRemainingPathSegmentsVariable()).isNull();
 	}
 
-	private WebOperationRequestPredicate predicateWithPath(String path) {
-		return new WebOperationRequestPredicate(path, WebEndpointHttpMethod.GET, Collections.emptyList(),
+	private WebOperationRequestPredicate_RENAMED predicateWithPath(String path) {
+		return new WebOperationRequestPredicate_RENAMED(path, WebEndpointHttpMethod.GET, Collections.emptyList(),
 				Collections.emptyList());
 	}
 

@@ -46,7 +46,7 @@ import org.springframework.boot.actuate.endpoint.web.ExposableWebEndpoint;
 import org.springframework.boot.actuate.endpoint.web.PathMapper;
 import org.springframework.boot.actuate.endpoint.web.WebEndpointHttpMethod;
 import org.springframework.boot.actuate.endpoint.web.WebOperation;
-import org.springframework.boot.actuate.endpoint.web.WebOperationRequestPredicate;
+import org.springframework.boot.actuate.endpoint.web.WebOperationRequestPredicate_RENAMED;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -208,7 +208,7 @@ class WebEndpointDiscovererTests {
 			Map<EndpointId, ExposableWebEndpoint> endpoints = mapEndpoints(discoverer.getEndpoints());
 			assertThat(endpoints).containsOnlyKeys(EndpointId.of("test"));
 			ExposableWebEndpoint endpoint = endpoints.get(EndpointId.of("test"));
-			Condition<List<? extends WebOperationRequestPredicate>> expected = requestPredicates(
+			Condition<List<? extends WebOperationRequestPredicate_RENAMED>> expected = requestPredicates(
 					path("custom/test").httpMethod(WebEndpointHttpMethod.GET).consumes().produces("application/json"),
 					path("custom/test/{id}").httpMethod(WebEndpointHttpMethod.GET).consumes()
 							.produces("application/json"));
@@ -240,18 +240,18 @@ class WebEndpointDiscovererTests {
 		return endpointById;
 	}
 
-	private List<WebOperationRequestPredicate> requestPredicates(ExposableWebEndpoint endpoint) {
+	private List<WebOperationRequestPredicate_RENAMED> requestPredicates(ExposableWebEndpoint endpoint) {
 		return endpoint.getOperations().stream().map(WebOperation::getRequestPredicate).collect(Collectors.toList());
 	}
 
-	private Condition<List<? extends WebOperationRequestPredicate>> requestPredicates(
+	private Condition<List<? extends WebOperationRequestPredicate_RENAMED>> requestPredicates(
 			RequestPredicateMatcher... matchers) {
 		return new Condition<>((predicates) -> {
 			if (predicates.size() != matchers.length) {
 				return false;
 			}
-			Map<WebOperationRequestPredicate, Long> matchCounts = new HashMap<>();
-			for (WebOperationRequestPredicate predicate : predicates) {
+			Map<WebOperationRequestPredicate_RENAMED, Long> matchCounts = new HashMap<>();
+			for (WebOperationRequestPredicate_RENAMED predicate : predicates) {
 				matchCounts.put(predicate, Stream.of(matchers).filter((matcher) -> matcher.matches(predicate)).count());
 			}
 			return matchCounts.values().stream().noneMatch((count) -> count != 1);
@@ -628,7 +628,7 @@ class WebEndpointDiscovererTests {
 			return this;
 		}
 
-		private boolean matches(WebOperationRequestPredicate predicate) {
+		private boolean matches(WebOperationRequestPredicate_RENAMED predicate) {
 			return (this.path == null || this.path.equals(predicate.getPath()))
 					&& (this.httpMethod == null || this.httpMethod == predicate.getHttpMethod())
 					&& (this.produces == null || this.produces.equals(new ArrayList<>(predicate.getProduces())))
