@@ -23,7 +23,7 @@ import java.util.function.Predicate;
 import org.springframework.boot.actuate.autoconfigure.health.HealthProperties.Show;
 import org.springframework.boot.actuate.endpoint.SecurityContext;
 import org.springframework.boot.actuate.health.HealthEndpointGroup;
-import org.springframework.boot.actuate.health.HttpCodeStatusMapper;
+import org.springframework.boot.actuate.health.HttpCodeStatusMapper_RENAMED;
 import org.springframework.boot.actuate.health.StatusAggregator;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -42,7 +42,7 @@ class AutoConfiguredHealthEndpointGroup implements HealthEndpointGroup {
 
 	private final StatusAggregator statusAggregator;
 
-	private final HttpCodeStatusMapper httpCodeStatusMapper;
+	private final HttpCodeStatusMapper_RENAMED httpCodeStatusMapper;
 
 	private final Show showComponents;
 
@@ -60,7 +60,7 @@ class AutoConfiguredHealthEndpointGroup implements HealthEndpointGroup {
 	 * @param roles the roles to match
 	 */
 	AutoConfiguredHealthEndpointGroup(Predicate<String> members, StatusAggregator statusAggregator,
-			HttpCodeStatusMapper httpCodeStatusMapper, Show showComponents, Show showDetails,
+			HttpCodeStatusMapper_RENAMED httpCodeStatusMapper, Show showComponents, Show showDetails,
 			Collection<String> roles) {
 		this.members = members;
 		this.statusAggregator = statusAggregator;
@@ -137,7 +137,7 @@ class AutoConfiguredHealthEndpointGroup implements HealthEndpointGroup {
 	}
 
 	@Override
-	public HttpCodeStatusMapper getHttpCodeStatusMapper() {
+	public HttpCodeStatusMapper_RENAMED getHttpCodeStatusMapper() {
 		return this.httpCodeStatusMapper;
 	}
 

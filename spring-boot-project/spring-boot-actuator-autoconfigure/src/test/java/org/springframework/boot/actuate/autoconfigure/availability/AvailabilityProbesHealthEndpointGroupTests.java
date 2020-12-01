@@ -19,7 +19,7 @@ package org.springframework.boot.actuate.autoconfigure.availability;
 import org.junit.jupiter.api.Test;
 
 import org.springframework.boot.actuate.endpoint.SecurityContext;
-import org.springframework.boot.actuate.health.HttpCodeStatusMapper;
+import org.springframework.boot.actuate.health.HttpCodeStatusMapper_RENAMED;
 import org.springframework.boot.actuate.health.StatusAggregator;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -62,7 +62,7 @@ class AvailabilityProbesHealthEndpointGroupTests {
 
 	@Test
 	void getHttpCodeStatusMapperReturnsDefaultHttpCodeStatusMapper() {
-		assertThat(this.group.getHttpCodeStatusMapper()).isEqualTo(HttpCodeStatusMapper.DEFAULT);
+		assertThat(this.group.getHttpCodeStatusMapper()).isEqualTo(HttpCodeStatusMapper_RENAMED.DEFAULT);
 	}
 
 }

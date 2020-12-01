@@ -25,14 +25,14 @@ import org.springframework.boot.actuate.endpoint.web.WebEndpointResponse;
 import org.springframework.util.CollectionUtils;
 
 /**
- * Simple {@link HttpCodeStatusMapper} backed by map of {@link Status#getCode() status
+ * Simple {@link HttpCodeStatusMapper_RENAMED} backed by map of {@link Status#getCode() status
  * code} to HTTP status code.
  *
  * @author Stephane Nicoll
  * @author Phillip Webb
  * @since 2.2.0
  */
-public class SimpleHttpCodeStatusMapper implements HttpCodeStatusMapper {
+public class SimpleHttpCodeStatusMapper implements HttpCodeStatusMapper_RENAMED {
 
 	private static final Map<String, Integer> DEFAULT_MAPPINGS;
 	static {

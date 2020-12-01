@@ -29,7 +29,7 @@ class TestHealthEndpointGroup implements HealthEndpointGroup {
 
 	private final StatusAggregator statusAggregator = new SimpleStatusAggregator();
 
-	private final HttpCodeStatusMapper httpCodeStatusMapper = new SimpleHttpCodeStatusMapper();
+	private final HttpCodeStatusMapper_RENAMED httpCodeStatusMapper = new SimpleHttpCodeStatusMapper();
 
 	private final Predicate<String> memberPredicate;
 
@@ -74,7 +74,7 @@ class TestHealthEndpointGroup implements HealthEndpointGroup {
 	}
 
 	@Override
-	public HttpCodeStatusMapper getHttpCodeStatusMapper() {
+	public HttpCodeStatusMapper_RENAMED getHttpCodeStatusMapper() {
 		return this.httpCodeStatusMapper;
 	}
 

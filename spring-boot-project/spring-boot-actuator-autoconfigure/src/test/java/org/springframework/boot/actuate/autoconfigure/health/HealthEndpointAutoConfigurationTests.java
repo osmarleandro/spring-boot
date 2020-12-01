@@ -35,7 +35,7 @@ import org.springframework.boot.actuate.health.HealthEndpointGroups;
 import org.springframework.boot.actuate.health.HealthEndpointGroupsPostProcessor;
 import org.springframework.boot.actuate.health.HealthEndpointWebExtension;
 import org.springframework.boot.actuate.health.HealthIndicator;
-import org.springframework.boot.actuate.health.HttpCodeStatusMapper;
+import org.springframework.boot.actuate.health.HttpCodeStatusMapper_RENAMED;
 import org.springframework.boot.actuate.health.NamedContributor;
 import org.springframework.boot.actuate.health.ReactiveHealthContributorRegistry;
 import org.springframework.boot.actuate.health.ReactiveHealthEndpointWebExtension;
@@ -76,7 +76,7 @@ class HealthEndpointAutoConfigurationTests {
 	void runWhenHealthEndpointIsDisabledDoesNotCreateBeans() {
 		this.contextRunner.withPropertyValues("management.endpoint.health.enabled=false").run((context) -> {
 			assertThat(context).doesNotHaveBean(StatusAggregator.class);
-			assertThat(context).doesNotHaveBean(HttpCodeStatusMapper.class);
+			assertThat(context).doesNotHaveBean(HttpCodeStatusMapper_RENAMED.class);
 			assertThat(context).doesNotHaveBean(HealthEndpointGroups.class);
 			assertThat(context).doesNotHaveBean(HealthContributorRegistry.class);
 			assertThat(context).doesNotHaveBean(HealthEndpoint.class);
@@ -107,7 +107,7 @@ class HealthEndpointAutoConfigurationTests {
 	void runCreatesHttpCodeStatusMapperFromProperties() {
 		this.contextRunner.withPropertyValues("management.endpoint.health.status.http-mapping.up=123")
 				.run((context) -> {
-					HttpCodeStatusMapper mapper = context.getBean(HttpCodeStatusMapper.class);
+					HttpCodeStatusMapper_RENAMED mapper = context.getBean(HttpCodeStatusMapper_RENAMED.class);
 					assertThat(mapper.getStatusCode(Status.UP)).isEqualTo(123);
 				});
 	}
@@ -116,7 +116,7 @@ class HealthEndpointAutoConfigurationTests {
 	void runWhenHasHttpCodeStatusMapperBeanIgnoresProperties() {
 		this.contextRunner.withUserConfiguration(HttpCodeStatusMapperConfiguration.class)
 				.withPropertyValues("management.health.status.http-mapping.up=123").run((context) -> {
-					HttpCodeStatusMapper mapper = context.getBean(HttpCodeStatusMapper.class);
+					HttpCodeStatusMapper_RENAMED mapper = context.getBean(HttpCodeStatusMapper_RENAMED.class);
 					assertThat(mapper.getStatusCode(Status.UP)).isEqualTo(456);
 				});
 	}
@@ -293,7 +293,7 @@ class HealthEndpointAutoConfigurationTests {
 	static class HttpCodeStatusMapperConfiguration {
 
 		@Bean
-		HttpCodeStatusMapper httpCodeStatusMapper() {
+		HttpCodeStatusMapper_RENAMED httpCodeStatusMapper() {
 			return (status) -> 456;
 		}
 

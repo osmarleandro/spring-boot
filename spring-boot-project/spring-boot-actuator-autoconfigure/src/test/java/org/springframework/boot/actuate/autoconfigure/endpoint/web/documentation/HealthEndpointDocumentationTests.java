@@ -37,7 +37,7 @@ import org.springframework.boot.actuate.health.HealthEndpoint;
 import org.springframework.boot.actuate.health.HealthEndpointGroup;
 import org.springframework.boot.actuate.health.HealthEndpointGroups;
 import org.springframework.boot.actuate.health.HealthIndicator;
-import org.springframework.boot.actuate.health.HttpCodeStatusMapper;
+import org.springframework.boot.actuate.health.HttpCodeStatusMapper_RENAMED;
 import org.springframework.boot.actuate.health.SimpleHttpCodeStatusMapper;
 import org.springframework.boot.actuate.health.SimpleStatusAggregator;
 import org.springframework.boot.actuate.health.StatusAggregator;
@@ -137,7 +137,7 @@ class HealthEndpointDocumentationTests extends MockMvcEndpointDocumentationTests
 
 		private final StatusAggregator statusAggregator = new SimpleStatusAggregator();
 
-		private final HttpCodeStatusMapper httpCodeStatusMapper = new SimpleHttpCodeStatusMapper();
+		private final HttpCodeStatusMapper_RENAMED httpCodeStatusMapper = new SimpleHttpCodeStatusMapper();
 
 		@Override
 		public boolean isMember(String name) {
@@ -160,7 +160,7 @@ class HealthEndpointDocumentationTests extends MockMvcEndpointDocumentationTests
 		}
 
 		@Override
-		public HttpCodeStatusMapper getHttpCodeStatusMapper() {
+		public HttpCodeStatusMapper_RENAMED getHttpCodeStatusMapper() {
 			return this.httpCodeStatusMapper;
 		}
 

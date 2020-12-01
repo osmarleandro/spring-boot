@@ -22,7 +22,7 @@ import java.util.Set;
 
 import org.springframework.boot.actuate.endpoint.SecurityContext;
 import org.springframework.boot.actuate.health.HealthEndpointGroup;
-import org.springframework.boot.actuate.health.HttpCodeStatusMapper;
+import org.springframework.boot.actuate.health.HttpCodeStatusMapper_RENAMED;
 import org.springframework.boot.actuate.health.StatusAggregator;
 
 /**
@@ -60,8 +60,8 @@ class AvailabilityProbesHealthEndpointGroup implements HealthEndpointGroup {
 	}
 
 	@Override
-	public HttpCodeStatusMapper getHttpCodeStatusMapper() {
-		return HttpCodeStatusMapper.DEFAULT;
+	public HttpCodeStatusMapper_RENAMED getHttpCodeStatusMapper() {
+		return HttpCodeStatusMapper_RENAMED.DEFAULT;
 	}
 
 }

@@ -35,7 +35,7 @@ import org.springframework.boot.actuate.autoconfigure.health.HealthProperties.Sh
 import org.springframework.boot.actuate.autoconfigure.health.HealthProperties.Status;
 import org.springframework.boot.actuate.health.HealthEndpointGroup;
 import org.springframework.boot.actuate.health.HealthEndpointGroups;
-import org.springframework.boot.actuate.health.HttpCodeStatusMapper;
+import org.springframework.boot.actuate.health.HttpCodeStatusMapper_RENAMED;
 import org.springframework.boot.actuate.health.SimpleHttpCodeStatusMapper;
 import org.springframework.boot.actuate.health.SimpleStatusAggregator;
 import org.springframework.boot.actuate.health.StatusAggregator;
@@ -72,7 +72,7 @@ class AutoConfiguredHealthEndpointGroups implements HealthEndpointGroups {
 		if (statusAggregator == null) {
 			statusAggregator = new SimpleStatusAggregator(properties.getStatus().getOrder());
 		}
-		HttpCodeStatusMapper httpCodeStatusMapper = getNonQualifiedBean(beanFactory, HttpCodeStatusMapper.class);
+		HttpCodeStatusMapper_RENAMED httpCodeStatusMapper = getNonQualifiedBean(beanFactory, HttpCodeStatusMapper_RENAMED.class);
 		if (httpCodeStatusMapper == null) {
 			httpCodeStatusMapper = new SimpleHttpCodeStatusMapper(properties.getStatus().getHttpMapping());
 		}
@@ -83,7 +83,7 @@ class AutoConfiguredHealthEndpointGroups implements HealthEndpointGroups {
 	}
 
 	private Map<String, HealthEndpointGroup> createGroups(Map<String, Group> groupProperties, BeanFactory beanFactory,
-			StatusAggregator defaultStatusAggregator, HttpCodeStatusMapper defaultHttpCodeStatusMapper,
+			StatusAggregator defaultStatusAggregator, HttpCodeStatusMapper_RENAMED defaultHttpCodeStatusMapper,
 			Show defaultShowComponents, Show defaultShowDetails, Set<String> defaultRoles) {
 		Map<String, HealthEndpointGroup> groups = new LinkedHashMap<>();
 		groupProperties.forEach((groupName, group) -> {
@@ -98,7 +98,7 @@ class AutoConfiguredHealthEndpointGroups implements HealthEndpointGroups {
 				}
 				return defaultStatusAggregator;
 			});
-			HttpCodeStatusMapper httpCodeStatusMapper = getQualifiedBean(beanFactory, HttpCodeStatusMapper.class,
+			HttpCodeStatusMapper_RENAMED httpCodeStatusMapper = getQualifiedBean(beanFactory, HttpCodeStatusMapper_RENAMED.class,
 					groupName, () -> {
 						if (!CollectionUtils.isEmpty(status.getHttpMapping())) {
 							return new SimpleHttpCodeStatusMapper(status.getHttpMapping());
