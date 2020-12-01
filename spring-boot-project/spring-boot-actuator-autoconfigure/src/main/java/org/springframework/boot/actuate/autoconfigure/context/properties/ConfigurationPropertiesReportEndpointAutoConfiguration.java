@@ -17,7 +17,7 @@
 package org.springframework.boot.actuate.autoconfigure.context.properties;
 
 import org.springframework.boot.actuate.autoconfigure.endpoint.condition.ConditionalOnAvailableEndpoint;
-import org.springframework.boot.actuate.context.properties.ConfigurationPropertiesReportEndpoint;
+import org.springframework.boot.actuate.context.properties.ConfigurationPropertiesReportEndpoint_RENAMED;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -26,22 +26,22 @@ import org.springframework.context.annotation.Configuration;
 
 /**
  * {@link EnableAutoConfiguration Auto-configuration} for the
- * {@link ConfigurationPropertiesReportEndpoint}.
+ * {@link ConfigurationPropertiesReportEndpoint_RENAMED}.
  *
  * @author Phillip Webb
  * @author Stephane Nicoll
  * @since 2.0.0
  */
 @Configuration(proxyBeanMethods = false)
-@ConditionalOnAvailableEndpoint(endpoint = ConfigurationPropertiesReportEndpoint.class)
+@ConditionalOnAvailableEndpoint(endpoint = ConfigurationPropertiesReportEndpoint_RENAMED.class)
 @EnableConfigurationProperties(ConfigurationPropertiesReportEndpointProperties.class)
 public class ConfigurationPropertiesReportEndpointAutoConfiguration {
 
 	@Bean
 	@ConditionalOnMissingBean
-	public ConfigurationPropertiesReportEndpoint configurationPropertiesReportEndpoint(
+	public ConfigurationPropertiesReportEndpoint_RENAMED configurationPropertiesReportEndpoint(
 			ConfigurationPropertiesReportEndpointProperties properties) {
-		ConfigurationPropertiesReportEndpoint endpoint = new ConfigurationPropertiesReportEndpoint();
+		ConfigurationPropertiesReportEndpoint_RENAMED endpoint = new ConfigurationPropertiesReportEndpoint_RENAMED();
 		String[] keysToSanitize = properties.getKeysToSanitize();
 		if (keysToSanitize != null) {
 			endpoint.setKeysToSanitize(keysToSanitize);

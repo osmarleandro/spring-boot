@@ -18,9 +18,9 @@ package org.springframework.boot.actuate.context.properties;
 
 import org.junit.jupiter.api.Test;
 
-import org.springframework.boot.actuate.context.properties.ConfigurationPropertiesReportEndpoint.ApplicationConfigurationProperties;
-import org.springframework.boot.actuate.context.properties.ConfigurationPropertiesReportEndpoint.ConfigurationPropertiesBeanDescriptor;
-import org.springframework.boot.actuate.context.properties.ConfigurationPropertiesReportEndpoint.ContextConfigurationProperties;
+import org.springframework.boot.actuate.context.properties.ConfigurationPropertiesReportEndpoint_RENAMED.ApplicationConfigurationProperties;
+import org.springframework.boot.actuate.context.properties.ConfigurationPropertiesReportEndpoint_RENAMED.ConfigurationPropertiesBeanDescriptor;
+import org.springframework.boot.actuate.context.properties.ConfigurationPropertiesReportEndpoint_RENAMED.ContextConfigurationProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.test.context.runner.ApplicationContextRunner;
@@ -30,7 +30,7 @@ import org.springframework.context.annotation.Configuration;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Tests for {@link ConfigurationPropertiesReportEndpoint} when used with bean methods.
+ * Tests for {@link ConfigurationPropertiesReportEndpoint_RENAMED} when used with bean methods.
  *
  * @author Dave Syer
  * @author Andy Wilkinson
@@ -42,8 +42,8 @@ class ConfigurationPropertiesReportEndpointMethodAnnotationsTests {
 		ApplicationContextRunner contextRunner = new ApplicationContextRunner().withUserConfiguration(Config.class)
 				.withPropertyValues("other.name:foo", "first.name:bar");
 		contextRunner.run((context) -> {
-			ConfigurationPropertiesReportEndpoint endpoint = context
-					.getBean(ConfigurationPropertiesReportEndpoint.class);
+			ConfigurationPropertiesReportEndpoint_RENAMED endpoint = context
+					.getBean(ConfigurationPropertiesReportEndpoint_RENAMED.class);
 			ApplicationConfigurationProperties applicationProperties = endpoint.configurationProperties();
 			assertThat(applicationProperties.getContexts()).containsOnlyKeys(context.getId());
 			ContextConfigurationProperties contextProperties = applicationProperties.getContexts().get(context.getId());
@@ -60,8 +60,8 @@ class ConfigurationPropertiesReportEndpointMethodAnnotationsTests {
 		ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 				.withUserConfiguration(OverriddenPrefix.class).withPropertyValues("other.name:foo");
 		contextRunner.run((context) -> {
-			ConfigurationPropertiesReportEndpoint endpoint = context
-					.getBean(ConfigurationPropertiesReportEndpoint.class);
+			ConfigurationPropertiesReportEndpoint_RENAMED endpoint = context
+					.getBean(ConfigurationPropertiesReportEndpoint_RENAMED.class);
 			ApplicationConfigurationProperties applicationProperties = endpoint.configurationProperties();
 			assertThat(applicationProperties.getContexts()).containsOnlyKeys(context.getId());
 			ContextConfigurationProperties contextProperties = applicationProperties.getContexts().get(context.getId());
@@ -78,8 +78,8 @@ class ConfigurationPropertiesReportEndpointMethodAnnotationsTests {
 	static class Config {
 
 		@Bean
-		ConfigurationPropertiesReportEndpoint endpoint() {
-			return new ConfigurationPropertiesReportEndpoint();
+		ConfigurationPropertiesReportEndpoint_RENAMED endpoint() {
+			return new ConfigurationPropertiesReportEndpoint_RENAMED();
 		}
 
 		@Bean
@@ -101,8 +101,8 @@ class ConfigurationPropertiesReportEndpointMethodAnnotationsTests {
 	static class OverriddenPrefix {
 
 		@Bean
-		ConfigurationPropertiesReportEndpoint endpoint() {
-			return new ConfigurationPropertiesReportEndpoint();
+		ConfigurationPropertiesReportEndpoint_RENAMED endpoint() {
+			return new ConfigurationPropertiesReportEndpoint_RENAMED();
 		}
 
 		@Bean

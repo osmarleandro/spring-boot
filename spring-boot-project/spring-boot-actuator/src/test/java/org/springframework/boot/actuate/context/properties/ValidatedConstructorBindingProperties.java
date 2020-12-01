@@ -21,7 +21,7 @@ import org.springframework.boot.context.properties.ConstructorBinding;
 import org.springframework.validation.annotation.Validated;
 
 /**
- * Used for testing the {@link ConfigurationPropertiesReportEndpoint} endpoint with
+ * Used for testing the {@link ConfigurationPropertiesReportEndpoint_RENAMED} endpoint with
  * validated {@link ConfigurationProperties @ConfigurationProperties}.
  *
  * @author Madhura Bhave

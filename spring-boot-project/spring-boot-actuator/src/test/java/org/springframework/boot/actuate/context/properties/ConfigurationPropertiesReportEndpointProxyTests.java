@@ -22,8 +22,8 @@ import javax.sql.DataSource;
 
 import org.junit.jupiter.api.Test;
 
-import org.springframework.boot.actuate.context.properties.ConfigurationPropertiesReportEndpoint.ApplicationConfigurationProperties;
-import org.springframework.boot.actuate.context.properties.ConfigurationPropertiesReportEndpoint.ConfigurationPropertiesBeanDescriptor;
+import org.springframework.boot.actuate.context.properties.ConfigurationPropertiesReportEndpoint_RENAMED.ApplicationConfigurationProperties;
+import org.springframework.boot.actuate.context.properties.ConfigurationPropertiesReportEndpoint_RENAMED.ConfigurationPropertiesBeanDescriptor;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.test.context.runner.ApplicationContextRunner;
@@ -43,7 +43,7 @@ import org.springframework.validation.beanvalidation.MethodValidationPostProcess
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Tests for {@link ConfigurationPropertiesReportEndpoint} when used against a proxy
+ * Tests for {@link ConfigurationPropertiesReportEndpoint_RENAMED} when used against a proxy
  * class.
  *
  * @author Phillip Webb
@@ -58,7 +58,7 @@ class ConfigurationPropertiesReportEndpointProxyTests {
 				SqlExecutor.class);
 		contextRunner.run((context) -> {
 			ApplicationConfigurationProperties applicationProperties = context
-					.getBean(ConfigurationPropertiesReportEndpoint.class).configurationProperties();
+					.getBean(ConfigurationPropertiesReportEndpoint_RENAMED.class).configurationProperties();
 			assertThat(applicationProperties.getContexts().get(context.getId()).getBeans().values().stream()
 					.map(ConfigurationPropertiesBeanDescriptor::getPrefix).filter("executor.sql"::equals).findFirst())
 							.isNotEmpty();
@@ -71,7 +71,7 @@ class ConfigurationPropertiesReportEndpointProxyTests {
 				.withUserConfiguration(ValidatedConfiguration.class).withPropertyValues("validated.name=baz");
 		contextRunner.run((context) -> {
 			ApplicationConfigurationProperties applicationProperties = context
-					.getBean(ConfigurationPropertiesReportEndpoint.class).configurationProperties();
+					.getBean(ConfigurationPropertiesReportEndpoint_RENAMED.class).configurationProperties();
 			Map<String, Object> properties = applicationProperties.getContexts().get(context.getId()).getBeans()
 					.values().stream().map(ConfigurationPropertiesBeanDescriptor::getProperties).findFirst().get();
 			assertThat(properties.get("name")).isEqualTo("baz");
@@ -84,8 +84,8 @@ class ConfigurationPropertiesReportEndpointProxyTests {
 	static class Config {
 
 		@Bean
-		ConfigurationPropertiesReportEndpoint endpoint() {
-			return new ConfigurationPropertiesReportEndpoint();
+		ConfigurationPropertiesReportEndpoint_RENAMED endpoint() {
+			return new ConfigurationPropertiesReportEndpoint_RENAMED();
 		}
 
 		@Bean

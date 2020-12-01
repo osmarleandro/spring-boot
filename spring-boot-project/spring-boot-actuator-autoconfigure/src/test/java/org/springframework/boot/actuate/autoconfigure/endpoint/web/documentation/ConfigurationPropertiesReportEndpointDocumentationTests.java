@@ -18,7 +18,7 @@ package org.springframework.boot.actuate.autoconfigure.endpoint.web.documentatio
 
 import org.junit.jupiter.api.Test;
 
-import org.springframework.boot.actuate.context.properties.ConfigurationPropertiesReportEndpoint;
+import org.springframework.boot.actuate.context.properties.ConfigurationPropertiesReportEndpoint_RENAMED;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
@@ -33,7 +33,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 /**
  * Tests for generating documentation describing
- * {@link ConfigurationPropertiesReportEndpoint}.
+ * {@link ConfigurationPropertiesReportEndpoint_RENAMED}.
  *
  * @author Andy Wilkinson
  */
@@ -61,8 +61,8 @@ class ConfigurationPropertiesReportEndpointDocumentationTests extends MockMvcEnd
 	static class TestConfiguration {
 
 		@Bean
-		ConfigurationPropertiesReportEndpoint endpoint() {
-			return new ConfigurationPropertiesReportEndpoint();
+		ConfigurationPropertiesReportEndpoint_RENAMED endpoint() {
+			return new ConfigurationPropertiesReportEndpoint_RENAMED();
 		}
 
 	}

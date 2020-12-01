@@ -16,11 +16,11 @@
 
 package org.springframework.boot.actuate.autoconfigure.context.properties;
 
-import org.springframework.boot.actuate.context.properties.ConfigurationPropertiesReportEndpoint;
+import org.springframework.boot.actuate.context.properties.ConfigurationPropertiesReportEndpoint_RENAMED;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
- * Configuration properties for {@link ConfigurationPropertiesReportEndpoint}.
+ * Configuration properties for {@link ConfigurationPropertiesReportEndpoint_RENAMED}.
  *
  * @author Stephane Nicoll
  * @since 2.0.0

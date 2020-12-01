@@ -28,8 +28,8 @@ import java.util.function.Consumer;
 
 import org.junit.jupiter.api.Test;
 
-import org.springframework.boot.actuate.context.properties.ConfigurationPropertiesReportEndpoint.ConfigurationPropertiesBeanDescriptor;
-import org.springframework.boot.actuate.context.properties.ConfigurationPropertiesReportEndpoint.ContextConfigurationProperties;
+import org.springframework.boot.actuate.context.properties.ConfigurationPropertiesReportEndpoint_RENAMED.ConfigurationPropertiesBeanDescriptor;
+import org.springframework.boot.actuate.context.properties.ConfigurationPropertiesReportEndpoint_RENAMED.ContextConfigurationProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.ConstructorBinding;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -49,7 +49,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.entry;
 
 /**
- * Tests for {@link ConfigurationPropertiesReportEndpoint}.
+ * Tests for {@link ConfigurationPropertiesReportEndpoint_RENAMED}.
  *
  * @author Dave Syer
  * @author Andy Wilkinson
@@ -311,8 +311,8 @@ class ConfigurationPropertiesReportEndpointTests {
 	private ContextConsumer<AssertableApplicationContext> assertProperties(String prefix,
 			Consumer<Map<String, Object>> properties, Consumer<Map<String, Object>> inputs) {
 		return (context) -> {
-			ConfigurationPropertiesReportEndpoint endpoint = context
-					.getBean(ConfigurationPropertiesReportEndpoint.class);
+			ConfigurationPropertiesReportEndpoint_RENAMED endpoint = context
+					.getBean(ConfigurationPropertiesReportEndpoint_RENAMED.class);
 			ContextConfigurationProperties allProperties = endpoint.configurationProperties().getContexts()
 					.get(context.getId());
 			Optional<String> key = allProperties.getBeans().keySet().stream()
@@ -367,8 +367,8 @@ class ConfigurationPropertiesReportEndpointTests {
 	static class EndpointConfig {
 
 		@Bean
-		ConfigurationPropertiesReportEndpoint endpoint(Environment environment) {
-			ConfigurationPropertiesReportEndpoint endpoint = new ConfigurationPropertiesReportEndpoint();
+		ConfigurationPropertiesReportEndpoint_RENAMED endpoint(Environment environment) {
+			ConfigurationPropertiesReportEndpoint_RENAMED endpoint = new ConfigurationPropertiesReportEndpoint_RENAMED();
 			String[] keys = environment.getProperty("test.keys-to-sanitize", String[].class);
 			if (keys != null) {
 				endpoint.setKeysToSanitize(keys);

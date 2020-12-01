@@ -20,8 +20,8 @@ import java.util.Map;
 
 import org.junit.jupiter.api.Test;
 
-import org.springframework.boot.actuate.context.properties.ConfigurationPropertiesReportEndpoint;
-import org.springframework.boot.actuate.context.properties.ConfigurationPropertiesReportEndpoint.ApplicationConfigurationProperties;
+import org.springframework.boot.actuate.context.properties.ConfigurationPropertiesReportEndpoint_RENAMED;
+import org.springframework.boot.actuate.context.properties.ConfigurationPropertiesReportEndpoint_RENAMED.ApplicationConfigurationProperties;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -53,7 +53,7 @@ class ConfigurationPropertiesReportEndpointAutoConfigurationTests {
 	@Test
 	void runWhenEnabledPropertyIsFalseShouldNotHaveEndpointBean() {
 		this.contextRunner.withPropertyValues("management.endpoint.configprops.enabled:false")
-				.run((context) -> assertThat(context).doesNotHaveBean(ConfigurationPropertiesReportEndpoint.class));
+				.run((context) -> assertThat(context).doesNotHaveBean(ConfigurationPropertiesReportEndpoint_RENAMED.class));
 	}
 
 	@Test
@@ -67,15 +67,15 @@ class ConfigurationPropertiesReportEndpointAutoConfigurationTests {
 	@Test
 	void runWhenNotExposedShouldNotHaveEndpointBean() {
 		this.contextRunner
-				.run((context) -> assertThat(context).doesNotHaveBean(ConfigurationPropertiesReportEndpoint.class));
+				.run((context) -> assertThat(context).doesNotHaveBean(ConfigurationPropertiesReportEndpoint_RENAMED.class));
 	}
 
 	private ContextConsumer<AssertableApplicationContext> validateTestProperties(String dbPassword,
 			String myTestProperty) {
 		return (context) -> {
-			assertThat(context).hasSingleBean(ConfigurationPropertiesReportEndpoint.class);
-			ConfigurationPropertiesReportEndpoint endpoint = context
-					.getBean(ConfigurationPropertiesReportEndpoint.class);
+			assertThat(context).hasSingleBean(ConfigurationPropertiesReportEndpoint_RENAMED.class);
+			ConfigurationPropertiesReportEndpoint_RENAMED endpoint = context
+					.getBean(ConfigurationPropertiesReportEndpoint_RENAMED.class);
 			ApplicationConfigurationProperties properties = endpoint.configurationProperties();
 			Map<String, Object> nestedProperties = properties.getContexts().get(context.getId()).getBeans()
 					.get("testProperties").getProperties();
