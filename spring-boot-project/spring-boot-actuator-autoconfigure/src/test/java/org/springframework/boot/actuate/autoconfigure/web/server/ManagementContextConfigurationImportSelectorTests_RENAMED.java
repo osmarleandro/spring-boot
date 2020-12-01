@@ -35,7 +35,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Phillip Webb
  * @author Andy Wilkinson
  */
-class ManagementContextConfigurationImportSelectorTests {
+class ManagementContextConfigurationImportSelectorTests_RENAMED {
 
 	@Test
 	void selectImportsShouldOrderResult() {
