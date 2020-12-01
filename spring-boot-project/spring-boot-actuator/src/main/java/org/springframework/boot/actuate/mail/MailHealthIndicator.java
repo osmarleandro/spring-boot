@@ -16,7 +16,7 @@
 
 package org.springframework.boot.actuate.mail;
 
-import org.springframework.boot.actuate.health.AbstractHealthIndicator;
+import org.springframework.boot.actuate.health.AbstractHealthIndicator_RENAMED;
 import org.springframework.boot.actuate.health.Health.Builder;
 import org.springframework.boot.actuate.health.HealthIndicator;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
@@ -27,7 +27,7 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
  * @author Johannes Edmeier
  * @since 2.0.0
  */
-public class MailHealthIndicator extends AbstractHealthIndicator {
+public class MailHealthIndicator extends AbstractHealthIndicator_RENAMED {
 
 	private final JavaMailSenderImpl mailSender;
 

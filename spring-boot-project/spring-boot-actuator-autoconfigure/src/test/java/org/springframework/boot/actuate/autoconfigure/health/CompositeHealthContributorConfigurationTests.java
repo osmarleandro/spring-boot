@@ -17,7 +17,7 @@
 package org.springframework.boot.actuate.autoconfigure.health;
 
 import org.springframework.boot.actuate.autoconfigure.health.CompositeHealthContributorConfigurationTests.TestHealthIndicator;
-import org.springframework.boot.actuate.health.AbstractHealthIndicator;
+import org.springframework.boot.actuate.health.AbstractHealthIndicator_RENAMED;
 import org.springframework.boot.actuate.health.Health.Builder;
 import org.springframework.boot.actuate.health.HealthContributor;
 
@@ -39,7 +39,7 @@ class CompositeHealthContributorConfigurationTests
 
 	}
 
-	static class TestHealthIndicator extends AbstractHealthIndicator {
+	static class TestHealthIndicator extends AbstractHealthIndicator_RENAMED {
 
 		TestHealthIndicator(TestBean testBean) {
 		}

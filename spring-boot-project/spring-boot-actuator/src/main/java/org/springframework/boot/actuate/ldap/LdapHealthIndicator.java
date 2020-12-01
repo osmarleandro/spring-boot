@@ -19,7 +19,7 @@ package org.springframework.boot.actuate.ldap;
 import javax.naming.NamingException;
 import javax.naming.directory.DirContext;
 
-import org.springframework.boot.actuate.health.AbstractHealthIndicator;
+import org.springframework.boot.actuate.health.AbstractHealthIndicator_RENAMED;
 import org.springframework.boot.actuate.health.Health;
 import org.springframework.boot.actuate.health.HealthIndicator;
 import org.springframework.ldap.core.ContextExecutor;
@@ -33,7 +33,7 @@ import org.springframework.util.Assert;
  * @author Stephane Nicoll
  * @since 2.0.0
  */
-public class LdapHealthIndicator extends AbstractHealthIndicator {
+public class LdapHealthIndicator extends AbstractHealthIndicator_RENAMED {
 
 	private static final ContextExecutor<String> versionContextExecutor = new VersionContextExecutor();
 

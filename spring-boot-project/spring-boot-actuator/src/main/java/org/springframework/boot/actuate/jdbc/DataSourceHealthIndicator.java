@@ -25,7 +25,7 @@ import java.util.List;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.InitializingBean;
-import org.springframework.boot.actuate.health.AbstractHealthIndicator;
+import org.springframework.boot.actuate.health.AbstractHealthIndicator_RENAMED;
 import org.springframework.boot.actuate.health.Health;
 import org.springframework.boot.actuate.health.HealthIndicator;
 import org.springframework.boot.actuate.health.Status;
@@ -49,7 +49,7 @@ import org.springframework.util.StringUtils;
  * @author Arthur Kalimullin
  * @since 2.0.0
  */
-public class DataSourceHealthIndicator extends AbstractHealthIndicator implements InitializingBean {
+public class DataSourceHealthIndicator extends AbstractHealthIndicator_RENAMED implements InitializingBean {
 
 	private DataSource dataSource;
 

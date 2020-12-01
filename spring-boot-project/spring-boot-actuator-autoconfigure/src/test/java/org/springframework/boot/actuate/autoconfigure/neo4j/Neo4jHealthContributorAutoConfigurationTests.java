@@ -20,7 +20,7 @@ import org.neo4j.driver.Driver;
 import reactor.core.publisher.Flux;
 
 import org.springframework.boot.actuate.autoconfigure.health.HealthContributorAutoConfiguration;
-import org.springframework.boot.actuate.health.AbstractHealthIndicator;
+import org.springframework.boot.actuate.health.AbstractHealthIndicator_RENAMED;
 import org.springframework.boot.actuate.health.Health;
 import org.springframework.boot.actuate.health.HealthIndicator;
 import org.springframework.boot.actuate.neo4j.Neo4jHealthIndicator;
@@ -100,7 +100,7 @@ class Neo4jHealthContributorAutoConfigurationTests {
 
 		@Bean
 		HealthIndicator neo4jHealthIndicator() {
-			return new AbstractHealthIndicator() {
+			return new AbstractHealthIndicator_RENAMED() {
 
 				protected void doHealthCheck(Health.Builder builder) {
 					builder.up().withDetail("test", true);

@@ -26,7 +26,7 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.boot.actuate.autoconfigure.health.CompositeHealthContributorConfiguration;
 import org.springframework.boot.actuate.autoconfigure.health.ConditionalOnEnabledHealthIndicator;
-import org.springframework.boot.actuate.health.AbstractHealthIndicator;
+import org.springframework.boot.actuate.health.AbstractHealthIndicator_RENAMED;
 import org.springframework.boot.actuate.health.Health.Builder;
 import org.springframework.boot.actuate.health.HealthContributor;
 import org.springframework.boot.actuate.health.HealthIndicator;
@@ -65,7 +65,7 @@ import org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource;
 @AutoConfigureAfter(DataSourceAutoConfiguration.class)
 @EnableConfigurationProperties(DataSourceHealthIndicatorProperties.class)
 public class DataSourceHealthContributorAutoConfiguration extends
-		CompositeHealthContributorConfiguration<AbstractHealthIndicator, DataSource> implements InitializingBean {
+		CompositeHealthContributorConfiguration<AbstractHealthIndicator_RENAMED, DataSource> implements InitializingBean {
 
 	private final Collection<DataSourcePoolMetadataProvider> metadataProviders;
 
@@ -95,7 +95,7 @@ public class DataSourceHealthContributorAutoConfiguration extends
 	}
 
 	@Override
-	protected AbstractHealthIndicator createIndicator(DataSource source) {
+	protected AbstractHealthIndicator_RENAMED createIndicator(DataSource source) {
 		if (source instanceof AbstractRoutingDataSource) {
 			return new RoutingDataSourceHealthIndicator();
 		}
@@ -111,7 +111,7 @@ public class DataSourceHealthContributorAutoConfiguration extends
 	 * {@link HealthIndicator} used for {@link AbstractRoutingDataSource} beans where we
 	 * can't actually query for the status.
 	 */
-	static class RoutingDataSourceHealthIndicator extends AbstractHealthIndicator {
+	static class RoutingDataSourceHealthIndicator extends AbstractHealthIndicator_RENAMED {
 
 		@Override
 		protected void doHealthCheck(Builder builder) throws Exception {

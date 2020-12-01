@@ -19,7 +19,7 @@ package org.springframework.boot.actuate.influx;
 import org.influxdb.InfluxDB;
 import org.influxdb.dto.Pong;
 
-import org.springframework.boot.actuate.health.AbstractHealthIndicator;
+import org.springframework.boot.actuate.health.AbstractHealthIndicator_RENAMED;
 import org.springframework.boot.actuate.health.Health;
 import org.springframework.boot.actuate.health.HealthIndicator;
 import org.springframework.util.Assert;
@@ -30,7 +30,7 @@ import org.springframework.util.Assert;
  * @author Eddú Meléndez
  * @since 2.0.0
  */
-public class InfluxDbHealthIndicator extends AbstractHealthIndicator {
+public class InfluxDbHealthIndicator extends AbstractHealthIndicator_RENAMED {
 
 	private final InfluxDB influxDb;
 

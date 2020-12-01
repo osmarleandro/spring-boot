@@ -21,7 +21,7 @@ import org.apache.solr.client.solrj.impl.BaseHttpSolrClient.RemoteSolrException;
 import org.apache.solr.client.solrj.request.CoreAdminRequest;
 import org.apache.solr.common.params.CoreAdminParams;
 
-import org.springframework.boot.actuate.health.AbstractHealthIndicator;
+import org.springframework.boot.actuate.health.AbstractHealthIndicator_RENAMED;
 import org.springframework.boot.actuate.health.Health;
 import org.springframework.boot.actuate.health.HealthIndicator;
 import org.springframework.boot.actuate.health.Status;
@@ -35,7 +35,7 @@ import org.springframework.boot.actuate.health.Status;
  * @author Phillip Webb
  * @since 2.0.0
  */
-public class SolrHealthIndicator extends AbstractHealthIndicator {
+public class SolrHealthIndicator extends AbstractHealthIndicator_RENAMED {
 
 	private static final int HTTP_NOT_FOUND_STATUS = 404;
 

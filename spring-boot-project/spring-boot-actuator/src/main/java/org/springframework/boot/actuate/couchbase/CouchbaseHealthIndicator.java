@@ -19,7 +19,7 @@ package org.springframework.boot.actuate.couchbase;
 import com.couchbase.client.core.diagnostics.DiagnosticsResult;
 import com.couchbase.client.java.Cluster;
 
-import org.springframework.boot.actuate.health.AbstractHealthIndicator;
+import org.springframework.boot.actuate.health.AbstractHealthIndicator_RENAMED;
 import org.springframework.boot.actuate.health.Health;
 import org.springframework.boot.actuate.health.HealthIndicator;
 import org.springframework.util.Assert;
@@ -31,7 +31,7 @@ import org.springframework.util.Assert;
  * @author Stephane Nicoll
  * @since 2.0.0
  */
-public class CouchbaseHealthIndicator extends AbstractHealthIndicator {
+public class CouchbaseHealthIndicator extends AbstractHealthIndicator_RENAMED {
 
 	private final Cluster cluster;
 

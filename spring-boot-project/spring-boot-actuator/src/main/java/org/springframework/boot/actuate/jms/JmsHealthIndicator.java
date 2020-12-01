@@ -26,7 +26,7 @@ import javax.jms.JMSException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import org.springframework.boot.actuate.health.AbstractHealthIndicator;
+import org.springframework.boot.actuate.health.AbstractHealthIndicator_RENAMED;
 import org.springframework.boot.actuate.health.Health;
 import org.springframework.boot.actuate.health.HealthIndicator;
 
@@ -36,7 +36,7 @@ import org.springframework.boot.actuate.health.HealthIndicator;
  * @author Stephane Nicoll
  * @since 2.0.0
  */
-public class JmsHealthIndicator extends AbstractHealthIndicator {
+public class JmsHealthIndicator extends AbstractHealthIndicator_RENAMED {
 
 	private final Log logger = LogFactory.getLog(JmsHealthIndicator.class);
 

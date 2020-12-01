@@ -27,7 +27,7 @@ import org.elasticsearch.client.Response;
 import org.elasticsearch.client.RestClient;
 import org.elasticsearch.client.RestHighLevelClient;
 
-import org.springframework.boot.actuate.health.AbstractHealthIndicator;
+import org.springframework.boot.actuate.health.AbstractHealthIndicator_RENAMED;
 import org.springframework.boot.actuate.health.Health;
 import org.springframework.boot.actuate.health.HealthIndicator;
 import org.springframework.boot.json.JsonParser;
@@ -42,7 +42,7 @@ import org.springframework.util.StreamUtils;
  * @author Filip Hrisafov
  * @since 2.1.1
  */
-public class ElasticsearchRestHealthIndicator extends AbstractHealthIndicator {
+public class ElasticsearchRestHealthIndicator extends AbstractHealthIndicator_RENAMED {
 
 	private static final String RED_STATUS = "red";
 

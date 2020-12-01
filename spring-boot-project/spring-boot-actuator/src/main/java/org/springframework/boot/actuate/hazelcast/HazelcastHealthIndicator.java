@@ -20,7 +20,7 @@ import java.lang.reflect.Method;
 
 import com.hazelcast.core.HazelcastInstance;
 
-import org.springframework.boot.actuate.health.AbstractHealthIndicator;
+import org.springframework.boot.actuate.health.AbstractHealthIndicator_RENAMED;
 import org.springframework.boot.actuate.health.Health;
 import org.springframework.boot.actuate.health.HealthIndicator;
 import org.springframework.util.Assert;
@@ -33,7 +33,7 @@ import org.springframework.util.ReflectionUtils;
  * @author Stephane Nicoll
  * @since 2.2.0
  */
-public class HazelcastHealthIndicator extends AbstractHealthIndicator {
+public class HazelcastHealthIndicator extends AbstractHealthIndicator_RENAMED {
 
 	private final HazelcastInstance hazelcast;
 

@@ -16,7 +16,7 @@
 
 package org.springframework.boot.actuate.redis;
 
-import org.springframework.boot.actuate.health.AbstractHealthIndicator;
+import org.springframework.boot.actuate.health.AbstractHealthIndicator_RENAMED;
 import org.springframework.boot.actuate.health.Health;
 import org.springframework.boot.actuate.health.HealthIndicator;
 import org.springframework.data.redis.connection.RedisClusterConnection;
@@ -34,7 +34,7 @@ import org.springframework.util.Assert;
  * @author Scott Frederick
  * @since 2.0.0
  */
-public class RedisHealthIndicator extends AbstractHealthIndicator {
+public class RedisHealthIndicator extends AbstractHealthIndicator_RENAMED {
 
 	private final RedisConnectionFactory redisConnectionFactory;
 

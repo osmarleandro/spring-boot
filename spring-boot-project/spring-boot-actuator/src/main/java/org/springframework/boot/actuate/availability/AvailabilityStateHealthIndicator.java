@@ -21,7 +21,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Consumer;
 
-import org.springframework.boot.actuate.health.AbstractHealthIndicator;
+import org.springframework.boot.actuate.health.AbstractHealthIndicator_RENAMED;
 import org.springframework.boot.actuate.health.Health.Builder;
 import org.springframework.boot.actuate.health.HealthIndicator;
 import org.springframework.boot.actuate.health.Status;
@@ -37,7 +37,7 @@ import org.springframework.util.Assert;
  * @author Brian Clozel
  * @since 2.3.0
  */
-public class AvailabilityStateHealthIndicator extends AbstractHealthIndicator {
+public class AvailabilityStateHealthIndicator extends AbstractHealthIndicator_RENAMED {
 
 	private final ApplicationAvailability applicationAvailability;
 

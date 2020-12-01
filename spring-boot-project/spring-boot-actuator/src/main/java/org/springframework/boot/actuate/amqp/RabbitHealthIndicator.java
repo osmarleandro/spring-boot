@@ -17,7 +17,7 @@
 package org.springframework.boot.actuate.amqp;
 
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
-import org.springframework.boot.actuate.health.AbstractHealthIndicator;
+import org.springframework.boot.actuate.health.AbstractHealthIndicator_RENAMED;
 import org.springframework.boot.actuate.health.Health;
 import org.springframework.boot.actuate.health.HealthIndicator;
 import org.springframework.util.Assert;
@@ -29,7 +29,7 @@ import org.springframework.util.Assert;
  * @author Christian Dupuis
  * @since 1.1.0
  */
-public class RabbitHealthIndicator extends AbstractHealthIndicator {
+public class RabbitHealthIndicator extends AbstractHealthIndicator_RENAMED {
 
 	private final RabbitTemplate rabbitTemplate;
 

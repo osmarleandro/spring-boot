@@ -26,7 +26,7 @@ import org.neo4j.driver.SessionConfig;
 import org.neo4j.driver.exceptions.SessionExpiredException;
 import org.neo4j.driver.summary.ResultSummary;
 
-import org.springframework.boot.actuate.health.AbstractHealthIndicator;
+import org.springframework.boot.actuate.health.AbstractHealthIndicator_RENAMED;
 import org.springframework.boot.actuate.health.Health;
 import org.springframework.boot.actuate.health.HealthIndicator;
 
@@ -39,7 +39,7 @@ import org.springframework.boot.actuate.health.HealthIndicator;
  * @author Michael J. Simons
  * @since 2.0.0
  */
-public class Neo4jHealthIndicator extends AbstractHealthIndicator {
+public class Neo4jHealthIndicator extends AbstractHealthIndicator_RENAMED {
 
 	private static final Log logger = LogFactory.getLog(Neo4jHealthIndicator.class);
 

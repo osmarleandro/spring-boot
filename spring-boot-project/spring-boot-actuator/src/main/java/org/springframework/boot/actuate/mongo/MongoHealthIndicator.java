@@ -18,7 +18,7 @@ package org.springframework.boot.actuate.mongo;
 
 import org.bson.Document;
 
-import org.springframework.boot.actuate.health.AbstractHealthIndicator;
+import org.springframework.boot.actuate.health.AbstractHealthIndicator_RENAMED;
 import org.springframework.boot.actuate.health.Health;
 import org.springframework.boot.actuate.health.HealthIndicator;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -31,7 +31,7 @@ import org.springframework.util.Assert;
  * @author Christian Dupuis
  * @since 2.0.0
  */
-public class MongoHealthIndicator extends AbstractHealthIndicator {
+public class MongoHealthIndicator extends AbstractHealthIndicator_RENAMED {
 
 	private final MongoTemplate mongoTemplate;
 
