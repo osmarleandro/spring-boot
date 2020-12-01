@@ -38,7 +38,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
 /**
- * Tests for {@link RedisHealthIndicator}.
+ * Tests for {@link RedisHealthIndicator_RENAMED}.
  *
  * @author Christian Dupuis
  * @author Richard Santana
@@ -52,7 +52,7 @@ class RedisHealthIndicatorTests {
 		info.put("redis_version", "2.8.9");
 		RedisConnection redisConnection = mock(RedisConnection.class);
 		given(redisConnection.info()).willReturn(info);
-		RedisHealthIndicator healthIndicator = createHealthIndicator(redisConnection);
+		RedisHealthIndicator_RENAMED healthIndicator = createHealthIndicator(redisConnection);
 		Health health = healthIndicator.health();
 		assertThat(health.getStatus()).isEqualTo(Status.UP);
 		assertThat(health.getDetails().get("version")).isEqualTo("2.8.9");
@@ -62,16 +62,16 @@ class RedisHealthIndicatorTests {
 	void redisIsDown() {
 		RedisConnection redisConnection = mock(RedisConnection.class);
 		given(redisConnection.info()).willThrow(new RedisConnectionFailureException("Connection failed"));
-		RedisHealthIndicator healthIndicator = createHealthIndicator(redisConnection);
+		RedisHealthIndicator_RENAMED healthIndicator = createHealthIndicator(redisConnection);
 		Health health = healthIndicator.health();
 		assertThat(health.getStatus()).isEqualTo(Status.DOWN);
 		assertThat((String) health.getDetails().get("error")).contains("Connection failed");
 	}
 
-	private RedisHealthIndicator createHealthIndicator(RedisConnection redisConnection) {
+	private RedisHealthIndicator_RENAMED createHealthIndicator(RedisConnection redisConnection) {
 		RedisConnectionFactory redisConnectionFactory = mock(RedisConnectionFactory.class);
 		given(redisConnectionFactory.getConnection()).willReturn(redisConnection);
-		return new RedisHealthIndicator(redisConnectionFactory);
+		return new RedisHealthIndicator_RENAMED(redisConnectionFactory);
 	}
 
 	@Test
@@ -87,7 +87,7 @@ class RedisHealthIndicatorTests {
 		given(redisConnection.clusterGetClusterInfo()).willReturn(new ClusterInfo(clusterProperties));
 		RedisConnectionFactory redisConnectionFactory = mock(RedisConnectionFactory.class);
 		given(redisConnectionFactory.getConnection()).willReturn(redisConnection);
-		RedisHealthIndicator healthIndicator = new RedisHealthIndicator(redisConnectionFactory);
+		RedisHealthIndicator_RENAMED healthIndicator = new RedisHealthIndicator_RENAMED(redisConnectionFactory);
 		Health health = healthIndicator.health();
 		assertThat(health.getStatus()).isEqualTo(Status.UP);
 		assertThat(health.getDetails().get("cluster_size")).isEqualTo(4L);

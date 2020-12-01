@@ -23,7 +23,7 @@ import org.springframework.boot.actuate.health.Health.Builder;
 import org.springframework.data.redis.connection.ClusterInfo;
 
 /**
- * Shared class used by {@link RedisHealthIndicator} and
+ * Shared class used by {@link RedisHealthIndicator_RENAMED} and
  * {@link RedisReactiveHealthIndicator} to provide health details.
  *
  * @author Phillip Webb

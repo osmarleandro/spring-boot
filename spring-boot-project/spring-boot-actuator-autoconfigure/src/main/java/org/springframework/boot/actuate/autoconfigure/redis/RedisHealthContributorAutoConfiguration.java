@@ -21,7 +21,7 @@ import java.util.Map;
 import org.springframework.boot.actuate.autoconfigure.health.CompositeHealthContributorConfiguration;
 import org.springframework.boot.actuate.autoconfigure.health.ConditionalOnEnabledHealthIndicator;
 import org.springframework.boot.actuate.health.HealthContributor;
-import org.springframework.boot.actuate.redis.RedisHealthIndicator;
+import org.springframework.boot.actuate.redis.RedisHealthIndicator_RENAMED;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
@@ -33,7 +33,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 
 /**
- * {@link EnableAutoConfiguration Auto-configuration} for {@link RedisHealthIndicator}.
+ * {@link EnableAutoConfiguration Auto-configuration} for {@link RedisHealthIndicator_RENAMED}.
  *
  * @author Christian Dupuis
  * @author Richard Santana
@@ -47,7 +47,7 @@ import org.springframework.data.redis.connection.RedisConnectionFactory;
 @ConditionalOnEnabledHealthIndicator("redis")
 @AutoConfigureAfter({ RedisAutoConfiguration.class, RedisReactiveHealthContributorAutoConfiguration.class })
 public class RedisHealthContributorAutoConfiguration
-		extends CompositeHealthContributorConfiguration<RedisHealthIndicator, RedisConnectionFactory> {
+		extends CompositeHealthContributorConfiguration<RedisHealthIndicator_RENAMED, RedisConnectionFactory> {
 
 	@Bean
 	@ConditionalOnMissingBean(name = { "redisHealthIndicator", "redisHealthContributor" })
