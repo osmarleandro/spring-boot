@@ -55,7 +55,7 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
 
 /**
- * Tests for {@link HealthEndpointAutoConfiguration}.
+ * Tests for {@link HealthEndpointAutoConfiguration_RENAMED}.
  *
  * @author Phillip Webb
  * @author Andy Wilkinson
@@ -66,11 +66,11 @@ class HealthEndpointAutoConfigurationTests {
 
 	private final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner()
 			.withUserConfiguration(HealthIndicatorsConfiguration.class).withConfiguration(AutoConfigurations
-					.of(HealthContributorAutoConfiguration.class, HealthEndpointAutoConfiguration.class));
+					.of(HealthContributorAutoConfiguration.class, HealthEndpointAutoConfiguration_RENAMED.class));
 
 	private final ReactiveWebApplicationContextRunner reactiveContextRunner = new ReactiveWebApplicationContextRunner()
 			.withUserConfiguration(HealthIndicatorsConfiguration.class).withConfiguration(AutoConfigurations
-					.of(HealthContributorAutoConfiguration.class, HealthEndpointAutoConfiguration.class));
+					.of(HealthContributorAutoConfiguration.class, HealthEndpointAutoConfiguration_RENAMED.class));
 
 	@Test
 	void runWhenHealthEndpointIsDisabledDoesNotCreateBeans() {

@@ -50,7 +50,7 @@ import org.springframework.util.ClassUtils;
  * Configuration for {@link HealthEndpoint} infrastructure beans.
  *
  * @author Phillip Webb
- * @see HealthEndpointAutoConfiguration
+ * @see HealthEndpointAutoConfiguration_RENAMED
  */
 @Configuration(proxyBeanMethods = false)
 class HealthEndpointConfiguration {

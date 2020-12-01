@@ -21,7 +21,7 @@ import org.junit.jupiter.api.Test;
 
 import org.springframework.boot.actuate.autoconfigure.endpoint.EndpointAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointAutoConfiguration;
-import org.springframework.boot.actuate.autoconfigure.health.HealthEndpointAutoConfiguration;
+import org.springframework.boot.actuate.autoconfigure.health.HealthEndpointAutoConfiguration_RENAMED;
 import org.springframework.boot.actuate.autoconfigure.info.InfoContributorAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.info.InfoEndpointAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.web.server.ManagementContextAutoConfiguration;
@@ -55,7 +55,7 @@ class CloudFoundryInfoEndpointWebExtensionTests {
 					ServletManagementContextAutoConfiguration.class, EndpointAutoConfiguration.class,
 					WebEndpointAutoConfiguration.class, ProjectInfoAutoConfiguration.class,
 					InfoContributorAutoConfiguration.class, InfoEndpointAutoConfiguration.class,
-					HealthEndpointAutoConfiguration.class, CloudFoundryActuatorAutoConfiguration.class));
+					HealthEndpointAutoConfiguration_RENAMED.class, CloudFoundryActuatorAutoConfiguration.class));
 
 	@Test
 	@SuppressWarnings("unchecked")

@@ -33,7 +33,7 @@ import org.springframework.boot.actuate.autoconfigure.cloudfoundry.servlet.Cloud
 import org.springframework.boot.actuate.autoconfigure.endpoint.EndpointAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.health.HealthContributorAutoConfiguration;
-import org.springframework.boot.actuate.autoconfigure.health.HealthEndpointAutoConfiguration;
+import org.springframework.boot.actuate.autoconfigure.health.HealthEndpointAutoConfiguration_RENAMED;
 import org.springframework.boot.actuate.autoconfigure.info.InfoContributorAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.info.InfoEndpointAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.web.server.ManagementContextAutoConfiguration;
@@ -87,7 +87,7 @@ class ReactiveCloudFoundryActuatorAutoConfigurationTests {
 					PropertyPlaceholderAutoConfiguration.class, WebClientCustomizerConfig.class,
 					WebClientAutoConfiguration.class, ManagementContextAutoConfiguration.class,
 					EndpointAutoConfiguration.class, WebEndpointAutoConfiguration.class,
-					HealthContributorAutoConfiguration.class, HealthEndpointAutoConfiguration.class,
+					HealthContributorAutoConfiguration.class, HealthEndpointAutoConfiguration_RENAMED.class,
 					InfoContributorAutoConfiguration.class, InfoEndpointAutoConfiguration.class,
 					ProjectInfoAutoConfiguration.class, ReactiveCloudFoundryActuatorAutoConfiguration.class));
 
@@ -231,7 +231,7 @@ class ReactiveCloudFoundryActuatorAutoConfigurationTests {
 
 	@Test
 	void healthEndpointInvokerShouldBeCloudFoundryWebExtension() {
-		this.contextRunner.withConfiguration(AutoConfigurations.of(HealthEndpointAutoConfiguration.class))
+		this.contextRunner.withConfiguration(AutoConfigurations.of(HealthEndpointAutoConfiguration_RENAMED.class))
 				.withPropertyValues("VCAP_APPLICATION:---", "vcap.application.application_id:my-app-id",
 						"vcap.application.cf_api:https://my-cloud-controller.com")
 				.run((context) -> {
@@ -258,7 +258,7 @@ class ReactiveCloudFoundryActuatorAutoConfigurationTests {
 
 	@Test
 	void skipSslValidation() {
-		this.contextRunner.withConfiguration(AutoConfigurations.of(HealthEndpointAutoConfiguration.class))
+		this.contextRunner.withConfiguration(AutoConfigurations.of(HealthEndpointAutoConfiguration_RENAMED.class))
 				.withPropertyValues("VCAP_APPLICATION:---", "vcap.application.application_id:my-app-id",
 						"vcap.application.cf_api:https://my-cloud-controller.com",
 						"management.cloudfoundry.skip-ssl-validation:true")
@@ -276,7 +276,7 @@ class ReactiveCloudFoundryActuatorAutoConfigurationTests {
 
 	@Test
 	void sslValidationNotSkippedByDefault() {
-		this.contextRunner.withConfiguration(AutoConfigurations.of(HealthEndpointAutoConfiguration.class))
+		this.contextRunner.withConfiguration(AutoConfigurations.of(HealthEndpointAutoConfiguration_RENAMED.class))
 				.withPropertyValues("VCAP_APPLICATION:---", "vcap.application.application_id:my-app-id",
 						"vcap.application.cf_api:https://my-cloud-controller.com")
 				.run((context) -> {

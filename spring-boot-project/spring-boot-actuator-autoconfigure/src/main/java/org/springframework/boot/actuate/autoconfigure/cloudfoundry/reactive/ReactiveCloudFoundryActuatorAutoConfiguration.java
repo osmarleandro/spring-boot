@@ -29,7 +29,7 @@ import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.CloudFoundryWebEndpointDiscoverer;
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.servlet.CloudFoundryInfoEndpointWebExtension;
 import org.springframework.boot.actuate.autoconfigure.endpoint.condition.ConditionalOnAvailableEndpoint;
-import org.springframework.boot.actuate.autoconfigure.health.HealthEndpointAutoConfiguration;
+import org.springframework.boot.actuate.autoconfigure.health.HealthEndpointAutoConfiguration_RENAMED;
 import org.springframework.boot.actuate.autoconfigure.info.InfoEndpointAutoConfiguration;
 import org.springframework.boot.actuate.endpoint.ExposableEndpoint;
 import org.springframework.boot.actuate.endpoint.invoke.ParameterValueMapper;
@@ -77,7 +77,7 @@ import org.springframework.web.server.WebFilter;
  */
 @Configuration(proxyBeanMethods = false)
 @ConditionalOnProperty(prefix = "management.cloudfoundry", name = "enabled", matchIfMissing = true)
-@AutoConfigureAfter({ HealthEndpointAutoConfiguration.class, InfoEndpointAutoConfiguration.class })
+@AutoConfigureAfter({ HealthEndpointAutoConfiguration_RENAMED.class, InfoEndpointAutoConfiguration.class })
 @ConditionalOnWebApplication(type = ConditionalOnWebApplication.Type.REACTIVE)
 @ConditionalOnCloudPlatform(CloudPlatform.CLOUD_FOUNDRY)
 public class ReactiveCloudFoundryActuatorAutoConfiguration {

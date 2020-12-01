@@ -31,7 +31,7 @@ import org.springframework.context.annotation.Configuration;
  * Configuration for {@link HealthEndpoint} reactive web extensions.
  *
  * @author Phillip Webb
- * @see HealthEndpointAutoConfiguration
+ * @see HealthEndpointAutoConfiguration_RENAMED
  */
 @Configuration(proxyBeanMethods = false)
 @ConditionalOnWebApplication(type = Type.REACTIVE)

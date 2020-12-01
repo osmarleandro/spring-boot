@@ -36,7 +36,7 @@ import org.springframework.context.annotation.Configuration;
  * Configuration for reactive {@link HealthEndpoint} infrastructure beans.
  *
  * @author Phillip Webb
- * @see HealthEndpointAutoConfiguration
+ * @see HealthEndpointAutoConfiguration_RENAMED
  */
 @Configuration(proxyBeanMethods = false)
 @ConditionalOnClass(Flux.class)

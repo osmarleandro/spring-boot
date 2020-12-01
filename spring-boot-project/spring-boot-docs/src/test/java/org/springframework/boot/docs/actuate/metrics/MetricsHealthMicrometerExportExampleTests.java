@@ -23,7 +23,7 @@ import org.junit.jupiter.api.Test;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.actuate.autoconfigure.health.HealthContributorAutoConfiguration;
-import org.springframework.boot.actuate.autoconfigure.health.HealthEndpointAutoConfiguration;
+import org.springframework.boot.actuate.autoconfigure.health.HealthEndpointAutoConfiguration_RENAMED;
 import org.springframework.boot.actuate.autoconfigure.metrics.MetricsAutoConfiguration;
 import org.springframework.boot.actuate.health.Health;
 import org.springframework.boot.actuate.health.HealthIndicator;
@@ -55,7 +55,7 @@ class MetricsHealthMicrometerExportExampleTests {
 	@Configuration(proxyBeanMethods = false)
 	@Import(MetricsHealthMicrometerExportExample.HealthMetricsConfiguration.class)
 	@ImportAutoConfiguration(classes = { HealthContributorAutoConfiguration.class, MetricsAutoConfiguration.class,
-			HealthEndpointAutoConfiguration.class })
+			HealthEndpointAutoConfiguration_RENAMED.class })
 	static class Config {
 
 		@Bean

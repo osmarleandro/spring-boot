@@ -17,7 +17,7 @@
 package org.springframework.boot.actuate.autoconfigure.security.servlet;
 
 import org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointAutoConfiguration;
-import org.springframework.boot.actuate.autoconfigure.health.HealthEndpointAutoConfiguration;
+import org.springframework.boot.actuate.autoconfigure.health.HealthEndpointAutoConfiguration_RENAMED;
 import org.springframework.boot.actuate.autoconfigure.info.InfoEndpointAutoConfiguration;
 import org.springframework.boot.actuate.health.HealthEndpoint;
 import org.springframework.boot.actuate.info.InfoEndpoint;
@@ -53,7 +53,7 @@ import org.springframework.security.web.SecurityFilterChain;
 @ConditionalOnMissingBean({ WebSecurityConfigurerAdapter.class, SecurityFilterChain.class })
 @ConditionalOnWebApplication(type = ConditionalOnWebApplication.Type.SERVLET)
 @AutoConfigureBefore(SecurityAutoConfiguration.class)
-@AutoConfigureAfter({ HealthEndpointAutoConfiguration.class, InfoEndpointAutoConfiguration.class,
+@AutoConfigureAfter({ HealthEndpointAutoConfiguration_RENAMED.class, InfoEndpointAutoConfiguration.class,
 		WebEndpointAutoConfiguration.class, OAuth2ClientAutoConfiguration.class,
 		OAuth2ResourceServerAutoConfiguration.class, Saml2RelyingPartyAutoConfiguration.class })
 public class ManagementWebSecurityAutoConfiguration {

@@ -21,7 +21,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.actuate.autoconfigure.endpoint.EndpointAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.health.HealthContributorAutoConfiguration;
-import org.springframework.boot.actuate.autoconfigure.health.HealthEndpointAutoConfiguration;
+import org.springframework.boot.actuate.autoconfigure.health.HealthEndpointAutoConfiguration_RENAMED;
 import org.springframework.boot.actuate.autoconfigure.web.server.ManagementContextAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.web.servlet.ServletManagementContextAutoConfiguration;
 import org.springframework.boot.actuate.endpoint.http.ApiVersion;
@@ -56,7 +56,7 @@ class CloudFoundryHealthEndpointWebExtensionTests {
 					RestTemplateAutoConfiguration.class, ManagementContextAutoConfiguration.class,
 					ServletManagementContextAutoConfiguration.class, EndpointAutoConfiguration.class,
 					WebEndpointAutoConfiguration.class, HealthContributorAutoConfiguration.class,
-					HealthEndpointAutoConfiguration.class, CloudFoundryActuatorAutoConfiguration.class))
+					HealthEndpointAutoConfiguration_RENAMED.class, CloudFoundryActuatorAutoConfiguration.class))
 			.withUserConfiguration(TestHealthIndicator.class);
 
 	@Test

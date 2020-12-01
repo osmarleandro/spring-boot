@@ -24,7 +24,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.actuate.autoconfigure.endpoint.EndpointAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.health.HealthContributorAutoConfiguration;
-import org.springframework.boot.actuate.autoconfigure.health.HealthEndpointAutoConfiguration;
+import org.springframework.boot.actuate.autoconfigure.health.HealthEndpointAutoConfiguration_RENAMED;
 import org.springframework.boot.actuate.autoconfigure.web.server.ManagementContextAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.web.servlet.ServletManagementContextAutoConfiguration;
 import org.springframework.boot.actuate.endpoint.EndpointId;
@@ -222,7 +222,7 @@ class CloudFoundryActuatorAutoConfigurationTests {
 				.withPropertyValues("VCAP_APPLICATION:---", "vcap.application.application_id:my-app-id",
 						"vcap.application.cf_api:https://my-cloud-controller.com")
 				.withConfiguration(AutoConfigurations.of(HealthContributorAutoConfiguration.class,
-						HealthEndpointAutoConfiguration.class))
+						HealthEndpointAutoConfiguration_RENAMED.class))
 				.run((context) -> {
 					Collection<ExposableWebEndpoint> endpoints = context
 							.getBean("cloudFoundryWebEndpointServletHandlerMapping",
