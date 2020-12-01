@@ -21,7 +21,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
 import org.springframework.boot.actuate.autoconfigure.metrics.test.MetricsRun;
-import org.springframework.boot.actuate.autoconfigure.metrics.web.TestController;
+import org.springframework.boot.actuate.autoconfigure.metrics.web.TestController_RENAMED;
 import org.springframework.boot.actuate.metrics.web.reactive.server.DefaultWebFluxTagsProvider;
 import org.springframework.boot.actuate.metrics.web.reactive.server.MetricsWebFilter;
 import org.springframework.boot.actuate.metrics.web.reactive.server.WebFluxTagsContributor;
@@ -82,7 +82,7 @@ class WebFluxMetricsAutoConfigurationTests {
 	@Test
 	void afterMaxUrisReachedFurtherUrisAreDenied(CapturedOutput output) {
 		this.contextRunner.withConfiguration(AutoConfigurations.of(WebFluxAutoConfiguration.class))
-				.withUserConfiguration(TestController.class)
+				.withUserConfiguration(TestController_RENAMED.class)
 				.withPropertyValues("management.metrics.web.server.max-uri-tags=2").run((context) -> {
 					MeterRegistry registry = getInitializedMeterRegistry(context);
 					assertThat(registry.get("http.server.requests").meters()).hasSize(2);
@@ -93,7 +93,7 @@ class WebFluxMetricsAutoConfigurationTests {
 	@Test
 	void shouldNotDenyNorLogIfMaxUrisIsNotReached(CapturedOutput output) {
 		this.contextRunner.withConfiguration(AutoConfigurations.of(WebFluxAutoConfiguration.class))
-				.withUserConfiguration(TestController.class)
+				.withUserConfiguration(TestController_RENAMED.class)
 				.withPropertyValues("management.metrics.web.server.max-uri-tags=5").run((context) -> {
 					MeterRegistry registry = getInitializedMeterRegistry(context);
 					assertThat(registry.get("http.server.requests").meters()).hasSize(3);
@@ -105,7 +105,7 @@ class WebFluxMetricsAutoConfigurationTests {
 	@Test
 	void metricsAreNotRecordedIfAutoTimeRequestsIsDisabled() {
 		this.contextRunner.withConfiguration(AutoConfigurations.of(WebFluxAutoConfiguration.class))
-				.withUserConfiguration(TestController.class)
+				.withUserConfiguration(TestController_RENAMED.class)
 				.withPropertyValues("management.metrics.web.server.request.autotime.enabled=false").run((context) -> {
 					MeterRegistry registry = getInitializedMeterRegistry(context);
 					assertThat(registry.find("http.server.requests").meter()).isNull();

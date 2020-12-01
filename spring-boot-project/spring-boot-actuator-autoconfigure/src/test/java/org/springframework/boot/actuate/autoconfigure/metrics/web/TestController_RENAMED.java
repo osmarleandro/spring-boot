@@ -29,7 +29,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author Chanhyeong LEE
  */
 @RestController
-public class TestController {
+public class TestController_RENAMED {
 
 	@GetMapping("test0")
 	public String test0() {

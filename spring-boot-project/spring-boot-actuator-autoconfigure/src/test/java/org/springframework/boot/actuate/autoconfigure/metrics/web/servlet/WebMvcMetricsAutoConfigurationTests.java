@@ -35,7 +35,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 
 import org.springframework.boot.actuate.autoconfigure.metrics.MetricsAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.metrics.test.MetricsRun;
-import org.springframework.boot.actuate.autoconfigure.metrics.web.TestController;
+import org.springframework.boot.actuate.autoconfigure.metrics.web.TestController_RENAMED;
 import org.springframework.boot.actuate.metrics.web.servlet.DefaultWebMvcTagsProvider;
 import org.springframework.boot.actuate.metrics.web.servlet.LongTaskTimingHandlerInterceptor;
 import org.springframework.boot.actuate.metrics.web.servlet.WebMvcMetricsFilter;
@@ -123,7 +123,7 @@ class WebMvcMetricsAutoConfigurationTests {
 
 	@Test
 	void afterMaxUrisReachedFurtherUrisAreDenied(CapturedOutput output) {
-		this.contextRunner.withUserConfiguration(TestController.class)
+		this.contextRunner.withUserConfiguration(TestController_RENAMED.class)
 				.withConfiguration(AutoConfigurations.of(MetricsAutoConfiguration.class, WebMvcAutoConfiguration.class))
 				.withPropertyValues("management.metrics.web.server.max-uri-tags=2").run((context) -> {
 					MeterRegistry registry = getInitializedMeterRegistry(context);
@@ -134,7 +134,7 @@ class WebMvcMetricsAutoConfigurationTests {
 
 	@Test
 	void shouldNotDenyNorLogIfMaxUrisIsNotReached(CapturedOutput output) {
-		this.contextRunner.withUserConfiguration(TestController.class)
+		this.contextRunner.withUserConfiguration(TestController_RENAMED.class)
 				.withConfiguration(AutoConfigurations.of(MetricsAutoConfiguration.class, WebMvcAutoConfiguration.class))
 				.withPropertyValues("management.metrics.web.server.max-uri-tags=5").run((context) -> {
 					MeterRegistry registry = getInitializedMeterRegistry(context);
@@ -146,7 +146,7 @@ class WebMvcMetricsAutoConfigurationTests {
 
 	@Test
 	void autoTimeRequestsCanBeConfigured() {
-		this.contextRunner.withUserConfiguration(TestController.class)
+		this.contextRunner.withUserConfiguration(TestController_RENAMED.class)
 				.withConfiguration(AutoConfigurations.of(MetricsAutoConfiguration.class, WebMvcAutoConfiguration.class))
 				.withPropertyValues("management.metrics.web.server.request.autotime.enabled=true",
 						"management.metrics.web.server.request.autotime.percentiles=0.5,0.7",
@@ -163,7 +163,7 @@ class WebMvcMetricsAutoConfigurationTests {
 
 	@Test
 	void timerWorksWithTimedAnnotationsWhenAutoTimeRequestsIsFalse() {
-		this.contextRunner.withUserConfiguration(TestController.class)
+		this.contextRunner.withUserConfiguration(TestController_RENAMED.class)
 				.withConfiguration(AutoConfigurations.of(MetricsAutoConfiguration.class, WebMvcAutoConfiguration.class))
 				.withPropertyValues("management.metrics.web.server.request.autotime.enabled=false").run((context) -> {
 					MeterRegistry registry = getInitializedMeterRegistry(context, "/test3");
@@ -177,7 +177,7 @@ class WebMvcMetricsAutoConfigurationTests {
 	@Test
 	@SuppressWarnings("rawtypes")
 	void longTaskTimingInterceptorIsRegistered() {
-		this.contextRunner.withUserConfiguration(TestController.class)
+		this.contextRunner.withUserConfiguration(TestController_RENAMED.class)
 				.withConfiguration(AutoConfigurations.of(MetricsAutoConfiguration.class, WebMvcAutoConfiguration.class))
 				.run((context) -> assertThat(context.getBean(RequestMappingHandlerMapping.class))
 						.extracting("interceptors").asList().extracting((item) -> (Class) item.getClass())
