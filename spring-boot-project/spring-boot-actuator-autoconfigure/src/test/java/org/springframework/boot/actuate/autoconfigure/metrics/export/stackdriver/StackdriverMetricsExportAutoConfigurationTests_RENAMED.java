@@ -34,7 +34,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Johannes Graf
  */
-class StackdriverMetricsExportAutoConfigurationTests {
+class StackdriverMetricsExportAutoConfigurationTests_RENAMED {
 
 	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(StackdriverMetricsExportAutoConfiguration.class));
