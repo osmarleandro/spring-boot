@@ -49,7 +49,7 @@ class ReactiveCloudFoundrySecurityInterceptorTests {
 	private ReactiveTokenValidator tokenValidator;
 
 	@Mock
-	private ReactiveCloudFoundrySecurityService securityService;
+	private ReactiveCloudFoundrySecurityService_RENAMED securityService;
 
 	private CloudFoundrySecurityInterceptor interceptor;
 

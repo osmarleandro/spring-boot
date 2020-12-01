@@ -43,14 +43,14 @@ class CloudFoundrySecurityInterceptor {
 
 	private final ReactiveTokenValidator tokenValidator;
 
-	private final ReactiveCloudFoundrySecurityService cloudFoundrySecurityService;
+	private final ReactiveCloudFoundrySecurityService_RENAMED cloudFoundrySecurityService;
 
 	private final String applicationId;
 
 	private static final Mono<SecurityResponse> SUCCESS = Mono.just(SecurityResponse.success());
 
 	CloudFoundrySecurityInterceptor(ReactiveTokenValidator tokenValidator,
-			ReactiveCloudFoundrySecurityService cloudFoundrySecurityService, String applicationId) {
+			ReactiveCloudFoundrySecurityService_RENAMED cloudFoundrySecurityService, String applicationId) {
 		this.tokenValidator = tokenValidator;
 		this.cloudFoundrySecurityService = cloudFoundrySecurityService;
 		this.applicationId = applicationId;

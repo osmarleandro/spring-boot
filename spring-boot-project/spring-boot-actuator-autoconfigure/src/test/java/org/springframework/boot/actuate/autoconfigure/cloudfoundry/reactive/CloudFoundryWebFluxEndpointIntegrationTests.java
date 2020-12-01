@@ -72,8 +72,8 @@ class CloudFoundryWebFluxEndpointIntegrationTests {
 
 	private static ReactiveTokenValidator tokenValidator = mock(ReactiveTokenValidator.class);
 
-	private static ReactiveCloudFoundrySecurityService securityService = mock(
-			ReactiveCloudFoundrySecurityService.class);
+	private static ReactiveCloudFoundrySecurityService_RENAMED securityService = mock(
+			ReactiveCloudFoundrySecurityService_RENAMED.class);
 
 	private final ReactiveWebApplicationContextRunner contextRunner = new ReactiveWebApplicationContextRunner(
 			AnnotationConfigReactiveWebServerApplicationContext::new)

@@ -59,7 +59,7 @@ class ReactiveTokenValidatorTests {
 	private static final byte[] DOT = ".".getBytes();
 
 	@Mock
-	private ReactiveCloudFoundrySecurityService securityService;
+	private ReactiveCloudFoundrySecurityService_RENAMED securityService;
 
 	private ReactiveTokenValidator tokenValidator;
 
