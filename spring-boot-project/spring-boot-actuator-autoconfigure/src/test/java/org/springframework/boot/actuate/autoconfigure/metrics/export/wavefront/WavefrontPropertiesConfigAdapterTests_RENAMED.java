@@ -29,7 +29,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Stephane Nicoll
  */
-class WavefrontPropertiesConfigAdapterTests
+class WavefrontPropertiesConfigAdapterTests_RENAMED
 		extends PushRegistryPropertiesConfigAdapterTests<WavefrontProperties, WavefrontPropertiesConfigAdapter> {
 
 	@Override
