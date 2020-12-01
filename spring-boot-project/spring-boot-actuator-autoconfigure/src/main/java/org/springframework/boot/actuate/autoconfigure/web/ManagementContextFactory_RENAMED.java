@@ -27,7 +27,7 @@ import org.springframework.context.ApplicationContext;
  * @since 2.0.0
  */
 @FunctionalInterface
-public interface ManagementContextFactory {
+public interface ManagementContextFactory_RENAMED {
 
 	/**
 	 * Create the management application context.

@@ -23,7 +23,7 @@ import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.beans.factory.support.RootBeanDefinition;
-import org.springframework.boot.actuate.autoconfigure.web.ManagementContextFactory;
+import org.springframework.boot.actuate.autoconfigure.web.ManagementContextFactory_RENAMED;
 import org.springframework.boot.autoconfigure.web.reactive.ReactiveWebServerFactoryAutoConfiguration;
 import org.springframework.boot.web.context.ConfigurableWebServerApplicationContext;
 import org.springframework.boot.web.reactive.context.AnnotationConfigReactiveWebServerApplicationContext;
@@ -32,11 +32,11 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.util.ObjectUtils;
 
 /**
- * A {@link ManagementContextFactory} for reactive web applications.
+ * A {@link ManagementContextFactory_RENAMED} for reactive web applications.
  *
  * @author Andy Wilkinson
  */
-class ReactiveManagementContextFactory implements ManagementContextFactory {
+class ReactiveManagementContextFactory implements ManagementContextFactory_RENAMED {
 
 	@Override
 	public ConfigurableWebServerApplicationContext createManagementContext(ApplicationContext parent,

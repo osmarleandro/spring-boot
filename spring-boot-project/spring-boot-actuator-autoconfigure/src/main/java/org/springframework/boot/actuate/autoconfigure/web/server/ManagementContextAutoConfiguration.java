@@ -22,7 +22,7 @@ import org.springframework.beans.factory.SmartInitializingSingleton;
 import org.springframework.beans.factory.config.BeanFactoryPostProcessor;
 import org.springframework.boot.LazyInitializationBeanFactoryPostProcessor;
 import org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointProperties;
-import org.springframework.boot.actuate.autoconfigure.web.ManagementContextFactory;
+import org.springframework.boot.actuate.autoconfigure.web.ManagementContextFactory_RENAMED;
 import org.springframework.boot.actuate.autoconfigure.web.ManagementContextType;
 import org.springframework.boot.autoconfigure.AutoConfigureOrder;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -124,10 +124,10 @@ public class ManagementContextAutoConfiguration {
 
 		private final ApplicationContext applicationContext;
 
-		private final ManagementContextFactory managementContextFactory;
+		private final ManagementContextFactory_RENAMED managementContextFactory;
 
 		DifferentManagementContextConfiguration(ApplicationContext applicationContext,
-				ManagementContextFactory managementContextFactory) {
+				ManagementContextFactory_RENAMED managementContextFactory) {
 			this.applicationContext = applicationContext;
 			this.managementContextFactory = managementContextFactory;
 		}
