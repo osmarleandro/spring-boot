@@ -36,7 +36,7 @@ import static org.assertj.core.api.Assertions.entry;
 import static org.mockito.Mockito.mock;
 
 /**
- * Tests for {@link Neo4jHealthContributorAutoConfiguration}.
+ * Tests for {@link Neo4jHealthContributorAutoConfiguration_RENAMED}.
  *
  * @author Phillip Webb
  * @author Stephane Nicoll
@@ -46,7 +46,7 @@ class Neo4jHealthContributorAutoConfigurationTests {
 
 	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(HealthContributorAutoConfiguration.class,
-					Neo4jHealthContributorAutoConfiguration.class));
+					Neo4jHealthContributorAutoConfiguration_RENAMED.class));
 
 	@Test
 	void runShouldCreateHealthIndicator() {

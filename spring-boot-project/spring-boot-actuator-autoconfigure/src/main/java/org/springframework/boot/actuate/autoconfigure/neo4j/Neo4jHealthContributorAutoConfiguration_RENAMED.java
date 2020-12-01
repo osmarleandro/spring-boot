@@ -46,6 +46,6 @@ import org.springframework.context.annotation.Import;
 @ConditionalOnEnabledHealthIndicator("neo4j")
 @AutoConfigureAfter(Neo4jAutoConfiguration.class)
 @Import({ Neo4jReactiveConfiguration.class, Neo4jConfiguration.class })
-public class Neo4jHealthContributorAutoConfiguration {
+public class Neo4jHealthContributorAutoConfiguration_RENAMED {
 
 }
