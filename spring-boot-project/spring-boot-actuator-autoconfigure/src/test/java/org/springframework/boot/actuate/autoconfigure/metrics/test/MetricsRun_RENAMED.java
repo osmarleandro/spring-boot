@@ -46,7 +46,7 @@ import org.springframework.util.Assert;
  * @author Jon Schneider
  * @author Phillip Webb
  */
-public final class MetricsRun {
+public final class MetricsRun_RENAMED {
 
 	private static final Set<Class<?>> EXPORT_AUTO_CONFIGURATIONS;
 
@@ -69,7 +69,7 @@ public final class MetricsRun {
 	private static final AutoConfigurations AUTO_CONFIGURATIONS = AutoConfigurations.of(MetricsAutoConfiguration.class,
 			CompositeMeterRegistryAutoConfiguration.class);
 
-	private MetricsRun() {
+	private MetricsRun_RENAMED() {
 	}
 
 	/**

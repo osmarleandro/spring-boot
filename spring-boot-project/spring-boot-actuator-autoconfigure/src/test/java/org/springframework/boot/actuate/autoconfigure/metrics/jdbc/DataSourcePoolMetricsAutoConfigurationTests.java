@@ -30,7 +30,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.aop.framework.ProxyFactory;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanPostProcessor;
-import org.springframework.boot.actuate.autoconfigure.metrics.test.MetricsRun;
+import org.springframework.boot.actuate.autoconfigure.metrics.test.MetricsRun_RENAMED;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.jdbc.DataSourceBuilder;
@@ -54,7 +54,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 class DataSourcePoolMetricsAutoConfigurationTests {
 
 	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
-			.withPropertyValues("spring.datasource.generate-unique-name=true").with(MetricsRun.simple())
+			.withPropertyValues("spring.datasource.generate-unique-name=true").with(MetricsRun_RENAMED.simple())
 			.withConfiguration(AutoConfigurations.of(DataSourcePoolMetricsAutoConfiguration.class))
 			.withUserConfiguration(BaseConfiguration.class);
 

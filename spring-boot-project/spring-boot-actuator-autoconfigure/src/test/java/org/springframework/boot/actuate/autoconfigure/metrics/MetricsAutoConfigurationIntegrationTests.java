@@ -31,7 +31,7 @@ import org.junit.jupiter.api.Test;
 
 import org.springframework.boot.actuate.autoconfigure.metrics.export.graphite.GraphiteMetricsExportAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.metrics.export.jmx.JmxMetricsExportAutoConfiguration;
-import org.springframework.boot.actuate.autoconfigure.metrics.test.MetricsRun;
+import org.springframework.boot.actuate.autoconfigure.metrics.test.MetricsRun_RENAMED;
 import org.springframework.boot.test.context.runner.ApplicationContextRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -46,7 +46,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 class MetricsAutoConfigurationIntegrationTests {
 
-	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner().with(MetricsRun.simple());
+	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner().with(MetricsRun_RENAMED.simple());
 
 	@Test
 	void propertyBasedMeterFilteringIsAutoConfigured() {
@@ -77,7 +77,7 @@ class MetricsAutoConfigurationIntegrationTests {
 
 	@Test
 	void emptyCompositeIsCreatedWhenNoMeterRegistriesAreAutoConfigured() {
-		new ApplicationContextRunner().with(MetricsRun.limitedTo()).run((context) -> {
+		new ApplicationContextRunner().with(MetricsRun_RENAMED.limitedTo()).run((context) -> {
 			MeterRegistry registry = context.getBean(MeterRegistry.class);
 			assertThat(registry).isInstanceOf(CompositeMeterRegistry.class);
 			assertThat(((CompositeMeterRegistry) registry).getRegistries()).isEmpty();
@@ -86,7 +86,7 @@ class MetricsAutoConfigurationIntegrationTests {
 
 	@Test
 	void noCompositeIsCreatedWhenASingleMeterRegistryIsAutoConfigured() {
-		new ApplicationContextRunner().with(MetricsRun.limitedTo(GraphiteMetricsExportAutoConfiguration.class))
+		new ApplicationContextRunner().with(MetricsRun_RENAMED.limitedTo(GraphiteMetricsExportAutoConfiguration.class))
 				.run((context) -> assertThat(context.getBean(MeterRegistry.class))
 						.isInstanceOf(GraphiteMeterRegistry.class));
 	}
@@ -94,7 +94,7 @@ class MetricsAutoConfigurationIntegrationTests {
 	@Test
 	void noCompositeIsCreatedWithMultipleRegistriesAndOneThatIsPrimary() {
 		new ApplicationContextRunner()
-				.with(MetricsRun.limitedTo(GraphiteMetricsExportAutoConfiguration.class,
+				.with(MetricsRun_RENAMED.limitedTo(GraphiteMetricsExportAutoConfiguration.class,
 						JmxMetricsExportAutoConfiguration.class))
 				.withUserConfiguration(PrimaryMeterRegistryConfiguration.class)
 				.run((context) -> assertThat(context.getBean(MeterRegistry.class))
@@ -103,7 +103,7 @@ class MetricsAutoConfigurationIntegrationTests {
 
 	@Test
 	void compositeCreatedWithMultipleRegistries() {
-		new ApplicationContextRunner().with(MetricsRun.limitedTo(GraphiteMetricsExportAutoConfiguration.class,
+		new ApplicationContextRunner().with(MetricsRun_RENAMED.limitedTo(GraphiteMetricsExportAutoConfiguration.class,
 				JmxMetricsExportAutoConfiguration.class)).run((context) -> {
 					MeterRegistry registry = context.getBean(MeterRegistry.class);
 					assertThat(registry).isInstanceOf(CompositeMeterRegistry.class);
@@ -115,7 +115,7 @@ class MetricsAutoConfigurationIntegrationTests {
 
 	@Test
 	void autoConfiguredCompositeDoesNotHaveMeterFiltersApplied() {
-		new ApplicationContextRunner().with(MetricsRun.limitedTo(GraphiteMetricsExportAutoConfiguration.class,
+		new ApplicationContextRunner().with(MetricsRun_RENAMED.limitedTo(GraphiteMetricsExportAutoConfiguration.class,
 				JmxMetricsExportAutoConfiguration.class)).run((context) -> {
 					MeterRegistry composite = context.getBean(MeterRegistry.class);
 					assertThat(composite).extracting("filters", InstanceOfAssertFactories.ARRAY).hasSize(0);
@@ -131,7 +131,7 @@ class MetricsAutoConfigurationIntegrationTests {
 
 	@Test
 	void userConfiguredCompositeHasMeterFiltersApplied() {
-		new ApplicationContextRunner().with(MetricsRun.limitedTo())
+		new ApplicationContextRunner().with(MetricsRun_RENAMED.limitedTo())
 				.withUserConfiguration(CompositeMeterRegistryConfiguration.class).run((context) -> {
 					MeterRegistry composite = context.getBean(MeterRegistry.class);
 					assertThat(composite).extracting("filters", InstanceOfAssertFactories.ARRAY).hasSize(1);

@@ -30,7 +30,7 @@ import io.r2dbc.pool.ConnectionPoolConfiguration;
 import io.r2dbc.spi.ConnectionFactory;
 import org.junit.jupiter.api.Test;
 
-import org.springframework.boot.actuate.autoconfigure.metrics.test.MetricsRun;
+import org.springframework.boot.actuate.autoconfigure.metrics.test.MetricsRun_RENAMED;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
 import org.springframework.boot.autoconfigure.r2dbc.R2dbcAutoConfiguration;
 import org.springframework.boot.test.context.runner.ApplicationContextRunner;
@@ -48,7 +48,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 class ConnectionPoolMetricsAutoConfigurationTests {
 
 	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
-			.withPropertyValues("spring.r2dbc.generate-unique-name=true").with(MetricsRun.simple())
+			.withPropertyValues("spring.r2dbc.generate-unique-name=true").with(MetricsRun_RENAMED.simple())
 			.withConfiguration(AutoConfigurations.of(ConnectionPoolMetricsAutoConfiguration.class))
 			.withUserConfiguration(BaseConfiguration.class);
 

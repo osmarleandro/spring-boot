@@ -25,7 +25,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import reactor.core.publisher.Mono;
 
-import org.springframework.boot.actuate.autoconfigure.metrics.test.MetricsRun;
+import org.springframework.boot.actuate.autoconfigure.metrics.test.MetricsRun_RENAMED;
 import org.springframework.boot.actuate.metrics.web.reactive.client.WebClientExchangeTagsProvider;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
 import org.springframework.boot.autoconfigure.web.reactive.function.client.WebClientAutoConfiguration;
@@ -54,7 +54,7 @@ import static org.mockito.Mockito.mock;
 @ExtendWith(OutputCaptureExtension.class)
 class WebClientMetricsConfigurationTests {
 
-	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner().with(MetricsRun.simple())
+	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner().with(MetricsRun_RENAMED.simple())
 			.withConfiguration(
 					AutoConfigurations.of(WebClientAutoConfiguration.class, HttpClientMetricsAutoConfiguration.class));
 

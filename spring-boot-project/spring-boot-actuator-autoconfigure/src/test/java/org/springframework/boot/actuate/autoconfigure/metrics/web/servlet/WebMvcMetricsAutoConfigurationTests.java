@@ -34,7 +34,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
 import org.springframework.boot.actuate.autoconfigure.metrics.MetricsAutoConfiguration;
-import org.springframework.boot.actuate.autoconfigure.metrics.test.MetricsRun;
+import org.springframework.boot.actuate.autoconfigure.metrics.test.MetricsRun_RENAMED;
 import org.springframework.boot.actuate.autoconfigure.metrics.web.TestController;
 import org.springframework.boot.actuate.metrics.web.servlet.DefaultWebMvcTagsProvider;
 import org.springframework.boot.actuate.metrics.web.servlet.LongTaskTimingHandlerInterceptor;
@@ -73,7 +73,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class WebMvcMetricsAutoConfigurationTests {
 
 	private final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner()
-			.with(MetricsRun.simple()).withConfiguration(AutoConfigurations.of(WebMvcMetricsAutoConfiguration.class));
+			.with(MetricsRun_RENAMED.simple()).withConfiguration(AutoConfigurations.of(WebMvcMetricsAutoConfiguration.class));
 
 	@Test
 	void backsOffWhenMeterRegistryIsMissing() {

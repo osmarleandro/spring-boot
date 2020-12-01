@@ -24,7 +24,7 @@ import org.apache.kafka.streams.kstream.KTable;
 import org.apache.kafka.streams.kstream.Materialized;
 import org.junit.jupiter.api.Test;
 
-import org.springframework.boot.actuate.autoconfigure.metrics.test.MetricsRun;
+import org.springframework.boot.actuate.autoconfigure.metrics.test.MetricsRun_RENAMED;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
 import org.springframework.boot.autoconfigure.kafka.KafkaAutoConfiguration;
 import org.springframework.boot.test.context.runner.ApplicationContextRunner;
@@ -54,7 +54,7 @@ class KafkaMetricsAutoConfigurationTests {
 
 	@Test
 	void whenThereIsAMeterRegistryThenMetricsListenersAreAdded() {
-		this.contextRunner.with(MetricsRun.simple())
+		this.contextRunner.with(MetricsRun_RENAMED.simple())
 				.withConfiguration(AutoConfigurations.of(KafkaAutoConfiguration.class)).run((context) -> {
 					assertThat(((DefaultKafkaProducerFactory<?, ?>) context.getBean(DefaultKafkaProducerFactory.class))
 							.getListeners()).hasSize(1).hasOnlyElementsOfTypes(MicrometerProducerListener.class);
@@ -77,7 +77,7 @@ class KafkaMetricsAutoConfigurationTests {
 	void whenKafkaStreamsIsEnabledAndThereIsAMeterRegistryThenMetricsListenersAreAdded() {
 		this.contextRunner.withConfiguration(AutoConfigurations.of(KafkaAutoConfiguration.class))
 				.withUserConfiguration(EnableKafkaStreamsConfiguration.class)
-				.withPropertyValues("spring.application.name=my-test-app").with(MetricsRun.simple()).run((context) -> {
+				.withPropertyValues("spring.application.name=my-test-app").with(MetricsRun_RENAMED.simple()).run((context) -> {
 					StreamsBuilderFactoryBean streamsBuilderFactoryBean = context
 							.getBean(StreamsBuilderFactoryBean.class);
 					assertThat(streamsBuilderFactoryBean.getListeners()).hasSize(1)

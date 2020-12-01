@@ -20,7 +20,7 @@ import io.micrometer.core.instrument.MeterRegistry;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
-import org.springframework.boot.actuate.autoconfigure.metrics.test.MetricsRun;
+import org.springframework.boot.actuate.autoconfigure.metrics.test.MetricsRun_RENAMED;
 import org.springframework.boot.actuate.autoconfigure.metrics.web.TestController;
 import org.springframework.boot.actuate.metrics.web.reactive.server.DefaultWebFluxTagsProvider;
 import org.springframework.boot.actuate.metrics.web.reactive.server.MetricsWebFilter;
@@ -50,7 +50,7 @@ import static org.mockito.Mockito.mock;
 class WebFluxMetricsAutoConfigurationTests {
 
 	private final ReactiveWebApplicationContextRunner contextRunner = new ReactiveWebApplicationContextRunner()
-			.with(MetricsRun.simple()).withConfiguration(AutoConfigurations.of(WebFluxMetricsAutoConfiguration.class));
+			.with(MetricsRun_RENAMED.simple()).withConfiguration(AutoConfigurations.of(WebFluxMetricsAutoConfiguration.class));
 
 	@Test
 	void shouldProvideWebFluxMetricsBeans() {

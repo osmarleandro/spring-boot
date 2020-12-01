@@ -19,7 +19,7 @@ package org.springframework.boot.actuate.autoconfigure.metrics;
 import io.micrometer.core.instrument.binder.logging.LogbackMetrics;
 import org.junit.jupiter.api.Test;
 
-import org.springframework.boot.actuate.autoconfigure.metrics.test.MetricsRun;
+import org.springframework.boot.actuate.autoconfigure.metrics.test.MetricsRun_RENAMED;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
 import org.springframework.boot.test.context.runner.ApplicationContextRunner;
 import org.springframework.context.annotation.Bean;
@@ -35,7 +35,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 class LogbackMetricsAutoConfigurationTests {
 
-	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner().with(MetricsRun.simple())
+	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner().with(MetricsRun_RENAMED.simple())
 			.withConfiguration(AutoConfigurations.of(LogbackMetricsAutoConfiguration.class));
 
 	@Test

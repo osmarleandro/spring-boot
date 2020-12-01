@@ -21,7 +21,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.slf4j.SLF4JLoggerContext;
 import org.junit.jupiter.api.Test;
 
-import org.springframework.boot.actuate.autoconfigure.metrics.test.MetricsRun;
+import org.springframework.boot.actuate.autoconfigure.metrics.test.MetricsRun_RENAMED;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
 import org.springframework.boot.test.context.runner.ApplicationContextRunner;
 
@@ -34,7 +34,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 class Log4J2MetricsWithSlf4jLoggerContextAutoConfigurationTests {
 
-	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner().with(MetricsRun.simple())
+	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner().with(MetricsRun_RENAMED.simple())
 			.withConfiguration(AutoConfigurations.of(Log4J2MetricsAutoConfiguration.class));
 
 	@Test

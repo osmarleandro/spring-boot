@@ -34,7 +34,7 @@ import org.junit.jupiter.api.Test;
 
 import org.springframework.boot.actuate.autoconfigure.metrics.MetricsAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.metrics.export.simple.SimpleMetricsExportAutoConfiguration;
-import org.springframework.boot.actuate.autoconfigure.metrics.test.MetricsRun;
+import org.springframework.boot.actuate.autoconfigure.metrics.test.MetricsRun_RENAMED;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
 import org.springframework.boot.autoconfigure.jersey.JerseyAutoConfiguration;
 import org.springframework.boot.autoconfigure.jersey.ResourceConfigCustomizer;
@@ -58,7 +58,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 class JerseyServerMetricsAutoConfigurationTests {
 
-	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner().with(MetricsRun.simple())
+	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner().with(MetricsRun_RENAMED.simple())
 			.withConfiguration(AutoConfigurations.of(JerseyServerMetricsAutoConfiguration.class));
 
 	private final WebApplicationContextRunner webContextRunner = new WebApplicationContextRunner(

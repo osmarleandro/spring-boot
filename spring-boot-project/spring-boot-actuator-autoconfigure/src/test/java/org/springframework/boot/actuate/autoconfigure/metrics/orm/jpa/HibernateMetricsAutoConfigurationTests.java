@@ -32,7 +32,7 @@ import org.hibernate.SessionFactory;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentMatchers;
 
-import org.springframework.boot.actuate.autoconfigure.metrics.test.MetricsRun;
+import org.springframework.boot.actuate.autoconfigure.metrics.test.MetricsRun_RENAMED;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration;
@@ -58,7 +58,7 @@ import static org.mockito.Mockito.mock;
  */
 class HibernateMetricsAutoConfigurationTests {
 
-	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner().with(MetricsRun.simple())
+	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner().with(MetricsRun_RENAMED.simple())
 			.withConfiguration(AutoConfigurations.of(DataSourceAutoConfiguration.class,
 					HibernateJpaAutoConfiguration.class, HibernateMetricsAutoConfiguration.class))
 			.withUserConfiguration(BaseConfiguration.class);

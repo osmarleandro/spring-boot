@@ -19,7 +19,7 @@ package org.springframework.boot.actuate.autoconfigure.metrics.amqp;
 import io.micrometer.core.instrument.MeterRegistry;
 import org.junit.jupiter.api.Test;
 
-import org.springframework.boot.actuate.autoconfigure.metrics.test.MetricsRun;
+import org.springframework.boot.actuate.autoconfigure.metrics.test.MetricsRun_RENAMED;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
 import org.springframework.boot.autoconfigure.amqp.RabbitAutoConfiguration;
 import org.springframework.boot.test.context.runner.ApplicationContextRunner;
@@ -33,7 +33,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 class RabbitMetricsAutoConfigurationTests {
 
-	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner().with(MetricsRun.simple())
+	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner().with(MetricsRun_RENAMED.simple())
 			.withConfiguration(
 					AutoConfigurations.of(RabbitAutoConfiguration.class, RabbitMetricsAutoConfiguration.class));
 

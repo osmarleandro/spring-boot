@@ -20,7 +20,7 @@ import io.micrometer.core.instrument.binder.logging.Log4j2Metrics;
 import org.apache.logging.log4j.LogManager;
 import org.junit.jupiter.api.Test;
 
-import org.springframework.boot.actuate.autoconfigure.metrics.test.MetricsRun;
+import org.springframework.boot.actuate.autoconfigure.metrics.test.MetricsRun_RENAMED;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
 import org.springframework.boot.test.context.runner.ApplicationContextRunner;
 import org.springframework.boot.testsupport.classpath.ClassPathOverrides;
@@ -37,7 +37,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @ClassPathOverrides("org.apache.logging.log4j:log4j-core:2.11.1")
 class Log4J2MetricsWithLog4jLoggerContextAutoConfigurationTests {
 
-	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner().with(MetricsRun.simple())
+	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner().with(MetricsRun_RENAMED.simple())
 			.withConfiguration(AutoConfigurations.of(Log4J2MetricsAutoConfiguration.class));
 
 	@Test

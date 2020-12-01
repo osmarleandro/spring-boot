@@ -32,7 +32,7 @@ import org.springframework.boot.actuate.autoconfigure.metrics.export.atlas.Atlas
 import org.springframework.boot.actuate.autoconfigure.metrics.export.jmx.JmxMetricsExportAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.metrics.export.prometheus.PrometheusMetricsExportAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.metrics.export.simple.SimpleMetricsExportAutoConfiguration;
-import org.springframework.boot.actuate.autoconfigure.metrics.test.MetricsRun;
+import org.springframework.boot.actuate.autoconfigure.metrics.test.MetricsRun_RENAMED;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
 import org.springframework.boot.test.context.runner.ApplicationContextRunner;
 import org.springframework.context.ApplicationContext;
@@ -49,7 +49,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 class MeterRegistryConfigurerIntegrationTests {
 
 	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
-			.with(MetricsRun.limitedTo(AtlasMetricsExportAutoConfiguration.class,
+			.with(MetricsRun_RENAMED.limitedTo(AtlasMetricsExportAutoConfiguration.class,
 					PrometheusMetricsExportAutoConfiguration.class))
 			.withConfiguration(AutoConfigurations.of(JvmMetricsAutoConfiguration.class));
 
@@ -75,7 +75,7 @@ class MeterRegistryConfigurerIntegrationTests {
 
 	@Test
 	void counterIsIncrementedOncePerEventWithoutCompositeMeterRegistry() {
-		new ApplicationContextRunner().with(MetricsRun.limitedTo(JmxMetricsExportAutoConfiguration.class))
+		new ApplicationContextRunner().with(MetricsRun_RENAMED.limitedTo(JmxMetricsExportAutoConfiguration.class))
 				.withConfiguration(AutoConfigurations.of(LogbackMetricsAutoConfiguration.class)).run((context) -> {
 					Logger logger = ((LoggerContext) StaticLoggerBinder.getSingleton().getLoggerFactory())
 							.getLogger("test-logger");
@@ -90,7 +90,7 @@ class MeterRegistryConfigurerIntegrationTests {
 	@Test
 	void counterIsIncrementedOncePerEventWithCompositeMeterRegistry() {
 		new ApplicationContextRunner()
-				.with(MetricsRun.limitedTo(JmxMetricsExportAutoConfiguration.class,
+				.with(MetricsRun_RENAMED.limitedTo(JmxMetricsExportAutoConfiguration.class,
 						PrometheusMetricsExportAutoConfiguration.class))
 				.withConfiguration(AutoConfigurations.of(LogbackMetricsAutoConfiguration.class)).run((context) -> {
 					Logger logger = ((LoggerContext) StaticLoggerBinder.getSingleton().getLoggerFactory())

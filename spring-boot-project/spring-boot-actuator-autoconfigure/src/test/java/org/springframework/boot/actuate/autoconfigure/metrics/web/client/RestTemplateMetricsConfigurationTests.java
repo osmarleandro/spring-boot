@@ -22,7 +22,7 @@ import io.micrometer.core.instrument.distribution.HistogramSnapshot;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
-import org.springframework.boot.actuate.autoconfigure.metrics.test.MetricsRun;
+import org.springframework.boot.actuate.autoconfigure.metrics.test.MetricsRun_RENAMED;
 import org.springframework.boot.actuate.metrics.web.client.DefaultRestTemplateExchangeTagsProvider;
 import org.springframework.boot.actuate.metrics.web.client.MetricsRestTemplateCustomizer;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
@@ -50,7 +50,7 @@ import static org.springframework.test.web.client.response.MockRestResponseCreat
 @ExtendWith(OutputCaptureExtension.class)
 class RestTemplateMetricsConfigurationTests {
 
-	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner().with(MetricsRun.simple())
+	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner().with(MetricsRun_RENAMED.simple())
 			.withConfiguration(AutoConfigurations.of(RestTemplateAutoConfiguration.class,
 					HttpClientMetricsAutoConfiguration.class));
 
@@ -110,7 +110,7 @@ class RestTemplateMetricsConfigurationTests {
 
 	@Test
 	void backsOffWhenRestTemplateBuilderIsMissing() {
-		new ApplicationContextRunner().with(MetricsRun.simple())
+		new ApplicationContextRunner().with(MetricsRun_RENAMED.simple())
 				.withConfiguration(AutoConfigurations.of(HttpClientMetricsAutoConfiguration.class))
 				.run((context) -> assertThat(context).doesNotHaveBean(DefaultRestTemplateExchangeTagsProvider.class)
 						.doesNotHaveBean(MetricsRestTemplateCustomizer.class));
