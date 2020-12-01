@@ -32,7 +32,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
 /**
- * Tests for {@link InfluxDbHealthIndicator}.
+ * Tests for {@link InfluxDbHealthIndicator_RENAMED}.
  *
  * @author Eddú Meléndez
  */
@@ -44,7 +44,7 @@ class InfluxDbHealthIndicatorTests {
 		given(pong.getVersion()).willReturn("0.9");
 		InfluxDB influxDB = mock(InfluxDB.class);
 		given(influxDB.ping()).willReturn(pong);
-		InfluxDbHealthIndicator healthIndicator = new InfluxDbHealthIndicator(influxDB);
+		InfluxDbHealthIndicator_RENAMED healthIndicator = new InfluxDbHealthIndicator_RENAMED(influxDB);
 		Health health = healthIndicator.health();
 		assertThat(health.getStatus()).isEqualTo(Status.UP);
 		assertThat(health.getDetails().get("version")).isEqualTo("0.9");
@@ -55,7 +55,7 @@ class InfluxDbHealthIndicatorTests {
 	void influxDbIsDown() {
 		InfluxDB influxDB = mock(InfluxDB.class);
 		given(influxDB.ping()).willThrow(new InfluxDBException(new IOException("Connection failed")));
-		InfluxDbHealthIndicator healthIndicator = new InfluxDbHealthIndicator(influxDB);
+		InfluxDbHealthIndicator_RENAMED healthIndicator = new InfluxDbHealthIndicator_RENAMED(influxDB);
 		Health health = healthIndicator.health();
 		assertThat(health.getStatus()).isEqualTo(Status.DOWN);
 		assertThat((String) health.getDetails().get("error")).contains("Connection failed");
