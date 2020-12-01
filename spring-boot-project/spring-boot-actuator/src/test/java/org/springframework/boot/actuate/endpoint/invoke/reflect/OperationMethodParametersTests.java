@@ -38,7 +38,7 @@ import static org.assertj.core.api.Assertions.assertThatIllegalStateException;
 import static org.mockito.Mockito.mock;
 
 /**
- * Tests for {@link OperationMethodParameters}.
+ * Tests for {@link OperationMethodParameters_RENAMED}.
  *
  * @author Phillip Webb
  */
@@ -51,13 +51,13 @@ class OperationMethodParametersTests {
 	@Test
 	void createWhenMethodIsNullShouldThrowException() {
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> new OperationMethodParameters(null, mock(ParameterNameDiscoverer.class)))
+				.isThrownBy(() -> new OperationMethodParameters_RENAMED(null, mock(ParameterNameDiscoverer.class)))
 				.withMessageContaining("Method must not be null");
 	}
 
 	@Test
 	void createWhenParameterNameDiscovererIsNullShouldThrowException() {
-		assertThatIllegalArgumentException().isThrownBy(() -> new OperationMethodParameters(this.exampleMethod, null))
+		assertThatIllegalArgumentException().isThrownBy(() -> new OperationMethodParameters_RENAMED(this.exampleMethod, null))
 				.withMessageContaining("ParameterNameDiscoverer must not be null");
 	}
 
@@ -65,34 +65,34 @@ class OperationMethodParametersTests {
 	void createWhenParameterNameDiscovererReturnsNullShouldThrowException() {
 		assertThatIllegalStateException()
 				.isThrownBy(
-						() -> new OperationMethodParameters(this.exampleMethod, mock(ParameterNameDiscoverer.class)))
+						() -> new OperationMethodParameters_RENAMED(this.exampleMethod, mock(ParameterNameDiscoverer.class)))
 				.withMessageContaining("Failed to extract parameter names");
 	}
 
 	@Test
 	void hasParametersWhenHasParametersShouldReturnTrue() {
-		OperationMethodParameters parameters = new OperationMethodParameters(this.exampleMethod,
+		OperationMethodParameters_RENAMED parameters = new OperationMethodParameters_RENAMED(this.exampleMethod,
 				new DefaultParameterNameDiscoverer());
 		assertThat(parameters.hasParameters()).isTrue();
 	}
 
 	@Test
 	void hasParametersWhenHasNoParametersShouldReturnFalse() {
-		OperationMethodParameters parameters = new OperationMethodParameters(this.exampleNoParamsMethod,
+		OperationMethodParameters_RENAMED parameters = new OperationMethodParameters_RENAMED(this.exampleNoParamsMethod,
 				new DefaultParameterNameDiscoverer());
 		assertThat(parameters.hasParameters()).isFalse();
 	}
 
 	@Test
 	void getParameterCountShouldReturnParameterCount() {
-		OperationMethodParameters parameters = new OperationMethodParameters(this.exampleMethod,
+		OperationMethodParameters_RENAMED parameters = new OperationMethodParameters_RENAMED(this.exampleMethod,
 				new DefaultParameterNameDiscoverer());
 		assertThat(parameters.getParameterCount()).isEqualTo(1);
 	}
 
 	@Test
 	void iteratorShouldIterateOperationParameters() {
-		OperationMethodParameters parameters = new OperationMethodParameters(this.exampleMethod,
+		OperationMethodParameters_RENAMED parameters = new OperationMethodParameters_RENAMED(this.exampleMethod,
 				new DefaultParameterNameDiscoverer());
 		Iterator<OperationParameter> iterator = parameters.iterator();
 		assertParameters(
@@ -101,7 +101,7 @@ class OperationMethodParametersTests {
 
 	@Test
 	void streamShouldStreamOperationParameters() {
-		OperationMethodParameters parameters = new OperationMethodParameters(this.exampleMethod,
+		OperationMethodParameters_RENAMED parameters = new OperationMethodParameters_RENAMED(this.exampleMethod,
 				new DefaultParameterNameDiscoverer());
 		assertParameters(parameters.stream());
 	}

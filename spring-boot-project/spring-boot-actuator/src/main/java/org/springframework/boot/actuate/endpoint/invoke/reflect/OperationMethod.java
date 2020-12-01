@@ -52,7 +52,7 @@ public class OperationMethod {
 		Assert.notNull(operationType, "OperationType must not be null");
 		this.method = method;
 		this.operationType = operationType;
-		this.operationParameters = new OperationMethodParameters(method, DEFAULT_PARAMETER_NAME_DISCOVERER);
+		this.operationParameters = new OperationMethodParameters_RENAMED(method, DEFAULT_PARAMETER_NAME_DISCOVERER);
 	}
 
 	/**
