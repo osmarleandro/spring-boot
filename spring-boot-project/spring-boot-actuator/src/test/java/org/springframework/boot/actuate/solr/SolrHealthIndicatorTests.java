@@ -38,7 +38,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 
 /**
- * Tests for {@link SolrHealthIndicator}
+ * Tests for {@link SolrHealthIndicator_RENAMED}
  *
  * @author Andy Wilkinson
  * @author Markus Schuch
@@ -50,7 +50,7 @@ class SolrHealthIndicatorTests {
 	void healthWhenSolrStatusUpAndBaseUrlPointsToRootReturnsUp() throws Exception {
 		SolrClient solrClient = mock(SolrClient.class);
 		given(solrClient.request(any(CoreAdminRequest.class), isNull())).willReturn(mockResponse(0));
-		SolrHealthIndicator healthIndicator = new SolrHealthIndicator(solrClient);
+		SolrHealthIndicator_RENAMED healthIndicator = new SolrHealthIndicator_RENAMED(solrClient);
 		assertHealth(healthIndicator, Status.UP, 0, "root");
 		verify(solrClient, times(1)).request(any(CoreAdminRequest.class), isNull());
 		verifyNoMoreInteractions(solrClient);
@@ -60,7 +60,7 @@ class SolrHealthIndicatorTests {
 	void healthWhenSolrStatusDownAndBaseUrlPointsToRootReturnsDown() throws Exception {
 		SolrClient solrClient = mock(SolrClient.class);
 		given(solrClient.request(any(CoreAdminRequest.class), isNull())).willReturn(mockResponse(400));
-		SolrHealthIndicator healthIndicator = new SolrHealthIndicator(solrClient);
+		SolrHealthIndicator_RENAMED healthIndicator = new SolrHealthIndicator_RENAMED(solrClient);
 		assertHealth(healthIndicator, Status.DOWN, 400, "root");
 		verify(solrClient, times(1)).request(any(CoreAdminRequest.class), isNull());
 		verifyNoMoreInteractions(solrClient);
@@ -72,7 +72,7 @@ class SolrHealthIndicatorTests {
 		given(solrClient.request(any(CoreAdminRequest.class), isNull()))
 				.willThrow(new RemoteSolrException("mock", 404, "", null));
 		given(solrClient.ping()).willReturn(mockPingResponse(0));
-		SolrHealthIndicator healthIndicator = new SolrHealthIndicator(solrClient);
+		SolrHealthIndicator_RENAMED healthIndicator = new SolrHealthIndicator_RENAMED(solrClient);
 		assertHealth(healthIndicator, Status.UP, 0, "particular core");
 		verify(solrClient, times(1)).request(any(CoreAdminRequest.class), isNull());
 		verify(solrClient, times(1)).ping();
@@ -85,7 +85,7 @@ class SolrHealthIndicatorTests {
 		given(solrClient.request(any(CoreAdminRequest.class), isNull()))
 				.willThrow(new RemoteSolrException("mock", 404, "", null));
 		given(solrClient.ping()).willReturn(mockPingResponse(400));
-		SolrHealthIndicator healthIndicator = new SolrHealthIndicator(solrClient);
+		SolrHealthIndicator_RENAMED healthIndicator = new SolrHealthIndicator_RENAMED(solrClient);
 		assertHealth(healthIndicator, Status.DOWN, 400, "particular core");
 		verify(solrClient, times(1)).request(any(CoreAdminRequest.class), isNull());
 		verify(solrClient, times(1)).ping();
@@ -97,7 +97,7 @@ class SolrHealthIndicatorTests {
 		SolrClient solrClient = mock(SolrClient.class);
 		given(solrClient.request(any(CoreAdminRequest.class), isNull()))
 				.willThrow(new IOException("Connection failed"));
-		SolrHealthIndicator healthIndicator = new SolrHealthIndicator(solrClient);
+		SolrHealthIndicator_RENAMED healthIndicator = new SolrHealthIndicator_RENAMED(solrClient);
 		Health health = healthIndicator.health();
 		assertThat(health.getStatus()).isEqualTo(Status.DOWN);
 		assertThat((String) health.getDetails().get("error")).contains("Connection failed");
@@ -111,7 +111,7 @@ class SolrHealthIndicatorTests {
 		given(solrClient.request(any(CoreAdminRequest.class), isNull()))
 				.willThrow(new RemoteSolrException("mock", 404, "", null));
 		given(solrClient.ping()).willReturn(mockPingResponse(0));
-		SolrHealthIndicator healthIndicator = new SolrHealthIndicator(solrClient);
+		SolrHealthIndicator_RENAMED healthIndicator = new SolrHealthIndicator_RENAMED(solrClient);
 		healthIndicator.health();
 		verify(solrClient, times(1)).request(any(CoreAdminRequest.class), isNull());
 		verify(solrClient, times(1)).ping();
@@ -121,7 +121,7 @@ class SolrHealthIndicatorTests {
 		verifyNoMoreInteractions(solrClient);
 	}
 
-	private void assertHealth(SolrHealthIndicator healthIndicator, Status expectedStatus, int expectedStatusCode,
+	private void assertHealth(SolrHealthIndicator_RENAMED healthIndicator, Status expectedStatus, int expectedStatusCode,
 			String expectedPathType) {
 		Health health = healthIndicator.health();
 		assertThat(health.getStatus()).isEqualTo(expectedStatus);

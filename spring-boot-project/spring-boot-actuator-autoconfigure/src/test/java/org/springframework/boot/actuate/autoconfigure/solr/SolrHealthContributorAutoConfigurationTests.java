@@ -19,7 +19,7 @@ package org.springframework.boot.actuate.autoconfigure.solr;
 import org.junit.jupiter.api.Test;
 
 import org.springframework.boot.actuate.autoconfigure.health.HealthContributorAutoConfiguration;
-import org.springframework.boot.actuate.solr.SolrHealthIndicator;
+import org.springframework.boot.actuate.solr.SolrHealthIndicator_RENAMED;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
 import org.springframework.boot.autoconfigure.solr.SolrAutoConfiguration;
 import org.springframework.boot.test.context.runner.ApplicationContextRunner;
@@ -39,13 +39,13 @@ class SolrHealthContributorAutoConfigurationTests {
 
 	@Test
 	void runShouldCreateIndicator() {
-		this.contextRunner.run((context) -> assertThat(context).hasSingleBean(SolrHealthIndicator.class));
+		this.contextRunner.run((context) -> assertThat(context).hasSingleBean(SolrHealthIndicator_RENAMED.class));
 	}
 
 	@Test
 	void runWhenDisabledShouldNotCreateIndicator() {
 		this.contextRunner.withPropertyValues("management.health.solr.enabled:false")
-				.run((context) -> assertThat(context).doesNotHaveBean(SolrHealthIndicator.class));
+				.run((context) -> assertThat(context).doesNotHaveBean(SolrHealthIndicator_RENAMED.class));
 	}
 
 }

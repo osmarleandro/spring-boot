@@ -23,7 +23,7 @@ import org.apache.solr.client.solrj.SolrClient;
 import org.springframework.boot.actuate.autoconfigure.health.CompositeHealthContributorConfiguration;
 import org.springframework.boot.actuate.autoconfigure.health.ConditionalOnEnabledHealthIndicator;
 import org.springframework.boot.actuate.health.HealthContributor;
-import org.springframework.boot.actuate.solr.SolrHealthIndicator;
+import org.springframework.boot.actuate.solr.SolrHealthIndicator_RENAMED;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
@@ -34,7 +34,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * {@link EnableAutoConfiguration Auto-configuration} for {@link SolrHealthIndicator}.
+ * {@link EnableAutoConfiguration Auto-configuration} for {@link SolrHealthIndicator_RENAMED}.
  *
  * @author Andy Wilkinson
  * @author Stephane Nicoll
@@ -46,7 +46,7 @@ import org.springframework.context.annotation.Configuration;
 @ConditionalOnEnabledHealthIndicator("solr")
 @AutoConfigureAfter(SolrAutoConfiguration.class)
 public class SolrHealthContributorAutoConfiguration
-		extends CompositeHealthContributorConfiguration<SolrHealthIndicator, SolrClient> {
+		extends CompositeHealthContributorConfiguration<SolrHealthIndicator_RENAMED, SolrClient> {
 
 	@Bean
 	@ConditionalOnMissingBean(name = { "solrHealthIndicator", "solrHealthContributor" })
