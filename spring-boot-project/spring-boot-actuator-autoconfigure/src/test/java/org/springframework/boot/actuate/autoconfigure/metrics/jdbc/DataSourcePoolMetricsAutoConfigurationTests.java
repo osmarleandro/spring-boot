@@ -45,7 +45,7 @@ import org.springframework.jdbc.datasource.DelegatingDataSource;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Tests for {@link DataSourcePoolMetricsAutoConfiguration}.
+ * Tests for {@link DataSourcePoolMetricsAutoConfiguration_RENAMED}.
  *
  * @author Stephane Nicoll
  * @author Andy Wilkinson
@@ -55,7 +55,7 @@ class DataSourcePoolMetricsAutoConfigurationTests {
 
 	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.withPropertyValues("spring.datasource.generate-unique-name=true").with(MetricsRun.simple())
-			.withConfiguration(AutoConfigurations.of(DataSourcePoolMetricsAutoConfiguration.class))
+			.withConfiguration(AutoConfigurations.of(DataSourcePoolMetricsAutoConfiguration_RENAMED.class))
 			.withUserConfiguration(BaseConfiguration.class);
 
 	@Test

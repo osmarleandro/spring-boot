@@ -58,7 +58,7 @@ import org.springframework.util.StringUtils;
 		SimpleMetricsExportAutoConfiguration.class })
 @ConditionalOnClass({ DataSource.class, MeterRegistry.class })
 @ConditionalOnBean({ DataSource.class, MeterRegistry.class })
-public class DataSourcePoolMetricsAutoConfiguration {
+public class DataSourcePoolMetricsAutoConfiguration_RENAMED {
 
 	@Configuration(proxyBeanMethods = false)
 	@ConditionalOnBean(DataSourcePoolMetadataProvider.class)
