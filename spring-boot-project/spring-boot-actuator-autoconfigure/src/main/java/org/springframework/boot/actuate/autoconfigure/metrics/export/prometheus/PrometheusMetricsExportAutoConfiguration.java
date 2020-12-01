@@ -71,7 +71,7 @@ public class PrometheusMetricsExportAutoConfiguration {
 	@Bean
 	@ConditionalOnMissingBean
 	public PrometheusConfig prometheusConfig(PrometheusProperties prometheusProperties) {
-		return new PrometheusPropertiesConfigAdapter(prometheusProperties);
+		return new PrometheusPropertiesConfigAdapter_RENAMED(prometheusProperties);
 	}
 
 	@Bean
