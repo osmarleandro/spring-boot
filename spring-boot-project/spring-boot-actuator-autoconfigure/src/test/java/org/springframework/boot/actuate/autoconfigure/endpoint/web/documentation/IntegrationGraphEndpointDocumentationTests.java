@@ -18,7 +18,7 @@ package org.springframework.boot.actuate.autoconfigure.endpoint.web.documentatio
 
 import org.junit.jupiter.api.Test;
 
-import org.springframework.boot.actuate.integration.IntegrationGraphEndpoint;
+import org.springframework.boot.actuate.integration.IntegrationGraphEndpoint_RENAMED;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
@@ -31,7 +31,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /**
- * Tests for generating documentation describing the {@link IntegrationGraphEndpoint}.
+ * Tests for generating documentation describing the {@link IntegrationGraphEndpoint_RENAMED}.
  *
  * @author Tim Ysewyn
  */
@@ -60,8 +60,8 @@ class IntegrationGraphEndpointDocumentationTests extends MockMvcEndpointDocument
 		}
 
 		@Bean
-		IntegrationGraphEndpoint endpoint(IntegrationGraphServer integrationGraphServer) {
-			return new IntegrationGraphEndpoint(integrationGraphServer);
+		IntegrationGraphEndpoint_RENAMED endpoint(IntegrationGraphServer integrationGraphServer) {
+			return new IntegrationGraphEndpoint_RENAMED(integrationGraphServer);
 		}
 
 	}

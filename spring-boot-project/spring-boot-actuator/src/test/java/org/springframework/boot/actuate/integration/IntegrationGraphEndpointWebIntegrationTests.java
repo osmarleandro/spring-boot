@@ -25,7 +25,7 @@ import org.springframework.integration.graph.IntegrationGraphServer;
 import org.springframework.test.web.reactive.server.WebTestClient;
 
 /**
- * Integration tests for {@link IntegrationGraphEndpoint} exposed by Jersey, Spring MVC,
+ * Integration tests for {@link IntegrationGraphEndpoint_RENAMED} exposed by Jersey, Spring MVC,
  * and WebFlux.
  *
  * @author Tim Ysewyn
@@ -51,8 +51,8 @@ class IntegrationGraphEndpointWebIntegrationTests {
 	static class TestConfiguration {
 
 		@Bean
-		IntegrationGraphEndpoint endpoint(IntegrationGraphServer integrationGraphServer) {
-			return new IntegrationGraphEndpoint(integrationGraphServer);
+		IntegrationGraphEndpoint_RENAMED endpoint(IntegrationGraphServer integrationGraphServer) {
+			return new IntegrationGraphEndpoint_RENAMED(integrationGraphServer);
 		}
 
 		@Bean

@@ -17,7 +17,7 @@
 package org.springframework.boot.actuate.autoconfigure.integration;
 
 import org.springframework.boot.actuate.autoconfigure.endpoint.condition.ConditionalOnAvailableEndpoint;
-import org.springframework.boot.actuate.integration.IntegrationGraphEndpoint;
+import org.springframework.boot.actuate.integration.IntegrationGraphEndpoint_RENAMED;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
@@ -31,7 +31,7 @@ import org.springframework.integration.graph.IntegrationGraphServer;
 
 /**
  * {@link EnableAutoConfiguration Auto-configuration} for the
- * {@link IntegrationGraphEndpoint}.
+ * {@link IntegrationGraphEndpoint_RENAMED}.
  *
  * @author Tim Ysewyn
  * @author Stephane Nicoll
@@ -40,14 +40,14 @@ import org.springframework.integration.graph.IntegrationGraphServer;
 @Configuration(proxyBeanMethods = false)
 @ConditionalOnClass(IntegrationGraphServer.class)
 @ConditionalOnBean(IntegrationConfigurationBeanFactoryPostProcessor.class)
-@ConditionalOnAvailableEndpoint(endpoint = IntegrationGraphEndpoint.class)
+@ConditionalOnAvailableEndpoint(endpoint = IntegrationGraphEndpoint_RENAMED.class)
 @AutoConfigureAfter(IntegrationAutoConfiguration.class)
 public class IntegrationGraphEndpointAutoConfiguration {
 
 	@Bean
 	@ConditionalOnMissingBean
-	public IntegrationGraphEndpoint integrationGraphEndpoint(IntegrationGraphServer integrationGraphServer) {
-		return new IntegrationGraphEndpoint(integrationGraphServer);
+	public IntegrationGraphEndpoint_RENAMED integrationGraphEndpoint(IntegrationGraphServer integrationGraphServer) {
+		return new IntegrationGraphEndpoint_RENAMED(integrationGraphServer);
 	}
 
 	@Bean

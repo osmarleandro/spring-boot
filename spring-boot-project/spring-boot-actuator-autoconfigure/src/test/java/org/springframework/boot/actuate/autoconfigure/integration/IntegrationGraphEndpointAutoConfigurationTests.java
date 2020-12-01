@@ -18,7 +18,7 @@ package org.springframework.boot.actuate.autoconfigure.integration;
 
 import org.junit.jupiter.api.Test;
 
-import org.springframework.boot.actuate.integration.IntegrationGraphEndpoint;
+import org.springframework.boot.actuate.integration.IntegrationGraphEndpoint_RENAMED;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
 import org.springframework.boot.autoconfigure.integration.IntegrationAutoConfiguration;
 import org.springframework.boot.autoconfigure.jmx.JmxAutoConfiguration;
@@ -42,13 +42,13 @@ class IntegrationGraphEndpointAutoConfigurationTests {
 	@Test
 	void runShouldHaveEndpointBean() {
 		this.contextRunner.withPropertyValues("management.endpoints.web.exposure.include=integrationgraph")
-				.run((context) -> assertThat(context).hasSingleBean(IntegrationGraphEndpoint.class));
+				.run((context) -> assertThat(context).hasSingleBean(IntegrationGraphEndpoint_RENAMED.class));
 	}
 
 	@Test
 	void runWhenEnabledPropertyIsFalseShouldNotHaveEndpointBean() {
 		this.contextRunner.withPropertyValues("management.endpoint.integrationgraph.enabled:false").run((context) -> {
-			assertThat(context).doesNotHaveBean(IntegrationGraphEndpoint.class);
+			assertThat(context).doesNotHaveBean(IntegrationGraphEndpoint_RENAMED.class);
 			assertThat(context).doesNotHaveBean(IntegrationGraphServer.class);
 		});
 	}
@@ -56,7 +56,7 @@ class IntegrationGraphEndpointAutoConfigurationTests {
 	@Test
 	void runWhenNotExposedShouldNotHaveEndpointBean() {
 		this.contextRunner.run((context) -> {
-			assertThat(context).doesNotHaveBean(IntegrationGraphEndpoint.class);
+			assertThat(context).doesNotHaveBean(IntegrationGraphEndpoint_RENAMED.class);
 			assertThat(context).doesNotHaveBean(IntegrationGraphServer.class);
 		});
 	}
@@ -66,7 +66,7 @@ class IntegrationGraphEndpointAutoConfigurationTests {
 		ApplicationContextRunner noSpringIntegrationRunner = new ApplicationContextRunner()
 				.withConfiguration(AutoConfigurations.of(IntegrationGraphEndpointAutoConfiguration.class));
 		noSpringIntegrationRunner.run((context) -> {
-			assertThat(context).doesNotHaveBean(IntegrationGraphEndpoint.class);
+			assertThat(context).doesNotHaveBean(IntegrationGraphEndpoint_RENAMED.class);
 			assertThat(context).doesNotHaveBean(IntegrationGraphServer.class);
 		});
 	}

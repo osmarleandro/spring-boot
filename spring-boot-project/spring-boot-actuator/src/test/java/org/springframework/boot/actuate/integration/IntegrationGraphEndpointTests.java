@@ -27,7 +27,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
 /**
- * Tests for {@link IntegrationGraphEndpoint}.
+ * Tests for {@link IntegrationGraphEndpoint_RENAMED}.
  *
  * @author Tim Ysewyn
  */
@@ -35,7 +35,7 @@ class IntegrationGraphEndpointTests {
 
 	private final IntegrationGraphServer server = mock(IntegrationGraphServer.class);
 
-	private final IntegrationGraphEndpoint endpoint = new IntegrationGraphEndpoint(this.server);
+	private final IntegrationGraphEndpoint_RENAMED endpoint = new IntegrationGraphEndpoint_RENAMED(this.server);
 
 	@Test
 	void readOperationShouldReturnGraph() {
