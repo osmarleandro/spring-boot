@@ -26,10 +26,10 @@ import org.springframework.boot.actuate.autoconfigure.metrics.export.properties.
  * @author Jon Schneider
  * @author Phillip Webb
  */
-class DatadogPropertiesConfigAdapter extends StepRegistryPropertiesConfigAdapter<DatadogProperties>
+class DatadogPropertiesConfigAdapter_RENAMED extends StepRegistryPropertiesConfigAdapter<DatadogProperties>
 		implements DatadogConfig {
 
-	DatadogPropertiesConfigAdapter(DatadogProperties properties) {
+	DatadogPropertiesConfigAdapter_RENAMED(DatadogProperties properties) {
 		super(properties);
 	}
 

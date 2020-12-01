@@ -21,7 +21,7 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Tests for {@link DatadogPropertiesConfigAdapter}.
+ * Tests for {@link DatadogPropertiesConfigAdapter_RENAMED}.
  *
  * @author Stephane Nicoll
  */
@@ -32,7 +32,7 @@ class DatadogPropertiesConfigAdapterTests {
 		DatadogProperties properties = new DatadogProperties();
 		properties.setUri("https://app.example.com/api/v1/series");
 		properties.setApiKey("my-key");
-		assertThat(new DatadogPropertiesConfigAdapter(properties).uri())
+		assertThat(new DatadogPropertiesConfigAdapter_RENAMED(properties).uri())
 				.isEqualTo("https://app.example.com/api/v1/series");
 	}
 
