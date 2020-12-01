@@ -436,7 +436,7 @@ class EndpointDiscovererTests {
 
 		}
 
-		@DeleteOperation
+		@DeleteOperation_RENAMED
 		void deleteOne(@Selector String id) {
 
 		}

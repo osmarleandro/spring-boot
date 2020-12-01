@@ -145,7 +145,7 @@ class DiscoveredOperationsFactoryTests {
 
 	static class ExampleDelete {
 
-		@DeleteOperation
+		@DeleteOperation_RENAMED
 		String delete() {
 			return "delete";
 		}

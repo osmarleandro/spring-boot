@@ -23,7 +23,7 @@ import java.util.Objects;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-import org.springframework.boot.actuate.endpoint.annotation.DeleteOperation;
+import org.springframework.boot.actuate.endpoint.annotation.DeleteOperation_RENAMED;
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
 import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
 import org.springframework.boot.actuate.endpoint.annotation.Selector;
@@ -86,7 +86,7 @@ public class CachesEndpoint {
 	/**
 	 * Clear all the available {@link Cache caches}.
 	 */
-	@DeleteOperation
+	@DeleteOperation_RENAMED
 	public void clearCaches() {
 		getCacheEntries(matchAll(), matchAll()).forEach(this::clearCache);
 	}
@@ -100,7 +100,7 @@ public class CachesEndpoint {
 	 * @throws NonUniqueCacheException if more than one cache with that name exists and no
 	 * {@code cacheManager} was provided to identify a unique candidate
 	 */
-	@DeleteOperation
+	@DeleteOperation_RENAMED
 	public boolean clearCache(@Selector String cache, @Nullable String cacheManager) {
 		CacheEntry entry = extractUniqueCacheEntry(cache,
 				getCacheEntries((name) -> name.equals(cache), isNameMatch(cacheManager)));

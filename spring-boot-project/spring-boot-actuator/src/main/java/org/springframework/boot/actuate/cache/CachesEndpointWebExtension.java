@@ -17,7 +17,7 @@
 package org.springframework.boot.actuate.cache;
 
 import org.springframework.boot.actuate.cache.CachesEndpoint.CacheEntry;
-import org.springframework.boot.actuate.endpoint.annotation.DeleteOperation;
+import org.springframework.boot.actuate.endpoint.annotation.DeleteOperation_RENAMED;
 import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
 import org.springframework.boot.actuate.endpoint.annotation.Selector;
 import org.springframework.boot.actuate.endpoint.web.WebEndpointResponse;
@@ -51,7 +51,7 @@ public class CachesEndpointWebExtension {
 		}
 	}
 
-	@DeleteOperation
+	@DeleteOperation_RENAMED
 	public WebEndpointResponse<Void> clearCache(@Selector String cache, @Nullable String cacheManager) {
 		try {
 			boolean cleared = this.delegate.clearCache(cache, cacheManager);

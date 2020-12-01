@@ -31,7 +31,7 @@ import org.springframework.boot.actuate.endpoint.EndpointId;
  * <p>
  * Most {@code @Endpoint} classes will declare one or more
  * {@link ReadOperation @ReadOperation}, {@link WriteOperation @WriteOperation},
- * {@link DeleteOperation @DeleteOperation} annotated methods which will be automatically
+ * {@link DeleteOperation_RENAMED @DeleteOperation} annotated methods which will be automatically
  * adapted to the exposing technology (JMX, Spring MVC, Spring WebFlux, Jersey etc.).
  * <p>
  * {@code @Endpoint} represents the lowest common denominator for endpoints and

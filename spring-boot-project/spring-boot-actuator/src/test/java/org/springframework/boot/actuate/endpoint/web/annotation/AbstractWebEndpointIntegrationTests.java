@@ -31,7 +31,7 @@ import org.junit.jupiter.api.Test;
 import reactor.core.publisher.Mono;
 
 import org.springframework.boot.actuate.endpoint.SecurityContext;
-import org.springframework.boot.actuate.endpoint.annotation.DeleteOperation;
+import org.springframework.boot.actuate.endpoint.annotation.DeleteOperation_RENAMED;
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
 import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
 import org.springframework.boot.actuate.endpoint.annotation.Selector;
@@ -648,7 +648,7 @@ public abstract class AbstractWebEndpointIntegrationTests<T extends Configurable
 			this.endpointDelegate.write(foo, bar);
 		}
 
-		@DeleteOperation
+		@DeleteOperation_RENAMED
 		Map<String, Object> deletePart(@Selector String part) {
 			return Collections.singletonMap("part", part);
 		}
@@ -715,7 +715,7 @@ public abstract class AbstractWebEndpointIntegrationTests<T extends Configurable
 			this.delegate = delegate;
 		}
 
-		@DeleteOperation
+		@DeleteOperation_RENAMED
 		void delete() {
 			this.delegate.delete();
 		}
@@ -752,7 +752,7 @@ public abstract class AbstractWebEndpointIntegrationTests<T extends Configurable
 	@Endpoint(id = "nulldelete")
 	static class NullDeleteResponseEndpoint {
 
-		@DeleteOperation
+		@DeleteOperation_RENAMED
 		String deleteReturningNull() {
 			return null;
 		}

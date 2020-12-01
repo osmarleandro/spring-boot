@@ -32,7 +32,7 @@ import org.assertj.core.api.Condition;
 import org.junit.jupiter.api.Test;
 
 import org.springframework.boot.actuate.endpoint.EndpointId;
-import org.springframework.boot.actuate.endpoint.annotation.DeleteOperation;
+import org.springframework.boot.actuate.endpoint.annotation.DeleteOperation_RENAMED;
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
 import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
 import org.springframework.boot.actuate.endpoint.annotation.Selector;
@@ -592,7 +592,7 @@ class WebEndpointDiscovererTests {
 			return "write";
 		}
 
-		@DeleteOperation(produces = "text/plain")
+		@DeleteOperation_RENAMED(produces = "text/plain")
 		String delete() {
 			return "delete";
 		}

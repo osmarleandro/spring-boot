@@ -22,7 +22,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import org.springframework.boot.actuate.endpoint.annotation.DeleteOperation;
+import org.springframework.boot.actuate.endpoint.annotation.DeleteOperation_RENAMED;
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
 import org.springframework.boot.actuate.endpoint.annotation.FilteredEndpoint;
 import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
@@ -37,7 +37,7 @@ import org.springframework.web.bind.annotation.PostMapping;
  * WebFlux. Mapped methods must be annotated with {@link GetMapping @GetMapping},
  * {@link PostMapping @PostMapping}, {@link DeleteMapping @DeleteMapping}, etc annotations
  * rather than {@link ReadOperation @ReadOperation},
- * {@link WriteOperation @WriteOperation}, {@link DeleteOperation @DeleteOperation}.
+ * {@link WriteOperation @WriteOperation}, {@link DeleteOperation_RENAMED @DeleteOperation}.
  * <p>
  * This annotation can be used when deeper Spring integration is required, but at the
  * expense of portability. Most users should prefer the {@link Endpoint @Endpoint} or

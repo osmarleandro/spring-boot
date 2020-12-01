@@ -22,7 +22,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import org.springframework.boot.actuate.endpoint.annotation.DeleteOperation;
+import org.springframework.boot.actuate.endpoint.annotation.DeleteOperation_RENAMED;
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
 import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
 import org.springframework.boot.actuate.endpoint.annotation.Selector;
@@ -63,7 +63,7 @@ public class SessionsEndpoint {
 		return new SessionDescriptor(session);
 	}
 
-	@DeleteOperation
+	@DeleteOperation_RENAMED
 	public void deleteSession(@Selector String sessionId) {
 		this.sessionRepository.deleteById(sessionId);
 	}

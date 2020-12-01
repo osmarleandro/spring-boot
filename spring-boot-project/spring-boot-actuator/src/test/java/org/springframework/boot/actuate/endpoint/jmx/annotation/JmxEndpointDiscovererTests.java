@@ -27,7 +27,7 @@ import java.util.function.Function;
 import org.junit.jupiter.api.Test;
 
 import org.springframework.boot.actuate.endpoint.EndpointId;
-import org.springframework.boot.actuate.endpoint.annotation.DeleteOperation;
+import org.springframework.boot.actuate.endpoint.annotation.DeleteOperation_RENAMED;
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
 import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
 import org.springframework.boot.actuate.endpoint.annotation.WriteOperation;
@@ -404,7 +404,7 @@ class JmxEndpointDiscovererTests {
 
 		}
 
-		@DeleteOperation
+		@DeleteOperation_RENAMED
 		void deleteSomething(TimeUnit timeUnit) {
 
 		}
@@ -446,7 +446,7 @@ class JmxEndpointDiscovererTests {
 
 		}
 
-		@DeleteOperation
+		@DeleteOperation_RENAMED
 		@ManagedOperation(description = "Delete something based on a timeUnit")
 		@ManagedOperationParameters({
 				@ManagedOperationParameter(name = "unitMs", description = "Number of milliseconds") })
