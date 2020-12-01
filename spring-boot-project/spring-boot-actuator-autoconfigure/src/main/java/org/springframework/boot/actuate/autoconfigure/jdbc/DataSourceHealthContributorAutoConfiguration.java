@@ -30,7 +30,7 @@ import org.springframework.boot.actuate.health.AbstractHealthIndicator;
 import org.springframework.boot.actuate.health.Health.Builder;
 import org.springframework.boot.actuate.health.HealthContributor;
 import org.springframework.boot.actuate.health.HealthIndicator;
-import org.springframework.boot.actuate.jdbc.DataSourceHealthIndicator;
+import org.springframework.boot.actuate.jdbc.DataSourceHealthIndicator_RENAMED;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
@@ -48,7 +48,7 @@ import org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource;
 
 /**
  * {@link EnableAutoConfiguration Auto-configuration} for
- * {@link DataSourceHealthIndicator}.
+ * {@link DataSourceHealthIndicator_RENAMED}.
  *
  * @author Dave Syer
  * @author Christian Dupuis
@@ -99,7 +99,7 @@ public class DataSourceHealthContributorAutoConfiguration extends
 		if (source instanceof AbstractRoutingDataSource) {
 			return new RoutingDataSourceHealthIndicator();
 		}
-		return new DataSourceHealthIndicator(source, getValidationQuery(source));
+		return new DataSourceHealthIndicator_RENAMED(source, getValidationQuery(source));
 	}
 
 	private String getValidationQuery(DataSource source) {

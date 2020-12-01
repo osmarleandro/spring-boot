@@ -39,14 +39,14 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 /**
- * Tests for {@link DataSourceHealthIndicator}.
+ * Tests for {@link DataSourceHealthIndicator_RENAMED}.
  *
  * @author Dave Syer
  * @author Stephane Nicoll
  */
 class DataSourceHealthIndicatorTests {
 
-	private final DataSourceHealthIndicator indicator = new DataSourceHealthIndicator();
+	private final DataSourceHealthIndicator_RENAMED indicator = new DataSourceHealthIndicator_RENAMED();
 
 	private SingleConnectionDataSource dataSource;
 

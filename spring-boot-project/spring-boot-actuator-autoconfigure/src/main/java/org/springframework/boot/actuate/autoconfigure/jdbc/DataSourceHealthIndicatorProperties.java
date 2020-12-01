@@ -16,11 +16,11 @@
 
 package org.springframework.boot.actuate.autoconfigure.jdbc;
 
-import org.springframework.boot.actuate.jdbc.DataSourceHealthIndicator;
+import org.springframework.boot.actuate.jdbc.DataSourceHealthIndicator_RENAMED;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
- * External configuration properties for {@link DataSourceHealthIndicator}.
+ * External configuration properties for {@link DataSourceHealthIndicator_RENAMED}.
  *
  * @author Julio Gomez
  * @since 2.4.0

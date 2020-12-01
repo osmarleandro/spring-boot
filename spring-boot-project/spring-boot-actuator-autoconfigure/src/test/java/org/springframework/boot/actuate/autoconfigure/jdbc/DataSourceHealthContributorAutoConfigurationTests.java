@@ -24,7 +24,7 @@ import org.springframework.boot.actuate.autoconfigure.health.HealthContributorAu
 import org.springframework.boot.actuate.autoconfigure.jdbc.DataSourceHealthContributorAutoConfiguration.RoutingDataSourceHealthIndicator;
 import org.springframework.boot.actuate.health.CompositeHealthContributor;
 import org.springframework.boot.actuate.health.NamedContributor;
-import org.springframework.boot.actuate.jdbc.DataSourceHealthIndicator;
+import org.springframework.boot.actuate.jdbc.DataSourceHealthIndicator_RENAMED;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.autoconfigure.jdbc.EmbeddedDataSourceConfiguration;
@@ -56,8 +56,8 @@ class DataSourceHealthContributorAutoConfigurationTests {
 	@Test
 	void runShouldCreateIndicator() {
 		this.contextRunner.run((context) -> {
-			context.getBean(DataSourceHealthIndicator.class);
-			assertThat(context).hasSingleBean(DataSourceHealthIndicator.class);
+			context.getBean(DataSourceHealthIndicator_RENAMED.class);
+			assertThat(context).hasSingleBean(DataSourceHealthIndicator_RENAMED.class);
 		});
 	}
 
@@ -77,7 +77,7 @@ class DataSourceHealthContributorAutoConfigurationTests {
 		this.contextRunner.withUserConfiguration(EmbeddedDataSourceConfiguration.class, RoutingDataSourceConfig.class)
 				.run((context) -> {
 					CompositeHealthContributor composite = context.getBean(CompositeHealthContributor.class);
-					assertThat(composite.getContributor("dataSource")).isInstanceOf(DataSourceHealthIndicator.class);
+					assertThat(composite.getContributor("dataSource")).isInstanceOf(DataSourceHealthIndicator_RENAMED.class);
 					assertThat(composite.getContributor("routingDataSource"))
 							.isInstanceOf(RoutingDataSourceHealthIndicator.class);
 				});
@@ -88,7 +88,7 @@ class DataSourceHealthContributorAutoConfigurationTests {
 		this.contextRunner.withUserConfiguration(EmbeddedDataSourceConfiguration.class, RoutingDataSourceConfig.class)
 				.withPropertyValues("management.health.db.ignore-routing-datasources:true").run((context) -> {
 					assertThat(context).doesNotHaveBean(CompositeHealthContributor.class);
-					assertThat(context).hasSingleBean(DataSourceHealthIndicator.class);
+					assertThat(context).hasSingleBean(DataSourceHealthIndicator_RENAMED.class);
 					assertThat(context).doesNotHaveBean(RoutingDataSourceHealthIndicator.class);
 				});
 	}
@@ -112,8 +112,8 @@ class DataSourceHealthContributorAutoConfigurationTests {
 		this.contextRunner
 				.withUserConfiguration(DataSourceConfig.class, DataSourcePoolMetadataProvidersConfiguration.class)
 				.withPropertyValues("spring.datasource.test.validation-query:SELECT from FOOBAR").run((context) -> {
-					assertThat(context).hasSingleBean(DataSourceHealthIndicator.class);
-					DataSourceHealthIndicator indicator = context.getBean(DataSourceHealthIndicator.class);
+					assertThat(context).hasSingleBean(DataSourceHealthIndicator_RENAMED.class);
+					DataSourceHealthIndicator_RENAMED indicator = context.getBean(DataSourceHealthIndicator_RENAMED.class);
 					assertThat(indicator.getQuery()).isEqualTo("SELECT from FOOBAR");
 				});
 	}
@@ -122,7 +122,7 @@ class DataSourceHealthContributorAutoConfigurationTests {
 	void runWhenDisabledShouldNotCreateIndicator() {
 		this.contextRunner.withUserConfiguration(EmbeddedDataSourceConfiguration.class)
 				.withPropertyValues("management.health.db.enabled:false")
-				.run((context) -> assertThat(context).doesNotHaveBean(DataSourceHealthIndicator.class)
+				.run((context) -> assertThat(context).doesNotHaveBean(DataSourceHealthIndicator_RENAMED.class)
 						.doesNotHaveBean(CompositeHealthContributor.class));
 	}
 
