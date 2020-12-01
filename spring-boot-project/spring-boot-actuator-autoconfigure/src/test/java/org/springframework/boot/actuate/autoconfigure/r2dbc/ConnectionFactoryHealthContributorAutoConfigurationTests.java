@@ -27,14 +27,14 @@ import org.springframework.boot.test.context.runner.ApplicationContextRunner;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Test for {@link ConnectionFactoryHealthContributorAutoConfiguration}.
+ * Test for {@link ConnectionFactoryHealthContributorAutoConfiguration_RENAMED}.
  *
  * @author Stephane Nicoll
  */
 class ConnectionFactoryHealthContributorAutoConfigurationTests {
 
 	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
-			.withConfiguration(AutoConfigurations.of(ConnectionFactoryHealthContributorAutoConfiguration.class,
+			.withConfiguration(AutoConfigurations.of(ConnectionFactoryHealthContributorAutoConfiguration_RENAMED.class,
 					HealthContributorAutoConfiguration.class));
 
 	@Test

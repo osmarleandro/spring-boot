@@ -45,12 +45,12 @@ import org.springframework.context.annotation.Configuration;
 @ConditionalOnBean(ConnectionFactory.class)
 @ConditionalOnEnabledHealthIndicator("r2dbc")
 @AutoConfigureAfter(R2dbcAutoConfiguration.class)
-public class ConnectionFactoryHealthContributorAutoConfiguration
+public class ConnectionFactoryHealthContributorAutoConfiguration_RENAMED
 		extends CompositeReactiveHealthContributorConfiguration<ConnectionFactoryHealthIndicator, ConnectionFactory> {
 
 	private final Map<String, ConnectionFactory> connectionFactory;
 
-	ConnectionFactoryHealthContributorAutoConfiguration(Map<String, ConnectionFactory> connectionFactory) {
+	ConnectionFactoryHealthContributorAutoConfiguration_RENAMED(Map<String, ConnectionFactory> connectionFactory) {
 		this.connectionFactory = connectionFactory;
 	}
 
