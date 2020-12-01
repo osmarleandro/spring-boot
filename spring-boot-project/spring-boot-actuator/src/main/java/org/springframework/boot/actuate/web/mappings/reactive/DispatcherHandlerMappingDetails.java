@@ -16,7 +16,7 @@
 
 package org.springframework.boot.actuate.web.mappings.reactive;
 
-import org.springframework.boot.actuate.web.mappings.HandlerMethodDescription;
+import org.springframework.boot.actuate.web.mappings.HandlerMethodDescription_RENAMED;
 import org.springframework.web.reactive.DispatcherHandler;
 
 /**
@@ -27,17 +27,17 @@ import org.springframework.web.reactive.DispatcherHandler;
  */
 public class DispatcherHandlerMappingDetails {
 
-	private HandlerMethodDescription handlerMethod;
+	private HandlerMethodDescription_RENAMED handlerMethod;
 
 	private HandlerFunctionDescription handlerFunction;
 
 	private RequestMappingConditionsDescription requestMappingConditions;
 
-	public HandlerMethodDescription getHandlerMethod() {
+	public HandlerMethodDescription_RENAMED getHandlerMethod() {
 		return this.handlerMethod;
 	}
 
-	void setHandlerMethod(HandlerMethodDescription handlerMethod) {
+	void setHandlerMethod(HandlerMethodDescription_RENAMED handlerMethod) {
 		this.handlerMethod = handlerMethod;
 	}
 

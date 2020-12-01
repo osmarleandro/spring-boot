@@ -28,7 +28,7 @@ import java.util.stream.Stream;
 
 import javax.servlet.Servlet;
 
-import org.springframework.boot.actuate.web.mappings.HandlerMethodDescription;
+import org.springframework.boot.actuate.web.mappings.HandlerMethodDescription_RENAMED;
 import org.springframework.boot.actuate.web.mappings.MappingDescriptionProvider;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.ApplicationContext;
@@ -140,7 +140,7 @@ public class DispatcherServletsMappingDescriptionProvider implements MappingDesc
 
 		private DispatcherServletMappingDescription describe(Entry<RequestMappingInfo, HandlerMethod> mapping) {
 			DispatcherServletMappingDetails mappingDetails = new DispatcherServletMappingDetails();
-			mappingDetails.setHandlerMethod(new HandlerMethodDescription(mapping.getValue()));
+			mappingDetails.setHandlerMethod(new HandlerMethodDescription_RENAMED(mapping.getValue()));
 			mappingDetails.setRequestMappingConditions(new RequestMappingConditionsDescription(mapping.getKey()));
 			return new DispatcherServletMappingDescription(mapping.getKey().toString(), mapping.getValue().toString(),
 					mappingDetails);

@@ -28,7 +28,7 @@ import java.util.stream.Stream;
 
 import reactor.core.publisher.Mono;
 
-import org.springframework.boot.actuate.web.mappings.HandlerMethodDescription;
+import org.springframework.boot.actuate.web.mappings.HandlerMethodDescription_RENAMED;
 import org.springframework.boot.actuate.web.mappings.MappingDescriptionProvider;
 import org.springframework.context.ApplicationContext;
 import org.springframework.core.io.Resource;
@@ -110,7 +110,7 @@ public class DispatcherHandlersMappingDescriptionProvider implements MappingDesc
 
 		private DispatcherHandlerMappingDescription describe(Entry<RequestMappingInfo, HandlerMethod> mapping) {
 			DispatcherHandlerMappingDetails handlerMapping = new DispatcherHandlerMappingDetails();
-			handlerMapping.setHandlerMethod(new HandlerMethodDescription(mapping.getValue()));
+			handlerMapping.setHandlerMethod(new HandlerMethodDescription_RENAMED(mapping.getValue()));
 			handlerMapping.setRequestMappingConditions(new RequestMappingConditionsDescription(mapping.getKey()));
 			return new DispatcherHandlerMappingDescription(mapping.getKey().toString(), mapping.getValue().toString(),
 					handlerMapping);
