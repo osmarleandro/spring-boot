@@ -19,7 +19,7 @@ package org.springframework.boot.actuate.autoconfigure.mail;
 import org.junit.jupiter.api.Test;
 
 import org.springframework.boot.actuate.autoconfigure.health.HealthContributorAutoConfiguration;
-import org.springframework.boot.actuate.mail.MailHealthIndicator;
+import org.springframework.boot.actuate.mail.MailHealthIndicator_RENAMED;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
 import org.springframework.boot.autoconfigure.mail.MailSenderAutoConfiguration;
 import org.springframework.boot.test.context.runner.ApplicationContextRunner;
@@ -40,13 +40,13 @@ class MailHealthContributorAutoConfigurationTests {
 
 	@Test
 	void runShouldCreateIndicator() {
-		this.contextRunner.run((context) -> assertThat(context).hasSingleBean(MailHealthIndicator.class));
+		this.contextRunner.run((context) -> assertThat(context).hasSingleBean(MailHealthIndicator_RENAMED.class));
 	}
 
 	@Test
 	void runWhenDisabledShouldNotCreateIndicator() {
 		this.contextRunner.withPropertyValues("management.health.mail.enabled:false")
-				.run((context) -> assertThat(context).doesNotHaveBean(MailHealthIndicator.class));
+				.run((context) -> assertThat(context).doesNotHaveBean(MailHealthIndicator_RENAMED.class));
 	}
 
 }

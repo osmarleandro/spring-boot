@@ -40,7 +40,7 @@ import static org.mockito.BDDMockito.willThrow;
 import static org.mockito.Mockito.mock;
 
 /**
- * Tests for {@link MailHealthIndicator}.
+ * Tests for {@link MailHealthIndicator_RENAMED}.
  *
  * @author Johannes Edmeier
  * @author Stephane Nicoll
@@ -49,7 +49,7 @@ class MailHealthIndicatorTests {
 
 	private JavaMailSenderImpl mailSender;
 
-	private MailHealthIndicator indicator;
+	private MailHealthIndicator_RENAMED indicator;
 
 	@BeforeEach
 	void setup() {
@@ -59,7 +59,7 @@ class MailHealthIndicatorTests {
 		given(this.mailSender.getHost()).willReturn("smtp.acme.org");
 		given(this.mailSender.getPort()).willReturn(25);
 		given(this.mailSender.getSession()).willReturn(session);
-		this.indicator = new MailHealthIndicator(this.mailSender);
+		this.indicator = new MailHealthIndicator_RENAMED(this.mailSender);
 	}
 
 	@Test
