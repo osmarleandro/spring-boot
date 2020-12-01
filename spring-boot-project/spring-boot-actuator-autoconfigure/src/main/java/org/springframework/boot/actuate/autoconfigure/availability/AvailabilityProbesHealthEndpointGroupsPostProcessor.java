@@ -17,18 +17,18 @@
 package org.springframework.boot.actuate.autoconfigure.availability;
 
 import org.springframework.boot.actuate.health.HealthEndpointGroups;
-import org.springframework.boot.actuate.health.HealthEndpointGroupsPostProcessor;
+import org.springframework.boot.actuate.health.HealthEndpointGroupsPostProcessor_RENAMED;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 
 /**
- * {@link HealthEndpointGroupsPostProcessor} to add
+ * {@link HealthEndpointGroupsPostProcessor_RENAMED} to add
  * {@link AvailabilityProbesHealthEndpointGroups}.
  *
  * @author Phillip Webb
  */
 @Order(Ordered.LOWEST_PRECEDENCE)
-class AvailabilityProbesHealthEndpointGroupsPostProcessor implements HealthEndpointGroupsPostProcessor {
+class AvailabilityProbesHealthEndpointGroupsPostProcessor implements HealthEndpointGroupsPostProcessor_RENAMED {
 
 	@Override
 	public HealthEndpointGroups postProcessHealthEndpointGroups(HealthEndpointGroups groups) {

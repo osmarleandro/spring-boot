@@ -31,7 +31,7 @@ import org.springframework.boot.actuate.health.HealthContributor;
 import org.springframework.boot.actuate.health.HealthContributorRegistry;
 import org.springframework.boot.actuate.health.HealthEndpoint;
 import org.springframework.boot.actuate.health.HealthEndpointGroups;
-import org.springframework.boot.actuate.health.HealthEndpointGroupsPostProcessor;
+import org.springframework.boot.actuate.health.HealthEndpointGroupsPostProcessor_RENAMED;
 import org.springframework.boot.actuate.health.HealthIndicator;
 import org.springframework.boot.actuate.health.HttpCodeStatusMapper;
 import org.springframework.boot.actuate.health.NamedContributor;
@@ -94,19 +94,19 @@ class HealthEndpointConfiguration {
 
 	@Bean
 	static HealthEndpointGroupsBeanPostProcessor healthEndpointGroupsBeanPostProcessor(
-			ObjectProvider<HealthEndpointGroupsPostProcessor> healthEndpointGroupsPostProcessors) {
+			ObjectProvider<HealthEndpointGroupsPostProcessor_RENAMED> healthEndpointGroupsPostProcessors) {
 		return new HealthEndpointGroupsBeanPostProcessor(healthEndpointGroupsPostProcessors);
 	}
 
 	/**
-	 * {@link BeanPostProcessor} to invoke {@link HealthEndpointGroupsPostProcessor}
+	 * {@link BeanPostProcessor} to invoke {@link HealthEndpointGroupsPostProcessor_RENAMED}
 	 * beans.
 	 */
 	private static class HealthEndpointGroupsBeanPostProcessor implements BeanPostProcessor {
 
-		private final ObjectProvider<HealthEndpointGroupsPostProcessor> postProcessors;
+		private final ObjectProvider<HealthEndpointGroupsPostProcessor_RENAMED> postProcessors;
 
-		HealthEndpointGroupsBeanPostProcessor(ObjectProvider<HealthEndpointGroupsPostProcessor> postProcessors) {
+		HealthEndpointGroupsBeanPostProcessor(ObjectProvider<HealthEndpointGroupsPostProcessor_RENAMED> postProcessors) {
 			this.postProcessors = postProcessors;
 		}
 
@@ -119,8 +119,8 @@ class HealthEndpointConfiguration {
 		}
 
 		private Object applyPostProcessors(HealthEndpointGroups bean) {
-			for (HealthEndpointGroupsPostProcessor postProcessor : this.postProcessors.orderedStream()
-					.toArray(HealthEndpointGroupsPostProcessor[]::new)) {
+			for (HealthEndpointGroupsPostProcessor_RENAMED postProcessor : this.postProcessors.orderedStream()
+					.toArray(HealthEndpointGroupsPostProcessor_RENAMED[]::new)) {
 				bean = postProcessor.postProcessHealthEndpointGroups(bean);
 			}
 			return bean;

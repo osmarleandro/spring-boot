@@ -32,7 +32,7 @@ import org.springframework.boot.actuate.health.HealthComponent;
 import org.springframework.boot.actuate.health.HealthContributorRegistry;
 import org.springframework.boot.actuate.health.HealthEndpoint;
 import org.springframework.boot.actuate.health.HealthEndpointGroups;
-import org.springframework.boot.actuate.health.HealthEndpointGroupsPostProcessor;
+import org.springframework.boot.actuate.health.HealthEndpointGroupsPostProcessor_RENAMED;
 import org.springframework.boot.actuate.health.HealthEndpointWebExtension;
 import org.springframework.boot.actuate.health.HealthIndicator;
 import org.springframework.boot.actuate.health.HttpCodeStatusMapper;
@@ -361,7 +361,7 @@ class HealthEndpointAutoConfigurationTests {
 
 	}
 
-	static class TestHealthEndpointGroupsPostProcessor implements HealthEndpointGroupsPostProcessor {
+	static class TestHealthEndpointGroupsPostProcessor implements HealthEndpointGroupsPostProcessor_RENAMED {
 
 		@Override
 		public HealthEndpointGroups postProcessHealthEndpointGroups(HealthEndpointGroups groups) {
