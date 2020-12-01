@@ -28,7 +28,7 @@ import org.springframework.boot.info.GitProperties;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Tests for {@link GitInfoContributor}.
+ * Tests for {@link GitInfoContributor_RENAMED}.
  *
  * @author Stephane Nicoll
  */
@@ -40,7 +40,7 @@ class GitInfoContributorTests {
 		Properties properties = new Properties();
 		properties.put("branch", "master");
 		properties.put("commit.time", "2016-03-04T14:36:33+0100");
-		GitInfoContributor contributor = new GitInfoContributor(new GitProperties(properties));
+		GitInfoContributor_RENAMED contributor = new GitInfoContributor_RENAMED(new GitProperties(properties));
 		Map<String, Object> content = contributor.generateContent();
 		assertThat(content.get("commit")).isInstanceOf(Map.class);
 		Map<String, Object> commit = (Map<String, Object>) content.get("commit");
@@ -55,7 +55,7 @@ class GitInfoContributorTests {
 		Properties properties = new Properties();
 		properties.put("branch", "master");
 		properties.put("commit.id", "8e29a0b0d423d2665c6ee5171947c101a5c15681");
-		GitInfoContributor contributor = new GitInfoContributor(new GitProperties(properties));
+		GitInfoContributor_RENAMED contributor = new GitInfoContributor_RENAMED(new GitProperties(properties));
 		Map<String, Object> content = contributor.generateContent();
 		assertThat(content.get("commit")).isInstanceOf(Map.class);
 		Map<String, Object> commit = (Map<String, Object>) content.get("commit");
@@ -70,7 +70,7 @@ class GitInfoContributorTests {
 		properties.put("branch", "master");
 		properties.put("commit.id", "1b3cec34f7ca0a021244452f2cae07a80497a7c7");
 		properties.put("commit.id.abbrev", "1b3cec3");
-		GitInfoContributor contributor = new GitInfoContributor(new GitProperties(properties), Mode.FULL);
+		GitInfoContributor_RENAMED contributor = new GitInfoContributor_RENAMED(new GitProperties(properties), Mode.FULL);
 		Map<String, Object> content = contributor.generateContent();
 		Map<String, Object> commit = (Map<String, Object>) content.get("commit");
 		assertThat(commit.get("id")).isInstanceOf(Map.class);

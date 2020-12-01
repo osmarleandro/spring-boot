@@ -23,7 +23,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
 import org.springframework.boot.actuate.info.BuildInfoContributor;
-import org.springframework.boot.actuate.info.GitInfoContributor;
+import org.springframework.boot.actuate.info.GitInfoContributor_RENAMED;
 import org.springframework.boot.actuate.info.Info;
 import org.springframework.boot.actuate.info.InfoContributor;
 import org.springframework.boot.info.BuildProperties;
@@ -103,7 +103,7 @@ class InfoContributorAutoConfigurationTests {
 	@Test
 	void customGitInfoContributor() {
 		load(CustomGitInfoContributorConfiguration.class);
-		assertThat(this.context.getBean(GitInfoContributor.class))
+		assertThat(this.context.getBean(GitInfoContributor_RENAMED.class))
 				.isSameAs(this.context.getBean("customGitInfoContributor"));
 	}
 
@@ -193,8 +193,8 @@ class InfoContributorAutoConfigurationTests {
 	static class CustomGitInfoContributorConfiguration {
 
 		@Bean
-		GitInfoContributor customGitInfoContributor() {
-			return new GitInfoContributor(new GitProperties(new Properties()));
+		GitInfoContributor_RENAMED customGitInfoContributor() {
+			return new GitInfoContributor_RENAMED(new GitProperties(new Properties()));
 		}
 
 	}
