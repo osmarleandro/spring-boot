@@ -38,7 +38,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 
 /**
- * Tests for {@link CloudFoundrySecurityInterceptor}.
+ * Tests for {@link CloudFoundrySecurityInterceptor_RENAMED}.
  *
  * @author Madhura Bhave
  */
@@ -51,11 +51,11 @@ class ReactiveCloudFoundrySecurityInterceptorTests {
 	@Mock
 	private ReactiveCloudFoundrySecurityService securityService;
 
-	private CloudFoundrySecurityInterceptor interceptor;
+	private CloudFoundrySecurityInterceptor_RENAMED interceptor;
 
 	@BeforeEach
 	void setup() {
-		this.interceptor = new CloudFoundrySecurityInterceptor(this.tokenValidator, this.securityService, "my-app-id");
+		this.interceptor = new CloudFoundrySecurityInterceptor_RENAMED(this.tokenValidator, this.securityService, "my-app-id");
 	}
 
 	@Test
@@ -87,7 +87,7 @@ class ReactiveCloudFoundrySecurityInterceptorTests {
 
 	@Test
 	void preHandleWhenApplicationIdIsNullShouldReturnError() {
-		this.interceptor = new CloudFoundrySecurityInterceptor(this.tokenValidator, this.securityService, null);
+		this.interceptor = new CloudFoundrySecurityInterceptor_RENAMED(this.tokenValidator, this.securityService, null);
 		MockServerWebExchange request = MockServerWebExchange.from(MockServerHttpRequest.get("/a")
 				.header(HttpHeaders.AUTHORIZATION, "bearer " + mockAccessToken()).build());
 		StepVerifier.create(this.interceptor.preHandle(request, "/a"))
@@ -98,7 +98,7 @@ class ReactiveCloudFoundrySecurityInterceptorTests {
 
 	@Test
 	void preHandleWhenCloudFoundrySecurityServiceIsNullShouldReturnError() {
-		this.interceptor = new CloudFoundrySecurityInterceptor(this.tokenValidator, null, "my-app-id");
+		this.interceptor = new CloudFoundrySecurityInterceptor_RENAMED(this.tokenValidator, null, "my-app-id");
 		MockServerWebExchange request = MockServerWebExchange
 				.from(MockServerHttpRequest.get("/a").header(HttpHeaders.AUTHORIZATION, mockAccessToken()).build());
 		StepVerifier.create(this.interceptor.preHandle(request, "/a"))

@@ -111,7 +111,7 @@ public class ReactiveCloudFoundryActuatorAutoConfiguration {
 			ApplicationContext applicationContext) {
 		CloudFoundryWebEndpointDiscoverer endpointDiscoverer = new CloudFoundryWebEndpointDiscoverer(applicationContext,
 				parameterMapper, endpointMediaTypes, null, Collections.emptyList(), Collections.emptyList());
-		CloudFoundrySecurityInterceptor securityInterceptor = getSecurityInterceptor(webClientBuilder,
+		CloudFoundrySecurityInterceptor_RENAMED securityInterceptor = getSecurityInterceptor(webClientBuilder,
 				applicationContext.getEnvironment());
 		Collection<ExposableWebEndpoint> webEndpoints = endpointDiscoverer.getEndpoints();
 		List<ExposableEndpoint<?>> allEndpoints = new ArrayList<>();
@@ -122,12 +122,12 @@ public class ReactiveCloudFoundryActuatorAutoConfiguration {
 				new EndpointLinksResolver(allEndpoints));
 	}
 
-	private CloudFoundrySecurityInterceptor getSecurityInterceptor(WebClient.Builder webClientBuilder,
+	private CloudFoundrySecurityInterceptor_RENAMED getSecurityInterceptor(WebClient.Builder webClientBuilder,
 			Environment environment) {
 		ReactiveCloudFoundrySecurityService cloudfoundrySecurityService = getCloudFoundrySecurityService(
 				webClientBuilder, environment);
 		ReactiveTokenValidator tokenValidator = new ReactiveTokenValidator(cloudfoundrySecurityService);
-		return new CloudFoundrySecurityInterceptor(tokenValidator, cloudfoundrySecurityService,
+		return new CloudFoundrySecurityInterceptor_RENAMED(tokenValidator, cloudfoundrySecurityService,
 				environment.getProperty("vcap.application.application_id"));
 	}
 

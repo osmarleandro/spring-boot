@@ -52,13 +52,13 @@ import org.springframework.web.server.ServerWebExchange;
  */
 class CloudFoundryWebFluxEndpointHandlerMapping extends AbstractWebFluxEndpointHandlerMapping {
 
-	private final CloudFoundrySecurityInterceptor securityInterceptor;
+	private final CloudFoundrySecurityInterceptor_RENAMED securityInterceptor;
 
 	private final EndpointLinksResolver linksResolver;
 
 	CloudFoundryWebFluxEndpointHandlerMapping(EndpointMapping endpointMapping,
 			Collection<ExposableWebEndpoint> endpoints, EndpointMediaTypes endpointMediaTypes,
-			CorsConfiguration corsConfiguration, CloudFoundrySecurityInterceptor securityInterceptor,
+			CorsConfiguration corsConfiguration, CloudFoundrySecurityInterceptor_RENAMED securityInterceptor,
 			EndpointLinksResolver linksResolver) {
 		super(endpointMapping, endpoints, endpointMediaTypes, corsConfiguration, true);
 		this.linksResolver = linksResolver;
@@ -118,11 +118,11 @@ class CloudFoundryWebFluxEndpointHandlerMapping extends AbstractWebFluxEndpointH
 
 		private final ReactiveWebOperation delegate;
 
-		private final CloudFoundrySecurityInterceptor securityInterceptor;
+		private final CloudFoundrySecurityInterceptor_RENAMED securityInterceptor;
 
 		private final EndpointId endpointId;
 
-		SecureReactiveWebOperation(ReactiveWebOperation delegate, CloudFoundrySecurityInterceptor securityInterceptor,
+		SecureReactiveWebOperation(ReactiveWebOperation delegate, CloudFoundrySecurityInterceptor_RENAMED securityInterceptor,
 				EndpointId endpointId) {
 			this.delegate = delegate;
 			this.securityInterceptor = securityInterceptor;
