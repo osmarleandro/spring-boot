@@ -39,9 +39,9 @@ import org.springframework.web.cors.CorsUtils;
  *
  * @author Madhura Bhave
  */
-class CloudFoundrySecurityInterceptor {
+class CloudFoundrySecurityInterceptor_RENAMED {
 
-	private static final Log logger = LogFactory.getLog(CloudFoundrySecurityInterceptor.class);
+	private static final Log logger = LogFactory.getLog(CloudFoundrySecurityInterceptor_RENAMED.class);
 
 	private final TokenValidator tokenValidator;
 
@@ -51,7 +51,7 @@ class CloudFoundrySecurityInterceptor {
 
 	private static final SecurityResponse SUCCESS = SecurityResponse.success();
 
-	CloudFoundrySecurityInterceptor(TokenValidator tokenValidator,
+	CloudFoundrySecurityInterceptor_RENAMED(TokenValidator tokenValidator,
 			CloudFoundrySecurityService cloudFoundrySecurityService, String applicationId) {
 		this.tokenValidator = tokenValidator;
 		this.cloudFoundrySecurityService = cloudFoundrySecurityService;

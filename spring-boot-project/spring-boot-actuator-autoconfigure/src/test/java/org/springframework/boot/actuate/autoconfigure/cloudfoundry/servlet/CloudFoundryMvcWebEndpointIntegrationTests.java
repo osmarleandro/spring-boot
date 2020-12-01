@@ -162,8 +162,8 @@ class CloudFoundryMvcWebEndpointIntegrationTests {
 	static class CloudFoundryMvcConfiguration {
 
 		@Bean
-		CloudFoundrySecurityInterceptor interceptor() {
-			return new CloudFoundrySecurityInterceptor(tokenValidator, securityService, "app-id");
+		CloudFoundrySecurityInterceptor_RENAMED interceptor() {
+			return new CloudFoundrySecurityInterceptor_RENAMED(tokenValidator, securityService, "app-id");
 		}
 
 		@Bean
@@ -175,7 +175,7 @@ class CloudFoundryMvcWebEndpointIntegrationTests {
 		@Bean
 		CloudFoundryWebEndpointServletHandlerMapping cloudFoundryWebEndpointServletHandlerMapping(
 				WebEndpointDiscoverer webEndpointDiscoverer, EndpointMediaTypes endpointMediaTypes,
-				CloudFoundrySecurityInterceptor interceptor) {
+				CloudFoundrySecurityInterceptor_RENAMED interceptor) {
 			CorsConfiguration corsConfiguration = new CorsConfiguration();
 			corsConfiguration.setAllowedOrigins(Arrays.asList("https://example.com"));
 			corsConfiguration.setAllowedMethods(Arrays.asList("GET", "POST"));

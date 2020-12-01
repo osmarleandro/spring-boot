@@ -114,7 +114,7 @@ public class CloudFoundryActuatorAutoConfiguration {
 			ControllerEndpointsSupplier controllerEndpointsSupplier, ApplicationContext applicationContext) {
 		CloudFoundryWebEndpointDiscoverer discoverer = new CloudFoundryWebEndpointDiscoverer(applicationContext,
 				parameterMapper, endpointMediaTypes, null, Collections.emptyList(), Collections.emptyList());
-		CloudFoundrySecurityInterceptor securityInterceptor = getSecurityInterceptor(restTemplateBuilder,
+		CloudFoundrySecurityInterceptor_RENAMED securityInterceptor = getSecurityInterceptor(restTemplateBuilder,
 				applicationContext.getEnvironment());
 		Collection<ExposableWebEndpoint> webEndpoints = discoverer.getEndpoints();
 		List<ExposableEndpoint<?>> allEndpoints = new ArrayList<>();
@@ -126,12 +126,12 @@ public class CloudFoundryActuatorAutoConfiguration {
 				new EndpointLinksResolver(allEndpoints));
 	}
 
-	private CloudFoundrySecurityInterceptor getSecurityInterceptor(RestTemplateBuilder restTemplateBuilder,
+	private CloudFoundrySecurityInterceptor_RENAMED getSecurityInterceptor(RestTemplateBuilder restTemplateBuilder,
 			Environment environment) {
 		CloudFoundrySecurityService cloudfoundrySecurityService = getCloudFoundrySecurityService(restTemplateBuilder,
 				environment);
 		TokenValidator tokenValidator = new TokenValidator(cloudfoundrySecurityService);
-		return new CloudFoundrySecurityInterceptor(tokenValidator, cloudfoundrySecurityService,
+		return new CloudFoundrySecurityInterceptor_RENAMED(tokenValidator, cloudfoundrySecurityService,
 				environment.getProperty("vcap.application.application_id"));
 	}
 

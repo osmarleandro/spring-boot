@@ -38,7 +38,7 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 
 /**
- * Tests for {@link CloudFoundrySecurityInterceptor}.
+ * Tests for {@link CloudFoundrySecurityInterceptor_RENAMED}.
  *
  * @author Madhura Bhave
  */
@@ -51,13 +51,13 @@ class CloudFoundrySecurityInterceptorTests {
 	@Mock
 	private CloudFoundrySecurityService securityService;
 
-	private CloudFoundrySecurityInterceptor interceptor;
+	private CloudFoundrySecurityInterceptor_RENAMED interceptor;
 
 	private MockHttpServletRequest request;
 
 	@BeforeEach
 	void setup() {
-		this.interceptor = new CloudFoundrySecurityInterceptor(this.tokenValidator, this.securityService, "my-app-id");
+		this.interceptor = new CloudFoundrySecurityInterceptor_RENAMED(this.tokenValidator, this.securityService, "my-app-id");
 		this.request = new MockHttpServletRequest();
 	}
 
@@ -85,7 +85,7 @@ class CloudFoundrySecurityInterceptorTests {
 
 	@Test
 	void preHandleWhenApplicationIdIsNullShouldReturnFalse() {
-		this.interceptor = new CloudFoundrySecurityInterceptor(this.tokenValidator, this.securityService, null);
+		this.interceptor = new CloudFoundrySecurityInterceptor_RENAMED(this.tokenValidator, this.securityService, null);
 		this.request.addHeader("Authorization", "bearer " + mockAccessToken());
 		SecurityResponse response = this.interceptor.preHandle(this.request, EndpointId.of("test"));
 		assertThat(response.getStatus()).isEqualTo(Reason.SERVICE_UNAVAILABLE.getStatus());
@@ -93,7 +93,7 @@ class CloudFoundrySecurityInterceptorTests {
 
 	@Test
 	void preHandleWhenCloudFoundrySecurityServiceIsNullShouldReturnFalse() {
-		this.interceptor = new CloudFoundrySecurityInterceptor(this.tokenValidator, null, "my-app-id");
+		this.interceptor = new CloudFoundrySecurityInterceptor_RENAMED(this.tokenValidator, null, "my-app-id");
 		this.request.addHeader("Authorization", "bearer " + mockAccessToken());
 		SecurityResponse response = this.interceptor.preHandle(this.request, EndpointId.of("test"));
 		assertThat(response.getStatus()).isEqualTo(Reason.SERVICE_UNAVAILABLE.getStatus());
