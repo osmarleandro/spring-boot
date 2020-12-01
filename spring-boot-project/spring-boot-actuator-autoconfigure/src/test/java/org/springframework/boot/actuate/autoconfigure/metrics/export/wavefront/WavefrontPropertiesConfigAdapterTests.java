@@ -25,12 +25,12 @@ import org.springframework.boot.actuate.autoconfigure.metrics.export.properties.
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Tests for {@link WavefrontPropertiesConfigAdapter}.
+ * Tests for {@link WavefrontPropertiesConfigAdapter_RENAMED}.
  *
  * @author Stephane Nicoll
  */
 class WavefrontPropertiesConfigAdapterTests
-		extends PushRegistryPropertiesConfigAdapterTests<WavefrontProperties, WavefrontPropertiesConfigAdapter> {
+		extends PushRegistryPropertiesConfigAdapterTests<WavefrontProperties, WavefrontPropertiesConfigAdapter_RENAMED> {
 
 	@Override
 	protected WavefrontProperties createProperties() {
@@ -38,8 +38,8 @@ class WavefrontPropertiesConfigAdapterTests
 	}
 
 	@Override
-	protected WavefrontPropertiesConfigAdapter createConfigAdapter(WavefrontProperties properties) {
-		return new WavefrontPropertiesConfigAdapter(properties);
+	protected WavefrontPropertiesConfigAdapter_RENAMED createConfigAdapter(WavefrontProperties properties) {
+		return new WavefrontPropertiesConfigAdapter_RENAMED(properties);
 	}
 
 	@Test

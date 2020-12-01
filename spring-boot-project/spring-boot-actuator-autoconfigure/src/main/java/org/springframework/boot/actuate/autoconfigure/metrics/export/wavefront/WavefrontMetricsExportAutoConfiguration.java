@@ -67,7 +67,7 @@ public class WavefrontMetricsExportAutoConfiguration {
 	@Bean
 	@ConditionalOnMissingBean
 	public WavefrontConfig wavefrontConfig() {
-		return new WavefrontPropertiesConfigAdapter(this.properties);
+		return new WavefrontPropertiesConfigAdapter_RENAMED(this.properties);
 	}
 
 	@Bean

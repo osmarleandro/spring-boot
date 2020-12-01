@@ -26,10 +26,10 @@ import org.springframework.boot.actuate.autoconfigure.metrics.export.properties.
  * @author Jon Schneider
  * @since 2.0.0
  */
-public class WavefrontPropertiesConfigAdapter extends PushRegistryPropertiesConfigAdapter<WavefrontProperties>
+public class WavefrontPropertiesConfigAdapter_RENAMED extends PushRegistryPropertiesConfigAdapter<WavefrontProperties>
 		implements WavefrontConfig {
 
-	public WavefrontPropertiesConfigAdapter(WavefrontProperties properties) {
+	public WavefrontPropertiesConfigAdapter_RENAMED(WavefrontProperties properties) {
 		super(properties);
 	}
 
