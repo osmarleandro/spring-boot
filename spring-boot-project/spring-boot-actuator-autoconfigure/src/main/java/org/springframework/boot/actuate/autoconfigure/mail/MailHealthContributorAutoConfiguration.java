@@ -18,7 +18,7 @@ package org.springframework.boot.actuate.autoconfigure.mail;
 
 import java.util.Map;
 
-import org.springframework.boot.actuate.autoconfigure.health.CompositeHealthContributorConfiguration;
+import org.springframework.boot.actuate.autoconfigure.health.CompositeHealthContributorConfiguration_RENAMED;
 import org.springframework.boot.actuate.autoconfigure.health.ConditionalOnEnabledHealthIndicator;
 import org.springframework.boot.actuate.health.HealthContributor;
 import org.springframework.boot.actuate.mail.MailHealthIndicator;
@@ -44,7 +44,7 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
 @ConditionalOnEnabledHealthIndicator("mail")
 @AutoConfigureAfter(MailSenderAutoConfiguration.class)
 public class MailHealthContributorAutoConfiguration
-		extends CompositeHealthContributorConfiguration<MailHealthIndicator, JavaMailSenderImpl> {
+		extends CompositeHealthContributorConfiguration_RENAMED<MailHealthIndicator, JavaMailSenderImpl> {
 
 	@Bean
 	@ConditionalOnMissingBean(name = { "mailHealthIndicator", "mailHealthContributor" })

@@ -18,7 +18,7 @@ package org.springframework.boot.actuate.autoconfigure.mongo;
 
 import java.util.Map;
 
-import org.springframework.boot.actuate.autoconfigure.health.CompositeHealthContributorConfiguration;
+import org.springframework.boot.actuate.autoconfigure.health.CompositeHealthContributorConfiguration_RENAMED;
 import org.springframework.boot.actuate.autoconfigure.health.ConditionalOnEnabledHealthIndicator;
 import org.springframework.boot.actuate.health.HealthContributor;
 import org.springframework.boot.actuate.mongo.MongoHealthIndicator;
@@ -46,7 +46,7 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 @AutoConfigureAfter({ MongoAutoConfiguration.class, MongoDataAutoConfiguration.class,
 		MongoReactiveHealthContributorAutoConfiguration.class })
 public class MongoHealthContributorAutoConfiguration
-		extends CompositeHealthContributorConfiguration<MongoHealthIndicator, MongoTemplate> {
+		extends CompositeHealthContributorConfiguration_RENAMED<MongoHealthIndicator, MongoTemplate> {
 
 	@Bean
 	@ConditionalOnMissingBean(name = { "mongoHealthIndicator", "mongoHealthContributor" })

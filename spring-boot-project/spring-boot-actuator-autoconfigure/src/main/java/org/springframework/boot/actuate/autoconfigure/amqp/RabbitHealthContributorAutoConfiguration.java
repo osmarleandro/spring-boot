@@ -20,7 +20,7 @@ import java.util.Map;
 
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.boot.actuate.amqp.RabbitHealthIndicator;
-import org.springframework.boot.actuate.autoconfigure.health.CompositeHealthContributorConfiguration;
+import org.springframework.boot.actuate.autoconfigure.health.CompositeHealthContributorConfiguration_RENAMED;
 import org.springframework.boot.actuate.autoconfigure.health.ConditionalOnEnabledHealthIndicator;
 import org.springframework.boot.actuate.health.HealthContributor;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
@@ -44,7 +44,7 @@ import org.springframework.context.annotation.Configuration;
 @ConditionalOnEnabledHealthIndicator("rabbit")
 @AutoConfigureAfter(RabbitAutoConfiguration.class)
 public class RabbitHealthContributorAutoConfiguration
-		extends CompositeHealthContributorConfiguration<RabbitHealthIndicator, RabbitTemplate> {
+		extends CompositeHealthContributorConfiguration_RENAMED<RabbitHealthIndicator, RabbitTemplate> {
 
 	@Bean
 	@ConditionalOnMissingBean(name = { "rabbitHealthIndicator", "rabbitHealthContributor" })

@@ -24,7 +24,7 @@ import javax.sql.DataSource;
 
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.ObjectProvider;
-import org.springframework.boot.actuate.autoconfigure.health.CompositeHealthContributorConfiguration;
+import org.springframework.boot.actuate.autoconfigure.health.CompositeHealthContributorConfiguration_RENAMED;
 import org.springframework.boot.actuate.autoconfigure.health.ConditionalOnEnabledHealthIndicator;
 import org.springframework.boot.actuate.health.AbstractHealthIndicator;
 import org.springframework.boot.actuate.health.Health.Builder;
@@ -65,7 +65,7 @@ import org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource;
 @AutoConfigureAfter(DataSourceAutoConfiguration.class)
 @EnableConfigurationProperties(DataSourceHealthIndicatorProperties.class)
 public class DataSourceHealthContributorAutoConfiguration extends
-		CompositeHealthContributorConfiguration<AbstractHealthIndicator, DataSource> implements InitializingBean {
+		CompositeHealthContributorConfiguration_RENAMED<AbstractHealthIndicator, DataSource> implements InitializingBean {
 
 	private final Collection<DataSourcePoolMetadataProvider> metadataProviders;
 

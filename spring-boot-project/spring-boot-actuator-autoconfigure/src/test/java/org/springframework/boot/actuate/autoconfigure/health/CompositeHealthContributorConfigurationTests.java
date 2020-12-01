@@ -22,7 +22,7 @@ import org.springframework.boot.actuate.health.Health.Builder;
 import org.springframework.boot.actuate.health.HealthContributor;
 
 /**
- * Tests for {@link CompositeHealthContributorConfiguration}.
+ * Tests for {@link CompositeHealthContributorConfiguration_RENAMED}.
  *
  * @author Phillip Webb
  */
@@ -35,7 +35,7 @@ class CompositeHealthContributorConfigurationTests
 	}
 
 	static class TestCompositeHealthContributorConfiguration
-			extends CompositeHealthContributorConfiguration<TestHealthIndicator, TestBean> {
+			extends CompositeHealthContributorConfiguration_RENAMED<TestHealthIndicator, TestBean> {
 
 	}
 
