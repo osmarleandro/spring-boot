@@ -61,12 +61,12 @@ public class Neo4jHealthIndicator extends AbstractHealthIndicator {
 
 	private final Driver driver;
 
-	private final Neo4jHealthDetailsHandler healthDetailsHandler;
+	private final Neo4jHealthDetailsHandler_RENAMED healthDetailsHandler;
 
 	public Neo4jHealthIndicator(Driver driver) {
 		super("Neo4j health check failed");
 		this.driver = driver;
-		this.healthDetailsHandler = new Neo4jHealthDetailsHandler();
+		this.healthDetailsHandler = new Neo4jHealthDetailsHandler_RENAMED();
 	}
 
 	@Override

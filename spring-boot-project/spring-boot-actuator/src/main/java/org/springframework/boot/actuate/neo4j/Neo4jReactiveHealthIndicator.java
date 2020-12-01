@@ -45,11 +45,11 @@ public final class Neo4jReactiveHealthIndicator extends AbstractReactiveHealthIn
 
 	private final Driver driver;
 
-	private final Neo4jHealthDetailsHandler healthDetailsHandler;
+	private final Neo4jHealthDetailsHandler_RENAMED healthDetailsHandler;
 
 	public Neo4jReactiveHealthIndicator(Driver driver) {
 		this.driver = driver;
-		this.healthDetailsHandler = new Neo4jHealthDetailsHandler();
+		this.healthDetailsHandler = new Neo4jHealthDetailsHandler_RENAMED();
 	}
 
 	@Override
