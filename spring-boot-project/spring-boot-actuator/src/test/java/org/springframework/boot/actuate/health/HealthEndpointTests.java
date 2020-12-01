@@ -21,7 +21,7 @@ import java.util.Map;
 
 import org.junit.jupiter.api.Test;
 
-import org.springframework.boot.actuate.health.HealthEndpointSupport.HealthResult;
+import org.springframework.boot.actuate.health.HealthEndpointSupport_RENAMED.HealthResult;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
