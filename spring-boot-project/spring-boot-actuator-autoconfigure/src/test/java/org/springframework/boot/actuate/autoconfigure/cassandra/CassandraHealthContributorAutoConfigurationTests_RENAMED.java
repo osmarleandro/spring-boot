@@ -36,7 +36,7 @@ import static org.mockito.Mockito.mock;
  * @author Stephane Nicoll
  */
 @SuppressWarnings("deprecation")
-class CassandraHealthContributorAutoConfigurationTests {
+class CassandraHealthContributorAutoConfigurationTests_RENAMED {
 
 	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(CassandraHealthContributorAutoConfiguration.class,
