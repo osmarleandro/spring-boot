@@ -41,7 +41,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 /**
- * Tests for {@link Neo4jHealthIndicator}.
+ * Tests for {@link Neo4jHealthIndicator_RENAMED}.
  *
  * @author Eric Spiegelberg
  * @author Stephane Nicoll
@@ -53,7 +53,7 @@ class Neo4jHealthIndicatorTests {
 	void neo4jIsUp() {
 		ResultSummary resultSummary = ResultSummaryMock.createResultSummary("4711", "My Home", "test");
 		Driver driver = mockDriver(resultSummary, "ultimate collectors edition");
-		Health health = new Neo4jHealthIndicator(driver).health();
+		Health health = new Neo4jHealthIndicator_RENAMED(driver).health();
 		assertThat(health.getStatus()).isEqualTo(Status.UP);
 		assertThat(health.getDetails()).containsEntry("server", "4711@My Home");
 		assertThat(health.getDetails()).containsEntry("database", "test");
@@ -64,7 +64,7 @@ class Neo4jHealthIndicatorTests {
 	void neo4jIsUpWithoutDatabaseName() {
 		ResultSummary resultSummary = ResultSummaryMock.createResultSummary("4711", "My Home", null);
 		Driver driver = mockDriver(resultSummary, "some edition");
-		Health health = new Neo4jHealthIndicator(driver).health();
+		Health health = new Neo4jHealthIndicator_RENAMED(driver).health();
 		assertThat(health.getStatus()).isEqualTo(Status.UP);
 		assertThat(health.getDetails()).containsEntry("server", "4711@My Home");
 		assertThat(health.getDetails()).doesNotContainKey("database");
@@ -75,7 +75,7 @@ class Neo4jHealthIndicatorTests {
 	void neo4jIsUpWithEmptyDatabaseName() {
 		ResultSummary resultSummary = ResultSummaryMock.createResultSummary("4711", "My Home", "");
 		Driver driver = mockDriver(resultSummary, "some edition");
-		Health health = new Neo4jHealthIndicator(driver).health();
+		Health health = new Neo4jHealthIndicator_RENAMED(driver).health();
 		assertThat(health.getStatus()).isEqualTo(Status.UP);
 		assertThat(health.getDetails()).containsEntry("server", "4711@My Home");
 		assertThat(health.getDetails()).doesNotContainKey("database");
@@ -96,7 +96,7 @@ class Neo4jHealthIndicatorTests {
 		});
 		Driver driver = mock(Driver.class);
 		given(driver.session(any(SessionConfig.class))).willReturn(session);
-		Neo4jHealthIndicator healthIndicator = new Neo4jHealthIndicator(driver);
+		Neo4jHealthIndicator_RENAMED healthIndicator = new Neo4jHealthIndicator_RENAMED(driver);
 		Health health = healthIndicator.health();
 		assertThat(health.getStatus()).isEqualTo(Status.UP);
 		assertThat(health.getDetails()).containsEntry("server", "4711@My Home");
@@ -107,7 +107,7 @@ class Neo4jHealthIndicatorTests {
 	void neo4jIsDown() {
 		Driver driver = mock(Driver.class);
 		given(driver.session(any(SessionConfig.class))).willThrow(ServiceUnavailableException.class);
-		Health health = new Neo4jHealthIndicator(driver).health();
+		Health health = new Neo4jHealthIndicator_RENAMED(driver).health();
 		assertThat(health.getStatus()).isEqualTo(Status.DOWN);
 		assertThat(health.getDetails()).containsKeys("error");
 	}
