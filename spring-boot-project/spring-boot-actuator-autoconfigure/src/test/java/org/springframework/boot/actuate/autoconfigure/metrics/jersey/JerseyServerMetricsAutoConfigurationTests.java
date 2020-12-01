@@ -51,7 +51,7 @@ import org.springframework.web.client.RestTemplate;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Tests for {@link JerseyServerMetricsAutoConfiguration}.
+ * Tests for {@link JerseyServerMetricsAutoConfiguration_RENAMED}.
  *
  * @author Michael Weirauch
  * @author Michael Simons
@@ -59,12 +59,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 class JerseyServerMetricsAutoConfigurationTests {
 
 	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner().with(MetricsRun.simple())
-			.withConfiguration(AutoConfigurations.of(JerseyServerMetricsAutoConfiguration.class));
+			.withConfiguration(AutoConfigurations.of(JerseyServerMetricsAutoConfiguration_RENAMED.class));
 
 	private final WebApplicationContextRunner webContextRunner = new WebApplicationContextRunner(
 			AnnotationConfigServletWebServerApplicationContext::new)
 					.withConfiguration(AutoConfigurations.of(JerseyAutoConfiguration.class,
-							JerseyServerMetricsAutoConfiguration.class, ServletWebServerFactoryAutoConfiguration.class,
+							JerseyServerMetricsAutoConfiguration_RENAMED.class, ServletWebServerFactoryAutoConfiguration.class,
 							SimpleMetricsExportAutoConfiguration.class, MetricsAutoConfiguration.class))
 					.withUserConfiguration(ResourceConfiguration.class).withPropertyValues("server.port:0");
 

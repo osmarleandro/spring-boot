@@ -59,11 +59,11 @@ import org.springframework.core.annotation.Order;
 @ConditionalOnClass({ ResourceConfig.class, MetricsApplicationEventListener.class })
 @ConditionalOnBean({ MeterRegistry.class, ResourceConfig.class })
 @EnableConfigurationProperties(MetricsProperties.class)
-public class JerseyServerMetricsAutoConfiguration {
+public class JerseyServerMetricsAutoConfiguration_RENAMED {
 
 	private final MetricsProperties properties;
 
-	public JerseyServerMetricsAutoConfiguration(MetricsProperties properties) {
+	public JerseyServerMetricsAutoConfiguration_RENAMED(MetricsProperties properties) {
 		this.properties = properties;
 	}
 
