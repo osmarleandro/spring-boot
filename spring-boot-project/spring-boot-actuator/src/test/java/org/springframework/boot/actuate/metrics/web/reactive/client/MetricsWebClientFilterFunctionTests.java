@@ -46,7 +46,7 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
 
 /**
- * Tests for {@link MetricsWebClientFilterFunction}
+ * Tests for {@link MetricsWebClientFilterFunction_RENAMED}
  *
  * @author Brian Clozel
  */
@@ -56,7 +56,7 @@ class MetricsWebClientFilterFunctionTests {
 
 	private MeterRegistry registry;
 
-	private MetricsWebClientFilterFunction filterFunction;
+	private MetricsWebClientFilterFunction_RENAMED filterFunction;
 
 	private ClientResponse response;
 
@@ -65,7 +65,7 @@ class MetricsWebClientFilterFunctionTests {
 	@BeforeEach
 	void setup() {
 		this.registry = new SimpleMeterRegistry(SimpleConfig.DEFAULT, new MockClock());
-		this.filterFunction = new MetricsWebClientFilterFunction(this.registry,
+		this.filterFunction = new MetricsWebClientFilterFunction_RENAMED(this.registry,
 				new DefaultWebClientExchangeTagsProvider(), "http.client.requests", AutoTimer.ENABLED);
 		this.response = mock(ClientResponse.class);
 		this.exchange = (r) -> Mono.just(this.response);

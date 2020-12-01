@@ -31,7 +31,7 @@ import org.springframework.web.reactive.function.client.WebClient;
  */
 public class MetricsWebClientCustomizer implements WebClientCustomizer {
 
-	private final MetricsWebClientFilterFunction filterFunction;
+	private final MetricsWebClientFilterFunction_RENAMED filterFunction;
 
 	/**
 	 * Create a new {@code MetricsWebClientFilterFunction} that will record metrics using
@@ -45,7 +45,7 @@ public class MetricsWebClientCustomizer implements WebClientCustomizer {
 	 */
 	public MetricsWebClientCustomizer(MeterRegistry meterRegistry, WebClientExchangeTagsProvider tagProvider,
 			String metricName, AutoTimer autoTimer) {
-		this.filterFunction = new MetricsWebClientFilterFunction(meterRegistry, tagProvider, metricName, autoTimer);
+		this.filterFunction = new MetricsWebClientFilterFunction_RENAMED(meterRegistry, tagProvider, metricName, autoTimer);
 	}
 
 	@Override
