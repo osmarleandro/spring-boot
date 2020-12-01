@@ -20,15 +20,15 @@ import org.springframework.boot.actuate.audit.AuditEvent;
 import org.springframework.context.ApplicationListener;
 
 /**
- * Abstract {@link ApplicationListener} to handle {@link AuditApplicationEvent}s.
+ * Abstract {@link ApplicationListener} to handle {@link AuditApplicationEvent_RENAMED}s.
  *
  * @author Vedran Pavic
  * @since 1.4.0
  */
-public abstract class AbstractAuditListener implements ApplicationListener<AuditApplicationEvent> {
+public abstract class AbstractAuditListener implements ApplicationListener<AuditApplicationEvent_RENAMED> {
 
 	@Override
-	public void onApplicationEvent(AuditApplicationEvent event) {
+	public void onApplicationEvent(AuditApplicationEvent_RENAMED event) {
 		onAuditEvent(event.getAuditEvent());
 	}
 

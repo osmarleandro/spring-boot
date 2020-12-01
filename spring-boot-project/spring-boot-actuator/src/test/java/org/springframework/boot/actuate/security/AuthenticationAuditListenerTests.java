@@ -20,7 +20,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 
-import org.springframework.boot.actuate.audit.listener.AuditApplicationEvent;
+import org.springframework.boot.actuate.audit.listener.AuditApplicationEvent_RENAMED;
 import org.springframework.context.ApplicationEvent;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -55,7 +55,7 @@ class AuthenticationAuditListenerTests {
 
 	@Test
 	void testAuthenticationSuccess() {
-		AuditApplicationEvent event = handleAuthenticationEvent(
+		AuditApplicationEvent_RENAMED event = handleAuthenticationEvent(
 				new AuthenticationSuccessEvent(new UsernamePasswordAuthenticationToken("user", "password")));
 		assertThat(event.getAuditEvent().getType()).isEqualTo(AuthenticationAuditListener.AUTHENTICATION_SUCCESS);
 	}
@@ -70,14 +70,14 @@ class AuthenticationAuditListenerTests {
 
 	@Test
 	void testAuthenticationFailed() {
-		AuditApplicationEvent event = handleAuthenticationEvent(new AuthenticationFailureExpiredEvent(
+		AuditApplicationEvent_RENAMED event = handleAuthenticationEvent(new AuthenticationFailureExpiredEvent(
 				new UsernamePasswordAuthenticationToken("user", "password"), new BadCredentialsException("Bad user")));
 		assertThat(event.getAuditEvent().getType()).isEqualTo(AuthenticationAuditListener.AUTHENTICATION_FAILURE);
 	}
 
 	@Test
 	void testAuthenticationSwitch() {
-		AuditApplicationEvent event = handleAuthenticationEvent(
+		AuditApplicationEvent_RENAMED event = handleAuthenticationEvent(
 				new AuthenticationSwitchUserEvent(new UsernamePasswordAuthenticationToken("user", "password"),
 						new User("user", "password", AuthorityUtils.commaSeparatedStringToAuthorityList("USER"))));
 		assertThat(event.getAuditEvent().getType()).isEqualTo(AuthenticationAuditListener.AUTHENTICATION_SWITCH);
@@ -85,7 +85,7 @@ class AuthenticationAuditListenerTests {
 
 	@Test
 	void testAuthenticationSwitchBackToAnonymous() {
-		AuditApplicationEvent event = handleAuthenticationEvent(
+		AuditApplicationEvent_RENAMED event = handleAuthenticationEvent(
 				new AuthenticationSwitchUserEvent(new UsernamePasswordAuthenticationToken("user", "password"), null));
 		assertThat(event.getAuditEvent().getType()).isEqualTo(AuthenticationAuditListener.AUTHENTICATION_SWITCH);
 	}
@@ -96,14 +96,14 @@ class AuthenticationAuditListenerTests {
 		UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken("user",
 				"password");
 		authentication.setDetails(details);
-		AuditApplicationEvent event = handleAuthenticationEvent(
+		AuditApplicationEvent_RENAMED event = handleAuthenticationEvent(
 				new AuthenticationFailureExpiredEvent(authentication, new BadCredentialsException("Bad user")));
 		assertThat(event.getAuditEvent().getType()).isEqualTo(AuthenticationAuditListener.AUTHENTICATION_FAILURE);
 		assertThat(event.getAuditEvent().getData()).containsEntry("details", details);
 	}
 
-	private AuditApplicationEvent handleAuthenticationEvent(AbstractAuthenticationEvent event) {
-		ArgumentCaptor<AuditApplicationEvent> eventCaptor = ArgumentCaptor.forClass(AuditApplicationEvent.class);
+	private AuditApplicationEvent_RENAMED handleAuthenticationEvent(AbstractAuthenticationEvent event) {
+		ArgumentCaptor<AuditApplicationEvent_RENAMED> eventCaptor = ArgumentCaptor.forClass(AuditApplicationEvent_RENAMED.class);
 		this.listener.onApplicationEvent(event);
 		verify(this.publisher).publishEvent(eventCaptor.capture());
 		return eventCaptor.getValue();
