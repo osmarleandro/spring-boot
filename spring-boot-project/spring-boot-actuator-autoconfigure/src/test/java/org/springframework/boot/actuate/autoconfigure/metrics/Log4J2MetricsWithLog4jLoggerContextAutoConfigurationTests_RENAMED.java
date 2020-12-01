@@ -35,7 +35,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Andy Wilkinson
  */
 @ClassPathOverrides("org.apache.logging.log4j:log4j-core:2.11.1")
-class Log4J2MetricsWithLog4jLoggerContextAutoConfigurationTests {
+class Log4J2MetricsWithLog4jLoggerContextAutoConfigurationTests_RENAMED {
 
 	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner().with(MetricsRun.simple())
 			.withConfiguration(AutoConfigurations.of(Log4J2MetricsAutoConfiguration.class));
