@@ -37,7 +37,7 @@ import org.springframework.core.annotation.AliasFor;
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @Endpoint
-@FilteredEndpoint(WebEndpointFilter.class)
+@FilteredEndpoint(WebEndpointFilter_RENAMED.class)
 public @interface WebEndpoint {
 
 	/**
