@@ -32,7 +32,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.actuate.web.mappings.MappingsEndpoint.ApplicationMappings;
 import org.springframework.boot.actuate.web.mappings.MappingsEndpoint.ContextMappings;
 import org.springframework.boot.actuate.web.mappings.reactive.DispatcherHandlerMappingDescription;
-import org.springframework.boot.actuate.web.mappings.reactive.DispatcherHandlersMappingDescriptionProvider;
+import org.springframework.boot.actuate.web.mappings.reactive.DispatcherHandlersMappingDescriptionProvider_RENAMED;
 import org.springframework.boot.actuate.web.mappings.servlet.DispatcherServletMappingDescription;
 import org.springframework.boot.actuate.web.mappings.servlet.DispatcherServletsMappingDescriptionProvider;
 import org.springframework.boot.actuate.web.mappings.servlet.FilterRegistrationMappingDescription;
@@ -171,8 +171,8 @@ class MappingsEndpointTests {
 	static class ReactiveWebConfiguration {
 
 		@Bean
-		DispatcherHandlersMappingDescriptionProvider dispatcherHandlersMappingDescriptionProvider() {
-			return new DispatcherHandlersMappingDescriptionProvider();
+		DispatcherHandlersMappingDescriptionProvider_RENAMED dispatcherHandlersMappingDescriptionProvider() {
+			return new DispatcherHandlersMappingDescriptionProvider_RENAMED();
 		}
 
 		@Bean

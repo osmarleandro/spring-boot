@@ -27,7 +27,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 
 import org.springframework.boot.actuate.web.mappings.MappingDescriptionProvider;
 import org.springframework.boot.actuate.web.mappings.MappingsEndpoint;
-import org.springframework.boot.actuate.web.mappings.reactive.DispatcherHandlersMappingDescriptionProvider;
+import org.springframework.boot.actuate.web.mappings.reactive.DispatcherHandlersMappingDescriptionProvider_RENAMED;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.web.embedded.netty.NettyReactiveWebServerFactory;
@@ -142,8 +142,8 @@ class MappingsEndpointReactiveDocumentationTests extends AbstractEndpointDocumen
 		}
 
 		@Bean
-		DispatcherHandlersMappingDescriptionProvider dispatcherHandlersMappingDescriptionProvider() {
-			return new DispatcherHandlersMappingDescriptionProvider();
+		DispatcherHandlersMappingDescriptionProvider_RENAMED dispatcherHandlersMappingDescriptionProvider() {
+			return new DispatcherHandlersMappingDescriptionProvider_RENAMED();
 		}
 
 		@Bean
