@@ -23,14 +23,14 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Base test for {@link PushRegistryPropertiesConfigAdapter} implementations.
+ * Base test for {@link PushRegistryPropertiesConfigAdapter_RENAMED} implementations.
  *
  * @param <P> properties used by the tests
  * @param <A> adapter used by the tests
  * @author Stephane Nicoll
  * @author Artsiom Yudovin
  */
-public abstract class PushRegistryPropertiesConfigAdapterTests<P extends PushRegistryProperties, A extends PushRegistryPropertiesConfigAdapter<P>> {
+public abstract class PushRegistryPropertiesConfigAdapterTests<P extends PushRegistryProperties, A extends PushRegistryPropertiesConfigAdapter_RENAMED<P>> {
 
 	protected abstract P createProperties();
 

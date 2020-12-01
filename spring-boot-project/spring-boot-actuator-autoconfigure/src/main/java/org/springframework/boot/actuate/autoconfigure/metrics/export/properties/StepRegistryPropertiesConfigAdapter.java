@@ -28,7 +28,7 @@ import io.micrometer.core.instrument.step.StepRegistryConfig;
  * @since 2.0.0
  */
 public abstract class StepRegistryPropertiesConfigAdapter<T extends StepRegistryProperties>
-		extends PushRegistryPropertiesConfigAdapter<T> {
+		extends PushRegistryPropertiesConfigAdapter_RENAMED<T> {
 
 	public StepRegistryPropertiesConfigAdapter(T properties) {
 		super(properties);

@@ -18,7 +18,7 @@ package org.springframework.boot.actuate.autoconfigure.metrics.export.wavefront;
 
 import io.micrometer.wavefront.WavefrontConfig;
 
-import org.springframework.boot.actuate.autoconfigure.metrics.export.properties.PushRegistryPropertiesConfigAdapter;
+import org.springframework.boot.actuate.autoconfigure.metrics.export.properties.PushRegistryPropertiesConfigAdapter_RENAMED;
 
 /**
  * Adapter to convert {@link WavefrontProperties} to a {@link WavefrontConfig}.
@@ -26,7 +26,7 @@ import org.springframework.boot.actuate.autoconfigure.metrics.export.properties.
  * @author Jon Schneider
  * @since 2.0.0
  */
-public class WavefrontPropertiesConfigAdapter extends PushRegistryPropertiesConfigAdapter<WavefrontProperties>
+public class WavefrontPropertiesConfigAdapter extends PushRegistryPropertiesConfigAdapter_RENAMED<WavefrontProperties>
 		implements WavefrontConfig {
 
 	public WavefrontPropertiesConfigAdapter(WavefrontProperties properties) {
