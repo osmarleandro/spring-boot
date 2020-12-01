@@ -28,42 +28,42 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Stephane Nicoll
  */
 class AppOpticsPropertiesConfigAdapterTests
-		extends StepRegistryPropertiesConfigAdapterTests<AppOpticsProperties, AppOpticsPropertiesConfigAdapter> {
+		extends StepRegistryPropertiesConfigAdapterTests<AppOpticsProperties_RENAMED, AppOpticsPropertiesConfigAdapter> {
 
 	@Override
-	protected AppOpticsProperties createProperties() {
-		return new AppOpticsProperties();
+	protected AppOpticsProperties_RENAMED createProperties() {
+		return new AppOpticsProperties_RENAMED();
 	}
 
 	@Override
-	protected AppOpticsPropertiesConfigAdapter createConfigAdapter(AppOpticsProperties properties) {
+	protected AppOpticsPropertiesConfigAdapter createConfigAdapter(AppOpticsProperties_RENAMED properties) {
 		return new AppOpticsPropertiesConfigAdapter(properties);
 	}
 
 	@Test
 	void whenPropertiesUriIsSetAdapterUriReturnsIt() {
-		AppOpticsProperties properties = createProperties();
+		AppOpticsProperties_RENAMED properties = createProperties();
 		properties.setUri("https://appoptics.example.com/v1/measurements");
 		assertThat(createConfigAdapter(properties).uri()).isEqualTo("https://appoptics.example.com/v1/measurements");
 	}
 
 	@Test
 	void whenPropertiesApiTokenIsSetAdapterApiTokenReturnsIt() {
-		AppOpticsProperties properties = createProperties();
+		AppOpticsProperties_RENAMED properties = createProperties();
 		properties.setApiToken("ABC123");
 		assertThat(createConfigAdapter(properties).apiToken()).isEqualTo("ABC123");
 	}
 
 	@Test
 	void whenPropertiesHostTagIsSetAdapterHostTagReturnsIt() {
-		AppOpticsProperties properties = createProperties();
+		AppOpticsProperties_RENAMED properties = createProperties();
 		properties.setHostTag("node");
 		assertThat(createConfigAdapter(properties).hostTag()).isEqualTo("node");
 	}
 
 	@Test
 	void whenPropertiesFloorTimesIsSetAdapterFloorTimesReturnsIt() {
-		AppOpticsProperties properties = createProperties();
+		AppOpticsProperties_RENAMED properties = createProperties();
 		properties.setFloorTimes(true);
 		assertThat(createConfigAdapter(properties).floorTimes()).isTrue();
 	}

@@ -24,7 +24,7 @@ import org.springframework.boot.actuate.autoconfigure.metrics.export.properties.
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Tests for {@link AppOpticsProperties}.
+ * Tests for {@link AppOpticsProperties_RENAMED}.
  *
  * @author Stephane Nicoll
  */
@@ -32,7 +32,7 @@ class AppOpticsPropertiesTests extends StepRegistryPropertiesTests {
 
 	@Test
 	void defaultValuesAreConsistent() {
-		AppOpticsProperties properties = new AppOpticsProperties();
+		AppOpticsProperties_RENAMED properties = new AppOpticsProperties_RENAMED();
 		AppOpticsConfig config = (key) -> null;
 		assertStepRegistryDefaultValues(properties, config);
 		assertThat(properties.getUri()).isEqualToIgnoringWhitespace(config.uri());

@@ -29,7 +29,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  * @since 2.1.0
  */
 @ConfigurationProperties(prefix = "management.metrics.export.appoptics")
-public class AppOpticsProperties extends StepRegistryProperties {
+public class AppOpticsProperties_RENAMED extends StepRegistryProperties {
 
 	/**
 	 * URI to ship metrics to.

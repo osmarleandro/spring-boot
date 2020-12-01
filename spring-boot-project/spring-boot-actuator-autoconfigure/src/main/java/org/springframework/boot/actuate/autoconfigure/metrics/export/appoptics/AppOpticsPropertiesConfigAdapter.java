@@ -21,14 +21,14 @@ import io.micrometer.appoptics.AppOpticsConfig;
 import org.springframework.boot.actuate.autoconfigure.metrics.export.properties.StepRegistryPropertiesConfigAdapter;
 
 /**
- * Adapter to convert {@link AppOpticsProperties} to an {@link AppOpticsConfig}.
+ * Adapter to convert {@link AppOpticsProperties_RENAMED} to an {@link AppOpticsConfig}.
  *
  * @author Stephane Nicoll
  */
-class AppOpticsPropertiesConfigAdapter extends StepRegistryPropertiesConfigAdapter<AppOpticsProperties>
+class AppOpticsPropertiesConfigAdapter extends StepRegistryPropertiesConfigAdapter<AppOpticsProperties_RENAMED>
 		implements AppOpticsConfig {
 
-	AppOpticsPropertiesConfigAdapter(AppOpticsProperties properties) {
+	AppOpticsPropertiesConfigAdapter(AppOpticsProperties_RENAMED properties) {
 		super(properties);
 	}
 
@@ -39,22 +39,22 @@ class AppOpticsPropertiesConfigAdapter extends StepRegistryPropertiesConfigAdapt
 
 	@Override
 	public String uri() {
-		return get(AppOpticsProperties::getUri, AppOpticsConfig.super::uri);
+		return get(AppOpticsProperties_RENAMED::getUri, AppOpticsConfig.super::uri);
 	}
 
 	@Override
 	public String apiToken() {
-		return get(AppOpticsProperties::getApiToken, AppOpticsConfig.super::apiToken);
+		return get(AppOpticsProperties_RENAMED::getApiToken, AppOpticsConfig.super::apiToken);
 	}
 
 	@Override
 	public String hostTag() {
-		return get(AppOpticsProperties::getHostTag, AppOpticsConfig.super::hostTag);
+		return get(AppOpticsProperties_RENAMED::getHostTag, AppOpticsConfig.super::hostTag);
 	}
 
 	@Override
 	public boolean floorTimes() {
-		return get(AppOpticsProperties::isFloorTimes, AppOpticsConfig.super::floorTimes);
+		return get(AppOpticsProperties_RENAMED::isFloorTimes, AppOpticsConfig.super::floorTimes);
 	}
 
 }
