@@ -33,7 +33,7 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration(proxyBeanMethods = false)
 @ConditionalOnAvailableEndpoint(endpoint = ConditionsReportEndpoint.class)
-public class ConditionsReportEndpointAutoConfiguration {
+public class ConditionsReportEndpointAutoConfiguration_RENAMED {
 
 	@Bean
 	@ConditionalOnMissingBean(search = SearchStrategy.CURRENT)
