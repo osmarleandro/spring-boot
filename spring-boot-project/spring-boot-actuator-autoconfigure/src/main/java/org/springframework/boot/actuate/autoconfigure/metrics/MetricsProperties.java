@@ -129,9 +129,9 @@ public class MetricsProperties {
 				 * Auto-timed request settings.
 				 */
 				@NestedConfigurationProperty
-				private final AutoTimeProperties autotime = new AutoTimeProperties();
+				private final AutoTimeProperties_RENAMED autotime = new AutoTimeProperties_RENAMED();
 
-				public AutoTimeProperties getAutotime() {
+				public AutoTimeProperties_RENAMED getAutotime() {
 					return this.autotime;
 				}
 
@@ -186,9 +186,9 @@ public class MetricsProperties {
 				 * Auto-timed request settings.
 				 */
 				@NestedConfigurationProperty
-				private final AutoTimeProperties autotime = new AutoTimeProperties();
+				private final AutoTimeProperties_RENAMED autotime = new AutoTimeProperties_RENAMED();
 
-				public AutoTimeProperties getAutotime() {
+				public AutoTimeProperties_RENAMED getAutotime() {
 					return this.autotime;
 				}
 

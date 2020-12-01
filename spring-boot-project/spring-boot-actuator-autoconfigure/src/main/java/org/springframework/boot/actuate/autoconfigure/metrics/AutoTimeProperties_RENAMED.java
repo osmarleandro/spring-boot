@@ -28,7 +28,7 @@ import org.springframework.boot.actuate.metrics.AutoTimer;
  * @author Phillip Webb
  * @since 2.2.0
  */
-public final class AutoTimeProperties implements AutoTimer {
+public final class AutoTimeProperties_RENAMED implements AutoTimer {
 
 	private boolean enabled = true;
 
@@ -39,7 +39,7 @@ public final class AutoTimeProperties implements AutoTimer {
 	/**
 	 * Create an instance that automatically time requests with no percentiles.
 	 */
-	public AutoTimeProperties() {
+	public AutoTimeProperties_RENAMED() {
 	}
 
 	@Override
