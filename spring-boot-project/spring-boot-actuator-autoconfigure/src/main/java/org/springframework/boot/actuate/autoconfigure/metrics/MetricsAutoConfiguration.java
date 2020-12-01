@@ -42,7 +42,7 @@ import org.springframework.core.annotation.Order;
 @Configuration(proxyBeanMethods = false)
 @ConditionalOnClass(Timed.class)
 @EnableConfigurationProperties(MetricsProperties.class)
-@AutoConfigureBefore(CompositeMeterRegistryAutoConfiguration.class)
+@AutoConfigureBefore(CompositeMeterRegistryAutoConfiguration_RENAMED.class)
 public class MetricsAutoConfiguration {
 
 	@Bean
