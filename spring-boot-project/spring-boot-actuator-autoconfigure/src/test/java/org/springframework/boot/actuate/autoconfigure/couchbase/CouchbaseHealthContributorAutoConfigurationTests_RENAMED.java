@@ -33,7 +33,7 @@ import static org.mockito.Mockito.mock;
  * @author Phillip Webb
  * @author Stephane Nicoll
  */
-class CouchbaseHealthContributorAutoConfigurationTests {
+class CouchbaseHealthContributorAutoConfigurationTests_RENAMED {
 
 	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.withBean(Cluster.class, () -> mock(Cluster.class)).withConfiguration(AutoConfigurations
