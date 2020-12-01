@@ -46,12 +46,12 @@ import org.springframework.context.annotation.Configuration;
 @ConditionalOnBean(Clock.class)
 @ConditionalOnClass(GangliaMeterRegistry.class)
 @ConditionalOnEnabledMetricsExport("ganglia")
-@EnableConfigurationProperties(GangliaProperties.class)
+@EnableConfigurationProperties(GangliaProperties_RENAMED.class)
 public class GangliaMetricsExportAutoConfiguration {
 
 	@Bean
 	@ConditionalOnMissingBean
-	public GangliaConfig gangliaConfig(GangliaProperties gangliaProperties) {
+	public GangliaConfig gangliaConfig(GangliaProperties_RENAMED gangliaProperties) {
 		return new GangliaPropertiesConfigAdapter(gangliaProperties);
 	}
 

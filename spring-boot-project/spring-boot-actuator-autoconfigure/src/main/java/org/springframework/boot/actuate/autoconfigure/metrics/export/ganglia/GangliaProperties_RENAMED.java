@@ -33,7 +33,7 @@ import org.springframework.boot.context.properties.DeprecatedConfigurationProper
  * @since 2.0.0
  */
 @ConfigurationProperties(prefix = "management.metrics.export.ganglia")
-public class GangliaProperties {
+public class GangliaProperties_RENAMED {
 
 	/**
 	 * Whether exporting of metrics to Ganglia is enabled.

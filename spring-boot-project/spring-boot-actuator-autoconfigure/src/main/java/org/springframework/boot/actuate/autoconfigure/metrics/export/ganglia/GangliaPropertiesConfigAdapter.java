@@ -25,14 +25,14 @@ import io.micrometer.ganglia.GangliaConfig;
 import org.springframework.boot.actuate.autoconfigure.metrics.export.properties.PropertiesConfigAdapter;
 
 /**
- * Adapter to convert {@link GangliaProperties} to a {@link GangliaConfig}.
+ * Adapter to convert {@link GangliaProperties_RENAMED} to a {@link GangliaConfig}.
  *
  * @author Jon Schneider
  * @author Phillip Webb
  */
-class GangliaPropertiesConfigAdapter extends PropertiesConfigAdapter<GangliaProperties> implements GangliaConfig {
+class GangliaPropertiesConfigAdapter extends PropertiesConfigAdapter<GangliaProperties_RENAMED> implements GangliaConfig {
 
-	GangliaPropertiesConfigAdapter(GangliaProperties properties) {
+	GangliaPropertiesConfigAdapter(GangliaProperties_RENAMED properties) {
 		super(properties);
 	}
 
@@ -48,49 +48,49 @@ class GangliaPropertiesConfigAdapter extends PropertiesConfigAdapter<GangliaProp
 
 	@Override
 	public boolean enabled() {
-		return get(GangliaProperties::isEnabled, GangliaConfig.super::enabled);
+		return get(GangliaProperties_RENAMED::isEnabled, GangliaConfig.super::enabled);
 	}
 
 	@Override
 	public Duration step() {
-		return get(GangliaProperties::getStep, GangliaConfig.super::step);
+		return get(GangliaProperties_RENAMED::getStep, GangliaConfig.super::step);
 	}
 
 	@Override
 	@Deprecated
 	public TimeUnit rateUnits() {
-		return get(GangliaProperties::getRateUnits, GangliaConfig.super::rateUnits);
+		return get(GangliaProperties_RENAMED::getRateUnits, GangliaConfig.super::rateUnits);
 	}
 
 	@Override
 	public TimeUnit durationUnits() {
-		return get(GangliaProperties::getDurationUnits, GangliaConfig.super::durationUnits);
+		return get(GangliaProperties_RENAMED::getDurationUnits, GangliaConfig.super::durationUnits);
 	}
 
 	@Override
 	@Deprecated
 	public String protocolVersion() {
-		return get(GangliaProperties::getProtocolVersion, GangliaConfig.super::protocolVersion);
+		return get(GangliaProperties_RENAMED::getProtocolVersion, GangliaConfig.super::protocolVersion);
 	}
 
 	@Override
 	public GMetric.UDPAddressingMode addressingMode() {
-		return get(GangliaProperties::getAddressingMode, GangliaConfig.super::addressingMode);
+		return get(GangliaProperties_RENAMED::getAddressingMode, GangliaConfig.super::addressingMode);
 	}
 
 	@Override
 	public int ttl() {
-		return get(GangliaProperties::getTimeToLive, GangliaConfig.super::ttl);
+		return get(GangliaProperties_RENAMED::getTimeToLive, GangliaConfig.super::ttl);
 	}
 
 	@Override
 	public String host() {
-		return get(GangliaProperties::getHost, GangliaConfig.super::host);
+		return get(GangliaProperties_RENAMED::getHost, GangliaConfig.super::host);
 	}
 
 	@Override
 	public int port() {
-		return get(GangliaProperties::getPort, GangliaConfig.super::port);
+		return get(GangliaProperties_RENAMED::getPort, GangliaConfig.super::port);
 	}
 
 }

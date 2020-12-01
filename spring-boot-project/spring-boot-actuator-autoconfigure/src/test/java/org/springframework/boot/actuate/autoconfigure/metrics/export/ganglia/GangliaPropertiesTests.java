@@ -22,7 +22,7 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Tests for {@link GangliaProperties}.
+ * Tests for {@link GangliaProperties_RENAMED}.
  *
  * @author Stephane Nicoll
  */
@@ -31,7 +31,7 @@ class GangliaPropertiesTests {
 	@Test
 	@SuppressWarnings("deprecation")
 	void defaultValuesAreConsistent() {
-		GangliaProperties properties = new GangliaProperties();
+		GangliaProperties_RENAMED properties = new GangliaProperties_RENAMED();
 		GangliaConfig config = GangliaConfig.DEFAULT;
 		assertThat(properties.isEnabled()).isEqualTo(config.enabled());
 		assertThat(properties.getStep()).isEqualTo(config.step());
