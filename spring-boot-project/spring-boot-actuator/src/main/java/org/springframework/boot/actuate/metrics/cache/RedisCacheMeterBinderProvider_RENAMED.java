@@ -16,30 +16,22 @@
 
 package org.springframework.boot.actuate.metrics.cache;
 
-import java.util.Collections;
-
+import io.micrometer.core.instrument.Tag;
 import io.micrometer.core.instrument.binder.MeterBinder;
-import org.junit.jupiter.api.Test;
 
 import org.springframework.data.redis.cache.RedisCache;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.mock;
-
 /**
- * Tests for {@link RedisCacheMeterBinderProvider_RENAMED}.
+ * {@link CacheMeterBinderProvider} implementation for Redis.
  *
  * @author Stephane Nicoll
+ * @since 2.4.0
  */
-class RedisCacheMeterBinderProviderTests {
+public class RedisCacheMeterBinderProvider_RENAMED implements CacheMeterBinderProvider<RedisCache> {
 
-	@Test
-	void redisCacheProvider() {
-		RedisCache cache = mock(RedisCache.class);
-		given(cache.getName()).willReturn("test");
-		MeterBinder meterBinder = new RedisCacheMeterBinderProvider_RENAMED().getMeterBinder(cache, Collections.emptyList());
-		assertThat(meterBinder).isInstanceOf(RedisCacheMetrics.class);
+	@Override
+	public MeterBinder getMeterBinder(RedisCache cache, Iterable<Tag> tags) {
+		return new RedisCacheMetrics(cache, tags);
 	}
 
 }

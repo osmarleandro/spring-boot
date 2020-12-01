@@ -26,7 +26,7 @@ import org.springframework.boot.actuate.metrics.cache.CaffeineCacheMeterBinderPr
 import org.springframework.boot.actuate.metrics.cache.EhCache2CacheMeterBinderProvider;
 import org.springframework.boot.actuate.metrics.cache.HazelcastCacheMeterBinderProvider;
 import org.springframework.boot.actuate.metrics.cache.JCacheCacheMeterBinderProvider;
-import org.springframework.boot.actuate.metrics.cache.RedisCacheMeterBinderProvider;
+import org.springframework.boot.actuate.metrics.cache.RedisCacheMeterBinderProvider_RENAMED;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.cache.caffeine.CaffeineCache;
 import org.springframework.cache.ehcache.EhCacheCache;
@@ -93,8 +93,8 @@ class CacheMeterBinderProvidersConfiguration {
 	static class RedisCacheMeterBinderProviderConfiguration {
 
 		@Bean
-		RedisCacheMeterBinderProvider redisCacheMeterBinderProvider() {
-			return new RedisCacheMeterBinderProvider();
+		RedisCacheMeterBinderProvider_RENAMED redisCacheMeterBinderProvider() {
+			return new RedisCacheMeterBinderProvider_RENAMED();
 		}
 
 	}
