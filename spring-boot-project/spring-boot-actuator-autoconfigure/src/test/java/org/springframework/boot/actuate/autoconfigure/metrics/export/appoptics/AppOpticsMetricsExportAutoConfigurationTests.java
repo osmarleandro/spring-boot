@@ -30,14 +30,14 @@ import org.springframework.context.annotation.Import;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Tests for {@link AppOpticsMetricsExportAutoConfiguration}.
+ * Tests for {@link AppOpticsMetricsExportAutoConfiguration_RENAMED}.
  *
  * @author Stephane Nicoll
  */
 class AppOpticsMetricsExportAutoConfigurationTests {
 
 	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
-			.withConfiguration(AutoConfigurations.of(AppOpticsMetricsExportAutoConfiguration.class));
+			.withConfiguration(AutoConfigurations.of(AppOpticsMetricsExportAutoConfiguration_RENAMED.class));
 
 	@Test
 	void backsOffWithoutAClock() {

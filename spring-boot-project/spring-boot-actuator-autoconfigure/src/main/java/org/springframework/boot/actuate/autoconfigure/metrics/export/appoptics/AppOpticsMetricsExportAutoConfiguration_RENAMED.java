@@ -49,11 +49,11 @@ import org.springframework.context.annotation.Configuration;
 @ConditionalOnClass(AppOpticsMeterRegistry.class)
 @ConditionalOnEnabledMetricsExport("appoptics")
 @EnableConfigurationProperties(AppOpticsProperties.class)
-public class AppOpticsMetricsExportAutoConfiguration {
+public class AppOpticsMetricsExportAutoConfiguration_RENAMED {
 
 	private final AppOpticsProperties properties;
 
-	public AppOpticsMetricsExportAutoConfiguration(AppOpticsProperties properties) {
+	public AppOpticsMetricsExportAutoConfiguration_RENAMED(AppOpticsProperties properties) {
 		this.properties = properties;
 	}
 
