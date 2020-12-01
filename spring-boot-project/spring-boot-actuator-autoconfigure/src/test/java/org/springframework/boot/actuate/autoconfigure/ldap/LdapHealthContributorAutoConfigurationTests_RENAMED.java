@@ -33,7 +33,7 @@ import static org.mockito.Mockito.mock;
  * @author Eddú Meléndez
  * @author Stephane Nicoll
  */
-class LdapHealthContributorAutoConfigurationTests {
+class LdapHealthContributorAutoConfigurationTests_RENAMED {
 
 	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.withBean(LdapOperations.class, () -> mock(LdapOperations.class)).withConfiguration(AutoConfigurations
