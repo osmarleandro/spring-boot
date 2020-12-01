@@ -27,7 +27,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Stephane Nicoll
  */
-class KairosPropertiesConfigAdapterTests
+class KairosPropertiesConfigAdapterTests_RENAMED
 		extends StepRegistryPropertiesConfigAdapterTests<KairosProperties, KairosPropertiesConfigAdapter> {
 
 	@Override
