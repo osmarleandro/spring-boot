@@ -16,21 +16,19 @@
 
 package org.springframework.boot.actuate.health;
 
-import org.junit.jupiter.api.Test;
-
-import static org.assertj.core.api.Assertions.assertThat;
-
 /**
- * Tests for {@link PingHealthIndicator_RENAMED}.
+ * Default implementation of {@link HealthIndicator} that returns {@link Status#UP}.
  *
- * @author Phillip Webb
+ * @author Dave Syer
+ * @author Christian Dupuis
+ * @since 2.2.0
+ * @see Status#UP
  */
-class PingHealthIndicatorTests {
+public class PingHealthIndicator_RENAMED extends AbstractHealthIndicator {
 
-	@Test
-	void indicatesUp() {
-		PingHealthIndicator_RENAMED healthIndicator = new PingHealthIndicator_RENAMED();
-		assertThat(healthIndicator.health().getStatus()).isEqualTo(Status.UP);
+	@Override
+	protected void doHealthCheck(Health.Builder builder) throws Exception {
+		builder.up();
 	}
 
 }

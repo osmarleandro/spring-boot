@@ -20,7 +20,7 @@ import org.junit.jupiter.api.Test;
 
 import org.springframework.boot.actuate.health.Health;
 import org.springframework.boot.actuate.health.HealthIndicator;
-import org.springframework.boot.actuate.health.PingHealthIndicator;
+import org.springframework.boot.actuate.health.PingHealthIndicator_RENAMED;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
 import org.springframework.boot.test.context.runner.ApplicationContextRunner;
 import org.springframework.context.annotation.Bean;
@@ -42,13 +42,13 @@ class HealthContributorAutoConfigurationTests {
 	@Test
 	void runWhenNoOtherIndicatorsCreatesPingHealthIndicator() {
 		this.contextRunner.run((context) -> assertThat(context).getBean(HealthIndicator.class)
-				.isInstanceOf(PingHealthIndicator.class));
+				.isInstanceOf(PingHealthIndicator_RENAMED.class));
 	}
 
 	@Test
 	void runWhenHasDefinedIndicatorCreatesPingHealthIndicator() {
 		this.contextRunner.withUserConfiguration(CustomHealthIndicatorConfiguration.class)
-				.run((context) -> assertThat(context).hasSingleBean(PingHealthIndicator.class)
+				.run((context) -> assertThat(context).hasSingleBean(PingHealthIndicator_RENAMED.class)
 						.hasSingleBean(CustomHealthIndicator.class));
 	}
 
@@ -64,7 +64,7 @@ class HealthContributorAutoConfigurationTests {
 	void runWhenHasDefaultsDisabledAndPingIndicatorEnabledCreatesPingHealthIndicator() {
 		this.contextRunner.withUserConfiguration(CustomHealthIndicatorConfiguration.class)
 				.withPropertyValues("management.health.defaults.enabled:false", "management.health.ping.enabled:true")
-				.run((context) -> assertThat(context).hasSingleBean(PingHealthIndicator.class));
+				.run((context) -> assertThat(context).hasSingleBean(PingHealthIndicator_RENAMED.class));
 
 	}
 

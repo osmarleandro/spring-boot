@@ -17,7 +17,7 @@
 package org.springframework.boot.actuate.autoconfigure.health;
 
 import org.springframework.boot.actuate.health.HealthContributor;
-import org.springframework.boot.actuate.health.PingHealthIndicator;
+import org.springframework.boot.actuate.health.PingHealthIndicator_RENAMED;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -34,8 +34,8 @@ public class HealthContributorAutoConfiguration {
 
 	@Bean
 	@ConditionalOnEnabledHealthIndicator("ping")
-	public PingHealthIndicator pingHealthContributor() {
-		return new PingHealthIndicator();
+	public PingHealthIndicator_RENAMED pingHealthContributor() {
+		return new PingHealthIndicator_RENAMED();
 	}
 
 }
