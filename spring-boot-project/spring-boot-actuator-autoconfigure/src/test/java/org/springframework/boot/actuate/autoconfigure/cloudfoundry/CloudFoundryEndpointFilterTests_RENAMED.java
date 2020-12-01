@@ -29,7 +29,7 @@ import static org.mockito.Mockito.mock;
  *
  * @author Madhura Bhave
  */
-class CloudFoundryEndpointFilterTests {
+class CloudFoundryEndpointFilterTests_RENAMED {
 
 	private CloudFoundryEndpointFilter filter = new CloudFoundryEndpointFilter();
 
