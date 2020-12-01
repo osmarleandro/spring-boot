@@ -25,7 +25,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Madhura Bhave
  */
-class AccessLevelTests {
+class AccessLevelTests_RENAMED {
 
 	@Test
 	void accessToHealthEndpointShouldNotBeRestricted() {
