@@ -17,7 +17,7 @@
 package org.springframework.boot.actuate.autoconfigure.info;
 
 import org.springframework.boot.actuate.info.BuildInfoContributor;
-import org.springframework.boot.actuate.info.EnvironmentInfoContributor;
+import org.springframework.boot.actuate.info.EnvironmentInfoContributor_RENAMED;
 import org.springframework.boot.actuate.info.GitInfoContributor;
 import org.springframework.boot.actuate.info.InfoContributor;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
@@ -55,8 +55,8 @@ public class InfoContributorAutoConfiguration {
 	@Bean
 	@ConditionalOnEnabledInfoContributor("env")
 	@Order(DEFAULT_ORDER)
-	public EnvironmentInfoContributor envInfoContributor(ConfigurableEnvironment environment) {
-		return new EnvironmentInfoContributor(environment);
+	public EnvironmentInfoContributor_RENAMED envInfoContributor(ConfigurableEnvironment environment) {
+		return new EnvironmentInfoContributor_RENAMED(environment);
 	}
 
 	@Bean

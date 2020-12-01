@@ -28,7 +28,7 @@ import org.springframework.core.env.StandardEnvironment;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Tests for {@link EnvironmentInfoContributor}.
+ * Tests for {@link EnvironmentInfoContributor_RENAMED}.
  *
  * @author Stephane Nicoll
  */
@@ -61,7 +61,7 @@ class EnvironmentInfoContributorTests {
 	}
 
 	private static Info contributeFrom(ConfigurableEnvironment environment) {
-		EnvironmentInfoContributor contributor = new EnvironmentInfoContributor(environment);
+		EnvironmentInfoContributor_RENAMED contributor = new EnvironmentInfoContributor_RENAMED(environment);
 		Info.Builder builder = new Info.Builder();
 		contributor.contribute(builder);
 		return builder.build();
