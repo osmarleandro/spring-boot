@@ -38,7 +38,7 @@ import static org.mockito.Mockito.mock;
  *
  * @author Stephane Nicoll
  */
-class DefaultEndpointObjectNameFactoryTests {
+class DefaultEndpointObjectNameFactoryTests_RENAMED {
 
 	private final MockEnvironment environment = new MockEnvironment();
 
