@@ -30,7 +30,7 @@ import org.glassfish.jersey.server.ResourceConfig;
 import org.springframework.boot.actuate.autoconfigure.metrics.MetricsAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.metrics.MetricsProperties;
 import org.springframework.boot.actuate.autoconfigure.metrics.MetricsProperties.Web.Server;
-import org.springframework.boot.actuate.autoconfigure.metrics.OnlyOnceLoggingDenyMeterFilter;
+import org.springframework.boot.actuate.autoconfigure.metrics.OnlyOnceLoggingDenyMeterFilter_RENAMED;
 import org.springframework.boot.actuate.autoconfigure.metrics.export.simple.SimpleMetricsExportAutoConfiguration;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -86,7 +86,7 @@ public class JerseyServerMetricsAutoConfiguration {
 	@Order(0)
 	public MeterFilter jerseyMetricsUriTagFilter() {
 		String metricName = this.properties.getWeb().getServer().getRequest().getMetricName();
-		MeterFilter filter = new OnlyOnceLoggingDenyMeterFilter(
+		MeterFilter filter = new OnlyOnceLoggingDenyMeterFilter_RENAMED(
 				() -> String.format("Reached the maximum number of URI tags for '%s'.", metricName));
 		return MeterFilter.maximumAllowableTags(metricName, "uri", this.properties.getWeb().getServer().getMaxUriTags(),
 				filter);

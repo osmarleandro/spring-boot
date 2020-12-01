@@ -34,15 +34,15 @@ import org.springframework.util.Assert;
  * @author Dmytro Nosan
  * @since 2.0.5
  */
-public final class OnlyOnceLoggingDenyMeterFilter implements MeterFilter {
+public final class OnlyOnceLoggingDenyMeterFilter_RENAMED implements MeterFilter {
 
-	private static final Log logger = LogFactory.getLog(OnlyOnceLoggingDenyMeterFilter.class);
+	private static final Log logger = LogFactory.getLog(OnlyOnceLoggingDenyMeterFilter_RENAMED.class);
 
 	private final AtomicBoolean alreadyWarned = new AtomicBoolean();
 
 	private final Supplier<String> message;
 
-	public OnlyOnceLoggingDenyMeterFilter(Supplier<String> message) {
+	public OnlyOnceLoggingDenyMeterFilter_RENAMED(Supplier<String> message) {
 		Assert.notNull(message, "Message must not be null");
 		this.message = message;
 	}
