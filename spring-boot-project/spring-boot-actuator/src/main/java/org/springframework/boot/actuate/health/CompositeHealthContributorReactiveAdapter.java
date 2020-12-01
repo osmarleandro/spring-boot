@@ -21,7 +21,7 @@ import java.util.Iterator;
 import org.springframework.util.Assert;
 
 /**
- * Adapts a {@link CompositeHealthContributor} to a
+ * Adapts a {@link CompositeHealthContributor_RENAMED} to a
  * {@link CompositeReactiveHealthContributor} so that it can be safely invoked in a
  * reactive environment.
  *
@@ -30,9 +30,9 @@ import org.springframework.util.Assert;
  */
 class CompositeHealthContributorReactiveAdapter implements CompositeReactiveHealthContributor {
 
-	private final CompositeHealthContributor delegate;
+	private final CompositeHealthContributor_RENAMED delegate;
 
-	CompositeHealthContributorReactiveAdapter(CompositeHealthContributor delegate) {
+	CompositeHealthContributorReactiveAdapter(CompositeHealthContributor_RENAMED delegate) {
 		Assert.notNull(delegate, "Delegate must not be null");
 		this.delegate = delegate;
 	}

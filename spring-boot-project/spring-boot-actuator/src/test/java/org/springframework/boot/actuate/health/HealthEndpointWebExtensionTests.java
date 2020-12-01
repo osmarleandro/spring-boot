@@ -96,7 +96,7 @@ class HealthEndpointWebExtensionTests
 
 	@Override
 	protected HealthContributor createCompositeContributor(Map<String, HealthContributor> contributors) {
-		return CompositeHealthContributor.fromMap(contributors);
+		return CompositeHealthContributor_RENAMED.fromMap(contributors);
 	}
 
 	@Override

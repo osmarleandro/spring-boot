@@ -28,7 +28,7 @@ import javax.sql.DataSource;
 import org.junit.jupiter.api.Test;
 
 import org.springframework.boot.actuate.endpoint.SecurityContext;
-import org.springframework.boot.actuate.health.CompositeHealthContributor;
+import org.springframework.boot.actuate.health.CompositeHealthContributor_RENAMED;
 import org.springframework.boot.actuate.health.DefaultHealthContributorRegistry;
 import org.springframework.boot.actuate.health.Health;
 import org.springframework.boot.actuate.health.HealthContributor;
@@ -124,11 +124,11 @@ class HealthEndpointDocumentationTests extends MockMvcEndpointDocumentationTests
 		}
 
 		@Bean
-		CompositeHealthContributor brokerHealthContributor() {
+		CompositeHealthContributor_RENAMED brokerHealthContributor() {
 			Map<String, HealthIndicator> indicators = new LinkedHashMap<>();
 			indicators.put("us1", () -> Health.up().withDetail("version", "1.0.2").build());
 			indicators.put("us2", () -> Health.up().withDetail("version", "1.0.4").build());
-			return CompositeHealthContributor.fromMap(indicators);
+			return CompositeHealthContributor_RENAMED.fromMap(indicators);
 		}
 
 	}

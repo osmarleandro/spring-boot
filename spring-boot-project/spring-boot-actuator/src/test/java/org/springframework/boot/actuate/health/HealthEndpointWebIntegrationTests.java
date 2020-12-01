@@ -101,7 +101,7 @@ class HealthEndpointWebIntegrationTests {
 	@WebEndpointTest
 	void whenComponentInstanceHealthIsDown503ResponseIsReturned(ApplicationContext context, WebTestClient client) {
 		HealthIndicator healthIndicator = () -> Health.down().build();
-		CompositeHealthContributor composite = CompositeHealthContributor
+		CompositeHealthContributor_RENAMED composite = CompositeHealthContributor_RENAMED
 				.fromMap(Collections.singletonMap("one", healthIndicator));
 		ReactiveHealthIndicator reactiveHealthIndicator = () -> Mono.just(Health.down().build());
 		CompositeReactiveHealthContributor reactiveComposite = CompositeReactiveHealthContributor

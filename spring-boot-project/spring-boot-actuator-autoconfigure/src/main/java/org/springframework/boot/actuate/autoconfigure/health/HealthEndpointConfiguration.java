@@ -24,7 +24,7 @@ import java.util.Map;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.beans.factory.config.BeanPostProcessor;
-import org.springframework.boot.actuate.health.CompositeHealthContributor;
+import org.springframework.boot.actuate.health.CompositeHealthContributor_RENAMED;
 import org.springframework.boot.actuate.health.CompositeReactiveHealthContributor;
 import org.springframework.boot.actuate.health.Health;
 import org.springframework.boot.actuate.health.HealthContributor;
@@ -169,8 +169,8 @@ class HealthEndpointConfiguration {
 			};
 		}
 
-		private CompositeHealthContributor adapt(CompositeReactiveHealthContributor composite) {
-			return new CompositeHealthContributor() {
+		private CompositeHealthContributor_RENAMED adapt(CompositeReactiveHealthContributor composite) {
+			return new CompositeHealthContributor_RENAMED() {
 
 				@Override
 				public Iterator<NamedContributor<HealthContributor>> iterator() {

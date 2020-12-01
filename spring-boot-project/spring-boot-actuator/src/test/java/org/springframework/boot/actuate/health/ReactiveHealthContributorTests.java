@@ -49,7 +49,7 @@ class ReactiveHealthContributorTests {
 	@Test
 	void adaptWhenCompositeHealthContributorReturnsCompositeHealthContributorReactiveAdapter() {
 		HealthIndicator indicator = () -> Health.outOfService().build();
-		CompositeHealthContributor contributor = CompositeHealthContributor
+		CompositeHealthContributor_RENAMED contributor = CompositeHealthContributor_RENAMED
 				.fromMap(Collections.singletonMap("a", indicator));
 		ReactiveHealthContributor adapted = ReactiveHealthContributor.adapt(contributor);
 		assertThat(adapted).isInstanceOf(CompositeHealthContributorReactiveAdapter.class);

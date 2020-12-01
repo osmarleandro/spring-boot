@@ -40,7 +40,7 @@ class CompositeHealthContributorReactiveAdapterTests {
 	@Test
 	void iteratorWhenDelegateContainsHealthIndicatorAdaptsDelegate() {
 		HealthIndicator indicator = () -> Health.up().withDetail("spring", "boot").build();
-		CompositeHealthContributor delegate = CompositeHealthContributor
+		CompositeHealthContributor_RENAMED delegate = CompositeHealthContributor_RENAMED
 				.fromMap(Collections.singletonMap("test", indicator));
 		CompositeHealthContributorReactiveAdapter adapter = new CompositeHealthContributorReactiveAdapter(delegate);
 		Iterator<NamedContributor<ReactiveHealthContributor>> iterator = adapter.iterator();
@@ -56,9 +56,9 @@ class CompositeHealthContributorReactiveAdapterTests {
 	@Test
 	void iteratorWhenDelegateContainsCompositeHealthContributorAdaptsDelegate() {
 		HealthIndicator indicator = () -> Health.up().withDetail("spring", "boot").build();
-		CompositeHealthContributor composite = CompositeHealthContributor
+		CompositeHealthContributor_RENAMED composite = CompositeHealthContributor_RENAMED
 				.fromMap(Collections.singletonMap("test1", indicator));
-		CompositeHealthContributor delegate = CompositeHealthContributor
+		CompositeHealthContributor_RENAMED delegate = CompositeHealthContributor_RENAMED
 				.fromMap(Collections.singletonMap("test2", composite));
 		CompositeHealthContributorReactiveAdapter adapter = new CompositeHealthContributorReactiveAdapter(delegate);
 		Iterator<NamedContributor<ReactiveHealthContributor>> iterator = adapter.iterator();
@@ -76,7 +76,7 @@ class CompositeHealthContributorReactiveAdapterTests {
 	@Test
 	void getContributorAdaptsDelegate() {
 		HealthIndicator indicator = () -> Health.up().withDetail("spring", "boot").build();
-		CompositeHealthContributor delegate = CompositeHealthContributor
+		CompositeHealthContributor_RENAMED delegate = CompositeHealthContributor_RENAMED
 				.fromMap(Collections.singletonMap("test", indicator));
 		CompositeHealthContributorReactiveAdapter adapter = new CompositeHealthContributorReactiveAdapter(delegate);
 		ReactiveHealthContributor adapted = adapter.getContributor("test");

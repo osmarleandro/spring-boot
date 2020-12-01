@@ -24,7 +24,7 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Tests for {@link CompositeHealthContributor}.
+ * Tests for {@link CompositeHealthContributor_RENAMED}.
  *
  * @author Phillip Webb
  */
@@ -35,7 +35,7 @@ class CompositeHealthContributorTests {
 		Map<String, HealthContributor> map = new LinkedHashMap<>();
 		HealthIndicator indicator = () -> Health.down().build();
 		map.put("test", indicator);
-		CompositeHealthContributor composite = CompositeHealthContributor.fromMap(map);
+		CompositeHealthContributor_RENAMED composite = CompositeHealthContributor_RENAMED.fromMap(map);
 		assertThat(composite).isInstanceOf(CompositeHealthContributorMapAdapter.class);
 		NamedContributor<HealthContributor> namedContributor = composite.iterator().next();
 		assertThat(namedContributor.getName()).isEqualTo("test");
@@ -48,7 +48,7 @@ class CompositeHealthContributorTests {
 		HealthIndicator downIndicator = () -> Health.down().build();
 		HealthIndicator upIndicator = () -> Health.up().build();
 		map.put("test", downIndicator);
-		CompositeHealthContributor composite = CompositeHealthContributor.fromMap(map, (value) -> upIndicator);
+		CompositeHealthContributor_RENAMED composite = CompositeHealthContributor_RENAMED.fromMap(map, (value) -> upIndicator);
 		assertThat(composite).isInstanceOf(CompositeHealthContributorMapAdapter.class);
 		NamedContributor<HealthContributor> namedContributor = composite.iterator().next();
 		assertThat(namedContributor.getName()).isEqualTo("test");
