@@ -48,7 +48,7 @@ import org.springframework.core.annotation.Order;
 		SimpleMetricsExportAutoConfiguration.class, RestTemplateAutoConfiguration.class })
 @ConditionalOnClass(MeterRegistry.class)
 @ConditionalOnBean(MeterRegistry.class)
-@Import({ RestTemplateMetricsConfiguration.class, WebClientMetricsConfiguration.class })
+@Import({ RestTemplateMetricsConfiguration.class, WebClientMetricsConfiguration_RENAMED.class })
 public class HttpClientMetricsAutoConfiguration {
 
 	@Bean

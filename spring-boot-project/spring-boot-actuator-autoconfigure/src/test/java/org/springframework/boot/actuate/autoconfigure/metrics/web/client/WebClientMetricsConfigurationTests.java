@@ -46,7 +46,7 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
 
 /**
- * Tests for {@link WebClientMetricsConfiguration}
+ * Tests for {@link WebClientMetricsConfiguration_RENAMED}
  *
  * @author Brian Clozel
  * @author Stephane Nicoll

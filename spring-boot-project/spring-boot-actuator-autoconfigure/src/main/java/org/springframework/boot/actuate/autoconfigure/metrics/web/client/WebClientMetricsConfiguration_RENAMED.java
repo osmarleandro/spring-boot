@@ -37,7 +37,7 @@ import org.springframework.web.reactive.function.client.WebClient;
  */
 @Configuration(proxyBeanMethods = false)
 @ConditionalOnClass(WebClient.class)
-class WebClientMetricsConfiguration {
+class WebClientMetricsConfiguration_RENAMED {
 
 	@Bean
 	@ConditionalOnMissingBean
