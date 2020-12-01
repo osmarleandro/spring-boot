@@ -34,7 +34,7 @@ import org.springframework.web.util.pattern.PathPatternParser;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Tests for {@link MetricsWebFilter}
+ * Tests for {@link MetricsWebFilter_RENAMED}
  *
  * @author Brian Clozel
  * @author Madhura Bhave
@@ -45,13 +45,13 @@ class MetricsWebFilterTests {
 
 	private SimpleMeterRegistry registry;
 
-	private MetricsWebFilter webFilter;
+	private MetricsWebFilter_RENAMED webFilter;
 
 	@BeforeEach
 	void setup() {
 		MockClock clock = new MockClock();
 		this.registry = new SimpleMeterRegistry(SimpleConfig.DEFAULT, clock);
-		this.webFilter = new MetricsWebFilter(this.registry, new DefaultWebFluxTagsProvider(true), REQUEST_METRICS_NAME,
+		this.webFilter = new MetricsWebFilter_RENAMED(this.registry, new DefaultWebFluxTagsProvider(true), REQUEST_METRICS_NAME,
 				AutoTimer.ENABLED);
 	}
 

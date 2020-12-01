@@ -23,7 +23,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.actuate.autoconfigure.metrics.test.MetricsRun;
 import org.springframework.boot.actuate.autoconfigure.metrics.web.TestController;
 import org.springframework.boot.actuate.metrics.web.reactive.server.DefaultWebFluxTagsProvider;
-import org.springframework.boot.actuate.metrics.web.reactive.server.MetricsWebFilter;
+import org.springframework.boot.actuate.metrics.web.reactive.server.MetricsWebFilter_RENAMED;
 import org.springframework.boot.actuate.metrics.web.reactive.server.WebFluxTagsContributor;
 import org.springframework.boot.actuate.metrics.web.reactive.server.WebFluxTagsProvider;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
@@ -55,7 +55,7 @@ class WebFluxMetricsAutoConfigurationTests {
 	@Test
 	void shouldProvideWebFluxMetricsBeans() {
 		this.contextRunner.run((context) -> {
-			assertThat(context).getBeans(MetricsWebFilter.class).hasSize(1);
+			assertThat(context).getBeans(MetricsWebFilter_RENAMED.class).hasSize(1);
 			assertThat(context).getBeans(DefaultWebFluxTagsProvider.class).hasSize(1);
 			assertThat(context.getBean(DefaultWebFluxTagsProvider.class)).extracting("ignoreTrailingSlash")
 					.isEqualTo(true);
