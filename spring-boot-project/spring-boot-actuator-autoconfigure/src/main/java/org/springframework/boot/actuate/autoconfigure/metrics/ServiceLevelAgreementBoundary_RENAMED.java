@@ -30,11 +30,11 @@ import io.micrometer.core.instrument.Meter;
  * @deprecated as of 2.3.0 in favor of {@link ServiceLevelObjectiveBoundary}
  */
 @Deprecated
-public final class ServiceLevelAgreementBoundary {
+public final class ServiceLevelAgreementBoundary_RENAMED {
 
 	private final MeterValue value;
 
-	ServiceLevelAgreementBoundary(MeterValue value) {
+	ServiceLevelAgreementBoundary_RENAMED(MeterValue value) {
 		this.value = value;
 	}
 
@@ -50,23 +50,23 @@ public final class ServiceLevelAgreementBoundary {
 	}
 
 	/**
-	 * Return a new {@link ServiceLevelAgreementBoundary} instance for the given long
+	 * Return a new {@link ServiceLevelAgreementBoundary_RENAMED} instance for the given long
 	 * value.
 	 * @param value the source value
-	 * @return a {@link ServiceLevelAgreementBoundary} instance
+	 * @return a {@link ServiceLevelAgreementBoundary_RENAMED} instance
 	 */
-	public static ServiceLevelAgreementBoundary valueOf(long value) {
-		return new ServiceLevelAgreementBoundary(MeterValue.valueOf(value));
+	public static ServiceLevelAgreementBoundary_RENAMED valueOf(long value) {
+		return new ServiceLevelAgreementBoundary_RENAMED(MeterValue.valueOf(value));
 	}
 
 	/**
-	 * Return a new {@link ServiceLevelAgreementBoundary} instance for the given String
+	 * Return a new {@link ServiceLevelAgreementBoundary_RENAMED} instance for the given String
 	 * value.
 	 * @param value the source value
-	 * @return a {@link ServiceLevelAgreementBoundary} instance
+	 * @return a {@link ServiceLevelAgreementBoundary_RENAMED} instance
 	 */
-	public static ServiceLevelAgreementBoundary valueOf(String value) {
-		return new ServiceLevelAgreementBoundary(MeterValue.valueOf(value));
+	public static ServiceLevelAgreementBoundary_RENAMED valueOf(String value) {
+		return new ServiceLevelAgreementBoundary_RENAMED(MeterValue.valueOf(value));
 	}
 
 }
