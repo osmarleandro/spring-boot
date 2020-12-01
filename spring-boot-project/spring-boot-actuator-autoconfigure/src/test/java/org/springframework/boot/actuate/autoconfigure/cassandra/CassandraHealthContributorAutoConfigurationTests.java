@@ -45,7 +45,7 @@ class CassandraHealthContributorAutoConfigurationTests {
 	@Test
 	void runWithoutCqlSessionOrCassandraOperationsShouldNotCreateIndicator() {
 		this.contextRunner.run((context) -> assertThat(context).doesNotHaveBean("cassandraHealthContributor")
-				.doesNotHaveBean(org.springframework.boot.actuate.cassandra.CassandraHealthIndicator.class)
+				.doesNotHaveBean(org.springframework.boot.actuate.cassandra.CassandraHealthIndicator_RENAMED.class)
 				.doesNotHaveBean(CassandraDriverHealthIndicator.class));
 	}
 
@@ -53,14 +53,14 @@ class CassandraHealthContributorAutoConfigurationTests {
 	void runWithCqlSessionOnlyShouldCreateDriverIndicator() {
 		this.contextRunner.withBean(CqlSession.class, () -> mock(CqlSession.class))
 				.run((context) -> assertThat(context).hasSingleBean(CassandraDriverHealthIndicator.class)
-						.doesNotHaveBean(org.springframework.boot.actuate.cassandra.CassandraHealthIndicator.class));
+						.doesNotHaveBean(org.springframework.boot.actuate.cassandra.CassandraHealthIndicator_RENAMED.class));
 	}
 
 	@Test
 	void runWithCassandraOperationsOnlyShouldCreateRegularIndicator() {
 		this.contextRunner.withBean(CassandraOperations.class, () -> mock(CassandraOperations.class))
 				.run((context) -> assertThat(context)
-						.hasSingleBean(org.springframework.boot.actuate.cassandra.CassandraHealthIndicator.class)
+						.hasSingleBean(org.springframework.boot.actuate.cassandra.CassandraHealthIndicator_RENAMED.class)
 						.doesNotHaveBean(CassandraDriverHealthIndicator.class));
 	}
 
@@ -69,7 +69,7 @@ class CassandraHealthContributorAutoConfigurationTests {
 		this.contextRunner.withBean(CqlSession.class, () -> mock(CqlSession.class))
 				.withBean(CassandraOperations.class, () -> mock(CassandraOperations.class))
 				.run((context) -> assertThat(context).hasSingleBean(CassandraDriverHealthIndicator.class)
-						.doesNotHaveBean(org.springframework.boot.actuate.cassandra.CassandraHealthIndicator.class));
+						.doesNotHaveBean(org.springframework.boot.actuate.cassandra.CassandraHealthIndicator_RENAMED.class));
 	}
 
 	@Test
@@ -77,7 +77,7 @@ class CassandraHealthContributorAutoConfigurationTests {
 		this.contextRunner.withBean(CqlSession.class, () -> mock(CqlSession.class))
 				.withClassLoader(new FilteredClassLoader("org.springframework.data"))
 				.run((context) -> assertThat(context).hasSingleBean(CassandraDriverHealthIndicator.class)
-						.doesNotHaveBean(org.springframework.boot.actuate.cassandra.CassandraHealthIndicator.class));
+						.doesNotHaveBean(org.springframework.boot.actuate.cassandra.CassandraHealthIndicator_RENAMED.class));
 	}
 
 	@Test
@@ -86,7 +86,7 @@ class CassandraHealthContributorAutoConfigurationTests {
 				.withBean(CassandraOperations.class, () -> mock(CassandraOperations.class))
 				.withPropertyValues("management.health.cassandra.enabled:false")
 				.run((context) -> assertThat(context).doesNotHaveBean("cassandraHealthContributor")
-						.doesNotHaveBean(org.springframework.boot.actuate.cassandra.CassandraHealthIndicator.class)
+						.doesNotHaveBean(org.springframework.boot.actuate.cassandra.CassandraHealthIndicator_RENAMED.class)
 						.doesNotHaveBean(CassandraDriverHealthIndicator.class));
 	}
 

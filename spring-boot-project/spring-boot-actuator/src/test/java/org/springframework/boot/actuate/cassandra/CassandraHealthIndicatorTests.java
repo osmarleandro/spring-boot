@@ -33,7 +33,7 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
 
 /**
- * Tests for {@link CassandraHealthIndicator}.
+ * Tests for {@link CassandraHealthIndicator_RENAMED}.
  *
  * @author Oleksii Bondar
  * @author Stephane Nicoll
@@ -43,14 +43,14 @@ class CassandraHealthIndicatorTests {
 
 	@Test
 	void createWhenCassandraOperationsIsNullShouldThrowException() {
-		assertThatIllegalArgumentException().isThrownBy(() -> new CassandraHealthIndicator(null));
+		assertThatIllegalArgumentException().isThrownBy(() -> new CassandraHealthIndicator_RENAMED(null));
 	}
 
 	@Test
 	void healthWithCassandraUp() {
 		CassandraOperations cassandraOperations = mock(CassandraOperations.class);
 		CqlOperations cqlOperations = mock(CqlOperations.class);
-		CassandraHealthIndicator healthIndicator = new CassandraHealthIndicator(cassandraOperations);
+		CassandraHealthIndicator_RENAMED healthIndicator = new CassandraHealthIndicator_RENAMED(cassandraOperations);
 		given(cassandraOperations.getCqlOperations()).willReturn(cqlOperations);
 		given(cqlOperations.queryForObject(any(SimpleStatement.class), eq(String.class))).willReturn("1.0.0");
 		Health health = healthIndicator.health();
@@ -62,7 +62,7 @@ class CassandraHealthIndicatorTests {
 	void healthWithCassandraDown() {
 		CassandraOperations cassandraOperations = mock(CassandraOperations.class);
 		given(cassandraOperations.getCqlOperations()).willThrow(new CassandraInternalException("Connection failed"));
-		CassandraHealthIndicator healthIndicator = new CassandraHealthIndicator(cassandraOperations);
+		CassandraHealthIndicator_RENAMED healthIndicator = new CassandraHealthIndicator_RENAMED(cassandraOperations);
 		Health health = healthIndicator.health();
 		assertThat(health.getStatus()).isEqualTo(Status.DOWN);
 		assertThat(health.getDetails().get("error"))

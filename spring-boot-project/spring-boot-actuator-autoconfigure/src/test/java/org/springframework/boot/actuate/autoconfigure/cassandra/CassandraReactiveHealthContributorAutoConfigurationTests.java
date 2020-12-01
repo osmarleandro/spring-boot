@@ -67,7 +67,7 @@ class CassandraReactiveHealthContributorAutoConfigurationTests {
 						.hasSingleBean(
 								org.springframework.boot.actuate.cassandra.CassandraReactiveHealthIndicator.class)
 						.doesNotHaveBean(CassandraDriverReactiveHealthIndicator.class)
-						.doesNotHaveBean(org.springframework.boot.actuate.cassandra.CassandraHealthIndicator.class)
+						.doesNotHaveBean(org.springframework.boot.actuate.cassandra.CassandraHealthIndicator_RENAMED.class)
 						.doesNotHaveBean(CassandraDriverHealthIndicator.class));
 	}
 
@@ -80,7 +80,7 @@ class CassandraReactiveHealthContributorAutoConfigurationTests {
 						.hasSingleBean(CassandraDriverReactiveHealthIndicator.class)
 						.doesNotHaveBean(
 								org.springframework.boot.actuate.cassandra.CassandraReactiveHealthIndicator.class)
-						.doesNotHaveBean(org.springframework.boot.actuate.cassandra.CassandraHealthIndicator.class)
+						.doesNotHaveBean(org.springframework.boot.actuate.cassandra.CassandraHealthIndicator_RENAMED.class)
 						.doesNotHaveBean(CassandraDriverHealthIndicator.class));
 	}
 

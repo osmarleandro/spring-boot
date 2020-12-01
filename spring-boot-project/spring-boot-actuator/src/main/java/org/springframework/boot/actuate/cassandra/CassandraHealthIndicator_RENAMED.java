@@ -13,47 +13,53 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.springframework.boot.actuate.cassandra;
 
 import com.datastax.oss.driver.api.core.ConsistencyLevel;
 import com.datastax.oss.driver.api.core.cql.SimpleStatement;
-import reactor.core.publisher.Mono;
 
-import org.springframework.boot.actuate.health.AbstractReactiveHealthIndicator;
+import org.springframework.boot.actuate.health.AbstractHealthIndicator;
 import org.springframework.boot.actuate.health.Health;
-import org.springframework.boot.actuate.health.ReactiveHealthIndicator;
-import org.springframework.data.cassandra.core.ReactiveCassandraOperations;
+import org.springframework.boot.actuate.health.HealthIndicator;
+import org.springframework.data.cassandra.core.CassandraOperations;
 import org.springframework.util.Assert;
 
 /**
- * A {@link ReactiveHealthIndicator} for Cassandra.
+ * Simple implementation of a {@link HealthIndicator} returning status information for
+ * Cassandra data stores.
  *
- * @author Artsiom Yudovin
- * @since 2.1.0
+ * @author Julien Dubois
+ * @author Alexandre Dutra
+ * @since 2.0.0
  * @deprecated since 2.4.0 in favor of {@link CassandraDriverHealthIndicator}
  */
 @Deprecated
-public class CassandraReactiveHealthIndicator extends AbstractReactiveHealthIndicator {
+public class CassandraHealthIndicator_RENAMED extends AbstractHealthIndicator {
 
 	private static final SimpleStatement SELECT = SimpleStatement
 			.newInstance("SELECT release_version FROM system.local").setConsistencyLevel(ConsistencyLevel.LOCAL_ONE);
 
-	private final ReactiveCassandraOperations reactiveCassandraOperations;
+	private CassandraOperations cassandraOperations;
+
+	public CassandraHealthIndicator_RENAMED() {
+		super("Cassandra health check failed");
+	}
 
 	/**
 	 * Create a new {@link CassandraHealthIndicator_RENAMED} instance.
-	 * @param reactiveCassandraOperations the Cassandra operations
+	 * @param cassandraOperations the Cassandra operations
 	 */
-	public CassandraReactiveHealthIndicator(ReactiveCassandraOperations reactiveCassandraOperations) {
+	public CassandraHealthIndicator_RENAMED(CassandraOperations cassandraOperations) {
 		super("Cassandra health check failed");
-		Assert.notNull(reactiveCassandraOperations, "ReactiveCassandraOperations must not be null");
-		this.reactiveCassandraOperations = reactiveCassandraOperations;
+		Assert.notNull(cassandraOperations, "CassandraOperations must not be null");
+		this.cassandraOperations = cassandraOperations;
 	}
 
 	@Override
-	protected Mono<Health> doHealthCheck(Health.Builder builder) {
-		return this.reactiveCassandraOperations.getReactiveCqlOperations().queryForObject(SELECT, String.class)
-				.map((version) -> builder.up().withDetail("version", version).build()).single();
+	protected void doHealthCheck(Health.Builder builder) throws Exception {
+		String version = this.cassandraOperations.getCqlOperations().queryForObject(SELECT, String.class);
+		builder.up().withDetail("version", version);
 	}
 
 }
