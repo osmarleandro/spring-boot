@@ -29,11 +29,11 @@ import io.micrometer.core.instrument.Meter;
  * @author Stephane Nicoll
  * @since 2.3.0
  */
-public final class ServiceLevelObjectiveBoundary {
+public final class ServiceLevelObjectiveBoundary_RENAMED {
 
 	private final MeterValue value;
 
-	ServiceLevelObjectiveBoundary(MeterValue value) {
+	ServiceLevelObjectiveBoundary_RENAMED(MeterValue value) {
 		this.value = value;
 	}
 
@@ -48,23 +48,23 @@ public final class ServiceLevelObjectiveBoundary {
 	}
 
 	/**
-	 * Return a new {@link ServiceLevelObjectiveBoundary} instance for the given double
+	 * Return a new {@link ServiceLevelObjectiveBoundary_RENAMED} instance for the given double
 	 * value.
 	 * @param value the source value
-	 * @return a {@link ServiceLevelObjectiveBoundary} instance
+	 * @return a {@link ServiceLevelObjectiveBoundary_RENAMED} instance
 	 */
-	public static ServiceLevelObjectiveBoundary valueOf(double value) {
-		return new ServiceLevelObjectiveBoundary(MeterValue.valueOf(value));
+	public static ServiceLevelObjectiveBoundary_RENAMED valueOf(double value) {
+		return new ServiceLevelObjectiveBoundary_RENAMED(MeterValue.valueOf(value));
 	}
 
 	/**
-	 * Return a new {@link ServiceLevelObjectiveBoundary} instance for the given String
+	 * Return a new {@link ServiceLevelObjectiveBoundary_RENAMED} instance for the given String
 	 * value.
 	 * @param value the source value
-	 * @return a {@link ServiceLevelObjectiveBoundary} instance
+	 * @return a {@link ServiceLevelObjectiveBoundary_RENAMED} instance
 	 */
-	public static ServiceLevelObjectiveBoundary valueOf(String value) {
-		return new ServiceLevelObjectiveBoundary(MeterValue.valueOf(value));
+	public static ServiceLevelObjectiveBoundary_RENAMED valueOf(String value) {
+		return new ServiceLevelObjectiveBoundary_RENAMED(MeterValue.valueOf(value));
 	}
 
 }

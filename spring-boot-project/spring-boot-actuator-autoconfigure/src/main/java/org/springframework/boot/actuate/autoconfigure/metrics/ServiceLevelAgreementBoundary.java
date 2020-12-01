@@ -27,7 +27,7 @@ import io.micrometer.core.instrument.Meter;
  *
  * @author Phillip Webb
  * @since 2.0.0
- * @deprecated as of 2.3.0 in favor of {@link ServiceLevelObjectiveBoundary}
+ * @deprecated as of 2.3.0 in favor of {@link ServiceLevelObjectiveBoundary_RENAMED}
  */
 @Deprecated
 public final class ServiceLevelAgreementBoundary {

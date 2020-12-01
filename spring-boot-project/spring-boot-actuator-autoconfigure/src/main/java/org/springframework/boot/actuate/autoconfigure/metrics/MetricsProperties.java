@@ -238,7 +238,7 @@ public class MetricsProperties {
 		 * specified boundary. Values can be specified as a long or as a Duration value
 		 * (for timer meters, defaulting to ms if no unit specified).
 		 */
-		private final Map<String, ServiceLevelObjectiveBoundary[]> slo = new LinkedHashMap<>();
+		private final Map<String, ServiceLevelObjectiveBoundary_RENAMED[]> slo = new LinkedHashMap<>();
 
 		/**
 		 * Minimum value that meter IDs starting with the specified name are expected to
@@ -264,11 +264,11 @@ public class MetricsProperties {
 
 		@Deprecated
 		@DeprecatedConfigurationProperty(replacement = "management.metrics.distribution.slo")
-		public Map<String, ServiceLevelObjectiveBoundary[]> getSla() {
+		public Map<String, ServiceLevelObjectiveBoundary_RENAMED[]> getSla() {
 			return this.slo;
 		}
 
-		public Map<String, ServiceLevelObjectiveBoundary[]> getSlo() {
+		public Map<String, ServiceLevelObjectiveBoundary_RENAMED[]> getSlo() {
 			return this.slo;
 		}
 

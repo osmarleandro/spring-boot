@@ -92,7 +92,7 @@ public class PropertiesMeterFilter implements MeterFilter {
 				.build().merge(config);
 	}
 
-	private double[] convertServiceLevelObjectives(Meter.Type meterType, ServiceLevelObjectiveBoundary[] slo) {
+	private double[] convertServiceLevelObjectives(Meter.Type meterType, ServiceLevelObjectiveBoundary_RENAMED[] slo) {
 		if (slo == null) {
 			return null;
 		}
