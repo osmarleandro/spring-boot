@@ -46,7 +46,7 @@ import org.springframework.context.annotation.Configuration;
 @ConditionalOnBean(Cluster.class)
 @ConditionalOnEnabledHealthIndicator("couchbase")
 @AutoConfigureAfter(CouchbaseAutoConfiguration.class)
-public class CouchbaseReactiveHealthContributorAutoConfiguration
+public class CouchbaseReactiveHealthContributorAutoConfiguration_RENAMED
 		extends CompositeReactiveHealthContributorConfiguration<CouchbaseReactiveHealthIndicator, Cluster> {
 
 	@Bean

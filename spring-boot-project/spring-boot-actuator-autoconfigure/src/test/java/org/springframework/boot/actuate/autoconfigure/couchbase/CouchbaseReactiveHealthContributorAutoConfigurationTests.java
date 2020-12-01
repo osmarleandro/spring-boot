@@ -29,7 +29,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 
 /**
- * Tests for {@link CouchbaseReactiveHealthContributorAutoConfiguration}.
+ * Tests for {@link CouchbaseReactiveHealthContributorAutoConfiguration_RENAMED}.
  *
  * @author Mikalai Lushchytski
  */
@@ -37,7 +37,7 @@ class CouchbaseReactiveHealthContributorAutoConfigurationTests {
 
 	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.withBean(Cluster.class, () -> mock(Cluster.class))
-			.withConfiguration(AutoConfigurations.of(CouchbaseReactiveHealthContributorAutoConfiguration.class,
+			.withConfiguration(AutoConfigurations.of(CouchbaseReactiveHealthContributorAutoConfiguration_RENAMED.class,
 					HealthContributorAutoConfiguration.class));
 
 	@Test
