@@ -25,13 +25,13 @@ import org.springframework.security.access.event.AuthenticationCredentialsNotFou
 import org.springframework.security.access.event.AuthorizationFailureEvent;
 
 /**
- * Default implementation of {@link AbstractAuthorizationAuditListener}.
+ * Default implementation of {@link AbstractAuthorizationAuditListener_RENAMED}.
  *
  * @author Dave Syer
  * @author Vedran Pavic
  * @since 1.0.0
  */
-public class AuthorizationAuditListener extends AbstractAuthorizationAuditListener {
+public class AuthorizationAuditListener extends AbstractAuthorizationAuditListener_RENAMED {
 
 	/**
 	 * Authorization failure event type.
