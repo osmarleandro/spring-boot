@@ -41,7 +41,7 @@ import org.springframework.util.StringUtils;
  */
 @Configuration(proxyBeanMethods = false)
 @ConditionalOnBean({ CacheMeterBinderProvider.class, MeterRegistry.class })
-class CacheMetricsRegistrarConfiguration {
+class CacheMetricsRegistrarConfiguration_RENAMED {
 
 	private static final String CACHE_MANAGER_SUFFIX = "cacheManager";
 
@@ -51,7 +51,7 @@ class CacheMetricsRegistrarConfiguration {
 
 	private final Map<String, CacheManager> cacheManagers;
 
-	CacheMetricsRegistrarConfiguration(MeterRegistry registry, Collection<CacheMeterBinderProvider<?>> binderProviders,
+	CacheMetricsRegistrarConfiguration_RENAMED(MeterRegistry registry, Collection<CacheMeterBinderProvider<?>> binderProviders,
 			Map<String, CacheManager> cacheManagers) {
 		this.registry = registry;
 		this.cacheManagers = cacheManagers;
