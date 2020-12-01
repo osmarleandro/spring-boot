@@ -40,7 +40,7 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
 
 /**
- * Tests for {@link ConnectionFactoryHealthIndicator}.
+ * Tests for {@link ConnectionFactoryHealthIndicator_RENAMED}.
  *
  * @author Mark Paluch
  * @author Stephane Nicoll
@@ -51,7 +51,7 @@ class ConnectionFactoryHealthIndicatorTests {
 	void healthIndicatorWhenDatabaseUpWithConnectionValidation() {
 		CloseableConnectionFactory connectionFactory = createTestDatabase();
 		try {
-			ConnectionFactoryHealthIndicator healthIndicator = new ConnectionFactoryHealthIndicator(connectionFactory);
+			ConnectionFactoryHealthIndicator_RENAMED healthIndicator = new ConnectionFactoryHealthIndicator_RENAMED(connectionFactory);
 			healthIndicator.health().as(StepVerifier::create).assertNext((actual) -> {
 				assertThat(actual.getStatus()).isEqualTo(Status.UP);
 				assertThat(actual.getDetails()).containsOnly(entry("database", "H2"),
@@ -69,7 +69,7 @@ class ConnectionFactoryHealthIndicatorTests {
 		given(connectionFactory.getMetadata()).willReturn(() -> "mock");
 		RuntimeException exception = new RuntimeException("test");
 		given(connectionFactory.create()).willReturn(Mono.error(exception));
-		ConnectionFactoryHealthIndicator healthIndicator = new ConnectionFactoryHealthIndicator(connectionFactory);
+		ConnectionFactoryHealthIndicator_RENAMED healthIndicator = new ConnectionFactoryHealthIndicator_RENAMED(connectionFactory);
 		healthIndicator.health().as(StepVerifier::create).assertNext((actual) -> {
 			assertThat(actual.getStatus()).isEqualTo(Status.DOWN);
 			assertThat(actual.getDetails()).containsOnly(entry("database", "mock"),
@@ -85,7 +85,7 @@ class ConnectionFactoryHealthIndicatorTests {
 		given(connection.validate(ValidationDepth.REMOTE)).willReturn(Mono.just(false));
 		given(connection.close()).willReturn(Mono.empty());
 		given(connectionFactory.create()).willAnswer((invocation) -> Mono.just(connection));
-		ConnectionFactoryHealthIndicator healthIndicator = new ConnectionFactoryHealthIndicator(connectionFactory);
+		ConnectionFactoryHealthIndicator_RENAMED healthIndicator = new ConnectionFactoryHealthIndicator_RENAMED(connectionFactory);
 		healthIndicator.health().as(StepVerifier::create).assertNext((actual) -> {
 			assertThat(actual.getStatus()).isEqualTo(Status.DOWN);
 			assertThat(actual.getDetails()).containsOnly(entry("database", "mock"),
@@ -101,7 +101,7 @@ class ConnectionFactoryHealthIndicatorTests {
 			Mono.from(connectionFactory.create()).flatMapMany((it) -> Flux
 					.from(it.createStatement("CREATE TABLE HEALTH_TEST (id INTEGER IDENTITY PRIMARY KEY)").execute())
 					.flatMap(Result::getRowsUpdated).thenMany(it.close())).as(StepVerifier::create).verifyComplete();
-			ReactiveHealthIndicator healthIndicator = new ConnectionFactoryHealthIndicator(connectionFactory,
+			ReactiveHealthIndicator healthIndicator = new ConnectionFactoryHealthIndicator_RENAMED(connectionFactory,
 					customValidationQuery);
 			healthIndicator.health().as(StepVerifier::create).assertNext((actual) -> {
 				assertThat(actual.getStatus()).isEqualTo(Status.UP);
@@ -120,7 +120,7 @@ class ConnectionFactoryHealthIndicatorTests {
 		CloseableConnectionFactory connectionFactory = createTestDatabase();
 		try {
 			String invalidValidationQuery = "SELECT COUNT(*) from DOES_NOT_EXIST";
-			ReactiveHealthIndicator healthIndicator = new ConnectionFactoryHealthIndicator(connectionFactory,
+			ReactiveHealthIndicator healthIndicator = new ConnectionFactoryHealthIndicator_RENAMED(connectionFactory,
 					invalidValidationQuery);
 			healthIndicator.health().as(StepVerifier::create).assertNext((actual) -> {
 				assertThat(actual.getStatus()).isEqualTo(Status.DOWN);
