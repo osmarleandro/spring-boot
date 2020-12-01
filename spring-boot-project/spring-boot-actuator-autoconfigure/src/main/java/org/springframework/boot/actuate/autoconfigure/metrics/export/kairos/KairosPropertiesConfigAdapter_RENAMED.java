@@ -25,10 +25,10 @@ import org.springframework.boot.actuate.autoconfigure.metrics.export.properties.
  *
  * @author Stephane Nicoll
  */
-class KairosPropertiesConfigAdapter extends StepRegistryPropertiesConfigAdapter<KairosProperties>
+class KairosPropertiesConfigAdapter_RENAMED extends StepRegistryPropertiesConfigAdapter<KairosProperties>
 		implements KairosConfig {
 
-	KairosPropertiesConfigAdapter(KairosProperties properties) {
+	KairosPropertiesConfigAdapter_RENAMED(KairosProperties properties) {
 		super(properties);
 	}
 

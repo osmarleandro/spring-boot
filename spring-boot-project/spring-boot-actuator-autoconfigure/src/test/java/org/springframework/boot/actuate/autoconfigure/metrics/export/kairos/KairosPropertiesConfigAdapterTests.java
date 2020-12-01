@@ -23,12 +23,12 @@ import org.springframework.boot.actuate.autoconfigure.metrics.export.properties.
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Tests for {@link KairosPropertiesConfigAdapter}.
+ * Tests for {@link KairosPropertiesConfigAdapter_RENAMED}.
  *
  * @author Stephane Nicoll
  */
 class KairosPropertiesConfigAdapterTests
-		extends StepRegistryPropertiesConfigAdapterTests<KairosProperties, KairosPropertiesConfigAdapter> {
+		extends StepRegistryPropertiesConfigAdapterTests<KairosProperties, KairosPropertiesConfigAdapter_RENAMED> {
 
 	@Override
 	protected KairosProperties createProperties() {
@@ -36,8 +36,8 @@ class KairosPropertiesConfigAdapterTests
 	}
 
 	@Override
-	protected KairosPropertiesConfigAdapter createConfigAdapter(KairosProperties properties) {
-		return new KairosPropertiesConfigAdapter(properties);
+	protected KairosPropertiesConfigAdapter_RENAMED createConfigAdapter(KairosProperties properties) {
+		return new KairosPropertiesConfigAdapter_RENAMED(properties);
 	}
 
 	@Test
