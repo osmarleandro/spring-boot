@@ -47,7 +47,7 @@ import org.springframework.web.server.adapter.WebHttpHandlerBuilder;
 @EnableWebFlux
 @ManagementContextConfiguration(value = ManagementContextType.CHILD, proxyBeanMethods = false)
 @ConditionalOnWebApplication(type = Type.REACTIVE)
-public class ReactiveManagementChildContextConfiguration {
+public class ReactiveManagementChildContextConfiguration_RENAMED {
 
 	@Bean
 	public ReactiveManagementWebServerFactoryCustomizer reactiveManagementWebServerFactoryCustomizer(
