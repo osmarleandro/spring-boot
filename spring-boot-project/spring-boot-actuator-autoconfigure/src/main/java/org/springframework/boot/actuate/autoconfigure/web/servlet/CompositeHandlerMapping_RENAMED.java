@@ -34,7 +34,7 @@ import org.springframework.web.servlet.HandlerMapping;
  * @author Stephane Nicoll
  * @author Phillip Webb
  */
-class CompositeHandlerMapping implements HandlerMapping {
+class CompositeHandlerMapping_RENAMED implements HandlerMapping {
 
 	@Autowired
 	private ListableBeanFactory beanFactory;

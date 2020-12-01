@@ -88,8 +88,8 @@ class WebMvcEndpointChildContextConfiguration {
 	}
 
 	@Bean(name = DispatcherServlet.HANDLER_MAPPING_BEAN_NAME)
-	CompositeHandlerMapping compositeHandlerMapping() {
-		return new CompositeHandlerMapping();
+	CompositeHandlerMapping_RENAMED compositeHandlerMapping() {
+		return new CompositeHandlerMapping_RENAMED();
 	}
 
 	@Bean(name = DispatcherServlet.HANDLER_ADAPTER_BEAN_NAME)
