@@ -33,7 +33,7 @@ import org.springframework.boot.actuate.endpoint.web.ExposableWebEndpoint;
 import org.springframework.boot.actuate.endpoint.web.PathMappedEndpoint;
 import org.springframework.boot.actuate.endpoint.web.PathMapper;
 import org.springframework.boot.actuate.endpoint.web.annotation.ControllerEndpointDiscoverer;
-import org.springframework.boot.actuate.endpoint.web.annotation.ServletEndpointDiscoverer;
+import org.springframework.boot.actuate.endpoint.web.annotation.ServletEndpointDiscoverer_RENAMED;
 import org.springframework.boot.actuate.endpoint.web.annotation.WebEndpointDiscoverer;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
 import org.springframework.boot.test.context.runner.ApplicationContextRunner;
@@ -110,13 +110,13 @@ class WebEndpointAutoConfigurationTests {
 
 	@Test
 	void contextShouldConfigureServletEndpointDiscoverer() {
-		this.contextRunner.run((context) -> assertThat(context).hasSingleBean(ServletEndpointDiscoverer.class));
+		this.contextRunner.run((context) -> assertThat(context).hasSingleBean(ServletEndpointDiscoverer_RENAMED.class));
 	}
 
 	@Test
 	void contextWhenNotServletShouldNotConfigureServletEndpointDiscoverer() {
 		new ApplicationContextRunner().withConfiguration(CONFIGURATIONS)
-				.run((context) -> assertThat(context).doesNotHaveBean(ServletEndpointDiscoverer.class));
+				.run((context) -> assertThat(context).doesNotHaveBean(ServletEndpointDiscoverer_RENAMED.class));
 	}
 
 	@Component
