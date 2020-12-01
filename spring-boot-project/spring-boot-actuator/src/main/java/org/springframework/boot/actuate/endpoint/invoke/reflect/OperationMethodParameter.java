@@ -18,16 +18,16 @@ package org.springframework.boot.actuate.endpoint.invoke.reflect;
 
 import java.lang.reflect.Parameter;
 
-import org.springframework.boot.actuate.endpoint.invoke.OperationParameter;
+import org.springframework.boot.actuate.endpoint.invoke.OperationParameter_RENAMED;
 import org.springframework.lang.Nullable;
 import org.springframework.util.ObjectUtils;
 
 /**
- * {@link OperationParameter} created from an {@link OperationMethod}.
+ * {@link OperationParameter_RENAMED} created from an {@link OperationMethod}.
  *
  * @author Phillip Webb
  */
-class OperationMethodParameter implements OperationParameter {
+class OperationMethodParameter implements OperationParameter_RENAMED {
 
 	private final String name;
 

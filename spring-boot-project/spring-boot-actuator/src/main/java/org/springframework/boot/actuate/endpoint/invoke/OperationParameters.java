@@ -19,12 +19,12 @@ package org.springframework.boot.actuate.endpoint.invoke;
 import java.util.stream.Stream;
 
 /**
- * A collection of {@link OperationParameter operation parameters}.
+ * A collection of {@link OperationParameter_RENAMED operation parameters}.
  *
  * @author Phillip Webb
  * @since 2.0.0
  */
-public interface OperationParameters extends Iterable<OperationParameter> {
+public interface OperationParameters extends Iterable<OperationParameter_RENAMED> {
 
 	/**
 	 * Return {@code true} if there is at least one parameter.
@@ -42,11 +42,11 @@ public interface OperationParameters extends Iterable<OperationParameter> {
 
 	/**
 	 * Return if any of the contained parameters are
-	 * {@link OperationParameter#isMandatory() mandatory}.
+	 * {@link OperationParameter_RENAMED#isMandatory() mandatory}.
 	 * @return if any parameters are mandatory
 	 */
 	default boolean hasMandatoryParameter() {
-		return stream().anyMatch(OperationParameter::isMandatory);
+		return stream().anyMatch(OperationParameter_RENAMED::isMandatory);
 	}
 
 	/**
@@ -54,12 +54,12 @@ public interface OperationParameters extends Iterable<OperationParameter> {
 	 * @param index the parameter index
 	 * @return the parameter
 	 */
-	OperationParameter get(int index);
+	OperationParameter_RENAMED get(int index);
 
 	/**
 	 * Return a stream of the contained parameters.
 	 * @return a stream of the parameters
 	 */
-	Stream<OperationParameter> stream();
+	Stream<OperationParameter_RENAMED> stream();
 
 }

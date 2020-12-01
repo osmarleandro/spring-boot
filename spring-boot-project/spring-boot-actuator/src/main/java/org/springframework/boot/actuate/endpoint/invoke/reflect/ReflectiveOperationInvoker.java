@@ -26,7 +26,7 @@ import org.springframework.boot.actuate.endpoint.SecurityContext;
 import org.springframework.boot.actuate.endpoint.http.ApiVersion;
 import org.springframework.boot.actuate.endpoint.invoke.MissingParametersException;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvoker;
-import org.springframework.boot.actuate.endpoint.invoke.OperationParameter;
+import org.springframework.boot.actuate.endpoint.invoke.OperationParameter_RENAMED;
 import org.springframework.boot.actuate.endpoint.invoke.ParameterValueMapper;
 import org.springframework.core.style.ToStringCreator;
 import org.springframework.util.Assert;
@@ -78,14 +78,14 @@ public class ReflectiveOperationInvoker implements OperationInvoker {
 	}
 
 	private void validateRequiredParameters(InvocationContext context) {
-		Set<OperationParameter> missing = this.operationMethod.getParameters().stream()
+		Set<OperationParameter_RENAMED> missing = this.operationMethod.getParameters().stream()
 				.filter((parameter) -> isMissing(context, parameter)).collect(Collectors.toSet());
 		if (!missing.isEmpty()) {
 			throw new MissingParametersException(missing);
 		}
 	}
 
-	private boolean isMissing(InvocationContext context, OperationParameter parameter) {
+	private boolean isMissing(InvocationContext context, OperationParameter_RENAMED parameter) {
 		if (!parameter.isMandatory()) {
 			return false;
 		}
@@ -106,7 +106,7 @@ public class ReflectiveOperationInvoker implements OperationInvoker {
 				.toArray();
 	}
 
-	private Object resolveArgument(OperationParameter parameter, InvocationContext context) {
+	private Object resolveArgument(OperationParameter_RENAMED parameter, InvocationContext context) {
 		if (ApiVersion.class.equals(parameter.getType())) {
 			return context.getApiVersion();
 		}

@@ -22,7 +22,7 @@ import java.util.Set;
 import org.junit.jupiter.api.Test;
 
 import org.springframework.boot.actuate.endpoint.annotation.EndpointConverter;
-import org.springframework.boot.actuate.endpoint.invoke.OperationParameter;
+import org.springframework.boot.actuate.endpoint.invoke.OperationParameter_RENAMED;
 import org.springframework.boot.actuate.endpoint.invoke.ParameterMappingException;
 import org.springframework.boot.actuate.endpoint.invoke.ParameterValueMapper;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
@@ -177,7 +177,7 @@ class EndpointAutoConfigurationTests {
 
 	}
 
-	private static class TestOperationParameter implements OperationParameter {
+	private static class TestOperationParameter implements OperationParameter_RENAMED {
 
 		private final Class<?> type;
 

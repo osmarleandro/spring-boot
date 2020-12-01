@@ -20,7 +20,7 @@ import java.time.OffsetDateTime;
 
 import org.junit.jupiter.api.Test;
 
-import org.springframework.boot.actuate.endpoint.invoke.OperationParameter;
+import org.springframework.boot.actuate.endpoint.invoke.OperationParameter_RENAMED;
 import org.springframework.boot.actuate.endpoint.invoke.ParameterMappingException;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.core.convert.support.DefaultConversionService;
@@ -81,7 +81,7 @@ class ConversionServiceParameterValueMapperTests {
 				.mapParameterValue(new TestOperationParameter(OffsetDateTime.class), "2011-12-03T10:15:30+01:00"));
 	}
 
-	static class TestOperationParameter implements OperationParameter {
+	static class TestOperationParameter implements OperationParameter_RENAMED {
 
 		private final Class<?> type;
 

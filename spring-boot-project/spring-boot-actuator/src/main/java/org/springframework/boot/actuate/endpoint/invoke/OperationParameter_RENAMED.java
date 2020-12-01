@@ -17,26 +17,29 @@
 package org.springframework.boot.actuate.endpoint.invoke;
 
 /**
- * Maps parameter values to the required type when invoking an endpoint.
+ * A single operation parameter.
  *
- * @author Stephane Nicoll
+ * @author Phillip Webb
  * @since 2.0.0
  */
-@FunctionalInterface
-public interface ParameterValueMapper {
+public interface OperationParameter_RENAMED {
 
 	/**
-	 * A {@link ParameterValueMapper} that does nothing.
+	 * Returns the parameter name.
+	 * @return the name
 	 */
-	ParameterValueMapper NONE = (parameter, value) -> value;
+	String getName();
 
 	/**
-	 * Map the specified {@code input} parameter to the given {@code parameterType}.
-	 * @param parameter the parameter to map
-	 * @param value a parameter value
-	 * @return a value suitable for that parameter
-	 * @throws ParameterMappingException when a mapping failure occurs
+	 * Returns the parameter type.
+	 * @return the type
 	 */
-	Object mapParameterValue(OperationParameter_RENAMED parameter, Object value) throws ParameterMappingException;
+	Class<?> getType();
+
+	/**
+	 * Return if the parameter is mandatory (does not accept null values).
+	 * @return if the parameter is mandatory
+	 */
+	boolean isMandatory();
 
 }

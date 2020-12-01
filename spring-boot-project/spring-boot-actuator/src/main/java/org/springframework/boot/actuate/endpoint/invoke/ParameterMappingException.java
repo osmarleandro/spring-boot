@@ -27,7 +27,7 @@ import org.springframework.boot.actuate.endpoint.InvalidEndpointRequestException
  */
 public final class ParameterMappingException extends InvalidEndpointRequestException {
 
-	private final OperationParameter parameter;
+	private final OperationParameter_RENAMED parameter;
 
 	private final Object value;
 
@@ -38,7 +38,7 @@ public final class ParameterMappingException extends InvalidEndpointRequestExcep
 	 * @param value the value being mapped
 	 * @param cause the cause of the mapping failure
 	 */
-	public ParameterMappingException(OperationParameter parameter, Object value, Throwable cause) {
+	public ParameterMappingException(OperationParameter_RENAMED parameter, Object value, Throwable cause) {
 		super("Failed to map " + value + " of type " + value.getClass() + " to " + parameter,
 				"Parameter mapping failure", cause);
 		this.parameter = parameter;
@@ -49,7 +49,7 @@ public final class ParameterMappingException extends InvalidEndpointRequestExcep
 	 * Return the parameter being mapped.
 	 * @return the parameter
 	 */
-	public OperationParameter getParameter() {
+	public OperationParameter_RENAMED getParameter() {
 		return this.parameter;
 	}
 

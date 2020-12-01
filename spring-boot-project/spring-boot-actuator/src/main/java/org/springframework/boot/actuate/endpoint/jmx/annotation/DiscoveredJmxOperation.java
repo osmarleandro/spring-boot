@@ -30,7 +30,7 @@ import org.springframework.boot.actuate.endpoint.EndpointId;
 import org.springframework.boot.actuate.endpoint.annotation.AbstractDiscoveredOperation;
 import org.springframework.boot.actuate.endpoint.annotation.DiscoveredOperationMethod;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvoker;
-import org.springframework.boot.actuate.endpoint.invoke.OperationParameter;
+import org.springframework.boot.actuate.endpoint.invoke.OperationParameter_RENAMED;
 import org.springframework.boot.actuate.endpoint.invoke.OperationParameters;
 import org.springframework.boot.actuate.endpoint.invoke.reflect.OperationMethod;
 import org.springframework.boot.actuate.endpoint.jmx.JmxOperation;
@@ -139,14 +139,14 @@ class DiscoveredJmxOperation extends AbstractDiscoveredOperation implements JmxO
 
 		private final String description;
 
-		DiscoveredJmxOperationParameter(OperationParameter operationParameter) {
+		DiscoveredJmxOperationParameter(OperationParameter_RENAMED operationParameter) {
 			this.name = operationParameter.getName();
 			this.type = JmxType.get(operationParameter.getType());
 			this.description = null;
 		}
 
 		DiscoveredJmxOperationParameter(ManagedOperationParameter managedParameter,
-				OperationParameter operationParameter) {
+				OperationParameter_RENAMED operationParameter) {
 			this.name = managedParameter.getName();
 			this.type = JmxType.get(operationParameter.getType());
 			this.description = managedParameter.getDescription();

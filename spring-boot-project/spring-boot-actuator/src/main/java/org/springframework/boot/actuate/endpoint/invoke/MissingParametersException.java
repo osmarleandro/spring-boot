@@ -32,13 +32,13 @@ import org.springframework.util.StringUtils;
  */
 public final class MissingParametersException extends InvalidEndpointRequestException {
 
-	private final Set<OperationParameter> missingParameters;
+	private final Set<OperationParameter_RENAMED> missingParameters;
 
-	public MissingParametersException(Set<OperationParameter> missingParameters) {
+	public MissingParametersException(Set<OperationParameter_RENAMED> missingParameters) {
 		super("Failed to invoke operation because the following required parameters were missing: "
 				+ StringUtils.collectionToCommaDelimitedString(missingParameters),
 				"Missing parameters: "
-						+ missingParameters.stream().map(OperationParameter::getName).collect(Collectors.joining(",")));
+						+ missingParameters.stream().map(OperationParameter_RENAMED::getName).collect(Collectors.joining(",")));
 		this.missingParameters = missingParameters;
 	}
 
@@ -46,7 +46,7 @@ public final class MissingParametersException extends InvalidEndpointRequestExce
 	 * Returns the parameters that were missing.
 	 * @return the parameters
 	 */
-	public Set<OperationParameter> getMissingParameters() {
+	public Set<OperationParameter_RENAMED> getMissingParameters() {
 		return this.missingParameters;
 	}
 

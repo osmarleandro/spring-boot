@@ -27,7 +27,7 @@ import java.util.stream.StreamSupport;
 
 import org.junit.jupiter.api.Test;
 
-import org.springframework.boot.actuate.endpoint.invoke.OperationParameter;
+import org.springframework.boot.actuate.endpoint.invoke.OperationParameter_RENAMED;
 import org.springframework.core.DefaultParameterNameDiscoverer;
 import org.springframework.core.ParameterNameDiscoverer;
 import org.springframework.util.ReflectionUtils;
@@ -94,7 +94,7 @@ class OperationMethodParametersTests {
 	void iteratorShouldIterateOperationParameters() {
 		OperationMethodParameters parameters = new OperationMethodParameters(this.exampleMethod,
 				new DefaultParameterNameDiscoverer());
-		Iterator<OperationParameter> iterator = parameters.iterator();
+		Iterator<OperationParameter_RENAMED> iterator = parameters.iterator();
 		assertParameters(
 				StreamSupport.stream(Spliterators.spliteratorUnknownSize(iterator, Spliterator.ORDERED), false));
 	}
@@ -106,10 +106,10 @@ class OperationMethodParametersTests {
 		assertParameters(parameters.stream());
 	}
 
-	private void assertParameters(Stream<OperationParameter> stream) {
-		List<OperationParameter> parameters = stream.collect(Collectors.toList());
+	private void assertParameters(Stream<OperationParameter_RENAMED> stream) {
+		List<OperationParameter_RENAMED> parameters = stream.collect(Collectors.toList());
 		assertThat(parameters).hasSize(1);
-		OperationParameter parameter = parameters.get(0);
+		OperationParameter_RENAMED parameter = parameters.get(0);
 		assertThat(parameter.getName()).isEqualTo("name");
 		assertThat(parameter.getType()).isEqualTo(String.class);
 	}
