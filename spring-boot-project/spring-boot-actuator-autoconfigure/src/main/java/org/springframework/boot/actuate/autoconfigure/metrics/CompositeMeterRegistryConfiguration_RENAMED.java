@@ -22,7 +22,7 @@ import io.micrometer.core.instrument.Clock;
 import io.micrometer.core.instrument.MeterRegistry;
 import io.micrometer.core.instrument.composite.CompositeMeterRegistry;
 
-import org.springframework.boot.actuate.autoconfigure.metrics.CompositeMeterRegistryConfiguration.MultipleNonPrimaryMeterRegistriesCondition;
+import org.springframework.boot.actuate.autoconfigure.metrics.CompositeMeterRegistryConfiguration_RENAMED.MultipleNonPrimaryMeterRegistriesCondition;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnSingleCandidate;
 import org.springframework.boot.autoconfigure.condition.NoneNestedConditions;
@@ -38,7 +38,7 @@ import org.springframework.context.annotation.Primary;
  */
 @Configuration(proxyBeanMethods = false)
 @Conditional(MultipleNonPrimaryMeterRegistriesCondition.class)
-class CompositeMeterRegistryConfiguration {
+class CompositeMeterRegistryConfiguration_RENAMED {
 
 	@Bean
 	@Primary
