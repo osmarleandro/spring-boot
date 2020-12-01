@@ -40,7 +40,7 @@ import org.springframework.boot.actuate.endpoint.annotation.WriteOperation;
 import org.springframework.boot.actuate.endpoint.invoke.convert.ConversionServiceParameterValueMapper;
 import org.springframework.boot.actuate.endpoint.invoker.cache.CachingOperationInvoker;
 import org.springframework.boot.actuate.endpoint.invoker.cache.CachingOperationInvokerAdvisor;
-import org.springframework.boot.actuate.endpoint.jmx.annotation.JmxEndpoint;
+import org.springframework.boot.actuate.endpoint.jmx.annotation.JmxEndpoint_RENAMED;
 import org.springframework.boot.actuate.endpoint.web.EndpointMediaTypes;
 import org.springframework.boot.actuate.endpoint.web.ExposableWebEndpoint;
 import org.springframework.boot.actuate.endpoint.web.PathMapper;
@@ -540,7 +540,7 @@ class WebEndpointDiscovererTests {
 
 	}
 
-	@JmxEndpoint(id = "nonweb")
+	@JmxEndpoint_RENAMED(id = "nonweb")
 	static class NonWebEndpoint {
 
 		@ReadOperation
