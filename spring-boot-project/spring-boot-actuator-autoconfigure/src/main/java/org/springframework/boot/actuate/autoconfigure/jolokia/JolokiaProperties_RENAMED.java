@@ -30,7 +30,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  * @since 2.0.0
  */
 @ConfigurationProperties(prefix = "management.endpoint.jolokia")
-public class JolokiaProperties {
+public class JolokiaProperties_RENAMED {
 
 	/**
 	 * Jolokia settings. Refer to the documentation of Jolokia for more details.
