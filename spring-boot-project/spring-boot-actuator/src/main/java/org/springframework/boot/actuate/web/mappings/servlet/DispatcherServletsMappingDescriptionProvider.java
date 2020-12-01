@@ -67,15 +67,15 @@ public class DispatcherServletsMappingDescriptionProvider implements MappingDesc
 	}
 
 	@Override
-	public Map<String, List<DispatcherServletMappingDescription>> describeMappings(ApplicationContext context) {
+	public Map<String, List<DispatcherServletMappingDescription_RENAMED>> describeMappings(ApplicationContext context) {
 		if (context instanceof WebApplicationContext) {
 			return describeMappings((WebApplicationContext) context);
 		}
 		return Collections.emptyMap();
 	}
 
-	private Map<String, List<DispatcherServletMappingDescription>> describeMappings(WebApplicationContext context) {
-		Map<String, List<DispatcherServletMappingDescription>> mappings = new HashMap<>();
+	private Map<String, List<DispatcherServletMappingDescription_RENAMED>> describeMappings(WebApplicationContext context) {
+		Map<String, List<DispatcherServletMappingDescription_RENAMED>> mappings = new HashMap<>();
 		determineDispatcherServlets(context).forEach((name, dispatcherServlet) -> mappings.put(name,
 				describeMappings(new DispatcherServletHandlerMappings(name, dispatcherServlet, context))));
 		return mappings;
@@ -97,16 +97,16 @@ public class DispatcherServletsMappingDescriptionProvider implements MappingDesc
 		return dispatcherServlets;
 	}
 
-	private List<DispatcherServletMappingDescription> describeMappings(DispatcherServletHandlerMappings mappings) {
+	private List<DispatcherServletMappingDescription_RENAMED> describeMappings(DispatcherServletHandlerMappings mappings) {
 		return mappings.getHandlerMappings().stream().flatMap(this::describe).collect(Collectors.toList());
 	}
 
-	private <T> Stream<DispatcherServletMappingDescription> describe(T handlerMapping) {
+	private <T> Stream<DispatcherServletMappingDescription_RENAMED> describe(T handlerMapping) {
 		return describe(handlerMapping, descriptionProviders).stream();
 	}
 
 	@SuppressWarnings("unchecked")
-	private static <T> List<DispatcherServletMappingDescription> describe(T handlerMapping,
+	private static <T> List<DispatcherServletMappingDescription_RENAMED> describe(T handlerMapping,
 			List<HandlerMappingDescriptionProvider<?>> descriptionProviders) {
 		for (HandlerMappingDescriptionProvider<?> descriptionProvider : descriptionProviders) {
 			if (descriptionProvider.getMappingClass().isInstance(handlerMapping)) {
@@ -120,7 +120,7 @@ public class DispatcherServletsMappingDescriptionProvider implements MappingDesc
 
 		Class<T> getMappingClass();
 
-		List<DispatcherServletMappingDescription> describe(T handlerMapping);
+		List<DispatcherServletMappingDescription_RENAMED> describe(T handlerMapping);
 
 	}
 
@@ -133,16 +133,16 @@ public class DispatcherServletsMappingDescriptionProvider implements MappingDesc
 		}
 
 		@Override
-		public List<DispatcherServletMappingDescription> describe(RequestMappingInfoHandlerMapping handlerMapping) {
+		public List<DispatcherServletMappingDescription_RENAMED> describe(RequestMappingInfoHandlerMapping handlerMapping) {
 			Map<RequestMappingInfo, HandlerMethod> handlerMethods = handlerMapping.getHandlerMethods();
 			return handlerMethods.entrySet().stream().map(this::describe).collect(Collectors.toList());
 		}
 
-		private DispatcherServletMappingDescription describe(Entry<RequestMappingInfo, HandlerMethod> mapping) {
+		private DispatcherServletMappingDescription_RENAMED describe(Entry<RequestMappingInfo, HandlerMethod> mapping) {
 			DispatcherServletMappingDetails mappingDetails = new DispatcherServletMappingDetails();
 			mappingDetails.setHandlerMethod(new HandlerMethodDescription(mapping.getValue()));
 			mappingDetails.setRequestMappingConditions(new RequestMappingConditionsDescription(mapping.getKey()));
-			return new DispatcherServletMappingDescription(mapping.getKey().toString(), mapping.getValue().toString(),
+			return new DispatcherServletMappingDescription_RENAMED(mapping.getKey().toString(), mapping.getValue().toString(),
 					mappingDetails);
 		}
 
@@ -157,12 +157,12 @@ public class DispatcherServletsMappingDescriptionProvider implements MappingDesc
 		}
 
 		@Override
-		public List<DispatcherServletMappingDescription> describe(AbstractUrlHandlerMapping handlerMapping) {
+		public List<DispatcherServletMappingDescription_RENAMED> describe(AbstractUrlHandlerMapping handlerMapping) {
 			return handlerMapping.getHandlerMap().entrySet().stream().map(this::describe).collect(Collectors.toList());
 		}
 
-		private DispatcherServletMappingDescription describe(Entry<String, Object> mapping) {
-			return new DispatcherServletMappingDescription(mapping.getKey(), mapping.getValue().toString(), null);
+		private DispatcherServletMappingDescription_RENAMED describe(Entry<String, Object> mapping) {
+			return new DispatcherServletMappingDescription_RENAMED(mapping.getKey(), mapping.getValue().toString(), null);
 		}
 
 	}
@@ -184,8 +184,8 @@ public class DispatcherServletsMappingDescriptionProvider implements MappingDesc
 		}
 
 		@Override
-		public List<DispatcherServletMappingDescription> describe(Iterable handlerMapping) {
-			List<DispatcherServletMappingDescription> descriptions = new ArrayList<>();
+		public List<DispatcherServletMappingDescription_RENAMED> describe(Iterable handlerMapping) {
+			List<DispatcherServletMappingDescription_RENAMED> descriptions = new ArrayList<>();
 			for (Object delegate : handlerMapping) {
 				descriptions.addAll(
 						DispatcherServletsMappingDescriptionProvider.describe(delegate, this.descriptionProviders));

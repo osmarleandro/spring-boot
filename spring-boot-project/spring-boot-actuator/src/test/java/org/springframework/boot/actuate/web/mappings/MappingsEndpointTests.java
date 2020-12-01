@@ -33,7 +33,7 @@ import org.springframework.boot.actuate.web.mappings.MappingsEndpoint.Applicatio
 import org.springframework.boot.actuate.web.mappings.MappingsEndpoint.ContextMappings;
 import org.springframework.boot.actuate.web.mappings.reactive.DispatcherHandlerMappingDescription;
 import org.springframework.boot.actuate.web.mappings.reactive.DispatcherHandlersMappingDescriptionProvider;
-import org.springframework.boot.actuate.web.mappings.servlet.DispatcherServletMappingDescription;
+import org.springframework.boot.actuate.web.mappings.servlet.DispatcherServletMappingDescription_RENAMED;
 import org.springframework.boot.actuate.web.mappings.servlet.DispatcherServletsMappingDescriptionProvider;
 import org.springframework.boot.actuate.web.mappings.servlet.FilterRegistrationMappingDescription;
 import org.springframework.boot.actuate.web.mappings.servlet.FiltersMappingDescriptionProvider;
@@ -81,10 +81,10 @@ class MappingsEndpointTests {
 					assertThat(contextMappings.getParentId()).isNull();
 					assertThat(contextMappings.getMappings()).containsOnlyKeys("dispatcherServlets", "servletFilters",
 							"servlets");
-					Map<String, List<DispatcherServletMappingDescription>> dispatcherServlets = mappings(
+					Map<String, List<DispatcherServletMappingDescription_RENAMED>> dispatcherServlets = mappings(
 							contextMappings, "dispatcherServlets");
 					assertThat(dispatcherServlets).containsOnlyKeys("dispatcherServlet");
-					List<DispatcherServletMappingDescription> handlerMappings = dispatcherServlets
+					List<DispatcherServletMappingDescription_RENAMED> handlerMappings = dispatcherServlets
 							.get("dispatcherServlet");
 					assertThat(handlerMappings).hasSize(1);
 					List<ServletRegistrationMappingDescription> servlets = mappings(contextMappings, "servlets");
@@ -100,7 +100,7 @@ class MappingsEndpointTests {
 		new WebApplicationContextRunner(contextSupplier).withUserConfiguration(EndpointConfiguration.class,
 				ServletWebConfiguration.class, CustomDispatcherServletConfiguration.class).run((context) -> {
 					ContextMappings contextMappings = contextMappings(context);
-					Map<String, List<DispatcherServletMappingDescription>> dispatcherServlets = mappings(
+					Map<String, List<DispatcherServletMappingDescription_RENAMED>> dispatcherServlets = mappings(
 							contextMappings, "dispatcherServlets");
 					assertThat(dispatcherServlets).containsOnlyKeys("dispatcherServlet",
 							"customDispatcherServletRegistration", "anotherDispatcherServletRegistration");
