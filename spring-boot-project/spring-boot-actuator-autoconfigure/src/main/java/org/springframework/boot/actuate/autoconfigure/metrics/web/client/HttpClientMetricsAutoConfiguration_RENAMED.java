@@ -49,7 +49,7 @@ import org.springframework.core.annotation.Order;
 @ConditionalOnClass(MeterRegistry.class)
 @ConditionalOnBean(MeterRegistry.class)
 @Import({ RestTemplateMetricsConfiguration.class, WebClientMetricsConfiguration.class })
-public class HttpClientMetricsAutoConfiguration {
+public class HttpClientMetricsAutoConfiguration_RENAMED {
 
 	@Bean
 	@Order(0)

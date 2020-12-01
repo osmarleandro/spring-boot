@@ -56,7 +56,7 @@ class WebClientMetricsConfigurationTests {
 
 	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner().with(MetricsRun.simple())
 			.withConfiguration(
-					AutoConfigurations.of(WebClientAutoConfiguration.class, HttpClientMetricsAutoConfiguration.class));
+					AutoConfigurations.of(WebClientAutoConfiguration.class, HttpClientMetricsAutoConfiguration_RENAMED.class));
 
 	@Test
 	void webClientCreatedWithBuilderIsInstrumented() {

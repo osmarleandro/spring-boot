@@ -52,7 +52,7 @@ class RestTemplateMetricsConfigurationTests {
 
 	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner().with(MetricsRun.simple())
 			.withConfiguration(AutoConfigurations.of(RestTemplateAutoConfiguration.class,
-					HttpClientMetricsAutoConfiguration.class));
+					HttpClientMetricsAutoConfiguration_RENAMED.class));
 
 	@Test
 	void restTemplateCreatedWithBuilderIsInstrumented() {
@@ -111,7 +111,7 @@ class RestTemplateMetricsConfigurationTests {
 	@Test
 	void backsOffWhenRestTemplateBuilderIsMissing() {
 		new ApplicationContextRunner().with(MetricsRun.simple())
-				.withConfiguration(AutoConfigurations.of(HttpClientMetricsAutoConfiguration.class))
+				.withConfiguration(AutoConfigurations.of(HttpClientMetricsAutoConfiguration_RENAMED.class))
 				.run((context) -> assertThat(context).doesNotHaveBean(DefaultRestTemplateExchangeTagsProvider.class)
 						.doesNotHaveBean(MetricsRestTemplateCustomizer.class));
 	}
