@@ -41,7 +41,7 @@ import org.springframework.web.client.RestTemplate;
 @Configuration(proxyBeanMethods = false)
 @ConditionalOnClass(RestTemplate.class)
 @ConditionalOnBean(RestTemplateBuilder.class)
-class RestTemplateMetricsConfiguration {
+class RestTemplateMetricsConfiguration_RENAMED {
 
 	@Bean
 	@ConditionalOnMissingBean(RestTemplateExchangeTagsProvider.class)

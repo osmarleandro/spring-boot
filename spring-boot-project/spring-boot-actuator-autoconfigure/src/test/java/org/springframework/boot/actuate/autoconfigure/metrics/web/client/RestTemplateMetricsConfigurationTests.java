@@ -41,7 +41,7 @@ import static org.springframework.test.web.client.match.MockRestRequestMatchers.
 import static org.springframework.test.web.client.response.MockRestResponseCreators.withStatus;
 
 /**
- * Tests for {@link RestTemplateMetricsConfiguration}.
+ * Tests for {@link RestTemplateMetricsConfiguration_RENAMED}.
  *
  * @author Stephane Nicoll
  * @author Jon Schneider
