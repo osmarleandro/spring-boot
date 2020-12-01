@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.boot.actuate.autoconfigure.endpoint.condition.ConditionalOnAvailableEndpoint;
-import org.springframework.boot.actuate.info.InfoContributor;
+import org.springframework.boot.actuate.info.InfoContributor_RENAMED;
 import org.springframework.boot.actuate.info.InfoEndpoint;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -41,7 +41,7 @@ public class InfoEndpointAutoConfiguration {
 
 	@Bean
 	@ConditionalOnMissingBean
-	public InfoEndpoint infoEndpoint(ObjectProvider<InfoContributor> infoContributors) {
+	public InfoEndpoint infoEndpoint(ObjectProvider<InfoContributor_RENAMED> infoContributors) {
 		return new InfoEndpoint(infoContributors.orderedStream().collect(Collectors.toList()));
 	}
 

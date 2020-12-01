@@ -50,12 +50,12 @@ class InfoEndpointWebIntegrationTests {
 	static class TestConfiguration {
 
 		@Bean
-		InfoEndpoint endpoint(ObjectProvider<InfoContributor> infoContributors) {
+		InfoEndpoint endpoint(ObjectProvider<InfoContributor_RENAMED> infoContributors) {
 			return new InfoEndpoint(infoContributors.orderedStream().collect(Collectors.toList()));
 		}
 
 		@Bean
-		InfoContributor beanName1() {
+		InfoContributor_RENAMED beanName1() {
 			return (builder) -> {
 				Map<String, Object> content = new LinkedHashMap<>();
 				content.put("key11", "value11");
@@ -65,7 +65,7 @@ class InfoEndpointWebIntegrationTests {
 		}
 
 		@Bean
-		InfoContributor beanName2() {
+		InfoContributor_RENAMED beanName2() {
 			return (builder) -> {
 				Map<String, Object> content = new LinkedHashMap<>();
 				content.put("key21", "value21");

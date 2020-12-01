@@ -34,13 +34,13 @@ import org.springframework.util.Assert;
 @Endpoint(id = "info")
 public class InfoEndpoint {
 
-	private final List<InfoContributor> infoContributors;
+	private final List<InfoContributor_RENAMED> infoContributors;
 
 	/**
 	 * Create a new {@link InfoEndpoint} instance.
 	 * @param infoContributors the info contributors to use
 	 */
-	public InfoEndpoint(List<InfoContributor> infoContributors) {
+	public InfoEndpoint(List<InfoContributor_RENAMED> infoContributors) {
 		Assert.notNull(infoContributors, "Info contributors must not be null");
 		this.infoContributors = infoContributors;
 	}
@@ -48,7 +48,7 @@ public class InfoEndpoint {
 	@ReadOperation
 	public Map<String, Object> info() {
 		Info.Builder builder = new Info.Builder();
-		for (InfoContributor contributor : this.infoContributors) {
+		for (InfoContributor_RENAMED contributor : this.infoContributors) {
 			contributor.contribute(builder);
 		}
 		Info build = builder.build();

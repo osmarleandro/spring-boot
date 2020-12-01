@@ -14,20 +14,21 @@
  * limitations under the License.
  */
 
-package smoketest.actuator;
+package org.springframework.boot.actuate.info;
 
-import java.util.Collections;
+/**
+ * Contributes additional info details.
+ *
+ * @author Stephane Nicoll
+ * @since 1.4.0
+ */
+@FunctionalInterface
+public interface InfoContributor_RENAMED {
 
-import org.springframework.boot.actuate.info.Info;
-import org.springframework.boot.actuate.info.InfoContributor_RENAMED;
-import org.springframework.stereotype.Component;
-
-@Component
-public class ExampleInfoContributor implements InfoContributor_RENAMED {
-
-	@Override
-	public void contribute(Info.Builder builder) {
-		builder.withDetail("example", Collections.singletonMap("someKey", "someValue"));
-	}
+	/**
+	 * Contributes additional details using the specified {@link Info.Builder Builder}.
+	 * @param builder the builder to use
+	 */
+	void contribute(Info.Builder builder);
 
 }

@@ -19,7 +19,7 @@ package org.springframework.boot.actuate.autoconfigure.info;
 import org.springframework.boot.actuate.info.BuildInfoContributor;
 import org.springframework.boot.actuate.info.EnvironmentInfoContributor;
 import org.springframework.boot.actuate.info.GitInfoContributor;
-import org.springframework.boot.actuate.info.InfoContributor;
+import org.springframework.boot.actuate.info.InfoContributor_RENAMED;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -36,7 +36,7 @@ import org.springframework.core.env.ConfigurableEnvironment;
 
 /**
  * {@link EnableAutoConfiguration Auto-configuration} for standard
- * {@link InfoContributor}s.
+ * {@link InfoContributor_RENAMED}s.
  *
  * @author Meang Akira Tanaka
  * @author Stephane Nicoll
@@ -48,7 +48,7 @@ import org.springframework.core.env.ConfigurableEnvironment;
 public class InfoContributorAutoConfiguration {
 
 	/**
-	 * The default order for the core {@link InfoContributor} beans.
+	 * The default order for the core {@link InfoContributor_RENAMED} beans.
 	 */
 	public static final int DEFAULT_ORDER = Ordered.HIGHEST_PRECEDENCE + 10;
 
@@ -73,7 +73,7 @@ public class InfoContributorAutoConfiguration {
 	@ConditionalOnEnabledInfoContributor("build")
 	@ConditionalOnSingleCandidate(BuildProperties.class)
 	@Order(DEFAULT_ORDER)
-	public InfoContributor buildInfoContributor(BuildProperties buildProperties) {
+	public InfoContributor_RENAMED buildInfoContributor(BuildProperties buildProperties) {
 		return new BuildInfoContributor(buildProperties);
 	}
 

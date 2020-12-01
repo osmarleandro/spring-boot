@@ -29,14 +29,14 @@ import org.springframework.core.env.PropertySource;
 import org.springframework.util.StringUtils;
 
 /**
- * A base {@link InfoContributor} to expose an {@link InfoProperties}.
+ * A base {@link InfoContributor_RENAMED} to expose an {@link InfoProperties}.
  *
  * @param <T> the type of the {@link InfoProperties} to expose
  * @author Stephane Nicoll
  * @author Madhura Bhave
  * @since 1.4.0
  */
-public abstract class InfoPropertiesInfoContributor<T extends InfoProperties> implements InfoContributor {
+public abstract class InfoPropertiesInfoContributor<T extends InfoProperties> implements InfoContributor_RENAMED {
 
 	private static final Bindable<Map<String, Object>> STRING_OBJECT_MAP = Bindable.mapOf(String.class, Object.class);
 

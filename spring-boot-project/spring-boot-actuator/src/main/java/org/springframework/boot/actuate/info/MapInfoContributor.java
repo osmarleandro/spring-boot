@@ -20,12 +20,12 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
- * A simple {@link InfoContributor} that exposes a map.
+ * A simple {@link InfoContributor_RENAMED} that exposes a map.
  *
  * @author Dave Syer
  * @since 1.4.0
  */
-public class MapInfoContributor implements InfoContributor {
+public class MapInfoContributor implements InfoContributor_RENAMED {
 
 	private final Map<String, Object> info;
 

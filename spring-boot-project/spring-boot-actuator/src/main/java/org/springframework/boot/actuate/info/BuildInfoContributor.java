@@ -24,7 +24,7 @@ import org.springframework.core.env.PropertiesPropertySource;
 import org.springframework.core.env.PropertySource;
 
 /**
- * An {@link InfoContributor} that exposes {@link BuildProperties}.
+ * An {@link InfoContributor_RENAMED} that exposes {@link BuildProperties}.
  *
  * @author Stephane Nicoll
  * @since 1.4.0

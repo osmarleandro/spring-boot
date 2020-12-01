@@ -19,12 +19,12 @@ package org.springframework.boot.actuate.info;
 import org.springframework.util.Assert;
 
 /**
- * A simple {@link InfoContributor} that exposes a single detail.
+ * A simple {@link InfoContributor_RENAMED} that exposes a single detail.
  *
  * @author Stephane Nicoll
  * @since 1.4.0
  */
-public class SimpleInfoContributor implements InfoContributor {
+public class SimpleInfoContributor implements InfoContributor_RENAMED {
 
 	private final String prefix;
 

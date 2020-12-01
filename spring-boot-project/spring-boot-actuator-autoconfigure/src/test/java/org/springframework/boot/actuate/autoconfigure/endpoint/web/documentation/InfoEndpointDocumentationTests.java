@@ -23,7 +23,7 @@ import org.junit.jupiter.api.Test;
 
 import org.springframework.boot.actuate.info.BuildInfoContributor;
 import org.springframework.boot.actuate.info.GitInfoContributor;
-import org.springframework.boot.actuate.info.InfoContributor;
+import org.springframework.boot.actuate.info.InfoContributor_RENAMED;
 import org.springframework.boot.actuate.info.InfoEndpoint;
 import org.springframework.boot.info.BuildProperties;
 import org.springframework.boot.info.GitProperties;
@@ -73,7 +73,7 @@ class InfoEndpointDocumentationTests extends MockMvcEndpointDocumentationTests {
 	static class TestConfiguration {
 
 		@Bean
-		InfoEndpoint endpoint(List<InfoContributor> infoContributors) {
+		InfoEndpoint endpoint(List<InfoContributor_RENAMED> infoContributors) {
 			return new InfoEndpoint(infoContributors);
 		}
 

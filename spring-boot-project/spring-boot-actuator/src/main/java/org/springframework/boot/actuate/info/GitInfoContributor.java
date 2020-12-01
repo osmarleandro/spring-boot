@@ -25,7 +25,7 @@ import org.springframework.core.env.PropertiesPropertySource;
 import org.springframework.core.env.PropertySource;
 
 /**
- * An {@link InfoContributor} that exposes {@link GitProperties}.
+ * An {@link InfoContributor_RENAMED} that exposes {@link GitProperties}.
  *
  * @author Stephane Nicoll
  * @since 1.4.0

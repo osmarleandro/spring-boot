@@ -23,14 +23,14 @@ import org.springframework.boot.context.properties.bind.Binder;
 import org.springframework.core.env.ConfigurableEnvironment;
 
 /**
- * An {@link InfoContributor} that provides all environment entries prefixed with info.
+ * An {@link InfoContributor_RENAMED} that provides all environment entries prefixed with info.
  *
  * @author Meang Akira Tanaka
  * @author Stephane Nicoll
  * @author Madhura Bhave
  * @since 1.4.0
  */
-public class EnvironmentInfoContributor implements InfoContributor {
+public class EnvironmentInfoContributor implements InfoContributor_RENAMED {
 
 	private static final Bindable<Map<String, Object>> STRING_OBJECT_MAP = Bindable.mapOf(String.class, Object.class);
 

@@ -25,7 +25,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.actuate.info.BuildInfoContributor;
 import org.springframework.boot.actuate.info.GitInfoContributor;
 import org.springframework.boot.actuate.info.Info;
-import org.springframework.boot.actuate.info.InfoContributor;
+import org.springframework.boot.actuate.info.InfoContributor_RENAMED;
 import org.springframework.boot.info.BuildProperties;
 import org.springframework.boot.info.GitProperties;
 import org.springframework.boot.test.util.TestPropertyValues;
@@ -54,21 +54,21 @@ class InfoContributorAutoConfigurationTests {
 	@Test
 	void disableEnvContributor() {
 		load("management.info.env.enabled:false");
-		Map<String, InfoContributor> beans = this.context.getBeansOfType(InfoContributor.class);
+		Map<String, InfoContributor_RENAMED> beans = this.context.getBeansOfType(InfoContributor_RENAMED.class);
 		assertThat(beans).hasSize(0);
 	}
 
 	@Test
 	void defaultInfoContributorsDisabled() {
 		load("management.info.defaults.enabled:false");
-		Map<String, InfoContributor> beans = this.context.getBeansOfType(InfoContributor.class);
+		Map<String, InfoContributor_RENAMED> beans = this.context.getBeansOfType(InfoContributor_RENAMED.class);
 		assertThat(beans).hasSize(0);
 	}
 
 	@Test
 	void defaultInfoContributorsDisabledWithCustomOne() {
 		load(CustomInfoContributorConfiguration.class, "management.info.defaults.enabled:false");
-		Map<String, InfoContributor> beans = this.context.getBeansOfType(InfoContributor.class);
+		Map<String, InfoContributor_RENAMED> beans = this.context.getBeansOfType(InfoContributor_RENAMED.class);
 		assertThat(beans).hasSize(1);
 		assertThat(this.context.getBean("customInfoContributor")).isSameAs(beans.values().iterator().next());
 	}
@@ -77,10 +77,10 @@ class InfoContributorAutoConfigurationTests {
 	@Test
 	void gitPropertiesDefaultMode() {
 		load(GitPropertiesConfiguration.class);
-		Map<String, InfoContributor> beans = this.context.getBeansOfType(InfoContributor.class);
+		Map<String, InfoContributor_RENAMED> beans = this.context.getBeansOfType(InfoContributor_RENAMED.class);
 		assertThat(beans).containsKeys("gitInfoContributor");
 		Map<String, Object> content = invokeContributor(
-				this.context.getBean("gitInfoContributor", InfoContributor.class));
+				this.context.getBean("gitInfoContributor", InfoContributor_RENAMED.class));
 		Object git = content.get("git");
 		assertThat(git).isInstanceOf(Map.class);
 		Map<String, Object> gitInfo = (Map<String, Object>) git;
@@ -92,7 +92,7 @@ class InfoContributorAutoConfigurationTests {
 	void gitPropertiesFullMode() {
 		load(GitPropertiesConfiguration.class, "management.info.git.mode=full");
 		Map<String, Object> content = invokeContributor(
-				this.context.getBean("gitInfoContributor", InfoContributor.class));
+				this.context.getBean("gitInfoContributor", InfoContributor_RENAMED.class));
 		Object git = content.get("git");
 		assertThat(git).isInstanceOf(Map.class);
 		Map<String, Object> gitInfo = (Map<String, Object>) git;
@@ -111,10 +111,10 @@ class InfoContributorAutoConfigurationTests {
 	@Test
 	void buildProperties() {
 		load(BuildPropertiesConfiguration.class);
-		Map<String, InfoContributor> beans = this.context.getBeansOfType(InfoContributor.class);
+		Map<String, InfoContributor_RENAMED> beans = this.context.getBeansOfType(InfoContributor_RENAMED.class);
 		assertThat(beans).containsKeys("buildInfoContributor");
 		Map<String, Object> content = invokeContributor(
-				this.context.getBean("buildInfoContributor", InfoContributor.class));
+				this.context.getBean("buildInfoContributor", InfoContributor_RENAMED.class));
 		Object build = content.get("build");
 		assertThat(build).isInstanceOf(Map.class);
 		Map<String, Object> buildInfo = (Map<String, Object>) build;
@@ -129,7 +129,7 @@ class InfoContributorAutoConfigurationTests {
 				.isSameAs(this.context.getBean("customBuildInfoContributor"));
 	}
 
-	private Map<String, Object> invokeContributor(InfoContributor contributor) {
+	private Map<String, Object> invokeContributor(InfoContributor_RENAMED contributor) {
 		Info.Builder builder = new Info.Builder();
 		contributor.contribute(builder);
 		return builder.build().getDetails();
@@ -182,7 +182,7 @@ class InfoContributorAutoConfigurationTests {
 	static class CustomInfoContributorConfiguration {
 
 		@Bean
-		InfoContributor customInfoContributor() {
+		InfoContributor_RENAMED customInfoContributor() {
 			return (builder) -> {
 			};
 		}

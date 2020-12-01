@@ -41,7 +41,7 @@ import org.springframework.boot.actuate.endpoint.web.annotation.ControllerEndpoi
 import org.springframework.boot.actuate.health.HealthEndpoint;
 import org.springframework.boot.actuate.health.ReactiveHealthEndpointWebExtension;
 import org.springframework.boot.actuate.info.GitInfoContributor;
-import org.springframework.boot.actuate.info.InfoContributor;
+import org.springframework.boot.actuate.info.InfoContributor_RENAMED;
 import org.springframework.boot.actuate.info.InfoEndpoint;
 import org.springframework.boot.actuate.info.InfoPropertiesInfoContributor;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
@@ -96,8 +96,8 @@ public class ReactiveCloudFoundryActuatorAutoConfiguration {
 	@ConditionalOnAvailableEndpoint
 	@ConditionalOnBean({ InfoEndpoint.class, GitProperties.class })
 	public CloudFoundryInfoEndpointWebExtension cloudFoundryInfoEndpointWebExtension(GitProperties properties,
-			ObjectProvider<InfoContributor> infoContributors) {
-		List<InfoContributor> contributors = infoContributors.orderedStream()
+			ObjectProvider<InfoContributor_RENAMED> infoContributors) {
+		List<InfoContributor_RENAMED> contributors = infoContributors.orderedStream()
 				.map((infoContributor) -> (infoContributor instanceof GitInfoContributor)
 						? new GitInfoContributor(properties, InfoPropertiesInfoContributor.Mode.FULL) : infoContributor)
 				.collect(Collectors.toList());
