@@ -57,10 +57,10 @@ public class RedisHealthIndicator extends AbstractHealthIndicator {
 
 	private void doHealthCheck(Health.Builder builder, RedisConnection connection) {
 		if (connection instanceof RedisClusterConnection) {
-			RedisHealth.up(builder, ((RedisClusterConnection) connection).clusterGetClusterInfo());
+			RedisHealth_RENAMED.up(builder, ((RedisClusterConnection) connection).clusterGetClusterInfo());
 		}
 		else {
-			RedisHealth.up(builder, connection.info());
+			RedisHealth_RENAMED.up(builder, connection.info());
 		}
 	}
 

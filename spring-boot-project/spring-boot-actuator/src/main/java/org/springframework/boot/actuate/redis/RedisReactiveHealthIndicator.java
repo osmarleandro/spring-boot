@@ -71,11 +71,11 @@ public class RedisReactiveHealthIndicator extends AbstractReactiveHealthIndicato
 	}
 
 	private Health up(Health.Builder builder, Properties info) {
-		return RedisHealth.up(builder, info).build();
+		return RedisHealth_RENAMED.up(builder, info).build();
 	}
 
 	private Health up(Health.Builder builder, ClusterInfo clusterInfo) {
-		return RedisHealth.up(builder, clusterInfo).build();
+		return RedisHealth_RENAMED.up(builder, clusterInfo).build();
 	}
 
 }
