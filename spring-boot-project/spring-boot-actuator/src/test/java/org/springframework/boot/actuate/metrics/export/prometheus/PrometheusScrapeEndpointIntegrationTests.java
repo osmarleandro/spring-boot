@@ -32,7 +32,7 @@ import org.springframework.test.web.reactive.server.WebTestClient;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Tests for {@link PrometheusScrapeEndpoint}.
+ * Tests for {@link PrometheusScrapeEndpoint_RENAMED}.
  *
  * @author Jon Schneider
  * @author Johnny Lim
@@ -59,8 +59,8 @@ class PrometheusScrapeEndpointIntegrationTests {
 	static class TestConfiguration {
 
 		@Bean
-		PrometheusScrapeEndpoint prometheusScrapeEndpoint(CollectorRegistry collectorRegistry) {
-			return new PrometheusScrapeEndpoint(collectorRegistry);
+		PrometheusScrapeEndpoint_RENAMED prometheusScrapeEndpoint(CollectorRegistry collectorRegistry) {
+			return new PrometheusScrapeEndpoint_RENAMED(collectorRegistry);
 		}
 
 		@Bean

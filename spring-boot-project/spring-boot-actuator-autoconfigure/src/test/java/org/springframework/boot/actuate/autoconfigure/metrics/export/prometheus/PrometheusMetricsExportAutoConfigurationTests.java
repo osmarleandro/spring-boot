@@ -31,7 +31,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 
 import org.springframework.boot.actuate.autoconfigure.web.server.ManagementContextAutoConfiguration;
 import org.springframework.boot.actuate.metrics.export.prometheus.PrometheusPushGatewayManager;
-import org.springframework.boot.actuate.metrics.export.prometheus.PrometheusScrapeEndpoint;
+import org.springframework.boot.actuate.metrics.export.prometheus.PrometheusScrapeEndpoint_RENAMED;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
 import org.springframework.boot.test.context.assertj.AssertableApplicationContext;
 import org.springframework.boot.test.context.runner.ApplicationContextRunner;
@@ -114,14 +114,14 @@ class PrometheusMetricsExportAutoConfigurationTests {
 		this.contextRunner.withConfiguration(AutoConfigurations.of(ManagementContextAutoConfiguration.class))
 				.withUserConfiguration(BaseConfiguration.class)
 				.withPropertyValues("management.endpoints.web.exposure.include=prometheus")
-				.run((context) -> assertThat(context).hasSingleBean(PrometheusScrapeEndpoint.class));
+				.run((context) -> assertThat(context).hasSingleBean(PrometheusScrapeEndpoint_RENAMED.class));
 	}
 
 	@Test
 	void scrapeEndpointNotAddedToManagementContextWhenNotExposed() {
 		this.contextRunner.withConfiguration(AutoConfigurations.of(ManagementContextAutoConfiguration.class))
 				.withUserConfiguration(BaseConfiguration.class)
-				.run((context) -> assertThat(context).doesNotHaveBean(PrometheusScrapeEndpoint.class));
+				.run((context) -> assertThat(context).doesNotHaveBean(PrometheusScrapeEndpoint_RENAMED.class));
 	}
 
 	@Test
@@ -130,14 +130,14 @@ class PrometheusMetricsExportAutoConfigurationTests {
 				.withPropertyValues("management.endpoints.web.exposure.include=prometheus")
 				.withPropertyValues("management.endpoint.prometheus.enabled=false")
 				.withUserConfiguration(BaseConfiguration.class)
-				.run((context) -> assertThat(context).doesNotHaveBean(PrometheusScrapeEndpoint.class));
+				.run((context) -> assertThat(context).doesNotHaveBean(PrometheusScrapeEndpoint_RENAMED.class));
 	}
 
 	@Test
 	void allowsCustomScrapeEndpointToBeUsed() {
 		this.contextRunner.withConfiguration(AutoConfigurations.of(ManagementContextAutoConfiguration.class))
 				.withUserConfiguration(CustomEndpointConfiguration.class).run((context) -> assertThat(context)
-						.hasBean("customEndpoint").hasSingleBean(PrometheusScrapeEndpoint.class));
+						.hasBean("customEndpoint").hasSingleBean(PrometheusScrapeEndpoint_RENAMED.class));
 	}
 
 	@Test
@@ -265,8 +265,8 @@ class PrometheusMetricsExportAutoConfigurationTests {
 	static class CustomEndpointConfiguration {
 
 		@Bean
-		PrometheusScrapeEndpoint customEndpoint(CollectorRegistry collectorRegistry) {
-			return new PrometheusScrapeEndpoint(collectorRegistry);
+		PrometheusScrapeEndpoint_RENAMED customEndpoint(CollectorRegistry collectorRegistry) {
+			return new PrometheusScrapeEndpoint_RENAMED(collectorRegistry);
 		}
 
 	}

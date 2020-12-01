@@ -37,7 +37,7 @@ import org.springframework.boot.actuate.autoconfigure.metrics.export.Conditional
 import org.springframework.boot.actuate.autoconfigure.metrics.export.simple.SimpleMetricsExportAutoConfiguration;
 import org.springframework.boot.actuate.metrics.export.prometheus.PrometheusPushGatewayManager;
 import org.springframework.boot.actuate.metrics.export.prometheus.PrometheusPushGatewayManager.ShutdownOperation;
-import org.springframework.boot.actuate.metrics.export.prometheus.PrometheusScrapeEndpoint;
+import org.springframework.boot.actuate.metrics.export.prometheus.PrometheusScrapeEndpoint_RENAMED;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -88,13 +88,13 @@ public class PrometheusMetricsExportAutoConfiguration {
 	}
 
 	@Configuration(proxyBeanMethods = false)
-	@ConditionalOnAvailableEndpoint(endpoint = PrometheusScrapeEndpoint.class)
+	@ConditionalOnAvailableEndpoint(endpoint = PrometheusScrapeEndpoint_RENAMED.class)
 	public static class PrometheusScrapeEndpointConfiguration {
 
 		@Bean
 		@ConditionalOnMissingBean
-		public PrometheusScrapeEndpoint prometheusEndpoint(CollectorRegistry collectorRegistry) {
-			return new PrometheusScrapeEndpoint(collectorRegistry);
+		public PrometheusScrapeEndpoint_RENAMED prometheusEndpoint(CollectorRegistry collectorRegistry) {
+			return new PrometheusScrapeEndpoint_RENAMED(collectorRegistry);
 		}
 
 	}

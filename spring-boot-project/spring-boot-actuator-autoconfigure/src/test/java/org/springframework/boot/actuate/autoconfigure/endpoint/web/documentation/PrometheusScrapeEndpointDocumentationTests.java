@@ -22,7 +22,7 @@ import io.micrometer.prometheus.PrometheusMeterRegistry;
 import io.prometheus.client.CollectorRegistry;
 import org.junit.jupiter.api.Test;
 
-import org.springframework.boot.actuate.metrics.export.prometheus.PrometheusScrapeEndpoint;
+import org.springframework.boot.actuate.metrics.export.prometheus.PrometheusScrapeEndpoint_RENAMED;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
@@ -34,7 +34,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /**
- * Tests for generating documentation describing the {@link PrometheusScrapeEndpoint}.
+ * Tests for generating documentation describing the {@link PrometheusScrapeEndpoint_RENAMED}.
  *
  * @author Andy Wilkinson
  * @author Johnny Lim
@@ -61,12 +61,12 @@ class PrometheusScrapeEndpointDocumentationTests extends MockMvcEndpointDocument
 	static class TestConfiguration {
 
 		@Bean
-		PrometheusScrapeEndpoint endpoint() {
+		PrometheusScrapeEndpoint_RENAMED endpoint() {
 			CollectorRegistry collectorRegistry = new CollectorRegistry(true);
 			PrometheusMeterRegistry meterRegistry = new PrometheusMeterRegistry((key) -> null, collectorRegistry,
 					Clock.SYSTEM);
 			new JvmMemoryMetrics().bindTo(meterRegistry);
-			return new PrometheusScrapeEndpoint(collectorRegistry);
+			return new PrometheusScrapeEndpoint_RENAMED(collectorRegistry);
 		}
 
 	}
