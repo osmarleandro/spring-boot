@@ -27,14 +27,14 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 
 /**
- * Tests for {@link FlywayEndpointAutoConfiguration}.
+ * Tests for {@link FlywayEndpointAutoConfiguration_RENAMED}.
  *
  * @author Phillip Webb
  */
 class FlywayEndpointAutoConfigurationTests {
 
 	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
-			.withConfiguration(AutoConfigurations.of(FlywayEndpointAutoConfiguration.class))
+			.withConfiguration(AutoConfigurations.of(FlywayEndpointAutoConfiguration_RENAMED.class))
 			.withBean(Flyway.class, () -> mock(Flyway.class));
 
 	@Test

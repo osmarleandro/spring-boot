@@ -40,7 +40,7 @@ import org.springframework.context.annotation.Configuration;
 @ConditionalOnClass(Flyway.class)
 @ConditionalOnAvailableEndpoint(endpoint = FlywayEndpoint.class)
 @AutoConfigureAfter(FlywayAutoConfiguration.class)
-public class FlywayEndpointAutoConfiguration {
+public class FlywayEndpointAutoConfiguration_RENAMED {
 
 	@Bean
 	@ConditionalOnBean(Flyway.class)
