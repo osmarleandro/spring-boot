@@ -38,7 +38,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
 /**
- * Tests for {@link CouchbaseHealthIndicator}
+ * Tests for {@link CouchbaseHealthIndicator_RENAMED}
  *
  * @author Eddú Meléndez
  * @author Stephane Nicoll
@@ -49,7 +49,7 @@ class CouchbaseHealthIndicatorTests {
 	@SuppressWarnings("unchecked")
 	void couchbaseClusterIsUp() {
 		Cluster cluster = mock(Cluster.class);
-		CouchbaseHealthIndicator healthIndicator = new CouchbaseHealthIndicator(cluster);
+		CouchbaseHealthIndicator_RENAMED healthIndicator = new CouchbaseHealthIndicator_RENAMED(cluster);
 		Map<ServiceType, List<EndpointDiagnostics>> endpoints = Collections.singletonMap(ServiceType.KV,
 				Collections.singletonList(new EndpointDiagnostics(ServiceType.KV, EndpointState.CONNECTED, "127.0.0.1",
 						"127.0.0.1", Optional.empty(), Optional.of(1234L), Optional.of("endpoint-1"))));
@@ -68,7 +68,7 @@ class CouchbaseHealthIndicatorTests {
 	@SuppressWarnings("unchecked")
 	void couchbaseClusterIsDown() {
 		Cluster cluster = mock(Cluster.class);
-		CouchbaseHealthIndicator healthIndicator = new CouchbaseHealthIndicator(cluster);
+		CouchbaseHealthIndicator_RENAMED healthIndicator = new CouchbaseHealthIndicator_RENAMED(cluster);
 		Map<ServiceType, List<EndpointDiagnostics>> endpoints = Collections.singletonMap(ServiceType.KV,
 				Arrays.asList(
 						new EndpointDiagnostics(ServiceType.KV, EndpointState.CONNECTED, "127.0.0.1", "127.0.0.1",
