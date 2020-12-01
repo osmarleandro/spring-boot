@@ -130,7 +130,7 @@ public class CloudFoundryActuatorAutoConfiguration {
 			Environment environment) {
 		CloudFoundrySecurityService cloudfoundrySecurityService = getCloudFoundrySecurityService(restTemplateBuilder,
 				environment);
-		TokenValidator tokenValidator = new TokenValidator(cloudfoundrySecurityService);
+		TokenValidator_RENAMED tokenValidator = new TokenValidator_RENAMED(cloudfoundrySecurityService);
 		return new CloudFoundrySecurityInterceptor(tokenValidator, cloudfoundrySecurityService,
 				environment.getProperty("vcap.application.application_id"));
 	}

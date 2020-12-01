@@ -46,7 +46,7 @@ import static org.mockito.Mockito.verify;
 class CloudFoundrySecurityInterceptorTests {
 
 	@Mock
-	private TokenValidator tokenValidator;
+	private TokenValidator_RENAMED tokenValidator;
 
 	@Mock
 	private CloudFoundrySecurityService securityService;

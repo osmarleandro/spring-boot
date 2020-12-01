@@ -49,7 +49,7 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 
 /**
- * Tests for {@link TokenValidator}.
+ * Tests for {@link TokenValidator_RENAMED}.
  *
  * @author Madhura Bhave
  */
@@ -61,7 +61,7 @@ class TokenValidatorTests {
 	@Mock
 	private CloudFoundrySecurityService securityService;
 
-	private TokenValidator tokenValidator;
+	private TokenValidator_RENAMED tokenValidator;
 
 	private static final String VALID_KEY = "-----BEGIN PUBLIC KEY-----\n"
 			+ "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA0m59l2u9iDnMbrXHfqkO\n"
@@ -87,7 +87,7 @@ class TokenValidatorTests {
 
 	@BeforeEach
 	void setup() {
-		this.tokenValidator = new TokenValidator(this.securityService);
+		this.tokenValidator = new TokenValidator_RENAMED(this.securityService);
 	}
 
 	@Test

@@ -43,7 +43,7 @@ class CloudFoundrySecurityInterceptor {
 
 	private static final Log logger = LogFactory.getLog(CloudFoundrySecurityInterceptor.class);
 
-	private final TokenValidator tokenValidator;
+	private final TokenValidator_RENAMED tokenValidator;
 
 	private final CloudFoundrySecurityService cloudFoundrySecurityService;
 
@@ -51,7 +51,7 @@ class CloudFoundrySecurityInterceptor {
 
 	private static final SecurityResponse SUCCESS = SecurityResponse.success();
 
-	CloudFoundrySecurityInterceptor(TokenValidator tokenValidator,
+	CloudFoundrySecurityInterceptor(TokenValidator_RENAMED tokenValidator,
 			CloudFoundrySecurityService cloudFoundrySecurityService, String applicationId) {
 		this.tokenValidator = tokenValidator;
 		this.cloudFoundrySecurityService = cloudFoundrySecurityService;

@@ -65,7 +65,7 @@ import static org.mockito.Mockito.mock;
  */
 class CloudFoundryMvcWebEndpointIntegrationTests {
 
-	private static TokenValidator tokenValidator = mock(TokenValidator.class);
+	private static TokenValidator_RENAMED tokenValidator = mock(TokenValidator_RENAMED.class);
 
 	private static CloudFoundrySecurityService securityService = mock(CloudFoundrySecurityService.class);
 
