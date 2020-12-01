@@ -31,7 +31,7 @@ import org.springframework.test.web.reactive.server.WebTestClient;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Integration tests for {@link CachesEndpoint} exposed by Jersey, Spring MVC, and
+ * Integration tests for {@link CachesEndpoint_RENAMED} exposed by Jersey, Spring MVC, and
  * WebFlux.
  *
  * @author Stephane Nicoll
@@ -96,12 +96,12 @@ class CachesEndpointWebIntegrationTests {
 		}
 
 		@Bean
-		CachesEndpoint endpoint(Map<String, CacheManager> cacheManagers) {
-			return new CachesEndpoint(cacheManagers);
+		CachesEndpoint_RENAMED endpoint(Map<String, CacheManager> cacheManagers) {
+			return new CachesEndpoint_RENAMED(cacheManagers);
 		}
 
 		@Bean
-		CachesEndpointWebExtension cachesEndpointWebExtension(CachesEndpoint endpoint) {
+		CachesEndpointWebExtension cachesEndpointWebExtension(CachesEndpoint_RENAMED endpoint) {
 			return new CachesEndpointWebExtension(endpoint);
 		}
 

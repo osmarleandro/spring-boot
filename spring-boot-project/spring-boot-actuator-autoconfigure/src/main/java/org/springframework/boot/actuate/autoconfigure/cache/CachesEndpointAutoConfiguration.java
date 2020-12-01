@@ -19,7 +19,7 @@ package org.springframework.boot.actuate.autoconfigure.cache;
 import java.util.Map;
 
 import org.springframework.boot.actuate.autoconfigure.endpoint.condition.ConditionalOnAvailableEndpoint;
-import org.springframework.boot.actuate.cache.CachesEndpoint;
+import org.springframework.boot.actuate.cache.CachesEndpoint_RENAMED;
 import org.springframework.boot.actuate.cache.CachesEndpointWebExtension;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -32,7 +32,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * {@link EnableAutoConfiguration Auto-configuration} for {@link CachesEndpoint}.
+ * {@link EnableAutoConfiguration Auto-configuration} for {@link CachesEndpoint_RENAMED}.
  *
  * @author Johannes Edmeier
  * @author Stephane Nicoll
@@ -40,20 +40,20 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration(proxyBeanMethods = false)
 @ConditionalOnClass(CacheManager.class)
-@ConditionalOnAvailableEndpoint(endpoint = CachesEndpoint.class)
+@ConditionalOnAvailableEndpoint(endpoint = CachesEndpoint_RENAMED.class)
 @AutoConfigureAfter(CacheAutoConfiguration.class)
 public class CachesEndpointAutoConfiguration {
 
 	@Bean
 	@ConditionalOnMissingBean
-	public CachesEndpoint cachesEndpoint(Map<String, CacheManager> cacheManagers) {
-		return new CachesEndpoint(cacheManagers);
+	public CachesEndpoint_RENAMED cachesEndpoint(Map<String, CacheManager> cacheManagers) {
+		return new CachesEndpoint_RENAMED(cacheManagers);
 	}
 
 	@Bean
 	@ConditionalOnMissingBean
-	@ConditionalOnBean(CachesEndpoint.class)
-	public CachesEndpointWebExtension cachesEndpointWebExtension(CachesEndpoint cachesEndpoint) {
+	@ConditionalOnBean(CachesEndpoint_RENAMED.class)
+	public CachesEndpointWebExtension cachesEndpointWebExtension(CachesEndpoint_RENAMED cachesEndpoint) {
 		return new CachesEndpointWebExtension(cachesEndpoint);
 	}
 

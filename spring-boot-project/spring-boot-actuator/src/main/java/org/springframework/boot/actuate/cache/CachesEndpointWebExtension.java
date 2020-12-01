@@ -16,7 +16,7 @@
 
 package org.springframework.boot.actuate.cache;
 
-import org.springframework.boot.actuate.cache.CachesEndpoint.CacheEntry;
+import org.springframework.boot.actuate.cache.CachesEndpoint_RENAMED.CacheEntry;
 import org.springframework.boot.actuate.endpoint.annotation.DeleteOperation;
 import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
 import org.springframework.boot.actuate.endpoint.annotation.Selector;
@@ -25,17 +25,17 @@ import org.springframework.boot.actuate.endpoint.web.annotation.EndpointWebExten
 import org.springframework.lang.Nullable;
 
 /**
- * {@link EndpointWebExtension @EndpointWebExtension} for the {@link CachesEndpoint}.
+ * {@link EndpointWebExtension @EndpointWebExtension} for the {@link CachesEndpoint_RENAMED}.
  *
  * @author Stephane Nicoll
  * @since 2.1.0
  */
-@EndpointWebExtension(endpoint = CachesEndpoint.class)
+@EndpointWebExtension(endpoint = CachesEndpoint_RENAMED.class)
 public class CachesEndpointWebExtension {
 
-	private final CachesEndpoint delegate;
+	private final CachesEndpoint_RENAMED delegate;
 
-	public CachesEndpointWebExtension(CachesEndpoint delegate) {
+	public CachesEndpointWebExtension(CachesEndpoint_RENAMED delegate) {
 		this.delegate = delegate;
 	}
 
