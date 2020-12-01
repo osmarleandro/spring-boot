@@ -43,7 +43,7 @@ import org.springframework.context.annotation.Configuration;
 @ConditionalOnBean(RabbitTemplate.class)
 @ConditionalOnEnabledHealthIndicator("rabbit")
 @AutoConfigureAfter(RabbitAutoConfiguration.class)
-public class RabbitHealthContributorAutoConfiguration
+public class RabbitHealthContributorAutoConfiguration_RENAMED
 		extends CompositeHealthContributorConfiguration<RabbitHealthIndicator, RabbitTemplate> {
 
 	@Bean

@@ -27,7 +27,7 @@ import org.springframework.boot.test.context.runner.ApplicationContextRunner;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Tests for {@link RabbitHealthContributorAutoConfiguration}.
+ * Tests for {@link RabbitHealthContributorAutoConfiguration_RENAMED}.
  *
  * @author Phillip Webb
  */
@@ -35,7 +35,7 @@ class RabbitHealthContributorAutoConfigurationTests {
 
 	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(RabbitAutoConfiguration.class,
-					RabbitHealthContributorAutoConfiguration.class, HealthContributorAutoConfiguration.class));
+					RabbitHealthContributorAutoConfiguration_RENAMED.class, HealthContributorAutoConfiguration.class));
 
 	@Test
 	void runShouldCreateIndicator() {
