@@ -37,7 +37,7 @@ import org.springframework.boot.actuate.health.HealthEndpointGroup;
 import org.springframework.boot.actuate.health.HealthEndpointGroups;
 import org.springframework.boot.actuate.health.HttpCodeStatusMapper;
 import org.springframework.boot.actuate.health.SimpleHttpCodeStatusMapper;
-import org.springframework.boot.actuate.health.SimpleStatusAggregator;
+import org.springframework.boot.actuate.health.SimpleStatusAggregator_RENAMED;
 import org.springframework.boot.actuate.health.StatusAggregator;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -70,7 +70,7 @@ class AutoConfiguredHealthEndpointGroups implements HealthEndpointGroups {
 		Set<String> roles = properties.getRoles();
 		StatusAggregator statusAggregator = getNonQualifiedBean(beanFactory, StatusAggregator.class);
 		if (statusAggregator == null) {
-			statusAggregator = new SimpleStatusAggregator(properties.getStatus().getOrder());
+			statusAggregator = new SimpleStatusAggregator_RENAMED(properties.getStatus().getOrder());
 		}
 		HttpCodeStatusMapper httpCodeStatusMapper = getNonQualifiedBean(beanFactory, HttpCodeStatusMapper.class);
 		if (httpCodeStatusMapper == null) {
@@ -94,7 +94,7 @@ class AutoConfiguredHealthEndpointGroups implements HealthEndpointGroups {
 			Set<String> roles = !CollectionUtils.isEmpty(group.getRoles()) ? group.getRoles() : defaultRoles;
 			StatusAggregator statusAggregator = getQualifiedBean(beanFactory, StatusAggregator.class, groupName, () -> {
 				if (!CollectionUtils.isEmpty(status.getOrder())) {
-					return new SimpleStatusAggregator(status.getOrder());
+					return new SimpleStatusAggregator_RENAMED(status.getOrder());
 				}
 				return defaultStatusAggregator;
 			});

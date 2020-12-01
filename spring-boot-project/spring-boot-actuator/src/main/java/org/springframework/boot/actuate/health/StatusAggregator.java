@@ -38,7 +38,7 @@ public interface StatusAggregator {
 	 * @since 2.3.0
 	 */
 	static StatusAggregator getDefault() {
-		return SimpleStatusAggregator.INSTANCE;
+		return SimpleStatusAggregator_RENAMED.INSTANCE;
 	}
 
 	/**

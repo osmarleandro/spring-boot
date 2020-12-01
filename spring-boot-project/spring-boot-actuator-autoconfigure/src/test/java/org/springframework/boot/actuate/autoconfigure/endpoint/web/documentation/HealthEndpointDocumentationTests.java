@@ -39,7 +39,7 @@ import org.springframework.boot.actuate.health.HealthEndpointGroups;
 import org.springframework.boot.actuate.health.HealthIndicator;
 import org.springframework.boot.actuate.health.HttpCodeStatusMapper;
 import org.springframework.boot.actuate.health.SimpleHttpCodeStatusMapper;
-import org.springframework.boot.actuate.health.SimpleStatusAggregator;
+import org.springframework.boot.actuate.health.SimpleStatusAggregator_RENAMED;
 import org.springframework.boot.actuate.health.StatusAggregator;
 import org.springframework.boot.actuate.jdbc.DataSourceHealthIndicator;
 import org.springframework.boot.actuate.system.DiskSpaceHealthIndicator;
@@ -135,7 +135,7 @@ class HealthEndpointDocumentationTests extends MockMvcEndpointDocumentationTests
 
 	private static class TestHealthEndpointGroup implements HealthEndpointGroup {
 
-		private final StatusAggregator statusAggregator = new SimpleStatusAggregator();
+		private final StatusAggregator statusAggregator = new SimpleStatusAggregator_RENAMED();
 
 		private final HttpCodeStatusMapper httpCodeStatusMapper = new SimpleHttpCodeStatusMapper();
 
