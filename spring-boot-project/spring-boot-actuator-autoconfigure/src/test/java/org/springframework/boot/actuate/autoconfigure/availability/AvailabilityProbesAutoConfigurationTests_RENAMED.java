@@ -32,7 +32,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Brian Clozel
  */
-class AvailabilityProbesAutoConfigurationTests {
+class AvailabilityProbesAutoConfigurationTests_RENAMED {
 
 	private ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(ApplicationAvailabilityAutoConfiguration.class,
