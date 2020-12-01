@@ -42,7 +42,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 
 /**
- * Tests for {@link CachingOperationInvoker}.
+ * Tests for {@link CachingOperationInvoker_RENAMED}.
  *
  * @author Stephane Nicoll
  * @author Christoph Dreis
@@ -55,7 +55,7 @@ class CachingOperationInvokerTests {
 	@Test
 	void createInstanceWithTtlSetToZero() {
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> new CachingOperationInvoker(mock(OperationInvoker.class), 0))
+				.isThrownBy(() -> new CachingOperationInvoker_RENAMED(mock(OperationInvoker.class), 0))
 				.withMessageContaining("TimeToLive");
 	}
 
@@ -82,7 +82,7 @@ class CachingOperationInvokerTests {
 		MonoOperationInvoker.invocations = new AtomicInteger();
 		MonoOperationInvoker target = new MonoOperationInvoker();
 		InvocationContext context = new InvocationContext(mock(SecurityContext.class), Collections.emptyMap());
-		CachingOperationInvoker invoker = new CachingOperationInvoker(target, CACHE_TTL);
+		CachingOperationInvoker_RENAMED invoker = new CachingOperationInvoker_RENAMED(target, CACHE_TTL);
 		Object response = ((Mono<?>) invoker.invoke(context)).block();
 		Object cachedResponse = ((Mono<?>) invoker.invoke(context)).block();
 		assertThat(MonoOperationInvoker.invocations).hasValue(1);
@@ -94,7 +94,7 @@ class CachingOperationInvokerTests {
 		FluxOperationInvoker.invocations = new AtomicInteger();
 		FluxOperationInvoker target = new FluxOperationInvoker();
 		InvocationContext context = new InvocationContext(mock(SecurityContext.class), Collections.emptyMap());
-		CachingOperationInvoker invoker = new CachingOperationInvoker(target, CACHE_TTL);
+		CachingOperationInvoker_RENAMED invoker = new CachingOperationInvoker_RENAMED(target, CACHE_TTL);
 		Object response = ((Flux<?>) invoker.invoke(context)).blockLast();
 		Object cachedResponse = ((Flux<?>) invoker.invoke(context)).blockLast();
 		assertThat(FluxOperationInvoker.invocations).hasValue(1);
@@ -114,7 +114,7 @@ class CachingOperationInvokerTests {
 		}
 		InvocationContext context = new InvocationContext(securityContext, parameters);
 		given(target.invoke(context)).willReturn(expected);
-		CachingOperationInvoker invoker = new CachingOperationInvoker(target, CACHE_TTL);
+		CachingOperationInvoker_RENAMED invoker = new CachingOperationInvoker_RENAMED(target, CACHE_TTL);
 		Object response = invoker.invoke(context);
 		assertThat(response).isSameAs(expected);
 		verify(target, times(1)).invoke(context);
@@ -131,7 +131,7 @@ class CachingOperationInvokerTests {
 		parameters.put("something", null);
 		InvocationContext context = new InvocationContext(mock(SecurityContext.class), parameters);
 		given(target.invoke(context)).willReturn(new Object());
-		CachingOperationInvoker invoker = new CachingOperationInvoker(target, CACHE_TTL);
+		CachingOperationInvoker_RENAMED invoker = new CachingOperationInvoker_RENAMED(target, CACHE_TTL);
 		invoker.invoke(context);
 		invoker.invoke(context);
 		invoker.invoke(context);
@@ -150,7 +150,7 @@ class CachingOperationInvokerTests {
 		Object result2 = new Object();
 		Object result3 = new Object();
 		given(target.invoke(context)).willReturn(result1, result2, result3);
-		CachingOperationInvoker invoker = new CachingOperationInvoker(target, CACHE_TTL);
+		CachingOperationInvoker_RENAMED invoker = new CachingOperationInvoker_RENAMED(target, CACHE_TTL);
 		assertThat(invoker.invoke(context)).isEqualTo(result1);
 		assertThat(invoker.invoke(context)).isEqualTo(result2);
 		assertThat(invoker.invoke(context)).isEqualTo(result3);
@@ -170,7 +170,7 @@ class CachingOperationInvokerTests {
 		InvocationContext authenticatedContext = new InvocationContext(authenticated, parameters);
 		Object authenticatedResult = new Object();
 		given(target.invoke(authenticatedContext)).willReturn(authenticatedResult);
-		CachingOperationInvoker invoker = new CachingOperationInvoker(target, CACHE_TTL);
+		CachingOperationInvoker_RENAMED invoker = new CachingOperationInvoker_RENAMED(target, CACHE_TTL);
 		assertThat(invoker.invoke(anonymousContext)).isEqualTo(anonymousResult);
 		assertThat(invoker.invoke(authenticatedContext)).isEqualTo(authenticatedResult);
 		assertThat(invoker.invoke(anonymousContext)).isEqualTo(anonymousResult);
@@ -185,7 +185,7 @@ class CachingOperationInvokerTests {
 		Map<String, Object> parameters = new HashMap<>();
 		InvocationContext context = new InvocationContext(mock(SecurityContext.class), parameters);
 		given(target.invoke(context)).willReturn(new Object());
-		CachingOperationInvoker invoker = new CachingOperationInvoker(target, 50L);
+		CachingOperationInvoker_RENAMED invoker = new CachingOperationInvoker_RENAMED(target, 50L);
 		invoker.invoke(context);
 		long expired = System.currentTimeMillis() + 50;
 		while (System.currentTimeMillis() < expired) {
@@ -206,7 +206,7 @@ class CachingOperationInvokerTests {
 				Collections.emptyMap());
 		given(target.invoke(contextV2)).willReturn(expectedV2);
 		given(target.invoke(contextV3)).willReturn(expectedV3);
-		CachingOperationInvoker invoker = new CachingOperationInvoker(target, CACHE_TTL);
+		CachingOperationInvoker_RENAMED invoker = new CachingOperationInvoker_RENAMED(target, CACHE_TTL);
 		Object response = invoker.invoke(contextV2);
 		assertThat(response).isSameAs(expectedV2);
 		verify(target, times(1)).invoke(contextV2);

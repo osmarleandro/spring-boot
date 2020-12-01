@@ -129,7 +129,7 @@ class CachingOperationInvokerAdvisorTests {
 	private void assertAdviseIsApplied(OperationParameters parameters) {
 		OperationInvoker advised = this.advisor.apply(EndpointId.of("foo"), OperationType.READ, parameters,
 				this.invoker);
-		assertThat(advised).isInstanceOf(CachingOperationInvoker.class);
+		assertThat(advised).isInstanceOf(CachingOperationInvoker_RENAMED.class);
 		assertThat(advised).hasFieldOrPropertyWithValue("invoker", this.invoker);
 		assertThat(advised).hasFieldOrPropertyWithValue("timeToLive", 100L);
 	}

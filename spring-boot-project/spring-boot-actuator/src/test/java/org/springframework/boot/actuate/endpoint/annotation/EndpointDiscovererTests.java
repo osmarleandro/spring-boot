@@ -42,7 +42,7 @@ import org.springframework.boot.actuate.endpoint.invoke.OperationInvoker;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvokerAdvisor;
 import org.springframework.boot.actuate.endpoint.invoke.ParameterValueMapper;
 import org.springframework.boot.actuate.endpoint.invoke.convert.ConversionServiceParameterValueMapper;
-import org.springframework.boot.actuate.endpoint.invoker.cache.CachingOperationInvoker;
+import org.springframework.boot.actuate.endpoint.invoker.cache.CachingOperationInvoker_RENAMED;
 import org.springframework.boot.actuate.endpoint.invoker.cache.CachingOperationInvokerAdvisor;
 import org.springframework.cglib.proxy.Enhancer;
 import org.springframework.cglib.proxy.FixedValue;
@@ -160,7 +160,7 @@ class EndpointDiscovererTests {
 			assertThat(endpoints).containsOnlyKeys(EndpointId.of("test"));
 			Map<Method, TestOperation> operations = mapOperations(endpoints.get(EndpointId.of("test")));
 			operations.values().forEach(
-					(operation) -> assertThat(operation.getInvoker()).isNotInstanceOf(CachingOperationInvoker.class));
+					(operation) -> assertThat(operation.getInvoker()).isNotInstanceOf(CachingOperationInvoker_RENAMED.class));
 		});
 	}
 
@@ -173,7 +173,7 @@ class EndpointDiscovererTests {
 			assertThat(endpoints).containsOnlyKeys(EndpointId.of("test"));
 			Map<Method, TestOperation> operations = mapOperations(endpoints.get(EndpointId.of("test")));
 			operations.values().forEach(
-					(operation) -> assertThat(operation.getInvoker()).isNotInstanceOf(CachingOperationInvoker.class));
+					(operation) -> assertThat(operation.getInvoker()).isNotInstanceOf(CachingOperationInvoker_RENAMED.class));
 		});
 	}
 
@@ -189,9 +189,9 @@ class EndpointDiscovererTests {
 			TestOperation getOne = operations.get(findTestEndpointMethod("getOne", String.class));
 			TestOperation update = operations
 					.get(ReflectionUtils.findMethod(TestEndpoint.class, "update", String.class, String.class));
-			assertThat(((CachingOperationInvoker) getAll.getInvoker()).getTimeToLive()).isEqualTo(500);
-			assertThat(getOne.getInvoker()).isNotInstanceOf(CachingOperationInvoker.class);
-			assertThat(update.getInvoker()).isNotInstanceOf(CachingOperationInvoker.class);
+			assertThat(((CachingOperationInvoker_RENAMED) getAll.getInvoker()).getTimeToLive()).isEqualTo(500);
+			assertThat(getOne.getInvoker()).isNotInstanceOf(CachingOperationInvoker_RENAMED.class);
+			assertThat(update.getInvoker()).isNotInstanceOf(CachingOperationInvoker_RENAMED.class);
 		});
 	}
 
