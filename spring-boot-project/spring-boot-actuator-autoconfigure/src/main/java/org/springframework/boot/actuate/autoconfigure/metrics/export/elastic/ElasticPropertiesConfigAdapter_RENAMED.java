@@ -25,10 +25,10 @@ import org.springframework.boot.actuate.autoconfigure.metrics.export.properties.
  *
  * @author Andy Wilkinson
  */
-class ElasticPropertiesConfigAdapter extends StepRegistryPropertiesConfigAdapter<ElasticProperties>
+class ElasticPropertiesConfigAdapter_RENAMED extends StepRegistryPropertiesConfigAdapter<ElasticProperties>
 		implements ElasticConfig {
 
-	ElasticPropertiesConfigAdapter(ElasticProperties properties) {
+	ElasticPropertiesConfigAdapter_RENAMED(ElasticProperties properties) {
 		super(properties);
 	}
 
