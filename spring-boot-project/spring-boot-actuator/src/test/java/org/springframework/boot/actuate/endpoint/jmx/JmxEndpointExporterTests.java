@@ -47,7 +47,7 @@ import static org.mockito.BDDMockito.willThrow;
 import static org.mockito.Mockito.verify;
 
 /**
- * Tests for {@link JmxEndpointExporter}.
+ * Tests for {@link JmxEndpointExporter_RENAMED}.
  *
  * @author Stephane Nicoll
  * @author Phillip Webb
@@ -71,25 +71,25 @@ class JmxEndpointExporterTests {
 	@Captor
 	private ArgumentCaptor<ObjectName> objectNameCaptor;
 
-	private JmxEndpointExporter exporter;
+	private JmxEndpointExporter_RENAMED exporter;
 
 	@BeforeEach
 	void setup() {
-		this.exporter = new JmxEndpointExporter(this.mBeanServer, this.objectNameFactory, this.responseMapper,
+		this.exporter = new JmxEndpointExporter_RENAMED(this.mBeanServer, this.objectNameFactory, this.responseMapper,
 				this.endpoints);
 	}
 
 	@Test
 	void createWhenMBeanServerIsNullShouldThrowException() {
 		assertThatIllegalArgumentException().isThrownBy(
-				() -> new JmxEndpointExporter(null, this.objectNameFactory, this.responseMapper, this.endpoints))
+				() -> new JmxEndpointExporter_RENAMED(null, this.objectNameFactory, this.responseMapper, this.endpoints))
 				.withMessageContaining("MBeanServer must not be null");
 	}
 
 	@Test
 	void createWhenObjectNameFactoryIsNullShouldThrowException() {
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> new JmxEndpointExporter(this.mBeanServer, null, this.responseMapper, this.endpoints))
+				.isThrownBy(() -> new JmxEndpointExporter_RENAMED(this.mBeanServer, null, this.responseMapper, this.endpoints))
 				.withMessageContaining("ObjectNameFactory must not be null");
 	}
 
@@ -97,14 +97,14 @@ class JmxEndpointExporterTests {
 	void createWhenResponseMapperIsNullShouldThrowException() {
 		assertThatIllegalArgumentException()
 				.isThrownBy(
-						() -> new JmxEndpointExporter(this.mBeanServer, this.objectNameFactory, null, this.endpoints))
+						() -> new JmxEndpointExporter_RENAMED(this.mBeanServer, this.objectNameFactory, null, this.endpoints))
 				.withMessageContaining("ResponseMapper must not be null");
 	}
 
 	@Test
 	void createWhenEndpointsIsNullShouldThrowException() {
 		assertThatIllegalArgumentException().isThrownBy(
-				() -> new JmxEndpointExporter(this.mBeanServer, this.objectNameFactory, this.responseMapper, null))
+				() -> new JmxEndpointExporter_RENAMED(this.mBeanServer, this.objectNameFactory, this.responseMapper, null))
 				.withMessageContaining("Endpoints must not be null");
 	}
 
