@@ -24,7 +24,7 @@ import org.springframework.boot.actuate.autoconfigure.metrics.export.properties.
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Tests for {@link SignalFxProperties}.
+ * Tests for {@link SignalFxProperties_RENAMED}.
  *
  * @author Stephane Nicoll
  */
@@ -32,7 +32,7 @@ class SignalFxPropertiesTests extends StepRegistryPropertiesTests {
 
 	@Test
 	void defaultValuesAreConsistent() {
-		SignalFxProperties properties = new SignalFxProperties();
+		SignalFxProperties_RENAMED properties = new SignalFxProperties_RENAMED();
 		SignalFxConfig config = (key) -> null;
 		assertStepRegistryDefaultValues(properties, config);
 		// access token is mandatory

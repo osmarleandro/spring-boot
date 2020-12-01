@@ -21,15 +21,15 @@ import io.micrometer.signalfx.SignalFxConfig;
 import org.springframework.boot.actuate.autoconfigure.metrics.export.properties.StepRegistryPropertiesConfigAdapter;
 
 /**
- * Adapter to convert {@link SignalFxProperties} to a {@link SignalFxConfig}.
+ * Adapter to convert {@link SignalFxProperties_RENAMED} to a {@link SignalFxConfig}.
  *
  * @author Jon Schneider
  * @since 2.0.0
  */
-public class SignalFxPropertiesConfigAdapter extends StepRegistryPropertiesConfigAdapter<SignalFxProperties>
+public class SignalFxPropertiesConfigAdapter extends StepRegistryPropertiesConfigAdapter<SignalFxProperties_RENAMED>
 		implements SignalFxConfig {
 
-	public SignalFxPropertiesConfigAdapter(SignalFxProperties properties) {
+	public SignalFxPropertiesConfigAdapter(SignalFxProperties_RENAMED properties) {
 		super(properties);
 		accessToken(); // validate that an access token is set
 	}
@@ -41,17 +41,17 @@ public class SignalFxPropertiesConfigAdapter extends StepRegistryPropertiesConfi
 
 	@Override
 	public String accessToken() {
-		return get(SignalFxProperties::getAccessToken, SignalFxConfig.super::accessToken);
+		return get(SignalFxProperties_RENAMED::getAccessToken, SignalFxConfig.super::accessToken);
 	}
 
 	@Override
 	public String uri() {
-		return get(SignalFxProperties::getUri, SignalFxConfig.super::uri);
+		return get(SignalFxProperties_RENAMED::getUri, SignalFxConfig.super::uri);
 	}
 
 	@Override
 	public String source() {
-		return get(SignalFxProperties::getSource, SignalFxConfig.super::source);
+		return get(SignalFxProperties_RENAMED::getSource, SignalFxConfig.super::source);
 	}
 
 }
