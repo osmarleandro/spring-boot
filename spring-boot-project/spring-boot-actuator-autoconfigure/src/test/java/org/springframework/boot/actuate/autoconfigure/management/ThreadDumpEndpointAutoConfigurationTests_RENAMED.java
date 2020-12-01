@@ -29,7 +29,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Phillip Webb
  */
-class ThreadDumpEndpointAutoConfigurationTests {
+class ThreadDumpEndpointAutoConfigurationTests_RENAMED {
 
 	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(ThreadDumpEndpointAutoConfiguration.class));
