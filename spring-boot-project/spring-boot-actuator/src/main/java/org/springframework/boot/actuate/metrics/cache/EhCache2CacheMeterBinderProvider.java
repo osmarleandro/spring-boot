@@ -23,12 +23,12 @@ import io.micrometer.core.instrument.binder.cache.EhCache2Metrics;
 import org.springframework.cache.ehcache.EhCacheCache;
 
 /**
- * {@link CacheMeterBinderProvider} implementation for EhCache2.
+ * {@link CacheMeterBinderProvider_RENAMED} implementation for EhCache2.
  *
  * @author Stephane Nicoll
  * @since 2.0.0
  */
-public class EhCache2CacheMeterBinderProvider implements CacheMeterBinderProvider<EhCacheCache> {
+public class EhCache2CacheMeterBinderProvider implements CacheMeterBinderProvider_RENAMED<EhCacheCache> {
 
 	@Override
 	public MeterBinder getMeterBinder(EhCacheCache cache, Iterable<Tag> tags) {

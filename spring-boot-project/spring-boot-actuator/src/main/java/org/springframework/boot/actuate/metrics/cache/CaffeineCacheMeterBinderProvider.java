@@ -23,12 +23,12 @@ import io.micrometer.core.instrument.binder.cache.CaffeineCacheMetrics;
 import org.springframework.cache.caffeine.CaffeineCache;
 
 /**
- * {@link CacheMeterBinderProvider} implementation for Caffeine.
+ * {@link CacheMeterBinderProvider_RENAMED} implementation for Caffeine.
  *
  * @author Stephane Nicoll
  * @since 2.0.0
  */
-public class CaffeineCacheMeterBinderProvider implements CacheMeterBinderProvider<CaffeineCache> {
+public class CaffeineCacheMeterBinderProvider implements CacheMeterBinderProvider_RENAMED<CaffeineCache> {
 
 	@Override
 	public MeterBinder getMeterBinder(CaffeineCache cache, Iterable<Tag> tags) {

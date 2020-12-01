@@ -21,7 +21,7 @@ import com.hazelcast.spring.cache.HazelcastCache;
 import io.micrometer.core.instrument.binder.MeterBinder;
 import net.sf.ehcache.Ehcache;
 
-import org.springframework.boot.actuate.metrics.cache.CacheMeterBinderProvider;
+import org.springframework.boot.actuate.metrics.cache.CacheMeterBinderProvider_RENAMED;
 import org.springframework.boot.actuate.metrics.cache.CaffeineCacheMeterBinderProvider;
 import org.springframework.boot.actuate.metrics.cache.EhCache2CacheMeterBinderProvider;
 import org.springframework.boot.actuate.metrics.cache.HazelcastCacheMeterBinderProvider;
@@ -36,7 +36,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.cache.RedisCache;
 
 /**
- * Configure {@link CacheMeterBinderProvider} beans.
+ * Configure {@link CacheMeterBinderProvider_RENAMED} beans.
  *
  * @author Stephane Nicoll
  */

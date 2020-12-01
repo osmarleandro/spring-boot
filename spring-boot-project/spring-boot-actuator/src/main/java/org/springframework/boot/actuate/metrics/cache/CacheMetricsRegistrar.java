@@ -39,15 +39,15 @@ public class CacheMetricsRegistrar {
 
 	private final MeterRegistry registry;
 
-	private final Collection<CacheMeterBinderProvider<?>> binderProviders;
+	private final Collection<CacheMeterBinderProvider_RENAMED<?>> binderProviders;
 
 	/**
 	 * Creates a new registrar.
 	 * @param registry the {@link MeterRegistry} to use
-	 * @param binderProviders the {@link CacheMeterBinderProvider} instances that should
+	 * @param binderProviders the {@link CacheMeterBinderProvider_RENAMED} instances that should
 	 * be used to detect compatible caches
 	 */
-	public CacheMetricsRegistrar(MeterRegistry registry, Collection<CacheMeterBinderProvider<?>> binderProviders) {
+	public CacheMetricsRegistrar(MeterRegistry registry, Collection<CacheMeterBinderProvider_RENAMED<?>> binderProviders) {
 		this.registry = registry;
 		this.binderProviders = binderProviders;
 	}
@@ -71,7 +71,7 @@ public class CacheMetricsRegistrar {
 	@SuppressWarnings({ "unchecked" })
 	private MeterBinder getMeterBinder(Cache cache, Tags tags) {
 		Tags cacheTags = tags.and(getAdditionalTags(cache));
-		return LambdaSafe.callbacks(CacheMeterBinderProvider.class, this.binderProviders, cache)
+		return LambdaSafe.callbacks(CacheMeterBinderProvider_RENAMED.class, this.binderProviders, cache)
 				.withLogger(CacheMetricsRegistrar.class)
 				.invokeAnd((binderProvider) -> binderProvider.getMeterBinder(cache, cacheTags)).filter(Objects::nonNull)
 				.findFirst().orElse(null);

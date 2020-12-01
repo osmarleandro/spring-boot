@@ -18,21 +18,26 @@ package org.springframework.boot.actuate.metrics.cache;
 
 import io.micrometer.core.instrument.Tag;
 import io.micrometer.core.instrument.binder.MeterBinder;
-import io.micrometer.core.instrument.binder.cache.JCacheMetrics;
 
-import org.springframework.cache.jcache.JCacheCache;
+import org.springframework.cache.Cache;
 
 /**
- * {@link CacheMeterBinderProvider_RENAMED} implementation for JCache.
+ * Provide a {@link MeterBinder} based on a {@link Cache}.
  *
+ * @param <C> the cache type
  * @author Stephane Nicoll
  * @since 2.0.0
  */
-public class JCacheCacheMeterBinderProvider implements CacheMeterBinderProvider_RENAMED<JCacheCache> {
+@FunctionalInterface
+public interface CacheMeterBinderProvider_RENAMED<C extends Cache> {
 
-	@Override
-	public MeterBinder getMeterBinder(JCacheCache cache, Iterable<Tag> tags) {
-		return new JCacheMetrics(cache.getNativeCache(), tags);
-	}
+	/**
+	 * Return the {@link MeterBinder} managing the specified {@link Cache} or {@code null}
+	 * if the specified {@link Cache} is not supported.
+	 * @param cache the cache to instrument
+	 * @param tags tags to apply to all recorded metrics
+	 * @return a {@link MeterBinder} handling the specified {@link Cache} or {@code null}
+	 */
+	MeterBinder getMeterBinder(C cache, Iterable<Tag> tags);
 
 }

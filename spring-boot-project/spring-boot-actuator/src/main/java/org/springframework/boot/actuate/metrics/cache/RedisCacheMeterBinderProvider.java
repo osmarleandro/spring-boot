@@ -22,12 +22,12 @@ import io.micrometer.core.instrument.binder.MeterBinder;
 import org.springframework.data.redis.cache.RedisCache;
 
 /**
- * {@link CacheMeterBinderProvider} implementation for Redis.
+ * {@link CacheMeterBinderProvider_RENAMED} implementation for Redis.
  *
  * @author Stephane Nicoll
  * @since 2.4.0
  */
-public class RedisCacheMeterBinderProvider implements CacheMeterBinderProvider<RedisCache> {
+public class RedisCacheMeterBinderProvider implements CacheMeterBinderProvider_RENAMED<RedisCache> {
 
 	@Override
 	public MeterBinder getMeterBinder(RedisCache cache, Iterable<Tag> tags) {

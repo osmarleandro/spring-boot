@@ -24,7 +24,7 @@ import javax.annotation.PostConstruct;
 import io.micrometer.core.instrument.MeterRegistry;
 import io.micrometer.core.instrument.Tag;
 
-import org.springframework.boot.actuate.metrics.cache.CacheMeterBinderProvider;
+import org.springframework.boot.actuate.metrics.cache.CacheMeterBinderProvider_RENAMED;
 import org.springframework.boot.actuate.metrics.cache.CacheMetricsRegistrar;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.cache.Cache;
@@ -40,7 +40,7 @@ import org.springframework.util.StringUtils;
  * @author Stephane Nicoll
  */
 @Configuration(proxyBeanMethods = false)
-@ConditionalOnBean({ CacheMeterBinderProvider.class, MeterRegistry.class })
+@ConditionalOnBean({ CacheMeterBinderProvider_RENAMED.class, MeterRegistry.class })
 class CacheMetricsRegistrarConfiguration {
 
 	private static final String CACHE_MANAGER_SUFFIX = "cacheManager";
@@ -51,7 +51,7 @@ class CacheMetricsRegistrarConfiguration {
 
 	private final Map<String, CacheManager> cacheManagers;
 
-	CacheMetricsRegistrarConfiguration(MeterRegistry registry, Collection<CacheMeterBinderProvider<?>> binderProviders,
+	CacheMetricsRegistrarConfiguration(MeterRegistry registry, Collection<CacheMeterBinderProvider_RENAMED<?>> binderProviders,
 			Map<String, CacheManager> cacheManagers) {
 		this.registry = registry;
 		this.cacheManagers = cacheManagers;
