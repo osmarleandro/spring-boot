@@ -27,19 +27,19 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 
 /**
- * Tests for {@link MetricsWebClientCustomizer}
+ * Tests for {@link MetricsWebClientCustomizer_RENAMED}
  *
  * @author Brian Clozel
  */
 class MetricsWebClientCustomizerTests {
 
-	private MetricsWebClientCustomizer customizer;
+	private MetricsWebClientCustomizer_RENAMED customizer;
 
 	private WebClient.Builder clientBuilder;
 
 	@BeforeEach
 	void setup() {
-		this.customizer = new MetricsWebClientCustomizer(mock(MeterRegistry.class),
+		this.customizer = new MetricsWebClientCustomizer_RENAMED(mock(MeterRegistry.class),
 				mock(WebClientExchangeTagsProvider.class), "test", null);
 		this.clientBuilder = WebClient.builder();
 	}
