@@ -25,7 +25,7 @@ import java.util.function.Function;
  * @author Phillip Webb
  * @since 2.2.0
  */
-public class DefaultHealthContributorRegistry extends DefaultContributorRegistry<HealthContributor>
+public class DefaultHealthContributorRegistry extends DefaultContributorRegistry_RENAMED<HealthContributor>
 		implements HealthContributorRegistry {
 
 	public DefaultHealthContributorRegistry() {

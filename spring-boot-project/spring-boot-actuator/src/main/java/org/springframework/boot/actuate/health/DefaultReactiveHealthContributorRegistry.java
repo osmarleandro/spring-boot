@@ -25,7 +25,7 @@ import java.util.function.Function;
  * @author Phillip Webb
  * @since 2.0.0
  */
-public class DefaultReactiveHealthContributorRegistry extends DefaultContributorRegistry<ReactiveHealthContributor>
+public class DefaultReactiveHealthContributorRegistry extends DefaultContributorRegistry_RENAMED<ReactiveHealthContributor>
 		implements ReactiveHealthContributorRegistry {
 
 	public DefaultReactiveHealthContributorRegistry() {

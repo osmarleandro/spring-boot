@@ -29,7 +29,7 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
 
 /**
- * Tests for {@link DefaultContributorRegistry}.
+ * Tests for {@link DefaultContributorRegistry_RENAMED}.
  *
  * @author Phillip Webb
  * @author Vedran Pavic
@@ -47,32 +47,32 @@ abstract class DefaultContributorRegistryTests {
 	void setUp() {
 		given(this.one.health()).willReturn(new Health.Builder().unknown().withDetail("1", "1").build());
 		given(this.two.health()).willReturn(new Health.Builder().unknown().withDetail("2", "2").build());
-		this.registry = new DefaultContributorRegistry<>();
+		this.registry = new DefaultContributorRegistry_RENAMED<>();
 	}
 
 	@Test
 	void createWhenContributorsIsNullThrowsException() {
-		assertThatIllegalArgumentException().isThrownBy(() -> new DefaultContributorRegistry<>(null))
+		assertThatIllegalArgumentException().isThrownBy(() -> new DefaultContributorRegistry_RENAMED<>(null))
 				.withMessage("Contributors must not be null");
 	}
 
 	@Test
 	void createWhenNameFactoryIsNullThrowsException() {
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> new DefaultContributorRegistry<>(Collections.emptyMap(), null))
+				.isThrownBy(() -> new DefaultContributorRegistry_RENAMED<>(Collections.emptyMap(), null))
 				.withMessage("NameFactory must not be null");
 	}
 
 	@Test
 	void createUsesHealthIndicatorNameFactoryByDefault() {
-		this.registry = new DefaultContributorRegistry<>(Collections.singletonMap("oneHealthIndicator", this.one));
+		this.registry = new DefaultContributorRegistry_RENAMED<>(Collections.singletonMap("oneHealthIndicator", this.one));
 		assertThat(this.registry.getContributor("oneHealthIndicator")).isNull();
 		assertThat(this.registry.getContributor("one")).isNotNull();
 	}
 
 	@Test
 	void createWithCustomNameFactoryAppliesFunctionToName() {
-		this.registry = new DefaultContributorRegistry<>(Collections.singletonMap("one", this.one), this::reverse);
+		this.registry = new DefaultContributorRegistry_RENAMED<>(Collections.singletonMap("one", this.one), this::reverse);
 		assertThat(this.registry.getContributor("one")).isNull();
 		assertThat(this.registry.getContributor("eno")).isNotNull();
 	}
