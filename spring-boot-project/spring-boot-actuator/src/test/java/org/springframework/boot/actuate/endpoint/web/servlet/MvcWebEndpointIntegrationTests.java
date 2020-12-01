@@ -63,7 +63,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * Integration tests for web endpoints exposed using Spring MVC.
  *
  * @author Andy Wilkinson
- * @see WebMvcEndpointHandlerMapping
+ * @see WebMvcEndpointHandlerMapping_RENAMED
  */
 class MvcWebEndpointIntegrationTests
 		extends AbstractWebEndpointIntegrationTests<AnnotationConfigServletWebServerApplicationContext> {
@@ -120,7 +120,7 @@ class MvcWebEndpointIntegrationTests
 		AnnotationConfigServletWebServerApplicationContext context = createApplicationContext();
 		context.register(TestEndpointConfiguration.class);
 		context.refresh();
-		WebMvcEndpointHandlerMapping bean = context.getBean(WebMvcEndpointHandlerMapping.class);
+		WebMvcEndpointHandlerMapping_RENAMED bean = context.getBean(WebMvcEndpointHandlerMapping_RENAMED.class);
 		try {
 			// Trigger initLookupPath
 			bean.getHandler(request);
@@ -148,13 +148,13 @@ class MvcWebEndpointIntegrationTests
 		}
 
 		@Bean
-		WebMvcEndpointHandlerMapping webEndpointHandlerMapping(Environment environment,
+		WebMvcEndpointHandlerMapping_RENAMED webEndpointHandlerMapping(Environment environment,
 				WebEndpointDiscoverer endpointDiscoverer, EndpointMediaTypes endpointMediaTypes) {
 			CorsConfiguration corsConfiguration = new CorsConfiguration();
 			corsConfiguration.setAllowedOrigins(Arrays.asList("https://example.com"));
 			corsConfiguration.setAllowedMethods(Arrays.asList("GET", "POST"));
 			String endpointPath = environment.getProperty("endpointPath");
-			return new WebMvcEndpointHandlerMapping(new EndpointMapping(endpointPath),
+			return new WebMvcEndpointHandlerMapping_RENAMED(new EndpointMapping(endpointPath),
 					endpointDiscoverer.getEndpoints(), endpointMediaTypes, corsConfiguration,
 					new EndpointLinksResolver(endpointDiscoverer.getEndpoints()), StringUtils.hasText(endpointPath));
 		}
