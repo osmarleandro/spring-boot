@@ -22,7 +22,7 @@ import org.junit.jupiter.api.Test;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.actuate.autoconfigure.security.reactive.EndpointRequest;
-import org.springframework.boot.actuate.autoconfigure.web.server.LocalManagementPort;
+import org.springframework.boot.actuate.autoconfigure.web.server.LocalManagementPort_RENAMED;
 import org.springframework.boot.actuate.web.mappings.MappingsEndpoint;
 import org.springframework.boot.autoconfigure.security.reactive.PathRequest;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -48,7 +48,7 @@ class ManagementPortSampleSecureWebFluxTests {
 	@LocalServerPort
 	private int port;
 
-	@LocalManagementPort
+	@LocalManagementPort_RENAMED
 	private int managementPort;
 
 	@Autowired

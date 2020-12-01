@@ -18,7 +18,7 @@ package smoketest.webflux;
 
 import org.junit.jupiter.api.Test;
 
-import org.springframework.boot.actuate.autoconfigure.web.server.LocalManagementPort;
+import org.springframework.boot.actuate.autoconfigure.web.server.LocalManagementPort_RENAMED;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.HttpStatus;
@@ -36,7 +36,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 		properties = { "management.server.port=0", "management.endpoints.web.base-path=/" })
 class WebFluxDifferentPortSampleActuatorApplicationTests {
 
-	@LocalManagementPort
+	@LocalManagementPort_RENAMED
 	private int managementPort;
 
 	@Test

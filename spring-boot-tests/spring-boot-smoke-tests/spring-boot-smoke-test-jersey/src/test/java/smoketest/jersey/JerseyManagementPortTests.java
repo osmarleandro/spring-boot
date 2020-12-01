@@ -23,7 +23,7 @@ import org.glassfish.jersey.server.ResourceConfig;
 import org.junit.jupiter.api.Test;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.actuate.autoconfigure.web.server.LocalManagementPort;
+import org.springframework.boot.actuate.autoconfigure.web.server.LocalManagementPort_RENAMED;
 import org.springframework.boot.autoconfigure.jersey.ResourceConfigCustomizer;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.TestConfiguration;
@@ -46,7 +46,7 @@ class JerseyManagementPortTests {
 	@LocalServerPort
 	private int port;
 
-	@LocalManagementPort
+	@LocalManagementPort_RENAMED
 	private int managementPort;
 
 	@Autowired

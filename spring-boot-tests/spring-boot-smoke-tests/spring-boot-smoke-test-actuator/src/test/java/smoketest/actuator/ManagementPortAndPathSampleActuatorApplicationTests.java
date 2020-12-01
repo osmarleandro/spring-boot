@@ -21,7 +21,7 @@ import java.util.Map;
 import org.junit.jupiter.api.Test;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.actuate.autoconfigure.web.server.LocalManagementPort;
+import org.springframework.boot.actuate.autoconfigure.web.server.LocalManagementPort_RENAMED;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.test.web.client.TestRestTemplate;
@@ -44,7 +44,7 @@ class ManagementPortAndPathSampleActuatorApplicationTests {
 	@LocalServerPort
 	private int port;
 
-	@LocalManagementPort
+	@LocalManagementPort_RENAMED
 	private int managementPort;
 
 	@Autowired

@@ -36,6 +36,6 @@ import org.springframework.beans.factory.annotation.Value;
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @Value("${local.management.port}")
-public @interface LocalManagementPort {
+public @interface LocalManagementPort_RENAMED {
 
 }
