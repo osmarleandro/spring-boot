@@ -34,7 +34,7 @@ import org.springframework.core.env.PropertyResolver;
  * @author Stephane Nicoll
  * @author Phillip Webb
  */
-class EndpointIdTimeToLivePropertyFunction implements Function<EndpointId, Long> {
+class EndpointIdTimeToLivePropertyFunction_RENAMED implements Function<EndpointId, Long> {
 
 	private static final Bindable<Duration> DURATION = Bindable.of(Duration.class);
 
@@ -44,7 +44,7 @@ class EndpointIdTimeToLivePropertyFunction implements Function<EndpointId, Long>
 	 * Create a new instance with the {@link PropertyResolver} to use.
 	 * @param environment the environment
 	 */
-	EndpointIdTimeToLivePropertyFunction(Environment environment) {
+	EndpointIdTimeToLivePropertyFunction_RENAMED(Environment environment) {
 		this.environment = environment;
 	}
 

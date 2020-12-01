@@ -26,7 +26,7 @@ import org.springframework.mock.env.MockEnvironment;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Tests for {@link EndpointIdTimeToLivePropertyFunction}.
+ * Tests for {@link EndpointIdTimeToLivePropertyFunction_RENAMED}.
  *
  * @author Stephane Nicoll
  * @author Phillip Webb
@@ -35,7 +35,7 @@ class EndpointIdTimeToLivePropertyFunctionTests {
 
 	private final MockEnvironment environment = new MockEnvironment();
 
-	private final Function<EndpointId, Long> timeToLive = new EndpointIdTimeToLivePropertyFunction(this.environment);
+	private final Function<EndpointId, Long> timeToLive = new EndpointIdTimeToLivePropertyFunction_RENAMED(this.environment);
 
 	@Test
 	void defaultConfiguration() {
