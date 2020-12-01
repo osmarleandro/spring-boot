@@ -32,11 +32,11 @@ import org.springframework.boot.actuate.endpoint.web.annotation.ServletEndpoint;
  * @since 2.0.0
  */
 @ServletEndpoint(id = "jolokia")
-public class JolokiaEndpoint implements Supplier<EndpointServlet> {
+public class JolokiaEndpoint_RENAMED implements Supplier<EndpointServlet> {
 
 	private final Map<String, String> initParameters;
 
-	public JolokiaEndpoint(Map<String, String> initParameters) {
+	public JolokiaEndpoint_RENAMED(Map<String, String> initParameters) {
 		this.initParameters = initParameters;
 	}
 

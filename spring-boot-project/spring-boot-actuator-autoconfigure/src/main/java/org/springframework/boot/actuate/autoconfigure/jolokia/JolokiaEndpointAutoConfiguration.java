@@ -28,7 +28,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * {@link EnableAutoConfiguration Auto-configuration} for the {@link JolokiaEndpoint}.
+ * {@link EnableAutoConfiguration Auto-configuration} for the {@link JolokiaEndpoint_RENAMED}.
  *
  * @author Phillip Webb
  * @since 2.0.0
@@ -36,13 +36,13 @@ import org.springframework.context.annotation.Configuration;
 @Configuration(proxyBeanMethods = false)
 @ConditionalOnWebApplication(type = Type.SERVLET)
 @ConditionalOnClass(AgentServlet.class)
-@ConditionalOnAvailableEndpoint(endpoint = JolokiaEndpoint.class)
+@ConditionalOnAvailableEndpoint(endpoint = JolokiaEndpoint_RENAMED.class)
 @EnableConfigurationProperties(JolokiaProperties.class)
 public class JolokiaEndpointAutoConfiguration {
 
 	@Bean
-	public JolokiaEndpoint jolokiaEndpoint(JolokiaProperties properties) {
-		return new JolokiaEndpoint(properties.getConfig());
+	public JolokiaEndpoint_RENAMED jolokiaEndpoint(JolokiaProperties properties) {
+		return new JolokiaEndpoint_RENAMED(properties.getConfig());
 	}
 
 }
