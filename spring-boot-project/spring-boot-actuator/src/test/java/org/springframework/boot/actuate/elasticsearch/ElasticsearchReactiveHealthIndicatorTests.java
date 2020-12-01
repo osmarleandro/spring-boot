@@ -24,7 +24,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import org.springframework.boot.actuate.health.Health;
+import org.springframework.boot.actuate.health.Health_RENAMED;
 import org.springframework.boot.actuate.health.Status;
 import org.springframework.data.elasticsearch.client.ClientConfiguration;
 import org.springframework.data.elasticsearch.client.reactive.DefaultReactiveElasticsearchClient;
@@ -65,7 +65,7 @@ class ElasticsearchReactiveHealthIndicatorTests {
 	@Test
 	void elasticsearchIsUp() {
 		setupMockResponse(200, "green");
-		Health health = this.healthIndicator.health().block();
+		Health_RENAMED health = this.healthIndicator.health().block();
 		assertThat(health.getStatus()).isEqualTo(Status.UP);
 		assertHealthDetailsWithStatus(health.getDetails(), "green");
 	}
@@ -73,7 +73,7 @@ class ElasticsearchReactiveHealthIndicatorTests {
 	@Test
 	void elasticsearchWithYellowStatusIsUp() {
 		setupMockResponse(200, "yellow");
-		Health health = this.healthIndicator.health().block();
+		Health_RENAMED health = this.healthIndicator.health().block();
 		assertThat(health.getStatus()).isEqualTo(Status.UP);
 		assertHealthDetailsWithStatus(health.getDetails(), "yellow");
 	}
@@ -81,7 +81,7 @@ class ElasticsearchReactiveHealthIndicatorTests {
 	@Test
 	void elasticsearchIsDown() throws Exception {
 		this.server.shutdown();
-		Health health = this.healthIndicator.health().block();
+		Health_RENAMED health = this.healthIndicator.health().block();
 		assertThat(health.getStatus()).isEqualTo(Status.DOWN);
 		assertThat(health.getDetails().get("error")).asString()
 				.contains("org.springframework.data.elasticsearch.client.NoReachableHostException");
@@ -93,7 +93,7 @@ class ElasticsearchReactiveHealthIndicatorTests {
 		// to "/"
 		this.server.enqueue(new MockResponse().setResponseCode(HttpStatus.OK.value()));
 		this.server.enqueue(new MockResponse().setResponseCode(HttpStatus.INTERNAL_SERVER_ERROR.value()));
-		Health health = this.healthIndicator.health().block();
+		Health_RENAMED health = this.healthIndicator.health().block();
 		assertThat(health.getStatus()).isEqualTo(Status.DOWN);
 		assertThat(health.getDetails().get("statusCode")).asString().isEqualTo("500");
 		assertThat(health.getDetails().get("reasonPhrase")).asString().isEqualTo("Internal Server Error");
@@ -102,7 +102,7 @@ class ElasticsearchReactiveHealthIndicatorTests {
 	@Test
 	void elasticsearchIsOutOfServiceByStatus() {
 		setupMockResponse(200, "red");
-		Health health = this.healthIndicator.health().block();
+		Health_RENAMED health = this.healthIndicator.health().block();
 		assertThat(health.getStatus()).isEqualTo(Status.OUT_OF_SERVICE);
 		assertHealthDetailsWithStatus(health.getDetails(), "red");
 	}

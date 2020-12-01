@@ -20,7 +20,7 @@ import com.datastax.oss.driver.api.core.ConsistencyLevel;
 import com.datastax.oss.driver.api.core.cql.SimpleStatement;
 
 import org.springframework.boot.actuate.health.AbstractHealthIndicator;
-import org.springframework.boot.actuate.health.Health;
+import org.springframework.boot.actuate.health.Health_RENAMED;
 import org.springframework.boot.actuate.health.HealthIndicator;
 import org.springframework.data.cassandra.core.CassandraOperations;
 import org.springframework.util.Assert;
@@ -57,7 +57,7 @@ public class CassandraHealthIndicator extends AbstractHealthIndicator {
 	}
 
 	@Override
-	protected void doHealthCheck(Health.Builder builder) throws Exception {
+	protected void doHealthCheck(Health_RENAMED.Builder builder) throws Exception {
 		String version = this.cassandraOperations.getCqlOperations().queryForObject(SELECT, String.class);
 		builder.up().withDetail("version", version);
 	}

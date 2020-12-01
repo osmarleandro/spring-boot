@@ -20,7 +20,7 @@ import org.junit.jupiter.api.Test;
 import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
 
-import org.springframework.boot.actuate.health.Health;
+import org.springframework.boot.actuate.health.Health_RENAMED;
 import org.springframework.boot.actuate.health.Status;
 import org.springframework.data.cassandra.CassandraInternalException;
 import org.springframework.data.cassandra.core.ReactiveCassandraOperations;
@@ -50,7 +50,7 @@ class CassandraReactiveHealthIndicatorTests {
 
 		CassandraReactiveHealthIndicator cassandraReactiveHealthIndicator = new CassandraReactiveHealthIndicator(
 				reactiveCassandraOperations);
-		Mono<Health> health = cassandraReactiveHealthIndicator.health();
+		Mono<Health_RENAMED> health = cassandraReactiveHealthIndicator.health();
 		StepVerifier.create(health).consumeNextWith((h) -> {
 			assertThat(h.getStatus()).isEqualTo(Status.UP);
 			assertThat(h.getDetails()).containsOnlyKeys("version");
@@ -66,7 +66,7 @@ class CassandraReactiveHealthIndicatorTests {
 
 		CassandraReactiveHealthIndicator cassandraReactiveHealthIndicator = new CassandraReactiveHealthIndicator(
 				reactiveCassandraOperations);
-		Mono<Health> health = cassandraReactiveHealthIndicator.health();
+		Mono<Health_RENAMED> health = cassandraReactiveHealthIndicator.health();
 		StepVerifier.create(health).consumeNextWith((h) -> {
 			assertThat(h.getStatus()).isEqualTo(Status.DOWN);
 			assertThat(h.getDetails()).containsOnlyKeys("error");

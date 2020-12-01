@@ -45,8 +45,8 @@ abstract class DefaultContributorRegistryTests {
 
 	@BeforeEach
 	void setUp() {
-		given(this.one.health()).willReturn(new Health.Builder().unknown().withDetail("1", "1").build());
-		given(this.two.health()).willReturn(new Health.Builder().unknown().withDetail("2", "2").build());
+		given(this.one.health()).willReturn(new Health_RENAMED.Builder().unknown().withDetail("1", "1").build());
+		given(this.two.health()).willReturn(new Health_RENAMED.Builder().unknown().withDetail("2", "2").build());
 		this.registry = new DefaultContributorRegistry<>();
 	}
 

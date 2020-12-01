@@ -26,7 +26,7 @@ import javax.sql.DataSource;
 
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.boot.actuate.health.AbstractHealthIndicator;
-import org.springframework.boot.actuate.health.Health;
+import org.springframework.boot.actuate.health.Health_RENAMED;
 import org.springframework.boot.actuate.health.HealthIndicator;
 import org.springframework.boot.actuate.health.Status;
 import org.springframework.dao.support.DataAccessUtils;
@@ -92,7 +92,7 @@ public class DataSourceHealthIndicator extends AbstractHealthIndicator implement
 	}
 
 	@Override
-	protected void doHealthCheck(Health.Builder builder) throws Exception {
+	protected void doHealthCheck(Health_RENAMED.Builder builder) throws Exception {
 		if (this.dataSource == null) {
 			builder.up().withDetail("database", "unknown");
 		}
@@ -101,7 +101,7 @@ public class DataSourceHealthIndicator extends AbstractHealthIndicator implement
 		}
 	}
 
-	private void doDataSourceHealthCheck(Health.Builder builder) throws Exception {
+	private void doDataSourceHealthCheck(Health_RENAMED.Builder builder) throws Exception {
 		builder.up().withDetail("database", getProduct());
 		String validationQuery = this.query;
 		if (StringUtils.hasText(validationQuery)) {

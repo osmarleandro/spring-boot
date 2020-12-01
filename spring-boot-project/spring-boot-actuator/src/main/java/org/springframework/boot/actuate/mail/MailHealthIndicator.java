@@ -17,7 +17,7 @@
 package org.springframework.boot.actuate.mail;
 
 import org.springframework.boot.actuate.health.AbstractHealthIndicator;
-import org.springframework.boot.actuate.health.Health.Builder;
+import org.springframework.boot.actuate.health.Health_RENAMED.Builder;
 import org.springframework.boot.actuate.health.HealthIndicator;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 

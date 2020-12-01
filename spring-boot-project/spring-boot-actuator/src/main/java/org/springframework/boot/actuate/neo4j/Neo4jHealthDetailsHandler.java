@@ -20,7 +20,7 @@ import org.neo4j.driver.summary.DatabaseInfo;
 import org.neo4j.driver.summary.ResultSummary;
 import org.neo4j.driver.summary.ServerInfo;
 
-import org.springframework.boot.actuate.health.Health.Builder;
+import org.springframework.boot.actuate.health.Health_RENAMED.Builder;
 import org.springframework.util.StringUtils;
 
 /**

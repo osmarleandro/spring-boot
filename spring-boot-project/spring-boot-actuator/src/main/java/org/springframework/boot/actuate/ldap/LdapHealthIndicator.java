@@ -20,7 +20,7 @@ import javax.naming.NamingException;
 import javax.naming.directory.DirContext;
 
 import org.springframework.boot.actuate.health.AbstractHealthIndicator;
-import org.springframework.boot.actuate.health.Health;
+import org.springframework.boot.actuate.health.Health_RENAMED;
 import org.springframework.boot.actuate.health.HealthIndicator;
 import org.springframework.ldap.core.ContextExecutor;
 import org.springframework.ldap.core.LdapOperations;
@@ -46,7 +46,7 @@ public class LdapHealthIndicator extends AbstractHealthIndicator {
 	}
 
 	@Override
-	protected void doHealthCheck(Health.Builder builder) throws Exception {
+	protected void doHealthCheck(Health_RENAMED.Builder builder) throws Exception {
 		String version = this.ldapOperations.executeReadOnly(versionContextExecutor);
 		builder.up().withDetail("version", version);
 	}

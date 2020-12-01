@@ -30,7 +30,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.actuate.endpoint.SecurityContext;
 import org.springframework.boot.actuate.health.CompositeHealthContributor;
 import org.springframework.boot.actuate.health.DefaultHealthContributorRegistry;
-import org.springframework.boot.actuate.health.Health;
+import org.springframework.boot.actuate.health.Health_RENAMED;
 import org.springframework.boot.actuate.health.HealthContributor;
 import org.springframework.boot.actuate.health.HealthContributorRegistry;
 import org.springframework.boot.actuate.health.HealthEndpoint;
@@ -126,8 +126,8 @@ class HealthEndpointDocumentationTests extends MockMvcEndpointDocumentationTests
 		@Bean
 		CompositeHealthContributor brokerHealthContributor() {
 			Map<String, HealthIndicator> indicators = new LinkedHashMap<>();
-			indicators.put("us1", () -> Health.up().withDetail("version", "1.0.2").build());
-			indicators.put("us2", () -> Health.up().withDetail("version", "1.0.4").build());
+			indicators.put("us1", () -> Health_RENAMED.up().withDetail("version", "1.0.2").build());
+			indicators.put("us2", () -> Health_RENAMED.up().withDetail("version", "1.0.4").build());
 			return CompositeHealthContributor.fromMap(indicators);
 		}
 

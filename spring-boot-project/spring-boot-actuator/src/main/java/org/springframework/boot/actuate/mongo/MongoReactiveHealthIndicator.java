@@ -20,7 +20,7 @@ import org.bson.Document;
 import reactor.core.publisher.Mono;
 
 import org.springframework.boot.actuate.health.AbstractReactiveHealthIndicator;
-import org.springframework.boot.actuate.health.Health;
+import org.springframework.boot.actuate.health.Health_RENAMED;
 import org.springframework.boot.actuate.health.ReactiveHealthIndicator;
 import org.springframework.data.mongodb.core.ReactiveMongoTemplate;
 import org.springframework.util.Assert;
@@ -42,12 +42,12 @@ public class MongoReactiveHealthIndicator extends AbstractReactiveHealthIndicato
 	}
 
 	@Override
-	protected Mono<Health> doHealthCheck(Health.Builder builder) {
+	protected Mono<Health_RENAMED> doHealthCheck(Health_RENAMED.Builder builder) {
 		Mono<Document> buildInfo = this.reactiveMongoTemplate.executeCommand("{ buildInfo: 1 }");
 		return buildInfo.map((document) -> up(builder, document));
 	}
 
-	private Health up(Health.Builder builder, Document document) {
+	private Health_RENAMED up(Health_RENAMED.Builder builder, Document document) {
 		return builder.up().withDetail("version", document.getString("version")).build();
 	}
 

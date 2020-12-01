@@ -22,7 +22,7 @@ import org.junit.jupiter.api.Test;
 import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
 
-import org.springframework.boot.actuate.health.Health;
+import org.springframework.boot.actuate.health.Health_RENAMED;
 import org.springframework.boot.actuate.health.Status;
 import org.springframework.data.mongodb.core.ReactiveMongoTemplate;
 
@@ -45,7 +45,7 @@ class MongoReactiveHealthIndicatorTests {
 		given(reactiveMongoTemplate.executeCommand("{ buildInfo: 1 }")).willReturn(Mono.just(buildInfo));
 		MongoReactiveHealthIndicator mongoReactiveHealthIndicator = new MongoReactiveHealthIndicator(
 				reactiveMongoTemplate);
-		Mono<Health> health = mongoReactiveHealthIndicator.health();
+		Mono<Health_RENAMED> health = mongoReactiveHealthIndicator.health();
 		StepVerifier.create(health).consumeNextWith((h) -> {
 			assertThat(h.getStatus()).isEqualTo(Status.UP);
 			assertThat(h.getDetails()).containsOnlyKeys("version");
@@ -60,7 +60,7 @@ class MongoReactiveHealthIndicatorTests {
 				.willThrow(new MongoException("Connection failed"));
 		MongoReactiveHealthIndicator mongoReactiveHealthIndicator = new MongoReactiveHealthIndicator(
 				reactiveMongoTemplate);
-		Mono<Health> health = mongoReactiveHealthIndicator.health();
+		Mono<Health_RENAMED> health = mongoReactiveHealthIndicator.health();
 		StepVerifier.create(health).consumeNextWith((h) -> {
 			assertThat(h.getStatus()).isEqualTo(Status.DOWN);
 			assertThat(h.getDetails()).containsOnlyKeys("error");

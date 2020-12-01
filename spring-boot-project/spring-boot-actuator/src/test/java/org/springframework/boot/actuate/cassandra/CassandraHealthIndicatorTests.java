@@ -19,7 +19,7 @@ package org.springframework.boot.actuate.cassandra;
 import com.datastax.oss.driver.api.core.cql.SimpleStatement;
 import org.junit.jupiter.api.Test;
 
-import org.springframework.boot.actuate.health.Health;
+import org.springframework.boot.actuate.health.Health_RENAMED;
 import org.springframework.boot.actuate.health.Status;
 import org.springframework.data.cassandra.CassandraInternalException;
 import org.springframework.data.cassandra.core.CassandraOperations;
@@ -53,7 +53,7 @@ class CassandraHealthIndicatorTests {
 		CassandraHealthIndicator healthIndicator = new CassandraHealthIndicator(cassandraOperations);
 		given(cassandraOperations.getCqlOperations()).willReturn(cqlOperations);
 		given(cqlOperations.queryForObject(any(SimpleStatement.class), eq(String.class))).willReturn("1.0.0");
-		Health health = healthIndicator.health();
+		Health_RENAMED health = healthIndicator.health();
 		assertThat(health.getStatus()).isEqualTo(Status.UP);
 		assertThat(health.getDetails().get("version")).isEqualTo("1.0.0");
 	}
@@ -63,7 +63,7 @@ class CassandraHealthIndicatorTests {
 		CassandraOperations cassandraOperations = mock(CassandraOperations.class);
 		given(cassandraOperations.getCqlOperations()).willThrow(new CassandraInternalException("Connection failed"));
 		CassandraHealthIndicator healthIndicator = new CassandraHealthIndicator(cassandraOperations);
-		Health health = healthIndicator.health();
+		Health_RENAMED health = healthIndicator.health();
 		assertThat(health.getStatus()).isEqualTo(Status.DOWN);
 		assertThat(health.getDetails().get("error"))
 				.isEqualTo(CassandraInternalException.class.getName() + ": Connection failed");

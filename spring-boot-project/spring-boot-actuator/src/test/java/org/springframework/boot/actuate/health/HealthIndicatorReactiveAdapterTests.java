@@ -35,7 +35,7 @@ class HealthIndicatorReactiveAdapterTests {
 	void delegateReturnsHealth() {
 		HealthIndicator delegate = mock(HealthIndicator.class);
 		HealthIndicatorReactiveAdapter adapter = new HealthIndicatorReactiveAdapter(delegate);
-		Health status = Health.up().build();
+		Health_RENAMED status = Health_RENAMED.up().build();
 		given(delegate.health()).willReturn(status);
 		StepVerifier.create(adapter.health()).expectNext(status).verifyComplete();
 	}
@@ -51,10 +51,10 @@ class HealthIndicatorReactiveAdapterTests {
 	@Test
 	void delegateRunsOnTheElasticScheduler() {
 		String currentThread = Thread.currentThread().getName();
-		HealthIndicator delegate = () -> Health
+		HealthIndicator delegate = () -> Health_RENAMED
 				.status(Thread.currentThread().getName().equals(currentThread) ? Status.DOWN : Status.UP).build();
 		HealthIndicatorReactiveAdapter adapter = new HealthIndicatorReactiveAdapter(delegate);
-		StepVerifier.create(adapter.health()).expectNext(Health.status(Status.UP).build()).verifyComplete();
+		StepVerifier.create(adapter.health()).expectNext(Health_RENAMED.status(Status.UP).build()).verifyComplete();
 	}
 
 }

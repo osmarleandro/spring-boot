@@ -16,7 +16,7 @@
 
 package smoketest.actuator;
 
-import org.springframework.boot.actuate.health.Health;
+import org.springframework.boot.actuate.health.Health_RENAMED;
 import org.springframework.boot.actuate.health.HealthIndicator;
 import org.springframework.stereotype.Component;
 
@@ -24,8 +24,8 @@ import org.springframework.stereotype.Component;
 public class ExampleHealthIndicator implements HealthIndicator {
 
 	@Override
-	public Health health() {
-		return Health.up().withDetail("counter", 42).build();
+	public Health_RENAMED health() {
+		return Health_RENAMED.up().withDetail("counter", 42).build();
 	}
 
 }

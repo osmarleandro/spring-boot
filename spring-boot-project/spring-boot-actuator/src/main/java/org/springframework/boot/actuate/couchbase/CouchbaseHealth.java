@@ -25,7 +25,7 @@ import com.couchbase.client.core.diagnostics.ClusterState;
 import com.couchbase.client.core.diagnostics.DiagnosticsResult;
 import com.couchbase.client.core.diagnostics.EndpointDiagnostics;
 
-import org.springframework.boot.actuate.health.Health.Builder;
+import org.springframework.boot.actuate.health.Health_RENAMED.Builder;
 
 /**
  * Details of Couchbase's health.

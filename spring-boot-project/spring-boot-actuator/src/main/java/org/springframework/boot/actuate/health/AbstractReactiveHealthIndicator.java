@@ -27,7 +27,7 @@ import org.springframework.util.StringUtils;
 
 /**
  * Base {@link ReactiveHealthIndicator} implementations that encapsulates creation of
- * {@link Health} instance and error handling.
+ * {@link Health_RENAMED} instance and error handling.
  *
  * @author Stephane Nicoll
  * @author Nikolay Rybak
@@ -74,29 +74,29 @@ public abstract class AbstractReactiveHealthIndicator implements ReactiveHealthI
 	}
 
 	@Override
-	public final Mono<Health> health() {
+	public final Mono<Health_RENAMED> health() {
 		try {
-			return doHealthCheck(new Health.Builder()).onErrorResume(this::handleFailure);
+			return doHealthCheck(new Health_RENAMED.Builder()).onErrorResume(this::handleFailure);
 		}
 		catch (Exception ex) {
 			return handleFailure(ex);
 		}
 	}
 
-	private Mono<Health> handleFailure(Throwable ex) {
+	private Mono<Health_RENAMED> handleFailure(Throwable ex) {
 		if (this.logger.isWarnEnabled()) {
 			String message = this.healthCheckFailedMessage.apply(ex);
 			this.logger.warn(StringUtils.hasText(message) ? message : DEFAULT_MESSAGE, ex);
 		}
-		return Mono.just(new Health.Builder().down(ex).build());
+		return Mono.just(new Health_RENAMED.Builder().down(ex).build());
 	}
 
 	/**
 	 * Actual health check logic. If an error occurs in the pipeline it will be handled
 	 * automatically.
-	 * @param builder the {@link Health.Builder} to report health status and details
-	 * @return a {@link Mono} that provides the {@link Health}
+	 * @param builder the {@link Health_RENAMED.Builder} to report health status and details
+	 * @return a {@link Mono} that provides the {@link Health_RENAMED}
 	 */
-	protected abstract Mono<Health> doHealthCheck(Health.Builder builder);
+	protected abstract Mono<Health_RENAMED> doHealthCheck(Health_RENAMED.Builder builder);
 
 }

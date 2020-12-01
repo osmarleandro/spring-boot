@@ -37,7 +37,7 @@ class HealthIndicatorReactiveAdapter implements ReactiveHealthIndicator {
 	}
 
 	@Override
-	public Mono<Health> health() {
+	public Mono<Health_RENAMED> health() {
 		return Mono.fromCallable(this.delegate::health).subscribeOn(Schedulers.boundedElastic());
 	}
 

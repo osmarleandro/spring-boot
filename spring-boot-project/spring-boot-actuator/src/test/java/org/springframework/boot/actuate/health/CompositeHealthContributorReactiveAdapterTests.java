@@ -39,7 +39,7 @@ class CompositeHealthContributorReactiveAdapterTests {
 
 	@Test
 	void iteratorWhenDelegateContainsHealthIndicatorAdaptsDelegate() {
-		HealthIndicator indicator = () -> Health.up().withDetail("spring", "boot").build();
+		HealthIndicator indicator = () -> Health_RENAMED.up().withDetail("spring", "boot").build();
 		CompositeHealthContributor delegate = CompositeHealthContributor
 				.fromMap(Collections.singletonMap("test", indicator));
 		CompositeHealthContributorReactiveAdapter adapter = new CompositeHealthContributorReactiveAdapter(delegate);
@@ -48,14 +48,14 @@ class CompositeHealthContributorReactiveAdapterTests {
 		NamedContributor<ReactiveHealthContributor> adapted = iterator.next();
 		assertThat(adapted.getName()).isEqualTo("test");
 		assertThat(adapted.getContributor()).isInstanceOf(ReactiveHealthIndicator.class);
-		Health health = ((ReactiveHealthIndicator) adapted.getContributor()).getHealth(true).block();
+		Health_RENAMED health = ((ReactiveHealthIndicator) adapted.getContributor()).getHealth(true).block();
 		assertThat(health.getStatus()).isEqualTo(Status.UP);
 		assertThat(health.getDetails()).containsEntry("spring", "boot");
 	}
 
 	@Test
 	void iteratorWhenDelegateContainsCompositeHealthContributorAdaptsDelegate() {
-		HealthIndicator indicator = () -> Health.up().withDetail("spring", "boot").build();
+		HealthIndicator indicator = () -> Health_RENAMED.up().withDetail("spring", "boot").build();
 		CompositeHealthContributor composite = CompositeHealthContributor
 				.fromMap(Collections.singletonMap("test1", indicator));
 		CompositeHealthContributor delegate = CompositeHealthContributor
@@ -68,19 +68,19 @@ class CompositeHealthContributorReactiveAdapterTests {
 		assertThat(adapted.getContributor()).isInstanceOf(CompositeReactiveHealthContributor.class);
 		ReactiveHealthContributor nested = ((CompositeReactiveHealthContributor) adapted.getContributor())
 				.getContributor("test1");
-		Health health = ((ReactiveHealthIndicator) nested).getHealth(true).block();
+		Health_RENAMED health = ((ReactiveHealthIndicator) nested).getHealth(true).block();
 		assertThat(health.getStatus()).isEqualTo(Status.UP);
 		assertThat(health.getDetails()).containsEntry("spring", "boot");
 	}
 
 	@Test
 	void getContributorAdaptsDelegate() {
-		HealthIndicator indicator = () -> Health.up().withDetail("spring", "boot").build();
+		HealthIndicator indicator = () -> Health_RENAMED.up().withDetail("spring", "boot").build();
 		CompositeHealthContributor delegate = CompositeHealthContributor
 				.fromMap(Collections.singletonMap("test", indicator));
 		CompositeHealthContributorReactiveAdapter adapter = new CompositeHealthContributorReactiveAdapter(delegate);
 		ReactiveHealthContributor adapted = adapter.getContributor("test");
-		Health health = ((ReactiveHealthIndicator) adapted).getHealth(true).block();
+		Health_RENAMED health = ((ReactiveHealthIndicator) adapted).getHealth(true).block();
 		assertThat(health.getStatus()).isEqualTo(Status.UP);
 		assertThat(health.getDetails()).containsEntry("spring", "boot");
 	}

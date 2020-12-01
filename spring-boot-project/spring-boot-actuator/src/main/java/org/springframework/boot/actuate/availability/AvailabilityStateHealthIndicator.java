@@ -22,7 +22,7 @@ import java.util.Map;
 import java.util.function.Consumer;
 
 import org.springframework.boot.actuate.health.AbstractHealthIndicator;
-import org.springframework.boot.actuate.health.Health.Builder;
+import org.springframework.boot.actuate.health.Health_RENAMED.Builder;
 import org.springframework.boot.actuate.health.HealthIndicator;
 import org.springframework.boot.actuate.health.Status;
 import org.springframework.boot.availability.ApplicationAvailability;

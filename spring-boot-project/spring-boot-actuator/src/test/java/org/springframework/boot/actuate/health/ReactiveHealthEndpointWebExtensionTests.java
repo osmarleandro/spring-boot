@@ -59,7 +59,7 @@ class ReactiveHealthEndpointWebExtensionTests extends
 		assertThat(response.getStatus()).isEqualTo(200);
 		HealthComponent health = response.getBody();
 		assertThat(health.getStatus()).isEqualTo(Status.UP);
-		assertThat(health).isInstanceOf(Health.class);
+		assertThat(health).isInstanceOf(Health_RENAMED.class);
 	}
 
 	@Test
@@ -92,7 +92,7 @@ class ReactiveHealthEndpointWebExtensionTests extends
 	}
 
 	@Override
-	protected ReactiveHealthContributor createContributor(Health health) {
+	protected ReactiveHealthContributor createContributor(Health_RENAMED health) {
 		return (ReactiveHealthIndicator) () -> Mono.just(health);
 	}
 

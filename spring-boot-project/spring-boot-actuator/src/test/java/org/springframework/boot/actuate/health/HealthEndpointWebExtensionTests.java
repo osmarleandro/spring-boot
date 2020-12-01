@@ -58,7 +58,7 @@ class HealthEndpointWebExtensionTests
 		assertThat(response.getStatus()).isEqualTo(200);
 		HealthComponent health = response.getBody();
 		assertThat(health.getStatus()).isEqualTo(Status.UP);
-		assertThat(health).isInstanceOf(Health.class);
+		assertThat(health).isInstanceOf(Health_RENAMED.class);
 	}
 
 	@Test
@@ -90,7 +90,7 @@ class HealthEndpointWebExtensionTests
 	}
 
 	@Override
-	protected HealthContributor createContributor(Health health) {
+	protected HealthContributor createContributor(Health_RENAMED health) {
 		return (HealthIndicator) () -> health;
 	}
 

@@ -21,16 +21,16 @@ import java.util.function.Function;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import org.springframework.boot.actuate.health.Health.Builder;
+import org.springframework.boot.actuate.health.Health_RENAMED.Builder;
 import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
 
 /**
  * Base {@link HealthIndicator} implementations that encapsulates creation of
- * {@link Health} instance and error handling.
+ * {@link Health_RENAMED} instance and error handling.
  * <p>
  * This implementation is only suitable if an {@link Exception} raised from
- * {@link #doHealthCheck(org.springframework.boot.actuate.health.Health.Builder)} should
+ * {@link #doHealthCheck(org.springframework.boot.actuate.health.Health_RENAMED.Builder)} should
  * create a {@link Status#DOWN} health status.
  *
  * @author Christian Dupuis
@@ -76,8 +76,8 @@ public abstract class AbstractHealthIndicator implements HealthIndicator {
 	}
 
 	@Override
-	public final Health health() {
-		Health.Builder builder = new Health.Builder();
+	public final Health_RENAMED health() {
+		Health_RENAMED.Builder builder = new Health_RENAMED.Builder();
 		try {
 			doHealthCheck(builder);
 		}
@@ -97,6 +97,6 @@ public abstract class AbstractHealthIndicator implements HealthIndicator {
 	 * @throws Exception any {@link Exception} that should create a {@link Status#DOWN}
 	 * system status.
 	 */
-	protected abstract void doHealthCheck(Health.Builder builder) throws Exception;
+	protected abstract void doHealthCheck(Health_RENAMED.Builder builder) throws Exception;
 
 }

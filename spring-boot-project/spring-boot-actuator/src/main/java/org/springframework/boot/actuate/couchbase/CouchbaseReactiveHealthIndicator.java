@@ -20,7 +20,7 @@ import com.couchbase.client.java.Cluster;
 import reactor.core.publisher.Mono;
 
 import org.springframework.boot.actuate.health.AbstractReactiveHealthIndicator;
-import org.springframework.boot.actuate.health.Health;
+import org.springframework.boot.actuate.health.Health_RENAMED;
 import org.springframework.boot.actuate.health.ReactiveHealthIndicator;
 
 /**
@@ -44,7 +44,7 @@ public class CouchbaseReactiveHealthIndicator extends AbstractReactiveHealthIndi
 	}
 
 	@Override
-	protected Mono<Health> doHealthCheck(Health.Builder builder) {
+	protected Mono<Health_RENAMED> doHealthCheck(Health_RENAMED.Builder builder) {
 		DiagnosticsResult diagnostics = this.cluster.diagnostics();
 		new CouchbaseHealth(diagnostics).applyTo(builder);
 		return Mono.just(builder.build());

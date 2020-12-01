@@ -22,7 +22,7 @@ import reactor.core.publisher.Mono;
 import reactor.core.scheduler.Schedulers;
 
 import org.springframework.boot.actuate.health.AbstractReactiveHealthIndicator;
-import org.springframework.boot.actuate.health.Health;
+import org.springframework.boot.actuate.health.Health_RENAMED;
 import org.springframework.boot.actuate.health.ReactiveHealthIndicator;
 import org.springframework.data.redis.connection.ClusterInfo;
 import org.springframework.data.redis.connection.ReactiveRedisClusterConnection;
@@ -48,7 +48,7 @@ public class RedisReactiveHealthIndicator extends AbstractReactiveHealthIndicato
 	}
 
 	@Override
-	protected Mono<Health> doHealthCheck(Health.Builder builder) {
+	protected Mono<Health_RENAMED> doHealthCheck(Health_RENAMED.Builder builder) {
 		return getConnection().flatMap((connection) -> doHealthCheck(builder, connection));
 	}
 
@@ -57,12 +57,12 @@ public class RedisReactiveHealthIndicator extends AbstractReactiveHealthIndicato
 				.subscribeOn(Schedulers.boundedElastic());
 	}
 
-	private Mono<Health> doHealthCheck(Health.Builder builder, ReactiveRedisConnection connection) {
+	private Mono<Health_RENAMED> doHealthCheck(Health_RENAMED.Builder builder, ReactiveRedisConnection connection) {
 		return getHealth(builder, connection).onErrorResume((ex) -> Mono.just(builder.down(ex).build()))
 				.flatMap((health) -> connection.closeLater().thenReturn(health));
 	}
 
-	private Mono<Health> getHealth(Health.Builder builder, ReactiveRedisConnection connection) {
+	private Mono<Health_RENAMED> getHealth(Health_RENAMED.Builder builder, ReactiveRedisConnection connection) {
 		if (connection instanceof ReactiveRedisClusterConnection) {
 			return ((ReactiveRedisClusterConnection) connection).clusterGetClusterInfo()
 					.map((info) -> up(builder, info));
@@ -70,11 +70,11 @@ public class RedisReactiveHealthIndicator extends AbstractReactiveHealthIndicato
 		return connection.serverCommands().info().map((info) -> up(builder, info));
 	}
 
-	private Health up(Health.Builder builder, Properties info) {
+	private Health_RENAMED up(Health_RENAMED.Builder builder, Properties info) {
 		return RedisHealth.up(builder, info).build();
 	}
 
-	private Health up(Health.Builder builder, ClusterInfo clusterInfo) {
+	private Health_RENAMED up(Health_RENAMED.Builder builder, ClusterInfo clusterInfo) {
 		return RedisHealth.up(builder, clusterInfo).build();
 	}
 

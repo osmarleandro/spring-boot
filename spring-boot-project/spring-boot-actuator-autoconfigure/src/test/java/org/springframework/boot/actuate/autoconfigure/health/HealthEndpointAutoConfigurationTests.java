@@ -27,7 +27,7 @@ import org.springframework.boot.actuate.endpoint.http.ApiVersion;
 import org.springframework.boot.actuate.endpoint.web.WebEndpointResponse;
 import org.springframework.boot.actuate.health.DefaultHealthContributorRegistry;
 import org.springframework.boot.actuate.health.DefaultReactiveHealthContributorRegistry;
-import org.springframework.boot.actuate.health.Health;
+import org.springframework.boot.actuate.health.Health_RENAMED;
 import org.springframework.boot.actuate.health.HealthComponent;
 import org.springframework.boot.actuate.health.HealthContributorRegistry;
 import org.springframework.boot.actuate.health.HealthEndpoint;
@@ -171,7 +171,7 @@ class HealthEndpointAutoConfigurationTests {
 	void runCreatesHealthEndpoint() {
 		this.contextRunner.withPropertyValues("management.endpoint.health.show-details=always").run((context) -> {
 			HealthEndpoint endpoint = context.getBean(HealthEndpoint.class);
-			Health health = (Health) endpoint.healthForPath("simple");
+			Health_RENAMED health = (Health_RENAMED) endpoint.healthForPath("simple");
 			assertThat(health.getDetails()).containsEntry("counter", 42);
 		});
 	}
@@ -210,7 +210,7 @@ class HealthEndpointAutoConfigurationTests {
 			HealthEndpointWebExtension webExtension = context.getBean(HealthEndpointWebExtension.class);
 			WebEndpointResponse<HealthComponent> response = webExtension.health(ApiVersion.V3, SecurityContext.NONE,
 					true, "simple");
-			Health health = (Health) response.getBody();
+			Health_RENAMED health = (Health_RENAMED) response.getBody();
 			assertThat(response.getStatus()).isEqualTo(200);
 			assertThat(health.getDetails()).containsEntry("counter", 42);
 		});
@@ -232,7 +232,7 @@ class HealthEndpointAutoConfigurationTests {
 			ReactiveHealthEndpointWebExtension webExtension = context.getBean(ReactiveHealthEndpointWebExtension.class);
 			Mono<WebEndpointResponse<? extends HealthComponent>> response = webExtension.health(ApiVersion.V3,
 					SecurityContext.NONE, true, "simple");
-			Health health = (Health) (response.block().getBody());
+			Health_RENAMED health = (Health_RENAMED) (response.block().getBody());
 			assertThat(health.getDetails()).containsEntry("counter", 42);
 		});
 	}
@@ -264,17 +264,17 @@ class HealthEndpointAutoConfigurationTests {
 
 		@Bean
 		HealthIndicator simpleHealthIndicator() {
-			return () -> Health.up().withDetail("counter", 42).build();
+			return () -> Health_RENAMED.up().withDetail("counter", 42).build();
 		}
 
 		@Bean
 		HealthIndicator additionalHealthIndicator() {
-			return () -> Health.up().build();
+			return () -> Health_RENAMED.up().build();
 		}
 
 		@Bean
 		ReactiveHealthIndicator reactiveHealthIndicator() {
-			return () -> Mono.just(Health.up().build());
+			return () -> Mono.just(Health_RENAMED.up().build());
 		}
 
 	}

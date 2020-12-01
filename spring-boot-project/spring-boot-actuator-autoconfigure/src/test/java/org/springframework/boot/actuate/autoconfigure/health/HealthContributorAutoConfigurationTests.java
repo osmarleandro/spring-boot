@@ -18,7 +18,7 @@ package org.springframework.boot.actuate.autoconfigure.health;
 
 import org.junit.jupiter.api.Test;
 
-import org.springframework.boot.actuate.health.Health;
+import org.springframework.boot.actuate.health.Health_RENAMED;
 import org.springframework.boot.actuate.health.HealthIndicator;
 import org.springframework.boot.actuate.health.PingHealthIndicator;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
@@ -82,8 +82,8 @@ class HealthContributorAutoConfigurationTests {
 	static class CustomHealthIndicator implements HealthIndicator {
 
 		@Override
-		public Health health() {
-			return Health.down().build();
+		public Health_RENAMED health() {
+			return Health_RENAMED.down().build();
 		}
 
 	}

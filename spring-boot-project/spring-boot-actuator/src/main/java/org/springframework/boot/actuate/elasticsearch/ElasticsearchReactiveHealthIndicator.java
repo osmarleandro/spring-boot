@@ -21,7 +21,7 @@ import java.util.Map;
 import reactor.core.publisher.Mono;
 
 import org.springframework.boot.actuate.health.AbstractReactiveHealthIndicator;
-import org.springframework.boot.actuate.health.Health;
+import org.springframework.boot.actuate.health.Health_RENAMED;
 import org.springframework.boot.actuate.health.HealthIndicator;
 import org.springframework.boot.actuate.health.Status;
 import org.springframework.core.ParameterizedTypeReference;
@@ -53,15 +53,15 @@ public class ElasticsearchReactiveHealthIndicator extends AbstractReactiveHealth
 	}
 
 	@Override
-	protected Mono<Health> doHealthCheck(Health.Builder builder) {
+	protected Mono<Health_RENAMED> doHealthCheck(Health_RENAMED.Builder builder) {
 		return this.client.execute((webClient) -> getHealth(builder, webClient));
 	}
 
-	private Mono<Health> getHealth(Health.Builder builder, WebClient webClient) {
+	private Mono<Health_RENAMED> getHealth(Health_RENAMED.Builder builder, WebClient webClient) {
 		return webClient.get().uri("/_cluster/health/").exchangeToMono((response) -> doHealthCheck(builder, response));
 	}
 
-	private Mono<Health> doHealthCheck(Health.Builder builder, ClientResponse response) {
+	private Mono<Health_RENAMED> doHealthCheck(Health_RENAMED.Builder builder, ClientResponse response) {
 		if (response.statusCode().is2xxSuccessful()) {
 			return response.bodyToMono(STRING_OBJECT_MAP).map((body) -> getHealth(builder, body));
 		}
@@ -71,7 +71,7 @@ public class ElasticsearchReactiveHealthIndicator extends AbstractReactiveHealth
 		return response.releaseBody().thenReturn(builder.build());
 	}
 
-	private Health getHealth(Health.Builder builder, Map<String, Object> body) {
+	private Health_RENAMED getHealth(Health_RENAMED.Builder builder, Map<String, Object> body) {
 		String status = (String) body.get("status");
 		builder.status(RED_STATUS.equals(status) ? Status.OUT_OF_SERVICE : Status.UP);
 		builder.withDetails(body);

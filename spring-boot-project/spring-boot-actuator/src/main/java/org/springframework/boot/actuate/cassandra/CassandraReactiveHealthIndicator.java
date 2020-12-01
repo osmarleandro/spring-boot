@@ -20,7 +20,7 @@ import com.datastax.oss.driver.api.core.cql.SimpleStatement;
 import reactor.core.publisher.Mono;
 
 import org.springframework.boot.actuate.health.AbstractReactiveHealthIndicator;
-import org.springframework.boot.actuate.health.Health;
+import org.springframework.boot.actuate.health.Health_RENAMED;
 import org.springframework.boot.actuate.health.ReactiveHealthIndicator;
 import org.springframework.data.cassandra.core.ReactiveCassandraOperations;
 import org.springframework.util.Assert;
@@ -51,7 +51,7 @@ public class CassandraReactiveHealthIndicator extends AbstractReactiveHealthIndi
 	}
 
 	@Override
-	protected Mono<Health> doHealthCheck(Health.Builder builder) {
+	protected Mono<Health_RENAMED> doHealthCheck(Health_RENAMED.Builder builder) {
 		return this.reactiveCassandraOperations.getReactiveCqlOperations().queryForObject(SELECT, String.class)
 				.map((version) -> builder.up().withDetail("version", version).build()).single();
 	}

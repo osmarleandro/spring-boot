@@ -28,7 +28,7 @@ import org.elasticsearch.client.RestClient;
 import org.elasticsearch.client.RestHighLevelClient;
 
 import org.springframework.boot.actuate.health.AbstractHealthIndicator;
-import org.springframework.boot.actuate.health.Health;
+import org.springframework.boot.actuate.health.Health_RENAMED;
 import org.springframework.boot.actuate.health.HealthIndicator;
 import org.springframework.boot.json.JsonParser;
 import org.springframework.boot.json.JsonParserFactory;
@@ -61,7 +61,7 @@ public class ElasticsearchRestHealthIndicator extends AbstractHealthIndicator {
 	}
 
 	@Override
-	protected void doHealthCheck(Health.Builder builder) throws Exception {
+	protected void doHealthCheck(Health_RENAMED.Builder builder) throws Exception {
 		Response response = this.client.performRequest(new Request("GET", "/_cluster/health/"));
 		StatusLine statusLine = response.getStatusLine();
 		if (statusLine.getStatusCode() != HttpStatus.SC_OK) {
@@ -75,7 +75,7 @@ public class ElasticsearchRestHealthIndicator extends AbstractHealthIndicator {
 		}
 	}
 
-	private void doHealthCheck(Health.Builder builder, String json) {
+	private void doHealthCheck(Health_RENAMED.Builder builder, String json) {
 		Map<String, Object> response = this.jsonParser.parseMap(json);
 		String status = (String) response.get("status");
 		if (RED_STATUS.equals(status)) {

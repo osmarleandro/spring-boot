@@ -29,7 +29,7 @@ import org.springframework.util.Assert;
 /**
  * A {@link HealthComponent} that is composed of other {@link HealthComponent} instances.
  * Used to provide a unified view of related components. For example, a database health
- * indicator may be a composite containing the {@link Health} of each datasource
+ * indicator may be a composite containing the {@link Health_RENAMED} of each datasource
  * connection.
  *
  * @author Phillip Webb

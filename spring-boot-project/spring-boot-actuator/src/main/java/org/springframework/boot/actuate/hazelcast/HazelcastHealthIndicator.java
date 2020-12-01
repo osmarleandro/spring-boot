@@ -21,7 +21,7 @@ import java.lang.reflect.Method;
 import com.hazelcast.core.HazelcastInstance;
 
 import org.springframework.boot.actuate.health.AbstractHealthIndicator;
-import org.springframework.boot.actuate.health.Health;
+import org.springframework.boot.actuate.health.Health_RENAMED;
 import org.springframework.boot.actuate.health.HealthIndicator;
 import org.springframework.util.Assert;
 import org.springframework.util.ReflectionUtils;
@@ -44,7 +44,7 @@ public class HazelcastHealthIndicator extends AbstractHealthIndicator {
 	}
 
 	@Override
-	protected void doHealthCheck(Health.Builder builder) {
+	protected void doHealthCheck(Health_RENAMED.Builder builder) {
 		this.hazelcast.executeTransaction((context) -> {
 			builder.up().withDetail("name", this.hazelcast.getName()).withDetail("uuid", extractUuid());
 			return null;

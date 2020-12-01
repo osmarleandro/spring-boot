@@ -33,7 +33,7 @@ class CompositeHealthContributorTests {
 	@Test
 	void fromMapReturnsCompositeHealthContributorMapAdapter() {
 		Map<String, HealthContributor> map = new LinkedHashMap<>();
-		HealthIndicator indicator = () -> Health.down().build();
+		HealthIndicator indicator = () -> Health_RENAMED.down().build();
 		map.put("test", indicator);
 		CompositeHealthContributor composite = CompositeHealthContributor.fromMap(map);
 		assertThat(composite).isInstanceOf(CompositeHealthContributorMapAdapter.class);
@@ -45,8 +45,8 @@ class CompositeHealthContributorTests {
 	@Test
 	void fromMapWithAdapterReturnsCompositeHealthContributorMapAdapter() {
 		Map<String, HealthContributor> map = new LinkedHashMap<>();
-		HealthIndicator downIndicator = () -> Health.down().build();
-		HealthIndicator upIndicator = () -> Health.up().build();
+		HealthIndicator downIndicator = () -> Health_RENAMED.down().build();
+		HealthIndicator upIndicator = () -> Health_RENAMED.up().build();
 		map.put("test", downIndicator);
 		CompositeHealthContributor composite = CompositeHealthContributor.fromMap(map, (value) -> upIndicator);
 		assertThat(composite).isInstanceOf(CompositeHealthContributorMapAdapter.class);

@@ -27,7 +27,7 @@ import org.neo4j.driver.exceptions.SessionExpiredException;
 import org.neo4j.driver.summary.ResultSummary;
 
 import org.springframework.boot.actuate.health.AbstractHealthIndicator;
-import org.springframework.boot.actuate.health.Health;
+import org.springframework.boot.actuate.health.Health_RENAMED;
 import org.springframework.boot.actuate.health.HealthIndicator;
 
 /**
@@ -70,7 +70,7 @@ public class Neo4jHealthIndicator extends AbstractHealthIndicator {
 	}
 
 	@Override
-	protected void doHealthCheck(Health.Builder builder) {
+	protected void doHealthCheck(Health_RENAMED.Builder builder) {
 		try {
 			try {
 				runHealthCheckQuery(builder);
@@ -86,7 +86,7 @@ public class Neo4jHealthIndicator extends AbstractHealthIndicator {
 		}
 	}
 
-	private void runHealthCheckQuery(Health.Builder builder) {
+	private void runHealthCheckQuery(Health_RENAMED.Builder builder) {
 		// We use WRITE here to make sure UP is returned for a server that supports
 		// all possible workloads
 		try (Session session = this.driver.session(DEFAULT_SESSION_CONFIG)) {

@@ -26,7 +26,7 @@ import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.boot.actuate.health.CompositeHealthContributor;
 import org.springframework.boot.actuate.health.CompositeReactiveHealthContributor;
-import org.springframework.boot.actuate.health.Health;
+import org.springframework.boot.actuate.health.Health_RENAMED;
 import org.springframework.boot.actuate.health.HealthContributor;
 import org.springframework.boot.actuate.health.HealthContributorRegistry;
 import org.springframework.boot.actuate.health.HealthEndpoint;
@@ -157,12 +157,12 @@ class HealthEndpointConfiguration {
 			return new HealthIndicator() {
 
 				@Override
-				public Health getHealth(boolean includeDetails) {
+				public Health_RENAMED getHealth(boolean includeDetails) {
 					return indicator.getHealth(includeDetails).block();
 				}
 
 				@Override
-				public Health health() {
+				public Health_RENAMED health() {
 					return indicator.health().block();
 				}
 

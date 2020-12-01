@@ -42,9 +42,9 @@ abstract class HealthEndpointSupportTests<R extends ContributorRegistry<C>, C, T
 
 	final R registry;
 
-	final Health up = Health.up().withDetail("spring", "boot").build();
+	final Health_RENAMED up = Health_RENAMED.up().withDetail("spring", "boot").build();
 
-	final Health down = Health.down().build();
+	final Health_RENAMED down = Health_RENAMED.down().build();
 
 	final TestHealthEndpointGroup primaryGroup = new TestHealthEndpointGroup();
 
@@ -140,7 +140,7 @@ abstract class HealthEndpointSupportTests<R extends ContributorRegistry<C>, C, T
 		this.registry.registerContributor("test", createContributor(this.up));
 		HealthResult<T> result = create(this.registry, this.groups).getHealth(ApiVersion.V3, SecurityContext.NONE,
 				false, "test");
-		assertThat(((Health) getHealth(result)).getDetails()).containsEntry("spring", "boot");
+		assertThat(((Health_RENAMED) getHealth(result)).getDetails()).containsEntry("spring", "boot");
 	}
 
 	@Test
@@ -160,7 +160,7 @@ abstract class HealthEndpointSupportTests<R extends ContributorRegistry<C>, C, T
 		this.registry.registerContributor("test", createContributor(this.up));
 		HealthResult<T> result = create(this.registry, this.groups).getHealth(ApiVersion.V3, SecurityContext.NONE, true,
 				"test");
-		assertThat(((Health) getHealth(result)).getDetails()).containsEntry("spring", "boot");
+		assertThat(((Health_RENAMED) getHealth(result)).getDetails()).containsEntry("spring", "boot");
 	}
 
 	@Test
@@ -227,7 +227,7 @@ abstract class HealthEndpointSupportTests<R extends ContributorRegistry<C>, C, T
 
 	protected abstract R createRegistry();
 
-	protected abstract C createContributor(Health health);
+	protected abstract C createContributor(Health_RENAMED health);
 
 	protected abstract C createCompositeContributor(Map<String, C> contributors);
 

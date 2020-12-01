@@ -22,7 +22,7 @@ import org.apache.solr.client.solrj.request.CoreAdminRequest;
 import org.apache.solr.common.params.CoreAdminParams;
 
 import org.springframework.boot.actuate.health.AbstractHealthIndicator;
-import org.springframework.boot.actuate.health.Health;
+import org.springframework.boot.actuate.health.Health_RENAMED;
 import org.springframework.boot.actuate.health.HealthIndicator;
 import org.springframework.boot.actuate.health.Status;
 
@@ -49,7 +49,7 @@ public class SolrHealthIndicator extends AbstractHealthIndicator {
 	}
 
 	@Override
-	protected void doHealthCheck(Health.Builder builder) throws Exception {
+	protected void doHealthCheck(Health_RENAMED.Builder builder) throws Exception {
 		int statusCode = initializeStatusCheck();
 		Status status = (statusCode != 0) ? Status.DOWN : Status.UP;
 		builder.status(status).withDetail("status", statusCode).withDetail("detectedPathType",

@@ -24,7 +24,7 @@ import com.datastax.oss.driver.api.core.metadata.NodeState;
 import reactor.core.publisher.Mono;
 
 import org.springframework.boot.actuate.health.AbstractReactiveHealthIndicator;
-import org.springframework.boot.actuate.health.Health;
+import org.springframework.boot.actuate.health.Health_RENAMED;
 import org.springframework.boot.actuate.health.ReactiveHealthIndicator;
 import org.springframework.boot.actuate.health.Status;
 import org.springframework.util.Assert;
@@ -52,7 +52,7 @@ public class CassandraDriverReactiveHealthIndicator extends AbstractReactiveHeal
 	}
 
 	@Override
-	protected Mono<Health> doHealthCheck(Health.Builder builder) {
+	protected Mono<Health_RENAMED> doHealthCheck(Health_RENAMED.Builder builder) {
 		return Mono.fromSupplier(() -> {
 			Collection<Node> nodes = this.session.getMetadata().getNodes().values();
 			Optional<Node> nodeUp = nodes.stream().filter((node) -> node.getState() == NodeState.UP).findAny();

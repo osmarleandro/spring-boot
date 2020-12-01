@@ -18,7 +18,7 @@ package org.springframework.boot.actuate.autoconfigure.health;
 
 import org.springframework.boot.actuate.autoconfigure.health.CompositeHealthContributorConfigurationTests.TestHealthIndicator;
 import org.springframework.boot.actuate.health.AbstractHealthIndicator;
-import org.springframework.boot.actuate.health.Health.Builder;
+import org.springframework.boot.actuate.health.Health_RENAMED.Builder;
 import org.springframework.boot.actuate.health.HealthContributor;
 
 /**

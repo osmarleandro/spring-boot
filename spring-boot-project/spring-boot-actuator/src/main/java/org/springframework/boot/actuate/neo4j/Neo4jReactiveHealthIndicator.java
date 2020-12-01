@@ -28,7 +28,7 @@ import reactor.util.function.Tuple2;
 import reactor.util.retry.Retry;
 
 import org.springframework.boot.actuate.health.AbstractReactiveHealthIndicator;
-import org.springframework.boot.actuate.health.Health;
+import org.springframework.boot.actuate.health.Health_RENAMED;
 import org.springframework.boot.actuate.health.ReactiveHealthIndicator;
 
 /**
@@ -53,7 +53,7 @@ public final class Neo4jReactiveHealthIndicator extends AbstractReactiveHealthIn
 	}
 
 	@Override
-	protected Mono<Health> doHealthCheck(Health.Builder builder) {
+	protected Mono<Health_RENAMED> doHealthCheck(Health_RENAMED.Builder builder) {
 		return runHealthCheckQuery()
 				.doOnError(SessionExpiredException.class,
 						(e) -> logger.warn(Neo4jHealthIndicator.MESSAGE_SESSION_EXPIRED))

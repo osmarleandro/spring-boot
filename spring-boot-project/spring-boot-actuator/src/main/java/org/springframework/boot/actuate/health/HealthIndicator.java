@@ -17,7 +17,7 @@
 package org.springframework.boot.actuate.health;
 
 /**
- * Strategy interface used to contribute {@link Health} to the results returned from the
+ * Strategy interface used to contribute {@link Health_RENAMED} to the results returned from the
  * {@link HealthEndpoint}.
  *
  * @author Dave Syer
@@ -33,8 +33,8 @@ public interface HealthIndicator extends HealthContributor {
 	 * @return the health
 	 * @since 2.2.0
 	 */
-	default Health getHealth(boolean includeDetails) {
-		Health health = health();
+	default Health_RENAMED getHealth(boolean includeDetails) {
+		Health_RENAMED health = health();
 		return includeDetails ? health : health.withoutDetails();
 	}
 
@@ -42,6 +42,6 @@ public interface HealthIndicator extends HealthContributor {
 	 * Return an indication of health.
 	 * @return the health
 	 */
-	Health health();
+	Health_RENAMED health();
 
 }

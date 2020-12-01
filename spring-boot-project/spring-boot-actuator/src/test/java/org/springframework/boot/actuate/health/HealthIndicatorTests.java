@@ -27,18 +27,18 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 class HealthIndicatorTests {
 
-	private final HealthIndicator indicator = () -> Health.up().withDetail("spring", "boot").build();
+	private final HealthIndicator indicator = () -> Health_RENAMED.up().withDetail("spring", "boot").build();
 
 	@Test
 	void getHealthWhenIncludeDetailsIsTrueReturnsHealthWithDetails() {
-		Health health = this.indicator.getHealth(true);
+		Health_RENAMED health = this.indicator.getHealth(true);
 		assertThat(health.getStatus()).isEqualTo(Status.UP);
 		assertThat(health.getDetails()).containsEntry("spring", "boot");
 	}
 
 	@Test
 	void getHealthWhenIncludeDetailsIsFalseReturnsHealthWithoutDetails() {
-		Health health = this.indicator.getHealth(false);
+		Health_RENAMED health = this.indicator.getHealth(false);
 		assertThat(health.getStatus()).isEqualTo(Status.UP);
 		assertThat(health.getDetails()).isEmpty();
 	}

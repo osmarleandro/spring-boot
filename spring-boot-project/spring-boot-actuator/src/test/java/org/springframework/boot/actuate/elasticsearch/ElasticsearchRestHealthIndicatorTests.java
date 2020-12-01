@@ -27,7 +27,7 @@ import org.elasticsearch.client.Response;
 import org.elasticsearch.client.RestClient;
 import org.junit.jupiter.api.Test;
 
-import org.springframework.boot.actuate.health.Health;
+import org.springframework.boot.actuate.health.Health_RENAMED;
 import org.springframework.boot.actuate.health.Status;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -59,7 +59,7 @@ class ElasticsearchRestHealthIndicatorTests {
 		given(response.getStatusLine()).willReturn(statusLine);
 		given(response.getEntity()).willReturn(httpEntity);
 		given(this.restClient.performRequest(any(Request.class))).willReturn(response);
-		Health health = this.elasticsearchRestHealthIndicator.health();
+		Health_RENAMED health = this.elasticsearchRestHealthIndicator.health();
 		assertThat(health.getStatus()).isEqualTo(Status.UP);
 		assertHealthDetailsWithStatus(health.getDetails(), "green");
 	}
@@ -74,7 +74,7 @@ class ElasticsearchRestHealthIndicatorTests {
 		given(response.getStatusLine()).willReturn(statusLine);
 		given(response.getEntity()).willReturn(httpEntity);
 		given(this.restClient.performRequest(any(Request.class))).willReturn(response);
-		Health health = this.elasticsearchRestHealthIndicator.health();
+		Health_RENAMED health = this.elasticsearchRestHealthIndicator.health();
 		assertThat(health.getStatus()).isEqualTo(Status.UP);
 		assertHealthDetailsWithStatus(health.getDetails(), "yellow");
 	}
@@ -82,7 +82,7 @@ class ElasticsearchRestHealthIndicatorTests {
 	@Test
 	void elasticsearchIsDown() throws IOException {
 		given(this.restClient.performRequest(any(Request.class))).willThrow(new IOException("Couldn't connect"));
-		Health health = this.elasticsearchRestHealthIndicator.health();
+		Health_RENAMED health = this.elasticsearchRestHealthIndicator.health();
 		assertThat(health.getStatus()).isEqualTo(Status.DOWN);
 		assertThat(health.getDetails()).contains(entry("error", "java.io.IOException: Couldn't connect"));
 	}
@@ -95,7 +95,7 @@ class ElasticsearchRestHealthIndicatorTests {
 		given(statusLine.getReasonPhrase()).willReturn("Internal server error");
 		given(response.getStatusLine()).willReturn(statusLine);
 		given(this.restClient.performRequest(any(Request.class))).willReturn(response);
-		Health health = this.elasticsearchRestHealthIndicator.health();
+		Health_RENAMED health = this.elasticsearchRestHealthIndicator.health();
 		assertThat(health.getStatus()).isEqualTo(Status.DOWN);
 		assertThat(health.getDetails()).contains(entry("statusCode", 500),
 				entry("reasonPhrase", "Internal server error"));
@@ -111,7 +111,7 @@ class ElasticsearchRestHealthIndicatorTests {
 		given(response.getStatusLine()).willReturn(statusLine);
 		given(response.getEntity()).willReturn(httpEntity);
 		given(this.restClient.performRequest(any(Request.class))).willReturn(response);
-		Health health = this.elasticsearchRestHealthIndicator.health();
+		Health_RENAMED health = this.elasticsearchRestHealthIndicator.health();
 		assertThat(health.getStatus()).isEqualTo(Status.OUT_OF_SERVICE);
 		assertHealthDetailsWithStatus(health.getDetails(), "red");
 	}

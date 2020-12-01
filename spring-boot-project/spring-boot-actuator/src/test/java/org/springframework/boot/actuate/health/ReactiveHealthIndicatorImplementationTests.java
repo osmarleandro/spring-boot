@@ -21,7 +21,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
 
-import org.springframework.boot.actuate.health.Health.Builder;
+import org.springframework.boot.actuate.health.Health_RENAMED.Builder;
 import org.springframework.boot.test.system.CapturedOutput;
 import org.springframework.boot.test.system.OutputCaptureExtension;
 
@@ -39,14 +39,14 @@ class ReactiveHealthIndicatorImplementationTests {
 	@Test
 	void healthUp(CapturedOutput output) {
 		StepVerifier.create(new SimpleReactiveHealthIndicator().health())
-				.consumeNextWith((health) -> assertThat(health).isEqualTo(Health.up().build())).verifyComplete();
+				.consumeNextWith((health) -> assertThat(health).isEqualTo(Health_RENAMED.up().build())).verifyComplete();
 		assertThat(output).doesNotContain("Health check failed for simple");
 	}
 
 	@Test
 	void healthDownWithCustomErrorMessage(CapturedOutput output) {
 		StepVerifier.create(new CustomErrorMessageReactiveHealthIndicator().health()).consumeNextWith(
-				(health) -> assertThat(health).isEqualTo(Health.down(new UnsupportedOperationException()).build()))
+				(health) -> assertThat(health).isEqualTo(Health_RENAMED.down(new UnsupportedOperationException()).build()))
 				.verifyComplete();
 		assertThat(output).contains("Health check failed for custom");
 	}
@@ -54,7 +54,7 @@ class ReactiveHealthIndicatorImplementationTests {
 	@Test
 	void healthDownWithCustomErrorMessageFunction(CapturedOutput output) {
 		StepVerifier.create(new CustomErrorMessageFunctionReactiveHealthIndicator().health())
-				.consumeNextWith((health) -> assertThat(health).isEqualTo(Health.down(new RuntimeException()).build()))
+				.consumeNextWith((health) -> assertThat(health).isEqualTo(Health_RENAMED.down(new RuntimeException()).build()))
 				.verifyComplete();
 		assertThat(output).contains("Health check failed with RuntimeException");
 	}
@@ -66,7 +66,7 @@ class ReactiveHealthIndicatorImplementationTests {
 		}
 
 		@Override
-		protected Mono<Health> doHealthCheck(Builder builder) {
+		protected Mono<Health_RENAMED> doHealthCheck(Builder builder) {
 			return Mono.just(builder.up().build());
 		}
 
@@ -79,7 +79,7 @@ class ReactiveHealthIndicatorImplementationTests {
 		}
 
 		@Override
-		protected Mono<Health> doHealthCheck(Builder builder) {
+		protected Mono<Health_RENAMED> doHealthCheck(Builder builder) {
 			return Mono.error(new UnsupportedOperationException());
 		}
 
@@ -93,7 +93,7 @@ class ReactiveHealthIndicatorImplementationTests {
 		}
 
 		@Override
-		protected Mono<Health> doHealthCheck(Builder builder) {
+		protected Mono<Health_RENAMED> doHealthCheck(Builder builder) {
 			throw new RuntimeException();
 		}
 

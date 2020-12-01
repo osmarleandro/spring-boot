@@ -20,7 +20,7 @@ import com.couchbase.client.core.diagnostics.DiagnosticsResult;
 import com.couchbase.client.java.Cluster;
 
 import org.springframework.boot.actuate.health.AbstractHealthIndicator;
-import org.springframework.boot.actuate.health.Health;
+import org.springframework.boot.actuate.health.Health_RENAMED;
 import org.springframework.boot.actuate.health.HealthIndicator;
 import org.springframework.util.Assert;
 
@@ -47,7 +47,7 @@ public class CouchbaseHealthIndicator extends AbstractHealthIndicator {
 	}
 
 	@Override
-	protected void doHealthCheck(Health.Builder builder) throws Exception {
+	protected void doHealthCheck(Health_RENAMED.Builder builder) throws Exception {
 		DiagnosticsResult diagnostics = this.cluster.diagnostics();
 		new CouchbaseHealth(diagnostics).applyTo(builder);
 	}

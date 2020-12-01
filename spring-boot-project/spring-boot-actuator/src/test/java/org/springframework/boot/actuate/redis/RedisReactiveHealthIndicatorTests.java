@@ -23,7 +23,7 @@ import org.junit.jupiter.api.Test;
 import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
 
-import org.springframework.boot.actuate.health.Health;
+import org.springframework.boot.actuate.health.Health_RENAMED;
 import org.springframework.boot.actuate.health.Status;
 import org.springframework.data.redis.RedisConnectionFailureException;
 import org.springframework.data.redis.connection.ClusterInfo;
@@ -57,7 +57,7 @@ class RedisReactiveHealthIndicatorTests {
 		ReactiveServerCommands commands = mock(ReactiveServerCommands.class);
 		given(commands.info()).willReturn(Mono.just(info));
 		RedisReactiveHealthIndicator healthIndicator = createHealthIndicator(redisConnection, commands);
-		Mono<Health> health = healthIndicator.health();
+		Mono<Health_RENAMED> health = healthIndicator.health();
 		StepVerifier.create(health).consumeNextWith((h) -> {
 			assertThat(h.getStatus()).isEqualTo(Status.UP);
 			assertThat(h.getDetails()).containsOnlyKeys("version");
@@ -78,7 +78,7 @@ class RedisReactiveHealthIndicatorTests {
 		ReactiveRedisConnectionFactory redisConnectionFactory = mock(ReactiveRedisConnectionFactory.class);
 		given(redisConnectionFactory.getReactiveConnection()).willReturn(redisConnection);
 		RedisReactiveHealthIndicator healthIndicator = new RedisReactiveHealthIndicator(redisConnectionFactory);
-		Mono<Health> health = healthIndicator.health();
+		Mono<Health_RENAMED> health = healthIndicator.health();
 		StepVerifier.create(health).consumeNextWith((h) -> {
 			assertThat(h.getStatus()).isEqualTo(Status.UP);
 			assertThat(h.getDetails().get("cluster_size")).isEqualTo(4L);
@@ -95,7 +95,7 @@ class RedisReactiveHealthIndicatorTests {
 		ReactiveRedisConnection redisConnection = mock(ReactiveRedisConnection.class);
 		given(redisConnection.closeLater()).willReturn(Mono.empty());
 		RedisReactiveHealthIndicator healthIndicator = createHealthIndicator(redisConnection, commands);
-		Mono<Health> health = healthIndicator.health();
+		Mono<Health_RENAMED> health = healthIndicator.health();
 		StepVerifier.create(health).consumeNextWith((h) -> assertThat(h.getStatus()).isEqualTo(Status.DOWN))
 				.verifyComplete();
 		verify(redisConnection).closeLater();
@@ -107,7 +107,7 @@ class RedisReactiveHealthIndicatorTests {
 		given(redisConnectionFactory.getReactiveConnection())
 				.willThrow(new RedisConnectionException("Unable to connect to localhost:6379"));
 		RedisReactiveHealthIndicator healthIndicator = new RedisReactiveHealthIndicator(redisConnectionFactory);
-		Mono<Health> health = healthIndicator.health();
+		Mono<Health_RENAMED> health = healthIndicator.health();
 		StepVerifier.create(health).consumeNextWith((h) -> assertThat(h.getStatus()).isEqualTo(Status.DOWN))
 				.verifyComplete();
 	}

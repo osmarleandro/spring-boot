@@ -49,7 +49,7 @@ class HealthEndpointTests
 		HealthComponent health = create(this.registry,
 				HealthEndpointGroups.of(mock(HealthEndpointGroup.class), Collections.emptyMap())).health();
 		assertThat(health.getStatus()).isEqualTo(Status.UP);
-		assertThat(health).isInstanceOf(Health.class);
+		assertThat(health).isInstanceOf(Health_RENAMED.class);
 	}
 
 	@Test
@@ -77,7 +77,7 @@ class HealthEndpointTests
 	}
 
 	@Override
-	protected HealthContributor createContributor(Health health) {
+	protected HealthContributor createContributor(Health_RENAMED health) {
 		return (HealthIndicator) () -> health;
 	}
 
