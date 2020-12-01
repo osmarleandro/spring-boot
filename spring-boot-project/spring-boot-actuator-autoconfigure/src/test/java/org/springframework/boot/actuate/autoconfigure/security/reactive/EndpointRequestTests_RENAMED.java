@@ -51,7 +51,7 @@ import static org.mockito.Mockito.mock;
  * @author Madhura Bhave
  * @author Phillip Webb
  */
-class EndpointRequestTests {
+class EndpointRequestTests_RENAMED {
 
 	@Test
 	void toAnyEndpointShouldMatchEndpointPath() {
