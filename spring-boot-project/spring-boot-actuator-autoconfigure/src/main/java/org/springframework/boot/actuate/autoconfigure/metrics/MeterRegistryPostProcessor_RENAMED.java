@@ -34,7 +34,7 @@ import org.springframework.context.ApplicationContext;
  * @author Phillip Webb
  * @author Andy Wilkinson
  */
-class MeterRegistryPostProcessor implements BeanPostProcessor {
+class MeterRegistryPostProcessor_RENAMED implements BeanPostProcessor {
 
 	private final ObjectProvider<MeterBinder> meterBinders;
 
@@ -48,7 +48,7 @@ class MeterRegistryPostProcessor implements BeanPostProcessor {
 
 	private final ApplicationContext applicationContext;
 
-	MeterRegistryPostProcessor(ObjectProvider<MeterBinder> meterBinders, ObjectProvider<MeterFilter> meterFilters,
+	MeterRegistryPostProcessor_RENAMED(ObjectProvider<MeterBinder> meterBinders, ObjectProvider<MeterFilter> meterFilters,
 			ObjectProvider<MeterRegistryCustomizer<?>> meterRegistryCustomizers,
 			ObjectProvider<MetricsProperties> metricsProperties, ApplicationContext applicationContext) {
 		this.meterBinders = meterBinders;
