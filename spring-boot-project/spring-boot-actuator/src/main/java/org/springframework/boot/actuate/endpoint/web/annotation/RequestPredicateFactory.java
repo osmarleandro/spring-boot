@@ -28,7 +28,7 @@ import org.springframework.boot.actuate.endpoint.annotation.DiscoveredOperationM
 import org.springframework.boot.actuate.endpoint.annotation.Selector;
 import org.springframework.boot.actuate.endpoint.annotation.Selector.Match;
 import org.springframework.boot.actuate.endpoint.web.EndpointMediaTypes;
-import org.springframework.boot.actuate.endpoint.web.WebEndpointHttpMethod;
+import org.springframework.boot.actuate.endpoint.web.WebEndpointHttpMethod_RENAMED;
 import org.springframework.boot.actuate.endpoint.web.WebEndpointResponse;
 import org.springframework.boot.actuate.endpoint.web.WebOperationRequestPredicate;
 import org.springframework.core.ResolvableType;
@@ -57,7 +57,7 @@ class RequestPredicateFactory {
 				.toArray(Parameter[]::new);
 		Parameter allRemainingPathSegmentsParameter = getAllRemainingPathSegmentsParameter(selectorParameters);
 		String path = getPath(rootPath, selectorParameters, allRemainingPathSegmentsParameter != null);
-		WebEndpointHttpMethod httpMethod = determineHttpMethod(operationMethod.getOperationType());
+		WebEndpointHttpMethod_RENAMED httpMethod = determineHttpMethod(operationMethod.getOperationType());
 		Collection<String> consumes = getConsumes(httpMethod, method);
 		Collection<String> produces = getProduces(operationMethod, method);
 		return new WebOperationRequestPredicate(path, httpMethod, consumes, produces);
@@ -97,8 +97,8 @@ class RequestPredicateFactory {
 		return parameter.getAnnotation(Selector.class) != null;
 	}
 
-	private Collection<String> getConsumes(WebEndpointHttpMethod httpMethod, Method method) {
-		if (WebEndpointHttpMethod.POST == httpMethod && consumesRequestBody(method)) {
+	private Collection<String> getConsumes(WebEndpointHttpMethod_RENAMED httpMethod, Method method) {
+		if (WebEndpointHttpMethod_RENAMED.POST == httpMethod && consumesRequestBody(method)) {
 			return this.endpointMediaTypes.getConsumed();
 		}
 		return Collections.emptyList();
@@ -133,14 +133,14 @@ class RequestPredicateFactory {
 				.anyMatch((parameter) -> parameter.getAnnotation(Selector.class) == null);
 	}
 
-	private WebEndpointHttpMethod determineHttpMethod(OperationType operationType) {
+	private WebEndpointHttpMethod_RENAMED determineHttpMethod(OperationType operationType) {
 		if (operationType == OperationType.WRITE) {
-			return WebEndpointHttpMethod.POST;
+			return WebEndpointHttpMethod_RENAMED.POST;
 		}
 		if (operationType == OperationType.DELETE) {
-			return WebEndpointHttpMethod.DELETE;
+			return WebEndpointHttpMethod_RENAMED.DELETE;
 		}
-		return WebEndpointHttpMethod.GET;
+		return WebEndpointHttpMethod_RENAMED.GET;
 	}
 
 }

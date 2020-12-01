@@ -87,7 +87,7 @@ class WebOperationRequestPredicateTests {
 	}
 
 	private WebOperationRequestPredicate predicateWithPath(String path) {
-		return new WebOperationRequestPredicate(path, WebEndpointHttpMethod.GET, Collections.emptyList(),
+		return new WebOperationRequestPredicate(path, WebEndpointHttpMethod_RENAMED.GET, Collections.emptyList(),
 				Collections.emptyList());
 	}
 
