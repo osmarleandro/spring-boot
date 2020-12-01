@@ -24,7 +24,7 @@ import org.springframework.boot.actuate.health.AbstractHealthIndicator;
 import org.springframework.boot.actuate.health.Health;
 import org.springframework.boot.actuate.health.HealthIndicator;
 import org.springframework.boot.actuate.neo4j.Neo4jHealthIndicator;
-import org.springframework.boot.actuate.neo4j.Neo4jReactiveHealthIndicator;
+import org.springframework.boot.actuate.neo4j.Neo4jReactiveHealthIndicator_RENAMED;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
 import org.springframework.boot.test.context.FilteredClassLoader;
 import org.springframework.boot.test.context.runner.ApplicationContextRunner;
@@ -51,14 +51,14 @@ class Neo4jHealthContributorAutoConfigurationTests {
 	@Test
 	void runShouldCreateHealthIndicator() {
 		this.contextRunner.withUserConfiguration(Neo4jConfiguration.class).run((context) -> assertThat(context)
-				.hasSingleBean(Neo4jReactiveHealthIndicator.class).doesNotHaveBean(Neo4jHealthIndicator.class));
+				.hasSingleBean(Neo4jReactiveHealthIndicator_RENAMED.class).doesNotHaveBean(Neo4jHealthIndicator.class));
 	}
 
 	@Test
 	void runWithoutReactorShouldCreateHealthIndicator() {
 		this.contextRunner.withUserConfiguration(Neo4jConfiguration.class)
 				.withClassLoader(new FilteredClassLoader(Flux.class)).run((context) -> assertThat(context)
-						.hasSingleBean(Neo4jHealthIndicator.class).doesNotHaveBean(Neo4jReactiveHealthIndicator.class));
+						.hasSingleBean(Neo4jHealthIndicator.class).doesNotHaveBean(Neo4jReactiveHealthIndicator_RENAMED.class));
 	}
 
 	@Test
@@ -66,7 +66,7 @@ class Neo4jHealthContributorAutoConfigurationTests {
 		this.contextRunner.withUserConfiguration(Neo4jConfiguration.class)
 				.withPropertyValues("management.health.neo4j.enabled=false")
 				.run((context) -> assertThat(context).doesNotHaveBean(Neo4jHealthIndicator.class)
-						.doesNotHaveBean(Neo4jReactiveHealthIndicator.class));
+						.doesNotHaveBean(Neo4jReactiveHealthIndicator_RENAMED.class));
 	}
 
 	@Test
@@ -82,7 +82,7 @@ class Neo4jHealthContributorAutoConfigurationTests {
 	@Test
 	void shouldRequireDriverBean() {
 		this.contextRunner.run((context) -> assertThat(context).doesNotHaveBean(Neo4jHealthIndicator.class)
-				.doesNotHaveBean(Neo4jReactiveHealthIndicator.class));
+				.doesNotHaveBean(Neo4jReactiveHealthIndicator_RENAMED.class));
 	}
 
 	@Configuration(proxyBeanMethods = false)

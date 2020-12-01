@@ -42,7 +42,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 /**
- * Tests for {@link Neo4jReactiveHealthIndicator}.
+ * Tests for {@link Neo4jReactiveHealthIndicator_RENAMED}.
  *
  * @author Michael J. Simons
  * @author Stephane Nicoll
@@ -53,7 +53,7 @@ class Neo4jReactiveHealthIndicatorTest {
 	void neo4jIsUp() {
 		ResultSummary resultSummary = ResultSummaryMock.createResultSummary("4711", "My Home", "test");
 		Driver driver = mockDriver(resultSummary, "ultimate collectors edition");
-		Neo4jReactiveHealthIndicator healthIndicator = new Neo4jReactiveHealthIndicator(driver);
+		Neo4jReactiveHealthIndicator_RENAMED healthIndicator = new Neo4jReactiveHealthIndicator_RENAMED(driver);
 		healthIndicator.health().as(StepVerifier::create).consumeNextWith((health) -> {
 			assertThat(health.getStatus()).isEqualTo(Status.UP);
 			assertThat(health.getDetails()).containsEntry("server", "4711@My Home");
@@ -75,7 +75,7 @@ class Neo4jReactiveHealthIndicatorTest {
 		});
 		Driver driver = mock(Driver.class);
 		given(driver.rxSession(any(SessionConfig.class))).willReturn(session);
-		Neo4jReactiveHealthIndicator healthIndicator = new Neo4jReactiveHealthIndicator(driver);
+		Neo4jReactiveHealthIndicator_RENAMED healthIndicator = new Neo4jReactiveHealthIndicator_RENAMED(driver);
 		healthIndicator.health().as(StepVerifier::create).consumeNextWith((health) -> {
 			assertThat(health.getStatus()).isEqualTo(Status.UP);
 			assertThat(health.getDetails()).containsEntry("server", "4711@My Home");
@@ -88,7 +88,7 @@ class Neo4jReactiveHealthIndicatorTest {
 	void neo4jIsDown() {
 		Driver driver = mock(Driver.class);
 		given(driver.rxSession(any(SessionConfig.class))).willThrow(ServiceUnavailableException.class);
-		Neo4jReactiveHealthIndicator healthIndicator = new Neo4jReactiveHealthIndicator(driver);
+		Neo4jReactiveHealthIndicator_RENAMED healthIndicator = new Neo4jReactiveHealthIndicator_RENAMED(driver);
 		healthIndicator.health().as(StepVerifier::create).consumeNextWith((health) -> {
 			assertThat(health.getStatus()).isEqualTo(Status.DOWN);
 			assertThat(health.getDetails()).containsKeys("error");

@@ -22,7 +22,7 @@ import org.springframework.boot.actuate.autoconfigure.health.ConditionalOnEnable
 import org.springframework.boot.actuate.autoconfigure.neo4j.Neo4jHealthContributorConfigurations.Neo4jConfiguration;
 import org.springframework.boot.actuate.autoconfigure.neo4j.Neo4jHealthContributorConfigurations.Neo4jReactiveConfiguration;
 import org.springframework.boot.actuate.neo4j.Neo4jHealthIndicator;
-import org.springframework.boot.actuate.neo4j.Neo4jReactiveHealthIndicator;
+import org.springframework.boot.actuate.neo4j.Neo4jReactiveHealthIndicator_RENAMED;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
@@ -33,7 +33,7 @@ import org.springframework.context.annotation.Import;
 
 /**
  * {@link EnableAutoConfiguration Auto-configuration} for
- * {@link Neo4jReactiveHealthIndicator} and {@link Neo4jHealthIndicator}.
+ * {@link Neo4jReactiveHealthIndicator_RENAMED} and {@link Neo4jHealthIndicator}.
  *
  * @author Eric Spiegelberg
  * @author Stephane Nicoll
