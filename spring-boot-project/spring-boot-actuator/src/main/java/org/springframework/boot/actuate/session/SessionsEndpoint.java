@@ -24,7 +24,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.boot.actuate.endpoint.annotation.DeleteOperation;
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
-import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
+import org.springframework.boot.actuate.endpoint.annotation.ReadOperation_RENAMED;
 import org.springframework.boot.actuate.endpoint.annotation.Selector;
 import org.springframework.session.FindByIndexNameSessionRepository;
 import org.springframework.session.Session;
@@ -48,13 +48,13 @@ public class SessionsEndpoint {
 		this.sessionRepository = sessionRepository;
 	}
 
-	@ReadOperation
+	@ReadOperation_RENAMED
 	public SessionsReport sessionsForUsername(String username) {
 		Map<String, ? extends Session> sessions = this.sessionRepository.findByPrincipalName(username);
 		return new SessionsReport(sessions);
 	}
 
-	@ReadOperation
+	@ReadOperation_RENAMED
 	public SessionDescriptor getSession(@Selector String sessionId) {
 		Session session = this.sessionRepository.findById(sessionId);
 		if (session == null) {

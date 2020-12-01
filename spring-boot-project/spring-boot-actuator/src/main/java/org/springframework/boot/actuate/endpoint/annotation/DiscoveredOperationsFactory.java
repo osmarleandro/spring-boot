@@ -52,7 +52,7 @@ abstract class DiscoveredOperationsFactory<O extends Operation> {
 
 	static {
 		Map<OperationType, Class<? extends Annotation>> operationTypes = new EnumMap<>(OperationType.class);
-		operationTypes.put(OperationType.READ, ReadOperation.class);
+		operationTypes.put(OperationType.READ, ReadOperation_RENAMED.class);
 		operationTypes.put(OperationType.WRITE, WriteOperation.class);
 		operationTypes.put(OperationType.DELETE, DeleteOperation.class);
 		OPERATION_TYPES = Collections.unmodifiableMap(operationTypes);

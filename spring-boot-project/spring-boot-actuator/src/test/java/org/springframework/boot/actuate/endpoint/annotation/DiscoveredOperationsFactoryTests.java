@@ -127,7 +127,7 @@ class DiscoveredOperationsFactoryTests {
 
 	static class ExampleRead {
 
-		@ReadOperation
+		@ReadOperation_RENAMED
 		String read() {
 			return "read";
 		}
@@ -154,7 +154,7 @@ class DiscoveredOperationsFactoryTests {
 
 	static class ExampleMultiple {
 
-		@ReadOperation
+		@ReadOperation_RENAMED
 		String read() {
 			return "read";
 		}
@@ -168,7 +168,7 @@ class DiscoveredOperationsFactoryTests {
 
 	static class ExampleWithParams {
 
-		@ReadOperation
+		@ReadOperation_RENAMED
 		String read(String name) {
 			return name;
 		}

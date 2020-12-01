@@ -21,7 +21,7 @@ import java.time.OffsetDateTime;
 import java.util.List;
 
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
-import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
+import org.springframework.boot.actuate.endpoint.annotation.ReadOperation_RENAMED;
 import org.springframework.lang.Nullable;
 import org.springframework.util.Assert;
 
@@ -41,7 +41,7 @@ public class AuditEventsEndpoint {
 		this.auditEventRepository = auditEventRepository;
 	}
 
-	@ReadOperation
+	@ReadOperation_RENAMED
 	public AuditEventsDescriptor events(@Nullable String principal, @Nullable OffsetDateTime after,
 			@Nullable String type) {
 		List<AuditEvent> events = this.auditEventRepository.find(principal, getInstant(after), type);

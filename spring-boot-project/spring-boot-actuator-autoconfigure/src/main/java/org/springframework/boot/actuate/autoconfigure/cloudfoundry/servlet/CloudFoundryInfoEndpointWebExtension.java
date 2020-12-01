@@ -19,7 +19,7 @@ import java.util.Map;
 
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.EndpointCloudFoundryExtension;
 import org.springframework.boot.actuate.endpoint.annotation.EndpointExtension;
-import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
+import org.springframework.boot.actuate.endpoint.annotation.ReadOperation_RENAMED;
 import org.springframework.boot.actuate.info.InfoEndpoint;
 
 /**
@@ -38,7 +38,7 @@ public class CloudFoundryInfoEndpointWebExtension {
 		this.delegate = delegate;
 	}
 
-	@ReadOperation
+	@ReadOperation_RENAMED
 	public Map<String, Object> info() {
 		return this.delegate.info();
 	}

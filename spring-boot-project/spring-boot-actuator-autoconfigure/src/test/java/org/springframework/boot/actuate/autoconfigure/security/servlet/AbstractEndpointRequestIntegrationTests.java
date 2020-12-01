@@ -25,7 +25,7 @@ import org.springframework.boot.actuate.autoconfigure.endpoint.EndpointAutoConfi
 import org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.web.server.ManagementContextAutoConfiguration;
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
-import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
+import org.springframework.boot.actuate.endpoint.annotation.ReadOperation_RENAMED;
 import org.springframework.boot.actuate.endpoint.web.EndpointServlet;
 import org.springframework.boot.actuate.endpoint.web.annotation.ServletEndpoint;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
@@ -124,7 +124,7 @@ abstract class AbstractEndpointRequestIntegrationTests {
 	@Endpoint(id = "e1")
 	static class TestEndpoint1 {
 
-		@ReadOperation
+		@ReadOperation_RENAMED
 		Object getAll() {
 			return "endpoint 1";
 		}
@@ -134,7 +134,7 @@ abstract class AbstractEndpointRequestIntegrationTests {
 	@Endpoint(id = "e2")
 	static class TestEndpoint2 {
 
-		@ReadOperation
+		@ReadOperation_RENAMED
 		Object getAll() {
 			return "endpoint 2";
 		}
@@ -144,7 +144,7 @@ abstract class AbstractEndpointRequestIntegrationTests {
 	@Endpoint(id = "e3")
 	static class TestEndpoint3 {
 
-		@ReadOperation
+		@ReadOperation_RENAMED
 		Object getAll() {
 			return null;
 		}

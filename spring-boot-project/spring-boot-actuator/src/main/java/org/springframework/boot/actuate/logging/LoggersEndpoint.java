@@ -26,7 +26,7 @@ import java.util.Set;
 import java.util.TreeSet;
 
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
-import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
+import org.springframework.boot.actuate.endpoint.annotation.ReadOperation_RENAMED;
 import org.springframework.boot.actuate.endpoint.annotation.Selector;
 import org.springframework.boot.actuate.endpoint.annotation.WriteOperation;
 import org.springframework.boot.logging.LogLevel;
@@ -64,7 +64,7 @@ public class LoggersEndpoint {
 		this.loggerGroups = loggerGroups;
 	}
 
-	@ReadOperation
+	@ReadOperation_RENAMED
 	public Map<String, Object> loggers() {
 		Collection<LoggerConfiguration> configurations = this.loggingSystem.getLoggerConfigurations();
 		if (configurations == null) {
@@ -84,7 +84,7 @@ public class LoggersEndpoint {
 		return groups;
 	}
 
-	@ReadOperation
+	@ReadOperation_RENAMED
 	public LoggerLevels loggerLevels(@Selector String name) {
 		Assert.notNull(name, "Name must not be null");
 		LoggerGroup group = this.loggerGroups.get(name);

@@ -28,7 +28,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
-import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
+import org.springframework.boot.actuate.endpoint.annotation.ReadOperation_RENAMED;
 import org.springframework.boot.autoconfigure.condition.ConditionEvaluationReport;
 import org.springframework.boot.autoconfigure.condition.ConditionEvaluationReport.ConditionAndOutcome;
 import org.springframework.boot.autoconfigure.condition.ConditionEvaluationReport.ConditionAndOutcomes;
@@ -59,7 +59,7 @@ public class ConditionsReportEndpoint {
 		this.context = context;
 	}
 
-	@ReadOperation
+	@ReadOperation_RENAMED
 	public ApplicationConditionEvaluation applicationConditionEvaluation() {
 		Map<String, ContextConditionEvaluation> contextConditionEvaluations = new HashMap<>();
 		ConfigurableApplicationContext target = this.context;

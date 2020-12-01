@@ -17,7 +17,7 @@
 package org.springframework.boot.docs.actuate.endpoint;
 
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
-import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
+import org.springframework.boot.actuate.endpoint.annotation.ReadOperation_RENAMED;
 import org.springframework.boot.actuate.endpoint.annotation.WriteOperation;
 
 /**
@@ -29,7 +29,7 @@ import org.springframework.boot.actuate.endpoint.annotation.WriteOperation;
 public class CustomEndpointExample {
 
 	// tag::read[]
-	@ReadOperation
+	@ReadOperation_RENAMED
 	public CustomData getCustomData() {
 		return new CustomData("test", 5);
 	}

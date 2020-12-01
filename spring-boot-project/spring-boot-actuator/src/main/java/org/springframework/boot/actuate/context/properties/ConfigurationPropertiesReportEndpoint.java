@@ -53,7 +53,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.BeansException;
 import org.springframework.boot.actuate.endpoint.Sanitizer;
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
-import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
+import org.springframework.boot.actuate.endpoint.annotation.ReadOperation_RENAMED;
 import org.springframework.boot.context.properties.BoundConfigurationProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.ConfigurationPropertiesBean;
@@ -107,7 +107,7 @@ public class ConfigurationPropertiesReportEndpoint implements ApplicationContext
 		this.sanitizer.setKeysToSanitize(keysToSanitize);
 	}
 
-	@ReadOperation
+	@ReadOperation_RENAMED
 	public ApplicationConfigurationProperties configurationProperties() {
 		return extract(this.context);
 	}

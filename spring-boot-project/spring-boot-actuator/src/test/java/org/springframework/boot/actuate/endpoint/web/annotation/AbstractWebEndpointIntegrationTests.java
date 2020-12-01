@@ -33,7 +33,7 @@ import reactor.core.publisher.Mono;
 import org.springframework.boot.actuate.endpoint.SecurityContext;
 import org.springframework.boot.actuate.endpoint.annotation.DeleteOperation;
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
-import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
+import org.springframework.boot.actuate.endpoint.annotation.ReadOperation_RENAMED;
 import org.springframework.boot.actuate.endpoint.annotation.Selector;
 import org.springframework.boot.actuate.endpoint.annotation.Selector.Match;
 import org.springframework.boot.actuate.endpoint.annotation.WriteOperation;
@@ -633,12 +633,12 @@ public abstract class AbstractWebEndpointIntegrationTests<T extends Configurable
 			this.endpointDelegate = endpointDelegate;
 		}
 
-		@ReadOperation
+		@ReadOperation_RENAMED
 		Map<String, Object> readAll() {
 			return Collections.singletonMap("All", true);
 		}
 
-		@ReadOperation
+		@ReadOperation_RENAMED
 		Map<String, Object> readPart(@Selector String part) {
 			return Collections.singletonMap("part", part);
 		}
@@ -658,7 +658,7 @@ public abstract class AbstractWebEndpointIntegrationTests<T extends Configurable
 	@Endpoint(id = "matchallremaining")
 	static class MatchAllRemainingEndpoint {
 
-		@ReadOperation
+		@ReadOperation_RENAMED
 		Map<String, String> select(@Selector(match = Match.ALL_REMAINING) String... selection) {
 			return Collections.singletonMap("selection", StringUtils.arrayToDelimitedString(selection, "|"));
 		}
@@ -668,12 +668,12 @@ public abstract class AbstractWebEndpointIntegrationTests<T extends Configurable
 	@Endpoint(id = "query")
 	static class QueryEndpoint {
 
-		@ReadOperation
+		@ReadOperation_RENAMED
 		Map<String, String> query(String one, Integer two) {
 			return Collections.singletonMap("query", one + " " + two);
 		}
 
-		@ReadOperation
+		@ReadOperation_RENAMED
 		Map<String, String> queryWithParameterList(@Selector String list, String one, List<String> two) {
 			return Collections.singletonMap("query", list + " " + one + " " + two);
 		}
@@ -683,7 +683,7 @@ public abstract class AbstractWebEndpointIntegrationTests<T extends Configurable
 	@Endpoint(id = "query")
 	static class QueryWithListEndpoint {
 
-		@ReadOperation
+		@ReadOperation_RENAMED
 		Map<String, String> queryWithParameterList(String one, List<String> two) {
 			return Collections.singletonMap("query", one + " " + two);
 		}
@@ -742,7 +742,7 @@ public abstract class AbstractWebEndpointIntegrationTests<T extends Configurable
 	@Endpoint(id = "nullread")
 	static class NullReadResponseEndpoint {
 
-		@ReadOperation
+		@ReadOperation_RENAMED
 		String readReturningNull() {
 			return null;
 		}
@@ -762,7 +762,7 @@ public abstract class AbstractWebEndpointIntegrationTests<T extends Configurable
 	@Endpoint(id = "resource")
 	static class ResourceEndpoint {
 
-		@ReadOperation
+		@ReadOperation_RENAMED
 		Resource read() {
 			return new ByteArrayResource(new byte[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 });
 		}
@@ -772,7 +772,7 @@ public abstract class AbstractWebEndpointIntegrationTests<T extends Configurable
 	@Endpoint(id = "resource")
 	static class ResourceWebEndpointResponseEndpoint {
 
-		@ReadOperation
+		@ReadOperation_RENAMED
 		WebEndpointResponse<Resource> read() {
 			return new WebEndpointResponse<>(new ByteArrayResource(new byte[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 }), 200);
 		}
@@ -782,7 +782,7 @@ public abstract class AbstractWebEndpointIntegrationTests<T extends Configurable
 	@Endpoint(id = "mono")
 	static class MonoResponseEndpoint {
 
-		@ReadOperation
+		@ReadOperation_RENAMED
 		Mono<Map<String, String>> operation() {
 			return Mono.just(Collections.singletonMap("a", "alpha"));
 		}
@@ -792,7 +792,7 @@ public abstract class AbstractWebEndpointIntegrationTests<T extends Configurable
 	@Endpoint(id = "custommediatypes")
 	static class CustomMediaTypesEndpoint {
 
-		@ReadOperation(produces = "text/plain")
+		@ReadOperation_RENAMED(produces = "text/plain")
 		String read() {
 			return "read";
 		}
@@ -802,7 +802,7 @@ public abstract class AbstractWebEndpointIntegrationTests<T extends Configurable
 	@Endpoint(id = "requiredparameters")
 	static class RequiredParametersEndpoint {
 
-		@ReadOperation
+		@ReadOperation_RENAMED
 		String read(String foo, @Nullable String bar) {
 			return foo;
 		}
@@ -812,7 +812,7 @@ public abstract class AbstractWebEndpointIntegrationTests<T extends Configurable
 	@Endpoint(id = "principal")
 	static class PrincipalEndpoint {
 
-		@ReadOperation
+		@ReadOperation_RENAMED
 		String read(@Nullable Principal principal) {
 			return (principal != null) ? principal.getName() : "None";
 		}
@@ -822,7 +822,7 @@ public abstract class AbstractWebEndpointIntegrationTests<T extends Configurable
 	@Endpoint(id = "principalquery")
 	static class PrincipalQueryEndpoint {
 
-		@ReadOperation
+		@ReadOperation_RENAMED
 		String read(String principal) {
 			return principal;
 		}
@@ -832,7 +832,7 @@ public abstract class AbstractWebEndpointIntegrationTests<T extends Configurable
 	@Endpoint(id = "securitycontext")
 	static class SecurityContextEndpoint {
 
-		@ReadOperation
+		@ReadOperation_RENAMED
 		String read(SecurityContext securityContext) {
 			Principal principal = securityContext.getPrincipal();
 			return (principal != null) ? principal.getName() : "None";
@@ -843,7 +843,7 @@ public abstract class AbstractWebEndpointIntegrationTests<T extends Configurable
 	@Endpoint(id = "userinrole")
 	static class UserInRoleEndpoint {
 
-		@ReadOperation
+		@ReadOperation_RENAMED
 		String read(SecurityContext securityContext, String role) {
 			return role + ": " + securityContext.isUserInRole(role);
 		}

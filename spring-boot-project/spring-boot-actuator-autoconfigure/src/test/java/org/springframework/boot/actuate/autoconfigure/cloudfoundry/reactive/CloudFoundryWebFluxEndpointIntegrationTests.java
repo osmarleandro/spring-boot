@@ -28,7 +28,7 @@ import org.springframework.boot.actuate.autoconfigure.cloudfoundry.AccessLevel;
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.CloudFoundryAuthorizationException;
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.CloudFoundryAuthorizationException.Reason;
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
-import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
+import org.springframework.boot.actuate.endpoint.annotation.ReadOperation_RENAMED;
 import org.springframework.boot.actuate.endpoint.annotation.Selector;
 import org.springframework.boot.actuate.endpoint.annotation.WriteOperation;
 import org.springframework.boot.actuate.endpoint.invoke.ParameterValueMapper;
@@ -212,12 +212,12 @@ class CloudFoundryWebFluxEndpointIntegrationTests {
 			this.endpointDelegate = endpointDelegate;
 		}
 
-		@ReadOperation
+		@ReadOperation_RENAMED
 		Map<String, Object> readAll() {
 			return Collections.singletonMap("All", true);
 		}
 
-		@ReadOperation
+		@ReadOperation_RENAMED
 		Map<String, Object> readPart(@Selector String part) {
 			return Collections.singletonMap("part", part);
 		}
@@ -232,7 +232,7 @@ class CloudFoundryWebFluxEndpointIntegrationTests {
 	@Endpoint(id = "env")
 	static class TestEnvEndpoint {
 
-		@ReadOperation
+		@ReadOperation_RENAMED
 		Map<String, Object> readAll() {
 			return Collections.singletonMap("All", true);
 		}
@@ -242,7 +242,7 @@ class CloudFoundryWebFluxEndpointIntegrationTests {
 	@Endpoint(id = "info")
 	static class TestInfoEndpoint {
 
-		@ReadOperation
+		@ReadOperation_RENAMED
 		Map<String, Object> readAll() {
 			return Collections.singletonMap("All", true);
 		}

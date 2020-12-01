@@ -21,7 +21,7 @@ import java.util.Set;
 
 import org.springframework.boot.actuate.endpoint.SecurityContext;
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
-import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
+import org.springframework.boot.actuate.endpoint.annotation.ReadOperation_RENAMED;
 import org.springframework.boot.actuate.endpoint.annotation.Selector;
 import org.springframework.boot.actuate.endpoint.annotation.Selector.Match;
 import org.springframework.boot.actuate.endpoint.http.ApiVersion;
@@ -50,13 +50,13 @@ public class HealthEndpoint extends HealthEndpointSupport<HealthContributor, Hea
 		super(registry, groups);
 	}
 
-	@ReadOperation
+	@ReadOperation_RENAMED
 	public HealthComponent health() {
 		HealthComponent health = health(ApiVersion.V3, EMPTY_PATH);
 		return (health != null) ? health : DEFAULT_HEALTH;
 	}
 
-	@ReadOperation
+	@ReadOperation_RENAMED
 	public HealthComponent healthForPath(@Selector(match = Match.ALL_REMAINING) String... path) {
 		return health(ApiVersion.V3, path);
 	}

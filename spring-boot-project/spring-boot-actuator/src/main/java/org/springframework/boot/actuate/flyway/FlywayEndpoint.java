@@ -30,7 +30,7 @@ import org.flywaydb.core.api.MigrationState;
 import org.flywaydb.core.api.MigrationType;
 
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
-import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
+import org.springframework.boot.actuate.endpoint.annotation.ReadOperation_RENAMED;
 import org.springframework.context.ApplicationContext;
 
 /**
@@ -51,7 +51,7 @@ public class FlywayEndpoint {
 		this.context = context;
 	}
 
-	@ReadOperation
+	@ReadOperation_RENAMED
 	public ApplicationFlywayBeans flywayBeans() {
 		ApplicationContext target = this.context;
 		Map<String, ContextFlywayBeans> contextFlywayBeans = new HashMap<>();

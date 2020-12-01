@@ -27,7 +27,7 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
-import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
+import org.springframework.boot.actuate.endpoint.annotation.ReadOperation_RENAMED;
 import org.springframework.scheduling.Trigger;
 import org.springframework.scheduling.config.CronTask;
 import org.springframework.scheduling.config.FixedDelayTask;
@@ -57,7 +57,7 @@ public class ScheduledTasksEndpoint {
 		this.scheduledTaskHolders = scheduledTaskHolders;
 	}
 
-	@ReadOperation
+	@ReadOperation_RENAMED
 	public ScheduledTasksReport scheduledTasks() {
 		Map<TaskType, List<TaskDescription>> descriptionsByType = this.scheduledTaskHolders.stream()
 				.flatMap((holder) -> holder.getScheduledTasks().stream()).map(ScheduledTask::getTask)

@@ -34,7 +34,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.actuate.endpoint.EndpointId;
 import org.springframework.boot.actuate.endpoint.annotation.DiscoveredEndpoint;
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
-import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
+import org.springframework.boot.actuate.endpoint.annotation.ReadOperation_RENAMED;
 import org.springframework.boot.actuate.endpoint.web.EndpointServlet;
 import org.springframework.boot.actuate.endpoint.web.ExposableServletEndpoint;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
@@ -184,7 +184,7 @@ class ServletEndpointDiscovererTests {
 			return new EndpointServlet(TestServlet.class);
 		}
 
-		@ReadOperation
+		@ReadOperation_RENAMED
 		String read() {
 			return "error";
 		}

@@ -23,7 +23,7 @@ import java.util.List;
 import java.util.function.Function;
 
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
-import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
+import org.springframework.boot.actuate.endpoint.annotation.ReadOperation_RENAMED;
 
 /**
  * {@link Endpoint @Endpoint} to expose thread info.
@@ -37,12 +37,12 @@ public class ThreadDumpEndpoint {
 
 	private final PlainTextThreadDumpFormatter plainTextFormatter = new PlainTextThreadDumpFormatter();
 
-	@ReadOperation
+	@ReadOperation_RENAMED
 	public ThreadDumpDescriptor threadDump() {
 		return getFormattedThreadDump(ThreadDumpDescriptor::new);
 	}
 
-	@ReadOperation(produces = "text/plain;charset=UTF-8")
+	@ReadOperation_RENAMED(produces = "text/plain;charset=UTF-8")
 	public String textThreadDump() {
 		return getFormattedThreadDump(this.plainTextFormatter::format);
 	}

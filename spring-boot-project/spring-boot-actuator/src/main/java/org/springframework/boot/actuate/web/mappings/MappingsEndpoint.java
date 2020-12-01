@@ -21,7 +21,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
-import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
+import org.springframework.boot.actuate.endpoint.annotation.ReadOperation_RENAMED;
 import org.springframework.context.ApplicationContext;
 
 /**
@@ -42,7 +42,7 @@ public class MappingsEndpoint {
 		this.context = context;
 	}
 
-	@ReadOperation
+	@ReadOperation_RENAMED
 	public ApplicationMappings mappings() {
 		ApplicationContext target = this.context;
 		Map<String, ContextMappings> contextMappings = new HashMap<>();

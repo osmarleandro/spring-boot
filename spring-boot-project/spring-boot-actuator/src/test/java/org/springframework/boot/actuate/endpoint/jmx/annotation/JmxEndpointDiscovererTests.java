@@ -29,7 +29,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.actuate.endpoint.EndpointId;
 import org.springframework.boot.actuate.endpoint.annotation.DeleteOperation;
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
-import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
+import org.springframework.boot.actuate.endpoint.annotation.ReadOperation_RENAMED;
 import org.springframework.boot.actuate.endpoint.annotation.WriteOperation;
 import org.springframework.boot.actuate.endpoint.invoke.convert.ConversionServiceParameterValueMapper;
 import org.springframework.boot.actuate.endpoint.invoker.cache.CachingOperationInvoker;
@@ -389,12 +389,12 @@ class JmxEndpointDiscovererTests {
 	@Endpoint(id = "test")
 	static class TestEndpoint {
 
-		@ReadOperation
+		@ReadOperation_RENAMED
 		Object getAll() {
 			return null;
 		}
 
-		@ReadOperation
+		@ReadOperation_RENAMED
 		String getSomething(TimeUnit timeUnit) {
 			return null;
 		}
@@ -414,7 +414,7 @@ class JmxEndpointDiscovererTests {
 	@JmxEndpoint(id = "jmx")
 	static class TestJmxEndpoint {
 
-		@ReadOperation
+		@ReadOperation_RENAMED
 		Object getAll() {
 			return null;
 		}
@@ -425,12 +425,12 @@ class JmxEndpointDiscovererTests {
 	static class TestJmxEndpointExtension {
 
 		@ManagedOperation(description = "Get all the things")
-		@ReadOperation
+		@ReadOperation_RENAMED
 		Object getAll() {
 			return null;
 		}
 
-		@ReadOperation
+		@ReadOperation_RENAMED
 		@ManagedOperation(description = "Get something based on a timeUnit")
 		@ManagedOperationParameters({
 				@ManagedOperationParameter(name = "unitMs", description = "Number of milliseconds") })
@@ -460,7 +460,7 @@ class JmxEndpointDiscovererTests {
 	static class AdditionalOperationJmxEndpointExtension {
 
 		@ManagedOperation(description = "Get another thing")
-		@ReadOperation
+		@ReadOperation_RENAMED
 		Object getAnother() {
 			return null;
 		}
@@ -470,12 +470,12 @@ class JmxEndpointDiscovererTests {
 	@Endpoint(id = "test")
 	static class ClashingOperationsEndpoint {
 
-		@ReadOperation
+		@ReadOperation_RENAMED
 		Object getAll() {
 			return null;
 		}
 
-		@ReadOperation
+		@ReadOperation_RENAMED
 		Object getAll(String param) {
 			return null;
 		}
@@ -485,12 +485,12 @@ class JmxEndpointDiscovererTests {
 	@EndpointJmxExtension(endpoint = TestEndpoint.class)
 	static class ClashingOperationsJmxEndpointExtension {
 
-		@ReadOperation
+		@ReadOperation_RENAMED
 		Object getAll() {
 			return null;
 		}
 
-		@ReadOperation
+		@ReadOperation_RENAMED
 		Object getAll(String param) {
 			return null;
 		}
@@ -500,7 +500,7 @@ class JmxEndpointDiscovererTests {
 	@WebEndpoint(id = "nonjmx")
 	static class NonJmxEndpoint {
 
-		@ReadOperation
+		@ReadOperation_RENAMED
 		Object getData() {
 			return null;
 		}
@@ -510,7 +510,7 @@ class JmxEndpointDiscovererTests {
 	@EndpointJmxExtension(endpoint = NonJmxEndpoint.class)
 	static class NonJmxJmxEndpointExtension {
 
-		@ReadOperation
+		@ReadOperation_RENAMED
 		Object getSomething() {
 			return null;
 		}

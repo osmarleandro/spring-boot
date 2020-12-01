@@ -16,7 +16,7 @@
 
 package org.springframework.boot.actuate.env;
 
-import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
+import org.springframework.boot.actuate.endpoint.annotation.ReadOperation_RENAMED;
 import org.springframework.boot.actuate.endpoint.annotation.Selector;
 import org.springframework.boot.actuate.endpoint.web.WebEndpointResponse;
 import org.springframework.boot.actuate.endpoint.web.annotation.EndpointWebExtension;
@@ -38,7 +38,7 @@ public class EnvironmentEndpointWebExtension {
 		this.delegate = delegate;
 	}
 
-	@ReadOperation
+	@ReadOperation_RENAMED
 	public WebEndpointResponse<EnvironmentEntryDescriptor> environmentEntry(@Selector String toMatch) {
 		EnvironmentEntryDescriptor descriptor = this.delegate.environmentEntry(toMatch);
 		return (descriptor.getProperty() != null) ? new WebEndpointResponse<>(descriptor, WebEndpointResponse.STATUS_OK)

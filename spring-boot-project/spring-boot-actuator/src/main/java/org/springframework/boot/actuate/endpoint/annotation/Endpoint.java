@@ -30,7 +30,7 @@ import org.springframework.boot.actuate.endpoint.EndpointId;
  * JMX and HTTP.
  * <p>
  * Most {@code @Endpoint} classes will declare one or more
- * {@link ReadOperation @ReadOperation}, {@link WriteOperation @WriteOperation},
+ * {@link ReadOperation_RENAMED @ReadOperation}, {@link WriteOperation @WriteOperation},
  * {@link DeleteOperation @DeleteOperation} annotated methods which will be automatically
  * adapted to the exposing technology (JMX, Spring MVC, Spring WebFlux, Jersey etc.).
  * <p>

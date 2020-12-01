@@ -421,12 +421,12 @@ class EndpointDiscovererTests {
 	@Endpoint(id = "test")
 	static class TestEndpoint {
 
-		@ReadOperation
+		@ReadOperation_RENAMED
 		Object getAll() {
 			return null;
 		}
 
-		@ReadOperation
+		@ReadOperation_RENAMED
 		Object getOne(@Selector String id) {
 			return null;
 		}
@@ -471,7 +471,7 @@ class EndpointDiscovererTests {
 	@EndpointExtension(endpoint = SpecializedTestEndpoint.class, filter = SpecializedEndpointFilter.class)
 	static class SpecializedExtension {
 
-		@ReadOperation
+		@ReadOperation_RENAMED
 		Object getSpecial() {
 			return null;
 		}
@@ -489,7 +489,7 @@ class EndpointDiscovererTests {
 	@SpecializedEndpoint(id = "specialized")
 	static class SpecializedTestEndpoint {
 
-		@ReadOperation
+		@ReadOperation_RENAMED
 		Object getAll() {
 			return null;
 		}
@@ -503,7 +503,7 @@ class EndpointDiscovererTests {
 
 	static class SpecializedSuperclassTestEndpoint extends AbstractFilteredEndpoint {
 
-		@ReadOperation
+		@ReadOperation_RENAMED
 		Object getAll() {
 			return null;
 		}
@@ -512,7 +512,7 @@ class EndpointDiscovererTests {
 
 	static class SubSpecializedTestEndpoint extends SpecializedTestEndpoint {
 
-		@ReadOperation
+		@ReadOperation_RENAMED
 		Object getSpecialOne(@Selector String id) {
 			return null;
 		}

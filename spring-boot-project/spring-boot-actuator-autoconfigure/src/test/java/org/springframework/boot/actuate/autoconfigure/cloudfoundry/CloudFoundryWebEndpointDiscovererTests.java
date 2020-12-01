@@ -27,7 +27,7 @@ import org.springframework.boot.actuate.endpoint.EndpointId;
 import org.springframework.boot.actuate.endpoint.InvocationContext;
 import org.springframework.boot.actuate.endpoint.SecurityContext;
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
-import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
+import org.springframework.boot.actuate.endpoint.annotation.ReadOperation_RENAMED;
 import org.springframework.boot.actuate.endpoint.invoke.convert.ConversionServiceParameterValueMapper;
 import org.springframework.boot.actuate.endpoint.invoker.cache.CachingOperationInvokerAdvisor;
 import org.springframework.boot.actuate.endpoint.web.EndpointMediaTypes;
@@ -131,7 +131,7 @@ class CloudFoundryWebEndpointDiscovererTests {
 	@Endpoint(id = "test")
 	static class TestEndpoint {
 
-		@ReadOperation
+		@ReadOperation_RENAMED
 		Object getAll() {
 			return null;
 		}
@@ -141,7 +141,7 @@ class CloudFoundryWebEndpointDiscovererTests {
 	@EndpointWebExtension(endpoint = TestEndpoint.class)
 	static class TestEndpointWebExtension {
 
-		@ReadOperation
+		@ReadOperation_RENAMED
 		Object getAll() {
 			return null;
 		}
@@ -151,7 +151,7 @@ class CloudFoundryWebEndpointDiscovererTests {
 	@EndpointWebExtension(endpoint = HealthEndpoint.class)
 	static class HealthEndpointWebExtension {
 
-		@ReadOperation
+		@ReadOperation_RENAMED
 		Object getAll() {
 			return null;
 		}
@@ -161,7 +161,7 @@ class CloudFoundryWebEndpointDiscovererTests {
 	@EndpointCloudFoundryExtension(endpoint = HealthEndpoint.class)
 	static class TestHealthEndpointCloudFoundryExtension {
 
-		@ReadOperation
+		@ReadOperation_RENAMED
 		Object getAll() {
 			return "cf";
 		}

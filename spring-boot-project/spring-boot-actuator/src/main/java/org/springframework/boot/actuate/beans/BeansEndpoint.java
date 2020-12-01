@@ -23,7 +23,7 @@ import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
-import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
+import org.springframework.boot.actuate.endpoint.annotation.ReadOperation_RENAMED;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.util.StringUtils;
@@ -51,7 +51,7 @@ public class BeansEndpoint {
 		this.context = context;
 	}
 
-	@ReadOperation
+	@ReadOperation_RENAMED
 	public ApplicationBeans beans() {
 		Map<String, ContextBeans> contexts = new HashMap<>();
 		ConfigurableApplicationContext context = this.context;

@@ -19,7 +19,7 @@ package org.springframework.boot.actuate.trace.http;
 import java.util.List;
 
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
-import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
+import org.springframework.boot.actuate.endpoint.annotation.ReadOperation_RENAMED;
 import org.springframework.util.Assert;
 
 /**
@@ -43,7 +43,7 @@ public class HttpTraceEndpoint {
 		this.repository = repository;
 	}
 
-	@ReadOperation
+	@ReadOperation_RENAMED
 	public HttpTraceDescriptor traces() {
 		return new HttpTraceDescriptor(this.repository.findAll());
 	}

@@ -29,7 +29,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 
 import org.springframework.boot.actuate.endpoint.Sanitizer;
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
-import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
+import org.springframework.boot.actuate.endpoint.annotation.ReadOperation_RENAMED;
 import org.springframework.boot.actuate.endpoint.annotation.Selector;
 import org.springframework.boot.context.properties.bind.PlaceholdersResolver;
 import org.springframework.boot.context.properties.bind.PropertySourcesPlaceholdersResolver;
@@ -74,7 +74,7 @@ public class EnvironmentEndpoint {
 		this.sanitizer.setKeysToSanitize(keysToSanitize);
 	}
 
-	@ReadOperation
+	@ReadOperation_RENAMED
 	public EnvironmentDescriptor environment(@Nullable String pattern) {
 		if (StringUtils.hasText(pattern)) {
 			return getEnvironmentDescriptor(Pattern.compile(pattern).asPredicate());
@@ -82,7 +82,7 @@ public class EnvironmentEndpoint {
 		return getEnvironmentDescriptor((name) -> true);
 	}
 
-	@ReadOperation
+	@ReadOperation_RENAMED
 	public EnvironmentEntryDescriptor environmentEntry(@Selector String toMatch) {
 		return getEnvironmentEntryDescriptor(toMatch);
 	}

@@ -21,7 +21,7 @@ import reactor.core.publisher.Mono;
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.EndpointCloudFoundryExtension;
 import org.springframework.boot.actuate.endpoint.SecurityContext;
 import org.springframework.boot.actuate.endpoint.annotation.EndpointExtension;
-import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
+import org.springframework.boot.actuate.endpoint.annotation.ReadOperation_RENAMED;
 import org.springframework.boot.actuate.endpoint.annotation.Selector;
 import org.springframework.boot.actuate.endpoint.annotation.Selector.Match;
 import org.springframework.boot.actuate.endpoint.http.ApiVersion;
@@ -46,12 +46,12 @@ public class CloudFoundryReactiveHealthEndpointWebExtension {
 		this.delegate = delegate;
 	}
 
-	@ReadOperation
+	@ReadOperation_RENAMED
 	public Mono<WebEndpointResponse<? extends HealthComponent>> health(ApiVersion apiVersion) {
 		return this.delegate.health(apiVersion, SecurityContext.NONE, true);
 	}
 
-	@ReadOperation
+	@ReadOperation_RENAMED
 	public Mono<WebEndpointResponse<? extends HealthComponent>> health(ApiVersion apiVersion,
 			@Selector(match = Match.ALL_REMAINING) String... path) {
 		return this.delegate.health(apiVersion, SecurityContext.NONE, true, path);

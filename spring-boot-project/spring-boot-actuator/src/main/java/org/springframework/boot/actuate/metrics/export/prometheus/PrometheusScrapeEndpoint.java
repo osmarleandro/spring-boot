@@ -27,7 +27,7 @@ import io.prometheus.client.CollectorRegistry;
 import io.prometheus.client.exporter.common.TextFormat;
 
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
-import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
+import org.springframework.boot.actuate.endpoint.annotation.ReadOperation_RENAMED;
 import org.springframework.boot.actuate.endpoint.web.annotation.WebEndpoint;
 import org.springframework.lang.Nullable;
 
@@ -48,7 +48,7 @@ public class PrometheusScrapeEndpoint {
 		this.collectorRegistry = collectorRegistry;
 	}
 
-	@ReadOperation(produces = TextFormat.CONTENT_TYPE_004)
+	@ReadOperation_RENAMED(produces = TextFormat.CONTENT_TYPE_004)
 	public String scrape(@Nullable Set<String> includedNames) {
 		try {
 			Writer writer = new StringWriter();

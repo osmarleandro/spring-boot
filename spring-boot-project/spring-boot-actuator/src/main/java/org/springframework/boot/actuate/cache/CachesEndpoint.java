@@ -25,7 +25,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.boot.actuate.endpoint.annotation.DeleteOperation;
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
-import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
+import org.springframework.boot.actuate.endpoint.annotation.ReadOperation_RENAMED;
 import org.springframework.boot.actuate.endpoint.annotation.Selector;
 import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
@@ -55,7 +55,7 @@ public class CachesEndpoint {
 	 * Return a {@link CachesReport} of all available {@link Cache caches}.
 	 * @return a caches reports
 	 */
-	@ReadOperation
+	@ReadOperation_RENAMED
 	public CachesReport caches() {
 		Map<String, Map<String, CacheDescriptor>> descriptors = new LinkedHashMap<>();
 		getCacheEntries(matchAll(), matchAll()).forEach((entry) -> {
@@ -78,7 +78,7 @@ public class CachesEndpoint {
 	 * @throws NonUniqueCacheException if more than one cache with that name exists and no
 	 * {@code cacheManager} was provided to identify a unique candidate
 	 */
-	@ReadOperation
+	@ReadOperation_RENAMED
 	public CacheEntry cache(@Selector String cache, @Nullable String cacheManager) {
 		return extractUniqueCacheEntry(cache, getCacheEntries((name) -> name.equals(cache), isNameMatch(cacheManager)));
 	}

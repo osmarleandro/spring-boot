@@ -20,7 +20,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
-import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
+import org.springframework.boot.actuate.endpoint.annotation.ReadOperation_RENAMED;
 import org.springframework.util.Assert;
 
 /**
@@ -45,7 +45,7 @@ public class InfoEndpoint {
 		this.infoContributors = infoContributors;
 	}
 
-	@ReadOperation
+	@ReadOperation_RENAMED
 	public Map<String, Object> info() {
 		Info.Builder builder = new Info.Builder();
 		for (InfoContributor contributor : this.infoContributors) {

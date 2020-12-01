@@ -34,7 +34,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.actuate.endpoint.EndpointId;
 import org.springframework.boot.actuate.endpoint.annotation.DeleteOperation;
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
-import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
+import org.springframework.boot.actuate.endpoint.annotation.ReadOperation_RENAMED;
 import org.springframework.boot.actuate.endpoint.annotation.Selector;
 import org.springframework.boot.actuate.endpoint.annotation.WriteOperation;
 import org.springframework.boot.actuate.endpoint.invoke.convert.ConversionServiceParameterValueMapper;
@@ -444,12 +444,12 @@ class WebEndpointDiscovererTests {
 	@EndpointWebExtension(endpoint = TestEndpoint.class)
 	static class TestWebEndpointExtension {
 
-		@ReadOperation
+		@ReadOperation_RENAMED
 		Object getAll() {
 			return null;
 		}
 
-		@ReadOperation
+		@ReadOperation_RENAMED
 		Object getOne(@Selector String id) {
 			return null;
 		}
@@ -468,7 +468,7 @@ class WebEndpointDiscovererTests {
 	@Endpoint(id = "test")
 	static class TestEndpoint {
 
-		@ReadOperation
+		@ReadOperation_RENAMED
 		Object getAll() {
 			return null;
 		}
@@ -478,7 +478,7 @@ class WebEndpointDiscovererTests {
 	@EndpointWebExtension(endpoint = TestEndpoint.class)
 	static class OverriddenOperationWebEndpointExtension {
 
-		@ReadOperation
+		@ReadOperation_RENAMED
 		Object getAll() {
 			return null;
 		}
@@ -488,7 +488,7 @@ class WebEndpointDiscovererTests {
 	@EndpointWebExtension(endpoint = TestEndpoint.class)
 	static class AdditionalOperationWebEndpointExtension {
 
-		@ReadOperation
+		@ReadOperation_RENAMED
 		Object getOne(@Selector String id) {
 			return null;
 		}
@@ -498,12 +498,12 @@ class WebEndpointDiscovererTests {
 	@Endpoint(id = "test")
 	static class ClashingOperationsEndpoint {
 
-		@ReadOperation
+		@ReadOperation_RENAMED
 		Object getAll() {
 			return null;
 		}
 
-		@ReadOperation
+		@ReadOperation_RENAMED
 		Object getAgain() {
 			return null;
 		}
@@ -513,12 +513,12 @@ class WebEndpointDiscovererTests {
 	@EndpointWebExtension(endpoint = TestEndpoint.class)
 	static class ClashingOperationsWebEndpointExtension {
 
-		@ReadOperation
+		@ReadOperation_RENAMED
 		Object getAll() {
 			return null;
 		}
 
-		@ReadOperation
+		@ReadOperation_RENAMED
 		Object getAgain() {
 			return null;
 		}
@@ -528,12 +528,12 @@ class WebEndpointDiscovererTests {
 	@EndpointWebExtension(endpoint = TestEndpoint.class)
 	static class ClashingSelectorsWebEndpointExtension {
 
-		@ReadOperation
+		@ReadOperation_RENAMED
 		Object readOne(@Selector String oneA, @Selector String oneB) {
 			return null;
 		}
 
-		@ReadOperation
+		@ReadOperation_RENAMED
 		Object readTwo(@Selector String twoA, @Selector String twoB) {
 			return null;
 		}
@@ -543,7 +543,7 @@ class WebEndpointDiscovererTests {
 	@JmxEndpoint(id = "nonweb")
 	static class NonWebEndpoint {
 
-		@ReadOperation
+		@ReadOperation_RENAMED
 		Object getData() {
 			return null;
 		}
@@ -553,7 +553,7 @@ class WebEndpointDiscovererTests {
 	@EndpointWebExtension(endpoint = NonWebEndpoint.class)
 	static class NonWebWebEndpointExtension {
 
-		@ReadOperation
+		@ReadOperation_RENAMED
 		Object getSomething(@Selector String name) {
 			return null;
 		}
@@ -572,7 +572,7 @@ class WebEndpointDiscovererTests {
 	@Endpoint(id = "resource")
 	static class ResourceEndpoint {
 
-		@ReadOperation
+		@ReadOperation_RENAMED
 		Resource read() {
 			return new ByteArrayResource(new byte[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 });
 		}
@@ -582,7 +582,7 @@ class WebEndpointDiscovererTests {
 	@Endpoint(id = "custommediatypes")
 	static class CustomMediaTypesEndpoint {
 
-		@ReadOperation(produces = "text/plain")
+		@ReadOperation_RENAMED(produces = "text/plain")
 		String read() {
 			return "read";
 		}

@@ -22,7 +22,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
-import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
+import org.springframework.boot.actuate.endpoint.annotation.ReadOperation_RENAMED;
 import org.springframework.boot.actuate.endpoint.web.annotation.WebEndpoint;
 import org.springframework.boot.logging.LogFile;
 import org.springframework.core.io.FileSystemResource;
@@ -50,7 +50,7 @@ public class LogFileWebEndpoint {
 		this.logFile = logFile;
 	}
 
-	@ReadOperation(produces = "text/plain; charset=UTF-8")
+	@ReadOperation_RENAMED(produces = "text/plain; charset=UTF-8")
 	public Resource logFile() {
 		Resource logFileResource = getLogFileResource();
 		if (logFileResource == null || !logFileResource.isReadable()) {
