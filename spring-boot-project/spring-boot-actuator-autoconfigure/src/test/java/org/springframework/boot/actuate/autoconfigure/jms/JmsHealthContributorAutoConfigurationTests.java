@@ -28,7 +28,7 @@ import org.springframework.boot.test.context.runner.ApplicationContextRunner;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Tests for {@link JmsHealthContributorAutoConfiguration}.
+ * Tests for {@link JmsHealthContributorAutoConfiguration_RENAMED}.
  *
  * @author Phillip Webb
  */
@@ -36,7 +36,7 @@ class JmsHealthContributorAutoConfigurationTests {
 
 	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(ActiveMQAutoConfiguration.class,
-					JmsHealthContributorAutoConfiguration.class, HealthContributorAutoConfiguration.class));
+					JmsHealthContributorAutoConfiguration_RENAMED.class, HealthContributorAutoConfiguration.class));
 
 	@Test
 	void runShouldCreateIndicator() {

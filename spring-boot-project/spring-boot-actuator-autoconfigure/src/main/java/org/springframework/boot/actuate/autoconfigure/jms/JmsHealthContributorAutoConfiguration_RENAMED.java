@@ -45,7 +45,7 @@ import org.springframework.context.annotation.Configuration;
 @ConditionalOnBean(ConnectionFactory.class)
 @ConditionalOnEnabledHealthIndicator("jms")
 @AutoConfigureAfter({ ActiveMQAutoConfiguration.class, ArtemisAutoConfiguration.class })
-public class JmsHealthContributorAutoConfiguration
+public class JmsHealthContributorAutoConfiguration_RENAMED
 		extends CompositeHealthContributorConfiguration<JmsHealthIndicator, ConnectionFactory> {
 
 	@Bean
