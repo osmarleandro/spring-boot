@@ -33,7 +33,7 @@ import static org.mockito.Mockito.mock;
  *
  * @author Vedran Pavic
  */
-class SessionsEndpointAutoConfigurationTests {
+class SessionsEndpointAutoConfigurationTests_RENAMED {
 
 	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(SessionsEndpointAutoConfiguration.class))
