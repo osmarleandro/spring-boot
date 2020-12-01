@@ -19,7 +19,7 @@ package org.springframework.boot.actuate.autoconfigure.ldap;
 import java.util.Map;
 
 import org.springframework.boot.actuate.autoconfigure.health.CompositeHealthContributorConfiguration;
-import org.springframework.boot.actuate.autoconfigure.health.ConditionalOnEnabledHealthIndicator;
+import org.springframework.boot.actuate.autoconfigure.health.ConditionalOnEnabledHealthIndicator_RENAMED;
 import org.springframework.boot.actuate.health.HealthContributor;
 import org.springframework.boot.actuate.ldap.LdapHealthIndicator;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
@@ -42,7 +42,7 @@ import org.springframework.ldap.core.LdapOperations;
 @Configuration(proxyBeanMethods = false)
 @ConditionalOnClass(LdapOperations.class)
 @ConditionalOnBean(LdapOperations.class)
-@ConditionalOnEnabledHealthIndicator("ldap")
+@ConditionalOnEnabledHealthIndicator_RENAMED("ldap")
 @AutoConfigureAfter(LdapAutoConfiguration.class)
 public class LdapHealthContributorAutoConfiguration
 		extends CompositeHealthContributorConfiguration<LdapHealthIndicator, LdapOperations> {

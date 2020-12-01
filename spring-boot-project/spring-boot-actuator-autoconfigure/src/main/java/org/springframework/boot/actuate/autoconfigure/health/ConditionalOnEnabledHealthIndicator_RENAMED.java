@@ -38,7 +38,7 @@ import org.springframework.context.annotation.Conditional;
 @Target({ ElementType.TYPE, ElementType.METHOD })
 @Documented
 @Conditional(OnEnabledHealthIndicatorCondition.class)
-public @interface ConditionalOnEnabledHealthIndicator {
+public @interface ConditionalOnEnabledHealthIndicator_RENAMED {
 
 	/**
 	 * The name of the health indicator.

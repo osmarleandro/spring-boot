@@ -21,7 +21,7 @@ import java.util.Map;
 import com.hazelcast.core.HazelcastInstance;
 
 import org.springframework.boot.actuate.autoconfigure.health.CompositeHealthContributorConfiguration;
-import org.springframework.boot.actuate.autoconfigure.health.ConditionalOnEnabledHealthIndicator;
+import org.springframework.boot.actuate.autoconfigure.health.ConditionalOnEnabledHealthIndicator_RENAMED;
 import org.springframework.boot.actuate.hazelcast.HazelcastHealthIndicator;
 import org.springframework.boot.actuate.health.HealthContributor;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
@@ -43,7 +43,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration(proxyBeanMethods = false)
 @ConditionalOnClass(HazelcastInstance.class)
 @ConditionalOnBean(HazelcastInstance.class)
-@ConditionalOnEnabledHealthIndicator("hazelcast")
+@ConditionalOnEnabledHealthIndicator_RENAMED("hazelcast")
 @AutoConfigureAfter(HazelcastAutoConfiguration.class)
 public class HazelcastHealthContributorAutoConfiguration
 		extends CompositeHealthContributorConfiguration<HazelcastHealthIndicator, HazelcastInstance> {

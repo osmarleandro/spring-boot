@@ -18,7 +18,7 @@ package org.springframework.boot.actuate.autoconfigure.neo4j;
 
 import org.neo4j.driver.Driver;
 
-import org.springframework.boot.actuate.autoconfigure.health.ConditionalOnEnabledHealthIndicator;
+import org.springframework.boot.actuate.autoconfigure.health.ConditionalOnEnabledHealthIndicator_RENAMED;
 import org.springframework.boot.actuate.autoconfigure.neo4j.Neo4jHealthContributorConfigurations.Neo4jConfiguration;
 import org.springframework.boot.actuate.autoconfigure.neo4j.Neo4jHealthContributorConfigurations.Neo4jReactiveConfiguration;
 import org.springframework.boot.actuate.neo4j.Neo4jHealthIndicator;
@@ -43,7 +43,7 @@ import org.springframework.context.annotation.Import;
 @Configuration(proxyBeanMethods = false)
 @ConditionalOnClass(Driver.class)
 @ConditionalOnBean(Driver.class)
-@ConditionalOnEnabledHealthIndicator("neo4j")
+@ConditionalOnEnabledHealthIndicator_RENAMED("neo4j")
 @AutoConfigureAfter(Neo4jAutoConfiguration.class)
 @Import({ Neo4jReactiveConfiguration.class, Neo4jConfiguration.class })
 public class Neo4jHealthContributorAutoConfiguration {

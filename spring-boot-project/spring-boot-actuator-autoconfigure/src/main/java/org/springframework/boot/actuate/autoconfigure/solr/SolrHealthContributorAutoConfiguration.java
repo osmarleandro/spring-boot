@@ -21,7 +21,7 @@ import java.util.Map;
 import org.apache.solr.client.solrj.SolrClient;
 
 import org.springframework.boot.actuate.autoconfigure.health.CompositeHealthContributorConfiguration;
-import org.springframework.boot.actuate.autoconfigure.health.ConditionalOnEnabledHealthIndicator;
+import org.springframework.boot.actuate.autoconfigure.health.ConditionalOnEnabledHealthIndicator_RENAMED;
 import org.springframework.boot.actuate.health.HealthContributor;
 import org.springframework.boot.actuate.solr.SolrHealthIndicator;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
@@ -43,7 +43,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration(proxyBeanMethods = false)
 @ConditionalOnClass(SolrClient.class)
 @ConditionalOnBean(SolrClient.class)
-@ConditionalOnEnabledHealthIndicator("solr")
+@ConditionalOnEnabledHealthIndicator_RENAMED("solr")
 @AutoConfigureAfter(SolrAutoConfiguration.class)
 public class SolrHealthContributorAutoConfiguration
 		extends CompositeHealthContributorConfiguration<SolrHealthIndicator, SolrClient> {

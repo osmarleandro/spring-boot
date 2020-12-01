@@ -19,7 +19,7 @@ import com.datastax.oss.driver.api.core.CqlSession;
 import reactor.core.publisher.Flux;
 
 import org.springframework.boot.actuate.autoconfigure.cassandra.CassandraHealthContributorConfigurations.CassandraReactiveDriverConfiguration;
-import org.springframework.boot.actuate.autoconfigure.health.ConditionalOnEnabledHealthIndicator;
+import org.springframework.boot.actuate.autoconfigure.health.ConditionalOnEnabledHealthIndicator_RENAMED;
 import org.springframework.boot.actuate.cassandra.CassandraDriverReactiveHealthIndicator;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -38,7 +38,7 @@ import org.springframework.context.annotation.Import;
  */
 @Configuration(proxyBeanMethods = false)
 @ConditionalOnClass({ CqlSession.class, Flux.class })
-@ConditionalOnEnabledHealthIndicator("cassandra")
+@ConditionalOnEnabledHealthIndicator_RENAMED("cassandra")
 @AutoConfigureAfter(CassandraReactiveDataAutoConfiguration.class)
 @Import({ CassandraReactiveDriverConfiguration.class,
 		CassandraHealthContributorConfigurations.CassandraReactiveOperationsConfiguration.class })

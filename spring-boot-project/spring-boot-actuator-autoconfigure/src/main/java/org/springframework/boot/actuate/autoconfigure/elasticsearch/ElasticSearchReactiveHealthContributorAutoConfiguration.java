@@ -21,7 +21,7 @@ import java.util.Map;
 import reactor.core.publisher.Flux;
 
 import org.springframework.boot.actuate.autoconfigure.health.CompositeReactiveHealthContributorConfiguration;
-import org.springframework.boot.actuate.autoconfigure.health.ConditionalOnEnabledHealthIndicator;
+import org.springframework.boot.actuate.autoconfigure.health.ConditionalOnEnabledHealthIndicator_RENAMED;
 import org.springframework.boot.actuate.elasticsearch.ElasticsearchReactiveHealthIndicator;
 import org.springframework.boot.actuate.health.ReactiveHealthContributor;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
@@ -45,7 +45,7 @@ import org.springframework.data.elasticsearch.client.reactive.ReactiveElasticsea
 @Configuration(proxyBeanMethods = false)
 @ConditionalOnClass({ ReactiveElasticsearchClient.class, Flux.class })
 @ConditionalOnBean(ReactiveElasticsearchClient.class)
-@ConditionalOnEnabledHealthIndicator("elasticsearch")
+@ConditionalOnEnabledHealthIndicator_RENAMED("elasticsearch")
 @AutoConfigureAfter(ReactiveElasticsearchRestClientAutoConfiguration.class)
 public class ElasticSearchReactiveHealthContributorAutoConfiguration extends
 		CompositeReactiveHealthContributorConfiguration<ElasticsearchReactiveHealthIndicator, ReactiveElasticsearchClient> {

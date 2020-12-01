@@ -27,7 +27,7 @@ import org.springframework.context.annotation.Condition;
 class OnEnabledHealthIndicatorCondition extends OnEndpointElementCondition {
 
 	OnEnabledHealthIndicatorCondition() {
-		super("management.health.", ConditionalOnEnabledHealthIndicator.class);
+		super("management.health.", ConditionalOnEnabledHealthIndicator_RENAMED.class);
 	}
 
 }
