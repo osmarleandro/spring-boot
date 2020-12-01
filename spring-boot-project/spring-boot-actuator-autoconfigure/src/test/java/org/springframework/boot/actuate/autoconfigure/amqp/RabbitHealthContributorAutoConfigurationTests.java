@@ -18,7 +18,7 @@ package org.springframework.boot.actuate.autoconfigure.amqp;
 
 import org.junit.jupiter.api.Test;
 
-import org.springframework.boot.actuate.amqp.RabbitHealthIndicator;
+import org.springframework.boot.actuate.amqp.RabbitHealthIndicator_RENAMED;
 import org.springframework.boot.actuate.autoconfigure.health.HealthContributorAutoConfiguration;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
 import org.springframework.boot.autoconfigure.amqp.RabbitAutoConfiguration;
@@ -39,13 +39,13 @@ class RabbitHealthContributorAutoConfigurationTests {
 
 	@Test
 	void runShouldCreateIndicator() {
-		this.contextRunner.run((context) -> assertThat(context).hasSingleBean(RabbitHealthIndicator.class));
+		this.contextRunner.run((context) -> assertThat(context).hasSingleBean(RabbitHealthIndicator_RENAMED.class));
 	}
 
 	@Test
 	void runWhenDisabledShouldNotCreateIndicator() {
 		this.contextRunner.withPropertyValues("management.health.rabbit.enabled:false")
-				.run((context) -> assertThat(context).doesNotHaveBean(RabbitHealthIndicator.class));
+				.run((context) -> assertThat(context).doesNotHaveBean(RabbitHealthIndicator_RENAMED.class));
 	}
 
 }

@@ -37,7 +37,7 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
 
 /**
- * Tests for {@link RabbitHealthIndicator}.
+ * Tests for {@link RabbitHealthIndicator_RENAMED}.
  *
  * @author Phillip Webb
  */
@@ -52,7 +52,7 @@ class RabbitHealthIndicatorTests {
 
 	@Test
 	void createWhenRabbitTemplateIsNullShouldThrowException() {
-		assertThatIllegalArgumentException().isThrownBy(() -> new RabbitHealthIndicator(null))
+		assertThatIllegalArgumentException().isThrownBy(() -> new RabbitHealthIndicator_RENAMED(null))
 				.withMessageContaining("RabbitTemplate must not be null");
 	}
 
@@ -62,7 +62,7 @@ class RabbitHealthIndicatorTests {
 		Connection connection = mock(Connection.class);
 		given(this.channel.getConnection()).willReturn(connection);
 		given(connection.getServerProperties()).willReturn(Collections.singletonMap("version", "123"));
-		Health health = new RabbitHealthIndicator(this.rabbitTemplate).health();
+		Health health = new RabbitHealthIndicator_RENAMED(this.rabbitTemplate).health();
 		assertThat(health.getStatus()).isEqualTo(Status.UP);
 		assertThat(health.getDetails()).containsEntry("version", "123");
 	}
@@ -71,7 +71,7 @@ class RabbitHealthIndicatorTests {
 	void healthWhenConnectionFailsShouldReturnDown() {
 		givenTemplateExecutionWillInvokeCallback();
 		given(this.channel.getConnection()).willThrow(new RuntimeException());
-		Health health = new RabbitHealthIndicator(this.rabbitTemplate).health();
+		Health health = new RabbitHealthIndicator_RENAMED(this.rabbitTemplate).health();
 		assertThat(health.getStatus()).isEqualTo(Status.DOWN);
 	}
 
