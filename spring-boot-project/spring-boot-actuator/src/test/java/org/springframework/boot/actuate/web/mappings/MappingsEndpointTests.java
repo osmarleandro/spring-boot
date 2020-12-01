@@ -38,7 +38,7 @@ import org.springframework.boot.actuate.web.mappings.servlet.DispatcherServletsM
 import org.springframework.boot.actuate.web.mappings.servlet.FilterRegistrationMappingDescription;
 import org.springframework.boot.actuate.web.mappings.servlet.FiltersMappingDescriptionProvider;
 import org.springframework.boot.actuate.web.mappings.servlet.ServletRegistrationMappingDescription;
-import org.springframework.boot.actuate.web.mappings.servlet.ServletsMappingDescriptionProvider;
+import org.springframework.boot.actuate.web.mappings.servlet.ServletsMappingDescriptionProvider_RENAMED;
 import org.springframework.boot.test.context.runner.ReactiveWebApplicationContextRunner;
 import org.springframework.boot.test.context.runner.WebApplicationContextRunner;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
@@ -199,8 +199,8 @@ class MappingsEndpointTests {
 		}
 
 		@Bean
-		ServletsMappingDescriptionProvider servletsMappingDescriptionProvider() {
-			return new ServletsMappingDescriptionProvider();
+		ServletsMappingDescriptionProvider_RENAMED servletsMappingDescriptionProvider() {
+			return new ServletsMappingDescriptionProvider_RENAMED();
 		}
 
 		@Bean
