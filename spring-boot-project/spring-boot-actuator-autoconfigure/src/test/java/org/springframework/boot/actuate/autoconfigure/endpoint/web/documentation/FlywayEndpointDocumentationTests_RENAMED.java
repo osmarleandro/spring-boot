@@ -47,7 +47,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  *
  * @author Andy Wilkinson
  */
-class FlywayEndpointDocumentationTests extends MockMvcEndpointDocumentationTests {
+class FlywayEndpointDocumentationTests_RENAMED extends MockMvcEndpointDocumentationTests {
 
 	@Test
 	void flyway() throws Exception {
