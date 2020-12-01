@@ -26,7 +26,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Stephane Nicoll
  */
-class StatsdPropertiesTests {
+class StatsdPropertiesTests_RENAMED {
 
 	@Test
 	void defaultValuesAreConsistent() {
