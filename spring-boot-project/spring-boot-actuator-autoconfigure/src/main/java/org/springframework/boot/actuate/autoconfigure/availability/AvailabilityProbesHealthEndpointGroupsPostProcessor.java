@@ -16,7 +16,7 @@
 
 package org.springframework.boot.actuate.autoconfigure.availability;
 
-import org.springframework.boot.actuate.health.HealthEndpointGroups;
+import org.springframework.boot.actuate.health.HealthEndpointGroups_RENAMED;
 import org.springframework.boot.actuate.health.HealthEndpointGroupsPostProcessor;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
@@ -31,7 +31,7 @@ import org.springframework.core.annotation.Order;
 class AvailabilityProbesHealthEndpointGroupsPostProcessor implements HealthEndpointGroupsPostProcessor {
 
 	@Override
-	public HealthEndpointGroups postProcessHealthEndpointGroups(HealthEndpointGroups groups) {
+	public HealthEndpointGroups_RENAMED postProcessHealthEndpointGroups(HealthEndpointGroups_RENAMED groups) {
 		if (AvailabilityProbesHealthEndpointGroups.containsAllProbeGroups(groups)) {
 			return groups;
 		}

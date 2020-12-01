@@ -54,7 +54,7 @@ class ReactiveHealthEndpointWebExtensionTests extends
 	void healthWithNoContributorReturnsUp() {
 		assertThat(this.registry).isEmpty();
 		WebEndpointResponse<? extends HealthComponent> response = create(this.registry,
-				HealthEndpointGroups.of(mock(HealthEndpointGroup.class), Collections.emptyMap()))
+				HealthEndpointGroups_RENAMED.of(mock(HealthEndpointGroup.class), Collections.emptyMap()))
 						.health(ApiVersion.LATEST, SecurityContext.NONE).block();
 		assertThat(response.getStatus()).isEqualTo(200);
 		HealthComponent health = response.getBody();
@@ -82,7 +82,7 @@ class ReactiveHealthEndpointWebExtensionTests extends
 
 	@Override
 	protected ReactiveHealthEndpointWebExtension create(ReactiveHealthContributorRegistry registry,
-			HealthEndpointGroups groups) {
+			HealthEndpointGroups_RENAMED groups) {
 		return new ReactiveHealthEndpointWebExtension(registry, groups);
 	}
 

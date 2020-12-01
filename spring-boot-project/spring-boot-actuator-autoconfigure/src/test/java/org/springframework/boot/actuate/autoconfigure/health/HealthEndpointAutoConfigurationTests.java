@@ -31,7 +31,7 @@ import org.springframework.boot.actuate.health.Health;
 import org.springframework.boot.actuate.health.HealthComponent;
 import org.springframework.boot.actuate.health.HealthContributorRegistry;
 import org.springframework.boot.actuate.health.HealthEndpoint;
-import org.springframework.boot.actuate.health.HealthEndpointGroups;
+import org.springframework.boot.actuate.health.HealthEndpointGroups_RENAMED;
 import org.springframework.boot.actuate.health.HealthEndpointGroupsPostProcessor;
 import org.springframework.boot.actuate.health.HealthEndpointWebExtension;
 import org.springframework.boot.actuate.health.HealthIndicator;
@@ -77,7 +77,7 @@ class HealthEndpointAutoConfigurationTests {
 		this.contextRunner.withPropertyValues("management.endpoint.health.enabled=false").run((context) -> {
 			assertThat(context).doesNotHaveBean(StatusAggregator.class);
 			assertThat(context).doesNotHaveBean(HttpCodeStatusMapper.class);
-			assertThat(context).doesNotHaveBean(HealthEndpointGroups.class);
+			assertThat(context).doesNotHaveBean(HealthEndpointGroups_RENAMED.class);
 			assertThat(context).doesNotHaveBean(HealthContributorRegistry.class);
 			assertThat(context).doesNotHaveBean(HealthEndpoint.class);
 			assertThat(context).doesNotHaveBean(ReactiveHealthContributorRegistry.class);
@@ -124,7 +124,7 @@ class HealthEndpointAutoConfigurationTests {
 	@Test
 	void runCreatesHealthEndpointGroups() {
 		this.contextRunner.withPropertyValues("management.endpoint.health.group.ready.include=*").run((context) -> {
-			HealthEndpointGroups groups = context.getBean(HealthEndpointGroups.class);
+			HealthEndpointGroups_RENAMED groups = context.getBean(HealthEndpointGroups_RENAMED.class);
 			assertThat(groups).isInstanceOf(AutoConfiguredHealthEndpointGroups.class);
 			assertThat(groups.getNames()).containsOnly("ready");
 		});
@@ -134,7 +134,7 @@ class HealthEndpointAutoConfigurationTests {
 	void runWhenHasHealthEndpointGroupsBeanDoesNotCreateAdditionalHealthEndpointGroups() {
 		this.contextRunner.withUserConfiguration(HealthEndpointGroupsConfiguration.class)
 				.withPropertyValues("management.endpoint.health.group.ready.include=*").run((context) -> {
-					HealthEndpointGroups groups = context.getBean(HealthEndpointGroups.class);
+					HealthEndpointGroups_RENAMED groups = context.getBean(HealthEndpointGroups_RENAMED.class);
 					assertThat(groups.getNames()).containsOnly("mock");
 				});
 	}
@@ -253,7 +253,7 @@ class HealthEndpointAutoConfigurationTests {
 	void runWhenHasHealthEndpointGroupsPostProcessorPerformsProcessing() {
 		this.contextRunner.withPropertyValues("management.endpoint.health.group.ready.include=*").withUserConfiguration(
 				HealthEndpointGroupsConfiguration.class, TestHealthEndpointGroupsPostProcessor.class).run((context) -> {
-					HealthEndpointGroups groups = context.getBean(HealthEndpointGroups.class);
+					HealthEndpointGroups_RENAMED groups = context.getBean(HealthEndpointGroups_RENAMED.class);
 					assertThatExceptionOfType(RuntimeException.class).isThrownBy(() -> groups.get("test"))
 							.withMessage("postprocessed");
 				});
@@ -303,8 +303,8 @@ class HealthEndpointAutoConfigurationTests {
 	static class HealthEndpointGroupsConfiguration {
 
 		@Bean
-		HealthEndpointGroups healthEndpointGroups() {
-			HealthEndpointGroups groups = mock(HealthEndpointGroups.class);
+		HealthEndpointGroups_RENAMED healthEndpointGroups() {
+			HealthEndpointGroups_RENAMED groups = mock(HealthEndpointGroups_RENAMED.class);
 			given(groups.getNames()).willReturn(Collections.singleton("mock"));
 			return groups;
 		}
@@ -364,7 +364,7 @@ class HealthEndpointAutoConfigurationTests {
 	static class TestHealthEndpointGroupsPostProcessor implements HealthEndpointGroupsPostProcessor {
 
 		@Override
-		public HealthEndpointGroups postProcessHealthEndpointGroups(HealthEndpointGroups groups) {
+		public HealthEndpointGroups_RENAMED postProcessHealthEndpointGroups(HealthEndpointGroups_RENAMED groups) {
 			given(groups.get("test")).willThrow(new RuntimeException("postprocessed"));
 			return groups;
 		}

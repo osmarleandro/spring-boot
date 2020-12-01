@@ -39,14 +39,14 @@ abstract class HealthEndpointSupport<C, T> {
 
 	private final ContributorRegistry<C> registry;
 
-	private final HealthEndpointGroups groups;
+	private final HealthEndpointGroups_RENAMED groups;
 
 	/**
 	 * Create a new {@link HealthEndpointSupport} instance.
 	 * @param registry the health contributor registry
 	 * @param groups the health endpoint groups
 	 */
-	HealthEndpointSupport(ContributorRegistry<C> registry, HealthEndpointGroups groups) {
+	HealthEndpointSupport(ContributorRegistry<C> registry, HealthEndpointGroups_RENAMED groups) {
 		Assert.notNull(registry, "Registry must not be null");
 		Assert.notNull(groups, "Groups must not be null");
 		this.registry = registry;

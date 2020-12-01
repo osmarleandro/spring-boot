@@ -185,14 +185,14 @@ class HealthEndpointWebIntegrationTests {
 
 		@Bean
 		HealthEndpoint healthEndpoint(HealthContributorRegistry healthContributorRegistry,
-				HealthEndpointGroups healthEndpointGroups) {
+				HealthEndpointGroups_RENAMED healthEndpointGroups) {
 			return new HealthEndpoint(healthContributorRegistry, healthEndpointGroups);
 		}
 
 		@Bean
 		@ConditionalOnWebApplication(type = Type.SERVLET)
 		HealthEndpointWebExtension healthWebEndpointExtension(HealthContributorRegistry healthContributorRegistry,
-				HealthEndpointGroups healthEndpointGroups) {
+				HealthEndpointGroups_RENAMED healthEndpointGroups) {
 			return new HealthEndpointWebExtension(healthContributorRegistry, healthEndpointGroups);
 		}
 
@@ -200,15 +200,15 @@ class HealthEndpointWebIntegrationTests {
 		@ConditionalOnWebApplication(type = Type.REACTIVE)
 		ReactiveHealthEndpointWebExtension reactiveHealthWebEndpointExtension(
 				ReactiveHealthContributorRegistry reactiveHealthContributorRegistry,
-				HealthEndpointGroups healthEndpointGroups) {
+				HealthEndpointGroups_RENAMED healthEndpointGroups) {
 			return new ReactiveHealthEndpointWebExtension(reactiveHealthContributorRegistry, healthEndpointGroups);
 		}
 
 		@Bean
-		HealthEndpointGroups healthEndpointGroups() {
+		HealthEndpointGroups_RENAMED healthEndpointGroups() {
 			TestHealthEndpointGroup primary = new TestHealthEndpointGroup();
 			TestHealthEndpointGroup allTheAs = new TestHealthEndpointGroup((name) -> name.startsWith("a"));
-			return HealthEndpointGroups.of(primary, Collections.singletonMap("alltheas", allTheAs));
+			return HealthEndpointGroups_RENAMED.of(primary, Collections.singletonMap("alltheas", allTheAs));
 		}
 
 		@Bean

@@ -17,7 +17,7 @@
 package org.springframework.boot.actuate.health;
 
 /**
- * Hook that allows for custom modification of {@link HealthEndpointGroups} &mdash; for
+ * Hook that allows for custom modification of {@link HealthEndpointGroups_RENAMED} &mdash; for
  * example, automatically adding additional auto-configured groups.
  *
  * @author Phillip Webb
@@ -28,11 +28,11 @@ package org.springframework.boot.actuate.health;
 public interface HealthEndpointGroupsPostProcessor {
 
 	/**
-	 * Post-process the given {@link HealthEndpointGroups} instance.
+	 * Post-process the given {@link HealthEndpointGroups_RENAMED} instance.
 	 * @param groups the existing groups instance
 	 * @return a post-processed groups instance, or the original instance if not
 	 * post-processing was required
 	 */
-	HealthEndpointGroups postProcessHealthEndpointGroups(HealthEndpointGroups groups);
+	HealthEndpointGroups_RENAMED postProcessHealthEndpointGroups(HealthEndpointGroups_RENAMED groups);
 
 }

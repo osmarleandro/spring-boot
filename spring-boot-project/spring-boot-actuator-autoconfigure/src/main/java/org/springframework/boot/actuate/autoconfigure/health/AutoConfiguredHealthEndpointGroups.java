@@ -34,7 +34,7 @@ import org.springframework.boot.actuate.autoconfigure.health.HealthEndpointPrope
 import org.springframework.boot.actuate.autoconfigure.health.HealthProperties.Show;
 import org.springframework.boot.actuate.autoconfigure.health.HealthProperties.Status;
 import org.springframework.boot.actuate.health.HealthEndpointGroup;
-import org.springframework.boot.actuate.health.HealthEndpointGroups;
+import org.springframework.boot.actuate.health.HealthEndpointGroups_RENAMED;
 import org.springframework.boot.actuate.health.HttpCodeStatusMapper;
 import org.springframework.boot.actuate.health.SimpleHttpCodeStatusMapper;
 import org.springframework.boot.actuate.health.SimpleStatusAggregator;
@@ -45,11 +45,11 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.util.ObjectUtils;
 
 /**
- * Auto-configured {@link HealthEndpointGroups}.
+ * Auto-configured {@link HealthEndpointGroups_RENAMED}.
  *
  * @author Phillip Webb
  */
-class AutoConfiguredHealthEndpointGroups implements HealthEndpointGroups {
+class AutoConfiguredHealthEndpointGroups implements HealthEndpointGroups_RENAMED {
 
 	private static final Predicate<String> ALL = (name) -> true;
 

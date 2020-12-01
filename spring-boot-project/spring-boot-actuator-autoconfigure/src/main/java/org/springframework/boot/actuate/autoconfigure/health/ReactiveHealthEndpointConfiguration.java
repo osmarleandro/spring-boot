@@ -23,7 +23,7 @@ import reactor.core.publisher.Flux;
 
 import org.springframework.boot.actuate.health.HealthContributor;
 import org.springframework.boot.actuate.health.HealthEndpoint;
-import org.springframework.boot.actuate.health.HealthEndpointGroups;
+import org.springframework.boot.actuate.health.HealthEndpointGroups_RENAMED;
 import org.springframework.boot.actuate.health.ReactiveHealthContributor;
 import org.springframework.boot.actuate.health.ReactiveHealthContributorRegistry;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
@@ -47,7 +47,7 @@ class ReactiveHealthEndpointConfiguration {
 	@ConditionalOnMissingBean
 	ReactiveHealthContributorRegistry reactiveHealthContributorRegistry(
 			Map<String, HealthContributor> healthContributors,
-			Map<String, ReactiveHealthContributor> reactiveHealthContributors, HealthEndpointGroups groups) {
+			Map<String, ReactiveHealthContributor> reactiveHealthContributors, HealthEndpointGroups_RENAMED groups) {
 		Map<String, ReactiveHealthContributor> allContributors = new LinkedHashMap<>(reactiveHealthContributors);
 		healthContributors.forEach((name, contributor) -> allContributors.computeIfAbsent(name,
 				(key) -> ReactiveHealthContributor.adapt(contributor)));

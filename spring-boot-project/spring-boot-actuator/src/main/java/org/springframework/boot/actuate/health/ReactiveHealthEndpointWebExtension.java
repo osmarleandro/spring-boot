@@ -51,7 +51,7 @@ public class ReactiveHealthEndpointWebExtension
 	 * @param registry the health contributor registry
 	 * @param groups the health endpoint groups
 	 */
-	public ReactiveHealthEndpointWebExtension(ReactiveHealthContributorRegistry registry, HealthEndpointGroups groups) {
+	public ReactiveHealthEndpointWebExtension(ReactiveHealthContributorRegistry registry, HealthEndpointGroups_RENAMED groups) {
 		super(registry, groups);
 	}
 

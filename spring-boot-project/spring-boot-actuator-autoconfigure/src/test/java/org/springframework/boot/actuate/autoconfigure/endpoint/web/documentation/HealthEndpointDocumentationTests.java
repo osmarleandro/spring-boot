@@ -35,7 +35,7 @@ import org.springframework.boot.actuate.health.HealthContributor;
 import org.springframework.boot.actuate.health.HealthContributorRegistry;
 import org.springframework.boot.actuate.health.HealthEndpoint;
 import org.springframework.boot.actuate.health.HealthEndpointGroup;
-import org.springframework.boot.actuate.health.HealthEndpointGroups;
+import org.springframework.boot.actuate.health.HealthEndpointGroups_RENAMED;
 import org.springframework.boot.actuate.health.HealthIndicator;
 import org.springframework.boot.actuate.health.HttpCodeStatusMapper;
 import org.springframework.boot.actuate.health.SimpleHttpCodeStatusMapper;
@@ -109,7 +109,7 @@ class HealthEndpointDocumentationTests extends MockMvcEndpointDocumentationTests
 		HealthEndpoint healthEndpoint(Map<String, HealthContributor> healthContributors) {
 			HealthContributorRegistry registry = new DefaultHealthContributorRegistry(healthContributors);
 			HealthEndpointGroup primary = new TestHealthEndpointGroup();
-			HealthEndpointGroups groups = HealthEndpointGroups.of(primary, Collections.emptyMap());
+			HealthEndpointGroups_RENAMED groups = HealthEndpointGroups_RENAMED.of(primary, Collections.emptyMap());
 			return new HealthEndpoint(registry, groups);
 		}
 

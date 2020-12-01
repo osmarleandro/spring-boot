@@ -47,7 +47,7 @@ class HealthEndpointTests
 	void healthWithNoContributorReturnsUp() {
 		assertThat(this.registry).isEmpty();
 		HealthComponent health = create(this.registry,
-				HealthEndpointGroups.of(mock(HealthEndpointGroup.class), Collections.emptyMap())).health();
+				HealthEndpointGroups_RENAMED.of(mock(HealthEndpointGroup.class), Collections.emptyMap())).health();
 		assertThat(health.getStatus()).isEqualTo(Status.UP);
 		assertThat(health).isInstanceOf(Health.class);
 	}
@@ -67,7 +67,7 @@ class HealthEndpointTests
 	}
 
 	@Override
-	protected HealthEndpoint create(HealthContributorRegistry registry, HealthEndpointGroups groups) {
+	protected HealthEndpoint create(HealthContributorRegistry registry, HealthEndpointGroups_RENAMED groups) {
 		return new HealthEndpoint(registry, groups);
 	}
 

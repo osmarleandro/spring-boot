@@ -21,7 +21,7 @@ import java.util.function.Predicate;
 import org.springframework.boot.actuate.endpoint.SecurityContext;
 
 /**
- * Test implementation of {@link HealthEndpointGroups}.
+ * Test implementation of {@link HealthEndpointGroups_RENAMED}.
  *
  * @author Phillip Webb
  */

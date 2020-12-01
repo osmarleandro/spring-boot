@@ -51,7 +51,7 @@ public class HealthEndpointWebExtension extends HealthEndpointSupport<HealthCont
 	 * @param registry the health contributor registry
 	 * @param groups the health endpoint groups
 	 */
-	public HealthEndpointWebExtension(HealthContributorRegistry registry, HealthEndpointGroups groups) {
+	public HealthEndpointWebExtension(HealthContributorRegistry registry, HealthEndpointGroups_RENAMED groups) {
 		super(registry, groups);
 	}
 

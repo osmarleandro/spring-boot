@@ -17,7 +17,7 @@
 package org.springframework.boot.actuate.autoconfigure.health;
 
 import org.springframework.boot.actuate.health.HealthEndpoint;
-import org.springframework.boot.actuate.health.HealthEndpointGroups;
+import org.springframework.boot.actuate.health.HealthEndpointGroups_RENAMED;
 import org.springframework.boot.actuate.health.ReactiveHealthContributorRegistry;
 import org.springframework.boot.actuate.health.ReactiveHealthEndpointWebExtension;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
@@ -42,7 +42,7 @@ class HealthEndpointReactiveWebExtensionConfiguration {
 	@ConditionalOnMissingBean
 	@ConditionalOnBean(HealthEndpoint.class)
 	ReactiveHealthEndpointWebExtension reactiveHealthEndpointWebExtension(
-			ReactiveHealthContributorRegistry reactiveHealthContributorRegistry, HealthEndpointGroups groups) {
+			ReactiveHealthContributorRegistry reactiveHealthContributorRegistry, HealthEndpointGroups_RENAMED groups) {
 		return new ReactiveHealthEndpointWebExtension(reactiveHealthContributorRegistry, groups);
 	}
 

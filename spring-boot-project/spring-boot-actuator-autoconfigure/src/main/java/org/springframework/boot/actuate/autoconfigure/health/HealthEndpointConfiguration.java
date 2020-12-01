@@ -30,7 +30,7 @@ import org.springframework.boot.actuate.health.Health;
 import org.springframework.boot.actuate.health.HealthContributor;
 import org.springframework.boot.actuate.health.HealthContributorRegistry;
 import org.springframework.boot.actuate.health.HealthEndpoint;
-import org.springframework.boot.actuate.health.HealthEndpointGroups;
+import org.springframework.boot.actuate.health.HealthEndpointGroups_RENAMED;
 import org.springframework.boot.actuate.health.HealthEndpointGroupsPostProcessor;
 import org.springframework.boot.actuate.health.HealthIndicator;
 import org.springframework.boot.actuate.health.HttpCodeStatusMapper;
@@ -69,7 +69,7 @@ class HealthEndpointConfiguration {
 
 	@Bean
 	@ConditionalOnMissingBean
-	HealthEndpointGroups healthEndpointGroups(ApplicationContext applicationContext,
+	HealthEndpointGroups_RENAMED healthEndpointGroups(ApplicationContext applicationContext,
 			HealthEndpointProperties properties) {
 		return new AutoConfiguredHealthEndpointGroups(applicationContext, properties);
 	}
@@ -77,7 +77,7 @@ class HealthEndpointConfiguration {
 	@Bean
 	@ConditionalOnMissingBean
 	HealthContributorRegistry healthContributorRegistry(ApplicationContext applicationContext,
-			HealthEndpointGroups groups) {
+			HealthEndpointGroups_RENAMED groups) {
 		Map<String, HealthContributor> healthContributors = new LinkedHashMap<>(
 				applicationContext.getBeansOfType(HealthContributor.class));
 		if (ClassUtils.isPresent("reactor.core.publisher.Flux", applicationContext.getClassLoader())) {
@@ -88,7 +88,7 @@ class HealthEndpointConfiguration {
 
 	@Bean
 	@ConditionalOnMissingBean
-	HealthEndpoint healthEndpoint(HealthContributorRegistry registry, HealthEndpointGroups groups) {
+	HealthEndpoint healthEndpoint(HealthContributorRegistry registry, HealthEndpointGroups_RENAMED groups) {
 		return new HealthEndpoint(registry, groups);
 	}
 
@@ -112,13 +112,13 @@ class HealthEndpointConfiguration {
 
 		@Override
 		public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
-			if (bean instanceof HealthEndpointGroups) {
-				return applyPostProcessors((HealthEndpointGroups) bean);
+			if (bean instanceof HealthEndpointGroups_RENAMED) {
+				return applyPostProcessors((HealthEndpointGroups_RENAMED) bean);
 			}
 			return bean;
 		}
 
-		private Object applyPostProcessors(HealthEndpointGroups bean) {
+		private Object applyPostProcessors(HealthEndpointGroups_RENAMED bean) {
 			for (HealthEndpointGroupsPostProcessor postProcessor : this.postProcessors.orderedStream()
 					.toArray(HealthEndpointGroupsPostProcessor[]::new)) {
 				bean = postProcessor.postProcessHealthEndpointGroups(bean);

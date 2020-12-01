@@ -21,7 +21,7 @@ import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 
-import org.springframework.boot.actuate.health.HealthEndpointGroups;
+import org.springframework.boot.actuate.health.HealthEndpointGroups_RENAMED;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
@@ -38,7 +38,7 @@ class AvailabilityProbesHealthEndpointGroupsPostProcessorTests {
 
 	@Test
 	void postProcessHealthEndpointGroupsWhenGroupsAlreadyContainedReturnsOriginal() {
-		HealthEndpointGroups groups = mock(HealthEndpointGroups.class);
+		HealthEndpointGroups_RENAMED groups = mock(HealthEndpointGroups_RENAMED.class);
 		Set<String> names = new LinkedHashSet<>();
 		names.add("test");
 		names.add("readiness");
@@ -49,7 +49,7 @@ class AvailabilityProbesHealthEndpointGroupsPostProcessorTests {
 
 	@Test
 	void postProcessHealthEndpointGroupsWhenGroupContainsOneReturnsPostProcessed() {
-		HealthEndpointGroups groups = mock(HealthEndpointGroups.class);
+		HealthEndpointGroups_RENAMED groups = mock(HealthEndpointGroups_RENAMED.class);
 		Set<String> names = new LinkedHashSet<>();
 		names.add("test");
 		names.add("readiness");
@@ -60,7 +60,7 @@ class AvailabilityProbesHealthEndpointGroupsPostProcessorTests {
 
 	@Test
 	void postProcessHealthEndpointGroupsWhenGroupsContainsNoneReturnsProcessed() {
-		HealthEndpointGroups groups = mock(HealthEndpointGroups.class);
+		HealthEndpointGroups_RENAMED groups = mock(HealthEndpointGroups_RENAMED.class);
 		Set<String> names = new LinkedHashSet<>();
 		names.add("test");
 		names.add("spring");

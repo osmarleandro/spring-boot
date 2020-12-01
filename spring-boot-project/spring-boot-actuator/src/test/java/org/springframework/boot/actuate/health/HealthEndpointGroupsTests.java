@@ -25,7 +25,7 @@ import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException
 import static org.mockito.Mockito.mock;
 
 /**
- * Tests for {@link HealthEndpointGroups}.
+ * Tests for {@link HealthEndpointGroups_RENAMED}.
  *
  * @author Phillip Webb
  */
@@ -33,14 +33,14 @@ class HealthEndpointGroupsTests {
 
 	@Test
 	void ofWhenPrimaryIsNullThrowsException() {
-		assertThatIllegalArgumentException().isThrownBy(() -> HealthEndpointGroups.of(null, Collections.emptyMap()))
+		assertThatIllegalArgumentException().isThrownBy(() -> HealthEndpointGroups_RENAMED.of(null, Collections.emptyMap()))
 				.withMessage("Primary must not be null");
 	}
 
 	@Test
 	void ofWhenAdditionalIsNullThrowsException() {
 		assertThatIllegalArgumentException()
-				.isThrownBy(() -> HealthEndpointGroups.of(mock(HealthEndpointGroup.class), null))
+				.isThrownBy(() -> HealthEndpointGroups_RENAMED.of(mock(HealthEndpointGroup.class), null))
 				.withMessage("Additional must not be null");
 	}
 
@@ -48,7 +48,7 @@ class HealthEndpointGroupsTests {
 	void ofReturnsHealthEndpointGroupsInstance() {
 		HealthEndpointGroup primary = mock(HealthEndpointGroup.class);
 		HealthEndpointGroup group = mock(HealthEndpointGroup.class);
-		HealthEndpointGroups groups = HealthEndpointGroups.of(primary, Collections.singletonMap("group", group));
+		HealthEndpointGroups_RENAMED groups = HealthEndpointGroups_RENAMED.of(primary, Collections.singletonMap("group", group));
 		assertThat(groups.getPrimary()).isSameAs(primary);
 		assertThat(groups.getNames()).containsExactly("group");
 		assertThat(groups.get("group")).isSameAs(group);

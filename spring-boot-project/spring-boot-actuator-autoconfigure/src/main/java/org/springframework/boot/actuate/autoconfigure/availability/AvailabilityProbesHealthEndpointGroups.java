@@ -23,16 +23,16 @@ import java.util.Map;
 import java.util.Set;
 
 import org.springframework.boot.actuate.health.HealthEndpointGroup;
-import org.springframework.boot.actuate.health.HealthEndpointGroups;
+import org.springframework.boot.actuate.health.HealthEndpointGroups_RENAMED;
 import org.springframework.util.Assert;
 
 /**
- * {@link HealthEndpointGroups} decorator to support availability probes.
+ * {@link HealthEndpointGroups_RENAMED} decorator to support availability probes.
  *
  * @author Phillip Webb
  * @author Brian Clozel
  */
-class AvailabilityProbesHealthEndpointGroups implements HealthEndpointGroups {
+class AvailabilityProbesHealthEndpointGroups implements HealthEndpointGroups_RENAMED {
 
 	private static final Map<String, AvailabilityProbesHealthEndpointGroup> GROUPS;
 	static {
@@ -42,11 +42,11 @@ class AvailabilityProbesHealthEndpointGroups implements HealthEndpointGroups {
 		GROUPS = Collections.unmodifiableMap(groups);
 	}
 
-	private final HealthEndpointGroups groups;
+	private final HealthEndpointGroups_RENAMED groups;
 
 	private final Set<String> names;
 
-	AvailabilityProbesHealthEndpointGroups(HealthEndpointGroups groups) {
+	AvailabilityProbesHealthEndpointGroups(HealthEndpointGroups_RENAMED groups) {
 		Assert.notNull(groups, "Groups must not be null");
 		this.groups = groups;
 		Set<String> names = new LinkedHashSet<>(groups.getNames());
@@ -73,7 +73,7 @@ class AvailabilityProbesHealthEndpointGroups implements HealthEndpointGroups {
 		return group;
 	}
 
-	static boolean containsAllProbeGroups(HealthEndpointGroups groups) {
+	static boolean containsAllProbeGroups(HealthEndpointGroups_RENAMED groups) {
 		return groups.getNames().containsAll(GROUPS.keySet());
 	}
 

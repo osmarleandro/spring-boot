@@ -24,7 +24,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import org.springframework.boot.actuate.health.HealthEndpointGroup;
-import org.springframework.boot.actuate.health.HealthEndpointGroups;
+import org.springframework.boot.actuate.health.HealthEndpointGroups_RENAMED;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
@@ -38,13 +38,13 @@ import static org.mockito.Mockito.mock;
  */
 class AvailabilityProbesHealthEndpointGroupsTests {
 
-	private HealthEndpointGroups delegate;
+	private HealthEndpointGroups_RENAMED delegate;
 
 	private HealthEndpointGroup group;
 
 	@BeforeEach
 	void setup() {
-		this.delegate = mock(HealthEndpointGroups.class);
+		this.delegate = mock(HealthEndpointGroups_RENAMED.class);
 		this.group = mock(HealthEndpointGroup.class);
 	}
 
@@ -57,39 +57,39 @@ class AvailabilityProbesHealthEndpointGroupsTests {
 	@Test
 	void getPrimaryDelegatesToGroups() {
 		given(this.delegate.getPrimary()).willReturn(this.group);
-		HealthEndpointGroups availabilityProbes = new AvailabilityProbesHealthEndpointGroups(this.delegate);
+		HealthEndpointGroups_RENAMED availabilityProbes = new AvailabilityProbesHealthEndpointGroups(this.delegate);
 		assertThat(availabilityProbes.getPrimary()).isEqualTo(this.group);
 	}
 
 	@Test
 	void getNamesIncludesAvailabilityProbeGroups() {
 		given(this.delegate.getNames()).willReturn(Collections.singleton("test"));
-		HealthEndpointGroups availabilityProbes = new AvailabilityProbesHealthEndpointGroups(this.delegate);
+		HealthEndpointGroups_RENAMED availabilityProbes = new AvailabilityProbesHealthEndpointGroups(this.delegate);
 		assertThat(availabilityProbes.getNames()).containsExactly("test", "liveness", "readiness");
 	}
 
 	@Test
 	void getWhenProbeInDelegateReturnsGroupFromDelegate() {
 		given(this.delegate.get("liveness")).willReturn(this.group);
-		HealthEndpointGroups availabilityProbes = new AvailabilityProbesHealthEndpointGroups(this.delegate);
+		HealthEndpointGroups_RENAMED availabilityProbes = new AvailabilityProbesHealthEndpointGroups(this.delegate);
 		assertThat(availabilityProbes.get("liveness")).isEqualTo(this.group);
 	}
 
 	@Test
 	void getWhenProbeNotInDelegateReturnsProbeGroup() {
-		HealthEndpointGroups availabilityProbes = new AvailabilityProbesHealthEndpointGroups(this.delegate);
+		HealthEndpointGroups_RENAMED availabilityProbes = new AvailabilityProbesHealthEndpointGroups(this.delegate);
 		assertThat(availabilityProbes.get("liveness")).isInstanceOf(AvailabilityProbesHealthEndpointGroup.class);
 	}
 
 	@Test
 	void getWhenNotProbeAndNotInDelegateReturnsNull() {
-		HealthEndpointGroups availabilityProbes = new AvailabilityProbesHealthEndpointGroups(this.delegate);
+		HealthEndpointGroups_RENAMED availabilityProbes = new AvailabilityProbesHealthEndpointGroups(this.delegate);
 		assertThat(availabilityProbes.get("mygroup")).isNull();
 	}
 
 	@Test
 	void getLivenessProbeHasOnlyLivenessStateAsMember() {
-		HealthEndpointGroups availabilityProbes = new AvailabilityProbesHealthEndpointGroups(this.delegate);
+		HealthEndpointGroups_RENAMED availabilityProbes = new AvailabilityProbesHealthEndpointGroups(this.delegate);
 		HealthEndpointGroup probeGroup = availabilityProbes.get("liveness");
 		assertThat(probeGroup.isMember("livenessState")).isTrue();
 		assertThat(probeGroup.isMember("readinessState")).isFalse();
@@ -97,7 +97,7 @@ class AvailabilityProbesHealthEndpointGroupsTests {
 
 	@Test
 	void getReadinessProbeHasOnlyReadinessStateAsMember() {
-		HealthEndpointGroups availabilityProbes = new AvailabilityProbesHealthEndpointGroups(this.delegate);
+		HealthEndpointGroups_RENAMED availabilityProbes = new AvailabilityProbesHealthEndpointGroups(this.delegate);
 		HealthEndpointGroup probeGroup = availabilityProbes.get("readiness");
 		assertThat(probeGroup.isMember("livenessState")).isFalse();
 		assertThat(probeGroup.isMember("readinessState")).isTrue();
