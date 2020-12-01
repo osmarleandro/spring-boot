@@ -19,7 +19,7 @@ package org.springframework.boot.actuate.autoconfigure.health;
 import org.junit.jupiter.api.Test;
 
 import org.springframework.boot.actuate.health.Health;
-import org.springframework.boot.actuate.health.HealthIndicator;
+import org.springframework.boot.actuate.health.HealthIndicator_RENAMED;
 import org.springframework.boot.actuate.health.PingHealthIndicator;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
 import org.springframework.boot.test.context.runner.ApplicationContextRunner;
@@ -41,7 +41,7 @@ class HealthContributorAutoConfigurationTests {
 
 	@Test
 	void runWhenNoOtherIndicatorsCreatesPingHealthIndicator() {
-		this.contextRunner.run((context) -> assertThat(context).getBean(HealthIndicator.class)
+		this.contextRunner.run((context) -> assertThat(context).getBean(HealthIndicator_RENAMED.class)
 				.isInstanceOf(PingHealthIndicator.class));
 	}
 
@@ -56,7 +56,7 @@ class HealthContributorAutoConfigurationTests {
 	void runWhenHasDefaultsDisabledDoesNotCreatePingHealthIndicator() {
 		this.contextRunner.withUserConfiguration(CustomHealthIndicatorConfiguration.class)
 				.withPropertyValues("management.health.defaults.enabled:false")
-				.run((context) -> assertThat(context).doesNotHaveBean(HealthIndicator.class));
+				.run((context) -> assertThat(context).doesNotHaveBean(HealthIndicator_RENAMED.class));
 
 	}
 
@@ -73,13 +73,13 @@ class HealthContributorAutoConfigurationTests {
 
 		@Bean
 		@ConditionalOnEnabledHealthIndicator("custom")
-		HealthIndicator customHealthIndicator() {
+		HealthIndicator_RENAMED customHealthIndicator() {
 			return new CustomHealthIndicator();
 		}
 
 	}
 
-	static class CustomHealthIndicator implements HealthIndicator {
+	static class CustomHealthIndicator implements HealthIndicator_RENAMED {
 
 		@Override
 		public Health health() {

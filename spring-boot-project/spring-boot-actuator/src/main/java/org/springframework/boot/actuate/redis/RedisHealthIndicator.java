@@ -18,7 +18,7 @@ package org.springframework.boot.actuate.redis;
 
 import org.springframework.boot.actuate.health.AbstractHealthIndicator;
 import org.springframework.boot.actuate.health.Health;
-import org.springframework.boot.actuate.health.HealthIndicator;
+import org.springframework.boot.actuate.health.HealthIndicator_RENAMED;
 import org.springframework.data.redis.connection.RedisClusterConnection;
 import org.springframework.data.redis.connection.RedisConnection;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
@@ -26,7 +26,7 @@ import org.springframework.data.redis.core.RedisConnectionUtils;
 import org.springframework.util.Assert;
 
 /**
- * Simple implementation of a {@link HealthIndicator} returning status information for
+ * Simple implementation of a {@link HealthIndicator_RENAMED} returning status information for
  * Redis data stores.
  *
  * @author Christian Dupuis

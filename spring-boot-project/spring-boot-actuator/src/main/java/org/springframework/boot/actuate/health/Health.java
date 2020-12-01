@@ -31,7 +31,7 @@ import org.springframework.util.Assert;
  * returned along with the {@link Status}.
  * <p>
  * {@link Health} instances can be created by using {@link Builder}'s fluent API. Typical
- * usage in a {@link HealthIndicator} would be:
+ * usage in a {@link HealthIndicator_RENAMED} would be:
  *
  * <pre class="code">
  * try {

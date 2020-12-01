@@ -22,16 +22,16 @@ import reactor.core.scheduler.Schedulers;
 import org.springframework.util.Assert;
 
 /**
- * Adapts a {@link HealthIndicator} to a {@link ReactiveHealthIndicator} so that it can be
+ * Adapts a {@link HealthIndicator_RENAMED} to a {@link ReactiveHealthIndicator} so that it can be
  * safely invoked in a reactive environment.
  *
  * @author Stephane Nicoll
  */
 class HealthIndicatorReactiveAdapter implements ReactiveHealthIndicator {
 
-	private final HealthIndicator delegate;
+	private final HealthIndicator_RENAMED delegate;
 
-	HealthIndicatorReactiveAdapter(HealthIndicator delegate) {
+	HealthIndicatorReactiveAdapter(HealthIndicator_RENAMED delegate) {
 		Assert.notNull(delegate, "Delegate must not be null");
 		this.delegate = delegate;
 	}

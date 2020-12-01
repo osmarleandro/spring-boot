@@ -36,7 +36,7 @@ import org.springframework.boot.actuate.health.HealthContributorRegistry;
 import org.springframework.boot.actuate.health.HealthEndpoint;
 import org.springframework.boot.actuate.health.HealthEndpointGroup;
 import org.springframework.boot.actuate.health.HealthEndpointGroups;
-import org.springframework.boot.actuate.health.HealthIndicator;
+import org.springframework.boot.actuate.health.HealthIndicator_RENAMED;
 import org.springframework.boot.actuate.health.HttpCodeStatusMapper;
 import org.springframework.boot.actuate.health.SimpleHttpCodeStatusMapper;
 import org.springframework.boot.actuate.health.SimpleStatusAggregator;
@@ -125,7 +125,7 @@ class HealthEndpointDocumentationTests extends MockMvcEndpointDocumentationTests
 
 		@Bean
 		CompositeHealthContributor brokerHealthContributor() {
-			Map<String, HealthIndicator> indicators = new LinkedHashMap<>();
+			Map<String, HealthIndicator_RENAMED> indicators = new LinkedHashMap<>();
 			indicators.put("us1", () -> Health.up().withDetail("version", "1.0.2").build());
 			indicators.put("us2", () -> Health.up().withDetail("version", "1.0.4").build());
 			return CompositeHealthContributor.fromMap(indicators);

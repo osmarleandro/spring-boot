@@ -22,12 +22,12 @@ import com.hazelcast.core.HazelcastInstance;
 
 import org.springframework.boot.actuate.health.AbstractHealthIndicator;
 import org.springframework.boot.actuate.health.Health;
-import org.springframework.boot.actuate.health.HealthIndicator;
+import org.springframework.boot.actuate.health.HealthIndicator_RENAMED;
 import org.springframework.util.Assert;
 import org.springframework.util.ReflectionUtils;
 
 /**
- * {@link HealthIndicator} for Hazelcast.
+ * {@link HealthIndicator_RENAMED} for Hazelcast.
  *
  * @author Dmytro Nosan
  * @author Stephane Nicoll

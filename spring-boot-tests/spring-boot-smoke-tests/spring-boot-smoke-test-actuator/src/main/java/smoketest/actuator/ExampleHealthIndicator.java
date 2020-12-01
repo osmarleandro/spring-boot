@@ -17,11 +17,11 @@
 package smoketest.actuator;
 
 import org.springframework.boot.actuate.health.Health;
-import org.springframework.boot.actuate.health.HealthIndicator;
+import org.springframework.boot.actuate.health.HealthIndicator_RENAMED;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ExampleHealthIndicator implements HealthIndicator {
+public class ExampleHealthIndicator implements HealthIndicator_RENAMED {
 
 	@Override
 	public Health health() {

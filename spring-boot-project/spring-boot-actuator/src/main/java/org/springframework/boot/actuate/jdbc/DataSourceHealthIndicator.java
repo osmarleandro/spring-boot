@@ -27,7 +27,7 @@ import javax.sql.DataSource;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.boot.actuate.health.AbstractHealthIndicator;
 import org.springframework.boot.actuate.health.Health;
-import org.springframework.boot.actuate.health.HealthIndicator;
+import org.springframework.boot.actuate.health.HealthIndicator_RENAMED;
 import org.springframework.boot.actuate.health.Status;
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.jdbc.IncorrectResultSetColumnCountException;
@@ -39,7 +39,7 @@ import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
 
 /**
- * {@link HealthIndicator} that tests the status of a {@link DataSource} and optionally
+ * {@link HealthIndicator_RENAMED} that tests the status of a {@link DataSource} and optionally
  * runs a test query.
  *
  * @author Dave Syer

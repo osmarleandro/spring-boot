@@ -33,7 +33,7 @@ class HealthIndicatorReactiveAdapterTests {
 
 	@Test
 	void delegateReturnsHealth() {
-		HealthIndicator delegate = mock(HealthIndicator.class);
+		HealthIndicator_RENAMED delegate = mock(HealthIndicator_RENAMED.class);
 		HealthIndicatorReactiveAdapter adapter = new HealthIndicatorReactiveAdapter(delegate);
 		Health status = Health.up().build();
 		given(delegate.health()).willReturn(status);
@@ -42,7 +42,7 @@ class HealthIndicatorReactiveAdapterTests {
 
 	@Test
 	void delegateThrowError() {
-		HealthIndicator delegate = mock(HealthIndicator.class);
+		HealthIndicator_RENAMED delegate = mock(HealthIndicator_RENAMED.class);
 		HealthIndicatorReactiveAdapter adapter = new HealthIndicatorReactiveAdapter(delegate);
 		given(delegate.health()).willThrow(new IllegalStateException("Expected"));
 		StepVerifier.create(adapter.health()).expectError(IllegalStateException.class).verify(Duration.ofSeconds(10));
@@ -51,7 +51,7 @@ class HealthIndicatorReactiveAdapterTests {
 	@Test
 	void delegateRunsOnTheElasticScheduler() {
 		String currentThread = Thread.currentThread().getName();
-		HealthIndicator delegate = () -> Health
+		HealthIndicator_RENAMED delegate = () -> Health
 				.status(Thread.currentThread().getName().equals(currentThread) ? Status.DOWN : Status.UP).build();
 		HealthIndicatorReactiveAdapter adapter = new HealthIndicatorReactiveAdapter(delegate);
 		StepVerifier.create(adapter.health()).expectNext(Health.status(Status.UP).build()).verifyComplete();

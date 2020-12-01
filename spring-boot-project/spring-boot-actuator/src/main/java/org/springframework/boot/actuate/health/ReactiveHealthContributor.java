@@ -33,8 +33,8 @@ public interface ReactiveHealthContributor {
 
 	static ReactiveHealthContributor adapt(HealthContributor healthContributor) {
 		Assert.notNull(healthContributor, "HealthContributor must not be null");
-		if (healthContributor instanceof HealthIndicator) {
-			return new HealthIndicatorReactiveAdapter((HealthIndicator) healthContributor);
+		if (healthContributor instanceof HealthIndicator_RENAMED) {
+			return new HealthIndicatorReactiveAdapter((HealthIndicator_RENAMED) healthContributor);
 		}
 		if (healthContributor instanceof CompositeHealthContributor) {
 			return new CompositeHealthContributorReactiveAdapter((CompositeHealthContributor) healthContributor);

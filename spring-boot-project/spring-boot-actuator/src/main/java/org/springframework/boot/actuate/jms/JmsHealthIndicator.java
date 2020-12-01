@@ -28,10 +28,10 @@ import org.apache.commons.logging.LogFactory;
 
 import org.springframework.boot.actuate.health.AbstractHealthIndicator;
 import org.springframework.boot.actuate.health.Health;
-import org.springframework.boot.actuate.health.HealthIndicator;
+import org.springframework.boot.actuate.health.HealthIndicator_RENAMED;
 
 /**
- * {@link HealthIndicator} for a JMS {@link ConnectionFactory}.
+ * {@link HealthIndicator_RENAMED} for a JMS {@link ConnectionFactory}.
  *
  * @author Stephane Nicoll
  * @since 2.0.0

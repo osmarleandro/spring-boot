@@ -20,12 +20,12 @@ import org.bson.Document;
 
 import org.springframework.boot.actuate.health.AbstractHealthIndicator;
 import org.springframework.boot.actuate.health.Health;
-import org.springframework.boot.actuate.health.HealthIndicator;
+import org.springframework.boot.actuate.health.HealthIndicator_RENAMED;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.util.Assert;
 
 /**
- * Simple implementation of a {@link HealthIndicator} returning status information for
+ * Simple implementation of a {@link HealthIndicator_RENAMED} returning status information for
  * Mongo data stores.
  *
  * @author Christian Dupuis

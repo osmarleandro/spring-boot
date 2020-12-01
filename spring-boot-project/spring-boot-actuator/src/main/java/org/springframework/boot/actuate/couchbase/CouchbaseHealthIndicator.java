@@ -21,11 +21,11 @@ import com.couchbase.client.java.Cluster;
 
 import org.springframework.boot.actuate.health.AbstractHealthIndicator;
 import org.springframework.boot.actuate.health.Health;
-import org.springframework.boot.actuate.health.HealthIndicator;
+import org.springframework.boot.actuate.health.HealthIndicator_RENAMED;
 import org.springframework.util.Assert;
 
 /**
- * {@link HealthIndicator} for Couchbase.
+ * {@link HealthIndicator_RENAMED} for Couchbase.
  *
  * @author Eddú Meléndez
  * @author Stephane Nicoll

@@ -21,13 +21,13 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Tests for {@link HealthIndicator}.
+ * Tests for {@link HealthIndicator_RENAMED}.
  *
  * @author Phillip Webb
  */
 class HealthIndicatorTests {
 
-	private final HealthIndicator indicator = () -> Health.up().withDetail("spring", "boot").build();
+	private final HealthIndicator_RENAMED indicator = () -> Health.up().withDetail("spring", "boot").build();
 
 	@Test
 	void getHealthWhenIncludeDetailsIsTrueReturnsHealthWithDetails() {

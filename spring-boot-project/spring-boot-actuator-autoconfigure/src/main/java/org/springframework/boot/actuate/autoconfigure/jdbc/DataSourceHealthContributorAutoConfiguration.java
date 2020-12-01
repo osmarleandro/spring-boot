@@ -29,7 +29,7 @@ import org.springframework.boot.actuate.autoconfigure.health.ConditionalOnEnable
 import org.springframework.boot.actuate.health.AbstractHealthIndicator;
 import org.springframework.boot.actuate.health.Health.Builder;
 import org.springframework.boot.actuate.health.HealthContributor;
-import org.springframework.boot.actuate.health.HealthIndicator;
+import org.springframework.boot.actuate.health.HealthIndicator_RENAMED;
 import org.springframework.boot.actuate.jdbc.DataSourceHealthIndicator;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -108,7 +108,7 @@ public class DataSourceHealthContributorAutoConfiguration extends
 	}
 
 	/**
-	 * {@link HealthIndicator} used for {@link AbstractRoutingDataSource} beans where we
+	 * {@link HealthIndicator_RENAMED} used for {@link AbstractRoutingDataSource} beans where we
 	 * can't actually query for the status.
 	 */
 	static class RoutingDataSourceHealthIndicator extends AbstractHealthIndicator {

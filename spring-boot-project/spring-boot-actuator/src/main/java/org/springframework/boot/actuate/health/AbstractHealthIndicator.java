@@ -26,7 +26,7 @@ import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
 
 /**
- * Base {@link HealthIndicator} implementations that encapsulates creation of
+ * Base {@link HealthIndicator_RENAMED} implementations that encapsulates creation of
  * {@link Health} instance and error handling.
  * <p>
  * This implementation is only suitable if an {@link Exception} raised from
@@ -36,7 +36,7 @@ import org.springframework.util.StringUtils;
  * @author Christian Dupuis
  * @since 1.1.0
  */
-public abstract class AbstractHealthIndicator implements HealthIndicator {
+public abstract class AbstractHealthIndicator implements HealthIndicator_RENAMED {
 
 	private static final String NO_MESSAGE = null;
 

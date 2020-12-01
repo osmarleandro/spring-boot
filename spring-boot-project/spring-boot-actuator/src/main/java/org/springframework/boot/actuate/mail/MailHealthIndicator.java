@@ -18,11 +18,11 @@ package org.springframework.boot.actuate.mail;
 
 import org.springframework.boot.actuate.health.AbstractHealthIndicator;
 import org.springframework.boot.actuate.health.Health.Builder;
-import org.springframework.boot.actuate.health.HealthIndicator;
+import org.springframework.boot.actuate.health.HealthIndicator_RENAMED;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 
 /**
- * {@link HealthIndicator} for configured smtp server(s).
+ * {@link HealthIndicator_RENAMED} for configured smtp server(s).
  *
  * @author Johannes Edmeier
  * @since 2.0.0

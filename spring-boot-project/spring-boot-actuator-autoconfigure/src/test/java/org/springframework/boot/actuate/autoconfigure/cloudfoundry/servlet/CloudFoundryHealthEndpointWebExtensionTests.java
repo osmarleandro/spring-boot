@@ -28,7 +28,7 @@ import org.springframework.boot.actuate.endpoint.http.ApiVersion;
 import org.springframework.boot.actuate.health.CompositeHealth;
 import org.springframework.boot.actuate.health.Health;
 import org.springframework.boot.actuate.health.HealthComponent;
-import org.springframework.boot.actuate.health.HealthIndicator;
+import org.springframework.boot.actuate.health.HealthIndicator_RENAMED;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
 import org.springframework.boot.autoconfigure.context.PropertyPlaceholderAutoConfiguration;
 import org.springframework.boot.autoconfigure.http.HttpMessageConvertersAutoConfiguration;
@@ -70,7 +70,7 @@ class CloudFoundryHealthEndpointWebExtensionTests {
 		});
 	}
 
-	private static class TestHealthIndicator implements HealthIndicator {
+	private static class TestHealthIndicator implements HealthIndicator_RENAMED {
 
 		@Override
 		public Health health() {

@@ -23,13 +23,13 @@ import org.apache.commons.logging.LogFactory;
 
 import org.springframework.boot.actuate.health.AbstractHealthIndicator;
 import org.springframework.boot.actuate.health.Health;
-import org.springframework.boot.actuate.health.HealthIndicator;
+import org.springframework.boot.actuate.health.HealthIndicator_RENAMED;
 import org.springframework.boot.actuate.health.Status;
 import org.springframework.core.log.LogMessage;
 import org.springframework.util.unit.DataSize;
 
 /**
- * A {@link HealthIndicator} that checks available disk space and reports a status of
+ * A {@link HealthIndicator_RENAMED} that checks available disk space and reports a status of
  * {@link Status#DOWN} when it drops below a configurable threshold.
  *
  * @author Mattias Severson

@@ -32,7 +32,7 @@ import org.springframework.boot.actuate.health.HealthContributorRegistry;
 import org.springframework.boot.actuate.health.HealthEndpoint;
 import org.springframework.boot.actuate.health.HealthEndpointGroups;
 import org.springframework.boot.actuate.health.HealthEndpointGroupsPostProcessor;
-import org.springframework.boot.actuate.health.HealthIndicator;
+import org.springframework.boot.actuate.health.HealthIndicator_RENAMED;
 import org.springframework.boot.actuate.health.HttpCodeStatusMapper;
 import org.springframework.boot.actuate.health.NamedContributor;
 import org.springframework.boot.actuate.health.ReactiveHealthContributor;
@@ -153,8 +153,8 @@ class HealthEndpointConfiguration {
 			throw new IllegalStateException("Unsupported ReactiveHealthContributor type " + contributor.getClass());
 		}
 
-		private HealthIndicator adapt(ReactiveHealthIndicator indicator) {
-			return new HealthIndicator() {
+		private HealthIndicator_RENAMED adapt(ReactiveHealthIndicator indicator) {
+			return new HealthIndicator_RENAMED() {
 
 				@Override
 				public Health getHealth(boolean includeDetails) {

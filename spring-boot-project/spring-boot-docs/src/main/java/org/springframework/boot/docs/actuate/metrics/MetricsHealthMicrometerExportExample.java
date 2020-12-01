@@ -20,12 +20,12 @@ import io.micrometer.core.instrument.Gauge;
 import io.micrometer.core.instrument.MeterRegistry;
 
 import org.springframework.boot.actuate.health.HealthEndpoint;
-import org.springframework.boot.actuate.health.HealthIndicator;
+import org.springframework.boot.actuate.health.HealthIndicator_RENAMED;
 import org.springframework.boot.actuate.health.Status;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * Example to show how to export {@link HealthIndicator} beans to a {@link MeterRegistry}.
+ * Example to show how to export {@link HealthIndicator_RENAMED} beans to a {@link MeterRegistry}.
  *
  * @author Phillip Webb
  */

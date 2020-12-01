@@ -23,11 +23,11 @@ import org.apache.solr.common.params.CoreAdminParams;
 
 import org.springframework.boot.actuate.health.AbstractHealthIndicator;
 import org.springframework.boot.actuate.health.Health;
-import org.springframework.boot.actuate.health.HealthIndicator;
+import org.springframework.boot.actuate.health.HealthIndicator_RENAMED;
 import org.springframework.boot.actuate.health.Status;
 
 /**
- * {@link HealthIndicator} for Apache Solr.
+ * {@link HealthIndicator_RENAMED} for Apache Solr.
  *
  * @author Andy Wilkinson
  * @author Stephane Nicoll

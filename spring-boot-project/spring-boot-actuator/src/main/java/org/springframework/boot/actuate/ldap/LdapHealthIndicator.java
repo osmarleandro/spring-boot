@@ -21,13 +21,13 @@ import javax.naming.directory.DirContext;
 
 import org.springframework.boot.actuate.health.AbstractHealthIndicator;
 import org.springframework.boot.actuate.health.Health;
-import org.springframework.boot.actuate.health.HealthIndicator;
+import org.springframework.boot.actuate.health.HealthIndicator_RENAMED;
 import org.springframework.ldap.core.ContextExecutor;
 import org.springframework.ldap.core.LdapOperations;
 import org.springframework.util.Assert;
 
 /**
- * {@link HealthIndicator} for configured LDAP server(s).
+ * {@link HealthIndicator_RENAMED} for configured LDAP server(s).
  *
  * @author Eddú Meléndez
  * @author Stephane Nicoll

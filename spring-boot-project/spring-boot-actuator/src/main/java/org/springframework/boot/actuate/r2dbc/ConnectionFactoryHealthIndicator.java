@@ -27,13 +27,13 @@ import reactor.core.publisher.Mono;
 import org.springframework.boot.actuate.health.AbstractReactiveHealthIndicator;
 import org.springframework.boot.actuate.health.Health;
 import org.springframework.boot.actuate.health.Health.Builder;
-import org.springframework.boot.actuate.health.HealthIndicator;
+import org.springframework.boot.actuate.health.HealthIndicator_RENAMED;
 import org.springframework.boot.actuate.health.Status;
 import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
 
 /**
- * A {@link HealthIndicator} to validate a R2DBC {@link ConnectionFactory}.
+ * A {@link HealthIndicator_RENAMED} to validate a R2DBC {@link ConnectionFactory}.
  *
  * @author Mark Paluch
  * @author Stephane Nicoll

@@ -68,7 +68,7 @@ public class HealthEndpoint extends HealthEndpointSupport<HealthContributor, Hea
 
 	@Override
 	protected HealthComponent getHealth(HealthContributor contributor, boolean includeDetails) {
-		return ((HealthIndicator) contributor).getHealth(includeDetails);
+		return ((HealthIndicator_RENAMED) contributor).getHealth(includeDetails);
 	}
 
 	@Override

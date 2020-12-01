@@ -25,12 +25,12 @@ import com.datastax.oss.driver.api.core.metadata.NodeState;
 
 import org.springframework.boot.actuate.health.AbstractHealthIndicator;
 import org.springframework.boot.actuate.health.Health;
-import org.springframework.boot.actuate.health.HealthIndicator;
+import org.springframework.boot.actuate.health.HealthIndicator_RENAMED;
 import org.springframework.boot.actuate.health.Status;
 import org.springframework.util.Assert;
 
 /**
- * Simple implementation of a {@link HealthIndicator} returning status information for
+ * Simple implementation of a {@link HealthIndicator_RENAMED} returning status information for
  * Cassandra data stores.
  *
  * @author Alexandre Dutra

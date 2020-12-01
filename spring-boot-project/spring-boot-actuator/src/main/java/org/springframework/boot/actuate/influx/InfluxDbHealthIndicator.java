@@ -21,11 +21,11 @@ import org.influxdb.dto.Pong;
 
 import org.springframework.boot.actuate.health.AbstractHealthIndicator;
 import org.springframework.boot.actuate.health.Health;
-import org.springframework.boot.actuate.health.HealthIndicator;
+import org.springframework.boot.actuate.health.HealthIndicator_RENAMED;
 import org.springframework.util.Assert;
 
 /**
- * {@link HealthIndicator} for InfluxDB.
+ * {@link HealthIndicator_RENAMED} for InfluxDB.
  *
  * @author Eddú Meléndez
  * @since 2.0.0

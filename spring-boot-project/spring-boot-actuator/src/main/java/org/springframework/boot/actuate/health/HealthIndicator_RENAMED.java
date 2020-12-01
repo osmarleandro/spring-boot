@@ -16,37 +16,32 @@
 
 package org.springframework.boot.actuate.health;
 
-import reactor.core.publisher.Mono;
-
 /**
  * Strategy interface used to contribute {@link Health} to the results returned from the
- * reactive variant of the {@link HealthEndpoint}.
- * <p>
- * This is non blocking contract that is meant to be used in a reactive application. See
- * {@link HealthIndicator_RENAMED} for the traditional contract.
+ * {@link HealthEndpoint}.
  *
- * @author Stephane Nicoll
- * @since 2.0.0
- * @see HealthIndicator_RENAMED
+ * @author Dave Syer
+ * @author Phillip Webb
+ * @since 1.0.0
  */
 @FunctionalInterface
-public interface ReactiveHealthIndicator extends ReactiveHealthContributor {
+public interface HealthIndicator_RENAMED extends HealthContributor {
 
 	/**
-	 * Provide the indicator of health.
+	 * Return an indication of health.
 	 * @param includeDetails if details should be included or removed
-	 * @return a {@link Mono} that provides the {@link Health}
+	 * @return the health
 	 * @since 2.2.0
 	 */
-	default Mono<Health> getHealth(boolean includeDetails) {
-		Mono<Health> health = health();
-		return includeDetails ? health : health.map(Health::withoutDetails);
+	default Health getHealth(boolean includeDetails) {
+		Health health = health();
+		return includeDetails ? health : health.withoutDetails();
 	}
 
 	/**
-	 * Provide the indicator of health.
-	 * @return a {@link Mono} that provides the {@link Health}
+	 * Return an indication of health.
+	 * @return the health
 	 */
-	Mono<Health> health();
+	Health health();
 
 }

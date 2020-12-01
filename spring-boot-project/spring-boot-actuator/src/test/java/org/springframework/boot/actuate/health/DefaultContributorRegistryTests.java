@@ -37,11 +37,11 @@ import static org.mockito.Mockito.mock;
  */
 abstract class DefaultContributorRegistryTests {
 
-	private final HealthIndicator one = mock(HealthIndicator.class);
+	private final HealthIndicator_RENAMED one = mock(HealthIndicator_RENAMED.class);
 
-	private final HealthIndicator two = mock(HealthIndicator.class);
+	private final HealthIndicator_RENAMED two = mock(HealthIndicator_RENAMED.class);
 
-	private ContributorRegistry<HealthIndicator> registry;
+	private ContributorRegistry<HealthIndicator_RENAMED> registry;
 
 	@BeforeEach
 	void setUp() {
@@ -117,7 +117,7 @@ abstract class DefaultContributorRegistryTests {
 		this.registry.registerContributor("one", this.one);
 		this.registry.registerContributor("two", this.two);
 		assertThat(this.registry).hasSize(2);
-		HealthIndicator two = this.registry.unregisterContributor("two");
+		HealthIndicator_RENAMED two = this.registry.unregisterContributor("two");
 		assertThat(two).isSameAs(this.two);
 		assertThat(this.registry).hasSize(1);
 	}
@@ -126,7 +126,7 @@ abstract class DefaultContributorRegistryTests {
 	void unregisterContributorWhenUnknownReturnsNull() {
 		this.registry.registerContributor("one", this.one);
 		assertThat(this.registry).hasSize(1);
-		HealthIndicator two = this.registry.unregisterContributor("two");
+		HealthIndicator_RENAMED two = this.registry.unregisterContributor("two");
 		assertThat(two).isNull();
 		assertThat(this.registry).hasSize(1);
 	}
@@ -148,9 +148,9 @@ abstract class DefaultContributorRegistryTests {
 	void iteratorIteratesContributors() {
 		this.registry.registerContributor("one", this.one);
 		this.registry.registerContributor("two", this.two);
-		Iterator<NamedContributor<HealthIndicator>> iterator = this.registry.iterator();
-		NamedContributor<HealthIndicator> first = iterator.next();
-		NamedContributor<HealthIndicator> second = iterator.next();
+		Iterator<NamedContributor<HealthIndicator_RENAMED>> iterator = this.registry.iterator();
+		NamedContributor<HealthIndicator_RENAMED> first = iterator.next();
+		NamedContributor<HealthIndicator_RENAMED> second = iterator.next();
 		assertThat(iterator.hasNext()).isFalse();
 		assertThat(first.getName()).isEqualTo("one");
 		assertThat(first.getContributor()).isEqualTo(this.one);

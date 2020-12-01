@@ -78,7 +78,7 @@ class HealthEndpointTests
 
 	@Override
 	protected HealthContributor createContributor(Health health) {
-		return (HealthIndicator) () -> health;
+		return (HealthIndicator_RENAMED) () -> health;
 	}
 
 	@Override

@@ -23,14 +23,14 @@ import java.util.function.Consumer;
 
 import org.springframework.boot.actuate.health.AbstractHealthIndicator;
 import org.springframework.boot.actuate.health.Health.Builder;
-import org.springframework.boot.actuate.health.HealthIndicator;
+import org.springframework.boot.actuate.health.HealthIndicator_RENAMED;
 import org.springframework.boot.actuate.health.Status;
 import org.springframework.boot.availability.ApplicationAvailability;
 import org.springframework.boot.availability.AvailabilityState;
 import org.springframework.util.Assert;
 
 /**
- * A {@link HealthIndicator} that checks a specific {@link AvailabilityState} of the
+ * A {@link HealthIndicator_RENAMED} that checks a specific {@link AvailabilityState} of the
  * application.
  *
  * @author Phillip Webb

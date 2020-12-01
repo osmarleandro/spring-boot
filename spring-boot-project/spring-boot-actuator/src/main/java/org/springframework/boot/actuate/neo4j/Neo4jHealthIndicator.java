@@ -28,10 +28,10 @@ import org.neo4j.driver.summary.ResultSummary;
 
 import org.springframework.boot.actuate.health.AbstractHealthIndicator;
 import org.springframework.boot.actuate.health.Health;
-import org.springframework.boot.actuate.health.HealthIndicator;
+import org.springframework.boot.actuate.health.HealthIndicator_RENAMED;
 
 /**
- * {@link HealthIndicator} that tests the status of a Neo4j by executing a Cypher
+ * {@link HealthIndicator_RENAMED} that tests the status of a Neo4j by executing a Cypher
  * statement and extracting server and database information.
  *
  * @author Eric Spiegelberg

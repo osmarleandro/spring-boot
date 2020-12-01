@@ -82,7 +82,7 @@ public class HealthEndpointWebExtension extends HealthEndpointSupport<HealthCont
 
 	@Override
 	protected HealthComponent getHealth(HealthContributor contributor, boolean includeDetails) {
-		return ((HealthIndicator) contributor).getHealth(includeDetails);
+		return ((HealthIndicator_RENAMED) contributor).getHealth(includeDetails);
 	}
 
 	@Override

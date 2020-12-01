@@ -25,7 +25,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import org.springframework.boot.actuate.health.Health;
-import org.springframework.boot.actuate.health.HealthIndicator;
+import org.springframework.boot.actuate.health.HealthIndicator_RENAMED;
 import org.springframework.boot.actuate.health.Status;
 import org.springframework.util.unit.DataSize;
 
@@ -48,7 +48,7 @@ class DiskSpaceHealthIndicatorTests {
 	@Mock
 	private File fileMock;
 
-	private HealthIndicator healthIndicator;
+	private HealthIndicator_RENAMED healthIndicator;
 
 	@BeforeEach
 	void setUp() {
