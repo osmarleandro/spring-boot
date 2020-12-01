@@ -56,7 +56,7 @@ import static org.mockito.Mockito.mock;
  * @author Rui Figueira
  * @author Stephane Nicoll
  */
-class HibernateMetricsAutoConfigurationTests {
+class HibernateMetricsAutoConfigurationTests_RENAMED {
 
 	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner().with(MetricsRun.simple())
 			.withConfiguration(AutoConfigurations.of(DataSourceAutoConfiguration.class,
