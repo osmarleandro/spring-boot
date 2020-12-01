@@ -33,7 +33,7 @@ import org.springframework.boot.actuate.autoconfigure.metrics.export.simple.Simp
 import org.springframework.boot.actuate.metrics.web.servlet.DefaultWebMvcTagsProvider;
 import org.springframework.boot.actuate.metrics.web.servlet.LongTaskTimingHandlerInterceptor;
 import org.springframework.boot.actuate.metrics.web.servlet.WebMvcMetricsFilter;
-import org.springframework.boot.actuate.metrics.web.servlet.WebMvcTagsContributor;
+import org.springframework.boot.actuate.metrics.web.servlet.WebMvcTagsContributor_RENAMED;
 import org.springframework.boot.actuate.metrics.web.servlet.WebMvcTagsProvider;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -76,7 +76,7 @@ public class WebMvcMetricsAutoConfiguration {
 
 	@Bean
 	@ConditionalOnMissingBean(WebMvcTagsProvider.class)
-	public DefaultWebMvcTagsProvider webMvcTagsProvider(ObjectProvider<WebMvcTagsContributor> contributors) {
+	public DefaultWebMvcTagsProvider webMvcTagsProvider(ObjectProvider<WebMvcTagsContributor_RENAMED> contributors) {
 		return new DefaultWebMvcTagsProvider(this.properties.getWeb().getServer().getRequest().isIgnoreTrailingSlash(),
 				contributors.orderedStream().collect(Collectors.toList()));
 	}

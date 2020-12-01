@@ -30,7 +30,7 @@ import io.micrometer.core.instrument.Tag;
 import org.junit.jupiter.api.Test;
 
 import org.springframework.boot.actuate.metrics.web.servlet.DefaultWebMvcTagsProvider;
-import org.springframework.boot.actuate.metrics.web.servlet.WebMvcTagsContributor;
+import org.springframework.boot.actuate.metrics.web.servlet.WebMvcTagsContributor_RENAMED;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -75,7 +75,7 @@ public class DefaultWebMvcTagsProviderTests {
 				.collect(Collectors.toMap(Tag::getKey, Function.identity()));
 	}
 
-	private static final class TestWebMvcTagsContributor implements WebMvcTagsContributor {
+	private static final class TestWebMvcTagsContributor implements WebMvcTagsContributor_RENAMED {
 
 		private final List<String> tagNames;
 

@@ -35,7 +35,7 @@ public class DefaultWebMvcTagsProvider implements WebMvcTagsProvider {
 
 	private final boolean ignoreTrailingSlash;
 
-	private final List<WebMvcTagsContributor> contributors;
+	private final List<WebMvcTagsContributor_RENAMED> contributors;
 
 	public DefaultWebMvcTagsProvider() {
 		this(false);
@@ -47,7 +47,7 @@ public class DefaultWebMvcTagsProvider implements WebMvcTagsProvider {
 	 * @param contributors the contributors that will provide additional tags
 	 * @since 2.3.0
 	 */
-	public DefaultWebMvcTagsProvider(List<WebMvcTagsContributor> contributors) {
+	public DefaultWebMvcTagsProvider(List<WebMvcTagsContributor_RENAMED> contributors) {
 		this(false, contributors);
 	}
 
@@ -63,7 +63,7 @@ public class DefaultWebMvcTagsProvider implements WebMvcTagsProvider {
 	 * @param contributors the contributors that will provide additional tags
 	 * @since 2.3.0
 	 */
-	public DefaultWebMvcTagsProvider(boolean ignoreTrailingSlash, List<WebMvcTagsContributor> contributors) {
+	public DefaultWebMvcTagsProvider(boolean ignoreTrailingSlash, List<WebMvcTagsContributor_RENAMED> contributors) {
 		this.ignoreTrailingSlash = ignoreTrailingSlash;
 		this.contributors = contributors;
 	}
@@ -73,7 +73,7 @@ public class DefaultWebMvcTagsProvider implements WebMvcTagsProvider {
 			Throwable exception) {
 		Tags tags = Tags.of(WebMvcTags.method(request), WebMvcTags.uri(request, response, this.ignoreTrailingSlash),
 				WebMvcTags.exception(exception), WebMvcTags.status(response), WebMvcTags.outcome(response));
-		for (WebMvcTagsContributor contributor : this.contributors) {
+		for (WebMvcTagsContributor_RENAMED contributor : this.contributors) {
 			tags = tags.and(contributor.getTags(request, response, handler, exception));
 		}
 		return tags;
@@ -82,7 +82,7 @@ public class DefaultWebMvcTagsProvider implements WebMvcTagsProvider {
 	@Override
 	public Iterable<Tag> getLongRequestTags(HttpServletRequest request, Object handler) {
 		Tags tags = Tags.of(WebMvcTags.method(request), WebMvcTags.uri(request, null, this.ignoreTrailingSlash));
-		for (WebMvcTagsContributor contributor : this.contributors) {
+		for (WebMvcTagsContributor_RENAMED contributor : this.contributors) {
 			tags = tags.and(contributor.getLongRequestTags(request, handler));
 		}
 		return tags;

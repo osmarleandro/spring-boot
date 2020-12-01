@@ -39,7 +39,7 @@ import org.springframework.boot.actuate.autoconfigure.metrics.web.TestController
 import org.springframework.boot.actuate.metrics.web.servlet.DefaultWebMvcTagsProvider;
 import org.springframework.boot.actuate.metrics.web.servlet.LongTaskTimingHandlerInterceptor;
 import org.springframework.boot.actuate.metrics.web.servlet.WebMvcMetricsFilter;
-import org.springframework.boot.actuate.metrics.web.servlet.WebMvcTagsContributor;
+import org.springframework.boot.actuate.metrics.web.servlet.WebMvcTagsContributor_RENAMED;
 import org.springframework.boot.actuate.metrics.web.servlet.WebMvcTagsProvider;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
 import org.springframework.boot.autoconfigure.web.servlet.WebMvcAutoConfiguration;
@@ -222,13 +222,13 @@ class WebMvcMetricsAutoConfigurationTests {
 	static class TagsContributorsConfiguration {
 
 		@Bean
-		WebMvcTagsContributor tagContributorOne() {
-			return mock(WebMvcTagsContributor.class);
+		WebMvcTagsContributor_RENAMED tagContributorOne() {
+			return mock(WebMvcTagsContributor_RENAMED.class);
 		}
 
 		@Bean
-		WebMvcTagsContributor tagContributorTwo() {
-			return mock(WebMvcTagsContributor.class);
+		WebMvcTagsContributor_RENAMED tagContributorTwo() {
+			return mock(WebMvcTagsContributor_RENAMED.class);
 		}
 
 	}
