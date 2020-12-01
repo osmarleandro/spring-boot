@@ -32,7 +32,7 @@ import org.springframework.context.annotation.Import;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Tests for {@link DynatraceMetricsExportAutoConfiguration}.
+ * Tests for {@link DynatraceMetricsExportAutoConfiguration_RENAMED}.
  *
  * @author Andy Wilkinson
  * @author Stephane Nicoll
@@ -40,7 +40,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 class DynatraceMetricsExportAutoConfigurationTests {
 
 	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
-			.withConfiguration(AutoConfigurations.of(DynatraceMetricsExportAutoConfiguration.class));
+			.withConfiguration(AutoConfigurations.of(DynatraceMetricsExportAutoConfiguration_RENAMED.class));
 
 	@Test
 	void backsOffWithoutAClock() {
