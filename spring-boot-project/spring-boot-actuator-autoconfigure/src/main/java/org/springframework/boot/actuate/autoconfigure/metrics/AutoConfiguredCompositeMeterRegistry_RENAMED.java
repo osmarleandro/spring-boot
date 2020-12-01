@@ -28,9 +28,9 @@ import io.micrometer.core.instrument.composite.CompositeMeterRegistry;
  *
  * @author Andy Wilkinson
  */
-class AutoConfiguredCompositeMeterRegistry extends CompositeMeterRegistry {
+class AutoConfiguredCompositeMeterRegistry_RENAMED extends CompositeMeterRegistry {
 
-	AutoConfiguredCompositeMeterRegistry(Clock clock, List<MeterRegistry> registries) {
+	AutoConfiguredCompositeMeterRegistry_RENAMED(Clock clock, List<MeterRegistry> registries) {
 		super(clock, registries);
 	}
 

@@ -61,7 +61,7 @@ class MeterRegistryConfigurer {
 		// Customizers must be applied before binders, as they may add custom
 		// tags or alter timer or summary configuration.
 		customize(registry);
-		if (!(registry instanceof AutoConfiguredCompositeMeterRegistry)) {
+		if (!(registry instanceof AutoConfiguredCompositeMeterRegistry_RENAMED)) {
 			addFilters(registry);
 		}
 		if (!this.hasCompositeMeterRegistry || registry instanceof CompositeMeterRegistry) {

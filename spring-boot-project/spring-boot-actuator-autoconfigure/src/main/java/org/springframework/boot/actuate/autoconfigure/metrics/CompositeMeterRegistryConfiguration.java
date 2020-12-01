@@ -42,8 +42,8 @@ class CompositeMeterRegistryConfiguration {
 
 	@Bean
 	@Primary
-	AutoConfiguredCompositeMeterRegistry compositeMeterRegistry(Clock clock, List<MeterRegistry> registries) {
-		return new AutoConfiguredCompositeMeterRegistry(clock, registries);
+	AutoConfiguredCompositeMeterRegistry_RENAMED compositeMeterRegistry(Clock clock, List<MeterRegistry> registries) {
+		return new AutoConfiguredCompositeMeterRegistry_RENAMED(clock, registries);
 	}
 
 	static class MultipleNonPrimaryMeterRegistriesCondition extends NoneNestedConditions {
