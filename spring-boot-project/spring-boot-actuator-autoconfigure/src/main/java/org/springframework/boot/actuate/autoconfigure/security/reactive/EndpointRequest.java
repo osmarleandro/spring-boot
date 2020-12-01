@@ -31,7 +31,7 @@ import reactor.core.publisher.Mono;
 
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointProperties;
-import org.springframework.boot.actuate.autoconfigure.web.server.ManagementPortType;
+import org.springframework.boot.actuate.autoconfigure.web.server.ManagementPortType_RENAMED;
 import org.springframework.boot.actuate.endpoint.EndpointId;
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
 import org.springframework.boot.actuate.endpoint.web.PathMappedEndpoints;
@@ -120,7 +120,7 @@ public final class EndpointRequest {
 	 */
 	private abstract static class AbstractWebExchangeMatcher<T> extends ApplicationContextServerWebExchangeMatcher<T> {
 
-		private ManagementPortType managementPortType;
+		private ManagementPortType_RENAMED managementPortType;
 
 		AbstractWebExchangeMatcher(Class<? extends T> contextClass) {
 			super(contextClass);
@@ -129,9 +129,9 @@ public final class EndpointRequest {
 		@Override
 		protected boolean ignoreApplicationContext(ApplicationContext applicationContext) {
 			if (this.managementPortType == null) {
-				this.managementPortType = ManagementPortType.get(applicationContext.getEnvironment());
+				this.managementPortType = ManagementPortType_RENAMED.get(applicationContext.getEnvironment());
 			}
-			if (this.managementPortType == ManagementPortType.DIFFERENT) {
+			if (this.managementPortType == ManagementPortType_RENAMED.DIFFERENT) {
 				if (applicationContext.getParent() == null) {
 					return true;
 				}

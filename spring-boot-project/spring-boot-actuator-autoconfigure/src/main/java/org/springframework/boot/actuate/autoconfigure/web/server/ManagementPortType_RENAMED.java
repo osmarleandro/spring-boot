@@ -24,7 +24,7 @@ import org.springframework.core.env.Environment;
  * @author Andy Wilkinson
  * @since 2.0.0
  */
-public enum ManagementPortType {
+public enum ManagementPortType_RENAMED {
 
 	/**
 	 * The management port has been disabled.
@@ -42,7 +42,7 @@ public enum ManagementPortType {
 	DIFFERENT;
 
 	/**
-	 * Look at the given environment to determine if the {@link ManagementPortType} is
+	 * Look at the given environment to determine if the {@link ManagementPortType_RENAMED} is
 	 * {@link #DISABLED}, {@link #SAME} or {@link #DIFFERENT}.
 	 * @param environment the Spring environment
 	 * @return {@link #DISABLED} if {@code management.server.port} is set to a negative
@@ -50,7 +50,7 @@ public enum ManagementPortType {
 	 * {@code server.port} and {@link #DIFFERENT} otherwise.
 	 * @since 2.1.4
 	 */
-	public static ManagementPortType get(Environment environment) {
+	public static ManagementPortType_RENAMED get(Environment environment) {
 		Integer managementPort = getPortProperty(environment, "management.server.");
 		if (managementPort != null && managementPort < 0) {
 			return DISABLED;

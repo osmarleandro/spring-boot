@@ -31,7 +31,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointProperties;
-import org.springframework.boot.actuate.autoconfigure.web.server.ManagementPortType;
+import org.springframework.boot.actuate.autoconfigure.web.server.ManagementPortType_RENAMED;
 import org.springframework.boot.actuate.endpoint.EndpointId;
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
 import org.springframework.boot.actuate.endpoint.web.PathMappedEndpoints;
@@ -124,7 +124,7 @@ public final class EndpointRequest {
 
 		private volatile RequestMatcher delegate;
 
-		private ManagementPortType managementPortType;
+		private ManagementPortType_RENAMED managementPortType;
 
 		AbstractRequestMatcher() {
 			super(WebApplicationContext.class);
@@ -133,9 +133,9 @@ public final class EndpointRequest {
 		@Override
 		protected boolean ignoreApplicationContext(WebApplicationContext applicationContext) {
 			if (this.managementPortType == null) {
-				this.managementPortType = ManagementPortType.get(applicationContext.getEnvironment());
+				this.managementPortType = ManagementPortType_RENAMED.get(applicationContext.getEnvironment());
 			}
-			return this.managementPortType == ManagementPortType.DIFFERENT
+			return this.managementPortType == ManagementPortType_RENAMED.DIFFERENT
 					&& !WebServerApplicationContext.hasServerNamespace(applicationContext, "management");
 		}
 

@@ -38,9 +38,9 @@ import org.springframework.context.annotation.Conditional;
 public @interface ConditionalOnManagementPort {
 
 	/**
-	 * The {@link ManagementPortType} to match.
+	 * The {@link ManagementPortType_RENAMED} to match.
 	 * @return the port type
 	 */
-	ManagementPortType value();
+	ManagementPortType_RENAMED value();
 
 }

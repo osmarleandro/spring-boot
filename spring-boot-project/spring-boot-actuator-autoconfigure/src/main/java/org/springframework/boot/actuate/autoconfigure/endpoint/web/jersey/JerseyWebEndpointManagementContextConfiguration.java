@@ -29,7 +29,7 @@ import org.glassfish.jersey.server.model.Resource;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointProperties;
 import org.springframework.boot.actuate.autoconfigure.web.ManagementContextConfiguration;
-import org.springframework.boot.actuate.autoconfigure.web.server.ManagementPortType;
+import org.springframework.boot.actuate.autoconfigure.web.server.ManagementPortType_RENAMED;
 import org.springframework.boot.actuate.endpoint.ExposableEndpoint;
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
 import org.springframework.boot.actuate.endpoint.web.EndpointLinksResolver;
@@ -81,7 +81,7 @@ class JerseyWebEndpointManagementContextConfiguration {
 
 	private boolean shouldRegisterLinksMapping(Environment environment, String basePath) {
 		return StringUtils.hasText(basePath)
-				|| ManagementPortType.get(environment).equals(ManagementPortType.DIFFERENT);
+				|| ManagementPortType_RENAMED.get(environment).equals(ManagementPortType_RENAMED.DIFFERENT);
 	}
 
 	/**
