@@ -20,7 +20,7 @@ import org.glassfish.jersey.server.ResourceConfig;
 import org.junit.jupiter.api.Test;
 
 import org.springframework.boot.actuate.autoconfigure.beans.BeansEndpointAutoConfiguration;
-import org.springframework.boot.actuate.autoconfigure.endpoint.EndpointAutoConfiguration;
+import org.springframework.boot.actuate.autoconfigure.endpoint.EndpointAutoConfiguration_RENAMED;
 import org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.web.server.ManagementContextAutoConfiguration;
 import org.springframework.boot.actuate.endpoint.web.annotation.ControllerEndpoint;
@@ -60,7 +60,7 @@ class JerseyEndpointIntegrationTests {
 		new WebApplicationContextRunner(AnnotationConfigServletWebServerApplicationContext::new)
 				.withClassLoader(classLoader)
 				.withConfiguration(AutoConfigurations.of(JacksonAutoConfiguration.class, JerseyAutoConfiguration.class,
-						EndpointAutoConfiguration.class, ServletWebServerFactoryAutoConfiguration.class,
+						EndpointAutoConfiguration_RENAMED.class, ServletWebServerFactoryAutoConfiguration.class,
 						WebEndpointAutoConfiguration.class, ManagementContextAutoConfiguration.class,
 						BeansEndpointAutoConfiguration.class))
 				.withUserConfiguration(userConfigurations)

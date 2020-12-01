@@ -45,7 +45,7 @@ import org.springframework.core.env.Environment;
  * @since 2.0.0
  */
 @Configuration(proxyBeanMethods = false)
-public class EndpointAutoConfiguration {
+public class EndpointAutoConfiguration_RENAMED {
 
 	@Bean
 	@ConditionalOnMissingBean

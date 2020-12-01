@@ -19,7 +19,7 @@ package org.springframework.boot.actuate.autoconfigure.integrationtest;
 import org.junit.jupiter.api.Test;
 
 import org.springframework.boot.actuate.autoconfigure.beans.BeansEndpointAutoConfiguration;
-import org.springframework.boot.actuate.autoconfigure.endpoint.EndpointAutoConfiguration;
+import org.springframework.boot.actuate.autoconfigure.endpoint.EndpointAutoConfiguration_RENAMED;
 import org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.web.reactive.ReactiveManagementContextAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.web.server.ManagementContextAutoConfiguration;
@@ -48,7 +48,7 @@ class WebFluxEndpointIntegrationTests {
 		new ReactiveWebApplicationContextRunner()
 				.withConfiguration(AutoConfigurations.of(JacksonAutoConfiguration.class, CodecsAutoConfiguration.class,
 						WebFluxAutoConfiguration.class, HttpHandlerAutoConfiguration.class,
-						EndpointAutoConfiguration.class, WebEndpointAutoConfiguration.class,
+						EndpointAutoConfiguration_RENAMED.class, WebEndpointAutoConfiguration.class,
 						ManagementContextAutoConfiguration.class, ReactiveManagementContextAutoConfiguration.class,
 						BeansEndpointAutoConfiguration.class))
 				.withUserConfiguration(EndpointsConfiguration.class)

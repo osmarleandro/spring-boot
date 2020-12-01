@@ -27,7 +27,7 @@ import javax.validation.constraints.NotEmpty;
 import org.junit.jupiter.api.Test;
 import reactor.core.publisher.Mono;
 
-import org.springframework.boot.actuate.autoconfigure.endpoint.EndpointAutoConfiguration;
+import org.springframework.boot.actuate.autoconfigure.endpoint.EndpointAutoConfiguration_RENAMED;
 import org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.web.server.ManagementContextAutoConfiguration;
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
@@ -66,7 +66,7 @@ class WebMvcEndpointChildContextConfigurationIntegrationTests {
 					.withConfiguration(AutoConfigurations.of(ManagementContextAutoConfiguration.class,
 							ServletWebServerFactoryAutoConfiguration.class,
 							ServletManagementContextAutoConfiguration.class, WebEndpointAutoConfiguration.class,
-							EndpointAutoConfiguration.class, DispatcherServletAutoConfiguration.class,
+							EndpointAutoConfiguration_RENAMED.class, DispatcherServletAutoConfiguration.class,
 							ErrorMvcAutoConfiguration.class))
 					.withUserConfiguration(FailingEndpoint.class, FailingControllerEndpoint.class)
 					.withInitializer(new ServerPortInfoApplicationContextInitializer())

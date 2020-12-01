@@ -21,7 +21,7 @@ import java.util.function.Supplier;
 import org.jolokia.http.AgentServlet;
 import org.junit.jupiter.api.Test;
 
-import org.springframework.boot.actuate.autoconfigure.endpoint.EndpointAutoConfiguration;
+import org.springframework.boot.actuate.autoconfigure.endpoint.EndpointAutoConfiguration_RENAMED;
 import org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.web.server.ManagementContextAutoConfiguration;
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
@@ -79,7 +79,7 @@ abstract class AbstractEndpointRequestIntegrationTests {
 		return createContextRunner().withPropertyValues("management.endpoints.web.exposure.include=*")
 				.withUserConfiguration(BaseConfiguration.class, SecurityConfiguration.class).withConfiguration(
 						AutoConfigurations.of(JacksonAutoConfiguration.class, SecurityAutoConfiguration.class,
-								UserDetailsServiceAutoConfiguration.class, EndpointAutoConfiguration.class,
+								UserDetailsServiceAutoConfiguration.class, EndpointAutoConfiguration_RENAMED.class,
 								WebEndpointAutoConfiguration.class, ManagementContextAutoConfiguration.class));
 
 	}

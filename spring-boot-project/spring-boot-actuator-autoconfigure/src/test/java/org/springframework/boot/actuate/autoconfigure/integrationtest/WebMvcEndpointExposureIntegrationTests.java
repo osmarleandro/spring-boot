@@ -27,7 +27,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.junit.jupiter.api.Test;
 
 import org.springframework.boot.actuate.audit.InMemoryAuditEventRepository;
-import org.springframework.boot.actuate.autoconfigure.endpoint.EndpointAutoConfiguration;
+import org.springframework.boot.actuate.autoconfigure.endpoint.EndpointAutoConfiguration_RENAMED;
 import org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.health.HealthContributorAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.trace.http.HttpTraceAutoConfiguration;
@@ -71,7 +71,7 @@ class WebMvcEndpointExposureIntegrationTests {
 					.withConfiguration(AutoConfigurations.of(ServletWebServerFactoryAutoConfiguration.class,
 							DispatcherServletAutoConfiguration.class, JacksonAutoConfiguration.class,
 							HttpMessageConvertersAutoConfiguration.class, WebMvcAutoConfiguration.class,
-							EndpointAutoConfiguration.class, WebEndpointAutoConfiguration.class,
+							EndpointAutoConfiguration_RENAMED.class, WebEndpointAutoConfiguration.class,
 							ManagementContextAutoConfiguration.class, ServletManagementContextAutoConfiguration.class,
 							ManagementContextAutoConfiguration.class, ServletManagementContextAutoConfiguration.class,
 							HttpTraceAutoConfiguration.class, HealthContributorAutoConfiguration.class))

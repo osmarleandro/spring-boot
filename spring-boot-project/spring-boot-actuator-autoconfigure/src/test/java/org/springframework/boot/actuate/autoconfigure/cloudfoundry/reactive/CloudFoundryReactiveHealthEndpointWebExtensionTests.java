@@ -20,7 +20,7 @@ import java.time.Duration;
 
 import org.junit.jupiter.api.Test;
 
-import org.springframework.boot.actuate.autoconfigure.endpoint.EndpointAutoConfiguration;
+import org.springframework.boot.actuate.autoconfigure.endpoint.EndpointAutoConfiguration_RENAMED;
 import org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.health.HealthContributorAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.health.HealthEndpointAutoConfiguration;
@@ -57,7 +57,7 @@ class CloudFoundryReactiveHealthEndpointWebExtensionTests {
 					PropertyPlaceholderAutoConfiguration.class,
 					ReactiveCloudFoundryActuatorAutoConfigurationTests.WebClientCustomizerConfig.class,
 					WebClientAutoConfiguration.class, ManagementContextAutoConfiguration.class,
-					EndpointAutoConfiguration.class, WebEndpointAutoConfiguration.class,
+					EndpointAutoConfiguration_RENAMED.class, WebEndpointAutoConfiguration.class,
 					HealthContributorAutoConfiguration.class, HealthEndpointAutoConfiguration.class,
 					ReactiveCloudFoundryActuatorAutoConfiguration.class))
 			.withUserConfiguration(TestHealthIndicator.class);

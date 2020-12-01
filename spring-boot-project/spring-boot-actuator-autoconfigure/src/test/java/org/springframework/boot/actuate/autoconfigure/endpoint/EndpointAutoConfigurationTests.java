@@ -39,14 +39,14 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 /**
- * Tests for {@link EndpointAutoConfiguration}.
+ * Tests for {@link EndpointAutoConfiguration_RENAMED}.
  *
  * @author Chao Chang
  */
 class EndpointAutoConfigurationTests {
 
 	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
-			.withConfiguration(AutoConfigurations.of(EndpointAutoConfiguration.class));
+			.withConfiguration(AutoConfigurations.of(EndpointAutoConfiguration_RENAMED.class));
 
 	@Test
 	void mapShouldUseConfigurationConverter() {
