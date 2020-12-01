@@ -18,7 +18,7 @@ package org.springframework.boot.actuate.autoconfigure.security.servlet;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.junit.jupiter.api.Test;
 
-import org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointProperties;
+import org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointProperties_RENAMED;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
 import org.springframework.boot.autoconfigure.jersey.JerseyAutoConfiguration;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -104,7 +104,7 @@ class JerseyEndpointRequestIntegrationTests extends AbstractEndpointRequestInteg
 	}
 
 	@Configuration
-	@EnableConfigurationProperties(WebEndpointProperties.class)
+	@EnableConfigurationProperties(WebEndpointProperties_RENAMED.class)
 	static class JerseyEndpointConfiguration {
 
 		@Bean

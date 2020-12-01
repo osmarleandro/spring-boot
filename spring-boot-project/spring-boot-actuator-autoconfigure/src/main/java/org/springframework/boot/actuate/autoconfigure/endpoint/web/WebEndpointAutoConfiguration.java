@@ -62,14 +62,14 @@ import org.springframework.context.annotation.Configuration;
 @Configuration(proxyBeanMethods = false)
 @ConditionalOnWebApplication
 @AutoConfigureAfter(EndpointAutoConfiguration.class)
-@EnableConfigurationProperties(WebEndpointProperties.class)
+@EnableConfigurationProperties(WebEndpointProperties_RENAMED.class)
 public class WebEndpointAutoConfiguration {
 
 	private final ApplicationContext applicationContext;
 
-	private final WebEndpointProperties properties;
+	private final WebEndpointProperties_RENAMED properties;
 
-	public WebEndpointAutoConfiguration(ApplicationContext applicationContext, WebEndpointProperties properties) {
+	public WebEndpointAutoConfiguration(ApplicationContext applicationContext, WebEndpointProperties_RENAMED properties) {
 		this.applicationContext = applicationContext;
 		this.properties = properties;
 	}
@@ -114,14 +114,14 @@ public class WebEndpointAutoConfiguration {
 
 	@Bean
 	public IncludeExcludeEndpointFilter<ExposableWebEndpoint> webExposeExcludePropertyEndpointFilter() {
-		WebEndpointProperties.Exposure exposure = this.properties.getExposure();
+		WebEndpointProperties_RENAMED.Exposure exposure = this.properties.getExposure();
 		return new IncludeExcludeEndpointFilter<>(ExposableWebEndpoint.class, exposure.getInclude(),
 				exposure.getExclude(), DefaultIncludes.WEB);
 	}
 
 	@Bean
 	public IncludeExcludeEndpointFilter<ExposableControllerEndpoint> controllerExposeExcludePropertyEndpointFilter() {
-		WebEndpointProperties.Exposure exposure = this.properties.getExposure();
+		WebEndpointProperties_RENAMED.Exposure exposure = this.properties.getExposure();
 		return new IncludeExcludeEndpointFilter<>(ExposableControllerEndpoint.class, exposure.getInclude(),
 				exposure.getExclude());
 	}

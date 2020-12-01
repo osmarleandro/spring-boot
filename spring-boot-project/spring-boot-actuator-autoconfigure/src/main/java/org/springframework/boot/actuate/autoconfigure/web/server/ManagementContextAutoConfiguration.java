@@ -21,7 +21,7 @@ import java.util.List;
 import org.springframework.beans.factory.SmartInitializingSingleton;
 import org.springframework.beans.factory.config.BeanFactoryPostProcessor;
 import org.springframework.boot.LazyInitializationBeanFactoryPostProcessor;
-import org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointProperties;
+import org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointProperties_RENAMED;
 import org.springframework.boot.actuate.autoconfigure.web.ManagementContextFactory;
 import org.springframework.boot.actuate.autoconfigure.web.ManagementContextType;
 import org.springframework.boot.autoconfigure.AutoConfigureOrder;
@@ -57,7 +57,7 @@ import org.springframework.util.Assert;
  */
 @Configuration(proxyBeanMethods = false)
 @AutoConfigureOrder(Ordered.LOWEST_PRECEDENCE)
-@EnableConfigurationProperties({ WebEndpointProperties.class, ManagementServerProperties.class })
+@EnableConfigurationProperties({ WebEndpointProperties_RENAMED.class, ManagementServerProperties.class })
 public class ManagementContextAutoConfiguration {
 
 	@Configuration(proxyBeanMethods = false)

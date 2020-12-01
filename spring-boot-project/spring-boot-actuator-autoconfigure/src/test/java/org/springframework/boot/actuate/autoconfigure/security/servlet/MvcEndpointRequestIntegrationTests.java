@@ -17,7 +17,7 @@ package org.springframework.boot.actuate.autoconfigure.security.servlet;
 
 import org.junit.jupiter.api.Test;
 
-import org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointProperties;
+import org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointProperties_RENAMED;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
 import org.springframework.boot.autoconfigure.http.HttpMessageConvertersAutoConfiguration;
 import org.springframework.boot.autoconfigure.web.servlet.DispatcherServletAutoConfiguration;
@@ -104,7 +104,7 @@ class MvcEndpointRequestIntegrationTests extends AbstractEndpointRequestIntegrat
 	}
 
 	@Configuration(proxyBeanMethods = false)
-	@EnableConfigurationProperties(WebEndpointProperties.class)
+	@EnableConfigurationProperties(WebEndpointProperties_RENAMED.class)
 	static class WebMvcEndpointConfiguration {
 
 		@Bean

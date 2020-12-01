@@ -30,7 +30,7 @@ import java.util.stream.Stream;
 import reactor.core.publisher.Mono;
 
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
-import org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointProperties;
+import org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointProperties_RENAMED;
 import org.springframework.boot.actuate.autoconfigure.web.server.ManagementPortType;
 import org.springframework.boot.actuate.endpoint.EndpointId;
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
@@ -260,20 +260,20 @@ public final class EndpointRequest {
 	/**
 	 * The {@link ServerWebExchangeMatcher} used to match against the links endpoint.
 	 */
-	public static final class LinksServerWebExchangeMatcher extends AbstractWebExchangeMatcher<WebEndpointProperties> {
+	public static final class LinksServerWebExchangeMatcher extends AbstractWebExchangeMatcher<WebEndpointProperties_RENAMED> {
 
 		private volatile ServerWebExchangeMatcher delegate;
 
 		private LinksServerWebExchangeMatcher() {
-			super(WebEndpointProperties.class);
+			super(WebEndpointProperties_RENAMED.class);
 		}
 
 		@Override
-		protected void initialized(Supplier<WebEndpointProperties> properties) {
+		protected void initialized(Supplier<WebEndpointProperties_RENAMED> properties) {
 			this.delegate = createDelegate(properties.get());
 		}
 
-		private ServerWebExchangeMatcher createDelegate(WebEndpointProperties properties) {
+		private ServerWebExchangeMatcher createDelegate(WebEndpointProperties_RENAMED properties) {
 			if (StringUtils.hasText(properties.getBasePath())) {
 				return new PathPatternParserServerWebExchangeMatcher(properties.getBasePath());
 			}
@@ -281,7 +281,7 @@ public final class EndpointRequest {
 		}
 
 		@Override
-		protected Mono<MatchResult> matches(ServerWebExchange exchange, Supplier<WebEndpointProperties> context) {
+		protected Mono<MatchResult> matches(ServerWebExchange exchange, Supplier<WebEndpointProperties_RENAMED> context) {
 			return this.delegate.matches(exchange);
 		}
 

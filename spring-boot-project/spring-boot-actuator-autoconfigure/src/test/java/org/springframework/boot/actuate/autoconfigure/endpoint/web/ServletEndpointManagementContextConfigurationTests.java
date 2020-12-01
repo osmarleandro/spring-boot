@@ -75,7 +75,7 @@ class ServletEndpointManagementContextConfigurationTests {
 
 	@Configuration(proxyBeanMethods = false)
 	@Import(ServletEndpointManagementContextConfiguration.class)
-	@EnableConfigurationProperties(WebEndpointProperties.class)
+	@EnableConfigurationProperties(WebEndpointProperties_RENAMED.class)
 	static class TestConfig {
 
 		@Bean

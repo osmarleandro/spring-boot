@@ -48,8 +48,8 @@ public class ServletEndpointManagementContextConfiguration {
 
 	@Bean
 	public IncludeExcludeEndpointFilter<ExposableServletEndpoint> servletExposeExcludePropertyEndpointFilter(
-			WebEndpointProperties properties) {
-		WebEndpointProperties.Exposure exposure = properties.getExposure();
+			WebEndpointProperties_RENAMED properties) {
+		WebEndpointProperties_RENAMED.Exposure exposure = properties.getExposure();
 		return new IncludeExcludeEndpointFilter<>(ExposableServletEndpoint.class, exposure.getInclude(),
 				exposure.getExclude());
 	}
@@ -59,7 +59,7 @@ public class ServletEndpointManagementContextConfiguration {
 	public static class WebMvcServletEndpointManagementContextConfiguration {
 
 		@Bean
-		public ServletEndpointRegistrar servletEndpointRegistrar(WebEndpointProperties properties,
+		public ServletEndpointRegistrar servletEndpointRegistrar(WebEndpointProperties_RENAMED properties,
 				ServletEndpointsSupplier servletEndpointsSupplier, DispatcherServletPath dispatcherServletPath) {
 			return new ServletEndpointRegistrar(dispatcherServletPath.getRelativePath(properties.getBasePath()),
 					servletEndpointsSupplier.getEndpoints());
@@ -73,7 +73,7 @@ public class ServletEndpointManagementContextConfiguration {
 	public static class JerseyServletEndpointManagementContextConfiguration {
 
 		@Bean
-		public ServletEndpointRegistrar servletEndpointRegistrar(WebEndpointProperties properties,
+		public ServletEndpointRegistrar servletEndpointRegistrar(WebEndpointProperties_RENAMED properties,
 				ServletEndpointsSupplier servletEndpointsSupplier, JerseyApplicationPath jerseyApplicationPath) {
 			return new ServletEndpointRegistrar(jerseyApplicationPath.getRelativePath(properties.getBasePath()),
 					servletEndpointsSupplier.getEndpoints());

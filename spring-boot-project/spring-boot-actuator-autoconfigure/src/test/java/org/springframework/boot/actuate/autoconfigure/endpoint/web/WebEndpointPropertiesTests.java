@@ -22,7 +22,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
 
 /**
- * Tests for {@link WebEndpointProperties}.
+ * Tests for {@link WebEndpointProperties_RENAMED}.
  *
  * @author Madhura Bhave
  */
@@ -30,13 +30,13 @@ class WebEndpointPropertiesTests {
 
 	@Test
 	void defaultBasePathShouldBeApplication() {
-		WebEndpointProperties properties = new WebEndpointProperties();
+		WebEndpointProperties_RENAMED properties = new WebEndpointProperties_RENAMED();
 		assertThat(properties.getBasePath()).isEqualTo("/actuator");
 	}
 
 	@Test
 	void basePathShouldBeCleaned() {
-		WebEndpointProperties properties = new WebEndpointProperties();
+		WebEndpointProperties_RENAMED properties = new WebEndpointProperties_RENAMED();
 		properties.setBasePath("/");
 		assertThat(properties.getBasePath()).isEqualTo("");
 		properties.setBasePath("/actuator/");
@@ -45,14 +45,14 @@ class WebEndpointPropertiesTests {
 
 	@Test
 	void basePathMustStartWithSlash() {
-		WebEndpointProperties properties = new WebEndpointProperties();
+		WebEndpointProperties_RENAMED properties = new WebEndpointProperties_RENAMED();
 		assertThatIllegalArgumentException().isThrownBy(() -> properties.setBasePath("admin"))
 				.withMessageContaining("Base path must start with '/' or be empty");
 	}
 
 	@Test
 	void basePathCanBeEmpty() {
-		WebEndpointProperties properties = new WebEndpointProperties();
+		WebEndpointProperties_RENAMED properties = new WebEndpointProperties_RENAMED();
 		properties.setBasePath("");
 		assertThat(properties.getBasePath()).isEqualTo("");
 	}

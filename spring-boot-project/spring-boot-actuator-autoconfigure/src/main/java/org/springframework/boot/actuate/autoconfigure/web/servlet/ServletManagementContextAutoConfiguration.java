@@ -18,7 +18,7 @@ package org.springframework.boot.actuate.autoconfigure.web.servlet;
 
 import javax.servlet.Servlet;
 
-import org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointProperties;
+import org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointProperties_RENAMED;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -47,7 +47,7 @@ public class ServletManagementContextAutoConfiguration {
 	}
 
 	@Bean
-	public ManagementServletContext managementServletContext(WebEndpointProperties properties) {
+	public ManagementServletContext managementServletContext(WebEndpointProperties_RENAMED properties) {
 		return properties::getBasePath;
 	}
 

@@ -30,7 +30,7 @@ import java.util.stream.Stream;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
-import org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointProperties;
+import org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointProperties_RENAMED;
 import org.springframework.boot.actuate.autoconfigure.web.server.ManagementPortType;
 import org.springframework.boot.actuate.endpoint.EndpointId;
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
@@ -283,7 +283,7 @@ public final class EndpointRequest {
 		@Override
 		protected RequestMatcher createDelegate(WebApplicationContext context,
 				RequestMatcherFactory requestMatcherFactory) {
-			WebEndpointProperties properties = context.getBean(WebEndpointProperties.class);
+			WebEndpointProperties_RENAMED properties = context.getBean(WebEndpointProperties_RENAMED.class);
 			String basePath = properties.getBasePath();
 			if (StringUtils.hasText(basePath)) {
 				return new OrRequestMatcher(
