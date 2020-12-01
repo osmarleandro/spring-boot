@@ -28,7 +28,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Phillip Webb
  */
-class HeapDumpWebEndpointAutoConfigurationTests {
+class HeapDumpWebEndpointAutoConfigurationTests_RENAMED {
 
 	private final WebApplicationContextRunner contextRunner = new WebApplicationContextRunner()
 			.withPropertyValues("management.endpoints.web.exposure.include:*")
