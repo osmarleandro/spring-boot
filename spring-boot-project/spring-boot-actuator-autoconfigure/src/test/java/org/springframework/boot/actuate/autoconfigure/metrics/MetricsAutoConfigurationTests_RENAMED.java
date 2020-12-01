@@ -41,7 +41,7 @@ import static org.mockito.Mockito.verify;
  *
  * @author Andy Wilkinson
  */
-class MetricsAutoConfigurationTests {
+class MetricsAutoConfigurationTests_RENAMED {
 
 	private final ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 			.withConfiguration(AutoConfigurations.of(MetricsAutoConfiguration.class));
