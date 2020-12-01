@@ -28,7 +28,7 @@ import org.springframework.boot.diagnostics.FailureAnalysis;
  *
  * @author Andy Wilkinson
  */
-class ValidationFailureAnalyzer extends AbstractFailureAnalyzer<ValidationException> {
+class ValidationFailureAnalyzer_RENAMED extends AbstractFailureAnalyzer<ValidationException> {
 
 	@Override
 	protected FailureAnalysis analyze(Throwable rootFailure, ValidationException cause) {

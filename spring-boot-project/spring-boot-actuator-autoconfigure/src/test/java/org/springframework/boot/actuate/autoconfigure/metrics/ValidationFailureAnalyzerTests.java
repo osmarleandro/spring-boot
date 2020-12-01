@@ -33,7 +33,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.fail;
 
 /**
- * Tests for {@link ValidationFailureAnalyzer}.
+ * Tests for {@link ValidationFailureAnalyzer_RENAMED}.
  *
  * @author Andy Wilkinson
  */
@@ -41,7 +41,7 @@ class ValidationFailureAnalyzerTests {
 
 	@Test
 	void analyzesMissingRequiredConfiguration() {
-		FailureAnalysis analysis = new ValidationFailureAnalyzer()
+		FailureAnalysis analysis = new ValidationFailureAnalyzer_RENAMED()
 				.analyze(createFailure(MissingAccountIdAndApiKeyConfiguration.class));
 		assertThat(analysis).isNotNull();
 		assertThat(analysis.getCause().getMessage()).contains("management.metrics.export.newrelic.apiKey was 'null'");
