@@ -48,12 +48,12 @@ import org.springframework.context.annotation.Configuration;
 @ConditionalOnBean(Clock.class)
 @ConditionalOnClass(DynatraceMeterRegistry.class)
 @ConditionalOnEnabledMetricsExport("dynatrace")
-@EnableConfigurationProperties(DynatraceProperties.class)
+@EnableConfigurationProperties(DynatraceProperties_RENAMED.class)
 public class DynatraceMetricsExportAutoConfiguration {
 
-	private final DynatraceProperties properties;
+	private final DynatraceProperties_RENAMED properties;
 
-	public DynatraceMetricsExportAutoConfiguration(DynatraceProperties properties) {
+	public DynatraceMetricsExportAutoConfiguration(DynatraceProperties_RENAMED properties) {
 		this.properties = properties;
 	}
 

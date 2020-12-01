@@ -27,7 +27,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  * @since 2.1.0
  */
 @ConfigurationProperties(prefix = "management.metrics.export.dynatrace")
-public class DynatraceProperties extends StepRegistryProperties {
+public class DynatraceProperties_RENAMED extends StepRegistryProperties {
 
 	/**
 	 * Dynatrace authentication token.

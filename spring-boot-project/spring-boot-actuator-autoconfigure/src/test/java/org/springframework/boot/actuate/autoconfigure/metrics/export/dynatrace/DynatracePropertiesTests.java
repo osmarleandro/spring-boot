@@ -24,7 +24,7 @@ import org.springframework.boot.actuate.autoconfigure.metrics.export.properties.
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Tests for {@link DynatraceProperties}.
+ * Tests for {@link DynatraceProperties_RENAMED}.
  *
  * @author Andy Wilkinson
  */
@@ -32,7 +32,7 @@ class DynatracePropertiesTests extends StepRegistryPropertiesTests {
 
 	@Test
 	void defaultValuesAreConsistent() {
-		DynatraceProperties properties = new DynatraceProperties();
+		DynatraceProperties_RENAMED properties = new DynatraceProperties_RENAMED();
 		DynatraceConfig config = (key) -> null;
 		assertStepRegistryDefaultValues(properties, config);
 		assertThat(properties.getTechnologyType()).isEqualTo(config.technologyType());

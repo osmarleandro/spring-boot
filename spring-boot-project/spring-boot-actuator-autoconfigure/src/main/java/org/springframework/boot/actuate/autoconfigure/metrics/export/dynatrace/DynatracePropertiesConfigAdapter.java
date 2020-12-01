@@ -21,14 +21,14 @@ import io.micrometer.dynatrace.DynatraceConfig;
 import org.springframework.boot.actuate.autoconfigure.metrics.export.properties.StepRegistryPropertiesConfigAdapter;
 
 /**
- * Adapter to convert {@link DynatraceProperties} to a {@link DynatraceConfig}.
+ * Adapter to convert {@link DynatraceProperties_RENAMED} to a {@link DynatraceConfig}.
  *
  * @author Andy Wilkinson
  */
-class DynatracePropertiesConfigAdapter extends StepRegistryPropertiesConfigAdapter<DynatraceProperties>
+class DynatracePropertiesConfigAdapter extends StepRegistryPropertiesConfigAdapter<DynatraceProperties_RENAMED>
 		implements DynatraceConfig {
 
-	DynatracePropertiesConfigAdapter(DynatraceProperties properties) {
+	DynatracePropertiesConfigAdapter(DynatraceProperties_RENAMED properties) {
 		super(properties);
 	}
 
@@ -39,27 +39,27 @@ class DynatracePropertiesConfigAdapter extends StepRegistryPropertiesConfigAdapt
 
 	@Override
 	public String apiToken() {
-		return get(DynatraceProperties::getApiToken, DynatraceConfig.super::apiToken);
+		return get(DynatraceProperties_RENAMED::getApiToken, DynatraceConfig.super::apiToken);
 	}
 
 	@Override
 	public String deviceId() {
-		return get(DynatraceProperties::getDeviceId, DynatraceConfig.super::deviceId);
+		return get(DynatraceProperties_RENAMED::getDeviceId, DynatraceConfig.super::deviceId);
 	}
 
 	@Override
 	public String technologyType() {
-		return get(DynatraceProperties::getTechnologyType, DynatraceConfig.super::technologyType);
+		return get(DynatraceProperties_RENAMED::getTechnologyType, DynatraceConfig.super::technologyType);
 	}
 
 	@Override
 	public String uri() {
-		return get(DynatraceProperties::getUri, DynatraceConfig.super::uri);
+		return get(DynatraceProperties_RENAMED::getUri, DynatraceConfig.super::uri);
 	}
 
 	@Override
 	public String group() {
-		return get(DynatraceProperties::getGroup, DynatraceConfig.super::group);
+		return get(DynatraceProperties_RENAMED::getGroup, DynatraceConfig.super::group);
 	}
 
 }
