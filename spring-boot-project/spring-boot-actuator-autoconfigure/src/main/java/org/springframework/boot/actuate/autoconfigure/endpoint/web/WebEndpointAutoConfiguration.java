@@ -76,7 +76,7 @@ public class WebEndpointAutoConfiguration {
 
 	@Bean
 	public PathMapper webEndpointPathMapper() {
-		return new MappingWebEndpointPathMapper(this.properties.getPathMapping());
+		return new MappingWebEndpointPathMapper_RENAMED(this.properties.getPathMapping());
 	}
 
 	@Bean

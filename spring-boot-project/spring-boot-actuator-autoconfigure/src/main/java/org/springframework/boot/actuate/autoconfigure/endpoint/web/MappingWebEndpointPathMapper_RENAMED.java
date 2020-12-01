@@ -32,11 +32,11 @@ import org.springframework.util.StringUtils;
  * @author Stephane Nicoll
  */
 @Order(Ordered.HIGHEST_PRECEDENCE)
-class MappingWebEndpointPathMapper implements PathMapper {
+class MappingWebEndpointPathMapper_RENAMED implements PathMapper {
 
 	private final Map<EndpointId, String> pathMapping;
 
-	MappingWebEndpointPathMapper(Map<String, String> pathMapping) {
+	MappingWebEndpointPathMapper_RENAMED(Map<String, String> pathMapping) {
 		this.pathMapping = new HashMap<>();
 		pathMapping.forEach((id, path) -> this.pathMapping.put(EndpointId.fromPropertyValue(id), path));
 	}
