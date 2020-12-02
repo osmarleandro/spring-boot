@@ -62,4 +62,9 @@ class DiscoveredServletEndpoint extends AbstractDiscoveredEndpoint<Operation> im
 		return this.endpointServlet;
 	}
 
+	@Override
+	public boolean wasDiscoveredBy(Class<? extends EndpointDiscoverer<?, ?>> discoverer) {
+		return discoverer.isInstance(this.discoverer);
+	}
+
 }

@@ -36,4 +36,9 @@ class DiscoveredJmxEndpoint extends AbstractDiscoveredEndpoint<JmxOperation> imp
 		super(discoverer, endpointBean, id, enabledByDefault, operations);
 	}
 
+	@Override
+	public boolean wasDiscoveredBy(Class<? extends EndpointDiscoverer<?, ?>> discoverer) {
+		return discoverer.isInstance(this.discoverer);
+	}
+
 }

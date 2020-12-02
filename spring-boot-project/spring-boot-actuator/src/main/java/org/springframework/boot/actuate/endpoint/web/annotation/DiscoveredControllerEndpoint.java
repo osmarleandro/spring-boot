@@ -49,4 +49,9 @@ class DiscoveredControllerEndpoint extends AbstractDiscoveredEndpoint<Operation>
 		return this.rootPath;
 	}
 
+	@Override
+	public boolean wasDiscoveredBy(Class<? extends EndpointDiscoverer<?, ?>> discoverer) {
+		return discoverer.isInstance(this.discoverer);
+	}
+
 }
