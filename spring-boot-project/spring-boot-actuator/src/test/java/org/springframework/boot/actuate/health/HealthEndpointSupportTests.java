@@ -40,13 +40,13 @@ import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException
  */
 abstract class HealthEndpointSupportTests<R extends ContributorRegistry<C>, C, T> {
 
-	final R registry;
+	protected final R registry;
 
-	final Health up = Health.up().withDetail("spring", "boot").build();
+	protected final Health up = Health.up().withDetail("spring", "boot").build();
 
 	final Health down = Health.down().build();
 
-	final TestHealthEndpointGroup primaryGroup = new TestHealthEndpointGroup();
+	protected final TestHealthEndpointGroup primaryGroup = new TestHealthEndpointGroup();
 
 	final TestHealthEndpointGroup allTheAs = new TestHealthEndpointGroup((name) -> name.startsWith("a"));
 
@@ -207,20 +207,6 @@ abstract class HealthEndpointSupportTests<R extends ContributorRegistry<C>, C, T
 		HealthResult<T> result = create(this.registry, this.groups).getHealth(ApiVersion.V3, SecurityContext.NONE,
 				false);
 		assertThat(result).isNull();
-	}
-
-	@Test
-	void getHealthWhenGroupContainsCompositeContributorReturnsHealth() {
-		C contributor = createContributor(this.up);
-		C compositeContributor = createCompositeContributor(Collections.singletonMap("spring", contributor));
-		this.registry.registerContributor("test", compositeContributor);
-		TestHealthEndpointGroup testGroup = new TestHealthEndpointGroup((name) -> name.startsWith("test"));
-		HealthEndpointGroups groups = HealthEndpointGroups.of(this.primaryGroup,
-				Collections.singletonMap("testGroup", testGroup));
-		HealthResult<T> result = create(this.registry, groups).getHealth(ApiVersion.V3, SecurityContext.NONE, false,
-				"testGroup");
-		CompositeHealth health = (CompositeHealth) getHealth(result);
-		assertThat(health.getComponents()).containsKey("test");
 	}
 
 	protected abstract HealthEndpointSupport<C, T> create(R registry, HealthEndpointGroups groups);

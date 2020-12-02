@@ -107,4 +107,18 @@ class ReactiveHealthEndpointWebExtensionTests extends
 		return result.getHealth().block();
 	}
 
+	@Test
+	void getHealthWhenGroupContainsCompositeContributorReturnsHealth() {
+		ReactiveHealthContributor contributor = createContributor(this.up);
+		ReactiveHealthContributor compositeContributor = createCompositeContributor(Collections.singletonMap("spring", contributor));
+		this.registry.registerContributor("test", compositeContributor);
+		TestHealthEndpointGroup testGroup = new TestHealthEndpointGroup((name) -> name.startsWith("test"));
+		HealthEndpointGroups groups = HealthEndpointGroups.of(this.primaryGroup,
+				Collections.singletonMap("testGroup", testGroup));
+		HealthResult<Mono<? extends HealthComponent>> result = create(this.registry, groups).getHealth(ApiVersion.V3, SecurityContext.NONE, false,
+				"testGroup");
+		CompositeHealth health = (CompositeHealth) getHealth(result);
+		assertThat(health.getComponents()).containsKey("test");
+	}
+
 }
