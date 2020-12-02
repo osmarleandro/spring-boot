@@ -18,15 +18,12 @@ package org.springframework.boot.actuate.trace.http;
 
 import java.net.URI;
 import java.security.Principal;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Consumer;
-import java.util.function.Predicate;
 import java.util.function.Supplier;
-import java.util.stream.Collectors;
 
 import org.springframework.http.HttpHeaders;
 
@@ -38,7 +35,7 @@ import org.springframework.http.HttpHeaders;
  */
 public class HttpExchangeTracer {
 
-	private final Set<Include> includes;
+	protected final Set<Include> includes;
 
 	/**
 	 * Creates a new {@code HttpExchangeTracer} that will use the given {@code includes}
@@ -91,15 +88,6 @@ public class HttpExchangeTracer {
 		if (this.includes.contains(include)) {
 			consumer.accept(supplier.get());
 		}
-	}
-
-	private Map<String, List<String>> getHeadersIfIncluded(Include include,
-			Supplier<Map<String, List<String>>> headersSupplier, Predicate<String> headerPredicate) {
-		if (!this.includes.contains(include)) {
-			return new LinkedHashMap<>();
-		}
-		return headersSupplier.get().entrySet().stream().filter((entry) -> headerPredicate.test(entry.getKey()))
-				.collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
 	}
 
 	private long calculateTimeTaken(HttpTrace trace) {

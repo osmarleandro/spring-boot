@@ -22,8 +22,12 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.EnumSet;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Predicate;
+import java.util.function.Supplier;
+import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
 
@@ -343,6 +347,14 @@ class HttpExchangeTracerTests {
 		protected void postProcessRequestHeaders(Map<String, List<String>> headers) {
 			headers.remove("to-remove");
 			headers.computeIfAbsent("to-add", (key) -> Collections.singletonList("42"));
+		}
+
+		private Map<String, List<String>> getHeadersIfIncluded(Include include, Supplier<Map<String, List<String>>> headersSupplier, Predicate<String> headerPredicate) {
+			if (!this.includes.contains(include)) {
+				return new LinkedHashMap<>();
+			}
+			return headersSupplier.get().entrySet().stream().filter((entry) -> headerPredicate.test(entry.getKey()))
+					.collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
 		}
 
 	}
