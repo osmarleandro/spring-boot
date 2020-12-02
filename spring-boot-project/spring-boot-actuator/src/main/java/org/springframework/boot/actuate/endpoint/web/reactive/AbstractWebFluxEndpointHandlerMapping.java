@@ -89,7 +89,7 @@ public abstract class AbstractWebFluxEndpointHandlerMapping extends RequestMappi
 
 	private final EndpointMediaTypes endpointMediaTypes;
 
-	private final CorsConfiguration corsConfiguration;
+	protected final CorsConfiguration corsConfiguration;
 
 	private final Method handleWriteMethod = ReflectionUtils.findMethod(WriteOperationHandler.class, "handle",
 			ServerWebExchange.class, Map.class);
@@ -186,11 +186,6 @@ public abstract class AbstractWebFluxEndpointHandlerMapping extends RequestMappi
 		LinksHandler linksHandler = getLinksHandler();
 		registerMapping(mapping, linksHandler,
 				ReflectionUtils.findMethod(linksHandler.getClass(), "links", ServerWebExchange.class));
-	}
-
-	@Override
-	protected boolean hasCorsConfigurationSource(Object handler) {
-		return this.corsConfiguration != null;
 	}
 
 	@Override

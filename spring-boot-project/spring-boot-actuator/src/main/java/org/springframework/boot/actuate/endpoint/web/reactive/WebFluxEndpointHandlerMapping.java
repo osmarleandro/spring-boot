@@ -68,6 +68,11 @@ public class WebFluxEndpointHandlerMapping extends AbstractWebFluxEndpointHandle
 		return new WebFluxLinksHandler();
 	}
 
+	@Override
+	protected boolean hasCorsConfigurationSource(Object handler) {
+		return this.corsConfiguration != null;
+	}
+
 	/**
 	 * Handler for root endpoint providing links.
 	 */

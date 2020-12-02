@@ -76,6 +76,11 @@ class CloudFoundryWebFluxEndpointHandlerMapping extends AbstractWebFluxEndpointH
 		return new CloudFoundryLinksHandler();
 	}
 
+	@Override
+	protected boolean hasCorsConfigurationSource(Object handler) {
+		return this.corsConfiguration != null;
+	}
+
 	class CloudFoundryLinksHandler implements LinksHandler {
 
 		@Override
