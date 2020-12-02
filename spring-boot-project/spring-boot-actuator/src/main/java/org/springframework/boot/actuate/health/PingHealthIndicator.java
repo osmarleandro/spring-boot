@@ -16,6 +16,8 @@
 
 package org.springframework.boot.actuate.health;
 
+import org.springframework.util.StringUtils;
+
 /**
  * Default implementation of {@link HealthIndicator} that returns {@link Status#UP}.
  *
@@ -29,6 +31,22 @@ public class PingHealthIndicator extends AbstractHealthIndicator {
 	@Override
 	protected void doHealthCheck(Health.Builder builder) throws Exception {
 		builder.up();
+	}
+
+	@Override
+	public final Health health() {
+		Health.Builder builder = new Health.Builder();
+		try {
+			doHealthCheck(builder);
+		}
+		catch (Exception ex) {
+			if (this.logger.isWarnEnabled()) {
+				String message = this.healthCheckFailedMessage.apply(ex);
+				this.logger.warn(StringUtils.hasText(message) ? message : DEFAULT_MESSAGE, ex);
+			}
+			builder.down(ex);
+		}
+		return builder.build();
 	}
 
 }

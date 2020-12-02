@@ -23,7 +23,6 @@ import org.apache.commons.logging.LogFactory;
 
 import org.springframework.boot.actuate.health.Health.Builder;
 import org.springframework.util.Assert;
-import org.springframework.util.StringUtils;
 
 /**
  * Base {@link HealthIndicator} implementations that encapsulates creation of
@@ -40,11 +39,11 @@ public abstract class AbstractHealthIndicator implements HealthIndicator {
 
 	private static final String NO_MESSAGE = null;
 
-	private static final String DEFAULT_MESSAGE = "Health check failed";
+	protected static final String DEFAULT_MESSAGE = "Health check failed";
 
-	private final Log logger = LogFactory.getLog(getClass());
+	protected final Log logger = LogFactory.getLog(getClass());
 
-	private final Function<Exception, String> healthCheckFailedMessage;
+	protected final Function<Exception, String> healthCheckFailedMessage;
 
 	/**
 	 * Create a new {@link AbstractHealthIndicator} instance with a default
@@ -73,22 +72,6 @@ public abstract class AbstractHealthIndicator implements HealthIndicator {
 	protected AbstractHealthIndicator(Function<Exception, String> healthCheckFailedMessage) {
 		Assert.notNull(healthCheckFailedMessage, "HealthCheckFailedMessage must not be null");
 		this.healthCheckFailedMessage = healthCheckFailedMessage;
-	}
-
-	@Override
-	public final Health health() {
-		Health.Builder builder = new Health.Builder();
-		try {
-			doHealthCheck(builder);
-		}
-		catch (Exception ex) {
-			if (this.logger.isWarnEnabled()) {
-				String message = this.healthCheckFailedMessage.apply(ex);
-				this.logger.warn(StringUtils.hasText(message) ? message : DEFAULT_MESSAGE, ex);
-			}
-			builder.down(ex);
-		}
-		return builder.build();
 	}
 
 	/**

@@ -18,8 +18,10 @@ package org.springframework.boot.actuate.autoconfigure.health;
 
 import org.springframework.boot.actuate.autoconfigure.health.CompositeHealthContributorConfigurationTests.TestHealthIndicator;
 import org.springframework.boot.actuate.health.AbstractHealthIndicator;
+import org.springframework.boot.actuate.health.Health;
 import org.springframework.boot.actuate.health.Health.Builder;
 import org.springframework.boot.actuate.health.HealthContributor;
+import org.springframework.util.StringUtils;
 
 /**
  * Tests for {@link CompositeHealthContributorConfiguration}.
@@ -47,6 +49,22 @@ class CompositeHealthContributorConfigurationTests
 		@Override
 		protected void doHealthCheck(Builder builder) throws Exception {
 			builder.up();
+		}
+
+		@Override
+		public final Health health() {
+			Health.Builder builder = new Health.Builder();
+			try {
+				doHealthCheck(builder);
+			}
+			catch (Exception ex) {
+				if (this.logger.isWarnEnabled()) {
+					String message = this.healthCheckFailedMessage.apply(ex);
+					this.logger.warn(StringUtils.hasText(message) ? message : DEFAULT_MESSAGE, ex);
+				}
+				builder.down(ex);
+			}
+			return builder.build();
 		}
 
 	}

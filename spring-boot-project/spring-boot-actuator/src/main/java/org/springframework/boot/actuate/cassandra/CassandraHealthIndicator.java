@@ -24,6 +24,7 @@ import org.springframework.boot.actuate.health.Health;
 import org.springframework.boot.actuate.health.HealthIndicator;
 import org.springframework.data.cassandra.core.CassandraOperations;
 import org.springframework.util.Assert;
+import org.springframework.util.StringUtils;
 
 /**
  * Simple implementation of a {@link HealthIndicator} returning status information for
@@ -60,6 +61,22 @@ public class CassandraHealthIndicator extends AbstractHealthIndicator {
 	protected void doHealthCheck(Health.Builder builder) throws Exception {
 		String version = this.cassandraOperations.getCqlOperations().queryForObject(SELECT, String.class);
 		builder.up().withDetail("version", version);
+	}
+
+	@Override
+	public final Health health() {
+		Health.Builder builder = new Health.Builder();
+		try {
+			doHealthCheck(builder);
+		}
+		catch (Exception ex) {
+			if (this.logger.isWarnEnabled()) {
+				String message = this.healthCheckFailedMessage.apply(ex);
+				this.logger.warn(StringUtils.hasText(message) ? message : DEFAULT_MESSAGE, ex);
+			}
+			builder.down(ex);
+		}
+		return builder.build();
 	}
 
 }

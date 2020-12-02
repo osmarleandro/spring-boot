@@ -25,6 +25,7 @@ import org.springframework.boot.actuate.health.HealthIndicator;
 import org.springframework.ldap.core.ContextExecutor;
 import org.springframework.ldap.core.LdapOperations;
 import org.springframework.util.Assert;
+import org.springframework.util.StringUtils;
 
 /**
  * {@link HealthIndicator} for configured LDAP server(s).
@@ -49,6 +50,22 @@ public class LdapHealthIndicator extends AbstractHealthIndicator {
 	protected void doHealthCheck(Health.Builder builder) throws Exception {
 		String version = this.ldapOperations.executeReadOnly(versionContextExecutor);
 		builder.up().withDetail("version", version);
+	}
+
+	@Override
+	public final Health health() {
+		Health.Builder builder = new Health.Builder();
+		try {
+			doHealthCheck(builder);
+		}
+		catch (Exception ex) {
+			if (this.logger.isWarnEnabled()) {
+				String message = this.healthCheckFailedMessage.apply(ex);
+				this.logger.warn(StringUtils.hasText(message) ? message : DEFAULT_MESSAGE, ex);
+			}
+			builder.down(ex);
+		}
+		return builder.build();
 	}
 
 	private static class VersionContextExecutor implements ContextExecutor<String> {

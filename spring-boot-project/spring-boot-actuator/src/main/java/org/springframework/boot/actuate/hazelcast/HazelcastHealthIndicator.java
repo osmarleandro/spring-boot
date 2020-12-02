@@ -25,6 +25,7 @@ import org.springframework.boot.actuate.health.Health;
 import org.springframework.boot.actuate.health.HealthIndicator;
 import org.springframework.util.Assert;
 import org.springframework.util.ReflectionUtils;
+import org.springframework.util.StringUtils;
 
 /**
  * {@link HealthIndicator} for Hazelcast.
@@ -62,6 +63,22 @@ public class HazelcastHealthIndicator extends AbstractHealthIndicator {
 			Method uuidAccessor = ReflectionUtils.findMethod(endpoint.getClass(), "getUuid");
 			return (String) ReflectionUtils.invokeMethod(uuidAccessor, endpoint);
 		}
+	}
+
+	@Override
+	public final Health health() {
+		Health.Builder builder = new Health.Builder();
+		try {
+			doHealthCheck(builder);
+		}
+		catch (Exception ex) {
+			if (this.logger.isWarnEnabled()) {
+				String message = this.healthCheckFailedMessage.apply(ex);
+				this.logger.warn(StringUtils.hasText(message) ? message : DEFAULT_MESSAGE, ex);
+			}
+			builder.down(ex);
+		}
+		return builder.build();
 	}
 
 }

@@ -29,6 +29,7 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.boot.actuate.health.AbstractHealthIndicator;
 import org.springframework.boot.actuate.health.Health;
 import org.springframework.boot.actuate.health.HealthIndicator;
+import org.springframework.util.StringUtils;
 
 /**
  * {@link HealthIndicator} for a JMS {@link ConnectionFactory}.
@@ -53,6 +54,22 @@ public class JmsHealthIndicator extends AbstractHealthIndicator {
 			new MonitoredConnection(connection).start();
 			builder.up().withDetail("provider", connection.getMetaData().getJMSProviderName());
 		}
+	}
+
+	@Override
+	public final Health health() {
+		Health.Builder builder = new Health.Builder();
+		try {
+			doHealthCheck(builder);
+		}
+		catch (Exception ex) {
+			if (this.logger.isWarnEnabled()) {
+				String message = this.healthCheckFailedMessage.apply(ex);
+				this.logger.warn(StringUtils.hasText(message) ? message : DEFAULT_MESSAGE, ex);
+			}
+			builder.down(ex);
+		}
+		return builder.build();
 	}
 
 	private final class MonitoredConnection {

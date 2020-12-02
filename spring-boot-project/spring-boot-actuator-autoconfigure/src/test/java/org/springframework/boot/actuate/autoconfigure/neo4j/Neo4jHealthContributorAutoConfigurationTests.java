@@ -30,6 +30,7 @@ import org.springframework.boot.test.context.FilteredClassLoader;
 import org.springframework.boot.test.context.runner.ApplicationContextRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.util.StringUtils;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.entry;
@@ -106,6 +107,22 @@ class Neo4jHealthContributorAutoConfigurationTests {
 					builder.up().withDetail("test", true);
 				}
 			};
+		}
+
+		@Override
+		public final Health health() {
+			Health.Builder builder = new Health.Builder();
+			try {
+				doHealthCheck(builder);
+			}
+			catch (Exception ex) {
+				if (this.logger.isWarnEnabled()) {
+					String message = this.healthCheckFailedMessage.apply(ex);
+					this.logger.warn(StringUtils.hasText(message) ? message : DEFAULT_MESSAGE, ex);
+				}
+				builder.down(ex);
+			}
+			return builder.build();
 		}
 
 	}
