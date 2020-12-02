@@ -104,4 +104,12 @@ class HealthEndpointWebExtensionTests
 		return result.getHealth();
 	}
 
+	@Test
+	void getHealthWhenAlwaysShowIsFalseAndGroupIsTrueShowsDetails() {
+		this.registry.registerContributor("test", createContributor(this.up));
+		HealthResult<HealthComponent> result = create(this.registry, this.groups).getHealth(ApiVersion.V3, SecurityContext.NONE,
+				false, "test");
+		assertThat(((Health) getHealth(result)).getDetails()).containsEntry("spring", "boot");
+	}
+
 }
