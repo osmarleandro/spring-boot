@@ -100,6 +100,12 @@ class WebFluxEndpointIntegrationTests
 		return context.getBean(ReactiveConfiguration.class).port;
 	}
 
+	@Test
+	void readOperationWithMonoResponse() {
+		load(MonoResponseEndpointConfiguration.class, (client) -> client.get().uri("/mono").exchange().expectStatus()
+				.isOk().expectBody().jsonPath("a").isEqualTo("alpha"));
+	}
+
 	@Configuration(proxyBeanMethods = false)
 	@EnableWebFlux
 	@ImportAutoConfiguration(ErrorWebFluxAutoConfiguration.class)

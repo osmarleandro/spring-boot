@@ -136,6 +136,12 @@ class MvcWebEndpointIntegrationTests
 		return context.getWebServer().getPort();
 	}
 
+	@Test
+	void readOperationWithMonoResponse() {
+		load(MonoResponseEndpointConfiguration.class, (client) -> client.get().uri("/mono").exchange().expectStatus()
+				.isOk().expectBody().jsonPath("a").isEqualTo("alpha"));
+	}
+
 	@Configuration(proxyBeanMethods = false)
 	@ImportAutoConfiguration({ JacksonAutoConfiguration.class, HttpMessageConvertersAutoConfiguration.class,
 			ServletWebServerFactoryAutoConfiguration.class, WebMvcAutoConfiguration.class,
