@@ -559,6 +559,11 @@ class EndpointDiscovererTests {
 					() -> "TestOperation " + operation.getOperationMethod());
 		}
 
+		private boolean isEndpointExposed(EndpointBean endpointBean) {
+			return isFilterMatch(endpointBean.getFilter(), endpointBean) && !isEndpointFiltered(endpointBean)
+					&& isEndpointExposed(endpointBean.getBean());
+		}
+
 	}
 
 	static class SpecializedEndpointDiscoverer
@@ -589,6 +594,11 @@ class EndpointDiscovererTests {
 		protected OperationKey createOperationKey(SpecializedOperation operation) {
 			return new OperationKey(operation.getOperationMethod(),
 					() -> "TestOperation " + operation.getOperationMethod());
+		}
+
+		private boolean isEndpointExposed(EndpointBean endpointBean) {
+			return isFilterMatch(endpointBean.getFilter(), endpointBean) && !isEndpointFiltered(endpointBean)
+					&& isEndpointExposed(endpointBean.getBean());
 		}
 
 	}

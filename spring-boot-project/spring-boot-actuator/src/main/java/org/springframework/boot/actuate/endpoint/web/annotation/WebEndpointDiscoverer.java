@@ -87,4 +87,9 @@ public class WebEndpointDiscoverer extends EndpointDiscoverer<ExposableWebEndpoi
 				() -> "web request predicate " + operation.getRequestPredicate());
 	}
 
+	private boolean isEndpointExposed(EndpointBean endpointBean) {
+		return isFilterMatch(endpointBean.getFilter(), endpointBean) && !isEndpointFiltered(endpointBean)
+				&& isEndpointExposed(endpointBean.getBean());
+	}
+
 }

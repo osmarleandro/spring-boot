@@ -261,11 +261,6 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 		return true;
 	}
 
-	private boolean isEndpointExposed(EndpointBean endpointBean) {
-		return isFilterMatch(endpointBean.getFilter(), endpointBean) && !isEndpointFiltered(endpointBean)
-				&& isEndpointExposed(endpointBean.getBean());
-	}
-
 	/**
 	 * Determine if an endpoint bean should be exposed. Subclasses can override this
 	 * method to provide additional logic.
@@ -287,7 +282,7 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 		return true;
 	}
 
-	private boolean isEndpointFiltered(EndpointBean endpointBean) {
+	protected boolean isEndpointFiltered(EndpointBean endpointBean) {
 		for (EndpointFilter<E> filter : this.filters) {
 			if (!isFilterMatch(filter, endpointBean)) {
 				return true;
@@ -297,7 +292,7 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 	}
 
 	@SuppressWarnings("unchecked")
-	private boolean isFilterMatch(Class<?> filter, EndpointBean endpointBean) {
+	protected boolean isFilterMatch(Class<?> filter, EndpointBean endpointBean) {
 		if (!isEndpointTypeExposed(endpointBean.getBeanType())) {
 			return false;
 		}
@@ -414,7 +409,7 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 	/**
 	 * Information about an {@link Endpoint @Endpoint} bean.
 	 */
-	private static class EndpointBean {
+	public static class EndpointBean {
 
 		private final String beanName;
 
@@ -465,7 +460,7 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 			return this.beanType;
 		}
 
-		Object getBean() {
+		public Object getBean() {
 			return this.beanSupplier.get();
 		}
 
@@ -477,7 +472,7 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 			return this.enabledByDefault;
 		}
 
-		Class<?> getFilter() {
+		public Class<?> getFilter() {
 			return this.filter;
 		}
 
