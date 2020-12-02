@@ -16,9 +16,12 @@
 
 package org.springframework.boot.actuate.info;
 
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Properties;
 
+import org.springframework.boot.context.properties.bind.Binder;
+import org.springframework.boot.context.properties.source.ConfigurationPropertySources;
 import org.springframework.boot.info.BuildProperties;
 import org.springframework.core.env.PropertiesPropertySource;
 import org.springframework.core.env.PropertySource;
@@ -54,6 +57,16 @@ public class BuildInfoContributor extends InfoPropertiesInfoContributor<BuildPro
 	@Override
 	protected void postProcessContent(Map<String, Object> content) {
 		replaceValue(content, "time", getProperties().getTime());
+	}
+
+	/**
+	 * Extract the raw content based on the specified {@link PropertySource}.
+	 * @param propertySource the property source to use
+	 * @return the raw content
+	 */
+	protected Map<String, Object> extractContent(PropertySource<?> propertySource) {
+		return new Binder(ConfigurationPropertySources.from(propertySource)).bind("", STRING_OBJECT_MAP)
+				.orElseGet(LinkedHashMap::new);
 	}
 
 }
