@@ -50,7 +50,6 @@ import org.springframework.core.annotation.MergedAnnotations.SearchStrategy;
 import org.springframework.core.env.Environment;
 import org.springframework.util.Assert;
 import org.springframework.util.ClassUtils;
-import org.springframework.util.CollectionUtils;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.util.StringUtils;
@@ -216,10 +215,6 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 			}
 			indexed.add(key, operation);
 		}
-	}
-
-	private <T> T getLast(List<T> list) {
-		return CollectionUtils.isEmpty(list) ? null : list.get(list.size() - 1);
 	}
 
 	private void assertNoDuplicateOperations(EndpointBean endpointBean, MultiValueMap<OperationKey, O> indexed) {

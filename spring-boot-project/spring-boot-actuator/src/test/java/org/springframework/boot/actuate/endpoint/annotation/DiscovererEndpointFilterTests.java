@@ -17,6 +17,7 @@
 package org.springframework.boot.actuate.endpoint.annotation;
 
 import java.util.Collection;
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
@@ -26,6 +27,7 @@ import org.springframework.boot.actuate.endpoint.Operation;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvokerAdvisor;
 import org.springframework.boot.actuate.endpoint.invoke.ParameterValueMapper;
 import org.springframework.context.ApplicationContext;
+import org.springframework.util.CollectionUtils;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
@@ -82,6 +84,10 @@ class DiscovererEndpointFilterTests {
 			super(applicationContext, parameterValueMapper, invokerAdvisors, filters);
 		}
 
+		private <T> T getLast(List<T> list) {
+			return CollectionUtils.isEmpty(list) ? null : list.get(list.size() - 1);
+		}
+
 	}
 
 	abstract static class TestDiscovererB extends EndpointDiscoverer<ExposableEndpoint<Operation>, Operation> {
@@ -90,6 +96,10 @@ class DiscovererEndpointFilterTests {
 				Collection<OperationInvokerAdvisor> invokerAdvisors,
 				Collection<EndpointFilter<ExposableEndpoint<Operation>>> filters) {
 			super(applicationContext, parameterValueMapper, invokerAdvisors, filters);
+		}
+
+		private <T> T getLast(List<T> list) {
+			return CollectionUtils.isEmpty(list) ? null : list.get(list.size() - 1);
 		}
 
 	}

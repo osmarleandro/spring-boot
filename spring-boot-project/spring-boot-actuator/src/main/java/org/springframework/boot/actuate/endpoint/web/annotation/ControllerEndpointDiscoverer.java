@@ -31,6 +31,7 @@ import org.springframework.boot.actuate.endpoint.web.PathMapper;
 import org.springframework.context.ApplicationContext;
 import org.springframework.core.annotation.MergedAnnotations;
 import org.springframework.core.annotation.MergedAnnotations.SearchStrategy;
+import org.springframework.util.CollectionUtils;
 
 /**
  * {@link EndpointDiscoverer} for {@link ExposableControllerEndpoint controller
@@ -78,6 +79,10 @@ public class ControllerEndpointDiscoverer extends EndpointDiscoverer<ExposableCo
 	@Override
 	protected OperationKey createOperationKey(Operation operation) {
 		throw new IllegalStateException("ControllerEndpoints must not declare operations");
+	}
+
+	private <T> T getLast(List<T> list) {
+		return CollectionUtils.isEmpty(list) ? null : list.get(list.size() - 1);
 	}
 
 }

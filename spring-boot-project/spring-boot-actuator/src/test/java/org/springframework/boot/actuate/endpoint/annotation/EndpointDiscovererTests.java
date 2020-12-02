@@ -52,6 +52,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.core.annotation.AliasFor;
+import org.springframework.util.CollectionUtils;
 import org.springframework.util.ReflectionUtils;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -559,6 +560,10 @@ class EndpointDiscovererTests {
 					() -> "TestOperation " + operation.getOperationMethod());
 		}
 
+		private <T> T getLast(List<T> list) {
+			return CollectionUtils.isEmpty(list) ? null : list.get(list.size() - 1);
+		}
+
 	}
 
 	static class SpecializedEndpointDiscoverer
@@ -589,6 +594,10 @@ class EndpointDiscovererTests {
 		protected OperationKey createOperationKey(SpecializedOperation operation) {
 			return new OperationKey(operation.getOperationMethod(),
 					() -> "TestOperation " + operation.getOperationMethod());
+		}
+
+		private <T> T getLast(List<T> list) {
+			return CollectionUtils.isEmpty(list) ? null : list.get(list.size() - 1);
 		}
 
 	}

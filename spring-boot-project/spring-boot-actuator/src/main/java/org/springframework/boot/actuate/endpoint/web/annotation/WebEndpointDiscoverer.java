@@ -33,6 +33,7 @@ import org.springframework.boot.actuate.endpoint.web.WebEndpointsSupplier;
 import org.springframework.boot.actuate.endpoint.web.WebOperation;
 import org.springframework.boot.actuate.endpoint.web.WebOperationRequestPredicate;
 import org.springframework.context.ApplicationContext;
+import org.springframework.util.CollectionUtils;
 
 /**
  * {@link EndpointDiscoverer} for {@link ExposableWebEndpoint web endpoints}.
@@ -85,6 +86,10 @@ public class WebEndpointDiscoverer extends EndpointDiscoverer<ExposableWebEndpoi
 	protected OperationKey createOperationKey(WebOperation operation) {
 		return new OperationKey(operation.getRequestPredicate(),
 				() -> "web request predicate " + operation.getRequestPredicate());
+	}
+
+	private <T> T getLast(List<T> list) {
+		return CollectionUtils.isEmpty(list) ? null : list.get(list.size() - 1);
 	}
 
 }
