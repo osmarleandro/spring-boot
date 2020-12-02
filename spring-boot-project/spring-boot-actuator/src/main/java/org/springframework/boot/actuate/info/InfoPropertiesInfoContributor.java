@@ -40,9 +40,9 @@ public abstract class InfoPropertiesInfoContributor<T extends InfoProperties> im
 
 	private static final Bindable<Map<String, Object>> STRING_OBJECT_MAP = Bindable.mapOf(String.class, Object.class);
 
-	private final T properties;
+	protected final T properties;
 
-	private final Mode mode;
+	protected final Mode mode;
 
 	protected InfoPropertiesInfoContributor(T properties, Mode mode) {
 		this.properties = properties;
@@ -100,17 +100,6 @@ public abstract class InfoPropertiesInfoContributor<T extends InfoProperties> im
 	 */
 	protected void postProcessContent(Map<String, Object> content) {
 
-	}
-
-	/**
-	 * Return the {@link PropertySource} to use based on the chosen {@link Mode}.
-	 * @return the property source
-	 */
-	protected PropertySource<?> toPropertySource() {
-		if (this.mode.equals(Mode.FULL)) {
-			return this.properties.toPropertySource();
-		}
-		return toSimplePropertySource();
 	}
 
 	/**
