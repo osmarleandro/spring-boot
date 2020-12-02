@@ -196,6 +196,10 @@ class DiscoveredOperationsFactoryTests {
 			super(operationMethod, invoker);
 		}
 
+		public OperationMethod getOperationMethod() {
+			return this.operationMethod;
+		}
+
 	}
 
 	static class TestOperationInvokerAdvisor implements OperationInvokerAdvisor {

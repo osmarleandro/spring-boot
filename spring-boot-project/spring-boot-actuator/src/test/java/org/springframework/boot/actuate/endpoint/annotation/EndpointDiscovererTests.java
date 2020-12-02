@@ -42,6 +42,7 @@ import org.springframework.boot.actuate.endpoint.invoke.OperationInvoker;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvokerAdvisor;
 import org.springframework.boot.actuate.endpoint.invoke.ParameterValueMapper;
 import org.springframework.boot.actuate.endpoint.invoke.convert.ConversionServiceParameterValueMapper;
+import org.springframework.boot.actuate.endpoint.invoke.reflect.OperationMethod;
 import org.springframework.boot.actuate.endpoint.invoker.cache.CachingOperationInvoker;
 import org.springframework.boot.actuate.endpoint.invoker.cache.CachingOperationInvokerAdvisor;
 import org.springframework.cglib.proxy.Enhancer;
@@ -622,6 +623,10 @@ class EndpointDiscovererTests {
 
 		OperationInvoker getInvoker() {
 			return this.invoker;
+		}
+
+		public OperationMethod getOperationMethod() {
+			return this.operationMethod;
 		}
 
 	}

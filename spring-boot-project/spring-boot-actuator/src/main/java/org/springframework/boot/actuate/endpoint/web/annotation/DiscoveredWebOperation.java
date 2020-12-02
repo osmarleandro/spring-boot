@@ -28,6 +28,7 @@ import org.springframework.boot.actuate.endpoint.annotation.AbstractDiscoveredOp
 import org.springframework.boot.actuate.endpoint.annotation.DiscoveredOperationMethod;
 import org.springframework.boot.actuate.endpoint.annotation.Selector;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvoker;
+import org.springframework.boot.actuate.endpoint.invoke.reflect.OperationMethod;
 import org.springframework.boot.actuate.endpoint.web.WebOperation;
 import org.springframework.boot.actuate.endpoint.web.WebOperationRequestPredicate;
 import org.springframework.core.style.ToStringCreator;
@@ -96,6 +97,10 @@ class DiscoveredWebOperation extends AbstractDiscoveredOperation implements WebO
 	protected void appendFields(ToStringCreator creator) {
 		creator.append("id", this.id).append("blocking", this.blocking).append("requestPredicate",
 				this.requestPredicate);
+	}
+
+	public OperationMethod getOperationMethod() {
+		return this.operationMethod;
 	}
 
 }

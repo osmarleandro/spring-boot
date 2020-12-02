@@ -128,6 +128,10 @@ class DiscoveredJmxOperation extends AbstractDiscoveredOperation implements JmxO
 				.append("parameters", this.parameters);
 	}
 
+	public OperationMethod getOperationMethod() {
+		return this.operationMethod;
+	}
+
 	/**
 	 * A discovered {@link JmxOperationParameter}.
 	 */
