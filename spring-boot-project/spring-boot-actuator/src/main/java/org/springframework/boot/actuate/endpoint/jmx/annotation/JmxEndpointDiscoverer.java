@@ -69,4 +69,14 @@ public class JmxEndpointDiscoverer extends EndpointDiscoverer<ExposableJmxEndpoi
 		return new OperationKey(operation.getName(), () -> "MBean call '" + operation.getName() + "'");
 	}
 
+	/**
+	 * Determine if an extension bean should be exposed. Subclasses can override this
+	 * method to provide additional logic.
+	 * @param extensionBeanType the extension bean type
+	 * @return {@code true} if the extension is exposed
+	 */
+	protected boolean isExtensionTypeExposed(Class<?> extensionBeanType) {
+		return true;
+	}
+
 }

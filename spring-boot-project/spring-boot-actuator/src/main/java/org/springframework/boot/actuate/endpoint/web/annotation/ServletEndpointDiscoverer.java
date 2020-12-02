@@ -79,4 +79,14 @@ public class ServletEndpointDiscoverer extends EndpointDiscoverer<ExposableServl
 		throw new IllegalStateException("ServletEndpoints must not declare operations");
 	}
 
+	/**
+	 * Determine if an extension bean should be exposed. Subclasses can override this
+	 * method to provide additional logic.
+	 * @param extensionBeanType the extension bean type
+	 * @return {@code true} if the extension is exposed
+	 */
+	protected boolean isExtensionTypeExposed(Class<?> extensionBeanType) {
+		return true;
+	}
+
 }
