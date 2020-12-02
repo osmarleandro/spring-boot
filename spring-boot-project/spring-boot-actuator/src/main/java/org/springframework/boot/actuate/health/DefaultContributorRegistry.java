@@ -39,7 +39,7 @@ class DefaultContributorRegistry<C> implements ContributorRegistry<C> {
 
 	private final Object monitor = new Object();
 
-	private volatile Map<String, C> contributors;
+	protected volatile Map<String, C> contributors;
 
 	DefaultContributorRegistry() {
 		this(Collections.emptyMap());
@@ -85,11 +85,6 @@ class DefaultContributorRegistry<C> implements ContributorRegistry<C> {
 			}
 			return unregistered;
 		}
-	}
-
-	@Override
-	public C getContributor(String name) {
-		return this.contributors.get(name);
 	}
 
 	@Override

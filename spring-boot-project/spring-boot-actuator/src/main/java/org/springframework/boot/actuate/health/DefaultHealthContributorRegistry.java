@@ -40,4 +40,9 @@ public class DefaultHealthContributorRegistry extends DefaultContributorRegistry
 		super(contributors, nameFactory);
 	}
 
+	@Override
+	public HealthContributor getContributor(String name) {
+		return this.contributors.get(name);
+	}
+
 }
