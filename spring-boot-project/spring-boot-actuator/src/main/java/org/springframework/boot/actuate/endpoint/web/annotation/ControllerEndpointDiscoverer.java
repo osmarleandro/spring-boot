@@ -19,6 +19,8 @@ package org.springframework.boot.actuate.endpoint.web.annotation;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 import org.springframework.boot.actuate.endpoint.EndpointFilter;
 import org.springframework.boot.actuate.endpoint.EndpointId;
@@ -31,6 +33,8 @@ import org.springframework.boot.actuate.endpoint.web.PathMapper;
 import org.springframework.context.ApplicationContext;
 import org.springframework.core.annotation.MergedAnnotations;
 import org.springframework.core.annotation.MergedAnnotations.SearchStrategy;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 
 /**
  * {@link EndpointDiscoverer} for {@link ExposableControllerEndpoint controller
@@ -78,6 +82,25 @@ public class ControllerEndpointDiscoverer extends EndpointDiscoverer<ExposableCo
 	@Override
 	protected OperationKey createOperationKey(Operation operation) {
 		throw new IllegalStateException("ControllerEndpoints must not declare operations");
+	}
+
+	private ExposableControllerEndpoint convertToEndpoint(EndpointBean endpointBean) {
+		MultiValueMap<OperationKey, Operation> indexed = new LinkedMultiValueMap<>();
+		EndpointId id = endpointBean.getId();
+		addOperations(indexed, id, endpointBean.getBean(), false);
+		if (endpointBean.getExtensions().size() > 1) {
+			String extensionBeans = endpointBean.getExtensions().stream().map(ExtensionBean::getBeanName)
+					.collect(Collectors.joining(", "));
+			throw new IllegalStateException("Found multiple extensions for the endpoint bean "
+					+ endpointBean.getBeanName() + " (" + extensionBeans + ")");
+		}
+		for (ExtensionBean extensionBean : endpointBean.getExtensions()) {
+			addOperations(indexed, id, extensionBean.getBean(), true);
+		}
+		assertNoDuplicateOperations(endpointBean, indexed);
+		List<Operation> operations = indexed.values().stream().map(this::getLast).filter(Objects::nonNull)
+				.collect(Collectors.collectingAndThen(Collectors.toList(), Collections::unmodifiableList));
+		return createEndpoint(endpointBean.getBean(), id, endpointBean.isEnabledByDefault(), operations);
 	}
 
 }

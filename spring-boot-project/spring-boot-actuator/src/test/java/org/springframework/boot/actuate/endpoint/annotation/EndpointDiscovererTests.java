@@ -29,8 +29,10 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.function.Consumer;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
 
@@ -52,6 +54,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.core.annotation.AliasFor;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.util.ReflectionUtils;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -559,6 +563,25 @@ class EndpointDiscovererTests {
 					() -> "TestOperation " + operation.getOperationMethod());
 		}
 
+		private TestExposableEndpoint convertToEndpoint(EndpointBean endpointBean) {
+			MultiValueMap<OperationKey, TestOperation> indexed = new LinkedMultiValueMap<>();
+			EndpointId id = endpointBean.getId();
+			addOperations(indexed, id, endpointBean.getBean(), false);
+			if (endpointBean.getExtensions().size() > 1) {
+				String extensionBeans = endpointBean.getExtensions().stream().map(ExtensionBean::getBeanName)
+						.collect(Collectors.joining(", "));
+				throw new IllegalStateException("Found multiple extensions for the endpoint bean "
+						+ endpointBean.getBeanName() + " (" + extensionBeans + ")");
+			}
+			for (ExtensionBean extensionBean : endpointBean.getExtensions()) {
+				addOperations(indexed, id, extensionBean.getBean(), true);
+			}
+			assertNoDuplicateOperations(endpointBean, indexed);
+			List<TestOperation> operations = indexed.values().stream().map(this::getLast).filter(Objects::nonNull)
+					.collect(Collectors.collectingAndThen(Collectors.toList(), Collections::unmodifiableList));
+			return createEndpoint(endpointBean.getBean(), id, endpointBean.isEnabledByDefault(), operations);
+		}
+
 	}
 
 	static class SpecializedEndpointDiscoverer
@@ -589,6 +612,25 @@ class EndpointDiscovererTests {
 		protected OperationKey createOperationKey(SpecializedOperation operation) {
 			return new OperationKey(operation.getOperationMethod(),
 					() -> "TestOperation " + operation.getOperationMethod());
+		}
+
+		private SpecializedExposableEndpoint convertToEndpoint(EndpointBean endpointBean) {
+			MultiValueMap<OperationKey, SpecializedOperation> indexed = new LinkedMultiValueMap<>();
+			EndpointId id = endpointBean.getId();
+			addOperations(indexed, id, endpointBean.getBean(), false);
+			if (endpointBean.getExtensions().size() > 1) {
+				String extensionBeans = endpointBean.getExtensions().stream().map(ExtensionBean::getBeanName)
+						.collect(Collectors.joining(", "));
+				throw new IllegalStateException("Found multiple extensions for the endpoint bean "
+						+ endpointBean.getBeanName() + " (" + extensionBeans + ")");
+			}
+			for (ExtensionBean extensionBean : endpointBean.getExtensions()) {
+				addOperations(indexed, id, extensionBean.getBean(), true);
+			}
+			assertNoDuplicateOperations(endpointBean, indexed);
+			List<SpecializedOperation> operations = indexed.values().stream().map(this::getLast).filter(Objects::nonNull)
+					.collect(Collectors.collectingAndThen(Collectors.toList(), Collections::unmodifiableList));
+			return createEndpoint(endpointBean.getBean(), id, endpointBean.isEnabledByDefault(), operations);
 		}
 
 	}

@@ -23,7 +23,6 @@ import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Function;
@@ -51,7 +50,6 @@ import org.springframework.core.env.Environment;
 import org.springframework.util.Assert;
 import org.springframework.util.ClassUtils;
 import org.springframework.util.CollectionUtils;
-import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.util.StringUtils;
 
@@ -185,26 +183,7 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 		return Collections.unmodifiableSet(endpoints);
 	}
 
-	private E convertToEndpoint(EndpointBean endpointBean) {
-		MultiValueMap<OperationKey, O> indexed = new LinkedMultiValueMap<>();
-		EndpointId id = endpointBean.getId();
-		addOperations(indexed, id, endpointBean.getBean(), false);
-		if (endpointBean.getExtensions().size() > 1) {
-			String extensionBeans = endpointBean.getExtensions().stream().map(ExtensionBean::getBeanName)
-					.collect(Collectors.joining(", "));
-			throw new IllegalStateException("Found multiple extensions for the endpoint bean "
-					+ endpointBean.getBeanName() + " (" + extensionBeans + ")");
-		}
-		for (ExtensionBean extensionBean : endpointBean.getExtensions()) {
-			addOperations(indexed, id, extensionBean.getBean(), true);
-		}
-		assertNoDuplicateOperations(endpointBean, indexed);
-		List<O> operations = indexed.values().stream().map(this::getLast).filter(Objects::nonNull)
-				.collect(Collectors.collectingAndThen(Collectors.toList(), Collections::unmodifiableList));
-		return createEndpoint(endpointBean.getBean(), id, endpointBean.isEnabledByDefault(), operations);
-	}
-
-	private void addOperations(MultiValueMap<OperationKey, O> indexed, EndpointId id, Object target,
+	protected void addOperations(MultiValueMap<OperationKey, O> indexed, EndpointId id, Object target,
 			boolean replaceLast) {
 		Set<OperationKey> replacedLast = new HashSet<>();
 		Collection<O> operations = this.operationsFactory.createOperations(id, target);
@@ -222,7 +201,7 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 		return CollectionUtils.isEmpty(list) ? null : list.get(list.size() - 1);
 	}
 
-	private void assertNoDuplicateOperations(EndpointBean endpointBean, MultiValueMap<OperationKey, O> indexed) {
+	protected void assertNoDuplicateOperations(EndpointBean endpointBean, MultiValueMap<OperationKey, O> indexed) {
 		List<OperationKey> duplicates = indexed.entrySet().stream().filter((entry) -> entry.getValue().size() > 1)
 				.map(Map.Entry::getKey).collect(Collectors.toList());
 		if (!duplicates.isEmpty()) {
@@ -370,7 +349,7 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 	 * A key generated for an {@link Operation} based on specific criteria from the actual
 	 * operation implementation.
 	 */
-	protected static final class OperationKey {
+	public static final class OperationKey {
 
 		private final Object key;
 
@@ -414,7 +393,7 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 	/**
 	 * Information about an {@link Endpoint @Endpoint} bean.
 	 */
-	private static class EndpointBean {
+	public static class EndpointBean {
 
 		private final String beanName;
 
@@ -448,7 +427,7 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 			this.extensions.add(extensionBean);
 		}
 
-		Set<ExtensionBean> getExtensions() {
+		public Set<ExtensionBean> getExtensions() {
 			return this.extensions;
 		}
 
@@ -457,7 +436,7 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 					.getValue(MergedAnnotation.VALUE, Class.class).orElse(null);
 		}
 
-		String getBeanName() {
+		public String getBeanName() {
 			return this.beanName;
 		}
 
@@ -465,15 +444,15 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 			return this.beanType;
 		}
 
-		Object getBean() {
+		public Object getBean() {
 			return this.beanSupplier.get();
 		}
 
-		EndpointId getId() {
+		public EndpointId getId() {
 			return this.id;
 		}
 
-		boolean isEnabledByDefault() {
+		public boolean isEnabledByDefault() {
 			return this.enabledByDefault;
 		}
 
@@ -486,7 +465,7 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 	/**
 	 * Information about an {@link EndpointExtension @EndpointExtension} bean.
 	 */
-	private static class ExtensionBean {
+	public static class ExtensionBean {
 
 		private final String beanName;
 
@@ -521,7 +500,7 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 			return this.beanType;
 		}
 
-		Object getBean() {
+		public Object getBean() {
 			return this.beanSupplier.get();
 		}
 
