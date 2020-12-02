@@ -80,4 +80,15 @@ public class ControllerEndpointDiscoverer extends EndpointDiscoverer<ExposableCo
 		throw new IllegalStateException("ControllerEndpoints must not declare operations");
 	}
 
+	/**
+	 * Determine if an extension bean should be exposed. Subclasses can override this
+	 * method to provide additional logic.
+	 * @param extensionBean the extension bean
+	 * @return {@code true} if the extension is exposed
+	 */
+	@Deprecated
+	protected boolean isExtensionExposed(Object extensionBean) {
+		return true;
+	}
+
 }
