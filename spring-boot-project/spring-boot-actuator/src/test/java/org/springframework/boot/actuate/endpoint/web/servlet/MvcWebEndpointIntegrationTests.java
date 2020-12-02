@@ -18,6 +18,7 @@ package org.springframework.boot.actuate.endpoint.web.servlet;
 
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.function.BiConsumer;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -41,6 +42,7 @@ import org.springframework.boot.autoconfigure.web.servlet.WebMvcAutoConfiguratio
 import org.springframework.boot.autoconfigure.web.servlet.error.ErrorMvcAutoConfiguration;
 import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
 import org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
@@ -52,6 +54,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestWrapper;
+import org.springframework.test.web.reactive.server.WebTestClient;
 import org.springframework.util.StringUtils;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -134,6 +137,10 @@ class MvcWebEndpointIntegrationTests
 	@Override
 	protected int getPort(AnnotationConfigServletWebServerApplicationContext context) {
 		return context.getWebServer().getPort();
+	}
+
+	private void load(Class<?> configuration, BiConsumer<ApplicationContext, WebTestClient> consumer) {
+		load((context) -> context.register(configuration), "/endpoints", consumer);
 	}
 
 	@Configuration(proxyBeanMethods = false)

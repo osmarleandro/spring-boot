@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.function.BiConsumer;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -42,6 +43,7 @@ import org.springframework.boot.actuate.endpoint.web.annotation.WebEndpointDisco
 import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
@@ -88,6 +90,10 @@ public class JerseyWebEndpointIntegrationTests
 	protected void validateErrorBody(WebTestClient.BodyContentSpec body, HttpStatus status, String path,
 			String message) {
 		// Jersey doesn't support the general error page handling
+	}
+
+	private void load(Class<?> configuration, BiConsumer<ApplicationContext, WebTestClient> consumer) {
+		load((context) -> context.register(configuration), "/endpoints", consumer);
 	}
 
 	@Configuration(proxyBeanMethods = false)

@@ -388,10 +388,6 @@ public abstract class AbstractWebEndpointIntegrationTests<T extends Configurable
 				.jsonPath("path").isEqualTo(path).jsonPath("message").isEqualTo(message);
 	}
 
-	private void load(Class<?> configuration, BiConsumer<ApplicationContext, WebTestClient> consumer) {
-		load((context) -> context.register(configuration), "/endpoints", consumer);
-	}
-
 	protected void load(Class<?> configuration, Consumer<WebTestClient> clientConsumer) {
 		load((context) -> context.register(configuration), "/endpoints",
 				(context, client) -> clientConsumer.accept(client));
@@ -406,7 +402,7 @@ public abstract class AbstractWebEndpointIntegrationTests<T extends Configurable
 				(context, client) -> clientConsumer.accept(client));
 	}
 
-	private void load(Consumer<T> contextCustomizer, String endpointPath,
+	protected void load(Consumer<T> contextCustomizer, String endpointPath,
 			BiConsumer<ApplicationContext, WebTestClient> consumer) {
 		T applicationContext = this.applicationContextSupplier.get();
 		contextCustomizer.accept(applicationContext);

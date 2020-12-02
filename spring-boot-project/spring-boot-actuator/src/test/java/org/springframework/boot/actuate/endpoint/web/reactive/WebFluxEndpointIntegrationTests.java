@@ -17,6 +17,7 @@
 package org.springframework.boot.actuate.endpoint.web.reactive;
 
 import java.util.Arrays;
+import java.util.function.BiConsumer;
 
 import org.junit.jupiter.api.Test;
 
@@ -41,6 +42,7 @@ import org.springframework.http.server.reactive.HttpHandler;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.ReactiveSecurityContextHolder;
+import org.springframework.test.web.reactive.server.WebTestClient;
 import org.springframework.util.StringUtils;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.reactive.config.EnableWebFlux;
@@ -98,6 +100,10 @@ class WebFluxEndpointIntegrationTests
 	@Override
 	protected int getPort(AnnotationConfigReactiveWebServerApplicationContext context) {
 		return context.getBean(ReactiveConfiguration.class).port;
+	}
+
+	private void load(Class<?> configuration, BiConsumer<ApplicationContext, WebTestClient> consumer) {
+		load((context) -> context.register(configuration), "/endpoints", consumer);
 	}
 
 	@Configuration(proxyBeanMethods = false)
