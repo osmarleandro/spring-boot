@@ -38,6 +38,7 @@ import org.springframework.boot.actuate.endpoint.EndpointFilter;
 import org.springframework.boot.actuate.endpoint.EndpointId;
 import org.springframework.boot.actuate.endpoint.ExposableEndpoint;
 import org.springframework.boot.actuate.endpoint.Operation;
+import org.springframework.boot.actuate.endpoint.OperationType;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvoker;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvokerAdvisor;
 import org.springframework.boot.actuate.endpoint.invoke.ParameterValueMapper;
@@ -622,6 +623,11 @@ class EndpointDiscovererTests {
 
 		OperationInvoker getInvoker() {
 			return this.invoker;
+		}
+
+		@Override
+		public OperationType getType() {
+			return this.operationMethod.getOperationType();
 		}
 
 	}

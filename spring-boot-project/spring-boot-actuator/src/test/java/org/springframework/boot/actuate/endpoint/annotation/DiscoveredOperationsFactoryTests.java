@@ -196,6 +196,11 @@ class DiscoveredOperationsFactoryTests {
 			super(operationMethod, invoker);
 		}
 
+		@Override
+		public OperationType getType() {
+			return this.operationMethod.getOperationType();
+		}
+
 	}
 
 	static class TestOperationInvokerAdvisor implements OperationInvokerAdvisor {

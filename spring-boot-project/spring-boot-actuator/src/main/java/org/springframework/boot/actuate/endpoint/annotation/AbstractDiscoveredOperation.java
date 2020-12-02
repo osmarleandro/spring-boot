@@ -18,7 +18,6 @@ package org.springframework.boot.actuate.endpoint.annotation;
 
 import org.springframework.boot.actuate.endpoint.InvocationContext;
 import org.springframework.boot.actuate.endpoint.Operation;
-import org.springframework.boot.actuate.endpoint.OperationType;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvoker;
 import org.springframework.boot.actuate.endpoint.invoke.reflect.OperationMethod;
 import org.springframework.core.style.ToStringCreator;
@@ -32,7 +31,7 @@ import org.springframework.core.style.ToStringCreator;
  */
 public abstract class AbstractDiscoveredOperation implements Operation {
 
-	private final OperationMethod operationMethod;
+	protected final OperationMethod operationMethod;
 
 	private final OperationInvoker invoker;
 
@@ -48,11 +47,6 @@ public abstract class AbstractDiscoveredOperation implements Operation {
 
 	public OperationMethod getOperationMethod() {
 		return this.operationMethod;
-	}
-
-	@Override
-	public OperationType getType() {
-		return this.operationMethod.getOperationType();
 	}
 
 	@Override

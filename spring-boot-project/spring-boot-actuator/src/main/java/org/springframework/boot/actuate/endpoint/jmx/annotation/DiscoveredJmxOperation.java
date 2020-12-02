@@ -27,6 +27,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.springframework.boot.actuate.endpoint.EndpointId;
+import org.springframework.boot.actuate.endpoint.OperationType;
 import org.springframework.boot.actuate.endpoint.annotation.AbstractDiscoveredOperation;
 import org.springframework.boot.actuate.endpoint.annotation.DiscoveredOperationMethod;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvoker;
@@ -126,6 +127,11 @@ class DiscoveredJmxOperation extends AbstractDiscoveredOperation implements JmxO
 	protected void appendFields(ToStringCreator creator) {
 		creator.append("name", this.name).append("outputType", this.outputType).append("description", this.description)
 				.append("parameters", this.parameters);
+	}
+
+	@Override
+	public OperationType getType() {
+		return this.operationMethod.getOperationType();
 	}
 
 	/**

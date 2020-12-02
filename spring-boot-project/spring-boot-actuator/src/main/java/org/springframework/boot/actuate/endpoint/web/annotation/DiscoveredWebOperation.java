@@ -24,6 +24,7 @@ import java.util.stream.Stream;
 import org.reactivestreams.Publisher;
 
 import org.springframework.boot.actuate.endpoint.EndpointId;
+import org.springframework.boot.actuate.endpoint.OperationType;
 import org.springframework.boot.actuate.endpoint.annotation.AbstractDiscoveredOperation;
 import org.springframework.boot.actuate.endpoint.annotation.DiscoveredOperationMethod;
 import org.springframework.boot.actuate.endpoint.annotation.Selector;
@@ -96,6 +97,11 @@ class DiscoveredWebOperation extends AbstractDiscoveredOperation implements WebO
 	protected void appendFields(ToStringCreator creator) {
 		creator.append("id", this.id).append("blocking", this.blocking).append("requestPredicate",
 				this.requestPredicate);
+	}
+
+	@Override
+	public OperationType getType() {
+		return this.operationMethod.getOperationType();
 	}
 
 }
