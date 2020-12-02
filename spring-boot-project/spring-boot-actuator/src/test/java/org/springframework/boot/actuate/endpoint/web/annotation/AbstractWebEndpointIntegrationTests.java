@@ -175,16 +175,6 @@ public abstract class AbstractWebEndpointIntegrationTests<T extends Configurable
 	}
 
 	@Test
-	void writeOperation() {
-		load(TestEndpointConfiguration.class, (client) -> {
-			Map<String, Object> body = new HashMap<>();
-			body.put("foo", "one");
-			body.put("bar", "two");
-			client.post().uri("/test").bodyValue(body).exchange().expectStatus().isNoContent().expectBody().isEmpty();
-		});
-	}
-
-	@Test
 	void writeOperationWithVoidResponse() {
 		load(VoidWriteResponseEndpointConfiguration.class, (context, client) -> {
 			client.post().uri("/voidwrite").exchange().expectStatus().isNoContent().expectBody().isEmpty();
@@ -428,7 +418,8 @@ public abstract class AbstractWebEndpointIntegrationTests<T extends Configurable
 
 	@Configuration(proxyBeanMethods = false)
 	@Import(BaseConfiguration.class)
-	protected static class TestEndpointConfiguration {
+	public
+	static class TestEndpointConfiguration {
 
 		@Bean
 		public TestEndpoint testEndpoint(EndpointDelegate endpointDelegate) {

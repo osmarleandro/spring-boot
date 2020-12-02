@@ -17,6 +17,8 @@
 package org.springframework.boot.actuate.endpoint.web.reactive;
 
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.junit.jupiter.api.Test;
 
@@ -98,6 +100,16 @@ class WebFluxEndpointIntegrationTests
 	@Override
 	protected int getPort(AnnotationConfigReactiveWebServerApplicationContext context) {
 		return context.getBean(ReactiveConfiguration.class).port;
+	}
+
+	@Test
+	void writeOperation() {
+		load(TestEndpointConfiguration.class, (client) -> {
+			Map<String, Object> body = new HashMap<>();
+			body.put("foo", "one");
+			body.put("bar", "two");
+			client.post().uri("/test").bodyValue(body).exchange().expectStatus().isNoContent().expectBody().isEmpty();
+		});
 	}
 
 	@Configuration(proxyBeanMethods = false)
