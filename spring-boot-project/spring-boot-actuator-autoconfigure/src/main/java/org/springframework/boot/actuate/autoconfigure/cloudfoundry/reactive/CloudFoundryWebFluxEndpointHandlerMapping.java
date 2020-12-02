@@ -76,6 +76,18 @@ class CloudFoundryWebFluxEndpointHandlerMapping extends AbstractWebFluxEndpointH
 		return new CloudFoundryLinksHandler();
 	}
 
+	/**
+	 * Hook point that allows subclasses to wrap the {@link ReactiveWebOperation} before
+	 * it's called. Allows additional features, such as security, to be added.
+	 * @param endpoint the source endpoint
+	 * @param operation the source operation
+	 * @param reactiveWebOperation the reactive web operation to wrap
+	 * @return a wrapped reactive web operation
+	 */
+	protected ReactiveWebOperation wrapReactiveWebOperation(ExposableWebEndpoint endpoint, WebOperation operation, ReactiveWebOperation reactiveWebOperation) {
+		return reactiveWebOperation;
+	}
+
 	class CloudFoundryLinksHandler implements LinksHandler {
 
 		@Override

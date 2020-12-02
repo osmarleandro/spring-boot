@@ -26,6 +26,7 @@ import org.springframework.boot.actuate.endpoint.web.EndpointMapping;
 import org.springframework.boot.actuate.endpoint.web.EndpointMediaTypes;
 import org.springframework.boot.actuate.endpoint.web.ExposableWebEndpoint;
 import org.springframework.boot.actuate.endpoint.web.Link;
+import org.springframework.boot.actuate.endpoint.web.WebOperation;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.reactive.HandlerMapping;
@@ -66,6 +67,18 @@ public class WebFluxEndpointHandlerMapping extends AbstractWebFluxEndpointHandle
 	@Override
 	protected LinksHandler getLinksHandler() {
 		return new WebFluxLinksHandler();
+	}
+
+	/**
+	 * Hook point that allows subclasses to wrap the {@link ReactiveWebOperation} before
+	 * it's called. Allows additional features, such as security, to be added.
+	 * @param endpoint the source endpoint
+	 * @param operation the source operation
+	 * @param reactiveWebOperation the reactive web operation to wrap
+	 * @return a wrapped reactive web operation
+	 */
+	protected ReactiveWebOperation wrapReactiveWebOperation(ExposableWebEndpoint endpoint, WebOperation operation, ReactiveWebOperation reactiveWebOperation) {
+		return reactiveWebOperation;
 	}
 
 	/**

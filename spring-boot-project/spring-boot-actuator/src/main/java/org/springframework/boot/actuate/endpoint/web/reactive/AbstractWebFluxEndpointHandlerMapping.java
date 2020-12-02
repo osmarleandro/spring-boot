@@ -150,19 +150,6 @@ public abstract class AbstractWebFluxEndpointHandlerMapping extends RequestMappi
 		}
 	}
 
-	/**
-	 * Hook point that allows subclasses to wrap the {@link ReactiveWebOperation} before
-	 * it's called. Allows additional features, such as security, to be added.
-	 * @param endpoint the source endpoint
-	 * @param operation the source operation
-	 * @param reactiveWebOperation the reactive web operation to wrap
-	 * @return a wrapped reactive web operation
-	 */
-	protected ReactiveWebOperation wrapReactiveWebOperation(ExposableWebEndpoint endpoint, WebOperation operation,
-			ReactiveWebOperation reactiveWebOperation) {
-		return reactiveWebOperation;
-	}
-
 	private RequestMappingInfo createRequestMappingInfo(WebOperation operation) {
 		WebOperationRequestPredicate predicate = operation.getRequestPredicate();
 		PatternsRequestCondition patterns = new PatternsRequestCondition(
@@ -256,7 +243,7 @@ public abstract class AbstractWebFluxEndpointHandlerMapping extends RequestMappi
 	 * A reactive web operation that can be handled by WebFlux.
 	 */
 	@FunctionalInterface
-	protected interface ReactiveWebOperation {
+	public interface ReactiveWebOperation {
 
 		Mono<ResponseEntity<Object>> handle(ServerWebExchange exchange, Map<String, String> body);
 
