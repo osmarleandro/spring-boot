@@ -37,7 +37,7 @@ import org.springframework.util.Assert;
  */
 public class CompositeHealth extends HealthComponent {
 
-	private final Status status;
+	protected final Status status;
 
 	private final Map<String, HealthComponent> components;
 
@@ -52,11 +52,6 @@ public class CompositeHealth extends HealthComponent {
 
 	private Map<String, HealthComponent> sort(Map<String, HealthComponent> components) {
 		return (components != null) ? new TreeMap<>(components) : components;
-	}
-
-	@Override
-	public Status getStatus() {
-		return this.status;
 	}
 
 	@JsonInclude(Include.NON_EMPTY)

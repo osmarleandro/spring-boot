@@ -46,4 +46,9 @@ public final class SystemHealth extends CompositeHealth {
 		return this.groups;
 	}
 
+	@Override
+	public Status getStatus() {
+		return this.status;
+	}
+
 }
