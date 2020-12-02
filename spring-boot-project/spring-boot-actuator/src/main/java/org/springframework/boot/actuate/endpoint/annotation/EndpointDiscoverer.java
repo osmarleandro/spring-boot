@@ -41,6 +41,7 @@ import org.springframework.boot.actuate.endpoint.Operation;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvoker;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvokerAdvisor;
 import org.springframework.boot.actuate.endpoint.invoke.ParameterValueMapper;
+import org.springframework.boot.actuate.endpoint.invoke.reflect.OperationMethod;
 import org.springframework.boot.util.LambdaSafe;
 import org.springframework.context.ApplicationContext;
 import org.springframework.core.ResolvableType;
@@ -365,6 +366,16 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 	 * @return the operation key
 	 */
 	protected abstract OperationKey createOperationKey(O operation);
+
+	private OperationInvoker applyAdvisors(EndpointId endpointId, OperationMethod operationMethod, OperationInvoker invoker) {
+		if (this.invokerAdvisors != null) {
+			for (OperationInvokerAdvisor advisor : this.invokerAdvisors) {
+				invoker = advisor.apply(endpointId, operationMethod.getOperationType(), operationMethod.getParameters(),
+						invoker);
+			}
+		}
+		return invoker;
+	}
 
 	/**
 	 * A key generated for an {@link Operation} based on specific criteria from the actual

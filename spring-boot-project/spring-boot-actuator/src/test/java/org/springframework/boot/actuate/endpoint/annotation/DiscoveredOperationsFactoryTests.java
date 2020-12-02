@@ -188,6 +188,16 @@ class DiscoveredOperationsFactoryTests {
 			return new TestOperation(endpointId, operationMethod, invoker);
 		}
 
+		private OperationInvoker applyAdvisors(EndpointId endpointId, OperationMethod operationMethod, OperationInvoker invoker) {
+			if (this.invokerAdvisors != null) {
+				for (OperationInvokerAdvisor advisor : this.invokerAdvisors) {
+					invoker = advisor.apply(endpointId, operationMethod.getOperationType(), operationMethod.getParameters(),
+							invoker);
+				}
+			}
+			return invoker;
+		}
+
 	}
 
 	static class TestOperation extends AbstractDiscoveredOperation {
