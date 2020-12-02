@@ -201,4 +201,9 @@ class EndpointMBeanTests {
 		return new EndpointMBean(this.responseMapper, null, this.endpoint);
 	}
 
+	@Override
+	public Object invoke(InvocationContext context) {
+		return (this.invoke != null) ? this.invoke.apply(context.getArguments()) : "result";
+	}
+
 }

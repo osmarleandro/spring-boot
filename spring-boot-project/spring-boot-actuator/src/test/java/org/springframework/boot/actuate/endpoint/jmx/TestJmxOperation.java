@@ -21,7 +21,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 
-import org.springframework.boot.actuate.endpoint.InvocationContext;
 import org.springframework.boot.actuate.endpoint.OperationType;
 
 /**
@@ -33,7 +32,7 @@ public class TestJmxOperation implements JmxOperation {
 
 	private final OperationType operationType;
 
-	private final Function<Map<String, Object>, Object> invoke;
+	protected final Function<Map<String, Object>, Object> invoke;
 
 	private final List<JmxOperationParameter> parameters;
 
@@ -64,11 +63,6 @@ public class TestJmxOperation implements JmxOperation {
 	@Override
 	public OperationType getType() {
 		return this.operationType;
-	}
-
-	@Override
-	public Object invoke(InvocationContext context) {
-		return (this.invoke != null) ? this.invoke.apply(context.getArguments()) : "result";
 	}
 
 	@Override
