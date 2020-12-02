@@ -199,14 +199,6 @@ public abstract class AbstractWebEndpointIntegrationTests<T extends Configurable
 	}
 
 	@Test
-	void deleteOperationWithVoidResponse() {
-		load(VoidDeleteResponseEndpointConfiguration.class, (context, client) -> {
-			client.delete().uri("/voiddelete").exchange().expectStatus().isNoContent().expectBody().isEmpty();
-			verify(context.getBean(EndpointDelegate.class)).delete();
-		});
-	}
-
-	@Test
 	void nullIsPassedToTheOperationWhenArgumentIsNotFoundInPostRequestBody() {
 		load(TestEndpointConfiguration.class, (context, client) -> {
 			Map<String, Object> body = new HashMap<>();
@@ -388,7 +380,7 @@ public abstract class AbstractWebEndpointIntegrationTests<T extends Configurable
 				.jsonPath("path").isEqualTo(path).jsonPath("message").isEqualTo(message);
 	}
 
-	private void load(Class<?> configuration, BiConsumer<ApplicationContext, WebTestClient> consumer) {
+	protected void load(Class<?> configuration, BiConsumer<ApplicationContext, WebTestClient> consumer) {
 		load((context) -> context.register(configuration), "/endpoints", consumer);
 	}
 
@@ -483,6 +475,7 @@ public abstract class AbstractWebEndpointIntegrationTests<T extends Configurable
 
 	@Configuration(proxyBeanMethods = false)
 	@Import(BaseConfiguration.class)
+	public
 	static class VoidDeleteResponseEndpointConfiguration {
 
 		@Bean
@@ -850,7 +843,7 @@ public abstract class AbstractWebEndpointIntegrationTests<T extends Configurable
 
 	}
 
-	interface EndpointDelegate {
+	public interface EndpointDelegate {
 
 		void write();
 

@@ -58,6 +58,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import org.springframework.web.servlet.handler.RequestMatchResult;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.verify;
 
 /**
  * Integration tests for web endpoints exposed using Spring MVC.
@@ -134,6 +135,14 @@ class MvcWebEndpointIntegrationTests
 	@Override
 	protected int getPort(AnnotationConfigServletWebServerApplicationContext context) {
 		return context.getWebServer().getPort();
+	}
+
+	@Test
+	void deleteOperationWithVoidResponse() {
+		load(VoidDeleteResponseEndpointConfiguration.class, (context, client) -> {
+			client.delete().uri("/voiddelete").exchange().expectStatus().isNoContent().expectBody().isEmpty();
+			verify(context.getBean(EndpointDelegate.class)).delete();
+		});
 	}
 
 	@Configuration(proxyBeanMethods = false)
