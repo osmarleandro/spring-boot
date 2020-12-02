@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.function.Consumer;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -88,6 +89,11 @@ public class JerseyWebEndpointIntegrationTests
 	protected void validateErrorBody(WebTestClient.BodyContentSpec body, HttpStatus status, String path,
 			String message) {
 		// Jersey doesn't support the general error page handling
+	}
+
+	protected void load(Class<?> configuration, Consumer<WebTestClient> clientConsumer) {
+		load((context) -> context.register(configuration), "/endpoints",
+				(context, client) -> clientConsumer.accept(client));
 	}
 
 	@Configuration(proxyBeanMethods = false)
