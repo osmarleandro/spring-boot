@@ -22,6 +22,7 @@ import java.util.Collections;
 import java.util.List;
 
 import org.springframework.boot.actuate.endpoint.OperationType;
+import org.springframework.boot.actuate.endpoint.invoke.OperationParameters;
 import org.springframework.boot.actuate.endpoint.invoke.reflect.OperationMethod;
 import org.springframework.core.annotation.AnnotationAttributes;
 import org.springframework.util.Assert;
@@ -46,6 +47,14 @@ public class DiscoveredOperationMethod extends OperationMethod {
 
 	public List<String> getProducesMediaTypes() {
 		return this.producesMediaTypes;
+	}
+
+	/**
+	 * Return the operation parameters.
+	 * @return the operation parameters
+	 */
+	public OperationParameters getParameters() {
+		return this.operationParameters;
 	}
 
 }
