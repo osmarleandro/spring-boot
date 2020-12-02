@@ -17,6 +17,7 @@
 package org.springframework.boot.actuate.endpoint.web.annotation;
 
 import org.springframework.boot.actuate.endpoint.EndpointFilter;
+import org.springframework.boot.actuate.endpoint.annotation.DiscoveredEndpoint;
 import org.springframework.boot.actuate.endpoint.annotation.DiscovererEndpointFilter;
 
 /**
@@ -29,6 +30,11 @@ class ControllerEndpointFilter extends DiscovererEndpointFilter {
 
 	ControllerEndpointFilter() {
 		super(ControllerEndpointDiscoverer.class);
+	}
+
+	@Override
+	public boolean match(DiscoveredEndpoint<?> endpoint) {
+		return endpoint.wasDiscoveredBy(this.discoverer);
 	}
 
 }

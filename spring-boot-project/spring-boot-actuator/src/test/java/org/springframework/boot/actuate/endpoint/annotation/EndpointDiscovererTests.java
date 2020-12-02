@@ -484,6 +484,11 @@ class EndpointDiscovererTests {
 			super(SpecializedEndpointDiscoverer.class);
 		}
 
+		@Override
+		public boolean match(DiscoveredEndpoint<?> endpoint) {
+			return endpoint.wasDiscoveredBy(this.discoverer);
+		}
+
 	}
 
 	@SpecializedEndpoint(id = "specialized")

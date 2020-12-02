@@ -17,6 +17,7 @@
 package org.springframework.boot.actuate.autoconfigure.cloudfoundry;
 
 import org.springframework.boot.actuate.endpoint.EndpointFilter;
+import org.springframework.boot.actuate.endpoint.annotation.DiscoveredEndpoint;
 import org.springframework.boot.actuate.endpoint.annotation.DiscovererEndpointFilter;
 
 /**
@@ -29,6 +30,11 @@ class CloudFoundryEndpointFilter extends DiscovererEndpointFilter {
 
 	protected CloudFoundryEndpointFilter() {
 		super(CloudFoundryWebEndpointDiscoverer.class);
+	}
+
+	@Override
+	public boolean match(DiscoveredEndpoint<?> endpoint) {
+		return endpoint.wasDiscoveredBy(this.discoverer);
 	}
 
 }

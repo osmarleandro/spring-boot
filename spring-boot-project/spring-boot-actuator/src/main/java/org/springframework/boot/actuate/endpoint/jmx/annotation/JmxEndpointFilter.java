@@ -17,6 +17,7 @@
 package org.springframework.boot.actuate.endpoint.jmx.annotation;
 
 import org.springframework.boot.actuate.endpoint.EndpointFilter;
+import org.springframework.boot.actuate.endpoint.annotation.DiscoveredEndpoint;
 import org.springframework.boot.actuate.endpoint.annotation.DiscovererEndpointFilter;
 
 /**
@@ -28,6 +29,11 @@ class JmxEndpointFilter extends DiscovererEndpointFilter {
 
 	JmxEndpointFilter() {
 		super(JmxEndpointDiscoverer.class);
+	}
+
+	@Override
+	public boolean match(DiscoveredEndpoint<?> endpoint) {
+		return endpoint.wasDiscoveredBy(this.discoverer);
 	}
 
 }

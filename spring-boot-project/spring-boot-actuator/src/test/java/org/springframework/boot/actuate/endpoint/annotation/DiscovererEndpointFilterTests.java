@@ -72,6 +72,11 @@ class DiscovererEndpointFilterTests {
 			super(discoverer);
 		}
 
+		@Override
+		public boolean match(DiscoveredEndpoint<?> endpoint) {
+			return endpoint.wasDiscoveredBy(this.discoverer);
+		}
+
 	}
 
 	abstract static class TestDiscovererA extends EndpointDiscoverer<ExposableEndpoint<Operation>, Operation> {
