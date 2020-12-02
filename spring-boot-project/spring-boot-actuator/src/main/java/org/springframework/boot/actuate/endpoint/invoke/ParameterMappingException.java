@@ -61,4 +61,12 @@ public final class ParameterMappingException extends InvalidEndpointRequestExcep
 		return this.value;
 	}
 
+	/**
+	 * Return the reason explaining why the request is invalid, potentially {@code null}.
+	 * @return the reason for the failure
+	 */
+	public String getReason() {
+		return this.reason;
+	}
+
 }

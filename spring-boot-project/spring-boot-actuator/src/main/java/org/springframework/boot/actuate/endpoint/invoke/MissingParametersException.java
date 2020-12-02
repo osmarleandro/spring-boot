@@ -50,4 +50,12 @@ public final class MissingParametersException extends InvalidEndpointRequestExce
 		return this.missingParameters;
 	}
 
+	/**
+	 * Return the reason explaining why the request is invalid, potentially {@code null}.
+	 * @return the reason for the failure
+	 */
+	public String getReason() {
+		return this.reason;
+	}
+
 }
