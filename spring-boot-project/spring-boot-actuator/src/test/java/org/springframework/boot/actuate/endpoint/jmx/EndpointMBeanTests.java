@@ -201,4 +201,9 @@ class EndpointMBeanTests {
 		return new EndpointMBean(this.responseMapper, null, this.endpoint);
 	}
 
+	@Override
+	public Class<?> getOutputType() {
+		return String.class;
+	}
+
 }
