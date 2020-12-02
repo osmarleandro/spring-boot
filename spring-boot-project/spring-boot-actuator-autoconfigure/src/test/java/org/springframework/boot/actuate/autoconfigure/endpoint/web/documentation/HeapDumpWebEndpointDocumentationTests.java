@@ -16,7 +16,11 @@
 
 package org.springframework.boot.actuate.autoconfigure.endpoint.web.documentation;
 
+import java.io.File;
 import java.io.FileWriter;
+import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Map;
 
 import org.junit.jupiter.api.Test;
@@ -70,6 +74,13 @@ class HeapDumpWebEndpointDocumentationTests extends MockMvcEndpointDocumentation
 				}
 
 			};
+		}
+
+		private File createTempFile(boolean live) throws IOException {
+			String date = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm").format(LocalDateTime.now());
+			File file = File.createTempFile("heapdump" + date + (live ? "-live" : ""), ".hprof");
+			file.delete();
+			return file;
 		}
 
 	}

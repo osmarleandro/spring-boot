@@ -27,8 +27,6 @@ import java.lang.reflect.Method;
 import java.nio.ByteBuffer;
 import java.nio.channels.ReadableByteChannel;
 import java.nio.file.Files;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
@@ -103,13 +101,6 @@ public class HeapDumpWebEndpoint {
 		File file = createTempFile(live);
 		this.heapDumper.dumpHeap(file, live);
 		return new TemporaryFileSystemResource(file);
-	}
-
-	private File createTempFile(boolean live) throws IOException {
-		String date = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm").format(LocalDateTime.now());
-		File file = File.createTempFile("heapdump" + date + (live ? "-live" : ""), ".hprof");
-		file.delete();
-		return file;
 	}
 
 	/**

@@ -19,6 +19,8 @@ package org.springframework.boot.actuate.management;
 import java.io.File;
 import java.io.IOException;
 import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.concurrent.TimeUnit;
 
 import org.awaitility.Awaitility;
@@ -112,6 +114,13 @@ class HeapDumpWebEndpointWebIntegrationTests {
 
 		void setAvailable(boolean available) {
 			this.available = available;
+		}
+
+		private File createTempFile(boolean live) throws IOException {
+			String date = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm").format(LocalDateTime.now());
+			File file = File.createTempFile("heapdump" + date + (live ? "-live" : ""), ".hprof");
+			file.delete();
+			return file;
 		}
 
 	}
