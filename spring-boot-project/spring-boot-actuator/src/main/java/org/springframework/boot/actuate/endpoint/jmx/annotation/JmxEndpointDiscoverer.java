@@ -17,6 +17,10 @@
 package org.springframework.boot.actuate.endpoint.jmx.annotation;
 
 import java.util.Collection;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.springframework.boot.actuate.endpoint.EndpointFilter;
 import org.springframework.boot.actuate.endpoint.EndpointId;
@@ -29,6 +33,7 @@ import org.springframework.boot.actuate.endpoint.jmx.ExposableJmxEndpoint;
 import org.springframework.boot.actuate.endpoint.jmx.JmxEndpointsSupplier;
 import org.springframework.boot.actuate.endpoint.jmx.JmxOperation;
 import org.springframework.context.ApplicationContext;
+import org.springframework.util.MultiValueMap;
 
 /**
  * {@link EndpointDiscoverer} for {@link ExposableJmxEndpoint JMX endpoints}.
@@ -67,6 +72,19 @@ public class JmxEndpointDiscoverer extends EndpointDiscoverer<ExposableJmxEndpoi
 	@Override
 	protected OperationKey createOperationKey(JmxOperation operation) {
 		return new OperationKey(operation.getName(), () -> "MBean call '" + operation.getName() + "'");
+	}
+
+	private void assertNoDuplicateOperations(EndpointBean endpointBean, MultiValueMap<OperationKey, JmxOperation> indexed) {
+		List<OperationKey> duplicates = indexed.entrySet().stream().filter((entry) -> entry.getValue().size() > 1)
+				.map(Map.Entry::getKey).collect(Collectors.toList());
+		if (!duplicates.isEmpty()) {
+			Set<ExtensionBean> extensions = endpointBean.getExtensions();
+			String extensionBeanNames = extensions.stream().map(ExtensionBean::getBeanName)
+					.collect(Collectors.joining(", "));
+			throw new IllegalStateException("Unable to map duplicate endpoint operations: " + duplicates.toString()
+					+ " to " + endpointBean.getBeanName()
+					+ (extensions.isEmpty() ? "" : " (" + extensionBeanNames + ")"));
+		}
 	}
 
 }

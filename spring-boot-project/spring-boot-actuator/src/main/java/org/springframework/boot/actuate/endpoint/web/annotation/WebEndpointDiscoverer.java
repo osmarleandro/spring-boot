@@ -18,6 +18,9 @@ package org.springframework.boot.actuate.endpoint.web.annotation;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.springframework.boot.actuate.endpoint.EndpointFilter;
 import org.springframework.boot.actuate.endpoint.EndpointId;
@@ -33,6 +36,7 @@ import org.springframework.boot.actuate.endpoint.web.WebEndpointsSupplier;
 import org.springframework.boot.actuate.endpoint.web.WebOperation;
 import org.springframework.boot.actuate.endpoint.web.WebOperationRequestPredicate;
 import org.springframework.context.ApplicationContext;
+import org.springframework.util.MultiValueMap;
 
 /**
  * {@link EndpointDiscoverer} for {@link ExposableWebEndpoint web endpoints}.
@@ -85,6 +89,19 @@ public class WebEndpointDiscoverer extends EndpointDiscoverer<ExposableWebEndpoi
 	protected OperationKey createOperationKey(WebOperation operation) {
 		return new OperationKey(operation.getRequestPredicate(),
 				() -> "web request predicate " + operation.getRequestPredicate());
+	}
+
+	private void assertNoDuplicateOperations(EndpointBean endpointBean, MultiValueMap<OperationKey, WebOperation> indexed) {
+		List<OperationKey> duplicates = indexed.entrySet().stream().filter((entry) -> entry.getValue().size() > 1)
+				.map(Map.Entry::getKey).collect(Collectors.toList());
+		if (!duplicates.isEmpty()) {
+			Set<ExtensionBean> extensions = endpointBean.getExtensions();
+			String extensionBeanNames = extensions.stream().map(ExtensionBean::getBeanName)
+					.collect(Collectors.joining(", "));
+			throw new IllegalStateException("Unable to map duplicate endpoint operations: " + duplicates.toString()
+					+ " to " + endpointBean.getBeanName()
+					+ (extensions.isEmpty() ? "" : " (" + extensionBeanNames + ")"));
+		}
 	}
 
 }

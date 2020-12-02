@@ -17,6 +17,10 @@
 package org.springframework.boot.actuate.endpoint.annotation;
 
 import java.util.Collection;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
 
@@ -26,6 +30,7 @@ import org.springframework.boot.actuate.endpoint.Operation;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvokerAdvisor;
 import org.springframework.boot.actuate.endpoint.invoke.ParameterValueMapper;
 import org.springframework.context.ApplicationContext;
+import org.springframework.util.MultiValueMap;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
@@ -82,6 +87,19 @@ class DiscovererEndpointFilterTests {
 			super(applicationContext, parameterValueMapper, invokerAdvisors, filters);
 		}
 
+		private void assertNoDuplicateOperations(EndpointBean endpointBean, MultiValueMap<OperationKey, Operation> indexed) {
+			List<OperationKey> duplicates = indexed.entrySet().stream().filter((entry) -> entry.getValue().size() > 1)
+					.map(Map.Entry::getKey).collect(Collectors.toList());
+			if (!duplicates.isEmpty()) {
+				Set<ExtensionBean> extensions = endpointBean.getExtensions();
+				String extensionBeanNames = extensions.stream().map(ExtensionBean::getBeanName)
+						.collect(Collectors.joining(", "));
+				throw new IllegalStateException("Unable to map duplicate endpoint operations: " + duplicates.toString()
+						+ " to " + endpointBean.getBeanName()
+						+ (extensions.isEmpty() ? "" : " (" + extensionBeanNames + ")"));
+			}
+		}
+
 	}
 
 	abstract static class TestDiscovererB extends EndpointDiscoverer<ExposableEndpoint<Operation>, Operation> {
@@ -90,6 +108,19 @@ class DiscovererEndpointFilterTests {
 				Collection<OperationInvokerAdvisor> invokerAdvisors,
 				Collection<EndpointFilter<ExposableEndpoint<Operation>>> filters) {
 			super(applicationContext, parameterValueMapper, invokerAdvisors, filters);
+		}
+
+		private void assertNoDuplicateOperations(EndpointBean endpointBean, MultiValueMap<OperationKey, Operation> indexed) {
+			List<OperationKey> duplicates = indexed.entrySet().stream().filter((entry) -> entry.getValue().size() > 1)
+					.map(Map.Entry::getKey).collect(Collectors.toList());
+			if (!duplicates.isEmpty()) {
+				Set<ExtensionBean> extensions = endpointBean.getExtensions();
+				String extensionBeanNames = extensions.stream().map(ExtensionBean::getBeanName)
+						.collect(Collectors.joining(", "));
+				throw new IllegalStateException("Unable to map duplicate endpoint operations: " + duplicates.toString()
+						+ " to " + endpointBean.getBeanName()
+						+ (extensions.isEmpty() ? "" : " (" + extensionBeanNames + ")"));
+			}
 		}
 
 	}

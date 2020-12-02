@@ -29,8 +29,10 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.function.Consumer;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
 
@@ -52,6 +54,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.core.annotation.AliasFor;
+import org.springframework.util.MultiValueMap;
 import org.springframework.util.ReflectionUtils;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -559,6 +562,19 @@ class EndpointDiscovererTests {
 					() -> "TestOperation " + operation.getOperationMethod());
 		}
 
+		private void assertNoDuplicateOperations(EndpointBean endpointBean, MultiValueMap<OperationKey, TestOperation> indexed) {
+			List<OperationKey> duplicates = indexed.entrySet().stream().filter((entry) -> entry.getValue().size() > 1)
+					.map(Map.Entry::getKey).collect(Collectors.toList());
+			if (!duplicates.isEmpty()) {
+				Set<ExtensionBean> extensions = endpointBean.getExtensions();
+				String extensionBeanNames = extensions.stream().map(ExtensionBean::getBeanName)
+						.collect(Collectors.joining(", "));
+				throw new IllegalStateException("Unable to map duplicate endpoint operations: " + duplicates.toString()
+						+ " to " + endpointBean.getBeanName()
+						+ (extensions.isEmpty() ? "" : " (" + extensionBeanNames + ")"));
+			}
+		}
+
 	}
 
 	static class SpecializedEndpointDiscoverer
@@ -589,6 +605,19 @@ class EndpointDiscovererTests {
 		protected OperationKey createOperationKey(SpecializedOperation operation) {
 			return new OperationKey(operation.getOperationMethod(),
 					() -> "TestOperation " + operation.getOperationMethod());
+		}
+
+		private void assertNoDuplicateOperations(EndpointBean endpointBean, MultiValueMap<OperationKey, SpecializedOperation> indexed) {
+			List<OperationKey> duplicates = indexed.entrySet().stream().filter((entry) -> entry.getValue().size() > 1)
+					.map(Map.Entry::getKey).collect(Collectors.toList());
+			if (!duplicates.isEmpty()) {
+				Set<ExtensionBean> extensions = endpointBean.getExtensions();
+				String extensionBeanNames = extensions.stream().map(ExtensionBean::getBeanName)
+						.collect(Collectors.joining(", "));
+				throw new IllegalStateException("Unable to map duplicate endpoint operations: " + duplicates.toString()
+						+ " to " + endpointBean.getBeanName()
+						+ (extensions.isEmpty() ? "" : " (" + extensionBeanNames + ")"));
+			}
 		}
 
 	}
