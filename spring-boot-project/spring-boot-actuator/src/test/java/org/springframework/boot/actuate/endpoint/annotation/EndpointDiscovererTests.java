@@ -51,6 +51,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
+import org.springframework.core.ResolvableType;
 import org.springframework.core.annotation.AliasFor;
 import org.springframework.util.ReflectionUtils;
 
@@ -559,6 +560,11 @@ class EndpointDiscovererTests {
 					() -> "TestOperation " + operation.getOperationMethod());
 		}
 
+		@SuppressWarnings("unchecked")
+		protected Class<? extends TestExposableEndpoint> getEndpointType() {
+			return (Class<? extends TestExposableEndpoint>) ResolvableType.forClass(EndpointDiscoverer.class, getClass()).resolveGeneric(0);
+		}
+
 	}
 
 	static class SpecializedEndpointDiscoverer
@@ -589,6 +595,11 @@ class EndpointDiscovererTests {
 		protected OperationKey createOperationKey(SpecializedOperation operation) {
 			return new OperationKey(operation.getOperationMethod(),
 					() -> "TestOperation " + operation.getOperationMethod());
+		}
+
+		@SuppressWarnings("unchecked")
+		protected Class<? extends SpecializedExposableEndpoint> getEndpointType() {
+			return (Class<? extends SpecializedExposableEndpoint>) ResolvableType.forClass(EndpointDiscoverer.class, getClass()).resolveGeneric(0);
 		}
 
 	}

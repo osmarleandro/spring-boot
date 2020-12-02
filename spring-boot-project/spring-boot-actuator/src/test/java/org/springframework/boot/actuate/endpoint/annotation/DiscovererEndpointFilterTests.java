@@ -26,6 +26,7 @@ import org.springframework.boot.actuate.endpoint.Operation;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvokerAdvisor;
 import org.springframework.boot.actuate.endpoint.invoke.ParameterValueMapper;
 import org.springframework.context.ApplicationContext;
+import org.springframework.core.ResolvableType;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
@@ -82,6 +83,11 @@ class DiscovererEndpointFilterTests {
 			super(applicationContext, parameterValueMapper, invokerAdvisors, filters);
 		}
 
+		@SuppressWarnings("unchecked")
+		protected Class<? extends ExposableEndpoint<Operation>> getEndpointType() {
+			return (Class<? extends ExposableEndpoint<Operation>>) ResolvableType.forClass(EndpointDiscoverer.class, getClass()).resolveGeneric(0);
+		}
+
 	}
 
 	abstract static class TestDiscovererB extends EndpointDiscoverer<ExposableEndpoint<Operation>, Operation> {
@@ -90,6 +96,11 @@ class DiscovererEndpointFilterTests {
 				Collection<OperationInvokerAdvisor> invokerAdvisors,
 				Collection<EndpointFilter<ExposableEndpoint<Operation>>> filters) {
 			super(applicationContext, parameterValueMapper, invokerAdvisors, filters);
+		}
+
+		@SuppressWarnings("unchecked")
+		protected Class<? extends ExposableEndpoint<Operation>> getEndpointType() {
+			return (Class<? extends ExposableEndpoint<Operation>>) ResolvableType.forClass(EndpointDiscoverer.class, getClass()).resolveGeneric(0);
 		}
 
 	}

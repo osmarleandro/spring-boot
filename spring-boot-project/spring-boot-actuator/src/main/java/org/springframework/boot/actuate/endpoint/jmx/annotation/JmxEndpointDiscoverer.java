@@ -29,6 +29,7 @@ import org.springframework.boot.actuate.endpoint.jmx.ExposableJmxEndpoint;
 import org.springframework.boot.actuate.endpoint.jmx.JmxEndpointsSupplier;
 import org.springframework.boot.actuate.endpoint.jmx.JmxOperation;
 import org.springframework.context.ApplicationContext;
+import org.springframework.core.ResolvableType;
 
 /**
  * {@link EndpointDiscoverer} for {@link ExposableJmxEndpoint JMX endpoints}.
@@ -67,6 +68,11 @@ public class JmxEndpointDiscoverer extends EndpointDiscoverer<ExposableJmxEndpoi
 	@Override
 	protected OperationKey createOperationKey(JmxOperation operation) {
 		return new OperationKey(operation.getName(), () -> "MBean call '" + operation.getName() + "'");
+	}
+
+	@SuppressWarnings("unchecked")
+	protected Class<? extends ExposableJmxEndpoint> getEndpointType() {
+		return (Class<? extends ExposableJmxEndpoint>) ResolvableType.forClass(EndpointDiscoverer.class, getClass()).resolveGeneric(0);
 	}
 
 }

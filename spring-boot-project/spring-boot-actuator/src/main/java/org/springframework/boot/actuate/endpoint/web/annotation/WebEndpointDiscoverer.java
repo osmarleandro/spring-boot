@@ -33,6 +33,7 @@ import org.springframework.boot.actuate.endpoint.web.WebEndpointsSupplier;
 import org.springframework.boot.actuate.endpoint.web.WebOperation;
 import org.springframework.boot.actuate.endpoint.web.WebOperationRequestPredicate;
 import org.springframework.context.ApplicationContext;
+import org.springframework.core.ResolvableType;
 
 /**
  * {@link EndpointDiscoverer} for {@link ExposableWebEndpoint web endpoints}.
@@ -85,6 +86,11 @@ public class WebEndpointDiscoverer extends EndpointDiscoverer<ExposableWebEndpoi
 	protected OperationKey createOperationKey(WebOperation operation) {
 		return new OperationKey(operation.getRequestPredicate(),
 				() -> "web request predicate " + operation.getRequestPredicate());
+	}
+
+	@SuppressWarnings("unchecked")
+	protected Class<? extends ExposableWebEndpoint> getEndpointType() {
+		return (Class<? extends ExposableWebEndpoint>) ResolvableType.forClass(EndpointDiscoverer.class, getClass()).resolveGeneric(0);
 	}
 
 }

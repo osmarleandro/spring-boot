@@ -29,6 +29,7 @@ import org.springframework.boot.actuate.endpoint.invoke.OperationInvoker;
 import org.springframework.boot.actuate.endpoint.invoke.ParameterValueMapper;
 import org.springframework.boot.actuate.endpoint.web.PathMapper;
 import org.springframework.context.ApplicationContext;
+import org.springframework.core.ResolvableType;
 import org.springframework.core.annotation.MergedAnnotations;
 import org.springframework.core.annotation.MergedAnnotations.SearchStrategy;
 
@@ -78,6 +79,11 @@ public class ControllerEndpointDiscoverer extends EndpointDiscoverer<ExposableCo
 	@Override
 	protected OperationKey createOperationKey(Operation operation) {
 		throw new IllegalStateException("ControllerEndpoints must not declare operations");
+	}
+
+	@SuppressWarnings("unchecked")
+	protected Class<? extends ExposableControllerEndpoint> getEndpointType() {
+		return (Class<? extends ExposableControllerEndpoint>) ResolvableType.forClass(EndpointDiscoverer.class, getClass()).resolveGeneric(0);
 	}
 
 }
