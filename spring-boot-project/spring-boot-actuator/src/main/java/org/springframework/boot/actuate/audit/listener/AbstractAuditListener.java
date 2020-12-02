@@ -16,7 +16,6 @@
 
 package org.springframework.boot.actuate.audit.listener;
 
-import org.springframework.boot.actuate.audit.AuditEvent;
 import org.springframework.context.ApplicationListener;
 
 /**
@@ -31,7 +30,5 @@ public abstract class AbstractAuditListener implements ApplicationListener<Audit
 	public void onApplicationEvent(AuditApplicationEvent event) {
 		onAuditEvent(event.getAuditEvent());
 	}
-
-	protected abstract void onAuditEvent(AuditEvent event);
 
 }
