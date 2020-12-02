@@ -136,6 +136,15 @@ class MvcWebEndpointIntegrationTests
 		return context.getWebServer().getPort();
 	}
 
+	@Test
+	void userInRoleReturnsFalseWhenUserIsNotInRole() {
+		load((context) -> {
+			this.authenticatedContextCustomizer.accept(context);
+			context.register(UserInRoleEndpointConfiguration.class);
+		}, (client) -> client.get().uri("/userinrole?role=ADMIN").accept(MediaType.APPLICATION_JSON).exchange()
+				.expectStatus().isOk().expectBody(String.class).isEqualTo("ADMIN: false"));
+	}
+
 	@Configuration(proxyBeanMethods = false)
 	@ImportAutoConfiguration({ JacksonAutoConfiguration.class, HttpMessageConvertersAutoConfiguration.class,
 			ServletWebServerFactoryAutoConfiguration.class, WebMvcAutoConfiguration.class,

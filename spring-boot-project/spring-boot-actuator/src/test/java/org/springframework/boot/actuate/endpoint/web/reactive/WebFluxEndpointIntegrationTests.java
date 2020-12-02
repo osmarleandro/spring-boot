@@ -100,6 +100,15 @@ class WebFluxEndpointIntegrationTests
 		return context.getBean(ReactiveConfiguration.class).port;
 	}
 
+	@Test
+	void userInRoleReturnsFalseWhenUserIsNotInRole() {
+		load((context) -> {
+			this.authenticatedContextCustomizer.accept(context);
+			context.register(UserInRoleEndpointConfiguration.class);
+		}, (client) -> client.get().uri("/userinrole?role=ADMIN").accept(MediaType.APPLICATION_JSON).exchange()
+				.expectStatus().isOk().expectBody(String.class).isEqualTo("ADMIN: false"));
+	}
+
 	@Configuration(proxyBeanMethods = false)
 	@EnableWebFlux
 	@ImportAutoConfiguration(ErrorWebFluxAutoConfiguration.class)
