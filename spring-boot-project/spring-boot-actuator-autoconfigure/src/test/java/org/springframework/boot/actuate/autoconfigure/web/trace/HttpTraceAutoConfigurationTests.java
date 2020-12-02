@@ -28,6 +28,7 @@ import org.springframework.boot.actuate.trace.http.HttpTrace;
 import org.springframework.boot.actuate.trace.http.HttpTraceRepository;
 import org.springframework.boot.actuate.trace.http.InMemoryHttpTraceRepository;
 import org.springframework.boot.actuate.trace.http.Include;
+import org.springframework.boot.actuate.trace.http.TraceableRequest;
 import org.springframework.boot.actuate.web.trace.reactive.HttpTraceWebFilter;
 import org.springframework.boot.actuate.web.trace.servlet.HttpTraceFilter;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
@@ -135,6 +136,16 @@ class HttpTraceAutoConfigurationTests {
 
 		private CustomHttpExchangeTracer(Set<Include> includes) {
 			super(includes);
+		}
+
+		/**
+		 * Begins the tracing of the exchange that was initiated by the given {@code request}
+		 * being received.
+		 * @param request the received request
+		 * @return the HTTP trace for the
+		 */
+		public final HttpTrace receivedRequest(TraceableRequest request) {
+			return new HttpTrace(new FilteredTraceableRequest(request));
 		}
 
 	}

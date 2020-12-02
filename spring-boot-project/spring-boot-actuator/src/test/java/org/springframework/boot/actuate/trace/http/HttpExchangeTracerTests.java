@@ -345,6 +345,16 @@ class HttpExchangeTracerTests {
 			headers.computeIfAbsent("to-add", (key) -> Collections.singletonList("42"));
 		}
 
+		/**
+		 * Begins the tracing of the exchange that was initiated by the given {@code request}
+		 * being received.
+		 * @param request the received request
+		 * @return the HTTP trace for the
+		 */
+		public final HttpTrace receivedRequest(TraceableRequest request) {
+			return new HttpTrace(new FilteredTraceableRequest(request));
+		}
+
 	}
 
 }
