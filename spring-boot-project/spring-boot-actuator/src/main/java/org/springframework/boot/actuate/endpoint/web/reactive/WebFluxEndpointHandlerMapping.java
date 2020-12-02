@@ -69,6 +69,14 @@ public class WebFluxEndpointHandlerMapping extends AbstractWebFluxEndpointHandle
 	}
 
 	/**
+	 * Return the web endpoints being mapped.
+	 * @return the endpoints
+	 */
+	public Collection<ExposableWebEndpoint> getEndpoints() {
+		return this.endpoints;
+	}
+
+	/**
 	 * Handler for root endpoint providing links.
 	 */
 	class WebFluxLinksHandler implements LinksHandler {

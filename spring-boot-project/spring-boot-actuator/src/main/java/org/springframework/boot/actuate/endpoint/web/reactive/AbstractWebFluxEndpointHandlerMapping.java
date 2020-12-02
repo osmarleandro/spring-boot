@@ -85,7 +85,7 @@ public abstract class AbstractWebFluxEndpointHandlerMapping extends RequestMappi
 
 	private final EndpointMapping endpointMapping;
 
-	private final Collection<ExposableWebEndpoint> endpoints;
+	protected final Collection<ExposableWebEndpoint> endpoints;
 
 	private final EndpointMediaTypes endpointMediaTypes;
 
@@ -213,14 +213,6 @@ public abstract class AbstractWebFluxEndpointHandlerMapping extends RequestMappi
 	 * @return the links handler
 	 */
 	protected abstract LinksHandler getLinksHandler();
-
-	/**
-	 * Return the web endpoints being mapped.
-	 * @return the endpoints
-	 */
-	public Collection<ExposableWebEndpoint> getEndpoints() {
-		return this.endpoints;
-	}
 
 	/**
 	 * An {@link OperationInvoker} that performs the invocation of a blocking operation on
