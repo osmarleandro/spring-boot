@@ -269,17 +269,6 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 	/**
 	 * Determine if an endpoint bean should be exposed. Subclasses can override this
 	 * method to provide additional logic.
-	 * @param endpointBean the endpoint bean
-	 * @return {@code true} if the endpoint is exposed
-	 */
-	@Deprecated
-	protected boolean isEndpointExposed(Object endpointBean) {
-		return true;
-	}
-
-	/**
-	 * Determine if an endpoint bean should be exposed. Subclasses can override this
-	 * method to provide additional logic.
 	 * @param beanType the endpoint bean type
 	 * @return {@code true} if the endpoint is exposed
 	 */

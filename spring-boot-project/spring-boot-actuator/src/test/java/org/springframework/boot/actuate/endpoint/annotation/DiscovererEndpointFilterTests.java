@@ -82,6 +82,17 @@ class DiscovererEndpointFilterTests {
 			super(applicationContext, parameterValueMapper, invokerAdvisors, filters);
 		}
 
+		/**
+		 * Determine if an endpoint bean should be exposed. Subclasses can override this
+		 * method to provide additional logic.
+		 * @param endpointBean the endpoint bean
+		 * @return {@code true} if the endpoint is exposed
+		 */
+		@Deprecated
+		protected boolean isEndpointExposed(Object endpointBean) {
+			return true;
+		}
+
 	}
 
 	abstract static class TestDiscovererB extends EndpointDiscoverer<ExposableEndpoint<Operation>, Operation> {
@@ -90,6 +101,17 @@ class DiscovererEndpointFilterTests {
 				Collection<OperationInvokerAdvisor> invokerAdvisors,
 				Collection<EndpointFilter<ExposableEndpoint<Operation>>> filters) {
 			super(applicationContext, parameterValueMapper, invokerAdvisors, filters);
+		}
+
+		/**
+		 * Determine if an endpoint bean should be exposed. Subclasses can override this
+		 * method to provide additional logic.
+		 * @param endpointBean the endpoint bean
+		 * @return {@code true} if the endpoint is exposed
+		 */
+		@Deprecated
+		protected boolean isEndpointExposed(Object endpointBean) {
+			return true;
 		}
 
 	}

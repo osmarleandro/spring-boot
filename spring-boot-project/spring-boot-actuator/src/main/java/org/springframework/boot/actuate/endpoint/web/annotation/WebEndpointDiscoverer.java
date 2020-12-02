@@ -87,4 +87,15 @@ public class WebEndpointDiscoverer extends EndpointDiscoverer<ExposableWebEndpoi
 				() -> "web request predicate " + operation.getRequestPredicate());
 	}
 
+	/**
+	 * Determine if an endpoint bean should be exposed. Subclasses can override this
+	 * method to provide additional logic.
+	 * @param endpointBean the endpoint bean
+	 * @return {@code true} if the endpoint is exposed
+	 */
+	@Deprecated
+	protected boolean isEndpointExposed(Object endpointBean) {
+		return true;
+	}
+
 }

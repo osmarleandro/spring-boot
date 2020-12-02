@@ -559,6 +559,17 @@ class EndpointDiscovererTests {
 					() -> "TestOperation " + operation.getOperationMethod());
 		}
 
+		/**
+		 * Determine if an endpoint bean should be exposed. Subclasses can override this
+		 * method to provide additional logic.
+		 * @param endpointBean the endpoint bean
+		 * @return {@code true} if the endpoint is exposed
+		 */
+		@Deprecated
+		protected boolean isEndpointExposed(Object endpointBean) {
+			return true;
+		}
+
 	}
 
 	static class SpecializedEndpointDiscoverer
@@ -589,6 +600,17 @@ class EndpointDiscovererTests {
 		protected OperationKey createOperationKey(SpecializedOperation operation) {
 			return new OperationKey(operation.getOperationMethod(),
 					() -> "TestOperation " + operation.getOperationMethod());
+		}
+
+		/**
+		 * Determine if an endpoint bean should be exposed. Subclasses can override this
+		 * method to provide additional logic.
+		 * @param endpointBean the endpoint bean
+		 * @return {@code true} if the endpoint is exposed
+		 */
+		@Deprecated
+		protected boolean isEndpointExposed(Object endpointBean) {
+			return true;
 		}
 
 	}
