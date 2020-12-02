@@ -16,8 +16,10 @@
 
 package org.springframework.boot.actuate.autoconfigure.web.trace;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.Set;
+import java.util.function.Supplier;
 
 import org.junit.jupiter.api.Test;
 
@@ -28,6 +30,7 @@ import org.springframework.boot.actuate.trace.http.HttpTrace;
 import org.springframework.boot.actuate.trace.http.HttpTraceRepository;
 import org.springframework.boot.actuate.trace.http.InMemoryHttpTraceRepository;
 import org.springframework.boot.actuate.trace.http.Include;
+import org.springframework.boot.actuate.trace.http.TraceableResponse;
 import org.springframework.boot.actuate.web.trace.reactive.HttpTraceWebFilter;
 import org.springframework.boot.actuate.web.trace.servlet.HttpTraceFilter;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
@@ -135,6 +138,21 @@ class HttpTraceAutoConfigurationTests {
 
 		private CustomHttpExchangeTracer(Set<Include> includes) {
 			super(includes);
+		}
+
+		/**
+		 * Ends the tracing of the exchange that is being concluded by sending the given
+		 * {@code response}.
+		 * @param trace the trace for the exchange
+		 * @param response the response that concludes the exchange
+		 * @param principal a supplier for the exchange's principal
+		 * @param sessionId a supplier for the id of the exchange's session
+		 */
+		public final void sendingResponse(HttpTrace trace, TraceableResponse response, Supplier<Principal> principal, Supplier<String> sessionId) {
+			setIfIncluded(Include.TIME_TAKEN, () -> calculateTimeTaken(trace), trace::setTimeTaken);
+			setIfIncluded(Include.SESSION_ID, sessionId, trace::setSessionId);
+			setIfIncluded(Include.PRINCIPAL, principal, trace::setPrincipal);
+			trace.setResponse(new HttpTrace.Response(new FilteredTraceableResponse(response)));
 		}
 
 	}

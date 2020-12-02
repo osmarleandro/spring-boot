@@ -17,7 +17,6 @@
 package org.springframework.boot.actuate.trace.http;
 
 import java.net.URI;
-import java.security.Principal;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -60,22 +59,6 @@ public class HttpExchangeTracer {
 	}
 
 	/**
-	 * Ends the tracing of the exchange that is being concluded by sending the given
-	 * {@code response}.
-	 * @param trace the trace for the exchange
-	 * @param response the response that concludes the exchange
-	 * @param principal a supplier for the exchange's principal
-	 * @param sessionId a supplier for the id of the exchange's session
-	 */
-	public final void sendingResponse(HttpTrace trace, TraceableResponse response, Supplier<Principal> principal,
-			Supplier<String> sessionId) {
-		setIfIncluded(Include.TIME_TAKEN, () -> calculateTimeTaken(trace), trace::setTimeTaken);
-		setIfIncluded(Include.SESSION_ID, sessionId, trace::setSessionId);
-		setIfIncluded(Include.PRINCIPAL, principal, trace::setPrincipal);
-		trace.setResponse(new HttpTrace.Response(new FilteredTraceableResponse(response)));
-	}
-
-	/**
 	 * Post-process the given mutable map of request {@code headers}.
 	 * @param headers the headers to post-process
 	 */
@@ -87,7 +70,7 @@ public class HttpExchangeTracer {
 		return this.includes.contains(include) ? valueSupplier.get() : null;
 	}
 
-	private <T> void setIfIncluded(Include include, Supplier<T> supplier, Consumer<T> consumer) {
+	protected <T> void setIfIncluded(Include include, Supplier<T> supplier, Consumer<T> consumer) {
 		if (this.includes.contains(include)) {
 			consumer.accept(supplier.get());
 		}
@@ -102,7 +85,7 @@ public class HttpExchangeTracer {
 				.collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
 	}
 
-	private long calculateTimeTaken(HttpTrace trace) {
+	protected long calculateTimeTaken(HttpTrace trace) {
 		return TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - trace.getStartNanoTime());
 	}
 
@@ -149,7 +132,7 @@ public class HttpExchangeTracer {
 
 	}
 
-	private final class FilteredTraceableResponse implements TraceableResponse {
+	public final class FilteredTraceableResponse implements TraceableResponse {
 
 		private final TraceableResponse delegate;
 

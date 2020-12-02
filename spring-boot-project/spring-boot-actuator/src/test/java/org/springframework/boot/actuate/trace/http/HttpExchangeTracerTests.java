@@ -24,6 +24,7 @@ import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Supplier;
 
 import org.junit.jupiter.api.Test;
 
@@ -343,6 +344,21 @@ class HttpExchangeTracerTests {
 		protected void postProcessRequestHeaders(Map<String, List<String>> headers) {
 			headers.remove("to-remove");
 			headers.computeIfAbsent("to-add", (key) -> Collections.singletonList("42"));
+		}
+
+		/**
+		 * Ends the tracing of the exchange that is being concluded by sending the given
+		 * {@code response}.
+		 * @param trace the trace for the exchange
+		 * @param response the response that concludes the exchange
+		 * @param principal a supplier for the exchange's principal
+		 * @param sessionId a supplier for the id of the exchange's session
+		 */
+		public final void sendingResponse(HttpTrace trace, TraceableResponse response, Supplier<Principal> principal, Supplier<String> sessionId) {
+			setIfIncluded(Include.TIME_TAKEN, () -> calculateTimeTaken(trace), trace::setTimeTaken);
+			setIfIncluded(Include.SESSION_ID, sessionId, trace::setSessionId);
+			setIfIncluded(Include.PRINCIPAL, principal, trace::setPrincipal);
+			trace.setResponse(new HttpTrace.Response(new FilteredTraceableResponse(response)));
 		}
 
 	}
