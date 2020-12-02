@@ -17,6 +17,7 @@
 package org.springframework.boot.actuate.endpoint.jmx.annotation;
 
 import java.util.Collection;
+import java.util.function.Supplier;
 
 import org.springframework.boot.actuate.endpoint.EndpointFilter;
 import org.springframework.boot.actuate.endpoint.EndpointId;
@@ -29,6 +30,7 @@ import org.springframework.boot.actuate.endpoint.jmx.ExposableJmxEndpoint;
 import org.springframework.boot.actuate.endpoint.jmx.JmxEndpointsSupplier;
 import org.springframework.boot.actuate.endpoint.jmx.JmxOperation;
 import org.springframework.context.ApplicationContext;
+import org.springframework.util.ClassUtils;
 
 /**
  * {@link EndpointDiscoverer} for {@link ExposableJmxEndpoint JMX endpoints}.
@@ -67,6 +69,12 @@ public class JmxEndpointDiscoverer extends EndpointDiscoverer<ExposableJmxEndpoi
 	@Override
 	protected OperationKey createOperationKey(JmxOperation operation) {
 		return new OperationKey(operation.getName(), () -> "MBean call '" + operation.getName() + "'");
+	}
+
+	private EndpointBean createEndpointBean(String beanName) {
+		Class<?> beanType = ClassUtils.getUserClass(this.applicationContext.getType(beanName, false));
+		Supplier<Object> beanSupplier = () -> this.applicationContext.getBean(beanName);
+		return new EndpointBean(this.applicationContext.getEnvironment(), beanName, beanType, beanSupplier);
 	}
 
 }

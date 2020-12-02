@@ -31,6 +31,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
 import java.util.function.Function;
+import java.util.function.Supplier;
 
 import org.junit.jupiter.api.Test;
 
@@ -52,6 +53,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.core.annotation.AliasFor;
+import org.springframework.util.ClassUtils;
 import org.springframework.util.ReflectionUtils;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -559,6 +561,12 @@ class EndpointDiscovererTests {
 					() -> "TestOperation " + operation.getOperationMethod());
 		}
 
+		private EndpointBean createEndpointBean(String beanName) {
+			Class<?> beanType = ClassUtils.getUserClass(this.applicationContext.getType(beanName, false));
+			Supplier<Object> beanSupplier = () -> this.applicationContext.getBean(beanName);
+			return new EndpointBean(this.applicationContext.getEnvironment(), beanName, beanType, beanSupplier);
+		}
+
 	}
 
 	static class SpecializedEndpointDiscoverer
@@ -589,6 +597,12 @@ class EndpointDiscovererTests {
 		protected OperationKey createOperationKey(SpecializedOperation operation) {
 			return new OperationKey(operation.getOperationMethod(),
 					() -> "TestOperation " + operation.getOperationMethod());
+		}
+
+		private EndpointBean createEndpointBean(String beanName) {
+			Class<?> beanType = ClassUtils.getUserClass(this.applicationContext.getType(beanName, false));
+			Supplier<Object> beanSupplier = () -> this.applicationContext.getBean(beanName);
+			return new EndpointBean(this.applicationContext.getEnvironment(), beanName, beanType, beanSupplier);
 		}
 
 	}
