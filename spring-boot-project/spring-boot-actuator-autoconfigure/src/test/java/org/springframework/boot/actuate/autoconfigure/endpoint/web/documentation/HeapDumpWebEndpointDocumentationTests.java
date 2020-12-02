@@ -17,14 +17,20 @@
 package org.springframework.boot.actuate.autoconfigure.endpoint.web.documentation;
 
 import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import org.junit.jupiter.api.Test;
-
+import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
+import org.springframework.boot.actuate.endpoint.web.WebEndpointResponse;
 import org.springframework.boot.actuate.management.HeapDumpWebEndpoint;
+import org.springframework.boot.actuate.management.HeapDumpWebEndpoint.HeapDumperUnavailableException;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
+import org.springframework.core.io.Resource;
+import org.springframework.lang.Nullable;
 import org.springframework.restdocs.cli.CliDocumentation;
 import org.springframework.restdocs.cli.CurlRequestSnippet;
 import org.springframework.restdocs.operation.Operation;
@@ -70,6 +76,30 @@ class HeapDumpWebEndpointDocumentationTests extends MockMvcEndpointDocumentation
 				}
 
 			};
+		}
+
+		@ReadOperation
+		public WebEndpointResponse<Resource> heapDump(@Nullable Boolean live) {
+			try {
+				if (this.lock.tryLock(this.timeout, TimeUnit.MILLISECONDS)) {
+					try {
+						return new WebEndpointResponse<>(dumpHeap((live != null) ? live : true));
+					}
+					finally {
+						this.lock.unlock();
+					}
+				}
+			}
+			catch (InterruptedException ex) {
+				Thread.currentThread().interrupt();
+			}
+			catch (IOException ex) {
+				return new WebEndpointResponse<>(WebEndpointResponse.STATUS_INTERNAL_SERVER_ERROR);
+			}
+			catch (HeapDumperUnavailableException ex) {
+				return new WebEndpointResponse<>(WebEndpointResponse.STATUS_SERVICE_UNAVAILABLE);
+			}
+			return new WebEndpointResponse<>(WebEndpointResponse.STATUS_TOO_MANY_REQUESTS);
 		}
 
 	}

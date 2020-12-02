@@ -37,12 +37,9 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
-import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
-import org.springframework.boot.actuate.endpoint.web.WebEndpointResponse;
 import org.springframework.boot.actuate.endpoint.web.annotation.WebEndpoint;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
-import org.springframework.lang.Nullable;
 import org.springframework.util.ClassUtils;
 import org.springframework.util.ReflectionUtils;
 
@@ -58,9 +55,9 @@ import org.springframework.util.ReflectionUtils;
 @WebEndpoint(id = "heapdump")
 public class HeapDumpWebEndpoint {
 
-	private final long timeout;
+	protected final long timeout;
 
-	private final Lock lock = new ReentrantLock();
+	protected final Lock lock = new ReentrantLock();
 
 	private HeapDumper heapDumper;
 
@@ -72,31 +69,7 @@ public class HeapDumpWebEndpoint {
 		this.timeout = timeout;
 	}
 
-	@ReadOperation
-	public WebEndpointResponse<Resource> heapDump(@Nullable Boolean live) {
-		try {
-			if (this.lock.tryLock(this.timeout, TimeUnit.MILLISECONDS)) {
-				try {
-					return new WebEndpointResponse<>(dumpHeap((live != null) ? live : true));
-				}
-				finally {
-					this.lock.unlock();
-				}
-			}
-		}
-		catch (InterruptedException ex) {
-			Thread.currentThread().interrupt();
-		}
-		catch (IOException ex) {
-			return new WebEndpointResponse<>(WebEndpointResponse.STATUS_INTERNAL_SERVER_ERROR);
-		}
-		catch (HeapDumperUnavailableException ex) {
-			return new WebEndpointResponse<>(WebEndpointResponse.STATUS_SERVICE_UNAVAILABLE);
-		}
-		return new WebEndpointResponse<>(WebEndpointResponse.STATUS_TOO_MANY_REQUESTS);
-	}
-
-	private Resource dumpHeap(boolean live) throws IOException, InterruptedException {
+	protected Resource dumpHeap(boolean live) throws IOException, InterruptedException {
 		if (this.heapDumper == null) {
 			this.heapDumper = createHeapDumper();
 		}
@@ -174,7 +147,7 @@ public class HeapDumpWebEndpoint {
 	/**
 	 * Exception to be thrown if the {@link HeapDumper} cannot be created.
 	 */
-	protected static class HeapDumperUnavailableException extends RuntimeException {
+	public static class HeapDumperUnavailableException extends RuntimeException {
 
 		public HeapDumperUnavailableException(String message, Throwable cause) {
 			super(message, cause);

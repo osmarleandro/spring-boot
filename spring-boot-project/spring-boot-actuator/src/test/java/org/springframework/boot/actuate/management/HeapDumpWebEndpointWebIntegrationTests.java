@@ -23,13 +23,16 @@ import java.util.concurrent.TimeUnit;
 
 import org.awaitility.Awaitility;
 import org.junit.jupiter.api.BeforeEach;
-
+import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
+import org.springframework.boot.actuate.endpoint.web.WebEndpointResponse;
 import org.springframework.boot.actuate.endpoint.web.test.WebEndpointTest;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.io.Resource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.lang.Nullable;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import org.springframework.util.FileCopyUtils;
 
@@ -112,6 +115,30 @@ class HeapDumpWebEndpointWebIntegrationTests {
 
 		void setAvailable(boolean available) {
 			this.available = available;
+		}
+
+		@ReadOperation
+		public WebEndpointResponse<Resource> heapDump(@Nullable Boolean live) {
+			try {
+				if (this.lock.tryLock(this.timeout, TimeUnit.MILLISECONDS)) {
+					try {
+						return new WebEndpointResponse<>(dumpHeap((live != null) ? live : true));
+					}
+					finally {
+						this.lock.unlock();
+					}
+				}
+			}
+			catch (InterruptedException ex) {
+				Thread.currentThread().interrupt();
+			}
+			catch (IOException ex) {
+				return new WebEndpointResponse<>(WebEndpointResponse.STATUS_INTERNAL_SERVER_ERROR);
+			}
+			catch (HeapDumperUnavailableException ex) {
+				return new WebEndpointResponse<>(WebEndpointResponse.STATUS_SERVICE_UNAVAILABLE);
+			}
+			return new WebEndpointResponse<>(WebEndpointResponse.STATUS_TOO_MANY_REQUESTS);
 		}
 
 	}
