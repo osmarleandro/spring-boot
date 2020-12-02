@@ -104,4 +104,15 @@ class HealthEndpointWebExtensionTests
 		return result.getHealth();
 	}
 
+	@Test
+	void getHealthWhenAlwaysShowIsFalseAndGroupIsFalseShowsNoDetails() {
+		this.primaryGroup.setShowDetails(false);
+		this.registry.registerContributor("test", createContributor(this.up));
+		HealthEndpointSupport<HealthContributor, HealthComponent> endpoint = create(this.registry, this.groups);
+		HealthResult<HealthComponent> rootResult = endpoint.getHealth(ApiVersion.V3, SecurityContext.NONE, false);
+		HealthResult<HealthComponent> componentResult = endpoint.getHealth(ApiVersion.V3, SecurityContext.NONE, false, "test");
+		assertThat(((CompositeHealth) getHealth(rootResult)).getStatus()).isEqualTo(Status.UP);
+		assertThat(componentResult).isNull();
+	}
+
 }

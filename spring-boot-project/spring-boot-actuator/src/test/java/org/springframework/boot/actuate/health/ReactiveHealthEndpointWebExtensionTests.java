@@ -107,4 +107,15 @@ class ReactiveHealthEndpointWebExtensionTests extends
 		return result.getHealth().block();
 	}
 
+	@Test
+	void getHealthWhenAlwaysShowIsFalseAndGroupIsFalseShowsNoDetails() {
+		this.primaryGroup.setShowDetails(false);
+		this.registry.registerContributor("test", createContributor(this.up));
+		HealthEndpointSupport<ReactiveHealthContributor, Mono<? extends HealthComponent>> endpoint = create(this.registry, this.groups);
+		HealthResult<Mono<? extends HealthComponent>> rootResult = endpoint.getHealth(ApiVersion.V3, SecurityContext.NONE, false);
+		HealthResult<Mono<? extends HealthComponent>> componentResult = endpoint.getHealth(ApiVersion.V3, SecurityContext.NONE, false, "test");
+		assertThat(((CompositeHealth) getHealth(rootResult)).getStatus()).isEqualTo(Status.UP);
+		assertThat(componentResult).isNull();
+	}
+
 }
