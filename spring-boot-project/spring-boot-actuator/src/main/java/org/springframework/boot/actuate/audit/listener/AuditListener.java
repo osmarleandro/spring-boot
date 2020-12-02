@@ -49,4 +49,9 @@ public class AuditListener extends AbstractAuditListener {
 		this.auditEventRepository.add(event);
 	}
 
+	@Override
+	public void onApplicationEvent(AuditApplicationEvent event) {
+		onAuditEvent(event.getAuditEvent());
+	}
+
 }
