@@ -45,4 +45,12 @@ public class ServletRegistrationMappingDescription extends RegistrationMappingDe
 		return getRegistration().getMappings();
 	}
 
+	/**
+	 * Returns the registration that is being described.
+	 * @return the registration
+	 */
+	protected final ServletRegistration getRegistration() {
+		return this.registration;
+	}
+
 }

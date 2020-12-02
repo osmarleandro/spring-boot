@@ -53,4 +53,12 @@ public class FilterRegistrationMappingDescription extends RegistrationMappingDes
 		return getRegistration().getUrlPatternMappings();
 	}
 
+	/**
+	 * Returns the registration that is being described.
+	 * @return the registration
+	 */
+	protected final FilterRegistration getRegistration() {
+		return this.registration;
+	}
+
 }
