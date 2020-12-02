@@ -39,7 +39,7 @@ import org.springframework.web.server.WebSession;
  */
 public class HttpTraceWebFilter implements WebFilter, Ordered {
 
-	private static final Object NONE = new Object();
+	protected static final Object NONE = new Object();
 
 	// Not LOWEST_PRECEDENCE, but near the end, so it has a good chance of catching all
 	// enriched headers, but users can add stuff after this if they want to
@@ -49,7 +49,7 @@ public class HttpTraceWebFilter implements WebFilter, Ordered {
 
 	private final HttpExchangeTracer tracer;
 
-	private final Set<Include> includes;
+	protected final Set<Include> includes;
 
 	public HttpTraceWebFilter(HttpTraceRepository repository, HttpExchangeTracer tracer, Set<Include> includes) {
 		this.repository = repository;
@@ -66,23 +66,14 @@ public class HttpTraceWebFilter implements WebFilter, Ordered {
 		this.order = order;
 	}
 
-	@Override
-	public Mono<Void> filter(ServerWebExchange exchange, WebFilterChain chain) {
-		Mono<?> principal = (this.includes.contains(Include.PRINCIPAL)
-				? exchange.getPrincipal().cast(Object.class).defaultIfEmpty(NONE) : Mono.just(NONE));
-		Mono<?> session = (this.includes.contains(Include.SESSION_ID) ? exchange.getSession() : Mono.just(NONE));
-		return Mono.zip(principal, session).flatMap((tuple) -> filter(exchange, chain,
-				asType(tuple.getT1(), Principal.class), asType(tuple.getT2(), WebSession.class)));
-	}
-
-	private <T> T asType(Object object, Class<T> type) {
+	protected <T> T asType(Object object, Class<T> type) {
 		if (type.isInstance(object)) {
 			return type.cast(object);
 		}
 		return null;
 	}
 
-	private Mono<Void> filter(ServerWebExchange exchange, WebFilterChain chain, Principal principal,
+	protected Mono<Void> filter(ServerWebExchange exchange, WebFilterChain chain, Principal principal,
 			WebSession session) {
 		ServerWebExchangeTraceableRequest request = new ServerWebExchangeTraceableRequest(exchange);
 		HttpTrace trace = this.tracer.receivedRequest(request);

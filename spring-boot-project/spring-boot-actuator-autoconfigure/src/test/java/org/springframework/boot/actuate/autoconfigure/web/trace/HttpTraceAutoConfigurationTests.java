@@ -16,6 +16,7 @@
 
 package org.springframework.boot.actuate.autoconfigure.web.trace;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.Set;
 
@@ -35,6 +36,11 @@ import org.springframework.boot.test.context.runner.ReactiveWebApplicationContex
 import org.springframework.boot.test.context.runner.WebApplicationContextRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.server.ServerWebExchange;
+import org.springframework.web.server.WebFilterChain;
+import org.springframework.web.server.WebSession;
+
+import reactor.core.publisher.Mono;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -154,6 +160,15 @@ class HttpTraceAutoConfigurationTests {
 		private CustomHttpTraceWebFilter(HttpTraceRepository repository, HttpExchangeTracer tracer,
 				Set<Include> includes) {
 			super(repository, tracer, includes);
+		}
+
+		@Override
+		public Mono<Void> filter(ServerWebExchange exchange, WebFilterChain chain) {
+			Mono<?> principal = (this.includes.contains(Include.PRINCIPAL)
+					? exchange.getPrincipal().cast(Object.class).defaultIfEmpty(NONE) : Mono.just(NONE));
+			Mono<?> session = (this.includes.contains(Include.SESSION_ID) ? exchange.getSession() : Mono.just(NONE));
+			return Mono.zip(principal, session).flatMap((tuple) -> filter(exchange, chain,
+					asType(tuple.getT1(), Principal.class), asType(tuple.getT2(), WebSession.class)));
 		}
 
 	}
