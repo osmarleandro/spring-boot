@@ -225,8 +225,6 @@ abstract class HealthEndpointSupportTests<R extends ContributorRegistry<C>, C, T
 
 	protected abstract HealthEndpointSupport<C, T> create(R registry, HealthEndpointGroups groups);
 
-	protected abstract R createRegistry();
-
 	protected abstract C createContributor(Health health);
 
 	protected abstract C createCompositeContributor(Map<String, C> contributors);
