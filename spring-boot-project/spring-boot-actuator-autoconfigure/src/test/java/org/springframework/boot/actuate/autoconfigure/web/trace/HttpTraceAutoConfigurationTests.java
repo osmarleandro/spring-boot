@@ -35,6 +35,7 @@ import org.springframework.boot.test.context.runner.ReactiveWebApplicationContex
 import org.springframework.boot.test.context.runner.WebApplicationContextRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.server.WebSession;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -154,6 +155,10 @@ class HttpTraceAutoConfigurationTests {
 		private CustomHttpTraceWebFilter(HttpTraceRepository repository, HttpExchangeTracer tracer,
 				Set<Include> includes) {
 			super(repository, tracer, includes);
+		}
+
+		private String getStartedSessionId(WebSession session) {
+			return (session != null && session.isStarted()) ? session.getId() : null;
 		}
 
 	}

@@ -95,8 +95,4 @@ public class HttpTraceWebFilter implements WebFilter, Ordered {
 		return chain.filter(exchange);
 	}
 
-	private String getStartedSessionId(WebSession session) {
-		return (session != null && session.isStarted()) ? session.getId() : null;
-	}
-
 }
