@@ -123,9 +123,6 @@ abstract class HealthEndpointSupport<C, T> {
 
 	protected abstract T getHealth(C contributor, boolean includeDetails);
 
-	protected abstract T aggregateContributions(ApiVersion apiVersion, Map<String, T> contributions,
-			StatusAggregator statusAggregator, boolean showComponents, Set<String> groupNames);
-
 	protected final CompositeHealth getCompositeHealth(ApiVersion apiVersion, Map<String, HealthComponent> components,
 			StatusAggregator statusAggregator, boolean showComponents, Set<String> groupNames) {
 		Status status = statusAggregator
