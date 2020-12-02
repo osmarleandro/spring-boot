@@ -22,6 +22,7 @@ import java.util.TreeSet;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import org.springframework.boot.actuate.endpoint.http.ApiVersion;
 
@@ -44,6 +45,12 @@ public final class SystemHealth extends CompositeHealth {
 	@JsonInclude(Include.NON_EMPTY)
 	public Set<String> getGroups() {
 		return this.groups;
+	}
+
+	@JsonInclude(Include.NON_EMPTY)
+	@JsonProperty
+	Map<String, HealthComponent> getDetails() {
+		return this.details;
 	}
 
 }
