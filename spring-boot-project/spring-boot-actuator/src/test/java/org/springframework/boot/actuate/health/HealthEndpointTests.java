@@ -20,7 +20,8 @@ import java.util.Collections;
 import java.util.Map;
 
 import org.junit.jupiter.api.Test;
-
+import org.springframework.boot.actuate.endpoint.SecurityContext;
+import org.springframework.boot.actuate.endpoint.http.ApiVersion;
 import org.springframework.boot.actuate.health.HealthEndpointSupport.HealthResult;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -89,6 +90,14 @@ class HealthEndpointTests
 	@Override
 	protected HealthComponent getHealth(HealthResult<HealthComponent> result) {
 		return result.getHealth();
+	}
+
+	@Test
+	void getHealthWhenPathIsEmptyIncludesGroups() {
+		this.registry.registerContributor("test", createContributor(this.up));
+		HealthResult<HealthComponent> result = create(this.registry, this.groups).getHealth(ApiVersion.V3, SecurityContext.NONE,
+				false);
+		assertThat(((SystemHealth) getHealth(result)).getGroups()).containsOnly("alltheas");
 	}
 
 }

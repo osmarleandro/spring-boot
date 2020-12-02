@@ -104,4 +104,12 @@ class HealthEndpointWebExtensionTests
 		return result.getHealth();
 	}
 
+	@Test
+	void getHealthWhenPathIsEmptyIncludesGroups() {
+		this.registry.registerContributor("test", createContributor(this.up));
+		HealthResult<HealthComponent> result = create(this.registry, this.groups).getHealth(ApiVersion.V3, SecurityContext.NONE,
+				false);
+		assertThat(((SystemHealth) getHealth(result)).getGroups()).containsOnly("alltheas");
+	}
+
 }
