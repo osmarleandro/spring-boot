@@ -33,7 +33,7 @@ import org.glassfish.jersey.jackson.JacksonFeature;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.server.model.Resource;
 import org.glassfish.jersey.servlet.ServletContainer;
-
+import org.junit.jupiter.api.Test;
 import org.springframework.boot.actuate.endpoint.web.EndpointLinksResolver;
 import org.springframework.boot.actuate.endpoint.web.EndpointMapping;
 import org.springframework.boot.actuate.endpoint.web.EndpointMediaTypes;
@@ -88,6 +88,12 @@ public class JerseyWebEndpointIntegrationTests
 	protected void validateErrorBody(WebTestClient.BodyContentSpec body, HttpStatus status, String path,
 			String message) {
 		// Jersey doesn't support the general error page handling
+	}
+
+	@Test
+	void readOperationWithSelector() {
+		load(TestEndpointConfiguration.class, (client) -> client.get().uri("/test/one").exchange().expectStatus().isOk()
+				.expectBody().jsonPath("part").isEqualTo("one"));
 	}
 
 	@Configuration(proxyBeanMethods = false)
