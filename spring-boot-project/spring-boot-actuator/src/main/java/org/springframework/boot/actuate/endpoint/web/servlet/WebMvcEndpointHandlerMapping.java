@@ -67,6 +67,11 @@ public class WebMvcEndpointHandlerMapping extends AbstractWebMvcEndpointHandlerM
 		return new WebMvcLinksHandler();
 	}
 
+	@Override
+	protected boolean hasCorsConfigurationSource(Object handler) {
+		return this.corsConfiguration != null;
+	}
+
 	/**
 	 * Handler for root endpoint providing links.
 	 */

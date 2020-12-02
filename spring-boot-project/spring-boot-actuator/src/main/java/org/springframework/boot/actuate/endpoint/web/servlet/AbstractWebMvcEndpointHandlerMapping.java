@@ -82,7 +82,7 @@ public abstract class AbstractWebMvcEndpointHandlerMapping extends RequestMappin
 
 	private final EndpointMediaTypes endpointMediaTypes;
 
-	private final CorsConfiguration corsConfiguration;
+	protected final CorsConfiguration corsConfiguration;
 
 	private final boolean shouldRegisterLinksMapping;
 
@@ -204,11 +204,6 @@ public abstract class AbstractWebMvcEndpointHandlerMapping extends RequestMappin
 		LinksHandler linksHandler = getLinksHandler();
 		registerMapping(mapping, linksHandler, ReflectionUtils.findMethod(linksHandler.getClass(), "links",
 				HttpServletRequest.class, HttpServletResponse.class));
-	}
-
-	@Override
-	protected boolean hasCorsConfigurationSource(Object handler) {
-		return this.corsConfiguration != null;
 	}
 
 	@Override
