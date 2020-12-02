@@ -106,16 +106,6 @@ public abstract class AbstractWebEndpointIntegrationTests<T extends Configurable
 	}
 
 	@Test
-	void linksToOtherEndpointsAreProvided() {
-		load(TestEndpointConfiguration.class,
-				(client) -> client.get().uri("").exchange().expectStatus().isOk().expectBody()
-						.jsonPath("_links.length()").isEqualTo(3).jsonPath("_links.self.href").isNotEmpty()
-						.jsonPath("_links.self.templated").isEqualTo(false).jsonPath("_links.test.href").isNotEmpty()
-						.jsonPath("_links.test.templated").isEqualTo(false).jsonPath("_links.test-part.href")
-						.isNotEmpty().jsonPath("_links.test-part.templated").isEqualTo(true));
-	}
-
-	@Test
 	void linksMappingIsDisabledWhenEndpointPathIsEmpty() {
 		load(TestEndpointConfiguration.class, "",
 				(client) -> client.get().uri("").exchange().expectStatus().isNotFound());
@@ -428,7 +418,8 @@ public abstract class AbstractWebEndpointIntegrationTests<T extends Configurable
 
 	@Configuration(proxyBeanMethods = false)
 	@Import(BaseConfiguration.class)
-	protected static class TestEndpointConfiguration {
+	public
+	static class TestEndpointConfiguration {
 
 		@Bean
 		public TestEndpoint testEndpoint(EndpointDelegate endpointDelegate) {
