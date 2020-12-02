@@ -37,7 +37,7 @@ abstract class HealthEndpointSupport<C, T> {
 
 	static final Health DEFAULT_HEALTH = Health.up().build();
 
-	private final ContributorRegistry<C> registry;
+	protected final ContributorRegistry<C> registry;
 
 	private final HealthEndpointGroups groups;
 
@@ -74,19 +74,6 @@ abstract class HealthEndpointSupport<C, T> {
 		T health = getContribution(apiVersion, group, contributor, showComponents, showDetails,
 				isSystemHealth ? this.groups.getNames() : null, false);
 		return (health != null) ? new HealthResult<>(health, group) : null;
-	}
-
-	@SuppressWarnings("unchecked")
-	private Object getContributor(String[] path, int pathOffset) {
-		Object contributor = this.registry;
-		while (pathOffset < path.length) {
-			if (!(contributor instanceof NamedContributors)) {
-				return null;
-			}
-			contributor = ((NamedContributors<C>) contributor).getContributor(path[pathOffset]);
-			pathOffset++;
-		}
-		return contributor;
 	}
 
 	@SuppressWarnings("unchecked")

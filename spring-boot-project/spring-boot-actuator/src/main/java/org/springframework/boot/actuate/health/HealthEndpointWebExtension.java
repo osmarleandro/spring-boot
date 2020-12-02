@@ -91,4 +91,17 @@ public class HealthEndpointWebExtension extends HealthEndpointSupport<HealthCont
 		return getCompositeHealth(apiVersion, contributions, statusAggregator, showComponents, groupNames);
 	}
 
+	@SuppressWarnings("unchecked")
+	private Object getContributor(String[] path, int pathOffset) {
+		Object contributor = this.registry;
+		while (pathOffset < path.length) {
+			if (!(contributor instanceof NamedContributors)) {
+				return null;
+			}
+			contributor = ((NamedContributors<HealthContributor>) contributor).getContributor(path[pathOffset]);
+			pathOffset++;
+		}
+		return contributor;
+	}
+
 }

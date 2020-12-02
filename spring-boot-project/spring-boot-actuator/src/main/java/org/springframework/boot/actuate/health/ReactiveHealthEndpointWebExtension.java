@@ -96,6 +96,19 @@ public class ReactiveHealthEndpointWebExtension
 						.getCompositeHealth(apiVersion, components, statusAggregator, showComponents, groupNames));
 	}
 
+	@SuppressWarnings("unchecked")
+	private Object getContributor(String[] path, int pathOffset) {
+		Object contributor = this.registry;
+		while (pathOffset < path.length) {
+			if (!(contributor instanceof NamedContributors)) {
+				return null;
+			}
+			contributor = ((NamedContributors<ReactiveHealthContributor>) contributor).getContributor(path[pathOffset]);
+			pathOffset++;
+		}
+		return contributor;
+	}
+
 	/**
 	 * A named {@link HealthComponent}.
 	 */
