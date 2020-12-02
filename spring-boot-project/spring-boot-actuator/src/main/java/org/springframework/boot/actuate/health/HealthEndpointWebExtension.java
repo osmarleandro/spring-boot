@@ -91,4 +91,14 @@ public class HealthEndpointWebExtension extends HealthEndpointSupport<HealthCont
 		return getCompositeHealth(apiVersion, contributions, statusAggregator, showComponents, groupNames);
 	}
 
+	@SuppressWarnings("unchecked")
+	private HealthComponent getContribution(ApiVersion apiVersion, HealthEndpointGroup group, Object contributor, boolean showComponents, boolean showDetails, Set<String> groupNames,
+			boolean isNested) {
+				if (contributor instanceof NamedContributors) {
+					return getAggregateHealth(apiVersion, group, (NamedContributors<HealthContributor>) contributor, showComponents,
+							showDetails, groupNames, isNested);
+				}
+				return (contributor != null) ? getHealth((HealthContributor) contributor, showDetails) : null;
+			}
+
 }

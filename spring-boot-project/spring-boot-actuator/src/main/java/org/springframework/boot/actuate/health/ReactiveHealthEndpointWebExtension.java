@@ -96,6 +96,16 @@ public class ReactiveHealthEndpointWebExtension
 						.getCompositeHealth(apiVersion, components, statusAggregator, showComponents, groupNames));
 	}
 
+	@SuppressWarnings("unchecked")
+	private Mono<? extends HealthComponent> getContribution(ApiVersion apiVersion, HealthEndpointGroup group, Object contributor, boolean showComponents, boolean showDetails, Set<String> groupNames,
+			boolean isNested) {
+				if (contributor instanceof NamedContributors) {
+					return getAggregateHealth(apiVersion, group, (NamedContributors<ReactiveHealthContributor>) contributor, showComponents,
+							showDetails, groupNames, isNested);
+				}
+				return (contributor != null) ? getHealth((ReactiveHealthContributor) contributor, showDetails) : null;
+			}
+
 	/**
 	 * A named {@link HealthComponent}.
 	 */
