@@ -20,6 +20,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.boot.actuate.audit.AuditEvent;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.security.access.event.AbstractAuthorizationEvent;
 import org.springframework.security.access.event.AuthenticationCredentialsNotFoundEvent;
 import org.springframework.security.access.event.AuthorizationFailureEvent;
@@ -63,6 +64,10 @@ public class AuthorizationAuditListener extends AbstractAuthorizationAuditListen
 			data.put("details", event.getAuthentication().getDetails());
 		}
 		publish(new AuditEvent(event.getAuthentication().getName(), AUTHORIZATION_FAILURE, data));
+	}
+
+	protected ApplicationEventPublisher getPublisher() {
+		return this.publisher;
 	}
 
 }

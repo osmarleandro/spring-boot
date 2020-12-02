@@ -152,6 +152,10 @@ class AuditAutoConfigurationTests {
 		public void onApplicationEvent(AbstractAuthorizationEvent event) {
 		}
 
+		protected ApplicationEventPublisher getPublisher() {
+			return this.publisher;
+		}
+
 	}
 
 	@Configuration(proxyBeanMethods = false)
