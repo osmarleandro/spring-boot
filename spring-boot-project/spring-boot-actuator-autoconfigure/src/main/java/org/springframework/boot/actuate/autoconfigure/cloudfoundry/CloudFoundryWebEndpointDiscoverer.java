@@ -25,6 +25,7 @@ import org.springframework.boot.actuate.endpoint.invoke.ParameterValueMapper;
 import org.springframework.boot.actuate.endpoint.web.EndpointMediaTypes;
 import org.springframework.boot.actuate.endpoint.web.ExposableWebEndpoint;
 import org.springframework.boot.actuate.endpoint.web.PathMapper;
+import org.springframework.boot.actuate.endpoint.web.WebOperation;
 import org.springframework.boot.actuate.endpoint.web.annotation.EndpointWebExtension;
 import org.springframework.boot.actuate.endpoint.web.annotation.WebEndpointDiscoverer;
 import org.springframework.boot.actuate.health.HealthEndpoint;
@@ -73,6 +74,12 @@ public class CloudFoundryWebEndpointDiscoverer extends WebEndpointDiscoverer {
 
 	private boolean isCloudFoundryHealthEndpointExtension(Class<?> extensionBeanType) {
 		return MergedAnnotations.from(extensionBeanType).isPresent(EndpointCloudFoundryExtension.class);
+	}
+
+	@Override
+	protected OperationKey createOperationKey(WebOperation operation) {
+		return new OperationKey(operation.getRequestPredicate(),
+				() -> "web request predicate " + operation.getRequestPredicate());
 	}
 
 }

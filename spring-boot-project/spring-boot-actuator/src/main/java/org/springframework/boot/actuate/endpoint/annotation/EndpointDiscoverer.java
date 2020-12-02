@@ -370,7 +370,7 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 	 * A key generated for an {@link Operation} based on specific criteria from the actual
 	 * operation implementation.
 	 */
-	protected static final class OperationKey {
+	public static final class OperationKey {
 
 		private final Object key;
 
