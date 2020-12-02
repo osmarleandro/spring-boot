@@ -136,6 +136,12 @@ class MvcWebEndpointIntegrationTests
 		return context.getWebServer().getPort();
 	}
 
+	@Test
+	void readOperationWithMissingNullableParametersIsOk() {
+		load(RequiredParameterEndpointConfiguration.class,
+				(client) -> client.get().uri("/requiredparameters?foo=hello").exchange().expectStatus().isOk());
+	}
+
 	@Configuration(proxyBeanMethods = false)
 	@ImportAutoConfiguration({ JacksonAutoConfiguration.class, HttpMessageConvertersAutoConfiguration.class,
 			ServletWebServerFactoryAutoConfiguration.class, WebMvcAutoConfiguration.class,

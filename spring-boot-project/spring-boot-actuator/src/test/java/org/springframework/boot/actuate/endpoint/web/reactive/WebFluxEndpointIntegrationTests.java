@@ -100,6 +100,12 @@ class WebFluxEndpointIntegrationTests
 		return context.getBean(ReactiveConfiguration.class).port;
 	}
 
+	@Test
+	void readOperationWithMissingNullableParametersIsOk() {
+		load(RequiredParameterEndpointConfiguration.class,
+				(client) -> client.get().uri("/requiredparameters?foo=hello").exchange().expectStatus().isOk());
+	}
+
 	@Configuration(proxyBeanMethods = false)
 	@EnableWebFlux
 	@ImportAutoConfiguration(ErrorWebFluxAutoConfiguration.class)
