@@ -31,7 +31,6 @@ import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 import org.springframework.aop.scope.ScopedProxyUtils;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.BeanFactoryUtils;
 import org.springframework.boot.actuate.endpoint.EndpointFilter;
 import org.springframework.boot.actuate.endpoint.EndpointId;
@@ -296,34 +295,17 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 		return false;
 	}
 
-	@SuppressWarnings("unchecked")
-	private boolean isFilterMatch(Class<?> filter, EndpointBean endpointBean) {
-		if (!isEndpointTypeExposed(endpointBean.getBeanType())) {
-			return false;
-		}
-		if (filter == null) {
-			return true;
-		}
-		E endpoint = getFilterEndpoint(endpointBean);
-		Class<?> generic = ResolvableType.forClass(EndpointFilter.class, filter).resolveGeneric(0);
-		if (generic == null || generic.isInstance(endpoint)) {
-			EndpointFilter<E> instance = (EndpointFilter<E>) BeanUtils.instantiateClass(filter);
-			return isFilterMatch(instance, endpoint);
-		}
-		return false;
-	}
-
 	private boolean isFilterMatch(EndpointFilter<E> filter, EndpointBean endpointBean) {
 		return isFilterMatch(filter, getFilterEndpoint(endpointBean));
 	}
 
 	@SuppressWarnings("unchecked")
-	private boolean isFilterMatch(EndpointFilter<E> filter, E endpoint) {
+	protected boolean isFilterMatch(EndpointFilter<E> filter, E endpoint) {
 		return LambdaSafe.callback(EndpointFilter.class, filter, endpoint).withLogger(EndpointDiscoverer.class)
 				.invokeAnd((f) -> f.match(endpoint)).get();
 	}
 
-	private E getFilterEndpoint(EndpointBean endpointBean) {
+	protected E getFilterEndpoint(EndpointBean endpointBean) {
 		E endpoint = this.filterEndpoints.get(endpointBean);
 		if (endpoint == null) {
 			endpoint = createEndpoint(endpointBean.getBean(), endpointBean.getId(), endpointBean.isEnabledByDefault(),
@@ -414,7 +396,7 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 	/**
 	 * Information about an {@link Endpoint @Endpoint} bean.
 	 */
-	private static class EndpointBean {
+	public static class EndpointBean {
 
 		private final String beanName;
 
@@ -461,7 +443,7 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 			return this.beanName;
 		}
 
-		Class<?> getBeanType() {
+		public Class<?> getBeanType() {
 			return this.beanType;
 		}
 

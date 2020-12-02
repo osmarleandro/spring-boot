@@ -20,6 +20,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.boot.actuate.endpoint.EndpointFilter;
 import org.springframework.boot.actuate.endpoint.EndpointId;
 import org.springframework.boot.actuate.endpoint.Operation;
@@ -30,6 +31,7 @@ import org.springframework.boot.actuate.endpoint.invoke.ParameterValueMapper;
 import org.springframework.boot.actuate.endpoint.web.ExposableServletEndpoint;
 import org.springframework.boot.actuate.endpoint.web.PathMapper;
 import org.springframework.context.ApplicationContext;
+import org.springframework.core.ResolvableType;
 import org.springframework.core.annotation.MergedAnnotations;
 import org.springframework.core.annotation.MergedAnnotations.SearchStrategy;
 
@@ -77,6 +79,23 @@ public class ServletEndpointDiscoverer extends EndpointDiscoverer<ExposableServl
 	@Override
 	protected OperationKey createOperationKey(Operation operation) {
 		throw new IllegalStateException("ServletEndpoints must not declare operations");
+	}
+
+	@SuppressWarnings("unchecked")
+	private boolean isFilterMatch(Class<?> filter, EndpointBean endpointBean) {
+		if (!isEndpointTypeExposed(endpointBean.getBeanType())) {
+			return false;
+		}
+		if (filter == null) {
+			return true;
+		}
+		ExposableServletEndpoint endpoint = getFilterEndpoint(endpointBean);
+		Class<?> generic = ResolvableType.forClass(EndpointFilter.class, filter).resolveGeneric(0);
+		if (generic == null || generic.isInstance(endpoint)) {
+			EndpointFilter<ExposableServletEndpoint> instance = (EndpointFilter<ExposableServletEndpoint>) BeanUtils.instantiateClass(filter);
+			return isFilterMatch(instance, endpoint);
+		}
+		return false;
 	}
 
 }

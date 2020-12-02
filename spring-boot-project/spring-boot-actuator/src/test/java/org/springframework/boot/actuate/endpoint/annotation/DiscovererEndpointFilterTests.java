@@ -19,13 +19,14 @@ package org.springframework.boot.actuate.endpoint.annotation;
 import java.util.Collection;
 
 import org.junit.jupiter.api.Test;
-
+import org.springframework.beans.BeanUtils;
 import org.springframework.boot.actuate.endpoint.EndpointFilter;
 import org.springframework.boot.actuate.endpoint.ExposableEndpoint;
 import org.springframework.boot.actuate.endpoint.Operation;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvokerAdvisor;
 import org.springframework.boot.actuate.endpoint.invoke.ParameterValueMapper;
 import org.springframework.context.ApplicationContext;
+import org.springframework.core.ResolvableType;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
@@ -82,6 +83,23 @@ class DiscovererEndpointFilterTests {
 			super(applicationContext, parameterValueMapper, invokerAdvisors, filters);
 		}
 
+		@SuppressWarnings("unchecked")
+		private boolean isFilterMatch(Class<?> filter, EndpointBean endpointBean) {
+			if (!isEndpointTypeExposed(endpointBean.getBeanType())) {
+				return false;
+			}
+			if (filter == null) {
+				return true;
+			}
+			ExposableEndpoint<Operation> endpoint = getFilterEndpoint(endpointBean);
+			Class<?> generic = ResolvableType.forClass(EndpointFilter.class, filter).resolveGeneric(0);
+			if (generic == null || generic.isInstance(endpoint)) {
+				EndpointFilter<ExposableEndpoint<Operation>> instance = (EndpointFilter<ExposableEndpoint<Operation>>) BeanUtils.instantiateClass(filter);
+				return isFilterMatch(instance, endpoint);
+			}
+			return false;
+		}
+
 	}
 
 	abstract static class TestDiscovererB extends EndpointDiscoverer<ExposableEndpoint<Operation>, Operation> {
@@ -90,6 +108,23 @@ class DiscovererEndpointFilterTests {
 				Collection<OperationInvokerAdvisor> invokerAdvisors,
 				Collection<EndpointFilter<ExposableEndpoint<Operation>>> filters) {
 			super(applicationContext, parameterValueMapper, invokerAdvisors, filters);
+		}
+
+		@SuppressWarnings("unchecked")
+		private boolean isFilterMatch(Class<?> filter, EndpointBean endpointBean) {
+			if (!isEndpointTypeExposed(endpointBean.getBeanType())) {
+				return false;
+			}
+			if (filter == null) {
+				return true;
+			}
+			ExposableEndpoint<Operation> endpoint = getFilterEndpoint(endpointBean);
+			Class<?> generic = ResolvableType.forClass(EndpointFilter.class, filter).resolveGeneric(0);
+			if (generic == null || generic.isInstance(endpoint)) {
+				EndpointFilter<ExposableEndpoint<Operation>> instance = (EndpointFilter<ExposableEndpoint<Operation>>) BeanUtils.instantiateClass(filter);
+				return isFilterMatch(instance, endpoint);
+			}
+			return false;
 		}
 
 	}

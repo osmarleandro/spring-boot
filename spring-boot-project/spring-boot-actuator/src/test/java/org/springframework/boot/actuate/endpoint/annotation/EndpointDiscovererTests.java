@@ -33,7 +33,7 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 
 import org.junit.jupiter.api.Test;
-
+import org.springframework.beans.BeanUtils;
 import org.springframework.boot.actuate.endpoint.EndpointFilter;
 import org.springframework.boot.actuate.endpoint.EndpointId;
 import org.springframework.boot.actuate.endpoint.ExposableEndpoint;
@@ -51,6 +51,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
+import org.springframework.core.ResolvableType;
 import org.springframework.core.annotation.AliasFor;
 import org.springframework.util.ReflectionUtils;
 
@@ -559,6 +560,23 @@ class EndpointDiscovererTests {
 					() -> "TestOperation " + operation.getOperationMethod());
 		}
 
+		@SuppressWarnings("unchecked")
+		private boolean isFilterMatch(Class<?> filter, EndpointBean endpointBean) {
+			if (!isEndpointTypeExposed(endpointBean.getBeanType())) {
+				return false;
+			}
+			if (filter == null) {
+				return true;
+			}
+			TestExposableEndpoint endpoint = getFilterEndpoint(endpointBean);
+			Class<?> generic = ResolvableType.forClass(EndpointFilter.class, filter).resolveGeneric(0);
+			if (generic == null || generic.isInstance(endpoint)) {
+				EndpointFilter<TestExposableEndpoint> instance = (EndpointFilter<TestExposableEndpoint>) BeanUtils.instantiateClass(filter);
+				return isFilterMatch(instance, endpoint);
+			}
+			return false;
+		}
+
 	}
 
 	static class SpecializedEndpointDiscoverer
@@ -589,6 +607,23 @@ class EndpointDiscovererTests {
 		protected OperationKey createOperationKey(SpecializedOperation operation) {
 			return new OperationKey(operation.getOperationMethod(),
 					() -> "TestOperation " + operation.getOperationMethod());
+		}
+
+		@SuppressWarnings("unchecked")
+		private boolean isFilterMatch(Class<?> filter, EndpointBean endpointBean) {
+			if (!isEndpointTypeExposed(endpointBean.getBeanType())) {
+				return false;
+			}
+			if (filter == null) {
+				return true;
+			}
+			SpecializedExposableEndpoint endpoint = getFilterEndpoint(endpointBean);
+			Class<?> generic = ResolvableType.forClass(EndpointFilter.class, filter).resolveGeneric(0);
+			if (generic == null || generic.isInstance(endpoint)) {
+				EndpointFilter<SpecializedExposableEndpoint> instance = (EndpointFilter<SpecializedExposableEndpoint>) BeanUtils.instantiateClass(filter);
+				return isFilterMatch(instance, endpoint);
+			}
+			return false;
 		}
 
 	}
