@@ -24,7 +24,6 @@ import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -58,7 +57,6 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerMapping;
 import org.springframework.web.servlet.handler.MatchableHandlerMapping;
-import org.springframework.web.servlet.handler.RequestMatchResult;
 import org.springframework.web.servlet.mvc.method.RequestMappingInfo;
 import org.springframework.web.servlet.mvc.method.RequestMappingInfoHandlerMapping;
 import org.springframework.web.util.UrlPathHelper;
@@ -89,7 +87,7 @@ public abstract class AbstractWebMvcEndpointHandlerMapping extends RequestMappin
 	private final Method handleMethod = ReflectionUtils.findMethod(OperationHandler.class, "handle",
 			HttpServletRequest.class, Map.class);
 
-	private static final RequestMappingInfo.BuilderConfiguration builderConfig = getBuilderConfig();
+	protected static final RequestMappingInfo.BuilderConfiguration builderConfig = getBuilderConfig();
 
 	/**
 	 * Creates a new {@code WebEndpointHandlerMapping} that provides mappings for the
@@ -141,18 +139,6 @@ public abstract class AbstractWebMvcEndpointHandlerMapping extends RequestMappin
 	protected HandlerMethod createHandlerMethod(Object handler, Method method) {
 		HandlerMethod handlerMethod = super.createHandlerMethod(handler, method);
 		return new WebMvcEndpointHandlerMethod(handlerMethod.getBean(), handlerMethod.getMethod());
-	}
-
-	@Override
-	public RequestMatchResult match(HttpServletRequest request, String pattern) {
-		RequestMappingInfo info = RequestMappingInfo.paths(pattern).options(builderConfig).build();
-		RequestMappingInfo matchingInfo = info.getMatchingCondition(request);
-		if (matchingInfo == null) {
-			return null;
-		}
-		Set<String> patterns = matchingInfo.getPatternsCondition().getPatterns();
-		String lookupPath = getUrlPathHelper().getLookupPathForRequest(request);
-		return new RequestMatchResult(patterns.iterator().next(), lookupPath, getPathMatcher());
 	}
 
 	@SuppressWarnings("deprecation")

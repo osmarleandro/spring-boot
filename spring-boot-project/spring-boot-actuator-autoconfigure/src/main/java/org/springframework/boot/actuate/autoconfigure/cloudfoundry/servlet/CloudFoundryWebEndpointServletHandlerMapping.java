@@ -20,6 +20,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
@@ -39,6 +40,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.servlet.handler.RequestMatchResult;
+import org.springframework.web.servlet.mvc.method.RequestMappingInfo;
 import org.springframework.web.servlet.mvc.method.RequestMappingInfoHandlerMapping;
 
 /**
@@ -73,6 +76,18 @@ class CloudFoundryWebEndpointServletHandlerMapping extends AbstractWebMvcEndpoin
 	@Override
 	protected LinksHandler getLinksHandler() {
 		return new CloudFoundryLinksHandler();
+	}
+
+	@Override
+	public RequestMatchResult match(HttpServletRequest request, String pattern) {
+		RequestMappingInfo info = RequestMappingInfo.paths(pattern).options(builderConfig).build();
+		RequestMappingInfo matchingInfo = info.getMatchingCondition(request);
+		if (matchingInfo == null) {
+			return null;
+		}
+		Set<String> patterns = matchingInfo.getPatternsCondition().getPatterns();
+		String lookupPath = getUrlPathHelper().getLookupPathForRequest(request);
+		return new RequestMatchResult(patterns.iterator().next(), lookupPath, getPathMatcher());
 	}
 
 	class CloudFoundryLinksHandler implements LinksHandler {
