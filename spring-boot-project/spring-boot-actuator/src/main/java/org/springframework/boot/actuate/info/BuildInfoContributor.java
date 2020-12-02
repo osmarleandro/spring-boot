@@ -56,4 +56,16 @@ public class BuildInfoContributor extends InfoPropertiesInfoContributor<BuildPro
 		replaceValue(content, "time", getProperties().getTime());
 	}
 
+	/**
+	 * Replace the {@code value} for the specified key if the value is not {@code null}.
+	 * @param content the content to expose
+	 * @param key the property to replace
+	 * @param value the new value
+	 */
+	protected void replaceValue(Map<String, Object> content, String key, Object value) {
+		if (content.containsKey(key) && value != null) {
+			content.put(key, value);
+		}
+	}
+
 }

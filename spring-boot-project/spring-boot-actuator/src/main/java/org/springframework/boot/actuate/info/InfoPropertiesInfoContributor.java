@@ -126,18 +126,6 @@ public abstract class InfoPropertiesInfoContributor<T extends InfoProperties> im
 	}
 
 	/**
-	 * Replace the {@code value} for the specified key if the value is not {@code null}.
-	 * @param content the content to expose
-	 * @param key the property to replace
-	 * @param value the new value
-	 */
-	protected void replaceValue(Map<String, Object> content, String key, Object value) {
-		if (content.containsKey(key) && value != null) {
-			content.put(key, value);
-		}
-	}
-
-	/**
 	 * Return the nested map with the specified key or empty map if the specified map
 	 * contains no mapping for the key.
 	 * @param map the content
