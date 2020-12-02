@@ -16,8 +16,12 @@
 
 package org.springframework.boot.actuate.autoconfigure.web.trace;
 
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Set;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.junit.jupiter.api.Test;
 
@@ -173,6 +177,16 @@ class HttpTraceAutoConfigurationTests {
 
 		private CustomHttpTraceFilter(HttpTraceRepository repository, HttpExchangeTracer tracer) {
 			super(repository, tracer);
+		}
+
+		private boolean isRequestValid(HttpServletRequest request) {
+			try {
+				new URI(request.getRequestURL().toString());
+				return true;
+			}
+			catch (URISyntaxException ex) {
+				return false;
+			}
 		}
 
 	}
