@@ -108,6 +108,11 @@ class AuditAutoConfigurationTests {
 
 	static class TestAuditEventRepository extends InMemoryAuditEventRepository {
 
+		private AuditEvent resolveTailEvent(int offset) {
+			int index = ((this.tail + this.events.length - offset) % this.events.length);
+			return this.events[index];
+		}
+
 	}
 
 	@Configuration(proxyBeanMethods = false)
