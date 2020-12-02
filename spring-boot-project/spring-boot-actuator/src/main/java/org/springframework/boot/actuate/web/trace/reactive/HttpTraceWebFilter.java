@@ -43,7 +43,7 @@ public class HttpTraceWebFilter implements WebFilter, Ordered {
 
 	// Not LOWEST_PRECEDENCE, but near the end, so it has a good chance of catching all
 	// enriched headers, but users can add stuff after this if they want to
-	private int order = Ordered.LOWEST_PRECEDENCE - 10;
+	protected int order = Ordered.LOWEST_PRECEDENCE - 10;
 
 	private final HttpTraceRepository repository;
 
@@ -55,11 +55,6 @@ public class HttpTraceWebFilter implements WebFilter, Ordered {
 		this.repository = repository;
 		this.tracer = tracer;
 		this.includes = includes;
-	}
-
-	@Override
-	public int getOrder() {
-		return this.order;
 	}
 
 	public void setOrder(int order) {
