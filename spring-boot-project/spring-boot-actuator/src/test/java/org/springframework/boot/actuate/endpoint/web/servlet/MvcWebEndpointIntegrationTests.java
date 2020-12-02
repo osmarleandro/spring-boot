@@ -52,6 +52,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestWrapper;
+import org.springframework.test.web.reactive.server.WebTestClient;
 import org.springframework.util.StringUtils;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -134,6 +135,15 @@ class MvcWebEndpointIntegrationTests
 	@Override
 	protected int getPort(AnnotationConfigServletWebServerApplicationContext context) {
 		return context.getWebServer().getPort();
+	}
+
+	@Test
+	void readOperationWithMappingFailureProducesBadRequestResponse() {
+		load(QueryEndpointConfiguration.class, (client) -> {
+			WebTestClient.BodyContentSpec body = client.get().uri("/query?two=two").accept(MediaType.APPLICATION_JSON)
+					.exchange().expectStatus().isBadRequest().expectBody();
+			validateErrorBody(body, HttpStatus.BAD_REQUEST, "/endpoints/query", "Missing parameters: one");
+		});
 	}
 
 	@Configuration(proxyBeanMethods = false)
