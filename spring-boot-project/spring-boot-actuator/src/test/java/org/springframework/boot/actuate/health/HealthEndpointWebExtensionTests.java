@@ -104,4 +104,12 @@ class HealthEndpointWebExtensionTests
 		return result.getHealth();
 	}
 
+	@Test
+	void getHealthWithEmptyCompositeReturnsNullResult() { // gh-18687
+		this.registry.registerContributor("test", createCompositeContributor(Collections.emptyMap()));
+		HealthResult<HealthComponent> result = create(this.registry, this.groups).getHealth(ApiVersion.V3, SecurityContext.NONE,
+				false);
+		assertThat(result).isNull();
+	}
+
 }
