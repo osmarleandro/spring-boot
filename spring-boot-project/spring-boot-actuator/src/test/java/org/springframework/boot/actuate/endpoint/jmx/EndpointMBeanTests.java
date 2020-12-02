@@ -33,6 +33,7 @@ import reactor.core.publisher.Mono;
 import org.springframework.beans.FatalBeanException;
 import org.springframework.boot.actuate.endpoint.InvalidEndpointRequestException;
 import org.springframework.boot.actuate.endpoint.InvocationContext;
+import org.springframework.boot.actuate.endpoint.OperationType;
 import org.springframework.util.ClassUtils;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -199,6 +200,11 @@ class EndpointMBeanTests {
 
 	private EndpointMBean createEndpointMBean() {
 		return new EndpointMBean(this.responseMapper, null, this.endpoint);
+	}
+
+	@Override
+	public OperationType getType() {
+		return this.operationType;
 	}
 
 }

@@ -31,7 +31,7 @@ import org.springframework.boot.actuate.endpoint.OperationType;
  */
 public class TestJmxOperation implements JmxOperation {
 
-	private final OperationType operationType;
+	protected final OperationType operationType;
 
 	private final Function<Map<String, Object>, Object> invoke;
 
@@ -59,11 +59,6 @@ public class TestJmxOperation implements JmxOperation {
 		this.operationType = OperationType.READ;
 		this.invoke = null;
 		this.parameters = parameters;
-	}
-
-	@Override
-	public OperationType getType() {
-		return this.operationType;
 	}
 
 	@Override
