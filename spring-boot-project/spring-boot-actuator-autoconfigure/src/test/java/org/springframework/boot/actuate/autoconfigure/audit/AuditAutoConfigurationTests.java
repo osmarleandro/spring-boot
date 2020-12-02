@@ -22,6 +22,7 @@ import org.springframework.boot.actuate.audit.AuditEvent;
 import org.springframework.boot.actuate.audit.AuditEventRepository;
 import org.springframework.boot.actuate.audit.InMemoryAuditEventRepository;
 import org.springframework.boot.actuate.audit.listener.AbstractAuditListener;
+import org.springframework.boot.actuate.audit.listener.AuditApplicationEvent;
 import org.springframework.boot.actuate.audit.listener.AuditListener;
 import org.springframework.boot.actuate.security.AbstractAuthenticationAuditListener;
 import org.springframework.boot.actuate.security.AbstractAuthorizationAuditListener;
@@ -150,6 +151,12 @@ class AuditAutoConfigurationTests {
 
 		@Override
 		public void onApplicationEvent(AbstractAuthorizationEvent event) {
+		}
+
+		protected void publish(AuditEvent event) {
+			if (getPublisher() != null) {
+				getPublisher().publishEvent(new AuditApplicationEvent(event));
+			}
 		}
 
 	}
