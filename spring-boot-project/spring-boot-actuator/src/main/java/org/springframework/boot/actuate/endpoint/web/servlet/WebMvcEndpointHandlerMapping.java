@@ -67,6 +67,11 @@ public class WebMvcEndpointHandlerMapping extends AbstractWebMvcEndpointHandlerM
 		return new WebMvcLinksHandler();
 	}
 
+	@Override
+	protected boolean isHandler(Class<?> beanType) {
+		return false;
+	}
+
 	/**
 	 * Handler for root endpoint providing links.
 	 */
