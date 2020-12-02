@@ -17,6 +17,7 @@
 package org.springframework.boot.actuate.endpoint.web.annotation;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.boot.actuate.endpoint.EndpointFilter;
@@ -85,6 +86,16 @@ public class WebEndpointDiscoverer extends EndpointDiscoverer<ExposableWebEndpoi
 	protected OperationKey createOperationKey(WebOperation operation) {
 		return new OperationKey(operation.getRequestPredicate(),
 				() -> "web request predicate " + operation.getRequestPredicate());
+	}
+
+	private ExposableWebEndpoint getFilterEndpoint(EndpointBean endpointBean) {
+		ExposableWebEndpoint endpoint = this.filterEndpoints.get(endpointBean);
+		if (endpoint == null) {
+			endpoint = createEndpoint(endpointBean.getBean(), endpointBean.getId(), endpointBean.isEnabledByDefault(),
+					Collections.emptySet());
+			this.filterEndpoints.put(endpointBean, endpoint);
+		}
+		return endpoint;
 	}
 
 }

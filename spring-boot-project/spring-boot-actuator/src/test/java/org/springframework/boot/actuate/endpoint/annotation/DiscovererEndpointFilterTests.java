@@ -17,6 +17,7 @@
 package org.springframework.boot.actuate.endpoint.annotation;
 
 import java.util.Collection;
+import java.util.Collections;
 
 import org.junit.jupiter.api.Test;
 
@@ -82,6 +83,16 @@ class DiscovererEndpointFilterTests {
 			super(applicationContext, parameterValueMapper, invokerAdvisors, filters);
 		}
 
+		private ExposableEndpoint<Operation> getFilterEndpoint(EndpointBean endpointBean) {
+			ExposableEndpoint<Operation> endpoint = this.filterEndpoints.get(endpointBean);
+			if (endpoint == null) {
+				endpoint = createEndpoint(endpointBean.getBean(), endpointBean.getId(), endpointBean.isEnabledByDefault(),
+						Collections.emptySet());
+				this.filterEndpoints.put(endpointBean, endpoint);
+			}
+			return endpoint;
+		}
+
 	}
 
 	abstract static class TestDiscovererB extends EndpointDiscoverer<ExposableEndpoint<Operation>, Operation> {
@@ -90,6 +101,16 @@ class DiscovererEndpointFilterTests {
 				Collection<OperationInvokerAdvisor> invokerAdvisors,
 				Collection<EndpointFilter<ExposableEndpoint<Operation>>> filters) {
 			super(applicationContext, parameterValueMapper, invokerAdvisors, filters);
+		}
+
+		private ExposableEndpoint<Operation> getFilterEndpoint(EndpointBean endpointBean) {
+			ExposableEndpoint<Operation> endpoint = this.filterEndpoints.get(endpointBean);
+			if (endpoint == null) {
+				endpoint = createEndpoint(endpointBean.getBean(), endpointBean.getId(), endpointBean.isEnabledByDefault(),
+						Collections.emptySet());
+				this.filterEndpoints.put(endpointBean, endpoint);
+			}
+			return endpoint;
 		}
 
 	}

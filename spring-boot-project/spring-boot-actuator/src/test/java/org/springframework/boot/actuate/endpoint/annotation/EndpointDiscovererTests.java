@@ -559,6 +559,16 @@ class EndpointDiscovererTests {
 					() -> "TestOperation " + operation.getOperationMethod());
 		}
 
+		private TestExposableEndpoint getFilterEndpoint(EndpointBean endpointBean) {
+			TestExposableEndpoint endpoint = this.filterEndpoints.get(endpointBean);
+			if (endpoint == null) {
+				endpoint = createEndpoint(endpointBean.getBean(), endpointBean.getId(), endpointBean.isEnabledByDefault(),
+						Collections.emptySet());
+				this.filterEndpoints.put(endpointBean, endpoint);
+			}
+			return endpoint;
+		}
+
 	}
 
 	static class SpecializedEndpointDiscoverer
@@ -589,6 +599,16 @@ class EndpointDiscovererTests {
 		protected OperationKey createOperationKey(SpecializedOperation operation) {
 			return new OperationKey(operation.getOperationMethod(),
 					() -> "TestOperation " + operation.getOperationMethod());
+		}
+
+		private SpecializedExposableEndpoint getFilterEndpoint(EndpointBean endpointBean) {
+			SpecializedExposableEndpoint endpoint = this.filterEndpoints.get(endpointBean);
+			if (endpoint == null) {
+				endpoint = createEndpoint(endpointBean.getBean(), endpointBean.getId(), endpointBean.isEnabledByDefault(),
+						Collections.emptySet());
+				this.filterEndpoints.put(endpointBean, endpoint);
+			}
+			return endpoint;
 		}
 
 	}
