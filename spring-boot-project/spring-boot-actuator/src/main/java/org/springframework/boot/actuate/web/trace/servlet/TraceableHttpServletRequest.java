@@ -36,7 +36,7 @@ import org.springframework.web.util.UriUtils;
  *
  * @author Andy Wilkinson
  */
-final class TraceableHttpServletRequest implements TraceableRequest {
+public final class TraceableHttpServletRequest implements TraceableRequest {
 
 	private final HttpServletRequest request;
 

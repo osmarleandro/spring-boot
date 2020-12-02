@@ -16,8 +16,14 @@
 
 package org.springframework.boot.actuate.autoconfigure.web.trace;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Set;
+
+import javax.servlet.FilterChain;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.junit.jupiter.api.Test;
 
@@ -30,11 +36,14 @@ import org.springframework.boot.actuate.trace.http.InMemoryHttpTraceRepository;
 import org.springframework.boot.actuate.trace.http.Include;
 import org.springframework.boot.actuate.web.trace.reactive.HttpTraceWebFilter;
 import org.springframework.boot.actuate.web.trace.servlet.HttpTraceFilter;
+import org.springframework.boot.actuate.web.trace.servlet.TraceableHttpServletRequest;
+import org.springframework.boot.actuate.web.trace.servlet.TraceableHttpServletResponse;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
 import org.springframework.boot.test.context.runner.ReactiveWebApplicationContextRunner;
 import org.springframework.boot.test.context.runner.WebApplicationContextRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpStatus;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -173,6 +182,28 @@ class HttpTraceAutoConfigurationTests {
 
 		private CustomHttpTraceFilter(HttpTraceRepository repository, HttpExchangeTracer tracer) {
 			super(repository, tracer);
+		}
+
+		@Override
+		protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+			if (!isRequestValid(request)) {
+				filterChain.doFilter(request, response);
+				return;
+			}
+			TraceableHttpServletRequest traceableRequest = new TraceableHttpServletRequest(request);
+			HttpTrace trace = this.tracer.receivedRequest(traceableRequest);
+			int status = HttpStatus.INTERNAL_SERVER_ERROR.value();
+			try {
+				filterChain.doFilter(request, response);
+				status = response.getStatus();
+			}
+			finally {
+				TraceableHttpServletResponse traceableResponse = new TraceableHttpServletResponse(
+						(status != response.getStatus()) ? new CustomStatusResponseWrapper(response, status) : response);
+				this.tracer.sendingResponse(trace, traceableResponse, request::getUserPrincipal,
+						() -> getSessionId(request));
+				this.repository.add(trace);
+			}
 		}
 
 	}
