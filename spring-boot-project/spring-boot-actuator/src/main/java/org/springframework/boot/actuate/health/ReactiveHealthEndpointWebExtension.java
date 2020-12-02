@@ -96,6 +96,10 @@ public class ReactiveHealthEndpointWebExtension
 						.getCompositeHealth(apiVersion, components, statusAggregator, showComponents, groupNames));
 	}
 
+	private Status getStatus(HealthComponent component) {
+		return (component != null) ? component.getStatus() : Status.UNKNOWN;
+	}
+
 	/**
 	 * A named {@link HealthComponent}.
 	 */

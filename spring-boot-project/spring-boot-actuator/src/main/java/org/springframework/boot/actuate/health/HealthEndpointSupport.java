@@ -137,10 +137,6 @@ abstract class HealthEndpointSupport<C, T> {
 		return new CompositeHealth(apiVersion, status, instances);
 	}
 
-	private Status getStatus(HealthComponent component) {
-		return (component != null) ? component.getStatus() : Status.UNKNOWN;
-	}
-
 	/**
 	 * A health result containing health and the group that created it.
 	 *

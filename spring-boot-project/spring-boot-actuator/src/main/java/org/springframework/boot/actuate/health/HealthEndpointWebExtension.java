@@ -91,4 +91,8 @@ public class HealthEndpointWebExtension extends HealthEndpointSupport<HealthCont
 		return getCompositeHealth(apiVersion, contributions, statusAggregator, showComponents, groupNames);
 	}
 
+	private Status getStatus(HealthComponent component) {
+		return (component != null) ? component.getStatus() : Status.UNKNOWN;
+	}
+
 }
