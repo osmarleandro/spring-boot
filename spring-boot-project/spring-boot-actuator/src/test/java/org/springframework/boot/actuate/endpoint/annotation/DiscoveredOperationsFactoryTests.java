@@ -196,6 +196,11 @@ class DiscoveredOperationsFactoryTests {
 			super(operationMethod, invoker);
 		}
 
+		@Override
+		public Object invoke(InvocationContext context) {
+			return this.invoker.invoke(context);
+		}
+
 	}
 
 	static class TestOperationInvokerAdvisor implements OperationInvokerAdvisor {

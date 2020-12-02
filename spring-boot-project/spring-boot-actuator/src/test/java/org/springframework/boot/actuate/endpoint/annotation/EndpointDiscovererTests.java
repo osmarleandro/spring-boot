@@ -37,6 +37,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.actuate.endpoint.EndpointFilter;
 import org.springframework.boot.actuate.endpoint.EndpointId;
 import org.springframework.boot.actuate.endpoint.ExposableEndpoint;
+import org.springframework.boot.actuate.endpoint.InvocationContext;
 import org.springframework.boot.actuate.endpoint.Operation;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvoker;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvokerAdvisor;
@@ -622,6 +623,11 @@ class EndpointDiscovererTests {
 
 		OperationInvoker getInvoker() {
 			return this.invoker;
+		}
+
+		@Override
+		public Object invoke(InvocationContext context) {
+			return this.invoker.invoke(context);
 		}
 
 	}
