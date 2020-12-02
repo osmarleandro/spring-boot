@@ -17,6 +17,7 @@
 package org.springframework.boot.actuate.health;
 
 import java.util.Collections;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import org.junit.jupiter.api.Test;
@@ -105,6 +106,21 @@ class ReactiveHealthEndpointWebExtensionTests extends
 	@Override
 	protected HealthComponent getHealth(HealthResult<Mono<? extends HealthComponent>> result) {
 		return result.getHealth().block();
+	}
+
+	@Test
+	void getHealthWhenCompositeReturnsAggregateResult() {
+		Map<String, ReactiveHealthContributor> contributors = new LinkedHashMap<>();
+		contributors.put("a", createContributor(this.up));
+		contributors.put("b", createContributor(this.down));
+		this.registry.registerContributor("test", createCompositeContributor(contributors));
+		HealthResult<Mono<? extends HealthComponent>> result = create(this.registry, this.groups).getHealth(ApiVersion.V3, SecurityContext.NONE,
+				false);
+		CompositeHealth root = (CompositeHealth) getHealth(result);
+		CompositeHealth component = (CompositeHealth) root.getComponents().get("test");
+		assertThat(root.getStatus()).isEqualTo(Status.DOWN);
+		assertThat(component.getStatus()).isEqualTo(Status.DOWN);
+		assertThat(component.getComponents()).containsOnlyKeys("a", "b");
 	}
 
 }

@@ -17,7 +17,6 @@
 package org.springframework.boot.actuate.health;
 
 import java.util.Collections;
-import java.util.LinkedHashMap;
 import java.util.Map;
 
 import org.junit.jupiter.api.Test;
@@ -40,17 +39,17 @@ import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException
  */
 abstract class HealthEndpointSupportTests<R extends ContributorRegistry<C>, C, T> {
 
-	final R registry;
+	protected final R registry;
 
-	final Health up = Health.up().withDetail("spring", "boot").build();
+	protected final Health up = Health.up().withDetail("spring", "boot").build();
 
-	final Health down = Health.down().build();
+	protected final Health down = Health.down().build();
 
 	final TestHealthEndpointGroup primaryGroup = new TestHealthEndpointGroup();
 
 	final TestHealthEndpointGroup allTheAs = new TestHealthEndpointGroup((name) -> name.startsWith("a"));
 
-	final HealthEndpointGroups groups = HealthEndpointGroups.of(this.primaryGroup,
+	protected final HealthEndpointGroups groups = HealthEndpointGroups.of(this.primaryGroup,
 			Collections.singletonMap("alltheas", this.allTheAs));
 
 	HealthEndpointSupportTests() {
@@ -161,21 +160,6 @@ abstract class HealthEndpointSupportTests<R extends ContributorRegistry<C>, C, T
 		HealthResult<T> result = create(this.registry, this.groups).getHealth(ApiVersion.V3, SecurityContext.NONE, true,
 				"test");
 		assertThat(((Health) getHealth(result)).getDetails()).containsEntry("spring", "boot");
-	}
-
-	@Test
-	void getHealthWhenCompositeReturnsAggregateResult() {
-		Map<String, C> contributors = new LinkedHashMap<>();
-		contributors.put("a", createContributor(this.up));
-		contributors.put("b", createContributor(this.down));
-		this.registry.registerContributor("test", createCompositeContributor(contributors));
-		HealthResult<T> result = create(this.registry, this.groups).getHealth(ApiVersion.V3, SecurityContext.NONE,
-				false);
-		CompositeHealth root = (CompositeHealth) getHealth(result);
-		CompositeHealth component = (CompositeHealth) root.getComponents().get("test");
-		assertThat(root.getStatus()).isEqualTo(Status.DOWN);
-		assertThat(component.getStatus()).isEqualTo(Status.DOWN);
-		assertThat(component.getComponents()).containsOnlyKeys("a", "b");
 	}
 
 	@Test
