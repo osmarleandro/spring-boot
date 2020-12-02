@@ -82,6 +82,13 @@ class DiscovererEndpointFilterTests {
 			super(applicationContext, parameterValueMapper, invokerAdvisors, filters);
 		}
 
+		/**
+		 * Create an {@link OperationKey} for the given operation.
+		 * @param operation the source operation
+		 * @return the operation key
+		 */
+		protected abstract OperationKey createOperationKey(Operation operation);
+
 	}
 
 	abstract static class TestDiscovererB extends EndpointDiscoverer<ExposableEndpoint<Operation>, Operation> {
@@ -91,6 +98,13 @@ class DiscovererEndpointFilterTests {
 				Collection<EndpointFilter<ExposableEndpoint<Operation>>> filters) {
 			super(applicationContext, parameterValueMapper, invokerAdvisors, filters);
 		}
+
+		/**
+		 * Create an {@link OperationKey} for the given operation.
+		 * @param operation the source operation
+		 * @return the operation key
+		 */
+		protected abstract OperationKey createOperationKey(Operation operation);
 
 	}
 

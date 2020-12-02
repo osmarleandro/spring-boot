@@ -360,17 +360,10 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 			OperationInvoker invoker);
 
 	/**
-	 * Create an {@link OperationKey} for the given operation.
-	 * @param operation the source operation
-	 * @return the operation key
-	 */
-	protected abstract OperationKey createOperationKey(O operation);
-
-	/**
 	 * A key generated for an {@link Operation} based on specific criteria from the actual
 	 * operation implementation.
 	 */
-	protected static final class OperationKey {
+	public static final class OperationKey {
 
 		private final Object key;
 
