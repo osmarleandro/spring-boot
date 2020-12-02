@@ -339,17 +339,6 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 	}
 
 	/**
-	 * Factory method called to create the {@link ExposableEndpoint endpoint}.
-	 * @param endpointBean the source endpoint bean
-	 * @param id the ID of the endpoint
-	 * @param enabledByDefault if the endpoint is enabled by default
-	 * @param operations the endpoint operations
-	 * @return a created endpoint (a {@link DiscoveredEndpoint} is recommended)
-	 */
-	protected abstract E createEndpoint(Object endpointBean, EndpointId id, boolean enabledByDefault,
-			Collection<O> operations);
-
-	/**
 	 * Factory method to create an {@link Operation endpoint operation}.
 	 * @param endpointId the endpoint id
 	 * @param operationMethod the operation method

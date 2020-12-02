@@ -21,6 +21,7 @@ import java.util.Collection;
 import org.junit.jupiter.api.Test;
 
 import org.springframework.boot.actuate.endpoint.EndpointFilter;
+import org.springframework.boot.actuate.endpoint.EndpointId;
 import org.springframework.boot.actuate.endpoint.ExposableEndpoint;
 import org.springframework.boot.actuate.endpoint.Operation;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvokerAdvisor;
@@ -82,6 +83,16 @@ class DiscovererEndpointFilterTests {
 			super(applicationContext, parameterValueMapper, invokerAdvisors, filters);
 		}
 
+		/**
+		 * Factory method called to create the {@link ExposableEndpoint endpoint}.
+		 * @param endpointBean the source endpoint bean
+		 * @param id the ID of the endpoint
+		 * @param enabledByDefault if the endpoint is enabled by default
+		 * @param operations the endpoint operations
+		 * @return a created endpoint (a {@link DiscoveredEndpoint} is recommended)
+		 */
+		protected abstract ExposableEndpoint<Operation> createEndpoint(Object endpointBean, EndpointId id, boolean enabledByDefault, Collection<Operation> operations);
+
 	}
 
 	abstract static class TestDiscovererB extends EndpointDiscoverer<ExposableEndpoint<Operation>, Operation> {
@@ -91,6 +102,16 @@ class DiscovererEndpointFilterTests {
 				Collection<EndpointFilter<ExposableEndpoint<Operation>>> filters) {
 			super(applicationContext, parameterValueMapper, invokerAdvisors, filters);
 		}
+
+		/**
+		 * Factory method called to create the {@link ExposableEndpoint endpoint}.
+		 * @param endpointBean the source endpoint bean
+		 * @param id the ID of the endpoint
+		 * @param enabledByDefault if the endpoint is enabled by default
+		 * @param operations the endpoint operations
+		 * @return a created endpoint (a {@link DiscoveredEndpoint} is recommended)
+		 */
+		protected abstract ExposableEndpoint<Operation> createEndpoint(Object endpointBean, EndpointId id, boolean enabledByDefault, Collection<Operation> operations);
 
 	}
 
