@@ -136,6 +136,12 @@ class MvcWebEndpointIntegrationTests
 		return context.getWebServer().getPort();
 	}
 
+	@Test
+	void nullResponseFromDeleteOperationResultsInNoContentResponseStatus() {
+		load(NullDeleteResponseEndpointConfiguration.class,
+				(context, client) -> client.delete().uri("/nulldelete").exchange().expectStatus().isNoContent());
+	}
+
 	@Configuration(proxyBeanMethods = false)
 	@ImportAutoConfiguration({ JacksonAutoConfiguration.class, HttpMessageConvertersAutoConfiguration.class,
 			ServletWebServerFactoryAutoConfiguration.class, WebMvcAutoConfiguration.class,

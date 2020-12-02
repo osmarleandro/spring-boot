@@ -100,6 +100,12 @@ class WebFluxEndpointIntegrationTests
 		return context.getBean(ReactiveConfiguration.class).port;
 	}
 
+	@Test
+	void nullResponseFromDeleteOperationResultsInNoContentResponseStatus() {
+		load(NullDeleteResponseEndpointConfiguration.class,
+				(context, client) -> client.delete().uri("/nulldelete").exchange().expectStatus().isNoContent());
+	}
+
 	@Configuration(proxyBeanMethods = false)
 	@EnableWebFlux
 	@ImportAutoConfiguration(ErrorWebFluxAutoConfiguration.class)
