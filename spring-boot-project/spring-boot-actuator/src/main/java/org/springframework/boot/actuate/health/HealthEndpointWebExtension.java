@@ -17,6 +17,7 @@
 package org.springframework.boot.actuate.health;
 
 import java.util.Arrays;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
 
@@ -90,5 +91,26 @@ public class HealthEndpointWebExtension extends HealthEndpointSupport<HealthCont
 			StatusAggregator statusAggregator, boolean showComponents, Set<String> groupNames) {
 		return getCompositeHealth(apiVersion, contributions, statusAggregator, showComponents, groupNames);
 	}
+
+	private HealthComponent getAggregateHealth(ApiVersion apiVersion, HealthEndpointGroup group, NamedContributors<HealthContributor> namedContributors, boolean showComponents, boolean showDetails, Set<String> groupNames,
+			boolean isNested) {
+				Map<String, HealthComponent> contributions = new LinkedHashMap<>();
+				for (NamedContributor<HealthContributor> namedContributor : namedContributors) {
+					String name = namedContributor.getName();
+					HealthContributor contributor = namedContributor.getContributor();
+					if (group.isMember(name) || isNested) {
+						HealthComponent contribution = getContribution(apiVersion, group, contributor, showComponents, showDetails, null,
+								true);
+						if (contribution != null) {
+							contributions.put(name, contribution);
+						}
+					}
+				}
+				if (contributions.isEmpty()) {
+					return null;
+				}
+				return aggregateContributions(apiVersion, contributions, group.getStatusAggregator(), showComponents,
+						groupNames);
+			}
 
 }

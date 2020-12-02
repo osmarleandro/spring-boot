@@ -17,6 +17,7 @@
 package org.springframework.boot.actuate.health;
 
 import java.util.Arrays;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
 
@@ -95,6 +96,27 @@ public class ReactiveHealthEndpointWebExtension
 				.collectMap(NamedHealthComponent::getName, NamedHealthComponent::getHealth).map((components) -> this
 						.getCompositeHealth(apiVersion, components, statusAggregator, showComponents, groupNames));
 	}
+
+	private Mono<? extends HealthComponent> getAggregateHealth(ApiVersion apiVersion, HealthEndpointGroup group, NamedContributors<ReactiveHealthContributor> namedContributors, boolean showComponents, boolean showDetails, Set<String> groupNames,
+			boolean isNested) {
+				Map<String, Mono<? extends HealthComponent>> contributions = new LinkedHashMap<>();
+				for (NamedContributor<ReactiveHealthContributor> namedContributor : namedContributors) {
+					String name = namedContributor.getName();
+					ReactiveHealthContributor contributor = namedContributor.getContributor();
+					if (group.isMember(name) || isNested) {
+						Mono<? extends HealthComponent> contribution = getContribution(apiVersion, group, contributor, showComponents, showDetails, null,
+								true);
+						if (contribution != null) {
+							contributions.put(name, contribution);
+						}
+					}
+				}
+				if (contributions.isEmpty()) {
+					return null;
+				}
+				return aggregateContributions(apiVersion, contributions, group.getStatusAggregator(), showComponents,
+						groupNames);
+			}
 
 	/**
 	 * A named {@link HealthComponent}.
