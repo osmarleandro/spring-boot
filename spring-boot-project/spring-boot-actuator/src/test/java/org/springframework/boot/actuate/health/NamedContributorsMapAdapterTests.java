@@ -108,6 +108,11 @@ class NamedContributorsMapAdapterTests {
 			super(map, valueAdapter);
 		}
 
+		@Override
+		public String getContributor(String name) {
+			return adapt(this.map.get(name));
+		}
+
 	}
 
 }

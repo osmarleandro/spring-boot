@@ -32,4 +32,9 @@ class CompositeHealthContributorMapAdapter<V> extends NamedContributorsMapAdapte
 		super(map, valueAdapter);
 	}
 
+	@Override
+	public HealthContributor getContributor(String name) {
+		return adapt(this.map.get(name));
+	}
+
 }

@@ -36,7 +36,7 @@ import org.springframework.util.Assert;
  */
 abstract class NamedContributorsMapAdapter<V, C> implements NamedContributors<C> {
 
-	private final Map<String, V> map;
+	protected final Map<String, V> map;
 
 	private final Function<V, ? extends C> valueAdapter;
 
@@ -69,12 +69,7 @@ abstract class NamedContributorsMapAdapter<V, C> implements NamedContributors<C>
 		};
 	}
 
-	@Override
-	public C getContributor(String name) {
-		return adapt(this.map.get(name));
-	}
-
-	private C adapt(V value) {
+	protected C adapt(V value) {
 		return (value != null) ? this.valueAdapter.apply(value) : null;
 	}
 

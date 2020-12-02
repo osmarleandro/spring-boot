@@ -34,4 +34,9 @@ class CompositeReactiveHealthContributorMapAdapter<V> extends NamedContributorsM
 		super(map, valueAdapter);
 	}
 
+	@Override
+	public ReactiveHealthContributor getContributor(String name) {
+		return adapt(this.map.get(name));
+	}
+
 }
