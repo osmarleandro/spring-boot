@@ -98,4 +98,7 @@ class DiscoveredWebOperation extends AbstractDiscoveredOperation implements WebO
 				this.requestPredicate);
 	}
 
+	protected void appendFields(ToStringCreator creator) {
+	}
+
 }

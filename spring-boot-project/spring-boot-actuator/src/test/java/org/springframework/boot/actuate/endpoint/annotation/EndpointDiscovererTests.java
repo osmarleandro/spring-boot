@@ -52,6 +52,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.core.annotation.AliasFor;
+import org.springframework.core.style.ToStringCreator;
 import org.springframework.util.ReflectionUtils;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -622,6 +623,9 @@ class EndpointDiscovererTests {
 
 		OperationInvoker getInvoker() {
 			return this.invoker;
+		}
+
+		protected void appendFields(ToStringCreator creator) {
 		}
 
 	}

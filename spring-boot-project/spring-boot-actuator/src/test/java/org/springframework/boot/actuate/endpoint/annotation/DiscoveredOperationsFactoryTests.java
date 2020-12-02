@@ -34,6 +34,7 @@ import org.springframework.boot.actuate.endpoint.invoke.OperationInvokerAdvisor;
 import org.springframework.boot.actuate.endpoint.invoke.OperationParameters;
 import org.springframework.boot.actuate.endpoint.invoke.ParameterValueMapper;
 import org.springframework.boot.actuate.endpoint.invoke.reflect.OperationMethod;
+import org.springframework.core.style.ToStringCreator;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
@@ -194,6 +195,9 @@ class DiscoveredOperationsFactoryTests {
 
 		TestOperation(EndpointId endpointId, DiscoveredOperationMethod operationMethod, OperationInvoker invoker) {
 			super(operationMethod, invoker);
+		}
+
+		protected void appendFields(ToStringCreator creator) {
 		}
 
 	}
