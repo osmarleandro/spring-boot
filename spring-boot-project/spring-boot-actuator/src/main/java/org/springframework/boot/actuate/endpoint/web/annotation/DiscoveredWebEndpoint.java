@@ -23,6 +23,7 @@ import org.springframework.boot.actuate.endpoint.annotation.AbstractDiscoveredEn
 import org.springframework.boot.actuate.endpoint.annotation.EndpointDiscoverer;
 import org.springframework.boot.actuate.endpoint.web.ExposableWebEndpoint;
 import org.springframework.boot.actuate.endpoint.web.WebOperation;
+import org.springframework.core.style.ToStringCreator;
 
 /**
  * A discovered {@link ExposableWebEndpoint web endpoint}.
@@ -42,6 +43,9 @@ class DiscoveredWebEndpoint extends AbstractDiscoveredEndpoint<WebOperation> imp
 	@Override
 	public String getRootPath() {
 		return this.rootPath;
+	}
+
+	protected void appendFields(ToStringCreator creator) {
 	}
 
 }

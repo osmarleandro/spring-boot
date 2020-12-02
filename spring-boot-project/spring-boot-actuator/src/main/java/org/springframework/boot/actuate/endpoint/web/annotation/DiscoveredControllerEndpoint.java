@@ -22,6 +22,7 @@ import org.springframework.boot.actuate.endpoint.EndpointId;
 import org.springframework.boot.actuate.endpoint.Operation;
 import org.springframework.boot.actuate.endpoint.annotation.AbstractDiscoveredEndpoint;
 import org.springframework.boot.actuate.endpoint.annotation.EndpointDiscoverer;
+import org.springframework.core.style.ToStringCreator;
 
 /**
  * A discovered {@link ExposableControllerEndpoint controller endpoint}.
@@ -47,6 +48,9 @@ class DiscoveredControllerEndpoint extends AbstractDiscoveredEndpoint<Operation>
 	@Override
 	public String getRootPath() {
 		return this.rootPath;
+	}
+
+	protected void appendFields(ToStringCreator creator) {
 	}
 
 }

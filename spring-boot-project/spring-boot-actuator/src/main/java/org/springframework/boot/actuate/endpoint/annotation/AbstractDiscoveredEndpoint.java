@@ -75,7 +75,4 @@ public abstract class AbstractDiscoveredEndpoint<O extends Operation> extends Ab
 		return creator.toString();
 	}
 
-	protected void appendFields(ToStringCreator creator) {
-	}
-
 }
