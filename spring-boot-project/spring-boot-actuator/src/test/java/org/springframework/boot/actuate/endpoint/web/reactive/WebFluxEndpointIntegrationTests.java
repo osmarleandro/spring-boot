@@ -100,6 +100,12 @@ class WebFluxEndpointIntegrationTests
 		return context.getBean(ReactiveConfiguration.class).port;
 	}
 
+	@Test
+	void nullResponseFromReadOperationResultsInNotFoundResponseStatus() {
+		load(NullReadResponseEndpointConfiguration.class,
+				(context, client) -> client.get().uri("/nullread").exchange().expectStatus().isNotFound());
+	}
+
 	@Configuration(proxyBeanMethods = false)
 	@EnableWebFlux
 	@ImportAutoConfiguration(ErrorWebFluxAutoConfiguration.class)

@@ -226,12 +226,6 @@ public abstract class AbstractWebEndpointIntegrationTests<T extends Configurable
 	}
 
 	@Test
-	void nullResponseFromReadOperationResultsInNotFoundResponseStatus() {
-		load(NullReadResponseEndpointConfiguration.class,
-				(context, client) -> client.get().uri("/nullread").exchange().expectStatus().isNotFound());
-	}
-
-	@Test
 	void nullResponseFromDeleteOperationResultsInNoContentResponseStatus() {
 		load(NullDeleteResponseEndpointConfiguration.class,
 				(context, client) -> client.delete().uri("/nulldelete").exchange().expectStatus().isNoContent());
@@ -388,7 +382,7 @@ public abstract class AbstractWebEndpointIntegrationTests<T extends Configurable
 				.jsonPath("path").isEqualTo(path).jsonPath("message").isEqualTo(message);
 	}
 
-	private void load(Class<?> configuration, BiConsumer<ApplicationContext, WebTestClient> consumer) {
+	protected void load(Class<?> configuration, BiConsumer<ApplicationContext, WebTestClient> consumer) {
 		load((context) -> context.register(configuration), "/endpoints", consumer);
 	}
 
@@ -505,6 +499,7 @@ public abstract class AbstractWebEndpointIntegrationTests<T extends Configurable
 
 	@Configuration(proxyBeanMethods = false)
 	@Import(BaseConfiguration.class)
+	public
 	static class NullReadResponseEndpointConfiguration {
 
 		@Bean
