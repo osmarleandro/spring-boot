@@ -23,6 +23,7 @@ import java.util.Properties;
 import org.springframework.boot.info.GitProperties;
 import org.springframework.core.env.PropertiesPropertySource;
 import org.springframework.core.env.PropertySource;
+import org.springframework.util.StringUtils;
 
 /**
  * An {@link InfoContributor} that exposes {@link GitProperties}.
@@ -66,6 +67,18 @@ public class GitInfoContributor extends InfoPropertiesInfoContributor<GitPropert
 	protected void postProcessContent(Map<String, Object> content) {
 		replaceValue(getNestedMap(content, "commit"), "time", getProperties().getCommitTime());
 		replaceValue(getNestedMap(content, "build"), "time", getProperties().getInstant("build.time"));
+	}
+
+	/**
+	 * Copy the specified key to the target {@link Properties} if it is set.
+	 * @param target the target properties to update
+	 * @param key the key
+	 */
+	protected void copyIfSet(Properties target, String key) {
+		String value = this.properties.get(key);
+		if (StringUtils.hasText(value)) {
+			target.put(key, value);
+		}
 	}
 
 }
