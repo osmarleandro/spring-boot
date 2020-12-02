@@ -34,7 +34,7 @@ public abstract class AbstractExposableEndpoint<O extends Operation> implements 
 
 	private final EndpointId id;
 
-	private boolean enabledByDefault;
+	protected boolean enabledByDefault;
 
 	private List<O> operations;
 
@@ -55,11 +55,6 @@ public abstract class AbstractExposableEndpoint<O extends Operation> implements 
 	@Override
 	public EndpointId getEndpointId() {
 		return this.id;
-	}
-
-	@Override
-	public boolean isEnableByDefault() {
-		return this.enabledByDefault;
 	}
 
 	@Override
