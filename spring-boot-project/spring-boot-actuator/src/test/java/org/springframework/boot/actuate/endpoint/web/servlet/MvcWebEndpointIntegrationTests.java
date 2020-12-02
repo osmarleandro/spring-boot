@@ -58,6 +58,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import org.springframework.web.servlet.handler.RequestMatchResult;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.verify;
 
 /**
  * Integration tests for web endpoints exposed using Spring MVC.
@@ -134,6 +135,15 @@ class MvcWebEndpointIntegrationTests
 	@Override
 	protected int getPort(AnnotationConfigServletWebServerApplicationContext context) {
 		return context.getWebServer().getPort();
+	}
+
+	@Test
+	void nullsArePassedToTheOperationWhenPostRequestHasNoBody() {
+		load(TestEndpointConfiguration.class, (context, client) -> {
+			client.post().uri("/test").contentType(MediaType.APPLICATION_JSON).exchange().expectStatus().isNoContent()
+					.expectBody().isEmpty();
+			verify(context.getBean(EndpointDelegate.class)).write(null, null);
+		});
 	}
 
 	@Configuration(proxyBeanMethods = false)
