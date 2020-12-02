@@ -121,8 +121,6 @@ abstract class HealthEndpointSupport<C, T> {
 				groupNames);
 	}
 
-	protected abstract T getHealth(C contributor, boolean includeDetails);
-
 	protected abstract T aggregateContributions(ApiVersion apiVersion, Map<String, T> contributions,
 			StatusAggregator statusAggregator, boolean showComponents, Set<String> groupNames);
 
