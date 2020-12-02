@@ -38,7 +38,7 @@ abstract class NamedContributorsMapAdapter<V, C> implements NamedContributors<C>
 
 	private final Map<String, V> map;
 
-	private final Function<V, ? extends C> valueAdapter;
+	protected final Function<V, ? extends C> valueAdapter;
 
 	NamedContributorsMapAdapter(Map<String, V> map, Function<V, ? extends C> valueAdapter) {
 		Assert.notNull(map, "Map must not be null");
@@ -72,10 +72,6 @@ abstract class NamedContributorsMapAdapter<V, C> implements NamedContributors<C>
 	@Override
 	public C getContributor(String name) {
 		return adapt(this.map.get(name));
-	}
-
-	private C adapt(V value) {
-		return (value != null) ? this.valueAdapter.apply(value) : null;
 	}
 
 }

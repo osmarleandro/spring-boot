@@ -32,4 +32,8 @@ class CompositeHealthContributorMapAdapter<V> extends NamedContributorsMapAdapte
 		super(map, valueAdapter);
 	}
 
+	private HealthContributor adapt(V value) {
+		return (value != null) ? this.valueAdapter.apply(value) : null;
+	}
+
 }

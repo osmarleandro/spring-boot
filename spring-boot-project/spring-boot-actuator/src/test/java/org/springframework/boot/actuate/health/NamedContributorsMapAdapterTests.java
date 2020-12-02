@@ -108,6 +108,10 @@ class NamedContributorsMapAdapterTests {
 			super(map, valueAdapter);
 		}
 
+		private String adapt(V value) {
+			return (value != null) ? this.valueAdapter.apply(value) : null;
+		}
+
 	}
 
 }
