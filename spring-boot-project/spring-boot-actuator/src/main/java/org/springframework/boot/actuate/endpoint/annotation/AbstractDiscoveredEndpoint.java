@@ -78,4 +78,9 @@ public abstract class AbstractDiscoveredEndpoint<O extends Operation> extends Ab
 	protected void appendFields(ToStringCreator creator) {
 	}
 
+	@Override
+	public EndpointId getEndpointId() {
+		return this.id;
+	}
+
 }
