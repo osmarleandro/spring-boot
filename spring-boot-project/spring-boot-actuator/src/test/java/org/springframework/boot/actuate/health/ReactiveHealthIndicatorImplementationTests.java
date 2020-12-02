@@ -70,6 +70,16 @@ class ReactiveHealthIndicatorImplementationTests {
 			return Mono.just(builder.up().build());
 		}
 
+		@Override
+		public final Mono<Health> health() {
+			try {
+				return doHealthCheck(new Health.Builder()).onErrorResume(this::handleFailure);
+			}
+			catch (Exception ex) {
+				return handleFailure(ex);
+			}
+		}
+
 	}
 
 	private static final class CustomErrorMessageReactiveHealthIndicator extends AbstractReactiveHealthIndicator {
@@ -81,6 +91,16 @@ class ReactiveHealthIndicatorImplementationTests {
 		@Override
 		protected Mono<Health> doHealthCheck(Builder builder) {
 			return Mono.error(new UnsupportedOperationException());
+		}
+
+		@Override
+		public final Mono<Health> health() {
+			try {
+				return doHealthCheck(new Health.Builder()).onErrorResume(this::handleFailure);
+			}
+			catch (Exception ex) {
+				return handleFailure(ex);
+			}
 		}
 
 	}
@@ -95,6 +115,16 @@ class ReactiveHealthIndicatorImplementationTests {
 		@Override
 		protected Mono<Health> doHealthCheck(Builder builder) {
 			throw new RuntimeException();
+		}
+
+		@Override
+		public final Mono<Health> health() {
+			try {
+				return doHealthCheck(new Health.Builder()).onErrorResume(this::handleFailure);
+			}
+			catch (Exception ex) {
+				return handleFailure(ex);
+			}
 		}
 
 	}

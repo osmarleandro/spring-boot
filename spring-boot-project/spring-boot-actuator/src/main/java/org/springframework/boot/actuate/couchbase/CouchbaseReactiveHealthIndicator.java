@@ -50,4 +50,14 @@ public class CouchbaseReactiveHealthIndicator extends AbstractReactiveHealthIndi
 		return Mono.just(builder.build());
 	}
 
+	@Override
+	public final Mono<Health> health() {
+		try {
+			return doHealthCheck(new Health.Builder()).onErrorResume(this::handleFailure);
+		}
+		catch (Exception ex) {
+			return handleFailure(ex);
+		}
+	}
+
 }

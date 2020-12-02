@@ -73,4 +73,14 @@ public final class Neo4jReactiveHealthIndicator extends AbstractReactiveHealthIn
 		}, RxSession::close);
 	}
 
+	@Override
+	public final Mono<Health> health() {
+		try {
+			return doHealthCheck(new Health.Builder()).onErrorResume(this::handleFailure);
+		}
+		catch (Exception ex) {
+			return handleFailure(ex);
+		}
+	}
+
 }

@@ -51,4 +51,14 @@ public class MongoReactiveHealthIndicator extends AbstractReactiveHealthIndicato
 		return builder.up().withDetail("version", document.getString("version")).build();
 	}
 
+	@Override
+	public final Mono<Health> health() {
+		try {
+			return doHealthCheck(new Health.Builder()).onErrorResume(this::handleFailure);
+		}
+		catch (Exception ex) {
+			return handleFailure(ex);
+		}
+	}
+
 }

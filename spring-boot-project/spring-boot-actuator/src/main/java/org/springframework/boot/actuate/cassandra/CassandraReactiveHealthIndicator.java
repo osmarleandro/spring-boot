@@ -56,4 +56,14 @@ public class CassandraReactiveHealthIndicator extends AbstractReactiveHealthIndi
 				.map((version) -> builder.up().withDetail("version", version).build()).single();
 	}
 
+	@Override
+	public final Mono<Health> health() {
+		try {
+			return doHealthCheck(new Health.Builder()).onErrorResume(this::handleFailure);
+		}
+		catch (Exception ex) {
+			return handleFailure(ex);
+		}
+	}
+
 }

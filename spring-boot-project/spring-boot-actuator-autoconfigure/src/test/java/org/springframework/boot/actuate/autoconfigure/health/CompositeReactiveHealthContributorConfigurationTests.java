@@ -52,6 +52,16 @@ class CompositeReactiveHealthContributorConfigurationTests extends
 			return Mono.just(builder.up().build());
 		}
 
+		@Override
+		public final Mono<Health> health() {
+			try {
+				return doHealthCheck(new Health.Builder()).onErrorResume(this::handleFailure);
+			}
+			catch (Exception ex) {
+				return handleFailure(ex);
+			}
+		}
+
 	}
 
 }
