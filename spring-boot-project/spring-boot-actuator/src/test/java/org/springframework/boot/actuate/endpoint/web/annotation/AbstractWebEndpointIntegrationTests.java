@@ -382,12 +382,6 @@ public abstract class AbstractWebEndpointIntegrationTests<T extends Configurable
 
 	protected abstract int getPort(T context);
 
-	protected void validateErrorBody(WebTestClient.BodyContentSpec body, HttpStatus status, String path,
-			String message) {
-		body.jsonPath("status").isEqualTo(status.value()).jsonPath("error").isEqualTo(status.getReasonPhrase())
-				.jsonPath("path").isEqualTo(path).jsonPath("message").isEqualTo(message);
-	}
-
 	private void load(Class<?> configuration, BiConsumer<ApplicationContext, WebTestClient> consumer) {
 		load((context) -> context.register(configuration), "/endpoints", consumer);
 	}

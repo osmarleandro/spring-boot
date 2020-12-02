@@ -90,6 +90,11 @@ public class JerseyWebEndpointIntegrationTests
 		// Jersey doesn't support the general error page handling
 	}
 
+	protected void validateErrorBody(WebTestClient.BodyContentSpec body, HttpStatus status, String path, String message) {
+		body.jsonPath("status").isEqualTo(status.value()).jsonPath("error").isEqualTo(status.getReasonPhrase())
+				.jsonPath("path").isEqualTo(path).jsonPath("message").isEqualTo(message);
+	}
+
 	@Configuration(proxyBeanMethods = false)
 	static class JerseyConfiguration {
 
