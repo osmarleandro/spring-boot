@@ -16,11 +16,14 @@
 
 package org.springframework.boot.actuate.availability;
 
+import java.util.EnumSet;
+
 import org.springframework.boot.actuate.health.HealthIndicator;
 import org.springframework.boot.actuate.health.Status;
 import org.springframework.boot.availability.ApplicationAvailability;
 import org.springframework.boot.availability.AvailabilityState;
 import org.springframework.boot.availability.LivenessState;
+import org.springframework.util.Assert;
 
 /**
  * A {@link HealthIndicator} that checks the {@link LivenessState} of the application.
@@ -40,6 +43,17 @@ public class LivenessStateHealthIndicator extends AvailabilityStateHealthIndicat
 	@Override
 	protected AvailabilityState getState(ApplicationAvailability applicationAvailability) {
 		return applicationAvailability.getLivenessState();
+	}
+
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	private <S extends AvailabilityState> void assertAllEnumsMapped(Class<S> stateType) {
+		if (!this.statusMappings.containsKey(null) && Enum.class.isAssignableFrom(stateType)) {
+			EnumSet elements = EnumSet.allOf((Class) stateType);
+			for (Object element : elements) {
+				Assert.isTrue(this.statusMappings.containsKey(element),
+						() -> "StatusMappings does not include " + element);
+			}
+		}
 	}
 
 }
