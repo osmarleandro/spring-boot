@@ -16,6 +16,7 @@
 
 package org.springframework.boot.actuate.endpoint.annotation;
 
+import java.lang.reflect.Method;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
@@ -365,6 +366,12 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 	 * @return the operation key
 	 */
 	protected abstract OperationKey createOperationKey(O operation);
+
+	private O createOperation(EndpointId endpointId, Object target, Method method) {
+		return OPERATION_TYPES.entrySet().stream()
+				.map((entry) -> createOperation(endpointId, target, method, entry.getKey(), entry.getValue()))
+				.filter(Objects::nonNull).findFirst().orElse(null);
+	}
 
 	/**
 	 * A key generated for an {@link Operation} based on specific criteria from the actual

@@ -16,11 +16,13 @@
 
 package org.springframework.boot.actuate.endpoint.annotation;
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -186,6 +188,12 @@ class DiscoveredOperationsFactoryTests {
 		protected TestOperation createOperation(EndpointId endpointId, DiscoveredOperationMethod operationMethod,
 				OperationInvoker invoker) {
 			return new TestOperation(endpointId, operationMethod, invoker);
+		}
+
+		private TestOperation createOperation(EndpointId endpointId, Object target, Method method) {
+			return OPERATION_TYPES.entrySet().stream()
+					.map((entry) -> createOperation(endpointId, target, method, entry.getKey(), entry.getValue()))
+					.filter(Objects::nonNull).findFirst().orElse(null);
 		}
 
 	}

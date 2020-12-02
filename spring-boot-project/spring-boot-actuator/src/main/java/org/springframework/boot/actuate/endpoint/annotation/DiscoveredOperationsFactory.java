@@ -22,7 +22,6 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.EnumMap;
 import java.util.Map;
-import java.util.Objects;
 
 import org.springframework.boot.actuate.endpoint.EndpointId;
 import org.springframework.boot.actuate.endpoint.Operation;
@@ -48,7 +47,7 @@ import org.springframework.core.annotation.MergedAnnotations;
  */
 abstract class DiscoveredOperationsFactory<O extends Operation> {
 
-	private static final Map<OperationType, Class<? extends Annotation>> OPERATION_TYPES;
+	protected static final Map<OperationType, Class<? extends Annotation>> OPERATION_TYPES;
 
 	static {
 		Map<OperationType, Class<? extends Annotation>> operationTypes = new EnumMap<>(OperationType.class);
@@ -74,13 +73,7 @@ abstract class DiscoveredOperationsFactory<O extends Operation> {
 				.values();
 	}
 
-	private O createOperation(EndpointId endpointId, Object target, Method method) {
-		return OPERATION_TYPES.entrySet().stream()
-				.map((entry) -> createOperation(endpointId, target, method, entry.getKey(), entry.getValue()))
-				.filter(Objects::nonNull).findFirst().orElse(null);
-	}
-
-	private O createOperation(EndpointId endpointId, Object target, Method method, OperationType operationType,
+	protected O createOperation(EndpointId endpointId, Object target, Method method, OperationType operationType,
 			Class<? extends Annotation> annotationType) {
 		MergedAnnotation<?> annotation = MergedAnnotations.from(method).get(annotationType);
 		if (!annotation.isPresent()) {
