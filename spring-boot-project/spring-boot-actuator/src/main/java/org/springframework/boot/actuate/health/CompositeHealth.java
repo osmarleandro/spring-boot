@@ -17,7 +17,6 @@
 package org.springframework.boot.actuate.health;
 
 import java.util.Map;
-import java.util.TreeMap;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
@@ -48,10 +47,6 @@ public class CompositeHealth extends HealthComponent {
 		this.status = status;
 		this.components = (apiVersion != ApiVersion.V3) ? null : sort(components);
 		this.details = (apiVersion != ApiVersion.V2) ? null : sort(components);
-	}
-
-	private Map<String, HealthComponent> sort(Map<String, HealthComponent> components) {
-		return (components != null) ? new TreeMap<>(components) : components;
 	}
 
 	@Override

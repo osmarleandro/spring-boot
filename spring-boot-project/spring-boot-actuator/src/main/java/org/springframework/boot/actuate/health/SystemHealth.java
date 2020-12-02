@@ -18,6 +18,7 @@ package org.springframework.boot.actuate.health;
 
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
 import java.util.TreeSet;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -44,6 +45,10 @@ public final class SystemHealth extends CompositeHealth {
 	@JsonInclude(Include.NON_EMPTY)
 	public Set<String> getGroups() {
 		return this.groups;
+	}
+
+	private Map<String, HealthComponent> sort(Map<String, HealthComponent> components) {
+		return (components != null) ? new TreeMap<>(components) : components;
 	}
 
 }
