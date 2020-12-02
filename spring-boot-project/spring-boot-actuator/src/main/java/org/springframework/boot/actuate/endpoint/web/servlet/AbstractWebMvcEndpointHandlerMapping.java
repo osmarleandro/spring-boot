@@ -138,12 +138,6 @@ public abstract class AbstractWebMvcEndpointHandlerMapping extends RequestMappin
 	}
 
 	@Override
-	protected HandlerMethod createHandlerMethod(Object handler, Method method) {
-		HandlerMethod handlerMethod = super.createHandlerMethod(handler, method);
-		return new WebMvcEndpointHandlerMethod(handlerMethod.getBean(), handlerMethod.getMethod());
-	}
-
-	@Override
 	public RequestMatchResult match(HttpServletRequest request, String pattern) {
 		RequestMappingInfo info = RequestMappingInfo.paths(pattern).options(builderConfig).build();
 		RequestMappingInfo matchingInfo = info.getMatchingCondition(request);
@@ -383,7 +377,7 @@ public abstract class AbstractWebMvcEndpointHandlerMapping extends RequestMappin
 	/**
 	 * {@link HandlerMethod} subclass for endpoint information logging.
 	 */
-	private static class WebMvcEndpointHandlerMethod extends HandlerMethod {
+	public static class WebMvcEndpointHandlerMethod extends HandlerMethod {
 
 		WebMvcEndpointHandlerMethod(Object bean, Method method) {
 			super(bean, method);
