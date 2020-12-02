@@ -104,7 +104,4 @@ abstract class DiscoveredOperationsFactory<O extends Operation> {
 		return invoker;
 	}
 
-	protected abstract O createOperation(EndpointId endpointId, DiscoveredOperationMethod operationMethod,
-			OperationInvoker invoker);
-
 }
