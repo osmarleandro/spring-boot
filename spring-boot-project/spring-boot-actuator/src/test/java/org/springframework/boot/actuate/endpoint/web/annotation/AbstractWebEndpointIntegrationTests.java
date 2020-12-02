@@ -100,12 +100,6 @@ public abstract class AbstractWebEndpointIntegrationTests<T extends Configurable
 	}
 
 	@Test
-	void readOperationWithSelectorContainingADot() {
-		load(TestEndpointConfiguration.class, (client) -> client.get().uri("/test/foo.bar").exchange().expectStatus()
-				.isOk().expectBody().jsonPath("part").isEqualTo("foo.bar"));
-	}
-
-	@Test
 	void linksToOtherEndpointsAreProvided() {
 		load(TestEndpointConfiguration.class,
 				(client) -> client.get().uri("").exchange().expectStatus().isOk().expectBody()
@@ -428,7 +422,8 @@ public abstract class AbstractWebEndpointIntegrationTests<T extends Configurable
 
 	@Configuration(proxyBeanMethods = false)
 	@Import(BaseConfiguration.class)
-	protected static class TestEndpointConfiguration {
+	public
+	static class TestEndpointConfiguration {
 
 		@Bean
 		public TestEndpoint testEndpoint(EndpointDelegate endpointDelegate) {
