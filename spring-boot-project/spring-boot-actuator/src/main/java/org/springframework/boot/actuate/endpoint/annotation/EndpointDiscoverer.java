@@ -72,7 +72,7 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 
 	private final ApplicationContext applicationContext;
 
-	private final Collection<EndpointFilter<E>> filters;
+	protected final Collection<EndpointFilter<E>> filters;
 
 	private final DiscoveredOperationsFactory<O> operationsFactory;
 
@@ -287,15 +287,6 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 		return true;
 	}
 
-	private boolean isEndpointFiltered(EndpointBean endpointBean) {
-		for (EndpointFilter<E> filter : this.filters) {
-			if (!isFilterMatch(filter, endpointBean)) {
-				return true;
-			}
-		}
-		return false;
-	}
-
 	@SuppressWarnings("unchecked")
 	private boolean isFilterMatch(Class<?> filter, EndpointBean endpointBean) {
 		if (!isEndpointTypeExposed(endpointBean.getBeanType())) {
@@ -313,7 +304,7 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 		return false;
 	}
 
-	private boolean isFilterMatch(EndpointFilter<E> filter, EndpointBean endpointBean) {
+	protected boolean isFilterMatch(EndpointFilter<E> filter, EndpointBean endpointBean) {
 		return isFilterMatch(filter, getFilterEndpoint(endpointBean));
 	}
 
@@ -414,7 +405,7 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 	/**
 	 * Information about an {@link Endpoint @Endpoint} bean.
 	 */
-	private static class EndpointBean {
+	public static class EndpointBean {
 
 		private final String beanName;
 

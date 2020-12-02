@@ -69,4 +69,13 @@ public class JmxEndpointDiscoverer extends EndpointDiscoverer<ExposableJmxEndpoi
 		return new OperationKey(operation.getName(), () -> "MBean call '" + operation.getName() + "'");
 	}
 
+	private boolean isEndpointFiltered(EndpointBean endpointBean) {
+		for (EndpointFilter<ExposableJmxEndpoint> filter : this.filters) {
+			if (!isFilterMatch(filter, endpointBean)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 }
