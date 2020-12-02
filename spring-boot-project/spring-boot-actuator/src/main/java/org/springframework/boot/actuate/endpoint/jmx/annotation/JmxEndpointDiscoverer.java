@@ -21,6 +21,7 @@ import java.util.Collection;
 import org.springframework.boot.actuate.endpoint.EndpointFilter;
 import org.springframework.boot.actuate.endpoint.EndpointId;
 import org.springframework.boot.actuate.endpoint.annotation.DiscoveredOperationMethod;
+import org.springframework.boot.actuate.endpoint.annotation.DiscoveredOperationsFactory;
 import org.springframework.boot.actuate.endpoint.annotation.EndpointDiscoverer;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvoker;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvokerAdvisor;
@@ -67,6 +68,18 @@ public class JmxEndpointDiscoverer extends EndpointDiscoverer<ExposableJmxEndpoi
 	@Override
 	protected OperationKey createOperationKey(JmxOperation operation) {
 		return new OperationKey(operation.getName(), () -> "MBean call '" + operation.getName() + "'");
+	}
+
+	private DiscoveredOperationsFactory<JmxOperation> getOperationsFactory(ParameterValueMapper parameterValueMapper, Collection<OperationInvokerAdvisor> invokerAdvisors) {
+		return new DiscoveredOperationsFactory<JmxOperation>(parameterValueMapper, invokerAdvisors) {
+	
+			@Override
+			protected JmxOperation createOperation(EndpointId endpointId, DiscoveredOperationMethod operationMethod,
+					OperationInvoker invoker) {
+				return this.createOperation(endpointId, operationMethod, invoker);
+			}
+	
+		};
 	}
 
 }

@@ -22,6 +22,7 @@ import java.util.List;
 import org.springframework.boot.actuate.endpoint.EndpointFilter;
 import org.springframework.boot.actuate.endpoint.EndpointId;
 import org.springframework.boot.actuate.endpoint.annotation.DiscoveredOperationMethod;
+import org.springframework.boot.actuate.endpoint.annotation.DiscoveredOperationsFactory;
 import org.springframework.boot.actuate.endpoint.annotation.EndpointDiscoverer;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvoker;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvokerAdvisor;
@@ -85,6 +86,18 @@ public class WebEndpointDiscoverer extends EndpointDiscoverer<ExposableWebEndpoi
 	protected OperationKey createOperationKey(WebOperation operation) {
 		return new OperationKey(operation.getRequestPredicate(),
 				() -> "web request predicate " + operation.getRequestPredicate());
+	}
+
+	private DiscoveredOperationsFactory<WebOperation> getOperationsFactory(ParameterValueMapper parameterValueMapper, Collection<OperationInvokerAdvisor> invokerAdvisors) {
+		return new DiscoveredOperationsFactory<WebOperation>(parameterValueMapper, invokerAdvisors) {
+	
+			@Override
+			protected WebOperation createOperation(EndpointId endpointId, DiscoveredOperationMethod operationMethod,
+					OperationInvoker invoker) {
+				return this.createOperation(endpointId, operationMethod, invoker);
+			}
+	
+		};
 	}
 
 }

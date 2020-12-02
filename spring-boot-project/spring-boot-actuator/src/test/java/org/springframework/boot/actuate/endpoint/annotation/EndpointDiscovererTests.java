@@ -559,6 +559,18 @@ class EndpointDiscovererTests {
 					() -> "TestOperation " + operation.getOperationMethod());
 		}
 
+		private DiscoveredOperationsFactory<TestOperation> getOperationsFactory(ParameterValueMapper parameterValueMapper, Collection<OperationInvokerAdvisor> invokerAdvisors) {
+			return new DiscoveredOperationsFactory<TestOperation>(parameterValueMapper, invokerAdvisors) {
+		
+				@Override
+				protected TestOperation createOperation(EndpointId endpointId, DiscoveredOperationMethod operationMethod,
+						OperationInvoker invoker) {
+					return this.createOperation(endpointId, operationMethod, invoker);
+				}
+		
+			};
+		}
+
 	}
 
 	static class SpecializedEndpointDiscoverer
@@ -589,6 +601,18 @@ class EndpointDiscovererTests {
 		protected OperationKey createOperationKey(SpecializedOperation operation) {
 			return new OperationKey(operation.getOperationMethod(),
 					() -> "TestOperation " + operation.getOperationMethod());
+		}
+
+		private DiscoveredOperationsFactory<SpecializedOperation> getOperationsFactory(ParameterValueMapper parameterValueMapper, Collection<OperationInvokerAdvisor> invokerAdvisors) {
+			return new DiscoveredOperationsFactory<SpecializedOperation>(parameterValueMapper, invokerAdvisors) {
+		
+				@Override
+				protected SpecializedOperation createOperation(EndpointId endpointId, DiscoveredOperationMethod operationMethod,
+						OperationInvoker invoker) {
+					return this.createOperation(endpointId, operationMethod, invoker);
+				}
+		
+			};
 		}
 
 	}

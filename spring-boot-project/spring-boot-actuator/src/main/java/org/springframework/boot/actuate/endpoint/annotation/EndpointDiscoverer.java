@@ -98,19 +98,6 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 		this.operationsFactory = getOperationsFactory(parameterValueMapper, invokerAdvisors);
 	}
 
-	private DiscoveredOperationsFactory<O> getOperationsFactory(ParameterValueMapper parameterValueMapper,
-			Collection<OperationInvokerAdvisor> invokerAdvisors) {
-		return new DiscoveredOperationsFactory<O>(parameterValueMapper, invokerAdvisors) {
-
-			@Override
-			protected O createOperation(EndpointId endpointId, DiscoveredOperationMethod operationMethod,
-					OperationInvoker invoker) {
-				return EndpointDiscoverer.this.createOperation(endpointId, operationMethod, invoker);
-			}
-
-		};
-	}
-
 	@Override
 	public final Collection<E> getEndpoints() {
 		if (this.endpoints == null) {
