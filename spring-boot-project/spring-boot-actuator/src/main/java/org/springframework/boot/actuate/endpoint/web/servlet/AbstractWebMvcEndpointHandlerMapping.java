@@ -232,12 +232,6 @@ public abstract class AbstractWebMvcEndpointHandlerMapping extends RequestMappin
 	}
 
 	/**
-	 * Return the Handler providing actuator links at the root endpoint.
-	 * @return the links handler
-	 */
-	protected abstract LinksHandler getLinksHandler();
-
-	/**
 	 * Return the web endpoints being mapped.
 	 * @return the endpoints
 	 */
