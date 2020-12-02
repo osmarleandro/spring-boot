@@ -136,6 +136,12 @@ class MvcWebEndpointIntegrationTests
 		return context.getWebServer().getPort();
 	}
 
+	@Test
+	void readOperationWithListQueryParameterAndSingleValue() {
+		load(QueryWithListEndpointConfiguration.class, (client) -> client.get().uri("/query?one=1&two=2").exchange()
+				.expectStatus().isOk().expectBody().jsonPath("query").isEqualTo("1 [2]"));
+	}
+
 	@Configuration(proxyBeanMethods = false)
 	@ImportAutoConfiguration({ JacksonAutoConfiguration.class, HttpMessageConvertersAutoConfiguration.class,
 			ServletWebServerFactoryAutoConfiguration.class, WebMvcAutoConfiguration.class,

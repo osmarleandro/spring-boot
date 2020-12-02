@@ -100,6 +100,12 @@ class WebFluxEndpointIntegrationTests
 		return context.getBean(ReactiveConfiguration.class).port;
 	}
 
+	@Test
+	void readOperationWithListQueryParameterAndSingleValue() {
+		load(QueryWithListEndpointConfiguration.class, (client) -> client.get().uri("/query?one=1&two=2").exchange()
+				.expectStatus().isOk().expectBody().jsonPath("query").isEqualTo("1 [2]"));
+	}
+
 	@Configuration(proxyBeanMethods = false)
 	@EnableWebFlux
 	@ImportAutoConfiguration(ErrorWebFluxAutoConfiguration.class)
