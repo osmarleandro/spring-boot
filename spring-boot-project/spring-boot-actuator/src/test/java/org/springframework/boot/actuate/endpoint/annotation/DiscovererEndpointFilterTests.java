@@ -82,6 +82,10 @@ class DiscovererEndpointFilterTests {
 			super(applicationContext, parameterValueMapper, invokerAdvisors, filters);
 		}
 
+		private boolean isFilterMatch(EndpointFilter<ExposableEndpoint<Operation>> filter, EndpointBean endpointBean) {
+			return isFilterMatch(filter, getFilterEndpoint(endpointBean));
+		}
+
 	}
 
 	abstract static class TestDiscovererB extends EndpointDiscoverer<ExposableEndpoint<Operation>, Operation> {
@@ -90,6 +94,10 @@ class DiscovererEndpointFilterTests {
 				Collection<OperationInvokerAdvisor> invokerAdvisors,
 				Collection<EndpointFilter<ExposableEndpoint<Operation>>> filters) {
 			super(applicationContext, parameterValueMapper, invokerAdvisors, filters);
+		}
+
+		private boolean isFilterMatch(EndpointFilter<ExposableEndpoint<Operation>> filter, EndpointBean endpointBean) {
+			return isFilterMatch(filter, getFilterEndpoint(endpointBean));
 		}
 
 	}

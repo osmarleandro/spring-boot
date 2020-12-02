@@ -80,4 +80,8 @@ public class ControllerEndpointDiscoverer extends EndpointDiscoverer<ExposableCo
 		throw new IllegalStateException("ControllerEndpoints must not declare operations");
 	}
 
+	private boolean isFilterMatch(EndpointFilter<ExposableControllerEndpoint> filter, EndpointBean endpointBean) {
+		return isFilterMatch(filter, getFilterEndpoint(endpointBean));
+	}
+
 }

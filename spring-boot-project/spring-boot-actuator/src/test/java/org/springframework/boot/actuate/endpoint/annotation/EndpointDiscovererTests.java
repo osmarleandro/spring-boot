@@ -559,6 +559,10 @@ class EndpointDiscovererTests {
 					() -> "TestOperation " + operation.getOperationMethod());
 		}
 
+		private boolean isFilterMatch(EndpointFilter<TestExposableEndpoint> filter, EndpointBean endpointBean) {
+			return isFilterMatch(filter, getFilterEndpoint(endpointBean));
+		}
+
 	}
 
 	static class SpecializedEndpointDiscoverer
@@ -589,6 +593,10 @@ class EndpointDiscovererTests {
 		protected OperationKey createOperationKey(SpecializedOperation operation) {
 			return new OperationKey(operation.getOperationMethod(),
 					() -> "TestOperation " + operation.getOperationMethod());
+		}
+
+		private boolean isFilterMatch(EndpointFilter<SpecializedExposableEndpoint> filter, EndpointBean endpointBean) {
+			return isFilterMatch(filter, getFilterEndpoint(endpointBean));
 		}
 
 	}

@@ -87,4 +87,8 @@ public class WebEndpointDiscoverer extends EndpointDiscoverer<ExposableWebEndpoi
 				() -> "web request predicate " + operation.getRequestPredicate());
 	}
 
+	private boolean isFilterMatch(EndpointFilter<ExposableWebEndpoint> filter, EndpointBean endpointBean) {
+		return isFilterMatch(filter, getFilterEndpoint(endpointBean));
+	}
+
 }
