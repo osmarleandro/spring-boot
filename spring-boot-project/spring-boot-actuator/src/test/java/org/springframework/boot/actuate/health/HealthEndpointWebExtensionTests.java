@@ -104,4 +104,14 @@ class HealthEndpointWebExtensionTests
 		return result.getHealth();
 	}
 
+	@Test
+	void getHealthWhenPathIsNotGroupReturnsResultFromPrimaryGroup() {
+		this.registry.registerContributor("test", createContributor(this.up));
+		HealthResult<HealthComponent> result = create(this.registry, this.groups).getHealth(ApiVersion.V3, SecurityContext.NONE,
+				false, "test");
+		assertThat(result.getGroup()).isEqualTo(this.primaryGroup);
+		assertThat(getHealth(result)).isEqualTo(this.up);
+	
+	}
+
 }

@@ -107,4 +107,14 @@ class ReactiveHealthEndpointWebExtensionTests extends
 		return result.getHealth().block();
 	}
 
+	@Test
+	void getHealthWhenPathIsNotGroupReturnsResultFromPrimaryGroup() {
+		this.registry.registerContributor("test", createContributor(this.up));
+		HealthResult<Mono<? extends HealthComponent>> result = create(this.registry, this.groups).getHealth(ApiVersion.V3, SecurityContext.NONE,
+				false, "test");
+		assertThat(result.getGroup()).isEqualTo(this.primaryGroup);
+		assertThat(getHealth(result)).isEqualTo(this.up);
+	
+	}
+
 }
