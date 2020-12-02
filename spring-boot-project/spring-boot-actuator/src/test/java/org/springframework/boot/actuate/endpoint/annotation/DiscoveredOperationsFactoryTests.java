@@ -16,6 +16,8 @@
 
 package org.springframework.boot.actuate.endpoint.annotation;
 
+import java.lang.annotation.Annotation;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -34,6 +36,9 @@ import org.springframework.boot.actuate.endpoint.invoke.OperationInvokerAdvisor;
 import org.springframework.boot.actuate.endpoint.invoke.OperationParameters;
 import org.springframework.boot.actuate.endpoint.invoke.ParameterValueMapper;
 import org.springframework.boot.actuate.endpoint.invoke.reflect.OperationMethod;
+import org.springframework.boot.actuate.endpoint.invoke.reflect.ReflectiveOperationInvoker;
+import org.springframework.core.annotation.MergedAnnotation;
+import org.springframework.core.annotation.MergedAnnotations;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
@@ -186,6 +191,18 @@ class DiscoveredOperationsFactoryTests {
 		protected TestOperation createOperation(EndpointId endpointId, DiscoveredOperationMethod operationMethod,
 				OperationInvoker invoker) {
 			return new TestOperation(endpointId, operationMethod, invoker);
+		}
+
+		private TestOperation createOperation(EndpointId endpointId, Object target, Method method, OperationType operationType, Class<? extends Annotation> annotationType) {
+			MergedAnnotation<?> annotation = MergedAnnotations.from(method).get(annotationType);
+			if (!annotation.isPresent()) {
+				return null;
+			}
+			DiscoveredOperationMethod operationMethod = new DiscoveredOperationMethod(method, operationType,
+					annotation.asAnnotationAttributes());
+			OperationInvoker invoker = new ReflectiveOperationInvoker(target, operationMethod, this.parameterValueMapper);
+			invoker = applyAdvisors(endpointId, operationMethod, invoker);
+			return createOperation(endpointId, operationMethod, invoker);
 		}
 
 	}
