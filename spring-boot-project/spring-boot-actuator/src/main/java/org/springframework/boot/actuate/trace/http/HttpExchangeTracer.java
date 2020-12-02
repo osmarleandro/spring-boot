@@ -22,7 +22,6 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.concurrent.TimeUnit;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
@@ -100,10 +99,6 @@ public class HttpExchangeTracer {
 		}
 		return headersSupplier.get().entrySet().stream().filter((entry) -> headerPredicate.test(entry.getKey()))
 				.collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
-	}
-
-	private long calculateTimeTaken(HttpTrace trace) {
-		return TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - trace.getStartNanoTime());
 	}
 
 	private final class FilteredTraceableRequest implements TraceableRequest {

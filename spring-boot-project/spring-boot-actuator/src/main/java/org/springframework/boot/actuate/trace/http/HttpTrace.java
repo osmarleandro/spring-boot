@@ -122,7 +122,7 @@ public final class HttpTrace {
 		this.timeTaken = timeTaken;
 	}
 
-	long getStartNanoTime() {
+	public long getStartNanoTime() {
 		return this.startNanoTime;
 	}
 

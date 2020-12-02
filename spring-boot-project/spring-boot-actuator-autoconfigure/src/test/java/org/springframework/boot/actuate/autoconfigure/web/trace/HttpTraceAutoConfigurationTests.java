@@ -18,6 +18,7 @@ package org.springframework.boot.actuate.autoconfigure.web.trace;
 
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
 import org.junit.jupiter.api.Test;
 
@@ -135,6 +136,10 @@ class HttpTraceAutoConfigurationTests {
 
 		private CustomHttpExchangeTracer(Set<Include> includes) {
 			super(includes);
+		}
+
+		private long calculateTimeTaken(HttpTrace trace) {
+			return TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - trace.getStartNanoTime());
 		}
 
 	}

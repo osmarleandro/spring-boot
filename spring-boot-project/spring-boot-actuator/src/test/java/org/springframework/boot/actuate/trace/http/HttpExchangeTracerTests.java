@@ -24,6 +24,7 @@ import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import org.junit.jupiter.api.Test;
 
@@ -343,6 +344,10 @@ class HttpExchangeTracerTests {
 		protected void postProcessRequestHeaders(Map<String, List<String>> headers) {
 			headers.remove("to-remove");
 			headers.computeIfAbsent("to-add", (key) -> Collections.singletonList("42"));
+		}
+
+		private long calculateTimeTaken(HttpTrace trace) {
+			return TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - trace.getStartNanoTime());
 		}
 
 	}
