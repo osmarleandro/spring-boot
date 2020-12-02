@@ -175,17 +175,7 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 		}
 	}
 
-	private Collection<E> convertToEndpoints(Collection<EndpointBean> endpointBeans) {
-		Set<E> endpoints = new LinkedHashSet<>();
-		for (EndpointBean endpointBean : endpointBeans) {
-			if (isEndpointExposed(endpointBean)) {
-				endpoints.add(convertToEndpoint(endpointBean));
-			}
-		}
-		return Collections.unmodifiableSet(endpoints);
-	}
-
-	private E convertToEndpoint(EndpointBean endpointBean) {
+	protected E convertToEndpoint(EndpointBean endpointBean) {
 		MultiValueMap<OperationKey, O> indexed = new LinkedMultiValueMap<>();
 		EndpointId id = endpointBean.getId();
 		addOperations(indexed, id, endpointBean.getBean(), false);
@@ -261,7 +251,7 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 		return true;
 	}
 
-	private boolean isEndpointExposed(EndpointBean endpointBean) {
+	protected boolean isEndpointExposed(EndpointBean endpointBean) {
 		return isFilterMatch(endpointBean.getFilter(), endpointBean) && !isEndpointFiltered(endpointBean)
 				&& isEndpointExposed(endpointBean.getBean());
 	}
@@ -414,7 +404,7 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 	/**
 	 * Information about an {@link Endpoint @Endpoint} bean.
 	 */
-	private static class EndpointBean {
+	public static class EndpointBean {
 
 		private final String beanName;
 

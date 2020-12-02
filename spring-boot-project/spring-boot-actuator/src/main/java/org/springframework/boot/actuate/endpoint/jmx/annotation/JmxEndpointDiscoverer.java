@@ -17,6 +17,9 @@
 package org.springframework.boot.actuate.endpoint.jmx.annotation;
 
 import java.util.Collection;
+import java.util.Collections;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 import org.springframework.boot.actuate.endpoint.EndpointFilter;
 import org.springframework.boot.actuate.endpoint.EndpointId;
@@ -67,6 +70,16 @@ public class JmxEndpointDiscoverer extends EndpointDiscoverer<ExposableJmxEndpoi
 	@Override
 	protected OperationKey createOperationKey(JmxOperation operation) {
 		return new OperationKey(operation.getName(), () -> "MBean call '" + operation.getName() + "'");
+	}
+
+	private Collection<ExposableJmxEndpoint> convertToEndpoints(Collection<EndpointBean> endpointBeans) {
+		Set<ExposableJmxEndpoint> endpoints = new LinkedHashSet<>();
+		for (EndpointBean endpointBean : endpointBeans) {
+			if (isEndpointExposed(endpointBean)) {
+				endpoints.add(convertToEndpoint(endpointBean));
+			}
+		}
+		return Collections.unmodifiableSet(endpoints);
 	}
 
 }

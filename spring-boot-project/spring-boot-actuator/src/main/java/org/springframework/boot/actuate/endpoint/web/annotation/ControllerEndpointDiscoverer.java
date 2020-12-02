@@ -18,7 +18,9 @@ package org.springframework.boot.actuate.endpoint.web.annotation;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.boot.actuate.endpoint.EndpointFilter;
 import org.springframework.boot.actuate.endpoint.EndpointId;
@@ -78,6 +80,16 @@ public class ControllerEndpointDiscoverer extends EndpointDiscoverer<ExposableCo
 	@Override
 	protected OperationKey createOperationKey(Operation operation) {
 		throw new IllegalStateException("ControllerEndpoints must not declare operations");
+	}
+
+	private Collection<ExposableControllerEndpoint> convertToEndpoints(Collection<EndpointBean> endpointBeans) {
+		Set<ExposableControllerEndpoint> endpoints = new LinkedHashSet<>();
+		for (EndpointBean endpointBean : endpointBeans) {
+			if (isEndpointExposed(endpointBean)) {
+				endpoints.add(convertToEndpoint(endpointBean));
+			}
+		}
+		return Collections.unmodifiableSet(endpoints);
 	}
 
 }

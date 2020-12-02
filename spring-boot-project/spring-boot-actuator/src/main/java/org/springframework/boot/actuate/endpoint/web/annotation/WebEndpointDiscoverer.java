@@ -17,7 +17,10 @@
 package org.springframework.boot.actuate.endpoint.web.annotation;
 
 import java.util.Collection;
+import java.util.Collections;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.boot.actuate.endpoint.EndpointFilter;
 import org.springframework.boot.actuate.endpoint.EndpointId;
@@ -85,6 +88,16 @@ public class WebEndpointDiscoverer extends EndpointDiscoverer<ExposableWebEndpoi
 	protected OperationKey createOperationKey(WebOperation operation) {
 		return new OperationKey(operation.getRequestPredicate(),
 				() -> "web request predicate " + operation.getRequestPredicate());
+	}
+
+	private Collection<ExposableWebEndpoint> convertToEndpoints(Collection<EndpointBean> endpointBeans) {
+		Set<ExposableWebEndpoint> endpoints = new LinkedHashSet<>();
+		for (EndpointBean endpointBean : endpointBeans) {
+			if (isEndpointExposed(endpointBean)) {
+				endpoints.add(convertToEndpoint(endpointBean));
+			}
+		}
+		return Collections.unmodifiableSet(endpoints);
 	}
 
 }

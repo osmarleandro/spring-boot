@@ -27,8 +27,10 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
@@ -559,6 +561,16 @@ class EndpointDiscovererTests {
 					() -> "TestOperation " + operation.getOperationMethod());
 		}
 
+		private Collection<TestExposableEndpoint> convertToEndpoints(Collection<EndpointBean> endpointBeans) {
+			Set<TestExposableEndpoint> endpoints = new LinkedHashSet<>();
+			for (EndpointBean endpointBean : endpointBeans) {
+				if (isEndpointExposed(endpointBean)) {
+					endpoints.add(convertToEndpoint(endpointBean));
+				}
+			}
+			return Collections.unmodifiableSet(endpoints);
+		}
+
 	}
 
 	static class SpecializedEndpointDiscoverer
@@ -589,6 +601,16 @@ class EndpointDiscovererTests {
 		protected OperationKey createOperationKey(SpecializedOperation operation) {
 			return new OperationKey(operation.getOperationMethod(),
 					() -> "TestOperation " + operation.getOperationMethod());
+		}
+
+		private Collection<SpecializedExposableEndpoint> convertToEndpoints(Collection<EndpointBean> endpointBeans) {
+			Set<SpecializedExposableEndpoint> endpoints = new LinkedHashSet<>();
+			for (EndpointBean endpointBean : endpointBeans) {
+				if (isEndpointExposed(endpointBean)) {
+					endpoints.add(convertToEndpoint(endpointBean));
+				}
+			}
+			return Collections.unmodifiableSet(endpoints);
 		}
 
 	}

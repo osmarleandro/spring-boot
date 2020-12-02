@@ -17,6 +17,9 @@
 package org.springframework.boot.actuate.endpoint.annotation;
 
 import java.util.Collection;
+import java.util.Collections;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 
@@ -82,6 +85,16 @@ class DiscovererEndpointFilterTests {
 			super(applicationContext, parameterValueMapper, invokerAdvisors, filters);
 		}
 
+		private Collection<ExposableEndpoint<Operation>> convertToEndpoints(Collection<EndpointBean> endpointBeans) {
+			Set<ExposableEndpoint<Operation>> endpoints = new LinkedHashSet<>();
+			for (EndpointBean endpointBean : endpointBeans) {
+				if (isEndpointExposed(endpointBean)) {
+					endpoints.add(convertToEndpoint(endpointBean));
+				}
+			}
+			return Collections.unmodifiableSet(endpoints);
+		}
+
 	}
 
 	abstract static class TestDiscovererB extends EndpointDiscoverer<ExposableEndpoint<Operation>, Operation> {
@@ -90,6 +103,16 @@ class DiscovererEndpointFilterTests {
 				Collection<OperationInvokerAdvisor> invokerAdvisors,
 				Collection<EndpointFilter<ExposableEndpoint<Operation>>> filters) {
 			super(applicationContext, parameterValueMapper, invokerAdvisors, filters);
+		}
+
+		private Collection<ExposableEndpoint<Operation>> convertToEndpoints(Collection<EndpointBean> endpointBeans) {
+			Set<ExposableEndpoint<Operation>> endpoints = new LinkedHashSet<>();
+			for (EndpointBean endpointBean : endpointBeans) {
+				if (isEndpointExposed(endpointBean)) {
+					endpoints.add(convertToEndpoint(endpointBean));
+				}
+			}
+			return Collections.unmodifiableSet(endpoints);
 		}
 
 	}
