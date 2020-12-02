@@ -40,17 +40,17 @@ import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException
  */
 abstract class HealthEndpointSupportTests<R extends ContributorRegistry<C>, C, T> {
 
-	final R registry;
+	protected final R registry;
 
-	final Health up = Health.up().withDetail("spring", "boot").build();
+	protected final Health up = Health.up().withDetail("spring", "boot").build();
 
 	final Health down = Health.down().build();
 
 	final TestHealthEndpointGroup primaryGroup = new TestHealthEndpointGroup();
 
-	final TestHealthEndpointGroup allTheAs = new TestHealthEndpointGroup((name) -> name.startsWith("a"));
+	protected final TestHealthEndpointGroup allTheAs = new TestHealthEndpointGroup((name) -> name.startsWith("a"));
 
-	final HealthEndpointGroups groups = HealthEndpointGroups.of(this.primaryGroup,
+	protected final HealthEndpointGroups groups = HealthEndpointGroups.of(this.primaryGroup,
 			Collections.singletonMap("alltheas", this.allTheAs));
 
 	HealthEndpointSupportTests() {
@@ -87,15 +87,6 @@ abstract class HealthEndpointSupportTests<R extends ContributorRegistry<C>, C, T
 		assertThat(result.getGroup()).isEqualTo(this.primaryGroup);
 		assertThat(getHealth(result)).isEqualTo(this.up);
 
-	}
-
-	@Test
-	void getHealthWhenPathIsGroupReturnsResultFromGroup() {
-		this.registry.registerContributor("atest", createContributor(this.up));
-		HealthResult<T> result = create(this.registry, this.groups).getHealth(ApiVersion.V3, SecurityContext.NONE,
-				false, "alltheas", "atest");
-		assertThat(result.getGroup()).isEqualTo(this.allTheAs);
-		assertThat(getHealth(result)).isEqualTo(this.up);
 	}
 
 	@Test
