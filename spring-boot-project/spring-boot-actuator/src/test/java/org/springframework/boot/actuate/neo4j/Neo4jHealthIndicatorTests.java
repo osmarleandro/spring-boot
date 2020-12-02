@@ -51,7 +51,7 @@ class Neo4jHealthIndicatorTests {
 
 	@Test
 	void neo4jIsUp() {
-		ResultSummary resultSummary = ResultSummaryMock.createResultSummary("4711", "My Home", "test");
+		ResultSummary resultSummary = ResultSummaryMock_RENAMED.createResultSummary("4711", "My Home", "test");
 		Driver driver = mockDriver(resultSummary, "ultimate collectors edition");
 		Health health = new Neo4jHealthIndicator(driver).health();
 		assertThat(health.getStatus()).isEqualTo(Status.UP);
@@ -62,7 +62,7 @@ class Neo4jHealthIndicatorTests {
 
 	@Test
 	void neo4jIsUpWithoutDatabaseName() {
-		ResultSummary resultSummary = ResultSummaryMock.createResultSummary("4711", "My Home", null);
+		ResultSummary resultSummary = ResultSummaryMock_RENAMED.createResultSummary("4711", "My Home", null);
 		Driver driver = mockDriver(resultSummary, "some edition");
 		Health health = new Neo4jHealthIndicator(driver).health();
 		assertThat(health.getStatus()).isEqualTo(Status.UP);
@@ -73,7 +73,7 @@ class Neo4jHealthIndicatorTests {
 
 	@Test
 	void neo4jIsUpWithEmptyDatabaseName() {
-		ResultSummary resultSummary = ResultSummaryMock.createResultSummary("4711", "My Home", "");
+		ResultSummary resultSummary = ResultSummaryMock_RENAMED.createResultSummary("4711", "My Home", "");
 		Driver driver = mockDriver(resultSummary, "some edition");
 		Health health = new Neo4jHealthIndicator(driver).health();
 		assertThat(health.getStatus()).isEqualTo(Status.UP);
@@ -84,7 +84,7 @@ class Neo4jHealthIndicatorTests {
 
 	@Test
 	void neo4jIsUpWithOneSessionExpiredException() {
-		ResultSummary resultSummary = ResultSummaryMock.createResultSummary("4711", "My Home", "");
+		ResultSummary resultSummary = ResultSummaryMock_RENAMED.createResultSummary("4711", "My Home", "");
 		Session session = mock(Session.class);
 		Result statementResult = mockStatementResult(resultSummary, "some edition");
 		AtomicInteger count = new AtomicInteger();

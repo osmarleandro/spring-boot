@@ -51,7 +51,7 @@ class Neo4jReactiveHealthIndicatorTest {
 
 	@Test
 	void neo4jIsUp() {
-		ResultSummary resultSummary = ResultSummaryMock.createResultSummary("4711", "My Home", "test");
+		ResultSummary resultSummary = ResultSummaryMock_RENAMED.createResultSummary("4711", "My Home", "test");
 		Driver driver = mockDriver(resultSummary, "ultimate collectors edition");
 		Neo4jReactiveHealthIndicator healthIndicator = new Neo4jReactiveHealthIndicator(driver);
 		healthIndicator.health().as(StepVerifier::create).consumeNextWith((health) -> {
@@ -63,7 +63,7 @@ class Neo4jReactiveHealthIndicatorTest {
 
 	@Test
 	void neo4jIsUpWithOneSessionExpiredException() {
-		ResultSummary resultSummary = ResultSummaryMock.createResultSummary("4711", "My Home", "");
+		ResultSummary resultSummary = ResultSummaryMock_RENAMED.createResultSummary("4711", "My Home", "");
 		RxSession session = mock(RxSession.class);
 		RxResult statementResult = mockStatementResult(resultSummary, "some edition");
 		AtomicInteger count = new AtomicInteger();
