@@ -36,9 +36,9 @@ import org.springframework.util.Assert;
 public abstract class AbstractDiscoveredEndpoint<O extends Operation> extends AbstractExposableEndpoint<O>
 		implements DiscoveredEndpoint<O> {
 
-	private final EndpointDiscoverer<?, ?> discoverer;
+	protected final EndpointDiscoverer<?, ?> discoverer;
 
-	private final Object endpointBean;
+	protected final Object endpointBean;
 
 	/**
 	 * Create a new {@link AbstractDiscoveredEndpoint} instance.
@@ -65,14 +65,6 @@ public abstract class AbstractDiscoveredEndpoint<O extends Operation> extends Ab
 	@Override
 	public boolean wasDiscoveredBy(Class<? extends EndpointDiscoverer<?, ?>> discoverer) {
 		return discoverer.isInstance(this.discoverer);
-	}
-
-	@Override
-	public String toString() {
-		ToStringCreator creator = new ToStringCreator(this).append("discoverer", this.discoverer.getClass().getName())
-				.append("endpointBean", this.endpointBean.getClass().getName());
-		appendFields(creator);
-		return creator.toString();
 	}
 
 	protected void appendFields(ToStringCreator creator) {

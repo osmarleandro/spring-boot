@@ -52,6 +52,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.core.annotation.AliasFor;
+import org.springframework.core.style.ToStringCreator;
 import org.springframework.util.ReflectionUtils;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -600,6 +601,14 @@ class EndpointDiscovererTests {
 			super(discoverer, endpointBean, id, enabledByDefault, operations);
 		}
 
+		@Override
+		public String toString() {
+			ToStringCreator creator = new ToStringCreator(this).append("discoverer", this.discoverer.getClass().getName())
+					.append("endpointBean", this.endpointBean.getClass().getName());
+			appendFields(creator);
+			return creator.toString();
+		}
+
 	}
 
 	static class SpecializedExposableEndpoint extends AbstractDiscoveredEndpoint<SpecializedOperation> {
@@ -607,6 +616,14 @@ class EndpointDiscovererTests {
 		SpecializedExposableEndpoint(EndpointDiscoverer<?, ?> discoverer, Object endpointBean, EndpointId id,
 				boolean enabledByDefault, Collection<? extends SpecializedOperation> operations) {
 			super(discoverer, endpointBean, id, enabledByDefault, operations);
+		}
+
+		@Override
+		public String toString() {
+			ToStringCreator creator = new ToStringCreator(this).append("discoverer", this.discoverer.getClass().getName())
+					.append("endpointBean", this.endpointBean.getClass().getName());
+			appendFields(creator);
+			return creator.toString();
 		}
 
 	}

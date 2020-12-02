@@ -23,6 +23,7 @@ import org.springframework.boot.actuate.endpoint.annotation.AbstractDiscoveredEn
 import org.springframework.boot.actuate.endpoint.annotation.EndpointDiscoverer;
 import org.springframework.boot.actuate.endpoint.jmx.ExposableJmxEndpoint;
 import org.springframework.boot.actuate.endpoint.jmx.JmxOperation;
+import org.springframework.core.style.ToStringCreator;
 
 /**
  * A discovered {@link ExposableJmxEndpoint JMX endpoint}.
@@ -34,6 +35,14 @@ class DiscoveredJmxEndpoint extends AbstractDiscoveredEndpoint<JmxOperation> imp
 	DiscoveredJmxEndpoint(EndpointDiscoverer<?, ?> discoverer, Object endpointBean, EndpointId id,
 			boolean enabledByDefault, Collection<JmxOperation> operations) {
 		super(discoverer, endpointBean, id, enabledByDefault, operations);
+	}
+
+	@Override
+	public String toString() {
+		ToStringCreator creator = new ToStringCreator(this).append("discoverer", this.discoverer.getClass().getName())
+				.append("endpointBean", this.endpointBean.getClass().getName());
+		appendFields(creator);
+		return creator.toString();
 	}
 
 }

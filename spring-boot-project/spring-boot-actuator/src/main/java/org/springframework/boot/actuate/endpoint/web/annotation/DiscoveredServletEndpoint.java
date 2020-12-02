@@ -25,6 +25,7 @@ import org.springframework.boot.actuate.endpoint.annotation.AbstractDiscoveredEn
 import org.springframework.boot.actuate.endpoint.annotation.EndpointDiscoverer;
 import org.springframework.boot.actuate.endpoint.web.EndpointServlet;
 import org.springframework.boot.actuate.endpoint.web.ExposableServletEndpoint;
+import org.springframework.core.style.ToStringCreator;
 import org.springframework.util.Assert;
 
 /**
@@ -60,6 +61,14 @@ class DiscoveredServletEndpoint extends AbstractDiscoveredEndpoint<Operation> im
 	@Override
 	public EndpointServlet getEndpointServlet() {
 		return this.endpointServlet;
+	}
+
+	@Override
+	public String toString() {
+		ToStringCreator creator = new ToStringCreator(this).append("discoverer", this.discoverer.getClass().getName())
+				.append("endpointBean", this.endpointBean.getClass().getName());
+		appendFields(creator);
+		return creator.toString();
 	}
 
 }
