@@ -24,6 +24,7 @@ import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Supplier;
 
 import org.junit.jupiter.api.Test;
 
@@ -343,6 +344,10 @@ class HttpExchangeTracerTests {
 		protected void postProcessRequestHeaders(Map<String, List<String>> headers) {
 			headers.remove("to-remove");
 			headers.computeIfAbsent("to-add", (key) -> Collections.singletonList("42"));
+		}
+
+		private <T> T getIfIncluded(Include include, Supplier<T> valueSupplier) {
+			return this.includes.contains(include) ? valueSupplier.get() : null;
 		}
 
 	}

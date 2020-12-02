@@ -38,7 +38,7 @@ import org.springframework.http.HttpHeaders;
  */
 public class HttpExchangeTracer {
 
-	private final Set<Include> includes;
+	protected final Set<Include> includes;
 
 	/**
 	 * Creates a new {@code HttpExchangeTracer} that will use the given {@code includes}
@@ -81,10 +81,6 @@ public class HttpExchangeTracer {
 	 */
 	protected void postProcessRequestHeaders(Map<String, List<String>> headers) {
 
-	}
-
-	private <T> T getIfIncluded(Include include, Supplier<T> valueSupplier) {
-		return this.includes.contains(include) ? valueSupplier.get() : null;
 	}
 
 	private <T> void setIfIncluded(Include include, Supplier<T> supplier, Consumer<T> consumer) {
