@@ -28,9 +28,12 @@ import org.springframework.boot.actuate.endpoint.web.EndpointMapping;
 import org.springframework.boot.actuate.endpoint.web.EndpointMediaTypes;
 import org.springframework.boot.actuate.endpoint.web.ExposableWebEndpoint;
 import org.springframework.boot.actuate.endpoint.web.Link;
+import org.springframework.boot.actuate.endpoint.web.WebOperationRequestPredicate;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.servlet.HandlerMapping;
+import org.springframework.web.servlet.mvc.method.RequestMappingInfo;
 
 /**
  * A custom {@link HandlerMapping} that makes web endpoints available over HTTP using
@@ -65,6 +68,13 @@ public class WebMvcEndpointHandlerMapping extends AbstractWebMvcEndpointHandlerM
 	@Override
 	protected LinksHandler getLinksHandler() {
 		return new WebMvcLinksHandler();
+	}
+
+	private RequestMappingInfo createRequestMappingInfo(WebOperationRequestPredicate predicate, String path) {
+		return RequestMappingInfo.paths(this.endpointMapping.createSubPath(path))
+				.methods(RequestMethod.valueOf(predicate.getHttpMethod().name()))
+				.consumes(predicate.getConsumes().toArray(new String[0]))
+				.produces(predicate.getProduces().toArray(new String[0])).build();
 	}
 
 	/**

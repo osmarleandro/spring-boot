@@ -34,11 +34,14 @@ import org.springframework.boot.actuate.endpoint.web.EndpointMediaTypes;
 import org.springframework.boot.actuate.endpoint.web.ExposableWebEndpoint;
 import org.springframework.boot.actuate.endpoint.web.Link;
 import org.springframework.boot.actuate.endpoint.web.WebOperation;
+import org.springframework.boot.actuate.endpoint.web.WebOperationRequestPredicate;
 import org.springframework.boot.actuate.endpoint.web.servlet.AbstractWebMvcEndpointHandlerMapping;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.servlet.mvc.method.RequestMappingInfo;
 import org.springframework.web.servlet.mvc.method.RequestMappingInfoHandlerMapping;
 
 /**
@@ -73,6 +76,13 @@ class CloudFoundryWebEndpointServletHandlerMapping extends AbstractWebMvcEndpoin
 	@Override
 	protected LinksHandler getLinksHandler() {
 		return new CloudFoundryLinksHandler();
+	}
+
+	private RequestMappingInfo createRequestMappingInfo(WebOperationRequestPredicate predicate, String path) {
+		return RequestMappingInfo.paths(this.endpointMapping.createSubPath(path))
+				.methods(RequestMethod.valueOf(predicate.getHttpMethod().name()))
+				.consumes(predicate.getConsumes().toArray(new String[0]))
+				.produces(predicate.getProduces().toArray(new String[0])).build();
 	}
 
 	class CloudFoundryLinksHandler implements LinksHandler {
