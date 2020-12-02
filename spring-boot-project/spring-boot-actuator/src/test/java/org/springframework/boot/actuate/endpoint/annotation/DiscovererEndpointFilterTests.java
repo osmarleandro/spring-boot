@@ -17,6 +17,7 @@
 package org.springframework.boot.actuate.endpoint.annotation;
 
 import java.util.Collection;
+import java.util.function.Supplier;
 
 import org.junit.jupiter.api.Test;
 
@@ -26,6 +27,7 @@ import org.springframework.boot.actuate.endpoint.Operation;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvokerAdvisor;
 import org.springframework.boot.actuate.endpoint.invoke.ParameterValueMapper;
 import org.springframework.context.ApplicationContext;
+import org.springframework.util.ClassUtils;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
@@ -82,6 +84,12 @@ class DiscovererEndpointFilterTests {
 			super(applicationContext, parameterValueMapper, invokerAdvisors, filters);
 		}
 
+		private ExtensionBean createExtensionBean(String beanName) {
+			Class<?> beanType = ClassUtils.getUserClass(this.applicationContext.getType(beanName));
+			Supplier<Object> beanSupplier = () -> this.applicationContext.getBean(beanName);
+			return new ExtensionBean(this.applicationContext.getEnvironment(), beanName, beanType, beanSupplier);
+		}
+
 	}
 
 	abstract static class TestDiscovererB extends EndpointDiscoverer<ExposableEndpoint<Operation>, Operation> {
@@ -90,6 +98,12 @@ class DiscovererEndpointFilterTests {
 				Collection<OperationInvokerAdvisor> invokerAdvisors,
 				Collection<EndpointFilter<ExposableEndpoint<Operation>>> filters) {
 			super(applicationContext, parameterValueMapper, invokerAdvisors, filters);
+		}
+
+		private ExtensionBean createExtensionBean(String beanName) {
+			Class<?> beanType = ClassUtils.getUserClass(this.applicationContext.getType(beanName));
+			Supplier<Object> beanSupplier = () -> this.applicationContext.getBean(beanName);
+			return new ExtensionBean(this.applicationContext.getEnvironment(), beanName, beanType, beanSupplier);
 		}
 
 	}

@@ -70,7 +70,7 @@ import org.springframework.util.StringUtils;
 public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O extends Operation>
 		implements EndpointsSupplier<E> {
 
-	private final ApplicationContext applicationContext;
+	protected final ApplicationContext applicationContext;
 
 	private final Collection<EndpointFilter<E>> filters;
 
@@ -158,12 +158,6 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 					+ "': no endpoint found with id '" + extensionBean.getEndpointId() + "'"));
 			addExtensionBean(endpointBean, extensionBean);
 		}
-	}
-
-	private ExtensionBean createExtensionBean(String beanName) {
-		Class<?> beanType = ClassUtils.getUserClass(this.applicationContext.getType(beanName));
-		Supplier<Object> beanSupplier = () -> this.applicationContext.getBean(beanName);
-		return new ExtensionBean(this.applicationContext.getEnvironment(), beanName, beanType, beanSupplier);
 	}
 
 	private void addExtensionBean(EndpointBean endpointBean, ExtensionBean extensionBean) {
@@ -486,7 +480,7 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 	/**
 	 * Information about an {@link EndpointExtension @EndpointExtension} bean.
 	 */
-	private static class ExtensionBean {
+	public static class ExtensionBean {
 
 		private final String beanName;
 
