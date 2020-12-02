@@ -40,21 +40,13 @@ public abstract class InfoPropertiesInfoContributor<T extends InfoProperties> im
 
 	private static final Bindable<Map<String, Object>> STRING_OBJECT_MAP = Bindable.mapOf(String.class, Object.class);
 
-	private final T properties;
+	protected final T properties;
 
 	private final Mode mode;
 
 	protected InfoPropertiesInfoContributor(T properties, Mode mode) {
 		this.properties = properties;
 		this.mode = mode;
-	}
-
-	/**
-	 * Return the properties that this instance manages.
-	 * @return the info properties
-	 */
-	protected final T getProperties() {
-		return this.properties;
 	}
 
 	/**

@@ -68,4 +68,12 @@ public class GitInfoContributor extends InfoPropertiesInfoContributor<GitPropert
 		replaceValue(getNestedMap(content, "build"), "time", getProperties().getInstant("build.time"));
 	}
 
+	/**
+	 * Return the properties that this instance manages.
+	 * @return the info properties
+	 */
+	protected final GitProperties getProperties() {
+		return this.properties;
+	}
+
 }

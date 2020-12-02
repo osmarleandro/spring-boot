@@ -56,4 +56,12 @@ public class BuildInfoContributor extends InfoPropertiesInfoContributor<BuildPro
 		replaceValue(content, "time", getProperties().getTime());
 	}
 
+	/**
+	 * Return the properties that this instance manages.
+	 * @return the info properties
+	 */
+	protected final BuildProperties getProperties() {
+		return this.properties;
+	}
+
 }
