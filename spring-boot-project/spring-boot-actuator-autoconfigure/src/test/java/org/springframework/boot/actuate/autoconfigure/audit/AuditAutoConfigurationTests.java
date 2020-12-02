@@ -34,6 +34,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.access.event.AbstractAuthorizationEvent;
 import org.springframework.security.authentication.event.AbstractAuthenticationEvent;
+import org.springframework.util.Assert;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -107,6 +108,15 @@ class AuditAutoConfigurationTests {
 	}
 
 	static class TestAuditEventRepository extends InMemoryAuditEventRepository {
+
+		@Override
+		public void add(AuditEvent event) {
+			Assert.notNull(event, "AuditEvent must not be null");
+			synchronized (this.monitor) {
+				this.tail = (this.tail + 1) % this.events.length;
+				this.events[this.tail] = event;
+			}
+		}
 
 	}
 

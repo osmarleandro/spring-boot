@@ -20,8 +20,6 @@ import java.time.Instant;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.springframework.util.Assert;
-
 /**
  * In-memory {@link AuditEventRepository} implementation.
  *
@@ -34,14 +32,14 @@ public class InMemoryAuditEventRepository implements AuditEventRepository {
 
 	private static final int DEFAULT_CAPACITY = 1000;
 
-	private final Object monitor = new Object();
+	protected final Object monitor = new Object();
 
 	/**
 	 * Circular buffer of the event with tail pointing to the last element.
 	 */
-	private AuditEvent[] events;
+	protected AuditEvent[] events;
 
-	private volatile int tail = -1;
+	protected volatile int tail = -1;
 
 	public InMemoryAuditEventRepository() {
 		this(DEFAULT_CAPACITY);
@@ -58,15 +56,6 @@ public class InMemoryAuditEventRepository implements AuditEventRepository {
 	public void setCapacity(int capacity) {
 		synchronized (this.monitor) {
 			this.events = new AuditEvent[capacity];
-		}
-	}
-
-	@Override
-	public void add(AuditEvent event) {
-		Assert.notNull(event, "AuditEvent must not be null");
-		synchronized (this.monitor) {
-			this.tail = (this.tail + 1) % this.events.length;
-			this.events[this.tail] = event;
 		}
 	}
 
