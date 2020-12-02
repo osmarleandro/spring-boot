@@ -67,7 +67,7 @@ public abstract class AbstractWebEndpointIntegrationTests<T extends Configurable
 
 	private static final Duration TIMEOUT = Duration.ofMinutes(6);
 
-	private static final String ACTUATOR_MEDIA_TYPE_PATTERN = "application/vnd.test\\+json(;charset=UTF-8)?";
+	protected static final String ACTUATOR_MEDIA_TYPE_PATTERN = "application/vnd.test\\+json(;charset=UTF-8)?";
 
 	private static final String JSON_MEDIA_TYPE_PATTERN = "application/json(;charset=UTF-8)?";
 
@@ -303,12 +303,6 @@ public abstract class AbstractWebEndpointIntegrationTests<T extends Configurable
 	}
 
 	@Test
-	void linksProducesPrimaryMediaTypeByDefault() {
-		load(TestEndpointConfiguration.class, (client) -> client.get().uri("").exchange().expectStatus().isOk()
-				.expectHeader().valueMatches("Content-Type", ACTUATOR_MEDIA_TYPE_PATTERN));
-	}
-
-	@Test
 	void linksProducesSecondaryMediaTypeWhenRequested() {
 		load(TestEndpointConfiguration.class, (client) -> client.get().uri("").accept(MediaType.APPLICATION_JSON)
 				.exchange().expectStatus().isOk().expectHeader().valueMatches("Content-Type", JSON_MEDIA_TYPE_PATTERN));
@@ -428,7 +422,8 @@ public abstract class AbstractWebEndpointIntegrationTests<T extends Configurable
 
 	@Configuration(proxyBeanMethods = false)
 	@Import(BaseConfiguration.class)
-	protected static class TestEndpointConfiguration {
+	public
+	static class TestEndpointConfiguration {
 
 		@Bean
 		public TestEndpoint testEndpoint(EndpointDelegate endpointDelegate) {

@@ -100,6 +100,12 @@ class WebFluxEndpointIntegrationTests
 		return context.getBean(ReactiveConfiguration.class).port;
 	}
 
+	@Test
+	void linksProducesPrimaryMediaTypeByDefault() {
+		load(TestEndpointConfiguration.class, (client) -> client.get().uri("").exchange().expectStatus().isOk()
+				.expectHeader().valueMatches("Content-Type", ACTUATOR_MEDIA_TYPE_PATTERN));
+	}
+
 	@Configuration(proxyBeanMethods = false)
 	@EnableWebFlux
 	@ImportAutoConfiguration(ErrorWebFluxAutoConfiguration.class)
