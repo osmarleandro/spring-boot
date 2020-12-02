@@ -136,6 +136,12 @@ class MvcWebEndpointIntegrationTests
 		return context.getWebServer().getPort();
 	}
 
+	@Test
+	void linksProducesSecondaryMediaTypeWhenRequested() {
+		load(TestEndpointConfiguration.class, (client) -> client.get().uri("").accept(MediaType.APPLICATION_JSON)
+				.exchange().expectStatus().isOk().expectHeader().valueMatches("Content-Type", JSON_MEDIA_TYPE_PATTERN));
+	}
+
 	@Configuration(proxyBeanMethods = false)
 	@ImportAutoConfiguration({ JacksonAutoConfiguration.class, HttpMessageConvertersAutoConfiguration.class,
 			ServletWebServerFactoryAutoConfiguration.class, WebMvcAutoConfiguration.class,
