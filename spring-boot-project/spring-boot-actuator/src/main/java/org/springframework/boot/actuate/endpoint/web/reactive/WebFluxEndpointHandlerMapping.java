@@ -16,6 +16,7 @@
 
 package org.springframework.boot.actuate.endpoint.web.reactive;
 
+import java.lang.reflect.Method;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Map;
@@ -29,6 +30,7 @@ import org.springframework.boot.actuate.endpoint.web.Link;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.reactive.HandlerMapping;
+import org.springframework.web.reactive.result.method.RequestMappingInfo;
 import org.springframework.web.server.ServerWebExchange;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -66,6 +68,11 @@ public class WebFluxEndpointHandlerMapping extends AbstractWebFluxEndpointHandle
 	@Override
 	protected LinksHandler getLinksHandler() {
 		return new WebFluxLinksHandler();
+	}
+
+	@Override
+	protected RequestMappingInfo getMappingForMethod(Method method, Class<?> handlerType) {
+		return null;
 	}
 
 	/**
