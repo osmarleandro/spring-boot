@@ -136,6 +136,13 @@ class MvcWebEndpointIntegrationTests
 		return context.getWebServer().getPort();
 	}
 
+	@Test
+	void matchAllRemainingPathsSelectorShouldMatchFullPath() {
+		load(MatchAllRemainingEndpointConfiguration.class,
+				(client) -> client.get().uri("/matchallremaining/one/two/three").exchange().expectStatus().isOk()
+						.expectBody().jsonPath("selection").isEqualTo("one|two|three"));
+	}
+
 	@Configuration(proxyBeanMethods = false)
 	@ImportAutoConfiguration({ JacksonAutoConfiguration.class, HttpMessageConvertersAutoConfiguration.class,
 			ServletWebServerFactoryAutoConfiguration.class, WebMvcAutoConfiguration.class,

@@ -128,13 +128,6 @@ public abstract class AbstractWebEndpointIntegrationTests<T extends Configurable
 	}
 
 	@Test
-	void matchAllRemainingPathsSelectorShouldMatchFullPath() {
-		load(MatchAllRemainingEndpointConfiguration.class,
-				(client) -> client.get().uri("/matchallremaining/one/two/three").exchange().expectStatus().isOk()
-						.expectBody().jsonPath("selection").isEqualTo("one|two|three"));
-	}
-
-	@Test
 	void matchAllRemainingPathsSelectorShouldDecodePath() {
 		load(MatchAllRemainingEndpointConfiguration.class,
 				(client) -> client.get().uri("/matchallremaining/one/two%20three/").exchange().expectStatus().isOk()
@@ -439,6 +432,7 @@ public abstract class AbstractWebEndpointIntegrationTests<T extends Configurable
 
 	@Configuration(proxyBeanMethods = false)
 	@Import(BaseConfiguration.class)
+	public
 	static class MatchAllRemainingEndpointConfiguration {
 
 		@Bean
