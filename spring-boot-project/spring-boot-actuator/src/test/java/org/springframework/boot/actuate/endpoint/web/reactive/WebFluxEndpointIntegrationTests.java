@@ -41,6 +41,7 @@ import org.springframework.http.server.reactive.HttpHandler;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.ReactiveSecurityContextHolder;
+import org.springframework.test.web.reactive.server.WebTestClient;
 import org.springframework.util.StringUtils;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.reactive.config.EnableWebFlux;
@@ -98,6 +99,15 @@ class WebFluxEndpointIntegrationTests
 	@Override
 	protected int getPort(AnnotationConfigReactiveWebServerApplicationContext context) {
 		return context.getBean(ReactiveConfiguration.class).port;
+	}
+
+	@Test
+	void readOperationWithMissingRequiredParametersReturnsBadRequestResponse() {
+		load(RequiredParameterEndpointConfiguration.class, (client) -> {
+			WebTestClient.BodyContentSpec body = client.get().uri("/requiredparameters")
+					.accept(MediaType.APPLICATION_JSON).exchange().expectStatus().isBadRequest().expectBody();
+			validateErrorBody(body, HttpStatus.BAD_REQUEST, "/endpoints/requiredparameters", "Missing parameters: foo");
+		});
 	}
 
 	@Configuration(proxyBeanMethods = false)
