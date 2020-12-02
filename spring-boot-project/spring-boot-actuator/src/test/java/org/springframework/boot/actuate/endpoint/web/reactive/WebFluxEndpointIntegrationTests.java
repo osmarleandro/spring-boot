@@ -100,6 +100,12 @@ class WebFluxEndpointIntegrationTests
 		return context.getBean(ReactiveConfiguration.class).port;
 	}
 
+	@Test
+	void linksMappingIsDisabledWhenEndpointPathIsEmpty() {
+		load(TestEndpointConfiguration.class, "",
+				(client) -> client.get().uri("").exchange().expectStatus().isNotFound());
+	}
+
 	@Configuration(proxyBeanMethods = false)
 	@EnableWebFlux
 	@ImportAutoConfiguration(ErrorWebFluxAutoConfiguration.class)

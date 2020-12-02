@@ -136,6 +136,12 @@ class MvcWebEndpointIntegrationTests
 		return context.getWebServer().getPort();
 	}
 
+	@Test
+	void linksMappingIsDisabledWhenEndpointPathIsEmpty() {
+		load(TestEndpointConfiguration.class, "",
+				(client) -> client.get().uri("").exchange().expectStatus().isNotFound());
+	}
+
 	@Configuration(proxyBeanMethods = false)
 	@ImportAutoConfiguration({ JacksonAutoConfiguration.class, HttpMessageConvertersAutoConfiguration.class,
 			ServletWebServerFactoryAutoConfiguration.class, WebMvcAutoConfiguration.class,
