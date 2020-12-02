@@ -80,4 +80,10 @@ public class ControllerEndpointDiscoverer extends EndpointDiscoverer<ExposableCo
 		throw new IllegalStateException("ControllerEndpoints must not declare operations");
 	}
 
+	private Collection<ExposableControllerEndpoint> discoverEndpoints() {
+		Collection<EndpointBean> endpointBeans = createEndpointBeans();
+		addExtensionBeans(endpointBeans);
+		return convertToEndpoints(endpointBeans);
+	}
+
 }

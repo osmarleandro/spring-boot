@@ -87,4 +87,10 @@ public class WebEndpointDiscoverer extends EndpointDiscoverer<ExposableWebEndpoi
 				() -> "web request predicate " + operation.getRequestPredicate());
 	}
 
+	private Collection<ExposableWebEndpoint> discoverEndpoints() {
+		Collection<EndpointBean> endpointBeans = createEndpointBeans();
+		addExtensionBeans(endpointBeans);
+		return convertToEndpoints(endpointBeans);
+	}
+
 }

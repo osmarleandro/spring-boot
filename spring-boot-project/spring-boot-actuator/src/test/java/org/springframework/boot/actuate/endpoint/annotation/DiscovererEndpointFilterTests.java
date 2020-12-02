@@ -82,6 +82,12 @@ class DiscovererEndpointFilterTests {
 			super(applicationContext, parameterValueMapper, invokerAdvisors, filters);
 		}
 
+		private Collection<ExposableEndpoint<Operation>> discoverEndpoints() {
+			Collection<EndpointBean> endpointBeans = createEndpointBeans();
+			addExtensionBeans(endpointBeans);
+			return convertToEndpoints(endpointBeans);
+		}
+
 	}
 
 	abstract static class TestDiscovererB extends EndpointDiscoverer<ExposableEndpoint<Operation>, Operation> {
@@ -90,6 +96,12 @@ class DiscovererEndpointFilterTests {
 				Collection<OperationInvokerAdvisor> invokerAdvisors,
 				Collection<EndpointFilter<ExposableEndpoint<Operation>>> filters) {
 			super(applicationContext, parameterValueMapper, invokerAdvisors, filters);
+		}
+
+		private Collection<ExposableEndpoint<Operation>> discoverEndpoints() {
+			Collection<EndpointBean> endpointBeans = createEndpointBeans();
+			addExtensionBeans(endpointBeans);
+			return convertToEndpoints(endpointBeans);
 		}
 
 	}

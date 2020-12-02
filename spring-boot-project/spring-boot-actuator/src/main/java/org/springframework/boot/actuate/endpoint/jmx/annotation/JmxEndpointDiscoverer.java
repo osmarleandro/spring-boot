@@ -69,4 +69,10 @@ public class JmxEndpointDiscoverer extends EndpointDiscoverer<ExposableJmxEndpoi
 		return new OperationKey(operation.getName(), () -> "MBean call '" + operation.getName() + "'");
 	}
 
+	private Collection<ExposableJmxEndpoint> discoverEndpoints() {
+		Collection<EndpointBean> endpointBeans = createEndpointBeans();
+		addExtensionBeans(endpointBeans);
+		return convertToEndpoints(endpointBeans);
+	}
+
 }

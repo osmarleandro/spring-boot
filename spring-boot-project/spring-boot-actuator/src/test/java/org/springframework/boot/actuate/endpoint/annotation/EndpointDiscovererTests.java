@@ -559,6 +559,12 @@ class EndpointDiscovererTests {
 					() -> "TestOperation " + operation.getOperationMethod());
 		}
 
+		private Collection<TestExposableEndpoint> discoverEndpoints() {
+			Collection<EndpointBean> endpointBeans = createEndpointBeans();
+			addExtensionBeans(endpointBeans);
+			return convertToEndpoints(endpointBeans);
+		}
+
 	}
 
 	static class SpecializedEndpointDiscoverer
@@ -589,6 +595,12 @@ class EndpointDiscovererTests {
 		protected OperationKey createOperationKey(SpecializedOperation operation) {
 			return new OperationKey(operation.getOperationMethod(),
 					() -> "TestOperation " + operation.getOperationMethod());
+		}
+
+		private Collection<SpecializedExposableEndpoint> discoverEndpoints() {
+			Collection<EndpointBean> endpointBeans = createEndpointBeans();
+			addExtensionBeans(endpointBeans);
+			return convertToEndpoints(endpointBeans);
 		}
 
 	}

@@ -119,13 +119,7 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 		return this.endpoints;
 	}
 
-	private Collection<E> discoverEndpoints() {
-		Collection<EndpointBean> endpointBeans = createEndpointBeans();
-		addExtensionBeans(endpointBeans);
-		return convertToEndpoints(endpointBeans);
-	}
-
-	private Collection<EndpointBean> createEndpointBeans() {
+	protected Collection<EndpointBean> createEndpointBeans() {
 		Map<EndpointId, EndpointBean> byId = new LinkedHashMap<>();
 		String[] beanNames = BeanFactoryUtils.beanNamesForAnnotationIncludingAncestors(this.applicationContext,
 				Endpoint.class);
@@ -146,7 +140,7 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 		return new EndpointBean(this.applicationContext.getEnvironment(), beanName, beanType, beanSupplier);
 	}
 
-	private void addExtensionBeans(Collection<EndpointBean> endpointBeans) {
+	protected void addExtensionBeans(Collection<EndpointBean> endpointBeans) {
 		Map<EndpointId, EndpointBean> byId = endpointBeans.stream()
 				.collect(Collectors.toMap(EndpointBean::getId, Function.identity()));
 		String[] beanNames = BeanFactoryUtils.beanNamesForAnnotationIncludingAncestors(this.applicationContext,
@@ -175,7 +169,7 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 		}
 	}
 
-	private Collection<E> convertToEndpoints(Collection<EndpointBean> endpointBeans) {
+	protected Collection<E> convertToEndpoints(Collection<EndpointBean> endpointBeans) {
 		Set<E> endpoints = new LinkedHashSet<>();
 		for (EndpointBean endpointBean : endpointBeans) {
 			if (isEndpointExposed(endpointBean)) {
@@ -414,7 +408,7 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 	/**
 	 * Information about an {@link Endpoint @Endpoint} bean.
 	 */
-	private static class EndpointBean {
+	public static class EndpointBean {
 
 		private final String beanName;
 
