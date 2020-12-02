@@ -75,13 +75,6 @@ public class HttpTraceWebFilter implements WebFilter, Ordered {
 				asType(tuple.getT1(), Principal.class), asType(tuple.getT2(), WebSession.class)));
 	}
 
-	private <T> T asType(Object object, Class<T> type) {
-		if (type.isInstance(object)) {
-			return type.cast(object);
-		}
-		return null;
-	}
-
 	private Mono<Void> filter(ServerWebExchange exchange, WebFilterChain chain, Principal principal,
 			WebSession session) {
 		ServerWebExchangeTraceableRequest request = new ServerWebExchangeTraceableRequest(exchange);

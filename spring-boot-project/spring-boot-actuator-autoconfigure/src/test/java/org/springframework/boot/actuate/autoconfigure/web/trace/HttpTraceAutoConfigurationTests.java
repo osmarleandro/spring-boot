@@ -156,6 +156,13 @@ class HttpTraceAutoConfigurationTests {
 			super(repository, tracer, includes);
 		}
 
+		private <T> T asType(Object object, Class<T> type) {
+			if (type.isInstance(object)) {
+				return type.cast(object);
+			}
+			return null;
+		}
+
 	}
 
 	@Configuration(proxyBeanMethods = false)
