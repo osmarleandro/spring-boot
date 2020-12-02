@@ -270,12 +270,6 @@ public abstract class AbstractWebEndpointIntegrationTests<T extends Configurable
 	}
 
 	@Test
-	void readOperationWithCustomMediaType() {
-		load(CustomMediaTypesEndpointConfiguration.class, (client) -> client.get().uri("/custommediatypes").exchange()
-				.expectStatus().isOk().expectHeader().valueMatches("Content-Type", "text/plain(;charset=.*)?"));
-	}
-
-	@Test
 	void readOperationWithMissingRequiredParametersReturnsBadRequestResponse() {
 		load(RequiredParameterEndpointConfiguration.class, (client) -> {
 			WebTestClient.BodyContentSpec body = client.get().uri("/requiredparameters")
@@ -560,6 +554,7 @@ public abstract class AbstractWebEndpointIntegrationTests<T extends Configurable
 
 	@Configuration(proxyBeanMethods = false)
 	@Import(BaseConfiguration.class)
+	public
 	static class CustomMediaTypesEndpointConfiguration {
 
 		@Bean
