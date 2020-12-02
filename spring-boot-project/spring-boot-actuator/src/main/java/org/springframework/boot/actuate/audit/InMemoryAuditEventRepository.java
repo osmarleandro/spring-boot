@@ -17,8 +17,6 @@
 package org.springframework.boot.actuate.audit;
 
 import java.time.Instant;
-import java.util.LinkedList;
-import java.util.List;
 
 import org.springframework.util.Assert;
 
@@ -34,12 +32,12 @@ public class InMemoryAuditEventRepository implements AuditEventRepository {
 
 	private static final int DEFAULT_CAPACITY = 1000;
 
-	private final Object monitor = new Object();
+	protected final Object monitor = new Object();
 
 	/**
 	 * Circular buffer of the event with tail pointing to the last element.
 	 */
-	private AuditEvent[] events;
+	protected AuditEvent[] events;
 
 	private volatile int tail = -1;
 
@@ -70,21 +68,7 @@ public class InMemoryAuditEventRepository implements AuditEventRepository {
 		}
 	}
 
-	@Override
-	public List<AuditEvent> find(String principal, Instant after, String type) {
-		LinkedList<AuditEvent> events = new LinkedList<>();
-		synchronized (this.monitor) {
-			for (int i = 0; i < this.events.length; i++) {
-				AuditEvent event = resolveTailEvent(i);
-				if (event != null && isMatch(principal, after, type, event)) {
-					events.addFirst(event);
-				}
-			}
-		}
-		return events;
-	}
-
-	private boolean isMatch(String principal, Instant after, String type, AuditEvent event) {
+	protected boolean isMatch(String principal, Instant after, String type, AuditEvent event) {
 		boolean match = true;
 		match = match && (principal == null || event.getPrincipal().equals(principal));
 		match = match && (after == null || event.getTimestamp().isAfter(after));
@@ -92,7 +76,7 @@ public class InMemoryAuditEventRepository implements AuditEventRepository {
 		return match;
 	}
 
-	private AuditEvent resolveTailEvent(int offset) {
+	protected AuditEvent resolveTailEvent(int offset) {
 		int index = ((this.tail + this.events.length - offset) % this.events.length);
 		return this.events[index];
 	}

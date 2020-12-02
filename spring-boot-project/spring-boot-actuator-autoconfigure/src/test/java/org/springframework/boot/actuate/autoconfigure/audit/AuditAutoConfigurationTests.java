@@ -37,6 +37,10 @@ import org.springframework.security.authentication.event.AbstractAuthenticationE
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.time.Instant;
+import java.util.LinkedList;
+import java.util.List;
+
 /**
  * Tests for {@link AuditAutoConfiguration}.
  *
@@ -107,6 +111,20 @@ class AuditAutoConfigurationTests {
 	}
 
 	static class TestAuditEventRepository extends InMemoryAuditEventRepository {
+
+		@Override
+		public List<AuditEvent> find(String principal, Instant after, String type) {
+			LinkedList<AuditEvent> events = new LinkedList<>();
+			synchronized (this.monitor) {
+				for (int i = 0; i < this.events.length; i++) {
+					AuditEvent event = resolveTailEvent(i);
+					if (event != null && isMatch(principal, after, type, event)) {
+						events.addFirst(event);
+					}
+				}
+			}
+			return events;
+		}
 
 	}
 
