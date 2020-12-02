@@ -37,8 +37,11 @@ import org.springframework.boot.actuate.endpoint.web.WebOperation;
 import org.springframework.boot.actuate.endpoint.web.servlet.AbstractWebMvcEndpointHandlerMapping;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.ReflectionUtils;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.servlet.mvc.method.RequestMappingInfo;
 import org.springframework.web.servlet.mvc.method.RequestMappingInfoHandlerMapping;
 
 /**
@@ -73,6 +76,15 @@ class CloudFoundryWebEndpointServletHandlerMapping extends AbstractWebMvcEndpoin
 	@Override
 	protected LinksHandler getLinksHandler() {
 		return new CloudFoundryLinksHandler();
+	}
+
+	private void registerLinksMapping() {
+		RequestMappingInfo mapping = RequestMappingInfo.paths(this.endpointMapping.createSubPath(""))
+				.methods(RequestMethod.GET).produces(this.endpointMediaTypes.getProduced().toArray(new String[0]))
+				.options(builderConfig).build();
+		LinksHandler linksHandler = getLinksHandler();
+		registerMapping(mapping, linksHandler, ReflectionUtils.findMethod(linksHandler.getClass(), "links",
+				HttpServletRequest.class, HttpServletResponse.class));
 	}
 
 	class CloudFoundryLinksHandler implements LinksHandler {

@@ -76,11 +76,11 @@ import org.springframework.web.util.UrlPathHelper;
 public abstract class AbstractWebMvcEndpointHandlerMapping extends RequestMappingInfoHandlerMapping
 		implements InitializingBean, MatchableHandlerMapping {
 
-	private final EndpointMapping endpointMapping;
+	protected final EndpointMapping endpointMapping;
 
 	private final Collection<ExposableWebEndpoint> endpoints;
 
-	private final EndpointMediaTypes endpointMediaTypes;
+	protected final EndpointMediaTypes endpointMediaTypes;
 
 	private final CorsConfiguration corsConfiguration;
 
@@ -89,7 +89,7 @@ public abstract class AbstractWebMvcEndpointHandlerMapping extends RequestMappin
 	private final Method handleMethod = ReflectionUtils.findMethod(OperationHandler.class, "handle",
 			HttpServletRequest.class, Map.class);
 
-	private static final RequestMappingInfo.BuilderConfiguration builderConfig = getBuilderConfig();
+	protected static final RequestMappingInfo.BuilderConfiguration builderConfig = getBuilderConfig();
 
 	/**
 	 * Creates a new {@code WebEndpointHandlerMapping} that provides mappings for the
@@ -197,15 +197,6 @@ public abstract class AbstractWebMvcEndpointHandlerMapping extends RequestMappin
 				.produces(predicate.getProduces().toArray(new String[0])).build();
 	}
 
-	private void registerLinksMapping() {
-		RequestMappingInfo mapping = RequestMappingInfo.paths(this.endpointMapping.createSubPath(""))
-				.methods(RequestMethod.GET).produces(this.endpointMediaTypes.getProduced().toArray(new String[0]))
-				.options(builderConfig).build();
-		LinksHandler linksHandler = getLinksHandler();
-		registerMapping(mapping, linksHandler, ReflectionUtils.findMethod(linksHandler.getClass(), "links",
-				HttpServletRequest.class, HttpServletResponse.class));
-	}
-
 	@Override
 	protected boolean hasCorsConfigurationSource(Object handler) {
 		return this.corsConfiguration != null;
@@ -249,7 +240,7 @@ public abstract class AbstractWebMvcEndpointHandlerMapping extends RequestMappin
 	 * Handler providing actuator links at the root endpoint.
 	 */
 	@FunctionalInterface
-	protected interface LinksHandler {
+	public interface LinksHandler {
 
 		Object links(HttpServletRequest request, HttpServletResponse response);
 
