@@ -19,6 +19,9 @@ package org.springframework.boot.actuate.autoconfigure.web.trace;
 import java.util.List;
 import java.util.Set;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.junit.jupiter.api.Test;
 
 import org.springframework.boot.actuate.autoconfigure.trace.http.HttpTraceAutoConfiguration;
@@ -173,6 +176,11 @@ class HttpTraceAutoConfigurationTests {
 
 		private CustomHttpTraceFilter(HttpTraceRepository repository, HttpExchangeTracer tracer) {
 			super(repository, tracer);
+		}
+
+		private String getSessionId(HttpServletRequest request) {
+			HttpSession session = request.getSession(false);
+			return (session != null) ? session.getId() : null;
 		}
 
 	}

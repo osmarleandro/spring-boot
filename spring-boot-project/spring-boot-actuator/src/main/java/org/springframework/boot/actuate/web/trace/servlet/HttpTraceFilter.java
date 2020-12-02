@@ -26,7 +26,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpServletResponseWrapper;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.boot.actuate.trace.http.HttpExchangeTracer;
 import org.springframework.boot.actuate.trace.http.HttpTrace;
@@ -105,11 +104,6 @@ public class HttpTraceFilter extends OncePerRequestFilter implements Ordered {
 		catch (URISyntaxException ex) {
 			return false;
 		}
-	}
-
-	private String getSessionId(HttpServletRequest request) {
-		HttpSession session = request.getSession(false);
-		return (session != null) ? session.getId() : null;
 	}
 
 	private static final class CustomStatusResponseWrapper extends HttpServletResponseWrapper {
