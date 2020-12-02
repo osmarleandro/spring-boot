@@ -350,16 +350,6 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 			Collection<O> operations);
 
 	/**
-	 * Factory method to create an {@link Operation endpoint operation}.
-	 * @param endpointId the endpoint id
-	 * @param operationMethod the operation method
-	 * @param invoker the invoker to use
-	 * @return a created operation
-	 */
-	protected abstract O createOperation(EndpointId endpointId, DiscoveredOperationMethod operationMethod,
-			OperationInvoker invoker);
-
-	/**
 	 * Create an {@link OperationKey} for the given operation.
 	 * @param operation the source operation
 	 * @return the operation key
