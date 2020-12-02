@@ -43,6 +43,8 @@ import org.springframework.boot.actuate.endpoint.invoke.OperationInvokerAdvisor;
 import org.springframework.boot.actuate.endpoint.invoke.ParameterValueMapper;
 import org.springframework.boot.util.LambdaSafe;
 import org.springframework.context.ApplicationContext;
+import org.springframework.core.MethodIntrospector;
+import org.springframework.core.MethodIntrospector.MetadataLookup;
 import org.springframework.core.ResolvableType;
 import org.springframework.core.annotation.MergedAnnotation;
 import org.springframework.core.annotation.MergedAnnotations;
@@ -365,6 +367,12 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 	 * @return the operation key
 	 */
 	protected abstract OperationKey createOperationKey(O operation);
+
+	Collection<O> createOperations(EndpointId id, Object target) {
+		return MethodIntrospector
+				.selectMethods(target.getClass(), (MetadataLookup<O>) (method) -> createOperation(id, target, method))
+				.values();
+	}
 
 	/**
 	 * A key generated for an {@link Operation} based on specific criteria from the actual

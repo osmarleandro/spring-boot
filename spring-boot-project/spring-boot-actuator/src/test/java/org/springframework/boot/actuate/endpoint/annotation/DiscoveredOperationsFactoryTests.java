@@ -34,6 +34,8 @@ import org.springframework.boot.actuate.endpoint.invoke.OperationInvokerAdvisor;
 import org.springframework.boot.actuate.endpoint.invoke.OperationParameters;
 import org.springframework.boot.actuate.endpoint.invoke.ParameterValueMapper;
 import org.springframework.boot.actuate.endpoint.invoke.reflect.OperationMethod;
+import org.springframework.core.MethodIntrospector;
+import org.springframework.core.MethodIntrospector.MetadataLookup;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
@@ -186,6 +188,12 @@ class DiscoveredOperationsFactoryTests {
 		protected TestOperation createOperation(EndpointId endpointId, DiscoveredOperationMethod operationMethod,
 				OperationInvoker invoker) {
 			return new TestOperation(endpointId, operationMethod, invoker);
+		}
+
+		Collection<TestOperation> createOperations(EndpointId id, Object target) {
+			return MethodIntrospector
+					.selectMethods(target.getClass(), (MetadataLookup<TestOperation>) (method) -> createOperation(id, target, method))
+					.values();
 		}
 
 	}
