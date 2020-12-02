@@ -107,4 +107,11 @@ class ReactiveHealthEndpointWebExtensionTests extends
 		return result.getHealth().block();
 	}
 
+	@Test
+	void getHealthWhenPathDoesNotExistReturnsNull() {
+		HealthResult<Mono<? extends HealthComponent>> result = create(this.registry, this.groups).getHealth(ApiVersion.V3, SecurityContext.NONE,
+				false, "missing");
+		assertThat(result).isNull();
+	}
+
 }

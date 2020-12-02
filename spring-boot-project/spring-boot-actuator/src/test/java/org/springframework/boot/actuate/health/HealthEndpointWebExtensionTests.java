@@ -104,4 +104,11 @@ class HealthEndpointWebExtensionTests
 		return result.getHealth();
 	}
 
+	@Test
+	void getHealthWhenPathDoesNotExistReturnsNull() {
+		HealthResult<HealthComponent> result = create(this.registry, this.groups).getHealth(ApiVersion.V3, SecurityContext.NONE,
+				false, "missing");
+		assertThat(result).isNull();
+	}
+
 }

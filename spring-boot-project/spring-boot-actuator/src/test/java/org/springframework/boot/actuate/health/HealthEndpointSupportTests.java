@@ -40,7 +40,7 @@ import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException
  */
 abstract class HealthEndpointSupportTests<R extends ContributorRegistry<C>, C, T> {
 
-	final R registry;
+	protected final R registry;
 
 	final Health up = Health.up().withDetail("spring", "boot").build();
 
@@ -50,7 +50,7 @@ abstract class HealthEndpointSupportTests<R extends ContributorRegistry<C>, C, T
 
 	final TestHealthEndpointGroup allTheAs = new TestHealthEndpointGroup((name) -> name.startsWith("a"));
 
-	final HealthEndpointGroups groups = HealthEndpointGroups.of(this.primaryGroup,
+	protected final HealthEndpointGroups groups = HealthEndpointGroups.of(this.primaryGroup,
 			Collections.singletonMap("alltheas", this.allTheAs));
 
 	HealthEndpointSupportTests() {
@@ -176,13 +176,6 @@ abstract class HealthEndpointSupportTests<R extends ContributorRegistry<C>, C, T
 		assertThat(root.getStatus()).isEqualTo(Status.DOWN);
 		assertThat(component.getStatus()).isEqualTo(Status.DOWN);
 		assertThat(component.getComponents()).containsOnlyKeys("a", "b");
-	}
-
-	@Test
-	void getHealthWhenPathDoesNotExistReturnsNull() {
-		HealthResult<T> result = create(this.registry, this.groups).getHealth(ApiVersion.V3, SecurityContext.NONE,
-				false, "missing");
-		assertThat(result).isNull();
 	}
 
 	@Test
