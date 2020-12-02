@@ -18,6 +18,7 @@ package org.springframework.boot.actuate.endpoint.web.servlet;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -65,6 +66,11 @@ public class WebMvcEndpointHandlerMapping extends AbstractWebMvcEndpointHandlerM
 	@Override
 	protected LinksHandler getLinksHandler() {
 		return new WebMvcLinksHandler();
+	}
+
+	@Override
+	protected void extendInterceptors(List<Object> interceptors) {
+		interceptors.add(new SkipPathExtensionContentNegotiation());
 	}
 
 	/**

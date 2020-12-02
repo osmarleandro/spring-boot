@@ -22,7 +22,6 @@ import java.security.Principal;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -224,11 +223,6 @@ public abstract class AbstractWebMvcEndpointHandlerMapping extends RequestMappin
 	@Override
 	protected RequestMappingInfo getMappingForMethod(Method method, Class<?> handlerType) {
 		return null;
-	}
-
-	@Override
-	protected void extendInterceptors(List<Object> interceptors) {
-		interceptors.add(new SkipPathExtensionContentNegotiation());
 	}
 
 	/**

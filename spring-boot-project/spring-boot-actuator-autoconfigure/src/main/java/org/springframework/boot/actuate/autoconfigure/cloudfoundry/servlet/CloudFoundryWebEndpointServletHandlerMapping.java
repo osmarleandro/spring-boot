@@ -19,6 +19,7 @@ package org.springframework.boot.actuate.autoconfigure.cloudfoundry.servlet;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -35,6 +36,7 @@ import org.springframework.boot.actuate.endpoint.web.ExposableWebEndpoint;
 import org.springframework.boot.actuate.endpoint.web.Link;
 import org.springframework.boot.actuate.endpoint.web.WebOperation;
 import org.springframework.boot.actuate.endpoint.web.servlet.AbstractWebMvcEndpointHandlerMapping;
+import org.springframework.boot.actuate.endpoint.web.servlet.SkipPathExtensionContentNegotiation;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -73,6 +75,11 @@ class CloudFoundryWebEndpointServletHandlerMapping extends AbstractWebMvcEndpoin
 	@Override
 	protected LinksHandler getLinksHandler() {
 		return new CloudFoundryLinksHandler();
+	}
+
+	@Override
+	protected void extendInterceptors(List<Object> interceptors) {
+		interceptors.add(new SkipPathExtensionContentNegotiation());
 	}
 
 	class CloudFoundryLinksHandler implements LinksHandler {
