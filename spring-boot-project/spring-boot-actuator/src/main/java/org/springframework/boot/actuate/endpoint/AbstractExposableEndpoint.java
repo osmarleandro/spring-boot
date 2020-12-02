@@ -36,7 +36,7 @@ public abstract class AbstractExposableEndpoint<O extends Operation> implements 
 
 	private boolean enabledByDefault;
 
-	private List<O> operations;
+	protected List<O> operations;
 
 	/**
 	 * Create a new {@link AbstractExposableEndpoint} instance.
@@ -60,11 +60,6 @@ public abstract class AbstractExposableEndpoint<O extends Operation> implements 
 	@Override
 	public boolean isEnableByDefault() {
 		return this.enabledByDefault;
-	}
-
-	@Override
-	public Collection<O> getOperations() {
-		return this.operations;
 	}
 
 }
