@@ -48,6 +48,7 @@ import org.springframework.web.server.WebFilter;
 import org.springframework.web.server.adapter.WebHttpHandlerBuilder;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.verify;
 
 /**
  * Integration tests for web endpoints exposed using WebFlux.
@@ -98,6 +99,14 @@ class WebFluxEndpointIntegrationTests
 	@Override
 	protected int getPort(AnnotationConfigReactiveWebServerApplicationContext context) {
 		return context.getBean(ReactiveConfiguration.class).port;
+	}
+
+	@Test
+	void writeOperationWithVoidResponse() {
+		load(VoidWriteResponseEndpointConfiguration.class, (context, client) -> {
+			client.post().uri("/voidwrite").exchange().expectStatus().isNoContent().expectBody().isEmpty();
+			verify(context.getBean(EndpointDelegate.class)).write();
+		});
 	}
 
 	@Configuration(proxyBeanMethods = false)
