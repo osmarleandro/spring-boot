@@ -79,4 +79,9 @@ public class ServletEndpointDiscoverer extends EndpointDiscoverer<ExposableServl
 		throw new IllegalStateException("ServletEndpoints must not declare operations");
 	}
 
+	private boolean isExtensionExposed(EndpointBean endpointBean, ExtensionBean extensionBean) {
+		return isFilterMatch(extensionBean.getFilter(), endpointBean)
+				&& isExtensionTypeExposed(extensionBean.getBeanType());
+	}
+
 }

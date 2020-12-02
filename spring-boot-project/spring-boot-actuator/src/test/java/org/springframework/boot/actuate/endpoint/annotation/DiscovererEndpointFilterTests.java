@@ -82,6 +82,11 @@ class DiscovererEndpointFilterTests {
 			super(applicationContext, parameterValueMapper, invokerAdvisors, filters);
 		}
 
+		private boolean isExtensionExposed(EndpointBean endpointBean, ExtensionBean extensionBean) {
+			return isFilterMatch(extensionBean.getFilter(), endpointBean)
+					&& isExtensionTypeExposed(extensionBean.getBeanType());
+		}
+
 	}
 
 	abstract static class TestDiscovererB extends EndpointDiscoverer<ExposableEndpoint<Operation>, Operation> {
@@ -90,6 +95,11 @@ class DiscovererEndpointFilterTests {
 				Collection<OperationInvokerAdvisor> invokerAdvisors,
 				Collection<EndpointFilter<ExposableEndpoint<Operation>>> filters) {
 			super(applicationContext, parameterValueMapper, invokerAdvisors, filters);
+		}
+
+		private boolean isExtensionExposed(EndpointBean endpointBean, ExtensionBean extensionBean) {
+			return isFilterMatch(extensionBean.getFilter(), endpointBean)
+					&& isExtensionTypeExposed(extensionBean.getBeanType());
 		}
 
 	}
