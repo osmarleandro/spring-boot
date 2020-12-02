@@ -18,7 +18,9 @@ package org.springframework.boot.actuate.endpoint.web.annotation;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.boot.actuate.endpoint.EndpointFilter;
 import org.springframework.boot.actuate.endpoint.EndpointId;
@@ -32,6 +34,7 @@ import org.springframework.boot.actuate.endpoint.web.PathMapper;
 import org.springframework.context.ApplicationContext;
 import org.springframework.core.annotation.MergedAnnotations;
 import org.springframework.core.annotation.MergedAnnotations.SearchStrategy;
+import org.springframework.util.MultiValueMap;
 
 /**
  * {@link EndpointDiscoverer} for {@link ExposableServletEndpoint servlet endpoints}.
@@ -77,6 +80,19 @@ public class ServletEndpointDiscoverer extends EndpointDiscoverer<ExposableServl
 	@Override
 	protected OperationKey createOperationKey(Operation operation) {
 		throw new IllegalStateException("ServletEndpoints must not declare operations");
+	}
+
+	private void addOperations(MultiValueMap<OperationKey, Operation> indexed, EndpointId id, Object target, boolean replaceLast) {
+		Set<OperationKey> replacedLast = new HashSet<>();
+		Collection<Operation> operations = this.operationsFactory.createOperations(id, target);
+		for (Operation operation : operations) {
+			OperationKey key = createOperationKey(operation);
+			Operation last = getLast(indexed.get(key));
+			if (replaceLast && replacedLast.add(key) && last != null) {
+				indexed.get(key).remove(last);
+			}
+			indexed.add(key, operation);
+		}
 	}
 
 }

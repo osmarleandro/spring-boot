@@ -26,9 +26,11 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
@@ -52,6 +54,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.core.annotation.AliasFor;
+import org.springframework.util.MultiValueMap;
 import org.springframework.util.ReflectionUtils;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -559,6 +562,19 @@ class EndpointDiscovererTests {
 					() -> "TestOperation " + operation.getOperationMethod());
 		}
 
+		private void addOperations(MultiValueMap<OperationKey, TestOperation> indexed, EndpointId id, Object target, boolean replaceLast) {
+			Set<OperationKey> replacedLast = new HashSet<>();
+			Collection<TestOperation> operations = this.operationsFactory.createOperations(id, target);
+			for (TestOperation operation : operations) {
+				OperationKey key = createOperationKey(operation);
+				TestOperation last = getLast(indexed.get(key));
+				if (replaceLast && replacedLast.add(key) && last != null) {
+					indexed.get(key).remove(last);
+				}
+				indexed.add(key, operation);
+			}
+		}
+
 	}
 
 	static class SpecializedEndpointDiscoverer
@@ -589,6 +605,19 @@ class EndpointDiscovererTests {
 		protected OperationKey createOperationKey(SpecializedOperation operation) {
 			return new OperationKey(operation.getOperationMethod(),
 					() -> "TestOperation " + operation.getOperationMethod());
+		}
+
+		private void addOperations(MultiValueMap<OperationKey, SpecializedOperation> indexed, EndpointId id, Object target, boolean replaceLast) {
+			Set<OperationKey> replacedLast = new HashSet<>();
+			Collection<SpecializedOperation> operations = this.operationsFactory.createOperations(id, target);
+			for (SpecializedOperation operation : operations) {
+				OperationKey key = createOperationKey(operation);
+				SpecializedOperation last = getLast(indexed.get(key));
+				if (replaceLast && replacedLast.add(key) && last != null) {
+					indexed.get(key).remove(last);
+				}
+				indexed.add(key, operation);
+			}
 		}
 
 	}

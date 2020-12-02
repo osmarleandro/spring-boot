@@ -18,7 +18,6 @@ package org.springframework.boot.actuate.endpoint.annotation;
 
 import java.util.Collection;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -74,7 +73,7 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 
 	private final Collection<EndpointFilter<E>> filters;
 
-	private final DiscoveredOperationsFactory<O> operationsFactory;
+	protected final DiscoveredOperationsFactory<O> operationsFactory;
 
 	private final Map<EndpointBean, E> filterEndpoints = new ConcurrentHashMap<>();
 
@@ -204,21 +203,7 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 		return createEndpoint(endpointBean.getBean(), id, endpointBean.isEnabledByDefault(), operations);
 	}
 
-	private void addOperations(MultiValueMap<OperationKey, O> indexed, EndpointId id, Object target,
-			boolean replaceLast) {
-		Set<OperationKey> replacedLast = new HashSet<>();
-		Collection<O> operations = this.operationsFactory.createOperations(id, target);
-		for (O operation : operations) {
-			OperationKey key = createOperationKey(operation);
-			O last = getLast(indexed.get(key));
-			if (replaceLast && replacedLast.add(key) && last != null) {
-				indexed.get(key).remove(last);
-			}
-			indexed.add(key, operation);
-		}
-	}
-
-	private <T> T getLast(List<T> list) {
+	protected <T> T getLast(List<T> list) {
 		return CollectionUtils.isEmpty(list) ? null : list.get(list.size() - 1);
 	}
 
@@ -370,7 +355,7 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 	 * A key generated for an {@link Operation} based on specific criteria from the actual
 	 * operation implementation.
 	 */
-	protected static final class OperationKey {
+	public static final class OperationKey {
 
 		private final Object key;
 

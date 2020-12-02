@@ -17,7 +17,9 @@
 package org.springframework.boot.actuate.endpoint.web.annotation;
 
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.boot.actuate.endpoint.EndpointFilter;
 import org.springframework.boot.actuate.endpoint.EndpointId;
@@ -33,6 +35,7 @@ import org.springframework.boot.actuate.endpoint.web.WebEndpointsSupplier;
 import org.springframework.boot.actuate.endpoint.web.WebOperation;
 import org.springframework.boot.actuate.endpoint.web.WebOperationRequestPredicate;
 import org.springframework.context.ApplicationContext;
+import org.springframework.util.MultiValueMap;
 
 /**
  * {@link EndpointDiscoverer} for {@link ExposableWebEndpoint web endpoints}.
@@ -85,6 +88,19 @@ public class WebEndpointDiscoverer extends EndpointDiscoverer<ExposableWebEndpoi
 	protected OperationKey createOperationKey(WebOperation operation) {
 		return new OperationKey(operation.getRequestPredicate(),
 				() -> "web request predicate " + operation.getRequestPredicate());
+	}
+
+	private void addOperations(MultiValueMap<OperationKey, WebOperation> indexed, EndpointId id, Object target, boolean replaceLast) {
+		Set<OperationKey> replacedLast = new HashSet<>();
+		Collection<WebOperation> operations = this.operationsFactory.createOperations(id, target);
+		for (WebOperation operation : operations) {
+			OperationKey key = createOperationKey(operation);
+			WebOperation last = getLast(indexed.get(key));
+			if (replaceLast && replacedLast.add(key) && last != null) {
+				indexed.get(key).remove(last);
+			}
+			indexed.add(key, operation);
+		}
 	}
 
 }

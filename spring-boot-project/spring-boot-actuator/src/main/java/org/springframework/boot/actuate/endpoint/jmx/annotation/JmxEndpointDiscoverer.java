@@ -17,6 +17,8 @@
 package org.springframework.boot.actuate.endpoint.jmx.annotation;
 
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.springframework.boot.actuate.endpoint.EndpointFilter;
 import org.springframework.boot.actuate.endpoint.EndpointId;
@@ -29,6 +31,7 @@ import org.springframework.boot.actuate.endpoint.jmx.ExposableJmxEndpoint;
 import org.springframework.boot.actuate.endpoint.jmx.JmxEndpointsSupplier;
 import org.springframework.boot.actuate.endpoint.jmx.JmxOperation;
 import org.springframework.context.ApplicationContext;
+import org.springframework.util.MultiValueMap;
 
 /**
  * {@link EndpointDiscoverer} for {@link ExposableJmxEndpoint JMX endpoints}.
@@ -67,6 +70,19 @@ public class JmxEndpointDiscoverer extends EndpointDiscoverer<ExposableJmxEndpoi
 	@Override
 	protected OperationKey createOperationKey(JmxOperation operation) {
 		return new OperationKey(operation.getName(), () -> "MBean call '" + operation.getName() + "'");
+	}
+
+	private void addOperations(MultiValueMap<OperationKey, JmxOperation> indexed, EndpointId id, Object target, boolean replaceLast) {
+		Set<OperationKey> replacedLast = new HashSet<>();
+		Collection<JmxOperation> operations = this.operationsFactory.createOperations(id, target);
+		for (JmxOperation operation : operations) {
+			OperationKey key = createOperationKey(operation);
+			JmxOperation last = getLast(indexed.get(key));
+			if (replaceLast && replacedLast.add(key) && last != null) {
+				indexed.get(key).remove(last);
+			}
+			indexed.add(key, operation);
+		}
 	}
 
 }

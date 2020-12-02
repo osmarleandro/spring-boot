@@ -17,15 +17,19 @@
 package org.springframework.boot.actuate.endpoint.annotation;
 
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 
 import org.springframework.boot.actuate.endpoint.EndpointFilter;
+import org.springframework.boot.actuate.endpoint.EndpointId;
 import org.springframework.boot.actuate.endpoint.ExposableEndpoint;
 import org.springframework.boot.actuate.endpoint.Operation;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvokerAdvisor;
 import org.springframework.boot.actuate.endpoint.invoke.ParameterValueMapper;
 import org.springframework.context.ApplicationContext;
+import org.springframework.util.MultiValueMap;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
@@ -82,6 +86,19 @@ class DiscovererEndpointFilterTests {
 			super(applicationContext, parameterValueMapper, invokerAdvisors, filters);
 		}
 
+		private void addOperations(MultiValueMap<OperationKey, Operation> indexed, EndpointId id, Object target, boolean replaceLast) {
+			Set<OperationKey> replacedLast = new HashSet<>();
+			Collection<Operation> operations = this.operationsFactory.createOperations(id, target);
+			for (Operation operation : operations) {
+				OperationKey key = createOperationKey(operation);
+				Operation last = getLast(indexed.get(key));
+				if (replaceLast && replacedLast.add(key) && last != null) {
+					indexed.get(key).remove(last);
+				}
+				indexed.add(key, operation);
+			}
+		}
+
 	}
 
 	abstract static class TestDiscovererB extends EndpointDiscoverer<ExposableEndpoint<Operation>, Operation> {
@@ -90,6 +107,19 @@ class DiscovererEndpointFilterTests {
 				Collection<OperationInvokerAdvisor> invokerAdvisors,
 				Collection<EndpointFilter<ExposableEndpoint<Operation>>> filters) {
 			super(applicationContext, parameterValueMapper, invokerAdvisors, filters);
+		}
+
+		private void addOperations(MultiValueMap<OperationKey, Operation> indexed, EndpointId id, Object target, boolean replaceLast) {
+			Set<OperationKey> replacedLast = new HashSet<>();
+			Collection<Operation> operations = this.operationsFactory.createOperations(id, target);
+			for (Operation operation : operations) {
+				OperationKey key = createOperationKey(operation);
+				Operation last = getLast(indexed.get(key));
+				if (replaceLast && replacedLast.add(key) && last != null) {
+					indexed.get(key).remove(last);
+				}
+				indexed.add(key, operation);
+			}
 		}
 
 	}
