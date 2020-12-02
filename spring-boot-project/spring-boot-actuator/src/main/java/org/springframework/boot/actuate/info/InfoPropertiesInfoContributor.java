@@ -66,13 +66,6 @@ public abstract class InfoPropertiesInfoContributor<T extends InfoProperties> im
 	}
 
 	/**
-	 * Return a {@link PropertySource} for the {@link Mode#SIMPLE SIMPLE} mode.
-	 * @return the property source for the simple model
-	 * @see #toPropertySource()
-	 */
-	protected abstract PropertySource<?> toSimplePropertySource();
-
-	/**
 	 * Extract the content to contribute to the info endpoint.
 	 * @return the content to expose
 	 * @see #extractContent(PropertySource)
