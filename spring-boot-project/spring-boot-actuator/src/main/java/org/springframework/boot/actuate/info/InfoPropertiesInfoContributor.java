@@ -16,7 +16,6 @@
 
 package org.springframework.boot.actuate.info;
 
-import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Properties;
@@ -135,22 +134,6 @@ public abstract class InfoPropertiesInfoContributor<T extends InfoProperties> im
 		if (content.containsKey(key) && value != null) {
 			content.put(key, value);
 		}
-	}
-
-	/**
-	 * Return the nested map with the specified key or empty map if the specified map
-	 * contains no mapping for the key.
-	 * @param map the content
-	 * @param key the key of a nested map
-	 * @return the nested map
-	 */
-	@SuppressWarnings("unchecked")
-	protected Map<String, Object> getNestedMap(Map<String, Object> map, String key) {
-		Object value = map.get(key);
-		if (value == null) {
-			return Collections.emptyMap();
-		}
-		return (Map<String, Object>) value;
 	}
 
 	/**

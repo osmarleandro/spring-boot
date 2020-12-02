@@ -17,6 +17,7 @@
 package org.springframework.boot.actuate.info;
 
 import java.time.Instant;
+import java.util.Collections;
 import java.util.Map;
 import java.util.Properties;
 
@@ -66,6 +67,22 @@ public class GitInfoContributor extends InfoPropertiesInfoContributor<GitPropert
 	protected void postProcessContent(Map<String, Object> content) {
 		replaceValue(getNestedMap(content, "commit"), "time", getProperties().getCommitTime());
 		replaceValue(getNestedMap(content, "build"), "time", getProperties().getInstant("build.time"));
+	}
+
+	/**
+	 * Return the nested map with the specified key or empty map if the specified map
+	 * contains no mapping for the key.
+	 * @param map the content
+	 * @param key the key of a nested map
+	 * @return the nested map
+	 */
+	@SuppressWarnings("unchecked")
+	protected Map<String, Object> getNestedMap(Map<String, Object> map, String key) {
+		Object value = map.get(key);
+		if (value == null) {
+			return Collections.emptyMap();
+		}
+		return (Map<String, Object>) value;
 	}
 
 }
