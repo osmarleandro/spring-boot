@@ -56,4 +56,12 @@ public class BuildInfoContributor extends InfoPropertiesInfoContributor<BuildPro
 		replaceValue(content, "time", getProperties().getTime());
 	}
 
+	/**
+	 * Return the mode that should be used to expose the content.
+	 * @return the mode
+	 */
+	protected final Mode getMode() {
+		return this.mode;
+	}
+
 }

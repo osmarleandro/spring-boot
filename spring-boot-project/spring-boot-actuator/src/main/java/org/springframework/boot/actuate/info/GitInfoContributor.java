@@ -68,4 +68,12 @@ public class GitInfoContributor extends InfoPropertiesInfoContributor<GitPropert
 		replaceValue(getNestedMap(content, "build"), "time", getProperties().getInstant("build.time"));
 	}
 
+	/**
+	 * Return the mode that should be used to expose the content.
+	 * @return the mode
+	 */
+	protected final Mode getMode() {
+		return this.mode;
+	}
+
 }
