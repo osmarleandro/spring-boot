@@ -100,6 +100,12 @@ class WebFluxEndpointIntegrationTests
 		return context.getBean(ReactiveConfiguration.class).port;
 	}
 
+	@Test
+	void deleteOperation() {
+		load(TestEndpointConfiguration.class, (client) -> client.delete().uri("/test/one").exchange().expectStatus()
+				.isOk().expectBody().jsonPath("part").isEqualTo("one"));
+	}
+
 	@Configuration(proxyBeanMethods = false)
 	@EnableWebFlux
 	@ImportAutoConfiguration(ErrorWebFluxAutoConfiguration.class)

@@ -136,6 +136,12 @@ class MvcWebEndpointIntegrationTests
 		return context.getWebServer().getPort();
 	}
 
+	@Test
+	void deleteOperation() {
+		load(TestEndpointConfiguration.class, (client) -> client.delete().uri("/test/one").exchange().expectStatus()
+				.isOk().expectBody().jsonPath("part").isEqualTo("one"));
+	}
+
 	@Configuration(proxyBeanMethods = false)
 	@ImportAutoConfiguration({ JacksonAutoConfiguration.class, HttpMessageConvertersAutoConfiguration.class,
 			ServletWebServerFactoryAutoConfiguration.class, WebMvcAutoConfiguration.class,

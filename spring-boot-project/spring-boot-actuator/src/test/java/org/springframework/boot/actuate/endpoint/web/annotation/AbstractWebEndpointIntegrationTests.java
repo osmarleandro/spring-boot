@@ -193,12 +193,6 @@ public abstract class AbstractWebEndpointIntegrationTests<T extends Configurable
 	}
 
 	@Test
-	void deleteOperation() {
-		load(TestEndpointConfiguration.class, (client) -> client.delete().uri("/test/one").exchange().expectStatus()
-				.isOk().expectBody().jsonPath("part").isEqualTo("one"));
-	}
-
-	@Test
 	void deleteOperationWithVoidResponse() {
 		load(VoidDeleteResponseEndpointConfiguration.class, (context, client) -> {
 			client.delete().uri("/voiddelete").exchange().expectStatus().isNoContent().expectBody().isEmpty();
@@ -428,7 +422,8 @@ public abstract class AbstractWebEndpointIntegrationTests<T extends Configurable
 
 	@Configuration(proxyBeanMethods = false)
 	@Import(BaseConfiguration.class)
-	protected static class TestEndpointConfiguration {
+	public
+	static class TestEndpointConfiguration {
 
 		@Bean
 		public TestEndpoint testEndpoint(EndpointDelegate endpointDelegate) {
