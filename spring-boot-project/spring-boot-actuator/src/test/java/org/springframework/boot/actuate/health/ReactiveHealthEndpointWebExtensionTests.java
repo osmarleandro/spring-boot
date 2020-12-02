@@ -107,4 +107,12 @@ class ReactiveHealthEndpointWebExtensionTests extends
 		return result.getHealth().block();
 	}
 
+	@Test
+	void getHealthWhenPathIsGroupDoesNotIncludesGroups() {
+		this.registry.registerContributor("atest", createContributor(this.up));
+		HealthResult<Mono<? extends HealthComponent>> result = create(this.registry, this.groups).getHealth(ApiVersion.V3, SecurityContext.NONE,
+				false, "alltheas");
+		assertThat(getHealth(result)).isNotInstanceOf(SystemHealth.class);
+	}
+
 }
