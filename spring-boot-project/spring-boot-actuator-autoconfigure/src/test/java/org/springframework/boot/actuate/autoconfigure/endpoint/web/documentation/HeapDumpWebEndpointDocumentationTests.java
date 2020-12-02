@@ -22,6 +22,9 @@ import java.util.Map;
 import org.junit.jupiter.api.Test;
 
 import org.springframework.boot.actuate.management.HeapDumpWebEndpoint;
+import org.springframework.boot.actuate.management.HeapDumpWebEndpoint.HeapDumper;
+import org.springframework.boot.actuate.management.HeapDumpWebEndpoint.HeapDumperUnavailableException;
+import org.springframework.boot.actuate.management.HeapDumpWebEndpoint.HotSpotDiagnosticMXBeanHeapDumper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
@@ -70,6 +73,15 @@ class HeapDumpWebEndpointDocumentationTests extends MockMvcEndpointDocumentation
 				}
 
 			};
+		}
+
+		/**
+		 * Factory method used to create the {@link HeapDumper}.
+		 * @return the heap dumper to use
+		 * @throws HeapDumperUnavailableException if the heap dumper cannot be created
+		 */
+		protected HeapDumper createHeapDumper() throws HeapDumperUnavailableException {
+			return new HotSpotDiagnosticMXBeanHeapDumper();
 		}
 
 	}

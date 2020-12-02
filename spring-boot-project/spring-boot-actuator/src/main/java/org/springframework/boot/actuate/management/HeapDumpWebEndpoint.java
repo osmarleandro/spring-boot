@@ -113,19 +113,10 @@ public class HeapDumpWebEndpoint {
 	}
 
 	/**
-	 * Factory method used to create the {@link HeapDumper}.
-	 * @return the heap dumper to use
-	 * @throws HeapDumperUnavailableException if the heap dumper cannot be created
-	 */
-	protected HeapDumper createHeapDumper() throws HeapDumperUnavailableException {
-		return new HotSpotDiagnosticMXBeanHeapDumper();
-	}
-
-	/**
 	 * Strategy interface used to dump the heap to a file.
 	 */
 	@FunctionalInterface
-	protected interface HeapDumper {
+	public interface HeapDumper {
 
 		/**
 		 * Dump the current heap to the specified file.
@@ -143,7 +134,7 @@ public class HeapDumpWebEndpoint {
 	 * {@link HeapDumper} that uses {@code com.sun.management.HotSpotDiagnosticMXBean}
 	 * available on Oracle and OpenJDK to dump the heap to a file.
 	 */
-	protected static class HotSpotDiagnosticMXBeanHeapDumper implements HeapDumper {
+	public static class HotSpotDiagnosticMXBeanHeapDumper implements HeapDumper {
 
 		private Object diagnosticMXBean;
 
@@ -174,7 +165,7 @@ public class HeapDumpWebEndpoint {
 	/**
 	 * Exception to be thrown if the {@link HeapDumper} cannot be created.
 	 */
-	protected static class HeapDumperUnavailableException extends RuntimeException {
+	public static class HeapDumperUnavailableException extends RuntimeException {
 
 		public HeapDumperUnavailableException(String message, Throwable cause) {
 			super(message, cause);

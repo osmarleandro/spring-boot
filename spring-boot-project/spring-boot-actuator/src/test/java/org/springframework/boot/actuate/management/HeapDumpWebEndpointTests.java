@@ -19,6 +19,9 @@ package org.springframework.boot.actuate.management;
 import java.util.concurrent.CountDownLatch;
 
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.actuate.management.HeapDumpWebEndpoint.HeapDumper;
+import org.springframework.boot.actuate.management.HeapDumpWebEndpoint.HeapDumperUnavailableException;
+import org.springframework.boot.actuate.management.HeapDumpWebEndpoint.HotSpotDiagnosticMXBeanHeapDumper;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -50,6 +53,15 @@ class HeapDumpWebEndpointTests {
 		assertThat(slowEndpoint.heapDump(true).getStatus()).isEqualTo(429);
 		blockingLatch.countDown();
 		thread.join();
+	}
+
+	/**
+	 * Factory method used to create the {@link HeapDumper}.
+	 * @return the heap dumper to use
+	 * @throws HeapDumperUnavailableException if the heap dumper cannot be created
+	 */
+	protected HeapDumper createHeapDumper() throws HeapDumperUnavailableException {
+		return new HotSpotDiagnosticMXBeanHeapDumper();
 	}
 
 }

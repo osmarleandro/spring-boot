@@ -114,6 +114,15 @@ class HeapDumpWebEndpointWebIntegrationTests {
 			this.available = available;
 		}
 
+		/**
+		 * Factory method used to create the {@link HeapDumper}.
+		 * @return the heap dumper to use
+		 * @throws HeapDumperUnavailableException if the heap dumper cannot be created
+		 */
+		protected HeapDumper createHeapDumper() throws HeapDumperUnavailableException {
+			return new HotSpotDiagnosticMXBeanHeapDumper();
+		}
+
 	}
 
 }
