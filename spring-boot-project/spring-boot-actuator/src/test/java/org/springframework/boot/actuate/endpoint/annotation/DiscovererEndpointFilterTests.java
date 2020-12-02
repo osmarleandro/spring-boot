@@ -26,6 +26,7 @@ import org.springframework.boot.actuate.endpoint.Operation;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvokerAdvisor;
 import org.springframework.boot.actuate.endpoint.invoke.ParameterValueMapper;
 import org.springframework.context.ApplicationContext;
+import org.springframework.util.Assert;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
@@ -82,6 +83,15 @@ class DiscovererEndpointFilterTests {
 			super(applicationContext, parameterValueMapper, invokerAdvisors, filters);
 		}
 
+		private void addExtensionBean(EndpointBean endpointBean, ExtensionBean extensionBean) {
+			if (isExtensionExposed(endpointBean, extensionBean)) {
+				Assert.state(isEndpointExposed(endpointBean) || isEndpointFiltered(endpointBean),
+						() -> "Endpoint bean '" + endpointBean.getBeanName() + "' cannot support the extension bean '"
+								+ extensionBean.getBeanName() + "'");
+				endpointBean.addExtension(extensionBean);
+			}
+		}
+
 	}
 
 	abstract static class TestDiscovererB extends EndpointDiscoverer<ExposableEndpoint<Operation>, Operation> {
@@ -90,6 +100,15 @@ class DiscovererEndpointFilterTests {
 				Collection<OperationInvokerAdvisor> invokerAdvisors,
 				Collection<EndpointFilter<ExposableEndpoint<Operation>>> filters) {
 			super(applicationContext, parameterValueMapper, invokerAdvisors, filters);
+		}
+
+		private void addExtensionBean(EndpointBean endpointBean, ExtensionBean extensionBean) {
+			if (isExtensionExposed(endpointBean, extensionBean)) {
+				Assert.state(isEndpointExposed(endpointBean) || isEndpointFiltered(endpointBean),
+						() -> "Endpoint bean '" + endpointBean.getBeanName() + "' cannot support the extension bean '"
+								+ extensionBean.getBeanName() + "'");
+				endpointBean.addExtension(extensionBean);
+			}
 		}
 
 	}

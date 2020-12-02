@@ -29,6 +29,7 @@ import org.springframework.boot.actuate.endpoint.jmx.ExposableJmxEndpoint;
 import org.springframework.boot.actuate.endpoint.jmx.JmxEndpointsSupplier;
 import org.springframework.boot.actuate.endpoint.jmx.JmxOperation;
 import org.springframework.context.ApplicationContext;
+import org.springframework.util.Assert;
 
 /**
  * {@link EndpointDiscoverer} for {@link ExposableJmxEndpoint JMX endpoints}.
@@ -67,6 +68,15 @@ public class JmxEndpointDiscoverer extends EndpointDiscoverer<ExposableJmxEndpoi
 	@Override
 	protected OperationKey createOperationKey(JmxOperation operation) {
 		return new OperationKey(operation.getName(), () -> "MBean call '" + operation.getName() + "'");
+	}
+
+	private void addExtensionBean(EndpointBean endpointBean, ExtensionBean extensionBean) {
+		if (isExtensionExposed(endpointBean, extensionBean)) {
+			Assert.state(isEndpointExposed(endpointBean) || isEndpointFiltered(endpointBean),
+					() -> "Endpoint bean '" + endpointBean.getBeanName() + "' cannot support the extension bean '"
+							+ extensionBean.getBeanName() + "'");
+			endpointBean.addExtension(extensionBean);
+		}
 	}
 
 }

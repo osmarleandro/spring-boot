@@ -32,6 +32,7 @@ import org.springframework.boot.actuate.endpoint.web.PathMapper;
 import org.springframework.context.ApplicationContext;
 import org.springframework.core.annotation.MergedAnnotations;
 import org.springframework.core.annotation.MergedAnnotations.SearchStrategy;
+import org.springframework.util.Assert;
 
 /**
  * {@link EndpointDiscoverer} for {@link ExposableServletEndpoint servlet endpoints}.
@@ -77,6 +78,15 @@ public class ServletEndpointDiscoverer extends EndpointDiscoverer<ExposableServl
 	@Override
 	protected OperationKey createOperationKey(Operation operation) {
 		throw new IllegalStateException("ServletEndpoints must not declare operations");
+	}
+
+	private void addExtensionBean(EndpointBean endpointBean, ExtensionBean extensionBean) {
+		if (isExtensionExposed(endpointBean, extensionBean)) {
+			Assert.state(isEndpointExposed(endpointBean) || isEndpointFiltered(endpointBean),
+					() -> "Endpoint bean '" + endpointBean.getBeanName() + "' cannot support the extension bean '"
+							+ extensionBean.getBeanName() + "'");
+			endpointBean.addExtension(extensionBean);
+		}
 	}
 
 }

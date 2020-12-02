@@ -52,6 +52,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.core.annotation.AliasFor;
+import org.springframework.util.Assert;
 import org.springframework.util.ReflectionUtils;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -559,6 +560,15 @@ class EndpointDiscovererTests {
 					() -> "TestOperation " + operation.getOperationMethod());
 		}
 
+		private void addExtensionBean(EndpointBean endpointBean, ExtensionBean extensionBean) {
+			if (isExtensionExposed(endpointBean, extensionBean)) {
+				Assert.state(isEndpointExposed(endpointBean) || isEndpointFiltered(endpointBean),
+						() -> "Endpoint bean '" + endpointBean.getBeanName() + "' cannot support the extension bean '"
+								+ extensionBean.getBeanName() + "'");
+				endpointBean.addExtension(extensionBean);
+			}
+		}
+
 	}
 
 	static class SpecializedEndpointDiscoverer
@@ -589,6 +599,15 @@ class EndpointDiscovererTests {
 		protected OperationKey createOperationKey(SpecializedOperation operation) {
 			return new OperationKey(operation.getOperationMethod(),
 					() -> "TestOperation " + operation.getOperationMethod());
+		}
+
+		private void addExtensionBean(EndpointBean endpointBean, ExtensionBean extensionBean) {
+			if (isExtensionExposed(endpointBean, extensionBean)) {
+				Assert.state(isEndpointExposed(endpointBean) || isEndpointFiltered(endpointBean),
+						() -> "Endpoint bean '" + endpointBean.getBeanName() + "' cannot support the extension bean '"
+								+ extensionBean.getBeanName() + "'");
+				endpointBean.addExtension(extensionBean);
+			}
 		}
 
 	}
