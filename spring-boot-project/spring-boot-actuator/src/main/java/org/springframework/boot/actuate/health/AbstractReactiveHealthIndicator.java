@@ -91,12 +91,4 @@ public abstract class AbstractReactiveHealthIndicator implements ReactiveHealthI
 		return Mono.just(new Health.Builder().down(ex).build());
 	}
 
-	/**
-	 * Actual health check logic. If an error occurs in the pipeline it will be handled
-	 * automatically.
-	 * @param builder the {@link Health.Builder} to report health status and details
-	 * @return a {@link Mono} that provides the {@link Health}
-	 */
-	protected abstract Mono<Health> doHealthCheck(Health.Builder builder);
-
 }
