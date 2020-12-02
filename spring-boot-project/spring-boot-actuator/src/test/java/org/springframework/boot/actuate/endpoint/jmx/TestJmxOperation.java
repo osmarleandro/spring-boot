@@ -72,11 +72,6 @@ public class TestJmxOperation implements JmxOperation {
 	}
 
 	@Override
-	public String getName() {
-		return "testOperation";
-	}
-
-	@Override
 	public Class<?> getOutputType() {
 		return String.class;
 	}
