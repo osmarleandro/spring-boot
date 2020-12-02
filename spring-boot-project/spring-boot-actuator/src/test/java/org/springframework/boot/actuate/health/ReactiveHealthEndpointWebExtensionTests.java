@@ -28,6 +28,7 @@ import org.springframework.boot.actuate.endpoint.web.WebEndpointResponse;
 import org.springframework.boot.actuate.health.HealthEndpointSupport.HealthResult;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
 import static org.mockito.Mockito.mock;
 
 /**
@@ -105,6 +106,12 @@ class ReactiveHealthEndpointWebExtensionTests extends
 	@Override
 	protected HealthComponent getHealth(HealthResult<Mono<? extends HealthComponent>> result) {
 		return result.getHealth().block();
+	}
+
+	@Test
+	void createWhenRegistryIsNullThrowsException() {
+		assertThatIllegalArgumentException().isThrownBy(() -> create(null, this.groups))
+				.withMessage("Registry must not be null");
 	}
 
 }

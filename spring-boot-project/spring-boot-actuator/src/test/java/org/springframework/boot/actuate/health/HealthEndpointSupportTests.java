@@ -50,17 +50,11 @@ abstract class HealthEndpointSupportTests<R extends ContributorRegistry<C>, C, T
 
 	final TestHealthEndpointGroup allTheAs = new TestHealthEndpointGroup((name) -> name.startsWith("a"));
 
-	final HealthEndpointGroups groups = HealthEndpointGroups.of(this.primaryGroup,
+	protected final HealthEndpointGroups groups = HealthEndpointGroups.of(this.primaryGroup,
 			Collections.singletonMap("alltheas", this.allTheAs));
 
 	HealthEndpointSupportTests() {
 		this.registry = createRegistry();
-	}
-
-	@Test
-	void createWhenRegistryIsNullThrowsException() {
-		assertThatIllegalArgumentException().isThrownBy(() -> create(null, this.groups))
-				.withMessage("Registry must not be null");
 	}
 
 	@Test
