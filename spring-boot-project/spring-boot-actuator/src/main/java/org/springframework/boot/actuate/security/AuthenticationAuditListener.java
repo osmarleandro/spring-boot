@@ -20,6 +20,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.boot.actuate.audit.AuditEvent;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.security.authentication.event.AbstractAuthenticationEvent;
 import org.springframework.security.authentication.event.AbstractAuthenticationFailureEvent;
 import org.springframework.security.authentication.event.AuthenticationSuccessEvent;
@@ -90,6 +91,10 @@ public class AuthenticationAuditListener extends AbstractAuthenticationAuditList
 			data.put("details", event.getAuthentication().getDetails());
 		}
 		publish(new AuditEvent(event.getAuthentication().getName(), AUTHENTICATION_SUCCESS, data));
+	}
+
+	protected ApplicationEventPublisher getPublisher() {
+		return this.publisher;
 	}
 
 	private static class WebAuditListener {
