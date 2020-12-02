@@ -38,7 +38,14 @@ import org.springframework.boot.actuate.endpoint.web.reactive.AbstractWebFluxEnd
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.server.reactive.ServerHttpRequest;
+import org.springframework.util.ReflectionUtils;
+import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.reactive.result.condition.PatternsRequestCondition;
+import org.springframework.web.reactive.result.condition.ProducesRequestCondition;
+import org.springframework.web.reactive.result.condition.RequestMethodsRequestCondition;
+import org.springframework.web.reactive.result.method.RequestMappingInfo;
 import org.springframework.web.reactive.result.method.RequestMappingInfoHandlerMapping;
 import org.springframework.web.server.ServerWebExchange;
 
@@ -74,6 +81,18 @@ class CloudFoundryWebFluxEndpointHandlerMapping extends AbstractWebFluxEndpointH
 	@Override
 	protected LinksHandler getLinksHandler() {
 		return new CloudFoundryLinksHandler();
+	}
+
+	private void registerLinksMapping() {
+		PatternsRequestCondition patterns = new PatternsRequestCondition(
+				pathPatternParser.parse(this.endpointMapping.getPath()));
+		RequestMethodsRequestCondition methods = new RequestMethodsRequestCondition(RequestMethod.GET);
+		ProducesRequestCondition produces = new ProducesRequestCondition(
+				StringUtils.toStringArray(this.endpointMediaTypes.getProduced()));
+		RequestMappingInfo mapping = new RequestMappingInfo(patterns, methods, null, null, null, produces, null);
+		LinksHandler linksHandler = getLinksHandler();
+		registerMapping(mapping, linksHandler,
+				ReflectionUtils.findMethod(linksHandler.getClass(), "links", ServerWebExchange.class));
 	}
 
 	class CloudFoundryLinksHandler implements LinksHandler {
