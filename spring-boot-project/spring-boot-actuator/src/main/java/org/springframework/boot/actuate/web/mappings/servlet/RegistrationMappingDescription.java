@@ -27,7 +27,7 @@ import javax.servlet.Registration;
  */
 public class RegistrationMappingDescription<T extends Registration> {
 
-	private final T registration;
+	protected final T registration;
 
 	/**
 	 * Creates a new {@link RegistrationMappingDescription} derived from the given
@@ -44,14 +44,6 @@ public class RegistrationMappingDescription<T extends Registration> {
 	 */
 	public String getName() {
 		return this.registration.getName();
-	}
-
-	/**
-	 * Returns the class name of the registered Filter or Servlet.
-	 * @return the class name
-	 */
-	public String getClassName() {
-		return this.registration.getClassName();
 	}
 
 	/**
