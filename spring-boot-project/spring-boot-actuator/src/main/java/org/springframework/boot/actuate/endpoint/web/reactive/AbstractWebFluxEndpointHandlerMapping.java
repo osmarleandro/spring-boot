@@ -209,12 +209,6 @@ public abstract class AbstractWebFluxEndpointHandlerMapping extends RequestMappi
 	}
 
 	/**
-	 * Return the Handler providing actuator links at the root endpoint.
-	 * @return the links handler
-	 */
-	protected abstract LinksHandler getLinksHandler();
-
-	/**
 	 * Return the web endpoints being mapped.
 	 * @return the endpoints
 	 */
