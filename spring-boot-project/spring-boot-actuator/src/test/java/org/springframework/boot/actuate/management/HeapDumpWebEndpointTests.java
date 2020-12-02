@@ -16,9 +16,13 @@
 
 package org.springframework.boot.actuate.management;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.concurrent.CountDownLatch;
 
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.actuate.management.HeapDumpWebEndpoint.TemporaryFileSystemResource;
+import org.springframework.core.io.Resource;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -50,6 +54,15 @@ class HeapDumpWebEndpointTests {
 		assertThat(slowEndpoint.heapDump(true).getStatus()).isEqualTo(429);
 		blockingLatch.countDown();
 		thread.join();
+	}
+
+	private Resource dumpHeap(boolean live) throws IOException, InterruptedException {
+		if (this.heapDumper == null) {
+			this.heapDumper = createHeapDumper();
+		}
+		File file = createTempFile(live);
+		this.heapDumper.dumpHeap(file, live);
+		return new TemporaryFileSystemResource(file);
 	}
 
 }

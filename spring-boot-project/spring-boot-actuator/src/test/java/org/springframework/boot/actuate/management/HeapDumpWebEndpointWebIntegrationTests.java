@@ -28,6 +28,7 @@ import org.springframework.boot.actuate.endpoint.web.test.WebEndpointTest;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.io.Resource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.reactive.server.WebTestClient;
@@ -112,6 +113,15 @@ class HeapDumpWebEndpointWebIntegrationTests {
 
 		void setAvailable(boolean available) {
 			this.available = available;
+		}
+
+		private Resource dumpHeap(boolean live) throws IOException, InterruptedException {
+			if (this.heapDumper == null) {
+				this.heapDumper = createHeapDumper();
+			}
+			File file = createTempFile(live);
+			this.heapDumper.dumpHeap(file, live);
+			return new TemporaryFileSystemResource(file);
 		}
 
 	}

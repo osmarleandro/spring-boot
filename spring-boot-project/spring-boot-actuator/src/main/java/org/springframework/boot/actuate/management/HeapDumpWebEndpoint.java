@@ -62,7 +62,7 @@ public class HeapDumpWebEndpoint {
 
 	private final Lock lock = new ReentrantLock();
 
-	private HeapDumper heapDumper;
+	protected HeapDumper heapDumper;
 
 	public HeapDumpWebEndpoint() {
 		this(TimeUnit.SECONDS.toMillis(10));
@@ -96,16 +96,7 @@ public class HeapDumpWebEndpoint {
 		return new WebEndpointResponse<>(WebEndpointResponse.STATUS_TOO_MANY_REQUESTS);
 	}
 
-	private Resource dumpHeap(boolean live) throws IOException, InterruptedException {
-		if (this.heapDumper == null) {
-			this.heapDumper = createHeapDumper();
-		}
-		File file = createTempFile(live);
-		this.heapDumper.dumpHeap(file, live);
-		return new TemporaryFileSystemResource(file);
-	}
-
-	private File createTempFile(boolean live) throws IOException {
+	protected File createTempFile(boolean live) throws IOException {
 		String date = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm").format(LocalDateTime.now());
 		File file = File.createTempFile("heapdump" + date + (live ? "-live" : ""), ".hprof");
 		file.delete();
@@ -125,7 +116,7 @@ public class HeapDumpWebEndpoint {
 	 * Strategy interface used to dump the heap to a file.
 	 */
 	@FunctionalInterface
-	protected interface HeapDumper {
+	public interface HeapDumper {
 
 		/**
 		 * Dump the current heap to the specified file.
@@ -182,7 +173,7 @@ public class HeapDumpWebEndpoint {
 
 	}
 
-	private static final class TemporaryFileSystemResource extends FileSystemResource {
+	public static final class TemporaryFileSystemResource extends FileSystemResource {
 
 		private final Log logger = LogFactory.getLog(getClass());
 

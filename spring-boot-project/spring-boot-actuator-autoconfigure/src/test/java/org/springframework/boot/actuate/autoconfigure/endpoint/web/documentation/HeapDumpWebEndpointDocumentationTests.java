@@ -16,15 +16,19 @@
 
 package org.springframework.boot.actuate.autoconfigure.endpoint.web.documentation;
 
+import java.io.File;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Map;
 
 import org.junit.jupiter.api.Test;
 
 import org.springframework.boot.actuate.management.HeapDumpWebEndpoint;
+import org.springframework.boot.actuate.management.HeapDumpWebEndpoint.TemporaryFileSystemResource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
+import org.springframework.core.io.Resource;
 import org.springframework.restdocs.cli.CliDocumentation;
 import org.springframework.restdocs.cli.CurlRequestSnippet;
 import org.springframework.restdocs.operation.Operation;
@@ -70,6 +74,15 @@ class HeapDumpWebEndpointDocumentationTests extends MockMvcEndpointDocumentation
 				}
 
 			};
+		}
+
+		private Resource dumpHeap(boolean live) throws IOException, InterruptedException {
+			if (this.heapDumper == null) {
+				this.heapDumper = createHeapDumper();
+			}
+			File file = createTempFile(live);
+			this.heapDumper.dumpHeap(file, live);
+			return new TemporaryFileSystemResource(file);
 		}
 
 	}
