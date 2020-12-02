@@ -82,11 +82,6 @@ public class TestJmxOperation implements JmxOperation {
 	}
 
 	@Override
-	public String getDescription() {
-		return "Test JMX operation";
-	}
-
-	@Override
 	public List<JmxOperationParameter> getParameters() {
 		return this.parameters;
 	}
