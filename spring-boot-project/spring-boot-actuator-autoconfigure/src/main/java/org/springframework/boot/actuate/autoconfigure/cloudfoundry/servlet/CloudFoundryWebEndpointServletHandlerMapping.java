@@ -75,6 +75,14 @@ class CloudFoundryWebEndpointServletHandlerMapping extends AbstractWebMvcEndpoin
 		return new CloudFoundryLinksHandler();
 	}
 
+	/**
+	 * Return the web endpoints being mapped.
+	 * @return the endpoints
+	 */
+	public Collection<ExposableWebEndpoint> getEndpoints() {
+		return this.endpoints;
+	}
+
 	class CloudFoundryLinksHandler implements LinksHandler {
 
 		@Override

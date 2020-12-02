@@ -68,6 +68,14 @@ public class WebMvcEndpointHandlerMapping extends AbstractWebMvcEndpointHandlerM
 	}
 
 	/**
+	 * Return the web endpoints being mapped.
+	 * @return the endpoints
+	 */
+	public Collection<ExposableWebEndpoint> getEndpoints() {
+		return this.endpoints;
+	}
+
+	/**
 	 * Handler for root endpoint providing links.
 	 */
 	class WebMvcLinksHandler implements LinksHandler {
