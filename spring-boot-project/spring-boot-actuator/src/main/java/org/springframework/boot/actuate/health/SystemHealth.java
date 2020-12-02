@@ -46,4 +46,9 @@ public final class SystemHealth extends CompositeHealth {
 		return this.groups;
 	}
 
+	@JsonInclude(Include.NON_EMPTY)
+	public Map<String, HealthComponent> getComponents() {
+		return this.components;
+	}
+
 }
