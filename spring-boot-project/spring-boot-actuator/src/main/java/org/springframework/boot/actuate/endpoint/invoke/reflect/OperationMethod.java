@@ -36,7 +36,7 @@ public class OperationMethod {
 
 	private static final ParameterNameDiscoverer DEFAULT_PARAMETER_NAME_DISCOVERER = new DefaultParameterNameDiscoverer();
 
-	private final Method method;
+	protected final Method method;
 
 	private final OperationType operationType;
 
@@ -53,14 +53,6 @@ public class OperationMethod {
 		this.method = method;
 		this.operationType = operationType;
 		this.operationParameters = new OperationMethodParameters(method, DEFAULT_PARAMETER_NAME_DISCOVERER);
-	}
-
-	/**
-	 * Return the source Java method.
-	 * @return the method
-	 */
-	public Method getMethod() {
-		return this.method;
 	}
 
 	/**
