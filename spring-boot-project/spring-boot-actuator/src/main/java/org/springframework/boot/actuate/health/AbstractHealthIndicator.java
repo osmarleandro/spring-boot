@@ -20,8 +20,6 @@ import java.util.function.Function;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
-import org.springframework.boot.actuate.health.Health.Builder;
 import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
 
@@ -90,13 +88,5 @@ public abstract class AbstractHealthIndicator implements HealthIndicator {
 		}
 		return builder.build();
 	}
-
-	/**
-	 * Actual health check logic.
-	 * @param builder the {@link Builder} to report health status and details
-	 * @throws Exception any {@link Exception} that should create a {@link Status#DOWN}
-	 * system status.
-	 */
-	protected abstract void doHealthCheck(Health.Builder builder) throws Exception;
 
 }
