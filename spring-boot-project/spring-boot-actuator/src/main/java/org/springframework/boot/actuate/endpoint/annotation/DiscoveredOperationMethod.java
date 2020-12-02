@@ -20,6 +20,7 @@ import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 
 import org.springframework.boot.actuate.endpoint.OperationType;
 import org.springframework.boot.actuate.endpoint.invoke.reflect.OperationMethod;
@@ -46,6 +47,11 @@ public class DiscoveredOperationMethod extends OperationMethod {
 
 	public List<String> getProducesMediaTypes() {
 		return this.producesMediaTypes;
+	}
+
+	@Override
+	public String toString() {
+		return "Operation " + this.operationType.name().toLowerCase(Locale.ENGLISH) + " method " + this.method;
 	}
 
 }

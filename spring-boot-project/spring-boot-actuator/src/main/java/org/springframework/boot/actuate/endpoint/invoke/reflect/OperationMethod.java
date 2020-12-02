@@ -17,7 +17,6 @@
 package org.springframework.boot.actuate.endpoint.invoke.reflect;
 
 import java.lang.reflect.Method;
-import java.util.Locale;
 
 import org.springframework.boot.actuate.endpoint.OperationType;
 import org.springframework.boot.actuate.endpoint.invoke.OperationParameters;
@@ -36,9 +35,9 @@ public class OperationMethod {
 
 	private static final ParameterNameDiscoverer DEFAULT_PARAMETER_NAME_DISCOVERER = new DefaultParameterNameDiscoverer();
 
-	private final Method method;
+	protected final Method method;
 
-	private final OperationType operationType;
+	protected final OperationType operationType;
 
 	private final OperationParameters operationParameters;
 
@@ -77,11 +76,6 @@ public class OperationMethod {
 	 */
 	public OperationParameters getParameters() {
 		return this.operationParameters;
-	}
-
-	@Override
-	public String toString() {
-		return "Operation " + this.operationType.name().toLowerCase(Locale.ENGLISH) + " method " + this.method;
 	}
 
 }
