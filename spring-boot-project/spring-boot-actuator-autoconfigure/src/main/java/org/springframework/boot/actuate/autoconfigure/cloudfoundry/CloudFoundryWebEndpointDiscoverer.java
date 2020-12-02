@@ -20,11 +20,17 @@ import java.util.Collection;
 import java.util.List;
 
 import org.springframework.boot.actuate.endpoint.EndpointFilter;
+import org.springframework.boot.actuate.endpoint.EndpointId;
+import org.springframework.boot.actuate.endpoint.annotation.DiscoveredOperationMethod;
+import org.springframework.boot.actuate.endpoint.invoke.OperationInvoker;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvokerAdvisor;
 import org.springframework.boot.actuate.endpoint.invoke.ParameterValueMapper;
 import org.springframework.boot.actuate.endpoint.web.EndpointMediaTypes;
 import org.springframework.boot.actuate.endpoint.web.ExposableWebEndpoint;
 import org.springframework.boot.actuate.endpoint.web.PathMapper;
+import org.springframework.boot.actuate.endpoint.web.WebOperation;
+import org.springframework.boot.actuate.endpoint.web.WebOperationRequestPredicate;
+import org.springframework.boot.actuate.endpoint.web.annotation.DiscoveredWebOperation;
 import org.springframework.boot.actuate.endpoint.web.annotation.EndpointWebExtension;
 import org.springframework.boot.actuate.endpoint.web.annotation.WebEndpointDiscoverer;
 import org.springframework.boot.actuate.health.HealthEndpoint;
@@ -73,6 +79,14 @@ public class CloudFoundryWebEndpointDiscoverer extends WebEndpointDiscoverer {
 
 	private boolean isCloudFoundryHealthEndpointExtension(Class<?> extensionBeanType) {
 		return MergedAnnotations.from(extensionBeanType).isPresent(EndpointCloudFoundryExtension.class);
+	}
+
+	@Override
+	protected WebOperation createOperation(EndpointId endpointId, DiscoveredOperationMethod operationMethod, OperationInvoker invoker) {
+		String rootPath = PathMapper.getRootPath(this.endpointPathMappers, endpointId);
+		WebOperationRequestPredicate requestPredicate = this.requestPredicateFactory.getRequestPredicate(rootPath,
+				operationMethod);
+		return new DiscoveredWebOperation(endpointId, operationMethod, invoker, requestPredicate);
 	}
 
 }
