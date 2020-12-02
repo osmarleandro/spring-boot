@@ -16,8 +16,12 @@
 
 package org.springframework.boot.actuate.health;
 
+import java.util.Collections;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.function.Function;
+
+import org.springframework.util.Assert;
 
 /**
  * Default {@link ReactiveHealthContributorRegistry} implementation.
@@ -38,6 +42,20 @@ public class DefaultReactiveHealthContributorRegistry extends DefaultContributor
 	public DefaultReactiveHealthContributorRegistry(Map<String, ReactiveHealthContributor> contributors,
 			Function<String, String> nameFactory) {
 		super(contributors, nameFactory);
+	}
+
+	@Override
+	public void registerContributor(String name, ReactiveHealthContributor contributor) {
+		Assert.notNull(name, "Name must not be null");
+		Assert.notNull(contributor, "Contributor must not be null");
+		String adaptedName = this.nameFactory.apply(name);
+		synchronized (this.monitor) {
+			Assert.state(!this.contributors.containsKey(adaptedName),
+					() -> "A contributor named \"" + adaptedName + "\" has already been registered");
+			Map<String, ReactiveHealthContributor> contributors = new LinkedHashMap<>(this.contributors);
+			contributors.put(adaptedName, contributor);
+			this.contributors = Collections.unmodifiableMap(contributors);
+		}
 	}
 
 }
