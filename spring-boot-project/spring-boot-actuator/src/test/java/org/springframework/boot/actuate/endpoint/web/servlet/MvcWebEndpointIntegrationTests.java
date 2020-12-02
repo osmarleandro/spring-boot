@@ -136,6 +136,13 @@ class MvcWebEndpointIntegrationTests
 		return context.getWebServer().getPort();
 	}
 
+	@Test
+	void securityContextIsAvailableAndHasNullPrincipalWhenRequestHasNoPrincipal() {
+		load(SecurityContextEndpointConfiguration.class,
+				(client) -> client.get().uri("/securitycontext").accept(MediaType.APPLICATION_JSON).exchange()
+						.expectStatus().isOk().expectBody(String.class).isEqualTo("None"));
+	}
+
 	@Configuration(proxyBeanMethods = false)
 	@ImportAutoConfiguration({ JacksonAutoConfiguration.class, HttpMessageConvertersAutoConfiguration.class,
 			ServletWebServerFactoryAutoConfiguration.class, WebMvcAutoConfiguration.class,

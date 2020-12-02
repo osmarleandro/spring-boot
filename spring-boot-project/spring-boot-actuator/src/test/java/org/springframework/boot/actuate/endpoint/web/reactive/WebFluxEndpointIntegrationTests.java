@@ -100,6 +100,13 @@ class WebFluxEndpointIntegrationTests
 		return context.getBean(ReactiveConfiguration.class).port;
 	}
 
+	@Test
+	void securityContextIsAvailableAndHasNullPrincipalWhenRequestHasNoPrincipal() {
+		load(SecurityContextEndpointConfiguration.class,
+				(client) -> client.get().uri("/securitycontext").accept(MediaType.APPLICATION_JSON).exchange()
+						.expectStatus().isOk().expectBody(String.class).isEqualTo("None"));
+	}
+
 	@Configuration(proxyBeanMethods = false)
 	@EnableWebFlux
 	@ImportAutoConfiguration(ErrorWebFluxAutoConfiguration.class)
