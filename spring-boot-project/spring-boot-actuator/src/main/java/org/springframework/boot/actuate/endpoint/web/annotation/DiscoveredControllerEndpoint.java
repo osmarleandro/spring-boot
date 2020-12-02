@@ -49,4 +49,9 @@ class DiscoveredControllerEndpoint extends AbstractDiscoveredEndpoint<Operation>
 		return this.rootPath;
 	}
 
+	@Override
+	public Object getEndpointBean() {
+		return this.endpointBean;
+	}
+
 }

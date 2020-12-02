@@ -62,4 +62,9 @@ class DiscoveredServletEndpoint extends AbstractDiscoveredEndpoint<Operation> im
 		return this.endpointServlet;
 	}
 
+	@Override
+	public Object getEndpointBean() {
+		return this.endpointBean;
+	}
+
 }

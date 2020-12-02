@@ -600,6 +600,11 @@ class EndpointDiscovererTests {
 			super(discoverer, endpointBean, id, enabledByDefault, operations);
 		}
 
+		@Override
+		public Object getEndpointBean() {
+			return this.endpointBean;
+		}
+
 	}
 
 	static class SpecializedExposableEndpoint extends AbstractDiscoveredEndpoint<SpecializedOperation> {
@@ -607,6 +612,11 @@ class EndpointDiscovererTests {
 		SpecializedExposableEndpoint(EndpointDiscoverer<?, ?> discoverer, Object endpointBean, EndpointId id,
 				boolean enabledByDefault, Collection<? extends SpecializedOperation> operations) {
 			super(discoverer, endpointBean, id, enabledByDefault, operations);
+		}
+
+		@Override
+		public Object getEndpointBean() {
+			return this.endpointBean;
 		}
 
 	}

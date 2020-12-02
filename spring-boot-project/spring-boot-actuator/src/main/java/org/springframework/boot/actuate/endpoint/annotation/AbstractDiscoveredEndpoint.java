@@ -38,7 +38,7 @@ public abstract class AbstractDiscoveredEndpoint<O extends Operation> extends Ab
 
 	private final EndpointDiscoverer<?, ?> discoverer;
 
-	private final Object endpointBean;
+	protected final Object endpointBean;
 
 	/**
 	 * Create a new {@link AbstractDiscoveredEndpoint} instance.
@@ -55,11 +55,6 @@ public abstract class AbstractDiscoveredEndpoint<O extends Operation> extends Ab
 		Assert.notNull(endpointBean, "EndpointBean must not be null");
 		this.discoverer = discoverer;
 		this.endpointBean = endpointBean;
-	}
-
-	@Override
-	public Object getEndpointBean() {
-		return this.endpointBean;
 	}
 
 	@Override

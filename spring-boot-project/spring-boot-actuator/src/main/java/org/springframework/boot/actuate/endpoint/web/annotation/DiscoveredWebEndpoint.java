@@ -44,4 +44,9 @@ class DiscoveredWebEndpoint extends AbstractDiscoveredEndpoint<WebOperation> imp
 		return this.rootPath;
 	}
 
+	@Override
+	public Object getEndpointBean() {
+		return this.endpointBean;
+	}
+
 }

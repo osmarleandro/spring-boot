@@ -36,4 +36,9 @@ class DiscoveredJmxEndpoint extends AbstractDiscoveredEndpoint<JmxOperation> imp
 		super(discoverer, endpointBean, id, enabledByDefault, operations);
 	}
 
+	@Override
+	public Object getEndpointBean() {
+		return this.endpointBean;
+	}
+
 }
