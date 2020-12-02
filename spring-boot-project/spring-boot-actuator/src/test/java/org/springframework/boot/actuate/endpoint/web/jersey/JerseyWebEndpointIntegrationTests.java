@@ -17,9 +17,14 @@
 package org.springframework.boot.actuate.endpoint.web.jersey;
 
 import java.io.IOException;
+import java.net.InetSocketAddress;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
+import java.util.function.BiConsumer;
+import java.util.function.Consumer;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -42,9 +47,11 @@ import org.springframework.boot.actuate.endpoint.web.annotation.WebEndpointDisco
 import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
+import org.springframework.core.env.MapPropertySource;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -88,6 +95,25 @@ public class JerseyWebEndpointIntegrationTests
 	protected void validateErrorBody(WebTestClient.BodyContentSpec body, HttpStatus status, String path,
 			String message) {
 		// Jersey doesn't support the general error page handling
+	}
+
+	private void load(Consumer<AnnotationConfigServletWebServerApplicationContext> contextCustomizer, String endpointPath, BiConsumer<ApplicationContext, WebTestClient> consumer) {
+		AnnotationConfigServletWebServerApplicationContext applicationContext = this.applicationContextSupplier.get();
+		contextCustomizer.accept(applicationContext);
+		Map<String, Object> properties = new HashMap<>();
+		properties.put("endpointPath", endpointPath);
+		properties.put("server.error.include-message", "always");
+		applicationContext.getEnvironment().getPropertySources().addLast(new MapPropertySource("test", properties));
+		applicationContext.refresh();
+		try {
+			InetSocketAddress address = new InetSocketAddress(getPort(applicationContext));
+			String url = "http://" + address.getHostString() + ":" + address.getPort() + endpointPath;
+			consumer.accept(applicationContext,
+					WebTestClient.bindToServer().baseUrl(url).responseTimeout(TIMEOUT).build());
+		}
+		finally {
+			applicationContext.close();
+		}
 	}
 
 	@Configuration(proxyBeanMethods = false)

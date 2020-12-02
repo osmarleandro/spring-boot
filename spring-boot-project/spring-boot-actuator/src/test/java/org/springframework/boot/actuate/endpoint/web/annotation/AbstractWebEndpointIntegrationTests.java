@@ -16,7 +16,6 @@
 
 package org.springframework.boot.actuate.endpoint.web.annotation;
 
-import java.net.InetSocketAddress;
 import java.security.Principal;
 import java.time.Duration;
 import java.util.Collections;
@@ -44,7 +43,6 @@ import org.springframework.context.annotation.AnnotationConfigRegistry;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
-import org.springframework.core.env.MapPropertySource;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpStatus;
@@ -65,13 +63,13 @@ import static org.mockito.Mockito.verify;
  */
 public abstract class AbstractWebEndpointIntegrationTests<T extends ConfigurableApplicationContext & AnnotationConfigRegistry> {
 
-	private static final Duration TIMEOUT = Duration.ofMinutes(6);
+	protected static final Duration TIMEOUT = Duration.ofMinutes(6);
 
 	private static final String ACTUATOR_MEDIA_TYPE_PATTERN = "application/vnd.test\\+json(;charset=UTF-8)?";
 
 	private static final String JSON_MEDIA_TYPE_PATTERN = "application/json(;charset=UTF-8)?";
 
-	private final Supplier<T> applicationContextSupplier;
+	protected final Supplier<T> applicationContextSupplier;
 
 	private final Consumer<T> authenticatedContextCustomizer;
 
@@ -404,26 +402,6 @@ public abstract class AbstractWebEndpointIntegrationTests<T extends Configurable
 	protected void load(Class<?> configuration, String endpointPath, Consumer<WebTestClient> clientConsumer) {
 		load((context) -> context.register(configuration), endpointPath,
 				(context, client) -> clientConsumer.accept(client));
-	}
-
-	private void load(Consumer<T> contextCustomizer, String endpointPath,
-			BiConsumer<ApplicationContext, WebTestClient> consumer) {
-		T applicationContext = this.applicationContextSupplier.get();
-		contextCustomizer.accept(applicationContext);
-		Map<String, Object> properties = new HashMap<>();
-		properties.put("endpointPath", endpointPath);
-		properties.put("server.error.include-message", "always");
-		applicationContext.getEnvironment().getPropertySources().addLast(new MapPropertySource("test", properties));
-		applicationContext.refresh();
-		try {
-			InetSocketAddress address = new InetSocketAddress(getPort(applicationContext));
-			String url = "http://" + address.getHostString() + ":" + address.getPort() + endpointPath;
-			consumer.accept(applicationContext,
-					WebTestClient.bindToServer().baseUrl(url).responseTimeout(TIMEOUT).build());
-		}
-		finally {
-			applicationContext.close();
-		}
 	}
 
 	@Configuration(proxyBeanMethods = false)

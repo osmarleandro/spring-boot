@@ -16,7 +16,12 @@
 
 package org.springframework.boot.actuate.endpoint.web.reactive;
 
+import java.net.InetSocketAddress;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.function.BiConsumer;
+import java.util.function.Consumer;
 
 import org.junit.jupiter.api.Test;
 
@@ -35,12 +40,14 @@ import org.springframework.context.ApplicationListener;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
+import org.springframework.core.env.MapPropertySource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.server.reactive.HttpHandler;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.ReactiveSecurityContextHolder;
+import org.springframework.test.web.reactive.server.WebTestClient;
 import org.springframework.util.StringUtils;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.reactive.config.EnableWebFlux;
@@ -98,6 +105,25 @@ class WebFluxEndpointIntegrationTests
 	@Override
 	protected int getPort(AnnotationConfigReactiveWebServerApplicationContext context) {
 		return context.getBean(ReactiveConfiguration.class).port;
+	}
+
+	private void load(Consumer<AnnotationConfigReactiveWebServerApplicationContext> contextCustomizer, String endpointPath, BiConsumer<ApplicationContext, WebTestClient> consumer) {
+		AnnotationConfigReactiveWebServerApplicationContext applicationContext = this.applicationContextSupplier.get();
+		contextCustomizer.accept(applicationContext);
+		Map<String, Object> properties = new HashMap<>();
+		properties.put("endpointPath", endpointPath);
+		properties.put("server.error.include-message", "always");
+		applicationContext.getEnvironment().getPropertySources().addLast(new MapPropertySource("test", properties));
+		applicationContext.refresh();
+		try {
+			InetSocketAddress address = new InetSocketAddress(getPort(applicationContext));
+			String url = "http://" + address.getHostString() + ":" + address.getPort() + endpointPath;
+			consumer.accept(applicationContext,
+					WebTestClient.bindToServer().baseUrl(url).responseTimeout(TIMEOUT).build());
+		}
+		finally {
+			applicationContext.close();
+		}
 	}
 
 	@Configuration(proxyBeanMethods = false)

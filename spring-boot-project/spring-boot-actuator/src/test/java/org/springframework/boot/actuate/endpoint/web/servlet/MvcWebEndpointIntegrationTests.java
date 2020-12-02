@@ -17,7 +17,12 @@
 package org.springframework.boot.actuate.endpoint.web.servlet;
 
 import java.io.IOException;
+import java.net.InetSocketAddress;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.function.BiConsumer;
+import java.util.function.Consumer;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -41,9 +46,11 @@ import org.springframework.boot.autoconfigure.web.servlet.WebMvcAutoConfiguratio
 import org.springframework.boot.autoconfigure.web.servlet.error.ErrorMvcAutoConfiguration;
 import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
 import org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
+import org.springframework.core.env.MapPropertySource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpServletRequest;
@@ -52,6 +59,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestWrapper;
+import org.springframework.test.web.reactive.server.WebTestClient;
 import org.springframework.util.StringUtils;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -134,6 +142,25 @@ class MvcWebEndpointIntegrationTests
 	@Override
 	protected int getPort(AnnotationConfigServletWebServerApplicationContext context) {
 		return context.getWebServer().getPort();
+	}
+
+	private void load(Consumer<AnnotationConfigServletWebServerApplicationContext> contextCustomizer, String endpointPath, BiConsumer<ApplicationContext, WebTestClient> consumer) {
+		AnnotationConfigServletWebServerApplicationContext applicationContext = this.applicationContextSupplier.get();
+		contextCustomizer.accept(applicationContext);
+		Map<String, Object> properties = new HashMap<>();
+		properties.put("endpointPath", endpointPath);
+		properties.put("server.error.include-message", "always");
+		applicationContext.getEnvironment().getPropertySources().addLast(new MapPropertySource("test", properties));
+		applicationContext.refresh();
+		try {
+			InetSocketAddress address = new InetSocketAddress(getPort(applicationContext));
+			String url = "http://" + address.getHostString() + ":" + address.getPort() + endpointPath;
+			consumer.accept(applicationContext,
+					WebTestClient.bindToServer().baseUrl(url).responseTimeout(TIMEOUT).build());
+		}
+		finally {
+			applicationContext.close();
+		}
 	}
 
 	@Configuration(proxyBeanMethods = false)
