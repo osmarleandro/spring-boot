@@ -82,12 +82,6 @@ public abstract class AbstractWebEndpointIntegrationTests<T extends Configurable
 	}
 
 	@Test
-	void readOperation() {
-		load(TestEndpointConfiguration.class, (client) -> client.get().uri("/test").exchange().expectStatus().isOk()
-				.expectBody().jsonPath("All").isEqualTo(true));
-	}
-
-	@Test
 	void readOperationWithEndpointsMappedToTheRoot() {
 		load(TestEndpointConfiguration.class, "", (client) -> client.get().uri("/test").exchange().expectStatus().isOk()
 				.expectBody().jsonPath("All").isEqualTo(true));
@@ -428,7 +422,8 @@ public abstract class AbstractWebEndpointIntegrationTests<T extends Configurable
 
 	@Configuration(proxyBeanMethods = false)
 	@Import(BaseConfiguration.class)
-	protected static class TestEndpointConfiguration {
+	public
+	static class TestEndpointConfiguration {
 
 		@Bean
 		public TestEndpoint testEndpoint(EndpointDelegate endpointDelegate) {
