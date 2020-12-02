@@ -33,7 +33,7 @@ import org.glassfish.jersey.jackson.JacksonFeature;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.server.model.Resource;
 import org.glassfish.jersey.servlet.ServletContainer;
-
+import org.junit.jupiter.api.Test;
 import org.springframework.boot.actuate.endpoint.web.EndpointLinksResolver;
 import org.springframework.boot.actuate.endpoint.web.EndpointMapping;
 import org.springframework.boot.actuate.endpoint.web.EndpointMediaTypes;
@@ -46,6 +46,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;
@@ -88,6 +89,15 @@ public class JerseyWebEndpointIntegrationTests
 	protected void validateErrorBody(WebTestClient.BodyContentSpec body, HttpStatus status, String path,
 			String message) {
 		// Jersey doesn't support the general error page handling
+	}
+
+	@Test
+	void operationWithAQueryNamedPrincipalCanBeAccessedWhenAuthenticated() {
+		load((context) -> {
+			this.authenticatedContextCustomizer.accept(context);
+			context.register(PrincipalQueryEndpointConfiguration.class);
+		}, (client) -> client.get().uri("/principalquery?principal=Zoe").accept(MediaType.APPLICATION_JSON).exchange()
+				.expectStatus().isOk().expectBody(String.class).isEqualTo("Zoe"));
 	}
 
 	@Configuration(proxyBeanMethods = false)

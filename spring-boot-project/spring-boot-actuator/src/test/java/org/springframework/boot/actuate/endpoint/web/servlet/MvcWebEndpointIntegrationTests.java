@@ -136,6 +136,15 @@ class MvcWebEndpointIntegrationTests
 		return context.getWebServer().getPort();
 	}
 
+	@Test
+	void operationWithAQueryNamedPrincipalCanBeAccessedWhenAuthenticated() {
+		load((context) -> {
+			this.authenticatedContextCustomizer.accept(context);
+			context.register(PrincipalQueryEndpointConfiguration.class);
+		}, (client) -> client.get().uri("/principalquery?principal=Zoe").accept(MediaType.APPLICATION_JSON).exchange()
+				.expectStatus().isOk().expectBody(String.class).isEqualTo("Zoe"));
+	}
+
 	@Configuration(proxyBeanMethods = false)
 	@ImportAutoConfiguration({ JacksonAutoConfiguration.class, HttpMessageConvertersAutoConfiguration.class,
 			ServletWebServerFactoryAutoConfiguration.class, WebMvcAutoConfiguration.class,
