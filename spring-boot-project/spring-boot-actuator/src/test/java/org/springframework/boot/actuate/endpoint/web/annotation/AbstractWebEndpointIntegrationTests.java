@@ -244,16 +244,6 @@ public abstract class AbstractWebEndpointIntegrationTests<T extends Configurable
 	}
 
 	@Test
-	void readOperationWithResourceResponse() {
-		load(ResourceEndpointConfiguration.class, (context, client) -> {
-			byte[] responseBody = client.get().uri("/resource").exchange().expectStatus().isOk().expectHeader()
-					.contentType(MediaType.APPLICATION_OCTET_STREAM).returnResult(byte[].class)
-					.getResponseBodyContent();
-			assertThat(responseBody).containsExactly(0, 1, 2, 3, 4, 5, 6, 7, 8, 9);
-		});
-	}
-
-	@Test
 	void readOperationWithResourceWebOperationResponse() {
 		load(ResourceWebEndpointResponseEndpointConfiguration.class, (context, client) -> {
 			byte[] responseBody = client.get().uri("/resource").exchange().expectStatus().isOk().expectHeader()
@@ -388,7 +378,7 @@ public abstract class AbstractWebEndpointIntegrationTests<T extends Configurable
 				.jsonPath("path").isEqualTo(path).jsonPath("message").isEqualTo(message);
 	}
 
-	private void load(Class<?> configuration, BiConsumer<ApplicationContext, WebTestClient> consumer) {
+	protected void load(Class<?> configuration, BiConsumer<ApplicationContext, WebTestClient> consumer) {
 		load((context) -> context.register(configuration), "/endpoints", consumer);
 	}
 
@@ -527,7 +517,8 @@ public abstract class AbstractWebEndpointIntegrationTests<T extends Configurable
 
 	@Configuration(proxyBeanMethods = false)
 	@Import(BaseConfiguration.class)
-	protected static class ResourceEndpointConfiguration {
+	public
+	static class ResourceEndpointConfiguration {
 
 		@Bean
 		public ResourceEndpoint resourceEndpoint() {

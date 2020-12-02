@@ -136,6 +136,16 @@ class MvcWebEndpointIntegrationTests
 		return context.getWebServer().getPort();
 	}
 
+	@Test
+	void readOperationWithResourceResponse() {
+		load(ResourceEndpointConfiguration.class, (context, client) -> {
+			byte[] responseBody = client.get().uri("/resource").exchange().expectStatus().isOk().expectHeader()
+					.contentType(MediaType.APPLICATION_OCTET_STREAM).returnResult(byte[].class)
+					.getResponseBodyContent();
+			assertThat(responseBody).containsExactly(0, 1, 2, 3, 4, 5, 6, 7, 8, 9);
+		});
+	}
+
 	@Configuration(proxyBeanMethods = false)
 	@ImportAutoConfiguration({ JacksonAutoConfiguration.class, HttpMessageConvertersAutoConfiguration.class,
 			ServletWebServerFactoryAutoConfiguration.class, WebMvcAutoConfiguration.class,
