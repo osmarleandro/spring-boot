@@ -28,6 +28,7 @@ import org.springframework.boot.actuate.endpoint.annotation.EndpointDiscoverer;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvoker;
 import org.springframework.boot.actuate.endpoint.invoke.ParameterValueMapper;
 import org.springframework.boot.actuate.endpoint.web.PathMapper;
+import org.springframework.boot.util.LambdaSafe;
 import org.springframework.context.ApplicationContext;
 import org.springframework.core.annotation.MergedAnnotations;
 import org.springframework.core.annotation.MergedAnnotations.SearchStrategy;
@@ -78,6 +79,12 @@ public class ControllerEndpointDiscoverer extends EndpointDiscoverer<ExposableCo
 	@Override
 	protected OperationKey createOperationKey(Operation operation) {
 		throw new IllegalStateException("ControllerEndpoints must not declare operations");
+	}
+
+	@SuppressWarnings("unchecked")
+	private boolean isFilterMatch(EndpointFilter<ExposableControllerEndpoint> filter, ExposableControllerEndpoint endpoint) {
+		return LambdaSafe.callback(EndpointFilter.class, filter, endpoint).withLogger(EndpointDiscoverer.class)
+				.invokeAnd((f) -> f.match(endpoint)).get();
 	}
 
 }

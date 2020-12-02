@@ -25,6 +25,7 @@ import org.springframework.boot.actuate.endpoint.ExposableEndpoint;
 import org.springframework.boot.actuate.endpoint.Operation;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvokerAdvisor;
 import org.springframework.boot.actuate.endpoint.invoke.ParameterValueMapper;
+import org.springframework.boot.util.LambdaSafe;
 import org.springframework.context.ApplicationContext;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -82,6 +83,12 @@ class DiscovererEndpointFilterTests {
 			super(applicationContext, parameterValueMapper, invokerAdvisors, filters);
 		}
 
+		@SuppressWarnings("unchecked")
+		private boolean isFilterMatch(EndpointFilter<ExposableEndpoint<Operation>> filter, ExposableEndpoint<Operation> endpoint) {
+			return LambdaSafe.callback(EndpointFilter.class, filter, endpoint).withLogger(EndpointDiscoverer.class)
+					.invokeAnd((f) -> f.match(endpoint)).get();
+		}
+
 	}
 
 	abstract static class TestDiscovererB extends EndpointDiscoverer<ExposableEndpoint<Operation>, Operation> {
@@ -90,6 +97,12 @@ class DiscovererEndpointFilterTests {
 				Collection<OperationInvokerAdvisor> invokerAdvisors,
 				Collection<EndpointFilter<ExposableEndpoint<Operation>>> filters) {
 			super(applicationContext, parameterValueMapper, invokerAdvisors, filters);
+		}
+
+		@SuppressWarnings("unchecked")
+		private boolean isFilterMatch(EndpointFilter<ExposableEndpoint<Operation>> filter, ExposableEndpoint<Operation> endpoint) {
+			return LambdaSafe.callback(EndpointFilter.class, filter, endpoint).withLogger(EndpointDiscoverer.class)
+					.invokeAnd((f) -> f.match(endpoint)).get();
 		}
 
 	}

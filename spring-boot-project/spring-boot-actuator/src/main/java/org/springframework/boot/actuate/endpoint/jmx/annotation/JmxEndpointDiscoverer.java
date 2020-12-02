@@ -28,6 +28,7 @@ import org.springframework.boot.actuate.endpoint.invoke.ParameterValueMapper;
 import org.springframework.boot.actuate.endpoint.jmx.ExposableJmxEndpoint;
 import org.springframework.boot.actuate.endpoint.jmx.JmxEndpointsSupplier;
 import org.springframework.boot.actuate.endpoint.jmx.JmxOperation;
+import org.springframework.boot.util.LambdaSafe;
 import org.springframework.context.ApplicationContext;
 
 /**
@@ -67,6 +68,12 @@ public class JmxEndpointDiscoverer extends EndpointDiscoverer<ExposableJmxEndpoi
 	@Override
 	protected OperationKey createOperationKey(JmxOperation operation) {
 		return new OperationKey(operation.getName(), () -> "MBean call '" + operation.getName() + "'");
+	}
+
+	@SuppressWarnings("unchecked")
+	private boolean isFilterMatch(EndpointFilter<ExposableJmxEndpoint> filter, ExposableJmxEndpoint endpoint) {
+		return LambdaSafe.callback(EndpointFilter.class, filter, endpoint).withLogger(EndpointDiscoverer.class)
+				.invokeAnd((f) -> f.match(endpoint)).get();
 	}
 
 }

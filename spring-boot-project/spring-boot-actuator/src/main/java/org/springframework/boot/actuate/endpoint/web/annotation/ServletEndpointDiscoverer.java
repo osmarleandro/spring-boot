@@ -29,6 +29,7 @@ import org.springframework.boot.actuate.endpoint.invoke.OperationInvoker;
 import org.springframework.boot.actuate.endpoint.invoke.ParameterValueMapper;
 import org.springframework.boot.actuate.endpoint.web.ExposableServletEndpoint;
 import org.springframework.boot.actuate.endpoint.web.PathMapper;
+import org.springframework.boot.util.LambdaSafe;
 import org.springframework.context.ApplicationContext;
 import org.springframework.core.annotation.MergedAnnotations;
 import org.springframework.core.annotation.MergedAnnotations.SearchStrategy;
@@ -77,6 +78,12 @@ public class ServletEndpointDiscoverer extends EndpointDiscoverer<ExposableServl
 	@Override
 	protected OperationKey createOperationKey(Operation operation) {
 		throw new IllegalStateException("ServletEndpoints must not declare operations");
+	}
+
+	@SuppressWarnings("unchecked")
+	private boolean isFilterMatch(EndpointFilter<ExposableServletEndpoint> filter, ExposableServletEndpoint endpoint) {
+		return LambdaSafe.callback(EndpointFilter.class, filter, endpoint).withLogger(EndpointDiscoverer.class)
+				.invokeAnd((f) -> f.match(endpoint)).get();
 	}
 
 }

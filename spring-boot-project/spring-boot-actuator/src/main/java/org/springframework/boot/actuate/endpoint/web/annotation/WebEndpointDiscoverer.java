@@ -32,6 +32,7 @@ import org.springframework.boot.actuate.endpoint.web.PathMapper;
 import org.springframework.boot.actuate.endpoint.web.WebEndpointsSupplier;
 import org.springframework.boot.actuate.endpoint.web.WebOperation;
 import org.springframework.boot.actuate.endpoint.web.WebOperationRequestPredicate;
+import org.springframework.boot.util.LambdaSafe;
 import org.springframework.context.ApplicationContext;
 
 /**
@@ -85,6 +86,12 @@ public class WebEndpointDiscoverer extends EndpointDiscoverer<ExposableWebEndpoi
 	protected OperationKey createOperationKey(WebOperation operation) {
 		return new OperationKey(operation.getRequestPredicate(),
 				() -> "web request predicate " + operation.getRequestPredicate());
+	}
+
+	@SuppressWarnings("unchecked")
+	private boolean isFilterMatch(EndpointFilter<ExposableWebEndpoint> filter, ExposableWebEndpoint endpoint) {
+		return LambdaSafe.callback(EndpointFilter.class, filter, endpoint).withLogger(EndpointDiscoverer.class)
+				.invokeAnd((f) -> f.match(endpoint)).get();
 	}
 
 }

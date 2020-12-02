@@ -41,7 +41,6 @@ import org.springframework.boot.actuate.endpoint.Operation;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvoker;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvokerAdvisor;
 import org.springframework.boot.actuate.endpoint.invoke.ParameterValueMapper;
-import org.springframework.boot.util.LambdaSafe;
 import org.springframework.context.ApplicationContext;
 import org.springframework.core.ResolvableType;
 import org.springframework.core.annotation.MergedAnnotation;
@@ -315,12 +314,6 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 
 	private boolean isFilterMatch(EndpointFilter<E> filter, EndpointBean endpointBean) {
 		return isFilterMatch(filter, getFilterEndpoint(endpointBean));
-	}
-
-	@SuppressWarnings("unchecked")
-	private boolean isFilterMatch(EndpointFilter<E> filter, E endpoint) {
-		return LambdaSafe.callback(EndpointFilter.class, filter, endpoint).withLogger(EndpointDiscoverer.class)
-				.invokeAnd((f) -> f.match(endpoint)).get();
 	}
 
 	private E getFilterEndpoint(EndpointBean endpointBean) {

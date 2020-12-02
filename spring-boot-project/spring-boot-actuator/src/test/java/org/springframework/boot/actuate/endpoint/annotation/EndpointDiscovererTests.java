@@ -44,6 +44,7 @@ import org.springframework.boot.actuate.endpoint.invoke.ParameterValueMapper;
 import org.springframework.boot.actuate.endpoint.invoke.convert.ConversionServiceParameterValueMapper;
 import org.springframework.boot.actuate.endpoint.invoker.cache.CachingOperationInvoker;
 import org.springframework.boot.actuate.endpoint.invoker.cache.CachingOperationInvokerAdvisor;
+import org.springframework.boot.util.LambdaSafe;
 import org.springframework.cglib.proxy.Enhancer;
 import org.springframework.cglib.proxy.FixedValue;
 import org.springframework.context.ApplicationContext;
@@ -559,6 +560,12 @@ class EndpointDiscovererTests {
 					() -> "TestOperation " + operation.getOperationMethod());
 		}
 
+		@SuppressWarnings("unchecked")
+		private boolean isFilterMatch(EndpointFilter<TestExposableEndpoint> filter, TestExposableEndpoint endpoint) {
+			return LambdaSafe.callback(EndpointFilter.class, filter, endpoint).withLogger(EndpointDiscoverer.class)
+					.invokeAnd((f) -> f.match(endpoint)).get();
+		}
+
 	}
 
 	static class SpecializedEndpointDiscoverer
@@ -589,6 +596,12 @@ class EndpointDiscovererTests {
 		protected OperationKey createOperationKey(SpecializedOperation operation) {
 			return new OperationKey(operation.getOperationMethod(),
 					() -> "TestOperation " + operation.getOperationMethod());
+		}
+
+		@SuppressWarnings("unchecked")
+		private boolean isFilterMatch(EndpointFilter<SpecializedExposableEndpoint> filter, SpecializedExposableEndpoint endpoint) {
+			return LambdaSafe.callback(EndpointFilter.class, filter, endpoint).withLogger(EndpointDiscoverer.class)
+					.invokeAnd((f) -> f.match(endpoint)).get();
 		}
 
 	}
