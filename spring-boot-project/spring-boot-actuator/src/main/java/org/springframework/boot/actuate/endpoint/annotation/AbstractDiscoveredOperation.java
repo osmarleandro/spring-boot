@@ -32,9 +32,9 @@ import org.springframework.core.style.ToStringCreator;
  */
 public abstract class AbstractDiscoveredOperation implements Operation {
 
-	private final OperationMethod operationMethod;
+	protected final OperationMethod operationMethod;
 
-	private final OperationInvoker invoker;
+	protected final OperationInvoker invoker;
 
 	/**
 	 * Create a new {@link AbstractDiscoveredOperation} instance.
@@ -58,14 +58,6 @@ public abstract class AbstractDiscoveredOperation implements Operation {
 	@Override
 	public Object invoke(InvocationContext context) {
 		return this.invoker.invoke(context);
-	}
-
-	@Override
-	public String toString() {
-		ToStringCreator creator = new ToStringCreator(this).append("operationMethod", this.operationMethod)
-				.append("invoker", this.invoker);
-		appendFields(creator);
-		return creator.toString();
 	}
 
 	protected void appendFields(ToStringCreator creator) {

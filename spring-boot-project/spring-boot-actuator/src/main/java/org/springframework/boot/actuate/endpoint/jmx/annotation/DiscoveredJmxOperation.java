@@ -128,6 +128,14 @@ class DiscoveredJmxOperation extends AbstractDiscoveredOperation implements JmxO
 				.append("parameters", this.parameters);
 	}
 
+	@Override
+	public String toString() {
+		ToStringCreator creator = new ToStringCreator(this).append("operationMethod", this.operationMethod)
+				.append("invoker", this.invoker);
+		appendFields(creator);
+		return creator.toString();
+	}
+
 	/**
 	 * A discovered {@link JmxOperationParameter}.
 	 */
