@@ -73,7 +73,7 @@ public abstract class AbstractWebEndpointIntegrationTests<T extends Configurable
 
 	private final Supplier<T> applicationContextSupplier;
 
-	private final Consumer<T> authenticatedContextCustomizer;
+	protected final Consumer<T> authenticatedContextCustomizer;
 
 	protected AbstractWebEndpointIntegrationTests(Supplier<T> applicationContextSupplier,
 			Consumer<T> authenticatedContextCustomizer) {
@@ -319,15 +319,6 @@ public abstract class AbstractWebEndpointIntegrationTests<T extends Configurable
 		load(PrincipalEndpointConfiguration.class,
 				(client) -> client.get().uri("/principal").accept(MediaType.APPLICATION_JSON).exchange().expectStatus()
 						.isOk().expectBody(String.class).isEqualTo("None"));
-	}
-
-	@Test
-	void principalIsAvailableWhenRequestHasAPrincipal() {
-		load((context) -> {
-			this.authenticatedContextCustomizer.accept(context);
-			context.register(PrincipalEndpointConfiguration.class);
-		}, (client) -> client.get().uri("/principal").accept(MediaType.APPLICATION_JSON).exchange().expectStatus()
-				.isOk().expectBody(String.class).isEqualTo("Alice"));
 	}
 
 	@Test
@@ -582,6 +573,7 @@ public abstract class AbstractWebEndpointIntegrationTests<T extends Configurable
 
 	@Configuration(proxyBeanMethods = false)
 	@Import(BaseConfiguration.class)
+	public
 	static class PrincipalEndpointConfiguration {
 
 		@Bean

@@ -100,6 +100,15 @@ class WebFluxEndpointIntegrationTests
 		return context.getBean(ReactiveConfiguration.class).port;
 	}
 
+	@Test
+	void principalIsAvailableWhenRequestHasAPrincipal() {
+		load((context) -> {
+			this.authenticatedContextCustomizer.accept(context);
+			context.register(PrincipalEndpointConfiguration.class);
+		}, (client) -> client.get().uri("/principal").accept(MediaType.APPLICATION_JSON).exchange().expectStatus()
+				.isOk().expectBody(String.class).isEqualTo("Alice"));
+	}
+
 	@Configuration(proxyBeanMethods = false)
 	@EnableWebFlux
 	@ImportAutoConfiguration(ErrorWebFluxAutoConfiguration.class)
