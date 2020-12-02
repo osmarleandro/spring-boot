@@ -22,7 +22,6 @@ import java.util.Map;
 import java.util.function.Consumer;
 
 import org.springframework.boot.actuate.health.AbstractHealthIndicator;
-import org.springframework.boot.actuate.health.Health.Builder;
 import org.springframework.boot.actuate.health.HealthIndicator;
 import org.springframework.boot.actuate.health.Status;
 import org.springframework.boot.availability.ApplicationAvailability;
@@ -39,11 +38,11 @@ import org.springframework.util.Assert;
  */
 public class AvailabilityStateHealthIndicator extends AbstractHealthIndicator {
 
-	private final ApplicationAvailability applicationAvailability;
+	protected final ApplicationAvailability applicationAvailability;
 
 	private final Class<? extends AvailabilityState> stateType;
 
-	private final Map<AvailabilityState, Status> statusMappings = new HashMap<>();
+	protected final Map<AvailabilityState, Status> statusMappings = new HashMap<>();
 
 	/**
 	 * Create a new {@link AvailabilityStateHealthIndicator} instance.
@@ -73,17 +72,6 @@ public class AvailabilityStateHealthIndicator extends AbstractHealthIndicator {
 						() -> "StatusMappings does not include " + element);
 			}
 		}
-	}
-
-	@Override
-	protected void doHealthCheck(Builder builder) throws Exception {
-		AvailabilityState state = getState(this.applicationAvailability);
-		Status status = this.statusMappings.get(state);
-		if (status == null) {
-			status = this.statusMappings.get(null);
-		}
-		Assert.state(status != null, () -> "No mapping provided for " + state);
-		builder.status(status);
 	}
 
 	/**

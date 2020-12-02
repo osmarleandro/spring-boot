@@ -16,11 +16,13 @@
 
 package org.springframework.boot.actuate.availability;
 
+import org.springframework.boot.actuate.health.Health.Builder;
 import org.springframework.boot.actuate.health.HealthIndicator;
 import org.springframework.boot.actuate.health.Status;
 import org.springframework.boot.availability.ApplicationAvailability;
 import org.springframework.boot.availability.AvailabilityState;
 import org.springframework.boot.availability.LivenessState;
+import org.springframework.util.Assert;
 
 /**
  * A {@link HealthIndicator} that checks the {@link LivenessState} of the application.
@@ -40,6 +42,17 @@ public class LivenessStateHealthIndicator extends AvailabilityStateHealthIndicat
 	@Override
 	protected AvailabilityState getState(ApplicationAvailability applicationAvailability) {
 		return applicationAvailability.getLivenessState();
+	}
+
+	@Override
+	protected void doHealthCheck(Builder builder) throws Exception {
+		AvailabilityState state = getState(this.applicationAvailability);
+		Status status = this.statusMappings.get(state);
+		if (status == null) {
+			status = this.statusMappings.get(null);
+		}
+		Assert.state(status != null, () -> "No mapping provided for " + state);
+		builder.status(status);
 	}
 
 }
