@@ -21,11 +21,13 @@ import java.util.Collections;
 import java.util.Map;
 
 import org.springframework.beans.factory.InitializingBean;
+import org.springframework.boot.actuate.endpoint.OperationType;
 import org.springframework.boot.actuate.endpoint.web.EndpointLinksResolver;
 import org.springframework.boot.actuate.endpoint.web.EndpointMapping;
 import org.springframework.boot.actuate.endpoint.web.EndpointMediaTypes;
 import org.springframework.boot.actuate.endpoint.web.ExposableWebEndpoint;
 import org.springframework.boot.actuate.endpoint.web.Link;
+import org.springframework.boot.actuate.endpoint.web.WebOperation;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.reactive.HandlerMapping;
@@ -66,6 +68,19 @@ public class WebFluxEndpointHandlerMapping extends AbstractWebFluxEndpointHandle
 	@Override
 	protected LinksHandler getLinksHandler() {
 		return new WebFluxLinksHandler();
+	}
+
+	private void registerMappingForOperation(ExposableWebEndpoint endpoint, WebOperation operation) {
+		ReactiveWebOperation reactiveWebOperation = wrapReactiveWebOperation(endpoint, operation,
+				new ReactiveWebOperationAdapter(operation));
+		if (operation.getType() == OperationType.WRITE) {
+			registerMapping(createRequestMappingInfo(operation), new WriteOperationHandler((reactiveWebOperation)),
+					this.handleWriteMethod);
+		}
+		else {
+			registerMapping(createRequestMappingInfo(operation), new ReadOperationHandler((reactiveWebOperation)),
+					this.handleReadMethod);
+		}
 	}
 
 	/**

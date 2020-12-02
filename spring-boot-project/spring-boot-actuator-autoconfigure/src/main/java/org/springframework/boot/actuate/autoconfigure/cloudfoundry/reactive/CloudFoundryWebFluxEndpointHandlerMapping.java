@@ -28,6 +28,7 @@ import reactor.core.publisher.Mono;
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.AccessLevel;
 import org.springframework.boot.actuate.autoconfigure.cloudfoundry.SecurityResponse;
 import org.springframework.boot.actuate.endpoint.EndpointId;
+import org.springframework.boot.actuate.endpoint.OperationType;
 import org.springframework.boot.actuate.endpoint.web.EndpointLinksResolver;
 import org.springframework.boot.actuate.endpoint.web.EndpointMapping;
 import org.springframework.boot.actuate.endpoint.web.EndpointMediaTypes;
@@ -74,6 +75,19 @@ class CloudFoundryWebFluxEndpointHandlerMapping extends AbstractWebFluxEndpointH
 	@Override
 	protected LinksHandler getLinksHandler() {
 		return new CloudFoundryLinksHandler();
+	}
+
+	private void registerMappingForOperation(ExposableWebEndpoint endpoint, WebOperation operation) {
+		ReactiveWebOperation reactiveWebOperation = wrapReactiveWebOperation(endpoint, operation,
+				new ReactiveWebOperationAdapter(operation));
+		if (operation.getType() == OperationType.WRITE) {
+			registerMapping(createRequestMappingInfo(operation), new WriteOperationHandler((reactiveWebOperation)),
+					this.handleWriteMethod);
+		}
+		else {
+			registerMapping(createRequestMappingInfo(operation), new ReadOperationHandler((reactiveWebOperation)),
+					this.handleReadMethod);
+		}
 	}
 
 	class CloudFoundryLinksHandler implements LinksHandler {
