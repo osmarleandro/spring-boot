@@ -40,7 +40,7 @@ import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException
  */
 abstract class HealthEndpointSupportTests<R extends ContributorRegistry<C>, C, T> {
 
-	final R registry;
+	protected final R registry;
 
 	final Health up = Health.up().withDetail("spring", "boot").build();
 
@@ -61,12 +61,6 @@ abstract class HealthEndpointSupportTests<R extends ContributorRegistry<C>, C, T
 	void createWhenRegistryIsNullThrowsException() {
 		assertThatIllegalArgumentException().isThrownBy(() -> create(null, this.groups))
 				.withMessage("Registry must not be null");
-	}
-
-	@Test
-	void createWhenGroupsIsNullThrowsException() {
-		assertThatIllegalArgumentException().isThrownBy(() -> create(this.registry, null))
-				.withMessage("Groups must not be null");
 	}
 
 	@Test
