@@ -39,7 +39,7 @@ abstract class HealthEndpointSupport<C, T> {
 
 	private final ContributorRegistry<C> registry;
 
-	private final HealthEndpointGroups groups;
+	protected final HealthEndpointGroups groups;
 
 	/**
 	 * Create a new {@link HealthEndpointSupport} instance.
@@ -53,15 +53,7 @@ abstract class HealthEndpointSupport<C, T> {
 		this.groups = groups;
 	}
 
-	HealthResult<T> getHealth(ApiVersion apiVersion, SecurityContext securityContext, boolean showAll, String... path) {
-		HealthEndpointGroup group = (path.length > 0) ? this.groups.get(path[0]) : null;
-		if (group != null) {
-			return getHealth(apiVersion, group, securityContext, showAll, path, 1);
-		}
-		return getHealth(apiVersion, this.groups.getPrimary(), securityContext, showAll, path, 0);
-	}
-
-	private HealthResult<T> getHealth(ApiVersion apiVersion, HealthEndpointGroup group, SecurityContext securityContext,
+	protected HealthResult<T> getHealth(ApiVersion apiVersion, HealthEndpointGroup group, SecurityContext securityContext,
 			boolean showAll, String[] path, int pathOffset) {
 		boolean showComponents = showAll || group.showComponents(securityContext);
 		boolean showDetails = showAll || group.showDetails(securityContext);

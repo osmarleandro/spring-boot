@@ -96,6 +96,14 @@ public class ReactiveHealthEndpointWebExtension
 						.getCompositeHealth(apiVersion, components, statusAggregator, showComponents, groupNames));
 	}
 
+	HealthResult<Mono<? extends HealthComponent>> getHealth(ApiVersion apiVersion, SecurityContext securityContext, boolean showAll, String... path) {
+		HealthEndpointGroup group = (path.length > 0) ? this.groups.get(path[0]) : null;
+		if (group != null) {
+			return getHealth(apiVersion, group, securityContext, showAll, path, 1);
+		}
+		return getHealth(apiVersion, this.groups.getPrimary(), securityContext, showAll, path, 0);
+	}
+
 	/**
 	 * A named {@link HealthComponent}.
 	 */
