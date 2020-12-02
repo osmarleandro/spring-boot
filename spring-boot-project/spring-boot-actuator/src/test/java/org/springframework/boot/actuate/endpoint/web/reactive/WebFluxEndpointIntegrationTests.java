@@ -100,6 +100,12 @@ class WebFluxEndpointIntegrationTests
 		return context.getBean(ReactiveConfiguration.class).port;
 	}
 
+	@Test
+	void readOperationWithEndpointsMappedToTheRoot() {
+		load(TestEndpointConfiguration.class, "", (client) -> client.get().uri("/test").exchange().expectStatus().isOk()
+				.expectBody().jsonPath("All").isEqualTo(true));
+	}
+
 	@Configuration(proxyBeanMethods = false)
 	@EnableWebFlux
 	@ImportAutoConfiguration(ErrorWebFluxAutoConfiguration.class)
