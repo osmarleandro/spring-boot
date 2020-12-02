@@ -152,6 +152,11 @@ class AuditAutoConfigurationTests {
 		public void onApplicationEvent(AbstractAuthorizationEvent event) {
 		}
 
+		@Override
+		public void setApplicationEventPublisher(ApplicationEventPublisher publisher) {
+			this.publisher = publisher;
+		}
+
 	}
 
 	@Configuration(proxyBeanMethods = false)

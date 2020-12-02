@@ -34,12 +34,7 @@ import org.springframework.security.access.event.AbstractAuthorizationEvent;
 public abstract class AbstractAuthorizationAuditListener
 		implements ApplicationListener<AbstractAuthorizationEvent>, ApplicationEventPublisherAware {
 
-	private ApplicationEventPublisher publisher;
-
-	@Override
-	public void setApplicationEventPublisher(ApplicationEventPublisher publisher) {
-		this.publisher = publisher;
-	}
+	protected ApplicationEventPublisher publisher;
 
 	protected ApplicationEventPublisher getPublisher() {
 		return this.publisher;
