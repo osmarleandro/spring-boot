@@ -39,7 +39,7 @@ abstract class HealthEndpointSupport<C, T> {
 
 	private final ContributorRegistry<C> registry;
 
-	private final HealthEndpointGroups groups;
+	protected final HealthEndpointGroups groups;
 
 	/**
 	 * Create a new {@link HealthEndpointSupport} instance.
@@ -61,23 +61,8 @@ abstract class HealthEndpointSupport<C, T> {
 		return getHealth(apiVersion, this.groups.getPrimary(), securityContext, showAll, path, 0);
 	}
 
-	private HealthResult<T> getHealth(ApiVersion apiVersion, HealthEndpointGroup group, SecurityContext securityContext,
-			boolean showAll, String[] path, int pathOffset) {
-		boolean showComponents = showAll || group.showComponents(securityContext);
-		boolean showDetails = showAll || group.showDetails(securityContext);
-		boolean isSystemHealth = group == this.groups.getPrimary() && pathOffset == 0;
-		boolean isRoot = path.length - pathOffset == 0;
-		if (!showComponents && !isRoot) {
-			return null;
-		}
-		Object contributor = getContributor(path, pathOffset);
-		T health = getContribution(apiVersion, group, contributor, showComponents, showDetails,
-				isSystemHealth ? this.groups.getNames() : null, false);
-		return (health != null) ? new HealthResult<>(health, group) : null;
-	}
-
 	@SuppressWarnings("unchecked")
-	private Object getContributor(String[] path, int pathOffset) {
+	protected Object getContributor(String[] path, int pathOffset) {
 		Object contributor = this.registry;
 		while (pathOffset < path.length) {
 			if (!(contributor instanceof NamedContributors)) {
@@ -90,7 +75,7 @@ abstract class HealthEndpointSupport<C, T> {
 	}
 
 	@SuppressWarnings("unchecked")
-	private T getContribution(ApiVersion apiVersion, HealthEndpointGroup group, Object contributor,
+	protected T getContribution(ApiVersion apiVersion, HealthEndpointGroup group, Object contributor,
 			boolean showComponents, boolean showDetails, Set<String> groupNames, boolean isNested) {
 		if (contributor instanceof NamedContributors) {
 			return getAggregateHealth(apiVersion, group, (NamedContributors<C>) contributor, showComponents,

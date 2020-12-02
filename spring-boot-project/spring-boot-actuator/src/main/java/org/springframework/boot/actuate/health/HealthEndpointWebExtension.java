@@ -91,4 +91,18 @@ public class HealthEndpointWebExtension extends HealthEndpointSupport<HealthCont
 		return getCompositeHealth(apiVersion, contributions, statusAggregator, showComponents, groupNames);
 	}
 
+	private HealthResult<HealthComponent> getHealth(ApiVersion apiVersion, HealthEndpointGroup group, SecurityContext securityContext, boolean showAll, String[] path, int pathOffset) {
+		boolean showComponents = showAll || group.showComponents(securityContext);
+		boolean showDetails = showAll || group.showDetails(securityContext);
+		boolean isSystemHealth = group == this.groups.getPrimary() && pathOffset == 0;
+		boolean isRoot = path.length - pathOffset == 0;
+		if (!showComponents && !isRoot) {
+			return null;
+		}
+		Object contributor = getContributor(path, pathOffset);
+		HealthComponent health = getContribution(apiVersion, group, contributor, showComponents, showDetails,
+				isSystemHealth ? this.groups.getNames() : null, false);
+		return (health != null) ? new HealthResult<>(health, group) : null;
+	}
+
 }
