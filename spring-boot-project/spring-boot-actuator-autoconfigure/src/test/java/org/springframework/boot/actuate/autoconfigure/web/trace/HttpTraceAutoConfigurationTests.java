@@ -175,6 +175,11 @@ class HttpTraceAutoConfigurationTests {
 			super(repository, tracer);
 		}
 
+		@Override
+		public int getOrder() {
+			return this.order;
+		}
+
 	}
 
 	@Configuration(proxyBeanMethods = false)
