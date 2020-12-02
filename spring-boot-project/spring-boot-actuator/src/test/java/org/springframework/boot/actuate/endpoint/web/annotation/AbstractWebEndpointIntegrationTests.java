@@ -73,7 +73,7 @@ public abstract class AbstractWebEndpointIntegrationTests<T extends Configurable
 
 	private final Supplier<T> applicationContextSupplier;
 
-	private final Consumer<T> authenticatedContextCustomizer;
+	protected final Consumer<T> authenticatedContextCustomizer;
 
 	protected AbstractWebEndpointIntegrationTests(Supplier<T> applicationContextSupplier,
 			Consumer<T> authenticatedContextCustomizer) {
@@ -371,15 +371,6 @@ public abstract class AbstractWebEndpointIntegrationTests<T extends Configurable
 				.expectStatus().isOk().expectBody(String.class).isEqualTo("ADMIN: false"));
 	}
 
-	@Test
-	void userInRoleReturnsTrueWhenUserIsInRole() {
-		load((context) -> {
-			this.authenticatedContextCustomizer.accept(context);
-			context.register(UserInRoleEndpointConfiguration.class);
-		}, (client) -> client.get().uri("/userinrole?role=ACTUATOR").accept(MediaType.APPLICATION_JSON).exchange()
-				.expectStatus().isOk().expectBody(String.class).isEqualTo("ACTUATOR: true"));
-	}
-
 	protected abstract int getPort(T context);
 
 	protected void validateErrorBody(WebTestClient.BodyContentSpec body, HttpStatus status, String path,
@@ -615,6 +606,7 @@ public abstract class AbstractWebEndpointIntegrationTests<T extends Configurable
 
 	@Configuration(proxyBeanMethods = false)
 	@Import(BaseConfiguration.class)
+	public
 	static class UserInRoleEndpointConfiguration {
 
 		@Bean

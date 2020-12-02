@@ -100,6 +100,15 @@ class WebFluxEndpointIntegrationTests
 		return context.getBean(ReactiveConfiguration.class).port;
 	}
 
+	@Test
+	void userInRoleReturnsTrueWhenUserIsInRole() {
+		load((context) -> {
+			this.authenticatedContextCustomizer.accept(context);
+			context.register(UserInRoleEndpointConfiguration.class);
+		}, (client) -> client.get().uri("/userinrole?role=ACTUATOR").accept(MediaType.APPLICATION_JSON).exchange()
+				.expectStatus().isOk().expectBody(String.class).isEqualTo("ACTUATOR: true"));
+	}
+
 	@Configuration(proxyBeanMethods = false)
 	@EnableWebFlux
 	@ImportAutoConfiguration(ErrorWebFluxAutoConfiguration.class)
