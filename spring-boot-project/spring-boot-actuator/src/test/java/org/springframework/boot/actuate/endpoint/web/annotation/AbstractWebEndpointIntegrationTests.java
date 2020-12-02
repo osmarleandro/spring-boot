@@ -356,13 +356,6 @@ public abstract class AbstractWebEndpointIntegrationTests<T extends Configurable
 	}
 
 	@Test
-	void userInRoleReturnsFalseWhenRequestHasNoPrincipal() {
-		load(UserInRoleEndpointConfiguration.class,
-				(client) -> client.get().uri("/userinrole?role=ADMIN").accept(MediaType.APPLICATION_JSON).exchange()
-						.expectStatus().isOk().expectBody(String.class).isEqualTo("ADMIN: false"));
-	}
-
-	@Test
 	void userInRoleReturnsFalseWhenUserIsNotInRole() {
 		load((context) -> {
 			this.authenticatedContextCustomizer.accept(context);
@@ -615,6 +608,7 @@ public abstract class AbstractWebEndpointIntegrationTests<T extends Configurable
 
 	@Configuration(proxyBeanMethods = false)
 	@Import(BaseConfiguration.class)
+	public
 	static class UserInRoleEndpointConfiguration {
 
 		@Bean
