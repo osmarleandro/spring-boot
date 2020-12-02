@@ -107,4 +107,13 @@ class ReactiveHealthEndpointWebExtensionTests extends
 		return result.getHealth().block();
 	}
 
+	@Test
+	void getHealthWhenAlwaysShowIsTrueShowsDetails() {
+		this.primaryGroup.setShowDetails(false);
+		this.registry.registerContributor("test", createContributor(this.up));
+		HealthResult<Mono<? extends HealthComponent>> result = create(this.registry, this.groups).getHealth(ApiVersion.V3, SecurityContext.NONE, true,
+				"test");
+		assertThat(((Health) getHealth(result)).getDetails()).containsEntry("spring", "boot");
+	}
+
 }

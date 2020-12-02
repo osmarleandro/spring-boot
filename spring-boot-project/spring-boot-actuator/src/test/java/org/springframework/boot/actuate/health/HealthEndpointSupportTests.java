@@ -40,17 +40,17 @@ import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException
  */
 abstract class HealthEndpointSupportTests<R extends ContributorRegistry<C>, C, T> {
 
-	final R registry;
+	protected final R registry;
 
-	final Health up = Health.up().withDetail("spring", "boot").build();
+	protected final Health up = Health.up().withDetail("spring", "boot").build();
 
 	final Health down = Health.down().build();
 
-	final TestHealthEndpointGroup primaryGroup = new TestHealthEndpointGroup();
+	protected final TestHealthEndpointGroup primaryGroup = new TestHealthEndpointGroup();
 
 	final TestHealthEndpointGroup allTheAs = new TestHealthEndpointGroup((name) -> name.startsWith("a"));
 
-	final HealthEndpointGroups groups = HealthEndpointGroups.of(this.primaryGroup,
+	protected final HealthEndpointGroups groups = HealthEndpointGroups.of(this.primaryGroup,
 			Collections.singletonMap("alltheas", this.allTheAs));
 
 	HealthEndpointSupportTests() {
@@ -152,15 +152,6 @@ abstract class HealthEndpointSupportTests<R extends ContributorRegistry<C>, C, T
 		HealthResult<T> componentResult = endpoint.getHealth(ApiVersion.V3, SecurityContext.NONE, false, "test");
 		assertThat(((CompositeHealth) getHealth(rootResult)).getStatus()).isEqualTo(Status.UP);
 		assertThat(componentResult).isNull();
-	}
-
-	@Test
-	void getHealthWhenAlwaysShowIsTrueShowsDetails() {
-		this.primaryGroup.setShowDetails(false);
-		this.registry.registerContributor("test", createContributor(this.up));
-		HealthResult<T> result = create(this.registry, this.groups).getHealth(ApiVersion.V3, SecurityContext.NONE, true,
-				"test");
-		assertThat(((Health) getHealth(result)).getDetails()).containsEntry("spring", "boot");
 	}
 
 	@Test
