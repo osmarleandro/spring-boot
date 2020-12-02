@@ -56,4 +56,12 @@ public class BuildInfoContributor extends InfoPropertiesInfoContributor<BuildPro
 		replaceValue(content, "time", getProperties().getTime());
 	}
 
+	/**
+	 * Post-process the content to expose. Elements can be added, changed or removed.
+	 * @param content the content to expose
+	 */
+	protected void postProcessContent(Map<String, Object> content) {
+	
+	}
+
 }

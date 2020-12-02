@@ -68,4 +68,12 @@ public class GitInfoContributor extends InfoPropertiesInfoContributor<GitPropert
 		replaceValue(getNestedMap(content, "build"), "time", getProperties().getInstant("build.time"));
 	}
 
+	/**
+	 * Post-process the content to expose. Elements can be added, changed or removed.
+	 * @param content the content to expose
+	 */
+	protected void postProcessContent(Map<String, Object> content) {
+	
+	}
+
 }
