@@ -35,11 +35,11 @@ import org.springframework.util.Assert;
  */
 class DefaultContributorRegistry<C> implements ContributorRegistry<C> {
 
-	private final Function<String, String> nameFactory;
+	protected final Function<String, String> nameFactory;
 
-	private final Object monitor = new Object();
+	protected final Object monitor = new Object();
 
-	private volatile Map<String, C> contributors;
+	protected volatile Map<String, C> contributors;
 
 	DefaultContributorRegistry() {
 		this(Collections.emptyMap());
@@ -69,21 +69,6 @@ class DefaultContributorRegistry<C> implements ContributorRegistry<C> {
 			Map<String, C> contributors = new LinkedHashMap<>(this.contributors);
 			contributors.put(adaptedName, contributor);
 			this.contributors = Collections.unmodifiableMap(contributors);
-		}
-	}
-
-	@Override
-	public C unregisterContributor(String name) {
-		Assert.notNull(name, "Name must not be null");
-		String adaptedName = this.nameFactory.apply(name);
-		synchronized (this.monitor) {
-			C unregistered = this.contributors.get(adaptedName);
-			if (unregistered != null) {
-				Map<String, C> contributors = new LinkedHashMap<>(this.contributors);
-				contributors.remove(adaptedName);
-				this.contributors = Collections.unmodifiableMap(contributors);
-			}
-			return unregistered;
 		}
 	}
 
