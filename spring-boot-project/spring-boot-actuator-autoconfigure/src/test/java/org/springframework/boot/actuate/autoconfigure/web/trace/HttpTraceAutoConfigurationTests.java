@@ -18,6 +18,8 @@ package org.springframework.boot.actuate.autoconfigure.web.trace;
 
 import java.util.List;
 import java.util.Set;
+import java.util.function.Consumer;
+import java.util.function.Supplier;
 
 import org.junit.jupiter.api.Test;
 
@@ -135,6 +137,12 @@ class HttpTraceAutoConfigurationTests {
 
 		private CustomHttpExchangeTracer(Set<Include> includes) {
 			super(includes);
+		}
+
+		private <T> void setIfIncluded(Include include, Supplier<T> supplier, Consumer<T> consumer) {
+			if (this.includes.contains(include)) {
+				consumer.accept(supplier.get());
+			}
 		}
 
 	}

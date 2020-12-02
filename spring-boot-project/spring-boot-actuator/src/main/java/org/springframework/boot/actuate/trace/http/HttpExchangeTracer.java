@@ -23,7 +23,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
-import java.util.function.Consumer;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
@@ -38,7 +37,7 @@ import org.springframework.http.HttpHeaders;
  */
 public class HttpExchangeTracer {
 
-	private final Set<Include> includes;
+	protected final Set<Include> includes;
 
 	/**
 	 * Creates a new {@code HttpExchangeTracer} that will use the given {@code includes}
@@ -85,12 +84,6 @@ public class HttpExchangeTracer {
 
 	private <T> T getIfIncluded(Include include, Supplier<T> valueSupplier) {
 		return this.includes.contains(include) ? valueSupplier.get() : null;
-	}
-
-	private <T> void setIfIncluded(Include include, Supplier<T> supplier, Consumer<T> consumer) {
-		if (this.includes.contains(include)) {
-			consumer.accept(supplier.get());
-		}
 	}
 
 	private Map<String, List<String>> getHeadersIfIncluded(Include include,
