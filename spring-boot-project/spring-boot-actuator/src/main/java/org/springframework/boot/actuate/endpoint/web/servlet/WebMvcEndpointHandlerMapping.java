@@ -28,6 +28,7 @@ import org.springframework.boot.actuate.endpoint.web.EndpointMapping;
 import org.springframework.boot.actuate.endpoint.web.EndpointMediaTypes;
 import org.springframework.boot.actuate.endpoint.web.ExposableWebEndpoint;
 import org.springframework.boot.actuate.endpoint.web.Link;
+import org.springframework.boot.actuate.endpoint.web.WebOperation;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.servlet.HandlerMapping;
@@ -65,6 +66,18 @@ public class WebMvcEndpointHandlerMapping extends AbstractWebMvcEndpointHandlerM
 	@Override
 	protected LinksHandler getLinksHandler() {
 		return new WebMvcLinksHandler();
+	}
+
+	@Override
+	protected void initHandlerMethods() {
+		for (ExposableWebEndpoint endpoint : this.endpoints) {
+			for (WebOperation operation : endpoint.getOperations()) {
+				registerMappingForOperation(endpoint, operation);
+			}
+		}
+		if (this.shouldRegisterLinksMapping) {
+			registerLinksMapping();
+		}
 	}
 
 	/**
