@@ -23,6 +23,7 @@ import org.springframework.boot.actuate.health.AbstractReactiveHealthIndicator;
 import org.springframework.boot.actuate.health.Health;
 import org.springframework.boot.actuate.health.Health.Builder;
 import org.springframework.boot.actuate.health.ReactiveHealthContributor;
+import org.springframework.util.StringUtils;
 
 /**
  * Tests for {@link CompositeReactiveHealthContributorConfiguration}.
@@ -50,6 +51,14 @@ class CompositeReactiveHealthContributorConfigurationTests extends
 		@Override
 		protected Mono<Health> doHealthCheck(Builder builder) {
 			return Mono.just(builder.up().build());
+		}
+
+		private Mono<Health> handleFailure(Throwable ex) {
+			if (this.logger.isWarnEnabled()) {
+				String message = this.healthCheckFailedMessage.apply(ex);
+				this.logger.warn(StringUtils.hasText(message) ? message : DEFAULT_MESSAGE, ex);
+			}
+			return Mono.just(new Health.Builder().down(ex).build());
 		}
 
 	}

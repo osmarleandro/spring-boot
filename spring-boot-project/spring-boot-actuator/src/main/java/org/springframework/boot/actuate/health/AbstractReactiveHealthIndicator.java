@@ -23,7 +23,6 @@ import org.apache.commons.logging.LogFactory;
 import reactor.core.publisher.Mono;
 
 import org.springframework.util.Assert;
-import org.springframework.util.StringUtils;
 
 /**
  * Base {@link ReactiveHealthIndicator} implementations that encapsulates creation of
@@ -37,11 +36,11 @@ public abstract class AbstractReactiveHealthIndicator implements ReactiveHealthI
 
 	private static final String NO_MESSAGE = null;
 
-	private static final String DEFAULT_MESSAGE = "Health check failed";
+	protected static final String DEFAULT_MESSAGE = "Health check failed";
 
-	private final Log logger = LogFactory.getLog(getClass());
+	protected final Log logger = LogFactory.getLog(getClass());
 
-	private final Function<Throwable, String> healthCheckFailedMessage;
+	protected final Function<Throwable, String> healthCheckFailedMessage;
 
 	/**
 	 * Create a new {@link AbstractReactiveHealthIndicator} instance with a default
@@ -81,14 +80,6 @@ public abstract class AbstractReactiveHealthIndicator implements ReactiveHealthI
 		catch (Exception ex) {
 			return handleFailure(ex);
 		}
-	}
-
-	private Mono<Health> handleFailure(Throwable ex) {
-		if (this.logger.isWarnEnabled()) {
-			String message = this.healthCheckFailedMessage.apply(ex);
-			this.logger.warn(StringUtils.hasText(message) ? message : DEFAULT_MESSAGE, ex);
-		}
-		return Mono.just(new Health.Builder().down(ex).build());
 	}
 
 	/**

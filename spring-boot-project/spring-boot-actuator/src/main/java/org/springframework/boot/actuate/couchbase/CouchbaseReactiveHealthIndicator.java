@@ -22,6 +22,7 @@ import reactor.core.publisher.Mono;
 import org.springframework.boot.actuate.health.AbstractReactiveHealthIndicator;
 import org.springframework.boot.actuate.health.Health;
 import org.springframework.boot.actuate.health.ReactiveHealthIndicator;
+import org.springframework.util.StringUtils;
 
 /**
  * A {@link ReactiveHealthIndicator} for Couchbase.
@@ -48,6 +49,14 @@ public class CouchbaseReactiveHealthIndicator extends AbstractReactiveHealthIndi
 		DiagnosticsResult diagnostics = this.cluster.diagnostics();
 		new CouchbaseHealth(diagnostics).applyTo(builder);
 		return Mono.just(builder.build());
+	}
+
+	private Mono<Health> handleFailure(Throwable ex) {
+		if (this.logger.isWarnEnabled()) {
+			String message = this.healthCheckFailedMessage.apply(ex);
+			this.logger.warn(StringUtils.hasText(message) ? message : DEFAULT_MESSAGE, ex);
+		}
+		return Mono.just(new Health.Builder().down(ex).build());
 	}
 
 }

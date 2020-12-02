@@ -101,4 +101,12 @@ public class ConnectionFactoryHealthIndicator extends AbstractReactiveHealthIndi
 		return row.get(metadata.getColumnMetadatas().iterator().next().getName());
 	}
 
+	private Mono<Health> handleFailure(Throwable ex) {
+		if (this.logger.isWarnEnabled()) {
+			String message = this.healthCheckFailedMessage.apply(ex);
+			this.logger.warn(StringUtils.hasText(message) ? message : DEFAULT_MESSAGE, ex);
+		}
+		return Mono.just(new Health.Builder().down(ex).build());
+	}
+
 }

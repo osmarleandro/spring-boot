@@ -30,6 +30,7 @@ import reactor.util.retry.Retry;
 import org.springframework.boot.actuate.health.AbstractReactiveHealthIndicator;
 import org.springframework.boot.actuate.health.Health;
 import org.springframework.boot.actuate.health.ReactiveHealthIndicator;
+import org.springframework.util.StringUtils;
 
 /**
  * {@link ReactiveHealthIndicator} that tests the status of a Neo4j by executing a Cypher
@@ -71,6 +72,14 @@ public final class Neo4jReactiveHealthIndicator extends AbstractReactiveHealthIn
 			return Mono.from(result.records()).map((record) -> record.get("edition").asString())
 					.zipWhen((edition) -> Mono.from(result.consume()));
 		}, RxSession::close);
+	}
+
+	private Mono<Health> handleFailure(Throwable ex) {
+		if (this.logger.isWarnEnabled()) {
+			String message = this.healthCheckFailedMessage.apply(ex);
+			this.logger.warn(StringUtils.hasText(message) ? message : DEFAULT_MESSAGE, ex);
+		}
+		return Mono.just(new Health.Builder().down(ex).build());
 	}
 
 }

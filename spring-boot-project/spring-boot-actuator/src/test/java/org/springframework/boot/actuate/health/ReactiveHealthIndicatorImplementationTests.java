@@ -24,6 +24,7 @@ import reactor.test.StepVerifier;
 import org.springframework.boot.actuate.health.Health.Builder;
 import org.springframework.boot.test.system.CapturedOutput;
 import org.springframework.boot.test.system.OutputCaptureExtension;
+import org.springframework.util.StringUtils;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -70,6 +71,14 @@ class ReactiveHealthIndicatorImplementationTests {
 			return Mono.just(builder.up().build());
 		}
 
+		private Mono<Health> handleFailure(Throwable ex) {
+			if (this.logger.isWarnEnabled()) {
+				String message = this.healthCheckFailedMessage.apply(ex);
+				this.logger.warn(StringUtils.hasText(message) ? message : DEFAULT_MESSAGE, ex);
+			}
+			return Mono.just(new Health.Builder().down(ex).build());
+		}
+
 	}
 
 	private static final class CustomErrorMessageReactiveHealthIndicator extends AbstractReactiveHealthIndicator {
@@ -81,6 +90,14 @@ class ReactiveHealthIndicatorImplementationTests {
 		@Override
 		protected Mono<Health> doHealthCheck(Builder builder) {
 			return Mono.error(new UnsupportedOperationException());
+		}
+
+		private Mono<Health> handleFailure(Throwable ex) {
+			if (this.logger.isWarnEnabled()) {
+				String message = this.healthCheckFailedMessage.apply(ex);
+				this.logger.warn(StringUtils.hasText(message) ? message : DEFAULT_MESSAGE, ex);
+			}
+			return Mono.just(new Health.Builder().down(ex).build());
 		}
 
 	}
@@ -95,6 +112,14 @@ class ReactiveHealthIndicatorImplementationTests {
 		@Override
 		protected Mono<Health> doHealthCheck(Builder builder) {
 			throw new RuntimeException();
+		}
+
+		private Mono<Health> handleFailure(Throwable ex) {
+			if (this.logger.isWarnEnabled()) {
+				String message = this.healthCheckFailedMessage.apply(ex);
+				this.logger.warn(StringUtils.hasText(message) ? message : DEFAULT_MESSAGE, ex);
+			}
+			return Mono.just(new Health.Builder().down(ex).build());
 		}
 
 	}

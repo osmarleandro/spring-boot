@@ -28,6 +28,7 @@ import org.springframework.boot.actuate.health.Health;
 import org.springframework.boot.actuate.health.ReactiveHealthIndicator;
 import org.springframework.boot.actuate.health.Status;
 import org.springframework.util.Assert;
+import org.springframework.util.StringUtils;
 
 /**
  * Simple implementation of a {@link ReactiveHealthIndicator} returning status information
@@ -60,6 +61,14 @@ public class CassandraDriverReactiveHealthIndicator extends AbstractReactiveHeal
 			nodeUp.map(Node::getCassandraVersion).ifPresent((version) -> builder.withDetail("version", version));
 			return builder.build();
 		});
+	}
+
+	private Mono<Health> handleFailure(Throwable ex) {
+		if (this.logger.isWarnEnabled()) {
+			String message = this.healthCheckFailedMessage.apply(ex);
+			this.logger.warn(StringUtils.hasText(message) ? message : DEFAULT_MESSAGE, ex);
+		}
+		return Mono.just(new Health.Builder().down(ex).build());
 	}
 
 }

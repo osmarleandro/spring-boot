@@ -24,6 +24,7 @@ import org.springframework.boot.actuate.health.Health;
 import org.springframework.boot.actuate.health.ReactiveHealthIndicator;
 import org.springframework.data.cassandra.core.ReactiveCassandraOperations;
 import org.springframework.util.Assert;
+import org.springframework.util.StringUtils;
 
 /**
  * A {@link ReactiveHealthIndicator} for Cassandra.
@@ -54,6 +55,14 @@ public class CassandraReactiveHealthIndicator extends AbstractReactiveHealthIndi
 	protected Mono<Health> doHealthCheck(Health.Builder builder) {
 		return this.reactiveCassandraOperations.getReactiveCqlOperations().queryForObject(SELECT, String.class)
 				.map((version) -> builder.up().withDetail("version", version).build()).single();
+	}
+
+	private Mono<Health> handleFailure(Throwable ex) {
+		if (this.logger.isWarnEnabled()) {
+			String message = this.healthCheckFailedMessage.apply(ex);
+			this.logger.warn(StringUtils.hasText(message) ? message : DEFAULT_MESSAGE, ex);
+		}
+		return Mono.just(new Health.Builder().down(ex).build());
 	}
 
 }

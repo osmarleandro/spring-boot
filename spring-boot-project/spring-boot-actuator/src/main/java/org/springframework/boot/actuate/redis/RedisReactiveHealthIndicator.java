@@ -28,6 +28,7 @@ import org.springframework.data.redis.connection.ClusterInfo;
 import org.springframework.data.redis.connection.ReactiveRedisClusterConnection;
 import org.springframework.data.redis.connection.ReactiveRedisConnection;
 import org.springframework.data.redis.connection.ReactiveRedisConnectionFactory;
+import org.springframework.util.StringUtils;
 
 /**
  * A {@link ReactiveHealthIndicator} for Redis.
@@ -76,6 +77,14 @@ public class RedisReactiveHealthIndicator extends AbstractReactiveHealthIndicato
 
 	private Health up(Health.Builder builder, ClusterInfo clusterInfo) {
 		return RedisHealth.up(builder, clusterInfo).build();
+	}
+
+	private Mono<Health> handleFailure(Throwable ex) {
+		if (this.logger.isWarnEnabled()) {
+			String message = this.healthCheckFailedMessage.apply(ex);
+			this.logger.warn(StringUtils.hasText(message) ? message : DEFAULT_MESSAGE, ex);
+		}
+		return Mono.just(new Health.Builder().down(ex).build());
 	}
 
 }
