@@ -380,8 +380,6 @@ public abstract class AbstractWebEndpointIntegrationTests<T extends Configurable
 				.expectStatus().isOk().expectBody(String.class).isEqualTo("ACTUATOR: true"));
 	}
 
-	protected abstract int getPort(T context);
-
 	protected void validateErrorBody(WebTestClient.BodyContentSpec body, HttpStatus status, String path,
 			String message) {
 		body.jsonPath("status").isEqualTo(status.value()).jsonPath("error").isEqualTo(status.getReasonPhrase())
