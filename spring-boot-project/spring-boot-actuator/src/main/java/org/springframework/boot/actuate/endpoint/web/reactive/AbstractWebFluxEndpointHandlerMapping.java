@@ -85,7 +85,7 @@ public abstract class AbstractWebFluxEndpointHandlerMapping extends RequestMappi
 
 	private final EndpointMapping endpointMapping;
 
-	private final Collection<ExposableWebEndpoint> endpoints;
+	protected final Collection<ExposableWebEndpoint> endpoints;
 
 	private final EndpointMediaTypes endpointMediaTypes;
 
@@ -97,7 +97,7 @@ public abstract class AbstractWebFluxEndpointHandlerMapping extends RequestMappi
 	private final Method handleReadMethod = ReflectionUtils.findMethod(ReadOperationHandler.class, "handle",
 			ServerWebExchange.class);
 
-	private final boolean shouldRegisterLinksMapping;
+	protected final boolean shouldRegisterLinksMapping;
 
 	/**
 	 * Creates a new {@code AbstractWebFluxEndpointHandlerMapping} that provides mappings
@@ -120,24 +120,12 @@ public abstract class AbstractWebFluxEndpointHandlerMapping extends RequestMappi
 	}
 
 	@Override
-	protected void initHandlerMethods() {
-		for (ExposableWebEndpoint endpoint : this.endpoints) {
-			for (WebOperation operation : endpoint.getOperations()) {
-				registerMappingForOperation(endpoint, operation);
-			}
-		}
-		if (this.shouldRegisterLinksMapping) {
-			registerLinksMapping();
-		}
-	}
-
-	@Override
 	protected HandlerMethod createHandlerMethod(Object handler, Method method) {
 		HandlerMethod handlerMethod = super.createHandlerMethod(handler, method);
 		return new WebFluxEndpointHandlerMethod(handlerMethod.getBean(), handlerMethod.getMethod());
 	}
 
-	private void registerMappingForOperation(ExposableWebEndpoint endpoint, WebOperation operation) {
+	protected void registerMappingForOperation(ExposableWebEndpoint endpoint, WebOperation operation) {
 		ReactiveWebOperation reactiveWebOperation = wrapReactiveWebOperation(endpoint, operation,
 				new ReactiveWebOperationAdapter(operation));
 		if (operation.getType() == OperationType.WRITE) {
@@ -176,7 +164,7 @@ public abstract class AbstractWebFluxEndpointHandlerMapping extends RequestMappi
 		return new RequestMappingInfo(null, patterns, methods, null, null, consumes, produces, null);
 	}
 
-	private void registerLinksMapping() {
+	protected void registerLinksMapping() {
 		PatternsRequestCondition patterns = new PatternsRequestCondition(
 				pathPatternParser.parse(this.endpointMapping.getPath()));
 		RequestMethodsRequestCondition methods = new RequestMethodsRequestCondition(RequestMethod.GET);

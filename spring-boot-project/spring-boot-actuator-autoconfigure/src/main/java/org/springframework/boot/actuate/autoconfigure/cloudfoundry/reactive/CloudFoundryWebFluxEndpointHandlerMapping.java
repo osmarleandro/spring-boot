@@ -76,6 +76,18 @@ class CloudFoundryWebFluxEndpointHandlerMapping extends AbstractWebFluxEndpointH
 		return new CloudFoundryLinksHandler();
 	}
 
+	@Override
+	protected void initHandlerMethods() {
+		for (ExposableWebEndpoint endpoint : this.endpoints) {
+			for (WebOperation operation : endpoint.getOperations()) {
+				registerMappingForOperation(endpoint, operation);
+			}
+		}
+		if (this.shouldRegisterLinksMapping) {
+			registerLinksMapping();
+		}
+	}
+
 	class CloudFoundryLinksHandler implements LinksHandler {
 
 		@Override
