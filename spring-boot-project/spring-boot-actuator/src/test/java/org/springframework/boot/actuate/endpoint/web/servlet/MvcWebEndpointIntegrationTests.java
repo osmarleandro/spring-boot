@@ -18,6 +18,7 @@ package org.springframework.boot.actuate.endpoint.web.servlet;
 
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.function.Consumer;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -52,6 +53,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestWrapper;
+import org.springframework.test.web.reactive.server.WebTestClient;
 import org.springframework.util.StringUtils;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -134,6 +136,11 @@ class MvcWebEndpointIntegrationTests
 	@Override
 	protected int getPort(AnnotationConfigServletWebServerApplicationContext context) {
 		return context.getWebServer().getPort();
+	}
+
+	protected void load(Class<?> configuration, String endpointPath, Consumer<WebTestClient> clientConsumer) {
+		load((context) -> context.register(configuration), endpointPath,
+				(context, client) -> clientConsumer.accept(client));
 	}
 
 	@Configuration(proxyBeanMethods = false)

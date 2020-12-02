@@ -401,12 +401,7 @@ public abstract class AbstractWebEndpointIntegrationTests<T extends Configurable
 		load(contextCustomizer, "/endpoints", (context, client) -> clientConsumer.accept(client));
 	}
 
-	protected void load(Class<?> configuration, String endpointPath, Consumer<WebTestClient> clientConsumer) {
-		load((context) -> context.register(configuration), endpointPath,
-				(context, client) -> clientConsumer.accept(client));
-	}
-
-	private void load(Consumer<T> contextCustomizer, String endpointPath,
+	protected void load(Consumer<T> contextCustomizer, String endpointPath,
 			BiConsumer<ApplicationContext, WebTestClient> consumer) {
 		T applicationContext = this.applicationContextSupplier.get();
 		contextCustomizer.accept(applicationContext);
