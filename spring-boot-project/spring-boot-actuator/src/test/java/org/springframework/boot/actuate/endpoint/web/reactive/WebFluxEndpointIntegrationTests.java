@@ -100,6 +100,13 @@ class WebFluxEndpointIntegrationTests
 		return context.getBean(ReactiveConfiguration.class).port;
 	}
 
+	@Test
+	void principalIsNullWhenRequestHasNoPrincipal() {
+		load(PrincipalEndpointConfiguration.class,
+				(client) -> client.get().uri("/principal").accept(MediaType.APPLICATION_JSON).exchange().expectStatus()
+						.isOk().expectBody(String.class).isEqualTo("None"));
+	}
+
 	@Configuration(proxyBeanMethods = false)
 	@EnableWebFlux
 	@ImportAutoConfiguration(ErrorWebFluxAutoConfiguration.class)

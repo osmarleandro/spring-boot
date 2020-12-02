@@ -315,13 +315,6 @@ public abstract class AbstractWebEndpointIntegrationTests<T extends Configurable
 	}
 
 	@Test
-	void principalIsNullWhenRequestHasNoPrincipal() {
-		load(PrincipalEndpointConfiguration.class,
-				(client) -> client.get().uri("/principal").accept(MediaType.APPLICATION_JSON).exchange().expectStatus()
-						.isOk().expectBody(String.class).isEqualTo("None"));
-	}
-
-	@Test
 	void principalIsAvailableWhenRequestHasAPrincipal() {
 		load((context) -> {
 			this.authenticatedContextCustomizer.accept(context);
@@ -582,6 +575,7 @@ public abstract class AbstractWebEndpointIntegrationTests<T extends Configurable
 
 	@Configuration(proxyBeanMethods = false)
 	@Import(BaseConfiguration.class)
+	public
 	static class PrincipalEndpointConfiguration {
 
 		@Bean
