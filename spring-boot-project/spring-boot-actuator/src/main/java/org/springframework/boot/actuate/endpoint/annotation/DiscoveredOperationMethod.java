@@ -48,4 +48,12 @@ public class DiscoveredOperationMethod extends OperationMethod {
 		return this.producesMediaTypes;
 	}
 
+	/**
+	 * Return the operation type.
+	 * @return the operation type
+	 */
+	public OperationType getOperationType() {
+		return this.operationType;
+	}
+
 }

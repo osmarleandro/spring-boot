@@ -38,7 +38,7 @@ public class OperationMethod {
 
 	private final Method method;
 
-	private final OperationType operationType;
+	protected final OperationType operationType;
 
 	private final OperationParameters operationParameters;
 
@@ -61,14 +61,6 @@ public class OperationMethod {
 	 */
 	public Method getMethod() {
 		return this.method;
-	}
-
-	/**
-	 * Return the operation type.
-	 * @return the operation type
-	 */
-	public OperationType getOperationType() {
-		return this.operationType;
 	}
 
 	/**
