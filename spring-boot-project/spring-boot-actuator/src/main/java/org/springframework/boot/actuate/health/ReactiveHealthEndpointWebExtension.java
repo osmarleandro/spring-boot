@@ -19,6 +19,7 @@ package org.springframework.boot.actuate.health;
 import java.util.Arrays;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -94,6 +95,16 @@ public class ReactiveHealthEndpointWebExtension
 		return Flux.fromIterable(contributions.entrySet()).flatMap(NamedHealthComponent::create)
 				.collectMap(NamedHealthComponent::getName, NamedHealthComponent::getHealth).map((components) -> this
 						.getCompositeHealth(apiVersion, components, statusAggregator, showComponents, groupNames));
+	}
+
+	protected final CompositeHealth getCompositeHealth(ApiVersion apiVersion, Map<String, HealthComponent> components, StatusAggregator statusAggregator, boolean showComponents, Set<String> groupNames) {
+		Status status = statusAggregator
+				.getAggregateStatus(components.values().stream().map(this::getStatus).collect(Collectors.toSet()));
+		Map<String, HealthComponent> instances = showComponents ? components : null;
+		if (groupNames != null) {
+			return new SystemHealth(apiVersion, status, instances, groupNames);
+		}
+		return new CompositeHealth(apiVersion, status, instances);
 	}
 
 	/**
