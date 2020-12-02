@@ -104,4 +104,15 @@ class HealthEndpointWebExtensionTests
 		return result.getHealth();
 	}
 
+	@Test
+	void getHealthWhenAlwaysShowIsFalseAndGroupIsTrueShowsComponents() {
+		HealthContributor contributor = createContributor(this.up);
+		HealthContributor compositeContributor = createCompositeContributor(Collections.singletonMap("spring", contributor));
+		this.registry.registerContributor("test", compositeContributor);
+		HealthResult<HealthComponent> result = create(this.registry, this.groups).getHealth(ApiVersion.V3, SecurityContext.NONE,
+				false, "test");
+		CompositeHealth health = (CompositeHealth) getHealth(result);
+		assertThat(health.getComponents()).containsKey("spring");
+	}
+
 }
