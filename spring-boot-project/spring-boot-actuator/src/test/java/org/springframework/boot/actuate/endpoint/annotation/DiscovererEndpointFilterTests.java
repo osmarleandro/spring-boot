@@ -17,15 +17,20 @@
 package org.springframework.boot.actuate.endpoint.annotation;
 
 import java.util.Collection;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 import org.junit.jupiter.api.Test;
-
+import org.springframework.aop.scope.ScopedProxyUtils;
+import org.springframework.beans.factory.BeanFactoryUtils;
 import org.springframework.boot.actuate.endpoint.EndpointFilter;
+import org.springframework.boot.actuate.endpoint.EndpointId;
 import org.springframework.boot.actuate.endpoint.ExposableEndpoint;
 import org.springframework.boot.actuate.endpoint.Operation;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvokerAdvisor;
 import org.springframework.boot.actuate.endpoint.invoke.ParameterValueMapper;
 import org.springframework.context.ApplicationContext;
+import org.springframework.util.Assert;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
@@ -82,6 +87,21 @@ class DiscovererEndpointFilterTests {
 			super(applicationContext, parameterValueMapper, invokerAdvisors, filters);
 		}
 
+		private Collection<EndpointBean> createEndpointBeans() {
+			Map<EndpointId, EndpointBean> byId = new LinkedHashMap<>();
+			String[] beanNames = BeanFactoryUtils.beanNamesForAnnotationIncludingAncestors(this.applicationContext,
+					Endpoint.class);
+			for (String beanName : beanNames) {
+				if (!ScopedProxyUtils.isScopedTarget(beanName)) {
+					EndpointBean endpointBean = createEndpointBean(beanName);
+					EndpointBean previous = byId.putIfAbsent(endpointBean.getId(), endpointBean);
+					Assert.state(previous == null, () -> "Found two endpoints with the id '" + endpointBean.getId() + "': '"
+							+ endpointBean.getBeanName() + "' and '" + previous.getBeanName() + "'");
+				}
+			}
+			return byId.values();
+		}
+
 	}
 
 	abstract static class TestDiscovererB extends EndpointDiscoverer<ExposableEndpoint<Operation>, Operation> {
@@ -90,6 +110,21 @@ class DiscovererEndpointFilterTests {
 				Collection<OperationInvokerAdvisor> invokerAdvisors,
 				Collection<EndpointFilter<ExposableEndpoint<Operation>>> filters) {
 			super(applicationContext, parameterValueMapper, invokerAdvisors, filters);
+		}
+
+		private Collection<EndpointBean> createEndpointBeans() {
+			Map<EndpointId, EndpointBean> byId = new LinkedHashMap<>();
+			String[] beanNames = BeanFactoryUtils.beanNamesForAnnotationIncludingAncestors(this.applicationContext,
+					Endpoint.class);
+			for (String beanName : beanNames) {
+				if (!ScopedProxyUtils.isScopedTarget(beanName)) {
+					EndpointBean endpointBean = createEndpointBean(beanName);
+					EndpointBean previous = byId.putIfAbsent(endpointBean.getId(), endpointBean);
+					Assert.state(previous == null, () -> "Found two endpoints with the id '" + endpointBean.getId() + "': '"
+							+ endpointBean.getBeanName() + "' and '" + previous.getBeanName() + "'");
+				}
+			}
+			return byId.values();
 		}
 
 	}
