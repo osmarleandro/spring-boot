@@ -18,6 +18,7 @@ package org.springframework.boot.actuate.endpoint.jmx;
 
 import java.net.URL;
 import java.net.URLClassLoader;
+import java.util.List;
 
 import javax.management.Attribute;
 import javax.management.AttributeList;
@@ -199,6 +200,11 @@ class EndpointMBeanTests {
 
 	private EndpointMBean createEndpointMBean() {
 		return new EndpointMBean(this.responseMapper, null, this.endpoint);
+	}
+
+	@Override
+	public List<JmxOperationParameter> getParameters() {
+		return this.parameters;
 	}
 
 }

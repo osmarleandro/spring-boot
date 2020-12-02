@@ -35,7 +35,7 @@ public class TestJmxOperation implements JmxOperation {
 
 	private final Function<Map<String, Object>, Object> invoke;
 
-	private final List<JmxOperationParameter> parameters;
+	protected final List<JmxOperationParameter> parameters;
 
 	public TestJmxOperation() {
 		this.operationType = OperationType.READ;
@@ -84,11 +84,6 @@ public class TestJmxOperation implements JmxOperation {
 	@Override
 	public String getDescription() {
 		return "Test JMX operation";
-	}
-
-	@Override
-	public List<JmxOperationParameter> getParameters() {
-		return this.parameters;
 	}
 
 }
