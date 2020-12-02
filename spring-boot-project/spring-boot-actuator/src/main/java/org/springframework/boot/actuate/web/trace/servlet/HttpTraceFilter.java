@@ -49,7 +49,7 @@ public class HttpTraceFilter extends OncePerRequestFilter implements Ordered {
 
 	// Not LOWEST_PRECEDENCE, but near the end, so it has a good chance of catching all
 	// enriched headers, but users can add stuff after this if they want to
-	private int order = Ordered.LOWEST_PRECEDENCE - 10;
+	protected int order = Ordered.LOWEST_PRECEDENCE - 10;
 
 	private final HttpTraceRepository repository;
 
@@ -68,10 +68,6 @@ public class HttpTraceFilter extends OncePerRequestFilter implements Ordered {
 	@Override
 	public int getOrder() {
 		return this.order;
-	}
-
-	public void setOrder(int order) {
-		this.order = order;
 	}
 
 	@Override
