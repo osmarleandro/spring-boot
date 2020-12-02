@@ -229,8 +229,6 @@ abstract class HealthEndpointSupportTests<R extends ContributorRegistry<C>, C, T
 
 	protected abstract C createContributor(Health health);
 
-	protected abstract C createCompositeContributor(Map<String, C> contributors);
-
 	protected abstract HealthComponent getHealth(HealthResult<T> result);
 
 }
