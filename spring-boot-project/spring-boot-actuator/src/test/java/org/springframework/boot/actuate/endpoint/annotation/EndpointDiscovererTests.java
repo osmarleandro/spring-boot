@@ -31,9 +31,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
-
+import org.springframework.beans.factory.BeanFactoryUtils;
 import org.springframework.boot.actuate.endpoint.EndpointFilter;
 import org.springframework.boot.actuate.endpoint.EndpointId;
 import org.springframework.boot.actuate.endpoint.ExposableEndpoint;
@@ -52,6 +53,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.core.annotation.AliasFor;
+import org.springframework.util.Assert;
 import org.springframework.util.ReflectionUtils;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -559,6 +561,20 @@ class EndpointDiscovererTests {
 					() -> "TestOperation " + operation.getOperationMethod());
 		}
 
+		private void addExtensionBeans(Collection<EndpointBean> endpointBeans) {
+			Map<EndpointId, EndpointBean> byId = endpointBeans.stream()
+					.collect(Collectors.toMap(EndpointBean::getId, Function.identity()));
+			String[] beanNames = BeanFactoryUtils.beanNamesForAnnotationIncludingAncestors(this.applicationContext,
+					EndpointExtension.class);
+			for (String beanName : beanNames) {
+				ExtensionBean extensionBean = createExtensionBean(beanName);
+				EndpointBean endpointBean = byId.get(extensionBean.getEndpointId());
+				Assert.state(endpointBean != null, () -> ("Invalid extension '" + extensionBean.getBeanName()
+						+ "': no endpoint found with id '" + extensionBean.getEndpointId() + "'"));
+				addExtensionBean(endpointBean, extensionBean);
+			}
+		}
+
 	}
 
 	static class SpecializedEndpointDiscoverer
@@ -589,6 +605,20 @@ class EndpointDiscovererTests {
 		protected OperationKey createOperationKey(SpecializedOperation operation) {
 			return new OperationKey(operation.getOperationMethod(),
 					() -> "TestOperation " + operation.getOperationMethod());
+		}
+
+		private void addExtensionBeans(Collection<EndpointBean> endpointBeans) {
+			Map<EndpointId, EndpointBean> byId = endpointBeans.stream()
+					.collect(Collectors.toMap(EndpointBean::getId, Function.identity()));
+			String[] beanNames = BeanFactoryUtils.beanNamesForAnnotationIncludingAncestors(this.applicationContext,
+					EndpointExtension.class);
+			for (String beanName : beanNames) {
+				ExtensionBean extensionBean = createExtensionBean(beanName);
+				EndpointBean endpointBean = byId.get(extensionBean.getEndpointId());
+				Assert.state(endpointBean != null, () -> ("Invalid extension '" + extensionBean.getBeanName()
+						+ "': no endpoint found with id '" + extensionBean.getEndpointId() + "'"));
+				addExtensionBean(endpointBean, extensionBean);
+			}
 		}
 
 	}

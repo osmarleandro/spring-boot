@@ -19,12 +19,17 @@ package org.springframework.boot.actuate.endpoint.web.annotation;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
+import org.springframework.beans.factory.BeanFactoryUtils;
 import org.springframework.boot.actuate.endpoint.EndpointFilter;
 import org.springframework.boot.actuate.endpoint.EndpointId;
 import org.springframework.boot.actuate.endpoint.Operation;
 import org.springframework.boot.actuate.endpoint.annotation.DiscoveredOperationMethod;
 import org.springframework.boot.actuate.endpoint.annotation.EndpointDiscoverer;
+import org.springframework.boot.actuate.endpoint.annotation.EndpointExtension;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvoker;
 import org.springframework.boot.actuate.endpoint.invoke.ParameterValueMapper;
 import org.springframework.boot.actuate.endpoint.web.ExposableServletEndpoint;
@@ -32,6 +37,7 @@ import org.springframework.boot.actuate.endpoint.web.PathMapper;
 import org.springframework.context.ApplicationContext;
 import org.springframework.core.annotation.MergedAnnotations;
 import org.springframework.core.annotation.MergedAnnotations.SearchStrategy;
+import org.springframework.util.Assert;
 
 /**
  * {@link EndpointDiscoverer} for {@link ExposableServletEndpoint servlet endpoints}.
@@ -77,6 +83,20 @@ public class ServletEndpointDiscoverer extends EndpointDiscoverer<ExposableServl
 	@Override
 	protected OperationKey createOperationKey(Operation operation) {
 		throw new IllegalStateException("ServletEndpoints must not declare operations");
+	}
+
+	private void addExtensionBeans(Collection<EndpointBean> endpointBeans) {
+		Map<EndpointId, EndpointBean> byId = endpointBeans.stream()
+				.collect(Collectors.toMap(EndpointBean::getId, Function.identity()));
+		String[] beanNames = BeanFactoryUtils.beanNamesForAnnotationIncludingAncestors(this.applicationContext,
+				EndpointExtension.class);
+		for (String beanName : beanNames) {
+			ExtensionBean extensionBean = createExtensionBean(beanName);
+			EndpointBean endpointBean = byId.get(extensionBean.getEndpointId());
+			Assert.state(endpointBean != null, () -> ("Invalid extension '" + extensionBean.getBeanName()
+					+ "': no endpoint found with id '" + extensionBean.getEndpointId() + "'"));
+			addExtensionBean(endpointBean, extensionBean);
+		}
 	}
 
 }

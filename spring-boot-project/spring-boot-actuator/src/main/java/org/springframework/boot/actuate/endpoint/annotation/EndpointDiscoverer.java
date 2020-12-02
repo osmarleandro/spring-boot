@@ -26,7 +26,6 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
@@ -70,7 +69,7 @@ import org.springframework.util.StringUtils;
 public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O extends Operation>
 		implements EndpointsSupplier<E> {
 
-	private final ApplicationContext applicationContext;
+	protected final ApplicationContext applicationContext;
 
 	private final Collection<EndpointFilter<E>> filters;
 
@@ -146,27 +145,13 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 		return new EndpointBean(this.applicationContext.getEnvironment(), beanName, beanType, beanSupplier);
 	}
 
-	private void addExtensionBeans(Collection<EndpointBean> endpointBeans) {
-		Map<EndpointId, EndpointBean> byId = endpointBeans.stream()
-				.collect(Collectors.toMap(EndpointBean::getId, Function.identity()));
-		String[] beanNames = BeanFactoryUtils.beanNamesForAnnotationIncludingAncestors(this.applicationContext,
-				EndpointExtension.class);
-		for (String beanName : beanNames) {
-			ExtensionBean extensionBean = createExtensionBean(beanName);
-			EndpointBean endpointBean = byId.get(extensionBean.getEndpointId());
-			Assert.state(endpointBean != null, () -> ("Invalid extension '" + extensionBean.getBeanName()
-					+ "': no endpoint found with id '" + extensionBean.getEndpointId() + "'"));
-			addExtensionBean(endpointBean, extensionBean);
-		}
-	}
-
-	private ExtensionBean createExtensionBean(String beanName) {
+	protected ExtensionBean createExtensionBean(String beanName) {
 		Class<?> beanType = ClassUtils.getUserClass(this.applicationContext.getType(beanName));
 		Supplier<Object> beanSupplier = () -> this.applicationContext.getBean(beanName);
 		return new ExtensionBean(this.applicationContext.getEnvironment(), beanName, beanType, beanSupplier);
 	}
 
-	private void addExtensionBean(EndpointBean endpointBean, ExtensionBean extensionBean) {
+	protected void addExtensionBean(EndpointBean endpointBean, ExtensionBean extensionBean) {
 		if (isExtensionExposed(endpointBean, extensionBean)) {
 			Assert.state(isEndpointExposed(endpointBean) || isEndpointFiltered(endpointBean),
 					() -> "Endpoint bean '" + endpointBean.getBeanName() + "' cannot support the extension bean '"
@@ -414,7 +399,7 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 	/**
 	 * Information about an {@link Endpoint @Endpoint} bean.
 	 */
-	private static class EndpointBean {
+	public static class EndpointBean {
 
 		private final String beanName;
 
@@ -486,7 +471,7 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 	/**
 	 * Information about an {@link EndpointExtension @EndpointExtension} bean.
 	 */
-	private static class ExtensionBean {
+	public static class ExtensionBean {
 
 		private final String beanName;
 
@@ -513,7 +498,7 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 			this.filter = extensionAnnotation.getClass("filter");
 		}
 
-		String getBeanName() {
+		public String getBeanName() {
 			return this.beanName;
 		}
 
@@ -525,7 +510,7 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 			return this.beanSupplier.get();
 		}
 
-		EndpointId getEndpointId() {
+		public EndpointId getEndpointId() {
 			return this.endpointId;
 		}
 
