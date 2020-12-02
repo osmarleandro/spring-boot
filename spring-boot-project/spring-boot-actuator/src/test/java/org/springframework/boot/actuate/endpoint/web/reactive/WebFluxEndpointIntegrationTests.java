@@ -17,6 +17,8 @@
 package org.springframework.boot.actuate.endpoint.web.reactive;
 
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.junit.jupiter.api.Test;
 
@@ -48,6 +50,7 @@ import org.springframework.web.server.WebFilter;
 import org.springframework.web.server.adapter.WebHttpHandlerBuilder;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.verify;
 
 /**
  * Integration tests for web endpoints exposed using WebFlux.
@@ -98,6 +101,16 @@ class WebFluxEndpointIntegrationTests
 	@Override
 	protected int getPort(AnnotationConfigReactiveWebServerApplicationContext context) {
 		return context.getBean(ReactiveConfiguration.class).port;
+	}
+
+	@Test
+	void nullIsPassedToTheOperationWhenArgumentIsNotFoundInPostRequestBody() {
+		load(TestEndpointConfiguration.class, (context, client) -> {
+			Map<String, Object> body = new HashMap<>();
+			body.put("foo", "one");
+			client.post().uri("/test").bodyValue(body).exchange().expectStatus().isNoContent().expectBody().isEmpty();
+			verify(context.getBean(EndpointDelegate.class)).write("one", null);
+		});
 	}
 
 	@Configuration(proxyBeanMethods = false)

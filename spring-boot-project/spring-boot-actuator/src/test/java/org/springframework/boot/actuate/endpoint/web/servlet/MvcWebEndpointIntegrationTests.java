@@ -18,6 +18,8 @@ package org.springframework.boot.actuate.endpoint.web.servlet;
 
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -58,6 +60,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import org.springframework.web.servlet.handler.RequestMatchResult;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.verify;
 
 /**
  * Integration tests for web endpoints exposed using Spring MVC.
@@ -134,6 +137,16 @@ class MvcWebEndpointIntegrationTests
 	@Override
 	protected int getPort(AnnotationConfigServletWebServerApplicationContext context) {
 		return context.getWebServer().getPort();
+	}
+
+	@Test
+	void nullIsPassedToTheOperationWhenArgumentIsNotFoundInPostRequestBody() {
+		load(TestEndpointConfiguration.class, (context, client) -> {
+			Map<String, Object> body = new HashMap<>();
+			body.put("foo", "one");
+			client.post().uri("/test").bodyValue(body).exchange().expectStatus().isNoContent().expectBody().isEmpty();
+			verify(context.getBean(EndpointDelegate.class)).write("one", null);
+		});
 	}
 
 	@Configuration(proxyBeanMethods = false)

@@ -16,10 +16,14 @@
 
 package org.springframework.boot.actuate.endpoint.web.jersey;
 
+import static org.mockito.Mockito.verify;
+
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -33,7 +37,7 @@ import org.glassfish.jersey.jackson.JacksonFeature;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.server.model.Resource;
 import org.glassfish.jersey.servlet.ServletContainer;
-
+import org.junit.jupiter.api.Test;
 import org.springframework.boot.actuate.endpoint.web.EndpointLinksResolver;
 import org.springframework.boot.actuate.endpoint.web.EndpointMapping;
 import org.springframework.boot.actuate.endpoint.web.EndpointMediaTypes;
@@ -88,6 +92,16 @@ public class JerseyWebEndpointIntegrationTests
 	protected void validateErrorBody(WebTestClient.BodyContentSpec body, HttpStatus status, String path,
 			String message) {
 		// Jersey doesn't support the general error page handling
+	}
+
+	@Test
+	void nullIsPassedToTheOperationWhenArgumentIsNotFoundInPostRequestBody() {
+		load(TestEndpointConfiguration.class, (context, client) -> {
+			Map<String, Object> body = new HashMap<>();
+			body.put("foo", "one");
+			client.post().uri("/test").bodyValue(body).exchange().expectStatus().isNoContent().expectBody().isEmpty();
+			verify(context.getBean(EndpointDelegate.class)).write("one", null);
+		});
 	}
 
 	@Configuration(proxyBeanMethods = false)
