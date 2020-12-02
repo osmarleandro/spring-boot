@@ -34,6 +34,7 @@ import org.springframework.boot.actuate.endpoint.web.EndpointMediaTypes;
 import org.springframework.boot.actuate.endpoint.web.ExposableWebEndpoint;
 import org.springframework.boot.actuate.endpoint.web.Link;
 import org.springframework.boot.actuate.endpoint.web.WebOperation;
+import org.springframework.boot.actuate.endpoint.web.WebOperationRequestPredicate;
 import org.springframework.boot.actuate.endpoint.web.servlet.AbstractWebMvcEndpointHandlerMapping;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -73,6 +74,19 @@ class CloudFoundryWebEndpointServletHandlerMapping extends AbstractWebMvcEndpoin
 	@Override
 	protected LinksHandler getLinksHandler() {
 		return new CloudFoundryLinksHandler();
+	}
+
+	private void registerMappingForOperation(ExposableWebEndpoint endpoint, WebOperation operation) {
+		WebOperationRequestPredicate predicate = operation.getRequestPredicate();
+		String path = predicate.getPath();
+		String matchAllRemainingPathSegmentsVariable = predicate.getMatchAllRemainingPathSegmentsVariable();
+		if (matchAllRemainingPathSegmentsVariable != null) {
+			path = path.replace("{*" + matchAllRemainingPathSegmentsVariable + "}", "**");
+		}
+		ServletWebOperation servletWebOperation = wrapServletWebOperation(endpoint, operation,
+				new ServletWebOperationAdapter(operation));
+		registerMapping(createRequestMappingInfo(predicate, path), new OperationHandler(servletWebOperation),
+				this.handleMethod);
 	}
 
 	class CloudFoundryLinksHandler implements LinksHandler {

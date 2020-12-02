@@ -86,7 +86,7 @@ public abstract class AbstractWebMvcEndpointHandlerMapping extends RequestMappin
 
 	private final boolean shouldRegisterLinksMapping;
 
-	private final Method handleMethod = ReflectionUtils.findMethod(OperationHandler.class, "handle",
+	protected final Method handleMethod = ReflectionUtils.findMethod(OperationHandler.class, "handle",
 			HttpServletRequest.class, Map.class);
 
 	private static final RequestMappingInfo.BuilderConfiguration builderConfig = getBuilderConfig();
@@ -164,19 +164,6 @@ public abstract class AbstractWebMvcEndpointHandlerMapping extends RequestMappin
 		return config;
 	}
 
-	private void registerMappingForOperation(ExposableWebEndpoint endpoint, WebOperation operation) {
-		WebOperationRequestPredicate predicate = operation.getRequestPredicate();
-		String path = predicate.getPath();
-		String matchAllRemainingPathSegmentsVariable = predicate.getMatchAllRemainingPathSegmentsVariable();
-		if (matchAllRemainingPathSegmentsVariable != null) {
-			path = path.replace("{*" + matchAllRemainingPathSegmentsVariable + "}", "**");
-		}
-		ServletWebOperation servletWebOperation = wrapServletWebOperation(endpoint, operation,
-				new ServletWebOperationAdapter(operation));
-		registerMapping(createRequestMappingInfo(predicate, path), new OperationHandler(servletWebOperation),
-				this.handleMethod);
-	}
-
 	/**
 	 * Hook point that allows subclasses to wrap the {@link ServletWebOperation} before
 	 * it's called. Allows additional features, such as security, to be added.
@@ -190,7 +177,7 @@ public abstract class AbstractWebMvcEndpointHandlerMapping extends RequestMappin
 		return servletWebOperation;
 	}
 
-	private RequestMappingInfo createRequestMappingInfo(WebOperationRequestPredicate predicate, String path) {
+	protected RequestMappingInfo createRequestMappingInfo(WebOperationRequestPredicate predicate, String path) {
 		return RequestMappingInfo.paths(this.endpointMapping.createSubPath(path))
 				.methods(RequestMethod.valueOf(predicate.getHttpMethod().name()))
 				.consumes(predicate.getConsumes().toArray(new String[0]))
@@ -259,7 +246,7 @@ public abstract class AbstractWebMvcEndpointHandlerMapping extends RequestMappin
 	 * A servlet web operation that can be handled by Spring MVC.
 	 */
 	@FunctionalInterface
-	protected interface ServletWebOperation {
+	public interface ServletWebOperation {
 
 		Object handle(HttpServletRequest request, Map<String, String> body);
 
@@ -269,7 +256,7 @@ public abstract class AbstractWebMvcEndpointHandlerMapping extends RequestMappin
 	 * Adapter class to convert an {@link OperationInvoker} into a
 	 * {@link ServletWebOperation}.
 	 */
-	private static class ServletWebOperationAdapter implements ServletWebOperation {
+	public static class ServletWebOperationAdapter implements ServletWebOperation {
 
 		private static final String PATH_SEPARATOR = AntPathMatcher.DEFAULT_PATH_SEPARATOR;
 
@@ -360,7 +347,7 @@ public abstract class AbstractWebMvcEndpointHandlerMapping extends RequestMappin
 	/**
 	 * Handler for a {@link ServletWebOperation}.
 	 */
-	private static final class OperationHandler {
+	public static final class OperationHandler {
 
 		private final ServletWebOperation operation;
 
