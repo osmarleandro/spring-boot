@@ -56,4 +56,16 @@ public class BuildInfoContributor extends InfoPropertiesInfoContributor<BuildPro
 		replaceValue(content, "time", getProperties().getTime());
 	}
 
+	/**
+	 * Extract the content to contribute to the info endpoint.
+	 * @return the content to expose
+	 * @see #extractContent(PropertySource)
+	 * @see #postProcessContent(Map)
+	 */
+	protected Map<String, Object> generateContent() {
+		Map<String, Object> content = extractContent(toPropertySource());
+		postProcessContent(content);
+		return content;
+	}
+
 }

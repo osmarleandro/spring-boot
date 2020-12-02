@@ -73,18 +73,6 @@ public abstract class InfoPropertiesInfoContributor<T extends InfoProperties> im
 	protected abstract PropertySource<?> toSimplePropertySource();
 
 	/**
-	 * Extract the content to contribute to the info endpoint.
-	 * @return the content to expose
-	 * @see #extractContent(PropertySource)
-	 * @see #postProcessContent(Map)
-	 */
-	protected Map<String, Object> generateContent() {
-		Map<String, Object> content = extractContent(toPropertySource());
-		postProcessContent(content);
-		return content;
-	}
-
-	/**
 	 * Extract the raw content based on the specified {@link PropertySource}.
 	 * @param propertySource the property source to use
 	 * @return the raw content
