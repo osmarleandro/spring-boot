@@ -32,7 +32,7 @@ import org.springframework.web.server.ServerWebExchange;
  *
  * @author Andy Wilkinson
  */
-class ServerWebExchangeTraceableRequest implements TraceableRequest {
+public class ServerWebExchangeTraceableRequest implements TraceableRequest {
 
 	private final String method;
 

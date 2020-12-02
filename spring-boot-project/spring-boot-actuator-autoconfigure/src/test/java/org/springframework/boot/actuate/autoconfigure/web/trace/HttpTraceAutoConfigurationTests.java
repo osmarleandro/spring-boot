@@ -16,6 +16,7 @@
 
 package org.springframework.boot.actuate.autoconfigure.web.trace;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.Set;
 
@@ -29,12 +30,19 @@ import org.springframework.boot.actuate.trace.http.HttpTraceRepository;
 import org.springframework.boot.actuate.trace.http.InMemoryHttpTraceRepository;
 import org.springframework.boot.actuate.trace.http.Include;
 import org.springframework.boot.actuate.web.trace.reactive.HttpTraceWebFilter;
+import org.springframework.boot.actuate.web.trace.reactive.ServerWebExchangeTraceableRequest;
+import org.springframework.boot.actuate.web.trace.reactive.TraceableServerHttpResponse;
 import org.springframework.boot.actuate.web.trace.servlet.HttpTraceFilter;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
 import org.springframework.boot.test.context.runner.ReactiveWebApplicationContextRunner;
 import org.springframework.boot.test.context.runner.WebApplicationContextRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.server.ServerWebExchange;
+import org.springframework.web.server.WebFilterChain;
+import org.springframework.web.server.WebSession;
+
+import reactor.core.publisher.Mono;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -154,6 +162,18 @@ class HttpTraceAutoConfigurationTests {
 		private CustomHttpTraceWebFilter(HttpTraceRepository repository, HttpExchangeTracer tracer,
 				Set<Include> includes) {
 			super(repository, tracer, includes);
+		}
+
+		private Mono<Void> filter(ServerWebExchange exchange, WebFilterChain chain, Principal principal, WebSession session) {
+			ServerWebExchangeTraceableRequest request = new ServerWebExchangeTraceableRequest(exchange);
+			HttpTrace trace = this.tracer.receivedRequest(request);
+			exchange.getResponse().beforeCommit(() -> {
+				TraceableServerHttpResponse response = new TraceableServerHttpResponse(exchange.getResponse());
+				this.tracer.sendingResponse(trace, response, () -> principal, () -> getStartedSessionId(session));
+				this.repository.add(trace);
+				return Mono.empty();
+			});
+			return chain.filter(exchange);
 		}
 
 	}
