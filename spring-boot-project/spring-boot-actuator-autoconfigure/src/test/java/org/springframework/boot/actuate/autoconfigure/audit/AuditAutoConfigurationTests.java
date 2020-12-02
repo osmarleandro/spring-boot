@@ -108,6 +108,16 @@ class AuditAutoConfigurationTests {
 
 	static class TestAuditEventRepository extends InMemoryAuditEventRepository {
 
+		/**
+		 * Set the capacity of this event repository.
+		 * @param capacity the capacity
+		 */
+		public void setCapacity(int capacity) {
+			synchronized (this.monitor) {
+				this.events = new AuditEvent[capacity];
+			}
+		}
+
 	}
 
 	@Configuration(proxyBeanMethods = false)
