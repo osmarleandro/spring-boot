@@ -37,6 +37,8 @@ import org.springframework.security.authentication.event.AbstractAuthenticationE
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.time.Instant;
+
 /**
  * Tests for {@link AuditAutoConfiguration}.
  *
@@ -107,6 +109,14 @@ class AuditAutoConfigurationTests {
 	}
 
 	static class TestAuditEventRepository extends InMemoryAuditEventRepository {
+
+		private boolean isMatch(String principal, Instant after, String type, AuditEvent event) {
+			boolean match = true;
+			match = match && (principal == null || event.getPrincipal().equals(principal));
+			match = match && (after == null || event.getTimestamp().isAfter(after));
+			match = match && (type == null || event.getType().equals(type));
+			return match;
+		}
 
 	}
 
