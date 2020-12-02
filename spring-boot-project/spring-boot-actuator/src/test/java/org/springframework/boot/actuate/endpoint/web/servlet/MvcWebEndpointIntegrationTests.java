@@ -136,6 +136,12 @@ class MvcWebEndpointIntegrationTests
 		return context.getWebServer().getPort();
 	}
 
+	@Test
+	void nullResponseFromWriteOperationResultsInNoContentResponseStatus() {
+		load(NullWriteResponseEndpointConfiguration.class,
+				(context, client) -> client.post().uri("/nullwrite").exchange().expectStatus().isNoContent());
+	}
+
 	@Configuration(proxyBeanMethods = false)
 	@ImportAutoConfiguration({ JacksonAutoConfiguration.class, HttpMessageConvertersAutoConfiguration.class,
 			ServletWebServerFactoryAutoConfiguration.class, WebMvcAutoConfiguration.class,

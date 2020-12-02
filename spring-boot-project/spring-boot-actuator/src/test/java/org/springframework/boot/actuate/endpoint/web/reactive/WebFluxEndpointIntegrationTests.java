@@ -100,6 +100,12 @@ class WebFluxEndpointIntegrationTests
 		return context.getBean(ReactiveConfiguration.class).port;
 	}
 
+	@Test
+	void nullResponseFromWriteOperationResultsInNoContentResponseStatus() {
+		load(NullWriteResponseEndpointConfiguration.class,
+				(context, client) -> client.post().uri("/nullwrite").exchange().expectStatus().isNoContent());
+	}
+
 	@Configuration(proxyBeanMethods = false)
 	@EnableWebFlux
 	@ImportAutoConfiguration(ErrorWebFluxAutoConfiguration.class)
