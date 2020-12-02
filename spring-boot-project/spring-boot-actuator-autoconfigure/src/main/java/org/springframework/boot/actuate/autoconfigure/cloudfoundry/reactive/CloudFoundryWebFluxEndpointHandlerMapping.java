@@ -16,6 +16,7 @@
 
 package org.springframework.boot.actuate.autoconfigure.cloudfoundry.reactive;
 
+import java.lang.reflect.Method;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedHashMap;
@@ -39,6 +40,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.reactive.result.method.RequestMappingInfoHandlerMapping;
 import org.springframework.web.server.ServerWebExchange;
 
@@ -74,6 +76,12 @@ class CloudFoundryWebFluxEndpointHandlerMapping extends AbstractWebFluxEndpointH
 	@Override
 	protected LinksHandler getLinksHandler() {
 		return new CloudFoundryLinksHandler();
+	}
+
+	@Override
+	protected HandlerMethod createHandlerMethod(Object handler, Method method) {
+		HandlerMethod handlerMethod = super.createHandlerMethod(handler, method);
+		return new WebFluxEndpointHandlerMethod(handlerMethod.getBean(), handlerMethod.getMethod());
 	}
 
 	class CloudFoundryLinksHandler implements LinksHandler {
