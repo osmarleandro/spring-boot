@@ -22,18 +22,14 @@ import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.function.Function;
-import java.util.stream.Collectors;
 
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
-import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
 import org.springframework.scheduling.Trigger;
 import org.springframework.scheduling.config.CronTask;
 import org.springframework.scheduling.config.FixedDelayTask;
 import org.springframework.scheduling.config.FixedRateTask;
 import org.springframework.scheduling.config.IntervalTask;
-import org.springframework.scheduling.config.ScheduledTask;
 import org.springframework.scheduling.config.ScheduledTaskHolder;
 import org.springframework.scheduling.config.Task;
 import org.springframework.scheduling.config.TriggerTask;
@@ -51,19 +47,10 @@ import org.springframework.scheduling.support.ScheduledMethodRunnable;
 @Endpoint(id = "scheduledtasks")
 public class ScheduledTasksEndpoint {
 
-	private final Collection<ScheduledTaskHolder> scheduledTaskHolders;
+	protected final Collection<ScheduledTaskHolder> scheduledTaskHolders;
 
 	public ScheduledTasksEndpoint(Collection<ScheduledTaskHolder> scheduledTaskHolders) {
 		this.scheduledTaskHolders = scheduledTaskHolders;
-	}
-
-	@ReadOperation
-	public ScheduledTasksReport scheduledTasks() {
-		Map<TaskType, List<TaskDescription>> descriptionsByType = this.scheduledTaskHolders.stream()
-				.flatMap((holder) -> holder.getScheduledTasks().stream()).map(ScheduledTask::getTask)
-				.map(TaskDescription::of).filter(Objects::nonNull)
-				.collect(Collectors.groupingBy(TaskDescription::getType));
-		return new ScheduledTasksReport(descriptionsByType);
 	}
 
 	/**
@@ -290,7 +277,7 @@ public class ScheduledTasksEndpoint {
 
 	}
 
-	private enum TaskType {
+	public enum TaskType {
 
 		CRON, CUSTOM_TRIGGER, FIXED_DELAY, FIXED_RATE
 

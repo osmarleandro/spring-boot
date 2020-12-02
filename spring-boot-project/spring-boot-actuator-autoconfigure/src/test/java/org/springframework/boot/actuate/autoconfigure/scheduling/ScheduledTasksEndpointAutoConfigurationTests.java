@@ -17,14 +17,19 @@
 package org.springframework.boot.actuate.autoconfigure.scheduling;
 
 import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
-
+import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
 import org.springframework.boot.actuate.scheduling.ScheduledTasksEndpoint;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
 import org.springframework.boot.test.context.runner.ApplicationContextRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.scheduling.config.ScheduledTask;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -75,6 +80,15 @@ class ScheduledTasksEndpointAutoConfigurationTests {
 
 		private CustomEndpoint() {
 			super(Collections.emptyList());
+		}
+
+		@ReadOperation
+		public ScheduledTasksReport scheduledTasks() {
+			Map<TaskType, List<TaskDescription>> descriptionsByType = this.scheduledTaskHolders.stream()
+					.flatMap((holder) -> holder.getScheduledTasks().stream()).map(ScheduledTask::getTask)
+					.map(TaskDescription::of).filter(Objects::nonNull)
+					.collect(Collectors.groupingBy(TaskDescription::getType));
+			return new ScheduledTasksReport(descriptionsByType);
 		}
 
 	}
