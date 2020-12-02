@@ -40,17 +40,17 @@ import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException
  */
 abstract class HealthEndpointSupportTests<R extends ContributorRegistry<C>, C, T> {
 
-	final R registry;
+	protected final R registry;
 
-	final Health up = Health.up().withDetail("spring", "boot").build();
+	protected final Health up = Health.up().withDetail("spring", "boot").build();
 
 	final Health down = Health.down().build();
 
-	final TestHealthEndpointGroup primaryGroup = new TestHealthEndpointGroup();
+	protected final TestHealthEndpointGroup primaryGroup = new TestHealthEndpointGroup();
 
 	final TestHealthEndpointGroup allTheAs = new TestHealthEndpointGroup((name) -> name.startsWith("a"));
 
-	final HealthEndpointGroups groups = HealthEndpointGroups.of(this.primaryGroup,
+	protected final HealthEndpointGroups groups = HealthEndpointGroups.of(this.primaryGroup,
 			Collections.singletonMap("alltheas", this.allTheAs));
 
 	HealthEndpointSupportTests() {
@@ -120,19 +120,6 @@ abstract class HealthEndpointSupportTests<R extends ContributorRegistry<C>, C, T
 		assertThat(((CompositeHealth) getHealth(rootResult)).getComponents()).isNullOrEmpty();
 		HealthResult<T> componentResult = endpoint.getHealth(ApiVersion.V3, SecurityContext.NONE, false, "test");
 		assertThat(componentResult).isNull();
-	}
-
-	@Test
-	void getHealthWhenAlwaysShowIsTrueShowsComponents() {
-		this.primaryGroup.setShowComponents(true);
-		C contributor = createContributor(this.up);
-		C compositeContributor = createCompositeContributor(Collections.singletonMap("spring", contributor));
-		this.registry.registerContributor("test", compositeContributor);
-		HealthEndpointSupport<C, T> endpoint = create(this.registry, this.groups);
-		HealthResult<T> rootResult = endpoint.getHealth(ApiVersion.V3, SecurityContext.NONE, false);
-		assertThat(((CompositeHealth) getHealth(rootResult)).getComponents()).containsKey("test");
-		HealthResult<T> componentResult = endpoint.getHealth(ApiVersion.V3, SecurityContext.NONE, false, "test");
-		assertThat(((CompositeHealth) getHealth(componentResult)).getComponents()).containsKey("spring");
 	}
 
 	@Test

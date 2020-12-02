@@ -20,7 +20,8 @@ import java.util.Collections;
 import java.util.Map;
 
 import org.junit.jupiter.api.Test;
-
+import org.springframework.boot.actuate.endpoint.SecurityContext;
+import org.springframework.boot.actuate.endpoint.http.ApiVersion;
 import org.springframework.boot.actuate.health.HealthEndpointSupport.HealthResult;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -89,6 +90,19 @@ class HealthEndpointTests
 	@Override
 	protected HealthComponent getHealth(HealthResult<HealthComponent> result) {
 		return result.getHealth();
+	}
+
+	@Test
+	void getHealthWhenAlwaysShowIsTrueShowsComponents() {
+		this.primaryGroup.setShowComponents(true);
+		HealthContributor contributor = createContributor(this.up);
+		HealthContributor compositeContributor = createCompositeContributor(Collections.singletonMap("spring", contributor));
+		this.registry.registerContributor("test", compositeContributor);
+		HealthEndpointSupport<HealthContributor, HealthComponent> endpoint = create(this.registry, this.groups);
+		HealthResult<HealthComponent> rootResult = endpoint.getHealth(ApiVersion.V3, SecurityContext.NONE, false);
+		assertThat(((CompositeHealth) getHealth(rootResult)).getComponents()).containsKey("test");
+		HealthResult<HealthComponent> componentResult = endpoint.getHealth(ApiVersion.V3, SecurityContext.NONE, false, "test");
+		assertThat(((CompositeHealth) getHealth(componentResult)).getComponents()).containsKey("spring");
 	}
 
 }
