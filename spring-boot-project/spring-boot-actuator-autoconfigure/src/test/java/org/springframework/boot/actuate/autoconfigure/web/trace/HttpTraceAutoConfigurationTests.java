@@ -17,6 +17,7 @@
 package org.springframework.boot.actuate.autoconfigure.web.trace;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import org.junit.jupiter.api.Test;
@@ -135,6 +136,14 @@ class HttpTraceAutoConfigurationTests {
 
 		private CustomHttpExchangeTracer(Set<Include> includes) {
 			super(includes);
+		}
+
+		/**
+		 * Post-process the given mutable map of request {@code headers}.
+		 * @param headers the headers to post-process
+		 */
+		protected void postProcessRequestHeaders(Map<String, List<String>> headers) {
+		
 		}
 
 	}

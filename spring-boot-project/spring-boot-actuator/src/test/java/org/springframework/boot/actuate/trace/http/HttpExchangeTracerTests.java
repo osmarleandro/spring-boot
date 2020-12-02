@@ -345,6 +345,14 @@ class HttpExchangeTracerTests {
 			headers.computeIfAbsent("to-add", (key) -> Collections.singletonList("42"));
 		}
 
+		/**
+		 * Post-process the given mutable map of request {@code headers}.
+		 * @param headers the headers to post-process
+		 */
+		protected void postProcessRequestHeaders(Map<String, List<String>> headers) {
+		
+		}
+
 	}
 
 }
