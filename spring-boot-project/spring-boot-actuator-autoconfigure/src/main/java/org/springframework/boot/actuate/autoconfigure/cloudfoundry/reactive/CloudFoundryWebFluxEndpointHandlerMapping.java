@@ -76,6 +76,11 @@ class CloudFoundryWebFluxEndpointHandlerMapping extends AbstractWebFluxEndpointH
 		return new CloudFoundryLinksHandler();
 	}
 
+	@Override
+	protected boolean isHandler(Class<?> beanType) {
+		return false;
+	}
+
 	class CloudFoundryLinksHandler implements LinksHandler {
 
 		@Override

@@ -68,6 +68,11 @@ public class WebFluxEndpointHandlerMapping extends AbstractWebFluxEndpointHandle
 		return new WebFluxLinksHandler();
 	}
 
+	@Override
+	protected boolean isHandler(Class<?> beanType) {
+		return false;
+	}
+
 	/**
 	 * Handler for root endpoint providing links.
 	 */
