@@ -79,4 +79,12 @@ public class ServletEndpointDiscoverer extends EndpointDiscoverer<ExposableServl
 		throw new IllegalStateException("ServletEndpoints must not declare operations");
 	}
 
+	@Override
+	public final Collection<ExposableServletEndpoint> getEndpoints() {
+		if (this.endpoints == null) {
+			this.endpoints = discoverEndpoints();
+		}
+		return this.endpoints;
+	}
+
 }

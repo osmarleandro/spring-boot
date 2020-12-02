@@ -80,4 +80,12 @@ public class ControllerEndpointDiscoverer extends EndpointDiscoverer<ExposableCo
 		throw new IllegalStateException("ControllerEndpoints must not declare operations");
 	}
 
+	@Override
+	public final Collection<ExposableControllerEndpoint> getEndpoints() {
+		if (this.endpoints == null) {
+			this.endpoints = discoverEndpoints();
+		}
+		return this.endpoints;
+	}
+
 }

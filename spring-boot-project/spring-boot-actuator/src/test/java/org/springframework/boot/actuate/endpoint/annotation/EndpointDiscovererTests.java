@@ -559,6 +559,14 @@ class EndpointDiscovererTests {
 					() -> "TestOperation " + operation.getOperationMethod());
 		}
 
+		@Override
+		public final Collection<TestExposableEndpoint> getEndpoints() {
+			if (this.endpoints == null) {
+				this.endpoints = discoverEndpoints();
+			}
+			return this.endpoints;
+		}
+
 	}
 
 	static class SpecializedEndpointDiscoverer
@@ -589,6 +597,14 @@ class EndpointDiscovererTests {
 		protected OperationKey createOperationKey(SpecializedOperation operation) {
 			return new OperationKey(operation.getOperationMethod(),
 					() -> "TestOperation " + operation.getOperationMethod());
+		}
+
+		@Override
+		public final Collection<SpecializedExposableEndpoint> getEndpoints() {
+			if (this.endpoints == null) {
+				this.endpoints = discoverEndpoints();
+			}
+			return this.endpoints;
 		}
 
 	}

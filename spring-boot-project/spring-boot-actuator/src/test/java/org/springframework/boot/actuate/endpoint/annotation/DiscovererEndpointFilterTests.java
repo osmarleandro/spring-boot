@@ -82,6 +82,14 @@ class DiscovererEndpointFilterTests {
 			super(applicationContext, parameterValueMapper, invokerAdvisors, filters);
 		}
 
+		@Override
+		public final Collection<ExposableEndpoint<Operation>> getEndpoints() {
+			if (this.endpoints == null) {
+				this.endpoints = discoverEndpoints();
+			}
+			return this.endpoints;
+		}
+
 	}
 
 	abstract static class TestDiscovererB extends EndpointDiscoverer<ExposableEndpoint<Operation>, Operation> {
@@ -90,6 +98,14 @@ class DiscovererEndpointFilterTests {
 				Collection<OperationInvokerAdvisor> invokerAdvisors,
 				Collection<EndpointFilter<ExposableEndpoint<Operation>>> filters) {
 			super(applicationContext, parameterValueMapper, invokerAdvisors, filters);
+		}
+
+		@Override
+		public final Collection<ExposableEndpoint<Operation>> getEndpoints() {
+			if (this.endpoints == null) {
+				this.endpoints = discoverEndpoints();
+			}
+			return this.endpoints;
 		}
 
 	}
