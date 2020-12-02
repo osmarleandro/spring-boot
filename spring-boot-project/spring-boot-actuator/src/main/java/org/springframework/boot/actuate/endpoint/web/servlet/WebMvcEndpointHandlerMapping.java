@@ -28,6 +28,7 @@ import org.springframework.boot.actuate.endpoint.web.EndpointMapping;
 import org.springframework.boot.actuate.endpoint.web.EndpointMediaTypes;
 import org.springframework.boot.actuate.endpoint.web.ExposableWebEndpoint;
 import org.springframework.boot.actuate.endpoint.web.Link;
+import org.springframework.boot.actuate.endpoint.web.WebOperation;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.servlet.HandlerMapping;
@@ -65,6 +66,18 @@ public class WebMvcEndpointHandlerMapping extends AbstractWebMvcEndpointHandlerM
 	@Override
 	protected LinksHandler getLinksHandler() {
 		return new WebMvcLinksHandler();
+	}
+
+	/**
+	 * Hook point that allows subclasses to wrap the {@link ServletWebOperation} before
+	 * it's called. Allows additional features, such as security, to be added.
+	 * @param endpoint the source endpoint
+	 * @param operation the source operation
+	 * @param servletWebOperation the servlet web operation to wrap
+	 * @return a wrapped servlet web operation
+	 */
+	protected ServletWebOperation wrapServletWebOperation(ExposableWebEndpoint endpoint, WebOperation operation, ServletWebOperation servletWebOperation) {
+		return servletWebOperation;
 	}
 
 	/**

@@ -177,19 +177,6 @@ public abstract class AbstractWebMvcEndpointHandlerMapping extends RequestMappin
 				this.handleMethod);
 	}
 
-	/**
-	 * Hook point that allows subclasses to wrap the {@link ServletWebOperation} before
-	 * it's called. Allows additional features, such as security, to be added.
-	 * @param endpoint the source endpoint
-	 * @param operation the source operation
-	 * @param servletWebOperation the servlet web operation to wrap
-	 * @return a wrapped servlet web operation
-	 */
-	protected ServletWebOperation wrapServletWebOperation(ExposableWebEndpoint endpoint, WebOperation operation,
-			ServletWebOperation servletWebOperation) {
-		return servletWebOperation;
-	}
-
 	private RequestMappingInfo createRequestMappingInfo(WebOperationRequestPredicate predicate, String path) {
 		return RequestMappingInfo.paths(this.endpointMapping.createSubPath(path))
 				.methods(RequestMethod.valueOf(predicate.getHttpMethod().name()))
@@ -259,7 +246,7 @@ public abstract class AbstractWebMvcEndpointHandlerMapping extends RequestMappin
 	 * A servlet web operation that can be handled by Spring MVC.
 	 */
 	@FunctionalInterface
-	protected interface ServletWebOperation {
+	public interface ServletWebOperation {
 
 		Object handle(HttpServletRequest request, Map<String, String> body);
 
