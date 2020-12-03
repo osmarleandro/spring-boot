@@ -95,6 +95,10 @@ public class WavefrontProperties extends PushRegistryProperties {
 		return this.sender;
 	}
 
+	public void setBatchSize(Integer batchSize) {
+		this.batchSize = batchSize;
+	}
+
 	public static class Sender {
 
 		private int maxQueueSize = 50000;

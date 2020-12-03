@@ -53,7 +53,7 @@ public abstract class PushRegistryProperties {
 	 * Number of measurements per request to use for this backend. If more measurements
 	 * are found, then multiple requests will be made.
 	 */
-	private Integer batchSize = 10000;
+	protected Integer batchSize = 10000;
 
 	public Duration getStep() {
 		return this.step;
@@ -89,10 +89,6 @@ public abstract class PushRegistryProperties {
 
 	public Integer getBatchSize() {
 		return this.batchSize;
-	}
-
-	public void setBatchSize(Integer batchSize) {
-		this.batchSize = batchSize;
 	}
 
 }
