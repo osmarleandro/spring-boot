@@ -15,6 +15,8 @@
  */
 package org.springframework.boot.actuate.autoconfigure.security.servlet;
 
+import java.util.Base64;
+
 import org.glassfish.jersey.server.ResourceConfig;
 import org.junit.jupiter.api.Test;
 
@@ -101,6 +103,10 @@ class JerseyEndpointRequestIntegrationTests extends AbstractEndpointRequestInteg
 				.withClassLoader(new FilteredClassLoader("org.springframework.web.servlet.DispatcherServlet"))
 				.withUserConfiguration(JerseyEndpointConfiguration.class)
 				.withConfiguration(AutoConfigurations.of(JerseyAutoConfiguration.class));
+	}
+
+	String getBasicAuth() {
+		return "Basic " + Base64.getEncoder().encodeToString("user:password".getBytes());
 	}
 
 	@Configuration

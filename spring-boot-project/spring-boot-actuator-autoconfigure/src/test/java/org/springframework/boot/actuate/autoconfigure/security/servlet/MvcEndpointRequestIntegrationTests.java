@@ -15,6 +15,8 @@
  */
 package org.springframework.boot.actuate.autoconfigure.security.servlet;
 
+import java.util.Base64;
+
 import org.junit.jupiter.api.Test;
 
 import org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointProperties;
@@ -101,6 +103,10 @@ class MvcEndpointRequestIntegrationTests extends AbstractEndpointRequestIntegrat
 				.withUserConfiguration(WebMvcEndpointConfiguration.class)
 				.withConfiguration(AutoConfigurations.of(DispatcherServletAutoConfiguration.class,
 						HttpMessageConvertersAutoConfiguration.class, WebMvcAutoConfiguration.class));
+	}
+
+	String getBasicAuth() {
+		return "Basic " + Base64.getEncoder().encodeToString("user:password".getBytes());
 	}
 
 	@Configuration(proxyBeanMethods = false)

@@ -15,7 +15,6 @@
  */
 package org.springframework.boot.actuate.autoconfigure.security.servlet;
 
-import java.util.Base64;
 import java.util.function.Supplier;
 
 import org.jolokia.http.AgentServlet;
@@ -90,10 +89,6 @@ abstract class AbstractEndpointRequestIntegrationTests {
 		int port = context.getSourceApplicationContext(AnnotationConfigServletWebServerApplicationContext.class)
 				.getWebServer().getPort();
 		return WebTestClient.bindToServer().baseUrl("http://localhost:" + port).build();
-	}
-
-	String getBasicAuth() {
-		return "Basic " + Base64.getEncoder().encodeToString("user:password".getBytes());
 	}
 
 	@Configuration(proxyBeanMethods = false)
