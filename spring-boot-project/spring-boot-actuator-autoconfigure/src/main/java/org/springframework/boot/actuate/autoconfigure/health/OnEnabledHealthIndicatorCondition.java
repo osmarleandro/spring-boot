@@ -17,7 +17,11 @@
 package org.springframework.boot.actuate.autoconfigure.health;
 
 import org.springframework.boot.actuate.autoconfigure.OnEndpointElementCondition;
+import org.springframework.boot.autoconfigure.condition.ConditionOutcome;
 import org.springframework.context.annotation.Condition;
+import org.springframework.context.annotation.ConditionContext;
+import org.springframework.core.annotation.AnnotationAttributes;
+import org.springframework.core.type.AnnotatedTypeMetadata;
 
 /**
  * {@link Condition} that checks if a health indicator is enabled.
@@ -28,6 +32,18 @@ class OnEnabledHealthIndicatorCondition extends OnEndpointElementCondition {
 
 	OnEnabledHealthIndicatorCondition() {
 		super("management.health.", ConditionalOnEnabledHealthIndicator.class);
+	}
+
+	@Override
+	public ConditionOutcome getMatchOutcome(ConditionContext context, AnnotatedTypeMetadata metadata) {
+		AnnotationAttributes annotationAttributes = AnnotationAttributes
+				.fromMap(metadata.getAnnotationAttributes(this.annotationType.getName()));
+		String endpointName = annotationAttributes.getString("value");
+		ConditionOutcome outcome = getEndpointOutcome(context, endpointName);
+		if (outcome != null) {
+			return outcome;
+		}
+		return getDefaultEndpointsOutcome(context);
 	}
 
 }
