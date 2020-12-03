@@ -132,6 +132,11 @@ class MappingsEndpointReactiveDocumentationTests extends AbstractEndpointDocumen
 		return fieldWithPath("*.[].details.requestMappingConditions" + path);
 	}
 
+	protected FieldDescriptor parentIdField() {
+		return fieldWithPath("contexts.*.parentId").description("Id of the parent application context, if any.")
+				.optional().type(JsonFieldType.STRING);
+	}
+
 	@Configuration(proxyBeanMethods = false)
 	@Import(BaseDocumentationConfiguration.class)
 	static class TestConfiguration {

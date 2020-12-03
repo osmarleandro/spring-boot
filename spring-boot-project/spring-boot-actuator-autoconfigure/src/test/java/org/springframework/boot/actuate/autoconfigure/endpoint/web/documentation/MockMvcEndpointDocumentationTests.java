@@ -16,6 +16,8 @@
 
 package org.springframework.boot.actuate.autoconfigure.endpoint.web.documentation;
 
+import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.ExtendWith;
 
@@ -24,6 +26,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.restdocs.RestDocumentationContextProvider;
 import org.springframework.restdocs.RestDocumentationExtension;
 import org.springframework.restdocs.mockmvc.MockMvcRestDocumentation;
+import org.springframework.restdocs.payload.FieldDescriptor;
+import org.springframework.restdocs.payload.JsonFieldType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
@@ -51,6 +55,11 @@ public abstract class MockMvcEndpointDocumentationTests extends AbstractEndpoint
 
 	protected WebApplicationContext getApplicationContext() {
 		return this.applicationContext;
+	}
+
+	protected FieldDescriptor parentIdField() {
+		return fieldWithPath("contexts.*.parentId").description("Id of the parent application context, if any.")
+				.optional().type(JsonFieldType.STRING);
 	}
 
 }

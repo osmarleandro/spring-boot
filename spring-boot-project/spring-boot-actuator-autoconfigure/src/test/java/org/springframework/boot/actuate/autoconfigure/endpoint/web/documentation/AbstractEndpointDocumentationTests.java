@@ -42,12 +42,8 @@ import org.springframework.boot.autoconfigure.web.servlet.WebMvcAutoConfiguratio
 import org.springframework.context.annotation.Configuration;
 import org.springframework.restdocs.operation.preprocess.ContentModifyingOperationPreprocessor;
 import org.springframework.restdocs.operation.preprocess.OperationPreprocessor;
-import org.springframework.restdocs.payload.FieldDescriptor;
-import org.springframework.restdocs.payload.JsonFieldType;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.util.StringUtils;
-
-import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
 
 /**
  * Abstract base class for tests that generate endpoint documentation using Spring REST
@@ -95,11 +91,6 @@ public abstract class AbstractEndpointDocumentationTests {
 				throw new IllegalStateException(ex);
 			}
 		});
-	}
-
-	protected FieldDescriptor parentIdField() {
-		return fieldWithPath("contexts.*.parentId").description("Id of the parent application context, if any.")
-				.optional().type(JsonFieldType.STRING);
 	}
 
 	@SuppressWarnings("unchecked")
