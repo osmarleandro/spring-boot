@@ -49,6 +49,7 @@ import org.springframework.boot.autoconfigure.web.servlet.UndertowServletWebServ
 import org.springframework.boot.web.embedded.jetty.JettyServletWebServerFactory;
 import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
 import org.springframework.boot.web.embedded.undertow.UndertowServletWebServerFactory;
+import org.springframework.boot.web.server.Ssl;
 import org.springframework.boot.web.server.WebServerFactoryCustomizer;
 import org.springframework.boot.web.servlet.server.ConfigurableServletWebServerFactory;
 import org.springframework.context.annotation.Bean;
@@ -124,6 +125,16 @@ class ServletManagementChildContextConfiguration {
 				ManagementServerProperties managementServerProperties, ServerProperties serverProperties) {
 			super.customize(webServerFactory, managementServerProperties, serverProperties);
 			webServerFactory.setContextPath(managementServerProperties.getServlet().getContextPath());
+		}
+
+		protected void customize(ConfigurableServletWebServerFactory factory, ManagementServerProperties managementServerProperties, ServerProperties serverProperties) {
+			factory.setPort(managementServerProperties.getPort());
+			Ssl ssl = managementServerProperties.getSsl();
+			if (ssl != null) {
+				factory.setSsl(ssl);
+			}
+			factory.setServerHeader(serverProperties.getServerHeader());
+			factory.setAddress(managementServerProperties.getAddress());
 		}
 
 	}

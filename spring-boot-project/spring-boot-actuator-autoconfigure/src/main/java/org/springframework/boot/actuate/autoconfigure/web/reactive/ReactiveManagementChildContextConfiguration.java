@@ -19,9 +19,11 @@ package org.springframework.boot.actuate.autoconfigure.web.reactive;
 import org.springframework.beans.factory.ListableBeanFactory;
 import org.springframework.boot.actuate.autoconfigure.web.ManagementContextConfiguration;
 import org.springframework.boot.actuate.autoconfigure.web.ManagementContextType;
+import org.springframework.boot.actuate.autoconfigure.web.server.ManagementServerProperties;
 import org.springframework.boot.actuate.autoconfigure.web.server.ManagementWebServerFactoryCustomizer;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication.Type;
+import org.springframework.boot.autoconfigure.web.ServerProperties;
 import org.springframework.boot.autoconfigure.web.embedded.JettyWebServerFactoryCustomizer;
 import org.springframework.boot.autoconfigure.web.embedded.NettyWebServerFactoryCustomizer;
 import org.springframework.boot.autoconfigure.web.embedded.TomcatWebServerFactoryCustomizer;
@@ -29,6 +31,7 @@ import org.springframework.boot.autoconfigure.web.embedded.UndertowWebServerFact
 import org.springframework.boot.autoconfigure.web.reactive.ReactiveWebServerFactoryCustomizer;
 import org.springframework.boot.autoconfigure.web.reactive.TomcatReactiveWebServerFactoryCustomizer;
 import org.springframework.boot.web.reactive.server.ConfigurableReactiveWebServerFactory;
+import org.springframework.boot.web.server.Ssl;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.server.reactive.HttpHandler;
@@ -67,6 +70,16 @@ public class ReactiveManagementChildContextConfiguration {
 			super(beanFactory, ReactiveWebServerFactoryCustomizer.class, TomcatWebServerFactoryCustomizer.class,
 					TomcatReactiveWebServerFactoryCustomizer.class, JettyWebServerFactoryCustomizer.class,
 					UndertowWebServerFactoryCustomizer.class, NettyWebServerFactoryCustomizer.class);
+		}
+
+		protected void customize(ConfigurableReactiveWebServerFactory factory, ManagementServerProperties managementServerProperties, ServerProperties serverProperties) {
+			factory.setPort(managementServerProperties.getPort());
+			Ssl ssl = managementServerProperties.getSsl();
+			if (ssl != null) {
+				factory.setSsl(ssl);
+			}
+			factory.setServerHeader(serverProperties.getServerHeader());
+			factory.setAddress(managementServerProperties.getAddress());
 		}
 
 	}
