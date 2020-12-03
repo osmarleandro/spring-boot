@@ -39,6 +39,7 @@ import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.restdocs.RestDocumentationContextProvider;
 import org.springframework.restdocs.RestDocumentationExtension;
+import org.springframework.restdocs.operation.preprocess.OperationPreprocessor;
 import org.springframework.restdocs.payload.FieldDescriptor;
 import org.springframework.restdocs.payload.JsonFieldType;
 import org.springframework.test.web.reactive.server.WebTestClient;
@@ -130,6 +131,10 @@ class MappingsEndpointReactiveDocumentationTests extends AbstractEndpointDocumen
 
 	private FieldDescriptor requestMappingConditionField(String path) {
 		return fieldWithPath("*.[].details.requestMappingConditions" + path);
+	}
+
+	protected OperationPreprocessor limit(String... keys) {
+		return limit((candidate) -> true, keys);
 	}
 
 	@Configuration(proxyBeanMethods = false)

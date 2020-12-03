@@ -64,10 +64,6 @@ public abstract class AbstractEndpointDocumentationTests {
 				.map((constant) -> "`" + constant.name() + "`").collect(Collectors.toList()), ", ");
 	}
 
-	protected OperationPreprocessor limit(String... keys) {
-		return limit((candidate) -> true, keys);
-	}
-
 	@SuppressWarnings("unchecked")
 	protected <T> OperationPreprocessor limit(Predicate<T> filter, String... keys) {
 		return new ContentModifyingOperationPreprocessor((content, mediaType) -> {
