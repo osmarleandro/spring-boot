@@ -22,7 +22,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
@@ -45,7 +44,6 @@ import org.springframework.restdocs.operation.preprocess.OperationPreprocessor;
 import org.springframework.restdocs.payload.FieldDescriptor;
 import org.springframework.restdocs.payload.JsonFieldType;
 import org.springframework.test.context.TestPropertySource;
-import org.springframework.util.StringUtils;
 
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
 
@@ -58,11 +56,6 @@ import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWit
 @TestPropertySource(properties = { "spring.jackson.serialization.indent_output=true",
 		"management.endpoints.web.exposure.include=*", "spring.jackson.default-property-inclusion=non_null" })
 public abstract class AbstractEndpointDocumentationTests {
-
-	protected String describeEnumValues(Class<? extends Enum<?>> enumType) {
-		return StringUtils.collectionToDelimitedString(Stream.of(enumType.getEnumConstants())
-				.map((constant) -> "`" + constant.name() + "`").collect(Collectors.toList()), ", ");
-	}
 
 	protected OperationPreprocessor limit(String... keys) {
 		return limit((candidate) -> true, keys);

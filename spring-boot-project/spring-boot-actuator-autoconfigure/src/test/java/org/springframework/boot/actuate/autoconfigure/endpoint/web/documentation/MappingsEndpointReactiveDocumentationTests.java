@@ -20,6 +20,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -42,6 +44,7 @@ import org.springframework.restdocs.RestDocumentationExtension;
 import org.springframework.restdocs.payload.FieldDescriptor;
 import org.springframework.restdocs.payload.JsonFieldType;
 import org.springframework.test.web.reactive.server.WebTestClient;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.reactive.function.server.RouterFunction;
@@ -130,6 +133,11 @@ class MappingsEndpointReactiveDocumentationTests extends AbstractEndpointDocumen
 
 	private FieldDescriptor requestMappingConditionField(String path) {
 		return fieldWithPath("*.[].details.requestMappingConditions" + path);
+	}
+
+	protected String describeEnumValues(Class<? extends Enum<?>> enumType) {
+		return StringUtils.collectionToDelimitedString(Stream.of(enumType.getEnumConstants())
+				.map((constant) -> "`" + constant.name() + "`").collect(Collectors.toList()), ", ");
 	}
 
 	@Configuration(proxyBeanMethods = false)

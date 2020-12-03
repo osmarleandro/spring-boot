@@ -16,6 +16,9 @@
 
 package org.springframework.boot.actuate.autoconfigure.endpoint.web.documentation;
 
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.ExtendWith;
 
@@ -26,6 +29,7 @@ import org.springframework.restdocs.RestDocumentationExtension;
 import org.springframework.restdocs.mockmvc.MockMvcRestDocumentation;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.util.StringUtils;
 import org.springframework.web.context.WebApplicationContext;
 
 /**
@@ -51,6 +55,11 @@ public abstract class MockMvcEndpointDocumentationTests extends AbstractEndpoint
 
 	protected WebApplicationContext getApplicationContext() {
 		return this.applicationContext;
+	}
+
+	protected String describeEnumValues(Class<? extends Enum<?>> enumType) {
+		return StringUtils.collectionToDelimitedString(Stream.of(enumType.getEnumConstants())
+				.map((constant) -> "`" + constant.name() + "`").collect(Collectors.toList()), ", ");
 	}
 
 }
