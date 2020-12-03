@@ -16,6 +16,9 @@
 
 package org.springframework.boot.actuate.autoconfigure.metrics.export.properties;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
+import io.micrometer.core.instrument.push.PushRegistryConfig;
 import io.micrometer.core.instrument.step.StepRegistryConfig;
 
 /**
@@ -27,6 +30,15 @@ public abstract class StepRegistryPropertiesTests extends PushRegistryProperties
 
 	protected void assertStepRegistryDefaultValues(StepRegistryProperties properties, StepRegistryConfig config) {
 		super.assertStepRegistryDefaultValues(properties, config);
+	}
+
+	@SuppressWarnings("deprecation")
+	protected void assertStepRegistryDefaultValues(PushRegistryProperties properties, PushRegistryConfig config) {
+		assertThat(properties.getStep()).isEqualTo(config.step());
+		assertThat(properties.isEnabled()).isEqualTo(config.enabled());
+		assertThat(properties.getConnectTimeout()).isEqualTo(config.connectTimeout());
+		assertThat(properties.getReadTimeout()).isEqualTo(config.readTimeout());
+		assertThat(properties.getBatchSize()).isEqualTo(config.batchSize());
 	}
 
 }
