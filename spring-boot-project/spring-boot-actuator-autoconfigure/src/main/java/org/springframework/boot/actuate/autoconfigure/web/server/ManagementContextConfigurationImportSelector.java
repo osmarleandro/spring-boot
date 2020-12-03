@@ -16,7 +16,6 @@
 
 package org.springframework.boot.actuate.autoconfigure.web.server;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -76,17 +75,6 @@ class ManagementContextConfigurationImportSelector implements DeferredImportSele
 		return configurations;
 	}
 
-	private void addConfiguration(SimpleMetadataReaderFactory readerFactory,
-			List<ManagementConfiguration> configurations, String className) {
-		try {
-			MetadataReader metadataReader = readerFactory.getMetadataReader(className);
-			configurations.add(new ManagementConfiguration(metadataReader));
-		}
-		catch (IOException ex) {
-			throw new RuntimeException("Failed to read annotation metadata for '" + className + "'", ex);
-		}
-	}
-
 	protected List<String> loadFactoryNames() {
 		return SpringFactoriesLoader.loadFactoryNames(ManagementContextConfiguration.class, this.classLoader);
 	}
@@ -99,7 +87,7 @@ class ManagementContextConfigurationImportSelector implements DeferredImportSele
 	/**
 	 * A management configuration class which can be sorted according to {@code @Order}.
 	 */
-	private static final class ManagementConfiguration implements Ordered {
+	public static final class ManagementConfiguration implements Ordered {
 
 		private final String className;
 
