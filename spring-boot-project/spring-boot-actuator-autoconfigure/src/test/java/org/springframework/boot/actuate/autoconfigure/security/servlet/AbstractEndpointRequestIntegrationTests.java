@@ -49,14 +49,6 @@ import org.springframework.test.web.reactive.server.WebTestClient;
 abstract class AbstractEndpointRequestIntegrationTests {
 
 	@Test
-	void toEndpointShouldMatch() {
-		getContextRunner().run((context) -> {
-			WebTestClient webTestClient = getWebTestClient(context);
-			webTestClient.get().uri("/actuator/e1").exchange().expectStatus().isOk();
-		});
-	}
-
-	@Test
 	void toAllEndpointsShouldMatch() {
 		getContextRunner().withPropertyValues("spring.security.user.password=password").run((context) -> {
 			WebTestClient webTestClient = getWebTestClient(context);

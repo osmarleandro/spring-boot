@@ -103,6 +103,14 @@ class MvcEndpointRequestIntegrationTests extends AbstractEndpointRequestIntegrat
 						HttpMessageConvertersAutoConfiguration.class, WebMvcAutoConfiguration.class));
 	}
 
+	@Test
+	void toEndpointShouldMatch() {
+		getContextRunner().run((context) -> {
+			WebTestClient webTestClient = getWebTestClient(context);
+			webTestClient.get().uri("/actuator/e1").exchange().expectStatus().isOk();
+		});
+	}
+
 	@Configuration(proxyBeanMethods = false)
 	@EnableConfigurationProperties(WebEndpointProperties.class)
 	static class WebMvcEndpointConfiguration {
