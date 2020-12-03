@@ -34,4 +34,9 @@ public abstract class StepRegistryPropertiesConfigAdapter<T extends StepRegistry
 		super(properties);
 	}
 
+	@Override
+	public boolean enabled() {
+		return get(T::isEnabled, PushRegistryConfig.super::enabled);
+	}
+
 }

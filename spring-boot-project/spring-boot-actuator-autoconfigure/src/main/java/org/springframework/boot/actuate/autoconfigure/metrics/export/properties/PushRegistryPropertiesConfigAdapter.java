@@ -47,11 +47,6 @@ public abstract class PushRegistryPropertiesConfigAdapter<T extends PushRegistry
 	}
 
 	@Override
-	public boolean enabled() {
-		return get(T::isEnabled, PushRegistryConfig.super::enabled);
-	}
-
-	@Override
 	public int batchSize() {
 		return get(T::getBatchSize, PushRegistryConfig.super::batchSize);
 	}
