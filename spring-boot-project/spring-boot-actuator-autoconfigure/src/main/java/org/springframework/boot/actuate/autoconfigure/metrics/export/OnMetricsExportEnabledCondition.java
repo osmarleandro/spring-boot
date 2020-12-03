@@ -17,7 +17,11 @@
 package org.springframework.boot.actuate.autoconfigure.metrics.export;
 
 import org.springframework.boot.actuate.autoconfigure.OnEndpointElementCondition;
+import org.springframework.boot.autoconfigure.condition.ConditionMessage;
+import org.springframework.boot.autoconfigure.condition.ConditionOutcome;
 import org.springframework.context.annotation.Condition;
+import org.springframework.context.annotation.ConditionContext;
+import org.springframework.core.env.Environment;
 
 /**
  * {@link Condition} that checks if a metrics exporter is enabled.
@@ -28,6 +32,17 @@ class OnMetricsExportEnabledCondition extends OnEndpointElementCondition {
 
 	protected OnMetricsExportEnabledCondition() {
 		super("management.metrics.export.", ConditionalOnEnabledMetricsExport.class);
+	}
+
+	protected ConditionOutcome getEndpointOutcome(ConditionContext context, String endpointName) {
+		Environment environment = context.getEnvironment();
+		String enabledProperty = this.prefix + endpointName + ".enabled";
+		if (environment.containsProperty(enabledProperty)) {
+			boolean match = environment.getProperty(enabledProperty, Boolean.class, true);
+			return new ConditionOutcome(match, ConditionMessage.forCondition(this.annotationType)
+					.because(this.prefix + endpointName + ".enabled is " + match));
+		}
+		return null;
 	}
 
 }
