@@ -16,6 +16,8 @@
 
 package org.springframework.boot.actuate.autoconfigure.metrics.export.properties;
 
+import java.time.Duration;
+
 /**
  * {@link PushRegistryProperties} extensions for registries that are step-normalized.
  *
@@ -25,5 +27,9 @@ package org.springframework.boot.actuate.autoconfigure.metrics.export.properties
  * @since 2.0.0
  */
 public abstract class StepRegistryProperties extends PushRegistryProperties {
+
+	public Duration getConnectTimeout() {
+		return this.connectTimeout;
+	}
 
 }

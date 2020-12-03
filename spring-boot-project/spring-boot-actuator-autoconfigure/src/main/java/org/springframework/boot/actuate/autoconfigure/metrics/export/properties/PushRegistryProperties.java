@@ -42,7 +42,7 @@ public abstract class PushRegistryProperties {
 	/**
 	 * Connection timeout for requests to this backend.
 	 */
-	private Duration connectTimeout = Duration.ofSeconds(1);
+	protected Duration connectTimeout = Duration.ofSeconds(1);
 
 	/**
 	 * Read timeout for requests to this backend.
@@ -69,10 +69,6 @@ public abstract class PushRegistryProperties {
 
 	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
-	}
-
-	public Duration getConnectTimeout() {
-		return this.connectTimeout;
 	}
 
 	public void setConnectTimeout(Duration connectTimeout) {
