@@ -84,8 +84,6 @@ abstract class AbstractEndpointRequestIntegrationTests {
 
 	}
 
-	protected abstract WebApplicationContextRunner createContextRunner();
-
 	protected WebTestClient getWebTestClient(AssertableWebApplicationContext context) {
 		int port = context.getSourceApplicationContext(AnnotationConfigServletWebServerApplicationContext.class)
 				.getWebServer().getPort();
