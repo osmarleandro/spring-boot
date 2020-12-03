@@ -56,6 +56,10 @@ public class HealthEndpointProperties extends HealthProperties {
 		return this.group;
 	}
 
+	public Status getStatus() {
+		return this.status;
+	}
+
 	/**
 	 * A health endpoint group.
 	 */
@@ -100,6 +104,10 @@ public class HealthEndpointProperties extends HealthProperties {
 
 		public void setShowDetails(Show showDetails) {
 			this.showDetails = showDetails;
+		}
+
+		public Status getStatus() {
+			return this.status;
 		}
 
 	}

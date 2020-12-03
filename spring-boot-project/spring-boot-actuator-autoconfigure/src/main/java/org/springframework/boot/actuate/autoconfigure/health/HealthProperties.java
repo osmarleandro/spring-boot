@@ -36,7 +36,8 @@ import org.springframework.boot.context.properties.NestedConfigurationProperty;
 public abstract class HealthProperties {
 
 	@NestedConfigurationProperty
-	private final Status status = new Status();
+	protected
+	final Status status = new Status();
 
 	/**
 	 * When to show components. If not specified the 'show-details' setting will be used.
@@ -48,10 +49,6 @@ public abstract class HealthProperties {
 	 * When empty, all authenticated users are authorized.
 	 */
 	private Set<String> roles = new HashSet<>();
-
-	public Status getStatus() {
-		return this.status;
-	}
 
 	public Show getShowComponents() {
 		return this.showComponents;
