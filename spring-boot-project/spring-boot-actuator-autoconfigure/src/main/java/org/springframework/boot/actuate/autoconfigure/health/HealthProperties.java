@@ -41,7 +41,7 @@ public abstract class HealthProperties {
 	/**
 	 * When to show components. If not specified the 'show-details' setting will be used.
 	 */
-	private Show showComponents;
+	protected Show showComponents;
 
 	/**
 	 * Roles used to determine whether or not a user is authorized to be shown details.
@@ -55,10 +55,6 @@ public abstract class HealthProperties {
 
 	public Show getShowComponents() {
 		return this.showComponents;
-	}
-
-	public void setShowComponents(Show showComponents) {
-		this.showComponents = showComponents;
 	}
 
 	public abstract Show getShowDetails();
