@@ -26,4 +26,8 @@ package org.springframework.boot.actuate.autoconfigure.metrics.export.properties
  */
 public abstract class StepRegistryProperties extends PushRegistryProperties {
 
+	public Integer getBatchSize() {
+		return this.batchSize;
+	}
+
 }
