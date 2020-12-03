@@ -70,4 +70,11 @@ class WavefrontPropertiesConfigAdapterTests
 		assertThat(createConfigAdapter(properties).globalPrefix()).isEqualTo("test");
 	}
 
+	@Test
+	void whenPropertiesEnabledIsSetAdapterEnabledReturnsIt() {
+		WavefrontProperties properties = createProperties();
+		properties.setEnabled(false);
+		assertThat(createConfigAdapter(properties).enabled()).isFalse();
+	}
+
 }
