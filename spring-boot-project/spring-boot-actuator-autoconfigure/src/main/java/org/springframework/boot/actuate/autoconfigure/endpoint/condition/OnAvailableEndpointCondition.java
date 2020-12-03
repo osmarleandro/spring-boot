@@ -24,12 +24,19 @@ import org.springframework.boot.actuate.autoconfigure.endpoint.expose.IncludeExc
 import org.springframework.boot.actuate.autoconfigure.endpoint.expose.IncludeExcludeEndpointFilter.DefaultIncludes;
 import org.springframework.boot.actuate.endpoint.EndpointId;
 import org.springframework.boot.actuate.endpoint.ExposableEndpoint;
+import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
+import org.springframework.boot.actuate.endpoint.annotation.EndpointExtension;
 import org.springframework.boot.autoconfigure.condition.ConditionMessage;
 import org.springframework.boot.autoconfigure.condition.ConditionOutcome;
 import org.springframework.boot.cloud.CloudPlatform;
 import org.springframework.context.annotation.ConditionContext;
+import org.springframework.core.annotation.AnnotationAttributes;
+import org.springframework.core.annotation.MergedAnnotation;
+import org.springframework.core.annotation.MergedAnnotations;
+import org.springframework.core.annotation.MergedAnnotations.SearchStrategy;
 import org.springframework.core.env.Environment;
 import org.springframework.core.type.AnnotatedTypeMetadata;
+import org.springframework.util.Assert;
 import org.springframework.util.ConcurrentReferenceHashMap;
 
 /**
@@ -85,6 +92,18 @@ class OnAvailableEndpointCondition extends AbstractEndpointCondition {
 			exposuresCache.put(environment, exposures);
 		}
 		return exposures;
+	}
+
+	protected AnnotationAttributes getEndpointAttributes(Class<?> type) {
+		MergedAnnotations annotations = MergedAnnotations.from(type, SearchStrategy.TYPE_HIERARCHY);
+		MergedAnnotation<Endpoint> endpoint = annotations.get(Endpoint.class);
+		if (endpoint.isPresent()) {
+			return endpoint.asAnnotationAttributes();
+		}
+		MergedAnnotation<EndpointExtension> extension = annotations.get(EndpointExtension.class);
+		Assert.state(extension.isPresent(), "No endpoint is specified and the return type of the @Bean method is "
+				+ "neither an @Endpoint, nor an @EndpointExtension");
+		return getEndpointAttributes(extension.getClass("endpoint"));
 	}
 
 	static class Exposure extends IncludeExcludeEndpointFilter<ExposableEndpoint<?>> {

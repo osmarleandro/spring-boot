@@ -22,16 +22,12 @@ import java.util.Optional;
 
 import org.springframework.boot.actuate.endpoint.EndpointId;
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
-import org.springframework.boot.actuate.endpoint.annotation.EndpointExtension;
 import org.springframework.boot.autoconfigure.condition.ConditionMessage;
 import org.springframework.boot.autoconfigure.condition.ConditionOutcome;
 import org.springframework.boot.autoconfigure.condition.SpringBootCondition;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ConditionContext;
 import org.springframework.core.annotation.AnnotationAttributes;
-import org.springframework.core.annotation.MergedAnnotation;
-import org.springframework.core.annotation.MergedAnnotations;
-import org.springframework.core.annotation.MergedAnnotations.SearchStrategy;
 import org.springframework.core.env.Environment;
 import org.springframework.core.type.AnnotatedTypeMetadata;
 import org.springframework.core.type.MethodMetadata;
@@ -98,18 +94,6 @@ abstract class AbstractEndpointCondition extends SpringBootCondition {
 			throw new IllegalStateException("Failed to extract endpoint id for "
 					+ methodMetadata.getDeclaringClassName() + "." + methodMetadata.getMethodName(), ex);
 		}
-	}
-
-	protected AnnotationAttributes getEndpointAttributes(Class<?> type) {
-		MergedAnnotations annotations = MergedAnnotations.from(type, SearchStrategy.TYPE_HIERARCHY);
-		MergedAnnotation<Endpoint> endpoint = annotations.get(Endpoint.class);
-		if (endpoint.isPresent()) {
-			return endpoint.asAnnotationAttributes();
-		}
-		MergedAnnotation<EndpointExtension> extension = annotations.get(EndpointExtension.class);
-		Assert.state(extension.isPresent(), "No endpoint is specified and the return type of the @Bean method is "
-				+ "neither an @Endpoint, nor an @EndpointExtension");
-		return getEndpointAttributes(extension.getClass("endpoint"));
 	}
 
 	private Boolean isEnabledByDefault(Environment environment) {
