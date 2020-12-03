@@ -16,6 +16,7 @@
 
 package org.springframework.boot.actuate.autoconfigure.web.server;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -26,6 +27,7 @@ import org.springframework.boot.actuate.autoconfigure.web.ManagementContextConfi
 import org.springframework.boot.actuate.autoconfigure.web.ManagementContextType;
 import org.springframework.core.annotation.Order;
 import org.springframework.core.type.AnnotationMetadata;
+import org.springframework.core.type.classreading.SimpleMetadataReaderFactory;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -70,6 +72,15 @@ class ManagementContextConfigurationImportSelectorTests {
 		@Override
 		protected List<String> loadFactoryNames() {
 			return this.factoryNames;
+		}
+
+		private List<ManagementConfiguration> getConfigurations() {
+			SimpleMetadataReaderFactory readerFactory = new SimpleMetadataReaderFactory(this.classLoader);
+			List<ManagementConfiguration> configurations = new ArrayList<>();
+			for (String className : loadFactoryNames()) {
+				addConfiguration(readerFactory, configurations, className);
+			}
+			return configurations;
 		}
 
 	}

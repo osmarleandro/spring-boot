@@ -48,7 +48,7 @@ import org.springframework.util.StringUtils;
 @Order(Ordered.LOWEST_PRECEDENCE)
 class ManagementContextConfigurationImportSelector implements DeferredImportSelector, BeanClassLoaderAware {
 
-	private ClassLoader classLoader;
+	protected ClassLoader classLoader;
 
 	@Override
 	public String[] selectImports(AnnotationMetadata metadata) {
@@ -67,16 +67,7 @@ class ManagementContextConfigurationImportSelector implements DeferredImportSele
 		return StringUtils.toStringArray(names);
 	}
 
-	private List<ManagementConfiguration> getConfigurations() {
-		SimpleMetadataReaderFactory readerFactory = new SimpleMetadataReaderFactory(this.classLoader);
-		List<ManagementConfiguration> configurations = new ArrayList<>();
-		for (String className : loadFactoryNames()) {
-			addConfiguration(readerFactory, configurations, className);
-		}
-		return configurations;
-	}
-
-	private void addConfiguration(SimpleMetadataReaderFactory readerFactory,
+	protected void addConfiguration(SimpleMetadataReaderFactory readerFactory,
 			List<ManagementConfiguration> configurations, String className) {
 		try {
 			MetadataReader metadataReader = readerFactory.getMetadataReader(className);
@@ -99,7 +90,7 @@ class ManagementContextConfigurationImportSelector implements DeferredImportSele
 	/**
 	 * A management configuration class which can be sorted according to {@code @Order}.
 	 */
-	private static final class ManagementConfiguration implements Ordered {
+	public static final class ManagementConfiguration implements Ordered {
 
 		private final String className;
 
