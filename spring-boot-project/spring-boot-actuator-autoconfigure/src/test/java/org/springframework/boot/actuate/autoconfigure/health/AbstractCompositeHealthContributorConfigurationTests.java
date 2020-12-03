@@ -26,7 +26,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.util.ClassUtils;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
 
 /**
  * Tests for {@link AbstractCompositeHealthContributorConfiguration}.
@@ -43,13 +42,6 @@ abstract class AbstractCompositeHealthContributorConfigurationTests<C, I extends
 		ResolvableType type = ResolvableType.forClass(AbstractCompositeHealthContributorConfigurationTests.class,
 				getClass());
 		this.indicatorType = type.resolveGeneric(1);
-	}
-
-	@Test
-	void createContributorWhenBeansIsEmptyThrowsException() {
-		Map<String, TestBean> beans = Collections.emptyMap();
-		assertThatIllegalArgumentException().isThrownBy(() -> newComposite().createContributor(beans))
-				.withMessage("Beans must not be empty");
 	}
 
 	@Test

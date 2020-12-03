@@ -18,6 +18,12 @@ package org.springframework.boot.actuate.autoconfigure.health;
 
 import reactor.core.publisher.Mono;
 
+import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
+
+import java.util.Collections;
+import java.util.Map;
+
+import org.junit.jupiter.api.Test;
 import org.springframework.boot.actuate.autoconfigure.health.CompositeReactiveHealthContributorConfigurationTests.TestReactiveHealthIndicator;
 import org.springframework.boot.actuate.health.AbstractReactiveHealthIndicator;
 import org.springframework.boot.actuate.health.Health;
@@ -35,6 +41,13 @@ class CompositeReactiveHealthContributorConfigurationTests extends
 	@Override
 	protected AbstractCompositeHealthContributorConfiguration<ReactiveHealthContributor, TestReactiveHealthIndicator, TestBean> newComposite() {
 		return new TestCompositeReactiveHealthContributorConfiguration();
+	}
+
+	@Test
+	void createContributorWhenBeansIsEmptyThrowsException() {
+		Map<String, TestBean> beans = Collections.emptyMap();
+		assertThatIllegalArgumentException().isThrownBy(() -> newComposite().createContributor(beans))
+				.withMessage("Beans must not be empty");
 	}
 
 	static class TestCompositeReactiveHealthContributorConfiguration
