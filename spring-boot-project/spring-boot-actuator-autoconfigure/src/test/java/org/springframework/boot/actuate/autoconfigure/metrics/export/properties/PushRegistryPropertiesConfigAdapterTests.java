@@ -34,8 +34,6 @@ public abstract class PushRegistryPropertiesConfigAdapterTests<P extends PushReg
 
 	protected abstract P createProperties();
 
-	protected abstract A createConfigAdapter(P properties);
-
 	@Test
 	void whenPropertiesStepIsSetAdapterStepReturnsIt() {
 		P properties = createProperties();
