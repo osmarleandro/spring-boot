@@ -106,6 +106,13 @@ class OnAvailableEndpointCondition extends AbstractEndpointCondition {
 			return super.match(id);
 		}
 
+		private boolean isExcluded(EndpointId endpointId) {
+			if (this.exclude.isEmpty()) {
+				return false;
+			}
+			return this.exclude.matches(endpointId);
+		}
+
 	}
 
 }
