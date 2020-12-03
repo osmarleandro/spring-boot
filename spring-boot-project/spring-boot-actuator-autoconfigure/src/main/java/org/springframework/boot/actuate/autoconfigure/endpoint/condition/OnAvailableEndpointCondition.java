@@ -27,9 +27,13 @@ import org.springframework.boot.actuate.endpoint.ExposableEndpoint;
 import org.springframework.boot.autoconfigure.condition.ConditionMessage;
 import org.springframework.boot.autoconfigure.condition.ConditionOutcome;
 import org.springframework.boot.cloud.CloudPlatform;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ConditionContext;
 import org.springframework.core.env.Environment;
 import org.springframework.core.type.AnnotatedTypeMetadata;
+import org.springframework.core.type.MethodMetadata;
+import org.springframework.util.Assert;
+import org.springframework.util.ClassUtils;
 import org.springframework.util.ConcurrentReferenceHashMap;
 
 /**
@@ -85,6 +89,26 @@ class OnAvailableEndpointCondition extends AbstractEndpointCondition {
 			exposuresCache.put(environment, exposures);
 		}
 		return exposures;
+	}
+
+	protected Class<?> getEndpointType(Class<?> annotationClass, ConditionContext context, AnnotatedTypeMetadata metadata) {
+		Map<String, Object> attributes = metadata.getAnnotationAttributes(annotationClass.getName());
+		if (attributes != null && attributes.containsKey("endpoint")) {
+			Class<?> target = (Class<?>) attributes.get("endpoint");
+			if (target != Void.class) {
+				return target;
+			}
+		}
+		Assert.state(metadata instanceof MethodMetadata && metadata.isAnnotated(Bean.class.getName()),
+				"EndpointCondition must be used on @Bean methods when the endpoint is not specified");
+		MethodMetadata methodMetadata = (MethodMetadata) metadata;
+		try {
+			return ClassUtils.forName(methodMetadata.getReturnTypeName(), context.getClassLoader());
+		}
+		catch (Throwable ex) {
+			throw new IllegalStateException("Failed to extract endpoint id for "
+					+ methodMetadata.getDeclaringClassName() + "." + methodMetadata.getMethodName(), ex);
+		}
 	}
 
 	static class Exposure extends IncludeExcludeEndpointFilter<ExposableEndpoint<?>> {
