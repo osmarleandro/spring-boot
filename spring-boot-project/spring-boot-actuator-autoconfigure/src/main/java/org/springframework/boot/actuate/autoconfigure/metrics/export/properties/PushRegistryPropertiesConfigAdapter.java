@@ -37,11 +37,6 @@ public abstract class PushRegistryPropertiesConfigAdapter<T extends PushRegistry
 	}
 
 	@Override
-	public String get(String k) {
-		return null;
-	}
-
-	@Override
 	public Duration step() {
 		return get(T::getStep, PushRegistryConfig.super::step);
 	}

@@ -34,4 +34,9 @@ public abstract class StepRegistryPropertiesConfigAdapter<T extends StepRegistry
 		super(properties);
 	}
 
+	@Override
+	public String get(String k) {
+		return null;
+	}
+
 }
