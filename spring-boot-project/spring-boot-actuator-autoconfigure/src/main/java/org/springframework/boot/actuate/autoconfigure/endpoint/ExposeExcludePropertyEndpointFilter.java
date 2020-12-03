@@ -46,4 +46,13 @@ public class ExposeExcludePropertyEndpointFilter<E extends ExposableEndpoint<?>>
 		super(endpointType, include, exclude, exposeDefaults);
 	}
 
+	@Override
+	public boolean match(E endpoint) {
+		if (!this.endpointType.isInstance(endpoint)) {
+			// Leave non-matching types for other filters
+			return true;
+		}
+		return match(endpoint.getEndpointId());
+	}
+
 }

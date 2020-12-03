@@ -106,6 +106,15 @@ class OnAvailableEndpointCondition extends AbstractEndpointCondition {
 			return super.match(id);
 		}
 
+		@Override
+		public boolean match(ExposableEndpoint<?> endpoint) {
+			if (!this.endpointType.isInstance(endpoint)) {
+				// Leave non-matching types for other filters
+				return true;
+			}
+			return match(endpoint.getEndpointId());
+		}
+
 	}
 
 }

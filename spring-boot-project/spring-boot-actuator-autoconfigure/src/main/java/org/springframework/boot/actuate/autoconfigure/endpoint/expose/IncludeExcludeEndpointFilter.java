@@ -42,7 +42,7 @@ import org.springframework.util.Assert;
  */
 public class IncludeExcludeEndpointFilter<E extends ExposableEndpoint<?>> implements EndpointFilter<E> {
 
-	private final Class<E> endpointType;
+	protected final Class<E> endpointType;
 
 	private final EndpointPatterns include;
 
@@ -131,15 +131,6 @@ public class IncludeExcludeEndpointFilter<E extends ExposableEndpoint<?>> implem
 
 	private List<String> bind(Binder binder, String name) {
 		return binder.bind(name, Bindable.listOf(String.class)).orElseGet(ArrayList::new);
-	}
-
-	@Override
-	public boolean match(E endpoint) {
-		if (!this.endpointType.isInstance(endpoint)) {
-			// Leave non-matching types for other filters
-			return true;
-		}
-		return match(endpoint.getEndpointId());
 	}
 
 	/**
