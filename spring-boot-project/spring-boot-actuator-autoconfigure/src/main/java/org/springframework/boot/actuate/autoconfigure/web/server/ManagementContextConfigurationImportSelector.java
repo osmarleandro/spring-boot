@@ -28,7 +28,6 @@ import org.springframework.context.annotation.DeferredImportSelector;
 import org.springframework.core.OrderComparator;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
-import org.springframework.core.io.support.SpringFactoriesLoader;
 import org.springframework.core.type.AnnotationMetadata;
 import org.springframework.core.type.classreading.MetadataReader;
 import org.springframework.core.type.classreading.SimpleMetadataReaderFactory;
@@ -48,7 +47,7 @@ import org.springframework.util.StringUtils;
 @Order(Ordered.LOWEST_PRECEDENCE)
 class ManagementContextConfigurationImportSelector implements DeferredImportSelector, BeanClassLoaderAware {
 
-	private ClassLoader classLoader;
+	protected ClassLoader classLoader;
 
 	@Override
 	public String[] selectImports(AnnotationMetadata metadata) {
@@ -85,10 +84,6 @@ class ManagementContextConfigurationImportSelector implements DeferredImportSele
 		catch (IOException ex) {
 			throw new RuntimeException("Failed to read annotation metadata for '" + className + "'", ex);
 		}
-	}
-
-	protected List<String> loadFactoryNames() {
-		return SpringFactoriesLoader.loadFactoryNames(ManagementContextConfiguration.class, this.classLoader);
 	}
 
 	@Override

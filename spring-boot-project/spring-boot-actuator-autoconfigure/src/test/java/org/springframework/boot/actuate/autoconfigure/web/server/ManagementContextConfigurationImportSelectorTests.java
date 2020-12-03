@@ -25,6 +25,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.actuate.autoconfigure.web.ManagementContextConfiguration;
 import org.springframework.boot.actuate.autoconfigure.web.ManagementContextType;
 import org.springframework.core.annotation.Order;
+import org.springframework.core.io.support.SpringFactoriesLoader;
 import org.springframework.core.type.AnnotationMetadata;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -70,6 +71,10 @@ class ManagementContextConfigurationImportSelectorTests {
 		@Override
 		protected List<String> loadFactoryNames() {
 			return this.factoryNames;
+		}
+
+		protected List<String> loadFactoryNames() {
+			return SpringFactoriesLoader.loadFactoryNames(ManagementContextConfiguration.class, this.classLoader);
 		}
 
 	}
