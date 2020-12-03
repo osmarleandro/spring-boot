@@ -16,7 +16,9 @@
 
 package org.springframework.boot.actuate.autoconfigure.endpoint.condition;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -27,6 +29,8 @@ import org.springframework.boot.actuate.endpoint.ExposableEndpoint;
 import org.springframework.boot.autoconfigure.condition.ConditionMessage;
 import org.springframework.boot.autoconfigure.condition.ConditionOutcome;
 import org.springframework.boot.cloud.CloudPlatform;
+import org.springframework.boot.context.properties.bind.Bindable;
+import org.springframework.boot.context.properties.bind.Binder;
 import org.springframework.context.annotation.ConditionContext;
 import org.springframework.core.env.Environment;
 import org.springframework.core.type.AnnotatedTypeMetadata;
@@ -104,6 +108,10 @@ class OnAvailableEndpointCondition extends AbstractEndpointCondition {
 
 		boolean isExposed(EndpointId id) {
 			return super.match(id);
+		}
+
+		private List<String> bind(Binder binder, String name) {
+			return binder.bind(name, Bindable.listOf(String.class)).orElseGet(ArrayList::new);
 		}
 
 	}

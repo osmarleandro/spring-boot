@@ -16,11 +16,15 @@
 
 package org.springframework.boot.actuate.autoconfigure.endpoint;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import org.springframework.boot.actuate.autoconfigure.endpoint.expose.IncludeExcludeEndpointFilter;
 import org.springframework.boot.actuate.endpoint.EndpointFilter;
 import org.springframework.boot.actuate.endpoint.ExposableEndpoint;
+import org.springframework.boot.context.properties.bind.Bindable;
+import org.springframework.boot.context.properties.bind.Binder;
 import org.springframework.core.env.Environment;
 
 /**
@@ -44,6 +48,10 @@ public class ExposeExcludePropertyEndpointFilter<E extends ExposableEndpoint<?>>
 	public ExposeExcludePropertyEndpointFilter(Class<E> endpointType, Collection<String> include,
 			Collection<String> exclude, String... exposeDefaults) {
 		super(endpointType, include, exclude, exposeDefaults);
+	}
+
+	private List<String> bind(Binder binder, String name) {
+		return binder.bind(name, Bindable.listOf(String.class)).orElseGet(ArrayList::new);
 	}
 
 }
