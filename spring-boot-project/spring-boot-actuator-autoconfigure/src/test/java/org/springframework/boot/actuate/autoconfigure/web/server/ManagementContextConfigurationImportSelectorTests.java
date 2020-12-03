@@ -16,6 +16,7 @@
 
 package org.springframework.boot.actuate.autoconfigure.web.server;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -24,8 +25,10 @@ import org.junit.jupiter.api.Test;
 
 import org.springframework.boot.actuate.autoconfigure.web.ManagementContextConfiguration;
 import org.springframework.boot.actuate.autoconfigure.web.ManagementContextType;
+import org.springframework.core.OrderComparator;
 import org.springframework.core.annotation.Order;
 import org.springframework.core.type.AnnotationMetadata;
+import org.springframework.util.StringUtils;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -70,6 +73,23 @@ class ManagementContextConfigurationImportSelectorTests {
 		@Override
 		protected List<String> loadFactoryNames() {
 			return this.factoryNames;
+		}
+
+		@Override
+		public String[] selectImports(AnnotationMetadata metadata) {
+			ManagementContextType contextType = (ManagementContextType) metadata
+					.getAnnotationAttributes(EnableManagementContext.class.getName()).get("value");
+			// Find all management context configuration classes, filtering duplicates
+			List<ManagementConfiguration> configurations = getConfigurations();
+			OrderComparator.sort(configurations);
+			List<String> names = new ArrayList<>();
+			for (ManagementConfiguration configuration : configurations) {
+				if (configuration.getContextType() == ManagementContextType.ANY
+						|| configuration.getContextType() == contextType) {
+					names.add(configuration.getClassName());
+				}
+			}
+			return StringUtils.toStringArray(names);
 		}
 
 	}

@@ -25,14 +25,12 @@ import org.springframework.beans.factory.BeanClassLoaderAware;
 import org.springframework.boot.actuate.autoconfigure.web.ManagementContextConfiguration;
 import org.springframework.boot.actuate.autoconfigure.web.ManagementContextType;
 import org.springframework.context.annotation.DeferredImportSelector;
-import org.springframework.core.OrderComparator;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.core.io.support.SpringFactoriesLoader;
 import org.springframework.core.type.AnnotationMetadata;
 import org.springframework.core.type.classreading.MetadataReader;
 import org.springframework.core.type.classreading.SimpleMetadataReaderFactory;
-import org.springframework.util.StringUtils;
 
 /**
  * Selects configuration classes for the management context configuration. Entries are
@@ -50,24 +48,7 @@ class ManagementContextConfigurationImportSelector implements DeferredImportSele
 
 	private ClassLoader classLoader;
 
-	@Override
-	public String[] selectImports(AnnotationMetadata metadata) {
-		ManagementContextType contextType = (ManagementContextType) metadata
-				.getAnnotationAttributes(EnableManagementContext.class.getName()).get("value");
-		// Find all management context configuration classes, filtering duplicates
-		List<ManagementConfiguration> configurations = getConfigurations();
-		OrderComparator.sort(configurations);
-		List<String> names = new ArrayList<>();
-		for (ManagementConfiguration configuration : configurations) {
-			if (configuration.getContextType() == ManagementContextType.ANY
-					|| configuration.getContextType() == contextType) {
-				names.add(configuration.getClassName());
-			}
-		}
-		return StringUtils.toStringArray(names);
-	}
-
-	private List<ManagementConfiguration> getConfigurations() {
+	protected List<ManagementConfiguration> getConfigurations() {
 		SimpleMetadataReaderFactory readerFactory = new SimpleMetadataReaderFactory(this.classLoader);
 		List<ManagementConfiguration> configurations = new ArrayList<>();
 		for (String className : loadFactoryNames()) {
@@ -99,7 +80,7 @@ class ManagementContextConfigurationImportSelector implements DeferredImportSele
 	/**
 	 * A management configuration class which can be sorted according to {@code @Order}.
 	 */
-	private static final class ManagementConfiguration implements Ordered {
+	public static final class ManagementConfiguration implements Ordered {
 
 		private final String className;
 
@@ -127,7 +108,7 @@ class ManagementContextConfigurationImportSelector implements DeferredImportSele
 			return (order != null) ? order : Ordered.LOWEST_PRECEDENCE;
 		}
 
-		String getClassName() {
+		public String getClassName() {
 			return this.className;
 		}
 
@@ -136,7 +117,7 @@ class ManagementContextConfigurationImportSelector implements DeferredImportSele
 			return this.order;
 		}
 
-		ManagementContextType getContextType() {
+		public ManagementContextType getContextType() {
 			return this.contextType;
 		}
 

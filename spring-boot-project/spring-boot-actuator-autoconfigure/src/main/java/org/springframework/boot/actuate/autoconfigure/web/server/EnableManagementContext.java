@@ -34,6 +34,7 @@ import org.springframework.context.annotation.Import;
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @Import(ManagementContextConfigurationImportSelector.class)
+public
 @interface EnableManagementContext {
 
 	/**
