@@ -20,6 +20,7 @@ import java.util.Map;
 
 import org.springframework.boot.actuate.autoconfigure.health.CompositeHealthContributorConfiguration;
 import org.springframework.boot.actuate.autoconfigure.health.ConditionalOnEnabledHealthIndicator;
+import org.springframework.boot.actuate.health.CompositeHealthContributor;
 import org.springframework.boot.actuate.health.HealthContributor;
 import org.springframework.boot.actuate.ldap.LdapHealthIndicator;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
@@ -51,6 +52,11 @@ public class LdapHealthContributorAutoConfiguration
 	@ConditionalOnMissingBean(name = { "ldapHealthIndicator", "ldapHealthContributor" })
 	public HealthContributor ldapHealthContributor(Map<String, LdapOperations> ldapOperations) {
 		return createContributor(ldapOperations);
+	}
+
+	@Override
+	protected final HealthContributor createComposite(Map<String, LdapOperations> beans) {
+		return CompositeHealthContributor.fromMap(beans, this::createIndicator);
 	}
 
 }

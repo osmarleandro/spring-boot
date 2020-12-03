@@ -20,6 +20,7 @@ import java.util.Map;
 
 import org.springframework.boot.actuate.autoconfigure.health.CompositeHealthContributorConfiguration;
 import org.springframework.boot.actuate.autoconfigure.health.ConditionalOnEnabledHealthIndicator;
+import org.springframework.boot.actuate.health.CompositeHealthContributor;
 import org.springframework.boot.actuate.health.HealthContributor;
 import org.springframework.boot.actuate.mail.MailHealthIndicator;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
@@ -50,6 +51,11 @@ public class MailHealthContributorAutoConfiguration
 	@ConditionalOnMissingBean(name = { "mailHealthIndicator", "mailHealthContributor" })
 	public HealthContributor mailHealthContributor(Map<String, JavaMailSenderImpl> mailSenders) {
 		return createContributor(mailSenders);
+	}
+
+	@Override
+	protected final HealthContributor createComposite(Map<String, JavaMailSenderImpl> beans) {
+		return CompositeHealthContributor.fromMap(beans, this::createIndicator);
 	}
 
 }

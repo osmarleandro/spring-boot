@@ -16,8 +16,11 @@
 
 package org.springframework.boot.actuate.autoconfigure.health;
 
+import java.util.Map;
+
 import org.springframework.boot.actuate.autoconfigure.health.CompositeHealthContributorConfigurationTests.TestHealthIndicator;
 import org.springframework.boot.actuate.health.AbstractHealthIndicator;
+import org.springframework.boot.actuate.health.CompositeHealthContributor;
 import org.springframework.boot.actuate.health.Health.Builder;
 import org.springframework.boot.actuate.health.HealthContributor;
 
@@ -36,6 +39,11 @@ class CompositeHealthContributorConfigurationTests
 
 	static class TestCompositeHealthContributorConfiguration
 			extends CompositeHealthContributorConfiguration<TestHealthIndicator, TestBean> {
+
+		@Override
+		protected final HealthContributor createComposite(Map<String, TestBean> beans) {
+			return CompositeHealthContributor.fromMap(beans, this::createIndicator);
+		}
 
 	}
 

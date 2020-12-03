@@ -24,6 +24,7 @@ import org.elasticsearch.client.RestHighLevelClient;
 import org.springframework.boot.actuate.autoconfigure.health.CompositeHealthContributorConfiguration;
 import org.springframework.boot.actuate.autoconfigure.health.ConditionalOnEnabledHealthIndicator;
 import org.springframework.boot.actuate.elasticsearch.ElasticsearchRestHealthIndicator;
+import org.springframework.boot.actuate.health.CompositeHealthContributor;
 import org.springframework.boot.actuate.health.HealthContributor;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -53,6 +54,11 @@ public class ElasticSearchRestHealthContributorAutoConfiguration
 	@ConditionalOnMissingBean(name = { "elasticsearchHealthIndicator", "elasticsearchHealthContributor" })
 	public HealthContributor elasticsearchHealthContributor(Map<String, RestHighLevelClient> clients) {
 		return createContributor(clients);
+	}
+
+	@Override
+	protected final HealthContributor createComposite(Map<String, RestHighLevelClient> beans) {
+		return CompositeHealthContributor.fromMap(beans, this::createIndicator);
 	}
 
 }
