@@ -32,9 +32,7 @@ import org.springframework.boot.autoconfigure.AutoConfigurations;
 import org.springframework.boot.autoconfigure.jackson.JacksonAutoConfiguration;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.boot.autoconfigure.security.servlet.UserDetailsServiceAutoConfiguration;
-import org.springframework.boot.test.context.assertj.AssertableWebApplicationContext;
 import org.springframework.boot.test.context.runner.WebApplicationContextRunner;
-import org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -85,12 +83,6 @@ abstract class AbstractEndpointRequestIntegrationTests {
 	}
 
 	protected abstract WebApplicationContextRunner createContextRunner();
-
-	protected WebTestClient getWebTestClient(AssertableWebApplicationContext context) {
-		int port = context.getSourceApplicationContext(AnnotationConfigServletWebServerApplicationContext.class)
-				.getWebServer().getPort();
-		return WebTestClient.bindToServer().baseUrl("http://localhost:" + port).build();
-	}
 
 	String getBasicAuth() {
 		return "Basic " + Base64.getEncoder().encodeToString("user:password".getBytes());

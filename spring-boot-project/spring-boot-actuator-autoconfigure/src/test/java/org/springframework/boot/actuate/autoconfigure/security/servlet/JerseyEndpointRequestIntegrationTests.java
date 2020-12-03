@@ -23,6 +23,7 @@ import org.springframework.boot.autoconfigure.AutoConfigurations;
 import org.springframework.boot.autoconfigure.jersey.JerseyAutoConfiguration;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.test.context.FilteredClassLoader;
+import org.springframework.boot.test.context.assertj.AssertableWebApplicationContext;
 import org.springframework.boot.test.context.runner.WebApplicationContextRunner;
 import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
 import org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext;
@@ -101,6 +102,12 @@ class JerseyEndpointRequestIntegrationTests extends AbstractEndpointRequestInteg
 				.withClassLoader(new FilteredClassLoader("org.springframework.web.servlet.DispatcherServlet"))
 				.withUserConfiguration(JerseyEndpointConfiguration.class)
 				.withConfiguration(AutoConfigurations.of(JerseyAutoConfiguration.class));
+	}
+
+	protected WebTestClient getWebTestClient(AssertableWebApplicationContext context) {
+		int port = context.getSourceApplicationContext(AnnotationConfigServletWebServerApplicationContext.class)
+				.getWebServer().getPort();
+		return WebTestClient.bindToServer().baseUrl("http://localhost:" + port).build();
 	}
 
 	@Configuration

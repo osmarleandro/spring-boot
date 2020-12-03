@@ -23,6 +23,7 @@ import org.springframework.boot.autoconfigure.http.HttpMessageConvertersAutoConf
 import org.springframework.boot.autoconfigure.web.servlet.DispatcherServletAutoConfiguration;
 import org.springframework.boot.autoconfigure.web.servlet.WebMvcAutoConfiguration;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.boot.test.context.assertj.AssertableWebApplicationContext;
 import org.springframework.boot.test.context.runner.WebApplicationContextRunner;
 import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
 import org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext;
@@ -101,6 +102,12 @@ class MvcEndpointRequestIntegrationTests extends AbstractEndpointRequestIntegrat
 				.withUserConfiguration(WebMvcEndpointConfiguration.class)
 				.withConfiguration(AutoConfigurations.of(DispatcherServletAutoConfiguration.class,
 						HttpMessageConvertersAutoConfiguration.class, WebMvcAutoConfiguration.class));
+	}
+
+	protected WebTestClient getWebTestClient(AssertableWebApplicationContext context) {
+		int port = context.getSourceApplicationContext(AnnotationConfigServletWebServerApplicationContext.class)
+				.getWebServer().getPort();
+		return WebTestClient.bindToServer().baseUrl("http://localhost:" + port).build();
 	}
 
 	@Configuration(proxyBeanMethods = false)
