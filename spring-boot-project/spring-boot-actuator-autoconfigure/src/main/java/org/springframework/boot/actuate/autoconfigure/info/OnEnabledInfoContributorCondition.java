@@ -17,7 +17,10 @@
 package org.springframework.boot.actuate.autoconfigure.info;
 
 import org.springframework.boot.actuate.autoconfigure.OnEndpointElementCondition;
+import org.springframework.boot.autoconfigure.condition.ConditionMessage;
+import org.springframework.boot.autoconfigure.condition.ConditionOutcome;
 import org.springframework.context.annotation.Condition;
+import org.springframework.context.annotation.ConditionContext;
 
 /**
  * {@link Condition} that checks if an info indicator is enabled.
@@ -28,6 +31,13 @@ class OnEnabledInfoContributorCondition extends OnEndpointElementCondition {
 
 	OnEnabledInfoContributorCondition() {
 		super("management.info.", ConditionalOnEnabledInfoContributor.class);
+	}
+
+	protected ConditionOutcome getDefaultEndpointsOutcome(ConditionContext context) {
+		boolean match = Boolean
+				.parseBoolean(context.getEnvironment().getProperty(this.prefix + "defaults.enabled", "true"));
+		return new ConditionOutcome(match, ConditionMessage.forCondition(this.annotationType)
+				.because(this.prefix + "defaults.enabled is considered " + match));
 	}
 
 }

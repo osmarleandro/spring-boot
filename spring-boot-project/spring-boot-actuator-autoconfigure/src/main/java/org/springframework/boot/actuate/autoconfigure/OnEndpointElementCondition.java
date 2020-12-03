@@ -36,9 +36,9 @@ import org.springframework.core.type.AnnotatedTypeMetadata;
  */
 public abstract class OnEndpointElementCondition extends SpringBootCondition {
 
-	private final String prefix;
+	protected final String prefix;
 
-	private final Class<? extends Annotation> annotationType;
+	protected final Class<? extends Annotation> annotationType;
 
 	protected OnEndpointElementCondition(String prefix, Class<? extends Annotation> annotationType) {
 		this.prefix = prefix;
@@ -66,13 +66,6 @@ public abstract class OnEndpointElementCondition extends SpringBootCondition {
 					.because(this.prefix + endpointName + ".enabled is " + match));
 		}
 		return null;
-	}
-
-	protected ConditionOutcome getDefaultEndpointsOutcome(ConditionContext context) {
-		boolean match = Boolean
-				.parseBoolean(context.getEnvironment().getProperty(this.prefix + "defaults.enabled", "true"));
-		return new ConditionOutcome(match, ConditionMessage.forCondition(this.annotationType)
-				.because(this.prefix + "defaults.enabled is considered " + match));
 	}
 
 }
