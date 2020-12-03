@@ -22,6 +22,7 @@ import reactor.core.publisher.Flux;
 
 import org.springframework.boot.actuate.autoconfigure.health.CompositeReactiveHealthContributorConfiguration;
 import org.springframework.boot.actuate.autoconfigure.health.ConditionalOnEnabledHealthIndicator;
+import org.springframework.boot.actuate.health.CompositeReactiveHealthContributor;
 import org.springframework.boot.actuate.health.ReactiveHealthContributor;
 import org.springframework.boot.actuate.mongo.MongoReactiveHealthIndicator;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
@@ -53,6 +54,11 @@ public class MongoReactiveHealthContributorAutoConfiguration
 	@ConditionalOnMissingBean(name = { "mongoHealthIndicator", "mongoHealthContributor" })
 	public ReactiveHealthContributor mongoHealthContributor(Map<String, ReactiveMongoTemplate> reactiveMongoTemplates) {
 		return createContributor(reactiveMongoTemplates);
+	}
+
+	@Override
+	protected final ReactiveHealthContributor createComposite(Map<String, ReactiveMongoTemplate> beans) {
+		return CompositeReactiveHealthContributor.fromMap(beans, this::createIndicator);
 	}
 
 }

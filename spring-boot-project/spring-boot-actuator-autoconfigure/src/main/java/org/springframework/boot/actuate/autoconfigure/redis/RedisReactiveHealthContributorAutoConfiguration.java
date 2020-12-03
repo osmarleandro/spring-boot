@@ -22,6 +22,7 @@ import reactor.core.publisher.Flux;
 
 import org.springframework.boot.actuate.autoconfigure.health.CompositeReactiveHealthContributorConfiguration;
 import org.springframework.boot.actuate.autoconfigure.health.ConditionalOnEnabledHealthIndicator;
+import org.springframework.boot.actuate.health.CompositeReactiveHealthContributor;
 import org.springframework.boot.actuate.health.ReactiveHealthContributor;
 import org.springframework.boot.actuate.redis.RedisReactiveHealthIndicator;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
@@ -63,6 +64,11 @@ public class RedisReactiveHealthContributorAutoConfiguration extends
 	@ConditionalOnMissingBean(name = { "redisHealthIndicator", "redisHealthContributor" })
 	public ReactiveHealthContributor redisHealthContributor() {
 		return createContributor(this.redisConnectionFactories);
+	}
+
+	@Override
+	protected final ReactiveHealthContributor createComposite(Map<String, ReactiveRedisConnectionFactory> beans) {
+		return CompositeReactiveHealthContributor.fromMap(beans, this::createIndicator);
 	}
 
 }

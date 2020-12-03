@@ -23,6 +23,7 @@ import reactor.core.publisher.Flux;
 import org.springframework.boot.actuate.autoconfigure.health.CompositeReactiveHealthContributorConfiguration;
 import org.springframework.boot.actuate.autoconfigure.health.ConditionalOnEnabledHealthIndicator;
 import org.springframework.boot.actuate.elasticsearch.ElasticsearchReactiveHealthIndicator;
+import org.springframework.boot.actuate.health.CompositeReactiveHealthContributor;
 import org.springframework.boot.actuate.health.ReactiveHealthContributor;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -54,6 +55,11 @@ public class ElasticSearchReactiveHealthContributorAutoConfiguration extends
 	@ConditionalOnMissingBean(name = { "elasticsearchHealthIndicator", "elasticsearchHealthContributor" })
 	public ReactiveHealthContributor elasticsearchHealthContributor(Map<String, ReactiveElasticsearchClient> clients) {
 		return createContributor(clients);
+	}
+
+	@Override
+	protected final ReactiveHealthContributor createComposite(Map<String, ReactiveElasticsearchClient> beans) {
+		return CompositeReactiveHealthContributor.fromMap(beans, this::createIndicator);
 	}
 
 }

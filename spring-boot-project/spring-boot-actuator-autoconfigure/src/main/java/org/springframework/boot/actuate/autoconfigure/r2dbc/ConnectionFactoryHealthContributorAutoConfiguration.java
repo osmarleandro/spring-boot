@@ -22,6 +22,7 @@ import io.r2dbc.spi.ConnectionFactory;
 
 import org.springframework.boot.actuate.autoconfigure.health.CompositeReactiveHealthContributorConfiguration;
 import org.springframework.boot.actuate.autoconfigure.health.ConditionalOnEnabledHealthIndicator;
+import org.springframework.boot.actuate.health.CompositeReactiveHealthContributor;
 import org.springframework.boot.actuate.health.ReactiveHealthContributor;
 import org.springframework.boot.actuate.r2dbc.ConnectionFactoryHealthIndicator;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
@@ -58,6 +59,11 @@ public class ConnectionFactoryHealthContributorAutoConfiguration
 	@ConditionalOnMissingBean(name = { "r2dbcHealthIndicator", "r2dbcHealthContributor" })
 	public ReactiveHealthContributor r2dbcHealthContributor() {
 		return createContributor(this.connectionFactory);
+	}
+
+	@Override
+	protected final ReactiveHealthContributor createComposite(Map<String, ConnectionFactory> beans) {
+		return CompositeReactiveHealthContributor.fromMap(beans, this::createIndicator);
 	}
 
 }
