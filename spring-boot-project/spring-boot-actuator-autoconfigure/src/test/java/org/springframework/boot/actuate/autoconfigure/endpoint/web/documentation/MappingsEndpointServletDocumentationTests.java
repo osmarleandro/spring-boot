@@ -19,7 +19,10 @@ package org.springframework.boot.actuate.autoconfigure.endpoint.web.documentatio
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.function.Predicate;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -145,6 +148,14 @@ class MappingsEndpointServletDocumentationTests extends AbstractEndpointDocument
 
 	private FieldDescriptor requestMappingConditionField(String path) {
 		return fieldWithPath("*.[].details.requestMappingConditions" + path);
+	}
+
+	@SuppressWarnings("unchecked")
+	private <T> Map<String, Object> select(Map<String, Object> candidates, Predicate<T> filter) {
+		Map<String, Object> selected = new HashMap<>();
+		candidates.entrySet().stream().filter((candidate) -> filter.test((T) candidate)).limit(3)
+				.forEach((entry) -> selected.put(entry.getKey(), entry.getValue()));
+		return selected;
 	}
 
 	@Configuration(proxyBeanMethods = false)

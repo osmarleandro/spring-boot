@@ -16,6 +16,10 @@
 
 package org.springframework.boot.actuate.autoconfigure.endpoint.web.documentation;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.function.Predicate;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.ExtendWith;
 
@@ -51,6 +55,14 @@ public abstract class MockMvcEndpointDocumentationTests extends AbstractEndpoint
 
 	protected WebApplicationContext getApplicationContext() {
 		return this.applicationContext;
+	}
+
+	@SuppressWarnings("unchecked")
+	private <T> Map<String, Object> select(Map<String, Object> candidates, Predicate<T> filter) {
+		Map<String, Object> selected = new HashMap<>();
+		candidates.entrySet().stream().filter((candidate) -> filter.test((T) candidate)).limit(3)
+				.forEach((entry) -> selected.put(entry.getKey(), entry.getValue()));
+		return selected;
 	}
 
 }
