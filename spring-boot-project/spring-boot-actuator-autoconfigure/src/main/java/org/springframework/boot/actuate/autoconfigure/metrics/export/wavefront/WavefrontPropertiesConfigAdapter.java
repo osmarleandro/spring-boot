@@ -67,4 +67,9 @@ public class WavefrontPropertiesConfigAdapter extends PushRegistryPropertiesConf
 		return (properties.getUri() != null) ? properties.getUri().toString() : null;
 	}
 
+	@Override
+	public int batchSize() {
+		return get(WavefrontProperties::getBatchSize, PushRegistryConfig.super::batchSize);
+	}
+
 }

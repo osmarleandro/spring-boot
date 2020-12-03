@@ -51,9 +51,4 @@ public abstract class PushRegistryPropertiesConfigAdapter<T extends PushRegistry
 		return get(T::isEnabled, PushRegistryConfig.super::enabled);
 	}
 
-	@Override
-	public int batchSize() {
-		return get(T::getBatchSize, PushRegistryConfig.super::batchSize);
-	}
-
 }

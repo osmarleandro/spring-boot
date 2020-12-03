@@ -34,4 +34,9 @@ public abstract class StepRegistryPropertiesConfigAdapter<T extends StepRegistry
 		super(properties);
 	}
 
+	@Override
+	public int batchSize() {
+		return get(T::getBatchSize, PushRegistryConfig.super::batchSize);
+	}
+
 }
