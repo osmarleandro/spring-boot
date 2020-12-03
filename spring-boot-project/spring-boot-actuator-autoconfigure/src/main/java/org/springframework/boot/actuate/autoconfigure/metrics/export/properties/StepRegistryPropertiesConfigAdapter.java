@@ -16,6 +16,8 @@
 
 package org.springframework.boot.actuate.autoconfigure.metrics.export.properties;
 
+import java.time.Duration;
+
 import io.micrometer.core.instrument.step.StepRegistryConfig;
 
 /**
@@ -32,6 +34,11 @@ public abstract class StepRegistryPropertiesConfigAdapter<T extends StepRegistry
 
 	public StepRegistryPropertiesConfigAdapter(T properties) {
 		super(properties);
+	}
+
+	@Override
+	public Duration step() {
+		return get(T::getStep, PushRegistryConfig.super::step);
 	}
 
 }

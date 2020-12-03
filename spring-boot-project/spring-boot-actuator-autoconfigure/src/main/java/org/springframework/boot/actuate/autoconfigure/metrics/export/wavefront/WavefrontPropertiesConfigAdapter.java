@@ -18,6 +18,8 @@ package org.springframework.boot.actuate.autoconfigure.metrics.export.wavefront;
 
 import io.micrometer.wavefront.WavefrontConfig;
 
+import java.time.Duration;
+
 import org.springframework.boot.actuate.autoconfigure.metrics.export.properties.PushRegistryPropertiesConfigAdapter;
 
 /**
@@ -65,6 +67,11 @@ public class WavefrontPropertiesConfigAdapter extends PushRegistryPropertiesConf
 
 	private String getUriAsString(WavefrontProperties properties) {
 		return (properties.getUri() != null) ? properties.getUri().toString() : null;
+	}
+
+	@Override
+	public Duration step() {
+		return get(WavefrontProperties::getStep, PushRegistryConfig.super::step);
 	}
 
 }

@@ -16,8 +16,6 @@
 
 package org.springframework.boot.actuate.autoconfigure.metrics.export.properties;
 
-import java.time.Duration;
-
 import io.micrometer.core.instrument.push.PushRegistryConfig;
 
 /**
@@ -39,11 +37,6 @@ public abstract class PushRegistryPropertiesConfigAdapter<T extends PushRegistry
 	@Override
 	public String get(String k) {
 		return null;
-	}
-
-	@Override
-	public Duration step() {
-		return get(T::getStep, PushRegistryConfig.super::step);
 	}
 
 	@Override
