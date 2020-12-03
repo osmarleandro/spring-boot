@@ -66,15 +66,6 @@ abstract class AbstractEndpointRequestIntegrationTests {
 		});
 	}
 
-	@Test
-	void toLinksShouldMatch() {
-		getContextRunner().run((context) -> {
-			WebTestClient webTestClient = getWebTestClient(context);
-			webTestClient.get().uri("/actuator").exchange().expectStatus().isOk();
-			webTestClient.get().uri("/actuator/").exchange().expectStatus().isOk();
-		});
-	}
-
 	protected final WebApplicationContextRunner getContextRunner() {
 		return createContextRunner().withPropertyValues("management.endpoints.web.exposure.include=*")
 				.withUserConfiguration(BaseConfiguration.class, SecurityConfiguration.class).withConfiguration(

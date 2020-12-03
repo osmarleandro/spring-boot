@@ -103,6 +103,15 @@ class JerseyEndpointRequestIntegrationTests extends AbstractEndpointRequestInteg
 				.withConfiguration(AutoConfigurations.of(JerseyAutoConfiguration.class));
 	}
 
+	@Test
+	void toLinksShouldMatch() {
+		getContextRunner().run((context) -> {
+			WebTestClient webTestClient = getWebTestClient(context);
+			webTestClient.get().uri("/actuator").exchange().expectStatus().isOk();
+			webTestClient.get().uri("/actuator/").exchange().expectStatus().isOk();
+		});
+	}
+
 	@Configuration
 	@EnableConfigurationProperties(WebEndpointProperties.class)
 	static class JerseyEndpointConfiguration {
