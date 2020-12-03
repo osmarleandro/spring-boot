@@ -21,6 +21,7 @@ import java.util.Map;
 import org.springframework.boot.actuate.health.CompositeReactiveHealthContributor;
 import org.springframework.boot.actuate.health.ReactiveHealthContributor;
 import org.springframework.boot.actuate.health.ReactiveHealthIndicator;
+import org.springframework.util.Assert;
 
 /**
  * Base class for health contributor configurations that can combine source beans into a
@@ -38,6 +39,14 @@ public abstract class CompositeReactiveHealthContributorConfiguration<I extends 
 	@Override
 	protected final ReactiveHealthContributor createComposite(Map<String, B> beans) {
 		return CompositeReactiveHealthContributor.fromMap(beans, this::createIndicator);
+	}
+
+	protected final ReactiveHealthContributor createContributor(Map<String, B> beans) {
+		Assert.notEmpty(beans, "Beans must not be empty");
+		if (beans.size() == 1) {
+			return createIndicator(beans.values().iterator().next());
+		}
+		return createComposite(beans);
 	}
 
 }

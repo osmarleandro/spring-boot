@@ -21,7 +21,6 @@ import java.util.Map;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.core.ResolvableType;
-import org.springframework.util.Assert;
 
 /**
  * Base class for health contributor configurations that can combine source beans into a
@@ -46,14 +45,6 @@ public abstract class AbstractCompositeHealthContributorConfiguration<C, I exten
 		this.indicatorType = type.resolveGeneric(1);
 		this.beanType = type.resolveGeneric(2);
 
-	}
-
-	protected final C createContributor(Map<String, B> beans) {
-		Assert.notEmpty(beans, "Beans must not be empty");
-		if (beans.size() == 1) {
-			return createIndicator(beans.values().iterator().next());
-		}
-		return createComposite(beans);
 	}
 
 	protected abstract C createComposite(Map<String, B> beans);
