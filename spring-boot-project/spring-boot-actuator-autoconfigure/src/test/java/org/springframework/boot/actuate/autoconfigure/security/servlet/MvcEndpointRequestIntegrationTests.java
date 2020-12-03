@@ -103,6 +103,16 @@ class MvcEndpointRequestIntegrationTests extends AbstractEndpointRequestIntegrat
 						HttpMessageConvertersAutoConfiguration.class, WebMvcAutoConfiguration.class));
 	}
 
+	@Test
+	void toAllEndpointsShouldMatch() {
+		getContextRunner().withPropertyValues("spring.security.user.password=password").run((context) -> {
+			WebTestClient webTestClient = getWebTestClient(context);
+			webTestClient.get().uri("/actuator/e2").exchange().expectStatus().isUnauthorized();
+			webTestClient.get().uri("/actuator/e2").header("Authorization", getBasicAuth()).exchange().expectStatus()
+					.isOk();
+		});
+	}
+
 	@Configuration(proxyBeanMethods = false)
 	@EnableConfigurationProperties(WebEndpointProperties.class)
 	static class WebMvcEndpointConfiguration {

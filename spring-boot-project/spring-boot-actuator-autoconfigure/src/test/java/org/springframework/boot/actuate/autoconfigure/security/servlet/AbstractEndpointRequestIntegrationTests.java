@@ -57,16 +57,6 @@ abstract class AbstractEndpointRequestIntegrationTests {
 	}
 
 	@Test
-	void toAllEndpointsShouldMatch() {
-		getContextRunner().withPropertyValues("spring.security.user.password=password").run((context) -> {
-			WebTestClient webTestClient = getWebTestClient(context);
-			webTestClient.get().uri("/actuator/e2").exchange().expectStatus().isUnauthorized();
-			webTestClient.get().uri("/actuator/e2").header("Authorization", getBasicAuth()).exchange().expectStatus()
-					.isOk();
-		});
-	}
-
-	@Test
 	void toLinksShouldMatch() {
 		getContextRunner().run((context) -> {
 			WebTestClient webTestClient = getWebTestClient(context);
@@ -92,7 +82,7 @@ abstract class AbstractEndpointRequestIntegrationTests {
 		return WebTestClient.bindToServer().baseUrl("http://localhost:" + port).build();
 	}
 
-	String getBasicAuth() {
+	protected String getBasicAuth() {
 		return "Basic " + Base64.getEncoder().encodeToString("user:password".getBytes());
 	}
 
