@@ -37,7 +37,7 @@ import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException
  */
 abstract class AbstractCompositeHealthContributorConfigurationTests<C, I extends C> {
 
-	private final Class<?> indicatorType;
+	protected final Class<?> indicatorType;
 
 	AbstractCompositeHealthContributorConfigurationTests() {
 		ResolvableType type = ResolvableType.forClass(AbstractCompositeHealthContributorConfigurationTests.class,
@@ -50,13 +50,6 @@ abstract class AbstractCompositeHealthContributorConfigurationTests<C, I extends
 		Map<String, TestBean> beans = Collections.emptyMap();
 		assertThatIllegalArgumentException().isThrownBy(() -> newComposite().createContributor(beans))
 				.withMessage("Beans must not be empty");
-	}
-
-	@Test
-	void createContributorWhenBeansHasSingleElementCreatesIndicator() {
-		Map<String, TestBean> beans = Collections.singletonMap("test", new TestBean());
-		C contributor = newComposite().createContributor(beans);
-		assertThat(contributor).isInstanceOf(this.indicatorType);
 	}
 
 	@Test
