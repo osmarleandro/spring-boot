@@ -16,12 +16,17 @@
 
 package org.springframework.boot.actuate.autoconfigure.web.reactive;
 
+import java.util.Collections;
+
+import org.springframework.beans.factory.BeanFactoryUtils;
 import org.springframework.beans.factory.ListableBeanFactory;
 import org.springframework.boot.actuate.autoconfigure.web.ManagementContextConfiguration;
 import org.springframework.boot.actuate.autoconfigure.web.ManagementContextType;
+import org.springframework.boot.actuate.autoconfigure.web.server.ManagementServerProperties;
 import org.springframework.boot.actuate.autoconfigure.web.server.ManagementWebServerFactoryCustomizer;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication.Type;
+import org.springframework.boot.autoconfigure.web.ServerProperties;
 import org.springframework.boot.autoconfigure.web.embedded.JettyWebServerFactoryCustomizer;
 import org.springframework.boot.autoconfigure.web.embedded.NettyWebServerFactoryCustomizer;
 import org.springframework.boot.autoconfigure.web.embedded.TomcatWebServerFactoryCustomizer;
@@ -67,6 +72,21 @@ public class ReactiveManagementChildContextConfiguration {
 			super(beanFactory, ReactiveWebServerFactoryCustomizer.class, TomcatWebServerFactoryCustomizer.class,
 					TomcatReactiveWebServerFactoryCustomizer.class, JettyWebServerFactoryCustomizer.class,
 					UndertowWebServerFactoryCustomizer.class, NettyWebServerFactoryCustomizer.class);
+		}
+
+		@Override
+		public final void customize(ConfigurableReactiveWebServerFactory factory) {
+			ManagementServerProperties managementServerProperties = BeanFactoryUtils
+					.beanOfTypeIncludingAncestors(this.beanFactory, ManagementServerProperties.class);
+			// Customize as per the parent context first (so e.g. the access logs go to
+			// the same place)
+			customizeSameAsParentContext(factory);
+			// Then reset the error pages
+			factory.setErrorPages(Collections.emptySet());
+			// and add the management-specific bits
+			ServerProperties serverProperties = BeanFactoryUtils.beanOfTypeIncludingAncestors(this.beanFactory,
+					ServerProperties.class);
+			customize(factory, managementServerProperties, serverProperties);
 		}
 
 	}

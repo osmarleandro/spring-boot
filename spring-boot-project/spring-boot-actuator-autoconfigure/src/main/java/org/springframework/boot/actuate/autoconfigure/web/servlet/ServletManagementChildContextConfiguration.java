@@ -17,6 +17,7 @@
 package org.springframework.boot.actuate.autoconfigure.web.servlet;
 
 import java.io.File;
+import java.util.Collections;
 
 import javax.servlet.Filter;
 
@@ -28,6 +29,7 @@ import org.eclipse.jetty.server.RequestLogWriter;
 import org.eclipse.jetty.server.Server;
 
 import org.springframework.beans.factory.BeanFactory;
+import org.springframework.beans.factory.BeanFactoryUtils;
 import org.springframework.beans.factory.HierarchicalBeanFactory;
 import org.springframework.beans.factory.ListableBeanFactory;
 import org.springframework.boot.actuate.autoconfigure.web.ManagementContextConfiguration;
@@ -124,6 +126,21 @@ class ServletManagementChildContextConfiguration {
 				ManagementServerProperties managementServerProperties, ServerProperties serverProperties) {
 			super.customize(webServerFactory, managementServerProperties, serverProperties);
 			webServerFactory.setContextPath(managementServerProperties.getServlet().getContextPath());
+		}
+
+		@Override
+		public final void customize(ConfigurableServletWebServerFactory factory) {
+			ManagementServerProperties managementServerProperties = BeanFactoryUtils
+					.beanOfTypeIncludingAncestors(this.beanFactory, ManagementServerProperties.class);
+			// Customize as per the parent context first (so e.g. the access logs go to
+			// the same place)
+			customizeSameAsParentContext(factory);
+			// Then reset the error pages
+			factory.setErrorPages(Collections.emptySet());
+			// and add the management-specific bits
+			ServerProperties serverProperties = BeanFactoryUtils.beanOfTypeIncludingAncestors(this.beanFactory,
+					ServerProperties.class);
+			customize(factory, managementServerProperties, serverProperties);
 		}
 
 	}

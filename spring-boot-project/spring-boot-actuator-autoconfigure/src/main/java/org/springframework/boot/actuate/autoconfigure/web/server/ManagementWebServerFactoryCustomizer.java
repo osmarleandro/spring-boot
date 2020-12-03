@@ -17,7 +17,6 @@
 package org.springframework.boot.actuate.autoconfigure.web.server;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -44,7 +43,7 @@ import org.springframework.core.Ordered;
 public abstract class ManagementWebServerFactoryCustomizer<T extends ConfigurableWebServerFactory>
 		implements WebServerFactoryCustomizer<T>, Ordered {
 
-	private final ListableBeanFactory beanFactory;
+	protected final ListableBeanFactory beanFactory;
 
 	private final Class<? extends WebServerFactoryCustomizer<?>>[] customizerClasses;
 
@@ -61,22 +60,7 @@ public abstract class ManagementWebServerFactoryCustomizer<T extends Configurabl
 		return 0;
 	}
 
-	@Override
-	public final void customize(T factory) {
-		ManagementServerProperties managementServerProperties = BeanFactoryUtils
-				.beanOfTypeIncludingAncestors(this.beanFactory, ManagementServerProperties.class);
-		// Customize as per the parent context first (so e.g. the access logs go to
-		// the same place)
-		customizeSameAsParentContext(factory);
-		// Then reset the error pages
-		factory.setErrorPages(Collections.emptySet());
-		// and add the management-specific bits
-		ServerProperties serverProperties = BeanFactoryUtils.beanOfTypeIncludingAncestors(this.beanFactory,
-				ServerProperties.class);
-		customize(factory, managementServerProperties, serverProperties);
-	}
-
-	private void customizeSameAsParentContext(T factory) {
+	protected void customizeSameAsParentContext(T factory) {
 		List<WebServerFactoryCustomizer<?>> customizers = Arrays.stream(this.customizerClasses).map(this::getCustomizer)
 				.filter(Objects::nonNull).collect(Collectors.toList());
 		invokeCustomizers(factory, customizers);
