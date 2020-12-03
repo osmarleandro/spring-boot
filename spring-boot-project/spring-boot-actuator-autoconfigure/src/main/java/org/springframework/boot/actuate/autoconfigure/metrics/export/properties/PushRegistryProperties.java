@@ -47,7 +47,7 @@ public abstract class PushRegistryProperties {
 	/**
 	 * Read timeout for requests to this backend.
 	 */
-	private Duration readTimeout = Duration.ofSeconds(10);
+	protected Duration readTimeout = Duration.ofSeconds(10);
 
 	/**
 	 * Number of measurements per request to use for this backend. If more measurements
@@ -81,10 +81,6 @@ public abstract class PushRegistryProperties {
 
 	public Duration getReadTimeout() {
 		return this.readTimeout;
-	}
-
-	public void setReadTimeout(Duration readTimeout) {
-		this.readTimeout = readTimeout;
 	}
 
 	public Integer getBatchSize() {
