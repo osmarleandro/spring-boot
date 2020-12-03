@@ -53,11 +53,6 @@ abstract class AbstractEndpointCondition extends SpringBootCondition {
 
 	private static final ConcurrentReferenceHashMap<Environment, Optional<Boolean>> enabledByDefaultCache = new ConcurrentReferenceHashMap<>();
 
-	AnnotationAttributes getEndpointAttributes(Class<?> annotationClass, ConditionContext context,
-			AnnotatedTypeMetadata metadata) {
-		return getEndpointAttributes(getEndpointType(annotationClass, context, metadata));
-	}
-
 	protected ConditionOutcome getEnablementOutcome(ConditionContext context, AnnotatedTypeMetadata metadata,
 			Class<? extends Annotation> annotationClass) {
 		Environment environment = context.getEnvironment();

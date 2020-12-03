@@ -28,6 +28,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionMessage;
 import org.springframework.boot.autoconfigure.condition.ConditionOutcome;
 import org.springframework.boot.cloud.CloudPlatform;
 import org.springframework.context.annotation.ConditionContext;
+import org.springframework.core.annotation.AnnotationAttributes;
 import org.springframework.core.env.Environment;
 import org.springframework.core.type.AnnotatedTypeMetadata;
 import org.springframework.util.ConcurrentReferenceHashMap;
@@ -85,6 +86,10 @@ class OnAvailableEndpointCondition extends AbstractEndpointCondition {
 			exposuresCache.put(environment, exposures);
 		}
 		return exposures;
+	}
+
+	AnnotationAttributes getEndpointAttributes(Class<?> annotationClass, ConditionContext context, AnnotatedTypeMetadata metadata) {
+		return getEndpointAttributes(getEndpointType(annotationClass, context, metadata));
 	}
 
 	static class Exposure extends IncludeExcludeEndpointFilter<ExposableEndpoint<?>> {
