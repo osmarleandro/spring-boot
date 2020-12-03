@@ -48,7 +48,7 @@ import org.springframework.util.StringUtils;
 @Order(Ordered.LOWEST_PRECEDENCE)
 class ManagementContextConfigurationImportSelector implements DeferredImportSelector, BeanClassLoaderAware {
 
-	private ClassLoader classLoader;
+	protected ClassLoader classLoader;
 
 	@Override
 	public String[] selectImports(AnnotationMetadata metadata) {
@@ -89,11 +89,6 @@ class ManagementContextConfigurationImportSelector implements DeferredImportSele
 
 	protected List<String> loadFactoryNames() {
 		return SpringFactoriesLoader.loadFactoryNames(ManagementContextConfiguration.class, this.classLoader);
-	}
-
-	@Override
-	public void setBeanClassLoader(ClassLoader classLoader) {
-		this.classLoader = classLoader;
 	}
 
 	/**

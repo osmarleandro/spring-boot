@@ -72,6 +72,11 @@ class ManagementContextConfigurationImportSelectorTests {
 			return this.factoryNames;
 		}
 
+		@Override
+		public void setBeanClassLoader(ClassLoader classLoader) {
+			this.classLoader = classLoader;
+		}
+
 	}
 
 	@Order(1)
