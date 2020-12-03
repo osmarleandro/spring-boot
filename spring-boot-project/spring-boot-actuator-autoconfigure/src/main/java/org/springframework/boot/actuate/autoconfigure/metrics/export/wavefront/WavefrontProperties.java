@@ -95,6 +95,10 @@ public class WavefrontProperties extends PushRegistryProperties {
 		return this.sender;
 	}
 
+	public void setConnectTimeout(Duration connectTimeout) {
+		this.connectTimeout = connectTimeout;
+	}
+
 	public static class Sender {
 
 		private int maxQueueSize = 50000;
