@@ -16,6 +16,11 @@
 
 package org.springframework.boot.actuate.autoconfigure.web.reactive;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.ListableBeanFactory;
 import org.springframework.boot.actuate.autoconfigure.web.ManagementContextConfiguration;
 import org.springframework.boot.actuate.autoconfigure.web.ManagementContextType;
@@ -29,6 +34,7 @@ import org.springframework.boot.autoconfigure.web.embedded.UndertowWebServerFact
 import org.springframework.boot.autoconfigure.web.reactive.ReactiveWebServerFactoryCustomizer;
 import org.springframework.boot.autoconfigure.web.reactive.TomcatReactiveWebServerFactoryCustomizer;
 import org.springframework.boot.web.reactive.server.ConfigurableReactiveWebServerFactory;
+import org.springframework.boot.web.server.WebServerFactoryCustomizer;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.server.reactive.HttpHandler;
@@ -67,6 +73,12 @@ public class ReactiveManagementChildContextConfiguration {
 			super(beanFactory, ReactiveWebServerFactoryCustomizer.class, TomcatWebServerFactoryCustomizer.class,
 					TomcatReactiveWebServerFactoryCustomizer.class, JettyWebServerFactoryCustomizer.class,
 					UndertowWebServerFactoryCustomizer.class, NettyWebServerFactoryCustomizer.class);
+		}
+
+		private void customizeSameAsParentContext(ConfigurableReactiveWebServerFactory factory) {
+			List<WebServerFactoryCustomizer<?>> customizers = Arrays.stream(this.customizerClasses).map(this::getCustomizer)
+					.filter(Objects::nonNull).collect(Collectors.toList());
+			invokeCustomizers(factory, customizers);
 		}
 
 	}

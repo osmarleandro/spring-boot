@@ -17,6 +17,10 @@
 package org.springframework.boot.actuate.autoconfigure.web.servlet;
 
 import java.io.File;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 import javax.servlet.Filter;
 
@@ -124,6 +128,12 @@ class ServletManagementChildContextConfiguration {
 				ManagementServerProperties managementServerProperties, ServerProperties serverProperties) {
 			super.customize(webServerFactory, managementServerProperties, serverProperties);
 			webServerFactory.setContextPath(managementServerProperties.getServlet().getContextPath());
+		}
+
+		private void customizeSameAsParentContext(ConfigurableServletWebServerFactory factory) {
+			List<WebServerFactoryCustomizer<?>> customizers = Arrays.stream(this.customizerClasses).map(this::getCustomizer)
+					.filter(Objects::nonNull).collect(Collectors.toList());
+			invokeCustomizers(factory, customizers);
 		}
 
 	}
