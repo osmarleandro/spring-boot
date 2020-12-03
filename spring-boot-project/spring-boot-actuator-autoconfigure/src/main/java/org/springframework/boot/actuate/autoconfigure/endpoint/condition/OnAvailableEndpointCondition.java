@@ -16,6 +16,7 @@
 
 package org.springframework.boot.actuate.autoconfigure.endpoint.condition;
 
+import java.lang.annotation.Annotation;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
@@ -28,6 +29,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionMessage;
 import org.springframework.boot.autoconfigure.condition.ConditionOutcome;
 import org.springframework.boot.cloud.CloudPlatform;
 import org.springframework.context.annotation.ConditionContext;
+import org.springframework.core.annotation.AnnotationAttributes;
 import org.springframework.core.env.Environment;
 import org.springframework.core.type.AnnotatedTypeMetadata;
 import org.springframework.util.ConcurrentReferenceHashMap;
@@ -85,6 +87,26 @@ class OnAvailableEndpointCondition extends AbstractEndpointCondition {
 			exposuresCache.put(environment, exposures);
 		}
 		return exposures;
+	}
+
+	protected ConditionOutcome getEnablementOutcome(ConditionContext context, AnnotatedTypeMetadata metadata, Class<? extends Annotation> annotationClass) {
+		Environment environment = context.getEnvironment();
+		AnnotationAttributes attributes = getEndpointAttributes(annotationClass, context, metadata);
+		EndpointId id = EndpointId.of(environment, attributes.getString("id"));
+		String key = "management.endpoint." + id.toLowerCaseString() + ".enabled";
+		Boolean userDefinedEnabled = environment.getProperty(key, Boolean.class);
+		if (userDefinedEnabled != null) {
+			return new ConditionOutcome(userDefinedEnabled, ConditionMessage.forCondition(annotationClass)
+					.because("found property " + key + " with value " + userDefinedEnabled));
+		}
+		Boolean userDefinedDefault = isEnabledByDefault(environment);
+		if (userDefinedDefault != null) {
+			return new ConditionOutcome(userDefinedDefault, ConditionMessage.forCondition(annotationClass).because(
+					"no property " + key + " found so using user defined default from " + ENABLED_BY_DEFAULT_KEY));
+		}
+		boolean endpointDefault = attributes.getBoolean("enableByDefault");
+		return new ConditionOutcome(endpointDefault, ConditionMessage.forCondition(annotationClass)
+				.because("no property " + key + " found so using endpoint default"));
 	}
 
 	static class Exposure extends IncludeExcludeEndpointFilter<ExposableEndpoint<?>> {
