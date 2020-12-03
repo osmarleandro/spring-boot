@@ -69,8 +69,6 @@ abstract class AbstractCompositeHealthContributorConfigurationTests<C, I extends
 		assertThat(ClassUtils.getShortName(contributor.getClass())).startsWith("Composite");
 	}
 
-	protected abstract AbstractCompositeHealthContributorConfiguration<C, I, TestBean> newComposite();
-
 	static class TestBean {
 
 	}
