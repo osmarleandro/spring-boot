@@ -95,6 +95,10 @@ public class WavefrontProperties extends PushRegistryProperties {
 		return this.sender;
 	}
 
+	public void setStep(Duration step) {
+		this.step = step;
+	}
+
 	public static class Sender {
 
 		private int maxQueueSize = 50000;

@@ -32,7 +32,7 @@ public abstract class PushRegistryProperties {
 	/**
 	 * Step size (i.e. reporting frequency) to use.
 	 */
-	private Duration step = Duration.ofMinutes(1);
+	protected Duration step = Duration.ofMinutes(1);
 
 	/**
 	 * Whether exporting of metrics to this backend is enabled.
@@ -57,10 +57,6 @@ public abstract class PushRegistryProperties {
 
 	public Duration getStep() {
 		return this.step;
-	}
-
-	public void setStep(Duration step) {
-		this.step = step;
 	}
 
 	public boolean isEnabled() {
