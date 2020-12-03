@@ -24,7 +24,6 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.BeanFactoryUtils;
 import org.springframework.beans.factory.ListableBeanFactory;
-import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.boot.autoconfigure.web.ServerProperties;
 import org.springframework.boot.util.LambdaSafe;
 import org.springframework.boot.web.server.ConfigurableWebServerFactory;
@@ -44,7 +43,7 @@ import org.springframework.core.Ordered;
 public abstract class ManagementWebServerFactoryCustomizer<T extends ConfigurableWebServerFactory>
 		implements WebServerFactoryCustomizer<T>, Ordered {
 
-	private final ListableBeanFactory beanFactory;
+	protected final ListableBeanFactory beanFactory;
 
 	private final Class<? extends WebServerFactoryCustomizer<?>>[] customizerClasses;
 
@@ -80,16 +79,6 @@ public abstract class ManagementWebServerFactoryCustomizer<T extends Configurabl
 		List<WebServerFactoryCustomizer<?>> customizers = Arrays.stream(this.customizerClasses).map(this::getCustomizer)
 				.filter(Objects::nonNull).collect(Collectors.toList());
 		invokeCustomizers(factory, customizers);
-	}
-
-	private WebServerFactoryCustomizer<?> getCustomizer(
-			Class<? extends WebServerFactoryCustomizer<?>> customizerClass) {
-		try {
-			return BeanFactoryUtils.beanOfTypeIncludingAncestors(this.beanFactory, customizerClass);
-		}
-		catch (NoSuchBeanDefinitionException ex) {
-			return null;
-		}
 	}
 
 	@SuppressWarnings("unchecked")

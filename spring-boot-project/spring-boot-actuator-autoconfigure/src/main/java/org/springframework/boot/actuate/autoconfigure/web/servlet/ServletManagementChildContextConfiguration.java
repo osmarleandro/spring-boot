@@ -28,8 +28,10 @@ import org.eclipse.jetty.server.RequestLogWriter;
 import org.eclipse.jetty.server.Server;
 
 import org.springframework.beans.factory.BeanFactory;
+import org.springframework.beans.factory.BeanFactoryUtils;
 import org.springframework.beans.factory.HierarchicalBeanFactory;
 import org.springframework.beans.factory.ListableBeanFactory;
+import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.boot.actuate.autoconfigure.web.ManagementContextConfiguration;
 import org.springframework.boot.actuate.autoconfigure.web.ManagementContextType;
 import org.springframework.boot.actuate.autoconfigure.web.server.ManagementServerProperties;
@@ -124,6 +126,15 @@ class ServletManagementChildContextConfiguration {
 				ManagementServerProperties managementServerProperties, ServerProperties serverProperties) {
 			super.customize(webServerFactory, managementServerProperties, serverProperties);
 			webServerFactory.setContextPath(managementServerProperties.getServlet().getContextPath());
+		}
+
+		private WebServerFactoryCustomizer<?> getCustomizer(Class<? extends WebServerFactoryCustomizer<?>> customizerClass) {
+			try {
+				return BeanFactoryUtils.beanOfTypeIncludingAncestors(this.beanFactory, customizerClass);
+			}
+			catch (NoSuchBeanDefinitionException ex) {
+				return null;
+			}
 		}
 
 	}

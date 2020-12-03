@@ -16,7 +16,9 @@
 
 package org.springframework.boot.actuate.autoconfigure.web.reactive;
 
+import org.springframework.beans.factory.BeanFactoryUtils;
 import org.springframework.beans.factory.ListableBeanFactory;
+import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.boot.actuate.autoconfigure.web.ManagementContextConfiguration;
 import org.springframework.boot.actuate.autoconfigure.web.ManagementContextType;
 import org.springframework.boot.actuate.autoconfigure.web.server.ManagementWebServerFactoryCustomizer;
@@ -29,6 +31,7 @@ import org.springframework.boot.autoconfigure.web.embedded.UndertowWebServerFact
 import org.springframework.boot.autoconfigure.web.reactive.ReactiveWebServerFactoryCustomizer;
 import org.springframework.boot.autoconfigure.web.reactive.TomcatReactiveWebServerFactoryCustomizer;
 import org.springframework.boot.web.reactive.server.ConfigurableReactiveWebServerFactory;
+import org.springframework.boot.web.server.WebServerFactoryCustomizer;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.server.reactive.HttpHandler;
@@ -67,6 +70,15 @@ public class ReactiveManagementChildContextConfiguration {
 			super(beanFactory, ReactiveWebServerFactoryCustomizer.class, TomcatWebServerFactoryCustomizer.class,
 					TomcatReactiveWebServerFactoryCustomizer.class, JettyWebServerFactoryCustomizer.class,
 					UndertowWebServerFactoryCustomizer.class, NettyWebServerFactoryCustomizer.class);
+		}
+
+		private WebServerFactoryCustomizer<?> getCustomizer(Class<? extends WebServerFactoryCustomizer<?>> customizerClass) {
+			try {
+				return BeanFactoryUtils.beanOfTypeIncludingAncestors(this.beanFactory, customizerClass);
+			}
+			catch (NoSuchBeanDefinitionException ex) {
+				return null;
+			}
 		}
 
 	}
