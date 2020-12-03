@@ -16,9 +16,10 @@
 
 package org.springframework.boot.actuate.autoconfigure.metrics.export.newrelic;
 
+import io.micrometer.core.instrument.step.StepRegistryConfig;
 import io.micrometer.newrelic.NewRelicConfig;
 import org.junit.jupiter.api.Test;
-
+import org.springframework.boot.actuate.autoconfigure.metrics.export.properties.StepRegistryProperties;
 import org.springframework.boot.actuate.autoconfigure.metrics.export.properties.StepRegistryPropertiesTests;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -48,6 +49,10 @@ class NewRelicPropertiesTests extends StepRegistryPropertiesTests {
 		assertThat(properties.getEventType()).isNotEqualTo(config.eventType());
 		assertThat(properties.getEventType()).isEqualTo("SpringBootSample");
 		assertThat(config.eventType()).isEqualTo("MicrometerSample");
+	}
+
+	protected void assertStepRegistryDefaultValues(StepRegistryProperties properties, StepRegistryConfig config) {
+		super.assertStepRegistryDefaultValues(properties, config);
 	}
 
 }

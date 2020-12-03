@@ -28,7 +28,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public abstract class PushRegistryPropertiesTests {
 
 	@SuppressWarnings("deprecation")
-	protected void assertStepRegistryDefaultValues(PushRegistryProperties properties, PushRegistryConfig config) {
+	public void assertStepRegistryDefaultValues(PushRegistryProperties properties, PushRegistryConfig config) {
 		assertThat(properties.getStep()).isEqualTo(config.step());
 		assertThat(properties.isEnabled()).isEqualTo(config.enabled());
 		assertThat(properties.getConnectTimeout()).isEqualTo(config.connectTimeout());

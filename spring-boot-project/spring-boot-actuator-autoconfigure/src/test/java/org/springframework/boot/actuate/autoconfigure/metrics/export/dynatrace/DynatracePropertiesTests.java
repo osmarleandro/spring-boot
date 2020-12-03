@@ -16,9 +16,10 @@
 
 package org.springframework.boot.actuate.autoconfigure.metrics.export.dynatrace;
 
+import io.micrometer.core.instrument.step.StepRegistryConfig;
 import io.micrometer.dynatrace.DynatraceConfig;
 import org.junit.jupiter.api.Test;
-
+import org.springframework.boot.actuate.autoconfigure.metrics.export.properties.StepRegistryProperties;
 import org.springframework.boot.actuate.autoconfigure.metrics.export.properties.StepRegistryPropertiesTests;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -36,6 +37,10 @@ class DynatracePropertiesTests extends StepRegistryPropertiesTests {
 		DynatraceConfig config = (key) -> null;
 		assertStepRegistryDefaultValues(properties, config);
 		assertThat(properties.getTechnologyType()).isEqualTo(config.technologyType());
+	}
+
+	protected void assertStepRegistryDefaultValues(StepRegistryProperties properties, StepRegistryConfig config) {
+		super.assertStepRegistryDefaultValues(properties, config);
 	}
 
 }

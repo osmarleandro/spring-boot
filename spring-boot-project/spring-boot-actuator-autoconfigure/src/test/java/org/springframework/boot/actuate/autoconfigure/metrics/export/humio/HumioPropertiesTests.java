@@ -16,9 +16,10 @@
 
 package org.springframework.boot.actuate.autoconfigure.metrics.export.humio;
 
+import io.micrometer.core.instrument.step.StepRegistryConfig;
 import io.micrometer.humio.HumioConfig;
 import org.junit.jupiter.api.Test;
-
+import org.springframework.boot.actuate.autoconfigure.metrics.export.properties.StepRegistryProperties;
 import org.springframework.boot.actuate.autoconfigure.metrics.export.properties.StepRegistryPropertiesTests;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -39,6 +40,10 @@ class HumioPropertiesTests extends StepRegistryPropertiesTests {
 		assertThat(properties.getTags()).isEmpty();
 		assertThat(config.tags()).isNull();
 		assertThat(properties.getUri()).isEqualTo(config.uri());
+	}
+
+	protected void assertStepRegistryDefaultValues(StepRegistryProperties properties, StepRegistryConfig config) {
+		super.assertStepRegistryDefaultValues(properties, config);
 	}
 
 }

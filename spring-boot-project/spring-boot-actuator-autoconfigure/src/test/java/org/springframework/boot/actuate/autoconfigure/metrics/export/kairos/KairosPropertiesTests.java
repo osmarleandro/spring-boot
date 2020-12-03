@@ -16,9 +16,10 @@
 
 package org.springframework.boot.actuate.autoconfigure.metrics.export.kairos;
 
+import io.micrometer.core.instrument.step.StepRegistryConfig;
 import io.micrometer.kairos.KairosConfig;
 import org.junit.jupiter.api.Test;
-
+import org.springframework.boot.actuate.autoconfigure.metrics.export.properties.StepRegistryProperties;
 import org.springframework.boot.actuate.autoconfigure.metrics.export.properties.StepRegistryPropertiesTests;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -38,6 +39,10 @@ class KairosPropertiesTests extends StepRegistryPropertiesTests {
 		assertThat(properties.getUri()).isEqualToIgnoringWhitespace(config.uri());
 		assertThat(properties.getUserName()).isEqualToIgnoringWhitespace(config.userName());
 		assertThat(properties.getPassword()).isEqualToIgnoringWhitespace(config.password());
+	}
+
+	protected void assertStepRegistryDefaultValues(StepRegistryProperties properties, StepRegistryConfig config) {
+		super.assertStepRegistryDefaultValues(properties, config);
 	}
 
 }

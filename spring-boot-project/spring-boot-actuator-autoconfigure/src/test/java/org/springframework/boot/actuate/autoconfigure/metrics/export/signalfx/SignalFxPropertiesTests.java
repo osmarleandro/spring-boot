@@ -16,9 +16,10 @@
 
 package org.springframework.boot.actuate.autoconfigure.metrics.export.signalfx;
 
+import io.micrometer.core.instrument.step.StepRegistryConfig;
 import io.micrometer.signalfx.SignalFxConfig;
 import org.junit.jupiter.api.Test;
-
+import org.springframework.boot.actuate.autoconfigure.metrics.export.properties.StepRegistryProperties;
 import org.springframework.boot.actuate.autoconfigure.metrics.export.properties.StepRegistryPropertiesTests;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -38,6 +39,10 @@ class SignalFxPropertiesTests extends StepRegistryPropertiesTests {
 		// access token is mandatory
 		assertThat(properties.getUri()).isEqualTo(config.uri());
 		// source has no static default value
+	}
+
+	protected void assertStepRegistryDefaultValues(StepRegistryProperties properties, StepRegistryConfig config) {
+		super.assertStepRegistryDefaultValues(properties, config);
 	}
 
 }

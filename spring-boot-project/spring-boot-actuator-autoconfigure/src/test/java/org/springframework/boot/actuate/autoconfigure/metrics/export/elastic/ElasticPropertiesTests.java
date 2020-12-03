@@ -16,9 +16,10 @@
 
 package org.springframework.boot.actuate.autoconfigure.metrics.export.elastic;
 
+import io.micrometer.core.instrument.step.StepRegistryConfig;
 import io.micrometer.elastic.ElasticConfig;
 import org.junit.jupiter.api.Test;
-
+import org.springframework.boot.actuate.autoconfigure.metrics.export.properties.StepRegistryProperties;
 import org.springframework.boot.actuate.autoconfigure.metrics.export.properties.StepRegistryPropertiesTests;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -44,6 +45,10 @@ class ElasticPropertiesTests extends StepRegistryPropertiesTests {
 		assertThat(properties.getUserName()).isEqualTo(config.userName());
 		assertThat(properties.isAutoCreateIndex()).isEqualTo(config.autoCreateIndex());
 		assertThat(properties.getPipeline()).isEqualTo(config.pipeline());
+	}
+
+	protected void assertStepRegistryDefaultValues(StepRegistryProperties properties, StepRegistryConfig config) {
+		super.assertStepRegistryDefaultValues(properties, config);
 	}
 
 }

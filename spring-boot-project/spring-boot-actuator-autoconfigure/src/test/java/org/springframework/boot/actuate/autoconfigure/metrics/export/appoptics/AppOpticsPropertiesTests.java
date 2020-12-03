@@ -17,8 +17,10 @@
 package org.springframework.boot.actuate.autoconfigure.metrics.export.appoptics;
 
 import io.micrometer.appoptics.AppOpticsConfig;
-import org.junit.jupiter.api.Test;
+import io.micrometer.core.instrument.step.StepRegistryConfig;
 
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.actuate.autoconfigure.metrics.export.properties.StepRegistryProperties;
 import org.springframework.boot.actuate.autoconfigure.metrics.export.properties.StepRegistryPropertiesTests;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -38,6 +40,10 @@ class AppOpticsPropertiesTests extends StepRegistryPropertiesTests {
 		assertThat(properties.getUri()).isEqualToIgnoringWhitespace(config.uri());
 		assertThat(properties.getHostTag()).isEqualToIgnoringWhitespace(config.hostTag());
 		assertThat(properties.isFloorTimes()).isEqualTo(config.floorTimes());
+	}
+
+	protected void assertStepRegistryDefaultValues(StepRegistryProperties properties, StepRegistryConfig config) {
+		super.assertStepRegistryDefaultValues(properties, config);
 	}
 
 }
