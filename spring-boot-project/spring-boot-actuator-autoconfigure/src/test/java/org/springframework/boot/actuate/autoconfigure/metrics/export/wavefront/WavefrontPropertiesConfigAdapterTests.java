@@ -70,4 +70,11 @@ class WavefrontPropertiesConfigAdapterTests
 		assertThat(createConfigAdapter(properties).globalPrefix()).isEqualTo("test");
 	}
 
+	@Test
+	void whenPropertiesBatchSizeIsSetAdapterBatchSizeReturnsIt() {
+		WavefrontProperties properties = createProperties();
+		properties.setBatchSize(10042);
+		assertThat(createConfigAdapter(properties).batchSize()).isEqualTo(10042);
+	}
+
 }

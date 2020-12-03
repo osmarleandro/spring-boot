@@ -16,6 +16,10 @@
 
 package org.springframework.boot.actuate.autoconfigure.metrics.export.properties;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
+import org.junit.jupiter.api.Test;
+
 /**
  * Base test for {@link StepRegistryPropertiesConfigAdapter} implementations.
  *
@@ -26,5 +30,12 @@ package org.springframework.boot.actuate.autoconfigure.metrics.export.properties
  */
 public abstract class StepRegistryPropertiesConfigAdapterTests<P extends StepRegistryProperties, A extends StepRegistryPropertiesConfigAdapter<P>>
 		extends PushRegistryPropertiesConfigAdapterTests<P, A> {
+
+	@Test
+	void whenPropertiesBatchSizeIsSetAdapterBatchSizeReturnsIt() {
+		P properties = createProperties();
+		properties.setBatchSize(10042);
+		assertThat(createConfigAdapter(properties).batchSize()).isEqualTo(10042);
+	}
 
 }
