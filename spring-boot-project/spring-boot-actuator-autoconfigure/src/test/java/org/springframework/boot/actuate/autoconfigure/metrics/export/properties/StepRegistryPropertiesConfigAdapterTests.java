@@ -27,4 +27,6 @@ package org.springframework.boot.actuate.autoconfigure.metrics.export.properties
 public abstract class StepRegistryPropertiesConfigAdapterTests<P extends StepRegistryProperties, A extends StepRegistryPropertiesConfigAdapter<P>>
 		extends PushRegistryPropertiesConfigAdapterTests<P, A> {
 
+	protected abstract P createProperties();
+
 }
