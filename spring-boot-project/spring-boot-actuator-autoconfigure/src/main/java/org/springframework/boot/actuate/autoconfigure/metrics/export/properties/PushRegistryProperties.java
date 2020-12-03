@@ -37,7 +37,7 @@ public abstract class PushRegistryProperties {
 	/**
 	 * Whether exporting of metrics to this backend is enabled.
 	 */
-	private boolean enabled = true;
+	protected boolean enabled = true;
 
 	/**
 	 * Connection timeout for requests to this backend.
@@ -65,10 +65,6 @@ public abstract class PushRegistryProperties {
 
 	public boolean isEnabled() {
 		return this.enabled;
-	}
-
-	public void setEnabled(boolean enabled) {
-		this.enabled = enabled;
 	}
 
 	public Duration getConnectTimeout() {
