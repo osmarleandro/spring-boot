@@ -16,6 +16,12 @@
 
 package org.springframework.boot.actuate.autoconfigure.metrics.export.properties;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
+import java.time.Duration;
+
+import org.junit.jupiter.api.Test;
+
 /**
  * Base test for {@link StepRegistryPropertiesConfigAdapter} implementations.
  *
@@ -26,5 +32,12 @@ package org.springframework.boot.actuate.autoconfigure.metrics.export.properties
  */
 public abstract class StepRegistryPropertiesConfigAdapterTests<P extends StepRegistryProperties, A extends StepRegistryPropertiesConfigAdapter<P>>
 		extends PushRegistryPropertiesConfigAdapterTests<P, A> {
+
+	@Test
+	void whenPropertiesStepIsSetAdapterStepReturnsIt() {
+		P properties = createProperties();
+		properties.setStep(Duration.ofSeconds(42));
+		assertThat(createConfigAdapter(properties).step()).hasSeconds(42);
+	}
 
 }

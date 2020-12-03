@@ -17,6 +17,7 @@
 package org.springframework.boot.actuate.autoconfigure.metrics.export.wavefront;
 
 import java.net.URI;
+import java.time.Duration;
 
 import org.junit.jupiter.api.Test;
 
@@ -68,6 +69,13 @@ class WavefrontPropertiesConfigAdapterTests
 		WavefrontProperties properties = createProperties();
 		properties.setGlobalPrefix("test");
 		assertThat(createConfigAdapter(properties).globalPrefix()).isEqualTo("test");
+	}
+
+	@Test
+	void whenPropertiesStepIsSetAdapterStepReturnsIt() {
+		WavefrontProperties properties = createProperties();
+		properties.setStep(Duration.ofSeconds(42));
+		assertThat(createConfigAdapter(properties).step()).hasSeconds(42);
 	}
 
 }
