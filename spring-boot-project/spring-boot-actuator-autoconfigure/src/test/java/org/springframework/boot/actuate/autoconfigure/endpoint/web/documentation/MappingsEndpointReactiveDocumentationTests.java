@@ -16,10 +16,13 @@
 
 package org.springframework.boot.actuate.autoconfigure.endpoint.web.documentation;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
+import java.util.function.Predicate;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -39,6 +42,8 @@ import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.restdocs.RestDocumentationContextProvider;
 import org.springframework.restdocs.RestDocumentationExtension;
+import org.springframework.restdocs.operation.preprocess.ContentModifyingOperationPreprocessor;
+import org.springframework.restdocs.operation.preprocess.OperationPreprocessor;
 import org.springframework.restdocs.payload.FieldDescriptor;
 import org.springframework.restdocs.payload.JsonFieldType;
 import org.springframework.test.web.reactive.server.WebTestClient;
@@ -46,6 +51,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.reactive.function.server.RouterFunction;
 import org.springframework.web.reactive.function.server.ServerResponse;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 
 import static org.springframework.restdocs.payload.PayloadDocumentation.beneathPath;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
@@ -130,6 +138,35 @@ class MappingsEndpointReactiveDocumentationTests extends AbstractEndpointDocumen
 
 	private FieldDescriptor requestMappingConditionField(String path) {
 		return fieldWithPath("*.[].details.requestMappingConditions" + path);
+	}
+
+	@SuppressWarnings("unchecked")
+	protected <T> OperationPreprocessor limit(Predicate<T> filter, String... keys) {
+		return new ContentModifyingOperationPreprocessor((content, mediaType) -> {
+			ObjectMapper objectMapper = new ObjectMapper().enable(SerializationFeature.INDENT_OUTPUT);
+			try {
+				Map<String, Object> payload = objectMapper.readValue(content, Map.class);
+				Object target = payload;
+				Map<Object, Object> parent = null;
+				for (String key : keys) {
+					if (!(target instanceof Map)) {
+						throw new IllegalStateException();
+					}
+					parent = (Map<Object, Object>) target;
+					target = parent.get(key);
+				}
+				if (target instanceof Map) {
+					parent.put(keys[keys.length - 1], select((Map<String, Object>) target, filter));
+				}
+				else {
+					parent.put(keys[keys.length - 1], select((List<Object>) target, filter));
+				}
+				return objectMapper.writeValueAsBytes(payload);
+			}
+			catch (IOException ex) {
+				throw new IllegalStateException(ex);
+			}
+		});
 	}
 
 	@Configuration(proxyBeanMethods = false)
