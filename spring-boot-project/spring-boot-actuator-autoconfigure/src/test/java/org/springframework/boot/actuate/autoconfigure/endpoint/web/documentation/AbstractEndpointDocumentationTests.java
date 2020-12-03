@@ -110,12 +110,6 @@ public abstract class AbstractEndpointDocumentationTests {
 		return selected;
 	}
 
-	@SuppressWarnings("unchecked")
-	private <T> List<Object> select(List<Object> candidates, Predicate<T> filter) {
-		return candidates.stream().filter((candidate) -> filter.test((T) candidate)).limit(3)
-				.collect(Collectors.toList());
-	}
-
 	@Configuration(proxyBeanMethods = false)
 	@ImportAutoConfiguration({ JacksonAutoConfiguration.class, HttpMessageConvertersAutoConfiguration.class,
 			WebMvcAutoConfiguration.class, DispatcherServletAutoConfiguration.class, EndpointAutoConfiguration.class,

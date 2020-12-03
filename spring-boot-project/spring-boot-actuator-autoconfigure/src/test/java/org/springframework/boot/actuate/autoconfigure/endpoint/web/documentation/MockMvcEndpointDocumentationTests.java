@@ -16,6 +16,10 @@
 
 package org.springframework.boot.actuate.autoconfigure.endpoint.web.documentation;
 
+import java.util.List;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.ExtendWith;
 
@@ -51,6 +55,12 @@ public abstract class MockMvcEndpointDocumentationTests extends AbstractEndpoint
 
 	protected WebApplicationContext getApplicationContext() {
 		return this.applicationContext;
+	}
+
+	@SuppressWarnings("unchecked")
+	private <T> List<Object> select(List<Object> candidates, Predicate<T> filter) {
+		return candidates.stream().filter((candidate) -> filter.test((T) candidate)).limit(3)
+				.collect(Collectors.toList());
 	}
 
 }

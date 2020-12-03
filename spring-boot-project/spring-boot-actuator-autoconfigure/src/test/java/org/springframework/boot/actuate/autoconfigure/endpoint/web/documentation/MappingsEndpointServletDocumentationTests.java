@@ -20,6 +20,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -145,6 +147,12 @@ class MappingsEndpointServletDocumentationTests extends AbstractEndpointDocument
 
 	private FieldDescriptor requestMappingConditionField(String path) {
 		return fieldWithPath("*.[].details.requestMappingConditions" + path);
+	}
+
+	@SuppressWarnings("unchecked")
+	private <T> List<Object> select(List<Object> candidates, Predicate<T> filter) {
+		return candidates.stream().filter((candidate) -> filter.test((T) candidate)).limit(3)
+				.collect(Collectors.toList());
 	}
 
 	@Configuration(proxyBeanMethods = false)
