@@ -106,6 +106,15 @@ class OnAvailableEndpointCondition extends AbstractEndpointCondition {
 			return super.match(id);
 		}
 
+		/**
+		 * Return {@code true} if the filter matches.
+		 * @param endpointId the endpoint ID to check
+		 * @return {@code true} if the filter matches
+		 */
+		protected final boolean match(EndpointId endpointId) {
+			return isIncluded(endpointId) && !isExcluded(endpointId);
+		}
+
 	}
 
 }
