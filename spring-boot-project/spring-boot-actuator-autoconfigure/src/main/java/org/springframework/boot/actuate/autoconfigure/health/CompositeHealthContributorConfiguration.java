@@ -16,8 +16,10 @@
 
 package org.springframework.boot.actuate.autoconfigure.health;
 
+import java.lang.reflect.Constructor;
 import java.util.Map;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.boot.actuate.health.CompositeHealthContributor;
 import org.springframework.boot.actuate.health.HealthContributor;
 import org.springframework.boot.actuate.health.HealthIndicator;
@@ -38,6 +40,18 @@ public abstract class CompositeHealthContributorConfiguration<I extends HealthIn
 	@Override
 	protected final HealthContributor createComposite(Map<String, B> beans) {
 		return CompositeHealthContributor.fromMap(beans, this::createIndicator);
+	}
+
+	@SuppressWarnings("unchecked")
+	protected I createIndicator(B bean) {
+		try {
+			Constructor<I> constructor = (Constructor<I>) this.indicatorType.getDeclaredConstructor(this.beanType);
+			return BeanUtils.instantiateClass(constructor, bean);
+		}
+		catch (Exception ex) {
+			throw new IllegalStateException(
+					"Unable to create health indicator " + this.indicatorType + " for bean type " + this.beanType, ex);
+		}
 	}
 
 }

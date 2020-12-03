@@ -16,10 +16,8 @@
 
 package org.springframework.boot.actuate.autoconfigure.health;
 
-import java.lang.reflect.Constructor;
 import java.util.Map;
 
-import org.springframework.beans.BeanUtils;
 import org.springframework.core.ResolvableType;
 import org.springframework.util.Assert;
 
@@ -36,9 +34,9 @@ import org.springframework.util.Assert;
  */
 public abstract class AbstractCompositeHealthContributorConfiguration<C, I extends C, B> {
 
-	private final Class<?> indicatorType;
+	protected final Class<?> indicatorType;
 
-	private final Class<?> beanType;
+	protected final Class<?> beanType;
 
 	AbstractCompositeHealthContributorConfiguration() {
 		ResolvableType type = ResolvableType.forClass(AbstractCompositeHealthContributorConfiguration.class,
@@ -57,17 +55,5 @@ public abstract class AbstractCompositeHealthContributorConfiguration<C, I exten
 	}
 
 	protected abstract C createComposite(Map<String, B> beans);
-
-	@SuppressWarnings("unchecked")
-	protected I createIndicator(B bean) {
-		try {
-			Constructor<I> constructor = (Constructor<I>) this.indicatorType.getDeclaredConstructor(this.beanType);
-			return BeanUtils.instantiateClass(constructor, bean);
-		}
-		catch (Exception ex) {
-			throw new IllegalStateException(
-					"Unable to create health indicator " + this.indicatorType + " for bean type " + this.beanType, ex);
-		}
-	}
 
 }
