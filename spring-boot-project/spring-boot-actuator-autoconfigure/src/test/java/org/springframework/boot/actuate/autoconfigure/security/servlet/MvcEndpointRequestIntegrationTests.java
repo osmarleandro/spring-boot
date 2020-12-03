@@ -16,10 +16,15 @@
 package org.springframework.boot.actuate.autoconfigure.security.servlet;
 
 import org.junit.jupiter.api.Test;
-
+import org.springframework.boot.actuate.autoconfigure.endpoint.EndpointAutoConfiguration;
+import org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointProperties;
+import org.springframework.boot.actuate.autoconfigure.web.server.ManagementContextAutoConfiguration;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
 import org.springframework.boot.autoconfigure.http.HttpMessageConvertersAutoConfiguration;
+import org.springframework.boot.autoconfigure.jackson.JacksonAutoConfiguration;
+import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
+import org.springframework.boot.autoconfigure.security.servlet.UserDetailsServiceAutoConfiguration;
 import org.springframework.boot.autoconfigure.web.servlet.DispatcherServletAutoConfiguration;
 import org.springframework.boot.autoconfigure.web.servlet.WebMvcAutoConfiguration;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -101,6 +106,15 @@ class MvcEndpointRequestIntegrationTests extends AbstractEndpointRequestIntegrat
 				.withUserConfiguration(WebMvcEndpointConfiguration.class)
 				.withConfiguration(AutoConfigurations.of(DispatcherServletAutoConfiguration.class,
 						HttpMessageConvertersAutoConfiguration.class, WebMvcAutoConfiguration.class));
+	}
+
+	protected final WebApplicationContextRunner getContextRunner() {
+		return createContextRunner().withPropertyValues("management.endpoints.web.exposure.include=*")
+				.withUserConfiguration(BaseConfiguration.class, SecurityConfiguration.class).withConfiguration(
+						AutoConfigurations.of(JacksonAutoConfiguration.class, SecurityAutoConfiguration.class,
+								UserDetailsServiceAutoConfiguration.class, EndpointAutoConfiguration.class,
+								WebEndpointAutoConfiguration.class, ManagementContextAutoConfiguration.class));
+	
 	}
 
 	@Configuration(proxyBeanMethods = false)

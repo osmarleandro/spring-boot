@@ -20,18 +20,10 @@ import java.util.function.Supplier;
 
 import org.jolokia.http.AgentServlet;
 import org.junit.jupiter.api.Test;
-
-import org.springframework.boot.actuate.autoconfigure.endpoint.EndpointAutoConfiguration;
-import org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointAutoConfiguration;
-import org.springframework.boot.actuate.autoconfigure.web.server.ManagementContextAutoConfiguration;
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
 import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
 import org.springframework.boot.actuate.endpoint.web.EndpointServlet;
 import org.springframework.boot.actuate.endpoint.web.annotation.ServletEndpoint;
-import org.springframework.boot.autoconfigure.AutoConfigurations;
-import org.springframework.boot.autoconfigure.jackson.JacksonAutoConfiguration;
-import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
-import org.springframework.boot.autoconfigure.security.servlet.UserDetailsServiceAutoConfiguration;
 import org.springframework.boot.test.context.assertj.AssertableWebApplicationContext;
 import org.springframework.boot.test.context.runner.WebApplicationContextRunner;
 import org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext;
@@ -73,15 +65,6 @@ abstract class AbstractEndpointRequestIntegrationTests {
 			webTestClient.get().uri("/actuator").exchange().expectStatus().isOk();
 			webTestClient.get().uri("/actuator/").exchange().expectStatus().isOk();
 		});
-	}
-
-	protected final WebApplicationContextRunner getContextRunner() {
-		return createContextRunner().withPropertyValues("management.endpoints.web.exposure.include=*")
-				.withUserConfiguration(BaseConfiguration.class, SecurityConfiguration.class).withConfiguration(
-						AutoConfigurations.of(JacksonAutoConfiguration.class, SecurityAutoConfiguration.class,
-								UserDetailsServiceAutoConfiguration.class, EndpointAutoConfiguration.class,
-								WebEndpointAutoConfiguration.class, ManagementContextAutoConfiguration.class));
-
 	}
 
 	protected abstract WebApplicationContextRunner createContextRunner();

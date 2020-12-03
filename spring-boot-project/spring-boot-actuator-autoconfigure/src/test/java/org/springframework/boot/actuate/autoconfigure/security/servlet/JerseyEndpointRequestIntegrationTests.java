@@ -17,10 +17,15 @@ package org.springframework.boot.actuate.autoconfigure.security.servlet;
 
 import org.glassfish.jersey.server.ResourceConfig;
 import org.junit.jupiter.api.Test;
-
+import org.springframework.boot.actuate.autoconfigure.endpoint.EndpointAutoConfiguration;
+import org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointAutoConfiguration;
 import org.springframework.boot.actuate.autoconfigure.endpoint.web.WebEndpointProperties;
+import org.springframework.boot.actuate.autoconfigure.web.server.ManagementContextAutoConfiguration;
 import org.springframework.boot.autoconfigure.AutoConfigurations;
+import org.springframework.boot.autoconfigure.jackson.JacksonAutoConfiguration;
 import org.springframework.boot.autoconfigure.jersey.JerseyAutoConfiguration;
+import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
+import org.springframework.boot.autoconfigure.security.servlet.UserDetailsServiceAutoConfiguration;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.test.context.FilteredClassLoader;
 import org.springframework.boot.test.context.runner.WebApplicationContextRunner;
@@ -101,6 +106,15 @@ class JerseyEndpointRequestIntegrationTests extends AbstractEndpointRequestInteg
 				.withClassLoader(new FilteredClassLoader("org.springframework.web.servlet.DispatcherServlet"))
 				.withUserConfiguration(JerseyEndpointConfiguration.class)
 				.withConfiguration(AutoConfigurations.of(JerseyAutoConfiguration.class));
+	}
+
+	protected final WebApplicationContextRunner getContextRunner() {
+		return createContextRunner().withPropertyValues("management.endpoints.web.exposure.include=*")
+				.withUserConfiguration(BaseConfiguration.class, SecurityConfiguration.class).withConfiguration(
+						AutoConfigurations.of(JacksonAutoConfiguration.class, SecurityAutoConfiguration.class,
+								UserDetailsServiceAutoConfiguration.class, EndpointAutoConfiguration.class,
+								WebEndpointAutoConfiguration.class, ManagementContextAutoConfiguration.class));
+	
 	}
 
 	@Configuration
