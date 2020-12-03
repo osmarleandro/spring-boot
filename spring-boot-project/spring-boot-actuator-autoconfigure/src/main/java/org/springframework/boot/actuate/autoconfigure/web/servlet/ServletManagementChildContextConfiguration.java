@@ -17,6 +17,7 @@
 package org.springframework.boot.actuate.autoconfigure.web.servlet;
 
 import java.io.File;
+import java.util.List;
 
 import javax.servlet.Filter;
 
@@ -46,6 +47,7 @@ import org.springframework.boot.autoconfigure.web.embedded.UndertowWebServerFact
 import org.springframework.boot.autoconfigure.web.servlet.ServletWebServerFactoryCustomizer;
 import org.springframework.boot.autoconfigure.web.servlet.TomcatServletWebServerFactoryCustomizer;
 import org.springframework.boot.autoconfigure.web.servlet.UndertowServletWebServerFactoryCustomizer;
+import org.springframework.boot.util.LambdaSafe;
 import org.springframework.boot.web.embedded.jetty.JettyServletWebServerFactory;
 import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
 import org.springframework.boot.web.embedded.undertow.UndertowServletWebServerFactory;
@@ -124,6 +126,12 @@ class ServletManagementChildContextConfiguration {
 				ManagementServerProperties managementServerProperties, ServerProperties serverProperties) {
 			super.customize(webServerFactory, managementServerProperties, serverProperties);
 			webServerFactory.setContextPath(managementServerProperties.getServlet().getContextPath());
+		}
+
+		@SuppressWarnings("unchecked")
+		private void invokeCustomizers(ConfigurableServletWebServerFactory factory, List<WebServerFactoryCustomizer<?>> customizers) {
+			LambdaSafe.callbacks(WebServerFactoryCustomizer.class, customizers, factory)
+					.invoke((customizer) -> customizer.customize(factory));
 		}
 
 	}

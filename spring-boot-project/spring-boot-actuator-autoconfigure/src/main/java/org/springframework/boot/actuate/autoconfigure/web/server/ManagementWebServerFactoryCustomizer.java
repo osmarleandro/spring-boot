@@ -26,7 +26,6 @@ import org.springframework.beans.factory.BeanFactoryUtils;
 import org.springframework.beans.factory.ListableBeanFactory;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.boot.autoconfigure.web.ServerProperties;
-import org.springframework.boot.util.LambdaSafe;
 import org.springframework.boot.web.server.ConfigurableWebServerFactory;
 import org.springframework.boot.web.server.Ssl;
 import org.springframework.boot.web.server.WebServerFactory;
@@ -90,12 +89,6 @@ public abstract class ManagementWebServerFactoryCustomizer<T extends Configurabl
 		catch (NoSuchBeanDefinitionException ex) {
 			return null;
 		}
-	}
-
-	@SuppressWarnings("unchecked")
-	private void invokeCustomizers(T factory, List<WebServerFactoryCustomizer<?>> customizers) {
-		LambdaSafe.callbacks(WebServerFactoryCustomizer.class, customizers, factory)
-				.invoke((customizer) -> customizer.customize(factory));
 	}
 
 	protected void customize(T factory, ManagementServerProperties managementServerProperties,

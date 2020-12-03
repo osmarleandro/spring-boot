@@ -16,6 +16,8 @@
 
 package org.springframework.boot.actuate.autoconfigure.web.reactive;
 
+import java.util.List;
+
 import org.springframework.beans.factory.ListableBeanFactory;
 import org.springframework.boot.actuate.autoconfigure.web.ManagementContextConfiguration;
 import org.springframework.boot.actuate.autoconfigure.web.ManagementContextType;
@@ -28,7 +30,9 @@ import org.springframework.boot.autoconfigure.web.embedded.TomcatWebServerFactor
 import org.springframework.boot.autoconfigure.web.embedded.UndertowWebServerFactoryCustomizer;
 import org.springframework.boot.autoconfigure.web.reactive.ReactiveWebServerFactoryCustomizer;
 import org.springframework.boot.autoconfigure.web.reactive.TomcatReactiveWebServerFactoryCustomizer;
+import org.springframework.boot.util.LambdaSafe;
 import org.springframework.boot.web.reactive.server.ConfigurableReactiveWebServerFactory;
+import org.springframework.boot.web.server.WebServerFactoryCustomizer;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.server.reactive.HttpHandler;
@@ -67,6 +71,12 @@ public class ReactiveManagementChildContextConfiguration {
 			super(beanFactory, ReactiveWebServerFactoryCustomizer.class, TomcatWebServerFactoryCustomizer.class,
 					TomcatReactiveWebServerFactoryCustomizer.class, JettyWebServerFactoryCustomizer.class,
 					UndertowWebServerFactoryCustomizer.class, NettyWebServerFactoryCustomizer.class);
+		}
+
+		@SuppressWarnings("unchecked")
+		private void invokeCustomizers(ConfigurableReactiveWebServerFactory factory, List<WebServerFactoryCustomizer<?>> customizers) {
+			LambdaSafe.callbacks(WebServerFactoryCustomizer.class, customizers, factory)
+					.invoke((customizer) -> customizer.customize(factory));
 		}
 
 	}
