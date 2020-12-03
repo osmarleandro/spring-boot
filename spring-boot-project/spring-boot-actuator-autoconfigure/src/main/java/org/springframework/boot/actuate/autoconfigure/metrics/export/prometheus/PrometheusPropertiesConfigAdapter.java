@@ -17,6 +17,8 @@
 package org.springframework.boot.actuate.autoconfigure.metrics.export.prometheus;
 
 import java.time.Duration;
+import java.util.function.Function;
+import java.util.function.Supplier;
 
 import io.micrometer.prometheus.HistogramFlavor;
 import io.micrometer.prometheus.PrometheusConfig;
@@ -59,6 +61,18 @@ class PrometheusPropertiesConfigAdapter extends PropertiesConfigAdapter<Promethe
 	@Override
 	public Duration step() {
 		return get(PrometheusProperties::getStep, PrometheusConfig.super::step);
+	}
+
+	/**
+	 * Get the value from the properties or use a fallback from the {@code defaults}.
+	 * @param getter the getter for the properties
+	 * @param fallback the fallback method, usually super interface method reference
+	 * @param <V> the value type
+	 * @return the property or fallback value
+	 */
+	protected final <V> V get(Function<PrometheusProperties, V> getter, Supplier<V> fallback) {
+		V value = getter.apply(this.properties);
+		return (value != null) ? value : fallback.get();
 	}
 
 }

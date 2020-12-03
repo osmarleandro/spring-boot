@@ -17,6 +17,8 @@
 package org.springframework.boot.actuate.autoconfigure.metrics.export.simple;
 
 import java.time.Duration;
+import java.util.function.Function;
+import java.util.function.Supplier;
 
 import io.micrometer.core.instrument.simple.CountingMode;
 import io.micrometer.core.instrument.simple.SimpleConfig;
@@ -53,6 +55,18 @@ public class SimplePropertiesConfigAdapter extends PropertiesConfigAdapter<Simpl
 	@Override
 	public CountingMode mode() {
 		return get(SimpleProperties::getMode, SimpleConfig.super::mode);
+	}
+
+	/**
+	 * Get the value from the properties or use a fallback from the {@code defaults}.
+	 * @param getter the getter for the properties
+	 * @param fallback the fallback method, usually super interface method reference
+	 * @param <V> the value type
+	 * @return the property or fallback value
+	 */
+	protected final <V> V get(Function<SimpleProperties, V> getter, Supplier<V> fallback) {
+		V value = getter.apply(this.properties);
+		return (value != null) ? value : fallback.get();
 	}
 
 }

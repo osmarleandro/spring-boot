@@ -18,6 +18,8 @@ package org.springframework.boot.actuate.autoconfigure.metrics.export.ganglia;
 
 import java.time.Duration;
 import java.util.concurrent.TimeUnit;
+import java.util.function.Function;
+import java.util.function.Supplier;
 
 import info.ganglia.gmetric4j.gmetric.GMetric;
 import io.micrometer.ganglia.GangliaConfig;
@@ -91,6 +93,18 @@ class GangliaPropertiesConfigAdapter extends PropertiesConfigAdapter<GangliaProp
 	@Override
 	public int port() {
 		return get(GangliaProperties::getPort, GangliaConfig.super::port);
+	}
+
+	/**
+	 * Get the value from the properties or use a fallback from the {@code defaults}.
+	 * @param getter the getter for the properties
+	 * @param fallback the fallback method, usually super interface method reference
+	 * @param <V> the value type
+	 * @return the property or fallback value
+	 */
+	protected final <V> V get(Function<GangliaProperties, V> getter, Supplier<V> fallback) {
+		V value = getter.apply(this.properties);
+		return (value != null) ? value : fallback.get();
 	}
 
 }

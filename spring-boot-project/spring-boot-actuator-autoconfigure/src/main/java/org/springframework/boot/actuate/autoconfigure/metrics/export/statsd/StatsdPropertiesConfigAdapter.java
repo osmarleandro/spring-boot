@@ -17,6 +17,8 @@
 package org.springframework.boot.actuate.autoconfigure.metrics.export.statsd;
 
 import java.time.Duration;
+import java.util.function.Function;
+import java.util.function.Supplier;
 
 import io.micrometer.statsd.StatsdConfig;
 import io.micrometer.statsd.StatsdFlavor;
@@ -84,6 +86,18 @@ public class StatsdPropertiesConfigAdapter extends PropertiesConfigAdapter<Stats
 	@Override
 	public boolean publishUnchangedMeters() {
 		return get(StatsdProperties::isPublishUnchangedMeters, StatsdConfig.super::publishUnchangedMeters);
+	}
+
+	/**
+	 * Get the value from the properties or use a fallback from the {@code defaults}.
+	 * @param getter the getter for the properties
+	 * @param fallback the fallback method, usually super interface method reference
+	 * @param <V> the value type
+	 * @return the property or fallback value
+	 */
+	protected final <V> V get(Function<StatsdProperties, V> getter, Supplier<V> fallback) {
+		V value = getter.apply(this.properties);
+		return (value != null) ? value : fallback.get();
 	}
 
 }

@@ -17,6 +17,8 @@
 package org.springframework.boot.actuate.autoconfigure.metrics.export.jmx;
 
 import java.time.Duration;
+import java.util.function.Function;
+import java.util.function.Supplier;
 
 import io.micrometer.jmx.JmxConfig;
 
@@ -52,6 +54,18 @@ class JmxPropertiesConfigAdapter extends PropertiesConfigAdapter<JmxProperties> 
 	@Override
 	public Duration step() {
 		return get(JmxProperties::getStep, JmxConfig.super::step);
+	}
+
+	/**
+	 * Get the value from the properties or use a fallback from the {@code defaults}.
+	 * @param getter the getter for the properties
+	 * @param fallback the fallback method, usually super interface method reference
+	 * @param <V> the value type
+	 * @return the property or fallback value
+	 */
+	protected final <V> V get(Function<JmxProperties, V> getter, Supplier<V> fallback) {
+		V value = getter.apply(this.properties);
+		return (value != null) ? value : fallback.get();
 	}
 
 }
