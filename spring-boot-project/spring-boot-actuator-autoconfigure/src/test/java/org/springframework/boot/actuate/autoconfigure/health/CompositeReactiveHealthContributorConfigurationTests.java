@@ -18,11 +18,18 @@ package org.springframework.boot.actuate.autoconfigure.health;
 
 import reactor.core.publisher.Mono;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
+import java.util.LinkedHashMap;
+import java.util.Map;
+
+import org.junit.jupiter.api.Test;
 import org.springframework.boot.actuate.autoconfigure.health.CompositeReactiveHealthContributorConfigurationTests.TestReactiveHealthIndicator;
 import org.springframework.boot.actuate.health.AbstractReactiveHealthIndicator;
 import org.springframework.boot.actuate.health.Health;
 import org.springframework.boot.actuate.health.Health.Builder;
 import org.springframework.boot.actuate.health.ReactiveHealthContributor;
+import org.springframework.util.ClassUtils;
 
 /**
  * Tests for {@link CompositeReactiveHealthContributorConfiguration}.
@@ -35,6 +42,16 @@ class CompositeReactiveHealthContributorConfigurationTests extends
 	@Override
 	protected AbstractCompositeHealthContributorConfiguration<ReactiveHealthContributor, TestReactiveHealthIndicator, TestBean> newComposite() {
 		return new TestCompositeReactiveHealthContributorConfiguration();
+	}
+
+	@Test
+	void createContributorWhenBeansHasMultipleElementsCreatesComposite() {
+		Map<String, TestBean> beans = new LinkedHashMap<>();
+		beans.put("test1", new TestBean());
+		beans.put("test2", new TestBean());
+		ReactiveHealthContributor contributor = newComposite().createContributor(beans);
+		assertThat(contributor).isNotInstanceOf(this.indicatorType);
+		assertThat(ClassUtils.getShortName(contributor.getClass())).startsWith("Composite");
 	}
 
 	static class TestCompositeReactiveHealthContributorConfiguration

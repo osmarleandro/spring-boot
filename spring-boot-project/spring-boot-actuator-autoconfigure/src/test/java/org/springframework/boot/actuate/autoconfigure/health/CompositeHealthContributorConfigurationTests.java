@@ -16,10 +16,17 @@
 
 package org.springframework.boot.actuate.autoconfigure.health;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
+import java.util.LinkedHashMap;
+import java.util.Map;
+
+import org.junit.jupiter.api.Test;
 import org.springframework.boot.actuate.autoconfigure.health.CompositeHealthContributorConfigurationTests.TestHealthIndicator;
 import org.springframework.boot.actuate.health.AbstractHealthIndicator;
 import org.springframework.boot.actuate.health.Health.Builder;
 import org.springframework.boot.actuate.health.HealthContributor;
+import org.springframework.util.ClassUtils;
 
 /**
  * Tests for {@link CompositeHealthContributorConfiguration}.
@@ -32,6 +39,16 @@ class CompositeHealthContributorConfigurationTests
 	@Override
 	protected AbstractCompositeHealthContributorConfiguration<HealthContributor, TestHealthIndicator, TestBean> newComposite() {
 		return new TestCompositeHealthContributorConfiguration();
+	}
+
+	@Test
+	void createContributorWhenBeansHasMultipleElementsCreatesComposite() {
+		Map<String, TestBean> beans = new LinkedHashMap<>();
+		beans.put("test1", new TestBean());
+		beans.put("test2", new TestBean());
+		HealthContributor contributor = newComposite().createContributor(beans);
+		assertThat(contributor).isNotInstanceOf(this.indicatorType);
+		assertThat(ClassUtils.getShortName(contributor.getClass())).startsWith("Composite");
 	}
 
 	static class TestCompositeHealthContributorConfiguration
