@@ -22,6 +22,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import org.springframework.boot.actuate.beans.BeansEndpoint;
@@ -29,8 +30,11 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
+import org.springframework.restdocs.RestDocumentationContextProvider;
+import org.springframework.restdocs.mockmvc.MockMvcRestDocumentation;
 import org.springframework.restdocs.payload.FieldDescriptor;
 import org.springframework.restdocs.payload.ResponseFieldsSnippet;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.util.CollectionUtils;
 
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
@@ -68,6 +72,12 @@ class BeansEndpointDocumentationTests extends MockMvcEndpointDocumentationTests 
 	private boolean isIndependentBean(Entry<String, Map<String, Object>> bean) {
 		return CollectionUtils.isEmpty((Collection<?>) bean.getValue().get("aliases"))
 				&& CollectionUtils.isEmpty((Collection<?>) bean.getValue().get("dependencies"));
+	}
+
+	@BeforeEach
+	void setup(RestDocumentationContextProvider restDocumentation) {
+		this.mockMvc = MockMvcBuilders.webAppContextSetup(this.applicationContext)
+				.apply(MockMvcRestDocumentation.documentationConfiguration(restDocumentation).uris()).build();
 	}
 
 	@Configuration(proxyBeanMethods = false)

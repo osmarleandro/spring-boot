@@ -20,12 +20,17 @@ import io.micrometer.core.instrument.Clock;
 import io.micrometer.core.instrument.binder.jvm.JvmMemoryMetrics;
 import io.micrometer.prometheus.PrometheusMeterRegistry;
 import io.prometheus.client.CollectorRegistry;
+
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import org.springframework.boot.actuate.metrics.export.prometheus.PrometheusScrapeEndpoint;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
+import org.springframework.restdocs.RestDocumentationContextProvider;
+import org.springframework.restdocs.mockmvc.MockMvcRestDocumentation;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
@@ -54,6 +59,12 @@ class PrometheusScrapeEndpointDocumentationTests extends MockMvcEndpointDocument
 				.andExpect(status().isOk())
 				.andDo(document("prometheus/names", requestParameters(parameterWithName("includedNames")
 						.description("Restricts the samples to those that match the names. Optional.").optional())));
+	}
+
+	@BeforeEach
+	void setup(RestDocumentationContextProvider restDocumentation) {
+		this.mockMvc = MockMvcBuilders.webAppContextSetup(this.applicationContext)
+				.apply(MockMvcRestDocumentation.documentationConfiguration(restDocumentation).uris()).build();
 	}
 
 	@Configuration(proxyBeanMethods = false)

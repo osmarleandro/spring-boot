@@ -25,6 +25,7 @@ import java.util.Map;
 
 import javax.sql.DataSource;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import org.springframework.boot.actuate.endpoint.SecurityContext;
@@ -49,7 +50,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
+import org.springframework.restdocs.RestDocumentationContextProvider;
+import org.springframework.restdocs.mockmvc.MockMvcRestDocumentation;
 import org.springframework.restdocs.payload.FieldDescriptor;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.util.unit.DataSize;
 
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
@@ -98,6 +102,12 @@ class HealthEndpointDocumentationTests extends MockMvcEndpointDocumentationTests
 	void healthComponentInstance() throws Exception {
 		this.mockMvc.perform(get("/actuator/health/broker/us1").accept(MediaType.APPLICATION_JSON))
 				.andExpect(status().isOk()).andDo(document("health/instance", responseFields(componentFields)));
+	}
+
+	@BeforeEach
+	void setup(RestDocumentationContextProvider restDocumentation) {
+		this.mockMvc = MockMvcBuilders.webAppContextSetup(this.applicationContext)
+				.apply(MockMvcRestDocumentation.documentationConfiguration(restDocumentation).uris()).build();
 	}
 
 	@Configuration(proxyBeanMethods = false)

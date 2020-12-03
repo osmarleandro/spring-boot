@@ -23,6 +23,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import org.springframework.boot.actuate.context.ShutdownEndpoint;
@@ -31,11 +32,14 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
+import org.springframework.restdocs.RestDocumentationContextProvider;
+import org.springframework.restdocs.mockmvc.MockMvcRestDocumentation;
 import org.springframework.restdocs.payload.FieldDescriptor;
 import org.springframework.session.FindByIndexNameSessionRepository;
 import org.springframework.session.MapSession;
 import org.springframework.session.Session;
 import org.springframework.test.context.TestPropertySource;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
@@ -103,6 +107,12 @@ class SessionsEndpointDocumentationTests extends MockMvcEndpointDocumentationTes
 		this.mockMvc.perform(delete("/actuator/sessions/{id}", sessionTwo.getId())).andExpect(status().isNoContent())
 				.andDo(document("sessions/delete"));
 		verify(this.sessionRepository).deleteById(sessionTwo.getId());
+	}
+
+	@BeforeEach
+	void setup(RestDocumentationContextProvider restDocumentation) {
+		this.mockMvc = MockMvcBuilders.webAppContextSetup(this.applicationContext)
+				.apply(MockMvcRestDocumentation.documentationConfiguration(restDocumentation).uris()).build();
 	}
 
 	private static MapSession createSession(Instant creationTime, Instant lastAccessedTime) {

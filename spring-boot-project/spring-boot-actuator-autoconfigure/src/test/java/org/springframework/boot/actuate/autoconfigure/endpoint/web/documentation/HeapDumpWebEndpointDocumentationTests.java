@@ -19,15 +19,19 @@ package org.springframework.boot.actuate.autoconfigure.endpoint.web.documentatio
 import java.io.FileWriter;
 import java.util.Map;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import org.springframework.boot.actuate.management.HeapDumpWebEndpoint;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
+import org.springframework.restdocs.RestDocumentationContextProvider;
 import org.springframework.restdocs.cli.CliDocumentation;
 import org.springframework.restdocs.cli.CurlRequestSnippet;
+import org.springframework.restdocs.mockmvc.MockMvcRestDocumentation;
 import org.springframework.restdocs.operation.Operation;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.util.FileCopyUtils;
 
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
@@ -54,6 +58,12 @@ class HeapDumpWebEndpointDocumentationTests extends MockMvcEndpointDocumentation
 					}
 
 				}));
+	}
+
+	@BeforeEach
+	void setup(RestDocumentationContextProvider restDocumentation) {
+		this.mockMvc = MockMvcBuilders.webAppContextSetup(this.applicationContext)
+				.apply(MockMvcRestDocumentation.documentationConfiguration(restDocumentation).uris()).build();
 	}
 
 	@Configuration(proxyBeanMethods = false)

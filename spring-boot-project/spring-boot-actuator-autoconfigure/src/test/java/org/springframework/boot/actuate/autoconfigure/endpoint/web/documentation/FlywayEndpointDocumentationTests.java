@@ -23,6 +23,7 @@ import javax.sql.DataSource;
 
 import org.flywaydb.core.api.MigrationState;
 import org.flywaydb.core.api.MigrationType;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import org.springframework.boot.actuate.flyway.FlywayEndpoint;
@@ -34,8 +35,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
+import org.springframework.restdocs.RestDocumentationContextProvider;
 import org.springframework.restdocs.mockmvc.MockMvcRestDocumentation;
 import org.springframework.restdocs.payload.FieldDescriptor;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
 import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
@@ -81,6 +84,12 @@ class FlywayEndpointDocumentationTests extends MockMvcEndpointDocumentationTests
 						.description("Type of the migration. (" + describeEnumValues(MigrationType.class) + ")"),
 				fieldWithPath("version").description("Version of the database after applying the migration, if any.")
 						.optional());
+	}
+
+	@BeforeEach
+	void setup(RestDocumentationContextProvider restDocumentation) {
+		this.mockMvc = MockMvcBuilders.webAppContextSetup(this.applicationContext)
+				.apply(MockMvcRestDocumentation.documentationConfiguration(restDocumentation).uris()).build();
 	}
 
 	@Configuration(proxyBeanMethods = false)

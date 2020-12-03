@@ -19,6 +19,7 @@ package org.springframework.boot.actuate.autoconfigure.endpoint.web.documentatio
 import java.util.List;
 import java.util.Properties;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import org.springframework.boot.actuate.info.BuildInfoContributor;
@@ -30,8 +31,10 @@ import org.springframework.boot.info.GitProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
+import org.springframework.restdocs.RestDocumentationContextProvider;
 import org.springframework.restdocs.mockmvc.MockMvcRestDocumentation;
 import org.springframework.restdocs.payload.JsonFieldType;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import static org.springframework.restdocs.payload.PayloadDocumentation.beneathPath;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
@@ -66,6 +69,12 @@ class InfoEndpointDocumentationTests extends MockMvcEndpointDocumentationTests {
 								fieldWithPath("time")
 										.description("Timestamp of when the application was built, if any.")
 										.type(JsonFieldType.VARIES).optional())));
+	}
+
+	@BeforeEach
+	void setup(RestDocumentationContextProvider restDocumentation) {
+		this.mockMvc = MockMvcBuilders.webAppContextSetup(this.applicationContext)
+				.apply(MockMvcRestDocumentation.documentationConfiguration(restDocumentation).uris()).build();
 	}
 
 	@Configuration(proxyBeanMethods = false)

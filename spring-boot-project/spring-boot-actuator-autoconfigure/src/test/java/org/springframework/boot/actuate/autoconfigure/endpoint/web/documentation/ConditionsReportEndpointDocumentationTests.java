@@ -91,6 +91,12 @@ class ConditionsReportEndpointDocumentationTests extends MockMvcEndpointDocument
 								.and(unconditionalClassesField, parentIdField())));
 	}
 
+	@BeforeEach
+	void setup(RestDocumentationContextProvider restDocumentation) {
+		this.mockMvc = MockMvcBuilders.webAppContextSetup(this.applicationContext)
+				.apply(MockMvcRestDocumentation.documentationConfiguration(restDocumentation).uris()).build();
+	}
+
 	@Configuration(proxyBeanMethods = false)
 	@Import(BaseDocumentationConfiguration.class)
 	static class TestConfiguration {

@@ -20,6 +20,8 @@ import java.util.Arrays;
 import java.util.List;
 
 import liquibase.changelog.ChangeSet.ExecType;
+
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import org.springframework.boot.actuate.liquibase.LiquibaseEndpoint;
@@ -29,9 +31,11 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
+import org.springframework.restdocs.RestDocumentationContextProvider;
 import org.springframework.restdocs.mockmvc.MockMvcRestDocumentation;
 import org.springframework.restdocs.payload.FieldDescriptor;
 import org.springframework.restdocs.payload.JsonFieldType;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
 import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
@@ -74,6 +78,12 @@ class LiquibaseEndpointDocumentationTests extends MockMvcEndpointDocumentationTe
 				fieldWithPath("orderExecuted").description("Order of the execution of the change set."),
 				fieldWithPath("tag").description("Tag associated with the change set, if any.").optional()
 						.type(JsonFieldType.STRING));
+	}
+
+	@BeforeEach
+	void setup(RestDocumentationContextProvider restDocumentation) {
+		this.mockMvc = MockMvcBuilders.webAppContextSetup(this.applicationContext)
+				.apply(MockMvcRestDocumentation.documentationConfiguration(restDocumentation).uris()).build();
 	}
 
 	@Configuration(proxyBeanMethods = false)

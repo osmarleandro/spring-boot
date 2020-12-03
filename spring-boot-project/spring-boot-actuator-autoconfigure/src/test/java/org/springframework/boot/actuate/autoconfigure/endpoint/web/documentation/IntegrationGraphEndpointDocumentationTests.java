@@ -16,6 +16,7 @@
 
 package org.springframework.boot.actuate.autoconfigure.endpoint.web.documentation;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import org.springframework.boot.actuate.integration.IntegrationGraphEndpoint;
@@ -24,7 +25,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.integration.config.EnableIntegration;
 import org.springframework.integration.graph.IntegrationGraphServer;
+import org.springframework.restdocs.RestDocumentationContextProvider;
 import org.springframework.restdocs.mockmvc.MockMvcRestDocumentation;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -47,6 +50,12 @@ class IntegrationGraphEndpointDocumentationTests extends MockMvcEndpointDocument
 	void rebuild() throws Exception {
 		this.mockMvc.perform(post("/actuator/integrationgraph")).andExpect(status().isNoContent())
 				.andDo(MockMvcRestDocumentation.document("integrationgraph/rebuild"));
+	}
+
+	@BeforeEach
+	void setup(RestDocumentationContextProvider restDocumentation) {
+		this.mockMvc = MockMvcBuilders.webAppContextSetup(this.applicationContext)
+				.apply(MockMvcRestDocumentation.documentationConfiguration(restDocumentation).uris()).build();
 	}
 
 	@Configuration(proxyBeanMethods = false)
