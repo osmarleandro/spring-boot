@@ -44,9 +44,9 @@ public class IncludeExcludeEndpointFilter<E extends ExposableEndpoint<?>> implem
 
 	private final Class<E> endpointType;
 
-	private final EndpointPatterns include;
+	protected final EndpointPatterns include;
 
-	private final EndpointPatterns defaultIncludes;
+	protected final EndpointPatterns defaultIncludes;
 
 	private final EndpointPatterns exclude;
 
@@ -151,13 +151,6 @@ public class IncludeExcludeEndpointFilter<E extends ExposableEndpoint<?>> implem
 		return isIncluded(endpointId) && !isExcluded(endpointId);
 	}
 
-	private boolean isIncluded(EndpointId endpointId) {
-		if (this.include.isEmpty()) {
-			return this.defaultIncludes.matches(endpointId);
-		}
-		return this.include.matches(endpointId);
-	}
-
 	private boolean isExcluded(EndpointId endpointId) {
 		if (this.exclude.isEmpty()) {
 			return false;
@@ -195,7 +188,7 @@ public class IncludeExcludeEndpointFilter<E extends ExposableEndpoint<?>> implem
 	/**
 	 * A set of endpoint patterns used to match IDs.
 	 */
-	private static class EndpointPatterns {
+	public static class EndpointPatterns {
 
 		private final boolean empty;
 
@@ -224,11 +217,11 @@ public class IncludeExcludeEndpointFilter<E extends ExposableEndpoint<?>> implem
 			this.endpointIds = endpointIds;
 		}
 
-		boolean isEmpty() {
+		public boolean isEmpty() {
 			return this.empty;
 		}
 
-		boolean matches(EndpointId endpointId) {
+		public boolean matches(EndpointId endpointId) {
 			return this.matchesAll || this.endpointIds.contains(endpointId);
 		}
 
