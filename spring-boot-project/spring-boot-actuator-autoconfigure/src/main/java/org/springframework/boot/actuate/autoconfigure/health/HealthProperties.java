@@ -47,7 +47,7 @@ public abstract class HealthProperties {
 	 * Roles used to determine whether or not a user is authorized to be shown details.
 	 * When empty, all authenticated users are authorized.
 	 */
-	private Set<String> roles = new HashSet<>();
+	protected Set<String> roles = new HashSet<>();
 
 	public Status getStatus() {
 		return this.status;
@@ -62,10 +62,6 @@ public abstract class HealthProperties {
 	}
 
 	public abstract Show getShowDetails();
-
-	public Set<String> getRoles() {
-		return this.roles;
-	}
 
 	public void setRoles(Set<String> roles) {
 		this.roles = roles;
