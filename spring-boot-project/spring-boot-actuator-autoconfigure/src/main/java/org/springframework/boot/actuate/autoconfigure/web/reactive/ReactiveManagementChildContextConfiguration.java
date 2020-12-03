@@ -69,6 +69,11 @@ public class ReactiveManagementChildContextConfiguration {
 					UndertowWebServerFactoryCustomizer.class, NettyWebServerFactoryCustomizer.class);
 		}
 
+		@Override
+		public int getOrder() {
+			return 0;
+		}
+
 	}
 
 }

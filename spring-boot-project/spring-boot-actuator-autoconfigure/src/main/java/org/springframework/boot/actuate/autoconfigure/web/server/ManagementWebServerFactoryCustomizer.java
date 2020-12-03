@@ -57,11 +57,6 @@ public abstract class ManagementWebServerFactoryCustomizer<T extends Configurabl
 	}
 
 	@Override
-	public int getOrder() {
-		return 0;
-	}
-
-	@Override
 	public final void customize(T factory) {
 		ManagementServerProperties managementServerProperties = BeanFactoryUtils
 				.beanOfTypeIncludingAncestors(this.beanFactory, ManagementServerProperties.class);

@@ -126,6 +126,11 @@ class ServletManagementChildContextConfiguration {
 			webServerFactory.setContextPath(managementServerProperties.getServlet().getContextPath());
 		}
 
+		@Override
+		public int getOrder() {
+			return 0;
+		}
+
 	}
 
 	abstract static class AccessLogCustomizer implements Ordered {
