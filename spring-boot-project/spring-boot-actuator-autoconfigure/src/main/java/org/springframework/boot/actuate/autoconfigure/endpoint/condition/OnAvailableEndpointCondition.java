@@ -18,6 +18,7 @@ package org.springframework.boot.actuate.autoconfigure.endpoint.condition;
 
 import java.util.HashSet;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 
 import org.springframework.boot.actuate.autoconfigure.endpoint.expose.IncludeExcludeEndpointFilter;
@@ -85,6 +86,15 @@ class OnAvailableEndpointCondition extends AbstractEndpointCondition {
 			exposuresCache.put(environment, exposures);
 		}
 		return exposures;
+	}
+
+	private Boolean isEnabledByDefault(Environment environment) {
+		Optional<Boolean> enabledByDefault = enabledByDefaultCache.get(environment);
+		if (enabledByDefault == null) {
+			enabledByDefault = Optional.ofNullable(environment.getProperty(ENABLED_BY_DEFAULT_KEY, Boolean.class));
+			enabledByDefaultCache.put(environment, enabledByDefault);
+		}
+		return enabledByDefault.orElse(null);
 	}
 
 	static class Exposure extends IncludeExcludeEndpointFilter<ExposableEndpoint<?>> {

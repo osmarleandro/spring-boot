@@ -49,9 +49,9 @@ import org.springframework.util.ConcurrentReferenceHashMap;
  */
 abstract class AbstractEndpointCondition extends SpringBootCondition {
 
-	private static final String ENABLED_BY_DEFAULT_KEY = "management.endpoints.enabled-by-default";
+	protected static final String ENABLED_BY_DEFAULT_KEY = "management.endpoints.enabled-by-default";
 
-	private static final ConcurrentReferenceHashMap<Environment, Optional<Boolean>> enabledByDefaultCache = new ConcurrentReferenceHashMap<>();
+	protected static final ConcurrentReferenceHashMap<Environment, Optional<Boolean>> enabledByDefaultCache = new ConcurrentReferenceHashMap<>();
 
 	AnnotationAttributes getEndpointAttributes(Class<?> annotationClass, ConditionContext context,
 			AnnotatedTypeMetadata metadata) {
@@ -110,15 +110,6 @@ abstract class AbstractEndpointCondition extends SpringBootCondition {
 		Assert.state(extension.isPresent(), "No endpoint is specified and the return type of the @Bean method is "
 				+ "neither an @Endpoint, nor an @EndpointExtension");
 		return getEndpointAttributes(extension.getClass("endpoint"));
-	}
-
-	private Boolean isEnabledByDefault(Environment environment) {
-		Optional<Boolean> enabledByDefault = enabledByDefaultCache.get(environment);
-		if (enabledByDefault == null) {
-			enabledByDefault = Optional.ofNullable(environment.getProperty(ENABLED_BY_DEFAULT_KEY, Boolean.class));
-			enabledByDefaultCache.put(environment, enabledByDefault);
-		}
-		return enabledByDefault.orElse(null);
 	}
 
 }
