@@ -30,6 +30,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
+import org.springframework.web.context.WebApplicationContext;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
@@ -84,6 +85,10 @@ class AuditEventsEndpointDocumentationTests extends MockMvcEndpointDocumentation
 								parameterWithName("type")
 										.description("Restricts the events to those with the given type. Optional."))));
 		verify(this.repository).find("alice", now.toInstant(), "logout");
+	}
+
+	protected WebApplicationContext getApplicationContext() {
+		return this.applicationContext;
 	}
 
 	@Configuration(proxyBeanMethods = false)

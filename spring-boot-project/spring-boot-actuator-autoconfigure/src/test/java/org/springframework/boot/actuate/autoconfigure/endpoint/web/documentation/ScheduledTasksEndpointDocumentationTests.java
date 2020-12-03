@@ -34,6 +34,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.scheduling.annotation.SchedulingConfigurer;
 import org.springframework.scheduling.config.ScheduledTaskHolder;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
+import org.springframework.web.context.WebApplicationContext;
 
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.preprocessResponse;
@@ -82,6 +83,10 @@ class ScheduledTasksEndpointDocumentationTests extends MockMvcEndpointDocumentat
 
 	private FieldDescriptor initialDelayWithPrefix(String prefix) {
 		return fieldWithPath(prefix + "initialDelay").description("Delay, in milliseconds, before first execution.");
+	}
+
+	protected WebApplicationContext getApplicationContext() {
+		return this.applicationContext;
 	}
 
 	@Configuration(proxyBeanMethods = false)

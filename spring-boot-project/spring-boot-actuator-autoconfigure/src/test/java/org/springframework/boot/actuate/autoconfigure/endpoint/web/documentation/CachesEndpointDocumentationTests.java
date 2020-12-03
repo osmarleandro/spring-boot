@@ -34,6 +34,7 @@ import org.springframework.context.annotation.Import;
 import org.springframework.restdocs.mockmvc.MockMvcRestDocumentation;
 import org.springframework.restdocs.payload.FieldDescriptor;
 import org.springframework.restdocs.request.ParameterDescriptor;
+import org.springframework.web.context.WebApplicationContext;
 
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
 import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
@@ -88,6 +89,10 @@ class CachesEndpointDocumentationTests extends MockMvcEndpointDocumentationTests
 		this.mockMvc.perform(delete("/actuator/caches/countries?cacheManager=anotherCacheManager"))
 				.andExpect(status().isNoContent())
 				.andDo(MockMvcRestDocumentation.document("caches/evict-named", requestParameters(requestParameters)));
+	}
+
+	protected WebApplicationContext getApplicationContext() {
+		return this.applicationContext;
 	}
 
 	@Configuration(proxyBeanMethods = false)

@@ -41,6 +41,7 @@ import org.springframework.restdocs.operation.preprocess.ContentModifyingOperati
 import org.springframework.restdocs.operation.preprocess.OperationPreprocessor;
 import org.springframework.restdocs.payload.FieldDescriptor;
 import org.springframework.test.context.TestPropertySource;
+import org.springframework.web.context.WebApplicationContext;
 
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.preprocessResponse;
@@ -127,6 +128,10 @@ class EnvironmentEndpointDocumentationTests extends MockMvcEndpointDocumentation
 
 	private boolean retainKey(String key) {
 		return key.startsWith("java.") || key.equals("JAVA_HOME") || key.startsWith("com.example");
+	}
+
+	protected WebApplicationContext getApplicationContext() {
+		return this.applicationContext;
 	}
 
 	@Configuration(proxyBeanMethods = false)

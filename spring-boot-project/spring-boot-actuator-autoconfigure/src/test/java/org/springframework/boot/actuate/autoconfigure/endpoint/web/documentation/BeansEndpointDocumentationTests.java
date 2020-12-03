@@ -32,6 +32,7 @@ import org.springframework.context.annotation.Import;
 import org.springframework.restdocs.payload.FieldDescriptor;
 import org.springframework.restdocs.payload.ResponseFieldsSnippet;
 import org.springframework.util.CollectionUtils;
+import org.springframework.web.context.WebApplicationContext;
 
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.preprocessResponse;
@@ -68,6 +69,10 @@ class BeansEndpointDocumentationTests extends MockMvcEndpointDocumentationTests 
 	private boolean isIndependentBean(Entry<String, Map<String, Object>> bean) {
 		return CollectionUtils.isEmpty((Collection<?>) bean.getValue().get("aliases"))
 				&& CollectionUtils.isEmpty((Collection<?>) bean.getValue().get("dependencies"));
+	}
+
+	protected WebApplicationContext getApplicationContext() {
+		return this.applicationContext;
 	}
 
 	@Configuration(proxyBeanMethods = false)

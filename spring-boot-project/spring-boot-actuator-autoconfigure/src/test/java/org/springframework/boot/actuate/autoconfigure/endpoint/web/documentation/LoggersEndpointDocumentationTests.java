@@ -38,6 +38,7 @@ import org.springframework.http.MediaType;
 import org.springframework.restdocs.mockmvc.MockMvcRestDocumentation;
 import org.springframework.restdocs.payload.FieldDescriptor;
 import org.springframework.restdocs.payload.JsonFieldType;
+import org.springframework.web.context.WebApplicationContext;
 
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
@@ -143,6 +144,10 @@ class LoggersEndpointDocumentationTests extends MockMvcEndpointDocumentationTest
 				.perform(post("/actuator/loggers/com.example").content("{}").contentType(MediaType.APPLICATION_JSON))
 				.andExpect(status().isNoContent()).andDo(MockMvcRestDocumentation.document("loggers/clear"));
 		verify(this.loggingSystem).setLogLevel("com.example", null);
+	}
+
+	protected WebApplicationContext getApplicationContext() {
+		return this.applicationContext;
 	}
 
 	@Configuration(proxyBeanMethods = false)

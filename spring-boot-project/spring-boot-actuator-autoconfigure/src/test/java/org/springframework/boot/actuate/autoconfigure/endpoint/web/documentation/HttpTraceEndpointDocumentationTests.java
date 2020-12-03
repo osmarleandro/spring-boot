@@ -38,6 +38,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.HttpHeaders;
 import org.springframework.restdocs.payload.JsonFieldType;
+import org.springframework.web.context.WebApplicationContext;
 
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
@@ -99,6 +100,10 @@ class HttpTraceEndpointDocumentationTests extends MockMvcEndpointDocumentationTe
 						fieldWithPath("traces.[].session.id").description("ID of the session."),
 						fieldWithPath("traces.[].timeTaken")
 								.description("Time, in milliseconds, taken to handle the exchange."))));
+	}
+
+	protected WebApplicationContext getApplicationContext() {
+		return this.applicationContext;
 	}
 
 	@Configuration(proxyBeanMethods = false)

@@ -25,6 +25,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.core.env.Environment;
 import org.springframework.restdocs.mockmvc.MockMvcRestDocumentation;
+import org.springframework.web.context.WebApplicationContext;
 
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
 import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
@@ -43,6 +44,10 @@ class ShutdownEndpointDocumentationTests extends MockMvcEndpointDocumentationTes
 		this.mockMvc.perform(post("/actuator/shutdown")).andExpect(status().isOk())
 				.andDo(MockMvcRestDocumentation.document("shutdown", responseFields(
 						fieldWithPath("message").description("Message describing the result of the request."))));
+	}
+
+	protected WebApplicationContext getApplicationContext() {
+		return this.applicationContext;
 	}
 
 	@Configuration(proxyBeanMethods = false)

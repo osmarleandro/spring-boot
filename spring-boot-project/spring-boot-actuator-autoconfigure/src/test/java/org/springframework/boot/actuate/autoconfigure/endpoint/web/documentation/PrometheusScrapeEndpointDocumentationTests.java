@@ -26,6 +26,7 @@ import org.springframework.boot.actuate.metrics.export.prometheus.PrometheusScra
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
+import org.springframework.web.context.WebApplicationContext;
 
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
@@ -54,6 +55,10 @@ class PrometheusScrapeEndpointDocumentationTests extends MockMvcEndpointDocument
 				.andExpect(status().isOk())
 				.andDo(document("prometheus/names", requestParameters(parameterWithName("includedNames")
 						.description("Restricts the samples to those that match the names. Optional.").optional())));
+	}
+
+	protected WebApplicationContext getApplicationContext() {
+		return this.applicationContext;
 	}
 
 	@Configuration(proxyBeanMethods = false)

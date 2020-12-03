@@ -29,6 +29,7 @@ import org.springframework.restdocs.cli.CliDocumentation;
 import org.springframework.restdocs.cli.CurlRequestSnippet;
 import org.springframework.restdocs.operation.Operation;
 import org.springframework.util.FileCopyUtils;
+import org.springframework.web.context.WebApplicationContext;
 
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -54,6 +55,10 @@ class HeapDumpWebEndpointDocumentationTests extends MockMvcEndpointDocumentation
 					}
 
 				}));
+	}
+
+	protected WebApplicationContext getApplicationContext() {
+		return this.applicationContext;
 	}
 
 	@Configuration(proxyBeanMethods = false)

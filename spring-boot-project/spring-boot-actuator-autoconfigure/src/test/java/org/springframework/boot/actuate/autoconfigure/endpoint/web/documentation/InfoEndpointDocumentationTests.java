@@ -32,6 +32,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.restdocs.mockmvc.MockMvcRestDocumentation;
 import org.springframework.restdocs.payload.JsonFieldType;
+import org.springframework.web.context.WebApplicationContext;
 
 import static org.springframework.restdocs.payload.PayloadDocumentation.beneathPath;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
@@ -66,6 +67,10 @@ class InfoEndpointDocumentationTests extends MockMvcEndpointDocumentationTests {
 								fieldWithPath("time")
 										.description("Timestamp of when the application was built, if any.")
 										.type(JsonFieldType.VARIES).optional())));
+	}
+
+	protected WebApplicationContext getApplicationContext() {
+		return this.applicationContext;
 	}
 
 	@Configuration(proxyBeanMethods = false)

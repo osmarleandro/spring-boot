@@ -32,6 +32,7 @@ import org.springframework.context.annotation.Import;
 import org.springframework.restdocs.mockmvc.MockMvcRestDocumentation;
 import org.springframework.restdocs.payload.FieldDescriptor;
 import org.springframework.restdocs.payload.JsonFieldType;
+import org.springframework.web.context.WebApplicationContext;
 
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
 import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
@@ -74,6 +75,10 @@ class LiquibaseEndpointDocumentationTests extends MockMvcEndpointDocumentationTe
 				fieldWithPath("orderExecuted").description("Order of the execution of the change set."),
 				fieldWithPath("tag").description("Tag associated with the change set, if any.").optional()
 						.type(JsonFieldType.STRING));
+	}
+
+	protected WebApplicationContext getApplicationContext() {
+		return this.applicationContext;
 	}
 
 	@Configuration(proxyBeanMethods = false)

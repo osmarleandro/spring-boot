@@ -30,6 +30,7 @@ import org.springframework.http.MediaType;
 import org.springframework.restdocs.mockmvc.MockMvcRestDocumentation;
 import org.springframework.restdocs.operation.preprocess.ContentModifyingOperationPreprocessor;
 import org.springframework.restdocs.payload.JsonFieldType;
+import org.springframework.web.context.WebApplicationContext;
 
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.preprocessResponse;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
@@ -189,6 +190,10 @@ class ThreadDumpEndpointDocumentationTests extends MockMvcEndpointDocumentationT
 							String content = new String(bytes, StandardCharsets.UTF_8);
 							return content.substring(0, content.indexOf("\"main\" - Thread")).getBytes();
 						}))));
+	}
+
+	protected WebApplicationContext getApplicationContext() {
+		return this.applicationContext;
 	}
 
 	@Configuration(proxyBeanMethods = false)

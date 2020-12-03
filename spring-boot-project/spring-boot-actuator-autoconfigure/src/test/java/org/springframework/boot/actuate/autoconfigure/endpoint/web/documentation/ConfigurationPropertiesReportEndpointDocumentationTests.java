@@ -23,6 +23,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.restdocs.mockmvc.MockMvcRestDocumentation;
+import org.springframework.web.context.WebApplicationContext;
 
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.preprocessResponse;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
@@ -54,6 +55,10 @@ class ConfigurationPropertiesReportEndpointDocumentationTests extends MockMvcEnd
 								subsectionWithPath("contexts.*.beans.*.inputs").description(
 										"Origin and value of the configuration property used when binding to this bean."),
 								parentIdField())));
+	}
+
+	protected WebApplicationContext getApplicationContext() {
+		return this.applicationContext;
 	}
 
 	@Configuration(proxyBeanMethods = false)

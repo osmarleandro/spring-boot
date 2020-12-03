@@ -26,6 +26,7 @@ import org.springframework.context.annotation.Import;
 import org.springframework.core.env.Environment;
 import org.springframework.restdocs.mockmvc.MockMvcRestDocumentation;
 import org.springframework.test.context.TestPropertySource;
+import org.springframework.web.context.WebApplicationContext;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -49,6 +50,10 @@ class LogFileWebEndpointDocumentationTests extends MockMvcEndpointDocumentationT
 	void logFileRange() throws Exception {
 		this.mockMvc.perform(get("/actuator/logfile").header("Range", "bytes=0-1023"))
 				.andExpect(status().isPartialContent()).andDo(MockMvcRestDocumentation.document("logfile/range"));
+	}
+
+	protected WebApplicationContext getApplicationContext() {
+		return this.applicationContext;
 	}
 
 	@Configuration(proxyBeanMethods = false)

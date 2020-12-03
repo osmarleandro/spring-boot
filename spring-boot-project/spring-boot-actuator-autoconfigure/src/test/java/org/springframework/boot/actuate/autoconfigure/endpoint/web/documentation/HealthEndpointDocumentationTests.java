@@ -51,6 +51,7 @@ import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.restdocs.payload.FieldDescriptor;
 import org.springframework.util.unit.DataSize;
+import org.springframework.web.context.WebApplicationContext;
 
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
@@ -98,6 +99,10 @@ class HealthEndpointDocumentationTests extends MockMvcEndpointDocumentationTests
 	void healthComponentInstance() throws Exception {
 		this.mockMvc.perform(get("/actuator/health/broker/us1").accept(MediaType.APPLICATION_JSON))
 				.andExpect(status().isOk()).andDo(document("health/instance", responseFields(componentFields)));
+	}
+
+	protected WebApplicationContext getApplicationContext() {
+		return this.applicationContext;
 	}
 
 	@Configuration(proxyBeanMethods = false)

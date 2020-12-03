@@ -36,6 +36,7 @@ import org.springframework.context.annotation.Import;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 import org.springframework.restdocs.mockmvc.MockMvcRestDocumentation;
 import org.springframework.restdocs.payload.FieldDescriptor;
+import org.springframework.web.context.WebApplicationContext;
 
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
 import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
@@ -81,6 +82,10 @@ class FlywayEndpointDocumentationTests extends MockMvcEndpointDocumentationTests
 						.description("Type of the migration. (" + describeEnumValues(MigrationType.class) + ")"),
 				fieldWithPath("version").description("Version of the database after applying the migration, if any.")
 						.optional());
+	}
+
+	protected WebApplicationContext getApplicationContext() {
+		return this.applicationContext;
 	}
 
 	@Configuration(proxyBeanMethods = false)

@@ -28,6 +28,7 @@ import org.springframework.context.annotation.Import;
 import org.springframework.core.metrics.StartupStep;
 import org.springframework.restdocs.payload.JsonFieldType;
 import org.springframework.restdocs.payload.ResponseFieldsSnippet;
+import org.springframework.web.context.WebApplicationContext;
 
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
@@ -77,6 +78,10 @@ class StartupEndpointDocumentationTests extends MockMvcEndpointDocumentationTest
 
 		this.mockMvc.perform(post("/actuator/startup")).andExpect(status().isOk())
 				.andDo(document("startup", responseFields));
+	}
+
+	protected WebApplicationContext getApplicationContext() {
+		return this.applicationContext;
 	}
 
 	@Configuration(proxyBeanMethods = false)

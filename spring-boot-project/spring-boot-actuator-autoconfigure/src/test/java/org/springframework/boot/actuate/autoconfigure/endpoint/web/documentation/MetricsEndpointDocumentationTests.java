@@ -25,6 +25,7 @@ import org.springframework.boot.actuate.metrics.MetricsEndpoint;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
+import org.springframework.web.context.WebApplicationContext;
 
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
@@ -71,6 +72,10 @@ class MetricsEndpointDocumentationTests extends MockMvcEndpointDocumentationTest
 				.andExpect(status().isOk())
 				.andDo(document("metrics/metric-with-tags", requestParameters(parameterWithName("tag")
 						.description("A tag to use for drill-down in the form `name:value`."))));
+	}
+
+	protected WebApplicationContext getApplicationContext() {
+		return this.applicationContext;
 	}
 
 	@Configuration(proxyBeanMethods = false)
