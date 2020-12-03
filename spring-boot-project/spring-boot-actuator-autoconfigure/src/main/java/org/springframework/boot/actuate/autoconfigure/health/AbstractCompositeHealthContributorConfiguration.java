@@ -56,8 +56,6 @@ public abstract class AbstractCompositeHealthContributorConfiguration<C, I exten
 		return createComposite(beans);
 	}
 
-	protected abstract C createComposite(Map<String, B> beans);
-
 	@SuppressWarnings("unchecked")
 	protected I createIndicator(B bean) {
 		try {

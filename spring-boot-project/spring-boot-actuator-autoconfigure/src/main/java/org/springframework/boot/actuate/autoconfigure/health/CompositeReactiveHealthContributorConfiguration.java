@@ -40,4 +40,6 @@ public abstract class CompositeReactiveHealthContributorConfiguration<I extends 
 		return CompositeReactiveHealthContributor.fromMap(beans, this::createIndicator);
 	}
 
+	protected abstract ReactiveHealthContributor createComposite(Map<String, B> beans);
+
 }
