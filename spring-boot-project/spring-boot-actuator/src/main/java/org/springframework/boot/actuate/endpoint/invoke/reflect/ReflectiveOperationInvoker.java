@@ -42,9 +42,9 @@ import org.springframework.util.ReflectionUtils;
  */
 public class ReflectiveOperationInvoker implements OperationInvoker {
 
-	private final Object target;
+	public final Object target;
 
-	private final OperationMethod operationMethod;
+	public final OperationMethod operationMethod;
 
 	private final ParameterValueMapper parameterValueMapper;
 

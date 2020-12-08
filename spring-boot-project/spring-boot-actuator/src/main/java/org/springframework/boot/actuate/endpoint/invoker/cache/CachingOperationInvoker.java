@@ -104,6 +104,12 @@ public class CachingOperationInvoker implements OperationInvoker {
 		return new CachedResponse(response, accessTime);
 	}
 
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	/**
 	 * Apply caching configuration when appropriate to the given invoker.
 	 * @param invoker the invoker to wrap
