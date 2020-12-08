@@ -16,6 +16,7 @@
 
 package org.springframework.boot.actuate.health;
 
+import java.util.Map;
 import java.util.function.Function;
 
 import org.apache.commons.logging.Log;
@@ -98,5 +99,17 @@ public abstract class AbstractHealthIndicator implements HealthIndicator {
 	 * system status.
 	 */
 	protected abstract void doHealthCheck(Health.Builder builder) throws Exception;
+
+	protected void doHealthCheck(Health.Builder builder, String json) {
+		Map<String, Object> response = this.jsonParser.parseMap(json);
+		String status = (String) response.get("status");
+		if (RED_STATUS.equals(status)) {
+			builder.outOfService();
+		}
+		else {
+			builder.up();
+		}
+		builder.withDetails(response);
+	}
 
 }
