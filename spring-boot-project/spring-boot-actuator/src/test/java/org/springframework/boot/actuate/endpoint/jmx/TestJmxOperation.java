@@ -23,6 +23,8 @@ import java.util.function.Function;
 
 import org.springframework.boot.actuate.endpoint.InvocationContext;
 import org.springframework.boot.actuate.endpoint.OperationType;
+import org.springframework.boot.actuate.endpoint.invoke.OperationParameters;
+import org.springframework.jmx.export.metadata.ManagedOperationParameter;
 
 /**
  * Test {@link JmxOperation} implementation.
@@ -89,6 +91,12 @@ public class TestJmxOperation implements JmxOperation {
 	@Override
 	public List<JmxOperationParameter> getParameters() {
 		return this.parameters;
+	}
+
+	@Override
+	public List<JmxOperationParameter> mergeParameters(OperationParameters operationParameters, ManagedOperationParameter[] managedParameters) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

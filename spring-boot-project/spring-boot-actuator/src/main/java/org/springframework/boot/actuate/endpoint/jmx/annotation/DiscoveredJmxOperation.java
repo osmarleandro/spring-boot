@@ -48,7 +48,7 @@ import org.springframework.util.StringUtils;
  * @author Stephane Nicoll
  * @author Phillip Webb
  */
-class DiscoveredJmxOperation extends AbstractDiscoveredOperation implements JmxOperation {
+public class DiscoveredJmxOperation extends AbstractDiscoveredOperation implements JmxOperation {
 
 	private static final JmxAttributeSource jmxAttributeSource = new AnnotationJmxAttributeSource();
 
@@ -89,6 +89,7 @@ class DiscoveredJmxOperation extends AbstractDiscoveredOperation implements JmxO
 		return mergeParameters(operationMethod.getParameters(), managed);
 	}
 
+	@Override
 	private List<JmxOperationParameter> mergeParameters(OperationParameters operationParameters,
 			ManagedOperationParameter[] managedParameters) {
 		List<JmxOperationParameter> merged = new ArrayList<>(managedParameters.length);
@@ -131,7 +132,7 @@ class DiscoveredJmxOperation extends AbstractDiscoveredOperation implements JmxO
 	/**
 	 * A discovered {@link JmxOperationParameter}.
 	 */
-	private static class DiscoveredJmxOperationParameter implements JmxOperationParameter {
+	public static class DiscoveredJmxOperationParameter implements JmxOperationParameter {
 
 		private final String name;
 
