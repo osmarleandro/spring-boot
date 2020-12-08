@@ -32,11 +32,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  */
 public class JacksonJmxOperationResponseMapper implements JmxOperationResponseMapper {
 
-	private final ObjectMapper objectMapper;
+	final ObjectMapper objectMapper;
 
-	private final JavaType listType;
+	final JavaType listType;
 
-	private final JavaType mapType;
+	final JavaType mapType;
 
 	public JacksonJmxOperationResponseMapper(ObjectMapper objectMapper) {
 		this.objectMapper = (objectMapper != null) ? objectMapper : new ObjectMapper();

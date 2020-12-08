@@ -38,4 +38,7 @@ public interface JmxOperationResponseMapper {
 	 */
 	Object mapResponse(Object response);
 
+	@Override
+	Object mapResponse(Object response);
+
 }
