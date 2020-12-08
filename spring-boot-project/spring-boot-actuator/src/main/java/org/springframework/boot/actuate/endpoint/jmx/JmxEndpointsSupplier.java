@@ -16,6 +16,9 @@
 
 package org.springframework.boot.actuate.endpoint.jmx;
 
+import java.util.Collection;
+
+import org.springframework.boot.actuate.endpoint.EndpointId;
 import org.springframework.boot.actuate.endpoint.EndpointsSupplier;
 
 /**
@@ -26,5 +29,8 @@ import org.springframework.boot.actuate.endpoint.EndpointsSupplier;
  */
 @FunctionalInterface
 public interface JmxEndpointsSupplier extends EndpointsSupplier<ExposableJmxEndpoint> {
+
+	@Override
+	ExposableJmxEndpoint createEndpoint(Object endpointBean, EndpointId id, boolean enabledByDefault, Collection<JmxOperation> operations);
 
 }
