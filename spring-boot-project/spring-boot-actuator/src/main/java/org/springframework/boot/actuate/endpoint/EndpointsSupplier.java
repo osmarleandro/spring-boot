@@ -18,6 +18,9 @@ package org.springframework.boot.actuate.endpoint;
 
 import java.util.Collection;
 
+import org.springframework.boot.actuate.endpoint.annotation.DiscoveredOperationMethod;
+import org.springframework.boot.actuate.endpoint.invoke.OperationInvoker;
+
 /**
  * Provides access to a collection of {@link ExposableEndpoint endpoints}.
  *
@@ -35,5 +38,14 @@ public interface EndpointsSupplier<E extends ExposableEndpoint<?>> {
 	 * @return the endpoints
 	 */
 	Collection<E> getEndpoints();
+
+	/**
+	 * Factory method to create an {@link Operation endpoint operation}.
+	 * @param endpointId the endpoint id
+	 * @param operationMethod the operation method
+	 * @param invoker the invoker to use
+	 * @return a created operation
+	 */
+	O createOperation(EndpointId endpointId, DiscoveredOperationMethod operationMethod, OperationInvoker invoker);
 
 }
