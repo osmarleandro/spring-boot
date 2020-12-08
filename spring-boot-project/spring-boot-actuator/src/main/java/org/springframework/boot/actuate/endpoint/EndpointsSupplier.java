@@ -36,4 +36,13 @@ public interface EndpointsSupplier<E extends ExposableEndpoint<?>> {
 	 */
 	Collection<E> getEndpoints();
 
+	/**
+	 * Determine if an endpoint bean should be exposed. Subclasses can override this
+	 * method to provide additional logic.
+	 * @param endpointBean the endpoint bean
+	 * @return {@code true} if the endpoint is exposed
+	 */
+	@Deprecated
+	boolean isEndpointExposed(Object endpointBean);
+
 }
