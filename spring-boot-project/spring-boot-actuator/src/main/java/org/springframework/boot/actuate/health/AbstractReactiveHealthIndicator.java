@@ -16,6 +16,7 @@
 
 package org.springframework.boot.actuate.health;
 
+import java.util.Map;
 import java.util.function.Function;
 
 import org.apache.commons.logging.Log;
@@ -98,5 +99,12 @@ public abstract class AbstractReactiveHealthIndicator implements ReactiveHealthI
 	 * @return a {@link Mono} that provides the {@link Health}
 	 */
 	protected abstract Mono<Health> doHealthCheck(Health.Builder builder);
+
+	protected Health getHealth(Health.Builder builder, Map<String, Object> body) {
+		String status = (String) body.get("status");
+		builder.status(RED_STATUS.equals(status) ? Status.OUT_OF_SERVICE : Status.UP);
+		builder.withDetails(body);
+		return builder.build();
+	}
 
 }
