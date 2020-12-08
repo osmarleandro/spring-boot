@@ -16,6 +16,9 @@
 
 package org.springframework.boot.actuate.endpoint.web;
 
+import java.util.Collection;
+
+import org.springframework.boot.actuate.endpoint.EndpointId;
 import org.springframework.boot.actuate.endpoint.EndpointsSupplier;
 
 /**
@@ -26,5 +29,8 @@ import org.springframework.boot.actuate.endpoint.EndpointsSupplier;
  */
 @FunctionalInterface
 public interface WebEndpointsSupplier extends EndpointsSupplier<ExposableWebEndpoint> {
+
+	@Override
+	ExposableWebEndpoint createEndpoint(Object endpointBean, EndpointId id, boolean enabledByDefault, Collection<WebOperation> operations);
 
 }
