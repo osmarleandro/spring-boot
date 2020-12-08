@@ -42,4 +42,7 @@ public interface OperationParameter {
 	 */
 	boolean isMandatory();
 
+	@Override
+	String getName();
+
 }
