@@ -16,7 +16,11 @@
 
 package org.springframework.boot.actuate.endpoint.web.annotation;
 
+import org.springframework.boot.actuate.endpoint.EndpointId;
 import org.springframework.boot.actuate.endpoint.EndpointsSupplier;
+import org.springframework.boot.actuate.endpoint.Operation;
+import org.springframework.boot.actuate.endpoint.annotation.DiscoveredOperationMethod;
+import org.springframework.boot.actuate.endpoint.invoke.OperationInvoker;
 
 /**
  * {@link EndpointsSupplier} for {@link ExposableControllerEndpoint controller endpoints}.
@@ -26,5 +30,8 @@ import org.springframework.boot.actuate.endpoint.EndpointsSupplier;
  */
 @FunctionalInterface
 public interface ControllerEndpointsSupplier extends EndpointsSupplier<ExposableControllerEndpoint> {
+
+	@Override
+	Operation createOperation(EndpointId endpointId, DiscoveredOperationMethod operationMethod, OperationInvoker invoker);
 
 }
