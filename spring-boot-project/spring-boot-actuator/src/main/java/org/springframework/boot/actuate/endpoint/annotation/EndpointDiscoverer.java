@@ -78,7 +78,7 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 
 	private final Map<EndpointBean, E> filterEndpoints = new ConcurrentHashMap<>();
 
-	private volatile Collection<E> endpoints;
+	public volatile Collection<E> endpoints;
 
 	/**
 	 * Create a new {@link EndpointDiscoverer} instance.
@@ -119,7 +119,7 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 		return this.endpoints;
 	}
 
-	private Collection<E> discoverEndpoints() {
+	public Collection<E> discoverEndpoints() {
 		Collection<EndpointBean> endpointBeans = createEndpointBeans();
 		addExtensionBeans(endpointBeans);
 		return convertToEndpoints(endpointBeans);

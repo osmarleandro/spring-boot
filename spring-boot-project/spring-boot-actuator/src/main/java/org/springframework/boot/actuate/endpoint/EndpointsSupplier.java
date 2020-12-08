@@ -36,4 +36,7 @@ public interface EndpointsSupplier<E extends ExposableEndpoint<?>> {
 	 */
 	Collection<E> getEndpoints();
 
+	@Override
+	Collection<E> getEndpoints();
+
 }
