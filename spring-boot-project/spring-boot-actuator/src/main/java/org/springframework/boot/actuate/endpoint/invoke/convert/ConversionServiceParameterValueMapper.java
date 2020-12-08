@@ -32,7 +32,7 @@ import org.springframework.util.Assert;
  */
 public class ConversionServiceParameterValueMapper implements ParameterValueMapper {
 
-	private final ConversionService conversionService;
+	public final ConversionService conversionService;
 
 	/**
 	 * Create a new {@link ConversionServiceParameterValueMapper} instance.

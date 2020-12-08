@@ -39,4 +39,7 @@ public interface ParameterValueMapper {
 	 */
 	Object mapParameterValue(OperationParameter parameter, Object value) throws ParameterMappingException;
 
+	@Override
+	Object mapParameterValue(OperationParameter parameter, Object value) throws ParameterMappingException;
+
 }
