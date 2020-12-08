@@ -16,13 +16,19 @@
 
 package org.springframework.boot.actuate.health;
 
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.function.Function;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
+import org.apache.http.HttpStatus;
+import org.apache.http.StatusLine;
+import org.elasticsearch.client.Request;
+import org.elasticsearch.client.Response;
 import org.springframework.boot.actuate.health.Health.Builder;
 import org.springframework.util.Assert;
+import org.springframework.util.StreamUtils;
 import org.springframework.util.StringUtils;
 
 /**
@@ -98,5 +104,20 @@ public abstract class AbstractHealthIndicator implements HealthIndicator {
 	 * system status.
 	 */
 	protected abstract void doHealthCheck(Health.Builder builder) throws Exception;
+
+	@Override
+	protected void doHealthCheck(Health.Builder builder) throws Exception {
+		Response response = this.client.performRequest(new Request("GET", "/_cluster/health/"));
+		StatusLine statusLine = response.getStatusLine();
+		if (statusLine.getStatusCode() != HttpStatus.SC_OK) {
+			builder.down();
+			builder.withDetail("statusCode", statusLine.getStatusCode());
+			builder.withDetail("reasonPhrase", statusLine.getReasonPhrase());
+			return;
+		}
+		try (InputStream inputStream = response.getEntity().getContent()) {
+			doHealthCheck(builder, StreamUtils.copyToString(inputStream, StandardCharsets.UTF_8));
+		}
+	}
 
 }
