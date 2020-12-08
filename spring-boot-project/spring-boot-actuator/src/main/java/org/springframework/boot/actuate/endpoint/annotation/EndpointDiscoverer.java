@@ -346,6 +346,7 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 	 * @param operations the endpoint operations
 	 * @return a created endpoint (a {@link DiscoveredEndpoint} is recommended)
 	 */
+	@Override
 	protected abstract E createEndpoint(Object endpointBean, EndpointId id, boolean enabledByDefault,
 			Collection<O> operations);
 

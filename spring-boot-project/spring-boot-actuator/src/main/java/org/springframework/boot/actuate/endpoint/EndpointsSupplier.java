@@ -18,6 +18,8 @@ package org.springframework.boot.actuate.endpoint;
 
 import java.util.Collection;
 
+import org.springframework.boot.actuate.endpoint.annotation.DiscoveredEndpoint;
+
 /**
  * Provides access to a collection of {@link ExposableEndpoint endpoints}.
  *
@@ -35,5 +37,15 @@ public interface EndpointsSupplier<E extends ExposableEndpoint<?>> {
 	 * @return the endpoints
 	 */
 	Collection<E> getEndpoints();
+
+	/**
+	 * Factory method called to create the {@link ExposableEndpoint endpoint}.
+	 * @param endpointBean the source endpoint bean
+	 * @param id the ID of the endpoint
+	 * @param enabledByDefault if the endpoint is enabled by default
+	 * @param operations the endpoint operations
+	 * @return a created endpoint (a {@link DiscoveredEndpoint} is recommended)
+	 */
+	E createEndpoint(Object endpointBean, EndpointId id, boolean enabledByDefault, Collection<O> operations);
 
 }
