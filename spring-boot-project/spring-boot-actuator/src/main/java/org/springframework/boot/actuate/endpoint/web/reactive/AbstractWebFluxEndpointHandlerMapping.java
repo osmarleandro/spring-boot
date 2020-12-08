@@ -240,6 +240,12 @@ public abstract class AbstractWebFluxEndpointHandlerMapping extends RequestMappi
 			return Mono.fromCallable(() -> this.invoker.invoke(context)).subscribeOn(Schedulers.boundedElastic());
 		}
 
+		@Override
+		public Object[] resolveArguments(InvocationContext context) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
 	}
 
 	/**
