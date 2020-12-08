@@ -68,6 +68,7 @@ public abstract class AbstractDiscoveredOperation implements Operation {
 		return creator.toString();
 	}
 
+	@Override
 	protected void appendFields(ToStringCreator creator) {
 	}
 

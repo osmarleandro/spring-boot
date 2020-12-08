@@ -16,6 +16,8 @@
 
 package org.springframework.boot.actuate.endpoint;
 
+import org.springframework.core.style.ToStringCreator;
+
 /**
  * An operation on an {@link ExposableEndpoint endpoint}.
  *
@@ -37,5 +39,7 @@ public interface Operation {
 	 * @return the result of the operation, may be {@code null}
 	 */
 	Object invoke(InvocationContext context);
+
+	void appendFields(ToStringCreator creator);
 
 }
