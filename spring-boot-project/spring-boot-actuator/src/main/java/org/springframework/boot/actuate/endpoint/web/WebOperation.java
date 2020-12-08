@@ -16,6 +16,8 @@
 
 package org.springframework.boot.actuate.endpoint.web;
 
+import java.lang.reflect.Parameter;
+
 import org.springframework.boot.actuate.endpoint.Operation;
 
 /**
@@ -44,5 +46,7 @@ public interface WebOperation extends Operation {
 	 * @return the predicate
 	 */
 	WebOperationRequestPredicate getRequestPredicate();
+
+	String dashName(Parameter parameter);
 
 }

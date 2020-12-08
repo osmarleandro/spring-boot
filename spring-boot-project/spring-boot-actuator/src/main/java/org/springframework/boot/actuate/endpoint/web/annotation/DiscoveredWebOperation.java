@@ -69,6 +69,7 @@ class DiscoveredWebOperation extends AbstractDiscoveredOperation implements WebO
 		return parameter.getAnnotation(Selector.class) != null;
 	}
 
+	@Override
 	private String dashName(Parameter parameter) {
 		return "-" + parameter.getName();
 	}
