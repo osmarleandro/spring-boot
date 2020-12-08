@@ -155,4 +155,10 @@ class AutoConfiguredHealthEndpointGroups implements HealthEndpointGroups {
 		return this.groups.get(name);
 	}
 
+	@Override
+	public boolean containsAllProbeGroups(HealthEndpointGroups groups) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }

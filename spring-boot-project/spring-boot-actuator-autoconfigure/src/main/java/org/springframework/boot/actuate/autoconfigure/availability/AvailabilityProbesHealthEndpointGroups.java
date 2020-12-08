@@ -32,9 +32,9 @@ import org.springframework.util.Assert;
  * @author Phillip Webb
  * @author Brian Clozel
  */
-class AvailabilityProbesHealthEndpointGroups implements HealthEndpointGroups {
+public class AvailabilityProbesHealthEndpointGroups implements HealthEndpointGroups {
 
-	private static final Map<String, AvailabilityProbesHealthEndpointGroup> GROUPS;
+	public static final Map<String, AvailabilityProbesHealthEndpointGroup> GROUPS;
 	static {
 		Map<String, AvailabilityProbesHealthEndpointGroup> groups = new LinkedHashMap<>();
 		groups.put("liveness", new AvailabilityProbesHealthEndpointGroup("livenessState"));
@@ -73,6 +73,7 @@ class AvailabilityProbesHealthEndpointGroups implements HealthEndpointGroups {
 		return group;
 	}
 
+	@Override
 	static boolean containsAllProbeGroups(HealthEndpointGroups groups) {
 		return groups.getNames().containsAll(GROUPS.keySet());
 	}

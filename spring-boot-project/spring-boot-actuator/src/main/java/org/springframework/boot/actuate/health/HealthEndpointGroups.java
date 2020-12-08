@@ -48,6 +48,14 @@ public interface HealthEndpointGroups {
 	 */
 	HealthEndpointGroup get(String name);
 
+	@Override
+	public boolean containsAllProbeGroups(HealthEndpointGroups groups) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	boolean containsAllProbeGroups(HealthEndpointGroups groups);
+
 	/**
 	 * Factory method to create a {@link HealthEndpointGroups} instance.
 	 * @param primary the primary group
