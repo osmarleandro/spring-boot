@@ -18,9 +18,12 @@ package org.springframework.boot.actuate.autoconfigure.health;
 
 import java.util.Map;
 
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.boot.actuate.health.CompositeHealthContributor;
 import org.springframework.boot.actuate.health.HealthContributor;
 import org.springframework.boot.actuate.health.HealthIndicator;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.context.annotation.Bean;
 
 /**
  * Base class for health contributor configurations that can combine source beans into a
@@ -38,6 +41,12 @@ public abstract class CompositeHealthContributorConfiguration<I extends HealthIn
 	@Override
 	protected final HealthContributor createComposite(Map<String, B> beans) {
 		return CompositeHealthContributor.fromMap(beans, this::createIndicator);
+	}
+
+	@Bean
+	@ConditionalOnMissingBean(name = { "rabbitHealthIndicator", "rabbitHealthContributor" })
+	public HealthContributor rabbitHealthContributor(Map<String, RabbitTemplate> rabbitTemplates) {
+		return createContributor(rabbitTemplates);
 	}
 
 }
