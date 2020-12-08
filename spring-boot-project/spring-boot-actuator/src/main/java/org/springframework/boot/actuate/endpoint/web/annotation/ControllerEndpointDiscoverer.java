@@ -42,7 +42,7 @@ import org.springframework.core.annotation.MergedAnnotations.SearchStrategy;
 public class ControllerEndpointDiscoverer extends EndpointDiscoverer<ExposableControllerEndpoint, Operation>
 		implements ControllerEndpointsSupplier {
 
-	private final List<PathMapper> endpointPathMappers;
+	final List<PathMapper> endpointPathMappers;
 
 	/**
 	 * Create a new {@link ControllerEndpointDiscoverer} instance.

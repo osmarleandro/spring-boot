@@ -16,7 +16,11 @@
 
 package org.springframework.boot.actuate.endpoint.web.annotation;
 
+import java.util.Collection;
+
+import org.springframework.boot.actuate.endpoint.EndpointId;
 import org.springframework.boot.actuate.endpoint.EndpointsSupplier;
+import org.springframework.boot.actuate.endpoint.Operation;
 
 /**
  * {@link EndpointsSupplier} for {@link ExposableControllerEndpoint controller endpoints}.
@@ -26,5 +30,8 @@ import org.springframework.boot.actuate.endpoint.EndpointsSupplier;
  */
 @FunctionalInterface
 public interface ControllerEndpointsSupplier extends EndpointsSupplier<ExposableControllerEndpoint> {
+
+	@Override
+	ExposableControllerEndpoint createEndpoint(Object endpointBean, EndpointId id, boolean enabledByDefault, Collection<Operation> operations);
 
 }
