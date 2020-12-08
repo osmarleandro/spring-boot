@@ -43,9 +43,9 @@ import org.springframework.context.ApplicationContext;
 public class WebEndpointDiscoverer extends EndpointDiscoverer<ExposableWebEndpoint, WebOperation>
 		implements WebEndpointsSupplier {
 
-	private final List<PathMapper> endpointPathMappers;
+	public final List<PathMapper> endpointPathMappers;
 
-	private final RequestPredicateFactory requestPredicateFactory;
+	public final RequestPredicateFactory requestPredicateFactory;
 
 	/**
 	 * Create a new {@link WebEndpointDiscoverer} instance.
