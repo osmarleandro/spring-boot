@@ -16,10 +16,12 @@
 
 package org.springframework.boot.actuate.endpoint.jmx;
 
+import java.lang.reflect.Method;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
+import java.util.function.Supplier;
 
 import org.springframework.boot.actuate.endpoint.InvocationContext;
 import org.springframework.boot.actuate.endpoint.OperationType;
@@ -89,6 +91,12 @@ public class TestJmxOperation implements JmxOperation {
 	@Override
 	public List<JmxOperationParameter> getParameters() {
 		return this.parameters;
+	}
+
+	@Override
+	public String getDescription(Method method, Supplier<String> fallback) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

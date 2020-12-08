@@ -48,9 +48,9 @@ import org.springframework.util.StringUtils;
  * @author Stephane Nicoll
  * @author Phillip Webb
  */
-class DiscoveredJmxOperation extends AbstractDiscoveredOperation implements JmxOperation {
+public class DiscoveredJmxOperation extends AbstractDiscoveredOperation implements JmxOperation {
 
-	private static final JmxAttributeSource jmxAttributeSource = new AnnotationJmxAttributeSource();
+	public static final JmxAttributeSource jmxAttributeSource = new AnnotationJmxAttributeSource();
 
 	private final String name;
 
@@ -69,6 +69,7 @@ class DiscoveredJmxOperation extends AbstractDiscoveredOperation implements JmxO
 		this.parameters = getParameters(operationMethod);
 	}
 
+	@Override
 	private String getDescription(Method method, Supplier<String> fallback) {
 		ManagedOperation managed = jmxAttributeSource.getManagedOperation(method);
 		if (managed != null && StringUtils.hasText(managed.getDescription())) {
