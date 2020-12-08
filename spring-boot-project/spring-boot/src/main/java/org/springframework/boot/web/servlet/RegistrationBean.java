@@ -21,7 +21,7 @@ import javax.servlet.ServletException;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
+import org.springframework.boot.actuate.endpoint.web.ExposableServletEndpoint;
 import org.springframework.core.Ordered;
 import org.springframework.util.StringUtils;
 
@@ -97,6 +97,12 @@ public abstract class RegistrationBean implements ServletContextInitializer, Ord
 	@Override
 	public int getOrder() {
 		return this.order;
+	}
+
+	@Override
+	public void register(ServletContext servletContext, ExposableServletEndpoint endpoint) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

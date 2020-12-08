@@ -34,6 +34,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
 
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.actuate.endpoint.web.ExposableServletEndpoint;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.context.event.ApplicationEnvironmentPreparedEvent;
 import org.springframework.boot.testsupport.system.CapturedOutput;
@@ -220,6 +221,24 @@ class SpringBootServletInitializerTests {
 		verify(servletContext).addListener(captor.capture());
 		captor.getValue().contextDestroyed(new ServletContextEvent(servletContext));
 		assertThat(driversDeregistered).isTrue();
+	}
+
+	@Override
+	public void register(ServletContext servletContext, ExposableServletEndpoint endpoint) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void register(ServletContext servletContext, ExposableServletEndpoint endpoint) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void register(ServletContext servletContext, ExposableServletEndpoint endpoint) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	static class PropertySourceVerifyingSpringBootServletInitializer extends SpringBootServletInitializer {

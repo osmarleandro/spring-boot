@@ -26,7 +26,7 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServlet;
 
 import org.junit.jupiter.api.Test;
-
+import org.springframework.boot.actuate.endpoint.web.ExposableServletEndpoint;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.Bean;
@@ -116,6 +116,12 @@ class ServletContextInitializerBeansTests {
 
 		}
 
+		@Override
+		public void register(ServletContext servletContext, ExposableServletEndpoint endpoint) {
+			// TODO Auto-generated method stub
+			
+		}
+
 	}
 
 	static class TestFilter implements Filter, ServletContextInitializer {
@@ -140,6 +146,12 @@ class ServletContextInitializerBeansTests {
 
 		}
 
+		@Override
+		public void register(ServletContext servletContext, ExposableServletEndpoint endpoint) {
+			// TODO Auto-generated method stub
+			
+		}
+
 	}
 
 	static class TestServletContextInitializer implements ServletContextInitializer {
@@ -149,6 +161,12 @@ class ServletContextInitializerBeansTests {
 
 		}
 
+		@Override
+		public void register(ServletContext servletContext, ExposableServletEndpoint endpoint) {
+			// TODO Auto-generated method stub
+			
+		}
+
 	}
 
 	static class OtherTestServletContextInitializer implements ServletContextInitializer {
@@ -156,6 +174,12 @@ class ServletContextInitializerBeansTests {
 		@Override
 		public void onStartup(ServletContext servletContext) throws ServletException {
 
+		}
+
+		@Override
+		public void register(ServletContext servletContext, ExposableServletEndpoint endpoint) {
+			// TODO Auto-generated method stub
+			
 		}
 
 	}

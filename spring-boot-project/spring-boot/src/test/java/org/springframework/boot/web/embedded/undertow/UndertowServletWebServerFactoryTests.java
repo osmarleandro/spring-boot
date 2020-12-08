@@ -30,6 +30,7 @@ import java.util.concurrent.atomic.AtomicReference;
 
 import javax.net.ssl.SSLException;
 import javax.net.ssl.SSLHandshakeException;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletRegistration.Dynamic;
 
 import io.undertow.Undertow;
@@ -42,7 +43,7 @@ import org.awaitility.Awaitility;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InOrder;
-
+import org.springframework.boot.actuate.endpoint.web.ExposableServletEndpoint;
 import org.springframework.boot.testsupport.web.servlet.ExampleServlet;
 import org.springframework.boot.web.server.ErrorPage;
 import org.springframework.boot.web.server.GracefulShutdownResult;
@@ -315,6 +316,12 @@ class UndertowServletWebServerFactoryTests extends AbstractServletWebServerFacto
 	@Override
 	protected void handleExceptionCausedByBlockedPortOnSecondaryConnector(RuntimeException ex, int blockedPort) {
 		handleExceptionCausedByBlockedPortOnPrimaryConnector(ex, blockedPort);
+	}
+
+	@Override
+	public void register(ServletContext servletContext, ExposableServletEndpoint endpoint) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

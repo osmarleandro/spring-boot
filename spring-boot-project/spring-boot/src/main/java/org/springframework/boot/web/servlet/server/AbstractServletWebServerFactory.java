@@ -35,7 +35,7 @@ import javax.servlet.SessionCookieConfig;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
+import org.springframework.boot.actuate.endpoint.web.ExposableServletEndpoint;
 import org.springframework.boot.web.server.AbstractConfigurableWebServerFactory;
 import org.springframework.boot.web.server.MimeMappings;
 import org.springframework.boot.web.servlet.ServletContextInitializer;
@@ -283,6 +283,12 @@ public abstract class AbstractServletWebServerFactory extends AbstractConfigurab
 		return this.session.getSessionStoreDirectory().getValidDirectory(mkdirs);
 	}
 
+	@Override
+	public void register(ServletContext servletContext, ExposableServletEndpoint endpoint) {
+		// TODO Auto-generated method stub
+		
+	}
+
 	/**
 	 * {@link ServletContextInitializer} to apply appropriate parts of the {@link Session}
 	 * configuration.
@@ -337,6 +343,12 @@ public abstract class AbstractServletWebServerFactory extends AbstractConfigurab
 				result.add(javax.servlet.SessionTrackingMode.valueOf(mode.name()));
 			}
 			return result;
+		}
+
+		@Override
+		public void register(ServletContext servletContext, ExposableServletEndpoint endpoint) {
+			// TODO Auto-generated method stub
+			
 		}
 
 	}

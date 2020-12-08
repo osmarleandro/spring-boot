@@ -39,9 +39,9 @@ import org.springframework.util.StringUtils;
  */
 public class ServletEndpointRegistrar implements ServletContextInitializer {
 
-	private static final Log logger = LogFactory.getLog(ServletEndpointRegistrar.class);
+	public static final Log logger = LogFactory.getLog(ServletEndpointRegistrar.class);
 
-	private final String basePath;
+	public final String basePath;
 
 	private final Collection<ExposableServletEndpoint> servletEndpoints;
 
@@ -63,6 +63,7 @@ public class ServletEndpointRegistrar implements ServletContextInitializer {
 		this.servletEndpoints.forEach((servletEndpoint) -> register(servletContext, servletEndpoint));
 	}
 
+	@Override
 	private void register(ServletContext servletContext, ExposableServletEndpoint endpoint) {
 		String name = endpoint.getEndpointId().toLowerCaseString() + "-actuator-endpoint";
 		String path = this.basePath + "/" + endpoint.getRootPath();

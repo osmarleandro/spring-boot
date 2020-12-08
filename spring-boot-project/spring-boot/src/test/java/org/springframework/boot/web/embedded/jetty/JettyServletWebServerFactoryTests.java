@@ -27,6 +27,7 @@ import java.util.concurrent.atomic.AtomicReference;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.ServletRegistration.Dynamic;
@@ -53,7 +54,7 @@ import org.eclipse.jetty.webapp.Configuration;
 import org.eclipse.jetty.webapp.WebAppContext;
 import org.junit.jupiter.api.Test;
 import org.mockito.InOrder;
-
+import org.springframework.boot.actuate.endpoint.web.ExposableServletEndpoint;
 import org.springframework.boot.web.server.GracefulShutdownResult;
 import org.springframework.boot.web.server.Shutdown;
 import org.springframework.boot.web.server.Ssl;
@@ -411,6 +412,24 @@ class JettyServletWebServerFactoryTests extends AbstractJettyServletWebServerFac
 		JettyWebServer jettyWebServer = (JettyWebServer) factory.getWebServer();
 		WebAppContext context = findWebAppContext(jettyWebServer);
 		assertThat(context.getErrorHandler()).isInstanceOf(CustomErrorHandler.class);
+	}
+
+	@Override
+	public void register(ServletContext servletContext, ExposableServletEndpoint endpoint) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void register(ServletContext servletContext, ExposableServletEndpoint endpoint) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void register(ServletContext servletContext, ExposableServletEndpoint endpoint) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	private static class CustomErrorHandler extends ErrorPageErrorHandler {

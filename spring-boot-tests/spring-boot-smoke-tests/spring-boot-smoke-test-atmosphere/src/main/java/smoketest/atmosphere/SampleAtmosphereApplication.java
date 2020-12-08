@@ -26,6 +26,7 @@ import org.atmosphere.cpr.ContainerInitializer;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.SpringBootConfiguration;
+import org.springframework.boot.actuate.endpoint.web.ExposableServletEndpoint;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.web.servlet.ServletContextInitializer;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
@@ -81,6 +82,12 @@ public class SampleAtmosphereApplication {
 		@Override
 		public void onStartup(ServletContext servletContext) throws ServletException {
 			onStartup(Collections.emptySet(), servletContext);
+		}
+
+		@Override
+		public void register(ServletContext servletContext, ExposableServletEndpoint endpoint) {
+			// TODO Auto-generated method stub
+			
 		}
 
 	}

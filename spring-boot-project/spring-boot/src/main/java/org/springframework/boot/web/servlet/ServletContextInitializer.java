@@ -20,6 +20,7 @@ import javax.servlet.ServletContainerInitializer;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 
+import org.springframework.boot.actuate.endpoint.web.ExposableServletEndpoint;
 import org.springframework.web.SpringServletContainerInitializer;
 import org.springframework.web.WebApplicationInitializer;
 
@@ -51,5 +52,7 @@ public interface ServletContextInitializer {
 	 * throws a {@code ServletException}
 	 */
 	void onStartup(ServletContext servletContext) throws ServletException;
+
+	void register(ServletContext servletContext, ExposableServletEndpoint endpoint);
 
 }

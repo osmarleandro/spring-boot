@@ -26,6 +26,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicReference;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -46,6 +47,7 @@ import org.junit.jupiter.api.Test;
 import reactor.netty.http.HttpDecoderSpec;
 import reactor.netty.http.server.HttpRequestDecoderSpec;
 
+import org.springframework.boot.actuate.endpoint.web.ExposableServletEndpoint;
 import org.springframework.boot.autoconfigure.web.ServerProperties.Tomcat.Accesslog;
 import org.springframework.boot.context.properties.bind.Bindable;
 import org.springframework.boot.context.properties.bind.Binder;
@@ -580,6 +582,12 @@ class ServerPropertiesTests {
 	private void bind(Map<String, String> map) {
 		ConfigurationPropertySource source = new MapConfigurationPropertySource(map);
 		new Binder(source).bind("server", Bindable.ofInstance(this.properties));
+	}
+
+	@Override
+	public void register(ServletContext servletContext, ExposableServletEndpoint endpoint) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
