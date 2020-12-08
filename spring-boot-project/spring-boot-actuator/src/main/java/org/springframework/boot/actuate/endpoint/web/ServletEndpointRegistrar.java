@@ -43,7 +43,7 @@ public class ServletEndpointRegistrar implements ServletContextInitializer {
 
 	private final String basePath;
 
-	private final Collection<ExposableServletEndpoint> servletEndpoints;
+	public final Collection<ExposableServletEndpoint> servletEndpoints;
 
 	public ServletEndpointRegistrar(String basePath, Collection<ExposableServletEndpoint> servletEndpoints) {
 		Assert.notNull(servletEndpoints, "ServletEndpoints must not be null");
@@ -63,7 +63,7 @@ public class ServletEndpointRegistrar implements ServletContextInitializer {
 		this.servletEndpoints.forEach((servletEndpoint) -> register(servletContext, servletEndpoint));
 	}
 
-	private void register(ServletContext servletContext, ExposableServletEndpoint endpoint) {
+	public void register(ServletContext servletContext, ExposableServletEndpoint endpoint) {
 		String name = endpoint.getEndpointId().toLowerCaseString() + "-actuator-endpoint";
 		String path = this.basePath + "/" + endpoint.getRootPath();
 		String urlMapping = path.endsWith("/") ? path + "*" : path + "/*";

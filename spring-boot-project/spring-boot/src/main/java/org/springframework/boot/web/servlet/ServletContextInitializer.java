@@ -52,4 +52,7 @@ public interface ServletContextInitializer {
 	 */
 	void onStartup(ServletContext servletContext) throws ServletException;
 
+	@Override
+	void onStartup(ServletContext servletContext) throws ServletException;
+
 }
