@@ -46,4 +46,7 @@ public interface ExposableEndpoint<O extends Operation> {
 	 */
 	Collection<O> getOperations();
 
+	@Override
+	Collection<O> getOperations();
+
 }

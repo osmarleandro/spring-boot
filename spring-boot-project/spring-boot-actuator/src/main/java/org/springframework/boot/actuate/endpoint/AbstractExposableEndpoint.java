@@ -36,7 +36,7 @@ public abstract class AbstractExposableEndpoint<O extends Operation> implements 
 
 	private boolean enabledByDefault;
 
-	private List<O> operations;
+	List<O> operations;
 
 	/**
 	 * Create a new {@link AbstractExposableEndpoint} instance.
