@@ -126,4 +126,10 @@ public class ReflectiveOperationInvoker implements OperationInvoker {
 				.toString();
 	}
 
+	@Override
+	public boolean hasInput(InvocationContext context) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }

@@ -89,6 +89,7 @@ public class CachingOperationInvoker implements OperationInvoker {
 		return cached.getResponse();
 	}
 
+	@Override
 	private boolean hasInput(InvocationContext context) {
 		Map<String, Object> arguments = context.getArguments();
 		if (!ObjectUtils.isEmpty(arguments)) {
