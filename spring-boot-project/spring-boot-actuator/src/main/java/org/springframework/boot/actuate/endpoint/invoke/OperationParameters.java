@@ -62,4 +62,7 @@ public interface OperationParameters extends Iterable<OperationParameter> {
 	 */
 	Stream<OperationParameter> stream();
 
+	@Override
+	OperationParameter get(int index);
+
 }
