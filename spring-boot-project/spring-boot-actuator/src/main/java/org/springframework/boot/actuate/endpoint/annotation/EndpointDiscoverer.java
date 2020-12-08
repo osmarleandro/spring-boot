@@ -76,7 +76,7 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 
 	private final DiscoveredOperationsFactory<O> operationsFactory;
 
-	private final Map<EndpointBean, E> filterEndpoints = new ConcurrentHashMap<>();
+	public final Map<EndpointBean, E> filterEndpoints = new ConcurrentHashMap<>();
 
 	private volatile Collection<E> endpoints;
 
@@ -323,6 +323,7 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 				.invokeAnd((f) -> f.match(endpoint)).get();
 	}
 
+	@Override
 	private E getFilterEndpoint(EndpointBean endpointBean) {
 		E endpoint = this.filterEndpoints.get(endpointBean);
 		if (endpoint == null) {
@@ -346,7 +347,7 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 	 * @param operations the endpoint operations
 	 * @return a created endpoint (a {@link DiscoveredEndpoint} is recommended)
 	 */
-	protected abstract E createEndpoint(Object endpointBean, EndpointId id, boolean enabledByDefault,
+	public abstract E createEndpoint(Object endpointBean, EndpointId id, boolean enabledByDefault,
 			Collection<O> operations);
 
 	/**
@@ -414,7 +415,7 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 	/**
 	 * Information about an {@link Endpoint @Endpoint} bean.
 	 */
-	private static class EndpointBean {
+	public static class EndpointBean {
 
 		private final String beanName;
 
@@ -465,15 +466,15 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 			return this.beanType;
 		}
 
-		Object getBean() {
+		public Object getBean() {
 			return this.beanSupplier.get();
 		}
 
-		EndpointId getId() {
+		public EndpointId getId() {
 			return this.id;
 		}
 
-		boolean isEnabledByDefault() {
+		public boolean isEnabledByDefault() {
 			return this.enabledByDefault;
 		}
 
