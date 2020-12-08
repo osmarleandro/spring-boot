@@ -48,7 +48,7 @@ import org.springframework.util.StringUtils;
  * @author Stephane Nicoll
  * @author Phillip Webb
  */
-class DiscoveredJmxOperation extends AbstractDiscoveredOperation implements JmxOperation {
+public class DiscoveredJmxOperation extends AbstractDiscoveredOperation implements JmxOperation {
 
 	private static final JmxAttributeSource jmxAttributeSource = new AnnotationJmxAttributeSource();
 
@@ -98,6 +98,7 @@ class DiscoveredJmxOperation extends AbstractDiscoveredOperation implements JmxO
 		return Collections.unmodifiableList(merged);
 	}
 
+	@Override
 	private <T> List<T> asList(Stream<T> stream) {
 		return stream.collect(Collectors.collectingAndThen(Collectors.toList(), Collections::unmodifiableList));
 	}

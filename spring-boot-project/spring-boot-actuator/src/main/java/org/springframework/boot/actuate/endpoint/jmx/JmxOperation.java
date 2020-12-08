@@ -17,6 +17,7 @@
 package org.springframework.boot.actuate.endpoint.jmx;
 
 import java.util.List;
+import java.util.stream.Stream;
 
 import org.springframework.boot.actuate.endpoint.Operation;
 
@@ -54,5 +55,7 @@ public interface JmxOperation extends Operation {
 	 * @return the operation parameter names
 	 */
 	List<JmxOperationParameter> getParameters();
+
+	<T> List<T> asList(Stream<T> stream);
 
 }

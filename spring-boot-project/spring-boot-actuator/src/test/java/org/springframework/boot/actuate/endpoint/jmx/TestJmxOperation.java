@@ -20,6 +20,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
+import java.util.stream.Stream;
 
 import org.springframework.boot.actuate.endpoint.InvocationContext;
 import org.springframework.boot.actuate.endpoint.OperationType;
@@ -89,6 +90,12 @@ public class TestJmxOperation implements JmxOperation {
 	@Override
 	public List<JmxOperationParameter> getParameters() {
 		return this.parameters;
+	}
+
+	@Override
+	public <T> List<T> asList(Stream<T> stream) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
