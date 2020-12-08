@@ -21,6 +21,9 @@ import java.util.Map;
 import org.springframework.boot.actuate.health.CompositeReactiveHealthContributor;
 import org.springframework.boot.actuate.health.ReactiveHealthContributor;
 import org.springframework.boot.actuate.health.ReactiveHealthIndicator;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.context.annotation.Bean;
+import org.springframework.data.elasticsearch.client.reactive.ReactiveElasticsearchClient;
 
 /**
  * Base class for health contributor configurations that can combine source beans into a
@@ -38,6 +41,12 @@ public abstract class CompositeReactiveHealthContributorConfiguration<I extends 
 	@Override
 	protected final ReactiveHealthContributor createComposite(Map<String, B> beans) {
 		return CompositeReactiveHealthContributor.fromMap(beans, this::createIndicator);
+	}
+
+	@Bean
+	@ConditionalOnMissingBean(name = { "elasticsearchHealthIndicator", "elasticsearchHealthContributor" })
+	public ReactiveHealthContributor elasticsearchHealthContributor(Map<String, ReactiveElasticsearchClient> clients) {
+		return createContributor(clients);
 	}
 
 }
