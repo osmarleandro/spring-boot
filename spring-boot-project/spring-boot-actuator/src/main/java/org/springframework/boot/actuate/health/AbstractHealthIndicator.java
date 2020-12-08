@@ -99,4 +99,12 @@ public abstract class AbstractHealthIndicator implements HealthIndicator {
 	 */
 	protected abstract void doHealthCheck(Health.Builder builder) throws Exception;
 
+	@Override
+	protected void doHealthCheck(Health.Builder builder) {
+		this.hazelcast.executeTransaction((context) -> {
+			builder.up().withDetail("name", this.hazelcast.getName()).withDetail("uuid", extractUuid());
+			return null;
+		});
+	}
+
 }

@@ -21,7 +21,6 @@ import java.lang.reflect.Method;
 import com.hazelcast.core.HazelcastInstance;
 
 import org.springframework.boot.actuate.health.AbstractHealthIndicator;
-import org.springframework.boot.actuate.health.Health;
 import org.springframework.boot.actuate.health.HealthIndicator;
 import org.springframework.util.Assert;
 import org.springframework.util.ReflectionUtils;
@@ -35,7 +34,7 @@ import org.springframework.util.ReflectionUtils;
  */
 public class HazelcastHealthIndicator extends AbstractHealthIndicator {
 
-	private final HazelcastInstance hazelcast;
+	public final HazelcastInstance hazelcast;
 
 	public HazelcastHealthIndicator(HazelcastInstance hazelcast) {
 		super("Hazelcast health check failed");
@@ -43,15 +42,7 @@ public class HazelcastHealthIndicator extends AbstractHealthIndicator {
 		this.hazelcast = hazelcast;
 	}
 
-	@Override
-	protected void doHealthCheck(Health.Builder builder) {
-		this.hazelcast.executeTransaction((context) -> {
-			builder.up().withDetail("name", this.hazelcast.getName()).withDetail("uuid", extractUuid());
-			return null;
-		});
-	}
-
-	private String extractUuid() {
+	public String extractUuid() {
 		try {
 			return this.hazelcast.getLocalEndpoint().getUuid().toString();
 		}
