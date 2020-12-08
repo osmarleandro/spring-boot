@@ -32,7 +32,7 @@ import org.springframework.boot.actuate.health.Health.Builder;
  *
  * @author Andy Wilkinson
  */
-class CouchbaseHealth {
+public class CouchbaseHealth {
 
 	private final DiagnosticsResult diagnostics;
 
@@ -40,7 +40,7 @@ class CouchbaseHealth {
 		this.diagnostics = diagnostics;
 	}
 
-	void applyTo(Builder builder) {
+	public void applyTo(Builder builder) {
 		builder = isCouchbaseUp(this.diagnostics) ? builder.up() : builder.down();
 		builder.withDetail("sdk", this.diagnostics.sdk());
 		builder.withDetail("endpoints", this.diagnostics.endpoints().values().stream().flatMap(Collection::stream)

@@ -15,12 +15,9 @@
  */
 package org.springframework.boot.actuate.couchbase;
 
-import com.couchbase.client.core.diagnostics.DiagnosticsResult;
 import com.couchbase.client.java.Cluster;
-import reactor.core.publisher.Mono;
 
 import org.springframework.boot.actuate.health.AbstractReactiveHealthIndicator;
-import org.springframework.boot.actuate.health.Health;
 import org.springframework.boot.actuate.health.ReactiveHealthIndicator;
 
 /**
@@ -32,7 +29,7 @@ import org.springframework.boot.actuate.health.ReactiveHealthIndicator;
  */
 public class CouchbaseReactiveHealthIndicator extends AbstractReactiveHealthIndicator {
 
-	private final Cluster cluster;
+	public final Cluster cluster;
 
 	/**
 	 * Create a new {@link CouchbaseReactiveHealthIndicator} instance.
@@ -41,13 +38,6 @@ public class CouchbaseReactiveHealthIndicator extends AbstractReactiveHealthIndi
 	public CouchbaseReactiveHealthIndicator(Cluster cluster) {
 		super("Couchbase health check failed");
 		this.cluster = cluster;
-	}
-
-	@Override
-	protected Mono<Health> doHealthCheck(Health.Builder builder) {
-		DiagnosticsResult diagnostics = this.cluster.diagnostics();
-		new CouchbaseHealth(diagnostics).applyTo(builder);
-		return Mono.just(builder.build());
 	}
 
 }

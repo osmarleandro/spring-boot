@@ -22,8 +22,11 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import reactor.core.publisher.Mono;
 
+import org.springframework.boot.actuate.couchbase.CouchbaseHealth;
 import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
+
+import com.couchbase.client.core.diagnostics.DiagnosticsResult;
 
 /**
  * Base {@link ReactiveHealthIndicator} implementations that encapsulates creation of
@@ -98,5 +101,12 @@ public abstract class AbstractReactiveHealthIndicator implements ReactiveHealthI
 	 * @return a {@link Mono} that provides the {@link Health}
 	 */
 	protected abstract Mono<Health> doHealthCheck(Health.Builder builder);
+
+	@Override
+	protected Mono<Health> doHealthCheck(Health.Builder builder) {
+		DiagnosticsResult diagnostics = this.cluster.diagnostics();
+		new CouchbaseHealth(diagnostics).applyTo(builder);
+		return Mono.just(builder.build());
+	}
 
 }
