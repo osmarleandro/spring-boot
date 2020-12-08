@@ -39,4 +39,7 @@ public interface OperationInvokerAdvisor {
 	OperationInvoker apply(EndpointId endpointId, OperationType operationType, OperationParameters parameters,
 			OperationInvoker invoker);
 
+	@Override
+	OperationInvoker apply(EndpointId endpointId, OperationType operationType, OperationParameters parameters, OperationInvoker invoker);
+
 }
