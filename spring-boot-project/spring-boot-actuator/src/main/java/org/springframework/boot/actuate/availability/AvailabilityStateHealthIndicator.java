@@ -22,7 +22,6 @@ import java.util.Map;
 import java.util.function.Consumer;
 
 import org.springframework.boot.actuate.health.AbstractHealthIndicator;
-import org.springframework.boot.actuate.health.Health.Builder;
 import org.springframework.boot.actuate.health.HealthIndicator;
 import org.springframework.boot.actuate.health.Status;
 import org.springframework.boot.availability.ApplicationAvailability;
@@ -39,11 +38,11 @@ import org.springframework.util.Assert;
  */
 public class AvailabilityStateHealthIndicator extends AbstractHealthIndicator {
 
-	private final ApplicationAvailability applicationAvailability;
+	public final ApplicationAvailability applicationAvailability;
 
 	private final Class<? extends AvailabilityState> stateType;
 
-	private final Map<AvailabilityState, Status> statusMappings = new HashMap<>();
+	public final Map<AvailabilityState, Status> statusMappings = new HashMap<>();
 
 	/**
 	 * Create a new {@link AvailabilityStateHealthIndicator} instance.
@@ -75,24 +74,13 @@ public class AvailabilityStateHealthIndicator extends AbstractHealthIndicator {
 		}
 	}
 
-	@Override
-	protected void doHealthCheck(Builder builder) throws Exception {
-		AvailabilityState state = getState(this.applicationAvailability);
-		Status status = this.statusMappings.get(state);
-		if (status == null) {
-			status = this.statusMappings.get(null);
-		}
-		Assert.state(status != null, () -> "No mapping provided for " + state);
-		builder.status(status);
-	}
-
 	/**
 	 * Return the current availability state. Subclasses can override this method if a
 	 * different retrieval mechanism is needed.
 	 * @param applicationAvailability the application availability
 	 * @return the current availability state
 	 */
-	protected AvailabilityState getState(ApplicationAvailability applicationAvailability) {
+	public AvailabilityState getState(ApplicationAvailability applicationAvailability) {
 		return applicationAvailability.getState(this.stateType);
 	}
 

@@ -22,6 +22,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import org.springframework.boot.actuate.health.Health.Builder;
+import org.springframework.boot.availability.AvailabilityState;
 import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
 
@@ -98,5 +99,16 @@ public abstract class AbstractHealthIndicator implements HealthIndicator {
 	 * system status.
 	 */
 	protected abstract void doHealthCheck(Health.Builder builder) throws Exception;
+
+	@Override
+	protected void doHealthCheck(Builder builder) throws Exception {
+		AvailabilityState state = getState(this.applicationAvailability);
+		Status status = this.statusMappings.get(state);
+		if (status == null) {
+			status = this.statusMappings.get(null);
+		}
+		Assert.state(status != null, () -> "No mapping provided for " + state);
+		builder.status(status);
+	}
 
 }
