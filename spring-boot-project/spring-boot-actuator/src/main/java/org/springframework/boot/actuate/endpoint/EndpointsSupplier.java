@@ -18,6 +18,8 @@ package org.springframework.boot.actuate.endpoint;
 
 import java.util.Collection;
 
+import org.springframework.boot.actuate.endpoint.annotation.EndpointDiscoverer.OperationKey;
+
 /**
  * Provides access to a collection of {@link ExposableEndpoint endpoints}.
  *
@@ -35,5 +37,12 @@ public interface EndpointsSupplier<E extends ExposableEndpoint<?>> {
 	 * @return the endpoints
 	 */
 	Collection<E> getEndpoints();
+
+	/**
+	 * Create an {@link OperationKey} for the given operation.
+	 * @param operation the source operation
+	 * @return the operation key
+	 */
+	OperationKey createOperationKey(O operation);
 
 }
