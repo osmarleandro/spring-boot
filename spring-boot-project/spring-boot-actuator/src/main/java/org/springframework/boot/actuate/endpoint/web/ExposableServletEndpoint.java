@@ -33,4 +33,7 @@ public interface ExposableServletEndpoint extends ExposableEndpoint<Operation>, 
 	 */
 	EndpointServlet getEndpointServlet();
 
+	@Override
+	EndpointServlet getEndpointServlet();
+
 }
