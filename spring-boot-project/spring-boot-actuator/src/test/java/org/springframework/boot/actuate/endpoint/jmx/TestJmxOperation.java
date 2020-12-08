@@ -23,6 +23,7 @@ import java.util.function.Function;
 
 import org.springframework.boot.actuate.endpoint.InvocationContext;
 import org.springframework.boot.actuate.endpoint.OperationType;
+import org.springframework.core.style.ToStringCreator;
 
 /**
  * Test {@link JmxOperation} implementation.
@@ -89,6 +90,12 @@ public class TestJmxOperation implements JmxOperation {
 	@Override
 	public List<JmxOperationParameter> getParameters() {
 		return this.parameters;
+	}
+
+	@Override
+	public void appendFields(ToStringCreator creator) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

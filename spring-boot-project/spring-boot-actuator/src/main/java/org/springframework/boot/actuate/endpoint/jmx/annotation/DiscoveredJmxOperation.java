@@ -48,17 +48,17 @@ import org.springframework.util.StringUtils;
  * @author Stephane Nicoll
  * @author Phillip Webb
  */
-class DiscoveredJmxOperation extends AbstractDiscoveredOperation implements JmxOperation {
+public class DiscoveredJmxOperation extends AbstractDiscoveredOperation implements JmxOperation {
 
 	private static final JmxAttributeSource jmxAttributeSource = new AnnotationJmxAttributeSource();
 
-	private final String name;
+	public final String name;
 
-	private final Class<?> outputType;
+	public final Class<?> outputType;
 
-	private final String description;
+	public final String description;
 
-	private final List<JmxOperationParameter> parameters;
+	public final List<JmxOperationParameter> parameters;
 
 	DiscoveredJmxOperation(EndpointId endpointId, DiscoveredOperationMethod operationMethod, OperationInvoker invoker) {
 		super(operationMethod, invoker);
