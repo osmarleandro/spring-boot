@@ -24,6 +24,7 @@ import reactor.core.publisher.Mono;
 
 import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
+import org.springframework.web.reactive.function.client.WebClient;
 
 /**
  * Base {@link ReactiveHealthIndicator} implementations that encapsulates creation of
@@ -98,5 +99,9 @@ public abstract class AbstractReactiveHealthIndicator implements ReactiveHealthI
 	 * @return a {@link Mono} that provides the {@link Health}
 	 */
 	protected abstract Mono<Health> doHealthCheck(Health.Builder builder);
+
+	protected Mono<Health> getHealth(Health.Builder builder, WebClient webClient) {
+		return webClient.get().uri("/_cluster/health/").exchangeToMono((response) -> doHealthCheck(builder, response));
+	}
 
 }
