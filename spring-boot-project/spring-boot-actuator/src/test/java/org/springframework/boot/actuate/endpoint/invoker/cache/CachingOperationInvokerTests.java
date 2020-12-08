@@ -227,6 +227,12 @@ class CachingOperationInvokerTests {
 			});
 		}
 
+		@Override
+		public OperationInvoker apply(OperationInvoker invoker, long timeToLive) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
 	}
 
 	private static class FluxOperationInvoker implements OperationInvoker {
@@ -236,6 +242,12 @@ class CachingOperationInvokerTests {
 		@Override
 		public Flux<String> invoke(InvocationContext context) throws MissingParametersException {
 			return Flux.just("spring", "boot").hide().doFirst(invocations::incrementAndGet);
+		}
+
+		@Override
+		public OperationInvoker apply(OperationInvoker invoker, long timeToLive) {
+			// TODO Auto-generated method stub
+			return null;
 		}
 
 	}

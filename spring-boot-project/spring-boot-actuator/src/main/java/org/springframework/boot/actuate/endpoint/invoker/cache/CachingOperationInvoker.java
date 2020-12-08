@@ -112,6 +112,7 @@ public class CachingOperationInvoker implements OperationInvoker {
 	 * required
 	 * @deprecated as of 2.3.0 to make it package-private in 2.4
 	 */
+	@Override
 	@Deprecated
 	public static OperationInvoker apply(OperationInvoker invoker, long timeToLive) {
 		if (timeToLive > 0) {
