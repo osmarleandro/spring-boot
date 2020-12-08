@@ -16,6 +16,8 @@
 
 package org.springframework.boot.actuate.endpoint.invoke;
 
+import java.lang.reflect.Parameter;
+import java.util.List;
 import java.util.stream.Stream;
 
 /**
@@ -61,5 +63,7 @@ public interface OperationParameters extends Iterable<OperationParameter> {
 	 * @return a stream of the parameters
 	 */
 	Stream<OperationParameter> stream();
+
+	List<OperationParameter> getOperationParameters(Parameter[] parameters, String[] names);
 
 }

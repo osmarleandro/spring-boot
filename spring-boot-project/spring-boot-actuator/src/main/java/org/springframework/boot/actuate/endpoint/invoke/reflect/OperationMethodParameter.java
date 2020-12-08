@@ -27,7 +27,7 @@ import org.springframework.util.ObjectUtils;
  *
  * @author Phillip Webb
  */
-class OperationMethodParameter implements OperationParameter {
+public class OperationMethodParameter implements OperationParameter {
 
 	private final String name;
 
