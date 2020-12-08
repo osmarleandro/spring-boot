@@ -104,6 +104,12 @@ class ConversionServiceParameterValueMapperTests {
 			return false;
 		}
 
+		@Override
+		public String toString() {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
 	}
 
 }
