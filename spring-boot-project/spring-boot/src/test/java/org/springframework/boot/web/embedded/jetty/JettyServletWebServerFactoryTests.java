@@ -413,6 +413,24 @@ class JettyServletWebServerFactoryTests extends AbstractJettyServletWebServerFac
 		assertThat(context.getErrorHandler()).isInstanceOf(CustomErrorHandler.class);
 	}
 
+	@Override
+	public String cleanBasePath(String basePath) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String cleanBasePath(String basePath) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String cleanBasePath(String basePath) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	private static class CustomErrorHandler extends ErrorPageErrorHandler {
 
 	}

@@ -116,6 +116,12 @@ class ServletContextInitializerBeansTests {
 
 		}
 
+		@Override
+		public String cleanBasePath(String basePath) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
 	}
 
 	static class TestFilter implements Filter, ServletContextInitializer {
@@ -140,6 +146,12 @@ class ServletContextInitializerBeansTests {
 
 		}
 
+		@Override
+		public String cleanBasePath(String basePath) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
 	}
 
 	static class TestServletContextInitializer implements ServletContextInitializer {
@@ -149,6 +161,12 @@ class ServletContextInitializerBeansTests {
 
 		}
 
+		@Override
+		public String cleanBasePath(String basePath) {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
 	}
 
 	static class OtherTestServletContextInitializer implements ServletContextInitializer {
@@ -156,6 +174,12 @@ class ServletContextInitializerBeansTests {
 		@Override
 		public void onStartup(ServletContext servletContext) throws ServletException {
 
+		}
+
+		@Override
+		public String cleanBasePath(String basePath) {
+			// TODO Auto-generated method stub
+			return null;
 		}
 
 	}

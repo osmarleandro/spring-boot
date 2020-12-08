@@ -317,4 +317,10 @@ class UndertowServletWebServerFactoryTests extends AbstractServletWebServerFacto
 		handleExceptionCausedByBlockedPortOnPrimaryConnector(ex, blockedPort);
 	}
 
+	@Override
+	public String cleanBasePath(String basePath) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

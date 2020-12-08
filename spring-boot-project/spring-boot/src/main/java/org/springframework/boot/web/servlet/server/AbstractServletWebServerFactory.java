@@ -283,6 +283,12 @@ public abstract class AbstractServletWebServerFactory extends AbstractConfigurab
 		return this.session.getSessionStoreDirectory().getValidDirectory(mkdirs);
 	}
 
+	@Override
+	public String cleanBasePath(String basePath) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	/**
 	 * {@link ServletContextInitializer} to apply appropriate parts of the {@link Session}
 	 * configuration.
@@ -337,6 +343,12 @@ public abstract class AbstractServletWebServerFactory extends AbstractConfigurab
 				result.add(javax.servlet.SessionTrackingMode.valueOf(mode.name()));
 			}
 			return result;
+		}
+
+		@Override
+		public String cleanBasePath(String basePath) {
+			// TODO Auto-generated method stub
+			return null;
 		}
 
 	}

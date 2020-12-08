@@ -685,4 +685,46 @@ class TomcatServletWebServerFactoryTests extends AbstractServletWebServerFactory
 		assertThat(((ConnectorStartFailedException) ex).getPort()).isEqualTo(blockedPort);
 	}
 
+	@Override
+	public String cleanBasePath(String basePath) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String cleanBasePath(String basePath) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String cleanBasePath(String basePath) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String cleanBasePath(String basePath) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String cleanBasePath(String basePath) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String cleanBasePath(String basePath) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String cleanBasePath(String basePath) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

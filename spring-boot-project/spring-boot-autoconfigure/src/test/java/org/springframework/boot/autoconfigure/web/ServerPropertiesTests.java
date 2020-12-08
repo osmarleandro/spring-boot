@@ -582,4 +582,10 @@ class ServerPropertiesTests {
 		new Binder(source).bind("server", Bindable.ofInstance(this.properties));
 	}
 
+	@Override
+	public String cleanBasePath(String basePath) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

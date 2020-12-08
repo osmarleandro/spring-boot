@@ -52,4 +52,6 @@ public interface ServletContextInitializer {
 	 */
 	void onStartup(ServletContext servletContext) throws ServletException;
 
+	String cleanBasePath(String basePath);
+
 }
