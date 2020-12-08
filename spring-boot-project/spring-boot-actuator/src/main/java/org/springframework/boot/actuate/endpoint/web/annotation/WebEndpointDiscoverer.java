@@ -19,6 +19,7 @@ package org.springframework.boot.actuate.endpoint.web.annotation;
 import java.util.Collection;
 import java.util.List;
 
+import org.springframework.boot.actuate.autoconfigure.cloudfoundry.EndpointCloudFoundryExtension;
 import org.springframework.boot.actuate.endpoint.EndpointFilter;
 import org.springframework.boot.actuate.endpoint.EndpointId;
 import org.springframework.boot.actuate.endpoint.annotation.DiscoveredOperationMethod;
@@ -33,6 +34,7 @@ import org.springframework.boot.actuate.endpoint.web.WebEndpointsSupplier;
 import org.springframework.boot.actuate.endpoint.web.WebOperation;
 import org.springframework.boot.actuate.endpoint.web.WebOperationRequestPredicate;
 import org.springframework.context.ApplicationContext;
+import org.springframework.core.annotation.MergedAnnotations;
 
 /**
  * {@link EndpointDiscoverer} for {@link ExposableWebEndpoint web endpoints}.
@@ -85,6 +87,10 @@ public class WebEndpointDiscoverer extends EndpointDiscoverer<ExposableWebEndpoi
 	protected OperationKey createOperationKey(WebOperation operation) {
 		return new OperationKey(operation.getRequestPredicate(),
 				() -> "web request predicate " + operation.getRequestPredicate());
+	}
+
+	protected boolean isCloudFoundryHealthEndpointExtension(Class<?> extensionBeanType) {
+		return MergedAnnotations.from(extensionBeanType).isPresent(EndpointCloudFoundryExtension.class);
 	}
 
 }

@@ -71,8 +71,4 @@ public class CloudFoundryWebEndpointDiscoverer extends WebEndpointDiscoverer {
 				.getValue("endpoint", Class.class).map(HealthEndpoint.class::isAssignableFrom).orElse(false);
 	}
 
-	private boolean isCloudFoundryHealthEndpointExtension(Class<?> extensionBeanType) {
-		return MergedAnnotations.from(extensionBeanType).isPresent(EndpointCloudFoundryExtension.class);
-	}
-
 }
