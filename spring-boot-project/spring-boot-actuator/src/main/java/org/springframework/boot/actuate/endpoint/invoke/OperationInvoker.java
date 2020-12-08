@@ -36,4 +36,6 @@ public interface OperationInvoker {
 	 */
 	Object invoke(InvocationContext context) throws MissingParametersException;
 
+	void validateRequiredParameters(InvocationContext context);
+
 }
