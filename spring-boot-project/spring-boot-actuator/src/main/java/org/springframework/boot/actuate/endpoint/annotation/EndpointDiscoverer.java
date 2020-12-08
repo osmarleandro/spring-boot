@@ -218,6 +218,7 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 		}
 	}
 
+	@Override
 	private <T> T getLast(List<T> list) {
 		return CollectionUtils.isEmpty(list) ? null : list.get(list.size() - 1);
 	}

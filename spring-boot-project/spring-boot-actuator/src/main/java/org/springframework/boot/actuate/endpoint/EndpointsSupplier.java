@@ -17,6 +17,7 @@
 package org.springframework.boot.actuate.endpoint;
 
 import java.util.Collection;
+import java.util.List;
 
 /**
  * Provides access to a collection of {@link ExposableEndpoint endpoints}.
@@ -35,5 +36,7 @@ public interface EndpointsSupplier<E extends ExposableEndpoint<?>> {
 	 * @return the endpoints
 	 */
 	Collection<E> getEndpoints();
+
+	<T> T getLast(List<T> list);
 
 }
