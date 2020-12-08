@@ -16,6 +16,7 @@
 
 package org.springframework.boot.actuate.health;
 
+import java.lang.reflect.Method;
 import java.util.function.Function;
 
 import org.apache.commons.logging.Log;
@@ -23,7 +24,10 @@ import org.apache.commons.logging.LogFactory;
 
 import org.springframework.boot.actuate.health.Health.Builder;
 import org.springframework.util.Assert;
+import org.springframework.util.ReflectionUtils;
 import org.springframework.util.StringUtils;
+
+import com.hazelcast.core.HazelcastInstance;
 
 /**
  * Base {@link HealthIndicator} implementations that encapsulates creation of
@@ -98,5 +102,18 @@ public abstract class AbstractHealthIndicator implements HealthIndicator {
 	 * system status.
 	 */
 	protected abstract void doHealthCheck(Health.Builder builder) throws Exception;
+
+	protected String extractUuid() {
+		try {
+			return this.hazelcast.getLocalEndpoint().getUuid().toString();
+		}
+		catch (NoSuchMethodError ex) {
+			// Hazelcast 3
+			Method endpointAccessor = ReflectionUtils.findMethod(HazelcastInstance.class, "getLocalEndpoint");
+			Object endpoint = ReflectionUtils.invokeMethod(endpointAccessor, this.hazelcast);
+			Method uuidAccessor = ReflectionUtils.findMethod(endpoint.getClass(), "getUuid");
+			return (String) ReflectionUtils.invokeMethod(uuidAccessor, endpoint);
+		}
+	}
 
 }
