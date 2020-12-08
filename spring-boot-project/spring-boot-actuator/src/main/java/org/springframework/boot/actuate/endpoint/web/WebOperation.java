@@ -16,6 +16,9 @@
 
 package org.springframework.boot.actuate.endpoint.web;
 
+import java.lang.reflect.Method;
+
+import org.springframework.boot.actuate.endpoint.EndpointId;
 import org.springframework.boot.actuate.endpoint.Operation;
 
 /**
@@ -44,5 +47,7 @@ public interface WebOperation extends Operation {
 	 * @return the predicate
 	 */
 	WebOperationRequestPredicate getRequestPredicate();
+
+	String getId(EndpointId endpointId, Method method);
 
 }
