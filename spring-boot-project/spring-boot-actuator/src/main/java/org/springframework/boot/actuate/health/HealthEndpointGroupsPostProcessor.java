@@ -35,4 +35,7 @@ public interface HealthEndpointGroupsPostProcessor {
 	 */
 	HealthEndpointGroups postProcessHealthEndpointGroups(HealthEndpointGroups groups);
 
+	@Override
+	HealthEndpointGroups postProcessHealthEndpointGroups(HealthEndpointGroups groups);
+
 }
