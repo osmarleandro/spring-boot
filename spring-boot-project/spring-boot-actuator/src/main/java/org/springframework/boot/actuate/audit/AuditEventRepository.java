@@ -46,4 +46,6 @@ public interface AuditEventRepository {
 	 */
 	List<AuditEvent> find(String principal, Instant after, String type);
 
+	boolean isMatch(String principal, Instant after, String type, AuditEvent event);
+
 }
