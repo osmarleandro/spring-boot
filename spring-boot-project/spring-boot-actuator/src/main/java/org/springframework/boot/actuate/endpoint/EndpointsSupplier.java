@@ -36,4 +36,7 @@ public interface EndpointsSupplier<E extends ExposableEndpoint<?>> {
 	 */
 	Collection<E> getEndpoints();
 
+	@SuppressWarnings("unchecked")
+	boolean isFilterMatch(EndpointFilter<E> filter, E endpoint);
+
 }

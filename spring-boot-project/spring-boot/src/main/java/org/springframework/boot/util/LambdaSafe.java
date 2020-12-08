@@ -101,7 +101,7 @@ public final class LambdaSafe {
 	 * @param <A> the primary argument type
 	 * @param <SELF> the self class reference
 	 */
-	protected abstract static class LambdaSafeCallback<C, A, SELF extends LambdaSafeCallback<C, A, SELF>> {
+	public abstract static class LambdaSafeCallback<C, A, SELF extends LambdaSafeCallback<C, A, SELF>> {
 
 		private final Class<C> callbackType;
 
