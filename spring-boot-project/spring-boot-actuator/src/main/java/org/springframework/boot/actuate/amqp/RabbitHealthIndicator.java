@@ -31,7 +31,7 @@ import org.springframework.util.Assert;
  */
 public class RabbitHealthIndicator extends AbstractHealthIndicator {
 
-	private final RabbitTemplate rabbitTemplate;
+	public final RabbitTemplate rabbitTemplate;
 
 	public RabbitHealthIndicator(RabbitTemplate rabbitTemplate) {
 		super("Rabbit health check failed");
@@ -42,11 +42,6 @@ public class RabbitHealthIndicator extends AbstractHealthIndicator {
 	@Override
 	protected void doHealthCheck(Health.Builder builder) throws Exception {
 		builder.up().withDetail("version", getVersion());
-	}
-
-	private String getVersion() {
-		return this.rabbitTemplate
-				.execute((channel) -> channel.getConnection().getServerProperties().get("version").toString());
 	}
 
 }

@@ -99,4 +99,9 @@ public abstract class AbstractHealthIndicator implements HealthIndicator {
 	 */
 	protected abstract void doHealthCheck(Health.Builder builder) throws Exception;
 
+	protected String getVersion() {
+		return this.rabbitTemplate
+				.execute((channel) -> channel.getConnection().getServerProperties().get("version").toString());
+	}
+
 }
