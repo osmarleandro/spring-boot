@@ -222,6 +222,7 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 		return CollectionUtils.isEmpty(list) ? null : list.get(list.size() - 1);
 	}
 
+	@Override
 	private void assertNoDuplicateOperations(EndpointBean endpointBean, MultiValueMap<OperationKey, O> indexed) {
 		List<OperationKey> duplicates = indexed.entrySet().stream().filter((entry) -> entry.getValue().size() > 1)
 				.map(Map.Entry::getKey).collect(Collectors.toList());
@@ -370,7 +371,7 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 	 * A key generated for an {@link Operation} based on specific criteria from the actual
 	 * operation implementation.
 	 */
-	protected static final class OperationKey {
+	public static final class OperationKey {
 
 		private final Object key;
 
@@ -414,7 +415,7 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 	/**
 	 * Information about an {@link Endpoint @Endpoint} bean.
 	 */
-	private static class EndpointBean {
+	public static class EndpointBean {
 
 		private final String beanName;
 
@@ -448,7 +449,7 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 			this.extensions.add(extensionBean);
 		}
 
-		Set<ExtensionBean> getExtensions() {
+		public Set<ExtensionBean> getExtensions() {
 			return this.extensions;
 		}
 
@@ -457,7 +458,7 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 					.getValue(MergedAnnotation.VALUE, Class.class).orElse(null);
 		}
 
-		String getBeanName() {
+		public String getBeanName() {
 			return this.beanName;
 		}
 
@@ -486,7 +487,7 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 	/**
 	 * Information about an {@link EndpointExtension @EndpointExtension} bean.
 	 */
-	private static class ExtensionBean {
+	public static class ExtensionBean {
 
 		private final String beanName;
 

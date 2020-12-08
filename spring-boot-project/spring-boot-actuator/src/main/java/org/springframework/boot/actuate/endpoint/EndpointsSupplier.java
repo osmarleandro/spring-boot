@@ -18,6 +18,10 @@ package org.springframework.boot.actuate.endpoint;
 
 import java.util.Collection;
 
+import org.springframework.boot.actuate.endpoint.annotation.EndpointDiscoverer.EndpointBean;
+import org.springframework.boot.actuate.endpoint.annotation.EndpointDiscoverer.OperationKey;
+import org.springframework.util.MultiValueMap;
+
 /**
  * Provides access to a collection of {@link ExposableEndpoint endpoints}.
  *
@@ -35,5 +39,7 @@ public interface EndpointsSupplier<E extends ExposableEndpoint<?>> {
 	 * @return the endpoints
 	 */
 	Collection<E> getEndpoints();
+
+	void assertNoDuplicateOperations(EndpointBean endpointBean, MultiValueMap<OperationKey, O> indexed);
 
 }
