@@ -99,4 +99,9 @@ public abstract class AbstractReactiveHealthIndicator implements ReactiveHealthI
 	 */
 	protected abstract Mono<Health> doHealthCheck(Health.Builder builder);
 
+	@Override
+	protected Mono<Health> doHealthCheck(Health.Builder builder) {
+		return this.client.execute((webClient) -> getHealth(builder, webClient));
+	}
+
 }

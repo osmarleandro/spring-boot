@@ -45,19 +45,14 @@ public class ElasticsearchReactiveHealthIndicator extends AbstractReactiveHealth
 
 	private static final String RED_STATUS = "red";
 
-	private final ReactiveElasticsearchClient client;
+	public final ReactiveElasticsearchClient client;
 
 	public ElasticsearchReactiveHealthIndicator(ReactiveElasticsearchClient client) {
 		super("Elasticsearch health check failed");
 		this.client = client;
 	}
 
-	@Override
-	protected Mono<Health> doHealthCheck(Health.Builder builder) {
-		return this.client.execute((webClient) -> getHealth(builder, webClient));
-	}
-
-	private Mono<Health> getHealth(Health.Builder builder, WebClient webClient) {
+	public Mono<Health> getHealth(Health.Builder builder, WebClient webClient) {
 		return webClient.get().uri("/_cluster/health/").exchangeToMono((response) -> doHealthCheck(builder, response));
 	}
 
