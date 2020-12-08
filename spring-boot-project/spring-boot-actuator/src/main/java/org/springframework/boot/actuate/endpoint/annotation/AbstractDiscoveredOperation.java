@@ -34,7 +34,7 @@ public abstract class AbstractDiscoveredOperation implements Operation {
 
 	private final OperationMethod operationMethod;
 
-	private final OperationInvoker invoker;
+	public final OperationInvoker invoker;
 
 	/**
 	 * Create a new {@link AbstractDiscoveredOperation} instance.
