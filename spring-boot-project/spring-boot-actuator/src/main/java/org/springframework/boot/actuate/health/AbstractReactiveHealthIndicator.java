@@ -24,6 +24,7 @@ import reactor.core.publisher.Mono;
 
 import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
+import org.springframework.web.reactive.function.client.ClientResponse;
 
 /**
  * Base {@link ReactiveHealthIndicator} implementations that encapsulates creation of
@@ -98,5 +99,15 @@ public abstract class AbstractReactiveHealthIndicator implements ReactiveHealthI
 	 * @return a {@link Mono} that provides the {@link Health}
 	 */
 	protected abstract Mono<Health> doHealthCheck(Health.Builder builder);
+
+	protected Mono<Health> doHealthCheck(Health.Builder builder, ClientResponse response) {
+		if (response.statusCode().is2xxSuccessful()) {
+			return response.bodyToMono(STRING_OBJECT_MAP).map((body) -> getHealth(builder, body));
+		}
+		builder.down();
+		builder.withDetail("statusCode", response.rawStatusCode());
+		builder.withDetail("reasonPhrase", response.statusCode().getReasonPhrase());
+		return response.releaseBody().thenReturn(builder.build());
+	}
 
 }
