@@ -70,7 +70,7 @@ import org.springframework.util.StringUtils;
 public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O extends Operation>
 		implements EndpointsSupplier<E> {
 
-	private final ApplicationContext applicationContext;
+	public final ApplicationContext applicationContext;
 
 	private final Collection<EndpointFilter<E>> filters;
 
@@ -140,6 +140,7 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 		return byId.values();
 	}
 
+	@Override
 	private EndpointBean createEndpointBean(String beanName) {
 		Class<?> beanType = ClassUtils.getUserClass(this.applicationContext.getType(beanName, false));
 		Supplier<Object> beanSupplier = () -> this.applicationContext.getBean(beanName);
@@ -414,7 +415,7 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 	/**
 	 * Information about an {@link Endpoint @Endpoint} bean.
 	 */
-	private static class EndpointBean {
+	public static class EndpointBean {
 
 		private final String beanName;
 
