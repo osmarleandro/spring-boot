@@ -19,7 +19,6 @@ package org.springframework.boot.actuate.availability;
 import org.springframework.boot.actuate.health.HealthIndicator;
 import org.springframework.boot.actuate.health.Status;
 import org.springframework.boot.availability.ApplicationAvailability;
-import org.springframework.boot.availability.AvailabilityState;
 import org.springframework.boot.availability.LivenessState;
 
 /**
@@ -35,11 +34,6 @@ public class LivenessStateHealthIndicator extends AvailabilityStateHealthIndicat
 			statusMappings.add(LivenessState.CORRECT, Status.UP);
 			statusMappings.add(LivenessState.BROKEN, Status.DOWN);
 		});
-	}
-
-	@Override
-	protected AvailabilityState getState(ApplicationAvailability applicationAvailability) {
-		return applicationAvailability.getLivenessState();
 	}
 
 }
