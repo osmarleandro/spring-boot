@@ -18,7 +18,6 @@ package org.springframework.boot.actuate.amqp;
 
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.boot.actuate.health.AbstractHealthIndicator;
-import org.springframework.boot.actuate.health.Health;
 import org.springframework.boot.actuate.health.HealthIndicator;
 import org.springframework.util.Assert;
 
@@ -39,12 +38,7 @@ public class RabbitHealthIndicator extends AbstractHealthIndicator {
 		this.rabbitTemplate = rabbitTemplate;
 	}
 
-	@Override
-	protected void doHealthCheck(Health.Builder builder) throws Exception {
-		builder.up().withDetail("version", getVersion());
-	}
-
-	private String getVersion() {
+	public String getVersion() {
 		return this.rabbitTemplate
 				.execute((channel) -> channel.getConnection().getServerProperties().get("version").toString());
 	}
