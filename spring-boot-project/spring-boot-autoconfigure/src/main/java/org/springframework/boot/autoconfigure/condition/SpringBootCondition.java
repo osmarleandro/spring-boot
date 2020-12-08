@@ -21,6 +21,7 @@ import org.apache.commons.logging.LogFactory;
 
 import org.springframework.context.annotation.Condition;
 import org.springframework.context.annotation.ConditionContext;
+import org.springframework.core.annotation.AnnotationAttributes;
 import org.springframework.core.type.AnnotatedTypeMetadata;
 import org.springframework.core.type.AnnotationMetadata;
 import org.springframework.core.type.ClassMetadata;
@@ -145,6 +146,18 @@ public abstract class SpringBootCondition implements Condition {
 			return ((SpringBootCondition) condition).getMatchOutcome(context, metadata).isMatch();
 		}
 		return condition.matches(context, metadata);
+	}
+
+	@Override
+	public ConditionOutcome getMatchOutcome(ConditionContext context, AnnotatedTypeMetadata metadata) {
+		AnnotationAttributes annotationAttributes = AnnotationAttributes
+				.fromMap(metadata.getAnnotationAttributes(this.annotationType.getName()));
+		String endpointName = annotationAttributes.getString("value");
+		ConditionOutcome outcome = getEndpointOutcome(context, endpointName);
+		if (outcome != null) {
+			return outcome;
+		}
+		return getDefaultEndpointsOutcome(context);
 	}
 
 }
