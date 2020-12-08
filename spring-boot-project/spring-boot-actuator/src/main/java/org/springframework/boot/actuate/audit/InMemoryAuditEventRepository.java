@@ -39,9 +39,9 @@ public class InMemoryAuditEventRepository implements AuditEventRepository {
 	/**
 	 * Circular buffer of the event with tail pointing to the last element.
 	 */
-	private AuditEvent[] events;
+	AuditEvent[] events;
 
-	private volatile int tail = -1;
+	volatile int tail = -1;
 
 	public InMemoryAuditEventRepository() {
 		this(DEFAULT_CAPACITY);
@@ -92,6 +92,7 @@ public class InMemoryAuditEventRepository implements AuditEventRepository {
 		return match;
 	}
 
+	@Override
 	private AuditEvent resolveTailEvent(int offset) {
 		int index = ((this.tail + this.events.length - offset) % this.events.length);
 		return this.events[index];
