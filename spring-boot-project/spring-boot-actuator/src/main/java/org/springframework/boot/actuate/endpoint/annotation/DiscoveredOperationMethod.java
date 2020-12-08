@@ -34,7 +34,7 @@ import org.springframework.util.Assert;
  */
 public class DiscoveredOperationMethod extends OperationMethod {
 
-	private final List<String> producesMediaTypes;
+	public final List<String> producesMediaTypes;
 
 	public DiscoveredOperationMethod(Method method, OperationType operationType,
 			AnnotationAttributes annotationAttributes) {
@@ -42,10 +42,6 @@ public class DiscoveredOperationMethod extends OperationMethod {
 		Assert.notNull(annotationAttributes, "AnnotationAttributes must not be null");
 		String[] produces = annotationAttributes.getStringArray("produces");
 		this.producesMediaTypes = Collections.unmodifiableList(Arrays.asList(produces));
-	}
-
-	public List<String> getProducesMediaTypes() {
-		return this.producesMediaTypes;
 	}
 
 }
