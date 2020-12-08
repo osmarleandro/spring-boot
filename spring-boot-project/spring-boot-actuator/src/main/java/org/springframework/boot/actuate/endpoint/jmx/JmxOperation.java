@@ -55,4 +55,7 @@ public interface JmxOperation extends Operation {
 	 */
 	List<JmxOperationParameter> getParameters();
 
+	@Override
+	String getName();
+
 }
