@@ -42,9 +42,9 @@ import org.springframework.util.ReflectionUtils;
  */
 public class ReflectiveOperationInvoker implements OperationInvoker {
 
-	private final Object target;
+	public final Object target;
 
-	private final OperationMethod operationMethod;
+	public final OperationMethod operationMethod;
 
 	private final ParameterValueMapper parameterValueMapper;
 
@@ -77,7 +77,7 @@ public class ReflectiveOperationInvoker implements OperationInvoker {
 		return ReflectionUtils.invokeMethod(method, this.target, resolvedArguments);
 	}
 
-	private void validateRequiredParameters(InvocationContext context) {
+	public void validateRequiredParameters(InvocationContext context) {
 		Set<OperationParameter> missing = this.operationMethod.getParameters().stream()
 				.filter((parameter) -> isMissing(context, parameter)).collect(Collectors.toSet());
 		if (!missing.isEmpty()) {
@@ -101,7 +101,7 @@ public class ReflectiveOperationInvoker implements OperationInvoker {
 		return context.getArguments().get(parameter.getName()) == null;
 	}
 
-	private Object[] resolveArguments(InvocationContext context) {
+	public Object[] resolveArguments(InvocationContext context) {
 		return this.operationMethod.getParameters().stream().map((parameter) -> resolveArgument(parameter, context))
 				.toArray();
 	}
