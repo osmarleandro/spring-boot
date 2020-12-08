@@ -44,4 +44,12 @@ public class InvalidEndpointRequestException extends RuntimeException {
 		return this.reason;
 	}
 
+	/**
+	 * Return the value being mapped.
+	 * @return the value
+	 */
+	public Object getValue() {
+		return this.value;
+	}
+
 }
