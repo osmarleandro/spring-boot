@@ -34,14 +34,14 @@ public class InMemoryAuditEventRepository implements AuditEventRepository {
 
 	private static final int DEFAULT_CAPACITY = 1000;
 
-	private final Object monitor = new Object();
+	final Object monitor = new Object();
 
 	/**
 	 * Circular buffer of the event with tail pointing to the last element.
 	 */
-	private AuditEvent[] events;
+	AuditEvent[] events;
 
-	private volatile int tail = -1;
+	volatile int tail = -1;
 
 	public InMemoryAuditEventRepository() {
 		this(DEFAULT_CAPACITY);
