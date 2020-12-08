@@ -96,6 +96,11 @@ public class AvailabilityStateHealthIndicator extends AbstractHealthIndicator {
 		return applicationAvailability.getState(this.stateType);
 	}
 
+	@Override
+	protected AvailabilityState getState(ApplicationAvailability applicationAvailability) {
+		return applicationAvailability.getReadinessState();
+	}
+
 	/**
 	 * Callback used to add status mappings.
 	 *
