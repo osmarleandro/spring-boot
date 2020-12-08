@@ -35,6 +35,7 @@ import org.springframework.boot.actuate.endpoint.OperationType;
 import org.springframework.boot.actuate.endpoint.SecurityContext;
 import org.springframework.boot.actuate.endpoint.http.ApiVersion;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvoker;
+import org.springframework.boot.actuate.endpoint.invoke.OperationParameter;
 import org.springframework.boot.actuate.endpoint.web.EndpointMapping;
 import org.springframework.boot.actuate.endpoint.web.EndpointMediaTypes;
 import org.springframework.boot.actuate.endpoint.web.ExposableWebEndpoint;
@@ -238,6 +239,12 @@ public abstract class AbstractWebFluxEndpointHandlerMapping extends RequestMappi
 		@Override
 		public Object invoke(InvocationContext context) {
 			return Mono.fromCallable(() -> this.invoker.invoke(context)).subscribeOn(Schedulers.boundedElastic());
+		}
+
+		@Override
+		public boolean isMissing(InvocationContext context, OperationParameter parameter) {
+			// TODO Auto-generated method stub
+			return false;
 		}
 
 	}

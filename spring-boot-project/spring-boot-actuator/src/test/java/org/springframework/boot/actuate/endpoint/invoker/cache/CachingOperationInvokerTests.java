@@ -32,6 +32,7 @@ import org.springframework.boot.actuate.endpoint.SecurityContext;
 import org.springframework.boot.actuate.endpoint.http.ApiVersion;
 import org.springframework.boot.actuate.endpoint.invoke.MissingParametersException;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvoker;
+import org.springframework.boot.actuate.endpoint.invoke.OperationParameter;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
@@ -227,6 +228,12 @@ class CachingOperationInvokerTests {
 			});
 		}
 
+		@Override
+		public boolean isMissing(InvocationContext context, OperationParameter parameter) {
+			// TODO Auto-generated method stub
+			return false;
+		}
+
 	}
 
 	private static class FluxOperationInvoker implements OperationInvoker {
@@ -236,6 +243,12 @@ class CachingOperationInvokerTests {
 		@Override
 		public Flux<String> invoke(InvocationContext context) throws MissingParametersException {
 			return Flux.just("spring", "boot").hide().doFirst(invocations::incrementAndGet);
+		}
+
+		@Override
+		public boolean isMissing(InvocationContext context, OperationParameter parameter) {
+			// TODO Auto-generated method stub
+			return false;
 		}
 
 	}
