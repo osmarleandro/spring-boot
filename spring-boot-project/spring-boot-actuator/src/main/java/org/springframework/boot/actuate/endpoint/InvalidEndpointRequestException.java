@@ -16,6 +16,8 @@
 
 package org.springframework.boot.actuate.endpoint;
 
+import org.springframework.boot.actuate.endpoint.invoke.OperationParameter;
+
 /**
  * Indicate that an endpoint request is invalid.
  *
@@ -42,6 +44,14 @@ public class InvalidEndpointRequestException extends RuntimeException {
 	 */
 	public String getReason() {
 		return this.reason;
+	}
+
+	/**
+	 * Return the parameter being mapped.
+	 * @return the parameter
+	 */
+	public OperationParameter getParameter() {
+		return this.parameter;
 	}
 
 }
