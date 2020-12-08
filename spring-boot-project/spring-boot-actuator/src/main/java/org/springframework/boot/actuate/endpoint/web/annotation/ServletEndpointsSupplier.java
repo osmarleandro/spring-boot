@@ -28,4 +28,7 @@ import org.springframework.boot.actuate.endpoint.web.ExposableServletEndpoint;
 @FunctionalInterface
 public interface ServletEndpointsSupplier extends EndpointsSupplier<ExposableServletEndpoint> {
 
+	@Override
+	boolean isEndpointTypeExposed(Class<?> beanType);
+
 }
