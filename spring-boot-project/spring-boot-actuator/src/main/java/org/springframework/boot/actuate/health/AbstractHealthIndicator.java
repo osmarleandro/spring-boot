@@ -16,12 +16,14 @@
 
 package org.springframework.boot.actuate.health;
 
+import java.util.EnumSet;
 import java.util.function.Function;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import org.springframework.boot.actuate.health.Health.Builder;
+import org.springframework.boot.availability.AvailabilityState;
 import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
 
@@ -98,5 +100,16 @@ public abstract class AbstractHealthIndicator implements HealthIndicator {
 	 * system status.
 	 */
 	protected abstract void doHealthCheck(Health.Builder builder) throws Exception;
+
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	protected <S extends AvailabilityState> void assertAllEnumsMapped(Class<S> stateType) {
+		if (!this.statusMappings.containsKey(null) && Enum.class.isAssignableFrom(stateType)) {
+			EnumSet elements = EnumSet.allOf((Class) stateType);
+			for (Object element : elements) {
+				Assert.isTrue(this.statusMappings.containsKey(element),
+						() -> "StatusMappings does not include " + element);
+			}
+		}
+	}
 
 }
