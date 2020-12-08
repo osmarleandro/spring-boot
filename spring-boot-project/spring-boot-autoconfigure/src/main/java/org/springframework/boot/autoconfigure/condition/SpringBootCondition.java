@@ -147,4 +147,11 @@ public abstract class SpringBootCondition implements Condition {
 		return condition.matches(context, metadata);
 	}
 
+	protected ConditionOutcome getDefaultEndpointsOutcome(ConditionContext context) {
+		boolean match = Boolean
+				.parseBoolean(context.getEnvironment().getProperty(this.prefix + "defaults.enabled", "true"));
+		return new ConditionOutcome(match, ConditionMessage.forCondition(this.annotationType)
+				.because(this.prefix + "defaults.enabled is considered " + match));
+	}
+
 }
