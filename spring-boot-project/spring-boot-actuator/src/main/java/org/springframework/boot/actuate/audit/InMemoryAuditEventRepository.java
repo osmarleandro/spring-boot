@@ -34,12 +34,12 @@ public class InMemoryAuditEventRepository implements AuditEventRepository {
 
 	private static final int DEFAULT_CAPACITY = 1000;
 
-	private final Object monitor = new Object();
+	final Object monitor = new Object();
 
 	/**
 	 * Circular buffer of the event with tail pointing to the last element.
 	 */
-	private AuditEvent[] events;
+	AuditEvent[] events;
 
 	private volatile int tail = -1;
 
@@ -55,6 +55,7 @@ public class InMemoryAuditEventRepository implements AuditEventRepository {
 	 * Set the capacity of this event repository.
 	 * @param capacity the capacity
 	 */
+	@Override
 	public void setCapacity(int capacity) {
 		synchronized (this.monitor) {
 			this.events = new AuditEvent[capacity];

@@ -46,4 +46,10 @@ public interface AuditEventRepository {
 	 */
 	List<AuditEvent> find(String principal, Instant after, String type);
 
+	/**
+	 * Set the capacity of this event repository.
+	 * @param capacity the capacity
+	 */
+	void setCapacity(int capacity);
+
 }
