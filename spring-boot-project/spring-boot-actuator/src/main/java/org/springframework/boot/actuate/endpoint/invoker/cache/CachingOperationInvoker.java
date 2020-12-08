@@ -28,6 +28,7 @@ import reactor.core.publisher.Mono;
 import org.springframework.boot.actuate.endpoint.InvocationContext;
 import org.springframework.boot.actuate.endpoint.http.ApiVersion;
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvoker;
+import org.springframework.boot.actuate.endpoint.invoke.OperationParameter;
 import org.springframework.util.Assert;
 import org.springframework.util.ClassUtils;
 import org.springframework.util.ObjectUtils;
@@ -102,6 +103,12 @@ public class CachingOperationInvoker implements OperationInvoker {
 			return new ReactiveCachedResponse(response, accessTime, this.timeToLive);
 		}
 		return new CachedResponse(response, accessTime);
+	}
+
+	@Override
+	public Object resolveArgument(OperationParameter parameter, InvocationContext context) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	/**

@@ -46,7 +46,7 @@ public class ReflectiveOperationInvoker implements OperationInvoker {
 
 	private final OperationMethod operationMethod;
 
-	private final ParameterValueMapper parameterValueMapper;
+	public final ParameterValueMapper parameterValueMapper;
 
 	/**
 	 * Creates a new {@code ReflectiveOperationInvoker} that will invoke the given
@@ -106,6 +106,7 @@ public class ReflectiveOperationInvoker implements OperationInvoker {
 				.toArray();
 	}
 
+	@Override
 	private Object resolveArgument(OperationParameter parameter, InvocationContext context) {
 		if (ApiVersion.class.equals(parameter.getType())) {
 			return context.getApiVersion();
