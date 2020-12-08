@@ -45,4 +45,7 @@ public interface WebOperation extends Operation {
 	 */
 	WebOperationRequestPredicate getRequestPredicate();
 
+	@Override
+	WebOperationRequestPredicate getRequestPredicate();
+
 }
