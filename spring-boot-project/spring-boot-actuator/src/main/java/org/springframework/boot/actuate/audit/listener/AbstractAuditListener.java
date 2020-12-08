@@ -34,4 +34,12 @@ public abstract class AbstractAuditListener implements ApplicationListener<Audit
 
 	protected abstract void onAuditEvent(AuditEvent event);
 
+	@Override
+	protected void onAuditEvent(AuditEvent event) {
+		if (logger.isDebugEnabled()) {
+			logger.debug(event);
+		}
+		this.auditEventRepository.add(event);
+	}
+
 }
