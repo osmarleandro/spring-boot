@@ -17,6 +17,7 @@
 package org.springframework.boot.actuate.endpoint.web;
 
 import org.springframework.boot.actuate.endpoint.EndpointsSupplier;
+import org.springframework.boot.actuate.endpoint.annotation.EndpointDiscoverer.OperationKey;
 
 /**
  * {@link EndpointsSupplier} for {@link ExposableWebEndpoint web endpoints}.
@@ -26,5 +27,8 @@ import org.springframework.boot.actuate.endpoint.EndpointsSupplier;
  */
 @FunctionalInterface
 public interface WebEndpointsSupplier extends EndpointsSupplier<ExposableWebEndpoint> {
+
+	@Override
+	OperationKey createOperationKey(WebOperation operation);
 
 }
