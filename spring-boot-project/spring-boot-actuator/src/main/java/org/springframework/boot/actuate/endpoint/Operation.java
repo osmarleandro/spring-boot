@@ -38,4 +38,7 @@ public interface Operation {
 	 */
 	Object invoke(InvocationContext context);
 
+	@Override
+	String toString();
+
 }
