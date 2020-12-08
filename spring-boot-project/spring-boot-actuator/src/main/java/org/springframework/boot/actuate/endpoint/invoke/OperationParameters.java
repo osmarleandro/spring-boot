@@ -16,6 +16,7 @@
 
 package org.springframework.boot.actuate.endpoint.invoke;
 
+import java.util.Iterator;
 import java.util.stream.Stream;
 
 /**
@@ -61,5 +62,8 @@ public interface OperationParameters extends Iterable<OperationParameter> {
 	 * @return a stream of the parameters
 	 */
 	Stream<OperationParameter> stream();
+
+	@Override
+	Iterator<OperationParameter> iterator();
 
 }
