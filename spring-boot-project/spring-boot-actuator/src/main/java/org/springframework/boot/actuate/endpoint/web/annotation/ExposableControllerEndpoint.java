@@ -38,4 +38,7 @@ public interface ExposableControllerEndpoint extends ExposableEndpoint<Operation
 	 */
 	Object getController();
 
+	@Override
+	String getRootPath();
+
 }
