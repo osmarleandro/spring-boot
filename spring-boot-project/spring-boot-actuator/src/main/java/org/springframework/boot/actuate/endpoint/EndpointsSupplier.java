@@ -18,6 +18,9 @@ package org.springframework.boot.actuate.endpoint;
 
 import java.util.Collection;
 
+import org.springframework.boot.actuate.endpoint.annotation.EndpointDiscoverer.EndpointBean;
+import org.springframework.boot.actuate.endpoint.annotation.EndpointDiscoverer.ExtensionBean;
+
 /**
  * Provides access to a collection of {@link ExposableEndpoint endpoints}.
  *
@@ -35,5 +38,7 @@ public interface EndpointsSupplier<E extends ExposableEndpoint<?>> {
 	 * @return the endpoints
 	 */
 	Collection<E> getEndpoints();
+
+	void addExtensionBean(EndpointBean endpointBean, ExtensionBean extensionBean);
 
 }

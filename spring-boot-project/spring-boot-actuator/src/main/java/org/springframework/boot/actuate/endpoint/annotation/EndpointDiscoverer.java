@@ -166,6 +166,7 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 		return new ExtensionBean(this.applicationContext.getEnvironment(), beanName, beanType, beanSupplier);
 	}
 
+	@Override
 	private void addExtensionBean(EndpointBean endpointBean, ExtensionBean extensionBean) {
 		if (isExtensionExposed(endpointBean, extensionBean)) {
 			Assert.state(isEndpointExposed(endpointBean) || isEndpointFiltered(endpointBean),
@@ -235,7 +236,7 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 		}
 	}
 
-	private boolean isExtensionExposed(EndpointBean endpointBean, ExtensionBean extensionBean) {
+	public boolean isExtensionExposed(EndpointBean endpointBean, ExtensionBean extensionBean) {
 		return isFilterMatch(extensionBean.getFilter(), endpointBean)
 				&& isExtensionTypeExposed(extensionBean.getBeanType());
 	}
@@ -261,7 +262,7 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 		return true;
 	}
 
-	private boolean isEndpointExposed(EndpointBean endpointBean) {
+	public boolean isEndpointExposed(EndpointBean endpointBean) {
 		return isFilterMatch(endpointBean.getFilter(), endpointBean) && !isEndpointFiltered(endpointBean)
 				&& isEndpointExposed(endpointBean.getBean());
 	}
@@ -287,7 +288,7 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 		return true;
 	}
 
-	private boolean isEndpointFiltered(EndpointBean endpointBean) {
+	public boolean isEndpointFiltered(EndpointBean endpointBean) {
 		for (EndpointFilter<E> filter : this.filters) {
 			if (!isFilterMatch(filter, endpointBean)) {
 				return true;
@@ -414,7 +415,7 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 	/**
 	 * Information about an {@link Endpoint @Endpoint} bean.
 	 */
-	private static class EndpointBean {
+	public static class EndpointBean {
 
 		private final String beanName;
 
@@ -444,7 +445,7 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 			this.filter = getFilter(beanType);
 		}
 
-		void addExtension(ExtensionBean extensionBean) {
+		public void addExtension(ExtensionBean extensionBean) {
 			this.extensions.add(extensionBean);
 		}
 
@@ -457,7 +458,7 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 					.getValue(MergedAnnotation.VALUE, Class.class).orElse(null);
 		}
 
-		String getBeanName() {
+		public String getBeanName() {
 			return this.beanName;
 		}
 
@@ -486,7 +487,7 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 	/**
 	 * Information about an {@link EndpointExtension @EndpointExtension} bean.
 	 */
-	private static class ExtensionBean {
+	public static class ExtensionBean {
 
 		private final String beanName;
 
@@ -513,7 +514,7 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 			this.filter = extensionAnnotation.getClass("filter");
 		}
 
-		String getBeanName() {
+		public String getBeanName() {
 			return this.beanName;
 		}
 
