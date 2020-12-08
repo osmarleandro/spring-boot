@@ -41,6 +41,7 @@ import org.springframework.boot.actuate.endpoint.web.ExposableWebEndpoint;
 import org.springframework.boot.actuate.endpoint.web.WebEndpointResponse;
 import org.springframework.boot.actuate.endpoint.web.WebOperation;
 import org.springframework.boot.actuate.endpoint.web.WebOperationRequestPredicate;
+import org.springframework.boot.actuate.endpoint.web.servlet.WebMvcEndpointHandlerMapping.WebMvcLinksHandler;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
@@ -243,6 +244,11 @@ public abstract class AbstractWebMvcEndpointHandlerMapping extends RequestMappin
 	 */
 	public Collection<ExposableWebEndpoint> getEndpoints() {
 		return this.endpoints;
+	}
+
+	@Override
+	protected LinksHandler getLinksHandler() {
+		return new WebMvcLinksHandler();
 	}
 
 	/**
