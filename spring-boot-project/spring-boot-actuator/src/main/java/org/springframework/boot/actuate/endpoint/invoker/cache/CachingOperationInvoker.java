@@ -43,11 +43,11 @@ import org.springframework.util.ObjectUtils;
  */
 public class CachingOperationInvoker implements OperationInvoker {
 
-	private static final boolean IS_REACTOR_PRESENT = ClassUtils.isPresent("reactor.core.publisher.Mono", null);
+	public static final boolean IS_REACTOR_PRESENT = ClassUtils.isPresent("reactor.core.publisher.Mono", null);
 
 	private final OperationInvoker invoker;
 
-	private final long timeToLive;
+	public final long timeToLive;
 
 	private final Map<CacheKey, CachedResponse> cachedResponses;
 
@@ -97,6 +97,7 @@ public class CachingOperationInvoker implements OperationInvoker {
 		return false;
 	}
 
+	@Override
 	private CachedResponse createCachedResponse(Object response, long accessTime) {
 		if (IS_REACTOR_PRESENT) {
 			return new ReactiveCachedResponse(response, accessTime, this.timeToLive);
@@ -124,7 +125,7 @@ public class CachingOperationInvoker implements OperationInvoker {
 	 * A cached response that encapsulates the response itself and the time at which it
 	 * was created.
 	 */
-	static class CachedResponse {
+	public static class CachedResponse {
 
 		private final Object response;
 
@@ -148,7 +149,7 @@ public class CachingOperationInvoker implements OperationInvoker {
 	/**
 	 * {@link CachedResponse} variant used when Reactor is present.
 	 */
-	static class ReactiveCachedResponse extends CachedResponse {
+	public static class ReactiveCachedResponse extends CachedResponse {
 
 		ReactiveCachedResponse(Object response, long creationTime, long timeToLive) {
 			super(applyCaching(response, timeToLive), creationTime);

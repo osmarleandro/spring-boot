@@ -28,6 +28,7 @@ import org.springframework.boot.actuate.endpoint.invoke.MissingParametersExcepti
 import org.springframework.boot.actuate.endpoint.invoke.OperationInvoker;
 import org.springframework.boot.actuate.endpoint.invoke.OperationParameter;
 import org.springframework.boot.actuate.endpoint.invoke.ParameterValueMapper;
+import org.springframework.boot.actuate.endpoint.invoker.cache.CachingOperationInvoker.CachedResponse;
 import org.springframework.core.style.ToStringCreator;
 import org.springframework.util.Assert;
 import org.springframework.util.ReflectionUtils;
@@ -124,6 +125,12 @@ public class ReflectiveOperationInvoker implements OperationInvoker {
 	public String toString() {
 		return new ToStringCreator(this).append("target", this.target).append("method", this.operationMethod)
 				.toString();
+	}
+
+	@Override
+	public CachedResponse createCachedResponse(Object response, long accessTime) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
