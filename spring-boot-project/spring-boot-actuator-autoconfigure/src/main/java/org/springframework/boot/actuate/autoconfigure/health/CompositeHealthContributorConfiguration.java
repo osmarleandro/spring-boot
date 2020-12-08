@@ -18,9 +18,12 @@ package org.springframework.boot.actuate.autoconfigure.health;
 
 import java.util.Map;
 
+import org.elasticsearch.client.RestHighLevelClient;
 import org.springframework.boot.actuate.health.CompositeHealthContributor;
 import org.springframework.boot.actuate.health.HealthContributor;
 import org.springframework.boot.actuate.health.HealthIndicator;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.context.annotation.Bean;
 
 /**
  * Base class for health contributor configurations that can combine source beans into a
@@ -38,6 +41,12 @@ public abstract class CompositeHealthContributorConfiguration<I extends HealthIn
 	@Override
 	protected final HealthContributor createComposite(Map<String, B> beans) {
 		return CompositeHealthContributor.fromMap(beans, this::createIndicator);
+	}
+
+	@Bean
+	@ConditionalOnMissingBean(name = { "elasticsearchHealthIndicator", "elasticsearchHealthContributor" })
+	public HealthContributor elasticsearchHealthContributor(Map<String, RestHighLevelClient> clients) {
+		return createContributor(clients);
 	}
 
 }
