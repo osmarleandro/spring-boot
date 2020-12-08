@@ -36,4 +36,7 @@ public interface OperationInvoker {
 	 */
 	Object invoke(InvocationContext context) throws MissingParametersException;
 
+	@Override
+	Object invoke(InvocationContext context);
+
 }
