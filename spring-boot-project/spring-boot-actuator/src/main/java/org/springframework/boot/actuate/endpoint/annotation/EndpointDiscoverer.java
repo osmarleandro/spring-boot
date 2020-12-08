@@ -74,7 +74,7 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 
 	private final Collection<EndpointFilter<E>> filters;
 
-	private final DiscoveredOperationsFactory<O> operationsFactory;
+	public final DiscoveredOperationsFactory<O> operationsFactory;
 
 	private final Map<EndpointBean, E> filterEndpoints = new ConcurrentHashMap<>();
 
@@ -204,6 +204,7 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 		return createEndpoint(endpointBean.getBean(), id, endpointBean.isEnabledByDefault(), operations);
 	}
 
+	@Override
 	private void addOperations(MultiValueMap<OperationKey, O> indexed, EndpointId id, Object target,
 			boolean replaceLast) {
 		Set<OperationKey> replacedLast = new HashSet<>();
@@ -218,7 +219,7 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 		}
 	}
 
-	private <T> T getLast(List<T> list) {
+	public <T> T getLast(List<T> list) {
 		return CollectionUtils.isEmpty(list) ? null : list.get(list.size() - 1);
 	}
 
@@ -364,13 +365,13 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 	 * @param operation the source operation
 	 * @return the operation key
 	 */
-	protected abstract OperationKey createOperationKey(O operation);
+	public abstract OperationKey createOperationKey(O operation);
 
 	/**
 	 * A key generated for an {@link Operation} based on specific criteria from the actual
 	 * operation implementation.
 	 */
-	protected static final class OperationKey {
+	public static final class OperationKey {
 
 		private final Object key;
 
