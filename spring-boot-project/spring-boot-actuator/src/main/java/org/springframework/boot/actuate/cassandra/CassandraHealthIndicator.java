@@ -20,7 +20,6 @@ import com.datastax.oss.driver.api.core.ConsistencyLevel;
 import com.datastax.oss.driver.api.core.cql.SimpleStatement;
 
 import org.springframework.boot.actuate.health.AbstractHealthIndicator;
-import org.springframework.boot.actuate.health.Health;
 import org.springframework.boot.actuate.health.HealthIndicator;
 import org.springframework.data.cassandra.core.CassandraOperations;
 import org.springframework.util.Assert;
@@ -37,10 +36,10 @@ import org.springframework.util.Assert;
 @Deprecated
 public class CassandraHealthIndicator extends AbstractHealthIndicator {
 
-	private static final SimpleStatement SELECT = SimpleStatement
+	public static final SimpleStatement SELECT = SimpleStatement
 			.newInstance("SELECT release_version FROM system.local").setConsistencyLevel(ConsistencyLevel.LOCAL_ONE);
 
-	private CassandraOperations cassandraOperations;
+	public CassandraOperations cassandraOperations;
 
 	public CassandraHealthIndicator() {
 		super("Cassandra health check failed");
@@ -54,12 +53,6 @@ public class CassandraHealthIndicator extends AbstractHealthIndicator {
 		super("Cassandra health check failed");
 		Assert.notNull(cassandraOperations, "CassandraOperations must not be null");
 		this.cassandraOperations = cassandraOperations;
-	}
-
-	@Override
-	protected void doHealthCheck(Health.Builder builder) throws Exception {
-		String version = this.cassandraOperations.getCqlOperations().queryForObject(SELECT, String.class);
-		builder.up().withDetail("version", version);
 	}
 
 }

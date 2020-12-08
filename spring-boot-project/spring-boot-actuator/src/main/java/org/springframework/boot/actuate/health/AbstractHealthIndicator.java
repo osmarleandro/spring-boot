@@ -99,4 +99,10 @@ public abstract class AbstractHealthIndicator implements HealthIndicator {
 	 */
 	protected abstract void doHealthCheck(Health.Builder builder) throws Exception;
 
+	@Override
+	protected void doHealthCheck(Health.Builder builder) throws Exception {
+		String version = this.cassandraOperations.getCqlOperations().queryForObject(SELECT, String.class);
+		builder.up().withDetail("version", version);
+	}
+
 }
