@@ -46,7 +46,7 @@ import org.springframework.core.annotation.MergedAnnotations;
  * @author Stephane Nicoll
  * @author Phillip Webb
  */
-abstract class DiscoveredOperationsFactory<O extends Operation> {
+public abstract class DiscoveredOperationsFactory<O extends Operation> {
 
 	private static final Map<OperationType, Class<? extends Annotation>> OPERATION_TYPES;
 

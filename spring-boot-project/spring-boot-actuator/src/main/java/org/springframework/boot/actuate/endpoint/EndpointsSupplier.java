@@ -18,6 +18,10 @@ package org.springframework.boot.actuate.endpoint;
 
 import java.util.Collection;
 
+import org.springframework.boot.actuate.endpoint.annotation.DiscoveredOperationsFactory;
+import org.springframework.boot.actuate.endpoint.invoke.OperationInvokerAdvisor;
+import org.springframework.boot.actuate.endpoint.invoke.ParameterValueMapper;
+
 /**
  * Provides access to a collection of {@link ExposableEndpoint endpoints}.
  *
@@ -35,5 +39,7 @@ public interface EndpointsSupplier<E extends ExposableEndpoint<?>> {
 	 * @return the endpoints
 	 */
 	Collection<E> getEndpoints();
+
+	DiscoveredOperationsFactory<O> getOperationsFactory(ParameterValueMapper parameterValueMapper, Collection<OperationInvokerAdvisor> invokerAdvisors);
 
 }
