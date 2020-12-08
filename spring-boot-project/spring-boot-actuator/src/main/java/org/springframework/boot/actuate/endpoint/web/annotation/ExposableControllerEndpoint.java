@@ -38,4 +38,7 @@ public interface ExposableControllerEndpoint extends ExposableEndpoint<Operation
 	 */
 	Object getController();
 
+	@Override
+	Object getController();
+
 }
