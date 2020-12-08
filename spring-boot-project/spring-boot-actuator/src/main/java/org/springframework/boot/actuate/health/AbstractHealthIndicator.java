@@ -22,6 +22,8 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import org.springframework.boot.actuate.health.Health.Builder;
+import org.springframework.boot.availability.ApplicationAvailability;
+import org.springframework.boot.availability.AvailabilityState;
 import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
 
@@ -98,5 +100,15 @@ public abstract class AbstractHealthIndicator implements HealthIndicator {
 	 * system status.
 	 */
 	protected abstract void doHealthCheck(Health.Builder builder) throws Exception;
+
+	/**
+	 * Return the current availability state. Subclasses can override this method if a
+	 * different retrieval mechanism is needed.
+	 * @param applicationAvailability the application availability
+	 * @return the current availability state
+	 */
+	protected AvailabilityState getState(ApplicationAvailability applicationAvailability) {
+		return applicationAvailability.getState(this.stateType);
+	}
 
 }

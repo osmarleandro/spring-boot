@@ -41,7 +41,7 @@ public class AvailabilityStateHealthIndicator extends AbstractHealthIndicator {
 
 	private final ApplicationAvailability applicationAvailability;
 
-	private final Class<? extends AvailabilityState> stateType;
+	public final Class<? extends AvailabilityState> stateType;
 
 	private final Map<AvailabilityState, Status> statusMappings = new HashMap<>();
 
@@ -84,16 +84,6 @@ public class AvailabilityStateHealthIndicator extends AbstractHealthIndicator {
 		}
 		Assert.state(status != null, () -> "No mapping provided for " + state);
 		builder.status(status);
-	}
-
-	/**
-	 * Return the current availability state. Subclasses can override this method if a
-	 * different retrieval mechanism is needed.
-	 * @param applicationAvailability the application availability
-	 * @return the current availability state
-	 */
-	protected AvailabilityState getState(ApplicationAvailability applicationAvailability) {
-		return applicationAvailability.getState(this.stateType);
 	}
 
 	/**
