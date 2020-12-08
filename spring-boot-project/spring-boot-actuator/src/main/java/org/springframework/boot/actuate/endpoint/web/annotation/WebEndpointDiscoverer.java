@@ -87,4 +87,13 @@ public class WebEndpointDiscoverer extends EndpointDiscoverer<ExposableWebEndpoi
 				() -> "web request predicate " + operation.getRequestPredicate());
 	}
 
+	@Override
+	protected boolean isExtensionTypeExposed(Class<?> extensionBeanType) {
+		if (isHealthEndpointExtension(extensionBeanType) && !isCloudFoundryHealthEndpointExtension(extensionBeanType)) {
+			// Filter regular health endpoint extensions so a CF version can replace them
+			return false;
+		}
+		return true;
+	}
+
 }

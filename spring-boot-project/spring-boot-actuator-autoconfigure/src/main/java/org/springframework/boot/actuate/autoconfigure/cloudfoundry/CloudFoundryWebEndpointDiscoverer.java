@@ -57,21 +57,12 @@ public class CloudFoundryWebEndpointDiscoverer extends WebEndpointDiscoverer {
 				filters);
 	}
 
-	@Override
-	protected boolean isExtensionTypeExposed(Class<?> extensionBeanType) {
-		if (isHealthEndpointExtension(extensionBeanType) && !isCloudFoundryHealthEndpointExtension(extensionBeanType)) {
-			// Filter regular health endpoint extensions so a CF version can replace them
-			return false;
-		}
-		return true;
-	}
-
-	private boolean isHealthEndpointExtension(Class<?> extensionBeanType) {
+	public boolean isHealthEndpointExtension(Class<?> extensionBeanType) {
 		return MergedAnnotations.from(extensionBeanType).get(EndpointWebExtension.class)
 				.getValue("endpoint", Class.class).map(HealthEndpoint.class::isAssignableFrom).orElse(false);
 	}
 
-	private boolean isCloudFoundryHealthEndpointExtension(Class<?> extensionBeanType) {
+	public boolean isCloudFoundryHealthEndpointExtension(Class<?> extensionBeanType) {
 		return MergedAnnotations.from(extensionBeanType).isPresent(EndpointCloudFoundryExtension.class);
 	}
 
