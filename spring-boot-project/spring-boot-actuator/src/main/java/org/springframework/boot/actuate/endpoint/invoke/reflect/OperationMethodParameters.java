@@ -34,9 +34,9 @@ import org.springframework.util.Assert;
  *
  * @author Phillip Webb
  */
-class OperationMethodParameters implements OperationParameters {
+public class OperationMethodParameters implements OperationParameters {
 
-	private final List<OperationParameter> operationParameters;
+	public final List<OperationParameter> operationParameters;
 
 	/**
 	 * Create a new {@link OperationMethodParameters} instance.
