@@ -29,6 +29,7 @@ import org.reactivestreams.Publisher;
 import reactor.core.publisher.Mono;
 import reactor.core.scheduler.Schedulers;
 
+import org.springframework.boot.actuate.autoconfigure.cloudfoundry.reactive.CloudFoundryWebFluxEndpointHandlerMapping.SecureReactiveWebOperation;
 import org.springframework.boot.actuate.endpoint.InvalidEndpointRequestException;
 import org.springframework.boot.actuate.endpoint.InvocationContext;
 import org.springframework.boot.actuate.endpoint.OperationType;
@@ -220,6 +221,11 @@ public abstract class AbstractWebFluxEndpointHandlerMapping extends RequestMappi
 	 */
 	public Collection<ExposableWebEndpoint> getEndpoints() {
 		return this.endpoints;
+	}
+
+	@Override
+	protected ReactiveWebOperation wrapReactiveWebOperation(ExposableWebEndpoint endpoint, WebOperation operation, ReactiveWebOperation reactiveWebOperation) {
+		return new SecureReactiveWebOperation(reactiveWebOperation, this.securityInterceptor, endpoint.getEndpointId());
 	}
 
 	/**

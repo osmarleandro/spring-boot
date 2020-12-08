@@ -33,7 +33,6 @@ import org.springframework.boot.actuate.endpoint.web.EndpointMapping;
 import org.springframework.boot.actuate.endpoint.web.EndpointMediaTypes;
 import org.springframework.boot.actuate.endpoint.web.ExposableWebEndpoint;
 import org.springframework.boot.actuate.endpoint.web.Link;
-import org.springframework.boot.actuate.endpoint.web.WebOperation;
 import org.springframework.boot.actuate.endpoint.web.reactive.AbstractWebFluxEndpointHandlerMapping;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -50,9 +49,9 @@ import org.springframework.web.server.ServerWebExchange;
  * @author Phillip Webb
  * @author Brian Clozel
  */
-class CloudFoundryWebFluxEndpointHandlerMapping extends AbstractWebFluxEndpointHandlerMapping {
+public class CloudFoundryWebFluxEndpointHandlerMapping extends AbstractWebFluxEndpointHandlerMapping {
 
-	private final CloudFoundrySecurityInterceptor securityInterceptor;
+	public final CloudFoundrySecurityInterceptor securityInterceptor;
 
 	private final EndpointLinksResolver linksResolver;
 
@@ -63,12 +62,6 @@ class CloudFoundryWebFluxEndpointHandlerMapping extends AbstractWebFluxEndpointH
 		super(endpointMapping, endpoints, endpointMediaTypes, corsConfiguration, true);
 		this.linksResolver = linksResolver;
 		this.securityInterceptor = securityInterceptor;
-	}
-
-	@Override
-	protected ReactiveWebOperation wrapReactiveWebOperation(ExposableWebEndpoint endpoint, WebOperation operation,
-			ReactiveWebOperation reactiveWebOperation) {
-		return new SecureReactiveWebOperation(reactiveWebOperation, this.securityInterceptor, endpoint.getEndpointId());
 	}
 
 	@Override
@@ -114,7 +107,7 @@ class CloudFoundryWebFluxEndpointHandlerMapping extends AbstractWebFluxEndpointH
 	/**
 	 * {@link ReactiveWebOperation} wrapper to add security.
 	 */
-	private static class SecureReactiveWebOperation implements ReactiveWebOperation {
+	public static class SecureReactiveWebOperation implements ReactiveWebOperation {
 
 		private final ReactiveWebOperation delegate;
 
