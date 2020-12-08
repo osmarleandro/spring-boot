@@ -26,4 +26,7 @@ import org.springframework.boot.actuate.endpoint.ExposableEndpoint;
  */
 public interface ExposableWebEndpoint extends ExposableEndpoint<WebOperation>, PathMappedEndpoint {
 
+	@Override
+	String getRootPath();
+
 }

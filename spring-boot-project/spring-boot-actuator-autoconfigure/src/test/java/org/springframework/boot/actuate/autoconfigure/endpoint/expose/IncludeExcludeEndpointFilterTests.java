@@ -172,9 +172,21 @@ class IncludeExcludeEndpointFilterTests {
 
 	abstract static class TestExposableWebEndpoint implements ExposableWebEndpoint {
 
+		@Override
+		public String getRootPath() {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
 	}
 
 	abstract static class DifferentTestExposableWebEndpoint implements ExposableWebEndpoint {
+
+		@Override
+		public String getRootPath() {
+			// TODO Auto-generated method stub
+			return null;
+		}
 
 	}
 
