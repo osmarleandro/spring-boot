@@ -16,6 +16,8 @@
 
 package org.springframework.boot.actuate.health;
 
+import java.util.Collection;
+import java.util.Optional;
 import java.util.function.Function;
 
 import org.apache.commons.logging.Log;
@@ -24,6 +26,9 @@ import reactor.core.publisher.Mono;
 
 import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
+
+import com.datastax.oss.driver.api.core.metadata.Node;
+import com.datastax.oss.driver.api.core.metadata.NodeState;
 
 /**
  * Base {@link ReactiveHealthIndicator} implementations that encapsulates creation of
@@ -98,5 +103,16 @@ public abstract class AbstractReactiveHealthIndicator implements ReactiveHealthI
 	 * @return a {@link Mono} that provides the {@link Health}
 	 */
 	protected abstract Mono<Health> doHealthCheck(Health.Builder builder);
+
+	@Override
+	protected Mono<Health> doHealthCheck(Health.Builder builder) {
+		return Mono.fromSupplier(() -> {
+			Collection<Node> nodes = this.session.getMetadata().getNodes().values();
+			Optional<Node> nodeUp = nodes.stream().filter((node) -> node.getState() == NodeState.UP).findAny();
+			builder.status(nodeUp.isPresent() ? Status.UP : Status.DOWN);
+			nodeUp.map(Node::getCassandraVersion).ifPresent((version) -> builder.withDetail("version", version));
+			return builder.build();
+		});
+	}
 
 }
