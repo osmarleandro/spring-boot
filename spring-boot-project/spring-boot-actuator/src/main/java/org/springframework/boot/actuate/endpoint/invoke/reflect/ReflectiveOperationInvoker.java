@@ -126,4 +126,10 @@ public class ReflectiveOperationInvoker implements OperationInvoker {
 				.toString();
 	}
 
+	@Override
+	public long getTimeToLive() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 }

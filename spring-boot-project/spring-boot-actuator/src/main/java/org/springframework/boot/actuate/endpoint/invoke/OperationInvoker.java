@@ -36,4 +36,10 @@ public interface OperationInvoker {
 	 */
 	Object invoke(InvocationContext context) throws MissingParametersException;
 
+	/**
+	 * Return the maximum time in milliseconds that a response can be cached.
+	 * @return the time to live of a response
+	 */
+	long getTimeToLive();
+
 }

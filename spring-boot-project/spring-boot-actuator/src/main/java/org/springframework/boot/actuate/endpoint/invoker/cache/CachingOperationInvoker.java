@@ -47,7 +47,7 @@ public class CachingOperationInvoker implements OperationInvoker {
 
 	private final OperationInvoker invoker;
 
-	private final long timeToLive;
+	public final long timeToLive;
 
 	private final Map<CacheKey, CachedResponse> cachedResponses;
 
@@ -68,6 +68,7 @@ public class CachingOperationInvoker implements OperationInvoker {
 	 * Return the maximum time in milliseconds that a response can be cached.
 	 * @return the time to live of a response
 	 */
+	@Override
 	public long getTimeToLive() {
 		return this.timeToLive;
 	}
