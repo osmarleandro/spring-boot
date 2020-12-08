@@ -34,12 +34,12 @@ public class InMemoryAuditEventRepository implements AuditEventRepository {
 
 	private static final int DEFAULT_CAPACITY = 1000;
 
-	private final Object monitor = new Object();
+	final Object monitor = new Object();
 
 	/**
 	 * Circular buffer of the event with tail pointing to the last element.
 	 */
-	private AuditEvent[] events;
+	AuditEvent[] events;
 
 	private volatile int tail = -1;
 
@@ -84,7 +84,7 @@ public class InMemoryAuditEventRepository implements AuditEventRepository {
 		return events;
 	}
 
-	private boolean isMatch(String principal, Instant after, String type, AuditEvent event) {
+	boolean isMatch(String principal, Instant after, String type, AuditEvent event) {
 		boolean match = true;
 		match = match && (principal == null || event.getPrincipal().equals(principal));
 		match = match && (after == null || event.getTimestamp().isAfter(after));
@@ -92,7 +92,7 @@ public class InMemoryAuditEventRepository implements AuditEventRepository {
 		return match;
 	}
 
-	private AuditEvent resolveTailEvent(int offset) {
+	AuditEvent resolveTailEvent(int offset) {
 		int index = ((this.tail + this.events.length - offset) % this.events.length);
 		return this.events[index];
 	}
