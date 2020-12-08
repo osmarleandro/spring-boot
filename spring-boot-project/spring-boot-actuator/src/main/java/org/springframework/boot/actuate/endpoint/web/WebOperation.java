@@ -17,6 +17,7 @@
 package org.springframework.boot.actuate.endpoint.web;
 
 import org.springframework.boot.actuate.endpoint.Operation;
+import org.springframework.core.style.ToStringCreator;
 
 /**
  * An operation on a web endpoint.
@@ -44,5 +45,8 @@ public interface WebOperation extends Operation {
 	 * @return the predicate
 	 */
 	WebOperationRequestPredicate getRequestPredicate();
+
+	@Override
+	void appendFields(ToStringCreator creator);
 
 }
