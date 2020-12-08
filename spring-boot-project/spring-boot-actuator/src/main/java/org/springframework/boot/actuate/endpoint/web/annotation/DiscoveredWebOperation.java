@@ -40,9 +40,9 @@ import org.springframework.util.ClassUtils;
  * @author Stephane Nicoll
  * @author Phillip Webb
  */
-class DiscoveredWebOperation extends AbstractDiscoveredOperation implements WebOperation {
+public class DiscoveredWebOperation extends AbstractDiscoveredOperation implements WebOperation {
 
-	private static final boolean REACTIVE_STREAMS_PRESENT = ClassUtils.isPresent("org.reactivestreams.Publisher",
+	public static final boolean REACTIVE_STREAMS_PRESENT = ClassUtils.isPresent("org.reactivestreams.Publisher",
 			DiscoveredWebOperation.class.getClassLoader());
 
 	private final String id;
@@ -73,6 +73,7 @@ class DiscoveredWebOperation extends AbstractDiscoveredOperation implements WebO
 		return "-" + parameter.getName();
 	}
 
+	@Override
 	private boolean getBlocking(Method method) {
 		return !REACTIVE_STREAMS_PRESENT || !Publisher.class.isAssignableFrom(method.getReturnType());
 	}
