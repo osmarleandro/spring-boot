@@ -16,7 +16,10 @@
 
 package org.springframework.boot.actuate.endpoint.jmx;
 
+import org.springframework.boot.actuate.endpoint.EndpointId;
 import org.springframework.boot.actuate.endpoint.EndpointsSupplier;
+import org.springframework.boot.actuate.endpoint.annotation.DiscoveredOperationMethod;
+import org.springframework.boot.actuate.endpoint.invoke.OperationInvoker;
 
 /**
  * {@link EndpointsSupplier} for {@link ExposableJmxEndpoint JMX endpoints}.
@@ -26,5 +29,8 @@ import org.springframework.boot.actuate.endpoint.EndpointsSupplier;
  */
 @FunctionalInterface
 public interface JmxEndpointsSupplier extends EndpointsSupplier<ExposableJmxEndpoint> {
+
+	@Override
+	JmxOperation createOperation(EndpointId endpointId, DiscoveredOperationMethod operationMethod, OperationInvoker invoker);
 
 }
