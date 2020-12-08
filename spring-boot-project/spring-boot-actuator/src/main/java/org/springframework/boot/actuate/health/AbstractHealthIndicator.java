@@ -99,4 +99,9 @@ public abstract class AbstractHealthIndicator implements HealthIndicator {
 	 */
 	protected abstract void doHealthCheck(Health.Builder builder) throws Exception;
 
+	@Override
+	protected void doHealthCheck(Health.Builder builder) throws Exception {
+		builder.up();
+	}
+
 }
