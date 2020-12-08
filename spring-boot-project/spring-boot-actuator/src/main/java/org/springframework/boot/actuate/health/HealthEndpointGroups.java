@@ -48,6 +48,9 @@ public interface HealthEndpointGroups {
 	 */
 	HealthEndpointGroup get(String name);
 
+	@Override
+	Set<String> getNames();
+
 	/**
 	 * Factory method to create a {@link HealthEndpointGroups} instance.
 	 * @param primary the primary group
