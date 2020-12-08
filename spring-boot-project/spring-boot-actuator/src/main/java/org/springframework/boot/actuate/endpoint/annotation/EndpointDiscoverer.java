@@ -261,6 +261,7 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 		return true;
 	}
 
+	@Override
 	private boolean isEndpointExposed(EndpointBean endpointBean) {
 		return isFilterMatch(endpointBean.getFilter(), endpointBean) && !isEndpointFiltered(endpointBean)
 				&& isEndpointExposed(endpointBean.getBean());
@@ -273,7 +274,7 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 	 * @return {@code true} if the endpoint is exposed
 	 */
 	@Deprecated
-	protected boolean isEndpointExposed(Object endpointBean) {
+	public boolean isEndpointExposed(Object endpointBean) {
 		return true;
 	}
 
@@ -287,7 +288,7 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 		return true;
 	}
 
-	private boolean isEndpointFiltered(EndpointBean endpointBean) {
+	public boolean isEndpointFiltered(EndpointBean endpointBean) {
 		for (EndpointFilter<E> filter : this.filters) {
 			if (!isFilterMatch(filter, endpointBean)) {
 				return true;
@@ -297,7 +298,7 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 	}
 
 	@SuppressWarnings("unchecked")
-	private boolean isFilterMatch(Class<?> filter, EndpointBean endpointBean) {
+	public boolean isFilterMatch(Class<?> filter, EndpointBean endpointBean) {
 		if (!isEndpointTypeExposed(endpointBean.getBeanType())) {
 			return false;
 		}
@@ -414,7 +415,7 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 	/**
 	 * Information about an {@link Endpoint @Endpoint} bean.
 	 */
-	private static class EndpointBean {
+	public static class EndpointBean {
 
 		private final String beanName;
 
@@ -465,7 +466,7 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 			return this.beanType;
 		}
 
-		Object getBean() {
+		public Object getBean() {
 			return this.beanSupplier.get();
 		}
 
@@ -477,7 +478,7 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 			return this.enabledByDefault;
 		}
 
-		Class<?> getFilter() {
+		public Class<?> getFilter() {
 			return this.filter;
 		}
 
