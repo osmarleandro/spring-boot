@@ -16,6 +16,8 @@
 
 package org.springframework.boot.actuate.health;
 
+import java.util.Collection;
+import java.util.Optional;
 import java.util.function.Function;
 
 import org.apache.commons.logging.Log;
@@ -24,6 +26,9 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.boot.actuate.health.Health.Builder;
 import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
+
+import com.datastax.oss.driver.api.core.metadata.Node;
+import com.datastax.oss.driver.api.core.metadata.NodeState;
 
 /**
  * Base {@link HealthIndicator} implementations that encapsulates creation of
@@ -98,5 +103,13 @@ public abstract class AbstractHealthIndicator implements HealthIndicator {
 	 * system status.
 	 */
 	protected abstract void doHealthCheck(Health.Builder builder) throws Exception;
+
+	@Override
+	protected void doHealthCheck(Health.Builder builder) throws Exception {
+		Collection<Node> nodes = this.session.getMetadata().getNodes().values();
+		Optional<Node> nodeUp = nodes.stream().filter((node) -> node.getState() == NodeState.UP).findAny();
+		builder.status(nodeUp.isPresent() ? Status.UP : Status.DOWN);
+		nodeUp.map(Node::getCassandraVersion).ifPresent((version) -> builder.withDetail("version", version));
+	}
 
 }
