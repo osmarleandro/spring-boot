@@ -49,4 +49,7 @@ public interface ReactiveHealthIndicator extends ReactiveHealthContributor {
 	 */
 	Mono<Health> health();
 
+	@Override
+	Mono<Health> health();
+
 }

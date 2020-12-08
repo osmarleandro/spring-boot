@@ -29,7 +29,7 @@ import org.springframework.util.Assert;
  */
 class HealthIndicatorReactiveAdapter implements ReactiveHealthIndicator {
 
-	private final HealthIndicator delegate;
+	final HealthIndicator delegate;
 
 	HealthIndicatorReactiveAdapter(HealthIndicator delegate) {
 		Assert.notNull(delegate, "Delegate must not be null");
