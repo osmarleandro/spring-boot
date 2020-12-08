@@ -39,4 +39,6 @@ public interface OperationInvokerAdvisor {
 	OperationInvoker apply(EndpointId endpointId, OperationType operationType, OperationParameters parameters,
 			OperationInvoker invoker);
 
+	boolean hasMandatoryParameter(OperationParameters parameters);
+
 }

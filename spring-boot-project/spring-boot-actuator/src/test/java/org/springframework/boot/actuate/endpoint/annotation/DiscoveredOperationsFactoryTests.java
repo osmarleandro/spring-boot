@@ -227,6 +227,12 @@ class DiscoveredOperationsFactoryTests {
 			return this.parameters;
 		}
 
+		@Override
+		public boolean hasMandatoryParameter(OperationParameters parameters) {
+			// TODO Auto-generated method stub
+			return false;
+		}
+
 	}
 
 }
