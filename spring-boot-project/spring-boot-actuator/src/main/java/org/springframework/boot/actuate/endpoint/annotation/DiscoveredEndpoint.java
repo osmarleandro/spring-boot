@@ -41,4 +41,7 @@ public interface DiscoveredEndpoint<O extends Operation> extends ExposableEndpoi
 	 */
 	Object getEndpointBean();
 
+	@Override
+	boolean wasDiscoveredBy(Class<? extends EndpointDiscoverer<?, ?>> discoverer);
+
 }
