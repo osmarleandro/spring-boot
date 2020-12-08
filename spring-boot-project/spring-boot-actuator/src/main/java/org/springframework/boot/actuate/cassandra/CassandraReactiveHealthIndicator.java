@@ -17,10 +17,8 @@ package org.springframework.boot.actuate.cassandra;
 
 import com.datastax.oss.driver.api.core.ConsistencyLevel;
 import com.datastax.oss.driver.api.core.cql.SimpleStatement;
-import reactor.core.publisher.Mono;
 
 import org.springframework.boot.actuate.health.AbstractReactiveHealthIndicator;
-import org.springframework.boot.actuate.health.Health;
 import org.springframework.boot.actuate.health.ReactiveHealthIndicator;
 import org.springframework.data.cassandra.core.ReactiveCassandraOperations;
 import org.springframework.util.Assert;
@@ -35,10 +33,10 @@ import org.springframework.util.Assert;
 @Deprecated
 public class CassandraReactiveHealthIndicator extends AbstractReactiveHealthIndicator {
 
-	private static final SimpleStatement SELECT = SimpleStatement
+	public static final SimpleStatement SELECT = SimpleStatement
 			.newInstance("SELECT release_version FROM system.local").setConsistencyLevel(ConsistencyLevel.LOCAL_ONE);
 
-	private final ReactiveCassandraOperations reactiveCassandraOperations;
+	public final ReactiveCassandraOperations reactiveCassandraOperations;
 
 	/**
 	 * Create a new {@link CassandraHealthIndicator} instance.
@@ -48,12 +46,6 @@ public class CassandraReactiveHealthIndicator extends AbstractReactiveHealthIndi
 		super("Cassandra health check failed");
 		Assert.notNull(reactiveCassandraOperations, "ReactiveCassandraOperations must not be null");
 		this.reactiveCassandraOperations = reactiveCassandraOperations;
-	}
-
-	@Override
-	protected Mono<Health> doHealthCheck(Health.Builder builder) {
-		return this.reactiveCassandraOperations.getReactiveCqlOperations().queryForObject(SELECT, String.class)
-				.map((version) -> builder.up().withDetail("version", version).build()).single();
 	}
 
 }
