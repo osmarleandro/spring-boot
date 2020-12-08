@@ -20,10 +20,12 @@ import java.util.function.Function;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
+import org.springframework.boot.actuate.couchbase.CouchbaseHealth;
 import org.springframework.boot.actuate.health.Health.Builder;
 import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
+
+import com.couchbase.client.core.diagnostics.DiagnosticsResult;
 
 /**
  * Base {@link HealthIndicator} implementations that encapsulates creation of
@@ -98,5 +100,11 @@ public abstract class AbstractHealthIndicator implements HealthIndicator {
 	 * system status.
 	 */
 	protected abstract void doHealthCheck(Health.Builder builder) throws Exception;
+
+	@Override
+	protected void doHealthCheck(Health.Builder builder) throws Exception {
+		DiagnosticsResult diagnostics = this.cluster.diagnostics();
+		new CouchbaseHealth(diagnostics).applyTo(builder);
+	}
 
 }

@@ -16,11 +16,9 @@
 
 package org.springframework.boot.actuate.couchbase;
 
-import com.couchbase.client.core.diagnostics.DiagnosticsResult;
 import com.couchbase.client.java.Cluster;
 
 import org.springframework.boot.actuate.health.AbstractHealthIndicator;
-import org.springframework.boot.actuate.health.Health;
 import org.springframework.boot.actuate.health.HealthIndicator;
 import org.springframework.util.Assert;
 
@@ -33,7 +31,7 @@ import org.springframework.util.Assert;
  */
 public class CouchbaseHealthIndicator extends AbstractHealthIndicator {
 
-	private final Cluster cluster;
+	public final Cluster cluster;
 
 	/**
 	 * Create an indicator with the specified {@link Cluster}.
@@ -44,12 +42,6 @@ public class CouchbaseHealthIndicator extends AbstractHealthIndicator {
 		super("Couchbase health check failed");
 		Assert.notNull(cluster, "Cluster must not be null");
 		this.cluster = cluster;
-	}
-
-	@Override
-	protected void doHealthCheck(Health.Builder builder) throws Exception {
-		DiagnosticsResult diagnostics = this.cluster.diagnostics();
-		new CouchbaseHealth(diagnostics).applyTo(builder);
 	}
 
 }
