@@ -246,6 +246,7 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 	 * @param extensionBean the extension bean
 	 * @return {@code true} if the extension is exposed
 	 */
+	@Override
 	@Deprecated
 	protected boolean isExtensionExposed(Object extensionBean) {
 		return true;
