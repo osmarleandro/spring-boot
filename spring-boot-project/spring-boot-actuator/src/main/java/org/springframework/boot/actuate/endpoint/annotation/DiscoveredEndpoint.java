@@ -18,6 +18,7 @@ package org.springframework.boot.actuate.endpoint.annotation;
 
 import org.springframework.boot.actuate.endpoint.ExposableEndpoint;
 import org.springframework.boot.actuate.endpoint.Operation;
+import org.springframework.core.style.ToStringCreator;
 
 /**
  * An {@link ExposableEndpoint endpoint} discovered by an {@link EndpointDiscoverer}.
@@ -40,5 +41,7 @@ public interface DiscoveredEndpoint<O extends Operation> extends ExposableEndpoi
 	 * @return the source endpoint bean
 	 */
 	Object getEndpointBean();
+
+	void appendFields(ToStringCreator creator);
 
 }
