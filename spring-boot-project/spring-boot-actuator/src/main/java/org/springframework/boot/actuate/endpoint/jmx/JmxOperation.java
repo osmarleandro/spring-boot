@@ -19,6 +19,7 @@ package org.springframework.boot.actuate.endpoint.jmx;
 import java.util.List;
 
 import org.springframework.boot.actuate.endpoint.Operation;
+import org.springframework.boot.actuate.endpoint.invoke.reflect.OperationMethod;
 
 /**
  * An operation on a JMX endpoint.
@@ -54,5 +55,7 @@ public interface JmxOperation extends Operation {
 	 * @return the operation parameter names
 	 */
 	List<JmxOperationParameter> getParameters();
+
+	List<JmxOperationParameter> getParameters(OperationMethod operationMethod);
 
 }

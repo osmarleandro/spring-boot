@@ -48,9 +48,9 @@ import org.springframework.util.StringUtils;
  * @author Stephane Nicoll
  * @author Phillip Webb
  */
-class DiscoveredJmxOperation extends AbstractDiscoveredOperation implements JmxOperation {
+public class DiscoveredJmxOperation extends AbstractDiscoveredOperation implements JmxOperation {
 
-	private static final JmxAttributeSource jmxAttributeSource = new AnnotationJmxAttributeSource();
+	public static final JmxAttributeSource jmxAttributeSource = new AnnotationJmxAttributeSource();
 
 	private final String name;
 
@@ -77,6 +77,7 @@ class DiscoveredJmxOperation extends AbstractDiscoveredOperation implements JmxO
 		return fallback.get();
 	}
 
+	@Override
 	private List<JmxOperationParameter> getParameters(OperationMethod operationMethod) {
 		if (!operationMethod.getParameters().hasParameters()) {
 			return Collections.emptyList();
@@ -89,7 +90,7 @@ class DiscoveredJmxOperation extends AbstractDiscoveredOperation implements JmxO
 		return mergeParameters(operationMethod.getParameters(), managed);
 	}
 
-	private List<JmxOperationParameter> mergeParameters(OperationParameters operationParameters,
+	public List<JmxOperationParameter> mergeParameters(OperationParameters operationParameters,
 			ManagedOperationParameter[] managedParameters) {
 		List<JmxOperationParameter> merged = new ArrayList<>(managedParameters.length);
 		for (int i = 0; i < managedParameters.length; i++) {
@@ -98,7 +99,7 @@ class DiscoveredJmxOperation extends AbstractDiscoveredOperation implements JmxO
 		return Collections.unmodifiableList(merged);
 	}
 
-	private <T> List<T> asList(Stream<T> stream) {
+	public <T> List<T> asList(Stream<T> stream) {
 		return stream.collect(Collectors.collectingAndThen(Collectors.toList(), Collections::unmodifiableList));
 	}
 
@@ -131,7 +132,7 @@ class DiscoveredJmxOperation extends AbstractDiscoveredOperation implements JmxO
 	/**
 	 * A discovered {@link JmxOperationParameter}.
 	 */
-	private static class DiscoveredJmxOperationParameter implements JmxOperationParameter {
+	public static class DiscoveredJmxOperationParameter implements JmxOperationParameter {
 
 		private final String name;
 
