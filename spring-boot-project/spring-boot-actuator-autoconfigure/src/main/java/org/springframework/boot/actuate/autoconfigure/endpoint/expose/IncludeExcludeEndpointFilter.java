@@ -27,6 +27,7 @@ import java.util.Set;
 import org.springframework.boot.actuate.endpoint.EndpointFilter;
 import org.springframework.boot.actuate.endpoint.EndpointId;
 import org.springframework.boot.actuate.endpoint.ExposableEndpoint;
+import org.springframework.boot.actuate.endpoint.annotation.DiscoveredEndpoint;
 import org.springframework.boot.context.properties.bind.Bindable;
 import org.springframework.boot.context.properties.bind.Binder;
 import org.springframework.core.env.Environment;
@@ -163,6 +164,12 @@ public class IncludeExcludeEndpointFilter<E extends ExposableEndpoint<?>> implem
 			return false;
 		}
 		return this.exclude.matches(endpointId);
+	}
+
+	@Override
+	public boolean match(DiscoveredEndpoint<?> endpoint) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 	/**

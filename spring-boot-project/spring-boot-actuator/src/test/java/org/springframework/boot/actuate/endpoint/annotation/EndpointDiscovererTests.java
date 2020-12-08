@@ -334,6 +334,12 @@ class EndpointDiscovererTests {
 		}
 	}
 
+	@Override
+	public boolean match(DiscoveredEndpoint<?> endpoint) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 	@Configuration(proxyBeanMethods = false)
 	static class EmptyConfiguration {
 

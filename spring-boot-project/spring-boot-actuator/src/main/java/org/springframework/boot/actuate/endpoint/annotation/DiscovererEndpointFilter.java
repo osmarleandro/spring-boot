@@ -28,7 +28,7 @@ import org.springframework.util.Assert;
  */
 public abstract class DiscovererEndpointFilter implements EndpointFilter<DiscoveredEndpoint<?>> {
 
-	private final Class<? extends EndpointDiscoverer<?, ?>> discoverer;
+	public final Class<? extends EndpointDiscoverer<?, ?>> discoverer;
 
 	/**
 	 * Create a new {@link DiscovererEndpointFilter} instance.

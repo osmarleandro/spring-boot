@@ -20,6 +20,7 @@ import org.junit.jupiter.api.Test;
 
 import org.springframework.boot.actuate.endpoint.EndpointFilter;
 import org.springframework.boot.actuate.endpoint.ExposableEndpoint;
+import org.springframework.boot.actuate.endpoint.annotation.DiscoveredEndpoint;
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
 import org.springframework.boot.actuate.endpoint.annotation.EndpointExtension;
 import org.springframework.boot.test.context.runner.ApplicationContextRunner;
@@ -236,6 +237,12 @@ class ConditionalOnAvailableEndpointTests {
 		@Override
 		public boolean match(ExposableEndpoint<?> endpoint) {
 			return true;
+		}
+
+		@Override
+		public boolean match(DiscoveredEndpoint<?> endpoint) {
+			// TODO Auto-generated method stub
+			return false;
 		}
 
 	}

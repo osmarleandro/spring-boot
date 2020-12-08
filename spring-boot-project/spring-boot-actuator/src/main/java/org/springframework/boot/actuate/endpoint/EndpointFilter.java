@@ -16,6 +16,8 @@
 
 package org.springframework.boot.actuate.endpoint;
 
+import org.springframework.boot.actuate.endpoint.annotation.DiscoveredEndpoint;
+
 /**
  * Strategy class that can be used to filter {@link ExposableEndpoint endpoints}.
  *
@@ -32,5 +34,8 @@ public interface EndpointFilter<E extends ExposableEndpoint<?>> {
 	 * @return {@code true} if the filter matches
 	 */
 	boolean match(E endpoint);
+
+	@Override
+	boolean match(DiscoveredEndpoint<?> endpoint);
 
 }
