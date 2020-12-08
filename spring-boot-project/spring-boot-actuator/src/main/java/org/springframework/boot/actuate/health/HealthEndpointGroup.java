@@ -62,4 +62,7 @@ public interface HealthEndpointGroup {
 	 */
 	HttpCodeStatusMapper getHttpCodeStatusMapper();
 
+	@Override
+	boolean showComponents(SecurityContext securityContext);
+
 }
