@@ -23,7 +23,6 @@ import org.springframework.boot.autoconfigure.condition.ConditionOutcome;
 import org.springframework.boot.autoconfigure.condition.SpringBootCondition;
 import org.springframework.context.annotation.ConditionContext;
 import org.springframework.core.annotation.AnnotationAttributes;
-import org.springframework.core.env.Environment;
 import org.springframework.core.type.AnnotatedTypeMetadata;
 
 /**
@@ -36,9 +35,9 @@ import org.springframework.core.type.AnnotatedTypeMetadata;
  */
 public abstract class OnEndpointElementCondition extends SpringBootCondition {
 
-	private final String prefix;
+	public final String prefix;
 
-	private final Class<? extends Annotation> annotationType;
+	public final Class<? extends Annotation> annotationType;
 
 	protected OnEndpointElementCondition(String prefix, Class<? extends Annotation> annotationType) {
 		this.prefix = prefix;
@@ -55,17 +54,6 @@ public abstract class OnEndpointElementCondition extends SpringBootCondition {
 			return outcome;
 		}
 		return getDefaultEndpointsOutcome(context);
-	}
-
-	protected ConditionOutcome getEndpointOutcome(ConditionContext context, String endpointName) {
-		Environment environment = context.getEnvironment();
-		String enabledProperty = this.prefix + endpointName + ".enabled";
-		if (environment.containsProperty(enabledProperty)) {
-			boolean match = environment.getProperty(enabledProperty, Boolean.class, true);
-			return new ConditionOutcome(match, ConditionMessage.forCondition(this.annotationType)
-					.because(this.prefix + endpointName + ".enabled is " + match));
-		}
-		return null;
 	}
 
 	protected ConditionOutcome getDefaultEndpointsOutcome(ConditionContext context) {
