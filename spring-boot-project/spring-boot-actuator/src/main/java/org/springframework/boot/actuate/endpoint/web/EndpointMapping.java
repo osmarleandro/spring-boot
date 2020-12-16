@@ -53,6 +53,10 @@ public class EndpointMapping {
 			return path;
 		}
 		String normalizedPath = path;
+		return extracted(normalizedPath);
+	}
+
+	private static String extracted(String normalizedPath) {
 		if (!normalizedPath.startsWith("/")) {
 			normalizedPath = "/" + normalizedPath;
 		}
