@@ -64,6 +64,10 @@ public class JacksonJmxOperationResponseMapper implements JmxOperationResponseMa
 		if (response instanceof CharSequence) {
 			return response.toString();
 		}
+		return extracted(response);
+	}
+
+	private Object extracted(Object response) {
 		if (response.getClass().isArray() || response instanceof Collection) {
 			return this.objectMapper.convertValue(response, this.listType);
 		}
