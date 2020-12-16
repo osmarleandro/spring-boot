@@ -69,9 +69,7 @@ public enum ApiVersion {
 
 	private static ApiVersion forType(String type) {
 		if (type.startsWith(MEDIA_TYPE_PREFIX)) {
-			type = type.substring(MEDIA_TYPE_PREFIX.length());
-			int suffixIndex = type.indexOf('+');
-			type = (suffixIndex != -1) ? type.substring(0, suffixIndex) : type;
+			type = extracted(type);
 			try {
 				return valueOf(type.toUpperCase());
 			}
@@ -79,6 +77,13 @@ public enum ApiVersion {
 			}
 		}
 		return null;
+	}
+
+	private static String extracted(String type) {
+		type = type.substring(MEDIA_TYPE_PREFIX.length());
+		int suffixIndex = type.indexOf('+');
+		type = (suffixIndex != -1) ? type.substring(0, suffixIndex) : type;
+		return type;
 	}
 
 	private static ApiVersion mostRecent(ApiVersion existing, ApiVersion candidate) {
