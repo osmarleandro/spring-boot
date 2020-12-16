@@ -107,13 +107,17 @@ public class Sanitizer {
 		}
 		for (Pattern pattern : this.keysToSanitize) {
 			if (pattern.matcher(key).matches()) {
-				if (keyIsUriWithUserInfo(pattern)) {
-					return sanitizeUris(value.toString());
-				}
-				return "******";
+				return extracted(value, pattern);
 			}
 		}
 		return value;
+	}
+
+	private Object extracted(Object value, Pattern pattern) {
+		if (keyIsUriWithUserInfo(pattern)) {
+			return sanitizeUris(value.toString());
+		}
+		return "******";
 	}
 
 	private boolean keyIsUriWithUserInfo(Pattern pattern) {
