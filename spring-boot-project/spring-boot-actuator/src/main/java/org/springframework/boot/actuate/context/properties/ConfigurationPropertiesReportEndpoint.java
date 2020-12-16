@@ -293,15 +293,20 @@ public class ConfigurationPropertiesReportEndpoint implements ApplicationContext
 
 	private Map<String, Object> getInput(String property, ConfigurationProperty candidate) {
 		Map<String, Object> input = new LinkedHashMap<>();
+		List<Origin> originParents = extracted(property, candidate, input);
+		if (!originParents.isEmpty()) {
+			input.put("originParents", originParents.stream().map(Object::toString).toArray(String[]::new));
+		}
+		return input;
+	}
+
+	private List<Origin> extracted(String property, ConfigurationProperty candidate, Map<String, Object> input) {
 		Object value = candidate.getValue();
 		Origin origin = Origin.from(candidate);
 		List<Origin> originParents = Origin.parentsFrom(candidate);
 		input.put("value", this.sanitizer.sanitize(property, value));
 		input.put("origin", (origin != null) ? origin.toString() : "none");
-		if (!originParents.isEmpty()) {
-			input.put("originParents", originParents.stream().map(Object::toString).toArray(String[]::new));
-		}
-		return input;
+		return originParents;
 	}
 
 	private String getQualifiedKey(String prefix, String key) {
