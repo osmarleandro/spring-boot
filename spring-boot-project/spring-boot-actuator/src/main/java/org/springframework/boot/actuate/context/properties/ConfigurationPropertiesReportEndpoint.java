@@ -115,6 +115,11 @@ public class ConfigurationPropertiesReportEndpoint implements ApplicationContext
 	private ApplicationConfigurationProperties extract(ApplicationContext context) {
 		ObjectMapper mapper = getObjectMapper();
 		Map<String, ContextConfigurationProperties> contexts = new HashMap<>();
+		return extracted(context, mapper, contexts);
+	}
+
+	private ApplicationConfigurationProperties extracted(ApplicationContext context, ObjectMapper mapper,
+			Map<String, ContextConfigurationProperties> contexts) {
 		ApplicationContext target = context;
 		while (target != null) {
 			contexts.put(target.getId(), describeBeans(mapper, target));
