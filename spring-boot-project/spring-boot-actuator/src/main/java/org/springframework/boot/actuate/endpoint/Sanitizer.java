@@ -72,11 +72,15 @@ public class Sanitizer {
 	 * @param keysToSanitize the keys to sanitize
 	 */
 	public void setKeysToSanitize(String... keysToSanitize) {
-		Assert.notNull(keysToSanitize, "KeysToSanitize must not be null");
-		this.keysToSanitize = new Pattern[keysToSanitize.length];
+		extracted(keysToSanitize);
 		for (int i = 0; i < keysToSanitize.length; i++) {
 			this.keysToSanitize[i] = getPattern(keysToSanitize[i]);
 		}
+	}
+
+	private void extracted(String... keysToSanitize) {
+		Assert.notNull(keysToSanitize, "KeysToSanitize must not be null");
+		this.keysToSanitize = new Pattern[keysToSanitize.length];
 	}
 
 	private Pattern getPattern(String value) {
