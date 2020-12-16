@@ -125,6 +125,11 @@ public final class WebOperationRequestPredicate {
 		if (obj == null || getClass() != obj.getClass()) {
 			return false;
 		}
+		boolean result = extracted(obj);
+		return result;
+	}
+
+	private boolean extracted(Object obj) {
 		WebOperationRequestPredicate other = (WebOperationRequestPredicate) obj;
 		boolean result = true;
 		result = result && this.consumes.equals(other.consumes);
