@@ -65,10 +65,14 @@ public class ElasticsearchReactiveHealthIndicator extends AbstractReactiveHealth
 		if (response.statusCode().is2xxSuccessful()) {
 			return response.bodyToMono(STRING_OBJECT_MAP).map((body) -> getHealth(builder, body));
 		}
-		builder.down();
-		builder.withDetail("statusCode", response.rawStatusCode());
+		extracted(builder, response);
 		builder.withDetail("reasonPhrase", response.statusCode().getReasonPhrase());
 		return response.releaseBody().thenReturn(builder.build());
+	}
+
+	private void extracted(Health.Builder builder, ClientResponse response) {
+		builder.down();
+		builder.withDetail("statusCode", response.rawStatusCode());
 	}
 
 	private Health getHealth(Health.Builder builder, Map<String, Object> body) {
