@@ -86,6 +86,11 @@ abstract class DiscoveredOperationsFactory<O extends Operation> {
 		if (!annotation.isPresent()) {
 			return null;
 		}
+		return extracted(endpointId, target, method, operationType, annotation);
+	}
+
+	private O extracted(EndpointId endpointId, Object target, Method method, OperationType operationType,
+			MergedAnnotation<?> annotation) {
 		DiscoveredOperationMethod operationMethod = new DiscoveredOperationMethod(method, operationType,
 				annotation.asAnnotationAttributes());
 		OperationInvoker invoker = new ReflectiveOperationInvoker(target, operationMethod, this.parameterValueMapper);
