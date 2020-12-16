@@ -43,12 +43,16 @@ public class CachesEndpointWebExtension {
 	public WebEndpointResponse<CacheEntry> cache(@Selector String cache, @Nullable String cacheManager) {
 		try {
 			CacheEntry entry = this.delegate.cache(cache, cacheManager);
-			int status = (entry != null) ? WebEndpointResponse.STATUS_OK : WebEndpointResponse.STATUS_NOT_FOUND;
-			return new WebEndpointResponse<>(entry, status);
+			return extracted(entry);
 		}
 		catch (NonUniqueCacheException ex) {
 			return new WebEndpointResponse<>(WebEndpointResponse.STATUS_BAD_REQUEST);
 		}
+	}
+
+	private WebEndpointResponse<CacheEntry> extracted(CacheEntry entry) {
+		int status = (entry != null) ? WebEndpointResponse.STATUS_OK : WebEndpointResponse.STATUS_NOT_FOUND;
+		return new WebEndpointResponse<>(entry, status);
 	}
 
 	@DeleteOperation
