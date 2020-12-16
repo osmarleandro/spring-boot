@@ -83,14 +83,19 @@ class RequestPredicateFactory {
 	private String getPath(String rootPath, Parameter[] selectorParameters, boolean matchRemainingPathSegments) {
 		StringBuilder path = new StringBuilder(rootPath);
 		for (int i = 0; i < selectorParameters.length; i++) {
-			path.append("/{");
-			if (i == selectorParameters.length - 1 && matchRemainingPathSegments) {
-				path.append("*");
-			}
+			extracted(selectorParameters, matchRemainingPathSegments, path, i);
 			path.append(selectorParameters[i].getName());
 			path.append("}");
 		}
 		return path.toString();
+	}
+
+	private void extracted(Parameter[] selectorParameters, boolean matchRemainingPathSegments, StringBuilder path,
+			int i) {
+		path.append("/{");
+		if (i == selectorParameters.length - 1 && matchRemainingPathSegments) {
+			path.append("*");
+		}
 	}
 
 	private boolean hasSelector(Parameter parameter) {
