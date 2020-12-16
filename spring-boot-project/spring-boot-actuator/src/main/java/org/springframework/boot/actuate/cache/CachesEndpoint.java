@@ -57,6 +57,13 @@ public class CachesEndpoint {
 	 */
 	@ReadOperation
 	public CachesReport caches() {
+		Map<String, Map<String, CacheDescriptor>> descriptors = extracted();
+		Map<String, CacheManagerDescriptor> cacheManagerDescriptors = new LinkedHashMap<>();
+		descriptors.forEach((name, entries) -> cacheManagerDescriptors.put(name, new CacheManagerDescriptor(entries)));
+		return new CachesReport(cacheManagerDescriptors);
+	}
+
+	private Map<String, Map<String, CacheDescriptor>> extracted() {
 		Map<String, Map<String, CacheDescriptor>> descriptors = new LinkedHashMap<>();
 		getCacheEntries(matchAll(), matchAll()).forEach((entry) -> {
 			String cacheName = entry.getName();
@@ -65,9 +72,7 @@ public class CachesEndpoint {
 					(key) -> new LinkedHashMap<>());
 			cacheManagerDescriptors.put(cacheName, new CacheDescriptor(entry.getTarget()));
 		});
-		Map<String, CacheManagerDescriptor> cacheManagerDescriptors = new LinkedHashMap<>();
-		descriptors.forEach((name, entries) -> cacheManagerDescriptors.put(name, new CacheManagerDescriptor(entries)));
-		return new CachesReport(cacheManagerDescriptors);
+		return descriptors;
 	}
 
 	/**
