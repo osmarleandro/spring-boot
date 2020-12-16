@@ -130,12 +130,17 @@ public class Sanitizer {
 	}
 
 	private String sanitizeUri(String value) {
-		Matcher matcher = URI_USERINFO_PATTERN.matcher(value);
-		String password = matcher.matches() ? matcher.group(1) : null;
+		String password = extracted(value);
 		if (password != null) {
 			return StringUtils.replace(value, ":" + password + "@", ":******@");
 		}
 		return value;
+	}
+
+	private String extracted(String value) {
+		Matcher matcher = URI_USERINFO_PATTERN.matcher(value);
+		String password = matcher.matches() ? matcher.group(1) : null;
+		return password;
 	}
 
 }
