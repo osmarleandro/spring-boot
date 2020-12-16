@@ -326,10 +326,16 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 	private E getFilterEndpoint(EndpointBean endpointBean) {
 		E endpoint = this.filterEndpoints.get(endpointBean);
 		if (endpoint == null) {
-			endpoint = createEndpoint(endpointBean.getBean(), endpointBean.getId(), endpointBean.isEnabledByDefault(),
-					Collections.emptySet());
-			this.filterEndpoints.put(endpointBean, endpoint);
+			endpoint = extracted(endpointBean);
 		}
+		return endpoint;
+	}
+
+	private E extracted(EndpointBean endpointBean) {
+		E endpoint;
+		endpoint = createEndpoint(endpointBean.getBean(), endpointBean.getId(), endpointBean.isEnabledByDefault(),
+				Collections.emptySet());
+		this.filterEndpoints.put(endpointBean, endpoint);
 		return endpoint;
 	}
 
