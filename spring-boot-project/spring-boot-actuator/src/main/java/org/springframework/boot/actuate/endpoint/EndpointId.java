@@ -69,12 +69,16 @@ public final class EndpointId {
 	private String getAlphaNumerics(String value) {
 		StringBuilder result = new StringBuilder(value.length());
 		for (int i = 0; i < value.length(); i++) {
-			char ch = value.charAt(i);
-			if (ch >= 'a' && ch <= 'z' || ch >= '0' && ch <= '9') {
-				result.append(ch);
-			}
+			extracted(value, result, i);
 		}
 		return result.toString();
+	}
+
+	private void extracted(String value, StringBuilder result, int i) {
+		char ch = value.charAt(i);
+		if (ch >= 'a' && ch <= 'z' || ch >= '0' && ch <= '9') {
+			result.append(ch);
+		}
 	}
 
 	@Override
