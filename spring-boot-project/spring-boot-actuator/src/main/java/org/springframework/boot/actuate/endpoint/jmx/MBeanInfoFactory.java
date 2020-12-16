@@ -68,6 +68,10 @@ class MBeanInfoFactory {
 	private ModelMBeanOperationInfo getMBeanOperation(JmxOperation operation) {
 		String name = operation.getName();
 		String description = operation.getDescription();
+		return extracted(operation, name, description);
+	}
+
+	private ModelMBeanOperationInfo extracted(JmxOperation operation, String name, String description) {
 		MBeanParameterInfo[] signature = getSignature(operation.getParameters());
 		String type = getType(operation.getOutputType());
 		int impact = getImpact(operation.getType());
