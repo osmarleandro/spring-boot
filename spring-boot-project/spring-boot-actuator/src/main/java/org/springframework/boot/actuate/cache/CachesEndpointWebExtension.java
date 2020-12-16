@@ -54,13 +54,18 @@ public class CachesEndpointWebExtension {
 	@DeleteOperation
 	public WebEndpointResponse<Void> clearCache(@Selector String cache, @Nullable String cacheManager) {
 		try {
-			boolean cleared = this.delegate.clearCache(cache, cacheManager);
-			int status = (cleared ? WebEndpointResponse.STATUS_NO_CONTENT : WebEndpointResponse.STATUS_NOT_FOUND);
+			int status = extracted(cache, cacheManager);
 			return new WebEndpointResponse<>(status);
 		}
 		catch (NonUniqueCacheException ex) {
 			return new WebEndpointResponse<>(WebEndpointResponse.STATUS_BAD_REQUEST);
 		}
+	}
+
+	private int extracted(String cache, String cacheManager) {
+		boolean cleared = this.delegate.clearCache(cache, cacheManager);
+		int status = (cleared ? WebEndpointResponse.STATUS_NO_CONTENT : WebEndpointResponse.STATUS_NOT_FOUND);
+		return status;
 	}
 
 }
