@@ -166,10 +166,16 @@ public class ConfigurationPropertiesReportEndpoint implements ApplicationContext
 
 	private ContextConfigurationProperties describeBeans(ObjectMapper mapper, ApplicationContext context) {
 		Map<String, ConfigurationPropertiesBean> beans = ConfigurationPropertiesBean.getAll(context);
-		Map<String, ConfigurationPropertiesBeanDescriptor> descriptors = new HashMap<>();
-		beans.forEach((beanName, bean) -> descriptors.put(beanName, describeBean(mapper, bean)));
+		Map<String, ConfigurationPropertiesBeanDescriptor> descriptors = extracted(mapper, beans);
 		return new ContextConfigurationProperties(descriptors,
 				(context.getParent() != null) ? context.getParent().getId() : null);
+	}
+
+	private Map<String, ConfigurationPropertiesBeanDescriptor> extracted(ObjectMapper mapper,
+			Map<String, ConfigurationPropertiesBean> beans) {
+		Map<String, ConfigurationPropertiesBeanDescriptor> descriptors = new HashMap<>();
+		beans.forEach((beanName, bean) -> descriptors.put(beanName, describeBean(mapper, bean)));
+		return descriptors;
 	}
 
 	private ConfigurationPropertiesBeanDescriptor describeBean(ObjectMapper mapper, ConfigurationPropertiesBean bean) {
