@@ -80,14 +80,19 @@ public class JerseyEndpointResourceFactory {
 	public Collection<Resource> createEndpointResources(EndpointMapping endpointMapping,
 			Collection<ExposableWebEndpoint> endpoints, EndpointMediaTypes endpointMediaTypes,
 			EndpointLinksResolver linksResolver, boolean shouldRegisterLinks) {
-		List<Resource> resources = new ArrayList<>();
-		endpoints.stream().flatMap((endpoint) -> endpoint.getOperations().stream())
-				.map((operation) -> createResource(endpointMapping, operation)).forEach(resources::add);
+		List<Resource> resources = extracted(endpointMapping, endpoints);
 		if (shouldRegisterLinks) {
 			Resource resource = createEndpointLinksResource(endpointMapping.getPath(), endpointMediaTypes,
 					linksResolver);
 			resources.add(resource);
 		}
+		return resources;
+	}
+
+	private List<Resource> extracted(EndpointMapping endpointMapping, Collection<ExposableWebEndpoint> endpoints) {
+		List<Resource> resources = new ArrayList<>();
+		endpoints.stream().flatMap((endpoint) -> endpoint.getOperations().stream())
+				.map((operation) -> createResource(endpointMapping, operation)).forEach(resources::add);
 		return resources;
 	}
 
