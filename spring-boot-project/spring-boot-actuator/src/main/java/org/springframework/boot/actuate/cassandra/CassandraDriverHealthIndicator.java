@@ -53,10 +53,15 @@ public class CassandraDriverHealthIndicator extends AbstractHealthIndicator {
 
 	@Override
 	protected void doHealthCheck(Health.Builder builder) throws Exception {
-		Collection<Node> nodes = this.session.getMetadata().getNodes().values();
-		Optional<Node> nodeUp = nodes.stream().filter((node) -> node.getState() == NodeState.UP).findAny();
+		Optional<Node> nodeUp = extracted();
 		builder.status(nodeUp.isPresent() ? Status.UP : Status.DOWN);
 		nodeUp.map(Node::getCassandraVersion).ifPresent((version) -> builder.withDetail("version", version));
+	}
+
+	private Optional<Node> extracted() {
+		Collection<Node> nodes = this.session.getMetadata().getNodes().values();
+		Optional<Node> nodeUp = nodes.stream().filter((node) -> node.getState() == NodeState.UP).findAny();
+		return nodeUp;
 	}
 
 }
