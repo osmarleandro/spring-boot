@@ -75,13 +75,17 @@ public class InMemoryAuditEventRepository implements AuditEventRepository {
 		LinkedList<AuditEvent> events = new LinkedList<>();
 		synchronized (this.monitor) {
 			for (int i = 0; i < this.events.length; i++) {
-				AuditEvent event = resolveTailEvent(i);
-				if (event != null && isMatch(principal, after, type, event)) {
-					events.addFirst(event);
-				}
+				extracted(principal, after, type, events, i);
 			}
 		}
 		return events;
+	}
+
+	private void extracted(String principal, Instant after, String type, LinkedList<AuditEvent> events, int i) {
+		AuditEvent event = resolveTailEvent(i);
+		if (event != null && isMatch(principal, after, type, event)) {
+			events.addFirst(event);
+		}
 	}
 
 	private boolean isMatch(String principal, Instant after, String type, AuditEvent event) {
