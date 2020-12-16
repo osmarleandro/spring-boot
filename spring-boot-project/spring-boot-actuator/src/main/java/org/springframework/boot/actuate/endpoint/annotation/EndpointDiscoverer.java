@@ -152,12 +152,16 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 		String[] beanNames = BeanFactoryUtils.beanNamesForAnnotationIncludingAncestors(this.applicationContext,
 				EndpointExtension.class);
 		for (String beanName : beanNames) {
-			ExtensionBean extensionBean = createExtensionBean(beanName);
-			EndpointBean endpointBean = byId.get(extensionBean.getEndpointId());
-			Assert.state(endpointBean != null, () -> ("Invalid extension '" + extensionBean.getBeanName()
-					+ "': no endpoint found with id '" + extensionBean.getEndpointId() + "'"));
-			addExtensionBean(endpointBean, extensionBean);
+			extracted(byId, beanName);
 		}
+	}
+
+	private void extracted(Map<EndpointId, EndpointBean> byId, String beanName) {
+		ExtensionBean extensionBean = createExtensionBean(beanName);
+		EndpointBean endpointBean = byId.get(extensionBean.getEndpointId());
+		Assert.state(endpointBean != null, () -> ("Invalid extension '" + extensionBean.getBeanName()
+				+ "': no endpoint found with id '" + extensionBean.getEndpointId() + "'"));
+		addExtensionBean(endpointBean, extensionBean);
 	}
 
 	private ExtensionBean createExtensionBean(String beanName) {
