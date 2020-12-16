@@ -53,14 +53,19 @@ class RequestPredicateFactory {
 
 	WebOperationRequestPredicate getRequestPredicate(String rootPath, DiscoveredOperationMethod operationMethod) {
 		Method method = operationMethod.getMethod();
-		Parameter[] selectorParameters = Arrays.stream(method.getParameters()).filter(this::hasSelector)
-				.toArray(Parameter[]::new);
-		Parameter allRemainingPathSegmentsParameter = getAllRemainingPathSegmentsParameter(selectorParameters);
-		String path = getPath(rootPath, selectorParameters, allRemainingPathSegmentsParameter != null);
+		String path = extracted(rootPath, method);
 		WebEndpointHttpMethod httpMethod = determineHttpMethod(operationMethod.getOperationType());
 		Collection<String> consumes = getConsumes(httpMethod, method);
 		Collection<String> produces = getProduces(operationMethod, method);
 		return new WebOperationRequestPredicate(path, httpMethod, consumes, produces);
+	}
+
+	private String extracted(String rootPath, Method method) {
+		Parameter[] selectorParameters = Arrays.stream(method.getParameters()).filter(this::hasSelector)
+				.toArray(Parameter[]::new);
+		Parameter allRemainingPathSegmentsParameter = getAllRemainingPathSegmentsParameter(selectorParameters);
+		String path = getPath(rootPath, selectorParameters, allRemainingPathSegmentsParameter != null);
+		return path;
 	}
 
 	private Parameter getAllRemainingPathSegmentsParameter(Parameter[] selectorParameters) {
