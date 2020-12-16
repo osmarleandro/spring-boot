@@ -130,14 +130,19 @@ public class CachesEndpoint {
 	}
 
 	private boolean clearCache(CacheEntry entry) {
-		String cacheName = entry.getName();
-		String cacheManager = entry.getCacheManager();
-		Cache cache = this.cacheManagers.get(cacheManager).getCache(cacheName);
+		Cache cache = extracted(entry);
 		if (cache != null) {
 			cache.clear();
 			return true;
 		}
 		return false;
+	}
+
+	private Cache extracted(CacheEntry entry) {
+		String cacheName = entry.getName();
+		String cacheManager = entry.getCacheManager();
+		Cache cache = this.cacheManagers.get(cacheManager).getCache(cacheName);
+		return cache;
 	}
 
 	private Predicate<String> isNameMatch(String name) {
