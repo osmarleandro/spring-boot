@@ -72,10 +72,14 @@ public class ElasticsearchReactiveHealthIndicator extends AbstractReactiveHealth
 	}
 
 	private Health getHealth(Health.Builder builder, Map<String, Object> body) {
-		String status = (String) body.get("status");
-		builder.status(RED_STATUS.equals(status) ? Status.OUT_OF_SERVICE : Status.UP);
+		extracted(builder, body);
 		builder.withDetails(body);
 		return builder.build();
+	}
+
+	private void extracted(Health.Builder builder, Map<String, Object> body) {
+		String status = (String) body.get("status");
+		builder.status(RED_STATUS.equals(status) ? Status.OUT_OF_SERVICE : Status.UP);
 	}
 
 }
