@@ -55,6 +55,10 @@ public class BeansEndpoint {
 	public ApplicationBeans beans() {
 		Map<String, ContextBeans> contexts = new HashMap<>();
 		ConfigurableApplicationContext context = this.context;
+		return extracted(contexts, context);
+	}
+
+	private ApplicationBeans extracted(Map<String, ContextBeans> contexts, ConfigurableApplicationContext context) {
 		while (context != null) {
 			contexts.put(context.getId(), ContextBeans.describing(context));
 			context = getConfigurableParent(context);
