@@ -187,8 +187,7 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 
 	private E convertToEndpoint(EndpointBean endpointBean) {
 		MultiValueMap<OperationKey, O> indexed = new LinkedMultiValueMap<>();
-		EndpointId id = endpointBean.getId();
-		addOperations(indexed, id, endpointBean.getBean(), false);
+		EndpointId id = extracted(endpointBean, indexed);
 		if (endpointBean.getExtensions().size() > 1) {
 			String extensionBeans = endpointBean.getExtensions().stream().map(ExtensionBean::getBeanName)
 					.collect(Collectors.joining(", "));
@@ -202,6 +201,12 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 		List<O> operations = indexed.values().stream().map(this::getLast).filter(Objects::nonNull)
 				.collect(Collectors.collectingAndThen(Collectors.toList(), Collections::unmodifiableList));
 		return createEndpoint(endpointBean.getBean(), id, endpointBean.isEnabledByDefault(), operations);
+	}
+
+	private EndpointId extracted(EndpointBean endpointBean, MultiValueMap<OperationKey, O> indexed) {
+		EndpointId id = endpointBean.getId();
+		addOperations(indexed, id, endpointBean.getBean(), false);
+		return id;
 	}
 
 	private void addOperations(MultiValueMap<OperationKey, O> indexed, EndpointId id, Object target,
