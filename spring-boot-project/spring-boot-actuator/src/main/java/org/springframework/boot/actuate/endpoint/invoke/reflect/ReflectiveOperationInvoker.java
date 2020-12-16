@@ -70,11 +70,16 @@ public class ReflectiveOperationInvoker implements OperationInvoker {
 
 	@Override
 	public Object invoke(InvocationContext context) {
-		validateRequiredParameters(context);
-		Method method = this.operationMethod.getMethod();
+		Method method = extracted(context);
 		Object[] resolvedArguments = resolveArguments(context);
 		ReflectionUtils.makeAccessible(method);
 		return ReflectionUtils.invokeMethod(method, this.target, resolvedArguments);
+	}
+
+	private Method extracted(InvocationContext context) {
+		validateRequiredParameters(context);
+		Method method = this.operationMethod.getMethod();
+		return method;
 	}
 
 	private void validateRequiredParameters(InvocationContext context) {
