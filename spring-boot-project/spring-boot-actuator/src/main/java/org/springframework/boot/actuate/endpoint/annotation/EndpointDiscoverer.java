@@ -227,12 +227,16 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 				.map(Map.Entry::getKey).collect(Collectors.toList());
 		if (!duplicates.isEmpty()) {
 			Set<ExtensionBean> extensions = endpointBean.getExtensions();
-			String extensionBeanNames = extensions.stream().map(ExtensionBean::getBeanName)
-					.collect(Collectors.joining(", "));
-			throw new IllegalStateException("Unable to map duplicate endpoint operations: " + duplicates.toString()
-					+ " to " + endpointBean.getBeanName()
-					+ (extensions.isEmpty() ? "" : " (" + extensionBeanNames + ")"));
+			extracted(endpointBean, duplicates, extensions);
 		}
+	}
+
+	private void extracted(EndpointBean endpointBean, List<OperationKey> duplicates, Set<ExtensionBean> extensions) {
+		String extensionBeanNames = extensions.stream().map(ExtensionBean::getBeanName)
+				.collect(Collectors.joining(", "));
+		throw new IllegalStateException("Unable to map duplicate endpoint operations: " + duplicates.toString()
+				+ " to " + endpointBean.getBeanName()
+				+ (extensions.isEmpty() ? "" : " (" + extensionBeanNames + ")"));
 	}
 
 	private boolean isExtensionExposed(EndpointBean endpointBean, ExtensionBean extensionBean) {
