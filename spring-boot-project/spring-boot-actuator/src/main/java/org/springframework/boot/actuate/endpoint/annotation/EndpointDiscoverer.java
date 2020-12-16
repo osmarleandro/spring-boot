@@ -130,14 +130,18 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 		String[] beanNames = BeanFactoryUtils.beanNamesForAnnotationIncludingAncestors(this.applicationContext,
 				Endpoint.class);
 		for (String beanName : beanNames) {
-			if (!ScopedProxyUtils.isScopedTarget(beanName)) {
-				EndpointBean endpointBean = createEndpointBean(beanName);
-				EndpointBean previous = byId.putIfAbsent(endpointBean.getId(), endpointBean);
-				Assert.state(previous == null, () -> "Found two endpoints with the id '" + endpointBean.getId() + "': '"
-						+ endpointBean.getBeanName() + "' and '" + previous.getBeanName() + "'");
-			}
+			extracted(byId, beanName);
 		}
 		return byId.values();
+	}
+
+	private void extracted(Map<EndpointId, EndpointBean> byId, String beanName) {
+		if (!ScopedProxyUtils.isScopedTarget(beanName)) {
+			EndpointBean endpointBean = createEndpointBean(beanName);
+			EndpointBean previous = byId.putIfAbsent(endpointBean.getId(), endpointBean);
+			Assert.state(previous == null, () -> "Found two endpoints with the id '" + endpointBean.getId() + "': '"
+					+ endpointBean.getBeanName() + "' and '" + previous.getBeanName() + "'");
+		}
 	}
 
 	private EndpointBean createEndpointBean(String beanName) {
