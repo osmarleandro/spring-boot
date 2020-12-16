@@ -151,6 +151,10 @@ public final class WebOperationRequestPredicate {
 		if (!CollectionUtils.isEmpty(this.consumes)) {
 			result.append(" consumes: ").append(StringUtils.collectionToCommaDelimitedString(this.consumes));
 		}
+		return extracted(result);
+	}
+
+	private String extracted(StringBuilder result) {
 		if (!CollectionUtils.isEmpty(this.produces)) {
 			result.append(" produces: ").append(StringUtils.collectionToCommaDelimitedString(this.produces));
 		}
