@@ -52,13 +52,18 @@ class CouchbaseHealth {
 	}
 
 	private Map<String, Object> describe(EndpointDiagnostics endpointHealth) {
-		Map<String, Object> map = new HashMap<>();
-		map.put("id", endpointHealth.id());
+		Map<String, Object> map = extracted(endpointHealth);
 		map.put("lastActivity", endpointHealth.lastActivity());
 		map.put("local", endpointHealth.local());
 		map.put("remote", endpointHealth.remote());
 		map.put("state", endpointHealth.state());
 		map.put("type", endpointHealth.type());
+		return map;
+	}
+
+	private Map<String, Object> extracted(EndpointDiagnostics endpointHealth) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("id", endpointHealth.id());
 		return map;
 	}
 
