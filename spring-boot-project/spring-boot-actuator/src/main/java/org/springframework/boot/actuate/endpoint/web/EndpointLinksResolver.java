@@ -70,16 +70,20 @@ public class EndpointLinksResolver {
 		Map<String, Link> links = new LinkedHashMap<>();
 		links.put("self", new Link(normalizedUrl));
 		for (ExposableEndpoint<?> endpoint : this.endpoints) {
-			if (endpoint instanceof ExposableWebEndpoint) {
-				collectLinks(links, (ExposableWebEndpoint) endpoint, normalizedUrl);
-			}
-			else if (endpoint instanceof PathMappedEndpoint) {
-				String rootPath = ((PathMappedEndpoint) endpoint).getRootPath();
-				Link link = createLink(normalizedUrl, rootPath);
-				links.put(endpoint.getEndpointId().toLowerCaseString(), link);
-			}
+			extracted(normalizedUrl, links, endpoint);
 		}
 		return links;
+	}
+
+	private void extracted(String normalizedUrl, Map<String, Link> links, ExposableEndpoint<?> endpoint) {
+		if (endpoint instanceof ExposableWebEndpoint) {
+			collectLinks(links, (ExposableWebEndpoint) endpoint, normalizedUrl);
+		}
+		else if (endpoint instanceof PathMappedEndpoint) {
+			String rootPath = ((PathMappedEndpoint) endpoint).getRootPath();
+			Link link = createLink(normalizedUrl, rootPath);
+			links.put(endpoint.getEndpointId().toLowerCaseString(), link);
+		}
 	}
 
 	private String normalizeRequestUrl(String requestUrl) {
