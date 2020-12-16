@@ -111,6 +111,10 @@ class RequestPredicateFactory {
 		if (Void.class.equals(method.getReturnType()) || void.class.equals(method.getReturnType())) {
 			return Collections.emptyList();
 		}
+		return extracted(method);
+	}
+
+	private Collection<String> extracted(Method method) {
 		if (producesResource(method)) {
 			return Collections.singletonList("application/octet-stream");
 		}
