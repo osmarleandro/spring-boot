@@ -78,6 +78,10 @@ public class ElasticsearchRestHealthIndicator extends AbstractHealthIndicator {
 	private void doHealthCheck(Health.Builder builder, String json) {
 		Map<String, Object> response = this.jsonParser.parseMap(json);
 		String status = (String) response.get("status");
+		extracted(builder, response, status);
+	}
+
+	private void extracted(Health.Builder builder, Map<String, Object> response, String status) {
 		if (RED_STATUS.equals(status)) {
 			builder.outOfService();
 		}
