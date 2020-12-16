@@ -78,8 +78,7 @@ public class CachingOperationInvoker implements OperationInvoker {
 			return this.invoker.invoke(context);
 		}
 		long accessTime = System.currentTimeMillis();
-		ApiVersion contextApiVersion = context.getApiVersion();
-		CacheKey cacheKey = new CacheKey(contextApiVersion, context.getSecurityContext().getPrincipal());
+		CacheKey cacheKey = extracted(context);
 		CachedResponse cached = this.cachedResponses.get(cacheKey);
 		if (cached == null || cached.isStale(accessTime, this.timeToLive)) {
 			Object response = this.invoker.invoke(context);
@@ -87,6 +86,12 @@ public class CachingOperationInvoker implements OperationInvoker {
 			this.cachedResponses.put(cacheKey, cached);
 		}
 		return cached.getResponse();
+	}
+
+	private CacheKey extracted(InvocationContext context) {
+		ApiVersion contextApiVersion = context.getApiVersion();
+		CacheKey cacheKey = new CacheKey(contextApiVersion, context.getSecurityContext().getPrincipal());
+		return cacheKey;
 	}
 
 	private boolean hasInput(InvocationContext context) {
