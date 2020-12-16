@@ -283,6 +283,10 @@ public class ConfigurationPropertiesReportEndpoint implements ApplicationContext
 		if (bound == null) {
 			return Collections.emptyMap();
 		}
+		return extracted(qualifiedKey, bound);
+	}
+
+	private Map<String, Object> extracted(String qualifiedKey, BoundConfigurationProperties bound) {
 		ConfigurationPropertyName currentName = ConfigurationPropertyName.adapt(qualifiedKey, '.');
 		ConfigurationProperty candidate = bound.get(currentName);
 		if (candidate == null && currentName.isLastElementIndexed()) {
