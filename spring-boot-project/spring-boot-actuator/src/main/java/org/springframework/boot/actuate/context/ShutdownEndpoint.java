@@ -54,10 +54,15 @@ public class ShutdownEndpoint implements ApplicationContextAware {
 			return SHUTDOWN_MESSAGE;
 		}
 		finally {
-			Thread thread = new Thread(this::performShutdown);
-			thread.setContextClassLoader(getClass().getClassLoader());
+			Thread thread = extracted();
 			thread.start();
 		}
+	}
+
+	private Thread extracted() {
+		Thread thread = new Thread(this::performShutdown);
+		thread.setContextClassLoader(getClass().getClassLoader());
+		return thread;
 	}
 
 	private void performShutdown() {
