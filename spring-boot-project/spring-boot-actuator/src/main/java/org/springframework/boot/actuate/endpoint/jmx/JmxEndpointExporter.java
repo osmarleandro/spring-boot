@@ -20,10 +20,12 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.stream.Collectors;
 
+import javax.management.InstanceAlreadyExistsException;
 import javax.management.InstanceNotFoundException;
 import javax.management.MBeanRegistrationException;
 import javax.management.MBeanServer;
 import javax.management.MalformedObjectNameException;
+import javax.management.NotCompliantMBeanException;
 import javax.management.ObjectName;
 
 import org.apache.commons.logging.Log;
@@ -93,9 +95,7 @@ public class JmxEndpointExporter implements InitializingBean, DisposableBean, Be
 	private ObjectName register(ExposableJmxEndpoint endpoint) {
 		Assert.notNull(endpoint, "Endpoint must not be null");
 		try {
-			ObjectName name = this.objectNameFactory.getObjectName(endpoint);
-			EndpointMBean mbean = new EndpointMBean(this.responseMapper, this.classLoader, endpoint);
-			this.mBeanServer.registerMBean(mbean, name);
+			ObjectName name = extracted(endpoint);
 			return name;
 		}
 		catch (MalformedObjectNameException ex) {
@@ -104,6 +104,14 @@ public class JmxEndpointExporter implements InitializingBean, DisposableBean, Be
 		catch (Exception ex) {
 			throw new MBeanExportException("Failed to register MBean for " + getEndpointDescription(endpoint), ex);
 		}
+	}
+
+	private ObjectName extracted(ExposableJmxEndpoint endpoint) throws MalformedObjectNameException,
+			InstanceAlreadyExistsException, MBeanRegistrationException, NotCompliantMBeanException {
+		ObjectName name = this.objectNameFactory.getObjectName(endpoint);
+		EndpointMBean mbean = new EndpointMBean(this.responseMapper, this.classLoader, endpoint);
+		this.mBeanServer.registerMBean(mbean, name);
+		return name;
 	}
 
 	private void unregister(Collection<ObjectName> objectNames) {
