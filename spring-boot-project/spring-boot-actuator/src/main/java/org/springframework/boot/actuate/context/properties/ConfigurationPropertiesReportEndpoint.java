@@ -175,6 +175,10 @@ public class ConfigurationPropertiesReportEndpoint implements ApplicationContext
 	private ConfigurationPropertiesBeanDescriptor describeBean(ObjectMapper mapper, ConfigurationPropertiesBean bean) {
 		String prefix = bean.getAnnotation().prefix();
 		Map<String, Object> serialized = safeSerialize(mapper, bean.getInstance(), prefix);
+		return extracted(prefix, serialized);
+	}
+
+	private ConfigurationPropertiesBeanDescriptor extracted(String prefix, Map<String, Object> serialized) {
 		Map<String, Object> properties = sanitize(prefix, serialized);
 		Map<String, Object> inputs = getInputs(prefix, serialized);
 		return new ConfigurationPropertiesBeanDescriptor(prefix, properties, inputs);
