@@ -86,18 +86,23 @@ public class EndpointMBean implements DynamicMBean {
 	public Object invoke(String actionName, Object[] params, String[] signature)
 			throws MBeanException, ReflectionException {
 		JmxOperation operation = this.operations.get(actionName);
-		if (operation == null) {
-			String message = "Endpoint with id '" + this.endpoint.getEndpointId() + "' has no operation named "
-					+ actionName;
-			throw new ReflectionException(new IllegalArgumentException(message), message);
-		}
-		ClassLoader previousClassLoader = overrideThreadContextClassLoader(this.classLoader);
+		ClassLoader previousClassLoader = extracted(actionName, operation);
 		try {
 			return invoke(operation, params);
 		}
 		finally {
 			overrideThreadContextClassLoader(previousClassLoader);
 		}
+	}
+
+	private ClassLoader extracted(String actionName, JmxOperation operation) throws ReflectionException {
+		if (operation == null) {
+			String message = "Endpoint with id '" + this.endpoint.getEndpointId() + "' has no operation named "
+					+ actionName;
+			throw new ReflectionException(new IllegalArgumentException(message), message);
+		}
+		ClassLoader previousClassLoader = overrideThreadContextClassLoader(this.classLoader);
+		return previousClassLoader;
 	}
 
 	private ClassLoader overrideThreadContextClassLoader(ClassLoader classLoader) {
