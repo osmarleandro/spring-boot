@@ -57,6 +57,10 @@ public enum ApiVersion {
 	public static ApiVersion fromHttpHeaders(Map<String, List<String>> headers) {
 		ApiVersion version = null;
 		List<String> accepts = headers.get("Accept");
+		return extracted(version, accepts);
+	}
+
+	private static ApiVersion extracted(ApiVersion version, List<String> accepts) {
 		if (!CollectionUtils.isEmpty(accepts)) {
 			for (String accept : accepts) {
 				for (String type : MimeTypeUtils.tokenize(accept)) {
