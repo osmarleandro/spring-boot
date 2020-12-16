@@ -209,13 +209,19 @@ public abstract class EndpointDiscoverer<E extends ExposableEndpoint<O>, O exten
 		Set<OperationKey> replacedLast = new HashSet<>();
 		Collection<O> operations = this.operationsFactory.createOperations(id, target);
 		for (O operation : operations) {
-			OperationKey key = createOperationKey(operation);
-			O last = getLast(indexed.get(key));
-			if (replaceLast && replacedLast.add(key) && last != null) {
-				indexed.get(key).remove(last);
-			}
+			OperationKey key = extracted(indexed, replaceLast, replacedLast, operation);
 			indexed.add(key, operation);
 		}
+	}
+
+	private OperationKey extracted(MultiValueMap<OperationKey, O> indexed, boolean replaceLast,
+			Set<OperationKey> replacedLast, O operation) {
+		OperationKey key = createOperationKey(operation);
+		O last = getLast(indexed.get(key));
+		if (replaceLast && replacedLast.add(key) && last != null) {
+			indexed.get(key).remove(last);
+		}
+		return key;
 	}
 
 	private <T> T getLast(List<T> list) {
