@@ -92,6 +92,10 @@ public class ReflectiveOperationInvoker implements OperationInvoker {
 		if (ApiVersion.class.equals(parameter.getType())) {
 			return false;
 		}
+		return extracted(context, parameter);
+	}
+
+	private boolean extracted(InvocationContext context, OperationParameter parameter) {
 		if (Principal.class.equals(parameter.getType())) {
 			return context.getSecurityContext().getPrincipal() == null;
 		}
