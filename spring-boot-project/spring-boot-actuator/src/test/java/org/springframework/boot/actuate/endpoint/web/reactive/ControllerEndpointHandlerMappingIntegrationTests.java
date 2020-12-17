@@ -87,11 +87,16 @@ class ControllerEndpointHandlerMappingIntegrationTests {
 	private ContextConsumer<AssertableReactiveWebApplicationContext> withWebTestClient(
 			Consumer<WebTestClient> webClient) {
 		return (context) -> {
-			int port = ((AnnotationConfigReactiveWebServerApplicationContext) context.getSourceApplicationContext())
-					.getWebServer().getPort();
-			WebTestClient webTestClient = createWebTestClient(port);
+			WebTestClient webTestClient = extracted(context);
 			webClient.accept(webTestClient);
 		};
+	}
+
+	private WebTestClient extracted(AssertableReactiveWebApplicationContext context) {
+		int port = ((AnnotationConfigReactiveWebServerApplicationContext) context.getSourceApplicationContext())
+				.getWebServer().getPort();
+		WebTestClient webTestClient = createWebTestClient(port);
+		return webTestClient;
 	}
 
 	private WebTestClient createWebTestClient(int port) {
