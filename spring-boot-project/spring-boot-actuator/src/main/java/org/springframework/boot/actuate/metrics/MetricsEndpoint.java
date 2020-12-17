@@ -80,6 +80,10 @@ public class MetricsEndpoint {
 	public MetricResponse metric(@Selector String requiredMetricName, @Nullable List<String> tag) {
 		List<Tag> tags = parseTags(tag);
 		Collection<Meter> meters = findFirstMatchingMeters(this.registry, requiredMetricName, tags);
+		return extracted(requiredMetricName, tags, meters);
+	}
+
+	private MetricResponse extracted(String requiredMetricName, List<Tag> tags, Collection<Meter> meters) {
 		if (meters.isEmpty()) {
 			return null;
 		}
