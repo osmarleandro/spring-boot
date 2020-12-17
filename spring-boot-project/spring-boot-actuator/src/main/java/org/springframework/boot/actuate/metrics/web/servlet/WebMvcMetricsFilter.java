@@ -112,9 +112,14 @@ public class WebMvcMetricsFilter extends OncePerRequestFilter {
 	}
 
 	private TimingContext startAndAttachTimingContext(HttpServletRequest request) {
+		TimingContext timingContext = extracted();
+		timingContext.attachTo(request);
+		return timingContext;
+	}
+
+	private TimingContext extracted() {
 		Timer.Sample timerSample = Timer.start(this.registry);
 		TimingContext timingContext = new TimingContext(timerSample);
-		timingContext.attachTo(request);
 		return timingContext;
 	}
 
