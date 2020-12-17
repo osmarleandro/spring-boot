@@ -62,10 +62,14 @@ public class CacheMetricsRegistrar {
 	public boolean bindCacheToRegistry(Cache cache, Tag... tags) {
 		MeterBinder meterBinder = getMeterBinder(unwrapIfNecessary(cache), Tags.of(tags));
 		if (meterBinder != null) {
-			meterBinder.bindTo(this.registry);
-			return true;
+			return extracted(meterBinder);
 		}
 		return false;
+	}
+
+	private boolean extracted(MeterBinder meterBinder) {
+		meterBinder.bindTo(this.registry);
+		return true;
 	}
 
 	@SuppressWarnings({ "unchecked" })
