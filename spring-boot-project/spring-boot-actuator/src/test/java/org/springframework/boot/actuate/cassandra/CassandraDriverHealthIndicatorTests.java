@@ -145,6 +145,11 @@ class CassandraDriverHealthIndicatorTests {
 
 	private CqlSession mockCqlSessionWithNodeState(NodeState... nodeStates) {
 		CqlSession session = mock(CqlSession.class);
+		extracted(session, nodeStates);
+		return session;
+	}
+
+	private void extracted(CqlSession session, NodeState... nodeStates) {
 		Metadata metadata = mock(Metadata.class);
 		List<Node> nodes = new ArrayList<>();
 		for (NodeState nodeState : nodeStates) {
@@ -154,7 +159,6 @@ class CassandraDriverHealthIndicatorTests {
 		}
 		given(session.getMetadata()).willReturn(metadata);
 		given(metadata.getNodes()).willReturn(createNodesWithRandomUUID(nodes));
-		return session;
 	}
 
 	private Map<UUID, Node> createNodesWithRandomUUID(List<Node> nodes) {
