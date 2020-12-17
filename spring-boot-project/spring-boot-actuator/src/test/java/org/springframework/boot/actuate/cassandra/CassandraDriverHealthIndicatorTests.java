@@ -54,10 +54,15 @@ class CassandraDriverHealthIndicatorTests {
 
 	@Test
 	void healthWithOneHealthyNodeShouldReturnUp() {
-		CqlSession session = mockCqlSessionWithNodeState(NodeState.UP);
-		CassandraDriverHealthIndicator healthIndicator = new CassandraDriverHealthIndicator(session);
+		CassandraDriverHealthIndicator healthIndicator = extracted();
 		Health health = healthIndicator.health();
 		assertThat(health.getStatus()).isEqualTo(Status.UP);
+	}
+
+	private CassandraDriverHealthIndicator extracted() {
+		CqlSession session = mockCqlSessionWithNodeState(NodeState.UP);
+		CassandraDriverHealthIndicator healthIndicator = new CassandraDriverHealthIndicator(session);
+		return healthIndicator;
 	}
 
 	@Test
@@ -125,8 +130,7 @@ class CassandraDriverHealthIndicatorTests {
 
 	@Test
 	void healthWithoutNodeVersionShouldNotAddVersionDetail() {
-		CqlSession session = mockCqlSessionWithNodeState(NodeState.UP);
-		CassandraDriverHealthIndicator healthIndicator = new CassandraDriverHealthIndicator(session);
+		CassandraDriverHealthIndicator healthIndicator = extracted();
 		Health health = healthIndicator.health();
 		assertThat(health.getStatus()).isEqualTo(Status.UP);
 		assertThat(health.getDetails().get("version")).isNull();
