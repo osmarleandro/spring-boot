@@ -123,11 +123,16 @@ class CachesEndpointTests {
 	@Test
 	void clearAllCaches() {
 		Cache a = mockCache("a");
+		Cache b = extracted(a);
+		verify(a).clear();
+		verify(b).clear();
+	}
+
+	private Cache extracted(Cache a) {
 		Cache b = mockCache("b");
 		CachesEndpoint endpoint = new CachesEndpoint(Collections.singletonMap("test", cacheManager(a, b)));
 		endpoint.clearCaches();
-		verify(a).clear();
-		verify(b).clear();
+		return b;
 	}
 
 	@Test
