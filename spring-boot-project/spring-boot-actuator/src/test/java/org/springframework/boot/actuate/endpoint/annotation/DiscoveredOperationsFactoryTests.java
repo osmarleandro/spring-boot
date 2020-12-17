@@ -94,11 +94,16 @@ class DiscoveredOperationsFactoryTests {
 
 	@Test
 	void createOperationsShouldProvideOperationMethod() {
+		OperationMethod operationMethod = extracted();
+		assertThat(operationMethod.getMethod().getName()).isEqualTo("read");
+		assertThat(operationMethod.getParameters().hasParameters()).isTrue();
+	}
+
+	private OperationMethod extracted() {
 		TestOperation operation = getFirst(
 				this.factory.createOperations(EndpointId.of("test"), new ExampleWithParams()));
 		OperationMethod operationMethod = operation.getOperationMethod();
-		assertThat(operationMethod.getMethod().getName()).isEqualTo("read");
-		assertThat(operationMethod.getParameters().hasParameters()).isTrue();
+		return operationMethod;
 	}
 
 	@Test
