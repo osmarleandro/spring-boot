@@ -105,10 +105,15 @@ class EndpointLinksResolverTests {
 	private WebOperation operationWithPath(String path, String id) {
 		WebOperationRequestPredicate predicate = new WebOperationRequestPredicate(path, WebEndpointHttpMethod.GET,
 				Collections.emptyList(), Collections.emptyList());
-		WebOperation operation = mock(WebOperation.class);
-		given(operation.getId()).willReturn(id);
+		WebOperation operation = extracted(id);
 		given(operation.getType()).willReturn(OperationType.READ);
 		given(operation.getRequestPredicate()).willReturn(predicate);
+		return operation;
+	}
+
+	private WebOperation extracted(String id) {
+		WebOperation operation = mock(WebOperation.class);
+		given(operation.getId()).willReturn(id);
 		return operation;
 	}
 
