@@ -79,14 +79,19 @@ class CachingOperationInvokerTests {
 
 	@Test
 	void cacheInTtlWithMonoResponse() {
-		MonoOperationInvoker.invocations = new AtomicInteger();
-		MonoOperationInvoker target = new MonoOperationInvoker();
+		MonoOperationInvoker target = extracted();
 		InvocationContext context = new InvocationContext(mock(SecurityContext.class), Collections.emptyMap());
 		CachingOperationInvoker invoker = new CachingOperationInvoker(target, CACHE_TTL);
 		Object response = ((Mono<?>) invoker.invoke(context)).block();
 		Object cachedResponse = ((Mono<?>) invoker.invoke(context)).block();
 		assertThat(MonoOperationInvoker.invocations).hasValue(1);
 		assertThat(response).isSameAs(cachedResponse);
+	}
+
+	private MonoOperationInvoker extracted() {
+		MonoOperationInvoker.invocations = new AtomicInteger();
+		MonoOperationInvoker target = new MonoOperationInvoker();
+		return target;
 	}
 
 	@Test
