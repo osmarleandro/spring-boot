@@ -118,13 +118,7 @@ class CassandraDriverReactiveHealthIndicatorTests {
 
 	@Test
 	void healthWithNodeVersionShouldAddVersionDetail() {
-		CqlSession session = mock(CqlSession.class);
-		Metadata metadata = mock(Metadata.class);
-		given(session.getMetadata()).willReturn(metadata);
-		Node node = mock(Node.class);
-		given(node.getState()).willReturn(NodeState.UP);
-		given(node.getCassandraVersion()).willReturn(Version.V4_0_0);
-		given(metadata.getNodes()).willReturn(createNodesWithRandomUUID(Collections.singletonList(node)));
+		CqlSession session = extracted();
 		CassandraDriverReactiveHealthIndicator healthIndicator = new CassandraDriverReactiveHealthIndicator(session);
 		Mono<Health> health = healthIndicator.health();
 		StepVerifier.create(health).consumeNextWith((h) -> {
@@ -132,6 +126,17 @@ class CassandraDriverReactiveHealthIndicatorTests {
 			assertThat(h.getDetails()).containsOnlyKeys("version");
 			assertThat(h.getDetails().get("version")).isEqualTo(Version.V4_0_0);
 		}).verifyComplete();
+	}
+
+	private CqlSession extracted() {
+		CqlSession session = mock(CqlSession.class);
+		Metadata metadata = mock(Metadata.class);
+		given(session.getMetadata()).willReturn(metadata);
+		Node node = mock(Node.class);
+		given(node.getState()).willReturn(NodeState.UP);
+		given(node.getCassandraVersion()).willReturn(Version.V4_0_0);
+		given(metadata.getNodes()).willReturn(createNodesWithRandomUUID(Collections.singletonList(node)));
+		return session;
 	}
 
 	@Test
