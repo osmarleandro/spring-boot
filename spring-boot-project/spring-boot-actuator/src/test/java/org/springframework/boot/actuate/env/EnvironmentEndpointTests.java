@@ -208,9 +208,7 @@ class EnvironmentEndpointTests {
 	@Test
 	void propertyEntry() {
 		TestPropertyValues.of("my.foo=another").applyToSystemProperties(() -> {
-			StandardEnvironment environment = new StandardEnvironment();
-			TestPropertyValues.of("my.foo=bar", "my.foo2=bar2").applyTo(environment, TestPropertyValues.Type.MAP,
-					"test");
+			StandardEnvironment environment = extracted();
 			EnvironmentEntryDescriptor descriptor = new EnvironmentEndpoint(environment).environmentEntry("my.foo");
 			assertThat(descriptor).isNotNull();
 			assertThat(descriptor.getProperty()).isNotNull();
@@ -223,6 +221,13 @@ class EnvironmentEndpointTests {
 			assertPropertySourceEntryDescriptor(sources.get("systemEnvironment"), null, null);
 			return null;
 		});
+	}
+
+	private StandardEnvironment extracted() {
+		StandardEnvironment environment = new StandardEnvironment();
+		TestPropertyValues.of("my.foo=bar", "my.foo2=bar2").applyTo(environment, TestPropertyValues.Type.MAP,
+				"test");
+		return environment;
 	}
 
 	@Test
