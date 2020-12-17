@@ -44,10 +44,15 @@ class ConversionServiceParameterValueMapperTests {
 	@Test
 	void mapParameterShouldDelegateToConversionService() {
 		DefaultFormattingConversionService conversionService = spy(new DefaultFormattingConversionService());
-		ConversionServiceParameterValueMapper mapper = new ConversionServiceParameterValueMapper(conversionService);
-		Object mapped = mapper.mapParameterValue(new TestOperationParameter(Integer.class), "123");
+		Object mapped = extracted(conversionService);
 		assertThat(mapped).isEqualTo(123);
 		verify(conversionService).convert("123", Integer.class);
+	}
+
+	private Object extracted(DefaultFormattingConversionService conversionService) {
+		ConversionServiceParameterValueMapper mapper = new ConversionServiceParameterValueMapper(conversionService);
+		Object mapped = mapper.mapParameterValue(new TestOperationParameter(Integer.class), "123");
+		return mapped;
 	}
 
 	@Test
