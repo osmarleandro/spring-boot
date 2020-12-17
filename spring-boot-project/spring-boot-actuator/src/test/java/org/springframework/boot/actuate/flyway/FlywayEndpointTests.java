@@ -18,6 +18,7 @@ package org.springframework.boot.actuate.flyway;
 
 import java.util.Map;
 
+import org.flywaydb.core.Flyway;
 import org.junit.jupiter.api.Test;
 
 import org.springframework.boot.actuate.flyway.FlywayEndpoint.FlywayDescriptor;
@@ -56,14 +57,18 @@ class FlywayEndpointTests {
 	void whenFlywayHasBeenBaselinedFlywayReportIsProduced() {
 		this.contextRunner.withPropertyValues("spring.flyway.baseline-version=2")
 				.withBean(FlywayMigrationStrategy.class, () -> (flyway) -> {
-					flyway.baseline();
-					flyway.migrate();
+					extracted(flyway);
 				}).run((context) -> {
 					Map<String, FlywayDescriptor> flywayBeans = context.getBean(FlywayEndpoint.class).flywayBeans()
 							.getContexts().get(context.getId()).getFlywayBeans();
 					assertThat(flywayBeans).hasSize(1);
 					assertThat(flywayBeans.values().iterator().next().getMigrations()).hasSize(3);
 				});
+	}
+
+	private void extracted(Flyway flyway) {
+		flyway.baseline();
+		flyway.migrate();
 	}
 
 }
