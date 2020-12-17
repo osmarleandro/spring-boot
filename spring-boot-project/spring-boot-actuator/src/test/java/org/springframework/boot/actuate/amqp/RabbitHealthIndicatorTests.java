@@ -58,13 +58,18 @@ class RabbitHealthIndicatorTests {
 
 	@Test
 	void healthWhenConnectionSucceedsShouldReturnUpWithVersion() {
-		givenTemplateExecutionWillInvokeCallback();
-		Connection connection = mock(Connection.class);
+		Connection connection = extracted();
 		given(this.channel.getConnection()).willReturn(connection);
 		given(connection.getServerProperties()).willReturn(Collections.singletonMap("version", "123"));
 		Health health = new RabbitHealthIndicator(this.rabbitTemplate).health();
 		assertThat(health.getStatus()).isEqualTo(Status.UP);
 		assertThat(health.getDetails()).containsEntry("version", "123");
+	}
+
+	private Connection extracted() {
+		givenTemplateExecutionWillInvokeCallback();
+		Connection connection = mock(Connection.class);
+		return connection;
 	}
 
 	@Test
