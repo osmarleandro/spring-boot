@@ -103,8 +103,7 @@ class ElasticsearchRestHealthIndicatorTests {
 
 	@Test
 	void elasticsearchIsOutOfServiceByStatus() throws IOException {
-		BasicHttpEntity httpEntity = new BasicHttpEntity();
-		httpEntity.setContent(new ByteArrayInputStream(createJsonResult(200, "red").getBytes()));
+		BasicHttpEntity httpEntity = extracted();
 		Response response = mock(Response.class);
 		StatusLine statusLine = mock(StatusLine.class);
 		given(statusLine.getStatusCode()).willReturn(200);
@@ -114,6 +113,12 @@ class ElasticsearchRestHealthIndicatorTests {
 		Health health = this.elasticsearchRestHealthIndicator.health();
 		assertThat(health.getStatus()).isEqualTo(Status.OUT_OF_SERVICE);
 		assertHealthDetailsWithStatus(health.getDetails(), "red");
+	}
+
+	private BasicHttpEntity extracted() {
+		BasicHttpEntity httpEntity = new BasicHttpEntity();
+		httpEntity.setContent(new ByteArrayInputStream(createJsonResult(200, "red").getBytes()));
+		return httpEntity;
 	}
 
 	private void assertHealthDetailsWithStatus(Map<String, Object> details, String status) {
