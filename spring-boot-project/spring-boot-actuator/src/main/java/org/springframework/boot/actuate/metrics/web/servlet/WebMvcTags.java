@@ -157,10 +157,15 @@ public final class WebMvcTags {
 	}
 
 	private static String getPathInfo(HttpServletRequest request) {
-		String pathInfo = request.getPathInfo();
-		String uri = StringUtils.hasText(pathInfo) ? pathInfo : "/";
+		String uri = extracted(request);
 		uri = MULTIPLE_SLASH_PATTERN.matcher(uri).replaceAll("/");
 		return TRAILING_SLASH_PATTERN.matcher(uri).replaceAll("");
+	}
+
+	private static String extracted(HttpServletRequest request) {
+		String pathInfo = request.getPathInfo();
+		String uri = StringUtils.hasText(pathInfo) ? pathInfo : "/";
+		return uri;
 	}
 
 	/**
