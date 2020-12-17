@@ -124,8 +124,7 @@ class EndpointDiscovererTests {
 	@Test
 	void getEndpointsWhenHasSubclassedEndpointShouldReturnEndpoint() {
 		load(TestEndpointSubclassConfiguration.class, (context) -> {
-			TestEndpointDiscoverer discoverer = new TestEndpointDiscoverer(context);
-			Map<EndpointId, TestExposableEndpoint> endpoints = mapEndpoints(discoverer.getEndpoints());
+			Map<EndpointId, TestExposableEndpoint> endpoints = extracted(context);
 			assertThat(endpoints).containsOnlyKeys(EndpointId.of("test"));
 			Map<Method, TestOperation> operations = mapOperations(endpoints.get(EndpointId.of("test")));
 			assertThat(operations).hasSize(5);
@@ -198,10 +197,15 @@ class EndpointDiscovererTests {
 	@Test
 	void getEndpointsWhenHasSpecializedFiltersInNonSpecializedDiscovererShouldFilterEndpoints() {
 		load(SpecializedEndpointsConfiguration.class, (context) -> {
-			TestEndpointDiscoverer discoverer = new TestEndpointDiscoverer(context);
-			Map<EndpointId, TestExposableEndpoint> endpoints = mapEndpoints(discoverer.getEndpoints());
+			Map<EndpointId, TestExposableEndpoint> endpoints = extracted(context);
 			assertThat(endpoints).containsOnlyKeys(EndpointId.of("test"));
 		});
+	}
+
+	private Map<EndpointId, TestExposableEndpoint> extracted(AnnotationConfigApplicationContext context) {
+		TestEndpointDiscoverer discoverer = new TestEndpointDiscoverer(context);
+		Map<EndpointId, TestExposableEndpoint> endpoints = mapEndpoints(discoverer.getEndpoints());
+		return endpoints;
 	}
 
 	@Test
