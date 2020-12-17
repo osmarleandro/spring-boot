@@ -250,12 +250,17 @@ class WebEndpointDiscovererTests {
 			if (predicates.size() != matchers.length) {
 				return false;
 			}
-			Map<WebOperationRequestPredicate, Long> matchCounts = new HashMap<>();
-			for (WebOperationRequestPredicate predicate : predicates) {
-				matchCounts.put(predicate, Stream.of(matchers).filter((matcher) -> matcher.matches(predicate)).count());
-			}
-			return matchCounts.values().stream().noneMatch((count) -> count != 1);
+			return extracted(predicates, matchers);
 		}, Arrays.toString(matchers));
+	}
+
+	private boolean extracted(List<? extends WebOperationRequestPredicate> predicates,
+			RequestPredicateMatcher... matchers) {
+		Map<WebOperationRequestPredicate, Long> matchCounts = new HashMap<>();
+		for (WebOperationRequestPredicate predicate : predicates) {
+			matchCounts.put(predicate, Stream.of(matchers).filter((matcher) -> matcher.matches(predicate)).count());
+		}
+		return matchCounts.values().stream().noneMatch((count) -> count != 1);
 	}
 
 	private RequestPredicateMatcher path(String path) {
