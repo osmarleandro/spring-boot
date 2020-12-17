@@ -158,11 +158,16 @@ class EndpointMBeanTests {
 
 	@Test
 	void invokeShouldCallResponseMapper() throws MBeanException, ReflectionException {
+		TestJmxOperationResponseMapper responseMapper = extracted();
+		verify(responseMapper).mapResponseType(String.class);
+		verify(responseMapper).mapResponse("result");
+	}
+
+	private TestJmxOperationResponseMapper extracted() throws MBeanException, ReflectionException {
 		TestJmxOperationResponseMapper responseMapper = spy(this.responseMapper);
 		EndpointMBean bean = new EndpointMBean(responseMapper, null, this.endpoint);
 		bean.invoke("testOperation", NO_PARAMS, NO_SIGNATURE);
-		verify(responseMapper).mapResponseType(String.class);
-		verify(responseMapper).mapResponse("result");
+		return responseMapper;
 	}
 
 	@Test
