@@ -81,6 +81,10 @@ public class SimpleHttpCodeStatusMapper implements HttpCodeStatusMapper {
 			return null;
 		}
 		StringBuilder builder = new StringBuilder();
+		return extracted(code, builder);
+	}
+
+	private static String extracted(String code, StringBuilder builder) {
 		for (char ch : code.toCharArray()) {
 			if (Character.isAlphabetic(ch) || Character.isDigit(ch)) {
 				builder.append(Character.toLowerCase(ch));
