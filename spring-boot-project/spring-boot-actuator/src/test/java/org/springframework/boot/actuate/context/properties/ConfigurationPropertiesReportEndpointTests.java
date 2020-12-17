@@ -311,10 +311,7 @@ class ConfigurationPropertiesReportEndpointTests {
 	private ContextConsumer<AssertableApplicationContext> assertProperties(String prefix,
 			Consumer<Map<String, Object>> properties, Consumer<Map<String, Object>> inputs) {
 		return (context) -> {
-			ConfigurationPropertiesReportEndpoint endpoint = context
-					.getBean(ConfigurationPropertiesReportEndpoint.class);
-			ContextConfigurationProperties allProperties = endpoint.configurationProperties().getContexts()
-					.get(context.getId());
+			ContextConfigurationProperties allProperties = extracted(context);
 			Optional<String> key = allProperties.getBeans().keySet().stream()
 					.filter((id) -> findIdFromPrefix(prefix, id)).findAny();
 			assertThat(key).describedAs("No configuration properties with prefix '%s' found", prefix).isPresent();
@@ -323,6 +320,14 @@ class ConfigurationPropertiesReportEndpointTests {
 			properties.accept(descriptor.getProperties());
 			inputs.accept(descriptor.getInputs());
 		};
+	}
+
+	private ContextConfigurationProperties extracted(AssertableApplicationContext context) {
+		ConfigurationPropertiesReportEndpoint endpoint = context
+				.getBean(ConfigurationPropertiesReportEndpoint.class);
+		ContextConfigurationProperties allProperties = endpoint.configurationProperties().getContexts()
+				.get(context.getId());
+		return allProperties;
 	}
 
 	private boolean findIdFromPrefix(String prefix, String id) {
