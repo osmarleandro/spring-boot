@@ -167,6 +167,10 @@ public final class WebFluxTags {
 	private static Integer extractStatusCode(ServerWebExchange exchange) {
 		ServerHttpResponse response = exchange.getResponse();
 		Integer statusCode = response.getRawStatusCode();
+		return extracted(response, statusCode);
+	}
+
+	private static Integer extracted(ServerHttpResponse response, Integer statusCode) {
 		if (statusCode != null) {
 			return statusCode;
 		}
