@@ -72,13 +72,18 @@ class AvailabilityStateHealthIndicatorTests {
 
 	@Test
 	void healthReturnsMappedStatus() {
+		AvailabilityStateHealthIndicator indicator = extracted();
+		given(this.applicationAvailability.getState(LivenessState.class)).willReturn(LivenessState.BROKEN);
+		assertThat(indicator.getHealth(false).getStatus()).isEqualTo(Status.DOWN);
+	}
+
+	private AvailabilityStateHealthIndicator extracted() {
 		AvailabilityStateHealthIndicator indicator = new AvailabilityStateHealthIndicator(this.applicationAvailability,
 				LivenessState.class, (statusMappings) -> {
 					statusMappings.add(LivenessState.CORRECT, Status.UP);
 					statusMappings.add(LivenessState.BROKEN, Status.DOWN);
 				});
-		given(this.applicationAvailability.getState(LivenessState.class)).willReturn(LivenessState.BROKEN);
-		assertThat(indicator.getHealth(false).getStatus()).isEqualTo(Status.DOWN);
+		return indicator;
 	}
 
 	@Test
