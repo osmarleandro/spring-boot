@@ -107,11 +107,7 @@ abstract class HealthEndpointSupport<C, T> {
 			String name = namedContributor.getName();
 			C contributor = namedContributor.getContributor();
 			if (group.isMember(name) || isNested) {
-				T contribution = getContribution(apiVersion, group, contributor, showComponents, showDetails, null,
-						true);
-				if (contribution != null) {
-					contributions.put(name, contribution);
-				}
+				extracted(apiVersion, group, showComponents, showDetails, contributions, name, contributor);
 			}
 		}
 		if (contributions.isEmpty()) {
@@ -119,6 +115,15 @@ abstract class HealthEndpointSupport<C, T> {
 		}
 		return aggregateContributions(apiVersion, contributions, group.getStatusAggregator(), showComponents,
 				groupNames);
+	}
+
+	private void extracted(ApiVersion apiVersion, HealthEndpointGroup group, boolean showComponents,
+			boolean showDetails, Map<String, T> contributions, String name, C contributor) {
+		T contribution = getContribution(apiVersion, group, contributor, showComponents, showDetails, null,
+				true);
+		if (contribution != null) {
+			contributions.put(name, contribution);
+		}
 	}
 
 	protected abstract T getHealth(C contributor, boolean includeDetails);
