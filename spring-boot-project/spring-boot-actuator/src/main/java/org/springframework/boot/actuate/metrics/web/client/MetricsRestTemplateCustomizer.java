@@ -57,8 +57,7 @@ public class MetricsRestTemplateCustomizer implements RestTemplateCustomizer {
 
 	@Override
 	public void customize(RestTemplate restTemplate) {
-		UriTemplateHandler templateHandler = restTemplate.getUriTemplateHandler();
-		templateHandler = this.interceptor.createUriTemplateHandler(templateHandler);
+		UriTemplateHandler templateHandler = extracted(restTemplate);
 		restTemplate.setUriTemplateHandler(templateHandler);
 		List<ClientHttpRequestInterceptor> existingInterceptors = restTemplate.getInterceptors();
 		if (!existingInterceptors.contains(this.interceptor)) {
@@ -67,6 +66,12 @@ public class MetricsRestTemplateCustomizer implements RestTemplateCustomizer {
 			interceptors.addAll(existingInterceptors);
 			restTemplate.setInterceptors(interceptors);
 		}
+	}
+
+	private UriTemplateHandler extracted(RestTemplate restTemplate) {
+		UriTemplateHandler templateHandler = restTemplate.getUriTemplateHandler();
+		templateHandler = this.interceptor.createUriTemplateHandler(templateHandler);
+		return templateHandler;
 	}
 
 }
