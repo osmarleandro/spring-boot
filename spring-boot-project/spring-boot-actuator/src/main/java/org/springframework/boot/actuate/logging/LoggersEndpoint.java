@@ -70,10 +70,15 @@ public class LoggersEndpoint {
 		if (configurations == null) {
 			return Collections.emptyMap();
 		}
-		Map<String, Object> result = new LinkedHashMap<>();
-		result.put("levels", getLevels());
+		Map<String, Object> result = extracted();
 		result.put("loggers", getLoggers(configurations));
 		result.put("groups", getGroups());
+		return result;
+	}
+
+	private Map<String, Object> extracted() {
+		Map<String, Object> result = new LinkedHashMap<>();
+		result.put("levels", getLevels());
 		return result;
 	}
 
