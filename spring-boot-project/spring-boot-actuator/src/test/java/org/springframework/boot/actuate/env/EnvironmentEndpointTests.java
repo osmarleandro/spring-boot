@@ -168,11 +168,16 @@ class EnvironmentEndpointTests {
 
 	@Test
 	void propertyWithPlaceholderNotResolved() {
-		ConfigurableEnvironment environment = emptyEnvironment();
-		TestPropertyValues.of("my.foo: ${bar.blah}").applyTo(environment);
+		ConfigurableEnvironment environment = extracted();
 		EnvironmentDescriptor descriptor = new EnvironmentEndpoint(environment).environment(null);
 		assertThat(propertySources(descriptor).get("test").getProperties().get("my.foo").getValue())
 				.isEqualTo("${bar.blah}");
+	}
+
+	private ConfigurableEnvironment extracted() {
+		ConfigurableEnvironment environment = emptyEnvironment();
+		TestPropertyValues.of("my.foo: ${bar.blah}").applyTo(environment);
+		return environment;
 	}
 
 	@Test
