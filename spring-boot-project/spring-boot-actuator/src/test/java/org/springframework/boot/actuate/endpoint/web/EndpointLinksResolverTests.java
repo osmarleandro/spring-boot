@@ -57,8 +57,7 @@ class EndpointLinksResolverTests {
 
 	@Test
 	void resolvedLinksContainsALinkForEachWebEndpointOperation() {
-		List<WebOperation> operations = new ArrayList<>();
-		operations.add(operationWithPath("/alpha", "alpha"));
+		List<WebOperation> operations = extracted();
 		operations.add(operationWithPath("/alpha/{name}", "alpha-name"));
 		ExposableWebEndpoint endpoint = mock(ExposableWebEndpoint.class);
 		given(endpoint.getEndpointId()).willReturn(EndpointId.of("alpha"));
@@ -72,6 +71,12 @@ class EndpointLinksResolverTests {
 		assertThat(links).hasEntrySatisfying("alpha", linkWithHref("https://api.example.com/actuator/alpha"));
 		assertThat(links).hasEntrySatisfying("alpha-name",
 				linkWithHref("https://api.example.com/actuator/alpha/{name}"));
+	}
+
+	private List<WebOperation> extracted() {
+		List<WebOperation> operations = new ArrayList<>();
+		operations.add(operationWithPath("/alpha", "alpha"));
+		return operations;
 	}
 
 	@Test
