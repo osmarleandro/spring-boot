@@ -115,11 +115,16 @@ class EndpointServletTests {
 	void withInitParametersWhenHasExistingShouldMergeParameters() {
 		EndpointServlet endpointServlet = new EndpointServlet(TestServlet.class).withInitParameter("a", "b")
 				.withInitParameter("c", "d");
-		Map<String, String> extra = new LinkedHashMap<>();
-		extra.put("a", "b1");
+		Map<String, String> extra = extracted();
 		extra.put("e", "f");
 		assertThat(endpointServlet.withInitParameters(extra).getInitParameters()).containsExactly(entry("a", "b1"),
 				entry("c", "d"), entry("e", "f"));
+	}
+
+	private Map<String, String> extracted() {
+		Map<String, String> extra = new LinkedHashMap<>();
+		extra.put("a", "b1");
+		return extra;
 	}
 
 	@Test
