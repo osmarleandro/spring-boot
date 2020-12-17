@@ -93,10 +93,7 @@ class EnvironmentEndpointTests {
 	void sensitiveKeysHaveTheirValuesSanitized() {
 		TestPropertyValues.of("dbPassword=123456", "apiKey=123456", "mySecret=123456", "myCredentials=123456",
 				"VCAP_SERVICES=123456").applyToSystemProperties(() -> {
-					EnvironmentDescriptor descriptor = new EnvironmentEndpoint(new StandardEnvironment())
-							.environment(null);
-					Map<String, PropertyValueDescriptor> systemProperties = propertySources(descriptor)
-							.get("systemProperties").getProperties();
+					Map<String, PropertyValueDescriptor> systemProperties = extracted();
 					assertThat(systemProperties.get("dbPassword").getValue()).isEqualTo("******");
 					assertThat(systemProperties.get("apiKey").getValue()).isEqualTo("******");
 					assertThat(systemProperties.get("mySecret").getValue()).isEqualTo("******");
@@ -116,10 +113,7 @@ class EnvironmentEndpointTests {
 				.of("my.services.amqp-free.credentials.uri=123456", "credentials.http_api_uri=123456",
 						"my.services.cleardb-free.credentials=123456", "foo.mycredentials.uri=123456")
 				.applyToSystemProperties(() -> {
-					EnvironmentDescriptor descriptor = new EnvironmentEndpoint(new StandardEnvironment())
-							.environment(null);
-					Map<String, PropertyValueDescriptor> systemProperties = propertySources(descriptor)
-							.get("systemProperties").getProperties();
+					Map<String, PropertyValueDescriptor> systemProperties = extracted();
 					assertThat(systemProperties.get("my.services.amqp-free.credentials.uri").getValue())
 							.isEqualTo("******");
 					assertThat(systemProperties.get("credentials.http_api_uri").getValue()).isEqualTo("******");
@@ -128,6 +122,14 @@ class EnvironmentEndpointTests {
 					assertThat(systemProperties.get("foo.mycredentials.uri").getValue()).isEqualTo("******");
 					return null;
 				});
+	}
+
+	private Map<String, PropertyValueDescriptor> extracted() {
+		EnvironmentDescriptor descriptor = new EnvironmentEndpoint(new StandardEnvironment())
+				.environment(null);
+		Map<String, PropertyValueDescriptor> systemProperties = propertySources(descriptor)
+				.get("systemProperties").getProperties();
+		return systemProperties;
 	}
 
 	@Test
