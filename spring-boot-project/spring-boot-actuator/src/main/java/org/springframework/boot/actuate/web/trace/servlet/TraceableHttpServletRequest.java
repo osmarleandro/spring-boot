@@ -56,14 +56,18 @@ final class TraceableHttpServletRequest implements TraceableRequest {
 			return URI.create(this.request.getRequestURL().toString());
 		}
 		try {
-			StringBuffer urlBuffer = appendQueryString(queryString);
-			return new URI(urlBuffer.toString());
+			return extracted(queryString);
 		}
 		catch (URISyntaxException ex) {
 			String encoded = UriUtils.encodeQuery(queryString, StandardCharsets.UTF_8);
 			StringBuffer urlBuffer = appendQueryString(encoded);
 			return URI.create(urlBuffer.toString());
 		}
+	}
+
+	private URI extracted(String queryString) throws URISyntaxException {
+		StringBuffer urlBuffer = appendQueryString(queryString);
+		return new URI(urlBuffer.toString());
 	}
 
 	private StringBuffer appendQueryString(String queryString) {
