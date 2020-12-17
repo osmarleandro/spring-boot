@@ -42,13 +42,18 @@ public class BuildInfoContributor extends InfoPropertiesInfoContributor<BuildPro
 
 	@Override
 	protected PropertySource<?> toSimplePropertySource() {
-		Properties props = new Properties();
-		copyIfSet(props, "group");
+		Properties props = extracted();
 		copyIfSet(props, "artifact");
 		copyIfSet(props, "name");
 		copyIfSet(props, "version");
 		copyIfSet(props, "time");
 		return new PropertiesPropertySource("build", props);
+	}
+
+	private Properties extracted() {
+		Properties props = new Properties();
+		copyIfSet(props, "group");
+		return props;
 	}
 
 	@Override
