@@ -47,14 +47,19 @@ public class GitInfoContributor extends InfoPropertiesInfoContributor<GitPropert
 
 	@Override
 	protected PropertySource<?> toSimplePropertySource() {
-		Properties props = new Properties();
-		copyIfSet(props, "branch");
+		Properties props = extracted();
 		String commitId = getProperties().getShortCommitId();
 		if (commitId != null) {
 			props.put("commit.id", commitId);
 		}
 		copyIfSet(props, "commit.time");
 		return new PropertiesPropertySource("git", props);
+	}
+
+	private Properties extracted() {
+		Properties props = new Properties();
+		copyIfSet(props, "branch");
+		return props;
 	}
 
 	/**
