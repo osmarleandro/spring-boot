@@ -66,12 +66,16 @@ public class SolrHealthIndicator extends AbstractHealthIndicator {
 			return initializeStatusCheck(new RootStatusCheck());
 		}
 		catch (RemoteSolrException ex) {
-			// 404 is thrown when SolrClient has a baseUrl pointing to a particular core.
-			if (ex.code() == HTTP_NOT_FOUND_STATUS) {
-				return initializeStatusCheck(new ParticularCoreStatusCheck());
-			}
-			throw ex;
+			return extracted(ex);
 		}
+	}
+
+	private int extracted(RemoteSolrException ex) throws Exception {
+		// 404 is thrown when SolrClient has a baseUrl pointing to a particular core.
+		if (ex.code() == HTTP_NOT_FOUND_STATUS) {
+			return initializeStatusCheck(new ParticularCoreStatusCheck());
+		}
+		throw ex;
 	}
 
 	private int initializeStatusCheck(StatusCheck statusCheck) throws Exception {
