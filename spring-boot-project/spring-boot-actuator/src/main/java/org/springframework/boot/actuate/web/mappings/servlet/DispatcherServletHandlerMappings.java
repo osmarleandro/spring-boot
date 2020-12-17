@@ -60,10 +60,16 @@ final class DispatcherServletHandlerMappings {
 	List<HandlerMapping> getHandlerMappings() {
 		List<HandlerMapping> handlerMappings = this.dispatcherServlet.getHandlerMappings();
 		if (handlerMappings == null) {
-			initializeDispatcherServletIfPossible();
-			handlerMappings = this.dispatcherServlet.getHandlerMappings();
+			handlerMappings = extracted();
 		}
 		return (handlerMappings != null) ? handlerMappings : Collections.emptyList();
+	}
+
+	private List<HandlerMapping> extracted() {
+		List<HandlerMapping> handlerMappings;
+		initializeDispatcherServletIfPossible();
+		handlerMappings = this.dispatcherServlet.getHandlerMappings();
+		return handlerMappings;
 	}
 
 	private void initializeDispatcherServletIfPossible() {
