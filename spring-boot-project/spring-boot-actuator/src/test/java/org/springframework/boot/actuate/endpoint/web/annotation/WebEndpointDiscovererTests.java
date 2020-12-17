@@ -115,12 +115,17 @@ class WebEndpointDiscovererTests {
 	@Test
 	void getEndpointsWhenPredicateForWriteOperationThatReturnsVoidShouldHaveNoProducedMediaTypes() {
 		load(VoidWriteOperationEndpointConfiguration.class, (discoverer) -> {
-			Map<EndpointId, ExposableWebEndpoint> endpoints = mapEndpoints(discoverer.getEndpoints());
-			assertThat(endpoints).containsOnlyKeys(EndpointId.of("voidwrite"));
+			Map<EndpointId, ExposableWebEndpoint> endpoints = extracted(discoverer);
 			ExposableWebEndpoint endpoint = endpoints.get(EndpointId.of("voidwrite"));
 			assertThat(requestPredicates(endpoint)).has(requestPredicates(
 					path("voidwrite").httpMethod(WebEndpointHttpMethod.POST).produces().consumes("application/json")));
 		});
+	}
+
+	private Map<EndpointId, ExposableWebEndpoint> extracted(WebEndpointDiscoverer discoverer) {
+		Map<EndpointId, ExposableWebEndpoint> endpoints = mapEndpoints(discoverer.getEndpoints());
+		assertThat(endpoints).containsOnlyKeys(EndpointId.of("voidwrite"));
+		return endpoints;
 	}
 
 	@Test
