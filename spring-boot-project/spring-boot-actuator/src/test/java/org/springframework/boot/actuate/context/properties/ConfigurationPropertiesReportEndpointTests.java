@@ -107,8 +107,7 @@ class ConfigurationPropertiesReportEndpointTests {
 	void descriptorWithSimpleList() {
 		this.contextRunner.withUserConfiguration(SensiblePropertiesConfiguration.class)
 				.withPropertyValues("sensible.simpleList=a,b").run(assertProperties("sensible", (properties) -> {
-					assertThat(properties.get("simpleList")).isInstanceOf(List.class);
-					List<String> list = (List<String>) properties.get("simpleList");
+					List<String> list = extracted(properties);
 					assertThat(list).hasSize(2);
 					assertThat(list.get(0)).isEqualTo("a");
 					assertThat(list.get(1)).isEqualTo("b");
@@ -121,6 +120,12 @@ class ConfigurationPropertiesReportEndpointTests {
 					assertThat(value).isEqualTo("a,b");
 					assertThat(origin).isEqualTo("\"sensible.simpleList\" from property source \"test\"");
 				}));
+	}
+
+	private List<String> extracted(Map<String, Object> properties) {
+		assertThat(properties.get("simpleList")).isInstanceOf(List.class);
+		List<String> list = (List<String>) properties.get("simpleList");
+		return list;
 	}
 
 	@Test
