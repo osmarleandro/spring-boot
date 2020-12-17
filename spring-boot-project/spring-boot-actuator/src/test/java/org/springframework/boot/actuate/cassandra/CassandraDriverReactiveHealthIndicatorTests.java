@@ -147,8 +147,7 @@ class CassandraDriverReactiveHealthIndicatorTests {
 
 	@Test
 	void healthWithCassandraDownShouldReturnDown() {
-		CqlSession session = mock(CqlSession.class);
-		given(session.getMetadata()).willThrow(new DriverTimeoutException("Test Exception"));
+		CqlSession session = extracted();
 		CassandraDriverReactiveHealthIndicator cassandraReactiveHealthIndicator = new CassandraDriverReactiveHealthIndicator(
 				session);
 		Mono<Health> health = cassandraReactiveHealthIndicator.health();
@@ -158,6 +157,12 @@ class CassandraDriverReactiveHealthIndicatorTests {
 			assertThat(h.getDetails().get("error"))
 					.isEqualTo(DriverTimeoutException.class.getName() + ": Test Exception");
 		}).verifyComplete();
+	}
+
+	private CqlSession extracted() {
+		CqlSession session = mock(CqlSession.class);
+		given(session.getMetadata()).willThrow(new DriverTimeoutException("Test Exception"));
+		return session;
 	}
 
 	private CqlSession mockCqlSessionWithNodeState(NodeState... nodeStates) {
