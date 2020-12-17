@@ -26,6 +26,7 @@ import org.springframework.boot.actuate.context.properties.ConfigurationProperti
 import org.springframework.boot.actuate.context.properties.ConfigurationPropertiesReportEndpoint.ConfigurationPropertiesBeanDescriptor;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.boot.test.context.assertj.AssertableApplicationContext;
 import org.springframework.boot.test.context.runner.ApplicationContextRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -70,12 +71,17 @@ class ConfigurationPropertiesReportEndpointProxyTests {
 		ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 				.withUserConfiguration(ValidatedConfiguration.class).withPropertyValues("validated.name=baz");
 		contextRunner.run((context) -> {
-			ApplicationConfigurationProperties applicationProperties = context
-					.getBean(ConfigurationPropertiesReportEndpoint.class).configurationProperties();
-			Map<String, Object> properties = applicationProperties.getContexts().get(context.getId()).getBeans()
-					.values().stream().map(ConfigurationPropertiesBeanDescriptor::getProperties).findFirst().get();
+			Map<String, Object> properties = extracted(context);
 			assertThat(properties.get("name")).isEqualTo("baz");
 		});
+	}
+
+	private Map<String, Object> extracted(AssertableApplicationContext context) {
+		ApplicationConfigurationProperties applicationProperties = context
+				.getBean(ConfigurationPropertiesReportEndpoint.class).configurationProperties();
+		Map<String, Object> properties = applicationProperties.getContexts().get(context.getId()).getBeans()
+				.values().stream().map(ConfigurationPropertiesBeanDescriptor::getProperties).findFirst().get();
+		return properties;
 	}
 
 	@Configuration(proxyBeanMethods = false)
