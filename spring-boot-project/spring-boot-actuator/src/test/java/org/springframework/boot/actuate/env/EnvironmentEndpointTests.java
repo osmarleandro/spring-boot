@@ -196,13 +196,18 @@ class EnvironmentEndpointTests {
 	@Test
 	@SuppressWarnings("unchecked")
 	void propertyWithTypeOtherThanStringShouldNotFail() {
-		ConfigurableEnvironment environment = emptyEnvironment();
-		environment.getPropertySources()
-				.addFirst(singleKeyPropertySource("test", "foo", Collections.singletonMap("bar", "baz")));
+		ConfigurableEnvironment environment = extracted();
 		EnvironmentDescriptor descriptor = new EnvironmentEndpoint(environment).environment(null);
 		Map<String, String> foo = (Map<String, String>) propertySources(descriptor).get("test").getProperties()
 				.get("foo").getValue();
 		assertThat(foo.get("bar")).isEqualTo("baz");
+	}
+
+	private ConfigurableEnvironment extracted() {
+		ConfigurableEnvironment environment = emptyEnvironment();
+		environment.getPropertySources()
+				.addFirst(singleKeyPropertySource("test", "foo", Collections.singletonMap("bar", "baz")));
+		return environment;
 	}
 
 	@Test
