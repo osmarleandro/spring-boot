@@ -86,13 +86,18 @@ public class LoggersEndpoint {
 
 	@ReadOperation
 	public LoggerLevels loggerLevels(@Selector String name) {
-		Assert.notNull(name, "Name must not be null");
-		LoggerGroup group = this.loggerGroups.get(name);
+		LoggerGroup group = extracted(name);
 		if (group != null) {
 			return new GroupLoggerLevels(group.getConfiguredLevel(), group.getMembers());
 		}
 		LoggerConfiguration configuration = this.loggingSystem.getLoggerConfiguration(name);
 		return (configuration != null) ? new SingleLoggerLevels(configuration) : null;
+	}
+
+	private LoggerGroup extracted(String name) {
+		Assert.notNull(name, "Name must not be null");
+		LoggerGroup group = this.loggerGroups.get(name);
+		return group;
 	}
 
 	@WriteOperation
