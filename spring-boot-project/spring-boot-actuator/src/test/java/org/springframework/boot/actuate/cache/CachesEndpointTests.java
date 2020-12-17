@@ -100,8 +100,7 @@ class CachesEndpointTests {
 
 	@Test
 	void namedCacheWithWrongCacheManager() {
-		Map<String, CacheManager> cacheManagers = new LinkedHashMap<>();
-		cacheManagers.put("test", new ConcurrentMapCacheManager("b", "a"));
+		Map<String, CacheManager> cacheManagers = extracted();
 		cacheManagers.put("another", new ConcurrentMapCacheManager("c", "a"));
 		CachesEndpoint endpoint = new CachesEndpoint(cacheManagers);
 		CacheEntry entry = endpoint.cache("c", "test");
@@ -110,14 +109,19 @@ class CachesEndpointTests {
 
 	@Test
 	void namedCacheWithSeveralCacheManagersWithCacheManagerFilter() {
-		Map<String, CacheManager> cacheManagers = new LinkedHashMap<>();
-		cacheManagers.put("test", new ConcurrentMapCacheManager("b", "a"));
+		Map<String, CacheManager> cacheManagers = extracted();
 		cacheManagers.put("another", new ConcurrentMapCacheManager("c", "a"));
 		CachesEndpoint endpoint = new CachesEndpoint(cacheManagers);
 		CacheEntry entry = endpoint.cache("a", "test");
 		assertThat(entry).isNotNull();
 		assertThat(entry.getCacheManager()).isEqualTo("test");
 		assertThat(entry.getName()).isEqualTo("a");
+	}
+
+	private Map<String, CacheManager> extracted() {
+		Map<String, CacheManager> cacheManagers = new LinkedHashMap<>();
+		cacheManagers.put("test", new ConcurrentMapCacheManager("b", "a"));
+		return cacheManagers;
 	}
 
 	@Test
