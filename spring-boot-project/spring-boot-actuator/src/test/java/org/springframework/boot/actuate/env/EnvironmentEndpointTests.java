@@ -227,14 +227,19 @@ class EnvironmentEndpointTests {
 
 	@Test
 	void originAndOriginParents() {
-		StandardEnvironment environment = new StandardEnvironment();
-		OriginParentMockPropertySource propertySource = new OriginParentMockPropertySource();
-		propertySource.setProperty("name", "test");
-		environment.getPropertySources().addFirst(propertySource);
+		StandardEnvironment environment = extracted();
 		EnvironmentEntryDescriptor descriptor = new EnvironmentEndpoint(environment).environmentEntry("name");
 		PropertySourceEntryDescriptor entryDescriptor = propertySources(descriptor).get("mockProperties");
 		assertThat(entryDescriptor.getProperty().getOrigin()).isEqualTo("name");
 		assertThat(entryDescriptor.getProperty().getOriginParents()).containsExactly("spring", "boot");
+	}
+
+	private StandardEnvironment extracted() {
+		StandardEnvironment environment = new StandardEnvironment();
+		OriginParentMockPropertySource propertySource = new OriginParentMockPropertySource();
+		propertySource.setProperty("name", "test");
+		environment.getPropertySources().addFirst(propertySource);
+		return environment;
 	}
 
 	@Test
