@@ -117,10 +117,15 @@ class WebEndpointTestInvocationContextProvider implements TestTemplateInvocation
 	}
 
 	private static ConfigurableApplicationContext createWebFluxContext(List<Class<?>> classes) {
-		AnnotationConfigReactiveWebServerApplicationContext context = new AnnotationConfigReactiveWebServerApplicationContext();
-		classes.add(WebFluxEndpointConfiguration.class);
+		AnnotationConfigReactiveWebServerApplicationContext context = extracted(classes);
 		context.register(ClassUtils.toClassArray(classes));
 		context.refresh();
+		return context;
+	}
+
+	private static AnnotationConfigReactiveWebServerApplicationContext extracted(List<Class<?>> classes) {
+		AnnotationConfigReactiveWebServerApplicationContext context = new AnnotationConfigReactiveWebServerApplicationContext();
+		classes.add(WebFluxEndpointConfiguration.class);
 		return context;
 	}
 
