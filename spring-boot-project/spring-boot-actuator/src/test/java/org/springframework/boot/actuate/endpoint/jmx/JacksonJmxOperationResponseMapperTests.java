@@ -56,10 +56,15 @@ class JacksonJmxOperationResponseMapperTests {
 	@Test
 	void createWhenObjectMapperIsSpecifiedShouldUseObjectMapper() {
 		ObjectMapper objectMapper = spy(ObjectMapper.class);
+		Set<String> response = extracted(objectMapper);
+		verify(objectMapper).convertValue(eq(response), any(JavaType.class));
+	}
+
+	private Set<String> extracted(ObjectMapper objectMapper) {
 		JacksonJmxOperationResponseMapper mapper = new JacksonJmxOperationResponseMapper(objectMapper);
 		Set<String> response = Collections.singleton("test");
 		mapper.mapResponse(response);
-		verify(objectMapper).convertValue(eq(response), any(JavaType.class));
+		return response;
 	}
 
 	@Test
