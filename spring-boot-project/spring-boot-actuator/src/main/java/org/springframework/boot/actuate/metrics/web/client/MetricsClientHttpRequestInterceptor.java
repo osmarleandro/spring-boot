@@ -82,11 +82,15 @@ class MetricsClientHttpRequestInterceptor implements ClientHttpRequestIntercepto
 			return response;
 		}
 		finally {
-			getTimeBuilder(request, response).register(this.meterRegistry).record(System.nanoTime() - startTime,
-					TimeUnit.NANOSECONDS);
-			if (urlTemplate.get().isEmpty()) {
-				urlTemplate.remove();
-			}
+			extracted(request, startTime, response);
+		}
+	}
+
+	private void extracted(HttpRequest request, long startTime, ClientHttpResponse response) {
+		getTimeBuilder(request, response).register(this.meterRegistry).record(System.nanoTime() - startTime,
+				TimeUnit.NANOSECONDS);
+		if (urlTemplate.get().isEmpty()) {
+			urlTemplate.remove();
 		}
 	}
 
