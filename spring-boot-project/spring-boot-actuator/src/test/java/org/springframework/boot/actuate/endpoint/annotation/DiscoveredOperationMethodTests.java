@@ -45,12 +45,17 @@ class DiscoveredOperationMethodTests {
 	@Test
 	void getProducesMediaTypesShouldReturnMediaTypes() {
 		Method method = ReflectionUtils.findMethod(getClass(), "example");
-		AnnotationAttributes annotationAttributes = new AnnotationAttributes();
-		String[] produces = new String[] { "application/json" };
-		annotationAttributes.put("produces", produces);
+		AnnotationAttributes annotationAttributes = extracted();
 		DiscoveredOperationMethod discovered = new DiscoveredOperationMethod(method, OperationType.READ,
 				annotationAttributes);
 		assertThat(discovered.getProducesMediaTypes()).containsExactly("application/json");
+	}
+
+	private AnnotationAttributes extracted() {
+		AnnotationAttributes annotationAttributes = new AnnotationAttributes();
+		String[] produces = new String[] { "application/json" };
+		annotationAttributes.put("produces", produces);
+		return annotationAttributes;
 	}
 
 	void example() {
