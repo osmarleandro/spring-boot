@@ -76,8 +76,7 @@ class EndpointLinksResolverTests {
 
 	@Test
 	void resolvedLinksContainsALinkForServletEndpoint() {
-		ExposableServletEndpoint servletEndpoint = mock(ExposableServletEndpoint.class);
-		given(servletEndpoint.getEndpointId()).willReturn(EndpointId.of("alpha"));
+		ExposableServletEndpoint servletEndpoint = extracted();
 		given(servletEndpoint.isEnableByDefault()).willReturn(true);
 		given(servletEndpoint.getRootPath()).willReturn("alpha");
 		String requestUrl = "https://api.example.com/actuator";
@@ -86,6 +85,12 @@ class EndpointLinksResolverTests {
 		assertThat(links).hasSize(2);
 		assertThat(links).hasEntrySatisfying("self", linkWithHref("https://api.example.com/actuator"));
 		assertThat(links).hasEntrySatisfying("alpha", linkWithHref("https://api.example.com/actuator/alpha"));
+	}
+
+	private ExposableServletEndpoint extracted() {
+		ExposableServletEndpoint servletEndpoint = mock(ExposableServletEndpoint.class);
+		given(servletEndpoint.getEndpointId()).willReturn(EndpointId.of("alpha"));
+		return servletEndpoint;
 	}
 
 	@Test
