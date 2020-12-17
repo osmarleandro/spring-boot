@@ -55,8 +55,7 @@ class CassandraDriverReactiveHealthIndicatorTests {
 
 	@Test
 	void healthWithOneHealthyNodeShouldReturnUp() {
-		CqlSession session = mockCqlSessionWithNodeState(NodeState.UP);
-		CassandraDriverReactiveHealthIndicator healthIndicator = new CassandraDriverReactiveHealthIndicator(session);
+		CassandraDriverReactiveHealthIndicator healthIndicator = extracted();
 		Mono<Health> health = healthIndicator.health();
 		StepVerifier.create(health).consumeNextWith((h) -> assertThat(h.getStatus()).isEqualTo(Status.UP))
 				.verifyComplete();
@@ -136,13 +135,18 @@ class CassandraDriverReactiveHealthIndicatorTests {
 
 	@Test
 	void healthWithoutNodeVersionShouldNotAddVersionDetail() {
-		CqlSession session = mockCqlSessionWithNodeState(NodeState.UP);
-		CassandraDriverReactiveHealthIndicator healthIndicator = new CassandraDriverReactiveHealthIndicator(session);
+		CassandraDriverReactiveHealthIndicator healthIndicator = extracted();
 		Mono<Health> health = healthIndicator.health();
 		StepVerifier.create(health).consumeNextWith((h) -> {
 			assertThat(h.getStatus()).isEqualTo(Status.UP);
 			assertThat(h.getDetails().get("version")).isNull();
 		}).verifyComplete();
+	}
+
+	private CassandraDriverReactiveHealthIndicator extracted() {
+		CqlSession session = mockCqlSessionWithNodeState(NodeState.UP);
+		CassandraDriverReactiveHealthIndicator healthIndicator = new CassandraDriverReactiveHealthIndicator(session);
+		return healthIndicator;
 	}
 
 	@Test
