@@ -55,6 +55,11 @@ public class FlywayEndpoint {
 	public ApplicationFlywayBeans flywayBeans() {
 		ApplicationContext target = this.context;
 		Map<String, ContextFlywayBeans> contextFlywayBeans = new HashMap<>();
+		return extracted(target, contextFlywayBeans);
+	}
+
+	private ApplicationFlywayBeans extracted(ApplicationContext target,
+			Map<String, ContextFlywayBeans> contextFlywayBeans) {
 		while (target != null) {
 			Map<String, FlywayDescriptor> flywayBeans = new HashMap<>();
 			target.getBeansOfType(Flyway.class)
