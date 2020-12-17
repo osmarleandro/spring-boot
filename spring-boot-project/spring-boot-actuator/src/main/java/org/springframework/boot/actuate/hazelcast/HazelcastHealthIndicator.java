@@ -56,12 +56,17 @@ public class HazelcastHealthIndicator extends AbstractHealthIndicator {
 			return this.hazelcast.getLocalEndpoint().getUuid().toString();
 		}
 		catch (NoSuchMethodError ex) {
-			// Hazelcast 3
-			Method endpointAccessor = ReflectionUtils.findMethod(HazelcastInstance.class, "getLocalEndpoint");
-			Object endpoint = ReflectionUtils.invokeMethod(endpointAccessor, this.hazelcast);
+			Object endpoint = extracted();
 			Method uuidAccessor = ReflectionUtils.findMethod(endpoint.getClass(), "getUuid");
 			return (String) ReflectionUtils.invokeMethod(uuidAccessor, endpoint);
 		}
+	}
+
+	private Object extracted() {
+		// Hazelcast 3
+		Method endpointAccessor = ReflectionUtils.findMethod(HazelcastInstance.class, "getLocalEndpoint");
+		Object endpoint = ReflectionUtils.invokeMethod(endpointAccessor, this.hazelcast);
+		return endpoint;
 	}
 
 }
