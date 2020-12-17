@@ -97,13 +97,18 @@ public class LoggersEndpoint {
 
 	@WriteOperation
 	public void configureLogLevel(@Selector String name, @Nullable LogLevel configuredLevel) {
-		Assert.notNull(name, "Name must not be empty");
-		LoggerGroup group = this.loggerGroups.get(name);
+		LoggerGroup group = extracted(name);
 		if (group != null && group.hasMembers()) {
 			group.configureLogLevel(configuredLevel, this.loggingSystem::setLogLevel);
 			return;
 		}
 		this.loggingSystem.setLogLevel(name, configuredLevel);
+	}
+
+	private LoggerGroup extracted(String name) {
+		Assert.notNull(name, "Name must not be empty");
+		LoggerGroup group = this.loggerGroups.get(name);
+		return group;
 	}
 
 	private NavigableSet<LogLevel> getLevels() {
