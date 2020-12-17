@@ -63,11 +63,16 @@ class HealthEndpointWebExtensionTests
 
 	@Test
 	void healthWhenPathDoesNotExistReturnsHttp404() {
+		WebEndpointResponse<HealthComponent> response = extracted();
+		assertThat(response.getBody()).isNull();
+		assertThat(response.getStatus()).isEqualTo(404);
+	}
+
+	private WebEndpointResponse<HealthComponent> extracted() {
 		this.registry.registerContributor("test", createContributor(this.up));
 		WebEndpointResponse<HealthComponent> response = create(this.registry, this.groups).health(ApiVersion.LATEST,
 				SecurityContext.NONE, "missing");
-		assertThat(response.getBody()).isNull();
-		assertThat(response.getStatus()).isEqualTo(404);
+		return response;
 	}
 
 	@Test
