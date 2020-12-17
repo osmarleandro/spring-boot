@@ -142,13 +142,18 @@ class CachesEndpointTests {
 
 	@Test
 	void clearCacheWithSeveralCacheManagers() {
-		Map<String, CacheManager> cacheManagers = new LinkedHashMap<>();
-		cacheManagers.put("test", cacheManager(mockCache("dupe-cache"), mockCache("b")));
+		Map<String, CacheManager> cacheManagers = extracted();
 		cacheManagers.put("another", cacheManager(mockCache("dupe-cache")));
 		CachesEndpoint endpoint = new CachesEndpoint(cacheManagers);
 		assertThatExceptionOfType(NonUniqueCacheException.class)
 				.isThrownBy(() -> endpoint.clearCache("dupe-cache", null)).withMessageContaining("dupe-cache")
 				.withMessageContaining("test").withMessageContaining("another");
+	}
+
+	private Map<String, CacheManager> extracted() {
+		Map<String, CacheManager> cacheManagers = new LinkedHashMap<>();
+		cacheManagers.put("test", cacheManager(mockCache("dupe-cache"), mockCache("b")));
+		return cacheManagers;
 	}
 
 	@Test
