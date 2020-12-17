@@ -134,13 +134,18 @@ class CassandraDriverHealthIndicatorTests {
 
 	@Test
 	void healthWithcassandraDownShouldReturnDown() {
-		CqlSession session = mock(CqlSession.class);
-		given(session.getMetadata()).willThrow(new DriverTimeoutException("Test Exception"));
+		CqlSession session = extracted();
 		CassandraDriverHealthIndicator healthIndicator = new CassandraDriverHealthIndicator(session);
 		Health health = healthIndicator.health();
 		assertThat(health.getStatus()).isEqualTo(Status.DOWN);
 		assertThat(health.getDetails().get("error"))
 				.isEqualTo(DriverTimeoutException.class.getName() + ": Test Exception");
+	}
+
+	private CqlSession extracted() {
+		CqlSession session = mock(CqlSession.class);
+		given(session.getMetadata()).willThrow(new DriverTimeoutException("Test Exception"));
+		return session;
 	}
 
 	private CqlSession mockCqlSessionWithNodeState(NodeState... nodeStates) {
