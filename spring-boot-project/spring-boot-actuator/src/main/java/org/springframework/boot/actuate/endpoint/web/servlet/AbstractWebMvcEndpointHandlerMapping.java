@@ -167,6 +167,11 @@ public abstract class AbstractWebMvcEndpointHandlerMapping extends RequestMappin
 	private void registerMappingForOperation(ExposableWebEndpoint endpoint, WebOperation operation) {
 		WebOperationRequestPredicate predicate = operation.getRequestPredicate();
 		String path = predicate.getPath();
+		extracted(endpoint, operation, predicate, path);
+	}
+
+	private void extracted(ExposableWebEndpoint endpoint, WebOperation operation,
+			WebOperationRequestPredicate predicate, String path) {
 		String matchAllRemainingPathSegmentsVariable = predicate.getMatchAllRemainingPathSegmentsVariable();
 		if (matchAllRemainingPathSegmentsVariable != null) {
 			path = path.replace("{*" + matchAllRemainingPathSegmentsVariable + "}", "**");
