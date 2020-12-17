@@ -60,13 +60,18 @@ class CassandraHealthIndicatorTests {
 
 	@Test
 	void healthWithCassandraDown() {
-		CassandraOperations cassandraOperations = mock(CassandraOperations.class);
-		given(cassandraOperations.getCqlOperations()).willThrow(new CassandraInternalException("Connection failed"));
+		CassandraOperations cassandraOperations = extracted();
 		CassandraHealthIndicator healthIndicator = new CassandraHealthIndicator(cassandraOperations);
 		Health health = healthIndicator.health();
 		assertThat(health.getStatus()).isEqualTo(Status.DOWN);
 		assertThat(health.getDetails().get("error"))
 				.isEqualTo(CassandraInternalException.class.getName() + ": Connection failed");
+	}
+
+	private CassandraOperations extracted() {
+		CassandraOperations cassandraOperations = mock(CassandraOperations.class);
+		given(cassandraOperations.getCqlOperations()).willThrow(new CassandraInternalException("Connection failed"));
+		return cassandraOperations;
 	}
 
 }
