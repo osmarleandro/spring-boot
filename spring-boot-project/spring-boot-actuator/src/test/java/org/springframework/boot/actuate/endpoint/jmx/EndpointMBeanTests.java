@@ -121,13 +121,17 @@ class EndpointMBeanTests {
 	@Test
 	void invokeShouldInvokeJmxOperationWithBeanClassLoader() throws ReflectionException, MBeanException {
 		ClassLoader originalClassLoader = Thread.currentThread().getContextClassLoader();
+		extracted();
+		assertThat(Thread.currentThread().getContextClassLoader()).isEqualTo(originalClassLoader);
+	}
+
+	private void extracted() throws MBeanException, ReflectionException {
 		TestExposableJmxEndpoint endpoint = new TestExposableJmxEndpoint(
 				new TestJmxOperation((arguments) -> ClassUtils.getDefaultClassLoader()));
 		URLClassLoader beanClassLoader = new URLClassLoader(new URL[0], getClass().getClassLoader());
 		EndpointMBean bean = new EndpointMBean(this.responseMapper, beanClassLoader, endpoint);
 		Object result = bean.invoke("testOperation", NO_PARAMS, NO_SIGNATURE);
 		assertThat(result).isEqualTo(beanClassLoader);
-		assertThat(Thread.currentThread().getContextClassLoader()).isEqualTo(originalClassLoader);
 	}
 
 	@Test
