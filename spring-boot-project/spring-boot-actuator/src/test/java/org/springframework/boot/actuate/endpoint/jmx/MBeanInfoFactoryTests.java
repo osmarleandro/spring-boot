@@ -92,8 +92,7 @@ class MBeanInfoFactoryTests {
 
 	@Test
 	void getMBeanShouldMapOperationParameters() {
-		List<JmxOperationParameter> parameters = new ArrayList<>();
-		parameters.add(mockParameter("one", String.class, "myone"));
+		List<JmxOperationParameter> parameters = extracted();
 		parameters.add(mockParameter("two", Object.class, null));
 		TestJmxOperation operation = new TestJmxOperation(parameters);
 		MBeanInfo info = this.factory.getMBeanInfo(new TestExposableJmxEndpoint(operation));
@@ -106,6 +105,12 @@ class MBeanInfoFactoryTests {
 		assertThat(signature[1].getName()).isEqualTo("two");
 		assertThat(signature[1].getType()).isEqualTo(Object.class.getName());
 		assertThat(signature[1].getDescription()).isNull();
+	}
+
+	private List<JmxOperationParameter> extracted() {
+		List<JmxOperationParameter> parameters = new ArrayList<>();
+		parameters.add(mockParameter("one", String.class, "myone"));
+		return parameters;
 	}
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
