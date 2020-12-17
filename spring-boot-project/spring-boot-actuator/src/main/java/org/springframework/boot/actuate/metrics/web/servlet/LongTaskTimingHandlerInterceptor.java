@@ -81,10 +81,15 @@ public class LongTaskTimingHandlerInterceptor implements HandlerInterceptor {
 	}
 
 	private void startAndAttachTimingContext(HttpServletRequest request, Object handler) {
-		Set<Timed> annotations = getTimedAnnotations(handler);
-		Collection<LongTaskTimer.Sample> longTaskTimerSamples = getLongTaskTimerSamples(request, handler, annotations);
+		Collection<LongTaskTimer.Sample> longTaskTimerSamples = extracted(request, handler);
 		LongTaskTimingContext timingContext = new LongTaskTimingContext(longTaskTimerSamples);
 		timingContext.attachTo(request);
+	}
+
+	private Collection<LongTaskTimer.Sample> extracted(HttpServletRequest request, Object handler) {
+		Set<Timed> annotations = getTimedAnnotations(handler);
+		Collection<LongTaskTimer.Sample> longTaskTimerSamples = getLongTaskTimerSamples(request, handler, annotations);
+		return longTaskTimerSamples;
 	}
 
 	private Collection<LongTaskTimer.Sample> getLongTaskTimerSamples(HttpServletRequest request, Object handler,
