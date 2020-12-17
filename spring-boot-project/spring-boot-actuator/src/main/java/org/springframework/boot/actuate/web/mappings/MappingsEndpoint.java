@@ -46,6 +46,10 @@ public class MappingsEndpoint {
 	public ApplicationMappings mappings() {
 		ApplicationContext target = this.context;
 		Map<String, ContextMappings> contextMappings = new HashMap<>();
+		return extracted(target, contextMappings);
+	}
+
+	private ApplicationMappings extracted(ApplicationContext target, Map<String, ContextMappings> contextMappings) {
 		while (target != null) {
 			contextMappings.put(target.getId(), mappingsForContext(target));
 			target = target.getParent();
