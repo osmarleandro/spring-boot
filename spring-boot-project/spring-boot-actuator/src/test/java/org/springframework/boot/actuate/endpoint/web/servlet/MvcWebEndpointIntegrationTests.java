@@ -115,8 +115,7 @@ class MvcWebEndpointIntegrationTests
 	}
 
 	private RequestMatchResult getMatchResult(String servletPath) {
-		MockHttpServletRequest request = new MockHttpServletRequest();
-		request.setServletPath(servletPath);
+		MockHttpServletRequest request = extracted(servletPath);
 		AnnotationConfigServletWebServerApplicationContext context = createApplicationContext();
 		context.register(TestEndpointConfiguration.class);
 		context.refresh();
@@ -129,6 +128,12 @@ class MvcWebEndpointIntegrationTests
 			throw new RuntimeException(ex);
 		}
 		return bean.match(request, "/spring");
+	}
+
+	private MockHttpServletRequest extracted(String servletPath) {
+		MockHttpServletRequest request = new MockHttpServletRequest();
+		request.setServletPath(servletPath);
+		return request;
 	}
 
 	@Override
