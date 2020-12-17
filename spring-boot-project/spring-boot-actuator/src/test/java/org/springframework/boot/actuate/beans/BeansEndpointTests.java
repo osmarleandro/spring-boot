@@ -28,6 +28,7 @@ import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.boot.actuate.beans.BeansEndpoint.ApplicationBeans;
 import org.springframework.boot.actuate.beans.BeansEndpoint.BeanDescriptor;
 import org.springframework.boot.actuate.beans.BeansEndpoint.ContextBeans;
+import org.springframework.boot.test.context.assertj.AssertableApplicationContext;
 import org.springframework.boot.test.context.runner.ApplicationContextRunner;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
@@ -94,13 +95,17 @@ class BeansEndpointTests {
 		ApplicationContextRunner parentRunner = new ApplicationContextRunner()
 				.withUserConfiguration(BeanConfiguration.class);
 		parentRunner.run((parent) -> {
-			new ApplicationContextRunner().withUserConfiguration(EndpointConfiguration.class).withParent(parent)
-					.run((child) -> {
-						ApplicationBeans result = child.getBean(BeansEndpoint.class).beans();
-						assertThat(result.getContexts().get(parent.getId()).getBeans()).containsKey("bean");
-						assertThat(result.getContexts().get(child.getId()).getBeans()).containsKey("endpoint");
-					});
+			extracted(parent);
 		});
+	}
+
+	private void extracted(AssertableApplicationContext parent) {
+		new ApplicationContextRunner().withUserConfiguration(EndpointConfiguration.class).withParent(parent)
+				.run((child) -> {
+					ApplicationBeans result = child.getBean(BeansEndpoint.class).beans();
+					assertThat(result.getContexts().get(parent.getId()).getBeans()).containsKey("bean");
+					assertThat(result.getContexts().get(child.getId()).getBeans()).containsKey("endpoint");
+				});
 	}
 
 	@Configuration(proxyBeanMethods = false)
