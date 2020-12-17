@@ -95,11 +95,16 @@ class ServletEndpointDiscovererTests {
 	void getEndpointsShouldNotDiscoverRegularEndpoints() {
 		this.contextRunner.withUserConfiguration(WithRegularEndpointConfiguration.class)
 				.run(assertDiscoverer((discoverer) -> {
-					Collection<ExposableServletEndpoint> endpoints = discoverer.getEndpoints();
-					List<EndpointId> ids = endpoints.stream().map(ExposableServletEndpoint::getEndpointId)
-							.collect(Collectors.toList());
+					List<EndpointId> ids = extracted(discoverer);
 					assertThat(ids).containsOnly(EndpointId.of("testservlet"));
 				}));
+	}
+
+	private List<EndpointId> extracted(ServletEndpointDiscoverer discoverer) {
+		Collection<ExposableServletEndpoint> endpoints = discoverer.getEndpoints();
+		List<EndpointId> ids = endpoints.stream().map(ExposableServletEndpoint::getEndpointId)
+				.collect(Collectors.toList());
+		return ids;
 	}
 
 	@Test
