@@ -186,11 +186,16 @@ class EnvironmentEndpointTests {
 
 	@Test
 	void propertyWithSensitivePlaceholderNotResolved() {
-		ConfigurableEnvironment environment = emptyEnvironment();
-		TestPropertyValues.of("my.foo: http://${bar.password}://hello").applyTo(environment);
+		ConfigurableEnvironment environment = extracted();
 		EnvironmentDescriptor descriptor = new EnvironmentEndpoint(environment).environment(null);
 		assertThat(propertySources(descriptor).get("test").getProperties().get("my.foo").getValue())
 				.isEqualTo("http://${bar.password}://hello");
+	}
+
+	private ConfigurableEnvironment extracted() {
+		ConfigurableEnvironment environment = emptyEnvironment();
+		TestPropertyValues.of("my.foo: http://${bar.password}://hello").applyTo(environment);
+		return environment;
 	}
 
 	@Test
