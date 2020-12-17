@@ -106,10 +106,7 @@ public final class WebFluxTags {
 	public static Tag uri(ServerWebExchange exchange, boolean ignoreTrailingSlash) {
 		PathPattern pathPattern = exchange.getAttribute(HandlerMapping.BEST_MATCHING_PATTERN_ATTRIBUTE);
 		if (pathPattern != null) {
-			String patternString = pathPattern.getPatternString();
-			if (ignoreTrailingSlash && patternString.length() > 1) {
-				patternString = TRAILING_SLASH_PATTERN.matcher(patternString).replaceAll("");
-			}
+			String patternString = extracted(ignoreTrailingSlash, pathPattern);
 			if (patternString.isEmpty()) {
 				return URI_ROOT;
 			}
@@ -129,6 +126,14 @@ public final class WebFluxTags {
 			return URI_ROOT;
 		}
 		return URI_UNKNOWN;
+	}
+
+	private static String extracted(boolean ignoreTrailingSlash, PathPattern pathPattern) {
+		String patternString = pathPattern.getPatternString();
+		if (ignoreTrailingSlash && patternString.length() > 1) {
+			patternString = TRAILING_SLASH_PATTERN.matcher(patternString).replaceAll("");
+		}
+		return patternString;
 	}
 
 	private static String getPathInfo(ServerWebExchange exchange) {
