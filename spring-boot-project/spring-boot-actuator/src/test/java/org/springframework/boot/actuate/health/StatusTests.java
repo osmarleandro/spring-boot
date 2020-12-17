@@ -56,10 +56,15 @@ class StatusTests {
 	@Test
 	void equalsAndHashCode() {
 		Status one = new Status("spring", "boot");
+		Status two = extracted(one);
+		assertThat(one.hashCode()).isEqualTo(two.hashCode());
+	}
+
+	private Status extracted(Status one) {
 		Status two = new Status("spring", "framework");
 		Status three = new Status("spock", "framework");
 		assertThat(one).isEqualTo(one).isEqualTo(two).isNotEqualTo(three);
-		assertThat(one.hashCode()).isEqualTo(two.hashCode());
+		return two;
 	}
 
 	@Test
