@@ -36,10 +36,15 @@ class AuditListenerTests {
 	@Test
 	void testStoredEvents() {
 		AuditEventRepository repository = mock(AuditEventRepository.class);
+		AuditEvent event = extracted(repository);
+		verify(repository).add(event);
+	}
+
+	private AuditEvent extracted(AuditEventRepository repository) {
 		AuditEvent event = new AuditEvent("principal", "type", Collections.emptyMap());
 		AuditListener listener = new AuditListener(repository);
 		listener.onApplicationEvent(new AuditApplicationEvent(event));
-		verify(repository).add(event);
+		return event;
 	}
 
 }
