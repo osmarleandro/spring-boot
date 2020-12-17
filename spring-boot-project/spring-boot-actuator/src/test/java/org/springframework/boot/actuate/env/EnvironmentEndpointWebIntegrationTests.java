@@ -57,12 +57,17 @@ class EnvironmentEndpointWebIntegrationTests {
 
 	@WebEndpointTest
 	void regex() {
-		Map<String, Object> map = new HashMap<>();
-		map.put("food", null);
+		Map<String, Object> map = extracted();
 		this.context.getEnvironment().getPropertySources().addFirst(new MapPropertySource("null-value", map));
 		this.client.get().uri("/actuator/env?pattern=foo.*").exchange().expectStatus().isOk().expectBody()
 				.jsonPath(forProperty("test", "foo")).isEqualTo("bar").jsonPath(forProperty("test", "fool"))
 				.isEqualTo("baz");
+	}
+
+	private Map<String, Object> extracted() {
+		Map<String, Object> map = new HashMap<>();
+		map.put("food", null);
+		return map;
 	}
 
 	@WebEndpointTest
