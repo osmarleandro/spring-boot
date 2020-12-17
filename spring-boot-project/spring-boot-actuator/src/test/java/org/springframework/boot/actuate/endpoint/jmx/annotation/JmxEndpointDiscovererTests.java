@@ -206,8 +206,7 @@ class JmxEndpointDiscovererTests {
 	}
 
 	private void assertJmxTestEndpoint(ExposableJmxEndpoint endpoint) {
-		Map<String, JmxOperation> operationsByName = mapOperations(endpoint.getOperations());
-		assertThat(operationsByName).containsOnlyKeys("getAll", "getSomething", "update", "deleteSomething");
+		Map<String, JmxOperation> operationsByName = extracted(endpoint);
 		JmxOperation getAll = operationsByName.get("getAll");
 		assertThat(getAll.getDescription()).isEqualTo("Get all the things");
 		assertThat(getAll.getOutputType()).isEqualTo(Object.class);
@@ -228,6 +227,12 @@ class JmxEndpointDiscovererTests {
 		assertThat(deleteSomething.getOutputType()).isEqualTo(Void.TYPE);
 		assertThat(deleteSomething.getParameters()).hasSize(1);
 		hasDocumentedParameter(deleteSomething, 0, "unitMs", Long.class, "Number of milliseconds");
+	}
+
+	private Map<String, JmxOperation> extracted(ExposableJmxEndpoint endpoint) {
+		Map<String, JmxOperation> operationsByName = mapOperations(endpoint.getOperations());
+		assertThat(operationsByName).containsOnlyKeys("getAll", "getSomething", "update", "deleteSomething");
+		return operationsByName;
 	}
 
 	private void hasDocumentedParameter(JmxOperation operation, int index, String name, Class<?> type,
