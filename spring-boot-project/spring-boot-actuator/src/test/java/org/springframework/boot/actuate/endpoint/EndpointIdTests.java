@@ -121,10 +121,15 @@ class EndpointIdTests {
 	}
 
 	private EndpointId migrateLegacyName(String name) {
-		EndpointId.resetLoggedWarnings();
-		MockEnvironment environment = new MockEnvironment();
+		MockEnvironment environment = extracted();
 		environment.setProperty("management.endpoints.migrate-legacy-ids", "true");
 		return EndpointId.of(environment, name);
+	}
+
+	private MockEnvironment extracted() {
+		EndpointId.resetLoggedWarnings();
+		MockEnvironment environment = new MockEnvironment();
+		return environment;
 	}
 
 	@Test
