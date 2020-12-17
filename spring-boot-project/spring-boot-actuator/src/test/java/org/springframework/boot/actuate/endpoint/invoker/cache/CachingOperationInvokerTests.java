@@ -198,6 +198,11 @@ class CachingOperationInvokerTests {
 	@Test
 	void targetInvokedWithDifferentApiVersion() {
 		OperationInvoker target = mock(OperationInvoker.class);
+		InvocationContext contextV3 = extracted(target);
+		verify(target, times(1)).invoke(contextV3);
+	}
+
+	private InvocationContext extracted(OperationInvoker target) {
 		Object expectedV2 = new Object();
 		Object expectedV3 = new Object();
 		InvocationContext contextV2 = new InvocationContext(ApiVersion.V2, mock(SecurityContext.class),
@@ -212,7 +217,7 @@ class CachingOperationInvokerTests {
 		verify(target, times(1)).invoke(contextV2);
 		Object cachedResponse = invoker.invoke(contextV3);
 		assertThat(cachedResponse).isNotSameAs(response);
-		verify(target, times(1)).invoke(contextV3);
+		return contextV3;
 	}
 
 	private static class MonoOperationInvoker implements OperationInvoker {
