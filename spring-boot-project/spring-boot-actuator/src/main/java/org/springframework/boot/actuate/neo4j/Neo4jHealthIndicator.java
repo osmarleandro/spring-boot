@@ -92,9 +92,13 @@ public class Neo4jHealthIndicator extends AbstractHealthIndicator {
 		try (Session session = this.driver.session(DEFAULT_SESSION_CONFIG)) {
 			Result result = session.run(CYPHER);
 			String edition = result.single().get("edition").asString();
-			ResultSummary resultSummary = result.consume();
-			this.healthDetailsHandler.addHealthDetails(builder, edition, resultSummary);
+			extracted(builder, result, edition);
 		}
+	}
+
+	private void extracted(Health.Builder builder, Result result, String edition) {
+		ResultSummary resultSummary = result.consume();
+		this.healthDetailsHandler.addHealthDetails(builder, edition, resultSummary);
 	}
 
 }
