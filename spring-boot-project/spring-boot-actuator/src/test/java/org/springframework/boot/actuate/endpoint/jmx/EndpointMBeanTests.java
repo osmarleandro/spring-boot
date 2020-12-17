@@ -191,10 +191,15 @@ class EndpointMBeanTests {
 	@Test
 	void setAttributesShouldReturnEmptyAttributeList() {
 		EndpointMBean bean = createEndpointMBean();
-		AttributeList sourceAttributes = new AttributeList();
-		sourceAttributes.add(new Attribute("test", "test"));
+		AttributeList sourceAttributes = extracted();
 		AttributeList attributes = bean.setAttributes(sourceAttributes);
 		assertThat(attributes).isEmpty();
+	}
+
+	private AttributeList extracted() {
+		AttributeList sourceAttributes = new AttributeList();
+		sourceAttributes.add(new Attribute("test", "test"));
+		return sourceAttributes;
 	}
 
 	private EndpointMBean createEndpointMBean() {
