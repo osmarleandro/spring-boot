@@ -28,6 +28,7 @@ import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.boot.actuate.beans.BeansEndpoint.ApplicationBeans;
 import org.springframework.boot.actuate.beans.BeansEndpoint.BeanDescriptor;
 import org.springframework.boot.actuate.beans.BeansEndpoint.ContextBeans;
+import org.springframework.boot.test.context.assertj.AssertableApplicationContext;
 import org.springframework.boot.test.context.runner.ApplicationContextRunner;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
@@ -49,13 +50,18 @@ class BeansEndpointTests {
 		ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 				.withUserConfiguration(EndpointConfiguration.class);
 		contextRunner.run((context) -> {
-			ApplicationBeans result = context.getBean(BeansEndpoint.class).beans();
-			ContextBeans descriptor = result.getContexts().get(context.getId());
+			ContextBeans descriptor = extracted(context);
 			assertThat(descriptor.getParentId()).isNull();
 			Map<String, BeanDescriptor> beans = descriptor.getBeans();
 			assertThat(beans.size()).isLessThanOrEqualTo(context.getBeanDefinitionCount());
 			assertThat(beans).containsKey("endpoint");
 		});
+	}
+
+	private ContextBeans extracted(AssertableApplicationContext context) {
+		ApplicationBeans result = context.getBean(BeansEndpoint.class).beans();
+		ContextBeans descriptor = result.getContexts().get(context.getId());
+		return descriptor;
 	}
 
 	@Test
@@ -82,8 +88,7 @@ class BeansEndpointTests {
 		ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 				.withUserConfiguration(EndpointConfiguration.class, LazyBeanConfiguration.class);
 		contextRunner.run((context) -> {
-			ApplicationBeans result = context.getBean(BeansEndpoint.class).beans();
-			ContextBeans contextDescriptor = result.getContexts().get(context.getId());
+			ContextBeans contextDescriptor = extracted(context);
 			assertThat(context).hasBean("lazyBean");
 			assertThat(contextDescriptor.getBeans()).doesNotContainKey("lazyBean");
 		});
