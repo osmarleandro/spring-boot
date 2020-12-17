@@ -48,11 +48,16 @@ public class InfoEndpoint {
 	@ReadOperation
 	public Map<String, Object> info() {
 		Info.Builder builder = new Info.Builder();
+		Info build = extracted(builder);
+		return build.getDetails();
+	}
+
+	private Info extracted(Info.Builder builder) {
 		for (InfoContributor contributor : this.infoContributors) {
 			contributor.contribute(builder);
 		}
 		Info build = builder.build();
-		return build.getDetails();
+		return build;
 	}
 
 }
