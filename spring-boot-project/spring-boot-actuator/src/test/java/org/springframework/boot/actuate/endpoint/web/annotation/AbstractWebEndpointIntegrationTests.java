@@ -408,8 +408,7 @@ public abstract class AbstractWebEndpointIntegrationTests<T extends Configurable
 
 	private void load(Consumer<T> contextCustomizer, String endpointPath,
 			BiConsumer<ApplicationContext, WebTestClient> consumer) {
-		T applicationContext = this.applicationContextSupplier.get();
-		contextCustomizer.accept(applicationContext);
+		T applicationContext = extracted(contextCustomizer);
 		Map<String, Object> properties = new HashMap<>();
 		properties.put("endpointPath", endpointPath);
 		properties.put("server.error.include-message", "always");
@@ -424,6 +423,12 @@ public abstract class AbstractWebEndpointIntegrationTests<T extends Configurable
 		finally {
 			applicationContext.close();
 		}
+	}
+
+	private T extracted(Consumer<T> contextCustomizer) {
+		T applicationContext = this.applicationContextSupplier.get();
+		contextCustomizer.accept(applicationContext);
+		return applicationContext;
 	}
 
 	@Configuration(proxyBeanMethods = false)
