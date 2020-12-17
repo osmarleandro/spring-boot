@@ -89,11 +89,15 @@ public class MetricsWebFilter implements WebFilter {
 			record(exchange, start, cause);
 		}
 		else {
-			response.beforeCommit(() -> {
-				record(exchange, start, cause);
-				return Mono.empty();
-			});
+			extracted(exchange, start, cause, response);
 		}
+	}
+
+	private void extracted(ServerWebExchange exchange, long start, Throwable cause, ServerHttpResponse response) {
+		response.beforeCommit(() -> {
+			record(exchange, start, cause);
+			return Mono.empty();
+		});
 	}
 
 	private void record(ServerWebExchange exchange, long start, Throwable cause) {
