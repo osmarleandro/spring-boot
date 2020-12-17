@@ -94,12 +94,17 @@ class DiscoveredJmxOperationTests {
 
 	@Test
 	void getParametersWhenHasManagedOperationParameterShouldUseValuesFromAnnotation() {
-		DiscoveredJmxOperation operation = getOperation("withManagedOperationParameters");
-		List<JmxOperationParameter> parameters = operation.getParameters();
+		List<JmxOperationParameter> parameters = extracted();
 		assertThat(parameters.get(0).getName()).isEqualTo("a1");
 		assertThat(parameters.get(1).getName()).isEqualTo("a2");
 		assertThat(parameters.get(0).getDescription()).isEqualTo("d1");
 		assertThat(parameters.get(1).getDescription()).isEqualTo("d2");
+	}
+
+	private List<JmxOperationParameter> extracted() {
+		DiscoveredJmxOperation operation = getOperation("withManagedOperationParameters");
+		List<JmxOperationParameter> parameters = operation.getParameters();
+		return parameters;
 	}
 
 	@Test
