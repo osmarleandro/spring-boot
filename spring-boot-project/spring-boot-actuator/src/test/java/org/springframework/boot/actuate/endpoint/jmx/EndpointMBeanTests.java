@@ -132,6 +132,15 @@ class EndpointMBeanTests {
 
 	@Test
 	void invokeWhenOperationIsInvalidShouldThrowException() throws MBeanException, ReflectionException {
+		TestJmxOperation operation = extracted();
+		TestExposableJmxEndpoint endpoint = new TestExposableJmxEndpoint(operation);
+		EndpointMBean bean = new EndpointMBean(this.responseMapper, null, endpoint);
+		assertThatExceptionOfType(ReflectionException.class)
+				.isThrownBy(() -> bean.invoke("testOperation", NO_PARAMS, NO_SIGNATURE))
+				.withRootCauseInstanceOf(IllegalArgumentException.class).withMessageContaining("test failure");
+	}
+
+	private TestJmxOperation extracted() {
 		TestJmxOperation operation = new TestJmxOperation() {
 
 			@Override
@@ -140,11 +149,7 @@ class EndpointMBeanTests {
 			}
 
 		};
-		TestExposableJmxEndpoint endpoint = new TestExposableJmxEndpoint(operation);
-		EndpointMBean bean = new EndpointMBean(this.responseMapper, null, endpoint);
-		assertThatExceptionOfType(ReflectionException.class)
-				.isThrownBy(() -> bean.invoke("testOperation", NO_PARAMS, NO_SIGNATURE))
-				.withRootCauseInstanceOf(IllegalArgumentException.class).withMessageContaining("test failure");
+		return operation;
 	}
 
 	@Test
