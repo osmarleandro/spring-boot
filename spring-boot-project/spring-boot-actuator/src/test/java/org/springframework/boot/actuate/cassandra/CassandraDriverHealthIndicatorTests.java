@@ -78,10 +78,15 @@ class CassandraDriverHealthIndicatorTests {
 
 	@Test
 	void healthWithOneForcedDownNodeShouldReturnDown() {
-		CqlSession session = mockCqlSessionWithNodeState(NodeState.FORCED_DOWN);
-		CassandraDriverHealthIndicator healthIndicator = new CassandraDriverHealthIndicator(session);
+		CassandraDriverHealthIndicator healthIndicator = extracted();
 		Health health = healthIndicator.health();
 		assertThat(health.getStatus()).isEqualTo(Status.DOWN);
+	}
+
+	private CassandraDriverHealthIndicator extracted() {
+		CqlSession session = mockCqlSessionWithNodeState(NodeState.FORCED_DOWN);
+		CassandraDriverHealthIndicator healthIndicator = new CassandraDriverHealthIndicator(session);
+		return healthIndicator;
 	}
 
 	@Test
