@@ -65,6 +65,11 @@ abstract class HealthEndpointSupport<C, T> {
 			boolean showAll, String[] path, int pathOffset) {
 		boolean showComponents = showAll || group.showComponents(securityContext);
 		boolean showDetails = showAll || group.showDetails(securityContext);
+		return extracted(apiVersion, group, path, pathOffset, showComponents, showDetails);
+	}
+
+	private HealthResult<T> extracted(ApiVersion apiVersion, HealthEndpointGroup group, String[] path, int pathOffset,
+			boolean showComponents, boolean showDetails) {
 		boolean isSystemHealth = group == this.groups.getPrimary() && pathOffset == 0;
 		boolean isRoot = path.length - pathOffset == 0;
 		if (!showComponents && !isRoot) {
