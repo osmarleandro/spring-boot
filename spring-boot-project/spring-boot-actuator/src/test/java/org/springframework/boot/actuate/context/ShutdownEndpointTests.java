@@ -80,12 +80,17 @@ class ShutdownEndpointTests {
 	void shutdownParent() throws Exception {
 		ConfigurableApplicationContext context = new SpringApplicationBuilder(EndpointConfig.class)
 				.child(EmptyConfig.class).web(WebApplicationType.NONE).run();
+		CountDownLatch childLatch = extracted(context);
+		assertThat(childLatch.await(10, TimeUnit.SECONDS)).isTrue();
+	}
+
+	private CountDownLatch extracted(ConfigurableApplicationContext context) throws InterruptedException {
 		CountDownLatch parentLatch = context.getBean(EndpointConfig.class).latch;
 		CountDownLatch childLatch = context.getBean(EmptyConfig.class).latch;
 		assertThat(context.getBean(ShutdownEndpoint.class).shutdown().get("message")).startsWith("Shutting down");
 		assertThat(context.isActive()).isTrue();
 		assertThat(parentLatch.await(10, TimeUnit.SECONDS)).isTrue();
-		assertThat(childLatch.await(10, TimeUnit.SECONDS)).isTrue();
+		return childLatch;
 	}
 
 	@Configuration(proxyBeanMethods = false)
