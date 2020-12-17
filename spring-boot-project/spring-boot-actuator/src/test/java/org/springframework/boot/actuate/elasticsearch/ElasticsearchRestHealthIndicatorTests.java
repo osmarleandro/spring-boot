@@ -66,8 +66,7 @@ class ElasticsearchRestHealthIndicatorTests {
 
 	@Test
 	void elasticsearchWithYellowStatusIsUp() throws IOException {
-		BasicHttpEntity httpEntity = new BasicHttpEntity();
-		httpEntity.setContent(new ByteArrayInputStream(createJsonResult(200, "yellow").getBytes()));
+		BasicHttpEntity httpEntity = extracted();
 		Response response = mock(Response.class);
 		StatusLine statusLine = mock(StatusLine.class);
 		given(statusLine.getStatusCode()).willReturn(200);
@@ -77,6 +76,12 @@ class ElasticsearchRestHealthIndicatorTests {
 		Health health = this.elasticsearchRestHealthIndicator.health();
 		assertThat(health.getStatus()).isEqualTo(Status.UP);
 		assertHealthDetailsWithStatus(health.getDetails(), "yellow");
+	}
+
+	private BasicHttpEntity extracted() {
+		BasicHttpEntity httpEntity = new BasicHttpEntity();
+		httpEntity.setContent(new ByteArrayInputStream(createJsonResult(200, "yellow").getBytes()));
+		return httpEntity;
 	}
 
 	@Test
