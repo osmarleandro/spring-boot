@@ -183,9 +183,14 @@ class CachesEndpointTests {
 	}
 
 	private CacheManager cacheManager(Cache... caches) {
+		SimpleCacheManager cacheManager = extracted(caches);
+		cacheManager.afterPropertiesSet();
+		return cacheManager;
+	}
+
+	private SimpleCacheManager extracted(Cache... caches) {
 		SimpleCacheManager cacheManager = new SimpleCacheManager();
 		cacheManager.setCaches(Arrays.asList(caches));
-		cacheManager.afterPropertiesSet();
 		return cacheManager;
 	}
 
