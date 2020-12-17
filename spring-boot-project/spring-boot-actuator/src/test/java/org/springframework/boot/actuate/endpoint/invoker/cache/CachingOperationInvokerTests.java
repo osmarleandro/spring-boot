@@ -71,10 +71,15 @@ class CachingOperationInvokerTests {
 
 	@Test
 	void cacheInTtlWithNullParameters() {
-		Map<String, Object> parameters = new HashMap<>();
-		parameters.put("first", null);
+		Map<String, Object> parameters = extracted();
 		parameters.put("second", null);
 		assertCacheIsUsed(parameters);
+	}
+
+	private Map<String, Object> extracted() {
+		Map<String, Object> parameters = new HashMap<>();
+		parameters.put("first", null);
+		return parameters;
 	}
 
 	@Test
