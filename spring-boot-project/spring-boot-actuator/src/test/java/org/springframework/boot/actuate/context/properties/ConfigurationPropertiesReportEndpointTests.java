@@ -197,12 +197,17 @@ class ConfigurationPropertiesReportEndpointTests {
 		this.contextRunner.withUserConfiguration(Gh4415PropertiesConfiguration.class)
 				.withPropertyValues("test.keys-to-sanitize=.*\\.secrets\\..*,.*\\.hidden\\..*")
 				.run(assertProperties("gh4415", (properties) -> {
-					Map<String, Object> secrets = (Map<String, Object>) properties.get("secrets");
-					Map<String, Object> hidden = (Map<String, Object>) properties.get("hidden");
-					assertThat(secrets.get("mine")).isEqualTo("******");
-					assertThat(secrets.get("yours")).isEqualTo("******");
+					Map<String, Object> hidden = extracted(properties);
 					assertThat(hidden.get("mine")).isEqualTo("******");
 				}));
+	}
+
+	private Map<String, Object> extracted(Map<String, Object> properties) {
+		Map<String, Object> secrets = (Map<String, Object>) properties.get("secrets");
+		Map<String, Object> hidden = (Map<String, Object>) properties.get("hidden");
+		assertThat(secrets.get("mine")).isEqualTo("******");
+		assertThat(secrets.get("yours")).isEqualTo("******");
+		return hidden;
 	}
 
 	@Test
