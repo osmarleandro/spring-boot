@@ -96,13 +96,18 @@ class ReflectiveOperationInvokerTests {
 
 	@Test
 	void invokeWhenMissingNullableArgumentShouldInvoke() {
+		ReflectiveOperationInvoker invoker = extracted();
+		Object result = invoker
+				.invoke(new InvocationContext(mock(SecurityContext.class), Collections.singletonMap("name", null)));
+		assertThat(result).isEqualTo("llun");
+	}
+
+	private ReflectiveOperationInvoker extracted() {
 		OperationMethod operationMethod = new OperationMethod(ReflectionUtils.findMethod(Example.class,
 				"reverseNullable", ApiVersion.class, SecurityContext.class, String.class), OperationType.READ);
 		ReflectiveOperationInvoker invoker = new ReflectiveOperationInvoker(this.target, operationMethod,
 				this.parameterValueMapper);
-		Object result = invoker
-				.invoke(new InvocationContext(mock(SecurityContext.class), Collections.singletonMap("name", null)));
-		assertThat(result).isEqualTo("llun");
+		return invoker;
 	}
 
 	@Test
