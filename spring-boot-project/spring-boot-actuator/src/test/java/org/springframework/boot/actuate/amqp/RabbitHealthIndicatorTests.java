@@ -69,10 +69,14 @@ class RabbitHealthIndicatorTests {
 
 	@Test
 	void healthWhenConnectionFailsShouldReturnDown() {
-		givenTemplateExecutionWillInvokeCallback();
-		given(this.channel.getConnection()).willThrow(new RuntimeException());
+		extracted();
 		Health health = new RabbitHealthIndicator(this.rabbitTemplate).health();
 		assertThat(health.getStatus()).isEqualTo(Status.DOWN);
+	}
+
+	private void extracted() {
+		givenTemplateExecutionWillInvokeCallback();
+		given(this.channel.getConnection()).willThrow(new RuntimeException());
 	}
 
 	private void givenTemplateExecutionWillInvokeCallback() {
