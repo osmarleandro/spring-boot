@@ -110,8 +110,7 @@ class PlainTextThreadDumpFormatter {
 	}
 
 	private void writeLockedOwnableSynchronizers(PrintWriter writer, ThreadInfo info) {
-		writer.println("   Locked ownable synchronizers:");
-		LockInfo[] lockedSynchronizers = info.getLockedSynchronizers();
+		LockInfo[] lockedSynchronizers = extracted(writer, info);
 		if (lockedSynchronizers == null || lockedSynchronizers.length == 0) {
 			writer.println("\t- None");
 		}
@@ -120,6 +119,12 @@ class PlainTextThreadDumpFormatter {
 				writer.printf("\t- Locked %s%n", format(lockedSynchronizer));
 			}
 		}
+	}
+
+	private LockInfo[] extracted(PrintWriter writer, ThreadInfo info) {
+		writer.println("   Locked ownable synchronizers:");
+		LockInfo[] lockedSynchronizers = info.getLockedSynchronizers();
+		return lockedSynchronizers;
 	}
 
 }
