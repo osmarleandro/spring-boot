@@ -232,11 +232,16 @@ class JmxEndpointDiscovererTests {
 
 	private void hasDocumentedParameter(JmxOperation operation, int index, String name, Class<?> type,
 			String description) {
-		assertThat(index).isLessThan(operation.getParameters().size());
-		JmxOperationParameter parameter = operation.getParameters().get(index);
+		JmxOperationParameter parameter = extracted(operation, index);
 		assertThat(parameter.getName()).isEqualTo(name);
 		assertThat(parameter.getType()).isEqualTo(type);
 		assertThat(parameter.getDescription()).isEqualTo(description);
+	}
+
+	private JmxOperationParameter extracted(JmxOperation operation, int index) {
+		assertThat(index).isLessThan(operation.getParameters().size());
+		JmxOperationParameter parameter = operation.getParameters().get(index);
+		return parameter;
 	}
 
 	private Map<EndpointId, ExposableJmxEndpoint> discover(JmxEndpointDiscoverer discoverer) {
