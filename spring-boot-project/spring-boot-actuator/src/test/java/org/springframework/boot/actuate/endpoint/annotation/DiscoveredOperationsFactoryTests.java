@@ -76,11 +76,16 @@ class DiscoveredOperationsFactoryTests {
 
 	@Test
 	void createOperationsWhenHasDeleteMethodShouldCreateOperation() {
+		Collection<TestOperation> operations = extracted();
+		TestOperation operation = getFirst(operations);
+		assertThat(operation.getType()).isEqualTo(OperationType.DELETE);
+	}
+
+	private Collection<TestOperation> extracted() {
 		Collection<TestOperation> operations = this.factory.createOperations(EndpointId.of("test"),
 				new ExampleDelete());
 		assertThat(operations).hasSize(1);
-		TestOperation operation = getFirst(operations);
-		assertThat(operation.getType()).isEqualTo(OperationType.DELETE);
+		return operations;
 	}
 
 	@Test
