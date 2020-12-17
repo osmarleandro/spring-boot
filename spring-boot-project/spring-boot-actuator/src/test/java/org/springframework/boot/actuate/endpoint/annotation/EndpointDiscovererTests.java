@@ -207,8 +207,7 @@ class EndpointDiscovererTests {
 	@Test
 	void getEndpointsWhenHasSpecializedFiltersInSpecializedDiscovererShouldNotFilterEndpoints() {
 		load(SpecializedEndpointsConfiguration.class, (context) -> {
-			SpecializedEndpointDiscoverer discoverer = new SpecializedEndpointDiscoverer(context);
-			Map<EndpointId, SpecializedExposableEndpoint> endpoints = mapEndpoints(discoverer.getEndpoints());
+			Map<EndpointId, SpecializedExposableEndpoint> endpoints = extracted(context);
 			assertThat(endpoints).containsOnlyKeys(EndpointId.of("test"), EndpointId.of("specialized"),
 					EndpointId.of("specialized-superclass"));
 		});
@@ -217,19 +216,23 @@ class EndpointDiscovererTests {
 	@Test
 	void getEndpointsShouldApplyExtensions() {
 		load(SpecializedEndpointsConfiguration.class, (context) -> {
-			SpecializedEndpointDiscoverer discoverer = new SpecializedEndpointDiscoverer(context);
-			Map<EndpointId, SpecializedExposableEndpoint> endpoints = mapEndpoints(discoverer.getEndpoints());
+			Map<EndpointId, SpecializedExposableEndpoint> endpoints = extracted(context);
 			Map<Method, SpecializedOperation> operations = mapOperations(endpoints.get(EndpointId.of("specialized")));
 			assertThat(operations).containsKeys(ReflectionUtils.findMethod(SpecializedExtension.class, "getSpecial"));
 
 		});
 	}
 
+	private Map<EndpointId, SpecializedExposableEndpoint> extracted(AnnotationConfigApplicationContext context) {
+		SpecializedEndpointDiscoverer discoverer = new SpecializedEndpointDiscoverer(context);
+		Map<EndpointId, SpecializedExposableEndpoint> endpoints = mapEndpoints(discoverer.getEndpoints());
+		return endpoints;
+	}
+
 	@Test
 	void getEndpointShouldFindParentExtension() {
 		load(SubSpecializedEndpointsConfiguration.class, (context) -> {
-			SpecializedEndpointDiscoverer discoverer = new SpecializedEndpointDiscoverer(context);
-			Map<EndpointId, SpecializedExposableEndpoint> endpoints = mapEndpoints(discoverer.getEndpoints());
+			Map<EndpointId, SpecializedExposableEndpoint> endpoints = extracted(context);
 			Map<Method, SpecializedOperation> operations = mapOperations(endpoints.get(EndpointId.of("specialized")));
 			assertThat(operations).containsKeys(ReflectionUtils.findMethod(SpecializedTestEndpoint.class, "getAll"));
 			assertThat(operations).containsKeys(
@@ -242,8 +245,7 @@ class EndpointDiscovererTests {
 	@Test
 	void getEndpointsWhenHasProxiedEndpointShouldReturnEndpoint() {
 		load(ProxiedSpecializedEndpointsConfiguration.class, (context) -> {
-			SpecializedEndpointDiscoverer discoverer = new SpecializedEndpointDiscoverer(context);
-			Map<EndpointId, SpecializedExposableEndpoint> endpoints = mapEndpoints(discoverer.getEndpoints());
+			Map<EndpointId, SpecializedExposableEndpoint> endpoints = extracted(context);
 			assertThat(endpoints).containsOnlyKeys(EndpointId.of("test"), EndpointId.of("specialized"));
 		});
 	}
