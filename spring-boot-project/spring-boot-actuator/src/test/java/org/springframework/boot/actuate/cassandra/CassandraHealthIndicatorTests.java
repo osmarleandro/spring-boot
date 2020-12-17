@@ -48,14 +48,19 @@ class CassandraHealthIndicatorTests {
 
 	@Test
 	void healthWithCassandraUp() {
+		CassandraHealthIndicator healthIndicator = extracted();
+		Health health = healthIndicator.health();
+		assertThat(health.getStatus()).isEqualTo(Status.UP);
+		assertThat(health.getDetails().get("version")).isEqualTo("1.0.0");
+	}
+
+	private CassandraHealthIndicator extracted() {
 		CassandraOperations cassandraOperations = mock(CassandraOperations.class);
 		CqlOperations cqlOperations = mock(CqlOperations.class);
 		CassandraHealthIndicator healthIndicator = new CassandraHealthIndicator(cassandraOperations);
 		given(cassandraOperations.getCqlOperations()).willReturn(cqlOperations);
 		given(cqlOperations.queryForObject(any(SimpleStatement.class), eq(String.class))).willReturn("1.0.0");
-		Health health = healthIndicator.health();
-		assertThat(health.getStatus()).isEqualTo(Status.UP);
-		assertThat(health.getDetails().get("version")).isEqualTo("1.0.0");
+		return healthIndicator;
 	}
 
 	@Test
