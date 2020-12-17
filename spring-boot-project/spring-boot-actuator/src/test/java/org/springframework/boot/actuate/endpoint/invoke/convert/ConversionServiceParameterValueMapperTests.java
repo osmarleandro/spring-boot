@@ -53,8 +53,7 @@ class ConversionServiceParameterValueMapperTests {
 	@Test
 	void mapParameterWhenConversionServiceFailsShouldThrowParameterMappingException() {
 		ConversionService conversionService = mock(ConversionService.class);
-		RuntimeException error = new RuntimeException();
-		given(conversionService.convert(any(), any())).willThrow(error);
+		RuntimeException error = extracted(conversionService);
 		ConversionServiceParameterValueMapper mapper = new ConversionServiceParameterValueMapper(conversionService);
 		assertThatExceptionOfType(ParameterMappingException.class)
 				.isThrownBy(() -> mapper.mapParameterValue(new TestOperationParameter(Integer.class), "123"))
@@ -63,6 +62,12 @@ class ConversionServiceParameterValueMapperTests {
 					assertThat(ex.getParameter().getType()).isEqualTo(Integer.class);
 					assertThat(ex.getCause()).isEqualTo(error);
 				});
+	}
+
+	private RuntimeException extracted(ConversionService conversionService) {
+		RuntimeException error = new RuntimeException();
+		given(conversionService.convert(any(), any())).willThrow(error);
+		return error;
 	}
 
 	@Test
