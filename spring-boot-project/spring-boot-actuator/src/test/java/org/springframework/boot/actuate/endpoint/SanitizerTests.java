@@ -36,8 +36,7 @@ class SanitizerTests {
 
 	@Test
 	void defaultNonUriKeys() {
-		Sanitizer sanitizer = new Sanitizer();
-		assertThat(sanitizer.sanitize("password", "secret")).isEqualTo("******");
+		Sanitizer sanitizer = extracted();
 		assertThat(sanitizer.sanitize("my-password", "secret")).isEqualTo("******");
 		assertThat(sanitizer.sanitize("my-OTHER.paSSword", "secret")).isEqualTo("******");
 		assertThat(sanitizer.sanitize("somesecret", "secret")).isEqualTo("******");
@@ -46,6 +45,12 @@ class SanitizerTests {
 		assertThat(sanitizer.sanitize("sometoken", "secret")).isEqualTo("******");
 		assertThat(sanitizer.sanitize("find", "secret")).isEqualTo("secret");
 		assertThat(sanitizer.sanitize("sun.java.command", "--spring.redis.password=pa55w0rd")).isEqualTo("******");
+	}
+
+	private Sanitizer extracted() {
+		Sanitizer sanitizer = new Sanitizer();
+		assertThat(sanitizer.sanitize("password", "secret")).isEqualTo("******");
+		return sanitizer;
 	}
 
 	@ParameterizedTest(name = "key = {0}")
