@@ -90,8 +90,7 @@ class EndpointLinksResolverTests {
 
 	@Test
 	void resolvedLinksContainsALinkForControllerEndpoint() {
-		ExposableControllerEndpoint controllerEndpoint = mock(ExposableControllerEndpoint.class);
-		given(controllerEndpoint.getEndpointId()).willReturn(EndpointId.of("alpha"));
+		ExposableControllerEndpoint controllerEndpoint = extracted();
 		given(controllerEndpoint.isEnableByDefault()).willReturn(true);
 		given(controllerEndpoint.getRootPath()).willReturn("alpha");
 		String requestUrl = "https://api.example.com/actuator";
@@ -100,6 +99,12 @@ class EndpointLinksResolverTests {
 		assertThat(links).hasSize(2);
 		assertThat(links).hasEntrySatisfying("self", linkWithHref("https://api.example.com/actuator"));
 		assertThat(links).hasEntrySatisfying("alpha", linkWithHref("https://api.example.com/actuator/alpha"));
+	}
+
+	private ExposableControllerEndpoint extracted() {
+		ExposableControllerEndpoint controllerEndpoint = mock(ExposableControllerEndpoint.class);
+		given(controllerEndpoint.getEndpointId()).willReturn(EndpointId.of("alpha"));
+		return controllerEndpoint;
 	}
 
 	private WebOperation operationWithPath(String path, String id) {
