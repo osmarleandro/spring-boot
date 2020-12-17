@@ -64,8 +64,7 @@ class EnvironmentEndpointTests {
 
 	@Test
 	void basicResponse() {
-		ConfigurableEnvironment environment = emptyEnvironment();
-		environment.getPropertySources().addLast(singleKeyPropertySource("one", "my.key", "first"));
+		ConfigurableEnvironment environment = extracted();
 		environment.getPropertySources().addLast(singleKeyPropertySource("two", "my.key", "second"));
 		EnvironmentDescriptor descriptor = new EnvironmentEndpoint(environment).environment(null);
 		assertThat(descriptor.getActiveProfiles()).isEmpty();
@@ -73,6 +72,12 @@ class EnvironmentEndpointTests {
 		assertThat(sources.keySet()).containsExactly("one", "two");
 		assertThat(sources.get("one").getProperties()).containsOnlyKeys("my.key");
 		assertThat(sources.get("two").getProperties()).containsOnlyKeys("my.key");
+	}
+
+	private ConfigurableEnvironment extracted() {
+		ConfigurableEnvironment environment = emptyEnvironment();
+		environment.getPropertySources().addLast(singleKeyPropertySource("one", "my.key", "first"));
+		return environment;
 	}
 
 	@Test
