@@ -76,12 +76,7 @@ public class HeapDumpWebEndpoint {
 	public WebEndpointResponse<Resource> heapDump(@Nullable Boolean live) {
 		try {
 			if (this.lock.tryLock(this.timeout, TimeUnit.MILLISECONDS)) {
-				try {
-					return new WebEndpointResponse<>(dumpHeap((live != null) ? live : true));
-				}
-				finally {
-					this.lock.unlock();
-				}
+				return extracted(live);
 			}
 		}
 		catch (InterruptedException ex) {
@@ -94,6 +89,15 @@ public class HeapDumpWebEndpoint {
 			return new WebEndpointResponse<>(WebEndpointResponse.STATUS_SERVICE_UNAVAILABLE);
 		}
 		return new WebEndpointResponse<>(WebEndpointResponse.STATUS_TOO_MANY_REQUESTS);
+	}
+
+	private WebEndpointResponse<Resource> extracted(Boolean live) throws IOException, InterruptedException {
+		try {
+			return new WebEndpointResponse<>(dumpHeap((live != null) ? live : true));
+		}
+		finally {
+			this.lock.unlock();
+		}
 	}
 
 	private Resource dumpHeap(boolean live) throws IOException, InterruptedException {
