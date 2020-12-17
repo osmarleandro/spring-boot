@@ -149,11 +149,16 @@ class EndpointMBeanTests {
 
 	@Test
 	void invokeWhenMonoResultShouldBlockOnMono() throws MBeanException, ReflectionException {
+		EndpointMBean bean = extracted();
+		Object result = bean.invoke("testOperation", NO_PARAMS, NO_SIGNATURE);
+		assertThat(result).isEqualTo("monoResult");
+	}
+
+	private EndpointMBean extracted() {
 		TestExposableJmxEndpoint endpoint = new TestExposableJmxEndpoint(
 				new TestJmxOperation((arguments) -> Mono.just("monoResult")));
 		EndpointMBean bean = new EndpointMBean(this.responseMapper, null, endpoint);
-		Object result = bean.invoke("testOperation", NO_PARAMS, NO_SIGNATURE);
-		assertThat(result).isEqualTo("monoResult");
+		return bean;
 	}
 
 	@Test
