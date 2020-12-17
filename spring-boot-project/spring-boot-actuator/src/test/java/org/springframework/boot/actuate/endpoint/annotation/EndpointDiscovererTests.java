@@ -320,11 +320,7 @@ class EndpointDiscovererTests {
 
 	private void load(ApplicationContext parent, Class<?> configuration,
 			Consumer<AnnotationConfigApplicationContext> consumer) {
-		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
-		if (parent != null) {
-			context.setParent(parent);
-		}
-		context.register(configuration);
+		AnnotationConfigApplicationContext context = extracted(parent, configuration);
 		context.refresh();
 		try {
 			consumer.accept(context);
@@ -332,6 +328,15 @@ class EndpointDiscovererTests {
 		finally {
 			context.close();
 		}
+	}
+
+	private AnnotationConfigApplicationContext extracted(ApplicationContext parent, Class<?> configuration) {
+		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
+		if (parent != null) {
+			context.setParent(parent);
+		}
+		context.register(configuration);
+		return context;
 	}
 
 	@Configuration(proxyBeanMethods = false)
