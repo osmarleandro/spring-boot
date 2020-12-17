@@ -50,10 +50,15 @@ class CompositeHealthTests {
 
 	@Test
 	void getComponentReturnsComponents() {
-		Map<String, HealthComponent> components = new LinkedHashMap<>();
-		components.put("a", Health.up().build());
+		Map<String, HealthComponent> components = extracted();
 		CompositeHealth health = new CompositeHealth(ApiVersion.V3, Status.UP, components);
 		assertThat(health.getComponents()).isEqualTo(components);
+	}
+
+	private Map<String, HealthComponent> extracted() {
+		Map<String, HealthComponent> components = new LinkedHashMap<>();
+		components.put("a", Health.up().build());
+		return components;
 	}
 
 	@Test
