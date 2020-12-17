@@ -147,9 +147,13 @@ class EndpointDiscovererTests {
 	void getEndpointsWhenEndpointsArePrefixedWithScopedTargetShouldRegisterOnlyOneEndpoint() {
 		load(ScopedTargetEndpointConfiguration.class, (context) -> {
 			TestEndpoint expectedEndpoint = context.getBean("testEndpoint", TestEndpoint.class);
-			Collection<TestExposableEndpoint> endpoints = new TestEndpointDiscoverer(context).getEndpoints();
-			assertThat(endpoints).flatExtracting(TestExposableEndpoint::getEndpointBean).containsOnly(expectedEndpoint);
+			extracted(context, expectedEndpoint);
 		});
+	}
+
+	private void extracted(AnnotationConfigApplicationContext context, TestEndpoint expectedEndpoint) {
+		Collection<TestExposableEndpoint> endpoints = new TestEndpointDiscoverer(context).getEndpoints();
+		assertThat(endpoints).flatExtracting(TestExposableEndpoint::getEndpointBean).containsOnly(expectedEndpoint);
 	}
 
 	@Test
