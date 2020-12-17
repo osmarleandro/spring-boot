@@ -60,10 +60,15 @@ class DiscoveredOperationsFactoryTests {
 
 	@Test
 	void createOperationsWhenHasReadMethodShouldCreateOperation() {
-		Collection<TestOperation> operations = this.factory.createOperations(EndpointId.of("test"), new ExampleRead());
-		assertThat(operations).hasSize(1);
+		Collection<TestOperation> operations = extracted();
 		TestOperation operation = getFirst(operations);
 		assertThat(operation.getType()).isEqualTo(OperationType.READ);
+	}
+
+	private Collection<TestOperation> extracted() {
+		Collection<TestOperation> operations = this.factory.createOperations(EndpointId.of("test"), new ExampleRead());
+		assertThat(operations).hasSize(1);
+		return operations;
 	}
 
 	@Test
