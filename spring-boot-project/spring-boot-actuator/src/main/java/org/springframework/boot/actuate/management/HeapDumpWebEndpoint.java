@@ -97,12 +97,17 @@ public class HeapDumpWebEndpoint {
 	}
 
 	private Resource dumpHeap(boolean live) throws IOException, InterruptedException {
+		File file = extracted(live);
+		this.heapDumper.dumpHeap(file, live);
+		return new TemporaryFileSystemResource(file);
+	}
+
+	private File extracted(boolean live) throws IOException {
 		if (this.heapDumper == null) {
 			this.heapDumper = createHeapDumper();
 		}
 		File file = createTempFile(live);
-		this.heapDumper.dumpHeap(file, live);
-		return new TemporaryFileSystemResource(file);
+		return file;
 	}
 
 	private File createTempFile(boolean live) throws IOException {
