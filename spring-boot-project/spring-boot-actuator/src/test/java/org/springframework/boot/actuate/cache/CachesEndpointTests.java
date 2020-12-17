@@ -71,13 +71,18 @@ class CachesEndpointTests {
 
 	@Test
 	void namedCacheWithSingleCacheManager() {
-		CachesEndpoint endpoint = new CachesEndpoint(
-				Collections.singletonMap("test", new ConcurrentMapCacheManager("b", "a")));
-		CacheEntry entry = endpoint.cache("a", null);
+		CacheEntry entry = extracted();
 		assertThat(entry).isNotNull();
 		assertThat(entry.getCacheManager()).isEqualTo("test");
 		assertThat(entry.getName()).isEqualTo("a");
 		assertThat(entry.getTarget()).isEqualTo(ConcurrentHashMap.class.getName());
+	}
+
+	private CacheEntry extracted() {
+		CachesEndpoint endpoint = new CachesEndpoint(
+				Collections.singletonMap("test", new ConcurrentMapCacheManager("b", "a")));
+		CacheEntry entry = endpoint.cache("a", null);
+		return entry;
 	}
 
 	@Test
