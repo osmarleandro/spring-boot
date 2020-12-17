@@ -251,15 +251,20 @@ class EndpointDiscovererTests {
 	@Test
 	void getEndpointsShouldApplyFilters() {
 		load(SpecializedEndpointsConfiguration.class, (context) -> {
-			EndpointFilter<SpecializedExposableEndpoint> filter = (endpoint) -> {
-				EndpointId id = endpoint.getEndpointId();
-				return !id.equals(EndpointId.of("specialized")) && !id.equals(EndpointId.of("specialized-superclass"));
-			};
+			EndpointFilter<SpecializedExposableEndpoint> filter = extracted();
 			SpecializedEndpointDiscoverer discoverer = new SpecializedEndpointDiscoverer(context,
 					Collections.singleton(filter));
 			Map<EndpointId, SpecializedExposableEndpoint> endpoints = mapEndpoints(discoverer.getEndpoints());
 			assertThat(endpoints).containsOnlyKeys(EndpointId.of("test"));
 		});
+	}
+
+	private EndpointFilter<SpecializedExposableEndpoint> extracted() {
+		EndpointFilter<SpecializedExposableEndpoint> filter = (endpoint) -> {
+			EndpointId id = endpoint.getEndpointId();
+			return !id.equals(EndpointId.of("specialized")) && !id.equals(EndpointId.of("specialized-superclass"));
+		};
+		return filter;
 	}
 
 	private void hasTestEndpoint(AnnotationConfigApplicationContext context) {
