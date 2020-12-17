@@ -36,6 +36,11 @@ public class DefaultWebClientExchangeTagsProvider implements WebClientExchangeTa
 	public Iterable<Tag> tags(ClientRequest request, ClientResponse response, Throwable throwable) {
 		Tag method = WebClientExchangeTags.method(request);
 		Tag uri = WebClientExchangeTags.uri(request);
+		return extracted(request, response, throwable, method, uri);
+	}
+
+	private Iterable<Tag> extracted(ClientRequest request, ClientResponse response, Throwable throwable, Tag method,
+			Tag uri) {
 		Tag clientName = WebClientExchangeTags.clientName(request);
 		Tag status = WebClientExchangeTags.status(response, throwable);
 		Tag outcome = WebClientExchangeTags.outcome(response);
