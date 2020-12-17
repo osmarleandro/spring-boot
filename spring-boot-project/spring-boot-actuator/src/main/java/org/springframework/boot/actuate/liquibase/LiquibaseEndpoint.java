@@ -59,6 +59,11 @@ public class LiquibaseEndpoint {
 	public ApplicationLiquibaseBeans liquibaseBeans() {
 		ApplicationContext target = this.context;
 		Map<String, ContextLiquibaseBeans> contextBeans = new HashMap<>();
+		return extracted(target, contextBeans);
+	}
+
+	private ApplicationLiquibaseBeans extracted(ApplicationContext target,
+			Map<String, ContextLiquibaseBeans> contextBeans) {
 		while (target != null) {
 			Map<String, LiquibaseBean> liquibaseBeans = new HashMap<>();
 			DatabaseFactory factory = DatabaseFactory.getInstance();
