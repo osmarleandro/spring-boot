@@ -130,10 +130,15 @@ public class WebMvcMetricsFilter extends OncePerRequestFilter {
 			}
 		}
 		else {
-			for (Timed annotation : annotations) {
-				Builder builder = Timer.builder(annotation, this.metricName);
-				timerSample.stop(getTimer(builder, handler, request, response, exception));
-			}
+			extracted(request, response, exception, handler, annotations, timerSample);
+		}
+	}
+
+	private void extracted(HttpServletRequest request, HttpServletResponse response, Throwable exception,
+			Object handler, Set<Timed> annotations, Timer.Sample timerSample) {
+		for (Timed annotation : annotations) {
+			Builder builder = Timer.builder(annotation, this.metricName);
+			timerSample.stop(getTimer(builder, handler, request, response, exception));
 		}
 	}
 
