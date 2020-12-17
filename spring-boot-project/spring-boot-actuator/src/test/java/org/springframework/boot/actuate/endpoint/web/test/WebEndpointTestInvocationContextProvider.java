@@ -109,10 +109,15 @@ class WebEndpointTestInvocationContextProvider implements TestTemplateInvocation
 	}
 
 	private static ConfigurableApplicationContext createWebMvcContext(List<Class<?>> classes) {
-		AnnotationConfigServletWebServerApplicationContext context = new AnnotationConfigServletWebServerApplicationContext();
-		classes.add(WebMvcEndpointConfiguration.class);
+		AnnotationConfigServletWebServerApplicationContext context = extracted(classes);
 		context.register(ClassUtils.toClassArray(classes));
 		context.refresh();
+		return context;
+	}
+
+	private static AnnotationConfigServletWebServerApplicationContext extracted(List<Class<?>> classes) {
+		AnnotationConfigServletWebServerApplicationContext context = new AnnotationConfigServletWebServerApplicationContext();
+		classes.add(WebMvcEndpointConfiguration.class);
 		return context;
 	}
 
