@@ -264,8 +264,7 @@ class ConfigurationPropertiesReportEndpointTests {
 		this.contextRunner.withUserConfiguration(SensiblePropertiesConfiguration.class)
 				.withPropertyValues("sensible.listOfListItems[0][0].some-password=password")
 				.run(assertProperties("sensible", (properties) -> {
-					assertThat(properties.get("listOfListItems")).isInstanceOf(List.class);
-					List<List<Object>> listOfLists = (List<List<Object>>) properties.get("listOfListItems");
+					List<List<Object>> listOfLists = extracted(properties);
 					assertThat(listOfLists).hasSize(1);
 					List<Object> list = listOfLists.get(0);
 					assertThat(list).hasSize(1);
@@ -283,6 +282,12 @@ class ConfigurationPropertiesReportEndpointTests {
 					assertThat(somePassword.get("origin")).isEqualTo(
 							"\"sensible.listOfListItems[0][0].some-password\" from property source \"test\"");
 				}));
+	}
+
+	private List<List<Object>> extracted(Map<String, Object> properties) {
+		assertThat(properties.get("listOfListItems")).isInstanceOf(List.class);
+		List<List<Object>> listOfLists = (List<List<Object>>) properties.get("listOfListItems");
+		return listOfLists;
 	}
 
 	@Test
