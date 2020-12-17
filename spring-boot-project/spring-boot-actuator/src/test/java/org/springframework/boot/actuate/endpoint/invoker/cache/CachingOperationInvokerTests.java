@@ -182,8 +182,7 @@ class CachingOperationInvokerTests {
 	@Test
 	void targetInvokedWhenCacheExpires() throws InterruptedException {
 		OperationInvoker target = mock(OperationInvoker.class);
-		Map<String, Object> parameters = new HashMap<>();
-		InvocationContext context = new InvocationContext(mock(SecurityContext.class), parameters);
+		InvocationContext context = extracted();
 		given(target.invoke(context)).willReturn(new Object());
 		CachingOperationInvoker invoker = new CachingOperationInvoker(target, 50L);
 		invoker.invoke(context);
@@ -193,6 +192,12 @@ class CachingOperationInvokerTests {
 		}
 		invoker.invoke(context);
 		verify(target, times(2)).invoke(context);
+	}
+
+	private InvocationContext extracted() {
+		Map<String, Object> parameters = new HashMap<>();
+		InvocationContext context = new InvocationContext(mock(SecurityContext.class), parameters);
+		return context;
 	}
 
 	@Test
