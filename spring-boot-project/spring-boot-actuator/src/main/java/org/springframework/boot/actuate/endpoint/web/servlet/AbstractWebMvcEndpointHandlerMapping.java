@@ -157,10 +157,15 @@ public abstract class AbstractWebMvcEndpointHandlerMapping extends RequestMappin
 
 	@SuppressWarnings("deprecation")
 	private static RequestMappingInfo.BuilderConfiguration getBuilderConfig() {
-		RequestMappingInfo.BuilderConfiguration config = new RequestMappingInfo.BuilderConfiguration();
-		config.setPathMatcher(null);
+		RequestMappingInfo.BuilderConfiguration config = extracted();
 		config.setSuffixPatternMatch(false);
 		config.setTrailingSlashMatch(true);
+		return config;
+	}
+
+	private static RequestMappingInfo.BuilderConfiguration extracted() {
+		RequestMappingInfo.BuilderConfiguration config = new RequestMappingInfo.BuilderConfiguration();
+		config.setPathMatcher(null);
 		return config;
 	}
 
