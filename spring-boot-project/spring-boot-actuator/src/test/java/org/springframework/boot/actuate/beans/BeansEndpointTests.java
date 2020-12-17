@@ -28,6 +28,7 @@ import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.boot.actuate.beans.BeansEndpoint.ApplicationBeans;
 import org.springframework.boot.actuate.beans.BeansEndpoint.BeanDescriptor;
 import org.springframework.boot.actuate.beans.BeansEndpoint.ContextBeans;
+import org.springframework.boot.test.context.assertj.AssertableApplicationContext;
 import org.springframework.boot.test.context.runner.ApplicationContextRunner;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
@@ -63,18 +64,22 @@ class BeansEndpointTests {
 		ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 				.withUserConfiguration(EndpointConfiguration.class);
 		contextRunner.run((context) -> {
-			ConfigurableListableBeanFactory factory = (ConfigurableListableBeanFactory) context
-					.getAutowireCapableBeanFactory();
-			List<String> infrastructureBeans = Stream.of(context.getBeanDefinitionNames())
-					.filter((name) -> BeanDefinition.ROLE_INFRASTRUCTURE == factory.getBeanDefinition(name).getRole())
-					.collect(Collectors.toList());
-			ApplicationBeans result = context.getBean(BeansEndpoint.class).beans();
-			ContextBeans contextDescriptor = result.getContexts().get(context.getId());
-			Map<String, BeanDescriptor> beans = contextDescriptor.getBeans();
-			for (String infrastructureBean : infrastructureBeans) {
-				assertThat(beans).doesNotContainKey(infrastructureBean);
-			}
+			extracted(context);
 		});
+	}
+
+	private void extracted(AssertableApplicationContext context) {
+		ConfigurableListableBeanFactory factory = (ConfigurableListableBeanFactory) context
+				.getAutowireCapableBeanFactory();
+		List<String> infrastructureBeans = Stream.of(context.getBeanDefinitionNames())
+				.filter((name) -> BeanDefinition.ROLE_INFRASTRUCTURE == factory.getBeanDefinition(name).getRole())
+				.collect(Collectors.toList());
+		ApplicationBeans result = context.getBean(BeansEndpoint.class).beans();
+		ContextBeans contextDescriptor = result.getContexts().get(context.getId());
+		Map<String, BeanDescriptor> beans = contextDescriptor.getBeans();
+		for (String infrastructureBean : infrastructureBeans) {
+			assertThat(beans).doesNotContainKey(infrastructureBean);
+		}
 	}
 
 	@Test
