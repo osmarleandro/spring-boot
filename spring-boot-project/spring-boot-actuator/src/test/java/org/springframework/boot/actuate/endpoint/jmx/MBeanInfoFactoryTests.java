@@ -110,10 +110,15 @@ class MBeanInfoFactoryTests {
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	private JmxOperationParameter mockParameter(String name, Class<?> type, String description) {
-		JmxOperationParameter parameter = mock(JmxOperationParameter.class);
-		given(parameter.getName()).willReturn(name);
+		JmxOperationParameter parameter = extracted(name);
 		given(parameter.getType()).willReturn((Class) type);
 		given(parameter.getDescription()).willReturn(description);
+		return parameter;
+	}
+
+	private JmxOperationParameter extracted(String name) {
+		JmxOperationParameter parameter = mock(JmxOperationParameter.class);
+		given(parameter.getName()).willReturn(name);
 		return parameter;
 	}
 
