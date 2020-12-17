@@ -43,9 +43,14 @@ class HealthIndicatorReactiveAdapterTests {
 	@Test
 	void delegateThrowError() {
 		HealthIndicator delegate = mock(HealthIndicator.class);
+		HealthIndicatorReactiveAdapter adapter = extracted(delegate);
+		StepVerifier.create(adapter.health()).expectError(IllegalStateException.class).verify(Duration.ofSeconds(10));
+	}
+
+	private HealthIndicatorReactiveAdapter extracted(HealthIndicator delegate) {
 		HealthIndicatorReactiveAdapter adapter = new HealthIndicatorReactiveAdapter(delegate);
 		given(delegate.health()).willThrow(new IllegalStateException("Expected"));
-		StepVerifier.create(adapter.health()).expectError(IllegalStateException.class).verify(Duration.ofSeconds(10));
+		return adapter;
 	}
 
 	@Test
