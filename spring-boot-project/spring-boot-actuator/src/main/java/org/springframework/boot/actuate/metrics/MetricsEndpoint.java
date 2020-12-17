@@ -150,9 +150,14 @@ public class MetricsEndpoint {
 	}
 
 	private <T> Set<T> merge(Set<T> set1, Set<T> set2) {
+		Set<T> result = extracted(set1, set2);
+		result.addAll(set2);
+		return result;
+	}
+
+	private <T> Set<T> extracted(Set<T> set1, Set<T> set2) {
 		Set<T> result = new HashSet<>(set1.size() + set2.size());
 		result.addAll(set1);
-		result.addAll(set2);
 		return result;
 	}
 
