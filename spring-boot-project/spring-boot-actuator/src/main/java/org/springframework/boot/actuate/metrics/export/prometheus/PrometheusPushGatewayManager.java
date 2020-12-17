@@ -108,16 +108,21 @@ public class PrometheusPushGatewayManager {
 			this.pushGateway.pushAdd(this.registry, this.job, this.groupingKey);
 		}
 		catch (UnknownHostException ex) {
-			String host = ex.getMessage();
-			String message = "Unable to locate prometheus push gateway host"
-					+ (StringUtils.hasLength(host) ? " '" + host + "'" : "")
-					+ ". No longer attempting metrics publication to this host";
+			String message = extracted(ex);
 			logger.error(message, ex);
 			shutdown(ShutdownOperation.NONE);
 		}
 		catch (Throwable ex) {
 			logger.error("Unable to push metrics to Prometheus Pushgateway", ex);
 		}
+	}
+
+	private String extracted(UnknownHostException ex) {
+		String host = ex.getMessage();
+		String message = "Unable to locate prometheus push gateway host"
+				+ (StringUtils.hasLength(host) ? " '" + host + "'" : "")
+				+ ". No longer attempting metrics publication to this host";
+		return message;
 	}
 
 	private void delete() {
