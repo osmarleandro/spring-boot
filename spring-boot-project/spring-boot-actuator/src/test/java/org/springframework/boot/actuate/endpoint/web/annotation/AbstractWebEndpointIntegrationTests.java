@@ -177,8 +177,7 @@ public abstract class AbstractWebEndpointIntegrationTests<T extends Configurable
 	@Test
 	void writeOperation() {
 		load(TestEndpointConfiguration.class, (client) -> {
-			Map<String, Object> body = new HashMap<>();
-			body.put("foo", "one");
+			Map<String, Object> body = extracted();
 			body.put("bar", "two");
 			client.post().uri("/test").bodyValue(body).exchange().expectStatus().isNoContent().expectBody().isEmpty();
 		});
@@ -209,11 +208,16 @@ public abstract class AbstractWebEndpointIntegrationTests<T extends Configurable
 	@Test
 	void nullIsPassedToTheOperationWhenArgumentIsNotFoundInPostRequestBody() {
 		load(TestEndpointConfiguration.class, (context, client) -> {
-			Map<String, Object> body = new HashMap<>();
-			body.put("foo", "one");
+			Map<String, Object> body = extracted();
 			client.post().uri("/test").bodyValue(body).exchange().expectStatus().isNoContent().expectBody().isEmpty();
 			verify(context.getBean(EndpointDelegate.class)).write("one", null);
 		});
+	}
+
+	private Map<String, Object> extracted() {
+		Map<String, Object> body = new HashMap<>();
+		body.put("foo", "one");
+		return body;
 	}
 
 	@Test
