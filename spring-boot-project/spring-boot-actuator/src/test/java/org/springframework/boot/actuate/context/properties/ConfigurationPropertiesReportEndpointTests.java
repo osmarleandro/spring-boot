@@ -290,10 +290,15 @@ class ConfigurationPropertiesReportEndpointTests {
 		this.contextRunner.withUserConfiguration(SensiblePropertiesConfiguration.class)
 				.withInitializer(this::initializeOriginParents).run(assertProperties("sensible", (properties) -> {
 				}, (inputs) -> {
-					Map<String, Object> stringInputs = (Map<String, Object>) inputs.get("string");
-					String[] originParents = (String[]) stringInputs.get("originParents");
+					String[] originParents = extracted(inputs);
 					assertThat(originParents).containsExactly("spring", "boot");
 				}));
+	}
+
+	private String[] extracted(Map<String, Object> inputs) {
+		Map<String, Object> stringInputs = (Map<String, Object>) inputs.get("string");
+		String[] originParents = (String[]) stringInputs.get("originParents");
+		return originParents;
 	}
 
 	private void initializeOriginParents(ConfigurableApplicationContext context) {
