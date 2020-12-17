@@ -157,10 +157,16 @@ class HealthEndpointWebIntegrationTests {
 					.jsonPath("components.bravo.status").doesNotExist();
 		}
 		finally {
-			healthContributorRegistry.registerContributor(name, bravo);
-			if (reactiveHealthContributorRegistry != null && reactiveBravo != null) {
-				reactiveHealthContributorRegistry.registerContributor(name, reactiveBravo);
-			}
+			extracted(name, healthContributorRegistry, bravo, reactiveHealthContributorRegistry, reactiveBravo);
+		}
+	}
+
+	private void extracted(String name, HealthContributorRegistry healthContributorRegistry, HealthContributor bravo,
+			ReactiveHealthContributorRegistry reactiveHealthContributorRegistry,
+			ReactiveHealthContributor reactiveBravo) {
+		healthContributorRegistry.registerContributor(name, bravo);
+		if (reactiveHealthContributorRegistry != null && reactiveBravo != null) {
+			reactiveHealthContributorRegistry.registerContributor(name, reactiveBravo);
 		}
 	}
 
