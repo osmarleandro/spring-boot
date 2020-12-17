@@ -91,12 +91,17 @@ public class ControllerEndpointHandlerMapping extends RequestMappingHandlerMappi
 	private RequestMappingInfo withEndpointMappedPatterns(ExposableControllerEndpoint endpoint,
 			RequestMappingInfo mapping) {
 		Set<String> patterns = mapping.getPatternsCondition().getPatterns();
+		String[] endpointMappedPatterns = extracted(endpoint, patterns);
+		return withNewPatterns(mapping, endpointMappedPatterns);
+	}
+
+	private String[] extracted(ExposableControllerEndpoint endpoint, Set<String> patterns) {
 		if (patterns.isEmpty()) {
 			patterns = Collections.singleton("");
 		}
 		String[] endpointMappedPatterns = patterns.stream()
 				.map((pattern) -> getEndpointMappedPattern(endpoint, pattern)).toArray(String[]::new);
-		return withNewPatterns(mapping, endpointMappedPatterns);
+		return endpointMappedPatterns;
 	}
 
 	private String getEndpointMappedPattern(ExposableControllerEndpoint endpoint, String pattern) {
