@@ -64,6 +64,16 @@ class CouchbaseReactiveHealthIndicatorTests {
 	@SuppressWarnings("unchecked")
 	void couchbaseClusterIsDown() {
 		Cluster cluster = mock(Cluster.class);
+		CouchbaseReactiveHealthIndicator healthIndicator = extracted(cluster);
+		Health health = healthIndicator.health().block(Duration.ofSeconds(30));
+		assertThat(health.getStatus()).isEqualTo(Status.DOWN);
+		assertThat(health.getDetails()).containsEntry("sdk", "test-sdk");
+		assertThat(health.getDetails()).containsKey("endpoints");
+		assertThat((List<Map<String, Object>>) health.getDetails().get("endpoints")).hasSize(2);
+		verify(cluster).diagnostics();
+	}
+
+	private CouchbaseReactiveHealthIndicator extracted(Cluster cluster) {
 		CouchbaseReactiveHealthIndicator healthIndicator = new CouchbaseReactiveHealthIndicator(cluster);
 		Map<ServiceType, List<EndpointDiagnostics>> endpoints = Collections.singletonMap(ServiceType.KV,
 				Arrays.asList(
@@ -73,12 +83,7 @@ class CouchbaseReactiveHealthIndicatorTests {
 								Optional.empty(), Optional.of(1234L), Optional.of("endpoint-2"))));
 		DiagnosticsResult diagnostics = new DiagnosticsResult(endpoints, "test-sdk", "test-id");
 		given(cluster.diagnostics()).willReturn(diagnostics);
-		Health health = healthIndicator.health().block(Duration.ofSeconds(30));
-		assertThat(health.getStatus()).isEqualTo(Status.DOWN);
-		assertThat(health.getDetails()).containsEntry("sdk", "test-sdk");
-		assertThat(health.getDetails()).containsKey("endpoints");
-		assertThat((List<Map<String, Object>>) health.getDetails().get("endpoints")).hasSize(2);
-		verify(cluster).diagnostics();
+		return healthIndicator;
 	}
 
 }
