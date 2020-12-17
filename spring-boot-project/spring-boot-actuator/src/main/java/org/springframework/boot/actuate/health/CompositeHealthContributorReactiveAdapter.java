@@ -49,6 +49,11 @@ class CompositeHealthContributorReactiveAdapter implements CompositeReactiveHeal
 
 			@Override
 			public NamedContributor<ReactiveHealthContributor> next() {
+				return extracted(iterator);
+			}
+
+			private NamedContributor<ReactiveHealthContributor> extracted(
+					Iterator<NamedContributor<HealthContributor>> iterator) {
 				NamedContributor<HealthContributor> namedContributor = iterator.next();
 				return NamedContributor.of(namedContributor.getName(),
 						ReactiveHealthContributor.adapt(namedContributor.getContributor()));
