@@ -73,11 +73,16 @@ class ReactiveHealthEndpointWebExtensionTests extends
 
 	@Test
 	void healthWhenPathExistsReturnsHealth() {
+		WebEndpointResponse<? extends HealthComponent> response = extracted();
+		assertThat(response.getBody()).isEqualTo(this.up);
+		assertThat(response.getStatus()).isEqualTo(200);
+	}
+
+	private WebEndpointResponse<? extends HealthComponent> extracted() {
 		this.registry.registerContributor("test", createContributor(this.up));
 		WebEndpointResponse<? extends HealthComponent> response = create(this.registry, this.groups)
 				.health(ApiVersion.LATEST, SecurityContext.NONE, "test").block();
-		assertThat(response.getBody()).isEqualTo(this.up);
-		assertThat(response.getStatus()).isEqualTo(200);
+		return response;
 	}
 
 	@Override
