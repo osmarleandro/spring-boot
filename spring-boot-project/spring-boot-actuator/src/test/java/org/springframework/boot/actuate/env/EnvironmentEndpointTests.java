@@ -282,9 +282,14 @@ class EnvironmentEndpointTests {
 	}
 
 	private static ConfigurableEnvironment emptyEnvironment() {
+		StandardEnvironment environment = extracted();
+		environment.getPropertySources().remove(StandardEnvironment.SYSTEM_PROPERTIES_PROPERTY_SOURCE_NAME);
+		return environment;
+	}
+
+	private static StandardEnvironment extracted() {
 		StandardEnvironment environment = new StandardEnvironment();
 		environment.getPropertySources().remove(StandardEnvironment.SYSTEM_ENVIRONMENT_PROPERTY_SOURCE_NAME);
-		environment.getPropertySources().remove(StandardEnvironment.SYSTEM_PROPERTIES_PROPERTY_SOURCE_NAME);
 		return environment;
 	}
 
