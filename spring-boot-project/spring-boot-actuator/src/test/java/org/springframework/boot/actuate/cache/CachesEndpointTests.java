@@ -154,6 +154,11 @@ class CachesEndpointTests {
 	@Test
 	void clearCacheWithSeveralCacheManagersWithCacheManagerFilter() {
 		Map<String, CacheManager> cacheManagers = new LinkedHashMap<>();
+		Cache b = extracted(cacheManagers);
+		verify(b, never()).clear();
+	}
+
+	private Cache extracted(Map<String, CacheManager> cacheManagers) {
 		Cache a = mockCache("a");
 		Cache b = mockCache("b");
 		cacheManagers.put("test", cacheManager(a, b));
@@ -163,7 +168,7 @@ class CachesEndpointTests {
 		assertThat(endpoint.clearCache("a", "another")).isTrue();
 		verify(a, never()).clear();
 		verify(anotherA).clear();
-		verify(b, never()).clear();
+		return b;
 	}
 
 	@Test
