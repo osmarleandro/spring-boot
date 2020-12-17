@@ -75,6 +75,11 @@ public class ReactiveHealthEndpointWebExtension
 					? Mono.just(new WebEndpointResponse<>(DEFAULT_HEALTH, WebEndpointResponse.STATUS_OK))
 					: Mono.just(new WebEndpointResponse<>(WebEndpointResponse.STATUS_NOT_FOUND));
 		}
+		return extracted(result);
+	}
+
+	private Mono<WebEndpointResponse<? extends HealthComponent>> extracted(
+			HealthResult<Mono<? extends HealthComponent>> result) {
 		HealthEndpointGroup group = result.getGroup();
 		return result.getHealth().map((health) -> {
 			int statusCode = group.getHttpCodeStatusMapper().getStatusCode(health.getStatus());
