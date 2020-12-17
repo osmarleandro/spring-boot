@@ -26,6 +26,7 @@ import org.junit.jupiter.api.Test;
 
 import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.test.context.assertj.AssertableApplicationContext;
 import org.springframework.boot.test.context.runner.ApplicationContextRunner;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -49,21 +50,26 @@ class ShutdownEndpointTests {
 		ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 				.withUserConfiguration(EndpointConfig.class);
 		contextRunner.run((context) -> {
-			EndpointConfig config = context.getBean(EndpointConfig.class);
-			ClassLoader previousTccl = Thread.currentThread().getContextClassLoader();
-			Map<String, String> result;
-			Thread.currentThread().setContextClassLoader(new URLClassLoader(new URL[0], getClass().getClassLoader()));
-			try {
-				result = context.getBean(ShutdownEndpoint.class).shutdown();
-			}
-			finally {
-				Thread.currentThread().setContextClassLoader(previousTccl);
-			}
-			assertThat(result.get("message")).startsWith("Shutting down");
+			EndpointConfig config = extracted(context);
 			assertThat(((ConfigurableApplicationContext) context).isActive()).isTrue();
 			assertThat(config.latch.await(10, TimeUnit.SECONDS)).isTrue();
 			assertThat(config.threadContextClassLoader).isEqualTo(getClass().getClassLoader());
 		});
+	}
+
+	private EndpointConfig extracted(AssertableApplicationContext context) {
+		EndpointConfig config = context.getBean(EndpointConfig.class);
+		ClassLoader previousTccl = Thread.currentThread().getContextClassLoader();
+		Map<String, String> result;
+		Thread.currentThread().setContextClassLoader(new URLClassLoader(new URL[0], getClass().getClassLoader()));
+		try {
+			result = context.getBean(ShutdownEndpoint.class).shutdown();
+		}
+		finally {
+			Thread.currentThread().setContextClassLoader(previousTccl);
+		}
+		assertThat(result.get("message")).startsWith("Shutting down");
+		return config;
 	}
 
 	@Test
