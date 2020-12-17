@@ -78,8 +78,7 @@ public class HttpTraceFilter extends OncePerRequestFilter implements Ordered {
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
 		if (!isRequestValid(request)) {
-			filterChain.doFilter(request, response);
-			return;
+			extracted(request, response, filterChain);
 		}
 		TraceableHttpServletRequest traceableRequest = new TraceableHttpServletRequest(request);
 		HttpTrace trace = this.tracer.receivedRequest(traceableRequest);
@@ -95,6 +94,11 @@ public class HttpTraceFilter extends OncePerRequestFilter implements Ordered {
 					() -> getSessionId(request));
 			this.repository.add(trace);
 		}
+	}
+
+	private void extracted(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
+			throws IOException, ServletException {
+		filterChain.doFilter(request, response);
 	}
 
 	private boolean isRequestValid(HttpServletRequest request) {
