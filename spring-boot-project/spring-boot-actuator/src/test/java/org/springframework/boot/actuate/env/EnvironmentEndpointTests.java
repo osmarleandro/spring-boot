@@ -308,13 +308,17 @@ class EnvironmentEndpointTests {
 			String origin) {
 		assertThat(actual).isNotNull();
 		if (value != null) {
-			assertThat(actual.getProperty().getValue()).isEqualTo(value);
-			assertThat(actual.getProperty().getOrigin()).isEqualTo(origin);
+			extracted(actual, value, origin);
 		}
 		else {
 			assertThat(actual.getProperty()).isNull();
 		}
 
+	}
+
+	private void extracted(PropertySourceEntryDescriptor actual, Object value, String origin) {
+		assertThat(actual.getProperty().getValue()).isEqualTo(value);
+		assertThat(actual.getProperty().getOrigin()).isEqualTo(origin);
 	}
 
 	static class OriginParentMockPropertySource extends MockPropertySource implements OriginLookup<String> {
