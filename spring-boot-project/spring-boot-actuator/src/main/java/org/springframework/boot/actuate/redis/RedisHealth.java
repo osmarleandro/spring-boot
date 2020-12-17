@@ -39,10 +39,14 @@ final class RedisHealth {
 	}
 
 	static Builder up(Health.Builder builder, ClusterInfo clusterInfo) {
-		builder.withDetail("cluster_size", clusterInfo.getClusterSize());
-		builder.withDetail("slots_up", clusterInfo.getSlotsOk());
+		extracted(builder, clusterInfo);
 		builder.withDetail("slots_fail", clusterInfo.getSlotsFail());
 		return builder.up();
+	}
+
+	private static void extracted(Health.Builder builder, ClusterInfo clusterInfo) {
+		builder.withDetail("cluster_size", clusterInfo.getClusterSize());
+		builder.withDetail("slots_up", clusterInfo.getSlotsOk());
 	}
 
 }
