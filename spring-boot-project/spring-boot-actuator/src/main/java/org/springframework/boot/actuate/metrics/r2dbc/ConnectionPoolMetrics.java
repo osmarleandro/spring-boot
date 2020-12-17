@@ -48,12 +48,7 @@ public class ConnectionPoolMetrics implements MeterBinder {
 	@Override
 	public void bindTo(MeterRegistry registry) {
 		this.pool.getMetrics().ifPresent((poolMetrics) -> {
-			bindConnectionPoolMetric(registry,
-					Gauge.builder(metricKey("acquired"), poolMetrics, PoolMetrics::acquiredSize)
-							.description("Size of successfully acquired connections which are in active use."));
-			bindConnectionPoolMetric(registry,
-					Gauge.builder(metricKey("allocated"), poolMetrics, PoolMetrics::allocatedSize)
-							.description("Size of allocated connections in the pool which are in active use or idle."));
+			extracted(registry, poolMetrics);
 			bindConnectionPoolMetric(registry, Gauge.builder(metricKey("idle"), poolMetrics, PoolMetrics::idleSize)
 					.description("Size of idle connections in the pool."));
 			bindConnectionPoolMetric(registry,
@@ -67,6 +62,15 @@ public class ConnectionPoolMetrics implements MeterBinder {
 							.description(
 									"Maximum size of pending state to acquire connections that this pool allows."));
 		});
+	}
+
+	private void extracted(MeterRegistry registry, PoolMetrics poolMetrics) {
+		bindConnectionPoolMetric(registry,
+				Gauge.builder(metricKey("acquired"), poolMetrics, PoolMetrics::acquiredSize)
+						.description("Size of successfully acquired connections which are in active use."));
+		bindConnectionPoolMetric(registry,
+				Gauge.builder(metricKey("allocated"), poolMetrics, PoolMetrics::allocatedSize)
+						.description("Size of allocated connections in the pool which are in active use or idle."));
 	}
 
 	private void bindConnectionPoolMetric(MeterRegistry registry, Builder<?> builder) {
