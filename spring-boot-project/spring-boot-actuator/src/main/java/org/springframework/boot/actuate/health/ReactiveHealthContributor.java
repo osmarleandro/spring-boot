@@ -36,6 +36,10 @@ public interface ReactiveHealthContributor {
 		if (healthContributor instanceof HealthIndicator) {
 			return new HealthIndicatorReactiveAdapter((HealthIndicator) healthContributor);
 		}
+		return extracted(healthContributor);
+	}
+
+	static ReactiveHealthContributor extracted(HealthContributor healthContributor) {
 		if (healthContributor instanceof CompositeHealthContributor) {
 			return new CompositeHealthContributorReactiveAdapter((CompositeHealthContributor) healthContributor);
 		}
