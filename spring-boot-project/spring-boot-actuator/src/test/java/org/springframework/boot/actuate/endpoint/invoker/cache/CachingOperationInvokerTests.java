@@ -107,6 +107,11 @@ class CachingOperationInvokerTests {
 
 	private void assertCacheIsUsed(Map<String, Object> parameters, Principal principal) {
 		OperationInvoker target = mock(OperationInvoker.class);
+		extracted(parameters, principal, target);
+		verifyNoMoreInteractions(target);
+	}
+
+	private void extracted(Map<String, Object> parameters, Principal principal, OperationInvoker target) {
 		Object expected = new Object();
 		SecurityContext securityContext = mock(SecurityContext.class);
 		if (principal != null) {
@@ -120,7 +125,6 @@ class CachingOperationInvokerTests {
 		verify(target, times(1)).invoke(context);
 		Object cachedResponse = invoker.invoke(context);
 		assertThat(cachedResponse).isSameAs(response);
-		verifyNoMoreInteractions(target);
 	}
 
 	@Test
