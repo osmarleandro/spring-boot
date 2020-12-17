@@ -112,11 +112,16 @@ class ControllerEndpointDiscovererTests {
 	void getEndpointsShouldNotDiscoverRegularEndpoints() {
 		this.contextRunner.withUserConfiguration(WithRegularEndpointConfiguration.class)
 				.run(assertDiscoverer((discoverer) -> {
-					Collection<ExposableControllerEndpoint> endpoints = discoverer.getEndpoints();
-					List<EndpointId> ids = endpoints.stream().map(ExposableControllerEndpoint::getEndpointId)
-							.collect(Collectors.toList());
+					List<EndpointId> ids = extracted(discoverer);
 					assertThat(ids).containsOnly(EndpointId.of("testcontroller"), EndpointId.of("testrestcontroller"));
 				}));
+	}
+
+	private List<EndpointId> extracted(ControllerEndpointDiscoverer discoverer) {
+		Collection<ExposableControllerEndpoint> endpoints = discoverer.getEndpoints();
+		List<EndpointId> ids = endpoints.stream().map(ExposableControllerEndpoint::getEndpointId)
+				.collect(Collectors.toList());
+		return ids;
 	}
 
 	@Test
