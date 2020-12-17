@@ -94,6 +94,12 @@ class InMemoryAuditEventRepositoryTests {
 
 	@Test
 	void findByDate() {
+		List<AuditEvent> events = extracted();
+		assertThat(events.size()).isEqualTo(1);
+		assertThat(events.get(0).getType()).isEqualTo("c");
+	}
+
+	private List<AuditEvent> extracted() {
 		Instant instant = Instant.now();
 		Map<String, Object> data = new HashMap<>();
 		InMemoryAuditEventRepository repository = new InMemoryAuditEventRepository();
@@ -107,8 +113,7 @@ class InMemoryAuditEventRepositoryTests {
 		assertThat(events.get(0).getType()).isEqualTo("c");
 		assertThat(events.get(1).getType()).isEqualTo("d");
 		events = repository.find("dave", after, null);
-		assertThat(events.size()).isEqualTo(1);
-		assertThat(events.get(0).getType()).isEqualTo("c");
+		return events;
 	}
 
 }
