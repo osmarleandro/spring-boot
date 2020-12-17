@@ -101,10 +101,15 @@ class ElasticsearchReactiveHealthIndicatorTests {
 
 	@Test
 	void elasticsearchIsOutOfServiceByStatus() {
-		setupMockResponse(200, "red");
-		Health health = this.healthIndicator.health().block();
+		Health health = extracted();
 		assertThat(health.getStatus()).isEqualTo(Status.OUT_OF_SERVICE);
 		assertHealthDetailsWithStatus(health.getDetails(), "red");
+	}
+
+	private Health extracted() {
+		setupMockResponse(200, "red");
+		Health health = this.healthIndicator.health().block();
+		return health;
 	}
 
 	private void assertHealthDetailsWithStatus(Map<String, Object> details, String status) {
