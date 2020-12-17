@@ -124,10 +124,14 @@ public class EnvironmentEndpoint {
 
 	private Map<String, PropertyValueDescriptor> getPropertySourceDescriptors(String propertyName) {
 		Map<String, PropertyValueDescriptor> propertySources = new LinkedHashMap<>();
+		extracted(propertyName, propertySources);
+		return propertySources;
+	}
+
+	private void extracted(String propertyName, Map<String, PropertyValueDescriptor> propertySources) {
 		PlaceholdersResolver resolver = getResolver();
 		getPropertySourcesAsMap().forEach((sourceName, source) -> propertySources.put(sourceName,
 				source.containsProperty(propertyName) ? describeValueOf(propertyName, source, resolver) : null));
-		return propertySources;
 	}
 
 	private PropertySourceDescriptor describeSource(String sourceName, EnumerablePropertySource<?> source,
