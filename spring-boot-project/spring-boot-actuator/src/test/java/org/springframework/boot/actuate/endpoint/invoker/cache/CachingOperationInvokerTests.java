@@ -160,6 +160,11 @@ class CachingOperationInvokerTests {
 	@Test
 	void targetInvokedWhenCalledWithAndWithoutPrincipal() {
 		OperationInvoker target = mock(OperationInvoker.class);
+		InvocationContext authenticatedContext = extracted(target);
+		verify(target, times(1)).invoke(authenticatedContext);
+	}
+
+	private InvocationContext extracted(OperationInvoker target) {
 		Map<String, Object> parameters = new HashMap<>();
 		SecurityContext anonymous = mock(SecurityContext.class);
 		SecurityContext authenticated = mock(SecurityContext.class);
@@ -176,7 +181,7 @@ class CachingOperationInvokerTests {
 		assertThat(invoker.invoke(anonymousContext)).isEqualTo(anonymousResult);
 		assertThat(invoker.invoke(authenticatedContext)).isEqualTo(authenticatedResult);
 		verify(target, times(1)).invoke(anonymousContext);
-		verify(target, times(1)).invoke(authenticatedContext);
+		return authenticatedContext;
 	}
 
 	@Test
