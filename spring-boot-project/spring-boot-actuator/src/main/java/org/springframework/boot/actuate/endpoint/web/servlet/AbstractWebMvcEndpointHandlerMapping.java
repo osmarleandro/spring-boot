@@ -145,14 +145,19 @@ public abstract class AbstractWebMvcEndpointHandlerMapping extends RequestMappin
 
 	@Override
 	public RequestMatchResult match(HttpServletRequest request, String pattern) {
-		RequestMappingInfo info = RequestMappingInfo.paths(pattern).options(builderConfig).build();
-		RequestMappingInfo matchingInfo = info.getMatchingCondition(request);
+		RequestMappingInfo matchingInfo = extracted(request, pattern);
 		if (matchingInfo == null) {
 			return null;
 		}
 		Set<String> patterns = matchingInfo.getPatternsCondition().getPatterns();
 		String lookupPath = getUrlPathHelper().getLookupPathForRequest(request);
 		return new RequestMatchResult(patterns.iterator().next(), lookupPath, getPathMatcher());
+	}
+
+	private RequestMappingInfo extracted(HttpServletRequest request, String pattern) {
+		RequestMappingInfo info = RequestMappingInfo.paths(pattern).options(builderConfig).build();
+		RequestMappingInfo matchingInfo = info.getMatchingCondition(request);
+		return matchingInfo;
 	}
 
 	@SuppressWarnings("deprecation")
