@@ -225,13 +225,19 @@ class WebEndpointDiscovererTests {
 		try (AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(configuration)) {
 			ConversionServiceParameterValueMapper parameterMapper = new ConversionServiceParameterValueMapper(
 					DefaultConversionService.getSharedInstance());
-			EndpointMediaTypes mediaTypes = new EndpointMediaTypes(Collections.singletonList("application/json"),
-					Collections.singletonList("application/json"));
-			WebEndpointDiscoverer discoverer = new WebEndpointDiscoverer(context, parameterMapper, mediaTypes,
-					Collections.singletonList(endpointPathMapper),
-					Collections.singleton(new CachingOperationInvokerAdvisor(timeToLive)), Collections.emptyList());
+			WebEndpointDiscoverer discoverer = extracted(timeToLive, endpointPathMapper, context, parameterMapper);
 			consumer.accept(discoverer);
 		}
+	}
+
+	private WebEndpointDiscoverer extracted(Function<EndpointId, Long> timeToLive, PathMapper endpointPathMapper,
+			AnnotationConfigApplicationContext context, ConversionServiceParameterValueMapper parameterMapper) {
+		EndpointMediaTypes mediaTypes = new EndpointMediaTypes(Collections.singletonList("application/json"),
+				Collections.singletonList("application/json"));
+		WebEndpointDiscoverer discoverer = new WebEndpointDiscoverer(context, parameterMapper, mediaTypes,
+				Collections.singletonList(endpointPathMapper),
+				Collections.singleton(new CachingOperationInvokerAdvisor(timeToLive)), Collections.emptyList());
+		return discoverer;
 	}
 
 	private Map<EndpointId, ExposableWebEndpoint> mapEndpoints(Collection<ExposableWebEndpoint> endpoints) {
