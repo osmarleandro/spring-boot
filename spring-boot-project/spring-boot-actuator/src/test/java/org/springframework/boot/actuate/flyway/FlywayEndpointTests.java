@@ -25,6 +25,7 @@ import org.springframework.boot.autoconfigure.AutoConfigurations;
 import org.springframework.boot.autoconfigure.flyway.FlywayAutoConfiguration;
 import org.springframework.boot.autoconfigure.flyway.FlywayMigrationStrategy;
 import org.springframework.boot.autoconfigure.jdbc.EmbeddedDataSourceConfiguration;
+import org.springframework.boot.test.context.assertj.AssertableApplicationContext;
 import org.springframework.boot.test.context.runner.ApplicationContextRunner;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -45,11 +46,16 @@ class FlywayEndpointTests {
 	@Test
 	void flywayReportIsProduced() {
 		this.contextRunner.run((context) -> {
-			Map<String, FlywayDescriptor> flywayBeans = context.getBean(FlywayEndpoint.class).flywayBeans()
-					.getContexts().get(context.getId()).getFlywayBeans();
-			assertThat(flywayBeans).hasSize(1);
+			Map<String, FlywayDescriptor> flywayBeans = extracted(context);
 			assertThat(flywayBeans.values().iterator().next().getMigrations()).hasSize(3);
 		});
+	}
+
+	private Map<String, FlywayDescriptor> extracted(AssertableApplicationContext context) {
+		Map<String, FlywayDescriptor> flywayBeans = context.getBean(FlywayEndpoint.class).flywayBeans()
+				.getContexts().get(context.getId()).getFlywayBeans();
+		assertThat(flywayBeans).hasSize(1);
+		return flywayBeans;
 	}
 
 	@Test
@@ -59,9 +65,7 @@ class FlywayEndpointTests {
 					flyway.baseline();
 					flyway.migrate();
 				}).run((context) -> {
-					Map<String, FlywayDescriptor> flywayBeans = context.getBean(FlywayEndpoint.class).flywayBeans()
-							.getContexts().get(context.getId()).getFlywayBeans();
-					assertThat(flywayBeans).hasSize(1);
+					Map<String, FlywayDescriptor> flywayBeans = extracted(context);
 					assertThat(flywayBeans.values().iterator().next().getMigrations()).hasSize(3);
 				});
 	}
