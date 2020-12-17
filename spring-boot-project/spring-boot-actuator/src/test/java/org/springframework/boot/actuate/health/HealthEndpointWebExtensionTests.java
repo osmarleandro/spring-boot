@@ -40,13 +40,18 @@ class HealthEndpointWebExtensionTests
 
 	@Test
 	void healthReturnsSystemHealth() {
-		this.registry.registerContributor("test", createContributor(this.up));
-		WebEndpointResponse<HealthComponent> response = create(this.registry, this.groups).health(ApiVersion.LATEST,
-				SecurityContext.NONE);
+		WebEndpointResponse<HealthComponent> response = extracted();
 		HealthComponent health = response.getBody();
 		assertThat(health.getStatus()).isEqualTo(Status.UP);
 		assertThat(health).isInstanceOf(SystemHealth.class);
 		assertThat(response.getStatus()).isEqualTo(200);
+	}
+
+	private WebEndpointResponse<HealthComponent> extracted() {
+		this.registry.registerContributor("test", createContributor(this.up));
+		WebEndpointResponse<HealthComponent> response = create(this.registry, this.groups).health(ApiVersion.LATEST,
+				SecurityContext.NONE);
+		return response;
 	}
 
 	@Test
