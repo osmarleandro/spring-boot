@@ -95,6 +95,10 @@ class MetricsClientHttpRequestInterceptor implements ClientHttpRequestIntercepto
 
 			@Override
 			public URI expand(String url, Map<String, ?> arguments) {
+				return extracted(delegate, url, arguments);
+			}
+
+			private URI extracted(UriTemplateHandler delegate, String url, Map<String, ?> arguments) {
 				urlTemplate.get().push(url);
 				return delegate.expand(url, arguments);
 			}
