@@ -263,12 +263,17 @@ class EndpointDiscovererTests {
 	}
 
 	private void hasTestEndpoint(AnnotationConfigApplicationContext context) {
-		TestEndpointDiscoverer discoverer = new TestEndpointDiscoverer(context);
-		Map<EndpointId, TestExposableEndpoint> endpoints = mapEndpoints(discoverer.getEndpoints());
+		Map<EndpointId, TestExposableEndpoint> endpoints = extracted(context);
 		assertThat(endpoints).containsOnlyKeys(EndpointId.of("test"));
 		Map<Method, TestOperation> operations = mapOperations(endpoints.get(EndpointId.of("test")));
 		assertThat(operations).hasSize(4);
 		assertThat(operations).containsKeys();
+	}
+
+	private Map<EndpointId, TestExposableEndpoint> extracted(AnnotationConfigApplicationContext context) {
+		TestEndpointDiscoverer discoverer = new TestEndpointDiscoverer(context);
+		Map<EndpointId, TestExposableEndpoint> endpoints = mapEndpoints(discoverer.getEndpoints());
+		return endpoints;
 	}
 
 	private Method[] testEndpointMethods() {
