@@ -43,8 +43,7 @@ class MBeanInfoFactoryTests {
 
 	@Test
 	void getMBeanInfoShouldReturnMBeanInfo() {
-		MBeanInfo info = this.factory.getMBeanInfo(new TestExposableJmxEndpoint(new TestJmxOperation()));
-		assertThat(info).isNotNull();
+		MBeanInfo info = extracted();
 		assertThat(info.getClassName()).isEqualTo(EndpointMBean.class.getName());
 		assertThat(info.getDescription()).isEqualTo("MBean operations for endpoint test");
 		assertThat(info.getAttributes()).isEmpty();
@@ -56,6 +55,12 @@ class MBeanInfoFactoryTests {
 		assertThat(operationInfo.getReturnType()).isEqualTo(String.class.getName());
 		assertThat(operationInfo.getImpact()).isEqualTo(MBeanOperationInfo.INFO);
 		assertThat(operationInfo.getSignature()).hasSize(0);
+	}
+
+	private MBeanInfo extracted() {
+		MBeanInfo info = this.factory.getMBeanInfo(new TestExposableJmxEndpoint(new TestJmxOperation()));
+		assertThat(info).isNotNull();
+		return info;
 	}
 
 	@Test
