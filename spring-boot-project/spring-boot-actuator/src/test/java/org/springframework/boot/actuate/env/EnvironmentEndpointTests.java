@@ -133,8 +133,7 @@ class EnvironmentEndpointTests {
 	@Test
 	void sensitiveKeysMatchingCustomNameHaveTheirValuesSanitized() {
 		TestPropertyValues.of("dbPassword=123456", "apiKey=123456").applyToSystemProperties(() -> {
-			EnvironmentEndpoint endpoint = new EnvironmentEndpoint(new StandardEnvironment());
-			endpoint.setKeysToSanitize("key");
+			EnvironmentEndpoint endpoint = extracted();
 			EnvironmentDescriptor descriptor = endpoint.environment(null);
 			Map<String, PropertyValueDescriptor> systemProperties = propertySources(descriptor).get("systemProperties")
 					.getProperties();
@@ -142,6 +141,12 @@ class EnvironmentEndpointTests {
 			assertThat(systemProperties.get("apiKey").getValue()).isEqualTo("******");
 			return null;
 		});
+	}
+
+	private EnvironmentEndpoint extracted() {
+		EnvironmentEndpoint endpoint = new EnvironmentEndpoint(new StandardEnvironment());
+		endpoint.setKeysToSanitize("key");
+		return endpoint;
 	}
 
 	@Test
