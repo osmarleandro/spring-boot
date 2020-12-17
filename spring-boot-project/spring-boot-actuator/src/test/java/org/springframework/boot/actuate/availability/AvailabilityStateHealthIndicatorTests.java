@@ -94,13 +94,18 @@ class AvailabilityStateHealthIndicatorTests {
 
 	@Test
 	void healthWhenNotEnumReturnsMappedStatus() {
+		AvailabilityStateHealthIndicator indicator = extracted();
+		given(this.applicationAvailability.getState(TestAvailabilityState.class)).willReturn(TestAvailabilityState.TWO);
+		assertThat(indicator.getHealth(false).getStatus()).isEqualTo(Status.DOWN);
+	}
+
+	private AvailabilityStateHealthIndicator extracted() {
 		AvailabilityStateHealthIndicator indicator = new AvailabilityStateHealthIndicator(this.applicationAvailability,
 				TestAvailabilityState.class, (statusMappings) -> {
 					statusMappings.add(TestAvailabilityState.ONE, Status.UP);
 					statusMappings.addDefaultStatus(Status.DOWN);
 				});
-		given(this.applicationAvailability.getState(TestAvailabilityState.class)).willReturn(TestAvailabilityState.TWO);
-		assertThat(indicator.getHealth(false).getStatus()).isEqualTo(Status.DOWN);
+		return indicator;
 	}
 
 	static class TestAvailabilityState implements AvailabilityState {
