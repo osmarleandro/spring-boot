@@ -101,10 +101,15 @@ class WebEndpointTestInvocationContextProvider implements TestTemplateInvocation
 	}
 
 	private static ConfigurableApplicationContext createJerseyContext(List<Class<?>> classes) {
-		AnnotationConfigServletWebServerApplicationContext context = new AnnotationConfigServletWebServerApplicationContext();
-		classes.add(JerseyEndpointConfiguration.class);
+		AnnotationConfigServletWebServerApplicationContext context = extracted(classes);
 		context.register(ClassUtils.toClassArray(classes));
 		context.refresh();
+		return context;
+	}
+
+	private static AnnotationConfigServletWebServerApplicationContext extracted(List<Class<?>> classes) {
+		AnnotationConfigServletWebServerApplicationContext context = new AnnotationConfigServletWebServerApplicationContext();
+		classes.add(JerseyEndpointConfiguration.class);
 		return context;
 	}
 
