@@ -211,11 +211,16 @@ class ConfigurationPropertiesReportEndpointTests {
 				.withPropertyValues("sensible.sensitiveUri=http://user:password@localhost:8080")
 				.run(assertProperties("sensible", (properties) -> assertThat(properties.get("sensitiveUri"))
 						.isEqualTo("http://user:******@localhost:8080"), (inputs) -> {
-							Map<String, Object> sensitiveUri = (Map<String, Object>) inputs.get("sensitiveUri");
-							assertThat(sensitiveUri.get("value")).isEqualTo("http://user:******@localhost:8080");
+							Map<String, Object> sensitiveUri = extracted(inputs);
 							assertThat(sensitiveUri.get("origin"))
 									.isEqualTo("\"sensible.sensitiveUri\" from property source \"test\"");
 						}));
+	}
+
+	private Map<String, Object> extracted(Map<String, Object> inputs) {
+		Map<String, Object> sensitiveUri = (Map<String, Object>) inputs.get("sensitiveUri");
+		assertThat(sensitiveUri.get("value")).isEqualTo("http://user:******@localhost:8080");
+		return sensitiveUri;
 	}
 
 	@Test
