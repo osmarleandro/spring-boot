@@ -104,6 +104,10 @@ class DefaultContributorRegistry<C> implements ContributorRegistry<C> {
 
 			@Override
 			public NamedContributor<C> next() {
+				return extracted(iterator);
+			}
+
+			private NamedContributor<C> extracted(Iterator<Map.Entry<String, C>> iterator) {
 				Entry<String, C> entry = iterator.next();
 				return NamedContributor.of(entry.getKey(), entry.getValue());
 			}
