@@ -49,14 +49,19 @@ class InMemoryAuditEventRepositoryTests {
 
 	@Test
 	void capacity() {
-		InMemoryAuditEventRepository repository = new InMemoryAuditEventRepository(2);
-		repository.add(new AuditEvent("dave", "a"));
+		InMemoryAuditEventRepository repository = extracted();
 		repository.add(new AuditEvent("dave", "b"));
 		repository.add(new AuditEvent("dave", "c"));
 		List<AuditEvent> events = repository.find("dave", null, null);
 		assertThat(events.size()).isEqualTo(2);
 		assertThat(events.get(0).getType()).isEqualTo("b");
 		assertThat(events.get(1).getType()).isEqualTo("c");
+	}
+
+	private InMemoryAuditEventRepository extracted() {
+		InMemoryAuditEventRepository repository = new InMemoryAuditEventRepository(2);
+		repository.add(new AuditEvent("dave", "a"));
+		return repository;
 	}
 
 	@Test
