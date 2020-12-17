@@ -91,10 +91,15 @@ class ControllerEndpointHandlerMappingTests {
 	}
 
 	private ControllerEndpointHandlerMapping createMapping(String prefix, ExposableControllerEndpoint... endpoints) {
+		ControllerEndpointHandlerMapping mapping = extracted(prefix, endpoints);
+		mapping.afterPropertiesSet();
+		return mapping;
+	}
+
+	private ControllerEndpointHandlerMapping extracted(String prefix, ExposableControllerEndpoint... endpoints) {
 		ControllerEndpointHandlerMapping mapping = new ControllerEndpointHandlerMapping(new EndpointMapping(prefix),
 				Arrays.asList(endpoints), null);
 		mapping.setApplicationContext(this.context);
-		mapping.afterPropertiesSet();
 		return mapping;
 	}
 
