@@ -16,6 +16,7 @@
 
 package org.springframework.boot.actuate.elasticsearch;
 
+import java.io.IOException;
 import java.util.Map;
 
 import okhttp3.mockwebserver.MockResponse;
@@ -80,11 +81,16 @@ class ElasticsearchReactiveHealthIndicatorTests {
 
 	@Test
 	void elasticsearchIsDown() throws Exception {
-		this.server.shutdown();
-		Health health = this.healthIndicator.health().block();
+		Health health = extracted();
 		assertThat(health.getStatus()).isEqualTo(Status.DOWN);
 		assertThat(health.getDetails().get("error")).asString()
 				.contains("org.springframework.data.elasticsearch.client.NoReachableHostException");
+	}
+
+	private Health extracted() throws IOException {
+		this.server.shutdown();
+		Health health = this.healthIndicator.health().block();
+		return health;
 	}
 
 	@Test
