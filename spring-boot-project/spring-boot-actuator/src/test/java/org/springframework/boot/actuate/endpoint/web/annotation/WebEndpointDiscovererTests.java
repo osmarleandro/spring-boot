@@ -84,8 +84,7 @@ class WebEndpointDiscovererTests {
 	@Test
 	void getEndpointsWhenHasFilteredEndpointShouldOnlyDiscoverWebEndpoints() {
 		load(MultipleEndpointsConfiguration.class, (discoverer) -> {
-			Map<EndpointId, ExposableWebEndpoint> endpoints = mapEndpoints(discoverer.getEndpoints());
-			assertThat(endpoints).containsOnlyKeys(EndpointId.of("test"));
+			Map<EndpointId, ExposableWebEndpoint> endpoints = extracted(discoverer);
 		});
 	}
 
@@ -166,8 +165,7 @@ class WebEndpointDiscovererTests {
 	@Test
 	void getEndpointsWhenHasCacheWithTtlShouldCacheReadOperationWithTtlValue() {
 		load((id) -> 500L, EndpointId::toString, TestEndpointConfiguration.class, (discoverer) -> {
-			Map<EndpointId, ExposableWebEndpoint> endpoints = mapEndpoints(discoverer.getEndpoints());
-			assertThat(endpoints).containsOnlyKeys(EndpointId.of("test"));
+			Map<EndpointId, ExposableWebEndpoint> endpoints = extracted(discoverer);
 			ExposableWebEndpoint endpoint = endpoints.get(EndpointId.of("test"));
 			assertThat(endpoint.getOperations()).hasSize(1);
 			WebOperation operation = endpoint.getOperations().iterator().next();
@@ -175,6 +173,12 @@ class WebEndpointDiscovererTests {
 			assertThat(invoker).isInstanceOf(CachingOperationInvoker.class);
 			assertThat(((CachingOperationInvoker) invoker).getTimeToLive()).isEqualTo(500);
 		});
+	}
+
+	private Map<EndpointId, ExposableWebEndpoint> extracted(WebEndpointDiscoverer discoverer) {
+		Map<EndpointId, ExposableWebEndpoint> endpoints = mapEndpoints(discoverer.getEndpoints());
+		assertThat(endpoints).containsOnlyKeys(EndpointId.of("test"));
+		return endpoints;
 	}
 
 	@Test
@@ -205,8 +209,7 @@ class WebEndpointDiscovererTests {
 	@Test
 	void getEndpointsWhenHasCustomPathShouldReturnCustomPath() {
 		load((id) -> null, (id) -> "custom/" + id, AdditionalOperationWebEndpointConfiguration.class, (discoverer) -> {
-			Map<EndpointId, ExposableWebEndpoint> endpoints = mapEndpoints(discoverer.getEndpoints());
-			assertThat(endpoints).containsOnlyKeys(EndpointId.of("test"));
+			Map<EndpointId, ExposableWebEndpoint> endpoints = extracted(discoverer);
 			ExposableWebEndpoint endpoint = endpoints.get(EndpointId.of("test"));
 			Condition<List<? extends WebOperationRequestPredicate>> expected = requestPredicates(
 					path("custom/test").httpMethod(WebEndpointHttpMethod.GET).consumes().produces("application/json"),
