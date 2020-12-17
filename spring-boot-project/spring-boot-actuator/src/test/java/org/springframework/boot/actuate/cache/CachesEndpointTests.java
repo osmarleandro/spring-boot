@@ -59,14 +59,19 @@ class CachesEndpointTests {
 
 	@Test
 	void allCachesWithSeveralCacheManagers() {
-		Map<String, CacheManager> cacheManagers = new LinkedHashMap<>();
-		cacheManagers.put("test", new ConcurrentMapCacheManager("a", "b"));
+		Map<String, CacheManager> cacheManagers = extracted();
 		cacheManagers.put("another", new ConcurrentMapCacheManager("a", "c"));
 		CachesEndpoint endpoint = new CachesEndpoint(cacheManagers);
 		Map<String, CacheManagerDescriptor> allDescriptors = endpoint.caches().getCacheManagers();
 		assertThat(allDescriptors).containsOnlyKeys("test", "another");
 		assertThat(allDescriptors.get("test").getCaches()).containsOnlyKeys("a", "b");
 		assertThat(allDescriptors.get("another").getCaches()).containsOnlyKeys("a", "c");
+	}
+
+	private Map<String, CacheManager> extracted() {
+		Map<String, CacheManager> cacheManagers = new LinkedHashMap<>();
+		cacheManagers.put("test", new ConcurrentMapCacheManager("a", "b"));
+		return cacheManagers;
 	}
 
 	@Test
