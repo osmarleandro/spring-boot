@@ -38,12 +38,17 @@ class PlainTextThreadDumpFormatter {
 
 	String format(ThreadInfo[] threads) {
 		StringWriter dump = new StringWriter();
-		PrintWriter writer = new PrintWriter(dump);
-		writePreamble(writer);
+		PrintWriter writer = extracted(dump);
 		for (ThreadInfo info : threads) {
 			writeThread(writer, info);
 		}
 		return dump.toString();
+	}
+
+	private PrintWriter extracted(StringWriter dump) {
+		PrintWriter writer = new PrintWriter(dump);
+		writePreamble(writer);
+		return writer;
 	}
 
 	private void writePreamble(PrintWriter writer) {
