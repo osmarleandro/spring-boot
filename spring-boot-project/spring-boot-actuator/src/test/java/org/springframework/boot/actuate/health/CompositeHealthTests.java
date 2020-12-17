@@ -58,8 +58,7 @@ class CompositeHealthTests {
 
 	@Test
 	void serializeV3WithJacksonReturnsValidJson() throws Exception {
-		Map<String, HealthComponent> components = new LinkedHashMap<>();
-		components.put("db1", Health.up().build());
+		Map<String, HealthComponent> components = extracted();
 		components.put("db2", Health.down().withDetail("a", "b").build());
 		CompositeHealth health = new CompositeHealth(ApiVersion.V3, Status.UP, components);
 		ObjectMapper mapper = new ObjectMapper();
@@ -70,14 +69,19 @@ class CompositeHealthTests {
 
 	@Test
 	void serializeV2WithJacksonReturnsValidJson() throws Exception {
-		Map<String, HealthComponent> components = new LinkedHashMap<>();
-		components.put("db1", Health.up().build());
+		Map<String, HealthComponent> components = extracted();
 		components.put("db2", Health.down().withDetail("a", "b").build());
 		CompositeHealth health = new CompositeHealth(ApiVersion.V2, Status.UP, components);
 		ObjectMapper mapper = new ObjectMapper();
 		String json = mapper.writeValueAsString(health);
 		assertThat(json).isEqualTo("{\"status\":\"UP\",\"details\":{\"db1\":{\"status\":\"UP\"},"
 				+ "\"db2\":{\"status\":\"DOWN\",\"details\":{\"a\":\"b\"}}}}");
+	}
+
+	private Map<String, HealthComponent> extracted() {
+		Map<String, HealthComponent> components = new LinkedHashMap<>();
+		components.put("db1", Health.up().build());
+		return components;
 	}
 
 }
