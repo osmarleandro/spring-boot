@@ -271,14 +271,19 @@ class EnvironmentEndpointTests {
 
 	@Test
 	void addressesPropertyWithMultipleEntriesEachWithSensitiveInfo() {
-		ConfigurableEnvironment environment = new StandardEnvironment();
-		TestPropertyValues
-				.of("sensitive.addresses=http://user:password@localhost:8080,http://user2:password2@localhost:8082")
-				.applyTo(environment);
+		ConfigurableEnvironment environment = extracted();
 		EnvironmentEntryDescriptor descriptor = new EnvironmentEndpoint(environment)
 				.environmentEntry("sensitive.addresses");
 		assertThat(descriptor.getProperty().getValue())
 				.isEqualTo("http://user:******@localhost:8080,http://user2:******@localhost:8082");
+	}
+
+	private ConfigurableEnvironment extracted() {
+		ConfigurableEnvironment environment = new StandardEnvironment();
+		TestPropertyValues
+				.of("sensitive.addresses=http://user:password@localhost:8080,http://user2:password2@localhost:8082")
+				.applyTo(environment);
+		return environment;
 	}
 
 	private static ConfigurableEnvironment emptyEnvironment() {
