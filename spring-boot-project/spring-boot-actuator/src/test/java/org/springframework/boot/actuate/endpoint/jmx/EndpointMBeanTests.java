@@ -88,14 +88,19 @@ class EndpointMBeanTests {
 
 	@Test
 	void invokeWhenOperationFailedShouldTranslateException() throws MBeanException, ReflectionException {
-		TestExposableJmxEndpoint endpoint = new TestExposableJmxEndpoint(new TestJmxOperation((arguments) -> {
-			throw new FatalBeanException("test failure");
-		}));
+		TestExposableJmxEndpoint endpoint = extracted();
 		EndpointMBean bean = new EndpointMBean(this.responseMapper, null, endpoint);
 		assertThatExceptionOfType(MBeanException.class)
 				.isThrownBy(() -> bean.invoke("testOperation", NO_PARAMS, NO_SIGNATURE))
 				.withCauseInstanceOf(IllegalStateException.class).withMessageContaining("test failure");
 
+	}
+
+	private TestExposableJmxEndpoint extracted() {
+		TestExposableJmxEndpoint endpoint = new TestExposableJmxEndpoint(new TestJmxOperation((arguments) -> {
+			throw new FatalBeanException("test failure");
+		}));
+		return endpoint;
 	}
 
 	@Test
