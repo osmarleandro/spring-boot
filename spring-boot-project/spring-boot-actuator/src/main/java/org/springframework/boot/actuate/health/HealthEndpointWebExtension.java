@@ -74,6 +74,10 @@ public class HealthEndpointWebExtension extends HealthEndpointSupport<HealthCont
 					? new WebEndpointResponse<>(DEFAULT_HEALTH, WebEndpointResponse.STATUS_OK)
 					: new WebEndpointResponse<>(WebEndpointResponse.STATUS_NOT_FOUND);
 		}
+		return extracted(result);
+	}
+
+	private WebEndpointResponse<HealthComponent> extracted(HealthResult<HealthComponent> result) {
 		HealthComponent health = result.getHealth();
 		HealthEndpointGroup group = result.getGroup();
 		int statusCode = group.getHttpCodeStatusMapper().getStatusCode(health.getStatus());
