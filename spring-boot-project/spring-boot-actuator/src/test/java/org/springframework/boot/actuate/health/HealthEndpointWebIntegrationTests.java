@@ -129,10 +129,15 @@ class HealthEndpointWebIntegrationTests {
 			ReflectionUtils.rethrowRuntimeException(ex);
 		}
 		finally {
-			healthContributorRegistry.unregisterContributor(name);
-			if (reactiveHealthContributorRegistry != null) {
-				reactiveHealthContributorRegistry.unregisterContributor(name);
-			}
+			extracted(name, healthContributorRegistry, reactiveHealthContributorRegistry);
+		}
+	}
+
+	private void extracted(String name, HealthContributorRegistry healthContributorRegistry,
+			ReactiveHealthContributorRegistry reactiveHealthContributorRegistry) {
+		healthContributorRegistry.unregisterContributor(name);
+		if (reactiveHealthContributorRegistry != null) {
+			reactiveHealthContributorRegistry.unregisterContributor(name);
 		}
 	}
 
