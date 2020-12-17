@@ -116,12 +116,17 @@ class PathMappedEndpointsTests {
 	}
 
 	private PathMappedEndpoints createTestMapped(String basePath) {
-		List<ExposableEndpoint<?>> endpoints = new ArrayList<>();
-		endpoints.add(mockEndpoint(EndpointId.of("e1")));
+		List<ExposableEndpoint<?>> endpoints = extracted();
 		endpoints.add(mockEndpoint(EndpointId.of("e2"), "p2"));
 		endpoints.add(mockEndpoint(EndpointId.of("e3"), "p3"));
 		endpoints.add(mockEndpoint(EndpointId.of("e4")));
 		return new PathMappedEndpoints(basePath, () -> endpoints);
+	}
+
+	private List<ExposableEndpoint<?>> extracted() {
+		List<ExposableEndpoint<?>> endpoints = new ArrayList<>();
+		endpoints.add(mockEndpoint(EndpointId.of("e1")));
+		return endpoints;
 	}
 
 	private TestPathMappedEndpoint mockEndpoint(EndpointId id, String rootPath) {
