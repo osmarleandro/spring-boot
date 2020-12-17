@@ -37,13 +37,17 @@ class Neo4jHealthDetailsHandler {
 	 * @param resultSummary server information
 	 */
 	void addHealthDetails(Builder builder, String edition, ResultSummary resultSummary) {
-		ServerInfo serverInfo = resultSummary.server();
-		builder.up().withDetail("server", serverInfo.version() + "@" + serverInfo.address()).withDetail("edition",
-				edition);
+		extracted(builder, edition, resultSummary);
 		DatabaseInfo databaseInfo = resultSummary.database();
 		if (StringUtils.hasText(databaseInfo.name())) {
 			builder.withDetail("database", databaseInfo.name());
 		}
+	}
+
+	private void extracted(Builder builder, String edition, ResultSummary resultSummary) {
+		ServerInfo serverInfo = resultSummary.server();
+		builder.up().withDetail("server", serverInfo.version() + "@" + serverInfo.address()).withDetail("edition",
+				edition);
 	}
 
 }
