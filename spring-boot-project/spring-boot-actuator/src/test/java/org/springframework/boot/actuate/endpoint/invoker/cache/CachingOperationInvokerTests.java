@@ -91,14 +91,19 @@ class CachingOperationInvokerTests {
 
 	@Test
 	void cacheInTtlWithFluxResponse() {
-		FluxOperationInvoker.invocations = new AtomicInteger();
-		FluxOperationInvoker target = new FluxOperationInvoker();
+		FluxOperationInvoker target = extracted();
 		InvocationContext context = new InvocationContext(mock(SecurityContext.class), Collections.emptyMap());
 		CachingOperationInvoker invoker = new CachingOperationInvoker(target, CACHE_TTL);
 		Object response = ((Flux<?>) invoker.invoke(context)).blockLast();
 		Object cachedResponse = ((Flux<?>) invoker.invoke(context)).blockLast();
 		assertThat(FluxOperationInvoker.invocations).hasValue(1);
 		assertThat(response).isSameAs(cachedResponse);
+	}
+
+	private FluxOperationInvoker extracted() {
+		FluxOperationInvoker.invocations = new AtomicInteger();
+		FluxOperationInvoker target = new FluxOperationInvoker();
+		return target;
 	}
 
 	private void assertCacheIsUsed(Map<String, Object> parameters) {
