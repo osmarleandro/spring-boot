@@ -107,11 +107,16 @@ class OperationMethodParametersTests {
 	}
 
 	private void assertParameters(Stream<OperationParameter> stream) {
-		List<OperationParameter> parameters = stream.collect(Collectors.toList());
-		assertThat(parameters).hasSize(1);
+		List<OperationParameter> parameters = extracted(stream);
 		OperationParameter parameter = parameters.get(0);
 		assertThat(parameter.getName()).isEqualTo("name");
 		assertThat(parameter.getType()).isEqualTo(String.class);
+	}
+
+	private List<OperationParameter> extracted(Stream<OperationParameter> stream) {
+		List<OperationParameter> parameters = stream.collect(Collectors.toList());
+		assertThat(parameters).hasSize(1);
+		return parameters;
 	}
 
 	String example(String name) {
