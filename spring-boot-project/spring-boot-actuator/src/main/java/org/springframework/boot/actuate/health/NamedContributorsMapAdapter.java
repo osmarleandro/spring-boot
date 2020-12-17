@@ -62,6 +62,10 @@ abstract class NamedContributorsMapAdapter<V, C> implements NamedContributors<C>
 
 			@Override
 			public NamedContributor<C> next() {
+				return extracted(iterator);
+			}
+
+			private NamedContributor<C> extracted(Iterator<Entry<String, V>> iterator) {
 				Entry<String, V> entry = iterator.next();
 				return NamedContributor.of(entry.getKey(), adapt(entry.getValue()));
 			}
