@@ -29,6 +29,7 @@ import org.springframework.boot.actuate.context.properties.ConfigurationProperti
 import org.springframework.boot.actuate.context.properties.ConfigurationPropertiesReportEndpoint.ConfigurationPropertiesBeanDescriptor;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.boot.test.context.assertj.AssertableApplicationContext;
 import org.springframework.boot.test.context.runner.ApplicationContextRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -51,9 +52,7 @@ class ConfigurationPropertiesReportEndpointSerializationTests {
 		ApplicationContextRunner contextRunner = new ApplicationContextRunner().withUserConfiguration(FooConfig.class)
 				.withPropertyValues("foo.name:foo");
 		contextRunner.run((context) -> {
-			ConfigurationPropertiesReportEndpoint endpoint = context
-					.getBean(ConfigurationPropertiesReportEndpoint.class);
-			ApplicationConfigurationProperties applicationProperties = endpoint.configurationProperties();
+			ApplicationConfigurationProperties applicationProperties = extracted(context);
 			ConfigurationPropertiesBeanDescriptor foo = applicationProperties.getContexts().get(context.getId())
 					.getBeans().get("foo");
 			assertThat(foo).isNotNull();
@@ -71,9 +70,7 @@ class ConfigurationPropertiesReportEndpointSerializationTests {
 		ApplicationContextRunner contextRunner = new ApplicationContextRunner().withUserConfiguration(FooConfig.class)
 				.withPropertyValues("foo.bar.name:foo");
 		contextRunner.run((context) -> {
-			ConfigurationPropertiesReportEndpoint endpoint = context
-					.getBean(ConfigurationPropertiesReportEndpoint.class);
-			ApplicationConfigurationProperties applicationProperties = endpoint.configurationProperties();
+			ApplicationConfigurationProperties applicationProperties = extracted(context);
 			ConfigurationPropertiesBeanDescriptor foo = applicationProperties.getContexts().get(context.getId())
 					.getBeans().get("foo");
 			assertThat(foo).isNotNull();
@@ -90,9 +87,7 @@ class ConfigurationPropertiesReportEndpointSerializationTests {
 		ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 				.withUserConfiguration(SelfReferentialConfig.class).withPropertyValues("foo.name:foo");
 		contextRunner.run((context) -> {
-			ConfigurationPropertiesReportEndpoint endpoint = context
-					.getBean(ConfigurationPropertiesReportEndpoint.class);
-			ApplicationConfigurationProperties applicationProperties = endpoint.configurationProperties();
+			ApplicationConfigurationProperties applicationProperties = extracted(context);
 			ConfigurationPropertiesBeanDescriptor foo = applicationProperties.getContexts().get(context.getId())
 					.getBeans().get("foo");
 			assertThat(foo.getPrefix()).isEqualTo("foo");
@@ -111,9 +106,7 @@ class ConfigurationPropertiesReportEndpointSerializationTests {
 		ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 				.withUserConfiguration(CycleConfig.class);
 		contextRunner.run((context) -> {
-			ConfigurationPropertiesReportEndpoint endpoint = context
-					.getBean(ConfigurationPropertiesReportEndpoint.class);
-			ApplicationConfigurationProperties applicationProperties = endpoint.configurationProperties();
+			ApplicationConfigurationProperties applicationProperties = extracted(context);
 			ConfigurationPropertiesBeanDescriptor cycle = applicationProperties.getContexts().get(context.getId())
 					.getBeans().get("cycle");
 			assertThat(cycle.getPrefix()).isEqualTo("cycle");
@@ -130,9 +123,7 @@ class ConfigurationPropertiesReportEndpointSerializationTests {
 		ApplicationContextRunner contextRunner = new ApplicationContextRunner().withUserConfiguration(MapConfig.class)
 				.withPropertyValues("foo.map.name:foo");
 		contextRunner.run((context) -> {
-			ConfigurationPropertiesReportEndpoint endpoint = context
-					.getBean(ConfigurationPropertiesReportEndpoint.class);
-			ApplicationConfigurationProperties applicationProperties = endpoint.configurationProperties();
+			ApplicationConfigurationProperties applicationProperties = extracted(context);
 			ConfigurationPropertiesBeanDescriptor fooProperties = applicationProperties.getContexts()
 					.get(context.getId()).getBeans().get("foo");
 			assertThat(fooProperties).isNotNull();
@@ -148,9 +139,7 @@ class ConfigurationPropertiesReportEndpointSerializationTests {
 	void testEmptyMapIsNotAdded() {
 		ApplicationContextRunner contextRunner = new ApplicationContextRunner().withUserConfiguration(MapConfig.class);
 		contextRunner.run((context) -> {
-			ConfigurationPropertiesReportEndpoint endpoint = context
-					.getBean(ConfigurationPropertiesReportEndpoint.class);
-			ApplicationConfigurationProperties applicationProperties = endpoint.configurationProperties();
+			ApplicationConfigurationProperties applicationProperties = extracted(context);
 			ConfigurationPropertiesBeanDescriptor foo = applicationProperties.getContexts().get(context.getId())
 					.getBeans().get("foo");
 			assertThat(foo).isNotNull();
@@ -168,9 +157,7 @@ class ConfigurationPropertiesReportEndpointSerializationTests {
 		ApplicationContextRunner contextRunner = new ApplicationContextRunner().withUserConfiguration(ListConfig.class)
 				.withPropertyValues("foo.list[0]:foo");
 		contextRunner.run((context) -> {
-			ConfigurationPropertiesReportEndpoint endpoint = context
-					.getBean(ConfigurationPropertiesReportEndpoint.class);
-			ApplicationConfigurationProperties applicationProperties = endpoint.configurationProperties();
+			ApplicationConfigurationProperties applicationProperties = extracted(context);
 			ConfigurationPropertiesBeanDescriptor foo = applicationProperties.getContexts().get(context.getId())
 					.getBeans().get("foo");
 			assertThat(foo).isNotNull();
@@ -187,9 +174,7 @@ class ConfigurationPropertiesReportEndpointSerializationTests {
 		ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 				.withUserConfiguration(AddressedConfig.class).withPropertyValues("foo.address:192.168.1.10");
 		contextRunner.run((context) -> {
-			ConfigurationPropertiesReportEndpoint endpoint = context
-					.getBean(ConfigurationPropertiesReportEndpoint.class);
-			ApplicationConfigurationProperties applicationProperties = endpoint.configurationProperties();
+			ApplicationConfigurationProperties applicationProperties = extracted(context);
 			ConfigurationPropertiesBeanDescriptor foo = applicationProperties.getContexts().get(context.getId())
 					.getBeans().get("foo");
 			assertThat(foo).isNotNull();
@@ -208,9 +193,7 @@ class ConfigurationPropertiesReportEndpointSerializationTests {
 				.withUserConfiguration(InitializedMapAndListPropertiesConfig.class)
 				.withPropertyValues("foo.map.entryOne:true", "foo.list[0]:abc");
 		contextRunner.run((context) -> {
-			ConfigurationPropertiesReportEndpoint endpoint = context
-					.getBean(ConfigurationPropertiesReportEndpoint.class);
-			ApplicationConfigurationProperties applicationProperties = endpoint.configurationProperties();
+			ApplicationConfigurationProperties applicationProperties = extracted(context);
 			ConfigurationPropertiesBeanDescriptor foo = applicationProperties.getContexts().get(context.getId())
 					.getBeans().get("foo");
 			assertThat(foo.getPrefix()).isEqualTo("foo");
@@ -228,14 +211,19 @@ class ConfigurationPropertiesReportEndpointSerializationTests {
 		ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 				.withUserConfiguration(HikariDataSourceConfig.class);
 		contextRunner.run((context) -> {
-			ConfigurationPropertiesReportEndpoint endpoint = context
-					.getBean(ConfigurationPropertiesReportEndpoint.class);
-			ApplicationConfigurationProperties applicationProperties = endpoint.configurationProperties();
+			ApplicationConfigurationProperties applicationProperties = extracted(context);
 			ConfigurationPropertiesBeanDescriptor hikariDataSource = applicationProperties.getContexts()
 					.get(context.getId()).getBeans().get("hikariDataSource");
 			Map<String, Object> nestedProperties = hikariDataSource.getProperties();
 			assertThat(nestedProperties).doesNotContainKey("error");
 		});
+	}
+
+	private ApplicationConfigurationProperties extracted(AssertableApplicationContext context) {
+		ConfigurationPropertiesReportEndpoint endpoint = context
+				.getBean(ConfigurationPropertiesReportEndpoint.class);
+		ApplicationConfigurationProperties applicationProperties = endpoint.configurationProperties();
+		return applicationProperties;
 	}
 
 	@Configuration(proxyBeanMethods = false)
