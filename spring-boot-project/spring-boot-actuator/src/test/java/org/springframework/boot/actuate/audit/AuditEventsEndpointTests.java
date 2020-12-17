@@ -48,10 +48,15 @@ class AuditEventsEndpointTests {
 
 	@Test
 	void eventsCreatedAfter() {
-		OffsetDateTime now = OffsetDateTime.now();
-		given(this.repository.find(null, now.toInstant(), null)).willReturn(Collections.singletonList(this.event));
+		OffsetDateTime now = extracted();
 		List<AuditEvent> result = this.endpoint.events(null, now, null).getEvents();
 		assertThat(result).isEqualTo(Collections.singletonList(this.event));
+	}
+
+	private OffsetDateTime extracted() {
+		OffsetDateTime now = OffsetDateTime.now();
+		given(this.repository.find(null, now.toInstant(), null)).willReturn(Collections.singletonList(this.event));
+		return now;
 	}
 
 	@Test
