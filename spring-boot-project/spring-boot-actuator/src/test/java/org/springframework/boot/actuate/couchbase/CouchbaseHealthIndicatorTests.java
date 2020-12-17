@@ -49,6 +49,16 @@ class CouchbaseHealthIndicatorTests {
 	@SuppressWarnings("unchecked")
 	void couchbaseClusterIsUp() {
 		Cluster cluster = mock(Cluster.class);
+		CouchbaseHealthIndicator healthIndicator = extracted(cluster);
+		Health health = healthIndicator.health();
+		assertThat(health.getStatus()).isEqualTo(Status.UP);
+		assertThat(health.getDetails()).containsEntry("sdk", "test-sdk");
+		assertThat(health.getDetails()).containsKey("endpoints");
+		assertThat((List<Map<String, Object>>) health.getDetails().get("endpoints")).hasSize(1);
+		verify(cluster).diagnostics();
+	}
+
+	private CouchbaseHealthIndicator extracted(Cluster cluster) {
 		CouchbaseHealthIndicator healthIndicator = new CouchbaseHealthIndicator(cluster);
 		Map<ServiceType, List<EndpointDiagnostics>> endpoints = Collections.singletonMap(ServiceType.KV,
 				Collections.singletonList(new EndpointDiagnostics(ServiceType.KV, EndpointState.CONNECTED, "127.0.0.1",
@@ -56,12 +66,7 @@ class CouchbaseHealthIndicatorTests {
 
 		DiagnosticsResult diagnostics = new DiagnosticsResult(endpoints, "test-sdk", "test-id");
 		given(cluster.diagnostics()).willReturn(diagnostics);
-		Health health = healthIndicator.health();
-		assertThat(health.getStatus()).isEqualTo(Status.UP);
-		assertThat(health.getDetails()).containsEntry("sdk", "test-sdk");
-		assertThat(health.getDetails()).containsKey("endpoints");
-		assertThat((List<Map<String, Object>>) health.getDetails().get("endpoints")).hasSize(1);
-		verify(cluster).diagnostics();
+		return healthIndicator;
 	}
 
 	@Test
