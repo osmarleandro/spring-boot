@@ -120,11 +120,16 @@ class DiscoveredJmxOperationTests {
 
 	private DiscoveredJmxOperation getOperation(String methodName) {
 		Method method = findMethod(methodName);
-		AnnotationAttributes annotationAttributes = new AnnotationAttributes();
-		annotationAttributes.put("produces", "application/xml");
+		AnnotationAttributes annotationAttributes = extracted();
 		DiscoveredOperationMethod operationMethod = new DiscoveredOperationMethod(method, OperationType.READ,
 				annotationAttributes);
 		return new DiscoveredJmxOperation(EndpointId.of("test"), operationMethod, mock(OperationInvoker.class));
+	}
+
+	private AnnotationAttributes extracted() {
+		AnnotationAttributes annotationAttributes = new AnnotationAttributes();
+		annotationAttributes.put("produces", "application/xml");
+		return annotationAttributes;
 	}
 
 	private Method findMethod(String methodName) {
