@@ -83,13 +83,18 @@ class DiscoveredJmxOperationTests {
 
 	@Test
 	void getParametersShouldReturnJmxTypes() {
-		DiscoveredJmxOperation operation = getOperation("params");
-		List<JmxOperationParameter> parameters = operation.getParameters();
+		List<JmxOperationParameter> parameters = extracted();
 		assertThat(parameters.get(0).getType()).isEqualTo(String.class);
 		assertThat(parameters.get(1).getType()).isEqualTo(String.class);
 		assertThat(parameters.get(2).getType()).isEqualTo(String.class);
 		assertThat(parameters.get(3).getType()).isEqualTo(Integer.class);
 		assertThat(parameters.get(4).getType()).isEqualTo(Object.class);
+	}
+
+	private List<JmxOperationParameter> extracted() {
+		DiscoveredJmxOperation operation = getOperation("params");
+		List<JmxOperationParameter> parameters = operation.getParameters();
+		return parameters;
 	}
 
 	@Test
@@ -104,8 +109,7 @@ class DiscoveredJmxOperationTests {
 
 	@Test
 	void getParametersWhenHasNoManagedOperationParameterShouldDeducedValuesName() {
-		DiscoveredJmxOperation operation = getOperation("params");
-		List<JmxOperationParameter> parameters = operation.getParameters();
+		List<JmxOperationParameter> parameters = extracted();
 		assertThat(parameters.get(0).getName()).isEqualTo("enumParam");
 		assertThat(parameters.get(1).getName()).isEqualTo("dateParam");
 		assertThat(parameters.get(2).getName()).isEqualTo("instantParam");
