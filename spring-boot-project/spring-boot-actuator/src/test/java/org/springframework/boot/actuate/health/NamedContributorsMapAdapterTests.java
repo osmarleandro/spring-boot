@@ -91,11 +91,16 @@ class NamedContributorsMapAdapterTests {
 	}
 
 	private TestNamedContributorsMapAdapter<String> createAdapter() {
-		Map<String, String> map = new LinkedHashMap<>();
-		map.put("one", "one");
+		Map<String, String> map = extracted();
 		map.put("two", "two");
 		TestNamedContributorsMapAdapter<String> adapter = new TestNamedContributorsMapAdapter<>(map, this::reverse);
 		return adapter;
+	}
+
+	private Map<String, String> extracted() {
+		Map<String, String> map = new LinkedHashMap<>();
+		map.put("one", "one");
+		return map;
 	}
 
 	private String reverse(CharSequence charSequence) {
