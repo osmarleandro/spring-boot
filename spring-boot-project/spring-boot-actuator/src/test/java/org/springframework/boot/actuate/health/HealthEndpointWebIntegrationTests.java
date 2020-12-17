@@ -100,9 +100,7 @@ class HealthEndpointWebIntegrationTests {
 
 	@WebEndpointTest
 	void whenComponentInstanceHealthIsDown503ResponseIsReturned(ApplicationContext context, WebTestClient client) {
-		HealthIndicator healthIndicator = () -> Health.down().build();
-		CompositeHealthContributor composite = CompositeHealthContributor
-				.fromMap(Collections.singletonMap("one", healthIndicator));
+		CompositeHealthContributor composite = extracted();
 		ReactiveHealthIndicator reactiveHealthIndicator = () -> Mono.just(Health.down().build());
 		CompositeReactiveHealthContributor reactiveComposite = CompositeReactiveHealthContributor
 				.fromMap(Collections.singletonMap("one", reactiveHealthIndicator));
@@ -110,6 +108,13 @@ class HealthEndpointWebIntegrationTests {
 				() -> client.get().uri("/actuator/health/charlie/one").accept(MediaType.APPLICATION_JSON).exchange()
 						.expectStatus().isEqualTo(HttpStatus.SERVICE_UNAVAILABLE).expectBody().jsonPath("status")
 						.isEqualTo("DOWN"));
+	}
+
+	private CompositeHealthContributor extracted() {
+		HealthIndicator healthIndicator = () -> Health.down().build();
+		CompositeHealthContributor composite = CompositeHealthContributor
+				.fromMap(Collections.singletonMap("one", healthIndicator));
+		return composite;
 	}
 
 	private void withHealthContributor(ApplicationContext context, String name, HealthContributor healthContributor,
