@@ -66,17 +66,21 @@ public class DataSourcePoolMetrics implements MeterBinder {
 	@Override
 	public void bindTo(MeterRegistry registry) {
 		if (this.metadataProvider.getDataSourcePoolMetadata(this.dataSource) != null) {
-			bindPoolMetadata(registry, "active",
-					"Current number of active connections that have been allocated from the data source.",
-					DataSourcePoolMetadata::getActive);
-			bindPoolMetadata(registry, "idle", "Number of established but idle connections.",
-					DataSourcePoolMetadata::getIdle);
+			extracted(registry);
 			bindPoolMetadata(registry, "max",
 					"Maximum number of active connections that can be allocated at the same time.",
 					DataSourcePoolMetadata::getMax);
 			bindPoolMetadata(registry, "min", "Minimum number of idle connections in the pool.",
 					DataSourcePoolMetadata::getMin);
 		}
+	}
+
+	private void extracted(MeterRegistry registry) {
+		bindPoolMetadata(registry, "active",
+				"Current number of active connections that have been allocated from the data source.",
+				DataSourcePoolMetadata::getActive);
+		bindPoolMetadata(registry, "idle", "Number of established but idle connections.",
+				DataSourcePoolMetadata::getIdle);
 	}
 
 	private <N extends Number> void bindPoolMetadata(MeterRegistry registry, String metricName, String description,
