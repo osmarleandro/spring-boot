@@ -55,8 +55,7 @@ public interface HealthEndpointGroups {
 	 * @return a new {@link HealthEndpointGroups} instance
 	 */
 	static HealthEndpointGroups of(HealthEndpointGroup primary, Map<String, HealthEndpointGroup> additional) {
-		Assert.notNull(primary, "Primary must not be null");
-		Assert.notNull(additional, "Additional must not be null");
+		extracted(primary, additional);
 		return new HealthEndpointGroups() {
 
 			@Override
@@ -75,6 +74,11 @@ public interface HealthEndpointGroups {
 			}
 
 		};
+	}
+
+	static void extracted(HealthEndpointGroup primary, Map<String, HealthEndpointGroup> additional) {
+		Assert.notNull(primary, "Primary must not be null");
+		Assert.notNull(additional, "Additional must not be null");
 	}
 
 }
