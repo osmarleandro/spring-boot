@@ -110,8 +110,7 @@ class JmxEndpointExporterTests {
 
 	@Test
 	void afterPropertiesSetShouldRegisterMBeans() throws Exception {
-		this.endpoints.add(new TestExposableJmxEndpoint(new TestJmxOperation()));
-		this.exporter.afterPropertiesSet();
+		extracted();
 		verify(this.mBeanServer).registerMBean(this.objectCaptor.capture(), this.objectNameCaptor.capture());
 		assertThat(this.objectCaptor.getValue()).isInstanceOf(EndpointMBean.class);
 		assertThat(this.objectNameCaptor.getValue().getKeyProperty("name")).isEqualTo("test");
@@ -119,8 +118,7 @@ class JmxEndpointExporterTests {
 
 	@Test
 	void registerShouldUseObjectNameFactory() throws Exception {
-		this.endpoints.add(new TestExposableJmxEndpoint(new TestJmxOperation()));
-		this.exporter.afterPropertiesSet();
+		extracted();
 		verify(this.objectNameFactory).getObjectName(any(ExposableJmxEndpoint.class));
 	}
 
@@ -144,8 +142,7 @@ class JmxEndpointExporterTests {
 
 	@Test
 	void destroyShouldUnregisterMBeans() throws Exception {
-		this.endpoints.add(new TestExposableJmxEndpoint(new TestJmxOperation()));
-		this.exporter.afterPropertiesSet();
+		extracted();
 		this.exporter.destroy();
 		verify(this.mBeanServer).unregisterMBean(this.objectNameCaptor.capture());
 		assertThat(this.objectNameCaptor.getValue().getKeyProperty("name")).isEqualTo("test");
@@ -153,16 +150,19 @@ class JmxEndpointExporterTests {
 
 	@Test
 	void unregisterWhenInstanceNotFoundShouldContinue() throws Exception {
-		this.endpoints.add(new TestExposableJmxEndpoint(new TestJmxOperation()));
-		this.exporter.afterPropertiesSet();
+		extracted();
 		willThrow(InstanceNotFoundException.class).given(this.mBeanServer).unregisterMBean(any(ObjectName.class));
 		this.exporter.destroy();
 	}
 
-	@Test
-	void unregisterWhenUnregisterThrowsExceptionShouldThrowException() throws Exception {
+	private void extracted() {
 		this.endpoints.add(new TestExposableJmxEndpoint(new TestJmxOperation()));
 		this.exporter.afterPropertiesSet();
+	}
+
+	@Test
+	void unregisterWhenUnregisterThrowsExceptionShouldThrowException() throws Exception {
+		extracted();
 		willThrow(new MBeanRegistrationException(new RuntimeException())).given(this.mBeanServer)
 				.unregisterMBean(any(ObjectName.class));
 		assertThatExceptionOfType(JmxException.class).isThrownBy(() -> this.exporter.destroy())
