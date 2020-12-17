@@ -177,15 +177,20 @@ public abstract class AbstractWebFluxEndpointHandlerMapping extends RequestMappi
 	}
 
 	private void registerLinksMapping() {
+		RequestMappingInfo mapping = extracted();
+		LinksHandler linksHandler = getLinksHandler();
+		registerMapping(mapping, linksHandler,
+				ReflectionUtils.findMethod(linksHandler.getClass(), "links", ServerWebExchange.class));
+	}
+
+	private RequestMappingInfo extracted() {
 		PatternsRequestCondition patterns = new PatternsRequestCondition(
 				pathPatternParser.parse(this.endpointMapping.getPath()));
 		RequestMethodsRequestCondition methods = new RequestMethodsRequestCondition(RequestMethod.GET);
 		ProducesRequestCondition produces = new ProducesRequestCondition(
 				StringUtils.toStringArray(this.endpointMediaTypes.getProduced()));
 		RequestMappingInfo mapping = new RequestMappingInfo(patterns, methods, null, null, null, produces, null);
-		LinksHandler linksHandler = getLinksHandler();
-		registerMapping(mapping, linksHandler,
-				ReflectionUtils.findMethod(linksHandler.getClass(), "links", ServerWebExchange.class));
+		return mapping;
 	}
 
 	@Override
