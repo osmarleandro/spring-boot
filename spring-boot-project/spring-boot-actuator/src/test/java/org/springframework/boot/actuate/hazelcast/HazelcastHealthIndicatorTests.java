@@ -45,8 +45,7 @@ class HazelcastHealthIndicatorTests {
 		HazelcastInstance hazelcast = new HazelcastInstanceFactory(new ClassPathResource("hazelcast.xml"))
 				.getHazelcastInstance();
 		try {
-			Health health = new HazelcastHealthIndicator(hazelcast).health();
-			assertThat(health.getStatus()).isEqualTo(Status.UP);
+			Health health = extracted(hazelcast);
 			assertThat(health.getDetails()).containsOnlyKeys("name", "uuid").containsEntry("name",
 					"actuator-hazelcast");
 			assertThat(health.getDetails().get("uuid")).asString().isNotEmpty();
@@ -54,6 +53,12 @@ class HazelcastHealthIndicatorTests {
 		finally {
 			hazelcast.shutdown();
 		}
+	}
+
+	private Health extracted(HazelcastInstance hazelcast) {
+		Health health = new HazelcastHealthIndicator(hazelcast).health();
+		assertThat(health.getStatus()).isEqualTo(Status.UP);
+		return health;
 	}
 
 	@Test
