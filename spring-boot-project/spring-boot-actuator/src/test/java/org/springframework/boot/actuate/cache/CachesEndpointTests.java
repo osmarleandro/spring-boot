@@ -169,9 +169,13 @@ class CachesEndpointTests {
 	@Test
 	void clearCacheWithUnknownCache() {
 		Cache a = mockCache("a");
+		extracted(a);
+		verify(a, never()).clear();
+	}
+
+	private void extracted(Cache a) {
 		CachesEndpoint endpoint = new CachesEndpoint(Collections.singletonMap("test", cacheManager(a)));
 		assertThat(endpoint.clearCache("unknown", null)).isFalse();
-		verify(a, never()).clear();
 	}
 
 	@Test
