@@ -59,8 +59,7 @@ class ControllerEndpointDiscovererTests {
 	@Test
 	void getEndpointsShouldIncludeControllerEndpoints() {
 		this.contextRunner.withUserConfiguration(TestControllerEndpoint.class).run(assertDiscoverer((discoverer) -> {
-			Collection<ExposableControllerEndpoint> endpoints = discoverer.getEndpoints();
-			assertThat(endpoints).hasSize(1);
+			Collection<ExposableControllerEndpoint> endpoints = extracted(discoverer);
 			ExposableControllerEndpoint endpoint = endpoints.iterator().next();
 			assertThat(endpoint.getEndpointId()).isEqualTo(EndpointId.of("testcontroller"));
 			assertThat(endpoint.getController()).isInstanceOf(TestControllerEndpoint.class);
@@ -73,8 +72,7 @@ class ControllerEndpointDiscovererTests {
 		this.contextRunner.withUserConfiguration(TestProxyControllerEndpoint.class)
 				.withConfiguration(AutoConfigurations.of(ValidationAutoConfiguration.class))
 				.run(assertDiscoverer((discoverer) -> {
-					Collection<ExposableControllerEndpoint> endpoints = discoverer.getEndpoints();
-					assertThat(endpoints).hasSize(1);
+					Collection<ExposableControllerEndpoint> endpoints = extracted(discoverer);
 					ExposableControllerEndpoint endpoint = endpoints.iterator().next();
 					assertThat(endpoint.getEndpointId()).isEqualTo(EndpointId.of("testcontroller"));
 					assertThat(endpoint.getController()).isInstanceOf(TestProxyControllerEndpoint.class);
@@ -82,12 +80,17 @@ class ControllerEndpointDiscovererTests {
 				}));
 	}
 
+	private Collection<ExposableControllerEndpoint> extracted(ControllerEndpointDiscoverer discoverer) {
+		Collection<ExposableControllerEndpoint> endpoints = discoverer.getEndpoints();
+		assertThat(endpoints).hasSize(1);
+		return endpoints;
+	}
+
 	@Test
 	void getEndpointsShouldIncludeRestControllerEndpoints() {
 		this.contextRunner.withUserConfiguration(TestRestControllerEndpoint.class)
 				.run(assertDiscoverer((discoverer) -> {
-					Collection<ExposableControllerEndpoint> endpoints = discoverer.getEndpoints();
-					assertThat(endpoints).hasSize(1);
+					Collection<ExposableControllerEndpoint> endpoints = extracted(discoverer);
 					ExposableControllerEndpoint endpoint = endpoints.iterator().next();
 					assertThat(endpoint.getEndpointId()).isEqualTo(EndpointId.of("testrestcontroller"));
 					assertThat(endpoint.getController()).isInstanceOf(TestRestControllerEndpoint.class);
@@ -99,8 +102,7 @@ class ControllerEndpointDiscovererTests {
 		this.contextRunner.withUserConfiguration(TestProxyRestControllerEndpoint.class)
 				.withConfiguration(AutoConfigurations.of(ValidationAutoConfiguration.class))
 				.run(assertDiscoverer((discoverer) -> {
-					Collection<ExposableControllerEndpoint> endpoints = discoverer.getEndpoints();
-					assertThat(endpoints).hasSize(1);
+					Collection<ExposableControllerEndpoint> endpoints = extracted(discoverer);
 					ExposableControllerEndpoint endpoint = endpoints.iterator().next();
 					assertThat(endpoint.getEndpointId()).isEqualTo(EndpointId.of("testrestcontroller"));
 					assertThat(endpoint.getController()).isInstanceOf(TestProxyRestControllerEndpoint.class);
