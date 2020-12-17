@@ -69,10 +69,14 @@ public class HttpExchangeTracer {
 	 */
 	public final void sendingResponse(HttpTrace trace, TraceableResponse response, Supplier<Principal> principal,
 			Supplier<String> sessionId) {
-		setIfIncluded(Include.TIME_TAKEN, () -> calculateTimeTaken(trace), trace::setTimeTaken);
-		setIfIncluded(Include.SESSION_ID, sessionId, trace::setSessionId);
+		extracted(trace, sessionId);
 		setIfIncluded(Include.PRINCIPAL, principal, trace::setPrincipal);
 		trace.setResponse(new HttpTrace.Response(new FilteredTraceableResponse(response)));
+	}
+
+	private void extracted(HttpTrace trace, Supplier<String> sessionId) {
+		setIfIncluded(Include.TIME_TAKEN, () -> calculateTimeTaken(trace), trace::setTimeTaken);
+		setIfIncluded(Include.SESSION_ID, sessionId, trace::setSessionId);
 	}
 
 	/**
