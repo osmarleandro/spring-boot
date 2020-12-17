@@ -272,12 +272,17 @@ class EndpointDiscovererTests {
 	}
 
 	private Method[] testEndpointMethods() {
-		List<Method> methods = new ArrayList<>();
-		methods.add(findTestEndpointMethod("getAll"));
+		List<Method> methods = extracted();
 		methods.add(findTestEndpointMethod("getOne", String.class));
 		methods.add(findTestEndpointMethod("update", String.class, String.class));
 		methods.add(findTestEndpointMethod("deleteOne", String.class));
 		return methods.toArray(new Method[0]);
+	}
+
+	private List<Method> extracted() {
+		List<Method> methods = new ArrayList<>();
+		methods.add(findTestEndpointMethod("getAll"));
+		return methods;
 	}
 
 	private Method findTestEndpointMethod(String name, Class<?>... paramTypes) {
