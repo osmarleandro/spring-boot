@@ -78,13 +78,18 @@ class EnvironmentEndpointWebIntegrationTests {
 
 	@WebEndpointTest
 	void nestedPathWithSensitivePlaceholderShouldSanitize() {
-		Map<String, Object> map = new HashMap<>();
-		map.put("my.foo", "${my.password}");
+		Map<String, Object> map = extracted();
 		map.put("my.password", "hello");
 		this.context.getEnvironment().getPropertySources().addFirst(new MapPropertySource("placeholder", map));
 		this.client.get().uri("/actuator/env/my.foo").exchange().expectStatus().isOk().expectBody()
 				.jsonPath("property.value").isEqualTo("******").jsonPath(forPropertyEntry("placeholder"))
 				.isEqualTo("******");
+	}
+
+	private Map<String, Object> extracted() {
+		Map<String, Object> map = new HashMap<>();
+		map.put("my.foo", "${my.password}");
+		return map;
 	}
 
 	@WebEndpointTest
@@ -105,8 +110,7 @@ class EnvironmentEndpointWebIntegrationTests {
 
 	@WebEndpointTest
 	void nestedPathMatchedByRegexWithSensitivePlaceholderShouldSanitize() {
-		Map<String, Object> map = new HashMap<>();
-		map.put("my.foo", "${my.password}");
+		Map<String, Object> map = extracted();
 		map.put("my.password", "hello");
 		this.context.getEnvironment().getPropertySources().addFirst(new MapPropertySource("placeholder", map));
 		this.client.get().uri("/actuator/env?pattern=my.*").exchange().expectStatus().isOk().expectBody()
