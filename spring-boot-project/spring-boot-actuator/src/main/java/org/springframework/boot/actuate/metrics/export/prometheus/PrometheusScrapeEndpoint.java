@@ -51,11 +51,7 @@ public class PrometheusScrapeEndpoint {
 	@ReadOperation(produces = TextFormat.CONTENT_TYPE_004)
 	public String scrape(@Nullable Set<String> includedNames) {
 		try {
-			Writer writer = new StringWriter();
-			Enumeration<MetricFamilySamples> samples = (includedNames != null)
-					? this.collectorRegistry.filteredMetricFamilySamples(includedNames)
-					: this.collectorRegistry.metricFamilySamples();
-			TextFormat.write004(writer, samples);
+			Writer writer = extracted(includedNames);
 			return writer.toString();
 		}
 		catch (IOException ex) {
@@ -63,6 +59,15 @@ public class PrometheusScrapeEndpoint {
 			// IOException
 			throw new RuntimeException("Writing metrics failed", ex);
 		}
+	}
+
+	private Writer extracted(Set<String> includedNames) throws IOException {
+		Writer writer = new StringWriter();
+		Enumeration<MetricFamilySamples> samples = (includedNames != null)
+				? this.collectorRegistry.filteredMetricFamilySamples(includedNames)
+				: this.collectorRegistry.metricFamilySamples();
+		TextFormat.write004(writer, samples);
+		return writer;
 	}
 
 }
