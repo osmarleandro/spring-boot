@@ -72,11 +72,16 @@ class HealthEndpointWebExtensionTests
 
 	@Test
 	void healthWhenPathExistsReturnsHealth() {
+		WebEndpointResponse<HealthComponent> response = extracted();
+		assertThat(response.getBody()).isEqualTo(this.up);
+		assertThat(response.getStatus()).isEqualTo(200);
+	}
+
+	private WebEndpointResponse<HealthComponent> extracted() {
 		this.registry.registerContributor("test", createContributor(this.up));
 		WebEndpointResponse<HealthComponent> response = create(this.registry, this.groups).health(ApiVersion.LATEST,
 				SecurityContext.NONE, "test");
-		assertThat(response.getBody()).isEqualTo(this.up);
-		assertThat(response.getStatus()).isEqualTo(200);
+		return response;
 	}
 
 	@Override
