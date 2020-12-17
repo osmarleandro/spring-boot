@@ -180,9 +180,7 @@ class EndpointDiscovererTests {
 	@Test
 	void getEndpointsWhenTtlSetByIdAndIdMatchesShouldCacheInvokeCalls() {
 		load(TestEndpointConfiguration.class, (context) -> {
-			TestEndpointDiscoverer discoverer = new TestEndpointDiscoverer(context,
-					(endpointId) -> (endpointId.equals(EndpointId.of("test")) ? 500L : 0L));
-			Map<EndpointId, TestExposableEndpoint> endpoints = mapEndpoints(discoverer.getEndpoints());
+			Map<EndpointId, TestExposableEndpoint> endpoints = extracted(context);
 			assertThat(endpoints).containsOnlyKeys(EndpointId.of("test"));
 			Map<Method, TestOperation> operations = mapOperations(endpoints.get(EndpointId.of("test")));
 			TestOperation getAll = operations.get(findTestEndpointMethod("getAll"));
@@ -193,6 +191,13 @@ class EndpointDiscovererTests {
 			assertThat(getOne.getInvoker()).isNotInstanceOf(CachingOperationInvoker.class);
 			assertThat(update.getInvoker()).isNotInstanceOf(CachingOperationInvoker.class);
 		});
+	}
+
+	private Map<EndpointId, TestExposableEndpoint> extracted(AnnotationConfigApplicationContext context) {
+		TestEndpointDiscoverer discoverer = new TestEndpointDiscoverer(context,
+				(endpointId) -> (endpointId.equals(EndpointId.of("test")) ? 500L : 0L));
+		Map<EndpointId, TestExposableEndpoint> endpoints = mapEndpoints(discoverer.getEndpoints());
+		return endpoints;
 	}
 
 	@Test
