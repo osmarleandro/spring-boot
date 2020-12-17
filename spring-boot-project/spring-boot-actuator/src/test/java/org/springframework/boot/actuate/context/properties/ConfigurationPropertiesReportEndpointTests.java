@@ -87,8 +87,7 @@ class ConfigurationPropertiesReportEndpointTests {
 		this.contextRunner.withPropertyValues("immutablenested.nested.name=nested", "immutablenested.nested.counter=42")
 				.withUserConfiguration(ImmutableNestedPropertiesConfiguration.class)
 				.run(assertProperties("immutablenested", (properties) -> {
-					assertThat(properties).containsOnlyKeys("name", "nested");
-					Map<String, Object> nested = (Map<String, Object>) properties.get("nested");
+					Map<String, Object> nested = extracted(properties);
 					assertThat(nested).containsOnly(entry("name", "nested"), entry("counter", 42));
 				}, (inputs) -> {
 					Map<String, Object> nested = (Map<String, Object>) inputs.get("nested");
@@ -101,6 +100,12 @@ class ConfigurationPropertiesReportEndpointTests {
 							.isEqualTo("\"immutablenested.nested.counter\" from property source \"test\"");
 					assertThat(counter.get("value")).isEqualTo("42");
 				}));
+	}
+
+	private Map<String, Object> extracted(Map<String, Object> properties) {
+		assertThat(properties).containsOnlyKeys("name", "nested");
+		Map<String, Object> nested = (Map<String, Object>) properties.get("nested");
+		return nested;
 	}
 
 	@Test
