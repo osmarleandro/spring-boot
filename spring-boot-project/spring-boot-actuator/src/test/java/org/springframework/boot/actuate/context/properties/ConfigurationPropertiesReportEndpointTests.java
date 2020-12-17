@@ -224,11 +224,16 @@ class ConfigurationPropertiesReportEndpointTests {
 				.withPropertyValues("sensible.noPasswordUri=http://user:@localhost:8080")
 				.run(assertProperties("sensible", (properties) -> assertThat(properties.get("noPasswordUri"))
 						.isEqualTo("http://user:******@localhost:8080"), (inputs) -> {
-							Map<String, Object> noPasswordUri = (Map<String, Object>) inputs.get("noPasswordUri");
-							assertThat(noPasswordUri.get("value")).isEqualTo("http://user:******@localhost:8080");
+							Map<String, Object> noPasswordUri = extracted(inputs);
 							assertThat(noPasswordUri.get("origin"))
 									.isEqualTo("\"sensible.noPasswordUri\" from property source \"test\"");
 						}));
+	}
+
+	private Map<String, Object> extracted(Map<String, Object> inputs) {
+		Map<String, Object> noPasswordUri = (Map<String, Object>) inputs.get("noPasswordUri");
+		assertThat(noPasswordUri.get("value")).isEqualTo("http://user:******@localhost:8080");
+		return noPasswordUri;
 	}
 
 	@Test
