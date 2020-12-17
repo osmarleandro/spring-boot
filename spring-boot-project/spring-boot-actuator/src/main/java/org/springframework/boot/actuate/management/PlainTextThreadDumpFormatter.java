@@ -86,17 +86,21 @@ class PlainTextThreadDumpFormatter {
 				writer.printf("\t- waiting on %s%n", format(lockInfo));
 			}
 			else {
-				String lockOwner = info.getLockOwnerName();
-				if (lockOwner != null) {
-					writer.printf("\t- waiting to lock %s owned by \"%s\" t@%d%n", format(lockInfo), lockOwner,
-							info.getLockOwnerId());
-				}
-				else {
-					writer.printf("\t- parking to wait for %s%n", format(lockInfo));
-				}
+				extracted(writer, info, lockInfo);
 			}
 		}
 		writeMonitors(writer, lockedMonitors);
+	}
+
+	private void extracted(PrintWriter writer, ThreadInfo info, LockInfo lockInfo) {
+		String lockOwner = info.getLockOwnerName();
+		if (lockOwner != null) {
+			writer.printf("\t- waiting to lock %s owned by \"%s\" t@%d%n", format(lockInfo), lockOwner,
+					info.getLockOwnerId());
+		}
+		else {
+			writer.printf("\t- parking to wait for %s%n", format(lockInfo));
+		}
 	}
 
 	private String format(LockInfo lockInfo) {
