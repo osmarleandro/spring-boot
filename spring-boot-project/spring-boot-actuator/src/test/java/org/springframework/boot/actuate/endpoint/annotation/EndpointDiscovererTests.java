@@ -287,13 +287,17 @@ class EndpointDiscovererTests {
 	private <E extends ExposableEndpoint<?>> Map<EndpointId, E> mapEndpoints(Collection<E> endpoints) {
 		Map<EndpointId, E> byId = new LinkedHashMap<>();
 		endpoints.forEach((endpoint) -> {
-			E existing = byId.put(endpoint.getEndpointId(), endpoint);
-			if (existing != null) {
-				throw new AssertionError(
-						String.format("Found endpoints with duplicate id '%s'", endpoint.getEndpointId()));
-			}
+			extracted(byId, endpoint);
 		});
 		return byId;
+	}
+
+	private <E extends ExposableEndpoint<?>> void extracted(Map<EndpointId, E> byId, E endpoint) throws AssertionError {
+		E existing = byId.put(endpoint.getEndpointId(), endpoint);
+		if (existing != null) {
+			throw new AssertionError(
+					String.format("Found endpoints with duplicate id '%s'", endpoint.getEndpointId()));
+		}
 	}
 
 	private <O extends Operation> Map<Method, O> mapOperations(ExposableEndpoint<O> endpoint) {
