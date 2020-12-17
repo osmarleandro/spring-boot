@@ -190,9 +190,14 @@ class CachesEndpointTests {
 	}
 
 	private Cache mockCache(String name) {
+		Cache cache = extracted(name);
+		given(cache.getNativeCache()).willReturn(new Object());
+		return cache;
+	}
+
+	private Cache extracted(String name) {
 		Cache cache = mock(Cache.class);
 		given(cache.getName()).willReturn(name);
-		given(cache.getNativeCache()).willReturn(new Object());
 		return cache;
 	}
 
