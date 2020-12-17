@@ -53,6 +53,10 @@ public class LogFileWebEndpoint {
 	@ReadOperation(produces = "text/plain; charset=UTF-8")
 	public Resource logFile() {
 		Resource logFileResource = getLogFileResource();
+		return extracted(logFileResource);
+	}
+
+	private Resource extracted(Resource logFileResource) {
 		if (logFileResource == null || !logFileResource.isReadable()) {
 			return null;
 		}
