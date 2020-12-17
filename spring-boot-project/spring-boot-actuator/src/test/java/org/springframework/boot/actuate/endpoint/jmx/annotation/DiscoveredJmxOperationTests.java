@@ -55,12 +55,16 @@ class DiscoveredJmxOperationTests {
 
 	@Test
 	void getOutputTypeShouldReturnJmxType() {
-		assertThat(getOperation("getEnum").getOutputType()).isEqualTo(String.class);
-		assertThat(getOperation("getDate").getOutputType()).isEqualTo(String.class);
+		extracted();
 		assertThat(getOperation("getInstant").getOutputType()).isEqualTo(String.class);
 		assertThat(getOperation("getInteger").getOutputType()).isEqualTo(Integer.class);
 		assertThat(getOperation("getVoid").getOutputType()).isEqualTo(void.class);
 		assertThat(getOperation("getApplicationContext").getOutputType()).isEqualTo(Object.class);
+	}
+
+	private void extracted() {
+		assertThat(getOperation("getEnum").getOutputType()).isEqualTo(String.class);
+		assertThat(getOperation("getDate").getOutputType()).isEqualTo(String.class);
 	}
 
 	@Test
