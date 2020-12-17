@@ -112,13 +112,7 @@ public final class WebMvcTags {
 		if (request != null) {
 			String pattern = getMatchingPattern(request);
 			if (pattern != null) {
-				if (ignoreTrailingSlash && pattern.length() > 1) {
-					pattern = TRAILING_SLASH_PATTERN.matcher(pattern).replaceAll("");
-				}
-				if (pattern.isEmpty()) {
-					return URI_ROOT;
-				}
-				return Tag.of("uri", pattern);
+				return extracted(ignoreTrailingSlash, pattern);
 			}
 			if (response != null) {
 				HttpStatus status = extractStatus(response);
@@ -137,6 +131,16 @@ public final class WebMvcTags {
 			}
 		}
 		return URI_UNKNOWN;
+	}
+
+	private static Tag extracted(boolean ignoreTrailingSlash, String pattern) {
+		if (ignoreTrailingSlash && pattern.length() > 1) {
+			pattern = TRAILING_SLASH_PATTERN.matcher(pattern).replaceAll("");
+		}
+		if (pattern.isEmpty()) {
+			return URI_ROOT;
+		}
+		return Tag.of("uri", pattern);
 	}
 
 	private static HttpStatus extractStatus(HttpServletResponse response) {
