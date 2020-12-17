@@ -38,13 +38,18 @@ class InMemoryAuditEventRepositoryTests {
 
 	@Test
 	void lessThanCapacity() {
-		InMemoryAuditEventRepository repository = new InMemoryAuditEventRepository();
-		repository.add(new AuditEvent("dave", "a"));
+		InMemoryAuditEventRepository repository = extracted();
 		repository.add(new AuditEvent("dave", "b"));
 		List<AuditEvent> events = repository.find("dave", null, null);
 		assertThat(events.size()).isEqualTo(2);
 		assertThat(events.get(0).getType()).isEqualTo("a");
 		assertThat(events.get(1).getType()).isEqualTo("b");
+	}
+
+	private InMemoryAuditEventRepository extracted() {
+		InMemoryAuditEventRepository repository = new InMemoryAuditEventRepository();
+		repository.add(new AuditEvent("dave", "a"));
+		return repository;
 	}
 
 	@Test
@@ -68,8 +73,7 @@ class InMemoryAuditEventRepositoryTests {
 
 	@Test
 	void findByPrincipal() {
-		InMemoryAuditEventRepository repository = new InMemoryAuditEventRepository();
-		repository.add(new AuditEvent("dave", "a"));
+		InMemoryAuditEventRepository repository = extracted();
 		repository.add(new AuditEvent("phil", "b"));
 		repository.add(new AuditEvent("dave", "c"));
 		repository.add(new AuditEvent("phil", "d"));
@@ -81,8 +85,7 @@ class InMemoryAuditEventRepositoryTests {
 
 	@Test
 	void findByPrincipalAndType() {
-		InMemoryAuditEventRepository repository = new InMemoryAuditEventRepository();
-		repository.add(new AuditEvent("dave", "a"));
+		InMemoryAuditEventRepository repository = extracted();
 		repository.add(new AuditEvent("phil", "b"));
 		repository.add(new AuditEvent("dave", "c"));
 		repository.add(new AuditEvent("phil", "d"));
