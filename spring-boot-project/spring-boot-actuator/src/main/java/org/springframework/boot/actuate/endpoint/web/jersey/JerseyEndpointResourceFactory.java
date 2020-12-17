@@ -93,6 +93,15 @@ public class JerseyEndpointResourceFactory {
 
 	private Resource createResource(EndpointMapping endpointMapping, WebOperation operation) {
 		WebOperationRequestPredicate requestPredicate = operation.getRequestPredicate();
+		Builder resourceBuilder = extracted(endpointMapping, requestPredicate);
+		resourceBuilder.addMethod(requestPredicate.getHttpMethod().name())
+				.consumes(StringUtils.toStringArray(requestPredicate.getConsumes()))
+				.produces(StringUtils.toStringArray(requestPredicate.getProduces()))
+				.handledBy(new OperationInflector(operation, !requestPredicate.getConsumes().isEmpty()));
+		return resourceBuilder.build();
+	}
+
+	private Builder extracted(EndpointMapping endpointMapping, WebOperationRequestPredicate requestPredicate) {
 		String path = requestPredicate.getPath();
 		String matchAllRemainingPathSegmentsVariable = requestPredicate.getMatchAllRemainingPathSegmentsVariable();
 		if (matchAllRemainingPathSegmentsVariable != null) {
@@ -100,11 +109,7 @@ public class JerseyEndpointResourceFactory {
 					"{" + matchAllRemainingPathSegmentsVariable + ": .*}");
 		}
 		Builder resourceBuilder = Resource.builder().path(endpointMapping.createSubPath(path));
-		resourceBuilder.addMethod(requestPredicate.getHttpMethod().name())
-				.consumes(StringUtils.toStringArray(requestPredicate.getConsumes()))
-				.produces(StringUtils.toStringArray(requestPredicate.getProduces()))
-				.handledBy(new OperationInflector(operation, !requestPredicate.getConsumes().isEmpty()));
-		return resourceBuilder.build();
+		return resourceBuilder;
 	}
 
 	private Resource createEndpointLinksResource(String endpointPath, EndpointMediaTypes endpointMediaTypes,
