@@ -87,11 +87,16 @@ public class MetricsWebClientFilterFunction implements ExchangeFilterFunction {
 				recordTimer(tags, getStartTime(ctx));
 			}
 		}).doFinally((signalType) -> {
-			if (!responseReceived.get() && SignalType.CANCEL.equals(signalType)) {
-				Iterable<Tag> tags = this.tagProvider.tags(request, null, null);
-				recordTimer(tags, getStartTime(ctx));
-			}
+			extracted(request, responseReceived, ctx, signalType);
 		}));
+	}
+
+	private void extracted(ClientRequest request, final AtomicBoolean responseReceived, ContextView ctx,
+			SignalType signalType) {
+		if (!responseReceived.get() && SignalType.CANCEL.equals(signalType)) {
+			Iterable<Tag> tags = this.tagProvider.tags(request, null, null);
+			recordTimer(tags, getStartTime(ctx));
+		}
 	}
 
 	private void recordTimer(Iterable<Tag> tags, Long startTime) {
