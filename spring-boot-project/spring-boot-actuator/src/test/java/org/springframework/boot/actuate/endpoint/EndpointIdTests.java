@@ -131,6 +131,10 @@ class EndpointIdTests {
 	void equalsAndHashCode() {
 		EndpointId one = EndpointId.of("foobar1");
 		EndpointId two = EndpointId.of("fooBar1");
+		extracted(one, two);
+	}
+
+	private void extracted(EndpointId one, EndpointId two) {
 		EndpointId three = EndpointId.of("foo-bar1");
 		EndpointId four = EndpointId.of("foo.bar1");
 		EndpointId five = EndpointId.of("barfoo1");
