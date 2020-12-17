@@ -23,6 +23,7 @@ import org.springframework.boot.actuate.context.properties.ConfigurationProperti
 import org.springframework.boot.actuate.context.properties.ConfigurationPropertiesReportEndpoint.ContextConfigurationProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.boot.test.context.assertj.AssertableApplicationContext;
 import org.springframework.boot.test.context.runner.ApplicationContextRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -42,9 +43,7 @@ class ConfigurationPropertiesReportEndpointMethodAnnotationsTests {
 		ApplicationContextRunner contextRunner = new ApplicationContextRunner().withUserConfiguration(Config.class)
 				.withPropertyValues("other.name:foo", "first.name:bar");
 		contextRunner.run((context) -> {
-			ConfigurationPropertiesReportEndpoint endpoint = context
-					.getBean(ConfigurationPropertiesReportEndpoint.class);
-			ApplicationConfigurationProperties applicationProperties = endpoint.configurationProperties();
+			ApplicationConfigurationProperties applicationProperties = extracted(context);
 			assertThat(applicationProperties.getContexts()).containsOnlyKeys(context.getId());
 			ContextConfigurationProperties contextProperties = applicationProperties.getContexts().get(context.getId());
 			ConfigurationPropertiesBeanDescriptor other = contextProperties.getBeans().get("other");
@@ -55,14 +54,19 @@ class ConfigurationPropertiesReportEndpointMethodAnnotationsTests {
 		});
 	}
 
+	private ApplicationConfigurationProperties extracted(AssertableApplicationContext context) {
+		ConfigurationPropertiesReportEndpoint endpoint = context
+				.getBean(ConfigurationPropertiesReportEndpoint.class);
+		ApplicationConfigurationProperties applicationProperties = endpoint.configurationProperties();
+		return applicationProperties;
+	}
+
 	@Test
 	void prefixFromBeanMethodConfigurationPropertiesCanOverridePrefixOnClass() {
 		ApplicationContextRunner contextRunner = new ApplicationContextRunner()
 				.withUserConfiguration(OverriddenPrefix.class).withPropertyValues("other.name:foo");
 		contextRunner.run((context) -> {
-			ConfigurationPropertiesReportEndpoint endpoint = context
-					.getBean(ConfigurationPropertiesReportEndpoint.class);
-			ApplicationConfigurationProperties applicationProperties = endpoint.configurationProperties();
+			ApplicationConfigurationProperties applicationProperties = extracted(context);
 			assertThat(applicationProperties.getContexts()).containsOnlyKeys(context.getId());
 			ContextConfigurationProperties contextProperties = applicationProperties.getContexts().get(context.getId());
 			ConfigurationPropertiesBeanDescriptor bar = contextProperties.getBeans().get("bar");
