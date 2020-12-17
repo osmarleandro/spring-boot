@@ -47,12 +47,16 @@ class PlainTextThreadDumpFormatter {
 	}
 
 	private void writePreamble(PrintWriter writer) {
-		DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-		writer.println(dateFormat.format(LocalDateTime.now()));
+		extracted(writer);
 		RuntimeMXBean runtime = ManagementFactory.getRuntimeMXBean();
 		writer.printf("Full thread dump %s (%s %s):%n", runtime.getVmName(), runtime.getVmVersion(),
 				System.getProperty("java.vm.info"));
 		writer.println();
+	}
+
+	private void extracted(PrintWriter writer) {
+		DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+		writer.println(dateFormat.format(LocalDateTime.now()));
 	}
 
 	private void writeThread(PrintWriter writer, ThreadInfo info) {
