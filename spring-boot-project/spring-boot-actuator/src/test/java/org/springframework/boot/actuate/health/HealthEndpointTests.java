@@ -37,10 +37,15 @@ class HealthEndpointTests
 
 	@Test
 	void healthReturnsSystemHealth() {
-		this.registry.registerContributor("test", createContributor(this.up));
-		HealthComponent health = create(this.registry, this.groups).health();
+		HealthComponent health = extracted();
 		assertThat(health.getStatus()).isEqualTo(Status.UP);
 		assertThat(health).isInstanceOf(SystemHealth.class);
+	}
+
+	private HealthComponent extracted() {
+		this.registry.registerContributor("test", createContributor(this.up));
+		HealthComponent health = create(this.registry, this.groups).health();
+		return health;
 	}
 
 	@Test
