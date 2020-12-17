@@ -31,6 +31,7 @@ import liquibase.changelog.StandardChangeLogHistoryService;
 import liquibase.database.Database;
 import liquibase.database.DatabaseFactory;
 import liquibase.database.jvm.JdbcConnection;
+import liquibase.exception.DatabaseException;
 import liquibase.integration.spring.SpringLiquibase;
 
 import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
@@ -91,16 +92,20 @@ public class LiquibaseEndpoint {
 						service.getRanChangeSets().stream().map(ChangeSet::new).collect(Collectors.toList()));
 			}
 			finally {
-				if (database != null) {
-					database.close();
-				}
-				else {
-					connection.close();
-				}
+				extracted(connection, database);
 			}
 		}
 		catch (Exception ex) {
 			throw new IllegalStateException("Unable to get Liquibase change sets", ex);
+		}
+	}
+
+	private void extracted(JdbcConnection connection, Database database) throws DatabaseException {
+		if (database != null) {
+			database.close();
+		}
+		else {
+			connection.close();
 		}
 	}
 
