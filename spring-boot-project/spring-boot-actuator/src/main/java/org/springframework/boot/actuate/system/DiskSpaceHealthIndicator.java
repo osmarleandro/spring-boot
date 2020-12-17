@@ -63,12 +63,16 @@ public class DiskSpaceHealthIndicator extends AbstractHealthIndicator {
 			builder.up();
 		}
 		else {
-			logger.warn(LogMessage.format("Free disk space below threshold. Available: %d bytes (threshold: %s)",
-					diskFreeInBytes, this.threshold));
-			builder.down();
+			extracted(builder, diskFreeInBytes);
 		}
 		builder.withDetail("total", this.path.getTotalSpace()).withDetail("free", diskFreeInBytes)
 				.withDetail("threshold", this.threshold.toBytes()).withDetail("exists", this.path.exists());
+	}
+
+	private void extracted(Health.Builder builder, long diskFreeInBytes) {
+		logger.warn(LogMessage.format("Free disk space below threshold. Available: %d bytes (threshold: %s)",
+				diskFreeInBytes, this.threshold));
+		builder.down();
 	}
 
 }
