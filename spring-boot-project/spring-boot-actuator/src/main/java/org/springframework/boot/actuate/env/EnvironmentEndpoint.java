@@ -89,6 +89,12 @@ public class EnvironmentEndpoint {
 
 	private EnvironmentDescriptor getEnvironmentDescriptor(Predicate<String> propertyNamePredicate) {
 		PlaceholdersResolver resolver = getResolver();
+		List<PropertySourceDescriptor> propertySources = extracted(propertyNamePredicate, resolver);
+		return new EnvironmentDescriptor(Arrays.asList(this.environment.getActiveProfiles()), propertySources);
+	}
+
+	private List<PropertySourceDescriptor> extracted(Predicate<String> propertyNamePredicate,
+			PlaceholdersResolver resolver) {
 		List<PropertySourceDescriptor> propertySources = new ArrayList<>();
 		getPropertySourcesAsMap().forEach((sourceName, source) -> {
 			if (source instanceof EnumerablePropertySource) {
@@ -96,7 +102,7 @@ public class EnvironmentEndpoint {
 						propertyNamePredicate));
 			}
 		});
-		return new EnvironmentDescriptor(Arrays.asList(this.environment.getActiveProfiles()), propertySources);
+		return propertySources;
 	}
 
 	private EnvironmentEntryDescriptor getEnvironmentEntryDescriptor(String propertyName) {
