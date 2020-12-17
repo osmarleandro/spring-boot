@@ -83,6 +83,10 @@ final class TraceableHttpServletRequest implements TraceableRequest {
 	private Map<String, List<String>> extractHeaders() {
 		Map<String, List<String>> headers = new LinkedHashMap<>();
 		Enumeration<String> names = this.request.getHeaderNames();
+		return extracted(headers, names);
+	}
+
+	private Map<String, List<String>> extracted(Map<String, List<String>> headers, Enumeration<String> names) {
 		while (names.hasMoreElements()) {
 			String name = names.nextElement();
 			headers.put(name, Collections.list(this.request.getHeaders(name)));
