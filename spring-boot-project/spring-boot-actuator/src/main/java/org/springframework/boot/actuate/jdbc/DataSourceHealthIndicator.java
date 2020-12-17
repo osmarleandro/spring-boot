@@ -102,8 +102,7 @@ public class DataSourceHealthIndicator extends AbstractHealthIndicator implement
 	}
 
 	private void doDataSourceHealthCheck(Health.Builder builder) throws Exception {
-		builder.up().withDetail("database", getProduct());
-		String validationQuery = this.query;
+		String validationQuery = extracted(builder);
 		if (StringUtils.hasText(validationQuery)) {
 			builder.withDetail("validationQuery", validationQuery);
 			// Avoid calling getObject as it breaks MySQL on Java 7 and later
@@ -116,6 +115,12 @@ public class DataSourceHealthIndicator extends AbstractHealthIndicator implement
 			boolean valid = isConnectionValid();
 			builder.status((valid) ? Status.UP : Status.DOWN);
 		}
+	}
+
+	private String extracted(Health.Builder builder) {
+		builder.up().withDetail("database", getProduct());
+		String validationQuery = this.query;
+		return validationQuery;
 	}
 
 	private String getProduct() {
