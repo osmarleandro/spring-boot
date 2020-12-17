@@ -58,10 +58,15 @@ class HazelcastHealthIndicatorTests {
 
 	@Test
 	void hazelcastDown() {
-		HazelcastInstance hazelcast = mock(HazelcastInstance.class);
-		given(hazelcast.executeTransaction(any())).willThrow(new HazelcastException());
+		HazelcastInstance hazelcast = extracted();
 		Health health = new HazelcastHealthIndicator(hazelcast).health();
 		assertThat(health.getStatus()).isEqualTo(Status.DOWN);
+	}
+
+	private HazelcastInstance extracted() {
+		HazelcastInstance hazelcast = mock(HazelcastInstance.class);
+		given(hazelcast.executeTransaction(any())).willThrow(new HazelcastException());
+		return hazelcast;
 	}
 
 }
