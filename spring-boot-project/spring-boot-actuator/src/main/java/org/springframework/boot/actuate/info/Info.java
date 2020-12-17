@@ -72,10 +72,14 @@ public final class Info {
 			return true;
 		}
 		if (obj instanceof Info) {
-			Info other = (Info) obj;
-			return this.details.equals(other.details);
+			return extracted(obj);
 		}
 		return false;
+	}
+
+	private boolean extracted(Object obj) {
+		Info other = (Info) obj;
+		return this.details.equals(other.details);
 	}
 
 	@Override
