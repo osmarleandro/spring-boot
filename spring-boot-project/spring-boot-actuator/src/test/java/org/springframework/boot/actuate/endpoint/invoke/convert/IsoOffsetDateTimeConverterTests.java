@@ -40,10 +40,15 @@ class IsoOffsetDateTimeConverterTests {
 
 	@Test
 	void registerConverterShouldRegister() {
-		DefaultConversionService service = new DefaultConversionService();
-		IsoOffsetDateTimeConverter.registerConverter(service);
+		DefaultConversionService service = extracted();
 		OffsetDateTime time = service.convert("2011-12-03T10:15:30+01:00", OffsetDateTime.class);
 		assertThat(time).isNotNull();
+	}
+
+	private DefaultConversionService extracted() {
+		DefaultConversionService service = new DefaultConversionService();
+		IsoOffsetDateTimeConverter.registerConverter(service);
+		return service;
 	}
 
 }
