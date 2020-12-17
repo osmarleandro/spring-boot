@@ -263,10 +263,15 @@ class EnvironmentEndpointTests {
 
 	@Test
 	void uriPropertyWithSensitiveInfo() {
-		ConfigurableEnvironment environment = new StandardEnvironment();
-		TestPropertyValues.of("sensitive.uri=http://user:password@localhost:8080").applyTo(environment);
+		ConfigurableEnvironment environment = extracted();
 		EnvironmentEntryDescriptor descriptor = new EnvironmentEndpoint(environment).environmentEntry("sensitive.uri");
 		assertThat(descriptor.getProperty().getValue()).isEqualTo("http://user:******@localhost:8080");
+	}
+
+	private ConfigurableEnvironment extracted() {
+		ConfigurableEnvironment environment = new StandardEnvironment();
+		TestPropertyValues.of("sensitive.uri=http://user:password@localhost:8080").applyTo(environment);
+		return environment;
 	}
 
 	@Test
