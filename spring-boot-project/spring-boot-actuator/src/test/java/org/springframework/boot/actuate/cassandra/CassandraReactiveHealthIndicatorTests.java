@@ -42,9 +42,7 @@ class CassandraReactiveHealthIndicatorTests {
 
 	@Test
 	void testCassandraIsUp() {
-		ReactiveCqlOperations reactiveCqlOperations = mock(ReactiveCqlOperations.class);
-		given(reactiveCqlOperations.queryForObject(any(SimpleStatement.class), eq(String.class)))
-				.willReturn(Mono.just("6.0.0"));
+		ReactiveCqlOperations reactiveCqlOperations = extracted();
 		ReactiveCassandraOperations reactiveCassandraOperations = mock(ReactiveCassandraOperations.class);
 		given(reactiveCassandraOperations.getReactiveCqlOperations()).willReturn(reactiveCqlOperations);
 
@@ -56,6 +54,13 @@ class CassandraReactiveHealthIndicatorTests {
 			assertThat(h.getDetails()).containsOnlyKeys("version");
 			assertThat(h.getDetails().get("version")).isEqualTo("6.0.0");
 		}).verifyComplete();
+	}
+
+	private ReactiveCqlOperations extracted() {
+		ReactiveCqlOperations reactiveCqlOperations = mock(ReactiveCqlOperations.class);
+		given(reactiveCqlOperations.queryForObject(any(SimpleStatement.class), eq(String.class)))
+				.willReturn(Mono.just("6.0.0"));
+		return reactiveCqlOperations;
 	}
 
 	@Test
