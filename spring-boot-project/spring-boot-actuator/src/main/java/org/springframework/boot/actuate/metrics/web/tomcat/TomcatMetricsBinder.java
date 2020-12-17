@@ -58,10 +58,15 @@ public class TomcatMetricsBinder implements ApplicationListener<ApplicationStart
 
 	@Override
 	public void onApplicationEvent(ApplicationStartedEvent event) {
-		ApplicationContext applicationContext = event.getApplicationContext();
-		Manager manager = findManager(applicationContext);
+		Manager manager = extracted(event);
 		this.tomcatMetrics = new TomcatMetrics(manager, this.tags);
 		this.tomcatMetrics.bindTo(this.meterRegistry);
+	}
+
+	private Manager extracted(ApplicationStartedEvent event) {
+		ApplicationContext applicationContext = event.getApplicationContext();
+		Manager manager = findManager(applicationContext);
+		return manager;
 	}
 
 	private Manager findManager(ApplicationContext applicationContext) {
