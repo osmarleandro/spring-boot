@@ -180,12 +180,17 @@ class WebEndpointDiscovererTests {
 	@Test
 	void getEndpointsWhenOperationReturnsResourceShouldProduceApplicationOctetStream() {
 		load(ResourceEndpointConfiguration.class, (discoverer) -> {
-			Map<EndpointId, ExposableWebEndpoint> endpoints = mapEndpoints(discoverer.getEndpoints());
-			assertThat(endpoints).containsOnlyKeys(EndpointId.of("resource"));
+			Map<EndpointId, ExposableWebEndpoint> endpoints = extracted(discoverer);
 			ExposableWebEndpoint endpoint = endpoints.get(EndpointId.of("resource"));
 			assertThat(requestPredicates(endpoint)).has(requestPredicates(path("resource")
 					.httpMethod(WebEndpointHttpMethod.GET).consumes().produces("application/octet-stream")));
 		});
+	}
+
+	private Map<EndpointId, ExposableWebEndpoint> extracted(WebEndpointDiscoverer discoverer) {
+		Map<EndpointId, ExposableWebEndpoint> endpoints = mapEndpoints(discoverer.getEndpoints());
+		assertThat(endpoints).containsOnlyKeys(EndpointId.of("resource"));
+		return endpoints;
 	}
 
 	@Test
