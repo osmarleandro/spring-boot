@@ -68,8 +68,7 @@ class ServletEndpointDiscovererTests {
 	@Test
 	void getEndpointsShouldIncludeServletEndpoints() {
 		this.contextRunner.withUserConfiguration(TestServletEndpoint.class).run(assertDiscoverer((discoverer) -> {
-			Collection<ExposableServletEndpoint> endpoints = discoverer.getEndpoints();
-			assertThat(endpoints).hasSize(1);
+			Collection<ExposableServletEndpoint> endpoints = extracted(discoverer);
 			ExposableServletEndpoint endpoint = endpoints.iterator().next();
 			assertThat(endpoint.getEndpointId()).isEqualTo(EndpointId.of("testservlet"));
 			assertThat(endpoint.getEndpointServlet()).isNotNull();
@@ -77,13 +76,18 @@ class ServletEndpointDiscovererTests {
 		}));
 	}
 
+	private Collection<ExposableServletEndpoint> extracted(ServletEndpointDiscoverer discoverer) {
+		Collection<ExposableServletEndpoint> endpoints = discoverer.getEndpoints();
+		assertThat(endpoints).hasSize(1);
+		return endpoints;
+	}
+
 	@Test
 	void getEndpointsShouldDiscoverProxyServletEndpoints() {
 		this.contextRunner.withUserConfiguration(TestProxyServletEndpoint.class)
 				.withConfiguration(AutoConfigurations.of(ValidationAutoConfiguration.class))
 				.run(assertDiscoverer((discoverer) -> {
-					Collection<ExposableServletEndpoint> endpoints = discoverer.getEndpoints();
-					assertThat(endpoints).hasSize(1);
+					Collection<ExposableServletEndpoint> endpoints = extracted(discoverer);
 					ExposableServletEndpoint endpoint = endpoints.iterator().next();
 					assertThat(endpoint.getEndpointId()).isEqualTo(EndpointId.of("testservlet"));
 					assertThat(endpoint.getEndpointServlet()).isNotNull();
