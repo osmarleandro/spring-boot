@@ -70,9 +70,14 @@ class RequestPredicateFactoryTests {
 
 	private DiscoveredOperationMethod getDiscoveredOperationMethod(Class<?> source) {
 		Method method = source.getDeclaredMethods()[0];
+		AnnotationAttributes attributes = extracted();
+		return new DiscoveredOperationMethod(method, OperationType.READ, attributes);
+	}
+
+	private AnnotationAttributes extracted() {
 		AnnotationAttributes attributes = new AnnotationAttributes();
 		attributes.put("produces", "application/json");
-		return new DiscoveredOperationMethod(method, OperationType.READ, attributes);
+		return attributes;
 	}
 
 	static class MoreThanOneMatchAll {
