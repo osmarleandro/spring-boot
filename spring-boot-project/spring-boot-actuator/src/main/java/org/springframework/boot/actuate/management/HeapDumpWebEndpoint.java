@@ -106,9 +106,14 @@ public class HeapDumpWebEndpoint {
 	}
 
 	private File createTempFile(boolean live) throws IOException {
+		File file = extracted(live);
+		file.delete();
+		return file;
+	}
+
+	private File extracted(boolean live) throws IOException {
 		String date = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm").format(LocalDateTime.now());
 		File file = File.createTempFile("heapdump" + date + (live ? "-live" : ""), ".hprof");
-		file.delete();
 		return file;
 	}
 
