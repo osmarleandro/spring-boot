@@ -16,6 +16,7 @@
 
 package org.springframework.boot.actuate.health;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 
@@ -70,9 +71,14 @@ class StatusTests {
 	@Test
 	void serializeWithJacksonReturnsValidJson() throws Exception {
 		Status status = new Status("spring", "boot");
+		String json = extracted(status);
+		assertThat(json).isEqualTo("{\"description\":\"boot\",\"status\":\"spring\"}");
+	}
+
+	private String extracted(Status status) throws JsonProcessingException {
 		ObjectMapper mapper = new ObjectMapper();
 		String json = mapper.writeValueAsString(status);
-		assertThat(json).isEqualTo("{\"description\":\"boot\",\"status\":\"spring\"}");
+		return json;
 	}
 
 }
