@@ -16,6 +16,7 @@
 
 package org.springframework.boot.actuate.elasticsearch;
 
+import java.io.IOException;
 import java.util.Map;
 
 import okhttp3.mockwebserver.MockResponse;
@@ -50,11 +51,15 @@ class ElasticsearchReactiveHealthIndicatorTests {
 
 	@BeforeEach
 	void setup() throws Exception {
-		this.server = new MockWebServer();
-		this.server.start();
+		extracted();
 		ReactiveElasticsearchClient client = DefaultReactiveElasticsearchClient
 				.create(ClientConfiguration.create(this.server.getHostName() + ":" + this.server.getPort()));
 		this.healthIndicator = new ElasticsearchReactiveHealthIndicator(client);
+	}
+
+	private void extracted() throws IOException {
+		this.server = new MockWebServer();
+		this.server.start();
 	}
 
 	@AfterEach
