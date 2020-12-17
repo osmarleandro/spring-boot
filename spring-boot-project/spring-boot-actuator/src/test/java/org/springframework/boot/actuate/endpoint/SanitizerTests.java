@@ -109,9 +109,7 @@ class SanitizerTests {
 	@ParameterizedTest(name = "key = {0}")
 	@MethodSource("matchingUriUserInfoKeys")
 	void uriKeyWithUserProvidedListLiteralShouldBeSanitized(String key) {
-		Sanitizer sanitizer = new Sanitizer();
-		assertThat(sanitizer.sanitize(key, "[amqp://username:password@host/]"))
-				.isEqualTo("[amqp://username:******@host/]");
+		Sanitizer sanitizer = extracted(key);
 		assertThat(sanitizer.sanitize(key,
 				"[http://user1:password1@localhost:8080,http://user2@localhost:8082,http://localhost:8083]")).isEqualTo(
 						"[http://user1:******@localhost:8080,http://user2@localhost:8082,http://localhost:8083]");
@@ -120,6 +118,13 @@ class SanitizerTests {
 						.isEqualTo("[http://user1:******@localhost:8080,http://user2:******@localhost:8082]");
 		assertThat(sanitizer.sanitize(key, "[http://user1@localhost:8080,http://user2@localhost:8082]"))
 				.isEqualTo("[http://user1@localhost:8080,http://user2@localhost:8082]");
+	}
+
+	private Sanitizer extracted(String key) {
+		Sanitizer sanitizer = new Sanitizer();
+		assertThat(sanitizer.sanitize(key, "[amqp://username:password@host/]"))
+				.isEqualTo("[amqp://username:******@host/]");
+		return sanitizer;
 	}
 
 	private static Stream<String> matchingUriUserInfoKeys() {
