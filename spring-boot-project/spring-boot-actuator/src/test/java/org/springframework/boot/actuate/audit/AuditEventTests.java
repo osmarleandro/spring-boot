@@ -36,11 +36,16 @@ class AuditEventTests {
 
 	@Test
 	void nowEvent() {
-		AuditEvent event = new AuditEvent("phil", "UNKNOWN", Collections.singletonMap("a", "b"));
-		assertThat(event.getData().get("a")).isEqualTo("b");
+		AuditEvent event = extracted();
 		assertThat(event.getType()).isEqualTo("UNKNOWN");
 		assertThat(event.getPrincipal()).isEqualTo("phil");
 		assertThat(event.getTimestamp()).isNotNull();
+	}
+
+	private AuditEvent extracted() {
+		AuditEvent event = new AuditEvent("phil", "UNKNOWN", Collections.singletonMap("a", "b"));
+		assertThat(event.getData().get("a")).isEqualTo("b");
+		return event;
 	}
 
 	@Test
