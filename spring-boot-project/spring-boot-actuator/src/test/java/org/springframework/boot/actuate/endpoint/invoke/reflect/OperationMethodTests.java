@@ -62,10 +62,15 @@ class OperationMethodTests {
 
 	@Test
 	void getParametersShouldReturnParameters() {
-		OperationMethod operationMethod = new OperationMethod(this.exampleMethod, OperationType.READ);
-		OperationParameters parameters = operationMethod.getParameters();
+		OperationParameters parameters = extracted();
 		assertThat(parameters.getParameterCount()).isEqualTo(1);
 		assertThat(parameters.iterator().next().getName()).isEqualTo("name");
+	}
+
+	private OperationParameters extracted() {
+		OperationMethod operationMethod = new OperationMethod(this.exampleMethod, OperationType.READ);
+		OperationParameters parameters = operationMethod.getParameters();
+		return parameters;
 	}
 
 	String example(String name) {
