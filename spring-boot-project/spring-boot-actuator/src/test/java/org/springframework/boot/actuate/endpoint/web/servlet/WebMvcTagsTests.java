@@ -60,10 +60,14 @@ class WebMvcTagsTests {
 
 	@Test
 	void uriTagValueIsRootWhenBestMatchingPatternIsEmpty() {
-		this.request.setAttribute(HandlerMapping.BEST_MATCHING_PATTERN_ATTRIBUTE, "");
-		this.response.setStatus(301);
+		extracted();
 		Tag tag = WebMvcTags.uri(this.request, this.response);
 		assertThat(tag.getValue()).isEqualTo("root");
+	}
+
+	private void extracted() {
+		this.request.setAttribute(HandlerMapping.BEST_MATCHING_PATTERN_ATTRIBUTE, "");
+		this.response.setStatus(301);
 	}
 
 	@Test
